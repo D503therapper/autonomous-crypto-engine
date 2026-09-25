@@ -211,6 +211,34 @@ class Ctx:
             out[i] = k
         return out
 
+    def _ens(self, s, n):
+        """Ensemble Donchian signal in [0,1] (Zarattini, Pagani & Barbon 2025): for each
+        lookback L, go long when the close reaches the previous L-day high; trail a stop at
+        max(prior stop, channel midpoint); the signal is the average long state."""
+        c, out = self.c[s], [None] * self.n
+        states = {L: [False, None] for L in ENS_LOOKBACKS}
+        from collections import deque
+        for i in range(self.n):
+            if c[i] is None:
+                continue
+            votes = []
+            for L, st in states.items():
+                if i < L or c[i - L] is None:
+                    continue
+                win = c[i - L:i]
+                hh, ll = max(win), min(win)
+                mid = (hh + ll) / 2
+                if not st[0] and c[i] >= hh:
+                    st[0], st[1] = True, mid
+                elif st[0]:
+                    st[1] = max(st[1], mid)
+                    if c[i] < st[1]:
+                        st[0], st[1] = False, None
+                votes.append(1.0 if st[0] else 0.0)
+            if len(votes) >= 3:
+                out[i] = sum(votes) / len(votes)
+        return out
+
     def regime(self, i, n):
         """Benchmark above its n-day average (n = 0: always on)."""
         if not n:
@@ -361,6 +389,37 @@ def fam_dual_momentum(ctx, i, held, p):
     return target, True
 
 
+ENS_LOOKBACKS = (5, 10, 20, 30, 60, 90, 150, 250, 360)
+
+
+def fam_ens_donchian(ctx, i, held, p):
+    """Ensemble-Donchian trend with volatility targeting, long-only, no leverage.
+    uni: BTC only, BTC+ETH, or the top-N assets by (signal x 20-day momentum)."""
+    if p["uni"] in ("BTC", "BTC+ETH"):
+        names = [x for x in p["uni"].split("+") if x in ctx.c]
+    else:
+        n = int(p["uni"][3:])
+        cands = []
+        for s in ctx.syms:
+            sig, r = ctx.ind(s, "ens")[i], ctx.ind(s, "ret", 20)[i]
+            if ctx.live[s][i] and sig and r is not None:
+                cands.append((sig * (1 + r), s))
+        names = [s for _, s in sorted(cands, reverse=True)[:n]]
+    if not names:
+        return {}, True
+    target = {}
+    for s in names:
+        sig, v = ctx.ind(s, "ens")[i], ctx.ind(s, "vol", 90)[i]
+        if not sig or v is None or not ctx.live[s][i]:
+            continue
+        ann = v * math.sqrt(ctx.ppy)
+        scale = 1.0 if p["tv"] is None else min(1.0, p["tv"] / ann)
+        w = sig * scale / len(names)
+        if w >= 0.02:
+            target[s] = w
+    return target, True
+
+
 FAMILIES = [
     {"name": "rsi2_meanrev", "fn": fam_rsi2, "markets": ("crypto", "stocks"),
      "grid": {"rsi": [5, 10, 15], "sma": [100, 200], "hold": [5, 10]}},
@@ -378,6 +437,8 @@ FAMILIES = [
      "grid": {"entry": [10, 20], "exit": [5, 10], "top": [2, 3], "regime": [100, 200]}},
     {"name": "dual_momentum", "fn": fam_dual_momentum, "markets": ("stocks",),
      "grid": {"top": [1, 2, 3], "safe": ["IEF", "cash"], "universe": ["index", "all"]}},
+    {"name": "ens_donchian", "fn": fam_ens_donchian, "markets": ("crypto",),
+     "grid": {"uni": ["BTC", "BTC+ETH", "top2", "top4"], "tv": [0.25, 0.5, None]}},
     {"name": "dip_buy_crypto", "fn": fam_dip_buy, "markets": ("crypto",),
      "grid": {"drop": [0.07, 0.10, 0.15], "hold": [1, 3, 5], "target": [0.05, 0.10]}},
 ]
@@ -418,7 +479,9 @@ def simulate(ctx, fn, p, start, end, cost):
                 delta = pending[s] * eq_open - x["u"] * o[s]
                 if delta < -tol:
                     frac = -delta / (x["u"] * o[s])
-                    x["real"] += x["u"] * frac * o[s] * (1 - cost)
+                    pr = x["u"] * frac * o[s] * (1 - cost)
+                    cash += pr                       # proceeds of the trim go back to cash
+                    x["real"] += pr
                     x["u"] *= 1 - frac
                 elif delta > tol and cash > tol:
                     amt = min(delta, cash)
