@@ -125,11 +125,12 @@ def test_missing_and_stale_symbols(ctx, hourly):
     (lab: ctx.live[s][i] is False) but a held one is left alone by the engine."""
     strat = ss.DualMomentum(BPD)
     assert strat.analyze([]) is None and strat.analyze([hourly["SPY"][0]]) is None
-    i = max(j for j in range(ctx.n - 1) if ctx.mrem[j] == 1)
-    day = ctx.days[i]
-    sig = {s: strat.analyze(candles_at(hourly[s], day)) for s in strat.universe}
-    full = strat.targets(sig)
-    top = max(full, key=full.get)
+    for i in reversed([j for j in range(300, ctx.n - 1) if ctx.mrem[j] == 1]):   # last month end with a risk ETF held
+        sig = {s: strat.analyze(candles_at(hourly[s], ctx.days[i])) for s in strat.universe}
+        full = strat.targets(sig)
+        if set(full) - {"IEF"}:
+            break
+    top = max((c for c in full if c != "IEF"), key=full.get)
     stale = dict(sig)
     stale[top] = strat.analyze(candles_at(hourly[top], ctx.days[i - 3]))     # 3 days stale
     t2 = strat.targets(stale)
@@ -235,9 +236,13 @@ def test_engine_smoke(ctx, hourly):
                 rebalances += 1
                 want, _ = fam(ctx, i, {}, p)
                 assert set(pf.positions) == set(want), (strat.name, ctx.dates[i], want, set(pf.positions))
-                eq = pf.equity({s: b[-1]["c"] for s, b in bars.items()})
+                px = {s: b[-1]["c"] for s, b in bars.items()}
+                eq = pf.equity(px)
+                # survivors inside the 2%-of-equity band keep their excess (lab.simulate too),
+                # so the last new entry can be short by the sum of those excesses
+                assert pf.cash >= (config.MIN_CASH_RESERVE_PCT - 0.001) * eq
                 for s, w in want.items():
-                    assert abs(pf.positions[s]["qty"] * bars[s][-1]["c"] / eq - w * inv) < 0.025, (s, w)
+                    assert -0.06 < pf.positions[s]["qty"] * px[s] / eq - w * inv < 0.021, (s, w)
                 checked += 1
             elif rebalances:
                 assert len(pf.trades) == n, "traded between rebalances"

@@ -40,8 +40,10 @@ class Portfolio:
 
     def save(self, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, "w") as f:
+        tmp = path + ".tmp"          # atomic: a kill mid-write must not leave a half-written file
+        with open(tmp, "w") as f:    # (an unloadable portfolio.json takes every later fast_check down)
             json.dump(self.to_dict(), f, indent=2)
+        os.replace(tmp, path)
 
     # ---- accounting ----
     def equity(self, prices):
@@ -99,6 +101,12 @@ def step(pf, candles_by_coin, strat, market_ok=True):
         s = sig.get(coin)
         if not s:
             continue
+        if pf.positions[coin].get("opened", 0) > s["t"]:
+            # bought inside this candle at wall-clock time (minute scanner / listing / footprint /
+            # social buys) and re-evaluated on it (e.g. a restart within the hour): its high and
+            # low may predate the entry, so only the close is a price the position actually saw
+            # (no phantom stop-out, no phantom peak for the trailing stop)
+            s = dict(s, high=s["price"], low=s["price"])
         action = strat.manage(pf.positions[coin], s, now, rebalance)
         if action:
             frac, px, reason = action

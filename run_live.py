@@ -13,6 +13,7 @@ import time
 import urllib.request
 
 import config
+import dashboard
 import dex
 import social
 from engine import Portfolio, append_csv, step, ts
@@ -88,19 +89,21 @@ def full_cycle(mname, client):
         except Exception as e:
             print(f"  skip {s}: {e}")
     # strategies that scan the whole exchange: refresh their coin list and pull a
-    # short history (one API call per coin) for coins not already loaded
-    for st in m["strategies"]:
-        if getattr(st, "dynamic_universe", False):
-            try:
-                st.universe = client.list_spot_symbols()
-            except Exception as e:
-                print(f"   coin list failed: {e}")
-            for s in st.universe:
-                if s not in data:
-                    try:
-                        data[s] = client.candles(s, count=st.window)
-                    except Exception:
-                        pass
+    # short history (one API call per coin) for coins not already loaded. Every such
+    # strategy reads the same candles, so pull the longest window any of them needs.
+    dyn = [st for st in m["strategies"] if getattr(st, "dynamic_universe", False)]
+    dyn_window = max((st.window for st in dyn), default=0)
+    for st in dyn:
+        try:
+            st.universe = client.list_spot_symbols()
+        except Exception as e:
+            print(f"   coin list failed: {e}")
+        for s in st.universe:
+            if s not in data:
+                try:
+                    data[s] = client.candles(s, count=dyn_window)
+                except Exception:
+                    pass
     if mname == "crypto":
         CRYPTO_CANDLES.clear()
         CRYPTO_CANDLES.update(data)
@@ -350,49 +353,34 @@ def scoreboard():
 
 
 def write_dashboard(rows, total):
-    """docs/index.html: phone-friendly balance page (served by GitHub Pages)."""
-    start = config.STARTING_CASH_USD
-    invested = start * len(rows)
-    pl = total - invested
-
-    def cls(x):
-        return "up" if x >= 0 else "down"
-
-    items = "".join(
-        f'<div class="row"><div><div class="name">{mn.title()}</div></div>'
-        f'<div class="right"><div class="bal">${eq:,.2f}</div>'
-        f'<div class="{cls(eq - start)}">{eq - start:+,.2f} ({eq / start - 1:+.1%})</div></div></div>'
-        for mn, sn, eq, _ in rows)
-    dx = dex.scoreboard_line(md=False)             # one extra card: "DEX: $512.40 (+12.40) · Scammed: 1 (-$38.00)"
-    items += (f'<div class="row"><div><div class="name">DEX</div></div>'
-              f'<div class="right"><div class="{cls(dex.scoreboard_stats()["equity"] - start)}">{dx[5:] if dx.startswith("DEX: ") else dx}</div></div></div>')
-    html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="300">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Trading">
-<title>Trading Scoreboard</title>
-<style>
-:root{{--bg:#f6f7f9;--card:#fff;--text:#111;--muted:#6b7280;--up:#0a7d33;--down:#c0262d;--line:#e5e7eb}}
-@media (prefers-color-scheme:dark){{:root{{--bg:#0e0f12;--card:#17191e;--text:#f2f3f5;--muted:#9aa0aa;--up:#3fcf6d;--down:#ff6b6b;--line:#262a31}}}}
-body{{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,system-ui,sans-serif}}
-main{{max-width:520px;margin:0 auto;padding:24px 16px}}
-.total{{background:var(--card);border-radius:16px;padding:20px;margin-bottom:16px}}
-.label{{color:var(--muted);font-size:14px}} .big{{font-size:40px;font-weight:700;margin:4px 0}}
-.row{{display:flex;justify-content:space-between;align-items:center;background:var(--card);
-border-radius:12px;padding:14px 16px;margin-bottom:8px}}
-.name{{font-weight:600}} .mkt{{color:var(--muted);font-size:13px;text-transform:capitalize}}
-.right{{text-align:right}} .bal{{font-weight:600}} .up{{color:var(--up)}} .down{{color:var(--down)}}
-.foot{{color:var(--muted);font-size:13px;margin-top:16px}}
-</style></head><body><main>
-<div class="total"><div class="label">Total (pretend money)</div>
-<div class="big">${total:,.2f}</div><div class="{cls(pl)}">{pl:+,.2f} ({total / invested - 1:+.1%}) on ${invested:,.0f}</div></div>
-{items}
-<div class="foot">Updated {ts(int(time.time() * 1000))} UTC · each account started with ${start:,.0f}</div>
-</main></body></html>"""
-    os.makedirs("docs", exist_ok=True)
-    with open("docs/index.html", "w") as f:
-        f.write(html)
+    """docs/index.html: the phone dashboard (dashboard.py). Official accounts + the DEX card."""
+    look = {"crypto": ("₿", "#3b82ff", "#22d3ee"), "stocks": ("📈", "#7c3aed", "#3b82ff")}
+    cards = []
+    for mn, sn, eq, _ in rows:
+        d = acct_dir(mn, sn)
+        pf = load_pf(mn, sn)
+        icon, c1, c2 = look.get(mn, ("•", "#3b82ff", "#22d3ee"))
+        cards.append({"name": mn.title(), "icon": icon, "c1": c1, "c2": c2, "official": True, "equity": eq,
+                      "series": dashboard._series(f"{d}/equity.csv"), "positions": len(pf.positions),
+                      "last": dashboard._last_trade(f"{d}/trades.csv")})
+    try:                                               # DEX paper account: not part of the total
+        st = dex.scoreboard_stats()
+        d = f'{dex.DEX["dir"]}/{dex.DEX["name"]}'
+        paused = st.get("paused")
+        scams, lost = st.get("scammed", 0), st.get("lost", 0.0)
+        try:
+            with open(f"{d}/portfolio.json") as f:
+                st["positions"] = len(json.load(f).get("positions", {}))
+        except (OSError, ValueError):
+            st["positions"] = 0
+        cards.append({"name": "DEX", "icon": "◆", "c1": "#22e39a", "c2": "#3b82ff", "official": False,
+                      "equity": st["equity"], "series": dashboard._series(f"{d}/equity.csv"),
+                      "positions": st.get("positions", 0), "last": dashboard._last_trade(f"{d}/trades.csv"),
+                      "extra": "Paused: scam limit" if paused else (f"Scammed {scams} · −${abs(lost):,.2f}" if scams else "Scammed 0"),
+                      "extra_cls": "bad" if (paused or scams) else "ok"})
+    except Exception as e:
+        print(f"   dashboard: dex card failed: {e}")
+    dashboard.write(cards)
 
 
 def daily_summary(rows):
@@ -424,12 +412,18 @@ def git_sync():
     """In the cloud runner: commit the paper accounts back to GitHub every hour."""
     if os.environ.get("GIT_AUTOPUSH") != "1":
         return
-    cmds = ["git add data data/social data/dex SCOREBOARD.md LAB.md docs",   # data/social: heat log + state; data/dex: screen/outcomes
+    # `git add data` already covers data/social and data/dex; naming a subdirectory that does
+    # not exist yet makes the whole add fail (pathspec error) and nothing gets committed
+    cmds = ["git add data SCOREBOARD.md LAB.md docs",
             f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'",
             "git pull -q --rebase -X theirs", "git push -q"]
     for c in cmds:
-        if subprocess.run(c, shell=True).returncode and c.startswith("git commit"):
-            return   # nothing changed
+        if subprocess.run(c, shell=True).returncode:
+            if c.startswith("git commit"):
+                return   # nothing changed
+            if c.startswith("git pull"):   # never leave a rebase in progress: it would block every later sync
+                subprocess.run("git rebase --abort", shell=True, stderr=subprocess.DEVNULL)
+                return
 
 
 def main():

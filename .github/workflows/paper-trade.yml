@@ -9,9 +9,10 @@ on:
   push:
     paths: [".github/workflows/paper-trade.yml", "requirements.txt", "run_live.py", "engine.py",
             "strategy.py", "markets.py", "config.py", "data_source.py", "indicators.py",
-            "scanner.py", "signals.py", "social.py", "dex.py"]   # restart only when files the engine runs change
+            "scanner.py", "signals.py", "social.py", "dex.py", "dashboard.py"]   # restart only when files the engine runs change
 permissions:
   contents: write
+  actions: read        # lets the start-up step see whether the previous run is still finishing
 concurrency:
   group: paper-trade
   cancel-in-progress: true   # a new version of the engine replaces the running one
@@ -24,6 +25,21 @@ jobs:
       NTFY_TOPIC: "ace-b7d72af08465"
     steps:
       - uses: actions/checkout@v4
+      # A push cancels the running engine, but this checkout usually happens BEFORE the cancelled
+      # run's final "end of run" commit lands. Starting from that stale data and syncing with
+      # `pull --rebase -X theirs` (local wins) then silently undoes the cancelled run's last trades
+      # (seen 2026-09-25 23:10 UTC). Wait for the other run to finish, then start from its data.
+      - name: wait for the previous run's final commit
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          for i in $(seq 1 30); do
+            n=$(gh run list --workflow paper-trade.yml --status in_progress --json databaseId \
+                  --jq 'map(select(.databaseId != ${{ github.run_id }})) | length' 2>/dev/null || echo 0)
+            [ "${n:-0}" = "0" ] && break
+            sleep 10
+          done
+          sleep 30
+          git pull -q --ff-only || true
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install -q -r requirements.txt

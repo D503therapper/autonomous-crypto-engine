@@ -96,16 +96,20 @@ class YahooClient:
         return list(config.STOCK_UNIVERSE)
 
     def _download(self, symbols, days):
-        key = (tuple(sorted(symbols)), days)
+        # one download per hourly cycle (the per-symbol candles() calls of a cycle share it);
+        # a per-process cache would feed the same bars to every cycle of a 6-hour run
+        key = (tuple(sorted(symbols)), days, int(time.time() // 3600))
         if key not in self._cache:
             period = f"{min(days, 729)}d"
             df = self.yf.download(sorted(symbols), period=period, interval="1h", group_by="ticker",
                                   auto_adjust=True, prepost=False, progress=False, threads=True)
-            self._cache[key] = df
+            self._cache = {key: df}
         return self._cache[key]
 
     def candles(self, sym, timeframe="1h", count=config.CANDLES_NEEDED, end_ms=None, universe=None):
-        days = max(30, count // 7 + 10)
+        # `count` is session bars (7 per trading day); Yahoo's period is calendar days
+        # (~5 sessions per 7 days, minus holidays), so ask for 1.5x plus a margin
+        days = max(30, count * 3 // 14 + 15)
         df = self._download(universe or sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), days)
         try:
             d = df[sym].dropna()
