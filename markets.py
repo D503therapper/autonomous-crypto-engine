@@ -1,6 +1,7 @@
 """The two markets we paper trade side by side, each with its own strategies
 and its own $500 paper account per strategy."""
 import config
+from social import SocialHeat
 from strategy import (BreakoutHunter, DonchianRotation, EarlyMover, HoldBenchmark, MomentumRotation,
                       RSI2MeanReversion, TrendFollower, WeeklyMomentum)
 
@@ -29,6 +30,8 @@ MARKETS = {
             # "no-limit chaser": buys coins already up >= 30% in 24h on heavy volume and
             # rides them with a trailing stop (owner's idea; tested live against the official)
             EarlyMover("chaser", k=24, x=0.30, v=3, trail=0.25, h=240, buy_listings=False),
+            # social heat: buys coins trending on CoinGecko / Reddit / DEX feeds (social.py)
+            SocialHeat(),
             DonchianRotation(config.UNIVERSE, 24),
             WeeklyMomentum(config.UNIVERSE, 24, "crypto"),
             BreakoutHunter(config.BREAKOUT_UNIVERSE),

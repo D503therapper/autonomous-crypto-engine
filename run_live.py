@@ -13,6 +13,7 @@ import time
 import urllib.request
 
 import config
+import social
 from engine import Portfolio, append_csv, step, ts
 from markets import MARKETS
 from scanner import MinuteScanner, describe
@@ -109,7 +110,8 @@ def full_cycle(mname, client):
         ok = regime_ok(bench_closes, bpd, getattr(st, "regime_days", None))
         pf = load_pf(mname, st.name)
         n_before, was_halted = len(pf.trades), pf.halted
-        step(pf, {s: data[s] for s in st.universe if s in data}, st, ok)
+        coins = {s: data[s] for s in st.universe if s in data}
+        step(pf, social.tag(coins) if getattr(st, "needs_coin", False) else coins, st, ok)
         eq = save_pf(mname, st.name, pf, n_before, prices)
         append_csv(f"{acct_dir(mname, st.name)}/equity.csv",
                    [{"time": now, "equity": round(eq, 2), "cash": round(pf.cash, 2),
@@ -282,6 +284,40 @@ def _balance(mname, sname):
     return eq, n
 
 
+def trade_social(client, tracker):
+    """After each social poll: buy the hottest Crypto.com coins into the social_heat account
+    (one tickers call for price + 24h change; same Portfolio accounting as the hourly cycle,
+    which together with fast_check manages the trailing stop / time limit / heat collapse)."""
+    st = next((s for s in MARKETS["crypto"]["strategies"] if s.name == "social_heat"), None)
+    hot = [h for h in tracker.heat() if h["score"] >= st.P["enter"]] if st else []
+    if not hot:
+        return
+    pf = load_pf("crypto", st.name)
+    if pf.halted or len(pf.positions) >= st.max_positions:
+        return
+    tick = social.parse_tickers(client.tickers())
+    now = int(time.time() * 1000)
+    prices = {c: float(tick[c]["a"]) for c in pf.positions if tick.get(c, {}).get("a")}
+    eq, n_before = pf.equity(prices), len(pf.trades)
+    for h in hot:
+        coin = h["coin"]
+        if len(pf.positions) >= st.max_positions:
+            break
+        if coin in pf.positions or pf.cooldown.get(coin, 0) > now or coin not in tick:
+            continue
+        e = st.entry(coin, tick[coin], now)
+        if not e:
+            continue
+        usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
+        if usd < config.MIN_ORDER_USD:
+            break
+        pf.buy(now, coin, usd, e[0], e[0] * (1 - st.trail))
+        prices[coin] = e[0]
+        print(f"   social heat: BUY {coin}: {e[1]}")   # no phone alert: owner wants daily P/L only
+    if len(pf.trades) > n_before:
+        save_pf("crypto", st.name, pf, n_before, prices)
+
+
 def scoreboard():
     """SCOREBOARD.md: the two official $500 accounts. LAB.md: every test strategy."""
     start = config.STARTING_CASH_USD
@@ -381,7 +417,7 @@ def git_sync():
     """In the cloud runner: commit the paper accounts back to GitHub every hour."""
     if os.environ.get("GIT_AUTOPUSH") != "1":
         return
-    cmds = ["git add data SCOREBOARD.md LAB.md docs",
+    cmds = ["git add data data/social SCOREBOARD.md LAB.md docs",   # data/social: heat log + state
             f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'",
             "git pull -q --rebase -X theirs", "git push -q"]
     for c in cmds:
@@ -394,6 +430,12 @@ def main():
     ap.add_argument("--watch", type=int, default=0, help="minutes to stay on (0 = one cycle)")
     a = ap.parse_args()
     clients = {m: MARKETS[m]["client"]() for m in MARKETS}
+    tracker = social.tracker()                  # social heat: CoinGecko / Reddit / DEX collectors
+    try:
+        tracker.universe |= set(clients["crypto"].list_spot_symbols())
+        tracker.self_check()                    # logs each source's HTTP status once per run
+    except Exception as e:
+        print(f"social self-check failed: {e}")
     end = time.time() + a.watch * 60
     fast_every = {"crypto": 1, "stocks": 15}   # seconds between live stop/target checks
     last_fast = {m: 0.0 for m in clients}
@@ -410,6 +452,8 @@ def main():
                     full_cycle(m, c)
                 except Exception as e:
                     print(f"{m} cycle failed: {e}")
+            tracker.universe |= set(CRYPTO_CANDLES)
+            print(f"   {tracker.top_line()}")     # hourly: top-5 social heat in run.log
             daily_summary(scoreboard())
             git_sync()
             last_hour = hour
@@ -437,6 +481,11 @@ def main():
                     fast_check(m, c)
                 except Exception as e:
                     print(f"{m} fast check failed: {e}")
+        try:                                     # social: at most one source per tick (<= 2 calls, 8s timeout)
+            if tracker.poll():
+                trade_social(clients["crypto"], tracker)
+        except Exception as e:
+            print(f"social heat failed: {e}")
         if time.time() >= end or not a.watch:
             break
         time.sleep(1 - time.time() % 1)

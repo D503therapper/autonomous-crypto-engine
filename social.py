@@ -36,7 +36,7 @@ import urllib.request
 
 import config
 from engine import append_csv, ts
-from scanner import excluded
+from scanner import excluded, parse_tickers   # parse_tickers re-exported for run_live.trade_social
 
 MIN = 60_000
 HOUR = 3_600_000
@@ -242,7 +242,7 @@ class Collector:
     kind = "trend"          # which ttl applies to its sightings
     max_calls = 1
 
-    def __init__(self, name, every_min, fetch=http_get, timeout=8):
+    def __init__(self, name, every_min, fetch=None, timeout=8):
         self.name, self.every, self.fetch, self.timeout = name, every_min * MIN, fetch, min(timeout, 8)
         self.next_at, self.fails, self.status = 0, 0, None
 
@@ -250,7 +250,7 @@ class Collector:
         return now >= self.next_at
 
     def get(self, url):
-        st, body = self.fetch(url, self.timeout)
+        st, body = (self.fetch or http_get)(url, self.timeout)   # module http_get resolved at call time
         self.status = st
         return st, body
 
@@ -370,7 +370,7 @@ _EMPTY = {"names": {}, "seen_posts": {}, "mentions": {}, "sightings": {}, "last_
 
 
 class HeatTracker:
-    def __init__(self, params=None, universe=None, fetch=http_get, now_ms=None):
+    def __init__(self, params=None, universe=None, fetch=None, now_ms=None):
         self.p = dict(SOCIAL, **(params or {}))
         self.dir = self.p["dir"]
         self.universe = set(universe or config.BREAKOUT_UNIVERSE)

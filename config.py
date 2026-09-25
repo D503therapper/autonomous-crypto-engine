@@ -151,3 +151,18 @@ COOLDOWN_CANDLES = 12     # after a stop-out, leave that coin alone for 12h
 
 # --- Files -----------------------------------------------------------------
 LISTINGS_FILE = "data/known_listings.json"
+
+# --- Social heat tracker (social.py) + "social_heat" test account ----------
+# Attention is recorded for every Crypto.com USD coin (data/social/); the account buys
+# the hottest coins. Sources are keyless and optional; CMC stays off until a keyless
+# trending endpoint is verified live (set cmc_url and cmc=True).
+SOCIAL = {
+    "coingecko": True, "cmc": False, "cmc_url": "", "reddit": True, "dex": True,
+    "subreddits": ["CryptoMoonShots", "SatoshiStreetBets", "CryptoCurrency", "memecoins"],
+    "poll_min": {"coingecko": 15, "cmc": 15, "reddit": 15, "dexscreener": 5, "geckoterminal": 10},
+    "timeout": 8,                     # seconds per HTTP call (never blocks the 1s stop checks for long)
+    "enter": 50, "floor": 20, "floor_hours": 12,   # buy at heat >= 50; sell after 12h below 20
+    "trail": 0.25, "max_hold_days": 10,            # trailing stop 25% below peak; 10-day max hold
+    "min_24h_change": -0.10,          # skip spike-and-fade (down >10% in 24h); no upper cap on purpose
+    "slots": 5,
+}
