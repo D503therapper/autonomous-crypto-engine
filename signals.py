@@ -124,14 +124,15 @@ _NOISE = {"NEW", "API", "APP", "USA", "UTC", "KST", "AM", "PM", "IOC", "FAQ", "N
 # A notice is a listing when its title says so...
 _LISTING_RE = re.compile(
     r"will list|will add|lists?\b|listing|now available|available for trading|is launching|launches|"
-    r"adds? support|added to|trading (for|of|pair|will (begin|start|open))|new (spot )?(trading )?pairs?|"
+    r"adds? support|added to|to list|now live|trading (for|of|pair|is|enabled|will (begin|start|open))|"
+    r"new (spot )?(trading )?pairs?|"
     r"신규 거래지원|거래지원 안내|상장|market support|new asset|asset listing|"
     r"(coinbase|kraken|binance|crypto\.com|upbit).*(list|support)", re.I)
 # ...and it is NOT one of these (delisting, halt, maintenance, warnings, deposits, incidents).
 _NEGATIVE_RE = re.compile(
     r"delist|de-list|remov|suspend|halt|maintenance|terminat|discontinu|wind.?down|cease|"
     r"degraded|incident|outage|resolved|investigat|delay|unavailable|"
-    r"deposit|withdraw|airdrop|staking|reward|promotion|contest|campaign|referral|survey|"
+    r"airdrop|staking|reward|promotion|contest|campaign|referral|survey|"
     r"거래지원 종료|유의|입출금|투자유의|점검|폐지", re.I)
 
 _PAREN_RE = re.compile(r"\(([A-Z0-9]{2,10})\)")
@@ -374,8 +375,6 @@ class ListingNoticeReactor:
                           f"{type(e).__name__}: {str(e)[:120]}")
                 continue
             events += self._new_events(name, notices, now)
-        if events:
-            self._save_seen()
         return events
 
     def _new_events(self, name, notices, now):
@@ -430,6 +429,8 @@ class ListingNoticeReactor:
             return False, f"spread {cur['spread']:.2%}", None, None
         if cur.get("vv") is not None and cur["vv"] < p["min_daily_usd"]:
             return False, f"thin ${cur['vv']:,.0f}/24h", None, None
+        if ev.get("t0") and now - ev["t0"] > p["max_age_min"] * MIN:
+            return False, "notice too old", None, None
         key = (ev["source"], ev["id"], coin)
         p0 = self.price_at(buf, ev["t0"]) if ev.get("t0") else None
         if p0 is None:
@@ -441,8 +442,6 @@ class ListingNoticeReactor:
             return False, f"already +{move:.1%} since notice", move, c24
         if c24 is not None and c24 > p["max_24h_change"]:
             return False, f"already +{c24:.0%} in 24h", move, c24
-        if ev.get("t0") and now - ev["t0"] > p["max_age_min"] * MIN:
-            return False, "notice too old", move, c24
         return True, "ok", move, c24
 
     def candidates(self, events, scanner, now_ms=None):
