@@ -39,7 +39,7 @@ MOMENTUM_LOOKBACK = 72    # rank candidates by 72h return
 BREAKOUT_UNIVERSE = UNIVERSE + [
     "SHIB", "PEPE", "BONK", "WIF", "FLOKI", "FET", "RENDER", "INJ", "ARB", "OP",
     "APT", "SEI", "TIA", "HBAR", "XLM", "ALGO", "FIL", "ICP", "IMX", "SAND",
-    "MANA", "GRT", "CRO", "ONDO", "JUP", "TAO", "HYPE", "ENA", "POL", "TRX",
+    "MANA", "GRT", "CRO", "ONDO", "JUP", "TAO", "HYPE", "ENA", "POL",
 ]
 BREAKOUT = {
     "vol_lookback": 72,        # "normal" volume = average of the last 72h
