@@ -101,7 +101,7 @@ class YahooClient:
 
     def candles(self, sym, timeframe="1h", count=config.CANDLES_NEEDED, end_ms=None, universe=None):
         days = max(30, count // 7 + 10)
-        df = self._download(universe or config.STOCK_UNIVERSE + ["SPY"], days)
+        df = self._download(universe or sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), days)
         try:
             d = df[sym].dropna()
         except KeyError:

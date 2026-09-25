@@ -223,6 +223,76 @@ class MomentumRotation:
         return None
 
 
+def _daily_closes(candles, include_today=False):
+    """Collapse intraday bars into one close per UTC date (US sessions sit in one UTC day).
+    Drops the current, unfinished day unless include_today."""
+    out, last_day = [], None
+    for c in candles:
+        day = c["t"] // 86_400_000
+        if day != last_day:
+            out.append([day, c["c"]])
+            last_day = day
+        else:
+            out[-1][1] = c["c"]
+    if not include_today and out:
+        out = out[:-1]
+    return out
+
+
+def _rsi_last(closes, n=2):
+    """Wilder RSI of the last close."""
+    gain = loss = 0.0
+    for i in range(1, len(closes)):
+        ch = closes[i] - closes[i - 1]
+        g, l_ = max(ch, 0), max(-ch, 0)
+        if i <= n:
+            gain += g / n
+            loss += l_ / n
+        else:
+            gain = (gain * (n - 1) + g) / n
+            loss = (loss * (n - 1) + l_) / n
+    return 100.0 if loss == 0 else 100 - 100 / (1 + gain / loss)
+
+
+class RSI2MeanReversion:
+    """Lab winner (stocks, Sep 2026; walk-forward 2018-2026 out-of-sample +20%/yr, max
+    drawdown 21%, vs SPY +17%/28%). Once a day, using completed daily closes: buy up to
+    5 names whose RSI(2) < 15 while above their 200-day average (lowest RSI first); sell
+    when the close is back above the 5-day average, RSI(2) > 70, or after 10 trading days."""
+    name = "rsi2"
+    weekly = True
+    rebalance_key = "%Y-%m-%d"      # evaluate once per trading day (first cycle after the open)
+
+    def __init__(self, universe, bars_per_day, rsi_max=15, sma=200, hold=10, slots=5):
+        self.universe, self.bpd = universe, bars_per_day
+        self.rsi_max, self.sma, self.hold, self.max_positions = rsi_max, sma, hold, slots
+        self.min_candles = (sma + 15) * bars_per_day
+        self.window = self.min_candles + 2 * bars_per_day
+        self.position_pct = self.max_position_pct = (1 - config.MIN_CASH_RESERVE_PCT) / slots
+
+    def analyze(self, candles, market_ok=True):
+        daily = _daily_closes(candles)
+        if len(daily) < self.sma + 5:
+            return None
+        closes = [x[1] for x in daily[-(self.sma + 40):]]
+        last = closes[-1]
+        r = _rsi_last(closes[-40:])
+        sma_long = sum(closes[-self.sma:]) / self.sma
+        sma5 = sum(closes[-5:]) / 5
+        sig = _base(candles)
+        sig.update(rank=-r, buy=r < self.rsi_max and last > sma_long, stop=0.0,
+                   exit=last > sma5 or r > 70, day=daily[-1][0])
+        return sig
+
+    def manage(self, pos, s, now, rebalance=False):
+        if not rebalance:
+            return None
+        held_days = s["day"] - pos["opened"] // 86_400_000
+        if s["exit"] or held_days >= self.hold:
+            return 1.0, s["price"], "mean reversion: bounced or time limit"
+        return None
+
+
 class HoldBenchmark:
     """Just buy and hold the benchmark (BTC / SPY): the bar every strategy must beat."""
     weekly = False

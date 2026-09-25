@@ -34,6 +34,9 @@ STOCK_UNIVERSE = [
     "AMD", "AVGO", "NFLX", "JPM", "LLY", "COST", "PLTR", "COIN", "MSTR", "UBER",
 ]
 
+STOCK_ETFS = ["SPY", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "XLK", "XLF", "XLE", "XLV", "XLY",
+              "XLP", "XLI", "XLU", "XLB", "XLRE", "XLC", "SMH", "EFA", "EEM"]
+
 # --- Weekly momentum (the strategy with the strongest research support) -----
 MOMENTUM = {
     "lookback_days": 21,       # own return over ~3 weeks must be positive...
