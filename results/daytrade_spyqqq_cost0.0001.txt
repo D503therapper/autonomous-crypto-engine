@@ -1,0 +1,27 @@
+
+stocks: 2 symbols; cost per side 0.01%
+in-sample 21.2 months, out-of-sample 14.0 months
+
+13 variants. Top 15 by in-sample monthly return, then UNSEEN results:
+
+  setup params                             |   IS/mo |  OOS/mo  OOS tot trades/mo   win avg/trade
+  noise d=30 mult=1.0                      |   +0.4% |   +0.2%    +2.7%      12.8   51%    +0.03%
+  noise d=30 mult=0.8                      |   +0.4% |   -0.0%    -0.0%      16.7   46%    -0.00%
+    orb stop_r=1.0 dir_filter=1            |   +0.3% |   -0.3%    -4.0%      17.2   49%    -0.03%
+  noise d=14 mult=1.0                      |   +0.3% |   +0.0%    +0.3%      13.5   46%    +0.00%
+  noise d=7 mult=0.8                       |   +0.3% |   -0.1%    -1.4%      17.2   46%    -0.01%
+  noise d=14 mult=0.8                      |   +0.3% |   +0.0%    +0.1%      16.6   45%    +0.00%
+  noise d=30 mult=1.5                      |   +0.3% |   +0.1%    +0.8%       8.0   46%    +0.01%
+  noise d=14 mult=1.5                      |   +0.2% |   -0.0%    -0.1%       8.0   47%    -0.00%
+  noise d=7 mult=1.5                       |   +0.1% |   -0.0%    -0.1%       8.7   50%    -0.00%
+    orb stop_r=1.0 dir_filter=0            |   +0.1% |   -0.5%    -6.4%      24.8   48%    -0.04%
+  noise d=7 mult=1.0                       |   +0.0% |   -0.0%    -0.4%      14.0   47%    -0.00%
+    orb stop_r=0.5 dir_filter=1            |   -0.3% |   -0.6%    -7.5%      17.2   37%    -0.06%
+    orb stop_r=0.5 dir_filter=0            |   -1.0% |   -1.2%   -16.2%      24.8   32%    -0.10%
+
+For reference, best 5 by UNSEEN result (picked with hindsight, so optimistic):
+  noise d=30 mult=1.0                      | IS  +0.4%/mo | OOS  +0.2%/mo, 13 trades/mo
+  noise d=30 mult=1.5                      | IS  +0.3%/mo | OOS  +0.1%/mo, 8 trades/mo
+  noise d=14 mult=1.0                      | IS  +0.3%/mo | OOS  +0.0%/mo, 14 trades/mo
+  noise d=14 mult=0.8                      | IS  +0.3%/mo | OOS  +0.0%/mo, 17 trades/mo
+  noise d=30 mult=0.8                      | IS  +0.4%/mo | OOS  -0.0%/mo, 17 trades/mo
