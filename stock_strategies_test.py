@@ -213,6 +213,39 @@ def test_step_gating():
     print("  engine.step: monthly gating + target-weight rebalance ok")
 
 
+def test_engine_smoke(ctx, hourly):
+    """The real classes driven through engine.step one cycle per trading day (as run_live
+    does), on the synthetic hourly bars: monthly / weekly cadence, fully invested within the
+    cash reserve, holdings equal to the lab's pick after each rebalance."""
+    import config
+    inv = 1 - config.MIN_CASH_RESERVE_PCT
+    for strat, fam, p, key in ((ss.DualMomentum(BPD), fam_dual_momentum,
+                                {"top": 2, "safe": "IEF", "universe": "index"}, "mrem"),
+                               (ss.TrendEnsemble(sorted(ctx.syms), BPD), fam_trend_ensemble,
+                                {"lookbacks": (10, 20, 50, 100), "top": 5, "regime": 200}, "wend")):
+        pf, rebalances, checked = Portfolio(cash=500.0, fee=0.0, slippage=0.0005), 0, 0
+        for i in range(ctx.n - 200, ctx.n - 1):
+            day = ctx.days[i + 1]                       # the cycle runs during session i+1
+            bars = {s: candles_at(hourly[s], ctx.days[i]) for s in strat.universe}
+            bars = {s: b for s, b in bars.items() if b}
+            n = len(pf.trades)
+            step(pf, bars, strat, True)
+            first_of_period = (ctx.mrem[i] == 1) if key == "mrem" else ctx.wend[i]
+            if first_of_period:
+                rebalances += 1
+                want, _ = fam(ctx, i, {}, p)
+                assert set(pf.positions) == set(want), (strat.name, ctx.dates[i], want, set(pf.positions))
+                eq = pf.equity({s: b[-1]["c"] for s, b in bars.items()})
+                for s, w in want.items():
+                    assert abs(pf.positions[s]["qty"] * bars[s][-1]["c"] / eq - w * inv) < 0.025, (s, w)
+                checked += 1
+            elif rebalances:
+                assert len(pf.trades) == n, "traded between rebalances"
+        assert checked >= 3 and pf.trades
+        print(f"  engine smoke {strat.name:<15} {rebalances} rebalances, {len(pf.trades)} trades, "
+              f"final equity ${pf.equity({s: hourly[s][-1]['c'] for s in pf.positions}):.2f}")
+
+
 if __name__ == "__main__":
     print("stock_strategies_test")
     assert hasattr(__import__("engine"), "rebalance_to"), \
@@ -225,4 +258,5 @@ if __name__ == "__main__":
     test_dual_momentum_parity(ctx, hourly)
     test_trend_ensemble_parity(ctx, hourly)
     test_missing_and_stale_symbols(ctx, hourly)
+    test_engine_smoke(ctx, hourly)
     print("all stock_strategies tests passed")
