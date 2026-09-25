@@ -62,7 +62,9 @@ DEFAULTS = {
     "screen": {                                                      # STRICT by owner's choice
         "max_tax": 0.03, "reject_proxy": True, "max_creator_pct": 0.05, "max_top10_pct": 0.40,
         "min_lp_locked": 0.95, "rugcheck_max_score": 50,             # score_normalised (0-100, higher = worse)
-        "min_liq": 250_000, "min_age_h": 24, "min_vol24": 300_000,
+        "min_liq": 250_000, "liq_x_size": 50,                        # liquidity >= max($250k, 50 x position,
+                                                                     #   position / liq_pct): deeper pools as it grows
+        "min_age_h": 24, "min_vol24": 300_000,
         "max_24h_change": None,                                      # owner: no cap on runners
         "fade_h6": 0.30, "fade_h1": -0.15,                           # +30% in 6h but -15% in the last hour
         "ttl_h": 6, "reject_ttl_h": 24, "unreach_ttl_h": 1,          # how long a verdict stands
@@ -70,8 +72,9 @@ DEFAULTS = {
     "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},            # +5% 1h, +10% 6h, 1h buys >= 1.2x sells
     "size": {"equity_pct": 0.05, "liq_pct": 0.005},
     "cost": {"fee": 0.003, "slip": 0.01},                            # + price impact usd/liquidity per side
-    "exit": {"trail": 0.30, "tp1": (1.0, 1 / 3), "tp2": (3.0, 0.5),  # tp2: half of the remaining 2/3
-             "max_hold_days": 14, "liq_pull": 0.50, "rug_tax": 0.50, "check_wait_s": 600},
+    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": (4.0, 0.5),   # +100%: sell half (cost recovered), stop
+             "max_hold_days": 14, "liq_pull": 0.50, "rug_tax": 0.50,   # to break-even; +400%: half the rest
+             "check_wait_s": 600},
     "followup": {"days": 7, "per_day": 50, "rug_liq": 0.80, "rug_px": 0.90, "runup": 1.0},
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},         # 2 scams in 30 days -> no new entries until
     "slots": 4, "queue": 20, "dir": "data/dex", "name": "dex_hunter",   # reset_after "YYYY-MM-DD HH:MM" > pause time
@@ -159,8 +162,10 @@ def parse_gt_pools(body, chain, now):
     out = []
     for p in (body or {}).get("data") or []:
         a = p.get("attributes") if isinstance(p, dict) else None
+        if not isinstance(a, dict) or not a.get("name"):
+            continue
         tid = str((((p.get("relationships") or {}).get("base_token") or {}).get("data") or {}).get("id", ""))
-        if not isinstance(a, dict) or "_" not in tid or not a.get("name"):
+        if "_" not in tid:
             continue
         tx, pc, created = a.get("transactions") or {}, a.get("price_change_percentage") or {}, _iso_ms(a.get("pool_created_at"))
         sym = re.sub(r"\s+\d+(\.\d+)?%$", "", str(a["name"]).split("/")[0].strip()).upper()
@@ -300,14 +305,29 @@ def check_honeypot(j, S):
 
 
 def check_rugcheck(j, S):
-    """RugCheck summary: risks[{name, level: warn|danger, ...}], score_normalised (0-100)."""
+    """RugCheck report: risks[{name, level: warn|danger}], score_normalised (0-100), rugged,
+    mintAuthority / freezeAuthority (null = renounced), lpLockedPct or markets[].lp.lpLockedPct."""
     if not isinstance(j, dict) or ("risks" not in j and "score" not in j):
         return [("rugcheck: no data", "flag")]
     r = []
+    if j.get("rugged"):
+        r.append(("rugcheck: rugged", "scam"))
+    names = [str(k.get("name") or "") for k in j.get("risks") or [] if isinstance(k, dict)]
     for k in j.get("risks") or []:
         if isinstance(k, dict) and str(k.get("level", "")).lower() == "danger":
             name = str(k.get("name") or "risk")
             r.append((f"rugcheck danger: {name}", "scam" if re.search(r"freeze|honeypot|transfer", name, re.I) else "flag"))
+    for k, sev in (("mintAuthority", "flag"), ("freezeAuthority", "scam")):
+        if j.get(k) or any(re.search(k[:4], n, re.I) and re.search("enabled|authority", n, re.I) for n in names):
+            if not any(k[:4] in t.lower() for t, _ in r):
+                r.append((f"rugcheck: {k} enabled", sev))
+    lps = [_f(j.get("lpLockedPct"))] + [_f(((m.get("lp") or {}) if isinstance(m, dict) else {}).get("lpLockedPct"))
+                                       for m in j.get("markets") or []]
+    lps = [x for x in lps if x is not None]
+    if not lps:
+        r.append(("rugcheck: lp lock unknown", "flag"))
+    elif max(lps) / 100 < S["min_lp_locked"]:
+        r.append((f"rugcheck lp locked {max(lps):.0f}% < {S['min_lp_locked']:.0%}", "flag"))
     sc = _f(j.get("score_normalised"))
     if sc is not None and sc > S["rugcheck_max_score"]:
         r.append((f"rugcheck score {sc:.0f}", "flag"))
@@ -364,7 +384,8 @@ class Source:
 
 
 _EMPTY = {"seen": {}, "passed": {}, "followup": {}, "last": {}, "watch_done": {}, "fu_day": "", "fu_n": 0,
-          "status": {}, "week": None, "month": None, "hour": None, "swept": 0.0, "prefiltered": 0}
+          "status": {}, "week": None, "month": None, "hour": None, "swept": 0.0, "prefiltered": 0,
+          "scams": [], "paused": None}
 _STEP_SRC = {"ds": "dexscreener", "goplus": "goplus", "honeypot": "honeypot", "rugcheck": "rugcheck"}
 
 
@@ -448,6 +469,16 @@ class DexHunter:
     def pkey(c):
         return f"{c['sym']}@{c['chain']}:{c['addr'][:8]}"      # position name in trades.csv
 
+    def S(self):
+        """Screen thresholds; min liquidity scales with the planned position (50x by default)."""
+        S, Z = self.p["screen"], self.p["size"]
+        planned = self.equity() * Z["equity_pct"]
+        return dict(S, min_liq=max(S["min_liq"], S["liq_x_size"] * planned, planned / Z["liq_pct"]))
+
+    def paused(self):
+        p = self.state.get("paused")
+        return p["why"] if p else ""
+
     def _steps(self, chain, fresh):
         sec = ["goplus", "honeypot"] if chain in self.p["chain_ids"] else ["goplus", "rugcheck"]
         return ([] if fresh else ["ds"]) + sec
@@ -488,7 +519,8 @@ class DexHunter:
         self._load()
         return (f"dex hunter: equity ${self.equity():,.2f}, {len(self.pf.positions)} open, "
                 f"{len(self.state['passed'])} screened & waiting, {len(self.queue)} queued, "
-                f"{len(self.state['followup'])} rejected in follow-up, {self.state['prefiltered']} prefiltered")
+                f"{len(self.state['followup'])} rejected in follow-up, {self.state['prefiltered']} prefiltered"
+                f"{'  [PAUSED: ' + self.paused() + ']' if self.paused() else ''}")
 
     # ---- housekeeping (no HTTP) ----
     def _housekeep(self, now):
@@ -497,6 +529,10 @@ class DexHunter:
             ex = pos.get("exit")
             if ex and now - ex["t"] > X["check_wait_s"] * 1000:
                 self._execute_exit(k, [], now, " (sell check unreachable, booked at market)")
+        reset = self.p["scam_pause"]["reset_after"]
+        if st["paused"] and reset and ts(st["paused"]["t"]) < reset:   # manual re-enable via config
+            print(f"   dex: pause lifted (reset_after {reset})")
+            st["paused"], st["scams"], self.dirty = None, [], True
         ttl = {"REJECT": S["reject_ttl_h"], "UNREACHABLE": S["unreach_ttl_h"], "PASS": S["ttl_h"]}
         st["seen"] = {k: v for k, v in st["seen"].items() if now - v["t"] <= ttl.get(v["v"], 24) * HOUR}
         for k, c in list(st["passed"].items()):
@@ -619,7 +655,7 @@ class DexHunter:
         if c["chain"] not in self.p["chains"] or k in st["seen"] or k in st["passed"] \
                 or any(j["key"] == k for j in self.queue) or self.pkey(c) in self.pf.positions:
             return False
-        if check_market(c, self.p["screen"]):
+        if check_market(c, self.S()):
             st["prefiltered"] += 1
             self.dirty = True
             return False
@@ -641,7 +677,7 @@ class DexHunter:
         return False
 
     def _run_step(self, job, now):
-        c, S, step = job["c"], self.p["screen"], job["steps"][job["i"]]
+        c, S, step = job["c"], self.S(), job["steps"][job["i"]]
         ids, reasons = self.p["chain_ids"], []
         if step == "ds":
             st, obj = self._get("dexscreener", self._url("ds_tokens", chain=c["chain"], addrs=c["addr"]), now)
@@ -707,7 +743,7 @@ class DexHunter:
     # ---- entries ----
     def _try_entry(self, key, now):
         c, E, st = self.state["passed"].get(key), self.p["entry"], self.state
-        if not c or self.pf.halted or len(self.pf.positions) >= self.p["slots"]:
+        if not c or self.pf.halted or self.paused() or len(self.pf.positions) >= self.p["slots"]:
             return
         pk = self.pkey(c)
         if pk in self.pf.positions or self.pf.cooldown.get(pk, 0) > now or not c.get("price"):
@@ -746,10 +782,9 @@ class DexHunter:
             st["last"][f"px_{chain}"] = now
             addrs = sorted(addrs)[:30]
             st_, obj = self._get("dexscreener", self._url("ds_tokens", chain=chain, addrs=",".join(addrs)), now)
-            pairs = parse_ds_pairs(obj, now) if st_ == 200 else []
-            if not pairs:
+            if st_ != 200 or not isinstance(obj, list):        # (tokens/v1 answers a bare list)
                 return True
-            best = best_pairs(pairs, chain)
+            best = best_pairs(parse_ds_pairs(obj, now), chain)
             for k, pos in list(self.pf.positions.items()):
                 if pos["chain"] != chain or pos["addr"] not in addrs:
                     continue
@@ -838,7 +873,10 @@ class DexHunter:
         pnl = self.pf.sell(now, k, frac, price, reason)
         realized = keep["realized"] + pnl
         if k in self.pf.positions:
-            self.pf.positions[k]["realized"] = realized
+            pos = self.pf.positions[k]
+            pos["realized"] = realized
+            if pos["tp1"]:                                     # remainder rides free: stop >= break-even
+                pos["stop"] = max(pos["stop"], pos["entry"])
         else:
             self.pf.cooldown[k] = now + DAY
             append_csv(f"{self.dir}/outcomes.csv", [{
@@ -848,8 +886,19 @@ class DexHunter:
                 "exit": round(price, 10), "liq_entry": round(keep["liq0"]), "liq_exit": round(liq),
                 "outcome": outcome, "reason": reason}])
             print(f"   dex outcome: {outcome} {k} P/L ${realized:+.2f} ({reason})")
+            if outcome.startswith("scammed"):
+                self._count_scam(now)
         self.dirty = True
         self._save_pf(now)
+
+    def _count_scam(self, now):
+        """Owner's circuit breaker: `max` scams within `days` -> pause new entries (latched)."""
+        st, P = self.state, self.p["scam_pause"]
+        st["scams"] = [t for t in st["scams"] if now - t <= P["days"] * DAY] + [now]
+        if len(st["scams"]) >= P["max"] and not st["paused"]:
+            st["paused"] = {"t": now, "why": "scam limit"}
+            print(f"   dex PAUSED: {len(st['scams'])} scams in {P['days']} days; new entries off until "
+                  f"config.DEX['scam_pause']['reset_after'] is set past {ts(now)}")
 
     # ---- periodic re-screen of held tokens (security sources only) ----
     def _rescreen_job(self, now):
@@ -925,6 +974,45 @@ class DexHunter:
             "rugged": int(rugged), "ran_up": int(ran_up)}])
         del self.state["followup"][key]
         self.dirty = True
+
+
+def scoreboard_stats(d=DEX["dir"], name=DEX["name"]):
+    """For run_live.scoreboard: {equity, trades, scammed, lost, paused} from the files (no HTTP, no state)."""
+    eq, n = config.STARTING_CASH_USD, 0
+    try:
+        with open(f"{d}/{name}/equity.csv") as f:
+            lines = f.read().strip().splitlines()
+        if len(lines) > 1:
+            eq = float(lines[-1].split(",")[1])
+        with open(f"{d}/{name}/trades.csv") as f:
+            n = max(0, len(f.read().strip().splitlines()) - 1)
+    except (OSError, ValueError):
+        pass
+    scam, lost = 0, 0.0
+    if os.path.exists(f"{d}/outcomes.csv"):
+        with open(f"{d}/outcomes.csv", newline="") as f:
+            for r in csv.DictReader(f):
+                if str(r.get("outcome", "")).startswith("scammed"):
+                    scam, lost = scam + 1, lost + (_f(r.get("pnl")) or 0.0)
+    paused = ""
+    try:
+        with open(f"{d}/state.json") as f:
+            p = json.load(f).get("paused")
+        paused = p["why"] if p else ""
+    except (OSError, ValueError, TypeError, KeyError):
+        pass
+    return {"equity": eq, "trades": n, "scammed": scam, "lost": lost, "paused": paused}
+
+
+def scoreboard_line(start=config.STARTING_CASH_USD):
+    """One line for SCOREBOARD.md / the daily summary: **DEX: $512.40**  (+12.40)  · Scammed: 1 (-$38.00)"""
+    s = scoreboard_stats()
+    line = f"**DEX: ${s['equity']:,.2f}**  ({s['equity'] - start:+,.2f})  · Scammed: {s['scammed']}"
+    if s["scammed"]:
+        line += f" ({s['lost']:+,.2f})"
+    if s["paused"]:
+        line += f" · DEX paused: {s['paused']}"
+    return line
 
 
 _HUNTER = None
