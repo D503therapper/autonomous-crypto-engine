@@ -1,0 +1,25 @@
+stocks: 20 assets, 1800 days; in-sample days 0-1080, out-of-sample 1080-1800
+cost per unit traded: 0.05%   (survivorship caveat: universe = coins/stocks listed today)
+
+Benchmark hold SPY: in-sample +54.5%, out-of-sample +81.5%
+1536 variants tested. Top 15 by in-sample Sharpe, then their UNSEEN results:
+
+  signal lookback rebal  top regime  weights |   IS ret IS shp |  OOS ret  OOS/mo OOS shp  OOS DD turn/yr
+---------------------------------------------------------------------------------------------------------
+donchian       10     1    2    200  inv_vol |  +701.6%   2.70 |    +7.8%   +0.3%    0.28   35.1%   214.4
+donchian       10     1    2    200    equal |  +944.6%   2.66 |   +27.3%   +1.0%    0.51   32.7%   188.2
+   tsmom       10     3    3    200  inv_vol |  +377.1%   2.53 |    -1.4%   -0.1%    0.10   35.6%   117.5
+donchian       10     1    5    200    equal |  +391.1%   2.51 |   +65.1%   +2.1%    1.02   22.1%   150.5
+donchian       10     1    2     50    equal | +1066.8%   2.50 |   +13.9%   +0.5%    0.36   40.3%   176.5
+donchian       10     1    2     50  inv_vol |  +702.5%   2.47 |    -0.8%   -0.0%    0.15   42.5%   199.3
+   tsmom       10     1    2     50  inv_vol |  +725.6%   2.46 |   +46.4%   +1.6%    0.76   21.0%   219.9
+   tsmom       10     1    2    200  inv_vol |  +570.8%   2.44 |   +71.8%   +2.3%    0.98   19.1%   237.7
+donchian       10     3    2    200  inv_vol |  +642.2%   2.42 |   +73.0%   +2.3%    1.01   28.0%   107.7
+   tsmom       10     1    2    200    equal |  +747.9%   2.42 |   +98.0%   +2.9%    1.07   25.2%   205.5  <- beats hold
+donchian       10     1    3    200    equal |  +514.9%   2.41 |   +12.0%   +0.5%    0.34   33.0%   175.4
+   tsmom       10     1    2     50    equal |  +975.2%   2.40 |   +63.0%   +2.1%    0.84   29.4%   191.6
+   tsmom        7     3    3    200    equal |  +554.6%   2.39 |   +32.2%   +1.2%    0.59   29.6%   120.2
+donchian       10     1    2    100    equal |  +883.0%   2.38 |   +34.5%   +1.2%    0.58   31.1%   185.9
+donchian       10     1    3    200  inv_vol |  +366.9%   2.37 |    -2.3%   -0.1%    0.09   36.4%   205.4
+
+1 of the top 15 in-sample variants also beat holding SPY on unseen data.
