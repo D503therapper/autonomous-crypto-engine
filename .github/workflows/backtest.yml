@@ -20,6 +20,7 @@ jobs:
           mkdir -p results
           args=$(grep -v '^#' backtest_request.txt | head -1)
           echo "args: $args"
+          pip install -q -r requirements.txt
           python backtest.py $args 2>&1 | tee results/backtest_latest.txt
       - run: |
           git config user.name "paper-trader-bot"

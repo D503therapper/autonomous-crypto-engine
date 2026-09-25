@@ -6,7 +6,6 @@ import os
 from datetime import datetime, timezone
 
 import config
-from strategy import market_ok
 
 
 def ts(ms):
@@ -14,7 +13,9 @@ def ts(ms):
 
 
 class Portfolio:
-    def __init__(self, cash=config.STARTING_CASH_USD):
+    def __init__(self, cash=config.STARTING_CASH_USD, fee=config.FEE_RATE, slippage=config.SLIPPAGE_RATE):
+        self.fee, self.slippage = fee, slippage   # per market; not saved
+        self.last_rebalance_week = None
         self.cash = cash
         self.positions = {}   # coin -> {qty, entry, stop, peak, took_profit, opened}
         self.peak_equity = cash
@@ -25,11 +26,12 @@ class Portfolio:
 
     # ---- persistence ----
     def to_dict(self):
-        return {k: getattr(self, k) for k in ("cash", "positions", "peak_equity", "cooldown", "halted", "halt_until")}
+        return {k: getattr(self, k) for k in ("cash", "positions", "peak_equity", "cooldown", "halted", "halt_until",
+                                                   "last_rebalance_week")}
 
     @classmethod
-    def load(cls, path):
-        p = cls()
+    def load(cls, path, **kw):
+        p = cls(**kw)
         if os.path.exists(path):
             with open(path) as f:
                 for k, v in json.load(f).items():
@@ -52,8 +54,8 @@ class Portfolio:
                             "reason": reason})
 
     def buy(self, t, coin, usd, price, stop):
-        fill = price * (1 + config.SLIPPAGE_RATE)
-        fee = usd * config.FEE_RATE
+        fill = price * (1 + self.slippage)
+        fee = usd * self.fee
         qty = (usd - fee) / fill
         self.cash -= usd
         self.positions[coin] = {"qty": qty, "entry": fill, "cost": usd, "peak": fill,
@@ -64,9 +66,9 @@ class Portfolio:
     def sell(self, t, coin, frac, price, reason):
         pos = self.positions[coin]
         qty = pos["qty"] * frac
-        fill = price * (1 - config.SLIPPAGE_RATE)
+        fill = price * (1 - self.slippage)
         gross = qty * fill
-        fee = gross * config.FEE_RATE
+        fee = gross * self.fee
         cost = pos["cost"] * frac
         self.cash += gross - fee
         pnl = gross - fee - cost
@@ -78,22 +80,26 @@ class Portfolio:
         return pnl
 
 
-def step(pf, candles_by_coin, strat):
-    """One decision cycle. candles_by_coin: {coin: [candles oldest-first]}."""
-    mk = market_ok(candles_by_coin.get("BTC"))
-    sig = {c: strat.analyze(cs, mk) for c, cs in candles_by_coin.items()}
+def step(pf, candles_by_coin, strat, market_ok=True):
+    """One decision cycle. candles_by_coin: {symbol: [candles oldest-first]}.
+    market_ok: benchmark regime (BTC / SPY above its long average)."""
+    sig = {c: strat.analyze(cs, market_ok) for c, cs in candles_by_coin.items()}
     sig = {c: s for c, s in sig.items() if s}
     if not sig:
         return
     now = max(s["t"] for s in sig.values())
     prices = {c: s["price"] for c, s in sig.items()}
 
+    # Weekly strategies only rebalance once per ISO week; stops still run every cycle.
+    week = datetime.fromtimestamp(now / 1000, timezone.utc).strftime("%G-%V")
+    rebalance = strat.weekly and week != pf.last_rebalance_week
+
     # 1) Manage open positions (the strategy decides stops / profit-taking).
     for coin in list(pf.positions):
         s = sig.get(coin)
         if not s:
             continue
-        action = strat.manage(pf.positions[coin], s, now)
+        action = strat.manage(pf.positions[coin], s, now, rebalance)
         if action:
             frac, px, reason = action
             pnl = pf.sell(now, coin, frac, px, reason)
@@ -103,12 +109,17 @@ def step(pf, candles_by_coin, strat):
     # 2) Drawdown circuit breaker.
     eq = pf.equity(prices)
     pf.peak_equity = max(pf.peak_equity, eq)
-    if not pf.halted and eq < pf.peak_equity * (1 - config.MAX_DRAWDOWN_HALT):
+    if config.MAX_DRAWDOWN_HALT and not pf.halted and eq < pf.peak_equity * (1 - config.MAX_DRAWDOWN_HALT):
         pf.halted, pf.halt_until = True, now + config.HALT_HOURS * 3_600_000
     if pf.halted:
         if now < pf.halt_until:
             return
         pf.halted, pf.peak_equity = False, eq  # pause over: reset the high-water mark
+
+    if strat.weekly:
+        if not rebalance:
+            return
+        pf.last_rebalance_week = week
 
     # 3) New entries, best-ranked first.
     cands = sorted((c for c, s in sig.items() if s["buy"] and c not in pf.positions
@@ -119,7 +130,9 @@ def step(pf, candles_by_coin, strat):
             break
         s = sig[coin]
         stop_dist = 1 - s["stop"] / s["price"]
-        usd = min(eq * config.RISK_PER_TRADE / max(stop_dist, 1e-9),
+        target = (eq * strat.position_pct if hasattr(strat, "position_pct")
+                  else eq * config.RISK_PER_TRADE / max(stop_dist, 1e-9))
+        usd = min(target,
                   eq * config.MAX_POSITION_PCT,
                   pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd >= config.MIN_ORDER_USD:

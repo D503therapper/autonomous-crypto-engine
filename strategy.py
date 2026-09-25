@@ -19,10 +19,14 @@ def _stop_check(pos, s):
 
 
 class TrendFollower:
-    """Ride multi-day uptrends in large coins; trailing ATR stop."""
+    """Ride multi-day uptrends; trailing ATR stop."""
     name = "trend"
-    universe = config.UNIVERSE
     min_candles = config.EMA_TREND + 5
+    window = config.EMA_TREND + 30
+    weekly = False
+
+    def __init__(self, universe):
+        self.universe = universe
 
     def analyze(self, candles, market_ok=True):
         if len(candles) < self.min_candles:
@@ -41,7 +45,7 @@ class TrendFollower:
                    trend_broken=f[-1] < s[-1] and price < s[-1])
         return sig
 
-    def manage(self, pos, s, now):
+    def manage(self, pos, s, now, rebalance=False):
         hit = _stop_check(pos, s)
         if hit:
             return hit
@@ -61,9 +65,13 @@ class BreakoutHunter:
     """Catch a pump early: volume spike + breakout above the recent high while the
     coin is still only modestly up. Bank half at +10%, trail the rest, cut at -5%."""
     name = "breakout"
-    universe = config.BREAKOUT_UNIVERSE
     min_candles = 100
+    window = 130
+    weekly = False
     B = config.BREAKOUT
+
+    def __init__(self, universe):
+        self.universe = universe
 
     def analyze(self, candles, market_ok=True):
         if len(candles) < self.min_candles:
@@ -85,7 +93,7 @@ class BreakoutHunter:
                    stop=price * (1 - b["stop_loss"]))
         return sig
 
-    def manage(self, pos, s, now):
+    def manage(self, pos, s, now, rebalance=False):
         b = self.B
         hit = _stop_check(pos, s)
         if hit:
@@ -102,12 +110,55 @@ class BreakoutHunter:
         return None
 
 
-def market_ok(btc_candles):
-    """True unless BTC is sliding (below its 24h average and down >3% in 24h)."""
-    if not btc_candles or len(btc_candles) < 30:
+class WeeklyMomentum:
+    """Time-series momentum, rebalanced weekly: hold assets whose own ~3-week and
+    1-week returns are positive, while the market benchmark is in an uptrend.
+    Low turnover keeps fees small. Wide trailing stop guards against crashes."""
+    name = "momentum"
+    weekly = True
+    M = config.MOMENTUM
+
+    def __init__(self, universe, bars_per_day, market):
+        self.universe = universe
+        self.lb = self.M["lookback_days"] * bars_per_day
+        self.cf = self.M["confirm_days"] * bars_per_day
+        self.trail = self.M["trail_stop"][market]
+        self.min_candles = self.lb + 1
+        self.window = self.lb + 5
+        # Equal-weight slots: momentum's edge comes from being invested in trends,
+        # so it is sized by slot rather than by the (deliberately wide) stop.
+        self.position_pct = (1 - config.MIN_CASH_RESERVE_PCT) / config.MAX_POSITIONS
+
+    def analyze(self, candles, market_ok=True):
+        if len(candles) < self.min_candles:
+            return None
+        closes = [c["c"] for c in candles]
+        price = closes[-1]
+        r_long = price / closes[-1 - self.lb] - 1
+        r_short = price / closes[-1 - self.cf] - 1
+        rets = [closes[i] / closes[i - 1] - 1 for i in range(len(closes) - self.lb, len(closes))]
+        vol = (sum(r * r for r in rets) / len(rets)) ** 0.5 or 1e-9
+        sig = _base(candles)
+        sig.update(rank=r_long / vol, momentum_lost=r_long < 0 or not market_ok,
+                   buy=market_ok and r_long > 0 and r_short > 0,
+                   stop=price * (1 - self.trail))
+        return sig
+
+    def manage(self, pos, s, now, rebalance=False):
+        hit = _stop_check(pos, s)
+        if hit:
+            return hit
+        if rebalance and s["momentum_lost"]:
+            return 1.0, s["price"], "weekly rebalance: momentum gone"
+        pos["peak"] = max(pos["peak"], s["high"])
+        pos["stop"] = max(pos["stop"], pos["peak"] * (1 - self.trail))
+        return None
+
+
+def regime_ok(bench_closes, bars_per_day):
+    """True when the benchmark (BTC or SPY) closes above its REGIME_DAYS average.
+    Research: this mainly cuts drawdowns; it's a seatbelt, not an engine."""
+    n = config.REGIME_DAYS * bars_per_day
+    if len(bench_closes) < n:
         return True
-    closes = [c["c"] for c in btc_candles]
-    return not (closes[-1] < ema(closes, 24)[-1] and closes[-1] / closes[-25] - 1 < -0.03)
-
-
-STRATEGIES = {s.name: s for s in (TrendFollower(), BreakoutHunter())}
+    return bench_closes[-1] > sum(bench_closes[-n:]) / n

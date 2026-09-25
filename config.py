@@ -9,7 +9,7 @@ STARTING_CASH_USD = 500.00
 API_BASE = "https://api.crypto.com/exchange/v1"
 QUOTE = "USD"
 TIMEFRAME = "1h"          # candle size the strategy reads
-CANDLES_NEEDED = 300      # history pulled per coin on each tick
+CANDLES_NEEDED = 600      # history pulled per coin on each tick (weekly momentum needs ~21 days)
 
 # Coins to trade. Kept to large, liquid coins on purpose: small caps on the
 # App have wide spreads that eat a $500 account alive.
@@ -18,9 +18,29 @@ UNIVERSE = [
     "DOT", "LTC", "BCH", "ATOM", "NEAR", "UNI", "AAVE", "SUI",
 ]
 
-# --- Costs (be pessimistic; the App prices by spread, not a visible fee) ---
-FEE_RATE = 0.005          # 0.50% per side (card/App spread is often 0.5-1%+)
-SLIPPAGE_RATE = 0.001     # 0.10% extra per fill
+# --- Costs per side (pessimistic) -------------------------------------------
+# Crypto: exchange taker fee (Kraken Pro 0.40%, Crypto.com Exchange ~0.50%);
+# the Crypto.com App's spread is worse (0.5-2%) and can't be automated anyway.
+FEE_RATE = 0.004
+SLIPPAGE_RATE = 0.001
+STOCK_FEE_RATE = 0.0      # US brokers: $0 commission
+STOCK_SLIPPAGE_RATE = 0.0005
+
+# --- Stocks (paper only; prices from Yahoo Finance, fractional shares assumed) --
+# Liquid large caps + index ETFs. Held for hours-to-weeks (swing trading), which
+# also avoids the pattern-day-trader limits on small accounts.
+STOCK_UNIVERSE = [
+    "SPY", "QQQ", "IWM", "AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META", "TSLA",
+    "AMD", "AVGO", "NFLX", "JPM", "LLY", "COST", "PLTR", "COIN", "MSTR", "UBER",
+]
+
+# --- Weekly momentum (the strategy with the strongest research support) -----
+MOMENTUM = {
+    "lookback_days": 21,       # own return over ~3 weeks must be positive...
+    "confirm_days": 7,         # ...and over the last week too
+    "trail_stop": {"crypto": 0.15, "stocks": 0.08},  # wide trailing stop between rebalances
+}
+REGIME_DAYS = 50              # only buy when BTC / SPY is above its 50-day average
 
 # --- Strategy --------------------------------------------------------------
 EMA_FAST = 20
@@ -56,11 +76,11 @@ BREAKOUT = {
 
 # --- Risk ------------------------------------------------------------------
 MAX_POSITIONS = 4
-RISK_PER_TRADE = 0.02     # lose at most ~2% of equity if the stop hits
+RISK_PER_TRADE = 0.01     # lose at most ~1% of equity if the stop hits (research: 0.5-2%)
 MAX_POSITION_PCT = 0.30   # never put more than 30% of equity in one coin
 MIN_CASH_RESERVE_PCT = 0.10
 MIN_ORDER_USD = 10.00
-MAX_DRAWDOWN_HALT = 0.25  # stop opening trades if equity falls 25% from peak...
+MAX_DRAWDOWN_HALT = None  # owner's choice: no account-level pause (set e.g. 0.20 to pause at -20%)
 HALT_HOURS = 168          # ...for 7 days, then resume
 COOLDOWN_CANDLES = 12     # after a stop-out, leave that coin alone for 12h
 

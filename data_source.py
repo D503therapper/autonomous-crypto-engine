@@ -69,6 +69,65 @@ class CryptoComClient:
         return [got[k] for k in sorted(got)][-count:]
 
 
+    def last_prices(self, coins):
+        """Latest trade price for many coins in one call (for the fast stop monitor)."""
+        want = {f"{c}_{config.QUOTE}": c for c in coins}
+        out = {}
+        for t in self._get("public/get-tickers").get("data", []):
+            if t.get("i") in want and t.get("a") not in (None, ""):
+                out[want[t["i"]]] = float(t["a"])
+        return out
+
+
+class YahooClient:
+    """US stock prices from Yahoo Finance (free, delayed a few seconds, no account needed)."""
+
+    def __init__(self):
+        import yfinance  # installed by the GitHub workflow (requirements.txt)
+        self.yf = yfinance
+        self._cache = {}
+
+    def list_spot_symbols(self, quote=None):
+        return list(config.STOCK_UNIVERSE)
+
+    def _download(self, symbols, days):
+        key = (tuple(sorted(symbols)), days)
+        if key not in self._cache:
+            period = f"{min(days, 729)}d"
+            df = self.yf.download(sorted(symbols), period=period, interval="1h", group_by="ticker",
+                                  auto_adjust=True, prepost=False, progress=False, threads=True)
+            self._cache[key] = df
+        return self._cache[key]
+
+    def candles(self, sym, timeframe="1h", count=config.CANDLES_NEEDED, end_ms=None, universe=None):
+        days = max(30, count // 7 + 10)
+        df = self._download(universe or config.STOCK_UNIVERSE + ["SPY"], days)
+        try:
+            d = df[sym].dropna()
+        except KeyError:
+            return []
+        rows = [Candle(t=int(ix.timestamp() * 1000), o=float(r["Open"]), h=float(r["High"]),
+                       l=float(r["Low"]), c=float(r["Close"]), v=float(r["Volume"]))
+                for ix, r in d.iterrows()]
+        return rows[-count:]
+
+    def last_prices(self, syms):
+        out = {}
+        for s in syms:
+            try:
+                out[s] = float(self.yf.Ticker(s).fast_info["last_price"])
+            except Exception:
+                pass
+        return out
+
+    def market_open(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        now = datetime.now(ZoneInfo("America/New_York"))
+        mins = now.hour * 60 + now.minute
+        return now.weekday() < 5 and 9 * 60 + 30 <= mins < 16 * 60  # (ignores holidays)
+
+
 class SyntheticClient:
     """Random-walk prices with regime changes. ONLY for testing the plumbing —
     results on this data say nothing about real markets."""
