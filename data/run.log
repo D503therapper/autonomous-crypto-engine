@@ -99,3 +99,17 @@ Stocks: $500.00  today +0.00  total +0.00
 [2026-09-25 22:39 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
 [2026-09-25 22:39 UTC] crypto/hold_btc  equity $499.96 (-0.0%) 1 open  market UP
    social heat top: TRUMP 40 (40/0/0), ENA 32 (32/0/0), NEAR 29 (29/0/0), AERO 27 (21/0/6), ONDO 27 (27/0/0)
+   footprint: SOL: footprint 3/4 (drift+hikes+rising_lows) 48h +6.3%, 5 volume hikes, 35% quiet hours @ 122.31
+   footprint: HBAR: footprint 3/4 (drift+hikes+rising_lows) 48h +5.6%, 4 volume hikes, 10% quiet hours @ 0.095484
+   footprint: BUY SOL (footprint 3/4 drift+hikes+rising_lows): SOL: footprint 3/4 (drift+hikes+rising_lows) 48h +6.3%, 5 volume hikes, 35% quiet hours @ 122.31
+   footprint: BUY HBAR (footprint 3/4 drift+hikes+rising_lows): HBAR: footprint 3/4 (drift+hikes+rising_lows) 48h +5.6%, 4 volume hikes, 10% quiet hours @ 0.095484
+   >> crypto/mover: BUY $89.64 of SOL @ 122.432 (footprint 3/4 drift+hikes+rising_lows)
+   >> crypto/mover: BUY $89.64 of HBAR @ 0.095579 (footprint 3/4 drift+hikes+rising_lows)
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85262.41', 'l': '83148.75', 'a': '84081.57', 'v': '3606.6765', 'vv': '303085429.20', 'c': '-0.0004', 'b': '84087.91', 'k': '84087.92', 'oi': '0', 't': 1790375999419}
+   listings: cryptocom failed (1x, retry in 30s): HTTPError: HTTP Error 404: Not Found
+   listings: upbit failed (1x, retry in 30s): HTTPError: HTTP Error 403: Forbidden
+   listings: kraken failed (1x, retry in 30s): HTTPError: HTTP Error 403: Forbidden
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
