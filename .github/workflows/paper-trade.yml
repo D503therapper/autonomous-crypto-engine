@@ -31,6 +31,6 @@ jobs:
       - run: python -u run_live.py --watch 345 | tee -a data/run.log
       - if: always()
         run: |
-          git add data SCOREBOARD.md || true
+          git add data SCOREBOARD.md docs || true
           git commit -qm "paper-trade end of run $(date -u +%FT%TZ)" || exit 0
           for i in 1 2 3; do git pull --rebase -q -X theirs && git push && break; sleep 5; done

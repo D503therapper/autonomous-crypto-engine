@@ -166,7 +166,51 @@ def scoreboard():
             f"({total - config.STARTING_CASH_USD * len(rows):+,.2f} on ${config.STARTING_CASH_USD * len(rows):,.0f} of pretend money)"]
     with open("SCOREBOARD.md", "w") as f:
         f.write("\n".join(out) + "\n")
+    write_dashboard(rows, total)
     return rows
+
+
+def write_dashboard(rows, total):
+    """docs/index.html: phone-friendly balance page (served by GitHub Pages)."""
+    start = config.STARTING_CASH_USD
+    invested = start * len(rows)
+    pl = total - invested
+
+    def cls(x):
+        return "up" if x >= 0 else "down"
+
+    items = "".join(
+        f'<div class="row"><div><div class="name">{sn.title()}</div><div class="mkt">{mn}</div></div>'
+        f'<div class="right"><div class="bal">${eq:,.2f}</div>'
+        f'<div class="{cls(eq - start)}">{eq - start:+,.2f} ({eq / start - 1:+.1%})</div></div></div>'
+        for mn, sn, eq, _ in rows)
+    html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="300">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trading">
+<title>Trading Scoreboard</title>
+<style>
+:root{{--bg:#f6f7f9;--card:#fff;--text:#111;--muted:#6b7280;--up:#0a7d33;--down:#c0262d;--line:#e5e7eb}}
+@media (prefers-color-scheme:dark){{:root{{--bg:#0e0f12;--card:#17191e;--text:#f2f3f5;--muted:#9aa0aa;--up:#3fcf6d;--down:#ff6b6b;--line:#262a31}}}}
+body{{margin:0;background:var(--bg);color:var(--text);font:16px -apple-system,system-ui,sans-serif}}
+main{{max-width:520px;margin:0 auto;padding:24px 16px}}
+.total{{background:var(--card);border-radius:16px;padding:20px;margin-bottom:16px}}
+.label{{color:var(--muted);font-size:14px}} .big{{font-size:40px;font-weight:700;margin:4px 0}}
+.row{{display:flex;justify-content:space-between;align-items:center;background:var(--card);
+border-radius:12px;padding:14px 16px;margin-bottom:8px}}
+.name{{font-weight:600}} .mkt{{color:var(--muted);font-size:13px;text-transform:capitalize}}
+.right{{text-align:right}} .bal{{font-weight:600}} .up{{color:var(--up)}} .down{{color:var(--down)}}
+.foot{{color:var(--muted);font-size:13px;margin-top:16px}}
+</style></head><body><main>
+<div class="total"><div class="label">All accounts (pretend money)</div>
+<div class="big">${total:,.2f}</div><div class="{cls(pl)}">{pl:+,.2f} ({total / invested - 1:+.1%}) on ${invested:,.0f}</div></div>
+{items}
+<div class="foot">Updated {ts(int(time.time() * 1000))} UTC · each account started with ${start:,.0f}</div>
+</main></body></html>"""
+    os.makedirs("docs", exist_ok=True)
+    with open("docs/index.html", "w") as f:
+        f.write(html)
 
 
 def daily_summary(rows):
@@ -197,7 +241,7 @@ def git_sync():
     """In the cloud runner: commit the paper accounts back to GitHub every hour."""
     if os.environ.get("GIT_AUTOPUSH") != "1":
         return
-    cmds = ["git add data SCOREBOARD.md",
+    cmds = ["git add data SCOREBOARD.md docs",
             f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'",
             "git pull -q --rebase -X theirs", "git push -q"]
     for c in cmds:
