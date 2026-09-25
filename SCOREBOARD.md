@@ -1,8 +1,8 @@
 # Scoreboard (pretend money)
 
-**Crypto: $492.47**  (-7.53)  
+**Crypto: $493.05**  (-6.95)  
 **Stocks: $500.00**  (+0.00)  
 
-**Total: $992.47** of $1,000  (-7.53)
+**Total: $993.05** of $1,000  (-6.95)
 
-Updated 2026-09-25 21:33 UTC
+Updated 2026-09-25 21:50 UTC
