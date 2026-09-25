@@ -152,10 +152,10 @@ def test_rebalance_to():
     assert abs(pf.positions["A"]["qty"] * 10 - 500 * inv) < 1e-6
     assert abs(pf.positions["B"]["qty"] * 20 - 500 * inv) < 1e-6
     assert "C" not in pf.positions and abs(pf.cash - 1000 * (1 - inv)) < 1e-6
-    # A doubles, B halves -> equity 1350: A trimmed to 45% of it, B topped up, C new, cash kept
+    # A doubles, B halves -> equity 1225: A trimmed to 45% of it, B topped up, C new, cash kept
     rebalance_to(pf, 2, {"A": 0.5, "B": 0.25, "C": 0.25}, sigs({"A": 20.0, "B": 10.0, "C": 5.0}))
     eq = pf.equity({"A": 20.0, "B": 10.0, "C": 5.0})
-    assert abs(eq - 1350) < 1e-6
+    assert abs(eq - 1225) < 1e-6
     for c, w, px in (("A", 0.5, 20.0), ("B", 0.25, 10.0), ("C", 0.25, 5.0)):
         assert abs(pf.positions[c]["qty"] * px - w * inv * eq) < 1e-6, c
     assert pf.positions["B"]["opened"] == 1 and pf.positions["C"]["opened"] == 2
@@ -167,7 +167,7 @@ def test_rebalance_to():
     assert len(pf.trades) == n
     rebalance_to(pf, 4, {"A": 1.0}, sigs({"A": 20.0, "B": 10.0}))
     assert "B" not in pf.positions and "C" in pf.positions      # C had no price this cycle
-    assert pf.trades[-1]["reason"] == "rebalance: dropped from targets"
+    assert pf.trades[n]["reason"] == "rebalance: dropped from targets"   # then A topped up to 100%
     # top-up averages the entry price and keeps the cost basis additive
     pf2 = Portfolio(cash=1000.0, fee=0.0, slippage=0.0)
     pf2.buy(1, "X", 100.0, 10.0, 0.0)
