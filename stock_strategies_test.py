@@ -31,13 +31,13 @@ def hourly_from_daily(ser):
     return out
 
 
-def candles_at(hourly, day):
+def candles_at(hourly, day, next_day=None):
     """Bars up to the close of `day` plus the first bar of the next session (the unfinished
     day the live cycle sees at ~10:00 ET, which _daily_closes drops)."""
     bars = [b for b in hourly if b["t"] // DAY_MS <= day]
     if not bars:
         return []
-    return bars + [dict(bars[-1], t=(day + 1) * DAY_MS + 14 * HOUR)]
+    return bars + [dict(bars[-1], t=(next_day or day + 1) * DAY_MS + 14 * HOUR)]
 
 
 def live_targets(strat, hourly, day):
@@ -225,8 +225,8 @@ def test_engine_smoke(ctx, hourly):
                                 {"lookbacks": (10, 20, 50, 100), "top": 5, "regime": 200}, "wend")):
         pf, rebalances, checked = Portfolio(cash=500.0, fee=0.0, slippage=0.0005), 0, 0
         for i in range(ctx.n - 200, ctx.n - 1):
-            day = ctx.days[i + 1]                       # the cycle runs during session i+1
-            bars = {s: candles_at(hourly[s], ctx.days[i]) for s in strat.universe}
+            # the cycle runs during session i+1 (first hourly bar of that day already open)
+            bars = {s: candles_at(hourly[s], ctx.days[i], ctx.days[i + 1]) for s in strat.universe}
             bars = {s: b for s, b in bars.items() if b}
             n = len(pf.trades)
             step(pf, bars, strat, True)
