@@ -123,9 +123,9 @@ def render(cards, updated_ms):
 <meta http-equiv="refresh" content="300">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Scoreboard">
+<meta name="apple-mobile-web-app-title" content="D503">
 <meta name="theme-color" content="#07090f">
-<title>Scoreboard</title>
+<title>The D503 · Autonomous Trading Engine</title>
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%2307090f'/%3E%3Cpolyline points='30,120 70,85 100,100 150,45' fill='none' stroke='%2322e39a' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{{--bg:#05070d;--card:#0c111b;--card2:#111a2b;--line:#1a2438;--text:#eef3ff;--muted:#7f8aa3;--up:#22e39a;--dn:#ff4d6d;--blue:#3b82ff;--cyan:#22d3ee;--accent:{accent}}}
@@ -135,7 +135,17 @@ body{{font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",sy
   background:radial-gradient(700px 420px at 15% -140px,rgba(59,130,255,.35),transparent 70%),
              radial-gradient(700px 420px at 95% -60px,color-mix(in srgb,var(--accent) 28%,transparent),transparent 70%),var(--bg);min-height:100vh}}
 main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px) 16px 32px}}
-.top{{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}}
+.head{{position:relative;margin:6px 0 22px}}
+.title{{font-weight:900;font-size:40px;letter-spacing:-.02em;line-height:1}}
+.title .the{{font-size:20px;font-weight:800;letter-spacing:.2em;color:var(--muted);vertical-align:middle}}
+.title .d503{{background:linear-gradient(95deg,#3b82ff 0%,#22d3ee 45%,#22e39a 100%);-webkit-background-clip:text;
+  background-clip:text;color:transparent;filter:drop-shadow(0 6px 22px rgba(59,130,255,.45))}}
+.tagline{{margin-top:8px;font-size:11.5px;font-weight:800;letter-spacing:.28em;color:#c9d6ff;opacity:.85}}
+.head .live{{position:absolute;top:2px;right:0}}
+.moon{{position:absolute;top:22px;right:-52px;transform:rotate(14deg);padding:6px 56px;font-weight:900;font-size:11px;
+  letter-spacing:.08em;color:#05070d;white-space:nowrap;background:linear-gradient(90deg,#22e39a,#22d3ee,#3b82ff);
+  box-shadow:0 8px 24px -6px rgba(34,211,238,.6);z-index:2}}
+.hero .lbl{{margin-top:6px}}
 .brand{{white-space:nowrap;font-weight:800;letter-spacing:.14em;font-size:11px;background:linear-gradient(90deg,var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}}
 .live{{white-space:nowrap;display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:6px 10px;border-radius:999px}}
 .dot{{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 var(--up);animation:pulse 2s infinite}}
@@ -170,16 +180,20 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .badge.bad{{background:rgba(255,92,122,.14);color:var(--dn)}}
 .foot{{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}}
 </style></head><body><main>
-<div class="top"><div class="brand">AUTONOMOUS ENGINE</div>
-<div class="live"><span class="dot" id="dot"></span><span id="ago">updated</span></div></div>
+<header class="head">
+  <div class="title"><span class="the">THE</span> <span class="d503">D503</span></div>
+  <div class="tagline">AUTONOMOUS TRADING ENGINE</div>
+  <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
+</header>
 <section class="hero">
-  <div class="lbl">Total balance · paper trading</div>
+  <div class="moon">TO THE MOON, BABY! 🚀</div>
+  <div class="lbl">Total balance</div>
   <div class="total">{_money(total)}</div>
   <span class="pill">{"▲" if up else "▼"} {_chg(pl, base)}</span>
   <div class="chart">{_svg(total_series, 360, 110, accent, "t", base=base)}</div>
 </section>
 {"".join(blocks)}
-<div class="foot">Each account started with {_money(start)} · refreshes every 5 min</div>
+<div class="foot">THE D503 · each account started with {_money(start)} · refreshes every 5 min</div>
 </main>
 <script>
 (function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));
