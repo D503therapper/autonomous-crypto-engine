@@ -1,0 +1,118 @@
+=== crypto: loading 16 symbols, 5 years of daily bars ===
+  AAVE: 1825 days
+  ADA: 1825 days
+  ATOM: 1728 days
+  AVAX: 1825 days
+  BCH: 1446 days
+  BTC: 1825 days
+  DOGE: 1825 days
+  DOT: 1825 days
+  ETH: 1825 days
+  LINK: 1825 days
+  LTC: 1825 days
+  NEAR: 1728 days
+  SOL: 1825 days
+  SUI: 1242 days
+  UNI: 1825 days
+  XRP: 1825 days
+16 assets, 1825 days 2021-09-27 .. 2026-09-25; cost 0.50% per side
+walk-forward: train 18m -> test 6m, step 6m: 8 windows; out-of-sample span 2023-03-01 .. 2026-09-25 (1305 days)
+(first ~200 days are indicator warm-up; survivorship caveat: universe = assets listed today)
+
+  rsi2_meanrev: 12 variants x 8 windows done (0s)
+  ibs: 4 variants x 8 windows done (0s)
+  down_days: 4 variants x 8 windows done (1s)
+  turn_of_month: 8 variants x 8 windows done (1s)
+  trend_ensemble: 24 variants x 8 windows done (1s)
+  donchian_rotation: 16 variants x 8 windows done (1s)
+  dip_buy_crypto: 18 variants x 8 windows done (2s)
+
+--- OUT-OF-SAMPLE (stitched walk-forward test windows, params re-picked each window) ---
+family                    CAGR  avg/mo  maxDD Sharpe trd/mo  win%  expo
+-----------------------------------------------------------------------
+rsi2_meanrev             -4.2%  -0.27%  23.7%  -0.07    3.8   57%   12% 
+dip_buy_crypto           -8.3%  -0.58%  36.4%  -0.27    1.7   49%    6% 
+trend_ensemble          -31.1%  -0.99%  84.1%  -0.30    3.0   35%   57% 
+down_days                -7.7%  -0.62%  29.7%  -0.37    5.8   51%    8% 
+donchian_rotation       -29.0%  -1.58%  80.1%  -0.37    1.7   37%   45% 
+turn_of_month           -17.3%  -1.40%  60.4%  -0.75    1.0   44%   25% 
+ibs                     -31.7%  -2.70%  77.1%  -1.08    9.9   51%   24% 
+hold BTC                +43.1%  +3.92%  53.0%   1.00    0.0  100%  100% 
+
+--- per-window picks (chosen on the prior 18 months by Sharpe; 'test' = return on the unseen window) ---
+rsi2_meanrev:
+    2023-03-01 .. 2023-08-31  train Sharpe -0.17  test  -16.6%  [rsi=15,sma=100,hold=10]
+    2023-09-01 .. 2024-02-29  train Sharpe -0.54  test  +16.0%  [rsi=5,sma=200,hold=5]
+    2024-03-01 .. 2024-08-31  train Sharpe  0.50  test  -13.0%  [rsi=5,sma=200,hold=5]
+    2024-09-01 .. 2025-02-28  train Sharpe  0.28  test   +5.8%  [rsi=5,sma=100,hold=10]
+    2025-03-01 .. 2025-08-31  train Sharpe  0.65  test   +1.8%  [rsi=5,sma=100,hold=10]
+    2025-09-01 .. 2026-02-28  train Sharpe  0.30  test   -1.6%  [rsi=5,sma=100,hold=5]
+    2026-03-01 .. 2026-08-31  train Sharpe  0.79  test   -4.7%  [rsi=5,sma=200,hold=10]
+    2026-09-01 .. 2026-09-25  train Sharpe  0.86  test   +1.1%  [rsi=5,sma=200,hold=10]
+dip_buy_crypto:
+    2023-03-01 .. 2023-08-31  train Sharpe  0.50  test   +0.0%  [drop=0.15,hold=1,target=0.05]
+    2023-09-01 .. 2024-02-29  train Sharpe  0.49  test   +0.0%  [drop=0.15,hold=1,target=0.05]
+    2024-03-01 .. 2024-08-31  train Sharpe  0.75  test   -6.0%  [drop=0.07,hold=5,target=0.1]
+    2024-09-01 .. 2025-02-28  train Sharpe  0.92  test  -21.9%  [drop=0.07,hold=5,target=0.1]
+    2025-03-01 .. 2025-08-31  train Sharpe  0.36  test   +0.0%  [drop=0.15,hold=5,target=0.05]
+    2025-09-01 .. 2026-02-28  train Sharpe  0.36  test   +0.0%  [drop=0.15,hold=5,target=0.05]
+    2026-03-01 .. 2026-08-31  train Sharpe  0.57  test   +0.0%  [drop=0.15,hold=3,target=0.05]
+    2026-09-01 .. 2026-09-25  train Sharpe  0.00  test   +0.0%  [drop=0.15,hold=1,target=0.05]
+trend_ensemble:
+    2023-03-01 .. 2023-08-31  train Sharpe -0.32  test  -49.4%  [lookbacks=10/20/50,top=2,regime=200]
+    2023-09-01 .. 2024-02-29  train Sharpe -0.73  test +104.5%  [lookbacks=10/20/50,top=2,regime=50]
+    2024-03-01 .. 2024-08-31  train Sharpe  0.57  test  -61.0%  [lookbacks=10/20/50,top=2,regime=50]
+    2024-09-01 .. 2025-02-28  train Sharpe -0.11  test  +19.9%  [lookbacks=10/20/50,top=2,regime=50]
+    2025-03-01 .. 2025-08-31  train Sharpe  0.30  test  +12.6%  [lookbacks=10/20/50,top=2,regime=50]
+    2025-09-01 .. 2026-02-28  train Sharpe -0.31  test  -37.0%  [lookbacks=10/20/50,top=2,regime=50]
+    2026-03-01 .. 2026-08-31  train Sharpe  0.05  test  -36.4%  [lookbacks=10/20/50,top=2,regime=50]
+    2026-09-01 .. 2026-09-25  train Sharpe -0.82  test  +21.1%  [lookbacks=10/20/50,top=3,regime=50]
+down_days:
+    2023-03-01 .. 2023-08-31  train Sharpe -0.46  test   -0.5%  [n=4,sma=200]
+    2023-09-01 .. 2024-02-29  train Sharpe -0.43  test   +2.1%  [n=4,sma=200]
+    2024-03-01 .. 2024-08-31  train Sharpe  0.15  test  -12.6%  [n=4,sma=200]
+    2024-09-01 .. 2025-02-28  train Sharpe -0.08  test   +7.4%  [n=3,sma=100]
+    2025-03-01 .. 2025-08-31  train Sharpe  0.50  test   -9.8%  [n=3,sma=100]
+    2025-09-01 .. 2026-02-28  train Sharpe  0.07  test   -2.1%  [n=3,sma=100]
+    2026-03-01 .. 2026-08-31  train Sharpe  0.44  test  -12.0%  [n=4,sma=100]
+    2026-09-01 .. 2026-09-25  train Sharpe -0.43  test   +1.1%  [n=4,sma=200]
+donchian_rotation:
+    2023-03-01 .. 2023-08-31  train Sharpe -0.08  test  -48.0%  [entry=10,exit=10,top=2,regime=200]
+    2023-09-01 .. 2024-02-29  train Sharpe -1.10  test  +63.9%  [entry=10,exit=5,top=2,regime=200]
+    2024-03-01 .. 2024-08-31  train Sharpe  0.25  test  -55.3%  [entry=20,exit=5,top=2,regime=100]
+    2024-09-01 .. 2025-02-28  train Sharpe -0.37  test   +5.5%  [entry=20,exit=5,top=2,regime=100]
+    2025-03-01 .. 2025-08-31  train Sharpe  0.24  test  -14.3%  [entry=10,exit=5,top=2,regime=100]
+    2025-09-01 .. 2026-02-28  train Sharpe -0.35  test   -3.9%  [entry=10,exit=10,top=2,regime=100]
+    2026-03-01 .. 2026-08-31  train Sharpe  0.30  test  -23.4%  [entry=10,exit=10,top=2,regime=100]
+    2026-09-01 .. 2026-09-25  train Sharpe -0.61  test  +15.8%  [entry=20,exit=10,top=3,regime=100]
+turn_of_month:
+    2023-03-01 .. 2023-08-31  train Sharpe  1.52  test   +1.4%  [asset=ETH,before=5,exit_day=4]
+    2023-09-01 .. 2024-02-29  train Sharpe  0.66  test  +13.6%  [asset=ETH,before=5,exit_day=4]
+    2024-03-01 .. 2024-08-31  train Sharpe  1.41  test  -17.8%  [asset=BTC,before=5,exit_day=4]
+    2024-09-01 .. 2025-02-28  train Sharpe  0.50  test  -10.8%  [asset=BTC,before=5,exit_day=4]
+    2025-03-01 .. 2025-08-31  train Sharpe  0.20  test  -17.3%  [asset=BTC,before=5,exit_day=4]
+    2025-09-01 .. 2026-02-28  train Sharpe -1.18  test  -14.4%  [asset=BTC,before=5,exit_day=4]
+    2026-03-01 .. 2026-08-31  train Sharpe -0.92  test  -14.1%  [asset=BTC,before=5,exit_day=3]
+    2026-09-01 .. 2026-09-25  train Sharpe -0.85  test   -1.4%  [asset=BTC,before=4,exit_day=4]
+ibs:
+    2023-03-01 .. 2023-08-31  train Sharpe  0.43  test  -16.3%  [ibs=0.1,sma=200]
+    2023-09-01 .. 2024-02-29  train Sharpe -0.35  test   -0.2%  [ibs=0.1,sma=200]
+    2024-03-01 .. 2024-08-31  train Sharpe -0.01  test  -33.8%  [ibs=0.1,sma=100]
+    2024-09-01 .. 2025-02-28  train Sharpe -0.62  test   -8.1%  [ibs=0.2,sma=100]
+    2025-03-01 .. 2025-08-31  train Sharpe -0.02  test  -24.9%  [ibs=0.2,sma=100]
+    2025-09-01 .. 2026-02-28  train Sharpe -0.92  test  -20.1%  [ibs=0.2,sma=100]
+    2026-03-01 .. 2026-08-31  train Sharpe -0.91  test  -18.7%  [ibs=0.2,sma=100]
+    2026-09-01 .. 2026-09-25  train Sharpe -1.18  test   +3.3%  [ibs=0.1,sma=200]
+
+--- IN-SAMPLE: best single fixed variant per family over FULL history 2021-09-27 .. 2026-09-25 (optimistic: picked with hindsight, not comparable to the OOS table) ---
+family                    CAGR  avg/mo  maxDD Sharpe trd/mo  win%  expo
+-----------------------------------------------------------------------
+rsi2_meanrev             +2.0%  +0.23%  19.3%   0.20    2.5   62%    8% [rsi=5,sma=200,hold=10]
+dip_buy_crypto           +1.0%  +0.09%   8.3%   0.20    0.2   67%    0% [drop=0.15,hold=3,target=0.05]
+trend_ensemble          -22.1%  -0.24%  84.2%  -0.15    2.5   36%   46% [lookbacks=10/20/50,top=2,regime=50]
+down_days                -3.7%  -0.27%  18.7%  -0.26    2.9   56%    4% [n=4,sma=200]
+donchian_rotation       -16.1%  -0.34%  75.3%  -0.13    1.5   43%   38% [entry=10,exit=10,top=2,regime=100]
+turn_of_month            -4.9%  -0.10%  57.0%  -0.07    1.0   48%   26% [asset=BTC,before=5,exit_day=4]
+ibs                     -27.0%  -2.06%  81.8%  -0.77   10.6   51%   26% [ibs=0.2,sma=200]
+
+best OOS family by Sharpe: rsi2_meanrev (curve saved to results/lab_oos_crypto.json)
