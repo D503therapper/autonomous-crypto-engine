@@ -53,7 +53,7 @@ class Portfolio:
                             "fee": round(fee, 2), "pnl": None if pnl is None else round(pnl, 2),
                             "reason": reason})
 
-    def buy(self, t, coin, usd, price, stop):
+    def buy(self, t, coin, usd, price, stop, reason="entry"):
         fill = price * (1 + self.slippage)
         fee = usd * self.fee
         qty = (usd - fee) / fill
@@ -61,7 +61,7 @@ class Portfolio:
         self.positions[coin] = {"qty": qty, "entry": fill, "cost": usd, "peak": fill,
                                 "stop": stop,
                                 "took_profit": False, "opened": t}
-        self._record(t, "BUY", coin, qty, fill, fee, "entry")
+        self._record(t, "BUY", coin, qty, fill, fee, reason)
 
     def sell(self, t, coin, frac, price, reason):
         pos = self.positions[coin]
@@ -134,10 +134,13 @@ def step(pf, candles_by_coin, strat, market_ok=True):
     cands = sorted((c for c, s in sig.items() if s["buy"] and c not in pf.positions
                     and pf.cooldown.get(c, 0) <= now),
                    key=lambda c: sig[c]["rank"], reverse=True)
+    veto = getattr(strat, "veto", None)   # optional hook (run_live wires signals.PumpGuard into it)
     for coin in cands:
         if len(pf.positions) >= getattr(strat, "max_positions", config.MAX_POSITIONS):
             break
         s = sig[coin]
+        if veto and veto(coin, s):
+            continue
         stop_dist = 1 - s["stop"] / s["price"]
         target = (eq * strat.position_pct if hasattr(strat, "position_pct")
                   else eq * config.RISK_PER_TRADE / max(stop_dist, 1e-9))
@@ -145,7 +148,7 @@ def step(pf, candles_by_coin, strat, market_ok=True):
                   eq * getattr(strat, "max_position_pct", config.MAX_POSITION_PCT),
                   pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd >= config.MIN_ORDER_USD:
-            pf.buy(now, coin, usd, s["price"], s["stop"])
+            pf.buy(now, coin, usd, s["price"], s["stop"], reason=s.get("reason", "entry"))
 
 
 def append_csv(path, rows):

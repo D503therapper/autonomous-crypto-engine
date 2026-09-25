@@ -23,7 +23,9 @@ MARKETS = {
         "bars_per_day": 24,
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
         "strategies": [
-            EarlyMover(),
+            EarlyMover(),                    # official: new Crypto.com listings in their first hours
+            EarlyMover("mover", movers=True, buy_listings=False, trail=0.20),   # take-offs + footprint (test)
+            EarlyMover("announce", movers=False, buy_listings=False),           # exchange listing notices (test)
             # "no-limit chaser": buys coins already up >= 30% in 24h on heavy volume and
             # rides them with a trailing stop (owner's idea; tested live against the official)
             EarlyMover("chaser", k=24, x=0.30, v=3, trail=0.25, h=240, buy_listings=False),

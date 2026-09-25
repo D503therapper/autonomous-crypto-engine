@@ -40,7 +40,10 @@ STOCK_ETFS = ["SPY", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "XLK", "XLF", "XL
 # --- Early mover hunter (all Crypto.com coins) -----------------------------
 EARLY_MOVER = {
     "k": 3, "x": 0.10, "v": 3,        # up >= 10% in 3h on >= 3x normal volume
-    "trail": 0.20, "h": 72,           # trailing stop 20% below peak; max 72h hold
+    "trail": 0.35, "h": 72,           # trailing stop 35% below peak; max 72h hold (pumps.py:
+                                      # new listings +13.5%/trade avg at 35%/72h, Apr-Sep 2026)
+    "movers": False,                  # official account: new listings only (take-off buying lost
+                                      # out-of-sample in pumps.py; it runs in the "mover" test account)
     "min_daily_usd": 50_000,          # skip coins too thin to trade
     "buy_listings": True, "listing_hours": 3,
     "slots": 5,
@@ -52,6 +55,48 @@ EARLY_MOVER_SCANNER = {
     "vol_ratio": 3.0,           # window volume >= 3x the coin's normal rate
     "min_daily_usd": 100_000,   # skip coins with < $100k traded in 24h
     "max_spread": 0.015,        # skip coins with bid/ask spread > 1.5%
+}
+
+# Early-detection signals feeding the same early_mover account (signals.py; specs in
+# research_notes/Early mover detection/early_detection.md). Keys override signals.DEFAULTS.
+EARLY_SIGNALS = {
+    "listing": {                     # 1. exchange listing notices -> buy if NOT yet moved
+        "loop_s": 10,                # main loop asks the reactor to poll this often
+        "timeout_s": 4,              # per request; never stalls the 1-second stop checks for long
+        "max_age_min": 45,           # a notice older than this is old news
+        "max_move_since": 0.08,      # price now vs price at the notice (fallback: first detection)
+        "max_move_by_source": {"upbit": 0.08, "cryptocom": 0.08, "binance": 0.04, "coinbase": 0.04,
+                               "kraken": 0.04},
+        "max_24h_change": 0.30,      # never chase a coin already up 30% in a day
+        "min_daily_usd": 500_000, "max_spread": 0.01,
+        "seen_file": "data/seen_announcements.json",
+        "events_file": "data/listing_events.csv",   # t0 / detection / gate verdict per notice
+        # URLs from the research notes, none verified from the sandbox; "" disables a source.
+        "sources": {
+            "cryptocom": {"url": "https://api.crypto.com/exchange/v1/public/get-announcements", "every_s": 10},
+            "upbit": {"url": "https://api-manager.upbit.com/api/v1/announcements?os=web&page=1&per_page=20&category=trade",
+                      "every_s": 5},
+            "binance": {"url": "https://www.binance.com/bapi/composite/v1/public/cms/article/list/query"
+                               "?type=1&catalogId=48&pageNo=1&pageSize=20", "every_s": 15},   # 403-prone
+            "coinbase": {"url": "https://status.exchange.coinbase.com/history.atom", "every_s": 15},
+            "coinbase_blog": {"url": "", "every_s": 60},   # set the blog RSS url once known
+            "kraken": {"url": "https://blog.kraken.com/feed", "every_s": 30},
+        },
+    },
+    "footprint": {                   # 2. pre-pump / pre-listing accumulation footprint (hourly)
+        "drift": (0.05, 0.25),       # 48h return band
+        "max_1h_move": 0.06,         # a single hourly move above this is a spike, not accumulation
+        "quiet_frac": 0.60,          # share of the last 48 hours below the median hourly volume
+        "hike_mult": 3.0, "hikes": (2, 6),   # 2-6 hours at >= 3x median volume
+        "oi_creep": 0.20,            # optional: perp open interest +20% in 24h (from get-tickers `oi`)
+        "daily_usd": (300_000, 30_000_000),  # universe: listable elsewhere, still tradable
+        "max_24h_change": 0.30, "min_score": 3, "top_n": 3,
+    },
+    "guard": {                       # 4. pump guard before ANY early_mover entry
+        "max_24h_change": 0.30,
+        "spike": 0.15, "fade": 0.40, # last 60 min: +15% then gave back 40% of it = exit liquidity
+        "block_min": 30,
+    },
 }
 
 # --- Weekly momentum (the strategy with the strongest research support) -----

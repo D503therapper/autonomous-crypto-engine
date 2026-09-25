@@ -16,10 +16,13 @@ import config
 from engine import Portfolio, append_csv, step, ts
 from markets import MARKETS
 from scanner import MinuteScanner, describe
+from signals import ListingNoticeReactor, PrePumpFootprint, PumpGuard
 from strategy import regime_ok
 
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "")   # phone alerts via the free ntfy app
 CRYPTO_CANDLES = {}   # hourly candles from the last crypto cycle (warm-starts the minute scanner)
+_CRYPTO = {s.name: s for s in MARKETS["crypto"]["strategies"]}
+EARLY, MOVER, ANNOUNCE = _CRYPTO["early_mover"], _CRYPTO["mover"], _CRYPTO["announce"]
 
 
 def notify(title, msg, priority="default"):
@@ -120,7 +123,7 @@ def full_cycle(mname, client):
     if mname == "crypto":
         try:
             for coin in check_new_listings(client):
-                print(f"   ** new Crypto.com listing: {coin} (watch only, not traded)")
+                print(f"   ** new Crypto.com listing: {coin} (early_mover buys it in its first hours)")
         except Exception as e:
             print(f"   listing check failed: {e}")
     return prices
@@ -165,41 +168,104 @@ def fast_check(mname, client):
             save_pf(mname, st.name, pf, n_before, px)
 
 
-def scan_movers(client, scanner):
+def guard_check(guard, scanner, coin):
+    """signals.PumpGuard verdict for one coin: latest ticker (24h change) + ring buffer (last-hour
+    spike-and-fade) from the minute scanner, hourly candles as the 24h fallback."""
+    return guard.check(coin, int(time.time() * 1000), cur=scanner.last.get(coin),
+                       buf=scanner.hist.get(coin), candles=CRYPTO_CANDLES.get(coin))
+
+
+def early_veto(guard, scanner):
+    """Hook for engine.step: vetoes the hourly EarlyMover buys through the same pump guard."""
+    def veto(coin, sig):
+        ok, why = guard_check(guard, scanner, coin)
+        if not ok:
+            print(f"   early_mover: {coin} vetoed by pump guard: {why}")
+        return not ok
+    return veto
+
+
+def buy_early(cands, scanner, guard, tag, st=None):
+    """Buy candidates [{coin, price, reason, text}] (best first) into the early_mover account.
+    The one code path for the minute scanner, the listing reactor and the footprint scanner:
+    same Portfolio accounting as the hourly cycle (which then manages the trailing stop / time
+    limit like any other position), pump guard on every entry, reason recorded in trades.csv."""
+    if not cands:
+        return
+    st = st or EARLY
+    pf = load_pf("crypto", st.name)
+    now = int(time.time() * 1000)
+    prices = {c: scanner.last[c]["price"] for c in pf.positions if c in scanner.last}
+    prices.update({c["coin"]: c["price"] for c in cands})
+    eq, n_before = pf.equity(prices), len(pf.trades)
+    for c in cands:
+        if pf.halted or len(pf.positions) >= st.max_positions:
+            break
+        coin = c["coin"]
+        if coin in pf.positions or pf.cooldown.get(coin, 0) > now:
+            continue
+        ok, why = (True, "") if st is EARLY else guard_check(guard, scanner, coin)
+        if not ok:   # (brand-new listings are exempt: buying the first hours is the tested rule)
+            print(f"   {tag}: {coin} vetoed by pump guard: {why}")
+            continue
+        usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
+        if usd < config.MIN_ORDER_USD:
+            break
+        pf.buy(now, coin, usd, c["price"], c["price"] * (1 - st.trail), reason=c["reason"])
+        print(f"   {tag}: BUY {coin} ({c['reason']}): {c['text']}")   # no phone alert: owner wants daily P/L only
+    if len(pf.trades) > n_before:
+        save_pf("crypto", st.name, pf, n_before, prices)
+
+
+def scan_movers(client, scanner, guard, footprint=None):
     """Once a minute: one tickers call -> minute scanner -> buy take-offs and new listings
-    into the early_mover account (same Portfolio accounting as the hourly cycle; the hourly
-    step and fast_check then manage the trailing stop / time limit like any other position)."""
-    st = next(s for s in MARKETS["crypto"]["strategies"] if s.name == "early_mover")
+    into the early_mover account (buy_early). The same tickers feed the footprint scanner's
+    open-interest history (perp instruments carry `oi`)."""
     tick = client.tickers()
     if not getattr(scanner, "_logged", False):   # once per run: confirm live field names
         scanner._logged = True
         print(f"   scanner: {len(tick)} tickers, sample: {next((t for t in tick if t.get('i') == 'BTC_USD'), tick[:1])}")
     scanner.update(tick)
+    if footprint is not None:
+        try:
+            footprint.note_oi(tick)              # self-limits to one snapshot per 30 min
+        except Exception as e:
+            print(f"   footprint: oi snapshot failed: {e}")
     sigs = scanner.signals()
     if not sigs:
         return
     for s in sigs[:5]:
         print(f"   scanner: {describe(s)}")
-    pf = load_pf("crypto", st.name)
-    now = int(time.time() * 1000)
-    prices = {c: scanner.last[c]["price"] for c in pf.positions if c in scanner.last}
-    prices.update({s["coin"]: s["price"] for s in sigs})
-    eq, n_before = pf.equity(prices), len(pf.trades)
-    for s in sigs:
-        if pf.halted or len(pf.positions) >= st.max_positions:
-            break
-        coin = s["coin"]
-        if coin in pf.positions or pf.cooldown.get(coin, 0) > now:
-            continue
-        if s["kind"] == "new_listing" and not st.P["buy_listings"]:
-            continue
-        usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
-        if usd < config.MIN_ORDER_USD:
-            break
-        pf.buy(now, coin, usd, s["price"], s["price"] * (1 - st.trail))
-        notify(f"early mover: {coin}", describe(s))
-    if len(pf.trades) > n_before:
-        save_pf("crypto", st.name, pf, n_before, prices)
+    cand = lambda s: {"coin": s["coin"], "price": s["price"], "reason": f"scanner {s['kind']}", "text": describe(s)}
+    if EARLY.P["buy_listings"]:            # official account: brand-new listings
+        buy_early([cand(s) for s in sigs if s["kind"] == "new_listing"], scanner, guard, "new listing", EARLY)
+    buy_early([cand(s) for s in sigs if s["kind"] == "mover"], scanner, guard, "take-off", MOVER)
+
+
+def react_listings(client, scanner, reactor, guard):
+    """Every ~10 s: poll the announcement sources that are due (short timeouts, per-source
+    backoff); on a new listing notice for a coin that trades on Crypto.com, refresh the tickers
+    and buy if the not-yet-moved gate passes. Every verdict goes to data/listing_events.csv."""
+    events = reactor.poll()
+    if not events:
+        return
+    for ev in events:
+        print(f"   listing: {ev['source']} #{ev['id'][:24]} {ev['title'][:90]!r} -> {ev['coins']}")
+    if any(c in scanner.last for ev in events for c in ev["coins"]):
+        try:
+            scanner.update(client.tickers())     # fresh price + 24h change for the gate
+        except Exception as e:
+            print(f"   listing: ticker refresh failed: {e}")
+    buy_early(reactor.candidates(events, scanner), scanner, guard, "listing notice", ANNOUNCE)
+
+
+def footprint_cycle(scanner, footprint, guard):
+    """Once an hour, after the crypto cycle: rank accumulation footprints on the candles it
+    just loaded (every USD coin) and buy the top scores into free early_mover slots."""
+    cands = footprint.rank(CRYPTO_CANDLES)
+    for c in cands:
+        print(f"   footprint: {c['text']}")
+    buy_early(cands, scanner, guard, "footprint", MOVER)
 
 
 def _balance(mname, sname):
@@ -333,6 +399,9 @@ def main():
     last_fast = {m: 0.0 for m in clients}
     last_hour = None
     scanner, last_scan = MinuteScanner(), 0.0   # minute-level early mover scanner (crypto)
+    guard, reactor, footprint = PumpGuard(), ListingNoticeReactor(), PrePumpFootprint()   # signals.py
+    MOVER.veto = early_veto(guard, scanner)     # hourly take-off buys go through the pump guard too
+    last_listing = 0.0
     while True:
         hour = time.strftime("%Y%m%d%H", time.gmtime())
         if hour != last_hour and time.gmtime().tm_min >= 1:   # new hourly candle has closed
@@ -345,12 +414,22 @@ def main():
             git_sync()
             last_hour = hour
             scanner.warm_start(CRYPTO_CANDLES)   # hourly closes + 7-day volume baseline
+            try:
+                footprint_cycle(scanner, footprint, guard)
+            except Exception as e:
+                print(f"footprint scan failed: {e}")
         if time.time() - last_scan >= 60:
             last_scan = time.time()
             try:
-                scan_movers(clients["crypto"], scanner)
+                scan_movers(clients["crypto"], scanner, guard, footprint)
             except Exception as e:
                 print(f"crypto scanner failed: {e}")
+        if time.time() - last_listing >= reactor.p["loop_s"]:
+            last_listing = time.time()
+            try:
+                react_listings(clients["crypto"], scanner, reactor, guard)
+            except Exception as e:
+                print(f"listing reactor failed: {e}")
         for m, c in clients.items():
             if time.time() - last_fast[m] >= fast_every[m]:
                 last_fast[m] = time.time()

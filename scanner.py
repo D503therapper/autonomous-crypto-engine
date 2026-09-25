@@ -95,7 +95,7 @@ class MinuteScanner:
     def __init__(self, params=None, known=None, now_ms=None):
         self.p = dict(SCANNER, **(params or {}))
         self.hist = {}       # coin -> deque of (t_ms, price, vv) once a minute, oldest first
-        self.last = {}       # coin -> parsed latest ticker {price, vv, spread, t}
+        self.last = {}       # coin -> parsed latest ticker {price, vv, spread, c24, t}
         self.warm = {}       # coin -> {rate: 7-day USD/min, recent: last-hour USD/min} from candles
         self.first_seen = {} # coin -> ms when it first appeared in tickers after start
         self.known = set(known or [])   # coins that are NOT new listings
@@ -151,6 +151,7 @@ class MinuteScanner:
             bid, ask = _f(t.get("b")), _f(t.get("k"))
             spread = (ask - bid) / ((ask + bid) / 2) if bid and ask and ask >= bid else None
             self.last[coin] = {"price": price, "vv": _f(t.get("vv")), "spread": spread,
+                               "c24": _f(t.get("c")),      # 24h change (fraction) for signals.PumpGuard
                                "t": _f(t.get("t")) or now}
             buf = self._buf(coin)
             if buf and now - buf[-1][0] < 30_000 and buf[-1][2] is not None:

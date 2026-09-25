@@ -327,7 +327,7 @@ class EarlyMover:
             sig.update(buy=p["buy_listings"] and fresh, rank=99.0, reason="new listing")
             return sig
         k = p["k"]
-        if len(c) < 7 * 24 + k + 1:
+        if not p.get("movers", True) or len(c) < 7 * 24 + k + 1:
             return sig
         vol = [x["v"] * x["c"] for x in c]
         base = sum(vol[-1 - 7 * 24 - k:-1 - k]) / (7 * 24)

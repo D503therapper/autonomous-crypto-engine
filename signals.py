@@ -347,13 +347,13 @@ class ListingNoticeReactor:
         """Sources whose interval (or backoff) has elapsed, most overdue first."""
         now = now_ms or int(time.time() * 1000)
         out = []
-        for name, src in self.p["sources"].items():
+        for i, (name, src) in enumerate(self.p["sources"].items()):
             if not src.get("url") or name not in PARSERS:
                 continue
             st = self.state.setdefault(name, {"next": 0, "fails": 0, "backoff": 0})
             if now >= st["next"]:
-                out.append((st["next"], name))
-        return [n for _, n in sorted(out)]
+                out.append((st["next"], i, name))     # ties (startup): config order = priority
+        return [n for _, _, n in sorted(out)]
 
     def poll(self, now_ms=None):
         """Fetch the due sources (at most max_sources_per_poll) and return the NEW listing notices:
