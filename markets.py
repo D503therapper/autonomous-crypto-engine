@@ -1,7 +1,7 @@
 """The two markets we paper trade side by side, each with its own strategies
 and its own $500 paper account per strategy."""
 import config
-from strategy import BreakoutHunter, TrendFollower, WeeklyMomentum
+from strategy import BreakoutHunter, DonchianRotation, HoldBenchmark, TrendFollower, WeeklyMomentum
 
 
 def _crypto():
@@ -21,9 +21,10 @@ MARKETS = {
         "bars_per_day": 24,
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
         "strategies": [
+            DonchianRotation(config.UNIVERSE, 24),
             WeeklyMomentum(config.UNIVERSE, 24, "crypto"),
-            TrendFollower(config.UNIVERSE),
             BreakoutHunter(config.BREAKOUT_UNIVERSE),
+            HoldBenchmark("BTC"),
         ],
     },
     "stocks": {
@@ -34,6 +35,7 @@ MARKETS = {
         "strategies": [
             WeeklyMomentum(config.STOCK_UNIVERSE, 7, "stocks"),
             TrendFollower(config.STOCK_UNIVERSE),
+            HoldBenchmark("SPY"),
         ],
     },
 }

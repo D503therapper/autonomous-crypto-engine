@@ -71,16 +71,20 @@ def full_cycle(mname, client):
     if mname == "stocks" and not client.market_open():
         return {}
     syms = sorted({s for st in m["strategies"] for s in st.universe} | {m["benchmark"]})
+    bpd = m["bars_per_day"]
+    need = max(max(st.min_candles for st in m["strategies"]) + 10, config.CANDLES_NEEDED)
+    bench_need = max(getattr(st, "regime_days", config.REGIME_DAYS) for st in m["strategies"]) * bpd + 10
     data = {}
     for s in syms:
         try:
-            data[s] = client.candles(s)
+            data[s] = client.candles(s, count=max(need, bench_need) if s == m["benchmark"] else need)
         except Exception as e:
             print(f"  skip {s}: {e}")
     prices = {s: cs[-1]["c"] for s, cs in data.items() if cs}
-    ok = regime_ok([c["c"] for c in data.get(m["benchmark"], [])], m["bars_per_day"])
+    bench_closes = [c["c"] for c in data.get(m["benchmark"], [])]
     now = ts(int(time.time() * 1000))
     for st in m["strategies"]:
+        ok = regime_ok(bench_closes, bpd, getattr(st, "regime_days", None))
         pf = load_pf(mname, st.name)
         n_before, was_halted = len(pf.trades), pf.halted
         step(pf, {s: data[s] for s in st.universe if s in data}, st, ok)

@@ -126,14 +126,14 @@ def step(pf, candles_by_coin, strat, market_ok=True):
                     and pf.cooldown.get(c, 0) <= now),
                    key=lambda c: sig[c]["rank"], reverse=True)
     for coin in cands:
-        if len(pf.positions) >= config.MAX_POSITIONS:
+        if len(pf.positions) >= getattr(strat, "max_positions", config.MAX_POSITIONS):
             break
         s = sig[coin]
         stop_dist = 1 - s["stop"] / s["price"]
         target = (eq * strat.position_pct if hasattr(strat, "position_pct")
                   else eq * config.RISK_PER_TRADE / max(stop_dist, 1e-9))
         usd = min(target,
-                  eq * config.MAX_POSITION_PCT,
+                  eq * getattr(strat, "max_position_pct", config.MAX_POSITION_PCT),
                   pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd >= config.MIN_ORDER_USD:
             pf.buy(now, coin, usd, s["price"], s["stop"])

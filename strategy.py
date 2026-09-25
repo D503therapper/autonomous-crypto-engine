@@ -155,10 +155,67 @@ class WeeklyMomentum:
         return None
 
 
-def regime_ok(bench_closes, bars_per_day):
-    """True when the benchmark (BTC or SPY) closes above its REGIME_DAYS average.
+class DonchianRotation:
+    """Tournament winner (crypto, Sep 2026): every 7 days, hold the top-N coins that
+    closed at a 10-day high (ranked by 10-day return / volatility); drop a coin when it
+    closes below its 5-day low. Only while BTC is above its 100-day average.
+    Out-of-sample 2025-26: +85% vs BTC -17.5%, max drawdown 33%. Uses daily closes."""
+    name = "breakout10"
+    weekly = True
+
+    def __init__(self, universe, bars_per_day, lookback=10, top_n=2, regime_days=100):
+        self.universe, self.bpd, self.L, self.max_positions = universe, bars_per_day, lookback, top_n
+        self.regime_days = regime_days
+        self.min_candles = (lookback + 21) * bars_per_day + 1
+        self.window = self.min_candles + bars_per_day
+        self.position_pct = self.max_position_pct = (1 - config.MIN_CASH_RESERVE_PCT) / top_n
+
+    def analyze(self, candles, market_ok=True):
+        if len(candles) < self.min_candles:
+            return None
+        # daily closes: every bars_per_day-th close counting back from the latest bar
+        d = [c["c"] for c in candles[::-1][::self.bpd]][::-1]
+        L, price = self.L, d[-1]
+        rets = [d[j] / d[j - 1] - 1 for j in range(len(d) - 20, len(d))]
+        vol = (sum(r * r for r in rets) / 20) ** 0.5 or 1e-9
+        sig = _base(candles)
+        sig.update(rank=(price / d[-1 - L] - 1) / vol,
+                   buy=market_ok and price >= max(d[-1 - L:-1]),
+                   exit=(not market_ok) or price < min(d[-1 - max(2, L // 2):-1]),
+                   stop=0.0)   # no fixed stop: exits are weekly, as tested
+        return sig
+
+    def manage(self, pos, s, now, rebalance=False):
+        if rebalance and s["exit"]:
+            return 1.0, s["price"], "weekly: fell below 5-day low or BTC trend down"
+        return None
+
+
+class HoldBenchmark:
+    """Just buy and hold the benchmark (BTC / SPY): the bar every strategy must beat."""
+    weekly = False
+    min_candles = 1
+    window = 2
+    max_positions = 1
+    position_pct = max_position_pct = 1 - config.MIN_CASH_RESERVE_PCT
+
+    def __init__(self, symbol):
+        self.universe = [symbol]
+        self.name = f"hold_{symbol.lower()}"
+
+    def analyze(self, candles, market_ok=True):
+        sig = _base(candles)
+        sig.update(rank=1, buy=True, stop=0.0)
+        return sig
+
+    def manage(self, pos, s, now, rebalance=False):
+        return None
+
+
+def regime_ok(bench_closes, bars_per_day, days=None):
+    """True when the benchmark (BTC or SPY) closes above its N-day average.
     Research: this mainly cuts drawdowns; it's a seatbelt, not an engine."""
-    n = config.REGIME_DAYS * bars_per_day
+    n = (days or config.REGIME_DAYS) * bars_per_day
     if len(bench_closes) < n:
         return True
     return bench_closes[-1] > sum(bench_closes[-n:]) / n
