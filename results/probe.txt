@@ -1,0 +1,66 @@
+200 cryptocom v1 announcements
+    https://api.crypto.com/v1/public/get-announcements
+    '{"id":0,"method":"public/get-announcements","code":0,"result":{"data":[{"id":"6ab5ed42f576945f16f4772d","category":"delist","product_type":"Spot","announced_at":1790294400000,"title":"ENJ/USDT delisted From the Crypto.com Exchange (Advanced Trading Platform)","content":"<p dir=\\"ltr\\">Following our '
+200 cryptocom v1 announcements list/spot
+    https://api.crypto.com/v1/public/get-announcements?category=list&product_type=Spot
+    '{"id":0,"method":"public/get-announcements","code":0,"result":{"data":[{"id":"6ab33bf3f576945f16f473fd","category":"list","product_type":"Spot","announced_at":1790121600000,"title":"Crypto.com Exchange lists CARDS/USD","content":"<p dir=\\"ltr\\">Collector Crypt ($CARDS) is now listed on the Crypto.co'
+ERR cryptocom exchange announcements list
+    https://api.crypto.com/exchange/v1/public/get-announcements?category=list
+    HTTP Error 404: Not Found
+ERR upbit announcements (browser headers)
+    https://api-manager.upbit.com/api/v1/announcements?os=web&page=1&per_page=20&category=trade
+    HTTP Error 403: Forbidden
+ERR upbit notices
+    https://api-manager.upbit.com/api/v1/notices?page=1&per_page=20&thread_name=general
+    HTTP Error 404: Not Found
+200 upbit markets (KRW list diff)
+    https://api.upbit.com/v1/market/all
+    '[{"market":"BTC-BERA","korean_name":"베라체인","english_name":"Berachain"},{"market":"BTC-FIL","korean_name":"파일코인","english_name":"Filecoin"},{"market":"BTC-SIGN","korean_name":"사인","english_name":"Sign"},{"market":"KRW-GEOD","korean_name":"지오드넷","english_name":"GEODNET"},{"market":"BTC-VIRTUAL","korea'
+ERR kraken blog feed
+    https://blog.kraken.com/feed
+    HTTP Error 403: Forbidden
+200 kraken assets api (list diff)
+    https://api.kraken.com/0/public/Assets
+    '{"error":[],"result":{"0G":{"aclass":"currency","altname":"0G","decimals":6,"display_decimals":4,"status":"enabled","margin_rate":"0.02"},"1INCH":{"aclass":"currency","altname":"1INCH","decimals":10,"display_decimals":5,"status":"enabled"},"2Z":{"aclass":"currency","altname":"2Z","decimals":4,"displ'
+200 kraken asset pairs api (list diff)
+    https://api.kraken.com/0/public/AssetPairs
+    '{"error":[],"result":{"0GEUR":{"altname":"0GEUR","wsname":"0G/EUR","aclass_base":"currency","base":"0G","aclass_quote":"currency","quote":"ZEUR","lot":"unit5","cost_decimals":5,"pair_decimals":3,"lot_decimals":5,"lot_multiplier":1,"leverage_buy":[],"leverage_sell":[],"fees":[],"fees_maker":[],"fee_v'
+200 coinbase products api (list diff)
+    https://api.exchange.coinbase.com/products
+    '[{"id":"GWEI-USD","base_currency":"GWEI","quote_currency":"USD","quote_increment":"0.000001","base_increment":"1","display_name":"GWEI/USD","min_market_funds":"1","margin_enabled":false,"post_only":false,"limit_only":false,"cancel_only":false,"status":"online","status_message":"","trading_disabled":'
+200 coinbase status atom
+    https://status.exchange.coinbase.com/history.atom
+    '<?xml version="1.0" encoding="UTF-8"?>\n<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">\n  <id>tag:status.exchange.coinbase.com,2005:/history</id>\n  <link rel="alternate" type="text/html" href="https://status.exchange.coinbase.com"/>\n  <link rel="self" type="application/atom+xml" href="htt'
+ERR binance exchangeInfo (list diff)
+    https://api.binance.com/api/v3/exchangeInfo?permissions=SPOT
+    HTTP Error 451: 
+200 binance announcements catalog 48
+    https://www.binance.com/bapi/composite/v1/public/cms/article/list/query?type=1&catalogId=48&pageNo=1&pageSize=20
+    '{"code":"000000","message":null,"messageDetail":null,"data":{"catalogs":[{"catalogId":48,"parentCatalogId":null,"icon":"https://public.bnbstatic.com/image/cms/content/body/202505/d3201bf0be35bb246b65a767221410e0.png","catalogName":"New Cryptocurrency Listing","description":null,"catalogType":1,"tota'
+200 binance.us exchangeInfo
+    https://api.binance.us/api/v3/exchangeInfo
+    '{"timezone":"UTC","serverTime":1790377609275,"rateLimits":[{"rateLimitType":"REQUEST_WEIGHT","interval":"MINUTE","intervalNum":1,"limit":6000},{"rateLimitType":"ORDERS","interval":"SECOND","intervalNum":10,"limit":100},{"rateLimitType":"ORDERS","interval":"DAY","intervalNum":1,"limit":200000},{"rate'
+200 gemini symbols (list diff)
+    https://api.gemini.com/v1/symbols
+    '["2zgusd","2zrlusd","2zusd","2zusdc","aavegusd","aaverlusd","aaveusd","aaveusdc","aligusd","alirlusd","aliusd","aliusdc","ampgusd","amprlusd","ampusd","ampusdc","apegusd","aperlusd","apeusd","apeusdc","arbgusd","arbrlusd","arbusd","arbusdc","atomgusd","atomrlusd","atomusd","atomusdc","audgusd","audr'
+200 okx instruments (list diff)
+    https://www.okx.com/api/v5/public/instruments?instType=SPOT
+    '{"code":"0","data":[{"alias":"","auctionEndTime":"","baseCcy":"USDT","category":"1","contTdSwTime":"","ctMult":"","ctType":"","ctVal":"","ctValCcy":"","expTime":"","floatPxLmtPct":"0.02","freq":"","futureSettlement":false,"groupId":"10","initPxLmtPct":"0.1","instCategory":"1","instFamily":"","instId'
+ERR bybit instruments (list diff)
+    https://api.bybit.com/v5/market/instruments-info?category=spot
+    HTTP Error 403: Forbidden
+ERR reddit json
+    https://www.reddit.com/r/CryptoMoonShots/new.json?limit=5
+    HTTP Error 403: Blocked
+ERR reddit old json
+    https://old.reddit.com/r/CryptoMoonShots/new.json?limit=5
+    HTTP Error 403: Blocked
+200 goplus
+    https://api.gopluslabs.io/api/v1/token_security/1?contract_addresses=0x6982508145454ce325ddbe47a25d4ec3d2311933
+    '{"code":1,"message":"OK","result":{"0x6982508145454ce325ddbe47a25d4ec3d2311933":{"anti_whale_modifiable":"1","buy_tax":"","cannot_buy":"0","can_take_back_ownership":"0","creator_address":"0xfbfEaF0DA0F2fdE5c66dF570133aE35f3eB58c9A","creator_balance":"3718337.06","creator_percent":"0.000000","dex":[{'
+200 honeypot.is
+    https://api.honeypot.is/v2/IsHoneypot?address=0x6982508145454ce325ddbe47a25d4ec3d2311933&chainID=1
+    '{"token":{"name":"Pepe", "symbol":"PEPE", "decimals":18, "address":"0x6982508145454Ce325dDbE47a25d4ec3d2311933", "totalHolders":590510}, "withToken":{"name":"Wrapped Ether", "symbol":"WETH", "decimals":18, "address":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "totalHolders":3325614}, "summary":{"r'
+200 rugcheck
+    https://api.rugcheck.xyz/v1/tokens/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm/report/summary
+    '{"tokenProgram":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA","tokenType":"","risks":[],"score":1,"score_normalised":1,"lpLockedPct":47.71119387965757}'
