@@ -261,8 +261,10 @@ def parse_feed(body):
     """Atom (<feed><entry>) or RSS 2.0 (<rss><channel><item>) -> notices. Used for the Coinbase
     status feed, Coinbase blog and Kraken blog."""
     root = ET.fromstring(body)
+    if root.tag.split("}")[-1].lower() not in ("feed", "rss", "rdf"):
+        raise ValueError(f"not a feed: <{root.tag[:40]}>")     # e.g. an HTML error page
     out = []
-    for e in list(root.iter("{*}entry")) + list(root.iter("{*}item")):
+    for e in list(root.iterfind(".//{*}entry")) + list(root.iterfind(".//{*}item")):
         def txt(*names):
             for n in names:
                 el = e.find("{*}" + n)
