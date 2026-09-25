@@ -1,0 +1,30 @@
+416 USD coins listed on Crypto.com
+
+416 coins with data; 3.0 months in-sample, 2.0 months out-of-sample
+cost per side 0.8% (fees + small-coin spread)
+
+EARLY MOVER: top 12 by in-sample, then UNSEEN results (avg = average net return per trade; big = trades that at some point doubled)
+params                                  |  IS avg  IS n | OOS avg OOS n   win  big    best   worst    ~/mo
+k=1 x=0.2 v=5 trail=0.1 h=24            |  -4.45%     2 |  -5.25%     7    0%    0     -2%    -11%   -3.7%
+k=1 x=0.2 v=5 trail=0.1 h=72            |  -4.45%     2 |  -5.25%     7    0%    0     -2%    -11%   -3.7%
+k=1 x=0.2 v=5 trail=0.2 h=24            |  -6.53%     2 |  +3.10%     7   43%    0    +30%    -21%   +2.2%
+k=1 x=0.2 v=5 trail=0.2 h=72            |  -6.91%     2 |  +1.74%     7   43%    0    +30%    -21%   +1.2%
+k=6 x=0.2 v=5 trail=0.2 h=72            |  -1.80%     8 |  -9.25%    23   22%    0    +28%    -21%  -21.4%
+k=3 x=0.05 v=5 trail=0.2 h=72           |  -0.34%    47 |  -0.52%   106   44%    0    +39%    -21%   -5.6%
+k=3 x=0.2 v=5 trail=0.1 h=24            |  -8.29%     3 |  -4.63%    25   12%    0     +7%    -11%  -11.6%
+k=3 x=0.2 v=5 trail=0.1 h=72            |  -8.29%     3 |  -4.93%    25    8%    0     +6%    -11%  -12.4%
+k=6 x=0.1 v=5 trail=0.2 h=72            |  -1.01%    27 |  -2.57%    51   37%    0    +50%    -21%  -13.1%
+k=6 x=0.2 v=3 trail=0.2 h=72            |  -2.17%    13 |  -4.32%    33   33%    0    +28%    -21%  -14.3%
+k=1 x=0.2 v=3 trail=0.1 h=24            |  -7.94%     4 |  -5.83%    11    0%    0     -2%    -11%   -6.4%
+k=1 x=0.2 v=3 trail=0.1 h=72            |  -7.94%     4 |  -5.83%    11    0%    0     -2%    -11%   -6.4%
+
+NEW LISTINGS (buy in the first hour of trading), whole period:
+  trail=10% hold<=24h: 22 listings, avg +5.2%/trade, win 36%, doubled at some point: 1, best +119%, worst -19%
+  trail=10% hold<=72h: 22 listings, avg +5.0%/trade, win 36%, doubled at some point: 1, best +119%, worst -19%
+  trail=10% hold<=240h: 22 listings, avg +4.8%/trade, win 36%, doubled at some point: 1, best +119%, worst -19%
+  trail=20% hold<=24h: 22 listings, avg +4.5%/trade, win 36%, doubled at some point: 1, best +147%, worst -27%
+  trail=20% hold<=72h: 22 listings, avg +4.9%/trade, win 36%, doubled at some point: 2, best +147%, worst -27%
+  trail=20% hold<=240h: 22 listings, avg +4.4%/trade, win 32%, doubled at some point: 2, best +147%, worst -27%
+  trail=35% hold<=24h: 22 listings, avg +5.3%/trade, win 36%, doubled at some point: 1, best +144%, worst -27%
+  trail=35% hold<=72h: 22 listings, avg +13.5%/trade, win 41%, doubled at some point: 3, best +185%, worst -37%
+  trail=35% hold<=240h: 22 listings, avg +5.1%/trade, win 32%, doubled at some point: 3, best +144%, worst -37%
