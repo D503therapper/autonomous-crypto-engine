@@ -15,9 +15,11 @@ import urllib.request
 import config
 from engine import Portfolio, append_csv, step, ts
 from markets import MARKETS
+from scanner import MinuteScanner, describe
 from strategy import regime_ok
 
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "")   # phone alerts via the free ntfy app
+CRYPTO_CANDLES = {}   # hourly candles from the last crypto cycle (warm-starts the minute scanner)
 
 
 def notify(title, msg, priority="default"):
@@ -94,6 +96,9 @@ def full_cycle(mname, client):
                         data[s] = client.candles(s, count=st.window)
                     except Exception:
                         pass
+    if mname == "crypto":
+        CRYPTO_CANDLES.clear()
+        CRYPTO_CANDLES.update(data)
     prices = {s: cs[-1]["c"] for s, cs in data.items() if cs}
     bench_closes = [c["c"] for c in data.get(m["benchmark"], [])]
     now = ts(int(time.time() * 1000))
@@ -149,7 +154,8 @@ def fast_check(mname, client):
                 pos["peak"] = max(pos["peak"], p)
                 pos["stop"] = max(pos["stop"], pos["peak"] * (1 - st.trail))
             if p <= pos["stop"]:
-                pf.sell(now, s, 1.0, p, "stop hit (live check)")
+                if pf.sell(now, s, 1.0, p, "stop hit (live check)") < 0:
+                    pf.cooldown[s] = now + config.COOLDOWN_CANDLES * 3_600_000   # as in engine.step
             elif st.name == "breakout" and not pos["took_profit"] and \
                     p >= pos["entry"] * (1 + config.BREAKOUT["take_profit"]):
                 pf.sell(now, s, 0.5, p, f"secured +{config.BREAKOUT['take_profit']:.0%} (live check)")
@@ -157,6 +163,43 @@ def fast_check(mname, client):
                 pos["stop"] = max(pos["stop"], pos["entry"] * 1.01)
         if len(pf.trades) > n_before or hasattr(st, "trail"):
             save_pf(mname, st.name, pf, n_before, px)
+
+
+def scan_movers(client, scanner):
+    """Once a minute: one tickers call -> minute scanner -> buy take-offs and new listings
+    into the early_mover account (same Portfolio accounting as the hourly cycle; the hourly
+    step and fast_check then manage the trailing stop / time limit like any other position)."""
+    st = next(s for s in MARKETS["crypto"]["strategies"] if s.name == "early_mover")
+    tick = client.tickers()
+    if not getattr(scanner, "_logged", False):   # once per run: confirm live field names
+        scanner._logged = True
+        print(f"   scanner: {len(tick)} tickers, sample: {next((t for t in tick if t.get('i') == 'BTC_USD'), tick[:1])}")
+    scanner.update(tick)
+    sigs = scanner.signals()
+    if not sigs:
+        return
+    for s in sigs[:5]:
+        print(f"   scanner: {describe(s)}")
+    pf = load_pf("crypto", st.name)
+    now = int(time.time() * 1000)
+    prices = {c: scanner.last[c]["price"] for c in pf.positions if c in scanner.last}
+    prices.update({s["coin"]: s["price"] for s in sigs})
+    eq, n_before = pf.equity(prices), len(pf.trades)
+    for s in sigs:
+        if pf.halted or len(pf.positions) >= st.max_positions:
+            break
+        coin = s["coin"]
+        if coin in pf.positions or pf.cooldown.get(coin, 0) > now:
+            continue
+        if s["kind"] == "new_listing" and not st.P["buy_listings"]:
+            continue
+        usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
+        if usd < config.MIN_ORDER_USD:
+            break
+        pf.buy(now, coin, usd, s["price"], s["price"] * (1 - st.trail))
+        notify(f"early mover: {coin}", describe(s))
+    if len(pf.trades) > n_before:
+        save_pf("crypto", st.name, pf, n_before, prices)
 
 
 def _balance(mname, sname):
@@ -289,6 +332,7 @@ def main():
     fast_every = {"crypto": 1, "stocks": 15}   # seconds between live stop/target checks
     last_fast = {m: 0.0 for m in clients}
     last_hour = None
+    scanner, last_scan = MinuteScanner(), 0.0   # minute-level early mover scanner (crypto)
     while True:
         hour = time.strftime("%Y%m%d%H", time.gmtime())
         if hour != last_hour and time.gmtime().tm_min >= 1:   # new hourly candle has closed
@@ -300,6 +344,13 @@ def main():
             daily_summary(scoreboard())
             git_sync()
             last_hour = hour
+            scanner.warm_start(CRYPTO_CANDLES)   # hourly closes + 7-day volume baseline
+        if time.time() - last_scan >= 60:
+            last_scan = time.time()
+            try:
+                scan_movers(clients["crypto"], scanner)
+            except Exception as e:
+                print(f"crypto scanner failed: {e}")
         for m, c in clients.items():
             if time.time() - last_fast[m] >= fast_every[m]:
                 last_fast[m] = time.time()

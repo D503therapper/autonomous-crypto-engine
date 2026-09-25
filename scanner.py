@@ -32,8 +32,9 @@ import config
 MIN = 60_000
 HOUR = 3_600_000
 
-# All thresholds in one place so backtests can tune them (mirrored as config.EARLY_MOVER_SCANNER).
-SCANNER = {
+# All thresholds in one place so backtests can tune them. config.EARLY_MOVER_SCANNER (same keys)
+# overrides these defaults when present.
+DEFAULTS = {
     "tiers": [(15, 0.05), (30, 0.08), (60, 0.12)],   # (window minutes, min rise) - any tier fires
     "vol_ratio": 3.0,           # window volume must be >= 3x the normal rate for that window
     "min_daily_usd": 100_000,   # skip coins with < $100k traded in 24h (unless brand-new)
@@ -43,6 +44,7 @@ SCANNER = {
     "listing_min": 180,         # keep reporting a new listing for its first 3h
     "known_file": config.LISTINGS_FILE,
 }
+SCANNER = dict(DEFAULTS, **getattr(config, "EARLY_MOVER_SCANNER", {}))
 
 # Stablecoins / pegged tokens: they never "take off".
 STABLES = {"USDT", "USDC", "DAI", "FDUSD", "TUSD", "PYUSD", "USDS", "USDE", "USDD", "USDP",
@@ -54,7 +56,10 @@ _STABLE_RE = re.compile(r"^(USD|EUR|GBP)[A-Z0-9]{0,3}$|^[A-Z]{1,4}(USD|EUR)$")
 WRAPPED = {"WBTC", "WETH", "WSOL", "WBNB", "WAVAX", "WMATIC", "WPOL", "WTRX",
            "STETH", "WSTETH", "RETH", "CBETH", "CBBTC", "TBTC", "SBTC", "BTCB", "SETH", "MSOL",
            "JITOSOL", "BSOL", "STSOL", "SFRXETH", "FRXETH", "WEETH", "EZETH", "RSETH"}
-_LEVERAGED_RE = re.compile(r"^[A-Z0-9]+\d+[LS]$|^[A-Z0-9]+(UP|DOWN|BULL|BEAR)$")
+# leveraged tokens: BTC3L/ETH3S, or a major coin + UP/DOWN/BULL/BEAR (BTCUP). Plain names
+# that merely end in "UP" (JUP, SYRUP) are real coins and must not match.
+_LEVERAGED_RE = re.compile(r"^[A-Z0-9]+\d+[LS]$|^(BTC|ETH|BNB|XRP|ADA|DOT|LINK|LTC|EOS|TRX|XTZ|SOL|DOGE)"
+                           r"(UP|DOWN|BULL|BEAR)$")
 
 
 def excluded(coin):

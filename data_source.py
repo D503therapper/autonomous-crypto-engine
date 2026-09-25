@@ -69,11 +69,16 @@ class CryptoComClient:
         return [got[k] for k in sorted(got)][-count:]
 
 
+    def tickers(self):
+        """Every instrument's 24h ticker in one call: i, a (last), b/k (bid/ask), v/vv
+        (24h base / USD volume), c, h, l, t. Feeds scanner.MinuteScanner.update()."""
+        return self._get("public/get-tickers").get("data", [])
+
     def last_prices(self, coins):
         """Latest trade price for many coins in one call (for the fast stop monitor)."""
         want = {f"{c}_{config.QUOTE}": c for c in coins}
         out = {}
-        for t in self._get("public/get-tickers").get("data", []):
+        for t in self.tickers():
             if t.get("i") in want and t.get("a") not in (None, ""):
                 out[want[t["i"]]] = float(t["a"])
         return out

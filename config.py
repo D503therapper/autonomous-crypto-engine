@@ -45,6 +45,14 @@ EARLY_MOVER = {
     "buy_listings": True, "listing_hours": 3,
     "slots": 5,
 }
+# Minute-level scanner feeding the same early_mover account (scanner.py): one
+# public/get-tickers call per minute across every USD coin. Any tier fires.
+EARLY_MOVER_SCANNER = {
+    "tiers": [(15, 0.05), (30, 0.08), (60, 0.12)],   # (window minutes, min rise)
+    "vol_ratio": 3.0,           # window volume >= 3x the coin's normal rate
+    "min_daily_usd": 100_000,   # skip coins with < $100k traded in 24h
+    "max_spread": 0.015,        # skip coins with bid/ask spread > 1.5%
+}
 
 # --- Weekly momentum (the strategy with the strongest research support) -----
 MOMENTUM = {
