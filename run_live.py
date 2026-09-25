@@ -48,8 +48,7 @@ def save_pf(mname, sname, pf, n_before, prices):
     pf.save(f"{d}/portfolio.json")
     for t in new:
         pnl = "" if t["pnl"] is None else f", P/L ${t['pnl']:+.2f}"
-        notify(f"{mname}/{sname}: {t['side']} {t['coin']}",
-               f"{t['side']} ${t['usd']:.2f} of {t['coin']} @ {t['price']:g}{pnl} ({t['reason']})")
+        print(f"   >> {mname}/{sname}: {t['side']} ${t['usd']:.2f} of {t['coin']} @ {t['price']:g}{pnl} ({t['reason']})")
     return pf.equity(prices)
 
 
@@ -98,7 +97,7 @@ def full_cycle(mname, client):
     if mname == "crypto":
         try:
             for coin in check_new_listings(client):
-                notify("New Crypto.com listing", f"{coin} listed (watch only, not traded)")
+                print(f"   ** new Crypto.com listing: {coin} (watch only, not traded)")
         except Exception as e:
             print(f"   listing check failed: {e}")
     return prices
@@ -162,22 +161,36 @@ def scoreboard():
            "| Rank | Market | Strategy | Balance | Return | Trades |", "|---|---|---|---|---|---|"]
     for i, (mn, sn, eq, n) in enumerate(rows, 1):
         out.append(f"| {i} | {mn} | {sn} | ${eq:,.2f} | {eq / config.STARTING_CASH_USD - 1:+.1%} | {n} |")
+    total = sum(r[2] for r in rows)
+    out += ["", f"**All accounts combined: ${total:,.2f}** "
+            f"({total - config.STARTING_CASH_USD * len(rows):+,.2f} on ${config.STARTING_CASH_USD * len(rows):,.0f} of pretend money)"]
     with open("SCOREBOARD.md", "w") as f:
         f.write("\n".join(out) + "\n")
     return rows
 
 
 def daily_summary(rows):
-    stamp = "data/last_summary.txt"
+    """One evening message: today's profit/loss and total, per market."""
+    stamp = "data/last_summary.json"
     today = time.strftime("%Y-%m-%d", time.gmtime())
-    if os.path.exists(stamp) and open(stamp).read().strip() == today:
+    prev = {}
+    if os.path.exists(stamp):
+        with open(stamp) as f:
+            prev = json.load(f)
+    if prev.get("date") == today or time.gmtime().tm_hour < 22:   # once a day, ~6pm US Eastern
         return
-    if time.gmtime().tm_hour < 22:   # send once a day, after 22:00 UTC (evening in the US)
-        return
-    lines = [f"{mn}/{sn}: ${eq:,.2f} ({eq / config.STARTING_CASH_USD - 1:+.1%})" for mn, sn, eq, _ in rows]
-    notify("Daily paper-trading summary", "\n".join(lines))
+    start = config.STARTING_CASH_USD
+    lines, now_bal = [], {}
+    for mn, sn, eq, _ in rows:
+        key = f"{mn}/{sn}"
+        now_bal[key] = eq
+        day = eq - prev.get("balances", {}).get(key, start)
+        lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - start:+,.2f}")
+    total = sum(now_bal.values())
+    day_total = total - sum(prev.get("balances", {}).get(k, start) for k in now_bal)
+    notify(f"Today {day_total:+,.2f} | Total {total - start * len(now_bal):+,.2f}", "\n".join(lines))
     with open(stamp, "w") as f:
-        f.write(today)
+        json.dump({"date": today, "balances": now_bal}, f)
 
 
 def git_sync():

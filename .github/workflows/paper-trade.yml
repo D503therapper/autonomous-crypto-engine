@@ -7,7 +7,7 @@ on:
     - cron: "7 */6 * * *"
   workflow_dispatch: {}
   push:
-    paths: [".github/workflows/paper-trade.yml"]   # (re)start the engine when this file changes
+    paths: [".github/workflows/paper-trade.yml", "*.py", "requirements.txt"]   # restart on engine updates
 permissions:
   contents: write
 concurrency:
