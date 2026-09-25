@@ -18,8 +18,8 @@ import time
 COST_PER_SIDE = 0.008      # 0.5% fee + ~0.3% spread/slippage on small coins
 SPLIT = 0.6
 GRID = {
-    "k": [1, 3, 6],            # hours the move is measured over
-    "x": [0.05, 0.10, 0.20],   # minimum rise over those hours
+    "k": [1, 3, 6, 24],        # hours the move is measured over
+    "x": [0.05, 0.10, 0.20, 0.30, 0.50, 1.00],   # minimum rise (0.30+ = chasing coins already up big)
     "v": [3, 5],               # volume vs normal (average hourly volume over the prior 7 days)
     "trail": [0.10, 0.20],     # trailing stop below the highest price since entry
     "h": [24, 72],             # max hours to hold
@@ -64,20 +64,33 @@ def exit_trade(c, i, entry, p):
     return c[j]["c"] / entry * (1 - COST_PER_SIDE) / (1 + COST_PER_SIDE) - 1, peak / entry - 1, j - i
 
 
+_PRE = {}
+
+
+def _prefix(s, c):
+    """Cumulative USD volume per coin, so any window's volume is one subtraction."""
+    if s not in _PRE:
+        acc, out = 0.0, [0.0]
+        for x in c:
+            acc += x["v"] * x["c"]
+            out.append(acc)
+        _PRE[s] = out
+    return _PRE[s]
+
+
 def run_mover(data, p, t_lo, t_hi):
-    trades = []
+    trades, k, wk = [], p["k"], 7 * 24
     for s, c in data.items():
-        vol_usd = [x["v"] * x["c"] for x in c]
-        i = 7 * 24 + p["k"]
+        pre = _prefix(s, c)
+        i = wk + k
         while i < len(c) - 1:
             t = c[i]["t"]
-            if not (t_lo <= t < t_hi):
+            if not (t_lo <= t < t_hi) or c[i]["c"] < c[i - k]["c"] * (1 + p["x"]):
                 i += 1
                 continue
-            base = sum(vol_usd[i - 7 * 24 - p["k"]:i - p["k"]]) / (7 * 24)
-            recent = sum(vol_usd[i - p["k"] + 1:i + 1]) / p["k"]
-            rise = c[i]["c"] / c[i - p["k"]]["c"] - 1
-            if base > 0 and rise >= p["x"] and recent >= p["v"] * base and base * 24 >= 50_000:
+            base = (pre[i - k] - pre[i - k - wk]) / wk          # normal hourly USD volume
+            recent = (pre[i + 1] - pre[i + 1 - k]) / k
+            if base > 0 and recent >= p["v"] * base and base * 24 >= 50_000:
                 entry = c[i]["c"] * (1 + 0.002)
                 r, peak, held = exit_trade(c, i, entry, p)
                 trades.append((s, t, r, peak))
@@ -143,6 +156,14 @@ def main():
         ps = " ".join(f"{k}={v}" for k, v in p.items())
         print(f"{ps:<40}| {i['avg']:>+7.2%} {i['n']:>5} | {o['avg']:>+7.2%} {o['n']:>5} {o['win']:>5.0%} "
               f"{o['big']:>4} {o['best']:>+7.0%} {o['worst']:>+7.0%} {o['est_mo']:>+7.1%}")
+
+    print("\nCHASING COINS ALREADY UP BIG: best in-sample variant per minimum rise, and its UNSEEN result")
+    for x in GRID["x"]:
+        sub = [r for r in rows if r[0]["x"] == x]
+        if sub:
+            p, i, o = sub[0]
+            print(f"  up >= {x:.0%} in {p['k']}h: IS avg {i['avg']:+.2%}/trade ({i['n']}) | UNSEEN avg {o['avg']:+.2%}/trade "
+                  f"({o['n']} trades, win {o['win']:.0%}, doubled {o['big']}, best {o['best']:+.0%}, worst {o['worst']:+.0%})")
 
     print("\nNEW LISTINGS (buy in the first hour of trading), whole period:")
     for trail, h in itertools.product([0.10, 0.20, 0.35], [24, 72, 240]):

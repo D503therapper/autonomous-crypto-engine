@@ -306,8 +306,9 @@ class EarlyMover:
     dynamic_universe = True          # runner refreshes the coin list every cycle
     P = config.EARLY_MOVER
 
-    def __init__(self):
-        self.universe = []
+    def __init__(self, name="early_mover", **overrides):
+        self.name, self.universe = name, []
+        self.P = dict(config.EARLY_MOVER, **overrides)
         self.max_positions = self.P["slots"]
         self.position_pct = self.max_position_pct = (1 - config.MIN_CASH_RESERVE_PCT) / self.P["slots"]
         self.trail = self.P["trail"]

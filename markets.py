@@ -24,6 +24,9 @@ MARKETS = {
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
         "strategies": [
             EarlyMover(),
+            # "no-limit chaser": buys coins already up >= 30% in 24h on heavy volume and
+            # rides them with a trailing stop (owner's idea; tested live against the official)
+            EarlyMover("chaser", k=24, x=0.30, v=3, trail=0.25, h=240, buy_listings=False),
             DonchianRotation(config.UNIVERSE, 24),
             WeeklyMomentum(config.UNIVERSE, 24, "crypto"),
             BreakoutHunter(config.BREAKOUT_UNIVERSE),
