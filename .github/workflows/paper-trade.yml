@@ -1,5 +1,5 @@
 # Always-on paper trading. Each run stays on ~5h50m: it checks open positions
-# against live prices every minute and runs the full strategy cycle every hour,
+# against live prices every second (stocks: 15s) and runs the full strategy cycle every hour,
 # saving to GitHub each hour. A new run starts every 6 hours to keep it going 24/7.
 name: paper-trade
 on:
@@ -10,7 +10,9 @@ on:
     paths: [".github/workflows/paper-trade.yml"]   # (re)start the engine when this file changes
 permissions:
   contents: write
-concurrency: paper-trade
+concurrency:
+  group: paper-trade
+  cancel-in-progress: true   # a new version of the engine replaces the running one
 jobs:
   engine:
     runs-on: ubuntu-latest

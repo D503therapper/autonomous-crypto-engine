@@ -1,8 +1,8 @@
 """Live paper-trading engine for crypto and stocks.
 
     python run_live.py                  # one full cycle (every strategy, every market)
-    python run_live.py --watch 350      # stay on for 350 minutes: stop/target checks every
-                                        # minute, full strategy cycle each new hourly candle
+    python run_live.py --watch 350      # stay on for 350 minutes: live stop/target checks every
+                                        # second (crypto) / 15s (stocks), full strategy cycle hourly
 Every strategy in every market has its own $500 paper account under data/<market>/<strategy>/.
 """
 import argparse
@@ -105,7 +105,7 @@ def full_cycle(mname, client):
 
 
 def fast_check(mname, client):
-    """Every minute: exit any open position whose stop or profit target was hit."""
+    """Live check (every 1s crypto / 15s stocks): exit positions whose stop or target was hit."""
     if mname == "stocks" and not client.market_open():
         return
     held = {}
@@ -198,6 +198,8 @@ def main():
     a = ap.parse_args()
     clients = {m: MARKETS[m]["client"]() for m in MARKETS}
     end = time.time() + a.watch * 60
+    fast_every = {"crypto": 1, "stocks": 15}   # seconds between live stop/target checks
+    last_fast = {m: 0.0 for m in clients}
     last_hour = None
     while True:
         hour = time.strftime("%Y%m%d%H", time.gmtime())
@@ -210,16 +212,16 @@ def main():
             daily_summary(scoreboard())
             git_sync()
             last_hour = hour
-        else:
-            for m, c in clients.items():
+        for m, c in clients.items():
+            if time.time() - last_fast[m] >= fast_every[m]:
+                last_fast[m] = time.time()
                 try:
                     fast_check(m, c)
                 except Exception as e:
                     print(f"{m} fast check failed: {e}")
-        if time.time() >= end:
+        if time.time() >= end or not a.watch:
             break
-        time.sleep(60 - time.time() % 60 + 1)
-
+        time.sleep(1 - time.time() % 1)
 
 if __name__ == "__main__":
     main()
