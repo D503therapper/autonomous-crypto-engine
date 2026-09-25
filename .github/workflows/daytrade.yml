@@ -18,8 +18,12 @@ jobs:
       - run: pip install -q -r requirements.txt
       - run: |
           mkdir -p results
-          python -u daytrade.py --market crypto --days 720 2>&1 | grep -v "bars$" | tee results/daytrade_crypto.txt
-          python -u daytrade.py --market stocks --days 720 2>&1 | tee results/daytrade_stocks.txt
+          for c in 0.0025 0.001; do
+            python -u daytrade.py --market crypto --days 720 --cost $c 2>&1 | grep -v "bars$" | tee results/daytrade_crypto_cost$c.txt
+          done
+          for c in 0.0001 0.0002; do
+            python -u daytrade.py --market stocks --days 720 --symbols SPY,QQQ --cost $c 2>&1 | tee results/daytrade_spyqqq_cost$c.txt
+          done
       - run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"

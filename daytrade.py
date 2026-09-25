@@ -236,6 +236,8 @@ def main():
     ap.add_argument("--market", choices=["crypto", "stocks"], default="crypto")
     ap.add_argument("--days", type=int, default=720)
     ap.add_argument("--synthetic", action="store_true")
+    ap.add_argument("--cost", type=float, help="override cost per side, e.g. 0.001 = 0.1%%")
+    ap.add_argument("--symbols", help="comma-separated subset, e.g. SPY,QQQ")
     a = ap.parse_args()
     if a.market == "crypto":
         syms, cost, load = config.UNIVERSE, config.FEE_RATE + config.SLIPPAGE_RATE, load_crypto
@@ -244,6 +246,10 @@ def main():
     if a.synthetic:
         load = load_synthetic
         print("*** SYNTHETIC DATA: tests the code only ***")
+    if a.cost is not None:
+        cost = a.cost
+    if a.symbols:
+        syms = a.symbols.split(",")
     data = {s: c for s, c in load(syms, a.days).items() if len(c) > 500}
     print(f"\n{a.market}: {len(data)} symbols; cost per side {cost:.2%}")
     t_all = sorted({x["t"] for c in data.values() for x in c})
