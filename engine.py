@@ -6,7 +6,7 @@ import os
 from datetime import datetime, timezone
 
 import config
-from strategy import analyze
+from strategy import market_ok
 
 
 def ts(ms):
@@ -51,15 +51,15 @@ class Portfolio:
                             "fee": round(fee, 2), "pnl": None if pnl is None else round(pnl, 2),
                             "reason": reason})
 
-    def buy(self, t, coin, usd, price, atr_):
+    def buy(self, t, coin, usd, price, stop):
         fill = price * (1 + config.SLIPPAGE_RATE)
         fee = usd * config.FEE_RATE
         qty = (usd - fee) / fill
         self.cash -= usd
         self.positions[coin] = {"qty": qty, "entry": fill, "cost": usd, "peak": fill,
-                                "stop": fill - config.STOP_ATR_MULT * atr_,
+                                "stop": stop,
                                 "took_profit": False, "opened": t}
-        self._record(t, "BUY", coin, qty, fill, fee, "trend entry")
+        self._record(t, "BUY", coin, qty, fill, fee, "entry")
 
     def sell(self, t, coin, frac, price, reason):
         pos = self.positions[coin]
@@ -78,36 +78,27 @@ class Portfolio:
         return pnl
 
 
-def step(pf, candles_by_coin):
+def step(pf, candles_by_coin, strat):
     """One decision cycle. candles_by_coin: {coin: [candles oldest-first]}."""
-    sig = {c: analyze(cs) for c, cs in candles_by_coin.items()}
+    mk = market_ok(candles_by_coin.get("BTC"))
+    sig = {c: strat.analyze(cs, mk) for c, cs in candles_by_coin.items()}
     sig = {c: s for c, s in sig.items() if s}
     if not sig:
         return
     now = max(s["t"] for s in sig.values())
     prices = {c: s["price"] for c, s in sig.items()}
 
-    # 1) Manage open positions: stops, partial take-profit, trend exit.
+    # 1) Manage open positions (the strategy decides stops / profit-taking).
     for coin in list(pf.positions):
         s = sig.get(coin)
         if not s:
             continue
-        pos = pf.positions[coin]
-        if s["low"] <= pos["stop"]:
-            exit_px = min(pos["stop"], s["price"]) if s["price"] < pos["stop"] else pos["stop"]
-            pnl = pf.sell(now, coin, 1.0, exit_px, "stop hit")
-            if pnl < 0:
+        action = strat.manage(pf.positions[coin], s, now)
+        if action:
+            frac, px, reason = action
+            pnl = pf.sell(now, coin, frac, px, reason)
+            if frac >= 0.999 and pnl < 0:
                 pf.cooldown[coin] = now + config.COOLDOWN_CANDLES * 3_600_000
-            continue
-        if s["trend_broken"]:
-            pf.sell(now, coin, 1.0, s["price"], "trend reversed")
-            continue
-        if not pos["took_profit"] and s["price"] >= pos["entry"] + config.TAKE_PROFIT_ATR_MULT * s["atr"]:
-            pf.sell(now, coin, 0.5, s["price"], "take half profit")
-            pos["took_profit"] = True
-            pos["stop"] = max(pos["stop"], pos["entry"])  # rest of trade can't lose
-        pos["peak"] = max(pos["peak"], s["high"])
-        pos["stop"] = max(pos["stop"], pos["peak"] - config.TRAIL_ATR_MULT * s["atr"])
 
     # 2) Drawdown circuit breaker.
     eq = pf.equity(prices)
@@ -119,20 +110,20 @@ def step(pf, candles_by_coin):
             return
         pf.halted, pf.peak_equity = False, eq  # pause over: reset the high-water mark
 
-    # 3) New entries: strongest momentum first.
+    # 3) New entries, best-ranked first.
     cands = sorted((c for c, s in sig.items() if s["buy"] and c not in pf.positions
                     and pf.cooldown.get(c, 0) <= now),
-                   key=lambda c: sig[c]["momentum"], reverse=True)
+                   key=lambda c: sig[c]["rank"], reverse=True)
     for coin in cands:
         if len(pf.positions) >= config.MAX_POSITIONS:
             break
         s = sig[coin]
-        stop_dist = config.STOP_ATR_MULT * s["atr"] / s["price"]
+        stop_dist = 1 - s["stop"] / s["price"]
         usd = min(eq * config.RISK_PER_TRADE / max(stop_dist, 1e-9),
                   eq * config.MAX_POSITION_PCT,
                   pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd >= config.MIN_ORDER_USD:
-            pf.buy(now, coin, usd, s["price"], s["atr"])
+            pf.buy(now, coin, usd, s["price"], s["stop"])
 
 
 def append_csv(path, rows):

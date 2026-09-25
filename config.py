@@ -34,6 +34,26 @@ TRAIL_ATR_MULT = 3.0      # trailing stop follows the highest price since entry
 TAKE_PROFIT_ATR_MULT = 6.0  # sell half at +6 ATR to lock in gains
 MOMENTUM_LOOKBACK = 72    # rank candidates by 72h return
 
+# --- Breakout hunter ("catch the pump early") ------------------------------
+# Wider coin list: pumps happen more in mid/small caps. Confirm each is on your App.
+BREAKOUT_UNIVERSE = UNIVERSE + [
+    "SHIB", "PEPE", "BONK", "WIF", "FLOKI", "FET", "RENDER", "INJ", "ARB", "OP",
+    "APT", "SEI", "TIA", "HBAR", "XLM", "ALGO", "FIL", "ICP", "IMX", "SAND",
+    "MANA", "GRT", "CRO", "ONDO", "JUP", "TAO", "HYPE", "ENA", "POL", "TRX",
+]
+BREAKOUT = {
+    "vol_lookback": 72,        # "normal" volume = average of the last 72h
+    "vol_window": 2,           # compare the last 2h against it...
+    "vol_surge": 3.0,          # ...and require 3x normal
+    "breakout_lookback": 48,   # price must beat its 48h high
+    "max_24h_gain": 0.08,      # skip coins already up >8% (we want to be early)
+    "min_daily_usd_volume": 2_000_000,  # skip thin coins: spreads + slippage kill profits
+    "take_profit": 0.10,       # sell half at +10%
+    "trail": 0.06,             # trail the rest 6% below its peak
+    "stop_loss": 0.05,         # cut losers at -5%
+    "max_hold_hours": 36,      # no move in 36h -> free the money
+}
+
 # --- Risk ------------------------------------------------------------------
 MAX_POSITIONS = 4
 RISK_PER_TRADE = 0.02     # lose at most ~2% of equity if the stop hits
@@ -45,7 +65,4 @@ HALT_HOURS = 168          # ...for 7 days, then resume
 COOLDOWN_CANDLES = 12     # after a stop-out, leave that coin alone for 12h
 
 # --- Files -----------------------------------------------------------------
-STATE_FILE = "data/portfolio.json"
-TRADE_LOG = "data/trades.csv"
-EQUITY_LOG = "data/equity.csv"
 LISTINGS_FILE = "data/known_listings.json"

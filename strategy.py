@@ -1,30 +1,113 @@
-"""Trend-following strategy: buy strong coins in uptrends, cut losers fast,
-let winners run with a trailing stop, bank partial profits on big moves."""
+"""Trading strategies. Each one decides entries (analyze) and exits (manage);
+the engine handles money, fees, sizing and the drawdown breaker for all of them."""
 import config
 from indicators import atr, ema, rsi
 
+HOUR = 3_600_000
 
-def analyze(candles):
-    """Return the latest signal snapshot for one coin, or None if not enough data."""
-    if len(candles) < config.EMA_TREND + 5:
+
+def _base(candles):
+    return {"price": candles[-1]["c"], "high": candles[-1]["h"],
+            "low": candles[-1]["l"], "t": candles[-1]["t"]}
+
+
+def _stop_check(pos, s):
+    """Exit at the stop if this candle traded through it (gap-downs fill at the close)."""
+    if s["low"] <= pos["stop"]:
+        return 1.0, min(pos["stop"], s["price"]) if s["price"] < pos["stop"] else pos["stop"], "stop hit"
+    return None
+
+
+class TrendFollower:
+    """Ride multi-day uptrends in large coins; trailing ATR stop."""
+    name = "trend"
+    universe = config.UNIVERSE
+    min_candles = config.EMA_TREND + 5
+
+    def analyze(self, candles, market_ok=True):
+        if len(candles) < self.min_candles:
+            return None
+        closes = [c["c"] for c in candles]
+        f, s, t = ema(closes, config.EMA_FAST), ema(closes, config.EMA_SLOW), ema(closes, config.EMA_TREND)
+        r, a = rsi(closes, config.RSI_PERIOD), atr(candles, config.ATR_PERIOD)
+        price = closes[-1]
+        lb = min(config.MOMENTUM_LOOKBACK, len(closes) - 1)
+        uptrend = price > t[-1] and f[-1] > s[-1] and t[-1] > t[-24]
+        fresh_cross = any(f[-i - 1] <= s[-i - 1] and f[-i] > s[-i] for i in range(1, 7))
+        sig = _base(candles)
+        sig.update(atr=a[-1], rank=closes[-1] / closes[-1 - lb] - 1,
+                   buy=uptrend and (fresh_cross or price <= f[-1] * 1.03) and r[-1] < config.RSI_MAX_ENTRY,
+                   stop=price - config.STOP_ATR_MULT * a[-1],
+                   trend_broken=f[-1] < s[-1] and price < s[-1])
+        return sig
+
+    def manage(self, pos, s, now):
+        hit = _stop_check(pos, s)
+        if hit:
+            return hit
+        if s["trend_broken"]:
+            return 1.0, s["price"], "trend reversed"
+        action = None
+        if not pos["took_profit"] and s["price"] >= pos["entry"] + config.TAKE_PROFIT_ATR_MULT * s["atr"]:
+            pos["took_profit"] = True
+            pos["stop"] = max(pos["stop"], pos["entry"])
+            action = 0.5, s["price"], "take half profit"
+        pos["peak"] = max(pos["peak"], s["high"])
+        pos["stop"] = max(pos["stop"], pos["peak"] - config.TRAIL_ATR_MULT * s["atr"])
+        return action
+
+
+class BreakoutHunter:
+    """Catch a pump early: volume spike + breakout above the recent high while the
+    coin is still only modestly up. Bank half at +10%, trail the rest, cut at -5%."""
+    name = "breakout"
+    universe = config.BREAKOUT_UNIVERSE
+    min_candles = 100
+    B = config.BREAKOUT
+
+    def analyze(self, candles, market_ok=True):
+        if len(candles) < self.min_candles:
+            return None
+        b = self.B
+        closes = [c["c"] for c in candles]
+        vols = [c["v"] * c["c"] for c in candles]            # volume in USD
+        base_vol = sum(vols[-1 - b["vol_lookback"]:-1]) / b["vol_lookback"]
+        recent_vol = sum(vols[-b["vol_window"]:]) / b["vol_window"]
+        surge = recent_vol / base_vol if base_vol else 0
+        prior_high = max(c["h"] for c in candles[-1 - b["breakout_lookback"]:-1])
+        price = closes[-1]
+        change_24h = price / closes[-25] - 1
+        liquid = base_vol * 24 >= b["min_daily_usd_volume"]
+        sig = _base(candles)
+        sig.update(rank=surge, surge=surge, change_24h=change_24h,
+                   buy=(market_ok and liquid and surge >= b["vol_surge"] and price > prior_high
+                        and change_24h < b["max_24h_gain"]),
+                   stop=price * (1 - b["stop_loss"]))
+        return sig
+
+    def manage(self, pos, s, now):
+        b = self.B
+        hit = _stop_check(pos, s)
+        if hit:
+            return hit
+        pos["peak"] = max(pos["peak"], s["high"])
+        if not pos["took_profit"] and s["high"] >= pos["entry"] * (1 + b["take_profit"]):
+            pos["took_profit"] = True
+            pos["stop"] = max(pos["stop"], pos["entry"] * 1.01)   # rest can't turn into a loss
+            return 0.5, pos["entry"] * (1 + b["take_profit"]), f"secured +{b['take_profit']:.0%}"
+        if pos["took_profit"]:
+            pos["stop"] = max(pos["stop"], pos["peak"] * (1 - b["trail"]))
+        if not pos["took_profit"] and now - pos["opened"] >= b["max_hold_hours"] * HOUR:
+            return 1.0, s["price"], "time stop: no move"
         return None
-    closes = [c["c"] for c in candles]
-    f, s, t = ema(closes, config.EMA_FAST), ema(closes, config.EMA_SLOW), ema(closes, config.EMA_TREND)
-    r = rsi(closes, config.RSI_PERIOD)
-    a = atr(candles, config.ATR_PERIOD)
-    lb = min(config.MOMENTUM_LOOKBACK, len(closes) - 1)
-    price = closes[-1]
-    uptrend = price > t[-1] and f[-1] > s[-1] and t[-1] > t[-24]
-    fresh_cross = any(f[-i - 1] <= s[-i - 1] and f[-i] > s[-i] for i in range(1, 7))
-    pullback_ok = price <= f[-1] * 1.03  # not stretched far above the fast average
-    return {
-        "price": price,
-        "atr": a[-1],
-        "rsi": r[-1],
-        "momentum": closes[-1] / closes[-1 - lb] - 1,
-        "buy": uptrend and (fresh_cross or pullback_ok) and r[-1] < config.RSI_MAX_ENTRY,
-        "trend_broken": f[-1] < s[-1] and price < s[-1],
-        "high": candles[-1]["h"],
-        "low": candles[-1]["l"],
-        "t": candles[-1]["t"],
-    }
+
+
+def market_ok(btc_candles):
+    """True unless BTC is sliding (below its 24h average and down >3% in 24h)."""
+    if not btc_candles or len(btc_candles) < 30:
+        return True
+    closes = [c["c"] for c in btc_candles]
+    return not (closes[-1] < ema(closes, 24)[-1] and closes[-1] / closes[-25] - 1 < -0.03)
+
+
+STRATEGIES = {s.name: s for s in (TrendFollower(), BreakoutHunter())}

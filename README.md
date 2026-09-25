@@ -19,6 +19,7 @@ It never places real orders and has no API keys.
 ```
 python backtest.py --days 180      # test the strategy on real past data
 python backtest.py --synthetic     # offline test of the code only (fake prices)
+python backtest.py --strategy breakout   # test one strategy (trend | breakout | all)
 python run_live.py                 # one live paper-trading cycle
 python run_live.py --loop          # run forever, hourly (for a PC or server)
 ```

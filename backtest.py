@@ -10,12 +10,13 @@ import math
 import config
 from data_source import CryptoComClient, SyntheticClient
 from engine import Portfolio, step, ts
+from strategy import STRATEGIES
 
 
-def run(client, days):
+def run(client, days, strat):
     hours = days * 24 + config.EMA_TREND + 10
     data = {}
-    for coin in config.UNIVERSE:
+    for coin in sorted(set(strat.universe) | {"BTC"}):
         try:
             cs = client.candles(coin, count=hours)
             if len(cs) > config.EMA_TREND + 50:
@@ -34,13 +35,22 @@ def run(client, days):
             i = idx[coin].get(t)
             if i is not None and i >= config.EMA_TREND + 5:
                 view[coin] = cs[max(0, i - window):i + 1]
-        step(pf, view)
+        tradable = {c: v for c, v in view.items() if c in strat.universe}
+        step(pf, _with_market(tradable, view.get("BTC")), strat)
         prices = {c: v[-1]["c"] for c, v in view.items()}
         curve.append((t, pf.equity(prices)))
     return pf, curve, data
 
 
-def report(pf, curve, data):
+def _with_market(tradable, btc):
+    # BTC is always passed so the market filter can read it.
+    out = dict(tradable)
+    if btc:
+        out["BTC"] = btc
+    return out
+
+
+def report(pf, curve, data, name=""):
     start, end = curve[0][1], curve[-1][1]
     peak, mdd = start, 0.0
     rets = []
@@ -62,7 +72,7 @@ def report(pf, curve, data):
         return cs[-1]["c"] / cs[0]["c"] - 1 if cs else float("nan")
 
     ew = [hold(c) for c in data]
-    print(f"\n=== Backtest {ts(t0)} -> {ts(t1)} UTC ({len(data)} coins) ===")
+    print(f"\n=== Backtest [{name}] {ts(t0)} -> {ts(t1)} UTC ({len(data)} coins) ===")
     print(f"Start equity        ${start:,.2f}")
     print(f"End equity          ${end:,.2f}  ({end / start - 1:+.1%})")
     print(f"Max drawdown        {mdd:.1%}")
@@ -83,8 +93,10 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--synthetic", action="store_true")
     ap.add_argument("--days", type=int, default=120)
+    ap.add_argument("--strategy", choices=[*STRATEGIES, "all"], default="all")
     a = ap.parse_args()
     client = SyntheticClient(n=a.days * 24 + 400) if a.synthetic else CryptoComClient()
     if a.synthetic:
         print("*** SYNTHETIC DATA: tests the code only, NOT the strategy ***")
-    report(*run(client, a.days))
+    for name in (STRATEGIES if a.strategy == "all" else [a.strategy]):
+        report(*run(client, a.days, STRATEGIES[name]), name=name)

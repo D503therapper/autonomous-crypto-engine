@@ -86,18 +86,24 @@ class SyntheticClient:
             rng = random.Random(hash((coin, self.rng.random())))
             price = rng.uniform(0.5, 500)
             vol = rng.uniform(0.006, 0.02)
-            drift, rows = 0.0, []
+            drift, rows, pump = 0.0, [], 0
+            base_usd_vol = rng.uniform(2e5, 5e6)   # USD traded per hour
             t0 = int(time.time() * 1000) - self.n * TF_MS["1h"]
             for i in range(self.n):
                 if i % 300 == 0:
                     drift = rng.gauss(0, 0.0012)
+                if pump == 0 and rng.random() < 0.004:   # occasional pump/fake-out
+                    pump = rng.randint(4, 12) * (1 if rng.random() < 0.5 else -1)
                 r = drift + rng.gauss(0, vol)
+                if pump:
+                    r += 0.012 if pump > 0 else (0.012 if abs(pump) > 3 else -0.03)
+                    pump += -1 if pump > 0 else 1
                 o = price
                 price = max(1e-6, price * math.exp(r))
                 h = max(o, price) * (1 + abs(rng.gauss(0, vol / 2)))
                 l = min(o, price) * (1 - abs(rng.gauss(0, vol / 2)))
                 rows.append(Candle(t=t0 + i * TF_MS["1h"], o=o, h=h, l=l, c=price,
-                                   v=rng.uniform(1e3, 1e5)))
+                                   v=base_usd_vol * rng.uniform(0.5, 1.5) * (5 if pump else 1) / price))
             self.cache[coin] = rows
         return self.cache[coin]
 
