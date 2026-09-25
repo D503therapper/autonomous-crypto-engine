@@ -91,7 +91,7 @@ def discover_listings(client, months, now_ms, sleep=0.05):
     earliest = min(days_seen)
     at_limit = set()
     for d in (earliest, earliest + 1):
-        if len(days_seen.get(d, [])) >= 4 or d == earliest:
+        if len(days_seen.get(d, [])) >= 4:            # a cluster = the API's lookback limit
             at_limit |= set(days_seen.get(d, []))
     cutoff = now_ms - PATH_DAYS * DAY
     listings = sorted((t, s) for s, t in first.items()
@@ -110,7 +110,14 @@ def load_paths(client, listings, now_ms, sleep=0.05):
             hourly = fetch_range(client, s, "1h", day_t - DAY, day_t + (PATH_DAYS + 2) * DAY)
             hourly = [c for c in hourly if c["v"] > 0]
             if len(hourly) < 24:
-                print(f"  skip {s}: only {len(hourly)} hourly bars")
+                # the API keeps less 1h than 1D history: fall back to daily bars (coarse: every
+                # entry variant becomes "first daily close", stops fire on daily lows)
+                daily = fetch_range(client, s, "1D", day_t - DAY, day_t + (PATH_DAYS + 2) * DAY)
+                daily = [c for c in daily if c["v"] > 0]
+                if len(daily) < 3:
+                    print(f"  skip {s}: only {len(hourly)} hourly / {len(daily)} daily bars")
+                    continue
+                out.append(make_listing(s, daily[0]["t"], [dict(c, tf=DAY) for c in daily], "1D"))
                 continue
             t0 = hourly[0]["t"]
             fine, tf_used = [], "1h"
@@ -704,8 +711,18 @@ def main():
     live_d = describe(live_x)
     oos, chosen = walk_forward(R, listings, COST_BASE)
     wf = describe(oos) if oos else None
-    verdict = ("looks real" if d["ci"][0] > 0 and (wf is None or wf["mean"] > 0) and d["median"] > -0.05
-               else "is NOT proven" if d["ci"][0] <= 0 else "is fragile")
+    if d["ci"][0] <= 0:
+        verdict, advice = "is NOT proven", ("size it as an experiment, not a core strategy, until the "
+                                            "confidence interval clears zero.")
+    elif wf is not None and wf["mean"] <= 0:
+        verdict, advice = "is fragile", ("it only shows up when the parameters are chosen with hindsight, "
+                                         "so do not trust the in-sample numbers.")
+    else:
+        verdict, advice = "looks real but lumpy", ("keep trading it small, because a few big winners carry the "
+                                                   "average and a long losing run is normal.")
+    coarse = sum(1 for L in listings if L["tf"] == "1D")
+    if coarse:
+        advice += f" Caution: {coarse} of {n_all} listings only had daily bars, so their entries and stops are rough."
     print("\nSUMMARY: Over the last {:.0f} months Crypto.com listed {} coins we could test ({:.1f} a month). "
           "The rule the account trades today ({}) made {:+.1%} per trade on average, but the 95% range is "
           "[{:+.1%}, {:+.1%}], the median trade was {:+.1%}, {:.0%} of trades won and the three best trades "
@@ -717,10 +734,7 @@ def main():
                   live_d["median"], live_d["win"], live_d["top3_share"] if not math.isnan(live_d["top3_share"]) else 0,
                   f"{wf['mean']:+.1%} per trade on {wf['n']} unseen listings" if wf else "too few listings to test",
                   fmt_cfg(best), d["mean"], d["ci"][0], d["ci"][1], len(xs) / span_m, run,
-                  port["maxdd"] if port else 0, verdict,
-                  "keep trading it small, because a few big winners carry the average and a losing run is normal."
-                  if verdict == "looks real" else
-                  "size it as an experiment, not a core strategy, until the confidence interval clears zero."))
+                  port["maxdd"] if port else 0, verdict, advice))
     print(f"\n({time.time() - t_start:.0f}s)")
 
 
