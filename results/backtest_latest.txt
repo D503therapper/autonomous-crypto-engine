@@ -1,44 +1,49 @@
 
-=== Backtest [trend] 2026-03-29 17:00 -> 2026-09-25 21:00 UTC (16 coins) ===
-Start equity        $500.00
-End equity          $141.02  (-71.8%)
-Max drawdown        74.2%
-Sharpe (annualized) -5.15
-Trades              981 fills, 509 exits, win rate 27%
-Fees + spread paid  $330.55
-Benchmark: hold BTC +26.5%
-Benchmark: equal-weight hold all +54.3%
+Loading 45 crypto symbols...
 
-Last 10 fills:
-  2026-09-24 03:00 SELL UNI   $   38.81 @ 9.22836      pnl $-0.83  (trend reversed)
-  2026-09-24 03:00 BUY  NEAR  $   29.91 @ 4.37817       (entry)
-  2026-09-24 09:00 SELL BCH   $   28.23 @ 327.732      pnl $-1.50  (stop hit)
-  2026-09-24 10:00 SELL NEAR  $   28.60 @ 4.18631      pnl $-1.60  (trend reversed)
-  2026-09-24 14:00 SELL LTC   $   23.46 @ 72.6183      pnl $+3.50  (take half profit)
-  2026-09-24 19:00 BUY  LINK  $   40.10 @ 13.2853       (entry)
-  2026-09-24 19:00 BUY  SUI   $   40.10 @ 1.02933       (entry)
-  2026-09-24 20:00 BUY  ADA   $   17.25 @ 0.247537      (entry)
-  2026-09-25 04:00 SELL LTC   $   22.66 @ 70.1539      pnl $+2.71  (stop hit)
-  2026-09-25 04:00 BUY  BCH   $   22.45 @ 336.997       (entry)
+=== [crypto/momentum] 2026-02-07 12:00 -> 2026-09-25 21:00 UTC (230 days) ===
+Start -> end        $500.00 -> $376.75  (-24.7%)
+Avg per month       -3.6%
+Max drawdown        33.8%
+Sharpe (annualized) -1.43
+Trades              67 fills, 32 exits, win rate 12%
+Fees + slippage     $23.48
+Benchmark: hold BTC   +21.3%
 
-=== Backtest [breakout] 2026-03-29 17:00 -> 2026-09-25 21:00 UTC (45 coins) ===
-Start equity        $500.00
-End equity          $385.80  (-22.8%)
-Max drawdown        25.0%
-Sharpe (annualized) -3.20
-Trades              108 fills, 56 exits, win rate 23%
-Fees + spread paid  $64.89
-Benchmark: hold BTC +26.4%
-Benchmark: equal-weight hold all +46.5%
+=== [crypto/trend] 2026-01-26 00:00 -> 2026-09-25 21:00 UTC (243 days) ===
+Start -> end        $500.00 -> $69.68  (-86.1%)
+Avg per month       -21.6%
+Max drawdown        88.4%
+Sharpe (annualized) -6.61
+Trades              1517 fills, 784 exits, win rate 26%
+Fees + slippage     $257.57
+Benchmark: hold BTC   -3.6%
 
-Last 10 fills:
-  2026-09-13 01:00 SELL SOL   $  122.59 @ 102.188      pnl $-4.57  (time stop: no move)
-  2026-09-13 01:00 SELL ETH   $  120.74 @ 2523.41      pnl $-6.40  (time stop: no move)
-  2026-09-14 14:00 BUY  BTC   $  122.63 @ 78584.7       (entry)
-  2026-09-14 16:00 BUY  XRP   $  122.53 @ 1.42042       (entry)
-  2026-09-14 20:00 BUY  ETH   $  122.41 @ 2573.54       (entry)
-  2026-09-15 13:00 SELL ETH   $  116.06 @ 2439.98      pnl $-7.55  (stop hit)
-  2026-09-15 18:00 SELL XRP   $  114.14 @ 1.32308      pnl $-9.58  (stop hit)
-  2026-09-16 02:00 SELL BTC   $  118.22 @ 75755.6      pnl $-5.62  (time stop: no move)
-  2026-09-18 14:00 BUY  BTC   $  115.84 @ 81024.9       (entry)
-  2026-09-20 02:00 SELL BTC   $  114.72 @ 80238.8      pnl $-2.28  (time stop: no move)
+=== [crypto/breakout] 2026-01-21 15:00 -> 2026-09-25 21:00 UTC (247 days) ===
+Start -> end        $500.00 -> $425.55  (-14.9%)
+Avg per month       -1.9%
+Max drawdown        18.4%
+Sharpe (annualized) -2.20
+Trades              116 fills, 60 exits, win rate 23%
+Fees + slippage     $40.08
+Benchmark: hold BTC   -7.3%
+
+Loading 20 stocks symbols...
+
+=== [stocks/momentum] 2025-10-08 19:30 -> 2026-09-25 19:30 UTC (352 days) ===
+Start -> end        $499.83 -> $470.00  (-6.0%)
+Avg per month       -0.5%
+Max drawdown        18.1%
+Sharpe (annualized) -0.33
+Trades              111 fills, 54 exits, win rate 28%
+Fees + slippage     $0.00
+Benchmark: hold SPY   +14.6%
+
+=== [stocks/trend] 2025-10-21 13:30 -> 2026-09-25 19:30 UTC (339 days) ===
+Start -> end        $499.85 -> $393.44  (-21.3%)
+Avg per month       -2.1%
+Max drawdown        27.9%
+Sharpe (annualized) -1.11
+Trades              745 fills, 392 exits, win rate 38%
+Fees + slippage     $0.00
+Benchmark: hold SPY   +15.0%
