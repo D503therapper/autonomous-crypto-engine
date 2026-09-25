@@ -1,0 +1,28 @@
+# Walk-forward strategy lab on years of real daily prices; results committed to results/.
+name: lab
+on:
+  push:
+    paths: ["lab.py", ".github/workflows/lab.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: lab
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: |
+          mkdir -p results
+          python -u lab.py --market crypto --years 5 2>&1 | tee results/lab_crypto.txt
+          python -u lab.py --market stocks --years 8 2>&1 | tee results/lab_stocks.txt
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "lab results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs && git push && break; sleep 5; done
