@@ -50,7 +50,7 @@ DEFAULTS = {
         "min_daily_usd": 500_000,   # skip coins too thin on Crypto.com (notes suggest $2M; paper: $500k)
         "max_spread": 0.01,
         "seen_file": "data/seen_announcements.json",
-        "seen_keep": 500,           # ids remembered per source
+        "seen_keep": 5000,          # ids remembered per source (coin-list watchers hold full lists)
         "events_file": "data/listing_events.csv",   # latency / gate log (t0, t_detect, price, verdict)
         # Sources: url (from the notes; every one UNVERIFIED from this sandbox), poll interval.
         # An empty url disables the source. Fields parsed per source are in the parse_* functions.
@@ -279,8 +279,61 @@ def parse_feed(body):
     return out
 
 
+# ---- exchange coin-list watchers: a coin appearing in an exchange's public market list is a
+# listing. The first poll primes the full list (nothing traded); later polls report new coins.
+_ALIAS = {"XBT": "BTC", "XDG": "DOGE"}
+
+
+def _listing_notices(src, bases):
+    out = []
+    for b in sorted(set(bases)):
+        b = _ALIAS.get(b.upper(), b.upper())
+        if b and b.isalnum():
+            out.append({"id": b, "title": f"New {src} listing ({b})", "content": "", "t0": None})
+    return out
+
+
+def parse_upbit_markets(body):
+    return _listing_notices("Upbit", [m["market"].split("-", 1)[1] for m in _json(body)
+                                      if str(m.get("market", "")).startswith("KRW-")])
+
+
+def parse_kraken_pairs(body):
+    res = _json(body).get("result", {})
+    return _listing_notices("Kraken", [v.get("wsname", "").split("/")[0] for v in res.values() if v.get("wsname")])
+
+
+def parse_coinbase_products(body):
+    return _listing_notices("Coinbase", [p.get("base_currency", "") for p in _json(body)
+                                         if p.get("status", "online") != "delisted"])
+
+
+def parse_gemini_symbols(body):
+    bases = []
+    for sym in _json(body):
+        sym = str(sym).upper()
+        for q in ("USDT", "USDC", "GUSD", "USD", "BTC", "ETH", "EUR", "GBP", "SGD", "DAI"):
+            if sym.endswith(q) and len(sym) > len(q):
+                bases.append(sym[:-len(q)])
+                break
+    return _listing_notices("Gemini", bases)
+
+
+def parse_binanceus(body):
+    return _listing_notices("Binance.US", [s.get("baseAsset", "") for s in _json(body).get("symbols", [])
+                                           if s.get("status") == "TRADING"])
+
+
+def parse_okx(body):
+    return _listing_notices("OKX", [d.get("baseCcy", "") for d in _json(body).get("data", [])
+                                    if d.get("state") == "live"])
+
+
 PARSERS = {"cryptocom": parse_cryptocom, "upbit": parse_upbit, "binance": parse_binance,
-           "coinbase": parse_feed, "coinbase_blog": parse_feed, "kraken": parse_feed}
+           "coinbase": parse_feed, "coinbase_blog": parse_feed, "kraken": parse_feed,
+           "upbit_markets": parse_upbit_markets, "kraken_pairs": parse_kraken_pairs,
+           "coinbase_products": parse_coinbase_products, "gemini_symbols": parse_gemini_symbols,
+           "binanceus_symbols": parse_binanceus, "okx_symbols": parse_okx}
 
 UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")   # Binance/Upbit reject python's default agent

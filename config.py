@@ -66,21 +66,31 @@ EARLY_SIGNALS = {
         "max_age_min": 45,           # a notice older than this is old news
         "max_move_since": 0.08,      # price now vs price at the notice (fallback: first detection)
         "max_move_by_source": {"upbit": 0.08, "cryptocom": 0.08, "binance": 0.04, "coinbase": 0.04,
-                               "kraken": 0.04},
+                               "kraken": 0.04, "upbit_markets": 0.08, "coinbase_products": 0.05,
+                               "kraken_pairs": 0.05, "binanceus_symbols": 0.05, "gemini_symbols": 0.05,
+                               "okx_symbols": 0.05},
         "max_24h_change": 0.30,      # never chase a coin already up 30% in a day
         "min_daily_usd": 500_000, "max_spread": 0.01,
         "seen_file": "data/seen_announcements.json",
         "events_file": "data/listing_events.csv",   # t0 / detection / gate verdict per notice
         # URLs from the research notes, none verified from the sandbox; "" disables a source.
         "sources": {
-            "cryptocom": {"url": "https://api.crypto.com/exchange/v1/public/get-announcements", "every_s": 10},
-            "upbit": {"url": "https://api-manager.upbit.com/api/v1/announcements?os=web&page=1&per_page=20&category=trade",
-                      "every_s": 5},
+            # verified from the GitHub runner 2026-09-25 (tools/probe.py -> results/probe.txt)
+            "cryptocom": {"url": "https://api.crypto.com/v1/public/get-announcements?category=list&product_type=Spot",
+                          "every_s": 10},
             "binance": {"url": "https://www.binance.com/bapi/composite/v1/public/cms/article/list/query"
-                               "?type=1&catalogId=48&pageNo=1&pageSize=20", "every_s": 15},   # 403-prone
-            "coinbase": {"url": "https://status.exchange.coinbase.com/history.atom", "every_s": 15},
-            "coinbase_blog": {"url": "", "every_s": 60},   # set the blog RSS url once known
-            "kraken": {"url": "https://blog.kraken.com/feed", "every_s": 30},
+                               "?type=1&catalogId=48&pageNo=1&pageSize=20", "every_s": 15},
+            "coinbase": {"url": "https://status.exchange.coinbase.com/history.atom", "every_s": 30},
+            "upbit": {"url": "", "every_s": 5},          # announcements API: 403 from GitHub runners
+            "coinbase_blog": {"url": "", "every_s": 60},
+            "kraken": {"url": "", "every_s": 30},        # blog feed: 403 from GitHub runners
+            # coin-list watchers (new coin in the exchange's public market list = listing)
+            "upbit_markets": {"url": "https://api.upbit.com/v1/market/all", "every_s": 30},
+            "coinbase_products": {"url": "https://api.exchange.coinbase.com/products", "every_s": 30},
+            "kraken_pairs": {"url": "https://api.kraken.com/0/public/AssetPairs", "every_s": 60},
+            "binanceus_symbols": {"url": "https://api.binance.us/api/v3/exchangeInfo", "every_s": 120},
+            "gemini_symbols": {"url": "https://api.gemini.com/v1/symbols", "every_s": 60},
+            "okx_symbols": {"url": "https://www.okx.com/api/v5/public/instruments?instType=SPOT", "every_s": 60},
         },
     },
     "footprint": {                   # 2. pre-pump / pre-listing accumulation footprint (hourly)
