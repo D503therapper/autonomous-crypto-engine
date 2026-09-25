@@ -13,6 +13,7 @@ import time
 import urllib.request
 
 import config
+import dex
 import social
 from engine import Portfolio, append_csv, step, ts
 from markets import MARKETS
@@ -326,19 +327,21 @@ def scoreboard():
     out = ["# Scoreboard (pretend money)", ""]
     for mn, _, eq, _ in main:
         out.append(f"**{mn.title()}: ${eq:,.2f}**  ({eq - start:+,.2f})  ")
+    out.append(dex.scoreboard_line() + "  ")       # on-chain paper account (dex.py); not part of the total
     out += ["", f"**Total: ${total:,.2f}** of ${start * len(main):,.0f}  ({total - start * len(main):+,.2f})", "",
             f"Updated {ts(int(time.time() * 1000))} UTC"]
     with open("SCOREBOARD.md", "w") as f:
         f.write("\n".join(out) + "\n")
 
     lab = [(mn, st.name, *_balance(mn, st.name)) for mn, m in MARKETS.items() for st in m["strategies"]]
+    lab.append(("dex", dex.DEX["name"], *_balance("dex", dex.DEX["name"])))   # data/dex/dex_hunter
     lab.sort(key=lambda r: -r[2])
     out = ["# Strategy lab (behind the scenes)", "",
            "Every candidate strategy runs its own separate pretend $500 so they can be compared. "
            "The best one in each market trades the official account on SCOREBOARD.md.", "",
            "| Market | Strategy | Balance | Return | Trades |", "|---|---|---|---|---|"]
     for mn, sn, eq, n in lab:
-        star = " (official)" if MARKETS[mn]["main"] == sn else ""
+        star = " (official)" if MARKETS.get(mn, {}).get("main") == sn else ""
         out.append(f"| {mn} | {sn}{star} | ${eq:,.2f} | {eq / start - 1:+.1%} | {n} |")
     with open("LAB.md", "w") as f:
         f.write("\n".join(out) + "\n")
@@ -360,6 +363,9 @@ def write_dashboard(rows, total):
         f'<div class="right"><div class="bal">${eq:,.2f}</div>'
         f'<div class="{cls(eq - start)}">{eq - start:+,.2f} ({eq / start - 1:+.1%})</div></div></div>'
         for mn, sn, eq, _ in rows)
+    dx = dex.scoreboard_line(md=False)             # one extra card: "DEX: $512.40 (+12.40) · Scammed: 1 (-$38.00)"
+    items += (f'<div class="row"><div><div class="name">DEX</div></div>'
+              f'<div class="right"><div class="{cls(dex.scoreboard_stats()["equity"] - start)}">{dx[5:] if dx.startswith("DEX: ") else dx}</div></div></div>')
     html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="300">
@@ -408,6 +414,7 @@ def daily_summary(rows):
         lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - start:+,.2f}")
     total = sum(now_bal.values())
     day_total = total - sum(prev.get("balances", {}).get(k, start) for k in now_bal)
+    lines.append(dex.scoreboard_line(md=False))    # DEX paper account: shown, not in the total
     notify(f"Today {day_total:+,.2f} | Total {total - start * len(now_bal):+,.2f}", "\n".join(lines))
     with open(stamp, "w") as f:
         json.dump({"date": today, "balances": now_bal}, f)
@@ -417,7 +424,7 @@ def git_sync():
     """In the cloud runner: commit the paper accounts back to GitHub every hour."""
     if os.environ.get("GIT_AUTOPUSH") != "1":
         return
-    cmds = ["git add data data/social SCOREBOARD.md LAB.md docs",   # data/social: heat log + state
+    cmds = ["git add data data/social data/dex SCOREBOARD.md LAB.md docs",   # data/social: heat log + state; data/dex: screen/outcomes
             f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'",
             "git pull -q --rebase -X theirs", "git push -q"]
     for c in cmds:
@@ -436,6 +443,11 @@ def main():
         tracker.self_check()                    # logs each source's HTTP status once per run
     except Exception as e:
         print(f"social self-check failed: {e}")
+    hunter = dex.hunter()                       # DEX paper trader (dex.py): one request per tick at most
+    try:
+        hunter.self_check()                     # HTTP status per source once per run
+    except Exception as e:
+        print(f"dex self-check failed: {e}")
     end = time.time() + a.watch * 60
     fast_every = {"crypto": 1, "stocks": 15}   # seconds between live stop/target checks
     last_fast = {m: 0.0 for m in clients}
@@ -468,6 +480,7 @@ def main():
                 scan_movers(clients["crypto"], scanner, guard, footprint)
             except Exception as e:
                 print(f"crypto scanner failed: {e}")
+            hunter.cex = set(scanner.last)      # Crypto.com-listed symbols qualify for the DEX "blue" tier
         if time.time() - last_listing >= reactor.p["loop_s"]:
             last_listing = time.time()
             try:
@@ -486,6 +499,10 @@ def main():
                 trade_social(clients["crypto"], tracker)
         except Exception as e:
             print(f"social heat failed: {e}")
+        try:                                     # DEX: bookkeeping + at most one HTTP request (<= 8s) per tick
+            hunter.tick()
+        except Exception as e:
+            print(f"dex hunter failed: {e}")
         if time.time() >= end or not a.watch:
             break
         time.sleep(1 - time.time() % 1)

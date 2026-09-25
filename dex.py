@@ -755,6 +755,7 @@ class DexHunter:
             st, obj = self._get("rugcheck", self._url("rugcheck", addr=c["addr"]), now)
             reasons = check_rugcheck(obj, S) if st == 200 and isinstance(obj, dict) else [("rugcheck unreachable", "unreach")]
         job["reasons"] += reasons
+        job["done"] = job.get("done", 0) + 1
         hard = [r for r in reasons if r[1] != "defer"]         # a deferred tax needs the second source's word
         job["i"] = len(job["steps"]) if hard else job["i"] + 1    # first hard failure ends the screen
 
@@ -783,7 +784,7 @@ class DexHunter:
             "verdict": verdict, "reasons": why, "price": c.get("price"), "liq_usd": round(c["liq"]),
             "vol24_usd": round(c["vol24"]), "age_h": None if c.get("age_h") is None else round(c["age_h"], 1),
             "fdv": c.get("fdv"), "buys_h1": c.get("b1"), "sells_h1": c.get("s1"), "h1": c.get("h1"), "h6": c.get("h6"),
-            "h24": c.get("h24"), "sources": "+".join(job["steps"][:max(1, job["i"])])}])
+            "h24": c.get("h24"), "sources": "+".join(job["steps"][:job.get("done", 0)])}])
         print(f"   dex screen: {verdict} {c['sym']}@{c['chain']} liq ${c['liq']:,.0f}{' - ' + why if why else ''}")
         st["seen"][job["key"]] = {"t": now, "v": verdict}
         self.dirty = True

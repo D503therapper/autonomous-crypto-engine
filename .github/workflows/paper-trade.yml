@@ -9,7 +9,7 @@ on:
   push:
     paths: [".github/workflows/paper-trade.yml", "requirements.txt", "run_live.py", "engine.py",
             "strategy.py", "markets.py", "config.py", "data_source.py", "indicators.py",
-            "scanner.py", "signals.py", "social.py"]   # restart only when files the engine runs change
+            "scanner.py", "signals.py", "social.py", "dex.py"]   # restart only when files the engine runs change
 permissions:
   contents: write
 concurrency:

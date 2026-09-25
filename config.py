@@ -176,3 +176,42 @@ SOCIAL = {
     "min_24h_change": -0.10,          # skip spike-and-fade (down >10% in 24h); no upper cap on purpose
     "slots": 5,
 }
+
+# --- DEX (on-chain) paper trader (dex.py) + "dex_hunter" $500 account ----------
+# Keys override dex.DEFAULTS (nested keys merge). Paper only: no wallet, no keys, no transactions.
+# Owner priorities: big wins on DEX coins, avoid scams above all -> STRICT screen, tiered sizing.
+DEX = {
+    "chains": ["solana", "base", "ethereum"],
+    "urls": {   # GoPlus EVM, honeypot.is, RugCheck summary, DexScreener, GeckoTerminal verified from the
+                # GitHub runner (results/probe.txt); the GoPlus Solana path is NOT verified yet
+        "goplus_evm": "https://api.gopluslabs.io/api/v1/token_security/{chain_id}?contract_addresses={addr}",
+        "goplus_sol": "https://api.gopluslabs.io/api/v1/solana/token_security?contract_addresses={addr}",
+        "honeypot": "https://api.honeypot.is/v2/IsHoneypot?address={addr}&chainID={chain_id}",
+        "rugcheck": "https://api.rugcheck.xyz/v1/tokens/{addr}/report/summary",
+        "ds_tokens": "https://api.dexscreener.com/tokens/v1/{chain}/{addrs}",
+        "ds_search": "https://api.dexscreener.com/latest/dex/search?q={q}",
+        "ds_boosts": "https://api.dexscreener.com/token-boosts/top/v1",
+        "gt_trending": "https://api.geckoterminal.com/api/v2/networks/{network}/trending_pools?duration=1h",
+    },
+    "timeout": 6,                                  # seconds per request (hard cap 8: never stalls the 1s loop)
+    "every_s": {"discover": 300, "watch": 600, "prices": 60, "rescreen": 1800, "followup": 3600},
+    "screen": {                                    # every check must pass; unreachable source = not tradable
+        "max_tax": 0.03, "max_creator_pct": 0.05, "max_top10_pct": 0.40, "min_lp_locked": 0.95,
+        "min_liq": 250_000, "liq_x_size": 50, "min_age_h": 24, "min_vol24": 300_000,
+        "max_24h_change": None,                    # no cap on prior gains (owner)
+    },
+    "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},   # 1h >= +5%, 6h >= +10%, 1h buys >= 1.2x sells
+    "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
+        "A": {"pct": 0.03},                                                                   # "new"
+        "B": {"pct": 0.10, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},    # "proven"
+        "C": {"pct": 0.20, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},           # "blue"
+    },
+    "cex_list": [],                                # extra CEX-listed symbols (Crypto.com tickers are used live)
+    "size": {"liq_pct": 0.005, "max_exposure": 0.60},
+    "cost": {"fee": 0.003, "slip": 0.01},          # + price impact usd / liquidity, per side
+    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": (4.0, 0.5), "max_hold_days": 14,
+             "liq_pull": 0.50, "rug_tax": 0.50},
+    "slots": 4,
+    "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to
+                                                   # re-enable set reset_after "YYYY-MM-DD HH:MM" (UTC) > pause time
+}

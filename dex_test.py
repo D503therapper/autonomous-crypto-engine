@@ -607,18 +607,18 @@ def test_rejected_followup():
     assert set(fu) == {"base:" + EVM, "base:0xdef"} and h.state["fu_n"] == 2          # sampled: 2 per day
     assert fu["base:" + EVM]["px0"] == 0.01 and fu["base:" + EVM]["liq0"] == 600_000
     live[EVM], live["0xdef"] = (0.0005, 20_000), (0.07, 700_000)                        # one rugs, one runs 3.5x
-    run(h, T0 + HOUR + 1000, 2)
+    run(h, T0 + HOUR + 1000, 8)                                                        # (discovery jobs go first)
     assert fu["base:" + EVM]["liq_min"] == 20_000 and fu["base:0xdef"]["px_max"] == 0.07 and fu["base:0xdef"]["n"] == 1
     live[EVM] = (0.0004, 15_000)
     del live["0xdef"]                                                                   # pair gone: liq 0
-    run(h, T0 + 2 * HOUR + 2000, 2)
+    run(h, T0 + 2 * HOUR + 2000, 8)
     assert fu["base:0xdef"]["liq"] == 0
-    run(h, T0 + 7 * DAY + 3000, 2)                                                      # 7 days: finalized
+    run(h, T0 + 7 * DAY + 3000, 8)                                                      # 7 days: finalized
     assert not h.state["followup"]
     r = {x["address"]: x for x in rows(f"{d}/rejected_followup.csv")}
     assert r[EVM]["rugged"] == "1" and r[EVM]["ran_up"] == "0"
     assert r["0xdef"]["rugged"] == "1" and r["0xdef"]["ran_up"] == "1" and float(r["0xdef"]["max_gain"]) == 2.5
-    line = h.weekly_line(T0 + 7 * DAY + 3000)
+    line = h.weekly_line(T0 + 7 * DAY - HOUR)                                          # window covers the screens too
     assert "rejected-that-rugged 2/2" in line and "rejected-that-ran-up 1/2" in line and "screened 3, passed 0" in line
     shutil.rmtree(d)
     print("  rejected tokens followed 7 days (rug / run-up), sampled per day   ok")
@@ -635,6 +635,7 @@ def test_auto_pause_after_scams():
     assert K in h.pf.positions
     t = poll(h, t, px, v=0.004, liq=100_000)                                # scam #2 -> paused
     assert h.paused() == "scam limit" and len(h.state["scams"]) == 2
+    px.update(v=0.01, liq=600_000)
     h.state["seen"].clear()
     h.pf.cooldown.clear()
     t = screen(h, cand(), t=t + 1000)
@@ -686,29 +687,28 @@ def test_reports_and_scoreboard_line():
 
 def test_discovery_sources():
     boosts = [{"chainId": "base", "tokenAddress": "0xboost"}, {"chainId": "bsc", "tokenAddress": "0xno"}]
-    table = {"trending_pools": (200, {"data": [gt_pool("solana", SOL), gt_pool("solana", "Thin", liq=1000)]}),
+    table = {"networks/solana/trending_pools": (200, {"data": [gt_pool("solana", SOL), gt_pool("solana", "Thin", liq=1000)]}),
              "token-boosts/top": (200, boosts),
+             "tokens/v1/solana/": (200, [ds_pair("solana", SOL, sym="GTK")]),
              "tokens/v1/base/0xboost": (200, [ds_pair("base", "0xboost", sym="BST")]),
-             "search?q=WATCHY": (200, {"pairs": [ds_pair("base", "0xwatch", sym="WATCHY"), ds_pair("bsc", "0xw2", sym="WATCHY")]})}
+             "search?q=WATCHY": (200, {"pairs": [ds_pair("base", "0xwatch", sym="WATCHY"), ds_pair("bsc", "0xw2", sym="WATCHY")]}),
+             "gopluslabs": (200, {"code": 1, "result": {}})}                 # no security data: everything is REJECTED
     h, fetch, d = make(table, chains=["solana", "base"])
     sd = tempfile.mkdtemp()
     with open(f"{sd}/dex_watch.json", "w") as f:
         json.dump({"WATCHY": {"chain": "base", "n": 3, "last": "x"}, "ONCE": {"chain": "base", "n": 1}}, f)
     old, dex.SOCIAL = dex.SOCIAL, {"dir": sd}
     try:
-        for i in range(8):
-            h.tick(T0 + i * 1000)
+        run(h, T0, 14)
     finally:
         dex.SOCIAL = old
-    keys = {j["key"] for j in h.queue}
-    assert keys == {"solana:" + SOL, "base:0xboost", "base:0xwatch"}, keys
+    sc = {r["address"]: r for r in rows(f"{d}/screen.csv")}
+    assert set(sc) == {SOL, "0xboost", "0xwatch"}, sc                        # bsc tokens ignored; every source fed in
+    assert all(r["verdict"] == "REJECT" and "goplus: no data" in r["reasons"] for r in sc.values()) and not h.pf.positions
+    assert sc[SOL]["sources"] == "ds+goplus" and sc["0xboost"]["sources"] == "goplus"   # GT data gets a DexScreener refresh
     assert h.state["prefiltered"] == 1                                       # the thin GT pool, silently
-    assert any("trending_pools" in u for u in fetch.calls) and any("search?q=WATCHY" in u for u in fetch.calls)
     assert sum("trending_pools" in u for u in fetch.calls) == 2              # solana + base (eth not configured)
-    assert "WATCHY" in h.state["watch_done"]
-    gt = next(j for j in h.queue if j["key"].startswith("solana"))
-    assert gt["steps"] == ["ds", "goplus", "rugcheck"]                       # GT data gets a DexScreener refresh
-    assert next(j for j in h.queue if j["key"] == "base:0xboost")["steps"] == ["goplus", "honeypot"]
+    assert any("search?q=WATCHY" in u for u in fetch.calls) and "WATCHY" in h.state["watch_done"]
     shutil.rmtree(d)
     shutil.rmtree(sd)
     print("  discovery: geckoterminal trending, dexscreener boosts, social dex_watch   ok")
