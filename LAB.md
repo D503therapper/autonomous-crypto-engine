@@ -9,6 +9,6 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 | stocks | momentum | $500.00 | +0.0% | 0 |
 | stocks | trend | $500.00 | +0.0% | 0 |
 | stocks | hold_spy | $500.00 | +0.0% | 0 |
-| crypto | breakout10 (official) | $497.75 | -0.4% | 2 |
-| crypto | hold_btc | $497.75 | -0.4% | 1 |
-| crypto | momentum | $496.45 | -0.7% | 4 |
+| crypto | hold_btc | $498.23 | -0.4% | 1 |
+| crypto | momentum | $494.67 | -1.1% | 4 |
+| crypto | breakout10 (official) | $493.69 | -1.3% | 2 |
