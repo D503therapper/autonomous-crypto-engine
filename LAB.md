@@ -4,6 +4,7 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 
 | Market | Strategy | Balance | Return | Trades |
 |---|---|---|---|---|
+| crypto | momentum | $500.01 | +0.0% | 4 |
 | crypto | early_mover (official) | $500.00 | +0.0% | 0 |
 | crypto | breakout | $500.00 | +0.0% | 0 |
 | stocks | rsi2 (official) | $500.00 | +0.0% | 0 |
@@ -11,6 +12,5 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 | stocks | momentum | $500.00 | +0.0% | 0 |
 | stocks | trend | $500.00 | +0.0% | 0 |
 | stocks | hold_spy | $500.00 | +0.0% | 0 |
-| crypto | hold_btc | $499.05 | -0.2% | 1 |
-| crypto | momentum | $498.48 | -0.3% | 4 |
-| crypto | breakout10 | $498.09 | -0.4% | 2 |
+| crypto | breakout10 | $499.40 | -0.1% | 2 |
+| crypto | hold_btc | $499.28 | -0.1% | 1 |
