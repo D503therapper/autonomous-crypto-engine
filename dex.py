@@ -48,7 +48,7 @@ DEFAULTS = {
         "goplus_evm": "https://api.gopluslabs.io/api/v1/token_security/{chain_id}?contract_addresses={addr}",
         "goplus_sol": "https://api.gopluslabs.io/api/v1/solana/token_security?contract_addresses={addr}",
         "honeypot": "https://api.honeypot.is/v2/IsHoneypot?address={addr}&chainID={chain_id}",
-        "rugcheck": "https://api.rugcheck.xyz/v1/tokens/{addr}/report/summary",
+        "rugcheck": "https://api.rugcheck.xyz/v1/tokens/{addr}/report",   # full report: LP lock %, authorities
         "ds_tokens": "https://api.dexscreener.com/tokens/v1/{chain}/{addrs}",            # <= 30 addresses
         "ds_search": "https://api.dexscreener.com/latest/dex/search?q={q}",
         "ds_boosts": "https://api.dexscreener.com/token-boosts/top/v1",
@@ -59,21 +59,22 @@ DEFAULTS = {
     "timeout": 6,                                                    # seconds per request (cap 8)
     "gap_s": {"goplus": 3, "honeypot": 3, "rugcheck": 3, "dexscreener": 1.5, "geckoterminal": 2.5},
     "every_s": {"discover": 300, "watch": 600, "prices": 60, "rescreen": 1800, "followup": 3600},
-    "screen": {
-        "max_tax": 0.05, "reject_proxy": True, "max_creator_pct": 0.10, "max_top10_pct": 0.50,
-        "min_lp_locked": 0.80, "rugcheck_max_score": 50,             # score_normalised (0-100, higher = worse)
-        "min_liq": 100_000, "min_age_h": 6, "min_vol24": 200_000,
+    "screen": {                                                      # STRICT by owner's choice
+        "max_tax": 0.03, "reject_proxy": True, "max_creator_pct": 0.05, "max_top10_pct": 0.40,
+        "min_lp_locked": 0.95, "rugcheck_max_score": 50,             # score_normalised (0-100, higher = worse)
+        "min_liq": 250_000, "min_age_h": 24, "min_vol24": 300_000,
         "max_24h_change": None,                                      # owner: no cap on runners
         "fade_h6": 0.30, "fade_h1": -0.15,                           # +30% in 6h but -15% in the last hour
         "ttl_h": 6, "reject_ttl_h": 24, "unreach_ttl_h": 1,          # how long a verdict stands
     },
     "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},            # +5% 1h, +10% 6h, 1h buys >= 1.2x sells
-    "size": {"equity_pct": 0.10, "liq_pct": 0.01},
+    "size": {"equity_pct": 0.05, "liq_pct": 0.005},
     "cost": {"fee": 0.003, "slip": 0.01},                            # + price impact usd/liquidity per side
     "exit": {"trail": 0.30, "tp1": (1.0, 1 / 3), "tp2": (3.0, 0.5),  # tp2: half of the remaining 2/3
              "max_hold_days": 14, "liq_pull": 0.50, "rug_tax": 0.50, "check_wait_s": 600},
     "followup": {"days": 7, "per_day": 50, "rug_liq": 0.80, "rug_px": 0.90, "runup": 1.0},
-    "slots": 5, "queue": 20, "dir": "data/dex", "name": "dex_hunter",
+    "scam_pause": {"max": 2, "days": 30, "reset_after": ""},         # 2 scams in 30 days -> no new entries until
+    "slots": 4, "queue": 20, "dir": "data/dex", "name": "dex_hunter",   # reset_after "YYYY-MM-DD HH:MM" > pause time
 }
 
 
