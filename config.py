@@ -37,6 +37,15 @@ STOCK_UNIVERSE = [
 STOCK_ETFS = ["SPY", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "XLK", "XLF", "XLE", "XLV", "XLY",
               "XLP", "XLI", "XLU", "XLB", "XLRE", "XLC", "SMH", "EFA", "EEM"]
 
+# --- Early mover hunter (all Crypto.com coins) -----------------------------
+EARLY_MOVER = {
+    "k": 3, "x": 0.10, "v": 3,        # up >= 10% in 3h on >= 3x normal volume
+    "trail": 0.20, "h": 72,           # trailing stop 20% below peak; max 72h hold
+    "min_daily_usd": 50_000,          # skip coins too thin to trade
+    "buy_listings": True, "listing_hours": 3,
+    "slots": 5,
+}
+
 # --- Weekly momentum (the strategy with the strongest research support) -----
 MOMENTUM = {
     "lookback_days": 21,       # own return over ~3 weeks must be positive...

@@ -1,7 +1,7 @@
 """The two markets we paper trade side by side, each with its own strategies
 and its own $500 paper account per strategy."""
 import config
-from strategy import (BreakoutHunter, DonchianRotation, HoldBenchmark, MomentumRotation,
+from strategy import (BreakoutHunter, DonchianRotation, EarlyMover, HoldBenchmark, MomentumRotation,
                       RSI2MeanReversion, TrendFollower, WeeklyMomentum)
 
 
@@ -19,10 +19,11 @@ MARKETS = {
     "crypto": {
         "client": _crypto,
         "benchmark": "BTC",
-        "main": "breakout10",      # the strategy trading this market's official $500
+        "main": "early_mover",     # the strategy trading this market's official $500
         "bars_per_day": 24,
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
         "strategies": [
+            EarlyMover(),
             DonchianRotation(config.UNIVERSE, 24),
             WeeklyMomentum(config.UNIVERSE, 24, "crypto"),
             BreakoutHunter(config.BREAKOUT_UNIVERSE),

@@ -1,5 +1,7 @@
 """Trading strategies. Each one decides entries (analyze) and exits (manage);
 the engine handles money, fees, sizing and the drawdown breaker for all of them."""
+import time
+
 import config
 from indicators import atr, ema, rsi
 
@@ -290,6 +292,58 @@ class RSI2MeanReversion:
         held_days = s["day"] - pos["opened"] // 86_400_000
         if s["exit"] or held_days >= self.hold:
             return 1.0, s["price"], "mean reversion: bounced or time limit"
+        return None
+
+
+class EarlyMover:
+    """Hunts coins that are starting to take off, across EVERY USD coin on Crypto.com:
+    price up >= x over the last k hours on volume >= v times its normal hourly volume
+    (normal = prior 7-day average), plus brand-new listings in their first hours.
+    Exits with a trailing stop `trail` below the highest price since entry, or after h hours.
+    Parameters come from pumps.py (backtest over all Crypto.com coins)."""
+    name = "early_mover"
+    weekly = False
+    dynamic_universe = True          # runner refreshes the coin list every cycle
+    P = config.EARLY_MOVER
+
+    def __init__(self):
+        self.universe = []
+        self.max_positions = self.P["slots"]
+        self.position_pct = self.max_position_pct = (1 - config.MIN_CASH_RESERVE_PCT) / self.P["slots"]
+        self.trail = self.P["trail"]
+        self.min_candles = 3
+        self.window = 7 * 24 + self.P["k"] + 2
+
+    def analyze(self, candles, market_ok=True):
+        p, c = self.P, candles
+        if len(c) < 3:
+            return None
+        sig = _base(c)
+        sig.update(stop=c[-1]["c"] * (1 - p["trail"]), rank=0.0, buy=False)
+        now_ms = time.time() * 1000
+        if len(c) < 48:                       # brand-new listing
+            fresh = now_ms - c[0]["t"] <= p["listing_hours"] * HOUR
+            sig.update(buy=p["buy_listings"] and fresh, rank=99.0, reason="new listing")
+            return sig
+        k = p["k"]
+        if len(c) < 7 * 24 + k + 1:
+            return sig
+        vol = [x["v"] * x["c"] for x in c]
+        base = sum(vol[-1 - 7 * 24 - k:-1 - k]) / (7 * 24)
+        recent = sum(vol[-k:]) / k
+        rise = c[-1]["c"] / c[-1 - k]["c"] - 1
+        if base > 0 and base * 24 >= p["min_daily_usd"] and rise >= p["x"] and recent >= p["v"] * base:
+            sig.update(buy=True, rank=rise * recent / base)
+        return sig
+
+    def manage(self, pos, s, now, rebalance=False):
+        hit = _stop_check(pos, s)
+        if hit:
+            return 1.0, hit[1], "trailing stop"
+        if now - pos["opened"] >= self.P["h"] * HOUR:
+            return 1.0, s["price"], "time limit"
+        pos["peak"] = max(pos["peak"], s["high"])
+        pos["stop"] = max(pos["stop"], pos["peak"] * (1 - self.trail))
         return None
 
 

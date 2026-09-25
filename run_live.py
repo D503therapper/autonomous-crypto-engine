@@ -80,6 +80,20 @@ def full_cycle(mname, client):
             data[s] = client.candles(s, count=max(need, bench_need) if s == m["benchmark"] else need)
         except Exception as e:
             print(f"  skip {s}: {e}")
+    # strategies that scan the whole exchange: refresh their coin list and pull a
+    # short history (one API call per coin) for coins not already loaded
+    for st in m["strategies"]:
+        if getattr(st, "dynamic_universe", False):
+            try:
+                st.universe = client.list_spot_symbols()
+            except Exception as e:
+                print(f"   coin list failed: {e}")
+            for s in st.universe:
+                if s not in data:
+                    try:
+                        data[s] = client.candles(s, count=st.window)
+                    except Exception:
+                        pass
     prices = {s: cs[-1]["c"] for s, cs in data.items() if cs}
     bench_closes = [c["c"] for c in data.get(m["benchmark"], [])]
     now = ts(int(time.time() * 1000))
@@ -131,6 +145,9 @@ def fast_check(mname, client):
             p, pos = px.get(s), pf.positions[s]
             if p is None:
                 continue
+            if hasattr(st, "trail"):
+                pos["peak"] = max(pos["peak"], p)
+                pos["stop"] = max(pos["stop"], pos["peak"] * (1 - st.trail))
             if p <= pos["stop"]:
                 pf.sell(now, s, 1.0, p, "stop hit (live check)")
             elif st.name == "breakout" and not pos["took_profit"] and \
@@ -138,7 +155,7 @@ def fast_check(mname, client):
                 pf.sell(now, s, 0.5, p, f"secured +{config.BREAKOUT['take_profit']:.0%} (live check)")
                 pos["took_profit"] = True
                 pos["stop"] = max(pos["stop"], pos["entry"] * 1.01)
-        if len(pf.trades) > n_before:
+        if len(pf.trades) > n_before or hasattr(st, "trail"):
             save_pf(mname, st.name, pf, n_before, px)
 
 
