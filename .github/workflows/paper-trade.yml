@@ -1,0 +1,25 @@
+# Runs one paper-trading cycle every hour on GitHub's servers (free for public
+# repos; private repos get 2,000 free minutes/month, ~1 min per run) and commits
+# the updated portfolio back so history is kept.
+name: paper-trade
+on:
+  schedule:
+    - cron: "3 * * * *"   # 3 minutes past every hour, after the hourly candle closes
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: paper-trade
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python run_live.py | tee -a data/run.log
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data
+          git commit -m "paper-trade cycle $(date -u +%FT%TZ)" || exit 0
+          git push
