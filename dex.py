@@ -1,32 +1,51 @@
-"""DEX (on-chain) PAPER trader with a scam screen: the "dex_hunter" $500 account.
+"""DEX (on-chain) PAPER trader with a STRICT scam screen: the "dex_hunter" $500 account.
 Paper only: no wallet, no keys, no transactions. Fills are simulated from public DEX price data.
 
 Discovery (config.DEX["chains"]: solana / base / ethereum):
     GeckoTerminal /networks/{net}/trending_pools?duration=1h   (organic; 20 pools per chain)
     DexScreener  /token-boosts/top/v1 -> /tokens/v1/{chain}/{addrs}   (paid boosts; data lookup)
-    data/social/dex_watch.json (social.py's DEX watchlist: symbols seen trending that are NOT on
-    Crypto.com) -> DexScreener /latest/dex/search?q=SYMBOL to resolve the contract address
-Scam screen (every check must pass; verdict + reasons -> data/dex/screen.csv; fail closed):
-    market sanity from DexScreener (liquidity, pool age, volume, buys AND sells, spike-and-fade)
-    GoPlus token_security   (EVM: honeypot, taxes, mintable, pausable, black/whitelist, hidden owner,
-                             proxy, source, owner/creator %, top-10 holders, LP locked share;
-                             Solana: mint/freeze/close authority, transfer fee/hook, holders, LP)
-    honeypot.is IsHoneypot  (EVM second opinion: simulated sell, taxes)
-    RugCheck report/summary (Solana second opinion: "danger" risks, normalised score)
-Trading: momentum entry (1h/6h change + buys > sells), size = min(10% equity, 1% pool liquidity),
-costs = 0.3% DEX fee + price impact (usd / liquidity) + 1% slippage per side, trailing stop 30%,
-take-profit 1/3 at +100% and 1/3 at +300%, 14-day max hold, emergency exit when a re-screen
-(every 30 min) flags the token or liquidity drops > 50%. Every exit re-runs the sell simulation
-first; if it fails the trade is booked as SCAMMED at -100%. Outcomes -> data/dex/outcomes.csv.
-Rejected tokens are followed for 7 days (data/dex/rejected_followup.csv: rugged? ran up?).
+    data/social/dex_watch.json (social.py's DEX watchlist: symbols trending but NOT on Crypto.com)
+    -> DexScreener /latest/dex/search?q=SYMBOL to resolve the contract address
+Scam screen (EVERY check must pass; fail closed when a required source is unreachable; every
+verdict + reasons -> data/dex/screen.csv):
+    market sanity from DexScreener: liquidity >= max($250k, 50 x planned position), pool age >= 24h,
+        24h volume >= $300k, buys AND sells in 24h, no spike-and-fade (+30% 6h, -15% 1h)
+    EVM (base, ethereum): GoPlus token_security AND honeypot.is IsHoneypot must both pass
+    Solana: GoPlus solana/token_security AND RugCheck report/summary must both pass
+    rejected: honeypot / cannot sell all / sell simulation failed, buy or sell tax > 3%, mintable /
+        mint authority, freeze authority, transfer pausable, black/whitelist, hidden owner, can take
+        back ownership, owner can change balance, selfdestruct, not open source, proxy, creator or
+        owner > 5%, top-10 holders > 40% (LP / burn / exchange addresses excluded), LP locked or
+        burned < 95%, RugCheck "danger" risks / rugged / score > 50
+Trading:
+    entry   momentum on a screened token: 1h >= +5%, 6h >= +10%, 1h buys >= 1.2 x sells (no cap
+            on prior gains); at most 4 open, DEX exposure <= 60% of equity, paused after 2 scams/30d
+    size    tier A "new" 3% of equity (passes the screen, age < 7d or liquidity < $1M)
+            tier B "proven" 10% (age >= 7d, liq >= $1M, vol24 >= $1M, 2 consecutive clean re-screens)
+            tier C "blue" 20% (age >= 30d, liq >= $5M, trades on a major CEX: Crypto.com tickers
+            or config.DEX["cex_list"]); every size is capped at 0.5% of pool liquidity, liquidity/50
+            and available cash. A held tier-A token that earns tier B/C is topped up (never averaged
+            down, never after the first take-profit).
+    costs   0.3% DEX fee + price impact (usd / liquidity) + 1% slippage, per side
+    exits   +100%: sell 50% (cost recovered; stop moves to break-even for the free ride);
+            +400%: sell half of the remainder; trailing stop 30% below peak; 14-day max hold
+    scams   held tokens re-screened every 30 min (security sources); liquidity -50%, honeypot,
+            sell tax > 50% or trading paused -> exit at the realistic post-rug price (no pair left =
+            -100%), outcome scammed_rug / scammed_honeypot; EVERY exit first re-runs the sell
+            simulation (honeypot.is EVM, GoPlus Solana) and books -100% when it fails
+    files   data/dex/screen.csv, outcomes.csv (per trade, with tier), rejected_followup.csv (rejected
+            tokens followed 7 days, <= 50 enrolled per day: rugged? ran up > 100%?), state.json,
+            data/dex/dex_hunter/{portfolio.json,trades.csv,equity.csv} (shared Portfolio; LAB.md row)
 
-    hunter = DexHunter()          # markets.py registers it so it shows in LAB.md
+    hunter = dex.hunter()         # run_live shares one instance
     hunter.self_check()           # once per run: HTTP status per source -> run.log
-    hunter.tick()                 # every second: bookkeeping + AT MOST ONE HTTP request
-    python dex.py [--check]       # self-check, or one screening round
+    hunter.tick()                 # every second: bookkeeping + AT MOST ONE HTTP request (<= 8 s)
+    hunter.cex = set(scanner.last)   # Crypto.com symbols, for tier C
+    python dex.py [--check]       # self-check, or a short live round
 
-None of the endpoints could be reached from the build sandbox: URLs, field names and rate limits
-are from the public docs / research notes and must be verified live (see DEFAULTS["urls"]).
+GoPlus (EVM), honeypot.is, RugCheck summary, DexScreener and GeckoTerminal were verified reachable
+from the GitHub runner (results/probe.txt). The GoPlus Solana path is unverified; all URLs and
+field names are config values (config.DEX overrides DEFAULTS, nested keys merge).
 """
 import argparse
 import csv
@@ -48,7 +67,7 @@ DEFAULTS = {
         "goplus_evm": "https://api.gopluslabs.io/api/v1/token_security/{chain_id}?contract_addresses={addr}",
         "goplus_sol": "https://api.gopluslabs.io/api/v1/solana/token_security?contract_addresses={addr}",
         "honeypot": "https://api.honeypot.is/v2/IsHoneypot?address={addr}&chainID={chain_id}",
-        "rugcheck": "https://api.rugcheck.xyz/v1/tokens/{addr}/report",   # full report: LP lock %, authorities
+        "rugcheck": "https://api.rugcheck.xyz/v1/tokens/{addr}/report/summary",   # risks, score_normalised, lpLockedPct
         "ds_tokens": "https://api.dexscreener.com/tokens/v1/{chain}/{addrs}",            # <= 30 addresses
         "ds_search": "https://api.dexscreener.com/latest/dex/search?q={q}",
         "ds_boosts": "https://api.dexscreener.com/token-boosts/top/v1",
@@ -56,25 +75,30 @@ DEFAULTS = {
     },
     "ref": {"ethereum": "0x6982508145454ce325ddbe47a25d4ec3d2311933",      # PEPE: self-check probe
             "solana": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"},     # BONK
-    "timeout": 6,                                                    # seconds per request (cap 8)
+    "timeout": 6,                                                    # seconds per request (hard cap 8)
     "gap_s": {"goplus": 3, "honeypot": 3, "rugcheck": 3, "dexscreener": 1.5, "geckoterminal": 2.5},
     "every_s": {"discover": 300, "watch": 600, "prices": 60, "rescreen": 1800, "followup": 3600},
     "screen": {                                                      # STRICT by owner's choice
         "max_tax": 0.03, "reject_proxy": True, "max_creator_pct": 0.05, "max_top10_pct": 0.40,
         "min_lp_locked": 0.95, "rugcheck_max_score": 50,             # score_normalised (0-100, higher = worse)
-        "min_liq": 250_000, "liq_x_size": 50,                        # liquidity >= max($250k, 50 x position,
-                                                                     #   position / liq_pct): deeper pools as it grows
+        "min_liq": 250_000, "liq_x_size": 50,                        # liquidity >= max($250k, 50 x position)
         "min_age_h": 24, "min_vol24": 300_000,
         "max_24h_change": None,                                      # owner: no cap on runners
         "fade_h6": 0.30, "fade_h1": -0.15,                           # +30% in 6h but -15% in the last hour
         "ttl_h": 6, "reject_ttl_h": 24, "unreach_ttl_h": 1,          # how long a verdict stands
     },
     "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},            # +5% 1h, +10% 6h, 1h buys >= 1.2x sells
-    "size": {"equity_pct": 0.05, "liq_pct": 0.005},
+    "tiers": {                                                       # sizing by safety (share of equity)
+        "A": {"pct": 0.03},                                          # "new": passes the screen
+        "B": {"pct": 0.10, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},   # 2 clean re-screens
+        "C": {"pct": 0.20, "age_d": 30, "liq": 5_000_000, "vol24": 0, "clean": 0, "cex": True},
+    },
+    "cex_list": [],                                                  # symbols known to trade on a major CEX
+    "size": {"liq_pct": 0.005, "max_exposure": 0.60},                # <= 0.5% of the pool; DEX <= 60% of equity
     "cost": {"fee": 0.003, "slip": 0.01},                            # + price impact usd/liquidity per side
     "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": (4.0, 0.5),   # +100%: sell half (cost recovered), stop
              "max_hold_days": 14, "liq_pull": 0.50, "rug_tax": 0.50,   # to break-even; +400%: half the rest
-             "check_wait_s": 600},
+             "check_wait_s": 600},                                   # sell check unreachable this long -> book at market
     "followup": {"days": 7, "per_day": 50, "rug_liq": 0.80, "rug_px": 0.90, "runup": 1.0},
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},         # 2 scams in 30 days -> no new entries until
     "slots": 4, "queue": 20, "dir": "data/dex", "name": "dex_hunter",   # reset_after "YYYY-MM-DD HH:MM" > pause time
@@ -82,19 +106,22 @@ DEFAULTS = {
 
 
 def _merge(base, over):
+    """Recursive dict merge (config.DEX overrides DEFAULTS key by key)."""
     out = dict(base)
     for k, v in (over or {}).items():
-        out[k] = dict(base[k], **v) if isinstance(v, dict) and isinstance(base.get(k), dict) else v
+        out[k] = _merge(base[k], v) if isinstance(v, dict) and isinstance(base.get(k), dict) else v
     return out
 
 
 DEX = _merge(DEFAULTS, getattr(config, "DEX", {}))
 BURN = {"0x0000000000000000000000000000000000000000", "0x000000000000000000000000000000000000dead",
         "1nc1nerator11111111111111111111111111111111"}
-_LP_TAG = re.compile(r"burn|dead|null|lock|\blp\b|pool|uniswap|pancake|raydium|orca|meteora|pumpswap|vault",
-                     re.I)
+# holder tags that are NOT whales: pools, lockers, burn, known exchanges / market makers
+_LP_TAG = re.compile(r"burn|dead|null|lock|\blp\b|pool|uniswap|pancake|raydium|orca|meteora|pumpswap|vault|"
+                     r"exchange|binance|coinbase|okx|bybit|kraken|gate|kucoin|bitget|htx|mexc|wintermute|\bcex\b", re.I)
 _LOCK_TAG = re.compile(r"burn|dead|null|lock", re.I)
 PRIO = {"scammed_rug": 4, "scammed_honeypot": 4, "emergency_exit": 3, "stop": 2, "tp": 1}
+SOL_AUTH = {"freezable": "freeze authority", "mintable": "mint authority", "closable": "close authority"}
 
 
 def _pct(x):
@@ -180,9 +207,11 @@ def parse_gt_pools(body, chain, now):
     return out
 
 
-# ---- scam checks (pure; each returns [(reason, severity)], severity 'scam' | 'flag') ------------
+# ---- scam checks (pure; each returns [(reason, severity)]) ---------------------------------------
+# severity: 'scam' (also fatal for a held token: SCAMMED), 'flag' (reject / emergency exit),
+# 'defer' (GoPlus could not read the tax; the second source must confirm it), 'unreach'.
 def top_holders(hs, exclude=()):
-    """Top-10 share (fraction of supply) excluding LP pools / burn addresses; None if unknown."""
+    """Top-10 share (fraction of supply) excluding LP pools / burn / exchange addresses; None if unknown."""
     shares = []
     for h in hs or []:
         if not isinstance(h, dict):
@@ -210,10 +239,10 @@ def lp_locked(lps):
     return min(1.0, lock)
 
 
-def _tax(r, v, what, S):
-    """Tax as a fraction (GoPlus '0.05'); None = unknown -> fail closed."""
+def _tax(r, v, what, S, unknown="flag"):
+    """Tax as a fraction (GoPlus '0.05'); None = unknown -> `unknown` severity (fail closed by default)."""
     if v is None:
-        r.append((f"{what} unknown", "flag"))
+        r.append((f"{what} unknown", unknown))
     elif v > S["max_tax"]:
         r.append((f"{what} {v:.0%}", "scam" if what == "sell tax" and v > DEX["exit"]["rug_tax"] else "flag"))
 
@@ -230,8 +259,9 @@ def check_goplus_evm(d, S):
         r.append(("is_proxy", "flag"))
     if not _one(d, "is_open_source"):
         r.append(("not open source", "flag"))
-    _tax(r, _f(d.get("buy_tax")), "buy tax", S)
-    _tax(r, _f(d.get("sell_tax")), "sell tax", S)
+    # GoPlus reports "" when it could not simulate the tax (e.g. PEPE): honeypot.is must then confirm it
+    _tax(r, _f(d.get("buy_tax")), "buy tax", S, unknown="defer")
+    _tax(r, _f(d.get("sell_tax")), "sell tax", S, unknown="defer")
     for k in ("creator_percent", "owner_percent"):
         v = _f(d.get(k))
         if v is not None and v > S["max_creator_pct"]:
@@ -261,7 +291,7 @@ def check_goplus_sol(d, S):
     for k, sev in (("freezable", "scam"), ("non_transferable", "scam"), ("mintable", "flag"), ("closable", "flag"),
                    ("balance_mutable_authority", "flag"), ("transfer_fee_upgradable", "flag")):
         if _auth(d, k):
-            r.append((k.replace("able", " authority") if k in ("freezable", "mintable", "closable") else k, sev))
+            r.append((SOL_AUTH.get(k, k), sev))
     hook = d.get("transfer_hook")
     if (isinstance(hook, list) and hook) or _auth(d, "transfer_hook") or _auth(d, "transfer_hook_upgradable"):
         r.append(("transfer hook", "flag"))
@@ -298,15 +328,15 @@ def check_honeypot(j, S):
         r.append(("sell simulation failed", "scam"))
     if isinstance(hr, dict) and hr.get("isHoneypot"):
         r.append((f"honeypot ({hr.get('honeypotReason') or 'honeypot.is'})", "scam"))
-    if isinstance(sr, dict):
-        _tax(r, _pct(sr.get("buyTax")), "buy tax", S)
-        _tax(r, _pct(sr.get("sellTax")), "sell tax", S)
+    sr = sr if isinstance(sr, dict) else {}
+    _tax(r, _pct(sr.get("buyTax")), "buy tax", S)
+    _tax(r, _pct(sr.get("sellTax")), "sell tax", S)
     return r
 
 
 def check_rugcheck(j, S):
-    """RugCheck report: risks[{name, level: warn|danger}], score_normalised (0-100), rugged,
-    mintAuthority / freezeAuthority (null = renounced), lpLockedPct or markets[].lp.lpLockedPct."""
+    """RugCheck report/summary: risks[{name, level: warn|danger}], score_normalised (0-100), lpLockedPct;
+    the full report adds rugged, mintAuthority / freezeAuthority (null = renounced), markets[].lp."""
     if not isinstance(j, dict) or ("risks" not in j and "score" not in j):
         return [("rugcheck: no data", "flag")]
     r = []
@@ -339,7 +369,7 @@ def check_market(c, S):
     if not c.get("price") or c["price"] <= 0:
         r.append(("no price", "flag"))
     if c["liq"] < S["min_liq"]:
-        r.append((f"liquidity ${c['liq']:,.0f} < ${S['min_liq']:,}", "flag"))
+        r.append((f"liquidity ${c['liq']:,.0f} < ${S['min_liq']:,.0f}", "flag"))
     if c.get("age_h") is None:
         r.append(("pool age unknown", "flag"))
     elif c["age_h"] < S["min_age_h"]:
@@ -354,6 +384,31 @@ def check_market(c, S):
     if h6 is not None and h1 is not None and h6 >= S["fade_h6"] and h1 <= S["fade_h1"]:
         r.append((f"spike-and-fade (6h {h6:+.0%}, 1h {h1:+.0%})", "flag"))
     return r
+
+
+# ---- tiered sizing (pure) --------------------------------------------------------------------------
+def tier_for(c, T, clean=0, on_cex=False):
+    """'C' / 'B' / 'A' from pool age (age_h), liquidity, 24h volume, consecutive clean re-screens
+    and (tier C) a major-CEX listing. Anything that merely passed the screen is tier A."""
+    age_d = (c.get("age_h") or 0) / 24
+    for name in ("C", "B"):
+        t = T[name]
+        if age_d >= t["age_d"] and c["liq"] >= t["liq"] and (c.get("vol24") or 0) >= t.get("vol24", 0) \
+                and clean >= t.get("clean", 0) and (on_cex or not t.get("cex")):
+            return name
+    return "A"
+
+
+def size_for(eq, liq, tier, cash, exposure, P):
+    """USD to hold: tier % of equity, capped at 0.5% of pool liquidity, liquidity / 50 (the screen's
+    50x rule), available cash and the room left under the 60% DEX exposure cap."""
+    return max(0.0, min(eq * P["tiers"][tier]["pct"], liq * P["size"]["liq_pct"], liq / P["screen"]["liq_x_size"],
+                        cash, eq * P["size"]["max_exposure"] - exposure))
+
+
+def trade_cost(usd, liq, P):
+    """Per-side cost of a simulated fill: 1% slippage + price impact usd / liquidity (fee 0.3% is separate)."""
+    return min(1.0, P["cost"]["slip"] + (usd / liq if liq > 0 else 1.0))
 
 
 # ---- HTTP source with rate limit + backoff ---------------------------------------------------------
@@ -384,16 +439,13 @@ class Source:
 
 
 _EMPTY = {"seen": {}, "passed": {}, "followup": {}, "last": {}, "watch_done": {}, "fu_day": "", "fu_n": 0,
-          "status": {}, "week": None, "month": None, "hour": None, "swept": 0.0, "prefiltered": 0,
-          "scams": [], "paused": None}
+          "status": {}, "week": None, "hour": None, "prefiltered": 0, "scams": [], "paused": None}
 _STEP_SRC = {"ds": "dexscreener", "goplus": "goplus", "honeypot": "honeypot", "rugcheck": "rugcheck"}
 
 
 class DexHunter:
-    """The dex_hunter paper account. Listed in markets.MARKETS["dex"] for LAB.md only (it is never
-    fed candles); run_live drives it with tick() once a second."""
-    name = "dex_hunter"
-    universe, min_candles, weekly = [], 0, False
+    """The dex_hunter paper account. run_live drives it with tick() once a second and adds its
+    balance to LAB.md / the scoreboard from data/dex/dex_hunter (it is never fed candles)."""
 
     def __init__(self, params=None, fetch=None, now_ms=None):
         self.p = _merge(DEX, params or {})
@@ -402,6 +454,7 @@ class DexHunter:
         self.clock, self.fetch = now_ms, fetch
         self.src = {n: Source(n, fetch, self.p["timeout"], g) for n, g in self.p["gap_s"].items()}
         self.state, self.pf, self.queue, self.jobs, self.lookup = None, None, [], {}, []
+        self.cex = set()                              # run_live: Crypto.com symbols (tier C)
         self._n_saved, self.dirty = 0, False
 
     # ---- plumbing ----
@@ -448,6 +501,11 @@ class DexHunter:
     def equity(self):
         return self.pf.equity(self.prices())
 
+    def exposure(self):
+        """USD currently in DEX positions (marked at the last price)."""
+        px = self.prices()
+        return sum(p["qty"] * px[k] for k, p in self.pf.positions.items())
+
     def _equity_row(self, now):
         append_csv(f"{self.acct}/equity.csv", [{"time": ts(now), "equity": round(self.equity(), 2),
                                                 "cash": round(self.pf.cash, 2), "positions": len(self.pf.positions)}])
@@ -470,10 +528,12 @@ class DexHunter:
         return f"{c['sym']}@{c['chain']}:{c['addr'][:8]}"      # position name in trades.csv
 
     def S(self):
-        """Screen thresholds; min liquidity scales with the planned position (50x by default)."""
-        S, Z = self.p["screen"], self.p["size"]
-        planned = self.equity() * Z["equity_pct"]
-        return dict(S, min_liq=max(S["min_liq"], S["liq_x_size"] * planned, planned / Z["liq_pct"]))
+        """Screen thresholds; min liquidity = max($250k, 50 x the planned tier-A position)."""
+        S = self.p["screen"]
+        return dict(S, min_liq=max(S["min_liq"], S["liq_x_size"] * self.equity() * self.p["tiers"]["A"]["pct"]))
+
+    def on_cex(self, sym):
+        return sym in self.cex or sym in set(self.p["cex_list"])
 
     def paused(self):
         p = self.state.get("paused")
@@ -547,35 +607,22 @@ class DexHunter:
         if st["week"] != week:
             st["week"], self.dirty = week, True
             print(f"   {self.weekly_line(now)}")
-        month = time.strftime("%Y-%m", time.gmtime(now / 1000))
-        if st["month"] != month:
-            if st["month"]:                                    # a full month has passed since the last sweep
-                print(f"   {self.sweep_line(now)}")
-            st["month"], self.dirty = month, True
 
     def weekly_line(self, now):
-        """Screen precision report for run.log (last 7 days, from the CSV logs)."""
+        """run.log summary of the last 7 days: screen counts, trades, scams, P/L by tier, rejected fates."""
         since = now - 7 * DAY
         sc = self._rows(f"{self.dir}/screen.csv", since)
         tr = self._rows(f"{self.acct}/trades.csv", since)
         oc = self._rows(f"{self.dir}/outcomes.csv", since)
         fu = self._rows(f"{self.dir}/rejected_followup.csv", since)
         scam = [r for r in oc if r["outcome"].startswith("scammed")]
-        cost = sum(_f(r["pnl"]) or 0 for r in scam)
+        by_tier = {t: [_f(r["pnl"]) or 0 for r in oc if r.get("tier") == t] for t in self.p["tiers"]}
+        tiers = " ".join(f"{t} ${sum(v):+.2f}/{len(v)}" for t, v in by_tier.items())
         return (f"dex weekly: screened {len(sc)}, passed {sum(r['verdict'] == 'PASS' for r in sc)}, "
-                f"trades {sum(r['side'] == 'BUY' for r in tr)}, scammed {len(scam)} (cost ${cost:+.2f}), "
+                f"trades {sum(r['side'] == 'BUY' for r in tr)}, closed {len(oc)} (P/L ${sum(_f(r['pnl']) or 0 for r in oc):+.2f}; "
+                f"by tier {tiers}), scammed {len(scam)} (cost ${sum(_f(r['pnl']) or 0 for r in scam):+.2f}), "
                 f"rejected-that-rugged {sum(r['rugged'] == '1' for r in fu)}/{len(fu)}, "
                 f"rejected-that-ran-up {sum(r['ran_up'] == '1' for r in fu)}/{len(fu)}")
-
-    def sweep_line(self, now):
-        """Monthly profit sweep to USDC, simulated only: what would have been moved (no action)."""
-        eq, st = self.equity(), self.state
-        sweep = max(0.0, eq - config.STARTING_CASH_USD - st["swept"])
-        st["swept"] += sweep
-        append_csv(f"{self.dir}/sweeps.csv", [{"time": ts(now), "equity": round(eq, 2), "sweep_usd": round(sweep, 2),
-                                               "swept_total": round(st["swept"], 2)}])
-        return (f"dex sweep sim: equity ${eq:,.2f}, would sweep ${sweep:,.2f} profit to USDC "
-                f"(cumulative ${st['swept']:,.2f}); no action taken")
 
     @staticmethod
     def _rows(path, since):
@@ -708,10 +755,13 @@ class DexHunter:
             st, obj = self._get("rugcheck", self._url("rugcheck", addr=c["addr"]), now)
             reasons = check_rugcheck(obj, S) if st == 200 and isinstance(obj, dict) else [("rugcheck unreachable", "unreach")]
         job["reasons"] += reasons
-        job["i"] = len(job["steps"]) if reasons else job["i"] + 1    # first failure ends the screen
+        hard = [r for r in reasons if r[1] != "defer"]         # a deferred tax needs the second source's word
+        job["i"] = len(job["steps"]) if hard else job["i"] + 1    # first hard failure ends the screen
 
     def _finish(self, job, now):
         c, rs, st = job["c"], job["reasons"], self.state
+        if not any(s not in ("defer",) for _, s in rs):        # every step passed: the 2nd source settled the tax
+            rs = []
         why = "; ".join(t for t, _ in rs)
         if job["mode"] == "rescreen":
             pos = self.pf.positions.get(job["key"])
@@ -723,6 +773,9 @@ class DexHunter:
             elif rs:
                 outcome = "scammed_honeypot" if any(s == "scam" for _, s in rs) else "emergency_exit"
                 self._request_exit(job["key"], 1.0, f"re-screen flagged: {why}", outcome, now)
+            else:
+                pos["clean"] = pos.get("clean", 0) + 1
+                self._upgrade(job["key"], pos, now)
             return
         verdict = "UNREACHABLE" if any(s == "unreach" for _, s in rs) else ("REJECT" if rs else "PASS")
         append_csv(f"{self.dir}/screen.csv", [{
@@ -751,20 +804,43 @@ class DexHunter:
         h1, h6, b1, s1 = c.get("h1"), c.get("h6"), c.get("b1") or 0, c.get("s1") or 0
         if h1 is None or h6 is None or h1 < E["h1"] or h6 < E["h6"] or b1 < max(1, s1 * E["buy_ratio"]):
             return
-        eq, Z, C, X = self.equity(), self.p["size"], self.p["cost"], self.p["exit"]
-        usd = min(eq * Z["equity_pct"], c["liq"] * Z["liq_pct"], self.pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
+        eq, X = self.equity(), self.p["exit"]
+        tier = tier_for(c, self.p["tiers"], 0, self.on_cex(c["sym"]))
+        usd = size_for(eq, c["liq"], tier, self.pf.cash, self.exposure(), self.p)
         if usd < config.MIN_ORDER_USD:
             return
         impact = usd / c["liq"]
-        self.pf.slippage = C["slip"] + impact
+        self.pf.slippage = trade_cost(usd, c["liq"], self.p)
         self.pf.buy(now, pk, usd, c["price"], c["price"] * (1 - X["trail"]),
-                    reason=f"dex momentum 1h {h1:+.0%} 6h {h6:+.0%} buys/sells {b1}/{s1} impact {impact:.2%}")
+                    reason=f"dex tier {tier} momentum 1h {h1:+.0%} 6h {h6:+.0%} buys/sells {b1}/{s1} impact {impact:.2%}")
         self.pf.positions[pk].update(chain=c["chain"], addr=c["addr"], sym=c["sym"], pair=c.get("pair"), liq0=c["liq"],
-                                     liq=c["liq"], px=c["price"], tp1=False, tp2=False, realized=0.0, cost0=usd,
-                                     rescreened=now, impact=impact)
+                                     liq=c["liq"], vol24=c["vol24"], age_h0=c.get("age_h") or 0, px=c["price"],
+                                     tp1=False, tp2=False, realized=0.0, cost0=usd, rescreened=now, impact=impact,
+                                     tier=tier, clean=0)
         del st["passed"][key]
         self.dirty = True
         self._save_pf(now)                        # no phone alert: owner wants daily P/L only
+
+    def _upgrade(self, k, pos, now):
+        """After a clean re-screen: a held token that now earns a higher tier is topped up to that
+        tier's size (only while in profit and before the first take-profit; never averaging down)."""
+        T, px = self.p["tiers"], pos.get("px") or pos["entry"]
+        c = {"liq": pos["liq"], "vol24": pos.get("vol24", 0), "age_h": pos["age_h0"] + (now - pos["opened"]) / HOUR}
+        tier = tier_for(c, T, pos.get("clean", 0), self.on_cex(pos["sym"]))
+        if T[tier]["pct"] <= T[pos["tier"]]["pct"] or pos["tp1"] or px < pos["entry"] or self.paused():
+            return
+        add = size_for(self.equity(), pos["liq"], tier, self.pf.cash, self.exposure(), self.p) - pos["qty"] * px
+        if add < config.MIN_ORDER_USD:
+            return
+        slip = trade_cost(add, pos["liq"], self.p)
+        fill, fee = px * (1 + slip), add * self.pf.fee
+        qty = (add - fee) / fill
+        pos["entry"] = (pos["entry"] * pos["qty"] + fill * qty) / (pos["qty"] + qty)   # blended: +100% = cost back
+        pos["qty"], pos["cost"], pos["cost0"], pos["tier"] = pos["qty"] + qty, pos["cost"] + add, pos["cost0"] + add, tier
+        pos["peak"] = max(pos["peak"], fill)
+        self.pf.cash -= add
+        self.pf._record(now, "BUY", k, qty, fill, fee, f"dex tier {pos['tier']} -> {tier} top-up after {pos['clean']} clean re-screens")
+        self._save_pf(now)
 
     # ---- prices, stops, take-profits (every ~60 s per chain, one batch request) ----
     def _price_job(self, now):
@@ -790,7 +866,7 @@ class DexHunter:
                     continue
                 c = best.get(pos["addr"])
                 if c and c.get("price"):
-                    pos.update(px=c["price"], liq=c["liq"], seen_px=now)
+                    pos.update(px=c["price"], liq=c["liq"], vol24=c["vol24"], seen_px=now)
                 else:                                          # no pair left: liquidity gone
                     pos.update(px=0.0, liq=0.0, seen_px=now)
                 self._manage(k, pos, now)
@@ -867,8 +943,7 @@ class DexHunter:
         """Simulated fill: fee + (1% slippage + usd / liquidity) impact; price 0 / no liquidity = -100%."""
         pos, C = self.pf.positions[k], self.p["cost"]
         usd = pos["qty"] * frac * price
-        impact = min(1.0, usd / liq) if liq > 0 else 1.0
-        self.pf.slippage = min(1.0, C["slip"] + impact)
+        self.pf.slippage = trade_cost(usd, liq, self.p)
         keep = dict(pos)
         pnl = self.pf.sell(now, k, frac, price, reason)
         realized = keep["realized"] + pnl
@@ -876,16 +951,16 @@ class DexHunter:
             pos = self.pf.positions[k]
             pos["realized"] = realized
             if pos["tp1"]:                                     # remainder rides free: stop >= break-even
-                pos["stop"] = max(pos["stop"], pos["entry"])
+                pos["stop"] = max(pos["stop"], pos["entry"] * (1 + C["slip"] + 2 * C["fee"]))
         else:
             self.pf.cooldown[k] = now + DAY
             append_csv(f"{self.dir}/outcomes.csv", [{
-                "time": ts(now), "coin": k, "chain": keep["chain"], "address": keep["addr"], "opened": ts(keep["opened"]),
-                "hold_h": round((now - keep["opened"]) / HOUR, 1), "cost_usd": round(keep["cost0"], 2),
-                "pnl": round(realized, 2), "ret": round(realized / keep["cost0"], 4), "entry": keep["entry"],
-                "exit": round(price, 10), "liq_entry": round(keep["liq0"]), "liq_exit": round(liq),
+                "time": ts(now), "coin": k, "chain": keep["chain"], "address": keep["addr"], "tier": keep.get("tier", "A"),
+                "opened": ts(keep["opened"]), "hold_h": round((now - keep["opened"]) / HOUR, 1),
+                "cost_usd": round(keep["cost0"], 2), "pnl": round(realized, 2), "ret": round(realized / keep["cost0"], 4),
+                "entry": keep["entry"], "exit": round(price, 10), "liq_entry": round(keep["liq0"]), "liq_exit": round(liq),
                 "outcome": outcome, "reason": reason}])
-            print(f"   dex outcome: {outcome} {k} P/L ${realized:+.2f} ({reason})")
+            print(f"   dex outcome: {outcome} {k} tier {keep.get('tier', 'A')} P/L ${realized:+.2f} ({reason})")
             if outcome.startswith("scammed"):
                 self._count_scam(now)
         self.dirty = True
@@ -976,8 +1051,10 @@ class DexHunter:
         self.dirty = True
 
 
-def scoreboard_stats(d=DEX["dir"], name=DEX["name"]):
-    """For run_live.scoreboard: {equity, trades, scammed, lost, paused} from the files (no HTTP, no state)."""
+# ---- scoreboard helpers (files only: no HTTP, no state; safe from run_live.scoreboard) ------------------
+def scoreboard_stats(d=None, name=None):
+    """{equity, trades, scammed, lost, paused} for run_live.scoreboard / the daily summary."""
+    d, name = d or DEX["dir"], name or DEX["name"]
     eq, n = config.STARTING_CASH_USD, 0
     try:
         with open(f"{d}/{name}/equity.csv") as f:
@@ -1004,14 +1081,15 @@ def scoreboard_stats(d=DEX["dir"], name=DEX["name"]):
     return {"equity": eq, "trades": n, "scammed": scam, "lost": lost, "paused": paused}
 
 
-def scoreboard_line(start=config.STARTING_CASH_USD):
-    """One line for SCOREBOARD.md / the daily summary: **DEX: $512.40**  (+12.40)  · Scammed: 1 (-$38.00)"""
-    s = scoreboard_stats()
-    line = f"**DEX: ${s['equity']:,.2f}**  ({s['equity'] - start:+,.2f})  · Scammed: {s['scammed']}"
+def scoreboard_line(start=config.STARTING_CASH_USD, md=True, d=None):
+    """ONE line for SCOREBOARD.md (md=True: bold head) / docs/index.html / the daily summary:
+    DEX: $512.40 (+12.40) · Scammed: 1 (-$38.00)      or      DEX paused: scam limit · $462.00 (-38.00) · ..."""
+    s, b = scoreboard_stats(d), "**" if md else ""
+    bal = f"${s['equity']:,.2f} ({s['equity'] - start:+,.2f})"
+    line = f"{b}DEX paused: {s['paused']}{b} · {bal}" if s["paused"] else f"{b}DEX: {bal}{b}"
+    line += f" · Scammed: {s['scammed']}"
     if s["scammed"]:
-        line += f" ({s['lost']:+,.2f})"
-    if s["paused"]:
-        line += f" · DEX paused: {s['paused']}"
+        line += f" (-${-s['lost']:,.2f})" if s["lost"] < 0 else f" (+${s['lost']:,.2f})"
     return line
 
 
@@ -1019,7 +1097,7 @@ _HUNTER = None
 
 
 def hunter(**kw):
-    """Process-wide instance (markets.py and run_live share it)."""
+    """Process-wide instance (run_live shares it)."""
     global _HUNTER
     if _HUNTER is None:
         _HUNTER = DexHunter(**kw)
