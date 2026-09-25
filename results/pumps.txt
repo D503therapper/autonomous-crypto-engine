@@ -5,18 +5,26 @@ cost per side 0.8% (fees + small-coin spread)
 
 EARLY MOVER: top 12 by in-sample, then UNSEEN results (avg = average net return per trade; big = trades that at some point doubled)
 params                                  |  IS avg  IS n | OOS avg OOS n   win  big    best   worst    ~/mo
+k=24 x=0.5 v=5 trail=0.1 h=24           |  -1.14%     3 |  -6.17%    15    7%    0     +4%    -11%   -9.3%
+k=24 x=0.5 v=5 trail=0.1 h=72           |  -1.14%     3 |  -6.17%    15    7%    0     +4%    -11%   -9.3%
+k=24 x=1.0 v=5 trail=0.1 h=24           |  -6.93%     1 |  -6.89%     3    0%    0     -2%    -10%   -2.1%
+k=24 x=1.0 v=5 trail=0.1 h=72           |  -6.93%     1 |  -6.89%     3    0%    0     -2%    -10%   -2.1%
 k=1 x=0.2 v=5 trail=0.1 h=24            |  -4.45%     2 |  -5.25%     7    0%    0     -2%    -11%   -3.7%
 k=1 x=0.2 v=5 trail=0.1 h=72            |  -4.45%     2 |  -5.25%     7    0%    0     -2%    -11%   -3.7%
+k=6 x=0.3 v=3 trail=0.1 h=24            |  -3.23%     3 |  -6.10%    27    4%    0     +2%    -11%  -16.5%
+k=6 x=0.3 v=3 trail=0.1 h=72            |  -3.23%     3 |  -6.10%    27    4%    0     +2%    -11%  -16.5%
+k=1 x=0.3 v=3 trail=0.1 h=24            | -11.43%     1 |  -2.08%     2    0%    0     -2%     -2%   -0.4%
+k=1 x=0.3 v=3 trail=0.1 h=72            | -11.43%     1 |  -2.08%     2    0%    0     -2%     -2%   -0.4%
 k=1 x=0.2 v=5 trail=0.2 h=24            |  -6.53%     2 |  +3.10%     7   43%    0    +30%    -21%   +2.2%
 k=1 x=0.2 v=5 trail=0.2 h=72            |  -6.91%     2 |  +1.74%     7   43%    0    +30%    -21%   +1.2%
-k=6 x=0.2 v=5 trail=0.2 h=72            |  -1.80%     8 |  -9.25%    23   22%    0    +28%    -21%  -21.4%
-k=3 x=0.05 v=5 trail=0.2 h=72           |  -0.34%    47 |  -0.52%   106   44%    0    +39%    -21%   -5.6%
-k=3 x=0.2 v=5 trail=0.1 h=24            |  -8.29%     3 |  -4.63%    25   12%    0     +7%    -11%  -11.6%
-k=3 x=0.2 v=5 trail=0.1 h=72            |  -8.29%     3 |  -4.93%    25    8%    0     +6%    -11%  -12.4%
-k=6 x=0.1 v=5 trail=0.2 h=72            |  -1.01%    27 |  -2.57%    51   37%    0    +50%    -21%  -13.1%
-k=6 x=0.2 v=3 trail=0.2 h=72            |  -2.17%    13 |  -4.32%    33   33%    0    +28%    -21%  -14.3%
-k=1 x=0.2 v=3 trail=0.1 h=24            |  -7.94%     4 |  -5.83%    11    0%    0     -2%    -11%   -6.4%
-k=1 x=0.2 v=3 trail=0.1 h=72            |  -7.94%     4 |  -5.83%    11    0%    0     -2%    -11%   -6.4%
+
+CHASING COINS ALREADY UP BIG: best in-sample variant per minimum rise, and its UNSEEN result
+  up >= 5% in 3h: IS avg -0.34%/trade (47) | UNSEEN avg -0.46%/trade (106 trades, win 44%, doubled 0, best +39%, worst -21%)
+  up >= 10% in 24h: IS avg -1.36%/trade (17) | UNSEEN avg -1.89%/trade (47 trades, win 36%, doubled 0, best +32%, worst -21%)
+  up >= 20% in 1h: IS avg -4.45%/trade (2) | UNSEEN avg -5.25%/trade (7 trades, win 0%, doubled 0, best -2%, worst -11%)
+  up >= 30% in 6h: IS avg -3.23%/trade (3) | UNSEEN avg -6.10%/trade (27 trades, win 4%, doubled 0, best +2%, worst -11%)
+  up >= 50% in 24h: IS avg -1.14%/trade (3) | UNSEEN avg -6.17%/trade (15 trades, win 7%, doubled 0, best +4%, worst -11%)
+  up >= 100% in 24h: IS avg -6.93%/trade (1) | UNSEEN avg -6.89%/trade (3 trades, win 0%, doubled 0, best -2%, worst -10%)
 
 NEW LISTINGS (buy in the first hour of trading), whole period:
   trail=10% hold<=24h: 22 listings, avg +5.2%/trade, win 36%, doubled at some point: 1, best +119%, worst -19%
