@@ -19,7 +19,9 @@ fill at the next open" (live: filled at the first hourly cycle after the open, ~
 Parity with lab.py's family functions is checked offline in stock_strategies_test.py.
 """
 import config
-from lab import INDEX_ETFS
+# lab.INDEX_ETFS, copied so the live engine does not import the research script
+# (stock_strategies_test.py asserts the two lists stay equal)
+INDEX_ETFS = ["SPY", "QQQ", "IWM", "DIA", "EFA", "EEM", "GLD", "TLT"]
 from strategy import _base, _daily_closes
 
 

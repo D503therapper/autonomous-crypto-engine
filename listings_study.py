@@ -198,9 +198,9 @@ class SyntheticListingClient:
             if hrs < 1:
                 drift = 0.01 if kind < 0.6 else -0.01          # first-hour spike or dump
             elif hrs < 48:
-                drift = -0.0015 if kind < 0.75 else 0.0025      # most bleed, a few run
+                drift = -0.0015 if kind < 0.75 else 0.0012      # most bleed, a few run
             elif kind > 0.92 and hrs < 120:
-                drift = 0.004                                    # rare multi-x runner
+                drift = 0.0015                                   # rare multi-x runner
             r = drift + rng.gauss(0, vol)
             o = price
             price = max(1e-6, price * math.exp(r))
@@ -229,14 +229,11 @@ class SyntheticListingClient:
         if timeframe == "5m":
             rows = base
         else:
-            k = step // TF_MS["5m"]
-            rows = []
-            for i in range(0, len(base), k):
-                g = base[i:i + k]
-                if g[0]["t"] % step:            # align to the timeframe grid
-                    continue
-                rows.append({"t": g[0]["t"], "o": g[0]["o"], "h": max(x["h"] for x in g),
-                             "l": min(x["l"] for x in g), "c": g[-1]["c"], "v": sum(x["v"] for x in g)})
+            groups = {}
+            for x in base:                       # aggregate onto the timeframe grid
+                groups.setdefault(x["t"] // step * step, []).append(x)
+            rows = [{"t": t, "o": g[0]["o"], "h": max(x["h"] for x in g), "l": min(x["l"] for x in g),
+                     "c": g[-1]["c"], "v": sum(x["v"] for x in g)} for t, g in sorted(groups.items())]
         rows = [r for r in rows if r["t"] < end_ms]
         return rows[-count:]
 
@@ -672,7 +669,7 @@ def main():
         s = robust_score(R, cfg, COST_BASE, COST_STRESS, grids_stress)
         if s is not None:
             scored.append((s, cfg))
-    scored.sort(reverse=True)
+    scored.sort(key=lambda x: x[0], reverse=True)
     print(f"{'config':<52} {'score':>7} {'mean':>7} {'median':>7} {'win':>5} {'n':>3} {'@1.5%':>7}")
     for s, cfg in scored[:12]:
         xs = rets(R[cfg], COST_BASE)
