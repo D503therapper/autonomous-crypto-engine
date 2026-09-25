@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: "7 */6 * * *"
   workflow_dispatch: {}
+  push:
+    paths: [".github/workflows/paper-trade.yml"]   # (re)start the engine when this file changes
 permissions:
   contents: write
 concurrency: paper-trade
