@@ -91,7 +91,7 @@ def step(pf, candles_by_coin, strat, market_ok=True):
     prices = {c: s["price"] for c, s in sig.items()}
 
     # Weekly strategies only rebalance once per ISO week; stops still run every cycle.
-    week = datetime.fromtimestamp(now / 1000, timezone.utc).strftime("%G-%V")
+    week = datetime.fromtimestamp(now / 1000, timezone.utc).strftime(getattr(strat, "rebalance_key", "%G-%V"))
     rebalance = strat.weekly and week != pf.last_rebalance_week
 
     # 1) Manage open positions (the strategy decides stops / profit-taking).
@@ -120,6 +120,15 @@ def step(pf, candles_by_coin, strat, market_ok=True):
         if not rebalance:
             return
         pf.last_rebalance_week = week
+
+    # Rotation strategies: on rebalance, sell holdings that fell out of the top N.
+    if getattr(strat, "rotate", False):
+        top = sorted((c for c, s in sig.items() if s["buy"]), key=lambda c: sig[c]["rank"],
+                     reverse=True)[:strat.max_positions]
+        for coin in list(pf.positions):
+            if coin in sig and coin not in top:
+                pf.sell(now, coin, 1.0, sig[coin]["price"], "rebalance: dropped out of top picks")
+        eq = pf.equity(prices)
 
     # 3) New entries, best-ranked first.
     cands = sorted((c for c, s in sig.items() if s["buy"] and c not in pf.positions

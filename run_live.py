@@ -142,36 +142,46 @@ def fast_check(mname, client):
             save_pf(mname, st.name, pf, n_before, px)
 
 
+def _balance(mname, sname):
+    d = acct_dir(mname, sname)
+    eq, n = config.STARTING_CASH_USD, 0
+    if os.path.exists(f"{d}/equity.csv"):
+        with open(f"{d}/equity.csv") as f:
+            lines = f.read().strip().splitlines()
+        if len(lines) > 1:
+            eq = float(lines[-1].split(",")[1])
+    if os.path.exists(f"{d}/trades.csv"):
+        with open(f"{d}/trades.csv") as f:
+            n = max(0, len(f.read().strip().splitlines()) - 1)
+    return eq, n
+
+
 def scoreboard():
-    """Write SCOREBOARD.md: every paper account side by side."""
-    rows = []
-    for mname, m in MARKETS.items():
-        for st in m["strategies"]:
-            d = acct_dir(mname, st.name)
-            eq, n = config.STARTING_CASH_USD, 0
-            if os.path.exists(f"{d}/equity.csv"):
-                with open(f"{d}/equity.csv") as f:
-                    lines = f.read().strip().splitlines()
-                if len(lines) > 1:
-                    eq = float(lines[-1].split(",")[1])
-            if os.path.exists(f"{d}/trades.csv"):
-                with open(f"{d}/trades.csv") as f:
-                    n = max(0, len(f.read().strip().splitlines()) - 1)
-            rows.append((mname, st.name, eq, n))
-    rows.sort(key=lambda r: -r[2])
-    out = ["# Paper trading scoreboard", "",
-           f"Updated {ts(int(time.time() * 1000))} UTC. Each account started with "
-           f"${config.STARTING_CASH_USD:,.0f} of pretend money.", "",
-           "| Rank | Market | Strategy | Balance | Return | Trades |", "|---|---|---|---|---|---|"]
-    for i, (mn, sn, eq, n) in enumerate(rows, 1):
-        out.append(f"| {i} | {mn} | {sn} | ${eq:,.2f} | {eq / config.STARTING_CASH_USD - 1:+.1%} | {n} |")
-    total = sum(r[2] for r in rows)
-    out += ["", f"**All accounts combined: ${total:,.2f}** "
-            f"({total - config.STARTING_CASH_USD * len(rows):+,.2f} on ${config.STARTING_CASH_USD * len(rows):,.0f} of pretend money)"]
+    """SCOREBOARD.md: the two official $500 accounts. LAB.md: every test strategy."""
+    start = config.STARTING_CASH_USD
+    main = [(mn, m["main"], *_balance(mn, m["main"])) for mn, m in MARKETS.items()]
+    total = sum(r[2] for r in main)
+    out = ["# Scoreboard (pretend money)", ""]
+    for mn, _, eq, _ in main:
+        out.append(f"**{mn.title()}: ${eq:,.2f}**  ({eq - start:+,.2f})  ")
+    out += ["", f"**Total: ${total:,.2f}** of ${start * len(main):,.0f}  ({total - start * len(main):+,.2f})", "",
+            f"Updated {ts(int(time.time() * 1000))} UTC"]
     with open("SCOREBOARD.md", "w") as f:
         f.write("\n".join(out) + "\n")
-    write_dashboard(rows, total)
-    return rows
+
+    lab = [(mn, st.name, *_balance(mn, st.name)) for mn, m in MARKETS.items() for st in m["strategies"]]
+    lab.sort(key=lambda r: -r[2])
+    out = ["# Strategy lab (behind the scenes)", "",
+           "Every candidate strategy runs its own separate pretend $500 so they can be compared. "
+           "The best one in each market trades the official account on SCOREBOARD.md.", "",
+           "| Market | Strategy | Balance | Return | Trades |", "|---|---|---|---|---|"]
+    for mn, sn, eq, n in lab:
+        star = " (official)" if MARKETS[mn]["main"] == sn else ""
+        out.append(f"| {mn} | {sn}{star} | ${eq:,.2f} | {eq / start - 1:+.1%} | {n} |")
+    with open("LAB.md", "w") as f:
+        f.write("\n".join(out) + "\n")
+    write_dashboard(main, total)
+    return main
 
 
 def write_dashboard(rows, total):
@@ -184,7 +194,7 @@ def write_dashboard(rows, total):
         return "up" if x >= 0 else "down"
 
     items = "".join(
-        f'<div class="row"><div><div class="name">{sn.title()}</div><div class="mkt">{mn}</div></div>'
+        f'<div class="row"><div><div class="name">{mn.title()}</div></div>'
         f'<div class="right"><div class="bal">${eq:,.2f}</div>'
         f'<div class="{cls(eq - start)}">{eq - start:+,.2f} ({eq / start - 1:+.1%})</div></div></div>'
         for mn, sn, eq, _ in rows)
@@ -207,7 +217,7 @@ border-radius:12px;padding:14px 16px;margin-bottom:8px}}
 .right{{text-align:right}} .bal{{font-weight:600}} .up{{color:var(--up)}} .down{{color:var(--down)}}
 .foot{{color:var(--muted);font-size:13px;margin-top:16px}}
 </style></head><body><main>
-<div class="total"><div class="label">All accounts (pretend money)</div>
+<div class="total"><div class="label">Total (pretend money)</div>
 <div class="big">${total:,.2f}</div><div class="{cls(pl)}">{pl:+,.2f} ({total / invested - 1:+.1%}) on ${invested:,.0f}</div></div>
 {items}
 <div class="foot">Updated {ts(int(time.time() * 1000))} UTC · each account started with ${start:,.0f}</div>
@@ -230,7 +240,7 @@ def daily_summary(rows):
     start = config.STARTING_CASH_USD
     lines, now_bal = [], {}
     for mn, sn, eq, _ in rows:
-        key = f"{mn}/{sn}"
+        key = mn.title()
         now_bal[key] = eq
         day = eq - prev.get("balances", {}).get(key, start)
         lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - start:+,.2f}")
@@ -245,7 +255,7 @@ def git_sync():
     """In the cloud runner: commit the paper accounts back to GitHub every hour."""
     if os.environ.get("GIT_AUTOPUSH") != "1":
         return
-    cmds = ["git add data SCOREBOARD.md docs",
+    cmds = ["git add data SCOREBOARD.md LAB.md docs",
             f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'",
             "git pull -q --rebase -X theirs", "git push -q"]
     for c in cmds:

@@ -1,7 +1,8 @@
 """The two markets we paper trade side by side, each with its own strategies
 and its own $500 paper account per strategy."""
 import config
-from strategy import BreakoutHunter, DonchianRotation, HoldBenchmark, TrendFollower, WeeklyMomentum
+from strategy import (BreakoutHunter, DonchianRotation, HoldBenchmark, MomentumRotation,
+                      TrendFollower, WeeklyMomentum)
 
 
 def _crypto():
@@ -18,6 +19,7 @@ MARKETS = {
     "crypto": {
         "client": _crypto,
         "benchmark": "BTC",
+        "main": "breakout10",      # the strategy trading this market's official $500
         "bars_per_day": 24,
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
         "strategies": [
@@ -30,9 +32,11 @@ MARKETS = {
     "stocks": {
         "client": _stocks,
         "benchmark": "SPY",
+        "main": "rotation10",
         "bars_per_day": 7,   # regular session 9:30-16:00 ET in hourly bars
         "fee": config.STOCK_FEE_RATE, "slippage": config.STOCK_SLIPPAGE_RATE,
         "strategies": [
+            MomentumRotation(config.STOCK_UNIVERSE, 7),
             WeeklyMomentum(config.STOCK_UNIVERSE, 7, "stocks"),
             TrendFollower(config.STOCK_UNIVERSE),
             HoldBenchmark("SPY"),

@@ -191,6 +191,38 @@ class DonchianRotation:
         return None
 
 
+class MomentumRotation:
+    """Tournament pick (stocks, Sep 2026): each trading day, hold the top-N stocks by
+    10-day return / volatility among those with positive 10-day momentum, while SPY is
+    above its 200-day average. Out-of-sample 2024-26: +98% vs SPY +81.5% (weak evidence:
+    1 of 15 top variants beat SPY). Uses daily closes."""
+    name = "rotation10"
+    weekly = True           # engine rebalances once per period (see rebalance_key)
+    rebalance_key = "%Y-%m-%d"
+    rotate = True           # engine sells holdings that drop out of the top N
+
+    def __init__(self, universe, bars_per_day, lookback=10, top_n=2, regime_days=200):
+        self.universe, self.bpd, self.L, self.max_positions = universe, bars_per_day, lookback, top_n
+        self.regime_days = regime_days
+        self.min_candles = (lookback + 21) * bars_per_day + 1
+        self.window = self.min_candles + bars_per_day
+        self.position_pct = self.max_position_pct = (1 - config.MIN_CASH_RESERVE_PCT) / top_n
+
+    def analyze(self, candles, market_ok=True):
+        if len(candles) < self.min_candles:
+            return None
+        d = [c["c"] for c in candles[::-1][::self.bpd]][::-1]
+        mom = d[-1] / d[-1 - self.L] - 1
+        rets = [d[j] / d[j - 1] - 1 for j in range(len(d) - 20, len(d))]
+        vol = (sum(r * r for r in rets) / 20) ** 0.5 or 1e-9
+        sig = _base(candles)
+        sig.update(rank=mom / vol, buy=market_ok and mom > 0, stop=0.0)
+        return sig
+
+    def manage(self, pos, s, now, rebalance=False):
+        return None
+
+
 class HoldBenchmark:
     """Just buy and hold the benchmark (BTC / SPY): the bar every strategy must beat."""
     weekly = False
