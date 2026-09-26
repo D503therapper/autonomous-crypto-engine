@@ -17,3 +17,9 @@ opposite directions, so settle it with data (listings_study.py histories, plus d
 
 Switch config.MOON or EARLY_MOVER only if the walk-forward (unseen months) result is better.
 Report the answer to the owner in plain words.
+
+### Meme coins in the rotation (asked by the owner 2026-09-26)
+The official rotation (breakout10) only picks from config.UNIVERSE (16 large coins). Test adding the
+Crypto.com meme coins (PEPE, BONK, WIF, FLOKI, SHIB, DOGE already in, etc.) to its universe with the lab's
+walk-forward: more profit on unseen months with an acceptable drawdown? Also compare a separate
+meme-only rotation. Switch only if it wins out-of-sample; report in plain words.
