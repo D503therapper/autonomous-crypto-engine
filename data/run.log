@@ -655,3 +655,54 @@ Stocks: $500.00  today +0.00  total +0.00
 [2026-09-26 07:49 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
 [2026-09-26 07:49 UTC] crypto/hold_btc  equity $500.05 (+0.0%) 1 open  market UP
    social heat top: AERO 40 (32/0/8), PENGU 40 (40/0/0), ENA 35 (35/0/0), STONK 31 (24/0/7), ONDO 29 (29/0/0)
+   footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +5.8%, 2 volume hikes, 40% quiet hours @ 0.25614
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85262.41', 'l': '83148.75', 'a': '84074.63', 'v': '3271.4643', 'vv': '274726026.34', 'c': '0.0014', 'b': '84077.64', 'k': '84077.65', 'oi': '0', 't': 1790408960572}
+   dex screen: PASS STONK@solana liq $2,940,269
+   dex screen: REJECT VVV@base liq $18,805,966 - is_mintable; buy tax unknown; sell tax unknown; owner_percent 30%; top-10 holders 63%
+   dex screen: REJECT PYUSD@ethereum liq $100,137,073 - is_proxy; buy tax unknown; sell tax unknown; top-10 holders 88%
+   dex screen: REJECT MOG@ethereum liq $6,105,183 - top-10 holders 45%
+   dex screen: REJECT MNT@ethereum liq $3,953,374 - is_proxy; top-10 holders 87%
+   dex screen: REJECT ADI@ethereum liq $2,999,832 - is_proxy; buy tax unknown; sell tax unknown; top-10 holders 98%
+   dex screen: REJECT SKY@ethereum liq $2,370,242 - is_mintable; top-10 holders 90%
+   dex screen: REJECT CTM@ethereum liq $2,714,528 - is_mintable
+   dex screen: REJECT KMNO@solana liq $2,087,199 - top-10 holders 53%
+   dex screen: REJECT CBETH@base liq $1,127,717 - is_proxy; buy tax unknown; sell tax unknown; top-10 holders 92%
+   dex screen: PASS DRB@base liq $1,669,609
+   dex screen: UNREACHABLE AAPLC@base liq $1,675,288 - goplus unreachable
+   dex screen: REJECT ENA@ethereum liq $1,502,556 - is_mintable; top-10 holders 60%
+   dex screen: REJECT PAID@solana liq $1,410,965 - holders unknown; lp holders unknown; rugcheck lp locked 27% < 95%
+   dex screen: REJECT $PAAL@ethereum liq $1,175,508 - is_whitelisted
+   dex screen: REJECT AVNT@base liq $745,536 - pool age unknown
+   dex screen: REJECT ONDO@ethereum liq $1,170,987 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT FLOCK@base liq $629,616 - pool age unknown
+   dex screen: REJECT FWA@ethereum liq $1,094,926 - buy tax unknown; sell tax unknown; honeypot.is: no data
+   dex screen: REJECT LIT@ethereum liq $498,414 - buy tax unknown; sell tax unknown; top-10 holders 64%; lp locked 0% < 95%
+   dex screen: REJECT AERO@base liq $39,073,052 - is_mintable; buy tax unknown; sell tax unknown; top-10 holders 66%
+   dex screen: REJECT QNT@ethereum liq $577,454 - is_mintable; lp locked 0% < 95%
+   dex screen: PASS HOLDOWEEN@solana liq $104,665
+   dex screen: REJECT E/ACC@solana liq $596,595 - holders unknown; lp holders unknown; rugcheck lp locked 26% < 95%
+   dex screen: REJECT JEANPHIL@solana liq $321,414 - holders unknown; lp holders unknown; rugcheck lp locked 44% < 95%
+   dex screen: REJECT ELON@solana liq $304,599 - lp holders unknown; rugcheck lp locked 67% < 95%
+   dex screen: REJECT PLAY@base liq $425,790 - buy tax unknown; sell tax unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT SUPER@ethereum liq $3,590,522 - is_mintable; top-10 holders 54%
+   dex screen: REJECT ELSA@base liq $411,229 - buy tax unknown; sell tax unknown; top-10 holders 89%; lp locked 0% < 95%
+   dex screen: REJECT HLX@ethereum liq $364,664 - top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT PHA@ethereum liq $311,282 - transfer_pausable; hidden_owner; top-10 holders 71%; lp locked 0% < 95%
+   dex screen: REJECT CALI@solana liq $202,329 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT FUSE@ethereum liq $176,491 - lp locked 0% < 95%
+   dex screen: REJECT POND@ethereum liq $187,084 - is_proxy; top-10 holders 72%; lp locked 0% < 95%
+   dex screen: REJECT YAP@solana liq $160,045 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 51
+   dex screen: REJECT RARE@ethereum liq $122,440 - is_proxy; top-10 holders 60%; lp locked 0% < 95%
+   dex screen: REJECT AAVE@ethereum liq $134,444 - is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT CREAM@solana liq $104,924 - holders unknown; lp holders unknown; rugcheck lp locked 58% < 95%
+   dex screen: REJECT ZRO@base liq $159,624 - pool age unknown
+[2026-09-26 08:06 UTC] crypto/early_mover equity $487.78 (-2.4%) 2 open  market UP
+[2026-09-26 08:06 UTC] crypto/mover     equity $489.37 (-2.1%) 5 open  market UP
+[2026-09-26 08:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 08:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 08:06 UTC] crypto/social_heat equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 08:06 UTC] crypto/breakout10 equity $490.17 (-2.0%) 2 open  market UP
+[2026-09-26 08:06 UTC] crypto/momentum  equity $499.54 (-0.1%) 4 open  market UP
+[2026-09-26 08:06 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 08:06 UTC] crypto/hold_btc  equity $500.07 (+0.0%) 1 open  market UP
+   social heat top: PENGU 40 (40/0/0), ENA 35 (35/0/0), AERO 33 (32/0/1), STONK 31 (24/0/7), ONDO 29 (29/0/0)
