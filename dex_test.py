@@ -576,6 +576,29 @@ def test_study_exit():
     print("  live exit: 14-day hold without stop, runner at the limit rides a 50% trail, 60% trail after 3x   ok")
 
 
+def test_resize_old_small_position():
+    h, _, d = make(table_evm())
+    screen(h, cand())
+    pos = h.pf.positions[K]
+    assert abs(pos["cost0"] - 15) < 0.1                                  # bought under the old 3% sizing
+    pos.pop("resized", None)                                             # as for a position bought before _resize existed
+    h.p = dict(h.p, tiers=dex.DEX["tiers"], size=dex.DEX["size"])       # sizing raised later
+    h._housekeep(T0 + 60_000)
+    assert 99 < pos["cost0"] < 101 and pos["resized"], pos["cost0"]      # topped up once to 20% of $500
+    n = len(h.pf.trades)
+    h._housekeep(T0 + 120_000)
+    assert len(h.pf.trades) == n                                          # only once
+    h2, _, d2 = make(table_evm())
+    screen(h2, cand())
+    h2.pf.positions[K]["px"] *= 1.5                                       # already ran +50%: don't chase
+    h2.pf.positions[K].pop("resized", None)
+    h2.p = dict(h2.p, tiers=dex.DEX["tiers"], size=dex.DEX["size"])
+    h2._housekeep(T0 + 60_000)
+    assert abs(h2.pf.positions[K]["cost0"] - 15) < 0.1
+    shutil.rmtree(d); shutil.rmtree(d2)
+    print("  old small position resized once to current sizing (not if it already ran)   ok")
+
+
 def test_max_hold():
     h, fetch, d, px = held()
     poll(h, T0 + 14 * DAY, px, v=0.012)
@@ -844,6 +867,7 @@ if __name__ == "__main__":
     test_trailing_stop()
     test_evm_address_case()
     test_take_profit_steps()
+    test_resize_old_small_position()
     test_study_exit()
     test_max_hold()
     test_liquidity_pull_emergency_exit()

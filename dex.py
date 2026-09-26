@@ -631,6 +631,8 @@ class DexHunter:
             ex = pos.get("exit")
             if ex and now - ex["t"] > X["check_wait_s"] * 1000:
                 self._execute_exit(k, [], now, " (sell check unreachable, booked at market)")
+            elif k in self.pf.positions and pos.get("px") is not None:
+                self._resize(k, pos, now)
         reset = self.p["scam_pause"]["reset_after"]
         if st["paused"] and reset and ts(st["paused"]["t"]) < reset:   # manual re-enable via config
             print(f"   dex: pause lifted (reset_after {reset})")
@@ -887,6 +889,23 @@ class DexHunter:
         if T[tier]["pct"] <= T[pos["tier"]]["pct"] or pos["tp1"] or px < pos["entry"] or self.paused():
             return
         add = size_for(self.equity(), pos["liq"], tier, self.pf.cash, self.exposure(), self.p) - pos["qty"] * px
+        self._add(k, pos, add, px, tier, now, f"dex tier {pos['tier']} -> {tier} top-up after {pos['clean']} clean re-screens")
+
+    def _resize(self, k, pos, now):
+        """Once per position: bring a position bought under an older, smaller sizing (e.g. the 3% = $15 tier-A
+        bets before 2026-09-26) up to its tier's size - only near its entry price (0.85x-1.25x), before any
+        take-profit / runner mode and while no exit is pending; never chases a coin that already ran."""
+        if pos.get("resized") or pos.get("exit") or pos["tp1"] or pos.get("runner") or self.paused():
+            return
+        px = pos.get("px") or pos["entry"]
+        pos["resized"], self.dirty = True, True
+        if not pos["entry"] * 0.85 <= px <= pos["entry"] * 1.25:
+            return
+        want = size_for(self.equity(), pos["liq"], pos["tier"], self.pf.cash + pos["qty"] * px, self.exposure(), self.p)
+        self._add(k, pos, want - pos["qty"] * px, px, pos["tier"], now, f"dex tier {pos['tier']} resize to current sizing")
+
+    def _add(self, k, pos, add, px, tier, now, reason):
+        add = min(add, self.pf.cash)
         if add < config.MIN_ORDER_USD:
             return
         slip = trade_cost(add, pos["liq"], self.p)
@@ -896,7 +915,7 @@ class DexHunter:
         pos["qty"], pos["cost"], pos["cost0"], pos["tier"] = pos["qty"] + qty, pos["cost"] + add, pos["cost0"] + add, tier
         pos["peak"] = max(pos["peak"], fill)
         self.pf.cash -= add
-        self.pf._record(now, "BUY", k, qty, fill, fee, f"dex tier {pos['tier']} -> {tier} top-up after {pos['clean']} clean re-screens")
+        self.pf._record(now, "BUY", k, qty, fill, fee, reason)
         self._save_pf(now)
 
     # ---- prices, stops, take-profits (every ~60 s per chain, one batch request) ----
