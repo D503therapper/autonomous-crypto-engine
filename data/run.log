@@ -477,3 +477,9 @@ Stocks: $500.00  today +0.00  total +0.00
 [2026-09-26 05:03 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
 [2026-09-26 05:03 UTC] crypto/hold_btc  equity $499.61 (-0.1%) 1 open  market UP
    social heat top: NEAR 40 (40/0/0), ONDO 37 (37/0/0), ENA 35 (35/0/0), AERO 35 (29/0/5), PENGU 32 (32/0/0)
+   footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +6.8%, 2 volume hikes, 40% quiet hours @ 0.25631
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85262.41', 'l': '83148.75', 'a': '83995.77', 'v': '3361.2599', 'vv': '282280577.51', 'c': '-0.0029', 'b': '83995.77', 'k': '83995.78', 'oi': '0', 't': 1790399027964}
+   dex screen: REJECT AAVE@base liq $1,511,449 - pool age unknown
+   dex screen: REJECT MOG@ethereum liq $6,091,793 - top-10 holders 46%
+   dex screen: REJECT USDE@ethereum liq $1,688,831 - is_mintable; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT LIT@ethereum liq $491,729 - buy tax unknown; sell tax unknown; top-10 holders 64%; lp locked 0% < 95%
