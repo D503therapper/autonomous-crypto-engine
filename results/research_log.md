@@ -4,6 +4,22 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 
 ## Open questions
 
+### #1 PRIORITY - How to find the DEX coins that run 100%-1000%+ every day (owner, 2026-09-26)
+"If we master finding these coins on the DEX, that is the jackpot." Build a study (GitHub workflow, like
+dex_exit_study.py) on thousands of Solana / Base / Ethereum pools from GeckoTerminal + DexScreener:
+- Label every pool by what it did next: ran 2x / 5x / 10x+ within 1-7 days, went nowhere, or rugged.
+- Features visible BEFORE the run, at 5m / 15m / 1h resolution: pool age, pump.fun graduation (address
+  ends in "pump", LP auto-burned), liquidity and its growth, volume / liquidity, buys vs sells and unique
+  buyers growth, holder count growth, price trend (1h / 6h / 24h), market cap, DexScreener boosts and
+  trending rank, GeckoTerminal trending, CoinGecko trending, social mentions (dex_watch), time of day.
+- Find which features separate the runners from the duds and the rugs; build a simple score, check it
+  walk-forward (fit on older months, test on newer), and measure trades/day, win rate, profit/month
+  after costs with the live exit (14-day hold, runner rules).
+- Wire the winning score into dex.py discovery / entry (more candidates, earlier, fewer duds) and report
+  to the owner in plain words: how many runners/day it would have caught and what it would have made.
+Real misses to learn from: PAID (solana, +247% after a data-gap rejection), ELON (+68%).
+
+
 ### Runner exits (asked by the owner 2026-09-26)
 Goal: never lose a big gain, and never sell a coin that is on its way to 100x. These pull in
 opposite directions, so settle it with data (listings_study.py histories, plus dex_exit_study for DEX):
