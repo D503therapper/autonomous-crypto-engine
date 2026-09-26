@@ -424,3 +424,9 @@ Stocks: $500.00  today +0.00  total +0.00
    social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
    social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
    social: reddit/memecoins HTTP 403  (retry in 30 min)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
