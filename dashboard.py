@@ -126,7 +126,7 @@ def render(cards, updated_ms):
 <meta name="apple-mobile-web-app-title" content="D503">
 <meta name="theme-color" content="#07090f">
 <title>The D503 · Autonomous Trading Engine</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%2307090f'/%3E%3Cpolyline points='30,120 70,85 100,100 150,45' fill='none' stroke='%2322e39a' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="apple-touch-icon.png">
 <style>
 :root{{--bg:#05070d;--card:#0c111b;--card2:#111a2b;--line:#1a2438;--text:#eef3ff;--muted:#7f8aa3;--up:#22e39a;--dn:#ff4d6d;--blue:#3b82ff;--cyan:#22d3ee;--accent:{accent}}}
 *{{box-sizing:border-box}}

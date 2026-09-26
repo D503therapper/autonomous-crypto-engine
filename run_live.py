@@ -117,7 +117,7 @@ def full_cycle(mname, client):
         coins = {s: data[s] for s in st.universe if s in data}
         step(pf, social.tag(coins) if getattr(st, "needs_coin", False) else coins, st, ok)
         if st is EARLY:                                # keep the official listing hunter fully invested
-            park_idle(pf, int(time.time() * 1000), prices.get(PARK))
+            park_idle(pf, int(time.time() * 1000), prices, park_targets())
         eq = save_pf(mname, st.name, pf, n_before, prices)
         append_csv(f"{acct_dir(mname, st.name)}/equity.csv",
                    [{"time": now, "equity": round(eq, 2), "cash": round(pf.cash, 2),
@@ -193,27 +193,43 @@ def early_veto(guard, scanner):
     return veto
 
 
-PARK = "BTC"   # the official listing hunter keeps idle cash in BTC between listings
+ACTIVE = "breakout10"   # the listing hunter keeps idle cash in whatever this rotation holds
 
 
-def park_idle(pf, now, price):
-    """Put idle cash (above the reserve) into BTC so the whole account stays invested."""
-    if not price:
+def park_targets():
+    """Coins the active rotation holds right now (the listing hunter's idle cash rides them)."""
+    try:
+        return [c for c in load_pf("crypto", ACTIVE).positions]
+    except Exception:
+        return []
+
+
+def park_idle(pf, now, prices, targets):
+    """Keep the listing hunter fully invested: parked money follows the active rotation's picks
+    (none = rotation is in cash because the market is in a downtrend, so we hold cash too)."""
+    for c in [c for c, p in pf.positions.items() if p.get("park") and c not in targets and prices.get(c)]:
+        pf.sell(now, c, 1.0, prices[c], "unpark: rotation moved on")
+    tg = [c for c in targets if prices.get(c)]
+    if not tg:
         return
-    eq = pf.equity({PARK: price})
+    eq = pf.equity(prices)
     spare = pf.cash - eq * config.MIN_CASH_RESERVE_PCT
-    if spare >= 2 * config.MIN_ORDER_USD:
-        pf.buy(now, PARK, spare, price, 0.0, reason="park idle cash in BTC")
-        pf.positions[PARK]["park"] = True
-
-
-def unpark(pf, now, need, price):
-    """Sell enough parked BTC to raise `need` dollars of cash for a new trade."""
-    pos = pf.positions.get(PARK)
-    if not pos or not pos.get("park") or not price or need <= 0:
+    if spare < 2 * config.MIN_ORDER_USD * len(tg):
         return
-    frac = min(1.0, need / (pos["qty"] * price * (1 - pf.fee - pf.slippage)))
-    pf.sell(now, PARK, frac if frac < 0.999 else 1.0, price, "unpark BTC for a new trade")
+    for c in tg:
+        pf.buy(now, c, spare / len(tg), prices[c], 0.0, reason="ride the active rotation")
+        pf.positions[c]["park"] = True
+
+
+def unpark(pf, now, need, prices):
+    """Sell parked positions pro rata to raise `need` dollars for a new listing."""
+    parked = {c: p["qty"] * prices[c] for c, p in pf.positions.items() if p.get("park") and prices.get(c)}
+    total = sum(parked.values())
+    if need <= 0 or not total:
+        return
+    frac = min(1.0, need / (total * (1 - pf.fee - pf.slippage)))
+    for c in parked:
+        pf.sell(now, c, frac if frac < 0.999 else 1.0, prices[c], "unpark for a new listing")
 
 
 def buy_early(cands, scanner, guard, tag, st=None):
@@ -241,7 +257,7 @@ def buy_early(cands, scanner, guard, tag, st=None):
             continue
         if st is EARLY:                                # official account: free cash from the BTC park
             unpark(pf, now, eq * st.position_pct - (pf.cash - eq * config.MIN_CASH_RESERVE_PCT),
-                   (scanner.last.get(PARK) or {}).get("price"))
+                   {c: v["price"] for c, v in scanner.last.items() if v.get("price")})
         usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd < config.MIN_ORDER_USD:
             break
@@ -342,7 +358,7 @@ def trade_social(client, tracker):
             continue
         if st is EARLY:                                # official account: free cash from the BTC park
             unpark(pf, now, eq * st.position_pct - (pf.cash - eq * config.MIN_CASH_RESERVE_PCT),
-                   (scanner.last.get(PARK) or {}).get("price"))
+                   {c: v["price"] for c, v in scanner.last.items() if v.get("price")})
         usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd < config.MIN_ORDER_USD:
             break

@@ -21,8 +21,9 @@ MARKETS = {
     "crypto": {
         "client": _crypto,
         "benchmark": "BTC",
-        # official $500 split in two: half hunts new listings (big wins), half trades actively
-        # every day (10-day breakout rotation). Each runs a $500 account; the scoreboard averages them.
+        # official $500 = two $500 accounts averaged: the 10-day breakout rotation, and the new-listing
+        # hunter whose idle cash rides the rotation's current picks (run_live.park_idle), so all of it
+        # is always actively trading; new listings are funded by selling a slice of those picks.
         "main": ["early_mover", "breakout10"],
         "bars_per_day": 24,
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
