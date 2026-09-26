@@ -414,6 +414,10 @@ def check_rugcheck(j, S):
 _LP_REASON = re.compile(r"^(lp locked|lp holders unknown|rugcheck lp locked|rugcheck: lp lock unknown|rugcheck danger: .*lp unlocked)", re.I)
 
 
+# Re-screen findings that come from flaky holder / LP data (not the contract): need a second strike to sell
+_DATA_FLAG = re.compile(r"holders|^lp |rugcheck lp|rugcheck: lp|rugcheck score|lp unlocked", re.I)
+
+
 def _mature(c, S):
     M = S.get("mature") or {}
     return (c.get("age_h") or 0) >= M.get("age_h", float("inf")) and (c.get("liq") or 0) >= M.get("liq", float("inf"))
@@ -866,11 +870,22 @@ class DexHunter:
             pos["rescreened"] = now
             if any(s == "unreach" for _, s in rs):
                 print(f"   dex re-screen: {job['key']} unreachable ({why}); holding")
+            elif any(s == "scam" for _, s in rs):             # honeypot / freeze etc.: out at once
+                self._request_exit(job["key"], 1.0, f"re-screen flagged: {why}", "scammed_honeypot", now)
+            elif rs and not all(_DATA_FLAG.search(t) for t, _ in rs):   # contract / market flag: out at once
+                self._request_exit(job["key"], 1.0, f"re-screen flagged: {why}", "emergency_exit", now)
             elif rs:
-                outcome = "scammed_honeypot" if any(s == "scam" for _, s in rs) else "emergency_exit"
-                self._request_exit(job["key"], 1.0, f"re-screen flagged: {why}", outcome, now)
+                # a data flag (LP / holders from one API) must repeat on the next re-screen before we sell:
+                # free APIs flip on these fields (SDOG passed, then read "LP 0%" and was sold at -13%).
+                # A real rug still exits at once through the liquidity-pull check on every price update.
+                pos["flagged"] = pos.get("flagged", 0) + 1
+                self.dirty = True
+                if pos["flagged"] >= 2:
+                    self._request_exit(job["key"], 1.0, f"re-screen flagged twice: {why}", "emergency_exit", now)
+                else:
+                    print(f"   dex re-screen: {job['key']} flagged once ({why}); re-checking before selling")
             else:
-                pos["clean"] = pos.get("clean", 0) + 1
+                pos["clean"], pos["flagged"] = pos.get("clean", 0) + 1, 0
                 self._upgrade(job["key"], pos, now)
             return
         verdict = "UNREACHABLE" if any(s == "unreach" for _, s in rs) else ("REJECT" if rs else "PASS")
@@ -1108,7 +1123,10 @@ class DexHunter:
         every = self.p["every_s"]["rescreen"] * 1000
         for k, pos in self.pf.positions.items():
             if k not in self.jobs and not pos.get("exit") and now - pos.get("rescreened", 0) >= every:
-                c = {"chain": pos["chain"], "addr": pos["addr"], "sym": pos["sym"]}
+                # pool age + liquidity too, so the same rules apply as at the buy (e.g. the mature-pool LP rule;
+                # without them ANTFUN, a $13.8M pool, was force-sold on "LP not locked" 30 min after passing)
+                c = {"chain": pos["chain"], "addr": pos["addr"], "sym": pos["sym"], "pair": pos.get("pair"),
+                     "liq": pos["liq"], "age_h": pos.get("age_h0", 0) + (now - pos["opened"]) / HOUR}
                 self.jobs[k] = {"key": k, "c": c, "steps": self._steps(pos["chain"], True), "i": 0, "reasons": [],
                                 "mode": "rescreen"}
         for k, job in list(self.jobs.items()):
