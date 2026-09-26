@@ -205,8 +205,12 @@ DEX = {
     "every_s": {"discover": 300, "watch": 600, "prices": 60, "rescreen": 1800, "followup": 3600},
     "screen": {                                    # every check must pass; unreachable source = not tradable
         "max_tax": 0.03, "max_creator_pct": 0.05, "max_top10_pct": 0.40, "min_lp_locked": 0.95,
-        "min_liq": 250_000, "liq_x_size": 50, "min_age_h": 24, "min_vol24": 300_000,
+        # owner 2026-09-26: trade the DEX all day. Floors lowered from $250k / 24h / $300k so fresh meme pools
+        # reach the scam checks; every contract / LP-lock / holder / honeypot check still applies, tier A stays 3%
+        "min_liq": 100_000, "liq_x_size": 50, "min_age_h": 6, "min_vol24": 100_000,
         "max_24h_change": None,                    # no cap on prior gains (owner)
+        "mature": {"age_h": 720, "liq": 1_000_000},   # 30+ days with $1M+: LP lock not required (v3/CLMM can't lock)
+        "age_unknown_liq": 1_000_000,                 # source gave no pool age: fine on a $1M+ pool
     },
     "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},   # 1h >= +5%, 6h >= +10%, 1h buys >= 1.2x sells
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash

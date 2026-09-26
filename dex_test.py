@@ -327,7 +327,20 @@ def test_rejections():
         assert r["verdict"] == verdict and why in r["reasons"], (verdict, r)
         assert any("rugcheck" in u for u in fetch.calls)
         shutil.rmtree(d)
-    print("  rejections: honeypot, tax, mintable, pausable, freeze, LP, whales, proxy; SOL unknowns -> RugCheck   ok")
+    # unlocked LP: rejected on a young pool, fine on a 30+ day, $1M+ pool (v3/CLMM positions can't be locked)
+    unlocked = gp_evm(lp_holders=[{"address": "0xdev", "percent": "1.0", "is_locked": 0}])
+    for age, liq, verdict in ((100, 1_500_000, "REJECT"), (800, 600_000, "REJECT"), (800, 1_500_000, "PASS")):
+        h, fetch, d = make(table_evm(gp=unlocked, pair=ds_pair("base", EVM, liq=liq, age_h=age)))
+        screen(h, cand(liq=liq, age_h=age))
+        r = rows(f"{d}/screen.csv")[-1]
+        assert r["verdict"] == verdict, (age, liq, r)
+        shutil.rmtree(d)
+    # no pool age from the source: fine on a $1M+ pool, rejected below
+    S = dict(dex.DEX["screen"], min_liq=250_000)
+    base = {"price": 1.0, "vol24": 500_000, "b24": 10, "s24": 10, "age_h": None}
+    assert not dex.check_market(dict(base, liq=1_200_000), S)
+    assert "pool age unknown" in dex.check_market(dict(base, liq=400_000), S)[0][0]
+    print("  rejections: honeypot, tax, mintable, pausable, freeze, LP, whales, proxy; SOL unknowns -> RugCheck; mature LP; unknown age   ok")
 
 
 def test_unreachable_fails_closed():
@@ -358,8 +371,8 @@ def test_market_sanity_and_prefilter():
     assert not h._enqueue(cand(age_h=3), T0, fresh=False)                                       # young pool
     assert not h.queue and not fetch.calls
     shutil.rmtree(d)
-    for kw, want in ((dict(liq=20_000), "liquidity $20,000 < $250,000"), (dict(age_h=5), "pool age 5.0h < 24h"),
-                     (dict(vol=100_000), "24h volume $100,000"), (dict(b24=0), "no buys or no sells"),
+    for kw, want in ((dict(liq=20_000), "liquidity $20,000 < $100,000"), (dict(age_h=5), "pool age 5.0h < 6h"),
+                     (dict(vol=50_000), "24h volume $50,000"), (dict(b24=0), "no buys or no sells"),
                      (dict(h6=45, h1=-20), "spike-and-fade")):
         h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, **kw)))   # discovery data looked fine...
         screen(h, cand())                                                # ...DexScreener says otherwise
@@ -372,14 +385,14 @@ def test_market_sanity_and_prefilter():
 
 def test_liquidity_floor_scales_with_account():
     h, _, d = make({})
-    assert h.S()["min_liq"] == 250_000                                    # $500: 3% = $15 -> floor binds
+    assert h.S()["min_liq"] == 100_000                                    # $500: 3% = $15 -> floor binds
     h.pf.cash = 10_000
-    assert h.S()["min_liq"] == 250_000                                    # $300 x 50 = $15k < floor
+    assert h.S()["min_liq"] == 100_000                                    # $300 x 50 = $15k < floor
     h.pf.cash = 1_000_000
     assert h.S()["min_liq"] == 1_500_000                                  # $30k x 50
     assert not h._enqueue(cand(liq=600_000), T0, fresh=False)             # too shallow for this account now
     shutil.rmtree(d)
-    print("  min liquidity = max($250k, 50 x planned position)   ok")
+    print("  min liquidity = max($100k, 50 x planned position)   ok")
 
 
 def test_sizing_caps_in_entries():

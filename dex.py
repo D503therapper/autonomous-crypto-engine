@@ -85,6 +85,8 @@ DEFAULTS = {
         "min_lp_locked": 0.95, "rugcheck_max_score": 50,             # score_normalised (0-100, higher = worse)
         "min_liq": 250_000, "liq_x_size": 50,                        # liquidity >= max($250k, 50 x position)
         "min_age_h": 24, "min_vol24": 300_000,
+        "mature": {"age_h": 720, "liq": 1_000_000},                  # 30+ days with $1M+: LP lock not required
+        "age_unknown_liq": 1_000_000,                                # no pool age from the source: OK if $1M+ liquidity
         "max_24h_change": None,                                      # owner: no cap on runners
         "fade_h6": 0.30, "fade_h1": -0.15,                           # +30% in 6h but -15% in the last hour
         "ttl_h": 6, "reject_ttl_h": 24, "unreach_ttl_h": 1,          # how long a verdict stands
@@ -392,6 +394,17 @@ def check_rugcheck(j, S):
     return r
 
 
+# The LP-lock rule guards against a new pool's creator pulling the liquidity. Uniswap v3/v4 and CLMM
+# positions can't be "locked" at all, so an old deep pool reads 0% locked; after 30+ days with $1M+ in it,
+# unlocked LP is normal (the liquidity-pull emergency exit still watches every held pool).
+_LP_REASON = re.compile(r"^(lp locked|lp holders unknown|rugcheck lp locked|rugcheck: lp lock unknown|rugcheck danger: .*lp unlocked)", re.I)
+
+
+def _mature(c, S):
+    M = S.get("mature") or {}
+    return (c.get("age_h") or 0) >= M.get("age_h", float("inf")) and (c.get("liq") or 0) >= M.get("liq", float("inf"))
+
+
 def check_market(c, S):
     r = []
     if not c.get("price") or c["price"] <= 0:
@@ -399,7 +412,8 @@ def check_market(c, S):
     if c["liq"] < S["min_liq"]:
         r.append((f"liquidity ${c['liq']:,.0f} < ${S['min_liq']:,.0f}", "flag"))
     if c.get("age_h") is None:
-        r.append(("pool age unknown", "flag"))
+        if c["liq"] < S["age_unknown_liq"]:          # missing data on a deep pool is not a red flag
+            r.append(("pool age unknown", "flag"))
     elif c["age_h"] < S["min_age_h"]:
         r.append((f"pool age {c['age_h']:.1f}h < {S['min_age_h']}h", "flag"))
     if c["vol24"] < S["min_vol24"]:
@@ -782,6 +796,8 @@ class DexHunter:
         elif step == "rugcheck":
             st, obj = self._get("rugcheck", self._url("rugcheck", addr=c["addr"]), now)
             reasons = check_rugcheck(obj, S) if st == 200 and isinstance(obj, dict) else [("rugcheck unreachable", "unreach")]
+        if _mature(c, S):
+            reasons = [x for x in reasons if not _LP_REASON.search(x[0])]
         job["reasons"] += reasons
         job["done"] = job.get("done", 0) + 1
         hard = [r for r in reasons if r[1] != "defer"]         # a deferred check needs the second source's word
