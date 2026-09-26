@@ -635,6 +635,9 @@ class DexHunter:
         if st["paused"] and reset and ts(st["paused"]["t"]) < reset:   # manual re-enable via config
             print(f"   dex: pause lifted (reset_after {reset})")
             st["paused"], st["scams"], self.dirty = None, [], True
+        if st.get("rules") != S.get("rules"):          # screen rules changed: old rejections get a fresh look
+            st["seen"] = {k: v for k, v in st["seen"].items() if v["v"] != "REJECT"}
+            st["rules"], self.dirty = S.get("rules"), True
         ttl = {"REJECT": S["reject_ttl_h"], "UNREACHABLE": S["unreach_ttl_h"], "PASS": S["ttl_h"]}
         st["seen"] = {k: v for k, v in st["seen"].items() if now - v["t"] <= ttl.get(v["v"], 24) * HOUR}
         for k, c in list(st["passed"].items()):
