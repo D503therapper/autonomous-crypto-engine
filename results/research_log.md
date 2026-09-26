@@ -73,6 +73,10 @@ winners (median trade loses), so expect many small red trades between big ones. 
 TODO (owner asked): test the untested owner-rule add-ons on the same dex_exit_study data - protection trail
 after 3x at 50% / 60% / 70% / none, trigger at 3x vs 5x, and the day-14 runner trail 40/50/60%. Pick the
 most profitable robust one (walk-forward) and update config.DEX["exit"]; report in plain words.
+Include a LEGENDS replay (owner): run SHIB 2021, PEPE 2023, BONK, WIF, POPCAT, MOG, FLOKI and famous rugs /
+dead memes through the exact live DEX rules (entry at the first 1h +10% day after launch, 14-day hold,
+runner trail, protection trail 50/60/70/none). Show where each rule would have sold vs the peak and the later
+second leg, and pick by total profit across legends AND duds together, not legends alone.
 
 ### Social AI hype-reader (owner: "trending on social media is everything to us") - after the home box
 Plan once the owner's box (Xeon 14c, 62 GB RAM, RTX A4500 20 GB, no sudo) is a self-hosted runner:
