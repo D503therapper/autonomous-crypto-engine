@@ -223,3 +223,20 @@ Stocks: $500.00  today +0.00  total +0.00
    scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85262.41', 'l': '83148.75', 'a': '84024.83', 'v': '3532.0366', 'vv': '296686863.40', 'c': '-0.0075', 'b': '84027.78', 'k': '84027.79', 'oi': '0', 't': 1790389778886}
    scanner: QI: +14.7% in 90 min on 4.5x volume @ 0.004156 spread 0.88%
    dex screen: REJECT LDO@ethereum liq $610,020 - no dexscreener pair
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+   >> crypto/early_mover: BUY $448.20 of BTC @ 84102.4 (park idle cash in BTC)
+[2026-09-26 02:35 UTC] crypto/early_mover equity $497.75 (-0.4%) 1 open  market UP
+[2026-09-26 02:35 UTC] crypto/mover     equity $494.79 (-1.0%) 5 open  market UP
+[2026-09-26 02:35 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:35 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:35 UTC] crypto/social_heat equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:35 UTC] crypto/breakout10 equity $495.81 (-0.8%) 2 open  market UP
+[2026-09-26 02:35 UTC] crypto/momentum  equity $504.94 (+1.0%) 4 open  market UP
+[2026-09-26 02:35 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:35 UTC] crypto/hold_btc  equity $499.77 (-0.0%) 1 open  market UP
+   social heat top: NEAR 40 (40/0/0), PENGU 37 (37/0/0), TRUMP 37 (32/0/5), ONDO 27 (27/0/0), ENA 24 (24/0/0)
