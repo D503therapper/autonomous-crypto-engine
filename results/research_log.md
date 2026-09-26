@@ -77,6 +77,9 @@ Include a LEGENDS replay (owner): run SHIB 2021, PEPE 2023, BONK, WIF, POPCAT, M
 dead memes through the exact live DEX rules (entry at the first 1h +10% day after launch, 14-day hold,
 runner trail, protection trail 50/60/70/none). Show where each rule would have sold vs the peak and the later
 second leg, and pick by total profit across legends AND duds together, not legends alone.
+Also test a CONCENTRATION CAP (owner: "never hit a Luna Classic"): when one position grows past 20/25/33%
+of total equity, sell back down to the cap and bank the rest; keep the remainder on the runner rules. Add
+LUNA (May 2022), FTT and other collapses to the replay. Recommend a cap level (or none) with the numbers.
 
 ### Social AI hype-reader (owner: "trending on social media is everything to us") - after the home box
 Plan once the owner's box (Xeon 14c, 62 GB RAM, RTX A4500 20 GB, no sudo) is a self-hosted runner:
