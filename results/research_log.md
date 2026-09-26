@@ -50,3 +50,6 @@ Applied: entry 1h >= +10% with buys > sells; hold 14 days; owner rules added on 
 a coin >= 2x at day 14 keeps riding on a 50% trail; once a coin hits 3x, a 60% trail from its high.
 Rug exits (liquidity pull, failed re-screen) unchanged. Caveats: small sample, profit comes from few big
 winners (median trade loses), so expect many small red trades between big ones. Re-run the study monthly.
+TODO (owner asked): test the untested owner-rule add-ons on the same dex_exit_study data - protection trail
+after 3x at 50% / 60% / 70% / none, trigger at 3x vs 5x, and the day-14 runner trail 40/50/60%. Pick the
+most profitable robust one (walk-forward) and update config.DEX["exit"]; report in plain words.
