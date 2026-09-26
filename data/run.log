@@ -1084,3 +1084,17 @@ Stocks: $500.00  today +0.00  total +0.00
 [2026-09-26 20:29 UTC] crypto/hold_btc  equity $500.06 (+0.0%) 1 open  market UP
    social heat top: TRUMP 35 (35/0/0), QNT 32 (32/0/0), SUI 29 (29/0/0), NEAR 27 (27/0/0), PENGU 25 (24/0/1)
    rebalance: moved $300 from crypto/early_mover to the DEX account
+   footprint: CRO: footprint 3/4 (drift+hikes+rising_lows) 48h +5.5%, 4 volume hikes, 10% quiet hours @ 0.06641
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '84334.99', 'l': '83623.65', 'a': '84082.97', 'v': '964.1679', 'vv': '81000617.77', 'c': '0.0002', 'b': '84082.97', 'k': '84082.98', 'oi': '0', 't': 1790454586615}
+   dex screen: REJECT ASTEROID@solana liq $139,518 - holders unknown; lp holders unknown; rugcheck lp locked 71% < 95%
+   dex screen: REJECT LSK@ethereum liq $605,132 - buy tax unknown; sell tax unknown; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: PASS SOLCAT@solana liq $100,507
+   dex screen: UNREACHABLE GULD@ethereum liq $1,803,968 - buy tax unknown; sell tax unknown; honeypot.is unreachable
+   dex screen: REJECT NPC@ethereum liq $5,445,220 - top-10 holders 41%
+   dex screen: REJECT NPC@base liq $886,415 - is_proxy; buy tax unknown; sell tax unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS USELESS@solana liq $5,729,994
+   dex screen: PASS YEE@ethereum liq $512,369
