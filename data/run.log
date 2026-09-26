@@ -455,3 +455,9 @@ Stocks: $500.00  today +0.00  total +0.00
    footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +6.4%, 2 volume hikes, 40% quiet hours @ 0.25662
    scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85262.41', 'l': '83148.75', 'a': '83985.81', 'v': '3373.1604', 'vv': '283282887.65', 'c': '-0.0022', 'b': '83985.81', 'k': '83985.82', 'oi': '0', 't': 1790398380480}
    dex screen: REJECT ZCAT@solana liq $1,270,616 - lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
