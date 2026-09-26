@@ -98,3 +98,12 @@ owner's account) + existing CoinGecko/DexScreener/GeckoTerminal trending; a loca
 CPU fallback while the owner renders video) scores each coin: mention growth, organic vs bot/shill, scam
 talk. Feed the score into the DEX hunter's discovery (screen rising coins first) and log it so the runner
 study can measure whether buzz came before the runs. X/Twitter is paid (~$200/mo) - revisit once profitable.
+
+## 2026-09-26 - DEX runner study (results/dex_runner_study.txt)
+346 pools, 13,704 decision points (Jul-Sep 2026). Before 10x runs coins were young (~22h), small (liq ~$82k,
+mcap ~$340k), heavily traded (vol24/liq ~3.7), often 50% off their 7-day high, mostly Solana / pump.fun.
+Points score and logistic model separated runners well (logit AUC 0.89 out-of-sample) but did NOT trade better
+than the engine's current entry. Current entry (1h +10%, age >= 6h, $100k floors) + live exit: ~5-7 trades/day,
+mean +29%/trade (median -6.6%), 12% of trades >= 2x, 4-slot account +101%/month (older +62%, newer +73%),
+max drawdown -54% - kept as is. Survivorship bias: absolute returns are a ceiling. Added dex snapshot logging
+(data/dex/snapshots.csv: buys/sells, boosts, vol1/6/24, source) so the re-run in 2-4 weeks can test live-only signs.

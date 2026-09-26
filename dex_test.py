@@ -396,6 +396,18 @@ def test_market_sanity_and_prefilter():
     print("  market sanity: tiny / young pool, volume, one-sided, fade   ok")
 
 
+def test_snapshots_logged_hourly():
+    h, _, d = make({})
+    c = cand()
+    h._enqueue(c, T0, fresh=False)
+    h._enqueue(c, T0 + 60_000, fresh=False)                          # same hour: not logged again
+    h._enqueue(c, T0 + HOUR + 1, fresh=False)
+    r = rows(f"{d}/snapshots.csv")
+    assert len(r) == 2 and r[0]["sym"] == "TOK" and r[0]["b1"] == "120", r
+    shutil.rmtree(d)
+    print("  live-feature snapshots: one row per coin per hour   ok")
+
+
 def test_queue_screens_movers_first():
     h, _, d = make({})
     slow = cand(addr="0x" + "1" * 40, liq=5_000_000, h1=1)           # big, not moving
@@ -861,6 +873,7 @@ if __name__ == "__main__":
     test_rejections()
     test_unreachable_fails_closed()
     test_market_sanity_and_prefilter()
+    test_snapshots_logged_hourly()
     test_queue_screens_movers_first()
     test_liquidity_floor_scales_with_account()
     test_sizing_caps_in_entries()

@@ -163,6 +163,8 @@ def norm_ds(p, now):
             "name": str(bt.get("name") or ""), "pair": p.get("pairAddress"), "price": _f(p.get("priceUsd")),
             "liq": _f((p.get("liquidity") or {}).get("usd")) or 0.0,
             "vol24": _f((p.get("volume") or {}).get("h24")) or 0.0, "fdv": _f(p.get("fdv")),
+            "vol1": _f((p.get("volume") or {}).get("h1")), "vol6": _f((p.get("volume") or {}).get("h6")),
+            "boosts": _f((p.get("boosts") or {}).get("active")),
             "age_h": (now - created) / HOUR if created else None,
             "b1": _txn(tx, "h1", "buys"), "s1": _txn(tx, "h1", "sells"),
             "b24": _txn(tx, "h24", "buys"), "s24": _txn(tx, "h24", "sells"),
@@ -498,6 +500,7 @@ class DexHunter:
         self.state, self.pf, self.queue, self.jobs, self.lookup = None, None, [], {}, []
         self.cex = set()                              # run_live: Crypto.com symbols (tier C)
         self._n_saved, self.dirty = 0, False
+        self._snap_t = {}                             # coin -> last snapshot time (one row per coin per hour)
 
     # ---- plumbing ----
     def _now(self):
@@ -743,9 +746,27 @@ class DexHunter:
                  and v.get("n", 0) >= 2 and s not in self.state["watch_done"] and re.fullmatch(r"[A-Z0-9]{2,12}", s)]
         return max(cands)[1] if cands else None
 
+    SNAP_FIELDS = ("chain", "addr", "pair", "sym", "src", "price", "liq", "vol1", "vol6", "vol24", "fdv", "age_h",
+                   "b1", "s1", "b24", "s24", "h1", "h6", "h24", "boosts")
+
+    def _snapshot(self, c, k, now):
+        """dex_runner_study section 9: log live-only features (buys/sells, boosts, source...) once per coin per
+        hour to data/dex/snapshots.csv, so a later study can measure which of them came before the runs."""
+        last = self._snap_t.get(k, 0)
+        if now - last < HOUR:
+            return
+        self._snap_t[k] = now
+        row = {"time": ts(now)}
+        row.update({f: c.get(f) for f in self.SNAP_FIELDS})
+        try:
+            append_csv(f"{self.dir}/snapshots.csv", [row])
+        except OSError as e:
+            print(f"   dex: snapshot log failed: {e}")
+
     def _enqueue(self, c, now, fresh):
         """Queue a candidate for the full screen unless known; cheap market prefilter first (not logged)."""
         k, st = self.key(c), self.state
+        self._snapshot(c, k, now)
         if c["chain"] not in self.p["chains"] or k in st["seen"] or k in st["passed"] \
                 or any(j["key"] == k for j in self.queue) or self.pkey(c) in self.pf.positions:
             return False
