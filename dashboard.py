@@ -92,7 +92,8 @@ def render(cards, updated_ms):
     pl = total - base
     up = pl >= 0
     accent = "#22e39a" if up else "#ff5c7a"
-    total_series = _combine([c["series"] for c in official if c["series"]]) if official else []
+    # every official account counts (one with no history yet is flat at its starting $500)
+    total_series = _combine([c["series"] for c in official]) if official else []
     blocks = []
     for i, c in enumerate(cards):
         d = c["equity"] - start
