@@ -38,15 +38,15 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .total{font-size:44px;font-weight:750;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}
 .pill{display:inline-flex;align-items:center;gap:6px;font-weight:650;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font-variant-numeric:tabular-nums}
-.since{font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#ffd60a;text-shadow:0 0 10px rgba(255,214,10,.6)}
+.since{font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#fff}
 .month{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
 .tile{background:linear-gradient(180deg,color-mix(in srgb,var(--h) 14%,transparent),rgba(255,255,255,.02));border:1px solid color-mix(in srgb,var(--h) 45%,transparent);
   border-radius:14px;padding:10px 9px;min-width:0;overflow:hidden;box-shadow:0 6px 22px -12px var(--h)}
 .ar{font-size:.7em;margin-right:3px;vertical-align:1px}
-.tl{color:var(--h);text-shadow:0 0 10px color-mix(in srgb,var(--h) 60%,transparent);font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.tl{color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .tv{font-size:clamp(13px,4.2vw,17px);font-weight:800;margin-top:6px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .tv.sw{background:linear-gradient(90deg,#22d3ee,#3b82ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ts{font-size:11px;font-weight:700;color:color-mix(in srgb,var(--h,#7f8aa3) 55%,#fff);margin-top:1px}
+.ts{font-size:11px;font-weight:700;color:#fff;margin-top:1px}
 .ts.up{color:var(--up)} .ts.dn{color:var(--dn)}
 .hero .chart{height:110px;margin:14px -20px 0}
 .hero .chart svg,.spark svg{width:100%;height:100%;display:block}
@@ -57,21 +57,28 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px;color:#fff;font-weight:800;
   background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 8px 20px -8px var(--c1)}
 .nm{font-weight:800;font-size:17px;color:#fff}
-.sub{color:color-mix(in srgb,var(--c2) 60%,#fff);font-size:12.5px;font-weight:600;margin-top:1px}
-.sub b{color:var(--c2);font-weight:900;text-shadow:0 0 10px var(--c2)}
-.sub .test{color:#ffc53d}
+.sub{color:#fff;font-size:12.5px;font-weight:600;margin-top:1px}
+.sub b{color:#fff;font-weight:900}
+.sub .test{color:#fff}
 .val{text-align:right}
 .bal{font-weight:700;font-size:19px;font-variant-numeric:tabular-nums}
 .chg{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
-.up{color:var(--up)} .dn{color:var(--dn)}
+.up{color:var(--up)} .dn{color:var(--dn)} .w{color:#fff}
 .spark{height:54px;margin:12px 0 8px}
+.hold{border-top:1px solid var(--line);margin-top:4px;padding-top:6px}
+.h{display:grid;grid-template-columns:1fr auto;grid-template-areas:"c v" "c p";column-gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.h:last-child{border-bottom:0}
+.hc{grid-area:c;align-self:center;font-weight:800;font-size:15px;color:#fff}
+.hv{grid-area:v;text-align:right;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.hp{grid-area:p;text-align:right;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.h.none{display:block;color:#fff;font-weight:600;font-size:13px}
 .foot-row{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:10px}
 .last{color:#aab6d3;font-size:12.5px}
 .last .bt{color:var(--up);font-weight:800} .last .sd{color:#ff8a3d;font-weight:800}
 .last .coin{color:var(--c2);font-weight:900;text-shadow:0 0 10px color-mix(in srgb,var(--c2) 60%,transparent)}
 .last .tm{color:#8d9bc0}
 .idle{display:inline-flex;align-items:center;gap:7px;font-weight:800}
-.idle span{color:#ffc53d}
+.idle span{color:#fff}
 .idle i{width:7px;height:7px;border-radius:50%;background:#ffd60a;flex:none;animation:blink 1.6s infinite}
 @keyframes blink{50%{opacity:.25}}
 .last b{font-weight:650}
@@ -94,43 +101,46 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <section class="hero">
   <div class="moon">TO THE MOON BABY! 🚀</div>
   <div class="lbl">Total balance</div>
-  <div class="total">$993.39</div>
-  <span class="pill" style="--accent:#ff3b3b">▼ −$6.61 (−0.7%) <span class="since">today</span></span>
-  <div class="month"><div class="tile" style="--h:#22d3ee"><div class="tl">This month</div><div class="ts">September</div><div class="tv dn"><span class="ar">▼</span>−$7</div><div class="ts dn">−0.7%</div></div><div class="tile" style="--h:#b36bff"><div class="tl">All time</div><div class="ts">since Sep 25</div><div class="tv dn"><span class="ar">▼</span>−$7</div><div class="ts dn">−0.7%</div></div><div class="tile" style="--h:#ffc53d"><div class="tl">Avg / month</div><div class="ts">so far</div><div class="tv dn"><span class="ar">▼</span>−$7</div><div class="ts dn">−0.7%</div></div></div>
-  <div class="chart"><svg viewBox="0 0 360 110" preserveAspectRatio="none"><defs><linearGradient id="gt" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff3b3b" stop-opacity=".35"/><stop offset="1" stop-color="#ff3b3b" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="25.5" x2="360" y2="25.5" stroke="#ffffff" stroke-opacity=".12" stroke-dasharray="3 5"/><polygon points="0,110 0.0,36.6 4.8,56.5 7.2,45.2 10.4,62.5 23.9,59.6 27.1,59.5 28.7,60.7 32.7,60.3 36.6,39.3 39.8,34.9 43.8,28.5 52.6,17.6 55.0,21.9 62.9,18.7 82.0,23.7 87.6,4.1 102.7,10.2 111.5,5.8 114.7,4.0 131.4,24.3 179.2,38.7 227.0,49.4 246.1,46.8 250.9,57.1 254.1,78.1 257.3,77.7 262.0,77.1 274.8,88.1 303.5,89.3 309.8,104.1 316.2,106.0 324.2,92.8 335.3,83.4 360.0,90.3 360,110" fill="url(#gt)"/><polyline points="0.0,36.6 4.8,56.5 7.2,45.2 10.4,62.5 23.9,59.6 27.1,59.5 28.7,60.7 32.7,60.3 36.6,39.3 39.8,34.9 43.8,28.5 52.6,17.6 55.0,21.9 62.9,18.7 82.0,23.7 87.6,4.1 102.7,10.2 111.5,5.8 114.7,4.0 131.4,24.3 179.2,38.7 227.0,49.4 246.1,46.8 250.9,57.1 254.1,78.1 257.3,77.7 262.0,77.1 274.8,88.1 303.5,89.3 309.8,104.1 316.2,106.0 324.2,92.8 335.3,83.4 360.0,90.3" fill="none" stroke="#ff3b3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="360.0" cy="90.3" r="3.5" fill="#ff3b3b"/></svg></div>
+  <div class="total">$990.94</div>
+  <span class="pill" style="--accent:#ff3b3b">▼ <span class="w">−$9.06</span> (−0.9%) <span class="since">today</span></span>
+  <div class="month"><div class="tile" style="--h:#22d3ee"><div class="tl">This month</div><div class="ts">September</div><div class="tv dn"><span class="ar">▼</span><span class="w">−$9</span></div><div class="ts dn">−0.9%</div></div><div class="tile" style="--h:#22e39a"><div class="tl">All time</div><div class="ts">since Sep 25</div><div class="tv dn"><span class="ar">▼</span><span class="w">−$9</span></div><div class="ts dn">−0.9%</div></div><div class="tile" style="--h:#ffc53d"><div class="tl">Avg / month</div><div class="ts">so far</div><div class="tv dn"><span class="ar">▼</span><span class="w">−$9</span></div><div class="ts dn">−0.9%</div></div></div>
+  <div class="chart"><svg viewBox="0 0 360 110" preserveAspectRatio="none"><defs><linearGradient id="gt" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff3b3b" stop-opacity=".35"/><stop offset="1" stop-color="#ff3b3b" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="23.9" x2="360" y2="23.9" stroke="#ffffff" stroke-opacity=".12" stroke-dasharray="3 5"/><polygon points="0,110 0.0,34.1 4.7,52.5 7.0,42.1 10.1,58.0 23.3,55.4 26.4,55.2 28.0,56.4 31.9,56.1 35.8,36.6 38.9,32.5 42.8,26.6 51.3,16.6 53.7,20.5 61.4,17.5 80.1,22.2 85.5,4.1 100.3,9.7 108.9,5.6 112.0,4.0 128.3,22.8 174.9,36.0 221.6,46.0 240.3,43.6 244.9,53.1 248.0,72.5 251.1,72.1 255.8,71.6 268.3,81.7 296.2,82.8 302.5,96.5 308.7,98.3 316.5,86.1 327.3,77.4 351.4,83.8 360.0,106.0 360,110" fill="url(#gt)"/><polyline points="0.0,34.1 4.7,52.5 7.0,42.1 10.1,58.0 23.3,55.4 26.4,55.2 28.0,56.4 31.9,56.1 35.8,36.6 38.9,32.5 42.8,26.6 51.3,16.6 53.7,20.5 61.4,17.5 80.1,22.2 85.5,4.1 100.3,9.7 108.9,5.6 112.0,4.0 128.3,22.8 174.9,36.0 221.6,46.0 240.3,43.6 244.9,53.1 248.0,72.5 251.1,72.1 255.8,71.6 268.3,81.7 296.2,82.8 302.5,96.5 308.7,98.3 316.5,86.1 327.3,77.4 351.4,83.8 360.0,106.0" fill="none" stroke="#ff3b3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="360.0" cy="106.0" r="3.5" fill="#ff3b3b"/></svg></div>
 </section>
 
 <section class="card" style="--c1:#3b82ff;--c2:#22d3ee">
   <div class="card-top">
     <div class="id"><span class="ico">₿</span><div><div class="nm">Crypto</div>
-      <div class="sub"><b>4</b> open positions</div></div></div>
-    <div class="val"><div class="bal">$493.39</div><div class="chg dn">−$6.61 (−1.3%)</div></div>
+      <div class="sub"><b>2</b> open positions</div></div></div>
+    <div class="val"><div class="bal">$490.94</div><div class="chg dn"><span class="w">−$9.06</span> (−1.8%)</div></div>
   </div>
-  <div class="spark"><svg viewBox="0 0 300 54" preserveAspectRatio="none"><defs><linearGradient id="g0" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff3b3b" stop-opacity=".35"/><stop offset="1" stop-color="#ff3b3b" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="13.7" x2="300" y2="13.7" stroke="#ffffff" stroke-opacity=".12" stroke-dasharray="3 5"/><polygon points="0,54 0.0,18.7 4.0,27.7 6.0,22.6 8.6,30.4 19.9,29.1 22.6,29.0 23.9,29.6 27.2,29.4 30.5,19.9 33.2,17.9 36.5,15.0 43.8,10.1 45.8,12.1 52.4,10.6 68.4,12.9 73.0,4.1 85.6,6.8 92.9,4.8 95.6,4.0 109.5,13.2 149.3,19.6 189.2,24.5 205.1,23.3 209.1,28.0 211.7,37.4 214.4,37.2 218.4,37.0 229.0,41.9 252.9,42.5 258.2,49.1 263.5,50.0 270.1,44.1 279.4,39.8 300.0,42.9 300,54" fill="url(#g0)"/><polyline points="0.0,18.7 4.0,27.7 6.0,22.6 8.6,30.4 19.9,29.1 22.6,29.0 23.9,29.6 27.2,29.4 30.5,19.9 33.2,17.9 36.5,15.0 43.8,10.1 45.8,12.1 52.4,10.6 68.4,12.9 73.0,4.1 85.6,6.8 92.9,4.8 95.6,4.0 109.5,13.2 149.3,19.6 189.2,24.5 205.1,23.3 209.1,28.0 211.7,37.4 214.4,37.2 218.4,37.0 229.0,41.9 252.9,42.5 258.2,49.1 263.5,50.0 270.1,44.1 279.4,39.8 300.0,42.9" fill="none" stroke="#ff3b3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="300.0" cy="42.9" r="3.5" fill="#ff3b3b"/></svg></div>
-  <div class="foot-row"><span class="last"><span class="bt">Bought</span> <span class="coin">SUI</span> <span class="tm">· 2026-09-26 02:39 UTC</span></span></div>
+  <div class="spark"><svg viewBox="0 0 300 54" preserveAspectRatio="none"><defs><linearGradient id="g0" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff3b3b" stop-opacity=".35"/><stop offset="1" stop-color="#ff3b3b" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="13.0" x2="300" y2="13.0" stroke="#ffffff" stroke-opacity=".12" stroke-dasharray="3 5"/><polygon points="0,54 0.0,17.6 3.9,25.9 5.8,21.2 8.4,28.4 19.4,27.2 22.0,27.1 23.3,27.6 26.6,27.5 29.8,18.7 32.4,16.9 35.6,14.2 42.8,9.7 44.7,11.5 51.2,10.1 66.7,12.2 71.3,4.1 83.6,6.6 90.7,4.7 93.3,4.0 106.9,12.5 145.8,18.4 184.7,22.9 200.2,21.8 204.1,26.1 206.7,34.9 209.3,34.7 213.2,34.5 223.5,39.0 246.9,39.5 252.1,45.7 257.2,46.5 263.7,41.0 272.8,37.1 292.9,40.0 300.0,50.0 300,54" fill="url(#g0)"/><polyline points="0.0,17.6 3.9,25.9 5.8,21.2 8.4,28.4 19.4,27.2 22.0,27.1 23.3,27.6 26.6,27.5 29.8,18.7 32.4,16.9 35.6,14.2 42.8,9.7 44.7,11.5 51.2,10.1 66.7,12.2 71.3,4.1 83.6,6.6 90.7,4.7 93.3,4.0 106.9,12.5 145.8,18.4 184.7,22.9 200.2,21.8 204.1,26.1 206.7,34.9 209.3,34.7 213.2,34.5 223.5,39.0 246.9,39.5 252.1,45.7 257.2,46.5 263.7,41.0 272.8,37.1 292.9,40.0 300.0,50.0" fill="none" stroke="#ff3b3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="300.0" cy="50.0" r="3.5" fill="#ff3b3b"/></svg></div>
+  <div class="hold"><div class="h"><span class="hc">SUI</span><span class="hv">$222.17</span><span class="hp dn"><span class="ar">▼</span><span class="w">−$1.85</span> (−0.8%)</span></div><div class="h"><span class="hc">NEAR</span><span class="hv">$218.22</span><span class="hp dn"><span class="ar">▼</span><span class="w">−$5.80</span> (−2.6%)</span></div></div>
+  
 </section>
 <section class="card" style="--c1:#7c3aed;--c2:#3b82ff">
   <div class="card-top">
     <div class="id"><span class="ico">📈</span><div><div class="nm">Stocks</div>
       <div class="sub"><b>0</b> open positions</div></div></div>
-    <div class="val"><div class="bal">$500.00</div><div class="chg up">+$0.00 (+0.0%)</div></div>
+    <div class="val"><div class="bal">$500.00</div><div class="chg up"><span class="w">+$0.00</span> (+0.0%)</div></div>
   </div>
   <div class="spark"><svg viewBox="0 0 300 54" preserveAspectRatio="none"><line x1="0" y1="27.0" x2="300" y2="27.0" stroke="#22e39a" stroke-width="2" stroke-dasharray="4 5" opacity=".5"/></svg></div>
-  <div class="foot-row"><span class="last"><span class="idle"><i></i><span>No trades yet — watching the market</span></span></span></div>
+  <div class="hold"><div class="h none">Nothing open right now — all cash</div></div>
+  
 </section>
 <section class="card" style="--c1:#22e39a;--c2:#3b82ff">
   <div class="card-top">
     <div class="id"><span class="ico">◆</span><div><div class="nm">DEX</div>
       <div class="sub"><b>0</b> open positions · <span class="test">test account</span></div></div></div>
-    <div class="val"><div class="bal">$500.00</div><div class="chg up">+$0.00 (+0.0%)</div></div>
+    <div class="val"><div class="bal">$500.00</div><div class="chg up"><span class="w">+$0.00</span> (+0.0%)</div></div>
   </div>
   <div class="spark"><svg viewBox="0 0 300 54" preserveAspectRatio="none"><defs><linearGradient id="g2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#22e39a" stop-opacity=".35"/><stop offset="1" stop-color="#22e39a" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="4.0" x2="300" y2="4.0" stroke="#ffffff" stroke-opacity=".12" stroke-dasharray="3 5"/><polygon points="0,54 0.0,4.0 34.3,4.0 100.7,4.0 167.2,4.0 233.6,4.0 300.0,4.0 300,54" fill="url(#g2)"/><polyline points="0.0,4.0 34.3,4.0 100.7,4.0 167.2,4.0 233.6,4.0 300.0,4.0" fill="none" stroke="#22e39a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="300.0" cy="4.0" r="3.5" fill="#22e39a"/></svg></div>
-  <div class="foot-row"><span class="last"><span class="idle"><i></i><span>No trades yet — watching the market</span></span></span><div class="badge ok">Scammed 0</div></div>
+  <div class="hold"><div class="h none">Nothing open right now — all cash</div></div>
+  <div class="foot-row"><div class="badge ok">Scammed 0</div></div>
 </section>
 <div class="foot"><div class="fname"><span class="f-the">THE</span> <span class="f-d">D503</span> <span class="f-tag">AUTONOMOUS TRADING ENGINE</span></div>each account started with <b class="gold">$500.00</b> · <span style="white-space:nowrap">refreshes every <b class="gold">5 min</b></span></div>
 </main>
 <script>
-(function(){var t=1790398379161,m=Math.max(0,Math.round((Date.now()-t)/60000));
+(function(){var t=1790399026930,m=Math.max(0,Math.round((Date.now()-t)/60000));
 var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
 document.getElementById("ago").textContent="Live · "+s;
 if(m>90)document.getElementById("dot").className="dot stale";})();
