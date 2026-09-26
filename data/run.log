@@ -367,3 +367,9 @@ Stocks: $500.00  today +0.00  total +0.00
    social heat top: PENGU 40 (40/0/0), NEAR 35 (35/0/0), AERO 30 (24/0/6), ENA 29 (29/0/0), ONDO 27 (27/0/0)
    footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +7.4%, 2 volume hikes, 44% quiet hours @ 0.25641
    scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85262.41', 'l': '83148.75', 'a': '83950.06', 'v': '3414.7052', 'vv': '286785546.13', 'c': '-0.0027', 'b': '83945.32', 'k': '83945.33', 'oi': '0', 't': 1790394601897}
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
