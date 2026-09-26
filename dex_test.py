@@ -451,6 +451,15 @@ def test_trailing_stop():
     print("  trailing stop 30% below peak (after sell simulation)   ok")
 
 
+def test_evm_address_case():
+    # GeckoTerminal sends lowercase EVM addresses, DexScreener checksummed mixed case: must still match
+    m = dex.best_pairs([{"chain": "base", "addr": "0xAbC0000000000000000000000000000000000Def", "liq": 5.0}], "base")
+    assert m.get("0xabc0000000000000000000000000000000000def") and "0xABC0000000000000000000000000000000000DEF" in m
+    s = dex.best_pairs([{"chain": "solana", "addr": "KMNoAbC", "liq": 5.0}], "solana")
+    assert s.get("KMNoAbC") and s.get("kmnoabc") is None                # Solana stays case-sensitive
+    print("  EVM address case-insensitive matching (Solana case-sensitive)   ok")
+
+
 def test_take_profit_steps():
     h, fetch, d, px = held()
     q0, entry, cost0 = h.pf.positions[K]["qty"], h.pf.positions[K]["entry"], h.pf.positions[K]["cost0"]
@@ -753,6 +762,7 @@ if __name__ == "__main__":
     test_liquidity_floor_scales_with_account()
     test_sizing_caps_in_entries()
     test_trailing_stop()
+    test_evm_address_case()
     test_take_profit_steps()
     test_max_hold()
     test_liquidity_pull_emergency_exit()

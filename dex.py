@@ -177,9 +177,31 @@ def parse_ds_pairs(body, now):
     return [c for c in out if c]
 
 
+def _ak(addr):
+    """Address key: EVM addresses are case-insensitive (GeckoTerminal sends lowercase, DexScreener
+    checksummed mixed case); Solana addresses are case-sensitive and kept as-is."""
+    a = str(addr or "")
+    return a.lower() if a.startswith("0x") else a
+
+
+class AddrMap(dict):
+    """dict keyed by token address that matches EVM addresses regardless of letter case."""
+    def __setitem__(self, k, v):
+        super().__setitem__(_ak(k), v)
+
+    def __getitem__(self, k):
+        return super().__getitem__(_ak(k))
+
+    def __contains__(self, k):
+        return super().__contains__(_ak(k))
+
+    def get(self, k, default=None):
+        return super().get(_ak(k), default)
+
+
 def best_pairs(cands, chain=None):
-    """{addr: deepest pair} (optionally one chain only)."""
-    out = {}
+    """{addr: deepest pair} (optionally one chain only); lookups ignore EVM address case."""
+    out = AddrMap()
     for c in cands:
         if (chain is None or c["chain"] == chain) and c["liq"] >= out.get(c["addr"], {}).get("liq", -1):
             out[c["addr"]] = c
