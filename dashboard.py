@@ -142,10 +142,10 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   background-clip:text;color:transparent;filter:drop-shadow(0 6px 22px rgba(59,130,255,.45))}}
 .tagline{{margin-top:8px;font-size:11.5px;font-weight:800;letter-spacing:.28em;color:#c9d6ff;opacity:.85}}
 .head .live{{position:absolute;top:2px;right:0}}
-.moon{{position:absolute;top:22px;right:-52px;transform:rotate(14deg);padding:6px 56px;font-weight:900;font-size:11px;
-  letter-spacing:.08em;color:#05070d;white-space:nowrap;background:linear-gradient(90deg,#22e39a,#22d3ee,#3b82ff);
-  box-shadow:0 8px 24px -6px rgba(34,211,238,.6);z-index:2}}
-.hero .lbl{{margin-top:6px}}
+.moon{{position:absolute;top:16px;right:-54px;transform:rotate(12deg);padding:6px 60px;font-weight:900;font-size:11.5px;
+  letter-spacing:.1em;color:#fff;white-space:nowrap;text-shadow:0 0 8px rgba(255,255,255,.55),0 1px 2px rgba(0,0,0,.4);
+  background:linear-gradient(90deg,#16c784,#22d3ee,#3b82ff,#7c3aed);box-shadow:0 8px 24px -6px rgba(34,211,238,.6);z-index:2}}
+.hero.hero{{padding-top:74px}}   /* the corner ribbon sits in this space; it never covers the numbers */
 .brand{{white-space:nowrap;font-weight:800;letter-spacing:.14em;font-size:11px;background:linear-gradient(90deg,var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}}
 .live{{white-space:nowrap;display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:6px 10px;border-radius:999px}}
 .dot{{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 var(--up);animation:pulse 2s infinite}}
@@ -186,7 +186,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <section class="hero">
-  <div class="moon">TO THE MOON, BABY! 🚀</div>
+  <div class="moon">TO THE MOON BABY! 🚀</div>
   <div class="lbl">Total balance</div>
   <div class="total">{_money(total)}</div>
   <span class="pill">{"▲" if up else "▼"} {_chg(pl, base)}</span>
