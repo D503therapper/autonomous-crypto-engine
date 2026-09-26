@@ -81,7 +81,8 @@ def _money(x):
 
 def _chg(x, base):
     sign = "+" if x >= 0 else "−"
-    return f"{sign}${abs(x):,.2f} ({sign}{abs(x) / base:.1%})" if base else f"{sign}${abs(x):,.2f}"
+    amt = f'<span class="w">{sign}${abs(x):,.2f}</span>'     # dollar change in white, the % in green/red
+    return f"{amt} ({sign}{abs(x) / base:.1%})" if base else amt
 
 
 def render(cards, updated_ms):
@@ -119,38 +120,35 @@ def render(cards, updated_ms):
         cls = "up" if u else "dn"
         pct_txt = f'<div class="ts {cls}">{"+" if u else "−"}{abs(pct):.1%}</div>' if pct is not None else '<div class="ts">&nbsp;</div>'
         return (f'<div class="tile" style="--h:{hue}"><div class="tl">{label}</div><div class="ts">{sub}</div>'
-                f'<div class="tv {cls}"><span class="ar">{"▲" if u else "▼"}</span>{"+" if u else "−"}${abs(amt):,.0f}</div>{pct_txt}</div>')
+                f'<div class="tv {cls}"><span class="ar">{"▲" if u else "▼"}</span><span class="w">{"+" if u else "−"}${abs(amt):,.0f}</span></div>{pct_txt}</div>')
     start_day = time.strftime("%b %-d", time.gmtime(first_t / 1000))
     tiles = (tile("This month", month_name, mpl, mpl / month_start, "#22d3ee")
-             + tile("All time", f"since {start_day}", pl, pl / base, "#b36bff")
+             + tile("All time", f"since {start_day}", pl, pl / base, "#22e39a")
              + tile("Avg / month", f"over {months_run:.0f} mo" if months_run >= 2 else "so far", avg, avg / base, "#ffc53d"))
     dup = dpl >= 0
     blocks = []
     for i, c in enumerate(cards):
         d = c["equity"] - start
         col = "#22e39a" if d >= 0 else "#ff3b3b"
-        last = c.get("last")
-        last_txt = '<span class="idle"><i></i><span>No trades yet — watching the market</span></span>'
-        if last:
-            buy = last.get("side") == "BUY"
-            side = f'<span class="{"bt" if buy else "sd"}">{"Bought" if buy else "Sold"}</span>'
-            pnl = last.get("pnl")
-            pnl_txt = ""
-            if pnl not in (None, "", "None"):
-                p = float(pnl)
-                pnl_txt = f' <b class="{"up" if p >= 0 else "dn"}">{"+" if p >= 0 else "−"}${abs(p):,.2f}</b>'
-            last_txt = (f'{side} <span class="coin">{html.escape(last.get("coin", ""))}</span> '
-                        f'<span class="tm">· {html.escape(last.get("time", ""))} UTC</span>{pnl_txt}')
+        rows = "".join(
+            f'<div class="h"><span class="hc">{html.escape(h["coin"])}</span><span class="hv">{_money(h["value"])}</span>'
+            f'<span class="hp {"up" if h["pnl"] >= 0 else "dn"}"><span class="ar">{"▲" if h["pnl"] >= 0 else "▼"}</span>'
+            f'{_chg(h["pnl"], h["value"] - h["pnl"])}</span></div>' for h in c.get("holdings", []))
+        tap = "holdings" in c
+        none = '<div class="h none">Nothing open right now — all cash</div>'
+        hold = f'<div class="hold">{rows or none}</div>' if tap else ""
+        click = ' onclick="this.classList.toggle(\'open\')"' if tap else ""
         extra = f'<div class="badge {c["extra_cls"]}">{html.escape(c["extra"])}</div>' if c.get("extra") else ""
         blocks.append(f"""
-<section class="card" style="--c1:{c.get("c1", "#3b82ff")};--c2:{c.get("c2", "#22d3ee")}">
+<section class="card{" tap" if tap else ""}"{click} style="--c1:{c.get("c1", "#3b82ff")};--c2:{c.get("c2", "#22d3ee")}">
   <div class="card-top">
     <div class="id"><span class="ico">{c["icon"]}</span><div><div class="nm">{html.escape(c["name"])}</div>
-      <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}{' · <span class="test">test account</span>' if not c.get("official") else ""}</div></div></div>
+      <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}{ ' <span class="chev"></span>' if tap else ""}{' · <span class="test">test account</span>' if not c.get("official") else ""}</div></div></div>
     <div class="val"><div class="bal">{_money(c["equity"])}</div><div class="chg {"up" if d >= 0 else "dn"}">{_chg(d, start)}</div></div>
   </div>
   <div class="spark">{_svg(c["series"], 300, 54, col, i, base=start)}</div>
-  <div class="foot-row"><span class="last">{last_txt}</span>{extra}</div>
+  {hold}
+  {f'<div class="foot-row">{extra}</div>' if extra else ""}
 </section>""")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -192,15 +190,15 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .total{{font-size:44px;font-weight:750;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:650;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font-variant-numeric:tabular-nums}}
-.since{{font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#ffd60a;text-shadow:0 0 10px rgba(255,214,10,.6)}}
+.since{{font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#fff}}
 .month{{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}}
 .tile{{background:linear-gradient(180deg,color-mix(in srgb,var(--h) 14%,transparent),rgba(255,255,255,.02));border:1px solid color-mix(in srgb,var(--h) 45%,transparent);
   border-radius:14px;padding:10px 9px;min-width:0;overflow:hidden;box-shadow:0 6px 22px -12px var(--h)}}
 .ar{{font-size:.7em;margin-right:3px;vertical-align:1px}}
-.tl{{color:var(--h);text-shadow:0 0 10px color-mix(in srgb,var(--h) 60%,transparent);font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}}
+.tl{{color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}}
 .tv{{font-size:clamp(13px,4.2vw,17px);font-weight:800;margin-top:6px;font-variant-numeric:tabular-nums;white-space:nowrap}}
 .tv.sw{{background:linear-gradient(90deg,#22d3ee,#3b82ff);-webkit-background-clip:text;background-clip:text;color:transparent}}
-.ts{{font-size:11px;font-weight:700;color:color-mix(in srgb,var(--h,#7f8aa3) 55%,#fff);margin-top:1px}}
+.ts{{font-size:11px;font-weight:700;color:#fff;margin-top:1px}}
 .ts.up{{color:var(--up)}} .ts.dn{{color:var(--dn)}}
 .hero .chart{{height:110px;margin:14px -20px 0}}
 .hero .chart svg,.spark svg{{width:100%;height:100%;display:block}}
@@ -211,21 +209,32 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ico{{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px;color:#fff;font-weight:800;
   background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 8px 20px -8px var(--c1)}}
 .nm{{font-weight:800;font-size:17px;color:#fff}}
-.sub{{color:color-mix(in srgb,var(--c2) 60%,#fff);font-size:12.5px;font-weight:600;margin-top:1px}}
-.sub b{{color:var(--c2);font-weight:900;text-shadow:0 0 10px var(--c2)}}
-.sub .test{{color:#ffc53d}}
+.sub{{color:#fff;font-size:12.5px;font-weight:600;margin-top:1px}}
+.sub b{{color:#fff;font-weight:900}}
+.sub .test{{color:#fff}}
 .val{{text-align:right}}
 .bal{{font-weight:700;font-size:19px;font-variant-numeric:tabular-nums}}
 .chg{{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}}
-.up{{color:var(--up)}} .dn{{color:var(--dn)}}
+.up{{color:var(--up)}} .dn{{color:var(--dn)}} .w{{color:#fff}}
 .spark{{height:54px;margin:12px 0 8px}}
+.tap{{cursor:pointer;-webkit-tap-highlight-color:transparent}}
+.chev{{display:inline-block;width:7px;height:7px;margin:0 0 3px 7px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);transition:transform .2s}}
+.open .chev{{transform:rotate(225deg);margin-bottom:-1px}}
+.hold{{display:none;border-top:1px solid var(--line);margin-top:4px;padding-top:6px}}
+.open .hold{{display:block}}
+.h{{display:grid;grid-template-columns:1fr auto;grid-template-areas:"c v" "c p";column-gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}}
+.h:last-child{{border-bottom:0}}
+.hc{{grid-area:c;align-self:center;font-weight:800;font-size:15px;color:#fff}}
+.hv{{grid-area:v;text-align:right;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}}
+.hp{{grid-area:p;text-align:right;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}}
+.h.none{{display:block;color:#fff;font-weight:600;font-size:13px}}
 .foot-row{{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:10px}}
 .last{{color:#aab6d3;font-size:12.5px}}
 .last .bt{{color:var(--up);font-weight:800}} .last .sd{{color:#ff8a3d;font-weight:800}}
 .last .coin{{color:var(--c2);font-weight:900;text-shadow:0 0 10px color-mix(in srgb,var(--c2) 60%,transparent)}}
 .last .tm{{color:#8d9bc0}}
 .idle{{display:inline-flex;align-items:center;gap:7px;font-weight:800}}
-.idle span{{color:#ffc53d}}
+.idle span{{color:#fff}}
 .idle i{{width:7px;height:7px;border-radius:50%;background:#ffd60a;flex:none;animation:blink 1.6s infinite}}
 @keyframes blink{{50%{{opacity:.25}}}}
 .last b{{font-weight:650}}

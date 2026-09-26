@@ -411,6 +411,29 @@ def scoreboard():
     return main
 
 
+def _holdings(mn, pfs, k):
+    """What the official account holds right now: [{coin, value, pnl}] (the accounts that split
+    the $500 are summed then divided by k, like the balance). Prices: one fresh quote call."""
+    agg = {}
+    for pf in pfs:
+        for coin, p in pf.positions.items():
+            a = agg.setdefault(coin, {"qty": 0.0, "cost": 0.0, "entry": p["entry"]})
+            a["qty"] += p["qty"]
+            a["cost"] += p["cost"]
+    if not agg:
+        return []
+    try:
+        px = MARKETS[mn]["client"]().last_prices(list(agg))
+    except Exception as e:
+        print(f"   dashboard: {mn} prices failed: {e}")
+        px = {}
+    out = []
+    for coin, a in agg.items():
+        value = a["qty"] * px.get(coin, a["cost"] / a["qty"] if a["qty"] else 0) / k
+        out.append({"coin": coin, "value": value, "pnl": value - a["cost"] / k})
+    return sorted(out, key=lambda h: -h["value"])
+
+
 def write_dashboard(rows, total):
     """docs/index.html: the phone dashboard (dashboard.py). Official accounts + the DEX card."""
     look = {"crypto": ("₿", "#3b82ff", "#22d3ee"), "stocks": ("📈", "#7c3aed", "#3b82ff")}
@@ -420,9 +443,10 @@ def write_dashboard(rows, total):
         series = dashboard._combine([dashboard._series(f"{acct_dir(mn, s)}/equity.csv") for s in names])
         lasts = [t for t in (dashboard._last_trade(f"{acct_dir(mn, s)}/trades.csv") for s in names) if t]
         icon, c1, c2 = look.get(mn, ("•", "#3b82ff", "#22d3ee"))
-        cards.append({"name": mn.title(), "icon": icon, "c1": c1, "c2": c2, "official": True, "equity": eq,
+        pfs = [load_pf(mn, s) for s in names]
+        cards.append({"holdings": _holdings(mn, pfs, k), "name": mn.title(), "icon": icon, "c1": c1, "c2": c2, "official": True, "equity": eq,
                       "series": [(t, v / k) for t, v in series],
-                      "positions": sum(len(load_pf(mn, s).positions) for s in names),
+                      "positions": len({c for pf in pfs for c in pf.positions}),
                       "last": max(lasts, key=lambda t: t.get("time", "")) if lasts else None})
     try:                                               # DEX paper account: not part of the total
         st = dex.scoreboard_stats()
