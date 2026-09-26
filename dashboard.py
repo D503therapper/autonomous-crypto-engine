@@ -103,6 +103,28 @@ def render(cards, updated_ms):
     mpl = total - month_start
     mup = mpl >= 0
     month_name = time.strftime("%B", now_t)
+    # today = since midnight Pacific (the owner's time zone)
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    d0 = datetime.now(ZoneInfo("America/Los_Angeles")).replace(hour=0, minute=0, second=0, microsecond=0)
+    before_d = [v for t, v in total_series if t < d0.timestamp() * 1000]
+    day_start = before_d[-1] if before_d else base
+    dpl = total - day_start
+    first_t = total_series[0][0] if total_series else time.time() * 1000
+    months_run = max(1.0, (time.time() * 1000 - first_t) / (30.44 * 86_400_000))
+    avg = (total - base) / months_run            # average profit per month since the engine started
+
+    def tile(label, sub, amt, pct):
+        u = amt >= 0
+        cls = "up" if u else "dn"
+        pct_txt = f'<div class="ts {cls}">{"+" if u else "−"}{abs(pct):.1%}</div>' if pct is not None else '<div class="ts">&nbsp;</div>'
+        return (f'<div class="tile"><div class="tl">{label}</div><div class="ts">{sub}</div>'
+                f'<div class="tv {cls}"><span class="ar">{"▲" if u else "▼"}</span>{"+" if u else "−"}${abs(amt):,.0f}</div>{pct_txt}</div>')
+    start_day = time.strftime("%b %-d", time.gmtime(first_t / 1000))
+    tiles = (tile("This month", month_name, mpl, mpl / month_start)
+             + tile("All time", f"since {start_day}", pl, pl / base)
+             + tile("Avg / month", f"over {months_run:.0f} mo" if months_run >= 2 else "so far", avg, avg / base))
+    dup = dpl >= 0
     blocks = []
     for i, c in enumerate(cards):
         d = c["equity"] - start
@@ -168,13 +190,13 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:650;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font-variant-numeric:tabular-nums}}
 .since{{font-weight:600;opacity:.7;font-size:12px}}
-.month{{margin-top:16px}}
-.tile{{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.035);
-  border:1px solid var(--line);border-radius:16px;padding:12px 16px}}
-.tl{{color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}}
-.tv{{font-size:22px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums;white-space:nowrap}}
+.month{{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}}
+.tile{{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:14px;padding:10px 9px;min-width:0;overflow:hidden}}
+.ar{{font-size:.7em;margin-right:3px;vertical-align:1px}}
+.tl{{color:var(--muted);font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}}
+.tv{{font-size:clamp(13px,4.2vw,17px);font-weight:800;margin-top:6px;font-variant-numeric:tabular-nums;white-space:nowrap}}
 .tv.sw{{background:linear-gradient(90deg,#22d3ee,#3b82ff);-webkit-background-clip:text;background-clip:text;color:transparent}}
-.ts{{font-size:12px;font-weight:600;color:var(--muted);margin-top:2px}}
+.ts{{font-size:11px;font-weight:600;color:var(--muted);margin-top:1px}}
 .hero .chart{{height:110px;margin:14px -20px 0}}
 .hero .chart svg,.spark svg{{width:100%;height:100%;display:block}}
 .card{{position:relative;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:16px 16px 12px;margin-bottom:12px;overflow:hidden}}
@@ -207,14 +229,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="moon">TO THE MOON BABY! 🚀</div>
   <div class="lbl">Total balance</div>
   <div class="total">{_money(total)}</div>
-  <span class="pill">{"▲" if up else "▼"} {_chg(pl, base)} <span class="since">all time</span></span>
-  <div class="month">
-    <div class="tile">
-      <div><div class="tl">This month</div>
-        <div class="ts">{month_name}</div></div>
-      <div style="text-align:right"><div class="tv {"up" if mup else "dn"}">{"▲" if mup else "▼"} {"+" if mup else "−"}{_money(abs(mpl))}</div>
-        <div class="ts {"up" if mup else "dn"}">{"+" if mup else "−"}{abs(mpl) / month_start:.1%}</div></div>
-    </div>
+  <span class="pill" style="--accent:{"#22e39a" if dup else "#ff5c7a"}">{"▲" if dup else "▼"} {_chg(dpl, day_start)} <span class="since">today</span></span>
+  <div class="month">{tiles}</div>
   </div>
   </div>
   <div class="chart">{_svg(total_series, 360, 110, accent, "t", base=base)}</div>
