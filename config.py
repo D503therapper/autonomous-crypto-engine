@@ -40,8 +40,9 @@ STOCK_ETFS = ["SPY", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "XLK", "XLF", "XL
 # --- Early mover hunter (all Crypto.com coins) -----------------------------
 EARLY_MOVER = {
     "k": 3, "x": 0.10, "v": 3,        # up >= 10% in 3h on >= 3x normal volume
-    "trail": 0.35, "h": 72,           # trailing stop 35% below peak; max 72h hold (pumps.py:
-                                      # new listings +13.5%/trade avg at 35%/72h, Apr-Sep 2026)
+    "trail": 0.50, "h": 24,           # trailing stop 50% below peak; max 24h hold. listings_study.py
+                                      # (91 listings, 17 months): most robust cell, +12.9%/trade
+                                      # (CI -0.2%..+30%), walk-forward's consistent last pick; edge lumpy.
     "movers": False,                  # official account: new listings only (take-off buying lost
                                       # out-of-sample in pumps.py; it runs in the "mover" test account)
     "min_daily_usd": 50_000,          # skip coins too thin to trade
