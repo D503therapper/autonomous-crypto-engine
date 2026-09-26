@@ -136,3 +136,11 @@ Test in lab.py walk-forward: RSI2 mean-reversion as today vs RSI2 with idle cash
 dips). Compare return, max drawdown, worst month, older/newer halves. If it wins, add a stocks park like
 run_live.park_idle (crypto) does. Also re-check crypto: listing hunter idle cash rides breakout10 picks, which
 crypto_studies A found weaker than hold BTC (+0.2% vs +1.6%/mo) - owner once rejected BTC parking; show him the numbers.
+
+## 2026-09-26 - crypto swing study (results/crypto_swing_study.txt) -> rebalance
+Only 9 Crypto.com coins trade >= $1M/day. ~1,400 dip/bounce + momentum variants (1-72h holds), 18 months,
+walk-forward: nothing profitable on unseen data at 0.5%/side (best account +0.57%/mo). At 0.2%/side (maker fees,
+e.g. Kraken Pro) daily "drop 8% -> sell above 5-day avg or 3d" made +0.84%/mo (+3.4%/trade CI +0.4..+6.6) - revisit
+when choosing the live exchange. Hold BTC over the window: -0.02%/mo. APPLIED: official Crypto $200 (listing hunter,
+2 slots ~$90 each), DEX $800 (5 x 20%), Stocks $500; $300 moved once (run_live.rebalance_accounts, equity.csv
+history shifted so no fake gain/loss). Parking off (PARK_IDLE False).

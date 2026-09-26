@@ -37,10 +37,12 @@ def _last_trade(path):
     return rows[-1] if rows else None
 
 
-def _combine(series_list):
-    """Sum several accounts' equity on a shared timeline (each carries its last value forward)."""
+def _combine(series_list, bases=None):
+    """Sum several accounts' equity on a shared timeline (each carries its last value forward; before its
+    first point an account counts at its starting size)."""
     times = sorted({t for s in series_list for t, _ in s})
-    out, idx, last = [], [0] * len(series_list), [config.STARTING_CASH_USD] * len(series_list)
+    out, idx = [], [0] * len(series_list)
+    last = list(bases) if bases else [config.STARTING_CASH_USD] * len(series_list)
     for t in times:
         for k, s in enumerate(series_list):
             while idx[k] < len(s) and s[idx[k]][0] <= t:
@@ -93,12 +95,12 @@ def render(cards, updated_ms):
     start = config.STARTING_CASH_USD
     official = [c for c in cards if c.get("official")]
     total = sum(c["equity"] for c in official)
-    base = start * len(official)
+    base = sum(c.get("base", start) for c in official)
     pl = total - base
     up = pl >= 0
     accent = "#22e39a" if up else "#ff3b3b"
     # every official account counts (one with no history yet is flat at its starting $500)
-    total_series = _combine([c["series"] for c in official]) if official else []
+    total_series = _combine([c["series"] for c in official], [c.get("base", start) for c in official]) if official else []
     # this month: change since the last value before the 1st (UTC); the base if we started this month
     now_t = time.gmtime()
     m0 = calendar.timegm((now_t.tm_year, now_t.tm_mon, 1, 0, 0, 0)) * 1000
@@ -131,7 +133,8 @@ def render(cards, updated_ms):
     dup = dpl >= 0
     blocks = []
     for i, c in enumerate(cards):
-        d = c["equity"] - start
+        cb = c.get("base", start)                   # this account's starting size
+        d = c["equity"] - cb
         col = "#22e39a" if d >= 0 else "#ff3b3b"
         def fire(h):
             g = h["pnl"] / (h["value"] - h["pnl"]) if h["value"] - h["pnl"] > 0 else 0
@@ -149,9 +152,9 @@ def render(cards, updated_ms):
   <div class="card-top">
     <div class="id"><span class="ico">{c["icon"]}</span><div><div class="nm">{html.escape(c["name"])}</div>
       <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}</div></div></div>
-    <div class="val"><div class="bal">{_money(c["equity"])}</div><div class="chg {"up" if d >= 0 else "dn"}">{_chg(d, start)}</div></div>
+    <div class="val"><div class="bal">{_money(c["equity"])}</div><div class="chg {"up" if d >= 0 else "dn"}">{_chg(d, cb)}</div></div>
   </div>
-  <div class="spark">{_svg(c["series"], 300, 54, col, i, base=start)}</div>
+  <div class="spark">{_svg(c["series"], 300, 54, col, i, base=cb)}</div>
   {hold}
   {f'<div class="foot-row">{extra}</div>' if extra else ""}
 </section>""")
@@ -268,7 +271,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="chart">{_svg(total_series, 360, 110, accent, "t", base=base)}</div>
 </section>
 {"".join(blocks)}
-<div class="foot"><div class="fname"><span class="f-the">THE</span> <span class="f-d">D503</span> <span class="f-tag">AUTONOMOUS TRADING ENGINE</span></div>each account started with <b class="gold">{_money(start)}</b> · <span style="white-space:nowrap">refreshes every <b class="gold">5 min</b></span></div>
+<div class="foot"><div class="fname"><span class="f-the">THE</span> <span class="f-d">D503</span> <span class="f-tag">AUTONOMOUS TRADING ENGINE</span></div>started with <b class="gold">{_money(base)}</b> · <span style="white-space:nowrap">refreshes every <b class="gold">5 min</b></span></div>
 </main>
 <script>
 (function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));

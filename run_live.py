@@ -6,6 +6,7 @@
 Every strategy in every market has its own $500 paper account under data/<market>/<strategy>/.
 """
 import argparse
+import csv
 import json
 import os
 import subprocess
@@ -385,19 +386,80 @@ def _official(mn, m):
     return sum(b[0] for b in bals) / len(bals), sum(b[1] for b in bals)
 
 
+def base(mn):
+    """Official starting size of a market's account (config.ACCOUNT_BASE; test accounts: STARTING_CASH_USD)."""
+    return getattr(config, "ACCOUNT_BASE", {}).get(mn, config.STARTING_CASH_USD)
+
+
+def _shift_equity(path, usd):
+    """Add `usd` to every equity (and cash) value in an equity.csv, so a one-time move of money between
+    accounts doesn't show up as a gain or loss in either account's history."""
+    if not os.path.exists(path):
+        return
+    with open(path) as f:
+        rows = list(csv.DictReader(f))
+    if not rows:
+        return
+    for r in rows:
+        for k in ("equity", "cash"):
+            if r.get(k) not in (None, ""):
+                r[k] = f"{float(r[k]) + usd:.2f}"
+    tmp = path + ".tmp"
+    with open(tmp, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+    os.replace(tmp, path)
+
+
+def rebalance_accounts():
+    """One-time move of config.REBALANCE_2026_09_26["usd"] from the listing hunter to the DEX account (cash).
+    Runs once the listing hunter holds that much cash; recorded in data/rebalance.json."""
+    R, stamp = getattr(config, "REBALANCE_2026_09_26", None), "data/rebalance.json"
+    if not R or os.path.exists(stamp):
+        return
+    mn, sn = R["from"]
+    pf = load_pf(mn, sn)
+    usd = R["usd"]
+    if pf.cash < usd:
+        return                                          # parked coins not sold yet: next hour
+    h = dex.hunter()
+    h._load()
+    pf.cash -= usd
+    pf.peak_equity -= usd
+    pf.save(f"{acct_dir(mn, sn)}/portfolio.json")
+    _shift_equity(f"{acct_dir(mn, sn)}/equity.csv", -usd)
+    h.pf.cash += usd
+    h.pf.peak_equity += usd
+    h.pf.save(f"{h.acct}/portfolio.json")
+    _shift_equity(f"{h.acct}/equity.csv", usd)
+    if os.path.exists("data/last_summary.json"):          # the evening text compares with yesterday's balances
+        with open("data/last_summary.json") as f:
+            last = json.load(f)
+        b = last.get("balances", {})
+        if "Crypto" in b:
+            b["Crypto"] -= usd
+        if "DEX" in b:
+            b["DEX"] += usd
+        with open("data/last_summary.json", "w") as f:
+            json.dump(last, f)
+    with open(stamp, "w") as f:
+        json.dump({"time": ts(int(time.time() * 1000)), "moved": usd, "from": f"{mn}/{sn}", "to": "dex"}, f)
+    print(f"   rebalance: moved ${usd:,.0f} from {mn}/{sn} to the DEX account")
+
+
 def scoreboard():
     """SCOREBOARD.md: the three official $500 accounts (crypto, stocks, DEX). LAB.md: every test strategy."""
-    start = config.STARTING_CASH_USD
     main = [(mn, _mains(m), *_official(mn, m)) for mn, m in MARKETS.items()]
     main.append(("dex", [dex.DEX["name"]], *_balance("dex", dex.DEX["name"])))   # owner 2026-09-26: DEX counts
-    total = sum(r[2] for r in main)
+    total, start_total = sum(r[2] for r in main), sum(base(r[0]) for r in main)
     out = ["# Scoreboard (pretend money)", ""]
     for mn, _, eq, _ in main:
         if mn == "dex":
-            out.append(dex.scoreboard_line() + "  ")  # DEX: balance + scam count
+            out.append(dex.scoreboard_line(start=base("dex")) + "  ")  # DEX: balance + scam count
         else:
-            out.append(f"**{mn.title()}: ${eq:,.2f}**  ({eq - start:+,.2f})  ")
-    out += ["", f"**Total: ${total:,.2f}** of ${start * len(main):,.0f}  ({total - start * len(main):+,.2f})", "",
+            out.append(f"**{mn.title()}: ${eq:,.2f}**  ({eq - base(mn):+,.2f})  ")
+    out += ["", f"**Total: ${total:,.2f}** of ${start_total:,.0f}  ({total - start_total:+,.2f})", "",
             f"Updated {ts(int(time.time() * 1000))} UTC"]
     with open("SCOREBOARD.md", "w") as f:
         f.write("\n".join(out) + "\n")
@@ -411,7 +473,8 @@ def scoreboard():
            "| Market | Strategy | Balance | Return | Trades |", "|---|---|---|---|---|"]
     for mn, sn, eq, n in lab:
         star = " (official)" if mn in MARKETS and sn in _mains(MARKETS[mn]) else ""
-        out.append(f"| {mn} | {sn}{star} | ${eq:,.2f} | {eq / start - 1:+.1%} | {n} |")
+        b = base(mn) if star or mn == "dex" else config.STARTING_CASH_USD
+        out.append(f"| {mn} | {sn}{star} | ${eq:,.2f} | {eq / b - 1:+.1%} | {n} |")
     with open("LAB.md", "w") as f:
         f.write("\n".join(out) + "\n")
     write_dashboard(main, total)
@@ -462,7 +525,7 @@ def write_dashboard(rows=None, total=None):
         series = dashboard._combine([dashboard._series(f"{acct_dir(mn, s)}/equity.csv") for s in names])
         icon, c1, c2 = look.get(mn, ("•", "#3b82ff", "#22d3ee"))
         cards.append({"holdings": _holdings(pfs, k, px), "name": mn.title(), "icon": icon, "c1": c1, "c2": c2,
-                      "official": True, "equity": eq, "series": [(t, v / k) for t, v in series] + [(now, eq)],
+                      "official": True, "equity": eq, "base": base(mn), "series": [(t, v / k) for t, v in series] + [(now, eq)],
                       "positions": len({c for pf in pfs for c in pf.positions})})
     try:                                               # DEX paper account: not part of the total
         st = dex.scoreboard_stats()
@@ -480,7 +543,7 @@ def write_dashboard(rows=None, total=None):
             dhold.append({"coin": p.get("sym", "?"), "value": value, "pnl": value - p["cost"]})
         deq = dpf["cash"] + sum(h["value"] for h in dhold) if "cash" in dpf else st["equity"]
         cards.append({"holdings": sorted(dhold, key=lambda h: -h["value"]), "name": "DEX", "icon": "◆",
-                      "c1": "#22e39a", "c2": "#3b82ff", "official": True, "equity": deq,
+                      "c1": "#22e39a", "c2": "#3b82ff", "official": True, "equity": deq, "base": base("dex"),
                       "series": dashboard._series(f"{d}/equity.csv") + [(now, deq)], "positions": len(dpos),
                       "extra": "Paused: scam limit" if paused else (f"Scammed {scams} · −${abs(lost):,.2f}" if scams else "Scammed 0"),
                       "extra_cls": "bad" if (paused or scams) else "ok"})
@@ -536,17 +599,16 @@ def daily_summary(rows):
             prev = json.load(f)
     if prev.get("date") == today or time.gmtime().tm_hour < 22:   # once a day, ~6pm US Eastern
         return
-    start = config.STARTING_CASH_USD
-    lines, now_bal = [], {}
+    lines, now_bal, bases = [], {}, {}
     for mn, sn, eq, _ in rows:
         key = "DEX" if mn == "dex" else mn.title()
-        now_bal[key] = eq
-        day = eq - prev.get("balances", {}).get(key, start)
-        lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - start:+,.2f}")
+        now_bal[key], bases[key] = eq, base(mn)
+        day = eq - prev.get("balances", {}).get(key, bases[key])
+        lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - bases[key]:+,.2f}")
     total = sum(now_bal.values())
-    day_total = total - sum(prev.get("balances", {}).get(k, start) for k in now_bal)
-    lines.append(dex.scoreboard_line(md=False))    # DEX scam count (its balance is in the total above)
-    notify(f"Today {day_total:+,.2f} | Total {total - start * len(now_bal):+,.2f}", "\n".join(lines))
+    day_total = total - sum(prev.get("balances", {}).get(k, bases[k]) for k in now_bal)
+    lines.append(dex.scoreboard_line(start=base("dex"), md=False))   # DEX scam count (balance is in the total)
+    notify(f"Today {day_total:+,.2f} | Total {total - sum(bases.values()):+,.2f}", "\n".join(lines))
     with open(stamp, "w") as f:
         json.dump({"date": today, "balances": now_bal}, f)
 
@@ -604,6 +666,10 @@ def main():
                     print(f"{m} cycle failed: {e}")
             tracker.universe |= set(CRYPTO_CANDLES)
             print(f"   {tracker.top_line()}")     # hourly: top-5 social heat in run.log
+            try:
+                rebalance_accounts()
+            except Exception as e:
+                print(f"rebalance failed: {e}")
             daily_summary(scoreboard())
             git_sync()
             last_hour = hour

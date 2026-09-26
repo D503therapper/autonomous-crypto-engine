@@ -47,7 +47,7 @@ EARLY_MOVER = {
                                       # out-of-sample in pumps.py; it runs in the "mover" test account)
     "min_daily_usd": 50_000,          # skip coins too thin to trade
     "buy_listings": True, "listing_hours": 3,
-    "slots": 5,
+    "slots": 2,                       # $200 account: 2 x 45% = ~$90 per listing (was 5 x 18% of $500)
 }
 # Minute-level scanner feeding the same early_mover account (scanner.py): one
 # public/get-tickers call per minute across every USD coin. Any tier fires.
@@ -161,6 +161,12 @@ HALT_HOURS = 168          # ...for 7 days, then resume
 # Listing hunter's idle cash: owner 2026-09-26 - no long holds; crypto_studies A showed the rotation it rode
 # (NEAR/SUI) made +0.2%/month over 5 years. False = parked coins are sold and the cash waits for listings.
 PARK_IDLE = False
+
+# Official account sizes (owner 2026-09-26, after crypto_swing_study.py: no short-term strategy pays Crypto.com's
+# fees on unseen data). A listing trade uses ~$90 and listings rarely overlap, so $200 covers the listing hunter;
+# the other $300 moved to the DEX strategy. Test accounts keep STARTING_CASH_USD.
+ACCOUNT_BASE = {"crypto": 200.0, "stocks": 500.0, "dex": 800.0}
+REBALANCE_2026_09_26 = {"from": ("crypto", "early_mover"), "to": "dex", "usd": 300.0}
 
 # --- Runners: never sell a coin while it's flying ------------------------------
 # Once a position has been up >= "ride" (peak vs entry), the engine blocks every exit except a
