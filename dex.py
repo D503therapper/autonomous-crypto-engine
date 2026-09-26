@@ -501,6 +501,7 @@ class DexHunter:
         self.cex = set()                              # run_live: Crypto.com symbols (tier C)
         self._n_saved, self.dirty = 0, False
         self._snap_t = {}                             # coin -> last snapshot time (one row per coin per hour)
+        self._pf_saved = 0                            # last time portfolio.json got the latest prices
 
     # ---- plumbing ----
     def _now(self):
@@ -619,6 +620,9 @@ class DexHunter:
                 break
         if self.dirty:
             self.save()
+        if self.pf.positions and now - self._pf_saved >= 60_000:   # held coins' latest prices (px) reach
+            self.pf.save(f"{self.acct}/portfolio.json")            # portfolio.json, which the dashboard reads
+            self._pf_saved = now
 
     def status_line(self):
         self._load()
