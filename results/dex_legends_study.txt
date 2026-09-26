@@ -1,0 +1,591 @@
+live exit (config.DEX['exit']): {'trail': 0.95, 'tp1': (999.0, 0.0), 'ladder': [], 'trail_steps': [(3.0, 0.6)], 'max_hold_days': 14, 'liq_pull': 0.5, 'rug_tax': 0.5, 'check_wait_s': 600, 'runner_at_limit': (1.0, 0.5)}
+stake per trade $100 (tier A 20% of a $500 account; the other $400 is assumed flat for the concentration cap); 420 exit rules; live rule = '60% trail after 3x | runner 50% | cap none | tp none'
+
+======================================================================================================================
+1. DATA SOURCES PER COIN  (probed from this runner; a source counts only if its all-time high matches)
+======================================================================================================================
+SHIB      (legend, launched 2020-08-01 [assumed])
+    cryptocompare: no  SHIB: no data
+    yahoo: OK  SHIB-USD: 1989 daily bars 2021-04-17..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1101 daily bars 2020-08-01..2023-08-06
+    geckoterminal: no  pool 0x811beed0.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> using cmc:5994 (daily), 2020-08-01..2023-08-06
+PEPE      (legend, launched 2023-04-14 [assumed])
+    cryptocompare: no  PEPE: no data
+    yahoo: OK  PEPE24478-USD: 1245 daily bars 2023-05-01..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1101 daily bars 2023-04-14..2026-04-18
+    geckoterminal: no  pool 0xa43fe169.. created 2023-04-14: 184 daily bars 2026-03-27..2026-09-26
+    -> using cmc:24478 (daily), 2023-04-14..2026-04-18
+BONK      (legend, launched 2022-12-25 [assumed])
+    cryptocompare: no  BONK: no data
+    yahoo: OK  BONK-USD: 1180 daily bars 2023-01-03..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1096 daily bars 2022-12-30..2025-12-29
+    geckoterminal: no  pool G7mw1d83is.. created 2023-01-05: 184 daily bars 2026-03-27..2026-09-26
+    -> using cmc:23095 (daily), 2022-12-30..2025-12-29; data starts 5 days after launch
+WIF       (legend, launched 2023-11-20 [assumed])
+    cryptocompare: no  WIF: no data
+    yahoo: OK  WIF-USD: 1013 daily bars 2023-12-19..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1041 daily bars 2023-11-20..2026-09-25
+    geckoterminal: no  pool EP2ib6dYdE.. created 2023-11-20: 184 daily bars 2026-03-27..2026-09-26
+    -> using cmc:28752 (daily), 2023-11-20..2026-09-25
+POPCAT    (legend, launched 2023-12-10 [assumed])
+    cryptocompare: no  POPCAT: no data
+    yahoo: OK  POPCAT28782-USD: 1012 daily bars 2023-12-20..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1019 daily bars 2023-12-12..2026-09-25
+    geckoterminal: no  pool FRhB8L7Y9Q.. created 2023-12-12: 184 daily bars 2026-03-27..2026-09-26
+    -> using cmc:28782 (daily), 2023-12-12..2026-09-25
+MOG       (legend, launched 2023-07-19 [assumed])
+    cryptocompare: no  MOG: no data
+    yahoo: OK  MOG-USD: 521 daily bars 2024-03-03..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1100 daily bars 2023-07-20..2026-07-23
+    geckoterminal: no  pool 0xc2eab7d3.. created 2023-07-20: 184 daily bars 2026-03-27..2026-09-26
+    -> using cmc:27659 (daily), 2023-07-20..2026-07-23
+FLOKI     (legend, launched 2021-06-25 [assumed])
+    cryptocompare: no  FLOKI: no data
+    yahoo: OK  FLOKI-USD: 1897 daily bars 2021-07-10..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1086 daily bars 2021-07-10..2024-06-29
+    geckoterminal: no  pool 0x10e4a463.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> using yahoo:FLOKI-USD (daily), 2021-07-10..2026-09-26; data starts 15 days after launch
+BRETT     (legend, launched 2024-02-26 [assumed])
+    cryptocompare: no  BRETT: no data
+    yahoo: OK  BRETT29743-USD: 930 daily bars 2024-03-11..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  942 daily bars 2024-02-27..2026-09-25
+    geckoterminal: no  pool 0xba3f9458.. created 2024-02-27: 184 daily bars 2026-03-27..2026-09-26
+    -> using cmc:29743 (daily), 2024-02-27..2026-09-25
+BOME      (legend, launched 2024-03-14 [assumed])
+    cryptocompare: no  BOME: no data
+    yahoo: OK  BOME-USD: 927 daily bars 2024-03-14..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  926 daily bars 2024-03-14..2026-09-25
+    geckoterminal: no  pool DSUvc5qf5L.. created 2024-03-14: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:BOME-USD (daily), 2024-03-14..2026-09-26
+MEW       (legend, launched 2024-03-26 [assumed])
+    cryptocompare: no  MEW: no data
+    yahoo: OK  MEW30126-USD: 915 daily bars 2024-03-26..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 879F697iuD.. created 2024-03-26: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:MEW30126-USD (daily), 2024-03-26..2026-09-26
+TURBO     (legend, launched 2023-04-29 [assumed])
+    cryptocompare: no  TURBO: no data
+    yahoo: OK  TURBO-USD: 1242 daily bars 2023-05-04..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1099 daily bars 2023-05-01..2026-05-03
+    geckoterminal: no  pool 0x7baece5d.. created 2023-05-01: 184 daily bars 2026-03-27..2026-09-26
+    -> using cmc:24911 (daily), 2023-05-01..2026-05-03
+SPX       (legend, launched 2023-08-20 [assumed])
+    cryptocompare: no  SPX: no data; SPX6900: no data
+    yahoo: OK  SPX28081-USD: 1102 daily bars 2023-09-21..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0x52c77b0c.. created 2023-08-16: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:SPX28081-USD (daily), 2023-09-21..2026-09-26; data starts 32 days after launch
+FARTCOIN  (legend, launched 2024-10-18 [assumed])
+    cryptocompare: no  FARTCOIN: no data
+    yahoo: OK  FARTCOIN-USD: 704 daily bars 2024-10-23..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool Bzc9NZfMqk.. created 2024-10-18: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:FARTCOIN-USD (daily), 2024-10-23..2026-09-26; data starts 5 days after launch
+GOAT      (legend, launched 2024-10-10 [assumed])
+    cryptocompare: no  GOAT: no data
+    yahoo: OK  GOATED-USD: 8360 hourly bars 2025-09-27..2026-09-26; 365 daily bars 2025-09-27..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 9Tb2ohu5P1.. created 2024-10-10: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:GOATED-USD (hourly), 2025-09-27..2026-09-26; data starts 352 days after launch
+PNUT      (legend, launched 2024-11-01 [assumed])
+    cryptocompare: no  PNUT: no data
+    yahoo: OK  PNUT-USD: 16397 hourly bars 2024-11-04..2026-09-26; 692 daily bars 2024-11-04..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 4AZRPNEfCJ.. created 2024-10-31: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:PNUT-USD (hourly), 2024-11-04..2026-09-26; data starts 3 days after launch
+MOODENG   (legend, launched 2024-09-10 [assumed])
+    cryptocompare: no  MOODENG: no data
+    yahoo: OK  MOODENG33093-USD: 736 daily bars 2024-09-21..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 22WrmyTj8x.. created 2024-09-10: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:MOODENG33093-USD (daily), 2024-09-21..2026-09-26; data starts 11 days after launch
+ELON      (legend, launched 2021-04-23 [assumed])
+    cryptocompare: no  ELON: no data
+    yahoo: OK  ELON-USD: 202 daily bars 2021-05-11..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0x7b736449.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> using yahoo:ELON-USD (daily), 2021-05-11..2026-09-26; data starts 18 days after launch
+AKITA     (legend, launched 2021-02-01 [assumed])
+    cryptocompare: no  AKITA: no data
+    yahoo: OK  AKITA39716-USD: 4343 hourly bars 2026-03-20..2026-09-26; 192 daily bars 2026-03-19..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0xda3a20aa.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> using yahoo:AKITA39716-USD (hourly), 2026-03-20..2026-09-26; data starts 1873 days after launch
+KISHU     (legend, launched 2021-04-08 [assumed])
+    cryptocompare: no  KISHU: no data
+    yahoo: no  KISHU-USD: no data
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0xf82d8ec1.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> SKIPPED: no usable price history from any free source
+SAMO      (legend, launched 2021-04-20 [assumed])
+    cryptocompare: no  SAMO: no data
+    yahoo: OK  SAMO-USD: 1964 daily bars 2021-05-12..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 7oYaghDwJ6.. created 2022-04-28: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> using yahoo:SAMO-USD (daily), 2021-05-12..2026-09-26; data starts 22 days after launch
+BABYDOGE  (legend, launched 2021-06-01 [assumed])
+    cryptocompare: no  BABYDOGE: no data
+    yahoo: no  BABYDOGE-USD: no data
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0xc736ca3d.. created 2021-07-15: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> SKIPPED: no usable price history from any free source
+TRUMP     (collapse, launched 2025-01-17 [assumed])
+    cryptocompare: no  TRUMP: no data
+    yahoo: OK  TRUMP35336-USD: 14435 hourly bars 2025-01-24..2026-09-26; 617 daily bars 2025-01-18..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool A8nPhpCJqt.. created 2025-01-17: 183 daily bars 2026-03-15..2026-09-26
+    -> using yahoo:TRUMP35336-USD (daily), 2025-01-18..2026-09-26
+MELANIA   (collapse, launched 2025-01-19 [assumed])
+    cryptocompare: no  MELANIA: no data
+    yahoo: OK  MELANIA35347-USD: 14241 hourly bars 2025-01-24..2026-09-26; 616 daily bars 2025-01-19..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 9DiruRpjnA.. created 2025-01-19: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:MELANIA35347-USD (daily), 2025-01-19..2026-09-26
+LIBRA     (rug, launched 2025-02-14 [assumed])
+    cryptocompare: no  LIBRA: no data
+    yahoo: no  no symbol found
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool BzzMNvfm7T.. created 2025-02-14: 57 daily bars 2025-05-04..2026-09-26
+    -> SKIPPED: no usable price history from any free source
+SLERF     (collapse, launched 2024-03-18 [assumed])
+    cryptocompare: no  SLERF: no data
+    yahoo: OK  SLERF-USD: 923 daily bars 2024-03-18..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool AgFnRLUScR.. created 2024-03-18: 184 daily bars 2026-03-27..2026-09-26
+    -> using yahoo:SLERF-USD (daily), 2024-03-18..2026-09-26
+SAITAMA   (collapse, launched 2021-05-31 [assumed])
+    cryptocompare: no  SAITAMA: no data
+    yahoo: OK  SAITAMA32310-USD: 788 daily bars 2024-07-22..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0x9cbfb60a.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> using yahoo:SAITAMA32310-USD (daily), 2024-07-22..2026-09-26; data starts 1148 days after launch
+SAFEMOON  (collapse, launched 2021-03-08 [assumed])
+    cryptocompare: no  SAFEMOON: no data
+    yahoo: no  SAFEMOONCASH-USD: no data
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0xd378a9e5.. created 2021-10-29: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> SKIPPED: no usable price history from any free source
+SQUID     (rug, launched 2021-10-20 [assumed])
+    cryptocompare: no  SQUID: no data
+    yahoo: no  SQUID33447-USD: high 0.0366 vs known ATH 2.8e+03: wrong coin
+    coingecko: no  no data
+    coinmarketcap: no  no id
+    geckoterminal: no  pool 0x683c425d.. created 2021-10-21: 184 daily bars 2026-03-27..2026-09-26
+    -> SKIPPED: no usable price history from any free source
+LUNC      (collapse, launched 2019-07-26 [assumed])
+    cryptocompare: no  LUNC: no data; LUNA: no data
+    yahoo: OK  LUNC-USD: 2619 daily bars 2019-07-27..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1101 daily bars 2019-07-26..2022-07-30
+    geckoterminal: no  no token address
+    -> using cmc:4172 (daily), 2019-07-26..2022-07-30
+FTT       (collapse, launched 2019-07-29 [assumed])
+    cryptocompare: no  FTT: no data
+    yahoo: OK  FTT-USD: 2615 daily bars 2019-07-31..2026-09-26
+    coingecko: no  no data
+    coinmarketcap: OK  1098 daily bars 2019-08-01..2022-08-02
+    geckoterminal: no  pool 0x7825de55.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 days younger than the coin (launch pool not listed)
+    -> using yahoo:FTT-USD (daily), 2019-07-31..2026-09-26
+
+price history for 25 of 30 coins; 1951s
+
+======================================================================================================================
+2. DUD / RUG SAMPLE: random outcome-blind DEX pools from the registries, hourly GeckoTerminal history from launch
+======================================================================================================================
+106 candidate pools created 8-150 days ago (4 seen within 2 days of launch = outcome-blind, fetched first)
+  fetched 1/106  GT calls 171  429s 6  pools 1  1964s
+  fetched 51/106  GT calls 273  429s 10  pools 51  3188s
+  fetched 101/106  GT calls 369  429s 13  pools 101  4339s
+pools with history 106, with a live entry signal 69; skipped: no entry signal 37
+(pump.fun 13, solana 30, base 26, eth 13; rugged / dead later 3)
+
+simulated 420 rules x 72 trades in 4s
+
+======================================================================================================================
+3. LEGENDS / COLLAPSES REPLAY WITH THE LIVE EXIT  (entry = first +10% bar >= 6h after launch; stake $100)
+======================================================================================================================
+
+Goatseus Maximus [GOAT] (legend; yahoo:GOATED-USD, hourly bars)
+  NOTE data starts 352 days after the launch: the earliest possible entry is not in the data
+  ENTRY  2025-09-27 16:00 UTC, 0.2 days after data start, price 0.1246 (+12% in the bar); the coin had already run 1.0x from its first price
+  SELL   2025-10-11 16:00  100% of the position at 0.5x of entry  (time limit 14d)
+  RESULT 0.5x of the stake (-$52 on $100); peak after entry 1.4x on 2025-10-27; held peak 1.2x; after our last sale it went on to 2.8x of that price (second leg)
+  CAUGHT?    NO   (less than 10x left after entry)
+  MAXIMIZED? kept -143% of the peak gain, n/a of the best rule in hindsight ('no protection trail | runner 60% | cap 20% | tp 10%@10x 25%@50x 25%@100x': 0.5x)
+  WHERE EACH RULE SOLD (one change vs live):  result x of stake / final exit date
+    LIVE                 0.5x 2025-10-11     prot 50%@3x          0.5x 2025-10-11     runner 40%           0.5x 2025-10-11  
+    tp 10%@10x/50x/1     0.5x 2025-10-11     tp 25%@10x/50x/1     0.5x 2025-10-11     tp 25%@10xonly       0.5x 2025-10-11  
+    tp 10%@10x25%@50     0.5x 2025-10-11     cap 20%              0.5x 2025-10-11     cap 25%              0.5x 2025-10-11  
+    cap 33%              0.5x 2025-10-11     runner 60%           0.5x 2025-10-11     prot 70%@3x          0.5x 2025-10-11  
+    prot 50%@5x          0.5x 2025-10-11     prot 60%@5x          0.5x 2025-10-11     prot 70%@5x          0.5x 2025-10-11  
+    prot none            0.5x 2025-10-11  
+
+Peanut the Squirrel [PNUT] (legend; yahoo:PNUT-USD, hourly bars)
+  NOTE data starts 3 days after the launch: the earliest possible entry is not in the data
+  ENTRY  2024-11-04 23:00 UTC, 0.5 days after data start, price 0.0443 (+39% in the bar); the coin had already run 1.1x from its first price
+  SELL   2024-11-22 13:00  100% of the position at 27.4x of entry  (runner trail)
+  RESULT 26.7x of the stake (+$2,571 on $100); peak after entry 54.8x on 2024-11-14; held peak 54.8x; after our last sale it went on to 1.3x of that price (second leg)
+  CAUGHT?    YES  (entry within 60 days with >= 10x still ahead)
+  MAXIMIZED? kept +48% of the peak gain, +83% of the best rule in hindsight ('no protection trail | runner 40% | cap none | tp none': 32.1x)
+  WHERE EACH RULE SOLD (one change vs live):  result x of stake / final exit date
+    LIVE                26.7x 2024-11-22     prot 50%@3x          1.7x 2024-11-09     runner 40%          32.1x 2024-11-20  
+    tp 10%@10x/50x/1    22.6x 2024-12-10     tp 25%@10x/50x/1    23.5x 2024-12-10     tp 25%@10xonly      18.4x 2024-12-10  
+    tp 10%@10x25%@50    26.3x 2024-12-10     cap 20%              6.8x 2024-11-22     cap 25%              8.7x 2024-11-22  
+    cap 33%             11.9x 2024-11-22     runner 60%          21.3x 2024-12-10     prot 70%@3x         26.7x 2024-11-22  
+    prot 50%@5x         26.7x 2024-11-22     prot 60%@5x         26.7x 2024-11-22     prot 70%@5x         26.7x 2024-11-22  
+    prot none           26.7x 2024-11-22  
+
+Akita Inu [AKITA] (legend; yahoo:AKITA39716-USD, hourly bars)
+  NOTE data starts 1873 days after the launch: the earliest possible entry is not in the data
+  ENTRY  2026-03-24 13:00 UTC, 4.3 days after data start, price 0.01935 (+15% in the bar); the coin had already run 4.2x from its first price
+  SELL   2026-04-07 13:00  100% of the position at 0.8x of entry  (time limit 14d)
+  RESULT 0.8x of the stake (-$24 on $100); peak after entry 1.4x on 2026-06-08; held peak 1.0x; after our last sale it went on to 1.7x of that price (second leg)
+  CAUGHT?    NO   (less than 10x left after entry)
+  MAXIMIZED? kept -68% of the peak gain, n/a of the best rule in hindsight ('no protection trail | runner 60% | cap 33% | tp 10%@10x 25%@50x 25%@100x': 0.8x)
+  WHERE EACH RULE SOLD (one change vs live):  result x of stake / final exit date
+    LIVE                 0.8x 2026-04-07     prot 50%@3x          0.8x 2026-04-07     runner 40%           0.8x 2026-04-07  
+    tp 10%@10x/50x/1     0.8x 2026-04-07     tp 25%@10x/50x/1     0.8x 2026-04-07     tp 25%@10xonly       0.8x 2026-04-07  
+    tp 10%@10x25%@50     0.8x 2026-04-07     cap 20%              0.8x 2026-04-07     cap 25%              0.8x 2026-04-07  
+    cap 33%              0.8x 2026-04-07     runner 60%           0.8x 2026-04-07     prot 70%@3x          0.8x 2026-04-07  
+    prot 50%@5x          0.8x 2026-04-07     prot 60%@5x          0.8x 2026-04-07     prot 70%@5x          0.8x 2026-04-07  
+    prot none            0.8x 2026-04-07  
+
+Shiba Inu: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Pepe: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Bonk: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+dogwifhat: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Popcat: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Mog Coin: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Floki: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Brett: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Book of Meme: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+cat in a dogs world: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Turbo: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+SPX6900: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Fartcoin: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Moo Deng: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Dogelon Mars: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Samoyedcoin: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Official Trump: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Melania Meme: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Slerf: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Saitama Inu (v1): the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Terra LUNA (classic): the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+FTX Token: the entry NEVER fired (no bar >= +10% with >= $100k 24h volume after launch in the data)
+
+Dud / rug sample with the live exit: 69 trades, mean +754%, median -3.7%, win 49%, >= 2x 22%, >= 10x 3%, rug exits 3; total +$52,045
+  pump.fun pools only: 13 trades, mean +3756%, median +66%, total +$48,822
+
+======================================================================================================================
+4. EXIT RULES RANKED BY TOTAL PROFIT ACROSS LEGENDS + COLLAPSES + DUDS  ($100 stake per trade)
+======================================================================================================================
+trades: 3 legends, 0 collapses / rugs, 69 dud-sample pools. ex-best = total without the rule's single best trade; growth = sum of log(account after / before) per trade; older / newer = walk-forward halves (each group split at its median entry time)
+
+ONE CHANGE AT A TIME vs the live rule:
+rule                                                                                 total     legends  collapses      duds    ex-best  growth      older      newer
+60% trail after 3x | runner 50% | cap none | tp none                              +$54,540     +$2,495        +$0  +$52,045    +$7,019   11.65   +$52,470    +$2,069   <- LIVE
+no protection trail | runner 50% | cap none | tp none                             +$70,537     +$2,495        +$0  +$68,042   +$23,016   19.06   +$68,185    +$2,351
+70% trail after 5x | runner 50% | cap none | tp none                              +$68,157     +$2,495        +$0  +$65,662   +$20,636   17.63   +$65,915    +$2,242
+60% trail after 5x | runner 50% | cap none | tp none                              +$64,891     +$2,495        +$0  +$62,397   +$17,371   16.88   +$62,229    +$2,663
+60% trail after 3x | runner 40% | cap none | tp none                              +$64,845     +$3,029        +$0  +$61,816    +$7,890   12.30   +$62,776    +$2,069
+70% trail after 3x | runner 50% | cap none | tp none                              +$55,217     +$2,495        +$0  +$52,722    +$7,696   11.20   +$53,876    +$1,340
+60% trail after 3x | runner 60% | cap none | tp none                              +$45,086     +$1,949        +$0  +$43,137    +$7,023   11.48   +$43,017    +$2,069
+60% trail after 3x | runner 50% | cap none | tp 10% @10x/50x/100x                 +$35,887     +$2,081        +$0  +$33,806    +$6,733   11.15   +$33,796    +$2,091
+60% trail after 3x | runner 50% | cap none | tp 25% @10x only                     +$35,374     +$1,661        +$0  +$33,713    +$6,504   11.16   +$33,251    +$2,123
+60% trail after 3x | runner 50% | cap none | tp 10%@10x 25%@50x 25%@100x          +$29,295     +$2,452        +$0  +$26,844    +$7,103   11.02   +$27,204    +$2,091
+60% trail after 3x | runner 50% | cap none | tp 25% @10x/50x/100x                 +$25,677     +$2,176        +$0  +$23,501    +$7,018   10.94   +$23,555    +$2,123
+50% trail after 5x | runner 50% | cap none | tp none                              +$16,936     +$2,495        +$0  +$14,441   +$11,198   14.11   +$13,544    +$3,392
+60% trail after 3x | runner 50% | cap 33% | tp none                                +$9,868     +$1,017        +$0   +$8,851    +$5,453    9.33    +$7,681    +$2,187
+60% trail after 3x | runner 50% | cap 25% | tp none                                +$7,177       +$698        +$0   +$6,479    +$4,420    8.08    +$5,257    +$1,920
+50% trail after 3x | runner 50% | cap none | tp none                               +$5,581         -$3        +$0   +$5,584    +$4,389    6.72    +$2,964    +$2,617
+60% trail after 3x | runner 50% | cap 20% | tp none                                +$5,511       +$507        +$0   +$5,004    +$3,585    6.93    +$3,894    +$1,617
+
+TOP 15 BY TOTAL PROFIT (live rule is #12 of 420; #173 without the best trade, #134 by growth, #12 older half, #254 newer half):
+rule                                                                                 total     legends  collapses      duds    ex-best  growth      older      newer
+no protection trail | runner 40% | cap none | tp none                             +$82,652     +$3,029        +$0  +$79,623   +$25,697   20.11   +$80,247    +$2,405
+70% trail after 5x | runner 40% | cap none | tp none                              +$80,218     +$3,029        +$0  +$77,189   +$23,263   18.60   +$77,976    +$2,242
+60% trail after 5x | runner 40% | cap none | tp none                              +$76,953     +$3,029        +$0  +$73,924   +$19,998   17.85   +$74,290    +$2,663
+no protection trail | runner 50% | cap none | tp none                             +$70,537     +$2,495        +$0  +$68,042   +$23,016   19.06   +$68,185    +$2,351
+70% trail after 5x | runner 50% | cap none | tp none                              +$68,157     +$2,495        +$0  +$65,662   +$20,636   17.63   +$65,915    +$2,242
+70% trail after 3x | runner 40% | cap none | tp none                              +$65,580     +$3,029        +$0  +$62,551    +$8,625   11.93   +$64,239    +$1,340
+60% trail after 5x | runner 50% | cap none | tp none                              +$64,891     +$2,495        +$0  +$62,397   +$17,371   16.88   +$62,229    +$2,663
+60% trail after 3x | runner 40% | cap none | tp none                              +$64,845     +$3,029        +$0  +$61,816    +$7,890   12.30   +$62,776    +$2,069
+no protection trail | runner 60% | cap none | tp none                             +$61,741     +$1,949        +$0  +$59,792   +$23,678   18.95   +$59,444    +$2,297
+70% trail after 5x | runner 60% | cap none | tp none                              +$59,775     +$1,949        +$0  +$57,825   +$21,712   17.73   +$57,532    +$2,242
+70% trail after 3x | runner 50% | cap none | tp none                              +$55,217     +$2,495        +$0  +$52,722    +$7,696   11.20   +$53,876    +$1,340
+60% trail after 3x | runner 50% | cap none | tp none                              +$54,540     +$2,495        +$0  +$52,045    +$7,019   11.65   +$52,470    +$2,069
+60% trail after 5x | runner 60% | cap none | tp none                              +$53,761     +$1,949        +$0  +$51,812   +$15,698   16.48   +$51,098    +$2,663
+no protection trail | runner 40% | cap none | tp 10% @10x/50x/100x                +$52,253       +$576        +$0  +$51,677   +$23,860   19.00   +$50,092    +$2,162
+no protection trail | runner 60% | cap none | tp 10% @10x/50x/100x                +$52,223       +$576        +$0  +$51,647   +$23,830   18.61   +$50,170    +$2,053
+
+TOP 10 BY GROWTH (log; punishes big losses, does not let one 1000x decide):
+rule                                                                                 total     legends  collapses      duds    ex-best  growth      older      newer
+no protection trail | runner 40% | cap none | tp none                             +$82,652     +$3,029        +$0  +$79,623   +$25,697   20.11   +$80,247    +$2,405
+no protection trail | runner 40% | cap none | tp 10%@10x 25%@50x 25%@100x         +$46,467     +$1,197        +$0  +$45,270   +$24,807   19.44   +$44,306    +$2,162
+no protection trail | runner 40% | cap none | tp 25% @10x/50x/100x                +$40,717     +$1,131        +$0  +$39,586   +$22,501   19.11   +$38,267    +$2,449
+no protection trail | runner 50% | cap none | tp none                             +$70,537     +$2,495        +$0  +$68,042   +$23,016   19.06   +$68,185    +$2,351
+no protection trail | runner 60% | cap none | tp 10%@10x 25%@50x 25%@100x         +$46,437     +$1,197        +$0  +$45,240   +$24,776   19.05   +$44,384    +$2,053
+no protection trail | runner 40% | cap none | tp 10% @10x/50x/100x                +$52,253       +$576        +$0  +$51,677   +$23,860   19.00   +$50,092    +$2,162
+no protection trail | runner 60% | cap none | tp none                             +$61,741     +$1,949        +$0  +$59,792   +$23,678   18.95   +$59,444    +$2,297
+no protection trail | runner 50% | cap none | tp 10%@10x 25%@50x 25%@100x         +$46,013     +$1,197        +$0  +$44,816   +$24,352   18.94   +$43,906    +$2,107
+no protection trail | runner 60% | cap none | tp 25% @10x/50x/100x                +$40,637     +$1,131        +$0  +$39,507   +$22,422   18.71   +$38,297    +$2,341
+no protection trail | runner 50% | cap none | tp 25% @10x/50x/100x                +$40,304     +$1,131        +$0  +$39,174   +$22,089   18.64   +$37,909    +$2,395
+
+WALK-FORWARD: best on the older half = 'no protection trail | runner 40% | cap none | tp none' -> newer half +$2,405 (rank #144; live +$2,069, rank #254);  best on the newer half = '50% trail after 5x | runner 40% | cap none | tp 25% @10x/50x/100x' -> older half +$12,829 (rank #89; live +$52,470)
+
+ROBUST (beats live on total by > 3%, without the best trade, on growth, in BOTH halves, and costs at most 2% of stake per dud-trade): 9 rules; best: 'no protection trail | runner 40% | cap none | tp none'
+
+EACH SETTING AVERAGED OVER ALL OTHER SETTINGS (total $ per rule):
+  prot  (3.0, 0.5): +$4,630 | (3.0, 0.6): +$14,742 | (3.0, 0.7): +$13,793 | (5.0, 0.5): +$9,943 | (5.0, 0.6): +$18,634 | (5.0, 0.7): +$18,787 | None: +$21,766
+  rt    0.4: +$15,060 | 0.5: +$14,494 | 0.6: +$14,286
+  cap   0.2: +$6,290 | 0.25: +$8,131 | 0.33: +$11,076 | None: +$32,957
+  tps   none: +$18,605 | 10% @10x/50x/100x: +$14,411 | 25% @10x/50x/100x: +$12,602 | 25% @10x only: +$14,000 | 10%@10x 25%@50x 25%@100x: +$13,448
+
+======================================================================================================================
+5. LEGENDS SCREEN CHECK  (config.DEX['screen']: top-10 <= 40%, LP locked >= 95% on young pools, no mint / freeze / blacklist, taxes <= 3%)
+======================================================================================================================
+VERIFIED = rebuilt from on-chain logs or read from a live API in this run; TODAY = today's contract state (code does not change, owners may have renounced since); ASSUMED = public history, not checked here; UNKNOWN = no free data
+
+SHIB (eth 0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE)
+  ASSUMED  50% of supply sent to Vitalik Buterin's wallet at launch, 50% into the Uniswap pool; Vitalik burned 90% of it on 2021-05-17
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: buy tax unknown, sell tax unknown  (buy tax '', sell tax '', owner -)
+  => FAIL: today: buy tax unknown; today: sell tax unknown
+
+PEPE (eth 0x6982508145454Ce325dDbE47a25d4ec3d2311933)
+  ASSUMED  93% of supply in the pool with LP burned, 7% multisig for CEX listings, ownership renounced soon after launch
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: transfer_pausable, is_blacklisted  (buy tax '0', sell tax '0', owner 0x00000000)
+  => FAIL: today: transfer_pausable; today: is_blacklisted
+
+BONK (solana DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263)
+  ASSUMED  about half of supply airdropped to Solana users / NFT holders, rest to contributors and the DAO
+  TODAY    RugCheck: rugcheck lp locked 15% < 95% (score 7, LP locked 14.831333428999363%; risks: Mutable metadata)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+WIF (solana EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm)
+  TODAY    RugCheck: rugcheck lp locked 48% < 95% (score 1, LP locked 47.811500000005694%; risks: )
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+POPCAT (solana 7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr)
+  TODAY    RugCheck: rugcheck lp locked 94% < 95% (score 1, LP locked 93.62850976653007%; risks: )
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+MOG (eth 0xaaeE1A9723aaDB7afA2810263653A34bA2C21C7a)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: none  (buy tax '0', sell tax '0', owner 0x00000000)
+  => UNKNOWN (holders)
+
+FLOKI (eth 0x43f11c02439e2736800433b4594994Bd43Cd066D)
+  ASSUMED  v1 token (migrated to v2 0xcf0C12... in Nov 2021)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: is_blacklisted, is_whitelisted, buy tax unknown, sell tax unknown  (buy tax '', sell tax '', owner 0x2b9d5c7f)
+  => FAIL: today: is_blacklisted; today: buy tax unknown; today: sell tax unknown
+
+BRETT (base 0x532f27101965dd16442E59d40670FaF5eBB142E4)
+  VERIFIED contract created in block 10983962 (2024-02-24) [verified]
+  NOTE     logs cut at block 10995271 (time / result budget): later snapshots missing
+  NOTE     Uniswap-V2-style pair 0xb34380ba.. with 0 LP transfers (incomplete)
+  VERIFIED first logs: top-10 30% (ok); without Vitalik's wallet 30%; without passive wallets 5%; 119 holders; largest: 0x46f64b.. 10% passive, 0x9ba188.. 5% passive, 0x404e92.. 2%
+  VERIFIED no OwnershipTransferred events in the window (no owner role, or a non-standard one)
+  TODAY    GoPlus contract flags: is_whitelisted, buy tax unknown, sell tax unknown  (buy tax '', sell tax '', owner 0x00000000)
+  => FAIL: today: buy tax unknown; today: sell tax unknown
+
+BOME (solana ukHH6c7mMyiWCf1b9pnWe25TSpkDDt3H5pQZgZ74J82)
+  TODAY    RugCheck: rugcheck lp locked 0% < 95% (score 37, LP locked 0.01402068958842354%; risks: Single holder ownership, High holder concentration, Mutable metadata)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+MEW (solana MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5)
+  TODAY    RugCheck: passes (score 40, LP locked 99.5661488684016%; risks: Single holder ownership, High holder concentration)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+TURBO (eth 0xA35923162C49cF95e6BF26623385eb431ad920D3)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: none  (buy tax '0', sell tax '0', owner 0x00000000)
+  => UNKNOWN (holders)
+
+SPX (eth 0xE0f63A424a4439cBE457D80E4f4b51aD25b2c56C)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: is_blacklisted, is_whitelisted, buy tax unknown, sell tax unknown  (buy tax '', sell tax '', owner 0x00000000)
+  => FAIL: today: is_blacklisted; today: buy tax unknown; today: sell tax unknown
+
+FARTCOIN (solana 9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump)
+  TODAY    RugCheck: rugcheck lp locked 81% < 95% (score 1, LP locked 80.99587767112469%; risks: )
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+GOAT (solana CzLSujWBLFsSjncfkh59rUFqvafWcY5tzedWJSuypump)
+  TODAY    RugCheck: rugcheck lp locked 68% < 95% (score 22, LP locked 68.08137936865856%; risks: High holder concentration)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+PNUT (solana 2qEHjDLDLbuBgRYvsxhc5D6uDWAivNFZGan56P1tpump)
+  TODAY    RugCheck: passes (score 38, LP locked 99.43894820951623%; risks: Single holder ownership, High holder concentration)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+MOODENG (solana ED5nyyWEzpPPiWimP8vYm7sD7TD3LAt3Q3gRTWHzPJBY)
+  TODAY    RugCheck: passes (score 22, LP locked 97.97882790263711%; risks: High holder concentration)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+ELON (eth 0x761D38e5ddf6ccf6Cf7c55759d5210750B5D60F3)
+  ASSUMED  50% of supply sent to Vitalik's wallet (he later burned / donated it)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: none  (buy tax '0', sell tax '0', owner -)
+  => UNKNOWN (holders)
+
+AKITA (eth 0x3301Ee63Fb29F863f2333Bd4466acb46CD8323E6)
+  ASSUMED  50% of supply sent to Vitalik's wallet (donated to Gitcoin in May 2021)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: none  (buy tax '0', sell tax '0', owner -)
+  => UNKNOWN (holders)
+
+KISHU (eth 0xA2b4C0Af19cC16a6CfAcCe81F192B024d625817D)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: buy tax unknown, sell tax unknown  (buy tax '', sell tax '', owner 0x0db80dd6)
+  => FAIL: today: buy tax unknown; today: sell tax unknown
+
+SAMO (solana 7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU)
+  TODAY    RugCheck: rugcheck lp locked 1% < 95% (score 17, LP locked 0.6163609706884714%; risks: Missing file metadata, Mutable metadata)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+BABYDOGE (bsc 0xc748673057861a797275CD8A068AbB95A902e8de)
+  ASSUMED  BSC reflection token with a 10% transfer tax (would fail the 3% tax rule)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: is_whitelisted  (buy tax '0', sell tax '0', owner 0x00000000)
+  => UNKNOWN (holders)
+
+TRUMP (solana 6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN)
+  ASSUMED  80% of supply held by insiders on a vesting schedule
+  TODAY    RugCheck: rugcheck danger: Top 10 holders high ownership, rugcheck danger: Single holder ownership, rugcheck danger: High ownership, rugcheck lp locked 0% < 95%, rugcheck score 58 (score 58, LP locked 0.020989353220641938%; risks: Top 10 holders high ownership, Single holder ownership, High ownership)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+MELANIA (solana FUAfBo2jgks6gB4Z4LfZkqSZgzNucisEHqnNebaRxM1P)
+  TODAY    RugCheck: rugcheck danger: Top 10 holders high ownership, rugcheck danger: High ownership, rugcheck lp locked 0% < 95%, rugcheck score 59 (score 59, LP locked 0.0008420234019145028%; risks: Top 10 holders high ownership, Single holder ownership, Single holder ownership, High ownership, Mutable metadata)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+LIBRA (solana Bo9jh3wsmcC2AjakLWzNmKJ3SgtZmXEcSaW7L2FAvUsU)
+  ASSUMED  insiders pulled ~$100M of one-sided liquidity within hours
+  TODAY    RugCheck: rugcheck lp locked 0% < 95% (score 29, LP locked 0%; risks: Single holder ownership, Mutable metadata)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+SLERF (solana 7BgBvyjrZX1YKz4oh9mjb8ZScatkkwb8DzFx7LoiVkM3)
+  ASSUMED  dev burned the LP + presale tokens by mistake at launch
+  TODAY    RugCheck: rugcheck danger: Symbol Mismatch (score 27, LP locked 99.58174323583633%; risks: Symbol Mismatch, Mutable metadata, Name Mismatch)
+  => UNKNOWN (launch-day holders / LP (Solana history not reconstructable with free APIs))
+
+SAITAMA (eth 0x8B3192f5eEBD8579568A2Ed41E6FEB402f93f73F)
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: none  (buy tax '0.0199', sell tax '0.0189', owner 0x00000000)
+  => UNKNOWN (holders)
+
+SAFEMOON (bsc 0x8076C74C5e3F5852037F31Ff0093Eeb8c8ADd8D3)
+  ASSUMED  10% transfer tax (would fail the 3% tax rule); later fraud charges
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: is_whitelisted, can_take_back_ownership, buy tax 100%  (buy tax '1', sell tax '0', owner 0x0da844e8)
+  => FAIL: today: buy tax 100%
+
+SQUID (bsc 0x87230146E138d3F296a9a77e497A2A83012e9Bc5)
+  ASSUMED  anti-sell code (honeypot) then the devs pulled the liquidity on 2021-11-01
+  UNKNOWN  on-chain history: no Transfer logs returned (public node without history / range limits)
+  TODAY    GoPlus contract flags: is_proxy, buy tax unknown, sell tax unknown  (buy tax '', sell tax '', owner -)
+  => FAIL: today: is_proxy; today: buy tax unknown; today: sell tax unknown
+
+PROPOSED FIXES CHECKED ON RUGGED POOLS FROM THE SAMPLE (day 1): (a) 'ignore Vitalik's wallet' is too narrow to matter for rugs (a gift to Vitalik is not held by the dev); (b) 'ignore passive wallets (never sent a token)' is broad - does it let rugs pass?
+  GOOGLC       0xb200000000..: no on-chain data (no Transfer logs returned (public node without history / range limits))
+  SPCXC        0xb200000000..: no on-chain data (no Transfer logs returned (public node without history / range limits))
+
+======================================================================================================================
+6. SUMMARY IN PLAIN WORDS
+======================================================================================================================
+Sources: SHIB cmc:5994, PEPE cmc:24478, BONK cmc:23095, WIF cmc:28752, POPCAT cmc:28782, MOG cmc:27659, FLOKI yahoo:FLOKI-USD, BRETT cmc:29743, BOME yahoo:BOME-USD, MEW yahoo:MEW30126-USD, TURBO cmc:24911, SPX yahoo:SPX28081-USD, FARTCOIN yahoo:FARTCOIN-USD, GOAT yahoo:GOATED-USD, PNUT yahoo:PNUT-USD, MOODENG yahoo:MOODENG33093-USD, ELON yahoo:ELON-USD, AKITA yahoo:AKITA39716-USD, KISHU none, SAMO yahoo:SAMO-USD, BABYDOGE none, TRUMP yahoo:TRUMP35336-USD, MELANIA yahoo:MELANIA35347-USD, LIBRA none, SLERF yahoo:SLERF-USD, SAITAMA yahoo:SAITAMA32310-USD, SAFEMOON none, SQUID none, LUNC cmc:4172, FTT yahoo:FTT-USD
+Network: api.coingecko.com: calls 30 http401 27 http404 3; api.coinmarketcap.com: calls 44 ok 44; api.gopluslabs.io: calls 14 ok 14; api.rugcheck.xyz: calls 14 ok 14; base-rpc.publicnode.com: calls 24 http403 13 ok 11; base.drpc.org: calls 13 http400 13; base.llamarpc.com: calls 26 http525 26; bsc-dataseed.binance.org: calls 24 ok 24; bsc-rpc.publicnode.com: calls 114 http403 24 ok 90; bsc.drpc.org: calls 10 http400 3 http429 7; cloudflare-eth.com: calls 25 ok 25; eth.drpc.org: calls 804 http400 25 ok 779; eth.llamarpc.com: calls 50 http525 50; ethereum-rpc.publicnode.com: calls 35 http403 15 ok 20; mainnet.base.org: calls 126 http413 13 ok 113; min-api.cryptocompare.com: calls 32 http401 32; query1.finance.yahoo.com: calls 36 ok 36; query2.finance.yahoo.com: calls 60 ok 60; rpc.ankr.com: calls 25 ok 25
+
+SCORECARD (live exit; stake $100; maximized = share of the achievable gain kept, vs the peak and vs the best rule in hindsight)
+coin                       kind      caught  entry day      peak      live     $ P&L kept/peak kept/best  screen   best rule in hindsight
+Goatseus Maximus           legend    ❌            0.2      1.4x      0.5x      -$52     -143%       n/a  UNKNOWN  no protection trail | runner 60% | cap 20% | tp 10%@10x 25%@
+Peanut the Squirrel        legend    ✅            0.5     54.8x     26.7x   +$2,571      +48%      +83%  UNKNOWN  no protection trail | runner 40% | cap none | tp none
+Akita Inu                  legend    ❌            4.3      1.4x      0.8x      -$24      -68%       n/a  UNKNOWN  no protection trail | runner 60% | cap 33% | tp 10%@10x 25%@
+Shiba Inu                  legend    ❌          never       n/a       n/a       +$0       n/a       n/a  FAIL     -
+Pepe                       legend    ❌          never       n/a       n/a       +$0       n/a       n/a  FAIL     -
+Bonk                       legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+dogwifhat                  legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Popcat                     legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Mog Coin                   legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Floki                      legend    ❌          never       n/a       n/a       +$0       n/a       n/a  FAIL     -
+Brett                      legend    ❌          never       n/a       n/a       +$0       n/a       n/a  FAIL     -
+Book of Meme               legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+cat in a dogs world        legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Turbo                      legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+SPX6900                    legend    ❌          never       n/a       n/a       +$0       n/a       n/a  FAIL     -
+Fartcoin                   legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Moo Deng                   legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Dogelon Mars               legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Samoyedcoin                legend    ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Official Trump             collapse  ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Melania Meme               collapse  ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Slerf                      collapse  ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Saitama Inu (v1)           collapse  ❌          never       n/a       n/a       +$0       n/a       n/a  UNKNOWN  -
+Terra LUNA (classic)       collapse  ❌          never       n/a       n/a       +$0       n/a       n/a  -        -
+FTX Token                  collapse  ❌          never       n/a       n/a       +$0       n/a       n/a  -        -
+
+Legends caught early (entry within 60 days, >= 10x still ahead): 1 of 19; median share of the peak gain kept -68%, of the best rule +83%
+
+Live rule totals: +$54,540 over 72 trades (legends +$2,495, collapses +$0, duds +$52,045); rank #12 of 420 by total, #134 by growth, #12 / #254 in the older / newer half.
+Concentration cap (averaged over the other settings): none +$32,957, 20% +$6,290, 25% +$8,131, 33% +$11,076. A cap only banks GAINS: it cannot protect a fresh position that collapses inside the 14-day no-stop hold (the stake size is that protection: at most 20% of the account per coin).
+Legends the screen would have BLOCKED at launch (verified / today's flags): SHIB, PEPE, FLOKI, BRETT, SPX, KISHU.
+
+RECOMMENDATION for config.DEX['exit']:
+  CHANGE to 'no protection trail | runner 40% | cap none | tp none': total +$82,652 vs live +$54,540, without the best trade +$25,697 vs +$7,019, growth 20.11 vs 11.65, older half +$80,247 vs +$52,470, newer half +$2,405 vs +$2,069, duds +$79,623 vs +$52,045.
+  "exit": {'trail': 0.95, 'tp1': (999.0, 0.0), 'ladder': [], 'trail_steps': [], 'max_hold_days': 14, 'runner_at_limit': (1.0, 0.4), 'liq_pull': 0.5, 'rug_tax': 0.5},
+
+CAVEATS: legends are picked in hindsight (the whole point: would we have held them?); CEX-aggregator data often starts days after the DEX launch and has no liquidity, holders or buy/sell counts, so entries use price + volume only; daily data makes trails coarser; the dud sample is a few hundred recent pools (survivorship: pools that died before the registry saw them are missing). Rank the rules, don't read the dollar totals as a forecast.
+
+wrote daily bars of 25 coins to results/dex_legends_daily.json.gz (for offline re-analysis)
+(6741s)
