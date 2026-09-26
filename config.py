@@ -218,12 +218,14 @@ DEX = {
     # 1h +5% / 6h +10% entry; buys must still outnumber sells
     "entry": {"h1": 0.10, "h6": -1.0, "buy_ratio": 1.2},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
-        "A": {"pct": 0.03},                                                                   # "new"
-        "B": {"pct": 0.10, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},    # "proven"
-        "C": {"pct": 0.20, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},           # "blue"
+        # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%
+        # idle. Owner 2026-09-26: size like the tested portfolio. Still capped at 0.5% of pool liquidity.
+        "A": {"pct": 0.20},                                                                   # "new"
+        "B": {"pct": 0.25, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},    # "proven"
+        "C": {"pct": 0.25, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},           # "blue"
     },
     "cex_list": [],                                # extra CEX-listed symbols (Crypto.com tickers are used live)
-    "size": {"liq_pct": 0.005, "max_exposure": 0.60},
+    "size": {"liq_pct": 0.005, "max_exposure": 1.0},     # 4 slots x 20-25% = fully invested
     "cost": {"fee": 0.003, "slip": 0.01},          # + price impact usd / liquidity, per side
     # dex_exit_study.py: the old exit (30% trail + take-profit ladder) lost -6.4%/trade and sold 3 of 3 later
     # 10x coins early; "hold 14 days, no stop" was the robust winner (+85%/trade, walk-forward rank 1;
