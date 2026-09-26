@@ -200,7 +200,10 @@ ACTIVE = "breakout10"   # the listing hunter keeps idle cash in whatever this ro
 
 
 def park_targets():
-    """Coins the active rotation holds right now (the listing hunter's idle cash rides them)."""
+    """Coins the active rotation holds right now (the listing hunter's idle cash rides them).
+    config.PARK_IDLE False -> no targets: park_idle sells anything parked and the cash waits for listings."""
+    if not getattr(config, "PARK_IDLE", True):
+        return []
     try:
         return [c for c in load_pf("crypto", ACTIVE).positions]
     except Exception:

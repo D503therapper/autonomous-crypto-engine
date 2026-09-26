@@ -158,6 +158,10 @@ MIN_CASH_RESERVE_PCT = 0.10
 MIN_ORDER_USD = 10.00
 MAX_DRAWDOWN_HALT = None  # owner's choice: no account-level pause (set e.g. 0.20 to pause at -20%)
 HALT_HOURS = 168          # ...for 7 days, then resume
+# Listing hunter's idle cash: owner 2026-09-26 - no long holds; crypto_studies A showed the rotation it rode
+# (NEAR/SUI) made +0.2%/month over 5 years. False = parked coins are sold and the cash waits for listings.
+PARK_IDLE = False
+
 # --- Runners: never sell a coin while it's flying ------------------------------
 # Once a position has been up >= "ride" (peak vs entry), the engine blocks every exit except a
 # trailing stop: no time limits, no rotation / rebalance sales, no take-profits, no unparking.
