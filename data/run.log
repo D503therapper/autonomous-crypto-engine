@@ -872,3 +872,16 @@ Stocks: $500.00  today +0.00  total +0.00
 [2026-09-26 14:14 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
 [2026-09-26 14:14 UTC] crypto/hold_btc  equity $499.35 (-0.1%) 1 open  market UP
    social heat top: NEAR 40 (35/0/5), SUI 29 (29/0/0), TRUMP 27 (27/0/0), PENGU 24 (24/0/0), AERO 21 (21/0/0)
+   footprint: SOL: footprint 3/4 (drift+hikes+rising_lows) 48h +5.4%, 5 volume hikes, 52% quiet hours @ 120.81
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '84334.99', 'l': '83328.51', 'a': '83946.72', 'v': '2501.5310', 'vv': '209815629.38', 'c': '0.0041', 'b': '83946.72', 'k': '83946.73', 'oi': '0', 't': 1790432056043}
+   dex screen: REJECT CIRBTC@ethereum liq $5,781,978 - is_proxy; top-10 holders 88%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT CATE@solana liq $73,764,170 - top-10 holders 100%
+   dex screen: REJECT CATE@solana liq $1,477,144 - top-10 holders 100%
+   dex screen: REJECT AMERICA@solana liq $362,853 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: UNREACHABLE METAC@base liq $2,126,384 - goplus unreachable
+   dex screen: REJECT OPENAI@solana liq $172,006 - freeze authority; mint authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 87%; lp holders unknown
+   dex screen: PASS BNKR@base liq $2,913,826
