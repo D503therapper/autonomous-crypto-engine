@@ -16,8 +16,8 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 | stocks | trend | $500.00 | +0.0% | 0 |
 | stocks | hold_spy | $500.00 | +0.0% | 0 |
 | dex | dex_hunter | $500.00 | +0.0% | 0 |
-| crypto | hold_btc | $499.79 | -0.0% | 1 |
-| crypto | momentum | $499.67 | -0.1% | 4 |
-| crypto | breakout10 (official) | $494.71 | -1.1% | 2 |
-| crypto | early_mover (official) | $492.29 | -1.5% | 4 |
-| crypto | mover | $491.55 | -1.7% | 5 |
+| crypto | hold_btc | $499.40 | -0.1% | 1 |
+| crypto | momentum | $498.66 | -0.3% | 4 |
+| crypto | breakout10 (official) | $493.20 | -1.4% | 2 |
+| crypto | early_mover (official) | $490.78 | -1.8% | 4 |
+| crypto | mover | $490.73 | -1.9% | 5 |
