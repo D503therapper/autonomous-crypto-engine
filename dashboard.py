@@ -148,7 +148,7 @@ def render(cards, updated_ms):
 <section class="card" style="--c1:{c.get("c1", "#3b82ff")};--c2:{c.get("c2", "#22d3ee")}">
   <div class="card-top">
     <div class="id"><span class="ico">{c["icon"]}</span><div><div class="nm">{html.escape(c["name"])}</div>
-      <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}{' · <span class="test">test account</span>' if not c.get("official") else ""}</div></div></div>
+      <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}</div></div></div>
     <div class="val"><div class="bal">{_money(c["equity"])}</div><div class="chg {"up" if d >= 0 else "dn"}">{_chg(d, start)}</div></div>
   </div>
   <div class="spark">{_svg(c["series"], 300, 54, col, i, base=start)}</div>
