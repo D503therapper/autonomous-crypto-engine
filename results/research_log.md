@@ -18,6 +18,10 @@ dex_exit_study.py) on thousands of Solana / Base / Ethereum pools from GeckoTerm
 - Wire the winning score into dex.py discovery / entry (more candidates, earlier, fewer duds) and report
   to the owner in plain words: how many runners/day it would have caught and what it would have made.
 Real misses to learn from: PAID (solana, +247% after a data-gap rejection), ELON (+68%).
+Follow-up: SMART-MONEY WALLETS - find wallets that repeatedly bought early into pools that later ran 5x+
+(from on-chain trade history of past runners), then test "buy when N smart wallets buy" walk-forward.
+Check free data sources reachable from the GitHub runner (GeckoTerminal trades endpoint, Solana RPC,
+DexScreener) before building it.
 
 
 ### Runner exits (asked by the owner 2026-09-26)
