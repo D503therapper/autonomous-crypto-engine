@@ -134,16 +134,15 @@ def render(cards, updated_ms):
             f'<div class="h"><span class="hc">{html.escape(h["coin"])}</span><span class="hv">{_money(h["value"])}</span>'
             f'<span class="hp {"up" if h["pnl"] >= 0 else "dn"}"><span class="ar">{"▲" if h["pnl"] >= 0 else "▼"}</span>'
             f'{_chg(h["pnl"], h["value"] - h["pnl"])}</span></div>' for h in c.get("holdings", []))
-        tap = "holdings" in c
+        tap = "holdings" in c                    # holdings list always shown under the chart
         none = '<div class="h none">Nothing open right now — all cash</div>'
         hold = f'<div class="hold">{rows or none}</div>' if tap else ""
-        click = ' onclick="this.classList.toggle(\'open\')"' if tap else ""
         extra = f'<div class="badge {c["extra_cls"]}">{html.escape(c["extra"])}</div>' if c.get("extra") else ""
         blocks.append(f"""
-<section class="card{" tap" if tap else ""}"{click} style="--c1:{c.get("c1", "#3b82ff")};--c2:{c.get("c2", "#22d3ee")}">
+<section class="card" style="--c1:{c.get("c1", "#3b82ff")};--c2:{c.get("c2", "#22d3ee")}">
   <div class="card-top">
     <div class="id"><span class="ico">{c["icon"]}</span><div><div class="nm">{html.escape(c["name"])}</div>
-      <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}{ ' <span class="chev"></span>' if tap else ""}{' · <span class="test">test account</span>' if not c.get("official") else ""}</div></div></div>
+      <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}{' · <span class="test">test account</span>' if not c.get("official") else ""}</div></div></div>
     <div class="val"><div class="bal">{_money(c["equity"])}</div><div class="chg {"up" if d >= 0 else "dn"}">{_chg(d, start)}</div></div>
   </div>
   <div class="spark">{_svg(c["series"], 300, 54, col, i, base=start)}</div>
@@ -217,11 +216,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .chg{{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}}
 .up{{color:var(--up)}} .dn{{color:var(--dn)}} .w{{color:#fff}}
 .spark{{height:54px;margin:12px 0 8px}}
-.tap{{cursor:pointer;-webkit-tap-highlight-color:transparent}}
-.chev{{display:inline-block;width:7px;height:7px;margin:0 0 3px 7px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);transition:transform .2s}}
-.open .chev{{transform:rotate(225deg);margin-bottom:-1px}}
-.hold{{display:none;border-top:1px solid var(--line);margin-top:4px;padding-top:6px}}
-.open .hold{{display:block}}
+.hold{{border-top:1px solid var(--line);margin-top:4px;padding-top:6px}}
 .h{{display:grid;grid-template-columns:1fr auto;grid-template-areas:"c v" "c p";column-gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}}
 .h:last-child{{border-bottom:0}}
 .hc{{grid-area:c;align-self:center;font-weight:800;font-size:15px;color:#fff}}

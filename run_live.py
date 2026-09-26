@@ -458,7 +458,16 @@ def write_dashboard(rows, total):
                 st["positions"] = len(json.load(f).get("positions", {}))
         except (OSError, ValueError):
             st["positions"] = 0
-        cards.append({"name": "DEX", "icon": "◆", "c1": "#22e39a", "c2": "#3b82ff", "official": False,
+        try:
+            with open(f"{d}/portfolio.json") as f:
+                dpos = json.load(f).get("positions", {})
+        except (OSError, ValueError):
+            dpos = {}
+        dhold = []
+        for p in dpos.values():
+            value = p["qty"] * (p.get("px") if p.get("px") is not None else p["entry"])
+            dhold.append({"coin": p.get("sym", "?"), "value": value, "pnl": value - p["cost"]})
+        cards.append({"holdings": sorted(dhold, key=lambda h: -h["value"]), "name": "DEX", "icon": "◆", "c1": "#22e39a", "c2": "#3b82ff", "official": False,
                       "equity": st["equity"], "series": dashboard._series(f"{d}/equity.csv"),
                       "positions": st.get("positions", 0), "last": dashboard._last_trade(f"{d}/trades.csv"),
                       "extra": "Paused: scam limit" if paused else (f"Scammed {scams} · −${abs(lost):,.2f}" if scams else "Scammed 0"),
