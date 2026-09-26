@@ -1,0 +1,36 @@
+# DEX legends study (dex_legends_study.py): SHIB / PEPE / BONK / WIF ... and LUNA / FTT / SQUID-style collapses
+# replayed through the live DEX entry + exit and 420 exit variants (protection trail, runner trail, concentration
+# cap, take-profits at big multiples), together with a random sample of real (mostly dud) DEX pools; plus the
+# LEGENDS SCREEN CHECK from public-RPC logs. Results committed to results/dex_legends_study.txt.
+name: dex-legends-study
+on:
+  push:
+    paths: ["dex_legends_study.py", ".github/workflows/dex_legends_study.yml"]
+  workflow_dispatch:
+    inputs:
+      budget_min:
+        description: "minutes to spend fetching (legends + pools + screen)"
+        default: "300"
+permissions:
+  contents: write
+concurrency: dex_legends_study
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: python -m unittest -q dex_legends_study_test
+      - run: |
+          mkdir -p results
+          python -u dex_legends_study.py --budget-min "${{ github.event.inputs.budget_min || '300' }}" 2>&1 | tee results/dex_legends_study.txt
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "dex-legends-study results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done
