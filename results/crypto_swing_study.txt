@@ -1,0 +1,269 @@
+crypto_swing_study.py  run 2026-09-26 20:17 UTC  cost 0.50%/side (config.FEE_RATE 0.40% + SLIPPAGE_RATE 0.10%); cheap-exchange check 0.20%/side
+
+==============================================================================================================
+1. UNIVERSE: Crypto.com USD pairs with median daily USD volume >= $1M
+==============================================================================================================
+408 USD pairs (stable / wrapped / leveraged excluded); loading 787 daily bars each...
+window 2025-03-28 .. 2026-09-26 (547 days). 9 of 408 coins qualify:
+  BTC $639.2M  ETH $385.3M  XRP $39.4M  SOL $35.9M  DOGE $4.7M  ADA $3.3M  CRO $2.8M  LINK $1.3M  SUI $1.2M
+meme coins listed: SHIB $0.36M (too thin), PEPE $0.22M (too thin), TRUMP $0.19M (too thin), WIF $0.08M (too thin), BONK $0.08M (too thin), ELON $0.05M (too thin), FARTCOIN $0.05M (too thin), PUMP $0.04M (too thin), TURBO $0.03M (too thin), FLOKI $0.03M (too thin), PENGU $0.02M (too thin), USELESS $0.02M (too thin), LADYS $0.02M (too thin), MOG $0.02M (too thin), MOODENG $0.01M (too thin), PONKE $0.01M (too thin), POPCAT $0.01M (too thin), GOAT $0.01M (too thin), PNUT $0.01M (too thin), TOSHI $0.01M (too thin), SPX $0.01M (too thin), MANEKI $0.00M (too thin), BOME $0.00M (too thin), CHILLGUY $0.00M (too thin), DEGEN $0.00M (too thin), TROLL $0.00M (too thin), ACT $0.00M (too thin), WEN $0.00M (too thin), SNEK $0.00M (too thin), MYRO $0.00M (too thin)
+399 coins too thin (< $1M/day median) or too short; near misses: LTC $0.98M, HBAR $0.92M, AVAX $0.69M, DOT $0.57M, XLM $0.49M, BCH $0.43M, SHIB $0.36M, ARB $0.32M
+
+loading hourly bars (550 days) for 9 coins...
+  .. 9 coins with hourly history (24s)
+  signals: daily rsi<5 355, rsi<10 637, rsi<15 879, drop5 292, drop8 72, drop12 25, up5 342, up10 85, up15 17; hourly rsi<5 3740, rsi<10 6759, rsi<15 9345, drop5 1438, drop8 424, drop12 97, up5 1292, up10 301, up15 74
+  1410 variants simulated in 1s
+
+==============================================================================================================
+2. BENCHMARKS
+==============================================================================================================
+hold BTC 2025-03-28 .. 2026-09-26: -0.02%/month, max DD 53%, worst month -21.7%; older half +0.38%/mo, newer half -0.48%/mo
+hold BTC over the walk-forward test blocks (2025-09-27 .. 2026-09-26): -2.20%/month, max DD 53%
+cash: +0.00%/month, no drawdown
+
+==============================================================================================================
+3. ALL VARIANTS, WHOLE WINDOW (IN-SAMPLE = optimistic); cost 0.5%/side, '@0.2%' = 0.2%/side
+==============================================================================================================
+mean/median = net per trade after costs; 5slot/mo = compounding account, 20% of equity per trade, max 5 open;
+older/newer = mean per trade before/after 2025-12-27; hold = average hours held; trend filter >100d/>200d = coin above its 100/200-day average
+  (1242 variants with >= 10 trades; stats in 3s)
+
+--- DAILY MEAN REVERSION (buy the drop at the daily close): 298 variants with >= 30 trades
+variant                                                n  /day  win    mean  median   @0.2% | 5slot/mo maxDD  worstM @0.2%/mo |   older   newer  hold
+D drop8 | close>5davg or 3d | BTC<50d                 59  0.11  69%  +3.88%  +6.60%  +4.51% |    +1.5%    9%   -7.3%    +1.8% |  +4.49%  +2.50%   66h
+D drop8 | close>5davg or 3d | BTC<100d                56  0.10  68%  +3.54%  +6.19%  +4.16% |    +1.2%    9%   -7.3%    +1.5% |  +4.03%  +2.50%   66h
+D drop8 | close>5davg or 3d | any                     71  0.13  65%  +3.40%  +5.80%  +4.02% |    +1.7%    9%   -7.3%    +2.0% |  +3.54%  +3.02%   66h
+D drop8 | close>5davg or 2d | BTC<50d                 59  0.11  56%  +2.22%  +1.90%  +2.84% |    +0.9%    6%   -4.2%    +1.3% |  +1.28%  +4.37%   46h
+D drop8 | +8% or 3d | BTC<50d                         59  0.11  69%  +2.20%  +6.93%  +2.81% |    +0.7%   11%   -7.3%    +1.0% |  +2.95%  +0.48%   57h
+D drop8 | close>5davg or 2d | BTC<100d                56  0.10  55%  +2.10%  +1.34%  +2.71% |    +0.8%    6%   -4.2%    +1.1% |  +1.02%  +4.37%   46h
+D drop8 | +8% or 3d | any                             71  0.13  65%  +2.02%  +6.93%  +2.63% |    +0.8%   11%   -7.3%    +1.2% |  +2.37%  +1.13%   59h
+D drop8 | +8% or 3d | BTC<100d                        56  0.10  68%  +1.94%  +6.93%  +2.56% |    +0.4%   11%   -7.3%    +0.7% |  +2.64%  +0.48%   57h
+D drop8 | close>5davg or 2d | any                     71  0.13  54%  +1.91%  +0.66%  +2.53% |    +1.0%    7%   -4.2%    +1.4% |  +0.97%  +4.31%   46h
+D drop5>200d | close>5davg or 3d | BTC<50d            39  0.07  64%  +1.82%  +3.83%  +2.43% |    +0.6%   11%   -9.9%    +0.8% |  +1.82%   +nan%   64h
+D rsi<15>200d | close>5davg or 3d | BTC<50d           50  0.09  68%  +1.34%  +1.81%  +1.95% |    +0.8%    7%   -5.0%    +1.0% |  +1.34%   +nan%   62h
+D drop5>200d | close>5davg or 2d | BTC<50d            44  0.08  59%  +1.20%  +1.22%  +1.81% |    +0.5%    5%   -1.2%    +0.7% |  +1.20%   +nan%   45h
+D rsi<5 | close>5davg or 3d | BTC<50d                161  0.29  62%  +1.07%  +1.35%  +1.68% |    +1.1%   16%  -13.4%    +2.0% |  +1.83%  +0.16%   59h
+D drop5>200d | +8% or 3d | BTC<50d                    39  0.07  64%  +1.05%  +3.50%  +1.66% |    +0.3%   11%   -9.3%    +0.5% |  +1.05%   +nan%   64h
+D drop8 | sell after 1d | BTC<50d                     59  0.11  49%  +1.03%  -0.60%  +1.64% |    +0.3%    9%   -5.0%    +0.7% |  -0.11%  +3.62%   24h
+  top 5 by 5-slot account profit/month:
+D drop8 | close>5davg or 3d | any                     71  0.13  65%  +3.40%  +5.80%  +4.02% |    +1.7%    9%   -7.3%    +2.0% |  +3.54%  +3.02%   66h
+D drop8 | close>5davg or 3d | BTC<50d                 59  0.11  69%  +3.88%  +6.60%  +4.51% |    +1.5%    9%   -7.3%    +1.8% |  +4.49%  +2.50%   66h
+D drop8 | close>5davg or 3d | BTC<100d                56  0.10  68%  +3.54%  +6.19%  +4.16% |    +1.2%    9%   -7.3%    +1.5% |  +4.03%  +2.50%   66h
+D rsi<5 | close>5davg or 3d | BTC<50d                161  0.29  62%  +1.07%  +1.35%  +1.68% |    +1.1%   16%  -13.4%    +2.0% |  +1.83%  +0.16%   59h
+D drop8 | close>5davg or 2d | any                     71  0.13  54%  +1.91%  +0.66%  +2.53% |    +1.0%    7%   -4.2%    +1.4% |  +0.97%  +4.31%   46h
+  69/298 variants positive per trade at 0.5%/side, 138/298 at 0.2%/side; 29 positive in BOTH halves at 0.5%
+
+--- HOURLY MEAN REVERSION (buy the dip on 1h bars): 593 variants with >= 30 trades
+variant                                                n  /day  win    mean  median   @0.2% | 5slot/mo maxDD  worstM @0.2%/mo |   older   newer  hold
+H drop12 | +5% or 72h | any                           61  0.11  82%  +2.14%  +3.96%  +2.76% |    +1.0%    4%   -1.9%    +1.3% |  +2.84%  +0.81%   32h
+H drop12 | +5% or 72h | BTC<50d                       46  0.08  80%  +1.86%  +3.96%  +2.48% |    +0.5%    4%   -1.9%    +0.8% |  +2.60%  +0.71%   34h
+H drop12 | sell after 24h | BTC<50d                   47  0.09  57%  +1.79%  +0.51%  +2.40% |    +0.5%    4%   -3.5%    +0.8% |  +1.61%  +2.06%   24h
+H drop12 | sell after 24h | BTC<100d                  47  0.09  55%  +1.75%  +0.51%  +2.37% |    +0.5%    4%   -3.5%    +0.7% |  +1.67%  +1.87%   24h
+H drop12 | +5% or 72h | BTC<100d                      46  0.08  78%  +1.70%  +3.96%  +2.31% |    +0.5%    4%   -1.9%    +0.7% |  +2.55%  +0.48%   35h
+H drop12 | sell after 24h | any                       61  0.11  54%  +1.07%  +0.19%  +1.67% |    +0.4%    4%   -3.5%    +0.7% |  +0.66%  +1.78%   24h
+H drop12 | +5% or 24h | any                           62  0.11  63%  +1.05%  +3.96%  +1.65% |    +0.4%    5%   -3.5%    +0.7% |  +1.08%  +0.97%   17h
+H drop12 | +5% or 24h | BTC<50d                       47  0.09  60%  +0.91%  +3.96%  +1.51% |    +0.2%    4%   -3.5%    +0.4% |  +0.98%  +0.80%   19h
+H drop12 | +5% or 24h | BTC<100d                      47  0.09  57%  +0.87%  +3.96%  +1.48% |    +0.2%    4%   -3.5%    +0.4% |  +1.01%  +0.68%   19h
+H drop8>200d | +5% or 72h | any                       75  0.14  65%  +0.78%  +3.96%  +1.38% |    +0.5%    7%   -4.7%    +0.9% |  +0.40%  +3.96%   49h
+H drop12 | +3% or 24h | any                           68  0.12  79%  +0.73%  +1.98%  +1.34% |    +0.3%    4%   -2.9%    +0.7% |  +0.84%  +0.53%   11h
+H drop8>200d | +5% or 72h | BTC>100d                  57  0.10  63%  +0.72%  +3.96%  +1.33% |    +0.4%    5%   -4.5%    +0.7% |  +0.19%  +3.96%   51h
+H drop8 | +5% or 72h | BTC>100d                       90  0.16  60%  +0.69%  +3.96%  +1.29% |    +0.5%    6%   -4.5%    +1.0% |  +0.33%  +3.96%   49h
+H drop12 | +3% or 24h | BTC<50d                       53  0.10  77%  +0.64%  +1.98%  +1.24% |    +0.2%    3%   -2.9%    +0.5% |  +0.72%  +0.50%   12h
+H drop8>200d | +5% or 72h | BTC>50d                   48  0.09  62%  +0.55%  +3.20%  +1.15% |    +0.3%    7%   -4.0%    +0.5% |  -0.14%  +3.96%   51h
+  top 5 by 5-slot account profit/month:
+H drop12 | +5% or 72h | any                           61  0.11  82%  +2.14%  +3.96%  +2.76% |    +1.0%    4%   -1.9%    +1.3% |  +2.84%  +0.81%   32h
+H drop12 | +5% or 72h | BTC<50d                       46  0.08  80%  +1.86%  +3.96%  +2.48% |    +0.5%    4%   -1.9%    +0.8% |  +2.60%  +0.71%   34h
+H drop8 | +5% or 72h | BTC>100d                       90  0.16  60%  +0.69%  +3.96%  +1.29% |    +0.5%    6%   -4.5%    +1.0% |  +0.33%  +3.96%   49h
+H drop12 | sell after 24h | BTC<50d                   47  0.09  57%  +1.79%  +0.51%  +2.40% |    +0.5%    4%   -3.5%    +0.8% |  +1.61%  +2.06%   24h
+H drop8>200d | +5% or 72h | any                       75  0.14  65%  +0.78%  +3.96%  +1.38% |    +0.5%    7%   -4.7%    +0.9% |  +0.40%  +3.96%   49h
+  30/593 variants positive per trade at 0.5%/side, 93/593 at 0.2%/side; 15 positive in BOTH halves at 0.5%
+
+--- MOMENTUM CONTINUATION (buy the movers, sell 1-3 days later) - comparison: 86 variants with >= 30 trades
+variant                                                n  /day  win    mean  median   @0.2% | 5slot/mo maxDD  worstM @0.2%/mo |   older   newer  hold
+D up10 | sell after 2d | BTC>100d                     35  0.06  51%  +4.37%  +0.29%  +5.00% |    +1.6%    5%   -3.6%    +1.8% |  +4.70%  +3.43%   48h
+D up10>100d | sell after 2d | BTC>100d                30  0.05  50%  +3.33%  +0.08%  +3.95% |    +1.0%    5%   -3.6%    +1.3% |  +4.06%  +1.64%   48h
+D up10>100d | sell after 2d | any                     33  0.06  48%  +2.76%  -0.13%  +3.38% |    +0.9%    5%   -3.6%    +1.2% |  +3.70%  +0.60%   48h
+D up10 | sell after 3d | BTC>100d                     34  0.06  50%  +2.74%  +0.21%  +3.36% |    +1.0%   10%   -1.8%    +1.2% |  +2.08%  +4.58%   72h
+H up15 | sell after 72h | BTC>50d                     30  0.05  40%  +2.22%  -0.77%  +2.83% |    +0.7%    6%   -2.3%    +0.9% |  +2.49%  +1.13%   72h
+D up10 | sell after 2d | BTC>50d                      44  0.08  43%  +1.62%  -0.55%  +2.23% |    +0.7%    8%   -3.6%    +1.0% |  +1.59%  +1.68%   48h
+D up5 | sell after 2d | BTC>100d                     139  0.25  45%  +1.27%  -0.54%  +1.88% |    +1.5%   11%  -10.5%    +2.3% |  +1.23%  +1.46%   48h
+D up10>100d | sell after 3d | any                     32  0.06  44%  +1.20%  -1.61%  +1.81% |    +0.4%   10%   -2.1%    +0.6% |  +0.90%  +1.85%   72h
+H up15 | sell after 72h | any                         44  0.08  36%  +1.03%  -2.66%  +1.63% |    +0.4%   18%  -10.2%    +0.7% |  +2.85%  -3.84%   72h
+D up10>100d | sell after 2d | BTC>50d                 31  0.06  45%  +0.97%  -1.72%  +1.57% |    +0.3%    7%   -3.6%    +0.5% |  +1.14%  +0.60%   48h
+D up5 | sell after 3d | BTC>100d                     128  0.23  49%  +0.90%  -0.19%  +1.51% |    +1.1%   20%   -9.3%    +1.8% |  +0.07%  +4.71%   72h
+D up5>100d | sell after 2d | BTC>100d                117  0.21  45%  +0.88%  -0.54%  +1.49% |    +1.0%   11%  -10.5%    +1.7% |  +1.04%  +0.37%   48h
+D up5>100d | sell after 3d | BTC>100d                107  0.20  51%  +0.74%  +0.28%  +1.35% |    +1.0%   15%   -5.5%    +1.6% |  -0.00%  +3.62%   72h
+H up10 | sell after 24h | BTC>100d                    90  0.16  50%  +0.68%  +0.00%  +1.29% |    +0.7%    6%   -1.3%    +1.3% |  +0.18%  +2.53%   24h
+D up5>100d | sell after 2d | any                     126  0.23  44%  +0.58%  -0.68%  +1.19% |    +0.6%   11%  -10.5%    +1.4% |  +0.78%  -0.07%   48h
+  top 5 by 5-slot account profit/month:
+D up10 | sell after 2d | BTC>100d                     35  0.06  51%  +4.37%  +0.29%  +5.00% |    +1.6%    5%   -3.6%    +1.8% |  +4.70%  +3.43%   48h
+D up5 | sell after 2d | BTC>100d                     139  0.25  45%  +1.27%  -0.54%  +1.88% |    +1.5%   11%  -10.5%    +2.3% |  +1.23%  +1.46%   48h
+D up5 | sell after 3d | BTC>100d                     128  0.23  49%  +0.90%  -0.19%  +1.51% |    +1.1%   20%   -9.3%    +1.8% |  +0.07%  +4.71%   72h
+D up10>100d | sell after 2d | BTC>100d                30  0.05  50%  +3.33%  +0.08%  +3.95% |    +1.0%    5%   -3.6%    +1.3% |  +4.06%  +1.64%   48h
+D up5>100d | sell after 3d | BTC>100d                107  0.20  51%  +0.74%  +0.28%  +1.35% |    +1.0%   15%   -5.5%    +1.6% |  -0.00%  +3.62%   72h
+  29/86 variants positive per trade at 0.5%/side, 52/86 at 0.2%/side; 19 positive in BOTH halves at 0.5%
+
+--- reference rules (stock RSI2 translated; the owner's 'drop then bounce'; next-day momentum):
+variant                                                n  /day  win    mean  median   @0.2% | 5slot/mo maxDD  worstM @0.2%/mo |   older   newer  hold
+D rsi<10>200d | close>5davg or 3d | any               55  0.10  44%  -1.78%  -0.89%  -1.19% |    -0.9%   20%   -7.9%    -0.6% |  -2.00%  +0.97%   65h
+D rsi<15>200d | close>5davg or 3d | any               85  0.16  53%  -0.57%  +0.63%  +0.03% |    -0.4%   14%   -3.4%    +0.1% |  -0.62%  +0.56%   62h
+D drop8 | close>5davg or 3d | any                     71  0.13  65%  +3.40%  +5.80%  +4.02% |    +1.7%    9%   -7.3%    +2.0% |  +3.54%  +3.02%   66h
+H rsi<5 | close>5havg or 24h | any                  3252  5.95  19%  -0.95%  -0.71%  -0.35% |   -24.2%   99%  -37.2%    -9.6% |  -0.93%  -0.97%    4h
+H drop8 | +3% or 24h | any                           267  0.49  60%  -0.63%  +1.98%  -0.03% |    -1.6%   30%  -11.8%    -0.2% |  -0.41%  -1.28%   15h
+D up10 | sell after 1d | any                          82  0.15  37%  -0.50%  -1.12%  +0.10% |    -0.4%   10%   -6.9%    +0.1% |  -0.21%  -0.99%   24h
+
+--- market filter (BTC vs its 50/100-day average) for each family's best entry+exit:
+variant                                                n  /day  win    mean  median   @0.2% | 5slot/mo maxDD  worstM @0.2%/mo |   older   newer  hold
+D drop8 | close>5davg or 3d | any                     71  0.13  65%  +3.40%  +5.80%  +4.02% |    +1.7%    9%   -7.3%    +2.0% |  +3.54%  +3.02%   66h
+D drop8 | close>5davg or 3d | BTC>50d                 12  0.02  42%  +1.00%  -0.38%  +1.61% |    +0.1%    3%   +nan%    +0.2% |  -0.33%  +7.68%   68h
+D drop8 | close>5davg or 3d | BTC>100d                15  0.03  53%  +2.86%  +3.45%  +3.48% |    +0.5%    3%   +nan%    +0.6% |  +2.12%  +7.68%   66h
+D drop8 | close>5davg or 3d | BTC<50d                 59  0.11  69%  +3.88%  +6.60%  +4.51% |    +1.5%    9%   -7.3%    +1.8% |  +4.49%  +2.50%   66h
+D drop8 | close>5davg or 3d | BTC<100d                56  0.10  68%  +3.54%  +6.19%  +4.16% |    +1.2%    9%   -7.3%    +1.5% |  +4.03%  +2.50%   66h
+H drop12 | +5% or 72h | any                           61  0.11  82%  +2.14%  +3.96%  +2.76% |    +1.0%    4%   -1.9%    +1.3% |  +2.84%  +0.81%   32h
+H drop12 | +5% or 72h | BTC>50d                       16  0.03  88%  +3.05%  +3.96%  +3.67% |    +0.5%    1%   +nan%    +0.6% |  +3.43%  +1.40%   24h
+H drop12 | +5% or 72h | BTC>100d                      16  0.03  94%  +3.53%  +3.96%  +4.15% |    +0.6%    0%   +nan%    +0.7% |  +3.47%  +3.96%   21h
+H drop12 | +5% or 72h | BTC<50d                       46  0.08  80%  +1.86%  +3.96%  +2.48% |    +0.5%    4%   -1.9%    +0.8% |  +2.60%  +0.71%   34h
+H drop12 | +5% or 72h | BTC<100d                      46  0.08  78%  +1.70%  +3.96%  +2.31% |    +0.5%    4%   -1.9%    +0.7% |  +2.55%  +0.48%   35h
+D up10>100d | sell after 2d | any                     33  0.06  48%  +2.76%  -0.13%  +3.38% |    +0.9%    5%   -3.6%    +1.2% |  +3.70%  +0.60%   48h
+D up10>100d | sell after 2d | BTC>50d                 31  0.06  45%  +0.97%  -1.72%  +1.57% |    +0.3%    7%   -3.6%    +0.5% |  +1.14%  +0.60%   48h
+D up10>100d | sell after 2d | BTC>100d                30  0.05  50%  +3.33%  +0.08%  +3.95% |    +1.0%    5%   -3.6%    +1.3% |  +4.06%  +1.64%   48h
+
+==============================================================================================================
+4. WALK-FORWARD (6 blocks of ~91 days; before each of blocks 3..6 pick the best variant on ALL earlier blocks, trade the next block with it)
+==============================================================================================================
+blocks: 2025-03-28 | 2025-06-28 | 2025-09-27 | 2025-12-27 | 2026-03-28 | 2026-06-27 | 2026-09-26
+
+### cost 0.5%/side (selection AND test at this cost)
+
+  D-MR / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: D drop8 | close>5davg or 3d | any                    train +3.80%/trade -> TEST +3.12%/trade n=19 win 58%
+    2025-12-27 .. 2026-03-28: D drop8 | close>5davg or 3d | BTC<50d                train +4.49%/trade -> TEST +5.45%/trade n=14 win 71%
+    2026-03-28 .. 2026-06-27: D drop8 | close>5davg or 3d | BTC<50d                train +4.73%/trade -> TEST -7.80%/trade n=4 win 25%
+    2026-06-27 .. 2026-09-26: D drop8 | close>5davg or 3d | BTC<50d                train +3.88%/trade -> TEST no trades (filter kept it in cash)
+    UNSEEN: +2.82%/trade [95% CI -0.17% .. +5.91%], median +5.71%, win 59%, 0.10 signals/day; 5-slot account +0.57%/month (0.07 trades/day), max DD 9%, worst month -7.3%
+
+  D-MR / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: D drop8 | close>5davg or 3d | any                    train +3.33%/mo -> TEST +3.12%/trade n=19 win 58%
+    2025-12-27 .. 2026-03-28: D drop8 | close>5davg or 3d | BTC<50d                train +3.11%/mo -> TEST +5.45%/trade n=14 win 71%
+    2026-03-28 .. 2026-06-27: D rsi<5 | close>5davg or 3d | BTC<50d                train +2.88%/mo -> TEST -3.51%/trade n=24 win 38%
+    2026-06-27 .. 2026-09-26: D drop8 | close>5davg or 3d | BTC<50d                train +1.82%/mo -> TEST no trades (filter kept it in cash)
+    UNSEEN: +0.90%/trade [95% CI -1.60% .. +3.30%], median +0.13%, win 53%, 0.16 signals/day; 5-slot account -0.07%/month (0.12 trades/day), max DD 16%, worst month -13.4%
+
+  H-MR / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: H drop8 | +5% or 72h | BTC<50d                       train +2.08%/trade -> TEST +0.61%/trade n=58 win 67%
+    2025-12-27 .. 2026-03-28: H drop12 | +5% or 72h | any                          train +2.84%/trade -> TEST +1.09%/trade n=17 win 71%
+    2026-03-28 .. 2026-06-27: H drop12 | +5% or 72h | any                          train +2.32%/trade -> TEST -4.69%/trade n=2 win 50%
+    2026-06-27 .. 2026-09-26: H drop12 | +5% or 72h | any                          train +2.08%/trade -> TEST +3.96%/trade n=2 win 100%
+    UNSEEN: +0.67%/trade [95% CI -0.39% .. +1.75%], median +3.96%, win 68%, 0.22 signals/day; 5-slot account +0.13%/month (0.16 trades/day), max DD 13%, worst month -8.1%
+
+  H-MR / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: H drop8 | +5% or 72h | BTC<50d                       train +1.91%/mo -> TEST +0.61%/trade n=58 win 67%
+    2025-12-27 .. 2026-03-28: H drop12 | +5% or 72h | any                          train +2.07%/mo -> TEST +1.09%/trade n=17 win 71%
+    2026-03-28 .. 2026-06-27: H drop12 | +5% or 72h | any                          train +1.52%/mo -> TEST -4.69%/trade n=2 win 50%
+    2026-06-27 .. 2026-09-26: H drop12 | +5% or 72h | any                          train +1.09%/mo -> TEST +3.96%/trade n=2 win 100%
+    UNSEEN: +0.67%/trade [95% CI -0.39% .. +1.75%], median +3.96%, win 68%, 0.22 signals/day; 5-slot account +0.13%/month (0.16 trades/day), max DD 13%, worst month -8.1%
+
+  MOM / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: D up10 | sell after 2d | any                         train +3.23%/trade -> TEST -1.52%/trade n=14 win 29%
+    2025-12-27 .. 2026-03-28: H up15 | sell after 72h | any                        train +2.85%/trade -> TEST -8.76%/trade n=7 win 0%
+    2026-03-28 .. 2026-06-27: D up5 | sell after 2d | BTC>100d                     train +1.23%/trade -> TEST -4.92%/trade n=1 win 0%
+    2026-06-27 .. 2026-09-26: D up5 | sell after 2d | BTC>100d                     train +1.17%/trade -> TEST +1.70%/trade n=27 win 41%
+    UNSEEN: -0.85%/trade [95% CI -2.94% .. +1.67%], median -2.24%, win 31%, 0.13 signals/day; 5-slot account -1.09%/month (0.12 trades/day), max DD 16%, worst month -10.5%
+
+  MOM / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: D up5 | sell after 2d | BTC>100d                     train +4.17%/mo -> TEST -1.04%/trade n=8 win 50%
+    2025-12-27 .. 2026-03-28: D up5 | sell after 2d | BTC>100d                     train +2.70%/mo -> TEST no trades (filter kept it in cash)
+    2026-03-28 .. 2026-06-27: D up5 | sell after 2d | BTC>100d                     train +2.02%/mo -> TEST -4.92%/trade n=1 win 0%
+    2026-06-27 .. 2026-09-26: D up5 | sell after 2d | BTC>100d                     train +1.54%/mo -> TEST +1.70%/trade n=27 win 41%
+    UNSEEN: +0.90%/trade [95% CI -1.60% .. +3.83%], median -1.35%, win 42%, 0.10 signals/day; 5-slot account +0.24%/month (0.09 trades/day), max DD 11%, worst month -10.5%
+
+  ALL / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: D drop8 | close>5davg or 3d | any                    train +3.80%/trade -> TEST +3.12%/trade n=19 win 58%
+    2025-12-27 .. 2026-03-28: D drop8 | close>5davg or 3d | BTC<50d                train +4.49%/trade -> TEST +5.45%/trade n=14 win 71%
+    2026-03-28 .. 2026-06-27: D drop8 | close>5davg or 3d | BTC<50d                train +4.73%/trade -> TEST -7.80%/trade n=4 win 25%
+    2026-06-27 .. 2026-09-26: D drop8 | close>5davg or 3d | BTC<50d                train +3.88%/trade -> TEST no trades (filter kept it in cash)
+    UNSEEN: +2.82%/trade [95% CI -0.17% .. +5.91%], median +5.71%, win 59%, 0.10 signals/day; 5-slot account +0.57%/month (0.07 trades/day), max DD 9%, worst month -7.3%
+
+  ALL / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: D up5 | sell after 2d | BTC>100d                     train +4.17%/mo -> TEST -1.04%/trade n=8 win 50%
+    2025-12-27 .. 2026-03-28: D drop8 | close>5davg or 3d | BTC<50d                train +3.11%/mo -> TEST +5.45%/trade n=14 win 71%
+    2026-03-28 .. 2026-06-27: D rsi<5 | close>5davg or 3d | BTC<50d                train +2.88%/mo -> TEST -3.51%/trade n=24 win 38%
+    2026-06-27 .. 2026-09-26: D drop8 | close>5davg or 3d | BTC<50d                train +1.82%/mo -> TEST no trades (filter kept it in cash)
+    UNSEEN: -0.35%/trade [95% CI -2.82% .. +2.09%], median -0.10%, win 50%, 0.13 signals/day; 5-slot account -0.71%/month (0.11 trades/day), max DD 16%, worst month -13.4%
+
+### cost 0.2%/side (selection AND test at this cost)
+
+  D-MR / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: D drop8 | close>5davg or 3d | any                    train +4.42%/trade -> TEST +3.74%/trade n=19 win 58%
+    2025-12-27 .. 2026-03-28: D drop8 | close>5davg or 3d | BTC<50d                train +5.12%/trade -> TEST +6.08%/trade n=14 win 71%
+    2026-03-28 .. 2026-06-27: D drop8 | close>5davg or 3d | BTC<50d                train +5.36%/trade -> TEST -7.25%/trade n=4 win 25%
+    2026-06-27 .. 2026-09-26: D drop8 | close>5davg or 3d | BTC<50d                train +4.51%/trade -> TEST no trades (filter kept it in cash)
+    UNSEEN: +3.44%/trade [95% CI +0.43% .. +6.55%], median +6.34%, win 59%, 0.10 signals/day; 5-slot account +0.84%/month (0.07 trades/day), max DD 7%, worst month -6.5%
+
+  D-MR / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: D drop5 | +8% or 3d | any                            train +4.42%/mo -> TEST -2.84%/trade n=59 win 44%
+    2025-12-27 .. 2026-03-28: D drop8 | close>5davg or 3d | any                    train +3.62%/mo -> TEST +6.08%/trade n=14 win 71%
+    2026-03-28 .. 2026-06-27: D rsi<5 | close>5davg or 3d | BTC<50d                train +3.90%/mo -> TEST -2.93%/trade n=24 win 42%
+    2026-06-27 .. 2026-09-26: D rsi<5 | close>5davg or 3d | BTC<50d                train +2.32%/mo -> TEST +1.11%/trade n=5 win 80%
+    UNSEEN: -1.44%/trade [95% CI -3.19% .. +0.25%], median -0.09%, win 49%, 0.28 signals/day; 5-slot account -3.02%/month (0.23 trades/day), max DD 34%, worst month -20.6%
+
+  H-MR / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: H drop8 | +5% or 72h | BTC<50d                       train +2.69%/trade -> TEST +1.22%/trade n=58 win 71%
+    2025-12-27 .. 2026-03-28: H drop12 | +5% or 72h | any                          train +3.46%/trade -> TEST +1.70%/trade n=17 win 71%
+    2026-03-28 .. 2026-06-27: H drop12 | +5% or 72h | any                          train +2.93%/trade -> TEST -4.11%/trade n=2 win 50%
+    2026-06-27 .. 2026-09-26: H drop12 | +5% or 72h | any                          train +2.69%/trade -> TEST +4.58%/trade n=2 win 100%
+    UNSEEN: +1.27%/trade [95% CI +0.21% .. +2.36%], median +4.58%, win 71%, 0.22 signals/day; 5-slot account +0.71%/month (0.16 trades/day), max DD 12%, worst month -5.3%
+
+  H-MR / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: H drop5 | sell after 24h | any                       train +5.50%/mo -> TEST -0.57%/trade n=190 win 44%
+    2025-12-27 .. 2026-03-28: H drop8 | +5% or 72h | any                           train +2.67%/mo -> TEST -1.56%/trade n=33 win 45%
+    2026-03-28 .. 2026-06-27: H drop12 | +5% or 72h | any                          train +2.00%/mo -> TEST -4.11%/trade n=2 win 50%
+    2026-06-27 .. 2026-09-26: H drop12 | +5% or 72h | any                          train +1.49%/mo -> TEST +4.58%/trade n=2 win 100%
+    UNSEEN: -0.70%/trade [95% CI -1.38% .. -0.06%], median -0.31%, win 44%, 0.62 signals/day; 5-slot account -2.34%/month (0.46 trades/day), max DD 28%, worst month -9.4%
+
+  MOM / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: D up10 | sell after 2d | any                         train +3.85%/trade -> TEST -0.92%/trade n=14 win 50%
+    2025-12-27 .. 2026-03-28: H up15 | sell after 72h | any                        train +3.47%/trade -> TEST -8.21%/trade n=7 win 0%
+    2026-03-28 .. 2026-06-27: D up5 | sell after 2d | BTC>100d                     train +1.84%/trade -> TEST -4.35%/trade n=1 win 0%
+    2026-06-27 .. 2026-09-26: D up5 | sell after 2d | BTC>100d                     train +1.78%/trade -> TEST +2.31%/trade n=27 win 41%
+    UNSEEN: -0.25%/trade [95% CI -2.35% .. +2.28%], median -1.65%, win 37%, 0.13 signals/day; 5-slot account -0.66%/month (0.12 trades/day), max DD 14%, worst month -9.6%
+
+  MOM / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: D up5 | sell after 2d | BTC>100d                     train +5.99%/mo -> TEST -0.45%/trade n=8 win 50%
+    2025-12-27 .. 2026-03-28: D up5 | sell after 2d | BTC>100d                     train +3.99%/mo -> TEST no trades (filter kept it in cash)
+    2026-03-28 .. 2026-06-27: D up5 | sell after 2d | BTC>100d                     train +2.98%/mo -> TEST -4.35%/trade n=1 win 0%
+    2026-06-27 .. 2026-09-26: D up5 | sell after 2d | BTC>100d                     train +2.32%/mo -> TEST +2.31%/trade n=27 win 41%
+    UNSEEN: +1.51%/trade [95% CI -1.01% .. +4.45%], median -0.76%, win 42%, 0.10 signals/day; 5-slot account +0.56%/month (0.09 trades/day), max DD 9%, worst month -8.6%
+
+  ALL / pick by best mean per trade:
+    2025-09-27 .. 2025-12-27: D drop8 | close>5davg or 3d | any                    train +4.42%/trade -> TEST +3.74%/trade n=19 win 58%
+    2025-12-27 .. 2026-03-28: D drop8 | close>5davg or 3d | BTC<50d                train +5.12%/trade -> TEST +6.08%/trade n=14 win 71%
+    2026-03-28 .. 2026-06-27: D drop8 | close>5davg or 3d | BTC<50d                train +5.36%/trade -> TEST -7.25%/trade n=4 win 25%
+    2026-06-27 .. 2026-09-26: D drop8 | close>5davg or 3d | BTC<50d                train +4.51%/trade -> TEST no trades (filter kept it in cash)
+    UNSEEN: +3.44%/trade [95% CI +0.43% .. +6.55%], median +6.34%, win 59%, 0.10 signals/day; 5-slot account +0.84%/month (0.07 trades/day), max DD 7%, worst month -6.5%
+
+  ALL / pick by best 5-slot profit/month:
+    2025-09-27 .. 2025-12-27: D up5 | sell after 2d | BTC>100d                     train +5.99%/mo -> TEST -0.45%/trade n=8 win 50%
+    2025-12-27 .. 2026-03-28: D up5 | sell after 2d | BTC>100d                     train +3.99%/mo -> TEST no trades (filter kept it in cash)
+    2026-03-28 .. 2026-06-27: D rsi<5 | close>5davg or 3d | BTC<50d                train +3.90%/mo -> TEST -2.93%/trade n=24 win 42%
+    2026-06-27 .. 2026-09-26: D rsi<5 | close>5davg or 3d | BTC<50d                train +2.32%/mo -> TEST +1.11%/trade n=5 win 80%
+    UNSEEN: -1.85%/trade [95% CI -4.26% .. +0.18%], median -0.10%, win 49%, 0.10 signals/day; 5-slot account -0.83%/month (0.09 trades/day), max DD 16%, worst month -11.5%
+
+==============================================================================================================
+SUMMARY (plain English)
+==============================================================================================================
+  - Holding BTC over the 18 months: -0.02%/month (max drawdown 53%); over the unseen test blocks: -2.20%/month. Cash: 0%.
+  - 9 Crypto.com USD coins trade >= $1M/day (median): BTC, ETH, XRP, SOL, DOGE, ADA, CRO, LINK, SUI. Meme coins are mostly too thin there.
+  - [0.5%/side] D-MR walk-forward on unseen data: +2.82%/trade (95% CI -0.17% .. +5.91%), 0.1 signals/day, 5-slot account +0.57%/month (DD 9%); picking by account profit instead: -0.07%/month, +0.90%/trade.
+  - [0.5%/side] H-MR walk-forward on unseen data: +0.67%/trade (95% CI -0.39% .. +1.75%), 0.2 signals/day, 5-slot account +0.13%/month (DD 13%); picking by account profit instead: +0.13%/month, +0.67%/trade.
+  - [0.5%/side] MOM walk-forward on unseen data: -0.85%/trade (95% CI -2.94% .. +1.67%), 0.1 signals/day, 5-slot account -1.09%/month (DD 16%); picking by account profit instead: +0.24%/month, +0.90%/trade.
+  - [0.5%/side] nothing passed (needs 95% CI of unseen mean per trade above 0 AND a profitable 5-slot account); best unseen account was +0.57%/month.
+  - [0.2%/side] D-MR walk-forward on unseen data: +3.44%/trade (95% CI +0.43% .. +6.55%), 0.1 signals/day, 5-slot account +0.84%/month (DD 7%); picking by account profit instead: -3.02%/month, -1.44%/trade.
+  - [0.2%/side] H-MR walk-forward on unseen data: +1.27%/trade (95% CI +0.21% .. +2.36%), 0.2 signals/day, 5-slot account +0.71%/month (DD 12%); picking by account profit instead: -2.34%/month, -0.70%/trade.
+  - [0.2%/side] MOM walk-forward on unseen data: -0.25%/trade (95% CI -2.35% .. +2.28%), 0.1 signals/day, 5-slot account -0.66%/month (DD 14%); picking by account profit instead: +0.56%/month, +1.51%/trade.
+
+  => ONLY WITH CHEAP FEES: nothing works at 0.5%/side; at 0.2%/side D-MR (picked by mean) made +0.84%/month on unseen data (+3.44%/trade, CI +0.43% .. +6.55%, 0.1 trades/day) - needs a maker-fee exchange (e.g. Kraken Pro limit orders).
+  => settings if moved to a cheap exchange: D drop8 | close>5davg or 3d | BTC<50d
+  => ON CRYPTO.COM TODAY: none works - move the crypto account's idle cash to the DEX strategy.
+
+(total runtime 188s)
