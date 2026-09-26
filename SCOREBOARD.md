@@ -1,9 +1,9 @@
 # Scoreboard (pretend money)
 
-**Crypto: $491.59**  (-8.41)  
+**Crypto: $490.41**  (-9.59)  
 **Stocks: $500.00**  (+0.00)  
-**DEX: $518.20 (+18.20)** · Scammed: 0  
+**DEX: $515.56 (+15.56)** · Scammed: 0  
 
-**Total: $991.59** of $1,000  (-8.41)
+**Total: $990.41** of $1,000  (-9.59)
 
-Updated 2026-09-26 13:06 UTC
+Updated 2026-09-26 14:06 UTC
