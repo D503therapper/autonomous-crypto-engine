@@ -318,7 +318,16 @@ def test_rejections():
         r = rows(f"{d}/screen.csv")[-1]
         assert r["verdict"] == "REJECT" and want in r["reasons"], (name, r)
         shutil.rmtree(d)
-    print("  rejections: honeypot, tax, mintable, pausable, freeze, LP, whales, proxy   ok")
+    # GoPlus has no holder / LP data on Solana: RugCheck settles it (pass if clean, reject if not)
+    for rc, verdict, why in ((RC_OK, "PASS", ""), (dict(RC_OK, lpLockedPct=40), "REJECT", "rugcheck lp locked 40%"),
+                             ({k: v for k, v in RC_OK.items() if k != "lpLockedPct"}, "REJECT", "rugcheck: lp lock unknown")):
+        h, fetch, d = make(table_sol(gp=gp_sol(holders=[], lp_holders=[]), rc=rc))
+        screen(h, cand("solana", SOL))
+        r = rows(f"{d}/screen.csv")[-1]
+        assert r["verdict"] == verdict and why in r["reasons"], (verdict, r)
+        assert any("rugcheck" in u for u in fetch.calls)
+        shutil.rmtree(d)
+    print("  rejections: honeypot, tax, mintable, pausable, freeze, LP, whales, proxy; SOL unknowns -> RugCheck   ok")
 
 
 def test_unreachable_fails_closed():

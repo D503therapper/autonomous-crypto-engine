@@ -331,14 +331,17 @@ def check_goplus_sol(d, S):
               and str(h.get("account") or h.get("address") or "").lower() in creators)
     if own > S["max_creator_pct"]:
         r.append((f"creator holds {own:.0%}", "flag"))
+    # GoPlus often has no holder / LP data for Solana pools: missing data is not a scam, so RugCheck
+    # (always the next step) must settle it - its LP-lock check and score (which counts holder
+    # concentration) still fail closed. Seen 2026-09-26: PAID +247% and ELON +68% rejected on this alone.
     t10 = top_holders(d.get("holders"))
     if t10 is None:
-        r.append(("holders unknown", "flag"))
+        r.append(("holders unknown", "defer"))
     elif t10 > S["max_top10_pct"]:
         r.append((f"top-10 holders {t10:.0%}", "flag"))
     lp = lp_locked(d.get("lp_holders"))
     if lp is None:
-        r.append(("lp holders unknown", "flag"))
+        r.append(("lp holders unknown", "defer"))
     elif lp < S["min_lp_locked"]:
         r.append((f"lp locked {lp:.0%} < {S['min_lp_locked']:.0%}", "flag"))
     return r
@@ -781,12 +784,12 @@ class DexHunter:
             reasons = check_rugcheck(obj, S) if st == 200 and isinstance(obj, dict) else [("rugcheck unreachable", "unreach")]
         job["reasons"] += reasons
         job["done"] = job.get("done", 0) + 1
-        hard = [r for r in reasons if r[1] != "defer"]         # a deferred tax needs the second source's word
+        hard = [r for r in reasons if r[1] != "defer"]         # a deferred check needs the second source's word
         job["i"] = len(job["steps"]) if hard else job["i"] + 1    # first hard failure ends the screen
 
     def _finish(self, job, now):
         c, rs, st = job["c"], job["reasons"], self.state
-        if not any(s not in ("defer",) for _, s in rs):        # every step passed: the 2nd source settled the tax
+        if not any(s not in ("defer",) for _, s in rs):        # every step passed: the 2nd source settled it
             rs = []
         why = "; ".join(t for t, _ in rs)
         if job["mode"] == "rescreen":
