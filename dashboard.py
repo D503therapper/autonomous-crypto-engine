@@ -92,7 +92,7 @@ def render(cards, updated_ms):
     base = start * len(official)
     pl = total - base
     up = pl >= 0
-    accent = "#22e39a" if up else "#ff5c7a"
+    accent = "#22e39a" if up else "#ff3b3b"
     # every official account counts (one with no history yet is flat at its starting $500)
     total_series = _combine([c["series"] for c in official]) if official else []
     # this month: change since the last value before the 1st (UTC); the base if we started this month
@@ -128,7 +128,7 @@ def render(cards, updated_ms):
     blocks = []
     for i, c in enumerate(cards):
         d = c["equity"] - start
-        col = "#22e39a" if d >= 0 else "#ff5c7a"
+        col = "#22e39a" if d >= 0 else "#ff3b3b"
         last = c.get("last")
         last_txt = '<span class="idle"><i></i><span>No trades yet — watching the market</span></span>'
         if last:
@@ -162,7 +162,7 @@ def render(cards, updated_ms):
 <title>The D503 · Autonomous Trading Engine</title>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="apple-touch-icon.png">
 <style>
-:root{{--bg:#05070d;--card:#0c111b;--card2:#111a2b;--line:#1a2438;--text:#eef3ff;--muted:#7f8aa3;--up:#22e39a;--dn:#ff4d6d;--blue:#3b82ff;--cyan:#22d3ee;--accent:{accent}}}
+:root{{--bg:#05070d;--card:#0c111b;--card2:#111a2b;--line:#1a2438;--text:#eef3ff;--muted:#7f8aa3;--up:#22e39a;--dn:#ff3b3b;--blue:#3b82ff;--cyan:#22d3ee;--accent:{accent}}}
 *{{box-sizing:border-box}}
 html,body{{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}}
 body{{font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
@@ -231,7 +231,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .last b{{font-weight:650}}
 .badge{{font-size:12px;font-weight:650;padding:4px 9px;border-radius:999px;white-space:nowrap}}
 .badge.ok{{background:rgba(34,227,154,.12);color:var(--up)}}
-.badge.bad{{background:rgba(255,92,122,.14);color:var(--dn)}}
+.badge.bad{{background:rgba(255,59,59,.14);color:var(--dn)}}
 .foot{{text-align:center;color:#c3cbe0;font-size:12px;margin-top:18px}}
 .gold{{color:#fff;font-weight:800;white-space:nowrap}}
 .fname{{font-weight:900;letter-spacing:.16em;font-size:11px;margin-bottom:5px}}
@@ -249,7 +249,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="moon">TO THE MOON BABY! 🚀</div>
   <div class="lbl">Total balance</div>
   <div class="total">{_money(total)}</div>
-  <span class="pill" style="--accent:{"#22e39a" if dup else "#ff5c7a"}">{"▲" if dup else "▼"} {_chg(dpl, day_start)} <span class="since">today</span></span>
+  <span class="pill" style="--accent:{"#22e39a" if dup else "#ff3b3b"}">{"▲" if dup else "▼"} {_chg(dpl, day_start)} <span class="since">today</span></span>
   <div class="month">{tiles}</div>
   <div class="chart">{_svg(total_series, 360, 110, accent, "t", base=base)}</div>
 </section>
