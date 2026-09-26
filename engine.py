@@ -60,9 +60,16 @@ class Portfolio:
         fee = usd * self.fee
         qty = (usd - fee) / fill
         self.cash -= usd
-        self.positions[coin] = {"qty": qty, "entry": fill, "cost": usd, "peak": fill,
-                                "stop": stop,
-                                "took_profit": False, "opened": t}
+        if coin in self.positions:          # top-up (rebalance_to): average in, keep opened / stop / peak
+            pos = self.positions[coin]
+            pos["entry"] = (pos["entry"] * pos["qty"] + fill * qty) / (pos["qty"] + qty)
+            pos["qty"] += qty
+            pos["cost"] += usd
+            pos["peak"] = max(pos["peak"], fill)
+        else:
+            self.positions[coin] = {"qty": qty, "entry": fill, "cost": usd, "peak": fill,
+                                    "stop": stop,
+                                    "took_profit": False, "opened": t}
         self._record(t, "BUY", coin, qty, fill, fee, reason)
 
     def sell(self, t, coin, frac, price, reason):
@@ -82,6 +89,11 @@ class Portfolio:
         return pnl
 
 
+def open_trades(pf):
+    """Positions that count against a strategy's slots (parked idle cash doesn't)."""
+    return sum(1 for p in pf.positions.values() if not p.get("park"))
+
+
 def step(pf, candles_by_coin, strat, market_ok=True):
     """One decision cycle. candles_by_coin: {symbol: [candles oldest-first]}.
     market_ok: benchmark regime (BTC / SPY above its long average)."""
@@ -99,7 +111,7 @@ def step(pf, candles_by_coin, strat, market_ok=True):
     # 1) Manage open positions (the strategy decides stops / profit-taking).
     for coin in list(pf.positions):
         s = sig.get(coin)
-        if not s:
+        if not s or pf.positions[coin].get("park"):   # parked idle cash (run_live.park_idle) isn't a trade
             continue
         if pf.positions[coin].get("opened", 0) > s["t"]:
             # bought inside this candle at wall-clock time (minute scanner / listing / footprint /
@@ -129,6 +141,12 @@ def step(pf, candles_by_coin, strat, market_ok=True):
             return
         pf.last_rebalance_week = week
 
+    # Target-weight strategies (stock_strategies.py): the strategy hands back
+    # {symbol: fraction of equity}; rebalance_to() does the selling / resizing / buying.
+    if hasattr(strat, "targets"):
+        rebalance_to(pf, now, strat.targets(sig), sig, getattr(strat, "name", "rebalance"))
+        return
+
     # Rotation strategies: on rebalance, sell holdings that fell out of the top N.
     if getattr(strat, "rotate", False):
         top = sorted((c for c, s in sig.items() if s["buy"]), key=lambda c: sig[c]["rank"],
@@ -144,7 +162,7 @@ def step(pf, candles_by_coin, strat, market_ok=True):
                    key=lambda c: sig[c]["rank"], reverse=True)
     veto = getattr(strat, "veto", None)   # optional hook (run_live wires signals.PumpGuard into it)
     for coin in cands:
-        if len(pf.positions) >= getattr(strat, "max_positions", config.MAX_POSITIONS):
+        if open_trades(pf) >= getattr(strat, "max_positions", config.MAX_POSITIONS):
             break
         s = sig[coin]
         if veto and veto(coin, s):
@@ -157,6 +175,36 @@ def step(pf, candles_by_coin, strat, market_ok=True):
                   pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd >= config.MIN_ORDER_USD:
             pf.buy(now, coin, usd, s["price"], s["stop"], reason=s.get("reason", "entry"))
+
+
+def rebalance_to(pf, now, weights, sig, tag="rebalance", tol=0.02):
+    """Move the account to target weights ({symbol: fraction of equity}), as lab.simulate()
+    does on a rebalance day: sell what is no longer wanted, trim / top up what stayed when it
+    is off target by more than `tol` of equity, buy what is new. Weights are scaled by the
+    investable share (1 - MIN_CASH_RESERVE_PCT) so the cash reserve rule still holds.
+    Symbols without a signal this cycle (no data) are left untouched."""
+    prices = {c: s["price"] for c, s in sig.items()}
+    for coin in list(pf.positions):
+        if coin not in weights and coin in prices:
+            pf.sell(now, coin, 1.0, prices[coin], f"{tag}: dropped from targets")
+    eq = pf.equity(prices)
+    band, investable = tol * eq, 1 - config.MIN_CASH_RESERVE_PCT
+    order = sorted((c for c in weights if c in prices), key=lambda c: -weights[c])
+
+    def gap(coin):
+        held = pf.positions[coin]["qty"] * prices[coin] if coin in pf.positions else 0.0
+        return weights[coin] * investable * eq - held, held
+    for coin in order:                                   # trims first: they free the cash
+        delta, held = gap(coin)
+        if delta < -band:
+            pf.sell(now, coin, min(1.0, -delta / held), prices[coin], f"{tag}: trim to target")
+    for coin in order:                                   # then top-ups and new entries
+        delta, held = gap(coin)
+        if delta > band:
+            usd = min(delta, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
+            if usd >= config.MIN_ORDER_USD:
+                pf.buy(now, coin, usd, prices[coin], sig[coin]["stop"],
+                       reason=f"{tag}: {'top up' if held else 'entry'} {weights[coin]:.0%}")
 
 
 def append_csv(path, rows):

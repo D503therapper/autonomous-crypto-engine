@@ -16,7 +16,7 @@ import config
 import dashboard
 import dex
 import social
-from engine import Portfolio, append_csv, step, ts
+from engine import Portfolio, append_csv, open_trades, step, ts
 from markets import MARKETS
 from scanner import MinuteScanner, describe
 from signals import ListingNoticeReactor, PrePumpFootprint, PumpGuard
@@ -116,6 +116,8 @@ def full_cycle(mname, client):
         n_before, was_halted = len(pf.trades), pf.halted
         coins = {s: data[s] for s in st.universe if s in data}
         step(pf, social.tag(coins) if getattr(st, "needs_coin", False) else coins, st, ok)
+        if st is EARLY:                                # keep the official listing hunter fully invested
+            park_idle(pf, int(time.time() * 1000), prices.get(PARK))
         eq = save_pf(mname, st.name, pf, n_before, prices)
         append_csv(f"{acct_dir(mname, st.name)}/equity.csv",
                    [{"time": now, "equity": round(eq, 2), "cash": round(pf.cash, 2),
@@ -157,7 +159,7 @@ def fast_check(mname, client):
         n_before = len(pf.trades)
         for s in list(pf.positions):
             p, pos = px.get(s), pf.positions[s]
-            if p is None:
+            if p is None or pos.get("park"):          # parked idle cash has no stop
                 continue
             if hasattr(st, "trail"):
                 pos["peak"] = max(pos["peak"], p)
@@ -191,6 +193,29 @@ def early_veto(guard, scanner):
     return veto
 
 
+PARK = "BTC"   # the official listing hunter keeps idle cash in BTC between listings
+
+
+def park_idle(pf, now, price):
+    """Put idle cash (above the reserve) into BTC so the whole account stays invested."""
+    if not price:
+        return
+    eq = pf.equity({PARK: price})
+    spare = pf.cash - eq * config.MIN_CASH_RESERVE_PCT
+    if spare >= 2 * config.MIN_ORDER_USD:
+        pf.buy(now, PARK, spare, price, 0.0, reason="park idle cash in BTC")
+        pf.positions[PARK]["park"] = True
+
+
+def unpark(pf, now, need, price):
+    """Sell enough parked BTC to raise `need` dollars of cash for a new trade."""
+    pos = pf.positions.get(PARK)
+    if not pos or not pos.get("park") or not price or need <= 0:
+        return
+    frac = min(1.0, need / (pos["qty"] * price * (1 - pf.fee - pf.slippage)))
+    pf.sell(now, PARK, frac if frac < 0.999 else 1.0, price, "unpark BTC for a new trade")
+
+
 def buy_early(cands, scanner, guard, tag, st=None):
     """Buy candidates [{coin, price, reason, text}] (best first) into the early_mover account.
     The one code path for the minute scanner, the listing reactor and the footprint scanner:
@@ -205,7 +230,7 @@ def buy_early(cands, scanner, guard, tag, st=None):
     prices.update({c["coin"]: c["price"] for c in cands})
     eq, n_before = pf.equity(prices), len(pf.trades)
     for c in cands:
-        if pf.halted or len(pf.positions) >= st.max_positions:
+        if pf.halted or open_trades(pf) >= st.max_positions:
             break
         coin = c["coin"]
         if coin in pf.positions or pf.cooldown.get(coin, 0) > now:
@@ -214,6 +239,9 @@ def buy_early(cands, scanner, guard, tag, st=None):
         if not ok:   # (brand-new listings are exempt: buying the first hours is the tested rule)
             print(f"   {tag}: {coin} vetoed by pump guard: {why}")
             continue
+        if st is EARLY:                                # official account: free cash from the BTC park
+            unpark(pf, now, eq * st.position_pct - (pf.cash - eq * config.MIN_CASH_RESERVE_PCT),
+                   (scanner.last.get(PARK) or {}).get("price"))
         usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd < config.MIN_ORDER_USD:
             break
@@ -312,6 +340,9 @@ def trade_social(client, tracker):
         e = st.entry(coin, tick[coin], now)
         if not e:
             continue
+        if st is EARLY:                                # official account: free cash from the BTC park
+            unpark(pf, now, eq * st.position_pct - (pf.cash - eq * config.MIN_CASH_RESERVE_PCT),
+                   (scanner.last.get(PARK) or {}).get("price"))
         usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd < config.MIN_ORDER_USD:
             break
@@ -322,10 +353,22 @@ def trade_social(client, tracker):
         save_pf("crypto", st.name, pf, n_before, prices)
 
 
+def _mains(m):
+    """Official account(s) of a market: one strategy name, or several that split the $500."""
+    return list(m["main"]) if isinstance(m["main"], (list, tuple)) else [m["main"]]
+
+
+def _official(mn, m):
+    """(balance, trades) of a market's official $500. When several strategies split it, each runs
+    its own $500 test account, so the official balance is their average (= equal split)."""
+    bals = [_balance(mn, s) for s in _mains(m)]
+    return sum(b[0] for b in bals) / len(bals), sum(b[1] for b in bals)
+
+
 def scoreboard():
     """SCOREBOARD.md: the two official $500 accounts. LAB.md: every test strategy."""
     start = config.STARTING_CASH_USD
-    main = [(mn, m["main"], *_balance(mn, m["main"])) for mn, m in MARKETS.items()]
+    main = [(mn, _mains(m), *_official(mn, m)) for mn, m in MARKETS.items()]
     total = sum(r[2] for r in main)
     out = ["# Scoreboard (pretend money)", ""]
     for mn, _, eq, _ in main:
@@ -344,7 +387,7 @@ def scoreboard():
            "The best one in each market trades the official account on SCOREBOARD.md.", "",
            "| Market | Strategy | Balance | Return | Trades |", "|---|---|---|---|---|"]
     for mn, sn, eq, n in lab:
-        star = " (official)" if MARKETS.get(mn, {}).get("main") == sn else ""
+        star = " (official)" if mn in MARKETS and sn in _mains(MARKETS[mn]) else ""
         out.append(f"| {mn} | {sn}{star} | ${eq:,.2f} | {eq / start - 1:+.1%} | {n} |")
     with open("LAB.md", "w") as f:
         f.write("\n".join(out) + "\n")
@@ -356,13 +399,15 @@ def write_dashboard(rows, total):
     """docs/index.html: the phone dashboard (dashboard.py). Official accounts + the DEX card."""
     look = {"crypto": ("₿", "#3b82ff", "#22d3ee"), "stocks": ("📈", "#7c3aed", "#3b82ff")}
     cards = []
-    for mn, sn, eq, _ in rows:
-        d = acct_dir(mn, sn)
-        pf = load_pf(mn, sn)
+    for mn, names, eq, _ in rows:
+        k = len(names)                                 # several strategies split the $500 equally
+        series = dashboard._combine([dashboard._series(f"{acct_dir(mn, s)}/equity.csv") for s in names])
+        lasts = [t for t in (dashboard._last_trade(f"{acct_dir(mn, s)}/trades.csv") for s in names) if t]
         icon, c1, c2 = look.get(mn, ("•", "#3b82ff", "#22d3ee"))
         cards.append({"name": mn.title(), "icon": icon, "c1": c1, "c2": c2, "official": True, "equity": eq,
-                      "series": dashboard._series(f"{d}/equity.csv"), "positions": len(pf.positions),
-                      "last": dashboard._last_trade(f"{d}/trades.csv")})
+                      "series": [(t, v / k) for t, v in series],
+                      "positions": sum(len(load_pf(mn, s).positions) for s in names),
+                      "last": max(lasts, key=lambda t: t.get("time", "")) if lasts else None})
     try:                                               # DEX paper account: not part of the total
         st = dex.scoreboard_stats()
         d = f'{dex.DEX["dir"]}/{dex.DEX["name"]}'

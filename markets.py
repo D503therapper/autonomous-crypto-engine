@@ -2,6 +2,7 @@
 and its own $500 paper account per strategy."""
 import config
 from social import SocialHeat
+from stock_strategies import DualMomentum, TrendEnsemble
 from strategy import (BreakoutHunter, DonchianRotation, EarlyMover, HoldBenchmark, MomentumRotation,
                       RSI2MeanReversion, TrendFollower, WeeklyMomentum)
 
@@ -20,7 +21,9 @@ MARKETS = {
     "crypto": {
         "client": _crypto,
         "benchmark": "BTC",
-        "main": "early_mover",     # the strategy trading this market's official $500
+        # official $500 split in two: half hunts new listings (big wins), half trades actively
+        # every day (10-day breakout rotation). Each runs a $500 account; the scoreboard averages them.
+        "main": ["early_mover", "breakout10"],
         "bars_per_day": 24,
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
         "strategies": [
@@ -46,6 +49,9 @@ MARKETS = {
         "fee": config.STOCK_FEE_RATE, "slippage": config.STOCK_SLIPPAGE_RATE,
         "strategies": [
             RSI2MeanReversion(sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), 7),
+            # lab walk-forward picks (results/lab_stocks.txt), target-weight accounts (test):
+            DualMomentum(7),                                    # monthly index-ETF momentum vs IEF
+            TrendEnsemble(sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), 7),  # weekly trend top-5
             MomentumRotation(config.STOCK_UNIVERSE, 7),
             WeeklyMomentum(config.STOCK_UNIVERSE, 7, "stocks"),
             TrendFollower(config.STOCK_UNIVERSE),
