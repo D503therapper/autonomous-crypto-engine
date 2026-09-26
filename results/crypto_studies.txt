@@ -1,0 +1,292 @@
+crypto_studies.py  run 2026-09-26 14:25 UTC  cost 0.50%/side (config.FEE_RATE 0.40% + SLIPPAGE_RATE 0.10%)
+
+==============================================================================================================
+A. BREAKOUT10 ROTATION: meme coins in the universe, one coin vs two vs three, weekly vs daily
+==============================================================================================================
+meme candidates on Crypto.com (need >= 180 daily bars and median daily volume >= $250,000 over the last 90 days):
+  SHIB       1903 days since 2021-07-12  median daily $      170,653  too thin / short
+  PEPE       1240 days since 2023-05-06  median daily $      100,074  too thin / short
+  BONK       1013 days since 2023-12-19  median daily $       33,214  too thin / short
+  WIF         983 days since 2024-01-18  median daily $       12,405  too thin / short
+  FLOKI      1286 days since 2023-03-21  median daily $       10,049  too thin / short
+  POPCAT      816 days since 2024-06-26  median daily $          744  too thin / short
+  MOG         929 days since 2024-03-12  median daily $        3,343  too thin / short
+  TURBO       849 days since 2024-05-31  median daily $        7,173  too thin / short
+  BOME        923 days since 2024-03-15  median daily $        2,561  too thin / short
+  PNUT        683 days since 2024-11-11  median daily $        2,674  too thin / short
+  GOAT        711 days since 2024-10-16  median daily $        3,667  too thin / short
+  FARTCOIN    592 days since 2025-02-12  median daily $       17,097  too thin / short
+  TRUMP       617 days since 2025-01-18  median daily $       54,290  too thin / short
+  MOODENG     708 days since 2024-10-18  median daily $        1,060  too thin / short
+  PENGU       649 days since 2024-12-17  median daily $        4,531  too thin / short
+  SPX         588 days since 2025-02-14  median daily $        2,097  too thin / short
+  WEN         900 days since 2024-03-26  median daily $        1,596  too thin / short
+  MYRO        823 days since 2024-03-05  median daily $          859  too thin / short
+  TOSHI       618 days since 2025-01-15  median daily $        2,082  too thin / short
+  CHILLGUY    675 days since 2024-11-20  median daily $        1,097  too thin / short
+  ACT         644 days since 2024-11-11  median daily $          953  too thin / short
+  PONKE       788 days since 2024-06-26  median daily $          348  too thin / short
+  ELON       1606 days since 2022-05-05  median daily $       14,591  too thin / short
+  SNEK        370 days since 2025-07-29  median daily $          354  too thin / short
+  TROLL       277 days since 2025-09-24  median daily $        2,234  too thin / short
+  USELESS     460 days since 2025-06-23  median daily $       28,196  too thin / short
+  LADYS      1229 days since 2023-05-11  median daily $          574  too thin / short
+  DEGEN       870 days since 2024-04-08  median daily $          641  too thin / short
+  PUMP        441 days since 2025-07-10  median daily $       24,974  too thin / short
+  MANEKI      887 days since 2024-04-23  median daily $          577  too thin / short
+
+core = config.UNIVERSE (16); memes used = none; meme-only = DOGE + memes (1)
+BTC daily history 2021-04-06 .. 2026-09-26 (2000 days); simulation starts after a 100-day warm-up
+engine replay: strategy.DonchianRotation(lookback 10, regime 100d) through engine.step on daily closes, runner rules on (as live), cost 0.50%/side; a meme coin only trades once it has 32 days of history
+(survivorship caveat: memes are coins that still trade today with volume; old windows hold few or none of them)
+  .. 13 engine replays in 3s
+
+span 2021-07-15 .. 2026-09-26; older half < 2024-02-20 <= newer half; walk-forward 18m train -> 6m test, 8 test windows (2023-01-01 .. 2026-09-26)
+
+universe     top rebal  |  /month    total  maxDD worst mo pos mo | old /mo new /mo new DD | WF-OOS/mo win vs live trades  verdict
+----------------------------------------------------------------------------------------------------------------------------------
+core (live)    1 weekly |  -3.10%     -86%    91%   -31.8%    27% |  -3.12%  -2.99%    69% |    -3.23%     3/8         65  no
+core (live)    1 daily  |  +0.05%      +3%    83%   -35.3%    32% |  -1.62%  +1.84%    73% |    +0.14%     4/8        129  no
+core (live)    2 weekly |  +0.21%     +14%    76%   -35.8%    32% |  +0.07%  +0.43%    52% |    +1.18%     0/8        100  LIVE
+core (live)    2 daily  |  +0.91%     +76%    73%   -36.2%    41% |  +2.21%  -0.29%    73% |    +1.47%     5/8        236  no
+core (live)    3 weekly |  +0.28%     +19%    65%   -33.6%    35% |  +0.47%  +0.18%    52% |    +0.94%     3/8        133  no
+core (live)    3 daily  |  +0.44%     +32%    75%   -34.2%    40% |  +0.50%  +0.46%    62% |    +1.18%     5/8        379  BEATS live (but deeper DD)
+core+meme      1 weekly |  -3.10%     -86%    91%   -31.8%    27% |  -3.12%  -2.99%    69% |    -3.23%     3/8         65  no
+core+meme      1 daily  |  +0.05%      +3%    83%   -35.3%    32% |  -1.62%  +1.84%    73% |    +0.14%     4/8        129  no
+core+meme      2 weekly |  +0.21%     +14%    76%   -35.8%    32% |  +0.07%  +0.43%    52% |    +1.18%     0/8        100  no
+core+meme      2 daily  |  +0.91%     +76%    73%   -36.2%    41% |  +2.21%  -0.29%    73% |    +1.47%     5/8        236  no
+core+meme      3 weekly |  +0.28%     +19%    65%   -33.6%    35% |  +0.47%  +0.18%    52% |    +0.94%     3/8        133  no
+core+meme      3 daily  |  +0.44%     +32%    75%   -34.2%    40% |  +0.50%  +0.46%    62% |    +1.18%     5/8        379  BEATS live (but deeper DD)
+hold BTC                |  +1.57%    +164%    77%   -37.3%    56% |          +1.53%    53% |
+(live setup WITHOUT the runner rules: -1.23%/month, max DD 79%, worst month -24.0% - the runner rule's effect on the rotation)
+
+WALK-FORWARD SELECTOR (each test window uses the variant with the best Sharpe over the prior 18 months; no hindsight):
+  2023-01-01 .. 2023-06-30  pick core (live)  top1 daily  ->  -31.5%   live  -17.9%
+  2023-07-01 .. 2023-12-31  pick core (live)  top1 weekly ->  -25.2%   live  +76.9%
+  2024-01-01 .. 2024-06-30  pick core (live)  top2 daily  ->  +41.6%   live  +25.8%
+  2024-07-01 .. 2024-12-31  pick core (live)  top2 daily  ->  +28.9%   live  +23.2%
+  2025-01-01 .. 2025-06-30  pick core (live)  top2 daily  ->  -24.7%   live  -25.3%
+  2025-07-01 .. 2025-12-31  pick core (live)  top1 daily  ->  -33.5%   live   +1.3%
+  2026-01-01 .. 2026-06-30  pick core (live)  top1 daily  ->  -16.6%   live   -5.4%
+  2026-07-01 .. 2026-09-26  pick core (live)  top1 weekly ->   +4.5%   live   +4.7%
+  stitched: selector -59.1% (-1.98%/mo) vs live +68.9% (+1.18%/mo)
+
+ENS_DONCHIAN (lab.py family, core universe, fills at next open, same cost) - one coin vs two:
+  top1  vol-target None : -1.10%/mo  maxDD  83%  worst month -27.3%  newer half -1.16%/mo (DD 83%)  trades 381
+  top1  vol-target 0.5  : +0.26%/mo  maxDD  61%  worst month -16.5%  newer half -0.07%/mo (DD 61%)  trades 381
+  top2  vol-target None : -0.49%/mo  maxDD  79%  worst month -27.7%  newer half -0.81%/mo (DD 79%)  trades 624
+  top2  vol-target 0.5  : +0.07%/mo  maxDD  56%  worst month -15.0%  newer half -0.41%/mo (DD 56%)  trades 623
+  top4  vol-target None : +0.10%/mo  maxDD  68%  worst month -26.3%  newer half +0.37%/mo (DD 68%)  trades 1013
+  top4  vol-target 0.5  : +0.50%/mo  maxDD  45%  worst month -14.6%  newer half +0.55%/mo (DD 45%)  trades 931
+  .. section A done in 39s
+
+==============================================================================================================
+B. ANATOMY OF THE TOP GAINERS (every Crypto.com USD pair)
+==============================================================================================================
+408 USD pairs (stable / wrapped / leveraged tokens excluded)
+
+B1. ONE-DAY GAINERS (daily close >= +30% vs the prior close; coin trading >= $100,000/day the week before): 57 coin-days over 548 days = 0.10 per day
+coin      day          gain   high | day-1 chg  7d chg day-1 vol/7d | next 3d
+VINE      2025-07-27  +108%  +116% |    +17.9%  +62.6%         1.2x |    -17%
+PYTH      2025-08-28  +100%  +104% |     -0.6%   -4.7%         0.4x |    -20%
+HNT       2026-08-30   +79%  +136% |    +66.2% +128.4%         3.2x |    -33%
+H         2026-06-09   +78%  +138% |    -86.5%  -84.5%         1.1x |    +25%
+FIL       2025-11-07   +76%  +109% |    +36.1%  +29.9%         3.8x |    -24%
+TNSR      2025-11-23   +68%  +122% |    -36.7% +106.7%         0.3x |     -2%
+HNT       2026-08-29   +66%   +76% |    +14.4%  +28.3%         1.2x |    +37%
+VNO       2025-08-28   +66%  +133% |    +54.8%  +46.7%         1.4x |    -25%
+MOODENG   2025-05-11   +63%   +70% |     +4.0% +239.7%         2.4x |    +12%
+VOXEL     2025-04-30   +60%   +77% |     +0.6%  +16.1%         0.4x |    -14%
+VINE      2025-10-12   +58%   +75% |     -4.4%  -44.7%         1.2x |    -14%
+FET       2025-11-07   +58%   +98% |     +3.5%   -3.6%         1.0x |     -4%
+VNO       2025-08-27   +55%   +79% |     -7.1%   -6.6%         1.2x |    +32%
+WLD       2025-09-08   +52%   +54% |     +7.1%  +16.9%         2.5x |     +5%
+ENJ       2026-04-15   +52%   +69% |    +33.5% +195.7%         1.8x |    -36%
+TURBO     2025-04-23   +52%   +84% |    +38.2%  +73.4%         3.0x |    +18%
+VIRTUAL   2025-05-08   +50%   +53% |     -6.5%   -9.3%         0.4x |     -7%
+USELESS   2025-08-13   +49%   +67% |     -2.6%   -1.6%         0.3x |    +20%
+MOODENG   2025-05-18   +46%   +56% |     -7.7%  +37.0%         0.3x |    -15%
+VINE      2025-04-09   +45%   +47% |    -10.7%  -39.9%         0.1x |     +3%
+VINE      2025-07-24   +44%  +122% |    -12.8%   +5.4%         0.8x |   +147%
+TRUMP     2025-04-23   +44%   +74% |    +10.8%  +17.7%         1.4x |    +17%
+LION      2025-05-02   +43%   +46% |     +0.9%  -14.1%         2.1x |     -7%
+UNI       2025-11-10   +42%   +52% |     +9.3%  +11.9%         1.5x |    -17%
+WLD       2026-06-03   +42%   +48% |    -12.5%   +1.9%         1.5x |    -23%
+ZBCN      2025-05-24   +41%   +64% |     +1.3%  +49.5%         3.5x |     -2%
+AR        2025-11-07   +38%   +53% |    +33.2%  +59.2%         1.8x |    -31%
+MOODENG   2025-05-22   +37%   +41% |     -6.2%   -7.1%         0.9x |    -14%
+HNT       2026-09-03   +36%   +45% |    -12.6% +114.9%         0.1x |    -16%
+GOAT      2025-05-18   +36%   +39% |     -7.6%  -15.1%         0.5x |     -8%
+  median over all 57: day-before change -1.4%, 7d change +17.2%, day-before volume 1.2x its 7-day average, next 3 days -6.9% (share still higher after 3 days: 40%)
+
+loading up to 548 days of hourly bars for 408 coins...
+  .. 398 coins with hourly history, 2025-03-27 15:00 .. 2026-09-26 14:00 (4,801,983 coin-hours, 724s)
+  .. scanned in 39s
+
+B2. HOURLY EVENTS: +30% or more within 24h (close to close, from the lowest close of the prior 24h = T0), coin >= $100,000/day, >= 10 days listed: 143 events (0.26/day); controls = 1,082 random coin-hours that did NOT rise 10% next 24h
+base rate: 0.366% of 550,583 eligible coin-hours are followed by +30% within 24h (5.74% by +10%)
+open interest: NOT available - Crypto.com's public API has no OI history (get-tickers `oi` is live only; the engine logs it to data/oi_history.json for ~26h). Listing notices / CoinGecko trending: no history either.
+
+top 25 events (features at T0, i.e. what was visible BEFORE the move):
+coin      T0 (UTC)           gain hrs |  vol1h  vol6h vol24h vol72h |     1h     6h    24h    72h | fp  signals within 6h before
+H         2026-06-09 00:00  +223%  11 |   1.5x   3.0x   2.9x   1.7x | -26.8% -82.4% -89.8% -87.7% | -1  -
+MOODENG   2025-05-08 10:00  +187%  24 |   0.6x   1.1x   0.4x   0.2x |  +2.5% +12.4% +23.8% +25.6% | -1  drift
+HNT       2026-08-29 17:00  +178%  22 |   2.6x   2.8x   4.0x   1.6x |  -3.3% -11.8% +57.8% +52.7% | -1  6h build,6h build+,chase30
+H         2026-06-13 12:00  +160%  20 |   0.0x   0.0x   0.2x   0.2x |  +0.0%  -3.9%  -0.7% +21.8% | -1  -
+VNO       2025-08-27 12:00  +156%  24 |   0.2x   0.5x   1.3x   1.2x |  +8.6% +13.1% +16.4% +14.5% | -1  -
+VINE      2025-07-27 08:00  +128%  24 |   2.0x   1.9x   2.7x   6.5x |  +5.0%  +4.8%  -2.6% +93.3% | -1  24h build
+VINE      2025-07-24 06:00  +118%   6 |   3.8x   1.1x   1.0x   0.9x |  -2.8% -10.2% -19.1% -21.3% | -1  -
+PYTH      2025-08-28 00:00  +108%  24 |   0.7x   0.9x   0.6x   1.2x |  -0.3%  -2.2%  -0.6%  -5.4% | -1  -
+VOXEL     2025-04-30 03:00   +80%  13 |   0.1x   0.2x   0.2x   0.2x |  -1.1%  -5.7%  -3.5%  +1.2% | -1  -
+LUNA2     2025-12-10 01:00   +71%  16 |   1.2x   2.7x   2.3x   1.6x |  -8.1% -13.9%  -5.6%  +0.3% | -1  6h build,slow accum,take-off
+VINE      2025-10-11 20:00   +69%  20 |   1.1x   0.7x   2.0x   1.3x |  -3.8%  -7.0% -25.2% -45.4% | -1  -
+CRO       2025-08-27 03:00   +68%  24 |   9.8x  11.5x  21.5x   8.4x |  +0.8%  -1.3% +30.9% +28.0% | -1  1h burst,1h burst+,6h build,6h build+,take-off,chase30
+WLD       2025-09-08 00:00   +68%  24 |   1.7x   1.9x   4.0x   2.2x |  +0.5%  +0.3%  +7.5% +19.5% | -1  6h build,6h build+,24h build,drift,take-off
+SYN       2026-06-29 12:00   +66%  24 |   0.2x   0.2x   0.4x   0.4x |  -1.6%  +7.1%  +4.1% +15.6% | -1  -
+VVS       2025-08-27 03:00   +65%  24 |   5.0x   6.2x   7.9x   3.3x |  +0.6%  -0.6% +28.5% +26.1% | -1  1h burst,6h build,6h build+,take-off,chase30
+DRIFT     2026-04-07 18:00   +64%  14 |   0.0x   0.3x   0.5x   0.3x |  -2.7%  -9.5% -13.2% -20.4% | -1  -
+DRIFT     2026-04-12 12:00   +61%  18 |   0.1x   0.1x   0.1x   0.1x |  -9.4% -14.0%  -1.2% +12.2% | -1  -
+H         2025-07-11 00:00   +60%  20 |   0.1x   0.2x   0.1x   0.1x |  -3.8%  -4.1%  +4.2% -22.9% | -1  -
+TRUMP     2025-04-22 21:00   +59%  24 |   2.6x   1.0x   1.2x   0.8x |  +2.2%  +1.7%  +9.5%  +8.7% |  3  footprint,drift
+MOODENG   2025-05-17 08:00   +58%  24 |   0.3x   0.3x   0.5x   0.8x |  -3.2%  -7.7% -18.8% -30.7% | -1  -
+USELESS   2025-08-13 06:00   +58%  24 |   1.6x   0.6x   0.4x   0.7x |  -4.0%  +2.6%  -3.5% -17.7% | -1  -
+NMR       2025-09-05 22:00   +57%  18 |   0.0x   0.0x   0.1x   0.2x |  -0.8%  -1.2%  -0.3%  -5.5% | -1  -
+TURBO     2025-12-02 11:00   +55%  24 |   0.0x   0.5x   0.5x   0.4x |  +0.1%  -0.6%  -5.2% -23.6% | -1  -
+AVNT      2025-10-20 01:00   +55%  24 |   0.4x   0.1x   0.1x   0.2x |  -1.5%  -5.7%  -5.2% -13.8% |  1  -
+VIRTUAL   2025-05-07 20:00   +54%  24 |   0.2x   0.5x   0.5x   0.6x |  +1.0%  -0.8%  -5.2% -20.2% | -1  -
+
+WHAT WAS VISIBLE BEFORE (median at T0; events vs non-pumping controls):
+feature                               events  controls  ev <+50% ev 50-100%  ev 100%+
+volume last 1h vs normal (x)            0.62      0.55      0.63      0.28      1.07
+volume last 6h vs normal (x)            0.75      0.70      0.79      0.50      1.10
+volume last 24h vs normal (x)           0.99      0.80      1.03      0.48      1.15
+volume last 72h vs normal (x)           0.96      0.86      1.02      0.71      1.22
+price change last 1h                   -0.9%     -0.0%     -0.7%     -1.5%     -0.2%
+price change last 6h                   -2.0%     -0.1%     -1.8%     -4.1%     -3.0%
+price change last 24h                  -1.4%     -0.2%     -1.4%     -3.5%     -0.7%
+price change last 72h (drift)          -1.0%     -0.7%     -1.5%     -5.5%    +18.2%
+quiet-hour share, last 48h               68%       60%       68%       72%      nan%
+volume hikes (>=3x), last 48h           2.50      2.00      2.50      2.00       nan
+normal daily USD volume              183,402   389,160   184,127   204,569   144,291
+footprint score >= 3 (live rule)        1.4%      2.4%      0.9%      4.8%      0.0%
+footprint score >= 2                    3.5%      8.7%      3.5%      4.8%      0.0%
+(n = 143 events, 1082 controls, 114 / 21 / 8 by size)
+
+SIGNALS: how often each fired BEFORE a real pump, and how often it was a FALSE ALARM
+  caught = share of events with the signal on in the 6h up to T0 (at T0 itself in brackets)
+  precision = share of firing coin-hours followed by +30% within 24h (base rate 0.366%); lift = precision / base rate; false alarms = episodes/day (24h de-dup) NOT followed by +30%
+signal                                                caught     fires  fire %    prec  lift  prec10  eps/day false/day
+S1 1h volume >=5x, price flat (<3%)               15% ( 2%)    10,455   1.90%   1.39%   3.8   12.8%      6.2       6.1
+S2 1h volume >=10x, price <5%                      8% ( 2%)     3,129   0.57%   2.81%   7.7   16.7%      2.5       2.5
+S3 6h volume >=3x, price flat (<5%)               16% ( 6%)    17,216   3.13%   0.92%   2.5   10.7%      3.8       3.8
+S4 6h volume >=5x, price <10%                      8% ( 4%)     6,890   1.25%   2.16%   5.9   17.2%      1.5       1.5
+S5 24h volume >=2x, 24h change -5..+10%           15% (11%)    28,053   5.10%   0.59%   1.6    9.0%      2.6       2.6
+S6 72h volume >=1.5x, 72h drift 0..+15%           12% (10%)    31,420   5.71%   0.43%   1.2    6.5%      2.3       2.3
+S7 live footprint score >=3 (signals.py)           2% ( 1%)     9,621   1.75%   0.29%   0.8    4.1%      1.5       1.5
+S8 72h drift +5..+25%, no 1h move >6% in 48h      21% (15%)    84,726  15.39%   0.31%   0.9    6.6%      5.4       5.4
+S9 24h +10..30% on 6h volume >=3x                  9% ( 3%)     5,007   0.91%   3.06%   8.3   23.6%      1.2       1.1
+S10 CHASE: 24h >= +30% on 24h volume >=3x          3% ( 1%)       604   0.11%  17.38%  47.5   38.4%      0.1       0.1
+S11 72h closing high on 6h volume >=3x, 24h <30%     3% ( 1%)     3,301   0.60%   1.36%   3.7   18.4%      1.6       1.6
+
+B3. TRADING THE SIGNALS (enter at the signal hour's close, one entry per coin per 24h episode; exits: trailing stop from the peak or max hold). Cost 0.50%/side (config), stress 0.8%/side.
+  .. 94,338 simulated trades in 2s
+
+all rules, whole period (IN-SAMPLE, optimistic), sorted by mean net per trade; halves split at 2025-12-31:
+rule                                    n    mean  median   win   @0.8% |   older   newer | 5-slot /mo    DD
+6h build+   trail 20% hold  72h       829  +0.59%  -0.79%   45%  -0.01% |  +0.26%  +1.25% |      -2.3%   73%
+6h build+   trail 35% hold  72h       829  +0.57%  -0.68%   46%  -0.03% |  +0.23%  +1.24% |      -1.5%   74%
+breakout    trail 35% hold  72h       883  +0.29%  -1.64%   42%  -0.31% |  -0.72%  +2.65% |      -1.4%   68%
+breakout    trail 20% hold  72h       883  +0.26%  -1.70%   42%  -0.34% |  -0.52%  +2.07% |      -1.5%   63%
+breakout    trail 10% hold  72h       883  +0.15%  -2.07%   40%  -0.45% |  -0.48%  +1.60% |      -0.8%   42%
+take-off    trail 35% hold  72h       631  +0.03%  -2.49%   42%  -0.56% |  -0.66%  +2.28% |      -3.9%   79%
+24h build   trail 35% hold  72h      1438  +0.02%  -1.31%   44%  -0.58% |  +0.03%  +0.00% |      -5.4%   83%
+24h build   trail 20% hold  72h      1438  +0.00%  -1.32%   44%  -0.60% |  +0.05%  -0.10% |      -6.3%   84%
+take-off    trail 10% hold  72h       631  -0.07%  -2.69%   39%  -0.67% |  -0.50%  +1.31% |      -3.0%   66%
+take-off    trail 20% hold  72h       631  -0.09%  -2.83%   42%  -0.69% |  -0.62%  +1.62% |      -3.5%   76%
+24h build   trail 10% hold  72h      1438  -0.13%  -1.79%   41%  -0.72% |  -0.01%  -0.38% |      -4.9%   76%
+6h build+   trail 10% hold  72h       829  -0.14%  -1.67%   40%  -0.74% |  -0.50%  +0.56% |      -4.6%   74%
+24h build   trail 20% hold  24h      1438  -0.33%  -1.22%   39%  -0.93% |  -0.15%  -0.74% |      -7.4%   81%
+take-off    trail 20% hold  24h       631  -0.34%  -1.71%   41%  -0.93% |  -0.57%  +0.41% |      -2.5%   66%
+take-off    trail 10% hold  24h       631  -0.36%  -2.10%   40%  -0.96% |  -0.61%  +0.45% |      -2.4%   62%
+chase30     trail 20% hold  72h        68  -0.47%  -4.20%   41%  -1.06% |  +0.00%  -1.87% |      -0.6%   22%
+
+per signal, best exit in-sample vs the newer half:
+  S1 1h volume >=5x, price flat (<3%)            best on older half: trail 20% hold 72h -> older -0.96% (n=2291), NEWER -0.71% (n=1095)
+  S2 1h volume >=10x, price <5%                  best on older half: trail 20% hold 72h -> older -0.41% (n=923), NEWER -0.48% (n=473)
+  S3 6h volume >=3x, price flat (<5%)            best on older half: trail 35% hold 72h -> older -0.58% (n=1381), NEWER -0.44% (n=688)
+  S4 6h volume >=5x, price <10%                  best on older half: trail 20% hold 72h -> older +0.26% (n=551), NEWER +1.25% (n=278)
+  S5 24h volume >=2x, 24h change -5..+10%        best on older half: trail 20% hold 72h -> older +0.05% (n=984), NEWER -0.10% (n=454)
+  S6 72h volume >=1.5x, 72h drift 0..+15%        best on older half: trail 10% hold 72h -> older -0.74% (n=873), NEWER +0.23% (n=377)
+  S7 live footprint score >=3 (signals.py)       best on older half: trail 20% hold 24h -> older -0.92% (n=588), NEWER -0.50% (n=221)
+  S8 72h drift +5..+25%, no 1h move >6% in 48h   best on older half: trail 20% hold 24h -> older -1.03% (n=2123), NEWER -1.21% (n=841)
+  S9 24h +10..30% on 6h volume >=3x              best on older half: trail 10% hold 72h -> older -0.50% (n=482), NEWER +1.31% (n=149)
+  S10 CHASE: 24h >= +30% on 24h volume >=3x      best on older half: trail 20% hold 72h -> older +0.00% (n=51), NEWER -1.87% (n=17)
+  S11 72h closing high on 6h volume >=3x, 24h <30% best on older half: trail 10% hold 72h -> older -0.48% (n=617), NEWER +1.60% (n=266)
+
+WALK-FORWARD (6 time blocks; before each test block pick the rule with the best mean on ALL earlier blocks, n >= 30; trade the block with it):
+  2025-10-02 .. 2025-12-31: pick 6h build+   trail 35% hold  72h (train +0.89%, n=403) -> TEST -1.54% per trade, n=148, win 49%
+  2025-12-31 .. 2026-03-31: pick 6h build+   trail 20% hold  72h (train +0.26%, n=551) -> TEST +0.01% per trade, n=110, win 40%
+  2026-03-31 .. 2026-06-28: pick 6h build+   trail 35% hold  72h (train +0.23%, n=661) -> TEST -0.82% per trade, n=70, win 43%
+  2026-06-28 .. 2026-09-26: pick chase30     trail 20% hold  72h (train +0.28%, n=59) -> TEST -5.34% per trade, n=9, win 22%
+  stitched OOS: -0.99% per trade [95% CI -2.21%, +0.24%], median -0.86%, n=337, 5-slot portfolio -10.0%/month (max DD 72%)
+  (chasing coins already up 30% - S10, trail 20%/72h - in the same test blocks: -1.64% per trade, n=32)
+  .. section B done in 872s
+
+==============================================================================================================
+C. LISTING-HUNTER RUNNER EXITS (listings_study.py listings, up to 180 days after listing)
+==============================================================================================================
+416 USD coins listed on Crypto.com; asking for 549 days of 1D history each
+97 listings with usable data (of 97 candidates)
+entry: close of the first hour; exits as live (EARLY_MOVER trail 50%, 24h limit unless >= 2x; MOON ride +50% -> trailing stop only)
+biggest peaks after entry (whole path): IKA 10.2x, PONS 8.5x, H 7.9x, NXPC 7.4x, SKR 6.5x, LIGHTER 5.4x, ERA 4.7x, ADI 4.6x
+listings that went on to >= 3x: 16, >= 5x: 6, >= 10x: 1; top-3 = IKA, PONS, H
+
+exit rule                |    mean   @0.8%  median   win   best | top3 capt  top-3 trades (net)           | >=5x sold<3x >=10x sold<3x |   older   newer
+live (50% trail)         |   +3.3%   +2.7%   -1.9%   39%  +268% |        1%  +8% +43% -19%                |     4/6           1/1      |   +7.0%   -0.3%
+BE floor at +50%         |   +2.6%   +1.9%   -1.7%   38%  +268% |        1%  +8% +43% -19%                |     4/6           1/1      |   +5.5%   -0.3%
+BE floor at +100%        |   +3.3%   +2.7%   -1.9%   39%  +268% |        1%  +8% +43% -19%                |     4/6           1/1      |   +7.0%   -0.3%
+60% trail after 5x       |   +1.9%   +1.2%   -1.9%   39%  +188% |        1%  +8% +43% -19%                |     4/6           1/1      |   +5.4%   -1.6%
+60% trail after 3x       |   +1.0%   +0.4%   -1.9%   39%  +188% |        1%  +8% +43% -19%                |     4/6           1/1      |   +3.6%   -1.6%
+BE+50% & 60% after 5x    |   +1.1%   +0.5%   -1.7%   38%  +188% |        1%  +8% +43% -19%                |     4/6           1/1      |   +3.8%   -1.6%
+50/60@3x/70@10x          |   +1.0%   +0.4%   -1.9%   39%  +188% |        1%  +8% +43% -19%                |     4/6           1/1      |   +3.6%   -1.6%
+40% trail                |   +5.6%   +5.0%   -1.8%   40%  +339% |        1%  +8% +43% -19%                |     4/6           1/1      |   +9.2%   +2.0%
+60% trail                |   -0.1%   -0.7%   -2.5%   37%  +188% |        1%  +8% +43% -19%                |     4/6           1/1      |   +2.4%   -2.5%
+(top3 capt = net profit taken on the 3 biggest runners / their peak gain; 'sold<3x' = sold before the price had reached 3x, among coins that later went >= 5x / >= 10x; 0 live trades still open at data end, marked at the last close; older/newer = first/second half of listings by date)
+
+WALK-FORWARD (expanding: before each listing pick the rule with the best mean on all earlier listings, from listing 9; trade the next one):
+  walk-forward pick: +4.7% per trade (n=89) vs live held fixed +3.8%; picks: 40% trail x69, live (50% trail) x17, BE floor at +50% x3
+  last pick: 40% trail
+  .. section C done in 424s
+
+==============================================================================================================
+SUMMARY (plain English) AND RECOMMENDED CONFIG CHANGES
+==============================================================================================================
+
+A. Meme coins in the rotation / one coin vs two
+  - Live breakout10 (16 large coins, 2 at a time, weekly): +0.21%/month, max drawdown 76%, worst month -35.8%; older half +0.07%/mo, newer half +0.43%/mo.
+  - core+meme top2 weekly: +0.21%/month, max DD 76%, worst month -35.8%; newer half +0.43%/mo; won 0/8 walk-forward windows vs live -> does not beat live.
+  - meme-only top2 weekly: no data (no meme coin passed the history/volume filter).
+  - core (live) top1 weekly: -3.10%/month, max DD 91%, worst month -31.8%; newer half -2.99%/mo; won 3/8 walk-forward windows vs live -> does not beat live.
+  - core (live) top3 weekly: +0.28%/month, max DD 65%, worst month -33.6%; newer half +0.18%/mo; won 3/8 walk-forward windows vs live -> does not beat live.
+  - core (live) top2 daily: +0.91%/month, max DD 73%, worst month -36.2%; newer half -0.29%/mo; won 5/8 walk-forward windows vs live -> does not beat live.
+  => RECOMMENDATION: keep: breakout10 on config.UNIVERSE, top_n=2, weekly rebalance (no variant beat it on the newer half AND the walk-forward windows with an acceptable drawdown)
+
+B. Anatomy of the top gainers (Crypto.com)
+  - 57 one-day +30% gainers over 548 days (0.1/day); 143 hourly +30%-in-24h events in 548 days of hourly data.
+  - The early sign that came first most often: S8 72h drift +5..+25%, no 1h move >6% in 48h (on in the 6h before 21% of pumps). The most precise: S10 CHASE: 24h >= +30% on 24h volume >=3x - but only 17.4% of its firings were followed by +30% (base rate 0.37%), so most firings are false alarms.
+  - Trading the signals walk-forward: -0.99% per trade on unseen blocks (95% CI -2.21% .. +0.24%); chasing coins already +30%: -1.64%.
+  => RECOMMENDATION: keep: no early signal's walk-forward result was reliably profitable after costs (95% CI above zero AND newer half positive at 0.8%/side); keep EARLY_MOVER movers=False, keep the 30% chase cap (max_24h_change 0.30) and leave the footprint / mover accounts as tests
+
+C. Runner exits (listing hunter)
+  - Live listing exit (50% trail, 24h limit, runners ride): +3.3% per trade, keeps 1% of the top-3 runners' peak gains; sold 1 of 1 later-10x coins and 4 of 6 later-5x coins before 3x.
+  - BE floor at +50%: +2.6% per trade (-0.8% vs live), top-3 capture 1%, older +5.5% / newer -0.3%.
+  - BE floor at +100%: +3.3% per trade (+0.0% vs live), top-3 capture 1%, older +7.0% / newer -0.3%.
+  - 60% trail after 5x: +1.9% per trade (-1.5% vs live), top-3 capture 1%, older +5.4% / newer -1.6%.
+  - 60% trail after 3x: +1.0% per trade (-2.4% vs live), top-3 capture 1%, older +3.6% / newer -1.6%.
+  - BE+50% & 60% after 5x: +1.1% per trade (-2.3% vs live), top-3 capture 1%, older +3.8% / newer -1.6%.
+  - 50/60@3x/70@10x: +1.0% per trade (-2.4% vs live), top-3 capture 1%, older +3.6% / newer -1.6%.
+  - 40% trail: +5.6% per trade (+2.3% vs live), top-3 capture 1%, older +9.2% / newer +2.0%.
+  - 60% trail: -0.1% per trade (-3.4% vs live), top-3 capture 1%, older +2.4% / newer -2.5%.
+  => RECOMMENDATION: switch runner exit to '40% trail': config.MOON = {'ride': 0.50, 'trail': 0.4, 'hot': 0.50} and config.EARLY_MOVER['trail'] = 0.4; note MOON applies to every live crypto account's runners
+
+(total runtime 1336s)
