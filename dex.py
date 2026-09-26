@@ -935,10 +935,18 @@ class DexHunter:
         for mult, t in X.get("trail_steps", []):       # so normal shakeouts don't end a 10x-100x runner
             if pos["peak"] >= pos["entry"] * mult:
                 trail = t
+        if pos.get("runner"):                          # past the time limit up >= 2x: rides its own trail
+            trail = min(trail, X["runner_at_limit"][1])
         pos["stop"] = max(pos["stop"], pos["peak"] * (1 - trail))
         if p <= pos["stop"]:
             return self._request_exit(k, 1.0, f"trailing stop (peak {pos['peak']:g})", "normal", now, "stop")
-        if not pos["tp1"] and now - pos["opened"] >= X["max_hold_days"] * DAY:   # runners have no time limit
+        if not pos["tp1"] and not pos.get("runner") and now - pos["opened"] >= X["max_hold_days"] * DAY:
+            R = X.get("runner_at_limit")
+            if R and p >= pos["entry"] * (1 + R[0]):   # never sell a runner on the clock (owner rule)
+                pos["runner"] = True
+                pos["stop"] = max(pos["stop"], pos["peak"] * (1 - R[1]))
+                self.dirty = True
+                return
             return self._request_exit(k, 1.0, f"time limit {X['max_hold_days']}d", "normal", now, "stop")
         if not pos["tp1"] and p >= pos["entry"] * (1 + X["tp1"][0]):
             pos["tp1"] = True

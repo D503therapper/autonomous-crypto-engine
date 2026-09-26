@@ -110,8 +110,18 @@ def table_sol(pair=None, gp=None, rc=None, addr=SOL):
             f"rugcheck.xyz/v1/tokens/{addr}/report/summary": (200, rc or RC_OK)}
 
 
+# The mechanics tests below were written for this entry / exit (the ladder and trailing-stop code stays in
+# dex.py); they are pinned here so a config change doesn't silently disable them. test_study_exit covers
+# the live config (hold 14 days, runner rule).
+LADDER = {"entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},
+          "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "ladder": [(4.0, 1 / 3), (9.0, 0.5)],
+                   "trail_steps": [(3.0, 0.40), (10.0, 0.50)], "max_hold_days": 14, "runner_at_limit": None,
+                   "liq_pull": 0.50, "rug_tax": 0.50}}
+
+
 def make(table, **params):
     """Hunter on a temp dir with a canned fetch; discovery endpoints answer empty unless the table says."""
+    params = dict(LADDER, **params)
     d = tempfile.mkdtemp()
     table = dict(table)
     table.setdefault("token-boosts/top", (200, []))
@@ -519,6 +529,38 @@ def test_take_profit_steps():
     print("  take-profit ladder (2x half, 5x third, 10x half) + moonbag with widening trail, break-even stop   ok")
 
 
+def test_study_exit():
+    """Live config (dex_exit_study winner + owner rules): no stop for 14 days, time limit, a runner at the
+    limit keeps riding on a 50% trail, and a coin that hit 3x gets a 60% trail from its high."""
+    live = {"entry": dex.DEX["entry"], "exit": dex.DEX["exit"]}
+    def held(px_path, days_between=1):
+        h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, h1=12)), **live)
+        screen(h, cand(h1=12))
+        pos = h.pf.positions[K]
+        out = []
+        for i, m in enumerate(px_path):
+            pos["px"] = 0.0101 * m
+            h._manage(K, pos, T0 + (i + 1) * days_between * DAY)
+            out.append(bool(pos.get("exit")))
+            if pos.get("exit"):
+                break
+        shutil.rmtree(d)
+        return out, pos
+    ex, _ = held([0.6, 0.5, 0.7, 1.3])                   # -50% dip inside 14 days: no stop
+    assert not any(ex)
+    ex, _ = held([1.2] * 16)                              # +20% at day 14 (bought seconds after T0): sold
+    assert ex[-1] and len(ex) == 15
+    ex, pos = held([1.5] * 13 + [2.5] * 3)               # 2.5x at day 14: keeps riding (runner)
+    assert not any(ex) and pos.get("runner")
+    ex, _ = held([2.5] * 13 + [2.6, 2.0, 1.2])            # runner then drops 50% from its high -> sold
+    assert ex[-1]
+    ex, _ = held([2, 5, 10, 6, 3.9])                      # hit 10x, falls to 3.9x (-61%) inside 14 days -> sold
+    assert ex[-1] and len(ex) == 5
+    ex, _ = held([2, 5, 10, 5, 4.5])                      # -55% from 10x: still held (room for big swings)
+    assert not any(ex)
+    print("  live exit: 14-day hold without stop, runner at the limit rides a 50% trail, 60% trail after 3x   ok")
+
+
 def test_max_hold():
     h, fetch, d, px = held()
     poll(h, T0 + 14 * DAY, px, v=0.012)
@@ -786,6 +828,7 @@ if __name__ == "__main__":
     test_trailing_stop()
     test_evm_address_case()
     test_take_profit_steps()
+    test_study_exit()
     test_max_hold()
     test_liquidity_pull_emergency_exit()
     test_sell_simulation_fails_at_exit()

@@ -212,7 +212,9 @@ DEX = {
         "mature": {"age_h": 720, "liq": 1_000_000},   # 30+ days with $1M+: LP lock not required (v3/CLMM can't lock)
         "age_unknown_liq": 1_000_000,                 # source gave no pool age: fine on a $1M+ pool
     },
-    "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},   # 1h >= +5%, 6h >= +10%, 1h buys >= 1.2x sells
+    # dex_exit_study.py (results/dex_exit_study.txt, 2026-09-26): the "fast10" entry (1h >= +10%) beat the old
+    # 1h +5% / 6h +10% entry; buys must still outnumber sells
+    "entry": {"h1": 0.10, "h6": -1.0, "buy_ratio": 1.2},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         "A": {"pct": 0.03},                                                                   # "new"
         "B": {"pct": 0.10, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},    # "proven"
@@ -221,10 +223,15 @@ DEX = {
     "cex_list": [],                                # extra CEX-listed symbols (Crypto.com tickers are used live)
     "size": {"liq_pct": 0.005, "max_exposure": 0.60},
     "cost": {"fee": 0.003, "slip": 0.01},          # + price impact usd / liquidity, per side
-    "exit": {"trail": 0.30, "tp1": (1.0, 0.5),               # 2x: sell half (cost back)
-             "ladder": [(4.0, 1 / 3), (9.0, 0.5)],               # 5x: a third of the rest; 10x: half again
-             "trail_steps": [(3.0, 0.40), (10.0, 0.50)],        # ~17% moonbag rides with a widening trail
-             "max_hold_days": 14,                                # time limit only if it never doubled
+    # dex_exit_study.py: the old exit (30% trail + take-profit ladder) lost -6.4%/trade and sold 3 of 3 later
+    # 10x coins early; "hold 14 days, no stop" was the robust winner (+85%/trade, walk-forward rank 1;
+    # 4-slot portfolio with the fast entry +55%/month, both halves positive, max drawdown -37%). Meme coins
+    # swing 30-50% on the way up, so any tight stop shakes us out. Rug protection stays: liquidity pull /
+    # failed re-screen still sell at once. Owner rule: a coin up >= 2x at day 14 keeps riding on a 50% trail.
+    # Owner: never miss a 1000x, never give it all back -> once a coin has hit 3x, a 60% trail from its high
+    # (a 10x that collapses is sold around 4x; big runners' normal 50% pullbacks don't trigger it).
+    "exit": {"trail": 0.95, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [(3.0, 0.60)],
+             "max_hold_days": 14, "runner_at_limit": (1.0, 0.50),   # >= +100% at the limit: 50% trail, no clock
              "liq_pull": 0.50, "rug_tax": 0.50},
     "slots": 4,
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to

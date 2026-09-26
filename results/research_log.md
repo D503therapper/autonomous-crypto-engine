@@ -40,3 +40,13 @@ Owner wants bigger gains: test the breakout10 rotation (and the ens_donchian fam
 (tournament only tried 2 and 5). Walk-forward, after costs: profit per month, max drawdown, worst month.
 Switch to 1 only if it wins on unseen months with a drawdown the owner can live with; report plainly.
 Do NOT concentrate the listing hunter (lumpy edge: top 3 of 91 listings = 94% of profit).
+
+## 2026-09-26 - DEX exit study applied
+results/dex_exit_study.txt (47-67 real meme pools, Mar-Sep 2026): the old DEX exit (30% trail + take-profit
+ladder) lost -6.4%/trade and sold 3/3 later-10x coins early. Robust winner: hold 14 days, no stop
+(+85%/trade mean, median -7%, walk-forward rank 1 of 68; paired vs old +91%/trade CI [+6%, +233%]).
+Portfolio (4 slots, fast 1h >= +10% entry): +55%/month, both halves positive, max drawdown -37%.
+Applied: entry 1h >= +10% with buys > sells; hold 14 days; owner rules added on top (untested, watch them):
+a coin >= 2x at day 14 keeps riding on a 50% trail; once a coin hits 3x, a 60% trail from its high.
+Rug exits (liquidity pull, failed re-screen) unchanged. Caveats: small sample, profit comes from few big
+winners (median trade loses), so expect many small red trades between big ones. Re-run the study monthly.
