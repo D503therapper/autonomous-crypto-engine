@@ -415,22 +415,27 @@ def scoreboard():
     return main
 
 
-def _holdings(mn, pfs, k):
+def _live_prices(mn, pfs):
+    """One fresh quote call for every coin the account(s) hold ({} if it fails)."""
+    held = sorted({c for pf in pfs for c in pf.positions})
+    if not held:
+        return {}
+    try:
+        return MARKETS[mn]["client"]().last_prices(held)
+    except Exception as e:
+        print(f"   dashboard: {mn} prices failed: {e}")
+        return {}
+
+
+def _holdings(pfs, k, px):
     """What the official account holds right now: [{coin, value, pnl}] (the accounts that split
-    the $500 are summed then divided by k, like the balance). Prices: one fresh quote call."""
+    the $500 are summed then divided by k, like the balance)."""
     agg = {}
     for pf in pfs:
         for coin, p in pf.positions.items():
-            a = agg.setdefault(coin, {"qty": 0.0, "cost": 0.0, "entry": p["entry"]})
+            a = agg.setdefault(coin, {"qty": 0.0, "cost": 0.0})
             a["qty"] += p["qty"]
             a["cost"] += p["cost"]
-    if not agg:
-        return []
-    try:
-        px = MARKETS[mn]["client"]().last_prices(list(agg))
-    except Exception as e:
-        print(f"   dashboard: {mn} prices failed: {e}")
-        px = {}
     out = []
     for coin, a in agg.items():
         value = a["qty"] * px.get(coin, a["cost"] / a["qty"] if a["qty"] else 0) / k
@@ -438,20 +443,24 @@ def _holdings(mn, pfs, k):
     return sorted(out, key=lambda h: -h["value"])
 
 
-def write_dashboard(rows, total):
-    """docs/index.html: the phone dashboard (dashboard.py). Official accounts + the DEX card."""
+def write_dashboard(rows=None, total=None):
+    """docs/index.html: the phone dashboard (dashboard.py). Official accounts + the DEX card.
+    Balances are marked at live prices each time (every 5 minutes from the main loop), and the
+    live value is added as the newest point of each chart."""
     look = {"crypto": ("₿", "#3b82ff", "#22d3ee"), "stocks": ("📈", "#7c3aed", "#3b82ff")}
+    now = int(time.time() * 1000)
     cards = []
-    for mn, names, eq, _ in rows:
+    for mn, m in MARKETS.items():
+        names = _mains(m)
         k = len(names)                                 # several strategies split the $500 equally
-        series = dashboard._combine([dashboard._series(f"{acct_dir(mn, s)}/equity.csv") for s in names])
-        lasts = [t for t in (dashboard._last_trade(f"{acct_dir(mn, s)}/trades.csv") for s in names) if t]
-        icon, c1, c2 = look.get(mn, ("•", "#3b82ff", "#22d3ee"))
         pfs = [load_pf(mn, s) for s in names]
-        cards.append({"holdings": _holdings(mn, pfs, k), "name": mn.title(), "icon": icon, "c1": c1, "c2": c2, "official": True, "equity": eq,
-                      "series": [(t, v / k) for t, v in series],
-                      "positions": len({c for pf in pfs for c in pf.positions}),
-                      "last": max(lasts, key=lambda t: t.get("time", "")) if lasts else None})
+        px = _live_prices(mn, pfs)
+        eq = sum(pf.equity(px) for pf in pfs) / k
+        series = dashboard._combine([dashboard._series(f"{acct_dir(mn, s)}/equity.csv") for s in names])
+        icon, c1, c2 = look.get(mn, ("•", "#3b82ff", "#22d3ee"))
+        cards.append({"holdings": _holdings(pfs, k, px), "name": mn.title(), "icon": icon, "c1": c1, "c2": c2,
+                      "official": True, "equity": eq, "series": [(t, v / k) for t, v in series] + [(now, eq)],
+                      "positions": len({c for pf in pfs for c in pf.positions})})
     try:                                               # DEX paper account: not part of the total
         st = dex.scoreboard_stats()
         d = f'{dex.DEX["dir"]}/{dex.DEX["name"]}'
@@ -459,26 +468,40 @@ def write_dashboard(rows, total):
         scams, lost = st.get("scammed", 0), st.get("lost", 0.0)
         try:
             with open(f"{d}/portfolio.json") as f:
-                st["positions"] = len(json.load(f).get("positions", {}))
+                dpf = json.load(f)
         except (OSError, ValueError):
-            st["positions"] = 0
-        try:
-            with open(f"{d}/portfolio.json") as f:
-                dpos = json.load(f).get("positions", {})
-        except (OSError, ValueError):
-            dpos = {}
-        dhold = []
-        for p in dpos.values():
+            dpf = {}
+        dpos, dhold = dpf.get("positions", {}), []
+        for p in dpos.values():                        # px = last price the DEX hunter saw (it polls itself)
             value = p["qty"] * (p.get("px") if p.get("px") is not None else p["entry"])
             dhold.append({"coin": p.get("sym", "?"), "value": value, "pnl": value - p["cost"]})
-        cards.append({"holdings": sorted(dhold, key=lambda h: -h["value"]), "name": "DEX", "icon": "◆", "c1": "#22e39a", "c2": "#3b82ff", "official": False,
-                      "equity": st["equity"], "series": dashboard._series(f"{d}/equity.csv"),
-                      "positions": st.get("positions", 0), "last": dashboard._last_trade(f"{d}/trades.csv"),
+        deq = dpf["cash"] + sum(h["value"] for h in dhold) if "cash" in dpf else st["equity"]
+        cards.append({"holdings": sorted(dhold, key=lambda h: -h["value"]), "name": "DEX", "icon": "◆",
+                      "c1": "#22e39a", "c2": "#3b82ff", "official": False, "equity": deq,
+                      "series": dashboard._series(f"{d}/equity.csv") + [(now, deq)], "positions": len(dpos),
                       "extra": "Paused: scam limit" if paused else (f"Scammed {scams} · −${abs(lost):,.2f}" if scams else "Scammed 0"),
                       "extra_cls": "bad" if (paused or scams) else "ok"})
     except Exception as e:
         print(f"   dashboard: dex card failed: {e}")
     dashboard.write(cards)
+
+
+def dashboard_sync():
+    """Every 5 minutes: redraw the dashboard at live prices and push just docs/ (the hourly
+    git_sync still commits everything)."""
+    try:
+        write_dashboard()
+    except Exception as e:
+        print(f"   dashboard refresh failed: {e}")
+        return
+    if os.environ.get("GIT_AUTOPUSH") != "1":
+        return
+    for c in ["git add docs", "git commit -qm 'dashboard refresh'",
+              "git pull -q --rebase -X theirs", "git push -q"]:
+        if subprocess.run(c, shell=True, stdout=subprocess.DEVNULL).returncode:
+            if c.startswith("git pull"):
+                subprocess.run("git rebase --abort", shell=True, stderr=subprocess.DEVNULL)
+            return
 
 
 def daily_summary(rows):
@@ -548,6 +571,7 @@ def main():
     guard, reactor, footprint = PumpGuard(), ListingNoticeReactor(), PrePumpFootprint()   # signals.py
     MOVER.veto = early_veto(guard, scanner)     # hourly take-off buys go through the pump guard too
     last_listing = 0.0
+    last_dash = time.time()                     # first refresh 5 min in (the hourly cycle draws it at start)
     while True:
         hour = time.strftime("%Y%m%d%H", time.gmtime())
         if hour != last_hour and time.gmtime().tm_min >= 1:   # new hourly candle has closed
@@ -566,6 +590,9 @@ def main():
                 footprint_cycle(scanner, footprint, guard)
             except Exception as e:
                 print(f"footprint scan failed: {e}")
+        if time.time() - last_dash >= 300:      # dashboard at live prices every 5 minutes
+            last_dash = time.time()
+            dashboard_sync()
         if time.time() - last_scan >= 60:
             last_scan = time.time()
             try:

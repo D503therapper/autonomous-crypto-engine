@@ -245,8 +245,10 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .gold{{color:#fff;font-weight:800;white-space:nowrap}}
 .fname{{font-weight:900;letter-spacing:.16em;font-size:11px;margin-bottom:5px}}
 .f-the{{color:#ff2a2a;text-shadow:0 0 10px rgba(255,42,42,.7)}}
-.f-d{{background:linear-gradient(95deg,#3b82ff 0%,#22d3ee 45%,#22e39a 100%);-webkit-background-clip:text;background-clip:text;color:transparent}}
-.f-tag{{background:linear-gradient(90deg,#ffd60a,#ffb020 22%,#ff2a2a 48%,#b36bff 72%,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}}
+.f-d{{background:linear-gradient(95deg,#3b82ff 0%,#22d3ee 45%,#22e39a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 10px rgba(59,130,255,.45))}}
+.f-tag{{background:linear-gradient(90deg,#ffd60a,#ffb020 22%,#ff2a2a 48%,#b36bff 72%,#22d3ee) 0 0/124% 100% no-repeat;   /* the header's fade runs past its text: same colors per letter */
+  -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 8px rgba(255,190,40,.45))}}
 .title .d503{{filter:drop-shadow(0 6px 22px rgba(59,130,255,.45)) drop-shadow(0 0 1px #ffd60a)}}
 </style></head><body><main>
 <header class="head">
