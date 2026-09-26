@@ -6,6 +6,15 @@ Discovery (config.DEX["chains"]: solana / base / ethereum):
     DexScreener  /token-boosts/top/v1 -> /tokens/v1/{chain}/{addrs}   (paid boosts; data lookup)
     data/social/dex_watch.json (social.py's DEX watchlist: symbols trending but NOT on Crypto.com)
     -> DexScreener /latest/dex/search?q=SYMBOL to resolve the contract address
+Wide scanner (config.DEX["scan"]): a rolling universe of up to 3,000 tokens on those chains, fed by the
+sources above plus GeckoTerminal new_pools pages 1-10 / trending pages 2-5 and DexScreener token-profiles /
+token-boosts (latest). DexScreener tokens/v1 refreshes it in bulk (30 tokens per call, own source, <= 60
+calls/min; hot pools - young, small or moving - are due every 30 s, the rest every 120 s). A refreshed token
+that meets the entry trigger (or warms up: 1h >= +5% with buys > sells) and passes check_market goes to the
+screening queue with fresh data (trigger-ready coins first); a token that already passed the screen goes
+straight to _try_entry. Pools under the liquidity floor for 24h, and pools > 30 days old with no move or
+sighting in 24h, are dropped; over the cap the least recently seen go first. data/dex/universe.json (saved
+every 10 min), data/dex/scan/YYYY-MM-DD.csv.gz (one snapshot per token per hour), hourly "dex scanner:" line.
 Scam screen (EVERY check must pass; fail closed when a required source is unreachable; every
 verdict + reasons -> data/dex/screen.csv):
     market sanity from DexScreener: liquidity >= max($250k, 50 x planned position), pool age >= 24h,
@@ -41,7 +50,8 @@ Trading:
 
     hunter = dex.hunter()         # run_live shares one instance
     hunter.self_check()           # once per run: HTTP status per source -> run.log
-    hunter.tick()                 # every second: bookkeeping + AT MOST ONE HTTP request (<= 8 s)
+    hunter.tick()                 # every second: bookkeeping + AT MOST ONE HTTP request, plus at most one
+                                  # scanner request when the tick so far took <= 4 s (tick <= ~8 s)
     hunter.cex = set(scanner.last)   # Crypto.com symbols, for tier C
     python dex.py [--check]       # self-check, or a short live round
 
@@ -51,6 +61,7 @@ field names are config values (config.DEX overrides DEFAULTS, nested keys merge)
 """
 import argparse
 import csv
+import gzip
 import json
 import os
 import re
@@ -74,11 +85,16 @@ DEFAULTS = {
         "ds_search": "https://api.dexscreener.com/latest/dex/search?q={q}",
         "ds_boosts": "https://api.dexscreener.com/token-boosts/top/v1",
         "gt_trending": "https://api.geckoterminal.com/api/v2/networks/{network}/trending_pools?duration=1h",
+        "gt_trending_page": "https://api.geckoterminal.com/api/v2/networks/{network}/trending_pools?duration=1h&page={page}",
+        "gt_new": "https://api.geckoterminal.com/api/v2/networks/{network}/new_pools?page={page}",
+        "ds_profiles": "https://api.dexscreener.com/token-profiles/latest/v1",
+        "ds_boosts_latest": "https://api.dexscreener.com/token-boosts/latest/v1",
     },
     "ref": {"ethereum": "0x6982508145454ce325ddbe47a25d4ec3d2311933",      # PEPE: self-check probe
             "solana": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"},     # BONK
     "timeout": 6,                                                    # seconds per request (hard cap 8)
-    "gap_s": {"goplus": 3, "honeypot": 3, "rugcheck": 3, "dexscreener": 1.5, "geckoterminal": 2.5},
+    "gap_s": {"goplus": 3, "honeypot": 3, "rugcheck": 3, "dexscreener": 1.5, "geckoterminal": 2.5,
+              "ds_scan": 1.0},                                   # wide scanner: <= 60 DexScreener calls/min
     "every_s": {"discover": 300, "watch": 600, "prices": 60, "rescreen": 1800, "followup": 3600},
     "screen": {                                                      # STRICT by owner's choice
         "max_tax": 0.03, "reject_proxy": True, "max_creator_pct": 0.05, "max_top10_pct": 0.40,
@@ -107,6 +123,18 @@ DEFAULTS = {
     "followup": {"days": 7, "per_day": 50, "rug_liq": 0.80, "rug_px": 0.90, "runup": 1.0},
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},         # 2 scams in 30 days -> no new entries until
     "slots": 4, "queue": 20, "dir": "data/dex", "name": "dex_hunter",   # reset_after "YYYY-MM-DD HH:MM" > pause time
+    # WIDE SCANNER: a rolling universe of live pools refreshed in bulk (tokens/v1, 30 per call) so movers
+    # reach the screen minutes after the move starts instead of waiting for a trending list
+    "scan": {"enabled": True, "max_pools": 3000,
+             "hot_s": 30, "cold_s": 120,                    # refresh target: hot pools / the rest
+             "hot_age_h": 72, "hot_liq": 1_000_000, "hot_move_h": 6,   # hot = young, small or moved lately
+             "dead_h": 24,                                  # liquidity below the prefilter floor this long: drop
+             "max_age_h": 720, "stale_h": 24,               # older than 30d and no move / sighting in 24h: drop
+             "warm_h1": 0.05,                               # 1h >= +5% with buys > sells: screen ahead of the trigger
+             "gt_new_pages": 10, "gt_trend_pages": 5,       # GeckoTerminal new_pools 1..10, trending 2..5 per chain
+             "gt_new_s": 120, "gt_deep_s": 600, "ds_list_s": 60,   # feed intervals (new_pools page 1 / deeper pages)
+             "timeout": 4, "tick_budget_s": 4,              # scanner call only if the tick used <= 4 s: tick <= ~8 s
+             "save_s": 600, "snap_flush_s": 600, "snap_day_max": 60_000},
 }
 
 
@@ -177,8 +205,15 @@ def parse_ds_pairs(body, now):
     body = _json(body) if isinstance(body, str) else body
     if isinstance(body, dict):
         body = body.get("pairs") or []
-    out = [norm_ds(p, now) for p in (body if isinstance(body, list) else [])]
-    return [c for c in out if c]
+    out = []
+    for p in body if isinstance(body, list) else []:
+        try:
+            c = norm_ds(p, now)
+        except (AttributeError, TypeError, ValueError):     # malformed pair: skip it, never crash the tick
+            c = None
+        if c:
+            out.append(c)
+    return out
 
 
 def _ak(addr):
@@ -216,7 +251,8 @@ def parse_gt_pools(body, chain, now):
     """GeckoTerminal trending_pools -> [candidate] (same shape as norm_ds, src 'geckoterminal')."""
     body = _json(body) if isinstance(body, str) else body
     out = []
-    for p in (body or {}).get("data") or []:
+    data = body.get("data") if isinstance(body, dict) else None
+    for p in data if isinstance(data, list) else []:
         a = p.get("attributes") if isinstance(p, dict) else None
         if not isinstance(a, dict) or not a.get("name"):
             continue
@@ -224,6 +260,8 @@ def parse_gt_pools(body, chain, now):
         if "_" not in tid:
             continue
         tx, pc, created = a.get("transactions") or {}, a.get("price_change_percentage") or {}, _iso_ms(a.get("pool_created_at"))
+        if not isinstance(tx, dict) or not isinstance(pc, dict) or not isinstance(a.get("volume_usd") or {}, dict):
+            continue
         sym = re.sub(r"\s+\d+(\.\d+)?%$", "", str(a["name"]).split("/")[0].strip()).upper()
         out.append({"chain": chain, "addr": tid.split("_", 1)[1], "sym": sym, "name": "", "pair": a.get("address"),
                     "price": _f(a.get("base_token_price_usd")), "liq": _f(a.get("reserve_in_usd")) or 0.0,
@@ -446,6 +484,12 @@ def check_market(c, S):
     return r
 
 
+def entry_trigger(c, E):
+    """The live entry trigger (config.DEX["entry"]): 1h >= h1, 6h >= h6, 1h buys >= max(1, buy_ratio x sells)."""
+    h1, h6, b1, s1 = c.get("h1"), c.get("h6"), c.get("b1") or 0, c.get("s1") or 0
+    return not (h1 is None or h6 is None or h1 < E["h1"] or h6 < E["h6"] or b1 < max(1, s1 * E["buy_ratio"]))
+
+
 # ---- tiered sizing (pure) --------------------------------------------------------------------------
 def tier_for(c, T, clean=0, on_cex=False):
     """'C' / 'B' / 'A' from pool age (age_h), liquidity, 24h volume, consecutive clean re-screens
@@ -518,6 +562,27 @@ class DexHunter:
         self._n_saved, self.dirty = 0, False
         self._snap_t = {}                             # coin -> last snapshot time (one row per coin per hour)
         self._pf_saved = 0                            # last time portfolio.json got the latest prices
+        # wide scanner (see _scan_job): pool universe, feeds, per-hour stats, buffered scan snapshots
+        P = self.p["scan"]
+        self.src.setdefault("ds_scan", Source("ds_scan", fetch, P["timeout"], self.p["gap_s"].get("ds_scan", 1.0)))
+        self.src["ds_scan"].timeout = min(P["timeout"], 8)
+        self.uni, self.mono = None, time.monotonic
+        self._feed_t, self._scan_origin, self._scan_snap_t, self._snap_buf = {}, {}, {}, []
+        self._scan_mt = self._uni_saved = self._snap_flushed = 0
+        self._snap_day, self._snap_day_n, self._scan_err, self._scan_hour = "", 0, {}, set()
+        self.scan_n, self.scan_calls = self._scan_zero(), 0
+        self._feeds = []
+        for ch in self.p["chains"]:
+            net = self.p["gt_networks"].get(ch)
+            if not net:
+                continue
+            for pg in range(1, P["gt_new_pages"] + 1):
+                self._feeds.append(("gt", ch, "gt_new", self._url("gt_new", network=net, page=pg),
+                                    P["gt_new_s"] if pg == 1 else P["gt_deep_s"]))
+            for pg in range(2, P["gt_trend_pages"] + 1):
+                self._feeds.append(("gt", ch, "gt_trend", self._url("gt_trending_page", network=net, page=pg), P["gt_deep_s"]))
+        for k in ("ds_profiles", "ds_boosts_latest"):
+            self._feeds.append(("ds", None, k, self._url(k), P["ds_list_s"]))
 
     # ---- plumbing ----
     def _now(self):
@@ -535,6 +600,7 @@ class DexHunter:
             print(f"   dex: could not read state: {e}")
         C = self.p["cost"]
         self.pf = Portfolio.load(f"{self.acct}/portfolio.json", fee=C["fee"], slippage=C["slip"])
+        self._uni_load()
 
     def save(self):
         try:
@@ -630,10 +696,21 @@ class DexHunter:
         now = now or self._now()
         self._load()
         self._housekeep(now)
+        t0 = self.mono()
         for job in (self._exit_job, self._price_job, self._rescreen_job, self._screen_job,
                     self._discover_job, self._followup_job):
             if job(now):
                 break
+        # the wide scanner has its own budget: at most ONE more request, only when the tick so far took
+        # <= tick_budget_s (its own timeout is shorter), so a tick never blocks the main loop > ~8 s
+        if self.p["scan"]["enabled"] and self.mono() - t0 <= self.p["scan"]["tick_budget_s"]:
+            try:
+                self._scan_job(now)
+            except Exception as e:                      # never let the scanner take the hunter down
+                msg = f"{type(e).__name__}: {e}"[:160]
+                if now - self._scan_err.get(msg, 0) >= HOUR:
+                    self._scan_err[msg] = now
+                    print(f"   dex scanner error: {msg}")
         if self.dirty:
             self.save()
         if self.pf.positions and now - self._pf_saved >= 60_000:   # held coins' latest prices (px) reach
@@ -645,6 +722,7 @@ class DexHunter:
         return (f"dex hunter: equity ${self.equity():,.2f}, {len(self.pf.positions)} open, "
                 f"{len(self.state['passed'])} screened & waiting, {len(self.queue)} queued, "
                 f"{len(self.state['followup'])} rejected in follow-up, {self.state['prefiltered']} prefiltered"
+                f"{', ' + str(len(self.uni or {})) + ' pools scanned' if self.p['scan']['enabled'] else ''}"
                 f"{'  [PAUSED: ' + self.paused() + ']' if self.paused() else ''}")
 
     # ---- housekeeping (no HTTP) ----
@@ -673,6 +751,9 @@ class DexHunter:
         if st["hour"] != hour:
             st["hour"], self.dirty = hour, True
             self._equity_row(now)
+            if self.p["scan"]["enabled"]:
+                print(f"   {self.scan_line(now)}")
+                self.scan_n, self._scan_hour = self._scan_zero(), set()
         week = time.strftime("%G-%V", time.gmtime(now / 1000))
         if st["week"] != week:
             st["week"], self.dirty = week, True
@@ -787,6 +868,7 @@ class DexHunter:
         """Queue a candidate for the full screen unless known; cheap market prefilter first (not logged)."""
         k, st = self.key(c), self.state
         self._snapshot(c, k, now)
+        self._uni_add(c["chain"], c["addr"], now, c.get("src") or "discover", c)
         if c["chain"] not in self.p["chains"] or k in st["seen"] or k in st["passed"] \
                 or any(j["key"] == k for j in self.queue) or self.pkey(c) in self.pf.positions:
             return False
@@ -808,6 +890,301 @@ class DexHunter:
         h1, b1, s1 = c.get("h1") or 0.0, c.get("b1") or 0, c.get("s1") or 0
         ready = h1 >= E["h1"] and b1 >= max(1, s1 * E["buy_ratio"])
         return (0 if ready else 1, -h1, -c["liq"])
+
+    # ---- WIDE SCANNER: rolling pool universe, bulk refresh, movers to the front of the screen ----
+    # Universe = up to scan.max_pools tokens on config.DEX["chains"], fed by every discovery source plus
+    # GeckoTerminal new_pools / trending pages and DexScreener profiles / boosts (latest). Each tick the
+    # scanner may make ONE request of its own (own source ds_scan, <= 60/min): either a due feed page or a
+    # DexScreener tokens/v1 bulk refresh of the 30 most overdue tokens of one chain. A refreshed token that
+    # meets the entry trigger (or is warming up) and passes check_market goes to the screening queue, which
+    # puts trigger-ready coins first; an already screened coin goes straight to _try_entry.
+    UNI_FIELDS = ("chain", "addr", "sym", "src", "t0", "hit", "low", "move", "created")
+
+    @staticmethod
+    def _scan_zero():
+        return {"calls": 0, "e429": 0, "err": 0, "feeds": 0, "refreshed": 0, "missing": 0, "iv": 0.0, "iv_n": 0,
+                "hiv": 0.0, "hiv_n": 0, "added": 0, "dead": 0, "stale": 0, "cap": 0, "movers": 0, "warm": 0,
+                "queued": 0, "screened": 0, "passed": 0, "bought": 0}
+
+    @staticmethod
+    def _nk(key):
+        """Normalized 'chain:addr' key (EVM addresses lowercased) for matching across sources."""
+        chain, _, addr = str(key).partition(":")
+        return f"{chain}:{_ak(addr)}"
+
+    def _uni_load(self):
+        self.uni = {}
+        path = f"{self.dir}/universe.json"
+        try:
+            if os.path.exists(path):
+                with open(path) as f:
+                    pools = (json.load(f) or {}).get("pools") or {}
+                for k, v in pools.items():
+                    e = dict(zip(self.UNI_FIELDS, v)) if isinstance(v, list) else {}
+                    if e.get("chain") not in self.p["chains"] or not e.get("addr"):
+                        continue
+                    for t in ("t0", "hit", "low", "move", "created"):
+                        e[t] = int(_f(e.get(t)) or 0) * 1000             # stored in seconds
+                    e.update(r=0, seen=0, liq=None, h1=None)
+                    self.uni[self._nk(k)] = e
+        except Exception as ex:
+            print(f"   dex: could not read the scan universe: {ex}")
+        now = self._now()
+        for c in list(self.state["passed"].values()):  # screened & waiting coins: refreshed fast from the start
+            if isinstance(c, dict):
+                self._uni_add(c.get("chain"), c.get("addr"), now, "passed", c)
+
+    def _uni_save(self, now):
+        self._uni_saved = now
+        pools = {k: [e[f] // 1000 if f in ("t0", "hit", "low", "move", "created") else e[f] for f in self.UNI_FIELDS]
+                 for k, e in sorted(self.uni.items())}
+        try:
+            os.makedirs(self.dir, exist_ok=True)
+            with open(f"{self.dir}/universe.json.tmp", "w") as f:
+                json.dump({"t": ts(now), "pools": pools}, f, separators=(",", ":"))
+            os.replace(f"{self.dir}/universe.json.tmp", f"{self.dir}/universe.json")
+        except OSError as ex:
+            print(f"   dex: universe save failed: {ex}")
+
+    def _uni_add(self, chain, addr, now, src, c=None):
+        """Add / re-sight a token in the universe (no HTTP). Returns True when it is new."""
+        P = self.p["scan"]
+        if not P["enabled"] or self.uni is None or chain not in self.p["chains"] or not addr:
+            return False
+        k = f"{chain}:{_ak(addr)}"
+        e, new = self.uni.get(k), False
+        if e is None:
+            if len(self.uni) >= P["max_pools"] + max(100, P["max_pools"] // 5):   # hard stop; maintenance trims to max
+                return False
+            e = self.uni[k] = {"chain": chain, "addr": str(addr), "sym": "?", "src": src, "t0": now, "hit": now,
+                               "low": 0, "move": 0, "created": 0, "r": 0, "seen": 0, "liq": None, "h1": None}
+            self.scan_n["added"] += 1
+            new = True
+        e["hit"] = now
+        if c:
+            e["sym"] = c.get("sym") or e["sym"]
+            if c.get("age_h") is not None:
+                e["created"] = int(now - c["age_h"] * HOUR)
+            if e["liq"] is None:
+                e["liq"] = c.get("liq")
+        return new
+
+    def _hot(self, e, now):
+        P = self.p["scan"]
+        return ((e["created"] and now - e["created"] < P["hot_age_h"] * HOUR)
+                or (e["move"] and now - e["move"] < P["hot_move_h"] * HOUR)
+                or e["liq"] is None or e["liq"] < P["hot_liq"])
+
+    def _scan_job(self, now):
+        """No-HTTP upkeep, then at most one request: a due feed page, else a bulk refresh."""
+        P = self.p["scan"]
+        if now - self._scan_mt >= 60_000:
+            self._scan_maint(now)
+        if now - self._uni_saved >= P["save_s"] * 1000:
+            self._uni_save(now)
+        if self._snap_buf and (now - self._snap_flushed >= P["snap_flush_s"] * 1000 or len(self._snap_buf) >= 2000):
+            self._snap_flush(now)
+        return self._scan_feed(now) or self._scan_refresh(now)
+
+    def _scan_get(self, name, url, now):
+        """Scanner request: no state.json rewrite per call (status recorded only when it changes)."""
+        st, obj = self.src[name].get(url, now)
+        self.scan_calls += 1                            # since start (scan_n resets every hour)
+        self.scan_n["calls"] += 1
+        self.scan_n["e429"] += st == 429
+        self.scan_n["err"] += st != 200
+        if (self.state["status"].get(name) or {}).get("code") != st:
+            self.state["status"][name] = {"code": st, "t": ts(now)}
+            self.dirty = True
+        return st, obj
+
+    def _scan_feed(self, now):
+        best, due = None, 1.0
+        for kind, ch, tag, url, iv in self._feeds:
+            over = (now - self._feed_t.get(url, 0)) / (iv * 1000)
+            src = self.src["geckoterminal" if kind == "gt" else "ds_scan"]
+            if over >= due and src.ready(now):
+                best, due = (kind, ch, tag, url), over
+        if not best:
+            return False
+        kind, ch, tag, url = best
+        self._feed_t[url] = now
+        self.scan_n["feeds"] += 1
+        if kind == "gt":
+            st, obj = self._scan_get("geckoterminal", url, now)
+            if st == 200 and isinstance(obj, dict):
+                for c in parse_gt_pools(obj, ch, now):
+                    self._uni_add(c["chain"], c["addr"], now, tag, c)
+        else:
+            st, obj = self._scan_get("ds_scan", url, now)
+            if st == 200 and isinstance(obj, (list, dict)):
+                for chain, addr in parse_dex_list(obj):
+                    self._uni_add(chain, addr, now, tag)
+        return True
+
+    def _scan_refresh(self, now):
+        """DexScreener tokens/v1 bulk refresh: the 30 most overdue tokens (relative to their hot / cold
+        interval) of the chain with the most overdue token."""
+        P, ds = self.p["scan"], self.src["ds_scan"]
+        if not self.uni or not ds.ready(now):
+            return False
+        by = {}
+        hot_ms, cold_ms = P["hot_s"] * 1000, P["cold_s"] * 1000
+        for k, e in self.uni.items():
+            over = (now - e["r"]) / (hot_ms if self._hot(e, now) else cold_ms)
+            if over >= 1:
+                by.setdefault(e["chain"], []).append((over, k))
+        if not by:
+            return False
+        chain = max(by, key=lambda ch: max(by[ch])[0])
+        batch = [k for _, k in sorted(by[chain], reverse=True)[:30]]
+        ents = [self.uni[k] for k in batch]
+        for e in ents:
+            if e["r"]:
+                iv = (now - e["r"]) / 1000
+                self.scan_n["iv"] += iv
+                self.scan_n["iv_n"] += 1
+                if self._hot(e, now):
+                    self.scan_n["hiv"] += iv
+                    self.scan_n["hiv_n"] += 1
+            e["r"] = now
+        st, obj = self._scan_get("ds_scan", self._url("ds_tokens", chain=chain, addrs=",".join(e["addr"] for e in ents)), now)
+        if st != 200 or not isinstance(obj, (list, dict)):
+            return True
+        best = best_pairs(parse_ds_pairs(obj, now), chain)
+        floor = self.S()["min_liq"]
+        passed = {self._nk(k): k for k in self.state["passed"]}
+        for e in ents:
+            c = best.get(e["addr"])
+            self.scan_n["refreshed"] += 1
+            if not c:                                   # no pair returned: counts as no liquidity
+                self.scan_n["missing"] += 1
+                e["low"] = e["low"] or now
+                continue
+            e.update(sym=c["sym"], liq=c["liq"], h1=c.get("h1"), seen=now)
+            if c.get("age_h") is not None:
+                e["created"] = int(now - c["age_h"] * HOUR)
+            e["low"] = (e["low"] or now) if c["liq"] < floor else 0
+            self._scan_snap(c, e, now)
+            self._scan_hit(e, c, passed, now)
+        return True
+
+    def _scan_hit(self, e, c, passed, now):
+        """A refreshed token: screened & waiting -> fresh data, _try_entry on the trigger; queued -> fresh data
+        (so a coin that stalled while waiting is never bought on old numbers); trigger met or warming up and
+        market sanity OK -> screening queue (trigger-ready coins sort to the front)."""
+        P, E = self.p["scan"], self.p["entry"]
+        trig = entry_trigger(c, E)
+        h1, b1, s1 = c.get("h1") or 0.0, c.get("b1") or 0, c.get("s1") or 0
+        warm = h1 >= P["warm_h1"] and b1 > s1
+        if trig or warm:
+            e["move"] = now
+        nk = self._nk(self.key(c))
+        if nk in passed:                                # screened & waiting: buy on the fresh data now
+            pc = self.state["passed"][passed[nk]]
+            pc.update(c, screen_t=pc["screen_t"])
+            self.dirty = True
+            if trig:
+                had = self.pkey(pc) in self.pf.positions
+                self._try_entry(passed[nk], now)
+                if not had and self.pkey(pc) in self.pf.positions:
+                    self.scan_n["bought"] += 1
+                    print(f"   dex scanner: bought {pc['sym']}@{pc['chain']} on a refresh (1h {h1:+.0%}, buys/sells {b1}/{s1})")
+            return
+        job = next((j for j in self.queue if self._nk(j["key"]) == nk), None)
+        if job:                                         # already queued: fresh data, re-sort (movers first)
+            if job["i"] == 0 and job["mode"] == "screen":
+                job["c"].update(c)
+                job["steps"] = self._steps(c["chain"], True)
+                self.queue.sort(key=self._priority)
+            return
+        if not (trig or warm) or self.pkey(c) in self.pf.positions:
+            return
+        if check_market(c, self.S()):
+            return                                      # not counted as prefiltered: that is discovery's count
+        if nk not in self._scan_hour:                   # hourly counts are distinct tokens
+            self._scan_hour.add(nk)
+            self.scan_n["movers" if trig else "warm"] += 1
+        if self._enqueue(c, now, fresh=True):           # data is seconds old: skip the DexScreener step
+            self.scan_n["queued"] += nk not in self._scan_origin
+            self._scan_origin[nk] = now
+
+    def _scan_maint(self, now):
+        """Once a minute (no HTTP): drop dead pools (liquidity < floor for dead_h), stale old pools, then
+        trim to max_pools by least recent sighting / move. Held, screened and queued tokens are kept."""
+        P = self.p["scan"]
+        self._scan_mt = now
+        keep = {self._nk(f"{p.get('chain')}:{p.get('addr')}") for p in self.pf.positions.values()}
+        keep |= {self._nk(k) for k in self.state["passed"]} | {self._nk(j["key"]) for j in self.queue}
+        for k, e in list(self.uni.items()):
+            if k in keep:
+                continue
+            if e["low"] and now - e["low"] >= P["dead_h"] * HOUR:
+                del self.uni[k]
+                self.scan_n["dead"] += 1
+            elif e["created"] and now - e["created"] > P["max_age_h"] * HOUR and now - max(e["hit"], e["move"]) > P["stale_h"] * HOUR:
+                del self.uni[k]
+                self.scan_n["stale"] += 1
+        over = len(self.uni) - P["max_pools"]
+        if over > 0:
+            for _, k in sorted((max(e["hit"], e["move"]), k) for k, e in self.uni.items() if k not in keep)[:over]:
+                del self.uni[k]
+                self.scan_n["cap"] += 1
+        self._scan_origin = {k: t for k, t in self._scan_origin.items() if now - t <= DAY}
+        self._scan_snap_t = {k: t for k, t in self._scan_snap_t.items() if now - t < HOUR}
+
+    def _scan_snap(self, c, e, now):
+        """Scanned-pool snapshot for the next runner study: one row per token per hour, buffered and appended
+        to data/dex/scan/YYYY-MM-DD.csv.gz (capped at snap_day_max rows a day)."""
+        k = self._nk(self.key(c))
+        if now - self._scan_snap_t.get(k, -HOUR) < HOUR:
+            return
+        day = time.strftime("%Y-%m-%d", time.gmtime(now / 1000))
+        if day != self._snap_day:
+            if self._snap_buf:
+                self._snap_flush(now)
+            self._snap_day, self._snap_day_n = day, 0
+        if self._snap_day_n >= self.p["scan"]["snap_day_max"]:
+            return
+        self._scan_snap_t[k] = now
+        self._snap_day_n += 1
+        row = {"time": ts(now)}
+        for f in self.SNAP_FIELDS:
+            v = c.get(f)
+            row[f] = (float(f"{v:.6g}") if f == "price" else round(v, 4) if f in ("h1", "h6", "h24", "age_h")
+                      else round(v)) if isinstance(v, float) else v
+        row["src"] = f"scan:{e.get('src')}"
+        self._snap_buf.append(row)
+
+    def _snap_flush(self, now):
+        rows, self._snap_buf, self._snap_flushed = self._snap_buf, [], now
+        if not rows:
+            return
+        path = f"{self.dir}/scan/{self._snap_day or time.strftime('%Y-%m-%d', time.gmtime(now / 1000))}.csv.gz"
+        try:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            new = not os.path.exists(path)
+            with gzip.open(path, "at", newline="") as f:   # one gzip member per flush (gzip.open reads them all)
+                w = csv.DictWriter(f, fieldnames=["time", *self.SNAP_FIELDS])
+                if new:
+                    w.writeheader()
+                w.writerows(rows)
+        except OSError as ex:
+            print(f"   dex: scan snapshot flush failed: {ex}")
+
+    def scan_line(self, now):
+        """Hourly run.log line: universe size, refresh cycle, calls, movers -> screened -> bought."""
+        n, by = self.scan_n, {}
+        for e in (self.uni or {}).values():
+            by[e["chain"]] = by.get(e["chain"], 0) + 1
+        cyc = f"{n['iv'] / n['iv_n']:.0f}s" if n["iv_n"] else "n/a"
+        hot = f"{n['hiv'] / n['hiv_n']:.0f}s" if n["hiv_n"] else "n/a"
+        chains = " / ".join(f"{c} {by.get(c, 0):,}" for c in self.p["chains"])
+        return (f"dex scanner: {len(self.uni or {}):,} pools ({chains}), refresh cycle {cyc} (hot {hot}), "
+                f"{n['calls']} calls ({n['feeds']} feed, 429s {n['e429']}, failed {n['err']}), {n['refreshed']:,} refreshed "
+                f"({n['missing']} no pair), +{n['added']} added / -{n['dead'] + n['stale'] + n['cap']} dropped "
+                f"(dead {n['dead']}, stale {n['stale']}, cap {n['cap']}), movers {n['movers']} + warming {n['warm']} -> "
+                f"queued {n['queued']}, screened {n['screened']} (passed {n['passed']}), bought {n['bought']}")
 
     # ---- screening state machine (one request per call) ----
     def _screen_job(self, now):
@@ -898,9 +1275,15 @@ class DexHunter:
         print(f"   dex screen: {verdict} {c['sym']}@{c['chain']} liq ${c['liq']:,.0f}{' - ' + why if why else ''}")
         st["seen"][job["key"]] = {"t": now, "v": verdict}
         self.dirty = True
+        via_scan = self._nk(job["key"]) in self._scan_origin
+        if via_scan:
+            self.scan_n["screened"] += 1
+            self.scan_n["passed"] += verdict == "PASS"
         if verdict == "PASS":
             st["passed"][job["key"]] = dict(c, screen_t=now)
             self._try_entry(job["key"], now)
+            if via_scan and self.pkey(c) in self.pf.positions:
+                self.scan_n["bought"] += 1
         elif verdict == "REJECT":
             self._enroll(job["key"], c, now)
 
@@ -913,7 +1296,7 @@ class DexHunter:
         if pk in self.pf.positions or self.pf.cooldown.get(pk, 0) > now or not c.get("price"):
             return
         h1, h6, b1, s1 = c.get("h1"), c.get("h6"), c.get("b1") or 0, c.get("s1") or 0
-        if h1 is None or h6 is None or h1 < E["h1"] or h6 < E["h6"] or b1 < max(1, s1 * E["buy_ratio"]):
+        if not entry_trigger(c, E):
             return
         eq, X = self.equity(), self.p["exit"]
         tier = tier_for(c, self.p["tiers"], 0, self.on_cex(c["sym"]))

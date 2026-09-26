@@ -126,6 +126,7 @@ LADDER = {"tiers": {"A": {"pct": 0.03}, "B": {"pct": 0.10, "age_d": 7, "liq": 1_
 def make(table, **params):
     """Hunter on a temp dir with a canned fetch; discovery endpoints answer empty unless the table says."""
     params = dict(LADDER, **params)
+    params.setdefault("scan", {"enabled": False})           # the wide scanner has its own tests (test_scan_*)
     d = tempfile.mkdtemp()
     table = dict(table)
     table.setdefault("token-boosts/top", (200, []))
@@ -891,6 +892,250 @@ def test_state_persists():
     print("  state + portfolio survive a restart   ok")
 
 
+# ---- wide scanner -------------------------------------------------------------------------------
+SCAN = {"enabled": True, "gt_new_pages": 0, "gt_trend_pages": 1}      # no GeckoTerminal pages unless a test asks
+
+
+def scan_make(table, scan=None, feeds=False, **params):
+    """Hunter with the scanner on; its feed pages stay quiet unless feeds=True."""
+    table = dict(table)
+    table.setdefault("token-profiles/latest", (200, []))
+    table.setdefault("token-boosts/latest", (200, []))
+    h, fetch, d = make(table, scan=dict(SCAN, **(scan or {})), **params)
+    if not feeds:
+        h._feed_t = {f[3]: 10 ** 15 for f in h._feeds}
+    return h, fetch, d
+
+
+def scan_run(h, t, n, step=1000):
+    """n ticks; at most one main-job request AND at most one scanner request per tick."""
+    for i in range(n):
+        before, sb = len(h.fetch.calls), h.scan_calls
+        h.tick(t + i * step)
+        scan = h.scan_calls - sb
+        assert scan <= 1, "scanner made more than one request in a tick"
+        assert len(h.fetch.calls) - before - scan <= 1, "more than one main request in a tick"
+    return t + n * step
+
+
+def addr_n(i):
+    return "0x" + f"{i:040x}"
+
+
+def tokens_fn(pairs_for, calls=None):
+    """tokens/v1/{chain}/a,b,c -> pairs from pairs_for(addr) (None = no pair returned)."""
+    def fn(u):
+        addrs = u.split("tokens/v1/")[1].split("/", 1)[1].split(",")
+        if calls is not None:
+            calls.append(addrs)
+        out = []
+        for a in addrs:
+            p = pairs_for(a)
+            out += p if isinstance(p, list) else ([p] if p else [])
+        return 200, out
+    return fn
+
+
+def test_scan_bulk_refresh():
+    batches = []
+    quiet = lambda a: None if a == addr_n(7) else ds_pair("base", a, sym=f"T{int(a, 16)}", h1=1, h6=2, liq=400_000)
+    h, fetch, d = scan_make({"tokens/v1/base/": tokens_fn(quiet, batches)}, chains=["base"])
+    for i in range(45):
+        h._uni_add("base", addr_n(i), T0, "test")
+    scan_run(h, T0, 6)
+    assert [len(b) for b in batches] == [30, 15], batches                  # <= 30 tokens per call, all covered
+    assert sorted(a for b in batches for a in b) == sorted(addr_n(i) for i in range(45))
+    e = h.uni[f"base:{addr_n(3)}"]
+    assert e["liq"] == 400_000 and e["h1"] == 0.01 and e["sym"] == "T3" and e["seen"] >= T0 and not e["low"]
+    assert abs(e["created"] - (T0 - 48 * HOUR)) < 1000
+    assert h.uni[f"base:{addr_n(7)}"]["low"] >= T0                         # no pair: counts as no liquidity
+    assert h.scan_n["refreshed"] == 45 and h.scan_n["missing"] == 1 and not h.queue   # quiet pools: nothing queued
+    n = len(batches)
+    scan_run(h, T0 + 6000, 10)                                              # not due again before hot_s (30 s)
+    assert len(batches) == n
+    scan_run(h, T0 + 40_000, 4)                                             # due again: refreshed
+    assert len(batches) > n
+    assert "45 pools" in h.scan_line(T0) and "refresh cycle" in h.scan_line(T0)
+    shutil.rmtree(d)
+    print("  scanner: bulk tokens/v1 refresh (30 per call), missing pair = no liquidity, hot/cold due times   ok")
+
+
+def test_scan_universe_cap_and_eviction():
+    h, fetch, d = scan_make({}, scan={"max_pools": 5}, chains=["base"])
+    for i in range(8):                                                     # sightings 1 min apart
+        h._uni_add("base", addr_n(i), T0 + i * 60_000, "test")
+    h._uni_add("base", addr_n(1), T0 + 20 * 60_000, "test")                  # re-sighted: interesting again
+    h._scan_maint(T0 + 30 * 60_000)
+    assert sorted(h.uni) == sorted(f"base:{addr_n(i)}" for i in (1, 4, 5, 6, 7)), sorted(h.uni)
+    assert h.scan_n["cap"] == 3
+    now = T0 + 30 * HOUR
+    for i in (4, 5):
+        h.uni[f"base:{addr_n(i)}"]["low"] = now - 25 * HOUR                  # below the floor for 25h: dead
+    h.uni[f"base:{addr_n(6)}"].update(created=now - 40 * DAY, hit=now - 2 * DAY)   # 40 days old, quiet: stale
+    h.uni[f"base:{addr_n(7)}"].update(created=now - 40 * DAY, hit=now - 2 * DAY, move=now - HOUR)   # old but moving
+    c = cand(addr=addr_n(5))                                                 # dead-looking but screened & waiting
+    h.state["passed"][h.key(c)] = dict(c, screen_t=now)
+    h._scan_maint(now)
+    assert sorted(h.uni) == sorted(f"base:{addr_n(i)}" for i in (1, 5, 7)), sorted(h.uni)
+    assert h.scan_n["dead"] == 1 and h.scan_n["stale"] == 1
+    assert not h._uni_add("ethereum", addr_n(99), now, "x")                  # chain not configured
+    h._uni_add("base", "0xABCdef0000000000000000000000000000000001", now, "x")
+    assert not h._uni_add("base", "0xabcdef0000000000000000000000000000000001", now, "x")   # EVM case ignored
+    h._uni_save(now)
+    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "chains": ["base"], "scan": SCAN}, fetch=fetch, now_ms=now)
+    h2._load()
+    assert sorted(h2.uni) == sorted(h.uni) and h2.uni[f"base:{addr_n(7)}"]["move"] == (now - HOUR) // 1000 * 1000
+    shutil.rmtree(d)
+    print("  scanner universe: cap keeps the most recent sightings, dead / stale pools dropped, saved + reloaded   ok")
+
+
+def test_scan_mover_front_of_queue_and_buys():
+    MOV = addr_n(0xAA)
+    live = {"h1": 1}
+    def pairs(a):
+        if a.lower() == MOV:
+            return ds_pair("base", a, sym="MOON", h1=live["h1"], h6=30, b1=400, s1=100)
+        return ds_pair("base", a, sym="Q", h1=1, h6=1)
+    table = {"tokens/v1/base/": tokens_fn(pairs)}
+    table.update({k: v for k, v in table_evm(addr=MOV).items() if "tokens/v1" not in k})
+    h, fetch, d = scan_make(table, chains=["base"], gap_s=dict(GAP0, goplus=3600, honeypot=3600, ds_scan=0))
+    for i, h1 in ((1, 1), (2, 3), (3, 4)):                                  # discovery already queued three slow coins
+        assert h._enqueue(cand(addr=addr_n(i), h1=h1, b1=10, s1=50), T0, fresh=False)
+    h._uni_add("base", MOV, T0, "gt_new")
+    h.src["dexscreener"].next_at = T0 + HOUR                                 # main jobs idle: only the scanner runs
+    t = scan_run(h, T0, 1)
+    assert h.queue[0]["key"] != "base:" + MOV and h.uni["base:" + MOV]["seen"] == T0   # quiet: not queued
+    live["h1"] = 25                                                          # it starts running
+    t = scan_run(h, T0 + 31_000, 1)
+    j = h.queue[0]
+    assert j["key"] == "base:" + MOV and j["steps"] == ["goplus", "honeypot"], h.queue   # front, no ds step
+    assert h.scan_n["movers"] == 1 and h.scan_n["queued"] == 1 and h._nk("base:" + MOV) in h._scan_origin
+    h.src["goplus"].next_at = h.src["honeypot"].next_at = 0
+    scan_run(h, t, 3)
+    assert f"MOON@base:{MOV[:8]}" in h.pf.positions, h.pf.positions         # screened first, then bought
+    assert h.scan_n["screened"] == 1 and h.scan_n["passed"] == 1 and h.scan_n["bought"] == 1
+    shutil.rmtree(d)
+    # already screened & waiting: the refresh that shows the trigger buys at once (no screening calls)
+    h, fetch, d = scan_make({"tokens/v1/base/": tokens_fn(pairs)}, chains=["base"])
+    c = cand(addr=MOV, sym="MOON", h1=1)
+    h.state["passed"][h.key(c)] = dict(c, screen_t=T0)
+    h.src["dexscreener"].next_at = T0 + HOUR
+    live["h1"] = 25
+    h._uni_add("base", MOV.upper().replace("0X", "0x"), T0, "gt_new")         # other letter case: same coin
+    scan_run(h, T0, 1)
+    assert f"MOON@base:{MOV[:8]}" in h.pf.positions and h.scan_n["bought"] == 1
+    assert not any("gopluslabs" in u or "honeypot.is" in u for u in fetch.calls)
+    shutil.rmtree(d)
+    # warming (1h +7% with buyers, trigger +10%) is queued behind a trigger-ready mover; thin movers are not
+    W, THIN = addr_n(0xBB), addr_n(0xCC)
+    def pairs2(a):
+        return {MOV: ds_pair("base", a, h1=25, b1=400, s1=100), W: ds_pair("base", a, h1=7, b1=300, s1=100),
+                THIN: ds_pair("base", a, h1=50, liq=20_000)}.get(a)
+    h, fetch, d = scan_make({"tokens/v1/base/": tokens_fn(pairs2)}, chains=["base"],
+                            entry={"h1": 0.10, "h6": -1.0, "buy_ratio": 1.2})
+    h.src["dexscreener"].next_at = T0 + HOUR
+    for a in (W, THIN, MOV):
+        h._uni_add("base", a, T0, "t")
+    scan_run(h, T0, 1)
+    assert [j["key"] for j in h.queue] == ["base:" + MOV, "base:" + W], h.queue
+    assert h.scan_n["movers"] == 1 and h.scan_n["warm"] == 1 and h.state["prefiltered"] == 0
+    shutil.rmtree(d)
+    # a queued coin that stalls while waiting gets the fresh (non-trigger) numbers, so it is not bought on old data
+    live["h1"] = 25
+    h, fetch, d = scan_make({"tokens/v1/base/": tokens_fn(pairs)}, chains=["base"])
+    for n in ("dexscreener", "goplus", "honeypot"):
+        h.src[n].next_at = T0 + HOUR                                      # the screen can't start yet
+    h._uni_add("base", MOV, T0, "t")
+    scan_run(h, T0, 1)
+    assert h.queue and h.queue[0]["c"]["h1"] == 0.25
+    live["h1"] = -3
+    scan_run(h, T0 + 31_000, 1)
+    assert h.queue[0]["c"]["h1"] == -0.03 and not dex.entry_trigger(h.queue[0]["c"], h.p["entry"])
+    shutil.rmtree(d)
+    print("  scanner: mover -> front of the screen queue (fresh data, no ds step) -> bought; passed coin buys on refresh   ok")
+
+
+def test_scan_rate_limit_and_backoff():
+    st = {"code": 200}
+    def fn(u):
+        return (st["code"], [ds_pair("base", a, h1=1) for a in u.split("tokens/v1/base/")[1].split(",")])
+    h, fetch, d = scan_make({"tokens/v1/base/": fn}, chains=["base"], gap_s=dict(GAP0, ds_scan=1.0))
+    for i in range(300):
+        h._uni_add("base", addr_n(i), T0, "t")
+    scan_run(h, T0, 12, step=250)                                             # 3 s of 4 ticks a second
+    assert 2 <= h.scan_calls <= 4, h.scan_calls                              # gap 1 s: <= 60 calls/min
+    st["code"] = 429
+    t = scan_run(h, T0 + 10_000, 2)
+    assert h.scan_n["e429"] == 1 and h.state["status"]["ds_scan"]["code"] == 429
+    n = h.scan_calls
+    h.queue.clear()
+    assert h._enqueue(cand(), t, fresh=True)                                 # main jobs keep running meanwhile
+    t = scan_run(h, t, 5)
+    assert h.scan_calls == n and any("gopluslabs" in u for u in fetch.calls[-3:])
+    st["code"] = 200
+    scan_run(h, T0 + 10_000 + 16 * 60_000, 2)                                # 15 min backoff over: back
+    assert h.scan_calls >= n + 1
+    # time budget: a slow main request (6 s) leaves no room for the scanner in that tick
+    clock = iter([0.0, 6.0] * 10)
+    h.mono = lambda: next(clock)
+    n = h.scan_calls
+    h.tick(T0 + HOUR)
+    assert h.scan_calls == n
+    shutil.rmtree(d)
+    print("  scanner: own <= 60/min source, 429 -> 15 min backoff (main jobs unaffected), tick time budget   ok")
+
+
+def test_scan_bad_bodies():
+    A = addr_n(5)
+    bodies = iter([(200, "not json"), (200, {"pairs": None}), (200, [None, 1, "x", {"chainId": "base", "baseToken": "s"},
+                   {"chainId": "base", "baseToken": {"address": A}, "txns": [1], "liquidity": 5, "priceChange": "x"}]),
+                   (500, "<html>"), (200, {"error": "x"}), (0, "timed out"), (200, 7)] * 5)
+    table = {"tokens/v1/base/": lambda u: next(bodies),
+             "new_pools": (200, {"data": [{"attributes": {"name": "A / B", "transactions": [1]},
+                                            "relationships": {"base_token": {"data": {"id": "base_0xq"}}}}, 5]}),
+             "token-profiles/latest": (200, {"weird": 1}), "token-boosts/latest": (200, 7)}
+    h, fetch, d = scan_make(table, chains=["base"], scan={"gt_new_pages": 1, "hot_s": 1, "cold_s": 1}, feeds=True)
+    h._uni_add("base", A, T0, "t")
+    scan_run(h, T0, 400, step=2000)
+    assert not h._scan_err, h._scan_err                                      # nothing raised
+    assert list(h.uni) == [f"base:{A}"] and h.scan_calls >= 5 and h.scan_n["err"] >= 1   # errors back off
+    assert parse_gt_pools([1, 2], "base", T0) == [] and parse_gt_pools({"data": "x"}, "base", T0) == []
+    shutil.rmtree(d)
+    print("  scanner: junk / error bodies from every source never crash the tick   ok")
+
+
+def test_scan_feeds_and_snapshots():
+    OTHER = "Other1111111111111111111111111111111111111"
+    boosts = [{"chainId": "base", "tokenAddress": "0xfeed"}, {"chainId": "bsc", "tokenAddress": "0xno"}]
+    table = {"networks/solana/new_pools?page=1": (200, {"data": [gt_pool("solana", SOL), gt_pool("solana", OTHER)]}),
+             "new_pools": (200, {"data": []}),
+             "token-profiles/latest": (200, boosts),
+             "tokens/v1/": tokens_fn(lambda a: None if a == "0xno" else [ds_pair("solana" if len(a) > 20 else "base", a, h1=1)])}
+    h, fetch, d = scan_make(table, chains=["solana", "base"], scan={"gt_new_pages": 2}, feeds=True)
+    h.src["dexscreener"].next_at = h.src["geckoterminal"].next_at = 0
+    h.p["every_s"] = dict(h.p["every_s"], discover=10 ** 12, watch=10 ** 12)  # the feeds only
+    t = scan_run(h, T0, 12)
+    assert set(h.uni) == {f"solana:{SOL}", f"solana:{OTHER}", "base:0xfeed"}, set(h.uni)
+    assert h.uni[f"solana:{SOL}"]["src"] == "gt_new" and h.uni["base:0xfeed"]["src"] == "ds_profiles"
+    assert abs(h.uni[f"solana:{SOL}"]["created"] - (T0 - 48 * HOUR)) < 5000   # GT said 72h; the DS refresh wins
+    assert sum("solana/new_pools?page=1" in u for u in fetch.calls) == 1        # page 1 again only after gt_new_s
+    scan_run(h, t + 121_000, 8)
+    assert sum("solana/new_pools?page=1" in u for u in fetch.calls) == 2
+    h._snap_flush(T0)
+    import gzip
+    day = h._snap_day
+    with gzip.open(f"{d}/scan/{day}.csv.gz", "rt") as f:
+        snaps = list(csv.DictReader(f))
+    assert sorted(r["addr"] for r in snaps) == sorted([SOL, OTHER, "0xfeed"]), snaps   # once per token per hour
+    assert snaps[0]["src"].startswith("scan:") and snaps[0]["liq"] == "600000"
+    scan_run(h, T0 + HOUR + 1000, 40)
+    h._snap_flush(T0 + HOUR)
+    with gzip.open(f"{d}/scan/{day}.csv.gz", "rt") as f:                      # appended gzip members read back as one
+        assert len(list(csv.DictReader(f))) == 6
+    shutil.rmtree(d)
+    print("  scanner feeds: GeckoTerminal new_pools pages, DexScreener profiles; hourly scan snapshots (gzip)   ok")
+
+
 if __name__ == "__main__":
     test_parsers()
     test_checks()
@@ -921,4 +1166,10 @@ if __name__ == "__main__":
     test_discovery_sources()
     test_source_backoff()
     test_state_persists()
+    test_scan_bulk_refresh()
+    test_scan_universe_cap_and_eviction()
+    test_scan_mover_front_of_queue_and_buys()
+    test_scan_rate_limit_and_backoff()
+    test_scan_bad_bodies()
+    test_scan_feeds_and_snapshots()
     print("all dex tests passed")
