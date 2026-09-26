@@ -496,37 +496,31 @@ def dashboard_sync():
         return
     if os.environ.get("GIT_AUTOPUSH") != "1":
         return
-    for c in ["git add docs", "git commit -qm 'dashboard refresh'",
-              "git pull -q --rebase -X theirs", "git push -q"]:
-        if subprocess.run(c, shell=True, stdout=subprocess.DEVNULL).returncode:
-            if c.startswith("git pull"):
-                subprocess.run("git rebase --abort", shell=True, stderr=subprocess.DEVNULL)
-            return
+    push_docs()
 
 
-def daily_summary(rows):
-    """One evening message: today's profit/loss and total, per market."""
-    stamp = "data/last_summary.json"
-    today = time.strftime("%Y-%m-%d", time.gmtime())
-    prev = {}
-    if os.path.exists(stamp):
-        with open(stamp) as f:
-            prev = json.load(f)
-    if prev.get("date") == today or time.gmtime().tm_hour < 22:   # once a day, ~6pm US Eastern
-        return
-    start = config.STARTING_CASH_USD
-    lines, now_bal = [], {}
-    for mn, sn, eq, _ in rows:
-        key = mn.title()
-        now_bal[key] = eq
-        day = eq - prev.get("balances", {}).get(key, start)
-        lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - start:+,.2f}")
-    total = sum(now_bal.values())
-    day_total = total - sum(prev.get("balances", {}).get(k, start) for k in now_bal)
-    lines.append(dex.scoreboard_line(md=False))    # DEX paper account: shown, not in the total
-    notify(f"Today {day_total:+,.2f} | Total {total - start * len(now_bal):+,.2f}", "\n".join(lines))
-    with open(stamp, "w") as f:
-        json.dump({"date": today, "balances": now_bal}, f)
+def push_docs(remote="origin", branch="main"):
+    """Publish docs/index.html as its own commit on top of the remote branch, built with a
+    throwaway index: the working tree, the local branch and the engine's data files are never
+    touched (a pull here would trip over the uncommitted data files). A lost race is skipped;
+    the next refresh 5 minutes later tries again, and the hourly git_sync commits everything."""
+    env = dict(os.environ, GIT_INDEX_FILE=os.path.abspath(".git/dash_index"))
+
+    def git(*args):
+        return subprocess.run(["git", *args], env=env, capture_output=True, text=True, check=True).stdout.strip()
+    try:
+        git("fetch", "-q", remote, branch)
+        base = git("rev-parse", "FETCH_HEAD")
+        git("read-tree", base)
+        blob = git("hash-object", "-w", "docs/index.html")
+        git("update-index", "--add", "--cacheinfo", f"100644,{blob},docs/index.html")
+        tree = git("write-tree")
+        if tree == git("rev-parse", f"{base}^{{tree}}"):
+            return                                     # unchanged
+        commit = git("commit-tree", tree, "-p", base, "-m", "dashboard refresh")
+        git("push", "-q", remote, f"{commit}:refs/heads/{branch}")
+    except subprocess.CalledProcessError as e:
+        print(f"   dashboard push skipped: {(e.stderr or '').strip()[:200]}")
 
 
 def git_sync():
