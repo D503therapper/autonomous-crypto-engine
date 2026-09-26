@@ -1049,3 +1049,21 @@ Stocks: $500.00  today +0.00  total +0.00
    scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '84334.99', 'l': '83623.65', 'a': '84036.68', 'v': '969.3884', 'vv': '81438681.71', 'c': '0.0009', 'b': '84036.68', 'k': '84036.69', 'oi': '0', 't': 1790453226024}
    dex screen: REJECT BAL@ethereum liq $5,339,496 - is_mintable; top-10 holders 66%; lp locked 0% < 95%
    dex screen: REJECT PAXG@ethereum liq $2,186,630 - honeypot_with_same_creator; is_proxy
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+   >> crypto/early_mover: SELL $219.17 of NEAR @ 4.84056, P/L $-4.74 (unpark: rotation moved on)
+   >> crypto/early_mover: SELL $218.26 of SUI @ 1.15666, P/L $-5.65 (unpark: rotation moved on)
+[2026-09-26 20:13 UTC] crypto/early_mover equity $485.25 (-2.9%) 0 open  market UP
+[2026-09-26 20:13 UTC] crypto/mover     equity $486.16 (-2.8%) 5 open  market UP
+[2026-09-26 20:13 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 20:13 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 20:13 UTC] crypto/social_heat equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 20:13 UTC] crypto/breakout10 equity $489.84 (-2.0%) 2 open  market UP
+[2026-09-26 20:13 UTC] crypto/momentum  equity $496.62 (-0.7%) 4 open  market UP
+[2026-09-26 20:13 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 20:13 UTC] crypto/hold_btc  equity $499.74 (-0.1%) 1 open  market UP
+   social heat top: TRUMP 35 (35/0/0), QNT 32 (32/0/0), NEAR 29 (29/0/0), SUI 27 (27/0/0), HYPE 24 (24/0/0)
