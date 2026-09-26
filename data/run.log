@@ -244,3 +244,22 @@ Stocks: $500.00  today +0.00  total +0.00
    footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +8.6%, 2 volume hikes, 46% quiet hours @ 0.26054
    scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85262.41', 'l': '83148.75', 'a': '84034.01', 'v': '3526.2474', 'vv': '296194065.68', 'c': '-0.0069', 'b': '84033.01', 'k': '84033.02', 'oi': '0', 't': 1790390120887}
    scanner: QI: +10.5% in 36 min on 4.5x volume @ 0.004173 spread 0.71%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+   >> crypto/early_mover: SELL $447.43 of BTC @ 83958.2, P/L $-4.36 (unpark: rotation moved on)
+   >> crypto/early_mover: BUY $222.15 of NEAR @ 4.9062 (ride the active rotation)
+   >> crypto/early_mover: BUY $222.15 of SUI @ 1.17724 (ride the active rotation)
+[2026-09-26 02:39 UTC] crypto/early_mover equity $493.41 (-1.3%) 2 open  market UP
+[2026-09-26 02:39 UTC] crypto/mover     equity $494.52 (-1.1%) 5 open  market UP
+[2026-09-26 02:39 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:39 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:39 UTC] crypto/social_heat equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:39 UTC] crypto/breakout10 equity $495.86 (-0.8%) 2 open  market UP
+[2026-09-26 02:39 UTC] crypto/momentum  equity $504.54 (+0.9%) 4 open  market UP
+[2026-09-26 02:39 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-26 02:39 UTC] crypto/hold_btc  equity $499.89 (-0.0%) 1 open  market UP
+   social heat top: NEAR 40 (40/0/0), TRUMP 40 (35/0/5), PENGU 37 (37/0/0), ONDO 27 (27/0/0), ENA 24 (24/0/0)
