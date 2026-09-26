@@ -86,7 +86,9 @@ from on-chain history / explorers, and say PASS or which rule blocked it and for
 first run would fail the top-10 <= 40% rule (50% sent to Vitalik's wallet until his May 2021 burn); PEPE
 likely passes after ownership renounce. Two checkboxes per legend (owner): (1) WOULD WE HAVE CAUGHT IT?
 (2) WOULD WE HAVE MAXIMIZED PROFIT? - share of the achievable gain our exit kept (our sell vs the peak and
-vs the best simple rule in hindsight). For every wrongful block, propose a narrow fix (e.g. treat burn /
+vs the best simple rule in hindsight). Also test TAKE-PROFITS AT BIG MULTIPLES only (owner: not too early, not
+too late, bank profits): e.g. sell 10-25% at 10x / 50x / 100x vs none, combined with the concentration cap
+(the 2x half-sell already lost in dex_exit_study). For every wrongful block, propose a narrow fix (e.g. treat burn /
 famous-dev / CEX wallets separately) and check it against the rugged coins so real scams still fail.
 
 ### Social AI hype-reader (owner: "trending on social media is everything to us") - after the home box
