@@ -40,7 +40,7 @@ STOCK_ETFS = ["SPY", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "XLK", "XLF", "XL
 # --- Early mover hunter (all Crypto.com coins) -----------------------------
 EARLY_MOVER = {
     "k": 3, "x": 0.10, "v": 3,        # up >= 10% in 3h on >= 3x normal volume
-    "trail": 0.50, "h": 24,           # trailing stop 50% below peak; max 24h hold. listings_study.py
+    "trail": 0.40, "h": 24,           # trailing stop 40% below peak (crypto_studies.py C, was 50%); max 24h hold. listings_study.py
                                       # (91 listings, 17 months): most robust cell, +12.9%/trade
                                       # (CI -0.2%..+30%), walk-forward's consistent last pick; edge lumpy.
     "movers": False,                  # official account: new listings only (take-off buying lost
@@ -163,7 +163,9 @@ HALT_HOURS = 168          # ...for 7 days, then resume
 # trailing stop: no time limits, no rotation / rebalance sales, no take-profits, no unparking.
 # It only sells after the price gives back "trail" from its peak (same 50% as the listing hunter).
 # Live crypto accounts only. Dashboard badge: up >= "hot" (50%) vs entry right now -> 🔥 ON FIRE 🚀.
-MOON = {"ride": 0.50, "trail": 0.50, "hot": 0.50}
+# crypto_studies.py section C (89 listings, bar-by-bar, walk-forward): 40% trail +5.6%/trade vs 50% +3.3%, both
+# halves positive, chosen by the expanding walk-forward 69 of 89 times -> 40% (was 50%).
+MOON = {"ride": 0.50, "trail": 0.40, "hot": 0.50}
 
 COOLDOWN_CANDLES = 12     # after a stop-out, leave that coin alone for 12h
 
