@@ -211,7 +211,8 @@ DEX = {
         "max_24h_change": None,                    # no cap on prior gains (owner)
         "mature": {"age_h": 720, "liq": 1_000_000},   # 30+ days with $1M+: LP lock not required (v3/CLMM can't lock)
         "age_unknown_liq": 1_000_000,                 # source gave no pool age: fine on a $1M+ pool
-        "rules": "2026-09-26b",                       # bump when the screen changes: past rejections are re-screened
+        "rules": "2026-09-26b",
+        "ttl_h": 12,                                  # a passed coin stays on the buy watch-list 12h (was 6h)                       # bump when the screen changes: past rejections are re-screened
     },
     # dex_exit_study.py (results/dex_exit_study.txt, 2026-09-26): the "fast10" entry (1h >= +10%) beat the old
     # 1h +5% / 6h +10% entry; buys must still outnumber sells

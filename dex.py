@@ -753,9 +753,18 @@ class DexHunter:
             return False
         self.queue.append({"key": k, "c": c, "steps": self._steps(c["chain"], fresh), "i": 0, "reasons": [],
                            "mode": "screen"})
-        self.queue.sort(key=lambda j: -j["c"]["liq"])
+        self.queue.sort(key=self._priority)
         del self.queue[self.p["queue"]:]
         return True
+
+    def _priority(self, job):
+        """Screen what we could buy NOW first: coins already meeting the entry trigger (1h move + buyers),
+        then the strongest 1h movers, then deeper pools. Ordering by liquidity alone spent the one-request
+        budget on big slow pools while the movers' jumps ended in the queue (seen 2026-09-26)."""
+        c, E = job["c"], self.p["entry"]
+        h1, b1, s1 = c.get("h1") or 0.0, c.get("b1") or 0, c.get("s1") or 0
+        ready = h1 >= E["h1"] and b1 >= max(1, s1 * E["buy_ratio"])
+        return (0 if ready else 1, -h1, -c["liq"])
 
     # ---- screening state machine (one request per call) ----
     def _screen_job(self, now):

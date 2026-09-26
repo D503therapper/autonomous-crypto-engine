@@ -393,6 +393,18 @@ def test_market_sanity_and_prefilter():
     print("  market sanity: tiny / young pool, volume, one-sided, fade   ok")
 
 
+def test_queue_screens_movers_first():
+    h, _, d = make({})
+    slow = cand(addr="0x" + "1" * 40, liq=5_000_000, h1=1)           # big, not moving
+    mover = cand(addr="0x" + "2" * 40, liq=150_000, h1=15)           # small, +15% 1h, buyers > sellers
+    fading = cand(addr="0x" + "3" * 40, liq=900_000, h1=4)
+    for c in (slow, fading, mover):
+        h._enqueue(c, T0, fresh=False)
+    assert [j["c"]["addr"] for j in h.queue] == [mover["addr"], fading["addr"], slow["addr"]], h.queue
+    shutil.rmtree(d)
+    print("  screening queue: coins meeting the entry trigger first, then by 1h move   ok")
+
+
 def test_liquidity_floor_scales_with_account():
     h, _, d = make({})
     assert h.S()["min_liq"] == 100_000                                    # $500: 3% = $15 -> floor binds
@@ -823,6 +835,7 @@ if __name__ == "__main__":
     test_rejections()
     test_unreachable_fails_closed()
     test_market_sanity_and_prefilter()
+    test_queue_screens_movers_first()
     test_liquidity_floor_scales_with_account()
     test_sizing_caps_in_entries()
     test_trailing_stop()
