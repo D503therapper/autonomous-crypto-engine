@@ -34,3 +34,9 @@ actually came first, how often they fired without a pump, and whether trading th
 costs (walk-forward). Wire the winners into the scanner / footprint / social signals. Report in plain words.
 Note: X/Twitter (Elon) needs a paid API and bots react in seconds - study how long tweet-driven pumps
 lasted historically before deciding it's worth paying for.
+
+### One coin vs two in the rotation (asked by the owner 2026-09-26)
+Owner wants bigger gains: test the breakout10 rotation (and the ens_donchian family) with top_n=1 vs 2
+(tournament only tried 2 and 5). Walk-forward, after costs: profit per month, max drawdown, worst month.
+Switch to 1 only if it wins on unseen months with a drawdown the owner can live with; report plainly.
+Do NOT concentrate the listing hunter (lumpy edge: top 3 of 91 listings = 94% of profit).
