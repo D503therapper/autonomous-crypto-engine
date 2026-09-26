@@ -116,6 +116,7 @@ def table_sol(pair=None, gp=None, rc=None, addr=SOL):
 LADDER = {"tiers": {"A": {"pct": 0.03}, "B": {"pct": 0.10, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},
                     "C": {"pct": 0.20, "age_d": 30, "liq": 5_000_000, "vol24": 0, "clean": 0, "cex": True}},
           "size": {"liq_pct": 0.005, "max_exposure": 0.60},
+          "slots": 4,
           "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},
           "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "ladder": [(4.0, 1 / 3), (9.0, 0.5)],
                    "trail_steps": [(3.0, 0.40), (10.0, 0.50)], "max_hold_days": 14, "runner_at_limit": None,
