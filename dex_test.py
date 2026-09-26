@@ -462,13 +462,16 @@ def test_take_profit_steps():
     assert "take-profit +100%" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
     t = poll(h, t, px, v=0.03)                                              # +200%: nothing new
     assert abs(h.pf.positions[K]["qty"] - q0 / 2) < 1e-12
-    t = poll(h, t, px, v=0.051)                                             # +410%: no more selling, it rides
+    t = poll(h, t, px, v=0.051)                                             # 5.1x: sell a third of the rest
     pos = h.pf.positions[K]
-    assert not pos["tp2"] and abs(pos["qty"] - q0 / 2) < 1e-12
+    assert abs(pos["qty"] - q0 / 3) < 1e-12 and "+400%" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
     assert abs(pos["stop"] - 0.051 * 0.6) < 1e-12                          # peak >= 3x: trail widens to 40%
-    t = poll(h, t, px, v=0.12)                                              # 12x: trail widens to 50%
-    assert abs(h.pf.positions[K]["stop"] - 0.12 * 0.5) < 1e-12 and abs(h.pf.positions[K]["qty"] - q0 / 2) < 1e-12
-    t = poll(h, t, px, v=0.055)                                             # < 0.06: stopped out, big net winner
+    t = poll(h, t, px, v=0.12)                                              # 12x: half of what's left
+    pos = h.pf.positions[K]
+    assert abs(pos["qty"] - q0 / 6) < 1e-12 and abs(pos["stop"] - 0.12 * 0.5) < 1e-12   # moonbag, 50% trail
+    t = poll(h, t, px, v=0.5)                                               # 50x: moonbag keeps riding
+    assert abs(h.pf.positions[K]["qty"] - q0 / 6) < 1e-12
+    t = poll(h, t, px, v=0.24)                                              # < 0.25: stopped out, big net winner
     assert K not in h.pf.positions
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert oc["outcome"] == "normal" and float(oc["pnl"]) > cost0 * 1.5, oc
@@ -482,7 +485,7 @@ def test_take_profit_steps():
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert oc["outcome"] == "normal" and float(oc["pnl"]) > 0.4 * cost0, oc
     shutil.rmtree(d)
-    print("  take-profit (+100% half), runner rides with widening trail, break-even stop on the free ride   ok")
+    print("  take-profit ladder (2x half, 5x third, 10x half) + moonbag with widening trail, break-even stop   ok")
 
 
 def test_max_hold():

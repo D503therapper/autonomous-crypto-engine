@@ -28,7 +28,8 @@ Trading:
             down, never after the first take-profit).
     costs   0.3% DEX fee + price impact (usd / liquidity) + 1% slippage, per side
     exits   +100%: sell 50% (cost recovered; stop moves to break-even for the free ride);
-            the rest rides with no price cap: trailing stop 30% below peak (40% once the peak is 3x,
+            then scale out: +400% (5x) sell a third of the rest, +900% (10x) half of what's left; the last
+            ~17% (moonbag) rides with no price cap: trailing stop 30% below peak (40% once the peak is 3x,
             50% once 10x); 14-day max hold only for trades that never doubled
     scams   held tokens re-screened every 30 min (security sources); liquidity -50%, honeypot,
             sell tax > 50% or trading paused -> exit at the realistic post-rug price (no pair left =
@@ -97,8 +98,8 @@ DEFAULTS = {
     "cex_list": [],                                                  # symbols known to trade on a major CEX
     "size": {"liq_pct": 0.005, "max_exposure": 0.60},                # <= 0.5% of the pool; DEX <= 60% of equity
     "cost": {"fee": 0.003, "slip": 0.01},                            # + price impact usd/liquidity per side
-    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": None,          # +100%: sell half (cost recovered), stop
-             "trail_steps": [(3.0, 0.40), (10.0, 0.50)],   # to break-even; the rest rides with no cap
+    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "ladder": [(4.0, 1 / 3), (9.0, 0.5)],   # 2x: half; 5x: a third
+             "trail_steps": [(3.0, 0.40), (10.0, 0.50)],   # of the rest; 10x: half again; ~17% moonbag rides
              "max_hold_days": 14, "liq_pull": 0.50, "rug_tax": 0.50,
              "check_wait_s": 600},                                   # sell check unreachable this long -> book at market
     "followup": {"days": 7, "per_day": 50, "rug_liq": 0.80, "rug_px": 0.90, "runup": 1.0},
@@ -901,9 +902,12 @@ class DexHunter:
         if not pos["tp1"] and p >= pos["entry"] * (1 + X["tp1"][0]):
             pos["tp1"] = True
             return self._request_exit(k, X["tp1"][1], f"take-profit +{X['tp1'][0]:.0%}", "normal", now, "tp")
-        if X.get("tp2") and pos["tp1"] and not pos["tp2"] and p >= pos["entry"] * (1 + X["tp2"][0]):
-            pos["tp2"] = True
-            return self._request_exit(k, X["tp2"][1], f"take-profit +{X['tp2'][0]:.0%}", "normal", now, "tp")
+        # after the first half: scale out in steps (e.g. 5x, 10x) and keep a moonbag riding the wide trail
+        n = pos.get("tpn", 0)
+        ladder = X.get("ladder", [])
+        if pos["tp1"] and n < len(ladder) and p >= pos["entry"] * (1 + ladder[n][0]):
+            pos["tpn"] = n + 1
+            return self._request_exit(k, ladder[n][1], f"take-profit +{ladder[n][0]:.0%}", "normal", now, "tp")
 
     def _request_exit(self, k, frac, reason, outcome, now, kind=None):
         """Queue an exit; it executes after the sell simulation (_exit_job). Higher priority replaces."""
