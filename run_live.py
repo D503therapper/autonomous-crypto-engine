@@ -360,9 +360,6 @@ def trade_social(client, tracker):
         e = st.entry(coin, tick[coin], now)
         if not e:
             continue
-        if st is EARLY:                                # official account: free cash from the BTC park
-            unpark(pf, now, eq * st.position_pct - (pf.cash - eq * config.MIN_CASH_RESERVE_PCT),
-                   {c: v["price"] for c, v in scanner.last.items() if v.get("price")})
         usd = min(eq * st.position_pct, pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
         if usd < config.MIN_ORDER_USD:
             break
@@ -521,6 +518,31 @@ def push_docs(remote="origin", branch="main"):
         git("push", "-q", remote, f"{commit}:refs/heads/{branch}")
     except subprocess.CalledProcessError as e:
         print(f"   dashboard push skipped: {(e.stderr or '').strip()[:200]}")
+
+
+def daily_summary(rows):
+    """One evening message: today's profit/loss and total, per market."""
+    stamp = "data/last_summary.json"
+    today = time.strftime("%Y-%m-%d", time.gmtime())
+    prev = {}
+    if os.path.exists(stamp):
+        with open(stamp) as f:
+            prev = json.load(f)
+    if prev.get("date") == today or time.gmtime().tm_hour < 22:   # once a day, ~6pm US Eastern
+        return
+    start = config.STARTING_CASH_USD
+    lines, now_bal = [], {}
+    for mn, sn, eq, _ in rows:
+        key = mn.title()
+        now_bal[key] = eq
+        day = eq - prev.get("balances", {}).get(key, start)
+        lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - start:+,.2f}")
+    total = sum(now_bal.values())
+    day_total = total - sum(prev.get("balances", {}).get(k, start) for k in now_bal)
+    lines.append(dex.scoreboard_line(md=False))    # DEX paper account: shown, not in the total
+    notify(f"Today {day_total:+,.2f} | Total {total - start * len(now_bal):+,.2f}", "\n".join(lines))
+    with open(stamp, "w") as f:
+        json.dump({"date": today, "balances": now_bal}, f)
 
 
 def git_sync():

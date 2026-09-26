@@ -46,7 +46,15 @@ jobs:
       - run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
-      - run: python -u run_live.py --watch 345 | tee -a data/run.log
+      # errors go into run.log too; if the engine ever stops early (a crash), restart it after 30s
+      - run: |
+          end=$((SECONDS + 345 * 60))
+          while [ $SECONDS -lt $((end - 120)) ]; do
+            python -u run_live.py --watch $(( (end - SECONDS) / 60 )) 2>&1 | tee -a data/run.log
+            [ $SECONDS -lt $((end - 120)) ] || break
+            echo "[$(date -u '+%F %H:%M') UTC] ENGINE STOPPED EARLY - restarting in 30s" | tee -a data/run.log
+            sleep 30
+          done
       - if: always()
         run: |
           git add data SCOREBOARD.md LAB.md docs || true
