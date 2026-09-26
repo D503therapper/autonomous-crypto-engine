@@ -118,3 +118,15 @@ B. Crypto.com top gainers: 57 one-day +30% gainers in 548 days; no early signal 
    (-0.99%/trade, CI -2.2..+0.2); chasing -1.6%. Keep movers off.
 C. Listing exits: 40% trail beat 50% (+5.6% vs +3.3%/trade, both halves positive, walk-forward picked it 69/89).
    APPLIED: config.MOON trail 0.40, EARLY_MOVER trail 0.40.
+
+## 2026-09-26 - DEX legends study (results/dex_legends_study.txt)
+Price data from launch was missing for most legends (CMC/Yahoo start after the DEX launch), so "caught?" could
+only be judged for PNUT (caught: peak 54.8x, live exit kept 26.7x = +$2,571 on $100). Exit ranking over 420
+variants x 72 trades (3 legends + 69 real pools): ROBUST winner = no protection trail inside the 14 days and a
+40% runner trail after day 14 (+$82.7k vs live +$54.5k, without best trade +$25.7k vs +$7.0k, growth 20.1 vs
+11.7, both halves better). The 60%-after-3x trail, concentration caps and take-profits at 10x/50x/100x all cost
+money. APPLIED to config.DEX["exit"]. Screen check: PEPE failed on transfer_pausable + is_blacklisted although
+its owner is renounced (0x0) -> FIX APPLIED: owner-only flags ignored when ownership is provably renounced (no
+hidden owner, no take-back, not a proxy). SHIB/BRETT/SPX/KISHU "fails" were GoPlus tax-unknown, which the live
+engine defers to honeypot.is (study didn't call it). Solana legends' launch-day holders can't be rebuilt with free
+data. Re-run with a paid/archival data source later for a proper caught-checkbox on every legend.

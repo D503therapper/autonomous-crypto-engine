@@ -24,8 +24,9 @@ H14 = 14 * 24
 
 class T(unittest.TestCase):
     def test_live_rule_matches_config(self):
-        self.assertEqual(S.LIVE_RULE["prot"], (3.0, 0.60))
-        self.assertEqual(S.LIVE_RULE["rt"], 0.50)
+        X = S.XC                                          # follows config.DEX["exit"], whatever it is
+        self.assertEqual(S.LIVE_RULE["prot"], tuple(X["trail_steps"][0]) if X.get("trail_steps") else None)
+        self.assertEqual(S.LIVE_RULE["rt"], X["runner_at_limit"][1])
 
     def test_protection_trail_after_3x(self):
         c = [1.0] + [1.0 + 3.0 * i / 50 for i in range(1, 51)] + [4.0 - 0.1 * i for i in range(1, 30)]

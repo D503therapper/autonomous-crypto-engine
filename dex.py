@@ -276,13 +276,25 @@ def _tax(r, v, what, S, unknown="flag"):
         r.append((f"{what} {v:.0%}", "scam" if what == "sell tax" and v > DEX["exit"]["rug_tax"] else "flag"))
 
 
+RENOUNCED = {"0x0000000000000000000000000000000000000000", "0x000000000000000000000000000000000000dead"}
+# Powers only the contract owner can use. Once ownership is provably renounced (owner = zero / dead address,
+# no hidden owner, no way to take ownership back, not an upgradeable proxy) nobody can ever call them.
+# dex_legends_study.py: PEPE was blocked on transfer_pausable + is_blacklisted although its owner is 0x0.
+OWNER_ONLY = {"transfer_pausable", "is_mintable", "is_blacklisted", "is_whitelisted", "owner_change_balance"}
+
+
+def renounced(d):
+    return (str(d.get("owner_address") or "").lower() in RENOUNCED and not _one(d, "hidden_owner")
+            and not _one(d, "can_take_back_ownership") and not _one(d, "is_proxy"))
+
+
 def check_goplus_evm(d, S):
-    r = []
+    r, dead_owner = [], renounced(d)
     for k, sev in (("is_honeypot", "scam"), ("cannot_sell_all", "scam"), ("transfer_pausable", "scam"),
                    ("cannot_buy", "flag"), ("is_mintable", "flag"), ("is_blacklisted", "flag"),
                    ("is_whitelisted", "flag"), ("hidden_owner", "flag"), ("can_take_back_ownership", "flag"),
                    ("owner_change_balance", "flag"), ("selfdestruct", "flag"), ("honeypot_with_same_creator", "flag")):
-        if _one(d, k):
+        if _one(d, k) and not (dead_owner and k in OWNER_ONLY):
             r.append((k, sev))
     if _one(d, "is_proxy") and S["reject_proxy"]:
         r.append(("is_proxy", "flag"))

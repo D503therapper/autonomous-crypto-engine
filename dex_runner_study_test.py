@@ -78,6 +78,16 @@ class T(unittest.TestCase):
         self.assertIsNotNone(D.labels(58))
 
     def test_simulate_engine_exit(self):
+        # pinned to the exit these cases were written for (config.DEX["exit"] changed on 2026-09-26)
+        old = dict(S.EXIT)
+        S.EXIT.update({"trail": 0.95, "trail_steps": [(3.0, 0.60)], "max_hold_days": 14, "runner_at_limit": (1.0, 0.50)})
+        try:
+            self._cases()
+        finally:
+            S.EXIT.clear()
+            S.EXIT.update(old)
+
+    def _cases(self):
         liq = 500_000.0
         # 1. flat for 14 days -> time exit near entry
         P = pool([1.0] * 400)

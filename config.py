@@ -234,10 +234,12 @@ DEX = {
     # 4-slot portfolio with the fast entry +55%/month, both halves positive, max drawdown -37%). Meme coins
     # swing 30-50% on the way up, so any tight stop shakes us out. Rug protection stays: liquidity pull /
     # failed re-screen still sell at once. Owner rule: a coin up >= 2x at day 14 keeps riding on a 50% trail.
-    # Owner: never miss a 1000x, never give it all back -> once a coin has hit 3x, a 60% trail from its high
-    # (a 10x that collapses is sold around 4x; big runners' normal 50% pullbacks don't trigger it).
-    "exit": {"trail": 0.95, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [(3.0, 0.60)],
-             "max_hold_days": 14, "runner_at_limit": (1.0, 0.50),   # >= +100% at the limit: 50% trail, no clock
+    # dex_legends_study.py (420 exit variants x 72 trades incl. PNUT 55x; robust = beats the old rule in total,
+    # without its best trade, on growth and in BOTH halves): no protection trail inside the 14 days and a 40%
+    # runner trail after day 14 won (+$82.7k vs +$54.5k; growth 20.1 vs 11.7). The 60%-after-3x trail, a
+    # concentration cap and take-profits at 10x/50x/100x all cost money. The stake (20-25%) is the loss limit.
+    "exit": {"trail": 0.95, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [],
+             "max_hold_days": 14, "runner_at_limit": (1.0, 0.40),   # >= +100% at the limit: 40% trail, no clock
              "liq_pull": 0.50, "rug_tax": 0.50},
     "slots": 4,
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to

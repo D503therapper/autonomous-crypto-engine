@@ -396,6 +396,21 @@ def test_market_sanity_and_prefilter():
     print("  market sanity: tiny / young pool, volume, one-sided, fade   ok")
 
 
+def test_renounced_owner_powers_ignored():
+    S = dex.DEX["screen"]
+    pepe = gp_evm(transfer_pausable="1", is_blacklisted="1", owner_address="0x0000000000000000000000000000000000000000")["result"][EVM]
+    rs = [t for t, _ in dex.check_goplus_evm(pepe, S)]
+    assert "transfer_pausable" not in rs and "is_blacklisted" not in rs, rs          # PEPE: owner renounced
+    live = gp_evm(transfer_pausable="1", is_blacklisted="1", owner_address="0xdev0000000000000000000000000000000000001")["result"][EVM]
+    rs = [t for t, _ in dex.check_goplus_evm(live, S)]
+    assert "transfer_pausable" in rs and "is_blacklisted" in rs                      # owner can still use them
+    sneaky = dict(pepe, hidden_owner="1")
+    assert "transfer_pausable" in [t for t, _ in dex.check_goplus_evm(sneaky, S)]    # hidden owner: no pass
+    proxy = dict(pepe, is_proxy="1")
+    assert "is_blacklisted" in [t for t, _ in dex.check_goplus_evm(proxy, S)]       # upgradeable: no pass
+    print("  renounced owner: owner-only powers ignored; hidden owner / proxy still blocked   ok")
+
+
 def test_snapshots_logged_hourly():
     h, _, d = make({})
     c = cand()
@@ -557,8 +572,8 @@ def test_take_profit_steps():
 
 
 def test_study_exit():
-    """Live config (dex_exit_study winner + owner rules): no stop for 14 days, time limit, a runner at the
-    limit keeps riding on a 50% trail, and a coin that hit 3x gets a 60% trail from its high."""
+    """Live config (dex_exit_study + dex_legends_study): no stop for 14 days, time limit, a runner at the
+    limit keeps riding on a 40% trail."""
     live = {"entry": dex.DEX["entry"], "exit": dex.DEX["exit"]}
     def held(px_path, days_between=1):
         h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, h1=12)), **live)
@@ -581,11 +596,11 @@ def test_study_exit():
     assert not any(ex) and pos.get("runner")
     ex, _ = held([2.5] * 13 + [2.6, 2.0, 1.2])            # runner then drops 50% from its high -> sold
     assert ex[-1]
-    ex, _ = held([2, 5, 10, 6, 3.9])                      # hit 10x, falls to 3.9x (-61%) inside 14 days -> sold
-    assert ex[-1] and len(ex) == 5
-    ex, _ = held([2, 5, 10, 5, 4.5])                      # -55% from 10x: still held (room for big swings)
-    assert not any(ex)
-    print("  live exit: 14-day hold without stop, runner at the limit rides a 50% trail, 60% trail after 3x   ok")
+    ex, _ = held([2, 5, 10, 6, 3.9])                      # 10x then -61% inside 14 days: still held (no
+    assert not any(ex)                                    # protection trail - dex_legends_study)
+    ex, _ = held([2.5] * 13 + [2.6, 2.1, 1.6, 1.5])       # runner at day 14, then -42% from its high -> sold
+    assert ex[-1] and len(ex) == 17
+    print("  live exit: 14-day hold without stop, runner at the limit rides a 40% trail   ok")
 
 
 def test_resize_old_small_position():
@@ -873,6 +888,7 @@ if __name__ == "__main__":
     test_rejections()
     test_unreachable_fails_closed()
     test_market_sanity_and_prefilter()
+    test_renounced_owner_powers_ignored()
     test_snapshots_logged_hourly()
     test_queue_screens_movers_first()
     test_liquidity_floor_scales_with_account()
