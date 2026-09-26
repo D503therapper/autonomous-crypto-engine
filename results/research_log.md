@@ -80,6 +80,12 @@ second leg, and pick by total profit across legends AND duds together, not legen
 Also test a CONCENTRATION CAP (owner: "never hit a Luna Classic"): when one position grows past 20/25/33%
 of total equity, sell back down to the cap and bank the rest; keep the remainder on the runner rules. Add
 LUNA (May 2022), FTT and other collapses to the replay. Recommend a cap level (or none) with the numbers.
+LEGENDS SCREEN CHECK (owner: "that checkbox needs to say YES"): for each legend, reconstruct what our screen
+would have seen in its first days (holders, LP burn/lock, owner/blacklist functions, taxes, liquidity, age)
+from on-chain history / explorers, and say PASS or which rule blocked it and for how long. Known: SHIB's
+first run would fail the top-10 <= 40% rule (50% sent to Vitalik's wallet until his May 2021 burn); PEPE
+likely passes after ownership renounce. For every wrongful block, propose a narrow fix (e.g. treat burn /
+famous-dev / CEX wallets separately) and check it against the rugged coins so real scams still fail.
 
 ### Social AI hype-reader (owner: "trending on social media is everything to us") - after the home box
 Plan once the owner's box (Xeon 14c, 62 GB RAM, RTX A4500 20 GB, no sudo) is a self-hosted runner:
