@@ -1,0 +1,29 @@
+# Owner questions from results/research_log.md (meme coins / top_n in the rotation, anatomy of the top
+# gainers, listing-hunter runner exits) in one walk-forward study (crypto_studies.py); results committed to results/.
+name: crypto-studies
+on:
+  push:
+    paths: ["crypto_studies.py", ".github/workflows/crypto_studies.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: crypto_studies
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: |
+          mkdir -p results
+          python -u crypto_studies.py --months 18 --daily-days 2000 --hourly-days 548 --workers 6 2>&1 \
+            | grep -v "^  loaded \|^  skip \|^  paths " | tee results/crypto_studies.txt
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "crypto-studies results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done
