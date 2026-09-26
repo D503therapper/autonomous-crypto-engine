@@ -85,6 +85,9 @@ def _chg(x, base):
     return f"{amt} ({sign}{abs(x) / base:.1%})" if base else amt
 
 
+REPO = "D503therapper/autonomous-crypto-engine"   # the page pulls its newest copy from here
+
+
 def render(cards, updated_ms):
     """cards: [{name, icon, equity, series, positions, last, extra}] -> HTML string."""
     start = config.STARTING_CASH_USD
@@ -124,7 +127,7 @@ def render(cards, updated_ms):
     start_day = time.strftime("%b %-d", time.gmtime(first_t / 1000))
     tiles = (tile("This month", month_name, mpl, mpl / month_start, "#22d3ee")
              + tile("All time", f"since {start_day}", pl, pl / base, "#22e39a")
-             + tile("Avg / month", f"over {months_run:.0f} mo" if months_run >= 2 else "so far", avg, avg / base, "#ffc53d"))
+             + tile("Avg / month", f"over {months_run:.0f} mo" if months_run >= 2 else "so far", avg, avg / base, "#3b82ff"))
     dup = dpl >= 0
     blocks = []
     for i, c in enumerate(cards):
@@ -271,7 +274,15 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 (function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));
 var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
 document.getElementById("ago").textContent="Live · "+s;
-if(m>90)document.getElementById("dot").className="dot stale";}})();
+if(m>90)document.getElementById("dot").className="dot stale";
+// the link host (githack) can serve a copy up to ~20 min old: ask GitHub for the newest version
+// (no CDN cache, 60 calls/hour per phone) and swap it in when it's newer
+fetch("https://api.github.com/repos/{REPO}/contents/docs/index.html?ref=main",
+  {{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-store"}})
+ .then(function(r){{return r.ok?r.text():""}})
+ .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
+   if(x&&+x[1]>t){{document.open();document.write(h);document.close();}}}})
+ .catch(function(){{}});}})();
 </script></body></html>"""
 
 
