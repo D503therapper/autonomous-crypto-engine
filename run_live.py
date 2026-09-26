@@ -16,7 +16,7 @@ import config
 import dashboard
 import dex
 import social
-from engine import Portfolio, append_csv, open_trades, step, ts
+from engine import Portfolio, append_csv, is_runner, open_trades, runner_stop_hit, step, ts
 from markets import MARKETS
 from scanner import MinuteScanner, describe
 from signals import ListingNoticeReactor, PrePumpFootprint, PumpGuard
@@ -115,7 +115,7 @@ def full_cycle(mname, client):
         pf = load_pf(mname, st.name)
         n_before, was_halted = len(pf.trades), pf.halted
         coins = {s: data[s] for s in st.universe if s in data}
-        step(pf, social.tag(coins) if getattr(st, "needs_coin", False) else coins, st, ok)
+        step(pf, social.tag(coins) if getattr(st, "needs_coin", False) else coins, st, ok, runners=mname == "crypto")
         if st is EARLY:                                # keep the official listing hunter fully invested
             park_idle(pf, int(time.time() * 1000), prices, park_targets())
         eq = save_pf(mname, st.name, pf, n_before, prices)
@@ -164,10 +164,13 @@ def fast_check(mname, client):
             if hasattr(st, "trail"):
                 pos["peak"] = max(pos["peak"], p)
                 pos["stop"] = max(pos["stop"], pos["peak"] * (1 - st.trail))
-            if p <= pos["stop"]:
+            runner = mname == "crypto" and is_runner(pos, p)
+            if runner and runner_stop_hit(pos, p):
+                pf.sell(now, s, 1.0, p, f"runner trail: gave back {config.MOON['trail']:.0%} from its high (live check)")
+            elif p <= pos["stop"]:
                 if pf.sell(now, s, 1.0, p, "stop hit (live check)") < 0:
                     pf.cooldown[s] = now + config.COOLDOWN_CANDLES * 3_600_000   # as in engine.step
-            elif st.name == "breakout" and not pos["took_profit"] and \
+            elif st.name == "breakout" and not runner and not pos["took_profit"] and \
                     p >= pos["entry"] * (1 + config.BREAKOUT["take_profit"]):
                 pf.sell(now, s, 0.5, p, f"secured +{config.BREAKOUT['take_profit']:.0%} (live check)")
                 pos["took_profit"] = True
@@ -223,7 +226,8 @@ def park_idle(pf, now, prices, targets):
 
 def unpark(pf, now, need, prices):
     """Sell parked positions pro rata to raise `need` dollars for a new listing."""
-    parked = {c: p["qty"] * prices[c] for c, p in pf.positions.items() if p.get("park") and prices.get(c)}
+    parked = {c: p["qty"] * prices[c] for c, p in pf.positions.items()
+              if p.get("park") and prices.get(c) and not is_runner(p, prices[c])}   # never sell a runner
     total = sum(parked.values())
     if need <= 0 or not total:
         return

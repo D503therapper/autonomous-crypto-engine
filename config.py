@@ -158,6 +158,13 @@ MIN_CASH_RESERVE_PCT = 0.10
 MIN_ORDER_USD = 10.00
 MAX_DRAWDOWN_HALT = None  # owner's choice: no account-level pause (set e.g. 0.20 to pause at -20%)
 HALT_HOURS = 168          # ...for 7 days, then resume
+# --- Runners: never sell a coin while it's flying ------------------------------
+# Once a position has been up >= "ride" (peak vs entry), the engine blocks every exit except a
+# trailing stop: no time limits, no rotation / rebalance sales, no take-profits, no unparking.
+# It only sells after the price gives back "trail" from its peak (same 50% as the listing hunter).
+# Live crypto accounts only. Dashboard badge: up >= "hot" vs entry right now -> 🔥 ON FIRE 🚀.
+MOON = {"ride": 0.50, "trail": 0.50, "hot": 0.25}
+
 COOLDOWN_CANDLES = 12     # after a stop-out, leave that coin alone for 12h
 
 # --- Files -----------------------------------------------------------------

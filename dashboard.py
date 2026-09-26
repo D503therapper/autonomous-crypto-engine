@@ -130,8 +130,11 @@ def render(cards, updated_ms):
     for i, c in enumerate(cards):
         d = c["equity"] - start
         col = "#22e39a" if d >= 0 else "#ff3b3b"
+        def fire(h):
+            g = h["pnl"] / (h["value"] - h["pnl"]) if h["value"] - h["pnl"] > 0 else 0
+            return ' 🚀<span class="fire">🔥 ON FIRE 🔥</span>' if g >= config.MOON["hot"] else ""
         rows = "".join(
-            f'<div class="h"><span class="hc">{html.escape(h["coin"])}</span><span class="hv">{_money(h["value"])}</span>'
+            f'<div class="h"><span class="hc">{html.escape(h["coin"])}{fire(h)}</span><span class="hv">{_money(h["value"])}</span>'
             f'<span class="hp {"up" if h["pnl"] >= 0 else "dn"}"><span class="ar">{"▲" if h["pnl"] >= 0 else "▼"}</span>'
             f'{_chg(h["pnl"], h["value"] - h["pnl"])}</span></div>' for h in c.get("holdings", []))
         tap = "holdings" in c                    # holdings list always shown under the chart
@@ -222,6 +225,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .hc{{grid-area:c;align-self:center;font-weight:800;font-size:15px;color:#fff}}
 .hv{{grid-area:v;text-align:right;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}}
 .hp{{grid-area:p;text-align:right;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}}
+.fire{{display:block;margin-top:2px;font-size:10.5px;font-weight:700;letter-spacing:.18em;color:#fff;
+  text-shadow:0 0 8px rgba(255,120,40,.9),0 0 18px rgba(255,60,0,.6)}}
 .h.none{{display:block;color:#fff;font-weight:600;font-size:13px}}
 .foot-row{{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:10px}}
 .last{{color:#aab6d3;font-size:12.5px}}

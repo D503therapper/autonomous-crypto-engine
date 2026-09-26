@@ -94,9 +94,23 @@ def open_trades(pf):
     return sum(1 for p in pf.positions.values() if not p.get("park"))
 
 
-def step(pf, candles_by_coin, strat, market_ok=True):
+def is_runner(pos, price=None):
+    """config.MOON["ride"]: the position's best price has been >= +50% over entry, so only a
+    trailing stop may sell it. Tracks the high in pos["hi"] (separate from strategies' "peak")."""
+    if price is not None:
+        pos["hi"] = max(pos.get("hi", pos["entry"]), price)
+    return pos.get("hi", pos["entry"]) >= pos["entry"] * (1 + config.MOON["ride"])
+
+
+def runner_stop_hit(pos, low):
+    """A runner sells only after giving back config.MOON["trail"] from its high."""
+    return is_runner(pos) and low <= pos["hi"] * (1 - config.MOON["trail"])
+
+
+def step(pf, candles_by_coin, strat, market_ok=True, runners=False):
     """One decision cycle. candles_by_coin: {symbol: [candles oldest-first]}.
-    market_ok: benchmark regime (BTC / SPY above its long average)."""
+    market_ok: benchmark regime (BTC / SPY above its long average).
+    runners: protect runners (config.MOON) - live crypto only; backtests keep the tested rules."""
     sig = {c: strat.analyze(cs, market_ok) for c, cs in candles_by_coin.items()}
     sig = {c: s for c, s in sig.items() if s}
     if not sig:
@@ -119,7 +133,14 @@ def step(pf, candles_by_coin, strat, market_ok=True):
             # low may predate the entry, so only the close is a price the position actually saw
             # (no phantom stop-out, no phantom peak for the trailing stop)
             s = dict(s, high=s["price"], low=s["price"])
-        action = strat.manage(pf.positions[coin], s, now, rebalance)
+        pos = pf.positions[coin]
+        runner = runners and is_runner(pos, s["high"])
+        action = strat.manage(pos, s, now, rebalance)
+        if action and runner and "stop" not in action[2]:
+            action = None                  # never sell a runner on a time limit / rule / take-profit
+        if not action and runner and runner_stop_hit(pos, s["low"]):
+            action = (1.0, min(s["price"], pos["hi"] * (1 - config.MOON["trail"])),
+                      f"runner trail: gave back {config.MOON['trail']:.0%} from its high")
         if action:
             frac, px, reason = action
             pnl = pf.sell(now, coin, frac, px, reason)
@@ -152,7 +173,7 @@ def step(pf, candles_by_coin, strat, market_ok=True):
         top = sorted((c for c, s in sig.items() if s["buy"]), key=lambda c: sig[c]["rank"],
                      reverse=True)[:strat.max_positions]
         for coin in list(pf.positions):
-            if coin in sig and coin not in top:
+            if coin in sig and coin not in top and not (runners and is_runner(pf.positions[coin])):
                 pf.sell(now, coin, 1.0, sig[coin]["price"], "rebalance: dropped out of top picks")
         eq = pf.equity(prices)
 
