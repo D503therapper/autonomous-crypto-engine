@@ -28,7 +28,8 @@ Trading:
             down, never after the first take-profit).
     costs   0.3% DEX fee + price impact (usd / liquidity) + 1% slippage, per side
     exits   +100%: sell 50% (cost recovered; stop moves to break-even for the free ride);
-            +400%: sell half of the remainder; trailing stop 30% below peak; 14-day max hold
+            the rest rides with no price cap: trailing stop 30% below peak (40% once the peak is 3x,
+            50% once 10x); 14-day max hold only for trades that never doubled
     scams   held tokens re-screened every 30 min (security sources); liquidity -50%, honeypot,
             sell tax > 50% or trading paused -> exit at the realistic post-rug price (no pair left =
             -100%), outcome scammed_rug / scammed_honeypot; EVERY exit first re-runs the sell
@@ -96,8 +97,9 @@ DEFAULTS = {
     "cex_list": [],                                                  # symbols known to trade on a major CEX
     "size": {"liq_pct": 0.005, "max_exposure": 0.60},                # <= 0.5% of the pool; DEX <= 60% of equity
     "cost": {"fee": 0.003, "slip": 0.01},                            # + price impact usd/liquidity per side
-    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": (4.0, 0.5),   # +100%: sell half (cost recovered), stop
-             "max_hold_days": 14, "liq_pull": 0.50, "rug_tax": 0.50,   # to break-even; +400%: half the rest
+    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": None,          # +100%: sell half (cost recovered), stop
+             "trail_steps": [(3.0, 0.40), (10.0, 0.50)],   # to break-even; the rest rides with no cap
+             "max_hold_days": 14, "liq_pull": 0.50, "rug_tax": 0.50,
              "check_wait_s": 600},                                   # sell check unreachable this long -> book at market
     "followup": {"days": 7, "per_day": 50, "rug_liq": 0.80, "rug_px": 0.90, "runup": 1.0},
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},         # 2 scams in 30 days -> no new entries until
@@ -887,15 +889,19 @@ class DexHunter:
             return self._request_exit(k, 1.0, f"liquidity pulled {1 - liq / pos['liq0']:.0%} (${liq:,.0f} of ${pos['liq0']:,.0f})",
                                       "scammed_rug", now)
         pos["peak"] = max(pos["peak"], p)
-        pos["stop"] = max(pos["stop"], pos["peak"] * (1 - X["trail"]))
+        trail = X["trail"]                             # the stop gets more room as the coin multiplies,
+        for mult, t in X.get("trail_steps", []):       # so normal shakeouts don't end a 10x-100x runner
+            if pos["peak"] >= pos["entry"] * mult:
+                trail = t
+        pos["stop"] = max(pos["stop"], pos["peak"] * (1 - trail))
         if p <= pos["stop"]:
             return self._request_exit(k, 1.0, f"trailing stop (peak {pos['peak']:g})", "normal", now, "stop")
-        if now - pos["opened"] >= X["max_hold_days"] * DAY:
+        if not pos["tp1"] and now - pos["opened"] >= X["max_hold_days"] * DAY:   # runners have no time limit
             return self._request_exit(k, 1.0, f"time limit {X['max_hold_days']}d", "normal", now, "stop")
         if not pos["tp1"] and p >= pos["entry"] * (1 + X["tp1"][0]):
             pos["tp1"] = True
             return self._request_exit(k, X["tp1"][1], f"take-profit +{X['tp1'][0]:.0%}", "normal", now, "tp")
-        if pos["tp1"] and not pos["tp2"] and p >= pos["entry"] * (1 + X["tp2"][0]):
+        if X.get("tp2") and pos["tp1"] and not pos["tp2"] and p >= pos["entry"] * (1 + X["tp2"][0]):
             pos["tp2"] = True
             return self._request_exit(k, X["tp2"][1], f"take-profit +{X['tp2'][0]:.0%}", "normal", now, "tp")
 

@@ -210,7 +210,9 @@ DEX = {
     "cex_list": [],                                # extra CEX-listed symbols (Crypto.com tickers are used live)
     "size": {"liq_pct": 0.005, "max_exposure": 0.60},
     "cost": {"fee": 0.003, "slip": 0.01},          # + price impact usd / liquidity, per side
-    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": (4.0, 0.5), "max_hold_days": 14,
+    "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "tp2": None,   # owner: never sell a runner too early.
+             "trail_steps": [(3.0, 0.40), (10.0, 0.50)],        # sell half at 2x (cost back), rest rides
+             "max_hold_days": 14,                                # time limit only if it never doubled
              "liq_pull": 0.50, "rug_tax": 0.50},
     "slots": 4,
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to

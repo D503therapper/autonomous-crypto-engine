@@ -341,8 +341,8 @@ class EarlyMover:
         hit = _stop_check(pos, s)
         if hit:
             return 1.0, hit[1], "trailing stop"
-        if now - pos["opened"] >= self.P["h"] * HOUR:
-            return 1.0, s["price"], "time limit"
+        if now - pos["opened"] >= self.P["h"] * HOUR and s["price"] < pos["entry"] * 2:
+            return 1.0, s["price"], "time limit"         # a coin that has doubled keeps riding its trail
         pos["peak"] = max(pos["peak"], s["high"])
         pos["stop"] = max(pos["stop"], pos["peak"] * (1 - self.trail))
         return None

@@ -462,11 +462,13 @@ def test_take_profit_steps():
     assert "take-profit +100%" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
     t = poll(h, t, px, v=0.03)                                              # +200%: nothing new
     assert abs(h.pf.positions[K]["qty"] - q0 / 2) < 1e-12
-    t = poll(h, t, px, v=0.051)                                             # +410%: half of the remainder
+    t = poll(h, t, px, v=0.051)                                             # +410%: no more selling, it rides
     pos = h.pf.positions[K]
-    assert pos["tp2"] and abs(pos["qty"] - q0 / 4) < 1e-12 and "+400%" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
-    assert abs(pos["stop"] - 0.051 * 0.7) < 1e-12                          # the rest rides the trailing stop
-    t = poll(h, t, px, v=0.035)                                             # < 0.0357: stopped out, net winner
+    assert not pos["tp2"] and abs(pos["qty"] - q0 / 2) < 1e-12
+    assert abs(pos["stop"] - 0.051 * 0.6) < 1e-12                          # peak >= 3x: trail widens to 40%
+    t = poll(h, t, px, v=0.12)                                              # 12x: trail widens to 50%
+    assert abs(h.pf.positions[K]["stop"] - 0.12 * 0.5) < 1e-12 and abs(h.pf.positions[K]["qty"] - q0 / 2) < 1e-12
+    t = poll(h, t, px, v=0.055)                                             # < 0.06: stopped out, big net winner
     assert K not in h.pf.positions
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert oc["outcome"] == "normal" and float(oc["pnl"]) > cost0 * 1.5, oc
@@ -480,7 +482,7 @@ def test_take_profit_steps():
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert oc["outcome"] == "normal" and float(oc["pnl"]) > 0.4 * cost0, oc
     shutil.rmtree(d)
-    print("  take-profit steps (+100% half, +400% half of rest), break-even stop on the free ride   ok")
+    print("  take-profit (+100% half), runner rides with widening trail, break-even stop on the free ride   ok")
 
 
 def test_max_hold():
