@@ -162,8 +162,8 @@ HALT_HOURS = 168          # ...for 7 days, then resume
 # Once a position has been up >= "ride" (peak vs entry), the engine blocks every exit except a
 # trailing stop: no time limits, no rotation / rebalance sales, no take-profits, no unparking.
 # It only sells after the price gives back "trail" from its peak (same 50% as the listing hunter).
-# Live crypto accounts only. Dashboard badge: up >= "hot" vs entry right now -> 🔥 ON FIRE 🚀.
-MOON = {"ride": 0.50, "trail": 0.50, "hot": 0.25}
+# Live crypto accounts only. Dashboard badge: up >= "hot" (50%) vs entry right now -> 🔥 ON FIRE 🚀.
+MOON = {"ride": 0.50, "trail": 0.50, "hot": 0.50}
 
 COOLDOWN_CANDLES = 12     # after a stop-out, leave that coin alone for 12h
 
