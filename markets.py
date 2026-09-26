@@ -24,7 +24,9 @@ MARKETS = {
         # official $500 = two $500 accounts averaged: the 10-day breakout rotation, and the new-listing
         # hunter whose idle cash rides the rotation's current picks (run_live.park_idle), so all of it
         # is always actively trading; new listings are funded by selling a slice of those picks.
-        "main": ["early_mover", "breakout10"],
+        # owner 2026-09-26: official crypto = the listing hunter only. crypto_studies.py showed the breakout10
+        # rotation made +0.2%/month over 5 years (< hold BTC); it keeps running as a test account.
+        "main": ["early_mover"],
         "bars_per_day": 24,
         "fee": config.FEE_RATE, "slippage": config.SLIPPAGE_RATE,
         "strategies": [

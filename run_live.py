@@ -383,14 +383,17 @@ def _official(mn, m):
 
 
 def scoreboard():
-    """SCOREBOARD.md: the two official $500 accounts. LAB.md: every test strategy."""
+    """SCOREBOARD.md: the three official $500 accounts (crypto, stocks, DEX). LAB.md: every test strategy."""
     start = config.STARTING_CASH_USD
     main = [(mn, _mains(m), *_official(mn, m)) for mn, m in MARKETS.items()]
+    main.append(("dex", [dex.DEX["name"]], *_balance("dex", dex.DEX["name"])))   # owner 2026-09-26: DEX counts
     total = sum(r[2] for r in main)
     out = ["# Scoreboard (pretend money)", ""]
     for mn, _, eq, _ in main:
-        out.append(f"**{mn.title()}: ${eq:,.2f}**  ({eq - start:+,.2f})  ")
-    out.append(dex.scoreboard_line() + "  ")       # on-chain paper account (dex.py); not part of the total
+        if mn == "dex":
+            out.append(dex.scoreboard_line() + "  ")  # DEX: balance + scam count
+        else:
+            out.append(f"**{mn.title()}: ${eq:,.2f}**  ({eq - start:+,.2f})  ")
     out += ["", f"**Total: ${total:,.2f}** of ${start * len(main):,.0f}  ({total - start * len(main):+,.2f})", "",
             f"Updated {ts(int(time.time() * 1000))} UTC"]
     with open("SCOREBOARD.md", "w") as f:
@@ -474,7 +477,7 @@ def write_dashboard(rows=None, total=None):
             dhold.append({"coin": p.get("sym", "?"), "value": value, "pnl": value - p["cost"]})
         deq = dpf["cash"] + sum(h["value"] for h in dhold) if "cash" in dpf else st["equity"]
         cards.append({"holdings": sorted(dhold, key=lambda h: -h["value"]), "name": "DEX", "icon": "◆",
-                      "c1": "#22e39a", "c2": "#3b82ff", "official": False, "equity": deq,
+                      "c1": "#22e39a", "c2": "#3b82ff", "official": True, "equity": deq,
                       "series": dashboard._series(f"{d}/equity.csv") + [(now, deq)], "positions": len(dpos),
                       "extra": "Paused: scam limit" if paused else (f"Scammed {scams} · −${abs(lost):,.2f}" if scams else "Scammed 0"),
                       "extra_cls": "bad" if (paused or scams) else "ok"})
@@ -533,13 +536,13 @@ def daily_summary(rows):
     start = config.STARTING_CASH_USD
     lines, now_bal = [], {}
     for mn, sn, eq, _ in rows:
-        key = mn.title()
+        key = "DEX" if mn == "dex" else mn.title()
         now_bal[key] = eq
         day = eq - prev.get("balances", {}).get(key, start)
         lines.append(f"{key}: ${eq:,.2f}  today {day:+,.2f}  total {eq - start:+,.2f}")
     total = sum(now_bal.values())
     day_total = total - sum(prev.get("balances", {}).get(k, start) for k in now_bal)
-    lines.append(dex.scoreboard_line(md=False))    # DEX paper account: shown, not in the total
+    lines.append(dex.scoreboard_line(md=False))    # DEX scam count (its balance is in the total above)
     notify(f"Today {day_total:+,.2f} | Total {total - start * len(now_bal):+,.2f}", "\n".join(lines))
     with open(stamp, "w") as f:
         json.dump({"date": today, "balances": now_bal}, f)
