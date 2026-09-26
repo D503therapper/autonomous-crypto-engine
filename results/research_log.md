@@ -4,6 +4,16 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 
 ## Open questions
 
+### NEXT - Listings on the DEX, then drop the crypto category (owner, 2026-09-26)
+Owner: "the DEX has all the coins - eliminate the crypto category." The only proven Crypto.com edge is the listing
+hunter ($200). Test: when Binance / Upbit / Coinbase / Crypto.com / OKX announce a listing (data/listing_events.csv
++ listings_study.py history), was the token already trading on a DEX (GeckoTerminal / DexScreener), and what did
+buying it THERE at the announcement (DEX costs 0.3% + 1% + impact) make vs buying on Crypto.com at listing? If the
+DEX version is as good or better: move the listing reactor's buys to dex.py (same scam screen), fold the crypto $200
+into the DEX account (config.ACCOUNT_BASE, one-time move like rebalance_accounts), and drop the crypto card - owner
+wants DEX + Stocks only.
+
+
 ### #1 PRIORITY - How to find the DEX coins that run 100%-1000%+ every day (owner, 2026-09-26)
 "If we master finding these coins on the DEX, that is the jackpot." Build a study (GitHub workflow, like
 dex_exit_study.py) on thousands of Solana / Base / Ethereum pools from GeckoTerminal + DexScreener:
