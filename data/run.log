@@ -904,3 +904,9 @@ Stocks: $500.00  today +0.00  total +0.00
    footprint: SOL: footprint 3/4 (drift+hikes+rising_lows) 48h +5.6%, 5 volume hikes, 52% quiet hours @ 120.98
    scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '84334.99', 'l': '83328.51', 'a': '84039.69', 'v': '2025.6476', 'vv': '169976616.59', 'c': '0.0015', 'b': '84040.53', 'k': '84040.54', 'oi': '0', 't': 1790434586051}
    dex screen: PASS HODL@solana liq $322,541
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
