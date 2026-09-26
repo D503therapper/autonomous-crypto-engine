@@ -130,3 +130,9 @@ its owner is renounced (0x0) -> FIX APPLIED: owner-only flags ignored when owner
 hidden owner, no take-back, not a proxy). SHIB/BRETT/SPX/KISHU "fails" were GoPlus tax-unknown, which the live
 engine defers to honeypot.is (study didn't call it). Solana legends' launch-day holders can't be rebuilt with free
 data. Re-run with a paid/archival data source later for a proper caught-checkbox on every legend.
+
+### Stocks: park idle cash in SPY between RSI2 trades (owner: "whole base invested at all times") - NEXT
+Test in lab.py walk-forward: RSI2 mean-reversion as today vs RSI2 with idle cash parked in SPY (sold to fund
+dips). Compare return, max drawdown, worst month, older/newer halves. If it wins, add a stocks park like
+run_live.park_idle (crypto) does. Also re-check crypto: listing hunter idle cash rides breakout10 picks, which
+crypto_studies A found weaker than hold BTC (+0.2% vs +1.6%/mo) - owner once rejected BTC parking; show him the numbers.
