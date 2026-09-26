@@ -241,7 +241,7 @@ DEX = {
     "exit": {"trail": 0.95, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [],
              "max_hold_days": 14, "runner_at_limit": (1.0, 0.40),   # >= +100% at the limit: 40% trail, no clock
              "liq_pull": 0.50, "rug_tax": 0.50},
-    "slots": 4,
+    "slots": 5,                                    # 5 x 20% = the whole DEX account can be invested (owner: no idle cash)
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to
                                                    # re-enable set reset_after "YYYY-MM-DD HH:MM" (UTC) > pause time
 }
