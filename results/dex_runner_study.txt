@@ -1,0 +1,634 @@
+
+======================================================================================================================
+1. POOLS AND DATA
+======================================================================================================================
+listed now: 2457 pool rows (ds_boosts 57, new 600, top_trades 300, top_volume 600, trending_1h 300, trending_24h 300, trending_6h 300); registry 756 -> 1295 tokens
+346 candidate pools (>= 8 days old, >= $15k reserve ever seen; 10 known before their outcome = outcome-blind, fetched first); window from 2026-07-06 03:08
+  fetched 1/346  calls 129  429s 8  gap 12.0s  pools kept 1  1471s
+  fetched 101/346  calls 329  429s 15  gap 12.0s  pools kept 101  3870s
+  fetched 201/346  calls 521  429s 22  gap 12.0s  pools kept 201  6173s
+  fetched 301/346  calls 710  429s 29  gap 12.0s  pools kept 301  8444s
+API calls 787 (429s 32, failed 0); pools with usable history 346; skipped: ; 9366s
+
+======================================================================================================================
+2. DECISION POINTS AND LABELS
+======================================================================================================================
+13704 decision points from 346 pools, 2026-07-06 06:00 .. 2026-09-19 07:00; older half < 2026-08-20 19:00 <= newer half (6848 / 6856 points); outcome-blind points 21
+  2x within 1d                   5.6%  (pool-clustered 95% CI 4%..7%);  older 1.7%  newer 9.4%  |  by network: solana 13.7%  base 2.7%  eth 2.3%
+  2x within 3d                   8.8%  (pool-clustered 95% CI 7%..11%);  older 3.3%  newer 14.3%  |  by network: solana 20.6%  base 5.5%  eth 3.4%
+  2x within 7d                  12.9%  (pool-clustered 95% CI 10%..16%);  older 6.4%  newer 19.4%  |  by network: solana 27.7%  base 9.3%  eth 5.7%
+  5x within 7d                   5.2%  (pool-clustered 95% CI 3%..7%);  older 2.7%  newer 7.6%  |  by network: solana 12.7%  base 3.0%  eth 1.8%
+  10x within 7d                  2.8%  (pool-clustered 95% CI 2%..4%);  older 1.5%  newer 4.2%  |  by network: solana 6.7%  base 1.7%  eth 1.2%
+  rug within 7d                  0.6%  (pool-clustered 95% CI 0%..1%);  older 0.8%  newer 0.4%  |  by network: solana 1.4%  base 0.6%  eth 0.0%
+  dud (peak < 1.3x, no rug)     70.5%  (pool-clustered 95% CI 67%..74%);  older 79.6%  newer 61.4%  |  by network: solana 52.3%  base 72.6%  eth 81.0%
+  NOTE: pools were picked today, so pools that rugged before we knew them are missing; rug rates are floors, runner rates are ceilings (worst in the newer half). Compare buckets, don't trust the absolute level.
+
+======================================================================================================================
+3. WHAT THE RUNNERS LOOKED LIKE BEFORE THE RUN  (median of each feature at the decision point)
+======================================================================================================================
+feature         10x+/7d    5x-10x/7d     2x-5x/7d          dud         rug7   (n = 390, 316, 1060, 9655, 79)
+age_h               22h          22h         111h       10302h          22h
+pump                 0%           0%           0%           0%           0%
+sol                100%         100%         100%           0%         100%
+base                 0%           0%           0%           0%           0%
+liq                $82k        $120k        $172k        $869k        $257k
+mcap              $342k        $718k        $1.8M       $34.3M        $749k
+vol1                $7k         $23k          $7k          $2k          $4k
+vol6               $68k        $137k         $52k         $24k         $47k
+vol24             $452k        $579k        $283k        $126k        $381k
+v1_rel             0.24         0.48         0.50         0.49         0.11
+v6_rel             0.37         0.65         0.69         0.81         0.17
+v24_rel            0.76         0.81         0.90         0.98         0.00
+vol24_liq          3.66         5.69         1.70         0.12         0.28
+ch1                  0%          -0%           0%           0%           0%
+ch6                 -1%           4%           0%           0%          -1%
+ch24                 1%          20%           2%          -0%         -36%
+ch0                 12%          78%          41%          -1%         -48%
+dd7                -49%         -30%         -24%          -6%         -59%
+up24                20%          57%          14%           1%           1%
+vola24             0.13         0.16         0.07         0.01         0.14
+green6              33%          50%          50%          50%          33%
+act24              100%         100%         100%         100%         100%
+hour          11:00 UTC    13:00 UTC    12:00 UTC    12:00 UTC    12:00 UTC
+wday                Thu          Thu          Thu          Thu          Fri
+
+======================================================================================================================
+4. HIT RATES PER FEATURE BUCKET  (bucket edges from the older half; lift = rate / base rate of that half)
+======================================================================================================================
+base rate 2x within 7d: older 6.4%, newer 19.4%; rug7 older 0.8%, newer 0.4%
+
+age_h      bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: pairCreatedAt
+           <6h                  51       45%  7.07 |    189       60%  3.11 |   45%   34%    16%    3%    61
+           6h..24h             229       43%  6.77 |    909       55%  2.84 |   36%   26%    15%    3%    65
+           24h..72h            102       41%  6.45 |    394       40%  2.06 |   17%   17%     9%    2%    65
+           72h..168h           213       29%  4.56 |    646       36%  1.86 |    9%   15%    10%    2%    64
+           168h..720h          214       15%  2.34 |    591       19%  0.98 |    6%    6%     3%    0%    63
+           >=720h             6039        3%  0.46 |   4127        5%  0.27 |    0%    1%     0%    0%   291
+
+pump       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: token address ends with 'pump'
+           other              6361        5%  0.76 |   6119       16%  0.81 |    4%    4%     2%    1%   317
+           pump.fun            487       26%  4.15 |    737       49%  2.54 |   18%   20%    10%    0%    27
+
+sol        bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: chainId
+           not solana         5220        4%  0.69 |   4731       10%  0.54 |    2%    2%     1%    0%   254
+           solana             1628       13%  1.99 |   2125       39%  2.02 |   14%   13%     7%    1%    90
+
+base       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: chainId
+           not base           4657        6%  0.93 |   4692       23%  1.19 |    7%    6%     3%    1%   239
+           base               2191        7%  1.15 |   2164       11%  0.58 |    3%    3%     2%    1%   105
+
+liq        bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: liquidity.usd
+           <$50k               288       22%  3.37 |    535       60%  3.09 |   32%   29%    19%    0%    33
+           $50k..$100k         399       16%  2.51 |    573       48%  2.46 |   12%   14%     7%    0%    44
+           $100k..$250k        915       11%  1.68 |   1038       34%  1.77 |    9%    9%     6%    1%    72
+           $250k..$1.0M       2405        7%  1.08 |   2143       13%  0.69 |    3%    3%     1%    0%   148
+           >=$1.0M            2841        2%  0.26 |   2567        4%  0.19 |    1%    0%     0%    1%   164
+
+mcap       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: fdv
+           <$100k              169       25%  3.99 |    308       72%  3.70 |   34%   34%    22%    0%    21
+           $100k..$1.0M        575       27%  4.25 |    712       54%  2.78 |   18%   22%    12%    4%    53
+           $1.0M..$10.0M      1753        9%  1.35 |   2010       21%  1.08 |    6%    5%     2%    1%   126
+           $10.0M..$100.0M    2032        2%  0.35 |   1826        7%  0.34 |    1%    0%     0%    0%   138
+           >=$100.0M          1746        0%  0.06 |   1248        1%  0.05 |    0%    0%     0%    0%    92
+           n/a                 573        6%  0.93 |    752       23%  1.20 |    7%    5%     3%    0%    34
+
+vol1       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: volume.h1
+           <0.39              1369        3%  0.49 |    751       11%  0.59 |    2%    3%     3%    1%   201
+           0.39..494.09       1370        4%  0.66 |    892       19%  0.98 |    3%    3%     2%    0%   258
+           494.09..3178.07    1369        4%  0.69 |   1209       19%  0.99 |    5%    3%     2%    0%   297
+           3178.07..16751.59   1370        7%  1.16 |   1604       21%  1.08 |    6%    6%     3%    1%   306
+           >=16751.59         1370       13%  2.00 |   2400       21%  1.08 |    9%    8%     4%    1%   259
+
+vol6       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: volume.h6
+           <1118.23           1369        5%  0.79 |    710       20%  1.01 |    3%    6%     4%    1%   172
+           1118.23..7416.04   1370        3%  0.49 |    880       16%  0.84 |    3%    2%     1%    0%   234
+           7416.04..30827.54   1369        5%  0.74 |   1307       18%  0.90 |    5%    3%     1%    0%   283
+           30827.54..123405.67   1370        6%  0.98 |   1462       22%  1.14 |    6%    5%     3%    1%   289
+           >=123405.67        1370       13%  1.99 |   2497       20%  1.02 |    9%    8%     4%    1%   240
+
+vol24      bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: volume.h24
+           <$50k              2982        5%  0.71 |   1832       19%  0.99 |    4%    4%     3%    0%   245
+           $50k..$100k         718        3%  0.48 |    649       16%  0.82 |    3%    2%     1%    0%   230
+           $100k..$300k       1159        5%  0.82 |   1059       16%  0.83 |    4%    3%     2%    0%   274
+           $300k..$1.0M       1134        8%  1.19 |   1521       23%  1.21 |    8%    6%     4%    2%   243
+           >=$1.0M             855       15%  2.42 |   1795       19%  1.00 |    9%    9%     4%    0%   183
+
+v1_rel     bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: volume.h1 / (volume.h24 / 24)
+           <0.00              1369        3%  0.49 |    743       11%  0.59 |    2%    3%     3%    1%   203
+           0.00..0.26         1370        8%  1.20 |   1549       26%  1.34 |    9%    8%     5%    1%   331
+           0.26..0.67         1369        9%  1.37 |   1702       23%  1.18 |    7%    7%     3%    0%   329
+           0.67..1.41         1370        7%  1.08 |   1521       14%  0.75 |    5%    4%     2%    0%   334
+           >=1.41             1370        5%  0.86 |   1341       17%  0.90 |    4%    4%     2%    0%   342
+
+v6_rel     bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: volume.h6 / ((volume.h24 - volume.h6) / 18 * 6)
+           <0.27              1349        8%  1.22 |   1157       28%  1.44 |    8%    9%     6%    2%   296
+           0.27..0.62         1350        7%  1.10 |   1505       17%  0.89 |    5%    4%     3%    0%   335
+           0.62..1.01         1350        6%  0.98 |   1388       17%  0.90 |    4%    3%     1%    0%   338
+           1.01..1.81         1350        5%  0.77 |   1378       15%  0.76 |    3%    3%     2%    0%   339
+           >=1.81             1350        4%  0.66 |   1172       14%  0.70 |    3%    3%     2%    0%   336
+           n/a                  99       30%  4.75 |    256       57%  2.92 |   38%   28%    14%    3%    98
+
+v24_rel    bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: NOT available live - log it (section 9)
+           <0.50              1243        5%  0.83 |    972       14%  0.72 |    2%    4%     2%    1%   323
+           0.50..0.81         1243        4%  0.68 |   1167       14%  0.71 |    2%    2%     1%    0%   329
+           0.81..1.14         1243        5%  0.71 |   1146       10%  0.51 |    1%    2%     1%    0%   327
+           1.14..1.96         1243        4%  0.63 |   1194        8%  0.41 |    1%    1%     1%    0%   326
+           >=1.96             1244        5%  0.71 |   1062       11%  0.59 |    2%    2%     1%    0%   323
+           n/a                 632       25%  3.84 |   1315       53%  2.75 |   30%   22%    12%    3%   332
+
+vol24_liq  bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: volume.h24 / liquidity.usd
+           <0.02              1369        3%  0.42 |    585        8%  0.39 |    1%    2%     1%    1%   175
+           0.02..0.05         1370        3%  0.47 |    777       12%  0.60 |    2%    2%     2%    0%   218
+           0.05..0.14         1369        3%  0.45 |    960        8%  0.42 |    1%    1%     1%    0%   263
+           0.14..0.48         1370        4%  0.65 |   1431        8%  0.41 |    2%    2%     1%    1%   275
+           >=0.48             1370       19%  3.01 |   3103       32%  1.67 |   14%   12%     6%    1%   252
+
+ch1        bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: priceChange.h1
+           <-0.01             1369       12%  1.92 |   2054       29%  1.49 |   11%   10%     5%    1%   330
+           -0.01..-0.00       1370        2%  0.33 |   1062        6%  0.30 |    1%    1%     0%    0%   322
+           -0.00..0.00          69        3%  0.45 |     51        0%  0.00 |    0%    0%     0%    1%    87
+           0.00..0.01         2670        3%  0.49 |   1703        8%  0.42 |    1%    2%     1%    1%   327
+           >=0.01             1370       11%  1.77 |   1986       27%  1.39 |   10%    8%     4%    1%   327
+
+ch6        bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: priceChange.h6
+           <-0.01             1369       13%  1.99 |   1914       29%  1.51 |   10%   10%     6%    1%   312
+           -0.01..-0.00       1370        2%  0.37 |    981        7%  0.35 |    1%    1%     1%    0%   322
+           -0.00..0.00        1369        2%  0.37 |    855        5%  0.28 |    1%    2%     1%    1%   304
+           0.00..0.01         1370        2%  0.24 |    996        4%  0.22 |    1%    0%     0%    0%   319
+           >=0.01             1370       13%  2.04 |   2110       29%  1.50 |   11%    9%     4%    0%   324
+
+ch24       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: priceChange.h24
+           <-0.03             1369       10%  1.63 |   1864       25%  1.30 |    8%    8%     5%    1%   313
+           -0.03..-0.01       1370        2%  0.33 |    923        8%  0.44 |    1%    1%     1%    0%   320
+           -0.01..0.00        1369        2%  0.29 |    935        4%  0.22 |    1%    1%     1%    1%   307
+           0.00..0.03         1370        2%  0.27 |    873        6%  0.32 |    1%    1%     1%    0%   321
+           >=0.03             1370       16%  2.48 |   2261       31%  1.57 |   12%   10%     5%    0%   323
+
+ch0        bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: NOT available live - log it (section 9)
+           <-0.21             1369        9%  1.36 |   1288       16%  0.85 |    5%    5%     4%    2%   157
+           -0.21..-0.08       1370        2%  0.33 |    635       12%  0.60 |    2%    2%     1%    0%   218
+           -0.08..-0.01       1369        2%  0.39 |    605       13%  0.67 |    2%    2%     1%    1%   291
+           -0.01..0.05        1370        1%  0.18 |    856        7%  0.35 |    2%    1%     1%    0%   276
+           >=0.05             1370       17%  2.73 |   3472       26%  1.35 |   10%    9%     5%    0%   258
+
+dd7        bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: NOT available live - log it (section 9)
+           <-0.16             1369       20%  3.08 |   2546       35%  1.80 |   13%   12%     7%    1%   260
+           -0.16..-0.09       1370        4%  0.56 |   1277       10%  0.51 |    2%    2%     1%    0%   290
+           -0.09..-0.05       1369        3%  0.42 |    860        6%  0.32 |    1%    1%     1%    0%   293
+           -0.05..-0.02       1370        2%  0.37 |    953        6%  0.32 |    1%    1%     1%    1%   295
+           >=-0.02            1370        4%  0.57 |   1220       17%  0.85 |    6%    4%     2%    0%   317
+
+up24       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: NOT available live - log it (section 9)
+           <0.00              1369        5%  0.81 |   1053       18%  0.91 |    4%    5%     3%    1%   343
+           0.00..0.01         1370        1%  0.21 |    864        3%  0.18 |    0%    0%     0%    0%   310
+           0.01..0.02         1369        2%  0.38 |   1021        5%  0.23 |    1%    1%     0%    0%   315
+           0.02..0.05         1370        3%  0.48 |   1178        8%  0.42 |    1%    1%     1%    0%   321
+           >=0.05             1370       20%  3.12 |   2740       35%  1.83 |   15%   13%     7%    1%   313
+
+vola24     bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: NOT available live - log it (section 9)
+           <0.00              1326        2%  0.31 |    625        2%  0.12 |    0%    1%     1%    1%   185
+           0.00..0.01         1326        2%  0.24 |    685        2%  0.08 |    0%    0%     0%    0%   239
+           0.01..0.01         1326        1%  0.19 |    997        2%  0.12 |    0%    0%     0%    0%   252
+           0.01..0.02         1326        2%  0.34 |   1400        5%  0.25 |    0%    1%     1%    0%   271
+           >=0.02             1326       21%  3.37 |   2587       35%  1.78 |   12%   11%     6%    1%   275
+           n/a                 218       28%  4.38 |    562       57%  2.93 |   37%   26%    13%    3%   133
+
+green6     bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: NOT available live - log it (section 9)
+           <0.17               734        6%  0.92 |    453       19%  0.96 |    5%    6%     5%    2%   204
+           0.17..0.33         1105        4%  0.60 |    763       19%  0.99 |    4%    4%     2%    0%   326
+           0.33..0.50         1741        6%  0.94 |   1816       20%  1.03 |    5%    5%     3%    0%   343
+           >=0.50             3268        8%  1.19 |   3824       19%  0.99 |    6%    5%     3%    0%   336
+
+act24      bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: NOT available live - log it (section 9)
+           <0.58              1294        3%  0.52 |    686       11%  0.56 |    2%    4%     3%    1%   123
+           0.58..0.88         1187        3%  0.49 |    672       13%  0.65 |    1%    2%     2%    0%   180
+           0.88..1.00         1118        3%  0.41 |    831       13%  0.65 |    3%    2%     1%    0%   223
+           >=1.00             3249       10%  1.58 |   4667       23%  1.18 |    8%    7%     3%    1%   300
+
+hour       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: clock (UTC)
+           00-04 UTC           954        6%  0.94 |   1026       21%  1.08 |    7%    6%     4%    1%   107
+           04-08 UTC           872        6%  0.88 |    994       19%  1.00 |    6%    5%     3%    1%   101
+           08-12 UTC          1182        7%  1.06 |   1174       19%  0.96 |    5%    5%     3%    0%   112
+           12-16 UTC          1415        7%  1.02 |   1224       19%  0.97 |    5%    5%     3%    1%   125
+           16-20 UTC          1298        6%  0.94 |   1235       20%  1.01 |    5%    5%     2%    1%   120
+           20-24 UTC          1127        7%  1.13 |   1203       19%  0.99 |    6%    5%     3%    0%   112
+
+wday       bucket            n old 2x/7d old  lift |  n new 2x/7d new  lift | 2x/1d 5x/7d 10x/7d  rug7 pools   live: clock (UTC)
+           Mon                1016        7%  1.11 |    819       15%  0.75 |    3%    4%     2%    0%   330
+           Tue                1051        6%  0.95 |    837       13%  0.65 |    2%    4%     3%    0%   331
+           Wed                1064        7%  1.08 |   1023       24%  1.22 |    8%    7%     3%    0%   338
+           Thu                1047        6%  0.87 |   1057       23%  1.19 |    7%    5%     2%    0%   344
+           Fri                 891        5%  0.83 |   1328       23%  1.18 |    7%    6%     4%    2%   344
+           Sat                 886        6%  0.96 |    971       20%  1.06 |    5%    5%     4%    0%   344
+           Sun                 893        8%  1.21 |    821       14%  0.75 |    6%    4%     3%    0%   329
+
+single-feature AUC for 2x/7d (0.5 = useless; > 0.5 higher is better, < 0.5 lower is better), older | newer:
+  age_h      0.196 | 0.169   consistent
+  pump       0.620 | 0.603   consistent
+  sol        0.626 | 0.697   consistent
+  base       0.526 | 0.418
+  liq        0.271 | 0.176   consistent
+  mcap       0.235 | 0.227   consistent
+  vol1       0.658 | 0.546   consistent
+  vol6       0.633 | 0.528
+  vol24      0.627 | 0.519
+  v1_rel     0.522 | 0.473
+  v6_rel     0.411 | 0.386   consistent
+  v24_rel    0.349 | 0.273   consistent
+  vol24_liq  0.758 | 0.747   consistent
+  ch1        0.494 | 0.482
+  ch6        0.497 | 0.510
+  ch24       0.585 | 0.566   consistent
+  ch0        0.627 | 0.645   consistent
+  dd7        0.260 | 0.308   consistent
+  up24       0.744 | 0.739   consistent
+  vola24     0.725 | 0.667   consistent
+  green6     0.564 | 0.508
+  act24      0.642 | 0.576   consistent
+  hour       0.516 | 0.493
+  wday       0.499 | 0.518
+
+======================================================================================================================
+5. POINTS SCORE  (built on the OLDER half only: +1 per rule; tested on the NEWER half)
+======================================================================================================================
+  +1 if pump in pump.fun                                 (older-half lift 4.15, covers 7% of points; live: token address ends with 'pump')
+  +1 if sol in solana                                   (older-half lift 1.99, covers 24% of points; live: chainId)
+  +1 if liq in $50k..$100k or $100k..$250k              (older-half lift 2.10, covers 19% of points; live: liquidity.usd)
+  +1 if mcap in $1.0M..$10.0M                            (older-half lift 1.35, covers 26% of points; live: fdv)
+  +1 if vol1 in >=16751.59                               (older-half lift 2.00, covers 20% of points; live: volume.h1)
+  +1 if vol6 in >=123405.67                              (older-half lift 1.99, covers 20% of points; live: volume.h6)
+  +1 if vol24 in >=$1.0M                                  (older-half lift 2.42, covers 12% of points; live: volume.h24)
+  +1 if v1_rel in 0.26..0.67                               (older-half lift 1.37, covers 20% of points; live: volume.h1 / (volume.h24 / 24))
+  +1 if vol24_liq in >=0.48                                   (older-half lift 3.01, covers 20% of points; live: volume.h24 / liquidity.usd)
+  +1 if ch1 in <-0.01 or >=0.01                         (older-half lift 1.85, covers 40% of points; live: priceChange.h1)
+  +1 if ch6 in <-0.01 or >=0.01                         (older-half lift 2.01, covers 40% of points; live: priceChange.h6)
+  +1 if ch24 in <-0.03 or >=0.03                         (older-half lift 2.05, covers 40% of points; live: priceChange.h24)
+  +1 if ch0 in <-0.21 or >=0.05                         (older-half lift 2.05, covers 40% of points; live: NOT available live)
+  +1 if dd7 in <-0.16                                   (older-half lift 3.08, covers 20% of points; live: NOT available live)
+  +1 if up24 in >=0.05                                   (older-half lift 3.12, covers 20% of points; live: NOT available live)
+  +1 if vola24 in >=0.02                                   (older-half lift 3.37, covers 19% of points; live: NOT available live)
+  +1 if act24 in >=1.00                                   (older-half lift 1.58, covers 47% of points; live: NOT available live)
+
+ score  n old 2x/7d old  5x/7d  rug7 |  n new 2x/7d new  5x/7d   10x  rug7   95% CI (pools) | pools new
+>=   0   6848        6%     3%    1% |   6856       19%     8%    4%    0%         15%..23% |       344
+>=   1   6317        7%     3%    1% |   6659       20%     8%    4%    0%         16%..24% |       344
+>=   2   5473        8%     3%    1% |   6331       21%     8%    4%    0%         16%..25% |       342
+>=   3   4494        9%     4%    1% |   5890       22%     9%    5%    0%         18%..27% |       340
+>=   4   3524       11%     5%    1% |   5388       24%     9%    5%    0%         19%..29% |       330
+>=   5   2737       14%     6%    1% |   4801       26%    10%    5%    1%         21%..31% |       320
+>=   6   2113       17%     8%    2% |   4139       29%    11%    6%    1%         22%..35% |       300
+>=   7   1561       21%    10%    2% |   3558       31%    12%    6%    1%         25%..38% |       275
+>=   8   1126       26%    13%    2% |   2946       35%    14%    7%    1%         27%..42% |       244
+>=   9    825       32%    17%    2% |   2380       39%    16%    8%    1%         31%..45% |       212
+>=  10    606       39%    21%    2% |   1863       42%    17%    8%    0%         33%..50% |       182
+>=  11    415       47%    27%    1% |   1352       45%    19%    9%    0%         35%..54% |       130
+>=  12    278       55%    31%    0% |    913       52%    22%   10%    0%         41%..61% |        86
+>=  13    179       62%    37%    0% |    606       58%    26%   11%    0%         46%..67% |        56
+>=  14     88       66%    50%    0% |    384       64%    28%   10%    0%         52%..74% |        35
+>=  15     40       82%    78%    0% |    188       65%    34%   11%    0%         50%..78% |        18
+>=  16     10      100%   100%    0% |     63       76%    44%   10%    0%         58%..88% |        10
+>=  17      0       n/a    n/a   n/a |      8       88%    25%    0%    0%        50%..100% |         3
+chosen threshold (older half: first level with >= 200 points and >= 1.5x the base rate, else the highest with >= 100): score >= 4 -> newer half 24% of 5388 points ran 2x within 7d
+score AUC for 2x/7d: older (in-sample) 0.843, newer (out-of-sample) 0.782
+
+======================================================================================================================
+6. LOGISTIC REGRESSION  (L2, standardized log features, fit on the older half, tested on the newer half)
+======================================================================================================================
+coefficients (per standard deviation; + = more 2x runs):
+  dd7        -0.477
+  vola24     +0.403
+  mcap       -0.349
+  age_h      -0.341
+  up24       +0.309
+  vol24_liq  +0.284
+  liq        -0.242
+  green6     +0.146
+  ch24       +0.146
+  pump       +0.141
+  vol24      -0.136
+  vol1       +0.086
+  v6_rel     -0.083
+  ch6        +0.051
+  ch1        +0.049
+  sol        +0.036
+  base       +0.023
+  act24      +0.017
+  v24_rel    -0.013
+  v1_rel     -0.010
+AUC 2x/7d: older (in-sample) 0.900, newer (out-of-sample) 0.888
+ newer half decile      n  2x/7d  5x/7d 10x/7d  rug7  lift
+                 1    685     0%     0%     0%    0%  0.01
+                 2    686     1%     0%     0%    0%  0.03
+                 3    685     3%     0%     0%    0%  0.16
+                 4    686     4%     1%     1%    0%  0.20
+                 5    686     5%     0%     0%    1%  0.25
+                 6    685     6%     1%     0%    0%  0.31
+                 7    686    19%     4%     2%    0%  0.99
+                 8    685    32%    11%     8%    1%  1.63
+                 9    686    51%    20%    10%    2%  2.61
+                10    686    74%    38%    20%    0%  3.81
+newer half, logit top 10% (older cut p >= 0.116): n 2296, 2x/7d 49%, 5x/7d 21%, rug7 1%
+
+======================================================================================================================
+7. TRADING THE SCORES THROUGH THE ENGINE'S LIVE EXIT  ($500 per trade, costs 0.3% + 1% + impact per side; hold 14d, trail 0.95, steps [(3.0, 0.6)], runner (1.0, 0.5))
+======================================================================================================================
+entry rule                                               n  /day  win  median    mean           95% CI  >=2x  >=5x  rug hold h | month full   older   newer  maxDD /day new
+engine today: 1h>=+10%, age>=6h, liq>=$100k, vol24>=$100k   375  4.57  44%   -6.6%  +29.2% [+16.8%,+43.7%]   12%    3%   2%    269 |    +101.3%  +61.8%  +72.7%   -54%     6.71
+engine + score>=4                                      375  4.57  44%   -6.6%  +29.2% [+16.8%,+43.7%]   12%    3%   2%    269 |    +101.3%  +61.8%  +72.7%   -54%     6.71
+score>=4, age>=6h, engine floors                      1316 16.04  44%   -2.1%  +10.3% [ +5.8%,+15.1%]    4%    1%   4%    289 |     -29.7%  -35.3%  -23.7%   -63%    18.23
+score>=5, age>=6h, engine floors                      1257 15.32  45%   -1.8%  +10.7% [ +6.3%,+16.1%]    4%    1%   4%    288 |     -17.2%  -26.9%  -19.4%   -53%    17.69
+score>=4, age>=1h, engine floors                      1323 16.12  44%   -2.1%  +10.7% [ +6.0%,+15.7%]    4%    1%   4%    288 |     -29.7%  -35.3%  -19.7%   -63%    18.40
+score>=4, age>=1h, liq>=$50k, vol24>=$50k             1510 18.40  46%   -1.8%  +15.8% [ +9.8%,+24.1%]    5%    1%   3%    293 |     -29.6%  -35.2%  +60.8%   -63%    19.93
+logit top 10% (p>=0.116), engine floors                332  4.05  41%   -8.0%  +22.7% [ +3.3%,+44.7%]   11%    3%  15%    223 |      +2.9%   +2.4% +101.9%   -76%     6.30
+logit top 5% (p>=0.315), engine floors                 177  2.16  44%  -17.0%  +28.5% [ +2.2%,+58.3%]   15%    5%  24%    178 |    +130.1% +382.1%  -33.4%   -41%     3.75
+logit top 10%, age>=1h, liq>=$50k                      389  4.74  45%   -4.9%  +39.1% [+16.8%,+70.4%]   14%    3%  13%    220 |    +322.0% +153.8%   -7.5%   -24%     7.34
+(month = compounding 4-slot account, 1/4 of equity per trade, busy slots skip signals; older / newer = the two halves of the window; the score thresholds were chosen on the older half, so 'newer' is out-of-sample)
+  best trades, engine today: 1h>=+10%, age>=6h, liq>=$1: CODEFORMER (base) +1022.3%, FWA (eth) +923.3%, BASECAT (base) +866.9%, STONK (solana) +761.6%, ALLINU (solana) +685.7%, FISH-SPEECH (base) +631.8%
+  best trades, engine + score>=4: CODEFORMER (base) +1022.3%, FWA (eth) +923.3%, BASECAT (base) +866.9%, STONK (solana) +761.6%, ALLINU (solana) +685.7%, FISH-SPEECH (base) +631.8%
+  best trades, score>=4, age>=6h, engine floors: FWA (eth) +1232.3%, BASECAT (base) +1020.7%, FISH-SPEECH (base) +968.9%, CODEFORMER (base) +924.7%, STONK (solana) +740.9%, ALLINU (solana) +709.1%
+
+======================================================================================================================
+8. RECOMMENDATION FOR config.DEX / dex.py
+======================================================================================================================
+{
+ "runner_score": {
+  "min_points": 4,
+  "rules": [
+   {
+    "feature": "pump",
+    "buckets": "pump.fun",
+    "edges": [
+     0.5
+    ],
+    "good": [
+     1
+    ],
+    "live_field": "token address ends with 'pump'"
+   },
+   {
+    "feature": "sol",
+    "buckets": "solana",
+    "edges": [
+     0.5
+    ],
+    "good": [
+     1
+    ],
+    "live_field": "chainId"
+   },
+   {
+    "feature": "liq",
+    "buckets": "$50k..$100k or $100k..$250k",
+    "edges": [
+     50000.0,
+     100000.0,
+     250000.0,
+     1000000.0
+    ],
+    "good": [
+     1,
+     2
+    ],
+    "live_field": "liquidity.usd"
+   },
+   {
+    "feature": "mcap",
+    "buckets": "$1.0M..$10.0M",
+    "edges": [
+     100000.0,
+     1000000.0,
+     10000000.0,
+     100000000.0
+    ],
+    "good": [
+     2
+    ],
+    "live_field": "fdv"
+   },
+   {
+    "feature": "vol1",
+    "buckets": ">=16751.59",
+    "edges": [
+     0.3887,
+     494.0853,
+     3178.0652,
+     16751.5943
+    ],
+    "good": [
+     4
+    ],
+    "live_field": "volume.h1"
+   },
+   {
+    "feature": "vol6",
+    "buckets": ">=123405.67",
+    "edges": [
+     1118.2285,
+     7416.0449,
+     30827.5405,
+     123405.6657
+    ],
+    "good": [
+     4
+    ],
+    "live_field": "volume.h6"
+   },
+   {
+    "feature": "vol24",
+    "buckets": ">=$1.0M",
+    "edges": [
+     50000.0,
+     100000.0,
+     300000.0,
+     1000000.0
+    ],
+    "good": [
+     4
+    ],
+    "live_field": "volume.h24"
+   },
+   {
+    "feature": "v1_rel",
+    "buckets": "0.26..0.67",
+    "edges": [
+     0.0002,
+     0.2601,
+     0.6717,
+     1.4074
+    ],
+    "good": [
+     2
+    ],
+    "live_field": "volume.h1 / (volume.h24 / 24)"
+   },
+   {
+    "feature": "vol24_liq",
+    "buckets": ">=0.48",
+    "edges": [
+     0.015,
+     0.0493,
+     0.1372,
+     0.4827
+    ],
+    "good": [
+     4
+    ],
+    "live_field": "volume.h24 / liquidity.usd"
+   },
+   {
+    "feature": "ch1",
+    "buckets": "<-0.01 or >=0.01",
+    "edges": [
+     -0.0057,
+     -0.0002,
+     0.0,
+     0.0051
+    ],
+    "good": [
+     0,
+     4
+    ],
+    "live_field": "priceChange.h1"
+   },
+   {
+    "feature": "ch6",
+    "buckets": "<-0.01 or >=0.01",
+    "edges": [
+     -0.0145,
+     -0.0027,
+     0.0016,
+     0.0123
+    ],
+    "good": [
+     0,
+     4
+    ],
+    "live_field": "priceChange.h6"
+   },
+   {
+    "feature": "ch24",
+    "buckets": "<-0.03 or >=0.03",
+    "edges": [
+     -0.0299,
+     -0.0071,
+     0.0035,
+     0.0255
+    ],
+    "good": [
+     0,
+     4
+    ],
+    "live_field": "priceChange.h24"
+   },
+   {
+    "feature": "ch0",
+    "buckets": "<-0.21 or >=0.05",
+    "edges": [
+     -0.2129,
+     -0.08,
+     -0.0064,
+     0.0517
+    ],
+    "good": [
+     0,
+     4
+    ],
+    "live_field": null
+   },
+   {
+    "feature": "dd7",
+    "buckets": "<-0.16",
+    "edges": [
+     -0.1647,
+     -0.086,
+     -0.0467,
+     -0.0167
+    ],
+    "good": [
+     0
+    ],
+    "live_field": null
+   },
+   {
+    "feature": "up24",
+    "buckets": ">=0.05",
+    "edges": [
+     0.0015,
+     0.0089,
+     0.0206,
+     0.0485
+    ],
+    "good": [
+     4
+    ],
+    "live_field": null
+   },
+   {
+    "feature": "vola24",
+    "buckets": ">=0.02",
+    "edges": [
+     0.0041,
+     0.0062,
+     0.0092,
+     0.0171
+    ],
+    "good": [
+     4
+    ],
+    "live_field": null
+   },
+   {
+    "feature": "act24",
+    "buckets": ">=1.00",
+    "edges": [
+     0.5833,
+     0.875,
+     1.0,
+     1.0
+    ],
+    "good": [
+     4
+    ],
+    "live_field": null
+   }
+  ]
+ },
+ "screen": {
+  "min_age_h": 6,
+  "min_liq": 100000,
+  "min_vol24": 100000
+ },
+ "entry": {
+  "h1": 0.1,
+  "h6": -1.0,
+  "buy_ratio": 1.2,
+  "score_min": null,
+  "logit_min": null
+ }
+}
+
+======================================================================================================================
+9. FEATURES THAT ONLY EXIST LIVE - dex.py should start logging them now
+======================================================================================================================
+Not in any price history: buys vs sells (1h / 24h), unique buyers, holder count and its growth, top-10 holder share,
+LP burned / locked, DexScreener boosts and trending rank, GeckoTerminal trending rank, CoinGecko trending, social
+mentions.  Proposal (small dex.py change, no strategy change): in DexHunter._enqueue / the screen, append one line per
+candidate snapshot to data/dex_snapshots.csv: t, chain, addr, pair, sym, src, rank_in_list, age_h, liq, vol1, vol6,
+vol24, fdv, b1, s1, b24, s24, h1, h6, h24, boosts, holders (GoPlus / RugCheck if fetched), top10_pct, lp_locked, and
+the study's score.  After 2-4 weeks this study can join those rows with GeckoTerminal OHLCV outcomes and measure the
+lift of buyer growth / holder growth / boosts / trending rank exactly like section 4 above.
+
+======================================================================================================================
+10. SUMMARY IN PLAIN WORDS
+======================================================================================================================
+Sample: 346 pools (90 solana, 107 base, 149 eth), 13704 decision points between 2026-07-06 and 2026-09-19. At a random moment, 12.9% of the time a coin doubled within 7 days, 5.2% went 5x, 2.8% went 10x, and 0.6% rugged (the rug share is a floor: pools that died before we listed them are missing).
+Before a 10x+ run the coin typically looked like this (medians of the 10x group vs the duds): age 22h vs 10302h, liquidity $82k vs $869k, market cap $342k vs $34.3M, 24h volume / liquidity 3.66 vs 0.12, last-hour volume vs its 24h average 0.24x vs 0.49x, 1h change 0% vs 0%, 24h change 1% vs -0%, distance from the 7-day high -49% vs -6%, pump.fun share 33% vs 4%.
+Signs that held up in BOTH halves of the window (single-feature AUC): age_h, pump, sol, liq, mcap, vol1, v6_rel, v24_rel, vol24_liq, ch24, ch0, dd7, up24, vola24, act24.
+The points score (17 rules: pump pump.fun; sol solana; liq $50k..$100k or $100k..$250k; mcap $1.0M..$10.0M; vol1 >=16751.59; vol6 >=123405.67; vol24 >=$1.0M; v1_rel 0.26..0.67; vol24_liq >=0.48; ch1 <-0.01 or >=0.01; ch6 <-0.01 or >=0.01; ch24 <-0.03 or >=0.03; ch0 <-0.21 or >=0.05; dd7 <-0.16; up24 >=0.05; vola24 >=0.02; act24 >=1.00) at >= 4 points picked 5388 moments in the newer (unseen) half of which 24% doubled within 7 days, against a base rate of 19.4% (older half, in-sample: 11%). 12 of the 17 rules can be computed live from DexScreener fields today.
+The engine's current entry (1h >= +10%, age >= 6h, liq >= $100k, vol24 >= $100k) fired 4.57 times/day in this sample, won 44%, median -6.6%, mean +29.2% per trade, 12% of trades closed >= 2x, rug rate 2%; the 4-slot account made +101.3%/month (older +61.8%, newer +72.7%, max drawdown -54%).
+Most robust entry (best of the worse half): 'engine today: 1h>=+10%, age>=6h, liq>=$100k, vol24>=$100k': 4.57 trades/day in this sample (6.71/day in the newer half; the live scanner sees far more pools, so treat this as a floor), win 44%, median -6.6%, mean +29.2% (CI +16.8%..+43.7%), 12% of trades >= 2x, 3% >= 5x, rug 2%; account +101.3%/month, older +61.8%, NEWER (out-of-sample) +72.7%, max drawdown -54%.
+It did NOT beat the engine's current entry in both halves, so do not change config.DEX yet; keep the exit as it is, add the snapshot logging from section 9, and re-run this study (the registry grows every run, which removes the survivorship bias).
+Every number above comes from a few thousand pools chosen today; the ranking of signs is what to trust, the absolute profit per month is not a forecast.
+
+wrote 13704 labelled points to results/dex_runner_points.csv.gz
+(9390s)
