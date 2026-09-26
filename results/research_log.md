@@ -23,3 +23,14 @@ The official rotation (breakout10) only picks from config.UNIVERSE (16 large coi
 Crypto.com meme coins (PEPE, BONK, WIF, FLOKI, SHIB, DOGE already in, etc.) to its universe with the lab's
 walk-forward: more profit on unseen months with an acceptable drawdown? Also compare a separate
 meme-only rotation. Switch only if it wins out-of-sample; report in plain words.
+
+### Anatomy of the top gainers (asked by the owner 2026-09-26) - HIGH PRIORITY
+Goal: get in BEFORE the spikes (meme coins, top daily gainers). Take the biggest one-day gainers on
+Crypto.com (and top DEX meme runs from GeckoTerminal) over the last ~18 months. For each, measure what
+was visible 1h / 6h / 24h / 72h BEFORE the move: volume vs normal (quiet accumulation), price drift,
+open interest, listing notices on other exchanges, CoinGecko trending, DEX pool age / buyers / liquidity.
+Then check the same signals on random non-pumping coins (false alarms). Output: which early signs
+actually came first, how often they fired without a pump, and whether trading them makes money after
+costs (walk-forward). Wire the winners into the scanner / footprint / social signals. Report in plain words.
+Note: X/Twitter (Elon) needs a paid API and bots react in seconds - study how long tweet-driven pumps
+lasted historically before deciding it's worth paying for.
