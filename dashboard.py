@@ -2,6 +2,7 @@
 one card per market with its own sparkline, open positions and latest trade.
 Self-contained HTML (inline CSS/SVG, tiny JS for the "updated X min ago" light)."""
 import csv
+import calendar
 import html
 import os
 import time
@@ -94,6 +95,14 @@ def render(cards, updated_ms):
     accent = "#22e39a" if up else "#ff5c7a"
     # every official account counts (one with no history yet is flat at its starting $500)
     total_series = _combine([c["series"] for c in official]) if official else []
+    # this month: change since the last value before the 1st (UTC); the base if we started this month
+    now_t = time.gmtime()
+    m0 = calendar.timegm((now_t.tm_year, now_t.tm_mon, 1, 0, 0, 0)) * 1000
+    before = [v for t, v in total_series if t < m0]
+    month_start = before[-1] if before else base
+    mpl = total - month_start
+    mup = mpl >= 0
+    month_name = time.strftime("%B", now_t)
     blocks = []
     for i, c in enumerate(cards):
         d = c["equity"] - start
@@ -158,6 +167,14 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .total{{font-size:44px;font-weight:750;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:650;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font-variant-numeric:tabular-nums}}
+.since{{font-weight:600;opacity:.7;font-size:12px}}
+.month{{margin-top:16px}}
+.tile{{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.035);
+  border:1px solid var(--line);border-radius:16px;padding:12px 16px}}
+.tl{{color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}}
+.tv{{font-size:22px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums;white-space:nowrap}}
+.tv.sw{{background:linear-gradient(90deg,#22d3ee,#3b82ff);-webkit-background-clip:text;background-clip:text;color:transparent}}
+.ts{{font-size:12px;font-weight:600;color:var(--muted);margin-top:2px}}
 .hero .chart{{height:110px;margin:14px -20px 0}}
 .hero .chart svg,.spark svg{{width:100%;height:100%;display:block}}
 .card{{position:relative;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:20px;padding:16px 16px 12px;margin-bottom:12px;overflow:hidden}}
@@ -190,7 +207,16 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="moon">TO THE MOON BABY! 🚀</div>
   <div class="lbl">Total balance</div>
   <div class="total">{_money(total)}</div>
-  <span class="pill">{"▲" if up else "▼"} {_chg(pl, base)}</span>
+  <span class="pill">{"▲" if up else "▼"} {_chg(pl, base)} <span class="since">all time</span></span>
+  <div class="month">
+    <div class="tile">
+      <div><div class="tl">This month</div>
+        <div class="ts">{month_name}</div></div>
+      <div style="text-align:right"><div class="tv {"up" if mup else "dn"}">{"▲" if mup else "▼"} {"+" if mup else "−"}{_money(abs(mpl))}</div>
+        <div class="ts {"up" if mup else "dn"}">{"+" if mup else "−"}{abs(mpl) / month_start:.1%}</div></div>
+    </div>
+  </div>
+  </div>
   <div class="chart">{_svg(total_series, 360, 110, accent, "t", base=base)}</div>
 </section>
 {"".join(blocks)}
