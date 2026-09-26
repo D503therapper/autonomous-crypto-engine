@@ -73,3 +73,11 @@ winners (median trade loses), so expect many small red trades between big ones. 
 TODO (owner asked): test the untested owner-rule add-ons on the same dex_exit_study data - protection trail
 after 3x at 50% / 60% / 70% / none, trigger at 3x vs 5x, and the day-14 runner trail 40/50/60%. Pick the
 most profitable robust one (walk-forward) and update config.DEX["exit"]; report in plain words.
+
+### Social AI hype-reader (owner: "trending on social media is everything to us") - after the home box
+Plan once the owner's box (Xeon 14c, 62 GB RAM, RTX A4500 20 GB, no sudo) is a self-hosted runner:
+collect Reddit (home IP or free OAuth app) + public Telegram meme channels (free Telegram API with the
+owner's account) + existing CoinGecko/DexScreener/GeckoTerminal trending; a local LLM (GPU when free,
+CPU fallback while the owner renders video) scores each coin: mention growth, organic vs bot/shill, scam
+talk. Feed the score into the DEX hunter's discovery (screen rising coins first) and log it so the runner
+study can measure whether buzz came before the runs. X/Twitter is paid (~$200/mo) - revisit once profitable.
