@@ -11,6 +11,7 @@ on:
         type: boolean
         default: false
   push:
+    branches: [main]      # only main runs it (side branches never start a duplicate run)
     paths: [".github/workflows/sports.yml", "sports.py", "sports_data.py", "sports_model.py", "sports_dashboard.py"]
 permissions:
   contents: write
