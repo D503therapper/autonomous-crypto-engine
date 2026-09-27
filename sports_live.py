@@ -617,7 +617,7 @@ def publish(msg):
         return
     _git("commit", "-qm", msg)
     for _ in range(4):
-        _git("pull", "-q", "--rebase", "-X", "theirs")
+        _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
         if _git("push", "-q").returncode == 0:
             return
         time.sleep(3)
@@ -646,7 +646,7 @@ def loop(minutes, every_s=10):
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
     while time.time() < end:
         if games is None or int(time.time()) % 600 < every_s:          # pull the latest games/model every ~10 min
-            _git("pull", "-q", "--rebase", "-X", "theirs")
+            _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
             games, _ = _data(reload=True)
         if not any_live_soon(games):
             idle_since = idle_since or time.time()
