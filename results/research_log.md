@@ -23,9 +23,36 @@ FIX: code 1/2/3 accepted; a missing GoPlus field is "unknown", never "0": sell-s
 missing mint / owner / pause / blacklist / proxy fields reject (screen still runs honeypot.is for the full reason list).
 Open: a source for contract powers of 0xef native tokens (none free found yet); watch rejected_followup for them.
 
-### NEXT (owner, 2026-09-27) - Profit floor below 2x (TEXTIT: +94% peak -> -24% within 2h, no protection)
-Test on dex_runner/legends data: once up +50% never below break-even; once +75% lock +25%; vs current (trail only
-after 2x at day 14 / 0.95 trail). Keep only if monthly return holds in both halves AND the legends still get caught.
+### DONE 2026-09-27 13:30 - Rug exit fired on a price dump (GENO), fixed (02a2935)
+$ liquidity of a constant-product pool ~ sqrt(price): a -77.5% dump reads as -53% liquidity. GENO was sold as a rug at the
+wick bottom (-$167); the pool was back at $100k near entry 34 min later. Rug now = liquidity <= 50% of liq0*sqrt(min(1,p/p0)).
+Same flaw remains in the rejected-coin follow-up rug metric (and a missing pair = $0) - fix before using its rug rates.
+
+### QUEUED - LP lock < 95% rejects on Solana (missed AQUA +86%, CALI +71%, JACK +66%, FONE +52% on 2026-09-27)
+Interim: 24 coins rejected only on LP-lock/holder data; PAID +290%, FONE +130%. Wait for 7-day follow-ups (from ~10-03),
+with the fixed rug metric, then compare ran-up vs rugged by lock % and liquidity.
+
+### DONE 2026-09-27 16:30 - Profit floor below 2x (TEXTIT: +104% in 2h -> +6%, -24% low): NO CHANGE, keep the live exit
+Q: should a coin up big early get a floor, so a TEXTIT round trip can't happen? METHOD: dex_floor_study.py (890211d,
+results adcefb8, results/dex_floor_study.txt; hourly dump results/dex_floor_hourly.json.gz, re-run with --from-dump):
+dex_runner_study's pool selection (349 pools, 2026-07-07..09-27, hourly GeckoTerminal) through the engine's entry (1h
+>= +10%, age >= 6h, liq/vol24 >= $100k; 1 trade per pool at a time, 1-day cooldown), 0.3% fee + 1% slip + impact per
+side, rugs -95%, 5-slot compounding account, halves split at the median entry (Sep 1); + dex_legends_study's coins
+(PNUT/AKITA hourly, others cached daily bars) with the live entry and a "caught early" entry (first +10% bar).
+RESULT (monthly full / older / newer, maxDD, 2x-rate, avg winner; legends lost = < 80% of the live multiple where live >= 5x):
+  current (14d hold, no stop, >=2x at day 14 -> 40% trail)  +44.0% / -2.9% / +275.8%  -46%  12%  +179%  -
+  a) peak +50% -> floor break-even                          +24.0% / -12.2% / -37.6%  -38%   8%  +121%  none
+  b) peak +75% -> floor +25%                                +10.4% / -15.4% / +60.9%  -37%   7%   +76%  none
+  c) peak +100% -> 40% trail from peak                      +58.0% / -14.4% / +464.9% -40%   9%   +81%  PEPE 110x->31x, POPCAT, BRETT, PNUT 30x->1.9x
+  d) peak +100% -> floor +50%, 3x -> 50% trail              +44.5% / +15.9% / +194.0% -37%   7%   +75%  PEPE, BONK, POPCAT, BRETT, PNUT 30x->1.6x
+  e) half at +100%, rest current rule (moon bag)            +28.7% / -4.7% / +173.8%  -47%  12%  +110%  all big ones halved (PNUT 15.9x)
+  e') same via dex.py tp1 (no clock, break-even stop)       -2.1% / -19.3% / +73.7%   -52%  10%   +92%  BONK, BRETT, FARTCOIN, PNUT
+Floors a/b catch the TEXTIT shape (a: most trades that peak +50% then exit at break-even; b: 25/206 still lose vs
+52/163 live) but cut the big winners' tails: avg winner +179% -> +76..121% and 2x-rate 12% -> 7-8%, so they lose in
+both halves. c/d each win one half but lose the other and cut PNUT/PEPE-style runners early (the runner trail needs
+the 14-day clock to let the early +100% shakeouts pass). An offline cross-check on dex_filter_study's pools (199,
+dex_filter_pools.json.gz) gave the same ranking. DECISION: no variant beats the current rule in BOTH halves while
+keeping the legends -> config.DEX["exit"] unchanged. TEXTIT-style give-backs are the price of riding the 30-90x runners.
 
 ### QUEUED (owner, 2026-09-27) - bigger bets on proven runners, account brake, big-win playbook
 1. Pyramiding: add to a held coin once proven (>=14d old, >=2x, big liquidity/holders, or listed on a major
@@ -203,3 +230,27 @@ e.g. Kraken Pro) daily "drop 8% -> sell above 5-day avg or 3d" made +0.84%/mo (+
 when choosing the live exchange. Hold BTC over the window: -0.02%/mo. APPLIED: official Crypto $200 (listing hunter,
 2 slots ~$90 each), DEX $800 (5 x 20%), Stocks $500; $300 moved once (run_live.rebalance_accounts, equity.csv
 history shifted so no fake gain/loss). Parking off (PARK_IDLE False).
+
+## 2026-09-27 - DEX entry-filter study after GENO (results/dex_filter_study.txt) -> NO CHANGE
+Question: GENO (solana pump.fun) lost -$167 of $213 (-78%) within ~1h of entry; at entry it was 6.9h old, liq $104k,
+6h +258%, 24h +1830%. Would an extra entry filter have skipped such coins without costing the runners?
+Method: dex_filter_study.py (workflow dex_filter_study.yml): 379 GeckoTerminal pools from the dex_runner_study registry
+(incl. pools only >= 2 days old), 2026-07-07..09-26, live entry (1h >= +10%, age >= 6h, liq/vol24 >= $100k) + live exit
++ costs, 4-slot account, halves split 2026-09-03. A filtered coin can still be bought later when it passes. Variants:
+6h run caps +100/200/300%, 24h caps +500/1000%, min age 12h/24h, young-and-pumped combos, liq floor $150k/$250k.
+Also PNUT (only legend with hourly data) and the live screen passes (GENO: afterwards min -89%, last -88%).
+Result (base: 373 trades, mean +54.8%/trade, <=-70% 6%, account +16.6%/mo, older -14.9%, newer -0.6%, maxDD -40%):
+  6h > +200% skip:          <=-70% 5%, +10.5%/mo, older -34.4%, newer -0.6%, DD -71%, big winners 15/15
+  24h > +1000% skip:        <=-70% 6%, +16.6%/mo (same), DD -40%, loses CONDO (+1244% -> +70%)
+  min age 12h / 24h:        -33.9% / -16.8%/mo, DD -76% / -66% (24h loses ALLINU)
+  age<24h & 6h>+150% skip:  <=-70% 5%, per-trade mean +57.1% (older +83.8%, newer +30.2% vs +81.7%/+28.1%) but
+                            account -3.9%/mo, DD -71% (5 slots: +11.3% vs +23.9%, DD -56% vs -33%)
+  liq $150k / $250k:        lose 3 / 8 of the 15 big winners (BASECAT, CALI, CODEFORMER, CONDO ...)
+The GENO-type group (age < 24h and 6h > +150%) was 14 base trades with median +100%, 50% >= 2x, 21% <= -70%
+(OTC +779%, 🎒 +224%, SI +230% alongside CYS -95%, SWARM -83%, BATON -82%). The filters mostly moved those entries a few
+hours later (CYS still lost -95% later). Only 1-3 trades change per filter, so the account results mostly reflect which
+trades happened to get a slot. PNUT was caught by every variant.
+Decision: NO filter passed (fewer -70% losers AND no deeper drawdown AND about equal or better monthly in both halves
+AND no big winner / legend lost). config.DEX / dex.py unchanged. GENO is the stake-sized risk the strategy accepts (20%
+stake = the loss limit). Re-run with --offline on results/dex_filter_pools.json.gz or re-trigger the workflow as the
+registry grows. Caveats: no buys/sells history, survivorship (rug rates are floors), liquidity estimated.

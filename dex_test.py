@@ -731,7 +731,7 @@ def test_liquidity_pull_emergency_exit():
     t = poll(h, t, px, v=0.004, liq=120_000)                                # -80% liquidity: rug
     assert K not in h.pf.positions
     oc = rows(f"{d}/outcomes.csv")[-1]
-    assert oc["outcome"] == "scammed_rug" and "liquidity pulled 80%" in oc["reason"] and float(oc["pnl"]) < 0
+    assert oc["outcome"] == "scammed_rug" and "liquidity pulled 68%" in oc["reason"] and float(oc["pnl"]) < 0
     tr = rows(f"{d}/dex_hunter/trades.csv")[-1]
     usd = float(tr["qty"]) * 0.004
     assert abs(float(tr["price"]) - round(0.004 * (1 - 0.01 - usd / 120_000), 6)) < 1e-9   # impact on the thinned pool
@@ -743,7 +743,20 @@ def test_liquidity_pull_emergency_exit():
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert K not in h.pf.positions and oc["outcome"] == "scammed_rug" and abs(float(oc["ret"]) + 1) < 1e-9, oc
     shutil.rmtree(d)
+    h, fetch, d, px = held()                                                # GENO: -78% dump, no LP pulled
+    h.p = {**h.p, "exit": {**h.p["exit"], "trail": 0.95}}                    # live rule: no price stop
+    h.pf.positions[K]["stop"] = 0.0
+    t = poll(h, T0 + 6000, px, v=0.00225, liq=600_000 * 0.225 ** 0.5 * 0.99)  # $ liquidity -53% from price alone
+    assert K in h.pf.positions, "a price dump alone is not a rug"
+    poll(h, t, px, v=0.00225, liq=600_000 * 0.225 ** 0.5 * 0.4)            # then 60% of the pool pulled: rug
+    assert K not in h.pf.positions and rows(f"{d}/outcomes.csv")[-1]["outcome"] == "scammed_rug"
+    shutil.rmtree(d)
+    h, fetch, d, px = held()                                                # pumping 5x, pool pulled 60%: rug
+    poll(h, T0 + 6000, px, v=0.05, liq=240_000)
+    assert K not in h.pf.positions and rows(f"{d}/outcomes.csv")[-1]["outcome"] == "scammed_rug"
+    shutil.rmtree(d)
     print("  liquidity pull > 50% -> emergency exit at post-rug price / -100%   ok")
+    print("  price dump alone (liquidity falls with sqrt(price)) is not a rug   ok")
 
 
 def test_sell_simulation_fails_at_exit():
