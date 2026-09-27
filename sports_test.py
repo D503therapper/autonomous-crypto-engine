@@ -561,17 +561,18 @@ def test_tennis():
                       "p2": b, "p2_name": f"Q {b}", "winner": w, "sets1": "6 6", "sets2": "3 3", "status": "STATUS_FINAL", "done": 2}
     rt, w8, rep = st.study(ms, eval_n=500)
     assert rep["acc"] > 0.6, rep
-    # the slate: 8 straights, value first, then the likeliest favorites; the parlay = the 3 likeliest
+    # the slate: only picks we expect to win (55%+) with real value, likeliest first - never filler to reach 8
     cands = []
     for i in range(12):
-        p = 0.52 + 0.02 * i
-        fair = -round(100 * p / (1 - p))
-        odds = fair + (40 if i < 3 else -25)                      # 3 value spots, the rest priced too high
+        p = 0.50 + 0.02 * i
+        fair = -round(100 * p / (1 - p)) if p > 0.5 else 100
+        odds = fair + (40 if i % 2 == 0 else -25)                 # every other one is value
         c = {"id": f"m{i}:1", "match": f"m{i}", "p": p, "odds": odds, "dec": sd.decimal(odds)}
         c["edge"] = p * c["dec"] - 1
         cands.append(c)
     picks, parlay = st.pick_slate(cands)
-    assert len(picks) == 8 and [c["match"] for c in picks[:3]] == ["m2", "m1", "m0"]
+    assert picks and all(c["p"] >= st.MIN_P and c["edge"] >= st.MIN_EDGE for c in picks), "likely to win AND value"
+    assert [c["p"] for c in picks] == sorted((c["p"] for c in picks), reverse=True) and len(picks) < 8, "no filler"
     assert len(parlay) == 3 and parlay[0]["p"] >= parlay[-1]["p"] and all(c in picks for c in parlay)
     # retirements: void before a set is done, the advancer wins after
     m = {**ms["0"], "status": "STATUS_RETIRED", "done": 0}

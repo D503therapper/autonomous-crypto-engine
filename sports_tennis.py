@@ -51,6 +51,8 @@ YEARS = 10
 N_PICKS = 8
 PARLAY_LEGS = 3
 MIN_EDGE = 0.02                # a tennis value pick: our win chance beats the price by 2%+
+MIN_P = 0.55                   # ACCURACY FIRST: a tennis pick is one we expect to WIN (55%+) - no coin-flip dogs.
+                               # Fewer than 8 qualify = fewer picks; never filler to reach 8
 MAX_FAV = -300                 # no tennis moneyline shorter than -300: heavier favorites go on the game spread,
                                # and only when the engine expects them to win by more than the number
 MIN_MATCHES = 10               # both players need this many rated matches
@@ -668,16 +670,17 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
 
 
 def pick_slate(cands):
-    """8 straights (value first, then the likeliest favorites) + the parlay (the 3 likeliest of them)."""
+    """Up to 8 straights we expect to win (55%+) with real value, likeliest first + the parlay (the 3 likeliest)."""
     for c in cands:
         c["value"] = c["edge"] >= (2 * MIN_EDGE if c.get("our_drama") else MIN_EDGE)
-    cands = [c for c in cands if (c["value"] or not c.get("our_drama"))       # drama on our side: never a filler
+    cands = [c for c in cands if c["p"] >= MIN_P and c["value"]                  # likely to win AND real value
+             and (c["value"] or not c.get("our_drama"))       # drama on our side: never a filler
              and (c.get("market", "ml") != "ml" or c["odds"] >= MAX_FAV)        # no moneyline shorter than -300
              and (c.get("market", "ml") == "ml" or c["value"])]                  # a game spread only as real value
     best = {}
-    for c in sorted(cands, key=lambda c: (not c["value"], -c["p"])):
-        best.setdefault(c["match"], c)                          # one side per match
-    picks = sorted(best.values(), key=lambda c: (not c["value"], -c["p"]))[:N_PICKS]
+    for c in sorted(cands, key=lambda c: -c["p"]):
+        best.setdefault(c["match"], c)                          # one side per match (the likelier bet: ML or spread)
+    picks = sorted(best.values(), key=lambda c: -c["p"])[:N_PICKS]
     parlay = sorted(picks, key=lambda c: -c["p"])[:PARLAY_LEGS] if len(picks) >= PARLAY_LEGS else []
     return picks, parlay
 
