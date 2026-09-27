@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 10          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 11          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -339,38 +339,36 @@ def breakdown(leg, games, elo, injuries, used=None):
     if op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
         why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   v.say("fallback1", ["the price is too good to pass", "the number's on our side", "the value's all ours",
-                                       "we like our side at this number"]) or "the number's on our side")
+                   NO_WHY)
         said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
-        out.append(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns. We're on {us} — {why}.",
+        out.append(_nowhy(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns. We're on {us} — {why}.",
                                    f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns and taking {us} — {why}.",
                                    f"💸 Line's moving toward {them}{move}. Let 'em — the engine still likes {us}: {why}.",
                                    f"💸 Money's pouring in on {them}{move}. They must've lost their minds — we got {us}. {_cap(why)}.",
                                    f"💸 Everybody's jumping on {them}{move}. They're tweaking — {us} is the play. {_cap(why)}.",
-                                   f"💸 The market's leaning {them}{move}. Somebody's about to learn a lesson — we're on {us}. {_cap(why)}."]))
+                                   f"💸 The market's leaning {them}{move}. Somebody's about to learn a lesson — we're on {us}. {_cap(why)}."])))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
     why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   v.say("fallback2", ["the engine likes our side more than the price does", "the math says otherwise",
-                                       "the numbers don't lie", "the engine sees it different"]) or "the numbers don't lie")
+                   NO_WHY)
     if pub == "fade":
-        out.append(v.say("pub_fade", [
+        out.append(_nowhy(v.say("pub_fade", [
             f"🤡 {them} are the clear favorite and the public's all over 'em. We're on {us}. Fade the public — don't be a sheep. {_cap(why_pub)}.",
             f"🤡 The public is all over {them}. We're on {us}, and the dummies are about to lose their money — {why_pub}.",
             f"🤡 Everybody and their mama is on {them}. Not us — we got {us}. {_cap(why_pub)}.",
             f"🤡 The sheep are lining up for {them}. We're not sheep — we're on {us}. {_cap(why_pub)}.",
             f"🤡 Crowd's on {them}. We're riding {us} and the engine — {why_pub}.",
             f"🤡 Public's hammering {them} like it's free money. It ain't. We got {us} — {why_pub}.",
-            f"🤡 All the casuals love {them}. We're not casuals — {us} all day. {_cap(why_pub)}."]))
+            f"🤡 All the casuals love {them}. We're not casuals — {us} all day. {_cap(why_pub)}."])))
     elif pub == "ride":
-        out.append(v.say("pub_ride", [
+        out.append(_nowhy(v.say("pub_ride", [
             f"🤝 Riding with the public on this one — sometimes the public gotta win. {_cap(why_pub)}.",
             f"🤝 Public's on {us} too, and this time they're not dummies — {why_pub}.",
             f"🤝 Even a broken clock is right twice a day — the public got this one. {_cap(why_pub)}.",
             f"🤝 We're with the crowd here and not ashamed of it — {why_pub}.",
             f"🤝 Public side, but we got our own reasons: {why_pub}.",
-            f"🤝 We're riding with the crowd on {us}. Sometimes they get it right — {why_pub}."]))
+            f"🤝 We're riding with the crowd on {us}. Sometimes they get it right — {why_pub}."])))
 
     # bottom line
     need, have = 1 / leg["dec"], leg["p"]
@@ -421,6 +419,14 @@ WHY = {   # the pick's reasons, said as a quick "because"
     "better QB play lately": "our QB's been playing better",
     "hotter goalie": "our goalie's been hotter",
 }
+
+
+NO_WHY = "\u00a7"     # placeholder: no fresh reason left, so the line ends on our side instead of a filler "because"
+
+
+def _nowhy(line):
+    import re
+    return re.sub(r"[\s\u2014:.]*\u00a7\.?$", ".", line) if NO_WHY in line else line
 
 
 def _cap(x):
