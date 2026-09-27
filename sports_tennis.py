@@ -52,6 +52,7 @@ N_PICKS = 8
 PARLAY_LEGS = 3
 MIN_EDGE = 0.02                # a tennis value pick: our win chance beats the price by 2%+
 MIN_MATCHES = 10               # both players need this many rated matches
+MIN_RATED = 8000               # no tennis picks until the study has real history (several seasons) and learned weights
 POST_FROM_HOUR_PT = 18
 MIN_LEAD_MIN = 20
 CLAY = ("roland garros", "french open", "monte carlo", "monte-carlo", "madrid", "rome", "internazionali", "italian open",
@@ -646,7 +647,7 @@ def grade(ms, picks):
         for leg in s["picks"]:
             if leg["result"]:
                 continue
-            m = ms.get(leg["match"])
+            m = ms.get(leg["match"]) or ms.get(f"atp:{leg['match']}")         # ids before the WTA came in
             if not m:
                 continue
             st = _state(m)
@@ -691,7 +692,10 @@ def run(state, now=None, fetch=True):
     picks = _load_picks()
     grade(ms, picks)
     lines = refresh_odds(state, now) if fetch else []
-    slate = post(ms, rt, w, lines, picks, now)
+    slate = post(ms, rt, w, lines, picks, now) if rep["rated"] >= MIN_RATED and rep["weights"] != [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0] \
+        else None
+    if rep["rated"] < MIN_RATED:
+        print(f"tennis: still studying ({rep['rated']}/{MIN_RATED} rated matches) - no picks yet")
     if slate:
         print(f"tennis posted {slate['date']}: " + ", ".join(f"{l['player']} {l['odds']:+d}" for l in slate["picks"]))
     os.makedirs(DIR, exist_ok=True)
