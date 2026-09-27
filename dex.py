@@ -7,7 +7,7 @@ Discovery (config.DEX["chains"]: solana / base / ethereum):
     data/social/dex_watch.json (social.py's DEX watchlist: symbols trending but NOT on Crypto.com)
     -> DexScreener /latest/dex/search?q=SYMBOL to resolve the contract address
 Wide scanner (config.DEX["scan"]): a rolling universe of up to 3,000 tokens on those chains, fed by the
-sources above plus GeckoTerminal new_pools pages 1-10 / trending pages 2-5 and DexScreener token-profiles /
+sources above plus GeckoTerminal new_pools pages 1-5 / trending pages 2-3 (<= 3 calls/min) and DexScreener token-profiles /
 token-boosts (latest). DexScreener tokens/v1 refreshes it in bulk (30 tokens per call, own source, <= 60
 calls/min; hot pools - young, small or moving - are due every 30 s, the rest every 120 s). A refreshed token
 that meets the entry trigger (or warms up: 1h >= +5% with buys > sells) and passes check_market goes to the
@@ -131,11 +131,11 @@ DEFAULTS = {
              "dead_h": 24,                                  # liquidity below the prefilter floor this long: drop
              "max_age_h": 720, "stale_h": 24,               # older than 30d and no move / sighting in 24h: drop
              "warm_h1": 0.05,                               # 1h >= +5% with buys > sells: screen ahead of the trigger
-             "gt_new_pages": 10, "gt_trend_pages": 5,       # GeckoTerminal new_pools 1..10, trending 2..5 per chain
-             "gt_new_s": 120, "gt_deep_s": 600, "ds_list_s": 60,   # feed intervals (new_pools page 1 / deeper pages)
-             "gt_feed_gap_s": 8,                            # scanner pages to GeckoTerminal <= 7.5/min: its free limit
-                                                            # (~30/min) is shared with discovery + social.py (429 seen
-                                                            # 2026-09-26 23:48 when all pages went out at 2.5 s)
+             "gt_new_pages": 5, "gt_trend_pages": 3,        # GeckoTerminal new_pools 1..5, trending 2..3 per chain
+             "gt_new_s": 120, "gt_deep_s": 900, "ds_list_s": 60,   # feed intervals (new_pools page 1 / deeper pages)
+             "gt_feed_gap_s": 20,                           # scanner pages to GeckoTerminal <= 3/min (needs ~2.7): the
+                                                            # runner IP's GT budget is shared with discovery + social.py;
+                                                            # 7.5/min still drew 429s (2026-09-27 00:00-01:00, none before)
              "timeout": 4, "tick_budget_s": 4,              # scanner call only if the tick used <= 4 s: tick <= ~8 s
              "save_s": 600, "snap_flush_s": 600, "snap_day_max": 60_000},
 }
