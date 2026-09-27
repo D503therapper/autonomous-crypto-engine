@@ -167,10 +167,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
     elif l_ == 0:
         lines.append([f"🔥 Perfect day — {w_}-0. Cashing tickets.", f"🔥 {w_}-0. Didn't miss.", f"🔥 Clean sweep, {w_}-0."][k % 3])
     elif w_ >= l_:
-        lines.append([f"✅ Went {w_}-{l_}. Cashing tickets.", f"✅ {w_}-{l_} on the day. We eat.", f"✅ Winning day — {w_}-{l_}."][k % 3])
+        lines.append([f"✅ Went {w_}-{l_}. Cashing tickets.", f"✅ {w_}-{l_} on the day. We eat.",
+                      f"✅ Winning day — {w_}-{l_}. Trust the algorithm.", f"✅ {w_}-{l_}. Told y'all."][k % 4])
     else:
-        lines.append([f"😤 Rough one, {w_}-{l_}. The engine's already studying the tape.",
-                      f"😤 {w_}-{l_}. Took some L's — it learns from every one.", f"😤 Off day at {w_}-{l_}. Back at it tomorrow."][k % 3])
+        lines.append([f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' do better tomorrow.",
+                      f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
+                      f"😤 {w_}-{l_}. Not our day — the engine's already studying the tape. We bounce back tomorrow.",
+                      f"😤 Took some L's today ({w_}-{l_}). Shake it off. We gon' be right back."][k % 4])
     cutoff = (datetime.now(timezone.utc) - timedelta(hours=30)).strftime("%Y-%m-%dT%H:%MZ")
     fresh = {}
     for g in (games or {}).values():
