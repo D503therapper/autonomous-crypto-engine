@@ -1,0 +1,36 @@
+# DEX profit-floor study (dex_floor_study.py): floors / trails that arm only after a big early gain (TEXTIT: +104%
+# in 2h, back to +6%) vs the live exit, on the legends (dex_legends_study sources) and dex_runner_study's pool sample
+# through the engine's entry; monthly return per half, drawdown, 2x-rate, legends kept. Results committed to
+# results/dex_floor_study.txt (+ results/dex_floor_hourly.json.gz for offline re-analysis).
+name: dex-floor-study
+on:
+  push:
+    paths: ["dex_floor_study.py", ".github/workflows/dex_floor_study.yml"]
+  workflow_dispatch:
+    inputs:
+      budget_min:
+        description: "minutes to spend fetching (legends + pools)"
+        default: "200"
+permissions:
+  contents: write
+concurrency: dex_floor_study
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 250
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: python -m unittest -q dex_floor_study_test
+      - run: |
+          mkdir -p results
+          python -u dex_floor_study.py --budget-min "${{ github.event.inputs.budget_min || '200' }}" 2>&1 | tee results/dex_floor_study.txt
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "dex-floor-study results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done
