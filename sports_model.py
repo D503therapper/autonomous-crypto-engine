@@ -33,7 +33,7 @@ TRAIN_GAMES = 8000         # fit the weights on the most recent this many games 
 EVAL_GAMES = 900           # tune on (at most) the most recent this many finished games
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
-FEATURES = ["elo", "form", "rest", "b2b", "inj", "key", "revenge", "letdown", "bye", "short"]   # our view (+ intercept)
+FEATURES = ["elo", "form", "rest", "b2b", "inj", "key", "revenge", "letdown", "bye", "short", "intl"]   # our view (+ intercept)
 BIG_WIN = {"nfl": 17, "ncaaf": 21, "nba": 15, "ncaab": 15, "mlb": 5, "nhl": 3}   # a blowout, for letdown spots
 KEY_EDGE = {}      # {game id: key player edge} (QB / starting pitcher / goalie form), set by sports.run
 
@@ -137,6 +137,7 @@ class Elo:
             "letdown": float(self.last_big.get(a, False)) - float(self.last_big.get(h, False)),   # + = away flat spot
             "bye": (float(rh_d >= 10) - float(ra_d >= 10)) if football else 0.0,
             "short": (float(ra_d <= 5) - float(rh_d <= 5)) if football else 0.0,
+            "intl": 1.0 if str(g.get("intl")) == "1" else 0.0,      # overseas game: how the "home" side really does
             "known": min(self.n.get(g["home"], 0), self.n.get(g["away"], 0)),
         }
 
@@ -249,7 +250,7 @@ def _own_x(f):
 
 def _spread_x(f):
     return [1.0, f["elo_pts"] / 25, f["form"], f["rest"], f["b2b"], f["inj"], f["key"],
-            f["revenge"], f["letdown"], f["bye"], f["short"]]
+            f["revenge"], f["letdown"], f["bye"], f["short"], f["intl"]]
 
 
 def own_p(params, f):
@@ -396,7 +397,7 @@ def tune_all(games, model):
 
 def default_params(league):
     return {"k": BASE_K[league], "hfa": DEFAULT_HFA[league], "w": [0.0, 1.0] + [0.0] * (len(FEATURES) - 1),
-            "trust": TRUST_CAUTIOUS, "move_w": 0.0, "sw": [0.0, 1.0] + [0.0] * 9, "sigma": 13.0, "strust": 0.2}
+            "trust": TRUST_CAUTIOUS, "move_w": 0.0, "sw": [0.0, 1.0] + [0.0] * 10, "sigma": 13.0, "strust": 0.2}
 
 
 def ratings(games, model):

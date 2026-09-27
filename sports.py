@@ -155,7 +155,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp,
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
-                    "waiting": waiting}
+                    "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", "")}
             odds = int(g[f"ml_{side}"])
             p = ph if side == "home" else 1 - ph
             p_own = ph_own if side == "home" else 1 - ph_own
@@ -172,10 +172,14 @@ def candidates(games, model, now=None, day=None, injuries=None):
     return out
 
 
+INTL_MIN_EDGE = 0.02           # overseas games are weird: they need twice the usual value
+
+
 def good(c):
     """A real play: value on our numbers - from the engine's own read, not just the line moving - and at least one
     reason. Anything else is filler, and filler never goes up."""
-    return c["edge"] >= MIN_EDGE and c.get("edge_own", c["edge"]) >= MIN_EDGE and bool(c.get("reasons"))
+    need = INTL_MIN_EDGE if c.get("intl") else MIN_EDGE
+    return c["edge"] >= need and c.get("edge_own", c["edge"]) >= need and bool(c.get("reasons"))
 
 
 def _parlay(cands, n, top=40):
