@@ -93,7 +93,12 @@ def _live_story(e, used=None):
         thought = _pick("riding", [f"We're riding {us} to {what}", f"We like {us} to {what}", f"We got {us} to {what}",
                                    f"We're on {us} to {what}", f"We backing {us} to {what}", f"We're with {us} to {what}",
                                    f"We think {us} {'come back' if what == 'come back' else what}"], used, k)
-    if res == "won":
+    best = e.get("best_odds") or e.get("odds") or 0
+    if res == "won" and best >= (e.get("odds") or 0) + 40:        # the line ran long while it was up - and it cashed
+        end = _pick("won_ran", [f"the line ran all the way to +{best} and they still cashed. The algorithm was right — let's fucking go. 💰",
+                                f"books pushed it out to +{best} and we held. Cashed. Trust the algorithm. 💰",
+                                f"it got as long as +{best} and they got it done anyway. Told y'all. 💰"], used, k)
+    elif res == "won":
         end = _pick("won", ["and they did. Cashed. 💰", "and they got it done. Told y'all. 💰", "and they smacked that ass. 💰",
                             "and they came through. Trust the algorithm. 💰", "and they cashed. Fuck yeah. 💰"], used, k)
     elif res == "lost":

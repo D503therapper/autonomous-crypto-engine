@@ -580,6 +580,10 @@ def test_halves_study():
     assert st["games"] == len(games) and 0.3 < st["share_1h"] < 0.7 and 0.3 < st["share_2h"] < 0.7
     assert 0.5 < st["leader_wins"] <= 1.0
     assert "halves study: nba" in sh.summary({"nba": st})
+    import sports_dashboard as dash
+    e = {"team": "Texans", "league": "nfl", "side": "away", "score_at_post": "Texans 7 @ Colts 10", "clock_at_post": "Q2 3:00",
+         "result": "won", "odds": 185, "best_odds": 300}
+    assert "+300" in dash._live_story(e), "a live bet that cashed after its line ran long says so"
 
 if __name__ == "__main__":
     for name, fn in list(globals().items()):

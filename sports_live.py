@@ -564,6 +564,9 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                                       "side": pl["id"].rsplit(":", 1)[1], "an_id": pl["an_id"], "result": None,
                                       "reasons": pl["reasons"], "date": now.astimezone(PT).date().isoformat()}
         pl["posted"] = log["plays"][pl["id"]]["posted"]
+        e = log["plays"][pl["id"]]
+        if not pl.get("paused") and e.get("result") is None:     # the longest the line got while the play was up
+            e["best_odds"] = max(e.get("best_odds", e["odds"]), pl["odds"])
     return plays
 
 
