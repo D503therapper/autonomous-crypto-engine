@@ -15,8 +15,8 @@ import sports_data as sd
 import sports_model as sm
 
 PATH = os.path.join(sd.DATA, "halves.json")
-FIRST = {"nfl": 2, "ncaaf": 2, "nba": 2, "ncaab": 1, "mlb": 5}        # periods in the first half / first 5 innings
-NAME = {"mlb": "first 5 innings"}
+FIRST = {"nfl": 2, "ncaaf": 2, "nba": 2, "ncaab": 1, "mlb": 5, "nhl": 1}   # periods in the 1st half / first 5 / 1st period
+NAME = {"mlb": "first 5 innings", "nhl": "1st period"}
 
 
 def rows(games, league):
