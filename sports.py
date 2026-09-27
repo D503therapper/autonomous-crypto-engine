@@ -278,7 +278,7 @@ def post_board(games, model, picks, now, day, force=False):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
     cands = candidates(games, model, now, day, injuries)
     settled = [c for c in cands if not c["waiting"]]
-    elo = None
+    elo, used = None, set()                       # used: no repeated wording on one board
     new = []
     for kind, _ in KINDS:
         if kind in posted:
@@ -306,7 +306,10 @@ def post_board(games, model, picks, now, day, force=False):
                 outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
                 leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
             elo = elo or sm.ratings(games, model)
-            leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries)
+            same = next((l for p in picks if p["date"] == iso for l in p["legs"]
+                         if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg)), None)
+            leg["breakdown"] = same["breakdown"] if same else sports_breakdown.breakdown(leg, games, elo, injuries, used)
+            leg["bv"] = sports_breakdown.VERSION
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
               "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0}
@@ -316,16 +319,24 @@ def post_board(games, model, picks, now, day, force=False):
     return new
 
 
+def _same_leg(a, b):
+    return (a["game_id"], a["side"], a["market"], a.get("line")) == (b["game_id"], b["side"], b["market"], b.get("line"))
+
+
 def add_breakdowns(games, model, picks):
-    """Give posted plays that predate the breakdown feature their breakdown (the pick itself never changes)."""
+    """(Re)write the breakdown of posted plays whose games haven't started, when it's missing or was written by an
+    older breakdown version. Only the explanation changes - the pick itself never does."""
     legs = [l for p in picks if p["status"] == "open" for l in p["legs"]
-            if "breakdown" not in l and l["game_id"] in games and games[l["game_id"]]["status"] == "pre"]
+            if l.get("bv") != sports_breakdown.VERSION and l["game_id"] in games and games[l["game_id"]]["status"] == "pre"]
     if not legs:
         return
     injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
-    elo = sm.ratings(games, model)
+    elo, used, done = sm.ratings(games, model), set(), []
     for leg in legs:
-        leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries)
+        same = next((l for l in done if _same_leg(l, leg)), None)
+        leg["breakdown"] = same["breakdown"] if same else sports_breakdown.breakdown(leg, games, elo, injuries, used)
+        leg["bv"] = sports_breakdown.VERSION
+        done.append(leg)
 
 
 def bankroll_series(picks):

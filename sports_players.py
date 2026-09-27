@@ -223,7 +223,7 @@ def form_line(league, player, rows, before):
         td, it = sum(_f(r["td"]) for r in starts), sum(_f(r["int"]) for r in starts)
         yds = sum(_f(r["yds"]) for r in starts)
         txt = f"{td:.0f} TD{'s' if td != 1 else ''}, {it:.0f} pick{'s' if it != 1 else ''} and {yds:.0f} yards in {games}"
-        mood = "cold" if it >= 3 or (it > td and it >= 2) else "hot" if td >= 2 * n and it <= 1 else None
+        mood = "cold" if it >= 2 and it >= td else "hot" if td >= 2 * n and it <= 1 else None
     elif role == "SP":
         ip, r, k = sum(_f(x["ip"]) for x in starts), sum(_f(x["r"]) for x in starts), sum(_f(x["k"]) for x in starts)
         txt = f"{r:.0f} runs in {ip:.0f} innings with {k:.0f} K's over {games}"
