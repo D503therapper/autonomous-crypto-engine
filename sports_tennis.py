@@ -51,6 +51,8 @@ YEARS = 10
 N_PICKS = 8
 PARLAY_LEGS = 3
 MIN_EDGE = 0.02                # a tennis value pick: our win chance beats the price by 2%+
+MAX_FAV = -300                 # no tennis moneyline shorter than -300: heavier favorites go on the game spread,
+                               # and only when the engine expects them to win by more than the number
 MIN_MATCHES = 10               # both players need this many rated matches
 MIN_RATED = 8000               # no tennis picks until the study has real history (several seasons) and learned weights
 POST_FROM_HOUR_PT = 18
@@ -296,6 +298,25 @@ def is_home(cc, venue, tourney):
     return 1 if any(re.search(rf"\b{re.escape(n)}\b", where) for n in names) else 0
 
 
+def margin(m):
+    """p1's games won minus p2's (finished matches only)."""
+    try:
+        a = [int(x) for x in str(m["sets1"]).split()]
+        b = [int(x) for x in str(m["sets2"]).split()]
+    except ValueError:
+        return None
+    return sum(a) - sum(b) if a and len(a) == len(b) and _state(m) == "final" else None
+
+
+def cover_p(gm, p, hcp, bo):
+    """Chance a player with win chance p covers a game handicap (e.g. -5.5)."""
+    slope, sig = gm.get(str(int(bo or 3))) or gm.get("3") or (None, None)
+    if not slope:
+        return None
+    mu = slope * sm.logit(min(max(p, 0.01), 0.99))
+    return sm.phi((mu + hcp) / max(sig, 1.0))
+
+
 def _x(f):
     # clash_elo: in a conflict matchup, does the favorite hold up or tighten up? (learned, can go either way)
     return [1.0, f["elo"], f["fatigue"], f["form"], f["h2h"], f.get("home", 0), f.get("clash_elo", 0)]
@@ -332,7 +353,15 @@ def study(ms, eval_n=2000):
         return ll / len(ev), acc / len(ev)
     ll, acc = score(w)
     ll0, acc0 = score(prior)
-    report = {"matches": len(rows), "rated": len(data), "weights": [round(v, 3) for v in w],
+    gm = {}
+    for bo in (3, 5):                   # games won by: margin = slope * logit(win chance) (+ noise), per format
+        pts = [(sm.logit(min(max(model_p(w, f, bo), 0.01), 0.99)), margin(m)) for f, _, m in fit_on or data
+               if int(m["bo"] or 3) == bo and margin(m) is not None]
+        if len(pts) >= 300:
+            slope = sum(x * y for x, y in pts) / max(1e-9, sum(x * x for x, _ in pts))
+            sig = math.sqrt(sum((y - slope * x) ** 2 for x, y in pts) / len(pts))
+            gm[str(bo)] = [round(slope, 3), round(sig, 3)]
+    report = {"matches": len(rows), "rated": len(data), "weights": [round(v, 3) for v in w], "games": gm,
               "acc": round(acc, 4) if acc is not None else None, "logloss": round(ll, 4) if ll is not None else None,
               "acc_elo": round(acc0, 4) if acc0 is not None else None,
               "logloss_elo": round(ll0, 4) if ll0 is not None else None}
@@ -353,7 +382,7 @@ def _median(xs):
 def bovada():
     """Bovada's public tennis feed: ATP + WTA singles moneylines."""
     data, _ = _get(BOVADA)
-    out = []
+    rows = {}
     for grp in data or []:
         path = " ".join(str(p.get("description") or "") for p in grp.get("path") or []).lower()
         if not re.search(r"\b(atp|wta)\b", path) or any(k in path for k in ("doubles", "challenger", "itf", "exhibition", "utr", "125")):
@@ -361,7 +390,8 @@ def bovada():
         for ev in grp.get("events") or []:
             for dg in ev.get("displayGroups") or []:
                 for mk in dg.get("markets") or []:
-                    if "moneyline" not in str(mk.get("description", "")).lower() or not (mk.get("period") or {}).get("main", True):
+                    desc = str(mk.get("description", "")).lower()
+                    if not (mk.get("period") or {}).get("main", True) or ("moneyline" not in desc and "game spread" not in desc):
                         continue
                     oc = mk.get("outcomes") or []
                     if len(oc) != 2:
@@ -374,9 +404,18 @@ def bovada():
                     if a is None or b is None:
                         continue
                     start = datetime.fromtimestamp(int(ev.get("startTime", 0)) / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
-                    out.append({"a": oc[0].get("description"), "b": oc[1].get("description"), "a_ml": a, "b_ml": b,
-                                "start": start, "src": "bovada"})
-    return out
+                    key = (oc[0].get("description"), oc[1].get("description"), start)
+                    row = rows.setdefault(key, {"a": key[0], "b": key[1], "start": start, "src": "bovada"})
+                    if "moneyline" in desc:
+                        row["a_ml"], row["b_ml"] = a, b
+                    else:
+                        try:
+                            row["a_hcp"] = float((oc[0].get("price") or {}).get("handicap"))
+                            row["b_hcp"] = float((oc[1].get("price") or {}).get("handicap"))
+                            row["a_sp"], row["b_sp"] = a, b
+                        except (TypeError, ValueError):
+                            pass
+    return [r for r in rows.values() if "a_ml" in r]
 
 
 def refresh_odds(state, now):
@@ -470,17 +509,23 @@ def save_lines(lines, now):
         json.dump(hist, f, indent=0, sort_keys=True)
 
 
-def price(m, lines):
-    """(p1 ml, p2 ml) for a stored match from the odds lines (same two last names, start within 36 hours)."""
+def price(m, lines, full=False):
+    """(p1 ml, p2 ml) for a stored match from the odds lines (same two last names, start within 36 hours);
+    full=True: {ml: (p1, p2), sp: ((p1 handicap, odds), (p2 handicap, odds)) or None}."""
     l1, l2 = _last(m["p1_name"]), _last(m["p2_name"])
     for ln in lines:
         la, lb = _last(ln["a"]), _last(ln["b"])
         if ln.get("start") and m["start"] and abs((_t(ln["start"]) - _t(m["start"])).total_seconds()) > 36 * 3600:
             continue
-        if (la, lb) == (l1, l2):
-            return ln["a_ml"], ln["b_ml"]
-        if (la, lb) == (l2, l1):
-            return ln["b_ml"], ln["a_ml"]
+        for flip, pair in ((False, (la, lb)), (True, (lb, la))):
+            if pair != (l1, l2):
+                continue
+            a, b = ("b", "a") if flip else ("a", "b")
+            ml = (ln[f"{a}_ml"], ln[f"{b}_ml"])
+            if not full:
+                return ml
+            sp = ((ln[f"{a}_hcp"], ln[f"{a}_sp"]), (ln[f"{b}_hcp"], ln[f"{b}_sp"])) if f"{a}_hcp" in ln else None
+            return {"ml": ml, "sp": sp}
     return None
 
 
@@ -495,7 +540,19 @@ def breakdown(c, rt, used):
     me, them, f = c["player"], c["opp"], c["f"]
     surf = SURF[c["surface"]]
     out = []
-    if c["value"]:
+    if c.get("market") == "spread" and c["hcp"] > 0:
+        out.append(v.say("t_spread_dog", [
+            f"🎯 {me} getting {c['hcp']:g} games. Even if he drops it, he keeps it close — that's the value.",
+            f"🎯 {me} {c['hcp']:+g} games. The book thinks this is a blowout. It ain't.",
+            f"🎯 Taking the games with {me} ({c['hcp']:+g}). He's way more competitive than this number says."]))
+    elif c.get("market") == "spread":
+        n = abs(c["hcp"])
+        out.append(v.say("t_spread", [
+            f"🎯 Instead of laying {c['ml']:+d} on the moneyline, we take {me} {c['hcp']:+g} games. The algorithm has him winning big.",
+            f"🎯 {me} {c['hcp']:+g} games. No -{abs(c['ml'])} nonsense — he should win this by more than {n:g}.",
+            f"🎯 Why lay {c['ml']:+d}? {me} {c['hcp']:+g} games is the value. He's gonna roll.",
+            f"🎯 {me} on the game spread ({c['hcp']:+g}). Our numbers say he covers that easy."]))
+    elif c["value"]:
         out.append(v.say("t_main", [
             f"🎾 We're on {me}. The price is too cheap for how good he is — the algorithm sees value.",
             f"🎾 {me} all day. The book's got him priced like it's close. It ain't.",
@@ -571,8 +628,9 @@ def _load_picks():
     return []
 
 
-def candidates(ms, rt, w, lines, now, until, ranks=None, news=None):
+def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
     out = []
+    gm = gm or {}
     ranks, news = ranks or {}, news or {}
     for m in ms.values():
         if _state(m) != "pre" or not m["start"]:
@@ -580,10 +638,11 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None):
         t = _t(m["start"])
         if not (now + timedelta(minutes=MIN_LEAD_MIN) <= t <= until):
             continue
-        pr = price(m, lines)
+        full = price(m, lines, full=True)
         f = rt.features(m, when=now.strftime("%Y-%m-%dT%H:%M"))
-        if not pr or f["known"] < MIN_MATCHES:
+        if not full or f["known"] < MIN_MATCHES:
             continue
+        pr, sp = full["ml"], full["sp"]
         p1 = model_p(w, f, m["bo"])
         for side, p, ml, opp_ml in ((1, p1, pr[0], pr[1]), (2, 1 - p1, pr[1], pr[0])):
             me, them = (m["p1_name"], m["p2_name"]) if side == 1 else (m["p2_name"], m["p1_name"])
@@ -596,7 +655,15 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None):
                         "rank": ranks.get(mine), "opp_rank": ranks.get(theirs),
                         "our_drama": (news.get(mine) or [])[:1], "their_drama": (news.get(theirs) or [])[:1],
                         "odds": ml, "dec": dec, "p": p, "edge": p * dec - 1, "start": m["start"], "tourney": m["tourney"],
-                        "round": m["round"], "surface": m["surface"], "bo": m["bo"], "f": fs})
+                        "round": m["round"], "surface": m["surface"], "bo": m["bo"], "f": fs, "market": "ml", "hcp": None,
+                        "ml": ml, "win_p": p})
+            if sp and gm:
+                hcp, sodds = sp[side - 1]
+                pc = cover_p(gm, p, hcp, m["bo"])
+                if pc is not None:
+                    sdec = sd.decimal(sodds)
+                    out.append({**out[-1], "id": f"{m['id']}:{side}:sp", "market": "spread", "hcp": hcp, "odds": sodds,
+                                "dec": sdec, "p": pc, "edge": pc * sdec - 1})
     return out
 
 
@@ -604,7 +671,9 @@ def pick_slate(cands):
     """8 straights (value first, then the likeliest favorites) + the parlay (the 3 likeliest of them)."""
     for c in cands:
         c["value"] = c["edge"] >= (2 * MIN_EDGE if c.get("our_drama") else MIN_EDGE)
-    cands = [c for c in cands if c["value"] or not c.get("our_drama")]       # drama on our side: never a filler
+    cands = [c for c in cands if (c["value"] or not c.get("our_drama"))       # drama on our side: never a filler
+             and (c.get("market", "ml") != "ml" or c["odds"] >= MAX_FAV)        # no moneyline shorter than -300
+             and (c.get("market", "ml") == "ml" or c["value"])]                  # a game spread only as real value
     best = {}
     for c in sorted(cands, key=lambda c: (not c["value"], -c["p"])):
         best.setdefault(c["match"], c)                          # one side per match
@@ -613,7 +682,7 @@ def pick_slate(cands):
     return picks, parlay
 
 
-def post(ms, rt, w, lines, picks, now):
+def post(ms, rt, w, lines, picks, now, gm=None):
     """Post the day's tennis slate once (from 6pm PT the night before: the next 24 hours of matches)."""
     local = now.astimezone(PT)
     day = (local + timedelta(days=1)).date() if local.hour >= POST_FROM_HOUR_PT else local.date()
@@ -621,14 +690,15 @@ def post(ms, rt, w, lines, picks, now):
     if any(p["date"] == iso for p in picks):
         return None
     cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), rankings(now) if lines else {},
-                       news_sync(now) if lines else {})
+                       news_sync(now) if lines else {}, gm)
     straights, parlay = pick_slate(cands)
     if not straights:
         return None
     used = set()
     legs = []
     for c in straights:
-        legs.append({k: c[k] for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
+        legs.append({k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
+                                            "market", "hcp", "ml",
                                         "round", "surface", "bo", "value")} | {"result": None, "breakdown": breakdown(c, rt, used)})
     par = None
     if parlay:
@@ -653,6 +723,12 @@ def grade(ms, picks):
             st = _state(m)
             if st == "void" or (st == "retired" and int(m.get("done") or 0) < 1):
                 leg["result"] = "void"
+            elif leg.get("market") == "spread" and st == "retired":
+                leg["result"] = "void"                              # books void game spreads on a retirement
+            elif leg.get("market") == "spread" and st == "final" and margin(m) is not None:
+                mg = margin(m) if leg["side"] == 1 else -margin(m)
+                leg["result"] = "won" if mg + leg["hcp"] > 0 else "lost" if mg + leg["hcp"] < 0 else "push"
+                leg["score"] = _score_txt(m)
             elif st in ("final", "retired") and int(m["winner"] or 0) in (1, 2):
                 leg["result"] = "won" if int(m["winner"]) == leg["side"] else "lost"
                 leg["score"] = _score_txt(m)
@@ -661,7 +737,7 @@ def grade(ms, picks):
             res = [next(l["result"] for l in s["picks"] if l["id"] == i) for i in par["legs"]]
             if "lost" in res:
                 par["status"] = "lost"
-            elif all(r in ("won", "void") for r in res):
+            elif all(r in ("won", "void", "push") for r in res):
                 par["status"] = "won" if "won" in res else "void"
 
 
@@ -692,7 +768,7 @@ def run(state, now=None, fetch=True):
     picks = _load_picks()
     grade(ms, picks)
     lines = refresh_odds(state, now) if fetch else []
-    slate = post(ms, rt, w, lines, picks, now) if rep["rated"] >= MIN_RATED and rep["weights"] != [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0] \
+    slate = post(ms, rt, w, lines, picks, now, rep.get("games")) if rep["rated"] >= MIN_RATED and rep["weights"] != [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0] \
         else None
     if rep["rated"] < MIN_RATED:
         print(f"tennis: still studying ({rep['rated']}/{MIN_RATED} rated matches) - no picks yet")

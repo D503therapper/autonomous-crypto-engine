@@ -1,18 +1,11 @@
-"""Probe: does ESPN send ATP rankings / seeds with each tennis match? (competitor fields)"""
-import json
-import urllib.request
+"""Check the tennis game-spread lines parse from Bovada (runner)."""
+import sys
 
-d = json.load(urllib.request.urlopen("https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard?dates=20250615", timeout=25))
-for ev in (d.get("events") or [])[:1]:
-    for gr in ev.get("groupings") or []:
-        for c in (gr.get("competitions") or [])[:1]:
-            for x in c.get("competitors") or []:
-                print("competitor keys:", sorted(x.keys()))
-                print("   ", json.dumps({k: v for k, v in x.items() if k not in ("linescores", "statistics")})[:600])
-        break
-try:
-    r = json.load(urllib.request.urlopen("https://site.api.espn.com/apis/site/v2/sports/tennis/atp/rankings", timeout=25))
-    rk = (r.get("rankings") or [{}])[0].get("ranks") or []
-    print("rankings endpoint:", len(rk), json.dumps(rk[:2])[:400])
-except Exception as e:                                       # noqa: BLE001
-    print("rankings ERR", e)
+sys.path.insert(0, ".")
+import sports_tennis as st  # noqa: E402
+
+lines = st.bovada()
+with_sp = [ln for ln in lines if "a_hcp" in ln]
+print(f"{len(lines)} matches priced, {len(with_sp)} with a game spread")
+for ln in with_sp[:10]:
+    print(f"   {ln['a']} {ln['a_ml']:+d} ({ln['a_hcp']:+g} games {ln['a_sp']:+d})  vs  {ln['b']} {ln['b_ml']:+d} ({ln['b_hcp']:+g} {ln['b_sp']:+d})")

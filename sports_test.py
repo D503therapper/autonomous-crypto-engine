@@ -467,9 +467,9 @@ def test_tennis():
     # the slate: 8 straights, value first, then the likeliest favorites; the parlay = the 3 likeliest
     cands = []
     for i in range(12):
-        p = 0.55 + 0.03 * i
+        p = 0.52 + 0.02 * i
         fair = -round(100 * p / (1 - p))
-        odds = fair + (40 if i < 3 else -60)                      # 3 value spots, the rest priced too high
+        odds = fair + (40 if i < 3 else -25)                      # 3 value spots, the rest priced too high
         c = {"id": f"m{i}:1", "match": f"m{i}", "p": p, "odds": odds, "dec": sd.decimal(odds)}
         c["edge"] = p * c["dec"] - 1
         cands.append(c)
@@ -500,6 +500,21 @@ def test_tennis():
     dcands = [{"id": "d:1", "match": "d", "p": 0.8, "odds": -350, "dec": sd.decimal(-350), "our_drama": [{"kind": "relationship drama"}]}]
     dcands[0]["edge"] = 0.8 * dcands[0]["dec"] - 1
     assert st.pick_slate(dcands)[0] == []
+    # no moneyline shorter than -300; a big favorite only on the game spread, and only as real value
+    big = {"id": "b:1", "match": "b", "p": 0.95, "odds": -1200, "dec": sd.decimal(-1200), "market": "ml"}
+    big["edge"] = 0.95 * big["dec"] - 1
+    sp_ok = {**big, "id": "b:1:sp", "market": "spread", "hcp": -5.5, "odds": -110, "dec": sd.decimal(-110), "p": 0.60}
+    sp_ok["edge"] = 0.60 * sp_ok["dec"] - 1
+    assert st.pick_slate([big])[0] == []
+    assert st.pick_slate([big, sp_ok])[0][0]["market"] == "spread"
+    assert st.pick_slate([big, {**sp_ok, "p": 0.50, "edge": 0.5 * sp_ok["dec"] - 1}])[0] == [], "no filler spreads"
+    gm = {"3": [4.0, 5.0]}
+    assert st.cover_p(gm, 0.9, -5.5, 3) > st.cover_p(gm, 0.7, -5.5, 3)
+    fin = {"sets1": "6 6", "sets2": "2 3", "status": "STATUS_FINAL"}
+    assert st.margin(fin) == 7
+    sl = [{"picks": [{"id": "s:1:sp", "match": "s", "side": 1, "market": "spread", "hcp": -5.5, "result": None}], "parlay": None}]
+    st.grade({"s": {**ms["0"], **fin, "winner": 1}}, sl)
+    assert sl[0]["picks"][0]["result"] == "won"
     # odds matching by last names, either order
     m2 = {**ms["1"], "p1_name": "Carlos Alcaraz", "p2_name": "Jannik Sinner", "start": "2026-05-01T10:00Z"}
     assert st.price(m2, [{"a": "Jannik Sinner", "b": "Carlos Alcaraz", "a_ml": -150, "b_ml": 130,
