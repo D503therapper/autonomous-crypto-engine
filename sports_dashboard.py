@@ -228,12 +228,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .sec h2{{margin:0;font-size:13px;font-weight:900;letter-spacing:.2em;color:#fff}}
 .sec h2 i{{font-style:normal;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.6)}}
 .sec span{{font-size:12px;color:var(--gold);font-weight:600}}
-.board{{position:relative;padding-top:52px}}
-.trust{{position:absolute;top:0;left:50%;transform:translateX(-50%) rotate(-5deg);white-space:nowrap;z-index:3;
-  font-weight:900;font-style:italic;font-size:19px;letter-spacing:.12em;padding:7px 26px;color:#0a0a0a;
-  background:linear-gradient(90deg,#ffe08a,#ffc233 40%,#ff8a00);clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);
-  box-shadow:0 10px 30px -8px rgba(255,160,40,.7);text-shadow:0 1px 0 rgba(255,255,255,.35)}}
-.trust:after{{content:"";position:absolute;inset:3px 6%;border-top:1px solid rgba(0,0,0,.35);border-bottom:1px solid rgba(0,0,0,.35);pointer-events:none}}
+.board{{position:relative}}
+.trust-wrap{{display:flex;justify-content:center;margin:14px 0 4px}}
+.trust{{transform:rotate(-2.5deg);white-space:nowrap;font-weight:900;font-style:italic;font-size:19px;letter-spacing:.12em;
+  padding:7px 26px;color:#0a0a0a;background:linear-gradient(90deg,#ffe08a,#ffc233 40%,#ff8a00);
+  clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);box-shadow:0 10px 30px -8px rgba(255,160,40,.7);text-shadow:0 1px 0 rgba(255,255,255,.35)}}
 .drop{{text-align:center;font-weight:700;color:#fff;background:var(--card);border:1px dashed rgba(255,194,51,.55);border-radius:16px;padding:14px;margin-bottom:12px}}
 .drop b{{color:var(--gold)}}
 .pk{{position:relative;background:linear-gradient(165deg,color-mix(in srgb,var(--c1) 16%,var(--card2)) 0%,var(--card) 55%);border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);
@@ -321,8 +320,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="tag">SPORTS ENGINE</div>
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
+<div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM!</div></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
-<div class="board"><div class="trust">TRUST THE ALGORITHM!</div>{board}</div>
+<div class="board">{board}</div>
 {tomorrow}
 
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
