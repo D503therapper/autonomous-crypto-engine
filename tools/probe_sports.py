@@ -1,60 +1,40 @@
-"""Probe tennis ODDS sources from the runner (Action Network with book ids, ESPN core odds, a few public feeds)."""
+"""Run the tennis engine's readers against the live feeds from the runner (ESPN ATP results, Bovada prices)."""
 import json
+import sys
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
-
-def get(url, headers=None):
-    req = urllib.request.Request(url, headers=headers or {})
-    with urllib.request.urlopen(req, timeout=25) as r:
-        return json.load(r)
-
-
-def show(name, fn):
-    try:
-        print("OK ", name, str(fn())[:900])
-    except Exception as e:                                  # noqa: BLE001
-        print("ERR", name, str(e)[:200])
-
+sys.path.insert(0, ".")
+import sports_tennis as st  # noqa: E402
 
 now = datetime.now(timezone.utc)
-days = [(now + timedelta(days=i)).strftime("%Y%m%d") for i in (0, 1)] + ["20250615"]
-
-
-def an(day, extra):
-    d = get(f"https://api.actionnetwork.com/web/v1/scoreboard/atp?period=game&date={day}{extra}")
-    gs = d.get("competitions") or []
-    with_odds = [g for g in gs if g.get("odds")]
-    g = (with_odds or gs or [{}])[0]
-    return (f"{len(gs)} matches, {len(with_odds)} with odds; status {g.get('status')}; "
-            f"odds {json.dumps((g.get('odds') or [])[:2])[:500]}; meta {json.dumps(g.get('meta'))[:200]}")
-
-
-for day in days:
-    for extra in ("", "&bookIds=15,30,68,69,71,75,79"):
-        show(f"AN atp {day} {extra}", lambda day=day, extra=extra: an(day, extra))
-show("AN tennis today bookIds", lambda: an(days[0], "&bookIds=15,30").replace("atp", "atp"))
-
-
-def espn_core():
-    d = get("https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard")
-    out = []
-    for ev in d.get("events") or []:
-        for gr in ev.get("groupings") or []:
-            for c in gr.get("competitions") or []:
-                if (c.get("status") or {}).get("type", {}).get("state") == "pre":
-                    url = f"https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/{ev['id']}/competitions/{c['id']}/odds"
-                    try:
-                        o = get(url)
-                        out.append(f"{c['id']}: {json.dumps(o)[:400]}")
-                    except Exception as e:                  # noqa: BLE001
-                        out.append(f"{c['id']}: ERR {str(e)[:80]}")
-                    if len(out) >= 2:
-                        return out
-    return out or "no upcoming matches"
-
-
-show("ESPN core odds", espn_core)
-show("DraftKings tennis", lambda: list(get("https://sportsbook-nash.draftkings.com/api/sportscontent/dkusnj/v1/leagues/84003",
-                                            {"User-Agent": "Mozilla/5.0"}).keys()))
-show("Bovada tennis", lambda: len(get("https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&lang=en")))
+try:
+    raw = json.load(urllib.request.urlopen(st.BOVADA, timeout=25))
+    paths = sorted({" > ".join(p.get("description", "") for p in g.get("path") or []) for g in raw})
+    print("bovada groups:", len(raw))
+    for p in paths[:25]:
+        print("   ", p)
+    ev = next((e for g in raw for e in g.get("events") or []), {})
+    print("bovada event sample:", json.dumps({k: ev.get(k) for k in ("description", "startTime", "competitors")})[:400])
+    dg = (ev.get("displayGroups") or [{}])[0]
+    print("bovada markets:", [(m.get("description"), m.get("period")) for m in dg.get("markets") or []][:4])
+    lines = st.bovada()
+    print("parsed men's lines:", len(lines))
+    for ln in lines[:8]:
+        print("   ", ln)
+except Exception as e:                                       # noqa: BLE001
+    print("BOVADA ERR", e)
+rows = []
+for d in range(-1, 2):
+    rows += st._espn((now + timedelta(days=d)).date()) or []
+by = {r["id"]: r for r in rows}
+print("espn singles matches:", len(by), "statuses:", sorted({r["status"] for r in by.values()}))
+pre = [r for r in by.values() if st._state(r) == "pre"]
+print("upcoming:", len(pre))
+for r in sorted(pre, key=lambda r: r["start"])[:6]:
+    print("   ", r["start"], r["tourney"], r["round"], r["surface"], r["p1_name"], "vs", r["p2_name"])
+try:
+    matched = [(r["p1_name"], r["p2_name"], st.price(r, lines)) for r in pre if st.price(r, lines)]
+    print("priced upcoming:", len(matched), matched[:5])
+except NameError:
+    pass
