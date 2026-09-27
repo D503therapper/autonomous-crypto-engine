@@ -250,7 +250,42 @@ def make_board(cands, lock_game=None):
     if big:
         dog = max(big, key=lambda c: c["edge"])
     board["dog"] = {"legs": [dog], "dec": dog["dec"], "p_hit": dog["p"]} if dog else None
+    for kind, pick in list(board.items()):                  # never leave people in limbo: no value play = best lean
+        if pick is None:
+            board[kind] = lean(cands, kind, taken)
     return board
+
+
+LEAN_MIN_P = {"two": 0.45, "three": 0.45, "lock": 0.50, "dog": 0.30}
+
+
+def lean(cands, kind, taken=None):
+    """The best available play when nothing clears the value bar: the closest thing to value on the slate, same rules
+    (no big favorites, no games underway, never the banged-up side - candidates already filter those). Tagged LEAN."""
+    ml = [c for c in cands if c["market"] == "ml" and c.get("reasons")]
+    if kind == "lock":
+        pool = [c for c in ml if c["odds"] >= LOCK_MAX_FAV and c["p"] >= LEAN_MIN_P["lock"]]
+    elif kind == "dog":
+        pool = [c for c in ml if c["odds"] >= DOG_MIN and c["p"] >= LEAN_MIN_P["dog"] and c["game_id"] != taken]
+    elif kind in ("two", "three"):
+        n = 2 if kind == "two" else 3
+        best = {}
+        for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= LEAN_MIN_P[kind]), key=lambda c: -c["edge"]):
+            best.setdefault(c["game_id"], c)
+        legs = sorted(best.values(), key=lambda c: -c["edge"])[:n]
+        if len(legs) < n:
+            return None
+        dec, p = 1.0, 1.0
+        for c in legs:
+            dec *= c["dec"]
+            p *= c["p"]
+        return {"legs": legs, "dec": dec, "p_hit": p, "lean": True}
+    else:
+        return None
+    if not pool:
+        return None
+    c = max(pool, key=lambda c: (c["edge"], c["p"]))
+    return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 
 # ---------------------------------------------------------------- grading
@@ -382,7 +417,7 @@ def post_board(games, model, picks, now, day, force=False):
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "round": sum(p["date"] == iso and p["kind"] == kind and p["status"] != "waiting" for p in picks) + 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
-              "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0}
+              "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0, "lean": bool(b.get("lean"))}
         picks.append(pk)
         posted[kind] = pk
         new.append(pk)

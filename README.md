@@ -56,6 +56,8 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    earlier game:
    - **Never a filler leg:** every leg, lock and dog must be real value on the engine's numbers (1%+) with
      at least one reason; if the slate has none, that card says "No play today".
+   - **Never in limbo:** if nothing clears the value bar for a spot, the engine posts its best available pick
+     anyway, tagged 🟡 LEAN (same rules: no big favorites, no games underway). Value picks always come first.
    - **Picks all day:** the opening board goes up before the day's first game. Whenever a play is graded (it
      moves to the results), a fresh one of the same kind goes up from the games that haven't started yet -
      same rules, never a game already underway (that's live-bet territory).

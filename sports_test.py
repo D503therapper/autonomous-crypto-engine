@@ -237,8 +237,9 @@ def test_board_rules():
     assert all(l["market"] == "ml" for l in eight if not sports.good(l)), "a spread only gets in as a real value play"
     filler = [_cand("p", 202, 0.32), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
     b = sports.make_board(filler)
-    assert b["two"] is None and b["three"] is None, "no good pair on the slate = no play, never a filler"
-    assert b["dog"] is None and b["lock"] is None
+    assert all(b[k] is None or b[k].get("lean") for k in ("two", "three")), "no value pair = a LEAN at most, never passed off as value"
+    assert all(b[k] is None or b[k].get("lean") for k in ("dog", "lock"))
+    assert b["dog"] and b["dog"]["legs"][0]["odds"] >= 100, "no value dog = the best lean dog, so nobody's left in limbo"
     sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
     assert not sports.good(sharp_only), "sharp money alone can never carry a pick"
     drama = {**_cand("t", 120, 0.465), "our_drama": [{"kind": "coach fired"}]}      # ~2.3% edge
