@@ -893,7 +893,7 @@ def test_state_persists():
 
 
 # ---- wide scanner -------------------------------------------------------------------------------
-SCAN = {"enabled": True, "gt_new_pages": 0, "gt_trend_pages": 1}      # no GeckoTerminal pages unless a test asks
+SCAN = {"enabled": True, "gt_new_pages": 0, "gt_trend_pages": 1, "gt_feed_gap_s": 0}      # no GeckoTerminal pages unless a test asks
 
 
 def scan_make(table, scan=None, feeds=False, **params):
@@ -1121,6 +1121,10 @@ def test_scan_feeds_and_snapshots():
     assert sum("solana/new_pools?page=1" in u for u in fetch.calls) == 1        # page 1 again only after gt_new_s
     scan_run(h, t + 121_000, 8)
     assert sum("solana/new_pools?page=1" in u for u in fetch.calls) == 2
+    h2, fetch2, d2 = scan_make(table, chains=["solana", "base"], scan={"gt_new_pages": 10, "gt_feed_gap_s": 8}, feeds=True)
+    scan_run(h2, T0, 60)                                                     # 42 GeckoTerminal pages due at once...
+    assert sum("new_pools" in u for u in fetch2.calls) == 8                  # ...paced to one per 8 s
+    shutil.rmtree(d2)
     h._snap_flush(T0)
     import gzip
     day = h._snap_day

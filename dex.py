@@ -133,6 +133,9 @@ DEFAULTS = {
              "warm_h1": 0.05,                               # 1h >= +5% with buys > sells: screen ahead of the trigger
              "gt_new_pages": 10, "gt_trend_pages": 5,       # GeckoTerminal new_pools 1..10, trending 2..5 per chain
              "gt_new_s": 120, "gt_deep_s": 600, "ds_list_s": 60,   # feed intervals (new_pools page 1 / deeper pages)
+             "gt_feed_gap_s": 8,                            # scanner pages to GeckoTerminal <= 7.5/min: its free limit
+                                                            # (~30/min) is shared with discovery + social.py (429 seen
+                                                            # 2026-09-26 23:48 when all pages went out at 2.5 s)
              "timeout": 4, "tick_budget_s": 4,              # scanner call only if the tick used <= 4 s: tick <= ~8 s
              "save_s": 600, "snap_flush_s": 600, "snap_day_max": 60_000},
 }
@@ -568,7 +571,7 @@ class DexHunter:
         self.src["ds_scan"].timeout = min(P["timeout"], 8)
         self.uni, self.mono = None, time.monotonic
         self._feed_t, self._scan_origin, self._scan_snap_t, self._snap_buf = {}, {}, {}, []
-        self._scan_mt = self._uni_saved = self._snap_flushed = 0
+        self._scan_mt = self._uni_saved = self._snap_flushed = self._gt_feed_at = 0
         self._snap_day, self._snap_day_n, self._scan_err, self._scan_hour = "", 0, {}, set()
         self.scan_n, self.scan_calls = self._scan_zero(), 0
         self._feeds = []
@@ -1000,10 +1003,11 @@ class DexHunter:
 
     def _scan_feed(self, now):
         best, due = None, 1.0
+        gt_ok = now - self._gt_feed_at >= self.p["scan"]["gt_feed_gap_s"] * 1000
         for kind, ch, tag, url, iv in self._feeds:
             over = (now - self._feed_t.get(url, 0)) / (iv * 1000)
             src = self.src["geckoterminal" if kind == "gt" else "ds_scan"]
-            if over >= due and src.ready(now):
+            if over >= due and src.ready(now) and (gt_ok or kind != "gt"):
                 best, due = (kind, ch, tag, url), over
         if not best:
             return False
@@ -1011,6 +1015,7 @@ class DexHunter:
         self._feed_t[url] = now
         self.scan_n["feeds"] += 1
         if kind == "gt":
+            self._gt_feed_at = now
             st, obj = self._scan_get("geckoterminal", url, now)
             if st == 200 and isinstance(obj, dict):
                 for c in parse_gt_pools(obj, ch, now):
