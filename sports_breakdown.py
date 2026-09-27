@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 3          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 4          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -288,14 +288,18 @@ def breakdown(leg, games, elo, injuries, used=None):
                                     f"💰 The line moved our way ({_am(op)} → {_am(now)}). Smart money agrees.",
                                     f"💰 Money's been pouring in on {us}: {_am(op)} to {_am(now)}."]))
 
-    # sharp money going the other way and we still like our side: say it our way
+    # sharp money going the other way and we still like our side: say it our way, with a quick reason
     op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
     if op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
-        out.append(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns — we like {us} here.",
-                                   f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns.",
-                                   f"💸 Line's moving toward {them}{move}. Let 'em — the engine sees it different.",
-                                   f"💸 Money's piling on {them}{move}. Somebody's about to learn a lesson."]))
+        why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY),
+                   f"the numbers say {us}")
+        out.append(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns — {why}.",
+                                   f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns — {why}.",
+                                   f"💸 Line's moving toward {them}{move}. Let 'em — the engine sees it different: {why}.",
+                                   f"💸 Money's pouring in on {them}{move}. They must've lost their minds — {why}.",
+                                   f"💸 Everybody's jumping on {them}{move}. They're tweaking — {why}.",
+                                   f"💸 The market's leaning {them}{move}. Somebody's about to learn a lesson — {why}."]))
 
     # bottom line
     need, have = 1 / leg["dec"], leg["p"]
@@ -313,6 +317,18 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: close to {_odds_words(need)} at the book, but the details break our way on {price}.",
             f"✅ Bottom line: {price} isn't a slam dunk, it's a smart number — and the little things all point our way."]))
     return out
+
+
+WHY = {   # the pick's reasons, said as a quick "because"
+    "the stronger team": "{us} are the better team",
+    "hotter recent form": "{us} are the hotter team",
+    "better rested": "{us} are fresher",
+    "opponent on a back-to-back": "{them} are on tired legs",
+    "opponent missing key players": "{them} are banged up",
+    "better starting pitcher": "we've got the better arm on the mound",
+    "better QB play lately": "our QB's been playing better",
+    "hotter goalie": "our goalie's been hotter",
+}
 
 
 def _odds_words(p):

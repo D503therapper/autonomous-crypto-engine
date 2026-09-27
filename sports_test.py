@@ -207,6 +207,8 @@ def test_board_rules():
     b = sports.make_board(filler)
     assert b["two"] is None and b["three"] is None, "no good pair on the slate = no play, never a filler"
     assert b["dog"] is None and b["lock"] is None
+    sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
+    assert not sports.good(sharp_only), "sharp money alone can never carry a pick"
 
 
 def test_grading():
@@ -279,7 +281,8 @@ def test_full_cycle_offline():
         sd.fetch_injuries = lambda lg: {}
         picks = sports.run(fetch=False)
         kinds = {p["kind"] for p in picks}
-        assert {"lock", "dog"} <= kinds, kinds
+        assert kinds, "the fake slate has at least one real play"
+        assert all(sports.good(l) for p in picks for l in p["legs"]), "every posted leg is a real play"
         assert os.path.exists("docs/sports/index.html")
         html = open("docs/sports/index.html").read()
         assert "TRUST THE ALGORITHM!" in html and "LOCK OF THE DAY" in html

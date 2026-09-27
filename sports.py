@@ -137,6 +137,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # one barely moves it, a bad one moves it a lot), so on this game go by the market + where sharp money goes
         ph = sm.sigmoid(sm.logit(mkt) + params.get("move_w", 0) * sm.line_move(g)) \
             if key_out["home"] or key_out["away"] else sm.final_p(params, f, g)
+        # the engine's own read without the line move: sharp money alone can never carry a pick
+        ph_own = mkt if key_out["home"] or key_out["away"] else sm.final_p({**params, "move_w": 0.0}, f, g)
         waiting = waiting_on(g, injuries)
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
@@ -148,8 +150,10 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "waiting": waiting}
             odds = int(g[f"ml_{side}"])
             p = ph if side == "home" else 1 - ph
+            p_own = ph_own if side == "home" else 1 - ph_own
             out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p,
-                        "p_market": mkt if side == "home" else 1 - mkt, "edge": p * sd.decimal(odds) - 1})
+                        "p_market": mkt if side == "home" else 1 - mkt, "edge": p * sd.decimal(odds) - 1,
+                        "edge_own": p_own * sd.decimal(odds) - 1})
             if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "":
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)
                 sodds = sm._int(g.get(f"spread_{side}_odds")) or -110
@@ -161,8 +165,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
 
 
 def good(c):
-    """A real play: value on our numbers and at least one reason. Anything else is filler, and filler never goes up."""
-    return c["edge"] >= MIN_EDGE and bool(c.get("reasons"))
+    """A real play: value on our numbers - from the engine's own read, not just the line moving - and at least one
+    reason. Anything else is filler, and filler never goes up."""
+    return c["edge"] >= MIN_EDGE and c.get("edge_own", c["edge"]) >= MIN_EDGE and bool(c.get("reasons"))
 
 
 def _parlay(cands, n, top=40):
