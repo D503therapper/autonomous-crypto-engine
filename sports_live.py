@@ -259,7 +259,18 @@ def full_breakdown(league, us, them, rs, k, rate_mine=None):
 
 
 # ---------------------------------------------------------------- one watch cycle
-def _get(url):
+def _get(url, tries=2):
+    """GET json; one quick retry (feeds hiccup - a connection reset shouldn't cost a check)."""
+    for i in range(tries):
+        try:
+            return _get1(url)
+        except Exception:                                    # noqa: BLE001
+            if i == tries - 1:
+                raise
+            time.sleep(0.5)
+
+
+def _get1(url):
     with urllib.request.urlopen(url, timeout=20) as r:
         return json.load(r)
 
@@ -362,6 +373,7 @@ PRICED = [0]                  # live games with a sportsbook price this cycle   
 
 
 BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
+BOVADA_OLD = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}/odds"
 BOVADA_PATH = {"nfl": "football/nfl", "ncaaf": "football/college-football", "nba": "basketball/nba",
                "ncaab": "basketball/college-basketball", "nhl": "hockey/nhl", "mlb": "baseball/mlb"}
@@ -374,12 +386,16 @@ def _clean(name):
 
 def bovada_live(league):
     """[{home, away, ml_home, ml_away}] - the sportsbook's LIVE moneylines right now."""
-    try:
-        data = _get(BOVADA.format(path=BOVADA_PATH[league]))
-    except Exception as e:                                   # noqa: BLE001
-        sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
-        BOOKS[league] = f"error {str(e)[:60]}"
-        return []
+    data = []
+    for url in (BOVADA, BOVADA_OLD):                         # the current feed, then the older address if it's empty
+        try:
+            data = _get(url.format(path=BOVADA_PATH[league]))
+        except Exception as e:                               # noqa: BLE001
+            sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
+            BOOKS[league] = f"error {str(e)[:60]}"
+            continue
+        if any(g.get("events") for g in data or []):
+            break
     BOOKS[league] = f"{len(data or [])} groups, {sum(len(g.get('events') or []) for g in data or [])} events"
     out = []
     for grp in data or []:
