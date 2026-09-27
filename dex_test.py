@@ -380,6 +380,79 @@ def test_unreachable_fails_closed():
     print("  unreachable security API -> not tradable (fail closed)   ok")
 
 
+def gp_partial(addr=EVM, code=3, **over):
+    """GoPlus "partial data" answer, shaped like the real one for BASECAT (0xb2000..., 2026-09-27 probe):
+    code 3, no honeypot / mint / owner / proxy fields, "" taxes, holders + LP present."""
+    full = gp_evm(addr)["result"][addr]
+    d = {k: full[k] for k in ("dex", "holders", "lp_holders", "is_open_source")}
+    d.update(buy_tax="", sell_tax="", owner_address="", is_in_dex="1", holder_count="9092", token_name="Basecat",
+             token_symbol="Basecat", total_supply="1000000000")
+    d.update(over)
+    return {"code": code, "message": "OK", "result": {addr.lower(): d}}
+
+
+HP_STF = {"simulationSuccess": True, "honeypotResult": {"isHoneypot": True, "honeypotReason": "execution reverted: STF"},
+          "simulationResult": {"buyTax": 0, "sellTax": 100, "transferTax": 0},
+          "summary": {"risk": "honeypot", "riskLevel": 100}, "holderAnalysis": {"holders": "1334", "failed": "1287"}}
+
+
+def test_goplus_partial_data():
+    """GoPlus code 2/3 partial data (every 0xb2000... Base token) is a real verdict, never "unreachable",
+    and never a pass on missing fields."""
+    S = dex.DEX["screen"]
+    d = gp_partial()["result"][EVM]
+    rs = check_goplus_evm(d, S)
+    assert ("goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown", "defer") in rs, rs
+    assert any(t.startswith("goplus partial data: is_mintable/") and s == "unknown" for t, s in rs), rs
+    assert ("buy tax unknown", "defer") in rs and ("sell tax unknown", "defer") in rs
+    assert check_goplus_evm(gp_evm()["result"][EVM], S) == []                        # full data: unchanged
+    # BASECAT as it really answered: GoPlus partial + honeypot.is "STF" honeypot -> REJECT with both reasons
+    for code in (3, 2, "3"):
+        h, fetch, dd = make(table_evm(gp=gp_partial(code=code), hp=HP_STF))
+        screen(h, cand())
+        r = rows(f"{dd}/screen.csv")[-1]
+        assert r["verdict"] == "REJECT" and r["sources"] == "ds+goplus+honeypot", (code, r)
+        assert "goplus partial data: is_mintable" in r["reasons"] and "honeypot (execution reverted: STF)" in r["reasons"], r
+        assert "unreachable" not in r["reasons"] and not h.pf.positions and "base:" + EVM in h.state["followup"]
+        shutil.rmtree(dd)
+    # honeypot.is clean is still not enough: nobody confirmed mint / owner / pause / proxy -> REJECT (fail closed)
+    h, fetch, dd = make(table_evm(gp=gp_partial(), hp=HP_OK))
+    screen(h, cand())
+    r = rows(f"{dd}/screen.csv")[-1]
+    assert r["verdict"] == "REJECT" and "is_mintable" in r["reasons"] and not h.pf.positions, r
+    assert not h.state["passed"]
+    shutil.rmtree(dd)
+    # only the sell-simulation fields missing: honeypot.is settles them (pass if clean, reject if honeypot)
+    powers = {k: "0" for k in dex.GP_POWERS}
+    for hp, verdict in ((HP_OK, "PASS"), (HP_STF, "REJECT"), ({"summary": {}}, "REJECT")):   # no simulation
+        h, fetch, dd = make(table_evm(gp=gp_partial(owner_address=DEAD, buy_tax="0", sell_tax="0", **powers), hp=hp))
+        screen(h, cand())
+        r = rows(f"{dd}/screen.csv")[-1]
+        assert r["verdict"] == verdict, (verdict, r)
+        shutil.rmtree(dd)
+    # a partial-data token still gets a verdict when honeypot.is is down: UNREACHABLE (retried), never PASS
+    h, fetch, dd = make({"honeypot.is": (503, ""), **table_evm(gp=gp_partial())})
+    screen(h, cand())
+    assert rows(f"{dd}/screen.csv")[-1]["verdict"] == "UNREACHABLE" and not h.pf.positions
+    shutil.rmtree(dd)
+    # other GoPlus error codes (rate limit etc.) stay "unreachable"
+    for body in ({"code": 4029, "message": "too many requests", "result": {}},
+                 {"code": 5000, "message": "error", "result": gp_partial()["result"]}):
+        h, fetch, dd = make(table_evm(gp=body))
+        screen(h, cand())
+        r = rows(f"{dd}/screen.csv")[-1]
+        assert r["verdict"] == "UNREACHABLE" and r["reasons"] == "goplus unreachable", r
+        shutil.rmtree(dd)
+    # held token whose GoPlus answer turns partial: contract powers no longer confirmed -> emergency exit
+    h, fetch, dd, px = held()
+    h.src["goplus"].fetch = fake_fetch({"token_security": (200, gp_partial())})
+    run(h, T0 + 1801_000, 4)
+    oc = rows(f"{dd}/outcomes.csv")[-1]
+    assert K not in h.pf.positions and oc["outcome"] == "emergency_exit" and "goplus partial data" in oc["reason"], oc
+    shutil.rmtree(dd)
+    print("  goplus partial data (code 2/3): real verdict, missing fields unknown, honeypot.is must confirm   ok")
+
+
 def test_market_sanity_and_prefilter():
     h, fetch, d = make({})
     assert not h._enqueue(cand(liq=20_000), T0, fresh=False) and h.state["prefiltered"] == 1   # tiny pool
@@ -1220,6 +1293,7 @@ if __name__ == "__main__":
     test_clean_token_passes_and_buys()
     test_rejections()
     test_unreachable_fails_closed()
+    test_goplus_partial_data()
     test_market_sanity_and_prefilter()
     test_no_second_coin_with_same_name()
     test_renounced_owner_powers_ignored()

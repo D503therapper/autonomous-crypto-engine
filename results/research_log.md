@@ -10,12 +10,18 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 > it, cherry-pick commit 8d347f9 onto main when the owner says yes.
 
 
-### NEXT (first) - Second EVM safety source (owner: "hopefully we're not passing up a Shiba Inu")
-BASECAT (base, $208k pool, +867% in dex_runner_study) was "goplus unreachable" 5 times in a row on 2026-09-27 while
-GoPlus answered other coins - it can never pass, so it's skipped forever. Add a fallback EVM contract check (e.g.
-honeypot.is contract/holders endpoints, or another free security API reachable from the runner - probe first) used only
-when GoPlus has no answer for a token; keep fail-closed if both are missing. Test with dex_test fakes; log how many
-"unreachable" coins it rescues and whether any of them rug (rejected_followup).
+### DONE 2026-09-27 - "goplus unreachable" on 0xb2000... Base tokens (BASECAT, NVDAc, AAPLc, METAC, BLUECHIP)
+Probe (results/probe_goplus.txt + git history): GoPlus DID answer - HTTP 200, code 3, message "OK", a result with only
+14-15 fields (name, supply, holders, lp_holders, dex, is_open_source, "" taxes, "" owner) and NO is_honeypot / mint /
+owner / proxy fields. dex.py required code == "1", so it read "unreachable" forever. These tokens have runtime code
+"0xef" (eth_getCode; not a normal CREATE-deployed contract), no creator on Blockscout, and their creation tx names
+system address 0xb20f000000000000000000000000000000000000 (a chain-level token factory); NVDAc is "NVIDIA (Coinbase
+Tokenized Stock)" minted by an issuer create(token,to,amount,mintId), with RoleGranted events. honeypot.is: isHoneypot
+true, "execution reverted: STF", sellTax 100, 96% of holders' simulated sells fail (BASECAT 1287/1334) - its simulator
+can't sell them (DexScreener shows real sells), but nothing confirms they are safe either.
+FIX: code 1/2/3 accepted; a missing GoPlus field is "unknown", never "0": sell-simulation fields defer to honeypot.is,
+missing mint / owner / pause / blacklist / proxy fields reject (screen still runs honeypot.is for the full reason list).
+Open: a source for contract powers of 0xef native tokens (none free found yet); watch rejected_followup for them.
 
 ### NEXT - Second DEX entry: "dip + bounce" (owner asked 2026-09-27: buy the drop points?)
 Quick label check on results/dex_runner_points.csv.gz (liq >= $100k, age >= 6h): current entry (1h >= +10%) n=251:

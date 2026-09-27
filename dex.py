@@ -20,6 +20,8 @@ verdict + reasons -> data/dex/screen.csv):
     market sanity from DexScreener: liquidity >= max($250k, 50 x planned position), pool age >= 24h,
         24h volume >= $300k, buys AND sells in 24h, no spike-and-fade (+30% 6h, -15% 1h)
     EVM (base, ethereum): GoPlus token_security AND honeypot.is IsHoneypot must both pass
+        (GoPlus code 2/3 partial data: missing sell-simulation fields defer to honeypot.is, missing
+        mint / owner / pause / blacklist / proxy fields reject - never read as "0")
     Solana: GoPlus solana/token_security AND RugCheck report/summary must both pass
     rejected: honeypot / cannot sell all / sell simulation failed, buy or sell tax > 3%, mintable /
         mint authority, freeze authority, transfer pausable, black/whitelist, hidden owner, can take
@@ -332,8 +334,28 @@ def renounced(d):
             and not _one(d, "can_take_back_ownership") and not _one(d, "is_proxy"))
 
 
+# GoPlus answers some Base tokens with code 3 / 2 ("partial data"): only name, supply, holders, LP and "" taxes -
+# no honeypot, mint, owner or proxy fields at all. Seen 2026-09-27 on every 0xb2000... Base token (BASECAT, NVDAc,
+# AAPLc, BLUECHIP: runtime code is the single byte 0xef, no creator on Blockscout). A missing field is UNKNOWN, never
+# "0": the sell simulation fields are deferred to honeypot.is (the next step always simulates buy + sell), while the
+# contract powers only GoPlus reports (mint / owner / pause / blacklist / proxy) fail the screen.
+GP_SIM = ("is_honeypot", "cannot_sell_all", "cannot_buy")
+GP_POWERS = ("is_mintable", "hidden_owner", "can_take_back_ownership", "owner_change_balance", "transfer_pausable",
+             "is_blacklisted", "is_proxy", "selfdestruct")
+
+
+def _missing(d, keys):
+    return [k for k in keys if str(d.get(k) if d.get(k) is not None else "").strip() == ""]
+
+
 def check_goplus_evm(d, S):
     r, dead_owner = [], renounced(d)
+    sim, powers = _missing(d, GP_SIM), _missing(d, GP_POWERS)
+    if sim:
+        r.append((f"goplus partial data: {'/'.join(sim)} unknown", "defer"))
+    if powers:
+        # "unknown": a hard failure that does not stop the screen, so honeypot.is still gives its verdict
+        r.append((f"goplus partial data: {'/'.join(powers)} unknown", "unknown"))
     for k, sev in (("is_honeypot", "scam"), ("cannot_sell_all", "scam"), ("transfer_pausable", "scam"),
                    ("cannot_buy", "flag"), ("is_mintable", "flag"), ("is_blacklisted", "flag"),
                    ("is_whitelisted", "flag"), ("hidden_owner", "flag"), ("can_take_back_ownership", "flag"),
@@ -369,6 +391,9 @@ def _auth(d, k):
     """GoPlus Solana authority fields: {"status": "1", "authority": [...]} (or a bare "1")."""
     v = d.get(k)
     return _one(v, "status") if isinstance(v, dict) else str(v or "").strip() == "1"
+
+
+GP_CODES = {"1", "2", "3"}
 
 
 def check_goplus_sol(d, S):
@@ -1289,7 +1314,8 @@ class DexHunter:
             evm = c["chain"] in ids
             url = self._url("goplus_evm", chain_id=ids[c["chain"]], addr=c["addr"]) if evm else self._url("goplus_sol", addr=c["addr"])
             st, obj = self._get("goplus", url, now)
-            res = (obj or {}).get("result") if st == 200 and isinstance(obj, dict) and str(obj.get("code")) == "1" else None
+            # code 1 = full data; 2 / 3 = partial data (fields missing -> check_goplus_evm marks them unknown)
+            res = (obj or {}).get("result") if st == 200 and isinstance(obj, dict) and str(obj.get("code")) in GP_CODES else None
             if not isinstance(res, dict):
                 reasons = [("goplus unreachable", "unreach")]
             else:
@@ -1305,7 +1331,7 @@ class DexHunter:
             reasons = [x for x in reasons if not _LP_REASON.search(x[0])]
         job["reasons"] += reasons
         job["done"] = job.get("done", 0) + 1
-        hard = [r for r in reasons if r[1] != "defer"]         # a deferred check needs the second source's word
+        hard = [r for r in reasons if r[1] not in ("defer", "unknown")]   # deferred: needs the second source's word
         job["i"] = len(job["steps"]) if hard else job["i"] + 1    # first hard failure ends the screen
 
     def _finish(self, job, now):
