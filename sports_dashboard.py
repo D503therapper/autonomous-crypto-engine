@@ -4,6 +4,7 @@ Self-contained HTML (inline CSS/SVG, tiny JS for the "updated X min ago" light).
 import html
 import json
 import os
+import re
 import time
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -51,6 +52,37 @@ def _the(team, league):
 
 def _cap(x):
     return x[:1].upper() + x[1:]
+
+
+def _live_story(e):
+    """A live bet in plain talk: the score and the quarter when it went up, what we thought, how it went."""
+    lg = e.get("league", "")
+    m = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", str(e.get("score_at_post") or ""))
+    t = _the(e["team"], lg)
+    if not m:
+        return ""
+    away, a_s, home, h_s = m.group(1), int(m.group(2)), m.group(3), int(m.group(4))
+    an, hn = _the(away, lg), _the(home, lg)
+    clock = str(e.get("clock_at_post") or "")
+    per = re.search(r"(\d+)", clock)
+    n = int(per.group(1)) if per else 0
+    unit = {"nhl": "period", "ncaab": "half", "mlb": "inning"}.get(lg, "quarter")
+    nth = {1: "1st", 2: "2nd", 3: "3rd"}.get(n, f"{n}th")
+    when = f" in the {nth} {unit}" if n else ""
+    mine, theirs = (a_s, h_s) if e.get("side") == "away" else (h_s, a_s)
+    score = f"{_cap(an)} had {a_s}, {hn} had {h_s}{when}."
+    done = e.get("result") in ("won", "lost")
+    what = "come back" if mine < theirs else "hold on" if mine > theirs else "take it"
+    thought = f"We thought {t} would {what}" if done else f"We're riding {t} to {what}"
+    k = sum(map(ord, e["team"])) + len(clock)
+    if e.get("result") == "won":
+        end = _rot(k, ["— and they did. Cashed. 💰", "— and they came through. Told y'all. 💰", "— they did. Trust the algorithm. 💰"])
+    elif e.get("result") == "lost":
+        end = _rot(k, ["— they shit the bed. Bad call, is what it is.", "— they were booty cheeks. Our bad.",
+                       f"— {t} shit the bed. Is what it is."])
+    else:
+        end = _rot(k, ["— we gon' see.", f"— {t} got this. We gon' see."])
+    return f"{score} {thought} {end}"
 
 
 def _rot(k, options):
@@ -234,7 +266,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'{E(sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2])}</span>'
                      f'{badge_.get(e.get("result"), pending_)}</div>'
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
-                     f'<div class="ls">went up at {E(e.get("score_at_post", ""))} · {E(e.get("clock_at_post", ""))}</div></div>'
+                     f'<div class="ls">{E(_live_story(e))}</div></div>'
                      for e in lrows) + "</section>")
     # record per pick type
     rec = []
