@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 5          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 6          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -307,15 +307,20 @@ def breakdown(leg, games, elo, injuries, used=None):
     why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
                    f"the engine likes {us} more than the price does")
     if pub == "fade":
-        out.append(v.say("pub_fade", [f"🎭 The public's all over {them}. We're fading the public on this one — {why_pub}.",
-                                       f"🎭 Everybody and their mama is on {them}. Not us — {why_pub}.",
-                                       f"🎭 Public money loves {them} here. We're going the other way — {why_pub}.",
-                                       f"🎭 Fading the public: the crowd's on {them}, the engine's on {us} — {why_pub}."]))
+        out.append(v.say("pub_fade", [
+            f"🎭 {them} are the clear favorite and the public's all over it. Fade the public here — don't be a sheep. {_cap(why_pub)}.",
+            f"🎭 The public is all over {them}. Dummies are about to lose their money — {why_pub}.",
+            f"🎭 Everybody and their mama is on {them}. Not us — {why_pub}.",
+            f"🎭 The sheep are lining up for {them}. We're not sheep — {why_pub}.",
+            f"🎭 Crowd's on {them}. Fade the public, ride the engine — {why_pub}.",
+            f"🎭 Public's hammering {them} like it's free money. It ain't — {why_pub}."]))
     elif pub == "ride":
-        out.append(v.say("pub_ride", [f"🤝 Riding with the public on this one — sometimes the public gotta win. {why_pub[0].upper() + why_pub[1:]}.",
-                                       f"🤝 Yeah, the public's on {us} too. They're not wrong this time — {why_pub}.",
-                                       f"🤝 We're with the crowd here, and for good reason: {why_pub}.",
-                                       f"🤝 Public side, and we're cool with it — {why_pub}."]))
+        out.append(v.say("pub_ride", [
+            f"🤝 Riding with the public on this one — sometimes the public gotta win. {_cap(why_pub)}.",
+            f"🤝 Public's on {us} too, and this time they're not dummies — {why_pub}.",
+            f"🤝 Even a broken clock is right twice a day — the public got this one. {_cap(why_pub)}.",
+            f"🤝 We're with the crowd here and not ashamed of it — {why_pub}.",
+            f"🤝 Public side, but we got our own reasons: {why_pub}."]))
 
     # bottom line
     need, have = 1 / leg["dec"], leg["p"]
@@ -345,6 +350,10 @@ WHY = {   # the pick's reasons, said as a quick "because"
     "better QB play lately": "our QB's been playing better",
     "hotter goalie": "our goalie's been hotter",
 }
+
+
+def _cap(x):
+    return x[:1].upper() + x[1:]
 
 
 def public_side(leg, g):

@@ -19,8 +19,15 @@ including losing days and your own bugs.
 - **Keep the dashboard look.** Keep the current dashboard (docs/sports/index.html via sports_dashboard.py):
   the original header, no gray, and records only (no dollar amounts). Show the owner a picture before any
   change to its look.
-- **Breakdown voice.** The "Full breakdown" talks like the owner: plain slang ("complete booty cheeks",
-  "getting shelled", "cooking"), not jargon.
+- **Breakdown voice (always).** The "Full breakdown" talks the way the owner talks: cool lingo and slang
+  ("complete booty cheeks", "getting shelled", "cooking", "at home about to go to work", "fade the public,
+  don't be a sheep", "dummies are about to lose their money", "they must be some clowns"), never jargon.
+  No slurs.
+- **Never repetitive.** Every kind of line has several ways to say it (sports_breakdown.Voice). Two teams on
+  one board never get the same wording, it rotates day to day, and no "because" repeats within one breakdown.
+  When you add a line, add at least 3 phrasings. New slang from the owner goes into the rotation.
+- **The public.** Tag each pick FADING THE PUBLIC (on the dog against a clear favorite) or RIDING WITH THE
+  PUBLIC (on the favorite). Sometimes the public gotta win.
 
 ## Setup
 The repo is D503therapper/autonomous-crypto-engine. Run `git pull` on main. Read README.md (sports section),
