@@ -7,7 +7,7 @@ Discovery (config.DEX["chains"]: solana / base / ethereum):
     data/social/dex_watch.json (social.py's DEX watchlist: symbols trending but NOT on Crypto.com)
     -> DexScreener /latest/dex/search?q=SYMBOL to resolve the contract address
 Wide scanner (config.DEX["scan"]): a rolling universe of up to 3,000 tokens on those chains, fed by the
-sources above plus GeckoTerminal new_pools pages 1-5 / trending pages 2-3 (<= 3 calls/min) and DexScreener token-profiles /
+sources above plus GeckoTerminal new_pools pages 1-3 / trending pages 2-3 (~1.4 calls/min, paused after any GT 429) and DexScreener token-profiles /
 token-boosts (latest). DexScreener tokens/v1 refreshes it in bulk (30 tokens per call, own source, <= 60
 calls/min; hot pools - young, small or moving - are due every 30 s, the rest every 120 s). A refreshed token
 that meets the entry trigger (or warms up: 1h >= +5% with buys > sells) and passes check_market goes to the
@@ -131,11 +131,12 @@ DEFAULTS = {
              "dead_h": 24,                                  # liquidity below the prefilter floor this long: drop
              "max_age_h": 720, "stale_h": 24,               # older than 30d and no move / sighting in 24h: drop
              "warm_h1": 0.05,                               # 1h >= +5% with buys > sells: screen ahead of the trigger
-             "gt_new_pages": 5, "gt_trend_pages": 3,        # GeckoTerminal new_pools 1..5, trending 2..3 per chain
-             "gt_new_s": 120, "gt_deep_s": 900, "ds_list_s": 60,   # feed intervals (new_pools page 1 / deeper pages)
-             "gt_feed_gap_s": 20,                           # scanner pages to GeckoTerminal <= 3/min (needs ~2.7): the
-                                                            # runner IP's GT budget is shared with discovery + social.py;
-                                                            # 7.5/min still drew 429s (2026-09-27 00:00-01:00, none before)
+             "gt_new_pages": 3, "gt_trend_pages": 3,        # GeckoTerminal new_pools 1..3, trending 2..3 per chain
+             "gt_new_s": 180, "gt_deep_s": 1800, "ds_list_s": 60,  # feed intervals (new_pools page 1 / deeper pages)
+             "gt_feed_gap_s": 20, "gt_hold_s": 3600,        # scanner GT pages: own source, >= 20 s apart (~1.4/min), and
+                                                            # none for an hour after ANY GeckoTerminal 429 / failure: the
+                                                            # runner IP's GT quota is tight and discovery + social.py come
+                                                            # first (7.5/min and 2.7/min both drew 429s, 2026-09-27)
              "timeout": 4, "tick_budget_s": 4,              # scanner call only if the tick used <= 4 s: tick <= ~8 s
              "save_s": 600, "snap_flush_s": 600, "snap_day_max": 60_000},
 }
@@ -569,9 +570,10 @@ class DexHunter:
         P = self.p["scan"]
         self.src.setdefault("ds_scan", Source("ds_scan", fetch, P["timeout"], self.p["gap_s"].get("ds_scan", 1.0)))
         self.src["ds_scan"].timeout = min(P["timeout"], 8)
+        self.src["gt_scan"] = Source("gt_scan", fetch, P["timeout"], P["gt_feed_gap_s"])   # scanner GT pages only
         self.uni, self.mono = None, time.monotonic
         self._feed_t, self._scan_origin, self._scan_snap_t, self._snap_buf = {}, {}, {}, []
-        self._scan_mt = self._uni_saved = self._snap_flushed = self._gt_feed_at = 0
+        self._scan_mt = self._uni_saved = self._snap_flushed = self._gt_hold = 0
         self._snap_day, self._snap_day_n, self._scan_err, self._scan_hour = "", 0, {}, set()
         self.scan_n, self.scan_calls = self._scan_zero(), 0
         self._feeds = []
@@ -1003,10 +1005,13 @@ class DexHunter:
 
     def _scan_feed(self, now):
         best, due = None, 1.0
-        gt_ok = now - self._gt_feed_at >= self.p["scan"]["gt_feed_gap_s"] * 1000
+        gt = self.src["geckoterminal"]
+        if gt.status not in (None, 200) or gt.fails or self.src["gt_scan"].fails:   # discovery's GT calls come first
+            self._gt_hold = max(self._gt_hold, now + self.p["scan"]["gt_hold_s"] * 1000)
+        gt_ok = now >= self._gt_hold
         for kind, ch, tag, url, iv in self._feeds:
             over = (now - self._feed_t.get(url, 0)) / (iv * 1000)
-            src = self.src["geckoterminal" if kind == "gt" else "ds_scan"]
+            src = self.src["gt_scan" if kind == "gt" else "ds_scan"]
             if over >= due and src.ready(now) and (gt_ok or kind != "gt"):
                 best, due = (kind, ch, tag, url), over
         if not best:
@@ -1015,8 +1020,7 @@ class DexHunter:
         self._feed_t[url] = now
         self.scan_n["feeds"] += 1
         if kind == "gt":
-            self._gt_feed_at = now
-            st, obj = self._scan_get("geckoterminal", url, now)
+            st, obj = self._scan_get("gt_scan", url, now)
             if st == 200 and isinstance(obj, dict):
                 for c in parse_gt_pools(obj, ch, now):
                     self._uni_add(c["chain"], c["addr"], now, tag, c)

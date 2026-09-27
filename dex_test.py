@@ -1119,12 +1119,29 @@ def test_scan_feeds_and_snapshots():
     assert h.uni[f"solana:{SOL}"]["src"] == "gt_new" and h.uni["base:0xfeed"]["src"] == "ds_profiles"
     assert abs(h.uni[f"solana:{SOL}"]["created"] - (T0 - 48 * HOUR)) < 5000   # GT said 72h; the DS refresh wins
     assert sum("solana/new_pools?page=1" in u for u in fetch.calls) == 1        # page 1 again only after gt_new_s
-    scan_run(h, t + 121_000, 8)
+    scan_run(h, t + 181_000, 8)
     assert sum("solana/new_pools?page=1" in u for u in fetch.calls) == 2
     h2, fetch2, d2 = scan_make(table, chains=["solana", "base"], scan={"gt_new_pages": 10, "gt_feed_gap_s": 20}, feeds=True)
     scan_run(h2, T0, 60)                                                     # 20+ GeckoTerminal pages due at once...
     assert sum("new_pools" in u for u in fetch2.calls) == 3                  # ...paced to one per 20 s
     shutil.rmtree(d2)
+    # after a GeckoTerminal 429 (discovery's or the scanner's own) the scanner leaves GT alone for an hour
+    t429 = dict({"new_pools": (429, "")}, **{k: v for k, v in table.items() if "new_pools" not in k})
+    h3, fetch3, d3 = scan_make(t429, chains=["solana"], scan={"gt_new_pages": 3}, feeds=True)
+    h3.src["geckoterminal"].next_at = T0 + 10 * HOUR                         # discovery quiet
+    scan_run(h3, T0, 30)
+    assert sum("new_pools" in u for u in fetch3.calls) == 1                  # one 429, then hands off
+    assert h3.src["geckoterminal"].fails == 0 and h3.src["gt_scan"].fails == 1   # discovery's source not backed off
+    h3.src["gt_scan"].fails, h3.src["gt_scan"].next_at = 0, 0                 # even once its own backoff is over...
+    scan_run(h3, T0 + 20 * 60_000, 5)
+    assert sum("new_pools" in u for u in fetch3.calls) == 1                  # ...the 1 h hold still applies
+    scan_run(h3, T0 + 62 * 60_000, 5)
+    assert sum("new_pools" in u for u in fetch3.calls) == 2
+    h3.src["gt_scan"].fails, h3.src["gt_scan"].next_at, h3._gt_hold = 0, 0, 0
+    h3.src["geckoterminal"].status = 429                                     # discovery just got a 429
+    scan_run(h3, T0 + 3 * HOUR, 5)
+    assert sum("new_pools" in u for u in fetch3.calls) == 2
+    shutil.rmtree(d3)
     h._snap_flush(T0)
     import gzip
     day = h._snap_day
