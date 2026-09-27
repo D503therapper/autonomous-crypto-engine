@@ -471,3 +471,19 @@ lines study: nhl 17882 team-games, loss 0.608->0.584; mlb 35524 team-games, loss
 tennis sync: 72661 matches stored, 18 calls, 0 failed
 tennis study: 56057 rated matches, acc 0.655 (surface ratings alone 0.653), loss 0.6222 vs 0.6207, weights [0.002, 0.869, 0.035, 0.037, 0.369, 0.039, -0.164]
 tennis odds: 0 singles matches priced (bovada)
+sync: 128969 games stored, 36 calls, 0 failed, 3s
+   AN nba 2023-09-05: HTTP Error 504: Gateway Time-out
+   AN mlb 2023-09-01: HTTP Error 504: Gateway Time-out
+odds history: 2 games got odds, 1515 calls, 2 failed, 137s
+player stats: 4 box scores added, 4 to fetch, 0 failed, 1s
+weather: 270 games got weather, 0 new stadiums located, 141s
+news: 0 new drama tags
+tuned in 147s: mlb trust 32% acc 59.0%, nba trust 18% acc 69.6%, ncaab trust 5% acc 67.7%, ncaaf trust 9% acc 73.8%, nfl trust 8% acc 66.0%, nhl trust 14% acc 54.7%
+cover study: nba big favorites covered 50% of 2819 (adjust +0.03); ncaab big favorites covered 49% of 11184 (adjust -0.04); ncaaf big favorites covered 51% of 2996 (adjust +0.00); nfl big favorites covered 48% of 507 (adjust +0.04)
+comeback study: nfl 2246 games s=1.2 w=1.25 m=+0.0 loss 0.475->0.468; ncaaf 5099 games s=1.2 w=1.25 m=+0.0 loss 0.360->0.358; nba 7916 games s=1.7 w=1.75 m=+0.0 loss 0.507->0.472; mlb 17533 games s=0.9 w=0.75 m=+0.0 loss 0.453->0.453; nhl 7759 games s=1.1 w=1.25 m=-0.1 loss 0.508->0.505; ncaab 26505 games s=1.3 w=1.50 m=-0.1 loss 0.431->0.414
+halves study: nfl 2254 games: 1st half gets 51% of the edge (sd 10.3), 2nd 40%; 1st half leader wins 78%, tied 7%; ncaaf 5099 games: 1st half gets 61% of the edge (sd 11.88), 2nd 42%; 1st half leader wins 82%, tied 6%; nba 7916 games: 1st half gets 62% of the edge (sd 10.97), 2nd 44%; 1st half leader wins 74%, tied 3%; ncaab 26505 games: 1st half gets 63% of the edge (sd 9.12), 2nd 51%; 1st half leader wins 78%, tied 4%; mlb 17763 games: first 5 innings gets 67% of the edge (sd 3.35), 2nd 22%; first 5 innings leader wins 83%, tied 15%; nhl 7762 games: 1st period gets 29% of the edge (sd 1.3), 2nd 78%; 1st period leader wins 74%, tied 34%
+lines study: nhl 15524 team-games, loss 0.609->0.583; mlb 35528 team-games, loss 0.653->0.636
+tennis sync: 72661 matches stored, 18 calls, 0 failed
+tennis study: 56057 rated matches, acc 0.655 (surface ratings alone 0.653), loss 0.6222 vs 0.6207, weights [0.002, 0.869, 0.035, 0.037, 0.369, 0.039, -0.164]
+tennis odds: 0 singles matches priced (bovada)
+tennis reads: 23 matches
