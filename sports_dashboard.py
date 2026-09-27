@@ -105,7 +105,7 @@ def _live_story(e, used=None):
                             "and they came through. Trust the algorithm. 💰", "and they cashed. Fuck yeah. 💰"], used, k)
     elif res == "lost":
         end = _pick("lost", ["they shit the bed. Is what it is.", "they shit the bed. Bad call, our bad.",
-                             "they were booty cheeks. Is what it is.", "they fumbled the bag. We run it back.",
+                             "they were booty cheeks. Is what it is.", "they fumbled the bag. Bad call, our bad.",
                              "they never showed up. Bad call — next one's ours."], used, k)
     else:
         end = _pick("pending", ["we gon' see.", "they about to go to work. We gon' see.", "trust the algorithm. We gon' see.",
@@ -432,7 +432,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
         lines.append(_rot(k + len(e["team"]), [f"📡 {_cap(t)} live bet ({o}) shit the bed. Bad call — is what it is.",
-                                               f"📡 {_cap(t)} live at {o} was booty cheeks. Our bad. We run it back.",
+                                               f"📡 {_cap(t)} live at {o} was booty cheeks. Bad call — is what it is.",
                                                f"📡 Live L: {t} at {o}. Comeback never came. Is what it is — the algorithm's taking notes.",
                                                f"📡 {_cap(t)} live at {o} came up short. Bad call, shake it off — next one's ours."]))
     if not done and not any(x.startswith("📡") for x in lines):   # no finished day yet: nothing to brag or cry about
