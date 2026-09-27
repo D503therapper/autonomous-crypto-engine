@@ -32,9 +32,27 @@ Same flaw remains in the rejected-coin follow-up rug metric (and a missing pair 
 Interim: 24 coins rejected only on LP-lock/holder data; PAID +290%, FONE +130%. Wait for 7-day follow-ups (from ~10-03),
 with the fixed rug metric, then compare ran-up vs rugged by lock % and liquidity.
 
-### NEXT (owner, 2026-09-27) - Profit floor below 2x (TEXTIT: +94% peak -> -24% within 2h, no protection)
-Test on dex_runner/legends data: once up +50% never below break-even; once +75% lock +25%; vs current (trail only
-after 2x at day 14 / 0.95 trail). Keep only if monthly return holds in both halves AND the legends still get caught.
+### DONE 2026-09-27 16:30 - Profit floor below 2x (TEXTIT: +104% in 2h -> +6%, -24% low): NO CHANGE, keep the live exit
+Q: should a coin up big early get a floor, so a TEXTIT round trip can't happen? METHOD: dex_floor_study.py (890211d,
+results adcefb8, results/dex_floor_study.txt; hourly dump results/dex_floor_hourly.json.gz, re-run with --from-dump):
+dex_runner_study's pool selection (349 pools, 2026-07-07..09-27, hourly GeckoTerminal) through the engine's entry (1h
+>= +10%, age >= 6h, liq/vol24 >= $100k; 1 trade per pool at a time, 1-day cooldown), 0.3% fee + 1% slip + impact per
+side, rugs -95%, 5-slot compounding account, halves split at the median entry (Sep 1); + dex_legends_study's coins
+(PNUT/AKITA hourly, others cached daily bars) with the live entry and a "caught early" entry (first +10% bar).
+RESULT (monthly full / older / newer, maxDD, 2x-rate, avg winner; legends lost = < 80% of the live multiple where live >= 5x):
+  current (14d hold, no stop, >=2x at day 14 -> 40% trail)  +44.0% / -2.9% / +275.8%  -46%  12%  +179%  -
+  a) peak +50% -> floor break-even                          +24.0% / -12.2% / -37.6%  -38%   8%  +121%  none
+  b) peak +75% -> floor +25%                                +10.4% / -15.4% / +60.9%  -37%   7%   +76%  none
+  c) peak +100% -> 40% trail from peak                      +58.0% / -14.4% / +464.9% -40%   9%   +81%  PEPE 110x->31x, POPCAT, BRETT, PNUT 30x->1.9x
+  d) peak +100% -> floor +50%, 3x -> 50% trail              +44.5% / +15.9% / +194.0% -37%   7%   +75%  PEPE, BONK, POPCAT, BRETT, PNUT 30x->1.6x
+  e) half at +100%, rest current rule (moon bag)            +28.7% / -4.7% / +173.8%  -47%  12%  +110%  all big ones halved (PNUT 15.9x)
+  e') same via dex.py tp1 (no clock, break-even stop)       -2.1% / -19.3% / +73.7%   -52%  10%   +92%  BONK, BRETT, FARTCOIN, PNUT
+Floors a/b catch the TEXTIT shape (a: most trades that peak +50% then exit at break-even; b: 25/206 still lose vs
+52/163 live) but cut the big winners' tails: avg winner +179% -> +76..121% and 2x-rate 12% -> 7-8%, so they lose in
+both halves. c/d each win one half but lose the other and cut PNUT/PEPE-style runners early (the runner trail needs
+the 14-day clock to let the early +100% shakeouts pass). An offline cross-check on dex_filter_study's pools (199,
+dex_filter_pools.json.gz) gave the same ranking. DECISION: no variant beats the current rule in BOTH halves while
+keeping the legends -> config.DEX["exit"] unchanged. TEXTIT-style give-backs are the price of riding the 30-90x runners.
 
 ### QUEUED (owner, 2026-09-27) - bigger bets on proven runners, account brake, big-win playbook
 1. Pyramiding: add to a held coin once proven (>=14d old, >=2x, big liquidity/holders, or listed on a major
