@@ -242,6 +242,9 @@ def test_board_rules():
     assert b["dog"] is None, "the opening board is value only - no leans"
     b = sports.make_board(filler, allow_lean=True)                             # a graded spot later in the day
     assert b["dog"] and b["dog"].get("lean") and b["dog"]["legs"][0]["odds"] >= 100, "a replacement never leaves people in limbo"
+    lean_game = b["dog"]["legs"][0]["game_id"]
+    b2 = sports.make_board(filler, allow_lean=True, avoid={lean_game})
+    assert not b2["dog"] or b2["dog"]["legs"][0]["game_id"] != lean_game, "a lean never uses a game we're already on"
     sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
     assert not sports.good(sharp_only), "sharp money alone can never carry a pick"
     drama = {**_cand("t", 120, 0.465), "our_drama": [{"kind": "coach fired"}]}      # ~2.3% edge
