@@ -743,8 +743,12 @@ def push_live():
 
 def publish_results(msg):
     """Grade the picks the moment games end and rebuild the dashboard (sports.quick), then push picks + page to main."""
+    import importlib
     import sports
+    import sports_dashboard
     try:
+        importlib.reload(sports_dashboard)                   # the watcher runs for 50 min: always rebuild the page
+        importlib.reload(sports)                             # with the newest pulled code, never an older look
         graded, posted = sports.quick()
     except Exception as e:                                   # noqa: BLE001 - never stop watching over this
         print(f"quick grade failed: {e}", flush=True)
