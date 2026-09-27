@@ -161,6 +161,9 @@ def blurb(league, us, them, trail, margin_txt, rs, k):
                     f"{i} Dead even and the live line's got {us} as the dog. The numbers don't. Get in."])
 
 
+UNIT = {"nfl": "points", "ncaaf": "points", "nba": "points", "ncaab": "points", "nhl": "goals", "mlb": "runs"}
+
+
 def full_breakdown(league, us, them, rs, k, rate_mine=None):
     """Tap-to-open: every reason we trust it, one line each, never the same words twice in a row."""
     out = []
@@ -172,20 +175,20 @@ def full_breakdown(league, us, them, rs, k, rate_mine=None):
                 ("favorites" if f["fav"] else "underdogs")
             if f["trail"]:
                 out.append(_say(k, [
-                    f"📚 We studied {f['n']:,} games: {who} down {f['b']} {spot} came back and won {f['rate']:.0%} of the time. "
+                    f"📚 We studied {f['n']:,} games: {who} down {f['b']} {UNIT[league]} {spot} came back and won {f['rate']:.0%} of the time. "
                     f"This price only needs {f['be']:.0%}. That's the value.",
-                    f"📚 The comeback study: {f['n']:,} times a team was down {f['b']} {spot}, {f['rate']:.0%} of them won anyway. "
+                    f"📚 The comeback study: {f['n']:,} times a team was down {f['b']} {UNIT[league]} {spot}, {f['rate']:.0%} of them won anyway. "
                     f"At this number you only need {f['be']:.0%} — the book's too scared.",
-                    f"📚 Did our homework: down {f['b']} {spot}, {who} still pulled it off {f['rate']:.0%} of the time "
+                    f"📚 Did our homework: down {f['b']} {UNIT[league]} {spot}, {who} still pulled it off {f['rate']:.0%} of the time "
                     f"({f['n']:,} games). The book's pricing it like {f['be']:.0%}. Free money energy.",
-                    f"📚 History don't lie: {f['rate']:.0%} of {who} down {f['b']} {spot} came back to win ({f['n']:,} games). "
+                    f"📚 History don't lie: {f['rate']:.0%} of {who} down {f['b']} {UNIT[league]} {spot} came back to win ({f['n']:,} games). "
                     f"This price only needs {f['be']:.0%}."]))
             else:
                 out.append(_say(k, [
-                    f"📚 We studied {f['n']:,} games: {who} up {f['b']} {spot} held on {f['rate']:.0%} of the time. "
+                    f"📚 We studied {f['n']:,} games: {who} up {f['b']} {UNIT[league]} {spot} held on {f['rate']:.0%} of the time. "
                     f"This price only needs {f['be']:.0%}.",
-                    f"📚 {f['n']:,} past games say {who} up {f['b']} {spot} close it out {f['rate']:.0%} of the time — and we're getting plus money.",
-                    f"📚 Up {f['b']} {spot} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time ({f['n']:,} games)."]))
+                    f"📚 {f['n']:,} past games say {who} up {f['b']} {UNIT[league]} {spot} close it out {f['rate']:.0%} of the time — and we're getting plus money.",
+                    f"📚 Up {f['b']} {UNIT[league]} {spot} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time ({f['n']:,} games)."]))
         elif kind == "better":
             out.append(_say(k + 1, [f"💪 {Us} were the better team coming in — the book had them favored before the game. Better teams don't stay down.",
                                     f"💪 Before the game {us} were the favorite. One bad stretch didn't turn them into a bad team.",
@@ -300,6 +303,13 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
 WATCHING = [0]                # live games seen in the last cycle (the dashboard says whether games are going)
 
 
+def live_line(box):
+    """(home ml, away ml) from the LIVE line only. Action Network's "game" line is the pregame price - using it
+    once made a 7-0 lead look like +272 value. No live line = no play."""
+    odds = ((box.get("latest_odds") or {}).get("live")) or {}
+    return sd.parse_american(odds.get("ml_home")), sd.parse_american(odds.get("ml_away"))
+
+
 def board(plays, showing=()):
     """Max 2 at once: plays already up keep their slot while they still qualify; open slots go to the best edge."""
     return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
@@ -323,8 +333,7 @@ def cycle(games, model, log, now=None, st=None, showing=()):
                 continue
             WATCHING[0] += 1                                   # a game going right now
             g = _match(games, lg, ang)
-            odds = ((box.get("latest_odds") or {}).get("game")) or {}
-            mlh, mla = sd.parse_american(odds.get("ml_home")), sd.parse_american(odds.get("ml_away"))
+            mlh, mla = live_line(box)
             if not g or mlh is None or mla is None:
                 continue
             f = elo[lg].features(g)
@@ -418,8 +427,25 @@ def _git(*args):
     return subprocess.run(["git", *args], capture_output=True, text=True)
 
 
+LIVE_BRANCH = "live-data"      # live.json goes out on its own branch (one tiny commit, force-pushed) the moment it
+                               # changes; phones read it from there. The graded log still lives on main.
+
+
+def push_live():
+    """Force-push docs/sports/live.json as the only file of the live-data branch (seconds, no history pile-up)."""
+    blob = _git("hash-object", "-w", LIVE_JSON).stdout.strip()
+    import subprocess
+    tree = subprocess.run(["git", "mktree"], input=f"100644 blob {blob}\tlive.json\n", capture_output=True, text=True).stdout.strip()
+    commit = _git("commit-tree", tree, "-m", f"live {datetime.now(timezone.utc):%H:%M:%S}").stdout.strip()
+    for _ in range(3):
+        if _git("push", "-q", "-f", "origin", f"{commit}:refs/heads/{LIVE_BRANCH}").returncode == 0:
+            return True
+        time.sleep(2)
+    return False
+
+
 def publish(msg):
-    """Commit + push just the live files (retry on a race with the other workflows)."""
+    """Commit + push the live log (and live.json) to main - only when a play is first logged or graded."""
     _git("add", LIVE_JSON, LOG)
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return
@@ -431,42 +457,61 @@ def publish(msg):
         time.sleep(3)
 
 
+def _board_key():
+    try:
+        d = json.load(open(LIVE_JSON))
+    except (OSError, ValueError):
+        return None
+    return json.dumps([{k: v for k, v in p.items() if k != "posted"} for p in d.get("plays") or []], sort_keys=True) \
+        + str(d.get("live_games"))
+
+
+def _log_key():
+    try:
+        return open(LOG).read()
+    except OSError:
+        return None
+
+
 def loop(minutes, every_s=15):
-    """Watch live games every `every_s` seconds for `minutes`; publish only when the board changes
-    (and a heartbeat every 5 minutes so phones know it's alive). Rests when nothing's live."""
+    """Watch live games every `every_s` seconds for `minutes`. Phones see every change right away (live-data
+    branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
-    games, idle_since, last_ids, last_push = None, None, None, 0.0
+    games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
     while time.time() < end:
         if games is None or int(time.time()) % 600 < every_s:          # reload games/model every ~10 min
             _git("pull", "-q", "--rebase", "-X", "theirs")
             games = sd.load_games()
         if not any_live_soon(games):
             idle_since = idle_since or time.time()
-            if last_ids is None or time.time() - idle_since > 5 * 60:     # nothing on: don't burn the clock
+            if not started or time.time() - idle_since > 5 * 60:        # nothing on: don't burn the clock
                 print("live: nothing on - resting")
                 break
         else:
             idle_since = None
+        started = True
         try:
-            plays = run()
+            run()
         except Exception as e:                                      # noqa: BLE001 - keep watching
             print(f"live cycle error: {e}")
-            plays = []
-        ids = [p["id"] for p in plays]
-        if ids != last_ids or (plays and time.time() - last_push > 300):      # heartbeat only while plays are up
-            publish(f"live {datetime.now(timezone.utc):%H:%M} - {len(plays)} on the board")
-            last_ids, last_push = ids, time.time()
+        board = _board_key()
+        if board != last_board or time.time() - last_push > 60:
+            if push_live():
+                last_board, last_push = board, time.time()
+        if _log_key() != last_log:
+            publish(f"live log {datetime.now(timezone.utc):%H:%M}")
+            last_log = _log_key()
         time.sleep(every_s)
-    if last_ids is not None:
-        run()
-        publish("live: end of watch")
-    elif os.path.exists(LIVE_JSON):                               # clear a stale board
+    if os.path.exists(LIVE_JSON):                                 # end of watch: an empty board if nothing's on
         out = json.load(open(LIVE_JSON))
-        if out.get("plays") or out.get("live_games"):
-            out.update(plays=[], live_games=0, updated=int(time.time() * 1000))
-            with open(LIVE_JSON, "w") as f:
-                json.dump(out, f, indent=1)
-            publish("live: board cleared")
+        if not started:
+            out.update(plays=[], live_games=0)
+        out["updated"] = int(time.time() * 1000)
+        with open(LIVE_JSON, "w") as f:
+            json.dump(out, f, indent=1)
+        push_live()
+    if _log_key() != last_log:
+        publish("live: end of watch")
 
 
 if __name__ == "__main__":

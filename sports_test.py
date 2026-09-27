@@ -400,6 +400,10 @@ def test_comeback_study_and_live_rules():
     # a dog coming in (no 'better team', no pregame value, no ball, no momentum): history alone isn't enough
     assert not [p for p in sports_live.evaluate("nba", g, box, 900, -2000, st, 0.35, 0.35, 0.0, "", 1)
                 if p["team"] == "Lakers"]
+    # live prices: only the LIVE line, never the pregame "game" line
+    assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272}}}) == (None, None)
+    assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272},
+                                                  "live": {"ml_home": 110, "ml_away": -130}}}) == (110, -130)
     # the board: max 2 at once, a play that's up keeps its slot while its value holds
     fake = [{"id": i, "edge": e} for i, e in (("a", 0.06), ("b", 0.07), ("c", 0.20))]
     assert [x["id"] for x in sports_live.board(fake, ["a", "b"])] == ["b", "a"]     # "c" waits for a slot

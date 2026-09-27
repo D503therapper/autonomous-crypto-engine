@@ -521,9 +521,9 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
 function show(d){{if(d&&Date.now()-d.updated<10*60000)draw(d);else draw(null);}}
-function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/main/docs/sports/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
+function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/live-data/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
 function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
- fetch("https://api.github.com/repos/{REPO}/contents/docs/sports/live.json?ref=main",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
+ fetch("https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
  .then(function(r){{return r.ok?r.json():raw()}}).catch(raw).then(show).catch(function(){{}});}}
 poll();setInterval(poll,15000);document.addEventListener("visibilitychange",poll);}})();
 (function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));
