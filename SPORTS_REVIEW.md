@@ -55,9 +55,15 @@ the previous results/sports_review_*.md.
 5. **Tell the owner.** Reply with a 3-5 line plain-English summary.
 
 ## Upgrade queue (top = next)
-1. **Closing-line grading.** Grade every leg against the closing line: did the line move toward our side
-   after we posted? Show it on the dashboard as a quiet "beat the closing line X% of the time".
-2. **QB-by-QB ratings.** Price a backup QB off his own box scores (sports_players.py) rather than the market alone.
-3. **Weather.** Wind and rain for outdoor NFL, college football and MLB games.
-4. **Travel and scheduling.** Cross-country trips, long road stretches, short weeks.
-5. **NBA key players.** Stars' minutes and usage, ready for the October start.
+The owner wants EVERY factor that can move a game studied, across every sport. Already in: team strength/form,
+rest, back-to-backs, byes/short weeks, revenge, blowout momentum, home dogs + Vegas biases, line movement, public
+side, injuries (incl. illness/personal), QB/SP/goalie form, weather, elevation, cold shock, time-zone travel,
+international games, news drama (coach fired, suspensions, legal, personal/family, trade drama).
+1. **Closing-line grading.** Did the line move our way after we posted? Show "beat the closing line X%".
+2. **MLB bullpen fatigue.** Relievers' pitches over the last 3 days (box scores are already in sports_players).
+3. **End-of-season spots.** Clinched or eliminated teams resting starters or tanking (standings from ESPN).
+4. **Lookahead / trap games.** A big rival or marquee game next on the schedule.
+5. **MLB day game after a night game.** Also NBA/NHL third game in four nights.
+6. **QB-by-QB and star-player ratings** for backups and lineup changes (NBA stars' minutes, too).
+7. **Referee/umpire crews** if a free source turns up; **turf vs grass**; **rivalry/division games**.
+8. **Coaching tendencies** after coaching changes (new coach bounce), once enough live examples accumulate.
