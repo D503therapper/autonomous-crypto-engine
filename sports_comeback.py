@@ -71,8 +71,8 @@ def snapshots(games, league):
     for g in sm.finals(games, league):
         h, a = _ints(g.get("ls_home")), _ints(g.get("ls_away"))
         p = sm.market_p(g)
-        if p is None or len(h) < n or len(a) < n:
-            continue
+        if p is None or len(h) < n - 1 or len(a) < n:       # (a home team that won without batting in the
+            continue                                         # bottom of the 9th has 8 innings - keep those games!)
         try:
             hs, as_ = int(g["home_score"]), int(g["away_score"])
         except (TypeError, ValueError):
@@ -131,7 +131,9 @@ def table(league, snaps):
         b = bucket(league, abs(mg))
         fav = (p >= 0.5) if home_trails else (p < 0.5)             # was the trailing team the pregame favorite?
         came_back = won if home_trails else 1 - won
-        for key in (f"{k}|{b}|{'fav' if fav else 'dog'}", f"{k}|{b}|all"):
+        for key in (f"{k}|{b}|{'fav' if fav else 'dog'}", f"{k}|{b}|all",
+                    f"{k}|{b}|{'home' if home_trails else 'away'}",      # late in baseball, who bats last is huge
+                    f"{k}|{b}|{'fav' if fav else 'dog'}|{'home' if home_trails else 'away'}"):
             c = out.setdefault(key, [0, 0])
             c[0] += 1
             c[1] += came_back
@@ -171,14 +173,16 @@ def summary(st):
     return "comeback study: " + "; ".join(parts)
 
 
-def spot(st, league, left, deficit, fav):
+def spot(st, league, left, deficit, fav, home=None):
     """History for a trailing team right now: (n, comeback rate, k periods done, bucket) or None.
-    The live clock is mapped to the nearest period break."""
+    The live clock is mapped to the nearest period break. home=True/False: the home/away split first."""
     lg = st.get(league) or {}
     n = PERIODS[league]
     k = min(max(round((1 - left) * n), 1), n - 1)
     b = bucket(league, deficit)
-    for key in (f"{k}|{b}|{'fav' if fav else 'dog'}", f"{k}|{b}|all"):
+    ha = 'home' if home else 'away'
+    keys = ([f"{k}|{b}|{'fav' if fav else 'dog'}|{ha}"] if fav is not None else []) + [f"{k}|{b}|{ha}"] if home is not None else []
+    for key in keys + [f"{k}|{b}|{'fav' if fav else 'dog'}", f"{k}|{b}|all"]:
         c = (lg.get("table") or {}).get(key)
         if c and c[0] >= MIN_N:
             return c[0], c[1] / c[0], k, b

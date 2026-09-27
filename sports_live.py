@@ -40,6 +40,7 @@ STAY_MAX_ODDS = 500              # ...and comes down if the price blows out past
 STAY_EDGE, STAY_P = 0.0, 0.15    # never count a live dog out: a play that's up stays while there's ANY value left;
                                  # it only comes down when the value's gone or it's shitting the bed (under a 15% chance)
 PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone, review): hold the card up to 3 minutes
+LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
 LIVE_MIN_P = 0.25             # value, not lottery tickets: +300/+400 is fine when it's real, never a +900 prayer
 MAX_PLAYS = 4                 # up to 4 on the board at once, best value first (no limit per day)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
@@ -131,14 +132,15 @@ def live_prob(league, p_pre, margin, left, ball=0.0, last=0.0, fit=None):
 
 
 # ---------------------------------------------------------------- why we see the value (substantial reasons only)
-def reasons(st, league, side_p_pre, my, their, left, ml, has_ball, ball_txt, last_mine, last_theirs, pre_value, fit):
+def reasons(st, league, side_p_pre, my, their, left, ml, has_ball, ball_txt, last_mine, last_theirs, pre_value, fit,
+            home=None):
     """Concrete reasons this live price is wrong. [(kind, facts)]. History is the backbone: a trailing team needs
     past teams in the same spot to have come back more often than this price needs."""
     out = []
     be = 1 / sd.decimal(ml)                                   # how often it has to hit to break even
     fav = side_p_pre >= 0.5
     if my != their:
-        h = (sc.spot(st, league, left, their - my, fav) if my < their else sc.lead_spot(st, league, left, my - their, fav))
+        h = (sc.spot(st, league, left, their - my, fav, home) if my < their else sc.lead_spot(st, league, left, my - their, fav))
         if h and h[1] >= be + 0.02:
             out.append(("history", {"n": h[0], "rate": h[1], "be": be, "k": h[2], "b": h[3], "trail": my < their, "fav": fav,
                                     "d": abs(their - my)}))
@@ -336,6 +338,11 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     out = []
     book_h = sd.no_vig(mlh, mla)
     for side, p, ml in (("home", ph, mlh), ("away", 1 - ph, mla)):
+        my, their = (hs, as_) if side == "home" else (as_, hs)
+        if my < their and left <= LATE_REAL:                 # late and behind: lean on what really happened to teams
+            h = sc.spot(st, league, left, their - my, (pre_market_p >= 0.5) == (side == "home"), side == "home")   # in this exact spot (home/away split -
+            if h:                                            # in baseball the home team bats last)
+                p = (p + h[1]) / 2
         edge = p * sd.decimal(ml) - 1
         up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
         if not up and blind:
@@ -347,12 +354,11 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
             continue       # only one source and the price is miles from what the score says: can't tell a real
                            # price from a glitch, so no play. Two sources agreeing = a real price = it plays.
         us, them = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
-        my, their = (hs, as_) if side == "home" else (as_, hs)
         side_pre = pre_market_p if side == "home" else 1 - pre_market_p
         pre_value = pre_model_p is not None and ((pre_model_p - pre_market_p) if side == "home" else (pre_market_p - pre_model_p)) >= 0.02
         has_ball = ball_txt and (ball > 0 if side == "home" else ball < 0) and abs(ball) >= 2.2   # ball near scoring range
         lm, lt = (lh, la) if side == "home" else (la, lh)
-        rs = reasons(st, league, side_pre, my, their, left, ml, has_ball, ball_txt, lm, lt, pre_value, fit)
+        rs = reasons(st, league, side_pre, my, their, left, ml, has_ball, ball_txt, lm, lt, pre_value, fit, side == "home")
         if half_ball == side:                               # counted in the numbers above; said in the breakdown
             rs.append(("half", {}))
         if not up and not substantial(rs, my == their):       # the reasons get it up; value keeps it up
