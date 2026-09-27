@@ -1,178 +1,178 @@
 === stocks: loading 38 symbols, 8 years of daily bars ===
-  AAPL: 2009 days
-  AMD: 2009 days
-  AMZN: 2009 days
-  AVGO: 2009 days
+  AAPL: 2007 days
+  AMD: 2007 days
+  AMZN: 2007 days
+  AVGO: 2007 days
   COIN: 1370 days
-  COST: 2009 days
-  DIA: 2009 days
-  EEM: 2009 days
-  EFA: 2009 days
-  GLD: 2009 days
-  GOOGL: 2009 days
-  IEF: 2009 days
-  IWM: 2009 days
-  JPM: 2009 days
-  LLY: 2009 days
-  META: 2009 days
-  MSFT: 2009 days
-  MSTR: 2009 days
-  NFLX: 2009 days
-  NVDA: 2009 days
+  COST: 2007 days
+  DIA: 2007 days
+  EEM: 2007 days
+  EFA: 2007 days
+  GLD: 2007 days
+  GOOGL: 2007 days
+  IEF: 2007 days
+  IWM: 2007 days
+  JPM: 2007 days
+  LLY: 2007 days
+  META: 2007 days
+  MSFT: 2007 days
+  MSTR: 2007 days
+  NFLX: 2007 days
+  NVDA: 2007 days
   PLTR: 1504 days
-  QQQ: 2009 days
-  SMH: 2009 days
-  SPY: 2009 days
-  TLT: 2009 days
-  TSLA: 2009 days
+  QQQ: 2007 days
+  SMH: 2007 days
+  SPY: 2007 days
+  TLT: 2007 days
+  TSLA: 2007 days
   UBER: 1855 days
-  XLB: 2009 days
-  XLC: 2009 days
-  XLE: 2009 days
-  XLF: 2009 days
-  XLI: 2009 days
-  XLK: 2009 days
-  XLP: 2009 days
-  XLRE: 2009 days
-  XLU: 2009 days
-  XLV: 2009 days
-  XLY: 2009 days
-38 assets, 2009 days 2018-09-27 .. 2026-09-25; cost 0.03% per side
-walk-forward: train 18m -> test 6m, step 6m: 13 windows; out-of-sample span 2020-03-02 .. 2026-09-25 (1652 days)
+  XLB: 2007 days
+  XLC: 2007 days
+  XLE: 2007 days
+  XLF: 2007 days
+  XLI: 2007 days
+  XLK: 2007 days
+  XLP: 2007 days
+  XLRE: 2007 days
+  XLU: 2007 days
+  XLV: 2007 days
+  XLY: 2007 days
+38 assets, 2007 days 2018-10-01 .. 2026-09-25; cost 0.03% per side
+walk-forward: train 18m -> test 6m, step 6m: 13 windows; out-of-sample span 2020-04-01 .. 2026-09-25 (1630 days)
 (first ~200 days are indicator warm-up; survivorship caveat: universe = assets listed today)
 
   rsi2_meanrev: 12 variants x 13 windows done (1s)
   ibs: 4 variants x 13 windows done (1s)
   down_days: 4 variants x 13 windows done (1s)
-  turn_of_month: 8 variants x 13 windows done (1s)
-  trend_ensemble: 24 variants x 13 windows done (2s)
-  donchian_rotation: 16 variants x 13 windows done (3s)
-  dual_momentum: 12 variants x 13 windows done (3s)
+  turn_of_month: 8 variants x 13 windows done (2s)
+  trend_ensemble: 24 variants x 13 windows done (3s)
+  donchian_rotation: 16 variants x 13 windows done (4s)
+  dual_momentum: 12 variants x 13 windows done (4s)
 
 --- OUT-OF-SAMPLE (stitched walk-forward test windows, params re-picked each window) ---
 family                    CAGR  avg/mo  maxDD Sharpe trd/mo  win%  expo
 -----------------------------------------------------------------------
-dual_momentum           +25.6%  +2.05%  24.8%   1.20    0.3   33%   83% <- beats hold
-rsi2_meanrev            +20.1%  +1.64%  21.3%   1.10   14.6   64%   48% <- beats hold
-trend_ensemble          +31.1%  +2.71%  38.7%   1.06    5.2   50%   88% <- beats hold
-donchian_rotation       +28.8%  +2.63%  48.5%   1.03    4.8   54%   74% <- beats hold
-down_days               +11.4%  +0.94%  11.3%   1.01   14.6   61%   25% 
-ibs                     +15.1%  +1.27%  19.5%   0.86   25.6   62%   64% 
-turn_of_month            +6.1%  +0.55%  15.1%   0.56    1.0   63%   32% 
-hold SPY                +17.3%  +1.45%  28.3%   0.90    0.0  100%  100% 
+rsi2_meanrev            +25.6%  +2.01%  15.2%   1.50   14.4   66%   48% <- beats hold
+trend_ensemble          +32.2%  +2.81%  36.4%   1.05    5.2   49%   89% <- beats hold
+dual_momentum           +23.4%  +1.92%  29.3%   1.01    0.3   30%   83% <- beats hold
+down_days               +10.7%  +0.89%   9.7%   0.97   15.3   60%   26% 
+donchian_rotation       +24.8%  +2.41%  52.3%   0.88    4.5   51%   75% <- beats hold
+ibs                     +12.5%  +1.09%  26.7%   0.75   26.0   63%   65% 
+turn_of_month            +7.2%  +0.63%  16.7%   0.66    1.0   64%   32% 
+hold SPY                +20.8%  +1.69%  24.5%   1.18    0.0  100%  100% 
 
 --- per-window picks (chosen on the prior 18 months by Sharpe; 'test' = return on the unseen window) ---
-dual_momentum:
-    2020-03-02 .. 2020-08-31  train Sharpe  1.39  test  +13.3%  [top=3,safe=IEF,universe=index]
-    2020-09-01 .. 2021-02-26  train Sharpe  1.32  test  +15.3%  [top=3,safe=IEF,universe=index]
-    2021-03-01 .. 2021-08-31  train Sharpe  1.39  test   +6.6%  [top=3,safe=cash,universe=index]
-    2021-09-01 .. 2022-02-28  train Sharpe  1.57  test   -1.3%  [top=2,safe=cash,universe=index]
-    2022-03-01 .. 2022-08-31  train Sharpe  0.80  test   -2.2%  [top=3,safe=cash,universe=all]
-    2022-09-01 .. 2023-02-28  train Sharpe  0.42  test  +13.3%  [top=1,safe=cash,universe=all]
-    2023-03-01 .. 2023-08-31  train Sharpe  0.54  test  +19.3%  [top=1,safe=cash,universe=all]
-    2023-09-01 .. 2024-02-29  train Sharpe  1.03  test  +46.7%  [top=1,safe=cash,universe=all]
-    2024-03-01 .. 2024-08-30  train Sharpe  1.51  test   +7.9%  [top=1,safe=cash,universe=all]
-    2024-09-03 .. 2025-02-28  train Sharpe  1.83  test   +0.4%  [top=2,safe=cash,universe=index]
-    2025-03-03 .. 2025-08-29  train Sharpe  1.35  test  +10.5%  [top=2,safe=IEF,universe=index]
-    2025-09-02 .. 2026-02-27  train Sharpe  1.29  test  +28.1%  [top=2,safe=IEF,universe=index]
-    2026-03-02 .. 2026-08-31  train Sharpe  2.14  test   +7.2%  [top=2,safe=IEF,universe=index]
 rsi2_meanrev:
-    2020-03-02 .. 2020-08-31  train Sharpe  0.17  test  +27.8%  [rsi=15,sma=200,hold=10]
-    2020-09-01 .. 2021-02-26  train Sharpe  1.08  test   +4.2%  [rsi=15,sma=100,hold=10]
-    2021-03-01 .. 2021-08-31  train Sharpe  1.20  test  +12.6%  [rsi=15,sma=200,hold=10]
-    2021-09-01 .. 2022-02-28  train Sharpe  2.05  test   -7.4%  [rsi=5,sma=200,hold=5]
-    2022-03-01 .. 2022-08-31  train Sharpe  1.35  test   -2.9%  [rsi=5,sma=200,hold=10]
-    2022-09-01 .. 2023-02-28  train Sharpe  0.95  test   +4.8%  [rsi=15,sma=200,hold=5]
-    2023-03-01 .. 2023-08-31  train Sharpe  0.61  test  +20.7%  [rsi=15,sma=200,hold=5]
-    2023-09-01 .. 2024-02-29  train Sharpe  1.23  test  +20.5%  [rsi=15,sma=200,hold=5]
-    2024-03-01 .. 2024-08-30  train Sharpe  1.91  test  +15.5%  [rsi=15,sma=200,hold=5]
-    2024-09-03 .. 2025-02-28  train Sharpe  1.94  test  +12.2%  [rsi=15,sma=200,hold=5]
-    2025-03-03 .. 2025-08-29  train Sharpe  1.71  test   +2.8%  [rsi=5,sma=200,hold=5]
-    2025-09-02 .. 2026-02-27  train Sharpe  1.71  test   +7.2%  [rsi=10,sma=100,hold=5]
-    2026-03-02 .. 2026-08-31  train Sharpe  1.40  test  +11.4%  [rsi=15,sma=200,hold=10]
+    2020-04-01 .. 2020-09-30  train Sharpe -0.02  test  +41.6%  [rsi=15,sma=200,hold=10]
+    2020-10-01 .. 2021-03-31  train Sharpe  1.05  test  +17.4%  [rsi=15,sma=200,hold=10]
+    2021-04-01 .. 2021-09-30  train Sharpe  1.50  test   +5.2%  [rsi=5,sma=200,hold=5]
+    2021-10-01 .. 2022-03-31  train Sharpe  2.16  test   -4.5%  [rsi=5,sma=200,hold=5]
+    2022-04-01 .. 2022-09-30  train Sharpe  1.20  test   -3.3%  [rsi=5,sma=200,hold=10]
+    2022-10-03 .. 2023-03-31  train Sharpe  0.48  test   +3.1%  [rsi=15,sma=200,hold=5]
+    2023-04-03 .. 2023-09-29  train Sharpe  0.67  test  +16.8%  [rsi=15,sma=200,hold=10]
+    2023-10-02 .. 2024-03-28  train Sharpe  0.99  test  +23.6%  [rsi=15,sma=200,hold=5]
+    2024-04-01 .. 2024-09-30  train Sharpe  1.95  test  +15.6%  [rsi=15,sma=200,hold=5]
+    2024-10-01 .. 2025-03-31  train Sharpe  2.07  test  +15.1%  [rsi=15,sma=200,hold=5]
+    2025-04-01 .. 2025-09-30  train Sharpe  1.87  test   +4.8%  [rsi=5,sma=200,hold=5]
+    2025-10-01 .. 2026-03-31  train Sharpe  1.71  test   +6.8%  [rsi=15,sma=200,hold=10]
+    2026-04-01 .. 2026-09-25  train Sharpe  1.27  test  +21.9%  [rsi=10,sma=200,hold=10]
 trend_ensemble:
-    2020-03-02 .. 2020-08-31  train Sharpe  1.35  test  +47.2%  [lookbacks=10/20/50/100,top=2,regime=0]
-    2020-09-01 .. 2021-02-26  train Sharpe  2.20  test +115.9%  [lookbacks=10/20/50/100,top=2,regime=0]
-    2021-03-01 .. 2021-08-31  train Sharpe  2.34  test   +3.9%  [lookbacks=10/20/50/100,top=5,regime=200]
-    2021-09-01 .. 2022-02-28  train Sharpe  2.08  test   +0.3%  [lookbacks=10/20/50/100,top=5,regime=200]
-    2022-03-01 .. 2022-08-31  train Sharpe  1.63  test  -20.6%  [lookbacks=10/20/50,top=2,regime=0]
-    2022-09-01 .. 2023-02-28  train Sharpe  1.24  test  +10.1%  [lookbacks=10/20/50,top=3,regime=200]
-    2023-03-01 .. 2023-08-31  train Sharpe  0.86  test   +3.5%  [lookbacks=10/20/50,top=2,regime=200]
-    2023-09-01 .. 2024-02-29  train Sharpe  1.40  test  +22.6%  [lookbacks=10/20/50/100,top=5,regime=200]
-    2024-03-01 .. 2024-08-30  train Sharpe  1.66  test   -2.4%  [lookbacks=10/20/50/100,top=5,regime=200]
-    2024-09-03 .. 2025-02-28  train Sharpe  1.85  test  +12.3%  [lookbacks=10/20/50,top=3,regime=0]
-    2025-03-03 .. 2025-08-29  train Sharpe  1.30  test   -3.5%  [lookbacks=10/20/50,top=2,regime=0]
-    2025-09-02 .. 2026-02-27  train Sharpe  0.82  test  +15.2%  [lookbacks=10/20/50,top=2,regime=0]
-    2026-03-02 .. 2026-08-31  train Sharpe  1.38  test  +29.0%  [lookbacks=10/20/50/100,top=5,regime=50]
-donchian_rotation:
-    2020-03-02 .. 2020-08-31  train Sharpe  0.67  test  +11.9%  [entry=20,exit=5,top=2,regime=200]
-    2020-09-01 .. 2021-02-26  train Sharpe  1.19  test  +71.6%  [entry=10,exit=10,top=3,regime=200]
-    2021-03-01 .. 2021-08-31  train Sharpe  1.82  test   +7.6%  [entry=10,exit=10,top=3,regime=200]
-    2021-09-01 .. 2022-02-28  train Sharpe  1.82  test   +9.1%  [entry=10,exit=10,top=3,regime=200]
-    2022-03-01 .. 2022-08-31  train Sharpe  1.47  test   +1.9%  [entry=10,exit=10,top=3,regime=200]
-    2022-09-01 .. 2023-02-28  train Sharpe  0.99  test  +17.4%  [entry=10,exit=10,top=3,regime=200]
-    2023-03-01 .. 2023-08-31  train Sharpe  1.08  test  +25.2%  [entry=10,exit=10,top=3,regime=200]
-    2023-09-01 .. 2024-02-29  train Sharpe  1.76  test  +41.7%  [entry=10,exit=5,top=2,regime=200]
-    2024-03-01 .. 2024-08-30  train Sharpe  2.35  test  -27.0%  [entry=10,exit=5,top=2,regime=200]
-    2024-09-03 .. 2025-02-28  train Sharpe  0.95  test   +1.3%  [entry=10,exit=5,top=3,regime=200]
-    2025-03-03 .. 2025-08-29  train Sharpe  0.48  test   -5.3%  [entry=20,exit=5,top=2,regime=200]
-    2025-09-02 .. 2026-02-27  train Sharpe -0.27  test   +1.4%  [entry=10,exit=5,top=3,regime=200]
-    2026-03-02 .. 2026-08-31  train Sharpe  0.41  test  +51.8%  [entry=20,exit=5,top=2,regime=200]
+    2020-04-01 .. 2020-09-30  train Sharpe  1.39  test  +34.3%  [lookbacks=10/20/50/100,top=2,regime=0]
+    2020-10-01 .. 2021-03-31  train Sharpe  1.70  test  +99.5%  [lookbacks=10/20/50/100,top=2,regime=0]
+    2021-04-01 .. 2021-09-30  train Sharpe  2.24  test  +11.6%  [lookbacks=10/20/50/100,top=2,regime=0]
+    2021-10-01 .. 2022-03-31  train Sharpe  1.94  test  +18.7%  [lookbacks=10/20/50/100,top=5,regime=0]
+    2022-04-01 .. 2022-09-30  train Sharpe  1.79  test  -30.4%  [lookbacks=10/20/50,top=3,regime=0]
+    2022-10-03 .. 2023-03-31  train Sharpe  1.12  test  +20.1%  [lookbacks=10/20/50,top=2,regime=200]
+    2023-04-03 .. 2023-09-29  train Sharpe  1.18  test   +1.5%  [lookbacks=10/20/50,top=2,regime=200]
+    2023-10-02 .. 2024-03-28  train Sharpe  1.06  test  +36.0%  [lookbacks=10/20/50/100,top=5,regime=200]
+    2024-04-01 .. 2024-09-30  train Sharpe  1.98  test  -10.9%  [lookbacks=10/20/50,top=5,regime=0]
+    2024-10-01 .. 2025-03-31  train Sharpe  1.57  test  +13.9%  [lookbacks=10/20/50/100,top=5,regime=50]
+    2025-04-01 .. 2025-09-30  train Sharpe  1.33  test   +4.8%  [lookbacks=10/20/50,top=2,regime=0]
+    2025-10-01 .. 2026-03-31  train Sharpe  1.01  test   +0.6%  [lookbacks=10/20/50/100,top=2,regime=200]
+    2026-04-01 .. 2026-09-25  train Sharpe  1.42  test  +39.1%  [lookbacks=10/20/50/100,top=5,regime=50]
+dual_momentum:
+    2020-04-01 .. 2020-09-30  train Sharpe  0.93  test   +8.4%  [top=3,safe=IEF,universe=index]
+    2020-10-01 .. 2021-03-31  train Sharpe  0.91  test  +30.0%  [top=1,safe=IEF,universe=index]
+    2021-04-01 .. 2021-09-30  train Sharpe  1.31  test   -1.3%  [top=2,safe=cash,universe=all]
+    2021-10-01 .. 2022-03-31  train Sharpe  1.53  test   -1.4%  [top=3,safe=cash,universe=all]
+    2022-04-01 .. 2022-09-30  train Sharpe  1.08  test   -8.9%  [top=3,safe=cash,universe=all]
+    2022-10-03 .. 2023-03-31  train Sharpe  0.19  test   -7.6%  [top=1,safe=IEF,universe=all]
+    2023-04-03 .. 2023-09-29  train Sharpe  0.65  test  +16.9%  [top=1,safe=IEF,universe=all]
+    2023-10-02 .. 2024-03-28  train Sharpe  0.71  test  +62.6%  [top=1,safe=IEF,universe=all]
+    2024-04-01 .. 2024-09-30  train Sharpe  1.91  test  +16.2%  [top=1,safe=IEF,universe=all]
+    2024-10-01 .. 2025-03-31  train Sharpe  1.74  test   +0.9%  [top=2,safe=cash,universe=index]
+    2025-04-01 .. 2025-09-30  train Sharpe  1.85  test  +19.5%  [top=1,safe=cash,universe=index]
+    2025-10-01 .. 2026-03-31  train Sharpe  1.66  test  +16.6%  [top=1,safe=cash,universe=index]
+    2026-04-01 .. 2026-09-25  train Sharpe  1.50  test   +9.0%  [top=3,safe=IEF,universe=all]
 down_days:
-    2020-03-02 .. 2020-08-31  train Sharpe -0.19  test  +12.1%  [n=3,sma=100]
-    2020-09-01 .. 2021-02-26  train Sharpe  0.91  test   +4.3%  [n=3,sma=200]
-    2021-03-01 .. 2021-08-31  train Sharpe  1.46  test   +9.3%  [n=4,sma=100]
-    2021-09-01 .. 2022-02-28  train Sharpe  2.28  test   -0.1%  [n=4,sma=100]
-    2022-03-01 .. 2022-08-31  train Sharpe  1.37  test   -3.5%  [n=4,sma=100]
-    2022-09-01 .. 2023-02-28  train Sharpe  1.25  test   +1.7%  [n=3,sma=200]
-    2023-03-01 .. 2023-08-31  train Sharpe  0.49  test  +23.2%  [n=3,sma=200]
-    2023-09-01 .. 2024-02-29  train Sharpe  1.41  test   +5.5%  [n=3,sma=200]
-    2024-03-01 .. 2024-08-30  train Sharpe  1.68  test   +1.6%  [n=3,sma=100]
-    2024-09-03 .. 2025-02-28  train Sharpe  1.90  test  +11.4%  [n=4,sma=200]
-    2025-03-03 .. 2025-08-29  train Sharpe  1.45  test   -2.1%  [n=4,sma=200]
-    2025-09-02 .. 2026-02-27  train Sharpe  1.34  test   -0.9%  [n=4,sma=100]
-    2026-03-02 .. 2026-08-31  train Sharpe  1.24  test  +12.7%  [n=3,sma=200]
+    2020-04-01 .. 2020-09-30  train Sharpe  0.35  test   +7.9%  [n=4,sma=200]
+    2020-10-01 .. 2021-03-31  train Sharpe  1.27  test  +12.5%  [n=3,sma=200]
+    2021-04-01 .. 2021-09-30  train Sharpe  1.73  test   +2.6%  [n=3,sma=200]
+    2021-10-01 .. 2022-03-31  train Sharpe  1.90  test   +1.2%  [n=4,sma=100]
+    2022-04-01 .. 2022-09-30  train Sharpe  1.37  test   -1.4%  [n=4,sma=100]
+    2022-10-03 .. 2023-03-31  train Sharpe  0.61  test   +2.2%  [n=3,sma=200]
+    2023-04-03 .. 2023-09-29  train Sharpe  0.48  test  +16.9%  [n=3,sma=200]
+    2023-10-02 .. 2024-03-28  train Sharpe  1.04  test   +3.1%  [n=4,sma=100]
+    2024-04-01 .. 2024-09-30  train Sharpe  1.68  test   +3.2%  [n=3,sma=100]
+    2024-10-01 .. 2025-03-31  train Sharpe  2.04  test  +11.9%  [n=4,sma=200]
+    2025-04-01 .. 2025-09-30  train Sharpe  1.69  test   +1.5%  [n=3,sma=200]
+    2025-10-01 .. 2026-03-31  train Sharpe  1.38  test   -4.7%  [n=4,sma=100]
+    2026-04-01 .. 2026-09-25  train Sharpe  1.22  test  +12.8%  [n=3,sma=200]
+donchian_rotation:
+    2020-04-01 .. 2020-09-30  train Sharpe  0.73  test   -0.5%  [entry=20,exit=5,top=2,regime=100]
+    2020-10-01 .. 2021-03-31  train Sharpe  0.74  test  +56.5%  [entry=20,exit=5,top=2,regime=200]
+    2021-04-01 .. 2021-09-30  train Sharpe  1.85  test   +9.2%  [entry=10,exit=10,top=3,regime=200]
+    2021-10-01 .. 2022-03-31  train Sharpe  1.77  test   +9.2%  [entry=10,exit=10,top=3,regime=200]
+    2022-04-01 .. 2022-09-30  train Sharpe  1.95  test   +0.2%  [entry=10,exit=10,top=3,regime=200]
+    2022-10-03 .. 2023-03-31  train Sharpe  0.98  test  +13.3%  [entry=10,exit=5,top=3,regime=200]
+    2023-04-03 .. 2023-09-29  train Sharpe  0.95  test  +27.0%  [entry=10,exit=10,top=3,regime=200]
+    2023-10-02 .. 2024-03-28  train Sharpe  1.66  test  +74.4%  [entry=10,exit=5,top=2,regime=200]
+    2024-04-01 .. 2024-09-30  train Sharpe  2.43  test  -41.7%  [entry=10,exit=5,top=2,regime=200]
+    2024-10-01 .. 2025-03-31  train Sharpe  0.98  test   -3.5%  [entry=10,exit=5,top=2,regime=200]
+    2025-04-01 .. 2025-09-30  train Sharpe  0.40  test   +5.4%  [entry=20,exit=5,top=2,regime=200]
+    2025-10-01 .. 2026-03-31  train Sharpe -0.49  test   -7.2%  [entry=10,exit=5,top=3,regime=200]
+    2026-04-01 .. 2026-09-25  train Sharpe  0.39  test  +63.5%  [entry=20,exit=5,top=2,regime=100]
 ibs:
-    2020-03-02 .. 2020-08-31  train Sharpe  0.47  test  +30.1%  [ibs=0.2,sma=200]
-    2020-09-01 .. 2021-02-26  train Sharpe  1.78  test  +16.4%  [ibs=0.1,sma=200]
-    2021-03-01 .. 2021-08-31  train Sharpe  2.37  test  -10.1%  [ibs=0.1,sma=200]
-    2021-09-01 .. 2022-02-28  train Sharpe  1.73  test   +7.3%  [ibs=0.1,sma=200]
-    2022-03-01 .. 2022-08-31  train Sharpe  0.48  test   -6.8%  [ibs=0.1,sma=200]
-    2022-09-01 .. 2023-02-28  train Sharpe -0.61  test   +2.8%  [ibs=0.2,sma=200]
-    2023-03-01 .. 2023-08-31  train Sharpe  0.17  test  +15.1%  [ibs=0.1,sma=200]
-    2023-09-01 .. 2024-02-29  train Sharpe  1.10  test   -8.6%  [ibs=0.2,sma=100]
-    2024-03-01 .. 2024-08-30  train Sharpe  1.16  test  +20.9%  [ibs=0.2,sma=200]
-    2024-09-03 .. 2025-02-28  train Sharpe  1.53  test   +6.1%  [ibs=0.2,sma=200]
-    2025-03-03 .. 2025-08-29  train Sharpe  1.07  test  +20.8%  [ibs=0.2,sma=200]
-    2025-09-02 .. 2026-02-27  train Sharpe  1.53  test   +4.3%  [ibs=0.2,sma=200]
-    2026-03-02 .. 2026-08-31  train Sharpe  1.14  test   +4.7%  [ibs=0.2,sma=200]
+    2020-04-01 .. 2020-09-30  train Sharpe  0.80  test  +16.2%  [ibs=0.2,sma=200]
+    2020-10-01 .. 2021-03-31  train Sharpe  1.75  test  +16.7%  [ibs=0.1,sma=200]
+    2021-04-01 .. 2021-09-30  train Sharpe  2.19  test  -14.0%  [ibs=0.1,sma=200]
+    2021-10-01 .. 2022-03-31  train Sharpe  1.54  test   +0.6%  [ibs=0.1,sma=100]
+    2022-04-01 .. 2022-09-30  train Sharpe  0.60  test   -7.4%  [ibs=0.2,sma=100]
+    2022-10-03 .. 2023-03-31  train Sharpe -0.62  test  +10.6%  [ibs=0.1,sma=200]
+    2023-04-03 .. 2023-09-29  train Sharpe  0.68  test   +9.6%  [ibs=0.2,sma=200]
+    2023-10-02 .. 2024-03-28  train Sharpe  0.87  test   -4.8%  [ibs=0.2,sma=100]
+    2024-04-01 .. 2024-09-30  train Sharpe  1.12  test  +26.4%  [ibs=0.2,sma=200]
+    2024-10-01 .. 2025-03-31  train Sharpe  1.49  test   +7.8%  [ibs=0.2,sma=200]
+    2025-04-01 .. 2025-09-30  train Sharpe  1.31  test  +19.8%  [ibs=0.2,sma=200]
+    2025-10-01 .. 2026-03-31  train Sharpe  1.63  test   -0.4%  [ibs=0.2,sma=200]
+    2026-04-01 .. 2026-09-25  train Sharpe  0.92  test   +5.3%  [ibs=0.2,sma=200]
 turn_of_month:
-    2020-03-02 .. 2020-08-31  train Sharpe  0.73  test  +18.0%  [asset=QQQ,before=5,exit_day=3]
-    2020-09-01 .. 2021-02-26  train Sharpe  1.11  test   -0.8%  [asset=QQQ,before=4,exit_day=4]
-    2021-03-01 .. 2021-08-31  train Sharpe  1.37  test   +2.6%  [asset=QQQ,before=5,exit_day=4]
-    2021-09-01 .. 2022-02-28  train Sharpe  1.67  test   +1.2%  [asset=SPY,before=5,exit_day=4]
-    2022-03-01 .. 2022-08-31  train Sharpe  1.45  test   -1.6%  [asset=SPY,before=4,exit_day=4]
-    2022-09-01 .. 2023-02-28  train Sharpe  0.85  test   +0.7%  [asset=SPY,before=4,exit_day=3]
-    2023-03-01 .. 2023-08-31  train Sharpe  0.57  test   +8.2%  [asset=SPY,before=4,exit_day=3]
-    2023-09-01 .. 2024-02-29  train Sharpe  0.99  test   +3.8%  [asset=QQQ,before=4,exit_day=3]
-    2024-03-01 .. 2024-08-30  train Sharpe  0.95  test   -0.2%  [asset=SPY,before=4,exit_day=3]
-    2024-09-03 .. 2025-02-28  train Sharpe  1.44  test   +1.1%  [asset=QQQ,before=5,exit_day=4]
-    2025-03-03 .. 2025-08-29  train Sharpe  0.44  test   -5.6%  [asset=QQQ,before=5,exit_day=3]
-    2025-09-02 .. 2026-02-27  train Sharpe -0.23  test   +3.7%  [asset=QQQ,before=5,exit_day=3]
-    2026-03-02 .. 2026-08-31  train Sharpe -0.28  test  +10.1%  [asset=SPY,before=5,exit_day=3]
+    2020-04-01 .. 2020-09-30  train Sharpe  0.89  test  +23.6%  [asset=QQQ,before=5,exit_day=3]
+    2020-10-01 .. 2021-03-31  train Sharpe  0.87  test  +11.5%  [asset=QQQ,before=5,exit_day=4]
+    2021-04-01 .. 2021-09-30  train Sharpe  1.24  test   +0.2%  [asset=QQQ,before=5,exit_day=4]
+    2021-10-01 .. 2022-03-31  train Sharpe  1.67  test   +2.7%  [asset=SPY,before=5,exit_day=4]
+    2022-04-01 .. 2022-09-30  train Sharpe  1.50  test   -1.9%  [asset=SPY,before=4,exit_day=4]
+    2022-10-03 .. 2023-03-31  train Sharpe  0.67  test   +4.0%  [asset=SPY,before=4,exit_day=4]
+    2023-04-03 .. 2023-09-29  train Sharpe  0.93  test   +0.4%  [asset=SPY,before=4,exit_day=3]
+    2023-10-02 .. 2024-03-28  train Sharpe  1.11  test   +4.4%  [asset=QQQ,before=4,exit_day=3]
+    2024-04-01 .. 2024-09-30  train Sharpe  1.28  test   -1.8%  [asset=SPY,before=4,exit_day=3]
+    2024-10-01 .. 2025-03-31  train Sharpe  0.79  test   -3.9%  [asset=QQQ,before=5,exit_day=3]
+    2025-04-01 .. 2025-09-30  train Sharpe  0.10  test   -1.1%  [asset=SPY,before=4,exit_day=3]
+    2025-10-01 .. 2026-03-31  train Sharpe -0.08  test   -1.7%  [asset=QQQ,before=5,exit_day=3]
+    2026-04-01 .. 2026-09-25  train Sharpe -0.18  test  +12.6%  [asset=QQQ,before=5,exit_day=3]
 
---- IN-SAMPLE: best single fixed variant per family over FULL history 2018-09-27 .. 2026-09-25 (optimistic: picked with hindsight, not comparable to the OOS table) ---
+--- IN-SAMPLE: best single fixed variant per family over FULL history 2018-10-01 .. 2026-09-25 (optimistic: picked with hindsight, not comparable to the OOS table) ---
 family                    CAGR  avg/mo  maxDD Sharpe trd/mo  win%  expo
 -----------------------------------------------------------------------
-dual_momentum           +20.7%  +1.68%  26.0%   1.04    0.7   59%   99% [top=3,safe=IEF,universe=all]
-rsi2_meanrev            +22.8%  +1.80%  23.4%   1.21   14.9   67%   53% [rsi=15,sma=200,hold=10]
-trend_ensemble          +29.0%  +2.34%  20.7%   1.32    5.9   51%   72% [lookbacks=10/20/50/100,top=5,regime=200]
-donchian_rotation       +24.5%  +2.15%  36.3%   1.00    5.6   51%   70% [entry=10,exit=5,top=3,regime=200]
-down_days               +15.0%  +1.21%  10.3%   1.16   18.3   60%   31% [n=3,sma=200]
-ibs                     +15.7%  +1.30%  22.0%   0.90   26.2   62%   65% [ibs=0.2,sma=200]
-turn_of_month            +6.9%  +0.58%  15.6%   0.73    1.0   66%   29% [asset=SPY,before=4,exit_day=3]
+rsi2_meanrev            +22.3%  +1.79%  22.2%   1.22   16.9   66%   51% [rsi=15,sma=200,hold=5]
+trend_ensemble          +29.0%  +2.37%  20.7%   1.32    5.9   51%   72% [lookbacks=10/20/50/100,top=5,regime=200]
+dual_momentum           +20.9%  +1.70%  26.0%   1.05    0.7   59%   98% [top=3,safe=IEF,universe=all]
+down_days               +15.4%  +1.24%  10.3%   1.19   18.2   60%   31% [n=3,sma=200]
+donchian_rotation       +24.5%  +2.18%  36.3%   1.00    5.6   51%   70% [entry=10,exit=5,top=3,regime=200]
+ibs                     +15.8%  +1.32%  22.0%   0.91   26.1   62%   65% [ibs=0.2,sma=200]
+turn_of_month            +6.9%  +0.58%  15.6%   0.72    1.0   65%   29% [asset=SPY,before=4,exit_day=3]
 
-best OOS family by Sharpe: dual_momentum (curve saved to results/lab_oos_stocks.json)
+best OOS family by Sharpe: rsi2_meanrev (curve saved to results/lab_oos_stocks.json)
 
---- COMBINED 50/50 crypto:ens_donchian + stocks:dual_momentum (daily rebalanced, 1280 common days) ---
-CAGR +22.4%  avg/mo +1.81%  maxDD 13.7%  Sharpe 1.38  total +103.2%
+--- COMBINED 50/50 crypto:ens_donchian + stocks:rsi2_meanrev (daily rebalanced, 1305 common days) ---
+CAGR +19.8%  avg/mo +1.62%  maxDD 8.1%  Sharpe 1.37  total +90.8%
