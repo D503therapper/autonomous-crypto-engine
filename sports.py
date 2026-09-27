@@ -510,6 +510,50 @@ def bankroll_series(picks):
     return pts
 
 
+ASK_STEEP = -300              # "ask the engine": never suggest a moneyline shorter than this - use the spread
+ASK_PATH = "docs/sports/reads.json"
+
+
+def engine_reads(games, model, picks, now=None):
+    """ASK THE ENGINE: our read on every game today (and tomorrow, once the evening board is up) that isn't on our
+    board. People can still get a lean on any game - but it's NOT a pick and never counts toward our results."""
+    now = now or datetime.now(timezone.utc)
+    ours = {l["game_id"]: pk["kind"] for pk in picks if pk.get("status") in ("open", "waiting") for l in pk.get("legs") or []}
+    local = now.astimezone(PT).date()
+    out = []
+    for day in (local, local + timedelta(days=1)):
+        by_game = {}
+        for c in candidates(games, model, now, day):
+            by_game.setdefault(c["game_id"], []).append(c)
+        for gid, cs in by_game.items():
+            g = games[gid]
+            ok = [c for c in cs if c["market"] == "spread" or c["odds"] >= ASK_STEEP]
+            lean_ = max(ok or cs, key=lambda c: (c["p"], c["edge"]))          # accuracy first: the likelier side
+            ml_p = {c["side"]: c["p"] for c in cs if c["market"] == "ml"}
+            if gid in ours:
+                why = "on_board"
+            elif lean_["market"] == "ml" and lean_["odds"] < ASK_STEEP:
+                why = "steep"
+            elif lean_["p"] < 0.55:
+                why = "coin_flip"
+            elif good(lean_):
+                why = "tight"
+            else:
+                why = "no_value"
+            out.append({"id": gid, "league": g["league"], "emoji": sd.LEAGUES[g["league"]][3],
+                        "sport": sd.LEAGUES[g["league"]][2], "start": g["start"],
+                        "away": g["away_name"], "home": g["home_name"], "why": why, "board": ours.get(gid),
+                        "lean": {"team": lean_["team"], "opp": lean_["opp"], "market": lean_["market"],
+                                 "line": lean_["line"], "odds": lean_["odds"], "p": round(lean_["p"], 3),
+                                 "win_p": round(ml_p.get(lean_["side"], lean_["p"]), 3),
+                                 "reasons": (lean_.get("reasons") or [])[:3]}})
+    out.sort(key=lambda r: (r["start"], r["away"]))
+    os.makedirs(os.path.dirname(ASK_PATH), exist_ok=True)
+    with open(ASK_PATH, "w") as f:
+        json.dump({"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "games": out}, f, indent=1)
+    return out
+
+
 def quick(now=None):
     """Fast pass right when games end (the live watcher calls it): today's + yesterday's final scores from ESPN,
     grade the picks, post any replacement picks, rebuild the dashboard. No history, no retraining (that's hourly)."""
@@ -535,6 +579,10 @@ def quick(now=None):
     sd.save_games(games)
     _save("picks.json", picks)
     import sports_dashboard
+    try:
+        engine_reads(games, model, picks)
+    except Exception as e:                                             # noqa: BLE001 - never block the dashboard
+        print(f"engine reads failed: {e}")
     sports_dashboard.write(picks, model, games, bankroll_series(picks), START_BANKROLL)
     return graded, posted
 
@@ -611,6 +659,10 @@ def run(repick=False, fetch=True):
     _save("model.json", model)
     _save("picks.json", picks)
     import sports_dashboard
+    try:
+        engine_reads(games, model, picks)
+    except Exception as e:                                             # noqa: BLE001 - never block the dashboard
+        print(f"engine reads failed: {e}")
     sports_dashboard.write(picks, model, games, bankroll_series(picks), START_BANKROLL)
     return picks
 

@@ -792,7 +792,8 @@ def publish_results(msg):
     except Exception as e:                                   # noqa: BLE001 - never stop watching over this
         print(f"quick grade failed: {e}", flush=True)
         return
-    paths = [LOG, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", os.path.join(sd.DATA, "games")]
+    paths = [LOG, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
+             os.path.join(sd.DATA, "games")]
     _git("add", *paths)
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return

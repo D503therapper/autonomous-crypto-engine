@@ -522,6 +522,18 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .stamp.lost{{color:var(--dn);text-shadow:0 0 16px rgba(255,59,59,.6)}}
 .stamp.push{{color:var(--gold)}}
 .lt-t{{margin-left:8px;font-size:10px;font-weight:900;letter-spacing:.05em}} .lt-t.lk{{color:#22e39a}} .lt-t.val{{color:#ff8a00}} .lt-t.lean{{color:#ffc233}}
+.ask{{background:var(--card);border:1px solid rgba(34,211,238,.35);border-radius:16px;margin:14px 0;overflow:hidden}}
+.ask summary{{list-style:none;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}}
+.ask summary::-webkit-details-marker{{display:none}}
+.ask-t{{font-weight:900;letter-spacing:.08em;color:#22d3ee}} .ask-s{{font-size:12px;color:#9fb0c8}}
+.ask-b{{padding:0 14px 14px}} .ask-n{{font-size:12px;color:#9fb0c8;margin:4px 0 10px}} .ask-n b{{color:#fff}}
+#askq{{width:100%;font-size:16px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:#060a12;color:#fff}}
+#asklist{{display:flex;flex-direction:column;gap:6px;margin-top:10px}}
+.ask-g{{text-align:left;background:var(--card2);border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700}}
+.ask-g small{{color:#9fb0c8;font-weight:600;margin-left:6px}}
+.ask-c{{margin-top:12px}} .ask-l{{font-size:17px;margin:8px 0 2px}} .ask-l b{{color:#fff}}
+.ask-a{{font-weight:800;color:#22d3ee;margin:2px 0 6px}} .ask-w{{font-size:13px;color:#e6ecf5;margin:6px 0}}
+.ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
 .leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
@@ -625,6 +637,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
+<details class="ask" id="ask"><summary><span class="ask-t">🤔 ASK THE ENGINE</span>
+<span class="ask-s">our read on any game · tap to open</span></summary>
+<div class="ask-b"><div class="ask-n">Not on our board? Type a team and we'll give you the engine's lean. These are <b>not our picks</b> and never count toward our record.</div>
+<input id="askq" type="search" placeholder="Type a team… (Eagles, Dodgers)" autocomplete="off">
+<div id="asklist"></div><div id="askout"></div></div></details>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
@@ -687,6 +704,42 @@ function check(){{if(document.hidden)return;              // a newer page? swap 
      location.replace(location.pathname+"?v="+x[1]);}}}})
  .catch(function(){{}});}}
 tick();setInterval(tick,30000);check();setInterval(check,60000);document.addEventListener("visibilitychange",check);}})();
+</script><script>
+(function(){{   // 🤔 ASK THE ENGINE: the engine's read on any game, from reads.json (not our picks, never in the record)
+var games=[], q=document.getElementById("askq"), list=document.getElementById("asklist"), out=document.getElementById("askout");
+if(!q) return;
+function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return {{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
+function am(o){{return o>0?"+"+o:String(o)}}
+function tm(s){{try{{return new Date(s.replace("Z",":00Z")).toLocaleString("en-US",{{weekday:"short",hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"}})+" PT"}}catch(e){{return ""}}}}
+function pick(id,arr){{var h=0;for(var i=0;i<id.length;i++)h=(h*31+id.charCodeAt(i))%9973;return arr[h%arr.length]}}
+var WHY={{steep:["They should win, but the price is way too steep to be worth it.","Big favorite, but that number's too expensive for us."],
+ coin_flip:["Too close to call — this one's basically a coin flip.","Could go either way. The engine can't separate these two."],
+ tight:["There's a little value here, but it didn't make our board — we keep the board tight.","Slight edge, not enough for us to put our name on it."],
+ no_value:["The line's about right — no real value for us.","The books got this one priced about right. Nothing for us here."]}};
+var OUT=["You're on your own with this one. Good luck — hope it smacks. 🤞","Your call on this one, not ours. Hope it cashes. 🤞",
+ "We're not on it, so you're riding solo. Good luck! 🤞"];
+function show(g){{
+  var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line, pct=Math.round(L.p*100);
+  var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
+    '<div class="ls">'+esc(g.away)+" @ "+esc(g.home)+'</div>';
+  if(g.why=="on_board"){{h+='<div class="ask-a">🎯 We’re already on this one — it’s on the board. Scroll up. 👆</div></section>';out.innerHTML=h;return}}
+  h+='<div class="ask-l">🧠 Our lean: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
+     '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+'</div>'+
+     (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+
+     '<div class="ask-w">Why it’s not a pick: '+pick(g.id,WHY[g.why]||WHY.no_value)+'</div>'+
+     '<div class="ask-d">⚠️ Not our pick — this doesn’t count toward our record. '+pick(g.id+"x",OUT)+'</div></section>';
+  out.innerHTML=h;
+}}
+function render(){{
+  var t=q.value.trim().toLowerCase(); out.innerHTML="";
+  var hits=games.filter(function(g){{return !t||(g.away+" "+g.home+" "+g.sport).toLowerCase().indexOf(t)>=0}}).slice(0,12);
+  list.innerHTML=hits.length?hits.map(function(g,i){{return '<button class="ask-g" data-i="'+games.indexOf(g)+'">'+g.emoji+" "+esc(g.away)+" @ "+esc(g.home)+' <small>'+tm(g.start)+'</small></button>'}}).join(""):
+    '<div class="ask-n">No games found. Try another team.</div>';
+}}
+list.addEventListener("click",function(e){{var b=e.target.closest(".ask-g");if(b)show(games[+b.dataset.i])}});
+q.addEventListener("input",render);
+fetch("reads.json?v="+Date.now()).then(function(r){{return r.json()}}).then(function(d){{games=d.games||[];render()}}).catch(function(){{list.innerHTML='<div class="ask-n">The engine’s reads aren’t up yet. Check back soon.</div>'}});
+}})();
 </script></body></html>"""
 
 
