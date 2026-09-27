@@ -47,15 +47,13 @@ def _leg(leg):
     res = leg.get("result")
     mark = {"won": '<b class="lw">✓</b>', "lost": '<b class="ll">✗</b>', "push": '<b class="lp">P</b>',
             "void": '<b class="lp">V</b>'}.get(res, "")
-    edge = leg["p"] - (1 / leg["dec"])
     why = " · ".join(E(r) for r in leg.get("reasons") or [])
     outs = "".join(f'<div class="outs">🚑 {E(who)} out: {E(", ".join(leg[k]))}</div>'
                    for k, who in (("opp_outs", leg["opp"]), ("outs", leg["team"])) if leg.get(k))
     return f"""<div class="leg">
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span><span class="tm">{_time(leg["start"])}</span></div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
-  <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])} · model <b>{leg["p"]:.0%}</b> · book {1 / leg["dec"]:.0%}
-    <span class="{"ep" if edge >= 0 else "en"}">{"+" if edge >= 0 else "−"}{abs(edge) * 100:.1f} pts</span></div>
+  <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])}</div>
   {f'<div class="why">{why}</div>' if why else ""}{outs}
   {f'<div class="fin">{E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
@@ -71,7 +69,7 @@ def _pick_card(kind, pk):
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
-    <span class="pay">$100 wins <b>${win:,.0f}</b><br><span>hit chance {pk["p_hit"]:.0%}</span></span></div>
+    <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
   {legs}
 </section>"""
 
