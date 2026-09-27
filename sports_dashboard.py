@@ -345,6 +345,23 @@ def render(picks, model, games, series, start_bank, updated_ms):
     grades = "".join(grade(*TIER_LOOK[t], [p["status"] for p in by_tier[t]], [p["status"] for p in by_tier[t] if p["date"] == today])
                      for t in ("lock", "value", "lean"))
     grades += grade("📡 LIVE", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
+    # by sport: just our hit rate - every graded leg (locks, value, leans; the 8-leg lottery ticket stays out) + live bets
+    groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
+    res = [(l["league"], l["result"]) for p in picks if p["kind"] != "eight" for l in p["legs"] if l.get("result") in ("won", "lost")]
+    res += [(e.get("league"), e["result"]) for e in lrs]
+    try:
+        with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
+            res += [("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or [] if l.get("result") in ("won", "lost")]
+    except (OSError, ValueError):
+        pass
+    chips = []
+    for name, lgs in groups + [("🎾 Tennis", ("tennis",))]:
+        rr = [r for lg, r in res if lg in lgs]
+        w_, n_ = sum(r == "won" for r in rr), len(rr)
+        hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
+        chips.append(f'<span class="spc" style="color:{hue}"><b>{name}</b> {f"{w_ / n_:.0%}" if n_ else "—"}'
+                     f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>')
+    by_sport = "".join(chips)
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -422,7 +439,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                       f"🎥 Ran back {what} games and got sharper."][k % 3])
     n = sum(p.get("eval_games", 0) for p in params.values())
     if n:
-        a_ = sum(p["accuracy"] * p.get("eval_games", 0) for p in params.values()) / n
+        a_ = sum((p.get("oos") or {}).get("acc", p["accuracy"]) * p.get("eval_games", 0) for p in params.values()) / n
         lines.append([f"🎯 Calling winners at a {a_:.1%} clip.", f"🎯 Hitting on {a_:.1%} of winners.",
                       f"🎯 {a_:.1%} of winners called straight up."][k % 3])
     legs = [l for p in picks if p["kind"] != "eight" for l in p["legs"] if l.get("result") in ("won", "lost")]
@@ -545,6 +562,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-prop{{font-size:15px;font-weight:900;color:#ff5a7a;margin:6px 0 10px}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .own{{font-size:13px;font-weight:800;color:#ffc233;margin-top:6px;border-left:3px solid #ffc233;padding-left:8px}}
+.sports{{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}}
+.spc{{background:var(--card2);border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:6px 10px;font-size:14px;font-weight:900;color:#22e39a}}
+.spc b{{color:#fff;margin-right:4px}} .spc small{{display:block;font-size:11px;font-weight:700;color:#ffc233}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
 .leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
@@ -665,6 +685,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="lbl">The engine's grades</div>
   <div class="sp-n">Every kind of play graded on its own — no lumping. Full transparency. The 8-leg lottery ticket keeps its own record below.</div>
   <div class="recs grades">{grades}</div>
+  <div class="lbl" style="margin-top:4px">By sport</div>
+  <div class="sports">{by_sport}</div>
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(graded_all)} graded</span></div>
 <div class="recs">{"".join(rec)}</div>
