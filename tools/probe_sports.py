@@ -1,20 +1,23 @@
-"""Bovada live lines right now (NFL + others): structure, live flag, moneylines."""
-import json
-import urllib.request
+"""Live price check, game by game: Bovada's live line vs Action Network's, and whether our game matches."""
+import sys
 
-for path in ("football/nfl", "football/college-football", "basketball/nba", "hockey/nhl", "baseball/mlb"):
-    url = f"https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
-    try:
-        data = json.load(urllib.request.urlopen(url, timeout=25))
-    except Exception as e:                                   # noqa: BLE001
-        print(path, "ERR", e)
-        continue
-    evs = [e for g in data for e in g.get("events") or []]
-    print(f"\n{path}: {len(evs)} live events")
-    for e in evs[:3]:
-        print("  ", e.get("description"), "live", e.get("live"), "keys", sorted(e.keys())[:25])
-        print("   competitors", [(c.get("name"), c.get("home")) for c in e.get("competitors") or []])
-        for dg in (e.get("displayGroups") or [])[:1]:
-            for m in dg.get("markets") or []:
-                if "moneyline" in str(m.get("description", "")).lower():
-                    print("   ML", m.get("period"), [(o.get("description"), (o.get("price") or {}).get("american")) for o in m.get("outcomes") or []])
+sys.path.insert(0, ".")
+import sports_data as sd  # noqa: E402
+import sports_live as sl  # noqa: E402
+
+games = sd.load_games()
+for lg in ("nfl", "ncaaf"):
+    books = sl.bovada_live(lg)
+    print(f"\n{lg}: {len(books)} bovada live lines; errors {sd.ERRORS[-2:]}")
+    for b in books[:4]:
+        print("   bovada", b)
+    for ang in sl.fetch_live(lg):
+        box = ang.get("boxscore") or {}
+        if not box.get("period") or str(ang.get("status") or "").lower() in sl.DONE:
+            continue
+        g = sl._match(games, lg, ang)
+        an = sl.live_line(box)
+        bk = sl.book_line(books, g) if g else (None, None)
+        nv = lambda x: round(sd.no_vig(*x), 3) if x[0] is not None and x[1] is not None else None  # noqa: E731
+        print(f"   {g['away_name'] + ' @ ' + g['home_name'] if g else 'NO MATCH ' + str(ang.get('id'))}: "
+              f"bovada {bk} ({nv(bk)})  AN {an} ({nv(an)})  -> {sl.confirmed_line(bk, an)}")
