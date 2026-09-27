@@ -5,6 +5,7 @@ from zoneinfo import ZoneInfo
 
 import sports_data as sd
 import sports_model as sm
+import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
 
@@ -139,6 +140,30 @@ def breakdown(leg, games, elo, injuries):
         if 2 * w >= len(last3):
             out.append(f"🆚 {us} own this matchup — won {w} of the last {len(last3)}." if len(last3) > 1
                        else f"🆚 {us} got 'em last time: {_line(h2h[-1], tid)}.")
+
+    # the key players: QB / starting pitcher / goalie (the fun part)
+    rows = sp.CACHE.get(lg) or []
+    role = sp.ROLE.get(lg)
+    if rows and role:
+        def who(team_side, tid_):
+            if role == "SP":
+                return g.get("sp_" + team_side) or None
+            return sp.last_starter(rows, tid_, g["start"])
+        for team_side, t_id, team_name, ours_ in ((other, oid, them, False), (side, tid, us, True)):
+            name = who(team_side, t_id)
+            if not name:
+                continue
+            txt, mood = sp.form_line(lg, name, rows, g["start"])
+            if not txt:
+                continue
+            if not ours_ and mood == "cold":
+                out.append({"QB": f"🗑️ {name} has been complete booty cheeks — {txt}.",
+                            "SP": f"💣 {name} has been getting shelled — {txt}.",
+                            "G": f"🥅 {name} has been leaky as hell — {txt}."}[role])
+            elif ours_ and mood == "hot":
+                out.append({"QB": f"🎯 {name} has been cooking — {txt}.",
+                            "SP": f"🔥 {name} has been dealing — {txt}.",
+                            "G": f"🧱 {name} has been a brick wall — {txt}."}[role])
 
     # home / road
     out.append(f"🏟️ Home cookin' for {us}." if side == "home" else f"🧳 {us} on the road — doesn't scare us.")

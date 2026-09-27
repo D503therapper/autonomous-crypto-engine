@@ -22,6 +22,7 @@ from zoneinfo import ZoneInfo
 import sports_breakdown
 import sports_data as sd
 import sports_model as sm
+import sports_players as sp
 
 DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
@@ -92,6 +93,8 @@ def _reasons(side, f, g, league, params):
         out.append((f["inj"] * 5 * s / 3, "opponent missing key players"))
     if sm.line_move(g) * s >= 0.08:
         out.append((sm.line_move(g) * s * 5, "sharp money moving this way"))
+    if f.get("key", 0) * s >= 0.4:
+        out.append((f["key"] * s, {"mlb": "better starting pitcher", "nhl": "hotter goalie"}.get(league, "better QB play lately")))
     out.sort(key=lambda r: -r[0])
     return [r[1] for r in out[:3]]
 
@@ -346,8 +349,14 @@ def run(repick=False, fetch=True):
         t0 = time.time()
         filled, calls, fails = sd.sync_odds_history(games, state)
         print(f"odds history: {filled} games got odds, {calls} calls, {fails} failed, {time.time() - t0:.0f}s")
+        t0 = time.time()
+        got, calls, fails = sp.sync(games, state)
+        print(f"player stats: {got} box scores added, {calls} to fetch, {fails} failed, {time.time() - t0:.0f}s")
     else:
         games = sd.load_games()
+    sp.CACHE = sp.load()
+    sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)                     # QB / starting pitcher / goalie form per game
+    n_players = sum(len(rows) for rows in sp.CACHE.values())
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")
     day = now.astimezone(PT).date()
@@ -357,10 +366,11 @@ def run(repick=False, fetch=True):
         model["today"] = {"date": day.isoformat(), "finals": model.get("finals_seen", n_final),
                           "acc": {lg: p["accuracy"] for lg, p in model["params"].items()}}
     n_odds = sum(g["status"] == "final" and g.get("ml_home", "") != "" for g in games.values())
-    if n_final != model.get("finals_seen") or n_odds != model.get("odds_seen") or not model["params"]:  # retrain on new results/odds
+    if (n_final, n_odds, n_players) != (model.get("finals_seen"), model.get("odds_seen"), model.get("players_seen")) \
+            or not model["params"]:                                     # retrain on new results / odds / player stats
         t0 = time.time()
         sm.tune_all(games, model)
-        model["finals_seen"], model["odds_seen"] = n_final, n_odds
+        model["finals_seen"], model["odds_seen"], model["players_seen"] = n_final, n_odds, n_players
         print(f"tuned in {time.time() - t0:.0f}s: " + ", ".join(
             f"{lg} trust {p['trust']:.0%} acc {p['accuracy']:.1%}" for lg, p in model["params"].items()))
     if repick:
