@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-512.png"><link rel="manifest" href="manifest.webmanifest">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Teko:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#8a94a8;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#22e39a}
+:root{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#8a94a8;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
 body{font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;min-height:100vh;
@@ -82,13 +82,15 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .tv{font-size:clamp(13px,4.2vw,17px);font-weight:800;margin-top:6px;white-space:nowrap}
 .ar{font-size:.7em;margin-right:3px;vertical-align:1px}
 .up{color:var(--up)} .dn{color:var(--dn)} .w{color:#fff}
-.chart{height:100px;margin:14px -20px 0} .chart svg{width:100%;height:100%;display:block}
+.strip{display:flex;flex-wrap:wrap;gap:4px;margin:14px 0 12px}
+.strip i{width:12px;height:12px;border-radius:3px;background:#3a4256}
+.strip i.won{background:var(--up);box-shadow:0 0 8px rgba(34,227,154,.6)} .strip i.lost{background:var(--dn)} .strip i.push{background:#c9d1e0}
 .recs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .rc{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;overflow:hidden}
 .rc::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2))}
 .rc-t{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--c1)}
 .rc-r{font-size:26px;font-weight:900;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}
-.rc-p{font-weight:800;font-variant-numeric:tabular-nums} .rc-s{font-size:11.5px;color:var(--muted);font-weight:700;margin-top:2px}
+.rc-p{font-weight:800;color:var(--c1)} .rc-s{font-size:11.5px;color:var(--muted);font-weight:700;margin-top:2px}
 .list{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:4px 14px}
 .rr{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)} .rr:last-child{border:0}
 .rk{font-size:18px} .rd{flex:1;min-width:0}
@@ -119,16 +121,16 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>Sunday, September 27</span></div>
 <div class="board"><div class="trust">TRUST THE ALGORITHM!</div><div class="drop">🎯 Today's board drops at <b>8 AM PT</b></div></div>
 
-<div class="sec"><h2><i>●</i> THE RESULTS</h2><span>tracked at $100 a pick</span></div>
+<div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
-  <div class="lbl">Profit · $100 a pick</div>
-  <div class="total up">+$0</div>
-  <span class="pill" style="--p:#22e39a">▲ +$0 <small>TODAY</small></span>
-  <div class="month"><div class="tile" style="--h:#2f8bff"><div class="tl">This month</div><div class="ts">September</div><div class="tv up"><span class="ar">▲</span><span class="w">+$0</span></div><div class="ts up">&nbsp;</div></div><div class="tile" style="--h:#22e39a"><div class="tl">All time</div><div class="ts">since Sep 27</div><div class="tv up"><span class="ar">▲</span><span class="w">+$0</span></div><div class="ts up">no bets graded yet</div></div><div class="tile" style="--h:#ffc233"><div class="tl">Record</div><div class="ts">W-L</div><div class="tv w">0-0</div><div class="ts" style="color:#ffc233">0% hit rate</div></div></div>
-  <div class="chart"><svg viewBox="0 0 360 100" preserveAspectRatio="none"><line x1="0" y1="50.0" x2="360" y2="50.0" stroke="#22e39a" stroke-width="2" stroke-dasharray="4 5" opacity=".5"/></svg></div>
+  <div class="lbl">Overall record</div>
+  <div class="total">0-0</div>
+  <span class="pill" style="--p:#ffc233">0-0 <small>TODAY</small></span>
+  <div class="month"><div class="tile" style="--h:#2f8bff"><div class="tl">This month</div><div class="ts">September</div><div class="tv w">0-0</div><div class="ts" style="color:#2f8bff">&nbsp;</div></div><div class="tile" style="--h:#22e39a"><div class="tl">Hit rate</div><div class="ts">since Sep 27</div><div class="tv w">—</div><div class="ts" style="color:#22e39a">all plays</div></div><div class="tile" style="--h:#ffc233"><div class="tl">Streak</div><div class="ts">current</div><div class="tv w">—</div><div class="ts" style="color:#ffc233">&nbsp;</div></div></div>
+  <div class="strip"><span class="empty">results show up here</span></div>
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>0 graded</span></div>
-<div class="recs"><div class="rc" style="--c1:#2f8bff;--c2:#22d3ee"><div class="rc-t">⚡ 2-LEG</div><div class="rc-r">0-0</div><div class="rc-p up">+$0</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ffc233;--c2:#ff8a00"><div class="rc-t">👑 3-LEG</div><div class="rc-r">0-0</div><div class="rc-p up">+$0</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#22e39a;--c2:#0fb87a"><div class="rc-t">🔒 LOCK</div><div class="rc-r">0-0</div><div class="rc-p up">+$0</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ff5a1f;--c2:#ff2a2a"><div class="rc-t">🐺 DOG</div><div class="rc-r">0-0</div><div class="rc-p up">+$0</div><div class="rc-s">no results yet</div></div></div>
+<div class="recs"><div class="rc" style="--c1:#2f8bff;--c2:#22d3ee"><div class="rc-t">⚡ 2-LEG</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ffc233;--c2:#ff8a00"><div class="rc-t">👑 3-LEG</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#22e39a;--c2:#0fb87a"><div class="rc-t">🔒 LOCK</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ff5a1f;--c2:#ff2a2a"><div class="rc-t">🐺 DOG</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div></div>
 <div class="sec"><h2><i>●</i> RECENT TICKETS</h2></div>
 <div class="list"><div class="empty">First results land after the first board settles.</div></div>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained Sep 27, 1:30 AM PT</span></div>
@@ -138,7 +140,7 @@ Ratings · form · rest · injuries · line moves — retrained after every fina
 Picks only — no bets placed · refreshes hourly · <a href="../">crypto engine →</a></div>
 </main>
 <script>
-(function(){var t=1790497849314,m=Math.max(0,Math.round((Date.now()-t)/60000));
+(function(){var t=1790497884676,m=Math.max(0,Math.round((Date.now()-t)/60000));
 var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
 document.getElementById("ago").textContent="Live · "+s;
 if(m>150)document.getElementById("dot").className="dot stale";
