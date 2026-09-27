@@ -62,7 +62,7 @@ def _leg(leg):
             "void": '<b class="lp">V</b>'}.get(res, "")
     why = " · ".join(E(r) for r in leg.get("reasons") or [])
     pub = leg.get("public")
-    tag = ('<span class="pub fade">🎭 FADING THE PUBLIC</span>' if pub == "fade" else
+    tag = ('<span class="pub fade">🤡 FADING THE PUBLIC</span>' if pub == "fade" else
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
     return f"""<div class="leg">
