@@ -149,6 +149,42 @@ def test_grading():
     assert picks[2]["status"] == "lost" and picks[2]["pnl"] == -100
 
 
+def test_post_when_settled_and_never_change():
+    now = datetime(2026, 9, 27, 12, 0, tzinfo=timezone.utc)                 # 5am PT
+    games, _ = fake_league("mlb", days=120)
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    slate = [(-140, 120, True), (150, -170, False), (-110, -110, True), (260, -320, False), (-125, 105, True),
+             (135, -155, True), (120, -140, False), (175, -205, True)]
+    for i, (h, a, known) in enumerate(slate):
+        gid = f"mlb:up{i}"
+        games[gid] = {**games["mlb:1"], "id": gid, "status": "pre", "home": str(2 * i % 16), "away": str((2 * i + 1) % 16),
+                      "home_name": f"H{i}", "away_name": f"A{i}", "home_score": "", "away_score": "",
+                      "start": (now + timedelta(hours=10)).strftime("%Y-%m-%dT%H:%MZ"),
+                      "ml_home": str(h), "ml_away": str(a), "ml_home_open": str(h), "ml_away_open": str(a),
+                      "sp_home": "Ace" if known else "", "sp_away": "Ace" if known else ""}
+    sd.fetch_injuries = lambda lg: {}
+    day = now.astimezone(sports.PT).date()
+    picks = []
+    sports.post_board(games, model, picks, now, day)
+    for p in picks:
+        if p["status"] == "open":
+            assert all(not l["waiting"] for l in p["legs"]), "posted plays only use settled games"
+        else:
+            assert p["status"] == "waiting" and any("starting pitcher" in w for w in p["waiting"])
+    posted = [dict(p) for p in picks if p["status"] == "open"]
+    sports.post_board(games, model, picks, now + timedelta(hours=1), day)
+    assert [p for p in picks if p["status"] == "open"] == posted, "a posted play never changes"
+    for g in games.values():                                                  # news arrives for one game
+        if g["id"] == "mlb:up1":
+            g["sp_home"] = g["sp_away"] = "Ace"
+    late = now + timedelta(hours=8)                                           # past every deadline (3h before)
+    sports.post_board(games, model, picks, late, day)
+    assert [p for p in picks if p["status"] == "open"][:len(posted)] == posted
+    assert all(p["status"] == "open" for p in picks) and len(picks) == 4
+    assert all(not l["waiting"] for p in picks for l in p["legs"])
+
+
 def test_full_cycle_offline():
     tmp = tempfile.mkdtemp()
     cwd = os.getcwd()
@@ -166,7 +202,6 @@ def test_full_cycle_offline():
                           "ml_home": str([-140, 120, -110, 160, 250, -125][i]), "ml_away": str([120, -140, -110, -190, -320, 105][i])}
         sd.save_games(games)
         sd.fetch_injuries = lambda lg: {}
-        sports.PICK_HOUR_PT = 0
         picks = sports.run(fetch=False)
         kinds = {p["kind"] for p in picks}
         assert {"lock", "dog"} <= kinds, kinds

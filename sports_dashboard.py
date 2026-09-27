@@ -4,7 +4,7 @@ Self-contained HTML (inline CSS/SVG, tiny JS for the "updated X min ago" light).
 import html
 import os
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 import sports_data as sd
@@ -37,7 +37,7 @@ def _time(iso):
 
 
 def _chip(status):
-    txt = {"open": "LIVE TICKET", "won": "CASHED ✓", "lost": "LOST", "push": "PUSH"}[status]
+    txt = {"open": "LOCKED IN 🔒", "won": "CASHED ✓", "lost": "LOST", "push": "PUSH"}[status]
     return f'<span class="chip {status}">{txt}</span>'
 
 
@@ -64,6 +64,11 @@ def _pick_card(kind, pk):
     if not pk:
         return f"""<section class="pk" style="--c1:{c1};--c2:{c2}"><div class="pk-h"><span class="pk-i">{ICON[kind]}</span>
 <span class="pk-l">{label}</span></div><div class="nopick">No play today — nothing on the slate fits the rules.</div></section>"""
+    if pk["status"] == "waiting":
+        why = " · ".join(E(w) for w in pk.get("waiting") or [])
+        return f"""<section class="pk waiting" style="--c1:{c1};--c2:{c2}"><div class="pk-h"><span class="pk-i">{ICON[kind]}</span>
+<span class="pk-l">{label}</span><span class="chip waiting">PICK COMING</span></div>
+<div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
     legs = "".join(_leg(leg) for leg in pk["legs"])
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
@@ -78,15 +83,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
     now = datetime.now(PT)
     today = now.date().isoformat()
     todays = {p["kind"]: p for p in picks if p["date"] == today}
-    if todays:
-        board = "".join(_pick_card(k, todays.get(k)) for k in LOOK)
-        board_date = now.strftime("%A, %B %-d")
-    else:
-        last = max((p["date"] for p in picks), default=None)
-        prev = {p["kind"]: p for p in picks if p["date"] == last} if last else {}
-        board = ('<div class="drop">🎯 Today\'s board drops at <b>8 AM PT</b></div>'
-                 + ("".join(_pick_card(k, prev.get(k)) for k in LOOK) if prev else ""))
-        board_date = now.strftime("%A, %B %-d") + (f" · showing {datetime.fromisoformat(last):%b %-d}" if prev else "")
+    board_date = now.strftime("%A, %B %-d")
+    drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
+    board = "".join(_pick_card(k, todays.get(k)) for k in LOOK) if todays else drop
+    tmr = (now + timedelta(days=1)).date()
+    tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
+    tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
+                + "".join(_pick_card(k, tomorrows[k]) for k in LOOK if k in tomorrows)) if tomorrows else ""
 
     done = [p for p in picks if p["status"] in ("won", "lost", "push")]
     done.sort(key=lambda p: (p["date"], p.get("settled", "")))
@@ -227,6 +230,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}
 .chip{{font-size:10.5px;font-weight:900;letter-spacing:.1em;padding:4px 8px;border-radius:999px;white-space:nowrap}}
+.lock{{font-size:12.5px;font-weight:800;color:var(--gold);margin:2px 0 4px}}
+.pk.waiting{{border-style:dashed}}
+.chip.waiting{{color:#0a0a0a;background:var(--gold)}}
 .chip.open{{color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}}
 .chip.won{{color:#04110b;background:var(--up)}} .chip.lost{{color:#fff;background:var(--dn)}} .chip.push{{color:#000;background:var(--gold)}}
 .pk-o{{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px}}
@@ -298,6 +304,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 </header>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board"><div class="trust">TRUST THE ALGORITHM!</div>{board}</div>
+{tomorrow}
 
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
