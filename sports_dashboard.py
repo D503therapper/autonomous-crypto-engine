@@ -41,38 +41,6 @@ def _chip(status):
     return f'<span class="chip {status}">{txt}</span>'
 
 
-FACTOR = {"form": "recent form", "rest": "rest", "b2b": "back-to-backs", "inj": "injuries"}
-KEY_NAME = {"mlb": "the pitching matchup", "nhl": "the goalie matchup", "nfl": "QB play", "ncaaf": "QB play"}
-
-
-def _lesson(league, change, i=0):
-    """Turn an internal tuning note ('trust 15% → 30%; rest weight +0.08 → +0.15') into one plain-talk lesson."""
-    import re
-    parts = change.split("; ")
-    for part in parts:                                  # what it learned about the game beats how it weighs Vegas
-        m = re.match(r"(\w+) weight ([+-]?[\d.]+) → ([+-]?[\d.]+)", part)
-        if m and (m.group(1) in FACTOR or m.group(1) == "key"):
-            name = KEY_NAME.get(league, "star players") if m.group(1) == "key" else FACTOR[m.group(1)]
-            more = abs(float(m.group(3))) > abs(float(m.group(2)))
-            say = (["learned {n} matters more than it thought", "{n} is carrying more weight now",
-                    "leaning harder on {n}", "caught on that {n} is a bigger deal"] if more else
-                   ["learned {n} matters less than it thought", "stopped overrating {n}", "{n} is carrying less weight now"])
-            return say[i % len(say)].format(n=name)
-        m = re.match(r"home edge (\d+) → (\d+)", part)
-        if m:
-            return f"home field counts {'more' if int(m.group(2)) > int(m.group(1)) else 'less'} than it thought"
-        m = re.match(r"reaction speed ([\d.]+) → ([\d.]+)", part)
-        if m:
-            return "reacts faster to hot and cold streaks" if float(m.group(2)) > float(m.group(1)) \
-                else "stopped overreacting to one-game flukes"
-    for part in parts:
-        m = re.match(r"trust (\d+)% → (\d+)%", part)
-        if m:
-            return "trusting its own reads more" if int(m.group(2)) > int(m.group(1)) \
-                else "tightened up — only fires when it's sure"
-    return None
-
-
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
@@ -186,43 +154,43 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     f'<span class="chip {p["status"]}">{tag}</span></div>')
     results = "".join(rows) or '<div class="empty">First results land after the first board settles.</div>'
 
-    # the brain, in a nutshell: how the engine improved itself today
+    # the brain, in a nutshell - only what actually happened, in our voice, rotating day to day
     params = model.get("params", {})
-    base = model.get("today") or {}
+    k = now.toordinal()
     lines = []
-    if base.get("date") == today:
-        new = max(0, model.get("finals_seen", 0) - base.get("finals", 0))
-        lines.append(f"Studied <b>{new:,}</b> new final score{'s' if new != 1 else ''} today and retrained on all of them.")
-
-    def acc(ps):
-        n = sum(p.get("eval_games", 0) for p in ps.values())
-        return sum(p["accuracy"] * p.get("eval_games", 0) for p in ps.values()) / n if n else None
-    now_acc = acc(params)
-    if now_acc is not None:
-        was = base.get("acc") or {}
-        common = {lg: params[lg] for lg in was if lg in params}
-        start = (sum(was[lg] * common[lg].get("eval_games", 0) for lg in common)
-                 / max(1, sum(p.get("eval_games", 0) for p in common.values()))) if common else None
-        delta = f' <span class="{"up" if now_acc >= start else "dn"}">({(now_acc - start) * 100:+.1f} pts today)</span>' if start else ""
-        lines.append(f"Picks the winner <b>{now_acc:.1%}</b> of the time across {len(params)} leagues{delta}.")
-    lessons = []
-    for e in reversed(model.get("log", [])):          # newest first, one lesson per league
-        if e["date"] != today or e["change"] in ("no change", "first tune") or any(l[0] == e["league"] for l in lessons):
-            continue
-        txt = _lesson(e["league"], e["change"], len(lessons))
-        if txt:
-            lessons.append((e["league"], txt))
-    if lessons:
-        lines.extend(f"{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}: {E(t)}" for lg, t in lessons[:3])
-    elif params:
-        lines.append("Didn't need to change a thing — the engine's dialed in.")
+    graded = [p for p in done if p.get("settled", "")[:10] >= (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%d")
+              and p["date"] in (today, (now - timedelta(days=1)).date().isoformat())]
+    w_, l_ = sum(p["status"] == "won" for p in graded), sum(p["status"] == "lost" for p in graded)
+    if w_ + l_ == 0:
+        lines.append(["⏳ Nothing graded yet today — games still cooking.", "⏳ Tickets are still live. Check back after the games.",
+                      "⏳ No results in yet. Sit tight."][k % 3])
+    elif l_ == 0:
+        lines.append([f"🔥 Perfect day — {w_}-0. Cashing tickets.", f"🔥 {w_}-0. Didn't miss.", f"🔥 Clean sweep, {w_}-0."][k % 3])
+    elif w_ >= l_:
+        lines.append([f"✅ Went {w_}-{l_}. Cashing tickets.", f"✅ {w_}-{l_} on the day. We eat.", f"✅ Winning day — {w_}-{l_}."][k % 3])
+    else:
+        lines.append([f"😤 Rough one, {w_}-{l_}. The engine's already studying the tape.",
+                      f"😤 {w_}-{l_}. Took some L's — it learns from every one.", f"😤 Off day at {w_}-{l_}. Back at it tomorrow."][k % 3])
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=30)).strftime("%Y-%m-%dT%H:%MZ")
+    fresh = {}
+    for g in (games or {}).values():
+        if g.get("status") == "final" and g.get("start", "") >= cutoff and (g.get("stype") or "?") in sd.REAL:
+            fresh[g["league"]] = fresh.get(g["league"], 0) + 1
+    if fresh:
+        parts = [f"{n} {sd.LEAGUES[lg][2]}" for lg, n in sorted(fresh.items(), key=lambda x: -x[1])]
+        what = ", ".join(parts[:-1]) + (" and " if len(parts) > 1 else "") + parts[-1]
+        lines.append([f"🎥 Studied the tape on last night's {what} games.", f"🎥 Broke down the film from {what} games.",
+                      f"🎥 Ran back {what} games and got sharper."][k % 3])
+    n = sum(p.get("eval_games", 0) for p in params.values())
+    if n:
+        a_ = sum(p["accuracy"] * p.get("eval_games", 0) for p in params.values()) / n
+        lines.append([f"🎯 Calling winners at a {a_:.1%} clip.", f"🎯 Hitting on {a_:.1%} of winners.",
+                      f"🎯 {a_:.1%} of winners called straight up."][k % 3])
     legs = [l for p in picks for l in p["legs"] if l.get("result") in ("won", "lost")]
     if legs:
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
-        lines.append(f"Self-check: said <b>{said:.0%}</b> of its legs would win — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
-    if not lines:
-        lines.append("Warming up — studying past seasons before the first board.")
+        lines.append(f"🧾 Receipts: said {said:.0%} of our legs would hit — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
     brain = '<div class="br self"><div class="bn">🧠 Today in a nutshell</div>' + "".join(f'<div class="bs nut">{x}</div>' for x in lines) + "</div>"
     tuned = model.get("tuned_on", "—")
 
