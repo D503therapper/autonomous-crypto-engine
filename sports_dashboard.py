@@ -387,6 +387,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
     if w_ + l_ == 0 and live_today:
         pass                                                      # the live results below speak for the day
+    elif any(p["date"] == today and p["kind"] != "eight" and p["status"] == "open" for p in picks):
+        lines.append(_rot(k, [f"⏳ {w_}-{l_} so far today — still got tickets live. We gon' see.",
+                              f"⏳ Sitting at {w_}-{l_} right now. Day ain't over — more tickets still cooking.",
+                              f"⏳ {w_}-{l_} so far. Still got action on the board — the day ain't done."]))
     elif w_ + l_ == 0:
         lines.append(["⏳ Nothing graded yet today — games still cooking.", "⏳ Tickets are still live. Check back after the games.",
                       "⏳ No results in yet. Sit tight."][k % 3])
@@ -408,12 +412,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"✅ {w_}-{l_}. Fed the whole squad today."]))
     else:
         lines.append(_rot(k, [f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' do better tomorrow.",
-                              f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
+                              f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back — we won't let y'all down.",
                               f"😤 {w_}-{l_}. Not our day — the engine's already studying the tape.",
                               f"😤 Took some L's today ({w_}-{l_}). Shake it off. We gon' be right back.",
                               f"😤 {w_}-{l_}. Today was trash, no sugarcoating it. Tomorrow we eat.",
                               f"😤 {w_}-{l_}. Vegas got us today. Enjoy it while it lasts.",
-                              f"😤 {w_}-{l_}. Rough one. Head up — we run it back tomorrow.",
+                              f"😤 {w_}-{l_}. Rough day. Keep your head up — we back at it tomorrow.",
                               f"😤 {w_}-{l_}. Bad day at the office. The algorithm's taking notes."]))
     # big hits (+300 and up, board or live): they get their own brag, right under the day's record
     big = [(p["american"], (E(_the(p["legs"][0]["team"], p["legs"][0]["league"])) if len(p["legs"]) == 1
@@ -436,7 +440,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         parts = [f"{n} {sd.LEAGUES[lg][2]}" for lg, n in sorted(fresh.items(), key=lambda x: -x[1])]
         what = ", ".join(parts[:-1]) + (" and " if len(parts) > 1 else "") + parts[-1]
         lines.append([f"🎥 Studied the tape on last night's {what} games.", f"🎥 Broke down the film from {what} games.",
-                      f"🎥 Ran back {what} games and got sharper."][k % 3])
+                      f"🎥 Went back over {what} games and got sharper."][k % 3])
     n = sum(p.get("eval_games", 0) for p in params.values())
     if n:
         a_ = sum((p.get("oos") or {}).get("acc", p["accuracy"]) * p.get("eval_games", 0) for p in params.values()) / n
@@ -452,8 +456,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
-        lines.append(_rot(k + len(e["team"]), [f"📡 We smacked {t} live bet ({o}). The algorithm never lies.",
-                                               f"📡 Live bet cashed: {t} at {o}. Told y'all — teams always be coming back.",
+        lines.append(_rot(k + len(e["team"]), [f"📡 We smacked that {t} live bet ({o}). The algorithm never lies.",
+                                               f"📡 Live bet cashed: {t} at {o}. Told y'all — never count a team out.",
                                                f"📡 {_cap(t)} live at {o}? Cashed. Trust the algorithm.",
                                                f"📡 Caught {t} live at {o} and they came through. Fuck yeah, let's go!",
                                                f"📡 {_cap(t)} live at {o} — CASHED. Everybody was jumping off, we jumped on."]))
@@ -480,7 +484,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
             "🧪 We just started and we're analyzing EVERYTHING — every game, every line, every comeback. The engine improves daily.",
             "🧪 Heads up: we're still new. The algorithm breaks down every result and upgrades itself every day. Stick with us."] if young else [
             "🧪 The algorithm studies every result and gets sharper every day. We never stop improving.",
-            "🧪 Engine's still leveling up daily. Every W and every L makes it smarter.",
+            "🧪 The engine's still leveling up daily. Every W and every L makes it smarter.",
             "🧪 We keep training this thing every single day. Better tomorrow than today — that's the deal.",
             "🧪 Always improving. The algorithm learns from every game — trust the process."]))
     brain = '<div class="br self"><div class="bn">🧠 Today in a nutshell</div>' + "".join(f'<div class="bs nut">{x}</div>' for x in lines) + "</div>"
