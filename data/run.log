@@ -1379,3 +1379,22 @@ DEX: $731.74 (-68.26) · Scammed: 0
 [2026-09-27 02:50 UTC] crypto/hold_btc  equity $502.07 (+0.4%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), NEAR 35 (35/0/0), TRUMP 29 (29/0/0), BTC 24 (24/0/0), AERO 21 (21/0/0)
    rebalance 2026-09-27: moved $185.25 from crypto/early_mover to the DEX account
+   footprint: SOL: footprint 3/4 (quiet+hikes+rising_lows) 48h +3.7%, 5 volume hikes, 67% quiet hours @ 121.25
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '84581.91', 'l': '83821.77', 'a': '84476.62', 'v': '1105.6321', 'vv': '93009973.48', 'c': '0.0050', 'b': '84477.54', 'k': '84477.55', 'oi': '0', 't': 1790477445088}
+   dex screen: PASS BNKR@base liq $2,912,485
+   >> dex/dex_hunter: BUY $170.74 of HOLDOWEEN@solana:qYCUicz2 @ 0.004019 (dex tier A momentum 1h +11% 6h +55% buys/sells 192/64 impact 0.09%)
+   dex scanner: bought HOLDOWEEN@solana on a refresh (1h +11%, buys/sells 192/64)
+   dex screen: REJECT GITLAWB@base liq $733,447 - is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: UNREACHABLE GULD@ethereum liq $1,802,005 - honeypot.is unreachable
+   dex scanner: 1,089 pools (solana 599 / base 252 / ethereum 238), refresh cycle 64s (hot 62s), 335 calls (40 feed, 429s 0, failed 0), 8,796 refreshed (103 no pair), +201 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 3 -> queued 1, screened 1 (passed 0), bought 1
+[2026-09-27 03:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $85.88 of ADA @ 0.252158, P/L $-3.77 (time limit)
+[2026-09-27 03:06 UTC] crypto/mover     equity $484.69 (-3.1%) 0 open  market UP
+[2026-09-27 03:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-27 03:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-27 03:06 UTC] crypto/social_heat equity $520.24 (+4.0%) 1 open  market UP
+[2026-09-27 03:06 UTC] crypto/breakout10 equity $501.95 (+0.4%) 2 open  market UP
+[2026-09-27 03:06 UTC] crypto/momentum  equity $504.27 (+0.9%) 4 open  market UP
+[2026-09-27 03:06 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-27 03:06 UTC] crypto/hold_btc  equity $502.07 (+0.4%) 1 open  market UP
+   social heat top: QNT 40 (40/0/0), NEAR 35 (35/0/0), TRUMP 29 (29/0/0), BTC 24 (24/0/0), PENGU 21 (21/0/0)
