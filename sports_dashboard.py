@@ -230,9 +230,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .sec span{{font-size:12px;color:var(--gold);font-weight:600}}
 .board{{position:relative}}
 .trust-wrap{{display:flex;justify-content:center;margin:14px 0 4px}}
-.trust{{transform:rotate(-2.5deg);white-space:nowrap;font-weight:900;font-style:italic;font-size:19px;letter-spacing:.12em;
-  padding:7px 26px;color:#0a0a0a;background:linear-gradient(90deg,#ffe08a,#ffc233 40%,#ff8a00);
-  clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);box-shadow:0 10px 30px -8px rgba(255,160,40,.7);text-shadow:0 1px 0 rgba(255,255,255,.35)}}
+.trust{{font-weight:900;font-style:italic;font-size:22px;letter-spacing:.14em;color:#fff;padding:0 6px 8px;position:relative}}
+.trust:after{{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:#e3121b;transform:skewX(-20deg)}}
 .drop{{text-align:center;font-weight:700;color:#fff;background:var(--card);border:1px dashed rgba(255,194,51,.55);border-radius:16px;padding:14px;margin-bottom:12px}}
 .drop b{{color:var(--gold)}}
 .pk{{position:relative;background:linear-gradient(165deg,color-mix(in srgb,var(--c1) 16%,var(--card2)) 0%,var(--card) 55%);border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);
@@ -320,7 +319,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="tag">SPORTS ENGINE</div>
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
-<div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM!</div></div>
+<div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
 {tomorrow}
