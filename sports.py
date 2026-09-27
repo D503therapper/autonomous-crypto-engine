@@ -283,7 +283,8 @@ def post_board(games, model, picks, now, day, force=False):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
     cands = candidates(games, model, now, day, injuries)
     settled = [c for c in cands if not c["waiting"]]
-    elo, used = None, set()                       # used: no repeated wording on one board
+    elo = None
+    used = {t for p in picks if p["date"] == iso for l in p["legs"] for t in l.get("bd_tags", [])}   # the board's memory
     new = []
     for kind, _ in KINDS:
         if kind in posted:
@@ -311,9 +312,12 @@ def post_board(games, model, picks, now, day, force=False):
                 outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
                 leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
             elo = elo or sm.ratings(games, model)
-            same = next((l for p in picks if p["date"] == iso for l in p["legs"]
-                         if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg)), None)
-            leg["breakdown"] = same["breakdown"] if same else sports_breakdown.breakdown(leg, games, elo, injuries, used)
+            same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
+                         if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)
+            if same:                                  # the same pick reads the same everywhere it shows up
+                leg["breakdown"], leg["bd_tags"] = same["breakdown"], same.get("bd_tags", [])
+            else:
+                leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
             leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
@@ -337,10 +341,15 @@ def add_breakdowns(games, model, picks):
     if not legs:
         return
     injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
-    elo, used, done = sm.ratings(games, model), set(), []
+    redo = {id(l) for l in legs}
+    used = {t for p in picks for l in p["legs"] if id(l) not in redo for t in l.get("bd_tags", [])}
+    elo, done = sm.ratings(games, model), []
     for leg in legs:
         same = next((l for l in done if _same_leg(l, leg)), None)
-        leg["breakdown"] = same["breakdown"] if same else sports_breakdown.breakdown(leg, games, elo, injuries, used)
+        if same:                                      # the same pick reads the same everywhere it shows up
+            leg["breakdown"], leg["bd_tags"] = same["breakdown"], same.get("bd_tags", [])
+        else:
+            leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
         leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])
         leg["bv"] = sports_breakdown.VERSION
         done.append(leg)
