@@ -1,0 +1,171 @@
+205 pools from results/dex_filter_pools.json.gz; 71 launched inside the window, 61 of them with hourly bars from their first 2 hours (only these can give < 6h entries)
+entry: 1h >= +10%, liq >= $100,000, vol24 >= $100,000; exit config.DEX['exit']; costs 0.3% fee + 1% slippage + impact per side, rugs -95%; 5-slot account
+window 2026-07-07..2026-09-26, halves split at 2026-09-03 15:00; rug rate of the 6h rule's entries 2.4% (the stress floor for young entries is 2x that)
+
+variant                               n  <6h    mean  median <=-70%  rug | young: mean  >=2x <=-70%   rug |    month    older    newer  maxDD || STRESS    month    older    newer  maxDD (+rugs)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+base: min age 6h (live)             381    0  +54.4%   -9.0%     6%   2% |           -                    |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+0)
+min age 1h                          384   28  +78.5%   -8.3%     6%   3% |     +597.3%   43%    25%    4% |    +7.5%   -26.3%   -28.5%   -53% || STRESS    +7.5%   -26.3%   -28.5%   -53% (+1)
+min age 2h                          384   28  +67.0%   -8.3%     6%   3% |     +439.5%   32%    25%    4% |    +7.5%   -26.3%   -28.5%   -53% || STRESS    +7.5%   -26.3%   -28.5%   -53% (+1)
+min age 3h                          384   28  +53.8%   -8.9%     6%   3% |     +258.8%   32%    25%    4% |    +7.5%   -26.3%   -28.5%   -53% || STRESS    +7.5%   -26.3%   -28.5%   -53% (+1)
+min age 4h                          382   16  +54.4%   -8.8%     6%   3% |     +173.2%   31%    25%    6% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 1h, young liq>=$150k        384   19  +75.9%   -8.3%     6%   3% |     +489.3%   37%    21%    5% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 1h, young liq>=$250k        382   12  +62.8%   -8.8%     6%   3% |     +294.9%   42%     8%    8% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 1h, young half size         384   28  +78.5%   -8.3%     6%   3% |     +597.3%   43%    25%    4% |    +7.5%   -26.3%   -19.4%   -53% || STRESS    +7.5%   -26.3%   -19.4%   -53% (+1)
+min age 2h, young liq>=$150k        384   19  +64.5%   -8.3%     6%   3% |     +259.1%   21%    21%    5% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 2h, young liq>=$250k        382   12  +61.8%   -8.8%     6%   3% |     +262.0%   25%     8%    8% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 2h, young half size         384   28  +67.0%   -8.3%     6%   3% |     +439.5%   32%    25%    4% |    +7.5%   -26.3%   -19.4%   -53% || STRESS    +7.5%   -26.3%   -19.4%   -53% (+1)
+min age 3h, young liq>=$150k        384   19  +55.3%   -8.9%     6%   3% |      +74.2%   21%    21%    5% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 3h, young liq>=$250k        382   12  +54.9%   -8.9%     6%   3% |      +42.9%   25%     8%    8% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 3h, young half size         384   28  +53.8%   -8.9%     6%   3% |     +258.8%   32%    25%    4% |    +7.5%   -26.3%   -19.4%   -53% || STRESS    +7.5%   -26.3%   -19.4%   -53% (+1)
+min age 4h, young liq>=$150k        382   10  +54.0%   -8.9%     6%   3% |      -20.0%   10%    30%   10% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 4h, young liq>=$250k        382    7  +53.9%   -8.9%     6%   3% |      -13.7%   14%    14%   14% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+min age 4h, young half size         382   16  +54.4%   -8.8%     6%   3% |     +173.2%   31%    25%    6% |    +7.5%   -26.3%    -0.1%   -53% || STRESS    +7.5%   -26.3%    -0.1%   -53% (+1)
+(n = trades; <6h = entries made at pool age < 6h; young = those entries only; month = compounding account; older / newer = before / after the split; STRESS = young rug rate doubled, worst young losers -> -95%)
+
+Entries at age < 6h (all variants pooled, unique pool + hour):
+  2026-07-26 18:00 CATE         age  1.5h liq $  213k -> +6023.5% peak 271.2x
+  2026-07-26 19:00 CATE         age  2.5h liq $  350k -> +2232.5% peak 100.3x
+  2026-07-26 20:00 CATE         age  3.5h liq $ 1006k ->  +179.0% peak  12.1x
+  2026-08-15 22:00 BASECAT      age  3.9h liq $  118k -> +2982.4% peak  75.8x
+  2026-08-24 18:00 STONKEX      age  2.7h liq $  101k -> +3971.4% peak  85.8x
+  2026-08-24 20:00 STONKEX      age  4.7h liq $  120k -> +2474.1% peak  61.3x
+  2026-08-27 02:00 FONE         age  1.9h liq $  266k ->  +252.9% peak  33.8x
+  2026-08-27 03:00 FONE         age  2.9h liq $  489k ->    +4.7% peak  10.0x
+  2026-08-27 04:00 FONE         age  3.9h liq $  644k ->   -40.7% peak   5.8x
+  2026-08-28 04:00 MOONKEY      age  3.2h liq $  162k ->   -94.1% peak   1.2x
+  2026-08-28 16:00 OTC          age  2.4h liq $  151k -> +1611.7% peak  55.6x
+  2026-08-28 17:00 OTC          age  3.4h liq $  205k ->  +880.8% peak  30.1x
+  2026-09-04 01:00 SPCXC        age  4.4h liq $ 5545k ->   -95.1% peak   1.8x  RUG
+  2026-09-04 03:00 STOCKER      age  4.0h liq $  149k ->   -84.5% peak   3.2x
+  2026-09-06 03:00 ZCAT         age  2.7h liq $  894k ->   +53.1% peak   2.5x
+  2026-09-06 05:00 ZCAT         age  4.7h liq $  967k ->   +29.7% peak   2.1x
+  2026-09-07 12:00 🎒            age  3.6h liq $  174k ->  +348.6% peak   7.7x
+  2026-09-07 14:00 🎒            age  5.6h liq $  256k ->  +108.3% peak   3.6x
+  2026-09-09 16:00 GTR          age  2.5h liq $  314k ->  +982.4% peak  18.6x
+  2026-09-09 17:00 GTR          age  3.5h liq $  431k ->  +474.8% peak   9.9x
+  2026-09-09 18:00 GTR          age  4.5h liq $  543k ->   +23.2% peak   1.9x
+  2026-09-10 02:00 BATON        age  5.5h liq $  278k ->   -49.4% peak   7.3x
+  2026-09-12 02:00 ALLINU       age  5.1h liq $  138k ->  +184.2% peak  18.5x
+  2026-09-14 22:00 MOTO         age  3.7h liq $  846k ->   -48.8% peak   1.1x
+  2026-09-15 22:00 ELON         age  2.6h liq $  164k ->    +6.3% peak   6.5x
+  2026-09-15 23:00 PAID         age  1.4h liq $ 1104k ->  +210.1% peak   6.6x
+  2026-09-15 23:00 ELON         age  3.6h liq $  193k ->   -23.4% peak   4.7x
+  2026-09-16 01:00 PAID         age  3.4h liq $ 1519k ->   +64.1% peak   3.5x
+  2026-09-16 01:00 ELON         age  5.6h liq $  275k ->   -62.4% peak   2.3x
+  2026-09-17 21:00 SOLCAT       age  1.7h liq $  128k ->   -92.6% peak   1.5x
+  2026-09-17 23:00 SOLCAT       age  3.7h liq $  128k ->   -92.6% peak   1.5x
+  2026-09-18 23:00 VCAT         age  2.4h liq $  153k ->   +41.8% peak   5.7x
+  2026-09-19 00:00 VCAT         age  3.4h liq $  277k ->   -56.4% peak   1.8x
+  2026-09-19 02:00 VCAT         age  5.4h liq $  259k ->   -50.0% peak   2.0x
+  2026-09-19 21:00 JEANPHIL     age  1.9h liq $  152k ->  +202.1% peak  10.0x
+  2026-09-19 22:00 JEANPHIL     age  2.9h liq $  227k ->   +36.8% peak   4.5x
+  2026-09-19 23:00 JEANPHIL     age  3.9h liq $  251k ->   +11.4% peak   3.7x
+  2026-09-22 06:00 GROK         age  5.4h liq $  100k ->  +292.4% peak   7.1x
+  2026-09-23 14:00 SPIKE        age  1.8h liq $  156k ->   -41.9% peak   2.0x
+  2026-09-23 16:00 SPIKE        age  3.8h liq $  197k ->   -63.4% peak   1.1x
+  2026-09-24 01:00 FAMILIARS    age  1.6h liq $  170k ->   -91.9% peak   1.7x
+  2026-09-24 03:00 GOON         age  4.4h liq $  101k ->   -10.3% peak   3.3x
+  2026-09-24 03:00 FAMILIARS    age  3.6h liq $  187k ->   -93.3% peak   1.4x
+  2026-09-24 05:00 FAMILIARS    age  5.6h liq $  169k ->   -91.8% peak   1.7x
+  2026-09-25 02:00 COLLECT      age  1.0h liq $  110k ->  +271.1% peak   7.0x
+  2026-09-25 03:00 COLLECT      age  2.0h liq $  117k ->  +224.8% peak   6.2x
+  2026-09-25 05:00 COLLECT      age  4.0h liq $  128k ->  +175.9% peak   5.2x
+  2026-09-25 09:00 ETN          age  1.1h liq $  130k ->   -91.7% peak   1.7x
+  2026-09-25 12:00 ETN          age  4.1h liq $  118k ->   -90.0% peak   2.1x
+  2026-09-25 17:00 EUNICE       age  4.0h liq $  158k ->    -2.0% peak   1.4x
+  2026-09-25 17:00 VOSF         age  3.9h liq $  102k ->   -78.3% peak   1.1x
+  2026-09-25 18:00 YAP          age  3.8h liq $  106k ->   +71.1% peak   5.5x
+  2026-09-25 19:00 EUNICE       age  6.0h liq $  145k ->   +17.4% peak   1.7x
+
+SLOT-FREE per-trade view (sum of trade returns per half, 1 unit each; survivorship makes young ones look better):
+  base: min age 6h (live)            older  +153.3  newer   +54.1
+  min age 1h                         older  +227.8  newer   +73.7
+  min age 2h                         older  +187.4  newer   +69.9
+  min age 3h                         older  +144.2  newer   +62.5
+  min age 4h                         older  +152.4  newer   +55.2
+  min age 1h, young liq>=$150k       older  +220.4  newer   +71.0
+  min age 1h, young liq>=$250k       older  +175.1  newer   +64.8
+  min age 1h, young half size        older  +227.8  newer   +73.7
+  min age 2h, young liq>=$150k       older  +180.0  newer   +67.7
+  min age 2h, young liq>=$250k       older  +172.6  newer   +63.3
+  min age 2h, young half size        older  +187.4  newer   +69.9
+  min age 3h, young liq>=$150k       older  +151.7  newer   +60.8
+  min age 3h, young liq>=$250k       older  +151.6  newer   +58.0
+  min age 3h, young half size        older  +144.2  newer   +62.5
+  min age 4h, young liq>=$150k       older  +153.3  newer   +53.1
+  min age 4h, young liq>=$250k       older  +153.3  newer   +52.7
+  min age 4h, young half size        older  +152.4  newer   +55.2
+
+RESAMPLED 5-slot account (300 runs, each drops a random 30% of the signals, same drop in every variant):
+variant                                      older med newer med maxDD med | beats 6h: older  newer
+base: min age 6h (live)                         -14.2%     +6.2%      -58% |              0%     0%
+min age 1h                                      -11.3%     +1.2%      -52% |             37%    25%
+min age 2h                                      -11.3%     -0.1%      -52% |             37%    25%
+min age 3h                                      -11.3%     -0.2%      -52% |             37%    24%
+min age 4h                                      -10.3%     +3.6%      -57% |             12%     3%
+min age 1h, young liq>=$150k                    -13.0%     +6.0%      -52% |             33%     2%
+min age 1h, young liq>=$250k                    -13.0%     +5.9%      -52% |             32%     1%
+min age 1h, young half size                     -11.3%     +9.0%      -52% |             35%    52%
+min age 2h, young liq>=$150k                    -13.1%     +6.0%      -52% |             31%     2%
+min age 2h, young liq>=$250k                    -13.1%     +5.9%      -52% |             31%     1%
+min age 2h, young half size                     -11.3%     +8.2%      -52% |             35%    51%
+min age 3h, young liq>=$150k                    -13.1%     +5.9%      -52% |             32%     1%
+min age 3h, young liq>=$250k                    -13.1%     +5.9%      -52% |             31%     1%
+min age 3h, young half size                     -11.3%     +8.2%      -52% |             35%    51%
+min age 4h, young liq>=$150k                    -14.2%     +5.0%      -57% |              0%     2%
+min age 4h, young liq>=$250k                    -14.2%     +5.0%      -57% |              0%     2%
+min age 4h, young half size                     -10.3%     +5.9%      -57% |             12%     5%
+min age 1h #stress                              -11.3%     +1.2%      -52% |             37%    25%
+min age 1h #hard                                -11.3%     +0.4%      -53% |             37%    23%
+min age 2h #stress                              -11.3%     -0.1%      -52% |             37%    25%
+min age 2h #hard                                -11.3%     -0.1%      -52% |             37%    25%
+min age 3h #stress                              -11.3%     -0.2%      -52% |             37%    24%
+min age 3h #hard                                -11.3%     -0.4%      -52% |             37%    24%
+min age 4h #stress                              -10.3%     +3.6%      -57% |             12%     3%
+min age 4h #hard                                -10.3%     +3.6%      -57% |             12%     2%
+min age 1h, young liq>=$150k #stress            -13.0%     +6.0%      -52% |             33%     2%
+min age 1h, young liq>=$150k #hard              -13.0%     +6.0%      -52% |             33%     2%
+min age 1h, young liq>=$250k #stress            -13.0%     +5.9%      -52% |             32%     1%
+min age 1h, young liq>=$250k #hard              -13.0%     +5.9%      -52% |             32%     1%
+min age 1h, young half size #stress             -11.3%     +9.0%      -52% |             35%    52%
+min age 1h, young half size #hard               -11.3%     +9.0%      -52% |             35%    51%
+min age 2h, young liq>=$150k #stress            -13.1%     +6.0%      -52% |             31%     2%
+min age 2h, young liq>=$150k #hard              -13.1%     +6.0%      -52% |             31%     2%
+min age 2h, young liq>=$250k #stress            -13.1%     +5.9%      -52% |             31%     1%
+min age 2h, young liq>=$250k #hard              -13.1%     +5.9%      -52% |             31%     1%
+min age 2h, young half size #stress             -11.3%     +8.2%      -52% |             35%    51%
+min age 2h, young half size #hard               -11.3%     +8.2%      -52% |             35%    51%
+min age 3h, young liq>=$150k #stress            -13.1%     +5.9%      -52% |             32%     1%
+min age 3h, young liq>=$150k #hard              -13.1%     +5.9%      -52% |             32%     1%
+min age 3h, young liq>=$250k #stress            -13.1%     +5.9%      -52% |             31%     1%
+min age 3h, young liq>=$250k #hard              -13.1%     +5.9%      -52% |             31%     1%
+min age 3h, young half size #stress             -11.3%     +8.2%      -52% |             35%    51%
+min age 3h, young half size #hard               -11.3%     +7.7%      -52% |             35%    51%
+min age 4h, young liq>=$150k #stress            -14.2%     +5.0%      -57% |              0%     2%
+min age 4h, young liq>=$150k #hard              -14.2%     +4.6%      -57% |              0%     1%
+min age 4h, young liq>=$250k #stress            -14.2%     +5.0%      -57% |              0%     2%
+min age 4h, young liq>=$250k #hard              -14.2%     +5.0%      -57% |              0%     2%
+min age 4h, young half size #stress             -10.3%     +5.9%      -57% |             12%     5%
+min age 4h, young half size #hard               -10.3%     +5.9%      -57% |             12%     5%
+(#stress = young rug rate doubled; #hard = young <= -70% rate doubled, the extra losers at -95%)
+
+VERDICT (apply only if: monthly better in BOTH halves - the single account AND the resampled median -, max drawdown no more than 5 points deeper, and the STRESS run still beats the 6h rule in both halves)
+  min age 1h                         fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 2h                         fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 3h                         fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 4h                         fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 1h, young liq>=$150k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 1h, young liq>=$250k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 1h, young half size        fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, resampled newer, resampled stress both
+  min age 2h, young liq>=$150k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 2h, young liq>=$250k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 2h, young half size        fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, resampled newer, resampled stress both
+  min age 3h, young liq>=$150k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 3h, young liq>=$250k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+  min age 3h, young half size        fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, resampled newer, resampled stress both
+  min age 4h, young liq>=$150k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, NOT resampled older, NOT resampled newer, NOT resampled stress both
+  min age 4h, young liq>=$250k       fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, NOT resampled older, NOT resampled newer, NOT resampled stress both
+  min age 4h, young half size        fail  NOT older better, NOT newer better, DD ok, NOT stress older, NOT stress newer, resampled older, NOT resampled newer, NOT resampled stress both
+
+RESULT: no variant passed - keep min age 6h

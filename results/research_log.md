@@ -291,3 +291,32 @@ Decision: NO filter passed (fewer -70% losers AND no deeper drawdown AND about e
 AND no big winner / legend lost). config.DEX / dex.py unchanged. GENO is the stake-sized risk the strategy accepts (20%
 stake = the loss limit). Re-run with --offline on results/dex_filter_pools.json.gz or re-trigger the workflow as the
 registry grows. Caveats: no buys/sells history, survivorship (rug rates are floors), liquidity estimated.
+
+## 2026-09-27 - DEX minimum-age study (results/dex_age_study.txt) -> NO CHANGE (min age stays 6h)
+Question: every big DEX mover missed on 2026-09-27 afternoon was younger than the 6h minimum age (NEARPAD +195% at
+1-3h, liq $65-120k; METAMUSE +186% at 1-2h; VAULT +86% < 1h; GTA 6 COIN +64% at 2h). Raising the age hurt
+(dex_filter_study); does LOWERING it to 1h / 2h / 3h / 4h help?
+Method: dex_age_study.py, offline on results/dex_filter_pools.json.gz (205 pools, 2026-07-07..09-26; 61 of the 71
+pools launched inside the window have hourly bars from their first 2 hours, so < 6h entries are visible; the first bar
+counts, 1h change = its close / open). Live entry (1h >= +10%, liq / vol24 >= $100k) + live exit, 0.3% fee + 1%
+slippage + impact per side, rugs -95%, 5-slot compounding account, halves split 2026-09-03. Variants: min age
+1/2/3/4h; young (< 6h) entries only at liq >= $150k / $250k; young entries at half size. Rug stress: young rug rate
+doubled (worst young losers -> -95%), and a harsh one doubling the young <= -70% rate. Because the 5-slot account
+takes only ~32 of ~380 signals (14-day holds keep slots full), a resampled account was added too (300 runs, each
+drops a random 30% of signals, same drop in every variant).
+Result:
+  6h (live):          381 trades, account +7.5%/mo (older -26.3%, newer -0.1%), maxDD -53%; resampled median -14.2% / +6.2%
+  1h / 2h / 3h:       +28 young entries (mean +597% / +440% / +259%, >=2x 43/32/32%, <=-70% 25%, rug 4%);
+                      account +7.5%/mo, older -26.3% (same), newer -28.5% (WORSE: young SOLCAT -93% took the slot
+                      KITTY +115% had), maxDD -53%; resampled -11.3% / ~0% (newer worse)
+  4h:                 16 young entries, account identical to 6h; resampled -10.3% / +3.6% (newer worse)
+  young liq $150k/$250k: fewer young losers (<=-70% 21% / 8%) but account = 6h exactly; resampled newer ~equal-worse
+  young half size (1-3h): account older same, newer -19.4% (worse); resampled -11.3% / +8.2..9.0% (better, also
+                      under both stresses) - the only near-miss
+Young entries are the lottery tail: CATE (+6024% at 1.5h), STONKEX, BASECAT, OTC, GTR carry the mean, but 25% of
+them lost >= 70% (6% for >= 6h entries: SOLCAT, FAMILIARS, ETN, MOONKEY, STOCKER, VOSF). And these rates are FLOORS: the
+dump only holds pools the 6h rule also traded, so pools that pumped at 2h and died before 6h are missing.
+Decision: NO variant improved the monthly return in BOTH halves of the actual account; config.DEX / dex.py unchanged,
+scam checks unchanged. The account barely changes because the slots are almost always full when a young pool pumps.
+Watch: "young at half size" won the resampled account in both halves and both stress tests - re-test when the live
+snapshots (data/dex/snapshots.csv) hold enough real < 6h pools, incl. the ones that died young (no survivorship).
