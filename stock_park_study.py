@@ -156,6 +156,11 @@ HDR = (f"{'variant':<26} {'CAGR':>7} {'avg/mo':>7} {'maxDD':>6} {'worstMo':>7} {
        f"{'invested':>8} {'rsi2 trd':>8} {'park ord':>8} {'$500 ->':>9}")
 
 
+# names in today's universe that were picked with hindsight (the big winners of the last decade / late listings)
+HINDSIGHT = {"NVDA", "TSLA", "PLTR", "COIN", "MSTR", "AMD", "AVGO", "META", "NFLX", "UBER"}
+ROBUST = ["rsi2 live (5x18%)", "rsi2 + park SPY", "rsi2 + park QQQ", "rsi2 5x20%", "rsi2 3x33%", "rsi2 2x50%"]
+
+
 def row(ctx, name, res, start, end):
     rets, expo, trades, porders = res
     st = lab.stats(rets, expo, trades, ctx.month[start:end], ctx.ppy)
@@ -209,6 +214,18 @@ def main():
             notes.append(f"{half.split()[0].lower()}: CAGR {st['cagr']:+.1%} vs {b['cagr']:+.1%}, "
                          f"DD {st['mdd']:.0%} vs SPY {spy['mdd']:.0%}")
         print(f"{'PASS' if ok else 'fail'}  {v['name']:<26} " + " | ".join(notes))
+    print("\n=== ROBUSTNESS: the variants above on the universe WITHOUT the hindsight names "
+          f"({', '.join(sorted(HINDSIGHT))}), and at 3x the cost (0.15%/side) ===")
+    ctx2 = lab.Ctx({s: v for s, v in prices.items() if s not in HINDSIGHT}, "stocks", "SPY")
+    for label, s0, s1 in spans[:2]:
+        print(f"\n--- {label}")
+        print(HDR)
+        for v in VARIANTS:
+            if v["name"] in ROBUST:
+                print(row(ctx2, v["name"] + " -hs", simulate(ctx2, v, s0, s1), s0, s1)[1])
+        for v in VARIANTS:
+            if v["name"] in ROBUST:
+                print(row(ctx, v["name"] + " 3xcost", simulate(ctx, v, s0, s1, cost=3 * COST), s0, s1)[1])
     print("\nCaveat: the universe is TODAY's list (NVDA, TSLA, PLTR, MSTR, COIN ... chosen with hindsight); names "
           "join when their data starts. Absolute rsi2 returns are a ceiling; the SPY/QQQ parking leg has no such bias.")
 
