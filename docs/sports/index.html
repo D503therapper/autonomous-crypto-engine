@@ -49,6 +49,9 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .pk-i{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}
 .pk-l{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}
 .chip{font-size:10.5px;font-weight:900;letter-spacing:.1em;padding:4px 8px;border-radius:999px;white-space:nowrap}
+.lock{font-size:12.5px;font-weight:800;color:var(--gold);margin:2px 0 4px}
+.pk.waiting{border-style:dashed}
+.chip.waiting{color:#0a0a0a;background:var(--gold)}
 .chip.open{color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}
 .chip.won{color:#04110b;background:var(--up)} .chip.lost{color:#fff;background:var(--dn)} .chip.push{color:#000;background:var(--gold)}
 .pk-o{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px}
@@ -120,7 +123,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 </header>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>Sunday, September 27</span></div>
 <div class="board"><div class="trust">TRUST THE ALGORITHM!</div><section class="pk open" style="--c1:#2f8bff;--c2:#22d3ee">
-  <div class="pk-h"><span class="pk-i">⚡</span><span class="pk-l">2-LEG OF THE DAY</span><span class="chip open">LIVE TICKET</span></div>
+  <div class="pk-h"><span class="pk-i">⚡</span><span class="pk-l">2-LEG OF THE DAY</span><span class="chip open">LOCKED IN 🔒</span></div>
   <div class="pk-o"><span class="big">+545</span>
     <span class="pay">$100 wins <b>$545</b></span></div>
   <div class="leg">
@@ -137,7 +140,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   
 </div>
 </section><section class="pk open" style="--c1:#ffc233;--c2:#ff8a00">
-  <div class="pk-h"><span class="pk-i">👑</span><span class="pk-l">3-LEG OF THE DAY</span><span class="chip open">LIVE TICKET</span></div>
+  <div class="pk-h"><span class="pk-i">👑</span><span class="pk-l">3-LEG OF THE DAY</span><span class="chip open">LOCKED IN 🔒</span></div>
   <div class="pk-o"><span class="big">+1041</span>
     <span class="pay">$100 wins <b>$1,041</b></span></div>
   <div class="leg">
@@ -160,7 +163,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   
 </div>
 </section><section class="pk open" style="--c1:#22e39a;--c2:#0fb87a">
-  <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip open">LIVE TICKET</span></div>
+  <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip open">LOCKED IN 🔒</span></div>
   <div class="pk-o"><span class="big">-115</span>
     <span class="pay">$100 wins <b>$87</b></span></div>
   <div class="leg">
@@ -171,7 +174,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   
 </div>
 </section><section class="pk open" style="--c1:#ff5a1f;--c2:#ff2a2a">
-  <div class="pk-h"><span class="pk-i">🐺</span><span class="pk-l">DOG OF THE DAY</span><span class="chip open">LIVE TICKET</span></div>
+  <div class="pk-h"><span class="pk-i">🐺</span><span class="pk-l">DOG OF THE DAY</span><span class="chip open">LOCKED IN 🔒</span></div>
   <div class="pk-o"><span class="big">+425</span>
     <span class="pay">$100 wins <b>$425</b></span></div>
   <div class="leg">
@@ -182,6 +185,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   
 </div>
 </section></div>
+
 
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
@@ -202,7 +206,7 @@ Ratings · form · rest · injuries · line moves — retrained after every fina
 Picks only — no bets placed · refreshes hourly · <a href="../">crypto engine →</a></div>
 </main>
 <script>
-(function(){var t=1790498752080,m=Math.max(0,Math.round((Date.now()-t)/60000));
+(function(){var t=1790499116459,m=Math.max(0,Math.round((Date.now()-t)/60000));
 var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
 document.getElementById("ago").textContent="Live · "+s;
 if(m>150)document.getElementById("dot").className="dot stale";
