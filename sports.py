@@ -23,6 +23,7 @@ import sports_breakdown
 import sports_data as sd
 import sports_model as sm
 import sports_players as sp
+import sports_news
 import sports_weather
 
 DATA = sd.DATA
@@ -100,7 +101,8 @@ def _reasons(side, f, g, league, params):
                         ("bye", "coming off a bye"), ("short", "opponent on a short week")):
         if f.get(name, 0) * s > 0 and w.get(name, 0) >= 0.1:
             out.append((0.4 + w[name], label))
-    for name, label in (("alt", "altitude edge"), ("cold", "cold-weather edge"), ("weather", "nasty weather helps us")):
+    for name, label in (("alt", "altitude edge"), ("cold", "cold-weather edge"), ("weather", "nasty weather helps us"),
+                        ("travel", "opponent's body clock is off")):
         if f.get(name, 0) * s > 0.05 and w.get(name, 0) >= 0.1:
             out.append((0.4 + w[name] * abs(f[name]), label))
     if w.get("letdown", 0) <= -0.1 and f.get("letdown", 0) * s < 0:      # blowout winners keep rolling (NFL/NBA)
@@ -152,6 +154,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # the engine's own read without the line move: sharp money alone can never carry a pick
         ph_own = mkt if key_out["home"] or key_out["away"] else sm.final_p({**params, "move_w": 0.0}, f, g)
         waiting = waiting_on(g, injuries)
+        news = sports_news.load()
+        drama = {side: sports_news.drama(news, lg, g[side]) for side in ("home", "away")}
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
             if n_out[side] - n_out[other] > MAX_EXTRA_OUT:
@@ -159,7 +163,10 @@ def candidates(games, model, now=None, day=None, injuries=None):
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp,
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
-                    "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", "")}
+                    "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
+                    "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1]}
+            if base["their_drama"]:
+                base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
             odds = int(g[f"ml_{side}"])
             p = ph if side == "home" else 1 - ph
             p_own = ph_own if side == "home" else 1 - ph_own
@@ -182,7 +189,7 @@ INTL_MIN_EDGE = 0.02           # overseas games are weird: they need twice the u
 def good(c):
     """A real play: value on our numbers - from the engine's own read, not just the line moving - and at least one
     reason. Anything else is filler, and filler never goes up."""
-    need = INTL_MIN_EDGE if c.get("intl") else MIN_EDGE
+    need = INTL_MIN_EDGE if c.get("intl") or c.get("our_drama") else MIN_EDGE   # overseas / our own drama: 2x value
     return c["edge"] >= need and c.get("edge_own", c["edge"]) >= need and bool(c.get("reasons"))
 
 
@@ -398,6 +405,7 @@ def run(repick=False, fetch=True):
         t0 = time.time()
         filled, venues = sports_weather.sync(games)
         print(f"weather: {filled} games got weather, {venues} new stadiums located, {time.time() - t0:.0f}s")
+        print(f"news: {sports_news.sync()} new drama tags")
     else:
         games = sd.load_games()
     sp.CACHE = sp.load()

@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 15          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 16          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -295,6 +295,30 @@ def breakdown(leg, games, elo, injuries, used=None):
                                  f"🌬️ {what}. Ugly weather drags everybody down to the same level.",
                                  f"🌧️ Weather's nasty ({what}). Anything can happen in the slop."]))
         said.add("nasty weather helps us")
+    if "opponent's body clock is off" in rsn:
+        out.append(v.say("jetlag", [f"🕐 {_cap(the_them)} crossed a few time zones for this one. Body clock's all messed up.",
+                                     f"🕐 Jet-lag game for {the_them} — their bodies think it's a different time.",
+                                     f"🕐 Long trip for {the_them}, time zones and all. Legs gonna be heavy."]))
+        said.add("opponent's body clock is off")
+    drama_r = next((r for r in rsn if r.startswith("opponent drama:")), None)
+    if drama_r and leg.get("their_drama"):
+        ev = leg["their_drama"][0]
+        kind = ev["kind"]
+        lines = {"coach fired": [f"🧯 {_cap(the_them)} just fired their coach. Locker room's a mess.",
+                                 f"🧯 Coaching change for {the_them} — interim guy, total chaos."],
+                 "suspension": [f"🧯 {_cap(the_them)} got a suspension hanging over them: \"{ev['headline']}\"",
+                                f"🧯 Suspension news for {the_them}. That shakes a team up."],
+                 "legal trouble": [f"🧯 {_cap(the_them)} got off-field drama going on: \"{ev['headline']}\"",
+                                   f"🧯 Legal mess around {the_them} this week. Distractions are real."],
+                 "family/personal": [f"🧯 {_cap(the_them)} dealing with some personal stuff: \"{ev['headline']}\"",
+                                     f"🧯 Heavy week for {the_them} off the field. Hard to lock in."],
+                 "illness": [f"🤒 Sickness going around {the_them}: \"{ev['headline']}\"",
+                             f"🤒 {_cap(the_them)} got guys under the weather."],
+                 "trade drama": [f"🧯 Trade drama in {the_them}' locker room: \"{ev['headline']}\"",
+                                 f"🧯 {_cap(the_them)} got a guy wanting out. Locker room's split."]}.get(kind)
+        if lines:
+            out.append(v.say("drama_" + kind.replace("/", "_").replace(" ", "_"), lines))
+        said.add(drama_r)
     if "coming off a bye" in rsn:
         out.append(v.say("bye", [f"🛌 {us} are fresh off a bye — rested and game-planned up.",
                                   f"🛌 Extra week to prep for {us}. That matters.",
@@ -476,6 +500,7 @@ WHY = {   # the pick's reasons, said as a quick "because"
     "opponent missing key players": "{them} are banged up",
     "revenge game": "they owe these guys one",
     "altitude edge": "{them} gonna be sucking wind up there",
+    "opponent's body clock is off": "{them} are playing on jet lag",
     "cold-weather edge": "{them} aren't built for the cold",
     "nasty weather helps us": "sloppy weather keeps it close",
     "rolling off a blowout win": "they're rolling off a blowout",

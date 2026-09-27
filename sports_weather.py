@@ -48,7 +48,7 @@ def _get(url):
 
 
 def geocode(city, state, country):
-    """(lat, lon, elevation_m) for a stadium's city, or None."""
+    """(lat, lon, elevation_m, timezone) for a stadium's city, or None."""
     if not city:
         return None
     d = _get(GEO.format(q=urllib.parse.quote(city)))
@@ -62,7 +62,7 @@ def geocode(city, state, country):
                 (country in ("", "USA", "United States")) == (r.get("country_code") == "US"),
                 r.get("population") or 0)
     r = max(res, key=score)
-    return r["latitude"], r["longitude"], r.get("elevation") or 0.0
+    return r["latitude"], r["longitude"], r.get("elevation") or 0.0, r.get("timezone") or ""
 
 
 def _key(g):
@@ -76,17 +76,25 @@ def sync(games, budget_s=240):
         with open(PATH) as f:
             venues = json.load(f)
     deadline = time.time() + budget_s
-    need = sorted({_key(g) for g in games.values() if g.get("city")} - set(venues))
+    need = sorted(k for k in {_key(g) for g in games.values() if g.get("city")}
+                  if k not in venues or (venues[k] and len(venues[k]) < 4))          # new, or cached before time zones
     for k in need:
         if time.time() > deadline:
             break
         city, state, country = k.split("|")
         venues[k] = geocode(city, state, country)
-    # elevation on every game
+    # elevation + the stadium's UTC offset (for body-clock travel) on every game
+    from zoneinfo import ZoneInfo
     for g in games.values():
         v = venues.get(_key(g))
         if v and g.get("elev", "") == "":
             g["elev"] = round(v[2])
+        if v and len(v) > 3 and v[3] and g.get("tzo", "") == "":
+            try:
+                at = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+                g["tzo"] = round(at.astimezone(ZoneInfo(v[3])).utcoffset().total_seconds() / 3600, 1)
+            except Exception:                                  # noqa: BLE001
+                pass
     # weather: outdoor games missing it, grouped by venue (one request per venue per date span)
     todo = defaultdict(list)
     today = datetime.now(timezone.utc).date()
@@ -101,7 +109,7 @@ def sync(games, budget_s=240):
     for k, items in todo.items():
         if time.time() > deadline:
             break
-        lat, lon, _ = venues[k]
+        lat, lon = venues[k][0], venues[k][1]
         days = {}
         past = [d for d, _ in items if d < today - timedelta(days=5)]
         if past:
