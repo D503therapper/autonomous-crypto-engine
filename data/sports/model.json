@@ -450,24 +450,24 @@
    "trust": 0.05685823322466984
   },
   {
-   "accuracy": 0.6632,
-   "change": "trust 20% \u2192 26%; form weight +0.14 \u2192 -0.00; rest weight -0.05 \u2192 +0.09; key weight +0.14 \u2192 +0.19; revenge weight +0.22 \u2192 +0.06; letdown weight -0.11 \u2192 -0.01; bye weight -0.20 \u2192 -0.08; intl weight +0.05 \u2192 +0.36; alt weight -0.07 \u2192 +0.19; travel weight +0.19 \u2192 +0.29",
+   "accuracy": 0.6662,
+   "change": "trust 20% \u2192 23%; form weight +0.14 \u2192 +0.00; rest weight -0.05 \u2192 +0.08; key weight +0.14 \u2192 +0.19; revenge weight +0.22 \u2192 +0.06; letdown weight -0.11 \u2192 -0.02; bye weight -0.20 \u2192 -0.08; intl weight +0.05 \u2192 +0.36; alt weight -0.07 \u2192 +0.21",
    "date": "2026-09-27",
    "games": 891,
    "hfa": 20,
    "k": 30.0,
    "league": "nfl",
-   "logloss_final": 0.5954,
+   "logloss_final": 0.5958,
    "logloss_market": 0.5999,
-   "logloss_own": 0.6202,
+   "logloss_own": 0.6209,
    "market_accuracy": 0.6876,
-   "move_w": 0.14287582099250504,
+   "move_w": 0.1403289672158065,
    "odds_games": 589,
-   "trust": 0.25594553664303366
+   "trust": 0.23423704771163845
   },
   {
-   "accuracy": 0.7333,
-   "change": "trust 7% \u2192 9%; form weight -0.36 \u2192 -0.48; rest weight -0.05 \u2192 -0.31; key weight +0.30 \u2192 +0.23; revenge weight +0.04 \u2192 +0.10; letdown weight -0.07 \u2192 -0.19; bye weight -0.08 \u2192 +0.01; intl weight -0.33 \u2192 -0.22; travel weight -0.10 \u2192 -0.25",
+   "accuracy": 0.7344,
+   "change": "trust 7% \u2192 10%; form weight -0.36 \u2192 -0.48; rest weight -0.05 \u2192 -0.31; key weight +0.30 \u2192 +0.23; revenge weight +0.04 \u2192 +0.10; letdown weight -0.07 \u2192 -0.19; bye weight -0.08 \u2192 +0.00; intl weight -0.33 \u2192 -0.22; travel weight -0.10 \u2192 -0.27",
    "date": "2026-09-27",
    "games": 2205,
    "hfa": 80,
@@ -475,11 +475,11 @@
    "league": "ncaaf",
    "logloss_final": 0.4937,
    "logloss_market": 0.4957,
-   "logloss_own": 0.521,
+   "logloss_own": 0.5209,
    "market_accuracy": 0.7503,
-   "move_w": -0.13174621266752903,
+   "move_w": -0.13139920567401614,
    "odds_games": 725,
-   "trust": 0.09461247573899383
+   "trust": 0.09641237734985034
   },
   {
    "accuracy": 0.6944,
@@ -498,7 +498,7 @@
    "trust": 0.2354376652088552
   },
   {
-   "accuracy": 0.5744,
+   "accuracy": 0.5756,
    "change": "trust 25% \u2192 33%; rest weight +0.10 \u2192 -0.03; alt weight -0.08 \u2192 +0.18; travel weight +0.03 \u2192 -0.12",
    "date": "2026-09-27",
    "games": 9839,
@@ -509,9 +509,9 @@
    "logloss_market": 0.6707,
    "logloss_own": 0.6727,
    "market_accuracy": 0.5756,
-   "move_w": -0.0910527995354806,
+   "move_w": -0.09102605016192389,
    "odds_games": 900,
-   "trust": 0.3255309949844912
+   "trust": 0.32571788445148425
   },
   {
    "accuracy": 0.5533,
@@ -531,7 +531,7 @@
   },
   {
    "accuracy": 0.6722,
-   "change": "trust 6% \u2192 5%; form weight +0.02 \u2192 -0.04; alt weight -0.46 \u2192 -0.16",
+   "change": "trust 6% \u2192 5%; form weight +0.02 \u2192 -0.04; alt weight -0.46 \u2192 -0.04",
    "date": "2026-09-27",
    "games": 18841,
    "hfa": 80,
@@ -539,9 +539,9 @@
    "league": "ncaab",
    "logloss_final": 0.5636,
    "logloss_market": 0.5661,
-   "logloss_own": 0.5884,
+   "logloss_own": 0.5886,
    "market_accuracy": 0.6837,
-   "move_w": -0.15990815556246157,
+   "move_w": -0.16012817075185376,
    "odds_games": 664,
    "trust": 0.04864986310359121
   },
@@ -635,7 +635,7 @@
    "league": "ncaab",
    "logloss_final": 0.5636,
    "logloss_market": 0.5661,
-   "logloss_own": 0.5884,
+   "logloss_own": 0.5886,
    "market_accuracy": 0.6837,
    "move_w": -0.1634069215604465,
    "odds_games": 664,
@@ -903,7 +903,7 @@
     -0.22986836586147577
    ],
    "weights": {
-    "alt": 0.186,
+    "alt": 0.21,
     "b2b": 0.0,
     "bye": -0.027,
     "cold": 0.0,
