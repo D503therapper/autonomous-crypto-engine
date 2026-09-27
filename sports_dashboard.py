@@ -345,10 +345,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     grades = "".join(grade(*TIER_LOOK[t], [p["status"] for p in by_tier[t]], [p["status"] for p in by_tier[t] if p["date"] == today])
                      for t in ("lock", "value", "lean"))
     grades += grade("📡 LIVE", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
-    # by sport: just our hit rate - every graded leg (locks, value, leans; the 8-leg lottery ticket stays out) + live bets
+    # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
     res = [(l["league"], l["result"]) for p in picks if p["kind"] != "eight" for l in p["legs"] if l.get("result") in ("won", "lost")]
-    res += [(e.get("league"), e["result"]) for e in lrs]
     try:
         with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
             res += [("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or [] if l.get("result") in ("won", "lost")]
