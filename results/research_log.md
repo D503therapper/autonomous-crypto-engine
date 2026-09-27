@@ -23,6 +23,16 @@ FIX: code 1/2/3 accepted; a missing GoPlus field is "unknown", never "0": sell-s
 missing mint / owner / pause / blacklist / proxy fields reject (screen still runs honeypot.is for the full reason list).
 Open: a source for contract powers of 0xef native tokens (none free found yet); watch rejected_followup for them.
 
+### NEXT (owner, 2026-09-27) - Profit floor below 2x (TEXTIT: +94% peak -> -24% within 2h, no protection)
+Test on dex_runner/legends data: once up +50% never below break-even; once +75% lock +25%; vs current (trail only
+after 2x at day 14 / 0.95 trail). Keep only if monthly return holds in both halves AND the legends still get caught.
+
+### QUEUED (owner, 2026-09-27) - bigger bets on proven runners, account brake, big-win playbook
+1. Pyramiding: add to a held coin once proven (>=14d old, >=2x, big liquidity/holders, or listed on a major
+   exchange) with a trail protecting it; does it beat no-add without Luna-style wipeouts?
+2. Account-level brake: stop new buys / tighten exits after a 20-25% drawdown from the account high - test levels.
+3. Big-win playbook: take the stake back at 2x, moon bag on the 40% trail, bank chunks at milestones; tax set-aside.
+
 ### NEXT (first) - Re-screen "safety data" exits: are they selling good coins? (2026-09-27)
 All 4 DEX sales so far were emergency exits on re-screen DATA flags (holders/LP holders unknown, RugCheck
 "lp locked 0%"), none on a real rug. tools/sold_followup.py after them: ANTFUN -1% (good sell), SDOG +37%
