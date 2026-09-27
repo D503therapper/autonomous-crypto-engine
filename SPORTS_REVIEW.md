@@ -10,7 +10,7 @@ including losing days and your own bugs.
 - **Never a filler leg.** Every leg, lock and dog needs real value on the engine's numbers plus a reason.
   If the slate has none, the answer is "No play today".
 - **No big favorites.** No parlay leg shorter than -150. The Lock is no shorter than -120. The Dog is plus money.
-  Big dogs (+250 and up) are rare: only with a real shot and clearly the best value on the slate.
+  Big dogs (+200 and up) are never declined when they trigger: a real shot and clearly the best value on the slate.
 - **Bet types.** Spreads only in NFL, college football and NBA. No run lines, puck lines or player props.
 - **Post when sure.** Post from 6pm PT the night before, once the key news is known (starting pitchers,
   questionable QBs and goalies). The latest a play can post is 3 hours before its first game.

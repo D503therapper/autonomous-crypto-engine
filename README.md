@@ -60,7 +60,7 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    - **2-Leg / 3-Leg of the Day:** the most likely-to-hit parlay built from good legs only, one leg per game
      (no payout chasing).
    - **Lock of the Day:** a moneyline no shorter than −120, highest win chance among good plays.
-   - **Dog of the Day:** plus money; a big dog (+250 and up) only when it has a 22%+ win chance and clearly
+   - **Dog of the Day:** plus money; a big dog (+200 and up) whenever it triggers: a 22%+ win chance and clearly
      the best value on the slate.
    - Never backs a team missing its starting QB/goalie or with 2+ more players out than its opponent;
      preseason and spring games never count.
