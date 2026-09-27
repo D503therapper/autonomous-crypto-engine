@@ -538,9 +538,12 @@ def write_dashboard(rows=None, total=None):
         except (OSError, ValueError):
             dpf = {}
         dpos, dhold = dpf.get("positions", {}), []
+        names = [p.get("sym", "?") for p in dpos.values()]
         for p in dpos.values():                        # px = last price the DEX hunter saw (it polls itself)
             value = p["qty"] * (p.get("px") if p.get("px") is not None else p["entry"])
-            dhold.append({"coin": p.get("sym", "?"), "value": value, "pnl": value - p["cost"]})
+            sym = p.get("sym", "?")                    # same-name coins: add the address start to tell them apart
+            coin = f"{sym} ({str(p.get('addr', ''))[:4]})" if names.count(sym) > 1 else sym
+            dhold.append({"coin": coin, "value": value, "pnl": value - p["cost"]})
         deq = dpf["cash"] + sum(h["value"] for h in dhold) if "cash" in dpf else st["equity"]
         cards.append({"holdings": sorted(dhold, key=lambda h: -h["value"]), "name": "DEX", "icon": "◆",
                       "c1": "#22e39a", "c2": "#3b82ff", "official": True, "equity": deq, "base": base("dex"),

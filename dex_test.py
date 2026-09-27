@@ -398,6 +398,20 @@ def test_market_sanity_and_prefilter():
     print("  market sanity: tiny / young pool, volume, one-sided, fade   ok")
 
 
+def test_no_second_coin_with_same_name():
+    h, _, d = make(table_evm())
+    screen(h, cand())
+    assert K in h.pf.positions
+    other = "0x" + "9" * 40                                                  # different token, same symbol
+    c2 = cand(addr=other)
+    k2 = "base:" + other
+    h.state["passed"][k2] = dict(c2, screen_t=T0)
+    h._try_entry(k2, T0 + 5000)
+    assert len(h.pf.positions) == 1, h.pf.positions.keys()
+    shutil.rmtree(d)
+    print("  same-name copycat not bought while we hold that name   ok")
+
+
 def test_renounced_owner_powers_ignored():
     S = dex.DEX["screen"]
     pepe = gp_evm(transfer_pausable="1", is_blacklisted="1", owner_address="0x0000000000000000000000000000000000000000")["result"][EVM]
@@ -1165,6 +1179,7 @@ if __name__ == "__main__":
     test_rejections()
     test_unreachable_fails_closed()
     test_market_sanity_and_prefilter()
+    test_no_second_coin_with_same_name()
     test_renounced_owner_powers_ignored()
     test_snapshots_logged_hourly()
     test_queue_screens_movers_first()

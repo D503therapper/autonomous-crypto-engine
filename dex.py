@@ -1304,6 +1304,9 @@ class DexHunter:
         pk = self.pkey(c)
         if pk in self.pf.positions or self.pf.cooldown.get(pk, 0) > now or not c.get("price"):
             return
+        sym = str(c.get("sym") or "").upper()      # same-name copycats ride a hot coin's name: one per name
+        if any(str(p.get("sym") or "").upper() == sym for p in self.pf.positions.values()):
+            return
         h1, h6, b1, s1 = c.get("h1"), c.get("h6"), c.get("b1") or 0, c.get("s1") or 0
         if not entry_trigger(c, E):
             return
