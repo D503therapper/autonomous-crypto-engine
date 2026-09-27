@@ -1,11 +1,281 @@
 {
- "finals_seen": 0,
- "log": [],
- "params": {},
+ "finals_seen": 9908,
+ "log": [
+  {
+   "accuracy": 0.6452,
+   "change": "first tune",
+   "date": "2026-09-27",
+   "games": 417,
+   "hfa": 0,
+   "k": 20.0,
+   "league": "nfl",
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.6396,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15
+  },
+  {
+   "accuracy": 0.6936,
+   "change": "first tune",
+   "date": "2026-09-27",
+   "games": 691,
+   "hfa": 60,
+   "k": 50.0,
+   "league": "ncaaf",
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.5477,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15
+  },
+  {
+   "accuracy": 0.6889,
+   "change": "first tune",
+   "date": "2026-09-27",
+   "games": 1636,
+   "hfa": 40,
+   "k": 10.0,
+   "league": "nba",
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.5883,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15
+  },
+  {
+   "accuracy": 0.5744,
+   "change": "first tune",
+   "date": "2026-09-27",
+   "games": 5340,
+   "hfa": 20,
+   "k": 3.0,
+   "league": "mlb",
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.6775,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15
+  },
+  {
+   "accuracy": 0.5678,
+   "change": "first tune",
+   "date": "2026-09-27",
+   "games": 1824,
+   "hfa": 20,
+   "k": 9.0,
+   "league": "nhl",
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.6781,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15
+  }
+ ],
+ "params": {
+  "mlb": {
+   "accuracy": 0.5744,
+   "eval_games": 900,
+   "games": 5340,
+   "hfa": 20,
+   "k": 3.0,
+   "logloss_elo": 0.6772,
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.6775,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15,
+   "tuned": "2026-09-27 08:29",
+   "w": [
+    0.02599597076047038,
+    0.9831677353283378,
+    0.019795279624486642,
+    -0.048494862218537965,
+    0.19326778203527506,
+    0.0
+   ],
+   "weights": {
+    "b2b": 0.193,
+    "elo": 0.983,
+    "form": 0.02,
+    "inj": 0.0,
+    "rest": -0.048
+   }
+  },
+  "nba": {
+   "accuracy": 0.6889,
+   "eval_games": 900,
+   "games": 1636,
+   "hfa": 40,
+   "k": 10.0,
+   "logloss_elo": 0.5911,
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.5883,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "sigma": 14.611589858622965,
+   "spread_games": 0,
+   "strust": 0.2,
+   "sw": [
+    -0.6200122672987051,
+    1.3827758772392078,
+    -0.7875013638499144,
+    1.4988622271290064,
+    1.5640958334975812,
+    0.0
+   ],
+   "trust": 0.15,
+   "tuned": "2026-09-27 08:29",
+   "w": [
+    -0.03139819859850442,
+    1.193693241044835,
+    0.09139288172763549,
+    0.21576188936680454,
+    0.09953128998122995,
+    0.0
+   ],
+   "weights": {
+    "b2b": 0.1,
+    "elo": 1.194,
+    "form": 0.091,
+    "inj": 0.0,
+    "rest": 0.216
+   }
+  },
+  "ncaaf": {
+   "accuracy": 0.6936,
+   "eval_games": 519,
+   "games": 691,
+   "hfa": 60,
+   "k": 50.0,
+   "logloss_elo": 0.5545,
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.5477,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "sigma": 18.852353517842904,
+   "spread_games": 0,
+   "strust": 0.2,
+   "sw": [
+    2.4212849202447506,
+    1.779384052703105,
+    -12.815209802882087,
+    -11.189822151253738,
+    0.0,
+    0.0
+   ],
+   "trust": 0.15,
+   "tuned": "2026-09-27 08:29",
+   "w": [
+    0.059727045275717226,
+    1.1395995232313438,
+    -0.44770297613185445,
+    -0.36956950286140466,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "b2b": 0.0,
+    "elo": 1.14,
+    "form": -0.448,
+    "inj": 0.0,
+    "rest": -0.37
+   }
+  },
+  "nfl": {
+   "accuracy": 0.6452,
+   "eval_games": 310,
+   "games": 417,
+   "hfa": 0,
+   "k": 20.0,
+   "logloss_elo": 0.6399,
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.6396,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "sigma": 13.677263332638377,
+   "spread_games": 0,
+   "strust": 0.2,
+   "sw": [
+    0.7202214979893904,
+    1.2063429651956956,
+    -0.8498432647190064,
+    5.411961847450822,
+    0.0,
+    0.0
+   ],
+   "trust": 0.15,
+   "tuned": "2026-09-27 08:29",
+   "w": [
+    -0.010121959457468237,
+    1.0672277188754422,
+    0.025560522832168527,
+    -0.023418987691334017,
+    0.0,
+    0.0
+   ],
+   "weights": {
+    "b2b": 0.0,
+    "elo": 1.067,
+    "form": 0.026,
+    "inj": 0.0,
+    "rest": -0.023
+   }
+  },
+  "nhl": {
+   "accuracy": 0.5678,
+   "eval_games": 900,
+   "games": 1824,
+   "hfa": 20,
+   "k": 9.0,
+   "logloss_elo": 0.678,
+   "logloss_final": null,
+   "logloss_market": null,
+   "logloss_own": 0.6781,
+   "market_accuracy": null,
+   "move_w": 0.0,
+   "odds_games": 0,
+   "trust": 0.15,
+   "tuned": "2026-09-27 08:29",
+   "w": [
+    -0.01776993391818689,
+    0.9514877063066148,
+    -0.13606333453755082,
+    0.06713078518730925,
+    0.18753082267373353,
+    0.0
+   ],
+   "weights": {
+    "b2b": 0.188,
+    "elo": 0.951,
+    "form": -0.136,
+    "inj": 0.0,
+    "rest": 0.067
+   }
+  }
+ },
  "today": {
   "acc": {},
   "date": "2026-09-27",
   "finals": 0
  },
- "tuned_on": "Sep 27, 1:26 AM PT"
+ "tuned_on": "Sep 27, 1:29 AM PT"
 }
