@@ -23,6 +23,16 @@ FIX: code 1/2/3 accepted; a missing GoPlus field is "unknown", never "0": sell-s
 missing mint / owner / pause / blacklist / proxy fields reject (screen still runs honeypot.is for the full reason list).
 Open: a source for contract powers of 0xef native tokens (none free found yet); watch rejected_followup for them.
 
+### NEXT (first) - Re-screen "safety data" exits: are they selling good coins? (2026-09-27)
+All 4 DEX sales so far were emergency exits on re-screen DATA flags (holders/LP holders unknown, RugCheck
+"lp locked 0%"), none on a real rug. tools/sold_followup.py after them: ANTFUN -1% (good sell), SDOG +37%
+(high +71%, too early, ~$32 missed), HOLDOWEEN qYCU +2%, HOLDOWEEN Bxft -6% (good sell). Net: holding would
+have been +$30. Coins that PASSED the entry screen later fail the same data checks - likely flaky Solana
+LP/holder data on pump.fun pools, not new danger. 4 trades is too few to loosen scam protection: keep
+collecting; test = replay every re-screen data-flag exit in outcomes.csv vs later snapshots; if data-flag
+exits keep losing vs holding while zero turn into rugs, require a real change (liquidity drop, mint/freeze,
+owner) before an emergency exit instead of "data unknown".
+
 ### NEXT - Second DEX entry: "dip + bounce" (owner asked 2026-09-27: buy the drop points?)
 Quick label check on results/dex_runner_points.csv.gz (liq >= $100k, age >= 6h): current entry (1h >= +10%) n=251:
 2x/7d 53%, 5x 24%, rug 2.0%, median worst-drop after entry -54%. "Dip + bounce" (>= 30% below 7d high AND 1h >= +5%)
