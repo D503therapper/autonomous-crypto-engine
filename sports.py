@@ -34,10 +34,14 @@ MIN_LEAD_MIN = 20              # only games starting at least this long after th
 MIN_KNOWN = 5                  # both teams need this many rated games
 MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter than this
 LOCK_MAX_FAV = -120            # lock of the day: a moneyline no shorter than -120
-DOG_MIN = 100                  # dog of the day: any plus-money underdog, big dogs included
+DOG_MIN = 100                  # dog of the day: a plus-money underdog...
+BIG_DOG = 250                  # ...a big dog (+250 and up) only on rare occasions, when it's a real shot and great value:
+BIG_DOG_MIN_P = 0.22           #    at least a 22% win chance on our numbers,
+BIG_DOG_EXTRA_EDGE = 0.05      #    and value at least 5 points better than the best regular dog on the slate
 TWO_LEG_MIN_DEC = 6.0          # $100 wins at least $500 (+500 or longer)
 THREE_LEG_MIN_DEC = 11.0       # $100 wins at least $1,000 (+1000 or longer)
 LEG_MIN_EDGE = -0.015          # a leg may be at most slightly negative on our numbers
+MAX_EXTRA_OUT = 1              # never back the more banged-up team: at most 1 more player out than the opponent
 KINDS = [("two", "2-Leg of the Day"), ("three", "3-Leg of the Day"), ("lock", "Lock of the Day"),
          ("dog", "Dog of the Day")]
 
@@ -111,7 +115,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
     elo = sm.ratings(games, model)
     out = []
     for g in games.values():
-        if g["status"] != "pre" or g.get("ml_home", "") == "" or g["league"] not in sd.LEAGUES:
+        if g["status"] != "pre" or g.get("ml_home", "") == "" or g["league"] not in sd.LEAGUES \
+                or (g.get("stype") or "?") not in sd.REAL:
             continue
         start = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
         if start.astimezone(PT).date() != day or start < now + timedelta(minutes=MIN_LEAD_MIN):
@@ -121,10 +126,17 @@ def candidates(games, model, now=None, day=None, injuries=None):
         f = elo[lg].features(g)
         if f["known"] < MIN_KNOWN:
             continue
-        ph = sm.final_p(params, f, g)
         mkt = sm.market_p(g)
+        inj = (injuries or {}).get(lg)
+        key_out = {side: sd.team_key_out(inj, g[side], g[side + "_name"], lg) for side in ("home", "away")}
+        n_out = {side: len(sd.team_injuries(inj, g[side], g[side + "_name"])) for side in ("home", "away")}
+        # a missing starting QB / goalie is news the ratings can't see: take the market's number on this game
+        ph = mkt if key_out["home"] or key_out["away"] else sm.final_p(params, f, g)
         waiting = waiting_on(g, injuries)
         for side in ("home", "away"):
+            other = "away" if side == "home" else "home"
+            if key_out[side] or n_out[side] - n_out[other] > MAX_EXTRA_OUT:
+                continue                                  # never back a team missing its QB/goalie or more banged up
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp,
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
@@ -179,7 +191,12 @@ def make_board(cands, lock_game=None):
     board["lock"] = {"legs": [lock], "dec": lock["dec"], "p_hit": lock["p"]} if lock else None
     taken = lock_game or (lock["game_id"] if lock else None)
     dogs = [c for c in ml if c["odds"] >= DOG_MIN and c["game_id"] != taken]
-    dog = max(dogs, key=lambda c: c["edge"]) if dogs else None
+    regular = [c for c in dogs if c["odds"] < BIG_DOG]
+    dog = max(regular, key=lambda c: c["edge"]) if regular else None
+    big = [c for c in dogs if c["odds"] >= BIG_DOG and c["p"] >= BIG_DOG_MIN_P and c["edge"] > 0
+           and c["edge"] >= (dog["edge"] if dog else 0) + BIG_DOG_EXTRA_EDGE]
+    if big:
+        dog = max(big, key=lambda c: c["edge"])
     board["dog"] = {"legs": [dog], "dec": dog["dec"], "p_hit": dog["p"]} if dog else None
     return board
 

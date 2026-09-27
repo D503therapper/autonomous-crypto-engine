@@ -69,6 +69,47 @@ def test_action_network_odds_attach():
     assert abs(sm.line_move(g)) > 0.1                  # opener -375 -> close -250: the market moved toward Atlanta
 
 
+def test_preseason_ignored_and_key_injuries():
+    ev = espn_event("7", "1", "2", "2026-08-22T17:00Z", "post", 26, 3, ml=None)
+    ev["season"] = {"year": 2026, "type": 1}
+    pre = sd.parse_scoreboard("nfl", {"events": [ev]})[0]
+    assert pre["stype"] == "1"
+    games = {pre["id"]: pre}
+    assert sm.finals(games, "nfl") == [], "preseason results never move the ratings"
+    inj = sd.parse_injuries({"injuries": [{"id": "19", "displayName": "New York Giants", "injuries": [
+        {"status": "Injured Reserve", "athlete": {"displayName": "Jaxson Dart", "position": {"abbreviation": "QB"}}},
+        {"status": "Questionable", "athlete": {"displayName": "Some Guard", "position": {"abbreviation": "G"}}}]}]})
+    assert [r[0] for r in sd.team_key_out(inj, "19", "Giants", "nfl")] == ["Jaxson Dart"]
+    assert sd.team_unsure(inj, "19", "Giants", "nfl") == []          # a questionable guard isn't a QB
+    assert sd.team_injuries(inj, "19", "Giants") == []               # IR isn't counted as a fresh absence
+
+
+def test_never_back_injured_side():
+    games, _ = fake_league("nfl", days=120)
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 9, 27, 12, 0, tzinfo=timezone.utc)
+    g = {**games["nfl:1"], "id": "nfl:x", "status": "pre", "home": "3", "away": "4", "home_name": "Giants",
+         "away_name": "Titans", "home_score": "", "away_score": "", "start": "2026-09-27T20:00Z",
+         "ml_home": "-130", "ml_away": "110", "ml_home_open": "-130", "ml_away_open": "110", "stype": "2"}
+    games[g["id"]] = g
+    row = lambda n, pos, st: {"status": st, "athlete": {"displayName": n, "position": {"abbreviation": pos}}}
+    inj = {"nfl": sd.parse_injuries({"injuries": [
+        {"id": "3", "displayName": "New York Giants", "injuries": [row("Jaxson Dart", "QB", "Injured Reserve")]},
+        {"id": "4", "displayName": "Tennessee Titans", "injuries": [row("A", "WR", "Out")]}]})}
+    sides = {(c["team"], c["market"]) for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
+             if c["game_id"] == "nfl:x"}
+    assert ("Giants", "ml") not in sides, "never back a team without its starting QB"
+    tit = [c for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
+           if c["game_id"] == "nfl:x" and c["team"] == "Titans" and c["market"] == "ml"][0]
+    assert abs(tit["p"] - tit["p_market"]) < 1e-9, "QB news the ratings can't see: use the market's number"
+    inj["nfl"]["3"] = []                                     # Giants healthy, Titans 2 more out
+    inj["nfl"]["4"] = [("A", "WR", "Out"), ("B", "CB", "Out")]
+    sides = {c["team"] for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
+             if c["game_id"] == "nfl:x"}
+    assert "Titans" not in sides and "Giants" in sides, "never back the more banged-up team"
+
+
 def fake_league(league, teams=16, days=300, seed=1):
     """A season where true strength drives results, and the market prices it with some noise."""
     rnd = random.Random(seed)
@@ -131,7 +172,9 @@ def test_board_rules():
     assert b["lock"]["legs"][0]["odds"] >= -120 and b["lock"]["legs"][0]["market"] == "ml"
     dog = b["dog"]["legs"][0]
     assert dog["odds"] >= 100 and dog["game_id"] != b["lock"]["legs"][0]["game_id"]
-    assert dog["game_id"] == "g", "a big dog with the best value is not discounted"
+    assert dog["game_id"] == "d", "a big dog needs to be clearly better value than the best regular dog"
+    c = [x if x["game_id"] != "g" else _cand("g", 365, 0.30) for x in c]     # now a real shot at great value
+    assert sports.make_board(c)["dog"]["legs"][0]["game_id"] == "g"
 
 
 def test_grading():

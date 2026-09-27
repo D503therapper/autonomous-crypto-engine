@@ -48,8 +48,7 @@ def _leg(leg):
     mark = {"won": '<b class="lw">✓</b>', "lost": '<b class="ll">✗</b>', "push": '<b class="lp">P</b>',
             "void": '<b class="lp">V</b>'}.get(res, "")
     why = " · ".join(E(r) for r in leg.get("reasons") or [])
-    outs = "".join(f'<div class="outs">🚑 {E(who)} out: {E(", ".join(leg[k]))}</div>'
-                   for k, who in (("opp_outs", leg["opp"]), ("outs", leg["team"])) if leg.get(k))
+    outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
     return f"""<div class="leg">
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span><span class="tm">{_time(leg["start"])}</span></div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
