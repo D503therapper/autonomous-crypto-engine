@@ -235,10 +235,12 @@ def merge(old, new, now_iso):
     return g
 
 
-DEEP_DAYS = 1150          # how far back the engine studies: about 3 full seasons in every sport
+DEEP_DAYS = 3650          # how far back the engine studies: 10 full seasons in every sport
+DEEP_CHUNK = 365          # history pulled per league per hourly run (a season at a time)
+SEASONS_BACK = 10
 
 
-def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget_s=900):
+def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget_s=540):
     """Refresh every league: re-read the last few days + next few, and backfill history on first run.
     Stops starting new calls after budget_s; unfinished days count as failed, so the next run resumes there.
     Returns (games dict, number of API calls, number of failures)."""
@@ -263,7 +265,7 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
                                 "%Y-%m-%d").date()
         target = today - timedelta(days=DEEP_DAYS)
         if frm > target:
-            lo = max(target, frm - timedelta(days=120))
+            lo = max(target, frm - timedelta(days=DEEP_CHUNK))
             deep[lg] = lo
             d = lo
             while d < frm:
@@ -288,7 +290,7 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
         results = list(ex.map(run, jobs))
     for (lg, d), rows in results:
         if rows is None:
-            if not (lg in deep and d < deep[lg] + timedelta(days=121)):   # old-history misses don't reset the cursor
+            if not (lg in deep and d < deep[lg] + timedelta(days=DEEP_CHUNK + 1)):   # old-history misses don't reset the cursor
                 fails[lg] = min(fails.get(lg, d), d)
             continue
         for r in rows:
@@ -457,15 +459,19 @@ def attach_an(games, league, rows):
     return filled
 
 
-def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
+def _flag(lg, back):
+    """State key marking a past football season as fully loaded (keeps the old names for 1-2 seasons back)."""
+    return f"{lg}_past" if back == 1 else f"{lg}_past{back}"
+
+
+def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=420):
     """Backfill closing + opening odds for finished games, a stretch per run until caught up."""
     today = datetime.now(timezone.utc).date()
     cur = state.setdefault("an_synced", {})
     jobs = []
     weeks = []
     for lg, parts in AN_WEEKS.items():                # last season once, this season every run (cheap)
-        seasons = [today.year] + ([] if cur.get(f"{lg}_past") else [today.year - 1]) + \
-            ([] if cur.get(f"{lg}_past2") else [today.year - 2])
+        seasons = [today.year] + [today.year - b for b in range(1, SEASONS_BACK + 1) if not cur.get(_flag(lg, b))]
         weeks += [(lg, (y, typ, w)) for y in seasons for typ, n in parts for w in range(1, n + 1)]
     for lg in LEAGUES:
         if lg in AN_WEEKS:
@@ -484,7 +490,7 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
                                 "%Y-%m-%d").date()
         target = today - timedelta(days=DEEP_DAYS)
         if frm > target:
-            lo = max(target, frm - timedelta(days=120))
+            lo = max(target, frm - timedelta(days=DEEP_CHUNK))
             deep[lg] = (lo, frm)
             d = lo
             while d < frm:
@@ -499,10 +505,10 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
         wres = list(ex.map(run, weeks))
     filled = 0
     for lg in AN_WEEKS:
-        for back, flag in ((1, "_past"), (2, "_past2")):
+        for back in range(1, SEASONS_BACK + 1):
             past = [r for (l2, (y, _, _)), r in wres if l2 == lg and y == today.year - back]
             if past and all(r is not None for r in past):
-                cur[f"{lg}{flag}"] = True
+                cur[_flag(lg, back)] = True
     for (lg, _), rows in wres:
         if rows is not None:
             filled += attach_an(games, lg, rows)

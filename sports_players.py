@@ -116,7 +116,7 @@ def save(players):
         os.replace(p + ".tmp", p)
 
 
-def sync(games, state, workers=8, budget_s=600):
+def sync(games, state, workers=8, budget_s=420):
     """Fetch box scores for finished real games we don't have yet (a stretch per run until caught up)."""
     import sports_model as sm
     players = load()
