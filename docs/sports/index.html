@@ -176,7 +176,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
-<details class="ask" id="ask"><summary><span class="ask-t">🤔 ASK THE ENGINE</span>
+<details class="ask" id="ask"><summary><span class="ask-t">🤔 GOT A QUESTION?</span>
 <span class="ask-s">tap in 👀</span></summary>
 <div class="ask-b"><div class="ask-n">Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.</div>
 <input id="askq" type="search" placeholder="Got a question? Ask away… 🤔" autocomplete="off">
@@ -329,7 +329,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,10000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790546211727,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790546224975,m=0;   // the whole page stays fresh while it's open
 try{var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
 function tick(){m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
