@@ -1,11 +1,10 @@
-OK  AN atp 20260926 7 games; keys ['boxscore', 'competitors', 'id', 'league_id', 'league_name', 'meta', 'odds', 'season', 'start_time', 'status', 'status_display', 'venue', 'winning_competitor_id']; odds books 0 sample []; tournament {}
-OK  AN atp 20250615 10 games; keys ['boxscore', 'competitors', 'id', 'league_id', 'league_name', 'meta', 'odds', 'season', 'start_time', 'status', 'status_display', 'venue', 'winning_competitor_id']; odds books 0 sample []; tournament {}
-OK  AN atp 20230720 10 games; keys ['boxscore', 'competitors', 'id', 'league_id', 'league_name', 'meta', 'odds', 'season', 'start_time', 'status', 'status_display', 'venue', 'winning_competitor_id']; odds books 0 sample []; tournament {}
-OK  AN atp 20210520 10 games; keys ['boxscore', 'competitors', 'id', 'league_id', 'league_name', 'meta', 'odds', 'season', 'start_time', 'status', 'status_display', 'venue', 'winning_competitor_id']; odds books 0 sample []; tournament {}
-OK  AN atp 20190320 0 games
-OK  AN atp 20170620 0 games
-OK  ESPN atp 20250615 4 events, 213 singles matches; event keys ['calendar', 'date', 'endDate', 'groupings', 'id', 'links', 'major', 'name', 'previousWinners', 'season', 'shortName', 'status', 'uid', 'venue']; name Boss Open
-OK  ESPN atp 20210520 5 events, 132 singles matches; event keys ['calendar', 'date', 'endDate', 'groupings', 'id', 'links', 'major', 'name', 'season', 'shortName', 'uid']; name BNP Paribas Open [Postponed]
-OK  ESPN atp 20170620 4 events, 133 singles matches; event keys ['calendar', 'date', 'endDate', 'groupings', 'id', 'links', 'major', 'name', 'previousWinners', 'season', 'shortName', 'status', 'uid', 'venue']; name ATP Qatar ExxonMobil Open
-OK  ESPN atp 20160620 2 events, 76 singles matches; event keys ['calendar', 'date', 'endDate', 'groupings', 'id', 'links', 'major', 'name', 'previousWinners', 'season', 'shortName', 'status', 'uid', 'venue']; name ATP Shenzhen Open
-OK  ESPN atp calendar ["2026-01-01T08:00Z", "2026-01-02T08:00Z", "2026-01-03T08:00Z"]
+OK  AN atp 20260927  20 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Hangzhou, China  - Quarterfinal"}
+OK  AN atp 20260927 &bookIds=15,30,68,69,71,75,79 20 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Hangzhou, China  - Quarterfinal"}
+OK  AN atp 20260928  5 matches, 0 with odds; status scheduled; odds []; meta {"title": "ATP Beijing, China  - Qualification Round 1"}
+OK  AN atp 20260928 &bookIds=15,30,68,69,71,75,79 5 matches, 0 with odds; status scheduled; odds []; meta {"title": "ATP Beijing, China  - Qualification Round 1"}
+OK  AN atp 20250615  10 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Stuttgart, Germany "}
+OK  AN atp 20250615 &bookIds=15,30,68,69,71,75,79 10 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Stuttgart, Germany "}
+OK  AN tennis today bookIds 20 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Hangzhou, China  - Quarterfinal"}
+OK  ESPN core odds ['183421: {"count": 0, "pageIndex": 0, "pageSize": 25, "pageCount": 0, "items": []}', '183420: {"count": 0, "pageIndex": 0, "pageSize": 25, "pageCount": 0, "items": []}']
+ERR DraftKings tennis HTTP Error 403: Forbidden
+OK  Bovada tennis 19
