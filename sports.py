@@ -275,7 +275,7 @@ def run(repick=False, fetch=True):
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")
     day = now.astimezone(PT).date()
-    due = now.astimezone(PT).hour >= PICK_HOUR_PT
+    due = now.astimezone(PT).hour >= PICK_HOUR_PT or os.environ.get("SPORTS_POST_NOW") == "1"
     n_final = sum(g["status"] == "final" for g in games.values())
     if (model.get("today") or {}).get("date") != day.isoformat():       # baseline for tonight's "in a nutshell"
         model["today"] = {"date": day.isoformat(), "finals": model.get("finals_seen", n_final),
