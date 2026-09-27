@@ -33,6 +33,7 @@ LIVE_JSON = "docs/sports/live.json"
 LOG = os.path.join(sd.DATA, "live_log.json")
 LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we want a real 5%+ edge
 DOG_MIN = 100                 # live plays are plus money only
+LATE = 0.06                   # the last ~3.5 minutes of a football game: who has the ball decides it
 MAX_GAP = 0.20                # our live chance (score, clock, who has the ball and where) vs the confirmed price: a
                               # bigger gap means the book knows something the scoreboard can't show (injury, ejection)
 STAY_MAX_ODDS = 500              # ...and comes down if the price blows out past +500 (a prayer, not a live bet)
@@ -328,6 +329,8 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         return []                                             # no study for this sport yet: no history, no bet
     hs, as_ = _score(box, "home"), _score(box, "away")
     left = time_left(league, box.get("period"), box.get("clock"), box.get("inning_half") or box.get("half"))
+    sit = box.get("situation") or {}
+    blind = league in ("nfl", "ncaaf") and left < LATE and (sit.get("possession") is None or sit.get("yards_to_endzone") is None)
     lh, la = _last_period(box)
     ph = live_prob(league, pre_market_p, hs - as_, left, ball, lh - la, fit)
     out = []
@@ -335,6 +338,8 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     for side, p, ml in (("home", ph, mlh), ("away", 1 - ph, mla)):
         edge = p * sd.decimal(ml) - 1
         up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
+        if not up and blind:
+            continue                                         # late in a football game and we can't see who has the ball
         if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else LIVE_MIN_P) \
                 or (up and ml > STAY_MAX_ODDS):
             continue                                         # plus money, real value, a real chance
@@ -675,7 +680,7 @@ def run():
         json.dump(out, f, indent=1)
     with open(LOG, "w") as f:
         json.dump(log, f, indent=1, sort_keys=True)
-    print(f"live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
+    print(f"{datetime.now(timezone.utc):%H:%M:%S} live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
     return plays
 
 
@@ -748,6 +753,7 @@ def loop(minutes, every_s=10):
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
+    print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
     _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
     board = _git("show", f"origin/{LIVE_BRANCH}:live.json")      # are up stay up (they don't have to re-qualify)
     if board.returncode == 0 and board.stdout.strip():
@@ -755,7 +761,9 @@ def loop(minutes, every_s=10):
             f.write(board.stdout)
     while time.time() < end:
         if games is None or int(time.time()) % 600 < every_s:          # pull the latest games/model every ~10 min
+            print(f"{datetime.now(timezone.utc):%H:%M:%S} pulling", flush=True)
             _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+            print(f"{datetime.now(timezone.utc):%H:%M:%S} loading data", flush=True)
             games, _ = _data(reload=True)
         if not any_live_soon(games):
             idle_since = idle_since or time.time()
@@ -771,6 +779,7 @@ def loop(minutes, every_s=10):
             print(f"live cycle error: {e}")
         board = _board_key()
         if board != last_board or time.time() - last_push > 60:
+            print(f"{datetime.now(timezone.utc):%H:%M:%S} pushing the board", flush=True)
             if push_live():
                 last_board, last_push = board, time.time()
         if _log_key() != last_log:

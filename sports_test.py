@@ -452,6 +452,11 @@ def test_comeback_study_and_live_rules():
     # never contradict ourselves: once we're on a side in a game, the other side never goes up
     lg_ = {"plays": {"nfl:9:home": {"date": datetime.now(sports_live.PT).date().isoformat(), "result": None}}}
     assert sports_live.locked_sides(lg_, datetime.now(timezone.utc))["nfl:9"] == "home"
+    # the last minutes of a football game: no new play if we can't see who has the ball
+    late = {"period": 4, "clock": "1:48", "total_home_points": 16, "total_away_points": 17, "linescore": [], "situation": {}}
+    nfl_st = {"nfl": {"curve": {"s": 1.0, "w": 1.0, "m": 0.0, "ll": 0.5}, "table": {}}}
+    assert sports_live.evaluate("nfl", {"id": "nfl:1", "home_name": "Colts", "away_name": "Texans"}, late, -250, 212, nfl_st,
+                                0.45, 0.45, 0.0, "", 1, True) == []
     # live prices: only the LIVE line, never the pregame "game" line
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272}}}) == (None, None)
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272},
