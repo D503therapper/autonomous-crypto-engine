@@ -155,6 +155,11 @@ MAX_POSITIONS = 4
 RISK_PER_TRADE = 0.01     # lose at most ~1% of equity if the stop hits (research: 0.5-2%)
 MAX_POSITION_PCT = 0.30   # never put more than 30% of equity in one coin
 MIN_CASH_RESERVE_PCT = 0.10
+# Official stocks account (strategy.RSI2MeanReversion). stock_park_study.py (2026-09-27, 24 years of daily bars,
+# halves 2002-14 / 2014-26, results/stock_park_study.txt): 3 slots x 33% with no cash reserve beat the old
+# 5 x 18% + 10% reserve in both halves (CAGR +17.2% / +21.4% vs +12.2% / +14.9%, max DD 25% / 23% vs 19% / 21%,
+# SPY 55% / 34%), also without the hindsight names and at 3x costs. Parking idle cash in SPY / QQQ did not pass.
+RSI2 = {"slots": 3, "cash_reserve": 0.0}
 MIN_ORDER_USD = 10.00
 MAX_DRAWDOWN_HALT = None  # owner's choice: no account-level pause (set e.g. 0.20 to pause at -20%)
 HALT_HOURS = 168          # ...for 7 days, then resume

@@ -193,7 +193,7 @@ def step(pf, candles_by_coin, strat, market_ok=True, runners=False):
                   else eq * config.RISK_PER_TRADE / max(stop_dist, 1e-9))
         usd = min(target,
                   eq * getattr(strat, "max_position_pct", config.MAX_POSITION_PCT),
-                  pf.cash - eq * config.MIN_CASH_RESERVE_PCT)
+                  pf.cash - eq * getattr(strat, "cash_reserve", config.MIN_CASH_RESERVE_PCT))
         if usd >= config.MIN_ORDER_USD:
             pf.buy(now, coin, usd, s["price"], s["stop"], reason=s.get("reason", "entry"))
 

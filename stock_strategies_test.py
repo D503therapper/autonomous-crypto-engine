@@ -251,6 +251,40 @@ def test_engine_smoke(ctx, hourly):
               f"final equity ${pf.equity({s: hourly[s][-1]['c'] for s in pf.positions}):.2f}")
 
 
+def test_rsi2_sizing():
+    """config.RSI2 (stock_park_study.py): the official rsi2 account buys up to 3 names at 1/3 of
+    equity each with no cash reserve; other strategies keep config.MIN_CASH_RESERVE_PCT."""
+    import config
+    from strategy import RSI2MeanReversion
+    st = RSI2MeanReversion(["A", "B", "C", "D"], BPD)
+    assert (st.max_positions, st.cash_reserve) == (config.RSI2["slots"], config.RSI2["cash_reserve"]) == (3, 0.0)
+    assert abs(st.position_pct - 1 / 3) < 1e-9
+    ranks = {"A": -3.0, "B": -1.0, "C": -8.0, "D": -12.0}     # rank = -RSI: B, A, C buy first, D last
+
+    def analyze(cs, ok=True):
+        c = cs[-1]
+        return {"t": c["t"], "price": c["c"], "high": c["h"], "low": c["l"], "buy": True,
+                "rank": ranks[c["sym"]], "stop": 0.0, "exit": False, "day": c["t"] // DAY_MS - 1}
+    st.analyze = analyze
+    bars = {s: [{"t": 20_000 * DAY_MS + 15 * HOUR, "o": 10.0, "h": 10.0, "l": 10.0, "c": 10.0, "v": 1.0, "sym": s}]
+            for s in ranks}
+    pf = Portfolio(cash=500.0, fee=config.STOCK_FEE_RATE, slippage=config.STOCK_SLIPPAGE_RATE)
+    step(pf, bars, st, True)
+    assert set(pf.positions) == {"B", "A", "C"}, pf.positions            # best 3 (lowest RSI), D skipped
+    assert pf.cash < 1.0, pf.cash                                         # whole base invested
+    for p_ in pf.positions.values():
+        assert abs(p_["cost"] - 500 / 3) < 1.0, p_["cost"]
+    # a strategy without its own cash_reserve still keeps the global 10%
+    st2 = RSI2MeanReversion(["A", "B", "C", "D"], BPD, slots=2)
+    st2.analyze = analyze
+    del st2.cash_reserve                                                  # engine falls back to the global
+    st2.position_pct = st2.max_position_pct = 0.5
+    pf2 = Portfolio(cash=500.0, fee=config.STOCK_FEE_RATE, slippage=config.STOCK_SLIPPAGE_RATE)
+    step(pf2, bars, st2, True)
+    assert abs(pf2.cash - 500 * config.MIN_CASH_RESERVE_PCT) < 0.01, pf2.cash
+    print("  rsi2 sizing: 3 x 33%, no reserve; others keep the 10% reserve")
+
+
 if __name__ == "__main__":
     print("stock_strategies_test")
     assert hasattr(__import__("engine"), "rebalance_to"), \
@@ -258,6 +292,7 @@ if __name__ == "__main__":
     test_universe_matches_lab()
     test_rebalance_to()
     test_step_gating()
+    test_rsi2_sizing()
     ctx, hourly = synthetic()
     print(f"  synthetic stocks: {len(ctx.syms)} symbols, {ctx.n} days {ctx.dates[0]} .. {ctx.dates[-1]}")
     test_dual_momentum_parity(ctx, hourly)

@@ -153,6 +153,37 @@ Owner wants bigger gains: test the breakout10 rotation (and the ens_donchian fam
 Switch to 1 only if it wins on unseen months with a drawdown the owner can live with; report plainly.
 Do NOT concentrate the listing hunter (lumpy edge: top 3 of 91 listings = 94% of profit).
 
+## 2026-09-27 - stock parking study (results/stock_park_study.txt) -> parking NOT applied; rsi2 now 3 x 33%, no reserve
+Question (owner: "whole base invested at all times"): the official stocks account (rsi2, $500) was ~48% invested. Does
+parking the idle cash in SPY or QQQ (sold just enough to fund each rsi2 buy) beat plain rsi2? vs just holding SPY/QQQ?
+And does rsi2 with more slots / bigger positions (less idle cash, no parking) do better?
+Method: stock_park_study.py (workflow stock_park_study.yml, commits e2cdc41 + 0aa0b67, results 6f59cfb + 8620866):
+Yahoo daily bars 2002-08 .. 2026-09 (24 years) for the live universe (38 names), live rsi2 rules (RSI2 < 15 above the
+200-day avg, lowest first; exit close > 5-day avg / RSI2 > 70 / 10 calendar days), signal at the close, fill next open,
+0.05%/side on every rsi2 AND parking order, $10 min order. Parking: rsi2 exits/entries first (parked ETF sold for the
+shortfall), spare cash > 2% parked. No tuned parameters, so the walk-forward is the two halves, each from a flat $500.
+Result (CAGR / max drawdown / % invested; older half 2002-14 | newer half 2014-26):
+  rsi2 live 5x18% + 10% reserve  +12.2% / 19% / 44%   | +14.9% / 21% / 52%
+  rsi2 + park SPY                +10.7% / 52% / 100%  | +17.3% / 31% / 100%   (loses the older half)
+  rsi2 + park QQQ                +13.9% / 52% / 100%  | +18.2% / 38% / 100%   (DD > SPY's 34% in the newer half)
+  rsi2 + park only if >200d avg  SPY +11.3%/24%, QQQ +12.1%/26% | SPY +14.9%/28%, QQQ +17.0%/31%  (not better both)
+  rsi2 10x10% / 8x12.5%          +9.0% / +10.2%       | +12.0% / +13.6%       (more slots = more idle cash, worse)
+  rsi2 5x20% no reserve          +13.5% / 21% / 49%   | +16.5% / 23% / 57%    PASS
+  rsi2 3x33% no reserve          +17.2% / 25% / 60%   | +21.4% / 23% / 66%    PASS  (Sharpe 1.06 / 1.09 vs 1.04 / 0.98)
+  rsi2 2x50% no reserve          +22.3% / 28% / 67%   | +20.5% / 30% / 72%    PASS  (worst month -19%)
+  hold SPY                       +9.0% / 55%          | +13.7% / 34%
+  hold QQQ                       +13.7% / 53%         | +19.0% / 35%
+rsi2 + QQQ parking ~= holding QQQ (same return, same drawdown): the parking leg dominates and rsi2 adds nothing on top.
+Parking is also cost-fragile: ~300 parking orders/yr; at 3x costs (0.15%/side) park SPY drops to -1.8% | +2.7%/yr while
+rsi2 3x33% stays ahead of live (+7.8% vs +5.4% | +10.7% vs +7.0%). Without the hindsight names (NVDA TSLA PLTR COIN MSTR
+AMD AVGO META NFLX UBER) 3x33% still beats live in both halves (+10.0% vs +7.7% | +7.6% vs +6.0%, DD 17% / 24% vs 14% / 18%).
+Decision: parking in SPY/QQQ NOT applied (fails the rule: better return in BOTH halves with a drawdown no worse than
+holding SPY). APPLIED instead: rsi2 3 slots x 33% with no cash reserve (config.RSI2; engine.step honours a strategy's own
+cash_reserve, other strategies keep the 10% reserve). It passed every check; 2x50% is stronger in the older half but
+weaker newer and deeper (-19% worst month, 43% DD at 3x costs), so 3 slots is the middle choice. Invested time rises to
+~63%; the rest is cash only because no dip qualifies. Existing positions exit normally; new buys wait for < 3 open.
+Caveat: today's universe (hindsight); absolute returns are a ceiling. Test stock_strategies_test.test_rsi2_sizing.
+
 ## 2026-09-26 - DEX exit study applied
 results/dex_exit_study.txt (47-67 real meme pools, Mar-Sep 2026): the old DEX exit (30% trail + take-profit
 ladder) lost -6.4%/trade and sold 3/3 later-10x coins early. Robust winner: hold 14 days, no stop
@@ -223,7 +254,7 @@ hidden owner, no take-back, not a proxy). SHIB/BRETT/SPX/KISHU "fails" were GoPl
 engine defers to honeypot.is (study didn't call it). Solana legends' launch-day holders can't be rebuilt with free
 data. Re-run with a paid/archival data source later for a proper caught-checkbox on every legend.
 
-### Stocks: park idle cash in SPY between RSI2 trades (owner: "whole base invested at all times") - NEXT
+### DONE 2026-09-27 (see the dated entry "stock parking study") - Stocks: park idle cash in SPY between RSI2 trades (owner: "whole base invested at all times")
 Test in lab.py walk-forward: RSI2 mean-reversion as today vs RSI2 with idle cash parked in SPY (sold to fund
 dips). Compare return, max drawdown, worst month, older/newer halves. If it wins, add a stocks park like
 run_live.park_idle (crypto) does. Also re-check crypto: listing hunter idle cash rides breakout10 picks, which
