@@ -112,6 +112,14 @@ def _live_story(e, used=None):
     return f"{score} {thought} — {end}"
 
 
+def _wl_words(ps, h):
+    """'3 won · 4 lost · 43%' - so a 3-4 record can't be read as '3 of 4'."""
+    if h is None:
+        return "&nbsp;"
+    w, l_ = sum(p["status"] == "won" for p in ps), sum(p["status"] == "lost" for p in ps)
+    return f"{w} won · {l_} lost · {h:.0%}"
+
+
 def _rot(k, options):
     """The day's line from a rotation: consecutive days never get the same one."""
     return options[k % len(options)]
@@ -280,7 +288,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         pass
     lw, ll = sum(e.get("result") == "won" for e in live.values()), sum(e.get("result") == "lost" for e in live.values())
     live_card = (f'<div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">{lw}-{ll}</div>'
-                 f'<div class="rc-p">{f"{lw / (lw + ll):.0%} hit" if lw + ll else "&nbsp;"}</div>'
+                 f'<div class="rc-p">{f"{lw} won · {ll} lost · {lw / (lw + ll):.0%}" if lw + ll else "&nbsp;"}</div>'
                  f'<div class="rc-s">{"&nbsp;" if lw + ll else "no results yet"}</div></div>')
     # today's live bets (and last night's): what they were, and whether they cashed
     ld = datetime.now(PT).date()
@@ -302,7 +310,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     lw_, ll_ = sum(p["status"] == "won" for p in leans_done), sum(p["status"] == "lost" for p in leans_done)
     lean_card = ("" if not leans_done else
                  f'<div class="rc" style="--c1:#ffc233;--c2:#e8c77a"><div class="rc-t">🟡 LEANS</div><div class="rc-r">{lw_}-{ll_}</div>'
-                 f'<div class="rc-p">{f"{lw_ / (lw_ + ll_):.0%} hit" if lw_ + ll_ else "&nbsp;"}</div>'
+                 f'<div class="rc-p">{f"{lw_} won · {ll_} lost · {lw_ / (lw_ + ll_):.0%}" if lw_ + ll_ else "&nbsp;"}</div>'
                  f'<div class="rc-s">own record</div></div>')
     # record per pick type
     rec = []
@@ -311,7 +319,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         r, h = wl(ps)
         st = streak(ps)
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
-                   f'<div class="rc-r">{r}</div><div class="rc-p">{f"{h:.0%} hit" if h is not None else "&nbsp;"}</div>'
+                   f'<div class="rc-r">{r}</div><div class="rc-p">{_wl_words(ps, h)}</div>'
                    f'<div class="rc-s">{("streak " + st) if st else "no results yet"}</div></div>')
 
 
@@ -555,7 +563,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .rc::before{{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2))}}
 .rc-t{{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--c1)}}
 .rc-r{{font-size:26px;font-weight:900;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}}
-.rc-p{{font-weight:800;color:var(--c1)}} .rc-s{{font-size:11.5px;color:var(--c2);font-weight:700;margin-top:2px}}
+.rc-p{{font-weight:800;color:var(--c1);font-size:13px}} .rc-s{{font-size:11.5px;color:var(--c2);font-weight:700;margin-top:2px}}
 .list{{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:4px 14px}}
 .rr{{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}} .rr:last-child{{border:0}}
 .rk{{font-size:18px}} .rd{{flex:1;min-width:0}}
