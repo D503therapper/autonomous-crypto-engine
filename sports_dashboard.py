@@ -221,6 +221,21 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live_card = (f'<div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">{lw}-{ll}</div>'
                  f'<div class="rc-p">{f"{lw / (lw + ll):.0%} hit" if lw + ll else "&nbsp;"}</div>'
                  f'<div class="rc-s">{"&nbsp;" if lw + ll else "no results yet"}</div></div>')
+    # today's live bets (and last night's): what they were, and whether they cashed
+    ld = datetime.now(PT).date()
+    days_ = {ld.isoformat(), (ld - timedelta(days=1)).isoformat()}
+    lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)[:8]
+    badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
+    pending_ = '<span class="tm">⏳ still going</span>'
+    live_list = ("" if not lrows else
+                 '<section class="pk" style="--c1:#ff3b3b;--c2:#ff8a00;margin-top:14px"><div class="pk-h"><span class="pk-i">🔴</span>'
+                 '<span class="pk-l">LIVE BETS TODAY</span></div>' + "".join(
+                     f'<div class="leg {e.get("result") or ""}"><div class="lt"><span class="lgb">{sd.LEAGUES.get(e["league"], ("", "", "", "🏟️"))[3]} '
+                     f'{E(sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2])}</span>'
+                     f'{badge_.get(e.get("result"), pending_)}</div>'
+                     f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
+                     f'<div class="ls">went up at {E(e.get("score_at_post", ""))} · {E(e.get("clock_at_post", ""))}</div></div>'
+                     for e in lrows) + "</section>")
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -310,14 +325,17 @@ def render(picks, model, games, series, start_bank, updated_ms):
         t = E(_the(e["team"], e.get("league")))
         lines.append(_rot(k + len(e["team"]), [f"🔴 We smacked {t} live bet ({o}). The algorithm never lies.",
                                                f"🔴 Live bet cashed: {t} at {o}. Told y'all — teams always be coming back.",
-                                               f"🔴 {_cap(t)} live at {o}? Cashed. Trust the algorithm."]))
+                                               f"🔴 {_cap(t)} live at {o}? Cashed. Trust the algorithm.",
+                                               f"🔴 Caught {t} live at {o} and they came through. Fuck yeah, let's go!",
+                                               f"🔴 {_cap(t)} live at {o} — CASHED. Everybody was jumping off, we jumped on."]))
     for e in sorted((e for e in live.values() if e.get("result") == "lost" and e.get("date") in (today, yday)),
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
-        lines.append(_rot(k + len(e["team"]), [f"🔴 {_cap(t)} live bet ({o}) didn't come through. Comeback fell short.",
-                                               f"🔴 Live L: {t} at {o}. Can't win 'em all. The algorithm's taking notes.",
-                                               f"🔴 {_cap(t)} live at {o} came up short. Shake it off — next one's ours."]))
+        lines.append(_rot(k + len(e["team"]), [f"🔴 {_cap(t)} live bet ({o}) shit the bed. Bad call — is what it is.",
+                                               f"🔴 {_cap(t)} live at {o} was booty cheeks. Our bad. We run it back.",
+                                               f"🔴 Live L: {t} at {o}. Comeback never came. Is what it is — the algorithm's taking notes.",
+                                               f"🔴 {_cap(t)} live at {o} came up short. Bad call, shake it off — next one's ours."]))
     if not done and not any(x.startswith("🔴") for x in lines):   # no finished day yet: nothing to brag or cry about
         lines = ["👀 We gon' see."]
     brain = '<div class="br self"><div class="bn">🧠 Today in a nutshell</div>' + "".join(f'<div class="bs nut">{x}</div>' for x in lines) + "</div>"
@@ -497,6 +515,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
 <div class="recs">{"".join(rec)}{live_card}</div>
+{live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
