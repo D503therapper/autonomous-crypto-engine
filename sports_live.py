@@ -1,6 +1,6 @@
 """LIVE VALUE: watch every live game, find in-game bets where the engine's number beats the live line.
 
-Every 15 seconds (.github/workflows/sports-live.yml) - live lines move every second, so we stay on the ball:
+Every 10 seconds (.github/workflows/sports-live.yml) - live lines move every second, so we stay on the ball:
   1. Action Network's live scoreboard: score, period, clock, (football) who has the ball and where, live odds.
   2. The engine's live win chance, on the curve the comeback study (sports_comeback.py) learned from 10 seasons of
      period-by-period scores: the pregame strength still to come + the scoreboard + the ball + momentum.
@@ -11,7 +11,7 @@ Every 15 seconds (.github/workflows/sports-live.yml) - live lines move every sec
          scoring range, momentum where the study says it carries). A better team alone is never enough.
      At most 2 on the board; a play comes off the moment its value's gone. Each gets a short line and a
      tap-to-open Full breakdown. Every play that went up is logged and graded (its own record).
-Writes docs/sports/live.json (phones check it every 15 seconds) and data/sports/live_log.json."""
+Writes docs/sports/live.json (phones check it every 10 seconds) and data/sports/live_log.json."""
 import json
 import math
 import os
@@ -19,6 +19,7 @@ import re
 import sys
 import time
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
@@ -105,7 +106,8 @@ def reasons(st, league, side_p_pre, my, their, left, ml, has_ball, ball_txt, las
     if my != their:
         h = (sc.spot(st, league, left, their - my, fav) if my < their else sc.lead_spot(st, league, left, my - their, fav))
         if h and h[1] >= be + 0.02:
-            out.append(("history", {"n": h[0], "rate": h[1], "be": be, "k": h[2], "b": h[3], "trail": my < their, "fav": fav}))
+            out.append(("history", {"n": h[0], "rate": h[1], "be": be, "k": h[2], "b": h[3], "trail": my < their, "fav": fav,
+                                    "d": abs(their - my)}))
     if fav:
         out.append(("better", {"p": side_p_pre}))
     if pre_value:
@@ -172,25 +174,25 @@ def full_breakdown(league, us, them, rs, k, rate_mine=None):
     Us = us[:1].upper() + us[1:]
     for kind, f in rs:
         if kind == "history":
-            spot = f"{sc.when(league, f['k'])}"
+            spot, u, d = sc.when(league, f["k"]), UNIT[league], f["d"]
             who = ("teams that were favored coming in" if f["fav"] else "teams") if f["trail"] else \
                 ("favorites" if f["fav"] else "underdogs")
             if f["trail"]:
                 out.append(_say(k, [
-                    f"📚 We studied {f['n']:,} games: {who} down {f['b']} {UNIT[league]} {spot} came back and won {f['rate']:.0%} of the time. "
-                    f"This price only needs {f['be']:.0%}. That's the value.",
-                    f"📚 The comeback study: {f['n']:,} times a team was down {f['b']} {UNIT[league]} {spot}, {f['rate']:.0%} of them won anyway. "
+                    f"📚 {Us} are down {d}. We studied {f['n']:,} games like this one — {who} down about that much {spot} "
+                    f"came back and won {f['rate']:.0%} of the time. This price only needs {f['be']:.0%}. That's the value.",
+                    f"📚 Down {d} ain't done: in {f['n']:,} games like this, {f['rate']:.0%} of {who} came back and won. "
                     f"At this number you only need {f['be']:.0%} — the book's too scared.",
-                    f"📚 Did our homework: down {f['b']} {UNIT[league]} {spot}, {who} still pulled it off {f['rate']:.0%} of the time "
-                    f"({f['n']:,} games). The book's pricing it like {f['be']:.0%}. Free money energy.",
-                    f"📚 History don't lie: {f['rate']:.0%} of {who} down {f['b']} {UNIT[league]} {spot} came back to win ({f['n']:,} games). "
-                    f"This price only needs {f['be']:.0%}."]))
+                    f"📚 Did our homework: {f['n']:,} games where {who} were down about {d} {u} {spot} — "
+                    f"{f['rate']:.0%} still won. The book's pricing it like {f['be']:.0%}. Free money energy."]))
             else:
                 out.append(_say(k, [
-                    f"📚 We studied {f['n']:,} games: {who} up {f['b']} {UNIT[league]} {spot} held on {f['rate']:.0%} of the time. "
-                    f"This price only needs {f['be']:.0%}.",
-                    f"📚 {f['n']:,} past games say {who} up {f['b']} {UNIT[league]} {spot} close it out {f['rate']:.0%} of the time — and we're getting plus money.",
-                    f"📚 Up {f['b']} {UNIT[league]} {spot} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time ({f['n']:,} games)."]))
+                    f"📚 {Us} are up {d}. In {f['n']:,} games like this, {who} up about that much {spot} held on and won "
+                    f"{f['rate']:.0%} of the time. This price only needs {f['be']:.0%}.",
+                    f"📚 {f['n']:,} past games say {who} up about {d} {u} {spot} close it out {f['rate']:.0%} of the time — "
+                    f"and we're getting plus money.",
+                    f"📚 Up {d} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time "
+                    f"({f['n']:,} games)."]))
         elif kind == "better":
             out.append(_say(k + 1, [f"💪 {Us} were the better team coming in — the book had them favored before the game. Better teams don't stay down.",
                                     f"💪 Before the game {us} were the favorite. One bad stretch didn't turn them into a bad team.",
@@ -352,6 +354,29 @@ def bovada_live(league):
     return out
 
 
+ESPN_SB = "https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard"
+_ELO = {}
+SEEN = set()                  # plays that qualified last cycle: a play only shows once it qualifies twice in a row
+
+
+def espn_scores(league):
+    """{espn event id: (home score, away score)} for games going right now - a second source for the score."""
+    try:
+        d = _get(ESPN_SB.format(path=sd.LEAGUES[league][0]) + "?limit=300" + (sd.LEAGUES[league][1] or ""))
+    except Exception as e:                                   # noqa: BLE001
+        sd.ERRORS.append(f"espn scores {league}: {str(e)[:80]}")
+        return {}
+    out = {}
+    for ev in d.get("events") or []:
+        c = (ev.get("competitions") or [{}])[0]
+        t = {x.get("homeAway"): x for x in c.get("competitors") or []}
+        try:
+            out[str(ev.get("id"))] = (int(float(t["home"]["score"])), int(float(t["away"]["score"])))
+        except (KeyError, TypeError, ValueError):
+            pass
+    return out
+
+
 def dk_live(league, g):
     """DraftKings' LIVE moneyline for our game, through ESPN's odds feed: (home ml, away ml) or (None, None)."""
     sport, lg = sd.LEAGUES[league][0].split("/")
@@ -418,28 +443,40 @@ def cycle(games, model, log, now=None, st=None, showing=()):
     up stays up while its value's still there (`showing`); a new one only takes a slot that's open."""
     now = now or datetime.now(timezone.utc)
     st = sc.load() if st is None else st
-    elo = sm.ratings(games, model)
+    key = (id(games), len(games))
+    if _ELO.get("key") != key:                                   # ratings replay once per games reload, not every cycle
+        _ELO.update(key=key, elo=sm.ratings(games, model))
+    elo = _ELO["elo"]
     plays = []
     WATCHING[0] = PRICED[0] = 0
-    for lg in sd.LEAGUES:
-        params = model["params"].get(lg) or sm.default_params(lg)
-        angs = fetch_live(lg)
-        books = bovada_live(lg) if any((a.get("boxscore") or {}).get("period") and str(a.get("status") or "").lower()
-                                       not in DONE for a in angs) else []
-        for ang in angs:
-            status = str(ang.get("status") or ang.get("real_status") or "").lower()
-            box = ang.get("boxscore") or {}
-            if status in DONE or not box.get("period"):
-                _grade(log, ang)
-                continue
-            WATCHING[0] += 1                                   # a game going right now
-            g = _match(games, lg, ang)
-            if not g:
-                continue
-            mlh, mla, checked = two_books(dk_live(lg, g), book_line(books, g))
+    with ThreadPoolExecutor(12) as ex:                          # everything in parallel: live lines move fast
+        angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live, sd.LEAGUES)))
+        live_lgs = [lg for lg, angs in angs_by.items()
+                    if any((a.get("boxscore") or {}).get("period") and str(a.get("status") or "").lower() not in DONE
+                           for a in angs)]
+        scores_f = {lg: ex.submit(espn_scores, lg) for lg in live_lgs}
+        books_f = {lg: ex.submit(bovada_live, lg) for lg in live_lgs}
+        todo = []
+        for lg, angs in angs_by.items():
+            for ang in angs:
+                status = str(ang.get("status") or ang.get("real_status") or "").lower()
+                box = ang.get("boxscore") or {}
+                if status in DONE or not box.get("period"):
+                    _grade(log, ang)
+                    continue
+                WATCHING[0] += 1                               # a game going right now
+                g = _match(games, lg, ang)
+                if g:
+                    todo.append((lg, ang, box, g, ex.submit(dk_live, lg, g)))
+        for lg, ang, box, g, dk_f in todo:
+            es = scores_f[lg].result().get(g["id"].split(":", 1)[1]) if lg in scores_f else None
+            if es is not None and es != (_score(box, "home"), _score(box, "away")):
+                continue                                       # the two score feeds disagree: never play a glitch
+            mlh, mla, checked = two_books(dk_f.result(), book_line(books_f[lg].result() if lg in books_f else [], g))
             PRICED[0] += mlh is not None and mla is not None
             if mlh is None or mla is None:
                 continue
+            params = model["params"].get(lg) or sm.default_params(lg)
             f = elo[lg].features(g)
             mkt = sm.market_p(g)
             p_model = sm.final_p(params, f, g) if mkt is not None else None
@@ -448,6 +485,10 @@ def cycle(games, model, log, now=None, st=None, showing=()):
             for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked):
                 pl["an_id"] = ang.get("id")
                 plays.append(pl)
+    fresh = {p["id"] for p in plays}
+    plays = [p for p in plays if p["id"] in SEEN or p["id"] in showing]   # held two checks in a row (no blips)
+    SEEN.clear()
+    SEEN.update(fresh)
     plays = board(plays, showing)
     for pl in plays:                                          # log the first time each play goes up (graded later)
         if pl["id"] not in log["plays"]:
@@ -493,11 +534,22 @@ def record(log):
     return {"won": w, "lost": lo}
 
 
+_DATA = {}
+
+
+def _data(reload=False):
+    """Games, model and key-player edges: loaded once, refreshed every ~10 minutes (not every 10-second check)."""
+    if reload or not _DATA or time.time() - _DATA["t"] > 600:
+        games = sd.load_games()
+        sp.CACHE = sp.load()
+        sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
+        _DATA.update(t=time.time(), games=games, model=json.load(open(os.path.join(sd.DATA, "model.json"))))
+    return _DATA["games"], _DATA["model"]
+
+
 def run():
-    games = sd.load_games()
-    model = json.load(open(os.path.join(sd.DATA, "model.json")))
-    sp.CACHE = sp.load()
-    sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
+    t0 = time.time()
+    games, model = _data()
     log = json.load(open(LOG)) if os.path.exists(LOG) else {"plays": {}}
     try:
         showing = [p["id"] for p in json.load(open(LIVE_JSON)).get("plays") or []]
@@ -505,14 +557,15 @@ def run():
         showing = []
     plays = cycle(games, model, log, showing=showing)
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
-           "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS)}
+           "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
+           "took_s": round(time.time() - t0, 1)}
     del sd.ERRORS[:]
     os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
     with open(LIVE_JSON, "w") as f:
         json.dump(out, f, indent=1)
     with open(LOG, "w") as f:
         json.dump(log, f, indent=1, sort_keys=True)
-    print(f"live: {WATCHING[0]} games live, {PRICED[0]} with a confirmed sportsbook price, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
+    print(f"live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
     return plays
 
 
@@ -580,15 +633,15 @@ def _log_key():
         return None
 
 
-def loop(minutes, every_s=15):
+def loop(minutes, every_s=10):
     """Watch live games every `every_s` seconds for `minutes`. Phones see every change right away (live-data
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
     while time.time() < end:
-        if games is None or int(time.time()) % 600 < every_s:          # reload games/model every ~10 min
+        if games is None or int(time.time()) % 600 < every_s:          # pull the latest games/model every ~10 min
             _git("pull", "-q", "--rebase", "-X", "theirs")
-            games = sd.load_games()
+            games, _ = _data(reload=True)
         if not any_live_soon(games):
             idle_since = idle_since or time.time()
             if not started or time.time() - idle_since > 5 * 60:        # nothing on: don't burn the clock
