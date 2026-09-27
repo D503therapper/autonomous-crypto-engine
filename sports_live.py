@@ -749,6 +749,7 @@ def publish_results(msg):
     try:
         importlib.reload(sports_dashboard)                   # the watcher runs for 50 min: always rebuild the page
         importlib.reload(sports)                             # with the newest pulled code, never an older look
+        _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")   # grade the latest picks, never a stale copy
         graded, posted = sports.quick()
     except Exception as e:                                   # noqa: BLE001 - never stop watching over this
         print(f"quick grade failed: {e}", flush=True)
