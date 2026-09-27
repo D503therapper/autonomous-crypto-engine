@@ -865,9 +865,12 @@ def test_rejected_followup():
     run(h, T0 + HOUR + 1000, 8)                                                        # (discovery jobs go first)
     assert fu["base:" + EVM]["liq_min"] == 20_000 and fu["base:0xdef"]["px_max"] == 0.07 and fu["base:0xdef"]["n"] == 1
     live[EVM] = (0.0004, 15_000)
-    del live["0xdef"]                                                                   # pair gone: liq 0
+    del live["0xdef"]                                                                   # pair missing: a miss, not $0
     run(h, T0 + 2 * HOUR + 2000, 8)
-    assert fu["base:0xdef"]["liq"] == 0
+    assert fu["base:0xdef"]["miss"] == 1 and fu["base:0xdef"]["px"] == 0.07
+    run(h, T0 + 3 * HOUR + 3000, 8)
+    run(h, T0 + 4 * HOUR + 4000, 8)
+    assert fu["base:0xdef"]["miss"] == 3                                                # gone for good -> counted a rug
     run(h, T0 + 7 * DAY + 3000, 8)                                                      # 7 days: finalized
     assert not h.state["followup"]
     r = {x["address"]: x for x in rows(f"{d}/rejected_followup.csv")}
@@ -876,7 +879,24 @@ def test_rejected_followup():
     line = h.weekly_line(T0 + 7 * DAY - HOUR)                                          # window covers the screens too
     assert "rejected-that-rugged 2/2" in line and "rejected-that-ran-up 1/2" in line and "screened 3, passed 0" in line
     shutil.rmtree(d)
+    # a -80% dump with the pool intact (liquidity ~ sqrt(price)) and a brief API miss is NOT a rug
+    live2 = {EVM: (0.01, 600_000)}
+    table2 = {"tokens/v1/base/": lambda u: (200, [ds_pair("base", EVM, price=live2[EVM][0], liq=live2[EVM][1])] if live2 else []),
+              "token_security/8453": (200, gp_evm(is_honeypot="1"))}
+    h, fetch, d2 = make(table2)
+    screen(h, cand(), n=3)
+    live2[EVM] = (0.002, 600_000 * 0.2 ** 0.5)
+    run(h, T0 + HOUR + 1000, 8)
+    live2.clear()
+    run(h, T0 + 2 * HOUR + 2000, 8)
+    live2[EVM] = (0.004, 600_000 * 0.4 ** 0.5)
+    run(h, T0 + 3 * HOUR + 3000, 8)
+    run(h, T0 + 7 * DAY + 3000, 8)
+    r = rows(f"{d2}/rejected_followup.csv")[-1]
+    assert r["rugged"] == "0", r
+    shutil.rmtree(d2)
     print("  rejected tokens followed 7 days (rug / run-up), sampled per day   ok")
+    print("  follow-up rug = pool pulled / price ended collapsed / pair gone for good (not a dump or one API miss)   ok")
 
 
 def test_auto_pause_after_scams():

@@ -1664,9 +1664,15 @@ class DexHunter:
                 best = best_pairs(pairs, chain)
                 for e in due:
                     c = best.get(e["addr"])
-                    px, liq = (c["price"] or 0.0, c["liq"]) if c else (0.0, 0.0)
+                    if not c or not c.get("price"):             # a missing pair is a miss, not a $0 price:
+                        e.update(miss=e.get("miss", 0) + 1, last=now, n=e["n"] + 1)   # APIs drop pairs now and then
+                        continue
+                    px, liq = c["price"], c["liq"]
+                    # liquidity left vs what the price move alone explains (constant-product pool: ~sqrt(price))
+                    lp = liq / (e["liq0"] * min(1.0, px / e["px0"]) ** 0.5) if e["liq0"] > 0 and e["px0"] > 0 else 1.0
                     e.update(px=px, liq=liq, px_max=max(e["px_max"], px), px_min=min(e["px_min"], px),
-                             liq_min=min(e["liq_min"], liq), last=now, n=e["n"] + 1)
+                             liq_min=min(e["liq_min"], liq), lp_min=min(e.get("lp_min", 1.0), lp), miss=0,
+                             last=now, n=e["n"] + 1)
             elif st_ == 200:
                 for e in due:
                     e.update(last=now, n=e["n"] + 1)
@@ -1676,7 +1682,10 @@ class DexHunter:
 
     def _finalize(self, key, e, now):
         F = self.p["followup"]
-        rugged = e["liq_min"] <= e["liq0"] * (1 - F["rug_liq"]) or e["px_min"] <= e["px0"] * (1 - F["rug_px"])
+        # rugged = the pool was pulled (liquidity gone beyond the price move), the price ended collapsed
+        # (the studies' rug: <= 10% and no recovery), or the pair vanished for good (3+ misses in a row at the end)
+        rugged = (e.get("lp_min", 1.0) <= 1 - F["rug_liq"] or e["px"] <= e["px0"] * (1 - F["rug_px"])
+                  or e.get("miss", 0) >= 3)
         ran_up = e["px_max"] >= e["px0"] * (1 + F["runup"])
         append_csv(f"{self.dir}/rejected_followup.csv", [{
             "time": ts(now), "chain": e["chain"], "symbol": e["sym"], "address": e["addr"], "rejected": ts(e["t0"]),
