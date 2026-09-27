@@ -194,7 +194,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 <meta name="apple-mobile-web-app-title" content="D503 Sports">
 <meta name="theme-color" content="#05070b">
 <title>THE D503 · Sports Engine</title>
-<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-512.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=7"><link rel="icon" href="icon-512.png?v=7"><link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
 *{{box-sizing:border-box}}
