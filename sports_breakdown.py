@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 10          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 11          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -352,8 +352,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     # the public: fading them or riding with them
     pub = public_side(leg, g)
     why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   v.say("fallback2", ["the engine likes our side more than the price does", "the math says otherwise",
-                                       "the numbers don't lie", "the engine sees it different"]) or "the numbers don't lie")
+                   v.say("fallback2", ["the math says otherwise", "the numbers don't lie", "the engine sees it different"]) or "the numbers don't lie")
     if pub == "fade":
         out.append(v.say("pub_fade", [
             f"🤡 {them} are the clear favorite and the public's all over 'em. We're on {us}. Fade the public — don't be a sheep. {_cap(why_pub)}.",
