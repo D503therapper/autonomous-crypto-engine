@@ -1,0 +1,23 @@
+# One-off probe: GoPlus / honeypot.is / DexScreener / Blockscout for the 0xb2000... Base tokens (tools/probe_goplus.py).
+name: probe_goplus
+on:
+  push:
+    paths: ["tools/probe_goplus.py", ".github/workflows/probe_goplus.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: mkdir -p results && python -u tools/probe_goplus.py | tee results/probe_goplus.txt
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results/probe_goplus.txt
+          git commit -m "probe_goplus results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs && git push && break; sleep 5; done
