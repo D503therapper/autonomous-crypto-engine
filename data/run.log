@@ -1500,3 +1500,15 @@ DEX: $731.74 (-68.26) · Scammed: 0
 [2026-09-27 05:15 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
 [2026-09-27 05:15 UTC] crypto/hold_btc  equity $501.62 (+0.3%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), TAO 32 (32/0/0), NEAR 29 (29/0/0), PENGU 27 (27/0/0), ENA 24 (24/0/0)
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '84581.91', 'l': '83821.77', 'a': '84380.91', 'v': '1104.7171', 'vv': '92957377.51', 'c': '0.0049', 'b': '84385.99', 'k': '84386.00', 'oi': '0', 't': 1790486106795}
+   dex outcome: emergency_exit HOLDOWEEN@solana:qYCUicz2 tier A P/L $+14.11 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%)
+   >> dex/dex_hunter: SELL $148.58 of HOLDOWEEN@solana:qYCUicz2 @ 0.004391, P/L $+14.11 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%)
+   dex screen: REJECT CBADA@base liq $119,014 - pool age unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE BASECAT@base liq $208,165 - goplus unreachable
+   dex screen: UNREACHABLE GULD@ethereum liq $1,799,927 - honeypot.is unreachable
+   dex screen: REJECT NOCK@base liq $1,398,129 - is_mintable; buy tax unknown; sell tax unknown
+   dex screen: PASS HODL@solana liq $280,489
