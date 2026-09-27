@@ -152,7 +152,7 @@ def render(cards, updated_ms):
   <div class="card-top">
     <div class="id"><span class="ico">{c["icon"]}</span><div><div class="nm">{html.escape(c["name"])}</div>
       <div class="sub"><b>{c["positions"]}</b> open position{"s" if c["positions"] != 1 else ""}</div></div></div>
-    <div class="val"><div class="bal">{_money(c["equity"])}</div><div class="chg {"up" if d >= 0 else "dn"}">{_chg(d, cb)}</div></div>
+    <div class="val"><div class="bal">{_money(c["equity"])}</div><div class="chg {"up" if d >= 0 else "dn"}">{_chg(d, cb)}</div><div class="began">started with {_money(cb)}</div></div>
   </div>
   <div class="spark">{_svg(c["series"], 300, 54, col, i, base=cb)}</div>
   {hold}
@@ -223,6 +223,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .val{{text-align:right}}
 .bal{{font-weight:700;font-size:19px;font-variant-numeric:tabular-nums}}
 .chg{{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}}
+.began{{font-size:11px;color:#fff;opacity:.6;margin-top:2px;font-variant-numeric:tabular-nums}}
 .up{{color:var(--up)}} .dn{{color:var(--dn)}} .w{{color:#fff}}
 .spark{{height:54px;margin:12px 0 8px}}
 .hold{{border-top:1px solid var(--line);margin-top:4px;padding-top:6px}}
