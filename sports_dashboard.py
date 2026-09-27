@@ -90,7 +90,9 @@ def _live_story(e, used=None):
         thought = _pick("thought", [f"We thought {us} would {what}", f"We figured {us} would {what}", f"We said {us} would {what}",
                                     f"We knew {us} could {what}"], used, k)
     else:
-        thought = _pick("riding", [f"We're riding {us} to {what}", f"We like {us} to {what}", f"We say {us} {what}"], used, k)
+        thought = _pick("riding", [f"We're riding {us} to {what}", f"We like {us} to {what}", f"We got {us} to {what}",
+                                   f"We're on {us} to {what}", f"We backing {us} to {what}", f"We're with {us} to {what}",
+                                   f"We think {us} {'come back' if what == 'come back' else what}"], used, k)
     if res == "won":
         end = _pick("won", ["and they did. Cashed. 💰", "and they got it done. Told y'all. 💰", "and they smacked that ass. 💰",
                             "and they came through. Trust the algorithm. 💰", "and they cashed. Fuck yeah. 💰"], used, k)
@@ -99,7 +101,9 @@ def _live_story(e, used=None):
                              "they were booty cheeks. Is what it is.", "they fumbled the bag. We run it back.",
                              "they never showed up. Bad call — next one's ours."], used, k)
     else:
-        end = _pick("pending", ["we gon' see.", "they about to go to work. We gon' see.", "trust the algorithm. We gon' see."], used, k)
+        end = _pick("pending", ["we gon' see.", "they about to go to work. We gon' see.", "trust the algorithm. We gon' see.",
+                                "hammer time. We gon' see.", "they cooking soon. We gon' see.", "don't be a sheep. We gon' see.",
+                                "the book's sleeping. We gon' see.", "let's eat. We gon' see."], used, k)
     return f"{score} {thought} — {end}"
 
 
