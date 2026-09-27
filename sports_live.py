@@ -308,10 +308,11 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
 
 BOOKS = {}                    # what the sportsbook feed returned this cycle, per league (diagnostics)
 WATCHING = [0]
-PRICED = [0]                  # live games with a confirmed sportsbook price this cycle                # live games seen in the last cycle (the dashboard says whether games are going)
+PRICED = [0]                  # live games with a sportsbook price this cycle                # live games seen in the last cycle (the dashboard says whether games are going)
 
 
-BOVADA = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
+BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
+ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}/odds"
 BOVADA_PATH = {"nfl": "football/nfl", "ncaaf": "football/college-football", "nba": "basketball/nba",
                "ncaab": "basketball/college-basketball", "nhl": "hockey/nhl", "mlb": "baseball/mlb"}
 AGREE = 0.08                  # the sportsbook (Bovada) and Action Network must agree within 8 points of win chance
@@ -349,6 +350,38 @@ def bovada_live(league):
                     if h is not None and a is not None:
                         out.append({"home": comps["home"], "away": comps["away"], "ml_home": h, "ml_away": a})
     return out
+
+
+def dk_live(league, g):
+    """DraftKings' LIVE moneyline for our game, through ESPN's odds feed: (home ml, away ml) or (None, None)."""
+    sport, lg = sd.LEAGUES[league][0].split("/")
+    try:
+        items = _get(ESPN_ODDS.format(sport=sport, league=lg, eid=g["id"].split(":", 1)[1])).get("items") or []
+    except Exception as e:                                   # noqa: BLE001
+        sd.ERRORS.append(f"dk live {g['id']}: {str(e)[:80]}")
+        return None, None
+    for it in items:
+        if "live" not in str((it.get("provider") or {}).get("name", "")).lower():
+            continue
+        h, a = (it.get("homeTeamOdds") or {}).get("moneyLine"), (it.get("awayTeamOdds") or {}).get("moneyLine")
+        try:
+            return int(h), int(a)
+        except (TypeError, ValueError):
+            return None, None
+    return None, None
+
+
+def two_books(dk, bov):
+    """The live price from two real sportsbooks (DraftKings via ESPN, Bovada): (home, away, confirmed).
+    Both agree = confirmed; only one = used, unconfirmed; far apart = something's glitched = no price."""
+    have = [x for x in (dk, bov) if x[0] is not None and x[1] is not None]
+    if not have:
+        return None, None, False
+    if len(have) == 2:
+        if abs(sd.no_vig(*have[0]) - sd.no_vig(*have[1])) > AGREE:
+            return None, None, False
+        return have[0][0], have[0][1], True
+    return have[0][0], have[0][1], False
 
 
 def book_line(lines, g):
@@ -405,7 +438,7 @@ def cycle(games, model, log, now=None, st=None, showing=()):
             g = _match(games, lg, ang)
             if not g:
                 continue
-            mlh, mla, checked = confirmed_line(book_line(books, g), live_line(box), both=True)
+            mlh, mla, checked = two_books(dk_live(lg, g), book_line(books, g))
             PRICED[0] += mlh is not None and mla is not None
             if mlh is None or mla is None:
                 continue
