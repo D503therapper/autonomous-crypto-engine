@@ -525,15 +525,16 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask{{background:var(--card);border:1px solid rgba(34,211,238,.35);border-radius:16px;margin:14px 0;overflow:hidden}}
 .ask summary{{list-style:none;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}}
 .ask summary::-webkit-details-marker{{display:none}}
-.ask-t{{font-weight:900;letter-spacing:.08em;color:#22d3ee}} .ask-s{{font-size:12px;color:#9fb0c8}}
-.ask-b{{padding:0 14px 14px}} .ask-n{{font-size:12px;color:#9fb0c8;margin:4px 0 10px}} .ask-n b{{color:#fff}}
-#askq{{width:100%;font-size:16px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:#060a12;color:#fff}}
+.ask-t{{font-weight:900;letter-spacing:.08em;color:#22d3ee}} .ask-s{{font-size:12px;font-weight:700;color:#ffc233}}
+.ask-b{{padding:0 14px 14px}} .ask-n{{font-size:13px;font-weight:600;color:#ffe08a;margin:4px 0 10px}} .ask-n b{{color:#22e39a}}
+#askq{{width:100%;font-size:16px;padding:11px 12px;border-radius:12px;border:1px solid rgba(34,211,238,.55);background:#060a12;color:#fff}}
+#askq::placeholder{{color:#5fd4e8}}
 #asklist{{display:flex;flex-direction:column;gap:6px;margin-top:10px}}
 .ask-g{{text-align:left;background:var(--card2);border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700}}
-.ask-g small{{color:#9fb0c8;font-weight:600;margin-left:6px}}
+.ask-g small{{color:#22d3ee;font-weight:700;margin-left:6px}}
 .ask-c{{margin-top:12px}} .ask-l{{font-size:17px;margin:8px 0 2px}} .ask-l b{{color:#fff}}
-.ask-a{{font-weight:800;color:#22d3ee;margin:2px 0 6px}} .ask-w{{font-size:13px;color:#e6ecf5;margin:6px 0}}
-.ask-h{{font-size:13px;color:#c9d3e3;margin:4px 0}} .ask-h b{{color:#fff}}
+.ask-a{{font-weight:800;color:#22e39a;margin:2px 0 6px}} .ask-w{{font-size:13px;font-weight:600;color:#ff9f5a;margin:6px 0}}
+.ask-h{{font-size:13px;font-weight:600;color:#b9a4ff;margin:4px 0}} .ask-h b{{color:#fff}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
@@ -719,23 +720,27 @@ var WHY={{steep:["They should win, but that price is way too steep. We ain’t l
  no_value:["The books got this one priced about right. Nothing for us here.","Line’s fair — no real value, so it’s not a pick.","Books did their homework on this one. No edge."]}};
 var OUT=["You’re on your own with this one. Good luck — hope it smacks. 🤞","Your call, not ours. Hope it cashes. 🤞",
  "We ain’t on it, so you’re riding solo. Hope it hits. 🤞","If you tail it, that’s on you. Hope it smacks. 🤞"];
-function vibe(p){{return p>=0.65?"The engine likes them to handle business.":p>=0.55?"Slight lean our way — nothing crazy.":"Barely a lean. Proceed with caution."}}
+function vibe(p,id){{return pick(id+"v",p>=0.65?["The engine likes them to handle business.","They should take care of business.","Engine’s feeling good about this side.","They got the better squad and it shows."]:
+ p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
+ ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}}
 function show(g){{
   var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line, pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
     '<div class="ls">'+esc(g.away)+" @ "+esc(g.home)+'</div>';
   if(g.why=="on_board"){{h+='<div class="ask-a">🎯 We already on this one — it’s on the board. Scroll down and tail it. 👇</div></section>';out.innerHTML=h;return}}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
-     '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p)+'</div>'+
+     '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
      (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+
-     (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. No 1st-half line yet, so that’s just the read.</div>':"")+
+     (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. '+pick(g.id+"h",["No 1st-half line posted yet, so that’s just the read.","Just the read — books ain’t posted the 1st-half line.","That’s our read on the early action."])+'</div>':"")+
      '<div class="ask-w">Why it’s not a pick: '+pick(g.id,WHY[g.why]||WHY.no_value)+'</div>'+
      '<div class="ask-d">⚠️ Not our pick — this doesn’t count toward our record. '+pick(g.id+"x",OUT)+'</div></section>';
   out.innerHTML=h;
 }}
 var STOP={{"who":1,"wins":1,"win":1,"will":1,"the":1,"and":1,"what":1,"think":1,"you":1,"about":1,"game":1,"tonight":1,"today":1,"does":1,"engine":1,"gonna":1,"should":1,"bet":1,"take":1,"vs":1,"over":1,"under":1,"first":1,"half":1,"spread":1,"total":1,"lean":1,"lock":1,"pick":1,"with":1,"for":1,"this":1,"that":1,"how":1,"like":1}};
-var loaded=false, NOPE=["The engine don’t have a read on that one. Either it ain’t on today’s slate, it already started, or the books ain’t posted a line yet. Check back closer to game time.",
- "Nothing on that one right now — no line up yet, or the game’s already going. Try another team."];
+var loaded=false, NOPE=["My bad — the engine can’t answer that one yet. We gotta update this shit. 🛠️ Try a team on today’s slate.",
+ "Damn, we got nothing on that one. My bad — the engine’s still learning. Try another team. 🛠️",
+ "My bad, can’t answer that one right now. Either it ain’t on the slate, it already started, or the books ain’t posted a line. 🛠️",
+ "That one’s over the engine’s head for now. My bad — we updating it. Try a team name. 🛠️"];
 function note(){{
   var t=q.value.toLowerCase(), n=[];
   if(/over|under|\btotal|o\/u/.test(t)) n.push("📚 Over/unders: the engine’s still studying those — we don’t guess. Reads coming soon.");

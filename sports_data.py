@@ -29,7 +29,8 @@ FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_
           "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
           "inj_home", "inj_away", "sp_home", "sp_away", "stype", "country", "intl", "city", "state", "indoor",
           "elev", "wx_temp", "wx_wind", "wx_rain", "tzo", "ls_home", "ls_away",
-          "h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds"]
+          "h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds",
+          "total", "over_odds", "under_odds"]
 REAL = ("2", "3", "?")          # regular season + playoffs; preseason / spring training / all-star games don't count
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 
@@ -435,6 +436,8 @@ def parse_an(payload):
                "ml_home_open": parse_american(open_.get("ml_home")), "ml_away_open": parse_american(open_.get("ml_away")),
                "spread_home": _num(close.get("spread_home")),
                "spread_home_odds": parse_american(close.get("spread_home_line")), "spread_away_odds": parse_american(close.get("spread_away_line")),
+               "total": _num(close.get("total")), "over_odds": parse_american(close.get("over")),
+               "under_odds": parse_american(close.get("under")),
                "ls_home": ",".join(str(p.get("home_points") or 0) for p in (g.get("boxscore") or {}).get("linescore") or []),
                "ls_away": ",".join(str(p.get("away_points") or 0) for p in (g.get("boxscore") or {}).get("linescore") or [])}
         lo = (g.get("boxscore") or {}).get("latest_odds") or {}
@@ -479,6 +482,7 @@ def _same(short, full):
 
 
 H1 = ("h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds")
+TOT = ("total", "over_odds", "under_odds")          # over/unders: kept for the totals study + ASK THE ENGINE
 
 
 def attach_an(games, league, rows):
@@ -508,6 +512,10 @@ def attach_an(games, league, rows):
             for k in H1:
                 if r.get(k) is not None and g.get(k, "") == "":
                     g[k] = r[k]
+            if r.get("total") is not None and (g.get("total", "") == "" or g.get("status") == "pre"):
+                for k in TOT:                                # the latest before the start = the closing total
+                    if r.get(k) is not None:
+                        g[k] = r[k]
             if r.get("ls_home") and g.get("status") == "final" and not g.get("ls_home"):
                 g["ls_home"], g["ls_away"] = r["ls_home"], r["ls_away"]
             break
@@ -524,6 +532,8 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=420):
     today = datetime.now(timezone.utc).date()
     if not state.get("an_h1"):                           # re-walk the odds history once to keep first-half / F5 lines
         state["an_synced"], state["an_from"], state["an_h1"] = {}, {}, True
+    if not state.get("an_tot"):                          # ...and once more to keep over/under totals
+        state["an_synced"], state["an_from"], state["an_tot"] = {}, {}, True
     cur = state.setdefault("an_synced", {})
     jobs = []
     weeks = []
