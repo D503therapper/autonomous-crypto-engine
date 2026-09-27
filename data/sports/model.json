@@ -1,5 +1,5 @@
 {
- "finals_seen": 88124,
+ "finals_seen": 86804,
  "log": [
   {
    "accuracy": 0.6452,
@@ -927,7 +927,7 @@
    "market_accuracy": 0.6837,
    "move_w": -0.15869616496714997,
    "odds_games": 664,
-   "trust": 0.05331552179297606
+   "trust": 0.05233002656142366
   },
   {
    "accuracy": 0.6507,
@@ -947,7 +947,7 @@
   },
   {
    "accuracy": 0.7344,
-   "change": "trust 10% \u2192 9%; rest weight -0.25 \u2192 -0.18; bye weight -0.09 \u2192 -0.15; short weight -0.00 \u2192 -0.05; alt weight +0.16 \u2192 +0.02",
+   "change": "trust 10% \u2192 9%; rest weight -0.25 \u2192 -0.18; bye weight -0.09 \u2192 -0.15; short weight -0.00 \u2192 -0.05; alt weight +0.10 \u2192 +0.02; travel weight -0.23 \u2192 -0.16",
    "date": "2026-09-27",
    "games": 5711,
    "hfa": 80,
@@ -987,7 +987,7 @@
    "league": "mlb",
    "logloss_final": 0.6691,
    "logloss_market": 0.6707,
-   "logloss_own": 0.6725,
+   "logloss_own": 0.6724,
    "market_accuracy": 0.5756,
    "move_w": -0.08809812673003012,
    "odds_games": 900,
@@ -995,7 +995,7 @@
   },
   {
    "accuracy": 0.5478,
-   "change": "trust 13% \u2192 14%; intl weight -0.06 \u2192 -0.17",
+   "change": "trust 12% \u2192 14%; intl weight -0.05 \u2192 -0.17",
    "date": "2026-09-27",
    "games": 10708,
    "hfa": 20,
@@ -1026,7 +1026,7 @@
    "trust": 0.051945637874220685
   }
  ],
- "ls_seen": 92761,
+ "ls_seen": 91362,
  "odds_seen": 35854,
  "params": {
   "mlb": {
@@ -1040,7 +1040,7 @@
    "logloss_elo": 0.6756,
    "logloss_final": 0.6691,
    "logloss_market": 0.6707,
-   "logloss_own": 0.6725,
+   "logloss_own": 0.6724,
    "market_accuracy": 0.5756,
    "move_w": -0.08809812673003012,
    "odds_games": 900,
@@ -1160,7 +1160,7 @@
    }
   },
   "ncaab": {
-   "accuracy": 0.6767,
+   "accuracy": 0.6756,
    "bfav": -0.018697521708458554,
    "big_fav_cover": 0.486,
    "big_fav_games": 3508,
@@ -1223,8 +1223,8 @@
     "b2b": 0.449,
     "bye": 0.0,
     "cold": 0.0,
-    "elo": 1.139,
-    "form": -0.084,
+    "elo": 1.138,
+    "form": -0.088,
     "inj": 0.0,
     "intl": 0.0,
     "key": 0.0,
@@ -1247,7 +1247,7 @@
    "hdog": -0.028608902638683844,
    "hfa": 80,
    "k": 50.0,
-   "logloss_elo": 0.5225,
+   "logloss_elo": 0.5221,
    "logloss_final": 0.4937,
    "logloss_market": 0.4957,
    "logloss_own": 0.5179,
@@ -1276,7 +1276,7 @@
     -4.644742306916511
    ],
    "trust": 0.09053415388018247,
-   "tuned": "2026-09-27 18:02",
+   "tuned": "2026-09-27 18:11",
    "w": [
     0.11047160272262307,
     0.8425594329142091,
@@ -1353,7 +1353,7 @@
     -1.0786057671964633
    ],
    "trust": 0.1301193888826983,
-   "tuned": "2026-09-27 18:02",
+   "tuned": "2026-09-27 18:11",
    "w": [
     0.008606250402204812,
     0.8749151116193554,
