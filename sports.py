@@ -47,8 +47,9 @@ MIN_EDGE = 0.01                # NEVER a filler: every leg, lock and dog must be
 MAX_EXTRA_OUT = 1              # never back the more banged-up team: at most 1 more player out than the opponent
 KINDS = [("two", "2-Leg of the Day"), ("three", "3-Leg of the Day"), ("eight", "8-Leg of the Day"),
          ("lock", "Lock of the Day"), ("dog", "Dog of the Day")]
-# 8-leg: moneylines and spreads (no big favorite: a favorite shorter than -150 only gets in on the spread, when the
-# spread's real value). Over/unders stay out until the engine has studied totals.
+# 8-leg: moneylines and spreads, every day across all sports (no big favorite: a favorite shorter than -150 only gets
+# in on the spread). Value legs first; on a slate short on value the likeliest legs fill it. Over/unders stay out
+# until the engine has studied totals.
 
 
 # ---------------------------------------------------------------- state files
@@ -201,10 +202,14 @@ def _parlay(cands, n, top=40):
     pool = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: -c["edge"])[:top]
     if n > 3:                                     # big parlays: the likeliest good leg per game, then the likeliest games
         per_game = {}
-        for c in pool:
+        fill = sorted((c for c in cands if c["odds"] >= MAX_FAV and not good(c)),
+                      key=lambda c: (not c.get("reasons"), -c["p"]))            # the 8-leg always goes up: if the
+        for c in pool + fill:                                                   # slate's short on value, the likeliest
+            if c["game_id"] in per_game and good(per_game[c["game_id"]]) and not good(c):   # legs fill it
+                continue
             if c["game_id"] not in per_game or (c["p"], c["edge"]) > (per_game[c["game_id"]]["p"], per_game[c["game_id"]]["edge"]):
                 per_game[c["game_id"]] = c
-        legs = sorted(per_game.values(), key=lambda c: (-c["p"], -c["edge"]))[:n]
+        legs = sorted(per_game.values(), key=lambda c: (not good(c), -c["p"], -c["edge"]))[:n]   # value legs first
         if len(legs) < n:
             return None
         dec, p = 1.0, 1.0

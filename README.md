@@ -61,9 +61,9 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    - **No big favorites:** no parlay leg shorter than −150.
    - **2-Leg / 3-Leg of the Day:** the most likely-to-hit parlay built from good legs only, one leg per game
      (no payout chasing).
-   - **8-Leg of the Day:** the likeliest 8 good legs from 8 different games, moneylines and spreads. A favorite
-     shorter than −150 only gets in on the spread, and only when the spread is real value. No over/unders
-     until the engine has studied totals. Fewer than 8 good games on the slate means no 8-leg that day.
+   - **8-Leg of the Day:** every day, across all sports: 8 different games, moneylines and spreads. Value legs
+     first; if the slate is short on value, the likeliest legs fill it. A favorite shorter than −150 only gets
+     in on the spread. No over/unders until the engine has studied totals.
    - **Lock of the Day:** a moneyline no shorter than −120, highest win chance among good plays.
    - **Dog of the Day:** plus money; a big dog (+200 and up) whenever it triggers: a 22%+ win chance and clearly
      the best value on the slate.

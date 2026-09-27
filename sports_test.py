@@ -229,9 +229,11 @@ def test_board_rules():
     assert len(eight) == 8 and len({l["game_id"] for l in eight}) == 8 and all(sports.good(l) for l in eight)
     assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
     assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
+    short = slate[:5] + [_cand(f"n{i}", -120, 0.50) for i in range(5)]      # only 5 value legs: still an 8-leg
+    eight = sports.make_board(short)["eight"]["legs"]
+    assert len(eight) == 8 and sum(sports.good(l) for l in eight) == 5 and all(l["odds"] >= sports.MAX_FAV for l in eight)
     filler = [_cand("p", 202, 0.32), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
     b = sports.make_board(filler)
-    assert b["eight"] is None, "fewer than 8 good games on the slate = no 8-leg (never a filler)"
     assert b["two"] is None and b["three"] is None, "no good pair on the slate = no play, never a filler"
     assert b["dog"] is None and b["lock"] is None
     sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
