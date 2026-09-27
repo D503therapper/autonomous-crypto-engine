@@ -484,6 +484,22 @@ def test_tennis():
     slate[0]["picks"][0]["result"] = None
     st.grade({"0": {**m, "done": 1, "winner": 1}}, slate)
     assert slate[0]["picks"][0]["result"] == "won"
+    # the WTA reads the women's draw; countries: home crowd + conflict matchups; she/her in women's breakdowns
+    wpay = {"events": [{"id": "8", "name": "China Open", "groupings": [{"grouping": {"displayName": "Women's Singles"}, "competitions": [
+        {"id": "5", "date": "2026-10-01T06:00Z", "venue": {"fullName": "Beijing, China PR"}, "status": {"type": {"name": "STATUS_SCHEDULED"}},
+         "competitors": [{"athlete": {"id": "7", "displayName": "Qinwen Zheng", "flag": {"alt": "China PR"}}},
+                         {"athlete": {"id": "8", "displayName": "Elina Svitolina", "flag": {"alt": "Ukraine"}}}]}]}]}]}
+    wr = st.parse_espn(wpay, "wta")
+    assert len(wr) == 1 and wr[0]["id"] == "wta:5" and wr[0]["bo"] == 3 and st.parse_espn(wpay, "atp") == []
+    assert st.is_home(wr[0]["cc1"], wr[0]["venue"], wr[0]["tourney"]) == 1 and st.is_home("Ukraine", wr[0]["venue"], "") == 0
+    assert st.conflict("Russia", "Ukraine") and not st.conflict("Spain", "Ukraine")
+    bd = st.breakdown({"id": "x", "player": "Qinwen Zheng", "opp": "Elina Svitolina", "surface": "hard", "bo": 3, "value": True,
+                       "tour": "wta", "f": {"surface_gap": 0, "fatigue": 0, "form": 0, "h2h": 0, "home": 1}}, None, set())
+    assert bd and not any(__import__("re").search(r"\b(he|him|his)\b", x) for x in bd), bd
+    # drama on our side: twice the value and never a filler
+    dcands = [{"id": "d:1", "match": "d", "p": 0.8, "odds": -350, "dec": sd.decimal(-350), "our_drama": [{"kind": "relationship drama"}]}]
+    dcands[0]["edge"] = 0.8 * dcands[0]["dec"] - 1
+    assert st.pick_slate(dcands)[0] == []
     # odds matching by last names, either order
     m2 = {**ms["1"], "p1_name": "Carlos Alcaraz", "p2_name": "Jannik Sinner", "start": "2026-05-01T10:00Z"}
     assert st.price(m2, [{"a": "Jannik Sinner", "b": "Carlos Alcaraz", "a_ml": -150, "b_ml": 130,

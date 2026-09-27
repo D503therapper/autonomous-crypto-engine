@@ -21,6 +21,9 @@ KINDS = [   # (kind, pattern) - checked on the headline + description
     ("family/personal", r"\bpersonal (reasons|matter)\b|\bleave of absence\b|\bbereavement\b|\bfamily (matter|emergency)\b|"
                         r"\b(passed away|died|death of)\b"),
     ("illness", r"\billness\b|\bflu\b|\bhospitali[sz]ed\b|\bvirus\b"),
+    ("relationship drama", r"\bdivorc(e|ed|ing)\b|\bsplit (from|with)\b|\bbr(eak|oke) ?up\b|\bseparat(ed|ion) from\b|"
+                           r"\bcustody\b|\bex-(wife|girlfriend|fiancee?)\b"),
+    ("new baby", r"\bbirth of (his|their)\b|\bwelcome[sd]? (a |their )?(baby|son|daughter)\b|\bpaternity\b"),
     ("trade drama", r"\btrade request\b|\brequest(s|ed)? (a )?trade\b|\bhold ?out\b|\bdemand(s|ed)? (a )?trade\b"),
 ]
 

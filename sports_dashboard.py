@@ -138,7 +138,7 @@ def _tennis():
     def row(l):
         bd = "".join(f"<p>{E(x)}</p>" for x in l.get("breakdown") or [])
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm">{_time(l["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">🎾 {"WTA" if l.get("tour") == "wta" else "ATP"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm">{_time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>ML</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}

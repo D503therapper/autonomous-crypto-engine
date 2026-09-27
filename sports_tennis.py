@@ -1,4 +1,4 @@
-"""🎾 TENNIS BONUS: men's singles (ATP) picks - a bonus section, never part of the main board or its records.
+"""🎾 TENNIS BONUS: men's (ATP) and women's (WTA) singles picks - a bonus section, never part of the main board or its records.
 
 Every engine run:
   1. Results from ESPN's ATP scoreboard (each call returns whole tournaments, so history is walked a week at a
@@ -34,9 +34,18 @@ PICKS = os.path.join(DIR, "picks.json")
 ODDS = os.path.join(DIR, "odds.json")
 RANKS = os.path.join(DIR, "rankings.json")   # the ATP ranking, saved daily (ESPN only has today's): {date: {id: rank}}
 LINES = os.path.join(DIR, "lines.json")      # every price seen, the last one before the start kept (closing line)
-FIELDS = ["id", "start", "event", "tourney", "round", "surface", "bo", "p1", "p1_name", "p2", "p2_name", "winner",
-          "sets1", "sets2", "status", "done"]
-ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard"
+FIELDS = ["id", "tour", "start", "event", "tourney", "round", "surface", "bo", "p1", "p1_name", "p2", "p2_name", "winner",
+          "sets1", "sets2", "status", "done", "cc1", "cc2", "venue"]
+NEWS = os.path.join(DIR, "news.json")
+# matchups between countries in conflict: the engine learns from the results whether they play differently
+CONFLICT = [("ukraine", "russia"), ("ukraine", "belarus"), ("serbia", "croatia"), ("serbia", "bosnia"),
+            ("serbia", "kosovo"), ("georgia", "russia"), ("armenia", "azerbaijan"), ("china", "taiwan"),
+            ("china", "chinese taipei"), ("india", "pakistan"), ("greece", "turkey"), ("israel", "iran"),
+            ("israel", "lebanon"), ("israel", "palestine"), ("poland", "russia"), ("poland", "belarus")]
+ALIASES = {"china pr": "china", "usa": "united states", "great britain": "united kingdom", "gbr": "united kingdom",
+           "czechia": "czech republic", "korea republic": "south korea", "türkiye": "turkey", "turkiye": "turkey"}
+ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard"
+TOURS = ("atp", "wta")
 BOVADA = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&lang=en"
 YEARS = 10
 N_PICKS = 8
@@ -81,26 +90,27 @@ def _t(iso):
 
 
 # ---------------------------------------------------------------- results (ESPN)
-def parse_espn(payload):
-    """ESPN ATP scoreboard -> [match rows] (men's singles only)."""
+def parse_espn(payload, tour="atp"):
+    """ESPN ATP / WTA scoreboard -> [match rows] (singles only)."""
     out = []
     for ev in payload.get("events") or []:
         tourney = ev.get("name") or ev.get("shortName") or ""
         major = bool(ev.get("major")) or any(k in tourney.lower() for k in MAJORS)
         for gr in ev.get("groupings") or []:
             gname = ((gr.get("grouping") or {}).get("displayName") or "")
-            if "Singles" not in gname or "Women" in gname:
+            if "Singles" not in gname or ("Women" in gname) != (tour == "wta"):
                 continue
             for c in gr.get("competitions") or []:
                 comps = c.get("competitors") or []
                 if len(comps) != 2:
                     continue
                 st = ((c.get("status") or {}).get("type") or {})
-                ids, names, sets = [], [], []
+                ids, names, sets, ccs = [], [], [], []
                 for x in comps:
                     a = x.get("athlete") or {}
                     ids.append(str(a.get("id") or x.get("id") or ""))
                     names.append(a.get("displayName") or a.get("fullName") or "?")
+                    ccs.append(((a.get("flag") or {}).get("alt") or "").strip())
                     sets.append([int(float(ls.get("value") or 0)) for ls in x.get("linescores") or []])
                 if not all(ids):
                     continue
@@ -108,12 +118,13 @@ def parse_espn(payload):
                 rnd = ((c.get("round") or {}).get("displayName") or "")
                 done = sum(1 for a, b in zip(*sets) if max(a, b) >= 6 and (abs(a - b) >= 2 or max(a, b) == 7))
                 out.append({
-                    "id": str(c.get("id")), "start": c.get("date") or ev.get("date") or "", "event": str(ev.get("id") or ""),
+                    "id": f"{tour}:{c.get('id')}", "tour": tour, "start": c.get("date") or ev.get("date") or "", "event": str(ev.get("id") or ""),
                     "tourney": tourney, "round": rnd, "surface": surface_of(tourney),
-                    "bo": 5 if major and "qualif" not in rnd.lower() else 3,
+                    "bo": 5 if tour == "atp" and major and "qualif" not in rnd.lower() else 3,
                     "p1": ids[0], "p1_name": names[0], "p2": ids[1], "p2_name": names[1], "winner": win,
                     "sets1": " ".join(map(str, sets[0])), "sets2": " ".join(map(str, sets[1])),
-                    "status": st.get("name") or "", "done": done,
+                    "status": st.get("name") or "", "done": done, "cc1": ccs[0], "cc2": ccs[1],
+                    "venue": ((c.get("venue") or {}).get("fullName") or ""),
                 })
     return out
 
@@ -148,11 +159,11 @@ def save_matches(ms):
     os.replace(MATCHES + ".tmp", MATCHES)
 
 
-def _espn(day):
+def _espn(day, tour="atp"):
     for i in range(2):
         try:
-            with urllib.request.urlopen(f"{ESPN}?dates={day:%Y%m%d}", timeout=20) as r:
-                return parse_espn(json.load(r))
+            with urllib.request.urlopen(f"{ESPN.format(tour=tour)}?dates={day:%Y%m%d}", timeout=20) as r:
+                return parse_espn(json.load(r), tour)
         except Exception as e:                           # noqa: BLE001
             if i:
                 sd.ERRORS.append(f"tennis {day:%Y-%m-%d}: {str(e)[:100]}")
@@ -164,6 +175,8 @@ def sync(state, budget_s=150):
     """This week (+ tomorrow) every run; history a year per run (weekly calls - each returns whole tournaments)."""
     ms = load_matches()
     today = datetime.now(timezone.utc).date()
+    if state.get("tennis_v", 1) < 3:                     # countries, venues + the WTA added: rebuild the history once
+        state["tennis_v"], state["tennis_from"], ms = 3, today.isoformat(), {}
     days = [today + timedelta(days=d) for d in range(-7, 2)]
     frm = datetime.strptime(state.get("tennis_from", today.isoformat()), "%Y-%m-%d").date()
     target = today - timedelta(days=365 * YEARS)
@@ -174,10 +187,11 @@ def sync(state, budget_s=150):
         d -= timedelta(days=7)
     deadline = time.time() + budget_s
 
-    def run(day):
-        return day, (_espn(day) if time.time() < deadline else None)
+    def run(job):
+        day, tour = job
+        return day, (_espn(day, tour) if time.time() < deadline else None)
     with ThreadPoolExecutor(6) as ex:
-        results = list(ex.map(run, days))
+        results = list(ex.map(run, [(d, t) for d in days for t in TOURS]))
     got = 0
     for day, rows in results:
         for r in rows or []:
@@ -189,7 +203,7 @@ def sync(state, budget_s=150):
     if all(rows is not None for day, rows in results if day < today - timedelta(days=7)):
         state["tennis_from"] = min(lo, frm).isoformat()
     save_matches(ms)
-    return ms, len(days), sum(1 for _, r in results if r is None)
+    return ms, len(results), sum(1 for _, r in results if r is None)
 
 
 # ---------------------------------------------------------------- the study
@@ -236,9 +250,12 @@ class Ratings:
             h = [w for t, w, _ in self.hist.get(pid, []) if t < when][-10:]
             return (sum(h) / len(h) - 0.5) if h else 0.0
         h = self.h2h.get((p1, p2), 0) - self.h2h.get((p2, p1), 0)
+        home = is_home(m.get("cc1"), m.get("venue"), m.get("tourney")) - is_home(m.get("cc2"), m.get("venue"), m.get("tourney"))
+        clash = 1.0 if conflict(m.get("cc1"), m.get("cc2")) else 0.0
         return {"elo": sm.logit(p), "fatigue": (fatigue(p2) - fatigue(p1)) / 3, "form": form(p1) - form(p2),
                 "h2h": max(-3, min(3, h)) / 3, "known": min(self.n.get(p1, 0), self.n.get(p2, 0)),
-                "p_elo": p, "surface_gap": (s1 - s2) - (o1 - o2)}
+                "p_elo": p, "surface_gap": (s1 - s2) - (o1 - o2), "home": home, "clash": clash,
+                "clash_elo": clash * sm.logit(p)}
 
     def update(self, m):
         st = _state(m)
@@ -258,8 +275,29 @@ class Ratings:
         self.h2h[(winner, loser)] = self.h2h.get((winner, loser), 0) + 1
 
 
+def _cc(x):
+    x = str(x or "").strip().lower()
+    return ALIASES.get(x, x)
+
+
+def conflict(a, b):
+    a, b = _cc(a), _cc(b)
+    return bool(a and b) and ((a, b) in CONFLICT or (b, a) in CONFLICT)
+
+
+def is_home(cc, venue, tourney):
+    """1 when the player is playing in his own country (the crowd's behind him)."""
+    c = _cc(cc)
+    if not c:
+        return 0
+    where = f"{venue} {tourney}".lower().replace("china pr", "china")
+    names = {c} | {k for k, v in ALIASES.items() if v == c}
+    return 1 if any(re.search(rf"\b{re.escape(n)}\b", where) for n in names) else 0
+
+
 def _x(f):
-    return [1.0, f["elo"], f["fatigue"], f["form"], f["h2h"]]
+    # clash_elo: in a conflict matchup, does the favorite hold up or tighten up? (learned, can go either way)
+    return [1.0, f["elo"], f["fatigue"], f["form"], f["h2h"], f.get("home", 0), f.get("clash_elo", 0)]
 
 
 def model_p(w, f, bo=3):
@@ -277,7 +315,7 @@ def study(ms, eval_n=2000):
         if f["known"] >= MIN_MATCHES and int(m["winner"] or 0) in (1, 2) and _state(m) == "final":
             data.append((f, 1.0 if int(m["winner"]) == 1 else 0.0, m))
         rt.update(m)
-    prior = [0.0, 1.0, 0.0, 0.0, 0.0]
+    prior = [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     fit_on, ev = data[:-eval_n], data[-eval_n:]
     w = sm.fit_logistic_offset([_x(f) for f, _, _ in fit_on], [y for _, y, _ in fit_on], [0.0] * len(fit_on),
                                prior=prior, lam=20.0) if len(fit_on) >= 500 else prior
@@ -312,12 +350,12 @@ def _median(xs):
 
 
 def bovada():
-    """Backup: Bovada's public tennis feed (men's singles moneylines)."""
+    """Bovada's public tennis feed: ATP + WTA singles moneylines."""
     data, _ = _get(BOVADA)
     out = []
     for grp in data or []:
         path = " ".join(str(p.get("description") or "") for p in grp.get("path") or []).lower()
-        if "atp" not in path or "doubles" in path or "wta" in path or "women" in path:
+        if not re.search(r"\b(atp|wta)\b", path) or any(k in path for k in ("doubles", "challenger", "itf", "exhibition", "utr", "125")):
             continue
         for ev in grp.get("events") or []:
             for dg in ev.get("displayGroups") or []:
@@ -354,7 +392,7 @@ def refresh_odds(state, now):
             with open(ODDS, "w") as f:
                 json.dump(cache, f, indent=1)
         save_lines(lines, now)
-        print(f"tennis odds: {len(lines)} men's matches priced (bovada)")
+        print(f"tennis odds: {len(lines)} singles matches priced (bovada)")
     except Exception as e:                               # noqa: BLE001
         sd.ERRORS.append(f"bovada: {str(e)[:100]}")
         print(f"tennis odds: BOVADA FAILED ({str(e)[:80]}) - tell the owner if this keeps happening")
@@ -362,7 +400,7 @@ def refresh_odds(state, now):
 
 
 def rankings(now):
-    """Today's ATP top 150 {player id: rank}; saved once a day so the engine builds its own ranking history."""
+    """Today's ATP + WTA rankings {player id: rank}; saved once a day so the engine builds its own ranking history."""
     hist = {}
     if os.path.exists(RANKS):
         with open(RANKS) as f:
@@ -370,15 +408,52 @@ def rankings(now):
     day = now.astimezone(PT).date().isoformat()
     if day not in hist:
         try:
-            with urllib.request.urlopen(ESPN.replace("scoreboard", "rankings"), timeout=20) as r:
-                ranks = (json.load(r).get("rankings") or [{}])[0].get("ranks") or []
-            hist[day] = {str((x.get("athlete") or {}).get("id")): int(x.get("current")) for x in ranks if x.get("current")}
+            hist[day] = {}
+            for tour in TOURS:
+                with urllib.request.urlopen(ESPN.format(tour=tour).replace("scoreboard", "rankings"), timeout=20) as r:
+                    ranks = (json.load(r).get("rankings") or [{}])[0].get("ranks") or []
+                hist[day].update({str((x.get("athlete") or {}).get("id")): int(x.get("current")) for x in ranks if x.get("current")})
             os.makedirs(DIR, exist_ok=True)
             with open(RANKS, "w") as f:
                 json.dump(hist, f, indent=0, sort_keys=True)
         except Exception as e:                           # noqa: BLE001
             sd.ERRORS.append(f"tennis rankings: {str(e)[:100]}")
     return hist[max(hist)] if hist else {}
+
+
+def news_sync(now):
+    """Tennis drama from ESPN's ATP/WTA news (relationship drama, family, illness, suspensions...): {player id: [tags]}.
+    Drama on the other side is a reason for our pick; drama on our side needs twice the value and is never a filler."""
+    import sports_news
+    data = {}
+    if os.path.exists(NEWS):
+        with open(NEWS) as f:
+            data = json.load(f)
+    for tour in TOURS:
+        try:
+            with urllib.request.urlopen(f"https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/news?limit=100", timeout=20) as r:
+                arts = json.load(r).get("articles") or []
+        except Exception as e:                           # noqa: BLE001
+            sd.ERRORS.append(f"tennis news {tour}: {str(e)[:100]}")
+            continue
+        for a in arts:
+            kinds = sports_news.classify(f"{a.get('headline', '')} {a.get('description', '')}")
+            if not kinds:
+                continue
+            for c in a.get("categories") or []:
+                pid = c.get("athleteId") or (c.get("athlete") or {}).get("id")
+                if pid:
+                    tags = data.setdefault(str(pid), [])
+                    if all(t["id"] != str(a.get("id")) for t in tags):
+                        tags.append({"id": str(a.get("id")), "kind": kinds[0], "date": (a.get("published") or now.isoformat())[:10],
+                                     "headline": (a.get("headline") or "")[:140]})
+    cut = (now - timedelta(days=sports_news.DRAMA_DAYS)).date().isoformat()
+    data = {k: [t for t in v if t["date"] >= cut] for k, v in data.items()}
+    data = {k: v for k, v in data.items() if v}
+    os.makedirs(DIR, exist_ok=True)
+    with open(NEWS, "w") as f:
+        json.dump(data, f, indent=1)
+    return data
 
 
 def save_lines(lines, now):
@@ -446,6 +521,18 @@ def breakdown(c, rt, used):
         out.append(v.say("t_rank", [f"📈 {me} is ranked #{rk_me} in the world" + (f" — {them} is #{rk_them}." if rk_them else f" — {them} ain't even top 150."),
                                     f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this." if rk_them else "a guy outside the top 150. Levels to this."),
                                     f"📈 #{rk_me} in the world for a reason" + (f" (vs #{rk_them})." if rk_them else ".")]))
+    if f.get("home", 0) > 0:
+        out.append(v.say("t_home", [f"🏟️ {me} is playing at home — the whole crowd's behind him.",
+                                    f"🏟️ Home soil for {me}. That crowd's gonna carry him.",
+                                    f"🏟️ {me} in front of his own people. Home cookin'."]))
+    if c.get("their_drama"):
+        k = c["their_drama"][0]["kind"]
+        out.append(v.say("t_drama", [f"🍿 {them} got stuff going on off the court ({k}). Head ain't gonna be right.",
+                                     f"🍿 Off-court noise for {them} ({k}). That follows you onto the court.",
+                                     f"🍿 {them} dealing with {k}. Distracted players lose."]))
+    if f.get("clash"):
+        out.append(v.say("t_clash", ["🔥 Bad blood between these countries — no handshake energy. Pressure match.",
+                                     "🔥 This one's personal between their countries. Heat on every point."]))
     if f["surface_gap"] >= 40:
         out.append(v.say("t_surf", [f"🟫 {me} is a different animal on {surf} — his {surf} game is way above his usual level.",
                                     f"🟫 On {surf}, {me} levels up. That's his surface.",
@@ -468,7 +555,11 @@ def breakdown(c, rt, used):
     if int(c["bo"]) == 5:
         out.append(v.say("t_bo5", ["🏆 Best of 5 at a Slam — the longer the match, the more the better player takes over.",
                                    f"🏆 Five sets gives {them} nowhere to hide. Better player wins these."]))
-    return [x for x in out if x]
+    out = [x for x in out if x]
+    if c.get("tour") == "wta":                          # women's matches: she / her
+        for a, b in ((r"\bhe\b", "she"), (r"\bHe\b", "She"), (r"\bhim\b", "her"), (r"\bhis\b", "her"), (r"\bguy\b", "player")):
+            out = [re.sub(a, b, x) for x in out]
+    return out
 
 
 # ---------------------------------------------------------------- picks
@@ -479,9 +570,9 @@ def _load_picks():
     return []
 
 
-def candidates(ms, rt, w, lines, now, until, ranks=None):
+def candidates(ms, rt, w, lines, now, until, ranks=None, news=None):
     out = []
-    ranks = ranks or {}
+    ranks, news = ranks or {}, news or {}
     for m in ms.values():
         if _state(m) != "pre" or not m["start"]:
             continue
@@ -496,11 +587,13 @@ def candidates(ms, rt, w, lines, now, until, ranks=None):
         for side, p, ml, opp_ml in ((1, p1, pr[0], pr[1]), (2, 1 - p1, pr[1], pr[0])):
             me, them = (m["p1_name"], m["p2_name"]) if side == 1 else (m["p2_name"], m["p1_name"])
             fs = f if side == 1 else {**f, "fatigue": -f["fatigue"], "form": -f["form"], "h2h": -f["h2h"],
-                                      "surface_gap": -f["surface_gap"]}
+                                      "surface_gap": -f["surface_gap"], "home": -f["home"]}
             dec = sd.decimal(ml)
             mine, theirs = (m["p1"], m["p2"]) if side == 1 else (m["p2"], m["p1"])
             out.append({"id": f"{m['id']}:{side}", "match": m["id"], "side": side, "player": me, "opp": them,
+                        "tour": m.get("tour", "atp"),
                         "rank": ranks.get(mine), "opp_rank": ranks.get(theirs),
+                        "our_drama": (news.get(mine) or [])[:1], "their_drama": (news.get(theirs) or [])[:1],
                         "odds": ml, "dec": dec, "p": p, "edge": p * dec - 1, "start": m["start"], "tourney": m["tourney"],
                         "round": m["round"], "surface": m["surface"], "bo": m["bo"], "f": fs})
     return out
@@ -509,7 +602,8 @@ def candidates(ms, rt, w, lines, now, until, ranks=None):
 def pick_slate(cands):
     """8 straights (value first, then the likeliest favorites) + the parlay (the 3 likeliest of them)."""
     for c in cands:
-        c["value"] = c["edge"] >= MIN_EDGE
+        c["value"] = c["edge"] >= (2 * MIN_EDGE if c.get("our_drama") else MIN_EDGE)
+    cands = [c for c in cands if c["value"] or not c.get("our_drama")]       # drama on our side: never a filler
     best = {}
     for c in sorted(cands, key=lambda c: (not c["value"], -c["p"])):
         best.setdefault(c["match"], c)                          # one side per match
@@ -525,14 +619,15 @@ def post(ms, rt, w, lines, picks, now):
     iso = day.isoformat()
     if any(p["date"] == iso for p in picks):
         return None
-    cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), rankings(now) if lines else {})
+    cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), rankings(now) if lines else {},
+                       news_sync(now) if lines else {})
     straights, parlay = pick_slate(cands)
     if not straights:
         return None
     used = set()
     legs = []
     for c in straights:
-        legs.append({k: c[k] for k in ("id", "match", "side", "player", "opp", "odds", "p", "edge", "start", "tourney",
+        legs.append({k: c[k] for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
                                         "round", "surface", "bo", "value")} | {"result": None, "breakdown": breakdown(c, rt, used)})
     par = None
     if parlay:
