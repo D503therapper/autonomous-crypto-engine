@@ -1,0 +1,449 @@
+"""Sports data: games, final scores and moneyline odds from ESPN's public scoreboard API (no key).
+Games are kept in data/sports/games/<league>/<YYYY-MM>.csv so an hourly commit only rewrites the
+current month's file."""
+import csv
+import glob
+import json
+import os
+import time
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timedelta, timezone
+
+ESPN = "https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard?dates={day}&limit=1000{extra}"
+DATA = "data/sports"
+
+# league key -> ESPN path, extra query, display name, emoji
+LEAGUES = {
+    "nfl": ("football/nfl", "", "NFL", "🏈"),
+    "ncaaf": ("football/college-football", "&groups=80", "College Football", "🏈"),
+    "nba": ("basketball/nba", "", "NBA", "🏀"),
+    "mlb": ("baseball/mlb", "", "MLB", "⚾"),
+    "nhl": ("hockey/nhl", "", "NHL", "🏒"),
+}
+
+ERRORS = []      # failed calls this run (only the first few are printed)
+FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_name",
+          "home_score", "away_score", "ml_home", "ml_away", "odds_time", "neutral",
+          "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
+          "inj_home", "inj_away"]
+ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
+
+
+# ---------------------------------------------------------------- odds helpers
+def parse_american(x):
+    """'+150' / '-175' / 150 / 'EVEN' -> int american odds, or None."""
+    if x is None:
+        return None
+    if isinstance(x, (int, float)):
+        return int(x) if abs(x) >= 100 else None
+    s = str(x).strip().upper().replace("−", "-")
+    if s in ("EVEN", "EV", "PK"):
+        return 100
+    try:
+        v = int(float(s))
+    except ValueError:
+        return None
+    return v if abs(v) >= 100 else None
+
+
+def decimal(american):
+    return 1 + (american / 100 if american > 0 else 100 / -american)
+
+
+def implied(american):
+    return 1 / decimal(american)
+
+
+def no_vig(ml_home, ml_away):
+    """Market's fair home-win probability with the bookmaker margin removed."""
+    ph, pa = implied(ml_home), implied(ml_away)
+    return ph / (ph + pa)
+
+
+# ---------------------------------------------------------------- ESPN parsing
+def _num(x):
+    try:
+        return float(str(x).replace("−", "-").replace("+", ""))
+    except (TypeError, ValueError):
+        return None
+
+
+def _odds(comp):
+    """Moneylines (current + opening), home spread line and its prices from a competition's odds.
+    ESPN has shipped two shapes: flat homeTeamOdds.moneyLine / spread, and nested
+    moneyline|pointSpread.{home,away}.{open,close,current}."""
+    out = {"ml_home": None, "ml_away": None, "ml_home_open": None, "ml_away_open": None,
+           "spread_home": None, "spread_home_odds": None, "spread_away_odds": None}
+    for o in comp.get("odds") or []:
+        ho, ao = o.get("homeTeamOdds") or {}, o.get("awayTeamOdds") or {}
+        ml, ps = o.get("moneyline") or {}, o.get("pointSpread") or {}
+
+        def nested(block, side, key, keys=("close", "current", "open"), parse=parse_american):
+            d = block.get(side) or {}
+            for k in keys:
+                v = parse((d.get(k) or {}).get(key))
+                if v is not None:
+                    return v
+            return None
+        h = parse_american(ho.get("moneyLine"))
+        a = parse_american(ao.get("moneyLine"))
+        if h is None or a is None:
+            h, a = nested(ml, "home", "odds"), nested(ml, "away", "odds")
+        if h is None or a is None:
+            continue
+        out["ml_home"], out["ml_away"] = h, a
+        out["ml_home_open"] = parse_american((ho.get("open") or {}).get("moneyLine")) or nested(ml, "home", "odds", ("open",))
+        out["ml_away_open"] = parse_american((ao.get("open") or {}).get("moneyLine")) or nested(ml, "away", "odds", ("open",))
+        line = nested(ps, "home", "line", parse=_num)
+        if line is None:
+            line = _num(o.get("spread"))
+        if line is not None and abs(line) < 60:
+            out["spread_home"] = line
+            out["spread_home_odds"] = parse_american(ho.get("spreadOdds")) or nested(ps, "home", "odds") or -110
+            out["spread_away_odds"] = parse_american(ao.get("spreadOdds")) or nested(ps, "away", "odds") or -110
+        return out
+    return out
+
+
+def parse_scoreboard(league, payload):
+    """ESPN scoreboard JSON -> list of game dicts (FIELDS)."""
+    out = []
+    for ev in payload.get("events") or []:
+        comps = ev.get("competitions") or []
+        if not comps:
+            continue
+        comp = comps[0]
+        teams = {c.get("homeAway"): c for c in comp.get("competitors") or []}
+        if "home" not in teams or "away" not in teams:
+            continue
+        st = ((comp.get("status") or ev.get("status") or {}).get("type") or {})
+        state, name = st.get("state", ""), st.get("name", "")
+        if name in ("STATUS_POSTPONED", "STATUS_CANCELED", "STATUS_SUSPENDED", "STATUS_FORFEIT"):
+            status = "void"
+        elif st.get("completed") or state == "post":
+            status = "final"
+        elif state == "in":
+            status = "live"
+        else:
+            status = "pre"
+
+        def team(side):
+            t = teams[side].get("team") or {}
+            return (str(t.get("id") or t.get("abbreviation") or t.get("displayName")),
+                    t.get("shortDisplayName") or t.get("displayName") or t.get("abbreviation") or "?")
+
+        def score(side):
+            s = teams[side].get("score")
+            if isinstance(s, dict):
+                s = s.get("value", s.get("displayValue"))
+            try:
+                return int(float(s))
+            except (TypeError, ValueError):
+                return ""
+        (hid, hname), (aid, aname) = team("home"), team("away")
+        od = _odds(comp)
+        out.append({
+            "id": f"{league}:{ev.get('id')}", "league": league, "start": ev.get("date") or comp.get("date", ""),
+            "status": status, "home": hid, "away": aid, "home_name": hname, "away_name": aname,
+            "home_score": score("home") if status == "final" else "", "away_score": score("away") if status == "final" else "",
+            "odds_time": "", "neutral": 1 if comp.get("neutralSite") else 0, "inj_home": "", "inj_away": "",
+            **{k: ("" if v is None else v) for k, v in od.items()},
+        })
+    return out
+
+
+def fetch_day(league, day, retries=2):
+    path, extra, _, _ = LEAGUES[league]
+    url = ESPN.format(path=path, day=day.strftime("%Y%m%d"), extra=extra)
+    for i in range(retries):
+        try:
+            with urllib.request.urlopen(url, timeout=12) as r:     # plain request: ESPN 403s custom user agents
+                return parse_scoreboard(league, json.load(r))
+        except Exception as e:                       # noqa: BLE001 - network: retry, then give up on this day
+            if i == retries - 1:
+                ERRORS.append(f"{league} {day:%Y-%m-%d}: {str(e)[:120]}")
+                if len(ERRORS) <= 5:
+                    print(f"   {ERRORS[-1]}", flush=True)
+                return None
+            time.sleep(1.5 * (i + 1))
+
+
+# ---------------------------------------------------------------- storage
+def _month_file(league, start):
+    return os.path.join(DATA, "games", league, f"{start[:7]}.csv")
+
+
+def load_games(league=None):
+    """{game id: game} for one league (or all)."""
+    games = {}
+    pattern = os.path.join(DATA, "games", league or "*", "*.csv")
+    for p in sorted(glob.glob(pattern)):
+        with open(p) as f:
+            for row in csv.DictReader(f):
+                games[row["id"]] = row
+    return games
+
+
+def save_games(games):
+    """Write every month file that holds these games (other months untouched)."""
+    by_file = {}
+    for g in games.values():
+        if g.get("start"):
+            by_file.setdefault(_month_file(g["league"], g["start"]), []).append(g)
+    for p, rows in by_file.items():
+        os.makedirs(os.path.dirname(p), exist_ok=True)
+        rows.sort(key=lambda r: (r["start"], r["id"]))
+        tmp = p + ".tmp"
+        with open(tmp, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=FIELDS, extrasaction="ignore")
+            w.writeheader()
+            w.writerows(rows)
+        os.replace(tmp, p)
+
+
+def merge(old, new, now_iso):
+    """Update a stored game with a fresh read. Pre-game odds are kept once the game starts (ESPN often
+    drops them), so the last odds seen before the start serve as the closing line. The first odds
+    ever seen stand in for the opening line when ESPN doesn't give one (for line movement)."""
+    g = dict(old or new)
+    if old is not None:
+        for k in ("start", "status", "home_name", "away_name", "home_score", "away_score", "neutral"):
+            g[k] = new[k]
+    has = new["ml_home"] != "" and new["ml_away"] != ""
+    if has and (new["status"] == "pre" or old is None or old.get("ml_home", "") == ""):
+        for k in ODDS:
+            if new.get(k, "") != "" or k == "spread_home":
+                g[k] = new.get(k, "")
+        if new["status"] == "pre":
+            g["odds_time"] = now_iso
+    for side in ("home", "away"):
+        if g.get(f"ml_{side}_open", "") == "":
+            g[f"ml_{side}_open"] = new.get(f"ml_{side}_open", "") or g.get(f"ml_{side}", "")
+    return g
+
+
+def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget_s=900):
+    """Refresh every league: re-read the last few days + next few, and backfill history on first run.
+    Stops starting new calls after budget_s; unfinished days count as failed, so the next run resumes there.
+    Returns (games dict, number of API calls, number of failures)."""
+    today = datetime.now(timezone.utc).date()
+    now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+    games = load_games()
+    jobs = []
+    for lg in LEAGUES:
+        synced = state.setdefault("synced", {}).get(lg)
+        start = (datetime.strptime(synced, "%Y-%m-%d").date() - timedelta(days=3)) if synced \
+            else today - timedelta(days=backfill_days)
+        start = max(start, today - timedelta(days=max_days))
+        d = start
+        while d <= today + timedelta(days=ahead_days):
+            jobs.append((lg, d))
+            d += timedelta(days=1)
+    fails = {}
+    deadline = time.time() + budget_s
+    done = [0]
+
+    def run(job):
+        if time.time() > deadline:
+            return job, None
+        rows = fetch_day(*job)
+        done[0] += 1
+        if done[0] % 250 == 0:
+            print(f"   synced {done[0]}/{len(jobs)} league-days", flush=True)
+        return job, rows
+    if jobs and fetch_day("nfl", today) is None and fetch_day("mlb", today) is None:
+        print("   ESPN unreachable - keeping stored games", flush=True)
+        return games, 2, 2
+    with ThreadPoolExecutor(workers) as ex:
+        results = list(ex.map(run, jobs))
+    for (lg, d), rows in results:
+        if rows is None:
+            fails[lg] = min(fails.get(lg, d), d)
+            continue
+        for r in rows:
+            games[r["id"]] = merge(games.get(r["id"]), r, now_iso)
+    for lg in LEAGUES:
+        # next run starts from the first failed day, else from today
+        upto = fails.get(lg, today + timedelta(days=1)) - timedelta(days=1)
+        if upto >= today - timedelta(days=max_days):
+            state["synced"][lg] = min(upto, today).strftime("%Y-%m-%d")
+    save_games(games)
+    return games, len(jobs), sum(1 for _, r in results if r is None)
+
+
+# ---------------------------------------------------------------- injuries
+SHORT_TERM = ("out", "doubtful")       # long-term IR is already priced into the ratings
+
+
+def fetch_injuries(league):
+    """{team id or name: [(player, position, status)]} for players listed Out / Doubtful."""
+    path = LEAGUES[league][0]
+    url = f"https://site.api.espn.com/apis/site/v2/sports/{path}/injuries"
+    try:
+        with urllib.request.urlopen(url, timeout=20) as r:
+            return parse_injuries(json.load(r))
+    except Exception as e:                           # noqa: BLE001
+        print(f"   {league} injuries: {str(e)[:120]}")
+        return None
+
+
+def parse_injuries(payload):
+    out = {}
+    for t in payload.get("injuries") or []:
+        rows = []
+        for i in t.get("injuries") or []:
+            status = str(i.get("status") or (i.get("type") or {}).get("description") or "").lower()
+            if not any(s in status for s in SHORT_TERM):
+                continue
+            a = i.get("athlete") or {}
+            rows.append((a.get("displayName") or "?", (a.get("position") or {}).get("abbreviation") or "",
+                         status.title()))
+        for key in (str(t.get("id") or ""), t.get("displayName") or ""):
+            if key:
+                out[key] = rows
+    return out
+
+
+def team_injuries(inj, team_id, team_name):
+    if not inj:
+        return []
+    if team_id in inj:
+        return inj[team_id]
+    for k, v in inj.items():
+        if team_name and not k.isdigit() and (k.endswith(" " + team_name) or k == team_name):
+            return v
+    return []
+
+
+# ---------------------------------------------------------------- Action Network: odds history
+# ESPN drops the odds once a game is over. Action Network's public scoreboard keeps them for finished
+# games: book 15 = market consensus (used as the closing line), book 30 = the opening line.
+AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game&date={day}{extra}"
+AN_EXTRA = {"ncaaf": "&division=FBS"}
+AN_CLOSE, AN_OPEN = 15, 30
+
+
+def parse_an(payload):
+    out = []
+    for g in payload.get("games") or []:
+        teams = {t.get("id"): t for t in g.get("teams") or []}
+        home, away = teams.get(g.get("home_team_id")), teams.get(g.get("away_team_id"))
+        if not home or not away or not g.get("start_time"):
+            continue
+        books = {o.get("book_id"): o for o in g.get("odds") or [] if o.get("type", "game") == "game"}
+        close, open_ = books.get(AN_CLOSE) or {}, books.get(AN_OPEN) or {}
+        row = {"start": g["start_time"][:16] + "Z", "home_full": home.get("full_name") or "", "away_full": away.get("full_name") or "",
+               "ml_home": parse_american(close.get("ml_home")), "ml_away": parse_american(close.get("ml_away")),
+               "ml_home_open": parse_american(open_.get("ml_home")), "ml_away_open": parse_american(open_.get("ml_away")),
+               "spread_home": _num(close.get("spread_home")),
+               "spread_home_odds": parse_american(close.get("spread_home_line")), "spread_away_odds": parse_american(close.get("spread_away_line"))}
+        if row["ml_home"] is not None and row["ml_away"] is not None:
+            out.append(row)
+    return out
+
+
+AN_WEEKS = {"nfl": (("reg", 18), ("post", 5)), "ncaaf": (("reg", 15), ("post", 1))}   # football pages by week
+
+
+def fetch_an_day(league, day):
+    """One day's games (baseball, basketball, hockey) or, for football, day = (season, type, week)."""
+    if league in AN_WEEKS:
+        season, typ, week = day
+        url = (f"https://api.actionnetwork.com/web/v1/scoreboard/{league}?period=game&season={season}&week={week}"
+               f"&seasonType={typ}{AN_EXTRA.get(league, '')}")
+        day = datetime(season, 1, 1)                  # only for the error message
+    else:
+        url = AN.format(lg=league, day=day.strftime("%Y%m%d"), extra=AN_EXTRA.get(league, ""))
+    for i in range(2):
+        try:
+            with urllib.request.urlopen(url, timeout=15) as r:
+                return parse_an(json.load(r))
+        except Exception as e:                       # noqa: BLE001
+            if i == 1:
+                ERRORS.append(f"AN {league} {day:%Y-%m-%d}: {str(e)[:120]}")
+                if len(ERRORS) <= 5:
+                    print(f"   {ERRORS[-1]}", flush=True)
+                return None
+            time.sleep(2)
+
+
+def _same(short, full):
+    short, full = short.lower().strip(), full.lower()
+    return bool(short) and (short in full or full.startswith(short.split(" ")[0] + " "))
+
+
+def attach_an(games, league, rows):
+    """Fill odds on stored games from Action Network rows (same teams, start within 3 hours).
+    Returns how many games got odds they didn't have."""
+    idx = {}
+    for g in games.values():
+        if g["league"] == league and g.get("start"):
+            idx.setdefault(g["start"][:10], []).append(g)
+    filled = 0
+    for r in rows:
+        t = datetime.strptime(r["start"], "%Y-%m-%dT%H:%MZ")
+        cands = [g for d in {(t + timedelta(days=k)).strftime("%Y-%m-%d") for k in (-1, 0, 1)} for g in idx.get(d, [])]
+        for g in cands:
+            gt = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M")
+            if abs((gt - t).total_seconds()) > 3 * 3600:
+                continue
+            if not (_same(g["home_name"], r["home_full"]) and _same(g["away_name"], r["away_full"])):
+                continue
+            if g.get("ml_home", "") == "":
+                filled += 1
+                for k in ("ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"):
+                    if r[k] is not None:
+                        g[k] = r[k]
+            if r["ml_home_open"] is not None and r["ml_away_open"] is not None:
+                g["ml_home_open"], g["ml_away_open"] = r["ml_home_open"], r["ml_away_open"]
+            break
+    return filled
+
+
+def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
+    """Backfill closing + opening odds for finished games, a stretch per run until caught up."""
+    today = datetime.now(timezone.utc).date()
+    cur = state.setdefault("an_synced", {})
+    jobs = []
+    weeks = []
+    for lg, parts in AN_WEEKS.items():                # last season once, this season every run (cheap)
+        seasons = [today.year] + ([] if cur.get(f"{lg}_past") else [today.year - 1])
+        weeks += [(lg, (y, typ, w)) for y in seasons for typ, n in parts for w in range(1, n + 1)]
+    for lg in LEAGUES:
+        if lg in AN_WEEKS:
+            continue
+        start = datetime.strptime(cur[lg], "%Y-%m-%d").date() - timedelta(days=2) if lg in cur \
+            else today - timedelta(days=backfill_days)
+        d = start
+        while d <= today + timedelta(days=1):
+            jobs.append((lg, d))
+            d += timedelta(days=1)
+    deadline = time.time() + budget_s
+
+    def run(job):
+        return job, (fetch_an_day(*job) if time.time() < deadline else None)
+    with ThreadPoolExecutor(workers) as ex:
+        results = list(ex.map(run, jobs))
+        wres = list(ex.map(run, weeks))
+    filled = 0
+    for lg in AN_WEEKS:
+        past = [r for (l2, (y, _, _)), r in wres if l2 == lg and y == today.year - 1]
+        if past and all(r is not None for r in past):
+            cur[f"{lg}_past"] = True
+    for (lg, _), rows in wres:
+        if rows is not None:
+            filled += attach_an(games, lg, rows)
+    fails = {}
+    for (lg, d), rows in results:
+        if rows is None:
+            fails[lg] = min(fails.get(lg, d), d)
+            continue
+        filled += attach_an(games, lg, rows)
+    for lg in LEAGUES:
+        if lg in AN_WEEKS:
+            continue
+        upto = fails.get(lg, today + timedelta(days=1)) - timedelta(days=1)
+        if lg in cur or upto >= today - timedelta(days=backfill_days):
+            cur[lg] = min(upto, today).strftime("%Y-%m-%d")
+    return filled, len(jobs) + len(weeks), sum(1 for _, r in results + wres if r is None)
