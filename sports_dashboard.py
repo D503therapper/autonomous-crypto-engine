@@ -54,35 +54,71 @@ def _cap(x):
     return x[:1].upper() + x[1:]
 
 
-def _live_story(e):
-    """A live bet in plain talk: the score and the quarter when it went up, what we thought, how it went."""
+def _pick(key, options, used, k):
+    """A way to say it that nobody else in this list used yet (falls back to rotating when they're all taken)."""
+    for i in range(len(options)):
+        n = (k + i) % len(options)
+        if (key, n) not in used:
+            used.add((key, n))
+            return options[n]
+    return options[k % len(options)]
+
+
+def _live_story(e, used=None):
+    """A live bet in plain talk and our lingo: the score + quarter when it went up, and how it played out.
+    No two bets in the list share a phrase."""
+    used = set() if used is None else used
     lg = e.get("league", "")
     m = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", str(e.get("score_at_post") or ""))
-    t = _the(e["team"], lg)
     if not m:
         return ""
     away, a_s, home, h_s = m.group(1), int(m.group(2)), m.group(3), int(m.group(4))
-    an, hn = _the(away, lg), _the(home, lg)
-    clock = str(e.get("clock_at_post") or "")
-    per = re.search(r"(\d+)", clock)
+    ours_away = e.get("side") == "away"
+    us, them = _the(e["team"], lg), _the(home if ours_away else away, lg)
+    Us = _cap(us)
+    mine, theirs = (a_s, h_s) if ours_away else (h_s, a_s)
+    per = re.search(r"(\d+)", str(e.get("clock_at_post") or ""))
     n = int(per.group(1)) if per else 0
     unit = {"nhl": "period", "ncaab": "half", "mlb": "inning"}.get(lg, "quarter")
-    nth = {1: "1st", 2: "2nd", 3: "3rd"}.get(n, f"{n}th")
-    when = f" in the {nth} {unit}" if n else ""
-    mine, theirs = (a_s, h_s) if e.get("side") == "away" else (h_s, a_s)
-    score = f"{_cap(an)} had {a_s}, {hn} had {h_s}{when}."
-    done = e.get("result") in ("won", "lost")
-    what = "come back" if mine < theirs else "hold on" if mine > theirs else "take it"
-    thought = f"We thought {t} would {what}" if done else f"We're riding {t} to {what}"
-    k = sum(map(ord, e["team"])) + len(clock)
-    if e.get("result") == "won":
-        end = _rot(k, ["— and they did. Cashed. 💰", "— and they came through. Told y'all. 💰", "— they did. Trust the algorithm. 💰"])
-    elif e.get("result") == "lost":
-        end = _rot(k, ["— they shit the bed. Bad call, is what it is.", "— they were booty cheeks. Our bad.",
-                       f"— {t} shit the bed. Is what it is."])
+    w = f"in the {({1: '1st', 2: '2nd', 3: '3rd'}.get(n, f'{n}th'))} {unit}" if n else "mid-game"
+    k = sum(map(ord, e["team"] + str(e.get("odds"))))
+    if mine < theirs:
+        spot = "trail"
+        score = _pick("s_trail", [f"{Us} down {theirs}-{mine} to {them} {w}.", f"{Us} looking rough, down {theirs}-{mine} {w}.",
+                                  f"Caught {us} trailing {theirs}-{mine} {w}.", f"{Us} getting cooked {theirs}-{mine} {w}.",
+                                  f"{Us} in a {theirs}-{mine} hole {w}.", f"{Us} behind {theirs}-{mine} {w} and everybody bailed."], used, k)
+    elif mine > theirs:
+        spot = "lead"
+        score = _pick("s_lead", [f"{Us} up {mine}-{theirs} {w} and still plus money.", f"{Us} leading {them} {mine}-{theirs} {w}.",
+                                 f"Grabbed {us} up {mine}-{theirs} {w}.", f"{Us} ahead {mine}-{theirs} {w} and the book still had 'em as the dog."],
+                      used, k)
     else:
-        end = _rot(k, ["— we gon' see.", f"— {t} got this. We gon' see."])
-    return f"{score} {thought} {end}"
+        spot = "tie"
+        score = _pick("s_tie", [f"Tied up {mine}-{theirs} {w}.", f"Dead even at {mine} {w}.", f"All square {mine}-{theirs} {w}."], used, k)
+    res = e.get("result")
+    if res == "won":
+        end = _pick(f"w_{spot}", {
+            "trail": ["Everybody jumped off, we jumped on — comeback city. Cashed. 💰", "They woke up and smacked that ass. Told y'all. 💰",
+                      "Dummies sold, we bought. They came all the way back. 💰", "Trust the algorithm — they flipped it. Cashed. 💰",
+                      "Down bad and still got it done. Fuck yeah. 💰", "Grace from baby Jesus himself — they came back. 💰"],
+            "lead": ["They held it down the whole way. Easy money. 💰", "Closed it out like we said. Cashed. 💰",
+                     "Never let up. Books were sleeping. 💰", "Finished the job. Trust the algorithm. 💰"],
+            "tie": ["They took over late. Cashed. 💰", "Pulled away when it mattered. Told y'all. 💰"]}[spot], used, k)
+    elif res == "lost":
+        end = _pick(f"l_{spot}", {
+            "trail": ["They never showed up. Shit the bed — is what it is.", "Comeback never came. Bad call, our bad.",
+                      "Booty cheeks the rest of the way. We run it back.", "Straight trash after that. Is what it is.",
+                      "They had the chance and fumbled the bag. Our bad.", "Never woke up. Bad call — next one's ours."],
+            "lead": ["Blew it. They shit the bed — is what it is.", "Coughed up the lead like clowns. Our bad.",
+                     "Choked it away. Bad call, we move.", "Had it and gave it away. Is what it is."],
+            "tie": ["Folded down the stretch. Our bad.", "Got outplayed late. Is what it is."]}[spot], used, k)
+    else:
+        end = _pick(f"p_{spot}", {
+            "trail": ["Riding with 'em — we gon' see.", "Comeback's loading. We gon' see.", "Buy the dip. We gon' see.",
+                      "They about to go to work. We gon' see."],
+            "lead": ["Hold it down. We gon' see.", "Just gotta finish. We gon' see.", "Close it out, boys. We gon' see."],
+            "tie": ["Anybody's game — we like ours. We gon' see.", "Coin flip with value. We gon' see."]}[spot], used, k)
+    return f"{score} {end}"
 
 
 def _rot(k, options):
@@ -259,6 +295,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)[:8]
     badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
     pending_ = '<span class="tm">⏳ still going</span>'
+    used_ = set()                                            # no two bets in the list share a phrase
+    stories = {id(e): _live_story(e, used_) for e in lrows}
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#ff3b3b;--c2:#ff8a00;margin-top:14px"><div class="pk-h"><span class="pk-i">🔴</span>'
                  '<span class="pk-l">LIVE BETS TODAY</span></div>' + "".join(
@@ -266,7 +304,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'{E(sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2])}</span>'
                      f'{badge_.get(e.get("result"), pending_)}</div>'
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
-                     f'<div class="ls">{E(_live_story(e))}</div></div>'
+                     f'<div class="ls">{E(stories[id(e)])}</div></div>'
                      for e in lrows) + "</section>")
     # record per pick type
     rec = []
