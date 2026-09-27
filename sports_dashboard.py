@@ -16,9 +16,9 @@ PAGE = "docs/sports/index.html"
 LOOK = {   # kind -> label, accent, second accent
     "two":   ("2-LEG OF THE DAY", "#2f8bff", "#22d3ee"),
     "three": ("3-LEG OF THE DAY", "#ffc233", "#ff8a00"),
-    "eight": ("8-LEG OF THE DAY", "#b36bff", "#ff4fd8"),
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
+    "eight": ("8-LEG OF THE DAY", "#b36bff", "#ff4fd8"),
 }
 BIG_HIT = 300                 # +300 and up that cashes gets the big brag
 ICON = {"two": "⚡", "three": "👑", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
