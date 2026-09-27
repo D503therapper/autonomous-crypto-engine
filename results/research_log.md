@@ -23,6 +23,15 @@ FIX: code 1/2/3 accepted; a missing GoPlus field is "unknown", never "0": sell-s
 missing mint / owner / pause / blacklist / proxy fields reject (screen still runs honeypot.is for the full reason list).
 Open: a source for contract powers of 0xef native tokens (none free found yet); watch rejected_followup for them.
 
+### DONE 2026-09-27 13:30 - Rug exit fired on a price dump (GENO), fixed (02a2935)
+$ liquidity of a constant-product pool ~ sqrt(price): a -77.5% dump reads as -53% liquidity. GENO was sold as a rug at the
+wick bottom (-$167); the pool was back at $100k near entry 34 min later. Rug now = liquidity <= 50% of liq0*sqrt(min(1,p/p0)).
+Same flaw remains in the rejected-coin follow-up rug metric (and a missing pair = $0) - fix before using its rug rates.
+
+### QUEUED - LP lock < 95% rejects on Solana (missed AQUA +86%, CALI +71%, JACK +66%, FONE +52% on 2026-09-27)
+Interim: 24 coins rejected only on LP-lock/holder data; PAID +290%, FONE +130%. Wait for 7-day follow-ups (from ~10-03),
+with the fixed rug metric, then compare ran-up vs rugged by lock % and liquidity.
+
 ### NEXT (owner, 2026-09-27) - Profit floor below 2x (TEXTIT: +94% peak -> -24% within 2h, no protection)
 Test on dex_runner/legends data: once up +50% never below break-even; once +75% lock +25%; vs current (trail only
 after 2x at day 14 / 0.95 trail). Keep only if monthly return holds in both halves AND the legends still get caught.
