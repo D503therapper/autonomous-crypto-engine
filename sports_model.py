@@ -32,7 +32,8 @@ TRUST_CAUTIOUS = 0.15
 EVAL_GAMES = 900           # tune on (at most) the most recent this many finished games
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
-FEATURES = ["elo", "form", "rest", "b2b", "inj"]          # our own view (besides an intercept)
+FEATURES = ["elo", "form", "rest", "b2b", "inj", "key"]   # our own view (besides an intercept)
+KEY_EDGE = {}      # {game id: key player edge} (QB / starting pitcher / goalie form), set by sports.run
 
 
 def _ts(iso):
@@ -122,6 +123,7 @@ class Elo:
             "rest": (rh_d - ra_d) / 7,
             "b2b": float(ra_d <= 1.2) - float(rh_d <= 1.2),     # + when only the away team is on a back-to-back
             "inj": (ia - ih) / 5,
+            "key": KEY_EDGE.get(g["id"], 0.0),
             "known": min(self.n.get(g["home"], 0), self.n.get(g["away"], 0)),
         }
 
@@ -209,7 +211,7 @@ def _own_x(f):
 
 
 def _spread_x(f):
-    return [1.0, f["elo_pts"] / 25, f["form"], f["rest"], f["b2b"], f["inj"]]
+    return [1.0, f["elo_pts"] / 25, f["form"], f["rest"], f["b2b"], f["inj"], f["key"]]
 
 
 def own_p(params, f):
@@ -351,7 +353,7 @@ def tune_all(games, model):
 
 def default_params(league):
     return {"k": BASE_K[league], "hfa": DEFAULT_HFA[league], "w": [0.0, 1.0] + [0.0] * (len(FEATURES) - 1),
-            "trust": TRUST_CAUTIOUS, "move_w": 0.0, "sw": [0.0, 1.0, 0, 0, 0, 0], "sigma": 13.0, "strust": 0.2}
+            "trust": TRUST_CAUTIOUS, "move_w": 0.0, "sw": [0.0, 1.0, 0, 0, 0, 0, 0], "sigma": 13.0, "strust": 0.2}
 
 
 def ratings(games, model):
