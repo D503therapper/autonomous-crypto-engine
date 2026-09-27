@@ -353,6 +353,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
     params = model.get("params", {})
     k = now.toordinal()
     lines = []
+    try:                                                      # owning our mistakes: notes on what we fixed (that day only)
+        with open(os.path.join(sd.DATA, "notes.json")) as f:
+            lines += [n["text"] for n in json.load(f) if n.get("date") == today]
+    except (OSError, ValueError, KeyError):
+        pass
     graded = [p for p in done if p["date"] == today and p["kind"] != "eight"]           # a new day never talks about yesterday
     w_, l_ = sum(p["status"] == "won" for p in graded), sum(p["status"] == "lost" for p in graded)
     live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
