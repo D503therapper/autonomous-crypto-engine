@@ -336,7 +336,7 @@ def run(repick=False, fetch=True):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")
     day = now.astimezone(PT).date()
     post_now = os.environ.get("SPORTS_POST_NOW") == "1"
-    n_final = sum(g["status"] == "final" for g in games.values())
+    n_final = sum(len(sm.finals(games, lg)) for lg in sd.LEAGUES)          # real games only (no preseason)
     if (model.get("today") or {}).get("date") != day.isoformat():       # baseline for tonight's "in a nutshell"
         model["today"] = {"date": day.isoformat(), "finals": model.get("finals_seen", n_final),
                           "acc": {lg: p["accuracy"] for lg, p in model["params"].items()}}
