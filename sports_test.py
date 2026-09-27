@@ -285,7 +285,7 @@ def test_full_cycle_offline():
         assert all(sports.good(l) for p in picks for l in p["legs"]), "every posted leg is a real play"
         assert os.path.exists("docs/sports/index.html")
         html = open("docs/sports/index.html").read()
-        assert "TRUST THE ALGORITHM!" in html and "LOCK OF THE DAY" in html
+        assert "TRUST THE ALGORITHM" in html and "LOCK OF THE DAY" in html
         again = sports.run(fetch=False)                  # a second run the same day keeps the board
         assert len(again) == len(picks)
     finally:
