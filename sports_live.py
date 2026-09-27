@@ -136,82 +136,88 @@ ICON = {"nfl": "🏈", "ncaaf": "🏈", "nba": "🏀", "ncaab": "🏀", "nhl": "
 
 
 def blurb(league, us, them, trail, margin_txt, rs, k):
-    """The short line: why we see the value, in our voice."""
+    """The short line: why we see the value - in our lingo, never the same way twice in a row."""
     i = ICON[league]
     kinds = {kk for kk, _ in rs}
-    Us = us[:1].upper() + us[1:]
+    Us, Them = us[:1].upper() + us[1:], them[:1].upper() + them[1:]
+    m = margin_txt
     if trail and "ball" in kinds:
-        return _say(k, [f"{i} {Us} down {margin_txt}, but they got the ball and they're marching. Plus money on a team about to go to work.",
-                        f"{i} Rough start, {us} down {margin_txt}. They got the rock though — value's on {us}.",
-                        f"{i} {Us} trailing {margin_txt} with the ball in their hands. This is the spot."])
+        return _say(k, [f"{i} {Us} down {m} but they got the rock and they're marching. About to go to work — hammer it.",
+                        f"{i} Down {m}? Who cares. {Us} got the ball and {them} can't stop nobody. We cooking.",
+                        f"{i} {Us} down {m} with the ball in their hands. The book's sleeping — wake up and hammer {us}.",
+                        f"{i} {Them} up {m} and the dummies think it's over. {Us} got the ball. Don't be a sheep."])
     if trail and "better" in kinds:
-        return _say(k, [f"{i} Rough start, {us} down {margin_txt}. Way better team and plus money — they're about to go to work.",
-                        f"{i} {Us} down {margin_txt} and the book's panicking. We're not. Better team at plus money.",
-                        f"{i} Down {margin_txt} ain't done. {Us} got too much for {them} — and now we get 'em at plus money."])
+        return _say(k, [f"{i} {Us} down {m}? Rough start, but they're the better team and we get 'em at plus money. Hammer it.",
+                        f"{i} Everybody and their mama jumping off {us} down {m}. Not us. Better team, plus money — let's eat.",
+                        f"{i} {Us} been booty cheeks so far, down {m}. That don't last. Way better team — they about to go to work.",
+                        f"{i} Down {m} ain't done. {Us} got way too much for {them}, and the book's handing us plus money. Trust the algorithm.",
+                        f"{i} {Them} up {m} and they must think they're good. They ain't. {Us} about to smack that ass."])
     if trail and "momentum" in kinds:
-        return _say(k, [f"{i} {Us} down {margin_txt}, but they just won the last {sc.PNAME[league]}. The comeback's loading.",
-                        f"{i} {Us} been climbing back and the price still says they're dead. They're not."])
+        return _say(k, [f"{i} {Us} down {m} but they just took the last {sc.PNAME[league]}. The comeback's loading — get in.",
+                        f"{i} {Us} been climbing back and the price still says they're dead. They're not. Hammer it."])
     if trail:
         if league == "nhl":
-            return _say(k, [f"{i} {them[:1].upper() + them[1:]} might've got the first goal, but {us} are about to bounce back and smack that ass.",
-                            f"{i} {Us} down {margin_txt}, plenty of hockey left and the price is too good."])
-        return _say(k, [f"{i} {Us} down {margin_txt}. Teams in this spot come back more than this price thinks.",
-                        f"{i} Buy the dip: {us} trailing {margin_txt}, history says this one ain't over."])
-    if margin_txt != "0":
-        return _say(k, [f"{i} {Us} are up {margin_txt} and still plus money. Books are sleeping — take it before it moves.",
-                        f"{i} {Us} up {margin_txt} and the book still has them as the dog. The numbers don't. Get in.",
-                        f"{i} Up {margin_txt} at plus money? {Us} all day. Trust the algorithm."])
+            return _say(k, [f"{i} {Them} might've got the first goal, but {us} are about to bounce back and smack that ass.",
+                            f"{i} {Us} down {m}, plenty of hockey left and the price is too juicy. Get in."])
+        return _say(k, [f"{i} {Us} down {m}. Teams in this spot come back way more than this price thinks. Buy the dip.",
+                        f"{i} The dummies are about to sell {us} down {m}. We buying. Trust the algorithm."])
+    if m != "0":
+        return _say(k, [f"{i} {Us} up {m} and STILL plus money? Books are sleeping — take it before it moves.",
+                        f"{i} {Us} up {m} and the book's got them as the dog. That's a gift. Hammer it.",
+                        f"{i} Up {m} at plus money? {Us} all day. The book's cooked on this one."])
     return _say(k, [f"{i} All tied up and {us} are still plus money. The book's got this wrong — get in.",
-                    f"{i} Dead even and the live line's got {us} as the dog. The numbers don't. Get in."])
+                    f"{i} Dead even and the live line's got {us} as the dog. The numbers don't. Hammer it."])
 
 
 UNIT = {"nfl": "points", "ncaaf": "points", "nba": "points", "ncaab": "points", "nhl": "goals", "mlb": "runs"}
 
 
 def full_breakdown(league, us, them, rs, k, rate_mine=None):
-    """Tap-to-open: every reason we trust it, one line each, never the same words twice in a row."""
+    """Tap-to-open: every reason we trust it, in our lingo, one line each, rotating."""
     out = []
-    Us = us[:1].upper() + us[1:]
+    Us, Them = us[:1].upper() + us[1:], them[:1].upper() + them[1:]
     for kind, f in rs:
         if kind == "history":
-            spot, u, d = sc.when(league, f["k"]), UNIT[league], f["d"]
-            who = ("teams that were favored coming in" if f["fav"] else "teams") if f["trail"] else \
-                ("favorites" if f["fav"] else "underdogs")
+            spot, d = sc.when(league, f["k"]), f["d"]
+            who = ("favorites" if f["fav"] else "teams") if f["trail"] else ("favorites" if f["fav"] else "dogs")
             if f["trail"]:
                 out.append(_say(k, [
-                    f"📚 {Us} are down {d}. We studied {f['n']:,} games like this one — {who} down about that much {spot} "
-                    f"came back and won {f['rate']:.0%} of the time. This price only needs {f['be']:.0%}. That's the value.",
-                    f"📚 Down {d} ain't done: in {f['n']:,} games like this, {f['rate']:.0%} of {who} came back and won. "
-                    f"At this number you only need {f['be']:.0%} — the book's too scared.",
-                    f"📚 Did our homework: {f['n']:,} games where {who} were down about {d} {u} {spot} — "
-                    f"{f['rate']:.0%} still won. The book's pricing it like {f['be']:.0%}. Free money energy."]))
+                    f"📚 We did our homework: {f['n']:,} games where {who} were down about {d} {spot} — {f['rate']:.0%} of 'em "
+                    f"came back and won. This price only needs {f['be']:.0%}. That's free money energy.",
+                    f"📚 Down {d} ain't dead. In {f['n']:,} games like this, {who} came back {f['rate']:.0%} of the time. "
+                    f"The book's pricing it like {f['be']:.0%} — they scared, we're not.",
+                    f"📚 History don't lie: {f['rate']:.0%} of {who} down {d} {spot} still won ({f['n']:,} games). "
+                    f"At this number you only need {f['be']:.0%}. Hammer it.",
+                    f"📚 The comeback study says {who} in this spot win {f['rate']:.0%} of the time ({f['n']:,} games). "
+                    f"The price needs {f['be']:.0%}. Do the math — we eating."]))
             else:
                 out.append(_say(k, [
-                    f"📚 {Us} are up {d}. In {f['n']:,} games like this, {who} up about that much {spot} held on and won "
-                    f"{f['rate']:.0%} of the time. This price only needs {f['be']:.0%}.",
-                    f"📚 {f['n']:,} past games say {who} up about {d} {u} {spot} close it out {f['rate']:.0%} of the time — "
-                    f"and we're getting plus money.",
-                    f"📚 Up {d} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time "
-                    f"({f['n']:,} games)."]))
+                    f"📚 {f['n']:,} games like this: {who} up about {d} {spot} closed it out {f['rate']:.0%} of the time. "
+                    f"This price only needs {f['be']:.0%}. Easy money.",
+                    f"📚 {Us} up {d} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time "
+                    f"({f['n']:,} games). The book's tripping.",
+                    f"📚 History says {who} up {d} {spot} hold on {f['rate']:.0%} of the time ({f['n']:,} games). "
+                    f"We only need {f['be']:.0%}. Hammer it."]))
         elif kind == "better":
-            out.append(_say(k + 1, [f"💪 {Us} were the better team coming in — the book had them favored before the game. Better teams don't stay down.",
-                                    f"💪 Before the game {us} were the favorite. One bad stretch didn't turn them into a bad team.",
-                                    f"💪 {Us} are the better squad, period. The scoreboard's just late to the party."]))
+            out.append(_say(k + 1, [f"💪 {Us} were the favorite before this thing started. One bad stretch don't make 'em trash.",
+                                    f"💪 {Us} are the better squad, period. The scoreboard's just late to the party.",
+                                    f"💪 {Them} got lucky early. {Us} are the better team and they about to go to work.",
+                                    f"💪 Real ones know {us} are better than {them}. The book's panicking over a few plays."]))
         elif kind == "pre":
-            out.append(_say(k + 2, [f"🧠 The algorithm was already on {us} before the game. Now we get 'em cheaper.",
-                                    f"🧠 We had value on {us} pregame — the live price just made it juicier.",
-                                    f"🧠 The algorithm liked {us} before the game. Now they're on sale."]))
+            out.append(_say(k + 2, [f"🧠 The algorithm was already on {us} before the game. Now we get 'em on sale.",
+                                    f"🧠 We liked {us} pregame — the live price just made it juicier. Double dip.",
+                                    f"🧠 The engine had value on {us} before the game even started. Now it's even better."]))
         elif kind == "ball":
-            out.append(_say(k + 3, [f"🏈 They got the ball ({f['txt']}) — points are coming.",
-                                    f"🏈 Ball's in their hands at {f['txt']}. Next score is theirs to take."]))
+            out.append(_say(k + 3, [f"🏈 They got the rock ({f['txt']}). Points are coming.",
+                                    f"🏈 Ball's in their hands at {f['txt']}. Next score is theirs to take.",
+                                    f"🏈 {Us} got the ball ({f['txt']}) and {them} can't stop nobody."]))
         elif kind == "momentum":
-            out.append(_say(k + 4, [f"🔥 They won the last {sc.PNAME[league]} {f['won']}-{f['lost']}. The study says momentum carries in this sport.",
-                                    f"🔥 {Us} took the last {sc.PNAME[league]} {f['won']}-{f['lost']} — they're rolling.",
-                                    f"🔥 {Us} won the last {sc.PNAME[league]} {f['won']}-{f['lost']}. They woke up."]))
+            out.append(_say(k + 4, [f"🔥 {Us} took the last {sc.PNAME[league]} {f['won']}-{f['lost']}. They cooking now.",
+                                    f"🔥 {Us} won the last {sc.PNAME[league]} {f['won']}-{f['lost']}. They woke up — {them} in trouble."]))
     out.append(_say(k + 5, ["🎯 The numbers are on our side and the book's asleep. Trust the algorithm.",
-                            "🎯 This is the spot. Get in before the line catches up. Trust the algorithm.",
+                            "🎯 This is the spot. Get in before the line catches up. Let's fucking go.",
                             "🎯 Value like this don't last — the book's gonna wake up. We're on it. Let's go.",
-                            "🎯 We did the homework, the price is wrong, and we're taking it. Trust the algorithm."]))
+                            "🎯 Don't be a sheep. The dummies are selling, we buying. Trust the algorithm."]))
     return out
 
 
