@@ -237,7 +237,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
                 + "".join(_pick_card(k, tomorrows[k]) for k in LOOK if k in tomorrows)) if tomorrows else ""
 
-    done = [p for p in picks if p["status"] in ("won", "lost", "push")]
+    graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]
+    done = [p for p in graded_all if not p.get("lean")]          # the main record is value picks only
+    leans_done = [p for p in graded_all if p.get("lean")]
     done.sort(key=lambda p: (p["date"], p.get("settled", "")))
 
     def wl(ps):
@@ -297,6 +299,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
                      f'<div class="ls">{E(stories[id(e)])}</div></div>'
                      for e in lrows) + "</section>")
+    lw_, ll_ = sum(p["status"] == "won" for p in leans_done), sum(p["status"] == "lost" for p in leans_done)
+    lean_card = ("" if not leans_done else
+                 f'<div class="rc" style="--c1:#ffc233;--c2:#e8c77a"><div class="rc-t">🟡 LEANS</div><div class="rc-r">{lw_}-{ll_}</div>'
+                 f'<div class="rc-p">{f"{lw_ / (lw_ + ll_):.0%} hit" if lw_ + ll_ else "&nbsp;"}</div>'
+                 f'<div class="rc-s">own record</div></div>')
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -592,7 +599,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="strip">{strip}</div>
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
-<div class="recs">{"".join(rec)}{live_card}</div>
+<div class="recs">{"".join(rec)}{live_card}{lean_card}</div>
 {live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}

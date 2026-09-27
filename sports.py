@@ -234,7 +234,7 @@ def _parlay(cands, n, top=40):
     return {"legs": list(combo), "dec": dec, "p_hit": p}
 
 
-def make_board(cands, lock_game=None):
+def make_board(cands, lock_game=None, allow_lean=False):
     """{kind: pick or None} following the owner's rules (lock_game: an already-posted lock's game, kept off the dog)."""
     board = {"two": _parlay(cands, 2), "three": _parlay(cands, 3), "eight": _parlay(cands, 8, top=80)}
     ml = [c for c in cands if c["market"] == "ml" and good(c)]
@@ -250,8 +250,8 @@ def make_board(cands, lock_game=None):
     if big:
         dog = max(big, key=lambda c: c["edge"])
     board["dog"] = {"legs": [dog], "dec": dog["dec"], "p_hit": dog["p"]} if dog else None
-    for kind, pick in list(board.items()):                  # never leave people in limbo: no value play = best lean
-        if pick is None:
+    for kind, pick in list(board.items()):                  # during the day, a graded spot never sits empty: best lean
+        if pick is None and allow_lean:
             board[kind] = lean(cands, kind, taken)
     return board
 
@@ -384,14 +384,15 @@ def post_board(games, model, picks, now, day, force=False):
     new = []
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
-        best = make_board(cands, lock_game).get(kind)
+        replacing = kind in posted                            # the opening board is value only; replacements may lean
+        best = make_board(cands, lock_game, allow_lean=replacing).get(kind)
         if not best:
             continue
         deadline = min(_start(l) for l in best["legs"]) - timedelta(minutes=DEADLINE_MIN)
         if force or all(not l["waiting"] for l in best["legs"]):
             b = best
         elif now >= deadline:
-            b = make_board(settled, lock_game).get(kind)       # out of time: only games that are settled
+            b = make_board(settled, lock_game, allow_lean=replacing).get(kind)   # out of time: only settled games
             if not b:
                 continue
         else:
@@ -478,7 +479,7 @@ def quick(now=None):
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
     add_breakdowns(games, model, picks)
-    posted = post_board(games, model, picks, now, day) if graded else []
+    posted = post_board(games, model, picks, now, day)          # replaces any graded play (this pass or earlier)
     for pk in posted:
         print(f"posted {pk['kind']} (replacement) for {day}")
     sd.save_games(games)
