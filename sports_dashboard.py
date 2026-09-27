@@ -637,16 +637,17 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
-<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>
-<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
-<div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
-<div class="board">{board}</div>
-{tomorrow}
 <details class="ask" id="ask"><summary><span class="ask-t">🤔 ASK THE ENGINE</span>
 <span class="ask-s">our read on any game · tap to open</span></summary>
 <div class="ask-b"><div class="ask-n">Not on our board? Type a team and we'll give you the engine's lean. These are <b>not our picks</b> and never count toward our record.</div>
 <input id="askq" type="search" placeholder="Type a team… (Eagles, Dodgers)" autocomplete="off">
 <div id="asklist"></div><div id="askout"></div></div></details>
+<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>
+<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
+<div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
+<div class="board">{board}</div>
+{tomorrow}
+
 {_tennis()}
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
