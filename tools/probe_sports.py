@@ -1,18 +1,20 @@
-"""Time each step of one live check (where does the watcher hang?)."""
+"""Where does one live check hang? Time each piece; dump every thread's stack if it takes over 90 seconds."""
+import faulthandler
+import json
+import os
 import sys
 import time
 
 sys.path.insert(0, ".")
-t0 = time.time()
+faulthandler.dump_traceback_later(90, exit=True)
 import sports_data as sd  # noqa: E402
 import sports_live as sl  # noqa: E402
 import sports_model as sm  # noqa: E402
-import sports_players as sp  # noqa: E402
 
-t = time.time(); games = sd.load_games(); print(f"load games: {len(games)} in {time.time() - t:.1f}s", flush=True)
-t = time.time(); sp.CACHE = sp.load(); print(f"load players: {time.time() - t:.1f}s", flush=True)
-t = time.time(); sm.KEY_EDGE = sp.key_edges(games, sp.CACHE); print(f"key edges: {time.time() - t:.1f}s", flush=True)
-t = time.time(); sl._DATA.clear(); sl._data(); print(f"_data(): {time.time() - t:.1f}s", flush=True)
-t = time.time(); plays = sl.run(); print(f"run(): {time.time() - t:.1f}s, {len(plays)} plays", flush=True)
-t = time.time(); plays = sl.run(); print(f"second run(): {time.time() - t:.1f}s", flush=True)
-print(f"total {time.time() - t0:.1f}s")
+games, model = sl._data()
+t = time.time(); elo = sm.ratings(games, model); print(f"ratings: {time.time() - t:.1f}s", flush=True)
+for lg in sd.LEAGUES:
+    t = time.time(); a = sl.fetch_live(lg); print(f"fetch_live {lg}: {len(a)} in {time.time() - t:.1f}s", flush=True)
+t = time.time(); b = sl.bovada_live("nfl"); print(f"bovada nfl: {len(b)} in {time.time() - t:.1f}s {sl.BOOKS}", flush=True)
+t = time.time(); s = sl.espn_scores("nfl"); print(f"espn scores nfl: {len(s)} in {time.time() - t:.1f}s", flush=True)
+t = time.time(); log = {"plays": {}}; plays = sl.cycle(games, model, log); print(f"cycle: {time.time() - t:.1f}s {len(plays)} plays", flush=True)
