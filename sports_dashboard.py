@@ -481,7 +481,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 15 sec</span></div>
-<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">😴 No live bets available — no games going right now.</div></section></div>
+<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
 {tomorrow}
@@ -507,10 +507,11 @@ Picks only — no bets placed · refreshes hourly</div>
 (function(){{   // 🔴 LIVE VALUE: checks live.json every 15 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 var last="";
-function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n>0?
+function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
+  '📡 Checking the live games…':n>0?
   '👀 No live bets right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
   '😴 No live bets available — no games going right now.')+'</div></section>';}}
-function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=(d&&d.live_games)||0;
+function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
  el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 15 sec</span></div>'+(ps.length?ps.map(function(p){{
   return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">🔴 LIVE</span></div>'+
@@ -520,7 +521,8 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    '<div class="ls">'+esc(p.score)+(p.ball?' · '+esc(p.ball):'')+'</div><div class="why">'+esc(p.line)+'</div>'+
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
-function show(d){{if(d&&Date.now()-d.updated<10*60000)draw(d);else draw(null);}}
+function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
+ if(d&&(age<10*60000||(!(d.plays||[]).length&&!d.live_games&&age<45*60000)))draw(d);else draw(null);}}
 function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/live-data/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
 function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
  fetch("https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
