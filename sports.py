@@ -468,10 +468,12 @@ def run(repick=False, fetch=True):
             f"{lg} big favorites covered {p['big_fav_cover']:.0%} of {p['big_fav_games']} (adjust {p.get('bfav', 0):+.2f})"
             for lg, p in model["params"].items() if p.get("big_fav_cover") is not None))
     n_ls = sum(1 for g in games.values() if g.get("ls_home"))
-    if n_ls != model.get("ls_seen"):                                    # the comeback study (live bets) learns on new games
+    if n_ls != model.get("ls_seen"):                                    # the comeback + halves studies learn on new games
         try:
             import sports_comeback as sc
             print(sc.summary(sc.study(games)))
+            import sports_halves
+            print(sports_halves.summary(sports_halves.study(games)))
             model["ls_seen"] = n_ls
         except Exception as e:                                          # noqa: BLE001 - never block the board
             print(f"comeback study failed: {e}")

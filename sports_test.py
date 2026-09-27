@@ -572,6 +572,15 @@ def test_tennis():
                           "start": "2026-05-01T11:00Z"}]) == (130, -150)
 
 
+
+def test_halves_study():
+    import sports_halves as sh
+    games = _sim_nba()
+    st = sh.study(games, os.path.join(tempfile.gettempdir(), "halves_test.json"))["nba"]
+    assert st["games"] == len(games) and 0.3 < st["share_1h"] < 0.7 and 0.3 < st["share_2h"] < 0.7
+    assert 0.5 < st["leader_wins"] <= 1.0
+    assert "halves study: nba" in sh.summary({"nba": st})
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
