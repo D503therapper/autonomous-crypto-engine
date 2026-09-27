@@ -28,7 +28,7 @@ FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_
           "home_score", "away_score", "ml_home", "ml_away", "odds_time", "neutral",
           "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
           "inj_home", "inj_away", "sp_home", "sp_away", "stype", "country", "intl", "city", "state", "indoor",
-          "elev", "wx_temp", "wx_wind", "wx_rain"]
+          "elev", "wx_temp", "wx_wind", "wx_rain", "tzo"]
 REAL = ("2", "3", "?")          # regular season + playoffs; preseason / spring training / all-star games don't count
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 

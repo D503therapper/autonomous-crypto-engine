@@ -227,6 +227,13 @@ def test_board_rules():
     assert b["dog"] is None and b["lock"] is None
     sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
     assert not sports.good(sharp_only), "sharp money alone can never carry a pick"
+    drama = {**_cand("t", 120, 0.465), "our_drama": [{"kind": "coach fired"}]}      # ~2.3% edge
+    assert sports.good({**drama, "our_drama": []}) and not sports.good({**drama, "edge": 0.015, "edge_own": 0.015}), \
+        "our own drama needs twice the value"
+    import sports_news
+    assert sports_news.classify("Jets fire head coach after 2-3 start") == ["coach fired"]
+    assert sports_news.classify("Star WR leaves team for personal reasons") == ["family/personal"]
+    assert sports_news.classify("Rookie scores twice in win") == []
 
 
 def test_grading():

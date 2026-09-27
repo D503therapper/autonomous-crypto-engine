@@ -34,7 +34,7 @@ EVAL_GAMES = 900           # tune on (at most) the most recent this many finishe
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
 FEATURES = ["elo", "form", "rest", "b2b", "inj", "key", "revenge", "letdown", "bye", "short", "intl",
-            "alt", "cold", "weather"]   # our view (+ intercept)
+            "alt", "cold", "weather", "travel"]   # our view (+ intercept)
 BIG_WIN = {"nfl": 17, "ncaaf": 21, "nba": 15, "ncaab": 15, "mlb": 5, "nhl": 3}   # a blowout, for letdown spots
 KEY_EDGE = {}      # {game id: key player edge} (QB / starting pitcher / goalie form), set by sports.run
 
@@ -99,6 +99,7 @@ class Elo:
         self.last_vs = {}       # (team, opponent) -> did team win their last meeting
         self.last_big = {}      # team -> won its last game by a blowout
         self.home_elev, self.home_temp = {}, {}   # team -> what it's used to at home (elevation m, game-day temp F)
+        self.home_tz = {}                         # team -> its home time zone (UTC offset hours)
 
     def rating(self, team, t):
         r = self.r.get(team, 1500.0)
@@ -137,6 +138,10 @@ class Elo:
         def shock(tm):                                         # warm-weather / dome team in the cold
             return max(0.0, self.home_temp.get(tm, 70.0) - temp) / 30 if temp is not None and temp < 45 else 0.0
         nasty = (max(0.0, wind - 15) / 10 + min(rain, 20) / 10) if temp is not None else 0.0
+        tzo = _num(g.get("tzo"))
+
+        def jet_lag(tm):                                       # time zones crossed to get here
+            return abs(tzo - self.home_tz[tm]) / 3 if tzo is not None and tm in self.home_tz else 0.0
         return {
             "p_elo": pe, "elo": logit(pe), "elo_pts": (rh - ra + (0 if neutral else self.hfa)),
             "form": form(g["home"]) - form(g["away"]),
@@ -152,6 +157,7 @@ class Elo:
             "alt": thin_air(a) - thin_air(h),                          # + = the visitors are the ones in thin air
             "cold": shock(a) - shock(h),                               # + = the visitors are the ones freezing
             "weather": nasty * (1.0 if rh + self.hfa < ra else -1.0),  # + = sloppy conditions with the home side the dog
+            "travel": jet_lag(a) - jet_lag(h),                          # + = the visitors crossed more time zones
             "known": min(self.n.get(g["home"], 0), self.n.get(g["away"], 0)),
         }
 
@@ -168,6 +174,8 @@ class Elo:
         d = self.k * mult * (res - p)
         self.r[g["home"]], self.r[g["away"]] = rh + d, ra - d
         e_, t_ = _num(g.get("elev")), _num(g.get("wx_temp"))
+        if _num(g.get("tzo")) is not None and str(g.get("intl")) != "1" and str(g.get("neutral")) != "1":
+            self.home_tz[g["home"]] = _num(g.get("tzo"))
         if e_ is not None and str(g.get("intl")) != "1" and str(g.get("neutral")) != "1":
             self.home_elev[g["home"]] = 0.8 * self.home_elev.get(g["home"], e_) + 0.2 * e_
         if str(g.get("indoor")) == "1" and str(g.get("neutral")) != "1":
@@ -271,7 +279,7 @@ def _own_x(f):
 
 def _spread_x(f):
     return [1.0, f["elo_pts"] / 25, f["form"], f["rest"], f["b2b"], f["inj"], f["key"],
-            f["revenge"], f["letdown"], f["bye"], f["short"], f["intl"], f["alt"], f["cold"], f["weather"]]
+            f["revenge"], f["letdown"], f["bye"], f["short"], f["intl"], f["alt"], f["cold"], f["weather"], f["travel"]]
 
 
 def own_p(params, f):

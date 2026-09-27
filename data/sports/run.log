@@ -137,26 +137,23 @@ player stats: 0 box scores added, 0 to fetch, 0 failed, 0s
 sync: 10013 games stored, 30 calls, 0 failed, 1s
 odds history: 0 games got odds, 51 calls, 0 failed, 3s
 player stats: 0 box scores added, 0 to fetch, 0 failed, 0s
-sync: 10013 games stored, 30 calls, 0 failed, 4s
-odds history: 0 games got odds, 51 calls, 0 failed, 5s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 0s
    synced 250/2773 league-days
    synced 500/2773 league-days
    synced 750/2773 league-days
    synced 1000/2773 league-days
+   nfl 2024-09-29: HTTP Error 500: Internal Server Error
    synced 1250/2773 league-days
    synced 1500/2773 league-days
    synced 1750/2773 league-days
+   nba 2024-08-28: HTTP Error 500: Internal Server Error
    synced 2000/2773 league-days
+   mlb 2024-06-23: HTTP Error 500: Internal Server Error
    synced 2250/2773 league-days
    synced 2500/2773 league-days
+   nhl 2024-07-24: HTTP Error 500: Internal Server Error
    synced 2750/2773 league-days
-sync: 29457 games stored, 2773 calls, 0 failed, 53s
-   AN nba 2024-06-09: HTTP Error 504: Gateway Time-out
-   AN nba 2024-06-24: HTTP Error 504: Gateway Time-out
-   AN nba 2024-07-07: HTTP Error 504: Gateway Time-out
+sync: 29430 games stored, 2773 calls, 4 failed, 53s
    AN mlb 2024-09-06: HTTP Error 504: Gateway Time-out
-   AN nfl 2023-01-01: HTTP Error 504: Gateway Time-out
-odds history: 14524 games got odds, 2414 calls, 6 failed, 138s
-player stats: 4715 box scores added, 4716 to fetch, 0 failed, 231s
-tuned in 12s: mlb trust 0% acc 55.8%, nba trust 15% acc 69.1%, ncaaf trust 0% acc 72.6%, nfl trust 10% acc 67.5%, nhl trust 10% acc 55.6%, ncaab trust 10% acc 67.4%
+odds history: 14498 games got odds, 2414 calls, 3 failed, 131s
+player stats: 4677 box scores added, 4689 to fetch, 11 failed, 213s
+tuned in 24s: mlb trust 0% acc 55.7%, nba trust 15% acc 69.1%, ncaaf trust 0% acc 72.6%, nfl trust 10% acc 67.0%, nhl trust 10% acc 55.6%, ncaab trust 10% acc 67.4%
