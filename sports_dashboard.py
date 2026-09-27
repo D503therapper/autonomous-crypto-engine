@@ -41,6 +41,11 @@ def _chip(status):
     return f'<span class="chip {status}">{txt}</span>'
 
 
+def _rot(k, options):
+    """The day's line from a rotation: consecutive days never get the same one."""
+    return options[k % len(options)]
+
+
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
@@ -165,15 +170,30 @@ def render(picks, model, games, series, start_bank, updated_ms):
         lines.append(["⏳ Nothing graded yet today — games still cooking.", "⏳ Tickets are still live. Check back after the games.",
                       "⏳ No results in yet. Sit tight."][k % 3])
     elif l_ == 0:
-        lines.append([f"🔥 Perfect day — {w_}-0. Cashing tickets.", f"🔥 {w_}-0. Didn't miss.", f"🔥 Clean sweep, {w_}-0."][k % 3])
+        lines.append(_rot(k, [f"🔥 {w_}-0. We crushed today — fuck yeah, let's go!",
+                              f"🔥 {w_}-0. Today was a grace from baby Jesus himself. Let's fucking go!",
+                              f"🔥 Clean sweep, {w_}-0. We smacked today. Let's go!",
+                              f"🔥 {w_}-0. Didn't miss a single one. Trust the algorithm.",
+                              f"🔥 {w_}-0. Today was a grace from Jesus. Let's fucking go!",
+                              f"🔥 Perfect day, {w_}-0. Books are crying right now."]))
     elif w_ >= l_:
-        lines.append([f"✅ Went {w_}-{l_}. Cashing tickets.", f"✅ {w_}-{l_} on the day. We eat.",
-                      f"✅ Winning day — {w_}-{l_}. Trust the algorithm.", f"✅ {w_}-{l_}. Told y'all."][k % 4])
+        lines.append(_rot(k, [f"✅ {w_}-{l_}. We crushed today — let's fucking go!",
+                              f"✅ {w_}-{l_}. We smacked today. Let's go!",
+                              f"✅ Went {w_}-{l_}. Cashing tickets.",
+                              f"✅ {w_}-{l_} on the day. We eat.",
+                              f"✅ {w_}-{l_}. Told y'all. Trust the algorithm.",
+                              f"✅ {w_}-{l_}. Today was a grace from Jesus. Fuck yeah!",
+                              f"✅ {w_}-{l_}. Another W in the books. Let's go!",
+                              f"✅ {w_}-{l_}. Fed the whole squad today."]))
     else:
-        lines.append([f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' do better tomorrow.",
-                      f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
-                      f"😤 {w_}-{l_}. Not our day — the engine's already studying the tape. We bounce back tomorrow.",
-                      f"😤 Took some L's today ({w_}-{l_}). Shake it off. We gon' be right back."][k % 4])
+        lines.append(_rot(k, [f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' do better tomorrow.",
+                              f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
+                              f"😤 {w_}-{l_}. Not our day — the engine's already studying the tape.",
+                              f"😤 Took some L's today ({w_}-{l_}). Shake it off. We gon' be right back.",
+                              f"😤 {w_}-{l_}. Today was trash, no sugarcoating it. Tomorrow we eat.",
+                              f"😤 {w_}-{l_}. Vegas got us today. Enjoy it while it lasts.",
+                              f"😤 {w_}-{l_}. Rough one. Head up — we run it back tomorrow.",
+                              f"😤 {w_}-{l_}. Bad day at the office. The algorithm's taking notes."]))
     cutoff = (datetime.now(timezone.utc) - timedelta(hours=30)).strftime("%Y-%m-%dT%H:%MZ")
     fresh = {}
     for g in (games or {}).values():
