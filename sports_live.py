@@ -306,6 +306,7 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     return out
 
 
+BOOKS = {}                    # what the sportsbook feed returned this cycle, per league (diagnostics)
 WATCHING = [0]
 PRICED = [0]                  # live games with a confirmed sportsbook price this cycle                # live games seen in the last cycle (the dashboard says whether games are going)
 
@@ -326,7 +327,9 @@ def bovada_live(league):
         data = _get(BOVADA.format(path=BOVADA_PATH[league]))
     except Exception as e:                                   # noqa: BLE001
         sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
+        BOOKS[league] = f"error {str(e)[:60]}"
         return []
+    BOOKS[league] = f"{len(data or [])} groups, {sum(len(g.get('events') or []) for g in data or [])} events"
     out = []
     for grp in data or []:
         for ev in grp.get("events") or []:
@@ -471,7 +474,7 @@ def run():
         showing = []
     plays = cycle(games, model, log, showing=showing)
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
-           "priced": PRICED[0], "errors": sd.ERRORS[-3:]}
+           "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS)}
     del sd.ERRORS[:]
     os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
     with open(LIVE_JSON, "w") as f:
