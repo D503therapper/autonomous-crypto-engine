@@ -4,6 +4,12 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 
 ## Open questions
 
+> WARNING: never push to branch "pending/crypto-into-dex" - its copy of paper-trade.yml has no branch filter, so a
+> push there starts a live engine on that branch and cancels main's (happened 2026-09-27 02:47-03:20 UTC; that
+> run's trades - a 3rd HOLDOWEEN - and its crypto->DEX move exist only on that branch and were discarded). To apply
+> it, cherry-pick commit 8d347f9 onto main when the owner says yes.
+
+
 ### NEXT - Second DEX entry: "dip + bounce" (owner asked 2026-09-27: buy the drop points?)
 Quick label check on results/dex_runner_points.csv.gz (liq >= $100k, age >= 6h): current entry (1h >= +10%) n=251:
 2x/7d 53%, 5x 24%, rug 2.0%, median worst-drop after entry -54%. "Dip + bounce" (>= 30% below 7d high AND 1h >= +5%)
