@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 7          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 10          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -105,6 +105,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     ours, theirs = _team_games(fin, tid), _team_games(fin, oid)
     s_ours, s_theirs = _season(ours, start), _season(theirs, start)
     v = Voice(f"{g['id']}|{start:%Y-%m-%d}|{side}", used)
+    if ours and theirs and (start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days < 2:
+        leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]
     out, said = [], set()          # said: reasons already used as a "because", so no line repeats another
     leg["bd_tags"] = v.mine        # which wordings this breakdown used (so the rest of the board avoids them)
 
@@ -113,6 +115,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     heat = _streak(ours, tid)
     n_hot = int(heat.split()[1]) if heat.startswith("won") else 0
     if rec_u and n_hot >= 2:
+        said.add("hotter recent form")
         out.append(v.say("hot", [f"🔥 {us} are {rec_u} and on a {n_hot}-game heater.",
                                   f"🔥 {us} ({rec_u}) have won {n_hot} straight and they're rolling.",
                                   f"🔥 {us} are rolling — {n_hot} wins in a row, {rec_u} on the year.",
@@ -143,9 +146,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     # strength
     e = elo.get(lg)
     if e is not None:
-        gap = e.r.get(tid, 1500.0) - e.r.get(oid, 1500.0)
-        if gap <= 15:
-            said.add("the stronger team")               # we just said it's even/worse: don't claim "better" later
+        home_edge = 0 if str(g.get("neutral")) == "1" else (e.hfa if side == "home" else -e.hfa)
+        gap = e.r.get(tid, 1500.0) - e.r.get(oid, 1500.0) + home_edge      # same yardstick as the card's reasons
+        said.add("the stronger team")                   # said here either way (better / even / worse): not again later
         if gap > 60:
             out.append(v.say("better", [f"💪 {us} are straight up the better team right now.",
                                          f"💪 This is a mismatch — {us} are just better.",
@@ -191,21 +194,13 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🗑️ {them} are straight garbage right now ({rec}).",
             f"🗑️ Watching {them} lately hurts ({rec})."]))
 
-    # last games
+    # last games: just the latest scores - the form/streak lines above already cover runs
     if ours:
         last_us = _line(ours[-1], tid)
-        if last_us[0] == "W":
-            txt = v.say("last_w", [f"📅 {us} took care of business last time out ({last_us})",
-                                    f"📅 {us} are coming off a win ({last_us})",
-                                    f"📅 Last game, {us} got it done ({last_us})"])
-        else:
-            txt = v.say("last_l", [f"📅 {us} took an L last time out ({last_us}) — bounce-back spot",
-                                    f"📅 {us} are coming off a loss ({last_us}) and should be locked in",
-                                    f"📅 {us} dropped the last one ({last_us}); expect a response"])
-        if theirs:
-            last_them = _line(theirs[-1], oid)
-            txt += f"; {them} {'won' if last_them[0] == 'W' else 'lost'} theirs ({last_them})"
-        out.append(txt + ".")
+        both = f"{us} {last_us}" + (f" · {them} {_line(theirs[-1], oid)}" if theirs else "")
+        out.append(v.say("latest", [f"📅 Latest: {both}.", f"📅 Last time out: {both}.", f"📅 Most recent games: {both}.",
+                                     f"📅 Where they're coming from: {both}.", f"📅 Last week's tape: {both}." if lg in ("nfl", "ncaaf")
+                                     else f"📅 Last outing: {both}.", f"📅 Previous game: {both}.", f"📅 Fresh off: {both}."]))
 
     # head to head
     h2h = [x for x in ours if oid in (x["home"], x["away"])]
@@ -216,12 +211,6 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.say("h2h", [f"🆚 {us} own this matchup — won {w} of the last {len(last3)}.",
                                       f"🆚 {us} have had {them}'s number: {w} of the last {len(last3)}.",
                                       f"🆚 History's on our side — {w} of the last {len(last3)} meetings went {us}' way.",
-            f"📅 {us} got the W last time out ({last_us})",
-            f"📅 {us} handled their business last game ({last_us})",
-            f"📅 Last outing: {us} came through ({last_us})",
-            f"📅 {us} got clipped last time ({last_us}) — they'll be hungry",
-            f"📅 {us} lost the last one ({last_us}); revenge mode",
-            f"📅 Last game was an L for {us} ({last_us}) — expect a bounce-back",
             f"🆚 {us} been owning {them} lately — {w} of the last {len(last3)}.",
             f"🆚 {them} can't figure {us} out: {w} of {len(last3)} to {us}."]))
         elif w == 1 and len(last3) == 1:
@@ -296,7 +285,10 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"😴 {them} are running on fumes — played last night.",
             f"😴 Back-to-back for {them}. Tired legs, cold shooting."]))
         elif d_us - d_them >= 2:
-            out.append(v.say("rest", [f"🛌 {us} are the more rested squad.", f"🛌 {us} had extra days to get right.",
+            gap_d = d_us - d_them
+            out.append(v.say("rest", [f"🛌 {us} had {gap_d} more days off than {them}.",
+                                       f"🛌 Rest edge: {us} got {gap_d} extra days to recover.",
+                                       f"🛌 {us} come in with {gap_d} more days of rest.",f"🛌 {us} are the more rested squad.", f"🛌 {us} had extra days to get right.",
                                        f"🛌 Rest edge goes to {us}.",
             f"🛌 {us} are well-rested and ready.",
             f"🛌 Extra rest for {us} — fresh legs."]))
@@ -347,28 +339,30 @@ def breakdown(leg, games, elo, injuries, used=None):
     if op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
         why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   f"the numbers say {us}")
+                   v.say("fallback1", ["the price is too good to pass", "the number's on our side", "the value's all ours",
+                                       "we like our side at this number"]) or "the number's on our side")
         said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
-        out.append(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns — {why}.",
-                                   f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns — {why}.",
-                                   f"💸 Line's moving toward {them}{move}. Let 'em — the engine sees it different: {why}.",
-                                   f"💸 Money's pouring in on {them}{move}. They must've lost their minds — {why}.",
-                                   f"💸 Everybody's jumping on {them}{move}. They're tweaking — {why}.",
-                                   f"💸 The market's leaning {them}{move}. Somebody's about to learn a lesson — {why}."]))
+        out.append(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns. We're on {us} — {why}.",
+                                   f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns and taking {us} — {why}.",
+                                   f"💸 Line's moving toward {them}{move}. Let 'em — the engine still likes {us}: {why}.",
+                                   f"💸 Money's pouring in on {them}{move}. They must've lost their minds — we got {us}. {_cap(why)}.",
+                                   f"💸 Everybody's jumping on {them}{move}. They're tweaking — {us} is the play. {_cap(why)}.",
+                                   f"💸 The market's leaning {them}{move}. Somebody's about to learn a lesson — we're on {us}. {_cap(why)}."]))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
     why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   f"the engine likes {us} more than the price does")
+                   v.say("fallback2", ["the engine likes our side more than the price does", "the math says otherwise",
+                                       "the numbers don't lie", "the engine sees it different"]) or "the numbers don't lie")
     if pub == "fade":
         out.append(v.say("pub_fade", [
-            f"🎭 {them} are the clear favorite and the public's all over it. Fade the public here — don't be a sheep. {_cap(why_pub)}.",
-            f"🎭 The public is all over {them}. Dummies are about to lose their money — {why_pub}.",
-            f"🎭 Everybody and their mama is on {them}. Not us — {why_pub}.",
-            f"🎭 The sheep are lining up for {them}. We're not sheep — {why_pub}.",
-            f"🎭 Crowd's on {them}. Fade the public, ride the engine — {why_pub}.",
-            f"🎭 Public's hammering {them} like it's free money. It ain't — {why_pub}.",
-            f"🎭 All the casuals love {them}. We're not casuals — {why_pub}."]))
+            f"🤡 {them} are the clear favorite and the public's all over 'em. We're on {us}. Fade the public — don't be a sheep. {_cap(why_pub)}.",
+            f"🤡 The public is all over {them}. We're on {us}, and the dummies are about to lose their money — {why_pub}.",
+            f"🤡 Everybody and their mama is on {them}. Not us — we got {us}. {_cap(why_pub)}.",
+            f"🤡 The sheep are lining up for {them}. We're not sheep — we're on {us}. {_cap(why_pub)}.",
+            f"🤡 Crowd's on {them}. We're riding {us} and the engine — {why_pub}.",
+            f"🤡 Public's hammering {them} like it's free money. It ain't. We got {us} — {why_pub}.",
+            f"🤡 All the casuals love {them}. We're not casuals — {us} all day. {_cap(why_pub)}."]))
     elif pub == "ride":
         out.append(v.say("pub_ride", [
             f"🤝 Riding with the public on this one — sometimes the public gotta win. {_cap(why_pub)}.",
@@ -401,13 +395,26 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way.",
             f"✅ Bottom line: {price} ain't flashy. It's just the right side.",
             f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way."]))
-    return [x for x in out if x]
+    lines = [x for x in out if x]
+    if len(lines) > 2:
+        import random
+        rnd = random.Random(f"{g['id']}|{start:%Y-%m-%d}|{side}|shape")
+        body, bottom = lines[:-1], lines[-1]
+        keep = max(4, len(body) - rnd.randint(0, 2))          # not every pick gets every line
+        must = {i for i, x in enumerate(body) if x[:1] in "🤡🤝💸🚑" or x.startswith("🗑️")}   # the spicy stuff stays
+        drop = [i for i in range(len(body)) if i not in must]
+        rnd.shuffle(drop)
+        gone = set(drop[:max(0, len(body) - keep)])
+        body = [x for i, x in enumerate(body) if i not in gone]
+        rnd.shuffle(body)
+        lines = body + [bottom]
+    return lines
 
 
 WHY = {   # the pick's reasons, said as a quick "because"
     "the stronger team": "{us} are the better team",
     "hotter recent form": "{us} are the hotter team",
-    "better rested": "{us} are fresher",
+    "better rested": "{us} got extra days of rest",
     "opponent on a back-to-back": "{them} are on tired legs",
     "opponent missing key players": "{them} are banged up",
     "better starting pitcher": "we've got the better arm on the mound",

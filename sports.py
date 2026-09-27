@@ -85,7 +85,7 @@ def _reasons(side, f, g, league, params):
         out.append((f["elo_pts"] * s / 40, "the stronger team"))
     if f["form"] * s >= 0.08:
         out.append((f["form"] * s * 4, "hotter recent form"))
-    if f["rest"] * 7 * s >= 1:
+    if f["rest"] * 7 * s >= 2:                        # a real rest gap only (one extra day means nothing)
         out.append((f["rest"] * 7 * s / 3, "better rested"))
     if f["b2b"] * s > 0:
         out.append((0.8, "opponent on a back-to-back"))
@@ -315,7 +315,7 @@ def post_board(games, model, picks, now, day, force=False):
             same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
                          if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)
             if same:                                  # the same pick reads the same everywhere it shows up
-                leg["breakdown"], leg["bd_tags"] = same["breakdown"], same.get("bd_tags", [])
+                leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
             else:
                 leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
             leg["public"] = sports_breakdown.public_side(leg, g)
@@ -347,7 +347,7 @@ def add_breakdowns(games, model, picks):
     for leg in legs:
         same = next((l for l in done if _same_leg(l, leg)), None)
         if same:                                      # the same pick reads the same everywhere it shows up
-            leg["breakdown"], leg["bd_tags"] = same["breakdown"], same.get("bd_tags", [])
+            leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
         else:
             leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
         leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])
