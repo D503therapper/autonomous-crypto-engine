@@ -77,6 +77,35 @@ def time_left(league, period, clock, half=None):
     return max(0.02, ((periods - period) * mins + left_in) / (periods * mins))
 
 
+KICK = {}                     # espn game id -> the team that took the opening kickoff (the other one gets the 2nd half)
+HALF_BALL = 0.6               # receiving the 2nd-half kickoff: a drive from about its own 25 (~0.6 expected points)
+
+
+def halftime(league, ang, box):
+    if league not in ("nfl", "ncaaf"):
+        return False
+    clock = str(box.get("clock") or "")
+    return "half" in str(ang.get("status_display") or ang.get("status") or "").lower() or \
+        (int(box.get("period") or 0) == 2 and clock.replace("0", "").replace(":", "") == "")
+
+
+def second_half_ball(league, g):
+    """'home' / 'away': who receives to start the 2nd half (the team that didn't take the opening kickoff)."""
+    eid = g["id"].split(":", 1)[1]
+    if eid not in KICK:
+        try:
+            s = _get(f"https://site.api.espn.com/apis/site/v2/sports/{sd.LEAGUES[league][0]}/summary?event={eid}")
+            drives = (s.get("drives") or {}).get("previous") or []
+            KICK[eid] = str(((drives[0].get("team") or {}).get("id")) or "") if drives else ""
+        except Exception as e:                               # noqa: BLE001
+            sd.ERRORS.append(f"kickoff {eid}: {str(e)[:60]}")
+            return None
+    first = KICK[eid]
+    if not first:
+        return None
+    return "away" if first == str(g["home"]) else "home" if first == str(g["away"]) else None
+
+
 def ball_value(league, g, box):
     """Football: expected points for the team with the ball, from home's side (+ = home has it)."""
     if league not in ("nfl", "ncaaf"):
@@ -493,6 +522,11 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
             p_model = sm.final_p(params, f, g) if mkt is not None else None
             ball = ball_value(lg, ang, box)
             ball_txt = (box.get("situation") or {}).get("display_short") or "" if ball else ""
+            if not ball and halftime(lg, ang, box):          # halftime: whoever gets the 2nd-half kickoff has the ball next
+                rec = second_half_ball(lg, g)
+                if rec:
+                    ball = HALF_BALL if rec == "home" else -HALF_BALL
+                    ball_txt = ""                            # not a scoring-range drive: no "they got the ball" reason
             for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing):
                 pl["an_id"] = ang.get("id")
                 plays.append(pl)
