@@ -58,19 +58,20 @@ def _leg(leg):
     lg = sd.LEAGUES[leg["league"]]
     mk = "ML" if leg["market"] == "ml" else f'{leg["line"]:+g}'
     res = leg.get("result")
-    mark = {"won": '<b class="lw">✓</b>', "lost": '<b class="ll">✗</b>', "push": '<b class="lp">P</b>',
-            "void": '<b class="lp">V</b>'}.get(res, "")
+    mark = ""
+    badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
+             "push": '<span class="lr push">PUSH</span>', "void": '<span class="lr push">VOID</span>'}.get(res, "")
     why = " · ".join(E(r) for r in leg.get("reasons") or [])
     pub = leg.get("public")
     tag = ('<span class="pub fade">🤡 FADING THE PUBLIC</span>' if pub == "fade" else
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
-    return f"""<div class="leg">
-  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span><span class="tm">{_time(leg["start"])}</span></div>
+    return f"""<div class="leg {res or ''}">
+  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span>{badge or f'<span class="tm">{_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])}</div>
   {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
-  {f'<div class="fin">{E(leg["score"])}</div>' if leg.get("score") else ""}
+  {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
 
@@ -86,11 +87,17 @@ def _pick_card(kind, pk):
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
     legs = "".join(_leg(leg) for leg in pk["legs"])
+    stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
+             "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
+    hits = sum(l.get("result") == "won" for l in pk["legs"])
+    left = sum(not l.get("result") for l in pk["legs"])
+    track = (f'<div class="track">🔥 {hits} of {len(pk["legs"])} legs hit — {left} to go</div>'
+             if pk["status"] == "open" and len(pk["legs"]) > 1 and hits and left else "")
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {legs}
+  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{track}{legs}
 </section>"""
 
 
@@ -260,7 +267,20 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk{{position:relative;background:linear-gradient(165deg,color-mix(in srgb,var(--c1) 16%,var(--card2)) 0%,var(--card) 55%);border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);
   border-radius:22px;padding:16px 16px 10px;margin-bottom:14px;overflow:hidden;box-shadow:0 18px 50px -22px var(--c1),inset 0 1px 0 rgba(255,255,255,.05)}}
 .pk::before{{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c2))}}
-.pk.won{{box-shadow:0 0 0 1px var(--up),0 18px 50px -18px var(--up)}} .pk.lost{{opacity:.72}}
+.pk.won{{box-shadow:0 0 0 2px var(--up),0 18px 50px -14px var(--up)}}
+.pk.lost>*:not(.stamp-row){{opacity:.5}}
+.stamp-row{{display:flex;justify-content:center;margin:6px 0 12px}}
+.stamp{{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
+  border-radius:10px;background:rgba(0,0,0,.3)}}
+.stamp.won{{color:var(--up);text-shadow:0 0 16px rgba(34,227,154,.7);box-shadow:0 0 22px rgba(34,227,154,.35)}}
+.stamp.lost{{color:var(--dn);text-shadow:0 0 16px rgba(255,59,59,.6)}}
+.stamp.push{{color:var(--gold)}}
+.track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
+.leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
+.leg.lost{{border-left:4px solid var(--dn);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(255,59,59,.10),transparent 60%)}}
+.leg.lost .pick{{text-decoration:line-through;text-decoration-color:var(--dn);text-decoration-thickness:3px}}
+.lr{{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}}
+.lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}
