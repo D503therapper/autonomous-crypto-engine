@@ -725,14 +725,14 @@ function vibe(p,id){{return pick(id+"v",p>=0.65?["The engine likes them to handl
  p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
  ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}}
 function show(g){{
-  var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line, pct=Math.round(L.p*100);
+  var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":""), pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
     '<div class="ls">'+esc(g.away)+" @ "+esc(g.home)+'</div>';
   if(g.why=="on_board"){{h+='<div class="ask-a">🎯 We already on this one — it’s on the board. Scroll down and tail it. 👇</div></section>';out.innerHTML=h;return}}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
      '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
      (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+
-     (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. '+pick(g.id+"h",["No 1st-half line posted yet, so that’s just the read.","Just the read — books ain’t posted the 1st-half line.","That’s our read on the early action."])+'</div>':"")+
+     (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":g.h1.name=="1st period"?"After the 1st":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. '+pick(g.id+"h",["No 1st-half line posted yet, so that’s just the read.","Just the read — books ain’t posted the 1st-half line.","That’s our read on the early action."])+'</div>':"")+
      '<div class="ask-w">Why it’s not a pick: '+pick(g.id,WHY[g.why]||WHY.no_value)+'</div>'+
      '<div class="ask-d">⚠️ Not our pick — this doesn’t count toward our record. '+pick(g.id+"x",OUT)+'</div></section>';
   out.innerHTML=h;

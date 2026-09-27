@@ -524,16 +524,26 @@ def engine_reads(games, model, picks, now=None):
     out = []
     try:
         import sports_halves
-        halves = sports_halves.load()
+        import sports_lines
+        halves, lines_st = sports_halves.load(), sports_lines.load()
     except Exception:                                                  # noqa: BLE001
-        halves = {}
+        halves, lines_st = {}, {}
     for day in (local, local + timedelta(days=1)):
         by_game = {}
         for c in candidates(games, model, now, day):
             by_game.setdefault(c["game_id"], []).append(c)
         for gid, cs in by_game.items():
             g = games[gid]
-            ok = [c for c in cs if c["market"] == "spread" or c["odds"] >= ASK_STEEP]
+            if g["league"] in ("nhl", "mlb") and g.get("spread_home", "") != "" and lines_st:   # puck line / run line
+                ph_ = next((c["p"] for c in cs if c["market"] == "ml" and c["side"] == "home"), None)
+                for c in [c for c in cs if c["market"] == "ml"]:
+                    line = float(g["spread_home"]) * (1 if c["side"] == "home" else -1)
+                    odds = sm._int(g.get(f"spread_{c['side']}_odds"))
+                    pc = sports_lines.cover(lines_st, g["league"], ph_, c["side"], line) if ph_ is not None else None
+                    if pc is not None and odds:
+                        cs.append({**c, "market": "spread", "line": line, "odds": odds, "dec": sd.decimal(odds),
+                                   "p": pc, "edge": pc * sd.decimal(odds) - 1})
+            ok = [c for c in cs if (c["market"] == "spread" or c["odds"] >= ASK_STEEP) and c["odds"] >= ASK_STEEP]
             lean_ = max(ok or cs, key=lambda c: (c["p"], c["edge"]))          # accuracy first: the likelier side
             ml_p = {c["side"]: c["p"] for c in cs if c["market"] == "ml"}
             if gid in ours:
@@ -653,6 +663,8 @@ def run(repick=False, fetch=True):
             print(sc.summary(sc.study(games)))
             import sports_halves
             print(sports_halves.summary(sports_halves.study(games)))
+            import sports_lines
+            print(sports_lines.summary(sports_lines.study(games)))
             model["ls_seen"] = n_ls
         except Exception as e:                                          # noqa: BLE001 - never block the board
             print(f"comeback study failed: {e}")

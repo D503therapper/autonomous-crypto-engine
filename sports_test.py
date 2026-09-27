@@ -639,6 +639,21 @@ def test_tennis():
 
 
 
+def test_lines_study():
+    import sports_lines
+    rnd = random.Random(3)
+    rs = []
+    for _ in range(4000):                                     # truth: P(win by 2+) = sigmoid(-1 + 1.2*logit(p) + 0.1*home)
+        x, h = rnd.uniform(-1.2, 1.2), rnd.randint(0, 1)
+        rs.append((x, h, 1 if rnd.random() < 1 / (1 + math.exp(-(-1 + 1.2 * x + 0.1 * h))) else 0))
+    w = sports_lines.fit(rs)
+    assert abs(w["a"] + 1) < 0.25 and abs(w["b"] - 1.2) < 0.3 and w["ll"] < w["ll_base"], w
+    st = {"nhl": w}
+    fav = sports_lines.cover(st, "nhl", 0.62, "home", -1.5)
+    dog = sports_lines.cover(st, "nhl", 0.62, "away", 1.5)
+    assert 0 < fav < 0.62 and dog > 0.38 and abs(fav + dog - 1) < 1e-9, "-1.5 covers less often than a win; +1.5 is the rest"
+
+
 def test_halves_study():
     import sports_halves as sh
     games = _sim_nba()
