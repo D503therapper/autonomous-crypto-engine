@@ -236,6 +236,10 @@ def _parlay(cands, n, top=40):
 
 def make_board(cands, lock_game=None, allow_lean=False, avoid=()):
     """{kind: pick or None} following the owner's rules (lock_game: an already-posted lock's game, kept off the dog)."""
+    side = {}                                                # one side per game on the whole board - never both teams
+    for c in sorted(cands, key=lambda c: -c["edge"]):
+        side.setdefault(c["game_id"], c["side"])
+    cands = [c for c in cands if c["side"] == side[c["game_id"]]]
     board = {"two": _parlay(cands, 2), "three": _parlay(cands, 3), "eight": _parlay(cands, 8, top=80)}
     ml = [c for c in cands if c["market"] == "ml" and good(c)]
     locks = [c for c in ml if c["odds"] >= LOCK_MAX_FAV]
@@ -402,6 +406,12 @@ def post_board(games, model, picks, now, day, force=False):
         for side in ("home", "away"):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
     cands = candidates(games, model, now, day, injuries)
+    ours = {}                                                # games we're already on today (any pick, graded or not):
+    for p in picks:                                          # a new pick never takes the other team in them
+        if p["date"] == iso and p["status"] != "waiting":
+            for l in p["legs"]:
+                ours.setdefault(l["game_id"], l["side"])
+    cands = [c for c in cands if ours.get(c["game_id"], c["side"]) == c["side"]]
     settled = [c for c in cands if not c["waiting"]]
     elo = None
     used = {t for p in picks if p["date"] == iso for l in p["legs"] for t in l.get("bd_tags", [])}   # the board's memory
