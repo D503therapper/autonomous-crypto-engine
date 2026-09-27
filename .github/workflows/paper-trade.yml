@@ -7,6 +7,7 @@ on:
     - cron: "7 */6 * * *"
   workflow_dispatch: {}
   push:
+    branches: [main]      # only main runs the live engine (a push to a side branch once replaced it for 33 min)
     paths: [".github/workflows/paper-trade.yml", "requirements.txt", "run_live.py", "engine.py",
             "strategy.py", "markets.py", "config.py", "data_source.py", "indicators.py",
             "scanner.py", "signals.py", "social.py", "dex.py", "dashboard.py", "stock_strategies.py"]   # restart only when files the engine runs change
