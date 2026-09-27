@@ -295,22 +295,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 break
             n += 1
         return f'{"W" if last == "won" else "L" if last == "lost" else "P"}{n}'
-    m0 = datetime(now.year, now.month, 1, tzinfo=PT).date().isoformat()
-    rec_all, hit_all = wl(done)
-    rec_day, _ = wl([p for p in done if p["date"] == today])
-    rec_month, hit_month = wl([p for p in done if p["date"] >= m0])
-    first = min((p["date"] for p in picks), default=today)
-    hot = streak(done)
-
-    def tile(label, sub, val, foot, hue, cls="w"):
-        return (f'<div class="tile" style="--h:{hue}"><div class="tl">{label}</div><div class="ts">{sub}</div>'
-                f'<div class="tv {cls}">{val}</div><div class="ts" style="color:{hue}">{foot}</div></div>')
-    tiles = (tile("This month", now.strftime("%B"), rec_month, f"{hit_month:.0%} hit" if hit_month is not None else "&nbsp;", "#2f8bff")
-             + tile("Hit rate", f"since {datetime.fromisoformat(first):%b %-d}", f"{hit_all:.0%}" if hit_all is not None else "—", "all plays", "#22e39a")
-             + tile("Streak", "current", hot or "—", "🔥 heater" if hot.startswith("W") and len(hot) > 1 and int(hot[1:]) >= 3 else "&nbsp;",
-                    "#ffc233", "up" if hot.startswith("W") else "dn" if hot.startswith("L") else "w"))
-    strip = "".join(f'<i class="{p["status"]}" title="{E(p["date"])}"></i>' for p in done[-40:]) or '<span class="empty">results show up here</span>'
-
     # live bets: their own record
     live = {}
     try:
@@ -318,10 +302,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
             live = json.load(f).get("plays", {})
     except (OSError, ValueError):
         pass
-    lw, ll = sum(e.get("result") == "won" for e in live.values()), sum(e.get("result") == "lost" for e in live.values())
-    live_card = (f'<div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">{lw}-{ll}</div>'
-                 f'<div class="rc-p">{f"{lw} won · {ll} lost · {lw / (lw + ll):.0%}" if lw + ll else "&nbsp;"}</div>'
-                 f'<div class="rc-s">{"&nbsp;" if lw + ll else "no results yet"}</div></div>')
     # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
     days_ = {today}
     lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)[:8]
@@ -338,25 +318,27 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
                      f'<div class="ls">{E(stories[id(e)])}</div></div>'
                      for e in lrows) + "</section>")
-    tier_cards = []                                          # confidence levels: locks, value, leans - each its own record
-    for t in ("lock", "value", "lean"):
-        ps = [p for p in graded_all if _tier(p) == t]
-        w_, l_ = sum(p["status"] == "won" for p in ps), sum(p["status"] == "lost" for p in ps)
-        name, c1, c2 = TIER_LOOK[t]
-        tier_cards.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
-                          f'<div class="rc-p">{f"{w_} won · {l_} lost · {w_ / (w_ + l_):.0%}" if w_ + l_ else "&nbsp;"}</div>'
-                          f'<div class="rc-s">{"no results yet" if not w_ + l_ else "&nbsp;"}</div></div>')
-    lean_card = "".join(tier_cards)
-    # the overall record, split out so everybody sees exactly where the wins and losses come from
-    def _wl2(ps, key=lambda p: p["status"]):
-        return sum(key(p) == "won" for p in ps), sum(key(p) == "lost" for p in ps)
-    split = [(TIER_LOOK[t][0], TIER_LOOK[t][1], _wl2([p for p in graded_all if _tier(p) == t])) for t in ("lock", "value", "lean")]
-    split.append(("🔴 LIVE", "#ff3b3b", (lw, ll)))
-    splits = "".join(f'<span class="sp" style="--p:{c}"><b>{w}-{l}</b> {n}</span>' for n, c, (w, l) in split)
+    # the engine's grades: locks, value, leans and live - each graded on its own, never lumped into one number
+    def grade(name, c1, c2, rows, today_rows):
+        w_, l_ = sum(r == "won" for r in rows), sum(r == "lost" for r in rows)
+        tw, tl = sum(r == "won" for r in today_rows), sum(r == "lost" for r in today_rows)
+        st = ""
+        for r in reversed([r for r in rows if r in ("won", "lost")]):
+            if st and st[0] != ("W" if r == "won" else "L"):
+                break
+            st = ("W" if r == "won" else "L") + str(int(st[1:] or 0) + 1)
+        return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
+                f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%} hit" if w_ + l_ else "no results yet"}</div>'
+                f'<div class="rc-s">today {tw}-{tl}{f" · streak {st}" if st else ""}</div></div>')
+    by_tier = {t: [p for p in graded_all if _tier(p) == t] for t in ("lock", "value", "lean")}
+    lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
+    grades = "".join(grade(*TIER_LOOK[t], [p["status"] for p in by_tier[t]], [p["status"] for p in by_tier[t] if p["date"] == today])
+                     for t in ("lock", "value", "lean"))
+    grades += grade("🔴 LIVE", "#ff3b3b", "#ff8a00", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
-        ps = [p for p in done if p["kind"] == kind]
+        ps = [p for p in graded_all if p["kind"] == kind]
         r, h = wl(ps)
         st = streak(ps)
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
@@ -586,10 +568,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   box-shadow:0 20px 60px -24px rgba(255,160,40,.45)}}
 .lbl{{color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}
 .total{{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
-.splits{{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}}
-.sp{{font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--p);border:1px solid var(--p);border-radius:999px;padding:4px 9px}}
-.sp b{{color:#fff;font-size:13px}}
-.sp-n{{font-size:11px;color:#9fb0c8;margin-top:6px}}
+.sp-n{{font-size:12px;color:#9fb0c8;margin:4px 0 12px}}
+.grades{{margin-bottom:12px}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
 .pill small{{color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em}}
@@ -646,18 +626,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 {_tennis()}
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
-  <div class="lbl">Overall record</div>
-  <div class="total">{rec_all}</div>
-  <span class="pill" style="--p:#ffc233">{rec_day} <small>TODAY</small></span>
-  <div class="splits">{splits}</div>
-  <div class="sp-n">Overall = locks + value. Leans and live bets keep their own records.</div>
-  <div class="month">{tiles}</div>
-  <div class="strip">{strip}</div>
+  <div class="lbl">The engine's grades</div>
+  <div class="sp-n">Every kind of play graded on its own — no lumping. Full transparency.</div>
+  <div class="recs grades">{grades}</div>
 </section>
-<div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
-<div class="recs">{"".join(rec)}{live_card}</div>
-<div class="sec"><h2><i>●</i> BY CONFIDENCE</h2><span>locks · value · leans</span></div>
-<div class="recs">{lean_card}</div>
+<div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(graded_all)} graded</span></div>
+<div class="recs">{"".join(rec)}</div>
 {live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
