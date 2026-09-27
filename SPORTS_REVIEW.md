@@ -9,6 +9,8 @@ including losing days and your own bugs.
 - **Posted picks are final.** Never change, pull or re-post a posted pick unless the owner explicitly says so.
 - **Never a filler leg.** Every leg, lock and dog needs real value on the engine's numbers plus a reason.
   If the slate has none, the answer is "No play today".
+- **Sharp money alone never carries a pick.** The engine's own read must show the value. We don't just follow
+  the money; the breakdown fades it in the owner's voice when we go the other way (no slurs).
 - **No big favorites.** No parlay leg shorter than -150. The Lock is no shorter than -120. The Dog is plus money.
   Big dogs (+200 and up) are never declined when they trigger: a real shot and clearly the best value on the slate.
 - **Bet types.** Spreads only in NFL, college football and NBA. No run lines, puck lines or player props.

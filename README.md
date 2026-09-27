@@ -56,6 +56,8 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    earlier game:
    - **Never a filler leg:** every leg, lock and dog must be real value on the engine's numbers (1%+) with
      at least one reason; if the slate has none, that card says "No play today".
+   - **Sharp money alone never carries a pick:** the engine's own read (without the line move) must show the
+     value; the line move can only add to it.
    - **No big favorites:** no parlay leg shorter than −150.
    - **2-Leg / 3-Leg of the Day:** the most likely-to-hit parlay built from good legs only, one leg per game
      (no payout chasing).
