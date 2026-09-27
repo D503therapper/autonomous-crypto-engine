@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 14          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 15          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -278,6 +278,23 @@ def breakdown(leg, games, elo, injuries, used=None):
                                        f"🚀 {us} are coming in hot off a blowout. Momentum's real.",
                                        f"🚀 Blowout last time out for {us}. They're feeling themselves."]))
         said.add("rolling off a blowout win")
+    temp, wind, rain = g.get("wx_temp", ""), g.get("wx_wind", ""), g.get("wx_rain", "")
+    if "altitude edge" in rsn:
+        out.append(v.say("alt", [f"🏔️ Thin air — {g.get('elev')} meters up. {_cap(the_them)} gonna be sucking wind by the second half.",
+                                  f"🏔️ Altitude game. {_cap(the_them)} ain't used to breathing up there.",
+                                  f"🏔️ Mile-high problems for {the_them}. Legs get heavy fast at that elevation."]))
+        said.add("altitude edge")
+    if "cold-weather edge" in rsn:
+        out.append(v.say("cold_w", [f"🥶 {temp}°F at kickoff. {_cap(the_them)} are a warm-weather squad walking into a freezer.",
+                                     f"🥶 It's gonna be {temp}°F. {_cap(the_them)} don't play in this — {the_us} do.",
+                                     f"🥶 Cold one ({temp}°F). Welcome to real weather, {the_them}."]))
+        said.add("cold-weather edge")
+    if "nasty weather helps us" in rsn:
+        what = f"{wind} mph winds" if str(wind) not in ("", "0") and float(wind or 0) >= 15 else f"{rain} mm of rain"
+        out.append(v.say("wx", [f"🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how dogs eat.",
+                                 f"🌬️ {what}. Ugly weather drags everybody down to the same level.",
+                                 f"🌧️ Weather's nasty ({what}). Anything can happen in the slop."]))
+        said.add("nasty weather helps us")
     if "coming off a bye" in rsn:
         out.append(v.say("bye", [f"🛌 {us} are fresh off a bye — rested and game-planned up.",
                                   f"🛌 Extra week to prep for {us}. That matters.",
@@ -458,6 +475,9 @@ WHY = {   # the pick's reasons, said as a quick "because"
     "opponent on a back-to-back": "{them} are on tired legs",
     "opponent missing key players": "{them} are banged up",
     "revenge game": "they owe these guys one",
+    "altitude edge": "{them} gonna be sucking wind up there",
+    "cold-weather edge": "{them} aren't built for the cold",
+    "nasty weather helps us": "sloppy weather keeps it close",
     "rolling off a blowout win": "they're rolling off a blowout",
     "letdown spot for the opponent": "{them} are due for a letdown",
     "coming off a bye": "they're fresh off a bye",
