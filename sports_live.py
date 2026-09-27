@@ -153,8 +153,12 @@ def blurb(league, us, them, trail, margin_txt, rs, k):
                             f"{i} {Us} down {margin_txt}, plenty of hockey left and the price is too good."])
         return _say(k, [f"{i} {Us} down {margin_txt}. Teams in this spot come back more than this price thinks.",
                         f"{i} Buy the dip: {us} trailing {margin_txt}, history says this one ain't over."])
-    return _say(k, [f"{i} {Us} in the game and still plus money. Books are sleeping — take it before it moves.",
-                    f"{i} The live line's got {us} as the underdog. The numbers don't. Get in."])
+    if margin_txt != "0":
+        return _say(k, [f"{i} {Us} are up {margin_txt} and still plus money. Books are sleeping — take it before it moves.",
+                        f"{i} {Us} up {margin_txt} and the book still has them as the dog. The numbers don't. Get in.",
+                        f"{i} Up {margin_txt} at plus money? {Us} all day. Trust the algorithm."])
+    return _say(k, [f"{i} All tied up and {us} are still plus money. The book's got this wrong — get in.",
+                    f"{i} Dead even and the live line's got {us} as the dog. The numbers don't. Get in."])
 
 
 def full_breakdown(league, us, them, rs, k, rate_mine=None):
@@ -164,7 +168,8 @@ def full_breakdown(league, us, them, rs, k, rate_mine=None):
     for kind, f in rs:
         if kind == "history":
             spot = f"{sc.when(league, f['k'])}"
-            who = ("teams that were favored coming in" if f["fav"] else "teams") if f["trail"] else "teams"
+            who = ("teams that were favored coming in" if f["fav"] else "teams") if f["trail"] else \
+                ("favorites" if f["fav"] else "underdogs")
             if f["trail"]:
                 out.append(_say(k, [
                     f"📚 We studied {f['n']:,} games: {who} down {f['b']} {spot} came back and won {f['rate']:.0%} of the time. "
@@ -177,10 +182,10 @@ def full_breakdown(league, us, them, rs, k, rate_mine=None):
                     f"This price only needs {f['be']:.0%}."]))
             else:
                 out.append(_say(k, [
-                    f"📚 We studied {f['n']:,} games: teams up {f['b']} {spot} held on {f['rate']:.0%} of the time. "
+                    f"📚 We studied {f['n']:,} games: {who} up {f['b']} {spot} held on {f['rate']:.0%} of the time. "
                     f"This price only needs {f['be']:.0%}.",
-                    f"📚 {f['n']:,} past games say teams up {f['b']} {spot} close it out {f['rate']:.0%} of the time — and we're getting plus money.",
-                    f"📚 Up {f['b']} {spot} and still plus money? Teams in this spot finish the job {f['rate']:.0%} of the time ({f['n']:,} games)."]))
+                    f"📚 {f['n']:,} past games say {who} up {f['b']} {spot} close it out {f['rate']:.0%} of the time — and we're getting plus money.",
+                    f"📚 Up {f['b']} {spot} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time ({f['n']:,} games)."]))
         elif kind == "better":
             out.append(_say(k + 1, [f"💪 {Us} were the better team coming in — the book had them favored before the game. Better teams don't stay down.",
                                     f"💪 Before the game {us} were the favorite. One bad stretch didn't turn them into a bad team.",
