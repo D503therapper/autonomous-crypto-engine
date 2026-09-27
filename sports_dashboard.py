@@ -41,7 +41,9 @@ def _time(iso):
 
 
 def _chip(status):
-    txt = {"open": "🔒 LOCKED", "won": "CASHED ✓", "lost": "LOST", "push": "PUSH"}[status]
+    if status == "open":                                     # the tier chip says it all - no "LOCKED" next to "LOCK"
+        return ""
+    txt = {"won": "CASHED ✓", "lost": "LOST", "push": "PUSH"}[status]
     return f'<span class="chip {status}">{txt}</span>'
 
 
