@@ -165,8 +165,15 @@ PARK_IDLE = False
 # Official account sizes (owner 2026-09-26, after crypto_swing_study.py: no short-term strategy pays Crypto.com's
 # fees on unseen data). A listing trade uses ~$90 and listings rarely overlap, so $200 covers the listing hunter;
 # the other $300 moved to the DEX strategy. Test accounts keep STARTING_CASH_USD.
-ACCOUNT_BASE = {"crypto": 200.0, "stocks": 500.0, "dex": 800.0}
-REBALANCE_2026_09_26 = {"from": ("crypto", "early_mover"), "to": "dex", "usd": 300.0}
+# 2026-09-27 (owner: "be all in at all times"): the crypto account's cash waited for listings, so it moved into the
+# DEX too and the crypto card is gone; the listing hunter keeps running on its test accounts (LAB.md) until a
+# "listings on the DEX" test decides whether it joins the DEX hunter.
+OFFICIAL_MARKETS = ("stocks",)                # + the DEX account (dex.py); the order is the dashboard's
+ACCOUNT_BASE = {"stocks": 500.0, "dex": 1000.0}
+REBALANCES = [                                # one-time cash moves between official accounts (history shifted too)
+    {"id": "2026-09-26", "from": ("crypto", "early_mover"), "usd": 300.0},     # crypto $500 -> $200, DEX -> $800
+    {"id": "2026-09-27", "from": ("crypto", "early_mover"), "usd": "all"},     # crypto -> $0, DEX -> $1,000 base
+]
 
 # --- Runners: never sell a coin while it's flying ------------------------------
 # Once a position has been up >= "ride" (peak vs entry), the engine blocks every exit except a
