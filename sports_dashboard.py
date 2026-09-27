@@ -113,6 +113,54 @@ def _pick_card(kind, pk):
 </section>"""
 
 
+def _tennis():
+    """🎾 TENNIS BONUS: collapsed at the very bottom (tap to open) - the latest slate, its parlay, its own record."""
+    try:
+        with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
+            slates = json.load(f)
+    except (OSError, ValueError):
+        slates = []
+    if not slates:
+        return ""
+    s = slates[-1]
+    legs = {l["id"]: l for l in s["picks"]}
+    r = {"won": 0, "lost": 0, "p_won": 0, "p_lost": 0}
+    for x in slates:
+        for l in x["picks"]:
+            r["won"] += l["result"] == "won"
+            r["lost"] += l["result"] == "lost"
+        if x.get("parlay"):
+            r["p_won"] += x["parlay"]["status"] == "won"
+            r["p_lost"] += x["parlay"]["status"] == "lost"
+    badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
+             "void": '<span class="lr push">VOID</span>'}
+
+    def row(l):
+        bd = "".join(f"<p>{E(x)}</p>" for x in l.get("breakdown") or [])
+        return f"""<div class="leg {l['result'] or ''}">
+  <div class="lt"><span class="lgb">🎾 {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm">{_time(l["start"])}</span>'}</div>
+  <div class="lm"><span class="pick">{E(l['player'])} <em>ML</em></span><span class="od">{_am(l['odds'])}</span></div>
+  <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E(l['surface'])}</div>
+  {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
+  {f'<div class="fin">Final: {E(l["score"])}</div>' if l.get("score") else ""}
+</div>"""
+    par = s.get("parlay")
+    par_html = ""
+    if par:
+        stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
+        par_html = f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
+  <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PARLAY OF THE DAY</span>{_chip(par["status"])}</div>
+  <div class="pk-o"><span class="big">{_am(par['american'])}</span><span class="pay">$100 wins <b>${100 * (par['dec'] - 1):,.0f}</b></span></div>
+  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{"".join(row(legs[i]) for i in par["legs"] if i in legs)}
+</section>"""
+    day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
+    return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
+<span class="tn-s">{len(s['picks'])} picks + parlay · {r['won']}-{r['lost']} · tap to open</span></summary>
+<div class="tn-b"><div class="tn-d">{E(day)} · parlays {r['p_won']}-{r['p_lost']}</div>{par_html}
+<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PICKS</span></div>
+{"".join(row(l) for l in s["picks"])}</section></div></details>"""
+
+
 def render(picks, model, games, series, start_bank, updated_ms):
     now = datetime.now(PT)
     today = now.date().isoformat()
@@ -360,6 +408,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
 .nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
+.tn{{margin-top:22px;border:1px solid #c6f00066;border-radius:18px;background:linear-gradient(165deg,#c6f00014,var(--card))}}
+.tn summary{{list-style:none;cursor:pointer;padding:16px 18px;display:flex;flex-direction:column;gap:4px}}
+.tn summary::-webkit-details-marker{{display:none}}
+.tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:15px}} .tn-s{{font-size:12.5px;color:#fff;font-weight:700}}
+.tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}}
 .pk.lvc{{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b}} .chip.livechip{{color:#fff;background:#ff3b3b}}
 .bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
 .bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
@@ -440,6 +493,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="recs">{"".join(rec)}{live_card}</div>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
+{_tennis()}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
 Ratings · form · rest · injuries · line moves — retrained after every final score.<br>
 Picks only — no bets placed · refreshes hourly</div>

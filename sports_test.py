@@ -1,5 +1,6 @@
 """Offline tests for the sports engine (no network): ESPN parsing, model tuning, the board rules,
 grading. Run: python sports_test.py"""
+import math
 import os
 import random
 import shutil
@@ -432,6 +433,61 @@ def test_big_favorites_cover_study():
     assert fav < 0.45 and abs(sm.cover_p({**params, "bfav": 0.0}, f, g, "home") - 0.5) < 0.01
     small = {"spread_home": "-3"}                                  # small spreads: no big-favorite correction
     assert sm.cover_p(params, f, small, "home") == sm.cover_p({**params, "bfav": 0.0}, f, small, "home")
+
+
+
+def test_tennis():
+    import sports_tennis as st
+    assert st.surface_of("Roland Garros") == "clay" and st.surface_of("Wimbledon") == "grass" and st.surface_of("US Open") == "hard"
+    assert st.to_bo5(0.70) > 0.70 and abs(st.to_bo5(0.5) - 0.5) < 1e-6
+    payload = {"events": [{"id": "9", "name": "Madrid Open", "groupings": [
+        {"grouping": {"displayName": "Men's Singles"}, "competitions": [
+            {"id": "1", "date": "2026-05-01T10:00Z", "round": {"displayName": "Round 1"},
+             "status": {"type": {"name": "STATUS_FINAL"}},
+             "competitors": [{"athlete": {"id": "11", "displayName": "Carlos Alcaraz"}, "winner": True,
+                              "linescores": [{"value": 6}, {"value": 6}]},
+                             {"athlete": {"id": "22", "displayName": "Joe Blow"}, "winner": False,
+                              "linescores": [{"value": 3}, {"value": 4}]}]}]},
+        {"grouping": {"displayName": "Women's Singles"}, "competitions": [{"id": "2"}]}]}]}
+    rows = st.parse_espn(payload)
+    assert len(rows) == 1 and rows[0]["surface"] == "clay" and rows[0]["winner"] == 1 and rows[0]["done"] == 2
+    # the study: a clearly better player shows up in the ratings
+    rnd = random.Random(5)
+    ms, t0 = {}, datetime(2024, 1, 1, tzinfo=timezone.utc)
+    skill = {str(i): rnd.gauss(0, 1) for i in range(30)}
+    for i in range(3000):
+        a, b = rnd.sample(list(skill), 2)
+        pa = 1 / (1 + math.exp(-(skill[a] - skill[b]) * 1.5))
+        w = 1 if rnd.random() < pa else 2
+        ms[str(i)] = {"id": str(i), "start": (t0 + timedelta(hours=6 * i)).strftime("%Y-%m-%dT%H:%MZ"), "event": "e",
+                      "tourney": "Somewhere Open", "round": "R1", "surface": "hard", "bo": "3", "p1": a, "p1_name": f"P {a}",
+                      "p2": b, "p2_name": f"Q {b}", "winner": w, "sets1": "6 6", "sets2": "3 3", "status": "STATUS_FINAL", "done": 2}
+    rt, w8, rep = st.study(ms, eval_n=500)
+    assert rep["acc"] > 0.6, rep
+    # the slate: 8 straights, value first, then the likeliest favorites; the parlay = the 3 likeliest
+    cands = []
+    for i in range(12):
+        p = 0.55 + 0.03 * i
+        fair = -round(100 * p / (1 - p))
+        odds = fair + (40 if i < 3 else -60)                      # 3 value spots, the rest priced too high
+        c = {"id": f"m{i}:1", "match": f"m{i}", "p": p, "odds": odds, "dec": sd.decimal(odds)}
+        c["edge"] = p * c["dec"] - 1
+        cands.append(c)
+    picks, parlay = st.pick_slate(cands)
+    assert len(picks) == 8 and [c["match"] for c in picks[:3]] == ["m2", "m1", "m0"]
+    assert len(parlay) == 3 and parlay[0]["p"] >= parlay[-1]["p"] and all(c in picks for c in parlay)
+    # retirements: void before a set is done, the advancer wins after
+    m = {**ms["0"], "status": "STATUS_RETIRED", "done": 0}
+    slate = [{"picks": [{"id": "0:1", "match": "0", "side": 1, "result": None}], "parlay": None}]
+    st.grade({"0": m}, slate)
+    assert slate[0]["picks"][0]["result"] == "void"
+    slate[0]["picks"][0]["result"] = None
+    st.grade({"0": {**m, "done": 1, "winner": 1}}, slate)
+    assert slate[0]["picks"][0]["result"] == "won"
+    # odds matching by last names, either order
+    m2 = {**ms["1"], "p1_name": "Carlos Alcaraz", "p2_name": "Jannik Sinner", "start": "2026-05-01T10:00Z"}
+    assert st.price(m2, [{"a": "Jannik Sinner", "b": "Carlos Alcaraz", "a_ml": -150, "b_ml": 130,
+                          "start": "2026-05-01T11:00Z"}]) == (130, -150)
 
 
 if __name__ == "__main__":

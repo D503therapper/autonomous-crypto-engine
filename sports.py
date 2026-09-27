@@ -479,6 +479,11 @@ def run(repick=False, fetch=True):
         for pk in post_board(games, model, picks, now, d, force=post_now and d == day):
             legs = " + ".join(f"{leg_label(l)} ({fmt_american(l['odds'])})" for l in pk["legs"])
             print(f"posted {pk['kind']} for {d}: {legs} -> {fmt_american(pk['american'])}, hit {pk['p_hit']:.0%}")
+    try:                                                                # 🎾 the tennis bonus (never blocks the main board)
+        import sports_tennis
+        sports_tennis.run(state, now, fetch=fetch)
+    except Exception as e:                                              # noqa: BLE001
+        print(f"tennis failed: {e}")
     sd.save_games(games)
     _save("state.json", state)
     _save("model.json", model)
