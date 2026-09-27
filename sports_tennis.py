@@ -746,6 +746,46 @@ def reads(ms, rt, w, lines, picks, now, gm=None):
     return out
 
 
+REPICK = os.path.join(DIR, "repick.json")      # {"date": ...}: re-pick that slate once under the current rules (owner's OK)
+
+
+def repick(ms, rt, w, lines, picks, now, gm=None):
+    """Re-pick a posted slate under the current rules - only matches that haven't started; started/graded picks stay."""
+    try:
+        with open(REPICK) as f:
+            want = json.load(f).get("date")
+    except (OSError, ValueError):
+        return None
+    slate = next((sl for sl in picks if sl["date"] == want), None)
+    if not slate or not lines:
+        return None
+    soon = now + timedelta(minutes=MIN_LEAD_MIN)
+    keep = [l for l in slate["picks"] if l.get("result") or _t(l["start"]) <= soon]
+    cands = [c for c in candidates(ms, rt, w, lines, now, now + timedelta(hours=24), gm=gm)
+             if c["match"] not in {l["match"] for l in keep}]
+    straights, parlay = pick_slate(cands)
+    used = set()
+    new = [{k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
+                                  "market", "hcp", "ml", "round", "surface", "bo", "value")}
+           | {"result": None, "breakdown": breakdown(c, rt, used)} for c in straights[:max(0, N_PICKS - len(keep))]]
+    old = [l["player"] for l in slate["picks"]]
+    slate["picks"] = keep + new
+    par = slate.get("parlay")
+    if not par or all(_t(l["start"]) > soon for l in slate["picks"] if l["id"] in (par or {}).get("legs", [])):
+        if parlay and all(c["id"] in {l["id"] for l in new} for c in parlay):
+            dec = 1.0
+            for c in parlay:
+                dec *= c["dec"]
+            slate["parlay"] = {"legs": [c["id"] for c in parlay], "dec": round(dec, 4),
+                               "american": round((dec - 1) * 100) if dec >= 2 else round(-100 / (dec - 1)), "status": "open"}
+        else:
+            slate["parlay"] = None
+    slate["repicked"] = now.strftime("%Y-%m-%dT%H:%MZ")
+    os.remove(REPICK)
+    print(f"tennis re-pick {want}: {old} -> {[l['player'] for l in slate['picks']]}")
+    return slate
+
+
 def grade(ms, picks):
     for s in picks:
         for leg in s["picks"]:
@@ -807,6 +847,10 @@ def run(state, now=None, fetch=True):
     if rep["rated"] < MIN_RATED:
         print(f"tennis: still studying ({rep['rated']}/{MIN_RATED} rated matches) - no picks yet")
     if lines and rep["rated"] >= MIN_RATED:
+        try:
+            repick(ms, rt, w, lines, picks, now, rep.get("games"))
+        except Exception as e:                                          # noqa: BLE001 - never block tennis
+            print(f"tennis re-pick failed: {e}")
         try:
             print(f"tennis reads: {len(reads(ms, rt, w, lines, picks, now, rep.get('games')))} matches")
         except Exception as e:                                          # noqa: BLE001 - never block tennis
