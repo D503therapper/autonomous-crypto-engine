@@ -1409,7 +1409,7 @@ class DexHunter:
         self.pf.slippage = trade_cost(usd, c["liq"], self.p)
         self.pf.buy(now, pk, usd, c["price"], c["price"] * (1 - X["trail"]),
                     reason=f"dex tier {tier} momentum 1h {h1:+.0%} 6h {h6:+.0%} buys/sells {b1}/{s1} impact {impact:.2%}")
-        self.pf.positions[pk].update(chain=c["chain"], addr=c["addr"], sym=c["sym"], pair=c.get("pair"), liq0=c["liq"],
+        self.pf.positions[pk].update(chain=c["chain"], addr=c["addr"], sym=c["sym"], pair=c.get("pair"), liq0=c["liq"], px0=c["price"],
                                      liq=c["liq"], vol24=c["vol24"], age_h0=c.get("age_h") or 0, px=c["price"],
                                      tp1=False, tp2=False, realized=0.0, cost0=usd, rescreened=now, impact=impact,
                                      tier=tier, clean=0)
@@ -1495,9 +1495,16 @@ class DexHunter:
         if pos.get("exit"):
             return
         X, p, liq = self.p["exit"], pos["px"], pos["liq"]
-        if liq <= pos["liq0"] * (1 - X["liq_pull"]):
-            return self._request_exit(k, 1.0, f"liquidity pulled {1 - liq / pos['liq0']:.0%} (${liq:,.0f} of ${pos['liq0']:,.0f})",
-                                      "scammed_rug", now)
+        # A pool's $ liquidity falls with the price on its own (constant-product pool: $ liquidity ~ sqrt(price)),
+        # so a -78% dump shows "-52% liquidity" with nothing pulled (GENO 2026-09-27: sold as a rug, pool back at
+        # $100k 34 min later). Rug = liquidity missing BEYOND what the price move explains. Price rises don't
+        # raise the bar (concentrated pools don't grow like sqrt), so a pull on a pumping coin is caught as before.
+        p0 = pos.get("px0") or pos["entry"]
+        expect = pos["liq0"] * min(1.0, p / p0) ** 0.5 if p > 0 and p0 > 0 else 0.0
+        if liq <= 0 or liq <= expect * (1 - X["liq_pull"]):
+            gone = 1 - liq / expect if expect > 0 else 1.0
+            return self._request_exit(k, 1.0, f"liquidity pulled {gone:.0%} (${liq:,.0f}; ${expect:,.0f} expected after "
+                                      f"the price move, ${pos['liq0']:,.0f} at entry)", "scammed_rug", now)
         pos["peak"] = max(pos["peak"], p)
         trail = X["trail"]                             # the stop gets more room as the coin multiplies,
         for mult, t in X.get("trail_steps", []):       # so normal shakeouts don't end a 10x-100x runner
