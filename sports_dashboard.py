@@ -41,6 +41,35 @@ def _chip(status):
     return f'<span class="chip {status}">{txt}</span>'
 
 
+FACTOR = {"form": "recent form", "rest": "rest", "b2b": "back-to-backs", "inj": "injuries"}
+KEY_NAME = {"mlb": "the pitching matchup", "nhl": "the goalie matchup", "nfl": "QB play", "ncaaf": "QB play"}
+
+
+def _lesson(league, change):
+    """Turn an internal tuning note ('trust 15% → 30%; rest weight +0.08 → +0.15') into one plain-talk lesson."""
+    import re
+    parts = change.split("; ")
+    for part in parts:                                  # what it learned about the game beats how it weighs Vegas
+        m = re.match(r"(\w+) weight ([+-]?[\d.]+) → ([+-]?[\d.]+)", part)
+        if m and (m.group(1) in FACTOR or m.group(1) == "key"):
+            name = KEY_NAME.get(league, "star players") if m.group(1) == "key" else FACTOR[m.group(1)]
+            more = abs(float(m.group(3))) > abs(float(m.group(2)))
+            return f"learned {name} matters {'more' if more else 'less'} than it thought"
+        m = re.match(r"home edge (\d+) → (\d+)", part)
+        if m:
+            return f"home field counts {'more' if int(m.group(2)) > int(m.group(1)) else 'less'} than it thought"
+        m = re.match(r"reaction speed ([\d.]+) → ([\d.]+)", part)
+        if m:
+            return "reacts faster to hot and cold streaks" if float(m.group(2)) > float(m.group(1)) \
+                else "stopped overreacting to one-game flukes"
+    for part in parts:
+        m = re.match(r"trust (\d+)% → (\d+)%", part)
+        if m:
+            return "trusting its own reads more" if int(m.group(2)) > int(m.group(1)) \
+                else "tightened up — only fires when it's sure"
+    return None
+
+
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
@@ -173,12 +202,17 @@ def render(picks, model, games, series, start_bank, updated_ms):
                  / max(1, sum(p.get("eval_games", 0) for p in common.values()))) if common else None
         delta = f' <span class="{"up" if now_acc >= start else "dn"}">({(now_acc - start) * 100:+.1f} pts today)</span>' if start else ""
         lines.append(f"Picks the winner <b>{now_acc:.1%}</b> of the time across {len(params)} leagues{delta}.")
-    changes = [f"{sd.LEAGUES[e['league']][2]}: {E(e['change'])}" for e in model.get("log", [])
-               if e["date"] == today and e["change"] not in ("no change", "first tune")]
-    if changes:
-        lines.append("Adjusted: " + " · ".join(changes[:3]) + (f" (+{len(changes) - 3} more)" if len(changes) > 3 else ""))
+    lessons = []
+    for e in reversed(model.get("log", [])):          # newest first, one lesson per league
+        if e["date"] != today or e["change"] in ("no change", "first tune") or any(l[0] == e["league"] for l in lessons):
+            continue
+        txt = _lesson(e["league"], e["change"])
+        if txt:
+            lessons.append((e["league"], txt))
+    if lessons:
+        lines.extend(f"{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}: {E(t)}" for lg, t in lessons[:3])
     elif params:
-        lines.append("No rule changes needed — its current settings are still the best fit.")
+        lines.append("Didn't need to change a thing — the engine's dialed in.")
     legs = [l for p in picks for l in p["legs"] if l.get("result") in ("won", "lost")]
     if legs:
         said = sum(l["p"] for l in legs) / len(legs)
