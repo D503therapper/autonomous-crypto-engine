@@ -1,10 +1,40 @@
-OK  AN atp 20260927  20 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Hangzhou, China  - Quarterfinal"}
-OK  AN atp 20260927 &bookIds=15,30,68,69,71,75,79 20 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Hangzhou, China  - Quarterfinal"}
-OK  AN atp 20260928  5 matches, 0 with odds; status scheduled; odds []; meta {"title": "ATP Beijing, China  - Qualification Round 1"}
-OK  AN atp 20260928 &bookIds=15,30,68,69,71,75,79 5 matches, 0 with odds; status scheduled; odds []; meta {"title": "ATP Beijing, China  - Qualification Round 1"}
-OK  AN atp 20250615  10 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Stuttgart, Germany "}
-OK  AN atp 20250615 &bookIds=15,30,68,69,71,75,79 10 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Stuttgart, Germany "}
-OK  AN tennis today bookIds 20 matches, 0 with odds; status complete; odds []; meta {"title": "ATP Hangzhou, China  - Quarterfinal"}
-OK  ESPN core odds ['183421: {"count": 0, "pageIndex": 0, "pageSize": 25, "pageCount": 0, "items": []}', '183420: {"count": 0, "pageIndex": 0, "pageSize": 25, "pageCount": 0, "items": []}']
-ERR DraftKings tennis HTTP Error 403: Forbidden
-OK  Bovada tennis 19
+bovada groups: 19
+    Bari > Challenger > Tennis
+    Beijing > ATP > Tennis
+    Beijing > WTA > Tennis
+    Buenos Aires > Challenger > Tennis
+    Chengdu > ATP > Tennis
+    Chengdu > ATP Doubles > Tennis
+    Columbus > Challenger > Tennis
+    Curitiba > Challenger > Tennis
+    Hangzhou > ATP > Tennis
+    Hangzhou > ATP Doubles > Tennis
+    ITF Women Berkeley > ITF Women's > Tennis
+    Jingshan > WTA 125K > Tennis
+    Jingshan, Doubles > WTA 125K > Tennis
+    Mouilleron-Le-Captif > Challenger > Tennis
+    Porto > Challenger > Tennis
+    San Diego > Challenger > Tennis
+    Tokyo > ATP > Tennis
+    UTR Pro Tennis Series > Exhibition > Tennis
+    UTR Pro Tennis Series Women > Exhibition > Tennis
+bovada event sample: {"description": "Rinky Hijikata vs Camilo Ugo Carabelli", "startTime": 1790560800000, "competitors": [{"id": "31494979-16442753", "name": "Rinky Hijikata", "home": true, "shortName": "Hijikata"}, {"id": "31494979-16285304", "name": "Camilo Ugo Carabelli", "home": false, "shortName": "Carabelli"}]}
+bovada markets: [('Game Spread', {'id': '113', 'description': 'Match', 'abbreviation': 'MT', 'live': False, 'main': True}), ('Moneyline', {'id': '113', 'description': 'Match', 'abbreviation': 'MT', 'live': False, 'main': True}), ('Total', {'id': '113', 'description': 'Match', 'abbreviation': 'MT', 'live': False, 'main': True})]
+parsed men's lines: 20
+    {'a': 'Rinky Hijikata', 'b': 'Camilo Ugo Carabelli', 'a_ml': -275, 'b_ml': 220, 'start': '2026-09-28T02:00Z', 'src': 'bovada'}
+    {'a': 'Stefanos Tsitsipas', 'b': 'Yoshihito Nishioka', 'a_ml': -1200, 'b_ml': 700, 'start': '2026-09-28T02:00Z', 'src': 'bovada'}
+    {'a': 'Zachary Svajda', 'b': 'Aleksandar Kovacevic', 'a_ml': -240, 'b_ml': 195, 'start': '2026-09-28T02:00Z', 'src': 'bovada'}
+    {'a': 'Arthur Fils', 'b': 'Martin Damm Jr', 'a_ml': -500, 'b_ml': 375, 'start': '2026-09-28T03:10Z', 'src': 'bovada'}
+    {'a': 'Jaume Munar', 'b': 'Marcos Giron', 'a_ml': -220, 'b_ml': 180, 'start': '2026-09-28T03:10Z', 'src': 'bovada'}
+    {'a': 'Lorenzo Sonego', 'b': 'Kamil Majchrzak', 'a_ml': 125, 'b_ml': -150, 'start': '2026-09-28T03:10Z', 'src': 'bovada'}
+    {'a': 'Adolfo Daniel Vallejo', 'b': 'Taro Daniel', 'a_ml': -110, 'b_ml': -110, 'start': '2026-09-28T05:30Z', 'src': 'bovada'}
+    {'a': 'Shintaro Mochizuki', 'b': 'Jaime Faria', 'a_ml': 290, 'b_ml': -375, 'start': '2026-09-28T06:30Z', 'src': 'bovada'}
+espn singles matches: 164 statuses: ['STATUS_CANCELED', 'STATUS_FINAL', 'STATUS_SCHEDULED']
+upcoming: 91
+    2026-09-28T02:00Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Aleksandar Kovacevic vs Zachary Svajda
+    2026-09-28T02:00Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Yoshihito Nishioka vs Stefanos Tsitsipas
+    2026-09-28T02:00Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Camilo Ugo Carabelli vs Rinky Hijikata
+    2026-09-28T03:00Z China Open Qualifying 1st Round hard James Duckworth vs Te Rigele
+    2026-09-28T03:00Z China Open Qualifying 1st Round hard Tomas Machac vs Yannick Hanfmann
+    2026-09-28T03:30Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Marcos Giron vs Jaume Munar
+priced upcoming: 16 [('Alejandro Davidovich Fokina', 'Nikoloz Basilashvili', (-300, 240)), ('Denis Shapovalov', 'Hubert Hurkacz', (115, -140)), ('Andrey Rublev', 'Kyrian Jacquet', (-300, 240)), ('Roman Safiullin', 'Daniil Medvedev', (210, -260)), ('Aleksandar Kovacevic', 'Zachary Svajda', (195, -240))]
