@@ -115,7 +115,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
     done = [p for p in picks if p["status"] in ("won", "lost", "push")]
     profit = sum(p["pnl"] for p in done)
     risked = sum(p["stake"] for p in done if p["status"] != "push")
-    bank = start_bank + profit
     up = profit >= 0
     accent = "#22e39a" if up else "#ff3b3b"
     m0 = datetime(now.year, now.month, 1, tzinfo=PT).date().isoformat()
@@ -125,7 +124,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     losses = sum(p["status"] == "lost" for p in done)
     pushes = sum(p["status"] == "push" for p in done)
     first = min((p["date"] for p in picks), default=today)
-    pts = [(datetime.fromisoformat(first).replace(tzinfo=timezone.utc).timestamp() * 1000, start_bank)] + series
+    pts = [(datetime.fromisoformat(first).replace(tzinfo=timezone.utc).timestamp() * 1000, 0.0)] + \
+        [(t, v - start_bank) for t, v in series]                  # running profit at $100 a pick
 
     def tile(label, sub, amt, pct, hue):
         cls = "up" if amt >= 0 else "dn"
@@ -325,13 +325,13 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board"><div class="trust">TRUST THE ALGORITHM!</div>{board}</div>
 
-<div class="sec"><h2><i>●</i> THE RESULTS</h2><span>$100 per pick · paper</span></div>
+<div class="sec"><h2><i>●</i> THE RESULTS</h2><span>tracked at $100 a pick</span></div>
 <section class="hero">
-  <div class="lbl">Bankroll</div>
-  <div class="total">{_money(bank)}</div>
+  <div class="lbl">Profit · $100 a pick</div>
+  <div class="total {"up" if profit >= 0 else "dn"}">{_money(profit, True)}</div>
   <span class="pill" style="--p:{"#22e39a" if day_pnl >= 0 else "#ff3b3b"}">{"▲" if day_pnl >= 0 else "▼"} {_money(day_pnl, True)} <small>TODAY</small></span>
   <div class="month">{tiles}</div>
-  <div class="chart">{_svg(pts, 360, 100, accent, "b", base=start_bank)}</div>
+  <div class="chart">{_svg(pts, 360, 100, accent, "b", base=0.0)}</div>
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{wins + losses + pushes} graded</span></div>
 <div class="recs">{"".join(rec)}</div>
@@ -339,9 +339,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="list">{results}</div>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
-<div class="foot"><b>THE D503 SPORTS ENGINE</b> · started with <b>{_money(start_bank)}</b><br>
+<div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
 Ratings · form · rest · injuries · line moves — retrained after every final score.<br>
-Paper picks, pretend money · refreshes hourly · <a href="../">crypto engine →</a></div>
+Picks only — no bets placed · refreshes hourly · <a href="../">crypto engine →</a></div>
 </main>
 <script>
 (function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));
