@@ -1,0 +1,36 @@
+# DEX entry-filter study (dex_filter_study.py): after the GENO pump-and-dump (-78% within an hour), would skipping
+# coins that already ran (6h / 24h run caps, older minimum age, young-and-pumped combos, higher liquidity floor)
+# have cut the -70% losers and the drawdown without losing the runners / legends? Same GeckoTerminal pool
+# histories, live exit and costs as dex_runner_study. Results committed to results/dex_filter_study.txt.
+name: dex-filter-study
+on:
+  push:
+    paths: ["dex_filter_study.py", ".github/workflows/dex_filter_study.yml"]
+  workflow_dispatch:
+    inputs:
+      budget_min:
+        description: "minutes to spend fetching (legends + live coins + pools)"
+        default: "285"
+permissions:
+  contents: write
+concurrency: dex_filter_study
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: python -m unittest -q dex_filter_study_test
+      - run: |
+          mkdir -p results
+          python -u dex_filter_study.py --budget-min "${{ github.event.inputs.budget_min || '285' }}" 2>&1 | tee results/dex_filter_study.txt
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "dex-filter-study results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done
