@@ -517,8 +517,9 @@ def push_live():
 
 
 def publish(msg):
-    """Commit + push the live log (and live.json) to main - only when a play is first logged or graded."""
-    _git("add", LIVE_JSON, LOG)
+    """Commit + push the live log to main - only when a play is first logged or graded. (live.json itself only
+    goes out on the live-data branch; phones read it there.)"""
+    _git("add", LOG)
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return
     _git("commit", "-qm", msg)
