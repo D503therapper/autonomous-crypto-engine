@@ -10,6 +10,13 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 > it, cherry-pick commit 8d347f9 onto main when the owner says yes.
 
 
+### NEXT (first) - Second EVM safety source (owner: "hopefully we're not passing up a Shiba Inu")
+BASECAT (base, $208k pool, +867% in dex_runner_study) was "goplus unreachable" 5 times in a row on 2026-09-27 while
+GoPlus answered other coins - it can never pass, so it's skipped forever. Add a fallback EVM contract check (e.g.
+honeypot.is contract/holders endpoints, or another free security API reachable from the runner - probe first) used only
+when GoPlus has no answer for a token; keep fail-closed if both are missing. Test with dex_test fakes; log how many
+"unreachable" coins it rescues and whether any of them rug (rejected_followup).
+
 ### NEXT - Second DEX entry: "dip + bounce" (owner asked 2026-09-27: buy the drop points?)
 Quick label check on results/dex_runner_points.csv.gz (liq >= $100k, age >= 6h): current entry (1h >= +10%) n=251:
 2x/7d 53%, 5x 24%, rug 2.0%, median worst-drop after entry -54%. "Dip + bounce" (>= 30% below 7d high AND 1h >= +5%)
