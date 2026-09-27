@@ -443,6 +443,10 @@ def test_comeback_study_and_live_rules():
     assert sports_live.second_half_ball("nfl", {"id": "nfl:77", "home": "11", "away": "34"}) == "home"
     assert sports_live.halftime("nfl", {"status_display": "Halftime"}, {"period": 2, "clock": "00:00"})
     assert not sports_live.halftime("nfl", {}, {"period": 2, "clock": "03:10"}) and not sports_live.halftime("nba", {}, {"period": 2, "clock": "0:00"})
+    # the team getting the ball to start the 2nd half: counted, and said in the breakdown (never a reason on its own)
+    pl = sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1, True, (), "home")
+    assert pl and "half" in pl[0]["reasons"] and any("2nd" in x or "halftime" in x for x in pl[0]["breakdown"])
+    assert not sports_live.substantial([("half", {}), ("better", {})], False)
     # live prices: only the LIVE line, never the pregame "game" line
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272}}}) == (None, None)
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272},

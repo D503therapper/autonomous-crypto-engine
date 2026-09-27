@@ -152,7 +152,7 @@ def reasons(st, league, side_p_pre, my, their, left, ml, has_ball, ball_txt, las
 
 def substantial(rs, tied):
     """History has to back it (a tie has no history bucket, so it needs two other reasons), plus at least one more."""
-    kinds = {k for k, _ in rs}
+    kinds = {k for k, _ in rs} - {"half"}            # the 2nd-half kickoff is in the numbers, not a reason on its own
     if tied:
         return len(kinds) >= 2
     return "history" in kinds and len(kinds) >= 2
@@ -238,6 +238,10 @@ def full_breakdown(league, us, them, rs, k, rate_mine=None):
             out.append(_say(k + 2, [f"🧠 The algorithm was already on {us} before the game. Now we get 'em on sale.",
                                     f"🧠 We liked {us} pregame — the live price just made it juicier. Double dip.",
                                     f"🧠 The engine had value on {us} before the game even started. Now it's even better."]))
+        elif kind == "half":
+            out.append(_say(k + 6, [f"🏈 And {us} get the ball to start the 2nd half. That's a free possession.",
+                                    f"🏈 {Us} receive the 2nd-half kickoff — first crack at it after the break.",
+                                    "🏈 Ball's theirs coming out of halftime. The algorithm counted that."]))
         elif kind == "ball":
             out.append(_say(k + 3, [f"🏈 They got the rock ({f['txt']}). Points are coming.",
                                     f"🏈 Ball's in their hands at {f['txt']}. Next score is theirs to take.",
@@ -303,7 +307,8 @@ def _last_period(box):
     return int(p.get("home_points") or 0), int(p.get("away_points") or 0)
 
 
-def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key, checked=False, hold=()):
+def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key, checked=False, hold=(),
+             half_ball=None):
     """Both sides of one live game -> plays that clear every bar (plus money, 5%+ edge, substantial reasons)."""
     fit = ((st.get(league) or {}).get("curve") or {})
     if fit.get("ll") is None or pre_market_p is None:
@@ -329,6 +334,8 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         has_ball = ball_txt and (ball > 0 if side == "home" else ball < 0) and abs(ball) >= 2.2   # ball near scoring range
         lm, lt = (lh, la) if side == "home" else (la, lh)
         rs = reasons(st, league, side_pre, my, their, left, ml, has_ball, ball_txt, lm, lt, pre_value, fit)
+        if half_ball == side:                               # counted in the numbers above; said in the breakdown
+            rs.append(("half", {}))
         if not up and not substantial(rs, my == their):       # the reasons get it up; value keeps it up
             continue
         pid = f"{g['id']}:{side}"
@@ -522,12 +529,17 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
             p_model = sm.final_p(params, f, g) if mkt is not None else None
             ball = ball_value(lg, ang, box)
             ball_txt = (box.get("situation") or {}).get("display_short") or "" if ball else ""
-            if not ball and halftime(lg, ang, box):          # halftime: whoever gets the 2nd-half kickoff has the ball next
-                rec = second_half_ball(lg, g)
+            rec = None
+            if lg in ("nfl", "ncaaf") and int(box.get("period") or 0) == 2:
+                rec = second_half_ball(lg, g)            # who gets the ball to start the 2nd half
                 if rec:
-                    ball = HALF_BALL if rec == "home" else -HALF_BALL
-                    ball_txt = ""                            # not a scoring-range drive: no "they got the ball" reason
-            for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing):
+                    if not ball and halftime(lg, ang, box):  # halftime: they have the ball next
+                        ball = HALF_BALL if rec == "home" else -HALF_BALL
+                        ball_txt = ""                        # not a scoring-range drive: no "they got the ball" reason
+                    elif not halftime(lg, ang, box):         # 2nd quarter: it counts more as the half runs out
+                        mins = _clock_min(box.get("clock"))
+                        ball += (HALF_BALL if rec == "home" else -HALF_BALL) * (1 - (mins if mins is not None else 15) / 15)
+            for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing, rec):
                 pl["an_id"] = ang.get("id")
                 plays.append(pl)
     stamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
