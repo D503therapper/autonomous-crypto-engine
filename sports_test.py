@@ -296,6 +296,9 @@ def test_post_when_settled_and_never_change():
     assert [p for p in picks if p["status"] == "open"][:len(posted)] == posted
     assert all(p["status"] == "open" for p in picks) and len(picks) == 4
     assert all(not l["waiting"] for p in picks for l in p["legs"])
+    kept = [p for p in picks if p["kind"] != "two"]                           # say the 2-leg never went up...
+    started = now + timedelta(hours=10, minutes=1)                            # ...once the first game starts, it can't
+    assert sports.post_board(games, model, kept, started, day) == [] and all(p["kind"] != "two" for p in kept)
 
 
 def _check_js(html):

@@ -304,6 +304,15 @@ def _start(leg):
     return datetime.strptime(leg["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
 
 
+def first_start(games, day):
+    """When the day's (Pacific) first real game starts, or None."""
+    starts = [datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+              for g in games.values() if g.get("start") and g["status"] != "void" and (g.get("stype") or "?") in sd.REAL
+              and g["league"] in sd.LEAGUES]
+    starts = [t for t in starts if t.astimezone(PT).date() == day]
+    return min(starts) if starts else None
+
+
 def post_board(games, model, picks, now, day, force=False):
     """Post the day's plays. A play goes up as soon as none of its games is waiting on news (a starting
     pitcher, a questionable QB/goalie...); otherwise its card says what it's waiting on, and at the latest
@@ -314,6 +323,9 @@ def post_board(games, model, picks, now, day, force=False):
     posted = {p["kind"]: p for p in picks if p["date"] == iso}
     if len(posted) == len(KINDS):
         return []
+    first = first_start(games, day)
+    if first is not None and now >= first and not force:
+        return []                    # the day's games have started: no new daily picks (that's live-bet territory)
     injuries = {lg: sd.fetch_injuries(lg) for lg in sd.LEAGUES}
     for g in games.values():
         if g["status"] != "pre" or not injuries.get(g["league"]):
