@@ -471,7 +471,8 @@ def run():
         showing = []
     plays = cycle(games, model, log, showing=showing)
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
-           "priced": PRICED[0]}
+           "priced": PRICED[0], "errors": sd.ERRORS[-3:]}
+    del sd.ERRORS[:]
     os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
     with open(LIVE_JSON, "w") as f:
         json.dump(out, f, indent=1)
