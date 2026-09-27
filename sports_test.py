@@ -429,14 +429,14 @@ def test_comeback_study_and_live_rules():
     assert sports_live.two_books((-145, 110), (None, None)) == (-145, 110, False)      # DraftKings when Bovada has none
     assert sports_live.two_books((-145, 110), (220, -295)) == (220, -295, False)       # books apart: Bovada, unconfirmed
     assert sports_live.two_books((None, None), (None, None)) == (None, None, False)
-    # a play that's already up stays while value's still there (2%+), a new one needs 5%+
+    # a play that's already up stays while there's any value left, a new one needs 5%+
     thin = None
     for ml in range(120, 400, 5):
         up = sports_live.evaluate("nba", g, box, ml, -ml - 60, st, 0.65, 0.65, 0.0, "", 1, True, ["nba:x:home"])
-        if up and 0.02 <= up[0]["edge"] < 0.05:
+        if up and 0.0 <= up[0]["edge"] < 0.05:
             thin = ml
             break
-    assert thin, "expected a price with a thin (2-5%) edge"
+    assert thin, "expected a price with a thin (0-5%) edge"
     assert not sports_live.evaluate("nba", g, box, thin, -thin - 60, st, 0.65, 0.65, 0.0, "", 1, True)       # new: not enough
     # halftime in football: whoever didn't take the opening kickoff gets the ball to start the 2nd half
     sports_live.KICK["77"] = "34"                                  # the away team (34) took the opening kickoff
