@@ -413,44 +413,55 @@ def _shift_equity(path, usd):
 
 
 def rebalance_accounts():
-    """One-time move of config.REBALANCE_2026_09_26["usd"] from the listing hunter to the DEX account (cash).
-    Runs once the listing hunter holds that much cash; recorded in data/rebalance.json."""
-    R, stamp = getattr(config, "REBALANCE_2026_09_26", None), "data/rebalance.json"
-    if not R or os.path.exists(stamp):
-        return
-    mn, sn = R["from"]
-    pf = load_pf(mn, sn)
-    usd = R["usd"]
-    if pf.cash < usd:
-        return                                          # parked coins not sold yet: next hour
-    h = dex.hunter()
-    h._load()
-    pf.cash -= usd
-    pf.peak_equity -= usd
-    pf.save(f"{acct_dir(mn, sn)}/portfolio.json")
-    _shift_equity(f"{acct_dir(mn, sn)}/equity.csv", -usd)
-    h.pf.cash += usd
-    h.pf.peak_equity += usd
-    h.pf.save(f"{h.acct}/portfolio.json")
-    _shift_equity(f"{h.acct}/equity.csv", usd)
-    if os.path.exists("data/last_summary.json"):          # the evening text compares with yesterday's balances
-        with open("data/last_summary.json") as f:
-            last = json.load(f)
-        b = last.get("balances", {})
-        if "Crypto" in b:
-            b["Crypto"] -= usd
-        if "DEX" in b:
-            b["DEX"] += usd
-        with open("data/last_summary.json", "w") as f:
-            json.dump(last, f)
-    with open(stamp, "w") as f:
-        json.dump({"time": ts(int(time.time() * 1000)), "moved": usd, "from": f"{mn}/{sn}", "to": "dex"}, f)
-    print(f"   rebalance: moved ${usd:,.0f} from {mn}/{sn} to the DEX account")
+    """One-time cash moves (config.REBALANCES) from an official account to the DEX account; each id runs once
+    (data/rebalance.json). Equity history of both accounts is shifted so the move is no gain or loss."""
+    stamp = "data/rebalance.json"
+    done = set()
+    if os.path.exists(stamp):
+        with open(stamp) as f:
+            rec = json.load(f)
+        done = set(rec.get("done", [])) if "done" in rec else {"2026-09-26"}   # first move's old format
+    for R in getattr(config, "REBALANCES", []):
+        if R["id"] in done:
+            continue
+        mn, sn = R["from"]
+        pf = load_pf(mn, sn)
+        usd = pf.cash if R["usd"] == "all" else R["usd"]
+        if usd <= 0 or pf.cash < usd - 1e-9:
+            continue                                       # coins not sold yet: next hour
+        h = dex.hunter()
+        h._load()
+        pf.cash -= usd
+        pf.peak_equity = max(0.0, pf.peak_equity - usd)
+        pf.save(f"{acct_dir(mn, sn)}/portfolio.json")
+        _shift_equity(f"{acct_dir(mn, sn)}/equity.csv", -usd)
+        h.pf.cash += usd
+        h.pf.peak_equity += usd
+        h.pf.save(f"{h.acct}/portfolio.json")
+        _shift_equity(f"{h.acct}/equity.csv", usd)
+        if os.path.exists("data/last_summary.json"):      # the evening text compares with yesterday's balances
+            with open("data/last_summary.json") as f:
+                last = json.load(f)
+            b = last.get("balances", {})
+            if "Crypto" in b:
+                b["DEX"] = b.get("DEX", 0.0) + b.pop("Crypto") if R["usd"] == "all" else b.get("DEX", 0.0) + usd
+                if R["usd"] != "all":
+                    b["Crypto"] = b.get("Crypto", 0.0) - usd
+            with open("data/last_summary.json", "w") as f:
+                json.dump(last, f)
+        done.add(R["id"])
+        with open(stamp, "w") as f:
+            json.dump({"done": sorted(done), "last": ts(int(time.time() * 1000))}, f)
+        print(f"   rebalance {R['id']}: moved ${usd:,.2f} from {mn}/{sn} to the DEX account")
+
+
+def _official_markets():
+    return getattr(config, "OFFICIAL_MARKETS", tuple(MARKETS))
 
 
 def scoreboard():
     """SCOREBOARD.md: the three official $500 accounts (crypto, stocks, DEX). LAB.md: every test strategy."""
-    main = [(mn, _mains(m), *_official(mn, m)) for mn, m in MARKETS.items()]
+    main = [(mn, _mains(m), *_official(mn, m)) for mn, m in MARKETS.items() if mn in _official_markets()]
     main.append(("dex", [dex.DEX["name"]], *_balance("dex", dex.DEX["name"])))   # owner 2026-09-26: DEX counts
     total, start_total = sum(r[2] for r in main), sum(base(r[0]) for r in main)
     out = ["# Scoreboard (pretend money)", ""]
@@ -517,6 +528,8 @@ def write_dashboard(rows=None, total=None):
     now = int(time.time() * 1000)
     cards = []
     for mn, m in MARKETS.items():
+        if mn not in _official_markets():
+            continue
         names = _mains(m)
         k = len(names)                                 # several strategies split the $500 equally
         pfs = [load_pf(mn, s) for s in names]
