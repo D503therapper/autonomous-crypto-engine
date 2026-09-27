@@ -400,6 +400,9 @@ def test_comeback_study_and_live_rules():
     # a dog coming in (no 'better team', no pregame value, no ball, no momentum): history alone isn't enough
     assert not [p for p in sports_live.evaluate("nba", g, box, 900, -2000, st, 0.35, 0.35, 0.0, "", 1)
                 if p["team"] == "Lakers"]
+    # a price miles from what the score says (e.g. a favorite +900 in a tied game): the book knows something
+    tied = dict(box, total_home_points=70, total_away_points=70)
+    assert not [p for p in sports_live.evaluate("nba", g, tied, 900, -2000, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]
     # live prices: only the LIVE line, never the pregame "game" line
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272}}}) == (None, None)
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272},

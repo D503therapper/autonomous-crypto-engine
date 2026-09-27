@@ -32,6 +32,7 @@ LIVE_JSON = "docs/sports/live.json"
 LOG = os.path.join(sd.DATA, "live_log.json")
 LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we want a real 5%+ edge
 DOG_MIN = 100                 # live plays are plus money only
+MAX_GAP = 0.15                # our live chance vs the book's: a bigger gap means something the scoreboard can't show
 LIVE_MIN_P = 0.25             # value, not lottery tickets: +300/+400 is fine when it's real, never a +900 prayer
 MAX_PLAYS = 2                 # at most 2 on the board at once (no limit per day: a slot opens when a play's value is gone)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
@@ -272,10 +273,14 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     lh, la = _last_period(box)
     ph = live_prob(league, pre_market_p, hs - as_, left, ball, lh - la, fit)
     out = []
+    book_h = sd.no_vig(mlh, mla)
     for side, p, ml in (("home", ph, mlh), ("away", 1 - ph, mla)):
         edge = p * sd.decimal(ml) - 1
         if ml < DOG_MIN or edge < LIVE_MIN_EDGE or p < LIVE_MIN_P:   # plus money, real value, a real chance
             continue
+        if p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
+            continue       # the price is miles from what the score says: the book knows something (injury, ejection)
+                           # or the feed is off - never a play
         us, them = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
         my, their = (hs, as_) if side == "home" else (as_, hs)
         side_pre = pre_market_p if side == "home" else 1 - pre_market_p
