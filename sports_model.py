@@ -29,6 +29,7 @@ K_MULTS = [0.5, 0.75, 1.0, 1.5, 2.0]
 HFA_GRID = [0, 20, 40, 60, 80, 100]
 MIN_ODDS_GAMES = 80        # below this many games with odds, trust stays cautious
 TRUST_CAUTIOUS = 0.15
+TRAIN_GAMES = 8000         # fit the weights on the most recent this many games (the ratings still use all history)
 EVAL_GAMES = 900           # tune on (at most) the most recent this many finished games
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
@@ -269,7 +270,7 @@ def tune(games, league, prev=None):
             if best is None or ll < best[0]:
                 best = (ll, k, hfa, rows)
     ll_elo, k, hfa, rows = best
-    train = [(g, f, y, m) for g, f, y, m in rows[warm:] if y != 0.5]
+    train = [(g, f, y, m) for g, f, y, m in rows[warm:] if y != 0.5][-TRAIN_GAMES:]   # weights: the recent seasons
     ev = [r for r in rows[ev_from:] if r[2] != 0.5]
     # 2. our own view
     w = fit_logistic([_own_x(f) for _, f, _, _ in train], [y for _, _, y, _ in train],
