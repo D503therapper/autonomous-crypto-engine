@@ -1,6 +1,11 @@
 [
  {
   "date": "2026-09-27",
-  "text": "\ud83d\udee0\ufe0f Real talk: that Guardians live bet at +425, down 1 going into the 9th? Our bad. We were basically betting on a 9th-inning miracle. We dug in and found the engine was overrating road teams coming back late \u2014 it was missing a ton of games. Fixed it. The live bets are way more realistic now \u2014 no more praying on the 9th."
+  "text": "\ud83d\udee0\ufe0f Real talk: that Guardians live bet at +425, down 1 going into the 9th? Our bad. The engine was missing 10,000+ games where the home team won without batting in the 9th, so it thought road teams come back late way more than they do. We fixed it \u2014 real numbers now, home and away split. No more praying on the 9th."
+ },
+ {
+  "date": "2026-09-27",
+  "live": "mlb:401817109:away",
+  "text": "\ud83d\udee0\ufe0f That one\u2019s on us. Here\u2019s what went wrong: our baseball history was missing every game where the home team won without batting in the bottom of the 9th \u2014 over 10,000 games. So the engine thought road teams down late came back way more than they really do. It had the Guardians at 25% \u2014 real history says more like 14%. What we fixed: the engine uses the real numbers now, home and away split, and late in games it leans on what actually happened in that exact spot. No more chasing 9th-inning miracles. That shit won\u2019t happen again."
  }
 ]

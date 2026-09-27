@@ -311,6 +311,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
     pending_ = '<span class="tm">⏳ still going</span>'
     used_ = set()                                            # no two bets in the list share a phrase
     stories = {id(e): _live_story(e, used_) for e in lrows}
+    try:                                                     # owning our mistakes, right on the bet itself
+        with open(os.path.join(sd.DATA, "notes.json")) as f:
+            owned = {n["live"]: n["text"] for n in json.load(f) if n.get("live")}
+    except (OSError, ValueError, KeyError):
+        owned = {}
+    pid_of = {id(e): pid for pid, e in live.items()}
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
                  '<span class="pk-l">LIVE BETS TODAY</span></div>' + "".join(
@@ -318,7 +324,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'{E(sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2])}</span>'
                      f'{badge_.get(e.get("result"), pending_)}</div>'
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
-                     f'<div class="ls">{E(stories[id(e)])}</div></div>'
+                     f'<div class="ls">{E(stories[id(e)])}</div>'
+                     f'{"<div class=own>" + E(owned[pid_of[id(e)]]) + "</div>" if pid_of.get(id(e)) in owned else ""}</div>'
                      for e in lrows) + "</section>")
     # the engine's grades: locks, value, leans and live - each graded on its own, never lumped into one number
     def grade(name, c1, c2, rows, today_rows):
@@ -355,7 +362,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     lines = []
     try:                                                      # owning our mistakes: notes on what we fixed (that day only)
         with open(os.path.join(sd.DATA, "notes.json")) as f:
-            lines += [n["text"] for n in json.load(f) if n.get("date") == today]
+            lines += [n["text"] for n in json.load(f) if n.get("date") == today and not n.get("live")]
     except (OSError, ValueError, KeyError):
         pass
     graded = [p for p in done if p["date"] == today and p["kind"] != "eight"]           # a new day never talks about yesterday
@@ -537,6 +544,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-h{{font-size:13px;font-weight:600;color:#b9a4ff;margin:4px 0}} .ask-h b{{color:#fff}}
 .ask-prop{{font-size:15px;font-weight:900;color:#ff5a7a;margin:6px 0 10px}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
+.own{{font-size:13px;font-weight:800;color:#ffc233;margin-top:6px;border-left:3px solid #ffc233;padding-left:8px}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
 .leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
