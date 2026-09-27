@@ -22,9 +22,9 @@ import sports_data as sd
 
 PT = ZoneInfo("America/Los_Angeles")
 
-BASE_K = {"nfl": 20, "ncaaf": 25, "nba": 20, "mlb": 4, "nhl": 6}
-DEFAULT_HFA = {"nfl": 48, "ncaaf": 60, "nba": 70, "mlb": 24, "nhl": 30}
-SPREAD_LEAGUES = ("nfl", "ncaaf", "nba")   # no run lines (MLB) or puck lines (NHL)
+BASE_K = {"nfl": 20, "ncaaf": 25, "nba": 20, "mlb": 4, "nhl": 6, "ncaab": 22}
+DEFAULT_HFA = {"nfl": 48, "ncaaf": 60, "nba": 70, "mlb": 24, "nhl": 30, "ncaab": 80}
+SPREAD_LEAGUES = ("nfl", "ncaaf", "nba", "ncaab")   # no run lines (MLB) or puck lines (NHL)
 K_MULTS = [0.5, 0.75, 1.0, 1.5, 2.0]
 HFA_GRID = [0, 20, 40, 60, 80, 100]
 MIN_ODDS_GAMES = 80        # below this many games with odds, trust stays cautious

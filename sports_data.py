@@ -20,6 +20,7 @@ LEAGUES = {
     "nba": ("basketball/nba", "", "NBA", "🏀"),
     "mlb": ("baseball/mlb", "", "MLB", "⚾"),
     "nhl": ("hockey/nhl", "", "NHL", "🏒"),
+    "ncaab": ("basketball/mens-college-basketball", "&groups=50", "College Basketball", "🏀"),   # men's D1 only
 }
 
 ERRORS = []      # failed calls this run (only the first few are printed)
@@ -289,7 +290,7 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
 SHORT_TERM = ("out", "doubtful")       # counted as missing (long-term IR is already priced into the ratings)
 UNSURE = ("questionable", "game-time", "game time", "day-to-day", "day to day")   # not known yet: wait for news
 LONG_OUT = ("reserve", "suspen", "season")      # injured reserve / suspended / out for the season
-KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": set()}  # None = any player
+KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": set(), "ncaab": set()}  # None = any player
 
 
 def fetch_injuries(league):
@@ -355,7 +356,7 @@ def team_unsure(inj, team_id, team_name, league):
 # ESPN drops the odds once a game is over. Action Network's public scoreboard keeps them for finished
 # games: book 15 = market consensus (used as the closing line), book 30 = the opening line.
 AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game&date={day}{extra}"
-AN_EXTRA = {"ncaaf": "&division=FBS"}
+AN_EXTRA = {"ncaaf": "&division=FBS", "ncaab": "&division=D1"}
 AN_CLOSE, AN_OPEN = 15, 30
 
 

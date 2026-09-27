@@ -13,7 +13,9 @@ including losing days and your own bugs.
   the money; the breakdown fades it in the owner's voice when we go the other way (no slurs).
 - **No big favorites.** No parlay leg shorter than -150. The Lock is no shorter than -120. The Dog is plus money.
   Big dogs (+200 and up) are never declined when they trigger: a real shot and clearly the best value on the slate.
-- **Bet types.** Spreads only in NFL, college football and NBA. No run lines, puck lines or player props.
+- **Bet types.** Spreads only in NFL, college football, NBA and men's college basketball. No run lines, puck lines
+  or player props. Leagues: NFL, college football, NBA, men's college basketball, MLB, NHL. No women's leagues
+  (no WNBA, no women's college basketball).
 - **Post when sure.** Post from 6pm PT the night before, once the key news is known (starting pitchers,
   questionable QBs and goalies). The latest a play can post is 3 hours before its first game.
 - **Keep the dashboard look.** Keep the current dashboard (docs/sports/index.html via sports_dashboard.py):
