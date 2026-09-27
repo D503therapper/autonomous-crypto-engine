@@ -709,6 +709,11 @@ def loop(minutes, every_s=10):
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
+    _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
+    board = _git("show", f"origin/{LIVE_BRANCH}:live.json")      # are up stay up (they don't have to re-qualify)
+    if board.returncode == 0 and board.stdout.strip():
+        with open(LIVE_JSON, "w") as f:
+            f.write(board.stdout)
     while time.time() < end:
         if games is None or int(time.time()) % 600 < every_s:          # pull the latest games/model every ~10 min
             _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
