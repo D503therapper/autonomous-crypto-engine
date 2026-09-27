@@ -319,7 +319,7 @@ def tune(games, league, prev=None):
 
 def tune_all(games, model):
     """Self-tune: refresh every league's params and append what changed to the learning log."""
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today = datetime.now(PT).strftime("%Y-%m-%d")
     for lg in sd.LEAGUES:
         prev = model["params"].get(lg)
         new = tune(games, lg, prev)

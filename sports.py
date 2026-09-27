@@ -281,6 +281,9 @@ def run(repick=False, fetch=True):
     day = now.astimezone(PT).date()
     due = now.astimezone(PT).hour >= PICK_HOUR_PT
     n_final = sum(g["status"] == "final" for g in games.values())
+    if (model.get("today") or {}).get("date") != day.isoformat():       # baseline for tonight's "in a nutshell"
+        model["today"] = {"date": day.isoformat(), "finals": model.get("finals_seen", n_final),
+                          "acc": {lg: p["accuracy"] for lg, p in model["params"].items()}}
     if n_final != model.get("finals_seen") or not model["params"]:      # retrain after every new batch of results
         t0 = time.time()
         sm.tune_all(games, model)

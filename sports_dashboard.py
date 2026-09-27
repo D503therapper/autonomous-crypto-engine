@@ -169,34 +169,40 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     f'<div class="rv {"up" if p["pnl"] > 0 else "dn" if p["pnl"] < 0 else ""}">{_money(p["pnl"], True)}</div></div>')
     results = "".join(rows) or '<div class="empty">First results land after the first board settles.</div>'
 
-    # the brain
-    brain = []
-    for lg, (_, _, name, emo) in sd.LEAGUES.items():
-        p = model.get("params", {}).get(lg)
-        if not p:
-            brain.append(f'<div class="br"><div class="bn">{emo} {name}</div><div class="bs">learning — not enough games yet</div></div>')
-            continue
-        last = next((e for e in reversed(model.get("log", [])) if e["league"] == lg), None)
-        wts = p.get("weights", {})
-        facts = [("Form", wts.get("form", 0)), ("Rest", wts.get("rest", 0)), ("B2B", wts.get("b2b", 0)),
-                 ("Injuries", wts.get("inj", 0)), ("Sharp $", p.get("move_w", 0))]
-        bars = "".join(f'<span class="fx"><i style="width:{min(100, abs(v) * 100):.0f}%;background:{"#22e39a" if v >= 0 else "#ff5a1f"}"></i>{k}</span>'
-                       for k, v in facts)
-        mk = f' · book {p["market_accuracy"]:.1%}' if p.get("market_accuracy") is not None else ""
-        brain.append(f'<div class="br"><div class="bh"><div class="bn">{emo} {name}</div><div class="bt">trust <b>{p["trust"]:.0%}</b></div></div>'
-                     f'<div class="bs">{p["games"]:,} games studied · picks winner {p["accuracy"]:.1%}{mk}</div>'
-                     f'<div class="fxs">{bars}</div>'
-                     + (f'<div class="bc">🧠 {E(last["date"])}: {E(last["change"])}</div>' if last else "") + '</div>')
-    tuned = model.get("tuned_on", "—")
+    # the brain, in a nutshell: how the engine improved itself today
+    params = model.get("params", {})
+    base = model.get("today") or {}
+    lines = []
+    if base.get("date") == today:
+        new = max(0, model.get("finals_seen", 0) - base.get("finals", 0))
+        lines.append(f"Studied <b>{new:,}</b> new final score{'s' if new != 1 else ''} today and retrained on all of them.")
+
+    def acc(ps):
+        n = sum(p.get("eval_games", 0) for p in ps.values())
+        return sum(p["accuracy"] * p.get("eval_games", 0) for p in ps.values()) / n if n else None
+    now_acc = acc(params)
+    if now_acc is not None:
+        was = base.get("acc") or {}
+        common = {lg: params[lg] for lg in was if lg in params}
+        start = (sum(was[lg] * common[lg].get("eval_games", 0) for lg in common)
+                 / max(1, sum(p.get("eval_games", 0) for p in common.values()))) if common else None
+        delta = f' <span class="{"up" if now_acc >= start else "dn"}">({(now_acc - start) * 100:+.1f} pts today)</span>' if start else ""
+        lines.append(f"Picks the winner <b>{now_acc:.1%}</b> of the time across {len(params)} leagues{delta}.")
+    changes = [f"{sd.LEAGUES[e['league']][2]}: {E(e['change'])}" for e in model.get("log", [])
+               if e["date"] == today and e["change"] not in ("no change", "first tune")]
+    if changes:
+        lines.append("Adjusted: " + " · ".join(changes[:3]) + (f" (+{len(changes) - 3} more)" if len(changes) > 3 else ""))
+    elif params:
+        lines.append("No rule changes needed — its current settings are still the best fit.")
     legs = [l for p in picks for l in p["legs"] if l.get("result") in ("won", "lost")]
     if legs:
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
-        check = (f'<div class="br self"><div class="bn">🎯 Self-check</div><div class="bs">On {len(legs)} graded legs the engine said '
-                 f'<b>{said:.0%}</b> would win — <b class="{"up" if got >= said else "dn"}">{got:.0%}</b> did. '
-                 f'Every result feeds the next retrain.</div></div>')
-    else:
-        check = '<div class="br self"><div class="bn">🎯 Self-check</div><div class="bs">Grades its own picks once the first games finish.</div></div>' 
+        lines.append(f"Self-check: said <b>{said:.0%}</b> of its legs would win — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
+    if not lines:
+        lines.append("Warming up — studying past seasons before the first board.")
+    brain = '<div class="br self"><div class="bn">🧠 Today in a nutshell</div>' + "".join(f'<div class="bs nut">{x}</div>' for x in lines) + "</div>"
+    tuned = model.get("tuned_on", "—")
 
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -300,12 +306,13 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .br.self{{border-color:rgba(255,194,51,.35)}}
 .bh{{display:flex;justify-content:space-between;align-items:center}}
 .bn{{font-weight:900;color:#fff;font-size:15px}} .bt{{font-size:12px;color:var(--muted);font-weight:700}} .bt b{{color:var(--gold)}}
-.bs{{font-size:12.5px;color:#b9c2d4;margin-top:3px}} .bs b{{color:#fff}}
+.bs{{font-size:12.5px;color:#b9c2d4;margin-top:3px}} .bs b{{color:#fff}} .bs b.up,.bs .up{{color:var(--up)}} .bs b.dn,.bs .dn{{color:var(--dn)}}
 .fxs{{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}}
 .fx{{position:relative;font-size:10px;font-weight:800;color:#fff;letter-spacing:.04em;padding-top:8px;text-align:center}}
 .fx i{{position:absolute;top:0;left:0;height:4px;border-radius:4px;box-shadow:0 0 8px currentColor}}
 .fx::before{{content:"";position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px;background:rgba(255,255,255,.08)}}
 .bc{{font-size:11.5px;color:#e8c77a;margin-top:8px}}
+.nut{{font-size:13.5px;margin-top:7px;padding-left:14px;position:relative}} .nut:before{{content:"▸";position:absolute;left:0;color:var(--gold)}}
 .foot{{text-align:center;color:#c3cbe0;font-size:12px;margin-top:22px;line-height:1.6}}
 .foot b{{color:#fff}} .foot a{{color:#22d3ee;text-decoration:none;font-weight:700}}
 </style></head><body><main>
@@ -331,7 +338,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> RECENT TICKETS</h2></div>
 <div class="list">{results}</div>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
-{check}{"".join(brain)}
+{brain}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b> · started with <b>{_money(start_bank)}</b><br>
 Ratings · form · rest · injuries · line moves — retrained after every final score.<br>
 Paper picks, pretend money · refreshes hourly · <a href="../">crypto engine →</a></div>
