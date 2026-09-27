@@ -16,11 +16,12 @@ PAGE = "docs/sports/index.html"
 LOOK = {   # kind -> label, accent, second accent
     "two":   ("2-LEG OF THE DAY", "#2f8bff", "#22d3ee"),
     "three": ("3-LEG OF THE DAY", "#ffc233", "#ff8a00"),
+    "eight": ("8-LEG OF THE DAY", "#b36bff", "#ff4fd8"),
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
 }
 BIG_HIT = 300                 # +300 and up that cashes gets the big brag
-ICON = {"two": "⚡", "three": "👑", "lock": "🔒", "dog": "🐺"}
+ICON = {"two": "⚡", "three": "👑", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
 E = html.escape
 
 
@@ -358,6 +359,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
+.nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
 .pk.lvc{{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b}} .chip.livechip{{color:#fff;background:#ff3b3b}}
 .bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
 .bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
@@ -420,7 +422,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
-<div id="live"></div>
+<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 15 sec</span></div>
+<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">😴 No live bets available — no games going right now.</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
 {tomorrow}
@@ -445,17 +448,19 @@ Picks only — no bets placed · refreshes hourly</div>
 (function(){{   // 🔴 LIVE VALUE: checks live.json every 15 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 var last="";
-function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[];
- var key=JSON.stringify(ps);if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- if(!ps.length){{el.innerHTML="";return;}}
- el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE VALUE</h2><span>updates every 15 sec</span></div>'+ps.map(function(p){{
+function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n>0?
+  '👀 No live bets right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
+  '😴 No live bets available — no games going right now.')+'</div></section>';}}
+function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=(d&&d.live_games)||0;
+ var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
+ el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 15 sec</span></div>'+(ps.length?ps.map(function(p){{
   return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">🔴 LIVE</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
    '<div class="ls">'+esc(p.score)+(p.ball?' · '+esc(p.ball):'')+'</div><div class="why">'+esc(p.line)+'</div>'+
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
-   '</div></section>';}}).join("");}}
+   '</div></section>';}}).join(""):idle(n));}}
 function show(d){{if(d&&Date.now()-d.updated<10*60000)draw(d);else draw(null);}}
 function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/main/docs/sports/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
 function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit

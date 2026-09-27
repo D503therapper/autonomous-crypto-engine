@@ -45,8 +45,10 @@ BIG_DOG_EXTRA_EDGE = 0.05      #    and value at least 5 points better than the 
 MIN_EDGE = 0.01                # NEVER a filler: every leg, lock and dog must be real value on our numbers (1%+)...
                                # ...and have at least one reason; not enough of them on the slate = no play today
 MAX_EXTRA_OUT = 1              # never back the more banged-up team: at most 1 more player out than the opponent
-KINDS = [("two", "2-Leg of the Day"), ("three", "3-Leg of the Day"), ("lock", "Lock of the Day"),
-         ("dog", "Dog of the Day")]
+KINDS = [("two", "2-Leg of the Day"), ("three", "3-Leg of the Day"), ("eight", "8-Leg of the Day"),
+         ("lock", "Lock of the Day"), ("dog", "Dog of the Day")]
+# 8-leg: moneylines and spreads (no big favorite: a favorite shorter than -150 only gets in on the spread, when the
+# spread's real value). Over/unders stay out until the engine has studied totals.
 
 
 # ---------------------------------------------------------------- state files
@@ -197,6 +199,19 @@ def _parlay(cands, n, top=40):
     """Best n-leg parlay: good legs only, one leg per game, no huge favorites; the highest chance to hit
     (no payout chasing - a proven engine over big tickets)."""
     pool = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: -c["edge"])[:top]
+    if n > 3:                                     # big parlays: the likeliest good leg per game, then the likeliest games
+        per_game = {}
+        for c in pool:
+            if c["game_id"] not in per_game or (c["p"], c["edge"]) > (per_game[c["game_id"]]["p"], per_game[c["game_id"]]["edge"]):
+                per_game[c["game_id"]] = c
+        legs = sorted(per_game.values(), key=lambda c: (-c["p"], -c["edge"]))[:n]
+        if len(legs) < n:
+            return None
+        dec, p = 1.0, 1.0
+        for c in legs:
+            dec *= c["dec"]
+            p *= c["p"]
+        return {"legs": legs, "dec": dec, "p_hit": p}
     best = None
     for combo in itertools.combinations(pool, n):
         if len({c["game_id"] for c in combo}) < n:
@@ -216,7 +231,7 @@ def _parlay(cands, n, top=40):
 
 def make_board(cands, lock_game=None):
     """{kind: pick or None} following the owner's rules (lock_game: an already-posted lock's game, kept off the dog)."""
-    board = {"two": _parlay(cands, 2), "three": _parlay(cands, 3)}
+    board = {"two": _parlay(cands, 2), "three": _parlay(cands, 3), "eight": _parlay(cands, 8, top=80)}
     ml = [c for c in cands if c["market"] == "ml" and good(c)]
     locks = [c for c in ml if c["odds"] >= LOCK_MAX_FAV]
     lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None

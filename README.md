@@ -61,6 +61,9 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    - **No big favorites:** no parlay leg shorter than −150.
    - **2-Leg / 3-Leg of the Day:** the most likely-to-hit parlay built from good legs only, one leg per game
      (no payout chasing).
+   - **8-Leg of the Day:** the likeliest 8 good legs from 8 different games, moneylines and spreads. A favorite
+     shorter than −150 only gets in on the spread, and only when the spread is real value. No over/unders
+     until the engine has studied totals. Fewer than 8 good games on the slate means no 8-leg that day.
    - **Lock of the Day:** a moneyline no shorter than −120, highest win chance among good plays.
    - **Dog of the Day:** plus money; a big dog (+200 and up) whenever it triggers: a 22%+ win chance and clearly
      the best value on the slate.
@@ -69,6 +72,11 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    - Spreads are used only in NFL, college football, NBA and men's college basketball. There are no run lines,
      puck lines or player props, and no women's leagues.
 5. Rebuilds `docs/sports/index.html`.
+6. **Live bets** (`sports_live.py`, `.github/workflows/sports-live.yml`): watches every live game every 15
+   seconds. The LIVE BETS section is always on the dashboard: up to 2 plays at a time (no limit per day),
+   or "No live bets available" when nothing qualifies. Plus money only, with a 5%+ edge, a 25%+ chance and
+   reasons backed by the comeback study (`sports_comeback.py`), which learns when teams come back from 10
+   seasons of period-by-period scores.
 
 Files: `data/sports/picks.json` (every pick and result), `model.json` (the brain), `games/<league>/<month>.csv`.
 Commands: `python sports.py` (one cycle), `python sports.py --repick` (redo today's board),

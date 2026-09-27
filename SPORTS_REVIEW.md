@@ -54,8 +54,8 @@ the previous results/sports_review_*.md.
 ## Each run
 1. **Health.** Check that `sports` commits land every hour. Scan run.log for errors, failed calls and
    0-game syncs. Fix bugs right away, offline test first.
-2. **Results.** List every pick graded since the last review. Give the record per play (2-leg, 3-leg, lock,
-   dog) and overall. For each loss, say why the engine liked it and what it missed.
+2. **Results.** List every pick graded since the last review. Give the record per play (2-leg, 3-leg, 8-leg, lock,
+   dog, live bets) and overall. For each loss, say why the engine liked it and what it missed.
 3. **One upgrade.** Ship one well-tested improvement from the list below, or fix a problem seen in the
    results. Change the model or rules only with evidence from past games or live results. Run
    `python sports_test.py` and pyflakes before pushing. Commit with a clear message and push to main.

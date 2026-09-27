@@ -223,8 +223,15 @@ def test_board_rules():
     assert dog["game_id"] == "d", "a big dog needs to be clearly better value than the best regular dog"
     c = [x if x["game_id"] != "g" else _cand("g", 365, 0.30) for x in c]     # now a real shot at great value
     assert sports.make_board(c)["dog"]["legs"][0]["game_id"] == "g"
+    slate = [_cand(f"g{i}", -150 + 5 * i, 0.64 - 0.005 * i) for i in range(10)]
+    slate += [_cand("big", -475, 0.86), _cand("big", -110, 0.63, "spread", -9.5, "nfl")]   # huge favorite: spread only
+    eight = sports.make_board(slate)["eight"]["legs"]
+    assert len(eight) == 8 and len({l["game_id"] for l in eight}) == 8 and all(sports.good(l) for l in eight)
+    assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
+    assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
     filler = [_cand("p", 202, 0.32), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
     b = sports.make_board(filler)
+    assert b["eight"] is None, "fewer than 8 good games on the slate = no 8-leg (never a filler)"
     assert b["two"] is None and b["three"] is None, "no good pair on the slate = no play, never a filler"
     assert b["dog"] is None and b["lock"] is None
     sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
@@ -289,6 +296,20 @@ def test_post_when_settled_and_never_change():
     assert all(not l["waiting"] for p in picks for l in p["legs"])
 
 
+def _check_js(html):
+    """The dashboard's scripts must parse (a stray quote once broke the whole live section)."""
+    import re
+    import subprocess
+    if not shutil.which("node"):
+        return
+    for i, js in enumerate(re.findall(r"<script>(.*?)</script>", html, re.S)):
+        path = os.path.join(tempfile.gettempdir(), f"sports_check_{i}.js")
+        with open(path, "w") as f:
+            f.write(js)
+        r = subprocess.run(["node", "--check", path], capture_output=True, text=True)
+        assert r.returncode == 0, r.stderr[:500]
+
+
 def test_full_cycle_offline():
     tmp = tempfile.mkdtemp()
     cwd = os.getcwd()
@@ -313,6 +334,7 @@ def test_full_cycle_offline():
         assert os.path.exists("docs/sports/index.html")
         html = open("docs/sports/index.html").read()
         assert "TRUST THE ALGORITHM" in html and "LOCK OF THE DAY" in html
+        _check_js(html)
         again = sports.run(fetch=False)                  # a second run the same day keeps the board
         assert len(again) == len(picks)
     finally:

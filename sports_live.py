@@ -292,6 +292,9 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     return out
 
 
+WATCHING = [0]                # live games seen in the last cycle (the dashboard says whether games are going)
+
+
 def board(plays, showing=()):
     """Max 2 at once: plays already up keep their slot while they still qualify; open slots go to the best edge."""
     return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
@@ -304,6 +307,7 @@ def cycle(games, model, log, now=None, st=None, showing=()):
     st = sc.load() if st is None else st
     elo = sm.ratings(games, model)
     plays = []
+    WATCHING[0] = 0
     for lg in sd.LEAGUES:
         params = model["params"].get(lg) or sm.default_params(lg)
         for ang in fetch_live(lg):
@@ -312,6 +316,7 @@ def cycle(games, model, log, now=None, st=None, showing=()):
             if status in DONE or not box.get("period"):
                 _grade(log, ang)
                 continue
+            WATCHING[0] += 1                                   # a game going right now
             g = _match(games, lg, ang)
             odds = ((box.get("latest_odds") or {}).get("game")) or {}
             mlh, mla = sd.parse_american(odds.get("ml_home")), sd.parse_american(odds.get("ml_away"))
@@ -381,7 +386,7 @@ def run():
     except (OSError, ValueError):
         showing = []
     plays = cycle(games, model, log, showing=showing)
-    out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log)}
+    out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0]}
     os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
     with open(LIVE_JSON, "w") as f:
         json.dump(out, f, indent=1)
@@ -452,8 +457,8 @@ def loop(minutes, every_s=15):
         publish("live: end of watch")
     elif os.path.exists(LIVE_JSON):                               # clear a stale board
         out = json.load(open(LIVE_JSON))
-        if out.get("plays"):
-            out.update(plays=[], updated=int(time.time() * 1000))
+        if out.get("plays") or out.get("live_games"):
+            out.update(plays=[], live_games=0, updated=int(time.time() * 1000))
             with open(LIVE_JSON, "w") as f:
                 json.dump(out, f, indent=1)
             publish("live: board cleared")
