@@ -328,7 +328,14 @@ def test_post_when_settled_and_never_change():
     later = [g for g in games.values() if g["id"].startswith("mlb:up") and g["id"] != lock["legs"][0]["game_id"]]
     for g in later:
         g["start"] = (now + timedelta(hours=14)).strftime("%Y-%m-%dT%H:%MZ")          # the night games
-    fresh = sports.post_board(games, model, picks, now + timedelta(hours=11), day)
+    assert not sports.post_board(games, model, picks, now + timedelta(hours=11), day), \
+        "no afternoon replacements: the record is the start-of-day board (ASK THE ENGINE covers the rest)"
+    keep_max = sports.MAX_REPLACEMENTS
+    sports.MAX_REPLACEMENTS = 3                                              # (the replacement rules still work if turned on)
+    try:
+        fresh = sports.post_board(games, model, picks, now + timedelta(hours=11), day)
+    finally:
+        sports.MAX_REPLACEMENTS = keep_max
     assert [p["kind"] for p in fresh] == ["lock"] and fresh[0]["round"] == 2 and fresh[0]["legs"][0]["game_id"] != lock["legs"][0]["game_id"]
     assert fresh[0]["lean"] and sports.pick_tier(fresh[0]) == "lean", "a replacement is always labeled a LEAN"
     assert lock in picks, "the graded one stays in the results"
