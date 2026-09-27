@@ -640,7 +640,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
-<details class="ask" id="ask"><summary><span class="ask-t">🤔 ASK THE ENGINE</span>
+<details class="ask" id="ask"><summary><span class="ask-t">🤔 GOT A QUESTION?</span>
 <span class="ask-s">tap in 👀</span></summary>
 <div class="ask-b"><div class="ask-n">Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.</div>
 <input id="askq" type="search" placeholder="Got a question? Ask away… 🤔" autocomplete="off">
