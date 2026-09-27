@@ -28,7 +28,8 @@ FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_
           "home_score", "away_score", "ml_home", "ml_away", "odds_time", "neutral",
           "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
           "inj_home", "inj_away", "sp_home", "sp_away", "stype", "country", "intl", "city", "state", "indoor",
-          "elev", "wx_temp", "wx_wind", "wx_rain", "tzo", "ls_home", "ls_away"]
+          "elev", "wx_temp", "wx_wind", "wx_rain", "tzo", "ls_home", "ls_away",
+          "h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds"]
 REAL = ("2", "3", "?")          # regular season + playoffs; preseason / spring training / all-star games don't count
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 
@@ -436,6 +437,12 @@ def parse_an(payload):
                "spread_home_odds": parse_american(close.get("spread_home_line")), "spread_away_odds": parse_american(close.get("spread_away_line")),
                "ls_home": ",".join(str(p.get("home_points") or 0) for p in (g.get("boxscore") or {}).get("linescore") or []),
                "ls_away": ",".join(str(p.get("away_points") or 0) for p in (g.get("boxscore") or {}).get("linescore") or [])}
+        lo = (g.get("boxscore") or {}).get("latest_odds") or {}
+        part = lo.get("firstfiveinnings") or lo.get("firsthalf") or {}      # first half / MLB first 5 innings (backtests)
+        row.update({"h1_ml_home": parse_american(part.get("ml_home")), "h1_ml_away": parse_american(part.get("ml_away")),
+                    "h1_spread_home": _num(part.get("spread_home")),
+                    "h1_spread_home_odds": parse_american(part.get("spread_home_line")),
+                    "h1_spread_away_odds": parse_american(part.get("spread_away_line"))})
         if row["ml_home"] is not None and row["ml_away"] is not None:
             out.append(row)
     return out
@@ -471,6 +478,9 @@ def _same(short, full):
     return bool(short) and (short in full or full.startswith(short.split(" ")[0] + " "))
 
 
+H1 = ("h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds")
+
+
 def attach_an(games, league, rows):
     """Fill odds on stored games from Action Network rows (same teams, start within 3 hours).
     Returns how many games got odds they didn't have."""
@@ -495,6 +505,9 @@ def attach_an(games, league, rows):
                         g[k] = r[k]
             if r["ml_home_open"] is not None and r["ml_away_open"] is not None:
                 g["ml_home_open"], g["ml_away_open"] = r["ml_home_open"], r["ml_away_open"]
+            for k in H1:
+                if r.get(k) is not None and g.get(k, "") == "":
+                    g[k] = r[k]
             if r.get("ls_home") and g.get("status") == "final" and not g.get("ls_home"):
                 g["ls_home"], g["ls_away"] = r["ls_home"], r["ls_away"]
             break
@@ -509,6 +522,8 @@ def _flag(lg, back):
 def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=420):
     """Backfill closing + opening odds for finished games, a stretch per run until caught up."""
     today = datetime.now(timezone.utc).date()
+    if not state.get("an_h1"):                           # re-walk the odds history once to keep first-half / F5 lines
+        state["an_synced"], state["an_from"], state["an_h1"] = {}, {}, True
     cur = state.setdefault("an_synced", {})
     jobs = []
     weeks = []
