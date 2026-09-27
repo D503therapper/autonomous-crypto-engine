@@ -54,10 +54,16 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
 4. **The board** shows as a PREVIEW from 6pm Pacific the night before and is re-picked every hour as lines
    and injury news move. Plays LOCK (official, graded) at 7am Pacific on game day, or 3 hours before an
    earlier game:
-   - **2-Leg of the Day:** $100 wins at least $500. One leg per game, no moneyline leg shorter than −150.
-   - **3-Leg of the Day:** $100 wins at least $1,000. Same leg rules.
-   - **Lock of the Day:** a moneyline no shorter than −120, picked for the highest win chance.
-   - **Dog of the Day:** a plus-money moneyline picked for the best value. Big dogs are allowed.
+   - **Never a filler leg:** every leg, lock and dog must be real value on the engine's numbers (1%+) with
+     at least one reason; if the slate has none, that card says "No play today".
+   - **No big favorites:** no parlay leg shorter than −150.
+   - **2-Leg / 3-Leg of the Day:** the most likely-to-hit parlay built from good legs only, one leg per game
+     (no payout chasing).
+   - **Lock of the Day:** a moneyline no shorter than −120, highest win chance among good plays.
+   - **Dog of the Day:** plus money; a big dog (+250 and up) only when it has a 22%+ win chance and clearly
+     the best value on the slate.
+   - Never backs a team missing its starting QB/goalie or with 2+ more players out than its opponent;
+     preseason and spring games never count.
    - Spreads are used only in NFL, college football and NBA. There are no run lines, puck lines or player props.
 5. Rebuilds `docs/sports/index.html`.
 
