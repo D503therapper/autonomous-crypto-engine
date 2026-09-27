@@ -4,6 +4,16 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 
 ## Open questions
 
+### NEXT - Second DEX entry: "dip + bounce" (owner asked 2026-09-27: buy the drop points?)
+Quick label check on results/dex_runner_points.csv.gz (liq >= $100k, age >= 6h): current entry (1h >= +10%) n=251:
+2x/7d 53%, 5x 24%, rug 2.0%, median worst-drop after entry -54%. "Dip + bounce" (>= 30% below 7d high AND 1h >= +5%)
+n=170: 2x 52%, 5x 26%, rug 3.5%, median worst-drop -41% (older/newer halves 57%/51%). Pure dips without a bounce:
+2x ~30% (worse). TODO: run both entries (alone and combined, 5 slots) through the live exit with costs in
+dex_runner_study.py's trading section (walk-forward, both halves); add "dip + bounce" as a SECOND trigger in
+dex._try_entry only if the combined account beats the current one. Also check live: typical coin drops 45-66%
+within 7 days of our entry (bigger 1h jump = deeper drop, more 5x, more rugs).
+
+
 ### NEXT - Listings on the DEX, then drop the crypto category (owner, 2026-09-26)
 Owner: "the DEX has all the coins - eliminate the crypto category." The only proven Crypto.com edge is the listing
 hunter ($200). Test: when Binance / Upbit / Coinbase / Crypto.com / OKX announce a listing (data/listing_events.csv
