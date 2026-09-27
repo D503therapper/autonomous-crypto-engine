@@ -1,0 +1,26 @@
+# THE D503 SPORTS ENGINE - LIVE VALUE (paper picks only). Every 30 minutes: if anything's live (or about to be),
+# watch every live game every 15 seconds for ~45 minutes and publish docs/sports/live.json whenever the live
+# board changes. The next watch queues right behind the running one, so there are no gaps during games.
+# Rests right away when nothing's on.
+name: sports-live
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sports-live
+  cancel-in-progress: false
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          timeout 50m python -u sports_live.py --loop 45

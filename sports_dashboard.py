@@ -2,6 +2,7 @@
 Top: today's board (2-leg, 3-leg, lock, dog). Below: results, record, and what the engine learned.
 Self-contained HTML (inline CSS/SVG, tiny JS for the "updated X min ago" light)."""
 import html
+import json
 import os
 import time
 from datetime import datetime, timedelta, timezone
@@ -18,6 +19,7 @@ LOOK = {   # kind -> label, accent, second accent
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
 }
+BIG_HIT = 300                 # +300 and up that cashes gets the big brag
 ICON = {"two": "⚡", "three": "👑", "lock": "🔒", "dog": "🐺"}
 E = html.escape
 
@@ -39,6 +41,15 @@ def _time(iso):
 def _chip(status):
     txt = {"open": "🔒 LOCKED", "won": "CASHED ✓", "lost": "LOST", "push": "PUSH"}[status]
     return f'<span class="chip {status}">{txt}</span>'
+
+
+def _the(team, league):
+    """Pro teams get "the" ("the Bills"), college teams don't ("Alabama")."""
+    return f"the {team}" if league in ("nfl", "nba", "mlb", "nhl") else team
+
+
+def _cap(x):
+    return x[:1].upper() + x[1:]
 
 
 def _rot(k, options):
@@ -145,6 +156,17 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     "#ffc233", "up" if hot.startswith("W") else "dn" if hot.startswith("L") else "w"))
     strip = "".join(f'<i class="{p["status"]}" title="{E(p["date"])}"></i>' for p in done[-40:]) or '<span class="empty">results show up here</span>'
 
+    # live bets: their own record
+    live = {}
+    try:
+        with open(os.path.join(sd.DATA, "live_log.json")) as f:
+            live = json.load(f).get("plays", {})
+    except (OSError, ValueError):
+        pass
+    lw, ll = sum(e.get("result") == "won" for e in live.values()), sum(e.get("result") == "lost" for e in live.values())
+    live_card = (f'<div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">{lw}-{ll}</div>'
+                 f'<div class="rc-p">{f"{lw / (lw + ll):.0%} hit" if lw + ll else "&nbsp;"}</div>'
+                 f'<div class="rc-s">{"its own record" if lw + ll else "no results yet"}</div></div>')
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -163,7 +185,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
     graded = [p for p in done if p.get("settled", "")[:10] >= (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%d")
               and p["date"] in (today, (now - timedelta(days=1)).date().isoformat())]
     w_, l_ = sum(p["status"] == "won" for p in graded), sum(p["status"] == "lost" for p in graded)
-    if w_ + l_ == 0:
+    yday = (now - timedelta(days=1)).date().isoformat()
+    live_today = any(e.get("result") in ("won", "lost") and e.get("date") in (today, yday) for e in live.values())
+    if w_ + l_ == 0 and live_today:
+        pass                                                      # the live results below speak for the day
+    elif w_ + l_ == 0:
         lines.append(["⏳ Nothing graded yet today — games still cooking.", "⏳ Tickets are still live. Check back after the games.",
                       "⏳ No results in yet. Sit tight."][k % 3])
     elif l_ == 0:
@@ -191,6 +217,18 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"😤 {w_}-{l_}. Vegas got us today. Enjoy it while it lasts.",
                               f"😤 {w_}-{l_}. Rough one. Head up — we run it back tomorrow.",
                               f"😤 {w_}-{l_}. Bad day at the office. The algorithm's taking notes."]))
+    # big hits (+300 and up, board or live): they get their own brag, right under the day's record
+    big = [(p["american"], (E(_the(p["legs"][0]["team"], p["legs"][0]["league"])) if len(p["legs"]) == 1
+                            else "the " + LOOK[p["kind"]][0].replace(" OF THE DAY", "").lower()), "")
+           for p in graded if p["status"] == "won" and p.get("american", 0) >= BIG_HIT]
+    big += [(e["odds"], E(_the(e["team"], e.get("league"))), " live") for e in live.values()
+            if e.get("result") == "won" and e.get("odds", 0) >= BIG_HIT and e.get("date") in (today, yday)]
+    for i, (o, what, how) in enumerate(sorted(big, reverse=True)[:2]):
+        lines.insert(1 + i, _rot(k + o, [f"💰 DAMN. We smacked a +{o}{how} — {what}. I tried to fucking tell y'all. Let's go!",
+                                         f"💰 +{o}{how}. CASHED. {_cap(what)} came through and I told y'all all day. Let's fucking go!",
+                                         f"💰 Y'all doubted {what} at +{o}{how}? Smacked it. Trust the algorithm. LET'S GO!",
+                                         f"💰 {_cap(what)} at +{o}{how}. Books are in shambles. I tried to fucking tell y'all!"]))
+    big_live = {(e["team"], e["odds"]) for e in live.values() if e.get("odds", 0) >= BIG_HIT}
     cutoff = (datetime.now(timezone.utc) - timedelta(hours=30)).strftime("%Y-%m-%dT%H:%MZ")
     fresh = {}
     for g in (games or {}).values():
@@ -211,7 +249,22 @@ def render(picks, model, games, series, start_bank, updated_ms):
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
         lines.append(f"🧾 Receipts: said {said:.0%} of our legs would hit — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
-    if not done:                                      # no finished day yet: nothing to brag or cry about
+    for e in sorted((e for e in live.values() if e.get("result") == "won" and e.get("date") in (today, yday)
+                     and (e["team"], e["odds"]) not in big_live),                  # big ones already got the brag
+                    key=lambda e: e["posted"])[-2:]:
+        o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
+        t = E(_the(e["team"], e.get("league")))
+        lines.append(_rot(k + len(e["team"]), [f"🔴 We smacked {t} live bet ({o}). The algorithm never lies.",
+                                               f"🔴 Live bet cashed: {t} at {o}. Told y'all — teams always be coming back.",
+                                               f"🔴 {_cap(t)} live at {o}? Cashed. Trust the algorithm."]))
+    for e in sorted((e for e in live.values() if e.get("result") == "lost" and e.get("date") in (today, yday)),
+                    key=lambda e: e["posted"])[-2:]:
+        o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
+        t = E(_the(e["team"], e.get("league")))
+        lines.append(_rot(k + len(e["team"]), [f"🔴 {_cap(t)} live bet ({o}) didn't come through. Comeback fell short — we move.",
+                                               f"🔴 Live L: {t} at {o}. Can't win 'em all. The algorithm's taking notes.",
+                                               f"🔴 {_cap(t)} live at {o} came up short. Shake it off — next one's ours."]))
+    if not done and not any(x.startswith("🔴") for x in lines):   # no finished day yet: nothing to brag or cry about
         lines = ["👀 We gon' see."]
     brain = '<div class="br self"><div class="bn">🧠 Today in a nutshell</div>' + "".join(f'<div class="bs nut">{x}</div>' for x in lines) + "</div>"
     tuned = model.get("tuned_on", "—")
@@ -304,6 +357,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .why{{font-size:12px;color:#e8c77a;margin-top:4px}}
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
+.lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
+.pk.lvc{{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b}} .chip.livechip{{color:#fff;background:#ff3b3b}}
 .bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
 .bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
 .bd summary::-webkit-details-marker{{display:none}}
@@ -365,6 +420,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
+<div id="live"></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
 {tomorrow}
@@ -378,7 +434,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="strip">{strip}</div>
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
-<div class="recs">{"".join(rec)}</div>
+<div class="recs">{"".join(rec)}{live_card}</div>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
@@ -386,6 +442,26 @@ Ratings · form · rest · injuries · line moves — retrained after every fina
 Picks only — no bets placed · refreshes hourly</div>
 </main>
 <script>
+(function(){{   // 🔴 LIVE VALUE: checks live.json every 15 seconds; a play disappears the moment its value is gone
+function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
+var last="";
+function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[];
+ var key=JSON.stringify(ps);if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
+ if(!ps.length){{el.innerHTML="";return;}}
+ el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE VALUE</h2><span>updates every 15 sec</span></div>'+ps.map(function(p){{
+  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">🔴 LIVE</span></div>'+
+   
+   '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
+   '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
+   '<div class="ls">'+esc(p.score)+(p.ball?' · '+esc(p.ball):'')+'</div><div class="why">'+esc(p.line)+'</div>'+
+   ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
+   '</div></section>';}}).join("");}}
+function show(d){{if(d&&Date.now()-d.updated<10*60000)draw(d);else draw(null);}}
+function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/main/docs/sports/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
+function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
+ fetch("https://api.github.com/repos/{REPO}/contents/docs/sports/live.json?ref=main",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
+ .then(function(r){{return r.ok?r.json():raw()}}).catch(raw).then(show).catch(function(){{}});}}
+poll();setInterval(poll,15000);document.addEventListener("visibilitychange",poll);}})();
 (function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));
 var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
 document.getElementById("ago").textContent="Live · "+s;

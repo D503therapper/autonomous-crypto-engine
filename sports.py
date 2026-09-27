@@ -427,6 +427,11 @@ def run(repick=False, fetch=True):
         model["finals_seen"], model["odds_seen"], model["players_seen"] = n_final, n_odds, n_players
         print(f"tuned in {time.time() - t0:.0f}s: " + ", ".join(
             f"{lg} trust {p['trust']:.0%} acc {p['accuracy']:.1%}" for lg, p in model["params"].items()))
+        try:                                                            # the comeback study (live bets) learns too
+            import sports_comeback as sc
+            print(sc.summary(sc.study(games)))
+        except Exception as e:                                          # noqa: BLE001 - never block the board
+            print(f"comeback study failed: {e}")
     if repick:
         picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]

@@ -28,7 +28,7 @@ FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_
           "home_score", "away_score", "ml_home", "ml_away", "odds_time", "neutral",
           "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
           "inj_home", "inj_away", "sp_home", "sp_away", "stype", "country", "intl", "city", "state", "indoor",
-          "elev", "wx_temp", "wx_wind", "wx_rain", "tzo"]
+          "elev", "wx_temp", "wx_wind", "wx_rain", "tzo", "ls_home", "ls_away"]
 REAL = ("2", "3", "?")          # regular season + playoffs; preseason / spring training / all-star games don't count
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 
@@ -157,6 +157,15 @@ def parse_scoreboard(league, payload):
                 return int(float(s))
             except (TypeError, ValueError):
                 return ""
+        def lines(side):                                 # period-by-period points (the comeback study)
+            out = []
+            for x in teams[side].get("linescores") or []:
+                v = x.get("value", x.get("displayValue")) if isinstance(x, dict) else x
+                try:
+                    out.append(str(int(float(v))))
+                except (TypeError, ValueError):
+                    return ""
+            return ",".join(out)
         (hid, hname), (aid, aname) = team("home"), team("away")
         od = _odds(comp)
         venue = comp.get("venue") or {}
@@ -179,6 +188,7 @@ def parse_scoreboard(league, payload):
             "indoor": 1 if venue.get("indoor") or league in ("nba", "nhl", "ncaab") else 0,
             "sp_home": probable("home"), "sp_away": probable("away"),
             "stype": str((ev.get("season") or {}).get("type") or "?"),     # 1 preseason, 2 regular, 3 playoffs
+            "ls_home": lines("home") if status == "final" else "", "ls_away": lines("away") if status == "final" else "",
             **{k: ("" if v is None else v) for k, v in od.items()},
         })
     return out
@@ -242,6 +252,9 @@ def merge(old, new, now_iso):
         for k in ("start", "status", "home_name", "away_name", "home_score", "away_score", "neutral", "sp_home", "sp_away",
                   "stype", "country", "intl", "city", "state", "indoor"):
             g[k] = new[k]
+        for k in ("ls_home", "ls_away"):
+            if new.get(k):
+                g[k] = new[k]
     has = new["ml_home"] != "" and new["ml_away"] != ""
     if has and (new["status"] == "pre" or old is None or old.get("ml_home", "") == ""):
         for k in ODDS:
@@ -271,7 +284,7 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
     for lg in LEAGUES:
         synced = state.setdefault("synced", {}).get(lg)
         if any(not g.get("stype") or g.get("intl", "") == "" or g.get("indoor", "") == ""
-               for g in games.values() if g["league"] == lg):
+               for g in games.values() if g["league"] == lg) or lg not in state.setdefault("ls_walk", []):
             synced = None                                # stored before season types / venues were kept: re-read everything
             state.setdefault("from", {}).pop(lg, None)
         start = (datetime.strptime(synced, "%Y-%m-%d").date() - timedelta(days=3)) if synced \
@@ -326,6 +339,9 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
         upto = fails.get(lg, today + timedelta(days=1)) - timedelta(days=1)
         if upto >= today - timedelta(days=max_days):
             state["synced"][lg] = min(upto, today).strftime("%Y-%m-%d")
+    for lg in LEAGUES:                                   # history re-walk started for the quarter-by-quarter scores
+        if lg not in state["ls_walk"]:
+            state["ls_walk"].append(lg)
     save_games(games)
     return games, len(jobs), sum(1 for _, r in results if r is None)
 
@@ -417,7 +433,9 @@ def parse_an(payload):
                "ml_home": parse_american(close.get("ml_home")), "ml_away": parse_american(close.get("ml_away")),
                "ml_home_open": parse_american(open_.get("ml_home")), "ml_away_open": parse_american(open_.get("ml_away")),
                "spread_home": _num(close.get("spread_home")),
-               "spread_home_odds": parse_american(close.get("spread_home_line")), "spread_away_odds": parse_american(close.get("spread_away_line"))}
+               "spread_home_odds": parse_american(close.get("spread_home_line")), "spread_away_odds": parse_american(close.get("spread_away_line")),
+               "ls_home": ",".join(str(p.get("home_points") or 0) for p in (g.get("boxscore") or {}).get("linescore") or []),
+               "ls_away": ",".join(str(p.get("away_points") or 0) for p in (g.get("boxscore") or {}).get("linescore") or [])}
         if row["ml_home"] is not None and row["ml_away"] is not None:
             out.append(row)
     return out
@@ -477,6 +495,8 @@ def attach_an(games, league, rows):
                         g[k] = r[k]
             if r["ml_home_open"] is not None and r["ml_away_open"] is not None:
                 g["ml_home_open"], g["ml_away_open"] = r["ml_home_open"], r["ml_away_open"]
+            if r.get("ls_home") and g.get("status") == "final" and not g.get("ls_home"):
+                g["ls_home"], g["ls_away"] = r["ls_home"], r["ls_away"]
             break
     return filled
 

@@ -7,8 +7,10 @@ import tempfile
 from datetime import datetime, timedelta, timezone
 
 import sports
+import sports_comeback as sc
 import sports_data as sd
 import sports_model as sm
+import sports_live
 import sports_players as sp
 
 
@@ -316,6 +318,62 @@ def test_full_cycle_offline():
     finally:
         os.chdir(cwd)
         shutil.rmtree(tmp)
+
+
+def _sim_nba(n=3000, seed=7):
+    """Simulated NBA seasons with quarter scores: the truth is a normal random walk + the pregame edge."""
+    rnd = random.Random(seed)
+    games = {}
+    for i in range(n):
+        p = rnd.uniform(0.2, 0.8)
+        mu = 12.0 * sc.phi_inv(p)
+        h, a = [], []
+        for q in range(4):
+            d = rnd.gauss(mu / 4, 6.0)
+            base = rnd.randint(22, 30)
+            h.append(base + max(0, round(d)))
+            a.append(base + max(0, -round(d)))
+        if sum(h) == sum(a):
+            h[-1] += 1
+        ml_h = int(-100 * p / (1 - p)) if p >= 0.5 else int(100 * (1 - p) / p)
+        ml_a = int(100 * p / (1 - p)) if p >= 0.5 else int(-100 * (1 - p) / p)
+        gid = f"nba:{i}"
+        games[gid] = {"id": gid, "league": "nba", "start": f"2024-01-01T{i % 24:02d}:{i % 60:02d}Z{i}", "status": "final",
+                      "home": "1", "away": "2", "home_name": "Lakers", "away_name": "Celtics",
+                      "home_score": str(sum(h)), "away_score": str(sum(a)), "ml_home": str(ml_h), "ml_away": str(ml_a),
+                      "stype": "2", "ls_home": ",".join(map(str, h)), "ls_away": ",".join(map(str, a))}
+    return games
+
+
+def test_comeback_study_and_live_rules():
+    games = _sim_nba()
+    snaps = sc.snapshots(games, "nba")
+    assert len(snaps) == 3 * len(games)
+    fit = sc.fit_curve("nba", snaps)
+    assert fit["ll"] <= fit["ll_base"]                         # the study never makes the curve worse
+    st = {"nba": {"curve": fit, "table": sc.table("nba", snaps)}}
+    h = sc.spot(st, "nba", 0.5, 8, True)                        # a favorite down 6-10 at the half
+    assert h and h[0] >= sc.MIN_N and 0.05 < h[1] < 0.8 and sc.when("nba", h[2]) == "at the half"
+    box = {"period": 3, "clock": "11:00", "total_home_points": 64, "total_away_points": 70,
+           "linescore": [{"home_points": 25, "away_points": 30}, {"home_points": 28, "away_points": 30},
+                         {"home_points": 11, "away_points": 10}]}
+    g = {"id": "nba:x", "home_name": "Lakers", "away_name": "Celtics"}
+    # the Lakers were a solid favorite (65%), down 6 early in the 3rd, live at +320: history + better team -> a play
+    plays = sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1)
+    assert len(plays) == 1 and plays[0]["team"] == "Lakers" and plays[0]["odds"] == 320
+    pl = plays[0]
+    assert "history" in pl["reasons"] and "better" in pl["reasons"]
+    assert pl["breakdown"] and pl["breakdown"][0].startswith("📚") and "Lakers" in pl["line"]
+    # never minus money live
+    assert all(p["odds"] >= 100 for p in sports_live.evaluate("nba", g, box, -120, 100, st, 0.65, 0.65, 0.0, "", 1))
+    assert not [p for p in sports_live.evaluate("nba", g, box, -120, 100, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]
+    # a dog coming in (no 'better team', no pregame value, no ball, no momentum): history alone isn't enough
+    assert not [p for p in sports_live.evaluate("nba", g, box, 900, -2000, st, 0.35, 0.35, 0.0, "", 1)
+                if p["team"] == "Lakers"]
+    # no study for the sport yet: no bets
+    long_shot = dict(box, total_home_points=50)                # down 20: +900 is a lottery ticket, never a play
+    assert not [p for p in sports_live.evaluate("nba", g, long_shot, 900, -2000, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]
+    assert sports_live.evaluate("nba", g, box, 320, -400, {}, 0.65, 0.65, 0.0, "", 1) == []
 
 
 if __name__ == "__main__":
