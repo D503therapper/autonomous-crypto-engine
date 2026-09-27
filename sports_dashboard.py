@@ -412,7 +412,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"✅ {w_}-{l_}. Fed the whole squad today."]))
     else:
         lines.append(_rot(k, [f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' do better tomorrow.",
-                              f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back — we won't let y'all down.",
+                              f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
                               f"😤 {w_}-{l_}. Not our day — the engine's already studying the tape.",
                               f"😤 Took some L's today ({w_}-{l_}). Shake it off. We gon' be right back.",
                               f"😤 {w_}-{l_}. Today was trash, no sugarcoating it. Tomorrow we eat.",
