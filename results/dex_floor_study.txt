@@ -1,0 +1,177 @@
+live exit (config.DEX['exit']): {'trail': 0.95, 'tp1': (999.0, 0.0), 'ladder': [], 'trail_steps': [], 'max_hold_days': 14, 'runner_at_limit': (1.0, 0.4), 'liq_pull': 0.5, 'rug_tax': 0.5}; break-even floor = entry x 1.016; slots 5
+  live   current: hold 14d, no stop; >=2x at day 14 -> 40% trail
+  a      a) peak>=+50% -> floor at break-even
+  b      b) peak>=+75% -> floor at +25%
+  c      c) peak>=+100% -> 40% trail from peak
+  d      d) peak>=+100% -> floor +50%; 3x -> 50% trail
+  e      e) sell half at +100%, rest current rule
+  e_dex  e') half at +100% as dex.py tp1 (no clock, BE stop)
+
+======================================================================================================================
+0. DATA
+======================================================================================================================
+legends (dex_legends_study's sources, hourly preferred):
+  SHIB      legend   cmc:5994 (daily) 2020-08-01..2023-08-06, 1101 bars
+  PEPE      legend   cmc:24478 (daily) 2023-04-14..2026-04-18, 1101 bars
+  BONK      legend   cmc:23095 (daily) 2022-12-30..2025-12-29, 1096 bars; starts 5d after launch
+  WIF       legend   cmc:28752 (daily) 2023-11-20..2026-09-26, 1042 bars
+  POPCAT    legend   cmc:28782 (daily) 2023-12-12..2026-09-26, 1020 bars
+  MOG       legend   cmc:27659 (daily) 2023-07-20..2026-07-23, 1100 bars
+  FLOKI     legend   yahoo:FLOKI-USD (daily) 2021-07-10..2026-09-27, 1898 bars; starts 15d after launch
+  BRETT     legend   cmc:29743 (daily) 2024-02-27..2026-09-26, 943 bars
+  BOME      legend   yahoo:BOME-USD (daily) 2024-03-14..2026-09-27, 928 bars
+  MEW       legend   yahoo:MEW30126-USD (daily) 2024-03-26..2026-09-27, 916 bars
+  TURBO     legend   cmc:24911 (daily) 2023-05-01..2026-05-03, 1099 bars
+  SPX       legend   yahoo:SPX28081-USD (daily) 2023-09-21..2026-09-27, 1103 bars; starts 32d after launch
+  FARTCOIN  legend   yahoo:FARTCOIN-USD (daily) 2024-10-23..2026-09-27, 705 bars; starts 5d after launch
+  GOAT      legend   yahoo:GOAT33440-USD (daily) 2024-10-14..2026-09-27, 714 bars; starts 4d after launch
+  PNUT      legend   yahoo:PNUT-USD (hourly) 2024-11-04..2026-09-27, 16575 bars; starts 3d after launch
+  MOODENG   legend   yahoo:MOODENG33093-USD (daily) 2024-09-21..2026-09-27, 737 bars; starts 11d after launch
+  ELON      legend   yahoo:ELON-USD (daily) 2021-05-11..2026-09-27, 202 bars; starts 18d after launch
+  AKITA     legend   yahoo:AKITA39716-USD (hourly) 2026-03-20..2026-09-27, 4486 bars; starts 1873d after launch
+  KISHU     no price history
+  SAMO      legend   yahoo:SAMO-USD (daily) 2021-05-12..2026-09-27, 1965 bars; starts 22d after launch
+  BABYDOGE  no price history
+  TRUMP     collapse yahoo:TRUMP35336-USD (daily) 2025-01-18..2026-09-27, 618 bars
+  MELANIA   collapse yahoo:MELANIA35347-USD (daily) 2025-01-19..2026-09-27, 617 bars
+  LIBRA     no price history
+  SLERF     collapse yahoo:SLERF-USD (daily) 2024-03-18..2026-09-27, 924 bars
+  SAITAMA   collapse yahoo:SAITAMA32310-USD (daily) 2024-07-22..2026-09-27, 789 bars; starts 1148d after launch
+  SAFEMOON  no price history
+  SQUID     no price history
+  LUNC      collapse cmc:4172 (daily) 2019-07-26..2022-07-30, 1101 bars
+  FTT       collapse yahoo:FTT-USD (daily) 2019-07-31..2026-09-27, 2616 bars
+
+pools (dex_runner_study's registry + selection, hourly GeckoTerminal):
+349 candidate pools (dex_runner_study's selection: >= 8 days old, >= $15k reserve ever seen); window from 2026-07-07 09:04
+  fetched 1/349  calls 173  429s 7  pools kept 1  2008s
+  fetched 101/349  calls 372  429s 14  pools kept 101  4396s
+  fetched 201/349  calls 565  429s 21  pools kept 201  6711s
+  fetched 301/349  calls 753  429s 28  pools kept 301  8966s
+API calls 834 (429s 31); pools with usable history 349; skipped: 
+
+======================================================================================================================
+1. LEGENDS / COLLAPSES / RUGS  (x = multiple of the stake at the final exit; stake $100, no price impact)
+======================================================================================================================
+coin / entry                 src         entry    peak    live       a       b       c       d       e   e_dex
+SHIB caught early            day    2020-08-05    2.0x    1.0x    1.0x    1.2x    1.2x    1.5x    1.5x    1.5x
+PEPE caught early            day    2023-04-16  188.8x  110.4x  110.4x  110.4x   31.0x   25.8x   56.2x  242.7x
+BONK caught early            day    2023-01-01   25.0x    7.0x    7.0x    7.0x   13.9x    1.5x    4.5x    1.6x
+WIF caught early             day    2023-11-23    1.4x    0.7x    0.7x    0.7x    0.7x    0.7x    0.7x    0.7x
+POPCAT caught early          day    2023-12-14  121.1x   24.6x   24.6x   24.6x    6.3x    7.9x   13.3x  125.0x
+MOG caught early             day    2023-07-22    2.0x    1.6x    1.0x    1.6x    1.6x    1.6x    1.6x    1.6x
+FLOKI caught early           day    2021-07-21    2.7x    1.3x    1.0x    1.3x    1.6x    1.5x    1.6x    3.8x
+BRETT caught early           day    2024-02-29   76.9x   45.0x   45.0x   45.0x   18.7x   29.9x   23.5x    9.3x
+BOME caught early            day    2024-03-16    3.1x    1.4x    1.0x    1.2x    1.8x    1.5x    1.7x    1.5x
+MEW caught early             day    2024-03-28    7.1x    2.7x    2.7x    2.7x    4.1x    3.5x    2.3x    1.5x
+TURBO caught early           day    2023-05-03    9.8x    1.8x    1.0x    1.2x    1.7x    1.5x    1.9x    1.5x
+SPX caught early             day    2023-09-25    4.3x    2.1x    2.1x    2.1x    2.3x    2.1x    2.0x    1.5x
+FARTCOIN caught early        day    2024-10-30   14.8x    8.6x    8.6x    8.6x    8.6x    8.6x    5.3x    3.3x
+GOAT caught early            day    2024-10-16    4.3x    2.5x    1.0x    1.2x    1.5x    1.5x    2.2x    1.5x
+PNUT live entry              hour   2024-11-04   51.0x   29.8x   29.8x   29.8x    1.9x    1.6x   15.9x    2.2x
+MOODENG caught early         day    2024-09-25    4.2x    1.9x    1.9x    1.9x    2.5x    2.1x    1.9x    1.5x
+ELON caught early            day    2021-10-30    1.5x    1.0x    1.0x    1.0x    1.0x    1.0x    1.0x    1.0x
+AKITA live entry             hour   2026-03-24    1.0x    0.8x    0.8x    0.8x    0.8x    0.8x    0.8x    0.8x
+AKITA caught early           hour   2026-03-20    3.9x    2.3x    2.3x    2.3x    2.3x    2.3x    2.1x    1.9x
+SAMO caught early            day    2021-05-15    1.1x    0.1x    0.1x    0.1x    0.1x    0.1x    0.1x    0.1x
+TRUMP caught early           day    2025-01-20    1.4x    0.4x    0.4x    0.4x    0.4x    0.4x    0.4x    0.4x
+MELANIA caught early         day    2025-01-22    1.0x    0.4x    0.4x    0.4x    0.4x    0.4x    0.4x    0.4x
+SLERF caught early           day    2024-03-20    1.2x    0.6x    0.6x    0.6x    0.6x    0.6x    0.6x    0.6x
+SAITAMA caught early         day    2024-07-25    1.7x    0.3x    1.0x    0.3x    0.3x    0.3x    0.3x    0.3x
+LUNC caught early            day    2019-08-12    1.5x    0.9x    1.0x    0.9x    0.9x    0.9x    0.9x    0.9x
+FTT caught early             day    2019-08-07    1.4x    0.7x    0.7x    0.7x    0.7x    0.7x    0.7x    0.7x
+
+where each variant sold the big ones (x entry price, date, why):
+  PEPE caught early
+    live    110.4x  100% at 113.3x 2023-05-03 (runner trail)
+    a       110.4x  100% at 113.3x 2023-05-03 (runner trail)
+    b       110.4x  100% at 113.3x 2023-05-03 (runner trail)
+    c        31.0x  100% at 31.8x 2023-04-21 (floor/trail)
+    d        25.8x  100% at 26.5x 2023-04-21 (floor/trail)
+    e        56.2x  50% at 2.0x 2023-04-16 (sell 50% at 2x); 100% at 113.3x 2023-05-03 (runner trail)
+    e_dex   242.7x  50% at 2.0x 2023-04-16 (sell 50% at 2x) (still open)
+  BONK caught early
+    live      7.0x  100% at 7.2x 2023-01-16 (runner trail)
+    a         7.0x  100% at 7.2x 2023-01-16 (runner trail)
+    b         7.0x  100% at 7.2x 2023-01-16 (runner trail)
+    c        13.9x  100% at 14.3x 2023-01-06 (floor/trail)
+    d         1.5x  100% at 1.5x 2023-01-02 (floor/trail)
+    e         4.5x  50% at 2.0x 2023-01-01 (sell 50% at 2x); 100% at 7.2x 2023-01-16 (runner trail)
+    e_dex     1.6x  50% at 2.0x 2023-01-01 (sell 50% at 2x); 100% at 1.2x 2023-08-21 (floor/trail)
+  POPCAT caught early
+    live     24.6x  100% at 25.2x 2023-12-29 (runner trail)
+    a        24.6x  100% at 25.2x 2023-12-29 (runner trail)
+    b        24.6x  100% at 25.2x 2023-12-29 (runner trail)
+    c         6.3x  100% at 6.5x 2023-12-15 (floor/trail)
+    d         7.9x  100% at 8.1x 2023-12-16 (floor/trail)
+    e        13.3x  50% at 2.0x 2023-12-14 (sell 50% at 2x); 100% at 25.2x 2023-12-29 (runner trail)
+    e_dex   125.0x  50% at 2.0x 2023-12-14 (sell 50% at 2x); 100% at 254.6x 2025-10-10 (floor/trail)
+  BRETT caught early
+    live     45.0x  100% at 46.1x 2024-03-18 (runner trail)
+    a        45.0x  100% at 46.1x 2024-03-18 (runner trail)
+    b        45.0x  100% at 46.1x 2024-03-18 (runner trail)
+    c        18.7x  100% at 19.2x 2024-03-07 (floor/trail)
+    d        29.9x  100% at 30.7x 2024-03-14 (runner trail)
+    e        23.5x  50% at 2.0x 2024-03-01 (sell 50% at 2x); 100% at 46.1x 2024-03-18 (runner trail)
+    e_dex     9.3x  50% at 2.0x 2024-03-01 (sell 50% at 2x); 100% at 17.0x 2026-01-30 (floor/trail)
+  FARTCOIN caught early
+    live      8.6x  100% at 8.9x 2024-11-20 (runner trail)
+    a         8.6x  100% at 8.9x 2024-11-20 (runner trail)
+    b         8.6x  100% at 8.9x 2024-11-20 (runner trail)
+    c         8.6x  100% at 8.9x 2024-11-20 (runner trail)
+    d         8.6x  100% at 8.9x 2024-11-20 (runner trail)
+    e         5.3x  50% at 2.0x 2024-11-05 (sell 50% at 2x); 100% at 8.9x 2024-11-20 (runner trail)
+    e_dex     3.3x  50% at 2.0x 2024-11-05 (sell 50% at 2x); 100% at 4.9x 2026-06-04 (floor/trail)
+  PNUT live entry
+    live     29.8x  100% at 30.6x 2024-11-20 (runner trail)
+    a        29.8x  100% at 30.6x 2024-11-20 (runner trail)
+    b        29.8x  100% at 30.6x 2024-11-20 (runner trail)
+    c         1.9x  100% at 2.0x 2024-11-08 (floor/trail)
+    d         1.6x  100% at 1.6x 2024-11-09 (floor/trail)
+    e        15.9x  50% at 2.0x 2024-11-06 (sell 50% at 2x); 100% at 30.6x 2024-11-20 (runner trail)
+    e_dex     2.2x  50% at 2.0x 2024-11-06 (sell 50% at 2x); 100% at 2.6x 2025-04-09 (floor/trail)
+
+legends that lose their big multiple (< 80% of the live multiple, where live >= 5x):
+  a) peak>=+50% -> floor at break-even                 none
+  b) peak>=+75% -> floor at +25%                       none
+  c) peak>=+100% -> 40% trail from peak                PEPE caught early, POPCAT caught early, BRETT caught early, PNUT live entry
+  d) peak>=+100% -> floor +50%; 3x -> 50% trail        PEPE caught early, BONK caught early, POPCAT caught early, BRETT caught early, PNUT live entry
+  e) sell half at +100%, rest current rule             PEPE caught early, BONK caught early, POPCAT caught early, BRETT caught early, FARTCOIN caught early, PNUT live entry
+  e') half at +100% as dex.py tp1 (no clock, BE stop)  BONK caught early, BRETT caught early, FARTCOIN caught early, PNUT live entry
+
+======================================================================================================================
+2. POOLS: the engine's entry through each exit variant  (349 pools; costs 0.3% + 1% + impact per side, rug -95%; 5-slot compounding account, 1/5 of equity per trade)
+======================================================================================================================
+window 2026-07-07 12:00 .. 2026-09-27 13:35; older half < 2026-09-01 09:00 <= newer half (split = median live-rule entry)
+
+exit variant                                            n    mean  median  win  >=2x  avg win  TEXTIT |   month   older   newer  maxDD
+current: hold 14d, no stop; >=2x at day 14 -> 40% trail  342  +59.0%   -7.4%  42%   12%  +178.5%  52/163 |  +44.0%   -2.9% +275.8%   -46%
+a) peak>=+50% -> floor at break-even                  432  +18.5%   -1.6%  26%    8%  +120.6% 149/227 |  +24.0%  -12.2%  -37.6%   -38%
+b) peak>=+75% -> floor at +25%                        407  +26.1%   +5.8%  53%    7%   +75.6%  25/206 |  +10.4%  -15.4%  +60.9%   -37%
+c) peak>=+100% -> 40% trail from peak                 405  +24.9%   -1.1%  50%    9%   +81.3%  35/202 |  +58.0%  -14.4% +464.9%   -40%
+d) peak>=+100% -> floor +50%; 3x -> 50% trail         408  +21.9%   -1.4%  50%    7%   +74.9%  37/207 |  +44.5%  +15.9% +194.0%   -37%
+e) sell half at +100%, rest current rule              342  +37.0%   -3.9%  47%   12%  +109.8%  35/163 |  +28.7%   -4.7% +173.8%   -47%
+e') half at +100% as dex.py tp1 (no clock, BE stop)   341  +30.9%   -1.8%  49%   10%   +91.6%  33/170 |   -2.1%  -19.3%  +73.7%   -52%
+(>=2x = share of trades closed at >= +100%; avg win = mean return of the winning trades; TEXTIT = trades that peaked >= +50% and still closed at a loss / trades that peaked >= +50%; month / older / newer = compounding monthly return, the newer half is out-of-sample for every variant since none was fitted on this data)
+  best trades live : BASECAT +3650.3% (peak 90.1x), STONK +3419.5% (peak 87.0x), STONKEX +2555.6% (peak 60.7x), FWA +2172.7% (peak 85.5x), CALI +940.9% (peak 13.5x), OTC +778.7% (peak 25.8x)
+  best trades a    : STONKEX +2555.6% (peak 60.7x), STONK +721.3% (peak 16.1x), FISH-SPEECH +659.1% (peak 13.1x), CALI +614.6% (peak 9.2x), CODEFORMER +566.7% (peak 21.3x), FISH-SPEECH +494.2% (peak 10.3x)
+  best trades c    : FWA +1431.6% (peak 26.6x), CODEFORMER +1018.7% (peak 19.4x), LSK +690.5% (peak 13.6x), CATE +506.6% (peak 10.4x), STONK +504.3% (peak 10.4x), FISH-SPEECH +494.2% (peak 10.3x)
+  best trades e    : BASECAT +1899.9% (peak 90.1x), STONK +1780.3% (peak 87.0x), STONKEX +1339.4% (peak 60.7x), FWA +1141.5% (peak 85.5x), CALI +521.4% (peak 13.5x), OTC +437.9% (peak 25.8x)
+
+wrote 182 traded pools + 25 legend series to results/dex_floor_hourly.json.gz (offline re-analysis: --from-dump)
+
+======================================================================================================================
+3. VERDICT  (apply only if monthly return >= the current rule in BOTH halves AND no legend loses its big multiple)
+======================================================================================================================
+current rule: +44.0%/month (older -2.9%, newer +275.8%), max drawdown -46%, 2x-rate 12%, avg winner +178.5%
+  a) peak>=+50% -> floor at break-even                 older -9.3% pts, newer -313.4% pts, maxDD -38%, legends kept -> fails
+  b) peak>=+75% -> floor at +25%                       older -12.5% pts, newer -214.9% pts, maxDD -37%, legends kept -> fails
+  c) peak>=+100% -> 40% trail from peak                older -11.5% pts, newer +189.1% pts, maxDD -40%, legends LOST PEPE caught early, POPCAT caught early, BRETT caught early, PNUT live entry -> fails
+  d) peak>=+100% -> floor +50%; 3x -> 50% trail        older +18.9% pts, newer -81.8% pts, maxDD -37%, legends LOST PEPE caught early, BONK caught early, POPCAT caught early, BRETT caught early, PNUT live entry -> fails
+  e) sell half at +100%, rest current rule             older -1.7% pts, newer -102.0% pts, maxDD -47%, legends LOST PEPE caught early, BONK caught early, POPCAT caught early, BRETT caught early, FARTCOIN caught early, PNUT live entry -> fails
+  e') half at +100% as dex.py tp1 (no clock, BE stop)  older -16.4% pts, newer -202.1% pts, maxDD -52%, legends LOST BONK caught early, BRETT caught early, FARTCOIN caught early, PNUT live entry -> fails
+
+NO VARIANT PASSES: keep the current exit.
+
+CAVEATS: pools are picked today (survivorship: rugs before the registry saw them are missing); liquidity is estimated (sqrt of price); hourly bars can't see a spike inside the hour, so a floor fills at the next hourly open or its level; legends are chosen in hindsight and some only have daily bars. Rank the variants, don't read the totals as a forecast.
+(9949s)
