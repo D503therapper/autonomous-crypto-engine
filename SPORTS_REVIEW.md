@@ -43,6 +43,10 @@ including losing days and your own bugs.
   ("comeback study: ...") and upgrade it (new spot splits: home/away, rest, pace, fouls, timeouts, power
   plays). Keep the live lines (blurb, full_breakdown) and the live/big-hit brags in sports_dashboard.py fresh
   in the owner's voice too: "we smacked a +400, I tried to fucking tell y'all, let's go".
+- **Live glitches are void.** A live play that came from a bad price (a stale or pregame line, a feed glitch) is
+  removed from data/sports/live_log.json - it never counts in the results. Live prices come from Bovada's
+  live feed (DraftKings via ESPN when Bovada has none); if run.log / live.json "books" shows the feed empty or
+  erroring, fix it or tell the owner.
 - **🎾 Tennis bonus (sports_tennis.py).** Men's singles only, a collapsed bonus section at the bottom, never in
   the main board or records: 8 straights (value first, big favorites allowed) + a 3-leg Tennis Parlay of the
   Day. Prices come from Bovada's public feed: if run.log shows "BOVADA FAILED" for a day, tell the owner

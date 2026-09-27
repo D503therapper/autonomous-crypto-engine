@@ -372,16 +372,14 @@ def dk_live(league, g):
 
 
 def two_books(dk, bov):
-    """The live price from two real sportsbooks (DraftKings via ESPN, Bovada): (home, away, confirmed).
-    Both agree = confirmed; only one = used, unconfirmed; far apart = something's glitched = no price."""
-    have = [x for x in (dk, bov) if x[0] is not None and x[1] is not None]
-    if not have:
-        return None, None, False
-    if len(have) == 2:
-        if abs(sd.no_vig(*have[0]) - sd.no_vig(*have[1])) > AGREE:
-            return None, None, False
-        return have[0][0], have[0][1], True
-    return have[0][0], have[0][1], False
+    """The live price: Bovada's line (a real sportsbook - enough on its own); DraftKings' (via ESPN) when Bovada has
+    none. confirmed = the other book roughly agrees, which also switches off the too-far-off filter."""
+    ok = [x[0] is not None and x[1] is not None for x in (dk, bov)]
+    if ok[1]:
+        return bov[0], bov[1], ok[0] and abs(sd.no_vig(*bov) - sd.no_vig(*dk)) <= AGREE
+    if ok[0]:
+        return dk[0], dk[1], False
+    return None, None, False
 
 
 def book_line(lines, g):
