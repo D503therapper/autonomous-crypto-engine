@@ -1,0 +1,24 @@
+<!-- D503 Sports app icon (neon sign). Fonts from npm @fontsource/anton + @fontsource/black-ops-one placed in tools/fonts/. Render 512x512 in a headless browser -> docs/sports/icon-512.png; downscale to 180 -> apple-touch-icon.png -->
+<!doctype html><html><head><style>@font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2)}@font-face{font-family:BOO;src:url(fonts/black-ops-one-latin-400-normal.woff2)}html,body{margin:0}</style></head><body><svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><defs>
+<filter id="n" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="a"/><feGaussianBlur stdDeviation="10" result="b"/><feGaussianBlur stdDeviation="24" result="c"/><feMerge><feMergeNode in="c"/><feMergeNode in="b"/><feMergeNode in="a"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="a"/><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="a"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<pattern id="brick" width="64" height="32" patternUnits="userSpaceOnUse"><rect width="64" height="32" fill="#0c0d10"/><path d="M0 0H64M0 16H64M16 0V16M48 16V32" stroke="#1a1c22" stroke-width="2"/></pattern>
+<radialGradient id="spill" cx="50%" cy="48%" r="55%"><stop offset="0" stop-color="#1e7bff" stop-opacity=".22"/><stop offset="1" stop-color="#1e7bff" stop-opacity="0"/></radialGradient>
+<radialGradient id="v" cx="50%" cy="50%" r="72%"><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".92"/></radialGradient></defs>
+<rect width="512" height="512" fill="url(#brick)"/><rect width="512" height="512" fill="url(#spill)"/><rect width="512" height="512" fill="url(#v)"/>
+<!-- double tube frame -->
+<rect x="40" y="60" width="432" height="392" rx="34" fill="none" stroke="#1e7bff" stroke-width="6" filter="url(#n)"/>
+<rect x="56" y="76" width="400" height="360" rx="24" fill="none" stroke="#1e7bff" stroke-width="2.5" opacity=".8" filter="url(#s)"/>
+<!-- sports icons -->
+<g fill="none" stroke="#ff2a2a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#s)">
+ <g transform="translate(118 128)"><path d="M-26 0 C-14 -18 14 -18 26 0 C14 18 -14 18 -26 0 Z"/><path d="M-8 0 H8 M-4 -5 V5 M0 -5 V5 M4 -5 V5"/></g>
+ <g transform="translate(206 128)"><circle r="21"/><path d="M-21 0 H21 M0 -21 V21 M-15 -15 C-6 -6 -6 6 -15 15 M15 -15 C6 -6 6 6 15 15"/></g>
+ <g transform="translate(306 128)"><circle r="21"/><path d="M-12 -17 C-5 -8 -5 8 -12 17 M12 -17 C5 -8 5 8 12 17"/></g>
+ <g transform="translate(394 128)"><path d="M10 -24 L-6 16 C-8 21 -12 22 -18 22 H-26"/><ellipse cx="18" cy="18" rx="10" ry="5"/></g>
+</g>
+<text x="256" y="302" font-family="Anton" font-size="164" text-anchor="middle" fill="#ffffff" stroke="#46a8ff" stroke-width="4" filter="url(#n)" style="font-style:italic">D503</text>
+<path d="M104 322 H408" stroke="#ff2a2a" stroke-width="4" stroke-linecap="round" filter="url(#s)"/>
+<text x="256" y="382" font-family="BOO" font-size="46" letter-spacing="11" text-anchor="middle" fill="#fff1ee" stroke="#ff2a2a" stroke-width="2" filter="url(#n)">SPORTS</text>
+<g fill="#ff2a2a" filter="url(#s)"><path d="M84 369 l7 -14 l7 14 z" transform="rotate(90 91 362)"/><path d="M414 369 l7 -14 l7 14 z" transform="rotate(-90 421 362)"/></g>
+<text x="256" y="420" font-family="Anton" font-size="18" letter-spacing="7" text-anchor="middle" fill="#ffd60a" filter="url(#s)">★ TRUST THE ALGORITHM! ★</text>
+</svg></body></html>

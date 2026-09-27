@@ -1,0 +1,30 @@
+# THE D503 SPORTS ENGINE (paper picks only). Every hour: sync scores + odds from ESPN, grade picks,
+# retrain on new results, post the daily board after 8am Pacific, rebuild docs/sports/index.html.
+name: sports
+on:
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch: {}
+  push:
+    paths: [".github/workflows/sports.yml", "sports.py", "sports_data.py", "sports_model.py", "sports_dashboard.py"]
+permissions:
+  contents: write
+concurrency:
+  group: sports-${{ github.ref_name }}
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python sports_test.py
+      - run: python -u sports.py 2>&1 | tee -a data/sports/run.log
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports docs/sports
+          git commit -qm "sports $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done

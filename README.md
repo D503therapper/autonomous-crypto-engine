@@ -36,3 +36,29 @@ Run it forward on paper for **at least 8–12 weeks**. Consider real money only 
 - The Crypto.com **App** charges through a spread, often 0.5–1%+ per side. That is why `FEE_RATE` is set to 0.5%. Frequent trading on the App is expensive.
 - The Exchange API lists some coins the App doesn't carry, and the other way round. Check `UNIVERSE` against your App.
 - A backtest is not a prediction, and past trends don't guarantee future ones.
+
+---
+
+# THE D503 SPORTS ENGINE (paper picks, $100 each)
+Phone dashboard: https://d503therapper.github.io/autonomous-crypto-engine/sports/
+(Safari → Share → **Add to Home Screen**.)
+
+Every hour, `.github/workflows/sports.yml` runs `sports.py`:
+1. **Data:** games, final scores and odds (moneylines, spreads, opening lines) for NFL, college football,
+   NBA, MLB and NHL from ESPN's free scoreboard API. On the first run it backfills about 18 months of results.
+2. **Grades** every open pick once its games finish.
+3. **Retrains** after every batch of new final scores (`sports_model.py`). It uses team ratings (Elo, with
+   margin of victory), recent form, rest, back-to-backs, injuries (players Out/Doubtful), and line movement
+   (the free stand-in for sharp money). These are blended with the betting market by a learned "trust" weight.
+   What changed is logged in `data/sports/model.json` and shown on the dashboard under "The Brain".
+4. **The board** goes up at the first run after 8am Pacific:
+   - **2-Leg of the Day:** $100 wins at least $500. One leg per game, no moneyline leg shorter than −150.
+   - **3-Leg of the Day:** $100 wins at least $1,000. Same leg rules.
+   - **Lock of the Day:** a moneyline no shorter than −120, picked for the highest win chance.
+   - **Dog of the Day:** a plus-money moneyline picked for the best value. Big dogs are allowed.
+   - Spreads are used only in NFL, college football and NBA. There are no run lines, puck lines or player props.
+5. Rebuilds `docs/sports/index.html`.
+
+Files: `data/sports/picks.json` (every pick and result), `model.json` (the brain), `games/<league>/<month>.csv`.
+Commands: `python sports.py` (one cycle), `python sports.py --repick` (redo today's board),
+`python sports_test.py` (offline tests). Rule settings sit at the top of `sports.py`.
