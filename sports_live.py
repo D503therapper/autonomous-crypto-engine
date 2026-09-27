@@ -276,8 +276,9 @@ def _get(url, tries=2):
 
 
 def _get1(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=20) as r:   # (Bovada sends an empty list to a bare Python client)
+    hdr = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"} if "bovada" in url else {}   # Bovada sends an empty
+    req = urllib.request.Request(url, headers=hdr)                            # list to a bare client; ESPN 403s a browser one
+    with urllib.request.urlopen(req, timeout=20) as r:
         return json.load(r)
 
 
@@ -381,6 +382,7 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     return out
 
 
+CAP = [False]                 # today's live limit is used up (the dashboard says so instead of looking empty)
 BOOKS = {}                    # what the sportsbook feed returned this cycle, per league (diagnostics)
 FINALS = set()                # games seen final (a new one = grade the board right away)
 WATCHING = [0]
@@ -644,6 +646,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     today_n = sum(e.get("date") == now.astimezone(PT).date().isoformat() and e.get("result") != "void"
                   for e in log["plays"].values())
     room = max(0, MAX_PER_DAY - today_n)                     # daily cap: only plays already up, plus what's left
+    CAP[0] = room == 0
     plays = [p for p in plays if p["id"] in showing or p["id"] in log["plays"]] + \
         sorted((p for p in plays if p["id"] not in showing and p["id"] not in log["plays"]), key=lambda x: -x["p"])[:room]
     plays = board(plays, showing)
@@ -720,7 +723,7 @@ def run():
     plays = cycle(games, model, log, showing=list(prev), prev=prev)
     health = health_check()
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
-           "health": health,
+           "health": health, "cap_hit": CAP[0],
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
     del sd.ERRORS[:]
@@ -890,11 +893,23 @@ def _code_hash():
     return h.hexdigest()
 
 
+def queue_next():
+    """Queue the next watch right behind this one (GitHub's 30-minute schedule can skip runs - a skipped run once left
+    the live board stale). Needs GH_TOKEN (the workflow passes its own token). True if queued."""
+    if not os.environ.get("GH_TOKEN"):
+        return False
+    import subprocess
+    r = subprocess.run(["gh", "workflow", "run", "sports-live.yml", "--ref", "main"], capture_output=True, text=True)
+    print(f"{datetime.now(timezone.utc):%H:%M:%S} next watch queued: {r.returncode == 0} {r.stderr.strip()[:100]}", flush=True)
+    return r.returncode == 0
+
+
 def loop(minutes, every_s=10):
     """Watch live games every `every_s` seconds for `minutes`. Phones see every change right away (live-data
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
     code = _code_hash()
+    queued = False
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
     finals_seen = None
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
@@ -913,6 +928,8 @@ def loop(minutes, every_s=10):
                 os.execv(sys.executable, [sys.executable, "-u", "sports_live.py", "--loop", f"{left:.1f}"])
             print(f"{datetime.now(timezone.utc):%H:%M:%S} loading data", flush=True)
             games, _ = _data(reload=True)
+        if any_live_soon(games) and not queued:
+            queued = queue_next()
         if not any_live_soon(games):
             idle_since = idle_since or time.time()
             if not started or time.time() - idle_since > 5 * 60:        # nothing on: don't burn the clock
