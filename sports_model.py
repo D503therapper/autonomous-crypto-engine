@@ -374,6 +374,15 @@ def tune(games, league, prev=None):
         w4[0] = min(1.0, max(0.0, w4[0]))
         params["trust"], params["move_w"], params["cal"], params["hdog"] = w4
         ll_final = logloss([(sigmoid(o + sum(a * b for a, b in zip(w4, x))), y) for o, x, (_, _, y) in zip(off, X, odds)])
+        # the honest test: fit the blend on the first 2/3 of these games, grade it on the last 1/3 it never saw
+        cut = len(odds) * 2 // 3
+        wt = fit_logistic_offset(X[:cut], [y for _, _, y in odds[:cut]], off[:cut], prior=[TRUST_CAUTIOUS, 0.0, 0.0, 0.0], lam=8.0)
+        wt[0] = min(1.0, max(0.0, wt[0]))
+        test = [(sigmoid(o + sum(a * b for a, b in zip(wt, x))), y) for o, x, (_, _, y) in zip(off[cut:], X[cut:], odds[cut:])]
+        mk_test = [(sigmoid(o), y) for o, (_, _, y) in zip(off[cut:], odds[cut:])]
+        params["oos"] = {"games": len(test), "acc": round(sum((q > 0.5) == (y == 1.0) for q, y in test) / len(test), 4),
+                         "acc_market": round(sum((q > 0.5) == (y == 1.0) for q, y in mk_test) / len(mk_test), 4),
+                         "ll": round(logloss(test), 4), "ll_market": round(logloss(mk_test), 4)}
     # 4. spreads: expected margin
     sp = {}
     if league in SPREAD_LEAGUES:
