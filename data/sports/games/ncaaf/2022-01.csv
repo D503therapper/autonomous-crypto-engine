@@ -1,11 +1,11 @@
-id,league,start,status,home,away,home_name,away_name,home_score,away_score,ml_home,ml_away,odds_time,neutral,ml_home_open,ml_away_open,spread_home,spread_home_odds,spread_away_odds,inj_home,inj_away,sp_home,sp_away,stype,country,intl,city,state,indoor,elev,wx_temp,wx_wind,wx_rain,tzo,ls_home,ls_away
-ncaaf:401331234,ncaaf,2022-01-01T00:30Z,final,130,61,Michigan,Georgia,11,34,,,,1,,,,,,,,,,3,USA,0,Miami Gardens,FL,0,2,,,,-5.0,"0,3,0,8","14,13,0,7"
-ncaaf:401331236,ncaaf,2022-01-01T17:00Z,final,8,213,Arkansas,Penn State,24,10,,,,1,,,,,,,,,,3,USA,0,Tampa,FL,0,1,71,15,0.0,-5.0,"7,0,17,0","0,10,0,0"
-ncaaf:401331237,ncaaf,2022-01-01T18:00Z,final,96,2294,Kentucky,Iowa,20,17,,,,1,,,,,,,,,,3,USA,0,Orlando,FL,0,30,71,10,0.0,-5.0,"7,6,0,7","0,3,7,7"
-ncaaf:401331238,ncaaf,2022-01-01T18:00Z,final,87,197,Notre Dame,Oklahoma St,35,37,,,,1,,,,,,,,,,3,USA,0,Glendale,AZ,1,351,,,,-7.0,"14,14,0,7","7,7,17,6"
-ncaaf:401331239,ncaaf,2022-01-01T22:00Z,final,194,254,Ohio State,Utah,48,45,,,,1,,,,,,,,,,3,USA,0,Pasadena,CA,0,263,,,,-8.0,"0,21,10,17","14,21,3,7"
-ncaaf:401331240,ncaaf,2022-01-02T01:45Z,final,145,239,Ole Miss,Baylor,7,21,,,,1,,,,,,,,,,3,USA,0,New Orleans,LA,1,0,,,,-6.0,"0,0,7,0","0,7,0,14"
-ncaaf:401331241,ncaaf,2022-01-05T02:00Z,final,2306,99,Kansas St,LSU,42,20,,,,1,,,,,,,,,,3,USA,0,Houston,TX,1,12,,,,-6.0,"7,14,7,14","0,7,0,13"
-ncaaf:401391352,ncaaf,2022-01-08T17:00Z,final,2449,147,N Dakota St,Montana St,38,10,,,,1,,,,,,,,,,3,USA,0,Frisco,TX,0,212,,,,-6.0,"7,21,10,0","0,0,3,7"
-ncaaf:401331242,ncaaf,2022-01-11T01:00Z,final,333,61,Alabama,Georgia,18,33,,,,1,,,,,,,,,,3,USA,0,Indianapolis,IN,1,218,,,,-5.0,"3,6,0,9","0,6,7,20"
-ncaaf:401386136,ncaaf,2022-01-29T23:00Z,final,3193,3194,American,National,24,25,,,,1,,,,,,,,,,4,USA,0,Pasadena,CA,0,263,,,,-8.0,"7,7,3,7","0,3,14,8"
+id,league,start,status,home,away,home_name,away_name,home_score,away_score,ml_home,ml_away,odds_time,neutral,ml_home_open,ml_away_open,spread_home,spread_home_odds,spread_away_odds,inj_home,inj_away,sp_home,sp_away,stype,country,intl,city,state,indoor,elev,wx_temp,wx_wind,wx_rain,tzo,ls_home,ls_away,h1_ml_home,h1_ml_away,h1_spread_home,h1_spread_home_odds,h1_spread_away_odds
+ncaaf:401331234,ncaaf,2022-01-01T00:30Z,final,130,61,Michigan,Georgia,11,34,225,-303,,1,,,7.5,-112,-109,,,,,3,USA,0,Miami Gardens,FL,0,2,,,,-5.0,"0,3,0,8","14,13,0,7",190,-260,4.5,-124,-105
+ncaaf:401331236,ncaaf,2022-01-01T17:00Z,final,8,213,Arkansas,Penn State,24,10,-159,128,,1,,,-3.5,-112,-108,,,,,3,USA,0,Tampa,FL,0,1,71,15,0.0,-5.0,"7,0,17,0","0,10,0,0",-148,116,-1.5,-112,-117
+ncaaf:401331237,ncaaf,2022-01-01T18:00Z,final,96,2294,Kentucky,Iowa,20,17,-152,125,,1,,,-3.0,-110,-110,,,,,3,USA,0,Orlando,FL,0,30,71,10,0.0,-5.0,"7,6,0,7","0,3,7,7",-150,115,-1.5,-113,-117
+ncaaf:401331238,ncaaf,2022-01-01T18:00Z,final,87,197,Notre Dame,Oklahoma St,35,37,-105,-117,,1,,,1.0,-109,-115,,,,,3,USA,0,Glendale,AZ,1,351,,,,-7.0,"14,14,0,7","7,7,17,6",-108,-121,0.5,-122,-105
+ncaaf:401331239,ncaaf,2022-01-01T22:00Z,final,194,254,Ohio State,Utah,48,45,,,,1,,,,,,,,,,3,USA,0,Pasadena,CA,0,263,,,,-8.0,"0,21,10,17","14,21,3,7",,,,,
+ncaaf:401331240,ncaaf,2022-01-02T01:45Z,final,145,239,Ole Miss,Baylor,7,21,-125,100,,1,,,-1.5,-115,-110,,,,,3,USA,0,New Orleans,LA,1,0,,,,-6.0,"0,0,7,0","0,7,0,14",-122,-102,-0.5,-105,-115
+ncaaf:401331241,ncaaf,2022-01-05T02:00Z,final,2306,99,Kansas St,LSU,42,20,-360,280,,1,,,-9.5,-115,-110,,,,,3,USA,0,Houston,TX,1,12,,,,-6.0,"7,14,7,14","0,7,0,13",-315,225,-5.5,-119,-109
+ncaaf:401391352,ncaaf,2022-01-08T17:00Z,final,2449,147,N Dakota St,Montana St,38,10,,,,1,,,,,,,,,,3,USA,0,Frisco,TX,0,212,,,,-6.0,"7,21,10,0","0,0,3,7",,,,,
+ncaaf:401331242,ncaaf,2022-01-11T01:00Z,final,333,61,Alabama,Georgia,18,33,130,-152,,1,,,3.0,-112,-109,,,,,3,USA,0,Indianapolis,IN,1,218,,,,-5.0,"3,6,0,9","0,6,7,20",,,,,
+ncaaf:401386136,ncaaf,2022-01-29T23:00Z,final,3193,3194,American,National,24,25,,,,1,,,,,,,,,,4,USA,0,Pasadena,CA,0,263,,,,-8.0,"7,7,3,7","0,3,14,8",,,,,

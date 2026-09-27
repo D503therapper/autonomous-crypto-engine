@@ -1,13 +1,13 @@
-id,league,start,status,home,away,home_name,away_name,home_score,away_score,ml_home,ml_away,odds_time,neutral,ml_home_open,ml_away_open,spread_home,spread_home_odds,spread_away_odds,inj_home,inj_away,sp_home,sp_away,stype,country,intl,city,state,indoor,elev,wx_temp,wx_wind,wx_rain,tzo,ls_home,ls_away
-ncaaf:401035250,ncaaf,2019-01-01T00:00Z,final,254,77,Utah,Northwestern,20,31,,,,1,,,,,,,,,,3,USA,0,San Diego,CA,0,20,,,,-8.0,"14,6,0,0","0,3,28,0"
-ncaaf:401032082,ncaaf,2019-01-01T00:30Z,final,245,152,Texas A&M,NC State,52,13,,,,1,,,,,,,,,,3,USA,0,Jacksonville,FL,0,5,,,,-5.0,"7,14,14,17","3,10,0,0"
-ncaaf:401032083,ncaaf,2019-01-01T17:00Z,final,2294,344,Iowa,Miss St,27,22,,,,1,,,,,,,,,,3,USA,0,Tampa,FL,0,1,70,8,0.0,-5.0,"0,17,7,3","6,0,13,3"
-ncaaf:401032084,ncaaf,2019-01-01T18:00Z,final,2116,99,UCF,LSU,32,40,,,,1,,,,,,,,,,3,USA,0,Glendale,AZ,1,351,,,,-7.0,"14,7,3,8","10,14,10,6"
-ncaaf:401032088,ncaaf,2019-01-01T18:00Z,final,213,96,Penn State,Kentucky,24,27,,,,1,,,,,,,,,,3,USA,0,Orlando,FL,0,30,,,,-5.0,"0,7,0,17","10,0,17,0"
-ncaaf:401032085,ncaaf,2019-01-01T22:00Z,final,194,264,Ohio State,Washington,28,23,,,,1,,,,,,,,,,3,USA,0,Pasadena,CA,0,263,,,,-8.0,"7,14,7,0","3,0,0,20"
-ncaaf:401032086,ncaaf,2019-01-02T01:45Z,final,61,251,Georgia,Texas,21,28,,,,1,,,,,,,,,,3,USA,0,New Orleans,LA,1,0,,,,-6.0,"0,7,0,14","10,10,0,8"
-ncaaf:401104373,ncaaf,2019-01-05T17:00Z,final,2449,331,North Dakota St,E Washington,38,24,,,,1,,,,,,,,,,3,USA,0,Frisco,TX,0,212,,,,-6.0,"10,7,14,7","0,10,7,7"
-ncaaf:401032087,ncaaf,2019-01-08T01:00Z,final,333,228,Alabama,Clemson,16,44,,,,1,,,,,,,,,,3,USA,0,Santa Clara,CA,0,23,,,,-8.0,"13,3,0,0","14,17,13,0"
-ncaaf:401099813,ncaaf,2019-01-19T20:00Z,final,3147,3146,West,East,21,17,,,,1,,,,,,,,,,4,USA,0,St. Petersburg,FL,1,13,,,,-5.0,"7,7,7,0","0,0,14,3"
-ncaaf:401099814,ncaaf,2019-01-19T22:00Z,final,3194,3193,National,American,7,10,,,,1,,,,,,,,,,4,USA,0,Pasadena,CA,0,263,,,,-8.0,"0,7,0,0","0,0,10,0"
-ncaaf:401099815,ncaaf,2019-01-26T19:30Z,final,3144,3145,SOUTH,NORTH,24,34,,,,1,,,,,,,,,,4,USA,0,Mobile,AL,0,3,,,,-6.0,"9,3,0,12","0,3,17,14"
+id,league,start,status,home,away,home_name,away_name,home_score,away_score,ml_home,ml_away,odds_time,neutral,ml_home_open,ml_away_open,spread_home,spread_home_odds,spread_away_odds,inj_home,inj_away,sp_home,sp_away,stype,country,intl,city,state,indoor,elev,wx_temp,wx_wind,wx_rain,tzo,ls_home,ls_away,h1_ml_home,h1_ml_away,h1_spread_home,h1_spread_home_odds,h1_spread_away_odds
+ncaaf:401035250,ncaaf,2019-01-01T00:00Z,final,254,77,Utah,Northwestern,20,31,-266,231,,1,,,-6.5,-115,101,,,,,3,USA,0,San Diego,CA,0,20,,,,-8.0,"14,6,0,0","0,3,28,0",-215,178,-4.0,100,-120
+ncaaf:401032082,ncaaf,2019-01-01T00:30Z,final,245,152,Texas A&M,NC State,52,13,,,,1,,,,,,,,,,3,USA,0,Jacksonville,FL,0,5,,,,-5.0,"7,14,14,17","3,10,0,0",,,,,
+ncaaf:401032083,ncaaf,2019-01-01T17:00Z,final,2294,344,Iowa,Miss St,27,22,,,,1,,,,,,,,,,3,USA,0,Tampa,FL,0,1,70,8,0.0,-5.0,"0,17,7,3","6,0,13,3",,,,,
+ncaaf:401032084,ncaaf,2019-01-01T18:00Z,final,2116,99,UCF,LSU,32,40,240,-290,,1,,,7.0,-110,-110,,,,,3,USA,0,Glendale,AZ,1,351,,,,-7.0,"14,7,3,8","10,14,10,6",190,-240,4.5,-120,100
+ncaaf:401032088,ncaaf,2019-01-01T18:00Z,final,213,96,Penn State,Kentucky,24,27,-190,165,,1,,,-4.5,-110,-110,,,,,3,USA,0,Orlando,FL,0,30,,,,-5.0,"0,7,0,17","10,0,17,0",-180,158,-3.0,-110,-110
+ncaaf:401032085,ncaaf,2019-01-01T22:00Z,final,194,264,Ohio State,Washington,28,23,-220,184,,1,,,-5.5,100,-114,,,,,3,USA,0,Pasadena,CA,0,263,,,,-8.0,"7,14,7,0","3,0,0,20",-182,158,-3.0,-105,-115
+ncaaf:401032086,ncaaf,2019-01-02T01:45Z,final,61,251,Georgia,Texas,21,28,-550,425,,1,,,-13.0,-110,-110,,,,,3,USA,0,New Orleans,LA,1,0,,,,-6.0,"0,7,0,14","10,10,0,8",-380,315,-7.5,-108,-112
+ncaaf:401104373,ncaaf,2019-01-05T17:00Z,final,2449,331,North Dakota St,E Washington,38,24,,,,1,,,,,,,,,,3,USA,0,Frisco,TX,0,212,,,,-6.0,"10,7,14,7","0,10,7,7",,,,,
+ncaaf:401032087,ncaaf,2019-01-08T01:00Z,final,333,228,Alabama,Clemson,16,44,-222,180,,1,,,-5.0,-110,-110,,,,,3,USA,0,Santa Clara,CA,0,23,,,,-8.0,"13,3,0,0","14,17,13,0",-190,163,-3.0,-115,-105
+ncaaf:401099813,ncaaf,2019-01-19T20:00Z,final,3147,3146,West,East,21,17,,,,1,,,,,,,,,,4,USA,0,St. Petersburg,FL,1,13,,,,-5.0,"7,7,7,0","0,0,14,3",,,,,
+ncaaf:401099814,ncaaf,2019-01-19T22:00Z,final,3194,3193,National,American,7,10,,,,1,,,,,,,,,,4,USA,0,Pasadena,CA,0,263,,,,-8.0,"0,7,0,0","0,0,10,0",,,,,
+ncaaf:401099815,ncaaf,2019-01-26T19:30Z,final,3144,3145,SOUTH,NORTH,24,34,,,,1,,,,,,,,,,4,USA,0,Mobile,AL,0,3,,,,-6.0,"9,3,0,12","0,3,17,14",,,,,
