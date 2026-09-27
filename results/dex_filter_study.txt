@@ -4,7 +4,7 @@ live exit (config.DEX['exit']): {'trail': 0.95, 'tp1': (999.0, 0.0), 'ladder': [
 ======================================================================================================================
 1. LEGENDS WITH HOURLY HISTORY (Yahoo keeps ~730 days of hourly bars; GeckoTerminal only recent pools)
 ======================================================================================================================
-  SHIB      no hourly history (yahoo: SHIB-USD: 1990 daily bars 2021-04-17..2026-09-27; geckoterminal: pool 0x811beed0.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 )
+  SHIB      no hourly history (yahoo: SHIB-USD: 1990 daily bars 2021-04-17..2026-09-27; geckoterminal: pool 0x24d3dd4a.. created 2021-10-11: oldest pool GeckoTerminal lists is > 30 )
   PEPE      no hourly history (yahoo: PEPE24478-USD: 1246 daily bars 2023-05-01..2026-09-27; geckoterminal: pool 0xa43fe169.. created 2023-04-14: 184 daily bars 2026-03-28..2026-09-)
   BONK      no hourly history (yahoo: BONK-USD: 1181 daily bars 2023-01-03..2026-09-27; geckoterminal: pool G7mw1d83is.. created 2023-01-05: 184 daily bars 2026-03-28..2026-09-27)
   WIF       no hourly history (yahoo: WIF-USD: 1014 daily bars 2023-12-19..2026-09-27; geckoterminal: pool EP2ib6dYdE.. created 2023-11-20: 184 daily bars 2026-03-28..2026-09-27)
@@ -29,47 +29,47 @@ live exit (config.DEX['exit']): {'trail': 0.95, 'tp1': (999.0, 0.0), 'ladder': [
 ======================================================================================================================
 2. LIVE SCREEN PASSES (data/dex/screen.csv) - hourly history after the snapshot
 ======================================================================================================================
-50 PASS rows, 30 coins, hourly history for 30
+51 PASS rows, 30 coins, hourly history for 30
 
 ======================================================================================================================
 3. POOLS (dex_runner_study registry; hourly GeckoTerminal history)
 ======================================================================================================================
-384 candidate pools (>= 2 days old, >= $15k reserve ever seen; 27 outcome-blind and 114 launched inside the window, fetched first); window from 2026-07-07 06:26
-  fetched 101/384  calls 286  429s 11  gap 10.8s  pools 96  3331s
-  fetched 201/384  calls 475  429s 18  gap 12.0s  pools 196  5602s
-  fetched 301/384  calls 695  429s 24  gap 12.0s  pools 296  8487s
-API calls 867 (429s 30); pools with usable history 379; skipped: no data 5; 10545s
-wrote 199 pools with an entry signal to results/dex_filter_pools.json.gz
+388 candidate pools (>= 2 days old, >= $15k reserve ever seen; 31 outcome-blind and 118 launched inside the window, fetched first); window from 2026-07-07 09:22
+  fetched 101/388  calls 285  429s 11  gap 10.8s  pools 95  3359s
+  fetched 201/388  calls 471  429s 18  gap 12.0s  pools 195  5592s
+  fetched 301/388  calls 679  429s 26  gap 12.0s  pools 295  8090s
+API calls 862 (429s 35); pools with usable history 382; skipped: no data 6; 10307s
+wrote 201 pools with an entry signal to results/dex_filter_pools.json.gz
 
 ======================================================================================================================
-4. ENTRY FILTERS THROUGH THE LIVE EXIT  (379 pools, 2026-07-07..2026-09-26, halves split at 2026-09-03 10:00; costs 0.3% fee + 1% slippage + impact per side)
+4. ENTRY FILTERS THROUGH THE LIVE EXIT  (382 pools, 2026-07-07..2026-09-26, halves split at 2026-09-03 15:00; costs 0.3% fee + 1% slippage + impact per side)
 ======================================================================================================================
 variant                                                     n  /day  win  median    mean mean-top1  >=2x <=-70%  rug |    month    older    newer  maxDD | big kept 10x kept
-base: live entry (1h>=+10%, age>=6h, liq/vol24>=$100k)    373  4.55  40%   -9.8%  +54.8%    +45.2%   12%     6%   2% |   +16.6%   -14.9%    -0.6%   -40% |  15/15    14/14  
-a) skip 6h > +100%                                        370  4.51  40%   -9.6%  +49.9%    +40.2%   12%     5%   2% |    +2.4%   -34.4%    -0.6%   -62% |  14/15    13/14  
-a) skip 6h > +200%                                        371  4.52  40%   -9.7%  +53.5%    +43.8%   12%     5%   2% |   +10.5%   -34.4%    -0.6%   -71% |  15/15    14/14  
-a) skip 6h > +300%                                        371  4.52  39%  -10.2%  +53.2%    +43.4%   12%     5%   2% |   +10.5%   -34.4%    -0.6%   -71% |  15/15    14/14  
-b) skip 24h > +500%                                       372  4.54  40%  -10.1%  +46.0%    +36.2%   11%     6%   2% |    -3.9%   -34.4%    +7.0%   -71% |  14/15    13/14  
-b) skip 24h > +1000%                                      372  4.54  40%  -10.3%  +47.5%    +37.8%   12%     6%   2% |   +16.6%   -14.9%    -0.6%   -40% |  14/15    13/14  
-c) min age 12h                                            370  4.51  40%   -9.6%  +48.6%    +39.5%   12%     5%   2% |   -33.9%   -34.4%    -0.6%   -76% |  15/15    14/14  
-c) min age 24h                                            365  4.45  40%   -9.7%  +43.3%    +34.0%   12%     5%   2% |   -16.8%   -34.4%   +37.8%   -66% |  15/15    13/14  
-d) skip age<24h & 6h>+150%                                371  4.52  40%   -9.7%  +57.1%    +47.4%   12%     5%   2% |    -3.9%   -34.4%    -0.6%   -71% |  15/15    14/14  
-d) skip age<24h & 6h>+100%                                371  4.52  40%   -9.7%  +56.9%    +47.1%   12%     5%   2% |    +2.4%   -34.4%    -0.6%   -62% |  15/15    14/14  
-d) skip age<24h & 6h>+200%                                371  4.52  40%   -9.7%  +56.7%    +47.0%   12%     5%   2% |    -3.9%   -34.4%    -0.6%   -71% |  15/15    14/14  
-d) skip age<12h & 6h>+150%                                372  4.54  40%   -9.6%  +56.6%    +46.9%   12%     5%   2% |    -3.9%   -34.4%    -0.6%   -71% |  15/15    14/14  
-d) skip age<24h & 24h>+500%                               372  4.54  40%  -10.1%  +54.8%    +45.1%   12%     6%   2% |    -3.9%   -34.4%    +7.0%   -71% |  15/15    14/14  
-d) skip age<24h & 24h>+1000%                              372  4.54  40%  -10.3%  +55.3%    +45.6%   12%     6%   2% |   +16.6%   -14.9%    -0.6%   -40% |  15/15    14/14  
-d) skip 6h>+200% or 24h>+1000%                            371  4.52  40%   -9.6%  +50.3%    +40.6%   12%     5%   2% |   +10.5%   -34.4%    +7.0%   -71% |  14/15    13/14  
-e) liq floor $150k                                        350  4.27  39%  -10.6%  +36.1%    +30.0%   11%     6%   3% |    +0.4%   -30.5%    +7.0%   -61% |  14/15    11/14  
-e) liq floor $250k                                        303  3.70  39%  -10.4%  +17.6%    +15.1%   10%     6%   2% |   +53.8%   +63.8%    +7.9%   -45% |   9/15     8/14  
+base: live entry (1h>=+10%, age>=6h, liq/vol24>=$100k)    376  4.58  40%   -9.3%  +54.5%    +44.9%   12%     6%   2% |   +13.5%   -18.6%    +0.6%   -43% |  16/16    15/15  
+a) skip 6h > +100%                                        373  4.54  40%   -9.2%  +49.7%    +40.1%   12%     5%   2% |    -0.2%   -35.7%    +0.6%   -64% |  15/16    14/15  
+a) skip 6h > +200%                                        374  4.56  40%   -9.2%  +53.2%    +43.6%   12%     5%   2% |   +13.0%   -35.7%    +0.6%   -72% |  16/16    15/15  
+a) skip 6h > +300%                                        374  4.56  39%   -9.4%  +52.9%    +43.2%   12%     5%   2% |   +13.0%   -35.7%    +0.6%   -72% |  16/16    15/15  
+b) skip 24h > +500%                                       375  4.57  39%   -9.5%  +46.0%    +36.3%   11%     6%   2% |    -6.2%   -35.7%   +20.0%   -72% |  15/16    14/15  
+b) skip 24h > +1000%                                      375  4.57  39%   -9.5%  +47.5%    +37.9%   12%     6%   2% |   +13.5%   -18.6%    +0.6%   -43% |  15/16    14/15  
+c) min age 12h                                            373  4.54  40%   -9.2%  +48.4%    +39.3%   12%     5%   2% |   -34.8%   -35.7%    +0.6%   -77% |  16/16    15/15  
+c) min age 24h                                            365  4.45  40%   -9.2%  +43.6%    +34.3%   12%     5%   2% |   -18.9%   -35.7%   +21.3%   -67% |  16/16    14/15  
+d) skip age<24h & 6h>+150%                                374  4.56  40%   -9.2%  +56.7%    +47.1%   12%     5%   2% |    -6.2%   -35.7%    +0.6%   -72% |  16/16    15/15  
+d) skip age<24h & 6h>+100%                                374  4.56  40%   -9.2%  +56.5%    +46.8%   12%     5%   2% |    -0.2%   -35.7%    +0.6%   -64% |  16/16    15/15  
+d) skip age<24h & 6h>+200%                                374  4.56  40%   -9.2%  +56.4%    +46.8%   12%     5%   2% |    -6.2%   -35.7%    +0.6%   -72% |  16/16    15/15  
+d) skip age<12h & 6h>+150%                                375  4.57  40%   -9.2%  +56.2%    +46.6%   12%     5%   2% |    -6.2%   -35.7%    +0.6%   -72% |  16/16    15/15  
+d) skip age<24h & 24h>+500%                               375  4.57  39%   -9.4%  +54.5%    +44.9%   12%     6%   2% |    -6.2%   -35.7%   +20.0%   -72% |  16/16    15/15  
+d) skip age<24h & 24h>+1000%                              375  4.57  39%   -9.4%  +55.0%    +45.4%   12%     6%   2% |   +13.5%   -18.6%    +0.6%   -43% |  16/16    15/15  
+d) skip 6h>+200% or 24h>+1000%                            374  4.56  40%   -9.2%  +50.3%    +40.6%   12%     5%   2% |   +13.0%   -35.7%   +20.0%   -72% |  15/16    14/15  
+e) liq floor $150k                                        351  4.28  39%  -10.0%  +36.2%    +30.1%   11%     6%   3% |    -2.3%   -34.1%   +20.0%   -63% |  15/16    12/15  
+e) liq floor $250k                                        304  3.70  39%   -9.8%  +16.8%    +14.4%   10%     5%   2% |   +98.9%  +129.5%   +20.0%   -35% |   8/16     7/15  
 (month = compounding 4-slot account, 1/4 of equity per trade; older / newer = trades before / after the split; mean-top1 = mean without the single best trade; <=-70% = trades that lost 70% or more; rug = the pool rugged (-95%); big kept = base trades >= +300% still made >= half their gain (or >= +300%); 10x kept = same for base trades whose peak reached 10x)
-  lost by 'a) skip 6h > +100%': CONDO +1244.0%->+68.4%
-  lost by 'b) skip 24h > +500%': CONDO +1244.0%->+70.0%
-  lost by 'b) skip 24h > +1000%': CONDO +1244.0%->+70.0%
-  lost by 'c) min age 24h': ALLINU +237.7%->-17.0%
-  lost by 'd) skip 6h>+200% or 24h>+1000%': CONDO +1244.0%->+70.0%
-  lost by 'e) liq floor $150k': ALLINU +237.7%->-17.0%, BIKETYSON +142.8%->+56.3%, CALI +763.8%->+254.4%
-  lost by 'e) liq floor $250k': ALLINU +237.7%->-17.0%, BASECAT +3650.3%->+149.9%, BIKETYSON +142.8%->-48.5%, CALI +763.8%->skipped, CODEFORMER +469.0%->+200.9%, CODEFORMER +615.0%->+200.9%, CONDO +1244.0%->+104.7%, FREN PET +330.9%->+67.9%
+  lost by 'a) skip 6h > +100%': CONDO +1129.0%->+53.9%
+  lost by 'b) skip 24h > +500%': CONDO +1129.0%->+55.3%
+  lost by 'b) skip 24h > +1000%': CONDO +1129.0%->+55.3%
+  lost by 'c) min age 24h': ALLINU +237.7%->-30.4%
+  lost by 'd) skip 6h>+200% or 24h>+1000%': CONDO +1129.0%->+55.3%
+  lost by 'e) liq floor $150k': ALLINU +237.7%->-30.4%, BIKETYSON +142.8%->+56.3%, CONDO +1129.0%->+268.5%
+  lost by 'e) liq floor $250k': ALLINU +237.7%->-30.4%, BASECAT +3650.3%->+149.9%, BIKETYSON +142.8%->-47.6%, CALI +940.9%->+42.4%, CODEFORMER +469.0%->+190.1%, CODEFORMER +615.0%->+190.1%, CONDO +1129.0%->+87.1%, FISH-SPEECH +494.2%->+232.3%
 
 ======================================================================================================================
 5. THE BASE RULE'S WORST AND BEST TRADES AND WHAT THEY LOOKED LIKE AT ENTRY
@@ -92,33 +92,33 @@ best:
   STONK        solana  2026-08-02 22:00  +3419.5% peak   87.0x  age    243h  6h +1321.2%  24h +1076.9%  liq $   115k  skipped by 8 of 16
   STONKEX      base    2026-08-24 23:00  +2555.6% peak   60.7x  age      8h  6h   +58.6%  24h   +58.6%  liq $   120k  skipped by 4 of 16
   FWA          eth     2026-07-21 00:00  +2172.7% peak   85.5x  age    102h  6h   +70.0%  24h   +70.0%  liq $   171k  skipped by 1 of 16
-  CONDO        eth     2026-09-24 02:00  +1244.0% peak   21.7x  age     50h  6h  +134.9%  24h +1143.2%  liq $   111k  skipped by 6 of 16
+  CONDO        eth     2026-09-24 02:00  +1129.0% peak   21.7x  age     50h  6h  +134.9%  24h +1143.2%  liq $   111k  skipped by 6 of 16
+  CALI         solana  2026-09-18 15:00   +940.9% peak   13.5x  age     27h  6h  +108.2%  24h  +537.5%  liq $   101k  skipped by 4 of 16
   STONK        solana  2026-08-31 19:00   +905.6% peak   17.2x  age    936h  6h    +1.7%  24h   -18.8%  liq $  1212k  skipped by 0 of 16
   OTC          solana  2026-08-28 20:00   +778.7% peak   25.8x  age      6h  6h  +327.4%  24h  +327.4%  liq $   221k  skipped by 11 of 16
-  CALI         solana  2026-09-18 15:00   +763.8% peak   12.0x  age     27h  6h  +108.2%  24h  +537.5%  liq $   101k  skipped by 4 of 16
-  FISH-SPEECH  base    2026-09-08 09:00   +618.9% peak   10.5x  age   4344h  6h   +14.8%  24h   +15.0%  liq $   205k  skipped by 1 of 16
   CODEFORMER   base    2026-09-13 07:00   +615.0% peak   20.2x  age   4475h  6h   +19.1%  24h   +16.9%  liq $   176k  skipped by 1 of 16
-  VIBE         eth     2026-09-01 05:00   +529.6% peak    8.2x  age    801h  6h    +8.5%  24h    +1.5%  liq $  1441k  skipped by 0 of 16
-  CODEFORMER   base    2026-07-08 11:00   +469.0% peak    9.9x  age   2871h  6h    +5.0%  24h    +1.5%  liq $   143k  skipped by 2 of 16
-  all base trades                          n  373  mean  +54.8%  median   -9.8%  >=2x  12%  <=-70%   6%
-  age < 24h                                n   41  mean +190.7%  median   -7.2%  >=2x  34%  <=-70%  27%
-  age < 24h and 6h > +150% (GENO-type)     n   14  mean +113.0%  median +100.5%  >=2x  50%  <=-70%  21%
+  VIBE         eth     2026-09-01 05:00   +564.7% peak    8.2x  age    801h  6h    +8.5%  24h    +1.5%  liq $  1441k  skipped by 0 of 16
+  FISH-SPEECH  base    2026-09-08 09:00   +506.9% peak   10.5x  age   4344h  6h   +14.8%  24h   +15.0%  liq $   205k  skipped by 1 of 16
+  FISH-SPEECH  base    2026-07-09 16:00   +494.2% peak   10.3x  age   2887h  6h   +15.3%  24h   -42.1%  liq $   209k  skipped by 1 of 16
+  all base trades                          n  376  mean  +54.5%  median   -9.3%  >=2x  12%  <=-70%   6%
+  age < 24h                                n   43  mean +175.6%  median   -9.5%  >=2x  28%  <=-70%  26%
+  age < 24h and 6h > +150% (GENO-type)     n   14  mean  +99.3%  median  +68.8%  >=2x  36%  <=-70%  21%
 
 ======================================================================================================================
 6. LEGENDS: still caught with each filter?  (live entry + live exit, $100 stake, hourly data only)
 ======================================================================================================================
-PNUT      live entry 2024-11-04 age 95h 6h -0.3% 24h -11.1% -> 29.8x of stake (peak 51.0x)   [data starts after launch: age filters can't be judged]
+PNUT      live entry 2024-11-04 age 95h 6h -8.4% 24h -17.4% -> 32.1x of stake (peak 54.8x)   [data starts after launch: age filters can't be judged]
 AKITA     live entry 2026-03-24 age 45061h 6h +8.4% 24h +30.9% -> 0.8x of stake (peak 1.0x)   [data starts after launch: age filters can't be judged]
 
 ======================================================================================================================
 7. LIVE SCREEN PASSES (the hunter's own snapshots): which filter skips which coin, and what happened next
 ======================================================================================================================
-50 PASS rows, 4 where the live entry trigger was on (1h >= +10%, buys >= 1.2x sells)
+51 PASS rows, 4 where the live entry trigger was on (1h >= +10%, buys >= 1.2x sells)
 time              coin         age h     liq     1h      6h      24h | max after min after    last | skipped by
-2026-09-26 18:46  SDOG          58.1    108k   +63%    +82%    +290% |     +156%      -29%    +42% | liq floor $150k, liq floor $250k
-2026-09-26 21:22  ARENA         46.6    100k   +33%    +20%     +63% |       +4%      -52%    -24% | liq floor $150k, liq floor $250k
-2026-09-27 08:55  TEXTIT       905.8    534k   +10%     +1%    +105% |     +139%      -29%     -9% | -
-2026-09-27 09:39  GENO           6.9    104k   +22%   +258%   +1830% |      -15%      -89%    -88% | skip 6h > +100%, skip 6h > +200%, skip 24h > +500%, skip 24h > +1000%, min age 12h, min age 24h, skip age<24h & 6h>+150%, skip age<24h & 6h>+100%, skip age<24h & 6h>+200%, skip age<12h & 6h>+150%, skip age<24h & 24h>+500%, skip age<24h & 24h>+1000%, skip 6h>+200% or 24h>+1000%, liq floor $150k, liq floor $250k
+2026-09-26 18:46  SDOG          58.1    108k   +63%    +82%    +290% |     +156%      -29%     +0% | liq floor $150k, liq floor $250k
+2026-09-26 21:22  ARENA         46.6    100k   +33%    +20%     +63% |       +4%      -52%    -19% | liq floor $150k, liq floor $250k
+2026-09-27 08:55  TEXTIT       905.8    534k   +10%     +1%    +105% |     +139%      -38%     -4% | -
+2026-09-27 09:39  GENO           6.9    104k   +22%   +258%   +1830% |      -15%      -98%    -98% | skip 6h > +100%, skip 6h > +200%, skip 24h > +500%, skip 24h > +1000%, min age 12h, min age 24h, skip age<24h & 6h>+150%, skip age<24h & 6h>+100%, skip age<24h & 6h>+200%, skip age<12h & 6h>+150%, skip age<24h & 24h>+500%, skip age<24h & 24h>+1000%, skip 6h>+200% or 24h>+1000%, liq floor $150k, liq floor $250k
 
 ======================================================================================================================
 8. VERDICT PER FILTER  (pass = fewer <=-70% losers AND no deeper drawdown AND monthly about equal or better in BOTH halves AND no big winner / 10x runner / legend lost)
@@ -138,11 +138,11 @@ time              coin         age h     liq     1h      6h      24h | max after
   d) skip age<24h & 24h>+1000%       fail   NOT fewer -70% losers, drawdown no deeper, older half ~equal+, newer half ~equal+, big winners kept, 10x runners kept, legends kept
   d) skip 6h>+200% or 24h>+1000%     fail   fewer -70% losers, NOT drawdown no deeper, NOT older half ~equal+, newer half ~equal+, NOT big winners kept, NOT 10x runners kept, legends kept
   e) liq floor $150k                 fail   NOT fewer -70% losers, NOT drawdown no deeper, NOT older half ~equal+, newer half ~equal+, NOT big winners kept, NOT 10x runners kept, legends kept
-  e) liq floor $250k                 fail   fewer -70% losers, NOT drawdown no deeper, older half ~equal+, newer half ~equal+, NOT big winners kept, NOT 10x runners kept, legends kept
+  e) liq floor $250k                 fail   fewer -70% losers, drawdown no deeper, older half ~equal+, newer half ~equal+, NOT big winners kept, NOT 10x runners kept, legends kept
 
 ======================================================================================================================
 9. SUMMARY IN PLAIN WORDS
 ======================================================================================================================
-Base (live entry): 373 trades, mean +54.8%, median -9.8%, >=2x 12%, <=-70% 6%, rug 2%; account +16.6%/month (older -14.9%, newer -0.6%), max drawdown -40%.
+Base (live entry): 376 trades, mean +54.5%, median -9.3%, >=2x 12%, <=-70% 6%, rug 2%; account +13.5%/month (older -18.6%, newer +0.6%), max drawdown -43%.
 No filter passed every check: skipping 'already pumped' coins did not cut the -70% losers and drawdown without costing return in one of the halves or losing big winners. RECOMMEND no change.
-(10556s)
+(10319s)
