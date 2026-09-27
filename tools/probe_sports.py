@@ -1,11 +1,26 @@
-"""Check the tennis game-spread lines parse from Bovada (runner)."""
-import sys
+"""Live NFL right now: where are the real live moneylines in Action Network's scoreboard?"""
+import json
+import urllib.request
 
-sys.path.insert(0, ".")
-import sports_tennis as st  # noqa: E402
-
-lines = st.bovada()
-with_sp = [ln for ln in lines if "a_hcp" in ln]
-print(f"{len(lines)} matches priced, {len(with_sp)} with a game spread")
-for ln in with_sp[:10]:
-    print(f"   {ln['a']} {ln['a_ml']:+d} ({ln['a_hcp']:+g} games {ln['a_sp']:+d})  vs  {ln['b']} {ln['b_ml']:+d} ({ln['b_hcp']:+g} {ln['b_sp']:+d})")
+d = json.load(urllib.request.urlopen("https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game", timeout=25))
+games = [g for g in d.get("games") or [] if str(g.get("status")) in ("inprogress", "in_progress", "live") or
+         (g.get("boxscore") or {}).get("period")]
+print(len(d.get("games") or []), "games,", len(games), "live")
+for g in games[:3]:
+    teams = {t["id"]: t.get("full_name") for t in g.get("teams") or []}
+    b = g.get("boxscore") or {}
+    print("\n", teams.get(g.get("away_team_id")), "@", teams.get(g.get("home_team_id")), "status", g.get("status"),
+          "real_status", g.get("real_status"), "period", b.get("period"), "clock", b.get("clock"),
+          "score", b.get("total_away_points"), "-", b.get("total_home_points"))
+    print("  latest_odds:", json.dumps(b.get("latest_odds"))[:500])
+    for o in (g.get("odds") or [])[:12]:
+        print("  odds:", {k: o.get(k) for k in ("book_id", "type", "ml_home", "ml_away", "spread_home", "inserted", "is_live")})
+    print("  top keys:", sorted(g.keys()))
+for extra in ("&bookIds=15,30,68,69,71,75,79,972,974", ""):
+    try:
+        d2 = json.load(urllib.request.urlopen(f"https://api.actionnetwork.com/web/v2/scoreboard/nfl?periods=event{extra}", timeout=25))
+        g2 = [g for g in d2.get("games") or [] if (g.get("boxscore") or {}).get("period")][:1]
+        for g in g2:
+            print("\nv2", extra, json.dumps(g.get("markets") or g.get("odds"))[:1500])
+    except Exception as e:                                   # noqa: BLE001
+        print("v2 ERR", extra, e)
