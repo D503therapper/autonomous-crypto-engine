@@ -907,7 +907,7 @@ def test_state_persists():
 
 
 # ---- wide scanner -------------------------------------------------------------------------------
-SCAN = {"enabled": True, "gt_new_pages": 0, "gt_trend_pages": 1, "gt_feed_gap_s": 0}      # no GeckoTerminal pages unless a test asks
+SCAN = {"enabled": True, "gt_new_pages": 0, "gt_trend_pages": 1, "gt_feed_gap_s": 0, "threaded": False}      # no GeckoTerminal pages unless a test asks
 
 
 def scan_make(table, scan=None, feeds=False, **params):
@@ -1171,6 +1171,48 @@ def test_scan_feeds_and_snapshots():
     print("  scanner feeds: GeckoTerminal new_pools pages, DexScreener profiles; hourly scan snapshots (gzip)   ok")
 
 
+def test_scan_threaded_worker():
+    import time as _t
+    code = {"v": 200}
+    def slow(u):                                                             # a slow DexScreener: 0.3 s per call
+        _t.sleep(0.3)
+        return code["v"], [ds_pair("base", a, h1=25 if a == addr_n(5) else 1, b1=400, s1=100)
+                           for a in u.split("tokens/v1/base/")[1].split(",")]
+    h, fetch, d = scan_make({"tokens/v1/base/": slow}, scan={"threaded": True}, chains=["base"],
+                            gap_s=dict(GAP0, ds_scan=0.05, goplus=3600, honeypot=3600))
+    for n in ("dexscreener", "goplus", "honeypot"):
+        h.src[n].next_at = T0 + 10 * HOUR                                   # main jobs idle
+    for i in range(90):
+        h._uni_add("base", addr_n(i), T0, "t")
+    worst, t, end = 0.0, T0, _t.time() + 5
+    while h.scan_n["refreshed"] < 90 and _t.time() < end:
+        a = _t.time()
+        h.tick(t)
+        worst = max(worst, _t.time() - a)
+        t += 1000
+        _t.sleep(0.05)
+    assert h.scan_n["refreshed"] == 90, h.scan_n                             # 3 batches of 30 via the worker
+    assert worst < 0.2, worst                                                 # the tick never waited on HTTP
+    assert h.queue and h.queue[0]["key"] == f"base:{addr_n(5)}"             # the mover reached the screen queue
+    assert h.scan_calls == 3 and h._scan_pending <= 2
+    code["v"] = 429                                                          # worker backs off on a 429...
+    h.uni = {k: dict(e, r=0) for k, e in h.uni.items()}
+    end = _t.time() + 3
+    while h.scan_n["e429"] < 1 and _t.time() < end:
+        h.tick(t)
+        t += 1000
+        _t.sleep(0.05)
+    calls = h.scan_calls
+    for _ in range(10):
+        h.tick(t)
+        t += 1000
+        _t.sleep(0.05)
+    assert h.scan_n["e429"] == 1 and h.scan_calls == calls                   # ...15 min, not hammering
+    assert not h.src["ds_scan"].ready(int(_t.time() * 1000))
+    shutil.rmtree(d)
+    print("  scanner worker thread: bulk calls off the main loop (tick < 0.2 s with 0.3 s calls), 429 backoff   ok")
+
+
 if __name__ == "__main__":
     test_parsers()
     test_checks()
@@ -1208,4 +1250,5 @@ if __name__ == "__main__":
     test_scan_rate_limit_and_backoff()
     test_scan_bad_bodies()
     test_scan_feeds_and_snapshots()
+    test_scan_threaded_worker()
     print("all dex tests passed")

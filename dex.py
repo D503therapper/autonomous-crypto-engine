@@ -137,6 +137,8 @@ DEFAULTS = {
                                                             # none for an hour after ANY GeckoTerminal 429 / failure: the
                                                             # runner IP's GT quota is tight and discovery + social.py come
                                                             # first (7.5/min and 2.7/min both drew 429s, 2026-09-27)
+             "threaded": True,                              # bulk calls in a worker thread: never blocks the main loop
+                                                            # (live loop is ~2 s/iteration: one call per tick = ~27/min)
              "timeout": 4, "tick_budget_s": 4,              # scanner call only if the tick used <= 4 s: tick <= ~8 s
              "save_s": 600, "snap_flush_s": 600, "snap_day_max": 60_000},
 }
@@ -571,6 +573,9 @@ class DexHunter:
         self.src.setdefault("ds_scan", Source("ds_scan", fetch, P["timeout"], self.p["gap_s"].get("ds_scan", 1.0)))
         self.src["ds_scan"].timeout = min(P["timeout"], 8)
         self.src["gt_scan"] = Source("gt_scan", fetch, P["timeout"], P["gt_feed_gap_s"])   # scanner GT pages only
+        self.src["ds_list"] = Source("ds_list", fetch, P["timeout"], 5)   # profiles / boosts lists (60/min endpoints)
+        self._scan_q = self._scan_res = None           # worker thread queues (threaded mode)
+        self._scan_pending = 0
         self.uni, self.mono = None, time.monotonic
         self._feed_t, self._scan_origin, self._scan_snap_t, self._snap_buf = {}, {}, {}, []
         self._scan_mt = self._uni_saved = self._snap_flushed = self._gt_hold = 0
@@ -994,6 +999,10 @@ class DexHunter:
     def _scan_get(self, name, url, now):
         """Scanner request: no state.json rewrite per call (status recorded only when it changes)."""
         st, obj = self.src[name].get(url, now)
+        self._scan_count(name, st, now)
+        return st, obj
+
+    def _scan_count(self, name, st, now):
         self.scan_calls += 1                            # since start (scan_n resets every hour)
         self.scan_n["calls"] += 1
         self.scan_n["e429"] += st == 429
@@ -1001,7 +1010,6 @@ class DexHunter:
         if (self.state["status"].get(name) or {}).get("code") != st:
             self.state["status"][name] = {"code": st, "t": ts(now)}
             self.dirty = True
-        return st, obj
 
     def _scan_feed(self, now):
         best, due = None, 1.0
@@ -1011,7 +1019,7 @@ class DexHunter:
         gt_ok = now >= self._gt_hold
         for kind, ch, tag, url, iv in self._feeds:
             over = (now - self._feed_t.get(url, 0)) / (iv * 1000)
-            src = self.src["gt_scan" if kind == "gt" else "ds_scan"]
+            src = self.src["gt_scan" if kind == "gt" else "ds_list"]
             if over >= due and src.ready(now) and (gt_ok or kind != "gt"):
                 best, due = (kind, ch, tag, url), over
         if not best:
@@ -1025,18 +1033,16 @@ class DexHunter:
                 for c in parse_gt_pools(obj, ch, now):
                     self._uni_add(c["chain"], c["addr"], now, tag, c)
         else:
-            st, obj = self._scan_get("ds_scan", url, now)
+            st, obj = self._scan_get("ds_list", url, now)
             if st == 200 and isinstance(obj, (list, dict)):
                 for chain, addr in parse_dex_list(obj):
                     self._uni_add(chain, addr, now, tag)
         return True
 
-    def _scan_refresh(self, now):
-        """DexScreener tokens/v1 bulk refresh: the 30 most overdue tokens (relative to their hot / cold
-        interval) of the chain with the most overdue token."""
-        P, ds = self.p["scan"], self.src["ds_scan"]
-        if not self.uni or not ds.ready(now):
-            return False
+    def _scan_pick(self, now):
+        """The 30 most overdue tokens (relative to their hot / cold interval) of the chain with the most
+        overdue token -> (chain, [keys]) or None; marks them refreshed now (r)."""
+        P = self.p["scan"]
         by = {}
         hot_ms, cold_ms = P["hot_s"] * 1000, P["cold_s"] * 1000
         for k, e in self.uni.items():
@@ -1044,11 +1050,11 @@ class DexHunter:
             if over >= 1:
                 by.setdefault(e["chain"], []).append((over, k))
         if not by:
-            return False
+            return None
         chain = max(by, key=lambda ch: max(by[ch])[0])
         batch = [k for _, k in sorted(by[chain], reverse=True)[:30]]
-        ents = [self.uni[k] for k in batch]
-        for e in ents:
+        for k in batch:
+            e = self.uni[k]
             if e["r"]:
                 iv = (now - e["r"]) / 1000
                 self.scan_n["iv"] += iv
@@ -1057,13 +1063,72 @@ class DexHunter:
                     self.scan_n["hiv"] += iv
                     self.scan_n["hiv_n"] += 1
             e["r"] = now
-        st, obj = self._scan_get("ds_scan", self._url("ds_tokens", chain=chain, addrs=",".join(e["addr"] for e in ents)), now)
+        return chain, batch
+
+    def _scan_url(self, chain, keys):
+        return self._url("ds_tokens", chain=chain, addrs=",".join(self.uni[k]["addr"] for k in keys))
+
+    def _scan_refresh(self, now):
+        """DexScreener tokens/v1 bulk refresh (30 tokens per call). Threaded (default): a worker thread makes
+        the calls at its own pace (<= 60/min, own backoff) and this tick only queues batches and applies
+        finished ones - the main loop never waits on the scanner. Otherwise: one call in this tick."""
+        if self.p["scan"].get("threaded"):
+            return self._scan_bg(now)
+        if not self.uni or not self.src["ds_scan"].ready(now):
+            return False
+        pick = self._scan_pick(now)
+        if not pick:
+            return False
+        chain, keys = pick
+        st, obj = self._scan_get("ds_scan", self._scan_url(chain, keys), now)
+        self._scan_apply(chain, keys, st, obj, now)
+        return True
+
+    def _scan_bg(self, now):
+        import queue
+        import threading
+        if self._scan_q is None:
+            self._scan_q, self._scan_res = queue.Queue(), queue.Queue()
+            threading.Thread(target=self._scan_worker, name="dex-scan", daemon=True).start()
+        while True:                                     # apply what the worker fetched (main thread only)
+            try:
+                chain, keys, st, obj = self._scan_res.get_nowait()
+            except queue.Empty:
+                break
+            self._scan_pending -= 1
+            self._scan_count("ds_scan", st, now)
+            self._scan_apply(chain, [k for k in keys if k in self.uni], st, obj, now)
+        while self.uni and self._scan_pending < 2:      # keep the worker fed (two batches ahead)
+            pick = self._scan_pick(now)
+            if not pick:
+                break
+            self._scan_pending += 1
+            self._scan_q.put((pick[0], pick[1], self._scan_url(*pick)))
+        return False                                    # no request made in this tick
+
+    def _scan_worker(self):
+        """Background thread: fetch queued batches through the ds_scan Source (min gap + 429 backoff on real
+        time). Never touches the universe / state: results go back to the main thread through a queue."""
+        src = self.src["ds_scan"]
+        while True:
+            chain, keys, url = self._scan_q.get()
+            try:
+                while not src.ready(int(time.time() * 1000)):
+                    time.sleep(0.2)
+                st, obj = src.get(url, int(time.time() * 1000))
+            except Exception as e:                      # never let the worker die
+                st, obj = 0, str(e)
+            self._scan_res.put((chain, keys, st, obj))
+
+    def _scan_apply(self, chain, keys, st, obj, now):
+        """Apply one bulk answer: update the universe entries, snapshot, hand movers on (_scan_hit)."""
         if st != 200 or not isinstance(obj, (list, dict)):
-            return True
+            return
         best = best_pairs(parse_ds_pairs(obj, now), chain)
         floor = self.S()["min_liq"]
         passed = {self._nk(k): k for k in self.state["passed"]}
-        for e in ents:
+        for k in keys:
+            e = self.uni[k]
             c = best.get(e["addr"])
             self.scan_n["refreshed"] += 1
             if not c:                                   # no pair returned: counts as no liquidity
@@ -1076,7 +1141,6 @@ class DexHunter:
             e["low"] = (e["low"] or now) if c["liq"] < floor else 0
             self._scan_snap(c, e, now)
             self._scan_hit(e, c, passed, now)
-        return True
 
     def _scan_hit(self, e, c, passed, now):
         """A refreshed token: screened & waiting -> fresh data, _try_entry on the trigger; queued -> fresh data
