@@ -36,28 +36,6 @@ def _time(iso):
     return t.strftime("%-I:%M %p").replace(":00 ", " ") + " PT"
 
 
-def _svg(points, w, h, color, uid, base=None, pad=4):
-    if len(points) < 2:
-        y = h / 2
-        return (f'<svg viewBox="0 0 {w} {h}" preserveAspectRatio="none"><line x1="0" y1="{y}" x2="{w}" '
-                f'y2="{y}" stroke="{color}" stroke-width="2" stroke-dasharray="4 5" opacity=".5"/></svg>')
-    ts, vs = [p[0] for p in points], [p[1] for p in points]
-    lo, hi = min(vs + ([base] if base else [])), max(vs + ([base] if base else []))
-    span_v, span_t = (hi - lo) or 1.0, (ts[-1] - ts[0]) or 1.0
-    xy = [((t - ts[0]) / span_t * w, pad + (hi - v) / span_v * (h - 2 * pad)) for t, v in points]
-    line = " ".join(f"{x:.1f},{y:.1f}" for x, y in xy)
-    ref = ""
-    if base is not None:
-        by = pad + (hi - base) / span_v * (h - 2 * pad)
-        ref = f'<line x1="0" y1="{by:.1f}" x2="{w}" y2="{by:.1f}" stroke="#fff" stroke-opacity=".14" stroke-dasharray="3 5"/>'
-    return (f'<svg viewBox="0 0 {w} {h}" preserveAspectRatio="none"><defs><linearGradient id="g{uid}" x1="0" x2="0" '
-            f'y1="0" y2="1"><stop offset="0" stop-color="{color}" stop-opacity=".38"/><stop offset="1" stop-color="{color}" '
-            f'stop-opacity="0"/></linearGradient></defs>{ref}<polygon points="0,{h} {line} {w},{h}" fill="url(#g{uid})"/>'
-            f'<polyline points="{line}" fill="none" stroke="{color}" stroke-width="2.4" stroke-linejoin="round" '
-            f'stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="{xy[-1][0]:.1f}" cy="{xy[-1][1]:.1f}" '
-            f'r="3.5" fill="{color}"/></svg>')
-
-
 def _chip(status):
     txt = {"open": "LIVE TICKET", "won": "CASHED ✓", "lost": "LOST", "push": "PUSH"}[status]
     return f'<span class="chip {status}">{txt}</span>'
@@ -113,60 +91,56 @@ def render(picks, model, games, series, start_bank, updated_ms):
         board_date = now.strftime("%A, %B %-d") + (f" · showing {datetime.fromisoformat(last):%b %-d}" if prev else "")
 
     done = [p for p in picks if p["status"] in ("won", "lost", "push")]
-    profit = sum(p["pnl"] for p in done)
-    risked = sum(p["stake"] for p in done if p["status"] != "push")
-    up = profit >= 0
-    accent = "#22e39a" if up else "#ff3b3b"
-    m0 = datetime(now.year, now.month, 1, tzinfo=PT).date().isoformat()
-    month_pnl = sum(p["pnl"] for p in done if p["date"] >= m0)
-    day_pnl = sum(p["pnl"] for p in done if p["date"] == today)
-    wins = sum(p["status"] == "won" for p in done)
-    losses = sum(p["status"] == "lost" for p in done)
-    pushes = sum(p["status"] == "push" for p in done)
-    first = min((p["date"] for p in picks), default=today)
-    pts = [(datetime.fromisoformat(first).replace(tzinfo=timezone.utc).timestamp() * 1000, 0.0)] + \
-        [(t, v - start_bank) for t, v in series]                  # running profit at $100 a pick
+    done.sort(key=lambda p: (p["date"], p.get("settled", "")))
 
-    def tile(label, sub, amt, pct, hue):
-        cls = "up" if amt >= 0 else "dn"
+    def wl(ps):
+        w, l_, pu = (sum(p["status"] == k for p in ps) for k in ("won", "lost", "push"))
+        return f"{w}-{l_}" + (f"-{pu}" if pu else ""), (w / (w + l_) if w + l_ else None)
+
+    def streak(ps):
+        if not ps:
+            return ""
+        last, n = ps[-1]["status"], 0
+        for p in reversed(ps):
+            if p["status"] != last:
+                break
+            n += 1
+        return f'{"W" if last == "won" else "L" if last == "lost" else "P"}{n}'
+    m0 = datetime(now.year, now.month, 1, tzinfo=PT).date().isoformat()
+    rec_all, hit_all = wl(done)
+    rec_day, _ = wl([p for p in done if p["date"] == today])
+    rec_month, hit_month = wl([p for p in done if p["date"] >= m0])
+    first = min((p["date"] for p in picks), default=today)
+    hot = streak(done)
+
+    def tile(label, sub, val, foot, hue, cls="w"):
         return (f'<div class="tile" style="--h:{hue}"><div class="tl">{label}</div><div class="ts">{sub}</div>'
-                f'<div class="tv {cls}"><span class="ar">{"▲" if amt >= 0 else "▼"}</span><span class="w">{_money(amt, True)}</span></div>'
-                f'<div class="ts {cls}">{pct}</div></div>')
-    roi = f"{profit / risked:+.1%} ROI" if risked else "no bets graded yet"
-    rec_txt = f"{wins}-{losses}" + (f"-{pushes}" if pushes else "")
-    tiles = (tile("This month", now.strftime("%B"), month_pnl, "&nbsp;", "#2f8bff")
-             + tile("All time", f"since {datetime.fromisoformat(first):%b %-d}", profit, roi, "#22e39a")
-             + f'<div class="tile" style="--h:#ffc233"><div class="tl">Record</div><div class="ts">W-L</div>'
-               f'<div class="tv w">{rec_txt}</div><div class="ts" style="color:#ffc233">{wins / max(1, wins + losses):.0%} hit rate</div></div>')
+                f'<div class="tv {cls}">{val}</div><div class="ts" style="color:{hue}">{foot}</div></div>')
+    tiles = (tile("This month", now.strftime("%B"), rec_month, f"{hit_month:.0%} hit" if hit_month is not None else "&nbsp;", "#2f8bff")
+             + tile("Hit rate", f"since {datetime.fromisoformat(first):%b %-d}", f"{hit_all:.0%}" if hit_all is not None else "—", "all plays", "#22e39a")
+             + tile("Streak", "current", hot or "—", "🔥 heater" if hot.startswith("W") and len(hot) > 1 and int(hot[1:]) >= 3 else "&nbsp;",
+                    "#ffc233", "up" if hot.startswith("W") else "dn" if hot.startswith("L") else "w"))
+    strip = "".join(f'<i class="{p["status"]}" title="{E(p["date"])}"></i>' for p in done[-40:]) or '<span class="empty">results show up here</span>'
 
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
         ps = [p for p in done if p["kind"] == kind]
-        w, l_ = sum(p["status"] == "won" for p in ps), sum(p["status"] == "lost" for p in ps)
-        pl = sum(p["pnl"] for p in ps)
-        streak = ""
-        if ps:
-            s0 = sorted(ps, key=lambda p: p["date"])
-            last = s0[-1]["status"]
-            n = 0
-            for p in reversed(s0):
-                if p["status"] != last:
-                    break
-                n += 1
-            streak = f'{"W" if last == "won" else "L" if last == "lost" else "P"}{n}'
+        r, h = wl(ps)
+        st = streak(ps)
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
-                   f'<div class="rc-r">{w}-{l_}</div><div class="rc-p {"up" if pl >= 0 else "dn"}">{_money(pl, True)}</div>'
-                   f'<div class="rc-s">{("streak " + streak) if streak else "no results yet"}</div></div>')
+                   f'<div class="rc-r">{r}</div><div class="rc-p">{f"{h:.0%} hit" if h is not None else "&nbsp;"}</div>'
+                   f'<div class="rc-s">{("streak " + st) if st else "no results yet"}</div></div>')
 
     # recent results
     rows = []
-    for p in sorted(done, key=lambda p: (p["date"], p["settled"]), reverse=True)[:14]:
+    for p in list(reversed(done))[:14]:
         label, c1, _ = LOOK[p["kind"]]
         legs = " + ".join(f'{E(l["team"])}{"" if l["market"] == "ml" else " " + format(l["line"], "+g")}' for l in p["legs"])
+        tag = {"won": "WON", "lost": "LOST", "push": "PUSH"}[p["status"]]
         rows.append(f'<div class="rr"><span class="rk" style="color:{c1}">{ICON[p["kind"]]}</span><div class="rd"><div class="rl">{legs}</div>'
                     f'<div class="rm">{datetime.fromisoformat(p["date"]):%b %-d} · {label.title()} · {_am(p["american"])}</div></div>'
-                    f'<div class="rv {"up" if p["pnl"] > 0 else "dn" if p["pnl"] < 0 else ""}">{_money(p["pnl"], True)}</div></div>')
+                    f'<span class="chip {p["status"]}">{tag}</span></div>')
     results = "".join(rows) or '<div class="empty">First results land after the first board settles.</div>'
 
     # the brain, in a nutshell: how the engine improved itself today
@@ -215,7 +189,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 <link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-512.png"><link rel="manifest" href="manifest.webmanifest">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Teko:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#8a94a8;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:{accent}}}
+:root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#8a94a8;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
 *{{box-sizing:border-box}}
 html,body{{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}}
 body{{font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;min-height:100vh;
@@ -288,13 +262,15 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tv{{font-size:clamp(13px,4.2vw,17px);font-weight:800;margin-top:6px;white-space:nowrap}}
 .ar{{font-size:.7em;margin-right:3px;vertical-align:1px}}
 .up{{color:var(--up)}} .dn{{color:var(--dn)}} .w{{color:#fff}}
-.chart{{height:100px;margin:14px -20px 0}} .chart svg{{width:100%;height:100%;display:block}}
+.strip{{display:flex;flex-wrap:wrap;gap:4px;margin:14px 0 12px}}
+.strip i{{width:12px;height:12px;border-radius:3px;background:#3a4256}}
+.strip i.won{{background:var(--up);box-shadow:0 0 8px rgba(34,227,154,.6)}} .strip i.lost{{background:var(--dn)}} .strip i.push{{background:#c9d1e0}}
 .recs{{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}}
 .rc{{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;overflow:hidden}}
 .rc::before{{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2))}}
 .rc-t{{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--c1)}}
 .rc-r{{font-size:26px;font-weight:900;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}}
-.rc-p{{font-weight:800;font-variant-numeric:tabular-nums}} .rc-s{{font-size:11.5px;color:var(--muted);font-weight:700;margin-top:2px}}
+.rc-p{{font-weight:800;color:var(--c1)}} .rc-s{{font-size:11.5px;color:var(--muted);font-weight:700;margin-top:2px}}
 .list{{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:4px 14px}}
 .rr{{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}} .rr:last-child{{border:0}}
 .rk{{font-size:18px}} .rd{{flex:1;min-width:0}}
@@ -325,15 +301,15 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board"><div class="trust">TRUST THE ALGORITHM!</div>{board}</div>
 
-<div class="sec"><h2><i>●</i> THE RESULTS</h2><span>tracked at $100 a pick</span></div>
+<div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
-  <div class="lbl">Profit · $100 a pick</div>
-  <div class="total {"up" if profit >= 0 else "dn"}">{_money(profit, True)}</div>
-  <span class="pill" style="--p:{"#22e39a" if day_pnl >= 0 else "#ff3b3b"}">{"▲" if day_pnl >= 0 else "▼"} {_money(day_pnl, True)} <small>TODAY</small></span>
+  <div class="lbl">Overall record</div>
+  <div class="total">{rec_all}</div>
+  <span class="pill" style="--p:#ffc233">{rec_day} <small>TODAY</small></span>
   <div class="month">{tiles}</div>
-  <div class="chart">{_svg(pts, 360, 100, accent, "b", base=0.0)}</div>
+  <div class="strip">{strip}</div>
 </section>
-<div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{wins + losses + pushes} graded</span></div>
+<div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
 <div class="recs">{"".join(rec)}</div>
 <div class="sec"><h2><i>●</i> RECENT TICKETS</h2></div>
 <div class="list">{results}</div>
