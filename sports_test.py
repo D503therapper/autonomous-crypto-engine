@@ -429,6 +429,7 @@ def test_comeback_study_and_live_rules():
     assert sports_live.two_books((-145, 110), (None, None)) == (-145, 110, False)      # DraftKings when Bovada has none
     assert sports_live.two_books((-145, 110), (220, -295)) == (220, -295, False)       # books apart: Bovada, unconfirmed
     assert sports_live.two_books((None, None), (None, None)) == (None, None, False)
+    assert sports_live.two_books((0, 0), (None, None)) == (None, None, False), "a pulled line (0) is no price"
     # a play that's already up stays while there's any value left, a new one needs 5%+
     thin = None
     for ml in range(120, 400, 5):

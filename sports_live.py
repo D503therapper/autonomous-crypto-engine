@@ -465,10 +465,15 @@ def dk_live(league, g):
     return None, None
 
 
+def _ok(ml):
+    """A real moneyline: +100 or longer, -100 or shorter (books list 0 while a line's pulled)."""
+    return isinstance(ml, int) and (ml >= 100 or ml <= -100)
+
+
 def two_books(dk, bov):
     """The live price: Bovada's line (a real sportsbook - enough on its own); DraftKings' (via ESPN) when Bovada has
     none. confirmed = the other book roughly agrees, which also switches off the too-far-off filter."""
-    ok = [x[0] is not None and x[1] is not None for x in (dk, bov)]
+    ok = [_ok(x[0]) and _ok(x[1]) for x in (dk, bov)]
     if ok[1]:
         return bov[0], bov[1], ok[0] and abs(sd.no_vig(*bov) - sd.no_vig(*dk)) <= AGREE
     if ok[0]:
@@ -526,6 +531,39 @@ def board(plays, showing=()):
     return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
 
 
+def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showing, judged):
+    """One live game -> its plays (marked judged when it had a real price)."""
+    plays = []
+    es = scores_f[lg].result().get(g["id"].split(":", 1)[1]) if lg in scores_f else None
+    if es is not None and es != (_score(box, "home"), _score(box, "away")):
+        return plays                                       # the two score feeds disagree (a few seconds apart): wait
+    mlh, mla, checked = two_books(dk_f.result(), book_line(books_f[lg].result() if lg in books_f else [], g))
+    PRICED[0] += mlh is not None and mla is not None
+    if mlh is None or mla is None:
+        return plays                                       # the book paused its line: wait
+    judged.add(g["id"])
+    params = model["params"].get(lg) or sm.default_params(lg)
+    f = elo[lg].features(g)
+    mkt = sm.market_p(g)
+    p_model = sm.final_p(params, f, g) if mkt is not None else None
+    ball = ball_value(lg, ang, box)
+    ball_txt = (box.get("situation") or {}).get("display_short") or "" if ball else ""
+    rec = None
+    if lg in ("nfl", "ncaaf") and int(box.get("period") or 0) == 2:
+        rec = second_half_ball(lg, g)            # who gets the ball to start the 2nd half
+        if rec:
+            if not ball and halftime(lg, ang, box):  # halftime: they have the ball next
+                ball = HALF_BALL if rec == "home" else -HALF_BALL
+                ball_txt = ""                        # not a scoring-range drive: no "they got the ball" reason
+            elif not halftime(lg, ang, box):         # 2nd quarter: it counts more as the half runs out
+                mins = _clock_min(box.get("clock"))
+                ball += (HALF_BALL if rec == "home" else -HALF_BALL) * (1 - (mins if mins is not None else 15) / 15)
+    for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing, rec):
+        pl["an_id"] = ang.get("id")
+        plays.append(pl)
+    return plays
+
+
 def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     """Scan every live game -> the plays on the board right now. Max 2 at a time, no limit per day: a play that's
     up stays up while its value's still there (`showing`); a new one only takes a slot that's open."""
@@ -558,33 +596,10 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                 if g:
                     todo.append((lg, ang, box, g, ex.submit(dk_live, lg, g)))
         for lg, ang, box, g, dk_f in todo:
-            es = scores_f[lg].result().get(g["id"].split(":", 1)[1]) if lg in scores_f else None
-            if es is not None and es != (_score(box, "home"), _score(box, "away")):
-                continue                                       # the two score feeds disagree (a few seconds apart): wait
-            mlh, mla, checked = two_books(dk_f.result(), book_line(books_f[lg].result() if lg in books_f else [], g))
-            PRICED[0] += mlh is not None and mla is not None
-            if mlh is None or mla is None:
-                continue                                       # the book paused its line: wait
-            judged.add(g["id"])
-            params = model["params"].get(lg) or sm.default_params(lg)
-            f = elo[lg].features(g)
-            mkt = sm.market_p(g)
-            p_model = sm.final_p(params, f, g) if mkt is not None else None
-            ball = ball_value(lg, ang, box)
-            ball_txt = (box.get("situation") or {}).get("display_short") or "" if ball else ""
-            rec = None
-            if lg in ("nfl", "ncaaf") and int(box.get("period") or 0) == 2:
-                rec = second_half_ball(lg, g)            # who gets the ball to start the 2nd half
-                if rec:
-                    if not ball and halftime(lg, ang, box):  # halftime: they have the ball next
-                        ball = HALF_BALL if rec == "home" else -HALF_BALL
-                        ball_txt = ""                        # not a scoring-range drive: no "they got the ball" reason
-                    elif not halftime(lg, ang, box):         # 2nd quarter: it counts more as the half runs out
-                        mins = _clock_min(box.get("clock"))
-                        ball += (HALF_BALL if rec == "home" else -HALF_BALL) * (1 - (mins if mins is not None else 15) / 15)
-            for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing, rec):
-                pl["an_id"] = ang.get("id")
-                plays.append(pl)
+            try:
+                plays += _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showing, judged)
+            except Exception as e:                           # noqa: BLE001 - one bad game never sinks the whole check
+                sd.ERRORS.append(f"live {g['id']}: {type(e).__name__} {str(e)[:80]}")
     stamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
     for p in plays:
         p["seen"], p["paused"] = stamp, False
