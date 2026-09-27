@@ -69,28 +69,21 @@ def leg_label(leg):
 
 # ---------------------------------------------------------------- candidates
 def _reasons(side, f, g, league, params):
-    """Plain-English reasons for a side, strongest first."""
+    """Short plain-English reasons the engine likes this side, strongest first."""
     s = 1 if side == "home" else -1
     out = []
-    pts = f["elo_pts"] * s
-    if abs(pts) >= 15:
-        out.append((abs(pts) / 40, f"{'stronger' if pts > 0 else 'weaker'} team by rating ({pts:+.0f})"))
-    fm = f["form"] * s
-    if abs(fm) >= 0.08:
-        out.append((abs(fm) * 4, "hotter recent form" if fm > 0 else "colder recent form, bounce-back spot"))
-    rest = f["rest"] * 7 * s
-    if abs(rest) >= 1:
-        out.append((abs(rest) / 3, f"{abs(rest):.0f} more day{'s' if abs(rest) >= 2 else ''} of rest" if rest > 0
-                    else f"{abs(rest):.0f} fewer rest day{'s' if abs(rest) >= 2 else ''}"))
+    if f["elo_pts"] * s >= 15:
+        out.append((f["elo_pts"] * s / 40, "the stronger team"))
+    if f["form"] * s >= 0.08:
+        out.append((f["form"] * s * 4, "hotter recent form"))
+    if f["rest"] * 7 * s >= 1:
+        out.append((f["rest"] * 7 * s / 3, "better rested"))
     if f["b2b"] * s > 0:
         out.append((0.8, "opponent on a back-to-back"))
-    inj = f["inj"] * 5 * s
-    if abs(inj) >= 1:
-        out.append((abs(inj) / 3, f"opponent has {abs(inj):.0f} more player{'s' if abs(inj) >= 2 else ''} out"
-                    if inj > 0 else f"{abs(inj):.0f} more player{'s' if abs(inj) >= 2 else ''} out on our side"))
-    mv = sm.line_move(g) * s
-    if abs(mv) >= 0.08:
-        out.append((abs(mv) * 5, "line moving our way (sharp money)" if mv > 0 else "line moving against"))
+    if f["inj"] * 5 * s >= 1:
+        out.append((f["inj"] * 5 * s / 3, "opponent missing key players"))
+    if sm.line_move(g) * s >= 0.08:
+        out.append((sm.line_move(g) * s * 5, "sharp money moving this way"))
     out.sort(key=lambda r: -r[0])
     return [r[1] for r in out[:3]]
 
