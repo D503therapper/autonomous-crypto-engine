@@ -148,16 +148,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
                    f'<div class="rc-r">{r}</div><div class="rc-p">{f"{h:.0%} hit" if h is not None else "&nbsp;"}</div>'
                    f'<div class="rc-s">{("streak " + st) if st else "no results yet"}</div></div>')
 
-    # recent results
-    rows = []
-    for p in list(reversed(done))[:14]:
-        label, c1, _ = LOOK[p["kind"]]
-        legs = " + ".join(f'{E(l["team"])}{"" if l["market"] == "ml" else " " + format(l["line"], "+g")}' for l in p["legs"])
-        tag = {"won": "WON", "lost": "LOST", "push": "PUSH"}[p["status"]]
-        rows.append(f'<div class="rr"><span class="rk" style="color:{c1}">{ICON[p["kind"]]}</span><div class="rd"><div class="rl">{legs}</div>'
-                    f'<div class="rm">{datetime.fromisoformat(p["date"]):%b %-d} · {label.title()} · {_am(p["american"])}</div></div>'
-                    f'<span class="chip {p["status"]}">{tag}</span></div>')
-    results = "".join(rows) or '<div class="empty">First results land after the first board settles.</div>'
 
     # the brain, in a nutshell - only what actually happened, in our voice, rotating day to day
     params = model.get("params", {})
@@ -369,8 +359,6 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
 <div class="recs">{"".join(rec)}</div>
-<div class="sec"><h2><i>●</i> RECENT TICKETS</h2></div>
-<div class="list">{results}</div>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
