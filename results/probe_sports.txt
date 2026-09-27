@@ -1,8 +1,10 @@
-bovada plain: 0 groups, 0 events
-bovada browser: 0 groups, 0 events
-bovada v2: 0 groups, 0 events
-
-ESPN LAC @ BUF scoreboard odds: null
-  core: DraftKings home {"pointSpread": {"alternateDisplayValue": "-7", "american": "-7"}, "spread": {"value": 1.86, "displayValue": "20/23", "alternateDisplayValue": "-115", "decimal": 1.86, "fraction": "20/23", "american": "-115"}, "moneyLine": {"value": 1.28, "displayValue": "20/69", "alternateDisplayValue": "-345", "de | moneyline -345 275
-  core: DraftKings - Live Odds home {"pointSpread": {"alternateDisplayValue": "+1.5", "american": "+1.5"}, "spread": {"value": 1.86, "displayValue": "25/29", "alternateDisplayValue": "-116", "decimal": 1.86, "fraction": "25/29", "american": "-116"}, "moneyLine": {"value": 1.91, "displayValue": "100/109", "alternateDisplayValue": "-109 | moneyline -109 -121
-  pickcenter: [{"provider": {"id": "100", "name": "DraftKings", "priority": 1, "logos": [{"href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg", "rel": ["light"]}, {"href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg", "rel": ["dark"]}]}, "homeTeamOdds": {"favorite": true, "underdog": false, "moneyLine": -345, "spreadOdds": -115.0, "team": {"$ref": "http://sports.core.api.espn.pvt/v2/sports/football/leagues/nfl/seasons/2026/teams/2?lang=en&region=us"}, "teamId": "2", "favoriteAtOpen": true}, "awayTeamOdds": {"favorite": false, "underdog": true, "moneyLine": 275, "spreadOdds": -105.0, "team": {"$ref": "http://sports.core.api.espn.pvt/v2/sports/football/leagues/nfl/seasons/2026/teams/24?la
+nfl &season=2025&week=6&seasonType=reg 15 games; latest_odds keys: ['firsthalf', 'firstquarter', 'fourthquarter', 'game', 'secondhalf', 'secondquarter', 'thirdquarter']
+     firsthalf {"over": -102, "total": 20.5, "under": -118, "ml_away": -238, "ml_home": 195, "spread_away": -3.5, "spread_home": 3.5, "spread_away_line": -115, "spread_home_line": -105}
+nba &date=20260115 9 games; latest_odds keys: []
+ncaab &division=D1&date=20260115 49 games; latest_odds keys: ['firsthalf', 'game']
+     firsthalf {"over": -120, "total": 72.5, "under": -110, "ml_away": -298, "ml_home": 220, "spread_away": -4.5, "spread_home": 4.5, "spread_away_line": -120, "spread_home_line": -110}
+mlb &date=20250715 1 games; latest_odds keys: []
+mlb &date=20230715 18 games; latest_odds keys: ['firstfiveinnings', 'firstinning', 'game']
+     firstinning {"over": -105, "total": 0.5, "under": -120, "ml_away": 260, "ml_home": 340, "spread_away": null, "spread_home": null, "spread_away_line": null, "spread_home_line": null}
+nfl &season=2021&week=6&seasonType=reg 14 games; latest_odds keys: ['firsthalf', 'firstquarter', 'fourthquarter', 'game', 'secondhalf', 'secondquarter', 'thirdquarter']
+     firsthalf {"over": -118, "total": 26.5, "under": -110, "ml_away": -247, "ml_home": 185, "spread_away": -4.5, "spread_home": 4.5, "spread_away_line": -106, "spread_home_line": -118}
