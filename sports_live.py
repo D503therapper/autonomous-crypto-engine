@@ -32,7 +32,8 @@ LIVE_JSON = "docs/sports/live.json"
 LOG = os.path.join(sd.DATA, "live_log.json")
 LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we want a real 5%+ edge
 DOG_MIN = 100                 # live plays are plus money only
-MAX_GAP = 0.15                # our live chance vs the book's: a bigger gap means something the scoreboard can't show
+MAX_GAP = 0.20                # our live chance (score, clock, who has the ball and where) vs the confirmed price: a
+                              # bigger gap means the book knows something the scoreboard can't show (injury, ejection)
 LIVE_MIN_P = 0.25             # value, not lottery tickets: +300/+400 is fine when it's real, never a +900 prayer
 MAX_PLAYS = 2                 # at most 2 on the board at once (no limit per day: a slot opens when a play's value is gone)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
@@ -305,7 +306,64 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     return out
 
 
-WATCHING = [0]                # live games seen in the last cycle (the dashboard says whether games are going)
+WATCHING = [0]
+PRICED = [0]                  # live games with a confirmed sportsbook price this cycle                # live games seen in the last cycle (the dashboard says whether games are going)
+
+
+BOVADA = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
+BOVADA_PATH = {"nfl": "football/nfl", "ncaaf": "football/college-football", "nba": "basketball/nba",
+               "ncaab": "basketball/college-basketball", "nhl": "hockey/nhl", "mlb": "baseball/mlb"}
+AGREE = 0.08                  # the sportsbook (Bovada) and Action Network must agree within 8 points of win chance
+
+
+def _clean(name):
+    return re.sub(r"\s*\(#?\d+\)\s*", " ", str(name or "")).strip()
+
+
+def bovada_live(league):
+    """[{home, away, ml_home, ml_away}] - the sportsbook's LIVE moneylines right now."""
+    try:
+        data = _get(BOVADA.format(path=BOVADA_PATH[league]))
+    except Exception as e:                                   # noqa: BLE001
+        sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
+        return []
+    out = []
+    for grp in data or []:
+        for ev in grp.get("events") or []:
+            comps = {("home" if c.get("home") else "away"): _clean(c.get("name")) for c in ev.get("competitors") or []}
+            if len(comps) != 2:
+                continue
+            for dg in ev.get("displayGroups") or []:
+                for mk in dg.get("markets") or []:
+                    per = mk.get("period") or {}
+                    if "moneyline" not in str(mk.get("description", "")).lower() or not per.get("live") or not per.get("main"):
+                        continue
+                    px = {}
+                    for o in mk.get("outcomes") or []:
+                        v = str((o.get("price") or {}).get("american") or "").upper()
+                        px[_clean(o.get("description"))] = 100 if v == "EVEN" else int(v) if re.match(r"^[+-]?\d+$", v) else None
+                    h, a = px.get(comps["home"]), px.get(comps["away"])
+                    if h is not None and a is not None:
+                        out.append({"home": comps["home"], "away": comps["away"], "ml_home": h, "ml_away": a})
+    return out
+
+
+def book_line(lines, g):
+    """(home ml, away ml) for our game from the sportsbook's live lines, or (None, None)."""
+    for ln in lines:
+        if sd._same(g["home_name"], ln["home"]) and sd._same(g["away_name"], ln["away"]):
+            return ln["ml_home"], ln["ml_away"]
+    return None, None
+
+
+def confirmed_line(book, an):
+    """The live price we trust: the sportsbook's line, cross-checked with Action Network's when it has one.
+    Far apart = one of them is glitched = no price."""
+    if book[0] is None or book[1] is None:
+        return None, None
+    if an[0] is not None and an[1] is not None and abs(sd.no_vig(*book) - sd.no_vig(*an)) > AGREE:
+        return None, None
+    return book
 
 
 def live_line(box):
@@ -327,10 +385,13 @@ def cycle(games, model, log, now=None, st=None, showing=()):
     st = sc.load() if st is None else st
     elo = sm.ratings(games, model)
     plays = []
-    WATCHING[0] = 0
+    WATCHING[0] = PRICED[0] = 0
     for lg in sd.LEAGUES:
         params = model["params"].get(lg) or sm.default_params(lg)
-        for ang in fetch_live(lg):
+        angs = fetch_live(lg)
+        books = bovada_live(lg) if any((a.get("boxscore") or {}).get("period") and str(a.get("status") or "").lower()
+                                       not in DONE for a in angs) else []
+        for ang in angs:
             status = str(ang.get("status") or ang.get("real_status") or "").lower()
             box = ang.get("boxscore") or {}
             if status in DONE or not box.get("period"):
@@ -338,8 +399,11 @@ def cycle(games, model, log, now=None, st=None, showing=()):
                 continue
             WATCHING[0] += 1                                   # a game going right now
             g = _match(games, lg, ang)
-            mlh, mla = live_line(box)
-            if not g or mlh is None or mla is None:
+            if not g:
+                continue
+            mlh, mla = confirmed_line(book_line(books, g), live_line(box))
+            PRICED[0] += mlh is not None and mla is not None
+            if mlh is None or mla is None:
                 continue
             f = elo[lg].features(g)
             mkt = sm.market_p(g)
@@ -405,13 +469,14 @@ def run():
     except (OSError, ValueError):
         showing = []
     plays = cycle(games, model, log, showing=showing)
-    out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0]}
+    out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
+           "priced": PRICED[0]}
     os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
     with open(LIVE_JSON, "w") as f:
         json.dump(out, f, indent=1)
     with open(LOG, "w") as f:
         json.dump(log, f, indent=1, sort_keys=True)
-    print(f"live: {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
+    print(f"live: {WATCHING[0]} games live, {PRICED[0]} with a confirmed sportsbook price, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
     return plays
 
 

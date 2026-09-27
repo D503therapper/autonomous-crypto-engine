@@ -403,6 +403,15 @@ def test_comeback_study_and_live_rules():
     # a price miles from what the score says (e.g. a favorite +900 in a tied game): the book knows something
     tied = dict(box, total_home_points=70, total_away_points=70)
     assert not [p for p in sports_live.evaluate("nba", g, tied, 900, -2000, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]
+    # the live price comes from the sportsbook (Bovada), cross-checked with Action Network
+    gm_ = {"home_name": "Jaguars", "away_name": "Patriots"}
+    lines = [{"home": "Jacksonville Jaguars", "away": "New England Patriots", "ml_home": -140, "ml_away": 120}]
+    assert sports_live.book_line(lines, gm_) == (-140, 120)
+    assert sports_live._clean("Alabama (#8)") == "Alabama"
+    assert sports_live.confirmed_line((-140, 120), (None, None)) == (-140, 120)            # the book alone is fine
+    assert sports_live.confirmed_line((-140, 120), (-150, 130)) == (-140, 120)             # they agree
+    assert sports_live.confirmed_line((-140, 120), (220, -295)) == (None, None)            # a glitch: no price
+    assert sports_live.confirmed_line((None, None), (220, -295)) == (None, None)           # no sportsbook line: no play
     # live prices: only the LIVE line, never the pregame "game" line
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272}}}) == (None, None)
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272},
