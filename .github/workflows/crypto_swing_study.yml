@@ -3,6 +3,7 @@
 name: crypto-swing-study
 on:
   push:
+    branches: [main]
     paths: ["crypto_swing_study.py", ".github/workflows/crypto_swing_study.yml"]
   workflow_dispatch: {}
 permissions:

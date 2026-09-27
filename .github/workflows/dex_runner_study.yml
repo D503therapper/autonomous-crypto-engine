@@ -5,6 +5,7 @@
 name: dex-runner-study
 on:
   push:
+    branches: [main]
     paths: ["dex_runner_study.py", ".github/workflows/dex_runner_study.yml"]
   workflow_dispatch:
     inputs:

@@ -2,6 +2,7 @@
 name: probe_goplus
 on:
   push:
+    branches: [main]
     paths: ["tools/probe_goplus.py", ".github/workflows/probe_goplus.yml"]
   workflow_dispatch: {}
 permissions:

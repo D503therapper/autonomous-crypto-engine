@@ -3,6 +3,7 @@
 name: dex-exit-study
 on:
   push:
+    branches: [main]
     paths: ["dex_exit_study.py", ".github/workflows/dex_exit_study.yml"]
   workflow_dispatch: {}
 permissions:

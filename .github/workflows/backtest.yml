@@ -3,6 +3,7 @@
 name: backtest
 on:
   push:
+    branches: [main]
     paths: ["backtest_request.txt"]
   workflow_dispatch: {}
 permissions:

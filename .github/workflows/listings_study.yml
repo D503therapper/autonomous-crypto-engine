@@ -2,6 +2,7 @@
 name: listings-study
 on:
   push:
+    branches: [main]
     paths: ["listings_study.py", ".github/workflows/listings_study.yml"]
   workflow_dispatch: {}
 permissions:

@@ -2,6 +2,7 @@
 name: pump-hunter
 on:
   push:
+    branches: [main]
     paths: ["pumps.py", ".github/workflows/pumps.yml"]
   workflow_dispatch: {}
 permissions:
