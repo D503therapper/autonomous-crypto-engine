@@ -31,8 +31,8 @@ BUCKETS = {"nfl": [(1, 3), (4, 7), (8, 10), (11, 14), (15, 21), (22, 99)],
            "nhl": [(1, 1), (2, 2), (3, 99)],
            "mlb": [(1, 1), (2, 2), (3, 3), (4, 5), (6, 99)]}
 MIN_N = 30                  # a spot needs this many past games before history can back a live bet
-S_GRID = [0.6 + 0.1 * i for i in range(13)]          # 0.6 .. 1.8
-W_GRID = [0.25 * i for i in range(9)]                # 0 .. 2
+S_GRID = [0.6 + 0.1 * i for i in range(20)]          # 0.6 .. 2.5
+W_GRID = [0.25 * i for i in range(13)]               # 0 .. 3
 M_GRID = [-0.2, -0.1, 0.0, 0.1, 0.2, 0.3]            # momentum: fraction of last period's margin that carries
 
 
