@@ -725,9 +725,9 @@ function vibe(p,id){{return pick(id+"v",p>=0.65?["The engine likes them to handl
  p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
  ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}}
 function show(g){{
-  var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":""), pct=Math.round(L.p*100);
+  var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":g.league=="tennis"?" games":""), pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
-    '<div class="ls">'+esc(g.away)+" @ "+esc(g.home)+'</div>';
+    '<div class="ls">'+esc(g.away)+(g.vs?" vs ":" @ ")+esc(g.home)+'</div>';
   if(g.why=="on_board"){{h+='<div class="ask-a">🎯 We already on this one — it’s on the board. Scroll down and tail it. 👇</div></section>';out.innerHTML=h;return}}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
      '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
@@ -748,7 +748,7 @@ function note(){{
     return '<div class="ask-prop">'+pick(t,["🙅 We don’t do no player props. Too risky, bro.","🙅 Player props? Nah. Risky ass shit — we stay away.",
       "🙅 No player props over here. One tweak and you’re cooked. We pass.","🙅 We don’t touch player props. Too many ways to lose. Stick to the games."])+'</div>';
   if(/over|under|\\btotal|o\\/u/.test(t)) n.push("📚 Over/unders: the engine’s still studying those — we don’t guess. Reads coming soon.");
-  if(/first half|1st half|1h|first 5|f5/.test(t)) n.push("⏱️ First-half reads show inside each game below.");
+  if(/first half|1st half|1h|first 5|f5|first period|1st period/.test(t)) n.push("⏱️ First-half / first-5 / 1st-period reads show inside each game below.");
   return n.length?'<div class="ask-n">'+n.join("<br>")+'</div>':"";
 }}
 function render(){{
@@ -759,14 +759,18 @@ function render(){{
     return !words.length||words.some(function(w){{return hay.indexOf(w)>=0}})}}).slice(0,12);
   if(!words.length&&!note()){{list.innerHTML="";return}}
   if(!games.length){{list.innerHTML=note()+'<div class="ask-n">No games left on the slate right now. The engine drops new reads as soon as the next lines post.</div>';return}}
-  list.innerHTML=note()+(hits.length?hits.map(function(g){{return '<button class="ask-g" data-i="'+games.indexOf(g)+'">'+g.emoji+" "+esc(g.away)+" @ "+esc(g.home)+' <small>'+tm(g.start)+'</small></button>'}}).join(""):
+  list.innerHTML=note()+(hits.length?hits.map(function(g){{return '<button class="ask-g" data-i="'+games.indexOf(g)+'">'+g.emoji+" "+esc(g.away)+(g.vs?" vs ":" @ ")+esc(g.home)+' <small>'+tm(g.start)+'</small></button>'}}).join(""):
     '<div class="ask-n">'+pick(q.value,NOPE)+'</div>');
   if(hits.length==1&&words.length) show(hits[0]);
 }}
 list.addEventListener("click",function(e){{var b=e.target.closest(".ask-g");if(b)show(games[+b.dataset.i])}});
 q.addEventListener("input",render);
 var timer=setTimeout(function(){{if(!loaded){{loaded=true;games=[];list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}}}},8000);
-fetch("reads.json?v="+Date.now()).then(function(r){{return r.json()}}).then(function(d){{clearTimeout(timer);loaded=true;games=d.games||[];render()}}).catch(function(){{clearTimeout(timer);loaded=true;list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}});
+function got(d){{return (d&&d.games)||[]}}
+Promise.all([fetch("reads.json?v="+Date.now()).then(function(r){{return r.json()}}),
+  fetch("reads_tennis.json?v="+Date.now()).then(function(r){{return r.json()}}).catch(function(){{return {{}}}})])
+.then(function(ds){{clearTimeout(timer);loaded=true;games=got(ds[0]).concat(got(ds[1]));render()}})
+.catch(function(){{clearTimeout(timer);loaded=true;list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}});
 render();
 }})();
 </script></body></html>"""

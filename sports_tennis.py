@@ -715,6 +715,37 @@ def post(ms, rt, w, lines, picks, now, gm=None):
     return slate
 
 
+ASK_PATH = "docs/sports/reads_tennis.json"
+ASK_STEEP = -300
+
+
+def reads(ms, rt, w, lines, picks, now, gm=None):
+    """The question box for tennis: our read on every match in the next 24 hours (not our picks, never in the record)."""
+    cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), gm=gm)
+    ours = {l["match"] for s in picks[-3:] for l in s.get("picks") or [] if not l.get("result")}
+    by = {}
+    for c in cands:
+        by.setdefault(c["match"], []).append(c)
+    out = []
+    for mid, cs in by.items():
+        ok = [c for c in cs if c["odds"] >= ASK_STEEP] or cs
+        c = max(ok, key=lambda c: (c["p"], c["edge"]))                 # accuracy first: the likelier bet
+        why = ("on_board" if mid in ours else "steep" if c["odds"] < ASK_STEEP else "coin_flip" if c["p"] < 0.55
+               else "tight" if c["edge"] >= MIN_EDGE else "no_value")
+        out.append({"id": f"tennis:{mid}", "league": "tennis", "emoji": "🎾",
+                    "sport": "Women's Tennis" if c.get("tour") == "wta" else "Men's Tennis", "start": c["start"],
+                    "away": c["player"], "home": c["opp"], "vs": True, "why": why, "board": None, "h1": None,
+                    "lean": {"team": c["player"], "opp": c["opp"], "market": c.get("market", "ml"), "line": c.get("hcp"),
+                             "odds": c["odds"], "p": round(c["p"], 3), "win_p": round(c.get("win_p", c["p"]), 3),
+                             "reasons": [x for x in (c.get("surface") and f"on {SURF.get(c['surface'], c['surface'])}",
+                                                     c.get("tourney")) if x]}})
+    out.sort(key=lambda r: r["start"])
+    os.makedirs(os.path.dirname(ASK_PATH), exist_ok=True)
+    with open(ASK_PATH, "w") as f:
+        json.dump({"updated": now.strftime("%Y-%m-%dT%H:%MZ"), "games": out}, f, indent=1)
+    return out
+
+
 def grade(ms, picks):
     for s in picks:
         for leg in s["picks"]:
@@ -775,6 +806,11 @@ def run(state, now=None, fetch=True):
         else None
     if rep["rated"] < MIN_RATED:
         print(f"tennis: still studying ({rep['rated']}/{MIN_RATED} rated matches) - no picks yet")
+    if lines and rep["rated"] >= MIN_RATED:
+        try:
+            print(f"tennis reads: {len(reads(ms, rt, w, lines, picks, now, rep.get('games')))} matches")
+        except Exception as e:                                          # noqa: BLE001 - never block tennis
+            print(f"tennis reads failed: {e}")
     if slate:
         print(f"tennis posted {slate['date']}: " + ", ".join(f"{l['player']} {l['odds']:+d}" for l in slate["picks"]))
     os.makedirs(DIR, exist_ok=True)
