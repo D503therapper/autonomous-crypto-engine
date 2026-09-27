@@ -1,10 +1,8 @@
-ratings: 3.1s
-fetch_live nfl: 16 in 0.1s
-fetch_live ncaaf: 59 in 0.1s
-fetch_live nba: 0 in 0.1s
-fetch_live mlb: 30 in 0.1s
-fetch_live nhl: 14 in 0.1s
-fetch_live ncaab: 0 in 0.1s
-bovada nfl: 0 in 1.0s {'nfl': '0 groups, 0 events'}
-espn scores nfl: 16 in 0.2s
-cycle: 5.6s 0 plays
+live (12.9s): 23 games live, 17 priced by a sportsbook, 2 plays on the board
+   Texans +212 (Texans 17 @ Colts 16, Q4 01:48) edge 46.4%
+   Giants +101 (Dodgers 0 @ Giants 1, Inning 3) edge 20.1%
+run ok: [('Texans', 212), ('Giants', 101)]
+live (3.3s): 23 games live, 17 priced by a sportsbook, 2 plays on the board
+   Texans +212 (Texans 17 @ Colts 16, Q4 01:48) edge 46.4%
+   Giants +101 (Dodgers 0 @ Giants 1, Inning 3) edge 20.1%
+run ok: [('Texans', 212), ('Giants', 101)]
