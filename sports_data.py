@@ -343,8 +343,18 @@ def parse_an(payload):
     return out
 
 
+AN_WEEKS = {"nfl": (("reg", 18), ("post", 5)), "ncaaf": (("reg", 15), ("post", 1))}   # football pages by week
+
+
 def fetch_an_day(league, day):
-    url = AN.format(lg=league, day=day.strftime("%Y%m%d"), extra=AN_EXTRA.get(league, ""))
+    """One day's games (baseball, basketball, hockey) or, for football, day = (season, type, week)."""
+    if league in AN_WEEKS:
+        season, typ, week = day
+        url = (f"https://api.actionnetwork.com/web/v1/scoreboard/{league}?period=game&season={season}&week={week}"
+               f"&seasonType={typ}{AN_EXTRA.get(league, '')}")
+        day = datetime(season, 1, 1)                  # only for the error message
+    else:
+        url = AN.format(lg=league, day=day.strftime("%Y%m%d"), extra=AN_EXTRA.get(league, ""))
     for i in range(2):
         try:
             with urllib.request.urlopen(url, timeout=15) as r:
@@ -396,7 +406,13 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
     today = datetime.now(timezone.utc).date()
     cur = state.setdefault("an_synced", {})
     jobs = []
+    weeks = []
+    for lg, parts in AN_WEEKS.items():                # last season once, this season every run (cheap)
+        seasons = [today.year] + ([] if cur.get(f"{lg}_past") else [today.year - 1])
+        weeks += [(lg, (y, typ, w)) for y in seasons for typ, n in parts for w in range(1, n + 1)]
     for lg in LEAGUES:
+        if lg in AN_WEEKS:
+            continue
         start = datetime.strptime(cur[lg], "%Y-%m-%d").date() - timedelta(days=2) if lg in cur \
             else today - timedelta(days=backfill_days)
         d = start
@@ -409,14 +425,25 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
         return job, (fetch_an_day(*job) if time.time() < deadline else None)
     with ThreadPoolExecutor(workers) as ex:
         results = list(ex.map(run, jobs))
-    fails, filled = {}, 0
+        wres = list(ex.map(run, weeks))
+    filled = 0
+    for lg in AN_WEEKS:
+        past = [r for (l2, (y, _, _)), r in wres if l2 == lg and y == today.year - 1]
+        if past and all(r is not None for r in past):
+            cur[f"{lg}_past"] = True
+    for (lg, _), rows in wres:
+        if rows is not None:
+            filled += attach_an(games, lg, rows)
+    fails = {}
     for (lg, d), rows in results:
         if rows is None:
             fails[lg] = min(fails.get(lg, d), d)
             continue
         filled += attach_an(games, lg, rows)
     for lg in LEAGUES:
+        if lg in AN_WEEKS:
+            continue
         upto = fails.get(lg, today + timedelta(days=1)) - timedelta(days=1)
         if lg in cur or upto >= today - timedelta(days=backfill_days):
             cur[lg] = min(upto, today).strftime("%Y-%m-%d")
-    return filled, len(jobs), sum(1 for _, r in results if r is None)
+    return filled, len(jobs) + len(weeks), sum(1 for _, r in results + wres if r is None)
