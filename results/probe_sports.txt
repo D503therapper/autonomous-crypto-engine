@@ -1,0 +1,53 @@
+200 espn site [none] type=application/json;charset=UTF-8
+    '{"leagues":[{"id":"28","uid":"s:20~l:28","name":"National Football League","abbreviation":"NFL","slug":"nfl","season":{"year":2026,"startDate":"2026-08-06T07:00'
+    https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20260926
+200 espn site web [none] type=application/json;charset=UTF-8
+    '{"leagues":[{"id":"28","uid":"s:20~l:28","name":"National Football League","abbreviation":"NFL","slug":"nfl","season":{"year":2026,"startDate":"2026-08-06T07:00'
+    https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20260926
+200 espn v2 web [none] type=application/json;charset=UTF-8
+    '{"sports":[{"id":"20","uid":"s:20","guid":"60459870-f8fc-3b3a-a6b9-d8af4bf19223","name":"Football","slug":"football","logos":[{"href":"https://a.espncdn.com/com'
+    https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=football&league=nfl&dates=20260926
+200 espn core [none] type=application/json;charset=utf-8
+    '{"count":0,"pageIndex":0,"pageSize":25,"pageCount":0,"items":[]}'
+    https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events?dates=20260926
+200 espn cdn [none] type=application/json;charset=utf-8
+    '{"news":{"link":{"isExternal":false,"shortText":"All News","rel":["index","desktop","league"],"language":"en-US","href":"https://www.espn.com/nfl/","text":"All '
+    https://cdn.espn.com/core/nfl/scoreboard?xhr=1&dates=20260926
+200 espn ncaaf [none] type=application/json;charset=UTF-8
+    '{"leagues":[{"id":"23","uid":"s:20~l:23","name":"NCAA - Football","abbreviation":"NCAAF","midsizeName":"NCAA Football","slug":"college-football","season":{"year'
+    https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates=20260926&groups=80
+200 action network nfl [none] type=application/json; charset=utf-8
+    '{"league":{"id":1,"sport":"football","name":"nfl","description":"National Football League","logo":"https://static.sprtactn.co/leagues/500/nfl.png","current_seas'
+    https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&bookIds=15,30,68,69,75,71,79,247,123,76,1968&date=20260928
+200 action network mlb [none] type=application/json; charset=utf-8
+    '{"league":{"id":8,"sport":"baseball","name":"mlb","description":"Major League Baseball","logo":"https://static.sprtactn.co/leagues/500/mlb.png","current_season"'
+    https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date=20260926
+200 action network ncaaf [none] type=application/json; charset=utf-8
+    '{"league":{"id":2,"sport":"football","name":"ncaaf","description":"Men\'s College Football","logo":"https://static.sprtactn.co/leagues/500/ncaa.png","current_sea'
+    https://api.actionnetwork.com/web/v1/scoreboard/ncaaf?period=game&division=FBS&date=20260926
+200 mlb statsapi [none] type=application/json;charset=UTF-8
+    '{"copyright":"Copyright 2026 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/compon'
+    https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-09-26
+ERR nhl api-web [none] HTTP Error 403: Forbidden
+200 nhl api-web [browser] type=application/json
+    '{"prevDate":"2026-09-25","currentDate":"2026-09-26","nextDate":"2026-09-29","gameWeek":[{"date":"2026-09-23","dayAbbrev":"WED","numberOfGames":4},{"date":"2026-'
+    https://api-web.nhle.com/v1/score/2026-09-26
+ERR nba cdn scoreboard [none] HTTP Error 403: Forbidden
+ERR nba cdn scoreboard [browser] HTTP Error 403: Forbidden
+ERR nba cdn scoreboard [iphone] HTTP Error 403: Forbidden
+    https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json
+ERR nba cdn odds [none] HTTP Error 403: Forbidden
+ERR nba cdn odds [browser] HTTP Error 403: Forbidden
+ERR nba cdn odds [iphone] HTTP Error 403: Forbidden
+    https://cdn.nba.com/static/json/liveData/odds/odds_todaysGames.json
+ERR draftkings nash [none] HTTP Error 403: Forbidden
+ERR draftkings nash [browser] HTTP Error 403: Forbidden
+200 draftkings nash [iphone] type=application/json; charset=utf-8
+    '{"sports":[{"id":"3","seoIdentifier":"Football","name":"Football","sortOrder":56}],"leagues":[{"id":"88808","name":"NFL","sportId":"3","sortOrder":4847,"tags":['
+    https://sportsbook-nash.draftkings.com/api/sportscontent/dkusnj/v1/leagues/88808
+200 fanduel [none] type=application/json; charset=utf-8
+    '{"layout":{"links":{"7593":{"id":7593,"linkIdentifier":{"options":{"title":"Play FanDuel Casino!"},"url":"https://sportsbook.fanduel.com/casino"},"linkType":"EX'
+    https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=nfl&_ak=FhMFpcPWXMeyZxOx
+200 covers [none] type=text/html; charset=utf-8
+    '\n<!DOCTYPE html>\n<html lang="en" data-league="NFL">\n    <head>\n        \n    <title>NFL Matchups 2026-2027 - Today&#x27;s Football Previews, Scores, &amp; Schedu'
+    https://www.covers.com/sports/nfl/matchups
