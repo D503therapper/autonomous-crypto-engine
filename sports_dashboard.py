@@ -166,7 +166,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     lw, ll = sum(e.get("result") == "won" for e in live.values()), sum(e.get("result") == "lost" for e in live.values())
     live_card = (f'<div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">{lw}-{ll}</div>'
                  f'<div class="rc-p">{f"{lw / (lw + ll):.0%} hit" if lw + ll else "&nbsp;"}</div>'
-                 f'<div class="rc-s">{"its own record" if lw + ll else "no results yet"}</div></div>')
+                 f'<div class="rc-s">{"&nbsp;" if lw + ll else "no results yet"}</div></div>')
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -261,7 +261,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
-        lines.append(_rot(k + len(e["team"]), [f"🔴 {_cap(t)} live bet ({o}) didn't come through. Comeback fell short — we move.",
+        lines.append(_rot(k + len(e["team"]), [f"🔴 {_cap(t)} live bet ({o}) didn't come through. Comeback fell short.",
                                                f"🔴 Live L: {t} at {o}. Can't win 'em all. The algorithm's taking notes.",
                                                f"🔴 {_cap(t)} live at {o} came up short. Shake it off — next one's ours."]))
     if not done and not any(x.startswith("🔴") for x in lines):   # no finished day yet: nothing to brag or cry about
