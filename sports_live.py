@@ -35,11 +35,11 @@ LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we wa
 DOG_MIN = 100                 # live plays are plus money only
 MAX_GAP = 0.20                # our live chance (score, clock, who has the ball and where) vs the confirmed price: a
                               # bigger gap means the book knows something the scoreboard can't show (injury, ejection)
-STAY_EDGE, STAY_P = 0.0, 0.10    # never count a live dog out: a play that's up stays while there's ANY value left;
-                                 # it only comes down when the value's gone or it's shitting the bed (under a 10% chance)
+STAY_EDGE, STAY_P = 0.0, 0.15    # never count a live dog out: a play that's up stays while there's ANY value left;
+                                 # it only comes down when the value's gone or it's shitting the bed (under a 15% chance)
 PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone, review): hold the card up to 3 minutes
 LIVE_MIN_P = 0.25             # value, not lottery tickets: +300/+400 is fine when it's real, never a +900 prayer
-MAX_PLAYS = 2                 # at most 2 on the board at once (no limit per day: a slot opens when a play's value is gone)
+MAX_PLAYS = 4                 # up to 4 on the board at once, best value first (no limit per day)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
 LENGTH = {"nfl": (4, 15), "ncaaf": (4, 15), "nba": (4, 12), "ncaab": (2, 20), "nhl": (3, 20), "mlb": (9, None)}
 AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game{extra}"

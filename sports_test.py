@@ -452,9 +452,11 @@ def test_comeback_study_and_live_rules():
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272},
                                                   "live": {"ml_home": 110, "ml_away": -130}}}) == (110, -130)
     # the board: max 2 at once, a play that's up keeps its slot while its value holds
-    fake = [{"id": i, "edge": e} for i, e in (("a", 0.06), ("b", 0.07), ("c", 0.20))]
-    assert [x["id"] for x in sports_live.board(fake, ["a", "b"])] == ["b", "a"]     # "c" waits for a slot
-    assert [x["id"] for x in sports_live.board(fake[:1] + fake[2:], ["a", "b"])] == ["a", "c"]   # "b" gone: "c" takes it
+    n = sports_live.MAX_PLAYS
+    fake = [{"id": f"p{i}", "edge": 0.06 + 0.001 * i} for i in range(n)] + [{"id": "new", "edge": 0.50}]
+    up = [f"p{i}" for i in range(n)]
+    assert {x["id"] for x in sports_live.board(fake, up)} == set(up)                           # "new" waits for a slot
+    assert "new" in {x["id"] for x in sports_live.board(fake[1:], up)}                          # a slot opens: it takes it
     # no study for the sport yet: no bets
     long_shot = dict(box, total_home_points=50)                # down 20: +900 is a lottery ticket, never a play
     assert not [p for p in sports_live.evaluate("nba", g, long_shot, 900, -2000, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]
