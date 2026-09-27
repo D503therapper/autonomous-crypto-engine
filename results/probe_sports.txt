@@ -1,40 +1,5 @@
-bovada groups: 19
-    Bari > Challenger > Tennis
-    Beijing > ATP > Tennis
-    Beijing > WTA > Tennis
-    Buenos Aires > Challenger > Tennis
-    Chengdu > ATP > Tennis
-    Chengdu > ATP Doubles > Tennis
-    Columbus > Challenger > Tennis
-    Curitiba > Challenger > Tennis
-    Hangzhou > ATP > Tennis
-    Hangzhou > ATP Doubles > Tennis
-    ITF Women Berkeley > ITF Women's > Tennis
-    Jingshan > WTA 125K > Tennis
-    Jingshan, Doubles > WTA 125K > Tennis
-    Mouilleron-Le-Captif > Challenger > Tennis
-    Porto > Challenger > Tennis
-    San Diego > Challenger > Tennis
-    Tokyo > ATP > Tennis
-    UTR Pro Tennis Series > Exhibition > Tennis
-    UTR Pro Tennis Series Women > Exhibition > Tennis
-bovada event sample: {"description": "Rinky Hijikata vs Camilo Ugo Carabelli", "startTime": 1790560800000, "competitors": [{"id": "31494979-16442753", "name": "Rinky Hijikata", "home": true, "shortName": "Hijikata"}, {"id": "31494979-16285304", "name": "Camilo Ugo Carabelli", "home": false, "shortName": "Carabelli"}]}
-bovada markets: [('Game Spread', {'id': '113', 'description': 'Match', 'abbreviation': 'MT', 'live': False, 'main': True}), ('Moneyline', {'id': '113', 'description': 'Match', 'abbreviation': 'MT', 'live': False, 'main': True}), ('Total', {'id': '113', 'description': 'Match', 'abbreviation': 'MT', 'live': False, 'main': True})]
-parsed men's lines: 20
-    {'a': 'Rinky Hijikata', 'b': 'Camilo Ugo Carabelli', 'a_ml': -275, 'b_ml': 220, 'start': '2026-09-28T02:00Z', 'src': 'bovada'}
-    {'a': 'Stefanos Tsitsipas', 'b': 'Yoshihito Nishioka', 'a_ml': -1200, 'b_ml': 700, 'start': '2026-09-28T02:00Z', 'src': 'bovada'}
-    {'a': 'Zachary Svajda', 'b': 'Aleksandar Kovacevic', 'a_ml': -240, 'b_ml': 195, 'start': '2026-09-28T02:00Z', 'src': 'bovada'}
-    {'a': 'Arthur Fils', 'b': 'Martin Damm Jr', 'a_ml': -500, 'b_ml': 375, 'start': '2026-09-28T03:10Z', 'src': 'bovada'}
-    {'a': 'Jaume Munar', 'b': 'Marcos Giron', 'a_ml': -220, 'b_ml': 180, 'start': '2026-09-28T03:10Z', 'src': 'bovada'}
-    {'a': 'Lorenzo Sonego', 'b': 'Kamil Majchrzak', 'a_ml': 125, 'b_ml': -150, 'start': '2026-09-28T03:10Z', 'src': 'bovada'}
-    {'a': 'Adolfo Daniel Vallejo', 'b': 'Taro Daniel', 'a_ml': -110, 'b_ml': -110, 'start': '2026-09-28T05:30Z', 'src': 'bovada'}
-    {'a': 'Shintaro Mochizuki', 'b': 'Jaime Faria', 'a_ml': 290, 'b_ml': -375, 'start': '2026-09-28T06:30Z', 'src': 'bovada'}
-espn singles matches: 164 statuses: ['STATUS_CANCELED', 'STATUS_FINAL', 'STATUS_SCHEDULED']
-upcoming: 91
-    2026-09-28T02:00Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Aleksandar Kovacevic vs Zachary Svajda
-    2026-09-28T02:00Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Yoshihito Nishioka vs Stefanos Tsitsipas
-    2026-09-28T02:00Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Camilo Ugo Carabelli vs Rinky Hijikata
-    2026-09-28T03:00Z China Open Qualifying 1st Round hard James Duckworth vs Te Rigele
-    2026-09-28T03:00Z China Open Qualifying 1st Round hard Tomas Machac vs Yannick Hanfmann
-    2026-09-28T03:30Z Kinoshita Group Japan Open Tennis Championships Qualifying 1st Round hard Marcos Giron vs Jaume Munar
-priced upcoming: 16 [('Alejandro Davidovich Fokina', 'Nikoloz Basilashvili', (-300, 240)), ('Denis Shapovalov', 'Hubert Hurkacz', (115, -140)), ('Andrey Rublev', 'Kyrian Jacquet', (-300, 240)), ('Roman Safiullin', 'Daniil Medvedev', (210, -260)), ('Aleksandar Kovacevic', 'Zachary Svajda', (195, -240))]
+competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'statistics', 'type', 'uid', 'winner']
+    {"id": "8105", "uid": "s:850~l:851~a:8105", "type": "athlete", "order": 2, "homeAway": "away", "winner": true, "athlete": {"guid": "67e8157e-bed0-340c-a15f-037d9f1f0ab6", "displayName": "Li Tu", "shortName": "L. Tu", "fullName": "Li Tu", "flag": {"href": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png", "alt": "Australia", "rel": ["country-flag"]}, "links": [{"language": "en-US", "rel": ["playercard", "desktop", "athlete"], "href": "https://www.espn.com/tennis/player/_/id/8105/li-tu", "text": "Player Card", "shortText": "Player Card", "isExternal": false, "isPremium": false, "isHidden
+competitor keys: ['athlete', 'homeAway', 'id', 'linescores', 'order', 'statistics', 'type', 'uid', 'winner']
+    {"id": "13158", "uid": "s:850~l:851~a:13158", "type": "athlete", "order": 1, "homeAway": "home", "winner": false, "athlete": {"guid": "e2104f21-6d96-3e13-9e53-2d2989dd090f", "displayName": "Eliot Spizzirri", "shortName": "E. Spizzirri", "fullName": "Eliot Spizzirri", "flag": {"href": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png", "alt": "USA", "rel": ["country-flag"]}, "links": [{"language": "en-US", "rel": ["playercard", "desktop", "athlete"], "href": "https://www.espn.com/tennis/player/_/id/13158/eliot-spizzirri", "text": "Player Card", "shortText": "Player Card", "isExternal": f
+rankings endpoint: 150 [{"current": 1, "previous": 1, "points": 11500.0, "trend": "-", "athlete": {"id": "3623", "uid": "s:850~a:3623", "guid": "431a1bce-57de-2a02-8022-9f32b0f60efb", "firstName": "Jannik", "lastName": "Sinner", "displayName": "Jannik Sinner", "shortname": "J. Sinner", "links": [{"language": "en-US", "rel": ["playercard", "desktop", "athlete"], "href": "https://www.espn.com/tennis/player/_/id/3623/janni
