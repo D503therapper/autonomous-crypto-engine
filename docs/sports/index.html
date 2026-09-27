@@ -57,6 +57,8 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .stamp.won{color:var(--up);text-shadow:0 0 16px rgba(34,227,154,.7);box-shadow:0 0 22px rgba(34,227,154,.35)}
 .stamp.lost{color:var(--dn);text-shadow:0 0 16px rgba(255,59,59,.6)}
 .stamp.push{color:var(--gold)}
+.lt-t{margin-left:8px;font-size:10px;font-weight:900;letter-spacing:.05em} .lt-t.lk{color:#22e39a} .lt-t.val{color:#ff8a00} .lt-t.lean{color:#ffc233}
+.bw{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}
 .track{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}
 .leg.won{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}
 .leg.lost{border-left:4px solid var(--dn);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(255,59,59,.10),transparent 60%)}
@@ -93,7 +95,8 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .tn summary::-webkit-details-marker{display:none}
 .tn-t{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:15px} .tn-s{font-size:12.5px;color:#fff;font-weight:700}
 .tn[open] .tn-s{color:#c6f000} .tn-b{padding:0 12px 14px} .tn-d{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}
-.chip.lean{background:#ffc233;color:#111;margin-right:6px}
+.chip.lean{background:#ffc233;color:#111;margin-right:6px} .chip.val{background:#ff5a1f;color:#fff;margin-right:6px}
+.chip.lk{background:#22e39a;color:#06281c;margin-right:6px}
 .pk.lvc{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b} .chip.livechip{color:#fff;background:#ff3b3b}
 .bd{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}
 .bd summary{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}
@@ -109,6 +112,8 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   box-shadow:0 20px 60px -24px rgba(255,160,40,.45)}
 .lbl{color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
 .total{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}
+.sp-n{font-size:12px;color:#9fb0c8;margin:4px 0 12px}
+.grades{margin-bottom:12px}
 .pill{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}
 .pill small{color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em}
@@ -160,47 +165,24 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>Sunday, September 27</span></div>
 <div class="board"><section class="pk open" style="--c1:#2f8bff;--c2:#22d3ee">
-  <div class="pk-h"><span class="pk-i">⚡</span><span class="pk-l">2-LEG OF THE DAY</span><span class="chip open">🔒 LOCKED</span></div>
+  <div class="pk-h"><span class="pk-i">⚡</span><span class="pk-l">2-LEG OF THE DAY</span><span class="chip val">🔥 VALUE</span><span class="chip open">🔒 LOCKED</span></div>
   <div class="pk-o"><span class="big">+293</span>
     <span class="pay">$100 wins <b>$293</b></span></div>
   <div class="leg ">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">1:05 PM PT</span></div>
+  <div class="lt"><span class="lgb">🏈 NFL<span class="lt-t lk">🔒 LOCK</span></span><span class="tm">1:05 PM PT</span></div>
   <div class="lm"><span class="pick">Vikings <em>ML</em></span><span class="od">-115</span></div>
   <div class="ls">@ Buccaneers</div>
   <div class="why">the stronger team · hotter recent form · sharp money moving this way</div><div class="outs">🚑 Buccaneers missing: Josiah Trotter (LB), Rueben Bain Jr. (LB)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🗑️ Buccaneers been looking like a JV squad (0-2).</p><p>🔥 Vikings are cooking — 7 straight W&#x27;s, 2-0 overall.</p><p>🚑 Buccaneers are missing bodies — Josiah Trotter, Rueben Bain Jr..</p><p>💰 Vikings went from +110 to -115 — the pros see it too.</p><p>🗑️ Baker Mayfield has been complete booty cheeks — 2 TDs, 2 picks and 601 yards in his last 3 games.</p><p>📅 Most recent games: Vikings W 9-3 @ Bears · Buccaneers L 19-23 vs Browns.</p><p>🧳 Vikings walk into a hostile building — we&#x27;re not worried.</p><p>✅ Bottom line: Vegas has Vikings (-115) priced like about 5 in 10. The engine sees about 6 in 10. That&#x27;s the value — trust the algorithm.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">5:20 PM PT</span></div>
-  <div class="lm"><span class="pick">Broncos <em>ML</em></span><span class="od">+110</span></div>
-  <div class="ls">vs Rams</div>
-  <div class="why">sharp money moving this way · the stronger team</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Rams missing: Kamren Kinchens (S), Puka Nacua (WR)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Record check: Broncos 1-1.</p><p>💰 Money&#x27;s been pouring in on Broncos: +130 to +110.</p><p>📅 Where they&#x27;re coming from: Broncos W 20-13 vs Jaguars · Rams W 28-6 vs Giants.</p><p>🤡 The sheep are lining up for the Rams. We&#x27;re not sheep — we&#x27;re on the Broncos.</p><p>🏟️ Home game — Broncos don&#x27;t lose many in their own house.</p><p>💪 Broncos are the better squad, even if it&#x27;s closer than it looks.</p><p>✅ Bottom line: Broncos (+110) is a thin edge, but it&#x27;s an edge — and the details back it.</p></div></details>
-  
-</div>
-</section><section class="pk lost" style="--c1:#ffc233;--c2:#ff8a00">
-  <div class="pk-h"><span class="pk-i">👑</span><span class="pk-l">3-LEG OF THE DAY</span><span class="chip lost">LOST</span></div>
-  <div class="pk-o"><span class="big">+803</span>
-    <span class="pay">$100 wins <b>$803</b></span></div>
-  <div class="stamp-row"><div class="stamp lost">LOST</div></div><div class="leg ">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">1:05 PM PT</span></div>
-  <div class="lm"><span class="pick">Vikings <em>ML</em></span><span class="od">-115</span></div>
-  <div class="ls">@ Buccaneers</div>
-  <div class="why">the stronger team · hotter recent form · sharp money moving this way</div><div class="outs">🚑 Buccaneers missing: Josiah Trotter (LB), Rueben Bain Jr. (LB)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🗑️ Buccaneers been looking like a JV squad (0-2).</p><p>🔥 Vikings are cooking — 7 straight W&#x27;s, 2-0 overall.</p><p>🚑 Buccaneers are missing bodies — Josiah Trotter, Rueben Bain Jr..</p><p>💰 Vikings went from +110 to -115 — the pros see it too.</p><p>🗑️ Baker Mayfield has been complete booty cheeks — 2 TDs, 2 picks and 601 yards in his last 3 games.</p><p>📅 Most recent games: Vikings W 9-3 @ Bears · Buccaneers L 19-23 vs Browns.</p><p>🧳 Vikings walk into a hostile building — we&#x27;re not worried.</p><p>✅ Bottom line: Vegas has Vikings (-115) priced like about 5 in 10. The engine sees about 6 in 10. That&#x27;s the value — trust the algorithm.</p></div></details>
-  
-</div><div class="leg lost">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ MISS</span></div>
-  <div class="lm"><span class="pick">Patriots <em>ML</em></span><span class="od">+130</span></div>
-  <div class="ls">@ Jaguars</div>
-  <div class="why">the stronger team · hotter recent form</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Jaguars missing: Albert Regis (DT)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Patriots roll in at 1-1.</p><p>💸 The market&#x27;s leaning the Jaguars (-118 → -155). Somebody&#x27;s about to learn a lesson — we&#x27;re on the Patriots, they&#x27;re the hotter team.</p><p>🤡 The public is all over the Jaguars. Dummies are about to lose their money — we&#x27;re on the Patriots.</p><p>🧳 Patriots are on the road — doesn&#x27;t scare us.</p><p>✅ Bottom line: book says about 4 in 10, we say about 5 in 10. We ride Patriots (+130).</p></div></details>
-  <div class="fin">Final: Patriots 6 @ Jaguars 35</div>
-</div><div class="leg ">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">5:20 PM PT</span></div>
+  <div class="lt"><span class="lgb">🏈 NFL<span class="lt-t val">🔥 VALUE</span></span><span class="tm">5:20 PM PT</span></div>
   <div class="lm"><span class="pick">Broncos <em>ML</em></span><span class="od">+110</span></div>
   <div class="ls">vs Rams</div>
   <div class="why">sharp money moving this way · the stronger team</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Rams missing: Kamren Kinchens (S), Puka Nacua (WR)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Record check: Broncos 1-1.</p><p>💰 Money&#x27;s been pouring in on Broncos: +130 to +110.</p><p>📅 Where they&#x27;re coming from: Broncos W 20-13 vs Jaguars · Rams W 28-6 vs Giants.</p><p>🤡 The sheep are lining up for the Rams. We&#x27;re not sheep — we&#x27;re on the Broncos.</p><p>🏟️ Home game — Broncos don&#x27;t lose many in their own house.</p><p>💪 Broncos are the better squad, even if it&#x27;s closer than it looks.</p><p>✅ Bottom line: Broncos (+110) is a thin edge, but it&#x27;s an edge — and the details back it.</p></div></details>
   
 </div>
 </section><section class="pk open" style="--c1:#22e39a;--c2:#0fb87a">
-  <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip open">🔒 LOCKED</span></div>
+  <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip lk">🔒 LOCK</span><span class="chip open">🔒 LOCKED</span></div>
   <div class="pk-o"><span class="big">-115</span>
     <span class="pay">$100 wins <b>$87</b></span></div>
   <div class="leg ">
@@ -210,65 +192,54 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <div class="why">the stronger team · hotter recent form · sharp money moving this way</div><div class="outs">🚑 Buccaneers missing: Josiah Trotter (LB), Rueben Bain Jr. (LB)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🗑️ Buccaneers been looking like a JV squad (0-2).</p><p>🔥 Vikings are cooking — 7 straight W&#x27;s, 2-0 overall.</p><p>🚑 Buccaneers are missing bodies — Josiah Trotter, Rueben Bain Jr..</p><p>💰 Vikings went from +110 to -115 — the pros see it too.</p><p>🗑️ Baker Mayfield has been complete booty cheeks — 2 TDs, 2 picks and 601 yards in his last 3 games.</p><p>📅 Most recent games: Vikings W 9-3 @ Bears · Buccaneers L 19-23 vs Browns.</p><p>🧳 Vikings walk into a hostile building — we&#x27;re not worried.</p><p>✅ Bottom line: Vegas has Vikings (-115) priced like about 5 in 10. The engine sees about 6 in 10. That&#x27;s the value — trust the algorithm.</p></div></details>
   
 </div>
-</section><section class="pk open" style="--c1:#ff5a1f;--c2:#ff2a2a">
-  <div class="pk-h"><span class="pk-i">🐺</span><span class="pk-l">DOG OF THE DAY</span><span class="chip lean">🟡 LEAN</span><span class="chip open">🔒 LOCKED</span></div>
-  <div class="pk-o"><span class="big">+110</span>
-    <span class="pay">$100 wins <b>$110</b></span></div>
-  <div class="leg ">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">5:20 PM PT</span></div>
-  <div class="lm"><span class="pick">Broncos <em>ML</em></span><span class="od">+110</span></div>
-  <div class="ls">vs Rams</div>
-  <div class="why">sharp money moving this way · the stronger team</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Rams missing: Puka Nacua (WR), Kamren Kinchens (S)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Record check: Broncos 1-1.</p><p>💰 Money&#x27;s been pouring in on Broncos: +130 to +110.</p><p>📅 Where they&#x27;re coming from: Broncos W 20-13 vs Jaguars · Rams W 28-6 vs Giants.</p><p>🤡 The sheep are lining up for the Rams. We&#x27;re not sheep — we&#x27;re on the Broncos.</p><p>🏟️ Home game — Broncos don&#x27;t lose many in their own house.</p><p>💪 Broncos are the better squad, even if it&#x27;s closer than it looks.</p><p>✅ Bottom line: Broncos (+110) is a thin edge, but it&#x27;s an edge — and the details back it.</p></div></details>
-  
-</div>
 </section><section class="pk open" style="--c1:#b36bff;--c2:#ff4fd8">
-  <div class="pk-h"><span class="pk-i">🎰</span><span class="pk-l">8-LEG OF THE DAY</span><span class="chip open">🔒 LOCKED</span></div>
+  <div class="pk-h"><span class="pk-i">🎰</span><span class="pk-l">8-LEG OF THE DAY</span><span class="chip val">🔥 VALUE</span><span class="chip open">🔒 LOCKED</span></div>
   <div class="pk-o"><span class="big">+17270</span>
     <span class="pay">$100 wins <b>$17,270</b></span></div>
   <div class="leg ">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">1:05 PM PT</span></div>
+  <div class="lt"><span class="lgb">🏈 NFL<span class="lt-t lk">🔒 LOCK</span></span><span class="tm">1:05 PM PT</span></div>
   <div class="lm"><span class="pick">Vikings <em>ML</em></span><span class="od">-120</span></div>
   <div class="ls">@ Buccaneers</div>
   <div class="why">the stronger team · hotter recent form · sharp money moving this way</div><div class="outs">🚑 Buccaneers missing: Josiah Trotter (LB), Rueben Bain Jr. (LB)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🗑️ Buccaneers been looking like a JV squad (0-2).</p><p>🔥 Vikings are cooking — 7 straight W&#x27;s, 2-0 overall.</p><p>🚑 Buccaneers are missing bodies — Josiah Trotter, Rueben Bain Jr..</p><p>💰 Vikings went from +110 to -115 — the pros see it too.</p><p>🗑️ Baker Mayfield has been complete booty cheeks — 2 TDs, 2 picks and 601 yards in his last 3 games.</p><p>📅 Most recent games: Vikings W 9-3 @ Bears · Buccaneers L 19-23 vs Browns.</p><p>🧳 Vikings walk into a hostile building — we&#x27;re not worried.</p><p>✅ Bottom line: Vegas has Vikings (-115) priced like about 5 in 10. The engine sees about 6 in 10. That&#x27;s the value — trust the algorithm.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">12:10 PM PT</span></div>
+  <div class="lt"><span class="lgb">⚾ MLB<span class="lt-t val">🔥 VALUE</span></span><span class="tm">12:10 PM PT</span></div>
   <div class="lm"><span class="pick">Padres <em>ML</em></span><span class="od">+130</span></div>
   <div class="ls">vs Diamondbacks</div>
   <div class="why">the stronger team · hotter recent form · better starting pitcher</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🏟️ Padres get to do it in front of their own crowd.</p><p>💪 Padres have the edge on paper — not a blowout, but it&#x27;s there.</p><p>📅 Previous game: Padres W 10-7 vs Diamondbacks · Diamondbacks L 7-10 @ Padres.</p><p>🔥 Nobody&#x27;s touching Randy Vasquez lately — 4 runs in 17 innings with 8 K&#x27;s over his last 3 starts.</p><p>📋 Padres are 90-71 right now.</p><p>✅ Padres have everybody available.</p><p>🤡 All the casuals love the Diamondbacks. We&#x27;re not casuals — the Padres all day, we&#x27;ve got the better arm on the mound.</p><p>💸 Sharp money&#x27;s been coming in on the Diamondbacks (-126 → -157), but they must be some clowns. We&#x27;re on the Padres — they&#x27;re the hotter team.</p><p>✅ Bottom line: the book has Padres (+130) close, but the small stuff breaks our way.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">5:20 PM PT</span></div>
+  <div class="lt"><span class="lgb">🏈 NFL<span class="lt-t lean">🟡 LEAN</span></span><span class="tm">5:20 PM PT</span></div>
   <div class="lm"><span class="pick">Rams <em>ML</em></span><span class="od">-130</span></div>
   <div class="ls">@ Broncos</div>
   <div class="why">better QB play lately</div><div class="pubs"><span class="pub ride">🤝 RIDING WITH THE PUBLIC</span></div><div class="outs">🚑 Broncos missing: Jonathon Cooper (LB), Nick Gargiulo (G)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>💸 Line&#x27;s moving toward the Broncos (+130 → +110). Let &#x27;em — we still like the Rams, our QB&#x27;s been playing better.</p><p>📋 Rams come in at 1-1.</p><p>🐺 On paper it&#x27;s Broncos. On the field? We like Rams at this price.</p><p>🆚 Last meeting went Rams&#x27; way (W 51-14 vs Broncos).</p><p>🤝 Riding with the public on the Rams — sometimes the public gotta win.</p><p>📅 Last week&#x27;s tape: Rams W 28-6 vs Giants · Broncos W 20-13 vs Jaguars.</p><p>✅ Bottom line: about 5 in 10 in our book vs about 6 in 10 at the window for Rams (-130). Trust the algorithm.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">12:05 PM PT</span></div>
+  <div class="lt"><span class="lgb">⚾ MLB<span class="lt-t lean">🟡 LEAN</span></span><span class="tm">12:05 PM PT</span></div>
   <div class="lm"><span class="pick">Cubs <em>ML</em></span><span class="od">-115</span></div>
   <div class="ls">@ Red Sox</div>
   <div class="why">better starting pitcher</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Cubs are sitting at 88-73.</p><p>🔥 Shota Imanaga is on a roll: 4 runs in 17 innings with 19 K&#x27;s over his last 3 starts.</p><p>💸 The so-called sharps are all over the Red Sox (+105 → -105). We&#x27;re fading the clowns and taking the Cubs — we&#x27;ve got the better arm on the mound.</p><p>🧳 Away game — Cubs bring their own energy.</p><p>⚖️ These two are close, so the price is what makes the play.</p><p>📅 Fresh off: Cubs L 0-2 @ Red Sox · Red Sox W 2-0 vs Cubs.</p><p>✅ Cubs are at full strength.</p><p>✅ Bottom line: Vegas says about 5 in 10 on Cubs (-115), the engine says a coin flip. Easy money if the engine&#x27;s right.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">12:10 PM PT</span></div>
+  <div class="lt"><span class="lgb">⚾ MLB<span class="lt-t lean">🟡 LEAN</span></span><span class="tm">12:10 PM PT</span></div>
   <div class="lm"><span class="pick">Marlins <em>ML</em></span><span class="od">-126</span></div>
   <div class="ls">vs Braves</div>
   <div class="why">sharp money moving this way · better starting pitcher</div><div class="pubs"><span class="pub ride">🤝 RIDING WITH THE PUBLIC</span></div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🐺 Braves get all the love — that&#x27;s why Marlins are sitting at this number.</p><p>🏟️ Marlins at home, fans rocking. We like it.</p><p>💰 Sharp money is on us: Marlins opened -111, now -126.</p><p>📋 79-82 so far for Marlins.</p><p>💣 Hitters are teeing off on JR Ritchie — 9 runs in 14 innings with 17 K&#x27;s over his last 3 starts.</p><p>⚾ It&#x27;s Janson Junk for Marlins, JR Ritchie for Braves.</p><p>📅 Last time out: Marlins L 3-8 vs Braves · Braves W 8-3 @ Marlins.</p><p>🤝 Public&#x27;s on the Marlins too, and this time they&#x27;re not dummies — we&#x27;ve got the better arm on the mound.</p><p>✅ Bottom line: Marlins (-126) is priced like about 6 in 10 — we see a coin flip. That gap is the whole play.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">12:10 PM PT</span></div>
+  <div class="lt"><span class="lgb">⚾ MLB<span class="lt-t lean">🟡 LEAN</span></span><span class="tm">12:10 PM PT</span></div>
   <div class="lm"><span class="pick">Guardians <em>ML</em></span><span class="od">-109</span></div>
   <div class="ls">@ Royals</div>
   <div class="why">hotter recent form · better starting pitcher · the stronger team</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>⚾ On the bump: Parker Messick for Guardians, Daniel Lynch IV for Royals.</p><p>✅ Guardians are healthy — nobody important sitting.</p><p>💸 Money&#x27;s pouring in on the Royals (+120 → -111). They must&#x27;ve lost their minds — we got the Guardians, we&#x27;ve got the better arm on the mound.</p><p>🆚 History&#x27;s on our side — 3 of the last 3 meetings went Guardians&#x27; way.</p><p>🔥 Guardians can&#x27;t stop winning: 3 straight, 85-76 overall.</p><p>🔥 Parker Messick has been dealing — 5 runs in 16 innings with 18 K&#x27;s over his last 3 starts.</p><p>🧳 Guardians hit the road. Doesn&#x27;t matter to us.</p><p>🗑️ Royals can&#x27;t get out of their own way (68-93).</p><p>💪 Slight edge Guardians on who&#x27;s actually better.</p><p>💣 Daniel Lynch IV has been getting shelled — 11 runs in 14 innings with 8 K&#x27;s over his last 3 starts.</p><p>✅ Bottom line: Guardians (-109) ain&#x27;t flashy. It&#x27;s just the right side.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">12:10 PM PT</span></div>
+  <div class="lt"><span class="lgb">⚾ MLB<span class="lt-t lean">🟡 LEAN</span></span><span class="tm">12:10 PM PT</span></div>
   <div class="lm"><span class="pick">Pirates <em>ML</em></span><span class="od">-117</span></div>
   <div class="ls">@ Tigers</div>
   <div class="why">hotter recent form</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🧳 Away game for Pirates. The numbers still like them.</p><p>⚾ Pitching matchup: Jared Jones (Pirates) vs River Ryan (Tigers).</p><p>💸 Everybody&#x27;s jumping on the Tigers (+115 → -103). They&#x27;re tweaking — we&#x27;re riding the Pirates, they&#x27;re the hotter team.</p><p>✅ Full squad for Pirates.</p><p>✅ Bottom line: a coin flip for us vs about 5 in 10 at the window on Pirates (-117). Value all day.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">12:10 PM PT</span></div>
+  <div class="lt"><span class="lgb">⚾ MLB<span class="lt-t lean">🟡 LEAN</span></span><span class="tm">12:10 PM PT</span></div>
   <div class="lm"><span class="pick">Twins <em>ML</em></span><span class="od">-105</span></div>
   <div class="ls">vs Rangers</div>
   <div class="why">hotter recent form · sharp money moving this way · better starting pitcher</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🏟️ Twins are at home, about to go to work.</p><p>💰 The pros are hammering Twins — +105 at open, -105 now.</p><p>🆚 Twins been owning Rangers lately — 2 of the last 3.</p><p>⚖️ Coin-flip matchup on paper. The number makes it ours.</p><p>✅ Bottom line: no blowout expected on Twins (-105), just a smart number with everything tilting our way.</p></div></details>
@@ -353,23 +324,21 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 </div></section></div></details>
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
-  <div class="lbl">Overall record</div>
-  <div class="total">0-2</div>
-  <span class="pill" style="--p:#ffc233">0-2 <small>TODAY</small></span>
-  <div class="month"><div class="tile" style="--h:#2f8bff"><div class="tl">This month</div><div class="ts">September</div><div class="tv w">0-2</div><div class="ts" style="color:#2f8bff">0% hit</div></div><div class="tile" style="--h:#22e39a"><div class="tl">Hit rate</div><div class="ts">since Sep 27</div><div class="tv w">0%</div><div class="ts" style="color:#22e39a">all plays</div></div><div class="tile" style="--h:#ffc233"><div class="tl">Streak</div><div class="ts">current</div><div class="tv dn">L2</div><div class="ts" style="color:#ffc233">&nbsp;</div></div></div>
-  <div class="strip"><i class="lost" title="2026-09-27"></i><i class="lost" title="2026-09-27"></i></div>
+  <div class="lbl">The engine's grades</div>
+  <div class="sp-n">Every kind of play graded on its own — no lumping. Full transparency.</div>
+  <div class="recs grades"><div class="rc gr" style="--c1:#22e39a;--c2:#0fb87a"><div class="rc-t">🔒 LOCKS</div><div class="rc-r">0-0</div><div class="rc-p">no results yet</div><div class="rc-s">today 0-0</div></div><div class="rc gr" style="--c1:#ff5a1f;--c2:#ff8a00"><div class="rc-t">🔥 VALUE</div><div class="rc-r">0-2</div><div class="rc-p">0% hit</div><div class="rc-s">today 0-2 · streak L2</div></div><div class="rc gr" style="--c1:#ffc233;--c2:#e8c77a"><div class="rc-t">🟡 LEANS</div><div class="rc-r">0-0</div><div class="rc-p">no results yet</div><div class="rc-s">today 0-0</div></div><div class="rc gr" style="--c1:#22d3ee;--c2:#2f8bff"><div class="rc-t">📡 LIVE</div><div class="rc-r">3-5</div><div class="rc-p">38% hit</div><div class="rc-s">today 3-5 · streak L1</div></div></div>
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>2 graded</span></div>
-<div class="recs"><div class="rc" style="--c1:#2f8bff;--c2:#22d3ee"><div class="rc-t">⚡ 2-LEG</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ffc233;--c2:#ff8a00"><div class="rc-t">👑 3-LEG</div><div class="rc-r">0-1</div><div class="rc-p">0 won · 1 lost · 0%</div><div class="rc-s">streak L1</div></div><div class="rc" style="--c1:#22e39a;--c2:#0fb87a"><div class="rc-t">🔒 LOCK</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ff5a1f;--c2:#ff2a2a"><div class="rc-t">🐺 DOG</div><div class="rc-r">0-1</div><div class="rc-p">0 won · 1 lost · 0%</div><div class="rc-s">streak L1</div></div><div class="rc" style="--c1:#b36bff;--c2:#ff4fd8"><div class="rc-t">🎰 8-LEG</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">3-4</div><div class="rc-p">3 won · 4 lost · 43%</div><div class="rc-s">&nbsp;</div></div></div>
-<section class="pk" style="--c1:#ff3b3b;--c2:#ff8a00;margin-top:14px"><div class="pk-h"><span class="pk-i">🔴</span><span class="pk-l">LIVE BETS TODAY</span></div><div class="leg "><div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">⏳ still going</span></div><div class="lm"><span class="pick">Mets <em>ML</em></span><span class="od">+311</span></div><div class="ls">The Mets 4, the Nationals 5 in the 7th inning. We&#x27;re with the Mets to come back — the book&#x27;s sleeping. We gon&#x27; see.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Giants <em>ML</em></span><span class="od">+114</span></div><div class="ls">The Titans had 7, the Giants had 12 in the 4th quarter. We thought the Giants would hold on — and they cashed. Fuck yeah. 💰</div></div><div class="leg "><div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">⏳ still going</span></div><div class="lm"><span class="pick">Giants <em>ML</em></span><span class="od">+135</span></div><div class="ls">Score was the Dodgers 0, the Giants 1 in the 3rd inning. We backing the Giants to hold on — let&#x27;s eat. We gon&#x27; see.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Bills <em>ML</em></span><span class="od">+138</span></div><div class="ls">It was the Chargers 13, the Bills 10 in the 4th quarter. We said the Bills would come back — and they came through. Trust the algorithm. 💰</div></div><div class="leg "><div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">⏳ still going</span></div><div class="lm"><span class="pick">Rays <em>ML</em></span><span class="od">+271</span></div><div class="ls">It was the Rays 0, the Phillies 1 in the 2nd inning. We got the Rays to come back — they about to go to work. We gon&#x27; see.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Commanders <em>ML</em></span><span class="od">+139</span></div><div class="ls">The Seahawks 10, the Commanders 14 in the 2nd quarter. We knew the Commanders could hold on — and they did. Cashed. 💰</div></div><div class="leg lost"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Panthers <em>ML</em></span><span class="od">+296</span></div><div class="ls">The Panthers 3, the Browns 10 in the 2nd quarter. We figured the Panthers would come back — they fumbled the bag. We run it back.</div></div><div class="leg lost"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Texans <em>ML</em></span><span class="od">+185</span></div><div class="ls">It was the Texans 7, the Colts 10 in the 2nd quarter. We figured the Texans would come back — they shit the bed. Is what it is.</div></div></section>
+<div class="recs"><div class="rc" style="--c1:#2f8bff;--c2:#22d3ee"><div class="rc-t">⚡ 2-LEG</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ffc233;--c2:#ff8a00"><div class="rc-t">👑 3-LEG</div><div class="rc-r">0-1</div><div class="rc-p">0 won · 1 lost · 0%</div><div class="rc-s">streak L1</div></div><div class="rc" style="--c1:#22e39a;--c2:#0fb87a"><div class="rc-t">🔒 LOCK</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div><div class="rc" style="--c1:#ff5a1f;--c2:#ff2a2a"><div class="rc-t">🐺 DOG</div><div class="rc-r">0-1</div><div class="rc-p">0 won · 1 lost · 0%</div><div class="rc-s">streak L1</div></div><div class="rc" style="--c1:#b36bff;--c2:#ff4fd8"><div class="rc-t">🎰 8-LEG</div><div class="rc-r">0-0</div><div class="rc-p">&nbsp;</div><div class="rc-s">no results yet</div></div></div>
+<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE BETS TODAY</span></div><div class="leg "><div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">⏳ still going</span></div><div class="lm"><span class="pick">Ravens <em>ML</em></span><span class="od">+101</span></div><div class="ls">It was the Ravens 0, the Cowboys 3 in the 1st quarter. We think the Ravens come back — they about to go to work. We gon&#x27; see.</div></div><div class="leg lost"><div class="lt"><span class="lgb">⚾ MLB</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Mets <em>ML</em></span><span class="od">+311</span></div><div class="ls">The Mets 4, the Nationals 5 in the 7th inning. We said the Mets would come back — they fumbled the bag. We run it back.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Giants <em>ML</em></span><span class="od">+114</span></div><div class="ls">The Titans had 7, the Giants had 12 in the 4th quarter. We thought the Giants would hold on — and they cashed. Fuck yeah. 💰</div></div><div class="leg "><div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">⏳ still going</span></div><div class="lm"><span class="pick">Giants <em>ML</em></span><span class="od">+135</span></div><div class="ls">Score was the Dodgers 0, the Giants 1 in the 3rd inning. We backing the Giants to hold on — let&#x27;s eat. We gon&#x27; see.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Bills <em>ML</em></span><span class="od">+138</span></div><div class="ls">The Chargers 13, the Bills 10 in the 4th quarter. We knew the Bills could come back — and they came through. Trust the algorithm. 💰</div></div><div class="leg "><div class="lt"><span class="lgb">⚾ MLB</span><span class="tm">⏳ still going</span></div><div class="lm"><span class="pick">Rays <em>ML</em></span><span class="od">+271</span></div><div class="ls">It was the Rays 0, the Phillies 1 in the 2nd inning. We got the Rays to come back — trust the algorithm. We gon&#x27; see.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Commanders <em>ML</em></span><span class="od">+139</span></div><div class="ls">The Seahawks 10, the Commanders 14 in the 2nd quarter. We figured the Commanders would hold on — and they did. Cashed. 💰</div></div><div class="leg lost"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Panthers <em>ML</em></span><span class="od">+296</span></div><div class="ls">The Panthers 3, the Browns 10 in the 2nd quarter. We said the Panthers would come back — they never showed up. Bad call — next one&#x27;s ours.</div></div></section>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained Sep 27, 1:49 PM PT</span></div>
-<div class="br self"><div class="bn">🧠 Today in a nutshell</div><div class="bs nut">😤 0-2. Rough one. Head up — we run it back tomorrow.</div><div class="bs nut">🎥 Ran back 25 College Football, 13 MLB and 9 NFL games and got sharper.</div><div class="bs nut">🎯 64.9% of winners called straight up.</div><div class="bs nut">🧾 Receipts: said 45% of our legs would hit — <b class="dn">0%</b> did.</div><div class="bs nut">🔴 Live bet cashed: the Bills at +138. Told y'all — teams always be coming back.</div><div class="bs nut">🔴 The Giants live at +114? Cashed. Trust the algorithm.</div><div class="bs nut">🔴 Live L: the Jets at +269. Comeback never came. Is what it is — the algorithm's taking notes.</div><div class="bs nut">🔴 Live L: the Panthers at +296. Comeback never came. Is what it is — the algorithm's taking notes.</div><div class="bs nut">🧪 We just started and we're analyzing EVERYTHING — every game, every line, every comeback. The engine improves daily.</div></div>
+<div class="br self"><div class="bn">🧠 Today in a nutshell</div><div class="bs nut">😤 0-2. Rough one. Head up — we run it back tomorrow.</div><div class="bs nut">🎥 Ran back 25 College Football, 14 MLB and 9 NFL games and got sharper.</div><div class="bs nut">🎯 65.0% of winners called straight up.</div><div class="bs nut">🧾 Receipts: said 45% of our legs would hit — <b class="dn">0%</b> did.</div><div class="bs nut">📡 Live bet cashed: the Bills at +138. Told y'all — teams always be coming back.</div><div class="bs nut">📡 The Giants live at +114? Cashed. Trust the algorithm.</div><div class="bs nut">📡 Live L: the Panthers at +296. Comeback never came. Is what it is — the algorithm's taking notes.</div><div class="bs nut">📡 Live L: the Mets at +311. Comeback never came. Is what it is — the algorithm's taking notes.</div><div class="bs nut">🧪 We just started and we're analyzing EVERYTHING — every game, every line, every comeback. The engine improves daily.</div></div>
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
 Ratings · form · rest · injuries · line moves — retrained after every final score.<br>
 Picks only — no bets placed · refreshes hourly</div>
 </main>
 <script>
-(function(){   // 🔴 LIVE VALUE: checks live.json every 10 seconds; a play disappears the moment its value is gone
+(function(){   // 📡 LIVE VALUE: checks live.json every 10 seconds; a play disappears the moment its value is gone
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 var last="";
 function idle(n){return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
@@ -379,7 +348,7 @@ function idle(n){return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a0
 function draw(d){var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
  el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>'+(ps.length?ps.map(function(p){
-  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'🔴 LIVE')+'</span></div>'+
+  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
@@ -393,7 +362,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,10000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790542318100,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790542362249,m=0;   // the whole page stays fresh while it's open
 try{var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
 function tick(){m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
