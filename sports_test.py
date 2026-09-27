@@ -251,6 +251,11 @@ def test_board_rules():
     bb = sports.make_board(both)
     sides = {(l["game_id"], l["side"]) for pk in bb.values() if pk for l in pk["legs"]}
     assert len({g for g, _ in sides}) == len(sides), "never both teams of one game on the same board"
+    val = dict(_cand("g9", 150, 0.46), side="away")          # value on the dog...
+    weak = dict(_cand("g9", -150, 0.58), side="home")        # ...vs a so-so favorite (no value): value wins
+    strong = dict(_cand("g9", -150, 0.61), side="home")      # ...vs a strong lean (61%): the strong lean wins
+    assert {c["side"] for c in sports.one_side([val, weak])} == {"away"}, "value takes precedence"
+    assert {c["side"] for c in sports.one_side([val, strong])} == {"home"}, "unless the engine has a strong lean on the other side"
     assert sports.leg_tier(_cand("pl", 120, 0.58)) == "lock", "plus money + 58% to win at +120 = a lock"
     assert sports.leg_tier(_cand("pt", 110, 0.55)) == "value", "plus money treads lightly: 55% at +110 isn't enough for a lock"
     assert sports.leg_tier(_cand("mn", -120, 0.60)) == "lock", "minus money: 60% at -120 (10% edge) = a lock"

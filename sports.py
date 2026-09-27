@@ -234,12 +234,18 @@ def _parlay(cands, n, top=40):
     return {"legs": list(combo), "dec": dec, "p_hit": p}
 
 
+def one_side(cands):
+    """One side per game - never both teams. Value wins, unless the other side is a lock or a strong lean."""
+    side = {}
+    for c in sorted(cands, key=lambda c: (leg_tier(c) == "lock", c["p"] >= STRONG_LEAN_P, good(c), c["edge"]),
+                    reverse=True):
+        side.setdefault(c["game_id"], c["side"])
+    return [c for c in cands if c["side"] == side[c["game_id"]]]
+
+
 def make_board(cands, lock_game=None, allow_lean=False, avoid=()):
     """{kind: pick or None} following the owner's rules (lock_game: an already-posted lock's game, kept off the dog)."""
-    side = {}                                                # one side per game on the whole board - never both teams
-    for c in sorted(cands, key=lambda c: -c["edge"]):
-        side.setdefault(c["game_id"], c["side"])
-    cands = [c for c in cands if c["side"] == side[c["game_id"]]]
+    cands = one_side(cands)
     board = {"two": _parlay(cands, 2), "three": _parlay(cands, 3), "eight": _parlay(cands, 8, top=80)}
     ml = [c for c in cands if c["market"] == "ml" and good(c)]
     locks = [c for c in ml if c["odds"] >= LOCK_MAX_FAV]
@@ -263,6 +269,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=()):
 LOCK_TIER_P, LOCK_TIER_EDGE = 0.55, 0.04     # a 🔒 LOCK: 55%+ to win/cover and a 4%+ edge, at any odds...
 LOCK_TIER_P_PLUS, LOCK_TIER_EDGE_PLUS = 0.58, 0.15   # ...but plus money treads lightly: 58%+ and a 15%+ edge to be a lock
 TIERS = ("lean", "value", "lock")
+STRONG_LEAN_P = 0.60                          # 60%+ to win/cover = a strong lean: it beats a value play on the other side
 
 
 def leg_tier(c):
