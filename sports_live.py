@@ -35,6 +35,7 @@ LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we wa
 DOG_MIN = 100                 # live plays are plus money only
 MAX_GAP = 0.20                # our live chance (score, clock, who has the ball and where) vs the confirmed price: a
                               # bigger gap means the book knows something the scoreboard can't show (injury, ejection)
+STAY_MAX_ODDS = 500              # ...and comes down if the price blows out past +500 (a prayer, not a live bet)
 STAY_EDGE, STAY_P = 0.0, 0.15    # never count a live dog out: a play that's up stays while there's ANY value left;
                                  # it only comes down when the value's gone or it's shitting the bed (under a 15% chance)
 PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone, review): hold the card up to 3 minutes
@@ -323,7 +324,8 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     for side, p, ml in (("home", ph, mlh), ("away", 1 - ph, mla)):
         edge = p * sd.decimal(ml) - 1
         up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
-        if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else LIVE_MIN_P):
+        if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else LIVE_MIN_P) \
+                or (up and ml > STAY_MAX_ODDS):
             continue                                         # plus money, real value, a real chance
         if not checked and p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
             continue       # only one source and the price is miles from what the score says: can't tell a real

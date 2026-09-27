@@ -438,6 +438,8 @@ def test_comeback_study_and_live_rules():
             break
     assert thin, "expected a price with a thin (0-5%) edge"
     assert not sports_live.evaluate("nba", g, box, thin, -thin - 60, st, 0.65, 0.65, 0.0, "", 1, True)       # new: not enough
+    # ...but a play that's up comes down once the price blows out past +500 (a prayer, not a live bet)
+    assert not sports_live.evaluate("nba", g, box, 700, -1100, st, 0.65, 0.65, 0.0, "", 1, True, ["nba:x:home"])
     # halftime in football: whoever didn't take the opening kickoff gets the ball to start the 2nd half
     sports_live.KICK["77"] = "34"                                  # the away team (34) took the opening kickoff
     assert sports_live.second_half_ball("nfl", {"id": "nfl:77", "home": "11", "away": "34"}) == "home"

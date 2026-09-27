@@ -44,8 +44,8 @@ including losing days and your own bugs.
   plays). Keep the live lines (blurb, full_breakdown) and the live/big-hit brags in sports_dashboard.py fresh
   in the owner's voice too: "we smacked a +400, I tried to fucking tell y'all, let's go".
 - **Never count a live dog out.** A live play that's up stays up (its line updating) while there's any value left and
-  plenty of time; it only comes down when the value's completely gone or it's shitting the bed (under a 15% chance). Up to 4
-  live plays at once. Don't tighten this.
+  plenty of time; it only comes down when the value's completely gone or it's shitting the bed (under a 15% chance, or the price
+  past +500). Up to 4 live plays at once. Don't tighten this.
 - **Live glitches are void.** A live play that came from a bad price (a stale or pregame line, a feed glitch) is
   removed from data/sports/live_log.json - it never counts in the results. Live prices come from Bovada's
   live feed (DraftKings via ESPN when Bovada has none); if run.log / live.json "books" shows the feed empty or
