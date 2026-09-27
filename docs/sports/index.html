@@ -49,7 +49,20 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .pk{position:relative;background:linear-gradient(165deg,color-mix(in srgb,var(--c1) 16%,var(--card2)) 0%,var(--card) 55%);border:1px solid color-mix(in srgb,var(--c1) 55%,transparent);
   border-radius:22px;padding:16px 16px 10px;margin-bottom:14px;overflow:hidden;box-shadow:0 18px 50px -22px var(--c1),inset 0 1px 0 rgba(255,255,255,.05)}
 .pk::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c2))}
-.pk.won{box-shadow:0 0 0 1px var(--up),0 18px 50px -18px var(--up)} .pk.lost{opacity:.72}
+.pk.won{box-shadow:0 0 0 2px var(--up),0 18px 50px -14px var(--up)}
+.pk.lost>*:not(.stamp-row){opacity:.5}
+.stamp-row{display:flex;justify-content:center;margin:6px 0 12px}
+.stamp{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
+  border-radius:10px;background:rgba(0,0,0,.3)}
+.stamp.won{color:var(--up);text-shadow:0 0 16px rgba(34,227,154,.7);box-shadow:0 0 22px rgba(34,227,154,.35)}
+.stamp.lost{color:var(--dn);text-shadow:0 0 16px rgba(255,59,59,.6)}
+.stamp.push{color:var(--gold)}
+.track{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}
+.leg.won{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}
+.leg.lost{border-left:4px solid var(--dn);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(255,59,59,.10),transparent 60%)}
+.leg.lost .pick{text-decoration:line-through;text-decoration-color:var(--dn);text-decoration-thickness:3px}
+.lr{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}
+.lr.won{color:#04110b;background:var(--up)} .lr.lost{color:#fff;background:var(--dn)} .lr.push{color:#000;background:var(--gold)}
 .pk-h{display:flex;align-items:center;gap:10px}
 .pk-i{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}
 .pk-l{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}
@@ -139,47 +152,47 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <div class="pk-h"><span class="pk-i">⚡</span><span class="pk-l">2-LEG OF THE DAY</span><span class="chip open">🔒 LOCKED</span></div>
   <div class="pk-o"><span class="big">+293</span>
     <span class="pay">$100 wins <b>$293</b></span></div>
-  <div class="leg">
+  <div class="leg ">
   <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">1:05 PM PT</span></div>
   <div class="lm"><span class="pick">Vikings <em>ML</em></span><span class="od">-115</span></div>
   <div class="ls">@ Buccaneers</div>
   <div class="why">the stronger team · hotter recent form · sharp money moving this way</div><div class="outs">🚑 Buccaneers missing: Josiah Trotter (LB), Rueben Bain Jr. (LB)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🗑️ Buccaneers been looking like a JV squad (0-2).</p><p>🔥 Vikings are cooking — 7 straight W&#x27;s, 2-0 overall.</p><p>🚑 Buccaneers are missing bodies — Josiah Trotter, Rueben Bain Jr..</p><p>💰 Vikings went from +110 to -115 — the pros see it too.</p><p>🗑️ Baker Mayfield has been complete booty cheeks — 2 TDs, 2 picks and 601 yards in his last 3 games.</p><p>📅 Most recent games: Vikings W 9-3 @ Bears · Buccaneers L 19-23 vs Browns.</p><p>🧳 Vikings walk into a hostile building — we&#x27;re not worried.</p><p>✅ Bottom line: Vegas has Vikings (-115) priced like about 5 in 10. The engine sees about 6 in 10. That&#x27;s the value — trust the algorithm.</p></div></details>
   
-</div><div class="leg">
+</div><div class="leg ">
   <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">5:20 PM PT</span></div>
   <div class="lm"><span class="pick">Broncos <em>ML</em></span><span class="od">+110</span></div>
   <div class="ls">vs Rams</div>
-  <div class="why">sharp money moving this way · the stronger team</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Rams missing: Kamren Kinchens (S), Puka Nacua (WR)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Record check: Broncos 1-1.</p><p>💰 Money&#x27;s been pouring in on Broncos: +130 to +110.</p><p>📅 Where they&#x27;re coming from: Broncos W 20-13 vs Jaguars · Rams W 28-6 vs Giants.</p><p>🤡 The sheep are lining up for Rams. We&#x27;re not sheep — we&#x27;re on Broncos. The engine likes our side more than the price does.</p><p>🏟️ Home game — Broncos don&#x27;t lose many in their own house.</p><p>💪 Broncos are the better squad, even if it&#x27;s closer than it looks.</p><p>✅ Bottom line: Broncos (+110) is a thin edge, but it&#x27;s an edge — and the details back it.</p></div></details>
+  <div class="why">sharp money moving this way · the stronger team</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Rams missing: Kamren Kinchens (S), Puka Nacua (WR)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Record check: Broncos 1-1.</p><p>💰 Money&#x27;s been pouring in on Broncos: +130 to +110.</p><p>📅 Where they&#x27;re coming from: Broncos W 20-13 vs Jaguars · Rams W 28-6 vs Giants.</p><p>🤡 The sheep are lining up for Rams. We&#x27;re not sheep — we&#x27;re on Broncos.</p><p>🏟️ Home game — Broncos don&#x27;t lose many in their own house.</p><p>💪 Broncos are the better squad, even if it&#x27;s closer than it looks.</p><p>✅ Bottom line: Broncos (+110) is a thin edge, but it&#x27;s an edge — and the details back it.</p></div></details>
   
 </div>
 </section><section class="pk open" style="--c1:#ffc233;--c2:#ff8a00">
   <div class="pk-h"><span class="pk-i">👑</span><span class="pk-l">3-LEG OF THE DAY</span><span class="chip open">🔒 LOCKED</span></div>
   <div class="pk-o"><span class="big">+803</span>
     <span class="pay">$100 wins <b>$803</b></span></div>
-  <div class="leg">
+  <div class="leg ">
   <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">1:05 PM PT</span></div>
   <div class="lm"><span class="pick">Vikings <em>ML</em></span><span class="od">-115</span></div>
   <div class="ls">@ Buccaneers</div>
   <div class="why">the stronger team · hotter recent form · sharp money moving this way</div><div class="outs">🚑 Buccaneers missing: Josiah Trotter (LB), Rueben Bain Jr. (LB)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🗑️ Buccaneers been looking like a JV squad (0-2).</p><p>🔥 Vikings are cooking — 7 straight W&#x27;s, 2-0 overall.</p><p>🚑 Buccaneers are missing bodies — Josiah Trotter, Rueben Bain Jr..</p><p>💰 Vikings went from +110 to -115 — the pros see it too.</p><p>🗑️ Baker Mayfield has been complete booty cheeks — 2 TDs, 2 picks and 601 yards in his last 3 games.</p><p>📅 Most recent games: Vikings W 9-3 @ Bears · Buccaneers L 19-23 vs Browns.</p><p>🧳 Vikings walk into a hostile building — we&#x27;re not worried.</p><p>✅ Bottom line: Vegas has Vikings (-115) priced like about 5 in 10. The engine sees about 6 in 10. That&#x27;s the value — trust the algorithm.</p></div></details>
   
-</div><div class="leg">
+</div><div class="leg ">
   <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">10 AM PT</span></div>
   <div class="lm"><span class="pick">Patriots <em>ML</em></span><span class="od">+130</span></div>
   <div class="ls">@ Jaguars</div>
-  <div class="why">the stronger team · hotter recent form</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Jaguars missing: Albert Regis (DT)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Patriots roll in at 1-1.</p><p>💸 The market&#x27;s leaning Jaguars (-118 → -155). Somebody&#x27;s about to learn a lesson — we&#x27;re on Patriots. Patriots are the hotter team.</p><p>🤡 The public is all over Jaguars. We&#x27;re on Patriots, and the dummies are about to lose their money — the engine sees it different.</p><p>🧳 Patriots are on the road — doesn&#x27;t scare us.</p><p>✅ Bottom line: book says about 4 in 10, we say about 5 in 10. We ride Patriots (+130).</p></div></details>
+  <div class="why">the stronger team · hotter recent form</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Jaguars missing: Albert Regis (DT)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Patriots roll in at 1-1.</p><p>💸 The market&#x27;s leaning Jaguars (-118 → -155). Somebody&#x27;s about to learn a lesson — we&#x27;re on Patriots. Patriots are the hotter team.</p><p>🤡 The public is all over Jaguars. We&#x27;re on Patriots, and the dummies are about to lose their money.</p><p>🧳 Patriots are on the road — doesn&#x27;t scare us.</p><p>✅ Bottom line: book says about 4 in 10, we say about 5 in 10. We ride Patriots (+130).</p></div></details>
   
-</div><div class="leg">
+</div><div class="leg ">
   <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">5:20 PM PT</span></div>
   <div class="lm"><span class="pick">Broncos <em>ML</em></span><span class="od">+110</span></div>
   <div class="ls">vs Rams</div>
-  <div class="why">sharp money moving this way · the stronger team</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Rams missing: Kamren Kinchens (S), Puka Nacua (WR)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Record check: Broncos 1-1.</p><p>💰 Money&#x27;s been pouring in on Broncos: +130 to +110.</p><p>📅 Where they&#x27;re coming from: Broncos W 20-13 vs Jaguars · Rams W 28-6 vs Giants.</p><p>🤡 The sheep are lining up for Rams. We&#x27;re not sheep — we&#x27;re on Broncos. The engine likes our side more than the price does.</p><p>🏟️ Home game — Broncos don&#x27;t lose many in their own house.</p><p>💪 Broncos are the better squad, even if it&#x27;s closer than it looks.</p><p>✅ Bottom line: Broncos (+110) is a thin edge, but it&#x27;s an edge — and the details back it.</p></div></details>
+  <div class="why">sharp money moving this way · the stronger team</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Rams missing: Kamren Kinchens (S), Puka Nacua (WR)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Record check: Broncos 1-1.</p><p>💰 Money&#x27;s been pouring in on Broncos: +130 to +110.</p><p>📅 Where they&#x27;re coming from: Broncos W 20-13 vs Jaguars · Rams W 28-6 vs Giants.</p><p>🤡 The sheep are lining up for Rams. We&#x27;re not sheep — we&#x27;re on Broncos.</p><p>🏟️ Home game — Broncos don&#x27;t lose many in their own house.</p><p>💪 Broncos are the better squad, even if it&#x27;s closer than it looks.</p><p>✅ Bottom line: Broncos (+110) is a thin edge, but it&#x27;s an edge — and the details back it.</p></div></details>
   
 </div>
 </section><section class="pk open" style="--c1:#22e39a;--c2:#0fb87a">
   <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip open">🔒 LOCKED</span></div>
   <div class="pk-o"><span class="big">-115</span>
     <span class="pay">$100 wins <b>$87</b></span></div>
-  <div class="leg">
+  <div class="leg ">
   <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">1:05 PM PT</span></div>
   <div class="lm"><span class="pick">Vikings <em>ML</em></span><span class="od">-115</span></div>
   <div class="ls">@ Buccaneers</div>
@@ -190,11 +203,11 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <div class="pk-h"><span class="pk-i">🐺</span><span class="pk-l">DOG OF THE DAY</span><span class="chip open">🔒 LOCKED</span></div>
   <div class="pk-o"><span class="big">+130</span>
     <span class="pay">$100 wins <b>$130</b></span></div>
-  <div class="leg">
+  <div class="leg ">
   <div class="lt"><span class="lgb">🏈 NFL</span><span class="tm">10 AM PT</span></div>
   <div class="lm"><span class="pick">Patriots <em>ML</em></span><span class="od">+130</span></div>
   <div class="ls">@ Jaguars</div>
-  <div class="why">the stronger team · hotter recent form</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Jaguars missing: Albert Regis (DT)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Patriots roll in at 1-1.</p><p>💸 The market&#x27;s leaning Jaguars (-118 → -155). Somebody&#x27;s about to learn a lesson — we&#x27;re on Patriots. Patriots are the hotter team.</p><p>🤡 The public is all over Jaguars. We&#x27;re on Patriots, and the dummies are about to lose their money — the engine sees it different.</p><p>🧳 Patriots are on the road — doesn&#x27;t scare us.</p><p>✅ Bottom line: book says about 4 in 10, we say about 5 in 10. We ride Patriots (+130).</p></div></details>
+  <div class="why">the stronger team · hotter recent form</div><div class="pubs"><span class="pub fade">🤡 FADING THE PUBLIC</span></div><div class="outs">🚑 Jaguars missing: Albert Regis (DT)</div><details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>📋 Patriots roll in at 1-1.</p><p>💸 The market&#x27;s leaning Jaguars (-118 → -155). Somebody&#x27;s about to learn a lesson — we&#x27;re on Patriots. Patriots are the hotter team.</p><p>🤡 The public is all over Jaguars. We&#x27;re on Patriots, and the dummies are about to lose their money.</p><p>🧳 Patriots are on the road — doesn&#x27;t scare us.</p><p>✅ Bottom line: book says about 4 in 10, we say about 5 in 10. We ride Patriots (+130).</p></div></details>
   
 </div>
 </section></div>
@@ -217,7 +230,7 @@ Ratings · form · rest · injuries · line moves — retrained after every fina
 Picks only — no bets placed · refreshes hourly</div>
 </main>
 <script>
-(function(){var t=1790508228488,m=Math.max(0,Math.round((Date.now()-t)/60000));
+(function(){var t=1790509285138,m=Math.max(0,Math.round((Date.now()-t)/60000));
 var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
 document.getElementById("ago").textContent="Live · "+s;
 if(m>150)document.getElementById("dot").className="dot stale";
