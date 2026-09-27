@@ -292,7 +292,8 @@ def pick_tier(pk):
 
 
 LEAN_MIN_P = {"two": 0.58, "three": 0.58, "lock": 0.62, "dog": 0.42}   # ACCURACY FIRST: a lean is a side we expect to win
-MAX_REPLACEMENTS = 3          # afternoon/night replacements: 3 a day at most - fewer, better picks
+MAX_REPLACEMENTS = 0          # no afternoon replacements: our record is the start-of-day board, the engine's most
+                              # confident calls. People who want more use ASK THE ENGINE (never counts toward the record)
 
 
 def lean(cands, kind, taken=None):

@@ -535,6 +535,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-c{{margin-top:12px}} .ask-l{{font-size:17px;margin:8px 0 2px}} .ask-l b{{color:#fff}}
 .ask-a{{font-weight:800;color:#22e39a;margin:2px 0 6px}} .ask-w{{font-size:13px;font-weight:600;color:#ff9f5a;margin:6px 0}}
 .ask-h{{font-size:13px;font-weight:600;color:#b9a4ff;margin:4px 0}} .ask-h b{{color:#fff}}
+.ask-prop{{font-size:15px;font-weight:900;color:#ff5a7a;margin:6px 0 10px}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
@@ -743,7 +744,10 @@ var loaded=false, NOPE=["My bad — the engine can’t answer that one yet. We g
  "That one’s over the engine’s head for now. My bad — we updating it. Try a team name. 🛠️"];
 function note(){{
   var t=q.value.toLowerCase(), n=[];
-  if(/over|under|\btotal|o\/u/.test(t)) n.push("📚 Over/unders: the engine’s still studying those — we don’t guess. Reads coming soon.");
+  if(/yard|rebound|assist|strikeout|touchdown|\\btd\\b|recept|rushing|passing|receiving|home run|homer|\\bprops?\\b|anytime|\\bshots?\\b|\\bsaves?\\b|\\bhits\\b|\\bpoints\\b|\\bpts\\b/.test(t))
+    return '<div class="ask-prop">'+pick(t,["🙅 We don’t do no player props. Too risky, bro.","🙅 Player props? Nah. Risky ass shit — we stay away.",
+      "🙅 No player props over here. One tweak and you’re cooked. We pass.","🙅 We don’t touch player props. Too many ways to lose. Stick to the games."])+'</div>';
+  if(/over|under|\\btotal|o\\/u/.test(t)) n.push("📚 Over/unders: the engine’s still studying those — we don’t guess. Reads coming soon.");
   if(/first half|1st half|1h|first 5|f5/.test(t)) n.push("⏱️ First-half reads show inside each game below.");
   return n.length?'<div class="ask-n">'+n.join("<br>")+'</div>':"";
 }}
