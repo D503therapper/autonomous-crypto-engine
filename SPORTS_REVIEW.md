@@ -29,11 +29,20 @@ including losing days and your own bugs.
   one board never get the same wording, it rotates day to day, and no "because" repeats within one breakdown.
   When you add a line, add at least 3 phrasings. New slang from the owner goes into the rotation.
 - **Keep the lingo fresh (every run).** Add 2-3 brand-new lines in the owner's voice to the rotations
-  (sports_breakdown.py breakdown lines; the good/perfect/bad-day lines in sports_dashboard.py). Match his
+  (sports_breakdown.py breakdown lines; the good/perfect/bad-day lines in sports_dashboard.py). Match their
   style: "we crushed today, fuck yeah let's go", "today was a grace from baby Jesus himself", "our picks were
   fucking ass today, we gon' bounce back, I won't let y'all down", "everybody and their mama", "even a broken
   clock is right twice a day", "don't be a sheep", "complete booty cheeks", "getting shelled". Never repeat
   an existing line, never go corporate or technical, no slurs.
+  Never add disclaimers or doubt ourselves ("no guarantees", "won't hit every time"): we stay confident.
+- **Live bets (sports_live.py + sports_comeback.py).** Plus money only, value first (never train it to
+  chase long shots; +300/+400 is fine when the value's real, it needs a 25%+ chance). Every live play needs
+  substantial reasons: the comeback study (history in that exact spot) must back it, plus at least one more
+  reason. A better team alone is never enough. Review the live record (data/sports/live_log.json): if plays
+  with a given reason keep losing, tighten that rule; check the comeback study's fit in run.log
+  ("comeback study: ...") and upgrade it (new spot splits: home/away, rest, pace, fouls, timeouts, power
+  plays). Keep the live lines (blurb, full_breakdown) and the live/big-hit brags in sports_dashboard.py fresh
+  in the owner's voice too: "we smacked a +400, I tried to fucking tell y'all, let's go".
 - **The public.** Tag each pick FADING THE PUBLIC (on the dog against a clear favorite) or RIDING WITH THE
   PUBLIC (on the favorite). Sometimes the public gotta win.
 
