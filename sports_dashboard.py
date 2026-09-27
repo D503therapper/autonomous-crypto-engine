@@ -138,7 +138,7 @@ def _tennis():
     def row(l):
         bd = "".join(f"<p>{E(x)}</p>" for x in l.get("breakdown") or [])
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {"WTA" if l.get("tour") == "wta" else "ATP"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm">{_time(l["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if l.get("tour") == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm">{_time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>ML</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
@@ -154,11 +154,16 @@ def _tennis():
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{"".join(row(legs[i]) for i in par["legs"] if i in legs)}
 </section>"""
     day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
+    groups = ""
+    for title, ls in (("MEN'S TENNIS", [l for l in s["picks"] if l.get("tour", "atp") != "wta"]),
+                      ("WOMEN'S TENNIS", [l for l in s["picks"] if l.get("tour") == "wta"])):
+        if ls:
+            groups += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
+                       f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
 <span class="tn-s">{len(s['picks'])} picks + parlay · {r['won']}-{r['lost']} · tap to open</span></summary>
 <div class="tn-b"><div class="tn-d">{E(day)} · parlays {r['p_won']}-{r['p_lost']}</div>{par_html}
-<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PICKS</span></div>
-{"".join(row(l) for l in s["picks"])}</section></div></details>"""
+{groups}</div></details>"""
 
 
 def render(picks, model, games, series, start_bank, updated_ms):
