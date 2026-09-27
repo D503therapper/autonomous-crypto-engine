@@ -32,6 +32,7 @@ DIR = os.path.join(sd.DATA, "tennis")
 MATCHES = os.path.join(DIR, "matches.csv")
 PICKS = os.path.join(DIR, "picks.json")
 ODDS = os.path.join(DIR, "odds.json")
+LINES = os.path.join(DIR, "lines.json")      # every price seen, the last one before the start kept (closing line)
 FIELDS = ["id", "start", "event", "tourney", "round", "surface", "bo", "p1", "p1_name", "p2", "p2_name", "winner",
           "sets1", "sets2", "status", "done"]
 ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard"
@@ -351,11 +352,25 @@ def refresh_odds(state, now):
             os.makedirs(DIR, exist_ok=True)
             with open(ODDS, "w") as f:
                 json.dump(cache, f, indent=1)
+        save_lines(lines, now)
         print(f"tennis odds: {len(lines)} men's matches priced (bovada)")
     except Exception as e:                               # noqa: BLE001
         sd.ERRORS.append(f"bovada: {str(e)[:100]}")
         print(f"tennis odds: BOVADA FAILED ({str(e)[:80]}) - tell the owner if this keeps happening")
     return [ln for ln in cache.get("lines", []) if ln.get("start", "") >= (now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M")]
+
+
+def save_lines(lines, now):
+    """Build our own tennis line history (no free source has one): the last price seen before each start."""
+    hist = {}
+    if os.path.exists(LINES):
+        with open(LINES) as f:
+            hist = json.load(f)
+    for ln in lines:
+        if ln.get("start") and _t(ln["start"]) > now:
+            hist[f"{_last(ln['a'])}|{_last(ln['b'])}|{ln['start'][:10]}"] = {**ln, "seen": now.strftime("%Y-%m-%dT%H:%MZ")}
+    with open(LINES, "w") as f:
+        json.dump(hist, f, indent=0, sort_keys=True)
 
 
 def price(m, lines):

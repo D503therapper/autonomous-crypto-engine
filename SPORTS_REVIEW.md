@@ -43,6 +43,11 @@ including losing days and your own bugs.
   ("comeback study: ...") and upgrade it (new spot splits: home/away, rest, pace, fouls, timeouts, power
   plays). Keep the live lines (blurb, full_breakdown) and the live/big-hit brags in sports_dashboard.py fresh
   in the owner's voice too: "we smacked a +400, I tried to fucking tell y'all, let's go".
+- **🎾 Tennis bonus (sports_tennis.py).** Men's singles only, a collapsed bonus section at the bottom, never in
+  the main board or records: 8 straights (value first, big favorites allowed) + a 3-leg Tennis Parlay of the
+  Day. Prices come from Bovada's public feed: if run.log shows "BOVADA FAILED" for a day, tell the owner
+  right away. Once data/sports/tennis/lines.json holds a few hundred graded matches, teach the tennis model
+  how much to trust itself vs the closing price (like the main sports' trust) and report how its value picks did.
 - **The public.** Tag each pick FADING THE PUBLIC (on the dog against a clear favorite) or RIDING WITH THE
   PUBLIC (on the favorite). Sometimes the public gotta win.
 
