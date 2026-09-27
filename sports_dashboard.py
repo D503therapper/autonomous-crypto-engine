@@ -45,7 +45,7 @@ FACTOR = {"form": "recent form", "rest": "rest", "b2b": "back-to-backs", "inj": 
 KEY_NAME = {"mlb": "the pitching matchup", "nhl": "the goalie matchup", "nfl": "QB play", "ncaaf": "QB play"}
 
 
-def _lesson(league, change):
+def _lesson(league, change, i=0):
     """Turn an internal tuning note ('trust 15% → 30%; rest weight +0.08 → +0.15') into one plain-talk lesson."""
     import re
     parts = change.split("; ")
@@ -54,7 +54,10 @@ def _lesson(league, change):
         if m and (m.group(1) in FACTOR or m.group(1) == "key"):
             name = KEY_NAME.get(league, "star players") if m.group(1) == "key" else FACTOR[m.group(1)]
             more = abs(float(m.group(3))) > abs(float(m.group(2)))
-            return f"learned {name} matters {'more' if more else 'less'} than it thought"
+            say = (["learned {n} matters more than it thought", "{n} is carrying more weight now",
+                    "leaning harder on {n}", "caught on that {n} is a bigger deal"] if more else
+                   ["learned {n} matters less than it thought", "stopped overrating {n}", "{n} is carrying less weight now"])
+            return say[i % len(say)].format(n=name)
         m = re.match(r"home edge (\d+) → (\d+)", part)
         if m:
             return f"home field counts {'more' if int(m.group(2)) > int(m.group(1)) else 'less'} than it thought"
@@ -206,7 +209,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     for e in reversed(model.get("log", [])):          # newest first, one lesson per league
         if e["date"] != today or e["change"] in ("no change", "first tune") or any(l[0] == e["league"] for l in lessons):
             continue
-        txt = _lesson(e["league"], e["change"])
+        txt = _lesson(e["league"], e["change"], len(lessons))
         if txt:
             lessons.append((e["league"], txt))
     if lessons:
@@ -379,7 +382,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 {brain}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
 Ratings · form · rest · injuries · line moves — retrained after every final score.<br>
-Picks only — no bets placed · refreshes hourly · <a href="../">crypto engine →</a></div>
+Picks only — no bets placed · refreshes hourly</div>
 </main>
 <script>
 (function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));
