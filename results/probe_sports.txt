@@ -1,4 +1,10 @@
-load games: 128969 in 0.6s
-load players: 0.3s
-key edges: 2.2s
-_data(): 3.1s
+ratings: 3.1s
+fetch_live nfl: 16 in 0.1s
+fetch_live ncaaf: 59 in 0.1s
+fetch_live nba: 0 in 0.1s
+fetch_live mlb: 30 in 0.1s
+fetch_live nhl: 14 in 0.1s
+fetch_live ncaab: 0 in 0.1s
+bovada nfl: 0 in 1.0s {'nfl': '0 groups, 0 events'}
+espn scores nfl: 16 in 0.2s
+cycle: 5.6s 0 plays
