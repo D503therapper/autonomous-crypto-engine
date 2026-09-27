@@ -643,7 +643,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <details class="ask" id="ask"><summary><span class="ask-t">🤔 ASK THE ENGINE</span>
 <span class="ask-s">wanna know what we think? tap in 👀</span></summary>
 <div class="ask-b"><div class="ask-n">Got a question on a game? Ask away — who wins, spreads, first half, whatever. The engine will tell you how it’s leaning. Heads up — these <b>ain’t our picks</b> and they don’t count toward our record.</div>
-<input id="askq" type="search" placeholder="Ask the engine anything… 🤔" autocomplete="off">
+<input id="askq" type="search" placeholder="Ask the algorithm… 🤔" autocomplete="off">
 <div id="asklist"></div><div id="askout"></div></div></details>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
