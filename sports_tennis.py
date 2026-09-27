@@ -32,6 +32,7 @@ DIR = os.path.join(sd.DATA, "tennis")
 MATCHES = os.path.join(DIR, "matches.csv")
 PICKS = os.path.join(DIR, "picks.json")
 ODDS = os.path.join(DIR, "odds.json")
+RANKS = os.path.join(DIR, "rankings.json")   # the ATP ranking, saved daily (ESPN only has today's): {date: {id: rank}}
 LINES = os.path.join(DIR, "lines.json")      # every price seen, the last one before the start kept (closing line)
 FIELDS = ["id", "start", "event", "tourney", "round", "surface", "bo", "p1", "p1_name", "p2", "p2_name", "winner",
           "sets1", "sets2", "status", "done"]
@@ -360,6 +361,26 @@ def refresh_odds(state, now):
     return [ln for ln in cache.get("lines", []) if ln.get("start", "") >= (now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M")]
 
 
+def rankings(now):
+    """Today's ATP top 150 {player id: rank}; saved once a day so the engine builds its own ranking history."""
+    hist = {}
+    if os.path.exists(RANKS):
+        with open(RANKS) as f:
+            hist = json.load(f)
+    day = now.astimezone(PT).date().isoformat()
+    if day not in hist:
+        try:
+            with urllib.request.urlopen(ESPN.replace("scoreboard", "rankings"), timeout=20) as r:
+                ranks = (json.load(r).get("rankings") or [{}])[0].get("ranks") or []
+            hist[day] = {str((x.get("athlete") or {}).get("id")): int(x.get("current")) for x in ranks if x.get("current")}
+            os.makedirs(DIR, exist_ok=True)
+            with open(RANKS, "w") as f:
+                json.dump(hist, f, indent=0, sort_keys=True)
+        except Exception as e:                           # noqa: BLE001
+            sd.ERRORS.append(f"tennis rankings: {str(e)[:100]}")
+    return hist[max(hist)] if hist else {}
+
+
 def save_lines(lines, now):
     """Build our own tennis line history (no free source has one): the last price seen before each start."""
     hist = {}
@@ -420,6 +441,11 @@ def breakdown(c, rt, used):
             f"🎾 {me} over {them}. Not a lot of drama expected.",
             f"🎾 {me} should cruise. The algorithm has him as the clear better player.",
             f"🎾 {them} is gonna have a long day. {me} is the play."]))
+    rk_me, rk_them = c.get("rank"), c.get("opp_rank")
+    if rk_me and (not rk_them or rk_them - rk_me >= 20):
+        out.append(v.say("t_rank", [f"📈 {me} is ranked #{rk_me} in the world" + (f" — {them} is #{rk_them}." if rk_them else f" — {them} ain't even top 150."),
+                                    f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this." if rk_them else "a guy outside the top 150. Levels to this."),
+                                    f"📈 #{rk_me} in the world for a reason" + (f" (vs #{rk_them})." if rk_them else ".")]))
     if f["surface_gap"] >= 40:
         out.append(v.say("t_surf", [f"🟫 {me} is a different animal on {surf} — his {surf} game is way above his usual level.",
                                     f"🟫 On {surf}, {me} levels up. That's his surface.",
@@ -453,8 +479,9 @@ def _load_picks():
     return []
 
 
-def candidates(ms, rt, w, lines, now, until):
+def candidates(ms, rt, w, lines, now, until, ranks=None):
     out = []
+    ranks = ranks or {}
     for m in ms.values():
         if _state(m) != "pre" or not m["start"]:
             continue
@@ -471,7 +498,9 @@ def candidates(ms, rt, w, lines, now, until):
             fs = f if side == 1 else {**f, "fatigue": -f["fatigue"], "form": -f["form"], "h2h": -f["h2h"],
                                       "surface_gap": -f["surface_gap"]}
             dec = sd.decimal(ml)
+            mine, theirs = (m["p1"], m["p2"]) if side == 1 else (m["p2"], m["p1"])
             out.append({"id": f"{m['id']}:{side}", "match": m["id"], "side": side, "player": me, "opp": them,
+                        "rank": ranks.get(mine), "opp_rank": ranks.get(theirs),
                         "odds": ml, "dec": dec, "p": p, "edge": p * dec - 1, "start": m["start"], "tourney": m["tourney"],
                         "round": m["round"], "surface": m["surface"], "bo": m["bo"], "f": fs})
     return out
@@ -496,7 +525,7 @@ def post(ms, rt, w, lines, picks, now):
     iso = day.isoformat()
     if any(p["date"] == iso for p in picks):
         return None
-    cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24))
+    cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), rankings(now) if lines else {})
     straights, parlay = pick_slate(cands)
     if not straights:
         return None

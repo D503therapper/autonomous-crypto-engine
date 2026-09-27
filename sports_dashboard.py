@@ -408,7 +408,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
 .nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
-.tn{{margin-top:22px;border:1px solid #c6f00066;border-radius:18px;background:linear-gradient(165deg,#c6f00014,var(--card))}}
+.tn{{margin:22px 0 6px;border:1px solid #c6f00066;border-radius:18px;background:linear-gradient(165deg,#c6f00014,var(--card))}}
 .tn summary{{list-style:none;cursor:pointer;padding:16px 18px;display:flex;flex-direction:column;gap:4px}}
 .tn summary::-webkit-details-marker{{display:none}}
 .tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:15px}} .tn-s{{font-size:12.5px;color:#fff;font-weight:700}}
@@ -481,6 +481,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="board">{board}</div>
 {tomorrow}
 
+{_tennis()}
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">Overall record</div>
@@ -493,7 +494,6 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="recs">{"".join(rec)}{live_card}</div>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
-{_tennis()}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
 Ratings · form · rest · injuries · line moves — retrained after every final score.<br>
 Picks only — no bets placed · refreshes hourly</div>
