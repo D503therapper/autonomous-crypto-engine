@@ -4,7 +4,12 @@ name: sports
 on:
   schedule:
     - cron: "23 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      post_now:
+        description: "Post today's board now instead of waiting for 8am Pacific"
+        type: boolean
+        default: false
   push:
     paths: [".github/workflows/sports.yml", "sports.py", "sports_data.py", "sports_model.py", "sports_dashboard.py"]
 permissions:
@@ -22,6 +27,8 @@ jobs:
         with: { python-version: "3.11" }
       - run: python sports_test.py
       - run: timeout 30m python -u sports.py 2>&1 | tee -a data/sports/run.log
+        env:
+          SPORTS_POST_NOW: ${{ github.event.inputs.post_now == 'true' && '1' || '' }}
       - if: always()
         run: |
           git config user.name "paper-trader-bot"
