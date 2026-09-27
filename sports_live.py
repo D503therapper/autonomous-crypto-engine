@@ -350,7 +350,7 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
         if not up and blind:
             continue                                         # late in a football game and we can't see who has the ball
-        if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else LIVE_MIN_P) \
+        if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else min_p()) \
                 or (up and ml > STAY_MAX_ODDS) or (not up and ml > LIVE_MAX_ODDS):
             continue                                         # plus money, real value, a real chance
         if not checked and p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
@@ -652,7 +652,8 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
             log["plays"][pl["id"]] = {"posted": now.strftime("%Y-%m-%dT%H:%MZ"), "team": pl["team"], "odds": pl["odds"],
                                       "league": pl["league"], "score_at_post": pl["score"], "clock_at_post": pl["clock"],
                                       "side": pl["id"].rsplit(":", 1)[1], "an_id": pl["an_id"], "result": None,
-                                      "reasons": pl["reasons"], "date": now.astimezone(PT).date().isoformat()}
+                                      "reasons": pl["reasons"], "date": now.astimezone(PT).date().isoformat(),
+                                      "p": pl["p"]}
         pl["posted"] = log["plays"][pl["id"]]["posted"]
         e = log["plays"][pl["id"]]
         if not pl.get("paused") and e.get("result") is None:     # the longest the line got while the play was up
@@ -715,6 +716,7 @@ def run():
         prev = {p["id"]: p for p in json.load(open(LIVE_JSON)).get("plays") or []}
     except (OSError, ValueError):
         prev = {}
+    _TUNED.update(self_tune(log))
     plays = cycle(games, model, log, showing=list(prev), prev=prev)
     health = health_check()
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
@@ -729,6 +731,44 @@ def run():
         json.dump(log, f, indent=1, sort_keys=True)
     print(f"{datetime.now(timezone.utc):%H:%M:%S} live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
     return plays
+
+
+TUNE = os.path.join(sd.DATA, "live_tune.json")
+TUNE_N = 10                   # graded live bets (with the chance we gave them) before the engine grades itself
+
+
+def self_tune(log):
+    """The live feature grades itself: the chance we gave our last 30 live bets vs how often they actually hit.
+    Hitting less than we said (by 8%+) = raise the bar for new bets; hitting more = ease it back toward the floor."""
+    rows = sorted((e for e in log["plays"].values() if e.get("result") in ("won", "lost") and e.get("p")),
+                  key=lambda e: e["posted"])[-30:]
+    try:
+        with open(TUNE) as f:
+            t = json.load(f)
+    except (OSError, ValueError):
+        t = {"min_p": LIVE_MIN_P}
+    if len(rows) < TUNE_N or t.get("n_seen") == len(rows) and t.get("last") == rows[-1]["posted"]:
+        return t
+    said = sum(e["p"] for e in rows) / len(rows)
+    hit = sum(e["result"] == "won" for e in rows) / len(rows)
+    mp = t.get("min_p", LIVE_MIN_P)
+    if hit < said - 0.08:
+        mp = min(0.55, mp + 0.03)
+    elif hit > said + 0.05:
+        mp = max(LIVE_MIN_P, mp - 0.02)
+    t = {"min_p": round(mp, 3), "said": round(said, 3), "hit": round(hit, 3), "n": len(rows), "n_seen": len(rows),
+         "last": rows[-1]["posted"], "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")}
+    with open(TUNE, "w") as f:
+        json.dump(t, f, indent=1)
+    print(f"LIVE SELF-CHECK: said {said:.0%}, hit {hit:.0%} over {len(rows)} -> new bets need {mp:.0%}+", flush=True)
+    return t
+
+
+_TUNED = {}
+
+
+def min_p():
+    return max(LIVE_MIN_P, _TUNED.get("min_p", LIVE_MIN_P))
 
 
 def health_check():
@@ -792,9 +832,9 @@ def publish_results(msg):
     except Exception as e:                                   # noqa: BLE001 - never stop watching over this
         print(f"quick grade failed: {e}", flush=True)
         return
-    paths = [LOG, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
+    paths = [LOG, TUNE, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
              os.path.join(sd.DATA, "games")]
-    _git("add", *paths)
+    _git("add", *[p for p in paths if os.path.exists(p)])
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return
     _git("commit", "-qm", f"{msg}: {len(graded)} graded, {len(posted)} new")
@@ -808,7 +848,7 @@ def publish_results(msg):
 def publish(msg):
     """Commit + push the live log to main - only when a play is first logged or graded. (live.json itself only
     goes out on the live-data branch; phones read it there.)"""
-    _git("add", LOG)
+    _git("add", *[p for p in (LOG, TUNE) if os.path.exists(p)])
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return
     _git("commit", "-qm", msg)
@@ -835,10 +875,26 @@ def _log_key():
         return None
 
 
+CODE = ("sports_live.py", "sports_comeback.py", "sports_data.py", "sports_model.py")
+
+
+def _code_hash():
+    import hashlib
+    h = hashlib.sha1()
+    for p in CODE:
+        try:
+            with open(p, "rb") as f:
+                h.update(f.read())
+        except OSError:
+            pass
+    return h.hexdigest()
+
+
 def loop(minutes, every_s=10):
     """Watch live games every `every_s` seconds for `minutes`. Phones see every change right away (live-data
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
+    code = _code_hash()
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
     finals_seen = None
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
@@ -851,6 +907,10 @@ def loop(minutes, every_s=10):
         if games is None or int(time.time()) % 600 < every_s:          # pull the latest games/model every ~10 min
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pulling", flush=True)
             _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+            if _code_hash() != code:                        # new live code landed: restart on it right now, so a fix
+                left = max(1.0, (end - time.time()) / 60)   # never waits behind a watch running the old code
+                print(f"{datetime.now(timezone.utc):%H:%M:%S} new code - restarting on it ({left:.0f} min left)", flush=True)
+                os.execv(sys.executable, [sys.executable, "-u", "sports_live.py", "--loop", f"{left:.1f}"])
             print(f"{datetime.now(timezone.utc):%H:%M:%S} loading data", flush=True)
             games, _ = _data(reload=True)
         if not any_live_soon(games):

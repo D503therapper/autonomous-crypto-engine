@@ -496,6 +496,15 @@ def test_comeback_study_and_live_rules():
         assert sports_live.locked_sides({"plays": {}}, datetime.now(timezone.utc))["nfl:7"] == "away", "live never goes against a pregame pick"
     finally:
         sd.DATA = keep
+    # the live feature grades itself: said 45%, hit 20% -> it raises its own bar for new bets
+    keep_tune = sports_live.TUNE
+    sports_live.TUNE = os.path.join(tempfile.mkdtemp(), "live_tune.json")
+    try:
+        rows = {f"x:{i}:home": {"posted": f"2026-01-01T{i:02d}:00Z", "p": 0.45, "result": "won" if i < 3 else "lost"} for i in range(15)}
+        t = sports_live.self_tune({"plays": rows})
+        assert t["min_p"] > sports_live.LIVE_MIN_P and t["hit"] < t["said"], t
+    finally:
+        sports_live.TUNE = keep_tune
     # the last minutes of a football game: no new play if we can't see who has the ball
     late = {"period": 4, "clock": "1:48", "total_home_points": 16, "total_away_points": 17, "linescore": [], "situation": {}}
     nfl_st = {"nfl": {"curve": {"s": 1.0, "w": 1.0, "m": 0.0, "ll": 0.5}, "table": {}}}
