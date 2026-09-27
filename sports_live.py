@@ -41,7 +41,8 @@ STAY_EDGE, STAY_P = 0.0, 0.15    # never count a live dog out: a play that's up 
                                  # it only comes down when the value's gone or it's shitting the bed (under a 15% chance)
 PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone, review): hold the card up to 3 minutes
 LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
-LIVE_MIN_P = 0.25             # value, not lottery tickets: +300/+400 is fine when it's real, never a +900 prayer
+LIVE_MIN_P = 0.40             # ACCURACY FIRST: a new live bet is one we think has a real shot (40%+)...
+LIVE_MAX_ODDS = 250           # ...and never longer than +250 when it goes up (the +270..+425 ones kept losing)
 MAX_PLAYS = 4                 # up to 4 on the board at once, best value first (no limit per day)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
 LENGTH = {"nfl": (4, 15), "ncaaf": (4, 15), "nba": (4, 12), "ncaab": (2, 20), "nhl": (3, 20), "mlb": (9, None)}
@@ -274,7 +275,8 @@ def _get(url, tries=2):
 
 
 def _get1(url):
-    with urllib.request.urlopen(url, timeout=20) as r:
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=20) as r:   # (Bovada sends an empty list to a bare Python client)
         return json.load(r)
 
 
@@ -348,7 +350,7 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         if not up and blind:
             continue                                         # late in a football game and we can't see who has the ball
         if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else LIVE_MIN_P) \
-                or (up and ml > STAY_MAX_ODDS):
+                or (up and ml > STAY_MAX_ODDS) or (not up and ml > LIVE_MAX_ODDS):
             continue                                         # plus money, real value, a real chance
         if not checked and p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
             continue       # only one source and the price is miles from what the score says: can't tell a real
@@ -387,6 +389,7 @@ PRICED = [0]                  # live games with a sportsbook price this cycle   
 BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 BOVADA_OLD = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 BOVADA_ALL = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&lang=en"
+BOVADA_SPORT = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{sport}?marketFilterId=def&liveOnly=true&lang=en"
 # (the liveOnly feed went empty on 2026-09-27 while games were live: the full feed still flags each event live=True)
 ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}/odds"
 BOVADA_PATH = {"nfl": "football/nfl", "ncaaf": "football/college-football", "nba": "basketball/nba",
@@ -401,15 +404,17 @@ def _clean(name):
 def bovada_live(league):
     """[{home, away, ml_home, ml_away}] - the sportsbook's LIVE moneylines right now."""
     data = []
-    for url in (BOVADA, BOVADA_OLD, BOVADA_ALL):             # live feed, the older address, then the full feed
+    path = BOVADA_PATH[league]
+    for url in (BOVADA, BOVADA_OLD, BOVADA_ALL, BOVADA_SPORT):   # live feed, older address, full feed, whole sport
         try:
-            data = _get(url.format(path=BOVADA_PATH[league]))
+            data = _get(url.format(path=path, sport=path.split("/")[0]))
         except Exception as e:                               # noqa: BLE001
             sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
             BOOKS[league] = f"error {str(e)[:60]}"
             continue
         data = [{**g, "events": [e for e in g.get("events") or [] if e.get("live")]}
-                for g in (data if isinstance(data, list) else []) if isinstance(g, dict)]
+                for g in (data if isinstance(data, list) else []) if isinstance(g, dict)
+                and path in str(((g.get("path") or [{}])[0] or {}).get("link", path))]     # only this league's group
         if any(g.get("events") for g in data):
             break
     BOOKS[league] = f"{len(data or [])} groups, {sum(len(g.get('events') or []) for g in data or [])} events"

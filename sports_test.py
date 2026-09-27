@@ -416,13 +416,15 @@ def test_comeback_study_and_live_rules():
     st = {"nba": {"curve": fit, "table": sc.table("nba", snaps)}}
     h = sc.spot(st, "nba", 0.5, 8, True)                        # a favorite down 6-10 at the half
     assert h and h[0] >= sc.MIN_N and 0.05 < h[1] < 0.8 and sc.when("nba", h[2]) == "at the half"
-    box = {"period": 3, "clock": "11:00", "total_home_points": 64, "total_away_points": 70,
-           "linescore": [{"home_points": 25, "away_points": 30}, {"home_points": 28, "away_points": 30},
+    box = {"period": 3, "clock": "11:00", "total_home_points": 64, "total_away_points": 67,
+           "linescore": [{"home_points": 25, "away_points": 30}, {"home_points": 28, "away_points": 27},
                          {"home_points": 11, "away_points": 10}]}
     g = {"id": "nba:x", "home_name": "Lakers", "away_name": "Celtics"}
-    # the Lakers were a solid favorite (65%), down 6 early in the 3rd, live at +320: history + better team -> a play
-    plays = sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1)
-    assert len(plays) == 1 and plays[0]["team"] == "Lakers" and plays[0]["odds"] == 320
+    # the Lakers were a solid favorite (65%), down 3 early in the 3rd, live at +200: history + better team -> a play
+    plays = sports_live.evaluate("nba", g, box, 200, -250, st, 0.65, 0.65, 0.0, "", 1)
+    assert len(plays) == 1 and plays[0]["team"] == "Lakers" and plays[0]["odds"] == 200
+    # accuracy first: never a new live bet longer than +250, never under a 40% chance
+    assert not sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1), "no +320 live shots"
     pl = plays[0]
     assert "history" in pl["reasons"] and "better" in pl["reasons"]
     assert pl["breakdown"] and pl["breakdown"][0].startswith("📚") and "Lakers" in pl["line"]
@@ -436,7 +438,7 @@ def test_comeback_study_and_live_rules():
     tied = dict(box, total_home_points=70, total_away_points=70)
     assert not [p for p in sports_live.evaluate("nba", g, tied, 900, -2000, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]
     # ...but a price confirmed by two sources is real, so the value math decides (not the too-far-off filter)
-    assert sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1, True)
+    assert sports_live.evaluate("nba", g, box, 200, -250, st, 0.65, 0.65, 0.0, "", 1, True)
     # the live price comes from the sportsbook (Bovada), cross-checked with Action Network
     gm_ = {"home_name": "Jaguars", "away_name": "Patriots"}
     lines = [{"home": "Jacksonville Jaguars", "away": "New England Patriots", "ml_home": -140, "ml_away": 120}]
@@ -470,7 +472,7 @@ def test_comeback_study_and_live_rules():
     assert sports_live.halftime("nfl", {"status_display": "Halftime"}, {"period": 2, "clock": "00:00"})
     assert not sports_live.halftime("nfl", {}, {"period": 2, "clock": "03:10"}) and not sports_live.halftime("nba", {}, {"period": 2, "clock": "0:00"})
     # the team getting the ball to start the 2nd half: counted, and said in the breakdown (never a reason on its own)
-    pl = sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1, True, (), "home")
+    pl = sports_live.evaluate("nba", g, box, 200, -250, st, 0.65, 0.65, 0.0, "", 1, True, (), "home")
     assert pl and "half" in pl[0]["reasons"] and any("2nd" in x or "halftime" in x for x in pl[0]["breakdown"])
     assert not sports_live.substantial([("half", {}), ("better", {})], False)
     # never contradict ourselves: once we're on a side in a game, the other side never goes up
