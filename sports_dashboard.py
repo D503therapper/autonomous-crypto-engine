@@ -641,9 +641,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 <details class="ask" id="ask"><summary><span class="ask-t">🤔 ASK THE ENGINE</span>
-<span class="ask-s">our read on any game · tap to open</span></summary>
-<div class="ask-b"><div class="ask-n">Game not on our board? Type a team and the engine will give you its lean. These are <b>not our picks</b> and never count toward our record.</div>
-<input id="askq" type="search" placeholder="Type a team… (Eagles, Dodgers)" autocomplete="off">
+<span class="ask-s">wanna know what we think? tap in 👀</span></summary>
+<div class="ask-b"><div class="ask-n">Got a question on a game? Ask away — who wins, spreads, first half, whatever. The engine will tell you how it’s leaning. Heads up — these <b>ain’t our picks</b> and they don’t count toward our record.</div>
+<input id="askq" type="search" placeholder="Ask the engine anything… 🤔" autocomplete="off">
 <div id="asklist"></div><div id="askout"></div></div></details>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
@@ -753,7 +753,7 @@ function note(){{
 }}
 function render(){{
   out.innerHTML="";
-  if(!loaded){{list.innerHTML='<div class="ask-n">⏳ Pulling up the engine’s reads…</div>';return}}
+  if(!loaded){{list.innerHTML='<div class="ask-n">⏳ Hold up — pulling up the engine’s reads…</div>';return}}
   var words=q.value.toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){{return w.length>2&&!STOP[w]}});
   var hits=games.filter(function(g){{var hay=(g.away+" "+g.home+" "+g.sport).toLowerCase();
     return !words.length||words.some(function(w){{return hay.indexOf(w)>=0}})}}).slice(0,12);
