@@ -347,7 +347,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
     grades += grade("📡 LIVE", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
-    res = [(l["league"], l["result"]) for p in picks if p["kind"] != "eight" for l in p["legs"] if l.get("result") in ("won", "lost")]
+    seen_ = {}                                               # a team we're on in two picks the same day counts once
+    for p in picks:
+        if p["kind"] != "eight":
+            for l in p["legs"]:
+                if l.get("result") in ("won", "lost"):
+                    seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
+    res = list(seen_.values())
     try:
         with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
             res += [("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or [] if l.get("result") in ("won", "lost")]
