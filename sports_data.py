@@ -20,6 +20,7 @@ LEAGUES = {
     "nba": ("basketball/nba", "", "NBA", "🏀"),
     "mlb": ("baseball/mlb", "", "MLB", "⚾"),
     "nhl": ("hockey/nhl", "", "NHL", "🏒"),
+    "ncaab": ("basketball/mens-college-basketball", "&groups=50", "College Basketball", "🏀"),   # men's D1 only
 }
 
 ERRORS = []      # failed calls this run (only the first few are printed)
@@ -234,6 +235,9 @@ def merge(old, new, now_iso):
     return g
 
 
+DEEP_DAYS = 1150          # how far back the engine studies: about 3 full seasons in every sport
+
+
 def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget_s=900):
     """Refresh every league: re-read the last few days + next few, and backfill history on first run.
     Stops starting new calls after budget_s; unfinished days count as failed, so the next run resumes there.
@@ -253,6 +257,18 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
         while d <= today + timedelta(days=ahead_days):
             jobs.append((lg, d))
             d += timedelta(days=1)
+    deep = {}                                            # older history: 120 days per league per run, back to DEEP_DAYS
+    for lg in LEAGUES:
+        frm = datetime.strptime(state.setdefault("from", {}).get(lg, (today - timedelta(days=backfill_days)).isoformat()),
+                                "%Y-%m-%d").date()
+        target = today - timedelta(days=DEEP_DAYS)
+        if frm > target:
+            lo = max(target, frm - timedelta(days=120))
+            deep[lg] = lo
+            d = lo
+            while d < frm:
+                jobs.append((lg, d))
+                d += timedelta(days=1)
     fails = {}
     deadline = time.time() + budget_s
     done = [0]
@@ -272,10 +288,15 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
         results = list(ex.map(run, jobs))
     for (lg, d), rows in results:
         if rows is None:
-            fails[lg] = min(fails.get(lg, d), d)
+            if not (lg in deep and d < deep[lg] + timedelta(days=121)):   # old-history misses don't reset the cursor
+                fails[lg] = min(fails.get(lg, d), d)
             continue
         for r in rows:
             games[r["id"]] = merge(games.get(r["id"]), r, now_iso)
+    for lg, lo in deep.items():
+        if not any(lo <= d < datetime.strptime(state["from"].get(lg, today.isoformat()), "%Y-%m-%d").date()
+                   for (l2, d), r in results if l2 == lg and r is None):
+            state["from"][lg] = lo.isoformat()
     for lg in LEAGUES:
         # next run starts from the first failed day, else from today
         upto = fails.get(lg, today + timedelta(days=1)) - timedelta(days=1)
@@ -289,7 +310,7 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
 SHORT_TERM = ("out", "doubtful")       # counted as missing (long-term IR is already priced into the ratings)
 UNSURE = ("questionable", "game-time", "game time", "day-to-day", "day to day")   # not known yet: wait for news
 LONG_OUT = ("reserve", "suspen", "season")      # injured reserve / suspended / out for the season
-KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": set()}  # None = any player
+KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": set(), "ncaab": set()}  # None = any player
 
 
 def fetch_injuries(league):
@@ -355,7 +376,7 @@ def team_unsure(inj, team_id, team_name, league):
 # ESPN drops the odds once a game is over. Action Network's public scoreboard keeps them for finished
 # games: book 15 = market consensus (used as the closing line), book 30 = the opening line.
 AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game&date={day}{extra}"
-AN_EXTRA = {"ncaaf": "&division=FBS"}
+AN_EXTRA = {"ncaaf": "&division=FBS", "ncaab": "&division=D1"}
 AN_CLOSE, AN_OPEN = 15, 30
 
 
@@ -443,7 +464,8 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
     jobs = []
     weeks = []
     for lg, parts in AN_WEEKS.items():                # last season once, this season every run (cheap)
-        seasons = [today.year] + ([] if cur.get(f"{lg}_past") else [today.year - 1])
+        seasons = [today.year] + ([] if cur.get(f"{lg}_past") else [today.year - 1]) + \
+            ([] if cur.get(f"{lg}_past2") else [today.year - 2])
         weeks += [(lg, (y, typ, w)) for y in seasons for typ, n in parts for w in range(1, n + 1)]
     for lg in LEAGUES:
         if lg in AN_WEEKS:
@@ -454,6 +476,20 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
         while d <= today + timedelta(days=1):
             jobs.append((lg, d))
             d += timedelta(days=1)
+    deep = {}
+    for lg in LEAGUES:
+        if lg in AN_WEEKS:
+            continue
+        frm = datetime.strptime(state.setdefault("an_from", {}).get(lg, (today - timedelta(days=backfill_days)).isoformat()),
+                                "%Y-%m-%d").date()
+        target = today - timedelta(days=DEEP_DAYS)
+        if frm > target:
+            lo = max(target, frm - timedelta(days=120))
+            deep[lg] = (lo, frm)
+            d = lo
+            while d < frm:
+                jobs.append((lg, d))
+                d += timedelta(days=1)
     deadline = time.time() + budget_s
 
     def run(job):
@@ -463,18 +499,23 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
         wres = list(ex.map(run, weeks))
     filled = 0
     for lg in AN_WEEKS:
-        past = [r for (l2, (y, _, _)), r in wres if l2 == lg and y == today.year - 1]
-        if past and all(r is not None for r in past):
-            cur[f"{lg}_past"] = True
+        for back, flag in ((1, "_past"), (2, "_past2")):
+            past = [r for (l2, (y, _, _)), r in wres if l2 == lg and y == today.year - back]
+            if past and all(r is not None for r in past):
+                cur[f"{lg}{flag}"] = True
     for (lg, _), rows in wres:
         if rows is not None:
             filled += attach_an(games, lg, rows)
     fails = {}
     for (lg, d), rows in results:
         if rows is None:
-            fails[lg] = min(fails.get(lg, d), d)
+            if not (lg in deep and d < deep[lg][1]):
+                fails[lg] = min(fails.get(lg, d), d)
             continue
         filled += attach_an(games, lg, rows)
+    for lg, (lo, hi) in deep.items():
+        if all(r is not None for (l2, d), r in results if l2 == lg and lo <= d < hi):
+            state["an_from"][lg] = lo.isoformat()
     for lg in LEAGUES:
         if lg in AN_WEEKS:
             continue

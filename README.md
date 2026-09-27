@@ -66,7 +66,8 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
      the best value on the slate.
    - Never backs a team missing its starting QB/goalie or with 2+ more players out than its opponent;
      preseason and spring games never count.
-   - Spreads are used only in NFL, college football and NBA. There are no run lines, puck lines or player props.
+   - Spreads are used only in NFL, college football, NBA and men's college basketball. There are no run lines,
+     puck lines or player props, and no women's leagues.
 5. Rebuilds `docs/sports/index.html`.
 
 Files: `data/sports/picks.json` (every pick and result), `model.json` (the brain), `games/<league>/<month>.csv`.

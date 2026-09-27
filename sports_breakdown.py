@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 11          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 12          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -105,6 +105,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     ours, theirs = _team_games(fin, tid), _team_games(fin, oid)
     s_ours, s_theirs = _season(ours, start), _season(theirs, start)
     v = Voice(f"{g['id']}|{start:%Y-%m-%d}|{side}", used)
+    pro = lg in ("nfl", "nba", "mlb", "nhl")
+    the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
     if ours and theirs and (start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days < 2:
         leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]
     out, said = [], set()          # said: reasons already used as a "because", so no line repeats another
@@ -341,12 +343,13 @@ def breakdown(leg, games, elo, injuries, used=None):
         why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
                    NO_WHY)
         said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
-        out.append(_nowhy(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns. We're on {us} — {why}.",
-                                   f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns and taking {us} — {why}.",
-                                   f"💸 Line's moving toward {them}{move}. Let 'em — the engine still likes {us}: {why}.",
-                                   f"💸 Money's pouring in on {them}{move}. They must've lost their minds — we got {us}. {_cap(why)}.",
-                                   f"💸 Everybody's jumping on {them}{move}. They're tweaking — {us} is the play. {_cap(why)}.",
-                                   f"💸 The market's leaning {them}{move}. Somebody's about to learn a lesson — we're on {us}. {_cap(why)}."])))
+        out.append(_nowhy(v.say("fade", [
+            f"💸 Sharp money's been coming in on {the_them}{move}, but they must be some clowns. We're on {the_us} — {why}.",
+            f"💸 The so-called sharps are all over {the_them}{move}. We're fading the clowns and taking {the_us} — {why}.",
+            f"💸 Line's moving toward {the_them}{move}. Let 'em — we still like {the_us}, {why}.",
+            f"💸 Money's pouring in on {the_them}{move}. They must've lost their minds — we got {the_us}, {why}.",
+            f"💸 Everybody's jumping on {the_them}{move}. They're tweaking — we're riding {the_us}, {why}.",
+            f"💸 The market's leaning {the_them}{move}. Somebody's about to learn a lesson — we're on {the_us}, {why}."])))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
@@ -354,21 +357,21 @@ def breakdown(leg, games, elo, injuries, used=None):
                    NO_WHY)
     if pub == "fade":
         out.append(_nowhy(v.say("pub_fade", [
-            f"🤡 {them} are the clear favorite and the public's all over 'em. We're on {us}. Fade the public — don't be a sheep. {_cap(why_pub)}.",
-            f"🤡 The public is all over {them}. We're on {us}, and the dummies are about to lose their money — {why_pub}.",
-            f"🤡 Everybody and their mama is on {them}. Not us — we got {us}. {_cap(why_pub)}.",
-            f"🤡 The sheep are lining up for {them}. We're not sheep — we're on {us}. {_cap(why_pub)}.",
-            f"🤡 Crowd's on {them}. We're riding {us} and the engine — {why_pub}.",
-            f"🤡 Public's hammering {them} like it's free money. It ain't. We got {us} — {why_pub}.",
-            f"🤡 All the casuals love {them}. We're not casuals — {us} all day. {_cap(why_pub)}."])))
+            f"🤡 {_cap(the_them)} are the clear favorite and the public's all over 'em. Don't be a sheep — we're on {the_us}, {why_pub}.",
+            f"🤡 The public is all over {the_them}. Dummies are about to lose their money — we're on {the_us}, {why_pub}.",
+            f"🤡 Everybody and their mama is on {the_them}. Not us — we got {the_us}, {why_pub}.",
+            f"🤡 The sheep are lining up for {the_them}. We're not sheep — we're on {the_us}, {why_pub}.",
+            f"🤡 Crowd's on {the_them}. We're riding {the_us} and the engine — {why_pub}.",
+            f"🤡 Public's hammering {the_them} like it's free money. It ain't — we got {the_us}, {why_pub}.",
+            f"🤡 All the casuals love {the_them}. We're not casuals — {the_us} all day, {why_pub}."])))
     elif pub == "ride":
         out.append(_nowhy(v.say("pub_ride", [
-            f"🤝 Riding with the public on this one — sometimes the public gotta win. {_cap(why_pub)}.",
-            f"🤝 Public's on {us} too, and this time they're not dummies — {why_pub}.",
-            f"🤝 Even a broken clock is right twice a day — the public got this one. {_cap(why_pub)}.",
-            f"🤝 We're with the crowd here and not ashamed of it — {why_pub}.",
-            f"🤝 Public side, but we got our own reasons: {why_pub}.",
-            f"🤝 We're riding with the crowd on {us}. Sometimes they get it right — {why_pub}."])))
+            f"🤝 Riding with the public on {the_us} — sometimes the public gotta win, {why_pub}.",
+            f"🤝 Public's on {the_us} too, and this time they're not dummies — {why_pub}.",
+            f"🤝 Even a broken clock is right twice a day — the public got {the_us} right, {why_pub}.",
+            f"🤝 We're with the crowd on {the_us} and not ashamed of it — {why_pub}.",
+            f"🤝 Public side on {the_us}, but we got our own reasons — {why_pub}.",
+            f"🤝 We're riding with the crowd on {the_us}. Sometimes they get it right — {why_pub}."])))
 
     # bottom line
     need, have = 1 / leg["dec"], leg["p"]
@@ -410,9 +413,9 @@ def breakdown(leg, games, elo, injuries, used=None):
 
 
 WHY = {   # the pick's reasons, said as a quick "because"
-    "the stronger team": "{us} are the better team",
-    "hotter recent form": "{us} are the hotter team",
-    "better rested": "{us} got extra days of rest",
+    "the stronger team": "they're the better team",
+    "hotter recent form": "they're the hotter team",
+    "better rested": "they got extra days of rest",
     "opponent on a back-to-back": "{them} are on tired legs",
     "opponent missing key players": "{them} are banged up",
     "better starting pitcher": "we've got the better arm on the mound",
@@ -426,7 +429,7 @@ NO_WHY = "\u00a7"     # placeholder: no fresh reason left, so the line ends on o
 
 def _nowhy(line):
     import re
-    return re.sub(r"[\s\u2014:.]*\u00a7\.?$", ".", line) if NO_WHY in line else line
+    return re.sub(r"[\s\u2014:.,]*\u00a7\.?$", ".", line) if NO_WHY in line else line
 
 
 def _cap(x):
