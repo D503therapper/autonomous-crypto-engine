@@ -97,12 +97,11 @@ def test_never_back_injured_side():
     inj = {"nfl": sd.parse_injuries({"injuries": [
         {"id": "3", "displayName": "New York Giants", "injuries": [row("Jaxson Dart", "QB", "Injured Reserve")]},
         {"id": "4", "displayName": "Tennessee Titans", "injuries": [row("A", "WR", "Out")]}]})}
-    sides = {(c["team"], c["market"]) for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
-             if c["game_id"] == "nfl:x"}
-    assert ("Giants", "ml") not in sides, "never back a team without its starting QB"
-    tit = [c for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
-           if c["game_id"] == "nfl:x" and c["team"] == "Titans" and c["market"] == "ml"][0]
-    assert abs(tit["p"] - tit["p_market"]) < 1e-9, "QB news the ratings can't see: use the market's number"
+    cs = [c for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
+          if c["game_id"] == "nfl:x" and c["market"] == "ml"]
+    for c in cs:     # starter out: the market prices the backup; the ratings (which think the starter plays) don't count
+        assert abs(c["p"] - c["p_market"]) < 1e-9, (c["team"], c["p"], c["p_market"])
+    assert not any(sports.good(c) for c in cs), "no fake edge from ratings that assume the starter plays"
     inj["nfl"]["3"] = []                                     # Giants healthy, Titans 2 more out
     inj["nfl"]["4"] = [("A", "WR", "Out"), ("B", "CB", "Out")]
     sides = {c["team"] for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)

@@ -41,6 +41,14 @@ def _chip(status):
     return f'<span class="chip {status}">{txt}</span>'
 
 
+def _breakdown(leg):
+    secs = leg.get("breakdown")
+    if not secs:
+        return ""
+    body = "".join(f"<p>{E(x)}</p>" for x in secs if isinstance(x, str))
+    return f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{body}</div></details>'
+
+
 def _leg(leg):
     lg = sd.LEAGUES[leg["league"]]
     mk = "ML" if leg["market"] == "ml" else f'{leg["line"]:+g}'
@@ -53,7 +61,7 @@ def _leg(leg):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span><span class="tm">{_time(leg["start"])}</span></div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])}</div>
-  {f'<div class="why">{why}</div>' if why else ""}{outs}
+  {f'<div class="why">{why}</div>' if why else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">{E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -246,6 +254,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ls{{font-size:12.5px;color:#fff;margin-top:2px}} .ls b{{color:#fff}}
 .ep{{color:var(--up);font-weight:800}} .en{{color:#ff8a5c;font-weight:800}}
 .why{{font-size:12px;color:#e8c77a;margin-top:4px}}
+.bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
+.bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
+.bd summary::-webkit-details-marker{{display:none}}
+.bd summary:after{{content:"▾";float:right;transition:transform .2s}} .bd[open] summary:after{{transform:rotate(180deg)}}
+.bd-s{{padding:2px 12px 8px}} .bd-t{{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:4px}}
+.bd-s p{{margin:6px 0;font-size:13.5px;color:#fff;line-height:1.45}} .bd-s p:last-child{{color:var(--gold);font-weight:700}}
 .outs{{font-size:11.5px;color:#ff8a5c;margin-top:3px}}
 .fin{{font-size:12px;color:#fff;opacity:.75;margin-top:3px}}
 .lw{{color:var(--up);margin-right:6px}} .ll{{color:var(--dn);margin-right:6px}} .lp{{color:var(--gold);margin-right:6px}}

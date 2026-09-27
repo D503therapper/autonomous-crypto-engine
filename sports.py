@@ -19,6 +19,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
+import sports_breakdown
 import sports_data as sd
 import sports_model as sm
 
@@ -129,13 +130,15 @@ def candidates(games, model, now=None, day=None, injuries=None):
         inj = (injuries or {}).get(lg)
         key_out = {side: sd.team_key_out(inj, g[side], g[side + "_name"], lg) for side in ("home", "away")}
         n_out = {side: len(sd.team_injuries(inj, g[side], g[side + "_name"])) for side in ("home", "away")}
-        # a missing starting QB / goalie is news the ratings can't see: take the market's number on this game
-        ph = mkt if key_out["home"] or key_out["away"] else sm.final_p(params, f, g)
+        # a missing starting QB / goalie is news the ratings can't see. The line prices the backup (a solid
+        # one barely moves it, a bad one moves it a lot), so on this game go by the market + where sharp money goes
+        ph = sm.sigmoid(sm.logit(mkt) + params.get("move_w", 0) * sm.line_move(g)) \
+            if key_out["home"] or key_out["away"] else sm.final_p(params, f, g)
         waiting = waiting_on(g, injuries)
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
-            if key_out[side] or n_out[side] - n_out[other] > MAX_EXTRA_OUT:
-                continue                                  # never back a team missing its QB/goalie or more banged up
+            if n_out[side] - n_out[other] > MAX_EXTRA_OUT:
+                continue                                  # never back the more banged-up team
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp,
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
@@ -272,6 +275,7 @@ def post_board(games, model, picks, now, day, force=False):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
     cands = candidates(games, model, now, day, injuries)
     settled = [c for c in cands if not c["waiting"]]
+    elo = None
     new = []
     for kind, _ in KINDS:
         if kind in posted:
@@ -298,6 +302,8 @@ def post_board(games, model, picks, now, day, force=False):
             for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
                 outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
                 leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
+            elo = elo or sm.ratings(games, model)
+            leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries)
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
               "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0}
@@ -305,6 +311,18 @@ def post_board(games, model, picks, now, day, force=False):
         posted[kind] = pk
         new.append(pk)
     return new
+
+
+def add_breakdowns(games, model, picks):
+    """Give posted plays that predate the breakdown feature their breakdown (the pick itself never changes)."""
+    legs = [l for p in picks if p["status"] == "open" for l in p["legs"]
+            if "breakdown" not in l and l["game_id"] in games and games[l["game_id"]]["status"] == "pre"]
+    if not legs:
+        return
+    injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
+    elo = sm.ratings(games, model)
+    for leg in legs:
+        leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries)
 
 
 def bankroll_series(picks):
@@ -349,6 +367,7 @@ def run(repick=False, fetch=True):
         picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
     days = [day] + ([day + timedelta(days=1)] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else [])
+    add_breakdowns(games, model, picks)
     for d in days:
         for pk in post_board(games, model, picks, now, d, force=post_now and d == day):
             legs = " + ".join(f"{leg_label(l)} ({fmt_american(l['odds'])})" for l in pk["legs"])
