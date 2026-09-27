@@ -76,6 +76,14 @@ collecting; test = replay every re-screen data-flag exit in outcomes.csv vs late
 exits keep losing vs holding while zero turn into rugs, require a real change (liquidity drop, mint/freeze,
 owner) before an emergency exit instead of "data unknown".
 
+### NEXT (first, 2026-09-27 22:00) - Is the live DEX strategy profitable at all? Reconcile the studies
+Baselines for the SAME live entry/exit disagree: dex_runner_study +101%/mo (older sim), dex_floor_study +44%/mo
+(-3% older / +276% newer), dex_filter_study +16.6%/mo (-14.9% / -0.6%), dex_age_study -26.3% / -0.1% per month (199
+cached pools, 5 slots). Results hinge on pool set, slot count and one or two trades (slots full for 14 days).
+Build one consolidated run: the largest pool set (runner + floor + filter caches, dedup), live rules, 5 slots, both halves,
+resampled accounts (drop 30% of signals x300), and slot count / max hold sensitivity (7d/10d/14d). If the median
+resampled month is not clearly positive in both halves, the DEX strategy needs a rethink before real money.
+
 ### NEXT - Second DEX entry: "dip + bounce" (owner asked 2026-09-27: buy the drop points?)
 Quick label check on results/dex_runner_points.csv.gz (liq >= $100k, age >= 6h): current entry (1h >= +10%) n=251:
 2x/7d 53%, 5x 24%, rug 2.0%, median worst-drop after entry -54%. "Dip + bounce" (>= 30% below 7d high AND 1h >= +5%)
