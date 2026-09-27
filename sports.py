@@ -23,6 +23,7 @@ import sports_breakdown
 import sports_data as sd
 import sports_model as sm
 import sports_players as sp
+import sports_weather
 
 DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
@@ -99,6 +100,9 @@ def _reasons(side, f, g, league, params):
                         ("bye", "coming off a bye"), ("short", "opponent on a short week")):
         if f.get(name, 0) * s > 0 and w.get(name, 0) >= 0.1:
             out.append((0.4 + w[name], label))
+    for name, label in (("alt", "altitude edge"), ("cold", "cold-weather edge"), ("weather", "nasty weather helps us")):
+        if f.get(name, 0) * s > 0.05 and w.get(name, 0) >= 0.1:
+            out.append((0.4 + w[name] * abs(f[name]), label))
     if w.get("letdown", 0) <= -0.1 and f.get("letdown", 0) * s < 0:      # blowout winners keep rolling (NFL/NBA)
         out.append((0.4 - w["letdown"], "rolling off a blowout win"))
     if f.get("key", 0) * s >= 0.4:
@@ -391,6 +395,9 @@ def run(repick=False, fetch=True):
         t0 = time.time()
         got, calls, fails = sp.sync(games, state)
         print(f"player stats: {got} box scores added, {calls} to fetch, {fails} failed, {time.time() - t0:.0f}s")
+        t0 = time.time()
+        filled, venues = sports_weather.sync(games)
+        print(f"weather: {filled} games got weather, {venues} new stadiums located, {time.time() - t0:.0f}s")
     else:
         games = sd.load_games()
     sp.CACHE = sp.load()

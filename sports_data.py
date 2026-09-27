@@ -27,7 +27,8 @@ ERRORS = []      # failed calls this run (only the first few are printed)
 FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_name",
           "home_score", "away_score", "ml_home", "ml_away", "odds_time", "neutral",
           "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
-          "inj_home", "inj_away", "sp_home", "sp_away", "stype", "country", "intl"]
+          "inj_home", "inj_away", "sp_home", "sp_away", "stype", "country", "intl", "city", "state", "indoor",
+          "elev", "wx_temp", "wx_wind", "wx_rain"]
 REAL = ("2", "3", "?")          # regular season + playoffs; preseason / spring training / all-star games don't count
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 
@@ -158,7 +159,9 @@ def parse_scoreboard(league, payload):
                 return ""
         (hid, hname), (aid, aname) = team("home"), team("away")
         od = _odds(comp)
-        country = ((comp.get("venue") or {}).get("address") or {}).get("country") or ""
+        venue = comp.get("venue") or {}
+        addr = venue.get("address") or {}
+        country = addr.get("country") or ""
 
         def probable(side):
             for pr in teams[side].get("probables") or []:
@@ -172,6 +175,8 @@ def parse_scoreboard(league, payload):
             "home_score": score("home") if status == "final" else "", "away_score": score("away") if status == "final" else "",
             "odds_time": "", "neutral": 1 if comp.get("neutralSite") else 0, "inj_home": "", "inj_away": "",
             "country": country, "intl": 1 if _international(league, country, comp.get("neutralSite")) else 0,
+            "city": addr.get("city") or "", "state": addr.get("state") or "",
+            "indoor": 1 if venue.get("indoor") or league in ("nba", "nhl", "ncaab") else 0,
             "sp_home": probable("home"), "sp_away": probable("away"),
             "stype": str((ev.get("season") or {}).get("type") or "?"),     # 1 preseason, 2 regular, 3 playoffs
             **{k: ("" if v is None else v) for k, v in od.items()},
@@ -235,7 +240,7 @@ def merge(old, new, now_iso):
     g = dict(old or new)
     if old is not None:
         for k in ("start", "status", "home_name", "away_name", "home_score", "away_score", "neutral", "sp_home", "sp_away",
-                  "stype", "country", "intl"):
+                  "stype", "country", "intl", "city", "state", "indoor"):
             g[k] = new[k]
     has = new["ml_home"] != "" and new["ml_away"] != ""
     if has and (new["status"] == "pre" or old is None or old.get("ml_home", "") == ""):
@@ -265,7 +270,8 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
     jobs = []
     for lg in LEAGUES:
         synced = state.setdefault("synced", {}).get(lg)
-        if any(not g.get("stype") or g.get("intl", "") == "" for g in games.values() if g["league"] == lg):
+        if any(not g.get("stype") or g.get("intl", "") == "" or g.get("indoor", "") == ""
+               for g in games.values() if g["league"] == lg):
             synced = None                                # stored before season types / venues were kept: re-read everything
             state.setdefault("from", {}).pop(lg, None)
         start = (datetime.strptime(synced, "%Y-%m-%d").date() - timedelta(days=3)) if synced \

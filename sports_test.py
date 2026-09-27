@@ -138,6 +138,24 @@ def test_player_stats():
     assert edge > 0.5, "home QB playing much better -> positive home edge"
 
 
+def test_altitude_cold_weather():
+    e = sm.Elo(20, 40, "nfl")
+    base = {"league": "nfl", "status": "final", "home_score": "20", "away_score": "10", "neutral": "0", "stype": "2"}
+    # each team's usual home spot: Denver high and cold-ish, Miami low and warm
+    e.update({**base, "id": "a", "start": "2026-09-07T20:00Z", "home": "DEN", "away": "X", "elev": "1600", "wx_temp": "40",
+              "indoor": "0"})
+    e.update({**base, "id": "b", "start": "2026-09-07T20:00Z", "home": "MIA", "away": "Y", "elev": "2", "wx_temp": "85",
+              "indoor": "0"})
+    g = {**base, "id": "c", "status": "pre", "start": "2026-12-20T20:00Z", "home": "DEN", "away": "MIA", "elev": "1600",
+         "wx_temp": "20", "wx_wind": "25", "wx_rain": "0", "indoor": "0"}
+    f = e.features(g)
+    assert f["alt"] > 1.0, "Miami's in thin air in Denver"
+    assert f["cold"] > 0.5, "Miami's freezing"
+    assert f["weather"] != 0, "25 mph winds count"
+    dome = {**g, "wx_temp": "", "wx_wind": "", "wx_rain": "", "indoor": "1"}
+    assert e.features(dome)["cold"] == 0 and e.features(dome)["weather"] == 0
+
+
 def fake_league(league, teams=16, days=300, seed=1):
     """A season where true strength drives results, and the market prices it with some noise."""
     rnd = random.Random(seed)
