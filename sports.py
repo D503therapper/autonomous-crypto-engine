@@ -320,12 +320,18 @@ def post_board(games, model, picks, now, day, force=False):
     A posted play is final. Returns the plays posted by this call."""
     iso = day.isoformat()
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] <= iso)]   # rebuilt every run
-    posted = {p["kind"]: p for p in picks if p["date"] == iso}
-    if len(posted) == len(KINDS):
-        return []
+    posted = {}
+    for p in picks:                  # the latest play of each kind today (a graded one gets replaced below)
+        if p["date"] == iso:
+            posted[p["kind"]] = p
     first = first_start(games, day)
-    if first is not None and now >= first and not force:
-        return []                    # the day's games have started: no new daily picks (that's live-bet territory)
+    started = first is not None and now >= first and not force
+    # the opening board goes up before the day's first game. After that, whenever a play is graded (it moves to the
+    # results), a fresh one of the same kind goes up from the games that haven't started yet - picks all day long.
+    todo = [k for k, _ in KINDS if (k not in posted and not started) or
+            (k in posted and posted[k]["status"] in ("won", "lost", "push"))]
+    if not todo:
+        return []
     injuries = {lg: sd.fetch_injuries(lg) for lg in sd.LEAGUES}
     for g in games.values():
         if g["status"] != "pre" or not injuries.get(g["league"]):
@@ -341,10 +347,8 @@ def post_board(games, model, picks, now, day, force=False):
     elo = None
     used = {t for p in picks if p["date"] == iso for l in p["legs"] for t in l.get("bd_tags", [])}   # the board's memory
     new = []
-    for kind, _ in KINDS:
-        if kind in posted:
-            continue
-        lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted else None
+    for kind in todo:
+        lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
         best = make_board(cands, lock_game).get(kind)
         if not best:
             continue
@@ -376,6 +380,7 @@ def post_board(games, model, picks, now, day, force=False):
             leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+              "round": sum(p["date"] == iso and p["kind"] == kind and p["status"] != "waiting" for p in picks) + 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
               "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0}
         picks.append(pk)

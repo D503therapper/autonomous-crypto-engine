@@ -56,8 +56,9 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    earlier game:
    - **Never a filler leg:** every leg, lock and dog must be real value on the engine's numbers (1%+) with
      at least one reason; if the slate has none, that card says "No play today".
-   - **Nothing new once the games start:** once the day's first game starts, no new daily picks go up for
-     that day (that's live-bet territory).
+   - **Picks all day:** the opening board goes up before the day's first game. Whenever a play is graded (it
+     moves to the results), a fresh one of the same kind goes up from the games that haven't started yet -
+     same rules, never a game already underway (that's live-bet territory).
    - **Sharp money alone never carries a pick:** the engine's own read (without the line move) must show the
      value; the line move can only add to it.
    - **No big favorites:** no parlay leg shorter than −150.

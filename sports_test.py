@@ -299,6 +299,15 @@ def test_post_when_settled_and_never_change():
     assert [p for p in picks if p["status"] == "open"][:len(posted)] == posted
     assert all(p["status"] == "open" for p in picks) and len(picks) == 4
     assert all(not l["waiting"] for p in picks for l in p["legs"])
+    # picks all day: once a play is graded, a fresh one of the same kind goes up from games that haven't started
+    lock = next(p for p in picks if p["kind"] == "lock")
+    lock["status"] = "won"
+    later = [g for g in games.values() if g["id"].startswith("mlb:up") and g["id"] != lock["legs"][0]["game_id"]]
+    for g in later:
+        g["start"] = (now + timedelta(hours=14)).strftime("%Y-%m-%dT%H:%MZ")          # the night games
+    fresh = sports.post_board(games, model, picks, now + timedelta(hours=11), day)
+    assert [p["kind"] for p in fresh] == ["lock"] and fresh[0]["round"] == 2 and fresh[0]["legs"][0]["game_id"] != lock["legs"][0]["game_id"]
+    assert lock in picks, "the graded one stays in the results"
     kept = [p for p in picks if p["kind"] != "two"]                           # say the 2-leg never went up...
     started = now + timedelta(hours=10, minutes=1)                            # ...once the first game starts, it can't
     assert sports.post_board(games, model, kept, started, day) == [] and all(p["kind"] != "two" for p in kept)
