@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 4          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 5          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -103,7 +103,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     ours, theirs = _team_games(fin, tid), _team_games(fin, oid)
     s_ours, s_theirs = _season(ours, start), _season(theirs, start)
     v = Voice(f"{g['id']}|{start:%Y-%m-%d}|{side}", used)
-    out = []
+    out, said = [], set()          # said: reasons already used as a "because", so no line repeats another
 
     # form
     rec_u = _record(s_ours, tid) if s_ours else None
@@ -292,14 +292,30 @@ def breakdown(leg, games, elo, injuries, used=None):
     op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
     if op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
-        why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY),
+        why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
                    f"the numbers say {us}")
+        said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
         out.append(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns — {why}.",
                                    f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns — {why}.",
                                    f"💸 Line's moving toward {them}{move}. Let 'em — the engine sees it different: {why}.",
                                    f"💸 Money's pouring in on {them}{move}. They must've lost their minds — {why}.",
                                    f"💸 Everybody's jumping on {them}{move}. They're tweaking — {why}.",
                                    f"💸 The market's leaning {them}{move}. Somebody's about to learn a lesson — {why}."]))
+
+    # the public: fading them or riding with them
+    pub = public_side(leg, g)
+    why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
+                   f"the engine likes {us} more than the price does")
+    if pub == "fade":
+        out.append(v.say("pub_fade", [f"🎭 The public's all over {them}. We're fading the public on this one — {why_pub}.",
+                                       f"🎭 Everybody and their mama is on {them}. Not us — {why_pub}.",
+                                       f"🎭 Public money loves {them} here. We're going the other way — {why_pub}.",
+                                       f"🎭 Fading the public: the crowd's on {them}, the engine's on {us} — {why_pub}."]))
+    elif pub == "ride":
+        out.append(v.say("pub_ride", [f"🤝 Riding with the public on this one — sometimes the public gotta win. {why_pub[0].upper() + why_pub[1:]}.",
+                                       f"🤝 Yeah, the public's on {us} too. They're not wrong this time — {why_pub}.",
+                                       f"🤝 We're with the crowd here, and for good reason: {why_pub}.",
+                                       f"🤝 Public side, and we're cool with it — {why_pub}."]))
 
     # bottom line
     need, have = 1 / leg["dec"], leg["p"]
@@ -329,6 +345,22 @@ WHY = {   # the pick's reasons, said as a quick "because"
     "better QB play lately": "our QB's been playing better",
     "hotter goalie": "our goalie's been hotter",
 }
+
+
+def public_side(leg, g):
+    """'fade' when we're on the dog against a clear favorite (the public loves favorites), 'ride' when we're on the
+    favorite, None near pick'em. Real ticket counts are paywalled, so the favorite stands in for the public."""
+    if leg["market"] != "ml":
+        return None
+    other = "away" if leg["side"] == "home" else "home"
+    ours, theirs = sm._int(g.get(f"ml_{leg['side']}")), sm._int(g.get(f"ml_{other}"))
+    if ours is None or theirs is None:
+        return None
+    if ours >= 105 and theirs <= -125:
+        return "fade"
+    if ours <= -125:
+        return "ride"
+    return None
 
 
 def _odds_words(p):

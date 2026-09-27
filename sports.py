@@ -314,6 +314,7 @@ def post_board(games, model, picks, now, day, force=False):
             same = next((l for p in picks if p["date"] == iso for l in p["legs"]
                          if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg)), None)
             leg["breakdown"] = same["breakdown"] if same else sports_breakdown.breakdown(leg, games, elo, injuries, used)
+            leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
@@ -340,6 +341,7 @@ def add_breakdowns(games, model, picks):
     for leg in legs:
         same = next((l for l in done if _same_leg(l, leg)), None)
         leg["breakdown"] = same["breakdown"] if same else sports_breakdown.breakdown(leg, games, elo, injuries, used)
+        leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])
         leg["bv"] = sports_breakdown.VERSION
         done.append(leg)
 
