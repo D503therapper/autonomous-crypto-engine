@@ -370,6 +370,10 @@ def test_comeback_study_and_live_rules():
     # a dog coming in (no 'better team', no pregame value, no ball, no momentum): history alone isn't enough
     assert not [p for p in sports_live.evaluate("nba", g, box, 900, -2000, st, 0.35, 0.35, 0.0, "", 1)
                 if p["team"] == "Lakers"]
+    # the board: max 2 at once, a play that's up keeps its slot while its value holds
+    fake = [{"id": i, "edge": e} for i, e in (("a", 0.06), ("b", 0.07), ("c", 0.20))]
+    assert [x["id"] for x in sports_live.board(fake, ["a", "b"])] == ["b", "a"]     # "c" waits for a slot
+    assert [x["id"] for x in sports_live.board(fake[:1] + fake[2:], ["a", "b"])] == ["a", "c"]   # "b" gone: "c" takes it
     # no study for the sport yet: no bets
     long_shot = dict(box, total_home_points=50)                # down 20: +900 is a lottery ticket, never a play
     assert not [p for p in sports_live.evaluate("nba", g, long_shot, 900, -2000, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]

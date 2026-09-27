@@ -33,7 +33,7 @@ LOG = os.path.join(sd.DATA, "live_log.json")
 LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we want a real 5%+ edge
 DOG_MIN = 100                 # live plays are plus money only
 LIVE_MIN_P = 0.25             # value, not lottery tickets: +300/+400 is fine when it's real, never a +900 prayer
-MAX_PLAYS = 2                 # only the best one or two spots on the board
+MAX_PLAYS = 2                 # at most 2 on the board at once (no limit per day: a slot opens when a play's value is gone)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
 LENGTH = {"nfl": (4, 15), "ncaaf": (4, 15), "nba": (4, 12), "ncaab": (2, 20), "nhl": (3, 20), "mlb": (9, None)}
 AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game{extra}"
@@ -292,8 +292,14 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     return out
 
 
-def cycle(games, model, log, now=None, st=None):
-    """Scan every live game -> the plays on the board right now."""
+def board(plays, showing=()):
+    """Max 2 at once: plays already up keep their slot while they still qualify; open slots go to the best edge."""
+    return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
+
+
+def cycle(games, model, log, now=None, st=None, showing=()):
+    """Scan every live game -> the plays on the board right now. Max 2 at a time, no limit per day: a play that's
+    up stays up while its value's still there (`showing`); a new one only takes a slot that's open."""
     now = now or datetime.now(timezone.utc)
     st = sc.load() if st is None else st
     elo = sm.ratings(games, model)
@@ -319,8 +325,7 @@ def cycle(games, model, log, now=None, st=None):
             for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour):
                 pl["an_id"] = ang.get("id")
                 plays.append(pl)
-    plays.sort(key=lambda x: -x["edge"])
-    plays = plays[:MAX_PLAYS]
+    plays = board(plays, showing)
     for pl in plays:                                          # log the first time each play goes up (graded later)
         if pl["id"] not in log["plays"]:
             log["plays"][pl["id"]] = {"posted": now.strftime("%Y-%m-%dT%H:%MZ"), "team": pl["team"], "odds": pl["odds"],
@@ -371,7 +376,11 @@ def run():
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
     log = json.load(open(LOG)) if os.path.exists(LOG) else {"plays": {}}
-    plays = cycle(games, model, log)
+    try:
+        showing = [p["id"] for p in json.load(open(LIVE_JSON)).get("plays") or []]
+    except (OSError, ValueError):
+        showing = []
+    plays = cycle(games, model, log, showing=showing)
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log)}
     os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
     with open(LIVE_JSON, "w") as f:
