@@ -60,7 +60,13 @@ keeping the legends -> config.DEX["exit"] unchanged. TEXTIT-style give-backs are
 2. Account-level brake: stop new buys / tighten exits after a 20-25% drawdown from the account high - test levels.
 3. Big-win playbook: take the stake back at 2x, moon bag on the 40% trail, bank chunks at milestones; tax set-aside.
 
-### NEXT (first) - Re-screen "safety data" exits: are they selling good coins? (2026-09-27)
+### DONE 2026-09-27 19:20 - Held coins no longer sold on data-only re-screen flags
+6 data-flag exits so far (ANTFUN, SDOG, HOLDOWEEN x2, DREGG, ARENA "missing metadata"): -$128 realized; 5 of 6 worth more
+after the sale (holding +$61 net), 0 rugged. Change: data-only flags (holders/LP unknown, LP lock %, missing metadata) never
+sell a held coin; contract/scam flags and the (sqrt-price-adjusted) liquidity-pull check still exit at once. Watch: any held
+coin that rugs after a logged "data flags only; holding".
+
+### (superseded by the DONE entry above) Re-screen "safety data" exits: are they selling good coins? (2026-09-27)
 All 4 DEX sales so far were emergency exits on re-screen DATA flags (holders/LP holders unknown, RugCheck
 "lp locked 0%"), none on a real rug. tools/sold_followup.py after them: ANTFUN -1% (good sell), SDOG +37%
 (high +71%, too early, ~$32 missed), HOLDOWEEN qYCU +2%, HOLDOWEEN Bxft -6% (good sell). Net: holding would

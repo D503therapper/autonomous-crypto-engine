@@ -805,15 +805,15 @@ def test_rescreen_flags_held_token():
         oc = rows(f"{d}/outcomes.csv")[-1]
         assert K not in h.pf.positions and oc["outcome"] == outcome and want in oc["reason"], (name, oc)
         shutil.rmtree(d)
-    # flaky data flag (LP / holders): sold only if the next re-screen flags it again
+    # data-only flag (LP / holders): never sells a held coin, however often it repeats
     unlocked = gp_evm(lp_holders=[{"address": "0xdev", "percent": "1.0", "is_locked": 0}])
     h, fetch, d, px = held()
     h.src["goplus"].fetch = fake_fetch({"token_security": (200, unlocked)})
     run(h, T0 + 1801_000, 4)
-    assert K in h.pf.positions and h.pf.positions[K]["flagged"] == 1          # first strike: still held
+    assert K in h.pf.positions and h.pf.positions[K]["flagged"] == 1
     run(h, T0 + 3602_000, 4)
     run(h, T0 + 3700_000, 4)
-    assert K not in h.pf.positions, "second strike should sell"
+    assert K in h.pf.positions and h.pf.positions[K]["flagged"] == 2, "data flags alone must not sell"
     shutil.rmtree(d)
     h, fetch, d, px = held()                                                # clean re-screen: keep holding, count it
     run(h, T0 + 1801_000, 4)
