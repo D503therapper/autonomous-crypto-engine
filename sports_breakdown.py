@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 2          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 3          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -287,6 +287,15 @@ def breakdown(leg, games, elo, injuries, used=None):
                                     f"💰 The pros are hammering {us} — {_am(op)} at open, {_am(now)} now.",
                                     f"💰 The line moved our way ({_am(op)} → {_am(now)}). Smart money agrees.",
                                     f"💰 Money's been pouring in on {us}: {_am(op)} to {_am(now)}."]))
+
+    # sharp money going the other way and we still like our side: say it our way
+    op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
+    if op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
+        move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
+        out.append(v.say("fade", [f"💸 Sharp money's been coming in on {them}{move}, but they must be some clowns — we like {us} here.",
+                                   f"💸 The so-called sharps are all over {them}{move}. We're fading the clowns.",
+                                   f"💸 Line's moving toward {them}{move}. Let 'em — the engine sees it different.",
+                                   f"💸 Money's piling on {them}{move}. Somebody's about to learn a lesson."]))
 
     # bottom line
     need, have = 1 / leg["dec"], leg["p"]
