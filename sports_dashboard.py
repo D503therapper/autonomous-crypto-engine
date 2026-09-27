@@ -267,14 +267,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
     order = list(LOOK)
     todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
     active = [p for p in todays if p["status"] in ("open", "waiting")]      # the top is only what's still live
-    graded_today = [p for p in todays if p["status"] not in ("open", "waiting")]   # graded = straight to the results
     board_date = now.strftime("%A, %B %-d")
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'New picks go up the second the engine finds value.</div>')
     board = "".join(_pick_card(p["kind"], p) for p in active) if active else done_today if todays else drop
-    graded_board = (f'<div class="sec"><h2><i>●</i> GRADED TODAY</h2><span>{len(graded_today)} done</span></div>'
-                    + "".join(_pick_card(p["kind"], p) for p in reversed(graded_today))) if graded_today else ""
+
     tmr = (now + timedelta(days=1)).date()
     tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
@@ -324,9 +322,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live_card = (f'<div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">{lw}-{ll}</div>'
                  f'<div class="rc-p">{f"{lw} won · {ll} lost · {lw / (lw + ll):.0%}" if lw + ll else "&nbsp;"}</div>'
                  f'<div class="rc-s">{"&nbsp;" if lw + ll else "no results yet"}</div></div>')
-    # today's live bets (and last night's): what they were, and whether they cashed
-    ld = datetime.now(PT).date()
-    days_ = {ld.isoformat(), (ld - timedelta(days=1)).isoformat()}
+    # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
+    days_ = {today}
     lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)[:8]
     badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
     pending_ = '<span class="tm">⏳ still going</span>'
@@ -350,6 +347,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
                           f'<div class="rc-p">{f"{w_} won · {l_} lost · {w_ / (w_ + l_):.0%}" if w_ + l_ else "&nbsp;"}</div>'
                           f'<div class="rc-s">{"no results yet" if not w_ + l_ else "&nbsp;"}</div></div>')
     lean_card = "".join(tier_cards)
+    # the overall record, split out so everybody sees exactly where the wins and losses come from
+    def _wl2(ps, key=lambda p: p["status"]):
+        return sum(key(p) == "won" for p in ps), sum(key(p) == "lost" for p in ps)
+    split = [(TIER_LOOK[t][0], TIER_LOOK[t][1], _wl2([p for p in graded_all if _tier(p) == t])) for t in ("lock", "value", "lean")]
+    split.append(("🔴 LIVE", "#ff3b3b", (lw, ll)))
+    splits = "".join(f'<span class="sp" style="--p:{c}"><b>{w}-{l}</b> {n}</span>' for n, c, (w, l) in split)
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -365,11 +368,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     params = model.get("params", {})
     k = now.toordinal()
     lines = []
-    graded = [p for p in done if p.get("settled", "")[:10] >= (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%d")
-              and p["date"] in (today, (now - timedelta(days=1)).date().isoformat())]
+    graded = [p for p in done if p["date"] == today]           # a new day never talks about yesterday
     w_, l_ = sum(p["status"] == "won" for p in graded), sum(p["status"] == "lost" for p in graded)
-    yday = (now - timedelta(days=1)).date().isoformat()
-    live_today = any(e.get("result") in ("won", "lost") and e.get("date") in (today, yday) for e in live.values())
+    live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
     if w_ + l_ == 0 and live_today:
         pass                                                      # the live results below speak for the day
     elif w_ + l_ == 0:
@@ -405,7 +406,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                             else "the " + LOOK[p["kind"]][0].replace(" OF THE DAY", "").lower()), "")
            for p in graded if p["status"] == "won" and p.get("american", 0) >= BIG_HIT]
     big += [(e["odds"], E(_the(e["team"], e.get("league"))), " live") for e in live.values()
-            if e.get("result") == "won" and e.get("odds", 0) >= BIG_HIT and e.get("date") in (today, yday)]
+            if e.get("result") == "won" and e.get("odds", 0) >= BIG_HIT and e.get("date") == today]
     for i, (o, what, how) in enumerate(sorted(big, reverse=True)[:2]):
         lines.insert(1 + i, _rot(k + o, [f"💰 DAMN. We smacked a +{o}{how} — {what}. I tried to fucking tell y'all. Let's go!",
                                          f"💰 +{o}{how}. CASHED. {_cap(what)} came through and I told y'all all day. Let's fucking go!",
@@ -432,7 +433,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
         lines.append(f"🧾 Receipts: said {said:.0%} of our legs would hit — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
-    for e in sorted((e for e in live.values() if e.get("result") == "won" and e.get("date") in (today, yday)
+    for e in sorted((e for e in live.values() if e.get("result") == "won" and e.get("date") == today
                      and (e["team"], e["odds"]) not in big_live),                  # big ones already got the brag
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
@@ -442,7 +443,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                                f"🔴 {_cap(t)} live at {o}? Cashed. Trust the algorithm.",
                                                f"🔴 Caught {t} live at {o} and they came through. Fuck yeah, let's go!",
                                                f"🔴 {_cap(t)} live at {o} — CASHED. Everybody was jumping off, we jumped on."]))
-    for e in sorted((e for e in live.values() if e.get("result") == "lost" and e.get("date") in (today, yday)),
+    for e in sorted((e for e in live.values() if e.get("result") == "lost" and e.get("date") == today),
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
@@ -585,6 +586,10 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   box-shadow:0 20px 60px -24px rgba(255,160,40,.45)}}
 .lbl{{color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}
 .total{{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
+.splits{{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}}
+.sp{{font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--p);border:1px solid var(--p);border-radius:999px;padding:4px 9px}}
+.sp b{{color:#fff;font-size:13px}}
+.sp-n{{font-size:11px;color:#9fb0c8;margin-top:6px}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
 .pill small{{color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em}}
@@ -644,10 +649,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="lbl">Overall record</div>
   <div class="total">{rec_all}</div>
   <span class="pill" style="--p:#ffc233">{rec_day} <small>TODAY</small></span>
+  <div class="splits">{splits}</div>
+  <div class="sp-n">Overall = locks + value. Leans and live bets keep their own records.</div>
   <div class="month">{tiles}</div>
   <div class="strip">{strip}</div>
 </section>
-{graded_board}
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
 <div class="recs">{"".join(rec)}{live_card}</div>
 <div class="sec"><h2><i>●</i> BY CONFIDENCE</h2><span>locks · value · leans</span></div>
