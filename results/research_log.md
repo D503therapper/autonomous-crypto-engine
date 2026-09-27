@@ -76,13 +76,40 @@ collecting; test = replay every re-screen data-flag exit in outcomes.csv vs late
 exits keep losing vs holding while zero turn into rugs, require a real change (liquidity drop, mint/freeze,
 owner) before an emergency exit instead of "data unknown".
 
-### NEXT (first, 2026-09-27 22:00) - Is the live DEX strategy profitable at all? Reconcile the studies
-Baselines for the SAME live entry/exit disagree: dex_runner_study +101%/mo (older sim), dex_floor_study +44%/mo
-(-3% older / +276% newer), dex_filter_study +16.6%/mo (-14.9% / -0.6%), dex_age_study -26.3% / -0.1% per month (199
-cached pools, 5 slots). Results hinge on pool set, slot count and one or two trades (slots full for 14 days).
-Build one consolidated run: the largest pool set (runner + floor + filter caches, dedup), live rules, 5 slots, both halves,
-resampled accounts (drop 30% of signals x300), and slot count / max hold sensitivity (7d/10d/14d). If the median
-resampled month is not clearly positive in both halves, the DEX strategy needs a rethink before real money.
+### DONE 2026-09-27 22:30 - Is the live DEX strategy profitable at all? Reconciled: yes in simulation, but thin and lumpy - NO CHANGE
+Q: the SAME live entry/exit gave runner +101%/mo, floor +44% (-3% / +276%), filter +16.6% (-14.9% / -0.6%), age -26.3% / -0.1%.
+Which is right? METHOD: dex_consolidated_study.py (offline, results/dex_consolidated_study.txt): union of the cached hourly grids
+(floor dump 183 + filter dump 205 -> 205 pools; the floor pools are a subset with identical grids; the runner study keeps no price
+paths, only labels, so it can't be replayed), window 2026-07-07..09-27, 3,464 signal hours. Live rules: 1h >= +10%, age >= 6h,
+liq >= max($100k, 50 x tier-A stake), vol24 >= $100k (buys > 1.2 x sells NOT replayable); config.DEX["exit"] via
+dex_floor_study.simulate (14d, no stop, >= 2x at day 14 -> 40% trail, rugs -95%, 0.3% + 1% + impact per side). Account like
+dex.py: $1,000, 5 slots, 20% (25% for age >= 7d / liq >= $1M / vol24 >= $1M), <= 0.5% of pool liquidity, one per pool and symbol,
+1-day cooldown; a skipped signal does NOT lock the pool. Halves split at the median entry (Sep 3; older 1.9 months, newer 0.8).
+300 resampled accounts dropping 30% of signals by coin-day (a pump's hours together) and by single hour.
+RESULT (monthly; resampled = median [p10..p90], coin-day unit):
+  variant          actual older / newer   maxDD | resampled older          | resampled newer
+  14d, 5 slots LIVE   +56.2% / +577.7%    -49%  | +42.6% [-10.4..+128.3]   | +372.5% [+102.3..+1024.0]
+  7d,  5 slots       +516.2% /  +53.1%    -43%  | +301.8% [+57.2..+561.5]  | +1106.1% [+60.7..+2517.9]
+  10d, 5 slots         -4.4% /  +65.8%    -54%  | +60.3% [-4.4..+188.6]    | +188.6% [+27.6..+1069.5]
+  14d, 8 slots        +32.3% / +612.7%    -33%  | +57.8% [+13.1..+118.9]   | +428.3% [+146.6..+689.0]
+  14d, 10 slots       +81.1% / +522.3%    -20%  | +66.1% [+30.7..+153.1]   | +332.1% [+119.2..+515.5]
+Per trade (14d, pool-sequential, n 366): mean +57.9%, median -7.4%, 2x-rate 13%, <= -70% 5%, rug 2% (older +84.6% / newer +31.2%
+mean). 7d: mean +50.5%, 2x 9%; 10d: +58.1%, 2x 10%. The edge is a fat tail: the typical trade loses ~7-11%, 1 in 8 doubles.
+WHY THE STUDIES DISAGREED: (1) account model - the earlier studies pre-lock each pool for 14 days at its first signal even when the
+account skipped it; the live bot doesn't. On the same 205 pools the pool-locked list gives -14.8% / -5.8% (5 slots; resampled
+median +3.4% / +72.8%) vs +56.2% / +577.7% event-driven; 15 of 24 older and 9 of 10 newer live-account trades are re-entries the
+pool-locked list never has (re-entry signals have the same mean, +58%, so it is luck of timing, not a bias). (2) slots: filter and
+runner used 4 slots (dex_exit_study default), floor/age 5: same list -6.1%/+58.9% at 4 vs -13.5%/+37.2% at 5. (3) pool sets and
+windows: runner's +101% was its 09-26 run (346 pools, older exit); its 09-27 re-run said -3.6%. (4) one trade decides a half: with
+~30 trades in 2.7 months, SEND +1,231% is $3,189 of the newer half's $3,618 gain (without it +122%/mo); moving the split by +3 days
+turns the newer half from +578% to -36%. Even the studies themselves don't reproduce: dex_floor_study --from-dump now gives
++25.7% / -13.5% / +37.2% (was +44% / -2.9% / +276% on the live fetch), dex_filter_study --offline +18.5% / -22.1% / -33.8%.
+DECISION: the median resampled month of the live rules IS positive in both halves (+42.6% older, +372.5% newer; hour-unit +55.5% /
++694.7%), so no rethink is forced - but it is thin in the older half (p10 -10%, pool-locked median +3%), rests on 1-2 big winners
+per month, survivorship inflates it (early rugs missing, rug rate 2% is a floor), and the newer half is only 0.8 months. No hold /
+slot variant is better in both halves AND in the actual account (7d wins the medians but loses the actual newer half, 10d is worse
+than both 7d and 14d = path noise; 8/10 slots cut drawdown -49% -> -33%/-20% but lose the newer-half median) -> config unchanged.
+Re-run when the snapshot logs (buys/sells) and ~2 more months exist; watch 10 slots (lower drawdown) and 7d (more turnover).
 
 ### NEXT - Second DEX entry: "dip + bounce" (owner asked 2026-09-27: buy the drop points?)
 Quick label check on results/dex_runner_points.csv.gz (liq >= $100k, age >= 6h): current entry (1h >= +10%) n=251:

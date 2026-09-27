@@ -1,0 +1,75 @@
+pools: floor dump 183, filter dump 205 -> union 205 (in both 183, identical grids 183); runner study: no price cache (labels only) - not replayable
+entry 1h >= +10%, age >= 6h, liq >= max($100,000, 50 x tier-A stake), vol24 >= $100,000; buys > 1.2 x sells NOT replayable
+exit {'trail': 0.95, 'tp1': (999.0, 0.0), 'ladder': [], 'trail_steps': [], 'max_hold_days': 14, 'runner_at_limit': (1.0, 0.4), 'liq_pull': 0.5, 'rug_tax': 0.5}; costs 0.3% + 1% + impact per side, rugs -95%; account $1,000, 5 slots, tiers A 20% / proven 25%, 0.5% of liq cap, 1-day cooldown
+window 2026-07-07 22:00 .. 2026-09-27 18:05; 3464 signal hours in 205 pools; 366 pool-sequential trades; halves split at 2026-09-03 10:00 (median trade entry); older 1.89 months, newer 0.80
+
+======================================================================================================================
+1. LIVE RULES, ACTUAL ACCOUNT (every signal, $1,000 start per half)
+======================================================================================================================
+  full   monthly   +63.4%  final $    3,746  maxDD   -49%  taken  32  skipped 3432
+  older  monthly   +56.2%  final $    2,323  maxDD   -49%  taken  24  skipped 1326
+  newer  monthly  +577.7%  final $    4,618  maxDD   -11%  taken  10  skipped 2104
+  older: trades ALON -53.2%, KITTY -47.2%, SURPLUS +14.4%, DOT -77.5%, WOCT -25.5%, FWA +749.4%, UPEG +104.2%, NOCK -31.4%, FISH-SPEECH -90.5%, TRIPLET -45.5%, CATE +186.5%, ASTEROID -21.1%, STONK -41.5%, FWA +190.8%, KMNO -4.1%, CODEFORMER -94.6%, WTCOIN -67.6%, H -41.3%, FISH-SPEECH -63.6%, MADE +96.9%, STONK +198.7%, OTC +202.0%, FONE -68.2%, BLUECHIP +43.0%
+  older: best trade FWA +749.4% ($+702); without that ONE signal the half makes +47.9%/month (vs +56.2%)
+  newer: trades STONKEX +364.5%, ZEST -13.8%, AEON -17.3%, BASECAT -60.8%, BLUECHIP -22.7%, ALLINU -65.4%, BUTTCOIN +13.7%, FUSE +100.4%, ELON -58.1%, SEND +1231.3%
+  newer: best trade SEND +1231.3% ($+3,189); without that ONE signal the half makes +122.5%/month (vs +577.7%)
+
+======================================================================================================================
+2. PER-TRADE STATS (pool-sequential trades, account-independent)
+======================================================================================================================
+max hold   half      n     mean   median   >=2x  <=-70%   rug  mean w/o best
+7d         all     470   +50.5%    -8.7%     9%      4%    1%         +40.0%
+7d         older   235   +72.0%   -11.5%     9%      3%    1%         +51.1%
+7d         newer   235   +29.0%    -5.6%    10%      5%    2%         +24.0%
+10d        all     414   +58.1%    -7.9%    10%      6%    1%         +46.6%
+10d        older   211   +82.4%   -11.3%     9%      4%    1%         +59.9%
+10d        newer   203   +32.7%    -6.4%    12%      7%    2%         +27.0%
+14d        all     366   +57.9%    -7.4%    13%      5%    2%         +48.0%
+14d        older   183   +84.6%   -11.5%    12%      4%    1%         +65.0%
+14d        newer   183   +31.2%    -2.9%    13%      7%    2%         +27.1%
+
+======================================================================================================================
+3. VARIANTS: actual account + 300 resampled accounts (each drops a random 30% of the signals, unit = coin-day)
+======================================================================================================================
+variant                | actual older actual newer  maxDD | older p10   median      p90   >0 | newer p10   median      p90   >0
+hold 7d, 5 slots       |      +516.2%       +53.1%   -43% |    +57.2%  +301.8%  +561.5%  98% |    +60.7% +1106.1% +2517.9%  97%
+hold 10d, 5 slots      |        -4.4%       +65.8%   -54% |     -4.4%   +60.3%  +188.6%  87% |    +27.6%  +188.6% +1069.5%  93%
+hold 14d, 5 slots      |       +56.2%      +577.7%   -49% |    -10.4%   +42.6%  +128.3%  83% |   +102.3%  +372.5% +1024.0%  99%
+hold 14d, 8 slots      |       +32.3%      +612.7%   -33% |    +13.1%   +57.8%  +118.9%  95% |   +146.6%  +428.3%  +689.0%  99%
+hold 14d, 10 slots     |       +81.1%      +522.3%   -20% |    +30.7%   +66.1%  +153.1%  99% |   +119.2%  +332.1%  +515.5%  99%
+(>0 = share of resampled accounts with a positive month)
+
+======================================================================================================================
+3. VARIANTS: actual account + 300 resampled accounts (each drops a random 30% of the signals, unit = signal-hour)
+======================================================================================================================
+variant                | actual older actual newer  maxDD | older p10   median      p90   >0 | newer p10   median      p90   >0
+hold 7d, 5 slots       |      +516.2%       +53.1%   -43% |   +100.7%  +396.4%  +566.0% 100% |    +91.4% +1197.9% +2679.6%  98%
+hold 10d, 5 slots      |        -4.4%       +65.8%   -54% |    -14.0%   +38.6%  +127.8%  80% |    +24.0%  +196.5% +1107.9%  96%
+hold 14d, 5 slots      |       +56.2%      +577.7%   -49% |    +15.9%   +55.5%  +111.6%  97% |   +137.2%  +694.7% +1035.6% 100%
+hold 14d, 8 slots      |       +32.3%      +612.7%   -33% |    +31.6%   +67.3%  +130.5% 100% |   +214.2%  +529.8%  +698.9% 100%
+hold 14d, 10 slots     |       +81.1%      +522.3%   -20% |    +42.7%   +72.4%  +149.1% 100% |   +158.0%  +388.2%  +518.1% 100%
+(>0 = share of resampled accounts with a positive month)
+
+======================================================================================================================
+4. WHY THE EARLIER STUDIES DISAGREED (their own trade lists / account models on the cached data)
+======================================================================================================================
+  floor study: 183 floor pools, pool-locked list, 5 slots    n 344 | month   +25.7% older   -13.5% newer   +37.2% (split 2026-09-01)
+    same list, 4 slots                                       n 344 | month   +17.8% older    -6.1% newer   +58.9% (split 2026-09-01)
+  union pools, pool-locked list, 5 slots                     n 366 | month   +25.7% older   -14.8% newer    -5.8% (split 2026-09-03)
+  union pools, pool-locked list, 4 slots                     n 366 | month   +17.8% older    -8.1% newer   -35.2% (split 2026-09-03)
+  live account older: 15 of 24 trades are signals the pool-locked list never has (the pool was 'locked' by an earlier signal the account had skipped)
+  live account newer: 9 of 10 trades are signals the pool-locked list never has (the pool was 'locked' by an earlier signal the account had skipped)
+  union pools, pool-locked list, 5 slots, 300 resampled (coin-day): median older +3.4% (p10 -25.9%, p90 +64.4%), newer +72.8% (p10 -6.6%, p90 +278.1%)
+  live account, split moved by -3 / -1 / +1 / +3 days (older | newer monthly): +64.9% | +262.9%; +56.0% | +1819.3%; +91.7% | +38.1%; +87.6% | -36.0%
+
+======================================================================================================================
+5. VERDICT  (resampled medians must hold under BOTH resampling units)
+======================================================================================================================
+live rules: worst-unit median resampled month older +42.6%, newer +372.5%; worst-unit p10 older -10.4%, newer +102.3% -> clearly positive in both halves
+  hold 7d, 5 slots       median older +259.2% pts, newer +503.2% pts (worst unit); actual older +459.9% pts, newer -524.6% pts -> no
+  hold 10d, 5 slots      median older -17.0% pts, newer -498.2% pts (worst unit); actual older -60.6% pts, newer -511.8% pts -> no
+  hold 14d, 8 slots      median older +11.8% pts, newer -164.9% pts (worst unit); actual older -24.0% pts, newer +35.0% pts -> no
+  hold 14d, 10 slots     median older +16.9% pts, newer -306.6% pts (worst unit); actual older +24.9% pts, newer -55.4% pts -> no
+clearly better in both halves (median resampled >= +3 pts, both units) AND in the actual account: none
+
+CAVEATS: pools picked from today's registry (survivorship: early rugs missing, rug rates are floors); liquidity is a constant-product estimate; hourly bars; no buys/sells filter; ~2.7 months of one market regime.
