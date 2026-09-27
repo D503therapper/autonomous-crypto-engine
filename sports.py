@@ -521,6 +521,11 @@ def engine_reads(games, model, picks, now=None):
     ours = {l["game_id"]: pk["kind"] for pk in picks if pk.get("status") in ("open", "waiting") for l in pk.get("legs") or []}
     local = now.astimezone(PT).date()
     out = []
+    try:
+        import sports_halves
+        halves = sports_halves.load()
+    except Exception:                                                  # noqa: BLE001
+        halves = {}
     for day in (local, local + timedelta(days=1)):
         by_game = {}
         for c in candidates(games, model, now, day):
@@ -540,7 +545,17 @@ def engine_reads(games, model, picks, now=None):
                 why = "tight"
             else:
                 why = "no_value"
-            out.append({"id": gid, "league": g["league"], "emoji": sd.LEAGUES[g["league"]][3],
+            h1 = None
+            hv = halves.get(g["league"]) or {}
+            if "share_1h" in hv and "home" in ml_p:            # who leads at the half (first 5 innings in baseball)
+                import sports_comeback as sc
+                mu1 = hv["share_1h"] * sc.SIGMA[g["league"]] * sc.phi_inv(ml_p["home"])
+                lead_h = sc.phi((mu1 - 0.5) / hv["sd_1h"])
+                lead_a = sc.phi((-mu1 - 0.5) / hv["sd_1h"])
+                home_ = lead_h >= lead_a
+                h1 = {"team": g["home_name"] if home_ else g["away_name"], "p": round(max(lead_h, lead_a), 3),
+                      "tie": round(max(0.0, 1 - lead_h - lead_a), 3), "name": sports_halves.NAME.get(g["league"], "1st half")}
+            out.append({"id": gid, "league": g["league"], "emoji": sd.LEAGUES[g["league"]][3], "h1": h1,
                         "sport": sd.LEAGUES[g["league"]][2], "start": g["start"],
                         "away": g["away_name"], "home": g["home_name"], "why": why, "board": ours.get(gid),
                         "lean": {"team": lean_["team"], "opp": lean_["opp"], "market": lean_["market"],

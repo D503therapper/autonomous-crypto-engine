@@ -533,6 +533,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-g small{{color:#9fb0c8;font-weight:600;margin-left:6px}}
 .ask-c{{margin-top:12px}} .ask-l{{font-size:17px;margin:8px 0 2px}} .ask-l b{{color:#fff}}
 .ask-a{{font-weight:800;color:#22d3ee;margin:2px 0 6px}} .ask-w{{font-size:13px;color:#e6ecf5;margin:6px 0}}
+.ask-h{{font-size:13px;color:#c9d3e3;margin:4px 0}} .ask-h b{{color:#fff}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
@@ -639,7 +640,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 <details class="ask" id="ask"><summary><span class="ask-t">🤔 ASK THE ENGINE</span>
 <span class="ask-s">our read on any game · tap to open</span></summary>
-<div class="ask-b"><div class="ask-n">Not on our board? Type a team and we'll give you the engine's lean. These are <b>not our picks</b> and never count toward our record.</div>
+<div class="ask-b"><div class="ask-n">Game not on our board? Type a team and the engine will give you its lean. These are <b>not our picks</b> and never count toward our record.</div>
 <input id="askq" type="search" placeholder="Type a team… (Eagles, Dodgers)" autocomplete="off">
 <div id="asklist"></div><div id="askout"></div></div></details>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>
@@ -712,33 +713,51 @@ function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return {{"&":"&
 function am(o){{return o>0?"+"+o:String(o)}}
 function tm(s){{try{{return new Date(s.replace("Z",":00Z")).toLocaleString("en-US",{{weekday:"short",hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"}})+" PT"}}catch(e){{return ""}}}}
 function pick(id,arr){{var h=0;for(var i=0;i<id.length;i++)h=(h*31+id.charCodeAt(i))%9973;return arr[h%arr.length]}}
-var WHY={{steep:["They should win, but the price is way too steep to be worth it.","Big favorite, but that number's too expensive for us."],
- coin_flip:["Too close to call — this one's basically a coin flip.","Could go either way. The engine can't separate these two."],
- tight:["There's a little value here, but it didn't make our board — we keep the board tight.","Slight edge, not enough for us to put our name on it."],
- no_value:["The line's about right — no real value for us.","The books got this one priced about right. Nothing for us here."]}};
-var OUT=["You're on your own with this one. Good luck — hope it smacks. 🤞","Your call on this one, not ours. Hope it cashes. 🤞",
- "We're not on it, so you're riding solo. Good luck! 🤞"];
+var WHY={{steep:["They should win, but that price is way too steep. We ain’t laying all that.","Big favorite, but that number’s expensive as hell. Not worth it to us.","Yeah they probably win — but you gotta risk a grip to win a lil. Pass."],
+ coin_flip:["This one’s a coin flip. The engine can barely separate these two.","Too close to call. Could go either way — we ain’t touching it.","50/50 type shit. No edge for us here."],
+ tight:["There’s a lil value here, but it didn’t make the board — we keep the board tight.","Slight edge, but not enough for us to put our name on it.","It’s close to a play, but we only post what we’re sure about."],
+ no_value:["The books got this one priced about right. Nothing for us here.","Line’s fair — no real value, so it’s not a pick.","Books did their homework on this one. No edge."]}};
+var OUT=["You’re on your own with this one. Good luck — hope it smacks. 🤞","Your call, not ours. Hope it cashes. 🤞",
+ "We ain’t on it, so you’re riding solo. Hope it hits. 🤞","If you tail it, that’s on you. Hope it smacks. 🤞"];
+function vibe(p){{return p>=0.65?"The engine likes them to handle business.":p>=0.55?"Slight lean our way — nothing crazy.":"Barely a lean. Proceed with caution."}}
 function show(g){{
   var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line, pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
     '<div class="ls">'+esc(g.away)+" @ "+esc(g.home)+'</div>';
-  if(g.why=="on_board"){{h+='<div class="ask-a">🎯 We’re already on this one — it’s on the board. Scroll up. 👆</div></section>';out.innerHTML=h;return}}
-  h+='<div class="ask-l">🧠 Our lean: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
-     '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+'</div>'+
+  if(g.why=="on_board"){{h+='<div class="ask-a">🎯 We already on this one — it’s on the board. Scroll down and tail it. 👇</div></section>';out.innerHTML=h;return}}
+  h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
+     '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p)+'</div>'+
      (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+
+     (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. No 1st-half line yet, so that’s just the read.</div>':"")+
      '<div class="ask-w">Why it’s not a pick: '+pick(g.id,WHY[g.why]||WHY.no_value)+'</div>'+
      '<div class="ask-d">⚠️ Not our pick — this doesn’t count toward our record. '+pick(g.id+"x",OUT)+'</div></section>';
   out.innerHTML=h;
 }}
+var STOP={{"who":1,"wins":1,"win":1,"will":1,"the":1,"and":1,"what":1,"think":1,"you":1,"about":1,"game":1,"tonight":1,"today":1,"does":1,"engine":1,"gonna":1,"should":1,"bet":1,"take":1,"vs":1,"over":1,"under":1,"first":1,"half":1,"spread":1,"total":1,"lean":1,"lock":1,"pick":1,"with":1,"for":1,"this":1,"that":1,"how":1,"like":1}};
+var loaded=false, NOPE=["The engine don’t have a read on that one. Either it ain’t on today’s slate, it already started, or the books ain’t posted a line yet. Check back closer to game time.",
+ "Nothing on that one right now — no line up yet, or the game’s already going. Try another team."];
+function note(){{
+  var t=q.value.toLowerCase(), n=[];
+  if(/over|under|\btotal|o\/u/.test(t)) n.push("📚 Over/unders: the engine’s still studying those — we don’t guess. Reads coming soon.");
+  if(/first half|1st half|1h|first 5|f5/.test(t)) n.push("⏱️ First-half reads show inside each game below.");
+  return n.length?'<div class="ask-n">'+n.join("<br>")+'</div>':"";
+}}
 function render(){{
-  var t=q.value.trim().toLowerCase(); out.innerHTML="";
-  var hits=games.filter(function(g){{return !t||(g.away+" "+g.home+" "+g.sport).toLowerCase().indexOf(t)>=0}}).slice(0,12);
-  list.innerHTML=hits.length?hits.map(function(g,i){{return '<button class="ask-g" data-i="'+games.indexOf(g)+'">'+g.emoji+" "+esc(g.away)+" @ "+esc(g.home)+' <small>'+tm(g.start)+'</small></button>'}}).join(""):
-    '<div class="ask-n">No games found. Try another team.</div>';
+  out.innerHTML="";
+  if(!loaded){{list.innerHTML='<div class="ask-n">⏳ Pulling up the engine’s reads…</div>';return}}
+  var words=q.value.toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){{return w.length>2&&!STOP[w]}});
+  var hits=games.filter(function(g){{var hay=(g.away+" "+g.home+" "+g.sport).toLowerCase();
+    return !words.length||words.some(function(w){{return hay.indexOf(w)>=0}})}}).slice(0,12);
+  if(!games.length){{list.innerHTML=note()+'<div class="ask-n">No games left on the slate right now. The engine drops new reads as soon as the next lines post.</div>';return}}
+  list.innerHTML=note()+(hits.length?hits.map(function(g){{return '<button class="ask-g" data-i="'+games.indexOf(g)+'">'+g.emoji+" "+esc(g.away)+" @ "+esc(g.home)+' <small>'+tm(g.start)+'</small></button>'}}).join(""):
+    '<div class="ask-n">'+pick(q.value,NOPE)+'</div>');
+  if(hits.length==1&&words.length) show(hits[0]);
 }}
 list.addEventListener("click",function(e){{var b=e.target.closest(".ask-g");if(b)show(games[+b.dataset.i])}});
 q.addEventListener("input",render);
-fetch("reads.json?v="+Date.now()).then(function(r){{return r.json()}}).then(function(d){{games=d.games||[];render()}}).catch(function(){{list.innerHTML='<div class="ask-n">The engine’s reads aren’t up yet. Check back soon.</div>'}});
+var timer=setTimeout(function(){{if(!loaded){{loaded=true;games=[];list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}}}},8000);
+fetch("reads.json?v="+Date.now()).then(function(r){{return r.json()}}).then(function(d){{clearTimeout(timer);loaded=true;games=d.games||[];render()}}).catch(function(){{clearTimeout(timer);loaded=true;list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}});
+render();
 }})();
 </script></body></html>"""
 
