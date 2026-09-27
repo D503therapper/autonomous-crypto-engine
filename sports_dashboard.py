@@ -191,6 +191,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
         lines.append(f"🧾 Receipts: said {said:.0%} of our legs would hit — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
+    if not done:                                      # no finished day yet: nothing to brag or cry about
+        lines = ["👀 We gon' see."]
     brain = '<div class="br self"><div class="bn">🧠 Today in a nutshell</div>' + "".join(f'<div class="bs nut">{x}</div>' for x in lines) + "</div>"
     tuned = model.get("tuned_on", "—")
 
