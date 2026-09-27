@@ -1,0 +1,105 @@
+=== stock parking study: 38 symbols, 25 years of daily bars, cost 0.050%/side ===
+  AAPL: 6285 days
+  AMD: 6285 days
+  AMZN: 6285 days
+  AVGO: 4311 days
+  COIN: 1370 days
+  COST: 6285 days
+  DIA: 6285 days
+  EEM: 5901 days
+  EFA: 6285 days
+  GLD: 5497 days
+  GOOGL: 5561 days
+  IEF: 6079 days
+  IWM: 6285 days
+  JPM: 6285 days
+  LLY: 6285 days
+  META: 3609 days
+  MSFT: 6285 days
+  MSTR: 6285 days
+  NFLX: 6125 days
+  NVDA: 6285 days
+  PLTR: 1504 days
+  QQQ: 6285 days
+  SMH: 6285 days
+  SPY: 6285 days
+  TLT: 6079 days
+  TSLA: 4086 days
+  UBER: 1855 days
+  XLB: 6285 days
+  XLC: 2079 days
+  XLE: 6285 days
+  XLF: 6285 days
+  XLI: 6285 days
+  XLK: 6285 days
+  XLP: 6285 days
+  XLRE: 2757 days
+  XLU: 6285 days
+  XLV: 6285 days
+  XLY: 6285 days
+
+--- OLDER HALF: 2002-08-12 .. 2014-08-29 (12.0 years); 27 of 38 symbols trading at the start
+variant                       CAGR  avg/mo  maxDD worstMo Sharpe invested rsi2 trd park ord   $500 ->
+rsi2 live (5x18%)           +12.2%  +1.01%  19.0%  -11.9%   1.04      44%     2067        0     1,998
+rsi2 + park SPY             +10.7%  +0.97%  51.5%  -19.2%   0.60     100%     2067     3595     1,708
+rsi2 + park QQQ             +13.9%  +1.24%  51.7%  -17.9%   0.71     100%     2067     3595     2,410
+rsi2 + park SPY >200d       +11.3%  +0.96%  24.0%  -12.2%   0.82      83%     2067     3058     1,811
+rsi2 + park QQQ >200d       +12.1%  +1.04%  26.4%  -12.5%   0.80      83%     2067     3053     1,988
+rsi2 5x20%                  +13.5%  +1.12%  21.1%  -13.3%   1.04      49%     2067        0     2,309
+rsi2 8x12.5%                +10.2%  +0.84%  15.7%  -10.6%   0.98      40%     2646        0     1,603
+rsi2 10x10%                  +9.0%  +0.75%  16.3%  -10.9%   0.95      35%     2955        0     1,416
+rsi2 3x33%                  +17.2%  +1.42%  25.3%  -13.5%   1.06      60%     1498        0     3,388
+rsi2 2x50%                  +22.3%  +1.82%  27.6%  -13.6%   1.14      67%     1123        0     5,633
+rsi2 10x10% + park SPY       +9.9%  +0.89%  54.4%  -18.0%   0.57     100%     2955     3202     1,552
+rsi2 10x10% + park QQQ      +13.5%  +1.20%  53.5%  -16.8%   0.70     100%     2955     3196     2,287
+hold SPY                     +9.0%  +0.81%  55.2%  -16.5%   0.53     100%        0        2     1,412
+hold QQQ                    +13.7%  +1.22%  53.4%  -15.6%   0.69     100%        0        2     2,344
+
+--- NEWER HALF: 2014-09-02 .. 2026-09-25 (12.0 years); 33 of 38 symbols trading at the start
+variant                       CAGR  avg/mo  maxDD worstMo Sharpe invested rsi2 trd park ord   $500 ->
+rsi2 live (5x18%)           +14.9%  +1.23%  21.0%  -11.0%   0.98      52%     2376        0     2,654
+rsi2 + park SPY             +17.3%  +1.47%  31.4%  -13.7%   0.89     100%     2376     3941     3,418
+rsi2 + park QQQ             +18.2%  +1.55%  38.3%  -13.6%   0.87     100%     2376     3941     3,750
+rsi2 + park SPY >200d       +14.9%  +1.26%  28.0%  -13.2%   0.88      89%     2376     3532     2,660
+rsi2 + park QQQ >200d       +17.0%  +1.43%  31.4%  -15.0%   0.92      89%     2376     3523     3,311
+rsi2 5x20%                  +16.5%  +1.37%  23.2%  -12.2%   0.98      57%     2376        0     3,153
+rsi2 8x12.5%                +13.6%  +1.13%  20.9%   -9.7%   0.95      47%     3125        0     2,329
+rsi2 10x10%                 +12.0%  +1.00%  18.2%   -9.3%   0.94      42%     3512        0     1,952
+rsi2 3x33%                  +21.4%  +1.75%  23.2%  -14.6%   1.09      66%     1666        0     5,188
+rsi2 2x50%                  +20.5%  +1.74%  30.4%  -18.8%   0.94      72%     1204        0     4,743
+rsi2 10x10% + park SPY      +17.1%  +1.44%  31.6%  -11.8%   0.92     100%     3512     3540     3,337
+rsi2 10x10% + park QQQ      +18.2%  +1.54%  38.5%  -13.7%   0.89     100%     3512     3541     3,742
+hold SPY                    +13.7%  +1.16%  33.7%  -12.5%   0.83     100%        0        2     2,352
+hold QQQ                    +19.0%  +1.60%  35.1%  -13.6%   0.91     100%        0        2     4,079
+
+--- FULL HISTORY: 2002-08-12 .. 2026-09-25 (24.1 years); 27 of 38 symbols trading at the start
+variant                       CAGR  avg/mo  maxDD worstMo Sharpe invested rsi2 trd park ord   $500 ->
+rsi2 live (5x18%)           +13.5%  +1.12%  21.0%  -11.9%   1.00      48%     4447        0    10,629
+rsi2 + park SPY             +14.0%  +1.22%  51.5%  -19.2%   0.75     100%     4447     7535    11,708
+rsi2 + park QQQ             +16.1%  +1.40%  51.7%  -17.9%   0.79     100%     4447     7535    18,130
+rsi2 + park SPY >200d       +13.1%  +1.11%  28.0%  -13.2%   0.85      86%     4447     6587     9,665
+rsi2 + park QQQ >200d       +14.6%  +1.24%  31.4%  -15.0%   0.86      86%     4447     6574    13,206
+rsi2 5x20%                  +15.0%  +1.24%  23.2%  -13.3%   1.00      53%     4447        0    14,599
+rsi2 8x12.5%                +11.9%  +0.99%  20.9%  -10.6%   0.95      43%     5775        0     7,483
+rsi2 10x10%                 +10.5%  +0.87%  18.2%  -10.9%   0.93      39%     6471        0     5,536
+rsi2 3x33%                  +19.3%  +1.59%  25.3%  -14.6%   1.07      63%     3168        0    35,328
+rsi2 2x50%                  +21.4%  +1.78%  30.4%  -18.8%   1.03      70%     2330        0    53,898
+rsi2 10x10% + park SPY      +13.4%  +1.16%  54.4%  -18.0%   0.74     100%     6471     6740    10,384
+rsi2 10x10% + park QQQ      +15.8%  +1.37%  53.5%  -16.8%   0.80     100%     6471     6734    17,166
+hold SPY                    +11.3%  +0.99%  55.2%  -16.5%   0.67     100%        0        2     6,654
+hold QQQ                    +16.3%  +1.41%  53.4%  -15.6%   0.80     100%        0        2    19,176
+
+=== DECISION CHECK (apply only if better CAGR than rsi2 live in BOTH halves and max drawdown not worse than holding SPY in each half) ===
+fail  rsi2 + park SPY            older: CAGR +10.7% vs +12.2%, DD 52% vs SPY 55% | newer: CAGR +17.3% vs +14.9%, DD 31% vs SPY 34%
+fail  rsi2 + park QQQ            older: CAGR +13.9% vs +12.2%, DD 52% vs SPY 55% | newer: CAGR +18.2% vs +14.9%, DD 38% vs SPY 34%
+fail  rsi2 + park SPY >200d      older: CAGR +11.3% vs +12.2%, DD 24% vs SPY 55% | newer: CAGR +14.9% vs +14.9%, DD 28% vs SPY 34%
+fail  rsi2 + park QQQ >200d      older: CAGR +12.1% vs +12.2%, DD 26% vs SPY 55% | newer: CAGR +17.0% vs +14.9%, DD 31% vs SPY 34%
+PASS  rsi2 5x20%                 older: CAGR +13.5% vs +12.2%, DD 21% vs SPY 55% | newer: CAGR +16.5% vs +14.9%, DD 23% vs SPY 34%
+fail  rsi2 8x12.5%               older: CAGR +10.2% vs +12.2%, DD 16% vs SPY 55% | newer: CAGR +13.6% vs +14.9%, DD 21% vs SPY 34%
+fail  rsi2 10x10%                older: CAGR +9.0% vs +12.2%, DD 16% vs SPY 55% | newer: CAGR +12.0% vs +14.9%, DD 18% vs SPY 34%
+PASS  rsi2 3x33%                 older: CAGR +17.2% vs +12.2%, DD 25% vs SPY 55% | newer: CAGR +21.4% vs +14.9%, DD 23% vs SPY 34%
+PASS  rsi2 2x50%                 older: CAGR +22.3% vs +12.2%, DD 28% vs SPY 55% | newer: CAGR +20.5% vs +14.9%, DD 30% vs SPY 34%
+fail  rsi2 10x10% + park SPY     older: CAGR +9.9% vs +12.2%, DD 54% vs SPY 55% | newer: CAGR +17.1% vs +14.9%, DD 32% vs SPY 34%
+fail  rsi2 10x10% + park QQQ     older: CAGR +13.5% vs +12.2%, DD 54% vs SPY 55% | newer: CAGR +18.2% vs +14.9%, DD 38% vs SPY 34%
+
+Caveat: the universe is TODAY's list (NVDA, TSLA, PLTR, MSTR, COIN ... chosen with hindsight); names join when their data starts. Absolute rsi2 returns are a ceiling; the SPY/QQQ parking leg has no such bias.
