@@ -74,51 +74,33 @@ def _live_story(e, used=None):
         return ""
     away, a_s, home, h_s = m.group(1), int(m.group(2)), m.group(3), int(m.group(4))
     ours_away = e.get("side") == "away"
-    us, them = _the(e["team"], lg), _the(home if ours_away else away, lg)
-    Us = _cap(us)
+    us = _the(e["team"], lg)
     mine, theirs = (a_s, h_s) if ours_away else (h_s, a_s)
     per = re.search(r"(\d+)", str(e.get("clock_at_post") or ""))
     n = int(per.group(1)) if per else 0
     unit = {"nhl": "period", "ncaab": "half", "mlb": "inning"}.get(lg, "quarter")
     w = f"in the {({1: '1st', 2: '2nd', 3: '3rd'}.get(n, f'{n}th'))} {unit}" if n else "mid-game"
     k = sum(map(ord, e["team"] + str(e.get("odds"))))
-    if mine < theirs:
-        spot = "trail"
-        score = _pick("s_trail", [f"{Us} down {theirs}-{mine} to {them} {w}.", f"{Us} looking rough, down {theirs}-{mine} {w}.",
-                                  f"Caught {us} trailing {theirs}-{mine} {w}.", f"{Us} getting cooked {theirs}-{mine} {w}.",
-                                  f"{Us} in a {theirs}-{mine} hole {w}.", f"{Us} behind {theirs}-{mine} {w} and everybody bailed."], used, k)
-    elif mine > theirs:
-        spot = "lead"
-        score = _pick("s_lead", [f"{Us} up {mine}-{theirs} {w} and still plus money.", f"{Us} leading {them} {mine}-{theirs} {w}.",
-                                 f"Grabbed {us} up {mine}-{theirs} {w}.", f"{Us} ahead {mine}-{theirs} {w} and the book still had 'em as the dog."],
-                      used, k)
-    else:
-        spot = "tie"
-        score = _pick("s_tie", [f"Tied up {mine}-{theirs} {w}.", f"Dead even at {mine} {w}.", f"All square {mine}-{theirs} {w}."], used, k)
+    an, hn = _the(away, lg), _the(home, lg)
+    score = _pick("score", [f"{_cap(an)} had {a_s}, {hn} had {h_s} {w}.", f"It was {an} {a_s}, {hn} {h_s} {w}.",
+                            f"{_cap(an)} {a_s}, {hn} {h_s} {w}.", f"Score was {an} {a_s}, {hn} {h_s} {w}."], used, k)
+    what = "come back" if mine < theirs else "hold on" if mine > theirs else "take it"
     res = e.get("result")
-    if res == "won":
-        end = _pick(f"w_{spot}", {
-            "trail": ["Everybody jumped off, we jumped on — comeback city. Cashed. 💰", "They woke up and smacked that ass. Told y'all. 💰",
-                      "Dummies sold, we bought. They came all the way back. 💰", "Trust the algorithm — they flipped it. Cashed. 💰",
-                      "Down bad and still got it done. Fuck yeah. 💰", "Grace from baby Jesus himself — they came back. 💰"],
-            "lead": ["They held it down the whole way. Easy money. 💰", "Closed it out like we said. Cashed. 💰",
-                     "Never let up. Books were sleeping. 💰", "Finished the job. Trust the algorithm. 💰"],
-            "tie": ["They took over late. Cashed. 💰", "Pulled away when it mattered. Told y'all. 💰"]}[spot], used, k)
-    elif res == "lost":
-        end = _pick(f"l_{spot}", {
-            "trail": ["They never showed up. Shit the bed — is what it is.", "Comeback never came. Bad call, our bad.",
-                      "Booty cheeks the rest of the way. We run it back.", "Straight trash after that. Is what it is.",
-                      "They had the chance and fumbled the bag. Our bad.", "Never woke up. Bad call — next one's ours."],
-            "lead": ["Blew it. They shit the bed — is what it is.", "Coughed up the lead like clowns. Our bad.",
-                     "Choked it away. Bad call, we move.", "Had it and gave it away. Is what it is."],
-            "tie": ["Folded down the stretch. Our bad.", "Got outplayed late. Is what it is."]}[spot], used, k)
+    if res in ("won", "lost"):
+        thought = _pick("thought", [f"We thought {us} would {what}", f"We figured {us} would {what}", f"We said {us} would {what}",
+                                    f"We knew {us} could {what}"], used, k)
     else:
-        end = _pick(f"p_{spot}", {
-            "trail": ["Riding with 'em — we gon' see.", "Comeback's loading. We gon' see.", "Buy the dip. We gon' see.",
-                      "They about to go to work. We gon' see."],
-            "lead": ["Hold it down. We gon' see.", "Just gotta finish. We gon' see.", "Close it out, boys. We gon' see."],
-            "tie": ["Anybody's game — we like ours. We gon' see.", "Coin flip with value. We gon' see."]}[spot], used, k)
-    return f"{score} {end}"
+        thought = _pick("riding", [f"We're riding {us} to {what}", f"We like {us} to {what}", f"We say {us} {what}"], used, k)
+    if res == "won":
+        end = _pick("won", ["and they did. Cashed. 💰", "and they got it done. Told y'all. 💰", "and they smacked that ass. 💰",
+                            "and they came through. Trust the algorithm. 💰", "and they cashed. Fuck yeah. 💰"], used, k)
+    elif res == "lost":
+        end = _pick("lost", ["they shit the bed. Is what it is.", "they shit the bed. Bad call, our bad.",
+                             "they were booty cheeks. Is what it is.", "they fumbled the bag. We run it back.",
+                             "they never showed up. Bad call — next one's ours."], used, k)
+    else:
+        end = _pick("pending", ["we gon' see.", "they about to go to work. We gon' see.", "trust the algorithm. We gon' see."], used, k)
+    return f"{score} {thought} — {end}"
 
 
 def _rot(k, options):
