@@ -380,6 +380,8 @@ PRICED = [0]                  # live games with a sportsbook price this cycle   
 
 BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 BOVADA_OLD = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
+BOVADA_ALL = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&lang=en"
+# (the liveOnly feed went empty on 2026-09-27 while games were live: the full feed still flags each event live=True)
 ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}/odds"
 BOVADA_PATH = {"nfl": "football/nfl", "ncaaf": "football/college-football", "nba": "basketball/nba",
                "ncaab": "basketball/college-basketball", "nhl": "hockey/nhl", "mlb": "baseball/mlb"}
@@ -393,14 +395,16 @@ def _clean(name):
 def bovada_live(league):
     """[{home, away, ml_home, ml_away}] - the sportsbook's LIVE moneylines right now."""
     data = []
-    for url in (BOVADA, BOVADA_OLD):                         # the current feed, then the older address if it's empty
+    for url in (BOVADA, BOVADA_OLD, BOVADA_ALL):             # live feed, the older address, then the full feed
         try:
             data = _get(url.format(path=BOVADA_PATH[league]))
         except Exception as e:                               # noqa: BLE001
             sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
             BOOKS[league] = f"error {str(e)[:60]}"
             continue
-        if any(g.get("events") for g in data or []):
+        data = [{**g, "events": [e for e in g.get("events") or [] if e.get("live")]}
+                for g in (data if isinstance(data, list) else []) if isinstance(g, dict)]
+        if any(g.get("events") for g in data):
             break
     BOOKS[league] = f"{len(data or [])} groups, {sum(len(g.get('events') or []) for g in data or [])} events"
     out = []
@@ -577,6 +581,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     plays = []
     judged = set()                # games priced and judged this check (the rest were paused / out of sync)
     WATCHING[0] = PRICED[0] = 0
+    BOOKS.clear()
     with ThreadPoolExecutor(12) as ex:                          # everything in parallel: live lines move fast
         angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live, sd.LEAGUES)))
         live_lgs = [lg for lg, angs in angs_by.items()
@@ -694,7 +699,9 @@ def run():
     except (OSError, ValueError):
         prev = {}
     plays = cycle(games, model, log, showing=list(prev), prev=prev)
+    health = health_check()
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
+           "health": health,
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
     del sd.ERRORS[:]
@@ -705,6 +712,20 @@ def run():
         json.dump(log, f, indent=1, sort_keys=True)
     print(f"{datetime.now(timezone.utc):%H:%M:%S} live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
     return plays
+
+
+def health_check():
+    """The live feature checks itself every cycle: games going but few or no sportsbook prices = something's broken.
+    Problems go into live.json ("health") and the log, loud."""
+    issues = []
+    if WATCHING[0] >= 3 and PRICED[0] < WATCHING[0] / 2:
+        issues.append(f"only {PRICED[0]} of {WATCHING[0]} live games have a sportsbook price")
+    empty = [lg for lg, v in BOOKS.items() if v.startswith("0 groups") or v.startswith("error") or " 0 events" in v]
+    if empty and WATCHING[0]:
+        issues.append("Bovada has no live lines for " + ", ".join(sorted(empty)))
+    for x in issues:
+        print(f"HEALTH: {x}", flush=True)
+    return issues
 
 
 def any_live_soon(games, within_min=45):
