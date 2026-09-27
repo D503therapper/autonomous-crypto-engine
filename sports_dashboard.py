@@ -112,6 +112,17 @@ def _live_story(e, used=None):
     return f"{score} {thought} — {end}"
 
 
+TIER_CHIP = {"lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
+             "lean": '<span class="chip lean">🟡 LEAN</span>'}
+TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE", "#ff5a1f", "#ff8a00"),
+             "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
+
+
+def _tier(pk):
+    import sports
+    return sports.pick_tier(pk)
+
+
 def _wl_words(ps, h):
     """'3 won · 4 lost · 43%' - so a 3-4 record can't be read as '3 of 4'."""
     if h is None:
@@ -133,8 +144,14 @@ def _breakdown(leg):
     return f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{body}</div></details>'
 
 
-def _leg(leg):
+LEG_TAG = {"lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
+           "lean": '<span class="lt-t lean">🟡 LEAN</span>'}
+
+
+def _leg(leg, tagged=False):
+    import sports
     lg = sd.LEAGUES[leg["league"]]
+    ltag = LEG_TAG[leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})] if tagged else ""
     mk = "ML" if leg["market"] == "ml" else f'{leg["line"]:+g}'
     res = leg.get("result")
     mark = ""
@@ -146,7 +163,7 @@ def _leg(leg):
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
     return f"""<div class="leg {res or ''}">
-  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span>{badge or f'<span class="tm">{_time(leg["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm">{_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])}</div>
   {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
@@ -165,18 +182,29 @@ def _pick_card(kind, pk):
 <span class="pk-l">{label}</span><span class="chip waiting">PICK COMING</span></div>
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
-    legs = "".join(_leg(leg) for leg in pk["legs"])
+    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1) for leg in pk["legs"])   # parlays: each leg shows its own tier
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
     hits = sum(l.get("result") == "won" for l in pk["legs"])
     left = sum(not l.get("result") for l in pk["legs"])
     track = (f'<div class="track">🔥 {hits} of {len(pk["legs"])} legs hit — {left} to go</div>'
              if pk["status"] == "open" and len(pk["legs"]) > 1 and hits and left else "")
+    spin = datetime.strptime(pk["date"], "%Y-%m-%d").toordinal() + sum(map(ord, pk["legs"][0]["team"])) + list(LOOK).index(kind)
+    book_wrong = ('<div class="bw">' + _rot(spin, [       # rotates by day and team - never the same line on repeat
+                      "🔒 Plus money? The line makers trippin'. This a LOCK.",
+                      "🔒 The line makers trippin' on this one. Plus money and it's a LOCK.",
+                      "🔒 Books got this wrong — the line makers trippin'. LOCK it in.",
+                      "🔒 They got us as the dog? Line makers trippin'. We calling it a LOCK.",
+                      "🔒 Plus money on this? Somebody at the book was sleepin'. LOCK.",
+                      "🔒 The books ain't see what we see. Plus money and a LOCK — let's eat.",
+                      "🔒 Line makers trippin' fr. We're getting paid extra on a LOCK.",
+                      "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
+                  if _tier(pk) == "lock" and pk.get("american", 0) > 0 and pk["status"] == "open" else "")
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
-  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{'<span class="chip lean">🟡 LEAN</span>' if pk.get("lean") else ""}{_chip(pk["status"])}</div>
+  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{TIER_CHIP[_tier(pk)]}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{track}{legs}
+  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{legs}
 </section>"""
 
 
@@ -236,10 +264,15 @@ def _tennis():
 def render(picks, model, games, series, start_bank, updated_ms):
     now = datetime.now(PT)
     today = now.date().isoformat()
-    todays = {p["kind"]: p for p in picks if p["date"] == today}
+    order = list(LOOK)
+    todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
+    active = [p for p in todays if p["status"] in ("open", "waiting")]      # the top is only what's still live
     board_date = now.strftime("%A, %B %-d")
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
-    board = "".join(_pick_card(k, todays.get(k)) for k in LOOK) if todays else drop
+    done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
+                  'New picks go up the second the engine finds value.</div>')
+    board = "".join(_pick_card(p["kind"], p) for p in active) if active else done_today if todays else drop
+
     tmr = (now + timedelta(days=1)).date()
     tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
@@ -247,7 +280,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
 
     graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]
     done = [p for p in graded_all if not p.get("lean")]          # the main record is value picks only
-    leans_done = [p for p in graded_all if p.get("lean")]
     done.sort(key=lambda p: (p["date"], p.get("settled", "")))
 
     def wl(ps):
@@ -263,22 +295,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 break
             n += 1
         return f'{"W" if last == "won" else "L" if last == "lost" else "P"}{n}'
-    m0 = datetime(now.year, now.month, 1, tzinfo=PT).date().isoformat()
-    rec_all, hit_all = wl(done)
-    rec_day, _ = wl([p for p in done if p["date"] == today])
-    rec_month, hit_month = wl([p for p in done if p["date"] >= m0])
-    first = min((p["date"] for p in picks), default=today)
-    hot = streak(done)
-
-    def tile(label, sub, val, foot, hue, cls="w"):
-        return (f'<div class="tile" style="--h:{hue}"><div class="tl">{label}</div><div class="ts">{sub}</div>'
-                f'<div class="tv {cls}">{val}</div><div class="ts" style="color:{hue}">{foot}</div></div>')
-    tiles = (tile("This month", now.strftime("%B"), rec_month, f"{hit_month:.0%} hit" if hit_month is not None else "&nbsp;", "#2f8bff")
-             + tile("Hit rate", f"since {datetime.fromisoformat(first):%b %-d}", f"{hit_all:.0%}" if hit_all is not None else "—", "all plays", "#22e39a")
-             + tile("Streak", "current", hot or "—", "🔥 heater" if hot.startswith("W") and len(hot) > 1 and int(hot[1:]) >= 3 else "&nbsp;",
-                    "#ffc233", "up" if hot.startswith("W") else "dn" if hot.startswith("L") else "w"))
-    strip = "".join(f'<i class="{p["status"]}" title="{E(p["date"])}"></i>' for p in done[-40:]) or '<span class="empty">results show up here</span>'
-
     # live bets: their own record
     live = {}
     try:
@@ -286,13 +302,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
             live = json.load(f).get("plays", {})
     except (OSError, ValueError):
         pass
-    lw, ll = sum(e.get("result") == "won" for e in live.values()), sum(e.get("result") == "lost" for e in live.values())
-    live_card = (f'<div class="rc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🔴 LIVE BETS</div><div class="rc-r">{lw}-{ll}</div>'
-                 f'<div class="rc-p">{f"{lw} won · {ll} lost · {lw / (lw + ll):.0%}" if lw + ll else "&nbsp;"}</div>'
-                 f'<div class="rc-s">{"&nbsp;" if lw + ll else "no results yet"}</div></div>')
-    # today's live bets (and last night's): what they were, and whether they cashed
-    ld = datetime.now(PT).date()
-    days_ = {ld.isoformat(), (ld - timedelta(days=1)).isoformat()}
+    # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
+    days_ = {today}
     lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)[:8]
     badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
     pending_ = '<span class="tm">⏳ still going</span>'
@@ -307,15 +318,27 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
                      f'<div class="ls">{E(stories[id(e)])}</div></div>'
                      for e in lrows) + "</section>")
-    lw_, ll_ = sum(p["status"] == "won" for p in leans_done), sum(p["status"] == "lost" for p in leans_done)
-    lean_card = ("" if not leans_done else
-                 f'<div class="rc" style="--c1:#ffc233;--c2:#e8c77a"><div class="rc-t">🟡 LEANS</div><div class="rc-r">{lw_}-{ll_}</div>'
-                 f'<div class="rc-p">{f"{lw_} won · {ll_} lost · {lw_ / (lw_ + ll_):.0%}" if lw_ + ll_ else "&nbsp;"}</div>'
-                 f'<div class="rc-s">own record</div></div>')
+    # the engine's grades: locks, value, leans and live - each graded on its own, never lumped into one number
+    def grade(name, c1, c2, rows, today_rows):
+        w_, l_ = sum(r == "won" for r in rows), sum(r == "lost" for r in rows)
+        tw, tl = sum(r == "won" for r in today_rows), sum(r == "lost" for r in today_rows)
+        st = ""
+        for r in reversed([r for r in rows if r in ("won", "lost")]):
+            if st and st[0] != ("W" if r == "won" else "L"):
+                break
+            st = ("W" if r == "won" else "L") + str(int(st[1:] or 0) + 1)
+        return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
+                f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%} hit" if w_ + l_ else "no results yet"}</div>'
+                f'<div class="rc-s">today {tw}-{tl}{f" · streak {st}" if st else ""}</div></div>')
+    by_tier = {t: [p for p in graded_all if _tier(p) == t] for t in ("lock", "value", "lean")}
+    lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
+    grades = "".join(grade(*TIER_LOOK[t], [p["status"] for p in by_tier[t]], [p["status"] for p in by_tier[t] if p["date"] == today])
+                     for t in ("lock", "value", "lean"))
+    grades += grade("🔴 LIVE", "#ff3b3b", "#ff8a00", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
-        ps = [p for p in done if p["kind"] == kind]
+        ps = [p for p in graded_all if p["kind"] == kind]
         r, h = wl(ps)
         st = streak(ps)
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
@@ -327,11 +350,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     params = model.get("params", {})
     k = now.toordinal()
     lines = []
-    graded = [p for p in done if p.get("settled", "")[:10] >= (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%d")
-              and p["date"] in (today, (now - timedelta(days=1)).date().isoformat())]
+    graded = [p for p in done if p["date"] == today]           # a new day never talks about yesterday
     w_, l_ = sum(p["status"] == "won" for p in graded), sum(p["status"] == "lost" for p in graded)
-    yday = (now - timedelta(days=1)).date().isoformat()
-    live_today = any(e.get("result") in ("won", "lost") and e.get("date") in (today, yday) for e in live.values())
+    live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
     if w_ + l_ == 0 and live_today:
         pass                                                      # the live results below speak for the day
     elif w_ + l_ == 0:
@@ -367,7 +388,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                             else "the " + LOOK[p["kind"]][0].replace(" OF THE DAY", "").lower()), "")
            for p in graded if p["status"] == "won" and p.get("american", 0) >= BIG_HIT]
     big += [(e["odds"], E(_the(e["team"], e.get("league"))), " live") for e in live.values()
-            if e.get("result") == "won" and e.get("odds", 0) >= BIG_HIT and e.get("date") in (today, yday)]
+            if e.get("result") == "won" and e.get("odds", 0) >= BIG_HIT and e.get("date") == today]
     for i, (o, what, how) in enumerate(sorted(big, reverse=True)[:2]):
         lines.insert(1 + i, _rot(k + o, [f"💰 DAMN. We smacked a +{o}{how} — {what}. I tried to fucking tell y'all. Let's go!",
                                          f"💰 +{o}{how}. CASHED. {_cap(what)} came through and I told y'all all day. Let's fucking go!",
@@ -394,7 +415,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
         lines.append(f"🧾 Receipts: said {said:.0%} of our legs would hit — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
-    for e in sorted((e for e in live.values() if e.get("result") == "won" and e.get("date") in (today, yday)
+    for e in sorted((e for e in live.values() if e.get("result") == "won" and e.get("date") == today
                      and (e["team"], e["odds"]) not in big_live),                  # big ones already got the brag
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
@@ -404,7 +425,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                                f"🔴 {_cap(t)} live at {o}? Cashed. Trust the algorithm.",
                                                f"🔴 Caught {t} live at {o} and they came through. Fuck yeah, let's go!",
                                                f"🔴 {_cap(t)} live at {o} — CASHED. Everybody was jumping off, we jumped on."]))
-    for e in sorted((e for e in live.values() if e.get("result") == "lost" and e.get("date") in (today, yday)),
+    for e in sorted((e for e in live.values() if e.get("result") == "lost" and e.get("date") == today),
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
@@ -492,6 +513,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .stamp.won{{color:var(--up);text-shadow:0 0 16px rgba(34,227,154,.7);box-shadow:0 0 22px rgba(34,227,154,.35)}}
 .stamp.lost{{color:var(--dn);text-shadow:0 0 16px rgba(255,59,59,.6)}}
 .stamp.push{{color:var(--gold)}}
+.lt-t{{margin-left:8px;font-size:10px;font-weight:900;letter-spacing:.05em}} .lt-t.lk{{color:#22e39a}} .lt-t.val{{color:#ff8a00}} .lt-t.lean{{color:#ffc233}}
+.bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
 .leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
 .leg.lost{{border-left:4px solid var(--dn);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(255,59,59,.10),transparent 60%)}}
@@ -528,7 +551,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tn summary::-webkit-details-marker{{display:none}}
 .tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:15px}} .tn-s{{font-size:12.5px;color:#fff;font-weight:700}}
 .tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}}
-.chip.lean{{background:#ffc233;color:#111;margin-right:6px}}
+.chip.lean{{background:#ffc233;color:#111;margin-right:6px}} .chip.val{{background:#ff5a1f;color:#fff;margin-right:6px}}
+.chip.lk{{background:#22e39a;color:#06281c;margin-right:6px}}
 .pk.lvc{{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b}} .chip.livechip{{color:#fff;background:#ff3b3b}}
 .bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
 .bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
@@ -544,6 +568,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   box-shadow:0 20px 60px -24px rgba(255,160,40,.45)}}
 .lbl{{color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}
 .total{{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
+.sp-n{{font-size:12px;color:#9fb0c8;margin:4px 0 12px}}
+.grades{{margin-bottom:12px}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
 .pill small{{color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em}}
@@ -600,14 +626,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 {_tennis()}
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
-  <div class="lbl">Overall record</div>
-  <div class="total">{rec_all}</div>
-  <span class="pill" style="--p:#ffc233">{rec_day} <small>TODAY</small></span>
-  <div class="month">{tiles}</div>
-  <div class="strip">{strip}</div>
+  <div class="lbl">The engine's grades</div>
+  <div class="sp-n">Every kind of play graded on its own — no lumping. Full transparency.</div>
+  <div class="recs grades">{grades}</div>
 </section>
-<div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
-<div class="recs">{"".join(rec)}{live_card}{lean_card}</div>
+<div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(graded_all)} graded</span></div>
+<div class="recs">{"".join(rec)}</div>
 {live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
