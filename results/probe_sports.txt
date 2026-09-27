@@ -10,16 +10,7 @@ football/nfl: 9 live events
    competitors [('Indianapolis Colts', True), ('Houston Texans', False)]
    ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Houston Texans', '+120'), ('Indianapolis Colts', '-155')]
 
-football/college-football: 16 live events
-   Kansas State @ Cincinnati live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('Cincinnati', True), ('Kansas State', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Kansas State', '+375'), ('Cincinnati', '-600')]
-   Oklahoma State @ West Virginia live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('West Virginia', True), ('Oklahoma State', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Oklahoma State', '-1000'), ('West Virginia', '+550')]
-   South Carolina @ Alabama (#8) live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('Alabama (#8)', True), ('South Carolina', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('South Carolina', '+1100'), ('Alabama (#8)', '-2800')]
+football/college-football: 0 live events
 
 basketball/nba: 0 live events
 
