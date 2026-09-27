@@ -1,28 +1,17 @@
 
-football/nfl: 9 live events
-   Carolina Panthers @ Cleveland Browns live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('Cleveland Browns', True), ('Carolina Panthers', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Carolina Panthers', '-105'), ('Cleveland Browns', '-125')]
-   Cincinnati Bengals @ Pittsburgh Steelers live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('Pittsburgh Steelers', True), ('Cincinnati Bengals', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Cincinnati Bengals', '+105'), ('Pittsburgh Steelers', '-135')]
-   Houston Texans @ Indianapolis Colts live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('Indianapolis Colts', True), ('Houston Texans', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Houston Texans', '+120'), ('Indianapolis Colts', '-155')]
+nfl: 9 bovada live lines; errors []
+   bovada {'home': 'Cleveland Browns', 'away': 'Carolina Panthers', 'ml_home': -125, 'ml_away': -105}
+   bovada {'home': 'Pittsburgh Steelers', 'away': 'Cincinnati Bengals', 'ml_home': -135, 'ml_away': 105}
+   bovada {'home': 'Indianapolis Colts', 'away': 'Houston Texans', 'ml_home': -155, 'ml_away': 120}
+   bovada {'home': 'Miami Dolphins', 'away': 'Kansas City Chiefs', 'ml_home': 475, 'ml_away': -800}
+   Patriots @ Jaguars: bovada (-205, 155) (0.632)  AN (220, -295) (0.295)  -> (None, None)
+   Titans @ Giants: bovada (-185, 140) (0.609)  AN (None, None) (None)  -> (-185, 140)
+   Chiefs @ Dolphins: bovada (475, -800) (0.164)  AN (None, None) (None)  -> (475, -800)
+   Bengals @ Steelers: bovada (-135, 105) (0.541)  AN (None, None) (None)  -> (-135, 105)
+   Seahawks @ Commanders: bovada (115, -150) (0.437)  AN (None, None) (None)  -> (115, -150)
+   Chargers @ Bills: bovada (-110, -120) (0.49)  AN (None, None) (None)  -> (-110, -120)
+   Panthers @ Browns: bovada (-125, -105) (0.52)  AN (None, None) (None)  -> (-125, -105)
+   Texans @ Colts: bovada (-155, 120) (0.572)  AN (None, None) (None)  -> (-155, 120)
+   Jets @ Lions: bovada (-425, 285) (0.757)  AN (None, None) (None)  -> (-425, 285)
 
-football/college-football: 16 live events
-   Kansas State @ Cincinnati live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('Cincinnati', True), ('Kansas State', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Kansas State', '+375'), ('Cincinnati', '-600')]
-   Oklahoma State @ West Virginia live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('West Virginia', True), ('Oklahoma State', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('Oklahoma State', '-1000'), ('West Virginia', '+550')]
-   South Carolina @ Alabama (#8) live True keys ['availableSGP', 'awayTeamFirst', 'competitionId', 'competitors', 'denySameGame', 'description', 'displayGroups', 'hasStreaming', 'id', 'lastModified', 'link', 'live', 'notes', 'numMarkets', 'sport', 'startTime', 'status', 'teaserAllowed', 'type']
-   competitors [('Alabama (#8)', True), ('South Carolina', False)]
-   ML {'id': '251', 'description': 'Live Game', 'abbreviation': 'G', 'live': True, 'main': True} [('South Carolina', '+1100'), ('Alabama (#8)', '-2800')]
-
-basketball/nba: 0 live events
-
-hockey/nhl: 0 live events
-
-baseball/mlb: 0 live events
+ncaaf: 0 bovada live lines; errors []
