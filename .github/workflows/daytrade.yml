@@ -2,6 +2,7 @@
 name: daytrade-tournament
 on:
   push:
+    branches: [main]
     paths: ["daytrade.py", ".github/workflows/daytrade.yml"]
   workflow_dispatch: {}
 permissions:

@@ -5,6 +5,7 @@
 name: dex-legends-study
 on:
   push:
+    branches: [main]
     paths: ["dex_legends_study.py", ".github/workflows/dex_legends_study.yml"]
   workflow_dispatch:
     inputs:

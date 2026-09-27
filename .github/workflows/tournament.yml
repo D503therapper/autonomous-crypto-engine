@@ -2,6 +2,7 @@
 name: tournament
 on:
   push:
+    branches: [main]
     paths: ["tournament.py", ".github/workflows/tournament.yml"]
   workflow_dispatch: {}
 permissions:

@@ -5,6 +5,7 @@
 name: dex-floor-study
 on:
   push:
+    branches: [main]
     paths: ["dex_floor_study.py", ".github/workflows/dex_floor_study.yml"]
   workflow_dispatch:
     inputs:

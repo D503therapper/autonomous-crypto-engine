@@ -3,6 +3,7 @@
 name: crypto-studies
 on:
   push:
+    branches: [main]
     paths: ["crypto_studies.py", ".github/workflows/crypto_studies.yml"]
   workflow_dispatch: {}
 permissions:

@@ -2,6 +2,7 @@
 name: lab
 on:
   push:
+    branches: [main]
     paths: ["lab.py", ".github/workflows/lab.yml"]
   workflow_dispatch: {}
 permissions:

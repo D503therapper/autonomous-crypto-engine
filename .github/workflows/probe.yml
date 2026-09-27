@@ -2,6 +2,7 @@
 name: probe
 on:
   push:
+    branches: [main]
     paths: ["tools/probe.py", ".github/workflows/probe.yml"]
   workflow_dispatch: {}
 permissions:

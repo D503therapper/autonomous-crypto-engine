@@ -5,6 +5,7 @@
 name: dex-filter-study
 on:
   push:
+    branches: [main]
     paths: ["dex_filter_study.py", ".github/workflows/dex_filter_study.yml"]
   workflow_dispatch:
     inputs:
