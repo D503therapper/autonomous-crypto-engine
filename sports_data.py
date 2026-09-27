@@ -26,7 +26,7 @@ ERRORS = []      # failed calls this run (only the first few are printed)
 FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_name",
           "home_score", "away_score", "ml_home", "ml_away", "odds_time", "neutral",
           "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
-          "inj_home", "inj_away"]
+          "inj_home", "inj_away", "sp_home", "sp_away"]
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 
 
@@ -143,11 +143,19 @@ def parse_scoreboard(league, payload):
                 return ""
         (hid, hname), (aid, aname) = team("home"), team("away")
         od = _odds(comp)
+
+        def probable(side):
+            for pr in teams[side].get("probables") or []:
+                a = pr.get("athlete") or {}
+                if a.get("displayName") or a.get("fullName"):
+                    return a.get("displayName") or a.get("fullName")
+            return ""
         out.append({
             "id": f"{league}:{ev.get('id')}", "league": league, "start": ev.get("date") or comp.get("date", ""),
             "status": status, "home": hid, "away": aid, "home_name": hname, "away_name": aname,
             "home_score": score("home") if status == "final" else "", "away_score": score("away") if status == "final" else "",
             "odds_time": "", "neutral": 1 if comp.get("neutralSite") else 0, "inj_home": "", "inj_away": "",
+            "sp_home": probable("home"), "sp_away": probable("away"),
             **{k: ("" if v is None else v) for k, v in od.items()},
         })
     return out
@@ -208,7 +216,7 @@ def merge(old, new, now_iso):
     ever seen stand in for the opening line when ESPN doesn't give one (for line movement)."""
     g = dict(old or new)
     if old is not None:
-        for k in ("start", "status", "home_name", "away_name", "home_score", "away_score", "neutral"):
+        for k in ("start", "status", "home_name", "away_name", "home_score", "away_score", "neutral", "sp_home", "sp_away"):
             g[k] = new[k]
     has = new["ml_home"] != "" and new["ml_away"] != ""
     if has and (new["status"] == "pre" or old is None or old.get("ml_home", "") == ""):
@@ -273,7 +281,9 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
 
 
 # ---------------------------------------------------------------- injuries
-SHORT_TERM = ("out", "doubtful")       # long-term IR is already priced into the ratings
+SHORT_TERM = ("out", "doubtful")       # counted as missing (long-term IR is already priced into the ratings)
+UNSURE = ("questionable", "game-time", "game time", "day-to-day", "day to day")   # not known yet: wait for news
+KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": set()}  # None = any player
 
 
 def fetch_injuries(league):
@@ -294,7 +304,7 @@ def parse_injuries(payload):
         rows = []
         for i in t.get("injuries") or []:
             status = str(i.get("status") or (i.get("type") or {}).get("description") or "").lower()
-            if not any(s in status for s in SHORT_TERM):
+            if not any(s in status for s in SHORT_TERM + UNSURE):
                 continue
             a = i.get("athlete") or {}
             rows.append((a.get("displayName") or "?", (a.get("position") or {}).get("abbreviation") or "",
@@ -305,7 +315,7 @@ def parse_injuries(payload):
     return out
 
 
-def team_injuries(inj, team_id, team_name):
+def _team_rows(inj, team_id, team_name):
     if not inj:
         return []
     if team_id in inj:
@@ -314,6 +324,18 @@ def team_injuries(inj, team_id, team_name):
         if team_name and not k.isdigit() and (k.endswith(" " + team_name) or k == team_name):
             return v
     return []
+
+
+def team_injuries(inj, team_id, team_name):
+    """Players ruled Out / Doubtful: (name, position, status)."""
+    return [r for r in _team_rows(inj, team_id, team_name) if any(s in r[2].lower() for s in SHORT_TERM)]
+
+
+def team_unsure(inj, team_id, team_name, league):
+    """Key players whose status is still up in the air (e.g. a questionable QB)."""
+    keys = KEY_POS.get(league, set())
+    return [r for r in _team_rows(inj, team_id, team_name)
+            if any(s in r[2].lower() for s in UNSURE) and (keys is None or r[1] in keys)]
 
 
 # ---------------------------------------------------------------- Action Network: odds history

@@ -3,12 +3,13 @@
 Every hour (GitHub Actions, .github/workflows/sports.yml):
   1. sync games, scores and odds for NFL, NBA, MLB, NHL from ESPN;
   2. grade finished picks;
-  3. once a day (after PICK_HOUR_PT Pacific) retune the model on all results, pull injuries,
-     and post the board: 2-leg of the day, 3-leg of the day, lock of the day, dog of the day;
+  3. retrain on new results, pull injuries, and post the board (2-leg, 3-leg, lock, dog of the day): from 6pm
+     Pacific the night before, each play goes up once its games' key news is known (3h before at the latest);
   4. rebuild the phone dashboard (docs/sports/index.html).
 
     python sports.py            # one cycle
-    python sports.py --repick   # replace today's board (e.g. after a rules change)
+    python sports.py --repick   # redo today's board (e.g. after a rules change)
+    SPORTS_POST_NOW=1 python sports.py   # post every play right now
 """
 import itertools
 import json
@@ -25,7 +26,10 @@ DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
 START_BANKROLL = 1000.0
 STAKE = 100.0
-PICK_HOUR_PT = 8               # the board goes up at the first run after 8am Pacific
+POST_FROM_HOUR_PT = 18         # a day's plays can be posted from 6pm Pacific the night before...
+DEADLINE_MIN = 180             # ...as soon as everything that matters is known; if it never is, at the latest
+                               # 3 hours before the play's first game (then only from games that are settled).
+                               # A posted play is final: it never changes.
 MIN_LEAD_MIN = 20              # only games starting at least this long after the board goes up
 MIN_KNOWN = 5                  # both teams need this many rated games
 MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter than this
@@ -88,8 +92,20 @@ def _reasons(side, f, g, league, params):
     return [r[1] for r in out[:3]]
 
 
-def candidates(games, model, now=None, day=None):
-    """Every bettable side on today's (Pacific) slate: moneylines, plus spreads in NFL/NBA."""
+def waiting_on(g, injuries):
+    """What still isn't known for a game (empty when it's safe to post): a starting pitcher, a key player's status."""
+    out = []
+    if g["league"] == "mlb":
+        out += [f"{g[side + '_name']} starting pitcher" for side in ("away", "home") if not g.get("sp_" + side)]
+    inj = (injuries or {}).get(g["league"])
+    for side in ("away", "home"):
+        out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable"
+                for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"])[:2]]
+    return out
+
+
+def candidates(games, model, now=None, day=None, injuries=None):
+    """Every bettable side on the day's (Pacific) slate: moneylines, plus spreads in NFL/NCAAF/NBA."""
     now = now or datetime.now(timezone.utc)
     day = day or now.astimezone(PT).date()
     elo = sm.ratings(games, model)
@@ -107,10 +123,12 @@ def candidates(games, model, now=None, day=None):
             continue
         ph = sm.final_p(params, f, g)
         mkt = sm.market_p(g)
+        waiting = waiting_on(g, injuries)
         for side in ("home", "away"):
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp,
-                    "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params)}
+                    "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
+                    "waiting": waiting}
             odds = int(g[f"ml_{side}"])
             p = ph if side == "home" else 1 - ph
             out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p,
@@ -151,15 +169,16 @@ def _parlay(cands, n, min_dec, top=40):
     return None
 
 
-def make_board(cands):
-    """{kind: pick or None} following the owner's rules."""
+def make_board(cands, lock_game=None):
+    """{kind: pick or None} following the owner's rules (lock_game: an already-locked lock's game, kept off the dog)."""
     board = {"two": _parlay(cands, 2, TWO_LEG_MIN_DEC), "three": _parlay(cands, 3, THREE_LEG_MIN_DEC)}
     ml = [c for c in cands if c["market"] == "ml"]
     locks = [c for c in ml if c["odds"] >= LOCK_MAX_FAV]
     good = [c for c in locks if c["edge"] >= LEG_MIN_EDGE] or locks
     lock = max(good, key=lambda c: (c["p"], c["edge"])) if good else None
     board["lock"] = {"legs": [lock], "dec": lock["dec"], "p_hit": lock["p"]} if lock else None
-    dogs = [c for c in ml if c["odds"] >= DOG_MIN and (not lock or c["game_id"] != lock["game_id"])]
+    taken = lock_game or (lock["game_id"] if lock else None)
+    dogs = [c for c in ml if c["odds"] >= DOG_MIN and c["game_id"] != taken]
     dog = max(dogs, key=lambda c: c["edge"]) if dogs else None
     board["dog"] = {"legs": [dog], "dec": dog["dec"], "p_hit": dog["p"]} if dog else None
     return board
@@ -212,15 +231,21 @@ def grade(picks, games, now=None):
 
 
 # ---------------------------------------------------------------- the cycle
+def _start(leg):
+    return datetime.strptime(leg["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+
+
 def post_board(games, model, picks, now, day, force=False):
-    todays = [p for p in picks if p["date"] == day.isoformat()]
-    if todays and not force:
+    """Post the day's plays. A play goes up as soon as none of its games is waiting on news (a starting
+    pitcher, a questionable QB/goalie...); otherwise its card says what it's waiting on, and at the latest
+    DEADLINE_MIN before its first game it is posted from settled games only. force posts everything now.
+    A posted play is final. Returns the plays posted by this call."""
+    iso = day.isoformat()
+    picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] <= iso)]   # rebuilt every run
+    posted = {p["kind"]: p for p in picks if p["date"] == iso}
+    if len(posted) == len(KINDS):
         return []
-    if force:
-        picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] != "open"]
-    injuries = {}
-    for lg in sd.LEAGUES:
-        injuries[lg] = sd.fetch_injuries(lg)
+    injuries = {lg: sd.fetch_injuries(lg) for lg in sd.LEAGUES}
     for g in games.values():
         if g["status"] != "pre" or not injuries.get(g["league"]):
             continue
@@ -230,11 +255,27 @@ def post_board(games, model, picks, now, day, force=False):
         inj = injuries[g["league"]]
         for side in ("home", "away"):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
-    board = make_board(candidates(games, model, now, day))
+    cands = candidates(games, model, now, day, injuries)
+    settled = [c for c in cands if not c["waiting"]]
     new = []
     for kind, _ in KINDS:
-        b = board.get(kind)
-        if not b:
+        if kind in posted:
+            continue
+        lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted else None
+        best = make_board(cands, lock_game).get(kind)
+        if not best:
+            continue
+        deadline = min(_start(l) for l in best["legs"]) - timedelta(minutes=DEADLINE_MIN)
+        if force or all(not l["waiting"] for l in best["legs"]):
+            b = best
+        elif now >= deadline:
+            b = make_board(settled, lock_game).get(kind)       # out of time: only games that are settled
+            if not b:
+                continue
+        else:
+            wait = sorted({w for l in best["legs"] for w in l["waiting"]})
+            picks.append({"date": iso, "kind": kind, "status": "waiting", "legs": [], "waiting": wait[:3],
+                          "deadline": deadline.strftime("%Y-%m-%dT%H:%MZ")})
             continue
         for leg in b["legs"]:
             g = games[leg["game_id"]]
@@ -242,10 +283,12 @@ def post_board(games, model, picks, now, day, force=False):
             for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
                 outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
                 leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
-        new.append({"date": day.isoformat(), "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
-                    "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
-                    "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0})
-    picks.extend(new)
+        pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
+              "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
+              "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0}
+        picks.append(pk)
+        posted[kind] = pk
+        new.append(pk)
     return new
 
 
@@ -275,7 +318,7 @@ def run(repick=False, fetch=True):
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")
     day = now.astimezone(PT).date()
-    due = now.astimezone(PT).hour >= PICK_HOUR_PT or os.environ.get("SPORTS_POST_NOW") == "1"
+    post_now = os.environ.get("SPORTS_POST_NOW") == "1"
     n_final = sum(g["status"] == "final" for g in games.values())
     if (model.get("today") or {}).get("date") != day.isoformat():       # baseline for tonight's "in a nutshell"
         model["today"] = {"date": day.isoformat(), "finals": model.get("finals_seen", n_final),
@@ -287,10 +330,14 @@ def run(repick=False, fetch=True):
         model["finals_seen"], model["odds_seen"] = n_final, n_odds
         print(f"tuned in {time.time() - t0:.0f}s: " + ", ".join(
             f"{lg} trust {p['trust']:.0%} acc {p['accuracy']:.1%}" for lg, p in model["params"].items()))
-    if due or repick:
-        for pk in post_board(games, model, picks, now, day, force=repick):
+    if repick:
+        picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
+    picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
+    days = [day] + ([day + timedelta(days=1)] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else [])
+    for d in days:
+        for pk in post_board(games, model, picks, now, d, force=post_now and d == day):
             legs = " + ".join(f"{leg_label(l)} ({fmt_american(l['odds'])})" for l in pk["legs"])
-            print(f"posted {pk['kind']}: {legs} -> {fmt_american(pk['american'])}, hit {pk['p_hit']:.0%}")
+            print(f"posted {pk['kind']} for {d}: {legs} -> {fmt_american(pk['american'])}, hit {pk['p_hit']:.0%}")
     sd.save_games(games)
     _save("state.json", state)
     _save("model.json", model)

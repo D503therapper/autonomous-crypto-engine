@@ -51,7 +51,9 @@ Every hour, `.github/workflows/sports.yml` runs `sports.py`:
    margin of victory), recent form, rest, back-to-backs, injuries (players Out/Doubtful), and line movement
    (the free stand-in for sharp money). These are blended with the betting market by a learned "trust" weight.
    What changed is logged in `data/sports/model.json` and shown on the dashboard under "The Brain".
-4. **The board** goes up at the first run after 8am Pacific:
+4. **The board** shows as a PREVIEW from 6pm Pacific the night before and is re-picked every hour as lines
+   and injury news move. Plays LOCK (official, graded) at 7am Pacific on game day, or 3 hours before an
+   earlier game:
    - **2-Leg of the Day:** $100 wins at least $500. One leg per game, no moneyline leg shorter than −150.
    - **3-Leg of the Day:** $100 wins at least $1,000. Same leg rules.
    - **Lock of the Day:** a moneyline no shorter than −120, picked for the highest win chance.
