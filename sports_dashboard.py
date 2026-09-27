@@ -630,6 +630,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .total{{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
 .sp-n{{font-size:12px;color:#9fb0c8;margin:4px 0 12px}}
 .grades{{margin-bottom:12px}}
+.sp-n.what{{color:#ffe08a;font-weight:600;line-height:1.5}} .sp-n.what b{{color:#22e39a}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
 .pill small{{color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em}}
@@ -692,7 +693,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n">Every kind of play graded on its own — no lumping. Full transparency. The 8-leg lottery ticket keeps its own record below.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, Dog, 2-Leg and 3-Leg the engine is most confident in, posted before the first game. Graded by how sure we were: 🔒 locks, 🔥 value, 🟡 leans. 📡 Live bets, the 🎰 8-leg lottery ticket and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
