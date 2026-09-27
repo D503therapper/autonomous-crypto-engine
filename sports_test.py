@@ -403,6 +403,8 @@ def test_comeback_study_and_live_rules():
     # a price miles from what the score says (e.g. a favorite +900 in a tied game): the book knows something
     tied = dict(box, total_home_points=70, total_away_points=70)
     assert not [p for p in sports_live.evaluate("nba", g, tied, 900, -2000, st, 0.65, 0.65, 0.0, "", 1) if p["team"] == "Lakers"]
+    # ...but a price confirmed by two sources is real, so the value math decides (not the too-far-off filter)
+    assert sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1, True)
     # the live price comes from the sportsbook (Bovada), cross-checked with Action Network
     gm_ = {"home_name": "Jaguars", "away_name": "Patriots"}
     lines = [{"home": "Jacksonville Jaguars", "away": "New England Patriots", "ml_home": -140, "ml_away": 120}]

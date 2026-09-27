@@ -264,7 +264,7 @@ def _last_period(box):
     return int(p.get("home_points") or 0), int(p.get("away_points") or 0)
 
 
-def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key):
+def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key, checked=False):
     """Both sides of one live game -> plays that clear every bar (plus money, 5%+ edge, substantial reasons)."""
     fit = ((st.get(league) or {}).get("curve") or {})
     if fit.get("ll") is None or pre_market_p is None:
@@ -279,9 +279,9 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         edge = p * sd.decimal(ml) - 1
         if ml < DOG_MIN or edge < LIVE_MIN_EDGE or p < LIVE_MIN_P:   # plus money, real value, a real chance
             continue
-        if p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
-            continue       # the price is miles from what the score says: the book knows something (injury, ejection)
-                           # or the feed is off - never a play
+        if not checked and p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
+            continue       # only one source and the price is miles from what the score says: can't tell a real
+                           # price from a glitch, so no play. Two sources agreeing = a real price = it plays.
         us, them = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
         my, their = (hs, as_) if side == "home" else (as_, hs)
         side_pre = pre_market_p if side == "home" else 1 - pre_market_p
@@ -356,14 +356,15 @@ def book_line(lines, g):
     return None, None
 
 
-def confirmed_line(book, an):
+def confirmed_line(book, an, both=False):
     """The live price we trust: the sportsbook's line, cross-checked with Action Network's when it has one.
-    Far apart = one of them is glitched = no price."""
+    Far apart = one of them is glitched = no price. both=True also says whether the two sources agreed."""
     if book[0] is None or book[1] is None:
-        return None, None
-    if an[0] is not None and an[1] is not None and abs(sd.no_vig(*book) - sd.no_vig(*an)) > AGREE:
-        return None, None
-    return book
+        return (None, None, False) if both else (None, None)
+    two = an[0] is not None and an[1] is not None
+    if two and abs(sd.no_vig(*book) - sd.no_vig(*an)) > AGREE:
+        return (None, None, False) if both else (None, None)
+    return (book[0], book[1], two) if both else book
 
 
 def live_line(box):
@@ -401,7 +402,7 @@ def cycle(games, model, log, now=None, st=None, showing=()):
             g = _match(games, lg, ang)
             if not g:
                 continue
-            mlh, mla = confirmed_line(book_line(books, g), live_line(box))
+            mlh, mla, checked = confirmed_line(book_line(books, g), live_line(box), both=True)
             PRICED[0] += mlh is not None and mla is not None
             if mlh is None or mla is None:
                 continue
@@ -410,7 +411,7 @@ def cycle(games, model, log, now=None, st=None, showing=()):
             p_model = sm.final_p(params, f, g) if mkt is not None else None
             ball = ball_value(lg, ang, box)
             ball_txt = (box.get("situation") or {}).get("display_short") or "" if ball else ""
-            for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour):
+            for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked):
                 pl["an_id"] = ang.get("id")
                 plays.append(pl)
     plays = board(plays, showing)
