@@ -202,7 +202,7 @@ def _parlay(cands, n, top=40):
     pool = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: -c["edge"])[:top]
     if n > 3:                                     # big parlays: the likeliest good leg per game, then the likeliest games
         per_game = {}
-        fill = sorted((c for c in cands if c["odds"] >= MAX_FAV and not good(c)),
+        fill = sorted((c for c in cands if c["odds"] >= MAX_FAV and not good(c) and c["market"] == "ml"),   # spreads: value only
                       key=lambda c: (not c.get("reasons"), -c["p"]))            # the 8-leg always goes up: if the
         for c in pool + fill:                                                   # slate's short on value, the likeliest
             if c["game_id"] in per_game and good(per_game[c["game_id"]]) and not good(c):   # legs fill it

@@ -230,8 +230,10 @@ def test_board_rules():
     assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
     assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
     short = slate[:5] + [_cand(f"n{i}", -120, 0.50) for i in range(5)]      # only 5 value legs: still an 8-leg
+    short += [_cand("sp", -110, 0.51, "spread", -10.5, "nfl")]              # a no-value big-favorite spread: never filler
     eight = sports.make_board(short)["eight"]["legs"]
     assert len(eight) == 8 and sum(sports.good(l) for l in eight) == 5 and all(l["odds"] >= sports.MAX_FAV for l in eight)
+    assert all(l["market"] == "ml" for l in eight if not sports.good(l)), "a spread only gets in as a real value play"
     filler = [_cand("p", 202, 0.32), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
     b = sports.make_board(filler)
     assert b["two"] is None and b["three"] is None, "no good pair on the slate = no play, never a filler"
