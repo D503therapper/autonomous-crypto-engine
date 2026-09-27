@@ -245,6 +245,12 @@ def test_board_rules():
     lean_game = b["dog"]["legs"][0]["game_id"]
     b2 = sports.make_board(filler, allow_lean=True, avoid={lean_game})
     assert not b2["dog"] or b2["dog"]["legs"][0]["game_id"] != lean_game, "a lean never uses a game we're already on"
+    # confidence tiers: a plus-money pick can be a LOCK when the engine's sure; a parlay is only as sure as its weakest leg
+    assert sports.leg_tier(_cand("pl", 120, 0.58)) == "lock", "plus money + 58% to win at +120 = a lock"
+    assert sports.leg_tier(_cand("pt", 110, 0.55)) == "value", "plus money treads lightly: 55% at +110 isn't enough for a lock"
+    assert sports.leg_tier(_cand("mn", -120, 0.60)) == "lock", "minus money: 60% at -120 (10% edge) = a lock"
+    assert sports.leg_tier(_cand("v", 150, 0.43)) == "value" and sports.leg_tier(_cand("n", -110, 0.50)) == "lean"
+    assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "value"}]}) == "value"
     sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
     assert not sports.good(sharp_only), "sharp money alone can never carry a pick"
     drama = {**_cand("t", 120, 0.465), "our_drama": [{"kind": "coach fired"}]}      # ~2.3% edge

@@ -112,6 +112,17 @@ def _live_story(e, used=None):
     return f"{score} {thought} — {end}"
 
 
+TIER_CHIP = {"lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
+             "lean": '<span class="chip lean">🟡 LEAN</span>'}
+TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE", "#ff5a1f", "#ff8a00"),
+             "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
+
+
+def _tier(pk):
+    import sports
+    return sports.pick_tier(pk)
+
+
 def _wl_words(ps, h):
     """'3 won · 4 lost · 43%' - so a 3-4 record can't be read as '3 of 4'."""
     if h is None:
@@ -133,8 +144,14 @@ def _breakdown(leg):
     return f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{body}</div></details>'
 
 
-def _leg(leg):
+LEG_TAG = {"lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
+           "lean": '<span class="lt-t lean">🟡 LEAN</span>'}
+
+
+def _leg(leg, tagged=False):
+    import sports
     lg = sd.LEAGUES[leg["league"]]
+    ltag = LEG_TAG[leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})] if tagged else ""
     mk = "ML" if leg["market"] == "ml" else f'{leg["line"]:+g}'
     res = leg.get("result")
     mark = ""
@@ -146,7 +163,7 @@ def _leg(leg):
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
     return f"""<div class="leg {res or ''}">
-  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span>{badge or f'<span class="tm">{_time(leg["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm">{_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])}</div>
   {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
@@ -165,18 +182,29 @@ def _pick_card(kind, pk):
 <span class="pk-l">{label}</span><span class="chip waiting">PICK COMING</span></div>
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
-    legs = "".join(_leg(leg) for leg in pk["legs"])
+    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1) for leg in pk["legs"])   # parlays: each leg shows its own tier
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
     hits = sum(l.get("result") == "won" for l in pk["legs"])
     left = sum(not l.get("result") for l in pk["legs"])
     track = (f'<div class="track">🔥 {hits} of {len(pk["legs"])} legs hit — {left} to go</div>'
              if pk["status"] == "open" and len(pk["legs"]) > 1 and hits and left else "")
+    spin = datetime.strptime(pk["date"], "%Y-%m-%d").toordinal() + sum(map(ord, pk["legs"][0]["team"])) + list(LOOK).index(kind)
+    book_wrong = ('<div class="bw">' + _rot(spin, [       # rotates by day and team - never the same line on repeat
+                      "🔒 Plus money? The line makers trippin'. This a LOCK.",
+                      "🔒 The line makers trippin' on this one. Plus money and it's a LOCK.",
+                      "🔒 Books got this wrong — the line makers trippin'. LOCK it in.",
+                      "🔒 They got us as the dog? Line makers trippin'. We calling it a LOCK.",
+                      "🔒 Plus money on this? Somebody at the book was sleepin'. LOCK.",
+                      "🔒 The books ain't see what we see. Plus money and a LOCK — let's eat.",
+                      "🔒 Line makers trippin' fr. We're getting paid extra on a LOCK.",
+                      "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
+                  if _tier(pk) == "lock" and pk.get("american", 0) > 0 and pk["status"] == "open" else "")
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
-  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{'<span class="chip lean">🟡 LEAN</span>' if pk.get("lean") else '<span class="chip val">🔥 VALUE</span>'}{_chip(pk["status"])}</div>
+  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{TIER_CHIP[_tier(pk)]}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{track}{legs}
+  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{legs}
 </section>"""
 
 
@@ -236,10 +264,17 @@ def _tennis():
 def render(picks, model, games, series, start_bank, updated_ms):
     now = datetime.now(PT)
     today = now.date().isoformat()
-    todays = {p["kind"]: p for p in picks if p["date"] == today}
+    order = list(LOOK)
+    todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
+    active = [p for p in todays if p["status"] in ("open", "waiting")]      # the top is only what's still live
+    graded_today = [p for p in todays if p["status"] not in ("open", "waiting")]   # graded = straight to the results
     board_date = now.strftime("%A, %B %-d")
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
-    board = "".join(_pick_card(k, todays.get(k)) for k in LOOK) if todays else drop
+    done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
+                  'New picks go up the second the engine finds value.</div>')
+    board = "".join(_pick_card(p["kind"], p) for p in active) if active else done_today if todays else drop
+    graded_board = (f'<div class="sec"><h2><i>●</i> GRADED TODAY</h2><span>{len(graded_today)} done</span></div>'
+                    + "".join(_pick_card(p["kind"], p) for p in reversed(graded_today))) if graded_today else ""
     tmr = (now + timedelta(days=1)).date()
     tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
@@ -247,7 +282,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
 
     graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]
     done = [p for p in graded_all if not p.get("lean")]          # the main record is value picks only
-    leans_done = [p for p in graded_all if p.get("lean")]
     done.sort(key=lambda p: (p["date"], p.get("settled", "")))
 
     def wl(ps):
@@ -307,11 +341,15 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
                      f'<div class="ls">{E(stories[id(e)])}</div></div>'
                      for e in lrows) + "</section>")
-    lw_, ll_ = sum(p["status"] == "won" for p in leans_done), sum(p["status"] == "lost" for p in leans_done)
-    lean_card = ("" if not leans_done else
-                 f'<div class="rc" style="--c1:#ffc233;--c2:#e8c77a"><div class="rc-t">🟡 LEANS</div><div class="rc-r">{lw_}-{ll_}</div>'
-                 f'<div class="rc-p">{f"{lw_} won · {ll_} lost · {lw_ / (lw_ + ll_):.0%}" if lw_ + ll_ else "&nbsp;"}</div>'
-                 f'<div class="rc-s">own record</div></div>')
+    tier_cards = []                                          # confidence levels: locks, value, leans - each its own record
+    for t in ("lock", "value", "lean"):
+        ps = [p for p in graded_all if _tier(p) == t]
+        w_, l_ = sum(p["status"] == "won" for p in ps), sum(p["status"] == "lost" for p in ps)
+        name, c1, c2 = TIER_LOOK[t]
+        tier_cards.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
+                          f'<div class="rc-p">{f"{w_} won · {l_} lost · {w_ / (w_ + l_):.0%}" if w_ + l_ else "&nbsp;"}</div>'
+                          f'<div class="rc-s">{"no results yet" if not w_ + l_ else "&nbsp;"}</div></div>')
+    lean_card = "".join(tier_cards)
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -492,6 +530,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .stamp.won{{color:var(--up);text-shadow:0 0 16px rgba(34,227,154,.7);box-shadow:0 0 22px rgba(34,227,154,.35)}}
 .stamp.lost{{color:var(--dn);text-shadow:0 0 16px rgba(255,59,59,.6)}}
 .stamp.push{{color:var(--gold)}}
+.lt-t{{margin-left:8px;font-size:10px;font-weight:900;letter-spacing:.05em}} .lt-t.lk{{color:#22e39a}} .lt-t.val{{color:#ff8a00}} .lt-t.lean{{color:#ffc233}}
+.bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
 .leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
 .leg.lost{{border-left:4px solid var(--dn);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(255,59,59,.10),transparent 60%)}}
@@ -529,6 +569,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:15px}} .tn-s{{font-size:12.5px;color:#fff;font-weight:700}}
 .tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}}
 .chip.lean{{background:#ffc233;color:#111;margin-right:6px}} .chip.val{{background:#ff5a1f;color:#fff;margin-right:6px}}
+.chip.lk{{background:#22e39a;color:#06281c;margin-right:6px}}
 .pk.lvc{{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b}} .chip.livechip{{color:#fff;background:#ff3b3b}}
 .bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
 .bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
@@ -606,8 +647,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="month">{tiles}</div>
   <div class="strip">{strip}</div>
 </section>
+{graded_board}
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(done)} graded</span></div>
-<div class="recs">{"".join(rec)}{live_card}{lean_card}</div>
+<div class="recs">{"".join(rec)}{live_card}</div>
+<div class="sec"><h2><i>●</i> BY CONFIDENCE</h2><span>locks · value · leans</span></div>
+<div class="recs">{lean_card}</div>
 {live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}

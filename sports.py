@@ -256,6 +256,30 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=()):
     return board
 
 
+LOCK_TIER_P, LOCK_TIER_EDGE = 0.55, 0.04     # a 🔒 LOCK: 55%+ to win/cover and a 4%+ edge, at any odds...
+LOCK_TIER_P_PLUS, LOCK_TIER_EDGE_PLUS = 0.58, 0.15   # ...but plus money treads lightly: 58%+ and a 15%+ edge to be a lock
+TIERS = ("lean", "value", "lock")
+
+
+def leg_tier(c):
+    """lock / value / lean for one leg, from the engine's numbers."""
+    if not good(c):
+        return "lean"
+    p_need, e_need = (LOCK_TIER_P_PLUS, LOCK_TIER_EDGE_PLUS) if c["odds"] > 0 else (LOCK_TIER_P, LOCK_TIER_EDGE)
+    return "lock" if c["p"] >= p_need and c["edge"] >= e_need else "value"
+
+
+def pick_tier(pk):
+    """A play is only as confident as its weakest leg (older picks get it from their legs' numbers)."""
+    if pk.get("tier"):
+        return pk["tier"]
+    if pk.get("lean"):
+        return "lean"
+    # only a real lean play is a LEAN; a parlay's filler leg can't drag the whole card down to one
+    tiers = [l.get("tier") or leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}) for l in pk.get("legs") or []]
+    return "lock" if tiers and all(t == "lock" for t in tiers) else "value"
+
+
 LEAN_MIN_P = {"two": 0.45, "three": 0.45, "lock": 0.50, "dog": 0.30}
 
 
@@ -420,6 +444,9 @@ def post_board(games, model, picks, now, day, force=False):
               "round": sum(p["date"] == iso and p["kind"] == kind and p["status"] != "waiting" for p in picks) + 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
               "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0, "lean": bool(b.get("lean"))}
+        for leg in pk["legs"]:
+            leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
+        pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         posted[kind] = pk
         new.append(pk)
