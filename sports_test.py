@@ -449,6 +449,9 @@ def test_comeback_study_and_live_rules():
     pl = sports_live.evaluate("nba", g, box, 320, -400, st, 0.65, 0.65, 0.0, "", 1, True, (), "home")
     assert pl and "half" in pl[0]["reasons"] and any("2nd" in x or "halftime" in x for x in pl[0]["breakdown"])
     assert not sports_live.substantial([("half", {}), ("better", {})], False)
+    # never contradict ourselves: once we're on a side in a game, the other side never goes up
+    lg_ = {"plays": {"nfl:9:home": {"date": datetime.now(sports_live.PT).date().isoformat(), "result": None}}}
+    assert sports_live.locked_sides(lg_, datetime.now(timezone.utc))["nfl:9"] == "home"
     # live prices: only the LIVE line, never the pregame "game" line
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272}}}) == (None, None)
     assert sports_live.live_line({"latest_odds": {"game": {"ml_home": -300, "ml_away": 272},

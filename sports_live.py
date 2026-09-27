@@ -497,6 +497,25 @@ def live_line(box):
     return sd.parse_american(odds.get("ml_home")), sd.parse_american(odds.get("ml_away"))
 
 
+def locked_sides(log, now):
+    """{game id: side} we're already on today - a live play (or today's pregame pick) locks the game in: we never go
+    back and back the other team in the same game."""
+    today = now.astimezone(PT).date().isoformat()
+    out = {}
+    try:
+        with open(os.path.join(sd.DATA, "picks.json")) as f:
+            for pk in json.load(f):
+                if pk.get("date") == today and pk.get("status") != "waiting":
+                    for leg in pk.get("legs") or []:
+                        out.setdefault(leg["game_id"], leg["side"])
+    except (OSError, ValueError, KeyError):
+        pass
+    for pid, e in log.get("plays", {}).items():
+        if e.get("date") == today and e.get("result") != "void":
+            out[pid.rsplit(":", 1)[0]] = pid.rsplit(":", 1)[1]
+    return out
+
+
 def board(plays, showing=()):
     """Max 2 at once: plays already up keep their slot while they still qualify; open slots go to the best edge."""
     return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
@@ -571,6 +590,8 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
         seen = datetime.strptime(old.get("seen", stamp)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
         if (now - seen).total_seconds() <= PAUSE_HOLD_S:
             plays.append({**old, "paused": True})            # hold it - the line's coming back
+    locked = locked_sides(log, now)
+    plays = [p for p in plays if locked.get(p["id"].rsplit(":", 1)[0], p["id"].rsplit(":", 1)[1]) == p["id"].rsplit(":", 1)[1]]
     fresh = {p["id"] for p in plays}
     plays = [p for p in plays if p["id"] in SEEN or p["id"] in showing]   # held two checks in a row (no blips)
     SEEN.clear()
