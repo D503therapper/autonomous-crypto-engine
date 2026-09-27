@@ -270,6 +270,7 @@ def run(repick=False, fetch=True):
     state = _load("state.json", {})
     model = _load("model.json", {"params": {}, "log": []})
     picks = _load("picks.json", [])
+    filled = 0
     if fetch:
         t0 = time.time()
         games, calls, fails = sd.sync(state)
@@ -287,7 +288,7 @@ def run(repick=False, fetch=True):
     if (model.get("today") or {}).get("date") != day.isoformat():       # baseline for tonight's "in a nutshell"
         model["today"] = {"date": day.isoformat(), "finals": model.get("finals_seen", n_final),
                           "acc": {lg: p["accuracy"] for lg, p in model["params"].items()}}
-    if n_final != model.get("finals_seen") or not model["params"]:      # retrain after every new batch of results
+    if n_final != model.get("finals_seen") or filled or not model["params"]:   # retrain on every new result or odds
         t0 = time.time()
         sm.tune_all(games, model)
         model["finals_seen"] = n_final
