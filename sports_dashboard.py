@@ -207,6 +207,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 <meta name="theme-color" content="#05070b">
 <title>THE D503 · Sports Engine</title>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-512.png"><link rel="manifest" href="manifest.webmanifest">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Teko:wght@600&display=swap" rel="stylesheet">
 <style>
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#8a94a8;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:{accent}}}
 *{{box-sizing:border-box}}
@@ -216,14 +217,14 @@ body{{font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",sy
              radial-gradient(640px 420px at 100% -80px,rgba(255,90,31,.20),transparent 70%),
              repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 2px,transparent 2px 7px),var(--bg)}}
 main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px) 16px 34px;overflow:hidden}}
-.head{{position:relative;margin:6px 0 18px}}
-.title{{font-weight:900;font-size:40px;letter-spacing:-.02em;line-height:1}}
-.the{{font-size:20px;font-weight:800;letter-spacing:.2em;color:#ff2a2a;vertical-align:middle;text-shadow:0 0 14px rgba(255,42,42,.7)}}
-.d503{{background:linear-gradient(95deg,#3b82ff 0%,#22d3ee 45%,#22e39a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 6px 22px rgba(59,130,255,.45))}}
-.tag{{margin-top:8px;font-size:12.5px;font-weight:900;letter-spacing:.34em;background:linear-gradient(90deg,#ffe08a,#ffc233 35%,#ff8a00 75%,#ff5a1f);
-  -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px rgba(255,160,40,.5))}}
-.live{{position:absolute;top:2px;right:0;white-space:nowrap;display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--up);
+.head{{position:relative;margin:6px 0 18px;display:flex;align-items:center;gap:12px}}
+.logo{{width:62px;height:62px;border-radius:15px;flex:none;box-shadow:0 10px 28px -8px rgba(227,18,27,.8)}}
+.title{{font-family:"Anton",Impact,sans-serif;font-style:italic;font-size:44px;line-height:1;letter-spacing:.01em;color:#fff;text-shadow:3px 4px 0 #000,0 0 22px rgba(227,18,27,.55)}}
+.the{{font-size:22px;color:#e3121b;vertical-align:6px;margin-right:2px;text-shadow:2px 3px 0 #000}}
+.tag{{margin-top:6px;font-family:"Teko","Arial Narrow",sans-serif;font-weight:600;font-size:17px;line-height:1;letter-spacing:.3em;color:#ffc233;
+  background:linear-gradient(180deg,#fff0b0,#ffc233 45%,#d18a00 55%,#ffd35c);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 8px rgba(255,170,40,.45))}}
+.live{{position:absolute;top:0;right:0;white-space:nowrap;display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--up);
   background:rgba(34,227,154,.08);border:1px solid rgba(34,227,154,.35);padding:6px 10px;border-radius:999px}}
 .dot{{width:8px;height:8px;border-radius:50%;background:var(--up);animation:pulse 2s infinite}}
 .dot.stale{{background:#f5b73b;animation:none}}
@@ -309,8 +310,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .foot b{{color:#fff}} .foot a{{color:#22d3ee;text-decoration:none;font-weight:700}}
 </style></head><body><main>
 <header class="head">
-  <div class="title"><span class="the">THE</span> <span class="d503">D503</span></div>
-  <div class="tag">SPORTS ENGINE</div>
+  <img class="logo" src="icon-512.png" alt="">
+  <div><div class="title"><span class="the">THE</span> D503</div>
+  <div class="tag">SPORTS ENGINE</div></div>
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
