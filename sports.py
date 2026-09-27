@@ -291,7 +291,8 @@ def pick_tier(pk):
     return "lock" if tiers and all(t == "lock" for t in tiers) else "value"
 
 
-LEAN_MIN_P = {"two": 0.45, "three": 0.45, "lock": 0.50, "dog": 0.30}
+LEAN_MIN_P = {"two": 0.58, "three": 0.58, "lock": 0.62, "dog": 0.42}   # ACCURACY FIRST: a lean is a side we expect to win
+MAX_REPLACEMENTS = 3          # afternoon/night replacements: 3 a day at most - fewer, better picks
 
 
 def lean(cands, kind, taken=None):
@@ -305,9 +306,9 @@ def lean(cands, kind, taken=None):
     elif kind in ("two", "three"):
         n = 2 if kind == "two" else 3
         best = {}
-        for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= LEAN_MIN_P[kind]), key=lambda c: -c["edge"]):
+        for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= LEAN_MIN_P[kind]), key=lambda c: -c["p"]):
             best.setdefault(c["game_id"], c)
-        legs = sorted(best.values(), key=lambda c: -c["edge"])[:n]
+        legs = sorted(best.values(), key=lambda c: -c["p"])[:n]          # the likeliest, not the longest
         if len(legs) < n:
             return None
         dec, p = 1.0, 1.0
@@ -319,7 +320,7 @@ def lean(cands, kind, taken=None):
         return None
     if not pool:
         return None
-    c = max(pool, key=lambda c: (c["edge"], c["p"]))
+    c = max(pool, key=lambda c: (c["p"], c["edge"]))                  # accuracy first: the likeliest winner
     return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 
@@ -426,6 +427,8 @@ def post_board(games, model, picks, now, day, force=False):
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
         replacing = kind in posted                            # the opening board is value only; replacements may lean
+        if replacing and sum(p["date"] == iso and (p.get("round") or 1) > 1 for p in picks) >= MAX_REPLACEMENTS:
+            continue                                          # enough for today - accuracy over volume
         avoid = {l["game_id"] for p in picks if p["date"] == iso and p["status"] == "open" for l in p["legs"]}
         best = make_board(cands, lock_game, allow_lean=replacing, avoid=avoid).get(kind)
         if not best:
