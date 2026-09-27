@@ -93,6 +93,14 @@ def _reasons(side, f, g, league, params):
         out.append((f["inj"] * 5 * s / 3, "opponent missing key players"))
     if sm.line_move(g) * s >= 0.08:
         out.append((sm.line_move(g) * s * 5, "sharp money moving this way"))
+    # situational patterns: only when 10 seasons of results say the pattern helps this side
+    w = (params or {}).get("weights", {})
+    for name, label in (("revenge", "revenge game"), ("letdown", "letdown spot for the opponent"),
+                        ("bye", "coming off a bye"), ("short", "opponent on a short week")):
+        if f.get(name, 0) * s > 0 and w.get(name, 0) >= 0.1:
+            out.append((0.4 + w[name], label))
+    if w.get("letdown", 0) <= -0.1 and f.get("letdown", 0) * s < 0:      # blowout winners keep rolling (NFL/NBA)
+        out.append((0.4 - w["letdown"], "rolling off a blowout win"))
     if f.get("key", 0) * s >= 0.4:
         out.append((f["key"] * s, {"mlb": "better starting pitcher", "nhl": "hotter goalie"}.get(league, "better QB play lately")))
     out.sort(key=lambda r: -r[0])

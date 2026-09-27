@@ -33,7 +33,8 @@ TRAIN_GAMES = 8000         # fit the weights on the most recent this many games 
 EVAL_GAMES = 900           # tune on (at most) the most recent this many finished games
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
-FEATURES = ["elo", "form", "rest", "b2b", "inj", "key"]   # our own view (besides an intercept)
+FEATURES = ["elo", "form", "rest", "b2b", "inj", "key", "revenge", "letdown", "bye", "short"]   # our view (+ intercept)
+BIG_WIN = {"nfl": 17, "ncaaf": 21, "nba": 15, "ncaab": 15, "mlb": 5, "nhl": 3}   # a blowout, for letdown spots
 KEY_EDGE = {}      # {game id: key player edge} (QB / starting pitcher / goalie form), set by sports.run
 
 
@@ -91,9 +92,11 @@ def p_home(r_home, r_away, hfa, neutral=False):
 class Elo:
     """Ratings + everything the features need about each team's recent games."""
 
-    def __init__(self, k, hfa):
-        self.k, self.hfa = k, hfa
+    def __init__(self, k, hfa, league=None):
+        self.k, self.hfa, self.league = k, hfa, league
         self.r, self.last, self.n, self.form = {}, {}, {}, {}
+        self.last_vs = {}       # (team, opponent) -> did team win their last meeting
+        self.last_big = {}      # team -> won its last game by a blowout
 
     def rating(self, team, t):
         r = self.r.get(team, 1500.0)
@@ -118,6 +121,11 @@ class Elo:
             return min(10.0, (t - self.last[tm]) / 86400) if tm in self.last else 10.0
         rh_d, ra_d = rest(g["home"]), rest(g["away"])
         ih, ia = _int(g.get("inj_home")) or 0, _int(g.get("inj_away")) or 0
+        h, a = g["home"], g["away"]
+
+        def revenge(tm, opp):                                   # lost the last meeting with this opponent
+            return 1.0 if self.last_vs.get((tm, opp)) is False else 0.0
+        football = self.league in ("nfl", "ncaaf")
         return {
             "p_elo": pe, "elo": logit(pe), "elo_pts": (rh - ra + (0 if neutral else self.hfa)),
             "form": form(g["home"]) - form(g["away"]),
@@ -125,6 +133,10 @@ class Elo:
             "b2b": float(ra_d <= 1.2) - float(rh_d <= 1.2),     # + when only the away team is on a back-to-back
             "inj": (ia - ih) / 5,
             "key": KEY_EDGE.get(g["id"], 0.0),
+            "revenge": revenge(h, a) - revenge(a, h),
+            "letdown": float(self.last_big.get(a, False)) - float(self.last_big.get(h, False)),   # + = away flat spot
+            "bye": (float(rh_d >= 10) - float(ra_d >= 10)) if football else 0.0,
+            "short": (float(ra_d <= 5) - float(rh_d <= 5)) if football else 0.0,
             "known": min(self.n.get(g["home"], 0), self.n.get(g["away"], 0)),
         }
 
@@ -140,6 +152,9 @@ class Elo:
         mult = math.log(margin + 1) * 2.2 / (diff_w * 0.001 + 2.2) if margin else 1.0
         d = self.k * mult * (res - p)
         self.r[g["home"]], self.r[g["away"]] = rh + d, ra - d
+        big = BIG_WIN.get(self.league, 10**9)
+        self.last_vs[(g["home"], g["away"])], self.last_vs[(g["away"], g["home"])] = hs > as_, as_ > hs
+        self.last_big[g["home"]], self.last_big[g["away"]] = hs - as_ >= big, as_ - hs >= big
         for tm, s in ((g["home"], res - p), (g["away"], p - res)):
             self.form.setdefault(tm, []).append(s)
             self.form[tm] = self.form[tm][-FORM_N:]
@@ -148,9 +163,9 @@ class Elo:
         return f, res, hs - as_
 
 
-def replay(fin, k, hfa):
+def replay(fin, k, hfa, league=None):
     """Run the ratings through finished games in order -> (Elo, [(game, features, result, home margin)])."""
-    e = Elo(k, hfa)
+    e = Elo(k, hfa, league or (fin[0]["league"] if fin else None))
     return e, [(g, *e.update(g)) for g in fin]
 
 
@@ -200,6 +215,27 @@ def fit_logistic(X, y, prior, lam=5.0, iters=25):
     return w
 
 
+def fit_logistic_offset(X, y, off, prior, lam=5.0, iters=25):
+    """Logistic regression with a fixed per-row offset (the market's own logit), L2-pulled toward prior."""
+    w = list(prior)
+    d = len(w)
+    for _ in range(iters):
+        g = [lam * (w[j] - prior[j]) for j in range(d)]
+        H = [[lam if i == j else 0.0 for j in range(d)] for i in range(d)]
+        for x, t, o in zip(X, y, off):
+            p = sigmoid(o + sum(a * b for a, b in zip(w, x)))
+            r, s = p - t, p * (1 - p)
+            for i in range(d):
+                g[i] += r * x[i]
+                for j in range(d):
+                    H[i][j] += s * x[i] * x[j]
+        step = _solve(H, g)
+        w = [a - b for a, b in zip(w, step)]
+        if max(abs(v) for v in step) < 1e-6:
+            break
+    return w
+
+
 def fit_linear(X, y, lam=1.0):
     d = len(X[0])
     A = [[sum(x[i] * x[j] for x in X) + (lam if i == j and i else 0.0) for j in range(d)] for i in range(d)]
@@ -212,7 +248,8 @@ def _own_x(f):
 
 
 def _spread_x(f):
-    return [1.0, f["elo_pts"] / 25, f["form"], f["rest"], f["b2b"], f["inj"], f["key"]]
+    return [1.0, f["elo_pts"] / 25, f["form"], f["rest"], f["b2b"], f["inj"], f["key"],
+            f["revenge"], f["letdown"], f["bye"], f["short"]]
 
 
 def own_p(params, f):
@@ -225,7 +262,13 @@ def final_p(params, f, g):
     m = market_p(g)
     if m is None:
         return ours
-    return sigmoid(logit(m) + params["trust"] * (logit(ours) - logit(m)) + params["move_w"] * line_move(g))
+    return sigmoid(logit(m) + params["trust"] * (logit(ours) - logit(m)) + params["move_w"] * line_move(g)
+                   + params.get("cal", 0.0) * logit(m) + params.get("hdog", 0.0) * home_dog(m, g))
+
+
+def home_dog(m, g):
+    """1 when the home team is the underdog (Vegas has historically shaded home dogs), else 0."""
+    return 1.0 if m < 0.5 and str(g.get("neutral")) != "1" else 0.0
 
 
 def margin_mu(params, f, g):
@@ -282,16 +325,15 @@ def tune(games, league, prev=None):
     ll_mkt = logloss([(market_p(g), y) for g, _, y in odds]) if odds else None
     ll_final = None
     if len(odds) >= MIN_ODDS_GAMES:
-        X = [[logit(own_p(params, f)) - logit(market_p(g)), line_move(g)] for g, f, _ in odds]
+        # what Vegas misses, learned from history: how far to trust our read, line movement, Vegas's own
+        # favorite/longshot bias (cal) and home underdogs (hdog)
+        X = [[logit(own_p(params, f)) - logit(market_p(g)), line_move(g), logit(market_p(g)), home_dog(market_p(g), g)]
+             for g, f, _ in odds]
         off = [logit(market_p(g)) for g, _, _ in odds]
-        # logistic with a fixed offset (the market): fit on x with offset folded in via a grid on trust
-        best_t = None
-        for t in [i / 20 for i in range(21)]:
-            for mw in [-0.5, -0.25, 0.0, 0.25, 0.5, 0.75, 1.0]:
-                ll = logloss([(sigmoid(o + t * x[0] + mw * x[1]), y) for o, x, (_, _, y) in zip(off, X, odds)])
-                if best_t is None or ll < best_t[0]:
-                    best_t = (ll, t, mw)
-        ll_final, params["trust"], params["move_w"] = best_t
+        w4 = fit_logistic_offset(X, [y for _, _, y in odds], off, prior=[TRUST_CAUTIOUS, 0.0, 0.0, 0.0], lam=8.0)
+        w4[0] = min(1.0, max(0.0, w4[0]))
+        params["trust"], params["move_w"], params["cal"], params["hdog"] = w4
+        ll_final = logloss([(sigmoid(o + sum(a * b for a, b in zip(w4, x))), y) for o, x, (_, _, y) in zip(off, X, odds)])
     # 4. spreads: expected margin
     sp = {}
     if league in SPREAD_LEAGUES:
@@ -354,7 +396,7 @@ def tune_all(games, model):
 
 def default_params(league):
     return {"k": BASE_K[league], "hfa": DEFAULT_HFA[league], "w": [0.0, 1.0] + [0.0] * (len(FEATURES) - 1),
-            "trust": TRUST_CAUTIOUS, "move_w": 0.0, "sw": [0.0, 1.0, 0, 0, 0, 0, 0], "sigma": 13.0, "strust": 0.2}
+            "trust": TRUST_CAUTIOUS, "move_w": 0.0, "sw": [0.0, 1.0] + [0.0] * 9, "sigma": 13.0, "strust": 0.2}
 
 
 def ratings(games, model):

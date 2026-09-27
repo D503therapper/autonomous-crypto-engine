@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 12          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 13          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -259,6 +259,36 @@ def breakdown(leg, games, elo, injuries, used=None):
                           f"🧱 {name} is standing on his head: {txt}.",
                           f"🧱 Good luck scoring on {name} — {txt}."]}[role]))
 
+    # situational spots the engine learned from 10 seasons of games
+    rsn = leg.get("reasons") or []
+    if "revenge game" in rsn:
+        out.append(v.say("revenge", [f"😤 Revenge game — {us} lost the last meeting and they haven't forgotten.",
+                                      f"😤 {us} owe {them} one from last time. Payback's coming.",
+                                      f"😤 Get-back game for {us}. They took an L to {them} last time.",
+                                      f"😤 {us} been waiting on this rematch."]))
+        said.add("revenge game")
+    if "letdown spot for the opponent" in rsn:
+        out.append(v.say("letdown", [f"🪤 Letdown spot for {them} — fresh off a blowout win, they're gonna come out flat.",
+                                      f"🪤 {them} just blew somebody out. Classic letdown game.",
+                                      f"🪤 {them} are riding high off a big W. That's when teams slip.",
+                                      f"🪤 Trap game for {them} after that blowout."]))
+        said.add("letdown spot for the opponent")
+    if "rolling off a blowout win" in rsn:
+        out.append(v.say("momentum", [f"🚀 {us} just blew somebody out — teams like that keep rolling.",
+                                       f"🚀 {us} are coming in hot off a blowout. Momentum's real.",
+                                       f"🚀 Blowout last time out for {us}. They're feeling themselves."]))
+        said.add("rolling off a blowout win")
+    if "coming off a bye" in rsn:
+        out.append(v.say("bye", [f"🛌 {us} are fresh off a bye — rested and game-planned up.",
+                                  f"🛌 Extra week to prep for {us}. That matters.",
+                                  f"🛌 Bye week in the rearview for {us}. Fresh legs, full playbook."]))
+        said.add("coming off a bye")
+    if "opponent on a short week" in rsn:
+        out.append(v.say("short", [f"⏱️ {them} are on a short week. Not much time to prep.",
+                                    f"⏱️ Short week for {them} — tired bodies, rushed game plan.",
+                                    f"⏱️ {them} barely had time to recover. Short week."]))
+        said.add("opponent on a short week")
+
     # home / road
     if side == "home":
         out.append(v.say("home", [f"🏟️ {us} are at home, about to go to work.",
@@ -418,6 +448,11 @@ WHY = {   # the pick's reasons, said as a quick "because"
     "better rested": "they got extra days of rest",
     "opponent on a back-to-back": "{them} are on tired legs",
     "opponent missing key players": "{them} are banged up",
+    "revenge game": "they owe these guys one",
+    "rolling off a blowout win": "they're rolling off a blowout",
+    "letdown spot for the opponent": "{them} are due for a letdown",
+    "coming off a bye": "they're fresh off a bye",
+    "opponent on a short week": "{them} are on a short week",
     "better starting pitcher": "we've got the better arm on the mound",
     "better QB play lately": "our QB's been playing better",
     "hotter goalie": "our goalie's been hotter",
