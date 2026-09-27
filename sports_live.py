@@ -35,6 +35,8 @@ LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we wa
 DOG_MIN = 100                 # live plays are plus money only
 MAX_GAP = 0.20                # our live chance (score, clock, who has the ball and where) vs the confirmed price: a
                               # bigger gap means the book knows something the scoreboard can't show (injury, ejection)
+STAY_EDGE, STAY_P = 0.02, 0.20   # a play already up stays until its value really fades (no flicker on the cutoff)
+PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone, review): hold the card up to 3 minutes
 LIVE_MIN_P = 0.25             # value, not lottery tickets: +300/+400 is fine when it's real, never a +900 prayer
 MAX_PLAYS = 2                 # at most 2 on the board at once (no limit per day: a slot opens when a play's value is gone)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
@@ -272,7 +274,7 @@ def _last_period(box):
     return int(p.get("home_points") or 0), int(p.get("away_points") or 0)
 
 
-def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key, checked=False):
+def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key, checked=False, hold=()):
     """Both sides of one live game -> plays that clear every bar (plus money, 5%+ edge, substantial reasons)."""
     fit = ((st.get(league) or {}).get("curve") or {})
     if fit.get("ll") is None or pre_market_p is None:
@@ -285,8 +287,9 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
     book_h = sd.no_vig(mlh, mla)
     for side, p, ml in (("home", ph, mlh), ("away", 1 - ph, mla)):
         edge = p * sd.decimal(ml) - 1
-        if ml < DOG_MIN or edge < LIVE_MIN_EDGE or p < LIVE_MIN_P:   # plus money, real value, a real chance
-            continue
+        up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
+        if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else LIVE_MIN_P):
+            continue                                         # plus money, real value, a real chance
         if not checked and p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
             continue       # only one source and the price is miles from what the score says: can't tell a real
                            # price from a glitch, so no play. Two sources agreeing = a real price = it plays.
@@ -297,7 +300,7 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         has_ball = ball_txt and (ball > 0 if side == "home" else ball < 0) and abs(ball) >= 2.2   # ball near scoring range
         lm, lt = (lh, la) if side == "home" else (la, lh)
         rs = reasons(st, league, side_pre, my, their, left, ml, has_ball, ball_txt, lm, lt, pre_value, fit)
-        if not substantial(rs, my == their):
+        if not up and not substantial(rs, my == their):       # the reasons get it up; value keeps it up
             continue
         pid = f"{g['id']}:{side}"
         k = sum(map(ord, pid)) + key
@@ -444,7 +447,7 @@ def board(plays, showing=()):
     return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
 
 
-def cycle(games, model, log, now=None, st=None, showing=()):
+def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     """Scan every live game -> the plays on the board right now. Max 2 at a time, no limit per day: a play that's
     up stays up while its value's still there (`showing`); a new one only takes a slot that's open."""
     now = now or datetime.now(timezone.utc)
@@ -454,6 +457,7 @@ def cycle(games, model, log, now=None, st=None, showing=()):
         _ELO.update(key=key, elo=sm.ratings(games, model))
     elo = _ELO["elo"]
     plays = []
+    judged = set()                # games priced and judged this check (the rest were paused / out of sync)
     WATCHING[0] = PRICED[0] = 0
     with ThreadPoolExecutor(12) as ex:                          # everything in parallel: live lines move fast
         angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live, sd.LEAGUES)))
@@ -477,20 +481,31 @@ def cycle(games, model, log, now=None, st=None, showing=()):
         for lg, ang, box, g, dk_f in todo:
             es = scores_f[lg].result().get(g["id"].split(":", 1)[1]) if lg in scores_f else None
             if es is not None and es != (_score(box, "home"), _score(box, "away")):
-                continue                                       # the two score feeds disagree: never play a glitch
+                continue                                       # the two score feeds disagree (a few seconds apart): wait
             mlh, mla, checked = two_books(dk_f.result(), book_line(books_f[lg].result() if lg in books_f else [], g))
             PRICED[0] += mlh is not None and mla is not None
             if mlh is None or mla is None:
-                continue
+                continue                                       # the book paused its line: wait
+            judged.add(g["id"])
             params = model["params"].get(lg) or sm.default_params(lg)
             f = elo[lg].features(g)
             mkt = sm.market_p(g)
             p_model = sm.final_p(params, f, g) if mkt is not None else None
             ball = ball_value(lg, ang, box)
             ball_txt = (box.get("situation") or {}).get("display_short") or "" if ball else ""
-            for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked):
+            for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing):
                 pl["an_id"] = ang.get("id")
                 plays.append(pl)
+    stamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    for p in plays:
+        p["seen"], p["paused"] = stamp, False
+    have = {p["id"] for p in plays}
+    for pid, old in (prev or {}).items():                    # a play that's up, on a game the book paused this check:
+        if pid in have or pid not in showing or pid.rsplit(":", 1)[0] in judged:
+            continue                                         # (judged and no longer value = it comes down)
+        seen = datetime.strptime(old.get("seen", stamp)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+        if (now - seen).total_seconds() <= PAUSE_HOLD_S:
+            plays.append({**old, "paused": True})            # hold it - the line's coming back
     fresh = {p["id"] for p in plays}
     plays = [p for p in plays if p["id"] in SEEN or p["id"] in showing]   # held two checks in a row (no blips)
     SEEN.clear()
@@ -558,10 +573,10 @@ def run():
     games, model = _data()
     log = json.load(open(LOG)) if os.path.exists(LOG) else {"plays": {}}
     try:
-        showing = [p["id"] for p in json.load(open(LIVE_JSON)).get("plays") or []]
+        prev = {p["id"]: p for p in json.load(open(LIVE_JSON)).get("plays") or []}
     except (OSError, ValueError):
-        showing = []
-    plays = cycle(games, model, log, showing=showing)
+        prev = {}
+    plays = cycle(games, model, log, showing=list(prev), prev=prev)
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
@@ -628,7 +643,7 @@ def _board_key():
         d = json.load(open(LIVE_JSON))
     except (OSError, ValueError):
         return None
-    return json.dumps([{k: v for k, v in p.items() if k != "posted"} for p in d.get("plays") or []], sort_keys=True) \
+    return json.dumps([{k: v for k, v in p.items() if k not in ("posted", "seen")} for p in d.get("plays") or []], sort_keys=True) \
         + str(d.get("live_games"))
 
 

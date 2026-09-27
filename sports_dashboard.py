@@ -514,7 +514,7 @@ function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
  el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>'+(ps.length?ps.map(function(p){{
-  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">🔴 LIVE</span></div>'+
+  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'🔴 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
