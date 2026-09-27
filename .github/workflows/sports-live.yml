@@ -23,4 +23,5 @@ jobs:
       - run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
+          git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
           timeout 50m python -u sports_live.py --loop 45

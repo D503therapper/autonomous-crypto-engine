@@ -424,6 +424,35 @@ def bankroll_series(picks):
     return pts
 
 
+def quick(now=None):
+    """Fast pass right when games end (the live watcher calls it): today's + yesterday's final scores from ESPN,
+    grade the picks, post any replacement picks, rebuild the dashboard. No history, no retraining (that's hourly)."""
+    now = now or datetime.now(timezone.utc)
+    model = _load("model.json", {"params": {}, "log": []})
+    picks = _load("picks.json", [])
+    games = sd.load_games()
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    day = now.astimezone(PT).date()
+    for lg in sd.LEAGUES:
+        for d in (day - timedelta(days=1), day):
+            for r in sd.fetch_day(lg, d) or []:
+                games[r["id"]] = sd.merge(games.get(r["id"]), r, stamp)
+    graded = grade(picks, games, now)
+    for pk in graded:
+        print(f"settled {pk['date']} {pk['kind']}: {pk['status']}")
+    sp.CACHE = sp.load()
+    sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
+    add_breakdowns(games, model, picks)
+    posted = post_board(games, model, picks, now, day) if graded else []
+    for pk in posted:
+        print(f"posted {pk['kind']} (replacement) for {day}")
+    sd.save_games(games)
+    _save("picks.json", picks)
+    import sports_dashboard
+    sports_dashboard.write(picks, model, games, bankroll_series(picks), START_BANKROLL)
+    return graded, posted
+
+
 def run(repick=False, fetch=True):
     now = datetime.now(timezone.utc)
     state = _load("state.json", {})

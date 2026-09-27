@@ -373,6 +373,7 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
 
 
 BOOKS = {}                    # what the sportsbook feed returned this cycle, per league (diagnostics)
+FINALS = set()                # games seen final (a new one = grade the board right away)
 WATCHING = [0]
 PRICED = [0]                  # live games with a sportsbook price this cycle                # live games seen in the last cycle (the dashboard says whether games are going)
 
@@ -590,6 +591,8 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                 box = ang.get("boxscore") or {}
                 if status in DONE or not box.get("period"):
                     _grade(log, ang)
+                    if status in ("complete", "closed", "final") and ang.get("id"):
+                        FINALS.add(ang.get("id"))
                     continue
                 WATCHING[0] += 1                               # a game going right now
                 g = _match(games, lg, ang)
@@ -738,6 +741,26 @@ def push_live():
     return False
 
 
+def publish_results(msg):
+    """Grade the picks the moment games end and rebuild the dashboard (sports.quick), then push picks + page to main."""
+    import sports
+    try:
+        graded, posted = sports.quick()
+    except Exception as e:                                   # noqa: BLE001 - never stop watching over this
+        print(f"quick grade failed: {e}", flush=True)
+        return
+    paths = [LOG, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", os.path.join(sd.DATA, "games")]
+    _git("add", *paths)
+    if _git("diff", "--cached", "--quiet").returncode == 0:
+        return
+    _git("commit", "-qm", f"{msg}: {len(graded)} graded, {len(posted)} new")
+    for _ in range(4):
+        _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+        if _git("push", "-q").returncode == 0:
+            return
+        time.sleep(3)
+
+
 def publish(msg):
     """Commit + push the live log to main - only when a play is first logged or graded. (live.json itself only
     goes out on the live-data branch; phones read it there.)"""
@@ -773,6 +796,7 @@ def loop(minutes, every_s=10):
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
+    finals_seen = None
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
     _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
     board = _git("show", f"origin/{LIVE_BRANCH}:live.json")      # are up stay up (they don't have to re-qualify)
@@ -813,6 +837,15 @@ def loop(minutes, every_s=10):
                 last_board, last_push = board, time.time()
         if _log_key() != last_log:
             publish(f"live log {datetime.now(timezone.utc):%H:%M}")
+            last_log = _log_key()
+        if finals_seen is None:                                   # a watch starts: grade whatever ended meanwhile
+            finals_seen = set(FINALS)
+            publish_results(f"results {datetime.now(timezone.utc):%H:%M}")
+            last_log = _log_key()
+        elif FINALS - finals_seen:                                # a game just ended: grade it and post results now
+            print(f"{datetime.now(timezone.utc):%H:%M:%S} games ended: grading", flush=True)
+            finals_seen = set(FINALS)
+            publish_results(f"results {datetime.now(timezone.utc):%H:%M}")
             last_log = _log_key()
         time.sleep(every_s)
     if os.path.exists(LIVE_JSON):                                 # end of watch: an empty board if nothing's on
