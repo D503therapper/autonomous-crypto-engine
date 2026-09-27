@@ -1,10 +1,75 @@
-OK geocode Denver {"results": [{"id": 5419384, "name": "Denver", "latitude": 39.73915, "longitude": -104.9847, "elevation": 1609.0, "feature_code": "PPLA", "country_code": "US", "admin1_id": 5417618, "admin2_id": 5419396, "timezone": "America/Denver", "population": 729019, "postcodes": ["80201", "80202", "80203", "80204", "80205", "80206", "80207", "80208", "80209", "80210", "80211", "80212", "80216", "80217", "802
-OK archive weather {"latitude": 39.753952, "longitude": -105.02086, "generationtime_ms": 0.0858306884765625, "utc_offset_seconds": 0, "timezone": "GMT", "timezone_abbreviation": "GMT", "elevation": 1597.0, "hourly_units": {"time": "iso8601", "temperature_2m": "\u00b0F", "wind_speed_10m": "mp/h", "precipitation": "mm"}, "hourly": {"time": ["2025-11-02T00:00", "2025-11-02T01:00", "2025-11-02T02:00", "2025-11-02T03:00"
-OK forecast weather {"latitude": 41.85271, "longitude": -87.65361, "generationtime_ms": 0.33211708068847656, "utc_offset_seconds": 0, "timezone": "GMT", "timezone_abbreviation": "GMT", "elevation": 182.0, "hourly_units": {"time": "iso8601", "temperature_2m": "\u00b0F", "wind_speed_10m": "mp/h", "precipitation": "mm"}, "hourly": {"time": ["2026-09-27T00:00", "2026-09-27T01:00", "2026-09-27T02:00", "2026-09-27T03:00", 
-VENUE football/nfl {"id": "7065", "fullName": "SoFi Stadium", "address": {"city": "Inglewood", "state": "CA", "country": "USA"}, "indoor": false} | weather: null
-GAMEINFO football/nfl {"venue": {"id": "3798", "guid": "cbb0ff53-c186-3d41-91cf-410bc23baaef", "fullName": "Lambeau Field", "address": {"city": "Green Bay", "state": "WI", "zipCode": "54304", "country": "USA"}, "grass": true, "images": [{"href": "https://a.espncdn.com/i/venues/nfl/day/3798.jpg", "width": 2000, "height": 1125, "alt": "", "rel": ["full", "day"]}, {"href": "https://a.espncdn.com/i/venues/nfl/day/interior/
-VENUE baseball/mlb {"id": "1", "fullName": "Oriole Park at Camden Yards", "address": {"city": "Baltimore", "state": "Maryland"}, "indoor": false} | weather: null
-GAMEINFO baseball/mlb {"venue": {"id": "7109", "guid": "303d2a49-857b-33f3-9ac4-a2cfe2d6cb29", "fullName": "Sutter Health Park", "shortName": "Sutter Health Park", "address": {"city": "Sacramento", "state": "California"}, "images": []}, "weather": null, "attendance": 12025}
-VENUE hockey/nhl {"id": "21", "fullName": "Giant Center", "address": {"city": "Hershey", "state": "PA", "country": "USA"}, "indoor": true} | weather: null
-GAMEINFO hockey/nhl {"venue": {"id": "5060", "guid": "6ed1cdfd-5472-3076-b4de-7c38f29e395b", "fullName": "T-Mobile Arena", "address": {"city": "Las Vegas", "state": "NV", "country": "USA"}, "grass": false, "images": [{"href": "https://a.espncdn.com/i/venues/nhl/day/5060.jpg", "width": 2000, "height": 1125, "alt": "", "rel": ["full", "day"]}]}, "weather": null, "attendance": 17264}
-INJURY TYPES ["('Day-To-Day', 'Achilles', 'day-to-day')", "('Day-To-Day', 'Ankle', 'day-to-day')", "('Day-To-Day', 'Back', 'day-to-day')", "('Day-To-Day', 'Calf', 'day-to-day')", "('Day-To-Day', 'Elbow', 'day-to-day')", "('Day-To-Day', 'Eye', 'day-to-day')", "('Day-To-Day', 'Finger', 'day-to-day')", "('Day-To-Day', 'Foot', 'day-to-day')", "('Day-To-Day', 'Hamstring', 'day-to-day')", "('Day-To-Day', 'Hand', 'day-to-day')", "('Day-To-Day', 'Heel', 'day-to-day')", "('Day-To-Day', 'Hip', 'day-to-day')", "('Day-To-Day', 'Knee', 'day-to-day')", "('Day-To-Day', 'Lower Leg', 'day-to-day')", "('Day-To-Day', 'Quadriceps', 'day-to-day')", "('Day-To-Day', 'Ribs', 'day-to-day')", "('Day-To-Day', 'Shoulder', 'day-to-day')", "('Day-To-Day', 'Toe', 'day-to-day')", "('Day-To-Day', 'Undisclosed', 'day-to-day')", "('Day-To-Day', 'Wrist', 'day-to-day')", "('Out', 'Achilles', 'out')", "('Out', 'Knee', 'out')", "('Out', 'Shoulder', 'out')"]
+===== football/nfl top keys ['boxscore', 'format', 'gameInfo', 'drives', 'leaders', 'injuries', 'broadcasts', 'pickcenter', 'odds', 'againstTheSpread', 'scoringPlays', 'header', 'news', 'videos', 'wallclockAvailable', 'winprobability', 'meta', 'standings']
+ team 1 Atlanta Falcons
+   group passing labels ['C/ATT', 'YDS', 'AVG', 'TD', 'INT', 'SACKS', 'QBR', 'RTG'] keys ['completions/passingAttempts', 'passingYards', 'yardsPerPassAttempt', 'passingTouchdowns', 'interceptions', 'sacks-sackYardsLost', 'adjQBR', 'QBRating'] n 1
+       Michael Penix Jr. None None ['18/25', '256', '10.2', '1', '1', '0-0', '84.5', '101.4']
+   group rushing labels ['CAR', 'YDS', 'AVG', 'TD', 'LONG'] keys ['rushingAttempts', 'rushingYards', 'yardsPerRushAttempt', 'rushingTouchdowns', 'longRushing'] n 3
+       Bijan Robinson None None ['29', '194', '6.7', '2', '55']
+       Brian Robinson Jr. None None ['10', '50', '5.0', '1', '16']
+   group receiving labels ['REC', 'YDS', 'AVG', 'TD', 'LONG', 'TGTS'] keys ['receptions', 'receivingYards', 'yardsPerReception', 'receivingTouchdowns', 'longReception', 'receivingTargets'] n 7
+       Drake London None None ['9', '194', '21.6', '0', '68', '10']
+       Bijan Robinson None None ['2', '19', '9.5', '0', '17', '2']
+   group fumbles labels ['FUM', 'LOST', 'REC'] keys ['fumbles', 'fumblesLost', 'fumblesRecovered'] n 0
+   group defensive labels ['TOT', 'SOLO', 'SACKS', 'TFL', 'PD', 'QB HTS', 'TD'] keys ['totalTackles', 'soloTackles', 'sacks', 'tacklesForLoss', 'passesDefended', 'QBHits', 'defensiveTouchdowns'] n 23
+       C.J. Henderson None None ['8', '8', '0', '0', '3', '0', '0']
+       Mike Hughes None None ['7', '6', '0', '0', '0', '0', '0']
+   group interceptions labels ['INT', 'YDS', 'TD'] keys ['interceptions', 'interceptionYards', 'interceptionTouchdowns'] n 1
+       Xavier Watts None None ['1', '17', '0']
+   group kickReturns labels ['NO', 'YDS', 'AVG', 'LONG', 'TD'] keys ['kickReturns', 'kickReturnYards', 'yardsPerKickReturn', 'longKickReturn', 'kickReturnTouchdowns'] n 2
+       Brian Robinson Jr. None None ['2', '54', '27.0', '30', '0']
+       Zachariah Branch None None ['1', '22', '22.0', '22', '0']
+   group puntReturns labels ['NO', 'YDS', 'AVG', 'LONG', 'TD'] keys ['puntReturns', 'puntReturnYards', 'yardsPerPuntReturn', 'longPuntReturn', 'puntReturnTouchdowns'] n 2
+       Zachariah Branch None None ['1', '18', '18.0', '18', '0']
+       Olamide Zaccheaus None None ['1', '4', '4.0', '4', '0']
+   group kicking labels ['FG', 'PCT', 'LONG', 'XP', 'PTS'] keys ['fieldGoalsMade/fieldGoalAttempts', 'fieldGoalPct', 'longFieldGoalMade', 'extraPointsMade/extraPointAttempts', 'totalKickingPoints'] n 1
+       Nick Folk None None ['2/2', '100.0', '44', '3/3', '9']
+   group punting labels ['NO', 'YDS', 'AVG', 'TB', 'In 20', 'LONG'] keys ['punts', 'puntYards', 'grossAvgPuntYards', 'touchbacks', 'puntsInside20', 'longPunt'] n 1
+       Jake Bailey None None ['2', '91', '45.5', '0', '2', '61']
+===== baseball/mlb top keys ['notes', 'boxscore', 'format', 'gameInfo', 'seasonseries', 'injuries', 'broadcasts', 'pickcenter', 'odds', 'againstTheSpread', 'rosters', 'news', 'header', 'winprobability', 'article', 'videos', 'plays', 'playsMap', 'atBats', 'wallclockAvailable']
+ team 18 Houston Astros
+   group None labels ['H-AB', 'AB', 'R', 'H', 'RBI', 'HR', 'BB', 'K', '#P', 'AVG', 'OBP', 'SLG'] keys ['hits-atBats', 'atBats', 'runs', 'hits', 'RBIs', 'homeRuns', 'walks', 'strikeouts', 'pitches', 'avg', 'onBasePct', 'slugAvg'] n 12
+       Jeremy Pena SS True ['4-6', '6', '4', '4', '4', '2', '0', '1', '24', '.276', '.325', '.477']
+       Yordan Alvarez DH True ['2-5', '5', '2', '2', '3', '1', '0', '2', '19', '.316', '.432', '.604']
+   group None labels ['IP', 'H', 'R', 'ER', 'BB', 'K', 'HR', 'PC-ST', 'ERA', 'PC'] keys ['fullInnings.partInnings', 'hits', 'runs', 'earnedRuns', 'walks', 'strikeouts', 'homeRuns', 'pitches-strikes', 'ERA', 'pitches'] n 2
+       Hayden Wesneski SP True ['7.0', '6', '2', '1', '1', '5', '0', '82-58', '3.25', '82']
+       Ronel Blanco RP False ['2.0', '0', '0', '0', '1', '3', '0', '30-18', '6.68', '30']
+===== hockey/nhl top keys ['boxscore', 'format', 'gameInfo', 'leaders', 'injuries', 'broadcasts', 'pickcenter', 'odds', 'againstTheSpread', 'news', 'plays', 'header', 'videos', 'wallclockAvailable', 'meta', 'onIce', 'standings']
+ team 18 San Jose Sharks
+   group forwards labels ['BS', 'HT', 'TK', '+/-', 'TOI', 'PPTOI', 'SHTOI', 'ESTOI', 'SHFT', 'G', 'YTDG', 'A', 'S', 'SM', 'SOG', 'FW', 'FL', 'FO%', 'GV', 'PN', 'PIM'] keys ['blockedShots', 'hits', 'takeaways', 'plusMinus', 'timeOnIce', 'powerPlayTimeOnIce', 'shortHandedTimeOnIce', 'evenStrengthTimeOnIce', 'shifts', 'goals', 'ytdGoals', 'assists', 'shotsTotal', 'shotsMissed', 'shootoutGoals', 'faceoffsWon', 'faceoffsLost', 'faceoffPercent', 'giveaways', 'penalties', 'penaltyMinutes'] n 12
+       Macklin Celebrini C None ['0', '1', '2', '1', '19:03', '3:08', '0:07', '15:48', '18', '1', '1', '1', '1', '0', '0', '7', '5', '58.3', '1', '1', '2']
+       Igor Chernyshov LW None ['0', '0', '1', '1', '12:11', '3:08', '0:56', '8:07', '15', '0', '2', '1', '1', '0', '0', '0', '0', '0.0', '0', '0', '0']
+   group defenses labels ['BS', 'HT', 'TK', '+/-', 'TOI', 'PPTOI', 'SHTOI', 'ESTOI', 'SHFT', 'G', 'YTDG', 'A', 'S', 'SM', 'SOG', 'FW', 'FL', 'FO%', 'GV', 'PN', 'PIM'] keys ['blockedShots', 'hits', 'takeaways', 'plusMinus', 'timeOnIce', 'powerPlayTimeOnIce', 'shortHandedTimeOnIce', 'evenStrengthTimeOnIce', 'shifts', 'goals', 'ytdGoals', 'assists', 'shotsTotal', 'shotsMissed', 'shootoutGoals', 'faceoffsWon', 'faceoffsLost', 'faceoffPercent', 'giveaways', 'penalties', 'penaltyMinutes'] n 6
+       Nolan Allan D None ['5', '0', '0', '1', '18:18', '0:00', '5:08', '13:10', '21', '0', '0', '0', '1', '0', '0', '0', '0', '0.0', '0', '0', '0']
+       Sam Dickinson D None ['1', '0', '0', '0', '16:44', '0:10', '0:17', '16:17', '18', '0', '0', '0', '2', '2', '0', '0', '0', '0.0', '3', '0', '0']
+   group skaters labels ['BS', 'HT', 'TK', '+/-', 'TOI', 'PPTOI', 'SHTOI', 'ESTOI', 'SHFT', 'G', 'YTDG', 'A', 'S', 'SM', 'SOG', 'FW', 'FL', 'FO%', 'GV', 'PN', 'PIM'] keys ['blockedShots', 'hits', 'takeaways', 'plusMinus', 'timeOnIce', 'powerPlayTimeOnIce', 'shortHandedTimeOnIce', 'evenStrengthTimeOnIce', 'shifts', 'goals', 'ytdGoals', 'assists', 'shotsTotal', 'shotsMissed', 'shootoutGoals', 'faceoffsWon', 'faceoffsLost', 'faceoffPercent', 'giveaways', 'penalties', 'penaltyMinutes'] n 0
+   group goalies labels ['GA', 'SA', 'SOS', 'SOSA', 'SV', 'SV%', 'ESSV', 'PPSV', 'SHSV', 'TOI', 'YTDG', 'PIM'] keys ['goalsAgainst', 'shotsAgainst', 'shootoutSaves', 'shootoutShotsAgainst', 'saves', 'savePct', 'evenStrengthSaves', 'powerPlaySaves', 'shortHandedSaves', 'timeOnIce', 'ytdGoals', 'penaltyMinutes'] n 1
+       Yaroslav Askarov G None ['2', '29', '0', '0', '27', '.931', '18', '9', '0', '60:00', '0', '0']
+===== basketball/nba top keys ['boxscore', 'format', 'gameInfo', 'leaders', 'seasonseries', 'injuries', 'broadcasts', 'pickcenter', 'odds', 'againstTheSpread', 'news', 'plays', 'article', 'videos', 'header', 'wallclockAvailable', 'winprobability', 'meta', 'standings']
+ team 18 New York Knicks
+   group None labels ['MIN', 'PTS', 'FG', '3PT', 'FT', 'REB', 'AST', 'TO', 'STL', 'BLK', 'OREB', 'DREB', 'PF', '+/-'] keys ['minutes', 'points', 'fieldGoalsMade-fieldGoalsAttempted', 'threePointFieldGoalsMade-threePointFieldGoalsAttempted', 'freeThrowsMade-freeThrowsAttempted', 'rebounds', 'assists', 'turnovers', 'steals', 'blocks', 'offensiveRebounds', 'defensiveRebounds', 'fouls', 'plusMinus'] n 15
+       OG Anunoby F True ['33', '11', '3-11', '1-5', '4-6', '8', '0', '1', '3', '1', '0', '8', '5', '+2']
+       Karl-Anthony Towns C True ['23', '2', '1-7', '0-2', '0-0', '10', '1', '5', '3', '1', '1', '9', '6', '-4']
+===== football/college-football top keys ['boxscore', 'format', 'gameInfo', 'drives', 'leaders', 'broadcasts', 'pickcenter', 'odds', 'againstTheSpread', 'news', 'header', 'scoringPlays', 'article', 'videos', 'wallclockAvailable', 'winprobability', 'meta', 'standings']
+ team 2623 Missouri State Bears
+   group passing labels ['C/ATT', 'YDS', 'AVG', 'TD', 'INT', 'QBR'] keys ['completions/passingAttempts', 'passingYards', 'yardsPerPassAttempt', 'passingTouchdowns', 'interceptions', 'adjQBR'] n 2
+       Skyler Locklear None None ['15/19', '102', '5.4', '1', '0', '43.7']
+       Henry Belin IV None None ['7/15', '69', '4.6', '1', '1', '62.4']
+   group rushing labels ['CAR', 'YDS', 'AVG', 'TD', 'LONG'] keys ['rushingAttempts', 'rushingYards', 'yardsPerRushAttempt', 'rushingTouchdowns', 'longRushing'] n 5
+       Breezy Dubar None None ['7', '76', '10.9', '0', '49']
+       Ramone Green Jr. None None ['10', '27', '2.7', '0', '10']
+   group receiving labels ['REC', 'YDS', 'AVG', 'TD', 'LONG'] keys ['receptions', 'receivingYards', 'yardsPerReception', 'receivingTouchdowns', 'longReception'] n 8
+       Isaiah Myers None None ['5', '46', '9.2', '1', '15']
+       Mekhi Miller None None ['5', '40', '8.0', '0', '32']
+   group fumbles labels ['FUM', 'LOST', 'REC'] keys ['fumbles', 'fumblesLost', 'fumblesRecovered'] n 1
+       Martavis Blackmon None None ['0', '0', '1']
+   group defensive labels ['TOT', 'SOLO', 'SACKS', 'TFL', 'PD', 'QB HUR', 'TD'] keys ['totalTackles', 'soloTackles', 'sacks', 'tacklesForLoss', 'passesDefended', 'hurries', 'defensiveTouchdowns'] n 24
+       Jared Lloyd None None ['13', '3', '0', '0.5', '0', '0', '0']
+       Martavis Blackmon None None ['12', '6', '1', '1.5', '0', '1', '0']
+   group interceptions labels ['INT', 'YDS', 'TD'] keys ['interceptions', 'interceptionYards', 'interceptionTouchdowns'] n 1
+       Joel Boamah None None ['1', '60', '1']
+   group kickReturns labels ['NO', 'YDS', 'AVG', 'LONG', 'TD'] keys ['kickReturns', 'kickReturnYards', 'yardsPerKickReturn', 'longKickReturn', 'kickReturnTouchdowns'] n 1
+       Ramone Green Jr. None None ['1', '22', '22.0', '22', '0']
+   group puntReturns labels ['NO', 'YDS', 'AVG', 'LONG', 'TD'] keys ['puntReturns', 'puntReturnYards', 'yardsPerPuntReturn', 'longPuntReturn', 'puntReturnTouchdowns'] n 0
+   group kicking labels ['FG', 'PCT', 'LONG', 'XP', 'PTS'] keys ['fieldGoalsMade/fieldGoalAttempts', 'fieldGoalPct', 'longFieldGoalMade', 'extraPointsMade/extraPointAttempts', 'totalKickingPoints'] n 1
+       Yousef Obeid None None ['1/1', '100.0', '35', '1/1', '4']
+   group punting labels ['NO', 'YDS', 'AVG', 'TB', 'In 20', 'LONG'] keys ['punts', 'puntYards', 'grossAvgPuntYards', 'touchbacks', 'puntsInside20', 'longPunt'] n 1
+       Stewart McDonald None None ['6', '254', '42.3', '0', '2', '55']
