@@ -8,7 +8,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 13          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 14          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -289,8 +289,17 @@ def breakdown(leg, games, elo, injuries, used=None):
                                     f"⏱️ {them} barely had time to recover. Short week."]))
         said.add("opponent on a short week")
 
+    # overseas games are always weird
+    if str(g.get("intl")) == "1":
+        where = g.get("country") or "overseas"
+        out.append(v.say("intl", [f"🌍 Game's overseas in {where}. These are always weird — the engine needed extra value to take it.",
+                                   f"🌍 International game ({where}). Nobody's really home, everybody's jet-lagged — we only play these with a bigger edge.",
+                                   f"🌍 {where} game. Weird spot, so the engine made sure the number's extra juicy."]))
+
     # home / road
-    if side == "home":
+    if str(g.get("intl")) == "1":
+        pass                                            # no real home crowd overseas
+    elif side == "home":
         out.append(v.say("home", [f"🏟️ {us} are at home, about to go to work.",
                                    f"🏟️ {us} get to do it in front of their own crowd.",
                                    f"🏟️ Home game for {us} — their building, their rules.",
