@@ -152,13 +152,13 @@ def parse_scoreboard(league, payload):
     return out
 
 
-def fetch_day(league, day, retries=3):
+def fetch_day(league, day, retries=2):
     path, extra, _, _ = LEAGUES[league]
     url = ESPN.format(path=path, day=day.strftime("%Y%m%d"), extra=extra)
     for i in range(retries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (d503-sports-engine)"})
-            with urllib.request.urlopen(req, timeout=20) as r:
+            with urllib.request.urlopen(req, timeout=12) as r:
                 return parse_scoreboard(league, json.load(r))
         except Exception as e:                       # noqa: BLE001 - network: retry, then give up on this day
             if i == retries - 1:
@@ -221,8 +221,9 @@ def merge(old, new, now_iso):
     return g
 
 
-def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8):
+def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget_s=900):
     """Refresh every league: re-read the last few days + next few, and backfill history on first run.
+    Stops starting new calls after budget_s; unfinished days count as failed, so the next run resumes there.
     Returns (games dict, number of API calls, number of failures)."""
     today = datetime.now(timezone.utc).date()
     now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
@@ -238,8 +239,22 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8):
             jobs.append((lg, d))
             d += timedelta(days=1)
     fails = {}
+    deadline = time.time() + budget_s
+    done = [0]
+
+    def run(job):
+        if time.time() > deadline:
+            return job, None
+        rows = fetch_day(*job)
+        done[0] += 1
+        if done[0] % 250 == 0:
+            print(f"   synced {done[0]}/{len(jobs)} league-days", flush=True)
+        return job, rows
+    if jobs and fetch_day("nfl", today) is None and fetch_day("mlb", today) is None:
+        print("   ESPN unreachable - keeping stored games", flush=True)
+        return games, 2, 2
     with ThreadPoolExecutor(workers) as ex:
-        results = list(ex.map(lambda j: (j, fetch_day(*j)), jobs))
+        results = list(ex.map(run, jobs))
     for (lg, d), rows in results:
         if rows is None:
             fails[lg] = min(fails.get(lg, d), d)

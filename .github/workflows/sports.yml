@@ -21,8 +21,9 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: python sports_test.py
-      - run: python -u sports.py 2>&1 | tee -a data/sports/run.log
-      - run: |
+      - run: timeout 30m python -u sports.py 2>&1 | tee -a data/sports/run.log
+      - if: always()
+        run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
           git add data/sports docs/sports
