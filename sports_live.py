@@ -286,7 +286,7 @@ def fetch_live(league):
                 out += _get(AN.format(lg=league, extra=extra) + "&date=" + d.strftime("%Y%m%d")).get("games") or []
             except Exception as e:                           # noqa: BLE001
                 sd.ERRORS.append(f"live {league}: {str(e)[:100]}")
-        return out
+        return list({g.get("id"): g for g in out}.values())       # a game can be on both days' lists
     try:
         return _get(AN.format(lg=league, extra=extra)).get("games") or []    # football: the current week
     except Exception as e:                                   # noqa: BLE001
@@ -595,6 +595,11 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
         seen = datetime.strptime(old.get("seen", stamp)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
         if (now - seen).total_seconds() <= PAUSE_HOLD_S:
             plays.append({**old, "paused": True})            # hold it - the line's coming back
+    uniq = {}
+    for p in plays:                                          # one play per game side (a game can be on two days' lists)
+        if p["id"] not in uniq or (uniq[p["id"]].get("paused") and not p.get("paused")):
+            uniq[p["id"]] = p
+    plays = list(uniq.values())
     locked = locked_sides(log, now)
     plays = [p for p in plays if locked.get(p["id"].rsplit(":", 1)[0], p["id"].rsplit(":", 1)[1]) == p["id"].rsplit(":", 1)[1]]
     fresh = {p["id"] for p in plays}
@@ -775,8 +780,17 @@ def loop(minutes, every_s=10):
         started = True
         try:
             run()
-        except Exception as e:                                      # noqa: BLE001 - keep watching
-            print(f"live cycle error: {e}")
+        except Exception as e:                                      # noqa: BLE001 - keep watching, and say why
+            import traceback
+            print(f"live cycle error: {e}", flush=True)
+            traceback.print_exc()
+            try:
+                out = json.load(open(LIVE_JSON))
+                out["crash"] = traceback.format_exc()[-800:]
+                with open(LIVE_JSON, "w") as f:
+                    json.dump(out, f, indent=1)
+            except (OSError, ValueError):
+                pass
         board = _board_key()
         if board != last_board or time.time() - last_push > 60:
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pushing the board", flush=True)
