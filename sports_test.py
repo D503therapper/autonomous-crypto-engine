@@ -329,6 +329,7 @@ def test_post_when_settled_and_never_change():
         g["start"] = (now + timedelta(hours=14)).strftime("%Y-%m-%dT%H:%MZ")          # the night games
     fresh = sports.post_board(games, model, picks, now + timedelta(hours=11), day)
     assert [p["kind"] for p in fresh] == ["lock"] and fresh[0]["round"] == 2 and fresh[0]["legs"][0]["game_id"] != lock["legs"][0]["game_id"]
+    assert fresh[0]["lean"] and sports.pick_tier(fresh[0]) == "lean", "a replacement is always labeled a LEAN"
     assert lock in picks, "the graded one stays in the results"
     kept = [p for p in picks if p["kind"] != "two"]                           # say the 2-leg never went up...
     started = now + timedelta(hours=10, minutes=1)                            # ...once the first game starts, it can't

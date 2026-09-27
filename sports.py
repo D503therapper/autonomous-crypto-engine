@@ -460,7 +460,9 @@ def post_board(games, model, picks, now, day, force=False):
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "round": sum(p["date"] == iso and p["kind"] == kind and p["status"] != "waiting" for p in picks) + 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
-              "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0, "lean": bool(b.get("lean"))}
+              "p_hit": round(b["p_hit"], 4), "stake": STAKE, "status": "open", "pnl": 0.0,
+              "lean": bool(b.get("lean")) or replacing}     # a replacement (after a play's graded) is always a LEAN:
+                                                            # the lock/value grades are the opening board's calls only
         for leg in pk["legs"]:
             leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
         pk["tier"] = pick_tier({**pk, "tier": None})

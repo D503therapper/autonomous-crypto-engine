@@ -19,7 +19,7 @@ LOOK = {   # kind -> label, accent, second accent
     "three": ("3-LEG OF THE DAY", "#ffc233", "#ff8a00"),
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
-    "eight": ("8-LEG OF THE DAY", "#b36bff", "#ff4fd8"),
+    "eight": ("8-LEG LOTTERY TICKET", "#b36bff", "#ff4fd8"),
 }
 BIG_HIT = 300                 # +300 and up that cashes gets the big brag
 ICON = {"two": "⚡", "three": "👑", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
@@ -332,7 +332,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
                 f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%} hit" if w_ + l_ else "no results yet"}</div>'
                 f'<div class="rc-s">today {tw}-{tl}{f" · streak {st}" if st else ""}</div></div>')
-    by_tier = {t: [p for p in graded_all if _tier(p) == t] for t in ("lock", "value", "lean")}
+    acc = [p for p in graded_all if p["kind"] != "eight"]    # the 8-leg lottery ticket: its own record only, never the accuracy grades
+    by_tier = {t: [p for p in acc if _tier(p) == t] for t in ("lock", "value", "lean")}
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     grades = "".join(grade(*TIER_LOOK[t], [p["status"] for p in by_tier[t]], [p["status"] for p in by_tier[t] if p["date"] == today])
                      for t in ("lock", "value", "lean"))
@@ -352,7 +353,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     params = model.get("params", {})
     k = now.toordinal()
     lines = []
-    graded = [p for p in done if p["date"] == today]           # a new day never talks about yesterday
+    graded = [p for p in done if p["date"] == today and p["kind"] != "eight"]           # a new day never talks about yesterday
     w_, l_ = sum(p["status"] == "won" for p in graded), sum(p["status"] == "lost" for p in graded)
     live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
     if w_ + l_ == 0 and live_today:
@@ -412,7 +413,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         a_ = sum(p["accuracy"] * p.get("eval_games", 0) for p in params.values()) / n
         lines.append([f"🎯 Calling winners at a {a_:.1%} clip.", f"🎯 Hitting on {a_:.1%} of winners.",
                       f"🎯 {a_:.1%} of winners called straight up."][k % 3])
-    legs = [l for p in picks for l in p["legs"] if l.get("result") in ("won", "lost")]
+    legs = [l for p in picks if p["kind"] != "eight" for l in p["legs"] if l.get("result") in ("won", "lost")]
     if legs:
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
@@ -629,7 +630,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n">Every kind of play graded on its own — no lumping. Full transparency.</div>
+  <div class="sp-n">Every kind of play graded on its own — no lumping. Full transparency. The 8-leg lottery ticket keeps its own record below.</div>
   <div class="recs grades">{grades}</div>
 </section>
 <div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(graded_all)} graded</span></div>
