@@ -306,7 +306,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         pass
     # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
     days_ = {today}
-    lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)[:8]
+    lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)   # every one today - the list always matches the record
     badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
     pending_ = '<span class="tm">⏳ still going</span>'
     used_ = set()                                            # no two bets in the list share a phrase
