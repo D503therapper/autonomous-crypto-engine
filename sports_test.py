@@ -404,6 +404,31 @@ def test_comeback_study_and_live_rules():
     assert sports_live.evaluate("nba", g, box, 320, -400, {}, 0.65, 0.65, 0.0, "", 1) == []
 
 
+
+def test_big_favorites_cover_study():
+    """Big favorites that win but don't cover: the cover study learns it and the engine stops trusting their spreads."""
+    rnd = random.Random(3)
+    X, y, off = [], [], []
+    for _ in range(3000):
+        line = rnd.choice([-3.0, -6.5, -10.5, -14.0, 3.0, 10.5])
+        bf = sm.big_fav(line)
+        cover = 0.40 if bf > 0 else 0.60 if bf < 0 else 0.50      # big favorites cover only 40%
+        X.append([bf])
+        y.append(1.0 if rnd.random() < cover else 0.0)
+        off.append(0.0)                                            # the plain curve says 50/50
+    bfav = sm.fit_logistic_offset(X, y, off, prior=[0.0], lam=4.0)[0]
+    assert bfav < -0.2
+    params = {"sw": [0.0] * 16, "sigma": 13.0, "strust": 1.0, "bfav": bfav}
+    f = {k: 0.0 for k in ("elo_pts", "form", "rest", "b2b", "inj", "key", "revenge", "letdown", "bye", "short", "intl",
+                          "alt", "cold", "weather", "travel")}
+    g = {"spread_home": "-14"}
+    params["sw"][0] = 14.0                                         # the curve expects a 14-point win: a coin flip to cover
+    fav = sm.cover_p(params, f, g, "home")
+    assert fav < 0.45 and abs(sm.cover_p({**params, "bfav": 0.0}, f, g, "home") - 0.5) < 0.01
+    small = {"spread_home": "-3"}                                  # small spreads: no big-favorite correction
+    assert sm.cover_p(params, f, small, "home") == sm.cover_p({**params, "bfav": 0.0}, f, small, "home")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

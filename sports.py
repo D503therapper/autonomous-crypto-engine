@@ -447,6 +447,9 @@ def run(repick=False, fetch=True):
         model["finals_seen"], model["odds_seen"], model["players_seen"] = n_final, n_odds, n_players
         print(f"tuned in {time.time() - t0:.0f}s: " + ", ".join(
             f"{lg} trust {p['trust']:.0%} acc {p['accuracy']:.1%}" for lg, p in model["params"].items()))
+        print("cover study: " + "; ".join(
+            f"{lg} big favorites covered {p['big_fav_cover']:.0%} of {p['big_fav_games']} (adjust {p.get('bfav', 0):+.2f})"
+            for lg, p in model["params"].items() if p.get("big_fav_cover") is not None))
     n_ls = sum(1 for g in games.values() if g.get("ls_home"))
     if n_ls != model.get("ls_seen"):                                    # the comeback study (live bets) learns on new games
         try:

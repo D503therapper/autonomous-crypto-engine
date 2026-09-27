@@ -308,14 +308,24 @@ def margin_mu(params, f, g):
     return ours if line is None else -line + params["strust"] * (ours - (-line))
 
 
+BIG_FAV_LINE = 7.0     # a big favorite: laying more than a touchdown (football) / 7 points (hoops)
+
+
+def big_fav(line):
+    """How big a favorite the home team is past BIG_FAV_LINE, in touchdowns (+ home big fav, - away big fav)."""
+    return (-line - BIG_FAV_LINE) / 7 if -line > BIG_FAV_LINE else (line - BIG_FAV_LINE) / -7 if line > BIG_FAV_LINE else 0.0
+
+
 def cover_p(params, f, g, side):
-    """Chance the side covers its spread (pushes count as half)."""
+    """Chance the side covers its spread. The normal curve, corrected by the cover study: big favorites often win
+    without covering, and the engine learns exactly how often from every past game with a spread."""
     line = _num(g.get("spread_home"))
     if line is None:
         return None
     mu, sd_ = margin_mu(params, f, g), params["sigma"]
     z = (mu + line) / sd_                               # home covers when margin + line > 0
-    p = phi(z)
+    p = min(max(phi(z), 1e-4), 1 - 1e-4)
+    p = sigmoid(logit(p) + params.get("bfav", 0.0) * big_fav(line))
     return p if side == "home" else 1 - p
 
 
@@ -378,6 +388,18 @@ def tune(games, league, prev=None):
                                                                  + _num(g["spread_home"])))) ** 2 for g, f, m in lined)
             strust = min([i / 20 for i in range(21)], key=err)
         sp = {"sw": sw, "sigma": sigma, "strust": strust, "spread_games": len(lined)}
+        # the cover study: do big favorites cover as often as the curve says? (every past game with a spread)
+        ats = [(g, f, 1.0 if m + _num(g["spread_home"]) > 0 else 0.0) for g, f, _, m in rows
+               if _num(g.get("spread_home")) is not None and m + _num(g["spread_home"]) != 0]
+        base = {**params, **sp, "bfav": 0.0}
+        big = [(g, f, y) for g, f, y in ats if big_fav(_num(g["spread_home"]))]
+        if len(big) >= 40:
+            off = [logit(cover_p(base, f, g, "home")) for g, f, _ in ats]
+            X = [[big_fav(_num(g["spread_home"]))] for g, _, _ in ats]
+            sp["bfav"] = fit_logistic_offset(X, [y for _, _, y in ats], off, prior=[0.0], lam=4.0)[0]
+        fav_cov = [y if big_fav(_num(g["spread_home"])) > 0 else 1 - y for g, _, y in big]
+        sp["big_fav_games"] = len(big)
+        sp["big_fav_cover"] = round(sum(fav_cov) / len(fav_cov), 3) if fav_cov else None
     acc = sum((own_p(params, f) > 0.5) == (y == 1.0) for _, f, y, _ in ev) / max(1, len(ev))
     mkt_acc = sum((market_p(g) > 0.5) == (y == 1.0) for g, _, y in odds) / len(odds) if odds else None
     return {
