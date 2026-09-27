@@ -246,6 +246,11 @@ def test_board_rules():
     b2 = sports.make_board(filler, allow_lean=True, avoid={lean_game})
     assert not b2["dog"] or b2["dog"]["legs"][0]["game_id"] != lean_game, "a lean never uses a game we're already on"
     # confidence tiers: a plus-money pick can be a LOCK when the engine's sure; a parlay is only as sure as its weakest leg
+    both = [dict(_cand("g1", -140, 0.66), side="home"), dict(_cand("g1", 130, 0.45), side="away"),
+            _cand("g2", -120, 0.60), _cand("g3", -130, 0.62), _cand("g4", 140, 0.46)]
+    bb = sports.make_board(both)
+    sides = {(l["game_id"], l["side"]) for pk in bb.values() if pk for l in pk["legs"]}
+    assert len({g for g, _ in sides}) == len(sides), "never both teams of one game on the same board"
     assert sports.leg_tier(_cand("pl", 120, 0.58)) == "lock", "plus money + 58% to win at +120 = a lock"
     assert sports.leg_tier(_cand("pt", 110, 0.55)) == "value", "plus money treads lightly: 55% at +110 isn't enough for a lock"
     assert sports.leg_tier(_cand("mn", -120, 0.60)) == "lock", "minus money: 60% at -120 (10% edge) = a lock"
