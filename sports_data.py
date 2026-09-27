@@ -22,6 +22,7 @@ LEAGUES = {
     "nhl": ("hockey/nhl", "", "NHL", "🏒"),
 }
 
+ERRORS = []      # failed calls this run (only the first few are printed)
 FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_name",
           "home_score", "away_score", "ml_home", "ml_away", "odds_time", "neutral",
           "ml_home_open", "ml_away_open", "spread_home", "spread_home_odds", "spread_away_odds",
@@ -157,12 +158,13 @@ def fetch_day(league, day, retries=2):
     url = ESPN.format(path=path, day=day.strftime("%Y%m%d"), extra=extra)
     for i in range(retries):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (d503-sports-engine)"})
-            with urllib.request.urlopen(req, timeout=12) as r:
+            with urllib.request.urlopen(url, timeout=12) as r:     # plain request: ESPN 403s custom user agents
                 return parse_scoreboard(league, json.load(r))
         except Exception as e:                       # noqa: BLE001 - network: retry, then give up on this day
             if i == retries - 1:
-                print(f"   {league} {day:%Y-%m-%d}: {str(e)[:120]}")
+                ERRORS.append(f"{league} {day:%Y-%m-%d}: {str(e)[:120]}")
+                if len(ERRORS) <= 5:
+                    print(f"   {ERRORS[-1]}", flush=True)
                 return None
             time.sleep(1.5 * (i + 1))
 
@@ -279,8 +281,7 @@ def fetch_injuries(league):
     path = LEAGUES[league][0]
     url = f"https://site.api.espn.com/apis/site/v2/sports/{path}/injuries"
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (d503-sports-engine)"})
-        with urllib.request.urlopen(req, timeout=20) as r:
+        with urllib.request.urlopen(url, timeout=20) as r:
             return parse_injuries(json.load(r))
     except Exception as e:                           # noqa: BLE001
         print(f"   {league} injuries: {str(e)[:120]}")
