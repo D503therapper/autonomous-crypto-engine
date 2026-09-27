@@ -235,13 +235,14 @@ def test_board_rules():
     eight = sports.make_board(short)["eight"]["legs"]
     assert len(eight) == 8 and sum(sports.good(l) for l in eight) == 5 and all(l["odds"] >= sports.MAX_FAV for l in eight)
     assert all(l["market"] == "ml" for l in eight if not sports.good(l)), "a spread only gets in as a real value play"
-    filler = [_cand("p", 202, 0.32), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
+    filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
     b = sports.make_board(filler)
     assert all(b[k] is None or b[k].get("lean") for k in ("two", "three")), "no value pair = a LEAN at most, never passed off as value"
     assert all(b[k] is None or b[k].get("lean") for k in ("dog", "lock"))
     assert b["dog"] is None, "the opening board is value only - no leans"
     b = sports.make_board(filler, allow_lean=True)                             # a graded spot later in the day
     assert b["dog"] and b["dog"].get("lean") and b["dog"]["legs"][0]["odds"] >= 100, "a replacement never leaves people in limbo"
+    assert not sports.make_board([_cand("p", 202, 0.32)], allow_lean=True)["dog"], "accuracy first: no 32% lean dogs"
     lean_game = b["dog"]["legs"][0]["game_id"]
     b2 = sports.make_board(filler, allow_lean=True, avoid={lean_game})
     assert not b2["dog"] or b2["dog"]["legs"][0]["game_id"] != lean_game, "a lean never uses a game we're already on"

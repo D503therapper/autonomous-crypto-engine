@@ -43,6 +43,7 @@ PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone,
 LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
 LIVE_MIN_P = 0.40             # ACCURACY FIRST: a new live bet is one we think has a real shot (40%+)...
 LIVE_MAX_ODDS = 250           # ...and never longer than +250 when it goes up (the +270..+425 ones kept losing)
+MAX_PER_DAY = 6               # fewer, better live bets: 6 a day at most (accuracy over volume)
 MAX_PLAYS = 4                 # up to 4 on the board at once, best value first (no limit per day)
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
 LENGTH = {"nfl": (4, 15), "ncaaf": (4, 15), "nba": (4, 12), "ncaab": (2, 20), "nhl": (3, 20), "mlb": (9, None)}
@@ -640,6 +641,11 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     plays = [p for p in plays if p["id"] in SEEN or p["id"] in showing]   # held two checks in a row (no blips)
     SEEN.clear()
     SEEN.update(fresh)
+    today_n = sum(e.get("date") == now.astimezone(PT).date().isoformat() and e.get("result") != "void"
+                  for e in log["plays"].values())
+    room = max(0, MAX_PER_DAY - today_n)                     # daily cap: only plays already up, plus what's left
+    plays = [p for p in plays if p["id"] in showing or p["id"] in log["plays"]] + \
+        sorted((p for p in plays if p["id"] not in showing and p["id"] not in log["plays"]), key=lambda x: -x["p"])[:room]
     plays = board(plays, showing)
     for pl in plays:                                          # log the first time each play goes up (graded later)
         if pl["id"] not in log["plays"]:
