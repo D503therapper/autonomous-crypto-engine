@@ -50,6 +50,25 @@ def test_merge_keeps_closing_odds():
     assert g["status"] == "final" and g["ml_home"] == -200 and g["home_score"] == 101 and g["odds_time"] == "t0"
 
 
+def test_action_network_odds_attach():
+    payload = {"games": [{"start_time": "2026-09-25T00:15:00.000Z", "home_team_id": 147, "away_team_id": 151,
+                          "teams": [{"id": 151, "full_name": "Atlanta Falcons"}, {"id": 147, "full_name": "Green Bay Packers"}],
+                          "odds": [{"book_id": 15, "type": "game", "ml_home": -250, "ml_away": 205, "spread_home": -4.5,
+                                    "spread_home_line": -115, "spread_away_line": -104},
+                                   {"book_id": 30, "type": "game", "ml_home": -375, "ml_away": 295}]}]}
+    rows = sd.parse_an(payload)
+    assert rows[0]["ml_home"] == -250 and rows[0]["ml_home_open"] == -375 and rows[0]["spread_home"] == -4.5
+    games = {"nfl:1": {"id": "nfl:1", "league": "nfl", "start": "2026-09-25T00:15Z", "home_name": "Packers", "away_name": "Falcons",
+                       "ml_home": "", "ml_away": "", "ml_home_open": "", "ml_away_open": "", "spread_home": ""},
+             "nfl:2": {"id": "nfl:2", "league": "nfl", "start": "2026-09-25T00:15Z", "home_name": "Bears", "away_name": "Lions",
+                       "ml_home": "", "ml_away": "", "ml_home_open": "", "ml_away_open": "", "spread_home": ""}}
+    assert sd.attach_an(games, "nfl", rows) == 1
+    g = games["nfl:1"]
+    assert g["ml_home"] == -250 and g["ml_away_open"] == 295 and g["spread_away_odds"] == -104
+    assert games["nfl:2"]["ml_home"] == ""
+    assert abs(sm.line_move(g)) > 0.1                  # opener -375 -> close -250: the market moved toward Atlanta
+
+
 def fake_league(league, teams=16, days=300, seed=1):
     """A season where true strength drives results, and the market prices it with some noise."""
     rnd = random.Random(seed)

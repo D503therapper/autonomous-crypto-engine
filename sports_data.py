@@ -314,3 +314,109 @@ def team_injuries(inj, team_id, team_name):
         if team_name and not k.isdigit() and (k.endswith(" " + team_name) or k == team_name):
             return v
     return []
+
+
+# ---------------------------------------------------------------- Action Network: odds history
+# ESPN drops the odds once a game is over. Action Network's public scoreboard keeps them for finished
+# games: book 15 = market consensus (used as the closing line), book 30 = the opening line.
+AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game&date={day}{extra}"
+AN_EXTRA = {"ncaaf": "&division=FBS"}
+AN_CLOSE, AN_OPEN = 15, 30
+
+
+def parse_an(payload):
+    out = []
+    for g in payload.get("games") or []:
+        teams = {t.get("id"): t for t in g.get("teams") or []}
+        home, away = teams.get(g.get("home_team_id")), teams.get(g.get("away_team_id"))
+        if not home or not away or not g.get("start_time"):
+            continue
+        books = {o.get("book_id"): o for o in g.get("odds") or [] if o.get("type", "game") == "game"}
+        close, open_ = books.get(AN_CLOSE) or {}, books.get(AN_OPEN) or {}
+        row = {"start": g["start_time"][:16] + "Z", "home_full": home.get("full_name") or "", "away_full": away.get("full_name") or "",
+               "ml_home": parse_american(close.get("ml_home")), "ml_away": parse_american(close.get("ml_away")),
+               "ml_home_open": parse_american(open_.get("ml_home")), "ml_away_open": parse_american(open_.get("ml_away")),
+               "spread_home": _num(close.get("spread_home")),
+               "spread_home_odds": parse_american(close.get("spread_home_line")), "spread_away_odds": parse_american(close.get("spread_away_line"))}
+        if row["ml_home"] is not None and row["ml_away"] is not None:
+            out.append(row)
+    return out
+
+
+def fetch_an_day(league, day):
+    url = AN.format(lg=league, day=day.strftime("%Y%m%d"), extra=AN_EXTRA.get(league, ""))
+    for i in range(2):
+        try:
+            with urllib.request.urlopen(url, timeout=15) as r:
+                return parse_an(json.load(r))
+        except Exception as e:                       # noqa: BLE001
+            if i == 1:
+                ERRORS.append(f"AN {league} {day:%Y-%m-%d}: {str(e)[:120]}")
+                if len(ERRORS) <= 5:
+                    print(f"   {ERRORS[-1]}", flush=True)
+                return None
+            time.sleep(2)
+
+
+def _same(short, full):
+    short, full = short.lower().strip(), full.lower()
+    return bool(short) and (short in full or full.startswith(short.split(" ")[0] + " "))
+
+
+def attach_an(games, league, rows):
+    """Fill odds on stored games from Action Network rows (same teams, start within 3 hours).
+    Returns how many games got odds they didn't have."""
+    idx = {}
+    for g in games.values():
+        if g["league"] == league and g.get("start"):
+            idx.setdefault(g["start"][:10], []).append(g)
+    filled = 0
+    for r in rows:
+        t = datetime.strptime(r["start"], "%Y-%m-%dT%H:%MZ")
+        cands = [g for d in {(t + timedelta(days=k)).strftime("%Y-%m-%d") for k in (-1, 0, 1)} for g in idx.get(d, [])]
+        for g in cands:
+            gt = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M")
+            if abs((gt - t).total_seconds()) > 3 * 3600:
+                continue
+            if not (_same(g["home_name"], r["home_full"]) and _same(g["away_name"], r["away_full"])):
+                continue
+            if g.get("ml_home", "") == "":
+                filled += 1
+                for k in ("ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"):
+                    if r[k] is not None:
+                        g[k] = r[k]
+            if r["ml_home_open"] is not None and r["ml_away_open"] is not None:
+                g["ml_home_open"], g["ml_away_open"] = r["ml_home_open"], r["ml_away_open"]
+            break
+    return filled
+
+
+def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=600):
+    """Backfill closing + opening odds for finished games, a stretch per run until caught up."""
+    today = datetime.now(timezone.utc).date()
+    cur = state.setdefault("an_synced", {})
+    jobs = []
+    for lg in LEAGUES:
+        start = datetime.strptime(cur[lg], "%Y-%m-%d").date() - timedelta(days=2) if lg in cur \
+            else today - timedelta(days=backfill_days)
+        d = start
+        while d <= today + timedelta(days=1):
+            jobs.append((lg, d))
+            d += timedelta(days=1)
+    deadline = time.time() + budget_s
+
+    def run(job):
+        return job, (fetch_an_day(*job) if time.time() < deadline else None)
+    with ThreadPoolExecutor(workers) as ex:
+        results = list(ex.map(run, jobs))
+    fails, filled = {}, 0
+    for (lg, d), rows in results:
+        if rows is None:
+            fails[lg] = min(fails.get(lg, d), d)
+            continue
+        filled += attach_an(games, lg, rows)
+    for lg in LEAGUES:
+        upto = fails.get(lg, today + timedelta(days=1)) - timedelta(days=1)
+        if lg in cur or upto >= today - timedelta(days=backfill_days):
+            cur[lg] = min(upto, today).strftime("%Y-%m-%d")
+    return filled, len(jobs), sum(1 for _, r in results if r is None)

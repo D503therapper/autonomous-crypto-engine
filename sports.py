@@ -274,6 +274,9 @@ def run(repick=False, fetch=True):
         t0 = time.time()
         games, calls, fails = sd.sync(state)
         print(f"sync: {len(games)} games stored, {calls} calls, {fails} failed, {time.time() - t0:.0f}s")
+        t0 = time.time()
+        filled, calls, fails = sd.sync_odds_history(games, state)
+        print(f"odds history: {filled} games got odds, {calls} calls, {fails} failed, {time.time() - t0:.0f}s")
     else:
         games = sd.load_games()
     for pk in grade(picks, games, now):
