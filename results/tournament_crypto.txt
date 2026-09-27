@@ -1,25 +1,25 @@
 crypto: 16 assets, 1500 days; in-sample days 0-900, out-of-sample 900-1500
 cost per unit traded: 0.50%   (survivorship caveat: universe = coins/stocks listed today)
 
-Benchmark hold BTC: in-sample +321.0%, out-of-sample -17.5%
+Benchmark hold BTC: in-sample +362.6%, out-of-sample -12.5%
 1536 variants tested. Top 15 by in-sample Sharpe, then their UNSEEN results:
 
   signal lookback rebal  top regime  weights |   IS ret IS shp |  OOS ret  OOS/mo OOS shp  OOS DD turn/yr
 ---------------------------------------------------------------------------------------------------------
-donchian       21     7    2      0  inv_vol | +1296.4%   1.84 |   -51.1%   -3.5%   -0.47   78.6%    26.5
-donchian       21     7    2      0    equal | +1173.7%   1.78 |   -47.9%   -3.2%   -0.37   77.3%    25.1
-donchian       10     7    2    200  inv_vol |  +544.7%   1.74 |   +11.2%   +0.5%    0.36   33.7%    15.3  <- beats hold
-donchian       10     7    2    200    equal |  +527.4%   1.70 |   +11.6%   +0.6%    0.37   35.0%    15.5  <- beats hold
-donchian       10     7    2     50  inv_vol |  +674.3%   1.67 |   +43.8%   +1.8%    0.76   51.2%    22.1  <- beats hold
-donchian       60     3    5      0    equal |  +732.1%   1.66 |   -60.9%   -4.6%   -0.75   75.8%    17.5
-donchian       10     7    2    100  inv_vol |  +548.0%   1.65 |   +62.4%   +2.5%    1.01   32.6%    16.7  <- beats hold
-donchian       10     7    2    100    equal |  +552.8%   1.64 |   +85.4%   +3.1%    1.18   33.3%    16.6  <- beats hold
-donchian       14     7    2      0    equal |  +835.2%   1.63 |   -36.7%   -2.3%   -0.19   74.2%    30.8
-donchian       10     7    2     50    equal |  +643.3%   1.62 |   +59.7%   +2.4%    0.90   52.1%    22.1  <- beats hold
-donchian       14     7    2     50    equal |  +554.9%   1.60 |   +36.9%   +1.6%    0.65   55.4%    21.5  <- beats hold
-donchian       60     3    5      0  inv_vol |  +617.1%   1.60 |   -63.0%   -4.9%   -0.85   75.7%    18.8
-donchian       10     7    2      0  inv_vol |  +787.3%   1.58 |   -47.0%   -3.1%   -0.43   75.9%    34.3
-donchian       10     7    2      0    equal |  +796.7%   1.57 |   -42.0%   -2.7%   -0.30   73.7%    33.7
-donchian       14     7    2      0  inv_vol |  +704.8%   1.56 |   -41.9%   -2.7%   -0.31   76.0%    31.6
+donchian       90     7    5     50    equal |  +349.9%   1.56 |   +53.8%   +2.2%    1.15   17.4%     6.5  <- beats hold
+donchian       60     7    5    100    equal |  +350.4%   1.50 |   +82.9%   +3.1%    1.42   13.7%     7.5  <- beats hold
+donchian       90     1    5      0    equal |  +416.1%   1.50 |   -40.0%   -2.5%   -0.44   71.5%    16.2
+donchian       90     1    2     50    equal |  +393.8%   1.50 |   +42.2%   +1.8%    0.81   33.9%    24.1  <- beats hold
+donchian       90     3    2     50  inv_vol |  +312.0%   1.48 |   -27.4%   -1.6%   -0.43   62.3%    15.1
+donchian       90     7   99     50    equal |  +298.9%   1.47 |   +72.8%   +2.8%    1.38   15.3%     6.9  <- beats hold
+donchian       90     3    2     50    equal |  +305.3%   1.45 |   -28.4%   -1.7%   -0.43   63.4%    14.8
+donchian       90     1    2      0    equal |  +445.9%   1.45 |   -17.1%   -0.9%    0.03   62.2%    20.7
+donchian       90     7    5    100    equal |  +319.5%   1.45 |   +58.2%   +2.3%    1.12   13.7%     6.8  <- beats hold
+donchian       60     7    5    100  inv_vol |  +287.5%   1.43 |   +49.5%   +2.0%    1.06   15.0%     8.0  <- beats hold
+donchian       60     7    5      0    equal |  +407.5%   1.43 |   -50.1%   -3.4%   -0.51   77.8%    10.6
+donchian       90     7    5     50  inv_vol |  +264.0%   1.42 |   +29.1%   +1.3%    0.81   18.3%     6.6  <- beats hold
+donchian       90     3    3     50    equal |  +261.5%   1.42 |   -35.8%   -2.2%   -0.73   61.6%    15.5
+donchian       90     3    5     50    equal |  +239.5%   1.41 |   -39.0%   -2.4%   -0.91   61.8%    14.1
+donchian       90     1    2     50  inv_vol |  +333.1%   1.41 |   +21.1%   +1.0%    0.53   34.5%    25.7  <- beats hold
 
-7 of the top 15 in-sample variants also beat holding BTC on unseen data.
+8 of the top 15 in-sample variants also beat holding BTC on unseen data.
