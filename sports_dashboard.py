@@ -310,7 +310,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     used_ = set()                                            # no two bets in the list share a phrase
     stories = {id(e): _live_story(e, used_) for e in lrows}
     live_list = ("" if not lrows else
-                 '<section class="pk" style="--c1:#ff3b3b;--c2:#ff8a00;margin-top:14px"><div class="pk-h"><span class="pk-i">🔴</span>'
+                 '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
                  '<span class="pk-l">LIVE BETS TODAY</span></div>' + "".join(
                      f'<div class="leg {e.get("result") or ""}"><div class="lt"><span class="lgb">{sd.LEAGUES.get(e["league"], ("", "", "", "🏟️"))[3]} '
                      f'{E(sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2])}</span>'
@@ -334,7 +334,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     grades = "".join(grade(*TIER_LOOK[t], [p["status"] for p in by_tier[t]], [p["status"] for p in by_tier[t] if p["date"] == today])
                      for t in ("lock", "value", "lean"))
-    grades += grade("🔴 LIVE", "#ff3b3b", "#ff8a00", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
+    grades += grade("📡 LIVE", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -420,20 +420,20 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
-        lines.append(_rot(k + len(e["team"]), [f"🔴 We smacked {t} live bet ({o}). The algorithm never lies.",
-                                               f"🔴 Live bet cashed: {t} at {o}. Told y'all — teams always be coming back.",
-                                               f"🔴 {_cap(t)} live at {o}? Cashed. Trust the algorithm.",
-                                               f"🔴 Caught {t} live at {o} and they came through. Fuck yeah, let's go!",
-                                               f"🔴 {_cap(t)} live at {o} — CASHED. Everybody was jumping off, we jumped on."]))
+        lines.append(_rot(k + len(e["team"]), [f"📡 We smacked {t} live bet ({o}). The algorithm never lies.",
+                                               f"📡 Live bet cashed: {t} at {o}. Told y'all — teams always be coming back.",
+                                               f"📡 {_cap(t)} live at {o}? Cashed. Trust the algorithm.",
+                                               f"📡 Caught {t} live at {o} and they came through. Fuck yeah, let's go!",
+                                               f"📡 {_cap(t)} live at {o} — CASHED. Everybody was jumping off, we jumped on."]))
     for e in sorted((e for e in live.values() if e.get("result") == "lost" and e.get("date") == today),
                     key=lambda e: e["posted"])[-2:]:
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
-        lines.append(_rot(k + len(e["team"]), [f"🔴 {_cap(t)} live bet ({o}) shit the bed. Bad call — is what it is.",
-                                               f"🔴 {_cap(t)} live at {o} was booty cheeks. Our bad. We run it back.",
-                                               f"🔴 Live L: {t} at {o}. Comeback never came. Is what it is — the algorithm's taking notes.",
-                                               f"🔴 {_cap(t)} live at {o} came up short. Bad call, shake it off — next one's ours."]))
-    if not done and not any(x.startswith("🔴") for x in lines):   # no finished day yet: nothing to brag or cry about
+        lines.append(_rot(k + len(e["team"]), [f"📡 {_cap(t)} live bet ({o}) shit the bed. Bad call — is what it is.",
+                                               f"📡 {_cap(t)} live at {o} was booty cheeks. Our bad. We run it back.",
+                                               f"📡 Live L: {t} at {o}. Comeback never came. Is what it is — the algorithm's taking notes.",
+                                               f"📡 {_cap(t)} live at {o} came up short. Bad call, shake it off — next one's ours."]))
+    if not done and not any(x.startswith("📡") for x in lines):   # no finished day yet: nothing to brag or cry about
         lines = ["👀 We gon' see."]
     elif lines:                                               # results are in: remind everybody we're just getting started
         first = min((p["date"] for p in picks), default=today)
@@ -640,7 +640,7 @@ Ratings · form · rest · injuries · line moves — retrained after every fina
 Picks only — no bets placed · refreshes hourly</div>
 </main>
 <script>
-(function(){{   // 🔴 LIVE VALUE: checks live.json every 10 seconds; a play disappears the moment its value is gone
+(function(){{   // 📡 LIVE VALUE: checks live.json every 10 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 var last="";
 function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
@@ -650,7 +650,7 @@ function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
  el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>'+(ps.length?ps.map(function(p){{
-  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'🔴 LIVE')+'</span></div>'+
+  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
