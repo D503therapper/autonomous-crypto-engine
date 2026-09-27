@@ -155,7 +155,7 @@ def test_tune_learns():
 def _cand(gid, odds, p, market="ml", line=None, league="mlb"):
     dec = sd.decimal(odds)
     return {"game_id": gid, "league": league, "side": "home", "team": gid, "opp": "x", "home": True,
-            "start": "2026-09-27T23:00Z", "reasons": [], "market": market, "line": line, "odds": odds,
+            "start": "2026-09-27T23:00Z", "reasons": ["the stronger team"], "market": market, "line": line, "odds": odds,
             "dec": dec, "p": p, "p_market": 1 / dec, "edge": p * dec - 1}
 
 
@@ -164,9 +164,9 @@ def test_board_rules():
          _cand("e", 220, 0.34), _cand("f", -115, 0.56), _cand("g", 365, 0.24), _cand("h", 130, 0.46),
          _cand("i", -110, 0.54, "spread", -3.5, "nfl")]
     b = sports.make_board(c)
-    for kind, min_dec in (("two", 6.0), ("three", 11.0)):
+    for kind in ("two", "three"):
         legs = b[kind]["legs"]
-        assert b[kind]["dec"] >= min_dec, kind
+        assert all(sports.good(l) for l in legs), "never a filler leg"
         assert len({l["game_id"] for l in legs}) == len(legs) == (2 if kind == "two" else 3)
         assert all(l["odds"] >= sports.MAX_FAV for l in legs), "no huge favorites"
     assert b["lock"]["legs"][0]["odds"] >= -120 and b["lock"]["legs"][0]["market"] == "ml"
@@ -175,6 +175,10 @@ def test_board_rules():
     assert dog["game_id"] == "d", "a big dog needs to be clearly better value than the best regular dog"
     c = [x if x["game_id"] != "g" else _cand("g", 365, 0.30) for x in c]     # now a real shot at great value
     assert sports.make_board(c)["dog"]["legs"][0]["game_id"] == "g"
+    filler = [_cand("p", 202, 0.32), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
+    b = sports.make_board(filler)
+    assert b["two"] is None and b["three"] is None, "no good pair on the slate = no play, never a filler"
+    assert b["dog"] is None and b["lock"] is None
 
 
 def test_grading():

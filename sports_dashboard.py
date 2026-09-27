@@ -62,7 +62,7 @@ def _pick_card(kind, pk):
     label, c1, c2 = LOOK[kind]
     if not pk:
         return f"""<section class="pk" style="--c1:{c1};--c2:{c2}"><div class="pk-h"><span class="pk-i">{ICON[kind]}</span>
-<span class="pk-l">{label}</span></div><div class="nopick">No play today — nothing on the slate fits the rules.</div></section>"""
+<span class="pk-l">{label}</span></div><div class="nopick">No play today — nothing on the slate has real value. We don't force it.</div></section>"""
     if pk["status"] == "waiting":
         why = " · ".join(E(w) for w in pk.get("waiting") or [])
         return f"""<section class="pk waiting" style="--c1:{c1};--c2:{c2}"><div class="pk-h"><span class="pk-i">{ICON[kind]}</span>
