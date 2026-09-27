@@ -56,12 +56,15 @@ def _leg(leg):
     mark = {"won": '<b class="lw">✓</b>', "lost": '<b class="ll">✗</b>', "push": '<b class="lp">P</b>',
             "void": '<b class="lp">V</b>'}.get(res, "")
     why = " · ".join(E(r) for r in leg.get("reasons") or [])
+    pub = leg.get("public")
+    tag = ('<span class="pub fade">🎭 FADING THE PUBLIC</span>' if pub == "fade" else
+           '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
     return f"""<div class="leg">
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}</span><span class="tm">{_time(leg["start"])}</span></div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])}</div>
-  {f'<div class="why">{why}</div>' if why else ""}{outs}{_breakdown(leg)}
+  {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">{E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -259,6 +262,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ls{{font-size:12.5px;color:#fff;margin-top:2px}} .ls b{{color:#fff}}
 .ep{{color:var(--up);font-weight:800}} .en{{color:#ff8a5c;font-weight:800}}
 .why{{font-size:12px;color:#e8c77a;margin-top:4px}}
+.pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
+.pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
 .bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
 .bd summary::-webkit-details-marker{{display:none}}
