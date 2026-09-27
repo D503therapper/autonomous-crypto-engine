@@ -212,3 +212,27 @@ e.g. Kraken Pro) daily "drop 8% -> sell above 5-day avg or 3d" made +0.84%/mo (+
 when choosing the live exchange. Hold BTC over the window: -0.02%/mo. APPLIED: official Crypto $200 (listing hunter,
 2 slots ~$90 each), DEX $800 (5 x 20%), Stocks $500; $300 moved once (run_live.rebalance_accounts, equity.csv
 history shifted so no fake gain/loss). Parking off (PARK_IDLE False).
+
+## 2026-09-27 - DEX entry-filter study after GENO (results/dex_filter_study.txt) -> NO CHANGE
+Question: GENO (solana pump.fun) lost -$167 of $213 (-78%) within ~1h of entry; at entry it was 6.9h old, liq $104k,
+6h +258%, 24h +1830%. Would an extra entry filter have skipped such coins without costing the runners?
+Method: dex_filter_study.py (workflow dex_filter_study.yml): 379 GeckoTerminal pools from the dex_runner_study registry
+(incl. pools only >= 2 days old), 2026-07-07..09-26, live entry (1h >= +10%, age >= 6h, liq/vol24 >= $100k) + live exit
++ costs, 4-slot account, halves split 2026-09-03. A filtered coin can still be bought later when it passes. Variants:
+6h run caps +100/200/300%, 24h caps +500/1000%, min age 12h/24h, young-and-pumped combos, liq floor $150k/$250k.
+Also PNUT (only legend with hourly data) and the live screen passes (GENO: afterwards min -89%, last -88%).
+Result (base: 373 trades, mean +54.8%/trade, <=-70% 6%, account +16.6%/mo, older -14.9%, newer -0.6%, maxDD -40%):
+  6h > +200% skip:          <=-70% 5%, +10.5%/mo, older -34.4%, newer -0.6%, DD -71%, big winners 15/15
+  24h > +1000% skip:        <=-70% 6%, +16.6%/mo (same), DD -40%, loses CONDO (+1244% -> +70%)
+  min age 12h / 24h:        -33.9% / -16.8%/mo, DD -76% / -66% (24h loses ALLINU)
+  age<24h & 6h>+150% skip:  <=-70% 5%, per-trade mean +57.1% (older +83.8%, newer +30.2% vs +81.7%/+28.1%) but
+                            account -3.9%/mo, DD -71% (5 slots: +11.3% vs +23.9%, DD -56% vs -33%)
+  liq $150k / $250k:        lose 3 / 8 of the 15 big winners (BASECAT, CALI, CODEFORMER, CONDO ...)
+The GENO-type group (age < 24h and 6h > +150%) was 14 base trades with median +100%, 50% >= 2x, 21% <= -70%
+(OTC +779%, 🎒 +224%, SI +230% alongside CYS -95%, SWARM -83%, BATON -82%). The filters mostly moved those entries a few
+hours later (CYS still lost -95% later). Only 1-3 trades change per filter, so the account results mostly reflect which
+trades happened to get a slot. PNUT was caught by every variant.
+Decision: NO filter passed (fewer -70% losers AND no deeper drawdown AND about equal or better monthly in both halves
+AND no big winner / legend lost). config.DEX / dex.py unchanged. GENO is the stake-sized risk the strategy accepts (20%
+stake = the loss limit). Re-run with --offline on results/dex_filter_pools.json.gz or re-trigger the workflow as the
+registry grows. Caveats: no buys/sells history, survivorship (rug rates are floors), liquidity estimated.
