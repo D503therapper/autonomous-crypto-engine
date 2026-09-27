@@ -194,6 +194,14 @@ def render(picks, model, games, series, start_bank, updated_ms):
 <meta name="apple-mobile-web-app-title" content="D503 Sports">
 <meta name="theme-color" content="#05070b">
 <title>THE D503 · Sports Engine</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="THE D503 SPORTS ENGINE">
+<meta property="og:description" content="Daily 2-Leg, 3-Leg, Lock &amp; Dog of the Day. Trust the algorithm!">
+<meta property="og:url" content="https://d503therapper.github.io/autonomous-crypto-engine/sports/">
+<meta property="og:image" content="https://d503therapper.github.io/autonomous-crypto-engine/sports/og.png?v=7">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Daily 2-Leg, 3-Leg, Lock &amp; Dog of the Day. Trust the algorithm!">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=7"><link rel="icon" href="icon-512.png?v=7"><link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
