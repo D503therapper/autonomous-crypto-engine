@@ -457,7 +457,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         o = f"+{e['odds']}" if e["odds"] > 0 else str(e["odds"])
         t = E(_the(e["team"], e.get("league")))
         lines.append(_rot(k + len(e["team"]), [f"📡 We smacked that {t} live bet ({o}). The algorithm never lies.",
-                                               f"📡 Live bet cashed: {t} at {o}. Told y'all — never count a team out.",
+                                               f"📡 Live bet cashed: {t} at {o}. Told y'all — teams always be coming back.",
                                                f"📡 {_cap(t)} live at {o}? Cashed. Trust the algorithm.",
                                                f"📡 Caught {t} live at {o} and they came through. Fuck yeah, let's go!",
                                                f"📡 {_cap(t)} live at {o} — CASHED. Everybody was jumping off, we jumped on."]))
