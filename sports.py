@@ -430,9 +430,10 @@ def pick_tier(pk):
     return "lock" if tiers and all(t == "lock" for t in tiers) else "value"
 
 
-LEAN_MIN_P = {"two": 0.58, "three": 0.58, "lock": 0.62, "dog": 0.42}   # ACCURACY FIRST: a lean is a side we expect to win
-MAX_REPLACEMENTS = 0          # no afternoon replacements: our record is the start-of-day board, the engine's most
-                              # confident calls. People who want more use ASK THE ENGINE (never counts toward the record)
+LEAN_MIN_P = {"two": 0.58, "three": 0.58, "four": 0.58, "lock": 0.62, "dog": 0.42}   # ACCURACY FIRST: a lean is a side we expect to win
+MAX_REPLACEMENTS = 10         # 🟡 LEANS through the day: when a daily pick is graded, a fresh LEAN of the same kind goes
+                              # up from the games that haven't started (keeps picks flowing till night). Leans keep their
+                              # own record - never ours. Our record stays the start-of-day board.
 
 
 def lean(cands, kind, taken=None):
@@ -443,8 +444,8 @@ def lean(cands, kind, taken=None):
         pool = [c for c in ml if c["odds"] >= LOCK_MAX_FAV and c["p"] >= LEAN_MIN_P["lock"]]
     elif kind == "dog":
         pool = [c for c in ml if c["odds"] >= DOG_MIN and c["p"] >= LEAN_MIN_P["dog"] and c["game_id"] != taken]
-    elif kind in ("two", "three"):
-        n = 2 if kind == "two" else 3
+    elif kind in ("two", "three", "four"):
+        n = {"two": 2, "three": 3, "four": 4}[kind]
         best = {}
         for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= LEAN_MIN_P[kind]), key=lambda c: -c["p"]):
             best.setdefault(c["game_id"], c)
@@ -586,9 +587,14 @@ def post_board(games, model, picks, now, day, force=False):
             continue                                          # enough for today - accuracy over volume
         avoid = {l["game_id"] for p in picks if p["date"] == iso and p["status"] != "waiting" and p["kind"] not in ("eight", "four")
                  for l in p["legs"]}
-        fixed = {k: posted[k]["legs"] for k in ("lock", "dog", "two", "three")
-                 if k in posted and posted[k].get("status") != "waiting" and posted[k].get("legs")}   # build on what's up
+        fixed = {k: posted[k]["legs"] for k in ("lock", "dog", "two", "three")          # build on what's still up
+                 if k in posted and posted[k].get("status") == "open" and posted[k].get("legs")}   # (never a graded one)
         best = make_board(cands, lock_game, allow_lean=replacing, avoid=avoid, fixed=fixed).get(kind)
+        if replacing:                                         # a lean never repeats a game we're already on today
+            if best and any(l["game_id"] in avoid for l in best["legs"]):
+                best = None
+            if not best:                                      # nothing clears the value bar: the likeliest LEAN instead
+                best = lean([c for c in cands if c["game_id"] not in avoid], kind, taken=lock_game)
         if not best:
             continue
         deadline = min(_start(l) for l in best["legs"]) - timedelta(minutes=DEADLINE_MIN)

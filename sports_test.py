@@ -705,6 +705,22 @@ def test_halves_study():
          "result": "won", "odds": 185, "best_odds": 300}
     assert "+300" in dash._live_story(e), "a live bet that cashed after its line ran long says so"
 
+def test_leans_through_the_day():
+    """Afternoon LEANS: the likeliest sides on games we're not already on, each game once - even with no value."""
+    assert sports.MAX_REPLACEMENTS > 0
+    mk = lambda gid, p, odds: {"game_id": gid, "league": "mlb", "side": "home", "team": gid, "market": "ml", "line": None,
+                               "odds": odds, "dec": sports.sd.decimal(odds), "p": p, "edge": -0.01, "reasons": ["x"],
+                               "start": "2026-09-28T23:00Z", "home": True, "waiting": []}
+    cands = [mk("g1", 0.66, -140), mk("g2", 0.64, -130), mk("g3", 0.62, -120), mk("g4", 0.61, -125), mk("g5", 0.59, -115)]
+    two = sports.lean([c for c in cands if c["game_id"] != "g1"], "two")
+    assert two and two["lean"] and [l["game_id"] for l in two["legs"]] == ["g2", "g3"]
+    four = sports.lean(cands, "four")
+    assert four and len({l["game_id"] for l in four["legs"]}) == 4
+    lock = sports.lean(cands, "lock")
+    assert lock and lock["legs"][0]["game_id"] == "g3"          # a lean lock still follows the lock price rule
+    print("ok test_leans_through_the_day")
+
+
 def test_public_splits():
     """Who's betting who: the Action Network splits parse, match our game, and grade the public side."""
     import sports_public as spub
