@@ -184,6 +184,10 @@ def _leg(leg, tagged=False):
 
 def _pick_card(kind, pk):
     label, c1, c2 = LOOK[kind]
+    if kind == "solo" and pk.get("legs"):                    # a one-game day: the header IS the pick (BEARS +3.5)
+        l0 = pk["legs"][0]
+        mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
+        label = E(f'{l0["team"]} {mk}'.upper())
     if not pk:
         return f"""<section class="pk" style="--c1:{c1};--c2:{c2}"><div class="pk-h"><span class="pk-i">{ICON[kind]}</span>
 <span class="pk-l">{label}</span></div><div class="nopick">No play today — nothing on the slate has real value. We don't force it.</div></section>"""
