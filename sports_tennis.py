@@ -544,7 +544,7 @@ def _used(skip=()):
     return sb.slang_in(sb.dashboard_texts(skip=skip))
 
 
-TENNIS_BV = 10                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 11                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):

@@ -122,18 +122,18 @@ class Voice:
         order = [(start + i) % len(options) for i in range(len(options))]
         def slang(x):
             return [f"slang:{k}" for k, pat in SLANG.items() if re.search(pat, x.lower())]
-        for fresh_only in (True, False):
-            for n in order:
-                tag = f"{key}:{n}"
-                if tag in self.used or (fresh_only and any(s in self.used for s in slang(options[n]))):
-                    continue
-                if not fresh_only and not must:
-                    break                                     # every fresh way repeats a phrase: drop the line
-                self.used.add(tag)
-                self.used.update(slang(options[n]))
-                self.mine.append(tag)
-                return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
-        return options[start] if must else ""
+        unused = [n for n in order if f"{key}:{n}" not in self.used]
+        fresh = [n for n in unused if not any(s in self.used for s in slang(options[n]))]
+        if fresh:
+            n = fresh[0]
+        elif not must:
+            return ""                                         # every fresh way repeats a phrase: drop the line
+        else:                                                 # must say it: the wording that repeats the fewest phrases
+            n = min(unused or order, key=lambda i: sum(s in self.used for s in slang(options[i])))
+        self.used.add(f"{key}:{n}")
+        self.used.update(slang(options[n]))
+        self.mine.append(f"{key}:{n}")
+        return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
 
 
 def breakdown(leg, games, elo, injuries, used=None):
