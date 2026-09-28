@@ -144,6 +144,9 @@ LINES_ST = sports_lines.load()               # the puck line / run line study (h
 import sports_totals  # noqa: E402
 import sports_ats  # noqa: E402
 
+import sports_dogs  # noqa: E402
+
+DOGS_ST = sports_dogs.load()                 # the big underdog + favorite study (price check + dog spots/traps)
 ATS_ST = sports_ats.load()                   # the spread-vs-moneyline study (who covers when the two disagree)
 
 TOTALS_ST = sports_totals.load()             # the over/under study: a sport only gets over/unders once it's PROVEN
@@ -179,6 +182,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
             if key_out["home"] or key_out["away"] else sm.final_p(params, f, g)
         # the engine's own read without the line move: sharp money alone can never carry a pick
         ph_own = mkt if key_out["home"] or key_out["away"] else sm.final_p({**params, "move_w": 0.0}, f, g)
+        # the big study's price check: in a sport where favorites/dogs really win more/less than their price says
+        # (proven on games it never saw), every read is shifted by it
+        ph, ph_own = sports_dogs.adjust(DOGS_ST, lg, ph), sports_dogs.adjust(DOGS_ST, lg, ph_own)
         waiting = waiting_on(g, injuries)
         news = sports_news.load()
         drama = {side: sports_news.drama(news, lg, g[side]) for side in ("home", "away")}
@@ -196,7 +202,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
             odds = int(g[f"ml_{side}"])
             p = ph if side == "home" else 1 - ph
             p_own = ph_own if side == "home" else 1 - ph_own
-            out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p,
+            trap = odds > 0 and sports_dogs.verdict(DOGS_ST, lg, odds, side == "home") == "trap"
+            out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p, "trap": trap,
                         "p_market": mkt if side == "home" else 1 - mkt, "edge": p * sd.decimal(odds) - 1,
                         "edge_own": p_own * sd.decimal(odds) - 1})
             if lg in ("nhl", "mlb") and g.get("spread_home", "") != "" and LINES_ST:   # puck line / run line: the chance
@@ -239,6 +246,8 @@ def good(c):
     """A real play: value on our numbers - from the engine's own read, not just the line moving - and at least one
     reason. Anything else is filler, and filler never goes up."""
     need = INTL_MIN_EDGE if c.get("intl") or c.get("our_drama") else MIN_EDGE   # overseas / our own drama: 2x value
+    if c.get("trap"):                  # a dog in a spot the big study proved the books still overprice: never
+        return False
     return c["edge"] >= need and c.get("edge_own", c["edge"]) >= need and bool(c.get("reasons"))
 
 
@@ -511,6 +520,9 @@ def post_board(games, model, picks, now, day, force=False):
     DEADLINE_MIN before its first game it is posted from settled games only. force posts everything now.
     A posted play is final. Returns the plays posted by this call."""
     iso = day.isoformat()
+    if not DOGS_ST:                  # no picks until the big underdog + favorite study has run
+        print("holding the board: the big study hasn't run yet")
+        return []
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] <= iso)]   # rebuilt every run
     posted = {}
     for p in picks:                  # the latest play of each kind today (a graded one gets replaced below)
@@ -801,7 +813,7 @@ def run(repick=False, fetch=True):
             f"{lg} big favorites covered {p['big_fav_cover']:.0%} of {p['big_fav_games']} (adjust {p.get('bfav', 0):+.2f})"
             for lg, p in model["params"].items() if p.get("big_fav_cover") is not None))
     n_ls = sum(1 for g in games.values() if g.get("ls_home"))
-    if n_ls != model.get("ls_seen"):                                    # the comeback + halves studies learn on new games
+    if n_ls != model.get("ls_seen") or not DOGS_ST:                                    # the comeback + halves studies learn on new games
         try:
             import sports_comeback as sc
             print(sc.summary(sc.study(games)))

@@ -705,6 +705,18 @@ def test_halves_study():
          "result": "won", "odds": 185, "best_odds": 300}
     assert "+300" in dash._live_story(e), "a live bet that cashed after its line ran long says so"
 
+def test_dog_traps():
+    """The big study: a dog in a spot the books still overprice is never a real play; a proven price check shifts reads."""
+    import sports_dogs
+    st = {"nhl": {"traps": ["+140-179|away|on b2b"], "proven": [], "price": {"proven": True, "shifts": {"5": 0.2}}}}
+    assert sports_dogs.verdict(st, "nhl", 150, False, "on b2b") == "trap"
+    assert sports_dogs.verdict(st, "nhl", 150, True) is None
+    assert sports_dogs.adjust(st, "nhl", 0.65) > 0.65 and sports_dogs.adjust(st, "nba", 0.65) == 0.65
+    c = {"edge": 0.2, "edge_own": 0.2, "reasons": ["x"], "trap": True}
+    assert not sports.good(c) and sports.good({**c, "trap": False})
+    print("ok test_dog_traps")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
