@@ -1,531 +1,6 @@
 {
- "updated": "2026-09-28T06:21Z",
+ "updated": "2026-09-28T07:05Z",
  "games": [
-  {
-   "id": "nfl:401872950",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Bengals",
-   "home": "Steelers",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872953",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Chargers",
-   "home": "Bills",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872952",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Chiefs",
-   "home": "Dolphins",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872954",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Jets",
-   "home": "Lions",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872949",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Panthers",
-   "home": "Browns",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872957",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Patriots",
-   "home": "Jaguars",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "three",
-   "lean": {
-    "team": "Patriots",
-    "opp": "Jaguars",
-    "market": "ml",
-    "line": null,
-    "odds": 130,
-    "p": 0.451,
-    "win_p": 0.451,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ],
-    "result": "lost"
-   }
-  },
-  {
-   "id": "nfl:401872955",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Seahawks",
-   "home": "Commanders",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872951",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Texans",
-   "home": "Colts",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872956",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T17:00Z",
-   "away": "Titans",
-   "home": "Giants",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817106",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T17:05Z",
-   "away": "Mets",
-   "home": "Nationals",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817103",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T17:05Z",
-   "away": "Orioles",
-   "home": "Yankees",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817108",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T18:30Z",
-   "away": "Rays",
-   "home": "Phillies",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817115",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:05Z",
-   "away": "Astros",
-   "home": "Athletics",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817089",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:05Z",
-   "away": "Cubs",
-   "home": "Red Sox",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Cubs",
-    "opp": "Red Sox",
-    "market": "ml",
-    "line": null,
-    "odds": -115,
-    "p": 0.527,
-    "win_p": 0.527,
-    "reasons": [
-     "better starting pitcher"
-    ],
-    "result": "won"
-   }
-  },
-  {
-   "id": "mlb:401817116",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:05Z",
-   "away": "Dodgers",
-   "home": "Giants",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817105",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:07Z",
-   "away": "Reds",
-   "home": "Blue Jays",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817113",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Angels",
-   "home": "Mariners",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817102",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Braves",
-   "home": "Marlins",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Marlins",
-    "opp": "Braves",
-    "market": "ml",
-    "line": null,
-    "odds": -126,
-    "p": 0.525,
-    "win_p": 0.525,
-    "reasons": [
-     "sharp money moving this way",
-     "better starting pitcher"
-    ],
-    "result": "won"
-   }
-  },
-  {
-   "id": "mlb:401817111",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Cardinals",
-   "home": "Brewers",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "mlb:401817114",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Diamondbacks",
-   "home": "Padres",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Padres",
-    "opp": "Diamondbacks",
-    "market": "ml",
-    "line": null,
-    "odds": 130,
-    "p": 0.45,
-    "win_p": 0.45,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "better starting pitcher"
-    ],
-    "result": "won"
-   }
-  },
-  {
-   "id": "mlb:401817109",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Guardians",
-   "home": "Royals",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Guardians",
-    "opp": "Royals",
-    "market": "ml",
-    "line": null,
-    "odds": -109,
-    "p": 0.524,
-    "win_p": 0.524,
-    "reasons": [
-     "hotter recent form",
-     "better starting pitcher",
-     "the stronger team"
-    ],
-    "result": "lost"
-   }
-  },
-  {
-   "id": "mlb:401817107",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Pirates",
-   "home": "Tigers",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Pirates",
-    "opp": "Tigers",
-    "market": "ml",
-    "line": null,
-    "odds": -117,
-    "p": 0.506,
-    "win_p": 0.506,
-    "reasons": [
-     "hotter recent form"
-    ],
-    "result": "won"
-   }
-  },
-  {
-   "id": "mlb:401817112",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Rangers",
-   "home": "Twins",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Twins",
-    "opp": "Rangers",
-    "market": "ml",
-    "line": null,
-    "odds": -105,
-    "p": 0.5,
-    "win_p": 0.5,
-    "reasons": [
-     "hotter recent form",
-     "sharp money moving this way",
-     "better starting pitcher"
-    ],
-    "result": "won"
-   }
-  },
-  {
-   "id": "mlb:401817110",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "sport": "MLB",
-   "start": "2026-09-27T19:10Z",
-   "away": "Rockies",
-   "home": "White Sox",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872958",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T20:05Z",
-   "away": "Cardinals",
-   "home": "49ers",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872959",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T20:05Z",
-   "away": "Vikings",
-   "home": "Buccaneers",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Vikings",
-    "opp": "Buccaneers",
-    "market": "ml",
-    "line": null,
-    "odds": -120,
-    "p": 0.612,
-    "win_p": 0.612,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
-    ],
-    "result": "won"
-   }
-  },
-  {
-   "id": "nfl:401872961",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T20:25Z",
-   "away": "Raiders",
-   "home": "Saints",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872960",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-27T20:25Z",
-   "away": "Ravens",
-   "home": "Cowboys",
-   "h1": null,
-   "why": "final",
-   "done": true,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "nfl:401872962",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "sport": "NFL",
-   "start": "2026-09-28T00:20Z",
-   "away": "Rams",
-   "home": "Broncos",
-   "h1": null,
-   "why": "on_board",
-   "done": true,
-   "board": "eight",
-   "lean": {
-    "team": "Broncos",
-    "opp": "Rams",
-    "market": "ml",
-    "line": null,
-    "odds": 110,
-    "p": 0.488,
-    "win_p": 0.488,
-    "reasons": [
-     "sharp money moving this way",
-     "the stronger team"
-    ],
-    "result": "won"
-   }
-  },
   {
    "id": "nfl:401872963",
    "league": "nfl",
@@ -554,6 +29,204 @@
      "sharp money moving this way",
      "hotter recent form",
      "revenge game"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401891773",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Hurricanes",
+    "p": 0.364,
+    "tie": 0.297,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "start": "2026-09-29T21:00Z",
+   "away": "Panthers",
+   "home": "Hurricanes",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Panthers",
+    "opp": "Hurricanes",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -225,
+    "p": 0.691,
+    "win_p": 0.472,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401891827",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Maple Leafs",
+    "p": 0.354,
+    "tie": 0.297,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "start": "2026-09-29T23:00Z",
+   "away": "Canadiens",
+   "home": "Maple Leafs",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Canadiens",
+    "opp": "Maple Leafs",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -258,
+    "p": 0.71,
+    "win_p": 0.494,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401891774",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Bruins",
+    "p": 0.354,
+    "tie": 0.297,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "start": "2026-09-30T00:00Z",
+   "away": "Rangers",
+   "home": "Bruins",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Rangers",
+    "opp": "Bruins",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -265,
+    "p": 0.71,
+    "win_p": 0.494,
+    "reasons": [
+     "hotter goalie",
+     "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401907924",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Yankees",
+    "p": 0.512,
+    "tie": 0.117,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "start": "2026-09-30T00:00Z",
+   "away": "Red Sox",
+   "home": "Yankees",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Red Sox",
+    "opp": "Yankees",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -187,
+    "p": 0.594,
+    "win_p": 0.416,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401891804",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Oilers",
+    "p": 0.469,
+    "tie": 0.284,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "start": "2026-09-30T02:00Z",
+   "away": "Canucks",
+   "home": "Oilers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Oilers",
+    "opp": "Canucks",
+    "market": "ml",
+    "line": null,
+    "odds": -278,
+    "p": 0.737,
+    "win_p": 0.737,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401907974",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Padres",
+    "p": 0.48,
+    "tie": 0.118,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "start": "2026-09-30T02:00Z",
+   "away": "Cubs",
+   "home": "Padres",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Cubs",
+    "opp": "Padres",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -205,
+    "p": 0.629,
+    "win_p": 0.452,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401891775",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Golden Knights",
+    "p": 0.443,
+    "tie": 0.289,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "start": "2026-09-30T02:30Z",
+   "away": "Blackhawks",
+   "home": "Golden Knights",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Golden Knights",
+    "opp": "Blackhawks",
+    "market": "ml",
+    "line": null,
+    "odds": -265,
+    "p": 0.69,
+    "win_p": 0.69,
+    "reasons": [
+     "the stronger team"
     ]
    }
   }
