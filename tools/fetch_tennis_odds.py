@@ -159,8 +159,11 @@ def main(budget_s=20 * 60):
     if os.path.exists(OUT):
         with gzip.open(OUT, "rt", newline="") as f:
             have = list(csv.DictReader(f))
+    have = [r for r in have if r.get("date", "")[:4].isdigit()]
     for r in have:
         r["season"] = str(_season(r))
+    ok_date = lambda r, y: r.get("date", "")[:4].isdigit() and y - 1 <= int(r["date"][:4]) <= y   # (typos in the source)
+    have = [r for r in have if ok_date(r, int(r["season"]))]
     now = datetime.now(timezone.utc)
     count = {}
     for r in have:
@@ -171,6 +174,7 @@ def main(budget_s=20 * 60):
 
     def put(tour, y, rows):
         nonlocal keep
+        rows = [r for r in rows if ok_date(r, y)]
         for r in rows:
             r["season"] = str(y)
         keep = [r for r in keep if not (r["tour"] == tour and r["season"] == str(y))] + rows
