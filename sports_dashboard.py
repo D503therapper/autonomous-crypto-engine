@@ -424,9 +424,15 @@ def render(picks, model, games, series, start_bank, updated_ms):
             for l in p["legs"]:
                 if l.get("result") in ("won", "lost"):     # if we posted it, it counts
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
-    res = list(seen_.values())                               # (tennis keeps its own record, up top with live + leans)
+    res = list(seen_.values())
+    try:                                                     # 🎾 tennis shows here too (its own record - a match counts once)
+        with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
+            res += list({(l.get("match") or l["id"]): ("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or []
+                         if l.get("result") in ("won", "lost")}.values())
+    except (OSError, ValueError):
+        pass
     chips = []
-    for name, lgs in groups:
+    for name, lgs in groups + [("🎾 Tennis", ("tennis",))]:
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
         hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
