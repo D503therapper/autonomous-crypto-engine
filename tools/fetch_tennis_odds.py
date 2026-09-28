@@ -29,7 +29,7 @@ ERRS = []
 
 
 def _get(url):
-    for u in (url.replace("http://", "https://"), url):
+    for u in dict.fromkeys((url.replace("http://", "https://"), url)):
         for i in range(2):
             try:
                 with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30) as r:
@@ -74,7 +74,8 @@ def _cell(v):
 
 
 def year(tour, y):
-    base = f"http://www.tennis-data.co.uk/{y}{'w' if tour == 'wta' else ''}/{y}"
+    relay = os.environ.get("TDATA_RELAY", "").rstrip("/")     # the Cloudflare relay (the site blocks GitHub's servers)
+    base = f"{relay or 'http://www.tennis-data.co.uk'}/{y}{'w' if tour == 'wta' else ''}/{y}"
     for ext in ("xlsx", "xls"):
         blob = _get(f"{base}.{ext}")
         if blob:
