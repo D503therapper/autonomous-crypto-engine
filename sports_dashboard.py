@@ -228,8 +228,6 @@ def _tennis():
         slates = []
     if not slates:
         return ""
-    s = slates[-1]
-    legs = {l["id"]: l for l in s["picks"]}
     r = {"won": 0, "lost": 0, "p_won": 0, "p_lost": 0}
     seen = set()                                             # a match counts once, even if two slates carry it
     for x in slates:
@@ -254,26 +252,32 @@ def _tennis():
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
   {f'<div class="fin">Final: {E(l["score"])}</div>' if l.get("score") else ""}
 </div>"""
-    par = s.get("parlay")
-    par_html = ""
-    if par:
-        stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
-        par_html = f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
+    def block(s):
+        legs = {l["id"]: l for l in s["picks"]}
+        par = s.get("parlay")
+        par_html = ""
+        if par:
+            stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
+            par_html = f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
   <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PARLAY OF THE DAY</span>{_chip(par["status"])}</div>
   <div class="pk-o"><span class="big">{_am(par['american'])}</span><span class="pay">$100 wins <b>${100 * (par['dec'] - 1):,.0f}</b></span></div>
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{"".join(row(legs[i]) for i in par["legs"] if i in legs)}
 </section>"""
-    day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
-    groups = ""
-    for title, ls in (("MEN'S TENNIS", [l for l in s["picks"] if l.get("tour", "atp") != "wta"]),
-                      ("WOMEN'S TENNIS", [l for l in s["picks"] if l.get("tour") == "wta"])):
-        if ls:
-            groups += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
-                       f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
+        day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
+        groups = ""
+        for title, ls in (("MEN'S TENNIS", [l for l in s["picks"] if l.get("tour", "atp") != "wta"]),
+                          ("WOMEN'S TENNIS", [l for l in s["picks"] if l.get("tour") == "wta"])):
+            if ls:
+                groups += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
+                           f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
+        return f'<div class="tn-d">{E(day)}</div>{par_html}{groups}'
+    # the newest slate, plus any earlier one still being played (its picks never vanish while they're pending)
+    shown = [x for x in slates[:-1] if any(l.get("result") is None for l in x["picks"])
+             or (x.get("parlay") or {}).get("status") == "open"] + [slates[-1]]
+    n = sum(len(x["picks"]) for x in shown)
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
-<span class="tn-s">{len(s['picks'])} picks + parlay · {r['won']}-{r['lost']} · tap to open</span></summary>
-<div class="tn-b"><div class="tn-d">{E(day)} · parlays {r['p_won']}-{r['p_lost']}</div>{par_html}
-{groups}</div></details>"""
+<span class="tn-s">{n} picks + parlay · {r['won']}-{r['lost']} · tap to open</span></summary>
+<div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{"".join(block(x) for x in shown)}</div></details>"""
 
 
 def render(picks, model, games, series, start_bank, updated_ms):
