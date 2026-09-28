@@ -128,6 +128,11 @@ def waiting_on(g, injuries):
     return out
 
 
+import sports_lines  # noqa: E402
+
+LINES_ST = sports_lines.load()               # the puck line / run line study (how often teams really win by 2+)
+
+
 def candidates(games, model, now=None, day=None, injuries=None):
     """Every bettable side on the day's (Pacific) slate: moneylines, plus spreads in NFL/NCAAF/NBA."""
     now = now or datetime.now(timezone.utc)
@@ -176,6 +181,13 @@ def candidates(games, model, now=None, day=None, injuries=None):
             out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p,
                         "p_market": mkt if side == "home" else 1 - mkt, "edge": p * sd.decimal(odds) - 1,
                         "edge_own": p_own * sd.decimal(odds) - 1})
+            if lg in ("nhl", "mlb") and g.get("spread_home", "") != "" and LINES_ST:   # puck line / run line: the chance
+                line = float(g["spread_home"]) * (1 if side == "home" else -1)          # of winning by 2+, from the study
+                sodds = sm._int(g.get(f"spread_{side}_odds"))
+                pc = sports_lines.cover(LINES_ST, lg, ph, side, line)
+                if pc is not None and sodds:
+                    out.append({**base, "market": "spread", "line": line, "odds": sodds, "dec": sd.decimal(sodds),
+                                "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1})
             if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "":
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)
                 sodds = sm._int(g.get(f"spread_{side}_odds")) or -110
@@ -610,7 +622,8 @@ def engine_reads(games, model, picks, now=None):
             by_game.setdefault(c["game_id"], []).append(c)
         for gid, cs in by_game.items():
             g = games[gid]
-            if g["league"] in ("nhl", "mlb") and g.get("spread_home", "") != "" and lines_st:   # puck line / run line
+            if g["league"] in ("nhl", "mlb") and g.get("spread_home", "") != "" and lines_st \
+                    and not any(c["market"] == "spread" for c in cs):          # puck line / run line (if not in already)
                 ph_ = next((c["p"] for c in cs if c["market"] == "ml" and c["side"] == "home"), None)
                 for c in [c for c in cs if c["market"] == "ml"]:
                     line = float(g["spread_home"]) * (1 if c["side"] == "home" else -1)
