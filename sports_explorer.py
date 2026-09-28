@@ -14,6 +14,23 @@
    team going for bowl-eligible 6, a hot seat - for the team and ("o"...) its opponent - and the officials' lean
    (refh: / refo:) once data/sports/officials.json exists. New atoms only ever make NEW angles: every angle already
    in the registry keeps its key (and fingerprint), so nothing is retested.
+   Plus TEAM TRENDS bettors quote ("the Eagles failed to cover their last 6", "bad on the road ATS", "lost 4 of 5 on
+   Monday night", "take the Bears first quarter"), same no-peeking walk, each with an opponent version ("o"...):
+     ats:w3 / ats:w5 / ats:l3 / ats:l5  covered (w) / failed to cover (l) its last 3+ / 5+ (pushes skipped; spread sports)
+     atsr:hi / atsr:lo    season-to-date ATS 65%+ / 35%- over 6+ games
+     rats:hi / rats:lo    on the road today, and its road ATS over the last 12 months is 65%+ / 35%- over 5+ road games
+     pt:strong / pt:poor  a prime-time football game (TNF / SNF / MNF - sports_trends' slots) and the team's straight-up
+                          record in prime-time games this season + last is 70%+ / 30%- over 5+
+     divr:hi / divr:lo    a division game (sports_context) and its record vs the division this season + last 70%+ / 30%-
+                          over 5+ (pro leagues only - college has conferences, not divisions)
+     q1:won / q1:lost     won / lost the 1st quarter (1st period, 1st inning, college hoops' 1st half) in 5+ of its
+                          last 7 games that have period scores
+     ou:o4 / ou:u4        its last 4+ games went over / under the closing total (pushes skipped)
+   FIRST-PART MARKETS: p1ml / p1spread grade the first part of the game at its REAL closing price, only where the data
+   has both the period scores and that line: college hoops' 1st half and baseball's first 5 innings (a tie = no bet on
+   the moneyline). There are no 1st-quarter lines (football / NBA have first-HALF lines only) and the NHL's few
+   first-period prices are an unclear 3-way format, so the q1 atoms there are graded on full-game sides and totals.
+   The run report also pools each team-trend family across sports (follow vs fade, both halves) - see family_tests.
 2) ANGLES (hypotheses): sport x bet x a combination of 1-3 atoms, e.g. "NBA / moneyline / road + on a back-to-back
    + the opponent rested 2-3 days". Bets: the moneyline (at the closing price, graded against the no-juice closing
    chance), the spread (football + basketball), the over and the under (real odds, -110 when missing). Listed in a
@@ -45,6 +62,7 @@ from zoneinfo import ZoneInfo
 import sports_context as scx
 import sports_data as sd
 import sports_model as sm
+import sports_trends as strn
 
 PATH = os.path.join(sd.DATA, "explorer.json")
 LEAGUES = ("nfl", "ncaaf", "nba", "ncaab", "mlb", "nhl")
@@ -73,6 +91,17 @@ FAMILY = {"home": "loc", "road": "loc", "neutral": "loc", "fav": "fd", "dog": "f
           "oout_dome": "ostadium"}
 CX_OPP = ("stk:", "mi:", "tank", "mustwin", "rest", "hotseat", "dome_out", "out_dome", "dome_cold", "week3000")
 LAST_TESTED = []            # the keys the latest run tested (tests look at it)
+# team trends (walk-forward, see the top)
+ATS_SHORT, ATS_LONG = 3, 5
+RATE_HI, RATE_LO = 0.65, 0.35
+ATS_RATE_N, ROAD_ATS_N, ROAD_ATS_D = 6, 5, 365
+REC_HI, REC_LO, REC_N = 0.70, 0.30, 5          # prime-time / division records (this season + last)
+PRIME = ("thursday night", "sunday night", "monday night")
+DIV_LEAGUES = ("nfl", "nba", "mlb", "nhl")
+Q1_LAST, Q1_NEED = 7, 5
+OU_STREAK = 4
+P1 = {"ncaab": 1, "mlb": 5}                     # first-part markets with real closing lines: periods in that part
+VIG_OK = (1.0, 1.15)                            # a first-part price pair must add up to a real book's margin
 
 
 def family(atom):
@@ -94,6 +123,14 @@ def _num(x):
 
 def _odds(x):
     return sd.parse_american(x)
+
+
+def _ints(x):
+    """'7,3,0,14' -> [7, 3, 0, 14] (period scores); [] when missing or broken."""
+    try:
+        return [int(v) for v in str(x or "").split(",") if v != ""]
+    except ValueError:
+        return []
 
 
 def units(odds, won):
@@ -152,6 +189,7 @@ class League:
         self.cx_facts, self.cx_index = None, None        # the context study's facts (set by build / index)
         self.big = sm.BIG_WIN.get(league, 10 ** 9)
         self.teams, self.tz, self.pending = {}, {}, deque()
+        self.tt = {}                                          # team trends: team -> its running records
         self.tot, self.tsum, self.tsq = deque(), 0.0, 0.0
         ts = sorted(sm._ts(g["start"]) for g in games.values() if g.get("league") == league and g.get("start")
                     and (g.get("stype") or "?") in sd.REAL)
@@ -195,6 +233,7 @@ class League:
             if m:
                 r["vs"][g[opp]] = (t, m > 0)
             r["last"] = t
+        self.learn_trends(g, t, hs, as_, neutral)
         tzo = _num(g.get("tzo"))
         if tzo is not None and not neutral and str(g.get("intl")) != "1":
             self.tz[g["home"]] = _std_tz(tzo, t)
@@ -207,6 +246,101 @@ class League:
                 x = self.tot.popleft()
                 self.tsum -= x
                 self.tsq -= x * x
+
+    # -- team trends
+    def rel(self, g):
+        """'div' / 'conf' / 'nonconf' / None: the context study's schedule call for this pair."""
+        f = self.cx_facts.get(g.get("id")) if self.cx_facts else None
+        if f is not None:
+            return f.get("rel")
+        W = self.cx_index.w.get(self.lg) if self.cx_index is not None else None
+        if W is not None and g.get("home") and g.get("start"):
+            return W.sched.rel(g["home"], g["away"], scx.season(self.lg, g["start"]))
+        return None
+
+    def prime(self, g):
+        """A prime-time football slot (Thursday / Sunday / Monday night) by sports_trends' slot rules."""
+        return self.lg in FOOTBALL and strn.tags(g, self.lg)[0] in PRIME
+
+    def learn_trends(self, g, t, hs, as_, neutral):
+        """A final's result goes into both teams' running trend records (called 6h+ after its start, like apply)."""
+        se = scx.season(self.lg, g["start"])
+        line, tot = _num(g.get("spread_home")), _num(g.get("total"))
+        lh, la = _ints(g.get("ls_home")), _ints(g.get("ls_away"))
+        prime, div = self.prime(g), self.lg in DIV_LEAGUES and self.rel(g) == "div"
+        for side in ("home", "away"):
+            r = self.tt.setdefault(g[side], {"last": None, "ats": 0, "ats_s": (None, 0, 0), "road": deque(),
+                                             "pt": deque(), "div": deque(), "q1": deque(maxlen=Q1_LAST), "ou": 0})
+            if r["last"] is not None and t - r["last"] > SEASON_GAP_D * 86400:
+                r["ats"], r["ou"] = 0, 0                  # a new season: streaks and recent form start over
+                r["q1"].clear()
+            r["last"] = t
+            m = hs - as_ if side == "home" else as_ - hs
+            if self.lg in SPREAD_CUTS and line is not None:
+                c = m + (line if side == "home" else -line)
+                if c:                                     # (a push neither extends nor breaks anything)
+                    cov = c > 0
+                    r["ats"] = (max(0, r["ats"]) + 1) if cov else (min(0, r["ats"]) - 1)
+                    s0, w0, n0 = r["ats_s"]
+                    r["ats_s"] = (se, w0 + cov, n0 + 1) if s0 == se else (se, int(cov), 1)
+                    if side == "away" and not neutral:
+                        r["road"].append((t, cov))
+                    while r["road"] and r["road"][0][0] < t - ROAD_ATS_D * 86400:
+                        r["road"].popleft()
+            if m and prime:
+                r["pt"].append((se, m > 0))
+            if m and div:
+                r["div"].append((se, m > 0))
+            for key in ("pt", "div"):
+                while r[key] and r[key][0][0] < se - 1:
+                    r[key].popleft()
+            if lh and la:
+                d = lh[0] - la[0] if side == "home" else la[0] - lh[0]
+                r["q1"].append((d > 0) - (d < 0))
+            if tot is not None and tot > 0 and hs + as_ != tot:
+                ov = hs + as_ > tot
+                r["ou"] = (max(0, r["ou"]) + 1) if ov else (min(0, r["ou"]) - 1)
+
+    def team_trends(self, g, side, t):
+        """The team-trend atoms for one team going into this game (see the top). Only finals learned so far count."""
+        r = self.tt.get(g[side])
+        if not r:
+            return []
+        out = []
+        se = scx.season(self.lg, g["start"])
+        fresh = r["last"] is not None and t - r["last"] <= SEASON_GAP_D * 86400
+        if self.lg in SPREAD_CUTS:
+            a = r["ats"] if fresh else 0
+            if a >= ATS_SHORT:
+                out += ["ats:w3"] + (["ats:w5"] if a >= ATS_LONG else [])
+            elif a <= -ATS_SHORT:
+                out += ["ats:l3"] + (["ats:l5"] if a <= -ATS_LONG else [])
+            s0, w0, n0 = r["ats_s"]
+            if s0 == se and n0 >= ATS_RATE_N:
+                out += ["atsr:hi"] if w0 / n0 >= RATE_HI else ["atsr:lo"] if w0 / n0 <= RATE_LO else []
+            if side == "away" and str(g.get("neutral")) != "1":
+                rd = [c for x, c in r["road"] if x >= t - ROAD_ATS_D * 86400]
+                if len(rd) >= ROAD_ATS_N:
+                    x = sum(rd) / len(rd)
+                    out += ["rats:hi"] if x >= RATE_HI else ["rats:lo"] if x <= RATE_LO else []
+        for key, hi, lo, on in (("pt", "pt:strong", "pt:poor", self.prime(g)),
+                                ("div", "divr:hi", "divr:lo", self.lg in DIV_LEAGUES and self.rel(g) == "div")):
+            if not on:
+                continue
+            rec = [w for s_, w in r[key] if se - 1 <= s_ <= se]
+            if len(rec) >= REC_N:
+                x = sum(rec) / len(rec)
+                out += [hi] if x >= REC_HI else [lo] if x <= REC_LO else []
+        if fresh and len(r["q1"]) == Q1_LAST:
+            if sum(1 for x in r["q1"] if x > 0) >= Q1_NEED:
+                out.append("q1:won")
+            elif sum(1 for x in r["q1"] if x < 0) >= Q1_NEED:
+                out.append("q1:lost")
+        if fresh and r["ou"] >= OU_STREAK:
+            out.append("ou:o4")
+        elif fresh and r["ou"] <= -OU_STREAK:
+            out.append("ou:u4")
+        return out
 
     # -- atoms
     def game_level(self, g, t):
@@ -293,6 +427,7 @@ class League:
         out.append("neutral" if str(g.get("neutral")) == "1" else side.replace("away", "road"))
         mine = self.team(g, side, t)
         out += mine
+        out += self.team_trends(g, side, t) + ["o" + a for a in self.team_trends(g, other, t)]
         for a in self.team(g, other, t):
             if a.startswith(("rest:", "w3", "l3", "blow")):
                 out.append("o" + a)
@@ -328,6 +463,8 @@ class League:
         out += ga + ["h." + a for a in hx] + ["a." + a for a in ax]
         out += ["h." + a for a in self.team(g, "home", t)]
         out += ["a." + a for a in self.team(g, "away", t)]
+        out += ["h." + a for a in self.team_trends(g, "home", t)]
+        out += ["a." + a for a in self.team_trends(g, "away", t)]
         p = sm.market_p(g)
         if p is not None and p != 0.5:
             out.append("h.fav" if p > 0.5 else "h.dog")
@@ -395,6 +532,37 @@ def _grade_side(g, side, league):
     return out
 
 
+def _two_sided(a, b):
+    """Two prices that can be the two sides of one real market: the book's margin between 0 and 15%. Part of the
+    stored first-part history (most of MLB 2025) pairs prices of DIFFERENT lines (e.g. +310 / +175 on a -1.5) -
+    grading those would be grading made-up prices, so they're no bet."""
+    return VIG_OK[0] <= sd.implied(a) + sd.implied(b) <= VIG_OK[1]
+
+
+def _grade_p1(g, side, league):
+    """The first-part bets (college hoops' 1st half, baseball's first 5 innings) at their REAL closing prices - None
+    when the data lacks the period scores or the line (no price is ever made up). A tie is no bet on the moneyline."""
+    out = {"p1ml": None, "p1spread": None}
+    k = P1.get(league)
+    lh, la = _ints(g.get("ls_home")), _ints(g.get("ls_away"))
+    if not k or len(lh) < k or len(la) < k:
+        return out
+    m = sum(lh[:k]) - sum(la[:k])
+    oh, oa = _odds(g.get("h1_ml_home")), _odds(g.get("h1_ml_away"))
+    if oh and oa and m and _two_sided(oh, oa):
+        won = (m > 0) == (side == "home")
+        fh = sd.no_vig(oh, oa)
+        out["p1ml"] = (won, fh if side == "home" else 1 - fh, units(oh if side == "home" else oa, won))
+    line = _num(g.get("h1_spread_home"))
+    sh, sa = _odds(g.get("h1_spread_home_odds")), _odds(g.get("h1_spread_away_odds"))
+    if line is not None and sh and sa and _two_sided(sh, sa):
+        c = (m + line) if side == "home" else (-m - line)
+        if c:
+            fh = sd.no_vig(sh, sa)
+            out["p1spread"] = (c > 0, fh if side == "home" else 1 - fh, units(sh if side == "home" else sa, c > 0))
+    return out
+
+
 def _grade_total(g):
     tot = _num(g.get("total"))
     if tot is None or tot <= 0:
@@ -412,7 +580,7 @@ def build(games, league):
     """(League state after every final, side table, game table) for one league."""
     L = League(league, games)
     L.cx_facts = scx.facts_table(games, league, scx.load_officials())
-    side, game = Table(("ml", "spread")), Table(("over", "under"))
+    side, game = Table(("ml", "spread", "p1ml", "p1spread")), Table(("over", "under"))
     for g in sm.finals(games, league):
         t = sm._ts(g["start"])
         L.advance(t)
@@ -422,7 +590,7 @@ def build(games, league):
             continue
         base = L.game_level(g, t)
         for s in ("home", "away"):
-            side.add(g["start"], L.side_atoms(g, s, t, base), _grade_side(g, s, league))
+            side.add(g["start"], L.side_atoms(g, s, t, base), {**_grade_side(g, s, league), **_grade_p1(g, s, league)})
         game.add(g["start"], L.game_atoms(g, t, base), _grade_total(g))
         L.pending.append((t, g))
     return L, side.seal(), game.seal()
@@ -484,6 +652,99 @@ def shift_of(fwd):
     if not n or f is None or e is None:
         return 0.0
     return round((sm.logit(min(0.99, max(0.01, f + e))) - sm.logit(f)) * n / (n + SHRINK), 4)
+
+
+# ---------------------------------------------------------------- the team-trend families, pooled (the direct answer)
+FAMILIES = (   # (name, atom that says "back this team", atom that says "fade this team", markets)
+    ("team ATS streak 3+", "ats:w3", "ats:l3", ("spread",)),
+    ("team ATS streak 5+", "ats:w5", "ats:l5", ("spread",)),
+    ("season ATS rate", "atsr:hi", "atsr:lo", ("spread",)),
+    ("road ATS rate", "rats:hi", "rats:lo", ("spread",)),
+    ("prime-time record", "pt:strong", "pt:poor", ("ml", "spread")),
+    ("division record", "divr:hi", "divr:lo", ("ml", "spread")),
+    ("1st-quarter form", "q1:won", "q1:lost", ("p1ml", "p1spread", "ml", "spread")),
+)
+
+
+def _follow_side(tbl, out, up, down):
+    """[(start, follow bet, fade bet)]: following = backing a team flagged `up` / betting against one flagged `down`.
+    Side rows come in pairs (home 2k, away 2k+1); a game where the trend points both ways is dropped, one where both
+    teams point the same way counts once."""
+    bets = set(_ones(tbl.atoms.get(up, 0))) | {i ^ 1 for i in _ones(tbl.atoms.get(down, 0))}
+    vs = tbl.vals[out]
+    return [(tbl.starts[i], vs[i], vs[i ^ 1]) for i in sorted(bets)
+            if i ^ 1 not in bets and vs[i] is not None and vs[i ^ 1] is not None]
+
+
+def _follow_total(tbl):
+    """[(start, follow bet, fade bet)]: either team's 4+ overs in a row says over, 4+ unders says under."""
+    o = _ones(tbl.atoms.get("h.ou:o4", 0) | tbl.atoms.get("a.ou:o4", 0))
+    u = _ones(tbl.atoms.get("h.ou:u4", 0) | tbl.atoms.get("a.ou:u4", 0))
+    both = set(o) & set(u)
+    out = []
+    for rows, a, b in ((o, "over", "under"), (u, "under", "over")):
+        for i in rows:
+            if i not in both and tbl.vals[a][i] is not None:
+                out.append((tbl.starts[i], tbl.vals[a][i], tbl.vals[b][i]))
+    return out
+
+
+def family_cell(rows):
+    """Follow vs fade on the same bets: hit rate, the price's fair chance, ROI at the real price, both time halves,
+    the explorer's z (on the profit) and the edge z (hit minus the no-vig chance). Pass = the explorer's bar."""
+    rows = sorted(rows, key=lambda r: r[0])
+    n = len(rows)
+    out = {"n": n, "from": rows[0][0][:10] if rows else None, "to": rows[-1][0][:10] if rows else None}
+    if not n:
+        return out
+    h = n // 2
+    for name, k in (("follow", 1), ("fade", 2)):
+        bets = [r[k] for r in rows]
+
+        def part(bs):
+            m = len(bs)
+            return {"n": m, "hit": round(sum(w for w, _, _ in bs) / m, 4) if m else 0.0,
+                    "roi": round(sum(u for _, _, u in bs) / m, 4) if m else 0.0}
+        var = sum(f * (1 - f) for _, f, _ in bets)
+        c = {**part(bets), "fair": round(sum(f for _, f, _ in bets) / n, 4), "z": round(zscore([u for _, _, u in bets]), 2),
+             "z_edge": round(sum(w - f for w, f, _ in bets) / math.sqrt(var), 2) if var else 0.0,
+             "old": part(bets[:h]), "new": part(bets[h:])}
+        c["passes"] = n >= MIN_N and c["old"]["roi"] > 0 and c["new"]["roi"] > 0 and c["z"] >= Z_SUSPECT
+        out[name] = c
+    return out
+
+
+def family_tests(tables):
+    """tables = {league: (side table, game table)} -> {family|market: pooled cell, family|market|league: cell}."""
+    pools = {}
+    for lg, (side, game) in tables.items():
+        for name, up, down, markets in FAMILIES:
+            for out in markets:
+                if side.valid.get(out):
+                    rows = _follow_side(side, out, up, down)
+                    if rows:
+                        pools.setdefault(f"{name}|{out}", []).extend(rows)
+                        pools.setdefault(f"{name}|{out}|{lg}", []).extend(rows)
+        rows = _follow_total(game)
+        if rows:
+            pools.setdefault("O/U streak 4+|total", []).extend(rows)
+            pools.setdefault(f"O/U streak 4+|total|{lg}", []).extend(rows)
+    return {k: family_cell(v) for k, v in sorted(pools.items())}
+
+
+def family_lines(fams):
+    lines = ["   TEAM TRENDS pooled across sports (all games so far; 'follow' = ride the trend, 'fade' = bet against it;"
+             f" the bar: {MIN_N}+ bets, profit in both halves, z {Z_SUSPECT}+):"]
+    for k, c in fams.items():
+        if k.count("|") != 1 or not c.get("n"):
+            continue
+        f, d = c["follow"], c["fade"]
+        verdict = "FOLLOW passes the bar" if f["passes"] else "FADE passes the bar" if d["passes"] else "no edge"
+        lines.append(f"   {k}: n={c['n']} ({c['from']}..{c['to']}) follow hit {f['old']['hit']:.1%} older / "
+                     f"{f['new']['hit']:.1%} newer (fair {f['fair']:.1%}, roi {f['old']['roi']:+.3f} / {f['new']['roi']:+.3f},"
+                     f" z {f['z']}, edge z {f['z_edge']}) · fade hit {d['old']['hit']:.1%} / {d['new']['hit']:.1%}"
+                     f" (roi {d['old']['roi']:+.3f} / {d['new']['roi']:+.3f}, z {d['z']}) -> {verdict}")
+    return lines
 
 
 # ---------------------------------------------------------------- 3) enumeration (simple -> complex)
@@ -601,12 +862,14 @@ def explore(games, path=PATH, batch=BATCH, budget_s=BUDGET_S, leagues=LEAGUES, v
     for k in ("suspects", "proven", "killed"):
         st.setdefault(k, {})
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
-    groups, newest = {}, {}
+    groups, newest, tables = {}, {}, {}
     for lg in leagues:
         _, side, game = build(games, lg)
+        tables[lg] = (side, game)
         if side.starts:
             newest[lg] = side.starts[-1]
-        for out, tbl in (("ml", side), ("spread", side), ("over", game), ("under", game)):
+        for out, tbl in (("ml", side), ("spread", side), ("p1ml", side), ("p1spread", side), ("over", game),
+                         ("under", game)):
             if tbl.valid.get(out, 0):
                 groups[(lg, out)] = Group(lg, out, tbl)
     # -- re-check every suspect and proven angle on its FORWARD games only
@@ -666,9 +929,11 @@ def explore(games, path=PATH, batch=BATCH, budget_s=BUDGET_S, leagues=LEAGUES, v
                      for z, k, s in near[:10]] or st.get("closest", [])
     st["log"] = [run] + st.get("log", [])[:29]
     st["updated"] = now
+    st["team_trends"] = family_tests(tables)
     _save(st, seen, path)
     res = {**run, "tested_total": st["tested"], "suspects": sorted(st["suspects"]), "proven": sorted(st["proven"]),
-           "new_suspects": found, "new_proven": promoted, "new_killed": killed + demoted}
+           "new_suspects": found, "new_proven": promoted, "new_killed": killed + demoted,
+           "team_trends": st["team_trends"]}
     if verbose:
         print(report(res, st))
     return res
@@ -686,6 +951,7 @@ def report(res, st):
         lines.append("   PROVEN " + _brief(k, st["proven"][k]))
     for k in res["new_killed"]:
         lines.append("   KILLED " + _brief(k, st["killed"][k]))
+    lines += family_lines(res.get("team_trends") or {})
     return "\n".join(lines)
 
 

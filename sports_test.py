@@ -1120,6 +1120,81 @@ def test_explorer():
     shutil.rmtree(os.path.dirname(path))
 
 
+def test_team_trend_atoms():
+    """The explorer's team trends on synthetic NFL games: the ATS streak and season ATS rate counted right, a result
+    from the same day (under 6 hours earlier) is never seen, prime-time records only on prime-time games, 1Q form,
+    O/U streaks, the opponent versions; first-part bets graded only at real prices; the pooled family test runs."""
+    import sports_explorer as ex
+
+    def mk(gid, start, home, away, hs, as_, line=-3.0, ls=("7,7,7,6", "0,7,3,10"), total=40.0):
+        return {"id": gid, "league": "nfl", "start": start, "status": "final", "stype": "2", "home": home,
+                "away": away, "home_name": home, "away_name": away, "home_score": str(hs), "away_score": str(as_),
+                "neutral": "0", "ml_home": "-160", "ml_away": "140", "spread_home": str(line),
+                "spread_home_odds": "-110", "spread_away_odds": "-110", "total": str(total), "over_odds": "-110",
+                "under_odds": "-110", "ls_home": ls[0], "ls_away": ls[1]}
+    games = {}
+    sun = datetime(2024, 9, 8, 17, 0, tzinfo=timezone.utc)                  # Sunday 1pm ET
+    iso = "%Y-%m-%dT%H:%MZ"
+    for w in range(5):                                                       # A covers (and goes over) 5 straight
+        games[f"a{w}"] = mk(f"a{w}", (sun + timedelta(weeks=w)).strftime(iso), "A", f"O{w}", 27, 20)
+    t5 = sun + timedelta(weeks=5)
+    games["a5"] = mk("a5", t5.strftime(iso), "A", "O5", 17, 20)                  # fails to cover (and under)
+    games["a6"] = mk("a6", (t5 + timedelta(hours=3)).strftime(iso), "A", "O6", 30, 20)   # same day, 3h later
+    games["a7"] = mk("a7", (sun + timedelta(weeks=6)).strftime(iso), "A", "O7", 24, 20)
+    mnf = datetime(2024, 9, 10, 0, 15, tzinfo=timezone.utc)                 # Monday 8:15pm ET
+    for w in range(5):                                                       # P wins 5 Monday nights
+        games[f"p{w}"] = mk(f"p{w}", (mnf + timedelta(weeks=w)).strftime(iso), "P", f"Q{w}", 24, 10)
+    games["p5"] = mk("p5", "2024-10-14T00:20Z", "Q5", "P", 10, 24, line=3.0)   # Sunday night, P on the road
+    games["p6"] = mk("p6", "2024-10-20T17:00Z", "P", "Q6", 24, 10)             # Sunday day game
+    L = ex.League("nfl", games)
+    got = {}
+    for g in sm.finals(games, "nfl"):
+        t = sm._ts(g["start"])
+        L.advance(t)
+        got[g["id"]] = {s: L.side_atoms(g, s, t) for s in ("home", "away")}
+        got[g["id"]]["game"] = L.game_atoms(g, t)
+        L.pending.append((t, g))
+
+    pre = tuple(o + x + ":" for x in ("ats", "atsr", "rats", "pt", "divr", "q1", "ou") for o in ("", "o"))
+
+    def tt(gid, side):
+        return sorted(a for a in got[gid][side] if a.startswith(pre))
+    assert tt("a0", "home") == [] and tt("a2", "home") == []                      # 2 covers: no streak yet
+    assert "ats:w3" in tt("a3", "home") and "ats:w5" not in tt("a3", "home")
+    a5 = tt("a5", "home")
+    assert "ats:w3" in a5 and "ats:w5" in a5 and "oats:w5" in tt("a5", "away") and "ou:o4" in a5, a5
+    a6 = tt("a6", "home")                                                        # a5's loss is only 3h old: unseen
+    assert "ats:w5" in a6 and "ou:o4" in a6 and "ats:l3" not in a6, a6
+    a7 = tt("a7", "home")                                                        # fail, cover -> streak +1
+    assert not any(a.startswith("ats:") for a in a7), a7
+    assert "atsr:hi" in a7 and "q1:won" in a7 and "oq1:won" in tt("a7", "away"), a7    # 6/7 covers, 7/7 1Qs
+    assert "h.q1:won" in got["a7"]["game"] and "h.atsr:hi" in got["a7"]["game"]
+    assert not any(a.startswith(("pt:", "opt:")) for g in got for s in ("home", "away") for a in tt(g, s)
+                   if g != "p5"), "prime-time atoms off prime time"
+    assert "pt:strong" in tt("p5", "away") and "opt:strong" in tt("p5", "home")     # SNF, 5-0 on Monday nights
+    assert "pt:strong" not in tt("p6", "home")                                     # a Sunday day game
+    assert L.prime(games["p0"]) and L.prime(games["p5"]) and not L.prime(games["p6"])
+    # the road ATS rate: P covered 1 road game only -> nothing yet
+    assert not any(a.startswith("rats:") for a in tt("p6", "away"))
+    # first-part grading: real prices only, a tie is no bet
+    mlb = {"ls_home": "1,0,2,0,0,3,0,0,0", "ls_away": "0,0,0,1,0,0,0,0,4", "h1_ml_home": "-150", "h1_ml_away": "130",
+           "h1_spread_home": "-0.5", "h1_spread_home_odds": "-120", "h1_spread_away_odds": "100"}
+    h, a = ex._grade_p1(mlb, "home", "mlb"), ex._grade_p1(mlb, "away", "mlb")
+    assert h["p1ml"][0] and not a["p1ml"][0] and abs(h["p1ml"][2] - 100 / 150) < 1e-9 and a["p1ml"][2] == -1.0
+    assert h["p1spread"][0] and abs(h["p1spread"][1] + a["p1spread"][1] - 1) < 1e-9
+    assert ex._grade_p1({**mlb, "ls_away": "1,0,2,0,0,0,0,0,9"}, "home", "mlb")["p1ml"] is None      # F5 tied
+    assert ex._grade_p1({**mlb, "h1_spread_away_odds": ""}, "home", "mlb")["p1spread"] is None       # no price
+    assert ex._grade_p1(mlb, "home", "nfl") == {"p1ml": None, "p1spread": None}                      # no 1Q lines
+    bad = {**mlb, "h1_spread_home": "-1.5", "h1_spread_home_odds": "310", "h1_spread_away_odds": "175"}
+    assert ex._grade_p1(bad, "home", "mlb")["p1spread"] is None                  # not one market's two sides
+    # the pooled family test: follow + fade are the two sides of the same bets
+    _, side, game = ex.build(games, "nfl")
+    fam = ex.family_tests({"nfl": (side, game)})
+    c = fam["team ATS streak 3+|spread"]
+    assert c["n"] >= 3 and abs(c["follow"]["hit"] + c["fade"]["hit"] - 1) < 1e-9 and not c["follow"]["passes"], c
+    assert "O/U streak 4+|total" in fam and any("team ATS streak 3+|spread" in x for x in ex.family_lines(fam))
+
+
 def _sim_games(days, seed, over_bias, first=0, t0=datetime(2021, 1, 4, 23, 0, tzinfo=timezone.utc)):
     """Simulated NHL: 16 teams with fixed true attack/defense, Poisson goals, a regulation tie settled in OT (+1).
     The market prices the moneyline and puck line at the TRUE chances (with juice); its total is priced as if
