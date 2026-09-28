@@ -61,6 +61,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .ask-top{padding:10px 12px 6px}
 .ask-t{font-size:13px;font-weight:900;letter-spacing:.08em;color:#22d3ee;white-space:nowrap} .ask-s{font-size:12px;font-weight:700;color:#ffc233;white-space:nowrap}
 .ask-b{padding:0 12px 12px} .ask-n{font-size:12px;font-weight:600;color:#ffe08a;margin:2px 0 8px} .ask-n b{color:#22e39a}
+.ask-row{display:flex;gap:6px} #askgo{flex:none;font-size:15px;font-weight:900;padding:8px 12px;border-radius:12px;border:0;background:linear-gradient(90deg,#22d3ee,#b36bff);color:#04060c}
 #askq{width:100%;font-size:16px;padding:8px 11px;border-radius:12px;border:1px solid rgba(34,211,238,.55);background:#060a12;color:#fff}
 #askq::placeholder{color:#5fd4e8}
 #asklist{display:flex;flex-direction:column;gap:6px;margin-top:10px}
@@ -184,7 +185,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 <div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 GOT A QUESTION?</span></div>
 <div class="ask-b"><div class="ask-n">Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.</div>
-<input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off">
+<div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send"></div>
 <div id="asklist"></div><div id="askout"></div></div></div>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 10 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
@@ -204,7 +205,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 </section>
 
 <details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
-<span class="tn-s">8 picks + parlay · 2-0 · tap to open</span></summary>
+<span class="tn-s">8 picks + parlay · 4-0 · tap to open</span></summary>
 <div class="tn-b"><div class="tn-d">Monday, September 28 · parlays 0-0</div><section class="pk open" style="--c1:#c6f000;--c2:#1fd17a">
   <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PARLAY OF THE DAY</span></div>
   <div class="pk-o"><span class="big">+422</span><span class="pay">$100 wins <b>$422</b></span></div>
@@ -246,12 +247,12 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <div class="ls">vs Miomir Kecmanovic · Qualifying 1st Round · Hard court</div>
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🎯 Mannarino +1.5 games. He can lose the match and we still cash — long as he don&#x27;t lose by more than 1.5 games.</p><p>🟫 Put him on hard court and he turns into a problem.</p><p>🆚 Mannarino owns this matchup — he&#x27;s beaten Kecmanovic before.</p><p>✅ Bottom line: 50% says the book, 71% says the algorithm. Mannarino +1.5 games (+100). Trust it.</p></div></details>
   
-</div><div class="leg ">
-  <div class="lt"><span class="lgb">🎾 Men's Tennis · China Open</span><span class="tm">8 PM PT</span></div>
+</div><div class="leg won">
+  <div class="lt"><span class="lgb">🎾 Men's Tennis · China Open</span><span class="lr won">✅ HIT</span></div>
   <div class="lm"><span class="pick">Tomas Machac <em>+2.5 games</em></span><span class="od">-125</span></div>
   <div class="ls">vs Yannick Hanfmann · Qualifying 1st Round · Hard court</div>
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🎯 Machac +2.5 games. Even if he drops the match, we still cash as long as it&#x27;s close. That&#x27;s the value.</p><p>✅ Bottom line: book says 56%, we say 69%. We ride Machac +2.5 games (-125).</p></div></details>
-  
+  <div class="fin">Final: 7-6, 6-7, 6-4</div>
 </div><div class="leg won">
   <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="lr won">✅ HIT</span></div>
   <div class="lm"><span class="pick">Aleksandar Kovacevic <em>+2.5 games</em></span><span class="od">+100</span></div>
@@ -286,7 +287,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
   <div class="recs grades"><div class="rc gr" style="--c1:#22d3ee;--c2:#2f8bff"><div class="rc-t">📡 LIVE PLUS MONEY</div><div class="rc-r">6-8</div><div class="rc-p">43% hit</div><div class="rc-s">today 6-8 · streak W2</div></div><div class="rc gr" style="--c1:#ffc233;--c2:#e8c77a"><div class="rc-t">🟡 LEANS</div><div class="rc-r">0-0</div><div class="rc-p">no results yet</div><div class="rc-s">today 0-0</div></div></div>
   <div class="lbl" style="margin-top:4px">By sport</div>
-  <div class="sports"><span class="spc" style="color:#22e39a"><b>🏈 Football</b> 67%<small>2-1</small></span><span class="spc" style="color:#9fb0c8"><b>🏀 Basketball</b> —<small>no results yet</small></span><span class="spc" style="color:#22e39a"><b>⚾ Baseball</b> 83%<small>5-1</small></span><span class="spc" style="color:#9fb0c8"><b>🏒 Hockey</b> —<small>no results yet</small></span><span class="spc" style="color:#22e39a"><b>🎾 Tennis</b> 100%<small>2-0</small></span></div>
+  <div class="sports"><span class="spc" style="color:#22e39a"><b>🏈 Football</b> 67%<small>2-1</small></span><span class="spc" style="color:#9fb0c8"><b>🏀 Basketball</b> —<small>no results yet</small></span><span class="spc" style="color:#22e39a"><b>⚾ Baseball</b> 83%<small>5-1</small></span><span class="spc" style="color:#9fb0c8"><b>🏒 Hockey</b> —<small>no results yet</small></span><span class="spc" style="color:#22e39a"><b>🎾 Tennis</b> 100%<small>4-0</small></span></div>
 </section>
 <section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY TODAY</span></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Broncos <em>ML</em></span><span class="od">+165</span></div><div class="ls">The Rams 19, the Broncos 23 in the 4th quarter. We said the Broncos would hold on — and they smacked that ass. 💰</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Vikings <em>ML</em></span><span class="od">+120</span></div><div class="ls">Score was the Vikings 10, the Buccaneers 10 in the 2nd quarter. We knew the Vikings could take it — and they came through. Trust the algorithm. 💰</div></div><div class="leg lost"><div class="lt"><span class="lgb">⚾ MLB</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Guardians <em>ML</em></span><span class="od">+425</span></div><div class="ls">It was the Guardians 2, the Royals 3 in the 8th inning. We figured the Guardians would come back — they shit the bed. Bad call, our bad.</div><div class=own>🛠️ That one’s on us. Here’s what went wrong: our baseball history was missing every game where the home team won without batting in the bottom of the 9th — over 10,000 games. So the engine thought road teams down late came back way more than they really do. It had the Guardians at 25% — real history says more like 14%. What we fixed: the engine uses the real numbers now, home and away split, and late in games it leans on what actually happened in that exact spot. No more chasing 9th-inning miracles. That shit won’t happen again.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Ravens <em>ML</em></span><span class="od">+101</span></div><div class="ls">The Ravens had 0, the Cowboys had 3 in the 1st quarter. We thought the Ravens would come back — and they cashed. Fuck yeah. 💰</div></div><div class="leg lost"><div class="lt"><span class="lgb">⚾ MLB</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Mets <em>ML</em></span><span class="od">+311</span></div><div class="ls">The Mets 4, the Nationals 5 in the 7th inning. We said the Mets would come back — they fumbled the bag. Bad call, our bad.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Giants <em>ML</em></span><span class="od">+114</span></div><div class="ls">The Titans had 7, the Giants had 12 in the 4th quarter. We thought the Giants would hold on — and they did. Cashed. 💰</div></div><div class="leg lost"><div class="lt"><span class="lgb">⚾ MLB</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Giants <em>ML</em></span><span class="od">+135</span></div><div class="ls">Score was the Dodgers 0, the Giants 1 in the 3rd inning. We knew the Giants could hold on — they were booty cheeks. Is what it is.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Bills <em>ML</em></span><span class="od">+138</span></div><div class="ls">The Chargers 13, the Bills 10 in the 4th quarter. We said the Bills would come back — and they got it done. Told y&#x27;all. 💰</div></div><div class="leg lost"><div class="lt"><span class="lgb">⚾ MLB</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Rays <em>ML</em></span><span class="od">+271</span></div><div class="ls">It was the Rays 0, the Phillies 1 in the 2nd inning. We figured the Rays would come back — they never showed up. Bad call — next one&#x27;s ours.</div></div><div class="leg won"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr won">✅ CASHED</span></div><div class="lm"><span class="pick">Commanders <em>ML</em></span><span class="od">+139</span></div><div class="ls">The Seahawks 10, the Commanders 14 in the 2nd quarter. We said the Commanders would hold on — and they did. Cashed. 💰</div></div><div class="leg lost"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Panthers <em>ML</em></span><span class="od">+296</span></div><div class="ls">The Panthers 3, the Browns 10 in the 2nd quarter. We said the Panthers would come back — they shit the bed. Is what it is.</div></div><div class="leg lost"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Texans <em>ML</em></span><span class="od">+185</span></div><div class="ls">It was the Texans 7, the Colts 10 in the 2nd quarter. We figured the Texans would come back — they shit the bed. Is what it is.</div></div><div class="leg lost"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Jets <em>ML</em></span><span class="od">+269</span></div><div class="ls">Score was the Jets 7, the Lions 10 in the 2nd quarter. We knew the Jets could come back — they were booty cheeks. Is what it is.</div></div><div class="leg lost"><div class="lt"><span class="lgb">🏈 NFL</span><span class="lr lost">❌ LOST</span></div><div class="lm"><span class="pick">Bengals <em>ML</em></span><span class="od">+134</span></div><div class="ls">The Bengals had 10, the Steelers had 17 in the 2nd quarter. We thought the Bengals would come back — they were booty cheeks. Is what it is.</div></div></section>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained Sep 27, 9:12 PM PT</span></div>
@@ -320,7 +321,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,10000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790576359070,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790576496634,m=0;   // the whole page stays fresh while it's open
 try{var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
 function tick(){m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
@@ -340,6 +341,22 @@ tick();setInterval(tick,30000);check();setInterval(check,60000);document.addEven
 (function(){   // 🤔 ASK THE ENGINE: the engine's read on any game, from reads.json (not our picks, never in the record)
 var games=[], q=document.getElementById("askq"), list=document.getElementById("asklist"), out=document.getElementById("askout");
 if(!q) return;
+var AI="", hist=[];                                   // 🧠 the AI question box (the relay), when it's live
+function ai(){
+  var t=q.value.trim(); if(!AI||!t) return;
+  list.innerHTML="";
+  out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">🧠 The engine’s thinking…</div></section>';
+  var ctl=window.AbortController?new AbortController():null, to=setTimeout(function(){if(ctl)ctl.abort()},45000);
+  fetch(AI,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({q:t,history:hist}),signal:ctl?ctl.signal:undefined})
+  .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
+  .then(function(d){clearTimeout(to);if(!d||!d.answer)throw 0;
+    hist.push({role:"user",content:t},{role:"assistant",content:d.answer});hist=hist.slice(-6);
+    out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">'+esc(d.answer).replace(/\n/g,"<br>")+'</div></section>'})
+  .catch(function(){clearTimeout(to);out.innerHTML="";render();
+    list.insertAdjacentHTML("afterbegin",'<div class="ask-n">The AI’s taking a breather — here’s the engine’s quick read instead. 👇</div>')});
+}
+q.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();ai()}});
+var go=document.getElementById("askgo"); if(go) go.addEventListener("click",ai);
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function am(o){return o>0?"+"+o:String(o)}
 function tm(s){try{return new Date(s.replace("Z",":00Z")).toLocaleString("en-US",{weekday:"short",hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"})+" PT"}catch(e){return ""}}
