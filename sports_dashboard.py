@@ -278,7 +278,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     board_date = now.strftime("%A, %B %-d")
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
-                  'New picks go up the second the engine finds value.</div>')
+                  'Tomorrow\'s card goes up from <b>6 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
     board = "".join(_pick_card(p["kind"], p) for p in active) if active else done_today if todays else drop
 
     tmr = (now + timedelta(days=1)).date()
