@@ -1060,9 +1060,27 @@ def write_brain(picks, games, path=BRAIN):
                                   if isinstance(v, dict) and v.get("proven")],
     }
     live = (_j(LIVE_JSON_PATH, {}) or {})
+    tennis_picks = []                                        # 🎾 our posted tennis picks (their own record) - the last 3 slates
+    for sl in (_j(os.path.join(sd.DATA, "tennis", "picks.json"), []) or [])[-3:]:
+        pars = sl.get("parlays") or ({"mixed": sl["parlay"]} if sl.get("parlay") else {})
+        tennis_picks.append({
+            "slate": sl.get("date"),
+            "picks": [{"player": l.get("player"), "vs": l.get("opp"),
+                       "tour": "women's" if l.get("tour") == "wta" else "men's", "tourney": l.get("tourney"),
+                       "round": l.get("round"),
+                       "bet": f"{l['hcp']:+g} games" if l.get("market") == "spread" and l.get("hcp") is not None else "ML",
+                       "odds": l.get("odds"), "engine win %": round(100 * l["p"]) if l.get("p") else None,
+                       "result": l.get("result") or "not played yet",
+                       "score (our player first)": ", ".join(
+                           s_.strip() if l.get("side", 1) == 1 else "-".join(reversed(s_.strip().split("-")))
+                           for s_ in (l.get("score") or "").split(",") if s_.strip()) or None,
+                       "start": l.get("start")} for l in sl.get("picks") or []],
+            "parlays": {k: {"odds": v.get("american"), "status": v.get("status"), "legs": len(v.get("legs") or [])}
+                        for k, v in pars.items() if v}})
     brain = {"updated": now.strftime("%Y-%m-%d %I:%M %p PT"), "today": today, "tomorrow": tmr,
              "records": RECORDS, "board (today + tomorrow)": board, "recent graded picks": recent,
              "every game's read (not our picks)": (_j("docs/sports/reads.json", {}) or {}).get("games", []),
+             "tennis picks (own record, not ours)": tennis_picks,
              "tennis reads": (_j("docs/sports/reads_tennis.json", {}) or {}).get("games", []),
              "public betting splits (% of bets / % of money)": _j(os.path.join(sd.DATA, "public_live.json"), {}),
              "live plus money right now": live.get("plays") or live.get("board") or [],

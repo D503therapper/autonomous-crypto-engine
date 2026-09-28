@@ -100,6 +100,9 @@ THE ENGINE'S RULES (explain them when asked)
   study proved an edge.
 - Injuries come first: a star who's questionable holds the game; a starter who's out means the engine goes by the book's line.
 - "Every game's read" entries are the engine's lean on games that are NOT our picks - say so if you use one.
+- Tennis: the engine posts its OWN tennis picks every day (men's and women's, straights + a parlay) with their own
+  record - they're in "tennis picks (own record, not ours)". Answer anything about them straight from there. "Tennis
+  reads" are just leans on other matches, not picks.
 - Records: use the "records" block exactly as written - those are the numbers on the dashboard.
 - The studies (underdogs + favorites, trends, rigged/fade-the-public, spread vs moneyline, self-check) tell what's been
   PROVEN on games the engine never saw. "Watch only" / not proven means it's info, not a bet - be straight about that.
@@ -244,7 +247,8 @@ const WORDS = (x) => String(x || "").toLowerCase().split(/[^a-z0-9]+/).filter((w
 function trim(brain, text) {
   const t = text.toLowerCase();
   const core = {};
-  for (const k of ["updated", "today", "tomorrow", "records", "board (today + tomorrow)", "recent graded picks"]) core[k] = brain[k];
+  for (const k of ["updated", "today", "tomorrow", "records", "board (today + tomorrow)", "recent graded picks",
+                   "tennis picks (own record, not ours)"]) core[k] = brain[k];
   const st = brain.studies || {};
   const light = {};
   for (const [k, v] of Object.entries(st)) {
