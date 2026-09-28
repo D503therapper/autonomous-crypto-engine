@@ -255,20 +255,54 @@ def _tennis():
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "void": '<span class="lr push">VOID</span>'}
 
+    used = set()                                             # (every result line on the card is worded differently)
+
+    def ours(l):
+        """The score from OUR player's side (the feed lists player 1 first)."""
+        sets = []
+        for s_ in (l.get("score") or "").split(","):
+            a, _, b = s_.strip().partition("-")
+            if a[:1].isdigit() and b[:1].isdigit():
+                sets.append((a, b) if l.get("side", 1) == 1 else (b, a))
+        return sets
+
+    def recap(l):
+        """The result, in our voice, on top of a graded pick's breakdown."""
+        k, who = sum(map(ord, l["id"])), l["player"].split()[-1]
+        sets = ours(l)
+        sc = f" ({', '.join(f'{a}-{b}' for a, b in sets)})" if sets else ""
+        won_sets = sum(int(a[:1]) > int(b[:1]) for a, b in sets)
+        lost_match = bool(sets) and won_sets * 2 < len(sets)
+        if l.get("result") == "won" and l.get("market") == "spread" and lost_match:
+            return _pick("tn_cover", [f"💰 {who} dropped the match{sc} but kept it close — the {l['hcp']:+g} games cashed.",
+                                     f"💰 Lost the match{sc}, won us the bet — {who} stayed inside {l['hcp']:+g} games.",
+                                     f"💰 {who} took the L{sc} but covered the {l['hcp']:+g}. That's why we took the games."], used, k)
+        if l.get("result") == "won":
+            return _pick("tn_won", [f"💰 {who} got it done{sc}. Cashed.", f"💰 {who} handled business{sc}. Told y'all.",
+                                   f"💰 {who} came through{sc}. Trust the algorithm.", f"💰 Cashed — {who} went to work{sc}.",
+                                   f"💰 {who} smacked that{sc}. Easy money."], used, k)
+        if l.get("result") == "lost":
+            return _pick("tn_lost", [f"😤 {who} shit the bed{sc}. Is what it is.", f"😤 {who} fumbled it{sc}. Bad call, our bad.",
+                                    f"😤 {who} never showed up{sc}. Next one's ours.", f"😤 {who} was booty cheeks today{sc}. Our bad.",
+                                    f"😤 That one's on us — {who} folded{sc}. We don't hide nothing."], used, k)
+        if l.get("result") == "void":
+            return "🤷 Voided — no result, no harm."
+        return ""
+
     def row(l):
-        bd = "".join(f"<p>{E(x)}</p>" for x in l.get("breakdown") or [])
+        bd = "".join(f"<p>{E(x)}</p>" for x in ([recap(l)] if recap(l) else []) + list(l.get("breakdown") or []))
         return f"""<div class="leg {l['result'] or ''}">
   <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if l.get("tour") == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}">{_time(l["start"])}</span>')}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
-  {f'<div class="fin">Final: {E(l["score"])}</div>' if l.get("score") else ""}
+  {f'<div class="fin">Final: {E(", ".join(f"{a}-{b}" for a, b in ours(l)) or l["score"])}</div>' if l.get("score") else ""}
 </div>"""
     def block(s):
         legs = {l["id"]: l for l in s["picks"]}
         par = s.get("parlay")
         par_html = ""
-        if par and par["status"] == "open":                  # a graded parlay clears off (its result lives in the records)
+        if par:
             stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
             par_html = f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
   <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PARLAY OF THE DAY</span>{_chip(par["status"])}</div>
@@ -277,21 +311,23 @@ def _tennis():
 </section>"""
         day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
         groups = ""
-        waiting = [l for l in s["picks"] if l.get("result") is None]      # graded picks clear off into the results
-        for title, ls in (("MEN'S TENNIS", [l for l in waiting if l.get("tour", "atp") != "wta"]),
-                          ("WOMEN'S TENNIS", [l for l in waiting if l.get("tour") == "wta"])):
+        for title, ls in (("MEN'S TENNIS", [l for l in s["picks"] if l.get("tour", "atp") != "wta"]),
+                          ("WOMEN'S TENNIS", [l for l in s["picks"] if l.get("tour") == "wta"])):
             if ls:
                 groups += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
                            f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
         return f'<div class="tn-d">{E(day)}</div>{par_html}{groups}'
-    # only what's still waiting to be played: every graded pick (and a graded parlay) clears off into the results
+    # like the main board: a slate stays up through its day - WON / LOST and the breakdowns - and at midnight (Pacific)
+    # it goes away into the results. A pick still waiting to be played (a delayed match) never vanishes. Tomorrow's
+    # slate shows as soon as it's posted.
+    today = datetime.now(PT).date().isoformat()
     live = lambda x: any(l.get("result") is None for l in x["picks"]) or (x.get("parlay") or {}).get("status") == "open"
-    shown = [x for x in slates if live(x)]
-    n = sum(l.get("result") is None for x in shown for l in x["picks"])
-    npar = sum((x.get("parlay") or {}).get("status") == "open" for x in shown)
-    what = (f"{n} pick{'s' if n != 1 else ''}" + (" + parlay" if npar else "")) if (n or npar) else "new picks by 6 PM"
+    shown = [x for x in slates if x["date"] >= today or live(x)]
+    n = sum(len(x["picks"]) for x in shown)
+    npar = sum(bool(x.get("parlay")) for x in shown)
+    what = (f"{n} pick{'s' if n != 1 else ''}" + (" + parlay" if npar else "")) if n else "new picks by 6 PM"
     body = "".join(block(x) for x in shown) or \
-        '<div class="nopick">All graded — the results are in the records. Next picks drop by 6 PM. 🎾</div>'
+        '<div class="nopick">Yesterday\'s picks are in the records. Next ones drop by 6 PM. 🎾</div>'
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
 <span class="tn-s">{what} · {r['won']}-{r['lost']} · tap to open</span></summary>
 <div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{body}</div></details>"""
