@@ -22,6 +22,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install -q openpyxl xlrd
+      - run: curl -sS -o /dev/null -w "%{http_code} %{url_effective}\n" -A "Mozilla/5.0" -m 30 https://www.tennis-data.co.uk/alldata.php || true
       - run: python -u tools/fetch_tennis_odds.py
       - if: always()
         run: |

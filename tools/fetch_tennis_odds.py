@@ -25,15 +25,20 @@ UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit
                     "Chrome/126.0 Safari/537.36"}
 
 
+ERRS = []
+
+
 def _get(url):
-    for i in range(3):
-        try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
-                return r.read()
-        except Exception as e:                               # noqa: BLE001
-            if "404" in str(e):
-                return None
-            time.sleep(3 * (i + 1))
+    for u in (url.replace("http://", "https://"), url):
+        for i in range(2):
+            try:
+                with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30) as r:
+                    return r.read()
+            except Exception as e:                           # noqa: BLE001
+                ERRS.append(f"{u}: {e}")
+                if "404" in str(e):
+                    break
+                time.sleep(2)
     return None
 
 
@@ -104,6 +109,11 @@ def main():
                 continue
             rows = year(tour, y)
             print(f"{tour} {y}: {'missing' if rows is None else len(rows)}", flush=True)
+            if rows is None and ERRS:
+                print("   ", ERRS[-1][:200], flush=True)
+            if not keep and len(ERRS) >= 12 and all("404" not in e for e in ERRS):
+                print("the site won't answer - stopping here", flush=True)
+                return 1
             if rows:
                 keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
     keep.sort(key=lambda r: (r["date"], r["tour"]))
