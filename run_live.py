@@ -149,6 +149,14 @@ def full_cycle(mname, client):
         print(f"[{now} UTC] {mname}/{st.name:9} equity ${eq:,.2f} "
               f"({eq / config.STARTING_CASH_USD - 1:+.1%}) {len(pf.positions)} open"
               f"{'  [HALTED]' if pf.halted else ''}  market {'UP' if ok else 'DOWN'}")
+        if st.name == "rsi2":                          # show how close the dip-buyer is to a buy (owner asked why
+            try:                                       # no stock trades): lowest RSI(2) names and their trend
+                sig = [(s, st.analyze(cs)) for s, cs in coins.items()]
+                near = sorted(((-g["rank"], s, g["buy"]) for s, g in sig if g), key=lambda x: x[0])[:4]
+                print("   rsi2 closest to a buy (needs RSI2 < 15 and above its 200-day avg): " + ", ".join(
+                    f"{s} {r:.0f}{' BUY' if b else ''}" for r, s, b in near))
+            except Exception as e:
+                print(f"   rsi2 watch failed: {e}")
     if mname == "crypto":
         try:
             for coin in check_new_listings(client):
