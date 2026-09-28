@@ -1,0 +1,17 @@
+# Sends one test notification to the live-bet channel (so new subscribers can see it works). Runs when this file
+# changes or by hand.
+name: notify_test
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: [".github/workflows/notify_test.yml"]
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: |
+          curl -sS -H "Title: D503 Sports Engine 🔥" -H "Tags: rotating_light" \
+            -d "If you see this, you're all set. You'll get a notification every time the algorithm triggers a live bet. Trust the algorithm. 🐻" \
+            https://ntfy.sh/d503-live-7b1123
