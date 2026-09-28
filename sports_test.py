@@ -224,7 +224,7 @@ def test_board_rules():
         assert all(sports.good(l) for l in legs), "never a filler leg"
         assert len({l["game_id"] for l in legs}) == len(legs) == (2 if kind == "two" else 3)
         assert all(l["odds"] >= sports.MAX_FAV for l in legs), "no huge favorites"
-    assert b["lock"]["legs"][0]["odds"] >= -120 and b["lock"]["legs"][0]["market"] == "ml"
+    assert b["lock"]["legs"][0]["odds"] >= sports.MAX_FAV and b["lock"]["legs"][0]["game_id"] == "b", "the surest pick, -150 cap"
     dog = b["dog"]["legs"][0]
     assert dog["odds"] >= 100 and dog["game_id"] != b["lock"]["legs"][0]["game_id"]
     assert dog["game_id"] == "d", "a big dog needs to be clearly better value than the best regular dog"
@@ -242,9 +242,11 @@ def test_board_rules():
     four = [l["game_id"] for l in bd["four"]["legs"]]
     assert len(set(four)) == 4 and set(three) <= set(four) and dog_g not in four, "4-leg = the 3-leg + one more, never the Dog"
     assert all(sports.good(l) and l["odds"] >= sports.MAX_FAV for l in bd["four"]["legs"]), "locks + value only, no -475"
-    assert sports.make_board([_cand("x1", -140, 0.66), _cand("x2", -145, 0.66)])["lock"] is None, "no moneyline over -135"
-    assert sports.make_board([_cand("x1", -140, 0.70), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x3", \
-        "a -140 is out, however sure"
+    assert sports.make_board([_cand("x1", -160, 0.70), _cand("x2", -170, 0.72)])["lock"] is None, "no moneyline over -150"
+    assert sports.make_board([_cand("x1", -140, 0.70), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x1", \
+        "a -140 the engine's surer of is the Lock (same -150 cap as everything else)"
+    assert sports.make_board([_cand("x1", -160, 0.75), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x3", \
+        "a -160 is out, however sure"
     assert sports.make_board([_cand("x4", -130, 0.66), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x4", \
         "the Lock of the Day = the most confident pick on the board"
     assert sports.make_board([_cand("x3", -110, 0.60), _cand("sp", -110, 0.64, "spread", -2.5, "nfl")])["lock"]["legs"][0][

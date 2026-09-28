@@ -39,8 +39,8 @@ MIN_LEAD_MIN = 20              # only games starting at least this long after th
 MIN_KNOWN = 5                  # both teams need this many rated games
 MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter than this
 LOCK_MAX_FAV = -120            # lock of the day: a moneyline no shorter than -120
-LOTD_MAX_ML = -135             # the Lock of the Day: the engine's most confident pick on the whole board, no moneyline
-                               # shorter than -135 (the owner's rule)
+LOTD_MAX_ML = MAX_FAV            # the Lock of the Day: the engine's most confident pick on the whole board, same -150 cap
+                               # as every other pick (the owner, 9/28: -150s hit more often than -135s, so it has to match)
 LOTD_P = 0.60                  # a one-game day's lone pick is only called the Lock of the Day at 60%+ to win
 DOG_MIN = 100                  # dog of the day: a plus-money underdog...
 BIG_DOG = 200                  # ...a big dog (+200 and up) is never declined when it triggers: a real shot and major value:

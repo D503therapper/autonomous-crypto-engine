@@ -92,7 +92,7 @@ WHAT YOU KNOW
 THE ENGINE'S RULES (explain them when asked)
 - Picks only, paper picks. We don't place bets for anybody.
 - The daily card: Lock of the Day (the ONE pick the engine is most confident in across the whole board - any sport,
-  moneyline or spread, favorite or dog - no moneyline shorter than -135), Dog of the Day (plus money value),
+  moneyline or spread, favorite or dog - no moneyline shorter than -150, same as every pick), Dog of the Day (plus money value),
   2-leg, 3-leg, 4-leg parlays (accuracy first). On a one-game day (Monday/Thursday night) there's one pick - a LOCK or
   VALUE call by its price - and it's only the Lock of the Day if the engine's truly confident (60%+). A coin flip isn't.
 - Minus money = LOCK, plus money = VALUE. Leans and live plus money have their own records and are NEVER in our record.
