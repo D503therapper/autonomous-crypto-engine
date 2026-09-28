@@ -1751,3 +1751,11 @@ DEX: $731.74 (-68.26) · Scammed: 0
 [2026-09-28 05:18 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
 [2026-09-28 05:18 UTC] crypto/hold_btc  equity $495.69 (-0.9%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), PUMP 38 (29/0/8), NEAR 37 (37/0/0), ONDO 32 (32/0/0), SEI 27 (27/0/0)
+   scanner: 977 tickers, sample: {'i': 'BTC_USD', 'h': '85161.74', 'l': '83178.47', 'a': '83223.90', 'v': '2355.0856', 'vv': '198400847.39', 'c': '-0.0138', 'b': '83229.74', 'k': '83229.75', 'oi': '0', 't': 1790572710084}
+   dex scanner: 3,000 pools (solana 2,188 / base 479 / ethereum 333), refresh cycle n/a (hot n/a), 0 calls (0 feed, 429s 0, failed 0), 0 refreshed (0 no pair), +0 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex re-screen: TEXTIT@solana:udPEzBjb data flags only (lp holders unknown; rugcheck lp locked 0% < 95%); holding
+   dex re-screen: SAAR@solana:8H5yfL1G data flags only (lp holders unknown; rugcheck lp locked 0% < 95%); holding
+   dex re-screen: MARTIANS@solana:HgoScXAo data flags only (holders unknown; lp holders unknown; rugcheck lp locked 94% < 95%); holding
+   dex screen: REJECT PLAY@base liq $436,217 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT UPEG@ethereum liq $173,459 - lp locked 0% < 95%
+   dex screen: REJECT NEARKAT@solana liq $453,485 - transfer_fee_upgradable; lp holders unknown
