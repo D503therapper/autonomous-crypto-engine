@@ -421,6 +421,9 @@ def pick_tier(pk):
         return "lean"
     if pk.get("kind") == "lock":                              # the Lock of the Day is a LOCK - its results count as locks
         return "lock"
+    if pk.get("kind") == "solo" and len(pk.get("legs") or []) == 1:   # the one-game-day pick: by the rule -
+        l0 = pk["legs"][0]                                             # minus money = LOCK, plus money = VALUE
+        return "ou" if l0.get("market") == "total" else "lock" if l0["odds"] < 0 else "value"
     if pk.get("tier"):
         return pk["tier"]
     # only a real lean play is a LEAN; a parlay's filler leg can't drag the whole card down to one
