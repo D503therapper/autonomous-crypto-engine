@@ -239,34 +239,6 @@
   "posted": "2026-09-28T07:24Z",
   "picks": [
    {
-    "id": "atp:186256:1",
-    "match": "atp:186256",
-    "side": 1,
-    "player": "Adrian Mannarino",
-    "opp": "Miomir Kecmanovic",
-    "tour": "atp",
-    "odds": 135,
-    "p": 0.637149398887602,
-    "edge": 0.49730108738586476,
-    "start": "2026-09-28T08:00Z",
-    "tourney": "China Open",
-    "market": "ml",
-    "hcp": null,
-    "ml": 135,
-    "round": "Qualifying 1st Round",
-    "surface": "hard",
-    "bo": 3,
-    "value": true,
-    "result": null,
-    "breakdown": [
-     "\ud83c\udfbe Mannarino at +135 is a gift. He's about to cook.",
-     "\ud83d\udfeb On hard court, Mannarino levels up \u2014 way above his usual level.",
-     "\ud83c\udd9a Kecmanovic already got his cheeks clapped by Mannarino before. Run it back.",
-     "\u2705 Bottom line: 64% for us, 43% for the book. That's the value \u2014 Mannarino ML (+135). Let's eat."
-    ],
-    "bv": 8
-   },
-   {
     "id": "wta:186230:2",
     "match": "wta:186230",
     "side": 2,
@@ -404,12 +376,12 @@
   ],
   "parlay": {
    "legs": [
-    "atp:186256:1",
     "wta:186230:2",
-    "atp:183420:2"
+    "atp:183420:2",
+    "atp:183374:2:sp"
    ],
-   "dec": 7.0251,
-   "american": 603,
+   "dec": 5.707,
+   "american": 471,
    "status": "open"
   }
  }
