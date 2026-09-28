@@ -1,40 +1,68 @@
-"""Run one full live check the way the watcher does, and print any error with its traceback."""
-import subprocess
-import sys
-import traceback
+"""Probe: where can the engine see WHO the public is betting (tickets % / money %)? Action Network first
+(the engine already reads its odds), a few URL shapes, today's MNF and a past week (for a history study)."""
+import json
+import urllib.request
 
-sys.path.insert(0, ".")
-import sports_live as sl  # noqa: E402
-import sports_data as sd_  # noqa: E402
+UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
+      "Accept": "application/json"}
 
-# Bovada through the watcher's own code
-for lg in ("mlb", "nfl"):
-    path = sl.BOVADA_PATH[lg]
-    for url in (sl.BOVADA, sl.BOVADA_OLD, sl.BOVADA_ALL, sl.BOVADA_SPORT):
-        u = url.format(path=path, sport=path.split("/")[0])
-        try:
-            d = sl._get(u)
-            print("BOVADA", lg, u[60:150], type(d).__name__, len(d) if isinstance(d, list) else str(d)[:200],
-                  sum(len(g.get("events") or []) for g in d) if isinstance(d, list) else "",
-                  sum(bool(e.get("live")) for g in d for e in g.get("events") or []) if isinstance(d, list) else "")
-        except Exception as e:                               # noqa: BLE001
-            print("BOVADA ERR", lg, u[60:150], e)
-    print("bovada_live", lg, len(sl.bovada_live(lg)), sl.BOOKS.get(lg))
-g_ = sd_.load_games().get("nfl:401872962")
-if g_:
-    print("SECOND HALF BALL (Rams @ Broncos):", sl.second_half_ball("nfl", g_), "| first drive team id:",
-          sl.KICK.get("401872962"), "| home", g_["home"], g_["home_name"], "| away", g_["away"], g_["away_name"], sd_.ERRORS[-2:])
-sl.notify({"team": "Test", "odds": 150, "score": "D503 1 @ Books 0", "clock": "Q1",
-           "line": "If you see this, live plus money alerts are working. Let's eat."})
-print("TEST PUSH sent to ntfy topic", sl.NTFY_TOPIC, sd_.ERRORS[-1:])
-board = subprocess.run(["git", "fetch", "-q", "origin", sl.LIVE_BRANCH], capture_output=True)
-b = subprocess.run(["git", "show", f"origin/{sl.LIVE_BRANCH}:live.json"], capture_output=True, text=True)
-if b.returncode == 0:
-    open(sl.LIVE_JSON, "w").write(b.stdout)
-for i in range(2):
+
+def get(url):
+    req = urllib.request.Request(url, headers=UA)
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.load(r)
+
+
+def hunt(o, path="", out=None, depth=0):
+    out = [] if out is None else out
+    if depth > 8 or len(out) > 40:
+        return out
+    if isinstance(o, dict):
+        for k, v in o.items():
+            if any(s in k.lower() for s in ("public", "ticket", "money", "bet_info", "percent", "handle", "consensus")):
+                out.append(f"{path}/{k} = {str(v)[:240]}")
+            hunt(v, f"{path}/{k}", out, depth + 1)
+    elif isinstance(o, list):
+        for i, v in enumerate(o[:4]):
+            hunt(v, f"{path}[{i}]", out, depth + 1)
+    return out
+
+
+URLS = [
+    "https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20260928",
+    "https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&bookIds=15,30,68,69,71,75&date=20260928",
+    "https://api.actionnetwork.com/web/v2/scoreboard/nfl?bookIds=15,30&date=20260928",
+    "https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20251020",
+    "https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date=20260927",
+]
+gid = None
+for u in URLS:
     try:
-        plays = sl.run()
-        print("run ok:", [(p["team"], p["odds"]) for p in plays])
-    except Exception:                                        # noqa: BLE001
-        traceback.print_exc(file=sys.stdout)
-subprocess.run(["git", "checkout", "--", sl.LIVE_JSON, sl.LOG])
+        d = get(u)
+        games = d.get("games") or []
+        print(f"\n== {u}\n   games: {len(games)}; top keys: {list(games[0].keys()) if games else list(d.keys())}")
+        if games and gid is None and "20260928" in u:
+            gid = games[0].get("id")
+        for line in hunt(games[:1]):
+            print("  ", line)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"\n== {u}\n   ERR {e}")
+for u in ([f"https://api.actionnetwork.com/web/v1/games/{gid}", f"https://api.actionnetwork.com/web/v2/games/{gid}",
+           f"https://api.actionnetwork.com/web/v1/games/{gid}/polls"] if gid else []):
+    try:
+        d = get(u)
+        print(f"\n== {u}\n   top keys: {list(d.keys())[:40]}")
+        for line in hunt(d):
+            print("  ", line)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"\n== {u}\n   ERR {e}")
+for u in ["https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872963"]:
+    try:
+        d = get(u)
+        print("\n== ESPN summary pickcenter/predictor")
+        for line in hunt({"pickcenter": d.get("pickcenter"), "predictor": d.get("predictor"),
+                          "againstTheSpread": d.get("againstTheSpread")}):
+            print("  ", line)
+        print("   predictor:", str(d.get("predictor"))[:300])
+    except Exception as e:                                   # noqa: BLE001
+        print("ESPN ERR", e)
