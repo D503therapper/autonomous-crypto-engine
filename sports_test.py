@@ -12,6 +12,7 @@ import sports_comeback as sc
 import sports_data as sd
 import sports_model as sm
 import sports_live
+sports_live.NOTIFY[0] = False                                       # (no real pushes from tests)
 import sports_players as sp
 
 
