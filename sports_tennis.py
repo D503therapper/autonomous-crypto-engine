@@ -743,6 +743,8 @@ def post(ms, rt, w, lines, picks, now, gm=None):
         return None
     cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), rankings(now) if lines else {},
                        news_sync(now) if lines else {}, gm)
+    already = {l["id"] for p in picks for l in p.get("picks") or []}       # a match already on a slate never goes up twice
+    cands = [c for c in cands if c["id"] not in already]
     straights, parlay = pick_slate(cands)
     if not straights:
         return None

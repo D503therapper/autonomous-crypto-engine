@@ -42,6 +42,62 @@ what they can afford to lose - it's entertainment.`;
 
 const hits = new Map();                  // best effort, per Cloudflare instance
 
+// Only send the parts of the data sheet a question needs (the whole sheet costs ~2x). The core always goes: records,
+// today's + tomorrow's board, recent results, what the studies proved. Games, splits, tennis and the detailed study
+// tables ride along when the question (or the last few) points at them. Can't tell what it's about -> the whole sheet.
+const SPORT = { nfl: /nfl|football/, ncaaf: /college football|ncaaf|cfb/, nba: /nba|basketball/, ncaab: /college (hoops|basketball)|ncaab|cbb/,
+  mlb: /mlb|baseball/, nhl: /nhl|hockey/ };
+const WORDS = (x) => String(x || "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4);
+
+function trim(brain, text) {
+  const t = text.toLowerCase();
+  const core = {};
+  for (const k of ["updated", "today", "tomorrow", "records", "board (today + tomorrow)", "recent graded picks"]) core[k] = brain[k];
+  const st = brain.studies || {};
+  const light = {};
+  for (const [k, v] of Object.entries(st)) {
+    if (k === "underdogs + favorites") {
+      light[k] = Object.fromEntries(Object.entries(v || {}).map(([lg, x]) => [lg, {
+        "proven dog spots": x["proven dog spots"], "trap dog spots (never taken)": x["trap dog spots (never taken)"],
+        "favorites/dogs price check proven": x["favorites/dogs price check proven"] }]));
+    } else light[k] = v;
+  }
+  core.studies = light;
+  const extra = {};
+  let matched = false;
+  const reads = brain["every game's read (not our picks)"] || [];
+  const games = reads.filter((g) => [g.away, g.home].some((n) => WORDS(n).some((w) => t.includes(w))));
+  const sports = Object.keys(SPORT).filter((lg) => SPORT[lg].test(t));
+  const slate = /tonight|today|tomorrow|slate|games|who wins|what'?s good|lean|best bet|value|spread|moneyline|\bover\b|\bunder\b|o\/u|total/.test(t);
+  let pick = games;
+  if (sports.length) pick = pick.concat(reads.filter((g) => sports.includes(g.league)));
+  else if (slate && !games.length) pick = reads;
+  if (pick.length) {
+    extra["every game's read (not our picks)"] = [...new Set(pick)];
+    matched = true;
+  }
+  const splits = brain["public betting splits (% of bets / % of money)"] || {};
+  const ids = new Set((extra["every game's read (not our picks)"] || []).map((g) => g.id));
+  if (/public|bets|money|fade|sharp|rigged|vegas|split|who'?s betting/.test(t)) {
+    extra["public betting splits (% of bets / % of money)"] = ids.size
+      ? Object.fromEntries(Object.entries(splits).filter(([id]) => ids.has(id))) : splits;
+    matched = true;
+  } else if (ids.size) {
+    extra["public betting splits (% of bets / % of money)"] = Object.fromEntries(Object.entries(splits).filter(([id]) => ids.has(id)));
+  }
+  const tennis = brain["tennis reads"] || [];
+  if (/tennis|atp|wta|\bset\b|serve/.test(t) || tennis.some((g) => [g.away, g.home].some((n) => WORDS(n).some((w) => t.includes(w))))) {
+    extra["tennis reads"] = tennis;
+    matched = true;
+  }
+  if (/study|studies|price check|favorite|underdog|\bdogs?\b|trap|proven|prove/.test(t)) {
+    extra["underdog + favorite study, full tables"] = st["underdogs + favorites"];
+    matched = true;
+  }
+  if (/record|how we doing|how are we|streak|lock|parlay|leg|pick|board|why|live|plus money/.test(t)) matched = true;
+  return matched ? { core, extra } : { core: brain, extra: {} };
+}
+
 function reply(body, status, cors) {
   return new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 }
@@ -96,6 +152,7 @@ export default {
       return reply({ answer: "My bad — can't pull up the engine's data right this second. Try again in a minute. 🛠️" }, 200, cors);
     }
 
+    const sheet = trim(brain, [q, ...history.filter((m) => m.role === "user").map((m) => m.content)].join(" \n "));
     const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
     const model = env.MODEL || "claude-haiku-4-5";
     // Haiku (the cheapest) answers straight up; the bigger models get adaptive thinking + the refusal fallback
@@ -116,9 +173,13 @@ export default {
           { type: "text", text: SYSTEM },
           {
             type: "text",
-            text: `THE ENGINE'S DATA SHEET (as of ${brain.updated}):\n${JSON.stringify(brain)}`,
+            text: `THE ENGINE'S DATA SHEET (as of ${brain.updated}):\n${JSON.stringify(sheet.core)}`,
             cache_control: { type: "ephemeral" },
           },
+          ...(Object.keys(sheet.extra).length
+            ? [{ type: "text", text: `MORE FROM THE DATA SHEET (for this question):\n${JSON.stringify(sheet.extra)}`,
+                 cache_control: { type: "ephemeral" } }]
+            : []),
         ],
         messages: [
           ...history,

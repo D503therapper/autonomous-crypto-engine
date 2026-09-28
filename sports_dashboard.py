@@ -231,8 +231,12 @@ def _tennis():
     s = slates[-1]
     legs = {l["id"]: l for l in s["picks"]}
     r = {"won": 0, "lost": 0, "p_won": 0, "p_lost": 0}
+    seen = set()                                             # a match counts once, even if two slates carry it
     for x in slates:
         for l in x["picks"]:
+            if l["id"] in seen:
+                continue
+            seen.add(l["id"])
             r["won"] += l["result"] == "won"
             r["lost"] += l["result"] == "lost"
         if x.get("parlay"):
@@ -408,7 +412,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     res = list(seen_.values())
     try:
         with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
-            res += [("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or [] if l.get("result") in ("won", "lost")]
+            res += list({l["id"]: ("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or []
+                         if l.get("result") in ("won", "lost")}.values())     # a match counts once
     except (OSError, ValueError):
         pass
     chips = []
