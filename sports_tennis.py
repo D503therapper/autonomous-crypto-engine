@@ -547,7 +547,7 @@ def _used(skip=()):
     return sb.slang_in(sb.dashboard_texts(skip=skip))
 
 
-TENNIS_BV = 11                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 12                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -594,9 +594,12 @@ def breakdown(c, rt, used):
                       f"🎾 Everybody knows {me} is winning this one. The engine does too — {pct_}% chance.",
                       f"🎾 {me} all day. {He}'s the better player by a mile.",
                       f"🎾 {them} is about to get {his} cheeks clapped. {me} runs this.",
-                      f"🎾 Give me {me}. Big price, but {he} wins this way more often than not."]
+                      f"🎾 Give me {me}. Big price, but {he} wins this way more often than not.",
+                      f"🎾 {me} is nice. {He} about to go off on {them}.",
+                      f"🎾 {me} is nice nice. {He} ain't playing no games today."]
         elif o < 0:                                               # a small favorite: the book has it closer than it is
             lines_ = [f"🎾 We riding {me}. The book's got this priced kinda close — it ain't.",
+                      f"🎾 {me} is nice — the book don't respect it at {o}. {He} about to go off.",
                       f"🎾 {me} is only {o}? The algorithm has {him} winning this way more than that.",
                       f"🎾 Hammer {me}. The algorithm likes {him} way more than Vegas does.",
                       f"🎾 Give me {me}. {He}'s about to take care of business.",

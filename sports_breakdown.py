@@ -80,7 +80,8 @@ SLANG = {                        # our big phrases: each FAMILY shows up once on
     "trust": r"trust (the algorithm|it)", "let y'all down": r"let y'all down", "levels": r"levels to this|whole nother caliber",
     "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
-    "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater"}
+    "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater",
+    "nice": r"\bnice\b", "go off": r"go(ing)? off"}
 
 
 def slang_in(texts):
