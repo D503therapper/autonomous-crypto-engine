@@ -110,7 +110,9 @@ def _live_story(e, used=None):
     else:
         end = _pick("pending", ["we gon' see.", "they about to go to work. We gon' see.", "trust the algorithm. We gon' see.",
                                 "hammer time. We gon' see.", "they cooking soon. We gon' see.", "don't be a sheep. We gon' see.",
-                                "the book's sleeping. We gon' see.", "let's eat. We gon' see."], used, k)
+                                "the book's sleeping. We gon' see.", "let's eat. We gon' see.", "we finna see.",
+                                "they about to cook. We finna see.", "trust the process. We finna see.",
+                                "hammer time. We finna see."], used, k)
     return f"{score} {thought} — {end}"
 
 
@@ -423,6 +425,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         pass                                                      # the live results below speak for the day
     elif any(p["date"] == today and p["kind"] != "eight" and p["status"] == "open" for p in picks):
         lines.append(_rot(k, [f"⏳ {w_}-{l_} so far today — still got tickets live. We gon' see.",
+                              f"⏳ {w_}-{l_} so far. Tickets still cooking — we finna see.",
                               f"⏳ Sitting at {w_}-{l_} right now. Day ain't over — more tickets still cooking.",
                               f"⏳ {w_}-{l_} so far. Still got action on the board — the day ain't done."]))
     elif w_ + l_ == 0:
@@ -504,7 +507,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                                f"📡 Live L: {t} at {o}. Comeback never came. Is what it is — the algorithm's taking notes.",
                                                f"📡 {_cap(t)} live at {o} came up short. Bad call, shake it off — next one's ours."]))
     if not done and not any(x.startswith("📡") for x in lines):   # no finished day yet: nothing to brag or cry about
-        lines = ["👀 We gon' see."]
+        lines = [_rot(k, ["👀 We gon' see.", "👀 We finna see."])]
     elif lines:                                               # results are in: remind everybody we're just getting started
         first = min((p["date"] for p in picks), default=today)
         young = (now.date() - datetime.strptime(first, "%Y-%m-%d").date()).days < 60
