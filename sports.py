@@ -142,6 +142,9 @@ import sports_lines  # noqa: E402
 
 LINES_ST = sports_lines.load()               # the puck line / run line study (how often teams really win by 2+)
 import sports_totals  # noqa: E402
+import sports_ats  # noqa: E402
+
+ATS_ST = sports_ats.load()                   # the spread-vs-moneyline study (who covers when the two disagree)
 
 TOTALS_ST = sports_totals.load()             # the over/under study: a sport only gets over/unders once it's PROVEN
 OU_STRONG = 0.58                             # ...and then only a game with a strong read (58%+ over or under)
@@ -219,6 +222,10 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)
                 sodds = sm._int(g.get(f"spread_{side}_odds")) or -110
                 pc = sm.cover_p(params, f, g, side)
+                if pc is not None and ATS_ST:                 # moneyline vs spread disagreement (proven sports only)
+                    ph_c = pc if side == "home" else 1 - pc
+                    ph_c = sports_ats.adjust(ATS_ST, lg, g, ph_c)
+                    pc = ph_c if side == "home" else 1 - ph_c
                 if pc is not None:
                     out.append({**base, "market": "spread", "line": line, "odds": sodds, "dec": sd.decimal(sodds),
                                 "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1})
@@ -276,8 +283,10 @@ def _parlay(cands, n, top=40):
 def one_side(cands):
     """One side per game - never both teams. Value wins, unless the other side is a lock or a strong lean."""
     side, ou = {}, {}
-    for c in sorted(cands, key=lambda c: (leg_tier(c) == "lock", c["p"] >= STRONG_LEAN_P, good(c), c["edge"]),
-                    reverse=True):
+    def rank(c):                     # value first - a popular favorite with no value never blocks the other side;
+        g_ = good(c)                 # among real value plays: a lock / strong lean first; otherwise the bigger edge
+        return (g_, g_ and leg_tier(c) == "lock", g_ and c["p"] >= STRONG_LEAN_P, c["edge"])
+    for c in sorted(cands, key=rank, reverse=True):
         (ou if c.get("market") == "total" else side).setdefault(c["game_id"], c["side"])   # one side / one total each
     return [c for c in cands if c["side"] == (ou if c.get("market") == "total" else side).get(c["game_id"])]
 
@@ -308,6 +317,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     if len({c["game_id"] for c in cands}) == 1:              # a one-game day: one PICK OF THE DAY, no Lock/Dog/parlays
         solo = max((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: (round(c["p"] * 50), c["edge"]),
                    default=None)
+        if solo is None:                                      # the owner wants a pick on a one-game day: the best REAL
+            solo = max((c for c in cands if c["edge"] > 0 and c.get("edge_own", c["edge"]) > 0 and c["odds"] >= MAX_FAV),
+                       key=lambda c: c["edge"], default=None)  # edge (positive, even if thin) - never a pure guess
         return {"lock": None, "dog": None, "two": None, "three": None, "four": None,
                 "solo": fixed.get("solo") and _combo(fixed["solo"]) or (_combo([solo]) if solo else None)}
     # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely
@@ -797,6 +809,8 @@ def run(repick=False, fetch=True):
             print(sports_halves.summary(sports_halves.study(games)))
             import sports_lines
             print(sports_lines.summary(sports_lines.study(games)))
+            import sports_ats as _ats                                   # moneyline vs spread: who covers
+            print("spread/moneyline study:", {k: (v.get("hit"), v.get("proven")) for k, v in _ats.study(games).items()})
             import sports_hockey                                        # hockey: the line + only what beats it
             hk = sports_hockey.study(games)
             print("hockey study:", hk.get("kept"), hk.get("ll_kept"), "vs line", hk.get("ll_market"))
