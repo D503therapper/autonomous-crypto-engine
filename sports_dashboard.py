@@ -710,7 +710,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 8-Leg, every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live plus money, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 8-Leg, every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live plus money, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
   <div class="recs grades">{others}</div>
