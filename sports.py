@@ -468,14 +468,6 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         locks = [c for c in cands if good(c) and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
                  and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML)]
         lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None
-        if lock is None:
-            # the owner: a day with games ALWAYS gets a Lock of the Day for the record (wild card day, opening night...).
-            # Nothing cleared the value bar, so it's the pick the engine is most confident in - same caps, never a trap
-            # spot, never clearly overpriced (at most 2% under the price on our numbers). Parlays + Dog stay value-only.
-            sure = [c for c in cands if not c.get("trap") and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
-                    and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML)
-                    and c["edge"] >= -0.02 and c.get("edge_own", c["edge"]) >= -0.02]
-            lock = max(sure, key=lambda c: (bool(c.get("reasons")), c["p"], c["edge"])) if sure else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]

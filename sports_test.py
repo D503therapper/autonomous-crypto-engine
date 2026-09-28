@@ -277,9 +277,7 @@ def test_board_rules():
     assert sports.make_board(short[:3])["four"] is None, "no 4 real plays = no 4-leg that day (never a lean filler)"
     filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
     b = sports.make_board(filler)
-    assert all(b[k] is None for k in ("dog", "two", "three", "four")), "no value = no parlays / dog - never a lean in them"
-    assert b["lock"] and b["lock"]["legs"][0]["game_id"] == "p", "but a day with games always gets a Lock of the Day: the surest pick that isn't clearly overpriced (q is 2.8% under its price)"
-    assert sports.make_board([_cand("hv", -300, 0.80)])["lock"] is None, "never past the cap, even to have a lock"
+    assert all(b[k] is None for k in ("lock", "dog", "two", "three", "four")), "no value = no picks - never a lean on the board"
     # a pick posted earlier is built on, never rebuilt
     fixed = {"lock": bd["lock"]["legs"]}
     assert sports.make_board(slate[3:], fixed=fixed)["two"]["legs"][0]["game_id"] == lock_g
