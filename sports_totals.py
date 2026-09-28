@@ -97,6 +97,40 @@ def study(games, path=PATH):
     return out
 
 
+def state(games, league):
+    """Every team's current scoring/allowing form + the league's average total (for upcoming games)."""
+    a = ALPHA[league]
+    off, dfn, n = {}, {}, {}
+    tot_avg, k = None, 0
+    for g in sorted(sm.finals(games, league), key=lambda g: g["start"]):
+        try:
+            hs, as_ = int(g["home_score"]), int(g["away_score"])
+        except (TypeError, ValueError):
+            continue
+        k += 1
+        tot_avg = (hs + as_) if tot_avg is None else tot_avg + (hs + as_ - tot_avg) / min(k, 500)
+        for t, pf, pa in ((g["home"], hs, as_), (g["away"], as_, hs)):
+            if t not in off:
+                off[t], dfn[t] = float(pf), float(pa)
+            else:
+                off[t] += a * (pf - off[t])
+                dfn[t] += a * (pa - dfn[t])
+            n[t] = n.get(t, 0) + 1
+    return {"off": off, "dfn": dfn, "n": n, "avg": tot_avg}
+
+
+def p_over(fit, st, g):
+    """Chance the game goes over its line, or None (not enough on both teams / no study)."""
+    line = sm._num(g.get("total"))
+    h, w = g["home"], g["away"]
+    if "a" not in fit or not line or st["avg"] is None or st["n"].get(h, 0) < 5 or st["n"].get(w, 0) < 5:
+        return None
+    half = st["avg"] / 2
+    pred = (st["off"][h] + st["dfn"][w]) / 2 + (st["off"][w] + st["dfn"][h]) / 2
+    pred = pred * 0.5 + st["avg"] * 0.5 * (pred / (2 * half)) if half else pred
+    return _sig(fit["a"] + fit["b"] * (pred - line))
+
+
 def load():
     try:
         with open(PATH) as f:
