@@ -198,10 +198,13 @@ def sync(state, budget_s=150):
     with ThreadPoolExecutor(6) as ex:
         results = list(ex.map(run, [(d, t) for d in days for t in TOURS]))
     got = 0
+    rank = {"pre": 0, "live": 1}                       # a match only moves forward: scheduled -> playing -> final
+    def _adv(m):                                       # (several days' pages carry the same match - an older copy
+        return (rank.get(_state(m), 2), len(str(m.get("sets1") or "").split()))   # never knocks a newer one back)
     for day, rows in results:
         for r in rows or []:
             old = ms.get(r["id"])
-            if old and _state(old) in ("final", "retired", "void") and _state(r) == "pre":
+            if old and _adv(old) > _adv(r):
                 continue
             ms[r["id"]] = r
             got += 1
