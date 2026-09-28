@@ -353,6 +353,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 if calls.get(key, ("", ""))[0] != "lock":
                     calls[key] = (t, l["result"], p["date"])
     by_tier = {t: [(r, d) for tt, r, d in calls.values() if tt == t] for t in ("lock", "value")}
+    ow = sum(r == "won" for _, r, _ in calls.values())       # OVERALL: every call we made (locks + value), once each
+    ol = sum(r == "lost" for _, r, _ in calls.values())
+    tw = sum(r == "won" for _, r, d in calls.values() if d == today)
+    tl = sum(r == "lost" for _, r, d in calls.values() if d == today)
+    overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
+               f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
+               f'<div class="ovr-s">today {tw}-{tl}</div></div>')
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     grades = "".join(grade(*TIER_LOOK[t], [r for r, _ in by_tier[t]], [r for r, d in by_tier[t] if d == today])
                      for t in ("lock", "value"))
@@ -650,6 +657,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .total{{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
 .sp-n{{font-size:12px;color:#9fb0c8;margin:4px 0 12px}}
 .grades{{margin-bottom:12px}}
+.ovr{{text-align:center;background:linear-gradient(160deg,rgba(34,227,154,.14),rgba(255,194,51,.10));border:1px solid rgba(34,227,154,.45);border-radius:16px;padding:14px 12px;margin:10px 0 12px}}
+.ovr-t{{font-size:13px;font-weight:900;letter-spacing:.12em;color:#22e39a}} .ovr-r{{font-size:46px;font-weight:900;line-height:1.1}}
+.ovr-p{{font-size:15px;font-weight:800;color:#ffc233}} .ovr-s{{font-size:13px;font-weight:700;color:#22d3ee;margin-top:2px}}
 .sp-n.what{{color:#ffe08a;font-weight:600;line-height:1.5}} .sp-n.what b{{color:#22e39a}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
@@ -713,6 +723,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <section class="hero">
   <div class="lbl">The engine's grades</div>
   <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 8-Leg, every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live plus money, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
+  {overall}
   <div class="recs grades">{grades}{"".join(rec)}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
   <div class="recs grades">{others}</div>
