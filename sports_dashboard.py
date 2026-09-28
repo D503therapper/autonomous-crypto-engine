@@ -344,14 +344,16 @@ def render(picks, model, games, series, start_bank, updated_ms):
     import sports
     calls = {}
     for p in sorted(picks, key=lambda p: p.get("posted") or ""):
-        if p["kind"] == "eight" or p.get("lean"):
+        if p.get("lean"):
             continue
         for l in p["legs"]:
             if l.get("result") in ("won", "lost"):
                 t = "lock" if p["kind"] == "lock" else (l.get("tier") or sports.leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}))
+                if t == "lean":
+                    continue                                 # a lean leg (old 8-legs) is never one of our calls
                 key = (p["date"], l["game_id"], l["side"])
                 if calls.get(key, ("", ""))[0] != "lock":
-                    calls[key] = ("value" if t == "lean" else t, l["result"], p["date"])
+                    calls[key] = (t, l["result"], p["date"])
     by_tier = {t: [(r, d) for tt, r, d in calls.values() if tt == t] for t in ("lock", "value")}
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     grades = "".join(grade(*TIER_LOOK[t], [r for r, _ in by_tier[t]], [r for r, d in by_tier[t] if d == today])
@@ -369,9 +371,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
     seen_ = {}                                               # a team we're on in two picks the same day counts once
     for p in picks:
-        if p["kind"] != "eight" and not p.get("lean"):     # our daily record only: no 8-leg, no leans, no live bets
+        if not p.get("lean"):                              # our daily record only: no leans, no live bets
             for l in p["legs"]:
-                if l.get("result") in ("won", "lost"):
+                if l.get("result") in ("won", "lost") and (p["kind"] == "lock" or (l.get("tier") or sports.leg_tier(
+                        {**l, "edge_own": l.get("edge_own", l.get("edge", 0))})) != "lean"):
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
     res = list(seen_.values())
     try:
@@ -713,7 +716,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, Dog, 2-Leg and 3-Leg the engine is most confident in, posted before the first game. Every call is graded by how sure we were: 🔒 locks and 🔥 value — each leg of a parlay counts as its own call. 📡 Live bets, the 🎰 8-leg lottery ticket and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 8-Leg, every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live bets, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
   <div class="recs grades">{others}</div>
