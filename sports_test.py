@@ -2225,6 +2225,51 @@ def test_tennis_edge():
     shutil.rmtree(tmp)
 
 
+def test_tennis_favs():
+    """The heavy-favorites study (research only): American price bands at the right edges; a soft book planted too
+    generous on favorites shows up as profit at that book (and is proven) while Pinnacle's efficient close is not;
+    parlay tickets are 3 legs of one tour, one day, three different matches, all inside the cap; the split is
+    taken from edge.json; the whole run writes favs.json."""
+    import sports_tennis_favs as tf
+    assert tf.american(1.5) == -200 and tf.band_of(1.5) == "-151..-200" and tf.band_of(1.2) == "-301..-500"
+    assert tf.band_of(1.19) == "-500+" and tf.band_of(1.67) == "-101..-150" and tf.band_of(1.99) == "-101..-150"
+    assert tf.band_of(2.0) is None and tf.band_of(3.1) is None and tf.band_of(1.34) == "-201..-300"
+    assert tf.level3("500") == "other" and tf.level3("slam") == "slam"
+    tmp = tempfile.mkdtemp()
+    hist, out, edge = (os.path.join(tmp, n) for n in ("hist.csv.gz", "favs.json", "edge.json"))
+    split = _tennis_hist(hist, 80, lambda w, tour, fav: 1.3 if fav else 1.0)   # Bet365 way too long on favorites
+    split = (datetime.strptime(split, "%Y-%m-%d") - timedelta(days=7 * 40)).strftime("%Y-%m-%d")
+    with open(edge, "w") as f:
+        json.dump({"split": split}, f)
+    r = tf.study(out, hist, edge, verbose=False)
+    with open(out) as f:
+        saved = json.load(f)
+    assert saved["split"] == split and r["research_only"] and saved["proven"] == r["proven"]
+    assert r["data"]["rated_for_model"] > 1000 and "model+2%" in r["straights"]["atp"]["pin"]
+    assert any(k.startswith("atp|b365|all|") for k in r["proven"]), r["proven"]
+    assert not any(k.startswith(("atp|pin|all|", "wta|pin|all|")) and "parlay" not in k for k in r["proven"]), r["proven"]
+    b = r["straights"]["atp"]["b365"]["all"]
+    # (near 50/50 the planted Bet365 "favorite" is often the real underdog, so the closest band is left out)
+    assert sum(s["all"]["roi"] * s["all"]["n"] for k, s in b.items() if s and k != "-101..-150") > 0
+    p = r["straights"]["atp"]["pin"]["all"]
+    assert sum(s["all"]["roi"] * s["all"]["n"] for s in p.values() if s) < 0
+    assert all(set(s) <= {"all", "bo3", "bo5", "slam", "1000", "other"} for s in b.values())
+    assert "bo5" not in "".join(k for s in r["straights"]["wta"]["pin"]["all"].values() for k in s)
+    # the parlay tickets themselves
+    ms = [m for m in tf.te.build(tf.te.read_hist(hist))[1] if m.tour == "wta"]
+    fv = tf.favorites(ms, {}, "pin", split)
+    tk = tf.tickets(fv, 200, "all")
+    assert tk and len({d for d, _ in tk}) == len(tk)
+    for d, legs in tk:
+        assert len(legs) == 3 and len({(x[0].W, x[0].L) for x in legs}) == 3
+        assert all(x[0].d == d and x[0].tour == "wta" and 1.5 - 1e-9 <= x[1] < 2.0 for x in legs)
+    ps = tf.parlay_stats(tk, split)
+    assert ps["all"]["tickets"] == len(tk) == ps["old"]["tickets"] + ps["new"]["tickets"]
+    assert 0 < ps["all"]["fair_hit"] < 0.25 and 0 < ps["old"]["p_profit_if_no_edge"] < 0.5
+    assert tf.study(os.path.join(tmp, "x.json"), os.path.join(tmp, "none.gz"), edge, verbose=False).get("skipped")
+    shutil.rmtree(tmp)
+
+
 def test_tennis_set1_math():
     """The implied first-set chance: the interpolated table matches the exact serve_split route, 50/50 stays 50/50,
     it's symmetric and monotone, a set is always closer to a coin flip than the match (more so in best of 5), and

@@ -54,6 +54,7 @@ def main():
         ("the explorer: NEW angles", "sports_explorer", lambda m: m.explore(games)),   # new questions every run
         ("tennis edge", "sports_tennis_edge", lambda m: m.study()),
         ("tennis first set", "sports_tennis_set1", lambda m: m.study()),        # research only
+        ("tennis heavy favorites", "sports_tennis_favs", lambda m: m.study()),  # research only
     ]
     for name, mod, fn in jobs:
         t0 = time.time()
