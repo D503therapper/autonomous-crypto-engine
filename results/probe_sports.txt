@@ -1,16 +1,234 @@
-BOVADA mlb ription/baseball/mlb?marketFilterId=def&liveOnly=true&lang=en dict {}  
-BOVADA mlb description/baseball/mlb?marketFilterId=def&liveOnly=true&lang=en list 0 0 0
-BOVADA mlb ription/baseball/mlb?marketFilterId=def&lang=en list 1 4 0
-BOVADA mlb ription/baseball?marketFilterId=def&liveOnly=true&lang=en list 0 0 0
-bovada_live mlb 0 0 groups, 0 events
-BOVADA nfl ription/football/nfl?marketFilterId=def&liveOnly=true&lang=en dict {}  
-BOVADA nfl description/football/nfl?marketFilterId=def&liveOnly=true&lang=en dict {}  
-BOVADA nfl ription/football/nfl?marketFilterId=def&lang=en list 1 15 0
-BOVADA nfl ription/football?marketFilterId=def&liveOnly=true&lang=en list 1 1 1
-bovada_live nfl 1 1 groups, 1 events
-SECOND HALF BALL (Rams @ Broncos): home | first drive team id: 14 | home 7 Broncos | away 14 Rams []
-TEST PUSH sent to ntfy topic d503-live-7b1123 []
-03:13:29 live (13.7s): 1 games live, 1 priced by a sportsbook, 0 plays on the board
-run ok: []
-03:13:30 live (0.8s): 1 games live, 1 priced by a sportsbook, 0 plays on the board
-run ok: []
+
+== https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20260928
+   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'broadcast']
+   [0]/odds[0]/ml_home_public = None
+   [0]/odds[0]/ml_away_public = None
+   [0]/odds[0]/spread_home_public = None
+   [0]/odds[0]/spread_away_public = None
+   [0]/odds[0]/total_under_public = None
+   [0]/odds[0]/total_over_public = None
+   [0]/odds[0]/ml_home_money = None
+   [0]/odds[0]/ml_away_money = None
+   [0]/odds[0]/spread_home_money = None
+   [0]/odds[0]/spread_away_money = None
+   [0]/odds[0]/total_over_money = None
+   [0]/odds[0]/total_under_money = None
+   [0]/odds[1]/ml_home_public = None
+   [0]/odds[1]/ml_away_public = None
+   [0]/odds[1]/spread_home_public = None
+   [0]/odds[1]/spread_away_public = None
+   [0]/odds[1]/total_under_public = None
+   [0]/odds[1]/total_over_public = None
+   [0]/odds[1]/ml_home_money = None
+   [0]/odds[1]/ml_away_money = None
+   [0]/odds[1]/spread_home_money = None
+   [0]/odds[1]/spread_away_money = None
+   [0]/odds[1]/total_over_money = None
+   [0]/odds[1]/total_under_money = None
+
+== https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&bookIds=15,30,68,69,71,75&date=20260928
+   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'broadcast']
+   [0]/odds[0]/ml_home_public = None
+   [0]/odds[0]/ml_away_public = None
+   [0]/odds[0]/spread_home_public = None
+   [0]/odds[0]/spread_away_public = None
+   [0]/odds[0]/total_under_public = None
+   [0]/odds[0]/total_over_public = None
+   [0]/odds[0]/ml_home_money = None
+   [0]/odds[0]/ml_away_money = None
+   [0]/odds[0]/spread_home_money = None
+   [0]/odds[0]/spread_away_money = None
+   [0]/odds[0]/total_over_money = None
+   [0]/odds[0]/total_under_money = None
+   [0]/odds[1]/ml_home_public = None
+   [0]/odds[1]/ml_away_public = None
+   [0]/odds[1]/spread_home_public = None
+   [0]/odds[1]/spread_away_public = None
+   [0]/odds[1]/total_under_public = None
+   [0]/odds[1]/total_over_public = None
+   [0]/odds[1]/ml_home_money = None
+   [0]/odds[1]/ml_away_money = None
+   [0]/odds[1]/spread_home_money = None
+   [0]/odds[1]/spread_away_money = None
+   [0]/odds[1]/total_over_money = None
+   [0]/odds[1]/total_under_money = None
+   [0]/odds[2]/ml_home_public = None
+   [0]/odds[2]/ml_away_public = None
+   [0]/odds[2]/spread_home_public = None
+   [0]/odds[2]/spread_away_public = None
+   [0]/odds[2]/total_under_public = None
+   [0]/odds[2]/total_over_public = None
+   [0]/odds[2]/ml_home_money = None
+   [0]/odds[2]/ml_away_money = None
+   [0]/odds[2]/spread_home_money = None
+   [0]/odds[2]/spread_away_money = None
+   [0]/odds[2]/total_over_money = None
+   [0]/odds[2]/total_under_money = None
+   [0]/odds[3]/ml_home_public = None
+   [0]/odds[3]/ml_away_public = None
+   [0]/odds[3]/spread_home_public = None
+   [0]/odds[3]/spread_away_public = None
+   [0]/odds[3]/total_under_public = None
+   [0]/odds[3]/total_over_public = None
+   [0]/odds[3]/ml_home_money = None
+   [0]/odds[3]/ml_away_money = None
+   [0]/odds[3]/spread_home_money = None
+   [0]/odds[3]/spread_away_money = None
+   [0]/odds[3]/total_over_money = None
+   [0]/odds[3]/total_under_money = None
+
+== https://api.actionnetwork.com/web/v2/scoreboard/nfl?bookIds=15,30&date=20260928
+   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'core_id', 'last_play', 'boxscore', 'broadcast', 'markets']
+   [0]/markets/15/event/moneyline = [{'outcome_id': '2670615856', 'market_id': '21805763', 'event_type': 'game', 'event_id': 290873, 'book_id': 15, 'type': 'moneyline', 'side': 'away', 'period': 'event', 'team_id': 151, 'odds': 205, 'value': 0, 'is_live': False, 'deeplink_id'
+   [0]/markets/15/event/moneyline[0]/bet_info = {'money': {'value': 0, 'percent': 46}, 'tickets': {'value': 0, 'percent': 11}}
+   [0]/markets/15/event/moneyline[0]/bet_info/money = {'value': 0, 'percent': 46}
+   [0]/markets/15/event/moneyline[0]/bet_info/money/percent = 46
+   [0]/markets/15/event/moneyline[0]/bet_info/tickets = {'value': 0, 'percent': 11}
+   [0]/markets/15/event/moneyline[0]/bet_info/tickets/percent = 11
+   [0]/markets/15/event/moneyline[1]/bet_info = {'money': {'value': 0, 'percent': 54}, 'tickets': {'value': 0, 'percent': 89}}
+   [0]/markets/15/event/moneyline[1]/bet_info/money = {'value': 0, 'percent': 54}
+   [0]/markets/15/event/moneyline[1]/bet_info/money/percent = 54
+   [0]/markets/15/event/moneyline[1]/bet_info/tickets = {'value': 0, 'percent': 89}
+   [0]/markets/15/event/moneyline[1]/bet_info/tickets/percent = 89
+   [0]/markets/15/event/spread[0]/bet_info = {'money': {'value': 0, 'percent': 40}, 'tickets': {'value': 0, 'percent': 53}}
+   [0]/markets/15/event/spread[0]/bet_info/money = {'value': 0, 'percent': 40}
+   [0]/markets/15/event/spread[0]/bet_info/money/percent = 40
+   [0]/markets/15/event/spread[0]/bet_info/tickets = {'value': 0, 'percent': 53}
+   [0]/markets/15/event/spread[0]/bet_info/tickets/percent = 53
+   [0]/markets/15/event/spread[1]/bet_info = {'money': {'value': 0, 'percent': 60}, 'tickets': {'value': 0, 'percent': 47}}
+   [0]/markets/15/event/spread[1]/bet_info/money = {'value': 0, 'percent': 60}
+   [0]/markets/15/event/spread[1]/bet_info/money/percent = 60
+   [0]/markets/15/event/spread[1]/bet_info/tickets = {'value': 0, 'percent': 47}
+   [0]/markets/15/event/spread[1]/bet_info/tickets/percent = 47
+   [0]/markets/15/event/total[0]/bet_info = {'money': {'value': 0, 'percent': 55}, 'tickets': {'value': 0, 'percent': 50}}
+   [0]/markets/15/event/total[0]/bet_info/money = {'value': 0, 'percent': 55}
+   [0]/markets/15/event/total[0]/bet_info/money/percent = 55
+   [0]/markets/15/event/total[0]/bet_info/tickets = {'value': 0, 'percent': 50}
+   [0]/markets/15/event/total[0]/bet_info/tickets/percent = 50
+   [0]/markets/15/event/total[1]/bet_info = {'money': {'value': 0, 'percent': 45}, 'tickets': {'value': 0, 'percent': 50}}
+   [0]/markets/15/event/total[1]/bet_info/money = {'value': 0, 'percent': 45}
+   [0]/markets/15/event/total[1]/bet_info/money/percent = 45
+   [0]/markets/15/event/total[1]/bet_info/tickets = {'value': 0, 'percent': 50}
+   [0]/markets/15/event/total[1]/bet_info/tickets/percent = 50
+   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info = {'money': {'value': 0, 'percent': 0}, 'tickets': {'value': 0, 'percent': 0}}
+   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/money = {'value': 0, 'percent': 0}
+   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/money/percent = 0
+   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/tickets = {'value': 0, 'percent': 0}
+   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/tickets/percent = 0
+   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info = {'money': {'value': 0, 'percent': 0}, 'tickets': {'value': 0, 'percent': 0}}
+   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/money = {'value': 0, 'percent': 0}
+   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/money/percent = 0
+   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/tickets = {'value': 0, 'percent': 0}
+   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/tickets/percent = 0
+
+== https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20251020
+   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'broadcast']
+   [0]/odds[0]/ml_home_public = None
+   [0]/odds[0]/ml_away_public = None
+   [0]/odds[0]/spread_home_public = None
+   [0]/odds[0]/spread_away_public = None
+   [0]/odds[0]/total_under_public = None
+   [0]/odds[0]/total_over_public = None
+   [0]/odds[0]/ml_home_money = None
+   [0]/odds[0]/ml_away_money = None
+   [0]/odds[0]/spread_home_money = None
+   [0]/odds[0]/spread_away_money = None
+   [0]/odds[0]/total_over_money = None
+   [0]/odds[0]/total_under_money = None
+   [0]/odds[1]/ml_home_public = None
+   [0]/odds[1]/ml_away_public = None
+   [0]/odds[1]/spread_home_public = None
+   [0]/odds[1]/spread_away_public = None
+   [0]/odds[1]/total_under_public = None
+   [0]/odds[1]/total_over_public = None
+   [0]/odds[1]/ml_home_money = None
+   [0]/odds[1]/ml_away_money = None
+   [0]/odds[1]/spread_home_money = None
+   [0]/odds[1]/spread_away_money = None
+   [0]/odds[1]/total_over_money = None
+   [0]/odds[1]/total_under_money = None
+   [0]/odds[2]/ml_home_public = None
+   [0]/odds[2]/ml_away_public = None
+   [0]/odds[2]/spread_home_public = None
+   [0]/odds[2]/spread_away_public = None
+   [0]/odds[2]/total_under_public = None
+   [0]/odds[2]/total_over_public = None
+   [0]/odds[2]/ml_home_money = None
+   [0]/odds[2]/ml_away_money = None
+   [0]/odds[2]/spread_home_money = None
+   [0]/odds[2]/spread_away_money = None
+   [0]/odds[2]/total_over_money = None
+   [0]/odds[2]/total_under_money = None
+   [0]/odds[3]/ml_home_public = None
+   [0]/odds[3]/ml_away_public = None
+   [0]/odds[3]/spread_home_public = None
+   [0]/odds[3]/spread_away_public = None
+   [0]/odds[3]/total_under_public = None
+   [0]/odds[3]/total_over_public = None
+   [0]/odds[3]/ml_home_money = None
+   [0]/odds[3]/ml_away_money = None
+   [0]/odds[3]/spread_home_money = None
+   [0]/odds[3]/spread_away_money = None
+   [0]/odds[3]/total_over_money = None
+   [0]/odds[3]/total_under_money = None
+
+== https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date=20260927
+   games: 15; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'players', 'player_stats', 'broadcast']
+   [0]/odds[0]/ml_home_public = None
+   [0]/odds[0]/ml_away_public = None
+   [0]/odds[0]/spread_home_public = None
+   [0]/odds[0]/spread_away_public = None
+   [0]/odds[0]/total_under_public = None
+   [0]/odds[0]/total_over_public = None
+   [0]/odds[0]/ml_home_money = None
+   [0]/odds[0]/ml_away_money = None
+   [0]/odds[0]/spread_home_money = None
+   [0]/odds[0]/spread_away_money = None
+   [0]/odds[0]/total_over_money = None
+   [0]/odds[0]/total_under_money = None
+   [0]/odds[1]/ml_home_public = None
+   [0]/odds[1]/ml_away_public = None
+   [0]/odds[1]/spread_home_public = None
+   [0]/odds[1]/spread_away_public = None
+   [0]/odds[1]/total_under_public = None
+   [0]/odds[1]/total_over_public = None
+   [0]/odds[1]/ml_home_money = None
+   [0]/odds[1]/ml_away_money = None
+   [0]/odds[1]/spread_home_money = None
+   [0]/odds[1]/spread_away_money = None
+   [0]/odds[1]/total_over_money = None
+   [0]/odds[1]/total_under_money = None
+   [0]/odds[2]/ml_home_public = None
+   [0]/odds[2]/ml_away_public = None
+   [0]/odds[2]/spread_home_public = None
+   [0]/odds[2]/spread_away_public = None
+   [0]/odds[2]/total_under_public = None
+   [0]/odds[2]/total_over_public = None
+   [0]/odds[2]/ml_home_money = None
+   [0]/odds[2]/ml_away_money = None
+   [0]/odds[2]/spread_home_money = None
+   [0]/odds[2]/spread_away_money = None
+   [0]/odds[2]/total_over_money = None
+   [0]/odds[2]/total_under_money = None
+   [0]/odds[3]/ml_home_public = None
+   [0]/odds[3]/ml_away_public = None
+   [0]/odds[3]/spread_home_public = None
+   [0]/odds[3]/spread_away_public = None
+   [0]/odds[3]/total_under_public = None
+   [0]/odds[3]/total_over_public = None
+   [0]/odds[3]/ml_home_money = None
+   [0]/odds[3]/ml_away_money = None
+   [0]/odds[3]/spread_home_money = None
+   [0]/odds[3]/spread_away_money = None
+   [0]/odds[3]/total_over_money = None
+   [0]/odds[3]/total_under_money = None
+
+== https://api.actionnetwork.com/web/v1/games/290873
+   ERR HTTP Error 404: Not Found
+
+== https://api.actionnetwork.com/web/v2/games/290873
+   ERR HTTP Error 404: Not Found
+
+== https://api.actionnetwork.com/web/v1/games/290873/polls
+   ERR HTTP Error 404: Not Found
+ESPN ERR HTTP Error 403: Forbidden
