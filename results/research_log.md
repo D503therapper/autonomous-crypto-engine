@@ -60,13 +60,14 @@ keeping the legends -> config.DEX["exit"] unchanged. TEXTIT-style give-backs are
 2. Account-level brake: stop new buys / tighten exits after a 20-25% drawdown from the account high - test levels.
 3. Big-win playbook: take the stake back at 2x, moon bag on the 40% trail, bank chunks at milestones; tax set-aside.
 
-### DONE 2026-09-27 19:20 - Held coins no longer sold on data-only re-screen flags
-6 data-flag exits so far (ANTFUN, SDOG, HOLDOWEEN x2, DREGG, ARENA "missing metadata"): -$128 realized; 5 of 6 worth more
-after the sale (holding +$61 net), 0 rugged. Change: data-only flags (holders/LP unknown, LP lock %, missing metadata) never
-sell a held coin; contract/scam flags and the (sqrt-price-adjusted) liquidity-pull check still exit at once. Watch: any held
-coin that rugs after a logged "data flags only; holding".
+### DONE 2026-09-28 05:40 - REVERTED the "data flags never sell a held coin" change (8a6b3cb, 2026-09-27 19:20)
+It was decided on 6 exits (5 of 6 worth more after the sale). 10 hours later the after-sale prices flipped:
+HOLDOWEEN qYCU -100% after we sold (holding: -$148), ARENA ("missing metadata") -99% (-$101), 7 -59% (-$62);
+winners missed: SDOG +$49, ANTFUN +$30, HOLDOWEEN Bxft +$4. Data-flag exits saved about $230 net. Lesson: re-screen
+data flags DO carry rug information on Solana pump pools; and after-sale grades need days, not hours - never change a
+scam rule on < 24h of after-sale data. Back to: contract flags / "missing metadata" exit at once, data flags on 2 strikes.
 
-### (superseded by the DONE entry above) Re-screen "safety data" exits: are they selling good coins? (2026-09-27)
+### (older) Re-screen "safety data" exits: are they selling good coins? (2026-09-27)
 All 4 DEX sales so far were emergency exits on re-screen DATA flags (holders/LP holders unknown, RugCheck
 "lp locked 0%"), none on a real rug. tools/sold_followup.py after them: ANTFUN -1% (good sell), SDOG +37%
 (high +71%, too early, ~$32 missed), HOLDOWEEN qYCU +2%, HOLDOWEEN Bxft -6% (good sell). Net: holding would

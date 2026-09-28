@@ -1,10 +1,12 @@
 # Always-on paper trading. Each run stays on ~5h50m: it checks open positions
 # against live prices every second (stocks: 15s) and runs the full strategy cycle every hour,
-# saving to GitHub each hour. A new run starts every 6 hours to keep it going 24/7.
+# saving to GitHub each hour. The schedule fires every hour: a scheduled run never cancels the running engine,
+# it waits in line and starts the moment the current run ends (GitHub drops some scheduled runs, and restarts
+# after pushes shift the 6h cycle - a 6-hourly schedule left the engine off 03:12-05:18 on 2026-09-28).
 name: paper-trade
 on:
   schedule:
-    - cron: "7 */6 * * *"
+    - cron: "7 * * * *"
   workflow_dispatch: {}
   push:
     branches: [main]      # only main runs the live engine (a push to a side branch once replaced it for 33 min)
@@ -16,7 +18,7 @@ permissions:
   actions: read        # lets the start-up step see whether the previous run is still finishing
 concurrency:
   group: paper-trade
-  cancel-in-progress: true   # a new version of the engine replaces the running one
+  cancel-in-progress: ${{ github.event_name != 'schedule' }}   # a push (new engine version) replaces the running one; the hourly schedule only queues
 jobs:
   engine:
     runs-on: ubuntu-latest

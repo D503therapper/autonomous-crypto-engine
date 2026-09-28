@@ -485,7 +485,6 @@ _LP_REASON = re.compile(r"^(lp locked|lp holders unknown|rugcheck lp locked|rugc
 
 # Re-screen findings that come from flaky holder / LP data (not the contract): need a second strike to sell
 _DATA_FLAG = re.compile(r"holders|^lp |rugcheck lp|rugcheck: lp|rugcheck score|lp unlocked", re.I)
-_HELD_DATA = re.compile(_DATA_FLAG.pattern + r"|missing metadata", re.I)   # never sells a held coin (see _finish)
 
 
 def _mature(c, S):
@@ -1349,16 +1348,18 @@ class DexHunter:
                 print(f"   dex re-screen: {job['key']} unreachable ({why}); holding")
             elif any(s == "scam" for _, s in rs):             # honeypot / freeze etc.: out at once
                 self._request_exit(job["key"], 1.0, f"re-screen flagged: {why}", "scammed_honeypot", now)
-            elif rs and not all(_HELD_DATA.search(t) for t, _ in rs):   # contract / market flag: out at once
+            elif rs and not all(_DATA_FLAG.search(t) for t, _ in rs):   # contract / market flag: out at once
                 self._request_exit(job["key"], 1.0, f"re-screen flagged: {why}", "emergency_exit", now)
             elif rs:
-                # Data-only flags (holders / LP from one API, LP lock %, missing metadata) never sell a coin we hold.
-                # The same coin passed these checks at entry; the free APIs flip on these fields. Evidence to
-                # 2026-09-27 17:00: 6 such exits (ANTFUN, SDOG, 2x HOLDOWEEN, DREGG, ARENA), 5 of 6 were worth more
-                # after we sold, and none rugged. A real rug still exits at once through the liquidity-pull check.
+                # a data flag (LP / holders from one API) must repeat on the next re-screen before we sell:
+                # free APIs flip on these fields (SDOG passed, then read "LP 0%" and was sold at -13%).
+                # A real rug still exits at once through the liquidity-pull check on every price update.
                 pos["flagged"] = pos.get("flagged", 0) + 1
                 self.dirty = True
-                print(f"   dex re-screen: {job['key']} data flags only ({why}); holding")
+                if pos["flagged"] >= 2:
+                    self._request_exit(job["key"], 1.0, f"re-screen flagged twice: {why}", "emergency_exit", now)
+                else:
+                    print(f"   dex re-screen: {job['key']} flagged once ({why}); re-checking before selling")
             else:
                 pos["clean"], pos["flagged"] = pos.get("clean", 0) + 1, 0
                 self._upgrade(job["key"], pos, now)
