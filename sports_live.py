@@ -581,6 +581,26 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
     return plays
 
 
+NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "d503-live-7b1123")     # subscribe in the free ntfy app to get the pushes
+DASH_URL = "https://d503therapper.github.io/autonomous-crypto-engine/sports/"
+NOTIFY = [True]               # (tests turn it off)
+
+
+def notify(pl):
+    """📲 Push a new live bet to phones through ntfy (free, no account): the team, the price, the score. Never blocks."""
+    if not NOTIFY[0] or not NTFY_TOPIC:
+        return
+    o = f"+{pl['odds']}" if pl["odds"] > 0 else str(pl["odds"])
+    body = f"{pl['team']} ML {o} — {pl.get('score', '')}, {pl.get('clock', '')}. {pl.get('line', '')}".strip()
+    req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=body.encode(), method="POST", headers={
+        "Title": f"LIVE PLUS MONEY: {pl['team']} {o}".encode("latin-1", "ignore").decode("latin-1"),
+        "Tags": "rotating_light", "Click": DASH_URL, "Priority": "high"})
+    try:
+        urllib.request.urlopen(req, timeout=5).read()
+    except Exception as e:                                   # noqa: BLE001 - a push failing never stops the watch
+        sd.ERRORS.append(f"notify: {str(e)[:60]}")
+
+
 def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     """Scan every live game -> the plays on the board right now. Max 2 at a time, no limit per day: a play that's
     up stays up while its value's still there (`showing`); a new one only takes a slot that's open."""
@@ -649,6 +669,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                                       "side": pl["id"].rsplit(":", 1)[1], "an_id": pl["an_id"], "result": None,
                                       "reasons": pl["reasons"], "date": now.astimezone(PT).date().isoformat(),
                                       "p": pl["p"]}
+            notify(pl)                                        # a new live bet: push it to everybody's phone
         pl["posted"] = log["plays"][pl["id"]]["posted"]
         e = log["plays"][pl["id"]]
         if not pl.get("paused") and e.get("result") is None:     # the longest the line got while the play was up

@@ -24,6 +24,9 @@ g_ = sd_.load_games().get("nfl:401872962")
 if g_:
     print("SECOND HALF BALL (Rams @ Broncos):", sl.second_half_ball("nfl", g_), "| first drive team id:",
           sl.KICK.get("401872962"), "| home", g_["home"], g_["home_name"], "| away", g_["away"], g_["away_name"], sd_.ERRORS[-2:])
+sl.notify({"team": "Test", "odds": 150, "score": "D503 1 @ Books 0", "clock": "Q1",
+           "line": "If you see this, live plus money alerts are working. Let's eat."})
+print("TEST PUSH sent to ntfy topic", sl.NTFY_TOPIC, sd_.ERRORS[-1:])
 board = subprocess.run(["git", "fetch", "-q", "origin", sl.LIVE_BRANCH], capture_output=True)
 b = subprocess.run(["git", "show", f"origin/{sl.LIVE_BRANCH}:live.json"], capture_output=True, text=True)
 if b.returncode == 0:
