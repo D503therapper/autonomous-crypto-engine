@@ -538,7 +538,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 8                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 9                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -621,7 +621,7 @@ def breakdown(c, rt, used):
                                      "🔥 This one's personal between their countries. Heat on every point."]))
     if f["surface_gap"] >= 40:
         out.append(v.say("t_surf", [f"🟫 {He}'s a different animal on {surf}. That's {his} surface.",
-                                    f"🟫 On {surf}, {me} levels up — way above {his} usual level.",
+                                    f"🟫 On {surf}, {me} is on a whole nother caliber. There's levels to this shit.",
                                     f"🟫 {surf.capitalize()} is {his} playground. {He} lives here.",
                                     f"🟫 Put {him} on {surf} and {he} turns into a problem."]))
     elif f["surface_gap"] <= -40:

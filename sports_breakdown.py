@@ -74,6 +74,12 @@ def _names(rows, k=3):
     return ", ".join(names) + (f" +{more} more" if more > 0 else "")
 
 
+SLANG = ("cheeks clapped", "complete ass", "smack that ass", "about to cook", "let's eat", "we're eating", "tap in",
+         "we gon' see", "we finna see", "trust the algorithm", "i won't let y'all down", "levels to this", "whole nother caliber",
+         "line makers trippin", "go to work", "handle business", "take care of business", "sheep", "clowns", "run it back",
+         "teams always be coming back", "a gift")
+
+
 class Voice:
     """Picks a way to say each line: different wording from game to game and day to day, and never the same
     wording twice on one board (share one `used` set across a board's breakdowns)."""
@@ -83,13 +89,21 @@ class Voice:
 
     def say(self, key, options, must=False):
         """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board.
-        must=True: a line the card can't go without (the pick, the bottom line) - reuse a wording rather than drop it."""
+        must=True: a line the card can't go without (the pick, the bottom line) - reuse a wording rather than drop it.
+        Our big phrases ("cheeks clapped", "smack that ass"...) show up once a board, never on two cards in a row."""
         start = sum(map(ord, f"{self.seed}|{key}")) % len(options)
-        for i in range(len(options)):
-            n = (start + i) % len(options)
-            tag = f"{key}:{n}"
-            if tag not in self.used:
+        order = [(start + i) % len(options) for i in range(len(options))]
+        def slang(x):
+            return [f"slang:{s}" for s in SLANG if s in x.lower()]
+        for fresh_only in (True, False):
+            for n in order:
+                tag = f"{key}:{n}"
+                if tag in self.used or (fresh_only and any(s in self.used for s in slang(options[n]))):
+                    continue
+                if not fresh_only and not must:
+                    break                                     # every fresh way repeats a phrase: drop the line
                 self.used.add(tag)
+                self.used.update(slang(options[n]))
                 self.mine.append(tag)
                 return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
         return options[start] if must else ""
