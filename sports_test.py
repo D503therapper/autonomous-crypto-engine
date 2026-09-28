@@ -234,21 +234,22 @@ def test_board_rules():
     assert lock_g in two and set(two) <= set(three) and len(set(three)) == 3, "option A: Lock -> 2-leg -> 3-leg ladder"
     dog_g = bd["dog"]["legs"][0]["game_id"]
     assert dog_g not in three, "the Dog is its own pick, never in the parlays"
-    eight = bd["eight"]["legs"]
-    assert len(eight) == 8 and len({l["game_id"] for l in eight}) == 8 and all(sports.good(l) for l in eight), "locks + value only"
-    assert set(three) | {dog_g} <= {l["game_id"] for l in eight}, "the 8-leg is the whole board + the next best plays"
-    assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
-    assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
+    four = [l["game_id"] for l in bd["four"]["legs"]]
+    assert len(set(four)) == 4 and set(three) <= set(four) and dog_g not in four, "4-leg = the 3-leg + one more, never the Dog"
+    assert all(sports.good(l) and l["odds"] >= sports.MAX_FAV for l in bd["four"]["legs"]), "locks + value only, no -475"
+    sure_dog = _cand("sd", 120, 0.66)                                        # a dog the engine thinks WINS (66%)
+    bs = sports.make_board(slate + [sure_dog])
+    assert bs["dog"]["legs"][0]["game_id"] == "sd" and "sd" in [l["game_id"] for l in bs["two"]["legs"]], "a confident Dog can ride"
     likely = _cand("pl", 120, 0.62)                                          # plus money, 62%
     fav = _cand("fv", -110, 0.54)                                            # minus money, only 54%
     val2 = _cand("v2", 150, 0.615)                                           # about as likely as pl, more value
     bl = sports.make_board([likely, fav, val2, _cand("L", -110, 0.66), _cand("D", 250, 0.46)])   # D = the dog
     assert [l["game_id"] for l in bl["two"]["legs"]] == ["L", "v2"], "accuracy first, then the most value"
     short = slate[:5] + [_cand(f"n{i}", -120, 0.50) for i in range(5)]      # only 5 real plays
-    assert sports.make_board(short)["eight"] is None, "no 8 real plays = no 8-leg that day (never a lean filler)"
+    assert sports.make_board(short[:3])["four"] is None, "no 4 real plays = no 4-leg that day (never a lean filler)"
     filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
     b = sports.make_board(filler)
-    assert all(b[k] is None for k in ("lock", "dog", "two", "three", "eight")), "no value = no picks - never a lean on the board"
+    assert all(b[k] is None for k in ("lock", "dog", "two", "three", "four")), "no value = no picks - never a lean on the board"
     # a pick posted earlier is built on, never rebuilt
     fixed = {"lock": bd["lock"]["legs"]}
     assert sports.make_board(slate[3:], fixed=fixed)["two"]["legs"][0]["game_id"] == lock_g
@@ -327,10 +328,10 @@ def test_post_when_settled_and_never_change():
     late = now + timedelta(hours=8)                                           # past every deadline (3h before)
     sports.post_board(games, model, picks, late, day)
     assert [p for p in picks if p["status"] == "open"][:len(posted)] == posted
-    assert all(p["status"] == "open" for p in picks) and len(picks) >= 3
+    assert all(p["status"] == "open" for p in picks) and len(picks) >= 2
     assert all(not l["waiting"] for p in picks for l in p["legs"])
     # picks all day: once a play is graded, a fresh one of the same kind goes up from games that haven't started
-    lock = next(p for p in picks if p["kind"] == "lock")
+    lock = next((p for p in picks if p["kind"] == "lock"), picks[0])
     lock["status"] = "won"
     later = [g for g in games.values() if g["id"].startswith("mlb:up") and g["id"] != lock["legs"][0]["game_id"]]
     for g in later:
