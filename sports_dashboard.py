@@ -402,8 +402,20 @@ def render(picks, model, games, series, start_bank, updated_ms):
               + grades)
     # their own categories, never in our record: live bets and leans
     leans_ = sorted((p for p in graded_all if p.get("lean")), key=lambda p: (p["date"], p.get("posted") or ""))
+    tennis_ = {}                                             # 🎾 tennis: its own record (a match counts once)
+    try:
+        with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
+            for sl in json.load(f):
+                for l in sl.get("picks") or []:
+                    if l.get("result") in ("won", "lost"):
+                        tennis_[l.get("match") or l["id"]] = (l["result"], sl["date"])
+    except (OSError, ValueError):
+        pass
+    tn_rows = sorted(tennis_.values(), key=lambda x: x[1])
     others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
-              + grade("🟡 LEANS", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [p["status"] for p in leans_ if p["date"] == today]))
+              + grade("🟡 LEANS", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [p["status"] for p in leans_ if p["date"] == today])
+              + grade("🎾 TENNIS", "#c6f000", "#1fd17a", [r for r, _ in tn_rows], [r for r, dd in tn_rows if dd == today]))
+    RECORDS["tennis (own record, not ours)"] = f"{sum(r == 'won' for r, _ in tn_rows)}-{sum(r == 'lost' for r, _ in tn_rows)}"
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
     seen_ = {}                                               # a team we're on in two picks the same day counts once
@@ -412,15 +424,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
             for l in p["legs"]:
                 if l.get("result") in ("won", "lost"):     # if we posted it, it counts
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
-    res = list(seen_.values())
-    try:
-        with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
-            res += list({l["id"]: ("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or []
-                         if l.get("result") in ("won", "lost")}.values())     # a match counts once
-    except (OSError, ValueError):
-        pass
+    res = list(seen_.values())                               # (tennis keeps its own record, up top with live + leans)
     chips = []
-    for name, lgs in groups + [("🎾 Tennis", ("tennis",))]:
+    for name, lgs in groups:
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
         hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
@@ -428,7 +434,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>')
     by_sport = "".join(chips)
     RECORDS["by sport"] = {name.split(" ", 1)[1]: f"{sum(r == 'won' for lg, r in res if lg in lgs)}-"
-                           f"{sum(r == 'lost' for lg, r in res if lg in lgs)}" for name, lgs in groups + [("🎾 Tennis", ("tennis",))]}
+                           f"{sum(r == 'lost' for lg, r in res if lg in lgs)}" for name, lgs in groups}
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
