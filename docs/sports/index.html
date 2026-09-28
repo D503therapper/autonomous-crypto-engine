@@ -325,7 +325,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,10000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790555357315,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790556360511,m=0;   // the whole page stays fresh while it's open
 try{var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
 function tick(){m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
@@ -358,10 +358,19 @@ function vibe(p,id){return pick(id+"v",p>=0.65?["The engine likes them to handle
  p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
  ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}
 function show(g){
-  var L=g.lean, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":g.league=="tennis"?" games":""), pct=Math.round(L.p*100);
+  var L=g.lean||{market:"ml",reasons:[]}, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":g.league=="tennis"?" games":""), pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
     '<div class="ls">'+esc(g.away)+(g.vs?" vs ":" @ ")+esc(g.home)+'</div>';
-  if(g.why=="on_board"){h+='<div class="ask-a">🎯 We already on this one — it’s on the board. Scroll down and tail it. 👇</div></section>';out.innerHTML=h;return}
+  var KIND={two:"2-Leg",three:"3-Leg",lock:"Lock of the Day",dog:"Dog of the Day",eight:"8-Leg"};
+  if(g.why=="on_board"&&g.lean){var mk0=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line;
+    if(L.result){h+='<div class="ask-l">'+(L.result=="won"?"✅":"❌")+' We had <b>'+esc(L.team)+" "+mk0+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
+      '<div class="ask-a">'+(L.result=="won"?pick(g.id+"w",["Cashed. Told y’all. 💰","That one hit. Trust the algorithm. 💰"]):pick(g.id+"l",["That one didn’t hit. It’s in the record — no hiding.","L on that one. Counted in our record, full transparency."]))+'</div></section>';out.innerHTML=h;return}
+    h+='<div class="ask-l">🎯 We already on this one: <b>'+esc(L.team)+" "+mk0+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
+       '<div class="ask-a">It’s in our '+(KIND[g.board]||"board")+'. That’s our side — '+pick(g.id+"b",["tail it or don’t, but we ain’t switching up.","we riding with it.","no flip-flopping over here."])+'</div>'+
+       (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+'</section>';out.innerHTML=h;return}
+  if(g.why=="started"||g.why=="final"){h+='<div class="ask-a">'+(g.why=="final"?"⏹️ This one’s over — no reads on finished games.":
+    pick(g.id+"s",["⏱️ This one already kicked off — pregame reads are closed. Peep the LIVE BETS up top: if the algorithm sees live value, it shows up there.",
+                   "⏱️ Game’s already going. No pregame reads once it starts — watch LIVE BETS, that’s where the in-game value shows up."]))+'</div></section>';out.innerHTML=h;return}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
      '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
      (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+
@@ -384,12 +393,25 @@ function note(){
   if(/first half|1st half|1h|first 5|f5|first period|1st period/.test(t)) n.push("⏱️ First-half / first-5 / 1st-period reads show inside each game below.");
   return n.length?'<div class="ask-n">'+n.join("<br>")+'</div>':"";
 }
+function lev(a,b){if(Math.abs(a.length-b.length)>1)return 2;var d=[],i,j;for(i=0;i<=a.length;i++)d[i]=[i];for(j=0;j<=b.length;j++)d[0][j]=j;
+  for(i=1;i<=a.length;i++)for(j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]==b[j-1]?0:1));return d[a.length][b.length]}
+function hit(w,hay){                                          // loose matching: part of a name, plurals, a small typo
+  if(hay.indexOf(w)>=0) return true;
+  return hay.split(/[^a-z0-9]+/).some(function(t){return t.length>=4&&w.length>=4&&(t.indexOf(w)==0||w.indexOf(t)==0||(w.length>=5&&lev(w,t)<=1))});
+}
 function render(){
   out.innerHTML="";
   if(!loaded){list.innerHTML='<div class="ask-n">⏳ Hold up — pulling up the engine’s reads…</div>';return}
   var words=q.value.toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){return w.length>2&&!STOP[w]});
-  var hits=games.filter(function(g){var hay=(g.away+" "+g.home+" "+g.sport).toLowerCase();
-    return !words.length||words.some(function(w){return hay.indexOf(w)>=0})}).slice(0,12);
+  var hits=games.filter(function(g){return words.some(function(w){return hit(w,(g.away+" "+g.home+" "+g.sport).toLowerCase())})}).slice(0,12);
+  if(!hits.length&&q.value.trim()){                          // no team named (or no match): show the slate - always an answer
+    var live=games.filter(function(g){return g.why!="final"&&!g.done});
+    list.innerHTML=note()+(live.length?'<div class="ask-n">'+pick(q.value,["Here’s what’s on the slate — tap a game and the engine’ll break it down. 👇",
+      "Not sure which game you mean — here’s everything we got. Tap one. 👇","Pick your game and we’ll tell you how we’re leaning. 👇"])+'</div>'+
+      live.map(function(g){return '<button class="ask-g" data-i="'+games.indexOf(g)+'">'+g.emoji+" "+esc(g.away)+(g.vs?" vs ":" @ ")+esc(g.home)+' <small>'+tm(g.start)+'</small></button>'}).join(""):
+      '<div class="ask-n">'+pick(q.value,NOPE)+'</div>');
+    return;
+  }
   if(!words.length&&!note()){list.innerHTML="";return}
   if(!games.length){list.innerHTML=note()+'<div class="ask-n">No games left on the slate right now. The engine drops new reads as soon as the next lines post.</div>';return}
   list.innerHTML=note()+(hits.length?hits.map(function(g){return '<button class="ask-g" data-i="'+games.indexOf(g)+'">'+g.emoji+" "+esc(g.away)+(g.vs?" vs ":" @ ")+esc(g.home)+' <small>'+tm(g.start)+'</small></button>'}).join(""):
