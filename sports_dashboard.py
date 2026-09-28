@@ -319,7 +319,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     pid_of = {id(e): pid for pid, e in live.items()}
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
-                 '<span class="pk-l">LIVE BETS TODAY</span></div>' + "".join(
+                 '<span class="pk-l">LIVE PLUS MONEY TODAY</span></div>' + "".join(
                      f'<div class="leg {e.get("result") or ""}"><div class="lt"><span class="lgb">{sd.LEAGUES.get(e["league"], ("", "", "", "🏟️"))[3]} '
                      f'{E(sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2])}</span>'
                      f'{badge_.get(e.get("result"), pending_)}</div>'
@@ -365,7 +365,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
               + grades)
     # their own categories, never in our record: live bets and leans
     leans_ = sorted((p for p in graded_all if p.get("lean")), key=lambda p: (p["date"], p.get("posted") or ""))
-    others = (grade("📡 LIVE BETS", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
+    others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
               + grade("🟡 LEANS", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [p["status"] for p in leans_ if p["date"] == today]))
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
@@ -706,7 +706,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="ask-b"><div class="ask-n">Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.</div>
 <input id="askq" type="search" placeholder="Got a question? Ask away… 🤔" autocomplete="off">
 <div id="asklist"></div><div id="askout"></div></div></details>
-<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>
+<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 10 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
@@ -716,7 +716,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 8-Leg, every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live bets, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 8-Leg, every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live plus money, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
   <div class="recs grades">{others}</div>
@@ -738,11 +738,11 @@ function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&a
 var last="";
 function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
   '📡 Checking the live games…':n>0?
-  '👀 No live bets right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
-  '😴 No live bets available — no games going right now.')+'</div></section>';}}
+  '👀 No live plus money right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
+  '😴 No live plus money right now — no games going.')+'</div></section>';}}
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE BETS</h2><span>updates every 10 sec</span></div>'+(ps.length?ps.map(function(p){{
+ el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 10 sec</span></div>'+(ps.length?ps.map(function(p){{
   return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
@@ -801,8 +801,8 @@ function show(g){{
        '<div class="ask-a">It’s in our '+(KIND[g.board]||"board")+'. That’s our side — '+pick(g.id+"b",["tail it or don’t, but we ain’t switching up.","we riding with it.","no flip-flopping over here."])+'</div>'+
        (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+'</section>';out.innerHTML=h;return}}
   if(g.why=="started"||g.why=="final"){{h+='<div class="ask-a">'+(g.why=="final"?"⏹️ This one’s over — no reads on finished games.":
-    pick(g.id+"s",["⏱️ This one already kicked off — pregame reads are closed. Peep the LIVE BETS up top: if the algorithm sees live value, it shows up there.",
-                   "⏱️ Game’s already going. No pregame reads once it starts — watch LIVE BETS, that’s where the in-game value shows up."]))+'</div></section>';out.innerHTML=h;return}}
+    pick(g.id+"s",["⏱️ This one already kicked off — pregame reads are closed. Peep LIVE PLUS MONEY up top: if the algorithm sees live value, it shows up there.",
+                   "⏱️ Game’s already going. No pregame reads once it starts — watch LIVE PLUS MONEY, that’s where the in-game value shows up."]))+'</div></section>';out.innerHTML=h;return}}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
      '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
      (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+
