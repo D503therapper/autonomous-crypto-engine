@@ -133,7 +133,7 @@ export default {
     const n = seen && seen.hour === hour ? seen.n + 1 : 1;
     hits.set(ip, { hour, n });
     if (n > PER_HOUR) {
-      return reply({ answer: "D told you not to ask stupid ass questions. You hit your 30 per hour limit. What the fuck? Way too many questions, fam." }, 200, cors);
+      return reply({ answer: "D told you not to ask stupid ass questions. You hit your 30 per hour limit. What the fuck? Way too many questions fam." }, 200, cors);
     }
 
     let body;
