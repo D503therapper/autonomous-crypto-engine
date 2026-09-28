@@ -295,7 +295,10 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     if fixed.get("lock"):
         lock = fixed["lock"][0]
     else:
-        locks = [c for c in cands if c["market"] == "ml" and good(c) and LOCK_MAX_FAV <= c["odds"] < 0]   # minus money only
+        ml_ = [c for c in cands if c["market"] == "ml" and good(c)]
+        locks = [c for c in ml_ if LOCK_MAX_FAV <= c["odds"] <= -100 or c["odds"] == 100]   # -101..-120 or a pick'em
+        if not locks:                                         # nothing there: go up to -150
+            locks = [c for c in ml_ if MAX_FAV <= c["odds"] < LOCK_MAX_FAV]
         lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
