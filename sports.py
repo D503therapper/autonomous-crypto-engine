@@ -225,7 +225,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
                                     "market": "total", "line": float(g["total"]), "odds": oo, "dec": sd.decimal(oo), "p": pp,
                                     "p_market": 1 / sd.decimal(oo), "edge": pp * sd.decimal(oo) - 1,
                                     "reasons": ["the engine's scoring read"]})
-            if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "":
+            # a starting QB out: the book has already moved the spread for the backup and our ratings still think the
+            # starter plays - so no spread read on that game at all (the moneyline above goes by the market)
+            if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "" and not (key_out["home"] or key_out["away"]):
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)
                 sodds = sm._int(g.get(f"spread_{side}_odds")) or -110
                 pc = sm.cover_p(params, f, g, side)

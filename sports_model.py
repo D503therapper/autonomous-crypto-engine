@@ -35,6 +35,7 @@ TRAIN_GAMES = 8000         # fit the weights on the most recent this many games 
 EVAL_GAMES = 900           # tune on (at most) the most recent this many finished games
 REGRESS, BREAK_DAYS = 1 / 3, 75
 FORM_N = 10
+THIN_AIR_M = 1000   # below ~1000 meters the air is the same for everybody (Chicago's 179m is not an altitude game)
 FEATURES = ["elo", "form", "rest", "b2b", "inj", "key", "revenge", "letdown", "bye", "short", "intl",
             "alt", "cold", "weather", "travel"]   # our view (+ intercept)
 BIG_WIN = {"nfl": 17, "ncaaf": 21, "nba": 15, "ncaab": 15, "mlb": 5, "nhl": 3}   # a blowout, for letdown spots
@@ -135,7 +136,9 @@ class Elo:
         wind, rain = _num(g.get("wx_wind")) or 0.0, _num(g.get("wx_rain")) or 0.0
 
         def thin_air(tm):                                      # playing way higher than home
-            return max(0.0, elev - self.home_elev.get(tm, elev)) / 1000 if elev is not None else 0.0
+            if elev is None or elev < THIN_AIR_M:              # real altitude only (Denver, Utah, Mexico City...)
+                return 0.0
+            return max(0.0, elev - self.home_elev.get(tm, elev)) / 1000
 
         def shock(tm):                                         # warm-weather / dome team in the cold
             return max(0.0, self.home_temp.get(tm, 70.0) - temp) / 30 if temp is not None and temp < 45 else 0.0
