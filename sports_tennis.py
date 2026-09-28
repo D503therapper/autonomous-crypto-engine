@@ -863,6 +863,7 @@ def grade(ms, picks):
             if not m:
                 continue
             st = _state(m)
+            leg["state"] = st                                  # (the dashboard: LIVE only once it's really being played)
             if st == "void" or (st == "retired" and int(m.get("done") or 0) < 1):
                 leg["result"] = "void"
             elif leg.get("market") == "spread" and st == "retired":

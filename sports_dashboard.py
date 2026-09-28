@@ -219,6 +219,15 @@ def _pick_card(kind, pk):
 </section>"""
 
 
+def _delayed(l):
+    """Past its start time but the feed says it hasn't started (tennis order of play slips all the time)."""
+    try:
+        st = datetime.strptime(l["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    except (KeyError, ValueError):
+        return False
+    return l.get("state") == "pre" and datetime.now(timezone.utc) > st + timedelta(minutes=20)
+
+
 def _tennis():
     """🎾 TENNIS BONUS: collapsed at the very bottom (tap to open) - the latest slate, its parlay, its own record."""
     try:
@@ -246,7 +255,7 @@ def _tennis():
     def row(l):
         bd = "".join(f"<p>{E(x)}</p>" for x in l.get("breakdown") or [])
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if l.get("tour") == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm" data-start="{E(l["start"])}">{_time(l["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if l.get("tour") == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}">{_time(l["start"])}</span>')}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
@@ -684,7 +693,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
-.lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
+.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
 @keyframes lvp{{0%{{box-shadow:0 0 0 0 rgba(255,43,43,.9),0 0 6px 1px #ff2b2b}}70%{{box-shadow:0 0 0 9px rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}100%{{box-shadow:0 0 0 0 rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}}}
 .nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
 .tn{{margin:22px 0 6px;border:1px solid #c6f00066;border-radius:18px;background:linear-gradient(165deg,#c6f00014,var(--card))}}
