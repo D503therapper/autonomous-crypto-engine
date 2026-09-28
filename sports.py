@@ -577,6 +577,7 @@ def post_board(games, model, picks, now, day, force=False):
     settled = [c for c in cands if not c["waiting"]]
     elo = None
     used = {t for p in picks if p["date"] == iso for l in p["legs"] for t in l.get("bd_tags", [])}   # the board's memory
+    used |= sports_breakdown.slang_in(sports_breakdown.dashboard_texts())   # no phrase repeats anywhere on the dashboard
     new = []
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
@@ -713,6 +714,8 @@ def add_breakdowns(games, model, picks):
     injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
     redo = {id(l) for l in legs}
     used = {t for p in picks for l in p["legs"] if id(l) not in redo for t in l.get("bd_tags", [])}
+    used |= sports_breakdown.slang_in(sports_breakdown.dashboard_texts(
+        skip={(l.get("game_id"), l.get("side"), l.get("market")) for l in legs}))
     elo, done = sm.ratings(games, model), []
     for leg in legs:
         same = next((l for l in done if _same_leg(l, leg)), None)

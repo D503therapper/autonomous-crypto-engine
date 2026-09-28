@@ -538,6 +538,12 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
+def _used(skip=()):
+    """Our big phrases already on the dashboard (main board + tennis), so a new write-up doesn't repeat them."""
+    import sports_breakdown as sb
+    return sb.slang_in(sb.dashboard_texts(skip=skip))
+
+
 TENNIS_BV = 10                                   # breakdown version (older ones get rewritten before the match)
 
 
@@ -748,7 +754,7 @@ def post(ms, rt, w, lines, picks, now, gm=None):
     straights, parlay = pick_slate(cands)
     if not straights:
         return None
-    used = set()
+    used = _used()   # no phrase repeats anywhere on the dashboard
     legs = []
     for c in straights:
         legs.append({k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
@@ -774,7 +780,9 @@ def reads(ms, rt, w, lines, picks, now, gm=None):
     """The question box for tennis: our read on every match in the next 24 hours (not our picks, never in the record)."""
     cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), gm=gm)
     by_id = {c["id"]: c for c in cands}
-    used = set()
+    redo = {(l["id"], l.get("side"), l.get("market")) for sl_ in picks[-2:] for l in sl_.get("picks") or []
+            if l.get("bv") != TENNIS_BV and not l.get("result") and l["id"] in by_id}
+    used = _used(redo)   # no phrase repeats anywhere on the dashboard
     for sl_ in picks[-2:]:                                   # older breakdowns get rewritten before the match
         for l in sl_.get("picks") or []:
             if l.get("bv") != TENNIS_BV and not l.get("result") and l["id"] in by_id:
@@ -821,7 +829,7 @@ def repick(ms, rt, w, lines, picks, now, gm=None):
     cands = [c for c in candidates(ms, rt, w, lines, now, now + timedelta(hours=24), gm=gm)
              if c["match"] not in {l["match"] for l in keep}]
     straights, parlay = pick_slate(cands)
-    used = set()
+    used = _used()   # no phrase repeats anywhere on the dashboard
     new = [{k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
                                   "market", "hcp", "ml", "round", "surface", "bo", "value")}
            | {"result": None, "breakdown": breakdown(c, rt, used), "bv": TENNIS_BV} for c in straights[:max(0, N_PICKS - len(keep))]]

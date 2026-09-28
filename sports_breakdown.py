@@ -9,7 +9,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 21          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 22          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -81,6 +81,30 @@ SLANG = {                        # our big phrases: each FAMILY shows up once on
     "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
     "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater"}
+
+
+def slang_in(texts):
+    """The phrase families already used in these write-ups (so nothing else on the dashboard repeats them)."""
+    return {f"slang:{k}" for t in texts for k, pat in SLANG.items() if re.search(pat, (t or "").lower())}
+
+
+def dashboard_texts(skip=()):
+    """Every write-up on the dashboard right now - open main-board picks and pending tennis picks - except the legs in
+    `skip` (the ones being rewritten)."""
+    import json
+    import os
+    out = []
+    for path, key in ((os.path.join(sd.DATA, "picks.json"), "legs"), (os.path.join(sd.DATA, "tennis", "picks.json"), "picks")):
+        try:
+            with open(path) as f:
+                cards = json.load(f)
+        except (OSError, ValueError):
+            continue
+        for c in cards[-12:]:
+            for l in c.get(key) or []:
+                if l.get("result") is None and (l.get("id") or l.get("game_id"), l.get("side"), l.get("market")) not in skip:
+                    out += l.get("breakdown") or []
+    return out
 
 
 class Voice:
