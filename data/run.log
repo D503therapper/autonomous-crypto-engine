@@ -2088,3 +2088,16 @@ DEX: $731.74 (-68.26) · Scammed: 0
 [2026-09-28 18:34 UTC] stocks/trend     equity $493.03 (-1.4%) 4 open  market UP
 [2026-09-28 18:34 UTC] stocks/hold_spy  equity $498.79 (-0.2%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), HBAR 37 (37/0/0), NEAR 32 (32/0/0), LINK 29 (29/0/0), TRUMP 27 (27/0/0)
+   scanner: 975 tickers, sample: {'i': 'BTC_USD', 'h': '84998.84', 'l': '82513.99', 'a': '83857.24', 'v': '4190.1930', 'vv': '350434733.07', 'c': '-0.0102', 'b': '83860.06', 'k': '83860.07', 'oi': '0', 't': 1790620495572}
+   [alert] 🚀 BABYCALI is up 3.3x: BABYCALI (solana) is up 3.3x since the engine bought it (paper value $423). Contract: 5XtxwuwEbkLM1J86myuKKNcR5rr7hvwf4BKjHeHjpump
+   alert failed: 'latin-1' codec can't encode character '\U0001f680' in position 0: ordinal not in range(256)
+   dex screen: REJECT NVDAON@ethereum liq $175,514 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: REJECT CRV@ethereum liq $1,925,825 - is_mintable; top-10 holders 57%
+   dex screen: REJECT AP@ethereum liq $92,871 - liquidity $92,871 < $100,000
+   dex re-screen: BABYCALI@solana:5XtxwuwE flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
