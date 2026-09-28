@@ -1,0 +1,40 @@
+# Live wallet tracker (smart-money forward test): polls GeckoTerminal trades of pools the DEX hunter screened / holds
+# and appends wallet-level trades to data/dex/wallet_trades.csv.gz. Separate from the live engine: it never touches
+# run_live.py / dex.py / paper-trade.yml, and it commits ONLY its two data files (the engine's hourly `git add data`
+# never modifies them, so the two jobs' commits cannot conflict).
+name: wallet_tracker
+on:
+  schedule:
+    - cron: "17,47 * * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ["tools/wallet_tracker.py", ".github/workflows/wallet_tracker.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: wallet-tracker
+  cancel-in-progress: false
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python -u tools/wallet_tracker.py
+        env: { WT_BUDGET_MIN: "8", WT_MAX_POOLS: "25" }
+      - name: commit tracker data only
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          for f in data/dex/wallet_trades.csv.gz data/dex/wallet_tracker_state.json; do if [ -f "$f" ]; then git add -- "$f"; fi; done
+          git diff --cached --quiet && exit 0
+          git commit -qm "wallet tracker $(date -u +%FT%TZ)"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase -q origin main && git push -q origin HEAD:main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 7))
+          done
+          echo "push failed after 5 tries"; exit 1
