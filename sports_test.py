@@ -1,5 +1,6 @@
 """Offline tests for the sports engine (no network): ESPN parsing, model tuning, the board rules,
 grading. Run: python sports_test.py"""
+import json
 import math
 import os
 import random
@@ -868,6 +869,51 @@ def test_selfcheck():
     os.remove(path)
     st = sck.study(cards(45, 30), {"plays": {}}, path)
     assert sck.extra_edge(st, cand) == 0.0, "hitting above what we said: no extra"
+    os.remove(path)
+
+
+def _totals_games(league, signal, seed, n=3000, teams=20):
+    """Simulated totals, line 8.5 every game. With `signal`: 25+ mph wind at an outdoor park goes under 80% of the
+    time, and teams 0-2's home park goes over 80%. Without it: coin flips."""
+    rnd = random.Random(seed)
+    games = {}
+    t0 = datetime(2019, 4, 1, 23, 0, tzinfo=timezone.utc)
+    for i in range(n):
+        h, a = rnd.sample(range(teams), 2)
+        wind = rnd.choice((3, 6, 9, 12, 25, 28)) if signal else rnd.randint(0, 25)
+        if signal and wind >= 25:
+            over = rnd.random() < 0.2
+        elif signal and h < 3:
+            over = rnd.random() < 0.8
+        else:
+            over = rnd.random() < 0.5
+        gid = f"{league}:s{i}"
+        games[gid] = {"id": gid, "league": league, "start": (t0 + timedelta(hours=8 * i)).strftime("%Y-%m-%dT%H:%MZ"),
+                      "status": "final", "stype": "2", "home": f"t{h}", "away": f"t{a}", "home_name": f"H{h}",
+                      "away_name": f"A{a}", "home_score": "6" if over else "4", "away_score": "4" if over else "3",
+                      "total": "8.5", "over_odds": "-110", "under_odds": "-110", "indoor": "0", "wx_wind": str(wind),
+                      "wx_temp": "70", "wx_rain": "0", "elev": "100", "tzo": "-5"}
+    return games
+
+
+def test_totals():
+    """Over/Under 2.0: a real wind + park signal gets kept and proven on the unseen games; coin flips stay unproven."""
+    import sports_totals as tot
+    path = os.path.join(tempfile.gettempdir(), "totals_test.json")
+    games = {**_totals_games("mlb", True, 1), **_totals_games("nba", False, 2)}
+    st = tot.study(games, path, leagues=("mlb", "nba"), public={}, news={})
+    mlb, nba = st["mlb"], st["nba"]
+    assert "wind" in mlb["kept"] and "park" in mlb["kept"], mlb["kept"]
+    assert mlb["proven"] and mlb["hit_top"] > 0.6 and mlb["n_top"] >= 150, (mlb["hit_top"], mlb["n_top"])
+    assert not nba["proven"], nba["grade"]
+    sv = tot.state(games, "mlb")
+    windy = {"id": "mlb:x", "league": "mlb", "start": "2030-01-01T23:00Z", "status": "pre", "home": "t10", "away": "t11",
+             "total": "8.5", "indoor": "0", "wx_wind": "28", "wx_temp": "70", "wx_rain": "0", "elev": "100", "tzo": "-5"}
+    with open(path) as f:
+        saved = json.load(f)
+    assert tot.p_over(saved["mlb"], sv, windy) < 0.4
+    assert tot.p_over(saved["mlb"], sv, {**windy, "home": "t0", "wx_wind": "5"}) > 0.6
+    assert tot.p_over({}, sv, windy) is None and tot.p_over(saved["mlb"], sv, {**windy, "home": "new"}) is None
     os.remove(path)
 
 
