@@ -196,7 +196,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                                         f"🗑️ Nothing about {them} scares us ({rec}).",
             f"🗑️ {them} been looking like a JV squad ({rec}).",
             f"🗑️ {them} are straight garbage right now ({rec}).",
-            f"🗑️ Watching {them} lately hurts ({rec})."]))
+            f"🗑️ Watching {them} lately hurts ({rec}).",
+            f"🗑️ {them} are about to get their cheeks clapped. {rec} — they been complete ass.",
+            f"🗑️ {rec} lately. {them} are complete ass and it shows."]))
 
     # last games: just the latest scores - the form/streak lines above already cover runs
     if ours:

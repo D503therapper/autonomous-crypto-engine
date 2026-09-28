@@ -816,7 +816,8 @@ function note(){{
   if(/yard|rebound|assist|strikeout|touchdown|\\btd\\b|recept|rushing|passing|receiving|home run|homer|\\bprops?\\b|anytime|\\bshots?\\b|\\bsaves?\\b|\\bhits\\b|\\bpoints\\b|\\bpts\\b/.test(t))
     return '<div class="ask-prop">'+pick(t,["🙅 We don’t do no player props. Too risky, bro.","🙅 Player props? Nah. Risky ass shit — we stay away.",
       "🙅 No player props over here. One tweak and you’re cooked. We pass.","🙅 We don’t touch player props. Too many ways to lose. Stick to the games."])+'</div>';
-  if(/over|under|\\btotal|o\\/u/.test(t)) n.push("📚 Over/unders: the engine’s still studying those — we don’t guess. Reads coming soon.");
+  if(/over|under|\\btotal|o\\/u/.test(t)) n.push(pick(t+"ou",["📚 Over/unders: we studied 75,000+ games and the books are too sharp on totals right now. The engine ain’t gonna guess — we add ’em the day we can beat ’em.",
+      "📚 Totals? We ran the numbers on every game for years — no real edge yet, so we don’t touch ’em. Accuracy over everything."]));
   if(/first half|1st half|1h|first 5|f5|first period|1st period/.test(t)) n.push("⏱️ First-half / first-5 / 1st-period reads show inside each game below.");
   return n.length?'<div class="ask-n">'+n.join("<br>")+'</div>':"";
 }}

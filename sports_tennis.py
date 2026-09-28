@@ -535,7 +535,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 4                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 5                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -590,7 +590,8 @@ def breakdown(c, rt, used):
         out.append(v.say("t_rank", [f"📈 {me} is #{rk_me} in the world" + (f" — {them} is #{rk_them}. Levels to this." if rk_them else f" — {them} ain't even top 150."),
                                     f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this shit." if rk_them else "somebody outside the top 150. Levels to this shit."),
                                     f"📈 {He}'s #{rk_me} in the world for a reason" + (f" — {them} is sitting at #{rk_them}." if rk_them else "."),
-                                    f"📈 Ranking gap is real: #{rk_me}" + (f" vs #{rk_them}." if rk_them else " vs outside the top 150.") + " Not the same tier."]))
+                                    f"📈 Ranking gap is real: #{rk_me}" + (f" vs #{rk_them}." if rk_them else " vs outside the top 150.") + " Not the same tier.",
+                                    f"📈 #{rk_me} vs " + (f"#{rk_them}" if rk_them else "outside the top 150") + f" — {them}'s about to get {his} cheeks clapped."]))
     if f.get("home", 0) > 0:
         out.append(v.say("t_home", [f"🏟️ {me} is playing at home — the whole crowd's got {his} back.",
                                     f"🏟️ Home soil for {ours}. That crowd's gonna carry {him}.",
@@ -611,12 +612,14 @@ def breakdown(c, rt, used):
     elif f["surface_gap"] <= -40:
         out.append(v.say("t_surf_opp", [f"🟫 {them} ain't the same player on {surf}. That's our edge.",
                                         f"🟫 {surf.capitalize()} exposes {them} — that game don't travel.",
-                                        f"🟫 {them} on {surf}? Booty cheeks. We're taking advantage."]))
+                                        f"🟫 {them} on {surf}? Booty cheeks. We're taking advantage.",
+                                        f"🟫 {them} is complete ass on {surf}. We're eating."]))
     if f["fatigue"] >= 0.66:
         out.append(v.say("t_tired", [f"😮‍💨 {them} has been grinding long matches all week. Tired legs.",
                                      f"😮‍💨 {them} played a ton of tennis lately. Legs gonna be heavy.",
                                      f"😮‍💨 {them}'s coming off marathon matches. {ours.capitalize()} is fresher.",
-                                     f"😮‍💨 {them} is running on fumes. {ours.capitalize()}'s about to make {them} work every point."]))
+                                     f"😮‍💨 {them} is running on fumes. {ours.capitalize()}'s about to make {them} work every point.",
+                                     f"😮‍💨 Tired legs + a better player across the net? {them}'s about to get {his} cheeks clapped."]))
     if f["form"] >= 0.2:
         out.append(v.say("t_form", [f"🔥 {He}'s been rolling lately and {them} has been ice cold.",
                                     f"🔥 Form says {me}. {He}'s been cooking.",
@@ -626,7 +629,8 @@ def breakdown(c, rt, used):
         out.append(v.say("t_h2h", [f"🆚 {me} owns this matchup — {he}'s beaten {them} before.",
                                    f"🆚 {them} has had trouble with {me} in the past. History's on our side.",
                                    f"🆚 {me} got {them}'s number.",
-                                   f"🆚 Been here before — {them} couldn't handle {him} last time either."]))
+                                   f"🆚 Been here before — {them} couldn't handle {him} last time either.",
+                                   f"🆚 {them} already got {his} cheeks clapped by {me} before. Run it back."]))
     if int(c["bo"]) == 5:
         out.append(v.say("t_bo5", ["🏆 Best of 5 at a Slam — the longer it goes, the more the better player takes over.",
                                    f"🏆 Five sets gives {them} nowhere to hide. Better player wins these."]))
