@@ -864,5 +864,77 @@
   "stake": 100.0,
   "status": "lost",
   "tier": "value"
+ },
+ {
+  "american": -108,
+  "date": "2026-09-28",
+  "dec": 1.9259,
+  "kind": "solo",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "rec:5",
+     "even:1",
+     "latest:4",
+     "alt:0",
+     "home:0",
+     "fade:1",
+     "bottom_s:5"
+    ],
+    "breakdown": [
+     "\ud83d\udcb8 The so-called sharps are all over the Eagles (-102 \u2192 -198). We're fading the clowns and taking the Bears.",
+     "\ud83c\udfdf\ufe0f Bears are at home, about to go to work.",
+     "\ud83d\udccb Bears are 1-1 right now.",
+     "\ud83c\udfd4\ufe0f Thin air \u2014 179 meters up. The Eagles gonna be sucking wind by the second half.",
+     "\u2696\ufe0f These two are close, so the price is what makes the play.",
+     "\ud83d\udcc5 Last week's tape: Bears L 3-9 vs Vikings \u00b7 Eagles W 24-20 @ Titans.",
+     "\u2705 Bottom line: Bears +3.5 (-108) ain't flashy. It's just the right side."
+    ],
+    "bv": 16,
+    "country": "USA",
+    "dec": 1.925925925925926,
+    "edge": 0.004856504152144003,
+    "game_id": "nfl:401872963",
+    "home": true,
+    "intl": false,
+    "league": "nfl",
+    "line": 3.5,
+    "market": "spread",
+    "odds": -108,
+    "opp": "Eagles",
+    "opp_outs": [
+     "Fred Johnson (OT)",
+     "Hollywood Brown (WR)",
+     "Dallas Goedert (TE)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Anthony Johnson Jr. (S)",
+     "Caleb Williams (QB)",
+     "Shemar Turner (DT)",
+     "Noah Sewell (LB)"
+    ],
+    "p": 0.5217524156174593,
+    "p_market": 0.5192307692307692,
+    "public": null,
+    "reasons": [
+     "altitude edge"
+    ],
+    "side": "home",
+    "start": "2026-09-29T00:15Z",
+    "team": "Bears",
+    "their_drama": [],
+    "tier": "lean",
+    "waiting": []
+   }
+  ],
+  "p_hit": 0.5218,
+  "pnl": 0.0,
+  "posted": "2026-09-28T05:16Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]
