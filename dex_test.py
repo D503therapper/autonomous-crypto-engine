@@ -700,7 +700,8 @@ def test_resize_old_small_position():
     pos.pop("resized", None)                                             # as for a position bought before _resize existed
     h.p = dict(h.p, tiers=dex.DEX["tiers"], size=dex.DEX["size"])       # sizing raised later
     h._housekeep(T0 + 60_000)
-    assert 99 < pos["cost0"] < 101 and pos["resized"], pos["cost0"]      # topped up once to 20% of $500
+    want = 500 * dex.DEX["tiers"]["A"]["pct"]                             # topped up once to the tier-A share of $500
+    assert want - 1 < pos["cost0"] < want + 1 and pos["resized"], pos["cost0"]
     n = len(h.pf.trades)
     h._housekeep(T0 + 120_000)
     assert len(h.pf.trades) == n                                          # only once

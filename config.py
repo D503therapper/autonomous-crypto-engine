@@ -246,9 +246,12 @@ DEX = {
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%
         # idle. Owner 2026-09-26: size like the tested portfolio. Still capped at 0.5% of pool liquidity.
-        "A": {"pct": 0.20},                                                                   # "new"
-        "B": {"pct": 0.25, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},    # "proven"
-        "C": {"pct": 0.25, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},           # "blue"
+        # EXPERIMENT 1 (2026-09-28, owner: experiment in the main account): 10 coins x ~10% instead of 5 x 20-25%.
+        # More shots at the ~1 in 8 coins that double, half the damage per rug (consolidated study: max drawdown
+        # -49% -> -20%, returns mixed). Judge vs the 5-slot history at the review ~2026-10-12.
+        "A": {"pct": 0.10},                                                                   # "new"
+        "B": {"pct": 0.125, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},   # "proven"
+        "C": {"pct": 0.125, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},          # "blue"
     },
     "cex_list": [],                                # extra CEX-listed symbols (Crypto.com tickers are used live)
     "size": {"liq_pct": 0.005, "max_exposure": 1.0},     # 4 slots x 20-25% = fully invested
@@ -269,7 +272,7 @@ DEX = {
     # bulk from DexScreener (30 tokens per call, <= 60 calls/min on its own budget); movers go to the front of the
     # screening queue. Every scam check still applies. Other knobs: dex.DEFAULTS["scan"].
     "scan": {"enabled": True, "max_pools": 3000, "hot_s": 30, "cold_s": 120, "warm_h1": 0.05},
-    "slots": 5,                                    # 5 x 20% = the whole DEX account can be invested (owner: no idle cash)
+    "slots": 10,                                   # EXPERIMENT 1: 10 x ~10% = the whole DEX account invested (was 5 x 20%)
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to
                                                    # re-enable set reset_after "YYYY-MM-DD HH:MM" (UTC) > pause time
 }

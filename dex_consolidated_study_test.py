@@ -1,6 +1,8 @@
 """Offline checks for dex_consolidated_study.account (the dex.py-style account)."""
 import unittest
 
+import config
+
 import dex_consolidated_study as S
 from dex_exit_study import DAY, HOUR
 
@@ -27,7 +29,7 @@ class T(unittest.TestCase):
 
     def test_liquidity_caps_the_stake(self):
         r = S.account([sig(0, 0, "a", liq=20_000_000)], [(0.0, T0 + DAY, 1, False)], T0, T0 + 30 * DAY, log=True)
-        self.assertAlmostEqual(r["log"][0][1], 200.0)                    # 20% of $1,000
+        self.assertAlmostEqual(r["log"][0][1], 1000 * config.DEX["tiers"]["A"]["pct"])   # tier-A share of $1,000
         r = S.account([sig(0, 0, "a", liq=50_000)], [(0.0, T0 + DAY, 1, False)], T0, T0 + 30 * DAY, log=True)
         self.assertEqual(r["taken"], 0)                                  # below the $100k floor
 

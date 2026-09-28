@@ -44,6 +44,13 @@ RESULT (67 entries with buyers: 58 Base 07-08..08-21 + 9 Solana from the last da
 DECISION: nothing to change in dex.py. Smart money cannot be backfilled for free on Solana (our main runner chain), so the only
 honest test is forward. Probe/collector left as a tool; the 95-min workflow re-runs only on edits to its two files.
 
+## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
+| # | Started (UTC) | Change | Judge at | Baseline | Result |
+|---|---|---|---|---|---|
+| 1 | 2026-09-28 13:10 | DEX: 10 coins x ~10% (tiers A 10% / B,C 12.5%) instead of 5 x 20-25% | ~2026-10-12 | DEX -39% after 13 closed trades on 5 slots | pending |
+Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
+exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
+
 ### NEXT - live wallet tracker (smart money, forward test; no engine change)
 IN PROGRESS: tracker live since 2026-09-28 (first data commit 09:27 UTC); re-run smartmoney_study.py on wallet_trades after
 ~4 weeks; adopt only if known-good wallets raise the runner rate in both halves with >= 20 firings each.
