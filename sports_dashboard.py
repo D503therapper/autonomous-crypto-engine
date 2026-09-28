@@ -268,7 +268,7 @@ def _tennis():
         legs = {l["id"]: l for l in s["picks"]}
         par = s.get("parlay")
         par_html = ""
-        if par:
+        if par and par["status"] == "open":                  # a graded parlay clears off (its result lives in the records)
             stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
             par_html = f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
   <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PARLAY OF THE DAY</span>{_chip(par["status"])}</div>
@@ -277,19 +277,24 @@ def _tennis():
 </section>"""
         day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
         groups = ""
-        for title, ls in (("MEN'S TENNIS", [l for l in s["picks"] if l.get("tour", "atp") != "wta"]),
-                          ("WOMEN'S TENNIS", [l for l in s["picks"] if l.get("tour") == "wta"])):
+        waiting = [l for l in s["picks"] if l.get("result") is None]      # graded picks clear off into the results
+        for title, ls in (("MEN'S TENNIS", [l for l in waiting if l.get("tour", "atp") != "wta"]),
+                          ("WOMEN'S TENNIS", [l for l in waiting if l.get("tour") == "wta"])):
             if ls:
                 groups += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
                            f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
         return f'<div class="tn-d">{E(day)}</div>{par_html}{groups}'
-    # the newest slate, plus any earlier one still being played (its picks never vanish while they're pending)
-    shown = [x for x in slates[:-1] if any(l.get("result") is None for l in x["picks"])
-             or (x.get("parlay") or {}).get("status") == "open"] + [slates[-1]]
-    n = sum(len(x["picks"]) for x in shown)
+    # only what's still waiting to be played: every graded pick (and a graded parlay) clears off into the results
+    live = lambda x: any(l.get("result") is None for l in x["picks"]) or (x.get("parlay") or {}).get("status") == "open"
+    shown = [x for x in slates if live(x)]
+    n = sum(l.get("result") is None for x in shown for l in x["picks"])
+    npar = sum((x.get("parlay") or {}).get("status") == "open" for x in shown)
+    what = (f"{n} pick{'s' if n != 1 else ''}" + (" + parlay" if npar else "")) if (n or npar) else "new picks by 6 PM"
+    body = "".join(block(x) for x in shown) or \
+        '<div class="nopick">All graded — the results are in the records. Next picks drop by 6 PM. 🎾</div>'
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
-<span class="tn-s">{n} picks + parlay · {r['won']}-{r['lost']} · tap to open</span></summary>
-<div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{"".join(block(x) for x in shown)}</div></details>"""
+<span class="tn-s">{what} · {r['won']}-{r['lost']} · tap to open</span></summary>
+<div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{body}</div></details>"""
 
 
 def render(picks, model, games, series, start_bank, updated_ms):
