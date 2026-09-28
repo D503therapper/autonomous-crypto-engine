@@ -1,5 +1,6 @@
 # 🎾 Tennis closing odds history for the tennis edge study (tools/fetch_tennis_odds.py). Past seasons are fetched
-# once; the current season is refreshed weekly.
+# once; the current season is refreshed weekly. The site blocks servers, so season files uploaded by hand to
+# data/sports/tennis/raw (2024.xlsx = ATP, 2024w.xlsx = WTA) are used first.
 name: tennis_odds
 on:
   schedule:
@@ -7,7 +8,7 @@ on:
   workflow_dispatch: {}
   push:
     branches: [main]
-    paths: ["tools/fetch_tennis_odds.py", "workers/tdata/**", ".github/workflows/tennis_odds.yml"]
+    paths: ["tools/fetch_tennis_odds.py", "data/sports/tennis/raw/**", ".github/workflows/tennis_odds.yml"]
 permissions:
   contents: write
 concurrency:
@@ -22,19 +23,6 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install -q openpyxl xlrd
-      - uses: actions/setup-node@v4
-        with: { node-version: "22" }
-      - name: relay through Cloudflare (tennis-data.co.uk blocks GitHub's servers)
-        working-directory: workers/tdata
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          npx -y wrangler@4.142.0 deploy 2>&1 | tee deploy.log
-          url=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
-          echo "TDATA_RELAY=$url" >> "$GITHUB_ENV"
-          sleep 10
-          curl -sS -o /dev/null -w "relay test: %{http_code}\n" -m 60 "$url/2024/2024.xlsx" || true
       - run: python -u tools/fetch_tennis_odds.py
       - if: always()
         run: |

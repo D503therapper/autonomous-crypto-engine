@@ -1,5 +1,0 @@
-# Tennis odds history relay: tennis-data.co.uk blocks GitHub's servers, so the weekly fetch job pulls the season
-# files through Cloudflare. Only those season files can be fetched - nothing else.
-name = "d503-tdata"
-main = "src/index.js"
-compatibility_date = "2026-09-01"

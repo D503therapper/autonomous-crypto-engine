@@ -13,6 +13,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 OUT = os.path.join("data", "sports", "tennis", "hist_odds.csv.gz")
+RAW = os.path.join("data", "sports", "tennis", "raw")   # season files uploaded by hand (2024.xlsx = ATP, 2024w.xlsx = WTA)
 FIRST = 2012
 COLS = ["tour", "date", "tourney", "location", "series", "court", "surface", "round", "bo", "winner", "loser",
         "wrank", "lrank", "wpts", "lpts", "w1", "l1", "w2", "l2", "w3", "l3", "w4", "l4", "w5", "l5", "wsets", "lsets",
@@ -73,26 +74,43 @@ def _cell(v):
     return str(v).strip()
 
 
+def _parse(blob, ext, tour):
+    head, rows = _rows(blob, ext)
+    ix = {h: i for i, h in enumerate(head)}
+    out = []
+    for r in rows:
+        get = lambda h: _cell(r[ix[h]]) if h in ix and ix[h] < len(r) else ""
+        if not get("Winner"):
+            continue
+        d = {"tour": tour, "date": get("Date")[:10], "series": get("Series") or get("Tier")}
+        for k, h in SRC.items():
+            d[k] = get(h)
+        for n in range(1, 6):
+            d[f"w{n}"], d[f"l{n}"] = get(f"W{n}"), get(f"L{n}")
+        out.append(d)
+    return out
+
+
+def raw_files():
+    """{(tour, year): rows} from the hand-uploaded season files in data/sports/tennis/raw."""
+    out = {}
+    for fn in sorted(os.listdir(RAW)) if os.path.isdir(RAW) else []:
+        base, _, ext = fn.rpartition(".")
+        y, tour = base.rstrip("wW"), ("wta" if base.lower().endswith("w") else "atp")
+        if ext.lower() in ("xls", "xlsx") and y.isdigit():
+            with open(os.path.join(RAW, fn), "rb") as f:
+                out[(tour, int(y))] = _parse(f.read(), ext.lower(), tour)
+            print(f"{tour} {y}: {len(out[(tour, int(y))])} (uploaded file)", flush=True)
+    return out
+
+
 def year(tour, y):
     relay = os.environ.get("TDATA_RELAY", "").rstrip("/")     # the Cloudflare relay (the site blocks GitHub's servers)
     base = f"{relay or 'http://www.tennis-data.co.uk'}/{y}{'w' if tour == 'wta' else ''}/{y}"
     for ext in ("xlsx", "xls"):
         blob = _get(f"{base}.{ext}")
         if blob:
-            head, rows = _rows(blob, ext)
-            ix = {h: i for i, h in enumerate(head)}
-            out = []
-            for r in rows:
-                get = lambda h: _cell(r[ix[h]]) if h in ix and ix[h] < len(r) else ""
-                if not get("Winner"):
-                    continue
-                d = {"tour": tour, "date": get("Date")[:10], "series": get("Series") or get("Tier")}
-                for k, h in SRC.items():
-                    d[k] = get(h)
-                for n in range(1, 6):
-                    d[f"w{n}"], d[f"l{n}"] = get(f"W{n}"), get(f"L{n}")
-                out.append(d)
-            return out
+            return _parse(blob, ext, tour)
     return None
 
 
@@ -102,19 +120,23 @@ def main():
         with gzip.open(OUT, "rt", newline="") as f:
             have = list(csv.DictReader(f))
     now = datetime.now(timezone.utc).year
-    done = {(r["tour"], r["date"][:4]) for r in have}
+    done = {(r["tour"], r["date"][:4]) for r in have if int(r["date"][:4] or 0) < now}
     keep = [r for r in have if int(r["date"][:4] or 0) < now]
+    blocked = False
+    for (tour, y), rows in raw_files().items():
+        keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
+        done.add((tour, str(y)))
     for tour in ("atp", "wta"):
         for y in range(FIRST, now + 1):
-            if y < now and (tour, str(y)) in done:
+            if blocked or (tour, str(y)) in done:
                 continue
             rows = year(tour, y)
             print(f"{tour} {y}: {'missing' if rows is None else len(rows)}", flush=True)
             if rows is None and ERRS:
                 print("   ", ERRS[-1][:200], flush=True)
-            if not keep and len(ERRS) >= 12 and all("404" not in e for e in ERRS):
-                print("the site won't answer - stopping here", flush=True)
-                return 1
+            if len(ERRS) >= 12 and all("404" not in e for e in ERRS[-12:]):
+                print("the site blocks servers - upload the season files to data/sports/tennis/raw instead", flush=True)
+                blocked = True
             if rows:
                 keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
     keep.sort(key=lambda r: (r["date"], r["tour"]))
@@ -125,7 +147,7 @@ def main():
         w.writerows(keep)
     os.replace(OUT + ".tmp", OUT)
     print(f"saved {len(keep)} matches -> {OUT}")
-    return 0 if keep else 1
+    return 0
 
 
 if __name__ == "__main__":
