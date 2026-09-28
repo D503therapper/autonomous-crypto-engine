@@ -81,8 +81,9 @@ class Voice:
     def __init__(self, seed, used=None):
         self.seed, self.used, self.mine = seed, used if used is not None else set(), []
 
-    def say(self, key, options):
-        """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board."""
+    def say(self, key, options, must=False):
+        """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board.
+        must=True: a line the card can't go without (the pick, the bottom line) - reuse a wording rather than drop it."""
         start = sum(map(ord, f"{self.seed}|{key}")) % len(options)
         for i in range(len(options)):
             n = (start + i) % len(options)
@@ -91,7 +92,7 @@ class Voice:
                 self.used.add(tag)
                 self.mine.append(tag)
                 return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
-        return ""
+        return options[start] if must else ""
 
 
 def breakdown(leg, games, elo, injuries, used=None):
@@ -467,7 +468,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: Vegas says {_odds_words(need)} on {price}, the engine says {_odds_words(have)}. Easy money if the engine's right.",
             f"✅ Bottom line: {price} is priced like {_odds_words(need)} — we see {_odds_words(have)}. That gap is the whole play.",
             f"✅ Bottom line: book says {_odds_words(need)}, we say {_odds_words(have)}. We ride {price}.",
-            f"✅ Bottom line: {_odds_words(have)} for us vs {_odds_words(need)} at the window on {price}. Value all day."]))
+            f"✅ Bottom line: {_odds_words(have)} for us vs {_odds_words(need)} at the window on {price}. Value all day."], must=True))
     else:
         out.append(v.say("bottom_s", [
             f"✅ Bottom line: Vegas has {price} priced like {_odds_words(need)}, but everything above tips it our way. Small edge, real edge.",
@@ -476,7 +477,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price} is a thin edge, but it's an edge — and the details back it.",
             f"✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way.",
             f"✅ Bottom line: {price} ain't flashy. It's just the right side.",
-            f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way."]))
+            f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way."], must=True))
     lines = [x for x in out if x]
     if len(lines) > 2:
         import random

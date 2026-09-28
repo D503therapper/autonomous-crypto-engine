@@ -535,7 +535,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 3                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 4                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -564,7 +564,7 @@ def breakdown(c, rt, used):
             f"🎯 Book thinks {me} gets blown out. Nah. {me} +{c['hcp']:g} games — {he} keeps it close and we eat.",
             f"🎯 Taking the games with {me} (+{c['hcp']:g}). {He} might lose, {he} ain't getting smacked. We cash either way if it's tight.",
             f"🎯 {me} getting {c['hcp']:g} games? Free money energy. {He}'s way more dangerous than this number says.",
-            f"🎯 {me} +{c['hcp']:g} games. {He} don't even gotta win — just make it a fight, and {he} will."]))
+            f"🎯 {me} +{c['hcp']:g} games. {He} don't even gotta win — just make it a fight, and {he} will."], must=True))
     elif c.get("market") == "spread":
         n = abs(c["hcp"])
         out.append(v.say("t_spread", [
@@ -572,7 +572,7 @@ def breakdown(c, rt, used):
             f"🎯 {me} {c['hcp']:+g} games. No {c['ml']:+d} nonsense — {he} should roll this by more than {n:g} games.",
             f"🎯 {me} on the game spread ({c['hcp']:+g}). The engine's got {him} cooking — covering that is light work.",
             f"🎯 Skipping the {c['ml']:+d} tax. {me} {c['hcp']:+g} games — {he} wins big and we get paid better for it.",
-            f"🎯 {me} {c['hcp']:+g} games. This ain't a match, it's a clinic. {He} should run away with it."]))
+            f"🎯 {me} {c['hcp']:+g} games. This ain't a match, it's a clinic. {He} should run away with it."], must=True))
     else:
         out.append(v.say("t_main", [
             f"🎾 {me} is about to smack that ass. The price is too cheap for how good {he} is.",
@@ -584,7 +584,7 @@ def breakdown(c, rt, used):
             f"🎾 {me}, no hesitation. The book's sleeping on {him}.",
             f"🎾 {me} is the play. Better player, and the line ain't caught up yet.",
             f"🎾 Lock in {me}. {He}'s been playing like a problem and the book's still asleep.",
-            f"🎾 {me} is about to cook. We saw the value and we pounced."]))
+            f"🎾 {me} is about to cook. We saw the value and we pounced."], must=True))
     rk_me, rk_them = c.get("rank"), c.get("opp_rank")
     if rk_me and (not rk_them or rk_them - rk_me >= 20):
         out.append(v.say("t_rank", [f"📈 {me} is #{rk_me} in the world" + (f" — {them} is #{rk_them}. Levels to this." if rk_them else f" — {them} ain't even top 150."),
@@ -638,7 +638,11 @@ def breakdown(c, rt, used):
     out.append(v.say("t_bottom", [f"✅ Bottom line: book says {book}%, we say {pct}%. We ride {bet} ({c['odds']:+d}).",
                                   f"✅ Bottom line: book's got it at {book}% — the engine sees {pct}%. {bet} ({c['odds']:+d}). Trust the algorithm.",
                                   f"✅ Bottom line: {pct}% for us, {book}% for the book. That's the value — {bet} ({c['odds']:+d}). Let's eat.",
-                                  f"✅ Bottom line: Vegas {book}%, us {pct}%. {bet} ({c['odds']:+d}) — tail it."]))
+                                  f"✅ Bottom line: Vegas {book}%, us {pct}%. {bet} ({c['odds']:+d}) — tail it.",
+                                  f"✅ Bottom line: the book's at {book}%, we're at {pct}%. {bet} ({c['odds']:+d}). That gap is the money.",
+                                  f"✅ Bottom line: {pct}% vs the book's {book}%. {bet} ({c['odds']:+d}). We eat.",
+                                  f"✅ Bottom line: engine {pct}%, Vegas {book}%. {bet} ({c['odds']:+d}) — lock it in.",
+                                  f"✅ Bottom line: {book}% says the book, {pct}% says the algorithm. {bet} ({c['odds']:+d}). Trust it."], must=True))
     return [x for x in out if x]
 
 
