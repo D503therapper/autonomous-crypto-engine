@@ -517,7 +517,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
 
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="refresh" content="300">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="D503 Sports">
@@ -576,8 +575,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .stamp.push{{color:var(--gold)}}
 .lt-t{{margin-left:8px;font-size:10px;font-weight:900;letter-spacing:.05em}} .lt-t.lk{{color:#22e39a}} .lt-t.val{{color:#ff8a00}} .lt-t.lean{{color:#ffc233}}
 .ask{{background:var(--card);border:1px solid rgba(34,211,238,.35);border-radius:12px;margin:10px 0;overflow:hidden}}
-.ask summary{{list-style:none;cursor:pointer;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}}
-.ask summary::-webkit-details-marker{{display:none}}
+.ask-top{{padding:10px 12px 6px}}
 .ask-t{{font-size:13px;font-weight:900;letter-spacing:.08em;color:#22d3ee;white-space:nowrap}} .ask-s{{font-size:12px;font-weight:700;color:#ffc233;white-space:nowrap}}
 .ask-b{{padding:0 12px 12px}} .ask-n{{font-size:12px;font-weight:600;color:#ffe08a;margin:2px 0 8px}} .ask-n b{{color:#22e39a}}
 #askq{{width:100%;font-size:16px;padding:8px 11px;border-radius:12px;border:1px solid rgba(34,211,238,.55);background:#060a12;color:#fff}}
@@ -698,11 +696,10 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
-<details class="ask" id="ask"><summary><span class="ask-t">🤔 GOT A QUESTION?</span>
-<span class="ask-s">tap in 👀</span></summary>
+<div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 GOT A QUESTION?</span></div>
 <div class="ask-b"><div class="ask-n">Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.</div>
-<input id="askq" type="search" placeholder="Got a question? Ask away… 🤔" autocomplete="off">
-<div id="asklist"></div><div id="askout"></div></div></details>
+<input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off">
+<div id="asklist"></div><div id="askout"></div></div></div>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 10 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
@@ -764,7 +761,8 @@ function check(){{if(document.hidden)return;              // a newer page? swap 
  fetch("https://api.github.com/repos/{REPO}/contents/{PAGE}?ref=main",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
  .then(function(r){{return r.ok?r.text():""}})
  .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
-   if(x&&+x[1]>t&&!document.querySelector("details[open]")){{
+   var aq=document.getElementById("askq");                     // (not while someone's asking a question)
+   if(x&&+x[1]>t&&!document.querySelector("details[open]")&&!(aq&&(aq.value||document.activeElement===aq))){{
      try{{sessionStorage.setItem("d503y",String(window.scrollY));}}catch(e){{}}
      location.replace(location.pathname+"?v="+x[1]);}}}})
  .catch(function(){{}});}}
