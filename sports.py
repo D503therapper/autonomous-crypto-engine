@@ -575,6 +575,26 @@ def engine_reads(games, model, picks, now=None):
                                  "line": lean_["line"], "odds": lean_["odds"], "p": round(lean_["p"], 3),
                                  "win_p": round(ml_p.get(lean_["side"], lean_["p"]), 3),
                                  "reasons": (lean_.get("reasons") or [])[:3]}})
+    # games already going (or on our board) still get an answer: our side if we're on it, else "already kicked off"
+    have = {r["id"] for r in out}
+    legs = {l["game_id"]: (pk, l) for pk in picks if pk.get("date") == local.isoformat() and pk.get("status") != "waiting"
+            for l in pk.get("legs") or []}
+    for gid, g in games.items():
+        if gid in have or g.get("league") not in sd.LEAGUES or not g.get("start"):
+            continue
+        st = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+        if st.astimezone(PT).date() != local or (g.get("status") == "pre" and gid not in legs):
+            continue
+        pk, l = legs.get(gid, (None, None))
+        out.append({"id": gid, "league": g["league"], "emoji": sd.LEAGUES[g["league"]][3], "sport": sd.LEAGUES[g["league"]][2],
+                    "start": g["start"], "away": g["away_name"], "home": g["home_name"], "h1": None,
+                    "why": "on_board" if l else ("final" if g.get("status") == "final" else "started"),
+                    "done": g.get("status") == "final",
+                    "board": pk["kind"] if pk else None,
+                    "lean": {"team": l["team"], "opp": l["opp"], "market": l["market"], "line": l.get("line"), "odds": l["odds"],
+                             "p": round(l.get("p") or 0, 3), "win_p": round(l.get("p") or 0, 3), "reasons": (l.get("reasons") or [])[:3],
+                             "result": l.get("result")}
+                    if l else None})
     out.sort(key=lambda r: (r["start"], r["away"]))
     os.makedirs(os.path.dirname(ASK_PATH), exist_ok=True)
     with open(ASK_PATH, "w") as f:
