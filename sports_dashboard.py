@@ -361,7 +361,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     grades = (grade("🔒 LOCK OF THE DAY", "#22e39a", "#ffc233", [p["status"] for p in lotd], [p["status"] for p in lotd if p["date"] == today])
               + grade("🐺 DOG OF THE DAY", "#ff3b3b", "#ff8a00", [p["status"] for p in dotd], [p["status"] for p in dotd if p["date"] == today])
               + grades)
-    grades += grade("📡 LIVE", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
+    # their own categories, never in our record: live bets and leans
+    leans_ = sorted((p for p in graded_all if p.get("lean")), key=lambda p: (p["date"], p.get("posted") or ""))
+    others = (grade("📡 LIVE BETS", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
+              + grade("🟡 LEANS", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [p["status"] for p in leans_ if p["date"] == today]))
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
     seen_ = {}                                               # a team we're on in two picks the same day counts once
@@ -712,6 +715,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="lbl">The engine's grades</div>
   <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, Dog, 2-Leg and 3-Leg the engine is most confident in, posted before the first game. Every call is graded by how sure we were: 🔒 locks and 🔥 value — each leg of a parlay counts as its own call. 📡 Live bets, the 🎰 8-leg lottery ticket and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
   <div class="recs grades">{grades}</div>
+  <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
+  <div class="recs grades">{others}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
 </section>
