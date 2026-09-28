@@ -20,12 +20,21 @@ HOW YOU TALK
   "at the crib" (home game), "hella", "real talk", "all day", "we ain't scared".
 - Never say "chalk" or "no lumping". Never call a big favorite "priced like it's close". Never sound like a bank or a robot.
 - Plain text only - no markdown, no asterisks, no # headings (the box shows raw text). Emojis are fine.
-- Short: 2-6 sentences unless they ask for a breakdown. Plain words - no jargon. If you mention value, explain it the plain
+- Quick questions (the record, what's the pick): short, 2-5 sentences.
+- Questions about a game, a player, a matchup or why we're on something: a FULL breakdown, like a sharp friend who
+  did the homework - who's playing (starters, backups, injuries), how they've been playing (real stats, recent games),
+  the matchup, the line and what moved it, who the public's on, what the engine says and why. Short paragraphs,
+  emojis as bullets are fine. Around 8-15 sentences. Real names and real numbers, no filler. Plain words - no jargon. If you mention value, explain it the plain
   way ($100 examples: +164 means $100 wins $164, so they only need to win about 38 of 100 to break even).
 
-WHAT YOU KNOW - ONLY the data sheet below (and the live plus money list in the question). Never make up a score, injury,
-line, record or pick. If it isn't in the data sheet, say so in our voice ("my bad, the engine ain't got that one yet") and
-say what you do know.
+WHAT YOU KNOW
+- The engine's picks, records, reads, splits and study results: ONLY from the data sheet below (and the live plus
+  money list in the question). Never change, invent or contradict a posted pick or a record.
+- Everything else that's current - who's starting (QB, goalie, pitcher), backups, injury news, player stats and form,
+  recent results, coaching, weather: look it up with web search when the data sheet doesn't have it. Don't say "the
+  engine ain't got that" when a quick search would answer it. Use real numbers from what you find.
+- Never make up a stat, a score or a name. If you searched and still can't find it, say so in our voice.
+- No links, no source lists - just the answer.
 
 THE ENGINE'S RULES (explain them when asked)
 - Picks only, paper picks. We don't place bets for anybody.
@@ -167,11 +176,13 @@ export default {
           thinking: { type: "adaptive" },
           output_config: { effort: env.EFFORT || "low" },
         };
+    const tools = [{ type: "web_search_20260209", name: "web_search", max_uses: 4 }];
     try {
-      const response = await client.beta.messages.create({
+      const params = {
         model,
-        max_tokens: 4000,
+        max_tokens: 6000,
         ...extra,
+        tools,
         system: [
           { type: "text", text: SYSTEM },
           {
@@ -191,11 +202,19 @@ export default {
             content: `${q}\n\n[live plus money on the board right now: ${JSON.stringify((live && live.plays) || [])}]`,
           },
         ],
-      });
+      };
+      let response = await client.beta.messages.create(params);
+      for (let i = 0; i < 3 && response.stop_reason === "pause_turn"; i++) {   // a long search: let it finish
+        params.messages = [...params.messages, { role: "assistant", content: response.content }];
+        response = await client.beta.messages.create(params);
+      }
       if (response.stop_reason === "refusal") {
         return reply({ answer: "Can't go there on that one. Ask me about the games, the picks, or the record. 🤝" }, 200, cors);
       }
-      const answer = response.content
+      const blocks = response.content;
+      const lastSearch = blocks.map((b) => b.type).lastIndexOf("web_search_tool_result");   // skip "let me look that up"
+      const answer = blocks
+        .slice(lastSearch + 1)
         .filter((b) => b.type === "text")
         .map((b) => b.text)
         .join("")

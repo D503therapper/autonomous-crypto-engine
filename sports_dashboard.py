@@ -861,8 +861,8 @@ var AI="{ask_url}", hist=[];                                   // 🧠 the AI qu
 function ai(){{
   var t=q.value.trim(); if(!AI||!t) return;
   list.innerHTML="";
-  out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">🧠 The engine’s thinking…</div></section>';
-  var ctl=window.AbortController?new AbortController():null, to=setTimeout(function(){{if(ctl)ctl.abort()}},45000);
+  out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">🧠 The engine’s doing its homework…</div></section>';
+  var ctl=window.AbortController?new AbortController():null, to=setTimeout(function(){{if(ctl)ctl.abort()}},90000);
   fetch(AI,{{method:"POST",headers:{{"Content-Type":"application/json"}},body:JSON.stringify({{q:t,history:hist}}),signal:ctl?ctl.signal:undefined}})
   .then(function(r){{return r.ok?r.json():Promise.reject(r.status)}})
   .then(function(d){{clearTimeout(to);if(!d||!d.answer)throw 0;
