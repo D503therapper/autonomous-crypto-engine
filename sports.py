@@ -144,6 +144,7 @@ LINES_ST = sports_lines.load()               # the puck line / run line study (h
 import sports_totals  # noqa: E402
 
 TOTALS_ST = sports_totals.load()             # the over/under study: a sport only gets over/unders once it's PROVEN
+OU_STRONG = 0.58                             # ...and then only a game with a strong read (58%+ over or under)
 _TOT_STATE = {}
 
 
@@ -207,7 +208,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 if key_ not in _TOT_STATE:
                     _TOT_STATE[key_] = sports_totals.state(games, lg)
                 po = sports_totals.p_over(TOTALS_ST[lg], _TOT_STATE[key_], g)
-                if po is not None:
+                if po is not None and max(po, 1 - po) >= OU_STRONG:   # only a strong, lock-level read ever makes it
                     for ou, pp in (("over", po), ("under", 1 - po)):
                         oo = sm._int(g.get(f"{ou}_odds")) or -110
                         out.append({**base, "side": ou, "team": ou.capitalize(), "opp": f"{g['away_name']} @ {g['home_name']}",
