@@ -1793,3 +1793,10 @@ DEX: $731.74 (-68.26) · Scammed: 0
 [2026-09-28 12:40 UTC] crypto/breakout  equity $500.00 (+0.0%) 0 open  market UP
 [2026-09-28 12:40 UTC] crypto/hold_btc  equity $495.97 (-0.8%) 1 open  market UP
    social heat top: QNT 46 (40/0/6), TRUMP 35 (35/0/0), HBAR 32 (32/0/0), NEAR 29 (29/0/0), BTC 27 (27/0/0)
+   scanner: 975 tickers, sample: {'i': 'BTC_USD', 'h': '85161.74', 'l': '82569.50', 'a': '83313.98', 'v': '2652.1530', 'vv': '222551232.22', 'c': '-0.0198', 'b': '83306.97', 'k': '83306.98', 'oi': '0', 't': 1790599209506}
+   dex scanner: 3,000 pools (solana 2,125 / base 509 / ethereum 366), refresh cycle n/a (hot n/a), 0 calls (0 feed, 429s 0, failed 0), 0 refreshed (0 no pair), +0 added / -0 dropped (dead 0, stale 0, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT YAP@solana liq $191,676 - holders unknown; lp holders unknown; rugcheck lp locked 59% < 95%
+   dex screen: REJECT ANSEM@solana liq $2,567,068 - top-10 holders 67%
+   dex screen: REJECT BOAR@base liq $321,928 - goplus partial data: cannot_sell_all unknown; buy tax unknown; lp locked 0% < 95%
+   listing: okx_symbols #XDP 'New OKX listing (XDP)' -> ['XDP']
+   listing: XDP: okx_symbols notice "New OKX listing (XDP)" -> not on Crypto.com USD
