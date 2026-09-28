@@ -240,6 +240,10 @@ def test_board_rules():
     assert sports.make_board([_cand("x1", -140, 0.66), _cand("x2", -145, 0.66)])["lock"], "no -101..-120 lock: go up to -150"
     assert sports.make_board([_cand("x1", -140, 0.70), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x3", \
         "the -101..-120 range comes first"
+    one = sports.make_board([_cand("mnf", 170, 0.40), dict(_cand("mnf", -205, 0.70), side="away"),
+                             dict(_cand("mnf", -110, 0.58, "spread", -4.5, "nfl"), side="away")])
+    assert one["solo"] and all(one[k] is None for k in ("lock", "dog", "two", "three", "four")), "one game = one Pick of the Day"
+    assert one["solo"]["legs"][0]["market"] == "spread" and sports.leg_tier(one["solo"]["legs"][0]) == "lock", "a -110 spread = LOCK"
     sure_dog = _cand("sd", 120, 0.66)                                        # a dog the engine thinks WINS (66%)
     bs = sports.make_board(slate + [sure_dog])
     assert bs["dog"]["legs"][0]["game_id"] == "sd" and "sd" in [l["game_id"] for l in bs["two"]["legs"]], "a confident Dog can ride"

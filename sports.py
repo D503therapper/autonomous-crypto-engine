@@ -46,7 +46,8 @@ MIN_EDGE = 0.01                # NEVER a filler: every leg, lock and dog must be
                                # ...and have at least one reason; not enough of them on the slate = no play today
 MAX_EXTRA_OUT = 1              # never back the more banged-up team: at most 1 more player out than the opponent
 KINDS = [("lock", "Lock of the Day"), ("dog", "Dog of the Day"), ("two", "2-Leg of the Day"),   # posted in this order:
-         ("three", "3-Leg of the Day"), ("four", "4-Leg of the Day")]    # (the 8-leg retired 2026-09-28: the 4-leg took its spot)
+         ("three", "3-Leg of the Day"), ("four", "4-Leg of the Day"),
+         ("solo", "Pick of the Day")]                                    # (one-game days only)    # (the 8-leg retired 2026-09-28: the 4-leg took its spot)
 # 8-leg: moneylines and spreads, every day across all sports (no big favorite: a favorite shorter than -150 only gets
 # in on the spread). Value legs first; on a slate short on value the likeliest legs fill it. Over/unders stay out
 # until the engine has studied totals.
@@ -287,6 +288,11 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     fixed: {kind: [legs]} already posted today (a pick posted earlier is built on, never rebuilt)."""
     cands = one_side(cands)
     fixed = fixed or {}
+    if len({c["game_id"] for c in cands}) == 1:              # a one-game day: one PICK OF THE DAY, no Lock/Dog/parlays
+        solo = max((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: (round(c["p"] * 50), c["edge"]),
+                   default=None)
+        return {"lock": None, "dog": None, "two": None, "three": None, "four": None,
+                "solo": fixed.get("solo") and _combo(fixed["solo"]) or (_combo([solo]) if solo else None)}
     # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely
     # (within 2%), the one with the most value
     good_ = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV),        # accuracy first, then the most value
@@ -332,6 +338,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         core = [c for k in ("lock", "two", "three", "dog") for c in ((board.get(k) or {}).get("legs") or [])]
     four = fixed.get("four") or ladder(three or [], 4) if three else None
     board["four"] = _combo(four) if four else None             # the 4-leg: the 3-leg + one more (never the Dog)
+    board["solo"] = None
     return board
 
 
