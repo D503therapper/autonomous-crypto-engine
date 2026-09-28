@@ -7,7 +7,8 @@ URL = open("data/sports/ask_url.txt").read().strip()
 for q in ("why we on the Bears tonight?", "what's our record?"):
     t0 = time.time()
     req = urllib.request.Request(URL, data=json.dumps({"q": q}).encode(), method="POST",
-                                 headers={"Origin": "https://d503therapper.github.io", "Content-Type": "application/json"})
+                                 headers={"Origin": "https://d503therapper.github.io", "Content-Type": "application/json",
+                                          "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"})
     try:
         with urllib.request.urlopen(req, timeout=90) as r:
             print(f"Q: {q}\nHTTP {r.status} in {time.time() - t0:.1f}s\nA: {json.load(r).get('answer') or '(no answer)'}\n")
