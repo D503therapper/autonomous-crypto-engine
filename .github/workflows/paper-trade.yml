@@ -15,10 +15,10 @@ on:
             "scanner.py", "signals.py", "social.py", "dex.py", "dashboard.py", "stock_strategies.py"]   # restart only when files the engine runs change
 permissions:
   contents: write
-  actions: read        # lets the start-up step see whether the previous run is still finishing
+  actions: write       # start-up step sees whether the previous run is finishing; the last step starts the next run
 concurrency:
   group: paper-trade
-  cancel-in-progress: ${{ github.event_name != 'schedule' }}   # a push (new engine version) replaces the running one; the hourly schedule only queues
+  cancel-in-progress: ${{ github.event_name == 'push' }}   # a push (new engine version) replaces the running one; schedule / hand-off runs only queue
 jobs:
   engine:
     runs-on: ubuntu-latest
@@ -53,7 +53,9 @@ jobs:
       - run: |
           end=$((SECONDS + 345 * 60))
           while [ $SECONDS -lt $((end - 120)) ]; do
-            python -u run_live.py --watch $(( (end - SECONDS) / 60 )) 2>&1 | tee -a data/run.log
+            # append line by line (reopening the file): the hourly `git pull --rebase` replaces data/run.log on disk,
+            # and `tee -a` kept writing to the deleted copy, so run.log stopped updating after the first hour
+            python -u run_live.py --watch $(( (end - SECONDS) / 60 )) 2>&1 | python3 -u tools/append_log.py data/run.log
             [ $SECONDS -lt $((end - 120)) ] || break
             echo "[$(date -u '+%F %H:%M') UTC] ENGINE STOPPED EARLY - restarting in 30s" | tee -a data/run.log
             sleep 30
@@ -63,3 +65,11 @@ jobs:
           git add data SCOREBOARD.md LAB.md docs || true
           git commit -qm "paper-trade end of run $(date -u +%FT%TZ)" || exit 0
           for i in 1 2 3; do git pull --rebase -q -X theirs && git push && break; sleep 5; done
+      # Hand-off: GitHub drops some scheduled runs (the engine sat idle 11:12-12:30+ UTC on 2026-09-28), so a run that
+      # reaches its normal end starts its own successor. Not on cancel/failure (a push already started a new one).
+      - if: success()
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          n=$(gh run list --workflow paper-trade.yml --json databaseId,status \
+                --jq 'map(select(.databaseId != ${{ github.run_id }} and (.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "pending"))) | length' 2>/dev/null || echo 0)
+          [ "${n:-0}" = "0" ] && gh workflow run paper-trade.yml --ref main || echo "a successor is already queued"
