@@ -1,0 +1,30 @@
+# THE STUDY RUN - twice a day, every day: every study reruns on the latest games (tools/run_studies.py) so the engine
+# keeps learning. The hourly engine picks up whatever the studies proved on its next run.
+name: sports_studies
+on:
+  schedule:
+    - cron: "7 12 * * *"      # ~5 AM Pacific - before the morning board
+    - cron: "7 0 * * *"       # ~5 PM Pacific - before the night games and tomorrow's board
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: sports-studies
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: timeout 40m python -u tools/run_studies.py 2>&1 | tee -a data/sports/studies_run.log
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
+          git add data/sports
+          git commit -qm "studies $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
