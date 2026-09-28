@@ -2236,3 +2236,28 @@ DEX: $731.74 (-68.26) · Scammed: 0
 [2026-09-28 20:40 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-28 20:40 UTC] crypto/hold_btc  equity $496.94 (-0.6%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), HBAR 37 (37/0/0), NEAR 32 (32/0/0), TRUMP 29 (29/0/0), PONS 27 (19/0/8)
+   scanner: 975 tickers, sample: {'i': 'BTC_USD', 'h': '84998.84', 'l': '82513.99', 'a': '83529.11', 'v': '4415.5111', 'vv': '369185637.36', 'c': '-0.0123', 'b': '83529.10', 'k': '83529.11', 'oi': '0', 't': 1790628004117}
+   dex screen: REJECT OTC@solana liq $401,327 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dex screen: PASS FWA@ethereum liq $1,023,330
+   dex screen: PASS PEPE@ethereum liq $31,090,696
+   dex screen: PASS BOTIFY@solana liq $128,500
+   dex screen: REJECT NOCK@base liq $1,172,088 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT AQUA@solana liq $257,415 - holders unknown; lp holders unknown; rugcheck lp locked 60% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS BABYCALI@solana liq $111,124
+   dex scanner: 2,560 pools (solana 1,767 / base 421 / ethereum 372), refresh cycle 119s (hot 115s), 917 calls (43 feed, 429s 1, failed 3), 25,990 refreshed (3287 no pair), +95 added / -32 dropped (dead 30, stale 2, cap 0), movers 8 + warming 10 -> queued 3, screened 3 (passed 2), bought 0
+   dex screen: REJECT DOT@base liq $545,571 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT CIRBTC@ethereum liq $25,123,248 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 91%; lp locked 0% < 95%
+[2026-09-28 21:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-28 21:05 UTC] crypto/mover     equity $462.67 (-7.5%) 1 open  market UP
+[2026-09-28 21:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 21:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 21:05 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-28 21:05 UTC] crypto/breakout10 equity $489.47 (-2.1%) 2 open  market UP
+[2026-09-28 21:05 UTC] crypto/momentum  equity $488.53 (-2.3%) 3 open  market UP
+[2026-09-28 21:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-28 21:05 UTC] crypto/hold_btc  equity $497.37 (-0.5%) 1 open  market UP
+   social heat top: QNT 40 (40/0/0), HBAR 37 (37/0/0), NEAR 32 (32/0/0), TRUMP 29 (29/0/0), CARDS 28 (16/0/12)
