@@ -1,109 +1,109 @@
 id,league,start,status,home,away,home_name,away_name,home_score,away_score,ml_home,ml_away,odds_time,neutral,ml_home_open,ml_away_open,spread_home,spread_home_odds,spread_away_odds,inj_home,inj_away,sp_home,sp_away,stype,country,intl,city,state,indoor,elev,wx_temp,wx_wind,wx_rain,tzo,ls_home,ls_away,h1_ml_home,h1_ml_away,h1_spread_home,h1_spread_home_odds,h1_spread_away_odds,total,over_odds,under_odds
-nhl:401045540,nhl,2019-04-01T00:00Z,final,18,3,Sharks,Flames,3,5,,,,0,,,,,,,,,,2,USA,0,San Jose,CA,1,26,,,,-7.0,"1,0,2","3,1,1",,,,,,,,
-nhl:401045541,nhl,2019-04-01T23:00Z,final,26,23,Panthers,Capitals,5,3,,,,0,,,,,,,,Roberto Luongo,Pheonix Copley,2,USA,0,Sunrise,FL,1,1,,,,-4.0,"1,3,1","0,0,3",,,,,,,,
-nhl:401045542,nhl,2019-04-01T23:00Z,final,11,13,Devils,Rangers,4,2,,,,0,,,,,,,,Mackenzie Blackwood,Henrik Lundqvist,2,USA,0,Newark,NJ,1,9,,,,-4.0,"2,0,2","1,1,0",,,,,,,,
-nhl:401045543,nhl,2019-04-01T23:00Z,final,12,21,Islanders,Maple Leafs,1,2,,,,0,,,,,,,,Robin Lehner,Frederik Andersen,2,USA,0,Uniondale,NY,1,16,,,,-4.0,"0,0,1","0,1,1",,,,,,,,
-nhl:401045544,nhl,2019-04-01T23:30Z,final,14,20,Senators,Lightning,2,5,,,,0,,,,,,,,Craig Anderson,Andrei Vasilevskiy,2,Canada,0,Ottawa,ON,1,71,,,,-4.0,"1,0,1","1,2,2",,,,,,,,
-nhl:401045545,nhl,2019-04-02T00:00Z,final,19,17,Blues,Avalanche,3,2,,,,0,,,,,,,,Mike Binnington,Philipp Grubauer,2,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,1,0,1","0,0,2,0,0",,,,,,,,
-nhl:401045546,nhl,2019-04-02T00:30Z,final,4,28,Blackhawks,Jets,3,4,,,,0,,,,,,,,Corey Crawford,Connor Hellebuyck,2,USA,0,Chicago,IL,1,179,,,,-5.0,"1,1,1,0","2,1,0,1",,,,,,,,
-nhl:401045547,nhl,2019-04-02T02:00Z,final,37,6,Golden Knights,Oilers,3,1,,,,0,,,,,,,,Marc-Andre Fleury,Mikko Koskinen,2,USA,0,Las Vegas,NV,1,610,,,,-7.0,"1,1,1","0,1,0",,,,,,,,
-nhl:401045548,nhl,2019-04-02T02:00Z,final,8,3,Kings,Flames,2,7,,,,0,,,,,,,,Jonathan Quick,David Rittich,2,USA,0,Los Angeles,CA,1,89,,,,-7.0,"2,0,0","2,1,4",,,,,,,,
-nhl:401045549,nhl,2019-04-02T23:00Z,final,2,27,Sabres,Predators,2,3,,,,0,,,,,,,,Carter Hutton,Pekka Rinne,2,USA,0,Buffalo,NY,1,183,,,,-4.0,"1,1,0","1,1,1",,,,,,,,
-nhl:401045550,nhl,2019-04-02T23:00Z,final,29,1,Blue Jackets,Bruins,2,6,,,,0,,,,,,,,,,2,USA,0,Columbus,OH,1,235,,,,-4.0,"0,0,2","2,2,2",,,,,,,,
-nhl:401045551,nhl,2019-04-02T23:30Z,final,21,7,Maple Leafs,Hurricanes,1,4,,,,0,,,,,,,,Garret Sparks,Petr Mrazek,2,Canada,0,Toronto,ON,1,161,,,,-4.0,"0,1,0","1,1,2",,,,,,,,
-nhl:401045552,nhl,2019-04-02T23:30Z,final,10,20,Canadiens,Lightning,4,2,,,,0,,,,,,,,,,2,Canada,0,Montreal,QC,1,216,,,,-4.0,"1,1,2","1,1,0",,,,,,,,
-nhl:401045553,nhl,2019-04-02T23:30Z,final,5,16,Red Wings,Penguins,4,1,,,,0,,,,,,,,Jimmy Howard,Matt Murray,2,USA,0,Detroit,MI,1,183,,,,-4.0,"1,1,2","1,0,0",,,,,,,,
-nhl:401045554,nhl,2019-04-03T00:00Z,final,30,28,Wild,Jets,5,1,,,,0,,,,,,,,Devan Dubnyk,Eric Comrie,2,USA,0,Saint Paul,MN,1,242,,,,-5.0,"3,1,1","0,1,0",,,,,,,,
-nhl:401045555,nhl,2019-04-03T00:30Z,final,9,15,Stars,Flyers,6,2,,,,0,,,,,,,,Anton Khudobin,Cam Talbot,2,USA,0,Dallas,TX,1,128,,,,-5.0,"2,2,2","0,2,0",,,,,,,,
-nhl:401045556,nhl,2019-04-03T01:00Z,final,17,6,Avalanche,Oilers,6,2,,,,0,,,,,,,,Philipp Grubauer,Mikko Koskinen,2,USA,0,Denver,CO,1,1609,,,,-6.0,"0,4,2","2,0,0",,,,,,,,
-nhl:401045557,nhl,2019-04-03T02:00Z,final,22,18,Canucks,Sharks,4,2,,,,0,,,,,,,,Jacob Markstrom,Martin Jones,2,Canada,0,Vancouver,BC,1,1128,,,,-7.0,"1,0,3","2,0,0",,,,,,,,
+nhl:401045540,nhl,2019-04-01T00:00Z,final,18,3,Sharks,Flames,3,5,-110,-110,,0,,,-1.5,237,-290,,,,,2,USA,0,San Jose,CA,1,26,,,,-7.0,"1,0,2","3,1,1",,,,,,6.5,-120,100
+nhl:401045541,nhl,2019-04-01T23:00Z,final,26,23,Panthers,Capitals,5,3,105,-125,,0,,,1.5,-231,206,,,Roberto Luongo,Pheonix Copley,2,USA,0,Sunrise,FL,1,1,,,,-4.0,"1,3,1","0,0,3",,,,,,6.5,-145,125
+nhl:401045542,nhl,2019-04-01T23:00Z,final,11,13,Devils,Rangers,4,2,-114,103,,0,,,-1.5,225,-265,,,Mackenzie Blackwood,Henrik Lundqvist,2,USA,0,Newark,NJ,1,9,,,,-4.0,"2,0,2","1,1,0",,,,,,5.5,-130,110
+nhl:401045543,nhl,2019-04-01T23:00Z,final,12,21,Islanders,Maple Leafs,1,2,-105,-115,,0,,,1.5,-275,226,,,Robin Lehner,Frederik Andersen,2,USA,0,Uniondale,NY,1,16,,,,-4.0,"0,0,1","0,1,1",,,,,,6.0,-105,-115
+nhl:401045544,nhl,2019-04-01T23:30Z,final,14,20,Senators,Lightning,2,5,245,-290,,0,,,1.5,-107,-103,,,Craig Anderson,Andrei Vasilevskiy,2,Canada,0,Ottawa,ON,1,71,,,,-4.0,"1,0,1","1,2,2",,,,,,6.5,-130,110
+nhl:401045545,nhl,2019-04-02T00:00Z,final,19,17,Blues,Avalanche,3,2,-160,140,,0,,,-1.5,165,-190,,,Mike Binnington,Philipp Grubauer,2,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,1,0,1","0,0,2,0,0",,,,,,5.5,110,-130
+nhl:401045546,nhl,2019-04-02T00:30Z,final,4,28,Blackhawks,Jets,3,4,110,-121,,0,,,1.5,-245,203,,,Corey Crawford,Connor Hellebuyck,2,USA,0,Chicago,IL,1,179,,,,-5.0,"1,1,1,0","2,1,0,1",,,,,,6.5,-115,-105
+nhl:401045547,nhl,2019-04-02T02:00Z,final,37,6,Golden Knights,Oilers,3,1,-230,190,,0,,,-1.5,115,-135,,,Marc-Andre Fleury,Mikko Koskinen,2,USA,0,Las Vegas,NV,1,610,,,,-7.0,"1,1,1","0,1,0",,,,,,6.5,100,-120
+nhl:401045548,nhl,2019-04-02T02:00Z,final,8,3,Kings,Flames,2,7,-102,-118,,0,,,1.5,-258,229,,,Jonathan Quick,David Rittich,2,USA,0,Los Angeles,CA,1,89,,,,-7.0,"2,0,0","2,1,4",,,,,,6.0,115,-130
+nhl:401045549,nhl,2019-04-02T23:00Z,final,2,27,Sabres,Predators,2,3,168,-195,,0,,,1.5,-155,135,,,Carter Hutton,Pekka Rinne,2,USA,0,Buffalo,NY,1,183,,,,-4.0,"1,1,0","1,1,1",,,,,,5.5,-110,-110
+nhl:401045550,nhl,2019-04-02T23:00Z,final,29,1,Blue Jackets,Bruins,2,6,-140,120,,0,,,-1.5,185,-220,,,,,2,USA,0,Columbus,OH,1,235,,,,-4.0,"0,0,2","2,2,2",,,,,,5.5,-130,110
+nhl:401045551,nhl,2019-04-02T23:30Z,final,21,7,Maple Leafs,Hurricanes,1,4,100,-120,,0,,,1.5,-280,240,,,Garret Sparks,Petr Mrazek,2,Canada,0,Toronto,ON,1,161,,,,-4.0,"0,1,0","1,1,2",,,,,,6.5,-110,-110
+nhl:401045552,nhl,2019-04-02T23:30Z,final,10,20,Canadiens,Lightning,4,2,-130,105,,0,,,-1.5,195,-235,,,,,2,Canada,0,Montreal,QC,1,216,,,,-4.0,"1,1,2","1,1,0",,,,,,6.5,-110,-110
+nhl:401045553,nhl,2019-04-02T23:30Z,final,5,16,Red Wings,Penguins,4,1,170,-195,,0,,,1.5,-150,130,,,Jimmy Howard,Matt Murray,2,USA,0,Detroit,MI,1,183,,,,-4.0,"1,1,2","1,0,0",,,,,,6.0,-120,100
+nhl:401045554,nhl,2019-04-03T00:00Z,final,30,28,Wild,Jets,5,1,-135,115,,0,,,-1.5,205,-245,,,Devan Dubnyk,Eric Comrie,2,USA,0,Saint Paul,MN,1,242,,,,-5.0,"3,1,1","0,1,0",,,,,,5.5,-107,-113
+nhl:401045555,nhl,2019-04-03T00:30Z,final,9,15,Stars,Flyers,6,2,-195,170,,0,,,-1.5,135,-155,,,Anton Khudobin,Cam Talbot,2,USA,0,Dallas,TX,1,128,,,,-5.0,"2,2,2","0,2,0",,,,,,5.5,110,-123
+nhl:401045556,nhl,2019-04-03T01:00Z,final,17,6,Avalanche,Oilers,6,2,-220,180,,0,,,-1.5,122,-142,,,Philipp Grubauer,Mikko Koskinen,2,USA,0,Denver,CO,1,1609,,,,-6.0,"0,4,2","2,0,0",,,,,,5.5,-125,105
+nhl:401045557,nhl,2019-04-03T02:00Z,final,22,18,Canucks,Sharks,4,2,155,-180,,0,,,1.5,-181,163,,,Jacob Markstrom,Martin Jones,2,Canada,0,Vancouver,BC,1,1128,,,,-7.0,"1,0,3","2,0,0",,,,,,6.5,-105,-115
 nhl:401045558,nhl,2019-04-03T02:00Z,final,24,8,Coyotes,Kings,1,3,,,,0,,,,,,,,Darcy Kuemper,Jack Campbell,2,USA,0,Glendale,AZ,1,351,,,,-7.0,"0,1,0","0,1,2",,,,,,,,
-nhl:401045559,nhl,2019-04-03T23:30Z,final,13,14,Rangers,Senators,1,4,,,,0,,,,,,,,Henrik Lundqvist,Anders Nilsson,2,USA,0,New York,NY,1,10,,,,-4.0,"0,1,0","2,1,1",,,,,,,,
-nhl:401045560,nhl,2019-04-04T00:00Z,final,4,19,Blackhawks,Blues,4,3,,,,0,,,,,,,,Corey Crawford,Mike Binnington,2,USA,0,Chicago,IL,1,179,,,,-5.0,"1,1,1,0,1","0,1,2,0,0",,,,,,,,
-nhl:401045561,nhl,2019-04-04T02:30Z,final,25,3,Ducks,Flames,3,1,,,,0,,,,,,,,,,2,USA,0,Anaheim,CA,1,48,,,,-7.0,"2,1,0","1,0,0",,,,,,,,
-nhl:401045562,nhl,2019-04-04T23:00Z,final,2,14,Sabres,Senators,5,2,,,,0,,,,,,,,,,2,USA,0,Buffalo,NY,1,183,,,,-4.0,"1,2,2","2,0,0",,,,,,,,
-nhl:401045563,nhl,2019-04-04T23:00Z,final,21,20,Maple Leafs,Lightning,1,3,,,,0,,,,,,,,Frederik Andersen,Andrei Vasilevskiy,2,Canada,0,Toronto,ON,1,161,,,,-4.0,"1,0,0","0,1,2",,,,,,,,
-nhl:401045564,nhl,2019-04-04T23:00Z,final,26,12,Panthers,Islanders,1,2,,,,0,,,,,,,,Sam Montembeault,Robin Lehner,2,USA,0,Sunrise,FL,1,1,,,,-4.0,"0,0,1,0,0","0,1,0,0,1",,,,,,,,
-nhl:401045565,nhl,2019-04-04T23:00Z,final,16,5,Penguins,Red Wings,4,1,,,,0,,,,,,,,Matt Murray,Jimmy Howard,2,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"2,1,1","1,0,0",,,,,,,,
-nhl:401045566,nhl,2019-04-04T23:00Z,final,23,10,Capitals,Canadiens,2,1,,,,0,,,,,,,,Braden Holtby,Carey Price,2,USA,0,Washington,DC,1,7,,,,-4.0,"1,1,0","1,0,0",,,,,,,,
-nhl:401045567,nhl,2019-04-04T23:00Z,final,7,11,Hurricanes,Devils,3,1,,,,0,,,,,,,,Petr Mrazek,Cory Schneider,2,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,1,1","1,0,0",,,,,,,,
-nhl:401045568,nhl,2019-04-05T00:00Z,final,19,15,Blues,Flyers,7,3,,,,0,,,,,,,,Jake Allen,Carter Hart,2,USA,0,St. Louis,MO,1,142,,,,-5.0,"5,1,1","3,0,0",,,,,,,,
-nhl:401045569,nhl,2019-04-05T00:00Z,final,27,22,Predators,Canucks,3,2,,,,0,,,,,,,,Pekka Rinne,Jacob Markstrom,2,USA,0,Nashville,TN,1,170,,,,-5.0,"0,1,2","2,0,0",,,,,,,,
-nhl:401045570,nhl,2019-04-05T00:00Z,final,30,1,Wild,Bruins,0,3,,,,0,,,,,,,,,,2,USA,0,Saint Paul,MN,1,242,,,,-5.0,"0,0,0","0,1,2",,,,,,,,
-nhl:401045571,nhl,2019-04-05T01:00Z,final,17,28,Avalanche,Jets,3,2,,,,0,,,,,,,,,,2,USA,0,Denver,CO,1,1609,,,,-6.0,"0,1,1,1","2,0,0,0",,,,,,,,
-nhl:401045572,nhl,2019-04-05T01:00Z,final,6,18,Oilers,Sharks,2,3,,,,0,,,,,,,,Anthony Stolarz,Aaron Dell,2,Canada,0,Edmonton,AB,1,668,,,,-6.0,"1,1,0","2,1,0",,,,,,,,
+nhl:401045559,nhl,2019-04-03T23:30Z,final,13,14,Rangers,Senators,1,4,-173,150,,0,,,-1.5,153,-170,,,Henrik Lundqvist,Anders Nilsson,2,USA,0,New York,NY,1,10,,,,-4.0,"0,1,0","2,1,1",,,,,,6.0,-130,110
+nhl:401045560,nhl,2019-04-04T00:00Z,final,4,19,Blackhawks,Blues,4,3,135,-155,,0,,,1.5,-189,155,,,Corey Crawford,Mike Binnington,2,USA,0,Chicago,IL,1,179,,,,-5.0,"1,1,1,0,1","0,1,2,0,0",,,,,,6.0,-120,100
+nhl:401045561,nhl,2019-04-04T02:30Z,final,25,3,Ducks,Flames,3,1,130,-150,,0,,,1.5,-200,170,,,,,2,USA,0,Anaheim,CA,1,48,,,,-7.0,"2,1,0","1,0,0",,,,,,5.5,-125,105
+nhl:401045562,nhl,2019-04-04T23:00Z,final,2,14,Sabres,Senators,5,2,-200,170,,0,,,-1.5,130,-150,,,,,2,USA,0,Buffalo,NY,1,183,,,,-4.0,"1,2,2","2,0,0",,,,,,6.0,-135,115
+nhl:401045563,nhl,2019-04-04T23:00Z,final,21,20,Maple Leafs,Lightning,1,3,-105,-115,,0,,,1.5,-250,207,,,Frederik Andersen,Andrei Vasilevskiy,2,Canada,0,Toronto,ON,1,161,,,,-4.0,"1,0,0","0,1,2",,,,,,7.0,105,-125
+nhl:401045564,nhl,2019-04-04T23:00Z,final,26,12,Panthers,Islanders,1,2,-107,-113,,0,,,1.5,-280,240,,,Sam Montembeault,Robin Lehner,2,USA,0,Sunrise,FL,1,1,,,,-4.0,"0,0,1,0,0","0,1,0,0,1",,,,,,5.5,-128,113
+nhl:401045565,nhl,2019-04-04T23:00Z,final,16,5,Penguins,Red Wings,4,1,-270,220,,0,,,-1.5,-120,100,,,Matt Murray,Jimmy Howard,2,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"2,1,1","1,0,0",,,,,,6.0,-125,105
+nhl:401045566,nhl,2019-04-04T23:00Z,final,23,10,Capitals,Canadiens,2,1,-140,120,,0,,,-1.5,184,-220,,,Braden Holtby,Carey Price,2,USA,0,Washington,DC,1,7,,,,-4.0,"1,1,0","1,0,0",,,,,,6.0,-110,-110
+nhl:401045567,nhl,2019-04-04T23:00Z,final,7,11,Hurricanes,Devils,3,1,-355,285,,0,,,-1.5,-125,105,,,Petr Mrazek,Cory Schneider,2,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,1,1","1,0,0",,,,,,6.0,105,-125
+nhl:401045568,nhl,2019-04-05T00:00Z,final,19,15,Blues,Flyers,7,3,-204,170,,0,,,-1.5,125,-145,,,Jake Allen,Carter Hart,2,USA,0,St. Louis,MO,1,142,,,,-5.0,"5,1,1","3,0,0",,,,,,6.0,-105,-115
+nhl:401045569,nhl,2019-04-05T00:00Z,final,27,22,Predators,Canucks,3,2,-244,200,,0,,,-1.5,100,-120,,,Pekka Rinne,Jacob Markstrom,2,USA,0,Nashville,TN,1,170,,,,-5.0,"0,1,2","2,0,0",,,,,,5.5,100,-120
+nhl:401045570,nhl,2019-04-05T00:00Z,final,30,1,Wild,Bruins,0,3,-115,104,,0,,,-1.5,217,-244,,,,,2,USA,0,Saint Paul,MN,1,242,,,,-5.0,"0,0,0","0,1,2",,,,,,5.5,-110,-110
+nhl:401045571,nhl,2019-04-05T01:00Z,final,17,28,Avalanche,Jets,3,2,-120,100,,0,,,-1.5,215,-265,,,,,2,USA,0,Denver,CO,1,1609,,,,-6.0,"0,1,1,1","2,0,0,0",,,,,,6.0,-115,-105
+nhl:401045572,nhl,2019-04-05T01:00Z,final,6,18,Oilers,Sharks,2,3,120,-140,,0,,,1.5,-196,165,,,Anthony Stolarz,Aaron Dell,2,Canada,0,Edmonton,AB,1,668,,,,-6.0,"1,1,0","2,1,0",,,,,,6.5,-139,119
 nhl:401045573,nhl,2019-04-05T02:00Z,final,37,24,Golden Knights,Coyotes,1,4,,,,0,,,,,,,,Marc-Andre Fleury,Darcy Kuemper,2,USA,0,Las Vegas,NV,1,610,,,,-7.0,"1,0,0","1,2,1",,,,,,,,
-nhl:401045574,nhl,2019-04-05T23:00Z,final,13,29,Rangers,Blue Jackets,2,3,,,,0,,,,,,,,,,2,USA,0,New York,NY,1,10,,,,-4.0,"0,1,1,0,0","0,0,2,0,1",,,,,,,,
-nhl:401045575,nhl,2019-04-06T00:30Z,final,4,9,Blackhawks,Stars,6,1,,,,0,,,,,,,,Corey Crawford,Anton Khudobin,2,USA,0,Chicago,IL,1,179,,,,-5.0,"1,3,2","0,0,1",,,,,,,,
-nhl:401045576,nhl,2019-04-06T02:00Z,final,25,8,Ducks,Kings,5,2,,,,0,,,,,,,,John Gibson,Jack Campbell,2,USA,0,Anaheim,CA,1,48,,,,-7.0,"1,2,2","1,0,1",,,,,,,,
-nhl:401045577,nhl,2019-04-06T17:00Z,final,1,20,Bruins,Lightning,3,6,,,,0,,,,,,,,Tuukka Rask,Andrei Vasilevskiy,2,USA,0,Boston,MA,1,14,,,,-4.0,"2,0,1","0,3,3",,,,,,,,
-nhl:401045578,nhl,2019-04-06T20:00Z,final,19,22,Blues,Canucks,3,2,,,,0,,,,,,,,Mike Binnington,Thatcher Demko,2,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,1,0,1","0,0,2,0,0",,,,,,,,
-nhl:401045579,nhl,2019-04-06T23:00Z,final,10,21,Canadiens,Maple Leafs,6,5,,,,0,,,,,,,,Charlie Lindgren,Frederik Andersen,2,Canada,0,Montreal,QC,1,216,,,,-4.0,"1,3,1,0,1","2,2,1,0,0",,,,,,,,
-nhl:401045580,nhl,2019-04-06T23:00Z,final,14,29,Senators,Blue Jackets,2,6,,,,0,,,,,,,,Craig Anderson,Sergei Bobrovsky,2,Canada,0,Ottawa,ON,1,71,,,,-4.0,"0,1,1","3,1,2",,,,,,,,
-nhl:401045581,nhl,2019-04-06T23:00Z,final,5,2,Red Wings,Sabres,1,7,,,,0,,,,,,,,Jimmy Howard,Linus Ullmark,2,USA,0,Detroit,MI,1,183,,,,-4.0,"1,0,0","2,3,2",,,,,,,,
-nhl:401045582,nhl,2019-04-06T23:00Z,final,26,11,Panthers,Devils,3,4,,,,0,,,,,,,,Roberto Luongo,Mackenzie Blackwood,2,USA,0,Sunrise,FL,1,1,,,,-4.0,"0,1,2,0","1,2,0,1",,,,,,,,
-nhl:401045583,nhl,2019-04-06T23:00Z,final,15,7,Flyers,Hurricanes,3,4,,,,0,,,,,,,,Carter Hart,Petr Mrazek,2,USA,0,Philadelphia,PA,1,12,,,,-4.0,"1,2,0","3,1,0",,,,,,,,
-nhl:401045584,nhl,2019-04-06T23:00Z,final,16,13,Penguins,Rangers,3,4,,,,0,,,,,,,,Matt Murray,Alexandar Georgiev,2,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"1,0,2,0","1,0,2,1",,,,,,,,
-nhl:401045585,nhl,2019-04-06T23:00Z,final,23,12,Capitals,Islanders,0,3,,,,0,,,,,,,,Braden Holtby,Robin Lehner,2,USA,0,Washington,DC,1,7,,,,-4.0,"0,0,0","0,1,2",,,,,,,,
-nhl:401045586,nhl,2019-04-07T00:00Z,final,27,4,Predators,Blackhawks,5,2,,,,0,,,,,,,,Pekka Rinne,Cam Ward,2,USA,0,Nashville,TN,1,170,,,,-5.0,"0,2,3","2,0,0",,,,,,,,
-nhl:401045587,nhl,2019-04-07T00:00Z,final,9,30,Stars,Wild,3,0,,,,0,,,,,,,,Ben Bishop,Alex Stalock,2,USA,0,Dallas,TX,1,128,,,,-5.0,"0,0,3","0,0,0",,,,,,,,
-nhl:401045588,nhl,2019-04-07T02:00Z,final,3,6,Flames,Oilers,1,3,,,,0,,,,,,,,Mike Smith,Mikko Koskinen,2,Canada,0,Calgary,AB,1,1048,,,,-6.0,"1,0,0","1,1,1",,,,,,,,
+nhl:401045574,nhl,2019-04-05T23:00Z,final,13,29,Rangers,Blue Jackets,2,3,220,-270,,0,,,1.5,-120,100,,,,,2,USA,0,New York,NY,1,10,,,,-4.0,"0,1,1,0,0","0,0,2,0,1",,,,,,6.0,-105,-115
+nhl:401045575,nhl,2019-04-06T00:30Z,final,4,9,Blackhawks,Stars,6,1,-115,-105,,0,,,-1.5,226,-275,,,Corey Crawford,Anton Khudobin,2,USA,0,Chicago,IL,1,179,,,,-5.0,"1,3,2","0,0,1",,,,,,6.5,115,-135
+nhl:401045576,nhl,2019-04-06T02:00Z,final,25,8,Ducks,Kings,5,2,-155,140,,0,,,-1.5,170,-200,,,John Gibson,Jack Campbell,2,USA,0,Anaheim,CA,1,48,,,,-7.0,"1,2,2","1,0,1",,,,,,5.5,110,-130
+nhl:401045577,nhl,2019-04-06T17:00Z,final,1,20,Bruins,Lightning,3,6,-122,102,,0,,,-1.5,215,-255,,,Tuukka Rask,Andrei Vasilevskiy,2,USA,0,Boston,MA,1,14,,,,-4.0,"2,0,1","0,3,3",,,,,,6.5,105,-125
+nhl:401045578,nhl,2019-04-06T20:00Z,final,19,22,Blues,Canucks,3,2,-285,234,,0,,,-1.5,-105,-115,,,Mike Binnington,Thatcher Demko,2,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,1,0,1","0,0,2,0,0",,,,,,5.5,-120,100
+nhl:401045579,nhl,2019-04-06T23:00Z,final,10,21,Canadiens,Maple Leafs,6,5,-110,-110,,0,,,-1.5,230,-270,,,Charlie Lindgren,Frederik Andersen,2,Canada,0,Montreal,QC,1,216,,,,-4.0,"1,3,1,0,1","2,2,1,0,0",,,,,,6.5,-110,-110
+nhl:401045580,nhl,2019-04-06T23:00Z,final,14,29,Senators,Blue Jackets,2,6,150,-170,,0,,,1.5,-165,145,,,Craig Anderson,Sergei Bobrovsky,2,Canada,0,Ottawa,ON,1,71,,,,-4.0,"0,1,1","3,1,2",,,,,,6.5,-105,-115
+nhl:401045581,nhl,2019-04-06T23:00Z,final,5,2,Red Wings,Sabres,1,7,-118,-102,,0,,,-1.5,220,-247,,,Jimmy Howard,Linus Ullmark,2,USA,0,Detroit,MI,1,183,,,,-4.0,"1,0,0","2,3,2",,,,,,6.0,-115,-105
+nhl:401045582,nhl,2019-04-06T23:00Z,final,26,11,Panthers,Devils,3,4,-205,175,,0,,,-1.5,125,-149,,,Roberto Luongo,Mackenzie Blackwood,2,USA,0,Sunrise,FL,1,1,,,,-4.0,"0,1,2,0","1,2,0,1",,,,,,6.0,-142,124
+nhl:401045583,nhl,2019-04-06T23:00Z,final,15,7,Flyers,Hurricanes,3,4,125,-138,,0,,,1.5,-200,170,,,Carter Hart,Petr Mrazek,2,USA,0,Philadelphia,PA,1,12,,,,-4.0,"1,2,0","3,1,0",,,,,,6.0,-141,115
+nhl:401045584,nhl,2019-04-06T23:00Z,final,16,13,Penguins,Rangers,3,4,-303,240,,0,,,-1.5,-125,105,,,Matt Murray,Alexandar Georgiev,2,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"1,0,2,0","1,0,2,1",,,,,,6.5,-110,-110
+nhl:401045585,nhl,2019-04-06T23:00Z,final,23,12,Capitals,Islanders,0,3,-117,-103,,0,,,-1.5,205,-245,,,Braden Holtby,Robin Lehner,2,USA,0,Washington,DC,1,7,,,,-4.0,"0,0,0","0,1,2",,,,,,5.5,-110,-110
+nhl:401045586,nhl,2019-04-07T00:00Z,final,27,4,Predators,Blackhawks,5,2,-245,205,,0,,,-1.5,100,-120,,,Pekka Rinne,Cam Ward,2,USA,0,Nashville,TN,1,170,,,,-5.0,"0,2,3","2,0,0",,,,,,6.0,-133,113
+nhl:401045587,nhl,2019-04-07T00:00Z,final,9,30,Stars,Wild,3,0,-157,137,,0,,,-1.5,168,-187,,,Ben Bishop,Alex Stalock,2,USA,0,Dallas,TX,1,128,,,,-5.0,"0,0,3","0,0,0",,,,,,5.5,117,-133
+nhl:401045588,nhl,2019-04-07T02:00Z,final,3,6,Flames,Oilers,1,3,-190,165,,0,,,-1.5,135,-155,,,Mike Smith,Mikko Koskinen,2,Canada,0,Calgary,AB,1,1048,,,,-6.0,"1,0,0","1,1,1",,,,,,6.5,-105,-115
 nhl:401045589,nhl,2019-04-07T02:00Z,final,24,28,Coyotes,Jets,2,4,,,,0,,,,,,,,Calvin Pickard,Connor Hellebuyck,2,USA,0,Glendale,AZ,1,351,,,,-7.0,"1,0,1","1,3,0",,,,,,,,
-nhl:401045590,nhl,2019-04-07T02:30Z,final,8,37,Kings,Golden Knights,5,2,,,,0,,,,,,,,Jonathan Quick,Marc-Andre Fleury,2,USA,0,Los Angeles,CA,1,89,,,,-7.0,"2,1,2","0,2,0",,,,,,,,
-nhl:401045591,nhl,2019-04-07T02:30Z,final,18,17,Sharks,Avalanche,5,2,,,,0,,,,,,,,Martin Jones,Philipp Grubauer,2,USA,0,San Jose,CA,1,26,,,,-7.0,"2,1,2","1,1,0",,,,,,,,
-nhl:401126313,nhl,2019-04-10T23:00Z,final,20,29,Lightning,Blue Jackets,3,4,,,,0,,,,,,,,,,3,USA,0,Tampa,FL,1,1,,,,-4.0,"3,0,0","0,1,3",,,,,,,,
-nhl:401126374,nhl,2019-04-10T23:30Z,final,12,16,Islanders,Penguins,4,3,,,,0,,,,,,,,Robin Lehner,Matt Murray,3,USA,0,Uniondale,NY,1,16,,,,-4.0,"2,0,1,1","1,1,1,0",,,,,,,,
-nhl:401126347,nhl,2019-04-11T00:00Z,final,28,19,Jets,Blues,1,2,,,,0,,,,,,,,Connor Hellebuyck,Mike Binnington,3,Canada,0,Winnipeg,MB,1,245,,,,-5.0,"1,0,0","0,0,2",,,,,,,,
-nhl:401126354,nhl,2019-04-11T01:30Z,final,27,9,Predators,Stars,2,3,,,,0,,,,,,,,,,3,USA,0,Nashville,TN,1,170,,,,-5.0,"1,0,1","0,1,2",,,,,,,,
-nhl:401126333,nhl,2019-04-11T02:30Z,final,18,37,Sharks,Golden Knights,5,2,,,,0,,,,,,,,Martin Jones,Marc-Andre Fleury,3,USA,0,San Jose,CA,1,26,,,,-7.0,"1,3,1","0,1,1",,,,,,,,
-nhl:401126320,nhl,2019-04-11T23:00Z,final,1,21,Bruins,Maple Leafs,1,4,,,,0,,,,,,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"1,0,0","1,2,1",,,,,,,,
-nhl:401126327,nhl,2019-04-11T23:30Z,final,23,7,Capitals,Hurricanes,4,2,,,,0,,,,,,,,Braden Holtby,Petr Mrazek,3,USA,0,Washington,DC,1,7,,,,-4.0,"3,0,1","0,0,2",,,,,,,,
-nhl:401126340,nhl,2019-04-12T02:00Z,final,3,17,Flames,Avalanche,4,0,,,,0,,,,,,,,,,3,Canada,0,Calgary,AB,1,1048,,,,-6.0,"0,2,2","0,0,0",,,,,,,,
-nhl:401126314,nhl,2019-04-12T23:00Z,final,20,29,Lightning,Blue Jackets,1,5,,,,0,,,,,,,,Andrei Vasilevskiy,Sergei Bobrovsky,3,USA,0,Tampa,FL,1,1,,,,-4.0,"0,0,1","2,1,2",,,,,,,,
-nhl:401126375,nhl,2019-04-12T23:30Z,final,12,16,Islanders,Penguins,3,1,,,,0,,,,,,,,,,3,USA,0,Uniondale,NY,1,16,,,,-4.0,"0,1,2","0,1,0",,,,,,,,
-nhl:401126348,nhl,2019-04-13T01:30Z,final,28,19,Jets,Blues,3,4,,,,0,,,,,,,,,,3,Canada,0,Winnipeg,MB,1,245,,,,-5.0,"1,2,0","1,2,1",,,,,,,,
-nhl:401126334,nhl,2019-04-13T02:30Z,final,18,37,Sharks,Golden Knights,3,5,,,,0,,,,,,,,,,3,USA,0,San Jose,CA,1,26,,,,-7.0,"3,0,0","3,1,1",,,,,,,,
-nhl:401126328,nhl,2019-04-13T19:00Z,final,23,7,Capitals,Hurricanes,4,3,,,,0,,,,,,,,Braden Holtby,Petr Mrazek,3,USA,0,Washington,DC,1,7,,,,-4.0,"2,0,1,1","1,1,1,0",,,,,,,,
-nhl:401126355,nhl,2019-04-13T22:00Z,final,27,9,Predators,Stars,2,1,,,,0,,,,,,,,,,3,USA,0,Nashville,TN,1,170,,,,-5.0,"0,1,0,1","0,1,0,0",,,,,,,,
-nhl:401126321,nhl,2019-04-14T00:00Z,final,1,21,Bruins,Maple Leafs,4,1,,,,0,,,,,,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"2,1,1","0,0,1",,,,,,,,
-nhl:401126341,nhl,2019-04-14T02:30Z,final,3,17,Flames,Avalanche,2,3,,,,0,,,,,,,,,,3,Canada,0,Calgary,AB,1,1048,,,,-6.0,"0,1,1,0","0,1,1,1",,,,,,,,
-nhl:401126376,nhl,2019-04-14T16:00Z,final,16,12,Penguins,Islanders,1,4,,,,0,,,,,,,,Matt Murray,Robin Lehner,3,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"1,0,0","2,0,2",,,,,,,,
-nhl:401126315,nhl,2019-04-14T23:00Z,final,29,20,Blue Jackets,Lightning,3,1,,,,0,,,,,,,,,,3,USA,0,Columbus,OH,1,235,,,,-4.0,"0,2,1","0,0,1",,,,,,,,
-nhl:401126349,nhl,2019-04-14T23:30Z,final,19,28,Blues,Jets,3,6,,,,0,,,,,,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,2","0,3,3",,,,,,,,
-nhl:401126335,nhl,2019-04-15T02:00Z,final,37,18,Golden Knights,Sharks,6,3,,,,0,,,,,,,,,,3,USA,0,Las Vegas,NV,1,610,,,,-7.0,"2,2,2","1,0,2",,,,,,,,
-nhl:401126322,nhl,2019-04-15T23:00Z,final,21,1,Maple Leafs,Bruins,3,2,,,,0,,,,,,,,,,3,Canada,0,Toronto,ON,1,161,,,,-4.0,"0,3,0","0,2,0",,,,,,,,
-nhl:401126329,nhl,2019-04-15T23:00Z,final,7,23,Hurricanes,Capitals,5,0,,,,0,,,,,,,,,,3,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,2,2","0,0,0",,,,,,,,
-nhl:401126356,nhl,2019-04-16T01:30Z,final,9,27,Stars,Predators,2,3,,,,0,,,,,,,,,,3,USA,0,Dallas,TX,1,128,,,,-5.0,"0,1,1","0,2,1",,,,,,,,
-nhl:401126342,nhl,2019-04-16T02:00Z,final,17,3,Avalanche,Flames,6,2,,,,0,,,,,,,,,,3,USA,0,Denver,CO,1,1609,,,,-6.0,"3,2,1","0,1,1",,,,,,,,
-nhl:401126316,nhl,2019-04-16T23:00Z,final,29,20,Blue Jackets,Lightning,7,3,,,,0,,,,,,,,Sergei Bobrovsky,Andrei Vasilevskiy,3,USA,0,Columbus,OH,1,235,,,,-4.0,"2,2,3","1,2,0",,,,,,,,
-nhl:401126377,nhl,2019-04-16T23:30Z,final,16,12,Penguins,Islanders,1,3,,,,0,,,,,,,,Matt Murray,Robin Lehner,3,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"1,0,0","2,0,1",,,,,,,,
-nhl:401126350,nhl,2019-04-17T01:30Z,final,19,28,Blues,Jets,1,2,,,,0,,,,,,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"0,0,1,0","0,0,1,1",,,,,,,,
-nhl:401126336,nhl,2019-04-17T02:30Z,final,37,18,Golden Knights,Sharks,5,0,,,,0,,,,,,,,Marc-Andre Fleury,Martin Jones,3,USA,0,Las Vegas,NV,1,610,,,,-7.0,"2,1,2","0,0,0",,,,,,,,
-nhl:401126323,nhl,2019-04-17T23:00Z,final,21,1,Maple Leafs,Bruins,4,6,,,,0,,,,,,,,Frederik Andersen,Tuukka Rask,3,Canada,0,Toronto,ON,1,161,,,,-4.0,"1,1,2","2,2,2",,,,,,,,
-nhl:401126357,nhl,2019-04-18T00:00Z,final,9,27,Stars,Predators,5,1,,,,0,,,,,,,,Ben Bishop,Pekka Rinne,3,USA,0,Dallas,TX,1,128,,,,-5.0,"4,1,0","0,0,1",,,,,,,,
-nhl:401126343,nhl,2019-04-18T02:00Z,final,17,3,Avalanche,Flames,3,2,,,,0,,,,,,,,,,3,USA,0,Denver,CO,1,1609,,,,-6.0,"0,0,2,1","0,1,1,0",,,,,,,,
-nhl:401126330,nhl,2019-04-18T23:00Z,final,7,23,Hurricanes,Capitals,2,1,,,,0,,,,,,,,Petr Mrazek,Braden Holtby,3,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,1,0","0,1,0",,,,,,,,
-nhl:401126351,nhl,2019-04-19T00:30Z,final,28,19,Jets,Blues,2,3,,,,0,,,,,,,,Connor Hellebuyck,Mike Binnington,3,Canada,0,Winnipeg,MB,1,245,,,,-5.0,"2,0,0","0,0,3",,,,,,,,
-nhl:401126337,nhl,2019-04-19T02:00Z,final,18,37,Sharks,Golden Knights,5,2,,,,0,,,,,,,,Martin Jones,Marc-Andre Fleury,3,USA,0,San Jose,CA,1,26,,,,-7.0,"2,1,2","1,0,1",,,,,,,,
-nhl:401126324,nhl,2019-04-19T23:00Z,final,1,21,Bruins,Maple Leafs,1,2,,,,0,,,,,,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"0,0,1","0,0,2",,,,,,,,
-nhl:401126344,nhl,2019-04-20T02:00Z,final,3,17,Flames,Avalanche,1,5,,,,0,,,,,,,,,,3,Canada,0,Calgary,AB,1,1048,,,,-6.0,"1,0,0","2,2,1",,,,,,,,
-nhl:401126358,nhl,2019-04-20T19:00Z,final,27,9,Predators,Stars,3,5,,,,0,,,,,,,,Pekka Rinne,Ben Bishop,3,USA,0,Nashville,TN,1,170,,,,-5.0,"1,1,1","1,3,1",,,,,,,,
-nhl:401126352,nhl,2019-04-20T23:00Z,final,19,28,Blues,Jets,3,2,,,,0,,,,,,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,1,1","0,0,2",,,,,,,,
-nhl:401126331,nhl,2019-04-21T00:00Z,final,23,7,Capitals,Hurricanes,6,0,,,,0,,,,,,,,,,3,USA,0,Washington,DC,1,7,,,,-4.0,"1,2,3","0,0,0",,,,,,,,
-nhl:401126325,nhl,2019-04-21T19:00Z,final,21,1,Maple Leafs,Bruins,2,4,,,,0,,,,,,,,Frederik Andersen,Tuukka Rask,3,Canada,0,Toronto,ON,1,161,,,,-4.0,"1,0,1","2,1,1",,,,,,,,
-nhl:401126338,nhl,2019-04-21T23:00Z,final,37,18,Golden Knights,Sharks,1,2,,,,0,,,,,,,,Marc-Andre Fleury,Martin Jones,3,USA,0,Las Vegas,NV,1,610,,,,-7.0,"0,1,0,0,0","1,0,0,0,1",,,,,,,,
-nhl:401126332,nhl,2019-04-22T23:00Z,final,7,23,Hurricanes,Capitals,5,2,,,,0,,,,,,,,,,3,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,1,3","2,0,0",,,,,,,,
-nhl:401126359,nhl,2019-04-23T00:30Z,final,9,27,Stars,Predators,2,1,,,,0,,,,,,,,Ben Bishop,Pekka Rinne,3,USA,0,Dallas,TX,1,128,,,,-5.0,"0,1,0,1","1,0,0,0",,,,,,,,
-nhl:401126326,nhl,2019-04-23T23:00Z,final,1,21,Bruins,Maple Leafs,5,1,,,,0,,,,,,,,Tuukka Rask,Frederik Andersen,3,USA,0,Boston,MA,1,14,,,,-4.0,"2,0,3","0,1,0",,,,,,,,
-nhl:401126339,nhl,2019-04-24T02:00Z,final,18,37,Sharks,Golden Knights,5,4,,,,0,,,,,,,,,,3,USA,0,San Jose,CA,1,26,,,,-7.0,"0,0,4,1","1,1,2,0",,,,,,,,
-nhl:401126373,nhl,2019-04-24T23:30Z,final,23,7,Capitals,Hurricanes,3,4,,,,0,,,,,,,,Braden Holtby,Petr Mrazek,3,USA,0,Washington,DC,1,7,,,,-4.0,"2,1,0,0,0","0,2,1,0,1",,,,,,,,
-nhl:401129013,nhl,2019-04-25T23:00Z,final,1,29,Bruins,Blue Jackets,3,2,,,,0,,,,,,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"1,0,1,1","0,0,2,0",,,,,,,,
-nhl:401129014,nhl,2019-04-26T01:30Z,final,19,9,Blues,Stars,3,2,,,,0,,,,,,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,1,1","0,1,1",,,,,,,,
-nhl:401129144,nhl,2019-04-26T23:00Z,final,12,7,Islanders,Hurricanes,0,1,,,,0,,,,,,,,,,3,USA,0,Brooklyn,NY,1,15,,,,-4.0,"0,0,0,0","0,0,0,1",,,,,,,,
-nhl:401129033,nhl,2019-04-27T02:00Z,final,18,17,Sharks,Avalanche,5,2,,,,0,,,,,,,,Martin Jones,Philipp Grubauer,3,USA,0,San Jose,CA,1,26,,,,-7.0,"1,3,1","1,1,0",,,,,,,,
-nhl:401129035,nhl,2019-04-27T19:00Z,final,19,9,Blues,Stars,2,4,,,,0,,,,,,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,1","3,0,1",,,,,,,,
-nhl:401129034,nhl,2019-04-28T00:00Z,final,1,29,Bruins,Blue Jackets,2,3,,,,0,,,,,,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"1,1,0,0,0","0,2,0,0,1",,,,,,,,
-nhl:401129145,nhl,2019-04-28T19:00Z,final,12,7,Islanders,Hurricanes,1,2,,,,0,,,,,,,,,,3,USA,0,Brooklyn,NY,1,15,,,,-4.0,"1,0,0","0,0,2",,,,,,,,
-nhl:401129138,nhl,2019-04-28T23:30Z,final,18,17,Sharks,Avalanche,3,4,,,,0,,,,,,,,Martin Jones,Philipp Grubauer,3,USA,0,San Jose,CA,1,26,,,,-7.0,"1,0,2","0,2,2",,,,,,,,
-nhl:401129036,nhl,2019-04-30T00:00Z,final,9,19,Stars,Blues,3,4,,,,0,,,,,,,,,,3,USA,0,Dallas,TX,1,128,,,,-5.0,"1,0,2","1,1,2",,,,,,,,
-nhl:401129133,nhl,2019-04-30T23:00Z,final,29,1,Blue Jackets,Bruins,2,1,,,,0,,,,,,,,,,3,USA,0,Columbus,OH,1,235,,,,-4.0,"1,1,0","0,1,0",,,,,,,,
+nhl:401045590,nhl,2019-04-07T02:30Z,final,8,37,Kings,Golden Knights,5,2,144,-160,,0,,,1.5,-185,160,,,Jonathan Quick,Marc-Andre Fleury,2,USA,0,Los Angeles,CA,1,89,,,,-7.0,"2,1,2","0,2,0",,,,,,5.5,-125,105
+nhl:401045591,nhl,2019-04-07T02:30Z,final,18,17,Sharks,Avalanche,5,2,-165,149,,0,,,-1.5,155,-185,,,Martin Jones,Philipp Grubauer,2,USA,0,San Jose,CA,1,26,,,,-7.0,"2,1,2","1,1,0",,,,,,6.5,100,-120
+nhl:401126313,nhl,2019-04-10T23:00Z,final,20,29,Lightning,Blue Jackets,3,4,-245,203,,0,,,-1.5,105,-125,,,,,3,USA,0,Tampa,FL,1,1,,,,-4.0,"3,0,0","0,1,3",,,,,,,,
+nhl:401126374,nhl,2019-04-10T23:30Z,final,12,16,Islanders,Penguins,4,3,-110,-110,,0,,,-1.5,250,-300,,,Robin Lehner,Matt Murray,3,USA,0,Uniondale,NY,1,16,,,,-4.0,"2,0,1,1","1,1,1,0",,,,,,5.5,115,-135
+nhl:401126347,nhl,2019-04-11T00:00Z,final,28,19,Jets,Blues,1,2,-115,-105,,0,,,-1.5,234,-285,,,Connor Hellebuyck,Mike Binnington,3,Canada,0,Winnipeg,MB,1,245,,,,-5.0,"1,0,0","0,0,2",,,,,,5.5,-105,-115
+nhl:401126354,nhl,2019-04-11T01:30Z,final,27,9,Predators,Stars,2,3,-155,140,,0,,,-1.5,178,-199,,,,,3,USA,0,Nashville,TN,1,170,,,,-5.0,"1,0,1","0,1,2",,,,,,,,
+nhl:401126333,nhl,2019-04-11T02:30Z,final,18,37,Sharks,Golden Knights,5,2,-130,110,,0,,,-1.5,195,-235,,,Martin Jones,Marc-Andre Fleury,3,USA,0,San Jose,CA,1,26,,,,-7.0,"1,3,1","0,1,1",,,,,,6.0,-120,100
+nhl:401126320,nhl,2019-04-11T23:00Z,final,1,21,Bruins,Maple Leafs,1,4,-140,120,,0,,,-1.5,184,-220,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"1,0,0","1,2,1",,,,,,6.0,-115,-105
+nhl:401126327,nhl,2019-04-11T23:30Z,final,23,7,Capitals,Hurricanes,4,2,-152,137,,0,,,-1.5,170,-200,,,Braden Holtby,Petr Mrazek,3,USA,0,Washington,DC,1,7,,,,-4.0,"3,0,1","0,0,2",,,,,,,,
+nhl:401126340,nhl,2019-04-12T02:00Z,final,3,17,Flames,Avalanche,4,0,-200,175,,0,,,-1.5,130,-144,,,,,3,Canada,0,Calgary,AB,1,1048,,,,-6.0,"0,2,2","0,0,0",,,,,,6.0,-120,100
+nhl:401126314,nhl,2019-04-12T23:00Z,final,20,29,Lightning,Blue Jackets,1,5,-320,260,,0,,,-1.5,-110,-110,,,Andrei Vasilevskiy,Sergei Bobrovsky,3,USA,0,Tampa,FL,1,1,,,,-4.0,"0,0,1","2,1,2",,,,,,6.5,100,-120
+nhl:401126375,nhl,2019-04-12T23:30Z,final,12,16,Islanders,Penguins,3,1,107,-118,,0,,,1.5,-257,228,,,,,3,USA,0,Uniondale,NY,1,16,,,,-4.0,"0,1,2","0,1,0",,,,,,5.5,110,-130
+nhl:401126348,nhl,2019-04-13T01:30Z,final,28,19,Jets,Blues,3,4,-130,110,,0,,,-1.5,220,-260,,,,,3,Canada,0,Winnipeg,MB,1,245,,,,-5.0,"1,2,0","1,2,1",,,,,,5.5,110,-130
+nhl:401126334,nhl,2019-04-13T02:30Z,final,18,37,Sharks,Golden Knights,3,5,-130,110,,0,,,-1.5,195,-218,,,,,3,USA,0,San Jose,CA,1,26,,,,-7.0,"3,0,0","3,1,1",,,,,,6.5,100,-120
+nhl:401126328,nhl,2019-04-13T19:00Z,final,23,7,Capitals,Hurricanes,4,3,-155,140,,0,,,-1.5,170,-190,,,Braden Holtby,Petr Mrazek,3,USA,0,Washington,DC,1,7,,,,-4.0,"2,0,1,1","1,1,1,0",,,,,,5.5,-120,100
+nhl:401126355,nhl,2019-04-13T22:00Z,final,27,9,Predators,Stars,2,1,-160,140,,0,,,-1.5,175,-200,,,,,3,USA,0,Nashville,TN,1,170,,,,-5.0,"0,1,0,1","0,1,0,0",,,,,,5.0,-103,-108
+nhl:401126321,nhl,2019-04-14T00:00Z,final,1,21,Bruins,Maple Leafs,4,1,-150,130,,0,,,-1.5,180,-215,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"2,1,1","0,0,1",,,,,,6.0,-115,-105
+nhl:401126341,nhl,2019-04-14T02:30Z,final,3,17,Flames,Avalanche,2,3,-205,172,,0,,,-1.5,135,-155,,,,,3,Canada,0,Calgary,AB,1,1048,,,,-6.0,"0,1,1,0","0,1,1,1",,,,,,6.0,-115,-105
+nhl:401126376,nhl,2019-04-14T16:00Z,final,16,12,Penguins,Islanders,1,4,-190,170,,0,,,-1.5,156,-173,,,Matt Murray,Robin Lehner,3,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"1,0,0","2,0,2",,,,,,5.5,115,-135
+nhl:401126315,nhl,2019-04-14T23:00Z,final,29,20,Blue Jackets,Lightning,3,1,127,-147,,0,,,1.5,-210,185,,,,,3,USA,0,Columbus,OH,1,235,,,,-4.0,"0,2,1","0,0,1",,,,,,6.0,-120,100
+nhl:401126349,nhl,2019-04-14T23:30Z,final,19,28,Blues,Jets,3,6,-155,140,,0,,,-1.5,175,-200,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,2","0,3,3",,,,,,5.5,115,-135
+nhl:401126335,nhl,2019-04-15T02:00Z,final,37,18,Golden Knights,Sharks,6,3,-155,135,,0,,,-1.5,165,-185,,,,,3,USA,0,Las Vegas,NV,1,610,,,,-7.0,"2,2,2","1,0,2",,,,,,6.5,110,-130
+nhl:401126322,nhl,2019-04-15T23:00Z,final,21,1,Maple Leafs,Bruins,3,2,-118,-102,,0,,,-1.5,220,-260,,,,,3,Canada,0,Toronto,ON,1,161,,,,-4.0,"0,3,0","0,2,0",,,,,,6.0,-110,-110
+nhl:401126329,nhl,2019-04-15T23:00Z,final,7,23,Hurricanes,Capitals,5,0,-125,115,,0,,,-1.5,200,-250,,,,,3,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,2,2","0,0,0",,,,,,6.0,-101,-119
+nhl:401126356,nhl,2019-04-16T01:30Z,final,9,27,Stars,Predators,2,3,-120,100,,0,,,-1.5,235,-275,,,,,3,USA,0,Dallas,TX,1,128,,,,-5.0,"0,1,1","0,2,1",,,,,,5.0,100,-120
+nhl:401126342,nhl,2019-04-16T02:00Z,final,17,3,Avalanche,Flames,6,2,100,-120,,0,,,1.5,-260,220,,,,,3,USA,0,Denver,CO,1,1609,,,,-6.0,"3,2,1","0,1,1",,,,,,6.0,100,-120
+nhl:401126316,nhl,2019-04-16T23:00Z,final,29,20,Blue Jackets,Lightning,7,3,120,-130,,0,,,1.5,-220,184,,,Sergei Bobrovsky,Andrei Vasilevskiy,3,USA,0,Columbus,OH,1,235,,,,-4.0,"2,2,3","1,2,0",,,,,,6.0,102,-114
+nhl:401126377,nhl,2019-04-16T23:30Z,final,16,12,Penguins,Islanders,1,3,-165,145,,0,,,-1.5,175,-200,,,Matt Murray,Robin Lehner,3,USA,0,Pittsburgh,PA,1,233,,,,-4.0,"1,0,0","2,0,1",,,,,,5.5,130,-150
+nhl:401126350,nhl,2019-04-17T01:30Z,final,19,28,Blues,Jets,1,2,-155,135,,0,,,-1.5,180,-215,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"0,0,1,0","0,0,1,1",,,,,,5.5,110,-130
+nhl:401126336,nhl,2019-04-17T02:30Z,final,37,18,Golden Knights,Sharks,5,0,-175,155,,0,,,-1.5,165,-190,,,Marc-Andre Fleury,Martin Jones,3,USA,0,Las Vegas,NV,1,610,,,,-7.0,"2,1,2","0,0,0",,,,,,6.5,-105,-115
+nhl:401126323,nhl,2019-04-17T23:00Z,final,21,1,Maple Leafs,Bruins,4,6,-120,110,,0,,,-1.5,225,-265,,,Frederik Andersen,Tuukka Rask,3,Canada,0,Toronto,ON,1,161,,,,-4.0,"1,1,2","2,2,2",,,,,,6.0,-105,-115
+nhl:401126357,nhl,2019-04-18T00:00Z,final,9,27,Stars,Predators,5,1,-125,105,,0,,,-1.5,240,-290,,,Ben Bishop,Pekka Rinne,3,USA,0,Dallas,TX,1,128,,,,-5.0,"4,1,0","0,0,1",,,,,,5.0,110,-130
+nhl:401126343,nhl,2019-04-18T02:00Z,final,17,3,Avalanche,Flames,3,2,-105,-105,,0,,,1.5,-285,243,,,,,3,USA,0,Denver,CO,1,1609,,,,-6.0,"0,0,2,1","0,1,1,0",,,,,,6.0,-110,-110
+nhl:401126330,nhl,2019-04-18T23:00Z,final,7,23,Hurricanes,Capitals,2,1,-120,100,,0,,,-1.5,218,-245,,,Petr Mrazek,Braden Holtby,3,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,1,0","0,1,0",,,,,,6.0,110,-124
+nhl:401126351,nhl,2019-04-19T00:30Z,final,28,19,Jets,Blues,2,3,-123,103,,0,,,-1.5,220,-260,,,Connor Hellebuyck,Mike Binnington,3,Canada,0,Winnipeg,MB,1,245,,,,-5.0,"2,0,0","0,0,3",,,,,,5.5,105,-125
+nhl:401126337,nhl,2019-04-19T02:00Z,final,18,37,Sharks,Golden Knights,5,2,-110,-110,,0,,,-1.5,234,-285,,,Martin Jones,Marc-Andre Fleury,3,USA,0,San Jose,CA,1,26,,,,-7.0,"2,1,2","1,0,1",,,,,,6.0,-125,105
+nhl:401126324,nhl,2019-04-19T23:00Z,final,1,21,Bruins,Maple Leafs,1,2,-145,125,,0,,,-1.5,180,-210,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"0,0,1","0,0,2",,,,,,6.0,100,-120
+nhl:401126344,nhl,2019-04-20T02:00Z,final,3,17,Flames,Avalanche,1,5,-175,155,,0,,,-1.5,150,-170,,,,,3,Canada,0,Calgary,AB,1,1048,,,,-6.0,"1,0,0","2,2,1",,,,,,6.0,-105,-115
+nhl:401126358,nhl,2019-04-20T19:00Z,final,27,9,Predators,Stars,3,5,-155,135,,0,,,-1.5,195,-220,,,Pekka Rinne,Ben Bishop,3,USA,0,Nashville,TN,1,170,,,,-5.0,"1,1,1","1,3,1",,,,,,5.0,110,-130
+nhl:401126352,nhl,2019-04-20T23:00Z,final,19,28,Blues,Jets,3,2,-150,135,,0,,,-1.5,185,-220,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,1,1","0,0,2",,,,,,5.5,115,-135
+nhl:401126331,nhl,2019-04-21T00:00Z,final,23,7,Capitals,Hurricanes,6,0,-144,124,,0,,,-1.5,185,-225,,,,,3,USA,0,Washington,DC,1,7,,,,-4.0,"1,2,3","0,0,0",,,,,,5.5,-110,-110
+nhl:401126325,nhl,2019-04-21T19:00Z,final,21,1,Maple Leafs,Bruins,2,4,-127,107,,0,,,-1.5,210,-240,,,Frederik Andersen,Tuukka Rask,3,Canada,0,Toronto,ON,1,161,,,,-4.0,"1,0,1","2,1,1",,,,,,5.5,-115,-105
+nhl:401126338,nhl,2019-04-21T23:00Z,final,37,18,Golden Knights,Sharks,1,2,-190,170,,0,,,-1.5,144,-165,,,Marc-Andre Fleury,Martin Jones,3,USA,0,Las Vegas,NV,1,610,,,,-7.0,"0,1,0,0,0","1,0,0,0,1",,,,,,6.5,105,-125
+nhl:401126332,nhl,2019-04-22T23:00Z,final,7,23,Hurricanes,Capitals,5,2,-120,110,,0,,,-1.5,220,-260,,,,,3,USA,0,Raleigh,NC,1,96,,,,-4.0,"1,1,3","2,0,0",,,,,,5.5,115,-135
+nhl:401126359,nhl,2019-04-23T00:30Z,final,9,27,Stars,Predators,2,1,-137,124,,0,,,-1.5,210,-250,,,Ben Bishop,Pekka Rinne,3,USA,0,Dallas,TX,1,128,,,,-5.0,"0,1,0,1","1,0,0,0",,,,,,5.0,115,-135
+nhl:401126326,nhl,2019-04-23T23:00Z,final,1,21,Bruins,Maple Leafs,5,1,-145,124,,0,,,-1.5,185,-230,,,Tuukka Rask,Frederik Andersen,3,USA,0,Boston,MA,1,14,,,,-4.0,"2,0,3","0,1,0",,,,,,5.5,105,-125
+nhl:401126339,nhl,2019-04-24T02:00Z,final,18,37,Sharks,Golden Knights,5,4,-105,-115,,0,,,-1.5,230,-260,,,,,3,USA,0,San Jose,CA,1,26,,,,-7.0,"0,0,4,1","1,1,2,0",,,,,,6.0,105,-125
+nhl:401126373,nhl,2019-04-24T23:30Z,final,23,7,Capitals,Hurricanes,3,4,-150,135,,0,,,-1.5,175,-200,,,Braden Holtby,Petr Mrazek,3,USA,0,Washington,DC,1,7,,,,-4.0,"2,1,0,0,0","0,2,1,0,1",,,,,,5.5,-110,-110
+nhl:401129013,nhl,2019-04-25T23:00Z,final,1,29,Bruins,Blue Jackets,3,2,-145,125,,0,,,-1.5,180,-220,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"1,0,1,1","0,0,2,0",,,,,,5.5,100,-120
+nhl:401129014,nhl,2019-04-26T01:30Z,final,19,9,Blues,Stars,3,2,-155,135,,0,,,-1.5,180,-210,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,1,1","0,1,1",,,,,,5.0,100,-120
+nhl:401129144,nhl,2019-04-26T23:00Z,final,12,7,Islanders,Hurricanes,0,1,-145,125,,0,,,-1.5,190,-240,,,,,3,USA,0,Brooklyn,NY,1,15,,,,-4.0,"0,0,0,0","0,0,0,1",,,,,,5.0,-130,110
+nhl:401129033,nhl,2019-04-27T02:00Z,final,18,17,Sharks,Avalanche,5,2,-130,110,,0,,,-1.5,195,-218,,,Martin Jones,Philipp Grubauer,3,USA,0,San Jose,CA,1,26,,,,-7.0,"1,3,1","1,1,0",,,,,,6.0,-120,100
+nhl:401129035,nhl,2019-04-27T19:00Z,final,19,9,Blues,Stars,2,4,-140,120,,0,,,-1.5,200,-240,,,,,3,USA,0,St. Louis,MO,1,142,,,,-5.0,"1,0,1","3,0,1",,,,,,5.0,105,-125
+nhl:401129034,nhl,2019-04-28T00:00Z,final,1,29,Bruins,Blue Jackets,2,3,-135,125,,0,,,-1.5,195,-230,,,,,3,USA,0,Boston,MA,1,14,,,,-4.0,"1,1,0,0,0","0,2,0,0,1",,,,,,5.5,105,-125
+nhl:401129145,nhl,2019-04-28T19:00Z,final,12,7,Islanders,Hurricanes,1,2,-150,130,,0,,,-1.5,190,-230,,,,,3,USA,0,Brooklyn,NY,1,15,,,,-4.0,"1,0,0","0,0,2",,,,,,5.0,100,-120
+nhl:401129138,nhl,2019-04-28T23:30Z,final,18,17,Sharks,Avalanche,3,4,-155,135,,0,,,-1.5,176,-210,,,Martin Jones,Philipp Grubauer,3,USA,0,San Jose,CA,1,26,,,,-7.0,"1,0,2","0,2,2",,,,,,6.0,100,-120
+nhl:401129036,nhl,2019-04-30T00:00Z,final,9,19,Stars,Blues,3,4,-120,100,,0,,,-1.5,240,-300,,,,,3,USA,0,Dallas,TX,1,128,,,,-5.0,"1,0,2","1,1,2",,,,,,5.0,100,-120
+nhl:401129133,nhl,2019-04-30T23:00Z,final,29,1,Blue Jackets,Bruins,2,1,-120,100,,0,,,-1.5,230,-270,,,,,3,USA,0,Columbus,OH,1,235,,,,-4.0,"1,1,0","0,1,0",,,,,,5.5,110,-130
