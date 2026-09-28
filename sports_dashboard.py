@@ -444,8 +444,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
         hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
-        chips.append(f'<span class="spc" style="color:{hue}"><b>{name}</b> {f"{w_ / n_:.0%}" if n_ else "—"}'
-                     f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>')
+        chips.append(f'<div class="spc"><span><b>{name}</b><small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>'
+                     f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i></div>')
     by_sport = "".join(chips)
     RECORDS["by sport"] = {name.split(" ", 1)[1]: wlt(sum(r == 'won' for lg, r in res if lg in lgs),
                                                       sum(r == 'lost' for lg, r in res if lg in lgs)) for name, lgs in groups}
@@ -584,6 +584,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
 
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap" rel="stylesheet">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="D503 Sports">
@@ -602,7 +604,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
 *{{box-sizing:border-box}}
 html,body{{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}}
-body{{font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;min-height:100vh;
+input,button,textarea,select{{font:inherit}}
+body{{font:15px/1.4 "Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;-webkit-text-size-adjust:100%;text-size-adjust:100%;min-height:100vh;
   background:radial-gradient(640px 400px at 10% -120px,rgba(255,194,51,.22),transparent 70%),
              radial-gradient(640px 420px at 100% -80px,rgba(255,90,31,.20),transparent 70%),
              repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 2px,transparent 2px 7px),var(--bg)}}
@@ -657,9 +660,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-prop{{font-size:15px;font-weight:900;color:#ff5a7a;margin:6px 0 10px}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .own{{font-size:13px;font-weight:800;color:#ffc233;margin-top:6px;border-left:3px solid #ffc233;padding-left:8px}}
-.sports{{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}}
-.spc{{background:var(--card2);border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:6px 10px;font-size:14px;font-weight:900;color:#22e39a}}
-.spc b{{color:#fff;margin-right:4px}} .spc small{{display:block;font-size:11px;font-weight:700;color:#ffc233}}
+.sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
+.spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
+  border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:9px 12px;font-size:15px;font-weight:900}}
+.spc b{{display:block;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.spc small{{display:block;font-size:13px;font-weight:700;color:#ffc233;white-space:nowrap}}
+.spc i{{font-style:normal;text-align:right;white-space:nowrap;font-size:17px}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
 .leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
