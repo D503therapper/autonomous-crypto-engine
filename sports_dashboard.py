@@ -810,7 +810,9 @@ function tick(){{m=Math.max(0,Math.round((Date.now()-t)/60000));
  if(m>150)document.getElementById("dot").className="dot stale";}}
 function check(){{if(document.hidden)return;              // a newer page? swap it in (not while a breakdown is open)
  fetch("https://api.github.com/repos/{REPO}/contents/{PAGE}?ref=main",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
- .then(function(r){{return r.ok?r.text():""}})
+ .then(function(r){{return r.ok?r.text():Promise.reject()}})
+ .catch(function(){{                                            // GitHub's 60-checks-an-hour limit hit: ask the raw file instead
+   return fetch("https://raw.githubusercontent.com/{REPO}/main/{PAGE}?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.text():""}})}})
  .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
    var aq=document.getElementById("askq");                     // (not while someone's asking a question)
    if(x&&+x[1]>t&&!document.querySelector("details[open]")&&!(aq&&(aq.value||document.activeElement===aq))){{
