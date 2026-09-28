@@ -52,7 +52,7 @@ PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone,
 LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
 LIVE_MIN_P = 0.40             # ACCURACY FIRST: a new live bet is one we think has a real shot (40%+)...
 LIVE_MAX_ODDS = 250           # ...and never longer than +250 when it goes up (the +270..+425 ones kept losing)
-MAX_PLAYS = 2                 # NEVER more than 2 on the board at once (the owner): one's value goes, the next can take its slot
+MAX_PLAYS = 4                 # up to 4 on the board at once (the owner's rule): one's value goes, the next can take its slot
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
 LENGTH = {"nfl": (4, 15), "ncaaf": (4, 15), "nba": (4, 12), "ncaab": (2, 20), "nhl": (3, 20), "mlb": (9, None)}
 AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game{extra}"
