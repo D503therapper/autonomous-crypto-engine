@@ -11,6 +11,7 @@ on:
     paths: ["tools/fetch_tennis_odds.py", "data/sports/tennis/raw/**", ".github/workflows/tennis_odds.yml"]
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: tennis-odds
   cancel-in-progress: true
@@ -23,7 +24,8 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install -q openpyxl xlrd
-      - run: timeout 24m python -u tools/fetch_tennis_odds.py
+      - id: fetch
+        run: timeout 24m python -u tools/fetch_tennis_odds.py
       - if: always()
         run: |
           git config user.name "paper-trader-bot"
@@ -31,3 +33,7 @@ jobs:
           git add data/sports/tennis/hist_odds.csv.gz
           git commit -qm "tennis odds history $(date -u '+%F %H:%M') UTC" || exit 0
           for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+      - if: always() && steps.fetch.outputs.missing != '0' && steps.fetch.outputs.got != '0' && steps.fetch.outputs.got != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run tennis_odds.yml --ref "${GITHUB_REF_NAME}" && echo "made progress - running again"

@@ -193,6 +193,15 @@ def main(budget_s=20 * 60):
                 put(tour, y, rows)
                 _save(keep)                                  # saved as it goes - a slow run never loses what it got
     _save(keep)
+    counts = {}
+    for r in keep:
+        counts[(r["tour"], r["season"])] = counts.get((r["tour"], r["season"]), 0) + 1
+    missing = sum(1 for y in range(FIRST, now.year + 1) for tour in ("atp", "wta") if counts.get((tour, str(y)), 0) < 1000)
+    got = sum(1 for (a, s), n in counts.items() if n >= 1000 and count.get((a, int(s)), 0) < 1000)   # newly complete
+    if os.environ.get("GITHUB_OUTPUT"):                       # the workflow runs again right away while it's making progress
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+            f.write(f"missing={missing}\ngot={got}\n")
+    print(f"{missing} seasons still missing, {got} new this run")
     have_s = sorted({(r["tour"], r["season"]) for r in keep})
     print(f"saved {len(keep)} matches -> {OUT}; seasons: {', '.join(f'{a}{b[2:]}' for a, b in have_s)}")
     return 0
