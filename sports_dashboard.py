@@ -137,7 +137,7 @@ def _wl_words(ps, h):
     if h is None:
         return "&nbsp;"
     w, l_ = sum(p["status"] == "won" for p in ps), sum(p["status"] == "lost" for p in ps)
-    return f"{w} won · {l_} lost · {h:.0%}"
+    return f"{w} won · {l_} lost"
 
 
 def _rot(k, options):
@@ -289,8 +289,8 @@ def _tennis():
              or (x.get("parlay") or {}).get("status") == "open"] + [slates[-1]]
     n = sum(len(x["picks"]) for x in shown)
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
-<span class="tn-s">{n} picks + parlay · {r['won']}W {r['lost']}L · tap to open</span></summary>
-<div class="tn-b"><div class="tn-d">parlays {r['p_won']}W {r['p_lost']}L</div>{"".join(block(x) for x in shown)}</div></details>"""
+<span class="tn-s">{n} picks + parlay · {r['won']}-{r['lost']} · tap to open</span></summary>
+<div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{"".join(block(x) for x in shown)}</div></details>"""
 
 
 def render(picks, model, games, series, start_bank, updated_ms):
@@ -326,7 +326,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 
     def wl(ps):
         w, l_, pu = (sum(p["status"] == k for p in ps) for k in ("won", "lost", "push"))
-        return f"{w}W {l_}L" + (f" {pu}P" if pu else ""), (w / (w + l_) if w + l_ else None)
+        return f"{w}-{l_}" + (f"-{pu}" if pu else ""), (w / (w + l_) if w + l_ else None)
 
     def streak(ps):
         if not ps:
@@ -375,9 +375,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
             if st and st[0] != ("W" if r == "won" else "L"):
                 break
             st = ("W" if r == "won" else "L") + str(int(st[1:] or 0) + 1)
-        return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}W {l_}L</div>'
-                f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%} hit" if w_ + l_ else "no results yet"}</div>'
-                f'<div class="rc-s">{f"streak {st}" if st else ""}</div></div>')   # (today's W/L only on the overall box)
+        return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
+                f'<div class="rc-p">{f"{w_} won · {l_} lost" if w_ + l_ else "no results yet"}</div>'
+                f'<div class="rc-s">{" · ".join(x for x in ((f"{w_ / (w_ + l_):.0%}" if w_ + l_ else ""), (f"streak {st}" if st else "")) if x)}</div></div>')
     # locks and value: every call on the board, graded by how sure we were (a parlay's legs each count as their own call,
     # a team we're on twice the same day counts once). Leans never count; the 8-leg lottery ticket keeps its own record.
     calls = {}
@@ -396,13 +396,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
     ol = sum(r == "lost" for _, r, _ in calls.values())
     tw = sum(r == "won" for _, r, d in calls.values() if d == today)
     tl = sum(r == "lost" for _, r, d in calls.values() if d == today)
-    overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}W {ol}L</div>'
+    overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
-               f'{f"<div class=ovr-s>today {tw}W {tl}L</div>" if tw + tl else ""}</div>')
+               f'{f"<div class=ovr-s>today {tw}-{tl}</div>" if tw + tl else ""}</div>')
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
-    def wlt(w, l):                                           # records read 6W 8L everywhere
-        return f"{w}W {l}L"
+    def wlt(w, l):
+        return f"{w}-{l}"
     RECORDS.update({"overall": wlt(ow, ol), "today": wlt(tw, tl),
                     "locks (minus money calls)": wlt(sum(r == "won" for r, _ in by_tier["lock"]), sum(r == "lost" for r, _ in by_tier["lock"])),
                     "value (plus money calls)": wlt(sum(r == "won" for r, _ in by_tier["value"]), sum(r == "lost" for r, _ in by_tier["value"])),
@@ -451,7 +451,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         w_, n_ = sum(r == "won" for r in rr), len(rr)
         hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
         chips.append(f'<span class="spc" style="color:{hue}"><b>{name}</b> {f"{w_ / n_:.0%}" if n_ else "—"}'
-                     f'<small>{f"{w_}W {n_ - w_}L" if n_ else "no results yet"}</small></span>')
+                     f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>')
     by_sport = "".join(chips)
     RECORDS["by sport"] = {name.split(" ", 1)[1]: wlt(sum(r == 'won' for lg, r in res if lg in lgs),
                                                       sum(r == 'lost' for lg, r in res if lg in lgs)) for name, lgs in groups}
@@ -468,7 +468,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         RECORDS.setdefault("by pick", {})[label] = r
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
                    f'<div class="rc-r">{r}</div><div class="rc-p">{_wl_words(ps, h)}</div>'
-                   f'<div class="rc-s">{("streak " + st) if st else "no results yet"}</div></div>')
+                   f'<div class="rc-s">{" · ".join(x for x in ((f"{h:.0%}" if h is not None else ""), ("streak " + st if st else "")) if x) or "no results yet"}</div></div>')
 
 
     # the brain, in a nutshell - only what actually happened, in our voice, rotating day to day
@@ -486,10 +486,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     if w_ + l_ == 0 and live_today:
         pass                                                      # the live results below speak for the day
     elif any(p["date"] == today and p["kind"] != "eight" and p["status"] == "open" for p in picks):
-        lines.append(_rot(k, [f"⏳ {w_}W {l_}L so far today — still got tickets live. We gon' see.",
-                              f"⏳ {w_}W {l_}L so far. Tickets still cooking — we finna see.",
-                              f"⏳ Sitting at {w_}W {l_}L right now. Day ain't over — more tickets still cooking.",
-                              f"⏳ {w_}W {l_}L so far. Still got action on the board — the day ain't done."]))
+        lines.append(_rot(k, [f"⏳ {w_}-{l_} so far today — still got tickets live. We gon' see.",
+                              f"⏳ {w_}-{l_} so far. Tickets still cooking — we finna see.",
+                              f"⏳ Sitting at {w_}-{l_} right now. Day ain't over — more tickets still cooking.",
+                              f"⏳ {w_}-{l_} so far. Still got action on the board — the day ain't done."]))
     elif w_ + l_ == 0:
         lines.append(["⏳ Nothing graded yet today — games still cooking.", "⏳ Tickets are still live. Check back after the games.",
                       "⏳ No results in yet. Sit tight."][k % 3])
@@ -501,23 +501,23 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"🔥 {w_}-0. Today was a grace from Jesus. Let's fucking go!",
                               f"🔥 Perfect day, {w_}-0. Books are crying right now."]))
     elif w_ >= l_:
-        lines.append(_rot(k, [f"✅ {w_}W {l_}L. We crushed today — let's fucking go!",
-                              f"✅ {w_}W {l_}L. We smacked today. Let's go!",
-                              f"✅ Went {w_}W {l_}L. Cashing tickets.",
-                              f"✅ {w_}W {l_}L on the day. We eat.",
-                              f"✅ {w_}W {l_}L. Told y'all. Trust the algorithm.",
-                              f"✅ {w_}W {l_}L. Today was a grace from Jesus. Fuck yeah!",
-                              f"✅ {w_}W {l_}L. Another W in the books. Let's go!",
-                              f"✅ {w_}W {l_}L. Fed the whole squad today."]))
+        lines.append(_rot(k, [f"✅ {w_}-{l_}. We crushed today — let's fucking go!",
+                              f"✅ {w_}-{l_}. We smacked today. Let's go!",
+                              f"✅ Went {w_}-{l_}. Cashing tickets.",
+                              f"✅ {w_}-{l_} on the day. We eat.",
+                              f"✅ {w_}-{l_}. Told y'all. Trust the algorithm.",
+                              f"✅ {w_}-{l_}. Today was a grace from Jesus. Fuck yeah!",
+                              f"✅ {w_}-{l_}. Another W in the books. Let's go!",
+                              f"✅ {w_}-{l_}. Fed the whole squad today."]))
     else:
-        lines.append(_rot(k, [f"😤 {w_}W {l_}L. Our picks were fucking ass today. We gon' do better tomorrow.",
-                              f"😤 {w_}W {l_}L. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
-                              f"😤 {w_}W {l_}L. Not our day — the engine's already studying the tape.",
-                              f"😤 Took some L's today ({w_}W {l_}L). Shake it off. We gon' be right back.",
-                              f"😤 {w_}W {l_}L. Today was trash, no sugarcoating it. Tomorrow we eat.",
-                              f"😤 {w_}W {l_}L. Vegas got us today. Enjoy it while it lasts.",
-                              f"😤 {w_}W {l_}L. Rough day. Keep your head up — we back at it tomorrow.",
-                              f"😤 {w_}W {l_}L. Bad day at the office. The algorithm's taking notes."]))
+        lines.append(_rot(k, [f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' do better tomorrow.",
+                              f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
+                              f"😤 {w_}-{l_}. Not our day — the engine's already studying the tape.",
+                              f"😤 Took some L's today ({w_}-{l_}). Shake it off. We gon' be right back.",
+                              f"😤 {w_}-{l_}. Today was trash, no sugarcoating it. Tomorrow we eat.",
+                              f"😤 {w_}-{l_}. Vegas got us today. Enjoy it while it lasts.",
+                              f"😤 {w_}-{l_}. Rough day. Keep your head up — we back at it tomorrow.",
+                              f"😤 {w_}-{l_}. Bad day at the office. The algorithm's taking notes."]))
     # big hits (+300 and up, board or live): they get their own brag, right under the day's record
     big = [(p["american"], (E(_the(p["legs"][0]["team"], p["legs"][0]["league"])) if len(p["legs"]) == 1
                             else "the " + LOOK[p["kind"]][0].replace(" OF THE DAY", "").lower()), "")
