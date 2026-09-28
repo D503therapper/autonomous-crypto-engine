@@ -1,18 +1,20 @@
-"""Probe: ask the AI question box one real question through the live relay (the way the dashboard does)."""
+"""Probe: what ESPN's tennis feed says right now about our ungraded matches, day by day (is it stale?)."""
 import json
-import time
 import urllib.request
 
-URL = open("data/sports/ask_url.txt").read().strip()
-for q in ("what's our record?",):
-    t0 = time.time()
-    req = urllib.request.Request(URL, data=json.dumps({"q": q}).encode(), method="POST",
-                                 headers={"Origin": "https://d503therapper.github.io", "Content-Type": "application/json",
-                                          "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"})
-    try:
-        with urllib.request.urlopen(req, timeout=90) as r:
-            print(f"Q: {q}\nHTTP {r.status} in {time.time() - t0:.1f}s\nA: {json.load(r).get('answer') or '(no answer)'}\n")
-    except urllib.error.HTTPError as e:
-        print(f"Q: {q}\nHTTP {e.code}: {e.read()[:300]}\n")
-    except Exception as e:                                   # noqa: BLE001
-        print(f"Q: {q}\nERR {e}\n")
+import sys
+sys.path.insert(0, ".")
+import sports_tennis as st  # noqa: E402
+
+WANT = {"186251", "186256", "186227", "186229", "186230", "183420", "183374", "183421", "183375"}
+for tour in ("atp", "wta"):
+    for day in ("20260926", "20260927", "20260928", "20260929"):
+        url = f"{st.ESPN.format(tour=tour)}?dates={day}"
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache"}), timeout=20) as r:
+                age = r.headers.get("Age"), r.headers.get("Cache-Control"), r.headers.get("Last-Modified")
+                rows = st.parse_espn(json.load(r), tour)
+            hits = [(x["id"], x["status"], x["sets1"], x["sets2"], x["winner"]) for x in rows if x["id"].split(":")[-1] in WANT]
+            print(tour, day, len(rows), "rows | cache:", age, "|", hits)
+        except Exception as e:                               # noqa: BLE001
+            print(tour, day, "ERR", e)
