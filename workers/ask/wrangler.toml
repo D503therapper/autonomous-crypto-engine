@@ -6,5 +6,5 @@ compatibility_date = "2026-09-01"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-MODEL = "claude-opus-5"     # the owner's pick: best answers ("claude-haiku-4-5" is cheapest but makes mistakes)
+MODEL = "claude-opus-5-5"   # the owner's pick: newest Opus, best answers ("claude-haiku-4-5" is cheapest but makes mistakes)
 EFFORT = "low"              # (Sonnet/Opus only) quick chat answers; "medium" thinks harder
