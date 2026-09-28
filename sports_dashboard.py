@@ -317,17 +317,16 @@ def _tennis():
                 groups += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
                            f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
         return f'<div class="tn-d">{E(day)}</div>{par_html}{groups}'
-    # like the main board: a slate stays up through its day - WON / LOST and the breakdowns - and at midnight (Pacific)
-    # it goes away into the results. A pick still waiting to be played (a delayed match) never vanishes. Tomorrow's
-    # slate shows as soon as it's posted.
-    today = datetime.now(PT).date().isoformat()
-    live = lambda x: any(l.get("result") is None for l in x["picks"]) or (x.get("parlay") or {}).get("status") == "open"
-    shown = [x for x in slates if x["date"] >= today or live(x)]
+    # a slate stays up (WON / LOST and the breakdowns) while any of its matches is still being played; once its last
+    # match is over, the whole slate goes away into the results. A new slate shows as soon as it's posted.
+    live = lambda x: any(l.get("result") is None for l in x["picks"]) or any(
+        (v or {}).get("status") == "open" for v in [x.get("parlay"), *(x.get("parlays") or {}).values()])
+    shown = [x for x in slates if live(x)]
     n = sum(len(x["picks"]) for x in shown)
     npar = sum(bool(x.get("parlay")) for x in shown)
     what = (f"{n} pick{'s' if n != 1 else ''}" + (" + parlay" if npar else "")) if n else "new picks by 6 PM"
     body = "".join(block(x) for x in shown) or \
-        '<div class="nopick">Yesterday\'s picks are in the records. Next ones drop by 6 PM. 🎾</div>'
+        '<div class="nopick">The last slate\'s all graded — it\'s in the records. Next picks drop by 6 PM. 🎾</div>'
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
 <span class="tn-s">{what} · {r['won']}-{r['lost']} · tap to open</span></summary>
 <div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{body}</div></details>"""
