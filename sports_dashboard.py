@@ -758,7 +758,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="ask-b"><div class="ask-n">{ask_note}</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send">{ask_btn}</div>
 <div id="asklist"></div><div id="askout"></div></div></div>
-<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 10 sec</span></div>
+<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
@@ -793,7 +793,7 @@ function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a
   '😴 No live plus money right now — no games going.')+'</div></section>';}}
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 10 sec</span></div>'+(ps.length?ps.map(function(p){{
+ el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>'+(ps.length?ps.map(function(p){{
   return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
@@ -807,22 +807,23 @@ function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/live-data
 function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
  fetch("https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
  .then(function(r){{return r.ok?r.json():raw()}}).catch(raw).then(show).catch(function(){{}});}}
-poll();setInterval(poll,10000);document.addEventListener("visibilitychange",poll);}})();
+poll();setInterval(poll,5000);document.addEventListener("visibilitychange",poll);}})();
 (function(){{var t={int(updated_ms)},m=0;   // the whole page stays fresh while it's open
 try{{var y=sessionStorage.getItem("d503y");if(y!==null){{sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}}}catch(e){{}}
 function tick(){{m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
  document.getElementById("ago").textContent="Live · "+s;
  if(m>150)document.getElementById("dot").className="dot stale";}}
-function check(){{if(document.hidden)return;              // a newer page? swap it in (not while a breakdown is open)
- fetch("https://api.github.com/repos/{REPO}/contents/{PAGE}?ref=main",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
- .then(function(r){{return r.ok?r.text():Promise.reject()}})
- .catch(function(){{                                            // GitHub's 60-checks-an-hour limit hit: ask the raw file instead
-   return fetch("https://raw.githubusercontent.com/{REPO}/main/{PAGE}?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.text():""}})}})
+var touched=0;["touchstart","scroll","keydown","click"].forEach(function(ev){{window.addEventListener(ev,function(){{touched=Date.now()}},{{passive:true}})}});
+function check(){{if(document.hidden)return;              // a newer page? swap it in - only once the SITE serves it
+ if(Date.now()-touched<30000)return;                       // (never while someone's scrolling or tapping around)
+ try{{if(Date.now()-(+sessionStorage.getItem("d503r")||0)<60000)return;}}catch(e){{}}   // at most once a minute
+ fetch(location.pathname+"?c="+Date.now(),{{cache:"no-store"}})
+ .then(function(r){{return r.ok?r.text():""}})
  .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
    var aq=document.getElementById("askq");                     // (not while someone's asking a question)
    if(x&&+x[1]>t&&!document.querySelector("details[open]")&&!(aq&&(aq.value||document.activeElement===aq))){{
-     try{{sessionStorage.setItem("d503y",String(window.scrollY));}}catch(e){{}}
+     try{{sessionStorage.setItem("d503y",String(window.scrollY));sessionStorage.setItem("d503r",String(Date.now()));}}catch(e){{}}
      location.replace(location.pathname+"?v="+x[1]);}}}})
  .catch(function(){{}});}}
 tick();setInterval(tick,30000);check();setInterval(check,60000);document.addEventListener("visibilitychange",check);}})();

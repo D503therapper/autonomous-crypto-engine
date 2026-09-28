@@ -942,7 +942,7 @@ def queue_next():
     return r.returncode == 0
 
 
-def loop(minutes, every_s=10):
+def loop(minutes, every_s=5):
     """Watch live games every `every_s` seconds for `minutes`. Phones see every change right away (live-data
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
