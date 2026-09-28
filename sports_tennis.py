@@ -41,6 +41,8 @@ PICKS = os.path.join(DIR, "picks.json")
 ODDS = os.path.join(DIR, "odds.json")
 RANKS = os.path.join(DIR, "rankings.json")   # ATP + WTA rankings, saved daily (ESPN only has today's): {date: {"tour:id": rank}}
 LINES = os.path.join(DIR, "lines.json")      # every price seen, the last one before the start kept (closing line)
+SET1_LINES = os.path.join(DIR, "set1_lines.json")   # RESEARCH ONLY: Bovada's first-set markets, the last price before the
+                                                    # start (sports_tennis_set1 studies them; nothing picks from them)
 FIELDS = ["id", "tour", "start", "event", "tourney", "round", "surface", "bo", "p1", "p1_name", "p2", "p2_name", "winner",
           "sets1", "sets2", "status", "done", "cc1", "cc2", "venue"]
 NEWS = os.path.join(DIR, "news.json")
@@ -910,9 +912,13 @@ def _median(xs):
     return xs[len(xs) // 2] if xs else None
 
 
+_BOV_RAW = [None]                 # the last raw Bovada payload (the first-set capture reads it; research only)
+
+
 def bovada():
     """Bovada's public tennis feed: ATP + WTA singles moneylines."""
     data, _ = _get(BOVADA)
+    _BOV_RAW[0] = data
     return parse_bovada(data)
 
 
@@ -975,6 +981,111 @@ def parse_bovada(data, live=False):
     return [r for r in rows.values() if "a_ml" in r]
 
 
+# ---------------------------------------------------------------- first-set markets (RESEARCH ONLY)
+SET1_RX = re.compile(r"\b(1st|first)\s+set\b|\bset\s*(1|one)\b")
+SET_BET_RX = re.compile(r"set betting|correct score|exact (set )?score|set score")
+SET1_SKIP = ("total", "tiebreak", "tie break", "tie-break", "correct", "score", "odd", "even", "race", "break",
+             "exact", "game ")
+
+
+def is_set1(text):
+    """'1st Set Winner' / 'Set 1 Winner' / 'First Set - Moneyline' / a market in a '1st Set' period -> True."""
+    return bool(SET1_RX.search(str(text or "").lower()))
+
+
+def _bov_am(o):
+    v = str((o.get("price") or {}).get("american") or "").upper()
+    return 100 if v == "EVEN" else int(v) if re.match(r"^[+-]?\d+$", v) else None
+
+
+def parse_bovada_set1(data):
+    """Bovada tennis groups -> [{a, b, start, tour, event, (a_ml, b_ml), (a_s1, b_s1), (a_s1_hcp, a_s1_sp, b_s1_hcp,
+    b_s1_sp), (set_betting: {outcome: american})}] for PRE-MATCH ATP + WTA singles events that carry a first-set
+    winner, a first-set game handicap or a set-betting market. Players are named as in the match moneyline (a = its
+    first outcome) when there is one. Matching is loose: the market's own description and its period's are read
+    ('1st Set Winner', 'Set 1 Winner', 'First Set Moneyline', 'Moneyline' in a '1st Set' period...). Research only:
+    parse_bovada (the picks' prices) is untouched."""
+    out = []
+    for grp in data if isinstance(data, list) else []:
+        if not isinstance(grp, dict) or not isinstance(grp.get("path") or [], list):
+            continue
+        path = " ".join(str(p.get("description") or "") for p in grp.get("path") or [] if isinstance(p, dict)).lower()
+        if not re.search(r"\b(atp|wta)\b", path) or any(k in path for k in ("doubles", "challenger", "itf", "exhibition", "utr", "125")):
+            continue
+        for ev in grp.get("events") or []:
+            if ev.get("live"):
+                continue
+            start = datetime.fromtimestamp(int(ev.get("startTime", 0)) / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+            ml = win = hcp = sb = None
+            for dg in ev.get("displayGroups") or []:
+                for mk in dg.get("markets") or []:
+                    per = mk.get("period") or {}
+                    desc = str(mk.get("description") or "").lower()
+                    label = f"{desc} {per.get('description') or ''} {per.get('abbreviation') or ''}".lower()
+                    oc = mk.get("outcomes") or []
+                    if per.get("live") or str(mk.get("status") or "O").upper() != "O":
+                        continue
+                    if is_set1(label):
+                        if "spread" in desc or "handicap" in desc:
+                            if len(oc) == 2:
+                                hcp = oc                     # the first-set game handicap
+                        elif len(oc) == 2 and not any(k in f"{desc} " for k in SET1_SKIP):
+                            win = oc                         # the first-set winner
+                    elif "moneyline" in desc and per.get("main", True) and len(oc) == 2:
+                        ml = oc
+                    elif SET_BET_RX.search(desc) and len(oc) >= 2:
+                        sb = oc                              # set betting (the match's exact score in sets)
+            names = ml or win or hcp
+            if not (win or hcp or sb) or not names:
+                continue
+            a, b = names[0].get("description"), names[1].get("description")
+            row = {"a": a, "b": b, "start": start, "src": "bovada", "tour": _bov_tour(path), "event": str(ev.get("id") or "")}
+
+            def side(o):                                     # which player an outcome names (None: neither / both)
+                n = _norm(o.get("description"))
+                hits = [s for s, nm in (("a", a), ("b", b)) if _last(nm) and _last(nm) in n]
+                return hits[0] if len(hits) == 1 else None
+            if ml:
+                x, y = _bov_am(ml[0]), _bov_am(ml[1])
+                if x is not None and y is not None:
+                    row["a_ml"], row["b_ml"] = x, y
+            if win:
+                got = {side(o): _bov_am(o) for o in win}
+                if set(got) == {"a", "b"} and None not in got.values():
+                    row["a_s1"], row["b_s1"] = got["a"], got["b"]
+            for o in hcp or []:
+                s, pr = side(o), _bov_am(o)
+                try:
+                    h = float((o.get("price") or {}).get("handicap"))
+                except (TypeError, ValueError):
+                    continue
+                if s and pr is not None:
+                    row[f"{s}_s1_hcp"], row[f"{s}_s1_sp"] = h, pr
+            sbd = {str(o.get("description")): _bov_am(o) for o in sb or [] if _bov_am(o) is not None}
+            if sbd:
+                row["set_betting"] = sbd
+            if any(k in row for k in ("a_s1", "a_s1_hcp", "b_s1_hcp", "set_betting")):
+                out.append(row)
+    return out
+
+
+def save_set1_lines(rows, now, path=None):
+    """Our own first-set line history (research only): the last first-set price seen before each start, keyed like
+    lines.json (the same way save_lines keeps closing lines)."""
+    path = path or SET1_LINES
+    hist = {}
+    if os.path.exists(path):
+        with open(path) as f:
+            hist = json.load(f)
+    for ln in rows:
+        if ln.get("start") and _t(ln["start"]) > now:
+            hist[f"{_last(ln['a'])}|{_last(ln['b'])}|{ln['start'][:10]}"] = {**ln, "seen": now.strftime("%Y-%m-%dT%H:%MZ")}
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path + ".tmp", "w") as f:
+        json.dump(hist, f, indent=0, sort_keys=True)
+    os.replace(path + ".tmp", path)
+
+
 def refresh_odds(state, now):
     """Prices for upcoming matches from Bovada (kept from the last good read if the feed fails)."""
     cache = {}
@@ -990,6 +1101,13 @@ def refresh_odds(state, now):
                 json.dump(cache, f, indent=1)
         save_lines(lines, now)
         print(f"tennis odds: {len(lines)} singles matches priced (bovada)")
+        try:                                             # research only: never touches the lines above
+            s1 = parse_bovada_set1(_BOV_RAW[0])
+            save_set1_lines(s1, now)
+            print(f"tennis first-set lines: {sum('a_s1' in r for r in s1)} first-set winner markets seen "
+                  f"({len(s1)} matches with any set market)")
+        except Exception as e:                           # noqa: BLE001
+            print(f"tennis first-set capture failed: {str(e)[:80]}")
     except Exception as e:                               # noqa: BLE001
         sd.ERRORS.append(f"bovada: {str(e)[:100]}")
         print(f"tennis odds: BOVADA FAILED ({str(e)[:80]}) - tell the owner if this keeps happening")

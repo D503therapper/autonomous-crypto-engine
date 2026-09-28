@@ -2223,6 +2223,204 @@ def test_tennis_edge():
     shutil.rmtree(tmp)
 
 
+def test_tennis_set1_math():
+    """The implied first-set chance: the interpolated table matches the exact serve_split route, 50/50 stays 50/50,
+    it's symmetric and monotone, a set is always closer to a coin flip than the match (more so in best of 5), and
+    two independent sets at that chance roughly rebuild the best-of-3 match chance."""
+    import sports_tennis_set1 as s1
+    assert abs(s1.set1_from_serve(0.64, 0.64) - 0.5) < 1e-9
+    for tour in ("atp", "wta"):
+        assert abs(s1.set1_p(0.5, tour, 3) - 0.5) < 1e-6 and abs(s1.set1_p(0.5, tour, 5) - 0.5) < 1e-6
+        prev = 0.0
+        for k in range(2, 99, 4):
+            p = k / 100
+            q3, q5 = s1.set1_p(p, tour, 3), s1.set1_p(p, tour, 5)
+            assert q3 > prev, "monotone"
+            prev = q3
+            assert abs(q3 + s1.set1_p(1 - p, tour, 3) - 1) < 1e-3, "symmetric"
+            if p > 0.5:
+                assert 0.5 < q5 < q3 < p, (p, q3, q5)
+            if k % 12 == 2:
+                assert abs(q3 - s1.set1_exact(p, tour, 3)) < 1e-3 and abs(q5 - s1.set1_exact(p, tour, 5)) < 1e-3
+            assert abs(q3 * q3 * (3 - 2 * q3) - p) < 0.02, "two iid sets ~ the bo3 match chance"
+    assert abs(s1.set1_p(0.8, "atp", 5, 10) - s1.set1_p(0.8, "atp", 5, 7)) < 0.01      # (the final-set tiebreak barely matters)
+    # the log loss / ROI arithmetic
+    a = s1.Acc()
+    for _ in range(10):
+        a.add(1, 0.5, 1 / (0.5 * 1.05))
+    r = a.rep()
+    assert r["hit"] == 1.0 and abs(r["roi"] - (1 / 0.525 - 1)) < 1e-3 and r["z"] > 3
+    assert abs(s1.slope_of([(0.7, 1), (0.7, 0), (0.7, 1), (0.3, 0), (0.3, 1), (0.3, 0)] * 50) - 0.8) < 0.3
+
+
+def test_tennis_set1_no_peeking():
+    """The crew's stat is walk-forward: a match (and every match that day) only sees earlier days - changing a day's
+    results never changes that day's stats; the window is the last 20 and 10 are needed; a planted first-set
+    specialist is found; the whole study runs on a history file and fixes its split."""
+    import sports_tennis_set1 as s1
+    rnd = random.Random(3)
+    rows = []
+    for day in range(60):
+        d = f"2020-{1 + day // 28:02d}-{1 + day % 28:02d}"
+        ps = rnd.sample(range(8), 8)
+        for a, b in zip(ps[::2], ps[1::2]):
+            p = 0.5 + 0.05 * (a - b) / 8
+            y = 1 if rnd.random() < p else 0
+            rows.append((d, "atp", f"P{a}", f"P{b}", y, p, 3, p))
+    rows.sort(key=lambda r: r[0])
+    bets, full = s1.walk(rows)
+    assert bets and all(len(full[k]) == 60 for k in full), "every result is learned"
+    first_day = min(b[0] for b in bets)
+    assert sum(1 for r in rows if r[0] < first_day) >= 4 * 10, "nobody has a stat before 10 matches"
+    cut = sorted({r[0] for r in rows})[30]
+    changed = [(r[0], r[1], r[2], r[3], 1 - r[4], r[5], r[6], r[7]) if r[0] >= cut else r for r in rows]
+    b2, _ = s1.walk(changed)
+    assert [b[:4] for b in bets if b[0] <= cut] == [b[:4] for b in b2 if b[0] <= cut], "no peeking at the same day or later"
+    assert [b[:4] for b in bets if b[0] > cut] != [b[:4] for b in b2 if b[0] > cut]
+    h = full[("atp", "P0")]
+    assert all(h[i][0] <= h[i + 1][0] for i in range(len(h) - 1))
+    # the window: the stat is the mean over the last 20
+    hist = [(1, 0.5)] * 5 + [(0, 0.5)] * 20
+    from collections import deque
+    dq = deque(maxlen=s1.WINDOW)
+    for x in hist:
+        dq.append(x)
+    assert s1._stat(dq) == (-0.5, 0.0) and s1._stat([(1, 0.5)] * 9) is None
+    # a planted first-set specialist (wins set 1 at 80% whatever the price): the overperformance test finds it
+    rows = []
+    for day in range(400):
+        d = (datetime(2014, 1, 1) + timedelta(days=day)).strftime("%Y-%m-%d")
+        ps = rnd.sample(range(10), 10)
+        for a, b in zip(ps[::2], ps[1::2]):
+            p = 0.5
+            pa = 0.8 if a == 0 else 0.2 if b == 0 else 0.5
+            y = 1 if rnd.random() < pa else 0
+            rows.append((d, "wta", f"P{a}", f"P{b}", y, p, 3, p))
+    bets, _ = s1.walk(rows)
+    split = sorted(b[0] for b in bets)[len(bets) // 2]
+    res = s1.crew_test(bets, split, 0, (0.3,))
+    r = res["0.30"]
+    assert r["all"]["n"] >= 300 and r["all"]["z"] >= 3.5 and r["older"]["roi"] > 0 and r["newer"]["roi"] > 0 and r["proven"]
+    assert s1.closest(res)["misses"][0].startswith("nothing")
+    # the whole study on a simulated history (efficient prices: nothing should come close)
+    tmp = tempfile.mkdtemp()
+    try:
+        hist_p, out = os.path.join(tmp, "hist.csv.gz"), os.path.join(tmp, "set1.json")
+        _tennis_hist(hist_p, 40, None)
+        t0 = time.time()
+        rep = s1.study(out, hist_p, os.path.join(tmp, "none.json"), os.path.join(tmp, "none.csv"), verbose=False)
+        assert time.time() - t0 < 60 and rep["rows"] > 1000 and rep["split"] and rep["research_only"]
+        assert set(rep["calibration"]) == {"atp", "wta"} and rep["calibration"]["atp"]["reliability"]
+        assert rep["real"]["waiting"] and rep["real"]["lines"] == 0
+        with open(out) as f:
+            saved = json.load(f)
+        assert saved["split"] == rep["split"]
+        _tennis_hist(hist_p, 60, None)
+        assert s1.study(out, hist_p, os.path.join(tmp, "none.json"), os.path.join(tmp, "none.csv"),
+                        verbose=False)["split"] == rep["split"], "the split never moves"
+    finally:
+        shutil.rmtree(tmp)
+
+
+def _bov_set1_payload(start_ms=1790000000000):
+    def mk(desc, outs, period=None, status="O"):
+        return {"description": desc, "status": status, "period": period or {"description": "Match", "main": True},
+                "outcomes": [{"description": n, "price": {"american": a, **({"handicap": h} if h is not None else {})}}
+                             for n, a, h in outs]}
+    s1p = {"description": "1st Set", "abbreviation": "1S", "main": False, "live": False}
+    return [
+        {"path": [{"description": "ATP Shanghai"}, {"description": "Tennis"}], "events": [
+            {"id": "11", "live": False, "startTime": start_ms, "displayGroups": [
+                {"description": "Game Lines", "markets": [
+                    mk("Moneyline", [("Jannik Sinner", "-250", None), ("Holger Rune", "+200", None)]),
+                    mk("Game Spread", [("Jannik Sinner", "-110", "-4.5"), ("Holger Rune", "-120", "4.5")])]},
+                {"description": "Set Props", "markets": [
+                    mk("1st Set Winner", [("Holger Rune", "+170", None), ("Jannik Sinner", "-210", None)], s1p),
+                    mk("1st Set Game Spread", [("Jannik Sinner", "-105", "-1.5"), ("Holger Rune", "-125", "1.5")], s1p),
+                    mk("1st Set Total Games", [("Over", "-110", "9.5"), ("Under", "-110", "9.5")], s1p),
+                    mk("1st Set - Game 3 Winner", [("Jannik Sinner", "-300", None), ("Holger Rune", "+220", None)], s1p),
+                    mk("Set Betting", [("Jannik Sinner 2-0", "+100", None), ("Jannik Sinner 2-1", "+300", None),
+                                       ("Holger Rune 2-0", "+600", None), ("Holger Rune 2-1", "+500", None)])]}]},
+            {"id": "12", "live": False, "startTime": start_ms, "displayGroups": [{"markets": [
+                mk("Moneyline", [("Casper Ruud", "+120", None), ("Taylor Fritz", "-140", None)]),
+                mk("Moneyline", [("Casper Ruud", "+110", None), ("Taylor Fritz", "-130", None)], s1p)]}]},
+            {"id": "13", "live": False, "startTime": start_ms, "displayGroups": [{"markets": [
+                mk("Moneyline", [("Tommy Paul", "+150", None), ("Ben Shelton", "-170", None)])]}]},
+            {"id": "14", "live": True, "startTime": start_ms, "displayGroups": [{"markets": [
+                mk("Moneyline", [("A Guy", "+150", None), ("B Guy", "-170", None)]),
+                mk("Set 1 Winner", [("A Guy", "+150", None), ("B Guy", "-170", None)])]}]}]},
+        {"path": [{"description": "WTA Wuhan"}], "events": [
+            {"id": "21", "live": False, "startTime": start_ms, "displayGroups": [{"markets": [
+                mk("Moneyline", [("Iga Swiatek", "-400", None), ("Coco Gauff", "+300", None)]),
+                mk("Set 1 Winner", [("Iga Swiatek", "-320", None), ("Coco Gauff", "EVEN", None)]),
+                mk("Set 1 Winner", [("Iga Swiatek", "-320", None), ("Coco Gauff", "+250", None)])]}]}]},
+        {"path": [{"description": "ATP Doubles"}], "events": [
+            {"id": "31", "live": False, "startTime": start_ms, "displayGroups": [{"markets": [
+                mk("1st Set Winner", [("X/Y", "+100", None), ("Z/W", "-120", None)])]}]}]}]
+
+
+def test_tennis_set1_parse():
+    """Bovada's first-set markets (research only): '1st Set Winner', 'Set 1 Winner' or a moneyline in a '1st Set'
+    period, the first-set game handicap and set betting are captured per match with the players in the moneyline's
+    order; totals, game props, live events and doubles are not; the picks' match prices are unchanged; the last price
+    before the start is kept; and the real-price hook waits for 300 matched lines."""
+    import sports_tennis as stn
+    import sports_tennis_set1 as s1
+    assert stn.is_set1("1st Set Winner") and stn.is_set1("Set 1 Winner") and stn.is_set1("First Set - Moneyline")
+    assert stn.is_set1("Moneyline 1st Set") and not stn.is_set1("Moneyline") and not stn.is_set1("Set Betting")
+    assert not stn.is_set1("2nd Set Winner") and not stn.is_set1("Set 10 Winner")
+    bov = _bov_set1_payload()
+    rows = {r["event"]: r for r in stn.parse_bovada_set1(bov)}
+    assert set(rows) == {"11", "12", "21"}, rows
+    r = rows["11"]
+    assert (r["a"], r["b"], r["tour"]) == ("Jannik Sinner", "Holger Rune", "atp") and (r["a_ml"], r["b_ml"]) == (-250, 200)
+    assert (r["a_s1"], r["b_s1"]) == (-210, 170), "mapped by name, not by outcome order"
+    assert (r["a_s1_hcp"], r["a_s1_sp"], r["b_s1_hcp"], r["b_s1_sp"]) == (-1.5, -105, 1.5, -125)
+    assert r["set_betting"] == {"Jannik Sinner 2-0": 100, "Jannik Sinner 2-1": 300, "Holger Rune 2-0": 600, "Holger Rune 2-1": 500}
+    assert (rows["12"]["a_s1"], rows["12"]["b_s1"], rows["12"]["a_ml"]) == (110, -130, 120), "a moneyline in a 1st Set period"
+    assert rows["21"]["tour"] == "wta" and rows["21"]["b_s1"] == 250 and "set_betting" not in rows["21"]
+    main = {x["a"]: x for x in stn.parse_bovada(bov)}
+    assert main["Jannik Sinner"]["a_ml"] == -250 and main["Casper Ruud"]["a_ml"] == 120, "the picks' prices untouched"
+    assert main["Jannik Sinner"]["a_hcp"] == -4.5 and "Tommy Paul" in main
+    assert stn.parse_bovada_set1(None) == [] and stn.parse_bovada_set1([{"path": "junk"}]) == []
+    tmp = tempfile.mkdtemp()
+    try:
+        path = os.path.join(tmp, "set1_lines.json")
+        start = datetime.fromtimestamp(1790000000, timezone.utc)
+        stn.save_set1_lines(stn.parse_bovada_set1(bov), start - timedelta(hours=5), path)
+        later = _bov_set1_payload()
+        later[0]["events"][0]["displayGroups"][1]["markets"][0]["outcomes"][0]["price"]["american"] = "+180"
+        stn.save_set1_lines(stn.parse_bovada_set1(later), start - timedelta(minutes=10), path)
+        stn.save_set1_lines(stn.parse_bovada_set1(_bov_set1_payload()), start + timedelta(minutes=5), path)  # started: ignored
+        with open(path) as f:
+            saved = json.load(f)
+        day = start.strftime("%Y-%m-%d")
+        assert set(saved) == {f"sinner|rune|{day}", f"ruud|fritz|{day}", f"swiatek|gauff|{day}"}
+        assert saved[f"sinner|rune|{day}"]["b_s1"] == 180, "the last price before the start"
+        # the real-price hook: matched to finished ESPN results (first set from sets1 / sets2), waits for 300
+        st_iso = start.strftime("%Y-%m-%dT%H:%MZ")
+        ms = [{"id": "atp:1", "tour": "atp", "start": st_iso, "p1_name": "Holger Rune", "p2_name": "Jannik Sinner",
+               "status": "STATUS_FINAL", "sets1": "6 3 4", "sets2": "4 6 6", "bo": "3"},
+              {"id": "wta:2", "tour": "wta", "start": st_iso, "p1_name": "Iga Swiatek", "p2_name": "Coco Gauff",
+               "status": "STATUS_FINAL", "sets1": "3", "sets2": "2", "bo": "3"}]       # (retired inside set 1: void)
+        full = {("atp", "Sinner J."): sorted(("2026-01-%02d" % (i + 1), 1, 0.6) for i in range(15)),
+                ("atp", "Rune H."): sorted(("2026-01-%02d" % (i + 1), 0, 0.5) for i in range(15))}
+        real = s1.real_study(saved, ms, full)
+        assert real["lines"] == 3 and real["matched"] == 1 and real["waiting"] and "tests" not in real
+        gap = real["bovada_set1_vs_markov_from_its_match_line"]
+        assert gap["n"] == 1 and abs(gap["mean_gap"]) < 0.1
+        keep = s1.REAL_MIN
+        s1.REAL_MIN = 1
+        try:
+            real = s1.real_study(saved, ms, full)
+            t = real["tests"]["atp|overperformance"]["thresholds"]["0.05"]["all"]
+            assert t["n"] == 1 and t["hit"] == 0.0 and t["roi"] == -1.0, "backed Sinner (the overperformer); Rune won set 1"
+        finally:
+            s1.REAL_MIN = keep
+    finally:
+        shutil.rmtree(tmp)
+
+
 def test_web_push():
     """🔔 After ntfy takes an alert, the engine hands ntfy's message id to the Worker's /push (and only the id)."""
     import urllib.request
