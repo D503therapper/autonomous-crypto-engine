@@ -341,16 +341,14 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 f'<div class="rc-s">today {tw}-{tl}{f" · streak {st}" if st else ""}</div></div>')
     # locks and value: every call on the board, graded by how sure we were (a parlay's legs each count as their own call,
     # a team we're on twice the same day counts once). Leans never count; the 8-leg lottery ticket keeps its own record.
-    import sports
     calls = {}
     for p in sorted(picks, key=lambda p: p.get("posted") or ""):
         if p.get("lean"):
             continue
         for l in p["legs"]:
             if l.get("result") in ("won", "lost"):
-                t = "lock" if p["kind"] == "lock" else (l.get("tier") or sports.leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}))
-                if t == "lean":
-                    continue                                 # a lean leg (old 8-legs) is never one of our calls
+                # if we posted it, it counts - labeled by the rule: minus money = lock, plus money = value
+                t = "lock" if p["kind"] == "lock" or l["odds"] < 0 else "value"
                 key = (p["date"], l["game_id"], l["side"])
                 if calls.get(key, ("", ""))[0] != "lock":
                     calls[key] = (t, l["result"], p["date"])
@@ -373,8 +371,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     for p in picks:
         if not p.get("lean"):                              # our daily record only: no leans, no live bets
             for l in p["legs"]:
-                if l.get("result") in ("won", "lost") and (p["kind"] == "lock" or (l.get("tier") or sports.leg_tier(
-                        {**l, "edge_own": l.get("edge_own", l.get("edge", 0))})) != "lean"):
+                if l.get("result") in ("won", "lost"):     # if we posted it, it counts
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
     res = list(seen_.values())
     try:
