@@ -670,6 +670,14 @@ def test_no_game_twice_in_a_parlay():
     assert [l["game_id"] for l in out[0]["legs"]] == ["mlb:1", "mlb:2"], "the Marlins never show up twice"
 
 
+def test_ats_disagreement():
+    import sports_ats
+    st = {"nfl": {"proven": True, "b": -0.07}}
+    g = {"ml_home": "164", "ml_away": "-198", "spread_home": "3.5"}          # Bears (home) +3.5, ML says Eagles by ~5.5
+    assert sports_ats.adjust(st, "nfl", g, 0.5) > 0.5, "the moneyline says more than the spread: the dog covers more"
+    assert sports_ats.adjust({"nfl": {"proven": False, "b": -0.07}}, "nfl", g, 0.5) == 0.5, "unproven: no nudge"
+
+
 def test_lines_study():
     import sports_lines
     rnd = random.Random(3)
