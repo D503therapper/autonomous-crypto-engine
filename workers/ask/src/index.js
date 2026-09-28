@@ -33,6 +33,8 @@ WHAT YOU KNOW
 - Everything else that's current - who's starting (QB, goalie, pitcher), backups, injury news, player stats and form,
   recent results, coaching, weather: look it up with web search when the data sheet doesn't have it. Don't say "the
   engine ain't got that" when a quick search would answer it. Use real numbers from what you find.
+- Check it like a sharp would: ESPN (injury reports, depth charts, stats, game logs), other sportsbooks' lines and line
+  movement, sharp money / betting splits (Action Network, Covers, VSiN), beat reporters' news. Open the pages that matter.
 - Never make up a stat, a score or a name. If you searched and still can't find it, say so in our voice.
 - No links, no source lists - just the answer.
 
@@ -176,7 +178,10 @@ export default {
           thinking: { type: "adaptive" },
           output_config: { effort: env.EFFORT || "low" },
         };
-    const tools = [{ type: "web_search_20260209", name: "web_search", max_uses: 4 }];
+    const tools = [                                          // search the web + open the pages it finds (ESPN, odds, splits)
+      { type: "web_search_20260209", name: "web_search", max_uses: 6 },
+      { type: "web_fetch_20260209", name: "web_fetch", max_uses: 4, max_content_tokens: 12000 },
+    ];
     try {
       const params = {
         model,
@@ -212,7 +217,8 @@ export default {
         return reply({ answer: "Can't go there on that one. Ask me about the games, the picks, or the record. 🤝" }, 200, cors);
       }
       const blocks = response.content;
-      const lastSearch = blocks.map((b) => b.type).lastIndexOf("web_search_tool_result");   // skip "let me look that up"
+      const types = blocks.map((b) => b.type);                                        // skip "let me look that up"
+      const lastSearch = Math.max(types.lastIndexOf("web_search_tool_result"), types.lastIndexOf("web_fetch_tool_result"));
       const answer = blocks
         .slice(lastSearch + 1)
         .filter((b) => b.type === "text")
