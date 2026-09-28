@@ -242,16 +242,20 @@ EVM_RPCS = {"base": ["https://base-rpc.publicnode.com", "https://mainnet.base.or
             "eth": ["https://ethereum-rpc.publicnode.com", "https://eth.llamarpc.com", "https://cloudflare-eth.com"]}
 TRANSFER = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
 EVM_REF = {}
+ERRS = {}
 
 
 def evm_rpc(net, method, params):
-    for k in range(6):
+    for k in range(3):
+        if left() < 120:
+            return None
         u = EVM_RPCS[net][k % len(EVM_RPCS[net])]
         r = rpc(u, method, params, tries=1)
         if r is not None and not (isinstance(r, dict) and "__error" in r):
             return r
         if isinstance(r, dict) and "__error" in r and method == "eth_getLogs":
             return r                                     # range / size error -> caller splits the range
+        ERRS[(net, u.split("/")[2], method)] = str(r)[:160]
         time.sleep(1 + k)
     return None
 
@@ -299,7 +303,8 @@ def evm_logs(net, token, b0, b1, depth=0):
             rows.append({"hash": lg["transactionHash"], "block": int(lg["blockNumber"], 16), "from": "0x" + tp[1][-40:],
                          "to": "0x" + tp[2][-40:], "value": str(v)})
         return rows
-    if depth >= 6 or b1 <= b0:
+    ERRS[(net, "getLogs split", depth)] = str(r)[:200]
+    if depth >= 3 or b1 <= b0 or left() < 120:
         return [None]
     m = (b0 + b1) // 2
     return evm_logs(net, token, b0, m, depth + 1) + evm_logs(net, token, m + 1, b1, depth + 1)
@@ -313,13 +318,39 @@ def stamp(rows, net, b0, t0):
     return rows
 
 
+def dump(raw):
+    with gzip.open("results/smartmoney_raw.json.gz", "wt") as f:
+        json.dump(raw, f, separators=(",", ":"))
+
+
+def evm_diag():
+    """Which public RPC answers eth_getLogs for a busy token over ~1 hour of blocks?"""
+    toks = {"base": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", "eth": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"}
+    for net, us in EVM_RPCS.items():
+        for u in us:
+            t = time.time()
+            head = rpc(u, "eth_blockNumber", [], tries=1)
+            if not isinstance(head, str):
+                print(f"  diag {u}: eth_blockNumber {str(head)[:150]}")
+                continue
+            b = int(head, 16) - 20
+            for span in (50, 300, 1800):
+                t = time.time()
+                r = rpc(u, "eth_getLogs", [{"fromBlock": hex(b - span), "toBlock": hex(b), "address": toks[net], "topics": [TRANSFER]}], tries=1)
+                print(f"  diag {net} {u.split('/')[2]} getLogs {span} blocks: "
+                      f"{(str(len(r)) + ' logs') if isinstance(r, list) else str(r)[:200]} in {time.time() - t:.1f}s")
+                sys.stdout.flush()
+                time.sleep(1)
+
+
 def collect_evm(sample, raw):
     """Run 3: keyless public RPC eth_getLogs (Blockscout's keyless API allowed ~10 calls per ~20 min in run 2)."""
+    evm_diag()
     pools = sample["pools"]
     evs = [e for e in sample["events"] if pools[e["k"]]["net"] in BS]
     done_launch = set()
     for n, e in enumerate(evs):
-        if left() < (60 if PARTS == {"evm"} else 0.45 * BUDGET):
+        if left() < (150 if PARTS == {"evm"} else 0.45 * BUDGET):
             print(f"  EVM: budget stop at {n}/{len(evs)}")
             break
         p = pools[e["k"]]
@@ -344,7 +375,9 @@ def collect_evm(sample, raw):
             if l0 and l1:
                 rows = stamp([r for r in evm_logs(net, p["token"], l0, l1) if r is not None], net, l0, c)
                 raw["launch"][e["k"]] = {"n_transfers": len(rows), "first_t": c, "buys": evm_buys(rows, pa)[:400], "src": "evm-rpc"}
-        if n % 20 == 0:
+        if n % 10 == 0:
+            dump(raw)
+        if n % 5 == 0:
             print(f"  EVM {n}/{len(evs)} {p['sym']} pre-hour buys {len(rec.get('buys', []))} transfers {rec.get('n_transfers')} "
                   f"err {rec.get('err')} elapsed {(time.time() - T_START) / 60:.1f}m {json.dumps({h: v for h, v in STATS.items() if 'rpc' in h or 'llama' in h or 'base.org' in h})}")
             sys.stdout.flush()
@@ -447,6 +480,8 @@ def main():
     # (no retry); Solana RPC walked 40 pages x 1000 signatures per pool = only the last ~1-24 hours of history.
     # Run 2: EVM only (SM_PARTS=evm), paced + retried, Base blocks computed from one reference (2 s blocks).
     # Run 2 result: keyless Blockscout = x-ratelimit-limit 10 per ~20 min window (359 of 400 calls 429): 36/237 events.
+    # Run 3 stalled after the eth reference block (no output for 100 min, job timeout; getLogs retries x range splits).
+    # Run 4: diag first, fewer retries / splits, budget checks inside every RPC call, raw dumped every 10 events.
     # Run 3: EVM via public RPC eth_getLogs (publicnode / base.org / llamarpc), launch window = first hour after pool creation.
     print(f"parts {sorted(PARTS)}")
     if "probe" in PARTS:
@@ -476,8 +511,8 @@ def main():
             collect_sol(sample, raw)
         except Exception as e:
             print("SOL crashed:", repr(e))
-    with gzip.open("results/smartmoney_raw.json.gz", "wt") as f:
-        json.dump(raw, f, separators=(",", ":"))
+    dump(raw)
+    print("errors seen:", json.dumps({" | ".join(map(str, k)): v for k, v in ERRS.items()})[:3000])
     print(f"\nwrote results/smartmoney_raw.json.gz: {len(raw['pre'])} pre-trigger windows, {len(raw['launch'])} launch windows")
     print("host stats:", json.dumps(STATS))
     print(f"total {(time.time() - T_START) / 60:.1f} min")
