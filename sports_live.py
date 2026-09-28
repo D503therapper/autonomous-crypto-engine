@@ -814,6 +814,24 @@ def push_live():
     return False
 
 
+GRADER = [None]              # the background grading job (a game ended): the live board never waits on it
+
+
+def grade_in_background(msg):
+    """Grade + rebuild the page in a separate process - it can take minutes on the runner, and the live board must keep
+    updating every few seconds meanwhile. One at a time."""
+    import subprocess
+    if GRADER[0] is not None and GRADER[0].poll() is None:
+        return False
+    GRADER[0] = subprocess.Popen([sys.executable, "-u", "-c", f"import sports_live; sports_live.publish_results({msg!r})"])
+    print(f"{datetime.now(timezone.utc):%H:%M:%S} grading in the background", flush=True)
+    return True
+
+
+def grading():
+    return GRADER[0] is not None and GRADER[0].poll() is None
+
+
 def publish_results(msg):
     """Grade the picks the moment games end and rebuild the dashboard (sports.quick), then push picks + page to main."""
     import importlib
@@ -913,8 +931,9 @@ def loop(minutes, every_s=10):
     while time.time() < end:
         if games is None or int(time.time()) % 600 < every_s:          # pull the latest games/model every ~10 min
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pulling", flush=True)
-            _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
-            if _code_hash() != code:                        # new live code landed: restart on it right now, so a fix
+            if not grading():                                # (the grader has git busy - pull next time)
+                _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+            if _code_hash() != code and not grading():      # new live code landed: restart on it right now, so a fix
                 left = max(1.0, (end - time.time()) / 60)   # never waits behind a watch running the old code
                 print(f"{datetime.now(timezone.utc):%H:%M:%S} new code - restarting on it ({left:.0f} min left)", flush=True)
                 os.execv(sys.executable, [sys.executable, "-u", "sports_live.py", "--loop", f"{left:.1f}"])
@@ -948,19 +967,22 @@ def loop(minutes, every_s=10):
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pushing the board", flush=True)
             if push_live():
                 last_board, last_push = board, time.time()
-        if _log_key() != last_log:
+        if _log_key() != last_log and not grading():            # (git one job at a time)
             publish(f"live log {datetime.now(timezone.utc):%H:%M}")
             last_log = _log_key()
         if finals_seen is None:                                   # a watch starts: grade whatever ended meanwhile
             finals_seen = set(FINALS)
-            publish_results(f"results {datetime.now(timezone.utc):%H:%M}")
-            last_log = _log_key()
+            grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}")
         elif FINALS - finals_seen:                                # a game just ended: grade it and post results now
             print(f"{datetime.now(timezone.utc):%H:%M:%S} games ended: grading", flush=True)
             finals_seen = set(FINALS)
-            publish_results(f"results {datetime.now(timezone.utc):%H:%M}")
-            last_log = _log_key()
+            grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}")
         time.sleep(every_s)
+    if grading():                                                 # let a background grade finish before the job ends
+        try:
+            GRADER[0].wait(timeout=420)
+        except Exception:                                         # noqa: BLE001
+            pass
     if os.path.exists(LIVE_JSON):                                 # end of watch: an empty board if nothing's on
         out = json.load(open(LIVE_JSON))
         if not started:
