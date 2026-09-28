@@ -535,7 +535,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 5                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 6                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -562,9 +562,9 @@ def breakdown(c, rt, used):
         out.append(v.say("t_spread_dog", [
             f"🎯 {me} +{c['hcp']:g} games. Even if {he} drops the match, we still cash as long as it's close. That's the value.",
             f"🎯 Book thinks {me} gets blown out. Nah. {me} +{c['hcp']:g} games — {he} keeps it close and we eat.",
-            f"🎯 Taking the games with {me} (+{c['hcp']:g}). {He} might lose, {he} ain't getting smacked. We cash either way if it's tight.",
+            f"🎯 Taking the games with {me} (+{c['hcp']:g}). Even if {he} loses, it stays close — and close still cashes for us.",
             f"🎯 {me} getting {c['hcp']:g} games? Free money energy. {He}'s way more dangerous than this number says.",
-            f"🎯 {me} +{c['hcp']:g} games. {He} don't even gotta win — just make it a fight, and {he} will."], must=True))
+            f"🎯 {me} +{c['hcp']:g} games. {He} can lose the match and we still cash — long as {he} don't lose by more than {c['hcp']:g} games."], must=True))
     elif c.get("market") == "spread":
         n = abs(c["hcp"])
         out.append(v.say("t_spread", [
