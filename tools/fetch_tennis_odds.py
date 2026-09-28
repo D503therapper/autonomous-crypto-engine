@@ -6,9 +6,11 @@ only fetched once; the current year is refreshed every run."""
 import csv
 import gzip
 import io
+import json
 import os
 import sys
 import time
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
@@ -30,16 +32,15 @@ ERRS = []
 
 
 def _get(url):
-    for u in dict.fromkeys((url.replace("http://", "https://"), url)):
-        for i in range(2):
-            try:
-                with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=90) as r:
-                    return r.read()
-            except Exception as e:                           # noqa: BLE001
-                ERRS.append(f"{u}: {e}")
-                if "404" in str(e):
-                    break
-                time.sleep(2)
+    for i in range(2):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+                return r.read()
+        except Exception as e:                               # noqa: BLE001
+            ERRS.append(f"{url}: {e}")
+            if "404" in str(e) or "403" in str(e):
+                return None
+            time.sleep(3)
     return None
 
 
@@ -104,21 +105,44 @@ def raw_files():
     return out
 
 
+def _latest_capture(path):
+    """The internet archive's newest good copy of a file: (timestamp, original url) or None."""
+    q = urllib.parse.quote(path, safe="/.")
+    blob = _get(f"https://web.archive.org/cdx/search/cdx?url={q}&filter=statuscode:200&output=json&fl=timestamp,original")
+    try:
+        rows = json.loads(blob or b"[]")[1:]
+    except ValueError:
+        return None
+    return max(rows) if rows else None
+
+
 def year(tour, y, direct=True):
-    """(rows, source) for one season: the site itself, else the internet archive's copy (the site blocks servers)."""
-    path = f"www.tennis-data.co.uk/{y}{'w' if tour == 'wta' else ''}/{y}"
-    now = datetime.now(timezone.utc)
-    when = now.strftime("%Y%m%d") if y >= now.year else f"{y + 1}0701"     # a copy taken after the season ended
-    tries = ([("site", f"http://{path}")] if direct else []) + [("archive", f"https://web.archive.org/web/{when}id_/http://{path}")]
-    for src, base in tries:
-        for ext in ("xlsx", "xls"):
-            blob = _get(f"{base}.{ext}")
+    """(rows, source) for one season: the site itself, else the internet archive's newest copy (the site blocks servers)."""
+    path = f"tennis-data.co.uk/{y}{'w' if tour == 'wta' else ''}/{y}"
+    for ext in ("xlsx", "xls"):
+        if direct:
+            blob = _get(f"http://www.{path}.{ext}")
+            if blob:
+                return _parse(blob, ext, tour), "site"
+        cap = _latest_capture(f"{path}.{ext}")
+        if cap:
+            blob = _get(f"https://web.archive.org/web/{cap[0]}id_/{cap[1]}")
             if blob:
                 try:
-                    return _parse(blob, ext, tour), src
+                    return _parse(blob, ext, tour), f"archive {cap[0][:8]}"
                 except Exception as e:                       # noqa: BLE001 - not a real season file
-                    ERRS.append(f"{base}.{ext}: unreadable ({e})")
+                    ERRS.append(f"{cap}: unreadable ({e})")
     return None, None
+
+
+def _save(keep):
+    keep.sort(key=lambda r: (r["date"], r["tour"]))
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with gzip.open(OUT + ".tmp", "wt", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(keep)
+    os.replace(OUT + ".tmp", OUT)
 
 
 def main():
@@ -147,13 +171,8 @@ def main():
                 blocked = True
             if rows:
                 keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
-    keep.sort(key=lambda r: (r["date"], r["tour"]))
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with gzip.open(OUT + ".tmp", "wt", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLS, extrasaction="ignore")
-        w.writeheader()
-        w.writerows(keep)
-    os.replace(OUT + ".tmp", OUT)
+                _save(keep)                                  # saved as it goes - a slow run never loses what it got
+    _save(keep)
     print(f"saved {len(keep)} matches -> {OUT}")
     return 0
 
