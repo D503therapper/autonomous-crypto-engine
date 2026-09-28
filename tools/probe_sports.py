@@ -1,68 +1,54 @@
-"""Probe: where can the engine see WHO the public is betting (tickets % / money %)? Action Network first
-(the engine already reads its odds), a few URL shapes, today's MNF and a past week (for a history study)."""
+"""Probe: Action Network's public splits (bet_info: % of tickets / % of money) - does history go back far enough
+for a 'fade the public' study, and what are tonight's Bears-Eagles splits?"""
 import json
 import urllib.request
 
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
       "Accept": "application/json"}
+AN2 = "https://api.actionnetwork.com/web/v2/scoreboard/{lg}?bookIds=15,30&date={day}{extra}"
+EXTRA = {"ncaaf": "&division=FBS", "ncaab": "&division=D1"}
 
 
 def get(url):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=20) as r:
+    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=25) as r:
         return json.load(r)
 
 
-def hunt(o, path="", out=None, depth=0):
-    out = [] if out is None else out
-    if depth > 8 or len(out) > 40:
-        return out
-    if isinstance(o, dict):
-        for k, v in o.items():
-            if any(s in k.lower() for s in ("public", "ticket", "money", "bet_info", "percent", "handle", "consensus")):
-                out.append(f"{path}/{k} = {str(v)[:240]}")
-            hunt(v, f"{path}/{k}", out, depth + 1)
-    elif isinstance(o, list):
-        for i, v in enumerate(o[:4]):
-            hunt(v, f"{path}[{i}]", out, depth + 1)
+def splits(g):
+    ev = (((g.get("markets") or {}).get("15") or {}).get("event") or {})
+    out = {}
+    for mk in ("moneyline", "spread", "total"):
+        for o in ev.get(mk) or []:
+            bi = o.get("bet_info") or {}
+            out[f"{mk}:{o.get('side')}"] = (o.get("odds"), o.get("value"), (bi.get("tickets") or {}).get("percent"),
+                                            (bi.get("money") or {}).get("percent"))
     return out
 
 
-URLS = [
-    "https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20260928",
-    "https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&bookIds=15,30,68,69,71,75&date=20260928",
-    "https://api.actionnetwork.com/web/v2/scoreboard/nfl?bookIds=15,30&date=20260928",
-    "https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20251020",
-    "https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date=20260927",
-]
-gid = None
-for u in URLS:
-    try:
-        d = get(u)
-        games = d.get("games") or []
-        print(f"\n== {u}\n   games: {len(games)}; top keys: {list(games[0].keys()) if games else list(d.keys())}")
-        if games and gid is None and "20260928" in u:
-            gid = games[0].get("id")
-        for line in hunt(games[:1]):
-            print("  ", line)
-    except Exception as e:                                   # noqa: BLE001
-        print(f"\n== {u}\n   ERR {e}")
-for u in ([f"https://api.actionnetwork.com/web/v1/games/{gid}", f"https://api.actionnetwork.com/web/v2/games/{gid}",
-           f"https://api.actionnetwork.com/web/v1/games/{gid}/polls"] if gid else []):
-    try:
-        d = get(u)
-        print(f"\n== {u}\n   top keys: {list(d.keys())[:40]}")
-        for line in hunt(d):
-            print("  ", line)
-    except Exception as e:                                   # noqa: BLE001
-        print(f"\n== {u}\n   ERR {e}")
-for u in ["https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=401872963"]:
-    try:
-        d = get(u)
-        print("\n== ESPN summary pickcenter/predictor")
-        for line in hunt({"pickcenter": d.get("pickcenter"), "predictor": d.get("predictor"),
-                          "againstTheSpread": d.get("againstTheSpread")}):
-            print("  ", line)
-        print("   predictor:", str(d.get("predictor"))[:300])
-    except Exception as e:                                   # noqa: BLE001
-        print("ESPN ERR", e)
+def names(g):
+    t = {x.get("id"): x.get("display_name") or x.get("full_name") for x in g.get("teams") or []}
+    return f"{t.get(g.get('away_team_id'))} @ {t.get(g.get('home_team_id'))}"
+
+
+d = get(AN2.format(lg="nfl", day="20260928", extra=""))
+for g in d.get("games") or []:
+    if "Bears" in names(g) or "Eagles" in names(g):
+        print("MNF:", names(g), g.get("status"), json.dumps(splits(g)))
+        print("   num_bets:", g.get("num_bets"), "| full game keys:", list(g.keys()))
+        print("   sample:", json.dumps(g)[:1500])
+
+for lg, days in {"nfl": ["20260921", "20251019", "20241020", "20231015", "20221016", "20211017", "20201018", "20191020"],
+                 "nba": ["20260315", "20250115", "20240115", "20230115", "20220115", "20200115"],
+                 "mlb": ["20260915", "20250615", "20240615", "20230615", "20220615", "20190615"],
+                 "nhl": ["20260115", "20250115", "20240115", "20220115"],
+                 "ncaaf": ["20260919", "20251018", "20231014", "20211016"],
+                 "ncaab": ["20260115", "20250115", "20230115", "20210115"]}.items():
+    for day in days:
+        try:
+            gs = get(AN2.format(lg=lg, day=day, extra=EXTRA.get(lg, ""))).get("games") or []
+            have = [g for g in gs if any((v[2] or 0) > 0 for v in splits(g).values())]
+            ex = splits(have[0]) if have else {}
+            print(f"{lg} {day}: {len(gs)} games, {len(have)} with public splits"
+                  + (f" | e.g. {names(have[0])} {ex.get('moneyline:home')} {ex.get('spread:home')}" if have else ""))
+        except Exception as e:                               # noqa: BLE001
+            print(f"{lg} {day}: ERR {e}")
