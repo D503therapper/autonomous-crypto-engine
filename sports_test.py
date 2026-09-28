@@ -229,6 +229,9 @@ def test_board_rules():
     eight = sports.make_board(slate)["eight"]["legs"]
     assert len(eight) == 8 and len({l["game_id"] for l in eight}) == 8 and all(sports.good(l) for l in eight)
     assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
+    bd = sports.make_board(slate)
+    core_games = {l["game_id"] for k in ("lock", "two", "three") if bd.get(k) for l in bd[k]["legs"]}
+    assert core_games <= {l["game_id"] for l in bd["eight"]["legs"]}, "the 8-leg carries the Lock + 2-leg + 3-leg calls"
     assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
     short = slate[:5] + [_cand(f"n{i}", -120, 0.50) for i in range(5)]      # only 5 value legs: still an 8-leg
     short += [_cand("sp", -110, 0.51, "spread", -10.5, "nfl")]              # a no-value big-favorite spread: never filler

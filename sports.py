@@ -234,6 +234,32 @@ def _parlay(cands, n, top=40):
     return {"legs": list(combo), "dec": dec, "p_hit": p}
 
 
+def _eight(cands, core):
+    """The 8-leg: our board's calls first (the Lock + the 2-leg + 3-leg legs), then the best lock/value plays left, and
+    only if the slate's truly short on value, the likeliest leans (tagged LEAN, never counted in our record)."""
+    legs, games_ = [], set()
+    for c in core:
+        if c and c["game_id"] not in games_ and c["odds"] >= MAX_FAV:
+            legs.append(c)
+            games_.add(c["game_id"])
+    rest = sorted((c for c in cands if c["game_id"] not in games_ and c["odds"] >= MAX_FAV
+                   and (good(c) or (c["market"] == "ml" and c.get("reasons")))),
+                  key=lambda c: (not good(c), leg_tier(c) != "lock", -c["p"], -c["edge"]))   # locks, value, then leans
+    for c in rest:
+        if len(legs) >= 8:
+            break
+        if c["game_id"] not in games_:
+            legs.append(c)
+            games_.add(c["game_id"])
+    if len(legs) < 8:
+        return None
+    dec, p = 1.0, 1.0
+    for c in legs:
+        dec *= c["dec"]
+        p *= c["p"]
+    return {"legs": legs, "dec": dec, "p_hit": p}
+
+
 def one_side(cands):
     """One side per game - never both teams. Value wins, unless the other side is a lock or a strong lean."""
     side = {}
@@ -243,10 +269,10 @@ def one_side(cands):
     return [c for c in cands if c["side"] == side[c["game_id"]]]
 
 
-def make_board(cands, lock_game=None, allow_lean=False, avoid=()):
+def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None):
     """{kind: pick or None} following the owner's rules (lock_game: an already-posted lock's game, kept off the dog)."""
     cands = one_side(cands)
-    board = {"two": _parlay(cands, 2), "three": _parlay(cands, 3), "eight": _parlay(cands, 8, top=80)}
+    board = {"two": _parlay(cands, 2), "three": _parlay(cands, 3)}
     ml = [c for c in cands if c["market"] == "ml" and good(c)]
     locks = [c for c in ml if c["odds"] >= LOCK_MAX_FAV]
     lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None
@@ -260,6 +286,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=()):
     if big:
         dog = max(big, key=lambda c: c["edge"])
     board["dog"] = {"legs": [dog], "dec": dog["dec"], "p_hit": dog["p"]} if dog else None
+    core = core if core is not None else [c for k in ("lock", "two", "three") for c in ((board.get(k) or {}).get("legs") or [])]
+    board["eight"] = _eight(cands, core)
     for kind, pick in list(board.items()):                  # during the day, a graded spot never sits empty: best lean
         if pick is None and allow_lean:
             board[kind] = lean([c for c in cands if c["game_id"] not in avoid], kind, taken)   # never a game we're already on
@@ -441,7 +469,13 @@ def post_board(games, model, picks, now, day, force=False):
         if replacing and sum(p["date"] == iso and (p.get("round") or 1) > 1 for p in picks) >= MAX_REPLACEMENTS:
             continue                                          # enough for today - accuracy over volume
         avoid = {l["game_id"] for p in picks if p["date"] == iso and p["status"] == "open" for l in p["legs"]}
-        best = make_board(cands, lock_game, allow_lean=replacing, avoid=avoid).get(kind)
+        core = None
+        if kind == "eight":                                  # the 8-leg carries the board's posted calls
+            on = [(l["game_id"], l["side"], l["market"], l.get("line")) for k in ("lock", "two", "three")
+                  if k in posted and posted[k].get("legs") for l in posted[k]["legs"]]
+            if on:
+                core = [c for key in on for c in cands if (c["game_id"], c["side"], c["market"], c.get("line")) == key]
+        best = make_board(cands, lock_game, allow_lean=replacing, avoid=avoid, core=core).get(kind)
         if not best:
             continue
         deadline = min(_start(l) for l in best["legs"]) - timedelta(minutes=DEADLINE_MIN)
