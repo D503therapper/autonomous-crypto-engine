@@ -538,7 +538,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 9                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 10                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -743,8 +743,8 @@ def post(ms, rt, w, lines, picks, now, gm=None):
         return None
     cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), rankings(now) if lines else {},
                        news_sync(now) if lines else {}, gm)
-    already = {l["id"] for p in picks for l in p.get("picks") or []}       # a match already on a slate never goes up twice
-    cands = [c for c in cands if c["id"] not in already]
+    already = {l.get("match") or l["id"] for p in picks for l in p.get("picks") or []}   # a MATCH already on a slate
+    cands = [c for c in cands if (c.get("match") or c["id"]) not in already]            # never goes up twice (any bet)
     straights, parlay = pick_slate(cands)
     if not straights:
         return None

@@ -74,10 +74,13 @@ def _names(rows, k=3):
     return ", ".join(names) + (f" +{more} more" if more > 0 else "")
 
 
-SLANG = ("cheeks clapped", "complete ass", "smack that ass", "about to cook", "let's eat", "we're eating", "tap in",
-         "we gon' see", "we finna see", "trust the algorithm", "i won't let y'all down", "levels to this", "whole nother caliber",
-         "line makers trippin", "go to work", "handle business", "take care of business", "sheep", "clowns", "run it back",
-         "teams always be coming back", "a gift")
+SLANG = {                        # our big phrases: each FAMILY shows up once on a board (any wording of it)
+    "cheeks": r"cheeks", "complete ass": r"complete ass", "smack": r"smack that ass", "cook": r"\bcook(ing)?\b",
+    "eat": r"\b(let's eat|we eat|we're eating|we eating|eat)\b", "tap in": r"tap in", "we gon see": r"gon' see|finna see",
+    "trust": r"trust (the algorithm|it)", "let y'all down": r"let y'all down", "levels": r"levels to this|whole nother caliber",
+    "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
+    "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
+    "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater"}
 
 
 class Voice:
@@ -94,7 +97,7 @@ class Voice:
         start = sum(map(ord, f"{self.seed}|{key}")) % len(options)
         order = [(start + i) % len(options) for i in range(len(options))]
         def slang(x):
-            return [f"slang:{s}" for s in SLANG if s in x.lower()]
+            return [f"slang:{k}" for k, pat in SLANG.items() if re.search(pat, x.lower())]
         for fresh_only in (True, False):
             for n in order:
                 tag = f"{key}:{n}"
