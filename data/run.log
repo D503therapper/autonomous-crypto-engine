@@ -1983,3 +1983,42 @@ DEX: $731.74 (-68.26) · Scammed: 0
 [2026-09-28 16:06 UTC] stocks/trend     equity $491.84 (-1.6%) 4 open  market UP
 [2026-09-28 16:06 UTC] stocks/hold_spy  equity $497.90 (-0.4%) 1 open  market UP
    social heat top: QNT 37 (37/0/0), HBAR 35 (35/0/0), NEAR 32 (32/0/0), ONDO 29 (29/0/0), LINK 27 (27/0/0)
+   dex screen: REJECT AURORA@ethereum liq $457,610 - top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT FET@ethereum liq $1,647,374 - transfer_pausable; is_mintable; hidden_owner; top-10 holders 49%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HYDX@base liq $1,065,474 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 72%
+   dex screen: REJECT SI@solana liq $651,239 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT DJT@solana liq $342,507 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 62%; lp holders unknown
+   dex screen: REJECT GRASS@solana liq $168,444 - mint authority; top-10 holders 51%; lp holders unknown
+   dex screen: REJECT O@base liq $1,849,887 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT AERO@base liq $41,198,817 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 66%
+   dex screen: REJECT AURORA@ethereum liq $469,794 - top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT NEURAL@ethereum liq $952,131 - transfer_pausable; is_whitelisted; buy tax 4%; sell tax 4%
+   dex screen: REJECT AZTEC@ethereum liq $15,728,271 - top-10 holders 100%
+   dex screen: REJECT CAKE@solana liq $102,708 - holders unknown; lp holders unknown; rugcheck lp locked 89% < 95%
+   dex screen: REJECT GOON@solana liq $231,715 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT SKHY@solana liq $2,462,907 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 84%
+   dex screen: REJECT SPCXX@solana liq $2,633,479 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 90%
+   dex screen: REJECT ZEC@solana liq $2,981,379 - mint authority
+   dex screen: REJECT AZTEC@ethereum liq $15,748,330 - top-10 holders 100%
+   dex screen: PASS KIBSHI@ethereum liq $354,699
+   dex screen: REJECT ZC@ethereum liq $103,797 - top-10 holders 100%; lp locked 0% < 95%
+   dex scanner: 2,405 pools (solana 1,748 / base 345 / ethereum 312), refresh cycle 117s (hot 113s), 2814 calls (108 feed, 429s 0, failed 1), 81,137 refreshed (11218 no pair), +59 added / -502 dropped (dead 488, stale 14, cap 0), movers 5 + warming 21 -> queued 11, screened 11 (passed 0), bought 0
+   dex screen: REJECT STOCKER@ethereum liq $102,474 - lp locked 0% < 95%
+[2026-09-28 17:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-28 17:06 UTC] crypto/mover     equity $463.34 (-7.3%) 1 open  market UP
+[2026-09-28 17:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 17:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 17:06 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-28 17:06 UTC] crypto/breakout10 equity $493.51 (-1.3%) 2 open  market UP
+[2026-09-28 17:06 UTC] crypto/momentum  equity $491.37 (-1.7%) 4 open  market UP
+[2026-09-28 17:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-28 17:06 UTC] crypto/hold_btc  equity $497.43 (-0.5%) 1 open  market UP
+[2026-09-28 17:06 UTC] stocks/rsi2      equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 17:06 UTC] stocks/dual_momentum equity $497.74 (-0.5%) 2 open  market UP
+[2026-09-28 17:06 UTC] stocks/trend_ensemble equity $498.94 (-0.2%) 5 open  market UP
+[2026-09-28 17:06 UTC] stocks/rotation10 equity $490.68 (-1.9%) 2 open  market UP
+[2026-09-28 17:06 UTC] stocks/momentum  equity $495.05 (-1.0%) 4 open  market UP
+[2026-09-28 17:06 UTC] stocks/trend     equity $493.88 (-1.2%) 4 open  market UP
+[2026-09-28 17:06 UTC] stocks/hold_spy  equity $498.73 (-0.3%) 1 open  market UP
+   social heat top: QNT 37 (37/0/0), HBAR 35 (35/0/0), TRUMP 32 (32/0/0), PUMP 31 (24/0/7), NEAR 29 (29/0/0)
