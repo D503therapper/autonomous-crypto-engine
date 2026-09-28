@@ -2101,3 +2101,28 @@ DEX: $731.74 (-68.26) · Scammed: 0
    social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
    social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
    social: reddit/memecoins HTTP 403  (retry in 30 min)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-09-28 18:52 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   early_mover: QNT vetoed by pump guard: already +31% in 24h
+[2026-09-28 18:52 UTC] crypto/mover     equity $470.83 (-5.8%) 1 open  market UP
+[2026-09-28 18:52 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 18:52 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 18:52 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-28 18:52 UTC] crypto/breakout10 equity $494.06 (-1.2%) 2 open  market UP
+[2026-09-28 18:52 UTC] crypto/momentum  equity $492.97 (-1.4%) 4 open  market UP
+[2026-09-28 18:52 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-28 18:52 UTC] crypto/hold_btc  equity $498.97 (-0.2%) 1 open  market UP
+[2026-09-28 18:53 UTC] stocks/rsi2      equity $500.00 (+0.0%) 0 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 15 and above its 200-day avg): XLRE 2, TLT 5, TSLA 19, NFLX 20
+[2026-09-28 18:53 UTC] stocks/dual_momentum equity $498.70 (-0.3%) 2 open  market UP
+[2026-09-28 18:53 UTC] stocks/trend_ensemble equity $499.08 (-0.2%) 5 open  market UP
+[2026-09-28 18:53 UTC] stocks/rotation10 equity $491.17 (-1.8%) 2 open  market UP
+[2026-09-28 18:53 UTC] stocks/momentum  equity $495.10 (-1.0%) 4 open  market UP
+[2026-09-28 18:53 UTC] stocks/trend     equity $493.95 (-1.2%) 4 open  market UP
+[2026-09-28 18:53 UTC] stocks/hold_spy  equity $498.87 (-0.2%) 1 open  market UP
+   social heat top: TRUMP 40 (27/0/14), QNT 40 (40/0/0), HBAR 37 (37/0/0), LINK 32 (32/0/0), NEAR 29 (29/0/0)
