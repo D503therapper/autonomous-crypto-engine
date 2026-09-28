@@ -10,6 +10,49 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 > it, cherry-pick commit 8d347f9 onto main when the owner says yes.
 
 
+### DONE 2026-09-28 - Smart-money wallets: free to track LIVE, not free to backfill; history test inconclusive (tiny) - NO CHANGE
+Q (owner): can we follow "smart money" - wallets that keep buying meme coins early before big runs - with free, keyless data,
+and would "N known-good wallets bought in the last hour" at our +10% entry separate runners from duds?
+METHOD: tools/probe_smartmoney.py on GitHub Actions (4 runs; workflow probe_smartmoney.yml, log results/probe_smartmoney.txt +
+git history, raw buyers results/smartmoney_raw.json.gz). Events = the consolidated study's 366 pool-sequential live-entry trades
+(205 pools, 07-07..09-27, live exit outcome; tools/smartmoney_sample.json). Buyers = wallets with a net token inflow in a tx where
+the pool (or the Uniswap v4 PoolManager) paid out tokens (EVM) / the tx signer's token balance rose (Solana). smartmoney_study.py
+(offline, tests smartmoney_study_test.py): reputation only from OTHER pools of the same chain whose outcome (>= 2x peak = runner,
+exit <= 0 = dud) was known before the entry; wallets in >= 20% of prior lists dropped as bots; known-good = >= 1 runner and more
+runners than duds. Results in results/smartmoney_study.txt.
+SOURCES (keyless, from a GitHub runner):
+  GeckoTerminal /pools/{pool}/trades   WORKS on solana/base/eth: tx_from_address, kind buy/sell, volume_usd, block time. Only the
+                                       last 300 trades (~7h on WOJAK; before_timestamp ignored) -> live only. 12-call burst: 6 x 429
+                                       (keep >= 2 s between calls, ~30/min).
+  Solana public RPC (mainnet-beta,     getSignaturesForAddress 1000/call ok, ~10 calls then 429; getTransaction needs
+   publicnode; drpc failed)            maxSupportedTransactionVersion 1 now. Pools run ~1,000 tx/hour (median, max 600k/h): 40 pages
+                                       reach back only ~25 h (median) -> 105 of 114 Solana entry hours unreachable; ~100k calls for
+                                       Jul-Sep. NOT feasible for history.
+  Blockscout base/eth (etherscan api)  works but keyless limit ~10 calls per ~20 min window: 359/400 calls 429 (run 2).
+  Public EVM RPC eth_getLogs           mainnet.base.org + base-rpc.publicnode.com (20k-result cap, ~50-300 blocks/call) worked for
+                                       Base: 58 entry hours + 30 launch hours in 93 min. Ethereum (publicnode) timed out / failed for
+                                       every window (37 tried); llamarpc / cloudflare-eth refused.
+  DexScreener (no trader API; io log empty), pump.fun (v3 needs chainId, old host dead), Birdeye / Helius / Solscan pro / Moralis
+  (401 without key), Solscan web (403 Cloudflare), Solscan public v1 (404), SolanaFM (502): none usable.
+RESULT (67 entries with buyers: 58 Base 07-08..08-21 + 9 Solana from the last day; runner = peak >= 2x):
+  Overlap: 4,687 wallets in 70 pools; 307 in >= 2 pools, 86 in >= 3; 5 bot-like (in 15-26 pools, runner:dud ~ base rate).
+  Non-bot wallets early in >= 2 runner pools: 104 vs 73 with shuffled labels (95th pct 113, p = 0.13) - not significant.
+  Walk-forward: known-good wallet(s) in the hour before entry fired on only 3 of 67 entries (all in the newer half, Aug 13-21;
+  1 runner = BASECAT +3650%, 2 mids); 0 fired in the older half. Known-good wallet among the launch buyers: 8 entries, 38% runners
+  vs 19% baseline (3 of 8, incl. BASECAT; 4 duds). Wallets are mostly "bad" (32 entries had more known-bad than known-good) because
+  duds outnumber runners 3:1. Far too few firings to trust either way; no half-split test possible.
+DECISION: nothing to change in dex.py. Smart money cannot be backfilled for free on Solana (our main runner chain), so the only
+honest test is forward. Probe/collector left as a tool; the 95-min workflow re-runs only on edits to its two files.
+
+### NEXT - live wallet tracker (smart money, forward test; no engine change)
+A GitHub Actions job (every 30-60 min, own workflow, own commit) polls GeckoTerminal /pools/{pool}/trades for every pool the
+DEX hunter screened, holds or rejected in the last 48h (+ trending lists), >= 2.1 s between calls (<= ~25 pools/run, rotate by
+last-poll time), and appends new buys to data/dex/wallet_trades.csv.gz (pool, t, wallet, usd, tx). Label pools from the existing
+snapshots / outcomes (>= 2x within 14 days vs <= 0). After ~4 weeks (enough for >= 30 runners) re-run smartmoney_study.py on it:
+walk-forward reputation, bot filter, older/newer halves; adopt only if "known-good wallets in the last hour" lifts the runner rate
+in BOTH halves with >= 20 firings each. Optional: add Base history via mainnet.base.org getLogs (works, ~1 min/entry hour).
+Free Blockscout / Helius keys (sign-up, no card) would speed EVM/Solana history - owner decision.
+
 ### DONE 2026-09-27 - "goplus unreachable" on 0xb2000... Base tokens (BASECAT, NVDAc, AAPLc, METAC, BLUECHIP)
 Probe (results/probe_goplus.txt + git history): GoPlus DID answer - HTTP 200, code 3, message "OK", a result with only
 14-15 fields (name, supply, holders, lp_holders, dex, is_open_source, "" taxes, "" owner) and NO is_honeypot / mint /
