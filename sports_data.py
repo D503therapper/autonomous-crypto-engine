@@ -5,6 +5,7 @@ import csv
 import glob
 import json
 import os
+import threading
 import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -33,6 +34,35 @@ FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_
           "total", "over_odds", "under_odds"]
 REAL = ("2", "3", "?")          # regular season + playoffs; preseason / spring training / all-star games don't count
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
+
+
+# ---------------------------------------------------------------- 🔔 live bet alerts
+def web_push(ntfy_raw):
+    """After an ntfy post: hand its message id to the Worker's /push (from ask_url.txt) so the dashboard's native
+    Web Push alerts ring too. The Worker looks the id up on ntfy itself, so no secret is needed. Runs in its own
+    thread with a 5s timeout: never blocks, never raises (errors are logged). Returns the thread (tests join it)."""
+    try:
+        nid = json.loads(ntfy_raw or b"{}").get("id")
+        with open(os.path.join(DATA, "ask_url.txt")) as f:
+            url = f.read().strip().rstrip("/")
+    except Exception as e:                                   # noqa: BLE001 - no id / no Worker: ntfy still went out
+        print(f"   web push skipped: {str(e)[:60]}")
+        return None
+    if not nid or not url.startswith("https://"):
+        return None
+
+    def go():
+        req = urllib.request.Request(f"{url}/push", data=json.dumps({"ntfy_id": nid}).encode(), method="POST",
+                                     headers={"Content-Type": "application/json", "User-Agent": "d503-engine"})
+        try:
+            urllib.request.urlopen(req, timeout=5).read()
+        except Exception as e:                               # noqa: BLE001
+            ERRORS.append(f"web push: {str(e)[:60]}")
+            print(f"   web push failed: {str(e)[:60]}")
+
+    t = threading.Thread(target=go, name="web-push")
+    t.start()
+    return t
 
 
 # ---------------------------------------------------------------- odds helpers

@@ -608,9 +608,11 @@ def notify(pl, back=False):
         "Title": f"{'BACK ON: ' if back else ''}LIVE PLUS MONEY: {pl['team']} {o}".encode("latin-1", "ignore").decode("latin-1"),
         "Tags": "rotating_light", "Click": DASH_URL, "Priority": "high"})
     try:
-        urllib.request.urlopen(req, timeout=5).read()
+        raw = urllib.request.urlopen(req, timeout=5).read()
     except Exception as e:                                   # noqa: BLE001 - a push failing never stops the watch
         sd.ERRORS.append(f"notify: {str(e)[:60]}")
+        return None
+    return sd.web_push(raw)                                  # 🔔 + the dashboard's own alerts (Web Push)
 
 
 def cycle(games, model, log, now=None, st=None, showing=(), prev=None):

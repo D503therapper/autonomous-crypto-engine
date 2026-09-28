@@ -1,6 +1,7 @@
 // 🤔 GOT A QUESTION? - the AI version. The dashboard POSTs {q, history}; this adds the engine's data sheet and asks
 // Claude, which answers in our voice from the engine's facts only. The API key never leaves Cloudflare.
 import Anthropic from "@anthropic-ai/sdk";
+import { ROUTES as PUSH_ROUTES, handlePush } from "./push.js";   // 🔔 live bet alerts (Web Push)
 
 const BRAIN_URL = "https://d503therapper.github.io/autonomous-crypto-engine/sports/brain.json";
 const LIVE_URL = "https://raw.githubusercontent.com/D503therapper/autonomous-crypto-engine/live-data/live.json";
@@ -309,6 +310,8 @@ async function getJson(url, ttl) {
 
 export default {
   async fetch(request, env, ctx) {
+    const path = new URL(request.url).pathname.replace(/\/+$/, "");
+    if (PUSH_ROUTES.has(path)) return handlePush(request, env, ctx, path, ORIGINS);
     const origin = request.headers.get("Origin") || "";
     const cors = {
       "Access-Control-Allow-Origin": ORIGINS.includes(origin) ? origin : ORIGINS[0],

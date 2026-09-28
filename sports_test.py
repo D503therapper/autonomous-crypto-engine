@@ -1992,6 +1992,62 @@ def test_tennis_edge():
     shutil.rmtree(tmp)
 
 
+def test_web_push():
+    """🔔 After ntfy takes an alert, the engine hands ntfy's message id to the Worker's /push (and only the id)."""
+    import urllib.request
+    import sports_dashboard
+    tmp = tempfile.mkdtemp()
+    with open(os.path.join(tmp, "ask_url.txt"), "w") as f:
+        f.write("https://d503-ask.example.workers.dev/\n")
+    sent = []
+
+    class Resp:
+        def __init__(self, body):
+            self.body = body
+
+        def read(self):
+            return self.body
+
+    def fake(req, timeout=None):
+        sent.append((req.full_url, req.data, dict(req.header_items()), timeout))
+        if "ntfy.sh" in req.full_url:
+            return Resp(json.dumps({"id": f"nt{len(sent):010d}", "event": "message"}).encode())
+        return Resp(b'{"ok":true}')
+
+    real, data, notify = urllib.request.urlopen, sd.DATA, sports_live.NOTIFY[0]
+    urllib.request.urlopen, sd.DATA, sports_live.NOTIFY[0] = fake, tmp, True
+    try:
+        t = sports_live.notify({"team": "Bears", "odds": 150, "score": "CHI 14 - GB 10", "clock": "Q3 4:12", "line": "value"})
+        t.join(5)
+        assert sent[0][0] == "https://ntfy.sh/d503-live-7b1123" and b"Bears ML +150" in sent[0][1]
+        assert sent[1][0] == "https://d503-ask.example.workers.dev/push", sent
+        assert json.loads(sent[1][1]) == {"ntfy_id": "nt0000000001"} and sent[1][3] == 5
+        assert sent[1][2].get("Content-type") == "application/json"
+        sports._push("INJURY ALERT: QB", "ruled out").join(5)                     # the injury alerts ring it too
+        assert sent[2][0].startswith("https://ntfy.sh/") and json.loads(sent[3][1]) == {"ntfy_id": "nt0000000003"}
+        # the Worker being down never stops anything (the error is just logged)
+        def down(req, timeout=None):
+            if "workers.dev" in req.full_url:
+                raise OSError("timed out")
+            return fake(req, timeout)
+        urllib.request.urlopen = down
+        sports_live.notify({"team": "Bears", "odds": 150}).join(5)
+        assert any(e.startswith("web push:") for e in sd.ERRORS)
+        # no Worker address / no id from ntfy: ntfy still went out, nothing else happens
+        os.remove(os.path.join(tmp, "ask_url.txt"))
+        assert sd.web_push(b'{"id":"abc123"}') is None and sd.web_push(b"{}") is None
+        # the dashboard's service worker, written next to the page with the Worker's address
+        with open(os.path.join(tmp, "ask_url.txt"), "w") as f:
+            f.write("https://d503-ask.example.workers.dev")
+        sports_dashboard.write_sw(os.path.join(tmp, "sw.js"))
+        with open(os.path.join(tmp, "sw.js")) as f:
+            sw = f.read()
+        assert 'const API = "https://d503-ask.example.workers.dev";' in sw and "showNotification" in sw and "notificationclick" in sw
+    finally:
+        urllib.request.urlopen, sd.DATA, sports_live.NOTIFY[0] = real, data, notify
+        shutil.rmtree(tmp)
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

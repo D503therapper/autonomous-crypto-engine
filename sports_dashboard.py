@@ -508,6 +508,80 @@ def _history(picks):
             f'{out}{f"<div class=hs-own>THEIR OWN RECORDS</div>{own}" if own else ""}</details>')
 
 
+def _ask_url():
+    """The AI question box relay (set by the deploy_ask workflow) - also the live bet alerts' Worker. "" if not live."""
+    try:
+        with open(os.path.join(sd.DATA, "ask_url.txt")) as f:
+            ask_url = f.read().strip()
+    except OSError:
+        return ""
+    return ask_url if re.fullmatch(r"https://[A-Za-z0-9.-]+\.workers\.dev/?", ask_url or "x") else ""
+
+
+# 🔔 The live bet alerts' service worker (scope /autonomous-crypto-engine/sports/). The pushes carry no payload, so on
+# each one it asks the Worker what to show - and it ALWAYS shows something (iOS drops sites that push silently).
+SW = r"""// 🔔 D503 live bet alerts - written by sports_dashboard.py
+const API = "__API__";
+const DASH = "https://d503therapper.github.io/autonomous-crypto-engine/sports/";
+self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", (e) => e.waitUntil(self.clients.claim()));
+async function myHash() {           // the Worker keys this phone by the SHA-256 of its endpoint (for its welcome)
+  try {
+    const s = await self.registration.pushManager.getSubscription();
+    if (!s) return "";
+    const d = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s.endpoint)));
+    let b = "";
+    for (const x of d) b += String.fromCharCode(x);
+    return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  } catch (e) {
+    return "";
+  }
+}
+async function alertNow() {
+  let m = {};
+  try {
+    if (!API) throw new Error("no worker");
+    const ctl = new AbortController();
+    const to = setTimeout(() => ctl.abort(), 6000);
+    const h = await myHash();
+    const r = await fetch(API + "/latest" + (h ? "?sub=" + h : ""), { cache: "no-store", signal: ctl.signal });
+    clearTimeout(to);
+    if (r.ok) m = await r.json();
+  } catch (e) { /* the fallback below still shows */ }
+  return self.registration.showNotification(m.title || "🔥 D503 LIVE BET", {
+    body: m.body || "The algorithm just triggered a live bet. Tap to see it. 📡",
+    tag: m.id || "d503-live",
+    renotify: true,
+    icon: "icon-512.png?v=8",
+    badge: "icon-512.png?v=8",
+    data: { url: m.url && m.url.indexOf(DASH) === 0 ? m.url : DASH },
+  });
+}
+self.addEventListener("push", (e) => e.waitUntil(alertNow()));
+self.addEventListener("notificationclick", (e) => {
+  e.notification.close();
+  const url = (e.notification.data && e.notification.data.url) || DASH;
+  e.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((cs) => {
+    for (const c of cs) if (c.url.indexOf(DASH) === 0 && "focus" in c) return c.focus();
+    return self.clients.openWindow(url);
+  }));
+});
+"""
+
+
+def write_sw(path):
+    """docs/sports/sw.js - only rewritten when it changes (a changed SW makes every phone re-install it)."""
+    body = SW.replace("__API__", _ask_url().rstrip("/"))
+    try:
+        with open(path) as f:
+            if f.read() == body:
+                return
+    except OSError:
+        pass
+    with open(path, "w") as f:
+        f.write(body)
+
+
 def render(picks, model, games, series, start_bank, updated_ms):
     now = datetime.now(PT)
     today = now.date().isoformat()
@@ -515,16 +589,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
     todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
     active = [p for p in todays if p["status"] in ("open", "waiting")]      # the top is only what's still live
     board_date = now.strftime("%A, %B %-d")
-    try:                                                     # the AI question box relay (set by the deploy_ask workflow)
-        with open(os.path.join(sd.DATA, "ask_url.txt")) as f:
-            ask_url = f.read().strip()
-    except OSError:
-        ask_url = ""
-    if not re.fullmatch(r"https://[A-Za-z0-9.-]+\.workers\.dev/?", ask_url or "x"):
-        ask_url = ""
+    ask_url = _ask_url()
     ask_note = ("Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that." if ask_url else
                 "Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.")
     ask_btn = '<button id="askgo" type="button">Ask 🧠</button>' if ask_url else ""
+    bell = ('<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button>'   # 🔔 Web Push
+            '<div class="bell-n" id="belln" hidden></div></div>') if ask_url else ""
+    api = ask_url.rstrip("/")
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card goes up from <b>6 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
@@ -1007,6 +1078,14 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .nut{{font-size:13.5px;margin-top:7px;padding-left:14px;position:relative}} .nut:before{{content:"▸";position:absolute;left:0;color:var(--gold)}}
 .foot{{text-align:center;color:#ffe08a;font-size:12px;margin-top:22px;line-height:1.6}}
 .foot b{{color:#fff}} .foot a{{color:#22d3ee;text-decoration:none;font-weight:700}}
+.bell{{margin:-2px 2px 10px}}
+#bellb{{display:inline-flex;align-items:center;gap:6px;max-width:100%;white-space:nowrap;font-size:13px;font-weight:900;letter-spacing:.04em;color:#fff;
+  padding:7px 13px;border-radius:999px;border:1px solid rgba(255,59,59,.6);background:linear-gradient(90deg,rgba(255,59,59,.16),rgba(255,138,0,.12));
+  box-shadow:0 6px 18px -10px #ff3b3b;cursor:pointer;-webkit-tap-highlight-color:transparent}}
+#bellb[hidden],.bell-n[hidden]{{display:none}}
+#bellb:active{{transform:scale(.97)}} #bellb:disabled{{opacity:.6}}
+#bellb.on{{color:var(--up);border-color:rgba(34,227,154,.45);background:rgba(34,227,154,.08);box-shadow:none}}
+.bell-n{{font-size:12px;font-weight:700;color:#ffe08a;margin:7px 2px 0;line-height:1.4}} .bell-n b{{color:#fff}}
 </style></head><body><main>
 <header class="head">
   <div class="title"><span class="the">THE</span> <span class="d503">D503</span></div>
@@ -1018,8 +1097,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="ask-b"><div class="ask-n">{ask_note}</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send">{ask_btn}</div>
 <div id="asklist"></div><div id="askout"></div></div></div>
-<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
-<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
+<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
+{bell}<div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
 {tomorrow}
@@ -1054,7 +1133,7 @@ function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a
   '😴 No live plus money right now — no games going.')+'</div></section>';}}
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>'+(ps.length?ps.map(function(p){{
+ el.innerHTML=(ps.length?ps.map(function(p){{
   return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">'+(p.double_down?'🔁 DOUBLE DOWN':'LIVE BET')+'</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
@@ -1202,6 +1281,57 @@ Promise.all([fetch("reads.json?v="+Date.now()).then(function(r){{return r.json()
 .catch(function(){{clearTimeout(timer);loaded=true;if(!AI)list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}});
 if(!AI)render();
 }})();
+</script><script>
+(function(){{   // 🔔 LIVE BET ALERTS: native Web Push. On iPhone it only works from the home-screen app (iOS 16.4+)
+var API="{api}", b=document.getElementById("bellb"), n=document.getElementById("belln");
+if(!b||!API)return;
+var ua=navigator.userAgent||"", ios=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+var home=navigator.standalone===true||!!(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);
+var ok=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
+function note(h){{n.innerHTML=h||"";n.hidden=!h}}
+function set(on){{b.textContent=on?"🔔 Alerts on ✅":"🔔 Get live bet alerts";b.classList.toggle("on",!!on);
+ try{{if(on)localStorage.setItem("d503push","1");else localStorage.removeItem("d503push")}}catch(e){{}}}}
+function bytes(s){{s=s.replace(/-/g,"+").replace(/_/g,"/");var r=atob(s+"===".slice((s.length+3)%4)),a=new Uint8Array(r.length);
+ for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}}
+function key(){{return fetch(API+"/vapid",{{cache:"no-store"}}).then(function(r){{if(!r.ok)throw new Error("vapid");return r.json()}}).then(function(j){{return j.key}})}}
+function same(sub,k){{try{{var a=new Uint8Array(sub.options.applicationServerKey),c=bytes(k);if(a.length!==c.length)return false;
+ for(var i=0;i<a.length;i++)if(a[i]!==c[i])return false;return true}}catch(e){{return true}}}}
+function post(path,sub){{return fetch(API+path,{{method:"POST",headers:{{"Content-Type":"application/json"}},body:JSON.stringify(sub)}})
+ .then(function(r){{if(!r.ok)throw new Error(path+" "+r.status);return r}})}}
+function reg(){{return navigator.serviceWorker.register("sw.js",{{scope:"./"}}).then(function(){{return navigator.serviceWorker.ready}})}}
+function subscribe(k){{return reg().then(function(r){{return r.pushManager.subscribe({{userVisibleOnly:true,applicationServerKey:bytes(k)}})}})
+ .then(function(s){{return post("/subscribe",s.toJSON())}}).then(function(){{set(true);try{{localStorage.setItem("d503pushT",String(Date.now()))}}catch(e){{}}}})}}
+var was=false;try{{was=localStorage.getItem("d503push")==="1"}}catch(e){{}}
+set(was);b.hidden=false;
+if(ios&&!home){{   // the Safari tab: iOS only lets the home-screen app ask
+ b.onclick=function(){{note("📲 Add D503 to your Home Screen first (<b>Share</b> ⬆️ → <b>Add to Home Screen</b>), then tap 🔔 there.")}};return}}
+if(!ok){{b.onclick=function(){{note(ios?"📲 Alerts need iOS 16.4 or newer — update in Settings → General → Software Update.":
+ "This browser can’t do alerts — open the dashboard in Chrome or Safari.")}};set(false);return}}
+if(Notification.permission!=="granted")set(false);
+reg().then(function(r){{return r.pushManager.getSubscription()}}).then(function(s){{   // re-check the real subscription
+ if(!s||Notification.permission!=="granted"){{set(false);return}}
+ set(true);
+ return key().then(function(k){{
+  if(!same(s,k))return s.unsubscribe().then(function(){{return subscribe(k)}});   // the Worker's key changed: re-join
+  var t=0;try{{t=+localStorage.getItem("d503pushT")||0}}catch(e){{}}
+  if(Date.now()-t>7*864e5)return post("/subscribe",s.toJSON()).then(function(){{try{{localStorage.setItem("d503pushT",String(Date.now()))}}catch(e){{}}}});
+ }});
+}}).catch(function(){{}});
+b.onclick=function(){{
+ if(b.classList.contains("on")){{
+  if(!confirm("Turn off live bet alerts?"))return;
+  navigator.serviceWorker.ready.then(function(r){{return r.pushManager.getSubscription()}}).then(function(s){{
+   if(!s)return;return post("/unsubscribe",{{endpoint:s.endpoint}}).catch(function(){{}}).then(function(){{return s.unsubscribe()}})}})
+  .catch(function(){{}}).then(function(){{set(false);note("🔕 Alerts off. Tap 🔔 any time to turn them back on.")}});return}}
+ b.disabled=true;note("");
+ var asked=Notification.requestPermission();   // straight from the tap (iOS needs that)
+ Promise.resolve(asked).then(function(p){{if(p!=="granted")throw "denied";return key()}}).then(subscribe)
+ .then(function(){{note("You’re locked in 🔥 Watch for the welcome alert.")}})
+ .catch(function(e){{set(false);note(e==="denied"?"🔕 Alerts are blocked. Turn them on in Settings → Notifications → D503 Sports, then tap 🔔 again.":
+  "😬 Couldn’t turn alerts on — try again in a sec.")}})
+ .then(function(){{b.disabled=false}});
+}};
+}})();
 </script></body></html>"""
 
 
@@ -1209,6 +1339,10 @@ def write(picks, model, games, series, start_bank, path=PAGE):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         f.write(render(picks, model, games, series, start_bank, int(time.time() * 1000)))
+    try:
+        write_sw(os.path.join(os.path.dirname(path), "sw.js"))
+    except OSError as e:
+        print(f"sw.js failed: {e}")
     try:
         write_brain(picks, games, os.path.join(os.path.dirname(path), "brain.json"))
     except Exception as e:                                   # noqa: BLE001 - the page never waits on the brain

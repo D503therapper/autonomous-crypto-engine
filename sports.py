@@ -783,9 +783,11 @@ def _push(title, body):
         req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=body.encode(), method="POST", headers={
             "Title": title.encode("latin-1", "ignore").decode("latin-1"), "Tags": "ambulance", "Click": DASH_URL,
             "Priority": "high"})
-        urllib.request.urlopen(req, timeout=5).read()
+        raw = urllib.request.urlopen(req, timeout=5).read()
     except Exception as e:                                   # noqa: BLE001
         print(f"   push failed: {str(e)[:60]}")
+        return None
+    return sd.web_push(raw)                                  # 🔔 + the dashboard's own alerts (Web Push)
 
 
 def injury_watch(games, picks, push=True):

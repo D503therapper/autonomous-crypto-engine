@@ -2,6 +2,9 @@
   "name": "d503-ask",
   "private": true,
   "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0"
   },

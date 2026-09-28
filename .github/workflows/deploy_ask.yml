@@ -50,6 +50,17 @@ jobs:
           else
             echo "::notice::question log off (the Cloudflare token can't make a KV store)"
           fi
+          # 🔔 live bet alerts: their own KV store (phone subscriptions, the VAPID key, the join log). Without it
+          # they fall back to the question log's store under "wp:" keys; with neither, alerts are off.
+          pkv=$(curl -sS -H "$auth" "$api?per_page=100" | jq -r '.result[]? | select(.title=="d503-push") | .id' | head -1)
+          if [ -z "$pkv" ]; then
+            pkv=$(curl -sS -X POST -H "$auth" -H "Content-Type: application/json" -d '{"title":"d503-push"}' "$api" | jq -r '.result.id // empty')
+          fi
+          if [ -n "$pkv" ]; then
+            printf '\n[[kv_namespaces]]\nbinding = "PUSH"\nid = "%s"\n' "$pkv" >> wrangler.toml
+            echo "live bet alerts store on"
+          fi
+          node --test
           npx wrangler deploy 2>&1 | tee deploy.log
           printf '%s' "$ANTHROPIC_API_KEY" | npx wrangler secret put ANTHROPIC_API_KEY
           url=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)

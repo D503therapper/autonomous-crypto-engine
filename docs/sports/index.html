@@ -197,6 +197,14 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .nut{font-size:13.5px;margin-top:7px;padding-left:14px;position:relative} .nut:before{content:"▸";position:absolute;left:0;color:var(--gold)}
 .foot{text-align:center;color:#ffe08a;font-size:12px;margin-top:22px;line-height:1.6}
 .foot b{color:#fff} .foot a{color:#22d3ee;text-decoration:none;font-weight:700}
+.bell{margin:-2px 2px 10px}
+#bellb{display:inline-flex;align-items:center;gap:6px;max-width:100%;white-space:nowrap;font-size:13px;font-weight:900;letter-spacing:.04em;color:#fff;
+  padding:7px 13px;border-radius:999px;border:1px solid rgba(255,59,59,.6);background:linear-gradient(90deg,rgba(255,59,59,.16),rgba(255,138,0,.12));
+  box-shadow:0 6px 18px -10px #ff3b3b;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#bellb[hidden],.bell-n[hidden]{display:none}
+#bellb:active{transform:scale(.97)} #bellb:disabled{opacity:.6}
+#bellb.on{color:var(--up);border-color:rgba(34,227,154,.45);background:rgba(34,227,154,.08);box-shadow:none}
+.bell-n{font-size:12px;font-weight:700;color:#ffe08a;margin:7px 2px 0;line-height:1.4} .bell-n b{color:#fff}
 </style></head><body><main>
 <header class="head">
   <div class="title"><span class="the">THE</span> <span class="d503">D503</span></div>
@@ -208,8 +216,8 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <div class="ask-b"><div class="ask-n">Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that.</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send"><button id="askgo" type="button">Ask 🧠</button></div>
 <div id="asklist"></div><div id="askout"></div></div></div>
-<div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
-<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
+<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
+<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button><div class="bell-n" id="belln" hidden></div></div><div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>Monday, September 28</span></div>
 <div class="board"><section class="pk open" style="--c1:#22e39a;--c2:#22d3ee">
   <div class="pk-h"><span class="pk-i">🎯</span><span class="pk-l pk-big">BEARS +3.5</span><span class="chip lk">🔒 LOCK</span></div>
@@ -257,7 +265,7 @@ function idle(n){return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a0
   '😴 No live plus money right now — no games going.')+'</div></section>';}
 function draw(d){var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>'+(ps.length?ps.map(function(p){
+ el.innerHTML=(ps.length?ps.map(function(p){
   return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">'+(p.double_down?'🔁 DOUBLE DOWN':'LIVE BET')+'</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
@@ -272,7 +280,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,5000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790631328638,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790632698487,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
@@ -404,5 +412,56 @@ Promise.all([fetch("reads.json?v="+Date.now()).then(function(r){return r.json()}
 .then(function(ds){clearTimeout(timer);loaded=true;games=got(ds[0]).concat(got(ds[1]));if(!AI)render()})
 .catch(function(){clearTimeout(timer);loaded=true;if(!AI)list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'});
 if(!AI)render();
+})();
+</script><script>
+(function(){   // 🔔 LIVE BET ALERTS: native Web Push. On iPhone it only works from the home-screen app (iOS 16.4+)
+var API="https://d503-ask.issatruestoryofficial.workers.dev", b=document.getElementById("bellb"), n=document.getElementById("belln");
+if(!b||!API)return;
+var ua=navigator.userAgent||"", ios=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+var home=navigator.standalone===true||!!(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);
+var ok=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
+function note(h){n.innerHTML=h||"";n.hidden=!h}
+function set(on){b.textContent=on?"🔔 Alerts on ✅":"🔔 Get live bet alerts";b.classList.toggle("on",!!on);
+ try{if(on)localStorage.setItem("d503push","1");else localStorage.removeItem("d503push")}catch(e){}}
+function bytes(s){s=s.replace(/-/g,"+").replace(/_/g,"/");var r=atob(s+"===".slice((s.length+3)%4)),a=new Uint8Array(r.length);
+ for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}
+function key(){return fetch(API+"/vapid",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("vapid");return r.json()}).then(function(j){return j.key})}
+function same(sub,k){try{var a=new Uint8Array(sub.options.applicationServerKey),c=bytes(k);if(a.length!==c.length)return false;
+ for(var i=0;i<a.length;i++)if(a[i]!==c[i])return false;return true}catch(e){return true}}
+function post(path,sub){return fetch(API+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(sub)})
+ .then(function(r){if(!r.ok)throw new Error(path+" "+r.status);return r})}
+function reg(){return navigator.serviceWorker.register("sw.js",{scope:"./"}).then(function(){return navigator.serviceWorker.ready})}
+function subscribe(k){return reg().then(function(r){return r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:bytes(k)})})
+ .then(function(s){return post("/subscribe",s.toJSON())}).then(function(){set(true);try{localStorage.setItem("d503pushT",String(Date.now()))}catch(e){}})}
+var was=false;try{was=localStorage.getItem("d503push")==="1"}catch(e){}
+set(was);b.hidden=false;
+if(ios&&!home){   // the Safari tab: iOS only lets the home-screen app ask
+ b.onclick=function(){note("📲 Add D503 to your Home Screen first (<b>Share</b> ⬆️ → <b>Add to Home Screen</b>), then tap 🔔 there.")};return}
+if(!ok){b.onclick=function(){note(ios?"📲 Alerts need iOS 16.4 or newer — update in Settings → General → Software Update.":
+ "This browser can’t do alerts — open the dashboard in Chrome or Safari.")};set(false);return}
+if(Notification.permission!=="granted")set(false);
+reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){   // re-check the real subscription
+ if(!s||Notification.permission!=="granted"){set(false);return}
+ set(true);
+ return key().then(function(k){
+  if(!same(s,k))return s.unsubscribe().then(function(){return subscribe(k)});   // the Worker's key changed: re-join
+  var t=0;try{t=+localStorage.getItem("d503pushT")||0}catch(e){}
+  if(Date.now()-t>7*864e5)return post("/subscribe",s.toJSON()).then(function(){try{localStorage.setItem("d503pushT",String(Date.now()))}catch(e){}});
+ });
+}).catch(function(){});
+b.onclick=function(){
+ if(b.classList.contains("on")){
+  if(!confirm("Turn off live bet alerts?"))return;
+  navigator.serviceWorker.ready.then(function(r){return r.pushManager.getSubscription()}).then(function(s){
+   if(!s)return;return post("/unsubscribe",{endpoint:s.endpoint}).catch(function(){}).then(function(){return s.unsubscribe()})})
+  .catch(function(){}).then(function(){set(false);note("🔕 Alerts off. Tap 🔔 any time to turn them back on.")});return}
+ b.disabled=true;note("");
+ var asked=Notification.requestPermission();   // straight from the tap (iOS needs that)
+ Promise.resolve(asked).then(function(p){if(p!=="granted")throw "denied";return key()}).then(subscribe)
+ .then(function(){note("You’re locked in 🔥 Watch for the welcome alert.")})
+ .catch(function(e){set(false);note(e==="denied"?"🔕 Alerts are blocked. Turn them on in Settings → Notifications → D503 Sports, then tap 🔔 again.":
+  "😬 Couldn’t turn alerts on — try again in a sec.")})
+ .then(function(){b.disabled=false});
+};
 })();
 </script></body></html>

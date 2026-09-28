@@ -1,0 +1,23 @@
+# Who has the dashboard's 🔔 live bet alerts on: the active count (by device) and the last 20 joins/leaves, each with
+# its time, device (iPhone/Android/other) and whether the welcome push was accepted. No endpoints or keys are shown.
+# Run by hand; read it from the job log.
+name: alerts_status
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: data/sports/ask_url.txt, sparse-checkout-cone-mode: false }
+      - run: |
+          ask=$(tr -d '[:space:]' < data/sports/ask_url.txt 2>/dev/null || true)
+          ask=${ask%/}
+          [ -n "$ask" ] || { echo "the Worker isn't deployed yet (no data/sports/ask_url.txt)"; exit 0; }
+          out=$(curl -sS -m 20 "$ask/alerts-status")
+          echo "$out" | jq . || echo "$out"
+          echo "$out" | jq -r '"ALERTS ON: \(.active) \(.by_device)",
+            (.events[]? | "EVENT \(.at_pt) | \(.event) | \(.device)\(if .welcome then " | welcome push \(.welcome) (\(.welcome_status))" else "" end)")' || true
