@@ -538,7 +538,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 7                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 8                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -578,13 +578,14 @@ def breakdown(c, rt, used):
             f"🎯 {me} {c['hcp']:+g} games. This ain't a match, it's a clinic. {He} should run away with it."], must=True))
     else:
         o = c.get("odds") or c.get("ml") or -110
-        if o <= -150:                                             # a clear favorite: the book knows - we see even more
-            lines_ = [f"🎾 {me} is {o} for a reason — and the engine says {he}'s even better than that. Light work.",
-                      f"🎾 Big favorite, and the book still ain't giving {him} enough credit. {me} takes care of business.",
-                      f"🎾 {me} should handle this. Chalk, but chalk cashes — and the engine likes {him} more than {o} does.",
-                      f"🎾 {me} is about to smack that ass. Everybody knows {he}'s better — the engine says it ain't even close.",
-                      f"🎾 Give me {me}. Heavy favorite, and our numbers still got {him} winning more than the book does.",
-                      f"🎾 {me} all day. {He}'s the better player by a mile — the price is steep but still worth it."]
+        if o <= -150:                                             # a clear favorite: say it plain
+            pct_ = round(100 * c["p"])
+            lines_ = [f"🎾 {me} is the big favorite for a reason — {he}'s about to smack that ass.",
+                      f"🎾 {me} is way better than {them}. The engine gives {him} a {pct_}% chance — {he} takes care of business.",
+                      f"🎾 Everybody knows {me} is winning this one. The engine does too — {pct_}% chance.",
+                      f"🎾 {me} all day. {He}'s the better player by a mile.",
+                      f"🎾 {them} is about to get {his} cheeks clapped. {me} runs this.",
+                      f"🎾 Give me {me}. Big price, but {he} wins this way more often than not."]
         elif o < 0:                                               # a small favorite: the book has it closer than it is
             lines_ = [f"🎾 We riding {me}. The book's got this priced kinda close — it ain't.",
                       f"🎾 {me} is only {o}? The algorithm has {him} winning this way more than that.",
