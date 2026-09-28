@@ -12,6 +12,9 @@ jobs:
     timeout-minutes: 3
     steps:
       - run: |
-          curl -sS -H "Title: D503 Sports Engine 🔥" -H "Tags: rotating_light" \
-            -d "If you see this, you're all set. You'll get a notification every time the algorithm triggers a live bet. Trust the algorithm. 🐻" \
-            https://ntfy.sh/d503-live-7b1123
+          for i in 1 2 3 4 5; do
+            curl -sS -m 20 -H "Title: D503 Sports Engine 🔥" -H "Tags: rotating_light" \
+              -d "If you see this, you're all set. You'll get a notification every time the algorithm triggers a live bet. Trust the algorithm. 🐻" \
+              https://ntfy.sh/d503-live-7b1123 && echo && echo SENT && break
+            echo "try $i failed"; sleep 5
+          done
