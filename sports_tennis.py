@@ -515,12 +515,15 @@ def price(m, lines, full=False):
     """(p1 ml, p2 ml) for a stored match from the odds lines (same two last names, start within 36 hours);
     full=True: {ml: (p1, p2), sp: ((p1 handicap, odds), (p2 handicap, odds)) or None}."""
     l1, l2 = _last(m["p1_name"]), _last(m["p2_name"])
+    n1, n2 = set(_norm(m["p1_name"])), set(_norm(m["p2_name"]))
+
+    def same(line_name, last, names):                        # same last name, or the same name in the other order
+        return _last(line_name) == last or (len(names) >= 2 and set(_norm(line_name)) == names)   # ("Ma Yexin" = "Yexin Ma")
     for ln in lines:
-        la, lb = _last(ln["a"]), _last(ln["b"])
         if ln.get("start") and m["start"] and abs((_t(ln["start"]) - _t(m["start"])).total_seconds()) > 36 * 3600:
             continue
-        for flip, pair in ((False, (la, lb)), (True, (lb, la))):
-            if pair != (l1, l2):
+        for flip, (x, y) in ((False, (ln["a"], ln["b"])), (True, (ln["b"], ln["a"]))):
+            if not (same(x, l1, n1) and same(y, l2, n2)):
                 continue
             a, b = ("b", "a") if flip else ("a", "b")
             ml = (ln[f"{a}_ml"], ln[f"{b}_ml"])
@@ -535,7 +538,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 6                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 7                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -574,17 +577,28 @@ def breakdown(c, rt, used):
             f"🎯 Skipping the {c['ml']:+d} tax. {me} {c['hcp']:+g} games — {he} wins big and we get paid better for it.",
             f"🎯 {me} {c['hcp']:+g} games. This ain't a match, it's a clinic. {He} should run away with it."], must=True))
     else:
-        out.append(v.say("t_main", [
-            f"🎾 {me} is about to smack that ass. The price is too cheap for how good {he} is.",
-            f"🎾 We riding {me}. The book's got this priced like it's close — it ain't.",
-            f"🎾 {me} all day. Our numbers got {him} winning this way more than the line says.",
-            f"🎾 Hammer {me}. The algorithm likes {him} way more than Vegas does.",
-            f"🎾 {me} gets the nod. The price is wrong and we're taking it — let's eat.",
-            f"🎾 Give me {me}. {He}'s about to take care of business.",
-            f"🎾 {me}, no hesitation. The book's sleeping on {him}.",
-            f"🎾 {me} is the play. Better player, and the line ain't caught up yet.",
-            f"🎾 Lock in {me}. {He}'s been playing like a problem and the book's still asleep.",
-            f"🎾 {me} is about to cook. We saw the value and we pounced."], must=True))
+        o = c.get("odds") or c.get("ml") or -110
+        if o <= -150:                                             # a clear favorite: the book knows - we see even more
+            lines_ = [f"🎾 {me} is {o} for a reason — and the engine says {he}'s even better than that. Light work.",
+                      f"🎾 Big favorite, and the book still ain't giving {him} enough credit. {me} takes care of business.",
+                      f"🎾 {me} should handle this. Chalk, but chalk cashes — and the engine likes {him} more than {o} does.",
+                      f"🎾 {me} is about to smack that ass. Everybody knows {he}'s better — the engine says it ain't even close.",
+                      f"🎾 Give me {me}. Heavy favorite, and our numbers still got {him} winning more than the book does.",
+                      f"🎾 {me} all day. {He}'s the better player by a mile — the price is steep but still worth it."]
+        elif o < 0:                                               # a small favorite: the book has it closer than it is
+            lines_ = [f"🎾 We riding {me}. The book's got this priced kinda close — it ain't.",
+                      f"🎾 {me} is only {o}? The algorithm has {him} winning this way more than that.",
+                      f"🎾 Hammer {me}. The algorithm likes {him} way more than Vegas does.",
+                      f"🎾 Give me {me}. {He}'s about to take care of business.",
+                      f"🎾 {me}, no hesitation. The book's sleeping on {him}.",
+                      f"🎾 {me} is about to smack that ass. The price is too cheap for how good {he} is."]
+        else:                                                     # an underdog price the engine doesn't buy
+            lines_ = [f"🎾 {me} is the dog at {o:+d}? Nah. The engine's got {him} as the better player.",
+                      f"🎾 Book's got {me} as the underdog — the algorithm says {he}'s the one about to win.",
+                      f"🎾 {me} at {o:+d} is a gift. {He}'s about to cook.",
+                      f"🎾 We'll take {me} plus money all day. The book got this one backwards.",
+                      f"🎾 {me} gets the nod. The price is wrong and we're taking it — let's eat."]
+        out.append(v.say("t_main" + ("f" if o <= -150 else "m" if o < 0 else "d"), lines_, must=True))
     rk_me, rk_them = c.get("rank"), c.get("opp_rank")
     if rk_me and (not rk_them or rk_them - rk_me >= 20):
         out.append(v.say("t_rank", [f"📈 {me} is #{rk_me} in the world" + (f" — {them} is #{rk_them}. Levels to this." if rk_them else f" — {them} ain't even top 150."),
