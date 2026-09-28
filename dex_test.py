@@ -725,6 +725,39 @@ def test_max_hold():
     print("  14-day max hold   ok")
 
 
+def test_held_coin_follows_its_own_pool():
+    """A junk pool for the same token (fake 'deeper' liquidity, ~0 price) must not price our position."""
+    junk = {"v": False}
+
+    def tokens(u):
+        out = [ds_pair("base", EVM, price=0.0105, liq=600_000)]
+        if junk["v"]:
+            j = ds_pair("base", EVM, price=0.0000001, liq=50_000_000)
+            j["pairAddress"] = "0xjunkpool"
+            out.append(j)
+        return 200, out
+    table = {"tokens/v1/base/": tokens}
+    table.update({k: v for k, v in table_evm().items() if k not in table})
+    h, fetch, d = make(table)
+    screen(h, cand())
+    assert K in h.pf.positions
+    h.p = {**h.p, "exit": {**h.p["exit"], "trail": 0.95}}
+    h.pf.positions[K]["stop"] = 0.0
+    junk["v"] = True
+    run(h, T0 + 6000, 4)
+    assert K in h.pf.positions and abs(h.pf.positions[K]["px"] - 0.0105) < 1e-9, h.pf.positions.get(K)
+    shutil.rmtree(d)
+    print("  held coin priced from the pool we bought in, not a junk 'deeper' pool   ok")
+
+
+def test_absurd_momentum_is_not_a_buy():
+    h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, h1=15101012)))
+    screen(h, cand(h1=15101012))
+    assert K not in h.pf.positions
+    shutil.rmtree(d)
+    print("  1h change > +5,000% treated as bad data, no buy   ok")
+
+
 def test_liquidity_pull_emergency_exit():
     h, fetch, d, px = held()
     t = poll(h, T0 + 6000, px, v=0.009, liq=320_000)                        # -47%: still holding
@@ -1341,6 +1374,8 @@ if __name__ == "__main__":
     test_resize_old_small_position()
     test_study_exit()
     test_max_hold()
+    test_held_coin_follows_its_own_pool()
+    test_absurd_momentum_is_not_a_buy()
     test_liquidity_pull_emergency_exit()
     test_sell_simulation_fails_at_exit()
     test_exit_check_unreachable_then_market()

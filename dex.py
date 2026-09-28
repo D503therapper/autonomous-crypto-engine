@@ -1400,6 +1400,8 @@ class DexHunter:
         h1, h6, b1, s1 = c.get("h1"), c.get("h6"), c.get("b1") or 0, c.get("s1") or 0
         if not entry_trigger(c, E):
             return
+        if (h1 or 0) > 50:                             # +5,000% in one hour is a data error (a fresh/junk pool read
+            return                                     # against a stale price), not a signal: ANTFUN "1h +15101012%"
         eq, X = self.equity(), self.p["exit"]
         tier = tier_for(c, self.p["tiers"], 0, self.on_cex(c["sym"]))
         usd = size_for(eq, c["liq"], tier, self.pf.cash, self.exposure(), self.p)
@@ -1473,11 +1475,15 @@ class DexHunter:
             st_, obj = self._get("dexscreener", self._url("ds_tokens", chain=chain, addrs=",".join(addrs)), now)
             if st_ != 200 or not isinstance(obj, list):        # (tokens/v1 answers a bare list)
                 return True
-            best = best_pairs(parse_ds_pairs(obj, now), chain)
+            pairs = parse_ds_pairs(obj, now)
+            best = best_pairs(pairs, chain)
+            by_pair = {c["pair"]: c for c in pairs if c.get("pair")}
             for k, pos in list(self.pf.positions.items()):
                 if pos["chain"] != chain or pos["addr"] not in addrs:
                     continue
-                c = best.get(pos["addr"])
+                # follow the pool we bought in: the "deepest" pair can be a junk pool with a fake reported
+                # liquidity and a ~0 price (ANTFUN 2026-09-28 was sold at $0 off such a pool, -$83)
+                c = by_pair.get(pos.get("pair")) or best.get(pos["addr"])
                 if c and c.get("price"):
                     pos.update(px=c["price"], liq=c["liq"], vol24=c["vol24"], seen_px=now)
                 else:                                          # no pair left: liquidity gone
