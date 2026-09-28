@@ -917,6 +917,58 @@ def test_totals():
     os.remove(path)
 
 
+def _steam_games(planted, seed, n=1000):
+    """Simulated NHL games that open -110/-110 and close with the home side bet to ~-130/+110 (a medium move).
+    planted: the side the line moved toward wins 70% (far more than the close's ~54%); else it wins at the close."""
+    rnd = random.Random(seed)
+    games = {}
+    t0 = datetime(2023, 10, 1, 23, 0, tzinfo=timezone.utc)
+    for i in range(n):
+        fair = sd.no_vig(-130, 110)
+        won = rnd.random() < (0.70 if planted else fair)
+        gid = f"nhl:s{seed}{i}"
+        games[gid] = {"id": gid, "league": "nhl", "start": (t0 + timedelta(days=i)).strftime("%Y-%m-%dT%H:%MZ"),
+                      "status": "final", "stype": "2", "home": f"h{i}", "away": f"a{i}", "home_name": "H",
+                      "away_name": "A", "home_score": "3" if won else "1", "away_score": "1" if won else "3",
+                      "ml_home": "-130", "ml_away": "110", "ml_home_open": "-110", "ml_away_open": "-110",
+                      "spread_home": ""}
+    return games
+
+
+def test_moves():
+    """Line movement: a planted steam edge is proven, a fair one isn't; open==close is 'no info'; CLV is exact."""
+    import sports_moves as mv
+    path = os.path.join(tempfile.gettempdir(), "moves_test.json")
+    st = mv.study(_steam_games(True, 1), path, pub={}, picks=[])
+    cell = st["steam"]["nhl"]["cells"]["ml|follow|medium|all"]
+    assert cell["proven"] and cell["n_old"] >= 150 and cell["n_new"] >= 150, cell
+    assert not st["steam"]["nhl"]["cells"]["ml|fade|medium|all"]["proven"]
+    st = mv.study(_steam_games(False, 2), path, pub={}, picks=[])
+    assert not st["proven"], st["proven"]
+    g = _steam_games(False, 3, n=1)
+    only = next(iter(g.values()))
+    assert mv.moved({**only, "ml_home_open": "-130", "ml_away_open": "110"}) is None      # backfilled open = no info
+    with open(path) as f:
+        assert "steam" in json.load(f)
+    os.remove(path)
+    games = {"nfl:1": {"id": "nfl:1", "league": "nfl", "status": "final", "ml_home": "-162", "ml_away": "136",
+                       "spread_home": "-3", "spread_home_odds": "-105", "spread_away_odds": "-115"},
+             "nfl:2": {"id": "nfl:2", "league": "nfl", "status": "pre", "ml_home": "164", "ml_away": "-198"}}
+    picks = [{"date": "2026-09-27", "kind": "dog", "legs": [
+                {"game_id": "nfl:1", "league": "nfl", "side": "away", "market": "ml", "odds": 130},
+                {"game_id": "nfl:1", "league": "nfl", "side": "away", "market": "spread", "line": 3.0, "odds": -120},
+                {"game_id": "nfl:1", "league": "nfl", "side": "away", "market": "spread", "line": 3.5, "odds": -110},
+                {"game_id": "nfl:2", "league": "nfl", "side": "home", "market": "ml", "odds": 150}]}]
+    r = mv.clv(picks, games)
+    ml, sp = r["legs"]
+    assert ml["clv_cents"] == -6 and abs(ml["clv_pts"] - round(100 * (100 / 236 - 100 / 230), 2)) < 1e-9, ml
+    assert sp["close"] == -115 and sp["clv_cents"] == -5 and sp["clv_pts"] < 0, sp
+    assert r["skipped"] == {"not closed yet": 1, "line moved / no closing price": 1}, r["skipped"]
+    assert r["summary"]["all"]["legs"] == 2 and r["summary"]["all"]["beat"] == 0
+    assert "closing line value" in mv.clv_summary(picks, games)[0]
+    assert mv.load() is not None
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
