@@ -237,6 +237,9 @@ def test_board_rules():
     four = [l["game_id"] for l in bd["four"]["legs"]]
     assert len(set(four)) == 4 and set(three) <= set(four) and dog_g not in four, "4-leg = the 3-leg + one more, never the Dog"
     assert all(sports.good(l) and l["odds"] >= sports.MAX_FAV for l in bd["four"]["legs"]), "locks + value only, no -475"
+    assert sports.make_board([_cand("x1", -140, 0.66), _cand("x2", -145, 0.66)])["lock"], "no -101..-120 lock: go up to -150"
+    assert sports.make_board([_cand("x1", -140, 0.70), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x3", \
+        "the -101..-120 range comes first"
     sure_dog = _cand("sd", 120, 0.66)                                        # a dog the engine thinks WINS (66%)
     bs = sports.make_board(slate + [sure_dog])
     assert bs["dog"]["legs"][0]["game_id"] == "sd" and "sd" in [l["game_id"] for l in bs["two"]["legs"]], "a confident Dog can ride"
