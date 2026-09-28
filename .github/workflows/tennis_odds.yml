@@ -4,7 +4,7 @@
 name: tennis_odds
 on:
   schedule:
-    - cron: "41 9 * * 1"
+    - cron: "41 * * * *"      # hourly: fills in any season the archive was too slow to give last time (seconds once done)
   workflow_dispatch: {}
   push:
     branches: [main]
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install -q openpyxl xlrd
-      - run: timeout 25m python -u tools/fetch_tennis_odds.py
+      - run: timeout 24m python -u tools/fetch_tennis_odds.py
       - if: always()
         run: |
           git config user.name "paper-trader-bot"

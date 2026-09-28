@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 OUT = os.path.join("data", "sports", "tennis", "hist_odds.csv.gz")
 RAW = os.path.join("data", "sports", "tennis", "raw")   # season files uploaded by hand (2024.xlsx = ATP, 2024w.xlsx = WTA)
 FIRST = 2012
-COLS = ["tour", "date", "tourney", "location", "series", "court", "surface", "round", "bo", "winner", "loser",
+COLS = ["tour", "season", "date", "tourney", "location", "series", "court", "surface", "round", "bo", "winner", "loser",
         "wrank", "lrank", "wpts", "lpts", "w1", "l1", "w2", "l2", "w3", "l3", "w4", "l4", "w5", "l5", "wsets", "lsets",
         "comment", "psw", "psl", "b365w", "b365l", "maxw", "maxl", "avgw", "avgl"]
 SRC = {"tourney": "Tournament", "location": "Location", "court": "Court", "surface": "Surface", "round": "Round",
@@ -83,7 +83,7 @@ def _parse(blob, ext, tour):
         get = lambda h: _cell(r[ix[h]]) if h in ix and ix[h] < len(r) else ""
         if not get("Winner"):
             continue
-        d = {"tour": tour, "date": get("Date")[:10], "series": get("Series") or get("Tier")}
+        d = {"tour": tour, "date": get("Date")[:10], "series": get("Series") or get("Tier")}   # season set by the caller
         for k, h in SRC.items():
             d[k] = get(h)
         for n in range(1, 6):
@@ -145,35 +145,56 @@ def _save(keep):
     os.replace(OUT + ".tmp", OUT)
 
 
-def main():
+def _season(r):
+    """The season file a match came from (a season's first events start in late December of the year before)."""
+    if r.get("season"):
+        return int(r["season"])
+    y, m, d = (int(x) for x in r["date"][:10].split("-"))
+    return y + 1 if (m == 12 and d >= 20) else y
+
+
+def main(budget_s=20 * 60):
+    t0 = time.time()
     have = []
     if os.path.exists(OUT):
         with gzip.open(OUT, "rt", newline="") as f:
             have = list(csv.DictReader(f))
-    now = datetime.now(timezone.utc).year
-    done = {(r["tour"], r["date"][:4]) for r in have if int(r["date"][:4] or 0) < now}
-    keep = [r for r in have if int(r["date"][:4] or 0) < now]
-    blocked = True                                           # the site blocks (and stalls) servers: the archive only
+    for r in have:
+        r["season"] = str(_season(r))
+    now = datetime.now(timezone.utc)
+    count = {}
+    for r in have:
+        count[(r["tour"], int(r["season"]))] = count.get((r["tour"], int(r["season"])), 0) + 1
+    # a season is in once we hold its file (1000+ matches); the current one is refreshed on Mondays
+    done = {k for k, n in count.items() if n >= 1000 and (k[1] < now.year or now.weekday() != 0)}
+    keep = list(have)
+
+    def put(tour, y, rows):
+        nonlocal keep
+        for r in rows:
+            r["season"] = str(y)
+        keep = [r for r in keep if not (r["tour"] == tour and r["season"] == str(y))] + rows
+
     for (tour, y), rows in raw_files().items():
-        keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
-        done.add((tour, str(y)))
-    for tour in ("atp", "wta"):
-        for y in range(FIRST, now + 1):
-            if (tour, str(y)) in done:
+        put(tour, y, rows)
+        done.add((tour, y))
+    for y in range(FIRST, now.year + 1):
+        for tour in ("atp", "wta"):
+            if (tour, y) in done:
                 continue
-            n0 = len(ERRS)
-            rows, src = year(tour, y, direct=not blocked)
+            if time.time() - t0 > budget_s:
+                print("out of time - the next run picks up from here", flush=True)
+                break
+            rows, src = year(tour, y, direct=False)          # the site blocks (and stalls) servers: the archive only
             print(f"{datetime.now(timezone.utc):%H:%M:%S} {tour} {y}: {'missing' if rows is None else f'{len(rows)} ({src})'}", flush=True)
             if rows is None and ERRS:
                 print("   ", ERRS[-1][:200], flush=True)
-            if not blocked and any("tennis-data.co.uk/" in e and "archive" not in e and "403" in e for e in ERRS[n0:]):
-                print("   the site blocks servers - using the internet archive's copies from here", flush=True)
-                blocked = True
             if rows:
-                keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
+                put(tour, y, rows)
                 _save(keep)                                  # saved as it goes - a slow run never loses what it got
     _save(keep)
-    print(f"saved {len(keep)} matches -> {OUT}")
+    have_s = sorted({(r["tour"], r["season"]) for r in keep})
+    print(f"saved {len(keep)} matches -> {OUT}; seasons: {', '.join(f'{a}{b[2:]}' for a, b in have_s)}")
     return 0
 
 
