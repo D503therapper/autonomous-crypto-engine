@@ -58,7 +58,16 @@ def _load(name, default):
     if not os.path.exists(p):
         return default
     with open(p) as f:
-        return json.load(f)
+        data = json.load(f)
+    if name == "picks.json":                                 # a parlay never carries the same game twice
+        for pk in data:
+            seen, legs = set(), []
+            for leg in pk.get("legs") or []:
+                if leg.get("game_id") not in seen:
+                    seen.add(leg.get("game_id"))
+                    legs.append(leg)
+            pk["legs"] = legs
+    return data
 
 
 def _save(name, obj):

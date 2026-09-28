@@ -34,6 +34,14 @@ def merge_picks(ours, theirs):
                 (RANK.get(p.get("status"), 0) == RANK.get(old.get("status"), 0)
                  and sum(bool(l.get("result")) for l in p.get("legs") or []) > sum(bool(l.get("result")) for l in old.get("legs") or [])):
             out[k] = p
+    for p in out.values():                                   # a parlay never carries the same game twice (a merge once
+        seen, legs = set(), []                               # stitched the Marlins into an 8-leg twice)
+        for leg in p.get("legs") or []:
+            if leg.get("game_id") not in seen:
+                seen.add(leg.get("game_id"))
+                legs.append(leg)
+        if legs:
+            p["legs"] = legs
     # a waiting card never sits next to a posted play of the same kind that day
     posted = {(p.get("date"), p.get("kind")) for p in out.values() if p.get("status") != "waiting"}
     rows = [p for p in out.values() if p.get("status") != "waiting" or (p.get("date"), p.get("kind")) not in posted]

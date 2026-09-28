@@ -651,6 +651,16 @@ def test_hockey_line_first():
     assert sm.final_p(params, {"b2b": 1.0}, g) > m, "...plus the back-to-back edge the study proved"
 
 
+def test_no_game_twice_in_a_parlay():
+    import sys as _s
+    _s.path.insert(0, "tools")
+    import merge_json
+    leg = {"game_id": "mlb:1", "team": "Marlins"}
+    p = {"date": "d", "kind": "eight", "status": "open", "posted": "x", "legs": [leg, {"game_id": "mlb:2"}, dict(leg)]}
+    out = merge_json.merge_picks([p], [])
+    assert [l["game_id"] for l in out[0]["legs"]] == ["mlb:1", "mlb:2"], "the Marlins never show up twice"
+
+
 def test_lines_study():
     import sports_lines
     rnd = random.Random(3)
