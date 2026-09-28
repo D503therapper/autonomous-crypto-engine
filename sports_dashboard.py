@@ -830,7 +830,9 @@ function poll(){{if(document.hidden)return;   // only while the app's on screen;
  .then(function(r){{return r.ok?r.json():raw()}}).catch(raw).then(show).catch(function(){{}});}}
 poll();setInterval(poll,5000);document.addEventListener("visibilitychange",poll);}})();
 (function(){{var t={int(updated_ms)},m=0;   // the whole page stays fresh while it's open
-try{{var y=sessionStorage.getItem("d503y");if(y!==null){{sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}}}catch(e){{}}
+try{{var o=sessionStorage.getItem("d503o");if(o){{sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
+  JSON.parse(o).forEach(function(i){{if(ds[i])ds[i].open=true}});}}
+ var y=sessionStorage.getItem("d503y");if(y!==null){{sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}}}catch(e){{}}
 function tick(){{m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
  document.getElementById("ago").textContent="Live · "+s;
@@ -843,8 +845,10 @@ function check(){{if(document.hidden)return;              // a newer page? swap 
  .then(function(r){{return r.ok?r.text():""}})
  .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
    var aq=document.getElementById("askq");                     // (not while someone's asking a question)
-   if(x&&+x[1]>t&&!document.querySelector("details[open]")&&!(aq&&(aq.value||document.activeElement===aq))){{
-     try{{sessionStorage.setItem("d503y",String(window.scrollY));sessionStorage.setItem("d503r",String(Date.now()));}}catch(e){{}}
+   if(x&&+x[1]>t&&!(aq&&(aq.value||document.activeElement===aq))){{   // an open breakdown comes back open, same spot
+     try{{var op=[];document.querySelectorAll("details").forEach(function(d,i){{if(d.open)op.push(i)}});
+       sessionStorage.setItem("d503o",JSON.stringify(op));
+       sessionStorage.setItem("d503y",String(window.scrollY));sessionStorage.setItem("d503r",String(Date.now()));}}catch(e){{}}
      location.replace(location.pathname+"?v="+x[1]);}}}})
  .catch(function(){{}});}}
 function liveTags(){{var n=Date.now();document.querySelectorAll(".tm[data-start]").forEach(function(s){{   // 🔴 LIVE while it's being played
