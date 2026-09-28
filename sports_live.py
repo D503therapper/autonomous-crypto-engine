@@ -537,11 +537,12 @@ def locked_sides(log, now):
     """{game id: side} we're already on today - a live play (or today's pregame pick) locks the game in: we never go
     back and back the other team in the same game."""
     today = now.astimezone(PT).date().isoformat()
+    days = {today, (now.astimezone(PT) - timedelta(days=1)).date().isoformat()}   # (a game still going past midnight)
     out = {}
     try:
         with open(os.path.join(sd.DATA, "picks.json")) as f:
             for pk in json.load(f):
-                if pk.get("date") == today and pk.get("status") != "waiting":
+                if pk.get("date") in days and pk.get("status") != "waiting":
                     for leg in pk.get("legs") or []:
                         if leg.get("market") != "total":     # (an over/under isn't a side)
                             out.setdefault(leg["game_id"], leg["side"])
@@ -550,7 +551,7 @@ def locked_sides(log, now):
     for mid, side in stl.our_picks().items():               # 🎾 our pregame tennis picks lock their match too
         out.setdefault(f"tennis:{mid}", str(side))
     for pid, e in log.get("plays", {}).items():
-        if e.get("date") == today and e.get("result") != "void":
+        if e.get("date") in days and e.get("result") != "void":
             out[pid.rsplit(":", 1)[0]] = pid.rsplit(":", 1)[1]
     return out
 
