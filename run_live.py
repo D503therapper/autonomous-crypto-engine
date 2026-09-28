@@ -41,6 +41,26 @@ def notify(title, msg, priority="default"):
         print(f"   alert failed: {e}")
 
 
+MOON_STEPS = (2, 3, 5, 10, 25, 50, 100)            # x since we bought
+
+
+def moon_alerts(positions, send=None):
+    """Owner 2026-09-28: 'tell me if something's going to the moon'. One phone alert per coin each time it passes
+    2x / 3x / 5x / 10x / 25x / 50x / 100x of our buy price (the step reached is saved on the position)."""
+    send = send or notify
+    for pos in positions.values():
+        px, entry = pos.get("px") or 0, pos.get("entry") or 0
+        if px <= 0 or entry <= 0:
+            continue
+        x = px / entry
+        hit = max((m for m in MOON_STEPS if x >= m), default=0)
+        if hit > pos.get("moon", 0):
+            pos["moon"] = hit
+            sym, chain = pos.get("sym", "?"), pos.get("chain", "")
+            send(f"🚀 {sym} is up {x:.1f}x", f"{sym} ({chain}) is up {x:.1f}x since the engine bought it "
+                 f"(paper value ${pos.get('qty', 0) * px:,.0f}). Contract: {pos.get('addr', '')}", "high")
+
+
 def acct_dir(mname, sname):
     return f"data/{mname}/{sname}"
 
@@ -724,6 +744,7 @@ def main():
             print(f"social heat failed: {e}")
         try:                                     # DEX: bookkeeping + at most one HTTP request (<= 8s) per tick
             hunter.tick()
+            moon_alerts(hunter.pf.positions)
         except Exception as e:
             print(f"dex hunter failed: {e}")
         if time.time() >= end or not a.watch:
