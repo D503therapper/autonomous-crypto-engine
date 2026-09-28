@@ -6,5 +6,5 @@ compatibility_date = "2026-09-01"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-MODEL = "claude-opus-5"     # swap to "claude-sonnet-5" for about half the cost
-EFFORT = "low"              # quick chat answers; "medium" thinks harder (slower, pricier)
+MODEL = "claude-haiku-4-5"  # the cheapest; "claude-sonnet-5" / "claude-opus-5" think harder and cost more
+EFFORT = "low"              # (Sonnet/Opus only) quick chat answers; "medium" thinks harder

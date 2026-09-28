@@ -97,14 +97,21 @@ export default {
     }
 
     const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
+    const model = env.MODEL || "claude-haiku-4-5";
+    // Haiku (the cheapest) answers straight up; the bigger models get adaptive thinking + the refusal fallback
+    const extra = model.startsWith("claude-haiku")
+      ? {}
+      : {
+          betas: ["server-side-fallback-2026-07-01"],
+          fallbacks: "default",
+          thinking: { type: "adaptive" },
+          output_config: { effort: env.EFFORT || "low" },
+        };
     try {
       const response = await client.beta.messages.create({
-        model: env.MODEL || "claude-opus-5",
+        model,
         max_tokens: 4000,
-        betas: ["server-side-fallback-2026-07-01"],
-        fallbacks: "default",
-        thinking: { type: "adaptive" },
-        output_config: { effort: env.EFFORT || "low" },
+        ...extra,
         system: [
           { type: "text", text: SYSTEM },
           {
