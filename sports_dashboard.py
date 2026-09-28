@@ -424,7 +424,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
               + grade("🎾 TENNIS", "#c6f000", "#1fd17a", [r for r, _ in tn_rows], [r for r, dd in tn_rows if dd == today]))
     RECORDS["tennis (own record, not ours)"] = wlt(sum(r == 'won' for r, _ in tn_rows), sum(r == 'lost' for r, _ in tn_rows))
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
-    groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
+    groups = [("🏈 NFL", ("nfl",)), ("🏈 College Football", ("ncaaf",)), ("🏀 NBA", ("nba",)),
+              ("🏀 College Basketball", ("ncaab",)), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
     seen_ = {}                                               # a team we're on in two picks the same day counts once
     for p in picks:
         if not p.get("lean"):                              # our daily record only: no leans, no live bets
