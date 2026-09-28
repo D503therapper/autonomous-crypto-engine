@@ -1,6 +1,32 @@
 {
- "updated": "2026-09-28T07:20Z",
+ "updated": "2026-09-28T07:24Z",
  "games": [
+  {
+   "id": "tennis:wta:186236",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-09-28T07:45Z",
+   "away": "Ulrikke Eikeri",
+   "home": "Varvara Lepchenko",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Ulrikke Eikeri",
+    "opp": "Varvara Lepchenko",
+    "market": "ml",
+    "line": null,
+    "odds": 1000,
+    "p": 0.265,
+    "win_p": 0.265,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
   {
    "id": "tennis:atp:186256",
    "league": "tennis",
@@ -62,7 +88,7 @@
    "away": "Alejandro Davidovich Fokina",
    "home": "Nikoloz Basilashvili",
    "vs": true,
-   "why": "no_value",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
@@ -88,7 +114,7 @@
    "away": "Maddison Inglis",
    "home": "Yao Xinxin",
    "vs": true,
-   "why": "tight",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
@@ -114,7 +140,7 @@
    "away": "Andrey Rublev",
    "home": "Kyrian Jacquet",
    "vs": true,
-   "why": "no_value",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
@@ -166,7 +192,7 @@
    "away": "Hubert Hurkacz",
    "home": "Denis Shapovalov",
    "vs": true,
-   "why": "tight",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
@@ -192,7 +218,7 @@
    "away": "Daniil Medvedev",
    "home": "Roman Safiullin",
    "vs": true,
-   "why": "no_value",
+   "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
