@@ -288,9 +288,10 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     fixed: {kind: [legs]} already posted today (a pick posted earlier is built on, never rebuilt)."""
     cands = one_side(cands)
     fixed = fixed or {}
-    # every leg is a real value play; the likeliest first (accuracy), and when two are about as likely (within 2%),
-    # the one with more value
-    good_ = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: (-round(c["p"] * 50), -c["edge"]))
+    # every leg is a lock or a real value play: locks first, then the likeliest (accuracy); when two are about as
+    # likely (within 2%), the one with more value
+    good_ = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV),        # 🔒 locks first (plus money too,
+                   key=lambda c: (leg_tier(c) != "lock", -round(c["p"] * 50), -c["edge"]))   # when the engine's sure)
     board = {}
     if fixed.get("lock"):
         lock = fixed["lock"][0]

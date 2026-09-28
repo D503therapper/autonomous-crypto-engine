@@ -238,6 +238,11 @@ def test_board_rules():
     assert set(three) | {dog_g} <= {l["game_id"] for l in eight}, "the 8-leg is the whole board + the next best plays"
     assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
     assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
+    lk = _cand("pl", 125, 0.60)                                              # plus money the engine is sure about
+    vals = [_cand(x, -150, 0.62) for x in "abc"]                            # likelier, but only value (not locks)
+    assert sports.leg_tier(lk) == "lock" and all(sports.leg_tier(v) == "value" for v in vals)
+    bl = sports.make_board(vals + [lk, _cand("L", -110, 0.66), _cand("D", 200, 0.48)])   # (D is the dog)
+    assert [l["game_id"] for l in bl["two"]["legs"]] == ["L", "pl"], "the Lock, then locks first in the parlays"
     short = slate[:5] + [_cand(f"n{i}", -120, 0.50) for i in range(5)]      # only 5 real plays
     assert sports.make_board(short)["eight"] is None, "no 8 real plays = no 8-leg that day (never a lean filler)"
     filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
