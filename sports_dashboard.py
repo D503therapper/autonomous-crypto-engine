@@ -824,7 +824,7 @@ function ai(){{
   .then(function(r){{return r.ok?r.json():Promise.reject(r.status)}})
   .then(function(d){{clearTimeout(to);if(!d||!d.answer)throw 0;
     hist.push({{role:"user",content:t}},{{role:"assistant",content:d.answer}});hist=hist.slice(-6);
-    out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">'+esc(d.answer).replace(/\\n/g,"<br>")+'</div></section>'}})
+    out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">'+esc(d.answer).replace(/\\*\\*(.+?)\\*\\*/g,"<b>$1</b>").replace(/\\n/g,"<br>")+'</div></section>'}})
   .catch(function(){{clearTimeout(to);out.innerHTML="";render();
     list.insertAdjacentHTML("afterbegin",'<div class="ask-n">The AI’s taking a breather — here’s the engine’s quick read instead. 👇</div>')}});
 }}
