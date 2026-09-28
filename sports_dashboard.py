@@ -10,6 +10,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 import sports_data as sd
+import sports_lingo
 
 PT = ZoneInfo("America/Los_Angeles")
 REPO = "D503therapper/autonomous-crypto-engine"
@@ -401,8 +402,34 @@ def _history(picks):
         return f'{l["team"]} ML'
 
     def rows(items):
-        return "".join(f'<div class="hr {r}"><span class="hd">{day(d)}</span><span class="hw">{ok.get(r, "")}</span>'
-                       f'<span class="hp">{E(what)}<small>{E(sub)}</small></span></div>' for d, r, what, sub in items)
+        return "".join(f'<div class="hr {x[1]}"><span class="hd">{day(x[0])}</span><span class="hw">{ok.get(x[1], "")}</span>'
+                       f'<span class="hp">{E(x[2])}<small>{E(x[3])}</small>'
+                       f'{f"<em>{E(x[4])}</em>" if len(x) > 4 and x[4] else ""}</span></div>' for x in items)
+
+    used = set()                                             # every review on the page worded differently
+    BIG = {"nfl": 14, "ncaaf": 14, "nba": 15, "ncaab": 15, "mlb": 5, "nhl": 3}
+    CLOSE = {"nfl": 3, "ncaaf": 3, "nba": 4, "ncaab": 4, "mlb": 1, "nhl": 1}
+
+    def margin(score, team):
+        m_ = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", score or "")
+        if not m_:
+            return None
+        a, x, b, y = m_.group(1), int(m_.group(2)), m_.group(3), int(m_.group(4))
+        return x - y if a == team else y - x if b == team else None
+
+    def rev_leg(l, r, p=None, seed=""):
+        """The review for one game pick: blowout / close / confident-and-folded / fav / dog / spread - what happened."""
+        lg, mg = l.get("league"), margin(l.get("score"), l.get("team"))
+        t_, o_ = _the(l["team"], lg), _the(l.get("opp", "them"), lg)
+        kind = "spread" if l.get("market") == "spread" else "dog" if (l.get("odds") or 0) > 0 else "fav"
+        if mg is not None and abs(mg) >= BIG.get(lg, 99) and (mg > 0) == (r == "won"):
+            kind = "big"
+        elif mg is not None and abs(mg) <= CLOSE.get(lg, 0) and kind != "spread":
+            kind = "close"
+        elif r == "lost" and (p or l.get("p") or 0) >= 0.6:
+            kind = "conf"
+        x = f'{l["line"]:+g}' if l.get("line") is not None else ""
+        return sports_lingo.review(kind, r, seed or f'{l.get("game_id")}{l.get("side")}', used, t=t_, o=o_, x=x)
 
     def box(title, items):
         if not items:
@@ -428,22 +455,33 @@ def _history(picks):
         l = e["l"]
         by.setdefault(l["league"], []).append(
             (e["date"], l["result"], f'{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
-             + (f' · {l["score"]}' if l.get("score") else "")))
+             + (f' · {l["score"]}' if l.get("score") else ""), rev_leg(l, l["result"])))
     out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', by.get(lg, [])) for lg in sd.LEAGUES)
     # the parlays, as tickets
     tix = [(p["date"], p["status"], f'{kinds.get(p["kind"], p["kind"])} ({_am(p["american"])})',
-            " · " + ", ".join(bet(l) + ("" if l.get("result") in (None, "won") else " ❌") for l in p["legs"]))
+            " · " + ", ".join(bet(l) + ("" if l.get("result") in (None, "won") else " ❌") for l in p["legs"]),
+            sports_lingo.review("parlay", p["status"], p["date"] + p["kind"], used,
+                                x=" and ".join(_the(l["team"], l["league"]) for l in p["legs"] if l.get("result") == "lost")))
            for p in picks if not p.get("lean") and len(p["legs"]) > 1 and p["status"] in ("won", "lost")]
     out += box("🎟️ Parlays", tix)
     # their own records
     lean = [(p["date"], p["status"], f'{bet(p["legs"][0])} ({_am(p["legs"][0]["odds"])})',
              f' · {sd.LEAGUES.get(p["legs"][0]["league"], ("", "", ""))[2]}'
-             + (f' · {p["legs"][0]["score"]}' if p["legs"][0].get("score") else ""))
+             + (f' · {p["legs"][0]["score"]}' if p["legs"][0].get("score") else ""), rev_leg(p["legs"][0], p["status"]))
             for p in picks if p.get("lean") and p["status"] in ("won", "lost") and p.get("legs")]
     live = ((_jl(os.path.join(sd.DATA, "live_log.json"), {}) or {}).get("plays") or {}).values()
+    def rev_live(e):
+        mg = margin(e.get("score_at_post"), e.get("team"))
+        lg = e.get("league")
+        opp = e.get("opp") or next((x for x in re.split(r" \d+ @ | \d+$", e.get("score_at_post") or "") if x and x != e.get("team")), "them")
+        return sports_lingo.review("live_up" if mg is not None and mg > 0 else "live_back", e["result"],
+                                   f'{e.get("date")}{e.get("team")}', used,
+                                   t=_the(e.get("team", ""), lg) if lg in sd.LEAGUES else e.get("team", ""),
+                                   o=_the(opp, lg) if lg in sd.LEAGUES else opp)
     lv = [(e.get("date", ""), e["result"], f'{e.get("team")} ML ({_am(e["odds"])})',
            f' · {sd.LEAGUES.get(e.get("league"), ("", "", "🎾 Tennis"))[2]}'
-           + (f' · went up at {e["score_at_post"]} ({e.get("clock_at_post", "")})' if e.get("score_at_post") else ""))
+           + (f' · went up at {e["score_at_post"]} ({e.get("clock_at_post", "")})' if e.get("score_at_post") else ""),
+           rev_live(e))
           for e in live if e.get("result") in ("won", "lost")]
     tn = {"atp": [], "wta": []}
     seen = set()
@@ -456,8 +494,12 @@ def _history(picks):
             sc = ", ".join(s_.strip() if l.get("side", 1) == 1 else "-".join(reversed(s_.strip().split("-")))
                            for s_ in (l.get("score") or "").split(",") if s_.strip())
             b_ = f'{l["player"]} {l["hcp"]:+g} games' if l.get("market") == "spread" and l.get("hcp") is not None else f'{l["player"]} ML'
+            tkind = "spread" if l.get("market") == "spread" else "dog" if (l.get("odds") or 0) > 0 else "fav"
+            trev = sports_lingo.review(tkind, l["result"], l["id"], used, t=l["player"].split()[-1],
+                                       o=(l.get("opp") or "them").split()[-1],
+                                       x=f'{l["hcp"]:+g} games' if l.get("hcp") is not None else "")
             tn["wta" if l.get("tour") == "wta" else "atp"].append(
-                (sl["date"], l["result"], f'{b_} ({_am(l["odds"])})', f' · vs {l.get("opp", "")}' + (f" · {sc}" if sc else "")))
+                (sl["date"], l["result"], f'{b_} ({_am(l["odds"])})', f' · vs {l.get("opp", "")}' + (f" · {sc}" if sc else ""), trev))
     own = (box("📡 Live plus money", lv) + box("🟡 Leans", lean) + box("🎾 Men's Tennis", tn["atp"])
            + box("🎾 Women's Tennis", tn["wta"]))
     if not out and not own:
@@ -855,7 +897,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .hs-own{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#9fb0c8;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.08)}}
 .hr{{display:grid;grid-template-columns:3.6em 1.4em minmax(0,1fr);gap:6px;padding:7px 0;border-top:1px dashed rgba(255,255,255,.06);font-size:13.5px;align-items:start}}
 .hr .hd{{color:#9fb0c8;font-weight:700;white-space:nowrap}} .hr .hp{{color:#fff;font-weight:800;overflow-wrap:anywhere}}
-.hr .hp small{{color:#9fb0c8;font-weight:600}} .hr.lost .hp{{color:#ffb4b4}}
+.hr .hp small{{color:#9fb0c8;font-weight:600}} .hr .hp em{{display:block;font-style:normal;font-weight:600;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#ffb4b4}}
 .sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
 .spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
   border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:9px 12px;font-size:15px;font-weight:900}}
