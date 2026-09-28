@@ -573,7 +573,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         first = min((p["date"] for p in picks), default=today)
         young = (now.date() - datetime.strptime(first, "%Y-%m-%d").date()).days < 60
         lines.append(_rot(k, [
-            "🧪 Real talk: we just got this thing started. The algorithm's training every single day — it's only getting sharper.",
+            "🧪 We just got this thing started. The algorithm's training every single day — it's only getting sharper.",
             "🧪 We're brand new out here. Every game makes the engine smarter. Give it time — we about to be dangerous.",
             "🧪 Day by day, the algorithm's leveling up. Wins or L's, it's learning from all of it. Trust the process.",
             "🧪 This engine is still a baby and it's already cooking. Wait till it grows up.",

@@ -17,8 +17,8 @@ HOW YOU TALK
   "cheeks clapped" (someone got beat bad), "complete ass" (a team that sucks), "trust the algorithm".
 - More of how we talk: "my bad" (when you can't answer or we got one wrong), "we don't hide nothing", "we don't do no
   player props", "fading the public" / "fading the clowns", "sheep" (the public), "go to work", "handle business",
-  "at the crib" (home game), "hella", "real talk", "all day", "we ain't scared".
-- Never say "chalk" or "no lumping". Never call a big favorite "priced like it's close". Never sound like a bank or a robot.
+  "at the crib" (home game), "hella", "all day", "we ain't scared".
+- Never say "real talk", "chalk" or "no lumping". Don't open with a filler phrase - jump straight into the answer. Never call a big favorite "priced like it's close". Never sound like a bank or a robot.
 - Plain text only - no markdown, no asterisks, no # headings (the box shows raw text). Emojis are fine.
 - Quick questions (the record, what's the pick): short, 2-5 sentences.
 - Questions about a game, a player, a matchup or why we're on something: a FULL breakdown, like a sharp friend who
@@ -33,8 +33,11 @@ WHAT YOU KNOW
 - Everything else that's current - who's starting (QB, goalie, pitcher), backups, injury news, player stats and form,
   recent results, coaching, weather: look it up with web search when the data sheet doesn't have it. Don't say "the
   engine ain't got that" when a quick search would answer it. Use real numbers from what you find.
-- Check it like a sharp would: ESPN (injury reports, depth charts, stats, game logs), other sportsbooks' lines and line
-  movement, sharp money / betting splits (Action Network, Covers, VSiN), beat reporters' news. Open the pages that matter.
+- Check it like a sharp would. Your live feeds come first for numbers:
+  get_lines_and_splits (Action Network: opening vs current line, other books, % of bets vs % of money - when the money %
+  is way above the bets %, that's the bigger bettors / sharp side), get_bovada_lines (Bovada's lines, pregame + live),
+  get_espn_scoreboard (scores, status, records). Then web search / open pages for news, injuries, depth charts, stats,
+  game logs, beat reporters. Pull whatever the question needs - several sources if it's a big question.
 - Never make up a stat, a score or a name. If you searched and still can't find it, say so in our voice.
 - No links, no source lists - just the answer.
 
@@ -55,6 +58,121 @@ Never give real-money betting advice beyond what the engine picked; if someone a
 what they can afford to lose - it's entertainment.`;
 
 const hits = new Map();                  // best effort, per Cloudflare instance
+
+// ---- live data tools: the same feeds the engine uses, so the answer has exact numbers --------------------------
+const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
+const LEAGUES = ["nfl", "ncaaf", "nba", "ncaab", "mlb", "nhl"];
+const ESPN_PATH = { nfl: "football/nfl", ncaaf: "football/college-football", nba: "basketball/nba",
+  ncaab: "basketball/mens-college-basketball", mlb: "baseball/mlb", nhl: "hockey/nhl", atp: "tennis/atp", wta: "tennis/wta" };
+const BOVADA_PATH = { nfl: "football/nfl", ncaaf: "football/college-football", nba: "basketball/nba",
+  ncaab: "basketball/college-basketball", mlb: "baseball/mlb", nhl: "hockey/nhl" };
+const AN_EXTRA = { ncaaf: "&division=FBS", ncaab: "&division=D1" };
+
+const TOOLS = [
+  { name: "get_lines_and_splits",
+    description: "Action Network, live: for every game in a league on a date - the opening line, the consensus line now and " +
+      "the other sportsbooks' prices (moneyline, spread, total), plus the public betting splits (% of bets and % of money on " +
+      "each side). Use it for line movement, sharp vs public money, and 'what are other books saying'.",
+    input_schema: { type: "object", properties: {
+      league: { type: "string", enum: LEAGUES },
+      date: { type: "string", description: "YYYY-MM-DD (Pacific). Leave out for today." },
+      team: { type: "string", description: "Optional: only games with this team (any part of the name)." } },
+      required: ["league"] } },
+  { name: "get_bovada_lines",
+    description: "Bovada's current lines (moneyline, spread, total) for a league - pregame and live games.",
+    input_schema: { type: "object", properties: {
+      league: { type: "string", enum: LEAGUES },
+      team: { type: "string", description: "Optional: only games with this team." } },
+      required: ["league"] } },
+  { name: "get_espn_scoreboard",
+    description: "ESPN scoreboard for a date: every game's status (scheduled / live / final), score, clock, team records.",
+    input_schema: { type: "object", properties: {
+      league: { type: "string", enum: [...LEAGUES, "atp", "wta"] },
+      date: { type: "string", description: "YYYY-MM-DD. Leave out for today." },
+      team: { type: "string", description: "Optional: only games with this team / player." } },
+      required: ["league"] } },
+];
+
+function ptDate(d) {
+  return d || new Date(Date.now() - 7 * 3600000).toISOString().slice(0, 10);
+}
+const has = (team, ...names) => !team || names.some((n) => String(n || "").toLowerCase().includes(String(team).toLowerCase()));
+
+async function fetchJson(url) {
+  const r = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/json" } });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+async function linesAndSplits({ league, date, team }) {
+  const d = ptDate(date).replaceAll("-", "");
+  const j = await fetchJson(`https://api.actionnetwork.com/web/v2/scoreboard/${league}?bookIds=15,30,68,69,71,75,79,123&date=${d}${AN_EXTRA[league] || ""}`);
+  return (j.games || []).map((g) => {
+    const t = Object.fromEntries((g.teams || []).map((x) => [x.id, x.full_name || x.display_name]));
+    const home = t[g.home_team_id], away = t[g.away_team_id];
+    if (!has(team, home, away)) return null;
+    const books = {};
+    for (const [id, m] of Object.entries(g.markets || {})) {
+      const ev = (m && m.event) || {};
+      const name = id === "15" ? "consensus now" : id === "30" ? "opening line" : `book ${id}`;
+      const row = {};
+      for (const [mk, key] of [["moneyline", "ml"], ["spread", "spread"], ["total", "total"]]) {
+        for (const o of ev[mk] || []) {
+          const side = o.side;
+          row[`${key}_${side}`] = mk === "moneyline" ? o.odds : `${o.value} (${o.odds})`;
+          const bi = o.bet_info || {};
+          if (id === "15" && bi.tickets) row[`${key}_${side}_public`] = `${bi.tickets.percent}% of bets, ${bi.money ? bi.money.percent : "?"}% of money`;
+        }
+      }
+      if (Object.keys(row).length) books[name] = row;
+    }
+    return { game: `${away} @ ${home}`, start: g.start_time, status: g.status, books };
+  }).filter(Boolean).slice(0, 25);
+}
+
+async function bovadaLines({ league, team }) {
+  const j = await fetchJson(`https://www.bovada.lv/services/sports/event/v2/events/A/description/${BOVADA_PATH[league]}?marketFilterId=def&lang=en`);
+  const out = [];
+  for (const grp of Array.isArray(j) ? j : []) {
+    for (const ev of grp.events || []) {
+      const names = (ev.competitors || []).map((c) => c.name);
+      if (!has(team, ...names)) continue;
+      const markets = {};
+      for (const dg of ev.displayGroups || []) {
+        for (const mk of dg.markets || []) {
+          const per = mk.period || {};
+          if (!per.main) continue;
+          markets[`${mk.description}${per.live ? " (LIVE)" : ""}`] = (mk.outcomes || []).map((o) =>
+            `${o.description} ${o.price && o.price.handicap ? o.price.handicap + " " : ""}${(o.price || {}).american || ""}`.trim());
+        }
+      }
+      out.push({ game: ev.description, start: new Date(ev.startTime).toISOString(), live: !!ev.live, markets });
+    }
+  }
+  return out.slice(0, 25);
+}
+
+async function espnScoreboard({ league, date, team }) {
+  const j = await fetchJson(`https://site.api.espn.com/apis/site/v2/sports/${ESPN_PATH[league]}/scoreboard?dates=${ptDate(date).replaceAll("-", "")}${league === "ncaab" ? "&groups=50" : ""}`);
+  const out = [];
+  for (const ev of j.events || []) {
+    for (const c of ev.competitions || [ev]) {
+      const teams = (c.competitors || []).map((x) => ({ name: (x.team || x.athlete || {}).displayName, home: x.homeAway,
+        score: x.score, record: ((x.records || [])[0] || {}).summary }));
+      if (!has(team, ...teams.map((x) => x.name))) continue;
+      out.push({ game: ev.name || c.notes, start: c.date || ev.date, status: ((c.status || ev.status || {}).type || {}).detail, teams });
+    }
+  }
+  return out.slice(0, 40);
+}
+
+async function runTool(name, input) {
+  const i = input || {};
+  if (name === "get_lines_and_splits") return linesAndSplits(i);
+  if (name === "get_bovada_lines") return bovadaLines(i);
+  if (name === "get_espn_scoreboard") return espnScoreboard(i);
+  throw new Error(`unknown tool ${name}`);
+}
 
 // Only send the parts of the data sheet a question needs (the whole sheet costs ~2x). The core always goes: records,
 // today's + tomorrow's board, recent results, what the studies proved. Games, splits, tennis and the detailed study
@@ -178,7 +296,8 @@ export default {
           thinking: { type: "adaptive" },
           output_config: { effort: env.EFFORT || "low" },
         };
-    const tools = [                                          // search the web + open the pages it finds (ESPN, odds, splits)
+    const tools = [                                          // live feeds + search the web + open the pages it finds
+      ...TOOLS,
       { type: "web_search_20260209", name: "web_search", max_uses: 6 },
       { type: "web_fetch_20260209", name: "web_fetch", max_uses: 4, max_content_tokens: 12000 },
     ];
@@ -209,8 +328,20 @@ export default {
         ],
       };
       let response = await client.beta.messages.create(params);
-      for (let i = 0; i < 3 && response.stop_reason === "pause_turn"; i++) {   // a long search: let it finish
-        params.messages = [...params.messages, { role: "assistant", content: response.content }];
+      for (let i = 0; i < 8; i++) {                         // run its lookups until it has the answer
+        if (response.stop_reason === "pause_turn") {        // a long search: let it keep going
+          params.messages = [...params.messages, { role: "assistant", content: response.content }];
+        } else if (response.stop_reason === "tool_use") {   // our live feeds: fetch them and hand back the numbers
+          const uses = response.content.filter((b) => b.type === "tool_use");
+          const results = await Promise.all(uses.map(async (u) => {
+            try {
+              return { type: "tool_result", tool_use_id: u.id, content: JSON.stringify(await runTool(u.name, u.input)).slice(0, 24000) };
+            } catch (e) {
+              return { type: "tool_result", tool_use_id: u.id, content: `couldn't load it: ${String(e).slice(0, 200)}`, is_error: true };
+            }
+          }));
+          params.messages = [...params.messages, { role: "assistant", content: response.content }, { role: "user", content: results }];
+        } else break;
         response = await client.beta.messages.create(params);
       }
       if (response.stop_reason === "refusal") {
