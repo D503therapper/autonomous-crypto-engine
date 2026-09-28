@@ -9,7 +9,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 18          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 19          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -448,6 +448,15 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"💸 Everybody's jumping on {the_them}{move}. They're tweaking — we're riding {the_us}, {why}.",
             f"💸 The market's leaning {the_them}{move}. Somebody's about to learn a lesson — we're on {the_us}, {why}."])))
 
+    # who's betting who: the real splits (the same numbers Google shows)
+    sp_ = public_split(leg)
+    if sp_:
+        t, m = sp_
+        mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]
+        out.append(v.say("splits", [
+            f"📊 Who's betting who on {mk}: {t}% of the bets and {m}% of the money are on our side ({us}), "
+            f"{100 - t}% of the bets and {100 - m}% of the money on the other side."], must=True))
+
     # the public: fading them or riding with them
     pub = public_side(leg, g)
     why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
@@ -542,9 +551,23 @@ def _cap(x):
     return x[:1].upper() + x[1:]
 
 
+def public_split(leg):
+    """(our % of the bets, our % of the money) on this leg's market, from the real public splits, or None."""
+    import sports_public
+    s = sports_public.splits_for(leg["game_id"])
+    mk = {"ml": "ml", "spread": "sp", "total": "tot"}.get(leg["market"])
+    if not s or not mk:
+        return None
+    t, m = s.get(f"{mk}_{leg['side']}_t"), s.get(f"{mk}_{leg['side']}_m")
+    return (t, m) if t is not None else None
+
+
 def public_side(leg, g):
-    """'fade' when we're on the dog against a clear favorite (the public loves favorites), 'ride' when we're on the
-    favorite, None near pick'em. Real ticket counts are paywalled, so the favorite stands in for the public."""
+    """'fade' when the public is on the other side, 'ride' when it's with us - from the real splits (% of bets) when
+    we have them; otherwise the favorite stands in for the public on moneylines."""
+    sp_ = public_split(leg)
+    if sp_:
+        return "fade" if sp_[0] <= 35 else "ride" if sp_[0] >= 65 else None
     if leg["market"] != "ml":
         return None
     other = "away" if leg["side"] == "home" else "home"

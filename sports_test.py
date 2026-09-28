@@ -705,6 +705,29 @@ def test_halves_study():
          "result": "won", "odds": 185, "best_odds": 300}
     assert "+300" in dash._live_story(e), "a live bet that cashed after its line ran long says so"
 
+def test_public_splits():
+    """Who's betting who: the Action Network splits parse, match our game, and grade the public side."""
+    import sports_public as spub
+    bi = lambda t, m: {"tickets": {"percent": t}, "money": {"percent": m}}
+    payload = {"games": [{"start_time": "2026-09-29T00:15:00.000Z", "home_team_id": 1, "away_team_id": 2, "season": 2026,
+                          "teams": [{"id": 1, "full_name": "Chicago Bears"}, {"id": 2, "full_name": "Philadelphia Eagles"}],
+                          "markets": {"15": {"event": {
+                              "moneyline": [{"side": "home", "odds": 165, "bet_info": bi(6, 8)},
+                                            {"side": "away", "odds": -202, "bet_info": bi(94, 92)}],
+                              "spread": [{"side": "home", "odds": -106, "value": 3.5, "bet_info": bi(22, 28)},
+                                         {"side": "away", "odds": -113, "value": -3.5, "bet_info": bi(78, 72)}]}}}}]}
+    rows = spub.parse(payload)
+    assert rows and rows[0]["splits"]["sp_away_t"] == 78 and rows[0]["splits"]["ml_home_m"] == 8
+    games = {"nfl:9": {"id": "nfl:9", "league": "nfl", "start": "2026-09-29T00:15Z", "home_name": "Bears",
+                       "away_name": "Eagles", "status": "final", "home_score": "17", "away_score": "20"}}
+    pub = spub.match(games, "nfl", rows)
+    assert "nfl:9" in pub
+    ev = spub.events(games, pub)
+    heavy = [e for e in ev if e[2] == "sp" and e[3] == "public 70%+ of bets"]
+    assert heavy and heavy[0][5] is False, ev                     # Eagles by 3: the public's -3.5 did NOT cover
+    print("ok test_public_splits")
+
+
 def test_injury_guards():
     """No injury report = the game waits (never a pick made blind); a status change after posting = an alert."""
     g = {"id": "nfl:1", "league": "nfl", "home": "3", "away": "21", "home_name": "Bears", "away_name": "Eagles",

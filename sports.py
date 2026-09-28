@@ -936,6 +936,12 @@ def run(repick=False, fetch=True):
             model["graded_seen"] = n_graded
         except Exception as e:                                          # noqa: BLE001
             print(f"self-check failed: {e}")
+    try:                                                                # 📊 who's betting who on today's games
+        import sports_public
+        n_pub = len(sports_public.refresh_today(games))
+        print(f"public splits: {n_pub} upcoming games")
+    except Exception as e:                                              # noqa: BLE001
+        print(f"public splits failed: {e}")
     try:
         injury_watch(games, picks)                                      # 🚑 posted picks: did anybody's status change?
     except Exception as e:                                              # noqa: BLE001

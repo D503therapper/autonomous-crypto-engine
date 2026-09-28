@@ -1,0 +1,33 @@
+# WHO'S BETTING WHO: backfill the public betting splits (Action Network) a chunk at a time and rerun the rigged
+# study (sports_public.py). Runs every 2 hours until the history is in, then just keeps it current.
+name: sports_public
+on:
+  schedule:
+    - cron: "17 */2 * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ["sports_public.py", ".github/workflows/sports_public.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: sports-public
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: timeout 32m python -u sports_public.py backfill 2>&1 | tee -a data/sports/public_run.log
+        env:
+          PUBLIC_BUDGET_S: "1700"
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/public.json data/sports/rigged.json data/sports/public_run.log
+          git commit -qm "public splits + rigged study $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
