@@ -534,7 +534,8 @@ def locked_sides(log, now):
             for pk in json.load(f):
                 if pk.get("date") == today and pk.get("status") != "waiting":
                     for leg in pk.get("legs") or []:
-                        out.setdefault(leg["game_id"], leg["side"])
+                        if leg.get("market") != "total":     # (an over/under isn't a side)
+                            out.setdefault(leg["game_id"], leg["side"])
     except (OSError, ValueError, KeyError):
         pass
     for pid, e in log.get("plays", {}).items():

@@ -141,6 +141,10 @@ def waiting_on(g, injuries):
 import sports_lines  # noqa: E402
 
 LINES_ST = sports_lines.load()               # the puck line / run line study (how often teams really win by 2+)
+import sports_totals  # noqa: E402
+
+TOTALS_ST = sports_totals.load()             # the over/under study: a sport only gets over/unders once it's PROVEN
+_TOT_STATE = {}
 
 
 def candidates(games, model, now=None, day=None, injuries=None):
@@ -198,6 +202,18 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 if pc is not None and sodds:
                     out.append({**base, "market": "spread", "line": line, "odds": sodds, "dec": sd.decimal(sodds),
                                 "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1})
+            if side == "home" and (TOTALS_ST.get(lg) or {}).get("proven") and g.get("total", "") != "":   # over/unders:
+                key_ = (id(games), lg)                                                    # only in proven sports
+                if key_ not in _TOT_STATE:
+                    _TOT_STATE[key_] = sports_totals.state(games, lg)
+                po = sports_totals.p_over(TOTALS_ST[lg], _TOT_STATE[key_], g)
+                if po is not None:
+                    for ou, pp in (("over", po), ("under", 1 - po)):
+                        oo = sm._int(g.get(f"{ou}_odds")) or -110
+                        out.append({**base, "side": ou, "team": ou.capitalize(), "opp": f"{g['away_name']} @ {g['home_name']}",
+                                    "market": "total", "line": float(g["total"]), "odds": oo, "dec": sd.decimal(oo), "p": pp,
+                                    "p_market": 1 / sd.decimal(oo), "edge": pp * sd.decimal(oo) - 1,
+                                    "reasons": ["the engine's scoring read"]})
             if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "":
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)
                 sodds = sm._int(g.get(f"spread_{side}_odds")) or -110
@@ -258,11 +274,11 @@ def _parlay(cands, n, top=40):
 
 def one_side(cands):
     """One side per game - never both teams. Value wins, unless the other side is a lock or a strong lean."""
-    side = {}
+    side, ou = {}, {}
     for c in sorted(cands, key=lambda c: (leg_tier(c) == "lock", c["p"] >= STRONG_LEAN_P, good(c), c["edge"]),
                     reverse=True):
-        side.setdefault(c["game_id"], c["side"])
-    return [c for c in cands if c["side"] == side[c["game_id"]]]
+        (ou if c.get("market") == "total" else side).setdefault(c["game_id"], c["side"])   # one side / one total each
+    return [c for c in cands if c["side"] == (ou if c.get("market") == "total" else side).get(c["game_id"])]
 
 
 DOG_IN_PARLAY_P = 0.50       # the Dog only rides in the parlays when the engine's confident in it: it thinks the
@@ -350,6 +366,8 @@ def leg_tier(c):
     """lock / value / lean for one leg, from the engine's numbers."""
     if not good(c):
         return "lean"
+    if c.get("market") == "total":
+        return "ou"                                          # over/unders: no lock/value label - their own thing
     return "value" if c["odds"] > 0 else "lock"          # owner's rule: minus money = LOCK, plus money = VALUE (favorites
                                                          # hit more, so the lock record stays the surest); no value = LEAN
 
@@ -364,6 +382,8 @@ def pick_tier(pk):
         return pk["tier"]
     # only a real lean play is a LEAN; a parlay's filler leg can't drag the whole card down to one
     tiers = [l.get("tier") or leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}) for l in pk.get("legs") or []]
+    if tiers == ["ou"]:
+        return "ou"
     return "lock" if tiers and all(t == "lock" for t in tiers) else "value"
 
 
@@ -412,6 +432,9 @@ def grade_leg(leg, g, now):
         start = datetime.strptime(leg["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
         return "void" if now - start > timedelta(days=4) else None
     hs, as_ = int(g["home_score"]), int(g["away_score"])
+    if leg["market"] == "total":                              # over/under: total points vs the line
+        d = (hs + as_ - leg["line"]) * (1 if leg["side"] == "over" else -1)
+        return "won" if d > 0 else "lost" if d < 0 else "push"
     margin = (hs - as_) if leg["side"] == "home" else (as_ - hs)
     if leg["market"] == "spread":
         margin += leg["line"]

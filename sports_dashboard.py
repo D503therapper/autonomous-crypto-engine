@@ -118,7 +118,7 @@ def _live_story(e, used=None):
     return f"{score} {thought} — {end}"
 
 
-TIER_CHIP = {"lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
+TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
              "lean": '<span class="chip lean">🟡 LEAN</span>'}
 TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE", "#ff5a1f", "#ff8a00"),
              "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
@@ -150,7 +150,7 @@ def _breakdown(leg):
     return f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{body}</div></details>'
 
 
-LEG_TAG = {"lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
+LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
            "lean": '<span class="lt-t lean">🟡 LEAN</span>'}
 
 
@@ -158,7 +158,7 @@ def _leg(leg, tagged=False):
     import sports
     lg = sd.LEAGUES[leg["league"]]
     ltag = LEG_TAG[leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})] if tagged else ""
-    mk = "ML" if leg["market"] == "ml" else f'{leg["line"]:+g}'
+    mk = "ML" if leg["market"] == "ml" else f'{leg["line"]:g}' if leg["market"] == "total" else f'{leg["line"]:+g}'
     res = leg.get("result")
     mark = ""
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
@@ -171,7 +171,7 @@ def _leg(leg, tagged=False):
     return f"""<div class="leg {res or ''}">
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm">{_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
-  <div class="ls">{"vs" if leg["home"] else "@"} {E(leg["opp"])}</div>
+  <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
   {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
@@ -352,7 +352,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         for l in p["legs"]:
             if l.get("result") in ("won", "lost"):
                 # if we posted it, it counts - labeled by the rule: minus money = lock, plus money = value
-                t = "lock" if p["kind"] == "lock" or l["odds"] < 0 else "value"
+                t = "ou" if l.get("market") == "total" else "lock" if p["kind"] == "lock" or l["odds"] < 0 else "value"
                 key = (p["date"], l["game_id"], l["side"])
                 if calls.get(key, ("", ""))[0] != "lock":
                     calls[key] = (t, l["result"], p["date"])
