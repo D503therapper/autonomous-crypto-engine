@@ -238,7 +238,7 @@ def test_board_rules():
     assert set(three) | {dog_g} <= {l["game_id"] for l in eight}, "the 8-leg is the whole board + the next best plays"
     assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
     assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
-    lk = _cand("pl", 125, 0.60)                                              # plus money the engine is sure about
+    lk = _cand("pl", -110, 0.60)                                             # a minus-money play the engine is sure about
     vals = [_cand(x, -150, 0.62) for x in "abc"]                            # likelier, but only value (not locks)
     assert sports.leg_tier(lk) == "lock" and all(sports.leg_tier(v) == "value" for v in vals)
     bl = sports.make_board(vals + [lk, _cand("L", -110, 0.66), _cand("D", 200, 0.48)])   # (D is the dog)
@@ -262,7 +262,7 @@ def test_board_rules():
     strong = dict(_cand("g9", -150, 0.61), side="home")      # ...vs a strong lean (61%): the strong lean wins
     assert {c["side"] for c in sports.one_side([val, weak])} == {"away"}, "value takes precedence"
     assert {c["side"] for c in sports.one_side([val, strong])} == {"home"}, "unless the engine has a strong lean on the other side"
-    assert sports.leg_tier(_cand("pl", 120, 0.58)) == "lock", "plus money + 58% to win at +120 = a lock"
+    assert sports.leg_tier(_cand("pl", 120, 0.58)) == "value", "plus money is always value - locks are minus money only"
     assert sports.leg_tier(_cand("pt", 110, 0.55)) == "value", "plus money treads lightly: 55% at +110 isn't enough for a lock"
     assert sports.leg_tier(_cand("mn", -120, 0.60)) == "lock", "minus money: 60% at -120 (10% edge) = a lock"
     assert sports.leg_tier(_cand("v", 150, 0.43)) == "value" and sports.leg_tier(_cand("n", -110, 0.50)) == "lean"
