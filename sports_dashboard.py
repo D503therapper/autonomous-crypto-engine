@@ -203,7 +203,7 @@ def _pick_card(kind, pk):
                       "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
                   if _tier(pk) == "lock" and pk.get("american", 0) > 0 and pk["status"] == "open" else "")
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
-  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{TIER_CHIP[_tier(pk)]}{_chip(pk["status"])}</div>
+  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{TIER_CHIP[_tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{legs}
@@ -339,11 +339,23 @@ def render(picks, model, games, series, start_bank, updated_ms):
         return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
                 f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%} hit" if w_ + l_ else "no results yet"}</div>'
                 f'<div class="rc-s">today {tw}-{tl}{f" · streak {st}" if st else ""}</div></div>')
-    acc = [p for p in graded_all if p["kind"] != "eight"]    # the 8-leg lottery ticket: its own record only, never the accuracy grades
-    by_tier = {t: [p for p in acc if _tier(p) == t] for t in ("lock", "value", "lean")}
+    # locks and value: every call on the board, graded by how sure we were (a parlay's legs each count as their own call,
+    # a team we're on twice the same day counts once). Leans never count; the 8-leg lottery ticket keeps its own record.
+    import sports
+    calls = {}
+    for p in sorted(picks, key=lambda p: p.get("posted") or ""):
+        if p["kind"] == "eight" or p.get("lean"):
+            continue
+        for l in p["legs"]:
+            if l.get("result") in ("won", "lost"):
+                t = "lock" if p["kind"] == "lock" else (l.get("tier") or sports.leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}))
+                key = (p["date"], l["game_id"], l["side"])
+                if calls.get(key, ("", ""))[0] != "lock":
+                    calls[key] = ("value" if t == "lean" else t, l["result"], p["date"])
+    by_tier = {t: [(r, d) for tt, r, d in calls.values() if tt == t] for t in ("lock", "value")}
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
-    grades = "".join(grade(*TIER_LOOK[t], [p["status"] for p in by_tier[t]], [p["status"] for p in by_tier[t] if p["date"] == today])
-                     for t in ("lock", "value", "lean"))
+    grades = "".join(grade(*TIER_LOOK[t], [r for r, _ in by_tier[t]], [r for r, d in by_tier[t] if d == today])
+                     for t in ("lock", "value"))
     grades += grade("📡 LIVE", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
@@ -693,7 +705,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, Dog, 2-Leg and 3-Leg the engine is most confident in, posted before the first game. Graded by how sure we were: 🔒 locks, 🔥 value, 🟡 leans. 📡 Live bets, the 🎰 8-leg lottery ticket and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, Dog, 2-Leg and 3-Leg the engine is most confident in, posted before the first game. Every call is graded by how sure we were: 🔒 locks and 🔥 value — each leg of a parlay counts as its own call. 📡 Live bets, the 🎰 8-leg lottery ticket and 🎾 tennis each keep their own record. Question-box reads never count. No lumping, no hiding — full transparency.</div>
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
