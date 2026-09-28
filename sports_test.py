@@ -849,79 +849,94 @@ def test_tennis_life_features():
 def test_tennis_life_study():
     """Noise never ships: random birth dates (age has nothing to do with winning) keep the age weights at 0. A real
     planted effect (the veteran wins more in best-of-5) is found and kept."""
-    import sports_tennis as st
-
-    def sim(n, seed, plant):
-        rnd = random.Random(seed)
-        players = [str(i) for i in range(160)]
-        skill = {p: rnd.gauss(0, 1) for p in players}
-        bios = {f"atp:{p}": {"dob": f"{rnd.randint(1985, 2006)}-0{rnd.randint(1, 9)}-15"} for p in players}
-        t0 = datetime(2022, 1, 1, tzinfo=timezone.utc)
-        out = {}
-        for i in range(n):
-            a, b = rnd.sample(players, 2)
-            when = t0 + timedelta(hours=3 * i)
-            bo = 5 if i % 2 else 3
-            x = 1.5 * (skill[a] - skill[b])
-            if plant and bo == 5:
-                aa, ab = (st.age_at(bios[f"atp:{q}"]["dob"], when.strftime("%Y-%m-%d")) for q in (a, b))
-                x += 2.5 * (st._vet(aa) - st._vet(ab))
-            w = 1 if rnd.random() < 1 / (1 + math.exp(-x)) else 2
-            mid = f"atp:{i}"
-            out[mid] = {"id": mid, "tour": "atp", "start": when.strftime("%Y-%m-%dT%H:%MZ"), "event": "e",
-                        "tourney": "Somewhere Open", "round": "Round 1", "surface": "hard", "bo": str(bo), "p1": a,
-                        "p1_name": f"P {a}", "p2": b, "p2_name": f"Q {b}", "winner": w, "sets1": "6 6", "sets2": "3 3",
-                        "status": "STATUS_FINAL", "done": 2, "venue": "Paris, France"}
-        return out, bios
-    keep = (st.TOUR_MIN_RATED, st.FACTORS)
-    st.TOUR_MIN_RATED = 1000
-    st.FACTORS = {k: st.FACTORS[k] for k in ("age", "young_vs_aging")}
+    import sports_tennis as _stl
+    _prev, _stl.LIFE_USE = _stl.LIFE_USE, True        # (the factors on, just for this test)
     try:
-        ms, bios = sim(5000, 21, plant=False)
-        _, w, rep = st.study(ms, eval_n=1000, log=lambda x: None, players=bios)
-        lf = rep["tours"]["atp"]["life"]
-        assert lf["kept"] == [] and all(v == 0.0 for v in w["atp"][len(st.PRIOR):]), lf
-        assert lf["factors"]["age"]["n"] == 1000 and lf["factors"]["age"]["active"] > 900 and lf["graded_with_both_ages"] == 1000
-        assert "z" in lf["factors"]["age"] and lf["curve"], lf
-        ms, bios = sim(7000, 22, plant=True)
-        _, w, rep = st.study(ms, eval_n=1000, log=lambda x: None, players=bios)
-        lf = rep["tours"]["atp"]["life"]
-        assert "age" in lf["kept"] and w["atp"][len(st.PRIOR) + st.LIFE.index("vet_bo5")] > 0.3, lf
-        assert lf["factors"]["age"]["gain_mnats"] > 0 and lf["factors"]["age"]["z"] >= st.Z_KEEP
+        import sports_tennis as st
+
+        def sim(n, seed, plant):
+            rnd = random.Random(seed)
+            players = [str(i) for i in range(160)]
+            skill = {p: rnd.gauss(0, 1) for p in players}
+            bios = {f"atp:{p}": {"dob": f"{rnd.randint(1985, 2006)}-0{rnd.randint(1, 9)}-15"} for p in players}
+            t0 = datetime(2022, 1, 1, tzinfo=timezone.utc)
+            out = {}
+            for i in range(n):
+                a, b = rnd.sample(players, 2)
+                when = t0 + timedelta(hours=3 * i)
+                bo = 5 if i % 2 else 3
+                x = 1.5 * (skill[a] - skill[b])
+                if plant and bo == 5:
+                    aa, ab = (st.age_at(bios[f"atp:{q}"]["dob"], when.strftime("%Y-%m-%d")) for q in (a, b))
+                    x += 2.5 * (st._vet(aa) - st._vet(ab))
+                w = 1 if rnd.random() < 1 / (1 + math.exp(-x)) else 2
+                mid = f"atp:{i}"
+                out[mid] = {"id": mid, "tour": "atp", "start": when.strftime("%Y-%m-%dT%H:%MZ"), "event": "e",
+                            "tourney": "Somewhere Open", "round": "Round 1", "surface": "hard", "bo": str(bo), "p1": a,
+                            "p1_name": f"P {a}", "p2": b, "p2_name": f"Q {b}", "winner": w, "sets1": "6 6", "sets2": "3 3",
+                            "status": "STATUS_FINAL", "done": 2, "venue": "Paris, France"}
+            return out, bios
+        keep = (st.TOUR_MIN_RATED, st.FACTORS)
+        st.TOUR_MIN_RATED = 1000
+        st.FACTORS = {k: st.FACTORS[k] for k in ("age", "young_vs_aging")}
+        try:
+            ms, bios = sim(5000, 21, plant=False)
+            _, w, rep = st.study(ms, eval_n=1000, log=lambda x: None, players=bios)
+            lf = rep["tours"]["atp"]["life"]
+            assert lf["kept"] == [] and all(v == 0.0 for v in w["atp"][len(st.PRIOR):]), lf
+            assert lf["factors"]["age"]["n"] == 1000 and lf["factors"]["age"]["active"] > 900 and lf["graded_with_both_ages"] == 1000
+            assert "z" in lf["factors"]["age"] and lf["curve"], lf
+            ms, bios = sim(7000, 22, plant=True)
+            _, w, rep = st.study(ms, eval_n=1000, log=lambda x: None, players=bios)
+            lf = rep["tours"]["atp"]["life"]
+            assert "age" in lf["kept"] and w["atp"][len(st.PRIOR) + st.LIFE.index("vet_bo5")] > 0.3, lf
+            assert lf["factors"]["age"]["gain_mnats"] > 0 and lf["factors"]["age"]["z"] >= st.Z_KEEP
+        finally:
+            st.TOUR_MIN_RATED, st.FACTORS = keep
     finally:
-        st.TOUR_MIN_RATED, st.FACTORS = keep
+        _stl.LIFE_USE = _prev
+
+def test_tennis_life_off():
+    """The crew's call: age / experience / first-set stay research only - the picks use the model as it was."""
+    import sports_tennis as stl
+    assert stl.LIFE_USE is False
+    assert stl.life_line(None, {"f": {"age1": 19, "age2": 34, "exp_n1": 3, "exp_n2": 400}}, "A", "B", "she", "She", "her") == ""
 
 
 def test_tennis_life_lines():
     """At most one age / experience line, only when it's on our side; never 'real talk' or 'chalk'; no repeats."""
-    import sports_tennis as st
-    base = {"id": "x", "player": "Mirra Andreeva", "opp": "Venus Williams", "surface": "hard", "bo": 3, "tour": "wta",
-            "f": {"surface_gap": 0, "fatigue": 0, "form": 0, "h2h": 0, "home": 0, "age1": 18.4, "age2": 44.1,
-                  "exp_n1": 60, "exp_n2": 400, "big_n1": 3, "big_n2": 90}}
-    used = set()
-    bd = st.breakdown(base, None, used)
-    teen = [x for x in bd if x.startswith("🔥") and "18" in x]
-    assert len(teen) == 1 and not any("🧓" in x for x in bd), bd
-    assert not any(re.search(r"\b(he|him|his)\b", x) for x in bd)
-    vet = {**base, "id": "y", "player": "Novak Djokovic", "opp": "Joao Fonseca", "bo": 5, "tour": "atp",
-           "f": {**base["f"], "age1": 39.3, "age2": 20.1, "exp_n1": 900, "exp_n2": 40, "big_n1": 150, "big_n2": 3}}
-    bd2 = st.breakdown(vet, None, used)
-    assert sum("🧓" in x for x in bd2) == 1 and any("five" in x.lower() or "best of 5" in x.lower() or "best-of-5" in x
-                                                   for x in bd2 if "🧓" in x), bd2
-    big = {**vet, "id": "z", "bo": 3}
-    line = [x for x in st.breakdown(big, None, set()) if "🧓" in x]
-    assert len(line) == 1 and "150" in line[0] and "3" in line[0], line
-    plain = {**base, "f": {k: v for k, v in base["f"].items() if not k.startswith(("age", "exp", "big"))}}
-    assert not any(x[:1] in ("🧓", "⚡") or "years old" in x for x in st.breakdown(plain, None, set()))
-    from sports_breakdown import Voice
-    v = Voice("q", set())
-    seen = {st.life_line(v, {**big, "id": f"k{i}"}, "Djokovic", "Fonseca", "he", "He", "his") for i in range(4)}
-    seen.discard("")
-    assert len(seen) == 4, "four ways to say it, never the same one twice on a board"
-    assert st.life_line(v, {**big, "id": "k9"}, "Djokovic", "Fonseca", "he", "He", "his") == "", "all taken: dropped"
-    for x in seen | set(bd) | set(bd2):
-        assert "real talk" not in x.lower() and "chalk" not in x.lower(), x
-
+    import sports_tennis as _stl
+    _prev, _stl.LIFE_USE = _stl.LIFE_USE, True        # (the factors on, just for this test)
+    try:
+        import sports_tennis as st
+        base = {"id": "x", "player": "Mirra Andreeva", "opp": "Venus Williams", "surface": "hard", "bo": 3, "tour": "wta",
+                "f": {"surface_gap": 0, "fatigue": 0, "form": 0, "h2h": 0, "home": 0, "age1": 18.4, "age2": 44.1,
+                      "exp_n1": 60, "exp_n2": 400, "big_n1": 3, "big_n2": 90}}
+        used = set()
+        bd = st.breakdown(base, None, used)
+        teen = [x for x in bd if x.startswith("🔥") and "18" in x]
+        assert len(teen) == 1 and not any("🧓" in x for x in bd), bd
+        assert not any(re.search(r"\b(he|him|his)\b", x) for x in bd)
+        vet = {**base, "id": "y", "player": "Novak Djokovic", "opp": "Joao Fonseca", "bo": 5, "tour": "atp",
+               "f": {**base["f"], "age1": 39.3, "age2": 20.1, "exp_n1": 900, "exp_n2": 40, "big_n1": 150, "big_n2": 3}}
+        bd2 = st.breakdown(vet, None, used)
+        assert sum("🧓" in x for x in bd2) == 1 and any("five" in x.lower() or "best of 5" in x.lower() or "best-of-5" in x
+                                                       for x in bd2 if "🧓" in x), bd2
+        big = {**vet, "id": "z", "bo": 3}
+        line = [x for x in st.breakdown(big, None, set()) if "🧓" in x]
+        assert len(line) == 1 and "150" in line[0] and "3" in line[0], line
+        plain = {**base, "f": {k: v for k, v in base["f"].items() if not k.startswith(("age", "exp", "big"))}}
+        assert not any(x[:1] in ("🧓", "⚡") or "years old" in x for x in st.breakdown(plain, None, set()))
+        from sports_breakdown import Voice
+        v = Voice("q", set())
+        seen = {st.life_line(v, {**big, "id": f"k{i}"}, "Djokovic", "Fonseca", "he", "He", "his") for i in range(4)}
+        seen.discard("")
+        assert len(seen) == 4, "four ways to say it, never the same one twice on a board"
+        assert st.life_line(v, {**big, "id": "k9"}, "Djokovic", "Fonseca", "he", "He", "his") == "", "all taken: dropped"
+        for x in seen | set(bd) | set(bd2):
+            assert "real talk" not in x.lower() and "chalk" not in x.lower(), x
+    finally:
+        _stl.LIFE_USE = _prev
 
 def test_tennis_edge_life_atoms():
     """'Lastname F.' -> ESPN id only on a UNIQUE match per tour; the new life atoms are new names (no existing atom

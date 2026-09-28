@@ -100,6 +100,8 @@ FACTORS = {
     "travel": ("travel",),                                                # new continent / 5+ time zones in 7 days
 }
 LIFE = tuple(k for ks in FACTORS.values() for k in ks)
+LIFE_USE = False     # the crew (9/28): age / experience / first-set etc. stay RESEARCH ONLY - they never touch the picks
+                     # or the breakdowns until the owner says so (the study still runs and reports what it finds)
 LIFE_SWAP = (("age1", "age2"), ("exp_n1", "exp_n2"), ("big_n1", "big_n2"))
 Z_KEEP = 2.0
 YOUNG = 23.0                    # "young" for the young-vs-aging terms (22 and under)
@@ -863,7 +865,11 @@ def study(ms, eval_n=2000, log=print, players=None):
         own = len(data[t]) >= TOUR_MIN_RATED and len(fit_on) >= 500
         life = None
         if own:
-            w[t], life = life_study(rt.pool(t), _fit(fit_on), fit_on, ev)
+            base = _fit(fit_on)
+            w[t], life = life_study(rt.pool(t), base, fit_on, ev)
+            if not LIFE_USE:                               # research only (the crew's call): the picks use the model
+                w[t] = base                                # exactly as it was, whatever the study found
+                life["used_in_picks"] = False
         else:
             w[t] = shared
             log(f"tennis study: {t.upper()} has only {len(data[t])} rated matches (< {TOUR_MIN_RATED}) - "
@@ -1119,6 +1125,8 @@ def life_line(v, c, me, them, he, He, his):
     """At most ONE age / experience line, only when it's on our side and big enough to say out loud (a vet in a
     best-of-5, a big-match experience gap, a teenager, a big experience gap, a big age gap). Display only: it moves
     no number unless the study kept that factor. "" when nothing applies (or every wording is taken on the board)."""
+    if not LIFE_USE:
+        return ""
     f = c.get("f") or {}
     a_me, a_them = f.get("age1"), f.get("age2")
     x_me, x_them = int(f.get("exp_n1") or 0), int(f.get("exp_n2") or 0)
