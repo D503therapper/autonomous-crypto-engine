@@ -294,9 +294,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
         ask_url = ""
     if not re.fullmatch(r"https://[A-Za-z0-9.-]+\.workers\.dev/?", ask_url or "x"):
         ask_url = ""
-    ask_note = ("Tap in! Ask me whatever the fuck. No stupid shit though — ain't nobody got time for that. 🧠" if ask_url else
+    ask_note = ("Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that." if ask_url else
                 "Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.")
-    ask_btn = '<button id="askgo" type="button">Ask 🧠</button>' if ask_url else ""
+    ask_btn = '<button id="askgo" type="button">What’s good?</button>' if ask_url else ""
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card goes up from <b>6 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
