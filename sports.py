@@ -225,12 +225,14 @@ def candidates(games, model, now=None, day=None, injuries=None):
                                     "market": "total", "line": float(g["total"]), "odds": oo, "dec": sd.decimal(oo), "p": pp,
                                     "p_market": 1 / sd.decimal(oo), "edge": pp * sd.decimal(oo) - 1,
                                     "reasons": ["the engine's scoring read"]})
-            # a starting QB out: the book has already moved the spread for the backup and our ratings still think the
-            # starter plays - so no spread read on that game at all (the moneyline above goes by the market)
-            if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "" and not (key_out["home"] or key_out["away"]):
+            if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "":
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)
                 sodds = sm._int(g.get(f"spread_{side}_odds")) or -110
                 pc = sm.cover_p(params, f, g, side)
+                if key_out["home"] or key_out["away"]:    # a starting QB out: our ratings still think the starter plays,
+                    ho = sm._int(g.get("spread_home_odds")) or -110   # the book already moved for the backup - so the
+                    ao = sm._int(g.get("spread_away_odds")) or -110   # spread read is the book's own line + the proven
+                    pc = sd.no_vig(ho, ao) if side == "home" else 1 - sd.no_vig(ho, ao)   # spread/moneyline study only
                 if pc is not None and ATS_ST:                 # moneyline vs spread disagreement (proven sports only)
                     ph_c = pc if side == "home" else 1 - pc
                     ph_c = sports_ats.adjust(ATS_ST, lg, g, ph_c)
@@ -330,7 +332,10 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                    default=None)
         if solo is None:                                      # the owner wants a pick on a one-game day: the best REAL
             solo = max((c for c in cands if c["edge"] > 0 and c.get("edge_own", c["edge"]) > 0 and c["odds"] >= MAX_FAV),
-                       key=lambda c: c["edge"], default=None)  # edge (positive, even if thin) - never a pure guess
+                       key=lambda c: c["edge"], default=None)  # edge (positive, even if thin)
+        if solo is None:                                      # still nothing: a one-game day (Monday/Thursday night) ALWAYS
+            solo = max((c for c in cands if c["odds"] >= MAX_FAV), key=lambda c: c["edge"], default=None)   # gets a pick:
+                                                              # the side closest to value on our numbers
         return {"lock": None, "dog": None, "two": None, "three": None, "four": None,
                 "solo": fixed.get("solo") and _combo(fixed["solo"]) or (_combo([solo]) if solo else None)}
     # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely

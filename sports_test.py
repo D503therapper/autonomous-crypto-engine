@@ -705,6 +705,16 @@ def test_halves_study():
          "result": "won", "odds": 185, "best_odds": 300}
     assert "+300" in dash._live_story(e), "a live bet that cashed after its line ran long says so"
 
+def test_one_game_always_picks():
+    """Monday/Thursday night (a one-game day) always gets a Pick of the Day - the side closest to value."""
+    base = {"game_id": "g1", "league": "nfl", "reasons": [], "start": "2026-09-29T00:15Z", "home": True}
+    cands = [{**base, "side": "home", "team": "A", "market": "spread", "line": 3.5, "odds": -108, "dec": 1.926, "p": 0.517, "edge": -0.004},
+             {**base, "side": "away", "team": "B", "market": "ml", "line": None, "odds": -198, "dec": 1.505, "p": 0.653, "edge": -0.018}]
+    b = sports.make_board(cands)
+    assert b["solo"] and b["solo"]["legs"][0]["team"] == "A", b
+    print("ok test_one_game_always_picks")
+
+
 def test_dog_traps():
     """The big study: a dog in a spot the books still overprice is never a real play; a proven price check shifts reads."""
     import sports_dogs
