@@ -13,7 +13,9 @@
 4. Spreads (NFL, NBA): expected margin from the same inputs (least squares), blended with the
    market's line the same way; cover chance from a normal curve with the learned spread of results.
 Every tune is logged so the dashboard can show what the engine learned and what changed."""
+import json
 import math
+import os
 from datetime import datetime, timezone
 
 from zoneinfo import ZoneInfo
@@ -292,6 +294,8 @@ def final_p(params, f, g):
     m = market_p(g)
     if m is None:
         return ours
+    if params.get("hockey") is not None:                  # NHL (the hockey study): the line, plus only what it's proven
+        return sigmoid(logit(m) + sum(w * f.get(k, 0.0) for k, w in params["hockey"].items()))   # to miss
     return sigmoid(logit(m) + params["trust"] * (logit(ours) - logit(m)) + params["move_w"] * line_move(g)
                    + params.get("cal", 0.0) * logit(m) + params.get("hdog", 0.0) * home_dog(m, g))
 
@@ -431,6 +435,13 @@ def tune_all(games, model):
         new = tune(games, lg, prev)
         if not new or new is prev:
             continue
+        if lg == "nhl":                                   # the hockey study: the line + only the factors it proved
+            try:
+                with open(os.path.join(sd.DATA, "hockey.json")) as fh:
+                    hk = json.load(fh)
+                new["hockey"] = {k: v for k, v in (hk.get("weights") or {}).items() if k in ("b2b", "rest")}
+            except (OSError, ValueError):
+                pass
         change = []
         if prev:
             if new["k"] != prev["k"]:

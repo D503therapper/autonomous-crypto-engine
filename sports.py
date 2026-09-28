@@ -774,6 +774,9 @@ def run(repick=False, fetch=True):
             print(sports_halves.summary(sports_halves.study(games)))
             import sports_lines
             print(sports_lines.summary(sports_lines.study(games)))
+            import sports_hockey                                        # hockey: the line + only what beats it
+            hk = sports_hockey.study(games)
+            print("hockey study:", hk.get("kept"), hk.get("ll_kept"), "vs line", hk.get("ll_market"))
             import sports_totals                                        # over/unders: only once they beat the book
             print("totals study:", {k: (v.get("hit_top"), v.get("proven")) for k, v in sports_totals.study(games).items()})
             model["ls_seen"] = n_ls

@@ -637,6 +637,14 @@ def test_tennis():
 
 
 
+def test_hockey_line_first():
+    g = {"ml_home": "-120", "ml_away": "100"}
+    m = sm.market_p(g)
+    params = {"hockey": {"b2b": 0.12}, "w": [0.0] * 20, "trust": 0.5, "move_w": 0.0}
+    assert abs(sm.final_p(params, {"b2b": 0.0}, g) - m) < 1e-9, "hockey: the line itself, no own-model tilt"
+    assert sm.final_p(params, {"b2b": 1.0}, g) > m, "...plus the back-to-back edge the study proved"
+
+
 def test_lines_study():
     import sports_lines
     rnd = random.Random(3)
