@@ -243,7 +243,7 @@ def _eight(cands, core):
             legs.append(c)
             games_.add(c["game_id"])
     rest = sorted((c for c in cands if c["game_id"] not in games_ and good(c) and c["odds"] >= MAX_FAV),
-                  key=lambda c: (leg_tier(c) != "lock", -round(c["p"] * 50), -c["edge"]))
+                  key=lambda c: (-round(c["p"] * 50), -c["edge"]))
     for c in rest:
         if len(legs) >= 8:
             break
@@ -288,10 +288,10 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     fixed: {kind: [legs]} already posted today (a pick posted earlier is built on, never rebuilt)."""
     cands = one_side(cands)
     fixed = fixed or {}
-    # every leg is a lock or a real value play: locks first, then the likeliest (accuracy); when two are about as
-    # likely (within 2%), the one with more value
-    good_ = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV),        # 🔒 locks first (plus money too,
-                   key=lambda c: (leg_tier(c) != "lock", -round(c["p"] * 50), -c["edge"]))   # when the engine's sure)
+    # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely
+    # (within 2%), the one with the most value
+    good_ = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV),        # accuracy first, then the most value
+                   key=lambda c: (-round(c["p"] * 50), -c["edge"]))
     board = {}
     if fixed.get("lock"):
         lock = fixed["lock"][0]
