@@ -25,7 +25,7 @@
    "since": "2026-09-28T15:13Z"
   }
  },
- "cell_tests": 4428,
+ "cell_tests": 6588,
  "cfg_killed": {
   "nba|disp=1.06|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1": {
    "checked": "2026-09-28T15:18Z",
@@ -171,6 +171,56 @@
    "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "why": "crowded out by a stronger variant before its forward test"
   },
+  "ncaaf|disp=1.06|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1": {
+   "checked": "2026-09-28T23:27Z",
+   "cutoff": "2026-09-27T01:00Z",
+   "disc": {
+    "new": {
+     "diff": -0.00292,
+     "n": 7542,
+     "z": 11.41
+    },
+    "old": {
+     "diff": -0.00229,
+     "n": 7497,
+     "z": 9.26
+    }
+   },
+   "found": "2026-09-28T15:13Z",
+   "fwd": {
+    "n": 0
+   },
+   "gain": 0.00521,
+   "killed": "2026-09-28T23:27Z",
+   "league": "ncaaf",
+   "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "why": "crowded out by a stronger variant before its forward test"
+  },
+  "ncaaf|disp=1.06|form=0.0|gain=2.0|hfa=learned|keys=0|pace=0.5|park=0|regress=0.1|rest=1": {
+   "checked": "2026-09-28T23:27Z",
+   "cutoff": "2026-09-27T01:00Z",
+   "disc": {
+    "new": {
+     "diff": -0.00213,
+     "n": 7542,
+     "z": 0.97
+    },
+    "old": {
+     "diff": -0.00267,
+     "n": 7497,
+     "z": 1.28
+    }
+   },
+   "found": "2026-09-28T15:18Z",
+   "fwd": {
+    "n": 0
+   },
+   "gain": 0.0048,
+   "killed": "2026-09-28T23:27Z",
+   "league": "ncaaf",
+   "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "why": "crowded out by a stronger variant before its forward test"
+  },
   "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.1|rest=1": {
    "checked": "2026-09-28T15:18Z",
    "cutoff": "2026-09-27T01:00Z",
@@ -221,7 +271,7 @@
  },
  "cfg_suspects": {
   "mlb|disp=2.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1": {
-   "checked": "2026-09-28T15:18Z",
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-09-27T19:10Z",
    "disc": {
     "new": {
@@ -244,6 +294,7 @@
    "vs": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1"
   },
   "mlb|disp=2.5|form=0.25|gain=0.75|hfa=none|pace=0.33|park=1|regress=0.4|rest=1": {
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-09-27T19:10Z",
    "disc": {
     "new": {
@@ -258,12 +309,35 @@
     }
    },
    "found": "2026-09-28T15:18Z",
-   "fwd": {},
+   "fwd": {
+    "n": 0
+   },
    "gain": 0.0016,
    "league": "mlb",
    "vs": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1"
   },
+  "mlb|disp=2.5|form=0.5|gain=0.75|hfa=none|pace=0.33|park=1|regress=0.4|rest=0": {
+   "cutoff": "2026-09-27T19:10Z",
+   "disc": {
+    "new": {
+     "diff": -0.0009,
+     "n": 29709,
+     "z": 4.82
+    },
+    "old": {
+     "diff": -0.0011,
+     "n": 29474,
+     "z": 5.57
+    }
+   },
+   "found": "2026-09-28T23:27Z",
+   "fwd": {},
+   "gain": 0.002,
+   "league": "mlb",
+   "vs": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1"
+  },
   "nba|disp=1.12|form=0.25|gain=0.5|hfa=team|pace=1.5|park=1|regress=0.2|rest=0": {
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-06-14T00:30Z",
    "disc": {
     "new": {
@@ -278,12 +352,15 @@
     }
    },
    "found": "2026-09-28T15:18Z",
-   "fwd": {},
+   "fwd": {
+    "n": 0
+   },
    "gain": 0.0059,
    "league": "nba",
    "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nba|disp=1.12|form=0.25|gain=0.75|hfa=learned|pace=1.0|park=1|regress=0.1|rest=1": {
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-06-14T00:30Z",
    "disc": {
     "new": {
@@ -298,13 +375,15 @@
     }
    },
    "found": "2026-09-28T15:18Z",
-   "fwd": {},
+   "fwd": {
+    "n": 0
+   },
    "gain": 0.00548,
    "league": "nba",
    "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nba|disp=1.12|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1": {
-   "checked": "2026-09-28T15:18Z",
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-06-14T00:30Z",
    "disc": {
     "new": {
@@ -327,7 +406,7 @@
    "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.1|rest=1": {
-   "checked": "2026-09-28T15:18Z",
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-04-07T00:50Z",
    "disc": {
     "new": {
@@ -350,6 +429,7 @@
    "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "ncaab|disp=1.12|form=0.0|gain=1.0|hfa=learned|pace=0.33|park=1|regress=0.2|rest=1": {
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-04-07T00:50Z",
    "disc": {
     "new": {
@@ -364,12 +444,15 @@
     }
    },
    "found": "2026-09-28T15:18Z",
-   "fwd": {},
+   "fwd": {
+    "n": 0
+   },
    "gain": 0.01331,
    "league": "ncaab",
    "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "ncaab|disp=1.12|form=0.5|gain=0.5|hfa=team|pace=0.33|park=0|regress=0.1|rest=0": {
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-04-07T00:50Z",
    "disc": {
     "new": {
@@ -384,56 +467,35 @@
     }
    },
    "found": "2026-09-28T15:18Z",
-   "fwd": {},
+   "fwd": {
+    "n": 0
+   },
    "gain": 0.01613,
    "league": "ncaab",
    "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
-  "ncaaf|disp=1.06|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1": {
-   "checked": "2026-09-28T15:18Z",
+  "ncaaf|disp=1.06|form=0.5|gain=0.75|hfa=team|keys=0|pace=0.33|park=1|regress=0.1|rest=1": {
    "cutoff": "2026-09-27T01:00Z",
    "disc": {
     "new": {
-     "diff": -0.00292,
+     "diff": -0.00628,
      "n": 7542,
-     "z": 11.41
+     "z": 3.8
     },
     "old": {
-     "diff": -0.00229,
+     "diff": -0.00497,
      "n": 7497,
-     "z": 9.26
+     "z": 3.36
     }
    },
-   "found": "2026-09-28T15:13Z",
-   "fwd": {
-    "n": 0
-   },
-   "gain": 0.00521,
-   "league": "ncaaf",
-   "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1"
-  },
-  "ncaaf|disp=1.06|form=0.0|gain=2.0|hfa=learned|keys=0|pace=0.5|park=0|regress=0.1|rest=1": {
-   "cutoff": "2026-09-27T01:00Z",
-   "disc": {
-    "new": {
-     "diff": -0.00213,
-     "n": 7542,
-     "z": 0.97
-    },
-    "old": {
-     "diff": -0.00267,
-     "n": 7497,
-     "z": 1.28
-    }
-   },
-   "found": "2026-09-28T15:18Z",
+   "found": "2026-09-28T23:27Z",
    "fwd": {},
-   "gain": 0.0048,
+   "gain": 0.01125,
    "league": "ncaaf",
    "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1"
   },
   "ncaaf|disp=1.12|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1": {
-   "checked": "2026-09-28T15:18Z",
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-09-27T01:00Z",
    "disc": {
     "new": {
@@ -455,8 +517,28 @@
    "league": "ncaaf",
    "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1"
   },
+  "ncaaf|disp=1.12|form=0.25|gain=0.75|hfa=learned|keys=1|pace=1.0|park=1|regress=0.1|rest=1": {
+   "cutoff": "2026-09-27T01:00Z",
+   "disc": {
+    "new": {
+     "diff": -0.00864,
+     "n": 7542,
+     "z": 9.25
+    },
+    "old": {
+     "diff": -0.00601,
+     "n": 7497,
+     "z": 7.77
+    }
+   },
+   "found": "2026-09-28T23:27Z",
+   "fwd": {},
+   "gain": 0.01465,
+   "league": "ncaaf",
+   "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1"
+  },
   "nfl|disp=1.06|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1": {
-   "checked": "2026-09-28T15:18Z",
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-09-28T00:20Z",
    "disc": {
     "new": {
@@ -479,6 +561,7 @@
    "vs": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nfl|disp=1.06|form=0.0|gain=1.0|hfa=team|keys=0|pace=0.33|park=1|regress=0.4|rest=1": {
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-09-28T00:20Z",
    "disc": {
     "new": {
@@ -493,13 +576,15 @@
     }
    },
    "found": "2026-09-28T15:18Z",
-   "fwd": {},
+   "fwd": {
+    "n": 0
+   },
    "gain": 0.00212,
    "league": "nfl",
    "vs": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nfl|disp=1.12|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1": {
-   "checked": "2026-09-28T15:18Z",
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-09-28T00:20Z",
    "disc": {
     "new": {
@@ -522,6 +607,7 @@
    "vs": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nhl|disp=10.0|form=0.25|gain=1.0|hfa=learned|pace=0.5|park=1|regress=0.4|rest=1": {
+   "checked": "2026-09-28T23:27Z",
    "cutoff": "2026-06-15T00:00Z",
    "disc": {
     "new": {
@@ -536,159 +622,203 @@
     }
    },
    "found": "2026-09-28T15:18Z",
-   "fwd": {},
+   "fwd": {
+    "n": 0
+   },
    "gain": 0.00117,
+   "league": "nhl",
+   "vs": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
+  },
+  "nhl|disp=10.0|form=0.5|gain=0.5|hfa=learned|pace=0.33|park=0|regress=0.1|rest=1": {
+   "cutoff": "2026-06-15T00:00Z",
+   "disc": {
+    "new": {
+     "diff": -0.0009,
+     "n": 14944,
+     "z": 2.14
+    },
+    "old": {
+     "diff": -0.0007,
+     "n": 14795,
+     "z": 1.85
+    }
+   },
+   "found": "2026-09-28T23:27Z",
+   "fwd": {},
+   "gain": 0.0016,
    "league": "nhl",
    "vs": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   }
  },
  "closest": [
   {
-   "key": "mlb|ml|thr:0.10|mlb|disp=5.0|form=0.25|gain=1.5|hfa=learned|pace=0.33|park=1|regress=0.4|rest=0",
-   "n": 2631,
-   "roi_new": 0.0025,
-   "roi_old": 0.0556,
-   "z": 2.97
-  },
-  {
-   "key": "nhl|total|thr:0.08|nhl|disp=0.0|form=0.5|gain=2.0|hfa=learned|pace=0.33|park=0|regress=0.4|rest=1",
-   "n": 573,
-   "roi_new": 0.053,
-   "roi_old": 0.0665,
+   "key": "mlb|ml|thr:0.08|mlb|disp=7.0|form=0.25|gain=0.75|hfa=learned|pace=0.33|park=0|regress=0.2|rest=1",
+   "n": 4000,
+   "roi_new": 0.012,
+   "roi_old": 0.0102,
    "z": 2.7
   },
   {
-   "key": "nhl|total|thr:0.10|nhl|disp=0.0|form=0.25|gain=1.5|hfa=learned|pace=2.0|park=0|regress=0.1|rest=0",
-   "n": 1025,
-   "roi_new": 0.007,
-   "roi_old": 0.0421,
-   "z": 2.4
+   "key": "ncaaf|total|thr:0.10|ncaaf|disp=1.06|form=0.5|gain=0.75|hfa=team|keys=0|pace=0.33|park=1|regress=0.1|rest=1",
+   "n": 1971,
+   "roi_new": 0.005,
+   "roi_old": 0.0176,
+   "z": 2.67
   },
   {
-   "gain_new": 3e-05,
-   "key": "ncaab|total|blend|ncaab|disp=0.94|form=0.5|gain=3.0|hfa=none|pace=1.5|park=0|regress=0.6|rest=1",
+   "gain_new": 8e-05,
+   "key": "ncaab|total|blend|ncaab|disp=1.0|form=0.25|gain=3.0|hfa=none|pace=2.0|park=1|regress=0.2|rest=0",
    "n": 14764,
-   "w": 0.0021,
-   "z": 2.38
+   "w": 0.0054,
+   "z": 2.5
   },
   {
-   "key": "nhl|total|thr:0.08|nhl|disp=25.0|form=0.5|gain=1.0|hfa=none|pace=1.5|park=0|regress=0.6|rest=0",
-   "n": 901,
-   "roi_new": 0.05,
+   "key": "nhl|total|thr:0.08|nhl|disp=0.0|form=0.5|gain=1.0|hfa=none|pace=2.0|park=0|regress=0.4|rest=0",
+   "n": 1319,
+   "roi_new": 0.0253,
    "roi_old": 0.0121,
-   "z": 2.38
+   "z": 2.46
   },
   {
-   "key": "mlb|ml|thr:0.10|mlb|disp=5.0|form=0.25|gain=0.75|hfa=team|pace=1.5|park=1|regress=0.2|rest=0",
-   "n": 3209,
-   "roi_new": 0.0098,
-   "roi_old": 0.016,
-   "z": 2.37
+   "key": "nhl|total|thr:0.08|nhl|disp=25.0|form=0.0|gain=1.0|hfa=learned|pace=2.0|park=0|regress=0.6|rest=0",
+   "n": 666,
+   "roi_new": 0.0432,
+   "roi_old": 0.0388,
+   "z": 2.32
   },
   {
-   "key": "mlb|ml|thr:0.10|mlb|disp=5.0|form=0.25|gain=1.0|hfa=team|pace=1.0|park=1|regress=0.2|rest=1",
-   "n": 3365,
-   "roi_new": 0.0031,
-   "roi_old": 0.0135,
-   "z": 2.19
-  },
-  {
-   "key": "mlb|ml|thr:0.10|mlb|disp=5.0|form=0.25|gain=1.5|hfa=learned|pace=1.5|park=0|regress=0.1|rest=0",
-   "n": 2822,
-   "roi_new": 0.0044,
-   "roi_old": 0.0146,
-   "z": 2.19
-  },
-  {
-   "key": "mlb|ml|thr:0.10|mlb|disp=7.0|form=0.25|gain=0.75|hfa=team|pace=0.5|park=0|regress=0.1|rest=0",
-   "n": 3640,
-   "roi_new": 0.0077,
-   "roi_old": 0.0049,
-   "z": 2.04
-  },
-  {
-   "gain_new": 6e-05,
-   "key": "ncaab|total|blend|ncaab|disp=1.12|form=0.5|gain=3.0|hfa=none|pace=1.0|park=0|regress=0.1|rest=0",
+   "gain_new": 0.0001,
+   "key": "ncaab|total|blend|ncaab|disp=1.06|form=0.0|gain=3.0|hfa=learned|pace=2.0|park=1|regress=0.4|rest=0",
    "n": 14764,
-   "w": 0.0079,
-   "z": 1.96
+   "w": 0.0104,
+   "z": 2.17
+  },
+  {
+   "gain_new": 0.0001,
+   "key": "ncaab|total|blend|ncaab|disp=1.06|form=0.5|gain=2.0|hfa=learned|pace=1.5|park=1|regress=0.1|rest=0",
+   "n": 14764,
+   "w": 0.011,
+   "z": 2.12
+  },
+  {
+   "key": "nhl|total|thr:0.08|nhl|disp=10.0|form=0.5|gain=1.0|hfa=none|pace=1.0|park=0|regress=0.2|rest=1",
+   "n": 1093,
+   "roi_new": 0.0209,
+   "roi_old": 0.0048,
+   "z": 2.07
+  },
+  {
+   "key": "nhl|total|thr:0.08|nhl|disp=25.0|form=0.25|gain=2.0|hfa=learned|pace=0.5|park=0|regress=0.2|rest=1",
+   "n": 792,
+   "roi_new": 0.0138,
+   "roi_old": 0.0289,
+   "z": 2.01
+  },
+  {
+   "key": "nhl|total|thr:0.10|nhl|disp=10.0|form=0.5|gain=1.0|hfa=none|pace=1.0|park=0|regress=0.2|rest=1",
+   "n": 377,
+   "roi_new": 0.0061,
+   "roi_old": 0.0857,
+   "z": 1.86
   }
  ],
  "closest_cfg": [
   {
-   "gain": 0.00386,
-   "key": "ncaab|disp=1.06|form=0.0|gain=0.5|hfa=team|pace=2.0|park=1|regress=0.2|rest=1",
+   "gain": 0.00992,
+   "key": "ncaab|disp=1.0|form=0.0|gain=0.75|hfa=learned|pace=0.5|park=0|regress=0.1|rest=1",
    "new": {
-    "diff": -0.00201,
+    "diff": -0.00587,
     "n": 44588,
-    "z": 3.5
+    "z": 8.98
    },
    "old": {
-    "diff": -0.00185,
+    "diff": -0.00405,
     "n": 44138,
-    "z": 3.32
+    "z": 6.33
    }
   },
   {
-   "gain": 0.00158,
-   "key": "nba|disp=1.12|form=0.25|gain=1.0|hfa=learned|pace=0.5|park=1|regress=0.1|rest=0",
+   "gain": 0.00316,
+   "key": "ncaab|disp=1.06|form=0.5|gain=0.75|hfa=learned|pace=1.0|park=1|regress=0.2|rest=0",
    "new": {
-    "diff": -0.00156,
-    "n": 15185,
-    "z": 2.05
+    "diff": -0.00253,
+    "n": 44588,
+    "z": 4.68
    },
    "old": {
-    "diff": -2e-05,
-    "n": 15123,
-    "z": 0.02
+    "diff": -0.00063,
+    "n": 44138,
+    "z": 1.19
    }
   },
   {
-   "gain": 0.00146,
-   "key": "nhl|disp=25.0|form=0.0|gain=1.5|hfa=learned|pace=1.0|park=1|regress=0.2|rest=1",
+   "gain": 0.0014,
+   "key": "ncaaf|disp=1.0|form=0.5|gain=0.5|hfa=team|keys=0|pace=1.5|park=0|regress=0.1|rest=0",
    "new": {
-    "diff": -0.00015,
+    "diff": -0.00219,
+    "n": 7542,
+    "z": 2.0
+   },
+   "old": {
+    "diff": 0.00079,
+    "n": 7497,
+    "z": -0.81
+   }
+  },
+  {
+   "gain": 0.00036,
+   "key": "mlb|disp=2.5|form=0.0|gain=0.5|hfa=none|pace=1.5|park=1|regress=0.1|rest=1",
+   "new": {
+    "diff": -0.00105,
+    "n": 29709,
+    "z": 4.13
+   },
+   "old": {
+    "diff": 0.00069,
+    "n": 29474,
+    "z": -2.86
+   }
+  },
+  {
+   "gain": 0.00016,
+   "key": "nhl|disp=10.0|form=0.5|gain=0.5|hfa=learned|pace=1.0|park=1|regress=0.1|rest=0",
+   "new": {
+    "diff": 0.00035,
     "n": 14944,
-    "z": 0.36
+    "z": -0.63
    },
    "old": {
-    "diff": -0.00131,
+    "diff": -0.00051,
     "n": 14795,
-    "z": 2.83
-   }
-  },
-  {
-   "gain": 0.00109,
-   "key": "mlb|disp=2.5|form=0.5|gain=1.0|hfa=learned|pace=1.5|park=1|regress=0.6|rest=1",
-   "new": {
-    "diff": -0.00024,
-    "n": 29709,
-    "z": 0.83
-   },
-   "old": {
-    "diff": -0.00085,
-    "n": 29474,
-    "z": 3.27
-   }
-  },
-  {
-   "gain": 0.00089,
-   "key": "mlb|disp=2.5|form=0.25|gain=1.5|hfa=none|pace=1.0|park=1|regress=0.6|rest=1",
-   "new": {
-    "diff": -9e-05,
-    "n": 29709,
-    "z": 0.25
-   },
-   "old": {
-    "diff": -0.0008,
-    "n": 29474,
-    "z": 2.76
+    "z": 1.07
    }
   }
  ],
  "exhausted": false,
  "killed": {},
  "log": [
+  {
+   "at": "2026-09-28T23:27Z",
+   "cell_tests": 2160,
+   "cfg_killed": 0,
+   "cfg_promoted": 0,
+   "cfg_suspects_found": 4,
+   "demoted": 0,
+   "eval_secs": {
+    "mlb": 2.7,
+    "nba": 0.7,
+    "ncaab": 2.7,
+    "ncaaf": 1.1,
+    "nfl": 0.4,
+    "nhl": 1.3
+   },
+   "expected_by_luck": 0.502,
+   "killed": 0,
+   "promoted": 0,
+   "secs": 192.0,
+   "suspects_found": 0,
+   "tested_configs": 120
+  },
   {
    "at": "2026-09-28T15:18Z",
    "cell_tests": 2160,
@@ -3032,9 +3162,9 @@
    }
   }
  },
- "runs": 2,
- "seen": "AO/PXgEBA8r4OQEK2tLLAY0wOFIDNi8YmQOaB4sHBgGjqe0GIWtJ8AZhoRvTB4oDrH8Iosv80AuOZxu9C/6XQ68MFEGIvw5XRg8jDnBdTpQQZrMjQRHq53kMEsiih+QTtT56CxRUVbJcF3wMiCoXsJezKhe0zq8RGFgP7fkZjV49HBpPzABdGzoCy84bZsuQoRv+XQIDHFpo89wc+i5Z7x0yTYM9JAYF7Q4kzKm9pSW3ScNeJcfzq7MmdZ5Q8CbaBIuUKEwQV2QoWWcNbSllyLcSLZHze5AuFZrt6C5jcvzJMNrN+JEyU+eB7jJhGe0ZNb8uXe8160dxyzi+VjOWOQDE5ao6OYvobz0qkArrPj6hHQBAR9W0V0F8Gc4tQX3aR11B0u4SuEHuEqP+Qhz8FbBCToEfy0Kah5o9QqwzW3pCtf/RNUMNT8C9QzAdz99DUr+L2ERUZ2JCRPbrn91FMfIto0eruA32SXzO1qhKVHVmWEvSpRlYTdbZPLNOOZhVyk+wRV9yULc835tSNd5RTlMAG06IU7yhyzlUGPJ+r1RfgeT0VYycuBRV4pmN1lYlAaS8V48XauZa4UfgqFtOLWw6W8xCBLRcVQvAel0fmXOqXqygNohgvubY7GKBo9EqY54gfDtkVdlvsWRhLuT1ZLFyWNVlAEYQqmU0N8wXZbheLRpm5vJpZGhvLXVYaM5YvGNqKsyKh2puxopbat+nvItq9rBXjGyZr+odbSS9cpZu9OzTM2/ONEf4ceXFamRyY/M503KAYk9UcsKnMepzhDV6bHU52TG8eKxZGWp441IsPnj9FT6PekjStyV6rFoK4Hsr8/gKe7oV6nR8mnaVk31d5txbfaTqnvV+IgICpX4wrw2afo7Bw19//uoYj4ASt+YbgHR8ySKBM8N4fYS0xx0EhdniaSOGGGxuGYgbkUluiZp9m6KKSfZFXIuFuh+1i4kjQEeLqZY6h4wKOiyIjFh0f6aMc3gjFY6bTmGCjuRNvoOPSVzJOZBFa+NfkdcrebOTm8E2TpeoSm4cmBXuwISZR3oToJszCVsRnJY4vged9rObXZ4GatLwnm5oDZygEC5Y/aB5kCNhoerKpV6iyXJJtqPTtVkFpZEcFzamQvbQaqbtAWD/qrivRAerHqq/D6tjnpjUrqp+aRmvrM8pTLD39zL1sfJ4Tsay+ymPm7UOPxeDuik8ulC6QsBJzbszW/ODu4jkKK67xiCE9rwbVnsgwEGIN7rAz+ZUAcDWhNJVwV6l5cHCLx7b3cRCsk7qxGiriC3IXWHWIMirecR9yeEmPELKRCgbWMql4WlqyxQn7qPLztAUPNDd0oV80Yc8D4fSVaLv8dPKizbZ1LN85HLWIGjpxNY/fpFT1mJJ3YHXUfYY/dfK07Nu2WKtSQnaK+si391m5r483+wDgCjgGBfoyOCpYAuX4mc6xYvkpHDcPOYZEFLs5id6SzfncSaLOOebQUVz6ktnnqLqc1Qm2er0NqT26zU6xWnsiWeU8u0qdxFW7d2GhrHwH8N8+vEB7TRy8SDjTqLzlVG6c/RBYc5b9EQDKAP22bj5XvgWPgrA+IOhSdz41DSFwPk1LE0A+TnbQ4X6Zp1Lof4t5sqU/jbJAQv/fPSUVP+8Viv3",
+ "runs": 3,
+ "seen": "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",
  "suspects": {},
- "tested": 246,
- "updated": "2026-09-28T15:18Z"
+ "tested": 366,
+ "updated": "2026-09-28T23:27Z"
 }
