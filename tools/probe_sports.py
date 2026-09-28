@@ -4,7 +4,10 @@ import time
 import urllib.request
 
 URL = open("data/sports/ask_url.txt").read().strip()
-for q in ("why we on the Bears tonight?", "what's our record?"):
+for q in ("why we on the Bears tonight?", "what's our record?",
+          "if the Eagles win by exactly 3 what happens to our pick and our record?",
+          "does fading the public actually work? what did the study say",
+          "is Lamar playing this week"):
     t0 = time.time()
     req = urllib.request.Request(URL, data=json.dumps({"q": q}).encode(), method="POST",
                                  headers={"Origin": "https://d503therapper.github.io", "Content-Type": "application/json",
