@@ -47,7 +47,7 @@ honest test is forward. Probe/collector left as a tool; the 95-min workflow re-r
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|
-| 1 | 2026-09-28 13:10 | DEX: 10 coins x ~10% (tiers A 10% / B,C 12.5%) instead of 5 x 20-25% | ~2026-10-12 | DEX -39% after 13 closed trades on 5 slots | pending |
+| 1 | 2026-09-28 12:40 | DEX: 10 coins x ~10% (tiers A 10% / B,C 12.5%) instead of 5 x 20-25% | ~2026-10-12 | DEX -39% after 13 closed trades on 5 slots | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
