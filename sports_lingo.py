@@ -45,13 +45,13 @@ def _mix(opens, ends, seed, n, **kw):
     return out
 
 
-def good(player, opp, seed, he="he", n=8):
+def good(player, opp, seed, he="he", n=24):
     """n fresh 'player is nice' lines for this game (pass them to Voice.say as the options)."""
     him, He = ("her" if he == "she" else "him"), he.capitalize()
     return _mix(GOOD_OPEN, GOOD_END, seed, n, p=player, o=opp, he=he, He=He, him=him)
 
 
-def bad(opp, seed, n=6):
+def bad(opp, seed, n=12):
     """n fresh 'the other side has been bad' lines."""
     return _mix(BAD_OPEN, BAD_END, seed, n, o=opp)
 
