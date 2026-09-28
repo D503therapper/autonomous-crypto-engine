@@ -215,7 +215,7 @@ def _pick_card(kind, pk):
                       "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
                   if _tier(pk) == "lock" and pk.get("american", 0) > 0 and pk["status"] == "open" else "")
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
-  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l">{label}</span>{TIER_CHIP[_tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
+  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP[_tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{legs}
@@ -676,6 +676,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}
+.pk-l.pk-big{{font-size:clamp(22px,6.6vw,30px);letter-spacing:.05em;line-height:1.1}}   /* a one-game day: the pick IS the headline */
 .chip{{font-size:10.5px;font-weight:900;letter-spacing:.1em;padding:4px 8px;border-radius:999px;white-space:nowrap}}
 .lock{{font-size:12.5px;font-weight:800;color:var(--gold);margin:2px 0 4px}}
 .pk.waiting{{border-style:dashed}}
