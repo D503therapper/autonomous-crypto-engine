@@ -1,0 +1,27 @@
+# Reads the question box's question log (the last 60 days: just each question and when - no names, no IPs) so Claude
+# can tell the owner what's been asked. Run by hand only.
+name: ask_log
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - run: |
+          api="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/storage/kv/namespaces"
+          auth="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          kv=$(curl -sS -H "$auth" "$api?per_page=100" | jq -r '.result[]? | select(.title=="d503-ask-log") | .id' | head -1)
+          [ -n "$kv" ] || { echo "no question log yet"; exit 0; }
+          keys=$(curl -sS -H "$auth" "$api/$kv/keys?prefix=q:&limit=1000" | jq -r '.result[].name' | sort)
+          echo "questions logged: $(printf '%s\n' "$keys" | grep -c . || true)"
+          printf '%s\n' "$keys" | while read -r k; do
+            [ -n "$k" ] || continue
+            q=$(curl -sS -H "$auth" "$api/$kv/values/$(printf %s "$k" | jq -sRr @uri)")
+            echo "QLOG ${k:2:16}Z | $q"
+          done

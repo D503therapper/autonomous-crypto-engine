@@ -248,7 +248,7 @@ async function getJson(url, ttl) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const origin = request.headers.get("Origin") || "";
     const cors = {
       "Access-Control-Allow-Origin": ORIGINS.includes(origin) ? origin : ORIGINS[0],
@@ -277,6 +277,11 @@ export default {
     }
     const q = String(body.q || "").trim().slice(0, 500);
     if (!q) return reply({ error: "empty question" }, 400, cors);
+    if (env.LOG) {   // the question log (just the question + when - no names, no IPs), kept 60 days
+      const at = new Date().toISOString();
+      ctx.waitUntil(env.LOG.put(`q:${at}:${Math.random().toString(36).slice(2, 8)}`, q,
+        { expirationTtl: 60 * 86400 }).catch(() => {}));
+    }
     const history = (Array.isArray(body.history) ? body.history : [])
       .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
       .slice(-6)

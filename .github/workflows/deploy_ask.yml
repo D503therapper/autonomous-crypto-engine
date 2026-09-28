@@ -37,6 +37,19 @@ jobs:
         working-directory: workers/ask
         run: |
           npm ci --no-audit --no-fund
+          # the question log: a Cloudflare KV store (made once, found by name after that). No KV = no log, still deploys.
+          api="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/storage/kv/namespaces"
+          auth="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          kv=$(curl -sS -H "$auth" "$api?per_page=100" | jq -r '.result[]? | select(.title=="d503-ask-log") | .id' | head -1)
+          if [ -z "$kv" ]; then
+            kv=$(curl -sS -X POST -H "$auth" -H "Content-Type: application/json" -d '{"title":"d503-ask-log"}' "$api" | jq -r '.result.id // empty')
+          fi
+          if [ -n "$kv" ]; then
+            printf '\n[[kv_namespaces]]\nbinding = "LOG"\nid = "%s"\n' "$kv" >> wrangler.toml
+            echo "question log on"
+          else
+            echo "::notice::question log off (the Cloudflare token can't make a KV store)"
+          fi
           npx wrangler deploy 2>&1 | tee deploy.log
           printf '%s' "$ANTHROPIC_API_KEY" | npx wrangler secret put ANTHROPIC_API_KEY
           url=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
