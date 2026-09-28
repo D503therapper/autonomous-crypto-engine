@@ -705,6 +705,26 @@ def test_halves_study():
          "result": "won", "odds": 185, "best_odds": 300}
     assert "+300" in dash._live_story(e), "a live bet that cashed after its line ran long says so"
 
+def test_injury_guards():
+    """No injury report = the game waits (never a pick made blind); a status change after posting = an alert."""
+    g = {"id": "nfl:1", "league": "nfl", "home": "3", "away": "21", "home_name": "Bears", "away_name": "Eagles",
+         "status": "pre"}
+    assert "the injury report" in sports.waiting_on(g, {"nfl": None})
+    assert "the injury report" not in sports.waiting_on(g, {"nfl": {}})
+    assert any("questionable" in w for w in sports.waiting_on(g, {"nfl": {"21": [("Star QB", "QB", "Questionable")]}}))
+    leg = {"game_id": "nfl:1", "league": "nfl", "team": "Bears", "opp": "Eagles", "side": "home", "market": "spread",
+           "line": 3.5, "odds": -108, "key_seen": {}}
+    picks = [{"status": "open", "legs": [leg]}]
+    real = sports.sd.fetch_injuries
+    try:
+        sports.sd.fetch_injuries = lambda lg: {"3": [("Caleb Williams", "QB", "Out")]}
+        alerts = sports.injury_watch({"nfl:1": g}, picks, push=False)
+    finally:
+        sports.sd.fetch_injuries = real
+    assert alerts and "Caleb Williams" in alerts[0] and leg["injury_alerts"], alerts
+    print("ok test_injury_guards")
+
+
 def test_one_game_always_picks():
     """Monday/Thursday night (a one-game day) always gets a Pick of the Day - the side closest to value."""
     base = {"game_id": "g1", "league": "nfl", "reasons": [], "start": "2026-09-29T00:15Z", "home": True}
@@ -725,6 +745,88 @@ def test_dog_traps():
     c = {"edge": 0.2, "edge_own": 0.2, "reasons": ["x"], "trap": True}
     assert not sports.good(c) and sports.good({**c, "trap": False})
     print("ok test_dog_traps")
+
+
+def _trend_games(bias, seed, seasons=(2019, 2020, 2021, 2022), per_day=3, days=150):
+    """Simulated NHL totals (no prices, fresh teams every game so no back-to-backs): each weekday in each season
+    goes one way `bias` of the time (the way picked at random per season)."""
+    rnd = random.Random(seed)
+    games = {}
+    for se in seasons:
+        way = {wd: rnd.random() < 0.5 for wd in range(7)}
+        for d in range(days):
+            day = datetime(se, 10, 5, 23, 0, tzinfo=timezone.utc) + timedelta(days=d)      # 7pm ET
+            for j in range(per_day):
+                over = way[(day - timedelta(hours=5)).weekday()] if rnd.random() < bias else rnd.random() < 0.5
+                gid = f"nhl:{se}{d:03d}{j}"
+                goals = 7 if over else 4
+                games[gid] = {"id": gid, "league": "nhl", "start": (day + timedelta(minutes=j)).strftime("%Y-%m-%dT%H:%MZ"),
+                              "status": "final", "stype": "2", "home": f"h{gid}", "away": f"a{gid}", "home_name": "H",
+                              "away_name": "A", "home_score": str(goals - 2), "away_score": "2", "ml_home": "",
+                              "ml_away": "", "spread_home": "", "total": "5.5"}
+    return games
+
+
+def test_trends():
+    """A pattern that really persists gets proven; coin flips stay watch only; a 6-game Thursday-night under streak
+    shows up as active with the next Thursday game."""
+    import sports_trends as tr
+    path = os.path.join(tempfile.gettempdir(), "trends_test.json")
+    st = tr.study(_trend_games(0.85, 1), path, leagues=("nhl",))
+    assert st["cells"]["nhl|streak"]["status"] == "proven_follow", st["cells"]["nhl|streak"]
+    assert st["cells"]["nhl|rate"]["status"] == "proven_follow", st["cells"]["nhl|rate"]
+    assert tr.verdict(st, "nhl", "streak") == "ride"
+    st = tr.study(_trend_games(0.0, 2), path, leagues=("nhl",))
+    assert all(v["status"] == "watch only" for v in st["cells"].values()), \
+        {k: v for k, v in st["cells"].items() if v["status"] != "watch only"}
+    assert tr.verdict(st, "nhl", "streak") == "coin flip"
+
+    games = {}
+    first = datetime(2025, 9, 12, 0, 15, tzinfo=timezone.utc)                     # Thursday 8:15pm ET
+    for w in range(7):
+        gid = f"nfl:t{w}"
+        games[gid] = {"id": gid, "league": "nfl", "start": (first + timedelta(days=7 * w)).strftime("%Y-%m-%dT%H:%MZ"),
+                      "status": "final" if w < 6 else "pre", "stype": "2", "home": f"h{w}", "away": f"a{w}",
+                      "home_name": f"H{w}", "away_name": f"A{w}", "home_score": "17" if w < 6 else "",
+                      "away_score": "10" if w < 6 else "", "ml_home": "-150", "ml_away": "130", "spread_home": "-3",
+                      "total": "44.5"}
+    now = first + timedelta(days=36)
+    act = tr.active(games, now, {}, leagues=("nfl",))
+    tnf = [a for a in act if a["situation"] == "thursday night" and a["outcome"] == "total"]
+    assert tnf and tnf[0]["trend"] == "under" and tnf[0]["streak"] == 6 and tnf[0]["record"] == "6-0", tnf
+    assert tnf[0]["upcoming"] == ["nfl:t6"] and tnf[0]["verdict"] == "coin flip"
+    ls = tr.lean({"active": act}, "nfl", games["nfl:t6"])
+    assert ("total", "under") in [(m, s) for m, s, _, _ in ls] and all(v == "coin flip" for *_, v in ls)
+    ride = [dict(a, verdict="fade") for a in tnf]
+    assert tr.lean({"active": ride}, "nfl", games["nfl:t6"])[0][:2] == ("total", "over"), "a proven fade flips it"
+
+
+def test_selfcheck():
+    """45 graded legs that said 60% but hit 40% -> that group needs extra edge; 10 such legs -> report only."""
+    import sports_selfcheck as sck
+    path = os.path.join(tempfile.gettempdir(), "selfcheck_test.json")
+
+    def cards(n, wins):
+        return [{"date": "2026-09-01", "kind": "lock", "lean": False, "status": "settled",
+                 "legs": [{"league": "nhl", "market": "ml", "odds": -120, "p": 0.6, "result": "won" if i < wins else "lost",
+                           "their_drama": [], "our_drama": []}]} for i in range(n)]
+    for f in (path, path + ".tmp"):
+        if os.path.exists(f):
+            os.remove(f)
+    st = sck.study(cards(45, 18), {"plays": {}}, path)
+    g = st["groups"]["league:nhl"]
+    assert g["n"] == 45 and g["said"] == 0.6 and g["hit"] == 0.4
+    cand = {"league": "nhl", "market": "ml", "odds": -130}
+    assert sck.extra_edge(st, cand) > 0 and sck.extra_edge(st, cand) <= sck.CAP
+    assert st["extra_edge"]["price:-149..-101"] == 0.04, "20 points short = capped at +4"
+    assert any("bar raised" in x for x in sck.summary(st))
+    os.remove(path)
+    st = sck.study(cards(10, 4), {"plays": {}}, path)
+    assert st["extra_edge"] == {} and sck.extra_edge(st, cand) == 0.0 and st["groups"]["all"]["n"] == 10
+    os.remove(path)
+    st = sck.study(cards(45, 30), {"plays": {}}, path)
+    assert sck.extra_edge(st, cand) == 0.0, "hitting above what we said: no extra"
+    os.remove(path)
 
 
 if __name__ == "__main__":

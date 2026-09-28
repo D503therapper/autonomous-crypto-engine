@@ -352,6 +352,7 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
 SHORT_TERM = ("out", "doubtful")       # counted as missing (long-term IR is already priced into the ratings)
 UNSURE = ("questionable", "game-time", "game time", "day-to-day", "day to day")   # not known yet: wait for news
 LONG_OUT = ("reserve", "suspen", "season")      # injured reserve / suspended / out for the season
+INJ_LEAGUES = ("nfl", "ncaaf", "nhl", "nba")    # leagues where a missing report means we can't know who plays
 KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": set(), "ncaab": set()}  # None = any player
 
 
@@ -359,12 +360,15 @@ def fetch_injuries(league):
     """{team id or name: [(player, position, status)]} for players listed Out / Doubtful."""
     path = LEAGUES[league][0]
     url = f"https://site.api.espn.com/apis/site/v2/sports/{path}/injuries"
-    try:
-        with urllib.request.urlopen(url, timeout=20) as r:
-            return parse_injuries(json.load(r))
-    except Exception as e:                           # noqa: BLE001
-        print(f"   {league} injuries: {str(e)[:120]}")
-        return None
+    for i in range(3):                               # the injury report matters too much to give up on one hiccup
+        try:
+            with urllib.request.urlopen(url, timeout=20) as r:
+                return parse_injuries(json.load(r))
+        except Exception as e:                       # noqa: BLE001
+            print(f"   {league} injuries (try {i + 1}): {str(e)[:120]}")
+            if i < 2:
+                time.sleep(2 * (i + 1))
+    return None                                      # None = we DON'T KNOW who's hurt (the board waits on it)
 
 
 def parse_injuries(payload):

@@ -16,6 +16,7 @@ import json
 import os
 import sys
 import time
+import urllib.request
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
@@ -131,6 +132,9 @@ def waiting_on(g, injuries):
     out = []
     if g["league"] == "mlb":
         out += [f"{g[side + '_name']} starting pitcher" for side in ("away", "home") if not g.get("sp_" + side)]
+    if injuries is not None and g["league"] in injuries and injuries[g["league"]] is None \
+            and g["league"] in sd.INJ_LEAGUES:           # the injury report didn't load: we don't know who's playing,
+        out.append("the injury report")                  # so the game waits (never a pick made blind)
     inj = (injuries or {}).get(g["league"])
     for side in ("away", "home"):
         out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable"
@@ -147,6 +151,11 @@ import sports_ats  # noqa: E402
 import sports_dogs  # noqa: E402
 
 DOGS_ST = sports_dogs.load()                 # the big underdog + favorite study (price check + dog spots/traps)
+import sports_trends  # noqa: E402
+import sports_selfcheck  # noqa: E402
+
+TRENDS_ST = sports_trends.load()             # in-season trends (Thursday-night unders...): bet only if history proves them
+SELF_ST = sports_selfcheck.load()            # the self-check on our own graded picks (extra edge where we keep missing)
 ATS_ST = sports_ats.load()                   # the spread-vs-moneyline study (who covers when the two disagree)
 
 TOTALS_ST = sports_totals.load()             # the over/under study: a sport only gets over/unders once it's PROVEN
@@ -240,6 +249,10 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 if pc is not None:
                     out.append({**base, "market": "spread", "line": line, "odds": sodds, "dec": sd.decimal(sodds),
                                 "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1})
+    for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
+        for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
+            if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
+                c["reasons"] = c["reasons"] + [f"trend: {note}"]
     return out
 
 
@@ -252,6 +265,7 @@ def good(c):
     need = INTL_MIN_EDGE if c.get("intl") or c.get("our_drama") else MIN_EDGE   # overseas / our own drama: 2x value
     if c.get("trap"):                  # a dog in a spot the big study proved the books still overprice: never
         return False
+    need += sports_selfcheck.extra_edge(SELF_ST, c)   # where our own picks keep hitting less than we said: a higher bar
     return c["edge"] >= need and c.get("edge_own", c["edge"]) >= need and bool(c.get("reasons"))
 
 
@@ -603,6 +617,9 @@ def post_board(games, model, picks, now, day, force=False):
                 leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
             leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
+            leg["key_seen"] = key_status(injuries.get(leg["league"]), g)       # who's in/out when we posted it
+            print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
+                  f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "round": sum(p["date"] == iso and p["kind"] == kind and p["status"] != "waiting" for p in picks) + 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
@@ -616,6 +633,70 @@ def post_board(games, model, picks, now, day, force=False):
         posted[kind] = pk
         new.append(pk)
     return new
+
+
+def key_status(inj, g):
+    """{player: status} for every key player (QB / goalie / NBA rotation) listed out or questionable in this game."""
+    out = {}
+    for side in ("home", "away"):
+        for n, pos, st in sd.team_key_out(inj, g[side], g[side + "_name"], g["league"]) + \
+                sd.team_unsure(inj, g[side], g[side + "_name"], g["league"]):
+            out[f"{n} ({g[side + '_name']}{' ' + pos if pos else ''})"] = st
+    return out
+
+
+NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "d503-live-7b1123")
+DASH_URL = "https://d503therapper.github.io/autonomous-crypto-engine/sports/"
+
+
+def _push(title, body):
+    """📲 A heads-up to phones through ntfy (never blocks anything)."""
+    try:
+        req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=body.encode(), method="POST", headers={
+            "Title": title.encode("latin-1", "ignore").decode("latin-1"), "Tags": "ambulance", "Click": DASH_URL,
+            "Priority": "high"})
+        urllib.request.urlopen(req, timeout=5).read()
+    except Exception as e:                                   # noqa: BLE001
+        print(f"   push failed: {str(e)[:60]}")
+
+
+def injury_watch(games, picks, push=True):
+    """After a pick is up, keep checking its game's injury report every run. If a key player's status changes (a
+    questionable QB ruled out, a star goalie scratched...), push an alert and put it on the card. The pick itself
+    never changes on its own - the owner decides."""
+    legs = [l for p in picks if p["status"] == "open" for l in p["legs"]
+            if l["game_id"] in games and games[l["game_id"]]["status"] == "pre" and l["league"] in sd.INJ_LEAGUES]
+    if not legs:
+        return []
+    injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
+    alerts = []
+    for leg in legs:
+        inj = injuries.get(leg["league"])
+        if inj is None:
+            continue                                         # no report this run: check again next run
+        now_ = key_status(inj, games[leg["game_id"]])
+        if "key_seen" not in leg:                            # posted before the watch existed: start from here
+            leg["key_seen"] = now_
+            continue
+        for who, st in now_.items():
+            if leg["key_seen"].get(who) != st:
+                msg = f"{who} is now {st.lower()} — our pick: {leg_label(leg)}"
+                if msg not in leg.setdefault("injury_alerts", []):
+                    leg["injury_alerts"].append(msg)
+                    alerts.append(msg)
+                    if push:
+                        _push(f"INJURY ALERT: {who}", msg)
+        for who in set(leg["key_seen"]) - set(now_):
+            msg = f"{who} is off the injury report — our pick: {leg_label(leg)}"
+            if msg not in leg.setdefault("injury_alerts", []):
+                leg["injury_alerts"].append(msg)
+                alerts.append(msg)
+                if push:
+                    _push(f"INJURY UPDATE: {who}", msg)
+        leg["key_seen"] = now_
+    for a in alerts:
+        print(f"🚑 injury alert: {a}")
+    return alerts
 
 
 def _same_leg(a, b):
@@ -833,6 +914,9 @@ def run(repick=False, fetch=True):
             import sports_hockey                                        # hockey: the line + only what beats it
             hk = sports_hockey.study(games)
             print("hockey study:", hk.get("kept"), hk.get("ll_kept"), "vs line", hk.get("ll_market"))
+            TRENDS_ST.clear()                                           # in-season trends + whether history says ride them
+            TRENDS_ST.update(sports_trends.study(games))
+            print("\n".join(sports_trends.summary(TRENDS_ST, top=8)))
             import sports_totals                                        # over/unders: only once they beat the book
             print("totals study:", {k: (v.get("hit_top"), v.get("proven")) for k, v in sports_totals.study(games).items()})
             model["ls_seen"] = n_ls
@@ -843,6 +927,19 @@ def run(repick=False, fetch=True):
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
     days = [day] + ([day + timedelta(days=1)] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else [])
     add_breakdowns(games, model, picks)
+    n_graded = sum(1 for p in picks for l in p["legs"] if l.get("result") in ("won", "lost"))
+    if n_graded != model.get("graded_seen"):                            # 🪞 the self-check: every graded pick (and the
+        try:                                                            # live plus money) vs the chance we said
+            SELF_ST.clear()
+            SELF_ST.update(sports_selfcheck.study())
+            print("\n".join(sports_selfcheck.summary(SELF_ST)))
+            model["graded_seen"] = n_graded
+        except Exception as e:                                          # noqa: BLE001
+            print(f"self-check failed: {e}")
+    try:
+        injury_watch(games, picks)                                      # 🚑 posted picks: did anybody's status change?
+    except Exception as e:                                              # noqa: BLE001
+        print(f"injury watch failed: {e}")
     for d in days:
         for pk in post_board(games, model, picks, now, d, force=post_now and d == day):
             legs = " + ".join(f"{leg_label(l)} ({fmt_american(l['odds'])})" for l in pk["legs"])

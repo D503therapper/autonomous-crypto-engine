@@ -9,7 +9,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 16          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 17          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -283,7 +283,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                        f"🚀 Blowout last time out for {us}. They're feeling themselves."]))
         said.add("rolling off a blowout win")
     temp, wind, rain = g.get("wx_temp", ""), g.get("wx_wind", ""), g.get("wx_rain", "")
-    if "altitude edge" in rsn:
+    if "altitude edge" in rsn and (sm._num(g.get("elev")) or 0) >= sm.THIN_AIR_M:
         out.append(v.say("alt", [f"🏔️ Thin air — {g.get('elev')} meters up. {_cap(the_them)} gonna be sucking wind by the second half.",
                                   f"🏔️ Altitude game. {_cap(the_them)} ain't used to breathing up there.",
                                   f"🏔️ Mile-high problems for {the_them}. Legs get heavy fast at that elevation."]))
@@ -410,9 +410,17 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ {us} are at full strength.",
             f"✅ Nobody big missing for {us}."]))
 
-    # sharp money
+    # a starting QB/goalie out: the line moved for the INJURY, not sharp money - say that, never "sharps"/"clowns"
     op, now = sm._int(g.get(f"ml_{side}_open")), sm._int(g.get(f"ml_{side}"))
-    if op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
+    key_us = sd.team_key_out(inj, tid, us, lg)
+    key_any = key_us or sd.team_key_out(inj, oid, them, lg)
+    if key_us:
+        pos, nm = key_us[0][1], key_us[0][0]
+        mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
+        out.append(v.say("keyout_us", [f"🚑 {us} are rolling with the backup — {nm} ({pos}) is out.{mv}",
+                                        f"🚑 No {nm} for {us}. Backup {pos} gets the start.{mv}",
+                                        f"🚑 {us} lost their starting {pos}, {nm}.{mv}"], must=True))
+    if not key_any and op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
         out.append(v.say("sharp", [f"💰 Sharp money is on us: {us} opened {_am(op)}, now {_am(now)}.",
                                     f"💰 The pros are hammering {us} — {_am(op)} at open, {_am(now)} now.",
                                     f"💰 The line moved our way ({_am(op)} → {_am(now)}). Smart money agrees.",
@@ -422,7 +430,7 @@ def breakdown(leg, games, elo, injuries, used=None):
 
     # sharp money going the other way and we still like our side: say it our way, with a quick reason
     op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
-    if op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
+    if not key_any and op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
         why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
                    NO_WHY)
