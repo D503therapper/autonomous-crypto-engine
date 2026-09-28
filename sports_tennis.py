@@ -722,7 +722,13 @@ def pick_slate(cands):
     best = {}
     for c in sorted(cands, key=lambda c: -c["p"]):
         best.setdefault(c["match"], c)                          # one side per match (the likelier bet: ML or spread)
-    picks = sorted(best.values(), key=lambda c: -c["p"])[:N_PICKS]
+    ranked = sorted(best.values(), key=lambda c: -c["p"])
+    men = [c for c in ranked if c.get("tour", "atp") != "wta"]      # the owner wants men's and women's even:
+    women = [c for c in ranked if c.get("tour") == "wta"]             # half and half, the likeliest of each...
+    half = N_PICKS // 2
+    picks = men[:half] + women[:half]
+    rest = [c for c in ranked if c not in picks]                       # ...and if one side's short on real picks,
+    picks = sorted(picks + rest[:N_PICKS - len(picks)], key=lambda c: -c["p"])   # the other side fills (never filler)
     parlay = sorted(picks, key=lambda c: -c["p"])[:PARLAY_LEGS] if len(picks) >= PARLAY_LEGS else []
     return picks, parlay
 

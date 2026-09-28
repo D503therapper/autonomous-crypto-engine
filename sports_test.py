@@ -591,6 +591,12 @@ def test_tennis():
     assert picks and all(c["p"] >= st.MIN_P and c["edge"] >= st.MIN_EDGE for c in picks), "likely to win AND value"
     assert [c["p"] for c in picks] == sorted((c["p"] for c in picks), reverse=True) and len(picks) < 8, "no filler"
     assert len(parlay) == 3 and parlay[0]["p"] >= parlay[-1]["p"] and all(c in picks for c in parlay)
+    mixed = [dict(c, id=f"w{i}", match=f"w{i}", tour="wta", p=0.60, odds=-110, dec=sd.decimal(-110), edge=0.6 * sd.decimal(-110) - 1)
+             for i, c in enumerate(cands[:4])]
+    mixed += [dict(c, id=f"m{i}", match=f"m{i}", tour="atp", p=0.70, odds=-110, dec=sd.decimal(-110), edge=0.7 * sd.decimal(-110) - 1)
+              for i, c in enumerate(cands[:8])]
+    pk, _ = st.pick_slate(mixed)
+    assert sum(c["tour"] == "wta" for c in pk) == 4 and len(pk) == 8, "men's and women's even when both have real picks"
     # retirements: void before a set is done, the advancer wins after
     m = {**ms["0"], "status": "STATUS_RETIRED", "done": 0}
     slate = [{"picks": [{"id": "0:1", "match": "0", "side": 1, "result": None}], "parlay": None}]
