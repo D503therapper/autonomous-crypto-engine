@@ -1,0 +1,37 @@
+# 🎾 Tennis player bios for the age + experience study (tools/fetch_tennis_players.py): date of birth, height,
+# handedness and turned-pro year from ESPN for every player in data/sports/tennis/matches.csv, newest-active first.
+# Resumable: each run adds what it can in its time budget, commits players.json, and runs itself again while it's
+# still adding players.
+name: tennis_players
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ["tools/fetch_tennis_players.py", ".github/workflows/tennis_players.yml"]
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: tennis-players
+  cancel-in-progress: true
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - id: fetch
+        run: timeout 24m python -u tools/fetch_tennis_players.py 1200
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/tennis/players.json
+          git commit -qm "tennis player bios $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+      - if: always() && steps.fetch.outputs.remaining != '0' && steps.fetch.outputs.added != '0' && steps.fetch.outputs.added != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run tennis_players.yml --ref "${GITHUB_REF_NAME}" && echo "made progress - running again"

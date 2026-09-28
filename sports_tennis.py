@@ -6,6 +6,9 @@ Every engine run:
   2. The study: surface ratings (overall + hard / clay / grass, blended - the proven way to rate tennis players),
      plus learned weights for fatigue (sets played the last 3 days), recent form and head-to-head. Best-of-5 at
      the Slams is handled from the per-set strength. Fit on the history, graded on the latest matches.
+     Then the "life" factors (age + experience from ESPN bios, the last match, streaks, first-set record, injuries,
+     travel) are each tested against that model on the same holdout - a factor joins a tour's model only with a
+     real gain (paired log-loss z 2+); otherwise its weights stay 0.
   3. Odds: Bovada's public feed (current men's singles moneylines), refreshed every run.
   4. Once a day (from 6pm Pacific the night before, the next 24 hours of matches): up to 6 men's and 6 women's
      straight picks (55%+ and real value - fewer qualify = fewer picks, never filler), a Men's Tennis Parlay and a
@@ -22,6 +25,7 @@ import re
 import time
 import unicodedata
 import urllib.request
+from collections import deque
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -78,6 +82,59 @@ GRASS = ("wimbledon", "queen's", "queens", "halle", "terra wortmann", "stuttgart
          "hertogenbosch", "libema", "rosmalen", "eastbourne", "rothesay", "mallorca", "newport", "hall of fame",
          "antalya", "nottingham")
 MAJORS = ("australian open", "roland garros", "french open", "wimbledon", "us open")
+# 🧓 the "life" factors: age + experience, the last match, streaks, first-set record, injuries, travel. Bios come from
+# ESPN (tools/fetch_tennis_players.py -> players.json, keyed "tour:id"). Every feature is p1 minus p2 and uses only
+# what was known before the match; a missing bio is a neutral 0 plus the bio_miss flag. Each factor is tested ALONE
+# against the current model on the newer half (the same holdout), paired log loss per match: a factor joins a
+# tour's model ONLY with a gain at z >= Z_KEEP; otherwise its weights stay 0 (never shipped as noise).
+# (Serve stats / backhand: not in ESPN's scoreboard feed or matches.csv - not available for free, so not here.)
+PLAYERS = os.path.join(DIR, "players.json")
+FACTORS = {
+    "experience": ("exp", "big"),                                         # earlier matches; Slam / QF+ matches
+    "age": ("age_gap", "age_curve", "teen_rise", "vet_bo5", "bio_miss"),
+    "young_vs_aging": ("teen_vs_vet", "young_hot"),                       # a teen vs a 30+; a young player on a heater
+    "last_match": ("last_sets", "last_dist", "last_long", "rest"),        # (within 7 days) + days since
+    "streaks": ("lost2", "won3"),
+    "first_set": ("fs_rate", "f2_rate"),                                  # first set / first two sets, last 20
+    "injury": ("inj_recent", "inj_12m"),                                  # retirements + walkovers
+    "travel": ("travel",),                                                # new continent / 5+ time zones in 7 days
+}
+LIFE = tuple(k for ks in FACTORS.values() for k in ks)
+LIFE_SWAP = (("age1", "age2"), ("exp_n1", "exp_n2"), ("big_n1", "big_n2"))
+Z_KEEP = 2.0
+YOUNG = 23.0                    # "young" for the young-vs-aging terms (22 and under)
+LAST_D, LONG_GAMES = 7, 25      # the last match counts when it was within 7 days; a long one = 25+ games (bo3)
+FS_N, FS_K = 20, 4              # first-set record: the last 20 matches, shrunk by 4 phantom 50/50 matches
+INJ_TAU = 45                    # a retirement / walkover fades with a 45-day time constant
+# where tournaments are: country -> (continent, UTC offset, standard time) - for the travel factor
+PLACES = {"usa": ("na", -5), "united states": ("na", -5), "canada": ("na", -5), "mexico": ("na", -6),
+          "argentina": ("sa", -3), "brazil": ("sa", -3), "uruguay": ("sa", -3), "chile": ("sa", -4),
+          "bolivia": ("sa", -4), "colombia": ("sa", -5), "ecuador": ("sa", -5), "peru": ("sa", -5),
+          "australia": ("oc", 10), "new zealand": ("oc", 12),
+          "france": ("eu", 1), "great britain": ("eu", 0), "uk": ("eu", 0), "united kingdom": ("eu", 0),
+          "england": ("eu", 0), "scotland": ("eu", 0), "ireland": ("eu", 0), "portugal": ("eu", 0),
+          "spain": ("eu", 1), "italy": ("eu", 1), "germany": ("eu", 1), "switzerland": ("eu", 1),
+          "austria": ("eu", 1), "sweden": ("eu", 1), "netherlands": ("eu", 1), "the netherlands": ("eu", 1),
+          "monaco": ("eu", 1), "croatia": ("eu", 1), "hungary": ("eu", 1), "czech republic": ("eu", 1),
+          "czechia": ("eu", 1), "belgium": ("eu", 1), "poland": ("eu", 1), "slovenia": ("eu", 1),
+          "serbia": ("eu", 1), "luxembourg": ("eu", 1), "andorra": ("eu", 1), "slovakia": ("eu", 1),
+          "denmark": ("eu", 1), "norway": ("eu", 1), "bosnia and herzegovina": ("eu", 1), "romania": ("eu", 2),
+          "bulgaria": ("eu", 2), "greece": ("eu", 2), "estonia": ("eu", 2), "latvia": ("eu", 2),
+          "finland": ("eu", 2), "ukraine": ("eu", 2), "russia": ("eu", 3), "turkey": ("eu", 3),
+          "türkiye": ("eu", 3), "morocco": ("af", 1), "tunisia": ("af", 1), "egypt": ("af", 2),
+          "south africa": ("af", 2), "israel": ("as", 2), "qatar": ("as", 3), "saudi arabia": ("as", 3),
+          "united arab emirates": ("as", 4), "uae": ("as", 4), "kazakhstan": ("as", 5), "uzbekistan": ("as", 5),
+          "india": ("as", 5.5), "thailand": ("as", 7), "china": ("as", 8), "china pr": ("as", 8),
+          "hong kong": ("as", 8), "singapore": ("as", 8), "malaysia": ("as", 8), "philippines": ("as", 8),
+          "chinese taipei": ("as", 8), "taiwan": ("as", 8), "japan": ("as", 9), "korea republic": ("as", 9),
+          "south korea": ("as", 9)}
+US_WEST = ("california", ", ca", "indian wells", "los angeles", "san diego", "san jose", "stanford", "carlsbad",
+           "san francisco")
+TEEN, VET = 20.0, 30.0          # a teenager; a veteran (the bo5 term grows a notch per 3 years past 30)
+DEBUT_AGE = 18                  # no turned-pro year: a career is assumed to start at 18 (for the censoring fix)
+CENSOR_DAYS = 60                # first seen this close to the start of our history = his earlier career is unseen
+PRE_YEARS_MAX, RATE_MAX = 15, 80   # the censoring fix never adds more than 15 unseen years, at <= 80 matches a year
+CURVE_SHRINK, CURVE_MIN = 150, 100  # the age curve: residuals by 2-year band, shrunk; the peak band needs 100+ sides
 
 
 def _norm(name):
@@ -101,6 +158,132 @@ def surface_of(tourney):
 
 def _t(iso):
     return datetime.strptime(iso[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+
+
+# ---------------------------------------------------------------- player bios (age + experience)
+def load_players(path=None):
+    """{"tour:id": {"dob": "YYYY-MM-DD", "height_cm", "hand", "pro"} or {"none": True}} ({} when not fetched yet)."""
+    try:
+        with open(path or PLAYERS) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def bios_for(players, tour):
+    """One tour's bios {espn id: bio} (ids are per tour: ATP 2980 is not WTA 2980)."""
+    pre = f"{tour_of(tour)}:"
+    return {k[len(pre):]: v for k, v in (players or {}).items() if k.startswith(pre) and isinstance(v, dict)
+            and not v.get("none")}
+
+
+def _ymd(s):
+    try:
+        return datetime.strptime(str(s)[:10], "%Y-%m-%d").date()
+    except (TypeError, ValueError):
+        return None
+
+
+def age_at(dob, when):
+    """Age in years (float) on the day of `when` (ISO), from a 'YYYY-MM-DD' birth date; None when unknown."""
+    d, w = _ymd(dob), _ymd(when)
+    return None if not d or not w else (w - d).days / 365.25
+
+
+def career_start(bio):
+    """The year a career started (float): turned-pro year, else birth + DEBUT_AGE; None when neither is known."""
+    pro = (bio or {}).get("pro")
+    if pro:
+        try:
+            return float(pro)
+        except (TypeError, ValueError):
+            pass
+    d = _ymd((bio or {}).get("dob"))
+    return d.year + (d.timetuple().tm_yday - 1) / 365.25 + DEBUT_AGE if d else None
+
+
+def _year(iso):
+    t = _t(iso)
+    return t.year + (t.timetuple().tm_yday - 1) / 365.25
+
+
+def is_big(m):
+    """A big match: a Slam main-draw match or a quarterfinal-or-later (never qualifying)."""
+    r = str(m.get("round") or "").lower()
+    if "qualif" in r:
+        return False
+    return any(k in str(m.get("tourney") or "").lower() for k in MAJORS) or r in (
+        "quarterfinal", "quarterfinals", "semifinal", "semifinals", "final", "the final") or "medal" in r
+
+
+def _band(age):
+    return min(11, max(0, int((age - 16) // 2)))                  # 16-17, 18-19, ..., 38+
+
+
+def band_label(b):
+    b = int(b)
+    return f"{16 + 2 * b}-{17 + 2 * b}" if b < 11 else "38+"
+
+
+def _teen(a):
+    return 1.0 if a is not None and a < TEEN else 0.0
+
+
+def _vet(a):
+    return max(0.0, a - VET) / 3 if a is not None else 0.0
+
+
+def place_of(venue):
+    """(continent, UTC offset) of a venue like 'Wuhan, China' / 'Cincinnati, Ohio, USA'; None when unknown."""
+    v = str(venue or "").strip().lower()
+    if not v:
+        return None
+    last = v.replace(".", ",").split(",")[-1].strip()
+    hit = PLACES.get(last)
+    if hit is None:
+        hit = next((PLACES[k] for k in sorted(PLACES, key=len, reverse=True) if re.search(rf"\b{re.escape(k)}\b", v)),
+                   None)
+    if hit and hit[0] == "na" and hit[1] == -5 and any(k in v for k in US_WEST):
+        return ("na", -8)
+    if hit and hit[0] == "oc" and "perth" in v:
+        return ("oc", 8)
+    return hit
+
+
+def far(a, b):
+    """A long trip: another continent, or 5+ time zones."""
+    return bool(a and b) and (a[0] != b[0] or abs(a[1] - b[1]) >= 5)
+
+
+def first_sets(m, side):
+    """(won the first set, won the first two sets) for side 1/2 of a finished match; None when not played."""
+    try:
+        a = [int(x) for x in str(m.get("sets1") or "").split()]
+        b = [int(x) for x in str(m.get("sets2") or "").split()]
+    except ValueError:
+        return None
+    if not a or len(a) != len(b) or max(a[0], b[0]) < 6:
+        return None
+    mine, theirs = (a, b) if side == 1 else (b, a)
+    two = len(a) >= 2 and max(a[1], b[1]) >= 6 and mine[0] > theirs[0] and mine[1] > theirs[1]
+    return mine[0] > theirs[0], two
+
+
+def _rate(xs, k=FS_K):
+    return (sum(xs) + 0.5 * k) / (len(xs) + k) - 0.5
+
+
+def flip_features(f):
+    """The same features from p2's side (p1-minus-p2 numbers negated, the per-player numbers swapped)."""
+    out = {**f, "fatigue": -f["fatigue"], "form": -f["form"], "h2h": -f["h2h"], "surface_gap": -f["surface_gap"],
+           "home": -f.get("home", 0)}
+    for k in LIFE:
+        if k in f:
+            out[k] = -f[k]
+    for a, b in LIFE_SWAP:
+        if a in f or b in f:
+            out[a], out[b] = f.get(b), f.get(a)
+    return out
 
 
 # ---------------------------------------------------------------- results (ESPN)
@@ -273,11 +456,90 @@ def to_bo5(p3):
 class Ratings:
     """Overall + surface Elo, recent form, fatigue and head-to-head, updated match by match."""
 
-    def __init__(self):
+    def __init__(self, bios=None):
         self.r, self.n, self.hist, self.h2h = {}, {}, {}, {}
+        self.bios = bios or {}                           # {espn id: bio} of this tour
+        self.big, self.first, self.trend = {}, {}, {}    # big matches played, first match seen, recent ratings
+        self.start = None                                # the first match of our history (left-censoring)
+        self.curve = None                                # {band: deviation from the peak band} once learned
+        self.lastm, self.fs, self.inj = {}, {}, {}       # last match; first-set record; retirements + walkovers
 
     def _get(self, pid, surf):
         return self.r.get((pid, None), 1500.0), self.r.get((pid, surf), 1500.0)
+
+    def age(self, pid, when):
+        return age_at((self.bios.get(pid) or {}).get("dob"), when)
+
+    def exp_n(self, pid, when):
+        """Earlier tour-level matches. Our history is left-censored (it starts in 2016), so a player first seen at the
+        very start of it gets his unseen years added: (start of our history - turned-pro year, or birth + 18), capped
+        at 15 years, times his OWN rate so far (matches / years seen, capped at 80) - earlier matches only."""
+        n = self.n.get(pid, 0)
+        bio, first = self.bios.get(pid), self.first.get(pid)
+        if not n or not bio or not first or not self.start or (_t(first) - _t(self.start)).days > CENSOR_DAYS:
+            return n
+        cs = career_start(bio)
+        if cs is None:
+            return n
+        pre = min(max(0.0, _year(self.start) - cs), PRE_YEARS_MAX)
+        yrs = max(1.0, (_t(when) - _t(first)).days / 365.25)
+        return n + pre * min(n / yrs, RATE_MAX)
+
+    def rise(self, pid):
+        """How far his overall rating climbed over his last 10 matches (per 100 points, capped at +-2)."""
+        tr = self.trend.get(pid)
+        return max(-2.0, min(2.0, (tr[-1] - tr[0]) / 100)) if tr and len(tr) >= 2 else 0.0
+
+    def curve_at(self, a):
+        return (self.curve or {}).get(str(_band(a)), 0.0) if a is not None else 0.0
+
+    def one(self, pid, m, when):
+        """One player's side of the life factors (from earlier matches only)."""
+        a = self.age(pid, when)
+        res = [w for t, w, _ in self.hist.get(pid, [])[-6:] if t < when][-3:]
+        won3 = float(len(res) == 3 and all(res))
+        lost2 = float(len(res) >= 2 and not any(res[-2:]))
+        last = self.lastm.get(pid)                       # (start, sets, went the distance, games, bo, tourney, place)
+        days = max(0.0, (_t(when) - _t(last[0])).total_seconds() / 86400) if last else None
+        fresh = last is not None and days <= LAST_D
+        long_ = fresh and last[3] >= (LONG_GAMES if last[4] == 3 else 2 * LONG_GAMES - 10)
+        inj = [d for d in self.inj.get(pid, []) if d < when]
+        inj_d = (_t(when) - _t(inj[-1])).total_seconds() / 86400 if inj else None
+        cut = (_t(when) - timedelta(days=365)).strftime("%Y-%m-%dT%H:%M")
+        here = place_of(m.get("venue"))
+        trav = fresh and last[5] != (m.get("tourney") or "") and far(last[6], here)
+        fs = self.fs.get(pid) or ()
+        return {"age": a, "won3": won3, "lost2": lost2, "rest": math.log1p(min(days, 30.0)) if last else math.log1p(30.0),
+                "last_sets": last[1] / 3 if fresh else 0.0, "last_dist": float(bool(fresh and last[2])),
+                "last_long": float(bool(long_)), "inj_recent": math.exp(-inj_d / INJ_TAU) if inj else 0.0,
+                "inj_12m": min(3, sum(1 for d in inj if d >= cut)) / 3, "travel": float(bool(trav)),
+                "fs_rate": _rate([x for x, _ in fs]), "f2_rate": _rate([y for _, y in fs])}
+
+    def life(self, m, when):
+        """The life factors, p1 minus p2 (age terms 0 when a bio is missing, flagged by bio_miss)."""
+        p1, p2 = m["p1"], m["p2"]
+        s1, s2 = self.one(p1, m, when), self.one(p2, m, when)
+        a1, a2 = s1["age"], s2["age"]
+        e1, e2 = self.exp_n(p1, when), self.exp_n(p2, when)
+        b1, b2 = self.big.get(p1, 0), self.big.get(p2, 0)
+        both = a1 is not None and a2 is not None
+        bo5 = int(m.get("bo") or 3) == 5
+
+        def tvv(a, b):                                   # a teen against a 30+
+            return float(a is not None and b is not None and a < TEEN and b >= VET)
+
+        def yhot(a, s):                                  # a young player (22 and under) who won his last 3
+            return float(a is not None and a < YOUNG and s["won3"] > 0)
+        return {"age1": a1, "age2": a2, "exp_n1": e1, "exp_n2": e2, "big_n1": b1, "big_n2": b2,
+                "age_gap": (a1 - a2) / 5 if both else 0.0,
+                "age_curve": self.curve_at(a1) - self.curve_at(a2) if both else 0.0,
+                "exp": math.log1p(e1) - math.log1p(e2), "big": math.log1p(b1) - math.log1p(b2),
+                "teen_rise": _teen(a1) * self.rise(p1) - _teen(a2) * self.rise(p2),
+                "vet_bo5": _vet(a1) - _vet(a2) if bo5 else 0.0,
+                "bio_miss": float(a1 is None) - float(a2 is None),
+                "teen_vs_vet": tvv(a1, a2) - tvv(a2, a1), "young_hot": yhot(a1, s1) - yhot(a2, s2),
+                **{k: s1[k] - s2[k] for k in ("last_sets", "last_dist", "last_long", "rest", "lost2", "won3",
+                                              "fs_rate", "f2_rate", "inj_recent", "inj_12m", "travel")}}
 
     def features(self, m, when=None):
         when = when or m["start"]
@@ -300,10 +562,13 @@ class Ratings:
         return {"elo": sm.logit(p), "fatigue": (fatigue(p2) - fatigue(p1)) / 3, "form": form(p1) - form(p2),
                 "h2h": max(-3, min(3, h)) / 3, "known": min(self.n.get(p1, 0), self.n.get(p2, 0)),
                 "p_elo": p, "surface_gap": (s1 - s2) - (o1 - o2), "home": home, "clash": clash,
-                "clash_elo": clash * sm.logit(p)}
+                "clash_elo": clash * sm.logit(p), **self.life(m, when)}
 
     def update(self, m):
         st = _state(m)
+        if int(m["winner"] or 0) in (1, 2) and ("WALKOVER" in str(m.get("status")).upper() or st == "retired"):
+            quit_ = m["p2"] if int(m["winner"]) == 1 else m["p1"]      # retired or withdrew (injury history)
+            self.inj.setdefault(quit_, []).append(m["start"])
         if st not in ("final", "retired") or int(m["winner"] or 0) not in (1, 2):
             return
         w1 = 1.0 if int(m["winner"]) == 1 else 0.0
@@ -313,9 +578,24 @@ class Ratings:
             e = elo_p(a, b)
             self.r[(m["p1"], key)] = a + _k(self.n.get(m["p1"], 0)) * (w1 - e)
             self.r[(m["p2"], key)] = b + _k(self.n.get(m["p2"], 0)) * ((1 - w1) - (1 - e))
-        for pid, won in ((m["p1"], w1), (m["p2"], 1 - w1)):
+        self.start = self.start or m["start"]
+        big = is_big(m)
+        bo = int(m.get("bo") or 3)
+        try:
+            games = sum(int(x) for x in str(m["sets1"]).split()) + sum(int(x) for x in str(m["sets2"]).split())
+        except ValueError:
+            games = 0
+        last = (m["start"], sets, sets >= bo and st == "final", games, bo, m.get("tourney") or "", place_of(m.get("venue")))
+        for side, (pid, won) in enumerate(((m["p1"], w1), (m["p2"], 1 - w1)), 1):
             self.n[pid] = self.n.get(pid, 0) + 1
             self.hist.setdefault(pid, []).append((m["start"], won, sets))
+            self.first.setdefault(pid, m["start"])
+            self.big[pid] = self.big.get(pid, 0) + big
+            self.trend.setdefault(pid, deque(maxlen=11)).append(self.r[(pid, None)])
+            self.lastm[pid] = last
+            fs = first_sets(m, side)
+            if fs:
+                self.fs.setdefault(pid, deque(maxlen=FS_N)).append(fs)
         winner, loser = (m["p1"], m["p2"]) if w1 else (m["p2"], m["p1"])
         self.h2h[(winner, loser)] = self.h2h.get((winner, loser), 0) + 1
 
@@ -334,8 +614,8 @@ class Pools:
     """One ratings pool per tour. ESPN's player ids are numbered per tour (ATP 2980 and WTA 2980 are two different
     people), so an ATP result must never move a WTA rating, form, fatigue or head-to-head - or the other way round."""
 
-    def __init__(self):
-        self.pools = {t: Ratings() for t in TOURS}
+    def __init__(self, players=None):
+        self.pools = {t: Ratings(bios_for(players, t)) for t in TOURS}   # players.json: {"tour:id": bio}
 
     def pool(self, tour):
         return self.pools[tour_of(tour)]
@@ -401,9 +681,13 @@ def cover_p(gm, p, hcp, bo):
     return sm.phi((mu + hcp) / max(sig, 1.0))
 
 
-def _x(f):
+def _x(f, mask=None):
     # clash_elo: in a conflict matchup, does the favorite hold up or tighten up? (learned, can go either way)
-    return [1.0, f["elo"], f["fatigue"], f["form"], f["h2h"], f.get("home", 0), f.get("clash_elo", 0)]
+    # then the LIFE features (age + experience); a weight list of the old length simply ignores them (zip)
+    life = [float(f.get(k) or 0.0) for k in LIFE]
+    if mask is not None:
+        life = [v if keep else 0.0 for v, keep in zip(life, mask)]
+    return [1.0, f["elo"], f["fatigue"], f["form"], f["h2h"], f.get("home", 0), f.get("clash_elo", 0)] + life
 
 
 def model_p(w, f, bo=3, tour=None):
@@ -414,20 +698,121 @@ def model_p(w, f, bo=3, tour=None):
 
 
 def _fit(rows):
-    return sm.fit_logistic_offset([_x(f) for f, _, _ in rows], [y for _, y, _ in rows], [0.0] * len(rows),
+    return sm.fit_logistic_offset([_x(f)[:len(PRIOR)] for f, _, _ in rows], [y for _, y, _ in rows], [0.0] * len(rows),
                                   prior=PRIOR, lam=20.0) if len(rows) >= 500 else list(PRIOR)
+
+
+def _lls(ws, ev):
+    """Each graded row's log loss under weights ws."""
+    out = []
+    for f, y, m in ev:
+        p = min(max(model_p(ws, f, m["bo"]), 1e-4), 1 - 1e-4)
+        out.append(-math.log(p if y else 1 - p))
+    return out
 
 
 def _score(ws, ev):
     """(log loss, accuracy) of weights ws on graded rows [(features, y, match)]."""
     if not ev:
         return None, None
-    ll = acc = 0.0
-    for f, y, m in ev:
-        p = min(max(model_p(ws, f, m["bo"]), 1e-4), 1 - 1e-4)
-        ll -= math.log(p if y else 1 - p)
-        acc += (p > 0.5) == (y == 1.0)
-    return ll / len(ev), acc / len(ev)
+    acc = sum((model_p(ws, f, m["bo"]) > 0.5) == (y == 1.0) for f, y, m in ev)
+    return sum(_lls(ws, ev)) / len(ev), acc / len(ev)
+
+
+def _zmean(xs):
+    n = len(xs)
+    if n < 2:
+        return 0.0
+    mu = sum(xs) / n
+    v = sum((x - mu) ** 2 for x in xs) / (n - 1)
+    return round(mu / math.sqrt(v / n), 2) if v > 0 else 0.0
+
+
+def age_curve(ws, rows):
+    """The tour's age curve, learned on the older (fit) rows only: each side's result minus the current model's
+    chance, averaged by 2-year age band (shrunk toward 0), as the deviation from the best-performing band (<= 0).
+    Returns ({band: deviation}, {band: sides}) - ({}, {}) with no bios."""
+    s, n = {}, {}
+    for f, y, m in rows:
+        if f.get("age1") is None or f.get("age2") is None:
+            continue
+        r = y - model_p(ws, f, m["bo"])
+        for a, x in ((f["age1"], r), (f["age2"], -r)):
+            b = str(_band(a))
+            s[b], n[b] = s.get(b, 0.0) + x, n.get(b, 0) + 1
+    val = {b: s[b] / (n[b] + CURVE_SHRINK) for b in s}
+    ok = [v for b, v in val.items() if n[b] >= CURVE_MIN]
+    if not ok:
+        return {}, n
+    peak = max(ok)
+    return {b: round(v - peak, 5) for b, v in val.items()}, n
+
+
+def _fit_keys(fit_on, keys):
+    """The model refit with these life features added (the rest of the life weights 0)."""
+    cols = [LIFE.index(k) for k in keys]
+    X = [(lambda x: x[:len(PRIOR)] + [x[len(PRIOR) + c] for c in cols])(_x(f)) for f, _, _ in fit_on]
+    wv = sm.fit_logistic_offset(X, [y for _, y, _ in fit_on], [0.0] * len(fit_on),
+                                prior=list(PRIOR) + [0.0] * len(cols), lam=20.0)
+    out = list(wv[:len(PRIOR)]) + [0.0] * len(LIFE)
+    for c, v in zip(cols, wv[len(PRIOR):]):
+        out[len(PRIOR) + c] = v
+    return out
+
+
+def _vs(ll0, ws, ev, keys):
+    """A variant vs the current model on the holdout: n, active matches, log loss, accuracy, paired gain + z."""
+    ll1 = _lls(ws, ev)
+    d = [a - b for a, b in zip(ll0, ll1)]                # > 0 = the new features made that match's loss smaller
+    ll, acc = _score(ws, ev)
+    return {"n": len(ev), "active": sum(1 for f, _, _ in ev if any(f.get(k) for k in keys)), "logloss": _r(ll),
+            "acc": _r(acc), "gain_mnats": round(1000 * sum(d) / len(d), 3), "z": _zmean(d),
+            "weights": {k: round(ws[len(PRIOR) + LIFE.index(k)], 4) for k in keys}}
+
+
+def life_study(pool, base, fit_on, ev):
+    """Do the life factors (age, experience, last match, streaks, first sets, injuries, travel...) earn a place in
+    this tour's model? The age curve is learned on the older rows; then EACH factor alone is fit on the older rows
+    and graded on the SAME newer-half holdout as the current model: the paired log-loss difference per match and its
+    z. Factors with a gain at z >= Z_KEEP are refit together, and that combination is kept only if it passes the same
+    bar (else the single best passing factor; else nothing - the life weights stay 0). Returns (weights, report)."""
+    curve, band_n = age_curve(base, fit_on)
+    pool.curve = curve
+    for f, _, _ in fit_on + ev:                          # the curve term, now that the curve is known
+        if f.get("age1") is not None and f.get("age2") is not None:
+            f["age_curve"] = pool.curve_at(f["age1"]) - pool.curve_at(f["age2"])
+    ll_b, acc_b = _score(base, ev)
+    bio = sum(1 for f, _, _ in ev if f.get("age1") is not None and f.get("age2") is not None)
+    rep = {"base": {"logloss": _r(ll_b), "acc": _r(acc_b)}, "graded": len(ev), "graded_with_both_ages": bio,
+           "curve": {band_label(b): v for b, v in sorted(curve.items(), key=lambda t: int(t[0]))},
+           "curve_sides": {band_label(b): v for b, v in sorted(band_n.items(), key=lambda t: int(t[0]))},
+           "peak_band": next((band_label(b) for b, v in curve.items() if v == 0.0), None), "factors": {},
+           "kept": [], "z_keep": Z_KEEP}
+    best = list(base) + [0.0] * len(LIFE)
+    if len(fit_on) < 500 or not ev:
+        return best, rep
+    ll0 = _lls(base, ev)
+    passed = []
+    for name, keys in FACTORS.items():
+        if not any(f.get(k) for f, _, _ in fit_on for k in keys):
+            rep["factors"][name] = {"n": len(ev), "active": 0, "note": "no data for it yet (all neutral)"}
+            continue
+        wv = _fit_keys(fit_on, keys)
+        r = rep["factors"][name] = _vs(ll0, wv, ev, keys)
+        if r["gain_mnats"] > 0 and r["z"] >= Z_KEEP:
+            passed.append((r["gain_mnats"], name, wv))
+    if not passed:
+        return best, rep
+    passed.sort(reverse=True)
+    best, rep["kept"] = passed[0][2], [passed[0][1]]
+    if len(passed) > 1:
+        names = [n for _, n, _ in passed]
+        keys = [k for n in names for k in FACTORS[n]]
+        wv = _fit_keys(fit_on, keys)
+        r = rep["combined"] = {**_vs(ll0, wv, ev, keys), "factors": names}
+        if r["gain_mnats"] > passed[0][0] and r["z"] >= Z_KEEP:
+            best, rep["kept"] = wv, names
+    return best, rep
 
 
 def _games_model(ws, rows):
@@ -446,14 +831,20 @@ def _r(x):
     return round(x, 4) if x is not None else None
 
 
-def study(ms, eval_n=2000, log=print):
+def study(ms, eval_n=2000, log=print, players=None):
     """Replay every finished match through its own tour's ratings pool, then learn and grade the weights PER TOUR
     (men's and women's tennis are different worlds). A tour with too few rated matches borrows the shared weights
-    (fit on both tours) and the log says so. Returns (ratings pools, {'atp','wta','shared'} weights, report)."""
+    (fit on both tours) and the log says so. A tour with its own weights then tests age + experience (life_study:
+    kept only when they beat the current model on the newer half). players = the bios ({"tour:id": bio}; None = none).
+    Returns (ratings pools, {'atp','wta','shared'} weights, report)."""
     rows = sorted((m for m in ms.values() if _state(m) in ("final", "retired")), key=lambda m: (m["start"], m["id"]))
-    rt = Pools()
+    wo = [m for m in ms.values() if "WALKOVER" in str(m.get("status")).upper()]   # walkovers: injury history only
+    rt = Pools(players)
     data = {t: [] for t in TOURS}
-    for m in rows:
+    for m in sorted(rows + wo, key=lambda m: (m["start"], m["id"])):
+        if _state(m) == "void":
+            rt.update(m)
+            continue
         f = rt.features(m)
         if f["known"] >= MIN_MATCHES and int(m["winner"] or 0) in (1, 2) and _state(m) == "final":
             data[tour_of(m)].append((f, 1.0 if int(m["winner"]) == 1 else 0.0, m))
@@ -470,8 +861,9 @@ def study(ms, eval_n=2000, log=print):
     for t in TOURS:
         fit_on, ev = split[t]
         own = len(data[t]) >= TOUR_MIN_RATED and len(fit_on) >= 500
+        life = None
         if own:
-            w[t] = _fit(fit_on)
+            w[t], life = life_study(rt.pool(t), _fit(fit_on), fit_on, ev)
         else:
             w[t] = shared
             log(f"tennis study: {t.upper()} has only {len(data[t])} rated matches (< {TOUR_MIN_RATED}) - "
@@ -481,7 +873,7 @@ def study(ms, eval_n=2000, log=print):
         ll0, acc0 = _score(PRIOR, ev)
         tours[t] = {"rated": len(data[t]), "fit": len(fit_on), "graded": len(ev), "own_weights": own,
                     "weights": [round(v, 3) for v in w[t]], "games": gm[t], "acc": _r(acc), "logloss": _r(ll),
-                    "acc_elo": _r(acc0), "logloss_elo": _r(ll0)}
+                    "acc_elo": _r(acc0), "logloss_elo": _r(ll0), "life": life}
     ev_all = [r for t in TOURS for r in split[t][1]]
     both = [(tours[t]["acc"], tours[t]["logloss"], tours[t]["acc_elo"], tours[t]["logloss_elo"], tours[t]["graded"])
             for t in TOURS if tours[t]["graded"]]
@@ -723,6 +1115,48 @@ def _say_name(name):
     return parts[-1] if parts else str(name or "")
 
 
+def life_line(v, c, me, them, he, He, his):
+    """At most ONE age / experience line, only when it's on our side and big enough to say out loud (a vet in a
+    best-of-5, a big-match experience gap, a teenager, a big experience gap, a big age gap). Display only: it moves
+    no number unless the study kept that factor. "" when nothing applies (or every wording is taken on the board)."""
+    f = c.get("f") or {}
+    a_me, a_them = f.get("age1"), f.get("age2")
+    x_me, x_them = int(f.get("exp_n1") or 0), int(f.get("exp_n2") or 0)
+    b_me, b_them = int(f.get("big_n1") or 0), int(f.get("big_n2") or 0)
+    bo5 = int(c.get("bo") or 3) == 5
+    if bo5 and a_me is not None and a_me >= VET and (a_them is None or a_them < a_me):
+        age = int(a_me)
+        return v.say("t_life_vet5", [
+            f"🧓 {age} years old in a best-of-5? That's {his} whole game — {he}'s been in these marathons before.",
+            f"🧓 Vet in a five-setter. {me}'s {age} and knows how to pace a long one.",
+            f"🧓 Best of 5 is a grown folks' match. {me} has seen every version of this.",
+            f"🧓 Five sets rewards patience, and {me}'s got {age} years of it."])
+    if b_me >= 10 and b_me >= 3 * (b_them + 1):
+        return v.say("t_life_big", [
+            f"🧓 Vet move — {he}'s been in {b_me} of these big matches, {them}'s been in {b_them}.",
+            f"🧓 {me} has played {b_me} Slam / late-round matches. {them}? {b_them}. The moment won't be too big.",
+            f"🧓 Big-stage reps: {me} {b_me}, {them} {b_them}. {He}'s been here, done this.",
+            f"🧓 {b_me} big matches on {his} résumé vs {b_them} for {them}. Experience shows up when it's tight."])
+    if a_me is not None and a_me < TEEN:
+        age = int(a_me)
+        return v.say("t_life_teen", [
+            f"🔥 {age} years old and hungry.",
+            f"🔥 {me} is {age} and playing with zero fear.",
+            f"🔥 A {age}-year-old with nothing to lose. {He} swings free.",
+            f"🔥 {age} and still getting better every week. The price hasn't caught up."])
+    if x_me >= 100 and x_me >= 3 * max(x_them, 1):
+        return v.say("t_life_exp", [
+            f"🧓 {me} has {x_me} tour matches under {his} belt, {them} has {x_them}. Experience matters.",
+            f"🧓 {x_me} tour matches vs {x_them}. {me} has seen every trick {them} is about to try.",
+            f"🧓 Mileage: {me} {x_me} matches, {them} {x_them}. That gap is real."])
+    if a_me is not None and a_them is not None and a_them - a_me >= 8:
+        return v.say("t_life_young", [
+            f"⚡ Fresh legs — {me} is {int(a_them - a_me)} years younger than {them}.",
+            f"⚡ {me} is {int(a_me)}, {them} is {int(a_them)}. Youth gets to every ball.",
+            f"⚡ The younger legs win the long rallies. {me} has {int(a_them - a_me)} years on {them}."])
+    return ""
+
+
 def breakdown(c, rt, used):
     """Tennis breakdown in OUR voice (he/she by tour, last names, never the same wording twice on a board)."""
     import sports_breakdown as sb
@@ -824,6 +1258,7 @@ def breakdown(c, rt, used):
     if int(c["bo"]) == 5:
         out.append(v.say("t_bo5", ["🏆 Best of 5 at a Slam — the longer it goes, the more the better player takes over.",
                                    f"🏆 Five sets gives {them} nowhere to hide. Better player wins these."]))
+    out.append(life_line(v, c, me, them, he, He, his))
     if not c.get("odds"):
         return [x for x in out if x]
     book = round(100 / sd.decimal(c["odds"]))
@@ -867,8 +1302,7 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
         p1 = model_p(w, f, m["bo"], tour)                       # the tour's own weights
         for side, p, ml, opp_ml in ((1, p1, pr[0], pr[1]), (2, 1 - p1, pr[1], pr[0])):
             me, them = (m["p1_name"], m["p2_name"]) if side == 1 else (m["p2_name"], m["p1_name"])
-            fs = f if side == 1 else {**f, "fatigue": -f["fatigue"], "form": -f["form"], "h2h": -f["h2h"],
-                                      "surface_gap": -f["surface_gap"], "home": -f["home"]}
+            fs = f if side == 1 else flip_features(f)
             dec = sd.decimal(ml)
             mine, theirs = (m["p1"], m["p2"]) if side == 1 else (m["p2"], m["p1"])
             mine, theirs = f"{tour}:{mine}", f"{tour}:{theirs}"          # ranks + news are keyed per tour
@@ -1132,12 +1566,19 @@ def run(state, now=None, fetch=True):
         print(f"tennis sync: {len(ms)} matches stored, {calls} calls, {fails} failed")
     else:
         ms = load_matches()
-    rt, w, rep = study(ms)
+    rt, w, rep = study(ms, players=load_players())
     state["tennis_study"] = rep
     save_study(rep, now)
     for t, r in rep["tours"].items():
         print(f"tennis study {t.upper()}: {r['rated']} rated matches, acc {r['acc']} (surface ratings alone {r['acc_elo']}), "
               f"loss {r['logloss']} vs {r['logloss_elo']}, {'own' if r['own_weights'] else 'SHARED'} weights {r['weights']}")
+        lf = r.get("life")
+        if lf:
+            print(f"tennis study {t.upper()} life factors vs current loss {lf['base']['logloss']}: " + (", ".join(
+                f"{k} {v['logloss']} ({v['gain_mnats']:+.2f} mnats, z {v['z']})" if "z" in v else f"{k} (no data)"
+                for k, v in lf["factors"].items()) or "not tested") + " -> " + (f"KEPT {'+'.join(lf['kept'])}"
+                if lf["kept"] else "none kept (weights 0)") + f" · {lf['graded_with_both_ages']}/{lf['graded']} graded "
+                "matches have both ages")
     picks = _load_picks()
     grade(ms, picks)
     lines = refresh_odds(state, now) if fetch else []

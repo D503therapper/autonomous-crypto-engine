@@ -6,6 +6,7 @@ import json
 import math
 import os
 import random
+import re
 import shutil
 import tempfile
 import time
@@ -741,6 +742,221 @@ def test_tennis_per_tour():
     by = {c["id"]: c for c in cs}
     assert by["wta:up:1"]["p"] == 0.5 and by["atp:up:1"]["p"] != 0.5, "each tour priced with its own weights"
     assert st.match_line(ms["atp:up"], [{**lines[1], "a": "atp One", "b": "atp Two"}])[0] is None, "never a WTA line on an ATP match"
+
+
+def test_tennis_bios():
+    """ESPN athlete bios parse from both endpoints' payloads; age at a match; the parsers never invent a field."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("ftp", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                       "tools", "fetch_tennis_players.py"))
+    ftp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ftp)
+    v3 = {"athlete": {"id": "3623", "displayName": "Jannik Sinner", "dateOfBirth": "2001-08-16T07:00Z",
+                      "displayHeight": "6' 4\"", "height": 76.0, "hand": {"type": "RIGHT", "abbreviation": "R"},
+                      "turnedPro": 2018, "displayDOB": "8/16/2001"}}
+    b = ftp.parse_athlete(v3)
+    assert b == {"name": "Jannik Sinner", "dob": "2001-08-16", "height_cm": 193, "hand": "R", "pro": 2018}, b
+    core = {"id": "2375", "fullName": "Rafael Nadal", "displayDOB": "6/3/1986", "height": 185, "hand": {"displayValue": "Left"},
+            "displayExperience": "Turned Pro: 2001", "statsSummary": {"statistics": [{"name": "aces"}]}}
+    b = ftp.parse_athlete(core)
+    assert b["dob"] == "1986-06-03" and b["height_cm"] == 185 and b["hand"] == "L" and b["pro"] == 2001, b
+    assert b["stats"] == ["aces"]
+    bare = ftp.parse_athlete({"athlete": {"id": "9", "displayName": "Some One"}})
+    assert bare == {"name": "Some One"}, "nothing ESPN didn't send"
+    assert ftp.parse_athlete({"code": 404}) is None and ftp.parse_athlete([]) is None
+    assert ftp._date("22/05/1987") == "1987-05-22" and ftp._date("garbage") is None and ftp._date("1899-01-01") is None
+    assert ftp._height_cm({"displayHeight": "1.88 m"}) == 188 and ftp._height_cm({"height": 0}) is None
+    import sports_tennis as st
+    assert abs(st.age_at("2001-08-16", "2026-08-16T10:00Z") - 25.0) < 0.01
+    assert 24.99 < st.age_at("2001-08-16", "2026-08-15") < 25.0, "the day before the birthday: still 24"
+    assert st.age_at(None, "2026-01-01") is None and st.age_at("2001-08-16", None) is None
+    assert st.career_start({"pro": 2018}) == 2018.0 and 2019 < st.career_start({"dob": "2001-08-16"}) < 2020
+    assert st.career_start({}) is None
+    p = st.bios_for({"atp:1": {"dob": "2000-01-01"}, "wta:1": {"dob": "1990-01-01"}, "atp:2": {"none": True}}, "wta")
+    assert p == {"1": {"dob": "1990-01-01"}}, "per tour, and never a 'none' entry"
+    assert st.place_of("Wuhan, China") == ("as", 8) and st.place_of("Indian Wells, California, USA") == ("na", -8)
+    assert st.place_of("Basel. Switzerland") == ("eu", 1) and st.place_of("World") is None
+    assert st.far(("eu", 1), ("na", -5)) and not st.far(("eu", 1), ("eu", 2)) and st.far(("as", 3), ("as", 9))
+    assert not st.far(None, ("eu", 1))
+
+
+def _tm(i, p1, p2, win=1, tourney="Somewhere Open", rnd="Round 1", start=None, sets=("6 6", "3 3"), status="STATUS_FINAL",
+        venue="Paris, France", bo=3):
+    return {"id": f"atp:{i}", "tour": "atp", "start": start or f"2020-01-{1 + i:02d}T10:00Z", "event": "e", "tourney": tourney,
+            "round": rnd, "surface": "hard", "bo": str(bo), "p1": p1, "p1_name": f"P {p1}", "p2": p2, "p2_name": f"P {p2}",
+            "winner": win, "sets1": sets[0], "sets2": sets[1], "status": status, "done": 2, "venue": venue}
+
+
+def test_tennis_life_features():
+    """Experience counts only EARLIER matches (no peeking), big matches = Slam main draw or QF+ (never qualifying),
+    the censoring fix only for players first seen at the start of the history, every age term neutral when a bio is
+    missing (with the flag), and the last match / streaks / first sets / injuries / travel from earlier matches."""
+    import sports_tennis as st
+    r = st.Ratings()
+    ms = [_tm(0, "1", "2"), _tm(1, "1", "3", tourney="Australian Open", rnd="Qualifying 1st Round"),
+          _tm(2, "1", "2", tourney="Australian Open", rnd="Round 1", sets=("6 4 7", "4 6 5")),
+          _tm(3, "3", "1", tourney="Madrid Open", rnd="Quarterfinal", win=2)]
+    seen = []
+    for m in ms:
+        f = r.features(m)
+        seen.append((f["exp_n1"], f["exp_n2"], f["big_n1"], f["big_n2"]))
+        r.update(m)
+    assert seen == [(0, 0, 0, 0), (1, 0, 0, 0), (2, 1, 0, 0), (1, 3, 0, 1)], seen
+    assert r.big["1"] == 2 and r.n["1"] == 4, "the Slam main draw + the QF are big (once played); qualifying never"
+    # a player first seen much later: no censoring fix; one seen at the very start with a turned-pro year: the fix
+    r.bios.update({"1": {"dob": "2002-06-01", "pro": 2018}, "7": {"pro": 2010}})
+    late = _tm(9, "7", "1", start="2021-06-01T10:00Z")
+    r.update(late)
+    assert r.exp_n("7", "2021-07-01T10:00Z") == 1, "first seen long after the history starts: counted as is"
+    x1 = r.exp_n("1", "2021-07-01T10:00Z")
+    assert x1 > r.n["1"], "seen from the start, turned pro before it: unseen years added"
+    assert x1 <= r.n["1"] + st.PRE_YEARS_MAX * st.RATE_MAX
+    del r.bios["1"]
+    assert r.exp_n("1", "2021-07-01T10:00Z") == r.n["1"], "no bio: no fix"
+    # neutral when missing
+    q = st.Ratings()
+    f = q.features(_tm(0, "a", "b"))
+    for k in ("age_gap", "age_curve", "teen_rise", "vet_bo5", "bio_miss", "teen_vs_vet", "young_hot"):
+        assert f[k] == 0.0, (k, f[k])
+    assert f["age1"] is None and f["age2"] is None
+    q.bios["a"] = {"dob": "2008-01-01"}
+    f = q.features(_tm(0, "a", "b"))
+    assert f["bio_miss"] == -1.0 and f["age_gap"] == 0.0 and f["teen_vs_vet"] == 0.0
+    q.bios["b"] = {"dob": "1985-01-01"}
+    f = q.features(_tm(0, "a", "b"))
+    assert f["bio_miss"] == 0.0 and f["age_gap"] < -3 and f["teen_vs_vet"] == 1.0
+    ff = st.flip_features(f)
+    assert ff["teen_vs_vet"] == -1.0 and ff["age1"] == f["age2"] and ff["exp_n1"] == f["exp_n2"] and ff["form"] == -f["form"]
+    assert st.model_p([0.0, 1.0, 0, 0, 0, 0, 0], {**f, "elo": 0.4}) == st.model_p([0.0, 1.0, 0, 0, 0, 0, 0] + [0.0] * len(st.LIFE),
+                                                                                   {**f, "elo": 0.4}), "zero weights = no effect"
+    # last match, streaks, first sets, injuries, travel
+    g = st.Ratings()
+    g.update(_tm(0, "x", "y", start="2020-03-01T10:00Z", sets=("6 4 7", "4 6 6"), venue="Miami, Florida, USA"))
+    g.update(_tm(1, "x", "z", start="2020-03-02T10:00Z", sets=("6 6", "7 7"), venue="Miami, Florida, USA", win=2))
+    g.update(_tm(2, "y", "z", start="2020-03-03T10:00Z", status="STATUS_WALKOVER", sets=("", ""), win=2))
+    nxt = _tm(3, "x", "y", start="2020-03-05T10:00Z", venue="Madrid, Spain", tourney="Madrid Open")
+    f = g.features(nxt)
+    assert abs(f["last_sets"] + 1 / 3) < 1e-9 and f["last_dist"] == -1.0, "y's last match went the distance"
+    assert f["travel"] == 0.0, "both came from Miami: y's walkover isn't a match played, both flew"
+    one = g.one("x", nxt, nxt["start"])
+    assert one["travel"] == 1.0 and one["last_sets"] == 2 / 3 and one["lost2"] == 0.0
+    assert g.one("y", nxt, nxt["start"])["inj_recent"] > 0.9 and g.one("x", nxt, nxt["start"])["inj_recent"] == 0.0
+    assert g.one("z", nxt, nxt["start"])["won3"] == 0.0 and g.one("x", nxt, "2020-03-01T09:00Z")["rest"] == math.log1p(0)
+    assert g.one("x", nxt, nxt["start"])["fs_rate"] == (1 + 2) / (2 + 4) - 0.5, "won 1 of 2 first sets, shrunk"
+    assert g.one("x", nxt, "2020-02-01T10:00Z")["inj_12m"] == 0.0
+
+
+def test_tennis_life_study():
+    """Noise never ships: random birth dates (age has nothing to do with winning) keep the age weights at 0. A real
+    planted effect (the veteran wins more in best-of-5) is found and kept."""
+    import sports_tennis as st
+
+    def sim(n, seed, plant):
+        rnd = random.Random(seed)
+        players = [str(i) for i in range(160)]
+        skill = {p: rnd.gauss(0, 1) for p in players}
+        bios = {f"atp:{p}": {"dob": f"{rnd.randint(1985, 2006)}-0{rnd.randint(1, 9)}-15"} for p in players}
+        t0 = datetime(2022, 1, 1, tzinfo=timezone.utc)
+        out = {}
+        for i in range(n):
+            a, b = rnd.sample(players, 2)
+            when = t0 + timedelta(hours=3 * i)
+            bo = 5 if i % 2 else 3
+            x = 1.5 * (skill[a] - skill[b])
+            if plant and bo == 5:
+                aa, ab = (st.age_at(bios[f"atp:{q}"]["dob"], when.strftime("%Y-%m-%d")) for q in (a, b))
+                x += 2.5 * (st._vet(aa) - st._vet(ab))
+            w = 1 if rnd.random() < 1 / (1 + math.exp(-x)) else 2
+            mid = f"atp:{i}"
+            out[mid] = {"id": mid, "tour": "atp", "start": when.strftime("%Y-%m-%dT%H:%MZ"), "event": "e",
+                        "tourney": "Somewhere Open", "round": "Round 1", "surface": "hard", "bo": str(bo), "p1": a,
+                        "p1_name": f"P {a}", "p2": b, "p2_name": f"Q {b}", "winner": w, "sets1": "6 6", "sets2": "3 3",
+                        "status": "STATUS_FINAL", "done": 2, "venue": "Paris, France"}
+        return out, bios
+    keep = (st.TOUR_MIN_RATED, st.FACTORS)
+    st.TOUR_MIN_RATED = 1000
+    st.FACTORS = {k: st.FACTORS[k] for k in ("age", "young_vs_aging")}
+    try:
+        ms, bios = sim(5000, 21, plant=False)
+        _, w, rep = st.study(ms, eval_n=1000, log=lambda x: None, players=bios)
+        lf = rep["tours"]["atp"]["life"]
+        assert lf["kept"] == [] and all(v == 0.0 for v in w["atp"][len(st.PRIOR):]), lf
+        assert lf["factors"]["age"]["n"] == 1000 and lf["factors"]["age"]["active"] > 900 and lf["graded_with_both_ages"] == 1000
+        assert "z" in lf["factors"]["age"] and lf["curve"], lf
+        ms, bios = sim(7000, 22, plant=True)
+        _, w, rep = st.study(ms, eval_n=1000, log=lambda x: None, players=bios)
+        lf = rep["tours"]["atp"]["life"]
+        assert "age" in lf["kept"] and w["atp"][len(st.PRIOR) + st.LIFE.index("vet_bo5")] > 0.3, lf
+        assert lf["factors"]["age"]["gain_mnats"] > 0 and lf["factors"]["age"]["z"] >= st.Z_KEEP
+    finally:
+        st.TOUR_MIN_RATED, st.FACTORS = keep
+
+
+def test_tennis_life_lines():
+    """At most one age / experience line, only when it's on our side; never 'real talk' or 'chalk'; no repeats."""
+    import sports_tennis as st
+    base = {"id": "x", "player": "Mirra Andreeva", "opp": "Venus Williams", "surface": "hard", "bo": 3, "tour": "wta",
+            "f": {"surface_gap": 0, "fatigue": 0, "form": 0, "h2h": 0, "home": 0, "age1": 18.4, "age2": 44.1,
+                  "exp_n1": 60, "exp_n2": 400, "big_n1": 3, "big_n2": 90}}
+    used = set()
+    bd = st.breakdown(base, None, used)
+    teen = [x for x in bd if x.startswith("🔥") and "18" in x]
+    assert len(teen) == 1 and not any("🧓" in x for x in bd), bd
+    assert not any(re.search(r"\b(he|him|his)\b", x) for x in bd)
+    vet = {**base, "id": "y", "player": "Novak Djokovic", "opp": "Joao Fonseca", "bo": 5, "tour": "atp",
+           "f": {**base["f"], "age1": 39.3, "age2": 20.1, "exp_n1": 900, "exp_n2": 40, "big_n1": 150, "big_n2": 3}}
+    bd2 = st.breakdown(vet, None, used)
+    assert sum("🧓" in x for x in bd2) == 1 and any("five" in x.lower() or "best of 5" in x.lower() or "best-of-5" in x
+                                                   for x in bd2 if "🧓" in x), bd2
+    big = {**vet, "id": "z", "bo": 3}
+    line = [x for x in st.breakdown(big, None, set()) if "🧓" in x]
+    assert len(line) == 1 and "150" in line[0] and "3" in line[0], line
+    plain = {**base, "f": {k: v for k, v in base["f"].items() if not k.startswith(("age", "exp", "big"))}}
+    assert not any(x[:1] in ("🧓", "⚡") or "years old" in x for x in st.breakdown(plain, None, set()))
+    from sports_breakdown import Voice
+    v = Voice("q", set())
+    seen = {st.life_line(v, {**big, "id": f"k{i}"}, "Djokovic", "Fonseca", "he", "He", "his") for i in range(4)}
+    seen.discard("")
+    assert len(seen) == 4, "four ways to say it, never the same one twice on a board"
+    assert st.life_line(v, {**big, "id": "k9"}, "Djokovic", "Fonseca", "he", "He", "his") == "", "all taken: dropped"
+    for x in seen | set(bd) | set(bd2):
+        assert "real talk" not in x.lower() and "chalk" not in x.lower(), x
+
+
+def test_tennis_edge_life_atoms():
+    """'Lastname F.' -> ESPN id only on a UNIQUE match per tour; the new life atoms are new names (no existing atom
+    changes); a teen vs a 30+ gets its own atom."""
+    import sports_tennis_edge as te
+    tmp = tempfile.mkdtemp()
+    path = os.path.join(tmp, "m.csv")
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["id", "tour", "start", "p1", "p1_name", "p2", "p2_name"])
+        w.writeheader()
+        w.writerow({"id": "1", "tour": "atp", "start": "2016-09-26T10:00Z", "p1": "3623", "p1_name": "Jannik Sinner",
+                    "p2": "11", "p2_name": "Alexander Zverev"})
+        w.writerow({"id": "2", "tour": "atp", "start": "2016-09-27T10:00Z", "p1": "12", "p1_name": "Mischa Zverev",
+                    "p2": "13", "p2_name": "Juan Martin del Potro"})
+        w.writerow({"id": "3", "tour": "wta", "start": "2016-09-27T10:00Z", "p1": "3623", "p1_name": "Anna Smith",
+                    "p2": "14", "p2_name": "Andrea Smith"})
+    nmap, first = te.name_map(path)
+    assert te.espn_id(nmap, "atp", "Sinner J.") == "3623" and te.espn_id(nmap, "wta", "Sinner J.") is None
+    assert te.espn_id(nmap, "atp", "Zverev A.") == "11" and te.espn_id(nmap, "atp", "Zverev M.") == "12"
+    assert te.espn_id(nmap, "atp", "Del Potro J.M.") == "13"
+    assert te.espn_id(nmap, "wta", "Smith A.") is None, "two ESPN players on one key: skipped"
+    assert first == {"atp": "2016-09-26", "wta": "2016-09-27"}
+    shutil.rmtree(tmp)
+    m = te.M()
+    m.lvl, m.bo = "slam", 5
+    me = {"n": 400, "slam": 0, "big": 40, "w3": True}
+    them = {"n": 30, "slam": 5, "big": 2, "w3": False}
+    A = te.life_atoms(m, me, them, 19.2, 33.0, True)
+    assert {"exp:vet", "expgap:x3+", "bigx:more", "slam:first", "age:teen", "oage:vet", "agegap:-8", "yvv:young",
+            "tvv:teen", "yhot"} <= set(A), A
+    assert te.life_atoms(m, me, them, None, None, False) == [], "not warm, no bios: nothing"
+    assert all(te._life_atom(a) for a in A)
+    old = ["lvl:slam", "surf:clay", "bo5", "fav", "p:80+", "rk:1-10", "q:out", "lay:long", "olay:long", "form:hot",
+           "mdl:+5", "g365:3+", "home", "ohome", "srv:big", "rd:early", "ret:last"]
+    assert not any(te._life_atom(a) for a in old), "existing atoms are not life atoms (their fingerprints stay)"
 
 
 def test_tennis_slates_and_parlays():
@@ -1970,8 +2186,8 @@ def test_tennis_edge():
     # pure noise: an efficient market never gets anything promoted
     noise_path = os.path.join(tmp, "noise.json")
     _tennis_hist(hist, 60, None, seed=11)
-    r5 = te.study(noise_path, hist, batch=400, **kw)
-    assert r5["proven"] == [] and r5["tested"] == 400 and "atp|pin|surf:clay" in te.LAST_TESTED, r5
+    r5 = te.study(noise_path, hist, batch=1200, **kw)                              # (the life atoms added more)
+    assert r5["proven"] == [] and r5["tested"] > 400 and "atp|pin|surf:clay" in te.LAST_TESTED, r5
     assert "atp|pin|surf:clay" not in r5["suspects"]
     # hooks
     assert [p["key"] for p in te.proven(st)] == sorted(st["proven"])

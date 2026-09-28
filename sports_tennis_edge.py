@@ -24,7 +24,9 @@ margin - a big edge z with no real money in it).
 4) ANGLES - a registry like the explorer: facts known before the match (price bucket, level, round, surface, indoor,
    season, best-of-5, rank buckets, qualifier/wildcard proxy, home country, big server on the tiebreak proxy,
    retirement risk, long layoff, just won a title / deep run, first clay/grass match of the year, fatigue, form,
-   model disagreement, and the soft-book-vs-Pinnacle price gap) in combos of 1-3, per tour, bet at Pinnacle,
+   model disagreement, and the soft-book-vs-Pinnacle price gap - plus the NEW life atoms: experience / big-match
+   gaps, first Slam main draw, age buckets and gaps, a teen vs a 30+, a young player on a heater, the last match,
+   rest, streaks, first-set record, injury recency, travel) in combos of 1-3, per tour, bet at Pinnacle,
    Bet365 or the average. Every run tests only angles NEVER tested before (fingerprints saved), on the OLDER half
    only: a winner there (150+ bets, profit, edge z 3.5+) becomes a SUSPECT, and must FORWARD-CONFIRM on the newer
    half (100+ bets, profit, edge z 2.0+, and the full proven bar overall) to be PROVEN; a forward loss KILLS it.
@@ -87,6 +89,9 @@ RND = {"1st Round": ("early", 1), "2nd Round": ("early", 2), "3rd Round": ("mid"
 OUT_CUT = {"slam": 104, "1000": 60, "500": 45, "250": 80}      # ranked beyond the usual direct-entry cut (proxy)
 SRV = {"atp": 0.22, "wta": 0.14}    # tiebreak share of a player's recent sets: the big-server proxy
 LAYOFF_D, RET_D, FAT_D = 42, 180, 3
+WARM_D = 730                        # experience atoms only once the history is 2 years old (it starts in 2012: a
+                                    # player's matches before that are unseen - left-censored)
+PLAYERS = stn.PLAYERS
 LAST_TESTED = []                    # the keys the latest run tested (tests look at it)
 
 
@@ -142,7 +147,7 @@ def _nv(a, b):
 class M:
     """One match (W = the winner, L = the loser)."""
     __slots__ = ("tour", "d", "dn", "tkey", "tourney", "loc", "lvl", "court", "surf", "rnd", "bo", "W", "L", "wr",
-                 "lr", "sets", "status", "odds", "fw", "fx")
+                 "lr", "sets", "status", "odds", "fw", "fx", "place")
 
 
 def read_hist(path=HIST):
@@ -195,7 +200,7 @@ def read_hist(path=HIST):
             if mw * fw - 1 > MAX_GAP or ml * (1 - fw) - 1 > MAX_GAP or mw < pin[0] * 0.95 or ml < pin[1] * 0.95:
                 del m.odds["max"]
         m.fw = _nv(*pin) if pin else None
-        m.fx = None
+        m.fx, m.place = None, None
         out.append((m.dn, m.tour, i, m))
     out.sort(key=lambda t: t[:3])
     return [t[3] for t in out]
@@ -244,13 +249,15 @@ def _td_last(name):
 # ---------------------------------------------------------------- walk-forward player state
 class Player:
     __slots__ = ("n", "last", "cur_t", "cur_best", "cur_title", "cur_end", "rets", "last_ret", "recent", "res",
-                 "tb", "year", "surfs", "n_year")
+                 "tb", "year", "surfs", "n_year", "slam", "big", "lastm", "fs", "place")
 
     def __init__(self):
         self.n, self.last, self.cur_t, self.cur_best, self.cur_title, self.cur_end = 0, None, None, 0, False, None
         self.rets, self.last_ret = deque(maxlen=12), False
         self.recent, self.res, self.tb = deque(maxlen=6), deque(maxlen=10), deque(maxlen=60)
         self.year, self.surfs, self.n_year = None, set(), 0
+        self.slam, self.big = 0, 0                     # Slam main-draw matches; big matches (a Slam or QF+)
+        self.lastm, self.fs, self.place = None, deque(maxlen=20), None   # last match; first-set record; where
 
 
 class Walk:
@@ -276,7 +283,7 @@ class Walk:
     def facts(self, m, name, opp):
         """The facts one player carries into this match (numbers + atoms), from earlier days only."""
         P = self.pl(m.tour, name)
-        out = {"n": P.n, "games3": 0, "ret": 0, "lay": 0, "atoms": []}
+        out = {"n": P.n, "slam": P.slam, "big": P.big, "games3": 0, "ret": 0, "lay": 0, "atoms": []}
         A = out["atoms"]
         if P.last is not None:
             gap = m.dn - P.last
@@ -316,7 +323,51 @@ class Walk:
         venue = self.venues.get(" ".join(_norm(m.loc)))
         if cc and venue and stn.is_home(cc, venue, m.tourney):
             A.append("home")
+        self.life_facts(m, P, out)
         return out
+
+    def life_facts(self, m, P, out):
+        """NEW per-player atoms (the last match, rest, streaks, first sets, injury recency, travel) - they also get
+        their 'o' (opponent) versions. Existing atoms are untouched."""
+        A = out["atoms"]
+        res = list(P.res)
+        out["w3"] = len(res) >= 3 and all(res[-3:])
+        if out["w3"]:
+            A.append("strk:w3")
+        elif len(res) >= 2 and not any(res[-2:]):
+            A.append("strk:l2")
+        if P.last is not None:
+            days = m.dn - P.last
+            A.append("rest:" + ("0-1" if days <= 1 else "2-3" if days <= 3 else "4-7" if days <= 7 else "8+"))
+        if P.lastm and m.dn - P.lastm[0] <= 7:
+            dn, nsets, dist, games, bo, tkey = P.lastm
+            if dist:
+                A.append("last:dist")                        # went the distance (3 of 3 / 5 of 5)
+            elif nsets == (3 if bo == 5 else 2):
+                A.append("last:straight")
+            if games >= (25 if bo == 3 else 40):
+                A.append("lgames:long")
+            if tkey != m.tkey and stn.far(P.place, m.place):
+                A.append("trav:far")                         # a new continent / 5+ time zones within the week
+        if len(P.fs) >= 10:
+            r1 = sum(x for x, _ in P.fs) / len(P.fs)
+            r2 = sum(y for _, y in P.fs) / len(P.fs)
+            if r1 >= 0.65:
+                A.append("fs:high")
+            elif r1 <= 0.35:
+                A.append("fs:low")
+            if r2 >= 0.5:
+                A.append("f2:high")
+            elif r2 <= 0.2:
+                A.append("f2:low")
+        if P.rets:
+            d = m.dn - P.rets[-1]
+            if d <= 30:
+                A.append("inj:30")
+            elif d <= 90:
+                A.append("inj:31-90")
+            if sum(1 for x in P.rets if m.dn - x <= 365) >= 2:
+                A.append("injn:2+")
 
     def update_day(self, day):
         for m in day:
@@ -349,6 +400,15 @@ class Walk:
                 P.last_ret = False
                 if m.status == "done":
                     P.n += 1
+                P.slam += m.lvl == "slam"
+                P.big += m.lvl == "slam" or info[1] >= 5
+                P.lastm = (m.dn, len(m.sets), dist, games, m.bo, m.tkey)
+                P.place = m.place
+                done = [(a, b) for a, b in m.sets if _done(a, b)]
+                if done:                                   # the first set / first two sets, from his side
+                    mine = [(a, b) if won else (b, a) for a, b in done]
+                    P.fs.append((mine[0][0] > mine[0][1],
+                                 len(mine) >= 2 and mine[0][0] > mine[0][1] and mine[1][0] > mine[1][1]))
             if m.status == "ret":
                 P = self.pl(m.tour, m.L)
                 P.rets.append(m.dn)
@@ -403,6 +463,142 @@ def side_atoms(m, me, them, rme, rthem, p_me, elo_me, soft):
         if g is not None:
             A.append(f"g{book}:{'3+' if g >= 0.03 else '0-3' if g > 0 else 'under'}")
     return sorted(set(A))
+
+
+def _xgap(a, b):
+    """'x3+' / 'x1.5-3' / 'even' / '-x1.5-3' / '-x3+': how many times more of something a has than b (+5 smoothing)."""
+    r = (a + 5) / (b + 5)
+    return ("x3+" if r >= 3 else "x1.5-3" if r >= 1.5 else "even" if r > 1 / 1.5 else "-x1.5-3" if r > 1 / 3
+            else "-x3+")
+
+
+def life_atoms(m, me, them, age_me, age_them, warm):
+    """NEW age + experience atoms of one side (existing atoms and fingerprints untouched). Experience comes from our
+    own walk (matches since 2012, only once `warm` - 2 years in); ages only when both names mapped to an ESPN bio."""
+    A = []
+    if warm:
+        n = me["n"]
+        if n < 20:
+            A.append("exp:new")
+        elif n >= 300:
+            A.append("exp:vet")
+        A.append("expgap:" + _xgap(n, them["n"]))
+        if me["big"] >= 10 and me["big"] >= 3 * (them["big"] + 1):
+            A.append("bigx:more")
+        elif them["big"] >= 10 and them["big"] >= 3 * (me["big"] + 1):
+            A.append("bigx:less")
+        if m.lvl == "slam":
+            if me["slam"] == 0:
+                A.append("slam:first")                       # first-time Slam main draw
+            if them["slam"] == 0:
+                A.append("oslam:first")
+    if age_me is not None:
+        A.append("age:" + ("teen" if age_me < 20 else "young" if age_me < 23 else "prime" if age_me < 30 else "vet"))
+    if age_them is not None and (age_them < 20 or age_them >= 30):
+        A.append("oage:" + ("teen" if age_them < 20 else "vet"))
+    if age_me is not None and age_me < 23 and me.get("w3"):
+        A.append("yhot")                                      # a young player on a heater (won his last 3+)
+    if age_me is not None and age_them is not None:
+        if age_me < 20 and age_them >= 30:
+            A.append("tvv:teen")                              # a teenager against a 30+ (per tour: tables are)
+        elif age_me >= 30 and age_them < 20:
+            A.append("tvv:vet")
+        g = age_me - age_them                                 # + = I'm the older one
+        A.append("agegap:" + ("+8" if g >= 8 else "+4-8" if g >= 4 else "even" if g > -4 else "-4-8" if g > -8
+                              else "-8"))
+        if age_me < 23 and age_them >= 30:
+            A.append("yvv:young")                             # the kid vs the veteran
+        elif age_me >= 30 and age_them < 23:
+            A.append("yvv:vet")
+    return A
+
+
+LIFE_FAMS = ("exp", "expgap", "bigx", "slam", "oslam", "age", "oage", "agegap", "yvv", "tvv", "yhot", "strk", "rest",
+             "last", "lgames", "fs", "f2", "inj", "injn", "trav")
+
+
+def _life_atom(a):
+    f = ex.family(a)
+    return f in LIFE_FAMS or (f[:1] == "o" and f[1:] in LIFE_FAMS)
+
+
+def life_atom_report(tables, split, bets=("pin",)):
+    """Every new life atom ALONE, bet at Pinnacle's closing price: n, ROI and edge z, older / newer half. A plain
+    read-out - the registry is what tests (older half) and forward-confirms (newer half) them as angles."""
+    out = {}
+    for tour, tbl in sorted(tables.items()):
+        si = bisect.bisect_left(tbl.starts, split)
+        for bet in bets:
+            for a in sorted(x for x in tbl.atoms if _life_atom(x)):
+                acc = grade(tbl, bet, tbl.mask([a], bet), si)
+                s, o, w = acc.out(), acc.out(0), acc.out(1)
+                if s["n"]:
+                    out[f"{tour}|{bet}|{a}"] = {"n": s["n"], "roi": s["roi"], "z_edge": s["z_edge"],
+                                                "n_old": o.get("n", 0), "roi_old": o.get("roi"), "z_old": o.get("z_edge"),
+                                                "n_new": w.get("n", 0), "roi_new": w.get("roi"), "z_new": w.get("z_edge")}
+    return out
+
+
+def name_map(path=MATCHES):
+    """({(tour, surname, first initial): ESPN id}, first ESPN date {tour: 'YYYY-MM-DD'}): ESPN's names turned into
+    tennis-data's "Lastname F." keys. Only UNIQUE keys are kept (two ESPN players on one key = skipped)."""
+    if not path or not os.path.exists(path):
+        return {}, {}
+    keys, first = {}, {}
+    with open(path) as f:
+        for r in csv.DictReader(f):
+            t = (r.get("tour") or "atp").lower()
+            first[t] = min(first.get(t, "9999"), (r.get("start") or "9999")[:10])
+            for pid, nm in ((r.get("p1"), r.get("p1_name")), (r.get("p2"), r.get("p2_name"))):
+                w = _norm(nm)
+                if not pid or len(w) < 2:
+                    continue
+                for k in range(1, len(w)):
+                    keys.setdefault((t, " ".join(w[k:]), w[0][0]), set()).add(str(pid))
+    return {k: next(iter(v)) for k, v in keys.items() if len(v) == 1}, first
+
+
+def espn_id(nmap, tour, name):
+    """The ESPN id for a tennis-data name ('Sinner J.') on that tour, or None (no unique match: skipped)."""
+    k = _td_key(name)
+    return nmap.get((tour, k[0], k[1])) if k else None
+
+
+def life_index(ms, matches=MATCHES, players=None):
+    """({(tour, name): birth date ordinal}, match-rate report) for the history's names."""
+    nmap, first = name_map(matches)
+    players = stn.load_players() if players is None else players
+    dob, names, era, sides = {}, {}, set(), Counter()
+    for m in ms:
+        since = m.d >= first.get(m.tour, "9999")          # ESPN's history (matches.csv) starts in 2016
+        for nm in (m.W, m.L):
+            key = (m.tour, nm)
+            if key not in names:
+                pid = espn_id(nmap, m.tour, nm)
+                names[key] = pid
+                d = stn._ymd((players.get(f"{m.tour}:{pid}") or {}).get("dob")) if pid else None
+                if d:
+                    dob[key] = d.toordinal()
+            for part in ("all", "espn_era") if since else ("all",):
+                sides[part] += 1
+                sides[part + "_matched"] += names[key] is not None
+                sides[part + "_bio"] += key in dob
+            if since:
+                era.add(key)
+
+    def rate(a, b):
+        return round(a / b, 4) if b else None
+    by_tour = {t: rate(sum(1 for k in era if k[0] == t and names[k]), sum(1 for k in era if k[0] == t))
+               for t in ("atp", "wta")}
+    rep = {"names": len(names), "name_rate_all": rate(sum(v is not None for v in names.values()), len(names)),
+           "names_espn_era": len(era), "name_rate_espn_era": rate(sum(names[k] is not None for k in era), len(era)),
+           "name_rate_espn_era_by_tour": by_tour,
+           "side_rate_all": rate(sides["all_matched"], sides["all"]),
+           "side_rate_espn_era": rate(sides["espn_era_matched"], sides["espn_era"]),
+           "bio_rate_all": rate(sides["all_bio"], sides["all"]),
+           "bio_rate_espn_era": rate(sides["espn_era_bio"], sides["espn_era"]),
+           "espn_from": first, "players_json": len(players)}
+    return dob, rep
 
 
 def _season(m):
@@ -501,10 +697,18 @@ def _zmean(xs):
 
 
 # ---------------------------------------------------------------- building everything in one walk
-def build(ms, cc=None, venues=None):
+def build(ms, cc=None, venues=None, dob=None):
     """Walk every match in time: per-side atoms + bet values (the registry tables) and per-match facts for the fixed
-    studies. Returns (tables {tour: Table}, facts list)."""
+    studies. dob = {(tour, name): birth date ordinal} (life_index) for the age atoms.
+    Returns (tables {tour: Table}, facts list)."""
     W = Walk(cc, venues)
+    dob = dob or {}
+    places = {}
+    for m in ms:                                          # where each tournament is (travel), from ESPN's venues
+        if m.loc not in places:
+            places[m.loc] = stn.place_of((venues or {}).get(" ".join(_norm(m.loc))))
+        m.place = places[m.loc]
+    warm_from = (ms[0].dn + WARM_D) if ms else 0
     tables = {t: ex.Table(BETS) for t in ("atp", "wta")}
     facts = []
     i = 0
@@ -532,6 +736,11 @@ def build(ms, cc=None, venues=None):
                     soft[book] = (o[side] * p_me - 1) if o else None
                 atoms = side_atoms(m, me, them, m.wr if side == 0 else m.lr, m.lr if side == 0 else m.wr, p_me,
                                    None if eW is None else (eW if side == 0 else 1 - eW), soft)
+                n_me, n_them = (m.W, m.L) if side == 0 else (m.L, m.W)
+                d_me, d_them = dob.get((m.tour, n_me)), dob.get((m.tour, n_them))
+                atoms = sorted(set(atoms) | set(life_atoms(
+                    m, me, them, (m.dn - d_me) / 365.25 if d_me else None,
+                    (m.dn - d_them) / 365.25 if d_them else None, m.dn >= warm_from)))
                 vals = {}
                 for b in BETS:
                     o = m.odds.get(b)
@@ -1052,7 +1261,7 @@ def _median_date(ms):
 
 
 def study(path=PATH, hist=HIST, matches=MATCHES, lines=LINES, batch=BATCH, budget_s=BUDGET_S, split=None,
-          verbose=True):
+          verbose=True, players=None):
     """One study run. Returns {proven: [...], ...} and saves everything to edge.json."""
     t0 = time.time()
     ms = read_hist(hist)
@@ -1072,7 +1281,8 @@ def study(path=PATH, hist=HIST, matches=MATCHES, lines=LINES, batch=BATCH, budge
     st["split"] = st.get("split") or split or _median_date(ms)
     split = st["split"]
     cc, venues = countries(matches)
-    tables, facts = build(ms, cc, venues)
+    dob, names = life_index(ms, matches, players)
+    tables, facts = build(ms, cc, venues, dob)
     t_build = time.time() - t0
     fp = _fp(ms)
     new_data = fp != st.get("data_fp")
@@ -1082,7 +1292,8 @@ def study(path=PATH, hist=HIST, matches=MATCHES, lines=LINES, batch=BATCH, budge
                     "void_walkovers": sum(1 for m in ms if m.status == "void"),
                     "retired_graded": sum(1 for m in facts if m.status == "ret"),
                     "with_b365": sum(1 for m in facts if "b365" in m.odds),
-                    "with_max": sum(1 for m in facts if "max" in m.odds)}}
+                    "with_max": sum(1 for m in facts if "max" in m.odds), "names": names}}
+    res["life_atoms"] = life_atom_report(tables, split)
     res["segments"] = market_study(facts, split, tests)
     res["price_buckets"] = flb_study(facts, split, tests)
     res["line_shopping"] = shop_study(facts, split, tests)
@@ -1160,6 +1371,18 @@ def report(st, out):
     if bv.get("n"):
         L.append(f"   bovada: {bv['n']} closing lines, margin {bv['avg_margin']}, {bv['matched_to_pinnacle']} matched "
                  f"to pinnacle, {bv['graded']} graded")
+    nm = d.get("names") or {}
+    if nm:
+        L.append(f"   names -> ESPN ids: {nm.get('name_rate_espn_era')} of {nm.get('names_espn_era')} names since ESPN's "
+                 f"history (by tour {nm.get('name_rate_espn_era_by_tour')}), {nm.get('side_rate_espn_era')} of match "
+                 f"sides · birth dates for {nm.get('bio_rate_espn_era')} of sides ({nm.get('players_json')} bios on file)")
+    la = r.get("life_atoms") or {}
+    top = sorted(((v["z_old"] or 0, k, v) for k, v in la.items() if v.get("n_old", 0) >= DISC_N
+                  and (v.get("roi_old") or 0) > 0), key=lambda t: -t[0])[:4]
+    if la:
+        L.append(f"   life atoms ({len(la)} read-outs at pinnacle): " + (", ".join(
+            f"{k} n={v['n']} roi {v['roi_old']:+.3f} / {v['roi_new'] or 0:+.3f} z {v['z_old']} / {v['z_new']}"
+            for _, k, v in top) or "none profitable on the older half"))
     fp = out["false_positives"]
     L.append(f"   registry: tested {out['graded']} new angles ({fp['registry_angles_tested']} ever) · new suspects "
              f"{out['suspects_found']} · promoted {out['promoted']} · killed {out['killed']} · "
