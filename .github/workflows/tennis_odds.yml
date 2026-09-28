@@ -1,0 +1,32 @@
+# 🎾 Tennis closing odds history for the tennis edge study (tools/fetch_tennis_odds.py). Past seasons are fetched
+# once; the current season is refreshed weekly.
+name: tennis_odds
+on:
+  schedule:
+    - cron: "41 9 * * 1"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ["tools/fetch_tennis_odds.py", ".github/workflows/tennis_odds.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: tennis-odds
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q openpyxl xlrd
+      - run: python -u tools/fetch_tennis_odds.py
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/tennis/hist_odds.csv.gz
+          git commit -qm "tennis odds history $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
