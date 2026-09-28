@@ -1,0 +1,26 @@
+# One-off probe: free wallet-level trade sources for "smart money" (tools/probe_smartmoney.py). Read-only.
+name: probe_smartmoney
+on:
+  push:
+    branches: [main]
+    paths: ["tools/probe_smartmoney.py", ".github/workflows/probe_smartmoney.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: mkdir -p results && python -u tools/probe_smartmoney.py | tee results/probe_smartmoney.txt
+        env: { SM_BUDGET_MIN: "95" }
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results/probe_smartmoney.txt results/smartmoney_raw.json.gz || true
+          git commit -m "probe_smartmoney results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs && git push && break; sleep 5; done
