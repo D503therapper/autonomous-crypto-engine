@@ -1104,6 +1104,129 @@ def test_explorer():
     shutil.rmtree(os.path.dirname(path))
 
 
+def _sim_games(days, seed, over_bias, first=0, t0=datetime(2021, 1, 4, 23, 0, tzinfo=timezone.utc)):
+    """Simulated NHL: 16 teams with fixed true attack/defense, Poisson goals, a regulation tie settled in OT (+1).
+    The market prices the moneyline and puck line at the TRUE chances (with juice); its total is priced as if
+    scoring were `over_bias` lower than it really is (0 = a fair market everywhere)."""
+    import sports_sim as ss
+    tr, rnd = random.Random(99), random.Random(seed)
+    att = [tr.uniform(-0.25, 0.25) for _ in range(16)]
+    dfn = [tr.uniform(-0.25, 0.25) for _ in range(16)]
+
+    def am(q):
+        dec = 1 / (q * 1.025)
+        return int((dec - 1) * 100) if dec >= 2 else int(-100 / (dec - 1))
+
+    def pois(lam):
+        L, k, p = math.exp(-lam), 0, 1.0
+        while True:
+            p *= rnd.random()
+            if p <= L:
+                return k
+            k += 1
+    games = {}
+    for d in range(first, first + days):
+        day = t0 + timedelta(days=d)
+        teams = rnd.sample(range(16), 8)
+        for k in range(4):
+            h, a = teams[2 * k], teams[2 * k + 1]
+            lh, la = 2.9 * math.exp(att[h] - dfn[a] + 0.04), 2.9 * math.exp(att[a] - dfn[h] - 0.04)
+            q = lh / (lh + la)
+            gh, ga = pois(lh), pois(la)
+            if gh == ga:
+                gh, ga = (gh + 1, ga) if rnd.random() < q else (gh, ga + 1)
+            true = ss.CountGame(lh, la, 0, {1: q, -1: 1 - q}, [0.0, 1.0])
+            mkt = ss.CountGame(lh * (1 - over_bias), la * (1 - over_bias), 0, {1: q, -1: 1 - q}, [0.0, 1.0])
+            ph = ss.p_home_win(true.M)
+            line = -1.5 if ph >= 0.5 else 1.5
+            pc, po = ss.p_cover(true.M, line), ss.p_over(mkt.T, 5.5)
+            gid = f"nhl:s{d}_{k}"
+            games[gid] = {"id": gid, "league": "nhl", "start": day.strftime("%Y-%m-%dT%H:%MZ"), "status": "final",
+                          "stype": "2", "home": f"t{h}", "away": f"t{a}", "home_score": str(gh), "away_score": str(ga),
+                          "neutral": "0", "ml_home": str(am(ph)), "ml_away": str(am(1 - ph)), "spread_home": str(line),
+                          "spread_home_odds": str(am(pc)), "spread_away_odds": str(am(1 - pc)), "total": "5.5",
+                          "over_odds": str(am(po)), "under_odds": str(am(1 - po))}
+    return games
+
+
+def test_sim():
+    """The simulator: exact pricing matches the Monte Carlo, a planted total mispricing is found and PROVEN on later
+    games, pure noise never is, no config is ever retried, a suspect whose edge disappears is killed, and the hooks
+    leave p alone unless that league x market is proven."""
+    import sports_sim as ss
+    # the score models: exact = the Monte Carlo without the noise
+    cg = ss.CountGame(3.1, 2.7, 0, {1: 0.53, -1: 0.47}, [0.0, 1.0])
+    assert abs(cg.t_le(60) - 1) < 1e-6 and abs(cg.M.gt(-100) - 1) < 1e-6 and cg.M.eq(0) == 0
+    assert abs(cg.M.gt(0) - cg.M.gt(-1)) < 1e-12 and abs(cg.T.eq(5) - (cg.t_le(5) - cg.t_le(4))) < 1e-12
+    assert abs(ss.p_home_win(cg.M) + (1 - cg.M.gt(0)) - 1) < 1e-9
+    mb, add, _, _ = ss.mlb_extras(1.0)
+    assert abs(sum(mb.values()) - 1) < 1e-9 and abs(mb[1] - 0.5) < 1e-6 and 0 not in mb   # walk-offs: home by 1
+    assert mb.get(2, 0) == 0 and mb[-2] > 0.05 and abs(sum(add) - 1) < 1e-9
+    for lg in ("nhl", "mlb", "nba", "nfl"):
+        m = ss.Model(lg, ss.default_cfg(lg))
+        m.games, m.avg = 999, {"nhl": 3.0, "mlb": 4.5, "nba": 112.0, "nfl": 22.0}[lg]
+        m.s = {"A": {"nhl": 0.3, "mlb": 0.4, "nba": 4.0, "nfl": 3.0}[lg]}
+        g = {"id": f"{lg}:mc", "start": "2024-01-10T00:00Z", "home": "A", "away": "B", "neutral": "0"}
+        mu_h, mu_a, margin, total, _ = m.predict(g, sm._ts(g["start"]))
+        M, T, _ = m.dists(g, mu_h, mu_a, margin, total)
+        line, tot = {"nhl": (-1.5, 5.5), "mlb": (-1.5, 8.5), "nba": (-3.5, 224.5), "nfl": (-3.0, 44.5)}[lg]
+        hs, as_ = ss.simulate(m, g, 6000, seed=3)
+        mc = ss.mc_prices(hs, as_, line, tot)
+        assert abs(mc["ml"] - ss.p_home_win(M)) < 0.03, (lg, mc, ss.p_home_win(M))
+        assert abs(mc["spread"] - ss.p_cover(M, line)) < 0.03 and abs(mc["total"] - ss.p_over(T, tot)) < 0.03, lg
+        assert ss.p_home_win(M) > 0.5 and abs(mc["home"] - mc["away"] - margin) < 0.6
+    assert ss.simulate(m, g, 500, seed=3) == ss.simulate(m, g, 500, seed=3)            # seeded
+    # the planted edge: the market thinks there are 12% fewer goals than there are
+    d = tempfile.mkdtemp()
+    path = os.path.join(d, "sim.json")
+    hist = _sim_games(450, 1, 0.12)
+    r1 = ss.run(hist, path, batch=2, leagues=("nhl",), verbose=False)
+    first = set(ss.LAST_TESTED)
+    assert r1["tested_configs"] == len(first) == 3 and r1["expected_by_luck"] < 1, r1
+    planted = [k for k in r1["new_suspects"] if k.startswith("nhl|total|")]
+    assert planted and all(k.startswith("nhl|total|") for k in r1["suspects"]), r1["suspects"]
+    s = ss.load(path)["suspects"][planted[0]]
+    assert s["cutoff"] == max(g["start"] for g in hist.values()) and not r1["proven"]
+    shutil.copy(path, path + ".kill")
+    r2 = ss.run(hist, path, batch=2, leagues=("nhl",), verbose=False)                   # same games: only NEW configs
+    assert r2["tested_configs"] == 2 and not first & set(ss.LAST_TESTED), ss.LAST_TESTED
+    assert r2["tested_total"] == r1["tested_total"] + 2 and not r2["new_proven"]
+    later = {**hist, **_sim_games(200, 2, 0.12, first=450)}                             # forward games, same edge
+    r3 = ss.run(later, path, batch=1, leagues=("nhl",), verbose=False)
+    assert planted[0] in r3["new_proven"] and planted[0] in r3["proven"], r3
+    assert all(k.startswith("nhl|total|") for k in r3["proven"])
+    pv = ss.load(path)["proven"][planted[0]]
+    assert pv["fwd"]["n"] >= ss.FWD_N and pv["shift"] != 0
+    # the edge disappears going forward -> killed
+    gone = {**hist, **_sim_games(200, 3, 0.0, first=450)}
+    r4 = ss.run(gone, path + ".kill", batch=1, leagues=("nhl",), verbose=False)
+    assert planted[0] in r4["new_killed"] and planted[0] not in r4["proven"] + r4["suspects"], r4
+    # hooks: nothing proven -> p unchanged; proven over -> the over chance moves toward the sim
+    up = {"id": "nhl:up", "league": "nhl", "start": "2022-06-01T23:00Z", "status": "pre", "stype": "2", "home": "t0",
+          "away": "t1", "neutral": "0", "ml_home": "-120", "ml_away": "100", "spread_home": "-1.5",
+          "spread_home_odds": "150", "spread_away_odds": "-170", "total": "5.5", "over_odds": "260", "under_odds": "-320"}
+    td = ss.today({**later, up["id"]: up}, path, sims=2000, leagues=("nhl",), verbose=False)
+    row = td["games"]["nhl:up"]
+    assert row["total"]["over"] > row["total"]["market_over"] and row["ml"]["fair_home"] and row["proj"]["total"] > 5
+    st = ss.load(path)
+    assert [p["key"] for p in ss.proven(st)] == r3["proven"] and "today" in st
+    p_mkt = sd.no_vig(260, -320)
+    assert ss.adjust_total(st, "nhl", up, p_mkt) > p_mkt
+    assert ss.adjust_side(st, "nhl", up, "home", 0.53) == 0.53 and ss.adjust_side(st, "nhl", up, "away", 0.4, "spread") == 0.4
+    assert ss.adjust_total(st, "nba", up, 0.5) == 0.5 and ss.adjust_total({}, "nhl", up, 0.5) == 0.5
+    assert ss.adjust_total(st, "nhl", dict(up, total="6.5"), 0.4) == 0.4                # the line moved: no sim price
+    assert ss.load("/nonexistent/sim.json") == {} and ss.proven({}) == []
+    # pure noise: a fair market everywhere -> never promoted
+    npath = os.path.join(d, "noise.json")
+    noise = _sim_games(450, 4, 0.0)
+    n1 = ss.run(noise, npath, batch=2, leagues=("nhl",), verbose=False)
+    n2 = ss.run({**noise, **_sim_games(200, 5, 0.0, first=450)}, npath, batch=2, leagues=("nhl",), verbose=False)
+    assert not n1["proven"] and not n2["proven"] and not n2["new_proven"], (n1, n2)
+    nst = ss.load(npath)
+    assert ss.adjust_total(nst, "nhl", up, 0.45) == 0.45 and ss.adjust_side(nst, "nhl", up, "home", 0.55) == 0.55
+    shutil.rmtree(d)
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

@@ -1,0 +1,32 @@
+# THE SIM RUN - three times a day: the walk-forward game simulator re-grades itself on the latest games, tries NEW sim
+# variants it has never tried, and simulates today's board (tools/run_sims.py -> data/sports/sim.json + sim_today.json).
+# Offset from sports_studies (:07) and sports.yml (:23).
+name: sports_sims
+on:
+  schedule:
+    - cron: "37 12 * * *"     # ~5:37 AM Pacific - before the morning board
+    - cron: "37 18 * * *"     # ~11:37 AM Pacific - midday lines
+    - cron: "37 0 * * *"      # ~5:37 PM Pacific - before the night games
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: sports-sims
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: timeout 15m python -u tools/run_sims.py 2>&1 | tee -a data/sports/sims_run.log
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
+          git add data/sports
+          git commit -qm "sims $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
