@@ -535,56 +535,55 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
+TENNIS_BV = 2                                   # breakdown version (older ones get rewritten before the match)
+
+
+def _say_name(name):
+    """'Botic Van De Zandschulp' -> 'Van De Zandschulp', 'Marco Trungelliti' -> 'Trungelliti' (how people say it)."""
+    parts = str(name or "").split()
+    for i, w in enumerate(parts[1:], 1):
+        if w.lower() in ("van", "de", "da", "del", "der", "di", "le", "la", "von", "dos", "du"):
+            return " ".join(parts[i:])
+    return parts[-1] if parts else str(name or "")
+
+
 def breakdown(c, rt, used):
-    """Tennis breakdown in our voice: why we're on this guy."""
+    """Tennis breakdown in our voice: why we're on this player, then the bottom line."""
     import sports_breakdown as sb
     v = sb.Voice(c["id"], used)
-    me, them, f = c["player"], c["opp"], c["f"]
-    surf = SURF[c["surface"]]
+    me, them, f = _say_name(c["player"]), _say_name(c["opp"]), c["f"]
+    surf = SURF[c["surface"]].lower()
     out = []
     if c.get("market") == "spread" and c["hcp"] > 0:
         out.append(v.say("t_spread_dog", [
-            f"🎯 {me} getting {c['hcp']:g} games. Even if he drops it, he keeps it close — that's the value.",
-            f"🎯 {me} {c['hcp']:+g} games. The book thinks this is a blowout. It ain't.",
-            f"🎯 Taking the games with {me} ({c['hcp']:+g}). He's way more competitive than this number says."]))
+            f"🎯 {me} +{c['hcp']:g} games. Even if {me} drops the match, we still cash as long as it's close — that's the value.",
+            f"🎯 {me} getting {c['hcp']:g} games. The book thinks this is a blowout. It ain't — {me} keeps it tight.",
+            f"🎯 Taking the games with {me} (+{c['hcp']:g}). Way more competitive than this number says. Lose close, we still eat."]))
     elif c.get("market") == "spread":
         n = abs(c["hcp"])
         out.append(v.say("t_spread", [
-            f"🎯 Instead of laying {c['ml']:+d} on the moneyline, we take {me} {c['hcp']:+g} games. The algorithm has him winning big.",
-            f"🎯 {me} {c['hcp']:+g} games. No -{abs(c['ml'])} nonsense — he should win this by more than {n:g}.",
-            f"🎯 Why lay {c['ml']:+d}? {me} {c['hcp']:+g} games is the value. He's gonna roll.",
-            f"🎯 {me} on the game spread ({c['hcp']:+g}). Our numbers say he covers that easy."]))
-    elif c["value"]:
-        out.append(v.say("t_main", [
-            f"🎾 We're on {me}. The price is too cheap for how good he is — the algorithm sees value.",
-            f"🎾 {me} all day. The book's got him priced like it's close. It ain't.",
-            f"🎾 Riding {me}. Our numbers got him winning this way more than the line says.",
-            f"🎾 {me} is the play. Value on the favorite — easy money energy.",
-            f"🎾 Hammer {me}. The algorithm likes him more than Vegas does.",
-            f"🎾 {me} gets the nod. The price is wrong and we're taking it.",
-            f"🎾 We're rolling with {me} — better player, and the line hasn't caught up.",
-            f"🎾 {me} is on the menu. Value like this don't last.",
-            f"🎾 Give me {me}. The numbers say he takes care of business.",
-            f"🎾 {me}, no hesitation. The book's sleeping on him."]))
+            f"🎯 Why lay {c['ml']:+d}? We take {me} {c['hcp']:+g} games instead — the engine has {me} winning big.",
+            f"🎯 {me} {c['hcp']:+g} games. No {c['ml']:+d} nonsense — {me} should win this by more than {n:g} games.",
+            f"🎯 {me} on the game spread ({c['hcp']:+g}). Our numbers say {me} rolls — covering that is light work."]))
     else:
-        out.append(v.say("t_fav", [
-            f"🎾 {me} is the heavy favorite here and the algorithm agrees — he should handle this.",
-            f"🎾 {me} is the better player by a mile. Chalk, but chalk cashes.",
-            f"🎾 {me} should take care of business. Big favorite, and for good reason.",
-            f"🎾 Safe spot: {me} is too much for {them}.",
-            f"🎾 {me} is the class of this matchup. Lock him in.",
-            f"🎾 {me} over {them}. Not a lot of drama expected.",
-            f"🎾 {me} should cruise. The algorithm has him as the clear better player.",
-            f"🎾 {them} is gonna have a long day. {me} is the play."]))
+        out.append(v.say("t_main", [
+            f"🎾 We're on {me}. The price is too cheap for how good {me} is — the algorithm sees it.",
+            f"🎾 {me} all day. The book's got this priced like it's close. It ain't.",
+            f"🎾 Riding {me}. Our numbers got {me} winning this way more than the line says.",
+            f"🎾 Hammer {me}. The algorithm likes {me} more than Vegas does.",
+            f"🎾 {me} gets the nod. The price is wrong and we're taking it.",
+            f"🎾 Give me {me}. The numbers say {me} takes care of business.",
+            f"🎾 {me}, no hesitation. The book's sleeping.",
+            f"🎾 {me} is the play. Better player, and the line hasn't caught up."]))
     rk_me, rk_them = c.get("rank"), c.get("opp_rank")
     if rk_me and (not rk_them or rk_them - rk_me >= 20):
-        out.append(v.say("t_rank", [f"📈 {me} is ranked #{rk_me} in the world" + (f" — {them} is #{rk_them}." if rk_them else f" — {them} ain't even top 150."),
-                                    f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this." if rk_them else "a guy outside the top 150. Levels to this."),
-                                    f"📈 #{rk_me} in the world for a reason" + (f" (vs #{rk_them})." if rk_them else ".")]))
+        out.append(v.say("t_rank", [f"📈 {me} is #{rk_me} in the world" + (f" — {them} is #{rk_them}. Levels to this." if rk_them else f" — {them} ain't even top 150."),
+                                    f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this." if rk_them else "somebody outside the top 150. Levels to this."),
+                                    f"📈 #{rk_me} in the world for a reason" + (f" ({them} is #{rk_them})." if rk_them else ".")]))
     if f.get("home", 0) > 0:
-        out.append(v.say("t_home", [f"🏟️ {me} is playing at home — the whole crowd's behind him.",
-                                    f"🏟️ Home soil for {me}. That crowd's gonna carry him.",
-                                    f"🏟️ {me} in front of his own people. Home cookin'."]))
+        out.append(v.say("t_home", [f"🏟️ {me} is playing at home — the whole crowd's got {me}'s back.",
+                                    f"🏟️ Home soil for {me}. That crowd's gonna carry this one.",
+                                    f"🏟️ {me} in front of the home crowd. Home cookin'."]))
     if c.get("their_drama"):
         k = c["their_drama"][0]["kind"]
         out.append(v.say("t_drama", [f"🍿 {them} got stuff going on off the court ({k}). Head ain't gonna be right.",
@@ -594,12 +593,12 @@ def breakdown(c, rt, used):
         out.append(v.say("t_clash", ["🔥 Bad blood between these countries — no handshake energy. Pressure match.",
                                      "🔥 This one's personal between their countries. Heat on every point."]))
     if f["surface_gap"] >= 40:
-        out.append(v.say("t_surf", [f"🟫 {me} is a different animal on {surf} — his {surf} game is way above his usual level.",
-                                    f"🟫 On {surf}, {me} levels up. That's his surface.",
-                                    f"🟫 {surf.title()} is {me}'s playground."]))
+        out.append(v.say("t_surf", [f"🟫 {me} is a different animal on {surf} — way above the usual level.",
+                                    f"🟫 On {surf}, {me} levels up. That's the surface.",
+                                    f"🟫 {surf.capitalize()} is {me}'s playground."]))
     elif f["surface_gap"] <= -40:
         out.append(v.say("t_surf_opp", [f"🟫 {them} ain't the same player on {surf}. That's our edge.",
-                                        f"🟫 {surf.title()} exposes {them} — his game doesn't travel to this surface."]))
+                                        f"🟫 {surf.capitalize()} exposes {them} — that game doesn't travel to this surface."]))
     if f["fatigue"] >= 0.66:
         out.append(v.say("t_tired", [f"😮‍💨 {them} has been grinding long matches the last few days. Tired legs.",
                                      f"😮‍💨 {them} played a ton of tennis this week. Legs gonna be heavy.",
@@ -607,19 +606,23 @@ def breakdown(c, rt, used):
     if f["form"] >= 0.2:
         out.append(v.say("t_form", [f"🔥 {me} has been rolling lately — winning way more than {them}.",
                                     f"🔥 {me} is hot right now and {them} has been ice cold.",
-                                    f"🔥 Form says {me}. He's been cooking."]))
+                                    f"🔥 Form says {me}. Been cooking."]))
     if f["h2h"] >= 0.33:
-        out.append(v.say("t_h2h", [f"🆚 {me} owns this matchup — he's beaten {them} before.",
+        out.append(v.say("t_h2h", [f"🆚 {me} owns this matchup — beat {them} before.",
                                    f"🆚 {them} has had trouble with {me} in the past. History's on our side.",
                                    f"🆚 {me} has {them}'s number."]))
     if int(c["bo"]) == 5:
         out.append(v.say("t_bo5", ["🏆 Best of 5 at a Slam — the longer the match, the more the better player takes over.",
                                    f"🏆 Five sets gives {them} nowhere to hide. Better player wins these."]))
-    out = [x for x in out if x]
-    if c.get("tour") == "wta":                          # women's matches: she / her
-        for a, b in ((r"\bhe\b", "she"), (r"\bHe\b", "She"), (r"\bhim\b", "her"), (r"\bhis\b", "her"), (r"\bguy\b", "player")):
-            out = [re.sub(a, b, x) for x in out]
-    return out
+    if not c.get("odds"):
+        return [x for x in out if x]
+    book = round(100 / sd.decimal(c["odds"]))
+    ours = round(100 * c["p"])
+    bet = f"{me} {c['hcp']:+g} games" if c.get("market") == "spread" else f"{me} ML"
+    out.append(v.say("t_bottom", [f"✅ Bottom line: the book says {book}%, we say {ours}%. We ride {bet} ({c['odds']:+d}).",
+                                  f"✅ Bottom line: book's got it at {book}% — the engine sees {ours}%. {bet} ({c['odds']:+d}). Trust the algorithm.",
+                                  f"✅ Bottom line: {ours}% for us, {book}% for the book. That's the value — {bet} ({c['odds']:+d})."]))
+    return [x for x in out if x]
 
 
 # ---------------------------------------------------------------- picks
@@ -702,7 +705,7 @@ def post(ms, rt, w, lines, picks, now, gm=None):
     for c in straights:
         legs.append({k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
                                             "market", "hcp", "ml",
-                                        "round", "surface", "bo", "value")} | {"result": None, "breakdown": breakdown(c, rt, used)})
+                                        "round", "surface", "bo", "value")} | {"result": None, "breakdown": breakdown(c, rt, used), "bv": TENNIS_BV})
     par = None
     if parlay:
         dec = 1.0
@@ -722,6 +725,12 @@ ASK_STEEP = -300
 def reads(ms, rt, w, lines, picks, now, gm=None):
     """The question box for tennis: our read on every match in the next 24 hours (not our picks, never in the record)."""
     cands = candidates(ms, rt, w, lines, now, now + timedelta(hours=24), gm=gm)
+    by_id = {c["id"]: c for c in cands}
+    used = set()
+    for sl_ in picks[-2:]:                                   # older breakdowns get rewritten before the match
+        for l in sl_.get("picks") or []:
+            if l.get("bv") != TENNIS_BV and not l.get("result") and l["id"] in by_id:
+                l["breakdown"], l["bv"] = breakdown(by_id[l["id"]], rt, used), TENNIS_BV
     ours = {l["match"] for s in picks[-3:] for l in s.get("picks") or [] if not l.get("result")}
     by = {}
     for c in cands:
@@ -767,7 +776,7 @@ def repick(ms, rt, w, lines, picks, now, gm=None):
     used = set()
     new = [{k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
                                   "market", "hcp", "ml", "round", "surface", "bo", "value")}
-           | {"result": None, "breakdown": breakdown(c, rt, used)} for c in straights[:max(0, N_PICKS - len(keep))]]
+           | {"result": None, "breakdown": breakdown(c, rt, used), "bv": TENNIS_BV} for c in straights[:max(0, N_PICKS - len(keep))]]
     old = [l["player"] for l in slate["picks"]]
     slate["picks"] = keep + new
     par = slate.get("parlay")

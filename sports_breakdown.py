@@ -3,6 +3,7 @@ Shown on the dashboard behind a "Full breakdown" tap."""
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+import re
 import sports_data as sd
 import sports_model as sm
 import sports_players as sp
@@ -89,7 +90,7 @@ class Voice:
             if tag not in self.used:
                 self.used.add(tag)
                 self.mine.append(tag)
-                return options[n]
+                return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
         return ""
 
 
