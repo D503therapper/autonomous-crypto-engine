@@ -865,12 +865,17 @@ def test_live_tennis_rules():
     line = {"a": "Holger Rune", "b": "Jannik Sinner", "a_ml": -ml1 - 40, "b_ml": ml1, "suspended": False}   # (Bovada lists them the other way)
     ln, flip = stn.match_line(m, [line])
     assert ln is line and flip
-    # one of OUR pregame picks, trailing, now plus money: DOUBLE DOWN
+    # one of OUR pregame picks, trailing, now plus money: a MEN'S pick never gets the double down (the crew's call)...
+    assert L.evaluate_tennis(m, line, flip, pre, 1, (), set()) == [], "no double down in men's tennis"
+    # ...a WOMEN'S pick in the same spot: DOUBLE DOWN
+    wm = _tn_live_row("wta:77", "wta", n1="Jessica Pegula", n2="Emma Navarro")
+    wline = {"a": "Emma Navarro", "b": "Jessica Pegula", "a_ml": -ml1 - 40, "b_ml": ml1, "suspended": False}
+    _, wflip = stn.match_line(wm, [wline])
     used = set()
-    pl = L.evaluate_tennis(m, line, flip, pre, 1, (), used)
-    assert len(pl) == 1 and pl[0]["team"] == "Jannik Sinner" and pl[0]["odds"] == ml1 and pl[0]["double_down"], pl
+    pl = L.evaluate_tennis(wm, wline, wflip, pre, 1, (), used)
+    assert len(pl) == 1 and pl[0]["team"] == "Jessica Pegula" and pl[0]["odds"] == ml1 and pl[0]["double_down"], pl
     x = pl[0]
-    assert x["emoji"] == "🎾" and x["league"] == "tennis" and x["sport"] == "Men's Tennis" and x["id"] == "tennis:atp:77:1"
+    assert x["emoji"] == "🎾" and x["league"] == "tennis" and x["sport"] == "Women's Tennis" and x["id"] == "tennis:wta:77:1"
     assert "4-6" in x["score"] and x["clock"].startswith("Set 2") and {"ours", "strong", "state"} <= set(x["reasons"])
     assert "double down" in x["line"].lower() and "dropped the first set" in x["line"], x["line"]
     assert x["edge"] >= L.LIVE_MIN_EDGE and x["breakdown"]
@@ -915,27 +920,28 @@ def test_live_tennis_rules():
     keep = (L.tennis_feeds, stl.load_prematch, stl.our_picks)
     log = {"plays": {}}
     try:
-        stl.load_prematch = lambda path=None: {"atp:77": pre}
-        stl.our_picks = lambda path=None: {"atp:77": 1}
+        m, line = wm, wline                                   # (a women's pick - the double down is women's only)
+        stl.load_prematch = lambda path=None: {"wta:77": pre}
+        stl.our_picks = lambda path=None: {"wta:77": 1}
         L.SCORE_SEEN.clear()
         L.tennis_feeds = lambda: ([m], [m], [{**line, "suspended": True}])
         judged = set()
         assert L.tennis_plays(log, datetime.now(timezone.utc), (), judged) == [] and not judged
         assert L.TENNIS["suspended"] == 1
         L.tennis_feeds = lambda: ([m], [m], [line])
-        L.SCORE_SEEN["atp:77"] = ((m["sets1"], m["sets2"], None, None), time.time() - L.TENNIS_STALE_S - 5)
+        L.SCORE_SEEN["wta:77"] = ((m["sets1"], m["sets2"], None, None), time.time() - L.TENNIS_STALE_S - 5)
         assert L.tennis_plays(log, datetime.now(timezone.utc), (), judged) == [] and not judged and L.TENNIS["stale"] == 1
         L.SCORE_SEEN.clear()
         got = L.tennis_plays(log, datetime.now(timezone.utc), (), judged)
-        assert got and got[0]["double_down"] and "tennis:atp:77" in judged
+        assert got and got[0]["double_down"] and "tennis:wta:77" in judged
         # graded like every live play: a final result settles it, a retirement before a set is done voids it
-        log["plays"]["tennis:atp:77:1"] = {"league": "tennis", "match": "atp:77", "side": "1", "result": None}
+        log["plays"]["tennis:wta:77:1"] = {"league": "tennis", "match": "wta:77", "side": "1", "result": None}
         log["plays"]["tennis:wta:9:2"] = {"league": "tennis", "match": "wta:9", "side": "2", "result": None}
-        L.grade_tennis(log, [_tn_live_row(status="STATUS_FINAL", winner=1, s1="4 6 6", s2="6 3 2"),
+        L.grade_tennis(log, [_tn_live_row("wta:77", "wta", status="STATUS_FINAL", winner=1, s1="4 6 6", s2="6 3 2"),
                              _tn_live_row("wta:9", "wta", status="STATUS_RETIRED", winner=2, done=0)])
-        assert log["plays"]["tennis:atp:77:1"]["result"] == "won" and log["plays"]["tennis:wta:9:2"]["result"] == "void"
+        assert log["plays"]["tennis:wta:77:1"]["result"] == "won" and log["plays"]["tennis:wta:9:2"]["result"] == "void"
         assert L.record(log) == {"won": 1, "lost": 0}, "tennis live plays count in the LIVE PLUS MONEY record"
-        assert L.locked_sides({"plays": {}}, datetime.now(timezone.utc))["tennis:atp:77"] == "1"
+        assert L.locked_sides({"plays": {}}, datetime.now(timezone.utc))["tennis:wta:77"] == "1"
     finally:
         L.tennis_feeds, stl.load_prematch, stl.our_picks = keep
     # Bovada's live tennis feed: live match moneylines; a suspended market is flagged, never priced

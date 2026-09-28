@@ -52,7 +52,7 @@ PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone,
 LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
 LIVE_MIN_P = 0.40             # ACCURACY FIRST: a new live bet is one we think has a real shot (40%+)...
 LIVE_MAX_ODDS = 250           # ...and never longer than +250 when it goes up (the +270..+425 ones kept losing)
-MAX_PLAYS = 4                 # up to 4 on the board at once, best value first (no limit per day)
+MAX_PLAYS = 2                 # NEVER more than 2 on the board at once (the owner): one's value goes, the next can take its slot
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
 LENGTH = {"nfl": (4, 15), "ncaaf": (4, 15), "nba": (4, 12), "ncaab": (2, 20), "nhl": (3, 20), "mlb": (9, None)}
 AN = "https://api.actionnetwork.com/web/v1/scoreboard/{lg}?period=game{extra}"
@@ -899,6 +899,8 @@ def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
             continue
         me, them = (m["p1_name"], m["p2_name"]) if side == 1 else (m["p2_name"], m["p1_name"])
         tour = stn.tour_of(m)
+        if ours and _trailing(s, side) and tour != "wta" and not up:
+            continue                   # DOUBLE DOWN is women's tennis only (the crew's call): no chasing a men's pick that's down
         pl = {"id": pid, "league": "tennis", "tour": tour, "emoji": "🎾",
               "sport": "Women's Tennis" if tour == "wta" else "Men's Tennis", "team": me, "opp": them, "odds": ml,
               "edge": round(edge, 4), "p": round(p, 3), "score": stl.score_text(m, s), "clock": stl.clock_text(m, s),
