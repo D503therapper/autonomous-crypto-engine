@@ -8,6 +8,7 @@ import os
 import random
 import shutil
 import tempfile
+import time
 from datetime import datetime, timedelta, timezone
 
 import sports
@@ -613,16 +614,19 @@ def test_tennis():
         c = {"id": f"m{i}:1", "match": f"m{i}", "p": p, "odds": odds, "dec": sd.decimal(odds)}
         c["edge"] = p * c["dec"] - 1
         cands.append(c)
-    picks, parlay = st.pick_slate(cands)
+    picks, parlays = st.pick_slate(cands)
+    parlay = parlays["atp"]
     assert picks and all(c["p"] >= st.MIN_P and c["edge"] >= st.MIN_EDGE for c in picks), "likely to win AND value"
-    assert [c["p"] for c in picks] == sorted((c["p"] for c in picks), reverse=True) and len(picks) < 8, "no filler"
+    assert [c["p"] for c in picks] == sorted((c["p"] for c in picks), reverse=True) and len(picks) < 6, "no filler"
     assert len(parlay) == 3 and parlay[0]["p"] >= parlay[-1]["p"] and all(c in picks for c in parlay)
+    assert parlays["wta"] == [], "no women's picks = no women's parlay"
     mixed = [dict(c, id=f"w{i}", match=f"w{i}", tour="wta", p=0.60, odds=-110, dec=sd.decimal(-110), edge=0.6 * sd.decimal(-110) - 1)
              for i, c in enumerate(cands[:4])]
     mixed += [dict(c, id=f"m{i}", match=f"m{i}", tour="atp", p=0.70, odds=-110, dec=sd.decimal(-110), edge=0.7 * sd.decimal(-110) - 1)
               for i, c in enumerate(cands[:8])]
     pk, _ = st.pick_slate(mixed)
-    assert sum(c["tour"] == "wta" for c in pk) == 4 and len(pk) == 8, "men's and women's even when both have real picks"
+    assert sum(c["tour"] == "wta" for c in pk) == 4 and sum(c["tour"] == "atp" for c in pk) == 6, \
+        "each tour on its own: up to 6 men's, the 4 real women's picks - never filler from the other tour"
     # retirements: void before a set is done, the advancer wins after
     m = {**ms["0"], "status": "STATUS_RETIRED", "done": 0}
     slate = [{"picks": [{"id": "0:1", "match": "0", "side": 1, "result": None}], "parlay": None}]
@@ -667,6 +671,358 @@ def test_tennis():
     assert st.price(m2, [{"a": "Jannik Sinner", "b": "Carlos Alcaraz", "a_ml": -150, "b_ml": 130,
                           "start": "2026-05-01T11:00Z"}]) == (130, -150)
 
+
+
+def _tn_sim(n, tour, seed, t0=datetime(2023, 1, 1, tzinfo=timezone.utc), players=30, id0=0):
+    """Simulated finished matches for one tour (ids 0..players-1: the SAME numbers on both tours, like ESPN's)."""
+    rnd = random.Random(seed)
+    skill = {str(i): rnd.gauss(0, 1) for i in range(players)}
+    out = {}
+    for i in range(n):
+        a, b = rnd.sample(list(skill), 2)
+        w = 1 if rnd.random() < 1 / (1 + math.exp(-(skill[a] - skill[b]) * 1.5)) else 2
+        mid = f"{tour}:{id0 + i}"
+        out[mid] = {"id": mid, "tour": tour, "start": (t0 + timedelta(hours=3 * i)).strftime("%Y-%m-%dT%H:%MZ"), "event": "e",
+                    "tourney": "Somewhere Open", "round": "R1", "surface": "hard", "bo": "3", "p1": a, "p1_name": f"P {a}",
+                    "p2": b, "p2_name": f"Q {b}", "winner": w, "sets1": "6 6", "sets2": "3 3", "status": "STATUS_FINAL", "done": 2}
+    return out, skill
+
+
+def test_tennis_per_tour():
+    """Men's and women's tennis are different worlds: separate ratings pools (the same ESPN id on both tours is two
+    different people), weights learned + graded per tour, candidates priced with the tour's own weights."""
+    import sports_tennis as st
+    # the pools: an ATP result never touches a WTA rating (same player id "5" on both tours)
+    pools = st.Pools()
+    m = {"id": "atp:x", "tour": "atp", "start": "2024-01-01T10:00Z", "surface": "hard", "p1": "5", "p2": "6",
+         "winner": 1, "sets1": "6 6", "sets2": "1 1", "status": "STATUS_FINAL", "done": 2}
+    for _ in range(20):
+        pools.update(m)
+    assert pools.pool("atp").r[("5", None)] > 1600 and ("5", None) not in pools.pool("wta").r, "no cross-tour leak"
+    assert pools.pool("wta").n.get("5", 0) == 0 and not pools.pool("wta").h2h
+    wf = pools.features({**m, "id": "wta:y", "tour": "wta"})
+    assert wf["p_elo"] == 0.5 and wf["known"] == 0 and wf["h2h"] == 0, "the WTA's #5 starts from scratch"
+    assert st.tour_of({"match": "wta:1"}) == "wta" and st.tour_of({"id": "atp:1:2"}) == "atp" and st.tour_of("WTA") == "wta"
+    # the study: each tour fits and grades on its own; a tour short on history borrows the shared weights (logged)
+    atp, _ = _tn_sim(2400, "atp", 3)
+    wta, _ = _tn_sim(2400, "wta", 4)
+    keep = st.TOUR_MIN_RATED
+    st.TOUR_MIN_RATED = 1500
+    try:
+        logs = []
+        rt, w, rep = st.study({**atp, **wta}, eval_n=400, log=logs.append)
+        assert set(w) == {"atp", "wta", "shared"} and not logs, logs
+        for t in ("atp", "wta"):
+            r = rep["tours"][t]
+            assert r["own_weights"] and r["graded"] == 400 and r["acc"] > 0.6 and r["rated"] > 1500, (t, r)
+        assert w["atp"] != w["wta"], "two tours, two sets of learned weights"
+        assert rt.pool("atp") is not rt.pool("wta")
+        small, _ = _tn_sim(900, "wta", 5)
+        logs = []
+        rt2, w2, rep2 = st.study({**atp, **small}, eval_n=400, log=logs.append)
+        assert not rep2["tours"]["wta"]["own_weights"] and w2["wta"] == w2["shared"] and w2["atp"] != w2["shared"]
+        assert any("WTA" in x and "shared weights" in x for x in logs), logs
+    finally:
+        st.TOUR_MIN_RATED = keep
+    # model_p / candidates use the tour's own weights: a WTA weight set that ignores ratings gives a coin flip there
+    ws = {"atp": [0.0, 1.0, 0, 0, 0, 0, 0], "wta": [0.0, 0.0, 0, 0, 0, 0, 0], "shared": [0.0, 1.0, 0, 0, 0, 0, 0]}
+    f = {"elo": 1.0, "fatigue": 0, "form": 0, "h2h": 0}
+    assert st.model_p(ws, f, 3, "atp") > 0.7 and st.model_p(ws, f, 3, "wta") == 0.5
+    assert st.model_p(ws["atp"], f, 3) == st.model_p(ws, f, 3, "atp"), "a plain list still works"
+    now = datetime(2023, 6, 1, tzinfo=timezone.utc)
+    ms = {**atp, **wta}
+    up = (now + timedelta(hours=5)).strftime("%Y-%m-%dT%H:%MZ")
+    for t in ("atp", "wta"):
+        ms[f"{t}:up"] = {**ms[f"{t}:0"], "id": f"{t}:up", "status": "STATUS_SCHEDULED", "winner": 0, "sets1": "", "sets2": "",
+                         "start": up, "p1": "1", "p2": "2", "p1_name": f"{t} One", "p2_name": f"{t} Two"}
+    rt3, _, _ = st.study(ms, eval_n=400, log=lambda x: None)
+    lines = [{"a": f"{t} One", "b": f"{t} Two", "a_ml": -150, "b_ml": 130, "start": up, "tour": t} for t in ("atp", "wta")]
+    cs = st.candidates(ms, rt3, ws, lines, now, now + timedelta(hours=24))
+    by = {c["id"]: c for c in cs}
+    assert by["wta:up:1"]["p"] == 0.5 and by["atp:up:1"]["p"] != 0.5, "each tour priced with its own weights"
+    assert st.match_line(ms["atp:up"], [{**lines[1], "a": "atp One", "b": "atp Two"}])[0] is None, "never a WTA line on an ATP match"
+
+
+def test_tennis_slates_and_parlays():
+    """Up to 6 men's + 6 women's picks, never a mixed parlay, a tour's parlay only with 3 picks; old slates (one
+    mixed parlay) and new slates (one per tour) both grade; post() never reposts a match from any slate."""
+    import sports_tennis as st
+
+    def c(mid, tour, p, odds=-110):
+        d = sd.decimal(odds)
+        return {"id": f"{mid}:1", "match": mid, "side": 1, "tour": tour, "p": p, "odds": odds, "dec": d, "edge": p * d - 1,
+                "player": f"P {mid}", "opp": "X", "start": "2026-10-01T10:00Z", "tourney": "T", "market": "ml", "hcp": None,
+                "ml": odds, "round": "R1", "surface": "hard", "bo": 3}
+    many = [c(f"atp:{i}", "atp", 0.60 + 0.01 * i) for i in range(10)] + [c(f"wta:{i}", "wta", 0.58 + 0.01 * i) for i in range(10)]
+    picks, pars = st.pick_slate(many)
+    assert sum(x["tour"] == "atp" for x in picks) == 6 and sum(x["tour"] == "wta" for x in picks) == 6
+    for t in ("atp", "wta"):
+        assert len(pars[t]) == 3 and all(x["tour"] == t for x in pars[t]), "never a mixed parlay"
+        assert [x["p"] for x in pars[t]] == sorted((x["p"] for x in picks if x["tour"] == t), reverse=True)[:3]
+    few = [c(f"atp:{i}", "atp", 0.62) for i in range(4)] + [c(f"wta:{i}", "wta", 0.65) for i in range(2)]
+    few += [c("wta:bad", "wta", 0.52), c("wta:thin", "wta", 0.60, -200)]          # a coin flip, and no value
+    picks, pars = st.pick_slate(few)
+    assert len(picks) == 6 and pars["wta"] == [] and len(pars["atp"]) == 3, "2 women's picks: no women's parlay"
+    # post(): one parlay per tour; a match already on ANY slate never goes up again
+    keep = (st.candidates, st._used, st.breakdown)
+    st.candidates = lambda *a, **k: [dict(x) for x in many]
+    st._used = lambda skip=(): set()
+    st.breakdown = lambda cand, rt, used: ["🎾 test"]
+    try:
+        old = [{"date": "2026-09-01", "picks": [{"id": "atp:9:2", "match": "atp:9", "side": 2, "result": "won"}], "parlay": None}]
+        slate = st.post({}, None, None, [], old, datetime(2026, 9, 30, 20, tzinfo=timezone.utc))
+        assert slate and "parlay" not in slate and set(slate["parlays"]) == {"atp", "wta"}
+        assert "atp:9" not in {l["match"] for l in slate["picks"]}, "already on a slate: never again"
+        assert sum(l["tour"] == "atp" for l in slate["picks"]) == 6 and sum(l["tour"] == "wta" for l in slate["picks"]) == 6
+        legs = {l["id"]: l for l in slate["picks"]}
+        for t, par in slate["parlays"].items():
+            assert par["tour"] == t and all(legs[i]["tour"] == t for i in par["legs"]) and len(par["legs"]) == 3
+    finally:
+        st.candidates, st._used, st.breakdown = keep
+    # grading both shapes
+    ms = {f"atp:{i}": {"id": f"atp:{i}", "status": "STATUS_FINAL", "winner": 1, "done": 2, "sets1": "6 6", "sets2": "2 2"}
+          for i in range(3)}
+    ms.update({f"wta:{i}": {"id": f"wta:{i}", "status": "STATUS_FINAL", "winner": 2 if i == 0 else 1, "done": 2,
+                            "sets1": "6 6", "sets2": "2 2"} for i in range(3)})
+    L = lambda mid: {"id": f"{mid}:1", "match": mid, "side": 1, "result": None, "tour": mid[:3]}
+    old_slate = {"date": "2026-09-27", "picks": [L("atp:0"), L("wta:1"), L("atp:1")],
+                 "parlay": {"legs": ["atp:0:1", "wta:1:1", "atp:1:1"], "status": "open", "dec": 6.0, "american": 500}}
+    new_slate = {"date": "2026-09-28", "picks": [L("atp:2"), L("wta:0"), L("wta:2")],
+                 "parlays": {"atp": {"legs": ["atp:2:1"], "status": "open", "tour": "atp", "dec": 1.9, "american": -110},
+                             "wta": {"legs": ["wta:0:1", "wta:2:1"], "status": "open", "tour": "wta", "dec": 3.6, "american": 260}}}
+    sl = [old_slate, new_slate]
+    st.grade(ms, sl)
+    assert old_slate["parlay"]["status"] == "won" and new_slate["parlays"]["atp"]["status"] == "won"
+    assert new_slate["parlays"]["wta"]["status"] == "lost"
+    r = st.record(sl)
+    assert r["atp"]["won"] == 3 and r["wta"]["won"] == 2 and r["wta"]["lost"] == 1
+    assert r["mixed"]["p_won"] == 1 and r["atp"]["p_won"] == 1 and r["wta"]["p_lost"] == 1 and r["atp"]["p_lost"] == 0
+    assert [k for k, _ in st.parlays_of(old_slate)] == ["mixed"] and {k for k, _ in st.parlays_of(new_slate)} == {"atp", "wta"}
+
+
+def test_tennis_markov():
+    """The live tennis model against known values."""
+    import sports_tennis_live as stl
+    assert abs(stl.game_p(0.6) - 0.7357) < 1e-4, "60% on serve holds 73.6% (the textbook number)"
+    assert stl.game_p(0.5) == 0.5 and stl.game_p(0.64, 3, 3) == stl.game_p(0.64, 4, 4)
+    assert abs(stl.tb_p(0.62, 0.62) - 0.5) < 1e-9 and abs(stl.live_p(0.64, 0.64) - 0.5) < 1e-9
+    assert abs(sum(stl.set_dist(0.6, 0.6)) - 1) < 1e-9
+    for tour in ("atp", "wta"):
+        for bo in (3, 5):
+            for p in (0.3, 0.5, 0.62, 0.8):
+                pa, pb = stl.serve_split(p, tour, bo)
+                assert abs(stl.live_p(pa, pb, bo=bo) - p) < 2e-3, "0-0 returns the pre-match chance"
+    pa, pb = stl.serve_split(0.6, "atp", 3)
+    assert stl.hold_p(pa) > stl.hold_p(pb) and 0.75 < stl.hold_p(pa) < 0.9
+    base = stl.live_p(pa, pb)
+    up = stl.live_p(pa, pb, (1, 0), (2, 0), None, None, 3)                       # up a set and a break
+    assert up > 0.9 and up > base + 0.3
+    down = stl.live_p(pa, pb, (0, 1), (2, 2), None, None, 3)                     # down a set, on serve
+    assert 0.25 < down < base and stl.live_p(pa, pb, (0, 1), (0, 2), None, None, 3) < down
+    assert abs(stl.live_p(0.64, 0.64, (0, 1), (0, 0), None, None, 3) - 0.25) < 1e-6, "even players, a set down: 25%"
+    assert stl.live_p(pa, pb, (1, 0), (5, 4), (3, 0), True, 3) > 0.99, "serving for it at 40-0"
+    assert stl.live_p(pa, pb, (1, 1), (6, 6), (6, 5), True, 3) > stl.live_p(pa, pb, (1, 1), (6, 6), (5, 6), True, 3)
+    assert stl.live_p(pa, pb, (2, 0)) == 1.0 and stl.live_p(pa, pb, (0, 2)) == 0.0
+    bo5 = stl.serve_split(0.6, "atp", 5)
+    assert stl.live_p(*bo5, (0, 1), (0, 0), None, None, 5) > stl.live_p(pa, pb, (0, 1), (0, 0), None, None, 3), \
+        "a set down hurts less in best of 5"
+    assert stl.final_tb_of("Wimbledon") == 10 and stl.final_tb_of("Shanghai Masters") == 7
+    s = stl.score_state({"sets1": "4 2", "sets2": "6 2", "pts1": "AD", "pts2": "40", "server": 1})
+    assert s["sets"] == (0, 1) and s["games"] == (2, 2) and s["pts"] == (4, 3) and s["set_no"] == 2
+    assert stl.score_state({"sets1": "6", "sets2": "4", "pts1": None, "pts2": None})["games"] == (0, 0)
+    assert stl.score_state({"sets1": "6 3", "sets2": "4 1", "pts1": "50", "pts2": "0"})["pts"] is None, "junk points: left out"
+    import time as _t
+    t0 = _t.time()
+    for i in range(200):
+        stl.live_p(0.6 + i * 1e-4, 0.62, (1, 0), (3, 2), (2, 1), None, 3)
+    assert _t.time() - t0 < 2.0, "fast enough for a 5-second loop"
+
+
+def _tn_live_row(mid="atp:77", tour="atp", s1="4 2", s2="6 2", pts=(None, None), server=None, detail="", status="STATUS_IN_PROGRESS",
+                 n1="Jannik Sinner", n2="Holger Rune", winner=0, done=1):
+    return {"id": mid, "tour": tour, "start": "2026-09-28T10:00Z", "tourney": "Shanghai Masters", "round": "R2", "surface": "hard",
+            "bo": 3, "p1": "1", "p1_name": n1, "p2": "2", "p2_name": n2, "winner": winner, "sets1": s1, "sets2": s2,
+            "status": status, "done": done, "pts1": pts[0], "pts2": pts[1], "server": server, "detail": detail}
+
+
+def _ml_for(p, edge):
+    """A plus-money price that gives chance p the given edge."""
+    dec = (1 + edge) / p
+    return int(round((dec - 1) * 100))
+
+
+def test_live_tennis_rules():
+    import sports_tennis as stn
+    import sports_tennis_live as stl
+    L = sports_live
+    L._TUNED.clear()
+    m = _tn_live_row()                                              # Sinner dropped the 1st 4-6, 2-2 in the 2nd
+    pre = {"mkt_p1": 0.78, "model_p1": 0.8}
+    p1 = stl.p1_live(m, 0.78)[0]
+    assert L.min_p() <= p1 < 0.78
+    ml1 = _ml_for(p1, 0.10)
+    assert 100 <= ml1 <= L.LIVE_MAX_ODDS, ml1
+    line = {"a": "Holger Rune", "b": "Jannik Sinner", "a_ml": -ml1 - 40, "b_ml": ml1, "suspended": False}   # (Bovada lists them the other way)
+    ln, flip = stn.match_line(m, [line])
+    assert ln is line and flip
+    # one of OUR pregame picks, trailing, now plus money: DOUBLE DOWN
+    used = set()
+    pl = L.evaluate_tennis(m, line, flip, pre, 1, (), used)
+    assert len(pl) == 1 and pl[0]["team"] == "Jannik Sinner" and pl[0]["odds"] == ml1 and pl[0]["double_down"], pl
+    x = pl[0]
+    assert x["emoji"] == "🎾" and x["league"] == "tennis" and x["sport"] == "Men's Tennis" and x["id"] == "tennis:atp:77:1"
+    assert "4-6" in x["score"] and x["clock"].startswith("Set 2") and {"ours", "strong", "state"} <= set(x["reasons"])
+    assert "double down" in x["line"].lower() and "dropped the first set" in x["line"], x["line"]
+    assert x["edge"] >= L.LIVE_MIN_EDGE and x["breakdown"]
+    txt = " ".join([x["line"]] + x["breakdown"]).lower()
+    assert "real talk" not in txt and "chalk" not in txt
+    # a WTA play in the same check: she/her, and no wording repeated from the first play
+    w = _tn_live_row("wta:5", "wta", n1="Coco Gauff", n2="Iga Swiatek")
+    wl = {"a": "Coco Gauff", "b": "Iga Swiatek", "a_ml": ml1, "b_ml": -ml1 - 40, "suspended": False}
+    wp = L.evaluate_tennis(w, wl, False, pre, 1, (), used)
+    assert wp and wp[0]["sport"] == "Women's Tennis" and not __import__("re").search(r"\b(he|him|his)\b", " ".join([wp[0]["line"]] + wp[0]["breakdown"]))
+    assert wp[0]["line"] != x["line"] and not set(wp[0]["breakdown"]) & set(x["breakdown"]), "fresh wording, no repeats"
+    # a strong favorite on our numbers (not our pick): a play, but no double down
+    pl2 = L.evaluate_tennis(m, line, flip, pre, None)
+    assert pl2 and not pl2[0]["double_down"] and "ours" not in pl2[0]["reasons"] and "strong" in pl2[0]["reasons"]
+    # the engine didn't like him pregame (not our pick, not a strong favorite on OUR numbers): no play
+    assert L.evaluate_tennis(m, line, flip, {"mkt_p1": 0.78, "model_p1": 0.52}, None) == []
+    assert L.evaluate_tennis(m, line, flip, {"mkt_p1": 0.78}, None) == [], "no number of our own: no 'strong' reason"
+    # plus money only / real edge only / no pre-match number
+    minus = {**line, "b_ml": -120, "a_ml": 100}
+    assert not [p for p in L.evaluate_tennis(m, minus, flip, pre, 1) if p["team"] == "Jannik Sinner"]
+    thin = {**line, "b_ml": _ml_for(p1, 0.02), "a_ml": -_ml_for(p1, 0.02) - 40}
+    assert L.evaluate_tennis(m, thin, flip, pre, 1) == []
+    assert L.evaluate_tennis(m, line, flip, {}, 1) == []
+    # the tuned min p: raise the bar above his chance and it's gone
+    L._TUNED["min_p"] = 0.55
+    assert L.evaluate_tennis(m, line, flip, pre, 1) == []
+    L._TUNED.clear()
+    # MAX_GAP: ESPN says he's up a set and a break but the book has him +150 = the score is stale (or the book
+    # knows something) - never "value"
+    ahead = _tn_live_row(s1="6 3", s2="4 1")
+    assert stl.p1_live(ahead, 0.78)[0] > 0.9
+    assert L.evaluate_tennis(ahead, {**line, "b_ml": 150, "a_ml": -180}, flip, pre, 1) == []
+    # stale / delayed score
+    L.SCORE_SEEN.clear()
+    now_s = 1_000_000.0
+    assert not L.tennis_stale(m, now_s)
+    assert not L.tennis_stale(m, now_s + 300) and L.tennis_stale(m, now_s + L.TENNIS_STALE_S + 1), "a score sitting still"
+    assert not L.tennis_stale(_tn_live_row(s2="6 3"), now_s + 700), "the score moved: fresh again"
+    assert L.tennis_stale(_tn_live_row(detail="Rain Delay"), now_s)
+    # the whole tennis check: suspended market / stale score = no play and the match isn't judged (a play that's up
+    # holds, paused); fresh = the play, judged; the play goes against nobody's pregame pick
+    keep = (L.tennis_feeds, stl.load_prematch, stl.our_picks)
+    log = {"plays": {}}
+    try:
+        stl.load_prematch = lambda path=None: {"atp:77": pre}
+        stl.our_picks = lambda path=None: {"atp:77": 1}
+        L.SCORE_SEEN.clear()
+        L.tennis_feeds = lambda: ([m], [m], [{**line, "suspended": True}])
+        judged = set()
+        assert L.tennis_plays(log, datetime.now(timezone.utc), (), judged) == [] and not judged
+        assert L.TENNIS["suspended"] == 1
+        L.tennis_feeds = lambda: ([m], [m], [line])
+        L.SCORE_SEEN["atp:77"] = ((m["sets1"], m["sets2"], None, None), time.time() - L.TENNIS_STALE_S - 5)
+        assert L.tennis_plays(log, datetime.now(timezone.utc), (), judged) == [] and not judged and L.TENNIS["stale"] == 1
+        L.SCORE_SEEN.clear()
+        got = L.tennis_plays(log, datetime.now(timezone.utc), (), judged)
+        assert got and got[0]["double_down"] and "tennis:atp:77" in judged
+        # graded like every live play: a final result settles it, a retirement before a set is done voids it
+        log["plays"]["tennis:atp:77:1"] = {"league": "tennis", "match": "atp:77", "side": "1", "result": None}
+        log["plays"]["tennis:wta:9:2"] = {"league": "tennis", "match": "wta:9", "side": "2", "result": None}
+        L.grade_tennis(log, [_tn_live_row(status="STATUS_FINAL", winner=1, s1="4 6 6", s2="6 3 2"),
+                             _tn_live_row("wta:9", "wta", status="STATUS_RETIRED", winner=2, done=0)])
+        assert log["plays"]["tennis:atp:77:1"]["result"] == "won" and log["plays"]["tennis:wta:9:2"]["result"] == "void"
+        assert L.record(log) == {"won": 1, "lost": 0}, "tennis live plays count in the LIVE PLUS MONEY record"
+        assert L.locked_sides({"plays": {}}, datetime.now(timezone.utc))["tennis:atp:77"] == "1"
+    finally:
+        L.tennis_feeds, stl.load_prematch, stl.our_picks = keep
+    # Bovada's live tennis feed: live match moneylines; a suspended market is flagged, never priced
+    bov = [{"path": [{"description": "ATP Shanghai"}, {"description": "Tennis"}], "events": [
+        {"id": "1", "live": True, "startTime": 1790000000000, "displayGroups": [{"markets": [
+            {"description": "Moneyline", "status": "O", "period": {"main": True, "live": True},
+             "outcomes": [{"description": "Jannik Sinner", "status": "O", "price": {"american": "+150"}},
+                          {"description": "Holger Rune", "status": "O", "price": {"american": "-190"}}]}]}]},
+        {"id": "2", "live": True, "startTime": 1790000000000, "displayGroups": [{"markets": [
+            {"description": "Moneyline", "status": "S", "period": {"main": True, "live": True},
+             "outcomes": [{"description": "A Guy", "price": {"american": "+150"}},
+                          {"description": "B Guy", "price": {"american": "-190"}}]}]}]},
+        {"id": "3", "live": False, "startTime": 1790000000000, "displayGroups": [{"markets": [
+            {"description": "Moneyline", "period": {"main": True, "live": False},
+             "outcomes": [{"description": "C Guy", "price": {"american": "+150"}},
+                          {"description": "D Guy", "price": {"american": "-190"}}]}]}]}]},
+        {"path": [{"description": "WTA Wuhan"}], "events": []},
+        {"path": [{"description": "ATP Challenger Tour"}], "events": [{"id": "4", "live": True}]}]
+    rows = stn.parse_bovada(bov, live=True)
+    assert len(rows) == 2 and {r["a"] for r in rows} == {"Jannik Sinner", "A Guy"}
+    by = {r["a"]: r for r in rows}
+    assert by["Jannik Sinner"]["a_ml"] == 150 and not by["Jannik Sinner"]["suspended"] and by["A Guy"]["suspended"]
+    assert by["Jannik Sinner"]["tour"] == "atp"
+    assert len(stn.parse_bovada(bov)) == 3, "pregame parsing unchanged (every priced event)"
+    # ESPN's live score: who's serving and the points, when the feed has them
+    pay = {"events": [{"id": "9", "name": "Shanghai Masters", "groupings": [{"grouping": {"displayName": "Men's Singles"}, "competitions": [
+        {"id": "77", "date": "2026-09-28T10:00Z", "status": {"type": {"name": "STATUS_IN_PROGRESS", "detail": "2nd Set"}},
+         "competitors": [{"athlete": {"id": "1", "displayName": "Jannik Sinner"}, "possession": True, "points": "30",
+                          "linescores": [{"value": 4}, {"value": 2}]},
+                         {"athlete": {"id": "2", "displayName": "Holger Rune"}, "possession": False, "points": "15",
+                          "linescores": [{"value": 6}, {"value": 2}]}]}]}]}]}
+    r = stn.parse_espn(pay)[0]
+    assert r["server"] == 1 and (r["pts1"], r["pts2"]) == ("30", "15") and stn._state(r) == "live"
+    s = stl.score_state(r)
+    assert s["pts"] == (2, 1) and "(30-15)" in stl.score_text(r, s) and "Sinner serving" in stl.clock_text(r, s)
+
+
+def test_dashboard_tennis_records():
+    """Men's and women's tennis: two records boxes, two By sport rows, a parlay record per tour (old mixed parlays
+    only under their old label), the card split by tour; tennis LIVE plays count in LIVE PLUS MONEY only."""
+    import sports_dashboard as dash
+    tmp = tempfile.mkdtemp()
+    keep = sd.DATA
+    today = datetime.now(sports_live.PT).date().isoformat()
+    try:
+        sd.DATA = tmp
+        os.makedirs(os.path.join(tmp, "tennis"))
+        L = lambda mid, res, tour, side=1: {"id": f"{mid}:{side}", "match": mid, "side": side, "player": f"Player {mid}", "opp": "Opp",
+                                            "tour": tour, "odds": -130, "p": 0.6, "start": f"{today}T10:00Z", "tourney": "Open",
+                                            "market": "ml", "hcp": None, "round": "R1", "surface": "hard", "bo": 3, "result": res,
+                                            "breakdown": ["🎾 x"]}
+        old = {"date": "2026-09-01", "picks": [L("atp:1", "won", "atp"), L("wta:1", "lost", "wta"), L("atp:2", "won", "atp")],
+               "parlay": {"legs": ["atp:1:1", "wta:1:1", "atp:2:1"], "status": "lost", "dec": 6.0, "american": 500}}
+        new = {"date": today, "picks": [L("atp:3", "won", "atp"), L("atp:4", None, "atp"), L("atp:5", "won", "atp"),
+                                        L("atp:6", None, "atp"), L("wta:2", "won", "wta"), L("wta:3", None, "wta"), L("wta:4", "lost", "wta")],
+               "parlays": {"atp": {"legs": ["atp:3:1", "atp:4:1", "atp:5:1"], "status": "open", "dec": 5.0, "american": 400, "tour": "atp"},
+                           "wta": {"legs": ["wta:2:1", "wta:3:1", "wta:4:1"], "status": "lost", "dec": 5.0, "american": 400, "tour": "wta"}}}
+        dup = {"date": "2026-09-02", "picks": [L("atp:1", "won", "atp")], "parlays": {"atp": None, "wta": None}}   # the same match again
+        with open(os.path.join(tmp, "tennis", "picks.json"), "w") as f:
+            json.dump([old, dup, new], f)
+        live = {"plays": {"tennis:atp:88:1": {"league": "tennis", "tour": "atp", "team": "Jannik Sinner", "odds": 180, "side": "1",
+                                              "result": "won", "date": today, "posted": f"{today}T11:00Z", "double_down": True,
+                                              "match": "atp:88", "tennis": {"sets": [0, 1], "games": [2, 2], "done": [[4, 6]], "side": 1, "set_no": 2},
+                                              "score_at_post": "Sinner vs Rune · 4-6, 2-2", "clock_at_post": "Set 2", "p": 0.45}}}
+        with open(os.path.join(tmp, "live_log.json"), "w") as f:
+            json.dump(live, f)
+        html = dash.render([], {"params": {}}, {}, [], 1000, int(time.time() * 1000))
+        R = dash.RECORDS
+        assert R["men's tennis (own record, not ours)"] == "4-0", R          # atp:1 once (two slates), 2, 3, 5
+        assert R["women's tennis (own record, not ours)"] == "1-2", R
+        assert R["men's tennis parlays"] == "0-0" and R["women's tennis parlays"] == "0-1"
+        assert R["old mixed tennis parlays (before the tours were split)"] == "0-1"
+        assert R["by sport"]["Men's Tennis"] == "4-0" and R["by sport"]["Women's Tennis"] == "1-2" and "Tennis" not in R["by sport"]
+        assert R["live plus money (own record, not ours)"] == "1-0", "the tennis live play counts in LIVE PLUS MONEY"
+        assert "tennis (own record, not ours)" not in R
+        assert "🎾 MEN&#x27;S TENNIS" in html or "🎾 MEN'S TENNIS" in html
+        assert "🎾 WOMEN'S TENNIS</div>" in html and "🎾 MEN'S TENNIS</div>" in html and ">🎾 TENNIS<" not in html
+        assert "<b>🎾 Men's Tennis</b>" in html and "<b>🎾 Women's Tennis</b>" in html and "<b>🎾 Tennis</b>" not in html
+        assert "4 men's + 3 women's" in html, "the card's summary line"
+        assert "MEN'S TENNIS PARLAY" in html and "WOMEN'S TENNIS PARLAY" in html
+        assert "parlays: men's 0-0 · women's 0-1 · old mixed 0-1" in html
+        assert "🎾 Men&#x27;s Tennis · 🔁 DOUBLE DOWN" in html and "4-6, 2-2 in set 2" in html, "the live list: 🎾 and the set/game score"
+        assert html.count("class=\"rc gr\"") >= 6
+        _check_js(html)
+    finally:
+        sd.DATA = keep
+        shutil.rmtree(tmp)
 
 
 def test_hockey_line_first():

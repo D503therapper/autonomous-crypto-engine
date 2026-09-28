@@ -76,6 +76,8 @@ def _live_story(e, used=None):
     No two bets in the list share a phrase."""
     used = set() if used is None else used
     lg = e.get("league", "")
+    if lg == "tennis":
+        return _tennis_live_story(e, used)
     m = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", str(e.get("score_at_post") or ""))
     if not m:
         return ""
@@ -119,6 +121,47 @@ def _live_story(e, used=None):
                                 "they about to cook. We finna see.", "trust the process. We finna see.",
                                 "hammer time. We finna see."], used, k)
     return f"{score} {thought} — {end}"
+
+
+def _live_icon(e):
+    return "🎾" if e.get("league") == "tennis" else sd.LEAGUES.get(e["league"], ("", "", "", "🏟️"))[3]
+
+
+def _live_sport(e):
+    if e.get("league") == "tennis":
+        return "Women's Tennis" if e.get("tour") == "wta" else "Men's Tennis"
+    return sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2]
+
+
+def _tennis_live_story(e, used):
+    """A 🎾 live bet in our lingo: the set/game score when it went up (from our player's side) and how it played out."""
+    t = e.get("tennis") or {}
+    side = int(t.get("side") or e.get("side") or 1)
+    import sports_tennis as stn
+    me = stn._say_name(e.get("team")) or "our player"
+    he = "she" if e.get("tour") == "wta" else "he"
+    flip = (lambda xy: tuple(xy)) if side == 1 else (lambda xy: tuple(xy)[::-1])
+    sets = ", ".join("-".join(map(str, flip(x))) for x in t.get("done") or [])
+    g = flip(t.get("games") or (0, 0))
+    now_ = f"{g[0]}-{g[1]} in set {t.get('set_no') or 1}"
+    k = sum(map(ord, str(e.get("team")) + str(e.get("odds"))))
+    score = _pick("tn_score", [f"Sets {sets}, {now_} when it went up." if sets else f"{_cap(now_)} when it went up.",
+                               f"It was {sets + ', ' if sets else ''}{now_}." ,
+                               f"We got in at {sets + ', ' if sets else ''}{now_}."], used, k)
+    dd = " We doubled down on our pregame pick" if e.get("double_down") else ""
+    res = e.get("result")
+    if res == "won":
+        end = _pick("tn_live_won", [f"{me} turned it around. Cashed. 💰", f"{me} got it done. Told y'all. 💰",
+                                    f"{me} came through — {he} was never out of it. 💰"], used, k)
+    elif res == "lost":
+        end = _pick("tn_live_lost", [f"{me} couldn't close the gap. Is what it is.", f"{me} ran out of road. Our bad.",
+                                     f"{me} never found the turn. Next one's ours."], used, k)
+    elif res == "void":
+        end = "Voided — no result, no harm."
+    else:
+        end = _pick("tn_live_pend", [f"We like {me} from here — we gon' see.", f"Riding {me} from here. We finna see.",
+                                     f"{me}'s still swinging. We gon' see."], used, k)
+    return f"{score}{dd + '.' if dd else ''} {end}"
 
 
 TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
@@ -240,18 +283,8 @@ def _tennis():
         slates = []
     if not slates:
         return ""
-    r = {"won": 0, "lost": 0, "p_won": 0, "p_lost": 0}
-    seen = set()                                             # a match counts once, even if two slates carry it
-    for x in slates:
-        for l in x["picks"]:
-            if l["id"] in seen:
-                continue
-            seen.add(l["id"])
-            r["won"] += l["result"] == "won"
-            r["lost"] += l["result"] == "lost"
-        if x.get("parlay"):
-            r["p_won"] += x["parlay"]["status"] == "won"
-            r["p_lost"] += x["parlay"]["status"] == "lost"
+    import sports_tennis as stn
+    r = stn.record(slates)                                   # men's and women's apart; a match counts once
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "void": '<span class="lr push">VOID</span>'}
 
@@ -292,44 +325,52 @@ def _tennis():
     def row(l):
         bd = "".join(f"<p>{E(x)}</p>" for x in ([recap(l)] if recap(l) else []) + list(l.get("breakdown") or []))
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if l.get("tour") == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}">{_time(l["start"])}</span>')}</div>
+  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}">{_time(l["start"])}</span>')}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
   {f'<div class="fin">Final: {E(", ".join(f"{a}-{b}" for a, b in ours(l)) or l["score"])}</div>' if l.get("score") else ""}
 </div>"""
-    def block(s):
-        legs = {l["id"]: l for l in s["picks"]}
-        par = s.get("parlay")
-        par_html = ""
-        if par:
-            stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
-            par_html = f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
-  <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">TENNIS PARLAY OF THE DAY</span>{_chip(par["status"])}</div>
+    PAR_TITLE = {"atp": "MEN'S TENNIS PARLAY", "wta": "WOMEN'S TENNIS PARLAY", "mixed": "TENNIS PARLAY OF THE DAY"}
+
+    def par_card(key, par, legs):
+        stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
+        return f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
+  <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">{PAR_TITLE[key]}</span>{_chip(par["status"])}</div>
   <div class="pk-o"><span class="big">{_am(par['american'])}</span><span class="pay">$100 wins <b>${100 * (par['dec'] - 1):,.0f}</b></span></div>
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{"".join(row(legs[i]) for i in par["legs"] if i in legs)}
 </section>"""
+
+    def block(s):
+        legs = {l["id"]: l for l in s["picks"]}
+        pars = dict(stn.parlays_of(s))
         day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
-        groups = ""
-        for title, ls in (("MEN'S TENNIS", [l for l in s["picks"] if l.get("tour", "atp") != "wta"]),
-                          ("WOMEN'S TENNIS", [l for l in s["picks"] if l.get("tour") == "wta"])):
+        out = f'<div class="tn-d">{E(day)}</div>'
+        if "mixed" in pars:                                  # an old slate's one parlay (both tours): as it was posted
+            out += par_card("mixed", pars["mixed"], legs)
+        for t, title in (("atp", "MEN'S TENNIS"), ("wta", "WOMEN'S TENNIS")):    # each tour: its picks + its parlay
+            ls = [l for l in s["picks"] if stn.tour_of(l) == t]
             if ls:
-                groups += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
-                           f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
-        return f'<div class="tn-d">{E(day)}</div>{par_html}{groups}'
+                out += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
+                        f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
+            if t in pars:
+                out += par_card(t, pars[t], legs)
+        return out
     # a slate stays up (WON / LOST and the breakdowns) while any of its matches is still being played; once its last
     # match is over, the whole slate goes away into the results. A new slate shows as soon as it's posted.
-    live = lambda x: any(l.get("result") is None for l in x["picks"]) or any(
-        (v or {}).get("status") == "open" for v in [x.get("parlay"), *(x.get("parlays") or {}).values()])
+    live = lambda x: any(l.get("result") is None for l in x["picks"]) or any(p["status"] == "open" for _, p in stn.parlays_of(x))
     shown = [x for x in slates if live(x)]
-    n = sum(len(x["picks"]) for x in shown)
-    npar = sum(bool(x.get("parlay")) for x in shown)
-    what = (f"{n} pick{'s' if n != 1 else ''}" + (" + parlay" if npar else "")) if n else "new picks by 6 PM"
+    nm = sum(stn.tour_of(l) == "atp" for x in shown for l in x["picks"])
+    nw = sum(stn.tour_of(l) == "wta" for x in shown for l in x["picks"])
+    what = f"{nm} men's + {nw} women's" if nm + nw else "new picks by 6 PM"
     body = "".join(block(x) for x in shown) or \
         '<div class="nopick">The last slate\'s all graded — it\'s in the records. Next picks drop by 6 PM. 🎾</div>'
+    m_, w_, x_ = r["atp"], r["wta"], r["mixed"]
+    pars = (f"parlays: men's {m_['p_won']}-{m_['p_lost']} · women's {w_['p_won']}-{w_['p_lost']}"
+            + (f" · old mixed {x_['p_won']}-{x_['p_lost']}" if x_["p_won"] + x_["p_lost"] else ""))
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
-<span class="tn-s">{what} · {r['won']}-{r['lost']} · tap to open</span></summary>
-<div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{body}</div></details>"""
+<span class="tn-s">{what} · men's {m_['won']}-{m_['lost']} · women's {w_['won']}-{w_['lost']} · tap to open</span></summary>
+<div class="tn-b"><div class="tn-d">{pars}</div>{body}</div></details>"""
 
 
 def _jl(path, default):
@@ -492,8 +533,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
                  '<span class="pk-l">LIVE PLUS MONEY TODAY</span></div>' + "".join(
-                     f'<div class="leg {e.get("result") or ""}"><div class="lt"><span class="lgb">{sd.LEAGUES.get(e["league"], ("", "", "", "🏟️"))[3]} '
-                     f'{E(sd.LEAGUES.get(e["league"], ("", "", e["league"].upper()))[2])}</span>'
+                     f'<div class="leg {e.get("result") or ""}"><div class="lt"><span class="lgb">{_live_icon(e)} '
+                     f'{E(_live_sport(e))}{" · 🔁 DOUBLE DOWN" if e.get("double_down") else ""}</span>'
                      f'{badge_.get(e.get("result"), pending_)}</div>'
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
                      f'<div class="ls">{E(stories[id(e)])}</div>'
@@ -542,20 +583,34 @@ def render(picks, model, games, series, start_bank, updated_ms):
               + grades)
     # their own categories, never in our record: live bets and leans
     leans_ = sorted((p for p in graded_all if p.get("lean")), key=lambda p: (p["date"], p.get("posted") or ""))
-    tennis_ = {}                                             # 🎾 tennis: its own record (a match counts once)
+    import sports_tennis as stn
+    tennis_ = {}                                             # 🎾 tennis: men's and women's, each its own record
+    tn_slates = []                                           # (a match counts once; tennis LIVE plays never count here)
     try:
         with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
-            for sl in json.load(f):
-                for l in sl.get("picks") or []:
-                    if l.get("result") in ("won", "lost"):
-                        tennis_[l.get("match") or l["id"]] = (l["result"], sl["date"])
+            tn_slates = json.load(f)
     except (OSError, ValueError):
         pass
-    tn_rows = sorted(tennis_.values(), key=lambda x: x[1])
+    for sl in tn_slates:
+        for l in sl.get("picks") or []:
+            if l.get("result") in ("won", "lost"):
+                tennis_[l.get("match") or l["id"]] = (stn.tour_of(l), l["result"], sl["date"])
+    tn_rows = {t: sorted(((r, d) for tt, r, d in tennis_.values() if tt == t), key=lambda x: x[1]) for t in stn.TOURS}
+    tn_rec = stn.record(tn_slates) if tn_slates else {t: {"p_won": 0, "p_lost": 0} for t in (*stn.TOURS, "mixed")}
+
+    def tn_box(name, t):
+        rows_ = tn_rows[t]
+        pw, pl_ = tn_rec[t]["p_won"], tn_rec[t]["p_lost"]
+        return grade(name, "#c6f000", "#1fd17a", [r for r, _ in rows_], [r for r, dd in rows_ if dd == today]).replace(
+            "</div></div>", f'</div><div class="rc-s">parlays {pw}-{pl_}</div></div>', 1)
     others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
               + grade("🟡 LEANS", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [p["status"] for p in leans_ if p["date"] == today])
-              + grade("🎾 TENNIS", "#c6f000", "#1fd17a", [r for r, _ in tn_rows], [r for r, dd in tn_rows if dd == today]))
-    RECORDS["tennis (own record, not ours)"] = wlt(sum(r == 'won' for r, _ in tn_rows), sum(r == 'lost' for r, _ in tn_rows))
+              + tn_box("🎾 MEN'S TENNIS", "atp") + tn_box("🎾 WOMEN'S TENNIS", "wta"))
+    for t, label in (("atp", "men's tennis"), ("wta", "women's tennis")):
+        RECORDS[f"{label} (own record, not ours)"] = wlt(sum(r == 'won' for r, _ in tn_rows[t]), sum(r == 'lost' for r, _ in tn_rows[t]))
+        RECORDS[f"{label} parlays"] = wlt(tn_rec[t]["p_won"], tn_rec[t]["p_lost"])
+    if tn_rec["mixed"]["p_won"] + tn_rec["mixed"]["p_lost"]:
+        RECORDS["old mixed tennis parlays (before the tours were split)"] = wlt(tn_rec["mixed"]["p_won"], tn_rec["mixed"]["p_lost"])
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 NFL", ("nfl",)), ("🏈 College Football", ("ncaaf",)), ("🏀 NBA", ("nba",)),
               ("🏀 College Basketball", ("ncaab",)), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
@@ -566,14 +621,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 if l.get("result") in ("won", "lost"):     # if we posted it, it counts
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
     res = list(seen_.values())
-    try:                                                     # 🎾 tennis shows here too (its own record - a match counts once)
-        with open(os.path.join(sd.DATA, "tennis", "picks.json")) as f:
-            res += list({(l.get("match") or l["id"]): ("tennis", l["result"]) for sl in json.load(f) for l in sl.get("picks") or []
-                         if l.get("result") in ("won", "lost")}.values())
-    except (OSError, ValueError):
-        pass
+    res += [(f"tennis_{t}", r) for t, r, _ in tennis_.values()]   # 🎾 men's and women's apart (a match counts once)
+    tn_groups = [("🎾 Men's Tennis", ("tennis_atp",)), ("🎾 Women's Tennis", ("tennis_wta",))]
     chips = []
-    for name, lgs in groups + [("🎾 Tennis", ("tennis",))]:
+    for name, lgs in groups + tn_groups:
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
         hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
@@ -581,7 +632,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i></div>')
     by_sport = "".join(chips)
     RECORDS["by sport"] = {name.split(" ", 1)[1]: wlt(sum(r == 'won' for lg, r in res if lg in lgs),
-                                                      sum(r == 'lost' for lg, r in res if lg in lgs)) for name, lgs in groups}
+                                                      sum(r == 'lost' for lg, r in res if lg in lgs)) for name, lgs in groups + tn_groups}
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -962,7 +1013,7 @@ function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
  el.innerHTML='<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>'+(ps.length?ps.map(function(p){{
-  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">LIVE BET</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
+  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">'+(p.double_down?'🔁 DOUBLE DOWN':'LIVE BET')+'</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
    
    '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+

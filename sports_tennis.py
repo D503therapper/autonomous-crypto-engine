@@ -7,10 +7,12 @@ Every engine run:
      plus learned weights for fatigue (sets played the last 3 days), recent form and head-to-head. Best-of-5 at
      the Slams is handled from the per-set strength. Fit on the history, graded on the latest matches.
   3. Odds: Bovada's public feed (current men's singles moneylines), refreshed every run.
-  4. Once a day (from 6pm Pacific the night before, the next 24 hours of matches): 8 straight picks - value first
-     (our win chance beats the price by 2%+; big favorites are fine in tennis), then the likeliest favorites fill
-     it - and a Tennis Parlay of the Day (the 3 likeliest of them). Posted picks are final. Retirements: void if
-     no set was finished, otherwise the player who advances wins it; walkovers are void.
+  4. Once a day (from 6pm Pacific the night before, the next 24 hours of matches): up to 6 men's and 6 women's
+     straight picks (55%+ and real value - fewer qualify = fewer picks, never filler), a Men's Tennis Parlay and a
+     Women's Tennis Parlay (the 3 likeliest of that tour - never a mixed parlay). Posted picks are final.
+     Retirements: void if no set was finished, otherwise the player who advances wins it; walkovers are void.
+Men's and women's tennis are different worlds: separate ratings pools (ESPN's player ids are per tour - the same
+number is two different people), weights learned and graded per tour, separate records.
 Picks, results and records live in data/sports/tennis/picks.json."""
 import csv
 import json
@@ -33,7 +35,7 @@ DIR = os.path.join(sd.DATA, "tennis")
 MATCHES = os.path.join(DIR, "matches.csv")
 PICKS = os.path.join(DIR, "picks.json")
 ODDS = os.path.join(DIR, "odds.json")
-RANKS = os.path.join(DIR, "rankings.json")   # the ATP ranking, saved daily (ESPN only has today's): {date: {id: rank}}
+RANKS = os.path.join(DIR, "rankings.json")   # ATP + WTA rankings, saved daily (ESPN only has today's): {date: {"tour:id": rank}}
 LINES = os.path.join(DIR, "lines.json")      # every price seen, the last one before the start kept (closing line)
 FIELDS = ["id", "tour", "start", "event", "tourney", "round", "surface", "bo", "p1", "p1_name", "p2", "p2_name", "winner",
           "sets1", "sets2", "status", "done", "cc1", "cc2", "venue"]
@@ -49,11 +51,17 @@ ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard"
 TOURS = ("atp", "wta")
 BOVADA = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&lang=en"
 YEARS = 10
-N_PICKS = 8
-PARLAY_LEGS = 3
+N_PER_TOUR = 6                 # up to 6 men's + 6 women's straights a slate (never filler)
+N_PICKS = 2 * N_PER_TOUR
+PARLAY_LEGS = 3                # one parlay per tour (the 3 likeliest of that tour) - never a mixed parlay
+TOUR_MIN_RATED = 3000          # a tour learns its own weights once it has this many rated matches; before that it
+                               # borrows the shared weights (and the log says so)
+PRIOR = [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+STUDY = os.path.join(DIR, "study.json")        # the per-tour weights + accuracy from the last study
+PREMATCH = os.path.join(DIR, "prematch.json")  # the last pre-match numbers per match (live tennis starts from them)
 MIN_EDGE = 0.02                # a tennis value pick: our win chance beats the price by 2%+
 MIN_P = 0.55                   # ACCURACY FIRST: a tennis pick is one we expect to WIN (55%+) - no coin-flip dogs.
-                               # Fewer than 8 qualify = fewer picks; never filler to reach 8
+                               # Fewer qualify = fewer picks; never filler
 MAX_FAV = -300                 # no tennis moneyline shorter than -300: heavier favorites go on the game spread,
                                # and only when the engine expects them to win by more than the number
 MIN_MATCHES = 10               # both players need this many rated matches
@@ -111,13 +119,15 @@ def parse_espn(payload, tour="atp"):
                 if len(comps) != 2:
                     continue
                 st = ((c.get("status") or {}).get("type") or {})
-                ids, names, sets, ccs = [], [], [], []
+                ids, names, sets, ccs, pts, serving = [], [], [], [], [], []
                 for x in comps:
                     a = x.get("athlete") or {}
                     ids.append(str(a.get("id") or x.get("id") or ""))
                     names.append(a.get("displayName") or a.get("fullName") or "?")
                     ccs.append(((a.get("flag") or {}).get("alt") or "").strip())
                     sets.append([int(float(ls.get("value") or 0)) for ls in x.get("linescores") or []])
+                    pts.append(_live_points(x))
+                    serving.append(_serving(x))
                 if not all(ids):
                     continue
                 win = 1 if comps[0].get("winner") else 2 if comps[1].get("winner") else 0
@@ -131,8 +141,34 @@ def parse_espn(payload, tour="atp"):
                     "sets1": " ".join(map(str, sets[0])), "sets2": " ".join(map(str, sets[1])),
                     "status": st.get("name") or "", "done": done, "cc1": ccs[0], "cc2": ccs[1],
                     "venue": ((c.get("venue") or {}).get("fullName") or ""),
+                    # live extras (not stored in matches.csv): the game score and who's serving, when ESPN has them
+                    "pts1": pts[0], "pts2": pts[1],
+                    "server": 1 if serving[0] and not serving[1] else 2 if serving[1] and not serving[0] else None,
+                    "detail": str(st.get("detail") or st.get("shortDetail") or (c.get("status") or {}).get("detail") or ""),
                 })
     return out
+
+
+def _live_points(x):
+    """The current game's points for one competitor ('0', '15', '30', '40', 'AD', or a tiebreak number) - ESPN's
+    tennis feed doesn't always carry them, so every place they've been seen is tried. None = not in the feed."""
+    for k in ("points", "currentPoints", "gameScore", "currentGameScore", "point"):
+        v = x.get(k)
+        if v not in (None, ""):
+            return str(v.get("displayValue") or v.get("value") or "") if isinstance(v, dict) else str(v)
+    ls = x.get("linescores") or []
+    if ls and isinstance(ls[-1], dict):
+        for k in ("points", "currentPoints", "gamePoints"):
+            if ls[-1].get(k) not in (None, ""):
+                return str(ls[-1][k])
+    return None
+
+
+def _serving(x):
+    for k in ("possession", "serving", "isServing", "server", "serve"):
+        if x.get(k) is not None:
+            return bool(x.get(k))
+    return False
 
 
 def _state(row):
@@ -284,6 +320,48 @@ class Ratings:
         self.h2h[(winner, loser)] = self.h2h.get((winner, loser), 0) + 1
 
 
+def tour_of(x):
+    """'atp' / 'wta' for a match row, a pick, a candidate or a plain tour string (old rows: from the id prefix)."""
+    if isinstance(x, dict):
+        t = str(x.get("tour") or "").lower()
+        if t not in TOURS:
+            t = "wta" if str(x.get("match") or x.get("id") or "").startswith("wta:") else "atp"
+        return t
+    return "wta" if str(x or "").lower() == "wta" else "atp"
+
+
+class Pools:
+    """One ratings pool per tour. ESPN's player ids are numbered per tour (ATP 2980 and WTA 2980 are two different
+    people), so an ATP result must never move a WTA rating, form, fatigue or head-to-head - or the other way round."""
+
+    def __init__(self):
+        self.pools = {t: Ratings() for t in TOURS}
+
+    def pool(self, tour):
+        return self.pools[tour_of(tour)]
+
+    def features(self, m, when=None):
+        return self.pool(tour_of(m)).features(m, when)
+
+    def update(self, m):
+        self.pool(tour_of(m)).update(m)
+
+
+def weights_for(w, tour):
+    """The tour's own weights ({'atp': [...], 'wta': [...], 'shared': [...]}); a plain list = one set for both."""
+    if isinstance(w, dict):
+        return w.get(tour_of(tour)) or w.get("shared") or PRIOR
+    return w
+
+
+def games_for(gm, tour):
+    """The tour's game-margin model ({'atp': {'3': [slope, sig]}, ...}); a flat {'3': ...} = one for both."""
+    gm = gm or {}
+    if any(k in gm for k in TOURS):
+        return gm.get(tour_of(tour)) or {}
+    return gm
+
+
 def _cc(x):
     x = str(x or "").strip().lower()
     return ALIASES.get(x, x)
@@ -328,50 +406,99 @@ def _x(f):
     return [1.0, f["elo"], f["fatigue"], f["form"], f["h2h"], f.get("home", 0), f.get("clash_elo", 0)]
 
 
-def model_p(w, f, bo=3):
-    p = sm.sigmoid(sum(a * b for a, b in zip(w, _x(f))))
+def model_p(w, f, bo=3, tour=None):
+    """p1's match win chance with the tour's own weights (w: per-tour dict or one list)."""
+    ws = weights_for(w, tour)
+    p = sm.sigmoid(sum(a * b for a, b in zip(ws, _x(f))))
     return to_bo5(p) if int(bo or 3) == 5 else p
 
 
-def study(ms, eval_n=2000):
-    """Replay every finished match: ratings + the learned weights. Returns (ratings, weights, report)."""
-    rows = sorted((m for m in ms.values() if _state(m) in ("final", "retired")), key=lambda m: (m["start"], m["id"]))
-    rt = Ratings()
-    data = []
-    for m in rows:
-        f = rt.features(m)
-        if f["known"] >= MIN_MATCHES and int(m["winner"] or 0) in (1, 2) and _state(m) == "final":
-            data.append((f, 1.0 if int(m["winner"]) == 1 else 0.0, m))
-        rt.update(m)
-    prior = [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    fit_on, ev = data[:-eval_n], data[-eval_n:]
-    w = sm.fit_logistic_offset([_x(f) for f, _, _ in fit_on], [y for _, y, _ in fit_on], [0.0] * len(fit_on),
-                               prior=prior, lam=20.0) if len(fit_on) >= 500 else prior
+def _fit(rows):
+    return sm.fit_logistic_offset([_x(f) for f, _, _ in rows], [y for _, y, _ in rows], [0.0] * len(rows),
+                                  prior=PRIOR, lam=20.0) if len(rows) >= 500 else list(PRIOR)
 
-    def score(ws):
-        if not ev:
-            return None, None
-        ll = acc = 0.0
-        for f, y, m in ev:
-            p = min(max(model_p(ws, f, m["bo"]), 1e-4), 1 - 1e-4)
-            ll -= math.log(p if y else 1 - p)
-            acc += (p > 0.5) == (y == 1.0)
-        return ll / len(ev), acc / len(ev)
-    ll, acc = score(w)
-    ll0, acc0 = score(prior)
+
+def _score(ws, ev):
+    """(log loss, accuracy) of weights ws on graded rows [(features, y, match)]."""
+    if not ev:
+        return None, None
+    ll = acc = 0.0
+    for f, y, m in ev:
+        p = min(max(model_p(ws, f, m["bo"]), 1e-4), 1 - 1e-4)
+        ll -= math.log(p if y else 1 - p)
+        acc += (p > 0.5) == (y == 1.0)
+    return ll / len(ev), acc / len(ev)
+
+
+def _games_model(ws, rows):
     gm = {}
     for bo in (3, 5):                   # games won by: margin = slope * logit(win chance) (+ noise), per format
-        pts = [(sm.logit(min(max(model_p(w, f, bo), 0.01), 0.99)), margin(m)) for f, _, m in fit_on or data
+        pts = [(sm.logit(min(max(model_p(ws, f, bo), 0.01), 0.99)), margin(m)) for f, _, m in rows
                if int(m["bo"] or 3) == bo and margin(m) is not None]
         if len(pts) >= 300:
             slope = sum(x * y for x, y in pts) / max(1e-9, sum(x * x for x, _ in pts))
             sig = math.sqrt(sum((y - slope * x) ** 2 for x, y in pts) / len(pts))
             gm[str(bo)] = [round(slope, 3), round(sig, 3)]
-    report = {"matches": len(rows), "rated": len(data), "weights": [round(v, 3) for v in w], "games": gm,
-              "acc": round(acc, 4) if acc is not None else None, "logloss": round(ll, 4) if ll is not None else None,
-              "acc_elo": round(acc0, 4) if acc0 is not None else None,
-              "logloss_elo": round(ll0, 4) if ll0 is not None else None}
+    return gm
+
+
+def _r(x):
+    return round(x, 4) if x is not None else None
+
+
+def study(ms, eval_n=2000, log=print):
+    """Replay every finished match through its own tour's ratings pool, then learn and grade the weights PER TOUR
+    (men's and women's tennis are different worlds). A tour with too few rated matches borrows the shared weights
+    (fit on both tours) and the log says so. Returns (ratings pools, {'atp','wta','shared'} weights, report)."""
+    rows = sorted((m for m in ms.values() if _state(m) in ("final", "retired")), key=lambda m: (m["start"], m["id"]))
+    rt = Pools()
+    data = {t: [] for t in TOURS}
+    for m in rows:
+        f = rt.features(m)
+        if f["known"] >= MIN_MATCHES and int(m["winner"] or 0) in (1, 2) and _state(m) == "final":
+            data[tour_of(m)].append((f, 1.0 if int(m["winner"]) == 1 else 0.0, m))
+        rt.update(m)
+    split = {}
+    for t, d in data.items():                          # each tour graded on its own latest matches
+        n_ev = min(eval_n, len(d) // 4)
+        split[t] = (d[:len(d) - n_ev], d[len(d) - n_ev:])
+    fit_all = sorted((r for t in TOURS for r in split[t][0]), key=lambda r: (r[2]["start"], r[2]["id"]))
+    shared = _fit(fit_all)
+    gm_shared = _games_model(shared, fit_all)
+    w = {"shared": shared}
+    tours, gm = {}, {}
+    for t in TOURS:
+        fit_on, ev = split[t]
+        own = len(data[t]) >= TOUR_MIN_RATED and len(fit_on) >= 500
+        if own:
+            w[t] = _fit(fit_on)
+        else:
+            w[t] = shared
+            log(f"tennis study: {t.upper()} has only {len(data[t])} rated matches (< {TOUR_MIN_RATED}) - "
+                f"using the shared weights for it")
+        gm[t] = (_games_model(w[t], fit_on) if own else {}) or gm_shared
+        ll, acc = _score(w[t], ev)
+        ll0, acc0 = _score(PRIOR, ev)
+        tours[t] = {"rated": len(data[t]), "fit": len(fit_on), "graded": len(ev), "own_weights": own,
+                    "weights": [round(v, 3) for v in w[t]], "games": gm[t], "acc": _r(acc), "logloss": _r(ll),
+                    "acc_elo": _r(acc0), "logloss_elo": _r(ll0)}
+    ev_all = [r for t in TOURS for r in split[t][1]]
+    both = [(tours[t]["acc"], tours[t]["logloss"], tours[t]["acc_elo"], tours[t]["logloss_elo"], tours[t]["graded"])
+            for t in TOURS if tours[t]["graded"]]
+
+    def avg(i):
+        return _r(sum(b[i] * b[4] for b in both) / len(ev_all)) if ev_all else None
+    report = {"matches": len(rows), "rated": sum(len(d) for d in data.values()), "weights": [round(v, 3) for v in shared],
+              "games": gm, "tours": tours, "acc": avg(0), "logloss": avg(1), "acc_elo": avg(2), "logloss_elo": avg(3)}
     return rt, w, report
+
+
+def save_study(rep, now):
+    """The per-tour weights and accuracy, saved (data/sports/tennis/study.json)."""
+    os.makedirs(DIR, exist_ok=True)
+    with open(STUDY + ".tmp", "w") as f:
+        json.dump({**rep, "updated": now.strftime("%Y-%m-%dT%H:%MZ")}, f, indent=1)
+    os.replace(STUDY + ".tmp", STUDY)
 
 
 # ---------------------------------------------------------------- odds
@@ -388,16 +515,36 @@ def _median(xs):
 def bovada():
     """Bovada's public tennis feed: ATP + WTA singles moneylines."""
     data, _ = _get(BOVADA)
+    return parse_bovada(data)
+
+
+def _bov_tour(path):
+    """'atp' / 'wta' from Bovada's group path; None when it names both (a combined event: names decide)."""
+    a, w = bool(re.search(r"\batp\b", path)), bool(re.search(r"\bwta\b", path))
+    return None if a == w else "wta" if w else "atp"
+
+
+def parse_bovada(data, live=False):
+    """Bovada tennis groups -> [{a, b, start, a_ml, b_ml, (a_hcp, a_sp, ...), tour}] (ATP + WTA singles).
+    live=True: only events being played and their LIVE match moneyline; a line the book has suspended (market or
+    a side not open, or no price) comes back with suspended=True - never a price to act on."""
     rows = {}
-    for grp in data or []:
+    for grp in data if isinstance(data, list) else []:
+        if not isinstance(grp, dict):
+            continue
         path = " ".join(str(p.get("description") or "") for p in grp.get("path") or []).lower()
         if not re.search(r"\b(atp|wta)\b", path) or any(k in path for k in ("doubles", "challenger", "itf", "exhibition", "utr", "125")):
             continue
         for ev in grp.get("events") or []:
+            if live and not ev.get("live"):
+                continue
             for dg in ev.get("displayGroups") or []:
                 for mk in dg.get("markets") or []:
                     desc = str(mk.get("description", "")).lower()
-                    if not (mk.get("period") or {}).get("main", True) or ("moneyline" not in desc and "game spread" not in desc):
+                    per = mk.get("period") or {}
+                    if not per.get("main", True) or ("moneyline" not in desc and "game spread" not in desc):
+                        continue
+                    if live and ("moneyline" not in desc or not per.get("live")):
                         continue
                     oc = mk.get("outcomes") or []
                     if len(oc) != 2:
@@ -407,11 +554,17 @@ def bovada():
                         v = str((o.get("price") or {}).get("american") or "").upper()
                         return 100 if v == "EVEN" else int(v) if re.match(r"^[+-]?\d+$", v) else None
                     a, b = am(oc[0]), am(oc[1])
-                    if a is None or b is None:
-                        continue
                     start = datetime.fromtimestamp(int(ev.get("startTime", 0)) / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
                     key = (oc[0].get("description"), oc[1].get("description"), start)
-                    row = rows.setdefault(key, {"a": key[0], "b": key[1], "start": start, "src": "bovada"})
+                    if live:
+                        shut = (str(mk.get("status") or "O").upper() != "O" or a is None or b is None
+                                or any(str(o.get("status") or "O").upper() != "O" for o in oc))
+                        rows[key] = {"a": key[0], "b": key[1], "start": start, "src": "bovada", "tour": _bov_tour(path),
+                                     "a_ml": a, "b_ml": b, "suspended": shut, "event": str(ev.get("id") or "")}
+                        continue
+                    if a is None or b is None:
+                        continue
+                    row = rows.setdefault(key, {"a": key[0], "b": key[1], "start": start, "src": "bovada", "tour": _bov_tour(path)})
                     if "moneyline" in desc:
                         row["a_ml"], row["b_ml"] = a, b
                     else:
@@ -446,19 +599,20 @@ def refresh_odds(state, now):
 
 
 def rankings(now):
-    """Today's ATP + WTA rankings {player id: rank}; saved once a day so the engine builds its own ranking history."""
+    """Today's ATP + WTA rankings {"tour:player id": rank} (ids are per tour: ATP 2980 is not WTA 2980); saved once a
+    day so the engine builds its own ranking history. A day saved the old way (bare ids, tours mixed) is re-read."""
     hist = {}
     if os.path.exists(RANKS):
         with open(RANKS) as f:
             hist = json.load(f)
     day = now.astimezone(PT).date().isoformat()
-    if day not in hist:
+    if day not in hist or (hist[day] and not any(":" in k for k in hist[day])):
         try:
             hist[day] = {}
             for tour in TOURS:
                 with urllib.request.urlopen(ESPN.format(tour=tour).replace("scoreboard", "rankings"), timeout=20) as r:
                     ranks = (json.load(r).get("rankings") or [{}])[0].get("ranks") or []
-                hist[day].update({str((x.get("athlete") or {}).get("id")): int(x.get("current")) for x in ranks if x.get("current")})
+                hist[day].update({f"{tour}:{(x.get('athlete') or {}).get('id')}": int(x.get("current")) for x in ranks if x.get("current")})
             os.makedirs(DIR, exist_ok=True)
             with open(RANKS, "w") as f:
                 json.dump(hist, f, indent=0, sort_keys=True)
@@ -489,12 +643,12 @@ def news_sync(now):
             for c in a.get("categories") or []:
                 pid = c.get("athleteId") or (c.get("athlete") or {}).get("id")
                 if pid:
-                    tags = data.setdefault(str(pid), [])
+                    tags = data.setdefault(f"{tour}:{pid}", [])          # ids are per tour
                     if all(t["id"] != str(a.get("id")) for t in tags):
                         tags.append({"id": str(a.get("id")), "kind": kinds[0], "date": (a.get("published") or now.isoformat())[:10],
                                      "headline": (a.get("headline") or "")[:140]})
     cut = (now - timedelta(days=sports_news.DRAMA_DAYS)).date().isoformat()
-    data = {k: [t for t in v if t["date"] >= cut] for k, v in data.items()}
+    data = {k: [t for t in v if t["date"] >= cut] for k, v in data.items() if ":" in k}   # (bare ids: tour unknown)
     data = {k: v for k, v in data.items() if v}
     os.makedirs(DIR, exist_ok=True)
     with open(NEWS, "w") as f:
@@ -518,24 +672,33 @@ def save_lines(lines, now):
 def price(m, lines, full=False):
     """(p1 ml, p2 ml) for a stored match from the odds lines (same two last names, start within 36 hours);
     full=True: {ml: (p1, p2), sp: ((p1 handicap, odds), (p2 handicap, odds)) or None}."""
+    ln, flip = match_line(m, lines)
+    if ln is None:
+        return None
+    a, b = ("b", "a") if flip else ("a", "b")
+    ml = (ln[f"{a}_ml"], ln[f"{b}_ml"])
+    if not full:
+        return ml
+    sp = ((ln[f"{a}_hcp"], ln[f"{a}_sp"]), (ln[f"{b}_hcp"], ln[f"{b}_sp"])) if f"{a}_hcp" in ln else None
+    return {"ml": ml, "sp": sp}
+
+
+def match_line(m, lines, hours=36):
+    """(the odds line for this match, flipped?) - same two last names (either order), start within `hours`."""
     l1, l2 = _last(m["p1_name"]), _last(m["p2_name"])
     n1, n2 = set(_norm(m["p1_name"])), set(_norm(m["p2_name"]))
 
     def same(line_name, last, names):                        # same last name, or the same name in the other order
         return _last(line_name) == last or (len(names) >= 2 and set(_norm(line_name)) == names)   # ("Ma Yexin" = "Yexin Ma")
     for ln in lines:
-        if ln.get("start") and m["start"] and abs((_t(ln["start"]) - _t(m["start"])).total_seconds()) > 36 * 3600:
+        if ln.get("start") and m["start"] and abs((_t(ln["start"]) - _t(m["start"])).total_seconds()) > hours * 3600:
             continue
+        if ln.get("tour") and m.get("tour") and ln["tour"] != tour_of(m):
+            continue                                             # never a men's line on a women's match
         for flip, (x, y) in ((False, (ln["a"], ln["b"])), (True, (ln["b"], ln["a"]))):
-            if not (same(x, l1, n1) and same(y, l2, n2)):
-                continue
-            a, b = ("b", "a") if flip else ("a", "b")
-            ml = (ln[f"{a}_ml"], ln[f"{b}_ml"])
-            if not full:
-                return ml
-            sp = ((ln[f"{a}_hcp"], ln[f"{a}_sp"]), (ln[f"{b}_hcp"], ln[f"{b}_sp"])) if f"{a}_hcp" in ln else None
-            return {"ml": ml, "sp": sp}
-    return None
+            if same(x, l1, n1) and same(y, l2, n2):
+                return ln, flip
+    return None, False
 
 
 # ---------------------------------------------------------------- the words
@@ -700,23 +863,25 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
         if not full or f["known"] < MIN_MATCHES:
             continue
         pr, sp = full["ml"], full["sp"]
-        p1 = model_p(w, f, m["bo"])
+        tour = tour_of(m)
+        p1 = model_p(w, f, m["bo"], tour)                       # the tour's own weights
         for side, p, ml, opp_ml in ((1, p1, pr[0], pr[1]), (2, 1 - p1, pr[1], pr[0])):
             me, them = (m["p1_name"], m["p2_name"]) if side == 1 else (m["p2_name"], m["p1_name"])
             fs = f if side == 1 else {**f, "fatigue": -f["fatigue"], "form": -f["form"], "h2h": -f["h2h"],
                                       "surface_gap": -f["surface_gap"], "home": -f["home"]}
             dec = sd.decimal(ml)
             mine, theirs = (m["p1"], m["p2"]) if side == 1 else (m["p2"], m["p1"])
+            mine, theirs = f"{tour}:{mine}", f"{tour}:{theirs}"          # ranks + news are keyed per tour
             out.append({"id": f"{m['id']}:{side}", "match": m["id"], "side": side, "player": me, "opp": them,
-                        "tour": m.get("tour", "atp"),
+                        "tour": tour,
                         "rank": ranks.get(mine), "opp_rank": ranks.get(theirs),
                         "our_drama": (news.get(mine) or [])[:1], "their_drama": (news.get(theirs) or [])[:1],
                         "odds": ml, "dec": dec, "p": p, "edge": p * dec - 1, "start": m["start"], "tourney": m["tourney"],
                         "round": m["round"], "surface": m["surface"], "bo": m["bo"], "f": fs, "market": "ml", "hcp": None,
                         "ml": ml, "win_p": p})
-            if sp and gm:
+            if sp and games_for(gm, tour):
                 hcp, sodds = sp[side - 1]
-                pc = cover_p(gm, p, hcp, m["bo"])
+                pc = cover_p(games_for(gm, tour), p, hcp, m["bo"])
                 if pc is not None:
                     sdec = sd.decimal(sodds)
                     out.append({**out[-1], "id": f"{m['id']}:{side}:sp", "market": "spread", "hcp": hcp, "odds": sodds,
@@ -725,7 +890,9 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
 
 
 def pick_slate(cands):
-    """Up to 8 straights we expect to win (55%+) with real value, likeliest first + the parlay (the 3 likeliest)."""
+    """Up to 6 men's + 6 women's straights we expect to win (55%+) with real value, likeliest first, and one parlay
+    per tour (the 3 likeliest of that tour; a tour with fewer than 3 picks gets none). Never a mixed parlay.
+    Returns (picks, {"atp": [legs], "wta": [legs]})."""
     for c in cands:
         c["value"] = c["edge"] >= (2 * MIN_EDGE if c.get("our_drama") else MIN_EDGE)
     cands = [c for c in cands if c["p"] >= MIN_P and c["value"]                  # likely to win AND real value
@@ -736,14 +903,25 @@ def pick_slate(cands):
     for c in sorted(cands, key=lambda c: -c["p"]):
         best.setdefault(c["match"], c)                          # one side per match (the likelier bet: ML or spread)
     ranked = sorted(best.values(), key=lambda c: -c["p"])
-    men = [c for c in ranked if c.get("tour", "atp") != "wta"]      # the owner wants men's and women's even:
-    women = [c for c in ranked if c.get("tour") == "wta"]             # half and half, the likeliest of each...
-    half = N_PICKS // 2
-    picks = men[:half] + women[:half]
-    rest = [c for c in ranked if c not in picks]                       # ...and if one side's short on real picks,
-    picks = sorted(picks + rest[:N_PICKS - len(picks)], key=lambda c: -c["p"])   # the other side fills (never filler)
-    parlay = sorted(picks, key=lambda c: -c["p"])[:PARLAY_LEGS] if len(picks) >= PARLAY_LEGS else []
-    return picks, parlay
+    by = {t: [c for c in ranked if tour_of(c) == t][:N_PER_TOUR] for t in TOURS}   # each tour on its own: up to 6
+    picks = sorted(by["atp"] + by["wta"], key=lambda c: -c["p"])                 # (one tour short = fewer picks)
+    parlays = {t: (by[t][:PARLAY_LEGS] if len(by[t]) >= PARLAY_LEGS else []) for t in TOURS}
+    return picks, parlays
+
+
+def _parlay(legs):
+    dec = 1.0
+    for c in legs:
+        dec *= c["dec"]
+    return {"legs": [c["id"] for c in legs], "dec": round(dec, 4), "american": round((dec - 1) * 100) if dec >= 2
+            else round(-100 / (dec - 1)), "status": "open", "tour": tour_of(legs[0])}
+
+
+def parlays_of(slate):
+    """[(key, parlay)] of a slate: 'atp' / 'wta' (new slates, one per tour) and 'mixed' (an old slate's single parlay
+    of both tours - it keeps its own label and never counts in a tour's record)."""
+    out = [("mixed", slate["parlay"])] if slate.get("parlay") else []
+    return out + [(t, p) for t, p in (slate.get("parlays") or {}).items() if p]
 
 
 def post(ms, rt, w, lines, picks, now, gm=None):
@@ -757,25 +935,23 @@ def post(ms, rt, w, lines, picks, now, gm=None):
                        news_sync(now) if lines else {}, gm)
     already = {l.get("match") or l["id"] for p in picks for l in p.get("picks") or []}   # a MATCH already on a slate
     cands = [c for c in cands if (c.get("match") or c["id"]) not in already]            # never goes up twice (any bet)
-    straights, parlay = pick_slate(cands)
+    straights, parlays = pick_slate(cands)
     if not straights:
         return None
     used = _used()   # no phrase repeats anywhere on the dashboard
-    legs = []
-    for c in straights:
-        legs.append({k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
-                                            "market", "hcp", "ml",
-                                        "round", "surface", "bo", "value")} | {"result": None, "breakdown": breakdown(c, rt, used), "bv": TENNIS_BV})
-    par = None
-    if parlay:
-        dec = 1.0
-        for c in parlay:
-            dec *= c["dec"]
-        par = {"legs": [c["id"] for c in parlay], "dec": round(dec, 4), "american": round((dec - 1) * 100) if dec >= 2
-               else round(-100 / (dec - 1)), "status": "open"}
-    slate = {"date": iso, "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "picks": legs, "parlay": par}
+    legs = [_leg(c, rt, used) for c in straights]
+    slate = {"date": iso, "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "picks": legs,
+             "parlays": {t: (_parlay(ls) if ls else None) for t, ls in parlays.items()}}   # one per tour, never mixed
     picks.append(slate)
     return slate
+
+
+LEG_KEYS = ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney", "market", "hcp", "ml",
+            "round", "surface", "bo", "value")
+
+
+def _leg(c, rt, used):
+    return {k: c.get(k) for k in LEG_KEYS} | {"result": None, "breakdown": breakdown(c, rt, used), "bv": TENNIS_BV}
 
 
 ASK_PATH = "docs/sports/reads_tennis.json"
@@ -834,23 +1010,27 @@ def repick(ms, rt, w, lines, picks, now, gm=None):
     keep = [l for l in slate["picks"] if l.get("result") or _t(l["start"]) <= soon]
     cands = [c for c in candidates(ms, rt, w, lines, now, now + timedelta(hours=24), gm=gm)
              if c["match"] not in {l["match"] for l in keep}]
-    straights, parlay = pick_slate(cands)
+    straights, parlays = pick_slate(cands)
     used = _used()   # no phrase repeats anywhere on the dashboard
-    new = [{k: c.get(k) for k in ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney",
-                                  "market", "hcp", "ml", "round", "surface", "bo", "value")}
-           | {"result": None, "breakdown": breakdown(c, rt, used), "bv": TENNIS_BV} for c in straights[:max(0, N_PICKS - len(keep))]]
+    new = []
+    for t in TOURS:                                         # each tour tops up to its own 6
+        room = max(0, N_PER_TOUR - sum(tour_of(l) == t for l in keep))
+        new += [_leg(c, rt, used) for c in straights if tour_of(c) == t][:room]
     old = [l["player"] for l in slate["picks"]]
     slate["picks"] = keep + new
-    par = slate.get("parlay")
-    if not par or all(_t(l["start"]) > soon for l in slate["picks"] if l["id"] in (par or {}).get("legs", [])):
-        if parlay and all(c["id"] in {l["id"] for l in new} for c in parlay):
-            dec = 1.0
-            for c in parlay:
-                dec *= c["dec"]
-            slate["parlay"] = {"legs": [c["id"] for c in parlay], "dec": round(dec, 4),
-                               "american": round((dec - 1) * 100) if dec >= 2 else round(-100 / (dec - 1)), "status": "open"}
-        else:
-            slate["parlay"] = None
+    new_ids = {l["id"] for l in new}
+
+    def untouched(par):                                     # no leg of it has started yet
+        return all(_t(l["start"]) > soon for l in slate["picks"] if l["id"] in (par or {}).get("legs", []))
+    if slate.get("parlay") and not untouched(slate["parlay"]):
+        pass                                                # an old mixed parlay already going: it stays as posted
+    else:
+        slate.pop("parlay", None)
+        pars = slate.setdefault("parlays", {})
+        for t in TOURS:
+            if not pars.get(t) or untouched(pars[t]):
+                ls = parlays.get(t) or []
+                pars[t] = _parlay(ls) if ls and all(c["id"] in new_ids for c in ls) else None
     slate["repicked"] = now.strftime("%Y-%m-%dT%H:%MZ")
     os.remove(REPICK)
     print(f"tennis re-pick {want}: {old} -> {[l['player'] for l in slate['picks']]}")
@@ -878,9 +1058,10 @@ def grade(ms, picks):
             elif st in ("final", "retired") and int(m["winner"] or 0) in (1, 2):
                 leg["result"] = "won" if int(m["winner"]) == leg["side"] else "lost"
                 leg["score"] = _score_txt(m)
-        par = s.get("parlay")
-        if par and par["status"] == "open":
-            res = [next(l["result"] for l in s["picks"] if l["id"] == i) for i in par["legs"]]
+        for _, par in parlays_of(s):                       # old slates: one mixed parlay; new: one per tour
+            if par["status"] != "open":
+                continue
+            res = [next((l["result"] for l in s["picks"] if l["id"] == i), None) for i in par["legs"]]
             if "lost" in res:
                 par["status"] = "lost"
             elif all(r in ("won", "void", "push") for r in res):
@@ -893,10 +1074,54 @@ def _score_txt(m):
 
 
 def record(picks):
-    legs = [l for s in picks for l in s["picks"]]
-    pars = [s["parlay"] for s in picks if s.get("parlay")]
-    return {"won": sum(l["result"] == "won" for l in legs), "lost": sum(l["result"] == "lost" for l in legs),
-            "p_won": sum(p["status"] == "won" for p in pars), "p_lost": sum(p["status"] == "lost" for p in pars)}
+    """Men's and women's tennis records, apart (a match counts once, even if two slates carry it). Parlays per tour;
+    an old slate's mixed parlay only counts under 'mixed'."""
+    out = {t: {"won": 0, "lost": 0, "p_won": 0, "p_lost": 0} for t in (*TOURS, "mixed")}
+    seen = {}
+    for s in picks:
+        for l in s["picks"]:
+            seen[l.get("match") or l["id"]] = l
+        for key, par in parlays_of(s):
+            out[key]["p_won"] += par["status"] == "won"
+            out[key]["p_lost"] += par["status"] == "lost"
+    for l in seen.values():
+        out[tour_of(l)]["won"] += l["result"] == "won"
+        out[tour_of(l)]["lost"] += l["result"] == "lost"
+    return out
+
+
+def save_prematch(ms, rt, w, lines, now):
+    """The last pre-match numbers for every match in the next 36 hours: our win chance (the tour's own weights) and
+    the book's no-vig chance. Once a match starts it's no longer 'pre' here, so its entry freezes at the last read
+    before the first serve - live tennis starts from these (sports_live)."""
+    try:
+        with open(PREMATCH) as f:
+            snap = json.load(f)
+    except (OSError, ValueError):
+        snap = {}
+    stamp = now.strftime("%Y-%m-%dT%H:%M")
+    for m in ms.values():
+        if _state(m) != "pre" or not m.get("start"):
+            continue
+        t = _t(m["start"])
+        if not (now - timedelta(hours=2) <= t <= now + timedelta(hours=36)):
+            continue
+        row = {"tour": tour_of(m), "bo": int(m.get("bo") or 3), "p1": m["p1"], "p2": m["p2"], "p1_name": m["p1_name"],
+               "p2_name": m["p2_name"], "start": m["start"], "tourney": m.get("tourney", ""), "seen": stamp}
+        f = rt.features(m, when=stamp)
+        if w is not None and f["known"] >= MIN_MATCHES:
+            row["model_p1"] = round(model_p(w, f, m["bo"], tour_of(m)), 4)
+        pr = price(m, lines) if lines else None
+        if pr:
+            row["mkt_p1"], row["ml"] = round(sd.no_vig(*pr), 4), list(pr)
+        snap[m["id"]] = {**snap.get(m["id"], {}), **row}     # (the last price seen stays when the feed has none now)
+    cut = (now - timedelta(days=3)).strftime("%Y-%m-%dT%H:%M")
+    snap = {k: v for k, v in snap.items() if v.get("start", "") >= cut}
+    os.makedirs(DIR, exist_ok=True)
+    with open(PREMATCH + ".tmp", "w") as f:
+        json.dump(snap, f, indent=0, sort_keys=True)
+    os.replace(PREMATCH + ".tmp", PREMATCH)
+    return snap
 
 
 def run(state, now=None, fetch=True):
@@ -909,13 +1134,19 @@ def run(state, now=None, fetch=True):
         ms = load_matches()
     rt, w, rep = study(ms)
     state["tennis_study"] = rep
-    print(f"tennis study: {rep['rated']} rated matches, acc {rep['acc']} (surface ratings alone {rep['acc_elo']}), "
-          f"loss {rep['logloss']} vs {rep['logloss_elo']}, weights {rep['weights']}")
+    save_study(rep, now)
+    for t, r in rep["tours"].items():
+        print(f"tennis study {t.upper()}: {r['rated']} rated matches, acc {r['acc']} (surface ratings alone {r['acc_elo']}), "
+              f"loss {r['logloss']} vs {r['logloss_elo']}, {'own' if r['own_weights'] else 'SHARED'} weights {r['weights']}")
     picks = _load_picks()
     grade(ms, picks)
     lines = refresh_odds(state, now) if fetch else []
-    slate = post(ms, rt, w, lines, picks, now, rep.get("games")) if rep["rated"] >= MIN_RATED and rep["weights"] != [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0] \
-        else None
+    learned = rep["rated"] >= MIN_RATED and rep["weights"] != PRIOR
+    try:
+        save_prematch(ms, rt, w if learned else None, lines, now)
+    except Exception as e:                                              # noqa: BLE001 - never block tennis
+        print(f"tennis pre-match snapshot failed: {e}")
+    slate = post(ms, rt, w, lines, picks, now, rep.get("games")) if learned else None
     if rep["rated"] < MIN_RATED:
         print(f"tennis: still studying ({rep['rated']}/{MIN_RATED} rated matches) - no picks yet")
     if lines and rep["rated"] >= MIN_RATED:

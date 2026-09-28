@@ -1,26 +1,84 @@
-"""Probe: where can the runner get tennis odds history? (tennis-data.co.uk blocks servers)"""
+"""Probe: LIVE tennis payloads for the live plus money feature (run it while ATP / WTA matches are being played).
+Saves the raw feeds to results/ so the parsers (sports_tennis.parse_espn / parse_bovada(live=True)) can be checked
+against the real thing, and prints what matters: live matches, which fields carry the points / the server, and
+Bovada's live tennis markets (status, prices)."""
+import gzip
+import json
 import time
 import urllib.request
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-URLS = [
-    "https://archive.org/wayback/available?url=tennis-data.co.uk/2024/2024.xlsx",
-    "https://archive.org/wayback/available?url=www.tennis-data.co.uk/2019/2019.xlsx",
-    "https://web.archive.org/cdx/search/cdx?url=tennis-data.co.uk/20*&limit=40&filter=statuscode:200&collapse=urlkey",
-    "https://web.archive.org/web/20250701id_/http://www.tennis-data.co.uk/2024/2024.xlsx",
-    "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/172-2024/competitions/145649/odds",
-    "https://sports.core.api.espn.com/v2/sports/tennis/leagues/atp/events/172-2019/competitions/98391/odds",
-    "https://sports.core.api.espn.com/v2/sports/tennis/leagues/wta/events/811-2026/competitions/184060/odds",
-    "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/summary?event=145649",
-    "https://www.kaggle.com/api/v1/datasets/download/hakeem/atp-and-wta-tennis-data",
-    "https://huggingface.co/api/datasets?search=tennis&limit=20",
-    "https://www.valuebetennis.com/en/guide/base-de-donnees-tennis.htm",
-]
-for u in URLS:
+ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard"
+BOVADA = ["https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en",
+          "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en",
+          "https://www.bovada.lv/services/sports/event/v2/events/A/description/tennis?marketFilterId=def&lang=en"]
+
+
+def get(url, browser):
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"} if browser else {})
     t0 = time.time()
+    with urllib.request.urlopen(req, timeout=30) as r:
+        body = r.read()
+    print(f"== {url}\n{r.status} {len(body)}B {time.time() - t0:.1f}s")
+    return json.loads(body)
+
+
+def save(name, data):
+    with gzip.open(f"results/{name}.json.gz", "wt") as f:
+        json.dump(data, f)
+    print(f"saved results/{name}.json.gz")
+
+
+for tour in ("atp", "wta"):
     try:
-        with urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": UA}), timeout=60) as r:
-            b = r.read()
-            print(f"== {u}\n{r.status} {len(b)}B {time.time() - t0:.1f}s {r.headers.get('Content-Type')}\n{b[:1500]!r}\n")
+        d = get(ESPN.format(tour=tour), False)
     except Exception as e:                                   # noqa: BLE001
-        print(f"== {u}\nERR {time.time() - t0:.1f}s {e}\n")
+        print(f"ERR espn {tour}: {e}")
+        continue
+    save(f"tennis_live_espn_{tour}", d)
+    n = 0
+    for ev in d.get("events") or []:
+        for gr in ev.get("groupings") or []:
+            for c in gr.get("competitions") or []:
+                st = ((c.get("status") or {}).get("type") or {})
+                if st.get("state") != "in":
+                    continue
+                n += 1
+                if n <= 3:                                   # the first few live matches, every field they carry
+                    print(f"LIVE {tour} {ev.get('name')} | {(gr.get('grouping') or {}).get('displayName')} | status {st}")
+                    print("  competition keys:", sorted(c))
+                    for x in c.get("competitors") or []:
+                        print("  competitor keys:", sorted(x), "| linescores:", x.get("linescores"))
+                        print("   ", {k: x[k] for k in x if k not in ("athlete", "linescores", "statistics", "records")})
+                    print("  situation:", c.get("situation"), "| status:", c.get("status"))
+    print(f"{tour}: {n} matches in progress")
+
+for url in BOVADA:
+    try:
+        d = get(url, True)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"ERR bovada: {e}")
+        continue
+    live = [(g, e) for g in d if isinstance(g, dict) for e in g.get("events") or [] if e.get("live")]
+    print(f"{len(d)} groups, {len(live)} live events")
+    if not live:
+        continue
+    save("tennis_live_bovada", d)
+    for g, e in live[:3]:
+        print("PATH", [p.get("description") for p in g.get("path") or []], "| event keys:", sorted(e))
+        print("  competitors:", e.get("competitors"))
+        for dg in e.get("displayGroups") or []:
+            for mk in dg.get("markets") or []:
+                print("  market:", mk.get("description"), "| status", mk.get("status"), "| period", mk.get("period"),
+                      "|", [(o.get("description"), o.get("status"), (o.get("price") or {}).get("american")) for o in mk.get("outcomes") or []])
+    eid = live[0][1].get("id")
+    for su in (f"https://services.bovada.lv/services/sports/results/api/v1/scores/{eid}",      # Bovada's own live score
+               f"https://www.bovada.lv/services/sports/results/api/v1/scores/{eid}"):          # (if it has one for tennis)
+        try:
+            s = get(su, True)
+            save("tennis_live_bovada_score", s)
+            print(json.dumps(s)[:1500])
+            break
+        except Exception as e:                               # noqa: BLE001
+            print(f"ERR {su}: {e}")
+    break

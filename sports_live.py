@@ -9,8 +9,15 @@ Every 10 seconds (.github/workflows/sports-live.yml) - live lines move every sec
        - substantial reasons: history backs it (teams in this exact spot came back / held on more often than the
          price needs) plus at least one more (better team coming in, the algorithm liked them pregame, the ball in
          scoring range, momentum where the study says it carries). A better team alone is never enough.
-     At most 2 on the board; a play comes off the moment its value's gone. Each gets a short line and a
+     At most MAX_PLAYS on the board; a play comes off the moment its value's gone. Each gets a short line and a
      tap-to-open Full breakdown. Every play that went up is logged and graded (its own record).
+  4. 🎾 Tennis (ATP + WTA) rides the same rules: the score from ESPN's tennis scoreboards (sets, games, points when
+     the feed has them), the live price from Bovada's tennis feed, and a point-by-point Markov model started from
+     the pre-match chance (sports_tennis_live). Reasons: the engine liked the player pregame (our pick, or a strong
+     favorite on our numbers) AND the score isn't as bad as the price says. On one of OUR pregame picks who's
+     trailing and now plus money, it's a DOUBLE DOWN. ESPN's tennis score runs behind: a suspended market, a score
+     that hasn't moved in too long, or a price miles from what the score says = no play. Tennis live plays count in
+     the LIVE PLUS MONEY record only - never the tennis pregame records or our main record.
 Writes docs/sports/live.json (phones check it every 10 seconds) and data/sports/live_log.json."""
 import json
 import math
@@ -27,6 +34,8 @@ import sports_comeback as sc
 import sports_data as sd
 import sports_model as sm
 import sports_players as sp
+import sports_tennis as stn
+import sports_tennis_live as stl
 
 PT = ZoneInfo("America/Los_Angeles")
 LIVE_JSON = "docs/sports/live.json"
@@ -538,6 +547,8 @@ def locked_sides(log, now):
                             out.setdefault(leg["game_id"], leg["side"])
     except (OSError, ValueError, KeyError):
         pass
+    for mid, side in stl.our_picks().items():               # 🎾 our pregame tennis picks lock their match too
+        out.setdefault(f"tennis:{mid}", str(side))
     for pid, e in log.get("plays", {}).items():
         if e.get("date") == today and e.get("result") != "void":
             out[pid.rsplit(":", 1)[0]] = pid.rsplit(":", 1)[1]
@@ -641,6 +652,11 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                 plays += _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showing, judged)
             except Exception as e:                           # noqa: BLE001 - one bad game never sinks the whole check
                 sd.ERRORS.append(f"live {g['id']}: {type(e).__name__} {str(e)[:80]}")
+    if TENNIS_ON[0]:
+        try:                                                 # 🎾 tennis: same board, same rules
+            plays += tennis_plays(log, now, showing, judged, plays)
+        except Exception as e:                               # noqa: BLE001 - tennis never sinks the whole check
+            sd.ERRORS.append(f"live tennis: {type(e).__name__} {str(e)[:80]}")
     stamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
     for p in plays:
         p["seen"], p["paused"] = stamp, False
@@ -670,6 +686,8 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                                       "side": pl["id"].rsplit(":", 1)[1], "an_id": pl["an_id"], "result": None,
                                       "reasons": pl["reasons"], "date": now.astimezone(PT).date().isoformat(),
                                       "p": pl["p"]}
+            log["plays"][pl["id"]].update({k: pl[k] for k in ("tour", "match", "double_down", "tennis", "sport", "opp")
+                                           if k in pl and pl["league"] == "tennis"})
             notify(pl)                                        # a new live bet: push it to everybody's phone
         elif log["plays"][pl["id"]].get("down") and log["plays"][pl["id"]].get("result") is None:
             log["plays"][pl["id"]].pop("down", None)          # it came down, now it's value again: back on top + a push
@@ -682,6 +700,269 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
         if pid not in {p["id"] for p in plays} and pid in log["plays"]:
             log["plays"][pid]["down"] = True
     return plays
+
+
+# ---------------------------------------------------------------- 🎾 tennis
+TENNIS_STALE_S = 600          # ESPN's tennis score runs behind: a score that hasn't moved in 10 minutes (a game takes
+                              # ~4) can't be trusted against a live price - no new play, a play that's up holds paused
+TENNIS_STRONG_PRE = 0.60      # "the engine liked this player pregame": one of our picks, or 60%+ on our own numbers
+TENNIS_MAX_DOWN = 2           # the score isn't as bad as the price says: at most a break (2 games) down in this set
+SCORE_SEEN = {}               # match id -> (score, first time we saw it): how long the score has sat still
+TENNIS = {"watching": 0, "priced": 0, "stale": 0, "suspended": 0, "books": ""}
+TENNIS_ON = [True]
+_TN_CSV = [0.0]               # last time ungraded tennis plays were checked against matches.csv
+
+
+def tennis_feeds():
+    """(live match rows from ESPN's ATP + WTA scoreboards, all their rows (for grading), Bovada live tennis lines)."""
+    rows = []
+    for tour in stn.TOURS:
+        try:
+            rows += stn.parse_espn(_get(stn.ESPN.format(tour=tour)), tour)
+        except Exception as e:                               # noqa: BLE001
+            sd.ERRORS.append(f"espn tennis {tour}: {str(e)[:80]}")
+    lines, ok = [], False
+    for url in (BOVADA, BOVADA_OLD, BOVADA_ALL):             # live feed, older address, full feed (live=True flag)
+        try:
+            lines = stn.parse_bovada(_get(url.format(path="tennis", sport="tennis")), live=True)
+            ok = True
+        except Exception as e:                               # noqa: BLE001
+            sd.ERRORS.append(f"bovada live tennis: {str(e)[:80]}")
+            TENNIS["books"] = f"error {str(e)[:60]}"
+            continue
+        if lines:
+            break
+    if ok:
+        TENNIS["books"] = f"{len(lines)} live lines"
+    return [r for r in rows if stn._state(r) == "live"], rows, lines
+
+
+def tennis_stale(m, now_s):
+    """ESPN's score is behind: it hasn't moved in TENNIS_STALE_S, or the feed says the match is held up."""
+    key = (m.get("sets1"), m.get("sets2"), m.get("pts1"), m.get("pts2"))
+    old = SCORE_SEEN.get(m["id"])
+    if not old or old[0] != key:
+        SCORE_SEEN[m["id"]] = (key, now_s)
+        old = SCORE_SEEN[m["id"]]
+    held = any(k in str(m.get("detail") or "").lower() for k in ("delay", "suspend", "rain", "interrupt"))
+    return held or now_s - old[1] > TENNIS_STALE_S
+
+
+def _ord(n):
+    return {1: "1st", 2: "2nd", 3: "3rd"}.get(n, f"{n}th")
+
+
+def _on_serve(s, side):
+    """Is the current set on serve from `side`'s view? True / False / None (the feed doesn't say who's serving)."""
+    ga, gb = s["games"] if side == 1 else s["games"][::-1]
+    if ga == gb:
+        return True
+    if s["server"] not in (1, 2) or abs(ga - gb) > 1:
+        return False if abs(ga - gb) > 1 else None
+    nxt = s["server"] if side == 1 else 3 - s["server"]     # 1 = our player serves next
+    first = nxt if (ga + gb) % 2 == 0 else 3 - nxt          # who served the set's first game
+    leader = 1 if ga > gb else 2
+    return leader == first                                  # the set's first server one game up = on serve
+
+
+def tennis_situation(s, side, he):
+    """'dropped the first set, but it's on serve in the 2nd' - the score from our player's side, in plain words."""
+    sm_, st_ = s["sets"] if side == 1 else s["sets"][::-1]
+    gm, gt = s["games"] if side == 1 else s["games"][::-1]
+    n, os_ = s["set_no"], _on_serve(s, side)
+    if sm_ < st_:
+        first = "dropped the first set" if len(s["done"]) == 1 else f"is down {sm_}-{st_} in sets"
+        if (gm, gt) == (0, 0):
+            return first + f" and the {_ord(n)} is just starting"
+        if gm > gt:
+            return first + f", but {he}'s up {gm}-{gt} in the {_ord(n)}"
+        if os_:
+            return first + f", but the {_ord(n)} is on serve ({gm}-{gt})"
+        return first + f" and trails {gm}-{gt} in the {_ord(n)}"
+    if sm_ > st_:
+        return f"is up {sm_}-{st_} in sets" + (f" and {gm}-{gt} in the {_ord(n)}" if (gm, gt) != (0, 0) else "")
+    if gm < gt:
+        return f"is down {gm}-{gt} in the {_ord(n)} set" + (" (on serve)" if os_ else "")
+    if gm > gt:
+        return f"is up {gm}-{gt} in the {_ord(n)} set"
+    return f"is level at {gm}-{gt} in the {_ord(n)} set" if n > 1 or gm else "is level"
+
+
+def tennis_reasons(s, side, p, ml, ours, model_pre):
+    """The substantial reasons, tennis: the engine liked this player pregame (our pick, or a strong favorite on our
+    numbers) AND the score state isn't as bad as the price implies."""
+    out = []
+    if ours:
+        out.append(("ours", {}))
+    if model_pre is not None and model_pre >= TENNIS_STRONG_PRE:
+        out.append(("strong", {"p": model_pre}))
+    gm, gt = s["games"] if side == 1 else s["games"][::-1]
+    be = 1 / sd.decimal(ml)
+    if gt - gm <= TENNIS_MAX_DOWN and p >= be + 0.02:
+        out.append(("state", {"be": be, "p": p, "on_serve": _on_serve(s, side)}))
+    return out
+
+
+def tennis_substantial(rs):
+    kinds = {k for k, _ in rs}
+    return "state" in kinds and bool(kinds & {"ours", "strong"})
+
+
+def _trailing(s, side):
+    sm_, st_ = s["sets"] if side == 1 else s["sets"][::-1]
+    gm, gt = s["games"] if side == 1 else s["games"][::-1]
+    return sm_ < st_ or (sm_ == st_ and gm < gt)
+
+
+def tennis_words(pl, s, side, rs, used, hold):
+    """(the short line, the breakdown) in our voice - he/she by tour, fresh wording, no repeats on the board."""
+    import sports_breakdown as sb
+    v = sb.Voice(pl["id"], used)
+    wta = pl["tour"] == "wta"
+    he, him, his = ("she", "her", "her") if wta else ("he", "him", "his")
+    He = he.capitalize()
+    me = stn._say_name(pl["team"])
+    o = f"+{pl['odds']}"
+    sit = tennis_situation(s, side, he)
+    kinds = dict(rs)
+    pct, be = round(100 * pl["p"]), round(100 * kinds["state"]["be"]) if "state" in kinds else None
+    if pl["double_down"]:
+        line = v.say("tl_dd", [
+            f"🔁 Double down — we had {him} pregame, {he} {sit}, now {he}'s {o} and the math says that's too long.",
+            f"🔁 Double down. {me} was our pick before the first serve. {He} {sit} and the book let {him} drift to {o} — we're going back in.",
+            f"🔁 Double down on {me}: {he} {sit}, the price went to {o}, and the numbers still like {him} way more than that.",
+            f"🔁 We had {me} pregame and we're not jumping off. {He} {sit} — {o} is too long for a player this good."], must=True)
+    elif _trailing(s, side):
+        line = v.say("tl_trail", [
+            f"🎾 {me} {sit}, and the book overreacted: {o} for a player we had as the favorite.",
+            f"🎾 {me} came in as the better player on our numbers. {He} {sit} — {o} is too big a price for that.",
+            f"🎾 The book's pricing {me} like it's over at {o}. {He} {sit}. It ain't over.",
+            f"🎾 {me} {sit}. Everybody's jumping off — we're jumping on at {o}.",
+            f"🎾 {me} at {o}? {He} {sit}, but {he}'s still the better player out there. Get in."], must=True)
+    else:
+        line = v.say("tl_level", [
+            f"🎾 {me} {sit} and still plus money at {o}? We'll take that all day.",
+            f"🎾 {me} {sit} and the book's still got {him} as the dog ({o}). The numbers say otherwise.",
+            f"🎾 {o} on {me}, who {sit}? The price is behind the match. Hammer it."], must=True)
+    bd = []
+    if "ours" in kinds:
+        bd.append(v.say("tl_ours", [f"🧠 {me} was one of our tennis picks today — the engine liked {him} before the first ball.",
+                                    f"🧠 We posted {me} pregame. Same player, way better price now.",
+                                    f"🧠 {me} was already on our tennis card. Now the live price is doing us a favor."]))
+    if "strong" in kinds:
+        sp_ = round(100 * kinds["strong"]["p"])
+        bd.append(v.say("tl_strong", [f"💪 On our numbers {me} came in at {sp_}% to win this match.",
+                                      f"💪 Before the first serve the engine had {me} winning this {sp_}% of the time.",
+                                      f"💪 {me} was the better player coming in — {sp_}% on our numbers."]))
+    if "state" in kinds:
+        hp = round(100 * hold)
+        serve = {True: " and it's on serve", False: "", None: ""}[kinds["state"]["on_serve"]]
+        bd.append(v.say("tl_state", [f"🎾 Score check: {me} {sit}{serve}. {He} holds serve {hp}% of the time on our numbers — far from over.",
+                                     f"🎾 {me} {sit}{serve}. A player who holds {hp}% of {his} service games is still very much in this.",
+                                     f"🎾 Where it stands: {me} {sit}{serve}. {He} holds {hp}% of the time — one break changes everything."]))
+        bd.append(v.say("tl_math", [f"📐 The point-by-point model (sets, games, points, who's serving) gives {him} {pct}% from here. {o} only needs {be}%.",
+                                    f"📐 Run every point from this score: {me} wins it {pct}% of the time. The price needs {be}%.",
+                                    f"📐 Our tennis model plays it out point by point from right here: {pct}% for {me}. Break-even at {o} is {be}%."]))
+    bd.append(v.say("tl_bottom", ["🎯 The numbers are ahead of the book on this one. We're on it.",
+                                  "🎯 The price hasn't caught up to the match. Get in before it does.",
+                                  "🎯 Live tennis swings fast — this is the window. We're in."], must=True))
+    return line, [x for x in bd if x]
+
+
+def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
+    """Both players of one live match -> plays that clear every bar (plus money, LIVE_MIN_EDGE, the tuned min p,
+    the MAX_GAP guard vs the price, the substantial reasons). line: Bovada's live line (not suspended)."""
+    pre_p1 = pre.get("mkt_p1") if pre.get("mkt_p1") is not None else pre.get("model_p1")
+    if pre_p1 is None:
+        return []                                             # no pre-match number: no bet
+    ml1, ml2 = (line["b_ml"], line["a_ml"]) if flip else (line["a_ml"], line["b_ml"])
+    if not (_ok(ml1) and _ok(ml2)):
+        return []
+    p1, (pa, pb), s = stl.p1_live(m, pre_p1)
+    book1 = sd.no_vig(ml1, ml2)
+    if abs(p1 - book1) > MAX_GAP:
+        return []                  # the price and the score don't agree (a stale score, or the book knows something)
+    out = []
+    used = set() if used is None else used
+    for side, p, ml in ((1, p1, ml1), (2, 1 - p1, ml2)):
+        pid = f"tennis:{m['id']}:{side}"
+        up = pid in hold
+        edge = p * sd.decimal(ml) - 1
+        if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else min_p()) \
+                or (up and ml > STAY_MAX_ODDS) or (not up and ml > LIVE_MAX_ODDS):
+            continue
+        mp = pre.get("model_p1")
+        model_pre = None if mp is None else (mp if side == 1 else 1 - mp)
+        ours = ours_side == side
+        rs = tennis_reasons(s, side, p, ml, ours, model_pre)
+        if not up and not tennis_substantial(rs):
+            continue
+        me, them = (m["p1_name"], m["p2_name"]) if side == 1 else (m["p2_name"], m["p1_name"])
+        tour = stn.tour_of(m)
+        pl = {"id": pid, "league": "tennis", "tour": tour, "emoji": "🎾",
+              "sport": "Women's Tennis" if tour == "wta" else "Men's Tennis", "team": me, "opp": them, "odds": ml,
+              "edge": round(edge, 4), "p": round(p, 3), "score": stl.score_text(m, s), "clock": stl.clock_text(m, s),
+              "ball": "", "an_id": None, "reasons": [k for k, _ in rs], "match": m["id"], "double_down": bool(ours and _trailing(s, side)),
+              "tennis": {"sets": list(s["sets"]), "games": list(s["games"]), "done": [list(x) for x in s["done"]],
+                         "pts": list(s["pts"]) if s["pts"] else None, "set_no": s["set_no"], "side": side}}
+        pl["line"], pl["breakdown"] = tennis_words(pl, s, side, rs, used, stl.hold_p(pa if side == 1 else pb))
+        out.append(pl)
+    return out
+
+
+def _tennis_result(m, side):
+    st_ = stn._state(m)
+    if st_ == "void" or (st_ == "retired" and int(m.get("done") or 0) < 1):
+        return "void"
+    if st_ in ("final", "retired") and int(m.get("winner") or 0) in (1, 2):
+        return "won" if int(m["winner"]) == int(side) else "lost"
+    return None
+
+
+def grade_tennis(log, rows):
+    """Grade logged tennis live plays once their match is over (retired before a set was done / walkover = void)."""
+    by = {r["id"]: r for r in rows}
+    for e in log["plays"].values():
+        if e.get("league") == "tennis" and e.get("result") is None and e.get("match") in by:
+            e["result"] = _tennis_result(by[e["match"]], e["side"])
+
+
+def _grade_tennis_csv(log, now_s):
+    """Plays whose match already left the live scoreboard: check the engine's stored results (every 10 minutes)."""
+    if now_s - _TN_CSV[0] < 600 or not any(e.get("league") == "tennis" and e.get("result") is None for e in log["plays"].values()):
+        return
+    _TN_CSV[0] = now_s
+    grade_tennis(log, list(stn.load_matches().values()))
+
+
+def tennis_plays(log, now, showing=(), judged=None, taken=()):
+    """Every live ATP / WTA match -> tennis plays (graded plays settle here too)."""
+    judged = set() if judged is None else judged
+    live, rows, lines = tennis_feeds()
+    grade_tennis(log, rows)
+    _grade_tennis_csv(log, time.time())
+    pre = stl.load_prematch()
+    ours = stl.our_picks()
+    TENNIS.update(watching=len(live), priced=0, stale=0, suspended=0)
+    import sports_breakdown as sb
+    used = sb.slang_in([x for p in taken for x in [p.get("line", "")] + list(p.get("breakdown") or [])])
+    out = []
+    now_s = time.time()
+    for m in sorted(live, key=lambda r: r["id"]):
+        stale = tennis_stale(m, now_s)
+        ln, flip = stn.match_line(m, lines, hours=12)
+        if ln is None or m["id"] not in pre:
+            continue
+        if ln.get("suspended"):
+            TENNIS["suspended"] += 1
+            continue                                         # the book suspended it: wait (a play that's up holds)
+        TENNIS["priced"] += 1
+        if stale:
+            TENNIS["stale"] += 1
+            continue                                         # the score's behind: never act on it
+        judged.add(f"tennis:{m['id']}")
+        out += evaluate_tennis(m, ln, flip, pre[m["id"]], ours.get(m["id"]), showing, used)
+    return out
 
 
 def _score(box, side):
@@ -742,7 +1023,8 @@ def run():
     _TUNED.update(self_tune(log))
     plays = cycle(games, model, log, showing=list(prev), prev=prev)
     health = health_check()
-    out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log), "live_games": WATCHING[0],
+    out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log),
+           "live_games": WATCHING[0] + TENNIS["watching"], "tennis": dict(TENNIS),
            "health": health,
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
@@ -809,8 +1091,10 @@ def health_check():
 
 
 def any_live_soon(games, within_min=45):
-    """Is anything live now or starting soon? (else the watcher can rest)"""
+    """Is anything live now or starting soon? (else the watcher can rest) - 🎾 a priced tennis match counts too."""
     now = datetime.now(timezone.utc)
+    if TENNIS_ON[0] and stl.any_live_soon(now, within_min):
+        return True
     for g in games.values():
         if not g.get("start"):
             continue
@@ -916,7 +1200,8 @@ def _log_key():
         return None
 
 
-CODE = ("sports_live.py", "sports_comeback.py", "sports_data.py", "sports_model.py")
+CODE = ("sports_live.py", "sports_comeback.py", "sports_data.py", "sports_model.py", "sports_tennis.py",
+        "sports_tennis_live.py")
 
 
 def _code_hash():
