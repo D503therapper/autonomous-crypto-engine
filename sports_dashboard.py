@@ -369,7 +369,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
     seen_ = {}                                               # a team we're on in two picks the same day counts once
     for p in picks:
-        if p["kind"] != "eight":
+        if p["kind"] != "eight" and not p.get("lean"):     # our daily record only: no 8-leg, no leans, no live bets
             for l in p["legs"]:
                 if l.get("result") in ("won", "lost"):
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
