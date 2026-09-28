@@ -384,9 +384,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
     ol = sum(r == "lost" for _, r, _ in calls.values())
     tw = sum(r == "won" for _, r, d in calls.values() if d == today)
     tl = sum(r == "lost" for _, r, d in calls.values() if d == today)
+    cash = sum(p.get("pnl") or 0 for p in done)             # 💵 every card we posted, $100 flat, at its real price
+    money = (f'<div class="ovr-m">💵 $100 on every pick: <b class="{"up" if cash >= 0 else "dn"}">'
+             f'{"+" if cash >= 0 else "−"}${abs(cash):,.0f}</b></div>' if done else "")
+    RECORDS["$100 on every pick (our cards)"] = f"{'+' if cash >= 0 else '-'}${abs(cash):,.0f}"
     overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
-               f'<div class="ovr-s">today {tw}-{tl}</div></div>')
+               f'<div class="ovr-s">today {tw}-{tl}</div>{money}</div>')
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
     RECORDS.update({"overall": f"{ow}-{ol}", "today": f"{tw}-{tl}",
@@ -705,7 +709,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .grades{{margin-bottom:12px}}
 .ovr{{text-align:center;background:linear-gradient(160deg,rgba(34,227,154,.14),rgba(255,194,51,.10));border:1px solid rgba(34,227,154,.45);border-radius:16px;padding:14px 12px;margin:10px 0 12px}}
 .ovr-t{{font-size:13px;font-weight:900;letter-spacing:.12em;color:#22e39a}} .ovr-r{{font-size:46px;font-weight:900;line-height:1.1}}
-.ovr-p{{font-size:15px;font-weight:800;color:#ffc233}} .ovr-s{{font-size:13px;font-weight:700;color:#22d3ee;margin-top:2px}}
+.ovr-p{{font-size:15px;font-weight:800;color:#ffc233}} .ovr-m{{font-size:15px;font-weight:800;color:#e8eefc;margin-top:6px}} .ovr-m .up{{color:#22e39a}} .ovr-m .dn{{color:#ff5a5a}} .ovr-s{{font-size:13px;font-weight:700;color:#22d3ee;margin-top:2px}}
 .sp-n.what{{color:#ffe08a;font-weight:600;line-height:1.5}} .sp-n.what b{{color:#22e39a}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
