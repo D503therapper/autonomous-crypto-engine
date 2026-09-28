@@ -331,7 +331,6 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     return board
 
 
-LOCK_TIER_P, LOCK_TIER_EDGE = 0.55, 0.04     # a 🔒 LOCK: 55%+ to win/cover and a 4%+ edge, at any odds...
 TIERS = ("lean", "value", "lock")
 STRONG_LEAN_P = 0.60                          # 60%+ to win/cover = a strong lean: it beats a value play on the other side
 
@@ -340,9 +339,8 @@ def leg_tier(c):
     """lock / value / lean for one leg, from the engine's numbers."""
     if not good(c):
         return "lean"
-    if c["odds"] > 0:
-        return "value"                                    # plus money is always VALUE: locks are minus money only, so the
-    return "lock" if c["p"] >= LOCK_TIER_P and c["edge"] >= LOCK_TIER_EDGE else "value"   # lock record stays the surest
+    return "value" if c["odds"] > 0 else "lock"          # owner's rule: minus money = LOCK, plus money = VALUE (favorites
+                                                         # hit more, so the lock record stays the surest); no value = LEAN
 
 
 def pick_tier(pk):
