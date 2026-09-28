@@ -45,13 +45,20 @@ DECISION: nothing to change in dex.py. Smart money cannot be backfilled for free
 honest test is forward. Probe/collector left as a tool; the 95-min workflow re-runs only on edits to its two files.
 
 ### NEXT - live wallet tracker (smart money, forward test; no engine change)
-A GitHub Actions job (every 30-60 min, own workflow, own commit) polls GeckoTerminal /pools/{pool}/trades for every pool the
-DEX hunter screened, holds or rejected in the last 48h (+ trending lists), >= 2.1 s between calls (<= ~25 pools/run, rotate by
-last-poll time), and appends new buys to data/dex/wallet_trades.csv.gz (pool, t, wallet, usd, tx). Label pools from the existing
-snapshots / outcomes (>= 2x within 14 days vs <= 0). After ~4 weeks (enough for >= 30 runners) re-run smartmoney_study.py on it:
-walk-forward reputation, bot filter, older/newer halves; adopt only if "known-good wallets in the last hour" lifts the runner rate
-in BOTH halves with >= 20 firings each. Optional: add Base history via mainnet.base.org getLogs (works, ~1 min/entry hour).
-Free Blockscout / Helius keys (sign-up, no card) would speed EVM/Solana history - owner decision.
+IN PROGRESS: tracker live since 2026-09-28 (first data commit 09:27 UTC); re-run smartmoney_study.py on wallet_trades after
+~4 weeks; adopt only if known-good wallets raise the runner rate in both halves with >= 20 firings each.
+HOW: tools/wallet_tracker.py (tests wallet_tracker_test.py), own workflow wallet_tracker.yml at :17/:47 every hour, 8-min
+budget, commits ONLY data/dex/wallet_trades*.csv.gz + data/dex/wallet_tracker_state.json (engine never restarted). Each run
+polls <= 25 pools screened (any verdict) in the last 48h or held (held x4, PASS < 12h x2, stalest first), GeckoTerminal
+/pools/{pool}/trades, >= 3 s between calls (x1.5 after each 429, max 8 s; 20/40/60 s backoff; stop after 12 x 429).
+Columns time, chain, pool, token, sym, side, wallet (tx_from_address), usd, price, tx (20-char prefix; first run full).
+Trades < $10 not logged (from run 2). One gzip member appended per run; file renamed wallet_trades_<date>.csv.gz at
+40 MB -> read data/dex/wallet_trades*.csv.gz. Dedupe: per-pool high-water mark + capped seen-id hashes.
+First run (09:25 UTC, 2.1 s gap): 25 selected, 15 polled, 23 calls, 8 x 429 (run stopped at the 429 cap), 4,500 trades
+(300 = GT cap on every pool, back to 09-27 13:55), 1,767 wallets, 366 KB. Busy pools (BABYCALI ~2,100/30 min, CATE, ANTFUN)
+exceed 300 trades per poll interval, so their log has gaps - fine for "who bought early", note it in the study.
+For the study: label pools from snapshots / outcomes (>= 2x within 14 days vs <= 0); walk-forward reputation, bot filter,
+older/newer halves. Optional: Base history via mainnet.base.org getLogs; free Blockscout / Helius keys - owner decision.
 
 ### DONE 2026-09-27 - "goplus unreachable" on 0xb2000... Base tokens (BASECAT, NVDAc, AAPLc, METAC, BLUECHIP)
 Probe (results/probe_goplus.txt + git history): GoPlus DID answer - HTTP 200, code 3, message "OK", a result with only

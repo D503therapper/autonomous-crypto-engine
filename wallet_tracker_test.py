@@ -1,5 +1,6 @@
 """Offline checks for tools/wallet_tracker.py (fake fetches, fake clock; no network)."""
 import gzip
+import hashlib
 import json
 import os
 import sys
@@ -21,6 +22,10 @@ def trade(i, ts, kind="buy", wallet="w1", tok=TOK):
         "from_token_address": SOL if buy else tok, "to_token_address": tok if buy else SOL,
         "price_from_in_usd": "120.0" if buy else "0.0025", "price_to_in_usd": "0.0025" if buy else "120.0",
         "volume_in_usd": "12.5"}}
+
+
+def sid(i, ts):
+    return hashlib.sha1(f"solana_1_tx{i}_0_{ts}".encode()).hexdigest()[:12]
 
 
 def body(trades):
@@ -59,6 +64,32 @@ class T(unittest.TestCase):
         a["price_from_in_usd"], a["price_to_in_usd"] = "0.003", "120"
         (_, _, r), = W.parse_trades(body([t]), cand())
         self.assertEqual((r["side"], r["token"], r["price"]), ("sell", TOK, "0.003"))
+
+    def test_dust_not_logged_and_tx_cut(self):
+        small = trade(1, NOW)
+        small["attributes"]["volume_in_usd"] = "3.2"
+        long_tx = trade(2, NOW + 1)
+        long_tx["attributes"]["tx_hash"] = "x" * 88
+        clk = Clock()
+        state = {}
+        rows, st = W.run({"solana:P1": cand("P1")}, state, lambda u: (200, body([small, long_tx])), clk.sleep, clk)
+        self.assertEqual((st["new"], st["logged"]), (2, 1))
+        self.assertEqual(rows[0]["tx"], "x" * W.TX_CHARS)
+        self.assertEqual(len(state["seen"]), 2)                            # the dust trade is still deduped
+
+    def test_rotate_big_file(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "wallet_trades.csv.gz")
+            self.assertIsNone(W.rotate(p, NOW))
+            with open(p, "wb") as f:
+                f.write(b"x" * 2000)
+            self.assertIsNone(W.rotate(p, NOW, max_mb=0.01))
+            dst = W.rotate(p, NOW, max_mb=0.001)
+            self.assertTrue(dst.endswith("wallet_trades_20260928.csv.gz") and os.path.exists(dst))
+            self.assertFalse(os.path.exists(p))
+            with open(p, "wb") as f:
+                f.write(b"x" * 2000)
+            self.assertTrue(W.rotate(p, NOW, max_mb=0.001).endswith("_20260928_2.csv.gz"))
 
     def test_parse_skips_malformed(self):
         bad = trade(1, NOW)
@@ -119,7 +150,9 @@ class T(unittest.TestCase):
         self.assertIn(W.BACKOFF[0], clk.sleeps)
         self.assertGreaterEqual(calls[2][1] - calls[1][1], W.GAP)         # gap between different pools
         self.assertEqual(state["pools"]["solana:P1"]["polled"], int(calls[1][1] + 0.5))
-        self.assertIn("solana_1_tx1_0_" + str(NOW - 60), state["seen"])
+        self.assertIn(sid(1, NOW - 60), state["seen"])
+        self.assertEqual(st["codes"], "429,200,200")
+        self.assertEqual(st["gap"], W.GAP * 1.5)                           # later calls spaced wider after a 429
 
     def test_run_gives_up_after_repeated_429(self):
         clk = Clock()
@@ -166,7 +199,7 @@ class T(unittest.TestCase):
             state = {"seen": [f"x{i}" for i in range(W.SEEN_CAP)]}
             W.run({"solana:P1": cand("P1")}, state, lambda u: (200, body([trade(9, NOW)])), clk.sleep, clk)
             self.assertEqual(len(state["seen"]), W.SEEN_CAP)
-            self.assertEqual(state["seen"][-1], f"solana_1_tx9_0_{NOW}")
+            self.assertEqual(state["seen"][-1], sid(9, NOW))
             W.save_state(p, state)
             self.assertEqual(W.load_state(p)["seen"][-1], state["seen"][-1])
 

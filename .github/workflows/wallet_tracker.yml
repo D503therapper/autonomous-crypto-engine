@@ -1,5 +1,5 @@
 # Live wallet tracker (smart-money forward test): polls GeckoTerminal trades of pools the DEX hunter screened / holds
-# and appends wallet-level trades to data/dex/wallet_trades.csv.gz. Separate from the live engine: it never touches
+# and appends wallet-level trades to data/dex/wallet_trades.csv.gz (rotated to wallet_trades_<date>.csv.gz at 40 MB). Separate from the live engine: it never touches
 # run_live.py / dex.py / paper-trade.yml, and it commits ONLY its two data files (the engine's hourly `git add data`
 # never modifies them, so the two jobs' commits cannot conflict).
 name: wallet_tracker
@@ -29,7 +29,8 @@ jobs:
         run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
-          for f in data/dex/wallet_trades.csv.gz data/dex/wallet_tracker_state.json; do if [ -f "$f" ]; then git add -- "$f"; fi; done
+          # its own files only: the live log, rotated wallet_trades_<date>.csv.gz archives, the state file
+          git add -A -- data/dex/wallet_trades.csv.gz data/dex/wallet_tracker_state.json $(ls data/dex/wallet_trades_*.csv.gz 2>/dev/null)
           git diff --cached --quiet && exit 0
           git commit -qm "wallet tracker $(date -u +%FT%TZ)"
           for i in 1 2 3 4 5; do

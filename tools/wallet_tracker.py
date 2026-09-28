@@ -12,12 +12,17 @@ Output columns: time, chain, pool, token, sym, side, wallet, usd, price, tx
   price = token price in USD, tx = transaction hash.
 Each run appends ONE new gzip member (gzip readers concatenate members transparently), so earlier bytes of the file
 never change and git stores each version as a small delta.
-State (data/dex/wallet_tracker_state.json): per pool the last poll time and the newest trade time seen; plus a capped
-list of recently seen trade ids (dedupe of trades at/after the per-pool high-water mark).
+Trades under MIN_USD are dropped (dedupe still records them); tx is cut to TX_CHARS (the first run, 2026-09-28 09:25,
+logged full hashes and all sizes).  Above ROTATE_MB the file is renamed wallet_trades_<YYYYMMDD>.csv.gz and a new one
+started (GitHub's 100 MB file limit): readers should glob data/dex/wallet_trades*.csv.gz.
+State (data/dex/wallet_tracker_state.json): per pool the last poll time and the newest trade time seen (high-water
+mark); plus a capped list of short hashes of recently seen GeckoTerminal trade ids; last_stats has the HTTP codes.
 Analysed later offline by smartmoney_study.py (research_log.md: re-run after ~4 weeks)."""
 import calendar
 import csv
+import glob
 import gzip
+import hashlib
 import io
 import json
 import os
@@ -39,11 +44,15 @@ UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chr
 NET = {"solana": "solana", "base": "base", "ethereum": "eth", "eth": "eth", "bsc": "bsc", "arbitrum": "arbitrum"}
 MAX_POOLS = int(os.environ.get("WT_MAX_POOLS", "25"))
 BUDGET = float(os.environ.get("WT_BUDGET_MIN", "8")) * 60
-GAP = 2.1                        # seconds between GeckoTerminal calls (free limit ~30/min)
-BACKOFF = (15, 30, 60)           # sleeps after successive 429s on one call
-MAX_429 = 8                      # give up the run after this many 429s in total
+GAP = 3.0                        # seconds between GeckoTerminal calls (documented free limit ~30/min; 2.1 s gave
+GAP_MAX = 8.0                    # 8 x 429 in 23 calls on the first run), x1.5 after each 429 up to GAP_MAX
+BACKOFF = (20, 40, 60)           # sleeps after successive 429s on one call
+MAX_429 = 12                     # give up the run after this many 429s in total
+MIN_USD = 10.0                   # trades below this are not logged (dust / bot noise; ~36% of rows, keeps the file small)
+TX_CHARS = 20                    # tx hash prefix kept in the log (unique enough; full Solana sigs are 88 chars)
+ROTATE_MB = 40                   # wallet_trades.csv.gz is renamed to wallet_trades_<date>.csv.gz above this size
 LOOKBACK_H = 48
-SEEN_CAP = 40000
+SEEN_CAP = 15000
 POOL_TTL_H = 72                  # forget pools not selected for this long
 
 
@@ -139,9 +148,10 @@ def parse_trades(body, c):
             px = float(price or 0)
         except ValueError:
             continue
-        out.append((d.get("id") or f"{tx}:{side}:{wallet}", ts, {
+        tid = hashlib.sha1((d.get("id") or f"{tx}:{side}:{wallet}").encode()).hexdigest()[:12]
+        out.append((tid, ts, {
             "time": utc(ts), "chain": c["chain"], "pool": c["pool"], "token": tok_addr or c.get("token", ""),
-            "sym": c.get("sym", ""), "side": side, "wallet": wallet, "usd": f"{usd:.2f}", "price": f"{px:.6g}", "tx": tx}))
+            "sym": c.get("sym", ""), "side": side, "wallet": wallet, "usd": f"{usd:.2f}", "price": f"{px:.6g}", "tx": tx[:TX_CHARS]}))
     return out
 
 
@@ -160,15 +170,17 @@ def new_trades(parsed, pstate, seen):
 
 
 def fetch_pool(c, get, sleep, stats):
-    """One trades call with 429 backoff.  Returns body or None."""
+    """One trades call with 429 backoff (each 429 also widens the gap between later calls).  Returns body or None."""
     url = GT.format(net=NET[c["chain"]], pool=c["pool"])
     for k in range(len(BACKOFF) + 1):
         st, body = get(url)
         stats["calls"] += 1
+        stats["codes"] += ("" if not stats["codes"] else ",") + str(st)
         if st == 200:
             return body
         if st == 429:
             stats["429"] += 1
+            stats["gap"] = round(min(GAP_MAX, stats["gap"] * 1.5), 2)
             if k < len(BACKOFF) and stats["429"] < MAX_429:
                 sleep(BACKOFF[k])
                 continue
@@ -182,7 +194,8 @@ def fetch_pool(c, get, sleep, stats):
 def run(cands, state, get=http_get, sleep=time.sleep, clock=time.time, budget=BUDGET, n=MAX_POOLS):
     """Poll selected pools; returns (rows, stats).  state is updated in place."""
     t0 = clock()
-    stats = {"selected": 0, "polled": 0, "calls": 0, "429": 0, "err": 0, "trades": 0, "new": 0, "budget_stop": False}
+    stats = {"selected": 0, "polled": 0, "calls": 0, "429": 0, "err": 0, "trades": 0, "new": 0, "logged": 0,
+             "budget_stop": False, "gap": GAP, "codes": ""}
     seen = dict.fromkeys(state.get("seen", []), 1)
     pools = state.setdefault("pools", {})
     chosen = select(cands, state, t0, n)
@@ -194,7 +207,7 @@ def run(cands, state, get=http_get, sleep=time.sleep, clock=time.time, budget=BU
             stats["budget_stop"] = clock() - t0 > budget - 30
             break
         if last_call is not None:
-            wait = GAP - (clock() - last_call)
+            wait = stats["gap"] - (clock() - last_call)
             if wait > 0:
                 sleep(wait)
         last_call = clock()
@@ -210,6 +223,8 @@ def run(cands, state, get=http_get, sleep=time.sleep, clock=time.time, budget=BU
         stats["polled"] += 1
         stats["trades"] += len(parsed)
         stats["new"] += len(got)
+        got = [r for r in got if float(r["usd"]) >= MIN_USD]
+        stats["logged"] += len(got)
         rows += got
     # forget pools not polled for a long time; cap seen ids (dict keeps insertion order: drop the oldest)
     for k in [k for k, v in pools.items() if t0 - v.get("polled", t0) > POOL_TTL_H * 3600]:
@@ -232,6 +247,19 @@ def append_rows(path, rows):
     w.writerows(rows)
     with gzip.open(path, "ab") as f:
         f.write(buf.getvalue().encode())
+
+
+def rotate(path, now, max_mb=ROTATE_MB):
+    """Rename a file above max_mb to <name>_<YYYYMMDD>.csv.gz so no single file nears GitHub's 100 MB limit."""
+    if os.path.exists(path) and os.path.getsize(path) > max_mb * 1e6:
+        dst = path.replace(".csv.gz", time.strftime("_%Y%m%d", time.gmtime(now)) + ".csv.gz")
+        k = 1
+        while os.path.exists(dst):
+            k += 1
+            dst = path.replace(".csv.gz", time.strftime("_%Y%m%d", time.gmtime(now)) + f"_{k}.csv.gz")
+        os.replace(path, dst)
+        return dst
+    return None
 
 
 def load_state(path):
@@ -264,12 +292,14 @@ def main():
     cands = candidates(screen, portfolio, now)
     state = load_state(STATE)
     rows, stats = run(cands, state)
+    rotated = rotate(OUT, now)
     append_rows(OUT, rows)
     save_state(STATE, state)
     held = sum(c["held"] for c in cands.values())
     print(f"{utc(now)} wallet_tracker: {len(cands)} candidate pools ({held} held), polled {stats['polled']}/{stats['selected']}, "
-          f"trades returned {stats['trades']}, new {stats['new']}, calls {stats['calls']}, 429s {stats['429']}, "
-          f"other errors {stats['err']}, budget stop {stats['budget_stop']}, {time.time() - now:.0f}s")
+          f"trades returned {stats['trades']}, new {stats['new']}, logged (>= ${MIN_USD:.0f}) {stats['logged']}, calls {stats['calls']}, 429s {stats['429']}, "
+          f"other errors {stats['err']}, budget stop {stats['budget_stop']}, {time.time() - now:.0f}s; files {len(glob.glob(OUT.replace('.csv.gz', '*.csv.gz')))}"
+          f"{', rotated to ' + rotated if rotated else ''}\n  codes {stats['codes']}")
     sys.stdout.flush()
 
 
