@@ -969,6 +969,73 @@ def test_moves():
     assert mv.load() is not None
 
 
+def _sim_spots(seed=11):
+    """Synthetic NBA seasons: teams off a blowout loss REALLY win 15 points more often than their (juiced) price."""
+    rnd = random.Random(seed)
+    games, last = {}, {}                                    # team -> (season, its last margin)
+    teams = [str(t) for t in range(1, 31)]
+    n = 0
+    for yr in range(2016, 2024):
+        day0 = datetime(yr, 10, 20, tzinfo=timezone.utc)
+        for d in range(150):
+            ts = rnd.sample(teams, 16)
+            for j in range(0, 16, 2):
+                h, a = ts[j], ts[j + 1]
+                p = rnd.uniform(0.3, 0.7)
+                bh, ba = (last.get(t, (0, 0))[0] == yr and last[t][1] <= -15 for t in (h, a))
+                true = min(0.95, max(0.05, p + 0.15 * (bh - ba)))
+                m = rnd.randint(16, 25) if rnd.random() < 0.5 else rnd.randint(1, 10)
+                m = m if rnd.random() < true else -m
+                ml = [int(-100 * q / (1 - q)) if q >= 0.5 else int(100 * (1 - q) / q) for q in (p + 0.02, 1.02 - p)]
+                gid = f"nba:s{n}"
+                n += 1
+                games[gid] = {"id": gid, "league": "nba", "start": (day0 + timedelta(days=d)).strftime("%Y-%m-%dT%H:%MZ"),
+                              "status": "final", "home": h, "away": a, "home_name": h, "away_name": a,
+                              "home_score": str(100 + max(0, m)), "away_score": str(100 + max(0, -m)),
+                              "ml_home": str(ml[0]), "ml_away": str(ml[1]), "spread_home": str(-round((p - 0.5) * 20) - 0.5),
+                              "spread_home_odds": "-110", "spread_away_odds": "-110", "stype": "2", "neutral": "0"}
+                last[h], last[a] = (yr, m), (yr, -m)
+    return games
+
+
+def test_spots():
+    import sports_spots as ss
+    path = os.path.join(tempfile.gettempdir(), "spots_test.json")
+    st = ss.study(_sim_spots(), path, sims=2)
+    os.remove(path)
+    nba = st["nba"]
+    c = nba["cells"]["off_blowout_loss|ml|team"]
+    assert c["proven"] and "off_blowout_loss|ml" in nba["proven"], ("the planted edge is found", c)
+    assert c["n_old"] >= ss.MIN_N and c["n_new"] >= ss.MIN_N and c["profit_old"] > 0 and c["profit_new"] > 0
+    assert not nba["cells"]["off_blowout_loss|ml|fade"]["proven"]
+    for k in ("home_after_trip|ml|team", "home_after_trip|ml|fade", "revenge|ml|team", "3in4|spread|team"):
+        assert not nba["cells"][k]["proven"], ("a spot with no edge is not proven", k, nba["cells"][k])
+    assert st["_meta"]["tested"] > 0 and st["_meta"]["z_bonferroni"] > 1.96
+    sh = nba["shifts"]["ml"]["off_blowout_loss"]
+    assert 0.2 < sh < 1.0, sh
+    assert ss.adjust(st, "nba", ["off_blowout_loss"], 0.5) > 0.55, "a proven spot moves the side up"
+    assert ss.adjust(st, "nba", ["home_after_trip"], 0.5) == 0.5, "an unproven spot doesn't move it"
+    assert ss.adjust(st, "nba", [], 0.5, ["off_blowout_loss"]) < 0.45, "the opponent's proven spot moves it down"
+    assert ss.adjust({}, "nba", ["off_blowout_loss"], 0.5) == 0.5
+    # flags come from earlier games only: a game 3 hours before doesn't count, one 7 hours before does
+    g0 = {"id": "x0", "league": "nba", "start": "2030-01-01T00:00Z", "status": "final", "home": "A", "away": "B",
+          "home_score": "80", "away_score": "120", "ml_home": "-150", "ml_away": "130", "stype": "2"}
+    up = {"id": "x1", "league": "nba", "start": "2030-01-01T03:00Z", "status": "pre", "home": "A", "away": "C",
+          "home_score": "", "away_score": "", "ml_home": "-400", "ml_away": "300", "stype": "2"}
+    idx = ss.index({"x0": g0})
+    assert "off_blowout_loss" not in ss.flags(idx, up, "home"), "no peeking at a game 3 hours earlier"
+    up["start"] = "2030-01-01T07:00Z"
+    f = ss.flags(idx, up, "home")
+    assert "off_blowout_loss" in f and "revenge" not in f and "early_season" in f, f
+    assert "big_fav_off_loss" in f and "off_upset_loss" not in f, f               # a -150 fave last time: not an upset
+    assert ss.flags({"x0": g0}, up, "home") == f, "a plain games dict works too"
+    nxt = dict(up, start="2030-01-01T23:00Z")                                   # the next night, vs a rested team
+    assert "b2b" in ss.flags(idx, nxt, "home") and "rest_edge" in ss.flags(idx, nxt, "away")
+    again = dict(up, away="B", start="2030-01-04T00:00Z")                        # vs the team that beat it
+    assert "revenge" in ss.flags(idx, again, "home") and "revenge" not in ss.flags(idx, again, "away")
+    assert "b2b" not in ss.flags(idx, again, "home")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
