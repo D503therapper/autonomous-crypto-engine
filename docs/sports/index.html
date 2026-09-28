@@ -372,7 +372,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,5000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790587715980,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790588003597,m=0;   // the whole page stays fresh while it's open
 try{var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
 function tick(){m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
