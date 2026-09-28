@@ -1521,6 +1521,13 @@ class DexHunter:
         pos["stop"] = max(pos["stop"], pos["peak"] * (1 - trail))
         if p <= pos["stop"]:
             return self._request_exit(k, 1.0, f"trailing stop (peak {pos['peak']:g})", "normal", now, "stop")
+        # EXPERIMENT 3 (owner 2026-09-28): at `stake_back` x (3x) sell the stake once - the rest rides on house money.
+        # BABYCALI went 4.3x and then -95% within an hour, ending -$101 instead of banking its gain.
+        SB = X.get("stake_back")
+        if SB and not pos.get("sb") and p >= pos["entry"] * SB:
+            pos["sb"] = True
+            return self._request_exit(k, min(1.0, pos["entry"] / p), f"stake back at {p / pos['entry']:.1f}x",
+                                      "normal", now, "tp")
         if not pos["tp1"] and not pos.get("runner") and now - pos["opened"] >= X["max_hold_days"] * DAY:
             R = X.get("runner_at_limit")
             if R and p >= pos["entry"] * (1 + R[0]):   # never sell a runner on the clock (owner rule)

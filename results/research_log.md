@@ -49,6 +49,7 @@ honest test is forward. Probe/collector left as a tool; the 95-min workflow re-r
 |---|---|---|---|---|---|
 | 1 | 2026-09-28 12:40 | DEX: 10 coins x ~10% (tiers A 10% / B,C 12.5%) instead of 5 x 20-25% | ~2026-10-12 | DEX -39% after 13 closed trades on 5 slots | pending |
 | 2 | 2026-09-28 19:00 | Stocks rsi2: buy at RSI(2) < 25 (was < 15), 3 x 33%, hold 10d, no parking (stock_rsi2_loosen_study) | ~2026-11-28 | backtest 24y: +17.0% / +21.6% CAGR per half, DD 25% / 23%, 60-66% invested; live: 0 trades on day 1 | pending |
+| 3 | 2026-09-28 20:50 | DEX: at 3x sell the stake (~1/3) once; the rest rides the current rule | ~2026-10-28 | BABYCALI 2026-09-28: 4.3x peak (+$346 paper) then -95% within ~40 min, sold at -$101 | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 

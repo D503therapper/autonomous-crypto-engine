@@ -270,7 +270,8 @@ DEX = {
     # concentration cap and take-profits at 10x/50x/100x all cost money. The stake (20-25%) is the loss limit.
     "exit": {"trail": 0.95, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [],
              "max_hold_days": 14, "runner_at_limit": (1.0, 0.40),   # >= +100% at the limit: 40% trail, no clock
-             "liq_pull": 0.50, "rug_tax": 0.50},
+             "liq_pull": 0.50, "rug_tax": 0.50,
+             "stake_back": 3.0},                    # EXPERIMENT 3: at 3x sell the stake (~1/3), rest rides as before
     # WIDE SCANNER (owner #1 priority: catch runners earlier and more often): up to 3,000 live pools refreshed in
     # bulk from DexScreener (30 tokens per call, <= 60 calls/min on its own budget); movers go to the front of the
     # screening queue. Every scam check still applies. Other knobs: dex.DEFAULTS["scan"].

@@ -120,7 +120,7 @@ LADDER = {"tiers": {"A": {"pct": 0.03}, "B": {"pct": 0.10, "age_d": 7, "liq": 1_
           "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},
           "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "ladder": [(4.0, 1 / 3), (9.0, 0.5)],
                    "trail_steps": [(3.0, 0.40), (10.0, 0.50)], "max_hold_days": 14, "runner_at_limit": None,
-                   "liq_pull": 0.50, "rug_tax": 0.50}}
+                   "liq_pull": 0.50, "rug_tax": 0.50, "stake_back": None}}
 
 
 def make(table, **params):
@@ -685,11 +685,27 @@ def test_study_exit():
     assert not any(ex) and pos.get("runner")
     ex, _ = held([2.5] * 13 + [2.6, 2.0, 1.2])            # runner then drops 50% from its high -> sold
     assert ex[-1]
-    ex, _ = held([2, 5, 10, 6, 3.9])                      # 10x then -61% inside 14 days: still held (no
-    assert not any(ex)                                    # protection trail - dex_legends_study)
+    ex, pos = held([2, 2.9, 3.2])                         # EXPERIMENT 3: at 3x sell the stake (1/3.2), keep the rest
+    assert ex == [False, False, True] and "stake back at 3.2x" in pos["exit"]["reason"]
+    assert abs(pos["exit"]["frac"] - 1 / 3.2) < 0.01 and pos["sb"]
     ex, _ = held([2.5] * 13 + [2.6, 2.1, 1.6, 1.5])       # runner at day 14, then -42% from its high -> sold
     assert ex[-1] and len(ex) == 17
     print("  live exit: 14-day hold without stop, runner at the limit rides a 40% trail   ok")
+
+
+def test_stake_back_executes():
+    # executed end to end: a third is sold, the rest stays, and it never sells the stake twice
+    h, fetch, d, px = held()
+    h.p = {**h.p, "exit": {**dex.DEX["exit"]}}
+    q0 = h.pf.positions[K]["qty"]
+    t = poll(h, T0 + 6000, px, v=0.0101 * 3.3)
+    assert K in h.pf.positions and abs(h.pf.positions[K]["qty"] - q0 * (1 - 1 / 3.3)) < q0 * 0.02, h.pf.positions[K]["qty"] / q0
+    assert "stake back" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
+    q1 = h.pf.positions[K]["qty"]
+    poll(h, t, px, v=0.0101 * 4)
+    assert h.pf.positions[K]["qty"] == q1
+    shutil.rmtree(d)
+    print("  stake back at 3x: sells ~1/3 once, the rest keeps riding   ok")
 
 
 def test_resize_old_small_position():
@@ -1371,6 +1387,7 @@ if __name__ == "__main__":
     test_trailing_stop()
     test_evm_address_case()
     test_take_profit_steps()
+    test_stake_back_executes()
     test_resize_old_small_position()
     test_study_exit()
     test_max_hold()
