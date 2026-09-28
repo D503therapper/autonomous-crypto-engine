@@ -748,7 +748,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
-<div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 GOT A QUESTION?</span></div>
+<div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 QUESTION BOX</span></div>
 <div class="ask-b"><div class="ask-n">{ask_note}</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send">{ask_btn}</div>
 <div id="asklist"></div><div id="askout"></div></div></div>
