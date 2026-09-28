@@ -9,7 +9,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 17          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 18          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -417,9 +417,14 @@ def breakdown(leg, games, elo, injuries, used=None):
     if key_us:
         pos, nm = key_us[0][1], key_us[0][0]
         mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
-        out.append(v.say("keyout_us", [f"🚑 {us} are rolling with the backup — {nm} ({pos}) is out.{mv}",
-                                        f"🚑 No {nm} for {us}. Backup {pos} gets the start.{mv}",
-                                        f"🚑 {us} lost their starting {pos}, {nm}.{mv}"], must=True))
+        pts = leg.get("line") if leg.get("market") == "spread" else None
+        need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)} or less, or lose, and we cash." \
+            if pts and pts > 0 and pts != int(pts) else ""
+        out.append(v.say("keyout_us", [
+            f"🚑 Real talk: {nm} is out, {the_us} are rolling with the backup {pos}.{mv} We know. We still trust the numbers.{need}",
+            f"🚑 No {nm} — backup {pos} gets the start for {the_us}.{mv} The books priced it in, and the algorithm still likes our side.{need}",
+            f"🚑 {the_us} lost their starting {pos}, {nm}.{mv} We ain't scared of it — the numbers still say this is the side.{need}"],
+            must=True))
     if not key_any and op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
         out.append(v.say("sharp", [f"💰 Sharp money is on us: {us} opened {_am(op)}, now {_am(now)}.",
                                     f"💰 The pros are hammering {us} — {_am(op)} at open, {_am(now)} now.",
