@@ -586,14 +586,14 @@ DASH_URL = "https://d503therapper.github.io/autonomous-crypto-engine/sports/"
 NOTIFY = [True]               # (tests turn it off)
 
 
-def notify(pl):
+def notify(pl, back=False):
     """📲 Push a new live bet to phones through ntfy (free, no account): the team, the price, the score. Never blocks."""
     if not NOTIFY[0] or not NTFY_TOPIC:
         return
     o = f"+{pl['odds']}" if pl["odds"] > 0 else str(pl["odds"])
     body = f"{pl['team']} ML {o} — {pl.get('score', '')}, {pl.get('clock', '')}. {pl.get('line', '')}".strip()
     req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=body.encode(), method="POST", headers={
-        "Title": f"LIVE PLUS MONEY: {pl['team']} {o}".encode("latin-1", "ignore").decode("latin-1"),
+        "Title": f"{'BACK ON: ' if back else ''}LIVE PLUS MONEY: {pl['team']} {o}".encode("latin-1", "ignore").decode("latin-1"),
         "Tags": "rotating_light", "Click": DASH_URL, "Priority": "high"})
     try:
         urllib.request.urlopen(req, timeout=5).read()
@@ -670,10 +670,16 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                                       "reasons": pl["reasons"], "date": now.astimezone(PT).date().isoformat(),
                                       "p": pl["p"]}
             notify(pl)                                        # a new live bet: push it to everybody's phone
+        elif log["plays"][pl["id"]].get("down") and log["plays"][pl["id"]].get("result") is None:
+            log["plays"][pl["id"]].pop("down", None)          # it came down, now it's value again: back on top + a push
+            notify(pl, back=True)
         pl["posted"] = log["plays"][pl["id"]]["posted"]
         e = log["plays"][pl["id"]]
         if not pl.get("paused") and e.get("result") is None:     # the longest the line got while the play was up
             e["best_odds"] = max(e.get("best_odds", e["odds"]), pl["odds"])
+    for pid in showing:                                       # came down this check: remember, in case it comes back
+        if pid not in {p["id"] for p in plays} and pid in log["plays"]:
+            log["plays"][pid]["down"] = True
     return plays
 
 
