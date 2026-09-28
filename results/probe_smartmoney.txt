@@ -1,13 +1,8 @@
-probe_smartmoney 2026-09-28 04:15 UTC; budget 95 min; 205 pools, 366 entry events
+probe_smartmoney 2026-09-28 05:53 UTC; budget 95 min; 205 pools, 366 entry events
 parts ['evm']
-kept 114 pre / 0 launch records (solana-rpc) from 1790563253
+kept 114 pre / 0 launch records (solana-rpc) from 1790568958
 
 ==================== Part B: EVM (Blockscout)
-  base block reference {'b': 51888005, 't': 1790565357}
-  EVM 0/237 SURPLUS pre-hour buys 46 transfers 268 elapsed 0.2m
-  EVM 20/237 CHECK pre-hour buys 0 transfers 0 elapsed 48.2m
-  EVM: budget stop at 36/237
-
-wrote results/smartmoney_raw.json.gz: 150 pre-trigger windows, 31 launch windows
-host stats: {"base.blockscout.com": {"n": 188, "err": 167, "429": 167, "sec": 84.52198624610901}, "eth.blockscout.com": {"n": 212, "err": 192, "429": 192, "sec": 70.74138855934143}}
-total 96.1 min
+  base reference block (51892735, 1790574817)
+  EVM 0/237 SURPLUS pre-hour buys 46 transfers 268 err None elapsed 0.1m {"base-rpc.publicnode.com": {"n": 3, "err": 2, "429": 0, "sec": 0.14389681816101074}, "mainnet.base.org": {"n": 2, "err": 0, "429": 0, "sec": 0.5308771133422852}}
+  eth reference block (26073984, 1790574815)
