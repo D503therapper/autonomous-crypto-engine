@@ -290,12 +290,12 @@ def own_p(params, f):
 
 def final_p(params, f, g):
     """Home win probability: market, moved toward our own view by the learned trust."""
-    ours = own_p(params, f)
     m = market_p(g)
+    if m is not None and params.get("hockey") is not None:   # NHL (the hockey study): the line, plus only what it's
+        return sigmoid(logit(m) + sum(w * f.get(k, 0.0) for k, w in params["hockey"].items()))   # proven to miss
+    ours = own_p(params, f)
     if m is None:
         return ours
-    if params.get("hockey") is not None:                  # NHL (the hockey study): the line, plus only what it's proven
-        return sigmoid(logit(m) + sum(w * f.get(k, 0.0) for k, w in params["hockey"].items()))   # to miss
     return sigmoid(logit(m) + params["trust"] * (logit(ours) - logit(m)) + params["move_w"] * line_move(g)
                    + params.get("cal", 0.0) * logit(m) + params.get("hdog", 0.0) * home_dog(m, g))
 
