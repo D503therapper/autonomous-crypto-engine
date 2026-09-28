@@ -1036,6 +1036,74 @@ def test_spots():
     assert "b2b" not in ss.flags(idx, again, "home")
 
 
+def _explorer_games(days, seed, sunday_home=0.8, t0=datetime(2021, 1, 4, 23, 0, tzinfo=timezone.utc), first=0):
+    """Simulated NBA: 6 games a day among 20 teams, priced fairly (with juice). Planted: on SUNDAYS the home team
+    wins `sunday_home` of the time whatever its price (None = no edge: it wins at its price like every other game)."""
+    rnd = random.Random(seed)
+    games = {}
+    for d in range(first, first + days):
+        day = t0 + timedelta(days=d)
+        teams = rnd.sample(range(20), 12)
+        for k in range(6):
+            p = rnd.uniform(0.35, 0.65)
+
+            def am(q):
+                dec = 1 / (q * 1.025)
+                return int((dec - 1) * 100) if dec >= 2 else int(-100 / (dec - 1))
+            edge = day.weekday() == 6 and sunday_home is not None
+            won = rnd.random() < (sunday_home if edge else p)
+            gid = f"nba:x{d}_{k}"
+            games[gid] = {"id": gid, "league": "nba", "start": day.strftime("%Y-%m-%dT%H:%MZ"), "status": "final",
+                          "stype": "2", "home": f"t{teams[2 * k]}", "away": f"t{teams[2 * k + 1]}",
+                          "home_score": "110" if won else "100", "away_score": "100" if won else "110",
+                          "ml_home": str(am(p)), "ml_away": str(am(1 - p)), "spread_home": "", "total": ""}
+    return games
+
+
+def test_explorer():
+    """The explorer: a planted edge becomes a suspect, is PROVEN on later games, noise never is, nothing is retested,
+    an edge that vanishes going forward is killed, and the engine hooks nudge only matching sides."""
+    import sports_explorer as ex
+    path = os.path.join(tempfile.mkdtemp(), "explorer_test.json")
+    planted, noise = "nba|ml|Sun&home", "nba|ml|Mon"
+    games = _explorer_games(420, 1)
+    r1 = ex.explore(games, path, batch=150, leagues=("nba",), verbose=False)
+    first = set(ex.LAST_TESTED)
+    assert planted in r1["new_suspects"] and noise in first and noise not in r1["suspects"], r1
+    assert r1["tested"] == len(first) == 150 and r1["expected_by_luck"] < 1
+    st = ex.load(path)
+    s = st["suspects"][planted]
+    assert s["disc"]["n"] >= 300 and s["disc"]["roi_old"] > 0 and s["disc"]["roi_new"] > 0 and s["disc"]["z"] >= 3.5
+    assert s["cutoff"] == max(g["start"] for g in games.values())
+    shutil.copy(path, path + ".kill")
+    r2 = ex.explore(games, path, batch=150, leagues=("nba",), verbose=False)       # same games: only NEW angles
+    assert r2["tested"] > 0 and not first & set(ex.LAST_TESTED) and r2["tested_total"] == r1["tested"] + r2["tested"]
+    assert planted not in r2["new_suspects"] and not r2["new_proven"]               # no forward games yet
+    later = {**games, **_explorer_games(160, 2, first=420)}                          # forward games, same edge
+    r3 = ex.explore(later, path, batch=50, leagues=("nba",), verbose=False)
+    assert planted in r3["new_proven"] and planted in r3["proven"], r3
+    assert noise not in r3["proven"] and all("home" in k.split("|")[2].split("&") for k in r3["proven"]), r3["proven"]
+    pv = ex.load(path)["proven"][planted]
+    assert pv["fwd"]["n"] >= 100 and pv["fwd"]["roi"] > 0 and pv["fwd"]["z_edge"] >= 1 and pv["shift"] > 0
+    # the edge vanishes going forward -> killed
+    gone = {**games, **_explorer_games(160, 3, sunday_home=0.2, first=420)}
+    r4 = ex.explore(gone, path + ".kill", batch=10, leagues=("nba",), verbose=False)
+    assert planted in r4["new_killed"] and planted not in r4["proven"] + r4["suspects"], r4
+    # hooks
+    st = ex.load(path)
+    assert [p["key"] for p in ex.proven(st)] == r3["proven"]
+    up = {"id": "nba:up", "league": "nba", "start": "2022-12-04T23:00Z", "status": "pre", "home": "t1", "away": "t2",
+          "ml_home": "110", "ml_away": "-130", "stype": "2"}                       # a Sunday
+    idx = ex.index(later)
+    home, away = ex.atoms_for(later, up, "home", idx), ex.atoms_for(later, up, "away", idx)
+    assert "Sun" in home and "home" in home and "dog" in home and "road" in away, home
+    assert ex.adjust_side(st, "nba", home, 0.45) > 0.45 and ex.adjust_side(st, "nba", away, 0.55) == 0.55
+    assert ex.adjust_side(st, "nfl", home, 0.45) == 0.45 and ex.adjust_side({}, "nba", home, 0.45) == 0.45
+    assert ex.adjust_total(st, "nba", ex.game_atoms_for(later, up, idx), 0.5) == 0.5
+    assert ex.load("/nonexistent/explorer.json") == {}
+    shutil.rmtree(os.path.dirname(path))
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
