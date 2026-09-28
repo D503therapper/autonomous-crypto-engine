@@ -33,7 +33,7 @@ def _get(url):
     for u in dict.fromkeys((url.replace("http://", "https://"), url)):
         for i in range(2):
             try:
-                with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=30) as r:
+                with urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=90) as r:
                     return r.read()
             except Exception as e:                           # noqa: BLE001
                 ERRS.append(f"{u}: {e}")
@@ -104,14 +104,21 @@ def raw_files():
     return out
 
 
-def year(tour, y):
-    relay = os.environ.get("TDATA_RELAY", "").rstrip("/")     # the Cloudflare relay (the site blocks GitHub's servers)
-    base = f"{relay or 'http://www.tennis-data.co.uk'}/{y}{'w' if tour == 'wta' else ''}/{y}"
-    for ext in ("xlsx", "xls"):
-        blob = _get(f"{base}.{ext}")
-        if blob:
-            return _parse(blob, ext, tour)
-    return None
+def year(tour, y, direct=True):
+    """(rows, source) for one season: the site itself, else the internet archive's copy (the site blocks servers)."""
+    path = f"www.tennis-data.co.uk/{y}{'w' if tour == 'wta' else ''}/{y}"
+    now = datetime.now(timezone.utc)
+    when = now.strftime("%Y%m%d") if y >= now.year else f"{y + 1}0701"     # a copy taken after the season ended
+    tries = ([("site", f"http://{path}")] if direct else []) + [("archive", f"https://web.archive.org/web/{when}id_/http://{path}")]
+    for src, base in tries:
+        for ext in ("xlsx", "xls"):
+            blob = _get(f"{base}.{ext}")
+            if blob:
+                try:
+                    return _parse(blob, ext, tour), src
+                except Exception as e:                       # noqa: BLE001 - not a real season file
+                    ERRS.append(f"{base}.{ext}: unreadable ({e})")
+    return None, None
 
 
 def main():
@@ -122,20 +129,21 @@ def main():
     now = datetime.now(timezone.utc).year
     done = {(r["tour"], r["date"][:4]) for r in have if int(r["date"][:4] or 0) < now}
     keep = [r for r in have if int(r["date"][:4] or 0) < now]
-    blocked = False
+    blocked = False                                          # the site blocks servers: straight to the archive
     for (tour, y), rows in raw_files().items():
         keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
         done.add((tour, str(y)))
     for tour in ("atp", "wta"):
         for y in range(FIRST, now + 1):
-            if blocked or (tour, str(y)) in done:
+            if (tour, str(y)) in done:
                 continue
-            rows = year(tour, y)
-            print(f"{tour} {y}: {'missing' if rows is None else len(rows)}", flush=True)
+            n0 = len(ERRS)
+            rows, src = year(tour, y, direct=not blocked)
+            print(f"{tour} {y}: {'missing' if rows is None else f'{len(rows)} ({src})'}", flush=True)
             if rows is None and ERRS:
                 print("   ", ERRS[-1][:200], flush=True)
-            if len(ERRS) >= 12 and all("404" not in e for e in ERRS[-12:]):
-                print("the site blocks servers - upload the season files to data/sports/tennis/raw instead", flush=True)
+            if not blocked and any("tennis-data.co.uk/" in e and "archive" not in e and "403" in e for e in ERRS[n0:]):
+                print("   the site blocks servers - using the internet archive's copies from here", flush=True)
                 blocked = True
             if rows:
                 keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
