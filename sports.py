@@ -282,10 +282,12 @@ def leg_tier(c):
 
 def pick_tier(pk):
     """A play is only as confident as its weakest leg (older picks get it from their legs' numbers)."""
-    if pk.get("tier"):
-        return pk["tier"]
     if pk.get("lean"):
         return "lean"
+    if pk.get("kind") == "lock":                              # the Lock of the Day is a LOCK - its results count as locks
+        return "lock"
+    if pk.get("tier"):
+        return pk["tier"]
     # only a real lean play is a LEAN; a parlay's filler leg can't drag the whole card down to one
     tiers = [l.get("tier") or leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}) for l in pk.get("legs") or []]
     return "lock" if tiers and all(t == "lock" for t in tiers) else "value"
@@ -468,7 +470,7 @@ def post_board(games, model, picks, now, day, force=False):
               "lean": bool(b.get("lean")) or replacing}     # a replacement (after a play's graded) is always a LEAN:
                                                             # the lock/value grades are the opening board's calls only
         for leg in pk["legs"]:
-            leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
+            leg["tier"] = "lean" if pk["lean"] else "lock" if kind == "lock" else leg_tier(leg)
         pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         posted[kind] = pk

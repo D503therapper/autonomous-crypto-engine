@@ -262,6 +262,7 @@ def test_board_rules():
     assert sports.leg_tier(_cand("mn", -120, 0.60)) == "lock", "minus money: 60% at -120 (10% edge) = a lock"
     assert sports.leg_tier(_cand("v", 150, 0.43)) == "value" and sports.leg_tier(_cand("n", -110, 0.50)) == "lean"
     assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "value"}]}) == "value"
+    assert sports.pick_tier({"kind": "lock", "tier": "value", "legs": [{"tier": "value"}]}) == "lock", "the Lock of the Day counts as a lock"
     sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
     assert not sports.good(sharp_only), "sharp money alone can never carry a pick"
     drama = {**_cand("t", 120, 0.465), "our_drama": [{"kind": "coach fired"}]}      # ~2.3% edge
