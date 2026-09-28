@@ -91,6 +91,8 @@ LAST_TESTED = []                    # the keys the latest run tested (tests look
 
 
 # ---------------------------------------------------------------- reading the history
+MIN_SEASONS = 24          # of the 30 ATP + WTA season files since 2012 - the first run waits for the history to be in
+
 def _f(x):
     try:
         v = float(x)
@@ -1058,6 +1060,13 @@ def study(path=PATH, hist=HIST, matches=MATCHES, lines=LINES, batch=BATCH, budge
         if verbose:
             print(f"tennis edge: no odds history yet ({hist}) - skipped")
         return {"proven": [], "skipped": "no odds history yet"}
+    seasons = Counter((m.tour, m.d[:4]) for m in ms)
+    have = sum(1 for n in seasons.values() if n >= 1000)
+    if have < MIN_SEASONS and not os.path.exists(path):
+        # the time split and the "never retest" list are fixed on the first run, so wait for the whole history
+        if verbose:
+            print(f"tennis edge: odds history still loading ({have} of {MIN_SEASONS}+ seasons) - skipped")
+        return {"proven": [], "skipped": f"odds history still loading ({have} seasons)"}
     st = load(path)
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
     st["split"] = st.get("split") or split or _median_date(ms)

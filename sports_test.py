@@ -1313,6 +1313,9 @@ def test_tennis_edge():
     import sports_tennis_edge as te
     tmp = tempfile.mkdtemp()
     hist, path = os.path.join(tmp, "hist.csv.gz"), os.path.join(tmp, "edge.json")
+    _tennis_hist(hist, 40, None)
+    assert "loading" in te.study(path, hist, matches=None, lines=None, verbose=False)["skipped"]   # waits for the history
+    min_s, te.MIN_SEASONS = te.MIN_SEASONS, 0
     kw = dict(matches=None, lines=None, verbose=False, budget_s=60)
     planted = "wta|b365|dog"
     soft = lambda w, tour, fav: 1.4 if tour == "wta" and not fav else 1.0          # Bet365 way too generous on WTA dogs
@@ -1361,6 +1364,7 @@ def test_tennis_edge():
         csv.writer(f).writerow(TENNIS_COLS)
     r6 = te.study(os.path.join(tmp, "empty.json"), head, **kw)
     assert r6["proven"] == [] and r6.get("skipped"), r6
+    te.MIN_SEASONS = min_s
     shutil.rmtree(tmp)
 
 
