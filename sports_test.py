@@ -242,8 +242,8 @@ def test_board_rules():
         "the -101..-120 range comes first"
     one = sports.make_board([_cand("mnf", 170, 0.40), dict(_cand("mnf", -205, 0.70), side="away"),
                              dict(_cand("mnf", -110, 0.58, "spread", -4.5, "nfl"), side="away")])
-    assert one["solo"] and all(one[k] is None for k in ("lock", "dog", "two", "three", "four")), "one game = one Pick of the Day"
-    assert one["solo"]["legs"][0]["market"] == "spread" and sports.leg_tier(one["solo"]["legs"][0]) == "lock", "a -110 spread = LOCK"
+    assert one["lock"] and all(one[k] is None for k in ("solo", "dog", "two", "three", "four")), "one game = that pick is the Lock"
+    assert one["lock"]["legs"][0]["market"] == "spread" and sports.leg_tier(one["lock"]["legs"][0]) == "lock", "a -110 spread = LOCK"
     sure_dog = _cand("sd", 120, 0.66)                                        # a dog the engine thinks WINS (66%)
     bs = sports.make_board(slate + [sure_dog])
     assert bs["dog"]["legs"][0]["game_id"] == "sd" and "sd" in [l["game_id"] for l in bs["two"]["legs"]], "a confident Dog can ride"
@@ -773,7 +773,7 @@ def test_one_game_always_picks():
     cands = [{**base, "side": "home", "team": "A", "market": "spread", "line": 3.5, "odds": -108, "dec": 1.926, "p": 0.517, "edge": -0.004},
              {**base, "side": "away", "team": "B", "market": "ml", "line": None, "odds": -198, "dec": 1.505, "p": 0.653, "edge": -0.018}]
     b = sports.make_board(cands)
-    assert b["solo"] and b["solo"]["legs"][0]["team"] == "A", b
+    assert b["lock"] and b["lock"]["legs"][0]["team"] == "A" and not b["solo"], b     # one-game day: it's the Lock
     print("ok test_one_game_always_picks")
 
 

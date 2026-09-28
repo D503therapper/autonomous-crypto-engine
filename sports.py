@@ -350,8 +350,14 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         if solo is None:                                      # still nothing: a one-game day (Monday/Thursday night) ALWAYS
             solo = max((c for c in cands if c["odds"] >= MAX_FAV), key=lambda c: c["edge"], default=None)   # gets a pick:
                                                               # the side closest to value on our numbers
-        return {"lock": None, "dog": None, "two": None, "three": None, "four": None,
-                "solo": fixed.get("solo") and _combo(fixed["solo"]) or (_combo([solo]) if solo else None)}
+        if fixed.get("lock") or fixed.get("dog") or fixed.get("solo"):   # already posted today: build on it
+            return {"lock": fixed.get("lock") and _combo(fixed["lock"]), "dog": fixed.get("dog") and _combo(fixed["dog"]),
+                    "two": None, "three": None, "four": None, "solo": fixed.get("solo") and _combo(fixed["solo"])}
+        # that one pick IS the Lock of the Day (minus money) - or the Dog of the Day when it's plus money
+        one = _combo([solo]) if solo else None
+        minus = bool(solo) and solo["odds"] < 0
+        return {"lock": one if minus else None, "dog": None if minus else one, "two": None, "three": None, "four": None,
+                "solo": None}
     # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely
     # (within 2%), the one with the most value
     good_ = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV),        # accuracy first, then the most value
