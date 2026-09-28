@@ -14,6 +14,9 @@ import sports_data as sd
 PT = ZoneInfo("America/Los_Angeles")
 REPO = "D503therapper/autonomous-crypto-engine"
 PAGE = "docs/sports/index.html"
+BRAIN = "docs/sports/brain.json"      # everything the AI question box knows (rewritten with the page every run)
+RECORDS = {}
+LIVE_JSON_PATH = "docs/sports/live.json"
 LOOK = {   # kind -> label, accent, second accent
     "two":   ("2-LEG OF THE DAY", "#2f8bff", "#22d3ee"),
     "three": ("3-LEG OF THE DAY", "#ffc233", "#ff8a00"),
@@ -276,6 +279,17 @@ def render(picks, model, games, series, start_bank, updated_ms):
     todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
     active = [p for p in todays if p["status"] in ("open", "waiting")]      # the top is only what's still live
     board_date = now.strftime("%A, %B %-d")
+    try:                                                     # the AI question box relay (set by the deploy_ask workflow)
+        with open(os.path.join(sd.DATA, "ask_url.txt")) as f:
+            ask_url = f.read().strip()
+    except OSError:
+        ask_url = ""
+    if not re.fullmatch(r"https://[A-Za-z0-9.-]+\.workers\.dev/?", ask_url or "x"):
+        ask_url = ""
+    ask_note = ("Ask me anything — any game, our picks, the record, injuries, who the public's on, what the studies found. "
+                "Type it and hit send. 🧠" if ask_url else
+                "Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.")
+    ask_btn = '<button id="askgo" type="button">Ask 🧠</button>' if ask_url else ""
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card goes up from <b>6 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
@@ -367,6 +381,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
                f'<div class="ovr-s">today {tw}-{tl}</div></div>')
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
+    RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
+    RECORDS.update({"overall": f"{ow}-{ol}", "today": f"{tw}-{tl}",
+                    "locks (minus money calls)": "-".join(map(str, (sum(r == "won" for r, _ in by_tier["lock"]), sum(r == "lost" for r, _ in by_tier["lock"])))),
+                    "value (plus money calls)": "-".join(map(str, (sum(r == "won" for r, _ in by_tier["value"]), sum(r == "lost" for r, _ in by_tier["value"])))),
+                    "live plus money (own record, not ours)": "-".join(map(str, (sum(e["result"] == "won" for e in lrs), sum(e["result"] == "lost" for e in lrs))))})
     grades = "".join(grade(*TIER_LOOK[t], [r for r, _ in by_tier[t]], [r for r, d in by_tier[t] if d == today])
                      for t in ("lock", "value"))
     lotd = sorted((p for p in graded_all if p["kind"] == "lock"), key=lambda p: (p["date"], p.get("posted") or ""))
@@ -400,6 +419,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         chips.append(f'<span class="spc" style="color:{hue}"><b>{name}</b> {f"{w_ / n_:.0%}" if n_ else "—"}'
                      f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>')
     by_sport = "".join(chips)
+    RECORDS["by sport"] = {name.split(" ", 1)[1]: f"{sum(r == 'won' for lg, r in res if lg in lgs)}-"
+                           f"{sum(r == 'lost' for lg, r in res if lg in lgs)}" for name, lgs in groups + [("🎾 Tennis", ("tennis",))]}
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -410,6 +431,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
             continue
         r, h = wl(ps)
         st = streak(ps)
+        RECORDS.setdefault("by pick", {})[label] = r
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
                    f'<div class="rc-r">{r}</div><div class="rc-p">{_wl_words(ps, h)}</div>'
                    f'<div class="rc-s">{("streak " + st) if st else "no results yet"}</div></div>')
@@ -596,6 +618,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-top{{padding:10px 12px 6px}}
 .ask-t{{font-size:13px;font-weight:900;letter-spacing:.08em;color:#22d3ee;white-space:nowrap}} .ask-s{{font-size:12px;font-weight:700;color:#ffc233;white-space:nowrap}}
 .ask-b{{padding:0 12px 12px}} .ask-n{{font-size:12px;font-weight:600;color:#ffe08a;margin:2px 0 8px}} .ask-n b{{color:#22e39a}}
+.ask-row{{display:flex;gap:6px}} #askgo{{flex:none;font-size:15px;font-weight:900;padding:8px 12px;border-radius:12px;border:0;background:linear-gradient(90deg,#22d3ee,#b36bff);color:#04060c}}
 #askq{{width:100%;font-size:16px;padding:8px 11px;border-radius:12px;border:1px solid rgba(34,211,238,.55);background:#060a12;color:#fff}}
 #askq::placeholder{{color:#5fd4e8}}
 #asklist{{display:flex;flex-direction:column;gap:6px;margin-top:10px}}
@@ -718,8 +741,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 <div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 GOT A QUESTION?</span></div>
-<div class="ask-b"><div class="ask-n">Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.</div>
-<input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off">
+<div class="ask-b"><div class="ask-n">{ask_note}</div>
+<div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send">{ask_btn}</div>
 <div id="asklist"></div><div id="askout"></div></div></div>
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 10 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
@@ -791,6 +814,22 @@ tick();setInterval(tick,30000);check();setInterval(check,60000);document.addEven
 (function(){{   // 🤔 ASK THE ENGINE: the engine's read on any game, from reads.json (not our picks, never in the record)
 var games=[], q=document.getElementById("askq"), list=document.getElementById("asklist"), out=document.getElementById("askout");
 if(!q) return;
+var AI="{ask_url}", hist=[];                                   // 🧠 the AI question box (the relay), when it's live
+function ai(){{
+  var t=q.value.trim(); if(!AI||!t) return;
+  list.innerHTML="";
+  out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">🧠 The engine’s thinking…</div></section>';
+  var ctl=window.AbortController?new AbortController():null, to=setTimeout(function(){{if(ctl)ctl.abort()}},45000);
+  fetch(AI,{{method:"POST",headers:{{"Content-Type":"application/json"}},body:JSON.stringify({{q:t,history:hist}}),signal:ctl?ctl.signal:undefined}})
+  .then(function(r){{return r.ok?r.json():Promise.reject(r.status)}})
+  .then(function(d){{clearTimeout(to);if(!d||!d.answer)throw 0;
+    hist.push({{role:"user",content:t}},{{role:"assistant",content:d.answer}});hist=hist.slice(-6);
+    out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">'+esc(d.answer).replace(/\\n/g,"<br>")+'</div></section>'}})
+  .catch(function(){{clearTimeout(to);out.innerHTML="";render();
+    list.insertAdjacentHTML("afterbegin",'<div class="ask-n">The AI’s taking a breather — here’s the engine’s quick read instead. 👇</div>')}});
+}}
+q.addEventListener("keydown",function(e){{if(e.key==="Enter"){{e.preventDefault();ai()}}}});
+var go=document.getElementById("askgo"); if(go) go.addEventListener("click",ai);
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return {{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 function am(o){{return o>0?"+"+o:String(o)}}
 function tm(s){{try{{return new Date(s.replace("Z",":00Z")).toLocaleString("en-US",{{weekday:"short",hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"}})+" PT"}}catch(e){{return ""}}}}
@@ -883,3 +922,62 @@ def write(picks, model, games, series, start_bank, path=PAGE):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         f.write(render(picks, model, games, series, start_bank, int(time.time() * 1000)))
+    try:
+        write_brain(picks, games, os.path.join(os.path.dirname(path), "brain.json"))
+    except Exception as e:                                   # noqa: BLE001 - the page never waits on the brain
+        print(f"brain.json failed: {e}")
+
+
+def _leg_brain(l):
+    return {k: l.get(k) for k in ("league", "team", "opp", "market", "line", "odds", "p", "tier", "result", "score",
+                                  "start", "breakdown", "outs", "opp_outs", "injury_alerts", "reasons") if l.get(k) not in (None, [], "")}
+
+
+def write_brain(picks, games, path=BRAIN):
+    """The AI question box's data sheet: the board, the records, recent results, every game's read, what the studies
+    found, the public splits and the live plus money board. Plain facts - the bot answers only from this."""
+    def _j(p, default=None):
+        try:
+            with open(p) as f:
+                return json.load(f)
+        except (OSError, ValueError):
+            return default
+    now = datetime.now(PT)
+    today, tmr = now.date().isoformat(), (now + timedelta(days=1)).date().isoformat()
+    board = [{"date": p["date"], "kind": p["kind"], "status": p["status"], "odds": p.get("american"),
+              "legs": [_leg_brain(l) for l in p["legs"]], "waiting_on": p.get("waiting")}
+             for p in picks if p["date"] in (today, tmr)]
+    recent = [{"date": p["date"], "kind": p["kind"], "status": p["status"], "lean": bool(p.get("lean")),
+               "legs": [f"{l['team']} {l['market']}{'' if l.get('line') is None else ' ' + format(l['line'], '+g')} "
+                        f"{l['odds']:+d} -> {l.get('result') or 'pending'}" for l in p["legs"]]}
+              for p in sorted(picks, key=lambda p: p["date"])[-40:] if p["status"] in ("won", "lost", "push")]
+    import sports_dogs
+    import sports_selfcheck
+    import sports_trends
+    dogs = sports_dogs.load()
+    studies = {
+        "underdogs + favorites": {lg: {"proven dog spots": v.get("proven"), "trap dog spots (never taken)": v.get("traps"),
+                                       "favorites/dogs price check proven": (v.get("price") or {}).get("proven"),
+                                       "price table (book said vs really won)": (v.get("price") or {}).get("table")}
+                                  for lg, v in dogs.items()},
+        "trends": {"proven": (sports_trends.load() or {}).get("proven"),
+                   "active now": [{k: t.get(k) for k in ("league", "situation", "trend", "record", "streak", "verdict", "upcoming_names")}
+                                  for t in ((sports_trends.load() or {}).get("active") or [])[:15]]},
+        "self-check on our picks": sports_selfcheck.summary(sports_selfcheck.load()),
+        "spread vs moneyline": _j(os.path.join(sd.DATA, "ats.json"), {}),
+        "rigged / fade the public": {k: v for k, v in ((_j(os.path.join(sd.DATA, "rigged.json"), {}) or {}).get("cells") or {}).items()
+                                     if k.startswith("all|") or v.get("proven")},
+        "over/unders proven in": [lg for lg, v in (_j(os.path.join(sd.DATA, "totals.json"), {}) or {}).items()
+                                  if isinstance(v, dict) and v.get("proven")],
+    }
+    live = (_j(LIVE_JSON_PATH, {}) or {})
+    brain = {"updated": now.strftime("%Y-%m-%d %I:%M %p PT"), "today": today, "tomorrow": tmr,
+             "records": RECORDS, "board (today + tomorrow)": board, "recent graded picks": recent,
+             "every game's read (not our picks)": (_j("docs/sports/reads.json", {}) or {}).get("games", []),
+             "tennis reads": (_j("docs/sports/reads_tennis.json", {}) or {}).get("games", []),
+             "public betting splits (% of bets / % of money)": _j(os.path.join(sd.DATA, "public_live.json"), {}),
+             "live plus money right now": live.get("plays") or live.get("board") or [],
+             "studies": studies}
+    with open(path + ".tmp", "w") as f:
+        json.dump(brain, f, separators=(",", ":"), default=str)
+    os.replace(path + ".tmp", path)

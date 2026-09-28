@@ -1,0 +1,52 @@
+# Deploys the AI question box relay (workers/ask) to Cloudflare, puts the Anthropic key in as a Worker secret, and
+# saves the relay's address for the dashboard. Needs three repo secrets: ANTHROPIC_API_KEY, CLOUDFLARE_API_TOKEN,
+# CLOUDFLARE_ACCOUNT_ID. Without them it just says so and stops (green, nothing deployed).
+name: deploy_ask
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ["workers/ask/**", ".github/workflows/deploy_ask.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: deploy-ask
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: ready
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ] || [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::notice::AI question box not deployed yet - add ANTHROPIC_API_KEY, CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID repo secrets"
+            echo "go=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=yes" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.ready.outputs.go == 'yes'
+        uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - if: steps.ready.outputs.go == 'yes'
+        working-directory: workers/ask
+        run: |
+          npm ci --no-audit --no-fund
+          npx wrangler deploy 2>&1 | tee deploy.log
+          printf '%s' "$ANTHROPIC_API_KEY" | npx wrangler secret put ANTHROPIC_API_KEY
+          url=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
+          test -n "$url" || { echo "::error::no workers.dev address in the deploy output (turn on the workers.dev subdomain in Cloudflare > Workers)"; exit 1; }
+          echo "$url" > ../../data/sports/ask_url.txt
+          echo "AI question box live at $url"
+      - if: steps.ready.outputs.go == 'yes'
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/ask_url.txt
+          git commit -qm "AI question box address" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done

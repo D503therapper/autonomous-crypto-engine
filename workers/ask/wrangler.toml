@@ -1,0 +1,10 @@
+# The AI question box relay: the dashboard sends a question here, this adds the engine's data sheet
+# (docs/sports/brain.json) and asks Claude. The API key lives only in Cloudflare (a Worker secret).
+name = "d503-ask"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+MODEL = "claude-opus-5"     # swap to "claude-sonnet-5" for about half the cost
+EFFORT = "low"              # quick chat answers; "medium" thinks harder (slower, pricier)
