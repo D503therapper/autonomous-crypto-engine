@@ -390,6 +390,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
+        if kind in ("lock", "dog"):                          # (their own boxes up top - no double boxes)
+            continue
         ps = [p for p in graded_all if p["kind"] == kind]
         r, h = wl(ps)
         st = streak(ps)
@@ -717,7 +719,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
 </section>
-<div class="sec"><h2><i>●</i> RECORD BY PLAY</h2><span>{len(graded_all)} graded</span></div>
+<div class="sec"><h2><i>●</i> PARLAYS</h2><span>2-leg · 3-leg · 8-leg</span></div>
 <div class="recs">{"".join(rec)}</div>
 {live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
