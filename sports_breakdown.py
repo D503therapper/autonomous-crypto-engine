@@ -427,7 +427,9 @@ def breakdown(leg, games, elo, injuries, used=None):
         ps, po = g.get("sp_" + side) or "TBA", g.get("sp_" + other) or "TBA"
         nice = [f"⚾ {ps} is nice. He about to go off on {them}.",                  # our arm's the better one
                 f"⚾ {ps} on the bump for {us} — he nice nice. He ain't playing no games today.",
-                f"⚾ {ps} vs {po}? {ps} is nice. {them} in trouble."] \
+                f"⚾ {ps} vs {po}? {ps} is nice. {them} in trouble.",
+                f"⚾ {ps} is nice — {them} bats got no answer for him.",
+                f"⚾ {ps} nice nice. Just watch him work."] \
             if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" else []
         out.append(v.say("bump", nice + [f"⚾ On the bump: {ps} for {us}, {po} for {them}.",
                                    f"⚾ Pitching matchup: {ps} ({us}) vs {po} ({them}).",
