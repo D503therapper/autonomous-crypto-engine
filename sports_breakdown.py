@@ -5,6 +5,7 @@ from zoneinfo import ZoneInfo
 
 import re
 import sports_data as sd
+import sports_lingo
 import sports_model as sm
 import sports_players as sp
 
@@ -81,7 +82,11 @@ SLANG = {                        # our big phrases: each FAMILY shows up once on
     "trippin": r"trippin", "business": r"go to work|handle business|take care of business", "sheep": r"sheep",
     "clowns": r"clown", "run it back": r"run it back", "coming back": r"always be coming back", "gift": r"a gift",
     "free money": r"free money", "lock it in": r"lock it in", "tail it": r"tail it", "heater": r"heater",
-    "nice": r"\bnice\b", "go off": r"go(ing)? off"}
+    "nice": r"\bnice\b", "go off": r"go(ing)? off", "no answer": r"no answer", "watch": r"watch (him|her)|just watch",
+    "problem": r"a problem", "different": r"different|built for|another level|ain't regular", "him": r"\bis (him|her)\b",
+    "light": r"light work|easy work|handle .* light", "long day": r"long (day|night)", "ready": r"ain't ready",
+    "pray": r"better pray", "mark it": r"mark it", "show": r"put on a show", "silly": r"look silly",
+    "sleep": r"in their sleep|don't sleep", "trouble": r"in trouble", "on one": r"been on one|feeling it"}
 
 
 def slang_in(texts):
@@ -425,12 +430,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     # pitchers
     if lg == "mlb" and (g.get("sp_home") or g.get("sp_away")):
         ps, po = g.get("sp_" + side) or "TBA", g.get("sp_" + other) or "TBA"
-        nice = [f"⚾ {ps} is nice. He about to go off on {them}.",                  # our arm's the better one
-                f"⚾ {ps} on the bump for {us} — he nice nice. He ain't playing no games today.",
-                f"⚾ {ps} vs {po}? {ps} is nice. {them} in trouble.",
-                f"⚾ {ps} is nice — {them} bats got no answer for him.",
-                f"⚾ {ps} nice nice. Just watch him work."] \
-            if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" else []
+        nice = [f"⚾ {x}" for x in sports_lingo.good(ps, the_them, f"{g['id']}|sp")] \
+            if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" else []   # our arm's the better one
         out.append(v.say("bump", nice + [f"⚾ On the bump: {ps} for {us}, {po} for {them}.",
                                    f"⚾ Pitching matchup: {ps} ({us}) vs {po} ({them}).",
                                    f"⚾ {ps} takes the ball for {us}; {them} go with {po}.",
