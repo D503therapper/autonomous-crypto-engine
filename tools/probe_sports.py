@@ -5,6 +5,7 @@ import traceback
 
 sys.path.insert(0, ".")
 import sports_live as sl  # noqa: E402
+import sports_data as sd_  # noqa: E402
 
 # Bovada through the watcher's own code
 for lg in ("mlb", "nfl"):
@@ -19,6 +20,10 @@ for lg in ("mlb", "nfl"):
         except Exception as e:                               # noqa: BLE001
             print("BOVADA ERR", lg, u[60:150], e)
     print("bovada_live", lg, len(sl.bovada_live(lg)), sl.BOOKS.get(lg))
+g_ = sd_.load_games().get("nfl:401872962")
+if g_:
+    print("SECOND HALF BALL (Rams @ Broncos):", sl.second_half_ball("nfl", g_), "| first drive team id:",
+          sl.KICK.get("401872962"), "| home", g_["home"], g_["home_name"], "| away", g_["away"], g_["away_name"], sd_.ERRORS[-2:])
 board = subprocess.run(["git", "fetch", "-q", "origin", sl.LIVE_BRANCH], capture_output=True)
 b = subprocess.run(["git", "show", f"origin/{sl.LIVE_BRANCH}:live.json"], capture_output=True, text=True)
 if b.returncode == 0:
