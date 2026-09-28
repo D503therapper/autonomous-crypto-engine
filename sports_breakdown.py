@@ -9,7 +9,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 19          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 20          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -127,11 +127,12 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🔥 {us} are cooking — {n_hot} straight W's, {rec_u} overall.",
             f"🔥 Heat check: {us} have won {n_hot} in a row ({rec_u})."]))
     elif rec_u:
-        out.append(v.say("rec", [f"📋 {us} come in at {rec_u}.", f"📋 {us} are sitting at {rec_u}.",
-                                  f"📋 {rec_u} so far for {us}.",
-            f"📋 {us} roll in at {rec_u}.",
-            f"📋 Record check: {us} {rec_u}.",
-            f"📋 {us} are {rec_u} right now."]))
+        out.append(v.say("rec", [f"📋 {us} sitting at {rec_u} on the year. Tonight's the only one that counts though.",
+                                  f"📋 Record check: {us} {rec_u}. We already did our homework.",
+                                  f"📋 {rec_u} so far for {us} — the record don't cash tickets, the number does.",
+            f"📋 {us} rolling in at {rec_u}.",
+            f"📋 {us} got a {rec_u} record walking in. We gon' see what they do with it.",
+            f"📋 {us} are {rec_u} right now — the rest is on the field."]))
     if s_theirs:
         rec_t = _record(s_theirs, oid)
         cold = _streak(theirs, oid)
@@ -175,12 +176,11 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🐺 On paper it's {them}. On the field? We like {us} at this price.",
             f"🐺 {them} get all the love — that's why {us} are sitting at this number."]))
         else:
-            out.append(v.say("even", ["⚖️ Pretty even matchup, so we're riding the better number.",
-                                       "⚖️ These two are close, so the price is what makes the play.",
-                                       "⚖️ Evenly matched on paper — the value's on our side.",
-            "⚖️ Coin-flip matchup on paper. The number makes it ours.",
-            "⚖️ Dead even talent-wise — the price is the play.",
-            "⚖️ No clear better team, so we take the better number."]))
+            out.append(v.say("even", ["⚖️ On paper these two close as hell — so we taking the number that pays.",
+                                       "⚖️ Talent's about even. When it's this tight, the number makes the play.",
+                                       "⚖️ Coin-flip matchup on paper — and the line makers trippin' on the price.",
+            "⚖️ Dead even on paper. We ain't guessing who's better, we taking the better number.",
+            "⚖️ Nobody's clearly better here — so we let the number do the talking."]))
 
     # talk our talk when the other side's been bad (only when the numbers back it up)
     if s_theirs:
@@ -345,13 +345,12 @@ def breakdown(leg, games, elo, injuries, used=None):
     if str(g.get("intl")) == "1":
         pass                                            # no real home crowd overseas
     elif side == "home":
-        out.append(v.say("home", [f"🏟️ {us} are at home, about to go to work.",
-                                   f"🏟️ {us} get to do it in front of their own crowd.",
-                                   f"🏟️ Home game for {us} — their building, their rules.",
+        out.append(v.say("home", [f"🏟️ {us} at the crib tonight — their building, their rules.",
+                                   f"🏟️ Home cooking for {us}. That crowd finna be loud as hell.",
+                                   f"🏟️ {us} in their own house. Y'all know teams play different at home.",
                                    f"🏟️ {us} are home tonight and ready to handle business.",
-            f"🏟️ {us} got the home crowd behind them.",
-            f"🏟️ Home game — {us} don't lose many in their own house.",
-            f"🏟️ {us} at home, fans rocking. We like it."]))
+            f"🏟️ {us} got the whole building behind 'em tonight.",
+            f"🏟️ {us} at home, fans rocking. They about to go to work."]))
     else:
         out.append(v.say("road", [f"🧳 {us} are on the road — doesn't scare us.",
                                    f"🧳 Road game for {us}, but they travel just fine.",
@@ -418,12 +417,12 @@ def breakdown(leg, games, elo, injuries, used=None):
         pos, nm = key_us[0][1], key_us[0][0]
         mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
         pts = leg.get("line") if leg.get("market") == "spread" else None
-        need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)} or less, or lose, and we cash." \
+        need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)}, win by 1, or lose — we cash." \
             if pts and pts > 0 and pts != int(pts) else ""
         out.append(v.say("keyout_us", [
-            f"🚑 Real talk: {nm} is out, {the_us} are rolling with the backup {pos}.{mv} We know. We still trust the numbers.{need}",
-            f"🚑 No {nm} — backup {pos} gets the start for {the_us}.{mv} The books priced it in, and the algorithm still likes our side.{need}",
-            f"🚑 {the_us} lost their starting {pos}, {nm}.{mv} We ain't scared of it — the numbers still say this is the side.{need}"],
+            f"🚑 Real talk: {nm} is out, {the_us} rolling with the backup {pos}.{mv} We know. We still riding with the algorithm.{need}",
+            f"🚑 No {nm} tonight — backup {pos} gets the keys for {the_us}.{mv} Vegas already baked that in, and the numbers still say this the side.{need}",
+            f"🚑 Yeah, {nm} is out. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}"],
             must=True))
     if not key_any and op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
         out.append(v.say("sharp", [f"💰 Sharp money is on us: {us} opened {_am(op)}, now {_am(now)}.",
@@ -453,15 +452,34 @@ def breakdown(leg, games, elo, injuries, used=None):
     if sp_:
         t, m = sp_
         mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]
-        out.append(v.say("splits", [
-            f"📊 Who's betting who on {mk}: {t}% of the bets and {m}% of the money are on our side ({us}), "
-            f"{100 - t}% of the bets and {100 - m}% of the money on the other side."], must=True))
+        if t <= 35:
+            out.append(v.say("splits", [
+                f"📊 The whole world on {the_them} — {100 - t}% of the bets and {100 - m}% of the money on {mk}. "
+                f"We fading the public and taking {the_us}. That's how Vegas eats, and tonight we eating with 'em.",
+                f"📊 {100 - t}% of the bets on {the_them} ({100 - m}% of the money). Sheep gon' be sheep — "
+                f"we on {the_us} with the other {t}%.",
+                f"📊 Public's hammering {the_them}: {100 - t}% of the bets, {100 - m}% of the money. "
+                f"We ain't following the herd — {the_us} all day."], must=True))
+        elif t >= 65:
+            out.append(v.say("splits", [
+                f"📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us}. "
+                f"Sometimes the crowd gets it right.",
+                f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd tonight, but we got our own reasons."],
+                must=True))
+        else:
+            out.append(v.say("splits", [
+                f"📊 Bets are split — {t}% on {the_us}, {100 - t}% on {the_them} ({m}% / {100 - m}% of the money). "
+                f"Nobody knows nothing on this one, except us.",
+                f"📊 Who's betting who: {t}% of the bets on {the_us}, {100 - t}% on {the_them}. Pretty split crowd."],
+                must=True))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
     why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
                    NO_WHY)
-    if pub == "fade":
+    if sp_:
+        pass                                          # the real splits already said it (with the numbers)
+    elif pub == "fade":
         out.append(_nowhy(v.say("pub_fade", [
             f"🤡 {_cap(the_them)} are the clear favorite and the public's all over 'em. Don't be a sheep — we're on {the_us}, {why_pub}.",
             f"🤡 The public is all over {the_them}. Dummies are about to lose their money — we're on {the_us}, {why_pub}.",
@@ -495,13 +513,13 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {_odds_words(have)} for us vs {_odds_words(need)} at the window on {price}. Value all day."], must=True))
     else:
         out.append(v.say("bottom_s", [
-            f"✅ Bottom line: Vegas has {price} priced like {_odds_words(need)}, but everything above tips it our way. Small edge, real edge.",
-            f"✅ Bottom line: close to {_odds_words(need)} at the book, but the details break our way on {price}.",
-            f"✅ Bottom line: {price} isn't a slam dunk, it's a smart number — and the little things all point our way.",
-            f"✅ Bottom line: {price} is a thin edge, but it's an edge — and the details back it.",
-            f"✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way.",
-            f"✅ Bottom line: {price} ain't flashy. It's just the right side.",
-            f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way."], must=True))
+            f"✅ Bottom line: Vegas got {price} priced like {_odds_words(need)}, but everything above tips it our way. Small edge, real edge — we gon' see.",
+            f"✅ Bottom line: close to {_odds_words(need)} at the book, but the details break our way on {price}. We finna see.",
+            f"✅ Bottom line: {price} ain't a slam dunk, it's a smart number — and the little things all point our way. Tap in.",
+            f"✅ Bottom line: {price} is a thin edge, but it's an edge. I won't let y'all down.",
+            f"✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way. We gon' see.",
+            f"✅ Bottom line: {price} ain't flashy. It's just the right side. Tap in.",
+            f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way. We finna see."], must=True))
     lines = [x for x in out if x]
     if len(lines) > 2:
         import random

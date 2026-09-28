@@ -926,6 +926,12 @@ def run(repick=False, fetch=True):
         picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
     days = [day] + ([day + timedelta(days=1)] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else [])
+    try:                                                                # 📊 who's betting who on today's games
+        import sports_public
+        n_pub = len(sports_public.refresh_today(games))
+        print(f"public splits: {n_pub} upcoming games")
+    except Exception as e:                                              # noqa: BLE001
+        print(f"public splits failed: {e}")
     add_breakdowns(games, model, picks)
     n_graded = sum(1 for p in picks for l in p["legs"] if l.get("result") in ("won", "lost"))
     if n_graded != model.get("graded_seen"):                            # 🪞 the self-check: every graded pick (and the
@@ -936,12 +942,6 @@ def run(repick=False, fetch=True):
             model["graded_seen"] = n_graded
         except Exception as e:                                          # noqa: BLE001
             print(f"self-check failed: {e}")
-    try:                                                                # 📊 who's betting who on today's games
-        import sports_public
-        n_pub = len(sports_public.refresh_today(games))
-        print(f"public splits: {n_pub} upcoming games")
-    except Exception as e:                                              # noqa: BLE001
-        print(f"public splits failed: {e}")
     try:
         injury_watch(games, picks)                                      # 🚑 posted picks: did anybody's status change?
     except Exception as e:                                              # noqa: BLE001
