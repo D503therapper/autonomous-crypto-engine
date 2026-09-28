@@ -127,6 +127,7 @@ def make(table, **params):
     """Hunter on a temp dir with a canned fetch; discovery endpoints answer empty unless the table says."""
     params = dict(LADDER, **params)
     params.setdefault("scan", {"enabled": False})           # the wide scanner has its own tests (test_scan_*)
+    params.setdefault("confirm_ms", 0)                      # crash/rug confirmation has its own test
     d = tempfile.mkdtemp()
     table = dict(table)
     table.setdefault("token-boosts/top", (200, []))
@@ -591,6 +592,30 @@ def poll(h, t, px=None, v=None, liq=None, n=3):
     if liq is not None:
         px["liq"] = liq
     return run(h, t + 61_000, n)
+
+
+def test_crash_needs_a_second_reading():
+    """A single bad tick (XPAD 2026-09-28: 7.1e-05, real price 5x higher 7 min later) must not sell."""
+    h, fetch, d, px = held()
+    h.p = {**h.p, "confirm_ms": 120_000}
+    t = poll(h, T0 + 6000, px, v=0.015)
+    t = poll(h, t, px, v=0.0104)                                            # below the stop once
+    assert K in h.pf.positions and not h.pf.positions[K].get("exit") and h.pf.positions[K].get("stop_seen")
+    t = poll(h, t, px, v=0.0140)                                            # bad tick gone: reset, still held
+    assert K in h.pf.positions and "stop_seen" not in h.pf.positions[K]
+    t = poll(h, t, px, v=0.0104)                                            # breach again...
+    assert K in h.pf.positions
+    t = poll(h, t + 60_000, px, v=0.0103)                                   # ...and still there 2+ min later: sold
+    assert K not in h.pf.positions and "trailing stop" in rows(f"{d}/outcomes.csv")[-1]["reason"]
+    shutil.rmtree(d)
+    h, fetch, d, px = held()                                                # a rug also needs a second reading
+    h.p = {**h.p, "confirm_ms": 120_000}
+    t = poll(h, T0 + 6000, px, liq=100_000)
+    assert K in h.pf.positions
+    t = poll(h, t + 60_000, px, liq=90_000)
+    assert K not in h.pf.positions and rows(f"{d}/outcomes.csv")[-1]["outcome"] == "scammed_rug"
+    shutil.rmtree(d)
+    print("  crash / rug sale needs a second reading >= 2 min later (single bad ticks ignored)   ok")
 
 
 def test_trailing_stop():
@@ -1384,6 +1409,7 @@ if __name__ == "__main__":
     test_queue_screens_movers_first()
     test_liquidity_floor_scales_with_account()
     test_sizing_caps_in_entries()
+    test_crash_needs_a_second_reading()
     test_trailing_stop()
     test_evm_address_case()
     test_take_profit_steps()

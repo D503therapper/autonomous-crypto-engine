@@ -1497,6 +1497,21 @@ class DexHunter:
             return True
         return False
 
+    CONFIRM_MS = 120_000
+
+    def _confirmed(self, pos, key, now):
+        """A crash / rug reading must repeat on a later price update >= 2 min after the first before we sell:
+        single bad ticks from DexScreener sold XPAD at 7.1e-05 on 2026-09-28 (7 min later: 0.000365, -$34)."""
+        wait = self.p.get("confirm_ms", self.CONFIRM_MS)
+        if wait <= 0:
+            return True
+        first = pos.get(key)
+        if first is None:
+            pos[key] = now
+            self.dirty = True
+            return False
+        return now - first >= wait
+
     def _manage(self, k, pos, now):
         if pos.get("exit"):
             return
@@ -1508,10 +1523,14 @@ class DexHunter:
         p0 = pos.get("px0") or pos["entry"]
         expect = pos["liq0"] * min(1.0, p / p0) ** 0.5 if p > 0 and p0 > 0 else 0.0
         if liq <= 0 or liq <= expect * (1 - X["liq_pull"]):
+            if not self._confirmed(pos, "rug_seen", now):
+                return
             gone = 1 - liq / expect if expect > 0 else 1.0
             return self._request_exit(k, 1.0, f"liquidity pulled {gone:.0%} (${liq:,.0f}; ${expect:,.0f} expected after "
                                       f"the price move, ${pos['liq0']:,.0f} at entry)", "scammed_rug", now)
         pos["peak"] = max(pos["peak"], p)
+        if p > pos["stop"]:
+            pos.pop("stop_seen", None)
         trail = X["trail"]                             # the stop gets more room as the coin multiplies,
         for mult, t in X.get("trail_steps", []):       # so normal shakeouts don't end a 10x-100x runner
             if pos["peak"] >= pos["entry"] * mult:
@@ -1519,7 +1538,10 @@ class DexHunter:
         if pos.get("runner"):                          # past the time limit up >= 2x: rides its own trail
             trail = min(trail, X["runner_at_limit"][1])
         pos["stop"] = max(pos["stop"], pos["peak"] * (1 - trail))
+        pos.pop("rug_seen", None)
         if p <= pos["stop"]:
+            if not self._confirmed(pos, "stop_seen", now):
+                return
             return self._request_exit(k, 1.0, f"trailing stop (peak {pos['peak']:g})", "normal", now, "stop")
         # EXPERIMENT 3 (owner 2026-09-28): at `stake_back` x (3x) sell the stake once - the rest rides on house money.
         # BABYCALI went 4.3x and then -95% within an hour, ending -$101 instead of banking its gain.
