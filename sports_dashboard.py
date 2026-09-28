@@ -294,8 +294,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         ask_url = ""
     if not re.fullmatch(r"https://[A-Za-z0-9.-]+\.workers\.dev/?", ask_url or "x"):
         ask_url = ""
-    ask_note = ("Ask me anything — any game, our picks, the record, injuries, who the public's on, what the studies found. "
-                "Type it and hit send. 🧠" if ask_url else
+    ask_note = ("Ask the engine anything. Tap in. 🧠" if ask_url else
                 "Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.")
     ask_btn = '<button id="askgo" type="button">Ask 🧠</button>' if ask_url else ""
     drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'

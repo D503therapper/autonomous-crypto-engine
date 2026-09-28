@@ -9,7 +9,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 20          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 21          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -111,6 +111,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
     if ours and theirs and (start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days < 2:
         leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]
+    if (sm._num(g.get("elev")) or 0) < sm.THIN_AIR_M:  # "altitude edge" only means something up in real thin air
+        leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "altitude edge"]
     out, said = [], set()          # said: reasons already used as a "because", so no line repeats another
     leg["bd_tags"] = v.mine        # which wordings this breakdown used (so the rest of the board avoids them)
 
