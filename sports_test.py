@@ -718,6 +718,9 @@ def test_leans_through_the_day():
     assert four and len({l["game_id"] for l in four["legs"]}) == 4
     lock = sports.lean(cands, "lock")
     assert lock and lock["legs"][0]["game_id"] == "g3"          # a lean lock still follows the lock price rule
+    big = [dict(c, league="ncaab") for c in cands[:3]] + [dict(cands[4], stype="3")]   # a playoff game beats college
+    assert sports.lean(big, "two")["legs"][0]["game_id"] == "g5"
+    assert sports.importance(dict(cands[0], league="nfl", start="2026-09-29T00:15Z")) == 2   # Monday night
     print("ok test_leans_through_the_day")
 
 

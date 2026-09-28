@@ -202,7 +202,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
             if n_out[side] - n_out[other] > MAX_EXTRA_OUT:
                 continue                                  # never back the more banged-up team
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
-            base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp,
+            base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1]}
@@ -436,6 +436,21 @@ MAX_REPLACEMENTS = 10         # 🟡 LEANS through the day: when a daily pick is
                               # own record - never ours. Our record stays the start-of-day board.
 
 
+PRO = ("nfl", "nba", "nhl", "mlb")
+
+
+def importance(c):
+    """How big a game is, for LEANS (the engine has no strong play, so the games people care about go first):
+    playoffs (wild card on up) > NFL prime time (Thursday / Sunday / Monday night) > the pros > college."""
+    if str(c.get("stype")) == "3":
+        return 3
+    if c["league"] == "nfl":
+        et = datetime.strptime(c["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(ZoneInfo("America/New_York"))
+        if et.weekday() in (0, 3) or (et.weekday() == 6 and et.hour * 60 + et.minute >= 19 * 60 + 30):
+            return 2
+    return 1 if c["league"] in PRO else 0
+
+
 def lean(cands, kind, taken=None):
     """The best available play when nothing clears the value bar: the closest thing to value on the slate, same rules
     (no big favorites, no games underway, never the banged-up side - candidates already filter those). Tagged LEAN."""
@@ -449,7 +464,7 @@ def lean(cands, kind, taken=None):
         best = {}
         for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= LEAN_MIN_P[kind]), key=lambda c: -c["p"]):
             best.setdefault(c["game_id"], c)
-        legs = sorted(best.values(), key=lambda c: -c["p"])[:n]          # the likeliest, not the longest
+        legs = sorted(best.values(), key=lambda c: (-importance(c), -c["p"]))[:n]   # the big games first, then the likeliest
         if len(legs) < n:
             return None
         dec, p = 1.0, 1.0
@@ -461,7 +476,7 @@ def lean(cands, kind, taken=None):
         return None
     if not pool:
         return None
-    c = max(pool, key=lambda c: (c["p"], c["edge"]))                  # accuracy first: the likeliest winner
+    c = max(pool, key=lambda c: (importance(c), c["p"], c["edge"]))   # the big games first, then the likeliest winner
     return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 
