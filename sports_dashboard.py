@@ -384,10 +384,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
     ol = sum(r == "lost" for _, r, _ in calls.values())
     tw = sum(r == "won" for _, r, d in calls.values() if d == today)
     tl = sum(r == "lost" for _, r, d in calls.values() if d == today)
-    cash = sum(p.get("pnl") or 0 for p in done)             # 💵 every card we posted, $100 flat, at its real price
-    money = (f'<div class="ovr-m">💵 $100 on every pick: <b class="{"up" if cash >= 0 else "dn"}">'
-             f'{"+" if cash >= 0 else "−"}${abs(cash):,.0f}</b></div>' if done else "")
-    RECORDS["$100 on every pick (our cards)"] = f"{'+' if cash >= 0 else '-'}${abs(cash):,.0f}"
+    cash = sum(p.get("pnl") or 0 for p in done)             # 💵 every card we posted, flat, at its real price
+    u = cash / 100                                           # every pick is 1 unit - no 5-unit plays, ever
+    money = (f'<div class="ovr-m">💵 <b class="{"up" if u >= 0 else "dn"}">{"Up" if u >= 0 else "Down"} {abs(u):.1f} units</b></div>'
+             if done else "")
+    RECORDS["units (every pick is 1 unit)"] = f"{'up' if u >= 0 else 'down'} {abs(u):.1f}"
     overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
                f'<div class="ovr-s">today {tw}-{tl}</div>{money}</div>')
