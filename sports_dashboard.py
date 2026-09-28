@@ -332,6 +332,99 @@ def _tennis():
 <div class="tn-b"><div class="tn-d">parlays {r['p_won']}-{r['p_lost']}</div>{body}</div></details>"""
 
 
+def _jl(path, default):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return default
+
+
+def _history(picks):
+    """📜 PAST RESULTS: tap open any sport and see every pick that won or lost, newest first."""
+    ok = {"won": "✅", "lost": "❌", "push": "➖"}
+    kinds = {"lock": "Lock of the Day", "dog": "Dog of the Day", "two": "2-Leg", "three": "3-Leg", "four": "4-Leg",
+             "eight": "8-Leg", "solo": "One-Game Pick"}
+
+    def day(d):
+        try:
+            return datetime.strptime(d[:10], "%Y-%m-%d").strftime("%b %-d")
+        except ValueError:
+            return d
+
+    def bet(l):
+        if l.get("market") == "total":
+            return f'{"Over" if l.get("side") == "over" else "Under"} {l.get("line"):g}'
+        if l.get("market") == "spread" and l.get("line") is not None:
+            return f'{l["team"]} {l["line"]:+g}'
+        return f'{l["team"]} ML'
+
+    def rows(items):
+        return "".join(f'<div class="hr {r}"><span class="hd">{day(d)}</span><span class="hw">{ok.get(r, "")}</span>'
+                       f'<span class="hp">{E(what)}<small>{E(sub)}</small></span></div>' for d, r, what, sub in items)
+
+    def box(title, items):
+        if not items:
+            return ""
+        items = sorted(items, key=lambda x: x[0], reverse=True)
+        w, l_ = sum(x[1] == "won" for x in items), sum(x[1] == "lost" for x in items)
+        return (f'<details class="hs"><summary><b>{title}</b><span>{w}-{l_}'
+                f'{f" · {w / (w + l_):.0%}" if w + l_ else ""}</span></summary>{rows(items)}</details>')
+
+    # our record, by sport: every leg we posted (a team we're on in two picks the same day shows once, with both cards)
+    legs = {}
+    for p in picks:
+        if p.get("lean") or p["status"] not in ("won", "lost", "push", "open"):
+            continue
+        for l in p["legs"]:
+            if l.get("result") not in ("won", "lost", "push"):
+                continue
+            k = (p["date"], l["game_id"], l["side"], l.get("market"))
+            e = legs.setdefault(k, {"l": l, "date": p["date"], "cards": []})
+            e["cards"].append(kinds.get(p["kind"], p["kind"]))
+    by = {}
+    for e in legs.values():
+        l = e["l"]
+        by.setdefault(l["league"], []).append(
+            (e["date"], l["result"], f'{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
+             + (f' · {l["score"]}' if l.get("score") else "")))
+    out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', by.get(lg, [])) for lg in sd.LEAGUES)
+    # the parlays, as tickets
+    tix = [(p["date"], p["status"], f'{kinds.get(p["kind"], p["kind"])} ({_am(p["american"])})',
+            " · " + ", ".join(bet(l) + ("" if l.get("result") in (None, "won") else " ❌") for l in p["legs"]))
+           for p in picks if not p.get("lean") and len(p["legs"]) > 1 and p["status"] in ("won", "lost")]
+    out += box("🎟️ Parlays", tix)
+    # their own records
+    lean = [(p["date"], p["status"], f'{bet(p["legs"][0])} ({_am(p["legs"][0]["odds"])})',
+             f' · {sd.LEAGUES.get(p["legs"][0]["league"], ("", "", ""))[2]}'
+             + (f' · {p["legs"][0]["score"]}' if p["legs"][0].get("score") else ""))
+            for p in picks if p.get("lean") and p["status"] in ("won", "lost") and p.get("legs")]
+    live = ((_jl(os.path.join(sd.DATA, "live_log.json"), {}) or {}).get("plays") or {}).values()
+    lv = [(e.get("date", ""), e["result"], f'{e.get("team")} ML ({_am(e["odds"])})',
+           f' · {sd.LEAGUES.get(e.get("league"), ("", "", "🎾 Tennis"))[2]}'
+           + (f' · went up at {e["score_at_post"]} ({e.get("clock_at_post", "")})' if e.get("score_at_post") else ""))
+          for e in live if e.get("result") in ("won", "lost")]
+    tn = {"atp": [], "wta": []}
+    seen = set()
+    for sl in reversed(_jl(os.path.join(sd.DATA, "tennis", "picks.json"), []) or []):
+        for l in sl.get("picks") or []:
+            key = l.get("match") or l["id"]
+            if l.get("result") not in ("won", "lost") or key in seen:
+                continue
+            seen.add(key)
+            sc = ", ".join(s_.strip() if l.get("side", 1) == 1 else "-".join(reversed(s_.strip().split("-")))
+                           for s_ in (l.get("score") or "").split(",") if s_.strip())
+            b_ = f'{l["player"]} {l["hcp"]:+g} games' if l.get("market") == "spread" and l.get("hcp") is not None else f'{l["player"]} ML'
+            tn["wta" if l.get("tour") == "wta" else "atp"].append(
+                (sl["date"], l["result"], f'{b_} ({_am(l["odds"])})', f' · vs {l.get("opp", "")}' + (f" · {sc}" if sc else "")))
+    own = (box("📡 Live plus money", lv) + box("🟡 Leans", lean) + box("🎾 Men's Tennis", tn["atp"])
+           + box("🎾 Women's Tennis", tn["wta"]))
+    if not out and not own:
+        return ""
+    return (f'<details class="hist"><summary>📜 PAST RESULTS <span>every pick, won or lost — tap a sport</span></summary>'
+            f'{out}{f"<div class=hs-own>THEIR OWN RECORDS</div>{own}" if own else ""}</details>')
+
+
 def render(picks, model, games, series, start_bank, updated_ms):
     now = datetime.now(PT)
     today = now.date().isoformat()
@@ -700,6 +793,18 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-prop{{font-size:15px;font-weight:900;color:#ff5a7a;margin:6px 0 10px}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .own{{font-size:13px;font-weight:800;color:#ffc233;margin-top:6px;border-left:3px solid #ffc233;padding-left:8px}}
+.hist{{margin:4px 0 14px;border:1px solid rgba(255,194,51,.35);border-radius:12px;background:var(--card2);padding:0 12px}}
+.hist>summary{{list-style:none;cursor:pointer;padding:12px 0;font-weight:900;font-size:15px;letter-spacing:.06em;color:#ffc233}}
+.hist>summary span{{display:block;font-size:12px;font-weight:700;letter-spacing:0;color:#9fb0c8;margin-top:2px}}
+.hist summary::-webkit-details-marker{{display:none}}
+.hs{{border-top:1px solid rgba(255,255,255,.08)}}
+.hs>summary{{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;font-size:15px}}
+.hs>summary b{{color:#fff;font-weight:900}} .hs>summary span{{color:#ffc233;font-weight:800;white-space:nowrap}}
+.hs>summary::after{{content:"▾";color:#9fb0c8;margin-left:6px}} .hs[open]>summary::after{{content:"▴"}}
+.hs-own{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#9fb0c8;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.08)}}
+.hr{{display:grid;grid-template-columns:3.6em 1.4em minmax(0,1fr);gap:6px;padding:7px 0;border-top:1px dashed rgba(255,255,255,.06);font-size:13.5px;align-items:start}}
+.hr .hd{{color:#9fb0c8;font-weight:700;white-space:nowrap}} .hr .hp{{color:#fff;font-weight:800;overflow-wrap:anywhere}}
+.hr .hp small{{color:#9fb0c8;font-weight:600}} .hr.lost .hp{{color:#ffb4b4}}
 .sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
 .spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
   border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:9px 12px;font-size:15px;font-weight:900}}
@@ -837,6 +942,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="recs grades">{others}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
+  {_history(picks)}
 </section>
 {live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
