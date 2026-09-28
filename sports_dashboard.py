@@ -20,10 +20,11 @@ LOOK = {   # kind -> label, accent, second accent
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
     "four": ("4-LEG OF THE DAY", "#b36bff", "#ff4fd8"),
+    "solo": ("PICK OF THE DAY", "#22e39a", "#22d3ee"),
     "eight": ("8-LEG (RETIRED)", "#8a5cff", "#c04fd8"),
 }
 BIG_HIT = 300                 # +300 and up that cashes gets the big brag
-ICON = {"two": "⚡", "three": "👑", "four": "🚀", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
+ICON = {"solo": "🎯", "two": "⚡", "three": "👑", "four": "🚀", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
 E = html.escape
 
 
@@ -403,7 +404,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         if kind in ("lock", "dog"):                          # (their own boxes up top - no double boxes)
             continue
         ps = [p for p in graded_all if p["kind"] == kind]
-        if kind == "eight" and not ps:                       # the retired 8-leg only shows while it has history
+        if kind in ("eight", "solo") and not ps:             # the retired 8-leg / one-game-day pick: only with history
             continue
         r, h = wl(ps)
         st = streak(ps)
@@ -728,7 +729,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 4-Leg, every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live plus money, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 4-Leg (on a one-game day, a single 🎯 Pick of the Day), every leg a 🔒 lock or 🔥 value call the engine is confident in. Each team counts once a day. 📡 Live plus money, 🟡 leans and 🎾 tennis each keep their own record. Question-box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}{"".join(rec)}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
