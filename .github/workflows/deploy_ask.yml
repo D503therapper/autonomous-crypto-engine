@@ -32,7 +32,7 @@ jobs:
           fi
       - if: steps.ready.outputs.go == 'yes'
         uses: actions/setup-node@v4
-        with: { node-version: "20" }
+        with: { node-version: "22" }
       - if: steps.ready.outputs.go == 'yes'
         working-directory: workers/ask
         run: |
