@@ -369,7 +369,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     # the engine's grades: locks, value, leans and live - each graded on its own, never lumped into one number
     def grade(name, c1, c2, rows, today_rows):
         w_, l_ = sum(r == "won" for r in rows), sum(r == "lost" for r in rows)
-        return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_}-{l_}</div>'
+        return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_} won · {l_} lost</div>'
                 f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%}" if w_ + l_ else "no results yet"}</div></div>')
     # locks and value: every call on the board, graded by how sure we were (a parlay's legs each count as their own call,
     # a team we're on twice the same day counts once). Leans never count; the 8-leg lottery ticket keeps its own record.
@@ -459,7 +459,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         r, h = wl(ps)
         RECORDS.setdefault("by pick", {})[label] = r
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
-                   f'<div class="rc-r">{r}</div><div class="rc-p">{_wl_words(ps, h)}</div></div>')
+                   f'<div class="rc-r">{sum(p["status"] == "won" for p in ps)} won · {sum(p["status"] == "lost" for p in ps)} lost</div>'
+                   f'<div class="rc-p">{_wl_words(ps, h)}</div></div>')
 
 
     # the brain, in a nutshell - only what actually happened, in our voice, rotating day to day
@@ -738,7 +739,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .rc{{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;overflow:hidden}}
 .rc::before{{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2))}}
 .rc-t{{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--c1)}}
-.rc-r{{font-size:26px;font-weight:900;color:#fff;margin-top:4px;font-variant-numeric:tabular-nums}}
+.rc-r{{font-size:clamp(13px,4vw,15.5px);font-weight:900;color:#fff;margin-top:8px;white-space:nowrap;letter-spacing:-.01em;font-variant-numeric:tabular-nums}}
 .rc-p{{font-weight:800;color:var(--c1);font-size:12.5px;white-space:nowrap;letter-spacing:-.01em}} .rc-s{{font-size:11.5px;color:var(--c2);font-weight:700;margin-top:2px}}
 .list{{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:4px 14px}}
 .rr{{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}} .rr:last-child{{border:0}}
