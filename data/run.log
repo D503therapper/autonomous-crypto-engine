@@ -2313,3 +2313,34 @@ DEX: $731.74 (-68.26) · Scammed: 0
    [alert] Today -352.34 | Total -690.70: Stocks: $500.00  today +0.00  total +0.00
 DEX: $309.30  today -352.34  total -690.70
 DEX: $309.30 (-690.70) · Scammed: 1 (-$166.76)
+   dex screen: REJECT WBTC@ethereum liq $7,582,922 - transfer_pausable; is_mintable; top-10 holders 54%
+   dex screen: REJECT SHIB@ethereum liq $621,499 - lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT GITLAWB@base liq $695,535 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   scanner: NMR: +19.0% in 48 min on 161.1x volume @ 13.563 spread 1.25%
+   take-off: NMR vetoed by pump guard: already +36% in 24h
+   scanner: NMR: +20.6% in 53 min on 161.1x volume @ 13.739 spread 1.29%
+   take-off: NMR vetoed by pump guard: blocked 24 more min
+   dex screen: PASS SPX@ethereum liq $12,144,417
+   scanner: NMR: +20.1% in 60 min on 5.1x volume @ 13.924 spread 0.78%
+   take-off: NMR vetoed by pump guard: blocked 8 more min
+   dex screen: REJECT GMEX@solana liq $371,927 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 97%; lp holders unknown
+   dex screen: PASS DRB@base liq $1,608,181
+   dex screen: REJECT MOG@ethereum liq $5,817,753 - top-10 holders 46%
+   dex screen: REJECT KLIK@ethereum liq $194,308 - lp locked 0% < 95%
+   dex scanner: 2,408 pools (solana 1,708 / base 373 / ethereum 327), refresh cycle 100s (hot 96s), 3070 calls (110 feed, 429s 0, failed 0), 88,732 refreshed (10842 no pair), +103 added / -140 dropped (dead 124, stale 16, cap 0), movers 11 + warming 18 -> queued 2, screened 2 (passed 0), bought 0
+   scanner: NMR: +10.0% in 30 min on 3.4x volume @ 14.92 spread 1.43%
+   take-off: NMR vetoed by pump guard: already +48% in 24h
+[2026-09-28 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-28 23:06 UTC] crypto/mover     equity $459.63 (-8.1%) 1 open  market UP
+[2026-09-28 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-28 23:06 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-28 23:06 UTC] crypto/breakout10 equity $490.77 (-1.8%) 2 open  market UP
+[2026-09-28 23:06 UTC] crypto/momentum  equity $488.65 (-2.3%) 3 open  market UP
+[2026-09-28 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-28 23:06 UTC] crypto/hold_btc  equity $497.15 (-0.6%) 1 open  market UP
+   social heat top: QNT 37 (37/0/0), TRUMP 35 (35/0/0), NEAR 32 (32/0/0), HBAR 29 (29/0/0), PENGU 29 (21/0/8)
