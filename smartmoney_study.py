@@ -39,7 +39,7 @@ def load():
     evs = {(e["k"], e["t"]): dict(e, net=pools[e["k"]]["net"], sym=pools[e["k"]]["sym"], lab=label(e)) for e in S["events"]}
     pre = {}
     for r in R["pre"]:
-        if "buys" in r and (r["k"], r["t"]) in evs:
+        if "buys" in r and "err" not in r and (r["k"], r["t"]) in evs:
             pre[(r["k"], r["t"])] = r
     return S, R, pools, evs, pre
 

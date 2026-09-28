@@ -1,0 +1,73 @@
+smart-money study 2026-09-28 09:19 UTC; raw collected 2026-09-28
+
+1. COVERAGE (events = pool-sequential live-entry trades 2026-07-07..09-27)
+  solana  events 129; pre-hour windows collected   9 (with >= 1 buyer 8; buyers/window median 7, max 14); launch windows 0 (with buyers 0)
+  base    events 138; pre-hour windows collected  58 (with >= 1 buyer 58; buyers/window median 171.5, max 5672); launch windows 37 (with buyers 30)
+  eth     events  99; pre-hour windows collected   0 (with >= 1 buyer 0; buyers/window median 0, max 0); launch windows 25 (with buyers 0)
+  not collected: {('solana', 'not reached'): 105, ('eth', 'getLogs failed (part)'): 37}
+
+2. OVERLAP: wallets among the buyers of >= 2 DIFFERENT pools' entry events (pre-hour or launch)
+  pools with wallets 70 (28 runner pools); distinct wallets 4687; in >= 2 pools 307; in >= 3 86; bot-like (>= 20% of pools) 5
+    0x4f82e73edb06.. in  26 pools: run 10, dud 13, mid 3  [bot-like]  e.g. SURPLUS, DOT, GITLAWB, VELVET, $OLIVIA2.0, DRV
+    0xf5c4f3dc02c3.. in  21 pools: run 10, dud 10, mid 1  [bot-like]  e.g. SURPLUS, GITLAWB, VELVET, $OLIVIA2.0, NOCK, DRV
+    0x2aa7d880b7ad.. in  18 pools: run 7, dud 9, mid 2  [bot-like]  e.g. SURPLUS, GITLAWB, VELVET, NOCK, DRV, B3
+    0xfa00a9ed787f.. in  16 pools: run 7, dud 9, mid 0  [bot-like]  e.g. VELVET, NOCK, DRV, B3, FLOCK, OVPP
+    0xad01c20d5886.. in  15 pools: run 10, dud 5, mid 0  [bot-like]  e.g. DOT, GITLAWB, VELVET, $OLIVIA2.0, NOCK, B3
+    0x278d858f05b9.. in  13 pools: run 4, dud 7, mid 2  e.g. VELVET, DRV, B3, FLOCK, OVPP, O
+    0x5aafc1f252d5.. in  12 pools: run 8, dud 4, mid 0  e.g. SURPLUS, DOT, GITLAWB, VELVET, NOCK, B3
+    0x9a972d8c3a8d.. in   9 pools: run 2, dud 6, mid 1  e.g. SURPLUS, DOT, $OLIVIA2.0, OVPP, O, CHECK
+    0x20f6ee51340a.. in   9 pools: run 4, dud 5, mid 0  e.g. DOT, GITLAWB, VELVET, DRV, OVPP, O
+    0x9008d19f58aa.. in   9 pools: run 4, dud 5, mid 0  e.g. DOT, VELVET, NOCK, DRV, DEGEN, POD
+    0xa75990bbe6a0.. in   9 pools: run 4, dud 4, mid 1  e.g. VELVET, NOCK, B3, FLOCK, OVPP, REI
+    0xd4627ecb405b.. in   8 pools: run 2, dud 5, mid 1  e.g. VELVET, B3, O, CHECK, POD, UP
+  non-bot wallets early in >= 2 RUNNER pools: 104; shuffled labels median 73.0, 95th pct 113; p = 0.13
+
+3. WALK-FORWARD SIGNAL: known-good wallets (from earlier, resolved coins only) among the buyers before our entry
+  events with buyer data 67; halves split 2026-08-13; known-good wallets available at the split (median over newer events) 150.0
+  [all]
+    baseline                      n  67  runner(>=2x)  19%  exit>=+100%   9%  dud  64%  mean  +63.2%  median  -15.3%
+    >= 1 good wallet(s) pre-hour   n   3  runner(>=2x)  33%  exit>=+100%  33%  dud   0%  mean +1232.6%  median  +35.2%
+    >= 2 good wallet(s) pre-hour   n   1  runner(>=2x)   0%  exit>=+100%   0%  dud   0%  mean  +35.2%  median  +35.2%
+    >= 3 good wallet(s) pre-hour   n   0
+    0 good wallets pre-hour       n  64  runner(>=2x)  19%  exit>=+100%   8%  dud  67%  mean   +8.4%  median  -16.3%
+    good > bad wallets pre-hour   n   0
+    bad > good wallets pre-hour   n  32  runner(>=2x)  16%  exit>=+100%   9%  dud  62%  mean +121.4%  median  -10.4%
+    >= 1 good wallet at launch    n   8  runner(>=2x)  38%  exit>=+100%  25%  dud  50%  mean +456.8%  median   -5.3%
+  [older]
+    baseline                      n  33  runner(>=2x)  24%  exit>=+100%  12%  dud  67%  mean  +20.4%  median  -23.1%
+    >= 1 good wallet(s) pre-hour   n   0
+    >= 2 good wallet(s) pre-hour   n   0
+    >= 3 good wallet(s) pre-hour   n   0
+    0 good wallets pre-hour       n  33  runner(>=2x)  24%  exit>=+100%  12%  dud  67%  mean  +20.4%  median  -23.1%
+    good > bad wallets pre-hour   n   0
+    bad > good wallets pre-hour   n  11  runner(>=2x)  18%  exit>=+100%   9%  dud  73%  mean   +8.4%  median  -23.1%
+    >= 1 good wallet at launch    n   2  runner(>=2x)  50%  exit>=+100%  50%  dud  50%  mean  +43.6%  median  +43.6%
+  [newer]
+    baseline                      n  34  runner(>=2x)  15%  exit>=+100%   6%  dud  62%  mean +104.8%  median   -5.9%
+    >= 1 good wallet(s) pre-hour   n   3  runner(>=2x)  33%  exit>=+100%  33%  dud   0%  mean +1232.6%  median  +35.2%
+    >= 2 good wallet(s) pre-hour   n   1  runner(>=2x)   0%  exit>=+100%   0%  dud   0%  mean  +35.2%  median  +35.2%
+    >= 3 good wallet(s) pre-hour   n   0
+    0 good wallets pre-hour       n  31  runner(>=2x)  13%  exit>=+100%   3%  dud  68%  mean   -4.3%  median   -8.2%
+    good > bad wallets pre-hour   n   0
+    bad > good wallets pre-hour   n  21  runner(>=2x)  14%  exit>=+100%  10%  dud  57%  mean +180.6%  median   -2.5%
+    >= 1 good wallet at launch    n   6  runner(>=2x)  33%  exit>=+100%  17%  dud  50%  mean +594.6%  median   -5.3%
+  [solana] baseline n   9  runner(>=2x)   0%  exit>=+100%   0%  dud  89%  mean  -13.5%  median  -12.3%
+  [solana] >=1 good pre   n   0
+  [base] baseline n  58  runner(>=2x)  22%  exit>=+100%  10%  dud  60%  mean  +75.1%  median  -15.6%
+  [base] >=1 good pre   n   3  runner(>=2x)  33%  exit>=+100%  33%  dud   0%  mean +1232.6%  median  +35.2%
+  [eth] baseline n   0
+  [eth] >=1 good pre   n   0
+  runners and what the signal saw (good / bad pre-hour wallets, buyers in window):
+    2026-07-08 base   CODEFORMER     peak   8.8x ret  +410%  good 0 bad 0 buyers 11
+    2026-07-09 base   FISH-SPEECH    peak  10.3x ret  +494%  good 0 bad 0 buyers 8
+    2026-07-17 base   CHECK          peak   2.1x ret   -36%  good 0 bad 0 buyers 31
+    2026-07-24 base   CODEFORMER     peak   2.2x ret   -15%  good 0 bad 0 buyers 17
+    2026-07-27 base   FISH-SPEECH    peak   4.8x ret  +182%  good 0 bad 0 buyers 5
+    2026-07-29 base   FREN PET       peak   7.8x ret  +331%  good 0 bad 3 buyers 23
+    2026-07-29 base   AEON           peak   5.7x ret   +49%  good 0 bad 0 buyers 8
+    2026-08-11 base   VELVET         peak   2.1x ret   -57%  good 0 bad 13 buyers 62
+    2026-08-15 base   NOCK           peak   2.2x ret   +15%  good 0 bad 4 buyers 24
+    2026-08-16 base   BASECAT        peak  90.1x ret +3650%  good 1 bad 3 buyers 158
+    2026-08-19 base   DRB            peak   7.1x ret  +309%  good 0 bad 4 buyers 24
+    2026-08-19 base   AEON           peak   3.3x ret    -3%  good 0 bad 0 buyers 27
+    2026-08-21 base   GITLAWB        peak   2.1x ret    -9%  good 0 bad 0 buyers 20
