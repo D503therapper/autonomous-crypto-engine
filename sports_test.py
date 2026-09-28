@@ -239,7 +239,7 @@ def test_board_rules():
     assert all(l["odds"] >= sports.MAX_FAV for l in eight), "no -475 in the 8-leg"
     assert [l for l in eight if l["game_id"] == "big"][0]["market"] == "spread"
     lk = _cand("pl", -110, 0.60)                                             # a minus-money play the engine is sure about
-    vals = [_cand(x, -150, 0.62) for x in "abc"]                            # likelier, but only value (not locks)
+    vals = [_cand(x, 120, 0.50) for x in "abc"]                             # plus money = value (not locks)
     assert sports.leg_tier(lk) == "lock" and all(sports.leg_tier(v) == "value" for v in vals)
     bl = sports.make_board(vals + [lk, _cand("L", -110, 0.66), _cand("D", 200, 0.48)])   # (D is the dog)
     assert [l["game_id"] for l in bl["two"]["legs"]] == ["L", "pl"], "the Lock, then locks first in the parlays"
