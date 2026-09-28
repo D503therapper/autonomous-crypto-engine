@@ -1,5 +1,7 @@
 """Offline tests for the sports engine (no network): ESPN parsing, model tuning, the board rules,
 grading. Run: python sports_test.py"""
+import csv
+import gzip
 import json
 import math
 import os
@@ -1225,6 +1227,141 @@ def test_sim():
     nst = ss.load(npath)
     assert ss.adjust_total(nst, "nhl", up, 0.45) == 0.45 and ss.adjust_side(nst, "nhl", up, "home", 0.55) == 0.55
     shutil.rmtree(d)
+
+
+TENNIS_COLS = ["tour", "date", "tourney", "location", "series", "court", "surface", "round", "bo", "winner", "loser",
+               "wrank", "lrank", "wpts", "lpts", "w1", "l1", "w2", "l2", "w3", "l3", "w4", "l4", "w5", "l5", "wsets",
+               "lsets", "comment", "psw", "psl", "b365w", "b365l", "maxw", "maxl", "avgw", "avgl"]
+
+
+def _tennis_hist(path, weeks, plant=None, seed=8):
+    """Simulated tennis-data.co.uk history: ATP + WTA, one 32-player event a week (levels and surfaces rotate), priced
+    efficiently (Pinnacle 2.5% margin, Bet365 6%, average 5%, best 1.5% - all around the true chance).
+    plant(week, tour, is_fav) -> Bet365 underrates that side's chance by this factor (then adds its usual margin)."""
+    import sports_tennis as stn
+    rnd = random.Random(seed)
+    skill = {t: [rnd.gauss(0, 0.8) for _ in range(64)] for t in ("atp", "wta")}
+    rank = {t: {i: 3 * k + 1 for k, i in enumerate(sorted(range(64), key=lambda i: -skill[t][i]))} for t in skill}
+    t0 = datetime(2014, 1, 6)
+    rows = []
+
+    def sets_of(r, bo, won_all):
+        need = 3 if bo == 5 else 2
+        lost = r.randint(0, need - 1)
+        seq = ["L"] * lost + ["W"] * (need - 1)
+        r.shuffle(seq)
+        out = []
+        for x in seq + ["W"]:
+            a, b = (6, r.randint(0, 4)) if r.random() < 0.8 else (7, 6)
+            out.append((a, b) if x == "W" else (b, a))
+        return out
+    for w in range(weeks):
+        for tour in ("atp", "wta"):
+            r = random.Random(seed * 1000003 + w * 7 + (tour == "wta"))
+            series = (("ATP250", "ATP500", "Masters 1000", "Grand Slam") if tour == "atp" else
+                      ("International", "Premier", "Premier Mandatory", "Grand Slam"))[w % 4]
+            surf = ("Hard", "Clay", "Grass", "Hard")[(w // 6) % 4]
+            bo = 5 if tour == "atp" and w % 4 == 3 else 3
+            alive = r.sample(range(64), 32)
+            for k, rn in enumerate(("1st Round", "2nd Round", "Quarterfinals", "Semifinals", "The Final")):
+                day = (t0 + timedelta(days=7 * w + k)).strftime("%Y-%m-%d")
+                nxt = []
+                for a, b in zip(alive[::2], alive[1::2]):
+                    q = 1 / (1 + math.exp(-(skill[tour][a] - skill[tour][b])))
+                    q = stn.to_bo5(q) if bo == 5 else q
+                    a_won = r.random() < q
+                    wi, li = (a, b) if a_won else (b, a)
+                    pw = q if a_won else 1 - q
+                    nxt.append(wi)
+                    row = {"tour": tour, "date": day, "tourney": f"{tour} event {w % 12}", "location": f"City{w % 12}",
+                           "series": series, "court": "Indoor" if w % 5 == 0 else "Outdoor", "surface": surf,
+                           "round": rn, "bo": bo, "winner": f"Player{wi:02d} {tour[0].upper()}.",
+                           "loser": f"Player{li:02d} {tour[0].upper()}.", "wrank": rank[tour][wi],
+                           "lrank": rank[tour][li], "comment": "Completed"}
+                    if r.random() < 0.005:
+                        row["comment"] = "Walkover"
+                        rows.append(row)
+                        continue
+                    ss = sets_of(r, bo, True)
+                    for n, (x, y) in enumerate(ss, 1):
+                        row[f"w{n}"], row[f"l{n}"] = x, y
+                    row["wsets"], row["lsets"] = sum(x > y for x, y in ss), sum(x < y for x, y in ss)
+                    if r.random() < 0.01:
+                        row["comment"] = "Retired"
+                    fav_w = pw >= 0.5
+                    mult = {True: 1.0, False: 1.0}
+                    if plant:
+                        mult = {True: plant(w, tour, fav_w), False: plant(w, tour, not fav_w)}
+                    for c, marg, dg in (("ps", 1.025, 3), ("b365", 1.06, 2), ("avg", 1.05, 2), ("max", 1.015, 2)):
+                        bw, bl = (pw / mult[True], (1 - pw) / mult[False]) if c == "b365" else (pw, 1 - pw)
+                        bw, bl = bw / (bw + bl), bl / (bw + bl)          # what the book believes, + its margin
+                        row[f"{c}w"] = round(1 / (bw * marg), dg)
+                        row[f"{c}l"] = round(1 / (bl * marg), dg)
+                    rows.append(row)
+                alive = nxt
+    with gzip.open(path, "wt", newline="") as f:
+        wr = csv.DictWriter(f, fieldnames=TENNIS_COLS, extrasaction="ignore")
+        wr.writeheader()
+        wr.writerows(rows)
+    return (t0 + timedelta(days=7 * weeks)).strftime("%Y-%m-%d")
+
+
+def test_tennis_edge():
+    """The tennis edge study: a soft book's planted mispricing is found on the older half and forward-confirmed,
+    noise never gets promoted, nothing is retested on the same data, a suspect whose edge disappears is killed,
+    and adjust() leaves p alone unless a proven angle matches."""
+    import sports_tennis_edge as te
+    tmp = tempfile.mkdtemp()
+    hist, path = os.path.join(tmp, "hist.csv.gz"), os.path.join(tmp, "edge.json")
+    kw = dict(matches=None, lines=None, verbose=False, budget_s=60)
+    planted = "wta|b365|dog"
+    soft = lambda w, tour, fav: 1.4 if tour == "wta" and not fav else 1.0          # Bet365 way too generous on WTA dogs
+    split = _tennis_hist(hist, 40, soft)                                             # (the date right after week 40)
+    r1 = te.study(path, hist, split=split, batch=150, **kw)
+    first = set(te.LAST_TESTED)
+    assert planted in r1["new_suspects"] and planted in r1["suspects"] and not r1["new_proven"], r1
+    s = te.load(path)["suspects"][planted]
+    assert s["disc"]["n"] >= 150 and s["disc"]["roi"] > 0 and s["disc"]["z_edge"] >= 3.5 and s["fwd"]["n_new"] == 0
+    assert r1["false_positives"]["suspects_by_luck"] < 1
+    shutil.copy(path, path + ".kill")
+    r2 = te.study(path, hist, batch=150, **kw)                                       # same data: only NEW angles
+    assert r2["tested"] > 0 and not first & set(te.LAST_TESTED), r2
+    assert planted not in r2["new_suspects"] and not r2["new_proven"]
+    _tennis_hist(hist, 60, soft)                                                     # 20 more weeks, same edge
+    r3 = te.study(path, hist, batch=20, **kw)
+    assert planted in r3["new_proven"] and planted in r3["proven"], r3
+    st = te.load(path)
+    pv = st["proven"][planted]
+    assert pv["fwd"]["n_new"] >= 100 and pv["fwd"]["roi_new"] > 0 and pv["fwd"]["z_edge_new"] >= 2 and pv["fwd"]["n"] >= 300
+    assert all(k.startswith("wta|b365|") for k in st["proven"]), st["proven"]
+    assert "fixed: line shop b365 wta dog gap>10%" in r3["proven"], r3["proven"]
+    assert st["split"] == split and len(st["log"]) == 3
+    # the edge disappears going forward -> the suspect is killed
+    _tennis_hist(hist, 60, lambda w, tour, fav: soft(w, tour, fav) if w < 40 else 1.0)
+    r4 = te.study(path + ".kill", hist, batch=10, **kw)
+    assert planted in r4["new_killed"] and planted not in r4["proven"] + r4["suspects"], r4
+    # pure noise: an efficient market never gets anything promoted
+    noise_path = os.path.join(tmp, "noise.json")
+    _tennis_hist(hist, 60, None, seed=11)
+    r5 = te.study(noise_path, hist, batch=400, **kw)
+    assert r5["proven"] == [] and r5["tested"] == 400 and "atp|pin|surf:clay" in te.LAST_TESTED, r5
+    assert "atp|pin|surf:clay" not in r5["suspects"]
+    # hooks
+    assert [p["key"] for p in te.proven(st)] == sorted(st["proven"])
+    feats = {"tour": "wta", "atoms": ["dog", "surf:clay"]}
+    assert te.adjust({}, feats, 0.4) == 0.4 and te.adjust(te.load(noise_path), feats, 0.4) == 0.4
+    assert te.adjust(st, {"tour": "atp", "atoms": ["dog"]}, 0.4) == 0.4                  # no proven angle matches
+    assert te.adjust(st, {"tour": "wta", "atoms": ["fav"]}, 0.6) == 0.6
+    sh = pv["shift"]
+    assert abs(te.adjust(st, feats, 0.4) - (sm.sigmoid(sm.logit(0.4) + sh) if sh else 0.4)) < 1e-12
+    assert te.adjust(st, {"tour": "wta", "p": 0.3}, 0.3) == te.adjust(st, {"tour": "wta", "atoms": ["dog"]}, 0.3)
+    assert te.load("/nonexistent/edge.json") == {} and te.study(path, os.path.join(tmp, "none.gz"), **kw)["proven"] == []
+    head = os.path.join(tmp, "header_only.csv.gz")                                  # the fetch saved just the header
+    with gzip.open(head, "wt", newline="") as f:
+        csv.writer(f).writerow(TENNIS_COLS)
+    r6 = te.study(os.path.join(tmp, "empty.json"), head, **kw)
+    assert r6["proven"] == [] and r6.get("skipped"), r6
+    shutil.rmtree(tmp)
 
 
 if __name__ == "__main__":

@@ -51,6 +51,7 @@ def main():
         ("situational spots", "sports_spots", lambda m: m.study(games)),        # (runs once it exists)
         ("line movement + CLV", "sports_moves", lambda m: m.study(games)),      # (runs once it exists)
         ("the explorer: NEW angles", "sports_explorer", lambda m: m.explore(games)),   # new questions every run
+        ("tennis edge", "sports_tennis_edge", lambda m: m.study()),
     ]
     for name, mod, fn in jobs:
         t0 = time.time()
