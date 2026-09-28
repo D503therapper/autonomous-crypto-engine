@@ -7,6 +7,13 @@
    low or high total for that sport, which way the line moved (only when a real opening line exists - part of the
    history had the open backfilled from the close, and open == close there means "no information"), a 3rd+ straight
    road game, coming home after 3+ road games. Only games that started 6+ hours earlier count as "before".
+   Plus the context study's facts (sports_context, same no-peeking walk): division / conference / non-conference
+   game (cx:), a named rivalry, travel miles into the game (mi:1-2k / mi:2k+), which way (east1000 / west1000),
+   3,000+ miles in a week, a 3rd road game in 6 nights, a dome team outdoors (and in the cold) or an outdoor team in
+   a dome, the playoff race (stk:race / stk:clinched / stk:elim), a must-win, a tank, rest-the-starters, a college
+   team going for bowl-eligible 6, a hot seat - for the team and ("o"...) its opponent - and the officials' lean
+   (refh: / refo:) once data/sports/officials.json exists. New atoms only ever make NEW angles: every angle already
+   in the registry keeps its key (and fingerprint), so nothing is retested.
 2) ANGLES (hypotheses): sport x bet x a combination of 1-3 atoms, e.g. "NBA / moneyline / road + on a back-to-back
    + the opponent rested 2-3 days". Bets: the moneyline (at the closing price, graded against the no-juice closing
    chance), the spread (football + basketball), the over and the under (real odds, -110 when missing). Listed in a
@@ -35,6 +42,7 @@ from collections import deque
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+import sports_context as scx
 import sports_data as sd
 import sports_model as sm
 
@@ -59,7 +67,11 @@ DOW = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 FAMILY = {"home": "loc", "road": "loc", "neutral": "loc", "fav": "fd", "dog": "fd", "w3": "streak", "l3": "streak",
           "ow3": "ostreak", "ol3": "ostreak", "blowW": "blow", "blowL": "blow", "oblowW": "oblow", "oblowL": "oblow",
           "revenge": "meet", "orevenge": "meet", "early": "phase", "mid": "phase", "late": "phase", "night": "clock",
-          "day": "clock", "road3": "trip", "homecoming": "trip", **{d: "dow" for d in DOW}}
+          "day": "clock", "road3": "trip", "homecoming": "trip", **{d: "dow" for d in DOW},
+          # the context study's atoms (sports_context): mutually exclusive ones share a family
+          "east1000": "dir", "west1000": "dir", "dome_out": "stadium", "out_dome": "stadium", "odome_out": "ostadium",
+          "oout_dome": "ostadium"}
+CX_OPP = ("stk:", "mi:", "tank", "mustwin", "rest", "hotseat", "dome_out", "out_dome", "dome_cold", "week3000")
 LAST_TESTED = []            # the keys the latest run tested (tests look at it)
 
 
@@ -137,6 +149,7 @@ class League:
 
     def __init__(self, league, games):
         self.lg = league
+        self.cx_facts, self.cx_index = None, None        # the context study's facts (set by build / index)
         self.big = sm.BIG_WIN.get(league, 10 ** 9)
         self.teams, self.tz, self.pending = {}, {}, deque()
         self.tot, self.tsum, self.tsq = deque(), 0.0, 0.0
@@ -264,10 +277,19 @@ class League:
             out.append("tz:0" if abs(d) < 0.5 else "tz:1" if abs(d) < 1.5 else "tz:2+E" if d > 0 else "tz:2+W")
         return out
 
+    def cx(self, g):
+        """The context study's facts for this game (walked forward in build, or from the index for upcoming games)."""
+        f = self.cx_facts.get(g.get("id")) if self.cx_facts else None
+        if f is None and self.cx_index is not None:
+            f = self.cx_index.facts(g)
+        return f or {}
+
     def side_atoms(self, g, side, t, base=None):
         """Everything true for betting `side` of this game (the moneyline / spread table)."""
         other = "away" if side == "home" else "home"
         out = list(self.game_level(g, t) if base is None else base)
+        ga, mine, theirs = scx.atoms(self.cx(g), side)
+        out += ga + mine + ["o" + a for a in theirs if a.startswith(CX_OPP)]
         out.append("neutral" if str(g.get("neutral")) == "1" else side.replace("away", "road"))
         mine = self.team(g, side, t)
         out += mine
@@ -302,6 +324,8 @@ class League:
         out = list(self.game_level(g, t) if base is None else base)
         if str(g.get("neutral")) == "1":
             out.append("neutral")
+        ga, hx, ax = scx.atoms(self.cx(g), "home")
+        out += ga + ["h." + a for a in hx] + ["a." + a for a in ax]
         out += ["h." + a for a in self.team(g, "home", t)]
         out += ["a." + a for a in self.team(g, "away", t)]
         p = sm.market_p(g)
@@ -387,6 +411,7 @@ def _grade_total(g):
 def build(games, league):
     """(League state after every final, side table, game table) for one league."""
     L = League(league, games)
+    L.cx_facts = scx.facts_table(games, league, scx.load_officials())
     side, game = Table(("ml", "spread")), Table(("over", "under"))
     for g in sm.finals(games, league):
         t = sm._ts(g["start"])
@@ -406,8 +431,10 @@ def build(games, league):
 def index(games):
     """{league: what the engine knows going into the next game} - feed it to atoms_for / game_atoms_for."""
     out = {}
+    cx = scx.Index(games)
     for lg in LEAGUES:
         L = League(lg, games)
+        L.cx_index = cx
         for g in sm.finals(games, lg):
             L.advance(sm._ts(g["start"]))
             L.pending.append((sm._ts(g["start"]), g))

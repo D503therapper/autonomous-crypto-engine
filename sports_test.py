@@ -1320,6 +1320,179 @@ def _tennis_hist(path, weeks, plant=None, seed=8):
     return (t0 + timedelta(days=7 * weeks)).strftime("%Y-%m-%d")
 
 
+def _ctx_games(seasons, seed, div_edge=0.2, first=2010):
+    """Simulated NHL: 12 teams, 2 conferences x 2 divisions of 3. A season: division pairs meet 6 times, conference
+    pairs 3, the other conference 2 (33 games a team). Fairly priced (with juice) off fixed team strengths; planted:
+    in DIVISION games the home team wins `div_edge` more often than its price says. Totals are a pure coin flip."""
+    rnd = random.Random(seed)
+    teams = [f"c{i}" for i in range(12)]
+    power = {t: (i % 6 - 2.5) / 2.0 for i, t in enumerate(teams)}
+
+    def am(q):
+        dec = 1 / (q * 1.025)
+        return int((dec - 1) * 100) if dec >= 2 else int(-100 / (dec - 1))
+    games = {}
+    for y in range(first, first + seasons):
+        mus = []
+        for i, a in enumerate(teams):
+            for b in teams[i + 1:]:
+                ia, ib = teams.index(a), teams.index(b)
+                n = 6 if ia // 3 == ib // 3 else 3 if ia // 6 == ib // 6 else 2
+                mus += [(a, b, ia // 3 == ib // 3) if k % 2 else (b, a, ia // 3 == ib // 3) for k in range(n)]
+        rnd.shuffle(mus)
+        day0 = datetime(y, 10, 10, 23, 0, tzinfo=timezone.utc)
+        for k, (h, a, div) in enumerate(mus):
+            p = 1 / (1 + math.exp(-(power[h] - power[a] + 0.1)))
+            won = rnd.random() < min(0.95, p + (div_edge if div else 0.0))
+            over = rnd.random() < 0.5
+            gid = f"nhl:c{y}_{k}"
+            games[gid] = {"id": gid, "league": "nhl", "start": (day0 + timedelta(hours=k * 22)).strftime("%Y-%m-%dT%H:%MZ"),
+                          "status": "final", "stype": "2", "home": h, "away": a, "home_name": h, "away_name": a,
+                          "home_score": "4" if won else "1", "away_score": ("1" if won else "4") if over else ("0" if won else "2"),
+                          "ml_home": str(am(p)), "ml_away": str(am(1 - p)), "neutral": "0", "total": "4.5",
+                          "over_odds": "-110", "under_odds": "-110"}
+            if not over:
+                games[gid]["home_score"] = "2" if won else "0"
+    return games
+
+
+def test_context():
+    """The context study: a planted division edge is found, PROVEN and confirmed on later games (and killed when it
+    vanishes); noise never is; divisions/conferences come out of the schedule; travel miles; stakes; refs are skipped
+    until officials.json exists; the engine hook moves only proven factors and takes only the strongest one."""
+    import sports_context as sc
+    import sports_news
+    import sports_breakdown as sb
+    tmp = tempfile.mkdtemp()
+    path = os.path.join(tmp, "context.json")
+    games = _ctx_games(10, 3)
+    st = sc.study(games, path, officials=None, sims=2, leagues=("nhl",), verbose=False)
+    nhl = st["nhl"]
+    c = nhl["cells"]["div|ml|home"]
+    assert c["proven"] and "div|ml|home" in nhl["proven"], c
+    assert c["n"] >= sc.MIN_N and c["roi_old"] > 0 and c["roi_new"] > 0 and c["z"] >= sc.Z_PROOF and c["edge"] > 0.1, c
+    for k in ("conf|ml|home", "nonconf|ml|home", "div|total|over", "div|total|under", "conf|ml|road"):
+        assert not nhl["cells"][k].get("proven"), ("noise is never promoted", k, nhl["cells"][k])
+    assert set(nhl["proven"]) <= {"div|ml|home", "div|ml|fav", "div|ml|dog"}, nhl["proven"]
+    m = st["_meta"]
+    assert m["tested"] > 10 and 0 < m["expected_false_positives"] < 1 and m["refs"].startswith("skipped"), m
+    assert st["registry"]["nhl|div|ml|home"]["status"] == "proven" and nhl["shifts"]["div|ml|home"] > 0.2
+    # divisions + conferences from the schedule alone
+    W = sc.Walker("nhl", games)
+    S = W.sched
+    assert S.rel("c0", "c1", 2012) == "div" and S.rel("c0", "c4", 2012) == "conf" and S.rel("c0", "c7", 2012) == "nonconf"
+    conf = S.conferences(2012)
+    assert conf and len({conf[f"c{i}"] for i in range(6)}) == 1 and conf["c0"] != conf["c6"], conf
+    # forward confirmation: the same edge on two more seasons -> confirmed; a copy where it vanishes -> killed
+    shutil.copy(path, path + ".kill")
+    later = {**games, **_ctx_games(2, 4, first=2020)}
+    st2 = sc.study(later, path, officials=None, sims=0, leagues=("nhl",), verbose=False)
+    e = st2["registry"]["nhl|div|ml|home"]
+    assert e["status"] == "confirmed" and e["fwd"]["n"] >= sc.FWD_N and "div|ml|home" in st2["nhl"]["confirmed"], e
+    gone = {**games, **_ctx_games(2, 5, div_edge=-0.3, first=2020)}
+    st3 = sc.study(gone, path + ".kill", officials=None, sims=0, leagues=("nhl",), verbose=False)
+    assert "div|ml|home" in st3["nhl"]["killed"] and "div|ml|home" not in st3["nhl"]["shifts"], st3["nhl"]["killed"]
+    # the engine hook: only proven factors move a number, and only the strongest one counts
+    up = {"id": "nhl:up", "league": "nhl", "start": "2020-03-01T23:00Z", "status": "pre", "stype": "2", "home": "c0",
+          "away": "c1", "home_name": "c0", "away_name": "c1", "ml_home": "-110", "ml_away": "-110", "neutral": "0"}
+    f = sc.Index(games, officials=None).facts(up)
+    assert f["rel"] == "div"
+    assert sc.adjust_side(st, "nhl", f, "home", 0.5) > 0.55 and sc.adjust_side(st, "nhl", f, "away", 0.5) < 0.45
+    assert sc.adjust_side(st, "nba", f, "home", 0.5) == 0.5 and sc.adjust_side({}, "nhl", f, "home", 0.5) == 0.5
+    assert sc.adjust_total(st, "nhl", f, 0.5) == 0.5
+    assert sc.reasons(st, "nhl", f, "home") and not sc.reasons(st, "nhl", f, "away")
+    far = dict(up, away="c7", away_name="c7")
+    assert sc.adjust_side(st, "nhl", sc.Index(games, officials=None).facts(far), "home", 0.5) == 0.5
+    assert sc.best([(0.1, "a"), (-0.3, "b"), (0.2, "c")]) == (-0.3, "b") and sc.best([]) == (0.0, None)
+    old = sports.CONTEXT_ST, sports.SPOTS_ST, sports.EXPLORER_ST
+    sports.CONTEXT_ST, sports.SPOTS_ST, sports.EXPLORER_ST = st, {}, {}
+    s, name = sports.study_shift(games, up, "ml", f)
+    assert s > 0 and name == "context:div|ml|home" and sports.study_shift(games, up, "spread", f) == (0.0, None)
+    sports.CONTEXT_ST, sports.SPOTS_ST, sports.EXPLORER_ST = old
+    # stakes, walked forward from results: late in a season somebody has clinched and somebody is out
+    spots = sc.SPOTS["nhl"]
+    sc.SPOTS["nhl"] = lambda s: 2                       # (6-team conferences: 2 playoff spots each)
+    tbl = sc.facts_table(dict(games), "nhl", None)
+    last = [x for x in sorted(games.values(), key=lambda x: x["start"]) if sc.season("nhl", x["start"]) == 2011][-12:]
+    stk = [tbl[x["id"]][k].get("stk") for x in last for k in ("h", "a")]
+    assert "clinched" in stk and ("elim" in stk or "out" in stk), stk
+    early = sorted(games.values(), key=lambda x: x["start"])[5]
+    assert "stk" not in tbl[early["id"]]["h"], "no stakes before 70% of the season"
+    mw = next((tbl[x["id"]] for x in last if tbl[x["id"]]["h"].get("mustwin") or tbl[x["id"]]["a"].get("mustwin")), None)
+    if mw:
+        k, o = ("h", "a") if mw["h"].get("mustwin") else ("a", "h")
+        assert mw[k]["stk"] == "race" and mw[o].get("stk") != "race"
+    sc.SPOTS["nhl"] = spots
+    # travel: great-circle miles, direction, a road trip's week of miles, road games in 6 days
+    ven = {"NY|NY|": [40.71, -74.0, 10, ""], "LA|CA|": [34.05, -118.24, 90, ""], "SF|CA|": [37.77, -122.42, 16, ""],
+           "SEA|WA|": [47.61, -122.33, 50, ""]}
+
+    def gm(i, day, h, a, city, st_):
+        return {"id": f"nba:t{i}", "league": "nba", "start": f"2023-01-{day:02d}T03:00Z", "status": "final", "stype": "2",
+                "home": h, "away": a, "home_name": h, "away_name": a, "home_score": "100", "away_score": "90",
+                "ml_home": "-150", "ml_away": "130", "neutral": "0", "city": city, "state": st_, "country": ""}
+    tg = {g["id"]: g for g in (gm(1, 2, "NYK", "X", "NY", "NY"), gm(2, 5, "LAL", "NYK", "LA", "CA"),
+                               gm(3, 6, "GSW", "NYK", "SF", "CA"), gm(4, 8, "SEA", "NYK", "SEA", "WA"),
+                               gm(5, 9, "LAL", "X", "LA", "CA"), gm(6, 10, "GSW", "X", "SF", "CA"))}
+    Wt = sc.Walker("nba", tg, ven=ven)
+    f2, f3, f4 = (Wt.facts(tg[f"nba:t{i}"]) for i in (2, 3, 4))
+    assert 2400 < f2["a"]["mi"] < 2500 and f2["a"]["dir"] == "W", f2["a"]           # New York -> Los Angeles
+    assert 330 < f3["a"]["mi"] < 360 and f3["a"]["road6"] == 2, f3["a"]               # LA -> SF the next night
+    assert 670 < f4["a"]["mi"] < 700 and f4["a"]["road6"] == 3, f4["a"]               # SF -> Seattle, 3rd road game
+    assert f4["a"]["wk"] > 3400 and "trip2000" in sc.flags(f2)[1] and "west1000" in sc.flags(f2)[1]
+    assert "road3in6" in sc.flags(f4)[1] and "road3in6" not in sc.flags(f3)[1]
+    assert f2["h"]["mi"] == 0 and "trip1000" not in sc.flags(f2)[0]
+    assert sc.miles((40.71, -74.0), (40.71, -74.0)) == 0
+    # a college team at 5 wins going for 6
+    cf = {}
+    for i in range(9):
+        cf[f"ncaaf:b{i}"] = {"id": f"ncaaf:b{i}", "league": "ncaaf", "start": f"2023-{9 + i // 4:02d}-{1 + (i % 4) * 7:02d}T20:00Z",
+                             "status": "final", "stype": "2", "home": "U", "away": f"o{i}", "home_name": "U",
+                             "away_name": f"o{i}", "home_score": "30" if i < 5 else "10", "away_score": "20", "neutral": "0"}
+    fb = sc.facts_table(cf, "ncaaf", None)
+    assert fb["ncaaf:b8"]["h"].get("bowl5") and not fb["ncaaf:b7"]["h"].get("bowl5") and not fb["ncaaf:b5"]["h"].get("bowl5")
+    # refs: skipped cleanly until officials.json exists; with it, a crew that leans over is flagged (earlier games only)
+    assert sc.load_officials(os.path.join(tmp, "nope.json")) is None
+    offs = {gid: [["Referee", "Ref Over" if i % 2 else "Ref Plain"]] for i, gid in enumerate(sorted(games))}
+    for gid, o in offs.items():
+        if o[0][1] == "Ref Over":
+            games[gid]["away_score"], games[gid]["home_score"] = "3", games[gid]["home_score"] if \
+                games[gid]["home_score"] == "4" else "2"
+    tr = sc.facts_table(games, "nhl", offs)
+    late = sorted(games, key=lambda k: games[k]["start"])[-50:]
+    over_flag = [("ref_over" in sc.flags(tr[k])[2]) for k in late if offs[k][0][1] == "Ref Over"]
+    assert over_flag and all(over_flag) and not any("ref_over" in sc.flags(tr[k])[2] for k in late
+                                                   if offs[k][0][1] == "Ref Plain")
+    assert sc.parse_officials({"gameInfo": {"officials": [{"displayName": "Bill Vinovich", "position": {"displayName": "Referee"}}]}}) \
+        == [["Referee", "Bill Vinovich"]]
+    assert sc.key_officials("mlb", [["Home Plate Umpire", "A"], ["First Base Umpire", "B"]]) == ["A"]
+    # the backfill walks games in chunks and saves them (a fake fetcher here - ESPN is blocked in this container)
+    bf = os.path.join(tmp, "officials.json")
+    n, _ = sc.refs_backfill(budget_s=30, path=bf, games=dict(list(games.items())[:30]),
+                            fetch=lambda lg, eid: [["Referee", f"R{int(eid.split('_')[1]) % 3}"]], chunk=10)
+    assert n == 30 and len(sc.load_officials(bf)) == 30
+    # pregame talk: forward-only tags, never drama
+    assert sports_news.talk_kinds("Coach says Sunday is a must-win game") == ["must-win"]
+    assert sports_news.talk_kinds("QB guarantees a win over the Jets") == ["trash talk"]
+    assert sports_news.talk_kinds("Rookie scores twice in win") == []
+    nw = {"nfl:1": [{"id": "a|must-win", "kind": "must-win", "date": "2026-09-27", "talk": 1},
+                    {"id": "b", "kind": "suspension", "date": "2026-09-26"}]}
+    assert [e["kind"] for e in sports_news.drama(nw, "nfl", "1")] == ["suspension"]
+    assert [e["kind"] for e in sports_news.talk(nw, "nfl", "1", today=datetime(2026, 9, 28).date())] == ["must-win"]
+    # breakdown lines in our voice, never a repeated wording on one board
+    used = set()
+    v = sb.Voice("x", used)
+    leg = {"market": "ml", "league": "nba", "ctx": [{"k": "div"}, {"k": "trip", "mi": 1900, "road6": 3, "dir": "W"},
+                                   {"k": "dome_cold", "who": "them"}, {"k": "mustwin", "rec": "9-7"}],
+           "talk_theirs": [{"kind": "trash talk"}]}
+    lines = sb.context_lines(leg, v, "Bears", "Rams", "the Bears", "the Rams", {"wx_temp": "38", "wx_wind": "18"})
+    assert len(lines) == 5 and any("1,900-mile" in x and "3rd road game in 6 days" in x for x in lines), lines
+    assert all("real talk" not in x.lower() and "chalk" not in x.lower() for x in lines)
+    lines2 = sb.context_lines(leg, sb.Voice("y", used), "Bears", "Rams", "the Bears", "the Rams", {"wx_temp": "38"})
+    assert not set(lines) & set(lines2)
+    shutil.rmtree(tmp)
+
+
 def test_tennis_edge():
     """The tennis edge study: a soft book's planted mispricing is found on the older half and forward-confirmed,
     noise never gets promoted, nothing is retested on the same data, a suspect whose edge disappears is killed,

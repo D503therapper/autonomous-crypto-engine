@@ -165,6 +165,73 @@ TOTALS_ST = sports_totals.load()             # the over/under study: a sport onl
 OU_STRONG = 0.58                             # ...and then only a game with a strong read (58%+ over or under)
 _TOT_STATE = {}
 
+import sports_context  # noqa: E402
+import sports_explorer  # noqa: E402
+import sports_spots  # noqa: E402
+
+CONTEXT_ST = sports_context.load()           # rivalries, travel, domes, stakes, refs: PROVEN factors move numbers
+SPOTS_ST = sports_spots.load()               # situational spots (revenge, blowouts, road trips...): PROVEN ones only
+EXPLORER_ST = sports_explorer.load()         # the explorer's forward-confirmed angles
+_IDX = {}
+
+
+def _index(games, kind):
+    """The context / spots / explorer indexes for this games dict (built once, only when needed)."""
+    key = (id(games), len(games), kind)
+    if key not in _IDX:
+        for k in [k for k in _IDX if k[2] == kind]:
+            del _IDX[k]
+        _IDX[key] = {"context": sports_context.Index, "spots": sports_spots.index,
+                     "explorer": sports_explorer.index}[kind](games)
+    return _IDX[key]
+
+
+def study_shift(games, g, market, facts=None):
+    """(logit shift, name) for the HOME side's win/cover chance (market 'ml'/'spread') or the OVER's (market 'total'):
+    the single strongest PROVEN angle across the context study, the situational spots and the explorer. Angles
+    overlap (a road trip is also travel miles), so they never add up - only the strongest one counts."""
+    lg = g["league"]
+    cands = []
+    if facts:
+        s, k = (sports_context.total_shift(CONTEXT_ST, lg, facts) if market == "total" else
+                sports_context.home_shift(CONTEXT_ST, lg, facts, market, sm.market_p(g)))
+        if k:
+            cands.append((s, "context:" + k))
+    sh = (((SPOTS_ST or {}).get(lg) or {}).get("shifts") or {}).get(market) or {}
+    if sh:
+        idx = _index(games, "spots")
+        fh, fa = sports_spots.flags(idx, g, "home"), sports_spots.flags(idx, g, "away")
+        cands += [(sh[s], "spot:" + s) for s in fh if s in sh] + [(-sh[s], "spot:" + s) for s in fa if s in sh]
+    if any(e.get("league") == lg for e in (EXPLORER_ST.get("proven") or {}).values()):
+        idx = _index(games, "explorer")
+        if market == "total":
+            atoms = sports_explorer.game_atoms_for(games, g, idx)
+            cands += [(sports_explorer._best(EXPLORER_ST, lg, "over", atoms), "explorer:over"),
+                      (-sports_explorer._best(EXPLORER_ST, lg, "under", atoms), "explorer:under")]
+        else:
+            cands += [(sports_explorer._best(EXPLORER_ST, lg, market, sports_explorer.atoms_for(games, g, "home", idx)),
+                       "explorer:home"),
+                      (-sports_explorer._best(EXPLORER_ST, lg, market, sports_explorer.atoms_for(games, g, "away", idx)),
+                       "explorer:away")]
+    s, name = sports_context.best([c for c in cands if c[0]])
+    return (s, name) if name else (0.0, None)
+
+
+def _shifted(p, s):
+    return p if not s or p is None else sm.sigmoid(sm.logit(p) + s)
+
+
+def _proven_reason(name, side_home_shift):
+    """A pick reason for the proven angle that moved this side's number (only when it moved it UP)."""
+    if not name or side_home_shift <= 0:
+        return []
+    src, key = name.split(":", 1)
+    if src == "context":
+        return [f"proven spot: {sports_context.LABELS.get(key.split('|')[0], key.split('|')[0])}"]
+    if src == "spot":
+        return [f"proven spot: {sports_spots.SPOTS.get(key, key)}"]
+    return ["a proven angle the explorer confirmed"]
+
 
 def candidates(games, model, now=None, day=None, injuries=None):
     """Every bettable side on the day's (Pacific) slate: moneylines, plus spreads in NFL/NCAAF/NBA."""
@@ -197,9 +264,18 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # the big study's price check: in a sport where favorites/dogs really win more/less than their price says
         # (proven on games it never saw), every read is shifted by it
         ph, ph_own = sports_dogs.adjust(DOGS_ST, lg, ph), sports_dogs.adjust(DOGS_ST, lg, ph_own)
+        # the studies' PROVEN angles (context factors, situational spots, the explorer): the single strongest one
+        try:
+            cx = _index(games, "context").facts(g)
+        except Exception as e:                        # noqa: BLE001 - context is extra: never block the board
+            print(f"context facts failed: {e}")
+            cx = {}
+        s_ml, n_ml = study_shift(games, g, "ml", cx)
+        ph, ph_own = _shifted(ph, s_ml), _shifted(ph_own, s_ml)
         waiting = waiting_on(g, injuries)
         news = sports_news.load()
         drama = {side: sports_news.drama(news, lg, g[side]) for side in ("home", "away")}
+        talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
             if n_out[side] - n_out[other] > MAX_EXTRA_OUT:
@@ -208,7 +284,11 @@ def candidates(games, model, now=None, day=None, injuries=None):
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
-                    "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1]}
+                    "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
+                    # display only (the breakdown + the self-check's report-only groups): context facts, pregame talk
+                    "ctx": sports_context.display(cx, side), "ctx_tags": sports_context.tags(cx, side),
+                    "talk_ours": [{"kind": e["kind"], "headline": e.get("headline", "")} for e in talk[side][:2]],
+                    "talk_theirs": [{"kind": e["kind"], "headline": e.get("headline", "")} for e in talk[other][:2]]}
             if base["their_drama"]:
                 base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
             odds = int(g[f"ml_{side}"])
@@ -217,7 +297,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
             trap = odds > 0 and sports_dogs.verdict(DOGS_ST, lg, odds, side == "home") == "trap"
             out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p, "trap": trap,
                         "p_market": mkt if side == "home" else 1 - mkt, "edge": p * sd.decimal(odds) - 1,
-                        "edge_own": p_own * sd.decimal(odds) - 1})
+                        "edge_own": p_own * sd.decimal(odds) - 1,
+                        "reasons": base["reasons"] + _proven_reason(n_ml, s_ml if side == "home" else -s_ml)})
             if lg in ("nhl", "mlb") and g.get("spread_home", "") != "" and LINES_ST:   # puck line / run line: the chance
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)          # of winning by 2+, from the study
                 sodds = sm._int(g.get(f"spread_{side}_odds"))
@@ -230,13 +311,17 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 if key_ not in _TOT_STATE:
                     _TOT_STATE[key_] = sports_totals.state(games, lg)
                 po = sports_totals.p_over(TOTALS_ST[lg], _TOT_STATE[key_], g)
+                s_t, n_t = study_shift(games, g, "total", cx) if po is not None else (0.0, None)
+                po = _shifted(po, s_t)                      # the strongest proven over/under angle (if any)
                 if po is not None and max(po, 1 - po) >= OU_STRONG:   # only a strong, lock-level read ever makes it
                     for ou, pp in (("over", po), ("under", 1 - po)):
                         oo = sm._int(g.get(f"{ou}_odds")) or -110
                         out.append({**base, "side": ou, "team": ou.capitalize(), "opp": f"{g['away_name']} @ {g['home_name']}",
                                     "market": "total", "line": float(g["total"]), "odds": oo, "dec": sd.decimal(oo), "p": pp,
                                     "p_market": 1 / sd.decimal(oo), "edge": pp * sd.decimal(oo) - 1,
-                                    "reasons": ["the engine's scoring read"]})
+                                    "reasons": ["the engine's scoring read"] + _proven_reason(n_t, s_t if ou == "over" else -s_t),
+                                    "ctx": sports_context.display(cx, ou, "total"),
+                                    "ctx_tags": sports_context.tags(cx, ou, "total")})
             if lg in sm.SPREAD_LEAGUES and g.get("spread_home", "") != "":
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)
                 sodds = sm._int(g.get(f"spread_{side}_odds")) or -110
@@ -249,9 +334,12 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     ph_c = pc if side == "home" else 1 - pc
                     ph_c = sports_ats.adjust(ATS_ST, lg, g, ph_c)
                     pc = ph_c if side == "home" else 1 - ph_c
-                if pc is not None:
+                s_sp, n_sp = study_shift(games, g, "spread", cx) if pc is not None else (0.0, None)
+                if pc is not None:                            # the strongest proven cover angle (if any)
+                    pc = _shifted(pc, s_sp if side == "home" else -s_sp)
                     out.append({**base, "market": "spread", "line": line, "odds": sodds, "dec": sd.decimal(sodds),
-                                "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1})
+                                "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1,
+                                "reasons": base["reasons"] + _proven_reason(n_sp, s_sp if side == "home" else -s_sp)})
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:

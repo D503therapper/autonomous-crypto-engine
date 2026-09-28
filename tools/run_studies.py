@@ -50,6 +50,7 @@ def main():
         ("self-check on our picks", "sports_selfcheck", lambda m: m.study()),
         ("situational spots", "sports_spots", lambda m: m.study(games)),        # (runs once it exists)
         ("line movement + CLV", "sports_moves", lambda m: m.study(games)),      # (runs once it exists)
+        ("context: rivalries, travel, domes, stakes, refs", "sports_context", lambda m: m.study(games)),
         ("the explorer: NEW angles", "sports_explorer", lambda m: m.explore(games)),   # new questions every run
         ("tennis edge", "sports_tennis_edge", lambda m: m.study()),
     ]

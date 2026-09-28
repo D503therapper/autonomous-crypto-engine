@@ -8,7 +8,11 @@ group: how many, the chance we said on average, how often it really hit.
 The same rule the live feature uses on itself (sports_live.self_tune): a group only changes anything once it has
 40+ graded legs. If it's hitting 8+ points below what we said, new picks in that group need extra edge (+1 point
 of edge per 4 points it's short, at most +4). When it's hitting at or above what we said, the extra eases back
-toward zero a point at a time. Under 40 legs it's reported, never acted on. Saved to data/sports/selfcheck.json."""
+toward zero a point at a time. Under 40 legs it's reported, never acted on. Saved to data/sports/selfcheck.json.
+
+Forward-only tags are graded too, REPORT ONLY (they never raise the bar): the context facts around the game
+(ctx:us:<flag> / ctx:them:<flag> / ctx:game:<flag>, from sports_context) and the pregame talk from the news
+(talk:ours:<kind> / talk:theirs:<kind>, from sports_news TALK_KINDS)."""
 import json
 import os
 from datetime import datetime, timezone
@@ -66,7 +70,14 @@ def keys(leg, label=None, live=False):
         out.append(f"label:{label}")
     out += [f"drama:{d}" for d in drama(leg)]
     out.append("source:live" if live else "source:pregame")
+    # report-only groups (graded, never acted on): the context facts around the game and the pregame talk
+    out += [f"ctx:{t}" for t in leg.get("ctx_tags") or []]
+    out += [f"talk:ours:{t['kind']}" for t in leg.get("talk_ours") or []]
+    out += [f"talk:theirs:{t['kind']}" for t in leg.get("talk_theirs") or []]
     return out
+
+
+REPORT_ONLY = ("ctx:", "talk:")      # forward-only tags: graded for the record, they never raise the bar
 
 
 def legs(cards, live):
@@ -115,6 +126,11 @@ def study(cards=None, live=None, path=PATH):
         said = sum(p for p, _ in rs) / n
         hit = sum(y for _, y in rs) / n
         e = prev.get(k, 0.0)
+        if k.startswith(REPORT_ONLY):                 # forward-only tags: graded for the record only
+            e = 0.0
+            groups[k] = {"n": n, "said": round(said, 3), "hit": round(hit, 3), "extra_edge": 0.0,
+                         "verdict": verdict(n, said, hit).replace(" - bar raised", "") + " (report only: forward-only tag)"}
+            continue
         if n >= MIN_N:
             short = said - hit
             if short >= SHORT:

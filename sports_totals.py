@@ -96,6 +96,8 @@ class Tracker:
     def _drama(self, team, day):
         n = 0
         for it in self.news.get(f"{self.lg}:{team}") or []:
+            if it.get("talk"):                           # pregame talk is forward-only: never a number
+                continue
             d = it.get("date") or ""
             if (day - timedelta(days=DRAMA_DAYS)).isoformat() <= d < day.isoformat():
                 n = 1

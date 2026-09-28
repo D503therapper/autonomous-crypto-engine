@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 23          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 24          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -86,7 +86,12 @@ SLANG = {                        # our big phrases: each FAMILY shows up once on
     "problem": r"a problem", "different": r"different|built for|another level|ain't regular", "him": r"\bis (him|her)\b",
     "light": r"light work|easy work|handle .* light", "long day": r"long (day|night)", "ready": r"ain't ready",
     "pray": r"better pray", "mark it": r"mark it", "show": r"put on a show", "silly": r"look silly",
-    "sleep": r"in their sleep|don't sleep", "trouble": r"in trouble", "on one": r"been on one|feeling it"}
+    "sleep": r"in their sleep|don't sleep", "trouble": r"in trouble", "on one": r"been on one|feeling it",
+    # the context lines (rivalries, travel, domes, stakes, refs, pregame talk)
+    "bad blood": r"bad blood", "no love lost": r"no love lost", "frequent flyer": r"frequent flyer",
+    "suitcase": r"out of a suitcase", "backs to the wall": r"backs? (are )?(to|against) the wall",
+    "nothing to play for": r"nothing to play for", "zebras": r"zebra", "hot seat": r"hot seat",
+    "bulletin board": r"bulletin[- ]board", "circled": r"circled", "fishbowl": r"fishbowl", "thermostat": r"thermostat"}
 
 
 def slang_in(texts):
@@ -378,6 +383,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         if lines:
             out.append(v.say("drama_" + kind.replace("/", "_").replace(" ", "_"), lines))
         said.add(drama_r)
+    out += context_lines(leg, v, us, them, the_us, the_them, g)
     if "coming off a bye" in rsn:
         out.append(v.say("bye", [f"🛌 {us} are fresh off a bye — rested and game-planned up.",
                                   f"🛌 Extra week to prep for {us}. That matters.",
@@ -624,6 +630,143 @@ def _nowhy(line):
 
 def _cap(x):
     return x[:1].upper() + x[1:]
+
+
+def _mi(n):
+    return f"{int(round(n or 0, -1)):,}"
+
+
+def _nth(n):
+    return {1: "1st", 2: "2nd", 3: "3rd"}.get(n, f"{n}th")
+
+
+TALK_LINES = {   # pregame talk (sports_news TALK_KINDS): display only - forward-only tags, never a number
+    "contract year": lambda who: [f"📣 Contract-year energy around {who} — somebody's playing for a bag.",
+                                  f"📣 {_cap(who)} got money on the line this year. Contract talk all week.",
+                                  f"📣 Payday season for {who}: the contract chatter is loud.",
+                                  f"📣 Incentives on the line for {who}. Expect some extra effort."],
+    "unhappy": lambda who: [f"📣 Not everybody's happy over there — {who} got some public frustration going.",
+                            f"📣 Grumbling in {who}' camp this week, and it's out in the open.",
+                            f"📣 Somebody in {who}' building is venting to the press. Vibes are off.",
+                            f"📣 {_cap(who)} got a frustrated voice or two talking publicly."],
+    "trash talk": lambda who: [f"📣 {_cap(who)} been running their mouth this week. Bulletin-board stuff.",
+                               f"📣 Trash talk out of {who}'s side. Somebody gotta back it up now.",
+                               f"📣 {_cap(who)} talked a big game all week — receipts get checked tonight.",
+                               f"📣 Guarantees flying around {who}. Talk is cheap till kickoff."],
+    "must-win": lambda who: [f"📣 {_cap(who)} already calling it a must-win out loud.",
+                             f"📣 \"Must-win\" is the word around {who} this week. Backs to the wall.",
+                             f"📣 {_cap(who)} say their season rides on this one.",
+                             f"📣 Win-or-else talk coming out of {who}."],
+    "rivalry week": lambda who: [f"📣 Rivalry week talk is loud around {who}. Bad blood energy.",
+                                 f"📣 {_cap(who)} been hyping the rivalry all week.",
+                                 f"📣 Bragging rights on the line, and {who} know it.",
+                                 f"📣 Circled on the calendar for {who}. No love lost here."],
+    "hot seat": lambda who: [f"📣 Coach's job is a hot topic around {who}. Hot seat talk everywhere.",
+                             f"📣 Job-security questions around {who}'s coach this week.",
+                             f"📣 {_cap(who)}' coach is feeling the heat in the papers.",
+                             f"📣 The coach over at {who} is under the microscope right now."],
+}
+
+
+def context_lines(leg, v, us, them, the_us, the_them, g):
+    """Breakdown lines for the context study's facts (rivalry, travel, domes, stakes, refs) and pregame talk.
+    Proven or not, these are just what's around the game - the numbers only move for PROVEN factors."""
+    out = []
+    total = leg.get("market") == "total"
+    for c in leg.get("ctx") or []:
+        k = c.get("k")
+        if k == "rival":
+            out.append(v.say("cx_rival", [f"🔥 Rivalry game. {_cap(the_us)} and {the_them} got real history.",
+                                          "🔥 Circled on both calendars — these two don't like each other.",
+                                          "🔥 Straight-up rivalry. Records go out the window in these.",
+                                          "🔥 Bad blood game — this is one of the classics.",
+                                          "🔥 Rivalry night. No love lost between these two."]
+                             if not total else [f"🔥 Rivalry game — {them}. Emotions run hot in these.",
+                                                f"🔥 Classic rivalry on the board: {them}.",
+                                                f"🔥 Bad blood matchup ({them}). These get weird on the scoreboard."]))
+        elif k == "div":
+            out.append(v.say("cx_div", [f"🔥 Division game — {the_us} and {the_them} see each other every year.",
+                                        "🔥 Division rivals. They know each other's playbook cold.",
+                                        "🔥 Division matchup: familiarity on both sides.",
+                                        "🔥 It's a division game, so both sides know exactly what's coming.",
+                                        "🔥 Division beef. No secrets between these two."]
+                             if not total else [f"🔥 Division game ({them}) — two teams that know each other cold.",
+                                                f"🔥 Division matchup on the total: {them}.",
+                                                f"🔥 Familiar foes ({them}), division game."]))
+        elif k == "trip":
+            mi, r6, d = c.get("mi") or 0, c.get("road6") or 0, c.get("dir")
+            bits = []
+            if mi >= 1000:
+                bits.append(f"{_mi(mi)}-mile trip{' east' if d == 'E' else ' west' if d == 'W' else ''}")
+            if r6 >= 3 and leg.get("league") in ("nba", "nhl", "ncaab"):   # (a baseball series always is)
+                bits.append(f"{_nth(r6)} road game in 6 days")
+            if not bits:
+                continue
+            fact = ", ".join(bits)
+            out.append(v.say("cx_trip", [f"🧳 {_cap(the_them)}: {fact}. That travel adds up.",
+                                         f"🧳 {fact.capitalize()} for {the_them}. Frequent flyer points, heavy legs.",
+                                         f"🧳 {_cap(the_them)} living out of a suitcase — {fact}.",
+                                         f"🧳 Travel check on {the_them}: {fact}.",
+                                         f"🧳 {_cap(the_them)} put in the miles to get here ({fact})."]))
+        elif k == "dome_cold":
+            temp, wind = g.get("wx_temp", ""), g.get("wx_wind", "")
+            wx = (f"{temp}°" if str(temp) != "" else "cold") + (f" with {wind} mph wind" if str(wind) not in ("", "0")
+                                                                and float(wind or 0) >= 15 else "")
+            who = the_them if not total else ("the home dome team" if c.get("who") == "home" else "the road dome team")
+            out.append(v.say("cx_domecold", [f"🏟️ Dome team outside in {wx} — {who} usually play with the thermostat set.",
+                                             f"🏟️ {_cap(who)} play indoors at home. Tonight: {wx} outside.",
+                                             f"🏟️ No roof tonight for {who}. {wx.capitalize()} in the forecast.",
+                                             f"🏟️ Indoor squad in the elements: {wx} for {who}."]))
+        elif k == "dome_out":
+            out.append(v.say("cx_domeout", [f"🏟️ {_cap(the_them)} are a dome team playing outside today.",
+                                            f"🏟️ No roof for {the_them} this time — they're used to playing inside.",
+                                            f"🏟️ {_cap(the_them)} leave the dome for an open-air building.",
+                                            f"🏟️ Open air for an indoor team: {the_them} out of their element."]))
+        elif k == "mustwin":
+            out.append(v.say("cx_mustwin", [f"🚨 Must-win for {the_us} ({c.get('rec')}) — right in the playoff race.",
+                                            f"🚨 {_cap(the_us)} ({c.get('rec')}) are fighting for a playoff spot. Backs against the wall.",
+                                            f"🚨 Playoff race: {the_us} need this one, {the_them} don't.",
+                                            f"🚨 Every game counts for {the_us} ({c.get('rec')}) right now. {_cap(the_them)}? Not so much."]))
+        elif k == "rest":
+            out.append(v.say("cx_rest", [f"🪑 {_cap(the_them)} already clinched — rest-the-starters territory.",
+                                         f"🪑 Playoff spot locked for {the_them}. Don't be shocked if the stars sit.",
+                                         f"🪑 {_cap(the_them)} got their ticket punched already. Nothing to play for tonight.",
+                                         f"🪑 Clinched and coasting: {the_them} could rest guys."]))
+        elif k == "tank":
+            out.append(v.say("cx_tank", [f"📉 {_cap(the_them)} ({c.get('rec')}) are out of it. Draft-pick season over there.",
+                                         f"📉 Eliminated and {c.get('rec')} — {the_them} are playing for ping-pong balls.",
+                                         f"📉 {_cap(the_them)} ({c.get('rec')}) got nothing to play for but next year.",
+                                         f"📉 Season's over for {the_them} ({c.get('rec')}), they just haven't gone home yet."]))
+        elif k == "elim":
+            out.append(v.say("cx_elim", [f"📉 {_cap(the_them)} are eliminated; {the_us} are still in the race.",
+                                         "📉 One team's playing for a spot, the other's playing out the string.",
+                                         f"📉 {_cap(the_them)} are out of the playoff picture. {_cap(the_us)} ain't.",
+                                         f"📉 Playoff hopes: {the_us} alive, {the_them} done."]))
+        elif k == "bowl5":
+            out.append(v.say("cx_bowl", [f"🏈 {us} sit at 5 wins — one more and they're bowl eligible.",
+                                         f"🏈 Bowl eligibility on the line: {us} need win number 6.",
+                                         f"🏈 {us} are one W from a bowl game. Extra motivation.",
+                                         f"🏈 Win 6 means a bowl trip for {us}."]))
+        elif k == "hotseat":
+            n = c.get("n") or 0
+            out.append(v.say("cx_hotseat", [f"🔥 {_cap(the_them)} have lost {n} straight — that coach is on the hot seat.",
+                                            f"🔥 {n} losses in a row for {the_them}. Coaching staff feeling the heat.",
+                                            f"🔥 {_cap(the_them)} ({n} straight L's) are in a fishbowl right now.",
+                                            f"🔥 Losing streak at {n} for {the_them}. Jobs on the line over there."]))
+        elif k in ("ref_side", "ref_total"):
+            nm = (c.get("names") or ["the crew"])[0]
+            lean = c.get("lean")
+            what = {"home": "the home team", "road": "the road team", "over": "the over", "under": "the under"}.get(lean, lean)
+            out.append(v.say("cx_ref", [f"🦓 {nm} on the whistle tonight — his games have leaned toward {what}.",
+                                        f"🦓 Zebra check: {nm}'s crew has tilted to {what} over his earlier games.",
+                                        f"🦓 {nm} officiating. His track record leans {what}.",
+                                        f"🦓 Officials matter: {nm}'s games have gone {what}'s way more than the book expected."]))
+    for key, who in (("talk_theirs", the_them), ("talk_ours", the_us)):
+        for t in (leg.get(key) or [])[:1]:
+            opts = TALK_LINES.get(t.get("kind"))
+            if opts and not total:
+                out.append(v.say("talk_" + t["kind"].replace(" ", "_").replace("-", "_"), opts(who)))
+    return [x for x in out if x]
 
 
 def public_split(leg):
