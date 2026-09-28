@@ -10,6 +10,9 @@ GOOD_OPEN = [
     "{p} is nice.", "{p} nice nice.", "{p} is different.", "{p} is a problem.", "{p} been cooking.",
     "{p} is HIM.", "{p} is built different.", "Y'all know {p} is nice.", "{p}? Nice nice.", "{p} on another level.",
     "{p} ain't regular.", "Don't sleep on {p}.",
+    "{p} got that dog in {him}.", "{p} came to work.", "{p} locked in.", "{p} been dialed in.", "{p} a bad man.",
+    "{p} got it rolling.", "{p} stay ready.", "{p} got the juice right now.", "Give me {p} all day.",
+    "{p} the real deal.", "{p} on a heater.", "{p} carrying.",
 ]
 GOOD_END = [
     "Watch {him} work.", "{o} got no answer for {him}.", "{He} about to go off.", "{He} ain't playing no games today.",
@@ -20,6 +23,12 @@ GOOD_END = [
     "{He} built for this matchup.", "{o} gon' be seeing {him} in their sleep.", "{He} don't miss in spots like this.",
     "Mark it down.", "{He} gon' handle {o} light.", "{o} got nobody to guard {him}.", "{He} feeling it lately.",
     "{o} already know what time it is.", "{He} been on one.", "Different breed.", "{o} in trouble.",
+    "{He} gon' make it look easy.", "{o} gon' feel {him} all game.", "{He} got {o} number.", "{He} ain't scared of nobody.",
+    "{o} can't stop {him}, only hope to contain.", "{He} bringing the heat tonight.", "{o} gon' need a miracle.",
+    "{He} gon' take over.", "Book it.", "Say less.", "{o} picked the wrong night.", "{He} got something to prove.",
+    "{He} stay money.", "{o} ain't seen nothing like {him}.", "It's {his} world, {o} just living in it.",
+    "{He} gon' remind everybody tonight.", "Clock in, clock out.", "{o} better bring backup.",
+    "{He} gon' feast.", "{o} can't keep up.",
 ]
 
 # the other side has been bad (never "chalk")
@@ -47,8 +56,8 @@ def _mix(opens, ends, seed, n, **kw):
 
 def good(player, opp, seed, he="he", n=24):
     """n fresh 'player is nice' lines for this game (pass them to Voice.say as the options)."""
-    him, He = ("her" if he == "she" else "him"), he.capitalize()
-    return _mix(GOOD_OPEN, GOOD_END, seed, n, p=player, o=opp, he=he, He=He, him=him)
+    him, He, his = ("her" if he == "she" else "him"), he.capitalize(), ("her" if he == "she" else "his")
+    return _mix(GOOD_OPEN, GOOD_END, seed, n, p=player, o=opp, he=he, He=He, him=him, his=his)
 
 
 def bad(opp, seed, n=12):

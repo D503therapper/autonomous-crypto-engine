@@ -611,7 +611,7 @@ def breakdown(c, rt, used):
                       f"🎾 {me} at {o:+d} is a gift. {He}'s about to cook.",
                       f"🎾 We'll take {me} plus money all day. The book got this one backwards.",
                       f"🎾 {me} gets the nod. The price is wrong and we're taking it — let's eat."]
-        out.append(v.say("t_main" + ("f" if o <= -150 else "m" if o < 0 else "d"), lines_, must=True))
+        out.append(v.say("t_main" + ("f" if o <= -150 else "m" if o < 0 else "d"), lines_, must=True, names=(me, them)))
     rk_me, rk_them = c.get("rank"), c.get("opp_rank")
     if rk_me and (not rk_them or rk_them - rk_me >= 20):
         out.append(v.say("t_rank", [f"📈 {me} is #{rk_me} in the world" + (f" — {them} is #{rk_them}. Levels to this." if rk_them else f" — {them} ain't even top 150."),

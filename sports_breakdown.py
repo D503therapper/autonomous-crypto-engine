@@ -120,14 +120,20 @@ class Voice:
     def __init__(self, seed, used=None):
         self.seed, self.used, self.mine = seed, used if used is not None else set(), []
 
-    def say(self, key, options, must=False):
+    def say(self, key, options, must=False, names=()):
         """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board.
         must=True: a line the card can't go without (the pick, the bottom line) - reuse a wording rather than drop it.
         Our big phrases ("cheeks clapped", "smack that ass"...) show up once a board, never on two cards in a row."""
         start = sum(map(ord, f"{self.seed}|{key}")) % len(options)
         order = [(start + i) % len(options) for i in range(len(options))]
         def slang(x):
-            return [f"slang:{k}" for k, pat in SLANG.items() if re.search(pat, x.lower())]
+            out = [f"slang:{k}" for k, pat in SLANG.items() if re.search(pat, x.lower())]
+            if names:                                         # mixer lines: every opener / ending once a board
+                t = x
+                for nm in names:
+                    t = t.replace(nm, "_").replace(nm[:1].upper() + nm[1:], "_")
+                out += [f"piece:{p.strip().lower()}" for p in re.split(r"(?<=[.!?])\s+", re.sub(r"^\W+", "", t)) if p.strip()]
+            return out
         unused = [n for n in order if f"{key}:{n}" not in self.used]
         fresh = [n for n in unused if not any(s in self.used for s in slang(options[n]))]
         if fresh:
@@ -432,7 +438,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         ps, po = g.get("sp_" + side) or "TBA", g.get("sp_" + other) or "TBA"
         nice = [f"⚾ {x}" for x in sports_lingo.good(ps, the_them, f"{g['id']}|sp")] \
             if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" else []   # our arm's the better one
-        out.append(v.say("bump", nice + [f"⚾ On the bump: {ps} for {us}, {po} for {them}.",
+        out.append(v.say("bump", names=(ps, the_them), options=nice + [f"⚾ On the bump: {ps} for {us}, {po} for {them}.",
                                    f"⚾ Pitching matchup: {ps} ({us}) vs {po} ({them}).",
                                    f"⚾ {ps} takes the ball for {us}; {them} go with {po}.",
             f"⚾ {ps} gets the ball for {us} against {po}.",
