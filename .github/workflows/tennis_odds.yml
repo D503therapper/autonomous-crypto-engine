@@ -13,7 +13,7 @@ permissions:
   contents: write
 concurrency:
   group: tennis-odds
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install -q openpyxl xlrd
-      - run: python -u tools/fetch_tennis_odds.py
+      - run: timeout 25m python -u tools/fetch_tennis_odds.py
       - if: always()
         run: |
           git config user.name "paper-trader-bot"

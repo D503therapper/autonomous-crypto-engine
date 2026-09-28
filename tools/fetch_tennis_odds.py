@@ -34,7 +34,7 @@ ERRS = []
 def _get(url):
     for i in range(2):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=45) as r:
                 return r.read()
         except Exception as e:                               # noqa: BLE001
             ERRS.append(f"{url}: {e}")
@@ -153,7 +153,7 @@ def main():
     now = datetime.now(timezone.utc).year
     done = {(r["tour"], r["date"][:4]) for r in have if int(r["date"][:4] or 0) < now}
     keep = [r for r in have if int(r["date"][:4] or 0) < now]
-    blocked = False                                          # the site blocks servers: straight to the archive
+    blocked = True                                           # the site blocks (and stalls) servers: the archive only
     for (tour, y), rows in raw_files().items():
         keep = [r for r in keep if not (r["tour"] == tour and r["date"][:4] == str(y))] + rows
         done.add((tour, str(y)))
@@ -163,7 +163,7 @@ def main():
                 continue
             n0 = len(ERRS)
             rows, src = year(tour, y, direct=not blocked)
-            print(f"{tour} {y}: {'missing' if rows is None else f'{len(rows)} ({src})'}", flush=True)
+            print(f"{datetime.now(timezone.utc):%H:%M:%S} {tour} {y}: {'missing' if rows is None else f'{len(rows)} ({src})'}", flush=True)
             if rows is None and ERRS:
                 print("   ", ERRS[-1][:200], flush=True)
             if not blocked and any("tennis-data.co.uk/" in e and "archive" not in e and "403" in e for e in ERRS[n0:]):
