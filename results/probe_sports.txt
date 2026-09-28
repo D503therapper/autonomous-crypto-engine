@@ -1,234 +1,35 @@
-
-== https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20260928
-   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'broadcast']
-   [0]/odds[0]/ml_home_public = None
-   [0]/odds[0]/ml_away_public = None
-   [0]/odds[0]/spread_home_public = None
-   [0]/odds[0]/spread_away_public = None
-   [0]/odds[0]/total_under_public = None
-   [0]/odds[0]/total_over_public = None
-   [0]/odds[0]/ml_home_money = None
-   [0]/odds[0]/ml_away_money = None
-   [0]/odds[0]/spread_home_money = None
-   [0]/odds[0]/spread_away_money = None
-   [0]/odds[0]/total_over_money = None
-   [0]/odds[0]/total_under_money = None
-   [0]/odds[1]/ml_home_public = None
-   [0]/odds[1]/ml_away_public = None
-   [0]/odds[1]/spread_home_public = None
-   [0]/odds[1]/spread_away_public = None
-   [0]/odds[1]/total_under_public = None
-   [0]/odds[1]/total_over_public = None
-   [0]/odds[1]/ml_home_money = None
-   [0]/odds[1]/ml_away_money = None
-   [0]/odds[1]/spread_home_money = None
-   [0]/odds[1]/spread_away_money = None
-   [0]/odds[1]/total_over_money = None
-   [0]/odds[1]/total_under_money = None
-
-== https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&bookIds=15,30,68,69,71,75&date=20260928
-   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'broadcast']
-   [0]/odds[0]/ml_home_public = None
-   [0]/odds[0]/ml_away_public = None
-   [0]/odds[0]/spread_home_public = None
-   [0]/odds[0]/spread_away_public = None
-   [0]/odds[0]/total_under_public = None
-   [0]/odds[0]/total_over_public = None
-   [0]/odds[0]/ml_home_money = None
-   [0]/odds[0]/ml_away_money = None
-   [0]/odds[0]/spread_home_money = None
-   [0]/odds[0]/spread_away_money = None
-   [0]/odds[0]/total_over_money = None
-   [0]/odds[0]/total_under_money = None
-   [0]/odds[1]/ml_home_public = None
-   [0]/odds[1]/ml_away_public = None
-   [0]/odds[1]/spread_home_public = None
-   [0]/odds[1]/spread_away_public = None
-   [0]/odds[1]/total_under_public = None
-   [0]/odds[1]/total_over_public = None
-   [0]/odds[1]/ml_home_money = None
-   [0]/odds[1]/ml_away_money = None
-   [0]/odds[1]/spread_home_money = None
-   [0]/odds[1]/spread_away_money = None
-   [0]/odds[1]/total_over_money = None
-   [0]/odds[1]/total_under_money = None
-   [0]/odds[2]/ml_home_public = None
-   [0]/odds[2]/ml_away_public = None
-   [0]/odds[2]/spread_home_public = None
-   [0]/odds[2]/spread_away_public = None
-   [0]/odds[2]/total_under_public = None
-   [0]/odds[2]/total_over_public = None
-   [0]/odds[2]/ml_home_money = None
-   [0]/odds[2]/ml_away_money = None
-   [0]/odds[2]/spread_home_money = None
-   [0]/odds[2]/spread_away_money = None
-   [0]/odds[2]/total_over_money = None
-   [0]/odds[2]/total_under_money = None
-   [0]/odds[3]/ml_home_public = None
-   [0]/odds[3]/ml_away_public = None
-   [0]/odds[3]/spread_home_public = None
-   [0]/odds[3]/spread_away_public = None
-   [0]/odds[3]/total_under_public = None
-   [0]/odds[3]/total_over_public = None
-   [0]/odds[3]/ml_home_money = None
-   [0]/odds[3]/ml_away_money = None
-   [0]/odds[3]/spread_home_money = None
-   [0]/odds[3]/spread_away_money = None
-   [0]/odds[3]/total_over_money = None
-   [0]/odds[3]/total_under_money = None
-
-== https://api.actionnetwork.com/web/v2/scoreboard/nfl?bookIds=15,30&date=20260928
-   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'core_id', 'last_play', 'boxscore', 'broadcast', 'markets']
-   [0]/markets/15/event/moneyline = [{'outcome_id': '2670615856', 'market_id': '21805763', 'event_type': 'game', 'event_id': 290873, 'book_id': 15, 'type': 'moneyline', 'side': 'away', 'period': 'event', 'team_id': 151, 'odds': 205, 'value': 0, 'is_live': False, 'deeplink_id'
-   [0]/markets/15/event/moneyline[0]/bet_info = {'money': {'value': 0, 'percent': 46}, 'tickets': {'value': 0, 'percent': 11}}
-   [0]/markets/15/event/moneyline[0]/bet_info/money = {'value': 0, 'percent': 46}
-   [0]/markets/15/event/moneyline[0]/bet_info/money/percent = 46
-   [0]/markets/15/event/moneyline[0]/bet_info/tickets = {'value': 0, 'percent': 11}
-   [0]/markets/15/event/moneyline[0]/bet_info/tickets/percent = 11
-   [0]/markets/15/event/moneyline[1]/bet_info = {'money': {'value': 0, 'percent': 54}, 'tickets': {'value': 0, 'percent': 89}}
-   [0]/markets/15/event/moneyline[1]/bet_info/money = {'value': 0, 'percent': 54}
-   [0]/markets/15/event/moneyline[1]/bet_info/money/percent = 54
-   [0]/markets/15/event/moneyline[1]/bet_info/tickets = {'value': 0, 'percent': 89}
-   [0]/markets/15/event/moneyline[1]/bet_info/tickets/percent = 89
-   [0]/markets/15/event/spread[0]/bet_info = {'money': {'value': 0, 'percent': 40}, 'tickets': {'value': 0, 'percent': 53}}
-   [0]/markets/15/event/spread[0]/bet_info/money = {'value': 0, 'percent': 40}
-   [0]/markets/15/event/spread[0]/bet_info/money/percent = 40
-   [0]/markets/15/event/spread[0]/bet_info/tickets = {'value': 0, 'percent': 53}
-   [0]/markets/15/event/spread[0]/bet_info/tickets/percent = 53
-   [0]/markets/15/event/spread[1]/bet_info = {'money': {'value': 0, 'percent': 60}, 'tickets': {'value': 0, 'percent': 47}}
-   [0]/markets/15/event/spread[1]/bet_info/money = {'value': 0, 'percent': 60}
-   [0]/markets/15/event/spread[1]/bet_info/money/percent = 60
-   [0]/markets/15/event/spread[1]/bet_info/tickets = {'value': 0, 'percent': 47}
-   [0]/markets/15/event/spread[1]/bet_info/tickets/percent = 47
-   [0]/markets/15/event/total[0]/bet_info = {'money': {'value': 0, 'percent': 55}, 'tickets': {'value': 0, 'percent': 50}}
-   [0]/markets/15/event/total[0]/bet_info/money = {'value': 0, 'percent': 55}
-   [0]/markets/15/event/total[0]/bet_info/money/percent = 55
-   [0]/markets/15/event/total[0]/bet_info/tickets = {'value': 0, 'percent': 50}
-   [0]/markets/15/event/total[0]/bet_info/tickets/percent = 50
-   [0]/markets/15/event/total[1]/bet_info = {'money': {'value': 0, 'percent': 45}, 'tickets': {'value': 0, 'percent': 50}}
-   [0]/markets/15/event/total[1]/bet_info/money = {'value': 0, 'percent': 45}
-   [0]/markets/15/event/total[1]/bet_info/money/percent = 45
-   [0]/markets/15/event/total[1]/bet_info/tickets = {'value': 0, 'percent': 50}
-   [0]/markets/15/event/total[1]/bet_info/tickets/percent = 50
-   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info = {'money': {'value': 0, 'percent': 0}, 'tickets': {'value': 0, 'percent': 0}}
-   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/money = {'value': 0, 'percent': 0}
-   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/money/percent = 0
-   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/tickets = {'value': 0, 'percent': 0}
-   [0]/markets/15/event/core_bet_type_6_team_score[0]/bet_info/tickets/percent = 0
-   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info = {'money': {'value': 0, 'percent': 0}, 'tickets': {'value': 0, 'percent': 0}}
-   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/money = {'value': 0, 'percent': 0}
-   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/money/percent = 0
-   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/tickets = {'value': 0, 'percent': 0}
-   [0]/markets/15/event/core_bet_type_6_team_score[1]/bet_info/tickets/percent = 0
-
-== https://api.actionnetwork.com/web/v1/scoreboard/nfl?period=game&date=20251020
-   games: 16; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'broadcast']
-   [0]/odds[0]/ml_home_public = None
-   [0]/odds[0]/ml_away_public = None
-   [0]/odds[0]/spread_home_public = None
-   [0]/odds[0]/spread_away_public = None
-   [0]/odds[0]/total_under_public = None
-   [0]/odds[0]/total_over_public = None
-   [0]/odds[0]/ml_home_money = None
-   [0]/odds[0]/ml_away_money = None
-   [0]/odds[0]/spread_home_money = None
-   [0]/odds[0]/spread_away_money = None
-   [0]/odds[0]/total_over_money = None
-   [0]/odds[0]/total_under_money = None
-   [0]/odds[1]/ml_home_public = None
-   [0]/odds[1]/ml_away_public = None
-   [0]/odds[1]/spread_home_public = None
-   [0]/odds[1]/spread_away_public = None
-   [0]/odds[1]/total_under_public = None
-   [0]/odds[1]/total_over_public = None
-   [0]/odds[1]/ml_home_money = None
-   [0]/odds[1]/ml_away_money = None
-   [0]/odds[1]/spread_home_money = None
-   [0]/odds[1]/spread_away_money = None
-   [0]/odds[1]/total_over_money = None
-   [0]/odds[1]/total_under_money = None
-   [0]/odds[2]/ml_home_public = None
-   [0]/odds[2]/ml_away_public = None
-   [0]/odds[2]/spread_home_public = None
-   [0]/odds[2]/spread_away_public = None
-   [0]/odds[2]/total_under_public = None
-   [0]/odds[2]/total_over_public = None
-   [0]/odds[2]/ml_home_money = None
-   [0]/odds[2]/ml_away_money = None
-   [0]/odds[2]/spread_home_money = None
-   [0]/odds[2]/spread_away_money = None
-   [0]/odds[2]/total_over_money = None
-   [0]/odds[2]/total_under_money = None
-   [0]/odds[3]/ml_home_public = None
-   [0]/odds[3]/ml_away_public = None
-   [0]/odds[3]/spread_home_public = None
-   [0]/odds[3]/spread_away_public = None
-   [0]/odds[3]/total_under_public = None
-   [0]/odds[3]/total_over_public = None
-   [0]/odds[3]/ml_home_money = None
-   [0]/odds[3]/ml_away_money = None
-   [0]/odds[3]/spread_home_money = None
-   [0]/odds[3]/spread_away_money = None
-   [0]/odds[3]/total_over_money = None
-   [0]/odds[3]/total_under_money = None
-
-== https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date=20260927
-   games: 15; top keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'last_play', 'boxscore', 'odds', 'players', 'player_stats', 'broadcast']
-   [0]/odds[0]/ml_home_public = None
-   [0]/odds[0]/ml_away_public = None
-   [0]/odds[0]/spread_home_public = None
-   [0]/odds[0]/spread_away_public = None
-   [0]/odds[0]/total_under_public = None
-   [0]/odds[0]/total_over_public = None
-   [0]/odds[0]/ml_home_money = None
-   [0]/odds[0]/ml_away_money = None
-   [0]/odds[0]/spread_home_money = None
-   [0]/odds[0]/spread_away_money = None
-   [0]/odds[0]/total_over_money = None
-   [0]/odds[0]/total_under_money = None
-   [0]/odds[1]/ml_home_public = None
-   [0]/odds[1]/ml_away_public = None
-   [0]/odds[1]/spread_home_public = None
-   [0]/odds[1]/spread_away_public = None
-   [0]/odds[1]/total_under_public = None
-   [0]/odds[1]/total_over_public = None
-   [0]/odds[1]/ml_home_money = None
-   [0]/odds[1]/ml_away_money = None
-   [0]/odds[1]/spread_home_money = None
-   [0]/odds[1]/spread_away_money = None
-   [0]/odds[1]/total_over_money = None
-   [0]/odds[1]/total_under_money = None
-   [0]/odds[2]/ml_home_public = None
-   [0]/odds[2]/ml_away_public = None
-   [0]/odds[2]/spread_home_public = None
-   [0]/odds[2]/spread_away_public = None
-   [0]/odds[2]/total_under_public = None
-   [0]/odds[2]/total_over_public = None
-   [0]/odds[2]/ml_home_money = None
-   [0]/odds[2]/ml_away_money = None
-   [0]/odds[2]/spread_home_money = None
-   [0]/odds[2]/spread_away_money = None
-   [0]/odds[2]/total_over_money = None
-   [0]/odds[2]/total_under_money = None
-   [0]/odds[3]/ml_home_public = None
-   [0]/odds[3]/ml_away_public = None
-   [0]/odds[3]/spread_home_public = None
-   [0]/odds[3]/spread_away_public = None
-   [0]/odds[3]/total_under_public = None
-   [0]/odds[3]/total_over_public = None
-   [0]/odds[3]/ml_home_money = None
-   [0]/odds[3]/ml_away_money = None
-   [0]/odds[3]/spread_home_money = None
-   [0]/odds[3]/spread_away_money = None
-   [0]/odds[3]/total_over_money = None
-   [0]/odds[3]/total_under_money = None
-
-== https://api.actionnetwork.com/web/v1/games/290873
-   ERR HTTP Error 404: Not Found
-
-== https://api.actionnetwork.com/web/v2/games/290873
-   ERR HTTP Error 404: Not Found
-
-== https://api.actionnetwork.com/web/v1/games/290873/polls
-   ERR HTTP Error 404: Not Found
-ESPN ERR HTTP Error 403: Forbidden
+MNF: Eagles @ Bears scheduled {"moneyline:away": [-202, 0, 94, 92], "moneyline:home": [165, 0, 6, 8], "spread:home": [-106, 3.5, 22, 28], "spread:away": [-113, -3.5, 78, 72], "total:under": [-113, 41.5, 51, 55], "total:over": [-106, 41.5, 49, 45]}
+   num_bets: 40753 | full game keys: ['id', 'league_id', 'status', 'real_status', 'status_display', 'start_time', 'away_team_id', 'home_team_id', 'winning_team_id', 'league_name', 'type', 'season', 'week', 'attendance', 'coverage', 'is_free', 'trending', 'away_rotation_number', 'home_rotation_number', 'teams', 'meta', 'num_bets', 'core_id', 'broadcast', 'markets']
+   sample: {"id": 290887, "league_id": 1, "status": "scheduled", "real_status": "scheduled", "status_display": null, "start_time": "2026-09-29T00:15:00.000Z", "away_team_id": 142, "home_team_id": 143, "winning_team_id": null, "league_name": "nfl", "type": "reg", "season": 2026, "week": 3, "attendance": 0, "coverage": "full", "is_free": false, "trending": false, "away_rotation_number": 489, "home_rotation_number": 490, "teams": [{"id": 142, "full_name": "Philadelphia Eagles", "display_name": "Eagles", "short_name": "Eagles", "location": "Philadelphia", "abbr": "PHI", "logo": "https://static.sprtactn.co/teamlogos/nfl/100/phi.png", "primary_color": "004953", "secondary_color": "A5ACAF", "conference_type": "NFC", "division_type": "EAST", "url_slug": "philadelphia-eagles", "standings": {"win": 2, "loss": 0, "ties": 0, "overtime_losses": null, "draw": null}, "core_id": 1999}, {"id": 143, "full_name": "Chicago Bears", "display_name": "Bears", "short_name": "Bears", "location": "Chicago", "abbr": "CHI", "logo": "https://assets.actionnetwork.com/598430_bears1.png", "primary_color": "C83803", "secondary_color": "0B162A", "conference_type": "NFC", "division_type": "NORTH", "url_slug": "chicago-bears", "standings": {"win": 1, "loss": 1, "ties": 0, "overtime_losses": null, "draw": null}, "core_id": 1943}], "meta": {}, "num_bets": 40753, "core_id": 35986620, "broadcast": {"network": "ABC/ESPN", "network_short": "ABC/ESPN"}, "markets": {"15": {"event": {"core_bet_type_6_team_score": [{"outcome_id": "2
+nfl 20260921: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nfl 20251019: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nfl 20241020: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nfl 20231015: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nfl 20221016: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nfl 20211017: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nfl 20201018: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nfl 20191020: 16 games, 16 with public splits | e.g. Falcons @ Packers (-250, 0, 89, 54) (-115, -4.5, 53, 40)
+nba 20260315: ERR HTTP Error 504: Gateway Time-out
+nba 20250115: 11 games, 11 with public splits | e.g. Knicks @ 76ers (180, 0, 15, 14) (-110, 5.5, 34, 32)
+nba 20240115: 11 games, 11 with public splits | e.g. Rockets @ 76ers (-360, 0, 95, 91) (-110, -8.5, 37, 49)
+nba 20230115: 8 games, 0 with public splits
+nba 20220115: 10 games, 0 with public splits
+nba 20200115: 10 games, 0 with public splits
+mlb 20260915: 15 games, 15 with public splits | e.g. Dodgers @ Reds (201, 0, 8, 3) (124, 1.5, 5, 6)
+mlb 20250615: 15 games, 15 with public splits | e.g. Reds @ Tigers (-186, 0, 81, 68) (112, -1.5, 84, 90)
+mlb 20240615: 15 games, 14 with public splits | e.g. Cardinals @ Cubs (-175, 0, 78, 93) (120, -1.5, 93, 92)
+mlb 20230615: 10 games, 0 with public splits
+mlb 20220615: 15 games, 0 with public splits
+mlb 20190615: 15 games, 0 with public splits
+nhl 20260115: 10 games, 10 with public splits | e.g. Canucks @ Blue Jackets (-166, 0, 86, 54) (145, -1.5, 61, 61)
+nhl 20250115: 2 games, 2 with public splits | e.g. Hurricanes @ Sabres (154, 0, 15, 18) (-155, 1.5, 25, 17)
+nhl 20240115: 10 games, 0 with public splits
+nhl 20220115: 16 games, 0 with public splits
+ncaaf 20260919: 59 games, 56 with public splits | e.g. W. Kentucky @ N. Mexico St (-132, 0, 77, 54) (-118, -2, 0, 0)
+ncaaf 20251018: 59 games, 56 with public splits | e.g. W. Kentucky @ N. Mexico St (-132, 0, 77, 54) (-118, -2, 0, 0)
+ncaaf 20231014: 59 games, 56 with public splits | e.g. W. Kentucky @ N. Mexico St (-132, 0, 77, 54) (-118, -2, 0, 0)
+ncaaf 20211016: 59 games, 56 with public splits | e.g. W. Kentucky @ N. Mexico St (-132, 0, 77, 54) (-118, -2, 0, 0)
+ncaab 20260115: 49 games, 46 with public splits | e.g. Mercer @ VMI (360, 0, 6, 8) (-108, 8.5, 48, 35)
+ncaab 20250115: ERR HTTP Error 504: Gateway Time-out
+ncaab 20230115: 13 games, 0 with public splits
+ncaab 20210115: 56 games, 0 with public splits
