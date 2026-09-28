@@ -914,14 +914,14 @@ function render(){{
   if(hits.length==1&&words.length) show(hits[0]);
 }}
 list.addEventListener("click",function(e){{var b=e.target.closest(".ask-g");if(b)show(games[+b.dataset.i])}});
-q.addEventListener("input",render);
-var timer=setTimeout(function(){{if(!loaded){{loaded=true;games=[];list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}}}},8000);
+q.addEventListener("input",function(){{if(!AI)render()}});   // with the AI on: nothing pops up while typing
+var timer=setTimeout(function(){{if(!loaded){{loaded=true;games=[];if(!AI)list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}}}},8000);
 function got(d){{return (d&&d.games)||[]}}
 Promise.all([fetch("reads.json?v="+Date.now()).then(function(r){{return r.json()}}),
   fetch("reads_tennis.json?v="+Date.now()).then(function(r){{return r.json()}}).catch(function(){{return {{}}}})])
-.then(function(ds){{clearTimeout(timer);loaded=true;games=got(ds[0]).concat(got(ds[1]));render()}})
-.catch(function(){{clearTimeout(timer);loaded=true;list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}});
-render();
+.then(function(ds){{clearTimeout(timer);loaded=true;games=got(ds[0]).concat(got(ds[1]));if(!AI)render()}})
+.catch(function(){{clearTimeout(timer);loaded=true;if(!AI)list.innerHTML='<div class="ask-n">The engine’s still cooking up the reads — check back in a few. 🍳</div>'}});
+if(!AI)render();
 }})();
 </script></body></html>"""
 
