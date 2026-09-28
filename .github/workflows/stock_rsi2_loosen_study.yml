@@ -1,0 +1,29 @@
+# Owner complaint: rsi2 (stocks) made no trade on its first day. Looser RSI2 entry (15..35), idle cash parked in
+# SPY while SPY > 200d, hold 5 vs 10 days; 3 x 33%, 25 years of daily bars, both halves (stock_rsi2_loosen_study.py).
+name: stock-rsi2-loosen-study
+on:
+  push:
+    branches: [main]
+    paths: ["stock_rsi2_loosen_study.py", ".github/workflows/stock_rsi2_loosen_study.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: stock_rsi2_loosen_study
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: |
+          mkdir -p results
+          python -u stock_rsi2_loosen_study.py --years 25 2>&1 | tee results/stock_rsi2_loosen_study.txt
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "stock-rsi2-loosen-study results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done

@@ -35,9 +35,10 @@ WARMUP = 215                      # 200-day average + slack before the first tra
 DAY = 86_400
 
 
-def variant(name, slots=5, size=0.18, reserve=0.10, park=None, park_reserve=0.0, park_trend=0):
+def variant(name, slots=5, size=0.18, reserve=0.10, park=None, park_reserve=0.0, park_trend=0,
+            rsi_max=15, hold=10):
     return {"name": name, "slots": slots, "size": size, "reserve": reserve, "park": park,
-            "park_reserve": park_reserve, "park_trend": park_trend}
+            "park_reserve": park_reserve, "park_trend": park_trend, "rsi_max": rsi_max, "hold": hold}
 
 
 VARIANTS = [
@@ -59,11 +60,13 @@ VARIANTS = [
 
 def simulate(ctx, v, start, end, cost=COST):
     """Dollar account from BASE at day `start`. Returns (daily returns, invested fraction per day,
-    closed rsi2 trade returns, number of parking orders)."""
+    closed rsi2 trade returns, number of parking orders, 1/0 per day: any rsi2 position held at the close).
+    v["rsi_max"] / v["hold"] (default 15 / 10 calendar days) are the live entry threshold and time limit."""
     K, size, rsv, P = v["slots"], v["size"], v["reserve"], v["park"]
     cash, pos, park = BASE, {}, 0.0          # pos: sym -> {"u", "basis", "e": entry day number}
     exits, entries = set(), []
-    rets, expo, trades, park_orders, eq_prev = [], [], [], 0, BASE
+    rets, expo, trades, park_orders, eq_prev, held = [], [], [], 0, BASE, []
+    rsi_max, hold_days = v.get("rsi_max", 15), v.get("hold", 10)
     for i in range(start, end):
         o = lambda s: ctx.o[s][i]
         # 1) rsi2 exits at the open
@@ -110,12 +113,13 @@ def simulate(ctx, v, start, end, cost=COST):
         eq = cash + (park * ctx.c[P][i] if P else 0.0) + sum(x["u"] * ctx.c[s][i] for s, x in pos.items())
         rets.append(eq / eq_prev - 1)
         expo.append(1 - cash / eq)
+        held.append(1 if pos else 0)
         eq_prev = eq
         # 5) tomorrow's orders from today's close (live RSI2MeanReversion rules)
         exits = set()
         for s, x in pos.items():
             r, m5 = ctx.ind(s, "rsi", 2)[i], ctx.ind(s, "sma", 5)[i]
-            if (ctx.days[i] - x["e"] >= 10 or (m5 is not None and ctx.c[s][i] > m5)
+            if (ctx.days[i] - x["e"] >= hold_days or (m5 is not None and ctx.c[s][i] > m5)
                     or (r is not None and r > 70)):
                 exits.add(s)
         cands = []
@@ -123,10 +127,10 @@ def simulate(ctx, v, start, end, cost=COST):
             if s in pos or not ctx.live[s][i]:
                 continue
             r, m = ctx.ind(s, "rsi", 2)[i], ctx.ind(s, "sma", 200)[i]
-            if r is not None and m is not None and r < 15 and ctx.c[s][i] > m:
+            if r is not None and m is not None and r < rsi_max and ctx.c[s][i] > m:
                 cands.append((r, s))
         entries = [s for _, s in sorted(cands)]
-    return rets, expo, trades, park_orders
+    return rets, expo, trades, park_orders, held
 
 
 def hold(ctx, sym, start, end, cost=COST):
@@ -137,7 +141,7 @@ def hold(ctx, sym, start, end, cost=COST):
         eq = c[i] / o[i0] * (1 - cost) if i0 is not None and i >= i0 and c[i] else 1.0
         rets.append(eq / eq_prev - 1)
         eq_prev = eq
-    return rets, [1.0 if i0 is not None and i >= i0 else 0.0 for i in range(start, end)], [], 2
+    return rets, [1.0 if i0 is not None and i >= i0 else 0.0 for i in range(start, end)], [], 2, []
 
 
 def worst_month(rets, months):
@@ -162,7 +166,7 @@ ROBUST = ["rsi2 live (5x18%)", "rsi2 + park SPY", "rsi2 + park QQQ", "rsi2 5x20%
 
 
 def row(ctx, name, res, start, end):
-    rets, expo, trades, porders = res
+    rets, expo, trades, porders = res[:4]
     st = lab.stats(rets, expo, trades, ctx.month[start:end], ctx.ppy)
     end_usd = BASE * (1 + st["total"])
     return st, (f"{name:<26} {st['cagr']:>+7.1%} {st['monthly']:>+7.2%} {st['mdd']:>6.1%} "
