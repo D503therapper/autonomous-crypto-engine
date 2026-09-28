@@ -48,6 +48,7 @@ honest test is forward. Probe/collector left as a tool; the 95-min workflow re-r
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|
 | 1 | 2026-09-28 12:40 | DEX: 10 coins x ~10% (tiers A 10% / B,C 12.5%) instead of 5 x 20-25% | ~2026-10-12 | DEX -39% after 13 closed trades on 5 slots | pending |
+| 2 | 2026-09-28 19:00 | Stocks rsi2: buy at RSI(2) < 25 (was < 15), 3 x 33%, hold 10d, no parking (stock_rsi2_loosen_study) | ~2026-11-28 | backtest 24y: +17.0% / +21.6% CAGR per half, DD 25% / 23%, 60-66% invested; live: 0 trades on day 1 | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
@@ -247,6 +248,36 @@ Owner wants bigger gains: test the breakout10 rotation (and the ens_donchian fam
 (tournament only tried 2 and 5). Walk-forward, after costs: profit per month, max drawdown, worst month.
 Switch to 1 only if it wins on unseen months with a drawdown the owner can live with; report plainly.
 Do NOT concentrate the listing hunter (lumpy edge: top 3 of 91 listings = 94% of profit).
+
+## 2026-09-28 - rsi2 loosen study (results/stock_rsi2_loosen_study.txt) -> APPLIED: rsi2 buys at RSI(2) < 25 (was < 15)
+Question (owner: the stocks account made no trade on its first day, wants the money working, "all in"): rsi2 only
+buys names with RSI(2) < 15 above their 200-day average. Does a looser entry (20/25/30/35), parking idle cash in SPY
+while SPY > its 200-day average, or a 5-day hold (vs 10) beat the live setup?
+Method: stock_rsi2_loosen_study.py (workflow stock_rsi2_loosen_study.yml, commit acfdef8, results 94dca1d) on
+stock_park_study's machinery (simulate now takes rsi_max / hold; defaults = live, re-run b3f1ba04 unchanged apart from
+one more day): 38-name live universe, Yahoo daily 2002-08 .. 2026-09, 0.05%/side, signal at close / fill next open,
+3 slots x 1/3, no reserve, exits unchanged; 20 variants fixed in advance; halves 2002-14 / 2014-26 from a flat $500,
+each also without the hindsight names (NVDA TSLA PLTR COIN MSTR AMD AVGO META NFLX UBER) and at 3x cost. Rule
+(pre-registered): CAGR better than live in all 6 runs and max DD at most 5 points deeper in each; best minimum margin wins.
+Result (CAGR / max DD / % invested / trades per yr; older | newer half; full universe):
+  rsi<15 hold10 (live)      +17.0% / 25% / 60% / 125 | +21.6% / 23% / 66% / 138
+  rsi<20 hold10             +18.8% / 26% / 68% / 143 | +24.7% / 26% / 74% / 156   PASS
+  rsi<25 hold10             +22.3% / 25% / 73% / 158 | +25.2% / 25% / 79% / 170   PASS (winner, min margin +0.9%)
+  rsi<30 hold10             +24.1% / 25% / 77% / 171 | +24.4% / 28% / 84% / 182   fail: 3x cost newer +10.2% vs +10.8%, DD 41%
+  rsi<35 hold10             +23.4% / 24% / 81% / 183 | +22.5% / 27% / 87% / 191   fail: 3x cost newer +7.9%, DD 45%
+  rsi<15 hold5              +14.3% / 21% / 58% / 143 | +19.0% / 27% / 64% / 161   fail (worse everywhere; loosened hold5 also fail)
+  rsi<15 hold10 +SPY>200d   +15.6% / 29% / 86% / 125 | +20.5% / 29% / 91% / 138   fail (worse in both halves)
+  rsi<25 hold10 +SPY>200d   +22.1% / 25% / 89% / 158 | +23.2% / 28% / 93% / 170   fail (-hindsight newer, all 3x cost)
+  hold SPY                  +9.0% / 55%                | +13.6% / 34%
+rsi<25 in the checks: -hindsight +13.0% vs +10.0% | +8.6% vs +7.3% (DD 17% / 19% vs 17% / 24%); 3x cost +10.0% vs
++7.7% | +11.8% vs +10.8% (DD 33% / 32% vs 33% / 30%). Days holding >= 1 rsi2 name: 88% / 92% vs 79% / 83%.
+Parking in SPY raises "invested" to ~90% but costs return in every half once costs or the hindsight names are
+taken out (the SPY leg drags when rsi2 is sold out of it at dips). A 5-day hold cuts winners short.
+Decision: APPLIED config.RSI2["rsi_max"] = 25 (strategy.RSI2MeanReversion reads it; run_live's "closest to a buy"
+line shows the live threshold; test stock_strategies_test.test_rsi2_entry_threshold). No parking, hold stays 10 days.
+It will not make the account "all in" (~75-80% invested on average; cash still waits on calm days) but the extra
+dips it buys earned more in every test. rsi<20 also passed; 25..30 form a plateau, so 25 is not a lone spike.
+Caveat: universe is today's list (hindsight) - absolute returns are a ceiling. Experiments log #2.
 
 ## 2026-09-27 - stock parking study (results/stock_park_study.txt) -> parking NOT applied; rsi2 now 3 x 33%, no reserve
 Question (owner: "whole base invested at all times"): the official stocks account (rsi2, $500) was ~48% invested. Does

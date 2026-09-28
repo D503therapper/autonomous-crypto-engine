@@ -159,7 +159,10 @@ MIN_CASH_RESERVE_PCT = 0.10
 # halves 2002-14 / 2014-26, results/stock_park_study.txt): 3 slots x 33% with no cash reserve beat the old
 # 5 x 18% + 10% reserve in both halves (CAGR +17.2% / +21.4% vs +12.2% / +14.9%, max DD 25% / 23% vs 19% / 21%,
 # SPY 55% / 34%), also without the hindsight names and at 3x costs. Parking idle cash in SPY / QQQ did not pass.
-RSI2 = {"slots": 3, "cash_reserve": 0.0}
+# stock_rsi2_loosen_study.py (2026-09-28, owner: no trade on day one): entry RSI(2) < 25 instead of < 15 beat it in
+# both halves with the full universe, without the hindsight names and at 3x costs (CAGR +22.3% / +25.2% vs +17.0% /
+# +21.6%, max DD 25% / 25% vs 25% / 23%, invested 73% / 79% vs 60% / 66%). SPY parking and a 5-day hold did not pass.
+RSI2 = {"slots": 3, "cash_reserve": 0.0, "rsi_max": 25}
 MIN_ORDER_USD = 10.00
 MAX_DRAWDOWN_HALT = None  # owner's choice: no account-level pause (set e.g. 0.20 to pause at -20%)
 HALT_HOURS = 168          # ...for 7 days, then resume

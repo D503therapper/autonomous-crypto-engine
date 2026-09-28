@@ -259,16 +259,18 @@ def _rsi_last(closes, n=2):
 class RSI2MeanReversion:
     """Lab winner (stocks, Sep 2026; walk-forward 2018-2026 out-of-sample +20%/yr, max
     drawdown 21%, vs SPY +17%/28%). Once a day, using completed daily closes: buy up to
-    `slots` names whose RSI(2) < 15 while above their 200-day average (lowest RSI first); sell
+    `slots` names whose RSI(2) < rsi_max (config.RSI2: 25) while above their 200-day average (lowest RSI first); sell
     when the close is back above the 5-day average, RSI(2) > 70, or after 10 calendar days.
     Sizing (config.RSI2): each buy = (1 - cash_reserve) / slots of equity; engine.step keeps
-    only this strategy's own `cash_reserve` in cash (stock_park_study.py: 3 x 33%, no reserve)."""
+    only this strategy's own `cash_reserve` in cash (stock_park_study.py: 3 x 33%, no reserve).
+    Entry threshold: RSI(2) < 25 since stock_rsi2_loosen_study.py (was 15)."""
     name = "rsi2"
     weekly = True
     rebalance_key = "%Y-%m-%d"      # evaluate once per trading day (first cycle after the open)
 
-    def __init__(self, universe, bars_per_day, rsi_max=15, sma=200, hold=10, slots=None, cash_reserve=None):
+    def __init__(self, universe, bars_per_day, rsi_max=None, sma=200, hold=10, slots=None, cash_reserve=None):
         slots = config.RSI2["slots"] if slots is None else slots
+        rsi_max = config.RSI2["rsi_max"] if rsi_max is None else rsi_max
         self.cash_reserve = config.RSI2["cash_reserve"] if cash_reserve is None else cash_reserve
         self.universe, self.bpd = universe, bars_per_day
         self.rsi_max, self.sma, self.hold, self.max_positions = rsi_max, sma, hold, slots

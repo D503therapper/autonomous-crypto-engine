@@ -153,7 +153,7 @@ def full_cycle(mname, client):
             try:                                       # no stock trades): lowest RSI(2) names and their trend
                 sig = [(s, st.analyze(cs)) for s, cs in coins.items()]
                 near = sorted(((-g["rank"], s, g["buy"]) for s, g in sig if g), key=lambda x: x[0])[:4]
-                print("   rsi2 closest to a buy (needs RSI2 < 15 and above its 200-day avg): " + ", ".join(
+                print(f"   rsi2 closest to a buy (needs RSI2 < {st.rsi_max:g} and above its 200-day avg): " + ", ".join(
                     f"{s} {r:.0f}{' BUY' if b else ''}" for r, s, b in near))
             except Exception as e:
                 print(f"   rsi2 watch failed: {e}")

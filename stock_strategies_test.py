@@ -285,6 +285,33 @@ def test_rsi2_sizing():
     print("  rsi2 sizing: 3 x 33%, no reserve; others keep the 10% reserve")
 
 
+def test_rsi2_entry_threshold():
+    """config.RSI2["rsi_max"] (stock_rsi2_loosen_study.py): buy when RSI(2) < 25 above the 200-day average;
+    an explicit rsi_max still overrides it."""
+    import config
+    from strategy import RSI2MeanReversion
+    assert config.RSI2["rsi_max"] == 25
+    assert RSI2MeanReversion(["A"], BPD).rsi_max == 25
+    assert RSI2MeanReversion(["A"], BPD, rsi_max=15).rsi_max == 15
+
+    def candles(tail):                       # 1 bar per day at 15:00 UTC: uptrend, then the tail
+        closes = [100 + 0.5 * i for i in range(230)] + tail
+        closes.append(closes[-1])            # today's unfinished bar (analyze ignores it)
+        return [{"t": (20_000 + i) * DAY_MS + 15 * HOUR, "o": c, "h": c, "l": c, "c": c, "v": 1.0}
+                for i, c in enumerate(closes)]
+
+    def rsi(cs):
+        return -RSI2MeanReversion(["A"], 1).analyze(cs)["rank"]
+
+    mid = candles([213.5, 213.0])            # a modest dip: RSI(2) = 20
+    assert 15 <= rsi(mid) < 25, rsi(mid)
+    assert RSI2MeanReversion(["A"], 1).analyze(mid)["buy"]
+    assert not RSI2MeanReversion(["A"], 1, rsi_max=15).analyze(mid)["buy"]
+    below = candles([60.0, 61.0, 59.0])      # below the 200-day average: never a buy
+    assert rsi(below) < 25 and not RSI2MeanReversion(["A"], 1).analyze(below)["buy"]
+    print("  rsi2 entry: RSI(2) < 25 above the 200-day average")
+
+
 if __name__ == "__main__":
     print("stock_strategies_test")
     assert hasattr(__import__("engine"), "rebalance_to"), \
@@ -293,6 +320,7 @@ if __name__ == "__main__":
     test_rebalance_to()
     test_step_gating()
     test_rsi2_sizing()
+    test_rsi2_entry_threshold()
     ctx, hourly = synthetic()
     print(f"  synthetic stocks: {len(ctx.syms)} symbols, {ctx.n} days {ctx.dates[0]} .. {ctx.dates[-1]}")
     test_dual_momentum_parity(ctx, hourly)
