@@ -356,6 +356,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     grades = "".join(grade(*TIER_LOOK[t], [r for r, _ in by_tier[t]], [r for r, d in by_tier[t] if d == today])
                      for t in ("lock", "value"))
+    lotd = sorted((p for p in graded_all if p["kind"] == "lock"), key=lambda p: (p["date"], p.get("posted") or ""))
+    grades += grade("🔒 LOCK OF THE DAY", "#22e39a", "#ffc233", [p["status"] for p in lotd], [p["status"] for p in lotd if p["date"] == today])
     grades += grade("📡 LIVE", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 Football", ("nfl", "ncaaf")), ("🏀 Basketball", ("nba", "ncaab")), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
