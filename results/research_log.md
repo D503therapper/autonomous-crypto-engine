@@ -57,6 +57,8 @@ Trades < $10 not logged (from run 2). One gzip member appended per run; file ren
 First run (09:25 UTC, 2.1 s gap): 25 selected, 15 polled, 23 calls, 8 x 429 (run stopped at the 429 cap), 4,500 trades
 (300 = GT cap on every pool, back to 09-27 13:55), 1,767 wallets, 366 KB. Busy pools (BABYCALI ~2,100/30 min, CATE, ANTFUN)
 exceed 300 trades per poll interval, so their log has gaps - fine for "who bought early", note it in the study.
+Run 2 (09:31 UTC, new pacing): 25/25 polled, 30 calls, 5 x 429 (all retried ok; gap widened to 8 s), 7,113 new trades,
+4,656 logged >= $10 (~42 B/row gz, ~4-9 MB/day expected).
 For the study: label pools from snapshots / outcomes (>= 2x within 14 days vs <= 0); walk-forward reputation, bot filter,
 older/newer halves. Optional: Base history via mainnet.base.org getLogs; free Blockscout / Helius keys - owner decision.
 
