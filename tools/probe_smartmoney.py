@@ -238,7 +238,83 @@ def evm_buys(rows, pool_addrs):
     return out
 
 
+EVM_RPCS = {"base": ["https://base-rpc.publicnode.com", "https://mainnet.base.org", "https://base.llamarpc.com"],
+            "eth": ["https://ethereum-rpc.publicnode.com", "https://eth.llamarpc.com", "https://cloudflare-eth.com"]}
+TRANSFER = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+EVM_REF = {}
+
+
+def evm_rpc(net, method, params):
+    for k in range(6):
+        u = EVM_RPCS[net][k % len(EVM_RPCS[net])]
+        r = rpc(u, method, params, tries=1)
+        if r is not None and not (isinstance(r, dict) and "__error" in r):
+            return r
+        if isinstance(r, dict) and "__error" in r and method == "eth_getLogs":
+            return r                                     # range / size error -> caller splits the range
+        time.sleep(1 + k)
+    return None
+
+
+def block_ts(net, b):
+    r = evm_rpc(net, "eth_getBlockByNumber", [hex(b) if isinstance(b, int) else b, False])
+    return (int(r["number"], 16), int(r["timestamp"], 16)) if isinstance(r, dict) and "number" in r else (None, None)
+
+
+def evm_block(net, ts):
+    """Block at or before ts: Base = exactly 2 s blocks from one reference; Ethereum = 12 s estimate + refinement."""
+    if net not in EVM_REF:
+        EVM_REF[net] = block_ts(net, "latest")
+        print(f"  {net} reference block {EVM_REF[net]}")
+    b0, t0 = EVM_REF[net]
+    if b0 is None:
+        return None
+    if net == "base":
+        return b0 + int((ts - t0) // 2)
+    b = b0 + int((ts - t0) // 12)
+    for _ in range(5):
+        bb, tb = block_ts(net, b)
+        if tb is None:
+            return b
+        d = int((ts - tb) // 12)
+        if abs(d) <= 1:
+            return b if tb <= ts else b - 1
+        b += d
+    return b
+
+
+def evm_logs(net, token, b0, b1, depth=0):
+    """Transfer logs of the token in [b0, b1], rows shaped like Blockscout tokentx; splits the range on errors."""
+    r = evm_rpc(net, "eth_getLogs", [{"fromBlock": hex(b0), "toBlock": hex(b1), "address": token, "topics": [TRANSFER]}])
+    if isinstance(r, list):
+        rows = []
+        for lg in r:
+            tp = lg.get("topics") or []
+            if len(tp) < 3 or not lg.get("data") or lg["data"] == "0x":
+                continue
+            try:
+                v = int(lg["data"][:66], 16)
+            except ValueError:
+                continue
+            rows.append({"hash": lg["transactionHash"], "block": int(lg["blockNumber"], 16), "from": "0x" + tp[1][-40:],
+                         "to": "0x" + tp[2][-40:], "value": str(v)})
+        return rows
+    if depth >= 6 or b1 <= b0:
+        return [None]
+    m = (b0 + b1) // 2
+    return evm_logs(net, token, b0, m, depth + 1) + evm_logs(net, token, m + 1, b1, depth + 1)
+
+
+def stamp(rows, net, b0, t0):
+    sec = 2 if net == "base" else 12
+    for r in rows:
+        if r is not None:
+            r["timeStamp"] = str(int(t0 + (r["block"] - b0) * sec))
+    return rows
+
+
 def collect_evm(sample, raw):
+    """Run 3: keyless public RPC eth_getLogs (Blockscout's keyless API allowed ~10 calls per ~20 min in run 2)."""
     pools = sample["pools"]
     evs = [e for e in sample["events"] if pools[e["k"]]["net"] in BS]
     done_launch = set()
@@ -250,25 +326,27 @@ def collect_evm(sample, raw):
         net = p["net"]
         pa = {p["pool"].lower()} if len(p["pool"]) == 42 else set()
         pa.add(V4_PM[net])
-        b0, b1 = bs_block(net, e["t"] - 3600), bs_block(net, e["t"])
-        rec = {"k": e["k"], "t": e["t"], "src": "blockscout"}
+        b0, b1 = evm_block(net, e["t"] - 3600), evm_block(net, e["t"])
+        rec = {"k": e["k"], "t": e["t"], "src": "evm-rpc"}
         if b0 and b1:
-            rows = bs_transfers(net, p["token"], b0, b1)
-            if rows and rows[-1] is None:
-                rec["err"] = "tokentx failed"
-                rows = rows[:-1]
-            rec.update(n_transfers=len(rows), capped=len(rows) >= 3000, buys=evm_buys(rows, pa), blocks=[b0, b1])
+            rows = evm_logs(net, p["token"], b0, b1)
+            if None in rows:
+                rec["err"] = "getLogs failed (part)"
+            rows = stamp([r for r in rows if r is not None], net, b0, e["t"] - 3600)
+            rec.update(n_transfers=len(rows), buys=evm_buys(rows, pa), blocks=[b0, b1])
         else:
             rec["err"] = "block lookup"
         raw["pre"].append(rec)
-        if e["k"] not in done_launch:
+        c = p.get("created")
+        if e["k"] not in done_launch and c and c < e["t"] - 3600:
             done_launch.add(e["k"])
-            rows = [r for r in bs_transfers(net, p["token"], 0, b1 or 99999999999, pages=2) if r is not None]
-            raw["launch"][e["k"]] = {"n_transfers": len(rows), "first_t": int(rows[0]["timeStamp"]) if rows else None,
-                                     "buys": evm_buys(rows, pa)[:400], "src": "blockscout"}
+            l0, l1 = evm_block(net, c), evm_block(net, c + 3600)
+            if l0 and l1:
+                rows = stamp([r for r in evm_logs(net, p["token"], l0, l1) if r is not None], net, l0, c)
+                raw["launch"][e["k"]] = {"n_transfers": len(rows), "first_t": c, "buys": evm_buys(rows, pa)[:400], "src": "evm-rpc"}
         if n % 20 == 0:
             print(f"  EVM {n}/{len(evs)} {p['sym']} pre-hour buys {len(rec.get('buys', []))} transfers {rec.get('n_transfers')} "
-                  f"elapsed {(time.time() - T_START) / 60:.1f}m")
+                  f"err {rec.get('err')} elapsed {(time.time() - T_START) / 60:.1f}m {json.dumps({h: v for h, v in STATS.items() if 'rpc' in h or 'llama' in h or 'base.org' in h})}")
             sys.stdout.flush()
 
 
@@ -368,6 +446,8 @@ def main():
     # Run 1 (2026-09-28 02:39, all parts, git history of results/probe_smartmoney.txt): Blockscout 429'd every block lookup
     # (no retry); Solana RPC walked 40 pages x 1000 signatures per pool = only the last ~1-24 hours of history.
     # Run 2: EVM only (SM_PARTS=evm), paced + retried, Base blocks computed from one reference (2 s blocks).
+    # Run 2 result: keyless Blockscout = x-ratelimit-limit 10 per ~20 min window (359 of 400 calls 429): 36/237 events.
+    # Run 3: EVM via public RPC eth_getLogs (publicnode / base.org / llamarpc), launch window = first hour after pool creation.
     print(f"parts {sorted(PARTS)}")
     if "probe" in PARTS:
         try:
