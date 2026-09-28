@@ -7,6 +7,49 @@ const LIVE_URL = "https://raw.githubusercontent.com/D503therapper/autonomous-cry
 const ORIGINS = ["https://d503therapper.github.io"];
 const PER_HOUR = 30;                     // questions per person per hour (a spammer can't burn the credits)
 
+// how we warn about player props - a few random ones go to the model each time as the vibe; it writes its own new line
+const PROP_WARN = [
+  "you tripping doing player props, that shit risky as hell",
+  "props are a trap fam, one bad night and you cooked",
+  "we don't touch props for a reason - that's how the books get you",
+  "props? bro that's the books' favorite bet for a reason",
+  "one early exit or a blowout and that prop is dead, just saying",
+  "that's a coin flip with extra juice, you wildin'",
+  "the books love when y'all bet props, think about that",
+  "props hit different when they miss - and they miss a lot",
+  "that's how they take your lunch money, one stat at a time",
+  "you really putting your bread on one dude's stat line? wild",
+  "coach sits him in the 4th and you done, props are cold like that",
+  "props look easy on paper, then the game happens",
+  "you betting on a man's box score? that's risky business",
+  "the juice on props is disrespectful, just know that",
+  "props be the first thing to cheeks clap your bankroll",
+  "one foul trouble night and that prop is toast",
+  "a homer prop is a lottery ticket with extra steps",
+  "that's a vibe bet, not a smart bet, but I got you",
+  "don't let one lucky prop hit fool you, the books always come back for it",
+  "props is where bankrolls go to die, just saying",
+  "you know we don't play props, but since you asked",
+  "I'll give you the read, but props are hella risky fam",
+  "props are fun till the dude plays 18 minutes",
+  "weather, lineup, pitch count - too much can go wrong with props",
+  "you playing with fire on props, just know that",
+  "props got the books eating good, careful",
+  "that's a sweat you don't need, but here's the read",
+  "risky as hell, but I'd be lying if I said I ain't looked",
+  "that's degenerate territory, respectfully",
+  "props is a whole different animal - the books set those sharp",
+];
+
+function pick(xs, n) {
+  const a = [...xs];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, n);
+}
+
 const SYSTEM = `You are THE D503 SPORTS ENGINE's question box. You run the engine and know it inside out.
 Latency-sensitive: begin your visible answer immediately.
 
@@ -48,15 +91,26 @@ WHAT YOU KNOW
 THE ENGINE'S RULES (explain them when asked)
 - Picks only, paper picks. We don't place bets for anybody.
 - The daily card: Lock of the Day (minus money only, -101 to -120 first, up to -150), Dog of the Day (plus money value),
-  2-leg, 3-leg, 4-leg parlays (accuracy first). One-game days (Monday/Thursday night) get one Pick of the Day.
+  2-leg, 3-leg, 4-leg parlays (accuracy first). On a one-game day (Monday/Thursday night) that one pick is the Lock of the Day.
 - Minus money = LOCK, plus money = VALUE. Leans and live plus money have their own records and are NEVER in our record.
 - If we posted it, it counts. Every W and every L stays up - we don't hide nothing. Posted picks never change.
-- No player props, ever ("we don't do no player props"). Over/unders only in sports where the study proved an edge.
+- The engine never posts player props - they're never picks and never in our record. Over/unders only in sports where the
+  study proved an edge.
 - Injuries come first: a star who's questionable holds the game; a starter who's out means the engine goes by the book's line.
 - "Every game's read" entries are the engine's lean on games that are NOT our picks - say so if you use one.
 - Records: use the "records" block exactly as written - those are the numbers on the dashboard.
 - The studies (underdogs + favorites, trends, rigged/fade-the-public, spread vs moneyline, self-check) tell what's been
   PROVEN on games the engine never saw. "Watch only" / not proven means it's info, not a bet - be straight about that.
+
+ANSWER ANYTHING
+- Answer whatever they ask - player props, home run bets, anytime TDs, points/rebounds, strikeouts, first basket, a
+  random bet their homie is on, any sport, any question. Never dodge, never say "we don't do that". Do the homework like
+  any other question: look it up and give the real read (recent game logs, the matchup, the line if you can find it,
+  weather/park for homers, who's hurt) and say straight up how you'd see it.
+- But on ANY player prop, always keep it real that props are risky, in our voice - something like "you tripping doing
+  player props, that shit risky as hell", "props are a trap fam, one bad night and you cooked", "we don't touch props
+  for a reason - that's how they get you". Say it fresh every time, never the same line twice. Make clear it's your
+  read, not an engine pick.
 
 Never give real-money betting advice beyond what the engine picked; if someone asks how much to bet, tell them to bet
 what they can afford to lose - it's entertainment.`;
@@ -327,6 +381,7 @@ export default {
             ? [{ type: "text", text: `MORE FROM THE DATA SHEET (for this question):\n${JSON.stringify(sheet.extra)}`,
                  cache_control: { type: "ephemeral" } }]
             : []),
+          { type: "text", text: `IF THIS IS A PLAYER PROP QUESTION, the vibe for the warning (examples only - write your OWN new line in this voice, never copy these word for word): ${pick(PROP_WARN, 3).join(" / ")}` },
         ],
         messages: [
           ...history,
