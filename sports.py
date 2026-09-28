@@ -348,6 +348,14 @@ def grade(picks, games, now=None):
     now = now or datetime.now(timezone.utc)
     settled = []
     for pk in picks:
+        if pk["status"] == "lost" and any(leg.get("result") is None for leg in pk["legs"]):
+            for leg in pk["legs"]:                           # a busted parlay's other legs still get graded (show every
+                if leg.get("result") is None:                # hit and miss - full transparency)
+                    leg["result"] = grade_leg(leg, games.get(leg["game_id"]), now)
+                    g = games.get(leg["game_id"])
+                    if leg["result"] and g:
+                        leg["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
+            continue
         if pk["status"] != "open":
             continue
         for leg in pk["legs"]:
