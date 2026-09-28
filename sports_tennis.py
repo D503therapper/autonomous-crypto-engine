@@ -535,7 +535,7 @@ def price(m, lines, full=False):
 SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
-TENNIS_BV = 2                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 3                                   # breakdown version (older ones get rewritten before the match)
 
 
 def _say_name(name):
@@ -548,80 +548,97 @@ def _say_name(name):
 
 
 def breakdown(c, rt, used):
-    """Tennis breakdown in our voice: why we're on this player, then the bottom line."""
+    """Tennis breakdown in OUR voice (he/she by tour, last names, never the same wording twice on a board)."""
     import sports_breakdown as sb
     v = sb.Voice(c["id"], used)
     me, them, f = _say_name(c["player"]), _say_name(c["opp"]), c["f"]
+    wta = c.get("tour") == "wta"
+    he, him, his = ("she", "her", "her") if wta else ("he", "him", "his")
+    He = he.capitalize()
+    ours = "our girl" if wta else "our guy"
     surf = SURF[c["surface"]].lower()
     out = []
     if c.get("market") == "spread" and c["hcp"] > 0:
         out.append(v.say("t_spread_dog", [
-            f"🎯 {me} +{c['hcp']:g} games. Even if {me} drops the match, we still cash as long as it's close — that's the value.",
-            f"🎯 {me} getting {c['hcp']:g} games. The book thinks this is a blowout. It ain't — {me} keeps it tight.",
-            f"🎯 Taking the games with {me} (+{c['hcp']:g}). Way more competitive than this number says. Lose close, we still eat."]))
+            f"🎯 {me} +{c['hcp']:g} games. Even if {he} drops the match, we still cash as long as it's close. That's the value.",
+            f"🎯 Book thinks {me} gets blown out. Nah. {me} +{c['hcp']:g} games — {he} keeps it close and we eat.",
+            f"🎯 Taking the games with {me} (+{c['hcp']:g}). {He} might lose, {he} ain't getting smacked. We cash either way if it's tight.",
+            f"🎯 {me} getting {c['hcp']:g} games? Free money energy. {He}'s way more dangerous than this number says.",
+            f"🎯 {me} +{c['hcp']:g} games. {He} don't even gotta win — just make it a fight, and {he} will."]))
     elif c.get("market") == "spread":
         n = abs(c["hcp"])
         out.append(v.say("t_spread", [
-            f"🎯 Why lay {c['ml']:+d}? We take {me} {c['hcp']:+g} games instead — the engine has {me} winning big.",
-            f"🎯 {me} {c['hcp']:+g} games. No {c['ml']:+d} nonsense — {me} should win this by more than {n:g} games.",
-            f"🎯 {me} on the game spread ({c['hcp']:+g}). Our numbers say {me} rolls — covering that is light work."]))
+            f"🎯 Why lay {c['ml']:+d}? We take {me} {c['hcp']:+g} games — {he}'s about to smack that ass by more than {n:g}.",
+            f"🎯 {me} {c['hcp']:+g} games. No {c['ml']:+d} nonsense — {he} should roll this by more than {n:g} games.",
+            f"🎯 {me} on the game spread ({c['hcp']:+g}). The engine's got {him} cooking — covering that is light work.",
+            f"🎯 Skipping the {c['ml']:+d} tax. {me} {c['hcp']:+g} games — {he} wins big and we get paid better for it.",
+            f"🎯 {me} {c['hcp']:+g} games. This ain't a match, it's a clinic. {He} should run away with it."]))
     else:
         out.append(v.say("t_main", [
-            f"🎾 We're on {me}. The price is too cheap for how good {me} is — the algorithm sees it.",
-            f"🎾 {me} all day. The book's got this priced like it's close. It ain't.",
-            f"🎾 Riding {me}. Our numbers got {me} winning this way more than the line says.",
-            f"🎾 Hammer {me}. The algorithm likes {me} more than Vegas does.",
-            f"🎾 {me} gets the nod. The price is wrong and we're taking it.",
-            f"🎾 Give me {me}. The numbers say {me} takes care of business.",
-            f"🎾 {me}, no hesitation. The book's sleeping.",
-            f"🎾 {me} is the play. Better player, and the line hasn't caught up."]))
+            f"🎾 {me} is about to smack that ass. The price is too cheap for how good {he} is.",
+            f"🎾 We riding {me}. The book's got this priced like it's close — it ain't.",
+            f"🎾 {me} all day. Our numbers got {him} winning this way more than the line says.",
+            f"🎾 Hammer {me}. The algorithm likes {him} way more than Vegas does.",
+            f"🎾 {me} gets the nod. The price is wrong and we're taking it — let's eat.",
+            f"🎾 Give me {me}. {He}'s about to take care of business.",
+            f"🎾 {me}, no hesitation. The book's sleeping on {him}.",
+            f"🎾 {me} is the play. Better player, and the line ain't caught up yet.",
+            f"🎾 Lock in {me}. {He}'s been playing like a problem and the book's still asleep.",
+            f"🎾 {me} is about to cook. We saw the value and we pounced."]))
     rk_me, rk_them = c.get("rank"), c.get("opp_rank")
     if rk_me and (not rk_them or rk_them - rk_me >= 20):
         out.append(v.say("t_rank", [f"📈 {me} is #{rk_me} in the world" + (f" — {them} is #{rk_them}. Levels to this." if rk_them else f" — {them} ain't even top 150."),
-                                    f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this." if rk_them else "somebody outside the top 150. Levels to this."),
-                                    f"📈 #{rk_me} in the world for a reason" + (f" ({them} is #{rk_them})." if rk_them else ".")]))
+                                    f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this shit." if rk_them else "somebody outside the top 150. Levels to this shit."),
+                                    f"📈 {He}'s #{rk_me} in the world for a reason" + (f" — {them} is sitting at #{rk_them}." if rk_them else "."),
+                                    f"📈 Ranking gap is real: #{rk_me}" + (f" vs #{rk_them}." if rk_them else " vs outside the top 150.") + " Not the same tier."]))
     if f.get("home", 0) > 0:
-        out.append(v.say("t_home", [f"🏟️ {me} is playing at home — the whole crowd's got {me}'s back.",
-                                    f"🏟️ Home soil for {me}. That crowd's gonna carry this one.",
-                                    f"🏟️ {me} in front of the home crowd. Home cookin'."]))
+        out.append(v.say("t_home", [f"🏟️ {me} is playing at home — the whole crowd's got {his} back.",
+                                    f"🏟️ Home soil for {ours}. That crowd's gonna carry {him}.",
+                                    f"🏟️ Home cookin'. {He}'s got the whole building behind {him}."]))
     if c.get("their_drama"):
         k = c["their_drama"][0]["kind"]
         out.append(v.say("t_drama", [f"🍿 {them} got stuff going on off the court ({k}). Head ain't gonna be right.",
                                      f"🍿 Off-court noise for {them} ({k}). That follows you onto the court.",
-                                     f"🍿 {them} dealing with {k}. Distracted players lose."]))
+                                     f"🍿 {them} dealing with {k}. Distracted players lose — period."]))
     if f.get("clash"):
         out.append(v.say("t_clash", ["🔥 Bad blood between these countries — no handshake energy. Pressure match.",
                                      "🔥 This one's personal between their countries. Heat on every point."]))
     if f["surface_gap"] >= 40:
-        out.append(v.say("t_surf", [f"🟫 {me} is a different animal on {surf} — way above the usual level.",
-                                    f"🟫 On {surf}, {me} levels up. That's the surface.",
-                                    f"🟫 {surf.capitalize()} is {me}'s playground."]))
+        out.append(v.say("t_surf", [f"🟫 {He}'s a different animal on {surf}. That's {his} surface.",
+                                    f"🟫 On {surf}, {me} levels up — way above {his} usual level.",
+                                    f"🟫 {surf.capitalize()} is {his} playground. {He} lives here.",
+                                    f"🟫 Put {him} on {surf} and {he} turns into a problem."]))
     elif f["surface_gap"] <= -40:
         out.append(v.say("t_surf_opp", [f"🟫 {them} ain't the same player on {surf}. That's our edge.",
-                                        f"🟫 {surf.capitalize()} exposes {them} — that game doesn't travel to this surface."]))
+                                        f"🟫 {surf.capitalize()} exposes {them} — that game don't travel.",
+                                        f"🟫 {them} on {surf}? Booty cheeks. We're taking advantage."]))
     if f["fatigue"] >= 0.66:
-        out.append(v.say("t_tired", [f"😮‍💨 {them} has been grinding long matches the last few days. Tired legs.",
-                                     f"😮‍💨 {them} played a ton of tennis this week. Legs gonna be heavy.",
-                                     f"😮‍💨 {them}'s coming off marathon matches. {me} is fresher."]))
+        out.append(v.say("t_tired", [f"😮‍💨 {them} has been grinding long matches all week. Tired legs.",
+                                     f"😮‍💨 {them} played a ton of tennis lately. Legs gonna be heavy.",
+                                     f"😮‍💨 {them}'s coming off marathon matches. {ours.capitalize()} is fresher.",
+                                     f"😮‍💨 {them} is running on fumes. {ours.capitalize()}'s about to make {them} work every point."]))
     if f["form"] >= 0.2:
-        out.append(v.say("t_form", [f"🔥 {me} has been rolling lately — winning way more than {them}.",
-                                    f"🔥 {me} is hot right now and {them} has been ice cold.",
-                                    f"🔥 Form says {me}. Been cooking."]))
+        out.append(v.say("t_form", [f"🔥 {He}'s been rolling lately and {them} has been ice cold.",
+                                    f"🔥 Form says {me}. {He}'s been cooking.",
+                                    f"🔥 {me} is hot right now — stacking W's while {them} keeps taking L's.",
+                                    f"🔥 {He}'s on a heater. Don't fade the heater."]))
     if f["h2h"] >= 0.33:
-        out.append(v.say("t_h2h", [f"🆚 {me} owns this matchup — beat {them} before.",
+        out.append(v.say("t_h2h", [f"🆚 {me} owns this matchup — {he}'s beaten {them} before.",
                                    f"🆚 {them} has had trouble with {me} in the past. History's on our side.",
-                                   f"🆚 {me} has {them}'s number."]))
+                                   f"🆚 {me} got {them}'s number.",
+                                   f"🆚 Been here before — {them} couldn't handle {him} last time either."]))
     if int(c["bo"]) == 5:
-        out.append(v.say("t_bo5", ["🏆 Best of 5 at a Slam — the longer the match, the more the better player takes over.",
+        out.append(v.say("t_bo5", ["🏆 Best of 5 at a Slam — the longer it goes, the more the better player takes over.",
                                    f"🏆 Five sets gives {them} nowhere to hide. Better player wins these."]))
     if not c.get("odds"):
         return [x for x in out if x]
     book = round(100 / sd.decimal(c["odds"]))
-    ours = round(100 * c["p"])
+    pct = round(100 * c["p"])
     bet = f"{me} {c['hcp']:+g} games" if c.get("market") == "spread" else f"{me} ML"
-    out.append(v.say("t_bottom", [f"✅ Bottom line: the book says {book}%, we say {ours}%. We ride {bet} ({c['odds']:+d}).",
-                                  f"✅ Bottom line: book's got it at {book}% — the engine sees {ours}%. {bet} ({c['odds']:+d}). Trust the algorithm.",
-                                  f"✅ Bottom line: {ours}% for us, {book}% for the book. That's the value — {bet} ({c['odds']:+d})."]))
+    out.append(v.say("t_bottom", [f"✅ Bottom line: book says {book}%, we say {pct}%. We ride {bet} ({c['odds']:+d}).",
+                                  f"✅ Bottom line: book's got it at {book}% — the engine sees {pct}%. {bet} ({c['odds']:+d}). Trust the algorithm.",
+                                  f"✅ Bottom line: {pct}% for us, {book}% for the book. That's the value — {bet} ({c['odds']:+d}). Let's eat.",
+                                  f"✅ Bottom line: Vegas {book}%, us {pct}%. {bet} ({c['odds']:+d}) — tail it."]))
     return [x for x in out if x]
 
 
