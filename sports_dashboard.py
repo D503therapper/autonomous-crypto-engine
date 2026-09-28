@@ -23,7 +23,7 @@ LOOK = {   # kind -> label, accent, second accent
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
     "four": ("4-LEG OF THE DAY", "#b36bff", "#ff4fd8"),
-    "solo": ("PICK OF THE DAY", "#22e39a", "#22d3ee"),
+    "solo": ("ONE-GAME PICK", "#22e39a", "#22d3ee"),
     "eight": ("8-LEG (RETIRED)", "#8a5cff", "#c04fd8"),
 }
 BIG_HIT = 300                 # +300 and up that cashes gets the big brag
@@ -789,7 +789,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 4-Leg (on a one-game day, that one pick is the Lock of the Day), every leg a 🔒 lock or 🔥 value call the engine is confident in. The live plus money picks and leans that pop up throughout the day each keep their own record as well as tennis. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 4-Leg (on a one-game day, that one pick counts too — it only gets called the Lock of the Day when the engine’s as confident as it is in a real one), every leg a 🔒 lock or 🔥 value call the engine is confident in. The live plus money picks and leans that pop up throughout the day each keep their own record as well as tennis. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}{"".join(rec)}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
@@ -890,7 +890,7 @@ function show(g){{
   var L=g.lean||{{market:"ml",reasons:[]}}, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":g.league=="tennis"?" games":""), pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
     '<div class="ls">'+esc(g.away)+(g.vs?" vs ":" @ ")+esc(g.home)+'</div>';
-  var KIND={{two:"2-Leg",three:"3-Leg",lock:"Lock of the Day",dog:"Dog of the Day",eight:"8-Leg"}};
+  var KIND={{two:"2-Leg",three:"3-Leg",lock:"Lock of the Day",dog:"Dog of the Day",eight:"8-Leg",solo:"One-Game Pick",four:"4-Leg"}};
   if(g.why=="on_board"&&g.lean){{var mk0=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line;
     if(L.result){{h+='<div class="ask-l">'+(L.result=="won"?"✅":"❌")+' We had <b>'+esc(L.team)+" "+mk0+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
       '<div class="ask-a">'+(L.result=="won"?pick(g.id+"w",["Cashed. Told y’all. 💰","That one hit. Trust the algorithm. 💰"]):pick(g.id+"l",["That one didn’t hit. It’s in the record — no hiding.","L on that one. Counted in our record, full transparency."]))+'</div></section>';out.innerHTML=h;return}}

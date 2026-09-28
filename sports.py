@@ -39,6 +39,9 @@ MIN_LEAD_MIN = 20              # only games starting at least this long after th
 MIN_KNOWN = 5                  # both teams need this many rated games
 MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter than this
 LOCK_MAX_FAV = -120            # lock of the day: a moneyline no shorter than -120
+LOTD_MAX_ML = -135             # the Lock of the Day: the engine's most confident pick on the whole board, no moneyline
+                               # shorter than -135 (the owner's rule)
+LOTD_P = 0.60                  # a one-game day's lone pick is only called the Lock of the Day at 60%+ to win
 DOG_MIN = 100                  # dog of the day: a plus-money underdog...
 BIG_DOG = 200                  # ...a big dog (+200 and up) is never declined when it triggers: a real shot and major value:
 BIG_DOG_MIN_P = 0.22           #    at least a 22% win chance on our numbers,
@@ -48,7 +51,7 @@ MIN_EDGE = 0.01                # NEVER a filler: every leg, lock and dog must be
 MAX_EXTRA_OUT = 1              # never back the more banged-up team: at most 1 more player out than the opponent
 KINDS = [("lock", "Lock of the Day"), ("dog", "Dog of the Day"), ("two", "2-Leg of the Day"),   # posted in this order:
          ("three", "3-Leg of the Day"), ("four", "4-Leg of the Day"),
-         ("solo", "Pick of the Day")]                                    # (one-game days only)    # (the 8-leg retired 2026-09-28: the 4-leg took its spot)
+         ("solo", "One-Game Pick")]                                      # (one-game days only)    # (the 8-leg retired 2026-09-28: the 4-leg took its spot)
 # 8-leg: moneylines and spreads, every day across all sports (no big favorite: a favorite shorter than -150 only gets
 # in on the spread). Value legs first; on a slate short on value the likeliest legs fill it. Over/unders stay out
 # until the engine has studied totals.
@@ -353,11 +356,17 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         if fixed.get("lock") or fixed.get("dog") or fixed.get("solo"):   # already posted today: build on it
             return {"lock": fixed.get("lock") and _combo(fixed["lock"]), "dog": fixed.get("dog") and _combo(fixed["dog"]),
                     "two": None, "three": None, "four": None, "solo": fixed.get("solo") and _combo(fixed["solo"])}
-        # that one pick IS the Lock of the Day (minus money) - or the Dog of the Day when it's plus money
+        # the owner: that one pick is only the LOCK OF THE DAY when it's as strong as one - a real-value moneyline in the
+        # lock range the engine gives 60%+. A plus-money real-value dog is the Dog of the Day. Anything else (a coin
+        # flip) is just that game's pick: a LOCK or VALUE call by its price, never titled Lock/Dog of the Day.
         one = _combo([solo]) if solo else None
-        minus = bool(solo) and solo["odds"] < 0
-        return {"lock": one if minus else None, "dog": None if minus else one, "two": None, "three": None, "four": None,
-                "solo": None}
+        kind = "solo"
+        if solo and solo["market"] in ("ml", "spread") and good(solo) and solo["p"] >= LOTD_P and \
+                (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML):
+            kind = "lock"
+        elif solo and solo["market"] == "ml" and good(solo) and solo["odds"] >= DOG_MIN:
+            kind = "dog"
+        return {"lock": None, "dog": None, "two": None, "three": None, "four": None, "solo": None, kind: one}
     # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely
     # (within 2%), the one with the most value
     good_ = sorted((c for c in cands if good(c) and c["odds"] >= MAX_FAV),        # accuracy first, then the most value
@@ -366,10 +375,10 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     if fixed.get("lock"):
         lock = fixed["lock"][0]
     else:
-        ml_ = [c for c in cands if c["market"] == "ml" and good(c)]
-        locks = [c for c in ml_ if LOCK_MAX_FAV <= c["odds"] <= -100 or c["odds"] == 100]   # -101..-120 or a pick'em
-        if not locks:                                         # nothing there: go up to -150
-            locks = [c for c in ml_ if MAX_FAV <= c["odds"] < LOCK_MAX_FAV]
+        # the owner's rule: the Lock of the Day is the ONE pick the engine is most confident in, across the whole board -
+        # every sport, moneyline or spread, favorite or dog - as long as a moneyline is no shorter than -135
+        locks = [c for c in cands if good(c) and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
+                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML)]
         lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):

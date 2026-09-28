@@ -198,8 +198,8 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <div id="live"><div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
 <section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>Monday, September 28</span></div>
-<div class="board"><section class="pk open" style="--c1:#22e39a;--c2:#0fb87a">
-  <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip lk">🔒 LOCK</span></div>
+<div class="board"><section class="pk open" style="--c1:#22e39a;--c2:#22d3ee">
+  <div class="pk-h"><span class="pk-i">🎯</span><span class="pk-l">BEARS +3.5</span><span class="chip lk">🔒 LOCK</span></div>
   <div class="pk-o"><span class="big">-108</span>
     <span class="pay">$100 wins <b>$93</b></span></div>
   <div class="leg ">
@@ -270,7 +270,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 4-Leg (on a one-game day, that one pick is the Lock of the Day), every leg a 🔒 lock or 🔥 value call the engine is confident in. The live plus money picks and leans that pop up throughout the day each keep their own record as well as tennis. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 4-Leg (on a one-game day, that one pick counts too — it only gets called the Lock of the Day when the engine’s as confident as it is in a real one), every leg a 🔒 lock or 🔥 value call the engine is confident in. The live plus money picks and leans that pop up throughout the day each keep their own record as well as tennis. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
   <div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">7-2</div><div class="ovr-p">7 won · 2 lost · 78%</div></div>
   <div class="recs grades"><div class="rc gr" style="--c1:#22e39a;--c2:#ffc233"><div class="rc-t">🔒 LOCK OF THE DAY</div><div class="rc-r">1 won · 0 lost</div><div class="rc-p">100%</div></div><div class="rc gr" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🐺 DOG OF THE DAY</div><div class="rc-r">0 won · 1 lost</div><div class="rc-p">0%</div></div><div class="rc gr" style="--c1:#22e39a;--c2:#0fb87a"><div class="rc-t">🔒 LOCKS</div><div class="rc-r">5 won · 1 lost</div><div class="rc-p">83%</div></div><div class="rc gr" style="--c1:#ff5a1f;--c2:#ff8a00"><div class="rc-t">🔥 VALUE</div><div class="rc-r">2 won · 1 lost</div><div class="rc-p">67%</div></div><div class="rc" style="--c1:#2f8bff;--c2:#22d3ee"><div class="rc-t">⚡ 2-LEG</div><div class="rc-r">1 won · 0 lost</div><div class="rc-p">100%</div></div><div class="rc" style="--c1:#ffc233;--c2:#ff8a00"><div class="rc-t">👑 3-LEG</div><div class="rc-r">0 won · 1 lost</div><div class="rc-p">0%</div></div><div class="rc" style="--c1:#b36bff;--c2:#ff4fd8"><div class="rc-t">🚀 4-LEG</div><div class="rc-r">0 won · 0 lost</div><div class="rc-p">no results yet</div></div><div class="rc" style="--c1:#8a5cff;--c2:#c04fd8"><div class="rc-t">🎰 8-LEG (RETIRED)</div><div class="rc-r">0 won · 1 lost</div><div class="rc-p">0%</div></div></div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
@@ -310,7 +310,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,5000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790610056716,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790615947715,m=0;   // the whole page stays fresh while it's open
 try{var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
 function tick(){m=Math.max(0,Math.round((Date.now()-t)/60000));
  var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
@@ -371,7 +371,7 @@ function show(g){
   var L=g.lean||{market:"ml",reasons:[]}, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":g.league=="tennis"?" games":""), pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
     '<div class="ls">'+esc(g.away)+(g.vs?" vs ":" @ ")+esc(g.home)+'</div>';
-  var KIND={two:"2-Leg",three:"3-Leg",lock:"Lock of the Day",dog:"Dog of the Day",eight:"8-Leg"};
+  var KIND={two:"2-Leg",three:"3-Leg",lock:"Lock of the Day",dog:"Dog of the Day",eight:"8-Leg",solo:"One-Game Pick",four:"4-Leg"};
   if(g.why=="on_board"&&g.lean){var mk0=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line;
     if(L.result){h+='<div class="ask-l">'+(L.result=="won"?"✅":"❌")+' We had <b>'+esc(L.team)+" "+mk0+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
       '<div class="ask-a">'+(L.result=="won"?pick(g.id+"w",["Cashed. Told y’all. 💰","That one hit. Trust the algorithm. 💰"]):pick(g.id+"l",["That one didn’t hit. It’s in the record — no hiding.","L on that one. Counted in our record, full transparency."]))+'</div></section>';out.innerHTML=h;return}

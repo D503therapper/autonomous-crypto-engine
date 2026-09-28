@@ -240,16 +240,30 @@ def test_board_rules():
     four = [l["game_id"] for l in bd["four"]["legs"]]
     assert len(set(four)) == 4 and set(three) <= set(four) and dog_g not in four, "4-leg = the 3-leg + one more, never the Dog"
     assert all(sports.good(l) and l["odds"] >= sports.MAX_FAV for l in bd["four"]["legs"]), "locks + value only, no -475"
-    assert sports.make_board([_cand("x1", -140, 0.66), _cand("x2", -145, 0.66)])["lock"], "no -101..-120 lock: go up to -150"
+    assert sports.make_board([_cand("x1", -140, 0.66), _cand("x2", -145, 0.66)])["lock"] is None, "no moneyline over -135"
     assert sports.make_board([_cand("x1", -140, 0.70), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x3", \
-        "the -101..-120 range comes first"
+        "a -140 is out, however sure"
+    assert sports.make_board([_cand("x4", -130, 0.66), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x4", \
+        "the Lock of the Day = the most confident pick on the board"
+    assert sports.make_board([_cand("x3", -110, 0.60), _cand("sp", -110, 0.64, "spread", -2.5, "nfl")])["lock"]["legs"][0][
+        "game_id"] == "sp", "any line counts - a spread the engine's surer of beats a moneyline"
     one = sports.make_board([_cand("mnf", 170, 0.40), dict(_cand("mnf", -205, 0.70), side="away"),
                              dict(_cand("mnf", -110, 0.58, "spread", -4.5, "nfl"), side="away")])
-    assert one["lock"] and all(one[k] is None for k in ("solo", "dog", "two", "three", "four")), "one game = that pick is the Lock"
-    assert one["lock"]["legs"][0]["market"] == "spread" and sports.leg_tier(one["lock"]["legs"][0]) == "lock", "a -110 spread = LOCK"
-    sure_dog = _cand("sd", 120, 0.66)                                        # a dog the engine thinks WINS (66%)
+    assert one["solo"] and all(one[k] is None for k in ("lock", "dog", "two", "three", "four")), \
+        "one game, a coin-flip-ish spread = that game's pick, NOT the Lock of the Day"
+    assert one["solo"]["legs"][0]["market"] == "spread" and sports.leg_tier(one["solo"]["legs"][0]) == "lock", "a -110 spread = LOCK"
+    sure = sports.make_board([_cand("tnf", -115, 0.64), dict(_cand("tnf", 105, 0.36), side="away")])
+    assert sure["lock"] and sure["solo"] is None, "one game, as strong as a real Lock of the Day = the Lock of the Day"
+    plus1 = sports.make_board([_cand("snf", 110, 0.62), dict(_cand("snf", -130, 0.38), side="away")])
+    assert plus1["lock"] and plus1["lock"]["legs"][0]["odds"] == 110, "a plus-money pick at 60%+ can be the Lock of the Day"
+    reg = sports.make_board(slate + [_cand("pm", 115, 0.70)])
+    assert reg["lock"]["legs"][0]["game_id"] == "pm", "the likeliest pick is the LOTD, plus money or not"
+    sure_dog = _cand("sd", 120, 0.66)                                        # a dog the engine gives 66% to WIN
     bs = sports.make_board(slate + [sure_dog])
-    assert bs["dog"]["legs"][0]["game_id"] == "sd" and "sd" in [l["game_id"] for l in bs["two"]["legs"]], "a confident Dog can ride"
+    assert bs["lock"]["legs"][0]["game_id"] == "sd", "plus money counts too when it's the likeliest pick on the board"
+    br = sports.make_board([_cand("L", -110, 0.58), _cand("sd2", 120, 0.57)])   # a dog the engine thinks WINS (57%)
+    assert br["dog"]["legs"][0]["game_id"] == "sd2" and "sd2" in [l["game_id"] for l in br["two"]["legs"]], \
+        "a confident Dog can ride"
     likely = _cand("pl", 120, 0.62)                                          # plus money, 62%
     fav = _cand("fv", -110, 0.54)                                            # minus money, only 54%
     val2 = _cand("v2", 150, 0.615)                                           # about as likely as pl, more value
@@ -776,7 +790,7 @@ def test_one_game_always_picks():
     cands = [{**base, "side": "home", "team": "A", "market": "spread", "line": 3.5, "odds": -108, "dec": 1.926, "p": 0.517, "edge": -0.004},
              {**base, "side": "away", "team": "B", "market": "ml", "line": None, "odds": -198, "dec": 1.505, "p": 0.653, "edge": -0.018}]
     b = sports.make_board(cands)
-    assert b["lock"] and b["lock"]["legs"][0]["team"] == "A" and not b["solo"], b     # one-game day: it's the Lock
+    assert b["solo"] and b["solo"]["legs"][0]["team"] == "A" and not b["lock"], b     # one-game coin flip: a pick, not the LOTD
     print("ok test_one_game_always_picks")
 
 
