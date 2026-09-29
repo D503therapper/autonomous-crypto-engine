@@ -943,6 +943,8 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
     for m in rows:                                           # sets + games next to our pending tennis picks
         try:
             state = stn._state(m)
+            if m["id"] in ours and state in ("final", "retired", "void"):
+                FINALS.add(f"tennis:{m['id']}")                 # one of our matches is over: grade it right now
             if state == "live" or (state != "pre" and m["id"] in ours):
                 SCORES[f"tennis:{m['id']}"] = {**_tennis_score(m, ours.get(m["id"])), "tennis": True, "live": state == "live",
                                                "delayed": any(k in str(m.get("status", "")).upper() for k in ("DELAY", "SUSPEND", "RAIN"))}
@@ -1201,16 +1203,22 @@ def publish_results(msg):
         importlib.reload(sports_dashboard)                   # the watcher runs for 50 min: always rebuild the page
         importlib.reload(sports)                             # with the newest pulled code, never an older look
         _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")   # grade the latest picks, never a stale copy
-        graded, posted = sports.quick()
+        tn = 0
+        try:                                                 # 🎾 our tennis picks first (the page below shows them)
+            import sports_tennis
+            tn = sports_tennis.quick_grade()
+        except Exception as e:                               # noqa: BLE001
+            print(f"tennis quick grade failed: {e}", flush=True)
+        graded, posted = sports.quick()                      # grades the board + rebuilds the page
     except Exception as e:                                   # noqa: BLE001 - never stop watching over this
         print(f"quick grade failed: {e}", flush=True)
         return
     paths = [LOG, TUNE, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
-             os.path.join(sd.DATA, "games")]
+             os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json")]
     _git("add", *[p for p in paths if os.path.exists(p)])
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return
-    _git("commit", "-qm", f"{msg}: {len(graded)} graded, {len(posted)} new")
+    _git("commit", "-qm", f"{msg}: {len(graded)} graded, {len(posted)} new, {tn} tennis")
     for _ in range(4):
         _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
         if _git("push", "-q").returncode == 0:
