@@ -315,6 +315,20 @@ def _delayed(l):
     return l.get("state") == "pre" and datetime.now(timezone.utc) > st + timedelta(minutes=20)
 
 
+TN_DROP_NOTES = [   # no tennis slate up: when the next one drops and why we wait (a different one every day)
+    "🎾 Tennis picks drop at <b>6 PM PT</b> the night before. The engine's watching every line till then.",
+    "🎾 Next tennis slate lands <b>6 PM PT</b>. Till then we watch the numbers, not guess 'em.",
+    "🎾 Tennis board's clear. New picks at <b>6 PM PT</b> — the engine's on the lines.",
+    "🎾 <b>6 PM PT</b>: that's when the next tennis picks go up. Lines are being watched.",
+    "🎾 Nothing up right now — tennis drops at <b>6 PM PT</b> the night before. We don't guess, we wait.",
+]
+
+
+def _tn_drop_note(day):
+    from datetime import date as _d
+    return TN_DROP_NOTES[_d.fromisoformat(day).toordinal() % len(TN_DROP_NOTES)]
+
+
 def _tennis():
     """🎾 TENNIS BONUS: collapsed at the very bottom (tap to open) - the latest slate, its parlay, its own record."""
     try:
@@ -326,7 +340,7 @@ def _tennis():
         return ""
     import sports_tennis as stn
     r = stn.record(slates)                                   # men's and women's apart; a match counts once
-    badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
+    badge = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ MISSED</span>',
              "void": '<span class="lr push">VOID</span>'}
 
     used, recaps = set(), {}                                 # (no 4-word run twice in the recaps on the card)
@@ -363,13 +377,19 @@ def _tennis():
         return out
 
     def row(l):
-        bd = "".join(f"<p>{E(x)}</p>" for x in ([recap(l)] if recap(l) else []) + list(l.get("breakdown") or []))
+        done = l.get("result") in ("won", "lost", "push", "void")
+        lines = [x for x in (l.get("breakdown") or []) if isinstance(x, str)]
+        if done:                                             # it's over: no "we gon' see" in the pregame read
+            lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
+        bd = "".join(f"<p>{E(x)}</p>" for x in lines)
+        rv = f'<div class="rvw">📝 {E(recap(l))}</div>' if done and recap(l) else ""   # the review, right on the pick
         return f"""<div class="leg {l['result'] or ''}">
   <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}">{"⏳ DELAYED" if _delayed(l) else _time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
-  {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
+  {f'<details class="bd"><summary>🔍 {"Pregame breakdown" if done else "Full breakdown"}</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
   {f'<div class="fin">Final: {E(", ".join(f"{a}-{b}" for a, b in ours(l)) or l["score"])}</div>' if l.get("score") else ""}
+  {rv}
 </div>"""
     PAR_TITLE = {"atp": "MEN'S TENNIS PARLAY", "wta": "WOMEN'S TENNIS PARLAY", "mixed": "TENNIS PARLAY OF THE DAY"}
 
@@ -396,15 +416,18 @@ def _tennis():
             if t in pars:
                 out += par_card(t, pars[t], legs)
         return out
-    # a slate stays up (WON / LOST and the breakdowns) while any of its matches is still being played; once its last
-    # match is over, the whole slate goes away into the results. A new slate shows as soon as it's posted.
+    # the owner, 9/28: graded picks stay up - CASHED / MISSED with their review - until the NEXT slate posts (6pm PT);
+    # then the old one goes to the results. (An older slate with a match still going stays up too.)
     live = lambda x: any(l.get("result") is None for l in x["picks"]) or any(p["status"] == "open" for _, p in stn.parlays_of(x))
-    shown = [x for x in slates if live(x)]
+    # (like the main board: a slate stays up through its own day, graded picks and all, and clears at 11pm PT)
+    now_pt = datetime.now(PT)
+    up = lambda x: x["date"] > now_pt.date().isoformat() or (x["date"] == now_pt.date().isoformat() and now_pt.hour < BOARD_CLEAR_HOUR_PT)
+    shown = [x for x in slates if up(x) or (live(x) and x["date"] >= (now_pt.date() - timedelta(days=1)).isoformat())]
     nm = sum(stn.tour_of(l) == "atp" for x in shown for l in x["picks"])
     nw = sum(stn.tour_of(l) == "wta" for x in shown for l in x["picks"])
     what = f"{nm} men's + {nw} women's" if nm + nw else "new picks by 6 PM"
     body = "".join(block(x) for x in shown) or \
-        '<div class="nopick">The last slate\'s all graded — it\'s in the records. Next picks drop by 6 PM. 🎾</div>'
+        f'<div class="nopick">{_tn_drop_note(now_pt.date().isoformat())}</div>'
     m_, w_, x_ = r["atp"], r["wta"], r["mixed"]
     pars = (f"parlays: men's {m_['p_won']}-{m_['p_lost']} · women's {w_['p_won']}-{w_['p_lost']}"
             + (f" · old mixed {x_['p_won']}-{x_['p_lost']}" if x_["p_won"] + x_["p_lost"] else ""))
