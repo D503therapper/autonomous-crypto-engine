@@ -1,0 +1,18 @@
+# Checks the live-scores route on our Cloudflare server (/scores) answers with real ESPN scores.
+name: scores_check
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: [".github/workflows/scores_check.yml"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          API=$(cat data/sports/ask_url.txt)
+          IDS=$(python3 -c "import json;p=json.load(open('data/sports/tennis/picks.json'));print(','.join('tennis:'+l['match'] for l in p[-1]['picks'][:4]))")
+          echo "ids: nfl:401872963,$IDS"
+          for i in 1 2 3; do curl -s -m 20 -H "Origin: https://d503therapper.github.io" "$API/scores?ids=nfl:401872963,$IDS" -w "\nHTTP %{http_code} %{time_total}s\n"; sleep 1; done
