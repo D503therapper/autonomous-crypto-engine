@@ -140,16 +140,21 @@ class Voice:
                     t = t.replace(nm, "_").replace(nm[:1].upper() + nm[1:], "_")
                 out += [f"piece:{p.strip().lower()}" for p in re.split(r"(?<=[.!?])\s+", re.sub(r"^\W+", "", t)) if p.strip()]
             return out
+        import sports_breakdown as _sb                        # no 4-word run from this board or the last days' boards
+        runs = lambda x: _sb.grams(x, names)                  # (the same memory the vocabulary uses - 9/29)
         unused = [n for n in order if f"{key}:{n}" not in self.used]
-        fresh = [n for n in unused if not any(s in self.used for s in slang(options[n]))]
+        fresh = [n for n in unused if not any(s in self.used for s in slang(options[n]))
+                 and not (runs(options[n]) & self.used)]
         if fresh:
             n = fresh[0]
         elif not must:
             return ""                                         # every fresh way repeats a phrase: drop the line
         else:                                                 # must say it: the wording that repeats the fewest phrases
-            n = min(unused or order, key=lambda i: sum(s in self.used for s in slang(options[i])))
+            n = min(unused or order, key=lambda i: sum(s in self.used for s in slang(options[i]))
+                    + len(runs(options[i]) & self.used))
         self.used.add(f"{key}:{n}")
         self.used.update(slang(options[n]))
+        self.used.update(runs(options[n]))
         self.mine.append(f"{key}:{n}")
         return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
 

@@ -3048,6 +3048,24 @@ def test_nothing_posts_before_8am_whoever_calls():
     assert sports.post_board({}, {}, [], later.astimezone(timezone.utc), day.date()) == []   # tomorrow's: never tonight
 
 
+def test_drop_notes_built_fresh_every_day():
+    """The owner, 9/29: the 8 AM note always says the engine watches the lines move all night and why, in our lingo, and
+    it can't just cycle the same few - built from pieces, no piece the same as the day before (tennis too)."""
+    import sports_dashboard as sdb
+    from datetime import date, timedelta
+    notes = set()
+    for n in range(365):
+        a, b = date(2026, 9, 1) + timedelta(n), date(2026, 9, 2) + timedelta(n)
+        for parts in (sdb.DROP_PARTS, sdb.TN_DROP_PARTS):
+            pa, pb = sdb._drop_parts(a.isoformat(), parts), sdb._drop_parts(b.isoformat(), parts)
+            assert all(x != y for x, y in zip(pa, pb)), (a, parts[0][0])
+        note = sdb._drop_note(a.isoformat())
+        assert "8 AM PT" in note and ("all night" in note.lower() or "overnight" in note.lower()) and "—" in note
+        notes.add(note)
+    assert len(notes) > 100
+    assert "6 PM PT" in sdb._tn_drop_note("2026-09-29")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

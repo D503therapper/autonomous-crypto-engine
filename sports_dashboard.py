@@ -247,24 +247,46 @@ def _cards(day, day_picks, cards_by_kind):
 BOARD_CLEAR_HOUR_PT = 23        # 11pm PT: today's board (graded picks + reviews) clears for tomorrow's drop note
 
 
-DROP_NOTES = [   # the 8 AM note: always says the engine's watching the lines move all night, and why (the owner, 9/29)
-    "🎯 Picks drop at <b>8 AM PT</b> on game day. All night the engine's watching the lines move — where the sharp money goes, what the injury news does — so we post off the sharpest number, not a stale one.",
-    "⏳ Board goes up <b>8 AM PT</b> game day. The engine's up all night watching every line move. When the pros hit a side or a starter sits, we see it before we pick — no guessing off stale numbers.",
-    "👀 The engine's on the lines all night till <b>8 AM PT</b>. Lines move when the money and the news come in — we let 'em move, then we pick. Sharper number, sharper pick.",
-    "🧠 Picks land <b>8 AM PT</b> on game day. Overnight the engine watches the lines move and the injury reports drop, so every pick's got the late news baked in.",
-    "📡 Engine's watching the lines move all night. Picks drop <b>8 AM PT</b> game day — every sharp move, every injury already in the numbers before we post.",
-    "🕗 <b>8 AM PT</b> on game day, the board drops. Till then the engine's watching the lines move all night — the money, the news, all of it — so we don't bite on a bad number.",
-]
+DROP_NOTES = []   # (replaced by DROP_PARTS: the note's built fresh each day)
+
+
+DROP_PARTS = (   # the 8 AM note, built fresh each day: WHEN + the engine WATCHING the lines all night + WHY + a closer
+    ["🎯 Picks drop at <b>8 AM PT</b> on game day.", "⏳ Board goes up <b>8 AM PT</b> game day.",
+     "🧠 Picks land <b>8 AM PT</b> on game day.", "🕗 <b>8 AM PT</b> on game day — that's when the board drops.",
+     "📡 The board hits at <b>8 AM PT</b> on game day.", "👀 <b>8 AM PT</b> game day, the picks go up.",
+     "🔔 Picks come out <b>8 AM PT</b> on game day."],
+    ["All night the engine's watching the lines move", "The engine's up all night watching every line move",
+     "Till then the engine's on the lines all night", "Overnight the engine watches every number move",
+     "The engine's glued to the lines all night", "Every line gets watched all night long",
+     "We watching the line movement overnight", "We watching the line movement all night"],
+    ["— where the sharp money goes, what the injury news does.", "— when the pros hit a side or a starter sits, we see it first.",
+     "— the money and the news move the numbers, then we move.", "— so every sharp move and late scratch is baked in.",
+     "— catching the sharp money and the late news before we post.", "— so we never bite on a stale number.",
+     "— lines tell on themselves overnight, and we're listening.", "— the late injury news always hits before the first pitch.",
+     "— the sharps show their hand overnight, we pick after."],
+    ["Sharper number, sharper pick.", "No guessing over here.", "We pick off the best number, not the first one.",
+     "Posted means final.", "Patience pays.", "That's how the pros do it.", "Trust the algorithm.",
+     "Best number wins.", "We don't chase, we wait.", "Good things come to those who wait.", "Tap in at 8."],
+)
+
+
+def _drop_parts(day, parts=None):
+    """The pieces for this date. Each piece steps by its own amount every day (plus a drift every lap), so no piece is
+    ever the same as the day before's and the combos keep shifting against each other."""
+    from datetime import date as _d
+    parts = parts or DROP_PARTS
+    try:
+        d = _d.fromisoformat(str(day)[:10]).toordinal()
+    except ValueError:
+        d = 0
+    steps = (1, 2, 3, 2, 1, 3)
+    return [(steps[k % len(steps)] * d + d // len(p) + 7 * k) % len(p) for k, p in enumerate(parts)]
 
 
 def _drop_note(day):
-    """The before-the-board note, rotated by date (never the same two days in a row)."""
-    from datetime import date as _d
-    try:
-        i = _d.fromisoformat(str(day)[:10]).toordinal()
-    except ValueError:
-        i = 0
-    return DROP_NOTES[i % len(DROP_NOTES)]
+    """The before-the-board note: when picks drop, that the engine watches the lines move all night, and why - built
+    from pieces (1,500+ ways), a different wording every day, no piece repeating from yesterday (the owner, 9/29)."""
+    return " ".join(DROP_PARTS[k][i] for k, i in enumerate(_drop_parts(day))).replace(" —", " —", 1)
 
 
 def _lean_note(day):
@@ -332,18 +354,23 @@ def _delayed(l):
     return l.get("state") == "pre" and datetime.now(timezone.utc) > st + timedelta(minutes=20)
 
 
-TN_DROP_NOTES = [   # no tennis slate up: when the next one drops and why we wait (a different one every day)
-    "🎾 Tennis picks drop at <b>6 PM PT</b> the night before. The engine's watching every line till then.",
-    "🎾 Next tennis slate lands <b>6 PM PT</b>. Till then we watch the numbers, not guess 'em.",
-    "🎾 Tennis board's clear. New picks at <b>6 PM PT</b> — the engine's on the lines.",
-    "🎾 <b>6 PM PT</b>: that's when the next tennis picks go up. Lines are being watched.",
-    "🎾 Nothing up right now — tennis drops at <b>6 PM PT</b> the night before. We don't guess, we wait.",
-]
+TN_DROP_PARTS = (   # no tennis slate up: WHEN + the engine WATCHING + WHY + a closer, built fresh each day
+    ["🎾 Tennis picks drop at <b>6 PM PT</b> the night before.", "🎾 Next tennis slate lands <b>6 PM PT</b>.",
+     "🎾 Tennis board's clear — new picks at <b>6 PM PT</b>.", "🎾 <b>6 PM PT</b> the night before: that's when tennis goes up.",
+     "🎾 Nothing up right now — tennis drops <b>6 PM PT</b>.", "🎾 The tennis card hits at <b>6 PM PT</b> the night before."],
+    ["Till then the engine's watching every line", "The engine's on the tennis lines", "Every match line gets watched",
+     "The engine's glued to the numbers", "We watch the lines move"],
+    ["— the order of play, the draws, who pulled out.", "— sharp money moves tennis lines quick.",
+     "— late withdrawals and injury news hit tennis hard.", "— so the price we post is the right one.",
+     "— catching every move before we post."],
+    ["We don't guess, we wait.", "Sharper number, sharper pick.", "Patience pays.", "Trust the algorithm.",
+     "No bad numbers over here.", "That's how the pros do it."],
+)
 
 
 def _tn_drop_note(day):
-    from datetime import date as _d
-    return TN_DROP_NOTES[_d.fromisoformat(day).toordinal() % len(TN_DROP_NOTES)]
+    """The no-tennis-slate note: built from pieces, a different wording every day (no piece repeats from yesterday)."""
+    return " ".join(TN_DROP_PARTS[k][i] for k, i in enumerate(_drop_parts(day, TN_DROP_PARTS)))
 
 
 def _battle(sets):
