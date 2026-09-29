@@ -2544,7 +2544,7 @@ def test_lean_day_card():
     full = [{"kind": k} for k in dsh.FULL_BOARD]
     assert dsh._short_note("2026-09-29", full) == "" and dsh._short_note("2026-09-29", [{"kind": "solo"}]) == ""
     note = dsh._lean_note("2026-09-29")
-    assert "leans" in note.lower() and "never in ours" in note and "real talk" not in note.lower()
+    assert "leans" in note.lower() and "never in ours" not in note and note.count("drop leanday") == 1 and "real talk" not in note.lower()
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ on:
     paths: [".github/workflows/sports.yml", "sports.py", "sports_data.py", "sports_model.py", "sports_dashboard.py"]
 permissions:
   contents: write
+  actions: write        # starts the live watcher if a game's on (or close) and no watch is running
 concurrency:
   group: sports-${{ github.ref_name }}
   cancel-in-progress: false
@@ -26,6 +27,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+      - name: live watcher backstop
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$(python tools/live_needed.py 2>/dev/null | tail -1)" = "yes" ]; then
+            n=$(gh run list --workflow sports-live.yml --limit 10 --json status -q '[.[] | select(.status != "completed")] | length')
+            if [ "${n:-0}" = "0" ]; then gh workflow run sports-live.yml --ref main && echo "live watch started"; else echo "live watch already on"; fi
+          fi
       - run: python sports_test.py
       - run: timeout 30m python -u sports.py 2>&1 | tee -a data/sports/run.log
         env:

@@ -1,7 +1,7 @@
-# THE D503 SPORTS ENGINE - LIVE VALUE (paper picks only). Every 30 minutes: if anything's live (or about to be),
-# watch every live game every 15 seconds for ~45 minutes and publish docs/sports/live.json whenever the live
-# board changes. The next watch queues right behind the running one, so there are no gaps during games.
-# Rests right away when nothing's on.
+# THE D503 SPORTS ENGINE - LIVE VALUE (paper picks only). If anything's live (or starts within 2 hours), watch every
+# live game every second for ~45 minutes and publish live.json whenever the live board changes. The next watch
+# queues right behind the running one, so there are no gaps during games. Rests right away when nothing's on.
+# Started by this schedule, and by the hourly engine run as a backstop (GitHub's schedule skips runs).
 name: sports-live
 on:
   schedule:
