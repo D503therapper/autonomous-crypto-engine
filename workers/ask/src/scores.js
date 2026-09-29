@@ -30,7 +30,8 @@ async function boardAt(key, ctx, q) {
   if (hit) return hit.json();
   const tries = [];
   for (const [i, host] of HOSTS.entries()) {                 // ESPN turns some servers away: other doors, browser-like
-    const r = await fetch(host + path, { headers: {
+    const bust = `${q ? "&" : "?"}_=${Math.floor(Date.now() / 1000)}`;   // ESPN's own servers hand out older copies
+    const r = await fetch(host + path + bust, { headers: {                // (a score flipped 1-3, 1-2, 1-3): a fresh one
       "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
       Accept: "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9",
       Referer: "https://www.espn.com/", Origin: "https://www.espn.com" }, });

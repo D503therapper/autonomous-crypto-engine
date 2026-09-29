@@ -1041,6 +1041,10 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
                     ln_, _ = stn.match_line(m, lines, hours=12)
                     k_ = f"tennis:{m['id']}"
                     SCORES[k_] = faster_score(SCORES[k_], _bovada_score(m, ln_, mine))
+                k_ = f"tennis:{m['id']}"
+                SCORES[k_] = BEST.setdefault(k_, SCORES[k_]) if SCORES[k_].get("live") and \
+                    _games(SCORES[k_]) < _games(BEST.get(k_, SCORES[k_])) else SCORES[k_]
+                BEST[k_] = SCORES[k_]                        # a score never goes backwards (ESPN's servers disagree)
         except Exception:                                    # noqa: BLE001
             pass
     import sports_breakdown as sb
@@ -1132,6 +1136,13 @@ def _bovada_score(m, ln, side):
         srv = None if srv is None else 1 - srv
     return {"n": names, "sets": sets, "pts": None, "srv": srv, "done": done, "tennis": True, "live": not final,
             "src": "bovada"}
+
+
+BEST = {}                     # match -> the furthest-along score seen (ESPN's servers hand out older copies)
+
+
+def _games(sc):
+    return sum(a + b for a, b in (sc or {}).get("sets") or [])
 
 
 def faster_score(espn, bov):

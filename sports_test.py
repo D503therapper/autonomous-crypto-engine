@@ -2953,6 +2953,16 @@ def test_live_bets_today_never_lost():
     assert "today(d.today)" in src and "live_log.json\\n" in open(slv.__file__).read().replace("\\t", "")
 
 
+def test_scores_never_go_backwards():
+    """9/29: ESPN's servers disagree - a tennis score flipped 1-3, 1-2, 1-3 inside seconds, so the page lagged and jumped
+    back. Our worker asks ESPN for a fresh copy each second, and the page + the watcher never show an older score."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    assert "_=${Math.floor(Date.now() / 1000)}" in open(os.path.join(here, "workers/ask/src/scores.js")).read()
+    assert "window.D503B" in open(os.path.join(here, "sports_dashboard.py")).read()
+    import sports_live as slv
+    assert slv._games({"sets": [[6, 2], [1, 3]]}) == 12
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
