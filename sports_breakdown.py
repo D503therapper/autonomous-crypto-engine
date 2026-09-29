@@ -414,10 +414,15 @@ def breakdown(leg, games, elo, injuries, used=None):
     key_any = key_us or sd.team_key_out(inj, oid, them, lg)
     if key_us:
         pos, nm = key_us[0][1], key_us[0][0]
-        mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
+        import sports_vocab
+        mv = " " + sports_vocab.one(["[The line already moved for it|The line's already moved on it|The number already "
+                                     "adjusted|Vegas already moved the line] ({o} → {n})."], f"{v.seed}|mv", o=_am(op), n=_am(now)) \
+            if op is not None and now is not None and op != now else ""
         pts = leg.get("line") if leg.get("market") == "spread" else None
-        need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)}, win by 1, or lose — we cash." \
-            if pts and pts > 0 and pts != int(pts) else ""
+        need = " " + sports_vocab.one([
+            "{T} [gotta|have to|need to] win by {n1}+ to [beat us|cover|beat this ticket]. [Win by {n0}, win by 1, or lose "
+            "— we cash.|Anything short of {a1} {n1}-point win and we cash.|They win by {n0} or less, or lose — we still cash.]"],
+            f"{v.seed}|need", T=_cap(the_them), n0=int(pts), n1=int(pts) + 1, a1=_a(int(pts) + 1)) if pts and pts > 0 and pts != int(pts) else ""
         out.append(_say(v, "keyout_us", must=True, nm=nm, pos=pos, the_us=the_us, mv=mv, need=need))
     if not key_any and op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
         out.append(_say(v, "sharp", us=us, op=_am(op), now=_am(now)))
@@ -1120,13 +1125,13 @@ T = {
         "✅ No [key|big|major] [absences|injuries] for {us}.",
     ],
     "keyout_us": [
-        "🚑 {nm} is out, {the_us} rolling with the backup {pos}.{mv} [We know.|We see it.] We still riding with {algo}.{need}",
+        "🚑 {nm} [is out|is ruled out|is sidelined], {the_us} rolling with the backup {pos}.{mv} [We know.|We see it.] We still riding with {algo}.{need}",
         "🚑 No {nm} tonight — backup {pos} gets the keys for {the_us}.{mv} Vegas already baked that in, and the numbers still say this the side.{need}",
-        "🚑 Yeah, {nm} is out. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}",
+        "🚑 Yeah, {nm} [is out|is ruled out|is sidelined]. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}",
         "🚑 {nm} [sits|is out|won't go] — [the backup|a backup] {pos} [starts|takes over] for {the_us}.{mv} [We know.|We saw it.|Noted.] [We still riding with {algo}.|Numbers still say this the side.|Still the side.]{need}",
         "🚑 [No|Without] {nm} [tonight|today], {the_us} [turn to|go with|hand it to] the backup {pos}.{mv} [Priced in already, and we're still here.|The price already knows, and so do we.|Still our side.]{need}",
         "🚑 [Yeah|Yep|We see it], {nm} [is out|won't play] and the backup {pos} [starts|is in] for {the_us}.{mv} [Folks jumped ship|The crowd bailed] — [we didn't|not us].{need}",
-        "🚑 Backup {pos} [time|duty] for {the_us}: {nm} is out.{mv} [That's in the number.|It's baked in.] [Still riding.|Still our side.|We stay put.]{need}",
+        "🚑 Backup {pos} [time|duty] for {the_us}: {nm} [is out|is ruled out|is sidelined].{mv} [That's in the number.|It's baked in.] [Still riding.|Still our side.|We stay put.]{need}",
         "🚑 {nm} out, [backup|second-string] {pos} in for {the_us}.{mv} [Everybody else ran|The public ran] — [we're staying|we ain't moving].{need}",
     ],
     "sharp": [

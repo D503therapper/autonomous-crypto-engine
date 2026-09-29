@@ -2767,7 +2767,7 @@ def test_breakdown_variety():
            "even": {"us", "them", "us_s"}, **{f"{r}_{m}": {"name", "txt"} for r in ("QB", "SP", "G") for m in ("hot", "cold")},
            **{k: {"The_them", "the_them", "the_them_s", "hl"} for k in sb.T if k.startswith("drama_")},
            **{k: {"who", "Who", "who_s", "Who_s"} for k in sb.T if k.startswith("talk_")},
-           "splits_ride": calls.get("splits_fade", set()), "splits_even": calls.get("splits_fade", set()),
+           **{f"splits_{x}": calls.get("splits", set()) for x in ("fade", "ride", "even")},
            "lean": {"team", "tms"}}
     for k in sb.T:
         facts = calls.get(k) or dyn.get(k)

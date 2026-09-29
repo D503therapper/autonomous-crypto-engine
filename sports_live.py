@@ -934,8 +934,7 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
         try:
             state = stn._state(m)
             if state == "live" or (state != "pre" and m["id"] in ours):
-                txt, clk = _tennis_score(m, ours.get(m["id"]))
-                SCORES[f"tennis:{m['id']}"] = {"txt": txt, "clock": clk if state == "live" else "Final", "live": state == "live"}
+                SCORES[f"tennis:{m['id']}"] = {**_tennis_score(m, ours.get(m["id"])), "tennis": True, "live": state == "live"}
         except Exception:                                    # noqa: BLE001
             pass
     import sports_breakdown as sb
@@ -978,19 +977,26 @@ def _keep_score(games, lg, ang, box, status):
 
 
 def _tennis_score(m, side=None):
-    """'Kalieva vs Han · 6-4, 2-1 (15-30)' + 'Set 2 · Han serving' - from OUR player's side when we're on the match."""
+    """A scoreboard like on TV, from OUR player's side when we're on the match: names, games per set, the current
+    game's points, who's serving. {"n": [us, them], "sets": [[6, 4], [3, 2]], "pts": ["30", "15"], "srv": 0}"""
     s = stl.score_state(m)
-    if side == 2:
-        sw = lambda t: (t[1], t[0]) if t else t
-        s = {**s, "done": [sw(x) for x in s["done"]], "games": sw(s["games"]), "pts": sw(s["pts"]) if s.get("pts") else s.get("pts"),
-             "server": {1: 2, 2: 1}.get(s.get("server"), s.get("server"))}
-        m = {**m, "p1_name": m["p2_name"], "p2_name": m["p1_name"]}
-    w1 = sum(1 for a, b in s["done"] if a > b)
-    w2 = sum(1 for a, b in s["done"] if b > a)
-    n1, n2 = stn._say_name(m["p1_name"]), stn._say_name(m["p2_name"])
-    sets = "" if not s["done"] else (f"Sets {w1}-{w2} · " if w1 == w2 else          # who's up in sets, said plain
-                                      f"{n1 if w1 > w2 else n2} up {max(w1, w2)}-{min(w1, w2)} in sets · ")
-    return stl.score_text(m, s), sets + stl.clock_text(m, s)
+    flip = side == 2
+    sw = (lambda t: (t[1], t[0]) if t else t) if flip else (lambda t: t)
+    names = [stn._say_name(m["p2_name"]), stn._say_name(m["p1_name"])] if flip else \
+        [stn._say_name(m["p1_name"]), stn._say_name(m["p2_name"])]
+    sets = [list(sw(x)) for x in s["done"]]
+    g = sw(s["games"])
+    if g and (g != (0, 0) or s.get("pts") or not sets):
+        sets.append(list(g))
+    pts = None
+    if s.get("pts"):
+        a, b = sw(s["pts"])
+        name = {0: "0", 1: "15", 2: "30", 3: "40", 4: "AD"}
+        pts = [str(a), str(b)] if s["games"] == (6, 6) else [name.get(a, str(a)), name.get(b, str(b))]
+    srv = {1: 0, 2: 1}.get(s.get("server"))
+    if flip and srv is not None:
+        srv = 1 - srv
+    return {"n": names, "sets": sets, "pts": pts, "srv": srv, "done": len(s["done"])}
 
 
 def _score(box, side):
