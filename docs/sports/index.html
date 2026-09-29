@@ -374,7 +374,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> every pick we post counts once in our record — the Lock of the Day, the Dog of the Day, every pick in the 2-, 3- and 4-leg parlays, and every lean. Parlays don’t keep a record of their own; their picks each count on their own. Locks, value, leans, the Lock of the Day and the Dog of the Day each get their own grade too. Live plus money and tennis keep their own records. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>What counts:</b> the Lock of the Day, the Dog of the Day, every parlay leg and every lean go in our record. Live plus money and tennis keep their own. Question box reads don’t count. Every W, every L, right here — we don’t hide nothing.</div>
   <div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">8-2</div><div class="ovr-p">8 won · 2 lost · 80%</div></div>
   <div class="recs grades"><div class="rc gr" style="--c1:#22e39a;--c2:#ffc233"><div class="rc-t">🔒 LOCK OF THE DAY</div><div class="rc-r">1 won · 0 lost</div><div class="rc-p">100%</div></div><div class="rc gr" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="rc-t">🐺 DOG OF THE DAY</div><div class="rc-r">0 won · 1 lost</div><div class="rc-p">0%</div></div><div class="rc gr" style="--c1:#22e39a;--c2:#0fb87a"><div class="rc-t">🔒 LOCKS</div><div class="rc-r">6 won · 1 lost</div><div class="rc-p">86%</div></div><div class="rc gr" style="--c1:#ff5a1f;--c2:#ff8a00"><div class="rc-t">🔥 VALUE</div><div class="rc-r">2 won · 1 lost</div><div class="rc-p">67%</div></div><div class="rc gr" style="--c1:#ffc233;--c2:#e8c77a"><div class="rc-t">🟡 LEANS</div><div class="rc-r">0 won · 0 lost</div><div class="rc-p">no results yet</div></div></div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
@@ -431,7 +431,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790667519148,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790667563166,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}

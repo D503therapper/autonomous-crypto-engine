@@ -1322,7 +1322,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> every pick we post counts once in our record — the Lock of the Day, the Dog of the Day, every pick in the 2-, 3- and 4-leg parlays, and every lean. Parlays don’t keep a record of their own; their picks each count on their own. Locks, value, leans, the Lock of the Day and the Dog of the Day each get their own grade too. Live plus money and tennis keep their own records. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>What counts:</b> the Lock of the Day, the Dog of the Day, every parlay leg and every lean go in our record. Live plus money and tennis keep their own. Question box reads don’t count. Every W, every L, right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
