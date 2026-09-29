@@ -9,12 +9,14 @@ const PATHS = {
 };
 const EXTRA = { ncaaf: "?groups=80&limit=1000", ncaab: "?groups=50&limit=1000" };
 
+const DBG = {};
 async function board(key, ctx) {
   const url = `https://site.api.espn.com/apis/site/v2/sports/${PATHS[key]}/scoreboard${EXTRA[key] || ""}`;
   const cache = caches.default;
   const hit = await cache.match(url);
   if (hit) return hit.json();
   const r = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
+  DBG[key] = `HTTP ${r.status}`;
   if (!r.ok) return null;
   const body = await r.text();
   ctx.waitUntil(cache.put(url, new Response(body, { headers: { "Cache-Control": "max-age=1", "Content-Type": "application/json" } })));
@@ -88,9 +90,11 @@ export async function handleScores(request, env, ctx, origins) {
     (want[key] = want[key] || []).push(id);
   }
   const out = {};
+  const debug = new URL(request.url).searchParams.has("debug");
   await Promise.all(Object.keys(want).map(async (key) => {
     let d;
-    try { d = await board(key, ctx); } catch { d = null; }
+    try { d = await board(key, ctx); } catch (e) { DBG[key] = `error ${String(e).slice(0, 80)}`; d = null; }
+    if (debug && d) DBG[key + "_events"] = (d.events || []).map((e) => e.id).slice(0, 30).join(",");
     if (!d) return;
     const need = new Set(want[key]);
     for (const ev of d.events || []) {
@@ -105,5 +109,6 @@ export async function handleScores(request, env, ctx, origins) {
       }
     }
   }));
+  if (debug) out._debug = { ...DBG, want };
   return new Response(JSON.stringify(out), { headers: { ...cors, "Content-Type": "application/json" } });
 }
