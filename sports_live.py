@@ -31,6 +31,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 import sports_comeback as sc
+import sports_lingo
 import sports_data as sd
 import sports_model as sm
 import sports_players as sp
@@ -173,102 +174,57 @@ def substantial(rs, tied):
     return "history" in kinds and len(kinds) >= 2
 
 
-# ---------------------------------------------------------------- the words (our lingo, rotating)
-def _say(k, options):
-    return options[k % len(options)]
-
-
+# ---------------------------------------------------------------- the words (our lingo - sports_lingo rolls them)
+# Every line is rolled from the play's own seed (its id), so a play reads the same every second it's up (the facts in
+# it - the score, the price - update; the wording doesn't flicker), and different plays / days read differently.
+# No 4-word run twice inside one play; cycle() keeps the plays on the board from sharing one either.
 ICON = {"nfl": "🏈", "ncaaf": "🏈", "nba": "🏀", "ncaab": "🏀", "nhl": "🏒", "mlb": "⚾"}
 
 
-def blurb(league, us, them, trail, margin_txt, rs, k):
-    """The short line: why we see the value - in our lingo, never the same way twice in a row."""
-    i = ICON[league]
+def blurb(league, us, them, trail, margin_txt, rs, seed, used=None):
+    """The short line: why we see the value - in our lingo, rolled by the play's seed."""
     kinds = {kk for kk, _ in rs}
-    Us, Them = us[:1].upper() + us[1:], them[:1].upper() + them[1:]
-    m = margin_txt
+    used = set() if used is None else used
+    kw = dict(i=ICON[league], us=us, them=them, m=margin_txt)
     if trail and "ball" in kinds:
-        return _say(k, [f"{i} {Us} down {m} but they got the rock and they're marching. About to go to work — hammer it.",
-                        f"{i} Down {m}? Who cares. {Us} got the ball and {them} can't stop nobody. We cooking.",
-                        f"{i} {Us} down {m} with the ball in their hands. The book's sleeping — wake up and hammer {us}.",
-                        f"{i} {Them} up {m} and the dummies think it's over. {Us} got the ball. Don't be a sheep."])
+        return sports_lingo.say("lv:ball", seed, used, **kw)
     if trail and "better" in kinds:
-        return _say(k, [f"{i} {Us} down {m}? Rough start, but they're the better team and we get 'em at plus money. Hammer it.",
-                        f"{i} Everybody and their mama jumping off {us} down {m}. Not us. Better team, plus money — let's eat.",
-                        f"{i} {Us} been booty cheeks so far, down {m}. That don't last. Way better team — they about to go to work.",
-                        f"{i} Down {m} ain't done. {Us} got way too much for {them}, and the book's handing us plus money. Trust the algorithm.",
-                        f"{i} {Them} up {m} and they must think they're good. They ain't. {Us} about to smack that ass."])
+        return sports_lingo.say("lv:better", seed, used, **kw)
     if trail and "momentum" in kinds:
-        return _say(k, [f"{i} {Us} down {m} but they just took the last {sc.PNAME[league]}. The comeback's loading — get in.",
-                        f"{i} {Us} been climbing back and the price still says they're dead. They're not. Hammer it."])
+        return sports_lingo.say("lv:momentum", seed, used, per=sc.PNAME[league], **kw)
     if trail:
-        if league == "nhl":
-            return _say(k, [f"{i} {Them} might've got the first goal, but {us} are about to bounce back and smack that ass.",
-                            f"{i} {Us} down {m}, plenty of hockey left and the price is too juicy. Get in."])
-        return _say(k, [f"{i} {Us} down {m}. Teams in this spot come back way more than this price thinks. Buy the dip.",
-                        f"{i} The dummies are about to sell {us} down {m}. We buying. Trust the algorithm."])
-    if m != "0":
-        return _say(k, [f"{i} {Us} up {m} and STILL plus money? Books are sleeping — take it before it moves.",
-                        f"{i} {Us} up {m} and the book's got them as the dog. That's a gift. Hammer it.",
-                        f"{i} Up {m} at plus money? {Us} all day. The book's cooked on this one."])
-    return _say(k, [f"{i} All tied up and {us} are still plus money. The book's got this wrong — get in.",
-                    f"{i} Dead even and the live line's got {us} as the dog. The numbers don't. Hammer it."])
+        return sports_lingo.say("lv:trail_nhl" if league == "nhl" else "lv:trail", seed, used, **kw)
+    if margin_txt != "0":
+        return sports_lingo.say("lv:up", seed, used, **kw)
+    return sports_lingo.say("lv:tied", seed, used, **kw)
 
 
 UNIT = {"nfl": "points", "ncaaf": "points", "nba": "points", "ncaab": "points", "nhl": "goals", "mlb": "runs"}
 
 
-def full_breakdown(league, us, them, rs, k, rate_mine=None):
-    """Tap-to-open: every reason we trust it, in our lingo, one line each, rotating."""
+def full_breakdown(league, us, them, rs, seed, rate_mine=None, used=None):
+    """Tap-to-open: every reason we trust it, in our lingo, one line each (rolled by the play's seed)."""
     out = []
-    Us, Them = us[:1].upper() + us[1:], them[:1].upper() + them[1:]
+    used = set() if used is None else used
+    say = lambda key, **kw: sports_lingo.say(key, f"{seed}|{key}", used, **kw)
     for kind, f in rs:
         if kind == "history":
             spot, d = sc.when(league, f["k"]), f["d"]
             who = ("favorites" if f["fav"] else "teams") if f["trail"] else ("favorites" if f["fav"] else "dogs")
-            if f["trail"]:
-                out.append(_say(k, [
-                    f"📚 We did our homework: {f['n']:,} games where {who} were down about {d} {spot} — {f['rate']:.0%} of 'em "
-                    f"came back and won. This price only needs {f['be']:.0%}. That's free money energy.",
-                    f"📚 Down {d} ain't dead. In {f['n']:,} games like this, {who} came back {f['rate']:.0%} of the time. "
-                    f"The book's pricing it like {f['be']:.0%} — they scared, we're not.",
-                    f"📚 History don't lie: {f['rate']:.0%} of {who} down {d} {spot} still won ({f['n']:,} games). "
-                    f"At this number you only need {f['be']:.0%}. Hammer it.",
-                    f"📚 The comeback study says {who} in this spot win {f['rate']:.0%} of the time ({f['n']:,} games). "
-                    f"The price needs {f['be']:.0%}. Do the math — we eating."]))
-            else:
-                out.append(_say(k, [
-                    f"📚 {f['n']:,} games like this: {who} up about {d} {spot} closed it out {f['rate']:.0%} of the time. "
-                    f"This price only needs {f['be']:.0%}. Easy money.",
-                    f"📚 {Us} up {d} and still plus money? {who.capitalize()} in this spot finish the job {f['rate']:.0%} of the time "
-                    f"({f['n']:,} games). The book's tripping.",
-                    f"📚 History says {who} up {d} {spot} hold on {f['rate']:.0%} of the time ({f['n']:,} games). "
-                    f"We only need {f['be']:.0%}. Hammer it."]))
+            kw = dict(ng=f"{f['n']:,}", who=who, d=d, spot=spot, rate=f"{f['rate']:.0%}", be=f"{f['be']:.0%}")
+            out.append(say("bd:hist_trail", **kw) if f["trail"] else say("bd:hist_up", us=us, **kw))
         elif kind == "better":
-            out.append(_say(k + 1, [f"💪 {Us} were the favorite before this thing started. One bad stretch don't make 'em trash.",
-                                    f"💪 {Us} are the better squad, period. The scoreboard's just late to the party.",
-                                    f"💪 {Them} got lucky early. {Us} are the better team and they about to go to work.",
-                                    f"💪 Real ones know {us} are better than {them}. The book's panicking over a few plays."]))
+            out.append(say("bd:better", us=us, them=them))
         elif kind == "pre":
-            out.append(_say(k + 2, [f"🧠 The algorithm was already on {us} before the game. Now we get 'em on sale.",
-                                    f"🧠 We liked {us} pregame — the live price just made it juicier. Double dip.",
-                                    f"🧠 The engine had value on {us} before the game even started. Now it's even better."]))
+            out.append(say("bd:pre", us=us))
         elif kind == "half":
-            out.append(_say(k + 6, [f"🏈 And {us} get the ball to start the 2nd half. That's a free possession.",
-                                    f"🏈 {Us} receive the 2nd-half kickoff — first crack at it after the break.",
-                                    "🏈 Ball's theirs coming out of halftime. The algorithm counted that."]))
+            out.append(say("bd:half", us=us))
         elif kind == "ball":
-            out.append(_say(k + 3, [f"🏈 They got the rock ({f['txt']}). Points are coming.",
-                                    f"🏈 Ball's in their hands at {f['txt']}. Next score is theirs to take.",
-                                    f"🏈 {Us} got the ball ({f['txt']}) and {them} can't stop nobody."]))
+            out.append(say("bd:ball", us=us, them=them, txt=f["txt"]))
         elif kind == "momentum":
-            out.append(_say(k + 4, [f"🔥 {Us} took the last {sc.PNAME[league]} {f['won']}-{f['lost']}. They cooking now.",
-                                    f"🔥 {Us} won the last {sc.PNAME[league]} {f['won']}-{f['lost']}. They woke up — {them} in trouble."]))
-    out.append(_say(k + 5, ["🎯 The numbers are on our side and the book's asleep. Trust the algorithm.",
-                            "🎯 This is the spot. Get in before the line catches up. Let's fucking go.",
-                            "🎯 Value like this don't last — the book's gonna wake up. We're on it. Let's go.",
-                            "🎯 Don't be a sheep. The dummies are selling, we buying. Trust the algorithm."]))
-    return out
+            out.append(say("bd:momentum", us=us, them=them, per=sc.PNAME[league], w=f["won"], l=f["lost"]))
+    out.append(say("bd:bottom"))
+    return [x for x in out if x]
 
 
 # ---------------------------------------------------------------- one watch cycle
@@ -335,6 +291,47 @@ def _last_period(box):
     return int(p.get("home_points") or 0), int(p.get("away_points") or 0)
 
 
+def _team_words(league, us, them, trail, m, rs, pid):
+    """words(n) -> (line, breakdown) for a play. n=0: its own wording (seeded by its id); 1, 2, 3: other ways to say
+    the same thing, for when a play already on the board says it that way (cycle picks n once and keeps it)."""
+    def words(n=0):
+        seed, used = (pid if not n else f"{pid}|{n}"), set()
+        return blurb(league, us, them, trail, m, rs, seed, used), full_breakdown(league, us, them, rs, seed, used=used)
+    return words
+
+
+def _runs(pl):
+    """The 4-word runs in a play's words (its names and numbers don't count)."""
+    return sports_lingo._grams(" ".join([pl.get("line") or ""] + list(pl.get("breakdown") or [])),
+                               [x for x in (pl.get("team"), pl.get("opp")) if x])
+
+
+def settle_words(plays, prev, log):
+    """Pin each play's wording: a play that's up keeps the wording it went up with (its `words` number - only the
+    facts in it move), and a new one takes the first wording that shares no 4-word run with the rest of the board."""
+    taken = set()
+    for pl in sorted(plays, key=lambda p: p["id"] not in prev):      # plays already up keep theirs first
+        words = pl.pop("_words", None)
+        if words is None:
+            taken |= _runs(pl)
+            continue
+        n = (prev.get(pl["id"]) or {}).get("words")
+        if n is None:
+            n = (log.get("plays", {}).get(pl["id"]) or {}).get("words")
+        if n is None:
+            n = 0
+            for i in range(4):
+                ln, bd = words(i) if i else (pl["line"], pl["breakdown"])
+                if not _runs({**pl, "line": ln, "breakdown": bd}) & taken:
+                    n = i
+                    break
+        if n:
+            pl["line"], pl["breakdown"] = words(n)
+        pl["words"] = n
+        taken |= _runs(pl)
+    return plays
+
+
 def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key, checked=False, hold=(),
              half_ball=None):
     """Both sides of one live game -> plays that clear every bar (plus money, 5%+ edge, substantial reasons)."""
@@ -376,16 +373,15 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         if not up and not substantial(rs, my == their):       # the reasons get it up; value keeps it up
             continue
         pid = f"{g['id']}:{side}"
-        k = sum(map(ord, pid)) + key
         pro = league in ("nfl", "nba", "mlb", "nhl")
         the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
+        words = _team_words(league, the_us, the_them, my < their, f"{abs(my - their)}", rs, pid)
         out.append({
             "id": pid, "league": league, "emoji": sd.LEAGUES[league][3], "sport": sd.LEAGUES[league][2],
             "team": us, "opp": them, "odds": ml, "edge": round(edge, 4), "p": round(p, 3),
             "score": f"{g['away_name']} {as_} @ {g['home_name']} {hs}", "clock": _clock_txt(league, box),
             "ball": ball_txt or "", "reasons": [kk for kk, _ in rs],
-            "line": blurb(league, the_us, the_them, my < their, f"{abs(my - their)}", rs, k),
-            "breakdown": full_breakdown(league, the_us, the_them, rs, k),
+            "line": words(0)[0], "breakdown": words(0)[1], "_words": words,
         })
     return out
 
@@ -681,7 +677,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     plays = [p for p in plays if p["id"] in SEEN or p["id"] in showing]   # held two checks in a row (no blips)
     SEEN.clear()
     SEEN.update(fresh)
-    plays = board(plays, showing)
+    plays = settle_words(board(plays, showing), prev or {}, log)   # the wording stays put while a play is up
     for pl in plays:                                          # log the first time each play goes up (graded later)
         if pl["id"] not in log["plays"]:
             log["plays"][pl["id"]] = {"posted": now.strftime("%Y-%m-%dT%H:%MZ"), "team": pl["team"], "odds": pl["odds"],
@@ -696,6 +692,8 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
             log["plays"][pl["id"]].pop("down", None)          # it came down, now it's value again: back on top + a push
             notify(pl, back=True)
         pl["posted"] = log["plays"][pl["id"]]["posted"]
+        if "words" in pl:
+            log["plays"][pl["id"]].setdefault("words", pl["words"])   # (back up later = the same wording)
         e = log["plays"][pl["id"]]
         if not pl.get("paused") and e.get("result") is None:     # the longest the line got while the play was up
             e["best_odds"] = max(e.get("best_odds", e["odds"]), pl["odds"])
@@ -817,58 +815,37 @@ def _trailing(s, side):
     return sm_ < st_ or (sm_ == st_ and gm < gt)
 
 
-def tennis_words(pl, s, side, rs, used, hold):
-    """(the short line, the breakdown) in our voice - he/she by tour, fresh wording, no repeats on the board."""
-    import sports_breakdown as sb
-    v = sb.Voice(pl["id"], used)
+def tennis_words(pl, s, side, rs, used, hold, n=0):
+    """(the short line, the breakdown) in our voice - he/she by tour, rolled by the play's id (n: another wording, see
+    settle_words), no 4-word run twice inside the play. `used` (the board's phrases) only collects ours: picking by
+    it would make a play's words flicker as other plays come and go - settle_words keeps the board apart instead."""
     wta = pl["tour"] == "wta"
     he, him, his = ("she", "her", "her") if wta else ("he", "him", "his")
-    He = he.capitalize()
     me = stn._say_name(pl["team"])
     o = f"+{pl['odds']}"
     sit = tennis_situation(s, side, he)
     kinds = dict(rs)
     pct, be = round(100 * pl["p"]), round(100 * kinds["state"]["be"]) if "state" in kinds else None
+    seed, mine = (pl["id"] if not n else f"{pl['id']}|{n}"), set()
+    say = lambda key, **kw: sports_lingo.say(key, f"{seed}|{key}", mine, **kw)
     if pl["double_down"]:
-        line = v.say("tl_dd", [
-            f"🔁 Double down — we had {him} pregame, {he} {sit}, now {he}'s {o} and the math says that's too long.",
-            f"🔁 Double down. {me} was our pick before the first serve. {He} {sit} and the book let {him} drift to {o} — we're going back in.",
-            f"🔁 Double down on {me}: {he} {sit}, the price went to {o}, and the numbers still like {him} way more than that.",
-            f"🔁 We had {me} pregame and we're not jumping off. {He} {sit} — {o} is too long for a player this good."], must=True)
+        line = say("tl:dd", me=me, he=he, him=him, o=o, sit=sit)
     elif _trailing(s, side):
-        line = v.say("tl_trail", [
-            f"🎾 {me} {sit}, and the book overreacted: {o} for a player we had as the favorite.",
-            f"🎾 {me} came in as the better player on our numbers. {He} {sit} — {o} is too big a price for that.",
-            f"🎾 The book's pricing {me} like it's over at {o}. {He} {sit}. It ain't over.",
-            f"🎾 {me} {sit}. Everybody's jumping off — we're jumping on at {o}.",
-            f"🎾 {me} at {o}? {He} {sit}, but {he}'s still the better player out there. Get in."], must=True)
+        line = say("tl:trail", me=me, he=he, him=him, o=o, sit=sit)
     else:
-        line = v.say("tl_level", [
-            f"🎾 {me} {sit} and still plus money at {o}? We'll take that all day.",
-            f"🎾 {me} {sit} and the book's still got {him} as the dog ({o}). The numbers say otherwise.",
-            f"🎾 {o} on {me}, who {sit}? The price is behind the match. Hammer it."], must=True)
+        line = say("tl:level", me=me, he=he, him=him, o=o, sit=sit)
     bd = []
     if "ours" in kinds:
-        bd.append(v.say("tl_ours", [f"🧠 {me} was one of our tennis picks today — the engine liked {him} before the first ball.",
-                                    f"🧠 We posted {me} pregame. Same player, way better price now.",
-                                    f"🧠 {me} was already on our tennis card. Now the live price is doing us a favor."]))
+        bd.append(say("tl:ours", me=me, he=he, him=him))
     if "strong" in kinds:
-        sp_ = round(100 * kinds["strong"]["p"])
-        bd.append(v.say("tl_strong", [f"💪 On our numbers {me} came in at {sp_}% to win this match.",
-                                      f"💪 Before the first serve the engine had {me} winning this {sp_}% of the time.",
-                                      f"💪 {me} was the better player coming in — {sp_}% on our numbers."]))
+        bd.append(say("tl:strong", me=me, sp=round(100 * kinds["strong"]["p"])))
     if "state" in kinds:
-        hp = round(100 * hold)
         serve = {True: " and it's on serve", False: "", None: ""}[kinds["state"]["on_serve"]]
-        bd.append(v.say("tl_state", [f"🎾 Score check: {me} {sit}{serve}. {He} holds serve {hp}% of the time on our numbers — far from over.",
-                                     f"🎾 {me} {sit}{serve}. A player who holds {hp}% of {his} service games is still very much in this.",
-                                     f"🎾 Where it stands: {me} {sit}{serve}. {He} holds {hp}% of the time — one break changes everything."]))
-        bd.append(v.say("tl_math", [f"📐 The point-by-point model (sets, games, points, who's serving) gives {him} {pct}% from here. {o} only needs {be}%.",
-                                    f"📐 Run every point from this score: {me} wins it {pct}% of the time. The price needs {be}%.",
-                                    f"📐 Our tennis model plays it out point by point from right here: {pct}% for {me}. Break-even at {o} is {be}%."]))
-    bd.append(v.say("tl_bottom", ["🎯 The numbers are ahead of the book on this one. We're on it.",
-                                  "🎯 The price hasn't caught up to the match. Get in before it does.",
-                                  "🎯 Live tennis swings fast — this is the window. We're in."], must=True))
+        bd.append(say("tl:state", me=me, sit=sit, serve=serve, he=he, his=his, hp=round(100 * hold)))
+        bd.append(say("tl:math", me=me, him=him, pct=pct, o=o, be=be))
+    bd.append(say("tl:bottom"))
+    if used is not None:
+        used |= mine
     return line, [x for x in bd if x]
 
 
@@ -910,7 +887,9 @@ def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
               "ball": "", "an_id": None, "reasons": [k for k, _ in rs], "match": m["id"], "double_down": bool(ours and _trailing(s, side)),
               "tennis": {"sets": list(s["sets"]), "games": list(s["games"]), "done": [list(x) for x in s["done"]],
                          "pts": list(s["pts"]) if s["pts"] else None, "set_no": s["set_no"], "side": side}}
-        pl["line"], pl["breakdown"] = tennis_words(pl, s, side, rs, used, stl.hold_p(pa if side == 1 else pb))
+        hp = stl.hold_p(pa if side == 1 else pb)
+        pl["line"], pl["breakdown"] = tennis_words(pl, s, side, rs, used, hp)
+        pl["_words"] = lambda n, pl=pl, s=s, side=side, rs=rs, hp=hp: tennis_words(pl, s, side, rs, None, hp, n)
         out.append(pl)
     return out
 

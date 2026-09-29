@@ -31,7 +31,8 @@ DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
 START_BANKROLL = 1000.0
 STAKE = 100.0
-POST_FROM_HOUR_PT = 18         # a day's plays can be posted from 6pm Pacific the night before...
+POST_FROM_HOUR_PT = 8          # a day's plays go up from 8am Pacific THAT day (the owner, 9/28: never the night
+                               # before - more value can show up by morning)...
 DEADLINE_MIN = 180             # ...as soon as everything that matters is known; if it never is, at the latest
                                # 3 hours before the play's first game (then only from games that are settled).
                                # A posted play is final: it never changes.
@@ -41,6 +42,7 @@ MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter
 LOCK_MAX_FAV = -120            # lock of the day: a moneyline no shorter than -120
 LOTD_MAX_ML = MAX_FAV            # the Lock of the Day: the engine's most confident pick on the whole board, same -150 cap
                                # as every other pick (the owner, 9/28: -150s hit more often than -135s, so it has to match)
+LOCK_MIN_P = 0.50             # a lock at minus money is at least a 50% shot (plus money: LOTD_P, 60%+)
 LOTD_P = 0.60                  # a one-game day's lone pick is only called the Lock of the Day at 60%+ to win
 DOG_MIN = 100                  # dog of the day: a plus-money underdog...
 BIG_DOG = 200                  # ...a big dog (+200 and up) is never declined when it triggers: a real shot and major value:
@@ -465,8 +467,10 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     else:
         # the owner's rule: the Lock of the Day is the ONE pick the engine is most confident in, across the whole board -
         # every sport, moneyline or spread, favorite or dog - as long as a moneyline is no shorter than -135
+        # ...and a LOCK is never a coin flip: 50%+ at minus money, 60%+ for the plus-money exception (the owner, 9/28:
+        # a +156 at 40% is no lock of anything)
         locks = [c for c in cands if good(c) and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
-                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML)]
+                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and c["p"] >= (LOCK_MIN_P if c["odds"] < 100 else LOTD_P)]
         lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
@@ -1065,7 +1069,7 @@ def run(repick=False, fetch=True):
     if repick:
         picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
-    days = [day] + ([day + timedelta(days=1)] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else [])
+    days = [day] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else []     # today's board only, from 8am PT
     try:                                                                # 📊 who's betting who on today's games
         import sports_public
         n_pub = len(sports_public.refresh_today(games))

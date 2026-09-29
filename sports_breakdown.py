@@ -192,11 +192,7 @@ def lean_tone(lines, leg, seed=""):
         if keep and not (len(keep) == 1 and len(keep[0]) <= 3):
             out.append(" ".join(keep))
     team = leg.get("team", "")
-    tms = team + ("'" if team.endswith("s") else "'s")
-    ends = [f"🟡 Bottom line: no edge on this one — it's a lean, not a lock. The algorithm just leans {team}.",
-            f"🟡 Bottom line: the numbers don't give us an edge here. {team} is the lean, nothing more.",
-            f"🟡 Bottom line: lean only. The price is about right, the algorithm just tilts {tms} way.",
-            f"🟡 Bottom line: no value, no lock — {team} is where the algorithm leans, that's it."]
+    ends = [x for x in _roll("lean", f"{seed}|{team}", team=team, tms=_pos(team)) if not HYPE.search(x)]
     out.append(ends[sum(map(ord, str(seed) + team)) % len(ends)])
     return out
 
@@ -215,6 +211,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     v = Voice(f"{g['id']}|{start:%Y-%m-%d}|{side}", used)
     pro = lg in ("nfl", "nba", "mlb", "nhl")
     the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
+    field = {"nba": "court", "ncaab": "court", "wnba": "court", "nhl": "ice"}.get(lg, "field")
+    W = {"field": field}                                  # plain words for the phrasebook (not facts)
     if ours and theirs and (start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days < 2:
         leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]
     if (sm._num(g.get("elev")) or 0) < sm.THIN_AIR_M:  # "altitude edge" only means something up in real thin air
@@ -228,19 +226,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     n_hot = int(heat.split()[1]) if heat.startswith("won") else 0
     if rec_u and n_hot >= 2:
         said.add("hotter recent form")
-        out.append(v.say("hot", [f"🔥 {us} are {rec_u} and on a {n_hot}-game heater.",
-                                  f"🔥 {us} ({rec_u}) have won {n_hot} straight and they're rolling.",
-                                  f"🔥 {us} are rolling — {n_hot} wins in a row, {rec_u} on the year.",
-                                  f"🔥 {us} can't stop winning: {n_hot} straight, {rec_u} overall.",
-            f"🔥 {us} are cooking — {n_hot} straight W's, {rec_u} overall.",
-            f"🔥 Heat check: {us} have won {n_hot} in a row ({rec_u})."]))
+        out.append(_say(v, "hot", words={"a_n": _a(n_hot)}, us=us, rec=rec_u, cnt=n_hot))
     elif rec_u:
-        out.append(v.say("rec", [f"📋 {us} sitting at {rec_u} on the year. Tonight's the only one that counts though.",
-                                  f"📋 Record check: {us} {rec_u}. We already did our homework.",
-                                  f"📋 {rec_u} so far for {us} — the record don't cash tickets, the number does.",
-            f"📋 {us} rolling in at {rec_u}.",
-            f"📋 {us} got a {rec_u} record walking in. We gon' see what they do with it.",
-            f"📋 {us} are {rec_u} right now — the rest is on the field."]))
+        out.append(_say(v, "rec", words={**W, "a_rec": _a(rec_u)}, us=us, rec=rec_u))
     if s_theirs:
         rec_t = _record(s_theirs, oid)
         cold = _streak(theirs, oid)
@@ -249,12 +237,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         rating_t = elo[lg].r.get(oid, 1500.0) if elo.get(lg) is not None else 1500.0
         trash = (len(s_theirs) >= 3 and w_t / len(s_theirs) < 0.35) or n_cold >= 3 or rating_t < 1420
         if n_cold >= 2 and not trash:                   # the trash-talk line below covers the really bad ones
-            out.append(v.say("cold", [f"🧊 {them} are {rec_t} and ice cold — {n_cold} straight L's.",
-                                       f"🧊 {them} have dropped {n_cold} in a row ({rec_t}).",
-                                       f"🧊 {n_cold} straight losses for {them}. Not a good look.",
-                                       f"🧊 {them} ({rec_t}) keep taking L's — {n_cold} straight.",
-            f"🧊 {them} ({rec_t}) are in a slump — {n_cold} straight.",
-            f"🧊 {them} forgot how to win: {n_cold} straight L's."]))
+            out.append(_say(v, "cold", them=them, rec=rec_t, cnt=n_cold))
 
     # strength
     e = elo.get(lg)
@@ -262,33 +245,8 @@ def breakdown(leg, games, elo, injuries, used=None):
         home_edge = 0 if str(g.get("neutral")) == "1" else (e.hfa if side == "home" else -e.hfa)
         gap = e.r.get(tid, 1500.0) - e.r.get(oid, 1500.0) + home_edge      # same yardstick as the card's reasons
         said.add("the stronger team")                   # said here either way (better / even / worse): not again later
-        if gap > 60:
-            out.append(v.say("better", [f"💪 {us} are straight up the better team right now.",
-                                         f"💪 This is a mismatch — {us} are just better.",
-                                         f"💪 {us} are the better squad and it's not that close.",
-                                         f"💪 On talent and results, {us} have the edge all day.",
-            f"💪 {us} are the better squad, period.",
-            f"💪 {us} got more dog in them than {them} right now.",
-            f"💪 Talent gap goes {us}' way — big time."]))
-        elif gap > 15:
-            out.append(v.say("better_s", [f"💪 {us} are the better squad, even if it's closer than it looks.",
-                                           f"💪 {us} have the edge on paper — not a blowout, but it's there.",
-                                           f"💪 Slight edge {us} on who's actually better.",
-            f"💪 {us} have a little more juice than {them}.",
-            f"💪 Close-ish on paper, but {us} are better.",
-            f"💪 {us} got the upper hand, not by a mile but it's there."]))
-        elif gap < -15:
-            out.append(v.say("worse", [f"🐺 {them} look better on paper — that's exactly why we're getting this juicy price on {us}.",
-                                        f"🐺 Everybody's on {them}. That's how we get {us} at this number.",
-                                        f"🐺 {them} are the name brand here, but the price on {us} is too good to pass.",
-            f"🐺 On paper it's {them}. On the field? We like {us} at this price.",
-            f"🐺 {them} get all the love — that's why {us} are sitting at this number."]))
-        else:
-            out.append(v.say("even", ["⚖️ On paper these two close as hell — so we taking the number that pays.",
-                                       "⚖️ Talent's about even. When it's this tight, the number makes the play.",
-                                       "⚖️ Coin-flip matchup on paper — and the line makers trippin' on the price.",
-            "⚖️ Dead even on paper. We ain't guessing who's better, we taking the better number.",
-            "⚖️ Nobody's clearly better here — so we let the number do the talking."]))
+        key = "better" if gap > 60 else "better_s" if gap > 15 else "worse" if gap < -15 else "even"
+        out.append(_say(v, key, words=W, us=us, them=them, us_s=_pos(us)))
 
     # talk our talk when the other side's been bad (only when the numbers back it up)
     if s_theirs:
@@ -296,25 +254,13 @@ def breakdown(leg, games, elo, injuries, used=None):
         rating_them = e.r.get(oid, 1500.0) if e is not None else 1500.0
         n_cold = int(_streak(theirs, oid).split()[1]) if _streak(theirs, oid).startswith("lost") else 0
         if (len(s_theirs) >= 3 and w / len(s_theirs) < 0.35) or n_cold >= 3 or rating_them < 1420:
-            rec = _record(s_theirs, oid)
-            out.append(v.say("trash", [f"🗑️ {them} have been complete ass lately — {rec} and it ain't getting prettier.",
-                                        f"🗑️ Straight up, {them} are trash right now ({rec}).",
-                                        f"🗑️ {them} can't get out of their own way ({rec}).",
-                                        f"🗑️ {them} are a mess right now. {rec} says it all.",
-                                        f"🗑️ Nothing about {them} scares us ({rec}).",
-            f"🗑️ {them} been looking like a JV squad ({rec}).",
-            f"🗑️ {them} are straight garbage right now ({rec}).",
-            f"🗑️ Watching {them} lately hurts ({rec}).",
-            f"🗑️ {them} are about to get their cheeks clapped. {rec} — they been complete ass.",
-            f"🗑️ {rec} lately. {them} are complete ass and it shows."]))
+            out.append(_say(v, "trash", them=them, rec=_record(s_theirs, oid)))
 
     # last games: just the latest scores - the form/streak lines above already cover runs
     if ours:
         last_us = _line(ours[-1], tid)
         both = f"{us} {last_us}" + (f" · {them} {_line(theirs[-1], oid)}" if theirs else "")
-        out.append(v.say("latest", [f"📅 Latest: {both}.", f"📅 Last time out: {both}.", f"📅 Most recent games: {both}.",
-                                     f"📅 Where they're coming from: {both}.", f"📅 Last week's tape: {both}." if lg in ("nfl", "ncaaf")
-                                     else f"📅 Last outing: {both}.", f"📅 Previous game: {both}.", f"📅 Fresh off: {both}."]))
+        out.append(_say(v, "latest", both=both))
 
     # head to head
     h2h = [x for x in ours if oid in (x["home"], x["away"])]
@@ -322,16 +268,9 @@ def breakdown(leg, games, elo, injuries, used=None):
         last3 = h2h[-3:]
         w = sum(1 for x in last3 if _line(x, tid).startswith("W"))
         if 2 * w >= len(last3) and len(last3) > 1:
-            out.append(v.say("h2h", [f"🆚 {us} own this matchup — won {w} of the last {len(last3)}.",
-                                      f"🆚 {us} have had {them}'s number: {w} of the last {len(last3)}.",
-                                      f"🆚 History's on our side — {w} of the last {len(last3)} meetings went {us}' way.",
-            f"🆚 {us} been owning {them} lately — {w} of the last {len(last3)}.",
-            f"🆚 {them} can't figure {us} out: {w} of {len(last3)} to {us}."]))
+            out.append(_say(v, "h2h", us=us, them=them, us_s=_pos(us), them_s=_pos(them), w=w, cnt=len(last3)))
         elif w == 1 and len(last3) == 1:
-            out.append(v.say("h2h1", [f"🆚 {us} got 'em last time: {_line(h2h[-1], tid)}.",
-                                       f"🆚 Last meeting went {us}' way ({_line(h2h[-1], tid)}).",
-            f"🆚 {us} handled {them} last time ({_line(h2h[-1], tid)}).",
-            f"🆚 Last time these two met, {us} took it ({_line(h2h[-1], tid)})."]))
+            out.append(_say(v, "h2h1", us=us, them=them, us_s=_pos(us), res=_line(h2h[-1], tid)))
 
     # the key players: QB / starting pitcher / goalie (the fun part)
     rows = sp.CACHE.get(lg) or []
@@ -349,154 +288,77 @@ def breakdown(leg, games, elo, injuries, used=None):
             if not txt:
                 continue
             if not ours_ and mood == "cold":
-                out.append(v.say(role + "_cold", {
-                    "QB": [f"🗑️ {name} has been complete booty cheeks — {txt}.",
-                           f"🗑️ {name} has been throwing it to the other team — {txt}.",
-                           f"🗑️ {name} looks lost out there: {txt}."],
-                    "SP": [f"💣 {name} has been getting shelled — {txt}.",
-                           f"💣 {name} has been getting lit up: {txt}.",
-                           f"💣 Hitters are teeing off on {name} — {txt}."],
-                    "G": [f"🥅 {name} has been leaky as hell — {txt}.",
-                          f"🥅 {name} can't stop a beach ball right now: {txt}.",
-                          f"🥅 Pucks keep getting past {name} — {txt}."]}[role]))
+                out.append(_say(v, role + "_cold", name=name, txt=txt))
             elif ours_ and mood == "hot":
-                out.append(v.say(role + "_hot", {
-                    "QB": [f"🎯 {name} has been cooking — {txt}.",
-                           f"🎯 {name} is locked in: {txt}.",
-                           f"🎯 {name} is slinging it — {txt}."],
-                    "SP": [f"🔥 {name} has been dealing — {txt}.",
-                           f"🔥 {name} is on a roll: {txt}.",
-                           f"🔥 Nobody's touching {name} lately — {txt}."],
-                    "G": [f"🧱 {name} has been a brick wall — {txt}.",
-                          f"🧱 {name} is standing on his head: {txt}.",
-                          f"🧱 Good luck scoring on {name} — {txt}."]}[role]))
+                out.append(_say(v, role + "_hot", name=name, txt=txt))
 
     # situational spots the engine learned from 10 seasons of games
     rsn = leg.get("reasons") or []
     if "revenge game" in rsn:
-        out.append(v.say("revenge", [f"😤 Revenge game — {us} lost the last meeting and they haven't forgotten.",
-                                      f"😤 {us} owe {them} one from last time. Payback's coming.",
-                                      f"😤 Get-back game for {us}. They took an L to {them} last time.",
-                                      f"😤 {us} been waiting on this rematch."]))
+        out.append(_say(v, "revenge", us=us, them=them))
         said.add("revenge game")
     if "letdown spot for the opponent" in rsn:
-        out.append(v.say("letdown", [f"🪤 Letdown spot for {them} — fresh off a blowout win, they're gonna come out flat.",
-                                      f"🪤 {them} just blew somebody out. Classic letdown game.",
-                                      f"🪤 {them} are riding high off a big W. That's when teams slip.",
-                                      f"🪤 Trap game for {them} after that blowout."]))
+        out.append(_say(v, "letdown", them=them))
         said.add("letdown spot for the opponent")
     if "rolling off a blowout win" in rsn:
-        out.append(v.say("momentum", [f"🚀 {us} just blew somebody out — teams like that keep rolling.",
-                                       f"🚀 {us} are coming in hot off a blowout. Momentum's real.",
-                                       f"🚀 Blowout last time out for {us}. They're feeling themselves."]))
+        out.append(_say(v, "momentum", words=W, us=us))
         said.add("rolling off a blowout win")
     temp, wind, rain = g.get("wx_temp", ""), g.get("wx_wind", ""), g.get("wx_rain", "")
     if "altitude edge" in rsn and (sm._num(g.get("elev")) or 0) >= sm.THIN_AIR_M:
-        out.append(v.say("alt", [f"🏔️ Thin air — {g.get('elev')} meters up. {_cap(the_them)} gonna be sucking wind by the second half.",
-                                  f"🏔️ Altitude game. {_cap(the_them)} ain't used to breathing up there.",
-                                  f"🏔️ Mile-high problems for {the_them}. Legs get heavy fast at that elevation."]))
+        out.append(_say(v, "alt", elev=g.get("elev"), The_them=_cap(the_them), the_them=the_them))
         said.add("altitude edge")
     if "cold-weather edge" in rsn:
-        out.append(v.say("cold_w", [f"🥶 {temp}°F at kickoff. {_cap(the_them)} are a warm-weather squad walking into a freezer.",
-                                     f"🥶 It's gonna be {temp}°F. {_cap(the_them)} don't play in this — {the_us} do.",
-                                     f"🥶 Cold one ({temp}°F). Welcome to real weather, {the_them}."]))
+        out.append(_say(v, "cold_w", temp=temp, The_them=_cap(the_them), the_them=the_them, the_us=the_us))
         said.add("cold-weather edge")
     if "nasty weather helps us" in rsn:
         what = f"{wind} mph winds" if str(wind) not in ("", "0") and float(wind or 0) >= 15 else f"{rain} mm of rain"
-        out.append(v.say("wx", [f"🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how dogs eat.",
-                                 f"🌬️ {what}. Ugly weather drags everybody down to the same level.",
-                                 f"🌧️ Weather's nasty ({what}). Anything can happen in the slop."]))
+        out.append(_say(v, "wx", what=what))
         said.add("nasty weather helps us")
     if "opponent's body clock is off" in rsn:
-        out.append(v.say("jetlag", [f"🕐 {_cap(the_them)} crossed a few time zones for this one. Body clock's all messed up.",
-                                     f"🕐 Jet-lag game for {the_them} — their bodies think it's a different time.",
-                                     f"🕐 Long trip for {the_them}, time zones and all. Legs gonna be heavy."]))
+        out.append(_say(v, "jetlag", The_them=_cap(the_them), the_them=the_them))
         said.add("opponent's body clock is off")
     drama_r = next((r for r in rsn if r.startswith("opponent drama:")), None)
     if drama_r and leg.get("their_drama"):
         ev = leg["their_drama"][0]
-        kind = ev["kind"]
-        lines = {"coach fired": [f"🧯 {_cap(the_them)} just fired their coach. Locker room's a mess.",
-                                 f"🧯 Coaching change for {the_them} — interim guy, total chaos."],
-                 "suspension": [f"🧯 {_cap(the_them)} got a suspension hanging over them: \"{ev['headline']}\"",
-                                f"🧯 Suspension news for {the_them}. That shakes a team up."],
-                 "legal trouble": [f"🧯 {_cap(the_them)} got off-field drama going on: \"{ev['headline']}\"",
-                                   f"🧯 Legal mess around {the_them} this week. Distractions are real."],
-                 "family/personal": [f"🧯 {_cap(the_them)} dealing with some personal stuff: \"{ev['headline']}\"",
-                                     f"🧯 Heavy week for {the_them} off the field. Hard to lock in."],
-                 "illness": [f"🤒 Sickness going around {the_them}: \"{ev['headline']}\"",
-                             f"🤒 {_cap(the_them)} got guys under the weather."],
-                 "trade drama": [f"🧯 Trade drama in {the_them}' locker room: \"{ev['headline']}\"",
-                                 f"🧯 {_cap(the_them)} got a guy wanting out. Locker room's split."]}.get(kind)
-        if lines:
-            out.append(v.say("drama_" + kind.replace("/", "_").replace(" ", "_"), lines))
+        key = "drama_" + ev["kind"].replace("/", "_").replace(" ", "_")
+        if key in T:
+            out.append(_say(v, key, The_them=_cap(the_them), the_them=the_them, the_them_s=_pos(the_them),
+                            hl=f"\"{ev.get('headline', '')}\""))
         said.add(drama_r)
     out += context_lines(leg, v, us, them, the_us, the_them, g)
     if "coming off a bye" in rsn:
-        out.append(v.say("bye", [f"🛌 {us} are fresh off a bye — rested and game-planned up.",
-                                  f"🛌 Extra week to prep for {us}. That matters.",
-                                  f"🛌 Bye week in the rearview for {us}. Fresh legs, full playbook."]))
+        out.append(_say(v, "bye", us=us))
         said.add("coming off a bye")
     if "opponent on a short week" in rsn:
-        out.append(v.say("short", [f"⏱️ {them} are on a short week. Not much time to prep.",
-                                    f"⏱️ Short week for {them} — tired bodies, rushed game plan.",
-                                    f"⏱️ {them} barely had time to recover. Short week."]))
+        out.append(_say(v, "short", them=them))
         said.add("opponent on a short week")
 
     # overseas games are always weird
     if str(g.get("intl")) == "1":
-        where = g.get("country") or "overseas"
-        out.append(v.say("intl", [f"🌍 Game's overseas in {where}. These are always weird — the engine needed extra value to take it.",
-                                   f"🌍 International game ({where}). Nobody's really home, everybody's jet-lagged — we only play these with a bigger edge.",
-                                   f"🌍 {where} game. Weird spot, so the engine made sure the number's extra juicy."]))
+        out.append(_say(v, "intl", where=g.get("country") or "overseas"))
 
     # home / road
     if str(g.get("intl")) == "1":
         pass                                            # no real home crowd overseas
     elif side == "home":
-        out.append(v.say("home", [f"🏟️ {us} at the crib tonight — their building, their rules.",
-                                   f"🏟️ Home cooking for {us}. That crowd finna be loud as hell.",
-                                   f"🏟️ {us} in their own house. Y'all know teams play different at home.",
-                                   f"🏟️ {us} are home tonight and ready to handle business.",
-            f"🏟️ {us} got the whole building behind 'em tonight.",
-            f"🏟️ {us} at home, fans rocking. They about to go to work."]))
+        out.append(_say(v, "home", words=W, us=us))
     else:
-        out.append(v.say("road", [f"🧳 {us} are on the road — doesn't scare us.",
-                                   f"🧳 Road game for {us}, but they travel just fine.",
-                                   f"🧳 {us} walk into a hostile building — we're not worried.",
-                                   f"🧳 Away game for {us}. The numbers still like them.",
-            f"🧳 {us} on the road, but this team doesn't care where they play.",
-            f"🧳 Away game — {us} bring their own energy.",
-            f"🧳 {us} hit the road. Doesn't matter to us."]))
+        out.append(_say(v, "road", us=us))
 
     # rest
     if ours and theirs:
         d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
         if d_them <= 1 < d_us:
-            out.append(v.say("b2b", [f"😴 {them} played yesterday — tired legs. {us} are fresh.",
-                                      f"😴 {them} are on a back-to-back; {us} had the night off.",
-                                      f"😴 Short rest for {them}, full tank for {us}.",
-            f"😴 {them} are running on fumes — played last night.",
-            f"😴 Back-to-back for {them}. Tired legs, cold shooting."]))
+            out.append(_say(v, "b2b", us=us, them=them))
         elif d_us - d_them >= 2:
-            gap_d = d_us - d_them
-            out.append(v.say("rest", [f"🛌 {us} had {gap_d} more days off than {them}.",
-                                       f"🛌 Rest edge: {us} got {gap_d} extra days to recover.",
-                                       f"🛌 {us} come in with {gap_d} more days of rest.",f"🛌 {us} are the more rested squad.", f"🛌 {us} had extra days to get right.",
-                                       f"🛌 Rest edge goes to {us}.",
-            f"🛌 {us} are well-rested and ready.",
-            f"🛌 Extra rest for {us} — fresh legs."]))
+            out.append(_say(v, "rest", us=us, them=them, d=d_us - d_them))
 
     # pitchers
     if lg == "mlb" and (g.get("sp_home") or g.get("sp_away")):
         ps, po = g.get("sp_" + side) or "TBA", g.get("sp_" + other) or "TBA"
         nice = [f"⚾ {x}" for x in sports_lingo.good(ps, the_them, f"{g['id']}|sp")] \
             if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" else []   # our arm's the better one
-        out.append(v.say("bump", names=(ps, the_them), options=nice + [f"⚾ On the bump: {ps} for {us}, {po} for {them}.",
-                                   f"⚾ Pitching matchup: {ps} ({us}) vs {po} ({them}).",
-                                   f"⚾ {ps} takes the ball for {us}; {them} go with {po}.",
-            f"⚾ {ps} gets the ball for {us} against {po}.",
-            f"⚾ It's {ps} for {us}, {po} for {them}."]))
+        out.append(_say(v, "bump", extra=nice, names=(ps, the_them), ps=ps, po=po, us=us, them=them))
 
     # injuries
     inj = (injuries or {}).get(lg)
@@ -504,21 +366,11 @@ def breakdown(leg, games, elo, injuries, used=None):
         ours_out, theirs_out = sd.team_injuries(inj, tid, us), sd.team_injuries(inj, oid, them)
         key_them = sd.team_key_out(inj, oid, them, lg)
         if key_them:
-            pos, nm = key_them[0][1], key_them[0][0]
-            out.append(v.say("keyout", [f"🚑 {them} are rolling without their starting {pos} ({nm}).",
-                                         f"🚑 No {nm} for {them} — that's their starting {pos}.",
-                                         f"🚑 {them} are down their starting {pos}, {nm}."]))
+            out.append(_say(v, "keyout", them=them, pos=key_them[0][1], nm=key_them[0][0]))
         if theirs_out and len(theirs_out) > len(ours_out):
-            out.append(v.say("banged", [f"🚑 {them} are hella banged up ({_names(theirs_out)}).",
-                                         f"🚑 {them}' injury list is stacking up: {_names(theirs_out)}.",
-                                         f"🚑 {them} are missing bodies — {_names(theirs_out)}.",
-            f"🚑 {them} are dealing with injuries: {_names(theirs_out)}.",
-            f"🚑 {them} are short-handed ({_names(theirs_out)})."]))
+            out.append(_say(v, "banged", them=them, them_s=_pos(them), hurt=_names(theirs_out)))
         elif not ours_out:
-            out.append(v.say("healthy", [f"✅ {us} are healthy — nobody important sitting.",
-                                          f"✅ Full squad for {us}.", f"✅ {us} have everybody available.",
-            f"✅ {us} are at full strength.",
-            f"✅ Nobody big missing for {us}."]))
+            out.append(_say(v, "healthy", us=us))
 
     # a starting QB/goalie out: the line moved for the INJURY, not sharp money - say that, never "sharps"/"clowns"
     op, now = sm._int(g.get(f"ml_{side}_open")), sm._int(g.get(f"ml_{side}"))
@@ -530,18 +382,9 @@ def breakdown(leg, games, elo, injuries, used=None):
         pts = leg.get("line") if leg.get("market") == "spread" else None
         need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)}, win by 1, or lose — we cash." \
             if pts and pts > 0 and pts != int(pts) else ""
-        out.append(v.say("keyout_us", [
-            f"🚑 {nm} is out, {the_us} rolling with the backup {pos}.{mv} We know. We still riding with the algorithm.{need}",
-            f"🚑 No {nm} tonight — backup {pos} gets the keys for {the_us}.{mv} Vegas already baked that in, and the numbers still say this the side.{need}",
-            f"🚑 Yeah, {nm} is out. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}"],
-            must=True))
+        out.append(_say(v, "keyout_us", must=True, nm=nm, pos=pos, the_us=the_us, mv=mv, need=need))
     if not key_any and op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
-        out.append(v.say("sharp", [f"💰 Sharp money is on us: {us} opened {_am(op)}, now {_am(now)}.",
-                                    f"💰 The pros are hammering {us} — {_am(op)} at open, {_am(now)} now.",
-                                    f"💰 The line moved our way ({_am(op)} → {_am(now)}). Smart money agrees.",
-                                    f"💰 Money's been pouring in on {us}: {_am(op)} to {_am(now)}.",
-            f"💰 Big money moved {us} from {_am(op)} to {_am(now)}. We like the company.",
-            f"💰 {us} went from {_am(op)} to {_am(now)} — the pros see it too."]))
+        out.append(_say(v, "sharp", us=us, op=_am(op), now=_am(now)))
 
     # sharp money going the other way and we still like our side: say it our way, with a quick reason
     op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
@@ -550,39 +393,17 @@ def breakdown(leg, games, elo, injuries, used=None):
         why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
                    NO_WHY)
         said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
-        out.append(_nowhy(v.say("fade", [
-            f"💸 Sharp money's been coming in on {the_them}{move}, but they must be some clowns. We're on {the_us} — {why}.",
-            f"💸 The so-called sharps are all over {the_them}{move}. We're fading the clowns and taking {the_us} — {why}.",
-            f"💸 Line's moving toward {the_them}{move}. Let 'em — we still like {the_us}, {why}.",
-            f"💸 Money's pouring in on {the_them}{move}. They must've lost their minds — we got {the_us}, {why}.",
-            f"💸 Everybody's jumping on {the_them}{move}. They're tweaking — we're riding {the_us}, {why}.",
-            f"💸 The market's leaning {the_them}{move}. Somebody's about to learn a lesson — we're on {the_us}, {why}."])))
+        out.append(_nowhy(_say(v, "fade", The_them=_cap(the_them), the_them=the_them, move=move, the_us=the_us,
+                               why=why)))
 
     # who's betting who: the real splits (the same numbers Google shows)
     sp_ = public_split(leg)
     if sp_:
         t, m = sp_
         mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]
-        if t <= 35:
-            out.append(v.say("splits", [
-                f"📊 The whole world on {the_them} — {100 - t}% of the bets and {100 - m}% of the money on {mk}. "
-                f"We fading the public and taking {the_us}. That's how Vegas eats, and tonight we eating with 'em.",
-                f"📊 {100 - t}% of the bets on {the_them} ({100 - m}% of the money). Sheep gon' be sheep — "
-                f"we on {the_us} with the other {t}%.",
-                f"📊 Public's hammering {the_them}: {100 - t}% of the bets, {100 - m}% of the money. "
-                f"We ain't following the herd — {the_us} all day."], must=True))
-        elif t >= 65:
-            out.append(v.say("splits", [
-                f"📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us}. "
-                f"Sometimes the crowd gets it right.",
-                f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd tonight, but we got our own reasons."],
-                must=True))
-        else:
-            out.append(v.say("splits", [
-                f"📊 Bets are split — {t}% on {the_us}, {100 - t}% on {the_them} ({m}% / {100 - m}% of the money). "
-                f"Nobody knows nothing on this one, except us.",
-                f"📊 Who's betting who: {t}% of the bets on {the_us}, {100 - t}% on {the_them}. Pretty split crowd."],
-                must=True))
+        kind = "splits_fade" if t <= 35 else "splits_ride" if t >= 65 else "splits_even"
+        out.append(_say(v, "splits", tkey=kind, must=True, t=t, m=m, pt=100 - t, pm=100 - m, mk=mk,
+                        the_us=the_us, the_them=the_them, The_us=_cap(the_us), The_them=_cap(the_them)))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
@@ -591,46 +412,18 @@ def breakdown(leg, games, elo, injuries, used=None):
     if sp_:
         pass                                          # the real splits already said it (with the numbers)
     elif pub == "fade":
-        out.append(_nowhy(v.say("pub_fade", [
-            f"🤡 {_cap(the_them)} are the clear favorite and the public's all over 'em. Don't be a sheep — we're on {the_us}, {why_pub}.",
-            f"🤡 The public is all over {the_them}. Dummies are about to lose their money — we're on {the_us}, {why_pub}.",
-            f"🤡 Everybody and their mama is on {the_them}. Not us — we got {the_us}, {why_pub}.",
-            f"🤡 The sheep are lining up for {the_them}. We're not sheep — we're on {the_us}, {why_pub}.",
-            f"🤡 Crowd's on {the_them}. We're riding {the_us} and the engine — {why_pub}.",
-            f"🤡 Public's hammering {the_them} like it's free money. It ain't — we got {the_us}, {why_pub}.",
-            f"🤡 All the casuals love {the_them}. We're not casuals — {the_us} all day, {why_pub}."])))
+        out.append(_nowhy(_say(v, "pub_fade", The_them=_cap(the_them), the_them=the_them, the_us=the_us, why=why_pub)))
     elif pub == "ride":
-        out.append(_nowhy(v.say("pub_ride", [
-            f"🤝 Riding with the public on {the_us} — sometimes the public gotta win, {why_pub}.",
-            f"🤝 Public's on {the_us} too, and this time they're not dummies — {why_pub}.",
-            f"🤝 Even a broken clock is right twice a day — the public got {the_us} right, {why_pub}.",
-            f"🤝 We're with the crowd on {the_us} and not ashamed of it — {why_pub}.",
-            f"🤝 Public side on {the_us}, but we got our own reasons — {why_pub}.",
-            f"🤝 We're riding with the crowd on {the_us}. Sometimes they get it right — {why_pub}."])))
+        out.append(_nowhy(_say(v, "pub_ride", the_us=the_us, why=why_pub)))
 
     # bottom line
     need, have = 1 / leg["dec"], leg["p"]
     bet = f"{us} {leg['line']:+g}" if leg["market"] == "spread" else us
     price = f"{bet} ({_am(leg['odds'])})"
     if _odds_words(need) != _odds_words(have):
-        out.append(v.say("bottom", [
-            f"✅ Bottom line: Vegas has {price} priced like {_odds_words(need)}. The engine sees {_odds_words(have)}. That's the value — trust the algorithm.",
-            f"✅ Bottom line: the book treats {price} like {_odds_words(need)}; we've got it closer to {_odds_words(have)}. Easy call.",
-            f"✅ Bottom line: {price} should be more like {_odds_words(have)}, and Vegas is pricing {_odds_words(need)}. We'll take that all day.",
-            f"✅ Bottom line: {_odds_words(have)} in our book vs {_odds_words(need)} at the window for {price}. Trust the algorithm.",
-            f"✅ Bottom line: Vegas says {_odds_words(need)} on {price}, the engine says {_odds_words(have)}. Easy money if the engine's right.",
-            f"✅ Bottom line: {price} is priced like {_odds_words(need)} — we see {_odds_words(have)}. That gap is the whole play.",
-            f"✅ Bottom line: book says {_odds_words(need)}, we say {_odds_words(have)}. We ride {price}.",
-            f"✅ Bottom line: {_odds_words(have)} for us vs {_odds_words(need)} at the window on {price}. Value all day."], must=True))
+        out.append(_say(v, "bottom", must=True, price=price, need=_odds_words(need), have=_odds_words(have)))
     else:
-        out.append(v.say("bottom_s", [
-            f"✅ Bottom line: Vegas got {price} priced like {_odds_words(need)}, but everything above tips it our way. Small edge, real edge — we gon' see.",
-            f"✅ Bottom line: close to {_odds_words(need)} at the book, but the details break our way on {price}. We finna see.",
-            f"✅ Bottom line: {price} ain't a slam dunk, it's a smart number — and the little things all point our way. Tap in.",
-            f"✅ Bottom line: {price} is a thin edge, but it's an edge. I won't let y'all down.",
-            f"✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way. We gon' see.",
-            f"✅ Bottom line: {price} ain't flashy. It's just the right side. Tap in.",
-            f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way. We finna see."], must=True))
+        out.append(_say(v, "bottom_s", must=True, price=price, need=_odds_words(need)))
     lines = [x for x in out if x]
     if len(lines) > 2:
         import random
@@ -688,59 +481,18 @@ def _nth(n):
     return {1: "1st", 2: "2nd", 3: "3rd"}.get(n, f"{n}th")
 
 
-TALK_LINES = {   # pregame talk (sports_news TALK_KINDS): display only - forward-only tags, never a number
-    "contract year": lambda who: [f"📣 Contract-year energy around {who} — somebody's playing for a bag.",
-                                  f"📣 {_cap(who)} got money on the line this year. Contract talk all week.",
-                                  f"📣 Payday season for {who}: the contract chatter is loud.",
-                                  f"📣 Incentives on the line for {who}. Expect some extra effort."],
-    "unhappy": lambda who: [f"📣 Not everybody's happy over there — {who} got some public frustration going.",
-                            f"📣 Grumbling in {who}' camp this week, and it's out in the open.",
-                            f"📣 Somebody in {who}' building is venting to the press. Vibes are off.",
-                            f"📣 {_cap(who)} got a frustrated voice or two talking publicly."],
-    "trash talk": lambda who: [f"📣 {_cap(who)} been running their mouth this week. Bulletin-board stuff.",
-                               f"📣 Trash talk out of {who}'s side. Somebody gotta back it up now.",
-                               f"📣 {_cap(who)} talked a big game all week — receipts get checked tonight.",
-                               f"📣 Guarantees flying around {who}. Talk is cheap till kickoff."],
-    "must-win": lambda who: [f"📣 {_cap(who)} already calling it a must-win out loud.",
-                             f"📣 \"Must-win\" is the word around {who} this week. Backs to the wall.",
-                             f"📣 {_cap(who)} say their season rides on this one.",
-                             f"📣 Win-or-else talk coming out of {who}."],
-    "rivalry week": lambda who: [f"📣 Rivalry week talk is loud around {who}. Bad blood energy.",
-                                 f"📣 {_cap(who)} been hyping the rivalry all week.",
-                                 f"📣 Bragging rights on the line, and {who} know it.",
-                                 f"📣 Circled on the calendar for {who}. No love lost here."],
-    "hot seat": lambda who: [f"📣 Coach's job is a hot topic around {who}. Hot seat talk everywhere.",
-                             f"📣 Job-security questions around {who}'s coach this week.",
-                             f"📣 {_cap(who)}' coach is feeling the heat in the papers.",
-                             f"📣 The coach over at {who} is under the microscope right now."],
-}
-
-
 def context_lines(leg, v, us, them, the_us, the_them, g):
     """Breakdown lines for the context study's facts (rivalry, travel, domes, stakes, refs) and pregame talk.
     Proven or not, these are just what's around the game - the numbers only move for PROVEN factors."""
     out = []
     total = leg.get("market") == "total"
+    names = dict(the_us=the_us, the_them=the_them, The_us=_cap(the_us), The_them=_cap(the_them))
     for c in leg.get("ctx") or []:
         k = c.get("k")
         if k == "rival":
-            out.append(v.say("cx_rival", [f"🔥 Rivalry game. {_cap(the_us)} and {the_them} got real history.",
-                                          "🔥 Circled on both calendars — these two don't like each other.",
-                                          "🔥 Straight-up rivalry. Records go out the window in these.",
-                                          "🔥 Bad blood game — this is one of the classics.",
-                                          "🔥 Rivalry night. No love lost between these two."]
-                             if not total else [f"🔥 Rivalry game — {them}. Emotions run hot in these.",
-                                                f"🔥 Classic rivalry on the board: {them}.",
-                                                f"🔥 Bad blood matchup ({them}). These get weird on the scoreboard."]))
+            out.append(_say(v, "cx_rival", tkey="cx_rival_t", them=them) if total else _say(v, "cx_rival", **names))
         elif k == "div":
-            out.append(v.say("cx_div", [f"🔥 Division game — {the_us} and {the_them} see each other every year.",
-                                        "🔥 Division rivals. They know each other's playbook cold.",
-                                        "🔥 Division matchup: familiarity on both sides.",
-                                        "🔥 It's a division game, so both sides know exactly what's coming.",
-                                        "🔥 Division beef. No secrets between these two."]
-                             if not total else [f"🔥 Division game ({them}) — two teams that know each other cold.",
-                                                f"🔥 Division matchup on the total: {them}.",
-                                                f"🔥 Familiar foes ({them}), division game."]))
+            out.append(_say(v, "cx_div", tkey="cx_div_t", them=them) if total else _say(v, "cx_div", **names))
         elif k == "trip":
             mi, r6, d = c.get("mi") or 0, c.get("road6") or 0, c.get("dir")
             bits = []
@@ -751,69 +503,37 @@ def context_lines(leg, v, us, them, the_us, the_them, g):
             if not bits:
                 continue
             fact = ", ".join(bits)
-            out.append(v.say("cx_trip", [f"🧳 {_cap(the_them)}: {fact}. That travel adds up.",
-                                         f"🧳 {fact.capitalize()} for {the_them}. Frequent flyer points, heavy legs.",
-                                         f"🧳 {_cap(the_them)} living out of a suitcase — {fact}.",
-                                         f"🧳 Travel check on {the_them}: {fact}.",
-                                         f"🧳 {_cap(the_them)} put in the miles to get here ({fact})."]))
+            out.append(_say(v, "cx_trip", fact=fact, Fact=fact.capitalize(), **names))
         elif k == "dome_cold":
             temp, wind = g.get("wx_temp", ""), g.get("wx_wind", "")
             wx = (f"{temp}°" if str(temp) != "" else "cold") + (f" with {wind} mph wind" if str(wind) not in ("", "0")
                                                                 and float(wind or 0) >= 15 else "")
             who = the_them if not total else ("the home dome team" if c.get("who") == "home" else "the road dome team")
-            out.append(v.say("cx_domecold", [f"🏟️ Dome team outside in {wx} — {who} usually play with the thermostat set.",
-                                             f"🏟️ {_cap(who)} play indoors at home. Tonight: {wx} outside.",
-                                             f"🏟️ No roof tonight for {who}. {wx.capitalize()} in the forecast.",
-                                             f"🏟️ Indoor squad in the elements: {wx} for {who}."]))
+            out.append(_say(v, "cx_domecold", wx=wx, Wx=_cap(wx), who=who, Who=_cap(who)))
         elif k == "dome_out":
-            out.append(v.say("cx_domeout", [f"🏟️ {_cap(the_them)} are a dome team playing outside today.",
-                                            f"🏟️ No roof for {the_them} this time — they're used to playing inside.",
-                                            f"🏟️ {_cap(the_them)} leave the dome for an open-air building.",
-                                            f"🏟️ Open air for an indoor team: {the_them} out of their element."]))
+            out.append(_say(v, "cx_domeout", **names))
         elif k == "mustwin":
-            out.append(v.say("cx_mustwin", [f"🚨 Must-win for {the_us} ({c.get('rec')}) — right in the playoff race.",
-                                            f"🚨 {_cap(the_us)} ({c.get('rec')}) are fighting for a playoff spot. Backs against the wall.",
-                                            f"🚨 Playoff race: {the_us} need this one, {the_them} don't.",
-                                            f"🚨 Every game counts for {the_us} ({c.get('rec')}) right now. {_cap(the_them)}? Not so much."]))
+            out.append(_say(v, "cx_mustwin", rec=c.get("rec"), **names))
         elif k == "rest":
-            out.append(v.say("cx_rest", [f"🪑 {_cap(the_them)} already clinched — rest-the-starters territory.",
-                                         f"🪑 Playoff spot locked for {the_them}. Don't be shocked if the stars sit.",
-                                         f"🪑 {_cap(the_them)} got their ticket punched already. Nothing to play for tonight.",
-                                         f"🪑 Clinched and coasting: {the_them} could rest guys."]))
+            out.append(_say(v, "cx_rest", **names))
         elif k == "tank":
-            out.append(v.say("cx_tank", [f"📉 {_cap(the_them)} ({c.get('rec')}) are out of it. Draft-pick season over there.",
-                                         f"📉 Eliminated and {c.get('rec')} — {the_them} are playing for ping-pong balls.",
-                                         f"📉 {_cap(the_them)} ({c.get('rec')}) got nothing to play for but next year.",
-                                         f"📉 Season's over for {the_them} ({c.get('rec')}), they just haven't gone home yet."]))
+            out.append(_say(v, "cx_tank", rec=c.get("rec"), **names))
         elif k == "elim":
-            out.append(v.say("cx_elim", [f"📉 {_cap(the_them)} are eliminated; {the_us} are still in the race.",
-                                         "📉 One team's playing for a spot, the other's playing out the string.",
-                                         f"📉 {_cap(the_them)} are out of the playoff picture. {_cap(the_us)} ain't.",
-                                         f"📉 Playoff hopes: {the_us} alive, {the_them} done."]))
+            out.append(_say(v, "cx_elim", **names))
         elif k == "bowl5":
-            out.append(v.say("cx_bowl", [f"🏈 {us} sit at 5 wins — one more and they're bowl eligible.",
-                                         f"🏈 Bowl eligibility on the line: {us} need win number 6.",
-                                         f"🏈 {us} are one W from a bowl game. Extra motivation.",
-                                         f"🏈 Win 6 means a bowl trip for {us}."]))
+            out.append(_say(v, "cx_bowl", us=us))
         elif k == "hotseat":
-            n = c.get("n") or 0
-            out.append(v.say("cx_hotseat", [f"🔥 {_cap(the_them)} have lost {n} straight — that coach is on the hot seat.",
-                                            f"🔥 {n} losses in a row for {the_them}. Coaching staff feeling the heat.",
-                                            f"🔥 {_cap(the_them)} ({n} straight L's) are in a fishbowl right now.",
-                                            f"🔥 Losing streak at {n} for {the_them}. Jobs on the line over there."]))
+            out.append(_say(v, "cx_hotseat", cnt=c.get("n") or 0, the_them_s=_pos(the_them), **names))
         elif k in ("ref_side", "ref_total"):
             nm = (c.get("names") or ["the crew"])[0]
             lean = c.get("lean")
             what = {"home": "the home team", "road": "the road team", "over": "the over", "under": "the under"}.get(lean, lean)
-            out.append(v.say("cx_ref", [f"🦓 {nm} on the whistle tonight — his games have leaned toward {what}.",
-                                        f"🦓 Zebra check: {nm}'s crew has tilted to {what} over his earlier games.",
-                                        f"🦓 {nm} officiating. His track record leans {what}.",
-                                        f"🦓 Officials matter: {nm}'s games have gone {what}'s way more than the book expected."]))
+            out.append(_say(v, "cx_ref", nm=nm, Nm=_cap(nm), nm_s=_pos(nm), what=what))
     for key, who in (("talk_theirs", the_them), ("talk_ours", the_us)):
         for t in (leg.get(key) or [])[:1]:
-            opts = TALK_LINES.get(t.get("kind"))
-            if opts and not total:
-                out.append(v.say("talk_" + t["kind"].replace(" ", "_").replace("-", "_"), opts(who)))
+            tk = "talk_" + str(t.get("kind")).replace(" ", "_").replace("-", "_")
+            if tk in T and not total:
+                out.append(_say(v, tk, who=who, Who=_cap(who), who_s=_pos(who), Who_s=_cap(_pos(who))))
     return [x for x in out if x]
 
 
@@ -855,3 +575,791 @@ def _odds_words(p):
     if n <= 1:
         return f"about 1 in {round(1 / p)}"
     return f"about {n} in 10"
+
+
+# ─── THE PHRASEBOOK ──────────────────────────────────────────────────────────────────────────────────────────────────
+# Every breakdown line is a handful of sentence skeletons with slots ({us}, {rec}... = the facts, passed in) and inline
+# picks ([a|b|c]; [a|] = maybe). sports_vocab.variants() rolls them out per game and day, Voice.say keeps a roll that
+# repeats no 4-word run from the board or from yesterday. Facts never change - only the wording around them.
+# The owner: variety never makes a line longer - every roll stays within today's size for that line (_CAP) and never
+# has more sentences. Never "real talk", never "chalk".
+
+_P = {   # breakdown-only word pools (one flat [..] each - never nested inside another pick)
+    "rn": "[right now|lately|these days|this stretch|of late|at the moment]",
+    "yr": "[on the year|on the season|this season|so far|overall|on the campaign]",
+    "str8": "[straight|in a row]",
+    "Ls": "[L's|losses]",
+    "tn": "[tonight|today|this time|in this one]",
+    "bk": "[Vegas|the book|the sportsbook|the oddsmaker|the house|the market|the window]",
+    "Bk": "[Vegas|The book|The sportsbook|The oddsmaker|The house|The market|The window]",
+    "close": "[That's the value.|That's the play.|That gap is the play.|Trust the algorithm.|Easy call.|Value all day.|"
+             "We'll take that all day.|That's the edge.|Math is math.|Tail it.|We ride.|Book it.|Let's eat.|Nice nice.|"
+             "Say less.|Light work.|Cook.|Numbers don't lie.|That's where the money's at.|Levels to this.|]",
+    "sclose": "[We gon' see.|We finna see.|Tap in.|I won't let y'all down.|Right side, that's all.|Quiet play.|"
+              "Stay disciplined.|We'll see.|Small bet energy.|Let it ride.|]",
+}
+
+
+def _x(t):
+    return re.sub(r"\{(\w+)\}", lambda m: _P.get(m.group(1), m.group(0)), t)
+
+
+# today's size of each line (before the phrasebook): (characters outside the facts - each fact counts 6 -, sentences)
+_CAP = {"hot": (64, 1), "rec": (82, 2), "cold": (55, 2), "better": (54, 1), "better_s": (65, 1), "worse": (92, 3),
+        "even": (83, 2), "trash": (81, 2), "latest": (36, 1), "h2h": (78, 1), "h2h1": (51, 1),
+        "QB_cold": (58, 1), "SP_cold": (44, 1), "G_cold": (51, 1), "QB_hot": (35, 1), "SP_hot": (43, 1),
+        "G_hot": (41, 1), "revenge": (73, 2), "letdown": (81, 2), "momentum": (63, 2), "alt": (80, 2),
+        "cold_w": (78, 2), "wx": (78, 2), "jetlag": (75, 2), "drama_coach_fired": (56, 2),
+        "drama_suspension": (53, 2), "drama_legal_trouble": (60, 2), "drama_family_personal": (55, 2),
+        "drama_illness": (40, 1), "drama_trade_drama": (52, 2), "bye": (65, 2), "short": (58, 2), "intl": (116, 2),
+        "home": (70, 2), "road": (65, 2), "b2b": (57, 2), "rest": (53, 1), "bump": (58, 1), "keyout": (60, 1),
+        "banged": (45, 1), "healthy": (48, 1), "keyout_us": (143, 3), "sharp": (68, 2), "fade": (103, 2),
+        "splits_fade": (180, 3), "splits_ride": (180, 3), "splits_even": (180, 3), "pub_fade": (106, 2),
+        "pub_ride": (81, 2), "bottom": (115, 3), "bottom_s": (126, 3), "lean": (94, 2),
+        "cx_rival": (64, 2), "cx_rival_t": (64, 2), "cx_div": (65, 2), "cx_div_t": (65, 2), "cx_trip": (55, 2),
+        "cx_domecold": (77, 2), "cx_domeout": (65, 1), "cx_mustwin": (74, 3), "cx_rest": (71, 2),
+        "cx_tank": (69, 2), "cx_elim": (68, 2), "cx_bowl": (60, 2), "cx_hotseat": (69, 2), "cx_ref": (86, 2),
+        "talk_contract_year": (68, 2), "talk_unhappy": (78, 2), "talk_trash_talk": (67, 2),
+        "talk_must_win": (68, 2), "talk_rivalry_week": (60, 2), "talk_hot_seat": (69, 2)}
+
+_TOK = re.compile("[-]")
+
+
+def _size(line):
+    """(characters outside the facts, sentences) of a rolled line whose facts are still tokens."""
+    m = _TOK.sub("\x01" * 6, line)
+    n = len(re.findall(r"[.!?]+(?=\s|$|\x01)", m)) + (0 if re.search(r"[.!?]\W*$", m) else 1)
+    return len(m), n
+
+
+def _roll(key, seed, words=None, tkey=None, **facts):
+    """This line rolled out many ways (up to 60), the facts dropped in untouched, every roll within today's size."""
+    import sports_vocab
+    tok = {k: f"{chr(0xe100 + i)}" for i, k in enumerate(facts)}
+    lim = _CAP.get(tkey or key)
+    out = []
+    for r in sports_vocab.variants(T[tkey or key], f"{seed}|{key}", n=240, **tok, **(words or {})):
+        if lim:
+            c, s = _size(r)
+            if c > lim[0] or s > lim[1]:
+                continue
+        for k, t in tok.items():
+            r = r.replace(t, str(facts[k]))
+        out.append(r)
+        if len(out) >= 60:
+            break
+    return out
+
+
+def _say(v, key, must=False, words=None, tkey=None, extra=(), names=(), **facts):
+    """Roll the line and let the Voice pick the wording nobody's used yet (facts count as names: no run is 'new'
+    just because the numbers or teams changed)."""
+    nm = sorted({str(x) for x in facts.values() if len(str(x)) >= 3 and re.search("[A-Za-z]", str(x))} | set(names),
+                key=len, reverse=True)
+    return v.say(tkey or key, list(extra) + _roll(key, v.seed, words, tkey, **facts), must=must, names=tuple(nm))
+
+
+def _a(x):
+    """'a' / 'an' before a number: an 8-game, an 11-5, an 18-game."""
+    s = str(x)
+    return "an" if s[:1] == "8" or s[:2] in ("11", "18") and (len(s) == 2 or not s[2:3].isdigit()) else "a"
+
+
+def _pos(x):
+    """Bears -> Bears', Alabama -> Alabama's."""
+    return x + ("'" if x.endswith("s") else "'s")
+
+
+T = {
+    "hot": [
+        "🔥 {us} are {rec} and on {a_n} {cnt}-game [heater|win streak|run|tear].",
+        "🔥 {us} ({rec}) have [won|taken|stacked] {cnt} {str8} and they're {hot}.",
+        "🔥 {cnt} {str8} for {us} — {rec} {yr} and [still climbing|not slowing down|rolling].",
+        "🔥 {us} can't [stop winning|lose right now|lose lately]: {cnt} {str8}, {rec} {yr}.",
+        "🔥 Winners of {cnt} {str8}, {us} [roll in|show up|walk in|come in] at {rec}.",
+        "🔥 [Heat check|Form check|Streak check]: {us} have won {cnt} {str8} ({rec}).",
+        "🔥 {us} [got|have] {cnt} [straight W's|wins in a row|dubs in a row], {rec} {yr}.",
+        "🔥 {rec} {yr} and {cnt} {str8} — {us} are {hot}.",
+        "🔥 {us} keep [stacking|piling up|racking up] W's: {cnt} {str8}, {rec} {yr}.",
+        "🔥 Nobody's [cooled|slowed] {us} [off|down] [yet|lately] — {cnt} {str8}, {rec}.",
+        "🔥 {us} ({rec}) are riding {a_n} {cnt}-game [streak|heater|wave].",
+        "🔥 [Hottest|Hot] team in the [building|matchup]: {us}, {cnt} {str8} and {rec}.",
+    ],
+    "rec": [
+        "📋 {us} [sitting at|rolling in at|walking in at|come in at] {rec} {yr}. [Tonight's the only one that counts though.|Only this one matters now.|Clean slate tonight.|Tonight's what counts.]",
+        "📋 Record check: {us} {rec}. [We already did our homework.|The homework's done.|We did the digging already.]",
+        "📋 {rec} {yr} for {us} — the record [don't|doesn't] cash tickets, the number does.",
+        "📋 {us} got {a_rec} {rec} record [walking in|coming in|on the board]. [We gon' see what they do with it.|Now go prove it.|Let's see what it's worth.]",
+        "📋 {us} are {rec} {rn} — the rest [is|gets decided] on the {field}.",
+        "📋 {rec} {yr} for {us}. [Nice resume|Cool résumé|Fine], but [tonight|this game] is what [counts|matters|pays].",
+        "📋 [Where they stand|The resume|Standing]: {us} at {rec} {yr}.",
+        "📋 {us} [sit at|stand at|check in at] {rec}. [Records don't cash tickets|The record's just background|The record ain't the bet] — the price is.",
+        "📋 [Resume|Track record|Report card] for {us}: {rec} {yr}. [Now the real part.|The {field} settles the rest.|Numbers did the rest.]",
+        "📋 {us} [bring|carry] {a_rec} {rec} mark [in|into this one]. [We know what we're doing.|Homework's done.|We read it all.]",
+    ],
+    "cold": [
+        "🧊 {them} are {rec} and {cold} — {cnt} {str8} {Ls}.",
+        "🧊 {them} have [dropped|lost] {cnt} {str8} ({rec}).",
+        "🧊 {cnt} straight {Ls} for {them} ({rec}). [Not a good look.|Ugly.|Rough stretch.|Yikes.]",
+        "🧊 {them} ({rec}) keep [taking|eating|stacking] {Ls} — {cnt} {str8}.",
+        "🧊 {them} ({rec}) [are in a slump|can't buy a win|are skidding] — {cnt} {str8}.",
+        "🧊 {them} forgot how to win: {cnt} {str8}, {rec}.",
+        "🧊 Losers of {cnt} {str8}, {them} [sit|limp in|show up] at {rec}.",
+        "🧊 [Skid|Slide|Slump] [watch|check]: {them} have lost {cnt} {str8} ({rec}).",
+        "🧊 {them} can't [find|get|buy] a W — {cnt} {str8}, {rec}.",
+        "🧊 {them} are {cold} — {cnt} {str8}, {rec} {yr}.",
+    ],
+    "better": [
+        "💪 {us} are [straight up|flat out|just] the better team {rn}.",
+        "💪 This is a mismatch — {us} are [just|simply|flat out] better.",
+        "💪 {us} are [the better squad|a tier above|levels above] and it's not close.",
+        "💪 On talent, {us} have the edge [all day|easy|by a mile].",
+        "💪 {us} got more dog in them than {them} {rn}.",
+        "💪 Talent gap goes {us_s} way — [big time|by a lot|not close].",
+        "💪 {us} [outclass|are a tier above|are levels above] {them} {rn}.",
+        "💪 [Straight up|Flat out|Plain and simple], {us} are the [better|stronger|deeper] [team|squad].",
+        "💪 {them} [can't hang with|aren't on the level of] {us} {rn}.",
+        "💪 Levels to this — {us} are [just|simply|clearly] better.",
+        "💪 [Better roster|More talent], [better results|more juice]: that's {us}.",
+        "💪 [Mismatch|Talent gap|No contest] on paper: {us} [by a lot|easy|clearly].",
+    ],
+    "better_s": [
+        "💪 {us} are the better [squad|team], even if it's closer than it looks.",
+        "💪 {us} have the edge on paper — not a blowout, but it's there.",
+        "💪 [Slight|Small|Modest] edge {us} on who's [actually|really] better.",
+        "💪 {us} have a little more juice than {them}.",
+        "💪 Close-ish on paper, but {us} are [better|the better side|a notch up].",
+        "💪 {us} got the upper hand, not by a mile but it's there.",
+        "💪 {us} are [a notch|a step|a hair] better than {them} {rn}.",
+        "💪 [Not a mismatch|No blowout on paper], but {us} are the [better|stronger] [side|team].",
+        "💪 Edge {us}, [slim but real|small but there|thin but there] on talent.",
+        "💪 {them} keep it close on paper; {us} [still grade out better|are still a notch up].",
+    ],
+    "worse": [
+        "🐺 {them} look better on paper — that's [exactly|precisely] why [we're getting|we get] this [juicy|fat|sweet] price on {us}.",
+        "🐺 Everybody's on {them}. That's how we get {us} at this [number|price].",
+        "🐺 {them} are the name brand here, but the price on {us} is too good to pass.",
+        "🐺 On paper it's {them}. On the {field}? We like {us} at this price.",
+        "🐺 {them} get all the love — that's why {us} are sitting at this number.",
+        "🐺 [Paper|The resume] says {them}. [The price|This number] says {us}, and we [listen to|follow] the price.",
+        "🐺 [Sure|Yeah|Fine], {them} are better on paper. [That's baked in|That's in the price] — the value's on {us}.",
+        "🐺 We know {them} got more talent. That's why {us} come [this cheap|at a discount|at this price].",
+        "🐺 Dog spot: {them} [have|got] the [names|resume], we [have|got] the number on {us}.",
+        "🐺 {them} [are favored|get the respect] for a reason. [Still|But], {us} at this price is [value|the play].",
+    ],
+    "even": [
+        "⚖️ On paper these two [close as hell|neck and neck|dead even|about even] — so we [taking|take] the number that pays.",
+        "⚖️ Talent's about even. When it's this tight, the number makes the play.",
+        "⚖️ Coin-flip matchup on paper — and the line makers trippin' on the price.",
+        "⚖️ Dead even on paper. We ain't guessing who's better, we taking the better number.",
+        "⚖️ Nobody's clearly better here — so we let the number do the talking.",
+        "⚖️ [Even|Level|Pick'em] [matchup|fight|game] on paper. [The price|The number] is where [our edge|the value] lives.",
+        "⚖️ [Can't split these two|Hard to split these two|These two are twins] on talent. [The number|The price] [breaks the tie|decides it].",
+        "⚖️ [Talent-wise|On paper] it's a wash — [so|and] {bk} [gave|handed] us the [better|right] side of it.",
+        "⚖️ [Evenly matched|Even squads|Two even teams]. [We're|We] here for the price, not the names.",
+        "⚖️ [Neither|No] team [stands out|separates] on paper. {Algo} [likes|prefers] the number on our side.",
+    ],
+    "trash": [
+        "🗑️ {them} have been complete ass {rn} — {rec} and it ain't getting prettier.",
+        "🗑️ Straight up, {them} are [trash|a mess|bad] {rn} ({rec}).",
+        "🗑️ {them} can't get out of their own way ({rec}).",
+        "🗑️ {them} are a mess {rn}. {rec} says it all.",
+        "🗑️ Nothing about {them} scares us ({rec}).",
+        "🗑️ {them} been looking like a JV squad ({rec}).",
+        "🗑️ Watching {them} {rn} hurts ({rec}).",
+        "🗑️ {them} are about to get their cheeks clapped. {rec} — they been [complete ass|awful|bad].",
+        "🗑️ {rec} {rn}. {them} are complete ass and it shows.",
+        "🗑️ {them} [stink|are rough|are ugly] {rn} — {rec} [don't lie|tells you everything|says enough].",
+        "🗑️ [No offense|Respectfully], {them} are [bad|a mess|a disaster] ({rec}).",
+        "🗑️ {them} at {rec}? [Nah|Yeah no], [we're not scared|nothing to fear|we good].",
+        "🗑️ [Basement|Bottom-feeder] energy from {them}: {rec}.",
+    ],
+    "latest": [
+        "📅 [Latest|Last time out|Most recent|Last outing|Previous game|Fresh off|Last game|Coming off|Last results|Last go-round|Last time|Recent form]: {both}.",
+        "📅 [The last one|Last one|Freshest results|Newest results|Latest scores|Last box scores|How they got here]: {both}.",
+        "📅 [Most recent games|Where they're coming from|Last week's tape|Last tape|Previous results|The latest]: {both}.",
+    ],
+    "h2h": [
+        "🆚 {us} own this matchup — won {w} of the last {cnt}.",
+        "🆚 {us} have had {them_s} number: {w} of the last {cnt}.",
+        "🆚 History's on our side — {w} of the last {cnt} [meetings|matchups] went {us_s} way.",
+        "🆚 {us} been owning {them} lately — {w} of the last {cnt}.",
+        "🆚 {them} can't figure {us} out: {w} of {cnt} to {us}.",
+        "🆚 [Head to head|Series history|Recent meetings]: {us} [took|won] {w} of the last {cnt}.",
+        "🆚 {w} of the last {cnt} [meetings|matchups|go-rounds] went to {us}.",
+        "🆚 {us} [know how to beat|have the book on|have a feel for] {them} — {w} of the last {cnt}.",
+        "🆚 [When these two meet|In this matchup], {us} [usually|tend to] win: {w} of the last {cnt}.",
+        "🆚 {them} [keep losing to|struggle with] {us} — {w} of the last {cnt} [meetings|matchups].",
+    ],
+    "h2h1": [
+        "🆚 {us} got 'em last time: {res}.",
+        "🆚 Last meeting went {us_s} way ({res}).",
+        "🆚 {us} handled {them} last time ({res}).",
+        "🆚 Last time these two met, {us} took it ({res}).",
+        "🆚 [Previous|Last] [meeting|matchup|go-round]: {us} [won|took it] ({res}).",
+        "🆚 {us} [beat|took down|got past] {them} last time ({res}).",
+        "🆚 [Most recent|The last] [meeting|matchup] belonged to {us} ({res}).",
+    ],
+    "QB_cold": [
+        "🗑️ {name} has been complete booty cheeks — {txt}.",
+        "🗑️ {name} has been throwing it to the other team — {txt}.",
+        "🗑️ {name} looks lost out there: {txt}.",
+        "🗑️ {name} [can't|hasn't been able to] find [the open man|a receiver] — {txt}.",
+        "🗑️ {name} has been [a mess|rough|shaky|ugly|a liability] {rn}: {txt}.",
+        "🗑️ {name} [keeps|been] [missing throws|turning it over]: {txt}.",
+        "🗑️ [Bad|Rough|Ugly] [stretch|run] for {name} — {txt}.",
+        "🗑️ {name} under center? [A problem|A liability|A gift] — {txt}.",
+        "🗑️ [Yikes|Oof], {name} {rn}: {txt}.",
+    ],
+    "SP_cold": [
+        "💣 {name} has been getting shelled — {txt}.",
+        "💣 {name} has been getting lit up: {txt}.",
+        "💣 Hitters are teeing off on {name} — {txt}.",
+        "💣 {name} keeps getting [tagged|rocked|hit hard]: {txt}.",
+        "💣 {name} has been [hittable|rocked|tagged|a piñata]: {txt}.",
+        "💣 Bats [love|feast on|tee off on] {name}: {txt}.",
+        "💣 [Rough|Ugly|Bad] [run|stretch] for {name}: {txt}.",
+        "💣 {name} can't [miss bats|get outs|keep it in the park]: {txt}.",
+    ],
+    "G_cold": [
+        "🥅 {name} has been leaky as hell — {txt}.",
+        "🥅 {name} can't stop a beach ball {rn}: {txt}.",
+        "🥅 Pucks keep getting past {name} — {txt}.",
+        "🥅 {name} has been [a sieve|shaky|leaky|a turnstile] {rn}: {txt}.",
+        "🥅 [Rough|Ugly|Bad] [run|stretch] in net for {name}: {txt}.",
+        "🥅 {name} [can't find|lost] the puck {rn} — {txt}.",
+        "🥅 Shooters [love|feast on|are lighting up] {name}: {txt}.",
+    ],
+    "QB_hot": [
+        "🎯 {name} has been cooking — {txt}.",
+        "🎯 {name} is locked in: {txt}.",
+        "🎯 {name} is slinging it — {txt}.",
+        "🎯 {name} [been|is] [dicing|carving] [defenses|'em up]: {txt}.",
+        "🎯 [Hot|Sharp|Clean] [stretch|run] for {name}: {txt}.",
+        "🎯 {name} [can't miss|is dialed in|is on fire]: {txt}.",
+        "🎯 {name} [is|has been] [dealing|sharp|rolling]: {txt}.",
+    ],
+    "SP_hot": [
+        "🔥 {name} has been dealing — {txt}.",
+        "🔥 {name} is on a roll: {txt}.",
+        "🔥 Nobody's touching {name} lately — {txt}.",
+        "🔥 {name} [is|has been] [dealing|nasty|filthy|dialed in|sharp|lights out]: {txt}.",
+        "🔥 Hitters [can't touch|can't solve|are lost against] {name}: {txt}.",
+        "🔥 [Nasty|Filthy|Sharp] [stretch|run] for {name}: {txt}.",
+    ],
+    "G_hot": [
+        "🧱 {name} has been a brick wall — {txt}.",
+        "🧱 {name} is standing on his head: {txt}.",
+        "🧱 Good luck scoring on {name} — {txt}.",
+        "🧱 {name} [is|has been] [locked in|a wall|dialed in|lights out]: {txt}.",
+        "🧱 [Nothing's|Nothing is] getting past {name}: {txt}.",
+        "🧱 [Hot|Sharp|Big] [stretch|run] in net for {name}: {txt}.",
+    ],
+    "revenge": [
+        "😤 Revenge game — {us} lost the last meeting and they haven't forgotten.",
+        "😤 {us} owe {them} one from last time. Payback's coming.",
+        "😤 Get-back game for {us}. They took an L to {them} last time.",
+        "😤 {us} been waiting on this rematch.",
+        "😤 {them} got {us} last time. [That stuck with them.|That one stung.|They remember.]",
+        "😤 [Payback|Rematch|Get-back] [spot|game|time]: {us} dropped the last one to {them}.",
+        "😤 {us} [lost the last meeting|took an L last time] — [they want this one back|this one's personal|they remember].",
+        "😤 [Bad memories|Unfinished business] for {us} — {them} [won|took] the last meeting.",
+        "😤 {us} [circled|marked] this one after losing to {them} last time.",
+    ],
+    "letdown": [
+        "🪤 Letdown spot for {them} — fresh off a blowout win, they're gonna come out flat.",
+        "🪤 {them} just blew somebody out. Classic letdown game.",
+        "🪤 {them} are riding high off a big W. That's when teams slip.",
+        "🪤 Trap game for {them} after that blowout.",
+        "🪤 {them} [are|come in] [feeling themselves|a little too comfy|full of themselves] after a blowout. [Flat spot.|Letdown alert.|Trap spot.]",
+        "🪤 Blowout win last time for {them}. [Hard to keep that energy.|The hangover's real.|Easy to come out flat.]",
+        "🪤 [After|Coming off] a blowout, {them} [could|might|tend to] [sleepwalk|come out flat|ease off] here.",
+        "🪤 [Letdown|Hangover|Flat] spot: {them} just [blew out|ran over|smacked] their last opponent.",
+    ],
+    "momentum": [
+        "🚀 {us} just blew somebody out — teams like that keep rolling.",
+        "🚀 {us} are coming in hot off a blowout. Momentum's real.",
+        "🚀 Blowout last time out for {us}. They're feeling themselves.",
+        "🚀 {us} [ran|rolled] somebody off the {field} last time. [Keep it going.|Carry it over.|Ride it.]",
+        "🚀 [Momentum|Confidence] [is|stays] [high|up] for {us} after a blowout.",
+        "🚀 [Last time out|Last game], {us} [won big|won going away|blew somebody out]. [Confidence is up.|They're rolling.]",
+        "🚀 {us} [smoked|ran over|blew out] their last opponent. [Momentum's on our side.|That carries.]",
+    ],
+    "alt": [
+        "🏔️ Thin air — {elev} meters up. {The_them} gonna be sucking wind by the second half.",
+        "🏔️ Altitude game. {The_them} ain't used to breathing up there.",
+        "🏔️ Mile-high problems for {the_them}. Legs get heavy fast at that elevation.",
+        "🏔️ {elev} meters [up|above sea level]. {The_them} [will|gonna] feel it [late|in the legs].",
+        "🏔️ Thin air at {elev} meters — [lungs burn|legs go|gas tanks drain] fast for {the_them}.",
+        "🏔️ {The_them} [visiting|playing] at {elev} meters. [Oxygen's|Air's] [thin|scarce] up there.",
+        "🏔️ [Altitude|Elevation] check: {elev} meters. {The_them} ain't built for it.",
+    ],
+    "cold_w": [
+        "🥶 {temp}°F at kickoff. {The_them} are a warm-weather squad walking into a freezer.",
+        "🥶 It's gonna be {temp}°F. {The_them} don't play in this — {the_us} do.",
+        "🥶 Cold one ({temp}°F). Welcome to real weather, {the_them}.",
+        "🥶 {temp}°F [tonight|out there|at kickoff]. {The_them} [ain't used to this|are a warm-weather team].",
+        "🥶 [Freezer|Ice box|Cold] game: {temp}°F. {The_them} [won't like it|are out of their element].",
+        "🥶 [Bundle up|Gloves on], {the_them} — {temp}°F [at kickoff|out there].",
+        "🥶 {The_them} [come from|live in] the warm. [Tonight|Kickoff] is {temp}°F.",
+    ],
+    "wx": [
+        "🌧️ {what} in the forecast. Sloppy game, fewer big plays — that's how dogs eat.",
+        "🌬️ {what}. Ugly weather drags everybody down to the same level.",
+        "🌧️ Weather's nasty ({what}). Anything can happen in the slop.",
+        "🌧️ [Forecast|Weather] [says|calls for] {what}. [Messy|Sloppy|Ugly] [game|night] — [good for dogs|keeps it close|evens it out].",
+        "🌧️ {what} [expected|on tap|coming]. [Slop|Bad weather] [levels the field|shrinks the gap|keeps it tight].",
+        "🌧️ [Ugly|Nasty|Rough] [conditions|weather]: {what}. [Fewer big plays.|Grind-it-out game.|Coin-flip chaos.]",
+    ],
+    "jetlag": [
+        "🕐 {The_them} crossed a few time zones for this one. Body clock's all messed up.",
+        "🕐 Jet-lag game for {the_them} — their bodies think it's a different time.",
+        "🕐 Long trip for {the_them}, time zones and all. Legs gonna be heavy.",
+        "🕐 {The_them} [flew|traveled] across [a few|several] time zones. [Body clocks are off.|Sleep's off.|Clocks don't adjust that fast.]",
+        "🕐 [Time-zone|Jet-lag|Body-clock] [issues|problems] for {the_them} — [their bodies lag behind|the legs feel it].",
+        "🕐 {The_them} [are|come in] [jet-lagged|on the wrong clock|a few hours off]. [That matters.|Legs feel it.|It adds up.]",
+    ],
+    "drama_coach_fired": [
+        "🧯 {The_them} just fired their coach. Locker room's a mess.",
+        "🧯 Coaching change for {the_them} — interim guy, total chaos.",
+        "🧯 [New|Interim] coach for {the_them}. [Chaos inside.|Confusion everywhere.|Turmoil.]",
+        "🧯 {The_them} [canned|fired] the coach. [Nobody knows the plan.|Messy week.|Vibes are off.]",
+        "🧯 [Coach gone|Coach fired], {the_them} [in chaos|scrambling|reeling].",
+    ],
+    "drama_suspension": [
+        "🧯 {The_them} got a suspension hanging over them: {hl}",
+        "🧯 Suspension news for {the_them}. That shakes a team up.",
+        "🧯 [Suspension|Discipline] [drama|news] for {the_them}: {hl}",
+        "🧯 {The_them} [lose a guy to|deal with] a suspension. [That hurts.|Tough week.]",
+    ],
+    "drama_legal_trouble": [
+        "🧯 {The_them} got off-field drama going on: {hl}",
+        "🧯 Legal mess around {the_them} this week. Distractions are real.",
+        "🧯 [Off-field|Legal] [noise|drama|mess] for {the_them}: {hl}",
+        "🧯 {The_them} got legal stuff [hanging around|going on]. [Hard to focus.|Distractions.]",
+    ],
+    "drama_family_personal": [
+        "🧯 {The_them} dealing with some personal stuff: {hl}",
+        "🧯 Heavy week for {the_them} off the field. Hard to lock in.",
+        "🧯 [Tough|Heavy|Rough] [personal|off-field] news for {the_them}: {hl}",
+        "🧯 {The_them} got [real life|heavy stuff] going on. [Hard to focus.|Heads elsewhere.]",
+    ],
+    "drama_illness": [
+        "🤒 Sickness going around {the_them}: {hl}",
+        "🤒 {The_them} got guys under the weather.",
+        "🤒 [Bug|Flu|Illness] [hitting|in] {the_them_s} room.",
+        "🤒 [Sick|Ill] bodies for {the_them}: {hl}",
+    ],
+    "drama_trade_drama": [
+        "🧯 Trade drama in {the_them_s} room: {hl}",
+        "🧯 {The_them} got a guy wanting out. Locker room's split.",
+        "🧯 [Trade|Trade-request] [noise|drama] around {the_them}: {hl}",
+        "🧯 {The_them} got a guy who wants out. [Vibes are off.|Awkward room.]",
+    ],
+    "bye": [
+        "🛌 {us} are fresh off a bye — rested and game-planned up.",
+        "🛌 Extra week to prep for {us}. That matters.",
+        "🛌 Bye week in the rearview for {us}. Fresh legs, full playbook.",
+        "🛌 {us} had [a week off|the bye|extra time] — [fresh legs|healthy bodies|full prep|a full game plan].",
+        "🛌 [Post-bye|Off a bye], {us} [come in|show up] [rested|fresh|with fresh legs].",
+        "🛌 Extra time to [prep|game-plan|get healthy] for {us}. [That's big.|Matters.|Rested up.]",
+    ],
+    "short": [
+        "⏱️ {them} are on a short week. Not much time to prep.",
+        "⏱️ Short week for {them} — tired bodies, rushed game plan.",
+        "⏱️ {them} barely had time to recover. Short week.",
+        "⏱️ [Quick|Short] turnaround for {them} — [less prep|tired bodies|a rushed plan].",
+        "⏱️ {them} [had|got] [barely any|little] time to [prep|recover|heal up].",
+        "⏱️ [Short-week|Quick-week] [problems|issues] for {them}. [Tired bodies.|Rushed prep.]",
+    ],
+    "intl": [
+        "🌍 Game's overseas in {where}. These are always weird — the engine needed extra value to take it.",
+        "🌍 International game ({where}). Nobody's really home, everybody's jet-lagged — we only play these with a bigger edge.",
+        "🌍 {where} game. Weird spot, so the engine made sure the number's extra juicy.",
+        "🌍 [Overseas|International] [game|trip] ({where}). [Weird spot|Odd setup|Strange vibes] — {algo} [wanted|needed|demanded] extra [value|cushion] to [take|play] it.",
+        "🌍 Nobody's-home game in {where}. {Algo} [wanted|needed] [a fatter|a bigger] [number|edge] [for it|to play it].",
+        "🌍 {where} [hosts this one|is the venue]. [Travel for everybody|No real home team] — we [only|] [play|take] these with [extra|more] value.",
+    ],
+    "home": [
+        "🏟️ {us} at the crib tonight — their building, their rules.",
+        "🏟️ Home cooking for {us}. That crowd finna be loud as hell.",
+        "🏟️ {us} in their own house. Y'all know teams play different at home.",
+        "🏟️ {us} are home tonight and ready to handle business.",
+        "🏟️ {us} got the whole building behind 'em tonight.",
+        "🏟️ {us} at home, fans rocking. They about to go to work.",
+        "🏟️ {us} [at home|in their building|on home {field}] {tn}. {Crowd} [will be|gonna be] [loud|rocking|behind them].",
+        "🏟️ Home [game|night] for {us}. [Friendly building|Their people|Their crowd], their [rules|energy].",
+        "🏟️ {us} [play|get to play] in front of their own [fans|people|crowd] {tn}.",
+        "🏟️ [Crib game|Home turf|Home {field}] for {us} — [comfortable spot|familiar spot|their building].",
+    ],
+    "road": [
+        "🧳 {us} are on the road — doesn't scare us.",
+        "🧳 Road game for {us}, but they travel just fine.",
+        "🧳 {us} walk into a hostile building — we're not worried.",
+        "🧳 Away game for {us}. The numbers still like them.",
+        "🧳 {us} on the road, but this team doesn't care where they play.",
+        "🧳 Away game — {us} bring their own energy.",
+        "🧳 {us} hit the road. Doesn't matter to us.",
+        "🧳 {us} [travel|go on the road] {tn}. [Doesn't worry us.|Not a concern.|We don't care.]",
+        "🧳 [Road|Away] [spot|trip|game] for {us} — [the numbers still like them|still our side].",
+        "🧳 {us} [play|are] in a [hostile|loud|road] building {tn}, and [that's fine|we're cool with it].",
+    ],
+    "b2b": [
+        "😴 {them} played yesterday — tired legs. {us} are fresh.",
+        "😴 {them} are on a back-to-back; {us} had the night off.",
+        "😴 Short rest for {them}, full tank for {us}.",
+        "😴 {them} are running on fumes — played last night.",
+        "😴 Back-to-back for {them}. Tired legs, cold shooting.",
+        "😴 {them} [played|suited up] last night. {us} [didn't|sat|rested].",
+        "😴 [Tired|Heavy|Dead] legs for {them} — second night of a back-to-back.",
+        "😴 Back-to-back for {them}; {us} [come in fresh|are rested|had a day off].",
+    ],
+    "rest": [
+        "🛌 {us} had {d} more days off than {them}.",
+        "🛌 Rest edge: {us} got {d} extra days to recover.",
+        "🛌 {us} come in with {d} more days of rest.",
+        "🛌 {us} [got|had] {d} extra days to get right.",
+        "🛌 {d} [extra|more] days [off|of rest] for {us} — [fresh legs|fresher legs].",
+        "🛌 Rest edge goes to {us} ({d} more days).",
+        "🛌 {us} [rested|sat] {d} more days than {them}.",
+        "🛌 Fresher legs for {us}: {d} [more|extra] days [off|of rest].",
+    ],
+    "bump": [
+        "⚾ On the bump: {ps} for {us}, {po} for {them}.",
+        "⚾ Pitching matchup: {ps} ({us}) vs {po} ({them}).",
+        "⚾ {ps} takes the ball for {us}; {them} go with {po}.",
+        "⚾ {ps} gets the ball for {us} against {po}.",
+        "⚾ It's {ps} for {us}, {po} for {them}.",
+        "⚾ {ps} ({us}) [vs|against|opposite] {po} ({them}) on the [mound|hill|bump].",
+        "⚾ [Starters|Arms|Mound matchup]: {ps} for {us}, {po} for {them}.",
+        "⚾ {us} [send|roll with] {ps}; {them} [counter with|go with|send] {po}.",
+        "⚾ {po} [starts|goes] for {them}, {ps} for {us}.",
+    ],
+    "keyout": [
+        "🚑 {them} are rolling without their starting {pos} ({nm}).",
+        "🚑 No {nm} for {them} — that's their starting {pos}.",
+        "🚑 {them} are down their starting {pos}, {nm}.",
+        "🚑 {them} [lose|are missing|are without] {nm}, their starting {pos}.",
+        "🚑 {nm} [is out|sits|won't play] for {them} — [that's|there goes] their starting {pos}.",
+        "🚑 Starting {pos} [out|down] for {them}: {nm}.",
+        "🚑 [Big|Key] absence: {them} [without|minus] {nm} (starting {pos}).",
+    ],
+    "banged": [
+        "🚑 {them} are hella banged up ({hurt}).",
+        "🚑 {them_s} injury list is stacking up: {hurt}.",
+        "🚑 {them} are missing bodies — {hurt}.",
+        "🚑 {them} are dealing with injuries: {hurt}.",
+        "🚑 {them} are short-handed ({hurt}).",
+        "🚑 {them} [are|come in] [beat up|dinged up|thin]: {hurt}.",
+        "🚑 [Injury list|Injuries] for {them}: {hurt}.",
+        "🚑 {them} [missing|without] [bodies|guys]: {hurt}.",
+    ],
+    "healthy": [
+        "✅ {us} are healthy — nobody important sitting.",
+        "✅ Full squad for {us}.",
+        "✅ {us} have everybody available.",
+        "✅ {us} are at full strength.",
+        "✅ Nobody big missing for {us}.",
+        "✅ {us} [come in|are] [healthy|at full strength|full go].",
+        "✅ [Clean|Empty] injury report [for|on] {us}.",
+        "✅ {us} [got|have] [the whole squad|everyone] [available|ready|good to go].",
+        "✅ No [key|big|major] [absences|injuries] for {us}.",
+    ],
+    "keyout_us": [
+        "🚑 {nm} is out, {the_us} rolling with the backup {pos}.{mv} We know. We still riding with the algorithm.{need}",
+        "🚑 No {nm} tonight — backup {pos} gets the keys for {the_us}.{mv} Vegas already baked that in, and the numbers still say this the side.{need}",
+        "🚑 Yeah, {nm} is out. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}",
+        "🚑 {nm} [sits|is out|won't go] — [the backup|a backup] {pos} [starts|takes over] for {the_us}.{mv} [We know.|We saw it.|Noted.] [We still riding with {algo}.|Numbers still say this the side.|Still the side.]{need}",
+        "🚑 [No|Without] {nm} [tonight|today], {the_us} [turn to|go with|hand it to] the backup {pos}.{mv} [Priced in already, and we're still here.|The price already knows, and so do we.|Still our side.]{need}",
+        "🚑 [Yeah|Yep|We see it], {nm} [is out|won't play] and the backup {pos} [starts|is in] for {the_us}.{mv} [Folks jumped ship|The crowd bailed] — [we didn't|not us].{need}",
+        "🚑 Backup {pos} [time|duty] for {the_us}: {nm} is out.{mv} [That's in the number.|It's baked in.] [Still riding.|Still our side.|We stay put.]{need}",
+        "🚑 {nm} out, [backup|second-string] {pos} in for {the_us}.{mv} [Everybody else ran|The public ran] — [we're staying|we ain't moving].{need}",
+    ],
+    "sharp": [
+        "💰 Sharp money is on us: {us} opened {op}, now {now}.",
+        "💰 The pros are hammering {us} — {op} at open, {now} now.",
+        "💰 The line moved our way ({op} → {now}). Smart money agrees.",
+        "💰 Money's been pouring in on {us}: {op} to {now}.",
+        "💰 Big money moved {us} from {op} to {now}. We like the company.",
+        "💰 {us} went from {op} to {now} — the pros see it too.",
+        "💰 {us} [opened|started] at {op} and [sit|now sit] at {now}. [Smart money agrees.|The pros agree.|Sharps see it too.]",
+        "💰 Line [moved|went] our way: {us} {op} → {now}.",
+        "💰 [Pro money|Smart money|Sharp action] [pushed|moved|took] {us} from {op} to {now}.",
+        "💰 {op} at open, {now} now — [the market's|money's] [coming our way|backing {us}].",
+    ],
+    "fade": [
+        "💸 Sharp money's been coming in on {the_them}{move}, but they must be some clowns. We're on {the_us} — {why}.",
+        "💸 The so-called sharps are all over {the_them}{move}. We're fading the clowns and taking {the_us} — {why}.",
+        "💸 Line's moving toward {the_them}{move}. Let 'em — we still like {the_us}, {why}.",
+        "💸 Money's pouring in on {the_them}{move}. They must've lost their minds — we got {the_us}, {why}.",
+        "💸 Everybody's jumping on {the_them}{move}. They're tweaking — we're riding {the_us}, {why}.",
+        "💸 The market's leaning {the_them}{move}. Somebody's about to learn a lesson — we're on {the_us}, {why}.",
+        "💸 [Sharp money's coming in on|The so-called sharps love|Line's drifting toward|Money's piling on|Bettors keep pushing|The pros are piling on] {the_them}{move}. [Let 'em|Not buying it|Respectfully, no|We don't care|Cool with us] — we're [on|riding|with] {the_us}, {why}.",
+        "💸 {The_them}{move} [are getting|keep getting] the [sharp|big] money. [Fine by us|We fade it] — {the_us} for us, {why}.",
+    ],
+    "splits_fade": [
+        "📊 The whole world on {the_them} — {pt}% of the bets and {pm}% of the money on {mk}. We fading the public and taking {the_us}. That's how Vegas eats, and tonight we eating with 'em.",
+        "📊 {pt}% of the bets on {the_them} ({pm}% of the money) on {mk}. Sheep gon' be sheep — we on {the_us} with the other {t}%.",
+        "📊 Public's hammering {the_them} on {mk}: {pt}% of the bets, {pm}% of the money. We ain't following the herd — {the_us} all day.",
+        "📊 [Splits|The splits|Betting splits] on {mk}: {pt}% of [bets|tickets] and {pm}% of [the money|the cash] on {the_them}. [Fade the crowd|Fade the public|Other way for us]: {the_us}.",
+        "📊 {The_them} [are pulling|got] {pt}% of the [tickets|bets] and {pm}% of the money on {mk}. [Crowd's loud, but we ride {the_us}.|Classic fade — give us {the_us}.|We go the other way: {the_us}.]",
+        "📊 [The crowd|The public|Everybody] [loves|is piling on] {the_them} on {mk}: {pt}% of bets, {pm}% of money. [We're with the other {t}%|Not us] — {the_us}.",
+        "📊 [Lopsided|One-sided] [action|market] on {mk}: {the_them} [have|hold] {pt}% of the bets and {pm}% of the money. We [fade|go against] it with {the_us}.",
+    ],
+    "splits_ride": [
+        "📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us} ({mk}). Sometimes the crowd gets it right.",
+        "📊 {t}% of the bets on {the_us} ({m}% of the money) on {mk}. We with the crowd tonight, but we got our own reasons.",
+        "📊 [Splits|The splits|Betting splits] on {mk}: {t}% of [bets|tickets] and {m}% of the money on {the_us}. [Crowd's right this time.|We agree, for our own reasons.|Same side, different reasons.]",
+        "📊 {The_us} [are pulling|got] {t}% of the [tickets|bets] and {m}% of the money on {mk}. [The public's not wrong every time.|No shame riding with the crowd.|We're on it too.]",
+        "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Fine by us — our numbers got there first.|Broken clock, right time.|We got our own reasons.]",
+    ],
+    "splits_even": [
+        "📊 Bets are split — {t}% on {the_us}, {pt}% on {the_them} ({m}% / {pm}% of the money). Nobody knows nothing on this one, except us.",
+        "📊 Who's betting who: {t}% of the bets on {the_us}, {pt}% on {the_them} ({m}% / {pm}% of the money). Pretty split crowd.",
+        "📊 [Split|Divided|Mixed] [market|crowd] on {mk}: {t}% of bets on {the_us}, {pt}% on {the_them}; money {m}% / {pm}%. [Nobody's sure — we are.|No consensus.|Coin-flip crowd.]",
+        "📊 {t}% [of the bets|of tickets] on {the_us}, {pt}% on {the_them} ({m}% / {pm}% of the money). [The public can't decide.|Crowd's torn.|No herd to follow.]",
+        "📊 [No clear public side|Public's split|Crowd's torn] on {mk}: {the_us} {t}% of bets and {m}% of money, {the_them} {pt}% and {pm}%.",
+    ],
+    "pub_fade": [
+        "🤡 {The_them} are the clear favorite and the public's all over 'em. Don't be a sheep — we're on {the_us}, {why}.",
+        "🤡 The public is all over {the_them}. Dummies are about to lose their money — we're on {the_us}, {why}.",
+        "🤡 Everybody and their mama is on {the_them}. Not us — we got {the_us}, {why}.",
+        "🤡 The sheep are lining up for {the_them}. We're not sheep — we're on {the_us}, {why}.",
+        "🤡 Crowd's on {the_them}. We're riding {the_us} and the engine — {why}.",
+        "🤡 Public's hammering {the_them} like it's free money. It ain't — we got {the_us}, {why}.",
+        "🤡 All the casuals love {the_them}. We're not casuals — {the_us} all day, {why}.",
+        "🤡 [The public is all over|The crowd's piling onto|Casual money loves|Square money loves|The sheep love] {the_them}. [Let 'em|Not us|Cool story|We pass] — we're [on|riding|with] {the_us}, {why}.",
+        "🤡 {The_them} [are|look like] the [popular|public|people's] pick. [We fade the crowd|We go the other way] — {the_us}, {why}.",
+    ],
+    "pub_ride": [
+        "🤝 Riding with the public on {the_us} — sometimes the public gotta win, {why}.",
+        "🤝 Public's on {the_us} too, and this time they're not dummies — {why}.",
+        "🤝 Even a broken clock is right twice a day — the public got {the_us} right, {why}.",
+        "🤝 We're with the crowd on {the_us} and not ashamed of it — {why}.",
+        "🤝 Public side on {the_us}, but we got our own reasons — {why}.",
+        "🤝 We're riding with the crowd on {the_us}. Sometimes they get it right — {why}.",
+        "🤝 [The crowd likes|Casuals like|The public likes] {the_us} [too|as well], and [this time|for once] they're right — {why}.",
+        "🤝 [Same side as|Riding with] the public on {the_us}. [No shame|Fine by us] — {why}.",
+    ],
+    "bottom": [
+        "✅ Bottom line: {bk} has {price} priced like {need}. {Algo} [sees|says|has it at|makes it] {have}. {close}",
+        "✅ Bottom line: {bk} [treats|prices|lists] {price} like {need}; {algo} [has it closer to|sees|puts it at] {have}. {close}",
+        "✅ Bottom line: {price} should be more like {have}, and {bk} [is pricing|has it at|is charging] {need}. {close}",
+        "✅ Bottom line: {have} [in our book|on our sheet|by our math] vs {need} [at the window|at the book|in Vegas] for {price}. {close}",
+        "✅ Bottom line: {Bk} says {need} on {price}, {algo} says {have}. {close}",
+        "✅ Bottom line: {Bk} says {need} on {price}, {algo} says {have}. Easy money if {algo}'s right.",
+        "✅ Bottom line: {price} is priced like {need} — we see {have}. {close}",
+        "✅ Bottom line: {price} is priced like {need}, and {algo} [sees|says] {have}. That gap is the whole play.",
+        "✅ Bottom line: [book|Vegas|the window] says {need}, we say {have}. [We ride {price}.|{price} it is.|Give us {price}.]",
+        "✅ Bottom line: {price} is {have} by our numbers, but it's [priced|paying] like {need}. {close}",
+        "✅ Bottom line: we [make|have] {price} {have}; {bk} [only gives it|is giving it|says] {need}. {close}",
+        "✅ Bottom line: [our number|our read|the model] on {price} is {have}, [vs|against] {need} at the [book|window]. {close}",
+        "✅ Bottom line: [priced for|paying like] {need}, [real odds|true odds|our odds] {have} — {price} [is the play|all day|it is].",
+        "✅ Bottom line: [the gap|the difference] between {need} ({bk}) and {have} ({algo}) is why we're on {price}.",
+        "✅ Bottom line: {bk} [thinks|figures] {need} for {price}. We [think|figure|say] {have}. {close}",
+        "✅ Bottom line: {price} [sits|trades] at {need} [odds|pricing]; {algo} [lands on|comes out at|spits out] {have}. {close}",
+        "✅ Bottom line: {have} vs {need} — that's [our math|the math|our read] against {bk} on {price}. {close}",
+    ],
+    "bottom_s": [
+        "✅ Bottom line: {bk} got {price} priced like {need}, but [everything above|the fine print|the small stuff|every little detail] [tips it our way|leans our way|breaks our way]. {sclose}",
+        "✅ Bottom line: close to {need} at the book, but the details break our way on {price}. {sclose}",
+        "✅ Bottom line: {price} ain't a slam dunk, it's a smart number — and the little things all point our way. {sclose}",
+        "✅ Bottom line: {price} is a thin edge, but it's an edge. {sclose}",
+        "✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way. {sclose}",
+        "✅ Bottom line: {price} ain't flashy. It's just the right side. {sclose}",
+        "✅ Bottom line: the book has {price} close, but the small stuff breaks our way. {sclose}",
+        "✅ Bottom line: {price} [sits|is priced] near {need}. [Small|Slim|Thin] [edge|margin], [but it's ours|right side|still an edge]. {sclose}",
+        "✅ Bottom line: [not a lot of|little] [cushion|room] on {price} ({need} at {bk}), but every tiebreaker goes our way. {sclose}",
+        "✅ Bottom line: [thin|slim|small] [value|edge] on {price} — {bk} is [close|near fair] at {need}, the extras [favor|push] us. {sclose}",
+        "✅ Bottom line: {price} [won't|ain't gonna] [blow anybody away|wow anybody], [but|and] {algo} still [likes|picks] it. {sclose}",
+        "✅ Bottom line: [fair-ish|tight] price on {price} ({need}); the [edges|extras|details] above [make it|tip it] ours. {sclose}",
+        "✅ Bottom line: {price} is a [grinder|small-edge spot|margin play], not a [haymaker|slam dunk|blowout call]. {sclose}",
+    ],
+    "lean": [
+        "🟡 Bottom line: no edge on this one — it's a lean, not a lock. {Algo} just leans {team}.",
+        "🟡 Bottom line: the numbers don't give us an edge here. {team} is the lean, nothing more.",
+        "🟡 Bottom line: lean only. The price is about right, {algo} just tilts {tms} way.",
+        "🟡 Bottom line: no value, no lock — {team} is where {algo} leans, that's it.",
+        "🟡 Bottom line: [no edge here|no value on our numbers|the price is about fair] — {team} is [a lean|the lean], not a lock.",
+        "🟡 Bottom line: [small|slight] lean to {team}. [No edge on the price|The number's fair|Price is fair], so [no hype|keep it light].",
+        "🟡 Bottom line: [it's|this is] a lean, not a lock. {Algo} [tilts|leans|nudges] toward {team}, [that's all|nothing more].",
+        "🟡 Bottom line: {team} by a hair on {algo}. [No edge|No value] at this price — lean, not lock.",
+        "🟡 Bottom line: [honest|straight] read — {team} is a lean. [The price is fair.|No edge on the number.]",
+    ],
+    # context study facts
+    "cx_rival": [
+        "🔥 Rivalry game. {The_us} and {the_them} got real history.",
+        "🔥 Circled on both calendars — these two don't like each other.",
+        "🔥 Straight-up rivalry. Records go out the window in these.",
+        "🔥 Bad blood game — this is one of the classics.",
+        "🔥 Rivalry night. No love lost between these two.",
+        "🔥 [Rivalry|Grudge] [game|match]: {the_us} vs {the_them}. [Throw out the records.|History runs deep.|Emotions run hot.]",
+        "🔥 {The_us} and {the_them} [can't stand|don't like] each other. [Expect a fight.|Records mean nothing.]",
+        "🔥 [Old|Real|Deep] rivalry — [these two|{the_us} and {the_them}] [go way back|got history].",
+    ],
+    "cx_rival_t": [
+        "🔥 Rivalry game — {them}. Emotions run hot in these.",
+        "🔥 Classic rivalry on the board: {them}.",
+        "🔥 Bad blood matchup ({them}). These get weird on the scoreboard.",
+        "🔥 [Rivalry|Grudge] [game|matchup] ({them}). [Emotions run hot.|These get weird.|Anything goes on the scoreboard.]",
+        "🔥 [History|Old beef] [on the board|in this one]: {them}.",
+    ],
+    "cx_div": [
+        "🔥 Division game — {the_us} and {the_them} see each other every year.",
+        "🔥 Division rivals. They know each other's playbook cold.",
+        "🔥 Division matchup: familiarity on both sides.",
+        "🔥 It's a division game, so both sides know exactly what's coming.",
+        "🔥 Division beef. No secrets between these two.",
+        "🔥 Division [game|matchup]: {the_us} and {the_them} [know each other cold|have no secrets].",
+        "🔥 [Same division|Division rivals] — [no secrets here|familiar faces|they know the playbook].",
+        "🔥 Every season {the_us} and {the_them} [meet|see each other]. [No surprises.|Familiar stuff.]",
+    ],
+    "cx_div_t": [
+        "🔥 Division game ({them}) — two teams that know each other cold.",
+        "🔥 Division matchup on the total: {them}.",
+        "🔥 Familiar foes ({them}), division game.",
+        "🔥 [Familiar|Division] [foes|rivals] on the total: {them}.",
+        "🔥 Division [game|matchup] ({them}) — [no surprises either way|they know each other].",
+    ],
+    "cx_trip": [
+        "🧳 {The_them}: {fact}. That travel adds up.",
+        "🧳 {Fact} for {the_them}. Frequent flyer points, heavy legs.",
+        "🧳 {The_them} living out of a suitcase — {fact}.",
+        "🧳 Travel check on {the_them}: {fact}.",
+        "🧳 {The_them} put in the miles to get here ({fact}).",
+        "🧳 [Road-weary|Heavy-travel|Long-haul] spot for {the_them}: {fact}.",
+        "🧳 [Miles|Travel] [pile up|add up] for {the_them} ({fact}).",
+        "🧳 {The_them} [on|in] [travel|road] mode: {fact}.",
+    ],
+    "cx_domecold": [
+        "🏟️ Dome team outside in {wx} — {who} usually play with the thermostat set.",
+        "🏟️ {Who} play indoors at home. Tonight: {wx} outside.",
+        "🏟️ No roof tonight for {who}. {Wx} in the forecast.",
+        "🏟️ Indoor squad in the elements: {wx} for {who}.",
+        "🏟️ [Roof's gone|No dome] for {who}: {wx} [on tap|in the forecast|at kickoff].",
+        "🏟️ {Wx} [and no roof|outdoors] — [tough|rough] [ask|spot] for {who}, a dome team.",
+        "🏟️ Dome team in {wx}? [Tough ask for|Rough spot for|Not ideal for] {who}.",
+    ],
+    "cx_domeout": [
+        "🏟️ {The_them} are a dome team playing outside today.",
+        "🏟️ No roof for {the_them} this time — they're used to playing inside.",
+        "🏟️ {The_them} leave the dome for an open-air building.",
+        "🏟️ Open air for an indoor team: {the_them} out of their element.",
+        "🏟️ Dome team [outdoors|in open air|under the sky] today: {the_them}.",
+        "🏟️ {The_them} [trade|swap] the roof for open air [today|this week].",
+        "🏟️ [Out of the dome|Away from the roof], {the_them} [play outside|are in the elements] today.",
+    ],
+    "cx_mustwin": [
+        "🚨 Must-win for {the_us} ({rec}) — right in the playoff race.",
+        "🚨 {The_us} ({rec}) are fighting for a playoff spot. Backs against the wall.",
+        "🚨 Playoff race: {the_us} need this one, {the_them} don't.",
+        "🚨 Every game counts for {the_us} ({rec}) right now. {The_them}? Not so much.",
+        "🚨 {The_us} ({rec}) [can't afford|can't take] [an L|a loss] — playoff race.",
+        "🚨 [Playoff push|Playoff chase]: {the_us} ({rec}) [need|gotta have] this one.",
+        "🚨 [Season on the line|Big stakes] for {the_us} ({rec}) in the playoff race.",
+    ],
+    "cx_rest": [
+        "🪑 {The_them} already clinched — rest-the-starters territory.",
+        "🪑 Playoff spot locked for {the_them}. Don't be shocked if the stars sit.",
+        "🪑 {The_them} got their ticket punched already. Nothing to play for tonight.",
+        "🪑 Clinched and coasting: {the_them} could rest guys.",
+        "🪑 {The_them} [clinched already|locked their spot]. [Starters could sit.|Minutes could get managed.]",
+        "🪑 [No stakes|Nothing on the line] for {the_them} — they've already clinched.",
+        "🪑 [Clinched|Locked in], {the_them} [may|could] [rest|sit] [the stars|starters|key guys].",
+    ],
+    "cx_tank": [
+        "📉 {The_them} ({rec}) are out of it. Draft-pick season over there.",
+        "📉 Eliminated and {rec} — {the_them} are playing for ping-pong balls.",
+        "📉 {The_them} ({rec}) got nothing to play for but next year.",
+        "📉 Season's over for {the_them} ({rec}), they just haven't gone home yet.",
+        "📉 {The_them} ({rec}) [are done|are eliminated]. [Next year's the focus.|Eyes on the draft.]",
+        "📉 [Lottery|Draft] watch: {the_them} ({rec}) are out of it.",
+        "📉 {rec} and eliminated, {the_them} are [playing out the string|counting down].",
+    ],
+    "cx_elim": [
+        "📉 {The_them} are eliminated; {the_us} are still in the race.",
+        "📉 One team's playing for a spot, the other's playing out the string.",
+        "📉 {The_them} are out of the playoff picture. {The_us} ain't.",
+        "📉 Playoff hopes: {the_us} alive, {the_them} done.",
+        "📉 {The_us} [still alive|still in it]; {the_them} [are out|are eliminated|are done].",
+        "📉 Only one side [still has|still got] [playoff hopes|something to play for]: {the_us}.",
+        "📉 [Stakes gap|Motivation gap]: {the_us} in the race, {the_them} [eliminated|done|out].",
+    ],
+    "cx_bowl": [
+        "🏈 {us} sit at 5 wins — one more and they're bowl eligible.",
+        "🏈 Bowl eligibility on the line: {us} need win number 6.",
+        "🏈 {us} are one W from a bowl game. Extra motivation.",
+        "🏈 Win 6 means a bowl trip for {us}.",
+        "🏈 {us} [are|sit] at 5 wins. [One more|Win 6] [gets|punches] a bowl [ticket|bid].",
+        "🏈 [Bowl|Postseason] [bid|trip] on the line for {us} (5 wins, need 6).",
+        "🏈 {us} [need|want] win [No. 6|number 6] for bowl eligibility.",
+    ],
+    "cx_hotseat": [
+        "🔥 {The_them} have lost {cnt} straight — that coach is on the hot seat.",
+        "🔥 {cnt} losses in a row for {the_them}. Coaching staff feeling the heat.",
+        "🔥 {The_them} ({cnt} straight L's) are in a fishbowl right now.",
+        "🔥 Losing streak at {cnt} for {the_them}. Jobs on the line over there.",
+        "🔥 {cnt} {str8} {Ls} for {the_them} — [the coach's|coach's] [seat's warm|job's shaky|job's on the line].",
+        "🔥 [Heat's on|Pressure's on] {the_them_s} coach after {cnt} straight {Ls}.",
+        "🔥 {The_them} have [dropped|lost] {cnt} {str8}. [Hot seat talk is loud.|Jobs on the line.]",
+    ],
+    "cx_ref": [
+        "🦓 {Nm} on the whistle tonight — those games have leaned toward {what}.",
+        "🦓 Zebra check: {nm_s} crew has tilted to {what} over earlier games.",
+        "🦓 {Nm} officiating. The track record leans {what}.",
+        "🦓 Officials matter: {nm_s} games have gone {what}'s way more than the book expected.",
+        "🦓 [Ref|Officiating] [note|check|watch]: {nm_s} games [lean|tilt|trend] toward {what}.",
+        "🦓 {Nm} [has the whistle|is running the game|calls this one]. [History leans|Past games lean|The record leans] {what}.",
+        "🦓 [With|Under] {nm}, games [have leaned|tend to lean|have tilted] toward {what}.",
+    ],
+    "talk_contract_year": [
+        "📣 Contract-year energy around {who} — somebody's playing for a bag.",
+        "📣 {Who} got money on the line this year. Contract talk all week.",
+        "📣 Payday season for {who}: the contract chatter is loud.",
+        "📣 Incentives on the line for {who}. Expect some extra effort.",
+        "📣 [Payday|Contract] [talk|chatter] around {who}: [money's on the line|incentives in play].",
+        "📣 {Who} got a contract year going. [Expect extra effort.|Motivation's up.]",
+        "📣 [Incentives|Bonuses] [at stake|on the line] for {who}. [Watch the effort.|Extra juice.]",
+    ],
+    "talk_unhappy": [
+        "📣 Not everybody's happy over there — {who} got some public frustration going.",
+        "📣 Grumbling in {who_s} camp this week, and it's out in the open.",
+        "📣 Somebody in {who_s} building is venting to the press. Vibes are off.",
+        "📣 {Who} got a frustrated voice or two talking publicly.",
+        "📣 [Frustration|Grumbling] [coming out of|around] {who} [this week|lately]. [Vibes are off.|Not a happy room.]",
+        "📣 {Who} got [somebody|a player] [venting|complaining] [publicly|to the press].",
+    ],
+    "talk_trash_talk": [
+        "📣 {Who} been running their mouth this week. Bulletin-board stuff.",
+        "📣 Trash talk out of {who_s} side. Somebody gotta back it up now.",
+        "📣 {Who} talked a big game all week — receipts get checked tonight.",
+        "📣 Guarantees flying around {who}. Talk is cheap till kickoff.",
+        "📣 {Who} [talked|popped off|ran their mouth] [all week|this week]. [Gotta back it up now.|Receipts tonight.]",
+        "📣 [Big talk|Trash talk|Guarantees] out of {who} [this week|lately]. [Talk is cheap.|Now prove it.]",
+    ],
+    "talk_must_win": [
+        "📣 {Who} already calling it a must-win out loud.",
+        "📣 \"Must-win\" is the word around {who} this week. Backs to the wall.",
+        "📣 {Who} say their season rides on this one.",
+        "📣 Win-or-else talk coming out of {who}.",
+        "📣 {Who} [calling|are calling] it a must-win [out loud|publicly].",
+        "📣 [Must-win|Win-or-else] [talk|energy] [around|out of] {who} this week.",
+    ],
+    "talk_rivalry_week": [
+        "📣 Rivalry week talk is loud around {who}. Bad blood energy.",
+        "📣 {Who} been hyping the rivalry all week.",
+        "📣 Bragging rights on the line, and {who} know it.",
+        "📣 Circled on the calendar for {who}. No love lost here.",
+        "📣 {Who} [been talking up|keep hyping] the rivalry [all week|this week].",
+        "📣 [Rivalry|Bragging-rights] talk around {who}. [Bad blood energy.|No love lost.]",
+    ],
+    "talk_hot_seat": [
+        "📣 Coach's job is a hot topic around {who}. Hot seat talk everywhere.",
+        "📣 Job-security questions around {who_s} coach this week.",
+        "📣 {Who_s} coach is feeling the heat in the papers.",
+        "📣 The coach over at {who} is under the microscope right now.",
+        "📣 [Coach's job|Job security] [talk|questions] [around|for] {who} this week.",
+        "📣 {Who_s} coach [is feeling|feels] the heat [in the press|this week].",
+    ],
+}
+T = {k: [_x(t) for t in v] for k, v in T.items()}
