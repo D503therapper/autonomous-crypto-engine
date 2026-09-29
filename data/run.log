@@ -2807,3 +2807,48 @@ DEX: $309.30 (-690.70) · Scammed: 1 (-$166.76)
 [2026-09-29 14:06 UTC] stocks/trend     equity $488.56 (-2.3%) 4 open  market UP
 [2026-09-29 14:06 UTC] stocks/hold_spy  equity $497.67 (-0.5%) 1 open  market UP
    social heat top: PUMP 46 (37/0/9), QNT 40 (40/0/0), AAVE 35 (35/0/0), AVAX 32 (32/0/0), PRL 29 (29/0/0)
+   dex screen: REJECT WBTC@solana liq $449,201 - freeze authority; mint authority; top-10 holders 90%; lp holders unknown
+   dex screen: REJECT STONKEX@base liq $408,745 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT LIT@ethereum liq $480,318 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 63%; lp locked 0% < 95%
+   dex screen: REJECT CONDO@ethereum liq $203,091 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT SUPER@ethereum liq $3,712,206 - is_mintable; top-10 holders 54%
+   dex screen: REJECT DOTS@solana liq $113,509 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT BTC@solana liq $192,589 - lp holders unknown; rugcheck lp locked 84% < 95%
+   dex screen: REJECT SPX@solana liq $2,378,433 - mint authority
+   dex screen: REJECT POD@base liq $3,368,699 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 94%
+   dex screen: PASS ASTEROID@ethereum liq $1,054,773
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ALUSDB@base liq $1,458,025 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 100%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT MSTRC@base liq $3,012 - liquidity $3,012 < $100,000; 24h volume $465 < $100,000
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ETHFI@ethereum liq $305,065 - top-10 holders 65%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CATE@solana liq $1,477,133 - top-10 holders 100%
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT BNKR@base liq $2,824,468 - goplus partial data: cannot_sell_all unknown; buy tax unknown; top-10 holders 46%
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID 1801:CB238:41C78D:594A16:6ABBD1BE        
+remote: Time 2026-09-29T14:57:03Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   dex scanner: 3,000 pools (solana 2,087 / base 504 / ethereum 409), refresh cycle 131s (hot 127s), 2842 calls (107 feed, 429s 0, failed 0), 82,050 refreshed (11508 no pair), +139 added / -106 dropped (dead 49, stale 0, cap 57), movers 6 + warming 23 -> queued 2, screened 2 (passed 0), bought 0
+[2026-09-29 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-29 15:06 UTC] crypto/mover     equity $452.00 (-9.6%) 0 open  market UP
+[2026-09-29 15:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 15:06 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-29 15:06 UTC] crypto/breakout10 equity $494.98 (-1.0%) 2 open  market UP
+[2026-09-29 15:06 UTC] crypto/momentum  equity $490.38 (-1.9%) 2 open  market UP
+[2026-09-29 15:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-29 15:06 UTC] crypto/hold_btc  equity $497.92 (-0.4%) 1 open  market UP
+[2026-09-29 15:07 UTC] stocks/rsi2      equity $498.62 (-0.3%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 1, TLT 2, TSLA 4, NFLX 5
+[2026-09-29 15:07 UTC] stocks/dual_momentum equity $498.83 (-0.2%) 2 open  market UP
+[2026-09-29 15:07 UTC] stocks/trend_ensemble equity $497.85 (-0.4%) 5 open  market UP
+[2026-09-29 15:07 UTC] stocks/rotation10 equity $495.11 (-1.0%) 2 open  market UP
+[2026-09-29 15:07 UTC] stocks/momentum  equity $490.66 (-1.9%) 4 open  market UP
+[2026-09-29 15:07 UTC] stocks/trend     equity $485.33 (-2.9%) 4 open  market UP
+[2026-09-29 15:07 UTC] stocks/hold_spy  equity $497.21 (-0.6%) 1 open  market UP
+   social heat top: QNT 46 (35/0/11), AVAX 40 (40/0/0), NEAR 37 (37/0/0), PENGU 32 (32/0/0), AAVE 29 (29/0/0)
