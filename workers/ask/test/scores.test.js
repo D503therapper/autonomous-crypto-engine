@@ -22,3 +22,14 @@ test("scores: team score + clock, tennis scoreboard from player 1's side", async
   assert.equal(t.srv, 1); assert.equal(t.done, 1); assert.equal(t.live, true);
   assert.equal(d["nfl:1"], undefined);
 });
+
+test("scores: a rain delay mid-match keeps the score up", async () => {
+  const DLY = { events: [{ groupings: [{ competitions: [{ id: "7", status: { type: { state: "pre", name: "STATUS_DELAYED", detail: "Rain Delay" } }, competitors: [
+    { athlete: { displayName: "Rinky Hijikata" }, linescores: [{ value: 6 }, { value: 2 }] },
+    { athlete: { displayName: "Some Guy" }, linescores: [{ value: 3 }, { value: 1 }] }] }] }] }] };
+  globalThis.caches = { default: { match: async () => null, put: async () => {} } };
+  globalThis.fetch = async () => ({ ok: true, status: 200, text: async () => JSON.stringify(DLY) });
+  const r = await handleScores(new Request("https://x.workers.dev/scores?ids=tennis:atp:7"), {}, { waitUntil() {} }, ["https://d503therapper.github.io"]);
+  const t = (await r.json())["tennis:atp:7"];
+  assert.equal(t.delayed, true); assert.equal(t.live, true); assert.deepEqual(t.sets, [[6, 3], [2, 1]]);
+});

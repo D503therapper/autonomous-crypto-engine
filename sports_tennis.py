@@ -368,6 +368,8 @@ def _state(row):
         return "final"
     if "IN_PROGRESS" in s or "PLAY" in s:
         return "live"
+    if ("DELAY" in s or "SUSPEND" in s or "RAIN" in s) and any(int(v) for v in str(row.get("sets1") or "").split() + str(row.get("sets2") or "").split()):
+        return "live"                                    # a delay mid-match: it's underway (the score stays up)
     return "pre"
 
 

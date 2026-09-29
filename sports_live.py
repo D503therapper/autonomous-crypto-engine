@@ -934,7 +934,8 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
         try:
             state = stn._state(m)
             if state == "live" or (state != "pre" and m["id"] in ours):
-                SCORES[f"tennis:{m['id']}"] = {**_tennis_score(m, ours.get(m["id"])), "tennis": True, "live": state == "live"}
+                SCORES[f"tennis:{m['id']}"] = {**_tennis_score(m, ours.get(m["id"])), "tennis": True, "live": state == "live",
+                                               "delayed": any(k in str(m.get("status", "")).upper() for k in ("DELAY", "SUSPEND", "RAIN"))}
         except Exception:                                    # noqa: BLE001
             pass
     import sports_breakdown as sb
