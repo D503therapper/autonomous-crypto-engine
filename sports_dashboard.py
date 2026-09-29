@@ -953,16 +953,21 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                          f"💰 Y'all doubted {what} at +{o}{how}? Smacked it. Trust the algorithm. LET'S GO!",
                                          f"💰 {_cap(what)} at +{o}{how}. Books are in shambles. I tried to fucking tell y'all!"]))
     big_live = {(e["team"], e["odds"]) for e in live.values() if e.get("odds", 0) >= BIG_HIT}
-    cutoff = (datetime.now(timezone.utc) - timedelta(hours=30)).strftime("%Y-%m-%dT%H:%MZ")
-    fresh = {}
+    # the tape: the games that actually finished on TODAY's date (Pacific) - or yesterday's, before today has any.
+    # (It used to count a 30-hour window, and a Monday said "last night's 2 NFL games" - Sunday night + MNF.)
+    by_day = {}
     for g in (games or {}).values():
-        if g.get("status") == "final" and g.get("start", "") >= cutoff and (g.get("stype") or "?") in sd.REAL:
-            fresh[g["league"]] = fresh.get(g["league"], 0) + 1
+        if g.get("status") == "final" and (g.get("stype") or "?") in sd.REAL and g.get("start"):
+            d_ = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).date().isoformat()
+            by_day.setdefault(d_, {}).setdefault(g["league"], 0)
+            by_day[d_][g["league"]] += 1
+    yday = (now.date() - timedelta(days=1)).isoformat()
+    when, fresh = ("today's", by_day.get(today)) if by_day.get(today) else ("yesterday's", by_day.get(yday))
     if fresh:
-        parts = [f"{n} {sd.LEAGUES[lg][2]}" for lg, n in sorted(fresh.items(), key=lambda x: -x[1])]
+        parts = [f"{n} {sd.LEAGUES[lg][2]} game{'s' if n > 1 else ''}" for lg, n in sorted(fresh.items(), key=lambda x: -x[1])]
         what = ", ".join(parts[:-1]) + (" and " if len(parts) > 1 else "") + parts[-1]
-        lines.append([f"🎥 Studied the tape on last night's {what} games.", f"🎥 Broke down the film from {what} games.",
-                      f"🎥 Went back over {what} games and got sharper."][k % 3])
+        lines.append([f"🎥 Studied the tape on {when} {what}.", f"🎥 Broke down the film from {when} {what}.",
+                      f"🎥 Went back over {when} {what} and got sharper."][k % 3])
     n = sum(p.get("eval_games", 0) for p in params.values())
     if n:
         a_ = sum((p.get("oos") or {}).get("acc", p["accuracy"]) * p.get("eval_games", 0) for p in params.values()) / n
@@ -991,6 +996,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                                f"📡 {_cap(t)} live at {o} was booty cheeks. Bad call — is what it is.",
                                                f"📡 Live L: {t} at {o}. Comeback never came. Is what it is — the algorithm's taking notes.",
                                                f"📡 {_cap(t)} live at {o} came up short. Bad call, shake it off — next one's ours."]))
+    seen_s, uniq = set(), []                                  # no sentence twice in the nutshell ("Trust the algorithm"
+    for ln in lines:                                          # showed up on two lines, 9/28)
+        keep = [x for x in re.split(r"(?<=[.!?])\s+", ln) if re.sub(r"\W", "", x.lower()) not in seen_s or not x.strip()]
+        seen_s |= {re.sub(r"\W", "", x.lower()) for x in keep if len(x) < 40}   # (short sayings: once)
+        if keep:
+            uniq.append(" ".join(keep))
+    lines = uniq
     if not done and not any(x.startswith("📡") for x in lines):   # no finished day yet: nothing to brag or cry about
         lines = [_rot(k, ["👀 We gon' see.", "👀 We finna see."])]
     elif lines:                                               # results are in: remind everybody we're just getting started
