@@ -128,6 +128,7 @@ def make(table, **params):
     params = dict(LADDER, **params)
     params.setdefault("scan", {"enabled": False})           # the wide scanner has its own tests (test_scan_*)
     params.setdefault("confirm_ms", 0)                      # crash/rug confirmation has its own test
+    params.setdefault("season", None)                       # season restart has its own test
     d = tempfile.mkdtemp()
     table = dict(table)
     table.setdefault("token-boosts/top", (200, []))
@@ -618,6 +619,27 @@ def test_crash_needs_a_second_reading():
     print("  crash / rug sale needs a second reading >= 2 min later (single bad ticks ignored)   ok")
 
 
+def test_new_season_restarts_account():
+    """A new params['season'] archives the account + outcomes (never deletes) and starts fresh at season_cash."""
+    h, fetch, d, px = held()
+    h.save()
+    with open(f"{d}/outcomes.csv", "w") as f:
+        f.write("time,coin,outcome\n2026-09-27 10:35,GENO,scammed_rug\n")
+    h.state["scams"] = [T0]
+    h.save()
+    h2 = DexHunter(params=dict(h.p, season="S2", season_cash=1000.0), fetch=fetch, now_ms=T0)
+    h2._load()
+    assert h2.pf.cash == 1000.0 and not h2.pf.positions and h2.state["season"] == "S2" and not h2.state["scams"]
+    assert os.path.exists(f"{d}/archive/season1/portfolio.json") and os.path.exists(f"{d}/archive/season1/outcomes.csv")
+    assert not os.path.exists(f"{d}/outcomes.csv")
+    h2.save()
+    h3 = DexHunter(params=dict(h.p, season="S2", season_cash=1000.0), fetch=fetch, now_ms=T0)
+    h3._load()                                                               # same season: nothing happens again
+    assert h3.state["season"] == "S2" and not os.path.exists(f"{d}/archive/S2")
+    shutil.rmtree(d)
+    print("  new season: account archived (not deleted), fresh $1,000, scam counter reset, once   ok")
+
+
 def test_trailing_stop():
     h, fetch, d, px = held()
     t = poll(h, T0 + 6000, px, v=0.015)
@@ -1080,7 +1102,7 @@ def test_source_backoff():
 def test_state_persists():
     h, fetch, d = make(table_evm())
     screen(h, cand())
-    h2 = DexHunter(params={"dir": d, "gap_s": GAP0}, fetch=fetch, now_ms=T0 + 5000)
+    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "season": None}, fetch=fetch, now_ms=T0 + 5000)
     h2._load()
     assert K in h2.pf.positions and h2.pf.positions[K]["liq0"] == 600_000 and h2.pf.positions[K]["tier"] == "A"
     assert h2.state["seen"]["base:" + EVM]["v"] == "PASS" and h2.equity() == h.equity()
@@ -1178,7 +1200,7 @@ def test_scan_universe_cap_and_eviction():
     h._uni_add("base", "0xABCdef0000000000000000000000000000000001", now, "x")
     assert not h._uni_add("base", "0xabcdef0000000000000000000000000000000001", now, "x")   # EVM case ignored
     h._uni_save(now)
-    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "chains": ["base"], "scan": SCAN}, fetch=fetch, now_ms=now)
+    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "chains": ["base"], "scan": SCAN, "season": None}, fetch=fetch, now_ms=now)
     h2._load()
     assert sorted(h2.uni) == sorted(h.uni) and h2.uni[f"base:{addr_n(7)}"]["move"] == (now - HOUR) // 1000 * 1000
     shutil.rmtree(d)
@@ -1411,6 +1433,7 @@ if __name__ == "__main__":
     test_liquidity_floor_scales_with_account()
     test_sizing_caps_in_entries()
     test_crash_needs_a_second_reading()
+    test_new_season_restarts_account()
     test_trailing_stop()
     test_evm_address_case()
     test_take_profit_steps()

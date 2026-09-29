@@ -279,6 +279,8 @@ DEX = {
     # screening queue. Every scam check still applies. Other knobs: dex.DEFAULTS["scan"].
     "scan": {"enabled": True, "max_pools": 3000, "hot_s": 30, "cold_s": 120, "warm_h1": 0.05},
     "slots": 10,                                   # EXPERIMENT 1: 10 x ~10% = the whole DEX account invested (was 5 x 20%)
+    # Owner 2026-09-29: restart the DEX paper account at $1,000 (season 1 archived in data/dex/archive/season1/)
+    "season": "2026-09-29", "season_cash": 1000.0,
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to
                                                    # re-enable set reset_after "YYYY-MM-DD HH:MM" (UTC) > pause time
 }
