@@ -3,7 +3,7 @@ time: ESPN's scoreboard (what we use now) and Bovada's live tennis feed + its pe
 import json, time, urllib.request
 from datetime import datetime, timezone
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-      "Accept": "application/json"}
+      "Accept": "*/*", "Referer": "https://www.bovada.lv/", "Origin": "https://www.bovada.lv", "Accept-Language": "en-US,en;q=0.9"}
 def get(u):
     return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=15))
 BOV = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&liveOnly=true&lang=en"
@@ -26,6 +26,13 @@ if evs:
             break
         except Exception as e:
             print("score api err", u, str(e)[:100])
+# the live feed itself: does each event carry a score (and how fast does it move)?
+try:
+    d = get(BOV)
+    e0 = next(e for g in d for e in g.get("events") or [] if e.get("live"))
+    print("EVENT KEYS", sorted(e0), json.dumps({k: e0[k] for k in e0 if "score" in k.lower() or k in ("competitors",)})[:800])
+except Exception as e:
+    print("feed keys err", str(e)[:100])
 last, t_end = {}, time.time() + 240
 while time.time() < t_end and evs:
     for eid, name in evs[:4]:
