@@ -2749,7 +2749,7 @@ def test_breakdown_variety():
     # every roll stays within today's size for its line, and the big lines have thousands of ways to go
     for k, ts in sb.T.items():
         assert k in sb._CAP, k
-        facts = {p: "Xx" for p in re.findall(r"\{(\w+)\}", " ".join(ts)) if p.lower() not in vo.SLOTS and p != "field"}
+        facts = {p: "Xx" for p in re.findall(r"\{(\w+)\}", " ".join(ts)) if p.lower() not in vo.SLOTS and p not in ("field", "a_n", "a_rec")}
         rolls = sb._roll(k, "t", {"field": "court", "a_n": "a", "a_rec": "a"}, **facts)
         assert rolls and all(sb._size(r.replace("Xx", "\ue000\ue100\ue001"))[0] <= sb._CAP[k][0] for r in rolls), k
     assert vo.supply(sb.T["bottom"]) > 5000 and vo.supply(sb.T["bottom_s"]) > 2000 and len(sb.T["bottom"]) >= 10
