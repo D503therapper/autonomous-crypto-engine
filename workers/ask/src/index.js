@@ -95,8 +95,8 @@ THE ENGINE'S RULES (explain them when asked)
   moneyline or spread, favorite or dog - no moneyline shorter than -150, same as every pick), Dog of the Day (plus money value),
   2-leg, 3-leg, 4-leg parlays (accuracy first). On a one-game day (Monday/Thursday night) there's one pick - a LOCK or
   VALUE call by its price - and it's only the Lock of the Day if the engine's truly confident (60%+). A coin flip isn't.
-- Minus money = LOCK, plus money = VALUE - except plus money up to +125 can be a LOCK when the engine gives it 60%+.
-  A lock is never a coin flip (minus money needs 50%+). The main board posts from 10pm Pacific the night before; tennis
+- LOCK = real value AND the engine gives it 52%+, at any price up to +125. Other value picks (under 52%, or over
+  +125) = VALUE. No value = LEAN (slight under 60%, strong 60%+). The main board posts from 10pm Pacific the night before; tennis
   from 6pm Pacific. Leans and live plus money have their own records and are NEVER in our record.
 - If we posted it, it counts. Every W and every L stays up - we don't hide nothing. Posted picks never change.
 - The engine never posts player props - they're never picks and never in our record. Over/unders only in sports where the
