@@ -1,6 +1,6 @@
 """Phone dashboard for THE D503 SPORTS ENGINE (docs/sports/index.html).
 Top: today's board (2-leg, 3-leg, lock, dog). Below: results, record, and what the engine learned.
-Self-contained HTML (inline CSS/SVG, tiny JS for the "updated X min ago" light)."""
+Self-contained HTML (inline CSS/SVG, tiny JS for the live scores and the 🟢 LIVE light)."""
 import html
 import json
 import os
@@ -1362,7 +1362,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <header class="head">
   <div class="title"><span class="the">THE</span> <span class="d503">D503</span></div>
   <div class="tag">SPORTS ENGINE</div>
-  <div class="live"><span class="dot" id="dot"></span><span id="ago">Live</span></div>
+  <div class="live"><span class="dot" id="dot"></span><span id="ago">LIVE</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 <div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 QUESTION BOX</span></div>
@@ -1441,10 +1441,9 @@ poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll)
 try{{var o=sessionStorage.getItem("d503o");if(o){{sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){{if(ds[i])ds[i].open=true}});}}
  var y=sessionStorage.getItem("d503y");if(y!==null){{sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}}}catch(e){{}}
-function tick(){{m=Math.max(0,Math.round((Date.now()-t)/60000));
- var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
- document.getElementById("ago").textContent="Live · "+s;
- if(m>150)document.getElementById("dot").className="dot stale";}}
+function tick(){{m=Math.max(0,Math.round((Date.now()-t)/60000));}}   // (m: the page's age - check() uses it)
+// the owner, 9/29: 'Live · 10 min ago' read like the scores were 10 minutes old, and a 'Reconnecting' reads like a
+// glitch - so the top right just says 🟢 LIVE. A stalled feed is the hourly bug check's job (it flags the owner).
 var touched=0;["touchstart","scroll","keydown","click"].forEach(function(ev){{window.addEventListener(ev,function(){{touched=Date.now()}},{{passive:true}})}});
 function check(){{if(document.hidden)return;              // a newer page? swap it in - only once the SITE serves it
  var st=window.d503stale;                                 // a result landed: swap as soon as the new page is up

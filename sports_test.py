@@ -3321,6 +3321,16 @@ def test_game_clock_says_intermission_and_all_that():
     assert "overtime" in story("3:21 - OT") and "3rd period" not in story("3:21 - OT")
 
 
+def test_top_right_just_says_live():
+    """The owner, 9/29: 'Live · 10 min ago' read like the scores were 10 minutes old, 'Board updated…' was no better,
+    and 'Reconnecting' reads like a glitch. The top right just says 🟢 LIVE (the hourly bug check handles a stall)."""
+    import sports_dashboard as sdb
+    src = open(sdb.__file__).read()
+    assert '<span id="ago">LIVE</span>' in src
+    for gone in ('"Live · "', "min ago", "Reconnecting", '"dot stale"'):
+        assert gone not in src.split("def write(")[1], gone
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
