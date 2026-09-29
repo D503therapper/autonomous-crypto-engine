@@ -1,0 +1,15 @@
+# How fast live tennis scores move at the source (tools/tennis_latency.py). Runs by hand / when this file changes.
+name: tennis_latency
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: [".github/workflows/tennis_latency.yml", "tools/tennis_latency.py"]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: tools, sparse-checkout-cone-mode: false }
+      - run: timeout 6m python3 -u tools/tennis_latency.py

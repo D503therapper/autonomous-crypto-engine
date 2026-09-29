@@ -108,7 +108,8 @@ else:
 # 3. live scores route
 try:
     api = open(os.path.join(sd.DATA, "ask_url.txt")).read().strip().rstrip("/")
-    r = urllib.request.urlopen(urllib.request.Request(f"{api}/scores?ids=nfl:0", headers={"Origin": "https://d503therapper.github.io"}),
+    r = urllib.request.urlopen(urllib.request.Request(f"{api}/scores?ids=nfl:0", headers={"Origin": "https://d503therapper.github.io",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148"}),
                                timeout=20)
     ok.append(f"scores route up ({r.status})")
 except Exception as e:                                   # noqa: BLE001
