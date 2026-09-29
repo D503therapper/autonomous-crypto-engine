@@ -1207,6 +1207,23 @@ def _data(reload=False):
     return _DATA["games"], _DATA["model"]
 
 
+def today_bets(log):
+    """Today's live bets (pending ones too) for the page's LIVE PLUS MONEY TODAY list - it adds any the built page
+    doesn't have yet, so a bet shows the moment it's logged, not at the next page rebuild. Newest last."""
+    day = datetime.now(PT).date().isoformat()
+    out = []
+    for pid, e in sorted(log.get("plays", {}).items(), key=lambda kv: kv[1].get("posted", "")):
+        if e.get("date") != day:
+            continue
+        lg = e.get("league", "")
+        tennis = lg == "tennis"
+        out.append({"pid": pid, "team": e.get("team", ""), "odds": e.get("odds"), "result": e.get("result"),
+                    "icon": "🎾" if tennis else sd.LEAGUES.get(lg, ("", "", "", "🏟️"))[3],
+                    "sport": ("Women's Tennis" if e.get("tour") == "wta" else "Men's Tennis") if tennis
+                    else sd.LEAGUES.get(lg, ("", "", lg.upper()))[2], "dd": bool(e.get("double_down"))})
+    return out
+
+
 def run():
     t0 = time.time()
     games, model = _data()
@@ -1223,6 +1240,7 @@ def run():
            "done": {pid: e["result"] for pid, e in log["plays"].items()          # today's graded live bets: a page
                     if e.get("date") == datetime.now(PT).date().isoformat() and e.get("result")},   # still showing one
                                                                                                       # pending refreshes
+           "today": today_bets(log),
            "health": health,
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
@@ -1316,11 +1334,45 @@ LIVE_BRANCH = "live-data"      # live.json goes out on its own branch (one tiny 
                                # changes; phones read it from there. The graded log still lives on main.
 
 
+def sync_log():
+    """Every live bet any watch logged: main's copy + the one shipped with the board (live-data), merged."""
+    try:
+        mine = json.load(open(LOG)) if os.path.exists(LOG) else {"plays": {}}
+        merged = sd.merge_live_logs(mine, sd.live_log_from_branch())
+        if merged != mine:
+            with open(LOG, "w") as f:
+                json.dump(merged, f, indent=1, sort_keys=True)
+    except Exception as e:                                    # noqa: BLE001
+        sd.ERRORS.append(f"log sync: {str(e)[:80]}")
+
+
+def unstick():
+    """A pull that stopped mid-rebase leaves git refusing every later commit and push - silently (9/29: an hour of live
+    bets never reached main). Clear it."""
+    g = os.path.join(".git")
+    if os.path.isdir(os.path.join(g, "rebase-merge")) or os.path.isdir(os.path.join(g, "rebase-apply")):
+        _git("rebase", "--abort")
+        sd.ERRORS.append("cleared a stuck rebase")
+    if os.path.exists(os.path.join(g, "MERGE_HEAD")):
+        _git("merge", "--abort")
+
+
+def pull():
+    """Pull main safely: clear a stuck rebase first, and put back any live bet a conflicting pull dropped from the log."""
+    unstick()
+    r = _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+    sync_log()
+    return r
+
+
 def push_live():
     """Force-push docs/sports/live.json as the only file of the live-data branch (seconds, no history pile-up)."""
     blob = _git("hash-object", "-w", LIVE_JSON).stdout.strip()
+    entries = f"100644 blob {blob}\tlive.json\n"
+    if os.path.exists(LOG):                                  # the live-bet log rides along: it never depends on main
+        entries += f"100644 blob {_git('hash-object', '-w', LOG).stdout.strip()}\tlive_log.json\n"
     import subprocess
-    tree = subprocess.run(["git", "mktree"], input=f"100644 blob {blob}\tlive.json\n", capture_output=True, text=True,
+    tree = subprocess.run(["git", "mktree"], input=entries, capture_output=True, text=True,
                           timeout=30).stdout.strip()
     commit = _git("commit-tree", tree, "-m", f"live {datetime.now(timezone.utc):%H:%M:%S}").stdout.strip()
     for _ in range(3):
@@ -1356,7 +1408,7 @@ def publish_results(msg):
     try:
         importlib.reload(sports_dashboard)                   # the watcher runs for 50 min: always rebuild the page
         importlib.reload(sports)                             # with the newest pulled code, never an older look
-        _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")   # grade the latest picks, never a stale copy
+        pull()   # grade the latest picks, never a stale copy
         tn = 0
         try:                                                 # 🎾 our tennis picks first (the page below shows them)
             import sports_tennis
@@ -1374,7 +1426,7 @@ def publish_results(msg):
         return
     _git("commit", "-qm", f"{msg}: {len(graded)} graded, {len(posted)} new, {tn} tennis")
     for _ in range(4):
-        _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+        pull()
         if _git("push", "-q").returncode == 0:
             return
         time.sleep(3)
@@ -1388,7 +1440,7 @@ def publish(msg):
         return
     _git("commit", "-qm", msg)
     for _ in range(4):
-        _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+        pull()
         if _git("push", "-q").returncode == 0:
             return
         time.sleep(3)
@@ -1498,6 +1550,7 @@ def loop(minutes, every_s=1):
     watchdog()
     _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
     board = _git("show", f"origin/{LIVE_BRANCH}:live.json")      # are up stay up (they don't have to re-qualify)
+    sync_log()
     if board.returncode == 0 and board.stdout.strip():
         with open(LIVE_JSON, "w") as f:
             f.write(board.stdout)
@@ -1508,7 +1561,7 @@ def loop(minutes, every_s=1):
             last_pull = t0
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pulling", flush=True)
             if not grading():                                # (the grader has git busy - pull next time)
-                _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
+                pull()
             if _code_hash() != code and not grading():      # new live code landed: restart on it right now, so a fix
                 left = max(1.0, (end - time.time()) / 60)   # never waits behind a watch running the old code
                 print(f"{datetime.now(timezone.utc):%H:%M:%S} new code - restarting on it ({left:.0f} min left)", flush=True)

@@ -2929,6 +2929,28 @@ def test_live_board_never_shows_a_frozen_price():
     assert "live_stuck.py" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools/backstop.sh")).read()
 
 
+def test_live_bets_today_never_lost():
+    """9/29: Garcia's live bet came down (she went to a big favorite) and was nowhere on the page - the watcher's saves to
+    main failed and the list sat at the bottom. Now: the log rides with the live board and merges back (a graded copy
+    wins), live.json carries today's bets, and the page lists them right under the live box."""
+    a = {"plays": {"x:1": {"team": "A", "posted": "1", "result": None}, "x:2": {"team": "B", "result": "won"}}}
+    b = {"plays": {"x:1": {"team": "A", "posted": "1", "result": "lost"}, "x:3": {"team": "C", "result": None}}}
+    m = sd.merge_live_logs(a, b)["plays"]
+    assert m["x:1"]["result"] == "lost" and m["x:2"]["result"] == "won" and "x:3" in m
+    assert sd.merge_live_logs(b, {"plays": {"x:1": {"team": "A", "result": None}}})["plays"]["x:1"]["result"] == "lost"
+    import sports_live as slv
+    from datetime import datetime
+    day = datetime.now(slv.PT).date().isoformat()
+    t = slv.today_bets({"plays": {"tennis:wta:1:2": {"team": "Andrea Lazaro Garcia", "odds": 125, "date": day, "league": "tennis",
+                                                     "tour": "wta", "posted": "x", "result": None},
+                                  "nfl:9:home": {"team": "Bears", "odds": 120, "date": "2020-01-01", "league": "nfl"}}})
+    assert t == [{"pid": "tennis:wta:1:2", "team": "Andrea Lazaro Garcia", "odds": 125, "result": None, "icon": "🎾",
+                  "sport": "Women's Tennis", "dd": False}]
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert src.index('<div id="livetoday">') < src.index("TODAY'S BOARD")      # right under the live box
+    assert "today(d.today)" in src and "live_log.json\\n" in open(slv.__file__).read().replace("\\t", "")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

@@ -783,9 +783,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live = {}
     try:
         with open(os.path.join(sd.DATA, "live_log.json")) as f:
-            live = json.load(f).get("plays", {})
+            live = json.load(f)
     except (OSError, ValueError):
         pass
+    live = live.get("plays", {})
     # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
     days_ = {today}
     lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)   # every one today - the list always matches the record
@@ -1275,6 +1276,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div id="asklist"></div><div id="askout"></div></div></div>
 <div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
 {bell}<div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
+<div id="livetoday">{live_list}</div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
 {tomorrow}
@@ -1292,7 +1294,6 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="sports">{by_sport}</div>
   {hist}
 </section>
-{live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
 <div class="foot"><b>THE D503 SPORTS ENGINE</b><br>
@@ -1317,7 +1318,16 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    '<div class="ls">'+esc(p.score)+(p.ball?' · '+esc(p.ball):'')+'</div><div class="why">'+esc(p.line)+'</div>'+
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
+function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return;   // today's live bets, pending too: straight
+ T.forEach(function(e){{if(el.querySelector('.leg[data-pid="'+e.pid+'"]'))return;   // from the watcher, no page rebuild needed
+  var sec=el.querySelector("section");
+  if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY TODAY</span></div></section>';sec=el.querySelector("section");}}
+  var b=e.result==="won"?'<span class="lr won">✅ CASHED</span>':e.result==="lost"?'<span class="lr lost">❌ LOST</span>':'<span class="tm">⏳ still going</span>';
+  var h=document.createElement("div");h.className="leg "+(e.result||"");h.setAttribute("data-pid",e.pid);
+  h.innerHTML='<div class="lt"><span class="lgb">'+esc(e.icon)+' '+esc(e.sport)+(e.dd?' · 🔁 DOUBLE DOWN':'')+'</span>'+b+'</div><div class="lm"><span class="pick">'+esc(e.team)+' <em>ML</em></span><span class="od">+'+esc(e.odds)+'</span></div>';
+  var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});}}   // newest on top
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
+ if(d&&age<6*3600000)today(d.today);
  if(d&&(d.plays||[]).length&&age>PLAY_FRESH_MS)d=Object.assign({{}},d,{{plays:[],live_games:-1}});   // a price we haven't re-checked in 45s never shows
  if(d&&d.done)Object.keys(d.done).forEach(function(k){{var r=document.querySelector('.leg[data-pid="'+k+'"]');
    if(r&&!r.classList.contains("won")&&!r.classList.contains("lost"))window.d503stale=1}});   // graded, page says pending
@@ -1358,10 +1368,14 @@ function fastScores(){{if(document.hidden||!API)return;var n=Date.now(),ids={{}}
  var k=Object.keys(ids);if(!k.length)return;
  fetch(API+"/scores?ids="+encodeURIComponent(k.join(",")),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}})
  .then(function(d){{if(d){{window.D503F=d;window.D503Ft=Date.now();liveTags()}}}}).catch(function(){{}});}}
+function games(sc){{return (sc.sets||[]).reduce(function(t,x){{return t+(+x[0]||0)+(+x[1]||0)}},0)}}
 function flip(sc){{return {{tennis:true,n:[sc.n[1],sc.n[0]],sets:(sc.sets||[]).map(function(x){{return [x[1],x[0]]}}),
   pts:sc.pts?[sc.pts[1],sc.pts[0]]:null,srv:sc.srv===0?1:sc.srv===1?0:null,done:sc.done,live:sc.live,delayed:sc.delayed}}}}
 function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D503Ft||0)<15000&&window.D503F)||{{}};
- Object.keys(W).forEach(function(k){{S[k]=W[k]}});Object.keys(F).forEach(function(k){{S[k]=F[k]}});   // the freshest wins
+ Object.keys(W).forEach(function(k){{S[k]=W[k]}});
+ Object.keys(F).forEach(function(k){{var w=W[k],f=F[k];   // tennis: whichever feed is further along wins (the watcher's
+  if(w&&w.tennis&&f&&f.tennis){{var wg=games(w),fg=games(f);if(wg>fg){{S[k]=w;return}}}}   // book score beats a
+  S[k]=f}});                                                                                       // lagging ESPN one
  document.querySelectorAll(".tm[data-start]").forEach(function(s){{
   // 🔴 LIVE while it's being played, with the score + time left right under it (tennis: sets, games, points)
   var st=Date.parse(s.getAttribute("data-start"));if(!st)return;
@@ -1553,6 +1567,15 @@ b.onclick=function(){{
 
 
 def write(picks, model, games, series, start_bank, path=PAGE):
+    try:                                                     # every live bet any watch logged: main's copy + the one
+        lp = os.path.join(sd.DATA, "live_log.json")          # the watcher ships with its board (live-data), merged
+        mine = json.load(open(lp)) if os.path.exists(lp) else {"plays": {}}
+        merged = sd.merge_live_logs(mine, sd.live_log_from_branch())
+        if merged != mine:
+            with open(lp, "w") as f:
+                json.dump(merged, f, indent=1, sort_keys=True)
+    except (OSError, ValueError):
+        pass
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         f.write(render(picks, model, games, series, start_bank, int(time.time() * 1000)))

@@ -641,3 +641,30 @@ def sync_odds_history(games, state, backfill_days=550, workers=6, budget_s=420):
         if lg in cur or upto >= today - timedelta(days=backfill_days):
             cur[lg] = min(upto, today).strftime("%Y-%m-%d")
     return filled, len(jobs) + len(weeks), sum(1 for _, r in results + wres if r is None)
+
+
+def merge_live_logs(a, b):
+    """Two copies of the live-bet log -> one with every bet in either (9/29: the watcher's saves to main failed for an
+    hour and that night's live bets never reached the page). Per bet: a graded copy beats an ungraded one, else the
+    fuller copy."""
+    out = {"plays": dict((a or {}).get("plays") or {})}
+    for pid, e in ((b or {}).get("plays") or {}).items():
+        mine = out["plays"].get(pid)
+        if mine is None or (e.get("result") and not mine.get("result")) or \
+                (bool(e.get("result")) == bool(mine.get("result")) and len(e) > len(mine)):
+            out["plays"][pid] = e
+    for k, v in ((a or {}).items()):
+        if k != "plays":
+            out[k] = v
+    return out
+
+
+def live_log_from_branch():
+    """The live-bet log the watcher ships with every board push (the live-data branch), or {}."""
+    import subprocess
+    try:
+        subprocess.run(["git", "fetch", "-q", "origin", "live-data"], capture_output=True, timeout=30)
+        r = subprocess.run(["git", "show", "origin/live-data:live_log.json"], capture_output=True, text=True, timeout=30)
+        return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else {}
+    except Exception:                                         # noqa: BLE001
+        return {}
