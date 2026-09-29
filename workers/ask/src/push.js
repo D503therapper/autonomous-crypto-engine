@@ -224,14 +224,15 @@ export async function handlePush(request, env, ctx, path, origins) {
     }
     // the newest ntfy message that /push verified. Each verified id has its own key, and a phone's edge has never
     // read that brand-new key, so it comes back fresh (a single "latest" key can be up to a minute stale elsewhere).
+    let best = (await kv.get(`${PREFIX}latest`, "json")) || {};   // (alerts straight from the engine land here)
     try {
       const recent = (await ntfyMessages("15m")).reverse().slice(0, 5);
       for (const m of recent) {
         const hit = await kv.get(`${PREFIX}msg:${m.id}`, "json");
-        if (hit) return json(hit, 200, cors);
+        if (hit && (hit.time || 0) >= (best.time || 0)) { best = hit; break; }
       }
-    } catch { /* ntfy down: fall back to the saved one */ }
-    return json((await kv.get(`${PREFIX}latest`, "json")) || {}, 200, cors);
+    } catch { /* ntfy unreachable from here: the saved one */ }
+    return json(best, 200, cors);
   }
 
   if (path === "/alerts-status") {
@@ -282,23 +283,37 @@ export async function handlePush(request, env, ctx, path, origins) {
     return json({ ok: true, welcome: true }, 200, cors);
   }
 
-  // POST /push {ntfy_id}
-  const id = String((body && body.ntfy_id) || "");
-  if (!/^[A-Za-z0-9]{6,32}$/.test(id)) return json({ error: "bad ntfy_id" }, 400, cors);
-  let msgs;
-  try {
-    msgs = await ntfyMessages("15m");
-  } catch {
-    return json({ error: "ntfy unreachable" }, 502, cors);
+  // POST /push {key, title, body}: straight from the engine (its key proves it) - no ntfy lookup, which Cloudflare can
+  // be blocked from (a live bet alert died that way, 9/28). Or the old way, POST /push {ntfy_id}: checked on the topic.
+  let alert;
+  if (body && body.key && env && env.PUSH_KEY && body.key === env.PUSH_KEY) {
+    const id = `d${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+    alert = { id, title: String(body.title || "D503 Sports Engine 🔥").slice(0, 120), body: String(body.body || "").slice(0, 400),
+      url: DASH_URL, time: Math.floor(Date.now() / 1000) };
+    if (body.dry) return json({ ok: true, dry: true }, 200, cors);
+  } else {
+    const id = String((body && body.ntfy_id) || "");
+    if (!/^[A-Za-z0-9]{6,32}$/.test(id)) return json({ error: "bad ntfy_id" }, 400, cors);
+    let msgs;
+    try {
+      msgs = await ntfyMessages("15m");
+    } catch {
+      await logEvent(kv, { event: "alert failed", device: "ntfy unreachable from Cloudflare" });
+      return json({ error: "ntfy unreachable" }, 502, cors);
+    }
+    const m = msgs.find((x) => x.id === id);
+    if (!m) return json({ error: "no such message on the topic" }, 404, cors);
+    if (await kv.get(`${PREFIX}msg:${id}`)) return json({ ok: true, already: true }, 200, cors);   // no replays
+    alert = toAlert(m);
   }
-  const m = msgs.find((x) => x.id === id);
-  if (!m) return json({ error: "no such message on the topic" }, 404, cors);
-  if (await kv.get(`${PREFIX}msg:${id}`)) return json({ ok: true, already: true }, 200, cors);   // no replays
-  const alert = toAlert(m);
+  const id = alert.id;
   await kv.put(`${PREFIX}msg:${id}`, JSON.stringify(alert), { expirationTtl: 86400 });
   await kv.put(`${PREFIX}latest`, JSON.stringify(alert));
   const keys = await vapidKeys(kv);
-  const job = sendAll(kv, keys).then((s) => console.log("pushed", id, JSON.stringify(s)));
+  const job = sendAll(kv, keys).then(async (s) => {         // every alert sent goes in the log (who got it, who didn't)
+    console.log("pushed", id, JSON.stringify(s));
+    await logEvent(kv, { event: "alert", device: String(alert.title || "").slice(0, 60), sent: s.sent, gone: s.gone, failed: s.failed });
+  });
   if (ctx && ctx.waitUntil) ctx.waitUntil(job);
   else await job;
   return json({ ok: true, id }, 202, cors);

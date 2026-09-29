@@ -63,6 +63,8 @@ jobs:
           node --test
           npx wrangler deploy 2>&1 | tee deploy.log
           printf '%s' "$ANTHROPIC_API_KEY" | npx wrangler secret put ANTHROPIC_API_KEY
+          # 🔔 the engine's alert key (made from the Cloudflare secrets on both sides - never printed)
+          printf 'd503-push|%s|%s' "$CLOUDFLARE_ACCOUNT_ID" "$CLOUDFLARE_API_TOKEN" | sha256sum | cut -d' ' -f1 | tr -d '\n' | npx wrangler secret put PUSH_KEY
           url=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
           test -n "$url" || { echo "::error::no workers.dev address in the deploy output (turn on the workers.dev subdomain in Cloudflare > Workers)"; exit 1; }
           echo "$url" > ../../data/sports/ask_url.txt

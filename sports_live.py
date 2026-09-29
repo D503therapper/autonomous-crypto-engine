@@ -601,15 +601,20 @@ def notify(pl, back=False):
         return
     o = f"+{pl['odds']}" if pl["odds"] > 0 else str(pl["odds"])
     body = f"{pl['team']} ML {o} — {pl.get('score', '')}, {pl.get('clock', '')}. {pl.get('line', '')}".strip()
+    title = f"{'BACK ON: ' if back else ''}🔥 LIVE PLUS MONEY: {pl['team']} {o}"
+    return alert(title, body, "rotating_light")
+
+
+def alert(title, body, tag="rotating_light"):
+    """📲 One alert to everybody: the dashboard's own 🔔 alerts (straight to our Worker) + the ntfy channel. Never blocks."""
+    raw = None
     req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=body.encode(), method="POST", headers={
-        "Title": f"{'BACK ON: ' if back else ''}LIVE PLUS MONEY: {pl['team']} {o}".encode("latin-1", "ignore").decode("latin-1"),
-        "Tags": "rotating_light", "Click": DASH_URL, "Priority": "high"})
+        "Title": title.encode("latin-1", "ignore").decode("latin-1"), "Tags": tag, "Click": DASH_URL, "Priority": "high"})
     try:
         raw = urllib.request.urlopen(req, timeout=5).read()
     except Exception as e:                                   # noqa: BLE001 - a push failing never stops the watch
         sd.ERRORS.append(f"notify: {str(e)[:60]}")
-        return None
-    return sd.web_push(raw)                                  # 🔔 + the dashboard's own alerts (Web Push)
+    return sd.web_push(raw, title, body)                     # 🔔 the dashboard's alerts - even if ntfy is down
 
 
 def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
@@ -1060,6 +1065,9 @@ def run():
     health = health_check()
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log),
            "live_games": WATCHING[0] + TENNIS["watching"], "tennis": dict(TENNIS), "scores": dict(SCORES),
+           "done": {pid: e["result"] for pid, e in log["plays"].items()          # today's graded live bets: a page
+                    if e.get("date") == datetime.now(PT).date().isoformat() and e.get("result")},   # still showing one
+                                                                                                      # pending refreshes
            "health": health,
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}

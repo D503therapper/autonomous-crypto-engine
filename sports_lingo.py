@@ -216,6 +216,37 @@ def bad(opp, seed, n=12):
 # ---- REVIEWS: a line on every graded pick in Past Results ------------------------------------------------------------
 # {t} our side, {o} the other side, {x} the number, {pr}/{pro}/{pos} = they/them/their (he/him/his, she/her/her)
 REVIEWS = {
+    # how it went (the owner, 9/28: "if we're down big and come back, say so; if we got lucky, say so - a win is a win")
+    ("comeback", "won"): (96, 3, T(
+        "Down {d} and {t} [came all the way back|stormed back|refused to die]. We cashed, baby. %wk%",
+        "{t} [were|was] down {d}. [Didn't matter.|Still got there.|Comeback kids.] %wk%",
+        "[Major|Big|Crazy] comeback: {t} [erased|wiped out|climbed out of] a {d}-point hole. [Cashed.|We ate.] %wk%",
+        "We were cooked, down {d}. Then {t} [woke up|flipped the switch|turned it on]. %wk%",
+        "{d} down and {t} [still cashed|still got it done]. Never count 'em out. %wk%",
+        "Heart attack [ticket|pick]: {t} [came back from|overcame] {d} down. Paid. %wk%",
+        "{o} had us down {d}. {t} [said not tonight|ran it back|finished the job]. %wk%",
+        "From down {d} to cashed. {t} [with the comeback|pulled it off]. %wk%",
+        "Down {d}? [No sweat.|Light work.|We don't panic.] {t} came back and cashed. %wk%",
+    )),
+    ("collapse", "lost"): (96, 3, T(
+        "{t} [were|was] up {d} and [blew it|let it slip|gave it away]. That one hurts. %lk%",
+        "Up {d} and {t} [still found a way to lose|choked|folded]. %lk%",
+        "{t} had a {d}-point lead and [shit the bed|fumbled the bag|let {o} back in]. %lk%",
+        "We were up {d}. {o} [came all the way back|stole it]. Brutal. %lk%",
+        "Blown lead: {t} up {d}, then [nothing|lights out]. %lk%",
+        "{t} [coughed up|blew] a {d}-point lead. [Sick.|Pain.|Rough one.] %lk%",
+        "Had it in the bag, up {d}. {t} [gave it back|let it go]. %lk%",
+    )),
+    ("lucky", "won"): (96, 3, T(
+        "We got lucky as hell on this one, but we cashed, baby. A win is a win. %wk%",
+        "[Sweated it|Heart in our throat] the whole way. {t} [snuck in|squeaked it] by a hair. Cashed. %wk%",
+        "Covered by the skin of our teeth. {t} [got there|did just enough]. We'll take it. %wk%",
+        "Lucky? Maybe. Cashed? Absolutely. {t} [by a hair|just barely]. %wk%",
+        "That was way too close. {t} [squeaked by|snuck it in]. A win is a win. %wk%",
+        "We got the bounce on this one. {t} [barely|just] covered. Paid is paid. %wk%",
+        "{t} made us sweat for it, but it cashed. %wk%",
+        "Thank God. {t} got there by [a hair|a whisker|inches]. We cashed. %wk%",
+    )),
     # 🤡 we faded the public (the owner, 9/28: "we knew it - the public's a bunch of clowns")
     ("fade", "won"): (86, 3, T(
         "Faded the public on {t} and cashed. [The public stays|The squares stay|The sheep stay] clowns. %wk%",

@@ -37,22 +37,33 @@ ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_od
 
 
 # ---------------------------------------------------------------- 🔔 live bet alerts
-def web_push(ntfy_raw):
+def _push_key():
+    """The engine's key for the Worker's /push (both sides make it from the Cloudflare secrets the repo already has;
+    never printed, never stored)."""
+    import hashlib
+    a, t = os.environ.get("CLOUDFLARE_ACCOUNT_ID", ""), os.environ.get("CLOUDFLARE_API_TOKEN", "")
+    return hashlib.sha256(f"d503-push|{a}|{t}".encode()).hexdigest() if a and t else ""
+
+
+def web_push(ntfy_raw, title=None, body=None):
     """After an ntfy post: hand its message id to the Worker's /push (from ask_url.txt) so the dashboard's native
     Web Push alerts ring too. The Worker looks the id up on ntfy itself, so no secret is needed. Runs in its own
     thread with a 5s timeout: never blocks, never raises (errors are logged). Returns the thread (tests join it)."""
+    key = _push_key()
     try:
-        nid = json.loads(ntfy_raw or b"{}").get("id")
+        nid = json.loads(ntfy_raw or b"{}").get("id") if ntfy_raw else None
         with open(os.path.join(DATA, "ask_url.txt")) as f:
             url = f.read().strip().rstrip("/")
     except Exception as e:                                   # noqa: BLE001 - no id / no Worker: ntfy still went out
         print(f"   web push skipped: {str(e)[:60]}")
         return None
-    if not nid or not url.startswith("https://"):
+    if not url.startswith("https://") or not (nid or (key and title)):
         return None
+    # straight to the Worker with the engine's key (no ntfy lookup - Cloudflare can be blocked from ntfy); else the id
+    payload = {"key": key, "title": title, "body": body or ""} if key and title else {"ntfy_id": nid}
 
     def go():
-        req = urllib.request.Request(f"{url}/push", data=json.dumps({"ntfy_id": nid}).encode(), method="POST",
+        req = urllib.request.Request(f"{url}/push", data=json.dumps(payload).encode(), method="POST",
                                      headers={"Content-Type": "application/json", "User-Agent": "d503-engine"})
         try:
             urllib.request.urlopen(req, timeout=5).read()

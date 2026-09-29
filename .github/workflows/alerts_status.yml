@@ -20,4 +20,4 @@ jobs:
           out=$(curl -sS -m 20 "$ask/alerts-status")
           echo "$out" | jq . || echo "$out"
           echo "$out" | jq -r '"ALERTS ON: \(.active) \(.by_device)",
-            (.events[]? | "EVENT \(.at_pt) | \(.event) | \(.device)\(if .welcome then " | welcome push \(.welcome) (\(.welcome_status))" else "" end)")' || true
+            (.events[]? | "EVENT \(.at_pt) | \(.event) | \(.device)\(if .welcome then " | welcome push \(.welcome) (\(.welcome_status))" else "" end)\(if .event == "alert" then " | sent \(.sent) gone \(.gone) failed \(.failed)" else "" end)")' || true

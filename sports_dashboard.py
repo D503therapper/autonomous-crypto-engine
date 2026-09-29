@@ -148,12 +148,20 @@ def _rot(k, options):
     return options[k % len(options)]
 
 
+PENDING_TALK = re.compile(r"\s*(?:—\s*)?[^.!?—]*\b(?:gon'? see|finna see|we'?ll see)\b[^.!?]*[.!?]?", re.I)
+
+
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
         return ""
-    body = "".join(f"<p>{E(x)}</p>" for x in secs if isinstance(x, str))
-    return f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{body}</div></details>'
+    done = leg.get("result") in ("won", "lost", "push")
+    lines = [x for x in secs if isinstance(x, str)]
+    if done:                                                 # it's over: no "we gon' see" on a graded pick
+        lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
+    body = "".join(f"<p>{E(x)}</p>" for x in lines)
+    return (f'<details class="bd"><summary>🔍 {"Pregame breakdown" if done else "Full breakdown"}</summary>'
+            f'<div class="bd-s">{body}</div></details>')
 
 
 LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
@@ -444,10 +452,15 @@ def _history(picks):
             return f'{l["team"]} {l["line"]:+g}'
         return f'{l["team"]} ML'
 
-    def rows(items):
-        return "".join(f'<div class="hr {x[1]}"><span class="hd">{day(x[0])}</span><span class="hw">{ok.get(x[1], "")}</span>'
-                       f'<span class="hp">{E(x[2])}<small>{E(x[3])}</small>'
-                       f'{f"<em>{E(x[4])}</em>" if len(x) > 4 and x[4] else ""}</span></div>' for x in items)
+    def rows(items):                                         # tap a game to read its review
+        def one(x):
+            head = (f'<span class="hd">{day(x[0])}</span><span class="hw">{ok.get(x[1], "")}</span>'
+                    f'<span class="hp">{E(x[2])}<small>{E(x[3])}</small></span>')
+            if len(x) > 4 and x[4]:
+                return (f'<details class="hx {x[1]}"><summary class="hr {x[1]}">{head}<i class="hc">▾</i></summary>'
+                        f'<div class="hrv">📝 {E(x[4])}</div></details>')
+            return f'<div class="hr {x[1]}">{head}</div>'
+        return "".join(one(x) for x in items)
 
     # every review is rolled from its own pick (seeded by date + pick: the same words every run), and they're all
     # written oldest first against ONE set of 4-word runs - so nothing repeats anywhere in the section, and a new
@@ -468,14 +481,46 @@ def _history(picks):
         a, x, b, y = m_.group(1), int(m_.group(2)), m_.group(3), int(m_.group(4))
         return x - y if a == team else y - x if b == team else None
 
+    COMEBACK = {"nfl": 10, "ncaaf": 14, "nba": 12, "ncaab": 10, "mlb": 3, "nhl": 2}   # down this much = a comeback
+    LUCKY = {"nfl": 1, "ncaaf": 1, "nba": 1.5, "ncaab": 1.5, "mlb": 0.5, "nhl": 0.5}    # covered by this or less = lucky
+
+    def swing(l):
+        """(final margin, our worst deficit, our biggest lead) at the end of each period, from our side - or None when the
+        game's period scores weren't kept."""
+        f = l.get("flow") or {}
+        try:
+            h = [int(x) for x in str(f.get("h") or "").split(",") if x != ""]
+            a = [int(x) for x in str(f.get("a") or "").split(",") if x != ""]
+        except ValueError:
+            return None
+        if len(h) < 2 or len(h) != len(a):
+            return None
+        us, them = (h, a) if l.get("side") == "home" else (a, h)
+        adj = 0                                              # (the real scoreboard: "down 10" means down 10)
+        m, marg = 0, []
+        for x, y in zip(us[:-1], them[:-1]):                 # the score after each period (not the final)
+            m += x - y
+            marg.append(m + adj)
+        if not marg:
+            return None
+        return (sum(us) - sum(them) + adj, max(0, -min(marg)), max(0, max(marg)))
+
     def rev_leg(l, r, date, p=None, lean=False):
         """The review for one game pick: blowout / close / confident-and-folded / fav / dog / spread / total."""
         lg, mg = l.get("league"), margin(l.get("score"), l.get("team"))
+        flow, xtra = swing(l), {}
+        cover = None if mg is None or l.get("line") is None else mg + l["line"]   # how much we covered by
         t_, o_ = _the(l["team"], lg), _the(l.get("opp", "them"), lg)
         kind = "spread" if l.get("market") == "spread" else "dog" if (l.get("odds") or 0) > 0 else "fav"
         x = f'{l["line"]:+g}' if l.get("line") is not None else ""
         if l.get("market") == "total":
             kind, t_, x = "total", f'{"Over" if l.get("side") == "over" else "Under"} {l.get("line"):g}', f'{l.get("line"):g}'
+        elif flow and flow[1] >= COMEBACK.get(lg, 99) and r == "won":   # down big and came back (how we won matters)
+            kind, xtra = "comeback", {"d": flow[1]}
+        elif flow and flow[2] >= COMEBACK.get(lg, 99) and r == "lost":  # up big and blew it
+            kind, xtra = "collapse", {"d": flow[2]}
+        elif r == "won" and l.get("market") == "spread" and cover is not None and 0 < cover <= LUCKY.get(lg, 0):
+            kind = "lucky"                                   # covered by a hair: we got lucky - a win is a win
         elif l.get("public") == "fade":                   # 🤡 we faded the public: that's the story, win or lose
             kind = "fade"
         elif mg is not None and abs(mg) >= BIG.get(lg, 99) and (mg > 0) == (r == "won"):
@@ -484,7 +529,7 @@ def _history(picks):
             kind = "close"
         elif r == "lost" and (p or l.get("p") or 0) >= 0.6:
             kind = "conf"
-        return later(date, f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}', kind, r, lean, t=t_, o=o_, x=x)
+        return later(date, f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}', kind, r, lean, t=t_, o=o_, x=x, **xtra)
 
     def box(title, items):
         if not items:
@@ -724,7 +769,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
                  '<span class="pk-l">LIVE PLUS MONEY TODAY</span></div>' + "".join(
-                     f'<div class="leg {e.get("result") or ""}"><div class="lt"><span class="lgb">{_live_icon(e)} '
+                     f'<div class="leg {e.get("result") or ""}" data-pid="{E(pid_of.get(id(e), ""))}"><div class="lt"><span class="lgb">{_live_icon(e)} '
                      f'{E(_live_sport(e))}{" · 🔁 DOUBLE DOWN" if e.get("double_down") else ""}</span>'
                      f'{badge_.get(e.get("result"), pending_)}</div>'
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
@@ -805,7 +850,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         return grade(name, "#c6f000", "#1fd17a", [r for r, _ in rows_], [r for r, dd in rows_ if dd == today]).replace(
             "</div></div>", f'</div><div class="rc-s">parlays {pw}-{pl_}</div></div>', 1)
     others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
-              + grade("🟡 LEANS", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [p["status"] for p in leans_ if p["date"] == today])
+              + (grade("🟡 OLD LEANS (before 9/29)", "#ffc233", "#e8c77a", [p["status"] for p in leans_], []) if leans_ else "")
               + tn_box("🎾 MEN'S TENNIS", "atp") + tn_box("🎾 WOMEN'S TENNIS", "wta"))
     for t, label in (("atp", "men's tennis"), ("wta", "women's tennis")):
         RECORDS[f"{label} (own record, not ours)"] = wlt(sum(r == 'won' for r, _ in tn_rows[t]), sum(r == 'lost' for r, _ in tn_rows[t]))
@@ -1056,6 +1101,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .hs-own{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#9fb0c8;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.08)}}
 .hr{{display:grid;grid-template-columns:3.6em 1.4em minmax(0,1fr);gap:6px;padding:7px 0;border-top:1px dashed rgba(255,255,255,.06);font-size:13.5px;align-items:start}}
 .hr .hd{{color:#9fb0c8;font-weight:700;white-space:nowrap}} .hr .hp{{color:#fff;font-weight:800;overflow-wrap:anywhere}}
+.hx>summary{{list-style:none;cursor:pointer;grid-template-columns:3.6em 1.4em minmax(0,1fr) 1em}} .hx>summary::-webkit-details-marker{{display:none}}
+.hx .hc{{font-style:normal;color:#9fb0c8;font-size:12px;transition:transform .2s}} .hx[open] .hc{{transform:rotate(180deg)}}
+.hrv{{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#fff}}
 .hr .hp small{{color:#9fb0c8;font-weight:600}} .hr .hp em{{display:block;font-style:normal;font-weight:600;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#ffb4b4}}
 .sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
 .spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
@@ -1095,7 +1143,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
-.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .rvw{{font-size:.86em;color:#cfd6df;margin:2px 0 6px;font-style:italic}} .fnb{{color:#9aa4b2;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.86em;color:#e8eef6;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
+.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .rvw{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 6px}} .fnb{{color:#9aa4b2;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.86em;color:#e8eef6;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
 .tsb{{display:grid;gap:2px 0;align-items:center;max-width:250px;margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.05);font-size:.95em}}
 .tsb .nm{{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .tsb .nm i{{display:inline-block;width:6px;height:6px;border-radius:50%;background:#d7ff3a;margin:0 5px 2px 0}}
 .tsb b{{text-align:center;font-weight:700;color:#cfd6df}} .tsb b.w{{color:#fff;font-weight:900}} .tsb b.l{{color:#7d8794;font-weight:600}}
@@ -1234,6 +1282,8 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
+ if(d&&d.done)Object.keys(d.done).forEach(function(k){{var r=document.querySelector('.leg[data-pid="'+k+'"]');
+   if(r&&!r.classList.contains("won")&&!r.classList.contains("lost"))window.d503stale=1}});   // graded, page says pending
  window.D503S=(d&&age<10*60000&&d.scores)||{{}};if(window.d503lt)window.d503lt();   // live scores next to our pending picks
  if(d&&(age<10*60000||(!(d.plays||[]).length&&!d.live_games&&age<45*60000)))draw(d);else draw(null);}}
 function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/live-data/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
@@ -1251,8 +1301,9 @@ function tick(){{m=Math.max(0,Math.round((Date.now()-t)/60000));
  if(m>150)document.getElementById("dot").className="dot stale";}}
 var touched=0;["touchstart","scroll","keydown","click"].forEach(function(ev){{window.addEventListener(ev,function(){{touched=Date.now()}},{{passive:true}})}});
 function check(){{if(document.hidden)return;              // a newer page? swap it in - only once the SITE serves it
- if(Date.now()-touched<30000)return;                       // (never while someone's scrolling or tapping around)
- try{{if(Date.now()-(+sessionStorage.getItem("d503r")||0)<60000)return;}}catch(e){{}}   // at most once a minute
+ var st=window.d503stale;                                 // a result landed: swap as soon as the new page is up
+ if(!st&&Date.now()-touched<30000)return;                  // (otherwise never while someone's scrolling or tapping)
+ try{{if(Date.now()-(+sessionStorage.getItem("d503r")||0)<(st?15000:60000))return;}}catch(e){{}}   // at most once a minute
  fetch(location.pathname+"?c="+Date.now(),{{cache:"no-store"}})
  .then(function(r){{return r.ok?r.text():""}})
  .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
@@ -1283,6 +1334,7 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   if(on){{if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
     var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';
     s.classList.toggle("dly",!!(sc&&sc.delayed));if(s.innerHTML!==tag)s.innerHTML=tag;}}
+  if(sc&&!sc.live&&!sc.delayed)window.d503stale=1;       // a pick's game is final: the graded page is coming
   else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}
   if(sc&&on&&row){{var q=function(x){{return String(x).replace(/[&<>"]/g,"")}},h;
     if(!box){{box=document.createElement("div");box.className="lsc";row.parentNode.insertBefore(box,row.nextSibling)}}
@@ -1297,7 +1349,7 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   else if(box)box.remove();}})}}
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);
-tick();setInterval(tick,30000);check();setInterval(check,60000);document.addEventListener("visibilitychange",check);}})();
+tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();
 </script><script>
 (function(){{   // 🤔 ASK THE ENGINE: the engine's read on any game, from reads.json (not our picks, never in the record)
 var games=[], q=document.getElementById("askq"), list=document.getElementById("asklist"), out=document.getElementById("askout");
