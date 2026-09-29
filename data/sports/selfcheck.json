@@ -3,17 +3,17 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.833,
-   "n": 18,
+   "hit": 0.8,
+   "n": 20,
    "said": 0.561,
-   "verdict": "only 18 graded - report only"
+   "verdict": "only 20 graded - report only"
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.833,
-   "n": 18,
+   "hit": 0.8,
+   "n": 20,
    "said": 0.561,
-   "verdict": "only 18 graded - report only"
+   "verdict": "only 20 graded - report only"
   },
   "label:dog": {
    "extra_edge": 0.0,
@@ -24,10 +24,10 @@
   },
   "label:live": {
    "extra_edge": 0.0,
-   "hit": 1.0,
-   "n": 2,
-   "said": 0.843,
-   "verdict": "only 2 graded - report only"
+   "hit": 0.75,
+   "n": 4,
+   "said": 0.7,
+   "verdict": "only 4 graded - report only"
   },
   "label:lock": {
    "extra_edge": 0.0,
@@ -64,12 +64,19 @@
    "said": 0.589,
    "verdict": "only 12 graded - report only"
   },
+  "league:tennis": {
+   "extra_edge": 0.0,
+   "hit": 0.5,
+   "n": 2,
+   "said": 0.557,
+   "verdict": "only 2 graded - report only"
+  },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.824,
-   "n": 17,
+   "hit": 0.789,
+   "n": 19,
    "said": 0.563,
-   "verdict": "only 17 graded - report only"
+   "verdict": "only 19 graded - report only"
   },
   "market:spread": {
    "extra_edge": 0.0,
@@ -80,10 +87,10 @@
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.75,
-   "n": 8,
-   "said": 0.563,
-   "verdict": "only 8 graded - report only"
+   "hit": 0.7,
+   "n": 10,
+   "said": 0.562,
+   "verdict": "only 10 graded - report only"
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
@@ -94,10 +101,10 @@
   },
   "source:live": {
    "extra_edge": 0.0,
-   "hit": 1.0,
-   "n": 2,
-   "said": 0.843,
-   "verdict": "only 2 graded - report only"
+   "hit": 0.75,
+   "n": 4,
+   "said": 0.7,
+   "verdict": "only 4 graded - report only"
   },
   "source:pregame": {
    "extra_edge": 0.0,
@@ -108,5 +115,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-09-29T05:33Z"
+ "updated": "2026-09-29T18:06Z"
 }
