@@ -237,39 +237,12 @@ def _short_note(day, day_picks):
     n = sum(k in have for k in FULL_BOARD)
     if not n or n >= len(FULL_BOARD) or "solo" in have:
         return ""
-    one = n == 1
-    notes = ([
-        "🔒 Just one play today. The algorithm only found one spot it really likes — and we don't force the rest "
-        "just to fill the board. The pros pick their spots.",
-        "🔒 One play today, that's it. It's the only spot where the algorithm found a real edge. We don't force picks "
-        "just to have picks — the pros pick their spots.",
-        "🔒 Only one made the cut today. Everything else was a coin flip or overpriced, so we ain't forcing it. "
-        "Pros pick their spots.",
-    ] if one else [
-        f"🔒 Only {n} plays today. That's all the algorithm found with a real edge — we don't force the rest just to "
-        f"fill the board. The pros pick their spots.",
-        f"🔒 {n} plays today, not the usual 5. The rest of the slate didn't have value, and we don't make picks just "
-        f"to make picks. The pros pick their spots.",
-        f"🔒 Short board today — {n} plays. Nothing else cleared the bar, so we ain't forcing it. Pros pick their spots.",
-    ])
-    return f'<div class="drop leanday">{E(notes[sum(map(ord, str(day))) % len(notes)])}</div>'
+    return f'<div class="drop leanday">🔒 {E(sports_lingo.short_note(n, day))}</div>'
 
 
 def _lean_note(day):
     """The top note on a leans-only day, in our voice (a different wording day to day)."""
-    notes = [
-        "🟡 No locks and no value picks today. The algorithm checked every game and didn't find an edge on any of "
-        "them — and we don't force picks just to have picks. The pros pick their spots. It's leans only today. "
-        "No value, no locks — just which way the algorithm leans:",
-        "🟡 No locks today, no value either. Nothing on the slate gave us an edge, so we ain't forcing it — "
-        "that's how bankrolls die. Pros pick their spots. Here's how the algorithm leans, for what it's worth:",
-        "🟡 Zero locks, zero value today. The algorithm didn't find an edge anywhere, and we don't make picks just "
-        "to make picks. Leans only — a lean ain't a lock:",
-        "🟡 No locks. No value picks. The algorithm came up empty on edges today, so nothing goes on our record — "
-        "the pros wait for their spot. Just leans today, straight up:",
-    ]
-    k = sum(map(ord, str(day)))
-    return (f'<div class="drop leanday">{E(notes[k % len(notes)])}'
+    return (f'<div class="drop leanday">🟡 {E(sports_lingo.lean_note(day))}'
             f'<br><small>Leans keep their own record — never in ours. No edge = no lock.</small></div>')
 
 

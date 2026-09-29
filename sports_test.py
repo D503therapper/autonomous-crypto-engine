@@ -2537,8 +2537,10 @@ def test_lean_day_card():
     assert "STRONG LEAN" in dsh._pick_card("lock", pk), "a 60%+ lean says STRONG LEAN"
     one = [{"kind": "lock", "status": "open"}]
     assert "one" in dsh._short_note("2026-09-29", one).lower(), "one play: says so"
-    assert "3 plays" in dsh._short_note("2026-09-29", one + [{"kind": "dog"}, {"kind": "two"}]) or \
-        "Only 3" in dsh._short_note("2026-09-29", one + [{"kind": "dog"}, {"kind": "two"}])
+    assert "3" in dsh._short_note("2026-09-29", one + [{"kind": "dog"}, {"kind": "two"}]), "the count's in it"
+    import sports_lingo as sl
+    notes = {sl.short_note(1, f"2026-10-{d:02d}") for d in range(1, 31)}
+    assert len(notes) >= 25 and sum("pros pick their spots" in x for x in notes) <= 5, "never the same line every day"
     full = [{"kind": k} for k in dsh.FULL_BOARD]
     assert dsh._short_note("2026-09-29", full) == "" and dsh._short_note("2026-09-29", [{"kind": "solo"}]) == ""
     note = dsh._lean_note("2026-09-29")

@@ -152,6 +152,65 @@ def review(kind, result, seed, used, **kw):
     return f"{line} {ends[b]}".strip()
 
 
+# ---- BOARD NOTES: a short board / a leans-only day says so up top - opener + reason + closer, mixed by the date so
+# it reads differently every time (hundreds of ways; "the pros pick their spots" is just one closer of many)
+NOTE_CLOSE = ["We don't force picks just to have picks.", "We ain't filling the board with junk.", "Quality over quantity.",
+              "No filler over here.", "We ride what the numbers like and leave the rest.", "The pros pick their spots.",
+              "Patience pays.", "Less is more today.", "We wait on our spots.", "That's how you stay up.",
+              "Not every game deserves our money.", "Forcing it is how bankrolls die.", "We don't chase.",
+              "Sitting out is a play too.", "Discipline over everything.", "Smart money waits.",
+              "We only swing at our pitch.", "No reaching today.", "If it ain't there, it ain't there.",
+              "Tomorrow's another slate.", "We ain't clowns betting blind.", "We're not out here betting just to bet.",
+              "Blind betting is for the clowns.", "Betting just to bet is clown behavior — not us.",
+              "We move with a reason, not just to be in action.", "No action for action's sake."]
+SHORT_OPEN_1 = ["Just one play today.", "One pick today, that's it.", "Only one made the cut today.", "Solo pick today.",
+                "One and done today.", "Just the one today.", "One spot today.", "Single play on the board today.",
+                "It's a one-pick kinda day."]
+SHORT_OPEN_N = ["Only {n} plays today.", "{n} plays today, not the usual 5.", "Short board today — {n} plays.",
+                "Just {n} today.", "{n} spots made it today.", "Light card today: {n} plays.", "Only {n} on the board today.",
+                "{n} picks today, that's all.", "Trimmed-down board: {n} plays."]
+SHORT_WHY = ["The algorithm only found {it} with a real edge.", "Everything else was a coin flip or overpriced.",
+             "Nothing else cleared the bar.", "The rest of the slate didn't give us value.",
+             "The books got the rest priced tight.", "The rest ain't worth the risk on our numbers.",
+             "That's all the value on the board.", "The algorithm passed on the rest.",
+             "The other games didn't give us a reason.", "The numbers only liked {it}."]
+LEAN_OPEN = ["No locks and no value picks today.", "Zero locks, zero value today.", "No locks today, no value either.",
+             "No real picks today.", "No edge on the slate today.", "The algorithm came up empty on edges today.",
+             "No locks. No value picks.", "Nothing made the board today."]
+LEAN_WHY = ["The algorithm checked every game and didn't find an edge on any of them.",
+            "Every game got looked at — nothing gave us an edge.", "The books got everything priced right today.",
+            "Nothing cleared the value bar.", "Every line on the slate is about where it should be.",
+            "The algorithm went through the whole slate and nothing jumped out.",
+            "No spot today where our numbers beat the price."]
+LEAN_TAIL = ["It's leans only today. No value, no locks — just which way the algorithm leans:",
+             "Leans only — just which way the algorithm leans:", "Here's how the algorithm leans, that's it:",
+             "Just leans today — a lean ain't a lock:", "Leans only. Take 'em for what they are:",
+             "All we got is leans — here's where the algorithm tilts:"]
+
+
+def _pick3(seed, a, b, c):
+    r = random.Random(str(seed))
+    return r.choice(a), r.choice(b), r.choice(c)
+
+
+def short_note(n, seed):
+    """The top note on a short board of n plays (1-4)."""
+    o, w, c = _pick3(f"short{seed}{n}", SHORT_OPEN_1 if n == 1 else SHORT_OPEN_N, SHORT_WHY, NOTE_CLOSE)
+    return " ".join((o.format(n=n), w.format(it="that one" if n == 1 else "those"), c))
+
+
+def lean_note(seed):
+    """The top note on a leans-only day."""
+    o, w, c = _pick3(f"lean{seed}", LEAN_OPEN, LEAN_WHY, NOTE_CLOSE)
+    return " ".join((o, w, c, random.Random(f"tail{seed}").choice(LEAN_TAIL)))
+
+
+def note_supply():
+    return {"short one": len(SHORT_OPEN_1) * len(SHORT_WHY) * len(NOTE_CLOSE),
+            "short n": len(SHORT_OPEN_N) * len(SHORT_WHY) * len(NOTE_CLOSE),
+            "leans": len(LEAN_OPEN) * len(LEAN_WHY) * len(NOTE_CLOSE) * len(LEAN_TAIL)}
+
+
 if __name__ == "__main__":
     print(supply())
     for x in good("Skenes", "the Cubs", "demo", n=6):
