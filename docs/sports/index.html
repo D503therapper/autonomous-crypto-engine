@@ -55,7 +55,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .pk.lost>*:not(.stamp-row){opacity:.5}
 .px>summary{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}
 .px>summary::-webkit-details-marker{display:none}
-.pxo,.pxc{font-size:14px;color:var(--c1);font-weight:800} .pxt{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)} .pxc{display:none} .px[open] .pxo{display:none} .px[open] .pxc{display:inline}
+.pxo,.pxc{font-size:14px;color:var(--c1);font-weight:800} div.pxt{margin:2px 0 10px!important} .pxt{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)} .pxc{display:none} .px[open] .pxo{display:none} .px[open] .pxc{display:inline}
 .stamp-row{display:flex;justify-content:center;margin:6px 0 12px}
 .stamp{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
   border-radius:10px;background:rgba(0,0,0,.3)}
@@ -278,7 +278,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip lk">🔒 LOCK</span></div>
   <div class="pk-o"><span class="big">-135</span>
     <span class="pay">$100 wins <b>$74</b></span></div>
-  <div class="leg ">
+  <div class="pxt" data-one="1">🕐 Game starts at 5 PM PT</div><div class="leg ">
   <div class="lt"><span class="lgb">⚾ MLB</span><span class="tm" data-start="2026-09-30T00:00Z" data-gid="mlb:401907924">5 PM PT</span></div>
   <div class="lm"><span class="pick">Yankees <em>ML</em></span><span class="od">-135</span></div>
   <div class="ls">vs Red Sox</div>
@@ -454,7 +454,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790724594046,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790724974967,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
@@ -519,13 +519,14 @@ function liveTags(){var n=Date.now(),S={},W=window.D503S||{},F=(n-(window.D503Ft
       h='<b>'+q(sc.away+" "+sc.a+" @ "+sc.home+" "+sc.h)+'</b>'+(c?' <span>· '+q(c)+'</span>':'');}
     if(box.innerHTML!==h)box.innerHTML=h;}
   else if(box)box.remove();});
- document.querySelectorAll("details.px").forEach(function(d){var t=d.querySelector(".pxt");if(!t)return;   // a folded
-  var lv=0,up=[];d.querySelectorAll(".tm[data-start]").forEach(function(s){   // parlay says how its games are going
+ document.querySelectorAll(".pxt").forEach(function(t){var d=t.closest("section.pk");if(!d)return;   // a card's yellow
+  var one=t.getAttribute("data-one");                                                 // line says how its games are going
+  var lv=0,up=[];d.querySelectorAll(".tm[data-start]").forEach(function(s){
    if(s.querySelector(".lvb"))lv++;else if(!s.querySelector(".fnb")&&s.textContent.indexOf("DELAYED")<0)up.push(Date.parse(s.getAttribute("data-start")))});
   if(!lv&&!(up.length&&Math.min.apply(null,up)<=n))return;   // nothing started yet: the start times stay
   up=up.filter(function(x){return x>n});
   var nx=up.length?new Date(Math.min.apply(null,up)).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"}).replace(":00 "," ")+" PT":"";
-  var h=lv?"🔴 "+lv+" LIVE"+(nx?" · Next game starts at "+nx:""):nx?"🕐 Next game starts at "+nx:"🏁 All games final";
+  var h=one?(lv?"🔴 LIVE":"🏁 Final"):lv?"🔴 "+lv+" LIVE"+(nx?" · Next game starts at "+nx:""):nx?"🕐 Next game starts at "+nx:"🏁 All games final";
   if(t.textContent!==h)t.textContent=h;})}
 document.addEventListener("click",function(ev){var c=ev.target.closest&&ev.target.closest("[data-hs].tap");if(!c)return;
  var want=c.getAttribute("data-hs"),hit=null;document.querySelectorAll("details.hs>summary>b").forEach(function(b){if(b.textContent===want)hit=b.closest("details")});
