@@ -25,6 +25,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
@@ -402,29 +403,36 @@ BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{p
 BOVADA_OLD = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 BOVADA_ALL = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&lang=en"
 BOVADA_SPORT = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{sport}?marketFilterId=def&liveOnly=true&lang=en"
-# 9/29: the book serves these feeds from a cache (up to 10 minutes per address), and a "fresh" copy of the def-filtered
-# feed still carried 6-minute-old prices - our +125 on Garcia was one (the real line: -150). So: many addresses (each
-# its own cache clock), a few per check in rotation, and per match the NEWEST version any of them had (lastModified).
-_BQ = ["liveOnly=true&lang=en", "lang=en&liveOnly=true", "liveOnly=true&preMatchOnly=false&lang=en",
-       "preMatchOnly=false&liveOnly=true&lang=en", "lang=en&preMatchOnly=false&liveOnly=true", "liveOnly=true",
-       "liveOnly=true&preMatchOnly=false", "preMatchOnly=false&liveOnly=true", "lang=en&liveOnly=true&preMatchOnly=false",
-       "liveOnly=true&lang=en&preMatchOnly=false", "marketFilterId=def&liveOnly=true&lang=en"]
-BOVADA_VARIANTS = [h + "/services/sports/event/v2/events/A/description/{path}?" + q
-                   for q in _BQ for h in ("https://www.bovada.lv", "https://services.bovada.lv")]
-BOV_PER_CHECK = 4             # addresses read per check (rotating): every one gets a look every ~5s
+# 9/29: the book serves these feeds from a cache (10 minutes per address) - our +125 on Garcia came out of it (the real
+# line: -150). An address nobody asked for yet comes back fresh (prices 0-1s old), and eventsLimit=N (N <= 50) makes a
+# new address for each N. So every check reads a never-used-lately address (N x the order of the parameters: 600+ of
+# them, more than 10 minutes' worth at one a second), and per match we keep the NEWEST version seen (lastModified).
+import itertools as _it
+_BOV_KEYS = []
+for _n in range(30, 51):                                   # (at least 30: never cut off a busy league's live games)
+    for _ps in (["liveOnly=true", "lang=en", f"eventsLimit={_n}"],
+                ["liveOnly=true", "lang=en", f"eventsLimit={_n}", "marketFilterId=all"]):
+        _BOV_KEYS += ["&".join(o) for o in _it.permutations(_ps)]
+BOV_BASE = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?"
+BOV_SPLIT = {"tennis": ("tennis/atp", "tennis/wta")}       # tennis: tour by tour (a few live matches each, never 50+)
 BOV_EV = {}                   # (path, event id) -> (lastModified, its group without events, the event): the newest seen
-BOV_TURN = {}                 # path -> where the rotation is
+BOV_TURN = {}                 # sub-path -> where its rotation is (one address a check each: 630 checks to come around)
+BOV_BAD = set()               # addresses the book turned away (a 400/404): out of the rotation
 
 
 def bovada_fresh(path):
-    """Bovada's live events for `path`, each the newest version any cache address has shown us (see above).
+    """Bovada's live events for `path`, each the newest version any address has shown us (see above).
     Same shape as the feed (groups with events), one event per group."""
-    n = len(BOVADA_VARIANTS)
-    i = BOV_TURN.get(path, 0)
-    BOV_TURN[path] = (i + BOV_PER_CHECK) % n
-    urls = [BOVADA_VARIANTS[(i + k) % n].format(path=path) for k in range(BOV_PER_CHECK)]
-    with ThreadPoolExecutor(BOV_PER_CHECK) as ex:
-        got = list(ex.map(lambda u: _safe_get(u), urls))
+    subs = BOV_SPLIT.get(path, (path,))
+    urls = []
+    for sub in subs:
+        for _ in range(len(_BOV_KEYS)):
+            BOV_TURN[sub] = (BOV_TURN.get(sub, -1) + 1) % len(_BOV_KEYS)
+            if _BOV_KEYS[BOV_TURN[sub]] not in BOV_BAD:
+                break
+        urls.append(BOV_BASE.format(path=sub) + _BOV_KEYS[BOV_TURN[sub]])
+    with ThreadPoolExecutor(len(urls)) as ex:
+        got = list(ex.map(_safe_get, urls))
     if all(g is None for g in got) and not any(k[0] == path for k in BOV_EV):
         raise RuntimeError("no Bovada address answered")
     for data in got:
@@ -452,6 +460,10 @@ def _safe_get(url):
         with urllib.request.urlopen(urllib.request.Request(url, headers={**BOV_HDR, "Accept": "application/json, text/plain, */*",
                                                                          "Referer": "https://www.bovada.lv/sports"}), timeout=8) as r:
             return json.load(r)
+    except urllib.error.HTTPError as e:
+        if e.code in (400, 404) and "?" in url:
+            BOV_BAD.add(url.split("?", 1)[1])                 # that address shape isn't one the book takes
+        return None
     except Exception:                                         # noqa: BLE001
         return None
 # (the liveOnly feed went empty on 2026-09-27 while games were live: the full feed still flags each event live=True)

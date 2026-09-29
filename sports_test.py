@@ -2873,7 +2873,7 @@ def test_live_price_against_the_score():
 
 
 def test_live_lines_newest_version_and_fresh_only():
-    """The book's feeds sit in a cache (a 'fresh' copy carried 6-minute-old prices): per match we keep the NEWEST version
+    """The book's feeds sit in a cache (10 min an address): every check reads a new address, per match we keep the NEWEST version
     any address showed, and a price the book hasn't touched in LINE_MAX_AGE_S is no price (no play, no alert)."""
     import sports_live as slv
     now_ms = int(time.time() * 1000)
@@ -2890,9 +2890,11 @@ def test_live_lines_newest_version_and_fresh_only():
     keep = slv._safe_get, dict(slv.BOV_EV)
     try:
         slv.BOV_EV.clear()
-        feeds = iter([new, old, old, old])
-        slv._safe_get = lambda u: next(feeds)
-        got = slv.bovada_fresh("tennis-test")
+        feeds, seen = iter([new, old, old]), []
+        slv._safe_get = lambda u: seen.append(u) or next(feeds)
+        for _ in range(3):
+            got = slv.bovada_fresh("tennis-test")               # newest first, then two stale copies
+        assert len(set(seen)) == 3 and all("eventsLimit=" in u for u in seen)   # a new address every check
         prices = [o["price"]["american"] for o in got[0]["events"][0]["displayGroups"][0]["markets"][0]["outcomes"]]
         assert len(got) == 1 and prices == ["-150", "+120"]    # the newest version wins, whatever order they came in
         import sports_tennis as stq
