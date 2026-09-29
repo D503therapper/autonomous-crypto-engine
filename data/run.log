@@ -2995,3 +2995,45 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-09-29 18:06 UTC] stocks/trend     equity $484.51 (-3.1%) 3 open  market UP
 [2026-09-29 18:06 UTC] stocks/hold_spy  equity $496.94 (-0.6%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), TRUMP 37 (37/0/0), NEAR 35 (35/0/0), PUMP 35 (29/0/5), PENGU 32 (32/0/0)
+   dex screen: REJECT FLOCK@base liq $500,320 - pool age unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SHIB@ethereum liq $271,617 - lp locked 0% < 95%
+   dex screen: REJECT VERIDIA@ethereum liq $100,413 - top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT NMR@ethereum liq $186,618 - top-10 holders 55%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SEND@ethereum liq $484,536 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT SPIKE@base liq $262,855 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; holders unknown; lp locked 0% < 95%
+   listing: coinbase_products #CT 'New Coinbase listing (CT)' -> ['CT']
+   listing: CT: coinbase_products notice "New Coinbase listing (CT)" -> not on Crypto.com USD
+   dex screen: REJECT POD@solana liq $100,413 - holders unknown; lp holders unknown; rugcheck lp locked 45% < 95%
+   scanner: QNT: +5.3% in 15 min on 3.3x volume @ 271.5 spread 0.14%
+   take-off: BUY QNT (scanner mover): QNT: +5.3% in 15 min on 3.3x volume @ 271.5 spread 0.14%
+   >> crypto/mover: BUY $202.59 of QNT @ 271.772 (scanner mover)
+   scanner: QNT: +5.7% in 15 min on 3.3x volume @ 273 spread 0.22%
+   scanner: QNT: +5.5% in 15 min on 3.2x volume @ 274.234 spread 0.22%
+   dex screen: REJECT NEAR@ethereum liq $792,813 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT NVDAON@ethereum liq $235,467 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: REJECT XDP@base liq $1,846,974 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex scanner: 3,003 pools (solana 2,077 / base 513 / ethereum 413), refresh cycle 133s (hot 129s), 2820 calls (108 feed, 429s 0, failed 1), 81,329 refreshed (10658 no pair), +109 added / -105 dropped (dead 31, stale 0, cap 74), movers 7 + warming 24 -> queued 5, screened 6 (passed 0), bought 0
+[2026-09-29 19:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-29 19:06 UTC] crypto/mover     equity $445.89 (-10.8%) 1 open  market UP
+[2026-09-29 19:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 19:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 19:06 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-29 19:06 UTC] crypto/breakout10 equity $501.81 (+0.4%) 2 open  market UP
+[2026-09-29 19:06 UTC] crypto/momentum  equity $487.51 (-2.5%) 2 open  market UP
+[2026-09-29 19:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-29 19:06 UTC] crypto/hold_btc  equity $497.46 (-0.5%) 1 open  market UP
+[2026-09-29 19:06 UTC] stocks/rsi2      equity $498.71 (-0.3%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 1, TLT 2, TSLA 4, NFLX 5
+[2026-09-29 19:06 UTC] stocks/dual_momentum equity $499.50 (-0.1%) 2 open  market UP
+[2026-09-29 19:06 UTC] stocks/trend_ensemble equity $497.70 (-0.5%) 5 open  market UP
+[2026-09-29 19:06 UTC] stocks/rotation10 equity $492.89 (-1.4%) 2 open  market UP
+[2026-09-29 19:06 UTC] stocks/momentum  equity $490.83 (-1.8%) 4 open  market UP
+[2026-09-29 19:06 UTC] stocks/trend     equity $485.08 (-3.0%) 3 open  market UP
+[2026-09-29 19:06 UTC] stocks/hold_spy  equity $497.66 (-0.5%) 1 open  market UP
+   social heat top: QNT 40 (40/0/0), TRUMP 37 (37/0/0), NEAR 35 (35/0/0), HBAR 32 (32/0/0), PENGU 29 (29/0/0)
