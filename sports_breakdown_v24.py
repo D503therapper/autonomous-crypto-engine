@@ -615,7 +615,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                 f"📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us}. "
                 f"Sometimes the crowd gets it right.",
                 f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd tonight, but we got our own reasons.",
-                f"📊 The crowd's on {the_us} too — {t}% of the tickets, {m}% of the cash. Broken clock, right time.",
+                f"📊 The crowd's on {the_us} too — {t}% of the tickets, {m}% of the cash. Public's usually wrong — not this time.",
                 f"📊 {t}% of the bets and {m}% of the money on {the_us}. For once the casuals ain't wrong.",
                 f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money. We got there on our own though.",
                 f"📊 {the_us} got {t}% of the bets ({m}% of the money). Popular pick, still the right one."]))
@@ -647,7 +647,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         out.append(_nowhy(v.say("pub_ride", [
             f"🤝 Riding with the public on {the_us} — sometimes the public gotta win, {why_pub}.",
             f"🤝 Public's on {the_us} too, and this time they're not dummies — {why_pub}.",
-            f"🤝 Even a broken clock is right twice a day — the public got {the_us} right, {why_pub}.",
+            f"🤝 The public's usually on the wrong side. Not tonight — they got {the_us} right, {why_pub}.",
             f"🤝 We're with the crowd on {the_us} and not ashamed of it — {why_pub}.",
             f"🤝 Public side on {the_us}, but we got our own reasons — {why_pub}.",
             f"🤝 We're riding with the crowd on {the_us}. Sometimes they get it right — {why_pub}."])))
