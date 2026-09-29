@@ -425,12 +425,7 @@ def _tennis():
                     if many:                             # which day's parlay it is
                         card = card.replace('-LEG PARLAY</span>', f'-LEG PARLAY · {dname(s_["date"]).upper()}</span>', 1)
                     out += card
-        for s_ in sl_:                                   # an old slate's one mixed parlay (before the tours split): last
-            pars = dict(stn.parlays_of(s_))
-            if "mixed" in pars:
-                card = par_card("mixed", pars["mixed"], {l["id"]: l for l in s_["picks"]})
-                out += card.replace(" OF THE DAY</span>", f' · {dname(s_["date"]).upper()}</span>', 1) if many else card
-        return out
+        return out                                       # (an old combined parlay stays off the card - it's in the results)
     # the owner, 9/28: graded picks stay up - CASHED / MISSED with their review - until the NEXT slate posts (6pm PT);
     # then the old one goes to the results. (An older slate with a match still going stays up too.)
     live = lambda x: any(l.get("result") is None for l in x["picks"]) or any(p["status"] == "open" for _, p in stn.parlays_of(x))
