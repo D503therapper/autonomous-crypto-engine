@@ -180,7 +180,7 @@ def _leg(leg, tagged=False):
     if leg.get("injury_alerts") and not res:            # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>' for a in leg["injury_alerts"][-3:])
     return f"""<div class="leg {res or ''}">
-  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}">{_time(leg["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}">{_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
   {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
@@ -315,7 +315,7 @@ def _tennis():
     def row(l):
         bd = "".join(f"<p>{E(x)}</p>" for x in ([recap(l)] if recap(l) else []) + list(l.get("breakdown") or []))
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}">{_time(l["start"])}</span>')}</div>
+  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}">{_time(l["start"])}</span>')}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
@@ -1024,7 +1024,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
-.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
+.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .fnb{{color:#9aa4b2;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.86em;color:#e8eef6;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc span{{color:#ff8a8a;font-weight:700}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
 @keyframes lvp{{0%{{box-shadow:0 0 0 0 rgba(255,43,43,.9),0 0 6px 1px #ff2b2b}}70%{{box-shadow:0 0 0 9px rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}100%{{box-shadow:0 0 0 0 rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}}}
 .nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
 .tn{{margin:22px 0 6px;border:1px solid #c6f00066;border-radius:18px;background:linear-gradient(165deg,#c6f00014,var(--card))}}
@@ -1159,6 +1159,7 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
+ window.D503S=(d&&age<10*60000&&d.scores)||{{}};if(window.d503lt)window.d503lt();   // live scores next to our pending picks
  if(d&&(age<10*60000||(!(d.plays||[]).length&&!d.live_games&&age<45*60000)))draw(d);else draw(null);}}
 function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/live-data/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
 function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
@@ -1187,11 +1188,19 @@ function check(){{if(document.hidden)return;              // a newer page? swap 
        sessionStorage.setItem("d503y",String(window.scrollY));sessionStorage.setItem("d503r",String(Date.now()));}}catch(e){{}}
      location.replace(location.pathname+"?v="+x[1]);}}}})
  .catch(function(){{}});}}
-function liveTags(){{var n=Date.now();document.querySelectorAll(".tm[data-start]").forEach(function(s){{   // 🔴 LIVE while it's being played
+function liveTags(){{var n=Date.now(),S=window.D503S||{{}};document.querySelectorAll(".tm[data-start]").forEach(function(s){{
+  // 🔴 LIVE while it's being played, with the score + time left right under it (tennis: sets, games, points)
   var st=Date.parse(s.getAttribute("data-start"));if(!st)return;
-  if(n>=st&&n<st+6*3600000){{if(!s.dataset.lv){{s.dataset.lv=s.innerHTML;s.innerHTML='<span class="lvb"><i></i>LIVE</span>'}}}}
-  else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}}})}}
-liveTags();setInterval(liveTags,15000);
+  var sc=S[s.getAttribute("data-gid")||""],row=s.closest(".lt"),box=row&&row.nextElementSibling&&row.nextElementSibling.classList.contains("lsc")?row.nextElementSibling:null;
+  var on=sc?true:(n>=st&&n<st+6*3600000);
+  if(on){{if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
+    var tag=sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';if(s.innerHTML!==tag)s.innerHTML=tag;}}
+  else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}
+  if(sc&&on&&row){{var t=sc.txt?sc.txt:(sc.away+" "+sc.a+" @ "+sc.home+" "+sc.h),c=sc.clock&&sc.clock!=="Final"?sc.clock:"";
+    if(!box){{box=document.createElement("div");box.className="lsc";row.parentNode.insertBefore(box,row.nextSibling)}}
+    var h='<b>'+String(t).replace(/[&<>"]/g,"")+'</b>'+(c?' <span>· '+String(c).replace(/[&<>"]/g,"")+'</span>':'');if(box.innerHTML!==h)box.innerHTML=h;}}
+  else if(box)box.remove();}})}}
+window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);
 tick();setInterval(tick,30000);check();setInterval(check,60000);document.addEventListener("visibilitychange",check);}})();
 </script><script>
 (function(){{   // 🤔 ASK THE ENGINE: the engine's read on any game, from reads.json (not our picks, never in the record)

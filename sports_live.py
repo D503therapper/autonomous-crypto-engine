@@ -622,6 +622,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
         _ELO.update(key=key, elo=sm.ratings(games, model))
     elo = _ELO["elo"]
     plays = []
+    SCORES.clear()                # rebuilt every check (finals stay while the feed still lists them)
     judged = set()                # games priced and judged this check (the rest were paused / out of sync)
     WATCHING[0] = PRICED[0] = 0
     BOOKS.clear()
@@ -637,6 +638,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
             for ang in angs:
                 status = str(ang.get("status") or ang.get("real_status") or "").lower()
                 box = ang.get("boxscore") or {}
+                _keep_score(games, lg, ang, box, status)
                 if status in DONE or not box.get("period"):
                     _grade(log, ang)
                     if status in ("complete", "closed", "final") and ang.get("id"):
@@ -928,6 +930,14 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
     pre = stl.load_prematch()
     ours = stl.our_picks()
     TENNIS.update(watching=len(live), priced=0, stale=0, suspended=0)
+    for m in rows:                                           # sets + games next to our pending tennis picks
+        try:
+            state = stn._state(m)
+            if state == "live" or (state != "pre" and m["id"] in ours):
+                txt, clk = _tennis_score(m, ours.get(m["id"]))
+                SCORES[f"tennis:{m['id']}"] = {"txt": txt, "clock": clk if state == "live" else "Final", "live": state == "live"}
+        except Exception:                                    # noqa: BLE001
+            pass
     import sports_breakdown as sb
     used = sb.slang_in([x for p in taken for x in [p.get("line", "")] + list(p.get("breakdown") or [])])
     out = []
@@ -947,6 +957,40 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
         judged.add(f"tennis:{m['id']}")
         out += evaluate_tennis(m, ln, flip, pre[m["id"]], ours.get(m["id"]), showing, used)
     return out
+
+
+SCORES = {}                   # {game id: live score + clock} for the dashboard's pending picks (every sport + tennis)
+
+
+def _keep_score(games, lg, ang, box, status):
+    """The score and time left of one game (live, or final) - shown next to our pending picks with the LIVE tag."""
+    try:
+        if not box.get("period"):
+            return
+        g = _match(games, lg, ang)
+        if not g:
+            return
+        final = status in DONE
+        SCORES[g["id"]] = {"away": g["away_name"], "home": g["home_name"], "a": _score(box, "away"),
+                           "h": _score(box, "home"), "clock": "Final" if final else _clock_txt(lg, box), "live": not final}
+    except Exception:                                         # noqa: BLE001 - a score never breaks the watch
+        pass
+
+
+def _tennis_score(m, side=None):
+    """'Kalieva vs Han · 6-4, 2-1 (15-30)' + 'Set 2 · Han serving' - from OUR player's side when we're on the match."""
+    s = stl.score_state(m)
+    if side == 2:
+        sw = lambda t: (t[1], t[0]) if t else t
+        s = {**s, "done": [sw(x) for x in s["done"]], "games": sw(s["games"]), "pts": sw(s["pts"]) if s.get("pts") else s.get("pts"),
+             "server": {1: 2, 2: 1}.get(s.get("server"), s.get("server"))}
+        m = {**m, "p1_name": m["p2_name"], "p2_name": m["p1_name"]}
+    w1 = sum(1 for a, b in s["done"] if a > b)
+    w2 = sum(1 for a, b in s["done"] if b > a)
+    n1, n2 = stn._say_name(m["p1_name"]), stn._say_name(m["p2_name"])
+    sets = "" if not s["done"] else (f"Sets {w1}-{w2} · " if w1 == w2 else          # who's up in sets, said plain
+                                      f"{n1 if w1 > w2 else n2} up {max(w1, w2)}-{min(w1, w2)} in sets · ")
+    return stl.score_text(m, s), sets + stl.clock_text(m, s)
 
 
 def _score(box, side):
@@ -1008,7 +1052,7 @@ def run():
     plays = cycle(games, model, log, showing=list(prev), prev=prev)
     health = health_check()
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log),
-           "live_games": WATCHING[0] + TENNIS["watching"], "tennis": dict(TENNIS),
+           "live_games": WATCHING[0] + TENNIS["watching"], "tennis": dict(TENNIS), "scores": dict(SCORES),
            "health": health,
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
@@ -1177,6 +1221,13 @@ def _board_key():
         + str(d.get("live_games"))
 
 
+def _scores_key():
+    try:
+        return json.dumps(json.load(open(LIVE_JSON)).get("scores"), sort_keys=True)
+    except (OSError, ValueError):
+        return None
+
+
 def _log_key():
     try:
         return open(LOG).read()
@@ -1235,7 +1286,7 @@ def loop(minutes, every_s=1):
     code = _code_hash()
     queued = False
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
-    last_pull = 0.0
+    last_pull, last_scores = 0.0, None
     finals_seen = None
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
     _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
@@ -1281,10 +1332,11 @@ def loop(minutes, every_s=1):
             except (OSError, ValueError):
                 pass
         board = _board_key()
-        if board != last_board or time.time() - last_push > 60:
+        scores = _scores_key()
+        if board != last_board or (scores != last_scores and time.time() - last_push > 10) or time.time() - last_push > 60:
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pushing the board", flush=True)
             if push_live():
-                last_board, last_push = board, time.time()
+                last_board, last_scores, last_push = board, scores, time.time()
         if _log_key() != last_log and not grading():            # (git one job at a time)
             publish(f"live log {datetime.now(timezone.utc):%H:%M}")
             last_log = _log_key()

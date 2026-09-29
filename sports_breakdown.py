@@ -437,7 +437,11 @@ def breakdown(leg, games, elo, injuries, used=None):
         t, m = sp_
         mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]
         kind = "splits_fade" if t <= 35 else "splits_ride" if t >= 65 else "splits_even"
-        out.append(_say(v, "splits", tkey=kind, must=True, t=t, m=m, pt=100 - t, pm=100 - m, mk=mk,
+        rnd_ = __import__("random").Random(f"{v.seed}|split")     # the stat itself, worded per card ("72% of the tickets")
+        bets = lambda x: f"{x}% " + rnd_.choice(["of the bets", "of the tickets", "of bets", "of tickets", "of the action"])
+        cash = lambda x: f"{x}% " + rnd_.choice(["of the money", "of the cash", "of the handle", "of the dollars"])
+        out.append(_say(v, "splits", tkey=kind, must=True, t=t, m=m, pt=100 - t, pm=100 - m, mk=mk, tb=bets(t),
+                        mc=cash(m), ptb=bets(100 - t), pmc=cash(100 - m),
                         the_us=the_us, the_them=the_them, The_us=_cap(the_us), The_them=_cap(the_them)))
 
     # the public: fading them or riding with them
@@ -634,6 +638,7 @@ _P = {   # breakdown-only word pools (one flat [..] each - never nested inside a
     "str8": "[straight|in a row]",
     "Ls": "[L's|losses]",
     "tn": "[tonight|today|this time|in this one]",
+    "cash_w": "[of the money|of the cash|of the handle|of the dollars]",
     "ofl": "[{w} of the last {cnt}|{w} of their last {cnt}|{w} out of the last {cnt}|{w} of the past {cnt}|{w} of {cnt} lately|{w} of the {cnt} most recent|{w} in {cnt} tries]",
     "mv": "[{op} → {now}|{op} to {now}|from {op} to {now}|{op}, now {now}]",
     "bk": "[Vegas|the book|the sportsbook|the oddsmaker|the house|the market|the window]",
@@ -791,7 +796,7 @@ T = {
         "🐺 [Paper|The resume] says {them}. [The price|This number] says {us}, and we [listen to|follow|trust] the price.",
         "🐺 [Sure|Yeah|Fine], {them} are better on paper. [That's baked in|That's in the price|Priced in] — the value's on {us}.",
         "🐺 We know {them} got more talent. That's why {us} come [this cheap|at a discount|at this price].",
-        "🐺 Dog spot: {them} [have|got] the [names|resume|hype], we [have|got] the [number|price] on {us}.",
+        "🐺 [Price spot|Value spot]: {them} [have|got] the [names|resume|hype], we [have|got] the [number|price] on {us}.",
         "🐺 {them} [are favored|get the respect] for a reason. [Still|But], {us} at this [price|number] is [value|the play].",
     ],
     "even": [
@@ -1439,7 +1444,7 @@ T.update({
         "🐺 [Paper|The resume] says {them}. [The price|This number] says {us}, and we [listen to|follow|trust] the price.",
         "🐺 [Sure|Yeah|Fine], {them} are better on paper. [That's baked in|That's in the price|Priced in] — the value's on {us}.",
         "🐺 We know {them} got more [talent|names]. That's why {us} come [this cheap|at a discount|at this price].",
-        "🐺 Dog spot: {them} [have|got] the [names|resume|hype], we [have|got] the [number|price] on {us}.",
+        "🐺 [Price spot|Value spot]: {them} [have|got] the [names|resume|hype], we [have|got] the [number|price] on {us}.",
         "🐺 {them} [are favored|get the respect] for a reason. [Still|But], {us} at this [price|number] is [value|the play].",
     ],
     "h2h": [
@@ -1955,6 +1960,131 @@ T.update({
         "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Fine by us — our numbers got there first.|Broken clock, right time.|We got our own reasons.]",
     ],
 })
+_SPLIT = {   # the public-splits line: an opener with the numbers x a closer with our stance (every window varies)
+    "fade": ([
+        "📊 {ptb} [and|plus|with] {pmc} [sit|are|landed|went] [on|with] {the_them} [on|for] {mk}.",
+        "📊 [The whole world's|Everybody's|The public's|The crowd's|Everyone's] [on|all over|piling on] {the_them} [on|for] {mk}: {ptb}, {pmc}.",
+        "📊 {The_them} [got|are pulling|draw|hold|have] {ptb} [and|plus|with] {pmc} [on|for] {mk}.",
+        "📊 [Splits|The splits|Betting splits|The split] [on|for] {mk}: {the_them} [at|with|pulling] {ptb}, {pmc}.",
+        "📊 [Lopsided|One-sided|Heavy|Tilted] [action|market|money] [on|for] {mk} — {ptb} [and|with] {pmc} [on|backing|riding] {the_them}.",
+    ], [
+        "[We fade|Fading|We're fading|We go against|We bet against] the [public|crowd|herd|sheep][ —|,] [{the_us} for us|give us {the_us}|we take {the_us}|we on {the_us}|{the_us} all day].",
+        "[Sheep gon' be sheep|The herd's the herd|Let 'em follow each other] — [we on|we got|give us|we take] {the_us} [with|alongside|riding with] the other {t}%.",
+        "[Not us|Nah|No thanks|Pass][,|:] [{the_us}|we're on {the_us}|we got {the_us}|{the_us} it is].",
+        "[Contrarian|Classic fade|Other-side|Fade] spot — [{the_us}|give us {the_us}|{the_us} for us].",
+        "",
+    ]),
+    "ride": ([
+        "📊 {tb} [and|plus|with] {mc} [sit|are|landed|went] [on|with] {the_us} [on|for] {mk}.",
+        "📊 [Public's|The crowd's|Everybody's|The herd's] [with us|on our side|riding with us] [on this one|here|tonight] — {tb}, {mc} [on|for] {mk}.",
+        "📊 {The_us} [got|are pulling|draw|hold|have] {tb} [and|plus|with] {mc} [on|for] {mk}.",
+        "📊 [Splits|The splits|Betting splits|The split] [on|for] {mk}: {the_us} [at|with|pulling] {tb}, {mc}.",
+    ], [
+        "[Crowd's|The public's|The herd's] [right|onto something|not wrong] [this time|for once|tonight].",
+        "[We got|We have|We bring] our own [reasons|read|numbers] [though|anyway|too].",
+        "[Same side|Same pick|Same team], [different|our own|separate] [reasons|math|read].",
+        "[Sometimes|Every now and then|Once in a while] the [crowd|public] [gets it right|nails one|hits].",
+        "",
+    ]),
+    "even": ([
+        "📊 [Bets are|The action's|Tickets are|The betting's] [split|divided|mixed] — {t}% [on|for] {the_us}, {pt}% [on|for] {the_them} ({m}% / {pmc}).",
+        "📊 [Who's betting who|The split|Betting breakdown|The breakdown]: {tb} [on|for] {the_us}, {pt}% [on|for] {the_them}; [money|cash|dollars] {m}% / {pm}%.",
+        "📊 [No clear public side|Public's split|Crowd's torn|No lean from the public] [on|for] {mk}: {the_us} [at|with] {tb} and {mc}, {the_them} {pt}% and {pm}%.",
+    ], [
+        "[Nobody|No one] [knows|agrees|has a clue] [on this one|here|tonight] — [except us|we do|we know].",
+        "[Pretty|Real|Dead] [split|torn|even] [crowd|room|market].",
+        "[No herd|No consensus|No crowd] to [follow|fade|ride].",
+        "",
+    ]),
+}
+for _k, (_o, _c) in _SPLIT.items():
+    T["splits_" + _k] = T["splits_" + _k][:3] + [f"{o} {c}".strip() for o in _o for c in _c]
+
+_DENSE = {   # skeletons with a pick in every 4-word window: they can come back day after day in new words
+    "fade": [
+        "💸 [Sharp money's|Big money's|The money's|Action's] [pouring|piling|flowing|coming] [in on|onto|toward] {the_them}{move}. [Let 'em|Not buying it|Respectfully, no|Cool with us|We pass] — [we're on|we got|we're riding|give us] {the_us}, {why}.",
+        "💸 [The line's|The number's|The market's|The price is] [moving|drifting|sliding|leaning] [toward|to] {the_them}{move}. [They must be clowns|Somebody's tweaking|Wrong way|Somebody's gonna learn] — [we're on|we got|we're with|we ride] {the_us}, {why}.",
+        "💸 {The_them}{move} [are getting|keep getting|are soaking up|pull] [the|all the|most of the] [sharp|big|heavy] money. [Fine by us|We fade it|Let 'em|Cool] — [we're on|we got|give us] {the_us}, {why}.",
+        "💸 [So-called sharps|Wise guys|Big bettors|The pros] [love|backed|jumped on|hit] {the_them}{move}. [Clowns|Their loss|Not us|We disagree] — [we're on|we got|we're riding] {the_us}, {why}.",
+    ],
+    "pub_fade": [
+        "🤡 [The public's|The crowd's|Casual money's|Square money's|The sheep are] [all over|piling on|lined up for|in love with] {the_them}. [Let 'em|Not us|Cool story|We pass|Fine] — [we're on|we got|we're riding|give us] {the_us}, {why}.",
+        "🤡 {The_them} [are|look like] the [popular|public|people's|trendy] [pick|side|play]. [We fade the crowd|We go the other way|Not for us|We pass] — [{the_us}|we got {the_us}|give us {the_us}], {why}.",
+        "🤡 [Everybody and their mama|Every casual|The whole timeline|All the squares] [on|backing|riding] {the_them}? [Nah|Nope|Not us|Pass] — [we're on|we got|we're riding] {the_us}, {why}.",
+        "🤡 [Don't be a sheep|Don't follow the herd|Don't chase the crowd|Skip the herd]: [the public's|the crowd's|the squares are] on {the_them}, [we're on|we got|we ride] {the_us} — {why}.",
+    ],
+    "pub_ride": [
+        "🤝 [Same side as|Riding with|Rolling with|On the same side as] the [public|crowd|herd] [on|with] {the_us}. [No shame|Fine by us|It happens|So be it] — {why}.",
+        "🤝 [The crowd's on|The public's on|Casuals are on|The squares are on] {the_us} [too|as well|here], and [this time|for once|tonight] they're [right|onto something|not wrong] — {why}.",
+        "🤝 [Even a broken clock|A stopped clock|The public] [hits|gets one right|is right] [sometimes|twice a day|now and then]: {the_us}, {why}.",
+    ],
+    "worse": [
+        "🐺 [Sure|Yeah|Fine|OK], {them} [look|grade out|rate] [better|stronger] on paper. [That's|It's|All that's] [baked in|in the price|priced in] — [we like|give us|we'll take] {us} [here|at this number|at this price].",
+        "🐺 {them} [get|grab|soak up] [all the|the] [love|hype|respect|headlines]; {us} [get|come with] the [price|number|value]. [We'll take that.|Easy choice.|Say less.]",
+        "🐺 [Paper|The resume|The names] [favor|point to|say] {them}. [The price|This number|The value] [favors|points to|says] {us} — [and we follow the price|we listen to the price|price wins].",
+        "🐺 [Price spot|Value spot|Number spot]: {them} [have|got|bring] the [names|resume|hype], we [have|got|take] the [number|price|value] [on|with] {us}.",
+    ],
+    "home": [
+        "🏟️ {us} [at home|in their building|on home {field}|at the crib] {tn}. [{Crowd}|Their people|The home folks] [gonna be|will be] [loud|rocking|behind them|on their side].",
+        "🏟️ [Home|Crib|Home-{field}] [game|night|spot] for {us}. [Friendly|Familiar|Their own] [building|crowd|surroundings], [their rules|their energy|their routine].",
+        "🏟️ {us} [sleep|stay|rest up] in their own [beds|house|place] {tn} — [home|familiar|friendly] [crowd|building|routine] [behind them|on their side|at their back].",
+    ],
+    "road": [
+        "🧳 {us} [travel|go on the road|hit the road|pack the bags] {tn}. [Doesn't worry us.|Not a concern.|We don't care.|No big deal.]",
+        "🧳 [Road|Away] [spot|trip|game] for {us} — [the numbers still like them|still our side|still the play|doesn't change a thing].",
+        "🧳 {us} [play|are|suit up] in a [hostile|loud|road|rowdy] [building|barn|house] {tn}, [and|but] [that's fine|we're cool with it|who cares].",
+        "🧳 [Hostile|Loud|Rowdy] [building|crowd] [waiting|ahead|on deck] for {us}. [Don't care.|Doesn't matter.|We're good.]",
+    ],
+    "rest": [
+        "🛌 {us} [got|had|enjoyed] {d} [more|extra] days [off|of rest|to recover] [than|compared to] {them}.",
+        "🛌 [Rest|Legs|Recovery] [edge|advantage|gap]: {us} [by|with] {d} [days|extra days|more days].",
+        "🛌 {them} [had|got] {d} fewer days [off|of rest] [than|compared to] {us}.",
+    ],
+    "b2b": [
+        "😴 {them} [played|suited up|were out there] last night; {us} [rested|sat|had the night off|kicked back].",
+        "😴 [Second night of a back-to-back|Back-to-back spot|No rest] for {them}. {us} [come in|walk in|show up] [fresh|rested|with fresh legs].",
+    ],
+    "better_s": [
+        "💪 {us} [grade out|rate|come out] [a bit|a little|slightly|a touch] [better|stronger|higher] [on paper|on talent|overall].",
+        "💪 [Slight|Small|Modest] [talent|roster|quality] [edge|advantage] [to|for] {us} [over|against] {them}.",
+    ],
+    "even": [
+        "⚖️ [Talent's|Rosters are|Paper's] [about even|a wash|dead level|split] — [so|and] the [number|price|value] [picks|makes|decides] the [side|play|pick].",
+        "⚖️ [Can't split|Can't separate|Hard to split] [these two|them|this one] on [paper|talent]; [the price|the number] [does it|breaks it|decides] for us.",
+    ],
+    "revenge": ["😤 {us} [dropped|lost|blew] the last [one|meeting|matchup] [to|against] {them}. [Payback|Get-back|Revenge] [time|spot|game]."],
+    "letdown": ["🪤 {them} [just|recently] [blew out|ran over|smacked|rolled] [somebody|a team|their last opponent]. [Letdown|Trap|Hangover|Flat] [spot|alert|game] [here|now|tonight]."],
+    "momentum": ["🚀 {us} [blew out|smoked|ran over|rolled] [somebody|a team|their last opponent] [last time|last game|last out]. [Momentum|Confidence|Juice] [carries|stays|is real]."],
+    "alt": ["🏔️ [Thin|Light|Mountain] air [at|up at] {elev} meters — [lungs|legs|gas tanks] [burn|go|drain] [fast|quick|early] for {the_them}."],
+    "cold_w": ["🥶 [Freezing|Frigid|Cold] [night|game|one]: {temp}°F. {The_them} [won't like it|ain't built for it|are out of their element]."],
+    "G_hot": ["🧱 [Nothing|Not much|Barely anything] [getting|going|sneaking] [past|by] {name} {rn}: {txt}."],
+    "intl": ["🌍 [Overseas|International|Neutral-site] [game|trip|spot] ({where}). {Algo} [wanted|needed|demanded] [extra|more|a bigger] [value|cushion|edge] [to take it|to play it|for it]."],
+    "cx_div_t": ["🔥 [Division|Familiar|Same-division] [game|matchup|foes] [on the total|here|in this one]: {them}."],
+    "cx_div": ["🔥 [Division|Same-division|Familiar] [game|matchup|beef]: {the_us} and {the_them} [know each other cold|have no secrets|see each other a lot]."],
+    "cx_rival_t": ["🔥 [Rivalry|Grudge|Bad-blood] [game|matchup|spot] ({them}). [Emotions run hot.|These get weird.|Anything goes.]"],
+    "cx_domecold": ["🏟️ [Dome|Indoor|Roof] [team|squad|club] [outside|outdoors|in the elements] [in|with] {wx} — [tough|rough|bad] [spot|ask|look] for {who}."],
+    "cx_domeout": ["🏟️ [Dome|Indoor|Roof] [team|squad|club] [outdoors|in open air|under the sky] [today|this time|this week]: {the_them}."],
+    "cx_bowl": ["🏈 [Bowl|Postseason] [eligibility|ticket|bid] [on the line|at stake|in play] for {us}: [win|W] [No. 6|number 6|six] [gets it|punches it|does it]."],
+    "cx_elim": ["📉 [Stakes|Motivation|Urgency] [gap|edge]: {the_us} [alive|in the race|still in it], {the_them} [eliminated|done|out]."],
+    "cx_hotseat": ["🔥 [Heat's|Pressure's|Spotlight's] on {the_them_s} [coach|staff|sideline] [after|with] {cnt} [straight|consecutive] {Ls}."],
+    "cx_mustwin": ["🚨 [Playoff|Postseason] [push|chase|race]: {the_us} ({rec}) [need|gotta have|can't lose] this one."],
+    "cx_rest": ["🪑 [Clinched|Locked in|Spot secured], {the_them} [may|could|might] [rest|sit|limit] [the stars|starters|key guys]."],
+    "cx_tank": ["📉 [Lottery|Draft|Tank] [watch|season|mode]: {the_them} ({rec}) [are out of it|are done|are playing for next year]."],
+    "drama_legal_trouble": ["🧯 [Legal|Court|Off-field] [stuff|noise|mess] [around|for|hanging over] {the_them} [this week|lately|right now]. [Distractions.|Hard to focus.|Noise.]"],
+    "drama_trade_drama": ["🧯 [Trade|Trade-request|Wants-out] [noise|drama|talk] [around|for|in] {the_them} [this week|lately|right now]. [Awkward room.|Vibes are off.|Messy.]"],
+    "drama_family_personal": ["🧯 [Tough|Heavy|Rough] [week|stretch|time] [off the field|away from the game|personally] for {the_them}. [Hard to focus.|Heads elsewhere.|Tough spot.]"],
+    "drama_suspension": ["🧯 [Suspension|Discipline] [news|drama|hit] [for|around] {the_them} [this week|lately]. [That hurts.|Tough week.|Rattles a room.]"],
+    "talk_must_win": ["📣 [Must-win|Win-or-else|Season-saving] [talk|energy|vibes] [around|out of|from] {who} [this week|all week|lately]."],
+    "talk_contract_year": ["📣 [Contract|Payday|Money] [year|season|talk] [around|for] {who}. [Extra effort|Motivation|Hunger] [expected|incoming|on tap]."],
+    "talk_hot_seat": ["📣 [Coach's job|Job security|The coach's seat] [talk|chatter|questions] [around|for|about] {who} [this week|lately|all week]."],
+    "talk_rivalry_week": ["📣 [Rivalry|Bragging-rights|Grudge] [talk|chatter|hype] [around|from|out of] {who} [this week|all week|lately]."],
+    "talk_trash_talk": ["📣 [Big talk|Trash talk|Chirping] [out of|from|around] {who} [this week|lately|all week]. [Talk is cheap.|Now prove it.|Receipts tonight.]"],
+    "talk_unhappy": ["📣 [Frustration|Grumbling|Unhappy noise] [coming out of|around|inside] {who} [this week|lately|all week]. [Vibes are off.|Not a happy room.|Tension.]"],
+}
+for _k, _v in _DENSE.items():
+    T[_k] = T[_k] + _v
+
+
 _SYN = [   # a few safe swaps applied everywhere outside the picks: more ways, same meaning, same size
     (r"\blately\b", "[lately|recently|of late]"), (r"\btonight\b", "[tonight|today]"),
     (r"\bthis week\b", "[this week|all week]"), (r"\ball week\b", "[all week|this week]"),
