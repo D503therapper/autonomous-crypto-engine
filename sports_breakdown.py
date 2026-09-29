@@ -640,7 +640,7 @@ _P = {   # breakdown-only word pools (one flat [..] each - never nested inside a
     "tn": "[tonight|today|this time|in this one]",
     "cash_w": "[of the money|of the cash|of the handle|of the dollars]",
     "ofl": "[{w} of the last {cnt}|{w} of their last {cnt}|{w} out of the last {cnt}|{w} of the past {cnt}|{w} of {cnt} lately|{w} of the {cnt} most recent|{w} in {cnt} tries]",
-    "mv": "[{op} → {now}|{op} to {now}|from {op} to {now}|{op}, now {now}]",
+    "opnow": "[{op} → {now}|{op} to {now}|from {op} to {now}|{op}, now {now}]",
     "bk": "[Vegas|the book|the sportsbook|the oddsmaker|the house|the market|the window]",
     "Bk": "[Vegas|The book|The sportsbook|The oddsmaker|The house|The market|The window]",
     "close": "[That's the value.|That's the play.|That gap is the play.|Trust the algorithm.|Easy call.|Value all day.|"
@@ -652,6 +652,7 @@ _P = {   # breakdown-only word pools (one flat [..] each - never nested inside a
 
 
 def _x(t):
+    """Drop the pools into a template ({rn} -> [right now|lately|...])."""
     return re.sub(r"\{(\w+)\}", lambda m: _P.get(m.group(1), m.group(0)), t)
 
 
@@ -1131,12 +1132,12 @@ T = {
     "sharp": [
         "💰 [Sharp|Smart|Pro] money is on us: {us} opened {op}, now {now}.",
         "💰 The pros are [hammering|backing|loading up on] {us} — {op} at open, {now} now.",
-        "💰 The line moved our way ({mv}). [Smart money agrees.|The pros agree.]",
-        "💰 Money's been [pouring|piling|flowing] in on {us}: {mv}.",
-        "💰 Big money moved {us} {mv}. We like the company.",
+        "💰 The line moved our way ({opnow}). [Smart money agrees.|The pros agree.]",
+        "💰 Money's been [pouring|piling|flowing] in on {us}: {opnow}.",
+        "💰 Big money moved {us} {opnow}. We like the company.",
         "💰 {us} went [from {op} to {now}|{op} → {now}] — the pros see it too.",
         "💰 {us} [opened|started] at {op} and [sit|now sit] at {now}. [Smart money agrees.|The pros agree.|Sharps see it too.]",
-        "💰 Line [moved|went] our way: {us} {mv}.",
+        "💰 Line [moved|went] our way: {us} {opnow}.",
         "💰 [Pro money|Smart money|Sharp action] [pushed|moved|took] {us} [from {op} to {now}|{op} → {now}].",
         "💰 {op} at open, {now} now — [the market's|money's] [coming our way|backing {us}].",
     ],
@@ -1649,12 +1650,12 @@ T.update({
     "sharp": [
         "💰 [Sharp|Smart|Pro] money is on us: {us} opened {op}, now {now}.",
         "💰 The pros are [hammering|backing|loading up on] {us} — {op} at open, {now} now.",
-        "💰 The line [moved|went] our way ({mv}). [Smart money agrees.|The pros agree.]",
-        "💰 Money's been [pouring|piling|flowing] in on {us}: {mv}.",
-        "💰 Big money [moved|pushed] {us} {mv}. We like the company.",
+        "💰 The line [moved|went] our way ({opnow}). [Smart money agrees.|The pros agree.]",
+        "💰 Money's been [pouring|piling|flowing] in on {us}: {opnow}.",
+        "💰 Big money [moved|pushed] {us} {opnow}. We like the company.",
         "💰 {us} went [from {op} to {now}|{op} → {now}] — the pros see it too.",
         "💰 {us} [opened|started] at {op} and [sit|now sit] at {now}. [Smart money agrees.|The pros agree.|Sharps see it too.]",
-        "💰 Line [moved|went] our way: {us} {mv}.",
+        "💰 Line [moved|went] our way: {us} {opnow}.",
         "💰 [Pro money|Smart money|Sharp action] [pushed|moved|took] {us} [from {op} to {now}|{op} → {now}].",
         "💰 {op} at open, {now} now — [the market's|money's] [coming our way|backing {us}].",
     ],
@@ -1909,8 +1910,8 @@ T.update({
     "sharp": [
         "💰 [Sharp|Smart|Pro] money is on us: {us} opened {op}, now {now}.",
         "💰 The pros are [hammering|backing|loading up on] {us} — {op} at open, {now} now.",
-        "💰 The line [moved|went|slid] our way ({mv}). [Smart money agrees.|The pros agree.|Sharps agree.]",
-        "💰 Money's been [pouring|piling|flowing] in on {us}: {mv}.",
+        "💰 The line [moved|went|slid] our way ({opnow}). [Smart money agrees.|The pros agree.|Sharps agree.]",
+        "💰 Money's been [pouring|piling|flowing] in on {us}: {opnow}.",
         "💰 [Big|Smart|Heavy] money [moved|pushed] {us} [from {op} to {now}|{op} → {now}]. [We like the company.|Good company.]",
         "💰 {us} went [from {op} to {now}|{op} → {now}] — the [pros|sharps] see it too.",
         "💰 {us} [opened|started] at {op} and [sit|now sit] at {now}. [Smart money agrees.|The pros agree.|Sharps see it too.]",
@@ -1988,7 +1989,7 @@ _SPLIT = {   # the public-splits line: an opener with the numbers x a closer wit
     ]),
     "even": ([
         "📊 [Bets are|The action's|Tickets are|The betting's] [split|divided|mixed] — {t}% [on|for] {the_us}, {pt}% [on|for] {the_them} ({m}% / {pmc}).",
-        "📊 [Who's betting who|The split|Betting breakdown|The breakdown]: {tb} [on|for] {the_us}, {pt}% [on|for] {the_them}; [money|cash|dollars] {m}% / {pm}%.",
+        "📊 [Who's betting who|The split|Betting breakdown|The breakdown]: {tb} [on|for|backing|riding] {the_us}, {pt}% [on|for|backing|riding] {the_them}; [money|cash|dollars] {m}% / {pm}%.",
         "📊 [No clear public side|Public's split|Crowd's torn|No lean from the public] [on|for] {mk}: {the_us} [at|with] {tb} and {mc}, {the_them} {pt}% and {pm}%.",
     ], [
         "[Nobody|No one] [knows|agrees|has a clue] [on this one|here|tonight] — [except us|we do|we know].",

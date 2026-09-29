@@ -2750,6 +2750,31 @@ def test_breakdown_variety():
         rolls = sb._roll(k, "t", {"field": "court", "a_n": "a", "a_rec": "a"}, **facts)
         assert rolls and all(sb._size(r.replace("Xx", "\ue000\ue100\ue001"))[0] <= sb._CAP[k][0] for r in rolls), k
     assert vo.supply(sb.T["bottom"]) > 5000 and vo.supply(sb.T["bottom_s"]) > 2000 and len(sb.T["bottom"]) >= 10
+    # every call site rolls clean with exactly the facts it passes (no "{x}" left, no pool shadowing a fact)
+    import ast
+    calls, words = {}, {"field": "court", "a_n": "a", "a_rec": "a"}
+    for node in ast.walk(ast.parse(open(sb.__file__).read())):
+        if isinstance(node, ast.Call) and getattr(node.func, "id", "") == "_say":
+            kw = {k.arg for k in node.keywords if k.arg} - {"must", "words", "tkey", "extra", "names"}
+            if not kw:                                    # **names in context_lines
+                kw = {"the_us", "the_them", "The_us", "The_them"}
+            kw |= {"the_us", "the_them", "The_us", "The_them"} if any(k.arg is None for k in node.keywords) else set()
+            tk = next((k.value.value for k in node.keywords if k.arg == "tkey" and isinstance(k.value, ast.Constant)), None)
+            key = node.args[1].value if len(node.args) > 1 and isinstance(node.args[1], ast.Constant) else None
+            for k in ([tk or key] if (tk or key) else []):
+                calls.setdefault(k, set()).update(kw)
+    dyn = {"better": {"us", "them", "us_s"}, "better_s": {"us", "them", "us_s"}, "worse": {"us", "them", "us_s"},
+           "even": {"us", "them", "us_s"}, **{f"{r}_{m}": {"name", "txt"} for r in ("QB", "SP", "G") for m in ("hot", "cold")},
+           **{k: {"The_them", "the_them", "the_them_s", "hl"} for k in sb.T if k.startswith("drama_")},
+           **{k: {"who", "Who", "who_s", "Who_s"} for k in sb.T if k.startswith("talk_")},
+           "splits_ride": calls.get("splits_fade", set()), "splits_even": calls.get("splits_fade", set()),
+           "lean": {"team", "tms"}}
+    for k in sb.T:
+        facts = calls.get(k) or dyn.get(k)
+        assert facts, ("no call site says this line", k)
+        assert not set(sb._P) & facts, ("a word pool shadows a fact", k, set(sb._P) & facts)
+        for r in sb._roll(k, "guard", words, **{f: "Xx" for f in facts}):
+            assert not re.search(r"[\[\]{}]", r), (k, r)
     lean = sb.lean_tone(["✅ Bottom line: trust the algorithm.", "🔥 Hawks are rolling. Let's eat."], {"team": "Hawks"}, "x")
     assert lean[-1].startswith("🟡 Bottom line:") and not any(sb.HYPE.search(x) for x in lean), lean
 
