@@ -521,3 +521,48 @@ nhl: 13215 games · proven - · confirmed - · killed -
    ref_home+|total|over         n=   461 roi old -0.023 new +0.001 edge +0.0164 z=-0.25
    trip2000|ml|fade             n=   525 roi old -0.023 new -0.001 edge +0.0093 z=-0.26
    ref_home+|ml|dog             n=   468 roi old +0.038 new -0.073 edge +0.0054 z=-0.31
+   officials: 8 saved this run, 119475 total, 0 to go (0 errors)
+refs backfill: 8 games saved, ~1 left, 3s
+THE CONTEXT STUDY: 576 tests with 300+ bets; bar z >= 3.5 + profit in both halves. Luck alone: ~0.134 false positives expected (fake no-edge results passed 0.0 on average); refs: officials.json loaded
+nfl: 2770 games · proven - · confirmed - · killed -
+   ref_home-|spread|dog         n=   440 roi old +0.016 new +0.101 edge +0.0529 z=+1.29
+   any:out_dome|total|over      n=   461 roi old +0.057 new +0.025 edge +0.0444 z=+0.93
+   div|spread|dog               n=   775 roi old +0.028 new +0.028 edge +0.0372 z=+0.82
+   out_dome|ml|team             n=   449 roi old +0.121 new -0.031 edge +0.0396 z=+0.75
+   any:dome_out|total|under     n=   456 roi old +0.014 new +0.040 edge +0.0374 z=+0.61
+   nonconf|total|under          n=   565 roi old +0.072 new -0.040 edge +0.0312 z=+0.39
+ncaaf: 8324 games · proven - · confirmed - · killed -
+   any:east1000|total|under     n=   407 roi old +0.054 new +0.058 edge +0.0530 z=+1.19
+   east1000|ml|team             n=   402 roi old +0.131 new -0.041 edge -0.0007 z=+0.46
+   any:west1000|total|over      n=   360 roi old -0.026 new +0.059 edge +0.0329 z=+0.33
+   west1000|ml|fade             n=   353 roi old -0.026 new +0.041 edge +0.0206 z=+0.10
+   trip1000|ml|fade             n=   745 roi old -0.008 new +0.013 edge +0.0101 z=+0.05
+   any:bowl5|total|over         n=   353 roi old +0.051 new -0.052 edge +0.0238 z=-0.02
+nba: 12833 games · proven - · confirmed - · killed -
+   any:rest|total|over          n=   328 roi old +0.140 new +0.105 edge +0.0881 z=+2.36
+   ref_under|ml|road            n=   384 roi old +0.116 new +0.248 edge +0.0791 z=+2.33
+   any:tank|total|over          n=   584 roi old +0.006 new +0.124 edge +0.0581 z=+1.66
+   any:elim|total|over          n=   664 roi old -0.017 new +0.110 edge +0.0481 z=+1.26
+   ref_under|ml|dog             n=   381 roi old +0.021 new +0.183 edge +0.0474 z=+1.19
+   tank|spread|fade             n=   527 roi old +0.032 new +0.050 edge +0.0445 z=+0.99
+ncaab: 59096 games · proven - · confirmed - · killed -
+   ref_under|total|under        n=  2500 roi old +0.036 new +0.070 edge +0.0513 z=+2.81
+   ref_over|total|over          n=  1501 roi old +0.064 new +0.018 edge +0.0454 z=+1.67
+   rival|spread|home            n=   368 roi old +0.130 new -0.055 edge +0.0435 z=+0.76
+   road3in6|spread|team         n=   491 roi old +0.006 new +0.058 edge +0.0403 z=+0.74
+   rival|total|under            n=   371 roi old +0.084 new -0.042 edge +0.0342 z=+0.41
+   rival|ml|home                n=   374 roi old +0.054 new -0.025 edge +0.0330 z=+0.30
+mlb: 23238 games · proven - · confirmed - · killed -
+   east1000|ml|team             n=  1396 roi old +0.043 new -0.009 edge +0.0246 z=+0.59
+   trip2000|ml|fade             n=   659 roi old +0.088 new -0.044 edge +0.0258 z=+0.55
+   nonconf|ml|road              n=  4275 roi old +0.039 new -0.032 edge +0.0179 z=+0.20
+   any:west1000|total|over      n=  1441 roi old -0.028 new +0.030 edge +0.0232 z=+0.04
+   trip1000|ml|team             n=  2472 roi old -0.006 new +0.005 edge +0.0162 z=-0.01
+   ref_under|total|under        n=  3080 roi old +0.001 new -0.004 edge +0.0215 z=-0.08
+nhl: 13215 games · proven - · confirmed - · killed -
+   ref_home+|ml|road            n=   476 roi old +0.057 new -0.014 edge +0.0261 z=+0.41
+   race|ml|team                 n=  1320 roi old +0.025 new -0.022 edge +0.0237 z=+0.04
+   mustwin|ml|team              n=  1228 roi old +0.036 new -0.040 edge +0.0226 z=-0.07
+   ref_home+|total|over         n=   461 roi old -0.023 new +0.001 edge +0.0164 z=-0.25
+   trip2000|ml|fade             n=   525 roi old -0.023 new -0.001 edge +0.0093 z=-0.26
+   ref_home+|ml|dog             n=   468 roi old +0.038 new -0.073 edge +0.0054 z=-0.31
