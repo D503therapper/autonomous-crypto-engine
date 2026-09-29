@@ -1245,7 +1245,7 @@ def _used(skip=()):
     return out
 
 
-TENNIS_BV = 16                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 17                                   # breakdown version (older ones get rewritten before the match)
 
 
 CN_FAMILY = {"Wang", "Zhang", "Zheng", "Cui", "Ma", "Wu", "Zhu", "Yuan", "Bai", "Gao", "Shang", "Xu", "Li", "Liu",
@@ -1336,7 +1336,7 @@ T_SPREAD_FAV = [
     "{me} {hc} games — [{them} doesn't keep this close.|{gn} ain't enough cushion for {them}.] {kick}",
 ]
 T_FAV = [
-    "{me} is {better} and it ain't close. [{kick}|Big price, but {he} {wins} {more}.]",
+    "{me} is {better} and it ain't close. [That's just facts.|Big price, but {he} {wins} {more}.]",
     "{me} runs this. [{Algo} gives {him} {pct}%.|The price is steep for a reason.] {kick}",
     "{me}, {sure}. [{He}'s about to smack that ass.|Nothing fancy — the better player wins.] {kick}",
     "{me} is on a different level than {them}. [Pay the price, collect.|We ain't overthinking this one.] {kick}",
@@ -1345,7 +1345,7 @@ T_FAV = [
     "Give me {me}. [{He} {wins} {more}.|Big number, bigger gap.] {kick}",
     "{me} takes care of business here. [{Algo} ain't scared of the price.|{pct}% in our numbers.] {kick}",
     "{them} doesn't have the tools for {me}. {kick}",
-    "Levels to this — {me} is a tier above {them}. {kick}",
+    "Levels to this — {me} is a tier above {them}. [That's just facts.|{kick}]",
     "[Favorite for a reason|Heavy favorite, earned it]: {me}. {He} should {beat} {them}. {kick}",
     "{me} over {them}. [We're paying up because {he}'s {better}.|Steep price, steeper gap.] {kick}",
     "Not much to it: {me} {wins}. [{Algo} has it {pct}%.|{sure}.] {kick}",

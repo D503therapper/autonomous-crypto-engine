@@ -725,7 +725,6 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     form = form or {}
     lg = leg["league"]
     rsn = [r for r in leg.get("reasons") or [] if not str(r).startswith(("proven", "trend:", "opponent drama"))]
-    recs = f" ({rec_u} vs {rec_t})" if rec_u and rec_t else f" ({rec_u})" if rec_u else ""
     pct = round(100 * (leg.get("p") or 0))
     sp_us, sp_them = g.get("sp_" + leg["side"]), g.get("sp_" + ("away" if leg["side"] == "home" else "home"))
     trip = next((c for c in leg.get("ctx") or [] if c.get("k") == "trip" and c.get("who") == "them" and (c.get("mi") or 0) >= 1000), None)
@@ -733,12 +732,13 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     pools = []
     for r in rsn:
         if r == "the stronger team":
-            pools.append(("w_better", [
-                f"💪 {us} are just the better team{recs} — and it's not that close.",
-                f"💪 More talent, better results: {us}{recs} got {them} outclassed.",
-                f"💪 {us}{recs} are the better squad top to bottom. Simple as that.",
-                f"💪 Put the rosters side by side — {us} win that matchup{recs}.",
-                f"💪 {us} bring more juice than {them} every way you slice it{recs}."]))
+            pools.append(("w_better", [                   # (no record tacked on - the owner, 9/29: 'better team' says it)
+                f"💪 {us} are just the better team — and it's not that close.",
+                f"💪 {us} are just the better team. That's just facts.",
+                f"💪 More talent, better results: {us} got {them} outclassed.",
+                f"💪 {us} are the better squad top to bottom. Simple as that.",
+                f"💪 Put the rosters side by side — {us} win that matchup.",
+                f"💪 {us} bring more juice than {them} every way you slice it."]))
         elif r == "hotter recent form":
             hot = f"{n_hot} straight W's" if n_hot >= 2 else None
             pools.append(("w_hot", [

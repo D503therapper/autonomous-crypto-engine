@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 30          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 31          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):

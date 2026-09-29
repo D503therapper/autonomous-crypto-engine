@@ -489,12 +489,14 @@ def _tennis():
         lines = [x for x in (l.get("breakdown") or []) if isinstance(x, str)]
         if done:                                             # it's over: no "we gon' see" in the pregame read
             lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
-        bd = "".join(f"<p>{E(x)}</p>" for x in lines)
+        tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)   # the headline line up top, like the
+        bd = "".join(f"<p>{E(x)}</p>" for x in lines)                        # main board (the owner, 9/29) - tap for the rest
         rv = f'<div class="rvw">📝 {E(recap(l))}</div>' if done and recap(l) else ""   # the review, right on the pick
         return f"""<div class="leg {l['result'] or ''}">
   <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}">{"⏳ DELAYED" if _delayed(l) else _time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
+  {f'<div class="why">{E(tag)}</div>' if tag else ""}
   {f'<details class="bd"><summary>🔍 {"Pregame breakdown" if done else "Full breakdown"}</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
   {f'<div class="fin">Final: {E(", ".join(f"{a}-{b}" for a, b in ours(l)) or l["score"])}</div>' if l.get("score") else ""}
   {rv}
@@ -1218,7 +1220,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk.lost>*:not(.stamp-row){{opacity:.5}}
 .px>summary{{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}}
 .px>summary::-webkit-details-marker{{display:none}}
-.pxo,.pxc{{font-size:14px;color:var(--c1);font-weight:800}} div.pxt{{margin:2px 0 10px!important}} .pxt{{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
+.pxo,.pxc{{font-size:14px;color:var(--gold);font-weight:800}} div.pxt{{margin:2px 0 10px!important}} .pxt{{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
 .stamp-row{{display:flex;justify-content:center;margin:6px 0 12px}}
 .stamp{{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
   border-radius:10px;background:rgba(0,0,0,.3)}}

@@ -3292,6 +3292,7 @@ def test_parlay_bar_shows_game_times_and_live_stays_live():
     css = open(sdb.__file__).read()                  # the owner: yellow at all times (never dull gray, never switching
     assert "color:var(--gold)" in css[css.index(".pxt{{"):css.index(".pxt{{") + 200]   # colors) - the 🔴 says live
     assert ".pxt." not in css and "t.className" not in css
+    assert ".pxo,.pxc{{font-size:14px;color:var(--gold)" in css                         # 'Tap to see the legs': yellow too
     assert "5 PM PT" not in sdb._fold_times([{**legs[1], "result": "won"}, legs[0]])       # a graded game's done
     assert "All games final" in sdb._fold_times([{**l, "result": "won"} for l in legs])
     one = sdb._fold_times([legs[1]], one=True)                          # the lock / dog card gets the yellow line too
@@ -3344,7 +3345,7 @@ def test_why_line_is_a_real_line_not_a_tag():
     base = {"team": "Yankees", "opp": "Red Sox", "league": "mlb", "side": "home", "p": 0.58, "tier": "lock", "ctx": []}
     say = lambda leg, **k: v24.why_line(leg, v24.Voice("s", set()), g, "Yankees", "Red Sox", "the Yankees", "the Red Sox", **k)
     a = say({**base, "reasons": ["the stronger team"]}, rec_u="93-68", rec_t="87-75")
-    assert "93-68" in a and "stronger team" not in a and a[:1] in "💪"
+    assert "93-68" not in a and "stronger team" not in a and a[:1] in "💪"   # 'better team' - no record after it
     b = say({**base, "reasons": ["hotter recent form"]}, n_hot=4, rec_u="93-68")
     assert "4 straight" in b or "heater" in b.lower() or "cooking" in b
     c = say({**base, "reasons": ["opponent missing key players"], "opp_outs": ["Lukas Cormier (D)"]})
@@ -3360,9 +3361,33 @@ def test_why_line_is_a_real_line_not_a_tag():
     assert "the stronger team" not in card and "better team" in card               # an old pick: still our lingo
     card2 = sdb._leg({**base, "market": "ml", "odds": -135, "line": None, "home": True, "start": "2026-09-30T00:00Z",
                       "game_id": "mlb:1", "reasons": ["the stronger team"], "why_line": a})
-    assert "93-68" in card2
+    assert a in card2.replace("&#x27;", "'")
     src = open(sdb.__file__).read()
     assert 'L.reasons.map(esc).join(" · ")' not in src and "whyl(L,g)" in src     # the question box too
+
+
+
+def test_tennis_cards_get_the_tag_line():
+    """The owner, 9/29: tennis cards get the same line under the pick as the main board - the breakdown's headline -
+    and the rest stays behind 'Full breakdown' (never said twice)."""
+    import sports_dashboard as sdb
+    src = open(sdb.__file__).read()
+    assert 'tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)' in src
+    assert "{f'<div class=\"why\">{E(tag)}</div>' if tag else \"\"}" in src
+
+
+
+def test_facts_only_after_a_claim():
+    """The owner, 9/29: 'The math gives him 59%. Facts.' makes no sense - facts goes after a claim ('Yankees are just
+    the better team. That's just facts.'), never tacked onto a number."""
+    import sports_vocab as sv, sports_tennis as stn, sports_breakdown_v24 as v24
+    assert not any("facts" in k.lower() for k in sv.WORDS["kick"]) if hasattr(sv, "WORDS") else True
+    src = open(sv.__file__).read()
+    assert '"Facts."' not in src
+    for pool in (stn.T_FAV, stn.T_SMALLFAV):
+        for line in pool:
+            assert "{pct}%. Facts" not in line and "%.] Facts" not in line
+    assert "That's just facts." in open(v24.__file__).read()
 
 
 if __name__ == "__main__":

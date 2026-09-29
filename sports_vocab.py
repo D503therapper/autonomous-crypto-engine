@@ -41,10 +41,11 @@ SLOTS = {
             "Numbers don't lie.", "That's value.", "That spread between us and them is the whole reason.",
             "That's where the money's at.", "Math is math.", "That's a real gap."],
     "edge_noun": ["edge", "value", "gap", "cushion", "angle", "advantage"],
-    # sayings after a line (optional flavor; short ones repeat, that's fine)
+    # sayings after a line (optional flavor; short ones repeat, that's fine). Never a bare facts - it lands after a
+    # percentage and makes no sense; "that's just facts" only follows a claim (the owner, 9/29: 'better team, facts')
     "kick": ["", "", "", "", "", "Let's eat.", "Nice nice.", "Cook.", "Easy work.", "Run it.", "We outside.",
              "Say less.", "Book it.", "Light work.", "Tuck in.", "Get in.", "Bet.", "We're good.", "Pull up.",
-             "Period.", "Facts.", "Simple.", "Done deal.", "Don't overthink it.", "You already know.",
+             "Period.", "Simple.", "Done deal.", "Don't overthink it.", "You already know.",
              "Stamp it.", "Buckle up.", "We live.", "Clean.", "Straight up.", "On sight."],
     # how a matchup looks
     "hot": ["rolling", "on a heater", "cooking", "hot", "in a groove", "stacking W's", "on fire", "feeling it",
