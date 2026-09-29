@@ -1,35 +1,28 @@
 {
- "updated": "2026-09-28T23:24Z",
+ "updated": "2026-09-28T23:57Z",
  "games": [
   {
    "id": "nfl:401872963",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Eagles",
-    "p": 0.594,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "start": "2026-09-29T00:15Z",
    "away": "Eagles",
    "home": "Bears",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "solo",
    "lean": {
-    "team": "Eagles",
-    "opp": "Bears",
-    "market": "ml",
-    "line": null,
-    "odds": -198,
-    "p": 0.667,
-    "win_p": 0.667,
-    "reasons": [
-     "sharp money moving this way",
-     "hotter recent form",
-     "revenge game"
-    ]
+    "team": "Bears",
+    "opp": "Eagles",
+    "market": "spread",
+    "line": 3.5,
+    "odds": -108,
+    "p": 0.522,
+    "win_p": 0.522,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -141,7 +134,7 @@
     "opp": "Yankees",
     "market": "spread",
     "line": 1.5,
-    "odds": -199,
+    "odds": -204,
     "p": 0.614,
     "win_p": 0.436,
     "reasons": []
@@ -182,7 +175,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Padres",
-    "p": 0.479,
+    "p": 0.48,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -197,9 +190,9 @@
     "opp": "Padres",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
-    "p": 0.631,
-    "win_p": 0.454,
+    "odds": -206,
+    "p": 0.629,
+    "win_p": 0.452,
     "reasons": []
    }
   },
