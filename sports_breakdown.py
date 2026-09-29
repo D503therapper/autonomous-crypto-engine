@@ -118,27 +118,51 @@ def dashboard_texts(skip=()):
     return out
 
 
+def grams(text, names=(), n=4):
+    """The 4-word runs in a line (names -> _, numbers -> #): what makes two write-ups read alike. No run is said twice
+    on a board or from one day to the next - words come back, phrases don't."""
+    t = f" {text or ''} ".lower()
+    for nm in names:
+        if nm:
+            t = t.replace(str(nm).lower(), " _ ")
+    t = re.sub(r"[+-]?\d+(\.\d+)?%?", " # ", t)
+    w = re.findall(r"[a-z_#']+", t)
+    return {"g:" + " ".join(w[i:i + n]) for i in range(len(w) - n + 1)}
+
+
+def recent_grams(entries):
+    """{4-word runs} of earlier write-ups: entries = [(text, (names...)), ...]."""
+    out = set()
+    for text, names in entries:
+        out |= grams(text, names)
+    return out
+
+
 class Voice:
     """Picks a way to say each line: different wording from game to game and day to day, and never the same
-    wording twice on one board (share one `used` set across a board's breakdowns)."""
+    wording twice on one board (share one `used` set across a board's breakdowns). No 4-word run repeats either
+    (seed `used` with recent_grams(...) of yesterday's write-ups and it holds day to day too)."""
 
-    def __init__(self, seed, used=None):
-        self.seed, self.used, self.mine = seed, used if used is not None else set(), []
+    def __init__(self, seed, used=None, names=()):
+        self.seed, self.used, self.mine, self.names = seed, used if used is not None else set(), [], tuple(names)
 
     def say(self, key, options, must=False, names=()):
         """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board.
-        must=True: a line the card can't go without (the pick, the bottom line) - reuse a wording rather than drop it.
+        must=True: a line the card can't go without (the pick, the bottom line) - reuse the least-repeated wording.
         Our big phrases ("cheeks clapped", "smack that ass"...) show up once a board, never on two cards in a row."""
+        if not options:
+            return ""
+        nm = tuple(names) + self.names
         start = sum(map(ord, f"{self.seed}|{key}")) % len(options)
         order = [(start + i) % len(options) for i in range(len(options))]
         def slang(x):
             out = [f"slang:{k}" for k, pat in SLANG.items() if re.search(pat, x.lower())]
             if names:                                         # mixer lines: every opener / ending once a board
                 t = x
-                for nm in names:
-                    t = t.replace(nm, "_").replace(nm[:1].upper() + nm[1:], "_")
+                for nm_ in names:
+                    t = t.replace(nm_, "_").replace(nm_[:1].upper() + nm_[1:], "_")
                 out += [f"piece:{p.strip().lower()}" for p in re.split(r"(?<=[.!?])\s+", re.sub(r"^\W+", "", t)) if p.strip()]
-            return out
+            return out + sorted(grams(x, nm))
         unused = [n for n in order if f"{key}:{n}" not in self.used]
         fresh = [n for n in unused if not any(s in self.used for s in slang(options[n]))]
         if fresh:
