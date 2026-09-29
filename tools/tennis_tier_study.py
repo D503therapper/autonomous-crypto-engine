@@ -24,14 +24,12 @@ from collections import defaultdict
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sports_data as sd            # noqa: E402
-import sports_model as sm           # noqa: E402
 import sports_tennis as stn         # noqa: E402
 import sports_tennis_edge as ste    # noqa: E402
 
 OUT = os.path.join(stn.DIR, "tier_study.json")
 DAYS = 4                              # an ESPN match and a tennis-data row: same winner + loser within 4 days
-TS = [i / 100 for i in range(0, 101)]
+TS = [i / 100 for i in range(-50, 101)]  # negative = the engine's disagreement points the WRONG way (a probe only)
 P_BANDS = (0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.90, 1.01)
 GAPS = (-1.0, -0.10, -0.06, -0.03, 0.0, 0.03, 0.06, 0.10, 0.15, 0.20, 1.0)   # engine minus market, this side
 OLD_MIN_P, OLD_MIN_EDGE, MAX_FAV = 0.55, 0.02, -300
@@ -104,7 +102,7 @@ def ll(ps, ys):
 def best_t(rows):
     ys = [r["y"] for r in rows]
     scores = {t: ll([blend(r["mkt"], r["eng"], t) for r in rows], ys) for t in TS}
-    t = min(scores, key=scores.get)
+    t = min((t for t in TS if t >= 0), key=scores.get)             # the trust itself never goes below 0
     return t, scores
 
 
@@ -196,7 +194,7 @@ def tour_study(t, data_t, joined_t, log=print):
     old, new = [r for r in rows if r["old"]], [r for r in rows if not r["old"]]
     t_old, sc_old = best_t(old)
     t_new, sc_new = best_t(new)
-    ys = [r["y"] for r in new]
+    used = t_old if sc_new[t_old] < sc_new[0.0] else 0.0             # kept only if it beats the market on unseen matches
     lls = {"market": round(sc_new[0.0], 5), "engine": round(sc_new[1.0], 5),
            f"anchored t={t_old}": round(sc_new[t_old], 5), f"best on newer t={t_new}": round(sc_new[t_new], 5)}
     acc = {"market": round(sum((r["mkt"] > 0.5) == (r["y"] == 1.0) for r in new) / len(new), 4),
@@ -215,7 +213,8 @@ def tour_study(t, data_t, joined_t, log=print):
         "priced_matches": len(rows), "older": len(old), "newer": len(new), "cut": cut[:10],
         "newer_from": new[0]["day"] if new else None, "newer_to": new[-1]["day"] if new else None,
         "rated_fit_on": len(fit_on), "weights_fit_older": [round(v, 3) for v in w],
-        "trust_learned_on_older": t_old, "trust_best_on_newer": t_new,
+        "trust_learned_on_older": t_old, "trust_best_on_newer": t_new, "trust_used": used,
+        "trust_any_sign_best_newer": min(TS, key=sc_new.get),
         "logloss_newer": lls, "acc_newer": acc,
         "trust_curve_newer": {str(t): round(sc_new[t], 5) for t in (0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 0.75, 1.0)},
         "calibration_engine_side_by_engine_pct": by(fav_eng, lambda s: s["eng"], P_BANDS),
@@ -231,7 +230,7 @@ def tour_study(t, data_t, joined_t, log=print):
                            "new_60": slates([s for s in new_rank], lambda s: rule_new(s, 0.60))},
     }
     log(f"{t.upper()}: {len(rows)} priced ({len(old)} older / {len(new)} newer from {rep['newer_from']}), "
-        f"trust older {t_old} / newer {t_new}, logloss newer {lls}")
+        f"trust older {t_old} / newer {t_new} -> used {used}, logloss newer {lls}")
     return rep
 
 
@@ -243,7 +242,7 @@ def main():
     for t in stn.TOURS:
         print(f"{t}: {len(data[t])} rated, {len(joined[t])} with a closing price", flush=True)
         report["tours"][t] = {"rated": len(data[t]), **tour_study(t, data[t], joined[t])}
-    report["trust"] = {t: r["trust_learned_on_older"] for t, r in report["tours"].items()}
+    report["trust"] = {t: r["trust_used"] for t, r in report["tours"].items()}   # what sports_tennis anchors with
     with open(OUT, "w") as f:
         json.dump(report, f, indent=1)
     print(json.dumps(report, indent=1))

@@ -21,6 +21,8 @@
    ],
    "trust_learned_on_older": 0.17,
    "trust_best_on_newer": 0.0,
+   "trust_used": 0.0,
+   "trust_any_sign_best_newer": -0.09,
    "logloss_newer": {
     "market": 0.59004,
     "engine": 0.62023,
@@ -512,6 +514,8 @@
    ],
    "trust_learned_on_older": 0.0,
    "trust_best_on_newer": 0.0,
+   "trust_used": 0.0,
+   "trust_any_sign_best_newer": -0.19,
    "logloss_newer": {
     "market": 0.59123,
     "engine": 0.62151,
@@ -985,7 +989,7 @@
   }
  },
  "trust": {
-  "atp": 0.17,
+  "atp": 0.0,
   "wta": 0.0
  }
 }

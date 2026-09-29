@@ -559,24 +559,24 @@ def test_tennis():
                       "p2": b, "p2_name": f"Q {b}", "winner": w, "sets1": "6 6", "sets2": "3 3", "status": "STATUS_FINAL", "done": 2}
     rt, w8, rep = st.study(ms, eval_n=500)
     assert rep["acc"] > 0.6, rep
-    # the slate: only picks we expect to win (55%+) with real value, likeliest first - never filler to reach 8
+    # the slate: only picks we expect to win (55%+) that never fight the line, likeliest first - never filler to reach 8
     cands = []
     for i in range(12):
         p = 0.50 + 0.02 * i
         fair = -round(100 * p / (1 - p)) if p > 0.5 else 100
-        odds = fair + (40 if i % 2 == 0 else -25)                 # every other one is value
+        odds = fair + (10 if i % 2 == 0 else -80)                 # every other one: the book is well above us (fighting)
         c = {"id": f"m{i}:1", "match": f"m{i}", "p": p, "odds": odds, "dec": sd.decimal(odds)}
         c["edge"] = p * c["dec"] - 1
         cands.append(c)
     picks, parlays = st.pick_slate(cands)
     parlay = parlays["atp"]
-    assert picks and all(c["p"] >= st.MIN_P and c["edge"] >= st.MIN_EDGE for c in picks), "likely to win AND value"
+    assert picks and all(c["p"] >= st.MIN_P and not st.fighting(c) for c in picks), "likely to win, never fighting the line"
     assert [c["p"] for c in picks] == sorted((c["p"] for c in picks), reverse=True) and len(picks) < 6, "no filler"
     assert len(parlay) == 3 and parlay[0]["p"] >= parlay[-1]["p"] and all(c in picks for c in parlay)
     assert parlays["wta"] == [], "no women's picks = no women's parlay"
-    mixed = [dict(c, id=f"w{i}", match=f"w{i}", tour="wta", p=0.60, odds=-110, dec=sd.decimal(-110), edge=0.6 * sd.decimal(-110) - 1)
+    mixed = [dict(c, id=f"w{i}", match=f"w{i}", tour="wta", p=0.60, odds=-150, dec=sd.decimal(-150), edge=0.6 * sd.decimal(-150) - 1)
              for i, c in enumerate(cands[:4])]
-    mixed += [dict(c, id=f"m{i}", match=f"m{i}", tour="atp", p=0.70, odds=-110, dec=sd.decimal(-110), edge=0.7 * sd.decimal(-110) - 1)
+    mixed += [dict(c, id=f"m{i}", match=f"m{i}", tour="atp", p=0.70, odds=-233, dec=sd.decimal(-233), edge=0.7 * sd.decimal(-233) - 1)
               for i, c in enumerate(cands[:8])]
     pk, _ = st.pick_slate(mixed)
     assert sum(c["tour"] == "wta" for c in pk) == 4 and sum(c["tour"] == "atp" for c in pk) == 6, \
@@ -608,7 +608,7 @@ def test_tennis():
     # no moneyline shorter than -300; a big favorite only on the game spread, and only as real value
     big = {"id": "b:1", "match": "b", "p": 0.95, "odds": -1200, "dec": sd.decimal(-1200), "market": "ml"}
     big["edge"] = 0.95 * big["dec"] - 1
-    sp_ok = {**big, "id": "b:1:sp", "market": "spread", "hcp": -5.5, "odds": -110, "dec": sd.decimal(-110), "p": 0.60}
+    sp_ok = {**big, "id": "b:1:sp", "market": "spread", "hcp": -5.5, "odds": -140, "dec": sd.decimal(-140), "p": 0.60}
     sp_ok["edge"] = 0.60 * sp_ok["dec"] - 1
     assert st.pick_slate([big])[0] == []
     assert st.pick_slate([big, sp_ok])[0][0]["market"] == "spread"
@@ -693,7 +693,7 @@ def test_tennis_per_tour():
     lines = [{"a": f"{t} One", "b": f"{t} Two", "a_ml": -150, "b_ml": 130, "start": up, "tour": t} for t in ("atp", "wta")]
     cs = st.candidates(ms, rt3, ws, lines, now, now + timedelta(hours=24))
     by = {c["id"]: c for c in cs}
-    assert by["wta:up:1"]["p"] == 0.5 and by["atp:up:1"]["p"] != 0.5, "each tour priced with its own weights"
+    assert by["wta:up:1"]["own"] == 0.5 and by["atp:up:1"]["own"] != 0.5, "each tour priced with its own weights"
     assert st.match_line(ms["atp:up"], [{**lines[1], "a": "atp One", "b": "atp Two"}])[0] is None, "never a WTA line on an ATP match"
 
 
@@ -932,7 +932,8 @@ def test_tennis_slates_and_parlays():
     mixed parlay) and new slates (one per tour) both grade; post() never reposts a match from any slate."""
     import sports_tennis as st
 
-    def c(mid, tour, p, odds=-110):
+    def c(mid, tour, p, odds=None):
+        odds = odds if odds is not None else -round(100 * p / (1 - p))   # priced about where the engine has it
         d = sd.decimal(odds)
         return {"id": f"{mid}:1", "match": mid, "side": 1, "tour": tour, "p": p, "odds": odds, "dec": d, "edge": p * d - 1,
                 "player": f"P {mid}", "opp": "X", "start": "2026-10-01T10:00Z", "tourney": "T", "market": "ml", "hcp": None,
@@ -982,6 +983,74 @@ def test_tennis_slates_and_parlays():
     assert r["atp"]["won"] == 3 and r["wta"]["won"] == 2 and r["wta"]["lost"] == 1
     assert r["mixed"]["p_won"] == 1 and r["atp"]["p_won"] == 1 and r["wta"]["p_lost"] == 1 and r["atp"]["p_lost"] == 0
     assert [k for k, _ in st.parlays_of(old_slate)] == ["mixed"] and {k for k, _ in st.parlays_of(new_slate)} == {"atp", "wta"}
+
+
+def test_tennis_anchored_rules():
+    """THE TENNIS LABEL STUDY's rules (tools/tennis_tier_study.py): the posted win % is ANCHORED to the book's no-vig
+    price (p = market + trust * (engine - market), the trust learned per tour, clamped to 0..1, 0 when missing);
+    a pick is chosen by how likely it WINS; never a side our own read has 3+ points under the book (fighting the
+    line); no underdog without a PROVEN angle; spreads are anchored to the spread's own price; the breakdown prints
+    the anchored %."""
+    import sports_tennis as st
+    assert abs(st.fair(-150, 130) + st.fair(130, -150) - 1) < 1e-9 and 0.55 < st.fair(-150, 130) < 0.6
+    assert st.anchor(0.55, 0.73, 0.0) == 0.55 and abs(st.anchor(0.55, 0.73, 0.5) - 0.64) < 1e-9
+    with tempfile.TemporaryDirectory() as d:
+        path = os.path.join(d, "tier.json")
+        with open(path, "w") as f:
+            json.dump({"trust": {"atp": 0.2, "wta": 7}}, f)
+        assert st.trust("atp", path) == 0.2 and st.trust("wta", path) == 1.0, "clamped to 0..1"
+        assert st.trust("atp", os.path.join(d, "missing.json")) == st.TRUST == 0.0, "no study = the book's number"
+    # candidates: the engine says ~73%, the book says a coin flip -> the posted win % is the book's (trust 0)
+
+    class RT:
+        def features(self, m, when=None):
+            return {"elo": 1.0, "fatigue": 0.0, "form": 0.0, "h2h": 0.0, "known": 50, "surface_gap": 0.0, "home": 0}
+    now = datetime(2026, 10, 1, 1, tzinfo=timezone.utc)
+    up = (now + timedelta(hours=5)).strftime("%Y-%m-%dT%H:%MZ")
+    ms = {"atp:1": {"id": "atp:1", "tour": "atp", "start": up, "status": "STATUS_SCHEDULED", "winner": 0, "p1": "1",
+                    "p2": "2", "p1_name": "Ace One", "p2_name": "Bee Two", "tourney": "T", "round": "R1", "surface": "hard",
+                    "bo": 3, "sets1": "", "sets2": ""}}
+    lines = [{"a": "Ace One", "b": "Bee Two", "a_ml": -110, "b_ml": -110, "start": up, "tour": "atp",
+              "a_hcp": -1.5, "a_sp": -110, "b_hcp": 1.5, "b_sp": -110}]
+    keep = dict(st._TRUST)
+    st._TRUST.clear()
+    st._TRUST[st.TIER] = {"atp": 0.0}
+    try:
+        cs = {c["id"]: c for c in st.candidates(ms, RT(), [0.0, 1.0, 0, 0, 0, 0, 0], lines, now, now + timedelta(hours=24),
+                                                gm={"atp": {"3": [4.0, 5.0]}})}
+        c1, c2, sp = cs["atp:1:1"], cs["atp:1:2"], cs["atp:1:1:sp"]
+        assert c1["own"] > 0.7 and abs(c1["p"] - 0.5) < 1e-9 and abs(c1["mkt"] - 0.5) < 1e-9, c1
+        assert abs(c1["p"] + c2["p"] - 1) < 1e-9 and c1["win_p"] == c1["p"]
+        assert sp["own"] > 0.6 and abs(sp["p"] - 0.5) < 1e-9, "the spread's win % is anchored to the spread's price"
+        assert st.pick_slate(list(cs.values()))[0] == [], "the engine loving a coin flip is never a pick"
+        st._TRUST[st.TIER] = {"atp": 0.5}
+        c1 = {c["id"]: c for c in st.candidates(ms, RT(), [0.0, 1.0, 0, 0, 0, 0, 0], lines, now,
+                                                 now + timedelta(hours=24))}["atp:1:1"]
+        assert abs(c1["p"] - (0.5 + 0.5 * (c1["own"] - 0.5))) < 1e-9, "the learned trust leans toward our number"
+    finally:
+        st._TRUST.clear()
+        st._TRUST.update(keep)
+
+    def c(mid, p, odds, own=None, mkt=None, **kw):
+        d = sd.decimal(odds)
+        return {"id": f"{mid}:1", "match": mid, "side": 1, "tour": "atp", "p": p, "odds": odds, "dec": d, "edge": p * d - 1,
+                "own": p if own is None else own, "mkt": p if mkt is None else mkt, "market": "ml", **kw}
+    ok = c("a", 0.62, -175, own=0.60)                          # the book 62%, us 60%: agrees enough
+    fight = c("b", 0.66, -210, own=0.60)                       # the book 66%, us 60%: fighting the line
+    steep = c("x", 0.80, -400)                                  # shorter than -300
+    dog = c("d", 0.45, 130, own=0.60)                           # the engine loves a dog: no proven angle, no pick
+    dog_ok = c("e", 0.47, 130, angle=True)                      # a proven angle + real value: allowed
+    thin = c("f", 0.54, -125)                                   # under 55%
+    picks, _ = st.pick_slate([ok, fight, steep, dog, dog_ok, thin])
+    got = {x["match"] for x in picks}
+    assert st.fighting(fight) and not st.fighting(ok)
+    assert got == {"a", "e"}, got
+    # the breakdown prints the anchored win % (and the book's no-vig %) - no bragging about a gap that isn't there
+    cb = {**ok, "player": "Ace One", "opp": "Bee Two", "surface": "hard", "bo": 3, "f": {"surface_gap": 0, "fatigue": 0,
+                                                                                         "form": 0, "h2h": 0}}
+    bd = st.breakdown(cb, None, set())
+    assert any("62" in x for x in bd if x.startswith("✅")), bd
+    assert not any(st.BRAG.search(x) for x in bd), bd
 
 
 def test_tennis_markov():
@@ -2761,6 +2830,13 @@ def test_tennis_quick_grade():
         assert stq.quick_grade([row]) == 1 and json.load(open(stq.PICKS))[0]["picks"][0]["result"] == "lost"
     finally:
         stq.PICKS = keep
+
+
+def test_tennis_overhype_cap():
+    """Tighten up (the owner, 9/28): never a tennis side the engine likes 6+ points more than the book."""
+    import sports_tennis as stt
+    base = {"odds": -150, "dec": sd.decimal(-150), "market": "ml", "mkt": 0.58, "p": 0.58, "edge": 0.0}
+    assert stt.good({**base, "own": 0.61}) and not stt.good({**base, "own": 0.66}) and not stt.good({**base, "own": 0.54})
 
 
 if __name__ == "__main__":

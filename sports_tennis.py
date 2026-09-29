@@ -65,11 +65,19 @@ TOUR_MIN_RATED = 3000          # a tour learns its own weights once it has this 
 PRIOR = [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 STUDY = os.path.join(DIR, "study.json")        # the per-tour weights + accuracy from the last study
 PREMATCH = os.path.join(DIR, "prematch.json")  # the last pre-match numbers per match (live tennis starts from them)
-MIN_EDGE = 0.02                # a tennis value pick: our win chance beats the price by 2%+
+MIN_EDGE = 0.02                # an underdog needs a PROVEN angle AND 2%+ value (none proven today = no tennis dogs)
 MIN_P = 0.55                   # ACCURACY FIRST: a tennis pick is one we expect to WIN (55%+) - no coin-flip dogs.
                                # Fewer qualify = fewer picks; never filler
+TIER = os.path.join(DIR, "tier_study.json")    # THE TENNIS LABEL STUDY (tools/tennis_tier_study.py, 9/29): on ~17k
+TRUST = 0.0                    # priced matches the engine never saw (2022-26), the market's no-vig price beat our own
+FIGHT_MAX = 0.03               # number on both tours, and the more the engine disagreed, the WORSE its side did
+                               # (ATP: sides it liked 10-15 pts more than the market hit 40%; WTA 20+ pts: 26%).
+                               # So the win % is ANCHORED to the book: p = market + trust * (engine - market), the trust
+                               # learned on the older half and kept only if it beat the market on the newer half
+                               # (0 for both tours today). A pick = how likely it WINS (55%+), never a side our own
+                               # read has 3+ points under the book (fighting the line), no dogs without a proven angle.
 MAX_FAV = -300                 # no tennis moneyline shorter than -300: heavier favorites go on the game spread,
-                               # and only when the engine expects them to win by more than the number
+                               # and only when that bet itself is a 55%+ play (anchored to the SPREAD's own price)
 MIN_MATCHES = 10               # both players need this many rated matches
 MIN_RATED = 8000               # no tennis picks until the study has real history (several seasons) and learned weights
 POST_FROM_HOUR_PT = 18
@@ -1315,16 +1323,16 @@ T_SPREAD_DOG = [
     "We're on {me} +{h}. [Blowout? Not in our numbers.|{them} winning by {h}+? We don't see it.] {kick}",
 ]
 T_SPREAD_FAV = [
-    "{me} {hc} games. [{He} should roll this by more than {n}.|{n} games is nothing for {him} in this spot.] {kick}",
+    "{me} {hc} games. [{He} should roll this by more than {gn}.|{gn} games is nothing for {him} in this spot.] {kick}",
     "Why lay {ml}? We take {me} {hc} games. [{He} wins big and we get paid better for it.|Better price, same result.] {kick}",
     "Skipping the {ml} tax — {me} {hc} games. {kick}",
     "{me} on the game spread ({hc}). [{Algo} has {him} cooking.|This ain't a match, it's a clinic.] {kick}",
     "Better price: {me} {hc} games instead of {ml}. [{them} is about to get run off the court.|We expect a beatdown.] ",
     "No {ml} nonsense. {me} {hc} games, covering {pct}% of the time in our numbers. {kick}",
-    "We'd rather have {me} {hc} games than pay {ml}. [{He}'s about to smack that ass by more than {n}.|Blowout loading.] ",
+    "We'd rather have {me} {hc} games than pay {ml}. [{He}'s about to smack that ass by more than {gn}.|Blowout loading.] ",
     "{me} {hc}. [The moneyline's too pricey, the games ain't.|Laying games beats laying juice here.] {kick}",
     "Games over juice: {me} {hc}. {He} {wins} by a bunch, [we think|{algo} says]. {kick}",
-    "{me} {hc} games — [{them} doesn't keep this close.|{n} ain't enough cushion for {them}.] {kick}",
+    "{me} {hc} games — [{them} doesn't keep this close.|{gn} ain't enough cushion for {them}.] {kick}",
 ]
 T_FAV = [
     "{me} is {better} and it ain't close. [{kick}|Big price, but {he} {wins} {more}.]",
@@ -1468,6 +1476,16 @@ T_BOTTOM = [
     "[The numbers|The bet]: {bet} {od}. Implied {bk}%, ours {pct}%. {kick}",
     "[Where we land|The math]: {bet} ({od}), {pct}% in {algo} against a {bk}% price. [{gap}|{kick}]",
 ]
+T_BOTTOM_AGREE = [                               # the book and our number land together (the anchored win %)
+    "[Bottom line|The play|Where we land|The bet]: {book} has it at {bk}% and we're right there. {bet} ({od}). {kick}",
+    "[Bottom line|Net-net|The math]: {pct}% to cash, {book} agrees. {bet} ({od}). {kick}",
+    "[The numbers|How we see it]: {bet} ({od}). {Book} and {algo} both land near {pct}%. {kick}",
+    "[Final word|Sum it up]: {bet} at {od}. {pct}% to hit, and we ain't fighting the line. {kick}",
+    "[The play|The bet]: {bet} ({od}), {pct}% in our numbers, same story as the price. {kick}",
+    "[Where we land|The math]: {bet} ({od}). No fighting {book} here, {pct}% to cash. {kick}",
+]
+BRAG = re.compile(r"sleeping|price doesn't|line is off|cheap|discount|coin flip|steeper\.|big gap|well clear|respect|"
+                  r"kinda close|way more|has it close|barely|backwards|wrong favorite|disagrees|price is wrong|gift")
 
 
 CAP = {"t_sd": 105, "t_sf": 105, "t_mf": 90, "t_mm": 90, "t_md": 90, "t_bl": 105}   # max chars per line (names as 4)
@@ -1494,20 +1512,25 @@ def breakdown(c, rt, used):
         x = v.say(key, opts, must=must)
         return f"{emoji} {x}" if x else ""
 
+    # the book's % = its NO-VIG chance when we have both prices (else the plain implied %); our % = the anchored
+    # win % (c["p"]) - when they land together (new slates) the write-up says so instead of bragging about a gap
+    bk = round(100 * c["mkt"]) if c.get("mkt") is not None else round(100 / sd.decimal(c["odds"])) if c.get("odds") else 0
+    agree = c.get("mkt") is not None and kw["pct"] - bk < 3
     out = []
     if c.get("market") == "spread" and c["hcp"] > 0:
         out.append(roll("t_sd", "🎯", T_SPREAD_DOG, must=True, h=f"{c['hcp']:g}"))
     elif c.get("market") == "spread":
-        out.append(roll("t_sf", "🎯", T_SPREAD_FAV, must=True, hc=f"{c['hcp']:+g}", n=f"{abs(c['hcp']):g}",
+        out.append(roll("t_sf", "🎯", T_SPREAD_FAV, must=True, hc=f"{c['hcp']:+g}", gn=f"{abs(c['hcp']):g}",
                         ml=f"{c['ml']:+d}"))
     else:
         o = c.get("odds") or c.get("ml") or -110
+        calm = (lambda ts: [x for x in ts if not BRAG.search(x)] or ts) if agree else (lambda ts: ts)
         if o <= -150:
             out.append(roll("t_mf", "🎾", T_FAV, must=True, o=f"{o:+d}"))
         elif o < 0:
-            out.append(roll("t_mm", "🎾", T_SMALLFAV, must=True, o=f"{o:+d}"))
+            out.append(roll("t_mm", "🎾", calm(T_SMALLFAV), must=True, o=f"{o:+d}"))
         else:
-            out.append(roll("t_md", "🎾", T_DOG, must=True, o=f"{o:+d}"))
+            out.append(roll("t_md", "🎾", calm(T_DOG), must=True, o=f"{o:+d}"))
     rk_me, rk_them = c.get("rank"), c.get("opp_rank")
     if rk_me and (not rk_them or rk_them - rk_me >= 20):
         vs = f"#{rk_them}" if rk_them else "outside the top 150"
@@ -1533,7 +1556,7 @@ def breakdown(c, rt, used):
     out.append(life_line(v, c, me, them, he, he.capitalize(), his))
     if c.get("odds"):
         bet = f"{me} {c['hcp']:+g} games" if c.get("market") == "spread" else f"{me} ML"
-        out.append(roll("t_bl", "✅", T_BOTTOM, must=True, bk=round(100 / sd.decimal(c["odds"])), bet=bet,
+        out.append(roll("t_bl", "✅", T_BOTTOM_AGREE if agree else T_BOTTOM, must=True, bk=bk, bet=bet,
                         od=f"{c['odds']:+d}"))
     c["_vk"] = list(v.mine)
     return [x for x in out if x]
@@ -1547,10 +1570,92 @@ def _load_picks():
     return []
 
 
+_TRUST = {}
+
+
+def trust(tour, path=None):
+    """How far the tour's win % may lean from the book's no-vig price toward our own number (0 = the book's)."""
+    path = path or TIER
+    if path not in _TRUST:
+        try:
+            with open(path) as f:
+                _TRUST[path] = json.load(f).get("trust") or {}
+        except (OSError, ValueError):
+            _TRUST[path] = {}
+    try:
+        return min(1.0, max(0.0, float(_TRUST[path].get(tour_of(tour), TRUST))))
+    except (TypeError, ValueError):
+        return TRUST
+
+
+def fair(ml, other):
+    """This side's NO-VIG chance from the two prices (the book's margin taken out)."""
+    a, b = 1 / sd.decimal(ml), 1 / sd.decimal(other)
+    return a / (a + b)
+
+
+def anchor(mkt, own, t):
+    """The win % we post: the book's no-vig chance, nudged toward our own number by the learned trust."""
+    return min(max(mkt + t * (own - mkt), 0.01), 0.99)
+
+
+def _angle(c, st=None):
+    """(win %, proven?) - a study-PROVEN angle (sports_tennis_edge) nudges the anchored number; none proven = as is."""
+    try:
+        import sports_tennis_edge as ste
+        st = ste.load() if st is None else st
+        if not ste.proven(st):
+            return c["p"], False
+        q = ste.adjust(st, {"tour": c["tour"], "surface": c.get("surface"), "round": c.get("round"), "bo": c.get("bo"),
+                            "date": (c.get("start") or "")[:10], "p": c.get("mkt"), "rank": c.get("rank"),
+                            "opp_rank": c.get("opp_rank")}, c["p"])
+        return q, q > c["p"]
+    except Exception:                                                    # noqa: BLE001 - never block tennis
+        return c["p"], False
+
+
+def mkt_of(c):
+    """The book's chance for this bet: the no-vig price (candidates carry it), else the plain implied chance."""
+    return c["mkt"] if c.get("mkt") is not None else 1 / c["dec"]
+
+
+def fighting(c):
+    """Our own read has this side 3+ points UNDER what the book says: the engine is fighting the line - never a pick."""
+    own = c.get("own", c["p"])
+    return own < mkt_of(c) - FIGHT_MAX
+
+
+OVERHYPE_MAX = 0.06            # the study (newer half): favorites the engine liked 6+ points MORE than the book hit 2-3
+                               # points BELOW the book's own number - the engine overhyping; skip those too (owner: tighten up)
+
+
+def overhyped(c):
+    """Our own read has this side 6+ points OVER the book's number: the engine's overhyping it - never a pick."""
+    return c.get("own", c["p"]) > mkt_of(c) + OVERHYPE_MAX
+
+
+def good(c):
+    """A real tennis play: likely to WIN by the anchored win % (55%+; our own drama on it: 57%+), never fighting the
+    line, no moneyline shorter than -300, and an underdog (the book has it under 50%) only with a PROVEN angle and
+    real value. The engine's disagreement with the book is never a reason by itself."""
+    if fighting(c) or overhyped(c):
+        return False
+    if c.get("market", "ml") == "ml" and c["odds"] < MAX_FAV:
+        return False
+    if c["odds"] >= 100 or mkt_of(c) < 0.5:
+        return bool(c.get("angle")) and c["edge"] >= MIN_EDGE
+    return c["p"] >= MIN_P + (0.02 if c.get("our_drama") else 0.0)
+
+
 def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
     out = []
     gm = gm or {}
     ranks, news = ranks or {}, news or {}
+    try:
+        import sports_tennis_edge as ste
+        st_edge = ste.load()
+    except Exception:                                                    # noqa: BLE001 - never block tennis
+        st_edge = {}
     for m in ms.values():
         if _state(m) != "pre" or not m["start"]:
             continue
@@ -1563,8 +1668,11 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
             continue
         pr, sp = full["ml"], full["sp"]
         tour = tour_of(m)
-        p1 = model_p(w, f, m["bo"], tour)                       # the tour's own weights
-        for side, p, ml, opp_ml in ((1, p1, pr[0], pr[1]), (2, 1 - p1, pr[1], pr[0])):
+        t = trust(tour)
+        e1 = model_p(w, f, m["bo"], tour)                       # our own number (the tour's own weights)
+        for side, own, ml, opp_ml in ((1, e1, pr[0], pr[1]), (2, 1 - e1, pr[1], pr[0])):
+            mkt = fair(ml, opp_ml)
+            p = anchor(mkt, own, t)                             # the win % we post: anchored to the book
             me, them = (m["p1_name"], m["p2_name"]) if side == 1 else (m["p2_name"], m["p1_name"])
             fs = f if side == 1 else flip_features(f)
             dec = sd.decimal(ml)
@@ -1576,27 +1684,32 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
                         "our_drama": (news.get(mine) or [])[:1], "their_drama": (news.get(theirs) or [])[:1],
                         "odds": ml, "dec": dec, "p": p, "edge": p * dec - 1, "start": m["start"], "tourney": m["tourney"],
                         "round": m["round"], "surface": m["surface"], "bo": m["bo"], "f": fs, "market": "ml", "hcp": None,
-                        "ml": ml, "win_p": p})
+                        "ml": ml, "win_p": p, "mkt": mkt, "own": own})
+            c = out[-1]
+            c["p"], c["angle"] = _angle(c, st_edge)
+            c["edge"] = c["p"] * dec - 1
+            c["win_p"] = c["p"]
             if sp and games_for(gm, tour):
                 hcp, sodds = sp[side - 1]
-                pc = cover_p(games_for(gm, tour), p, hcp, m["bo"])
-                if pc is not None:
+                g = games_for(gm, tour)
+                pc_own = cover_p(g, own, hcp, m["bo"])          # our own cover chance (from our own win %)
+                if pc_own is not None and sp[2 - side][1]:
                     sdec = sd.decimal(sodds)
-                    out.append({**out[-1], "id": f"{m['id']}:{side}:sp", "market": "spread", "hcp": hcp, "odds": sodds,
-                                "dec": sdec, "p": pc, "edge": pc * sdec - 1})
+                    smkt = fair(sodds, sp[2 - side][1])         # the book's no-vig cover chance
+                    pc = anchor(smkt, pc_own, t)                # anchored to the spread's own price
+                    out.append({**c, "id": f"{m['id']}:{side}:sp", "market": "spread", "hcp": hcp, "odds": sodds,
+                                "dec": sdec, "p": pc, "edge": pc * sdec - 1, "mkt": smkt, "own": pc_own,
+                                "angle": False})
     return out
 
 
 def pick_slate(cands):
-    """Up to 6 men's + 6 women's straights we expect to win (55%+) with real value, likeliest first, and one parlay
-    per tour (the 3 likeliest of that tour; a tour with fewer than 3 picks gets none). Never a mixed parlay.
-    Returns (picks, {"atp": [legs], "wta": [legs]})."""
+    """Up to 6 men's + 6 women's straights we expect to WIN (good(): the anchored win % 55%+, never fighting the line,
+    no dogs without a proven angle), likeliest first, and one parlay per tour (the 3 likeliest of that tour; a tour
+    with fewer than 3 picks gets none). Never a mixed parlay, never filler. Returns (picks, {"atp": [...], "wta": [...]})."""
     for c in cands:
-        c["value"] = c["edge"] >= (2 * MIN_EDGE if c.get("our_drama") else MIN_EDGE)
-    cands = [c for c in cands if c["p"] >= MIN_P and c["value"]                  # likely to win AND real value
-             and (c["value"] or not c.get("our_drama"))       # drama on our side: never a filler
-             and (c.get("market", "ml") != "ml" or c["odds"] >= MAX_FAV)        # no moneyline shorter than -300
-             and (c.get("market", "ml") == "ml" or c["value"])]                  # a game spread only as real value
+        c["value"] = c["edge"] >= MIN_EDGE                      # shown, never the reason
+    cands = [c for c in cands if good(c)]
     best = {}
     for c in sorted(cands, key=lambda c: -c["p"]):
         best.setdefault(c["match"], c)                          # one side per match (the likelier bet: ML or spread)
@@ -1645,7 +1758,7 @@ def post(ms, rt, w, lines, picks, now, gm=None):
 
 
 LEG_KEYS = ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge", "start", "tourney", "market", "hcp", "ml",
-            "round", "surface", "bo", "value")
+            "round", "surface", "bo", "value", "mkt", "own", "angle")
 
 
 def _leg(c, rt, used):
@@ -1667,8 +1780,10 @@ def reads(ms, rt, w, lines, picks, now, gm=None):
     for sl_ in picks[-2:]:                                   # older breakdowns get rewritten before the match
         for l in sl_.get("picks") or []:
             if l.get("bv") != TENNIS_BV and not l.get("result") and l["id"] in by_id:
-                l["breakdown"], l["bv"] = breakdown(by_id[l["id"]], rt, used), TENNIS_BV
-                l["vk"] = by_id[l["id"]].get("_vk") or []
+                # a posted pick keeps its posted numbers (win %, book %): only the words get rewritten
+                c = {**by_id[l["id"]], **{k: l.get(k) for k in ("p", "edge", "odds", "hcp", "market", "mkt")}}
+                l["breakdown"], l["bv"] = breakdown(c, rt, used), TENNIS_BV
+                l["vk"] = c.get("_vk") or []
     ours = {l["match"] for s in picks[-3:] for l in s.get("picks") or [] if not l.get("result")}
     by = {}
     for c in cands:
@@ -1678,7 +1793,7 @@ def reads(ms, rt, w, lines, picks, now, gm=None):
         ok = [c for c in cs if c["odds"] >= ASK_STEEP] or cs
         c = max(ok, key=lambda c: (c["p"], c["edge"]))                 # accuracy first: the likelier bet
         why = ("on_board" if mid in ours else "steep" if c["odds"] < ASK_STEEP else "coin_flip" if c["p"] < 0.55
-               else "tight" if c["edge"] >= MIN_EDGE else "no_value")
+               else "tight" if good(c) else "no_value")
         out.append({"id": f"tennis:{mid}", "league": "tennis", "emoji": "🎾",
                     "sport": "Women's Tennis" if c.get("tour") == "wta" else "Men's Tennis", "start": c["start"],
                     "away": c["player"], "home": c["opp"], "vs": True, "why": why, "board": None, "h1": None,
