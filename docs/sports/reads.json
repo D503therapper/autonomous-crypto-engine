@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29T00:44Z",
+ "updated": "2026-09-29T01:19Z",
  "games": [
   {
    "id": "nfl:401872963",
@@ -50,6 +50,7 @@
     "p": 0.682,
     "win_p": 0.462,
     "reasons": [
+     "opponent missing key players",
      "opponent drama: trade drama"
     ]
    }
@@ -79,7 +80,8 @@
     "p": 0.704,
     "win_p": 0.488,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -127,8 +129,8 @@
    "start": "2026-09-30T00:00Z",
    "away": "Red Sox",
    "home": "Yankees",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "Red Sox",
     "opp": "Yankees",
@@ -165,7 +167,8 @@
     "p": 0.745,
     "win_p": 0.745,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },

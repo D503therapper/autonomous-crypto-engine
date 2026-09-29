@@ -944,5 +944,102 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lock"
+ },
+ {
+  "american": 156,
+  "date": "2026-09-29",
+  "dec": 2.56,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "rec:0",
+     "better_s:2",
+     "latest:1",
+     "h2h:2",
+     "cx_rival:0",
+     "cx_trip:0",
+     "home:3",
+     "rest:4",
+     "bump:0",
+     "healthy:0",
+     "sharp:0",
+     "splits:1",
+     "bottom_s:2"
+    ],
+    "breakdown": [
+     "\ud83c\udd9a History's on our side \u2014 2 of the last 3 meetings went Yankees' way.",
+     "\ud83d\udcb0 Sharp money is on us: Yankees opened -142, now -145.",
+     "\ud83d\udcca 67% of the bets on the Yankees (84% of the money). We with the crowd tonight, but we got our own reasons.",
+     "\u26be On the bump: Cam Schlittler for Yankees, Payton Tolle for Red Sox.",
+     "\ud83d\udcc5 Last time out: Yankees W 6-3 vs Orioles \u00b7 Red Sox L 2-6 vs Cubs.",
+     "\ud83d\udecc Yankees had extra days to get right.",
+     "\ud83d\udd25 Rivalry game. The Yankees and the Red Sox got real history.",
+     "\ud83c\udfdf\ufe0f Yankees are home tonight and ready to handle business.",
+     "\ud83d\udcaa Slight edge Yankees on who's actually better.",
+     "\ud83e\uddf3 The Red Sox: 1,040-mile trip east. That travel adds up.",
+     "\u2705 Yankees are healthy \u2014 nobody important sitting.",
+     "\u2705 Bottom line: Yankees -1.5 (+156) ain't a slam dunk, it's a smart number \u2014 and the little things all point our way. Tap in."
+    ],
+    "bv": 24,
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     },
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 1039,
+      "road6": 1,
+      "who": "them",
+      "wk": 2240
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival",
+     "them:east1000",
+     "them:trip1000"
+    ],
+    "dec": 2.56,
+    "edge": 0.013179528467566648,
+    "game_id": "mlb:401907924",
+    "home": true,
+    "intl": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": -1.5,
+    "market": "spread",
+    "odds": 156,
+    "opp": "Red Sox",
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.39577325330764324,
+    "p_market": 0.390625,
+    "public": "ride",
+    "reasons": [
+     "the stronger team"
+    ],
+    "side": "home",
+    "start": "2026-09-30T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Yankees",
+    "their_drama": [],
+    "tier": "lock",
+    "waiting": []
+   }
+  ],
+  "p_hit": 0.3958,
+  "pnl": 0.0,
+  "posted": "2026-09-29T01:17Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
  }
 ]
