@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 24          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 25          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -116,6 +116,38 @@ def dashboard_texts(skip=()):
                 if l.get("result") is None and (l.get("id") or l.get("game_id"), l.get("side"), l.get("market")) not in skip:
                     out += l.get("breakdown") or []
     return out
+
+
+def recent_texts(picks=None, since=None, skip=()):
+    """[(line, names)] for every main-board write-up posted since `since` (an ISO date, default yesterday in PT) -
+    open AND graded, today's and yesterday's - so a new board never reuses a phrase from them. `picks`: the board's
+    cards (read from picks.json when None); `skip`: legs being rewritten (their old wording doesn't count)."""
+    import json
+    import os
+    from datetime import timedelta
+    since = since or (datetime.now(PT).date() - timedelta(days=1)).isoformat()
+    if picks is None:
+        try:
+            with open(os.path.join(sd.DATA, "picks.json")) as f:
+                picks = json.load(f)
+        except (OSError, ValueError):
+            return []
+    out = []
+    for c in picks:
+        if str(c.get("date") or "") < since:
+            continue
+        for l in c.get("legs") or []:
+            if (l.get("id") or l.get("game_id"), l.get("side"), l.get("market")) in skip:
+                continue
+            nm = tuple(x for x in (l.get("team"), l.get("opp")) if x)
+            out += [(x, nm) for x in l.get("breakdown") or []]
+    return out
+
+
+def memory(picks=None, since=None, skip=()):
+    """What a board starts out knowing: our big phrases already on the dashboard (once a board) plus every 4-word run
+    written today or yesterday (never twice in a row)."""
+    return slang_in(dashboard_texts(skip)) | recent_grams(recent_texts(picks, since, skip))
 
 
 def grams(text, names=(), n=4):
@@ -681,7 +713,7 @@ T = {
         "🔥 {us} [got|have] {cnt} [straight W's|wins in a row|dubs in a row|straight wins], {rec} {yr}.",
         "🔥 {rec} {yr} and {cnt} {str8} — {us} are {hot}.",
         "🔥 {us} keep [stacking|piling up|racking up|collecting] [W's|wins|dubs]: {cnt} {str8}, {rec} {yr}.",
-        "🔥 Nobody's [cooled|slowed] {us} [off|down] [yet|lately|so far] — {cnt} {str8}, {rec}.",
+        "🔥 Nobody's [cooled off|slowed down] {us} [yet|lately|so far] — {cnt} {str8}, {rec}.",
         "🔥 {us} ({rec}) are riding {a_n} {cnt}-game [streak|heater|wave|run].",
         "🔥 [Hottest|Hot|Rolling] team in the [building|matchup]: {us}, {cnt} {str8} and {rec}.",
     ],
@@ -698,7 +730,7 @@ T = {
         "📋 {us} [bring|carry] {a_rec} {rec} mark [in|into this one|into tonight]. [We know what we're doing.|Homework's done.|We read it all.]",
     ],
     "cold": [
-        "🧊 {them} are {rec} and {cold} — {cnt} {str8} {Ls}.",
+        "🧊 {them} are {rec} and {cold} — {cnt} straight {Ls}.",
         "🧊 {them} have [dropped|lost] {cnt} {str8} ({rec}). [Not a good look.|Ugly.|Yikes.|]",
         "🧊 {cnt} straight {Ls} for {them} ({rec}). [Not a good look.|Ugly.|Rough stretch.|Yikes.|Woof.]",
         "🧊 {them} ({rec}) keep [taking|eating|stacking|piling up] {Ls} — {cnt} {str8}.",
@@ -1147,8 +1179,8 @@ T = {
         "✅ Bottom line: {bk} [treats|prices|lists] {price} like {need}; {algo} [has it closer to|sees|puts it at] {have}. {close}",
         "✅ Bottom line: {price} should be more like {have}, and {bk} [is pricing|has it at|is charging] {need}. {close}",
         "✅ Bottom line: {have} [in our book|on our sheet|by our math] vs {need} [at the window|at the book|in Vegas] for {price}. {close}",
-        "✅ Bottom line: {Bk} says {need} on {price}, {algo} says {have}. {close}",
-        "✅ Bottom line: {Bk} says {need} on {price}, {algo} says {have}. Easy money if {algo}'s right.",
+        "✅ Bottom line: {bk} says {need} on {price}, {algo} says {have}. {close}",
+        "✅ Bottom line: {bk} says {need} on {price}, {algo} says {have}. Easy money if {algo}'s right.",
         "✅ Bottom line: {price} is priced like {need} — we see {have}. {close}",
         "✅ Bottom line: {price} is priced like {need}, and {algo} [sees|says] {have}. That gap is the whole play.",
         "✅ Bottom line: [book|Vegas|the window] says {need}, we say {have}. [We ride {price}.|{price} it is.|Give us {price}.]",
@@ -1229,7 +1261,7 @@ T = {
         "🧳 Travel check on {the_them}: {fact}.",
         "🧳 {The_them} put in the miles to get here ({fact}).",
         "🧳 [Road-weary|Heavy-travel|Long-haul] spot for {the_them}: {fact}.",
-        "🧳 [Miles|Travel] [pile up|add up] for {the_them} ({fact}).",
+        "🧳 [Miles pile up|Travel adds up|Miles add up] for {the_them} ({fact}).",
         "🧳 {The_them} [on|in] [travel|road] mode: {fact}.",
     ],
     "cx_domecold": [
@@ -1300,7 +1332,7 @@ T = {
         "🔥 {cnt} losses in a row for {the_them}. Coaching staff feeling the heat.",
         "🔥 {The_them} ({cnt} straight L's) are in a fishbowl right now.",
         "🔥 Losing streak at {cnt} for {the_them}. Jobs on the line over there.",
-        "🔥 {cnt} {str8} {Ls} for {the_them} — [the coach's|coach's] [seat's warm|job's shaky|job's on the line].",
+        "🔥 {cnt} straight {Ls} for {the_them} — [the coach's|coach's] [seat's warm|job's shaky|job's on the line].",
         "🔥 [Heat's on|Pressure's on] {the_them_s} coach after {cnt} straight {Ls}.",
         "🔥 {The_them} have [dropped|lost] {cnt} {str8}. [Hot seat talk is loud.|Jobs on the line.]",
     ],
@@ -1650,7 +1682,7 @@ T.update({
         "🧳 [Travel|Mileage] check on {the_them}: {fact}.",
         "🧳 {The_them} put in the miles to get here ({fact}).",
         "🧳 [Road-weary|Heavy-travel|Long-haul] spot for {the_them}: {fact}.",
-        "🧳 [Miles|Travel] [pile up|add up] for {the_them} ({fact}).",
+        "🧳 [Miles pile up|Travel adds up|Miles add up] for {the_them} ({fact}).",
         "🧳 {The_them} [on|in] [travel|road] mode: {fact}.",
     ],
     "cx_domecold": [
@@ -1781,7 +1813,7 @@ T.update({
         "🆚 {us} have [had|got] {them_s} number: {w} of the last {cnt} [meetings|matchups|].",
         "🆚 History's on our side — {w} of the last {cnt} [meetings|matchups] went {us_s} way.",
         "🆚 {us} been [owning|handling|bullying] {them} [lately|recently] — {w} of the last {cnt}.",
-        "🆚 {them} can't [figure|solve|sort] {us} out: {w} of {cnt} to {us}.",
+        "🆚 {them} can't [figure|sort] {us} out: {w} of {cnt} to {us}.",
         "🆚 [Head to head|Series history|Recent meetings|The series]: {us} [took|won|grabbed] {w} of the last {cnt}.",
         "🆚 {w} of the last {cnt} [meetings|matchups|go-rounds] [went to|belonged to|went] {us}.",
         "🆚 {us} [know how to beat|have the book on|have a feel for|match up well with] {them} — {w} of the last {cnt}.",
@@ -1814,7 +1846,7 @@ T.update({
         "🛌 {us} [got|had] {d} extra days to [get right|recover|reset|heal up].",
         "🛌 {d} [extra|more] days [off|of rest] for {us} — [fresh legs|fresher legs|big deal].",
         "🛌 Rest [edge|advantage] [goes to|belongs to] {us} ({d} more days).",
-        "🛌 {us} [rested|sat|recovered] {d} more days than {them}.",
+        "🛌 {us} [rested|sat] {d} more days than {them}.",
         "🛌 [Fresher|Fresh] legs for {us}: {d} [more|extra] days [off|of rest].",
     ],
     "bump": [

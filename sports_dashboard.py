@@ -459,7 +459,8 @@ def _history(picks):
     tix = [(p["date"], p["status"], f'{kinds.get(p["kind"], p["kind"])} ({_am(p["american"])})',
             " · " + ", ".join(bet(l) + ("" if l.get("result") in (None, "won") else " ❌") for l in p["legs"]),
             later(p["date"], p["kind"], "parlay", p["status"],
-                  x=" and ".join(_the(l["team"], l["league"]) for l in p["legs"] if l.get("result") == "lost")))
+                  x=" and ".join(bet(l) if l.get("market") == "total" else _the(l["team"], l["league"])
+                                 for l in p["legs"] if l.get("result") == "lost")))
            for p in picks if not p.get("lean") and len(p["legs"]) > 1 and p["status"] in ("won", "lost")]
     # their own records
     lean = [(p["date"], p["status"], f'{bet(p["legs"][0])} ({_am(p["legs"][0]["odds"])})',

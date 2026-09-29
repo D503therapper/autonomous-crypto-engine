@@ -102,7 +102,7 @@ def _grams(text, names):
     return {g for g in sb.grams(text, names) if any(w not in ("_", "#") for w in g[2:].split())}
 
 
-def fresh(options, used, names=()):
+def fresh(options, used, names=(), _clash=None):
     """The first option that repeats no 4-word run already in `used` (else the one that repeats the fewest); its runs
     go into `used`. Runs made only of names and numbers don't count (every score line has those)."""
     best = None
@@ -114,8 +114,8 @@ def fresh(options, used, names=()):
             break
         if best is None or clash < best[0]:
             best = (clash, o, g)
-    if best is None:
-        return ""
+    if best is None or (_clash is not None and best[0]):
+        return ""                                            # (_clash: say nothing - the caller rolls more)
     used |= best[2]
     return best[1]
 
@@ -383,18 +383,18 @@ REVIEWS = {
         "Wrong side of a blowout. {o} over {t}. %lk%",
     )),
     ("close", "won"): (56, 2, T(
-        "Sweated it out but {t} got there. %wk%",
-        "Nail-biter, but {t} held on. %wk%",
+        "[Sweated it out|Sweated it|Had us sweating] but {t} got there. %wk%",
+        "[Nail-biter|Heart-stopper|Squeaker], but {t} [held on|hung on|survived]. %wk%",
         "Too close for comfort — still a W. %wk%",
-        "{t} made us sweat, but we cashed.",
+        "{t} made us sweat, but we [cashed|got paid|got there].",
         "[Down to the wire|Coin-flip finish], {t} [held on|got there].",
         "{t} [squeaked by|snuck past|edged] {o}. %wk%",
         "Close one, but {t} [came through|got there|delivered|got it done]. %wk%",
         "Heart-attack finish, {t} [came through|got there|delivered|got it done].",
-        "{t} won ugly, still a W. %wk%",
+        "{t} won ugly, [still a W|still counts|still cashed]. %wk%",
         "Tight. But a W is a W. %wk%",
         "{o} made it close. {t} [still cashed|held on].",
-        "Photo finish, {t} [by a hair|just enough].",
+        "[Photo finish|Close call|Sweaty one], {t} [by a hair|just enough|by a nose].",
     )),
     ("close", "lost"): (89, 3, T(
         "{t} lost by a hair. [So close.|That one stings.] %lk%",
@@ -515,9 +515,13 @@ def review(kind, result, seed, used, lean=False, **kw):
     kw.setdefault("pos", "their")
     kw.pop("s", None)
     kw = {k: v for k, v in kw.items() if re.search(r"\{%s\}" % k, " ".join(templates), re.I)}
-    opts = roll(templates, seed, (chars, sents), 50, False, LEAN_BAN if lean else None, **kw)
-    names = [str(v) for v in kw.values() if str(v).strip() and not _num(v)]
-    return fresh(opts, used, names)
+    names = [n.strip() for v in kw.values() if not _num(v) for n in str(v).split(" and ") if n.strip()]
+    for n in (30, 200):                                      # (names: "the Jets", "Over 44.5", "+3.5 games")
+        opts = roll(templates, seed, (chars, sents), n, False, LEAN_BAN if lean else None, **kw)
+        line = fresh(opts, used, names, _clash=True if n == 30 else None)
+        if line:
+            return line
+    return ""
 
 
 # ---- the live bets list on the dashboard (today's) -------------------------------------------------------------------
