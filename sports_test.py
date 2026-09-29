@@ -3297,6 +3297,27 @@ def test_parlay_bar_shows_game_times_and_live_stays_live():
     assert src[i:i + 80].split("\n")[1].lstrip().startswith("else if(s.dataset.lv)")        # restore only when not on
 
 
+def test_game_clock_says_intermission_and_all_that():
+    """The owner, 9/29: hockey shows the time, the period and the score - and whether it's an intermission. Same for
+    halftime, OT and the rest, when the watcher's backup scores are the ones on the card ('P1 0:00' meant nothing).
+    The live-bet review still reads the right period out of it."""
+    import sports_live as slv, sports_dashboard as sdb
+    c = slv._clock_txt
+    assert c("nhl", {"period": 2, "clock": "6:12"}) == "6:12 - 2nd"
+    assert c("nhl", {"period": 1, "clock": "0:00"}) == "1st Intermission"
+    assert c("nhl", {"period": 2, "clock": "0.0"}) == "2nd Intermission"
+    assert c("nhl", {"period": 4, "clock": "3:21"}) == "3:21 - OT" and c("nhl", {"period": 5, "clock": ""}) == "SO"
+    assert c("nfl", {"period": 2, "clock": "0:00"}) == "Halftime" and c("nba", {"period": 3, "clock": "8:21"}) == "8:21 - 3rd"
+    assert c("ncaab", {"period": 1, "clock": "0:00"}) == "Halftime" and c("ncaab", {"period": 2, "clock": "12:34"}) == "12:34 - 2nd Half"
+    assert c("mlb", {"period": 5, "inning_half": "top"}) == "Top 5th"
+    assert c("nhl", {"period": 2, "clock": None}) == "2nd"                 # no clock is no clock - never a fake break
+    base = {"team": "Oilers", "league": "nhl", "side": "home", "score_at_post": "Canucks 1 @ Oilers 1", "result": "won",
+            "odds": 120, "date": "2026-09-29"}
+    story = lambda ck: sdb._live_story({**base, "clock_at_post": ck}, set())
+    assert "1st period" in story("1st Intermission") and "2nd period" in story("6:12 - 2nd")
+    assert "overtime" in story("3:21 - OT") and "3rd period" not in story("3:21 - OT")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

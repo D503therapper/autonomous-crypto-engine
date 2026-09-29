@@ -1341,13 +1341,41 @@ def _score(box, side):
     return int(sum((p.get(f"{side}_points") or 0) for p in ls))
 
 
+def _ord(n):
+    return {1: "1st", 2: "2nd", 3: "3rd"}.get(n, f"{n}th")
+
+
 def _clock_txt(league, box):
-    per = box.get("period")
+    """The game clock said plain, same way ESPN says it (the owner, 9/29: the time, the period, and whether it's an
+    intermission or halftime): '6:12 - 2nd', '1st Intermission', 'Halftime', 'End of 3rd', 'OT', 'Top 5th'."""
+    try:
+        per = int(box.get("period") or 0)
+    except (TypeError, ValueError):
+        per = 0
     if league == "mlb":
         half = str(box.get("inning_half") or box.get("half") or "")
-        return f"{'Top' if half.lower().startswith('t') else 'Bot' if half.lower().startswith('b') else 'Inning'} {per}"
-    name = {"nhl": "P", "ncaab": "H"}.get(league, "Q")
-    return f"{name}{per} {box.get('clock') or ''}".strip()
+        side = "Top" if half.lower().startswith("t") else "Bot" if half.lower().startswith("b") else "Inning"
+        return f"{side} {_ord(per)}" if per else side
+    clk = str(box.get("clock") or "").strip()
+    zero = clk in ("0:00", "00:00", "0.0", "0")                       # (an empty clock is no clock, not a break)
+    if not per:
+        return clk
+    if league == "nhl":
+        if per == 4:
+            return f"{clk} - OT" if clk and not zero else "OT"
+        if per > 4:                                                   # a shootout (no clock) or playoff 2OT, 3OT...
+            return f"{clk} - {per - 3}OT" if clk and not zero else "SO"
+        if zero:
+            return f"{_ord(per)} Intermission" if per < 3 else "End of 3rd"
+        return f"{clk} - {_ord(per)}" if clk else _ord(per)
+    halves = league == "ncaab"
+    last = 2 if halves else 4
+    if per > last:
+        return f"{clk} - OT" if clk and not zero else "OT"
+    if zero:
+        return "Halftime" if per == (1 if halves else 2) else f"End of {_ord(per)}{' Half' if halves else ''}"
+    unit = " Half" if halves else ""
+    return f"{clk} - {_ord(per)}{unit}" if clk else f"{_ord(per)}{unit}"
 
 
 def _grade(log, ang):

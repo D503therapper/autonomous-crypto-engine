@@ -45,3 +45,13 @@ test("scores: a match on the NEXT day's scoreboard (Asia) is still found", async
   const t = (await r.json())["tennis:atp:186238"];
   assert.ok(t && t.live); assert.deepEqual(t.sets, [[3, 2]]);
 });
+
+test("scores: hockey's break between periods says intermission", async () => {
+  const { clockText } = await import("../src/scores.js");
+  assert.equal(clockText("nhl", { shortDetail: "End of 1st" }), "1st Intermission");
+  assert.equal(clockText("nhl", { shortDetail: "End of 2nd" }), "2nd Intermission");
+  assert.equal(clockText("nhl", { shortDetail: "End of 3rd" }), "End of 3rd");
+  assert.equal(clockText("nhl", { shortDetail: "6:12 - 2nd" }), "6:12 - 2nd");
+  assert.equal(clockText("nfl", { shortDetail: "Halftime" }), "Halftime");
+  assert.equal(clockText("nfl", { shortDetail: "End of 1st" }), "End of 1st");
+});

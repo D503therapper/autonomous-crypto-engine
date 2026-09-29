@@ -83,10 +83,15 @@ def _live_story(e, used=None):
     ours_away = e.get("side") == "away"
     us = _the(e["team"], lg)
     mine, theirs = (a_s, h_s) if ours_away else (h_s, a_s)
-    per = re.search(r"(\d+)", str(e.get("clock_at_post") or ""))
+    ck = str(e.get("clock_at_post") or "")                  # '6:12 - 2nd' / '1st Intermission' (older: 'Q2 3:00')
+    per = re.search(r"(\d+)(?:st|nd|rd|th)", ck) or re.search(r"(\d+)", ck)
     n = int(per.group(1)) if per else 0
     unit = {"nhl": "period", "ncaab": "half", "mlb": "inning"}.get(lg, "quarter")
     w = f"in the {({1: '1st', 2: '2nd', 3: '3rd'}.get(n, f'{n}th'))} {unit}" if n else "mid-game"
+    if re.search(r"\b(\d?OT|SO)\b", ck):
+        w = "in overtime"
+    elif "Halftime" in ck:
+        w = "at halftime"
     an, hn = _the(away, lg), _the(home, lg)
     what = "come back" if mine < theirs else "hold on" if mine > theirs else "take it"
     res = e.get("result")

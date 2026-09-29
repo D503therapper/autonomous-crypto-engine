@@ -46,7 +46,16 @@ async function boardAt(key, ctx, q) {
   return null;
 }
 
-function team(ev, want) {
+// ESPN's clock, said plain (the owner, 9/29: we see if it's an intermission and all that). Hockey's break between
+// periods comes through as "End of 1st" - that's the 1st intermission.
+export function clockText(key, st) {
+  const t = String(st.shortDetail || st.detail || "");
+  const m = /^End of (1st|2nd)$/i.exec(t);
+  if (key === "nhl" && m) return `${m[1]} Intermission`;
+  return t;
+}
+
+function team(ev, key) {
   const comp = (ev.competitions || [])[0] || {};
   const st = ((comp.status || ev.status || {}).type) || {};
   const t = {};
@@ -56,7 +65,7 @@ function team(ev, want) {
   if (st.state === "pre") return null;
   const done = !!st.completed || st.state === "post";
   return { away: nm(t.away), home: nm(t.home), a: +t.away.score || 0, h: +t.home.score || 0,
-           clock: done ? "Final" : (st.shortDetail || st.detail || ""), live: !done };
+           clock: done ? "Final" : clockText(key, st), live: !done };
 }
 
 const PTS = { "0": 0, "15": 1, "30": 2, "40": 3, "A": 4, "AD": 4, "ADV": 4 };
@@ -130,7 +139,7 @@ export async function handleScores(request, env, ctx, origins) {
         }
       } else {
         const id = `${key}:${ev.id}`;
-        if (need.has(id)) { const t = team(ev); if (t) out[id] = t; }
+        if (need.has(id)) { const t = team(ev, key); if (t) out[id] = t; }
       }
     }
   }));
