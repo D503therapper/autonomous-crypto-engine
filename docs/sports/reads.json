@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29T12:38Z",
+ "updated": "2026-09-29T13:16Z",
  "games": [
   {
    "id": "nhl:401891773",
@@ -123,8 +123,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Oilers",
-    "p": 0.474,
-    "tie": 0.283,
+    "p": 0.479,
+    "tie": 0.282,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -136,13 +136,14 @@
    "lean": {
     "team": "Oilers",
     "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.745,
-    "win_p": 0.745,
+    "market": "spread",
+    "line": -1.5,
+    "odds": -118,
+    "p": 0.55,
+    "win_p": 0.752,
     "reasons": [
      "the stronger team",
+     "sharp money moving this way",
      "opponent missing key players"
     ]
    }
