@@ -8,7 +8,7 @@ Checks:
   4. workflows: any failed run in the last 2 hours (flagged, with the workflow's name)
   5. alerts: the engine's key still opens the 🔔 push (a dry run - nobody gets pinged)
   6. the live board, while games are on: scores flowing, the book's live prices fresh (not its 10-minute cache),
-     every live bet today saved (none only on the board)
+     every live bet today saved (none only on the board), and which sources are down (the backups took over)
   7. posting: the tennis slate and the main board are up from 8am PT (else: run the engine now)
 Prints a summary; FIX lines are actions it took, PROBLEM lines are for the check-in."""
 import json
@@ -165,6 +165,11 @@ if needed:
             ok.append(f"tennis live prices: {books}")
         if (board.get("live_games") or 0) > 0 and not board.get("scores"):
             problems.append("games on but no live scores on the board")
+        down = {k: v for k, v in (board.get("sources") or {}).items() if str(v).startswith("down")}
+        if down:                                         # a source failed - the next one took over (the owner, 9/29)
+            problems.append("sources down (the backups took over): " + ", ".join(f"{k} {v[5:]}" for k, v in list(down.items())[:6]))
+        elif board.get("sources"):
+            ok.append(f"all {len(board['sources'])} backup sources answering")
         saved = set((json.load(open(os.path.join(sd.DATA, "live_log.json"))).get("plays") or {}))
         lost = [t["team"] for t in board.get("today") or [] if t["pid"] not in saved]
         if lost:

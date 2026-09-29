@@ -3238,6 +3238,19 @@ def test_yahoo_splits_backup():
     assert "if sp_ and sp_[1] is None:" in src
 
 
+def test_breakdowns_say_it_plain():
+    """The owner, 9/29 (Oilers-Canucks): 'starting G' / 'backup G' confused everybody, two goalie-out lines read like
+    nonsense, and 'circled on both calendars' / 'leaky as hell' meant nothing. Positions are spelled out, both teams
+    missing a starter is one line, goalie form names whose goalie, and those idioms are gone."""
+    import sports_breakdown_v24 as v24
+    assert v24._posname("G") == "goalie" and v24._posname("LW") == "left wing" and v24._posname("QB") == "quarterback"
+    assert v24._poss("the Canucks") == "The Canucks'" and v24._poss("Duke") == "Duke's"
+    src = open(v24.__file__).read()
+    for gone in ("leaky as hell", "beach ball", "Circled on", "out the window", "starting {pos}\"" , "{key_them[0][1]}"):
+        assert gone not in src, gone
+    assert 'v.say("keyout_both"' in src and "_posname(key_us[0][1])" in src and "_posname(key_them[0][1])" in src
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

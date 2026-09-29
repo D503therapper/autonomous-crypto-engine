@@ -137,6 +137,22 @@ def _short(v, price, lock):
     return f"✅ Bottom line: {price}."
 
 
+POSNAME = {"G": "goalie", "QB": "quarterback", "SP": "starting pitcher", "LW": "left wing", "RW": "right wing",
+           "C": "center", "D": "defenseman", "PG": "point guard", "SG": "shooting guard", "SF": "small forward",
+           "PF": "power forward", "RB": "running back", "WR": "receiver", "TE": "tight end", "K": "kicker"}
+
+
+def _posname(pos):
+    """'G' -> 'goalie' - a sentence never says just the letters (the owner, 9/29: 'the backup G' confused everybody)."""
+    return POSNAME.get(str(pos or "").upper(), str(pos or ""))
+
+
+def _poss(team):
+    """'the Canucks' -> "The Canucks'", 'Duke' -> "Duke's" (whose goalie it is)."""
+    t = team[:1].upper() + team[1:]
+    return t + "'" if t.endswith("s") else t + "'s"
+
+
 class Voice:
     """Picks a way to say each line: different wording from game to game and day to day, and never the same
     wording twice on one board (share one `used` set across a board's breakdowns)."""
@@ -358,9 +374,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                     "SP": [f"💣 {name} has been getting shelled — {txt}.",
                            f"💣 {name} has been getting lit up: {txt}.",
                            f"💣 Hitters are teeing off on {name} — {txt}."],
-                    "G": [f"🥅 {name} has been leaky as hell — {txt}.",
-                          f"🥅 {name} can't stop a beach ball right now: {txt}.",
-                          f"🥅 Pucks keep getting past {name} — {txt}."]}[role]))
+                    "G": [f"🥅 {_poss(the_them)} goalie {name} has been giving up a lot of goals — {txt}.",
+                          f"🥅 {_poss(the_them)} goalie {name} can't keep the puck out lately: {txt}.",
+                          f"🥅 Pucks keep getting past {_poss(the_them)} goalie, {name} — {txt}."]}[role]))
             elif ours_ and mood == "hot":
                 out.append(v.say(role + "_hot", {
                     "QB": [f"🎯 {name} has been cooking — {txt}.",
@@ -369,7 +385,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                     "SP": [f"🔥 {name} has been dealing — {txt}.",
                            f"🔥 {name} is on a roll: {txt}.",
                            f"🔥 Nobody's touching {name} lately — {txt}."],
-                    "G": [f"🧱 {name} has been a brick wall — {txt}.",
+                    "G": [f"🧱 {_poss(the_us)} goalie {name} has been a brick wall — {txt}.",
                           f"🧱 {name} is standing on his head: {txt}.",
                           f"🧱 Good luck scoring on {name} — {txt}."]}[role]))
 
@@ -505,8 +521,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     if inj:
         ours_out, theirs_out = sd.team_injuries(inj, tid, us), sd.team_injuries(inj, oid, them)
         key_them = sd.team_key_out(inj, oid, them, lg)
-        if key_them:
-            pos, nm = key_them[0][1], key_them[0][0]
+        both = key_them and sd.team_key_out(inj, tid, us, lg)
+        if key_them and not both:
+            pos, nm = _posname(key_them[0][1]), key_them[0][0]
             out.append(v.say("keyout", [f"🚑 {them} are rolling without their starting {pos} ({nm}).",
                                          f"🚑 No {nm} for {them} — that's their starting {pos}.",
                                          f"🚑 {them} are down their starting {pos}, {nm}."]))
@@ -526,8 +543,17 @@ def breakdown(leg, games, elo, injuries, used=None):
     op, now = sm._int(g.get(f"ml_{side}_open")), sm._int(g.get(f"ml_{side}"))
     key_us = sd.team_key_out(inj, tid, us, lg)
     key_any = key_us or sd.team_key_out(inj, oid, them, lg)
-    if key_us:
-        pos, nm = key_us[0][1], key_us[0][0]
+    key_them2 = sd.team_key_out(inj, oid, them, lg) if inj else None
+    if key_us and key_them2:                              # both teams down a starter: one plain line, not two
+        pos, nm, nm2 = _posname(key_us[0][1]), key_us[0][0], key_them2[0][0]
+        mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
+        out.append(v.say("keyout_both", [
+            f"🚑 Both teams are down their starting {pos} — {nm} is out for {the_us}, {nm2} for {the_them}.{mv} We still riding with the algorithm.",
+            f"🚑 Backups on both sides tonight: no {nm} for {the_us}, no {nm2} for {the_them}.{mv} The numbers still say this the side.",
+            f"🚑 Neither team has its starting {pos} — {nm} ({the_us}) and {nm2} ({the_them}) are both out.{mv} We still like {the_us}."],
+            must=True))
+    elif key_us:
+        pos, nm = _posname(key_us[0][1]), key_us[0][0]
         mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
         pts = leg.get("line") if leg.get("market") == "spread" else None
         need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)}, win by 1, or lose — we cash." \
@@ -742,7 +768,7 @@ TALK_LINES = {   # pregame talk (sports_news TALK_KINDS): display only - forward
     "rivalry week": lambda who: [f"📣 Rivalry week talk is loud around {who}. Bad blood energy.",
                                  f"📣 {_cap(who)} been hyping the rivalry all week.",
                                  f"📣 Bragging rights on the line, and {who} know it.",
-                                 f"📣 Circled on the calendar for {who}. No love lost here."],
+                                 f"📣 {_cap(who)} been waiting on this one. No love lost here."],
     "hot seat": lambda who: [f"📣 Coach's job is a hot topic around {who}. Hot seat talk everywhere.",
                              f"📣 Job-security questions around {who}'s coach this week.",
                              f"📣 {_cap(who)}' coach is feeling the heat in the papers.",
@@ -759,8 +785,8 @@ def context_lines(leg, v, us, them, the_us, the_them, g):
         k = c.get("k")
         if k == "rival":
             out.append(v.say("cx_rival", [f"🔥 Rivalry game. {_cap(the_us)} and {the_them} got real history.",
-                                          "🔥 Circled on both calendars — these two don't like each other.",
-                                          "🔥 Straight-up rivalry. Records go out the window in these.",
+                                          "🔥 Rivalry game — these two don't like each other.",
+                                          "🔥 Straight-up rivalry. Records don't mean much in these.",
                                           "🔥 Bad blood game — this is one of the classics.",
                                           "🔥 Rivalry night. No love lost between these two."]
                              if not total else [f"🔥 Rivalry game — {them}. Emotions run hot in these.",
