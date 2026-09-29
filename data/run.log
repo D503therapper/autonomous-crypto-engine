@@ -2765,3 +2765,45 @@ DEX: $309.30 (-690.70) · Scammed: 1 (-$166.76)
 [2026-09-29 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-29 13:06 UTC] crypto/hold_btc  equity $501.13 (+0.2%) 1 open  market UP
    social heat top: PUMP 40 (37/0/3), QNT 40 (40/0/0), AAVE 35 (35/0/0), AVAX 32 (32/0/0), NEAR 29 (29/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT BATON@solana liq $452,070 - lp holders unknown; rugcheck lp locked 65% < 95%
+   dex screen: PASS 7@solana liq $129,596
+   dex screen: REJECT PUMP@solana liq $27,505,289 - transfer hook; top-10 holders 60%
+   dex screen: REJECT BAGSPAY@solana liq $106,470 - holders unknown; lp holders unknown; rugcheck lp locked 57% < 95%
+   dex screen: REJECT BOAR@base liq $407,614 - goplus partial data: cannot_sell_all unknown; buy tax unknown; lp locked 0% < 95%
+   dex screen: REJECT FRXETH@ethereum liq $11,109,511 - is_mintable; top-10 holders 97%
+   dex screen: PASS ANTFUN@solana liq $17,034,729
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SNOWMOON@base liq $232,857 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT BTE@ethereum liq $128,918 - goplus partial data: cannot_sell_all unknown; hidden_owner; buy tax unknown; sell tax unknown; top-10 holders 97%; lp holders unknown
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SPCXC@base liq $1,013,588 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT AAPLC@base liq $1,243,720 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 71%; lp locked 0% < 95%
+   dex screen: REJECT YAP@solana liq $106,001 - holders unknown; lp holders unknown; rugcheck lp locked 42% < 95%
+   dex screen: PASS CC@solana liq $120,666
+   dex screen: REJECT AI@solana liq $33,901,047 - top-10 holders 100%
+   dex scanner: 2,967 pools (solana 2,083 / base 489 / ethereum 395), refresh cycle 126s (hot 122s), 2946 calls (108 feed, 429s 0, failed 0), 85,140 refreshed (12537 no pair), +86 added / -87 dropped (dead 67, stale 4, cap 16), movers 7 + warming 26 -> queued 6, screened 6 (passed 2), bought 0
+[2026-09-29 14:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-29 14:06 UTC] crypto/mover     equity $452.00 (-9.6%) 0 open  market UP
+[2026-09-29 14:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 14:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 14:06 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-29 14:06 UTC] crypto/breakout10 equity $496.21 (-0.8%) 2 open  market UP
+[2026-09-29 14:06 UTC] crypto/momentum  equity $492.31 (-1.5%) 2 open  market UP
+[2026-09-29 14:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-29 14:06 UTC] crypto/hold_btc  equity $500.19 (+0.0%) 1 open  market UP
+   >> stocks/rsi2: BUY $166.67 of AMZN @ 245.755 (entry)
+   >> stocks/rsi2: BUY $166.67 of IWM @ 279.625 (entry)
+   >> stocks/rsi2: BUY $166.67 of COIN @ 192.77 (entry)
+[2026-09-29 14:06 UTC] stocks/rsi2      equity $499.75 (-0.0%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 1, TLT 2, TSLA 4, NFLX 5
+[2026-09-29 14:06 UTC] stocks/dual_momentum equity $498.50 (-0.3%) 2 open  market UP
+[2026-09-29 14:06 UTC] stocks/trend_ensemble equity $497.78 (-0.4%) 5 open  market UP
+[2026-09-29 14:06 UTC] stocks/rotation10 equity $495.07 (-1.0%) 2 open  market UP
+[2026-09-29 14:06 UTC] stocks/momentum  equity $492.32 (-1.5%) 4 open  market UP
+[2026-09-29 14:06 UTC] stocks/trend     equity $488.56 (-2.3%) 4 open  market UP
+[2026-09-29 14:06 UTC] stocks/hold_spy  equity $497.67 (-0.5%) 1 open  market UP
+   social heat top: PUMP 46 (37/0/9), QNT 40 (40/0/0), AAVE 35 (35/0/0), AVAX 32 (32/0/0), PRL 29 (29/0/0)

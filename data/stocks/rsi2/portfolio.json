@@ -1,9 +1,37 @@
 {
-  "cash": 500.0,
-  "positions": {},
+  "cash": 5.684341886080802e-14,
+  "positions": {
+    "AMZN": {
+      "qty": 0.6781821500688636,
+      "entry": 245.7550182495117,
+      "cost": 166.66666666666666,
+      "peak": 245.7550182495117,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1790688600000
+    },
+    "IWM": {
+      "qty": 0.5960369383336741,
+      "entry": 279.6247278442383,
+      "cost": 166.66666666666666,
+      "peak": 279.6247278442383,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1790688600000
+    },
+    "COIN": {
+      "qty": 0.864589373620251,
+      "entry": 192.7697375793457,
+      "cost": 166.66666666666666,
+      "peak": 192.7697375793457,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1790688600000
+    }
+  },
   "peak_equity": 500.0,
   "cooldown": {},
   "halted": false,
   "halt_until": 0,
-  "last_rebalance_week": "2026-09-28"
+  "last_rebalance_week": "2026-09-29"
 }
