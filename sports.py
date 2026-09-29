@@ -710,7 +710,8 @@ def post_board(games, model, picks, now, day, force=False):
     settled = [c for c in cands if not c["waiting"]]
     elo = None
     used = {t for p in picks if p["date"] == iso for l in p["legs"] for t in l.get("bd_tags", [])}   # the board's memory
-    used |= sports_breakdown.slang_in(sports_breakdown.dashboard_texts())   # no phrase repeats anywhere on the dashboard
+    used |= sports_breakdown.memory(picks, since=(day - timedelta(days=1)).isoformat())   # no phrase repeats on the
+    #                                                     dashboard, and no 4-word run from today's or yesterday's write-ups
     new = []
     # the owner: a day where NOTHING on the slate clears the value bar gets LEANS ONLY (own record, never ours) with a
     # note up top - we don't force picks just to have picks. Decided on the opening board, before anything's posted.
@@ -862,8 +863,7 @@ def add_breakdowns(games, model, picks):
     injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
     redo = {id(l) for l in legs}
     used = {t for p in picks for l in p["legs"] if id(l) not in redo for t in l.get("bd_tags", [])}
-    used |= sports_breakdown.slang_in(sports_breakdown.dashboard_texts(
-        skip={(l.get("game_id"), l.get("side"), l.get("market")) for l in legs}))
+    used |= sports_breakdown.memory(picks, skip={(l.get("game_id"), l.get("side"), l.get("market")) for l in legs})
     elo, done = sm.ratings(games, model), []
     for leg in legs:
         same = next((l for l in done if _same_leg(l, leg)), None)

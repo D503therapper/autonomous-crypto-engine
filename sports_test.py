@@ -2556,6 +2556,229 @@ def test_plus_money_lock_rule():
     assert not sports.lock_ok({"odds": 110, "p": 0.51}) and not sports.lock_ok({"odds": -105, "p": 0.51})
 
 
+def _sample_history(days=24, seed=5):
+    """Graded picks over `days` days: locks, dogs, spreads, totals, parlays, leans, a push - for the review tests."""
+    rnd = random.Random(seed)
+    teams = {"nfl": ["Ravens", "Cowboys", "Bills", "Jets", "Rams", "Broncos", "Chiefs", "Eagles", "Lions", "Packers"],
+             "mlb": ["Cubs", "Mets", "Royals", "Twins", "Giants", "Padres", "Astros", "Orioles"],
+             "nba": ["Lakers", "Celtics", "Knicks", "Heat", "Suns", "Bucks"]}
+    picks, gid = [], 0
+    for d in range(days):
+        date = (datetime(2026, 9, 1) + timedelta(days=d)).strftime("%Y-%m-%d")
+        def leg(market="ml", result=None):
+            nonlocal gid
+            gid += 1
+            lg = rnd.choice(list(teams))
+            a, b = rnd.sample(teams[lg], 2)
+            x, y = rnd.randint(0, 40), rnd.randint(0, 40)
+            res = result or rnd.choice(["won", "lost"])
+            won = (x > y) == (res == "won")
+            l = {"game_id": f"{lg}:{gid}", "league": lg, "side": "away", "team": a, "opp": b, "market": market,
+                 "odds": rnd.choice([-180, -140, -110, 120, 165, 210]), "line": None, "result": res, "p": rnd.random(),
+                 "score": f"{a} {max(x, y) if won else min(x, y)} @ {b} {min(x, y) if won else max(x, y)}"}
+            if market == "spread":
+                l["line"] = rnd.choice([-3.5, 2.5, 6.5])
+            if market == "total":
+                l.update(side=rnd.choice(["over", "under"]), team="Over", opp=f"{a} @ {b}", line=44.5, score="")
+            return l
+        for kind, legs, lean in (("lock", [leg()], False), ("dog", [leg("spread")], False),
+                                 ("two", [leg(), leg("total")], False), ("lock", [leg()], True)):
+            st = "lost" if any(l["result"] == "lost" for l in legs) else "won"
+            picks.append({"date": date, "kind": kind, "status": st, "lean": lean, "legs": legs, "american": 264})
+    picks[1]["legs"][0].update(line=3.0, result="push")
+    picks[1]["status"] = "push"
+    return picks
+
+
+def test_past_results_vocab():
+    """📜 PAST RESULTS: every review worded differently - no 4-word run twice in the whole section (names and
+    numbers aside), nothing banned, no hype on a lean, never longer than the old line, and stable: the same page
+    every run, and a new day never rewords the old ones."""
+    import html as html_
+    import sports_breakdown as sb
+    import sports_dashboard as dash
+    import sports_lingo as sl
+    keep, tmp = sd.DATA, tempfile.mkdtemp()
+    sd.DATA = tmp                                           # (no live log / tennis on disk: just these picks)
+    try:
+        picks = _sample_history()
+        page = dash._history(picks)
+        revs = [html_.unescape(x) for x in re.findall(r"<em>(.*?)</em>", page)]
+        assert len(revs) >= 80 and all(revs), len(revs)
+        names = sorted(list({f"{t}{n}" for p in picks for l in p["legs"] if l["market"] != "total"
+                        for n in (l["team"], l["opp"]) for t in ("", "the ")})
+                       + ["Over 44.5", "Under 44.5"], key=len, reverse=True)   # (as the reviews name them)
+        seen = {}
+        for r in revs:
+            assert not re.search(r"real talk|chalk", r, re.I), r
+            for g in sb.grams(r, names):
+                if any(w not in ("_", "#") for w in g[2:].split()):
+                    assert g not in seen, f"{g!r} twice: {seen.get(g)!r} / {r!r}"
+                    seen[g] = r
+        assert any(re.search(r"push|wash|money back|stake back", r.lower()) for r in revs), "a push says so"
+        assert dash._history(picks) == page, "the same words every run"
+        more = picks + [dict(p, date="2026-10-30") for p in _sample_history(1, seed=9)]
+        old = re.findall(r"<em>(.*?)</em>", dash._history(more))
+        assert set(re.findall(r"<em>(.*?)</em>", page)) <= set(old), "a new day never rewords the old reviews"
+        lean_rows = page[page.index("🟡 Leans"):]
+        assert not sl.LEAN_BAN.search(html_.unescape(lean_rows)), "no hype on a lean"
+    finally:
+        sd.DATA = keep
+        shutil.rmtree(tmp)
+    # never longer than the old line (names / numbers count as one character), never more sentences
+    caps, used = sl.caps(), set()
+    for (k, r), (c, n, _) in sl.REVIEWS.items():
+        for i in range(8):
+            x = sl.review(k, "push" if k == "push" else r, f"cap{i}", used, t="①", o="②", x="③" if r != "" else "")
+            assert x and len(x) <= c and len(re.findall(r"[.!?](?=\s|$)", x)) <= n, (k, r, x)
+    for k, ((c, n), low, t) in sl.LINES.items():
+        kw = {m: "①" for m in set(re.findall(r"\{(\w+)\}", " ".join(t))) if m.lower() not in __import__("sports_vocab").SLOTS}
+        for x in sl.roll(t, "cap", (c, n), 60, low, **kw):
+            assert len(x) <= c and len(re.findall(r"[.!?](?=\s|$)", x)) <= n, (k, x)
+    for x in sl.good("①", "②", "cap", n=60):
+        assert len(x) <= caps["good"][0], x
+    # a big supply: hundreds to thousands of ways for every review
+    sup = sl.supply()
+    assert all(v >= 300 for k, v in sup.items() if k.startswith("review") and "push" not in k), sup
+    assert sl.note_supply()["leans"] > 100000 and sup["good"] > 5000
+
+
+def test_live_words_stay_put():
+    """A live play's wording is pinned while it's up (live.json is rewritten every second): same play, same words -
+    only the facts move; a second play on the board never shares a 4-word run with the first."""
+    L = sports_live
+    rs = [("better", {}), ("pre", {})]
+    w1 = L._team_words("nba", "the Lakers", "the Celtics", True, "7", rs, "nba:1:home")
+    w1b = L._team_words("nba", "the Lakers", "the Celtics", True, "9", rs, "nba:1:home")
+    assert w1(0)[0].replace("7", "9") == w1b(0)[0], "the score moves, the words don't"
+    assert w1(0) == L._team_words("nba", "the Lakers", "the Celtics", True, "7", rs, "nba:1:home")(0), "stable"
+    a = {"id": "nba:1:home", "team": "Lakers", "opp": "Celtics", "line": w1(0)[0], "breakdown": w1(0)[1], "_words": w1}
+    w2 = L._team_words("nba", "the Knicks", "the Heat", True, "7", rs, "nba:2:away")
+    b = {"id": "nba:2:away", "team": "Knicks", "opp": "Heat", "line": w2(0)[0], "breakdown": w2(0)[1], "_words": w2}
+    log = {"plays": {}}
+    first = L.settle_words([dict(a), dict(b)], {}, log)
+    assert not any("_words" in p for p in first) and L._runs(first[0]).isdisjoint(L._runs(first[1]))
+    again = L.settle_words([dict(a), dict(b)], {p["id"]: p for p in first}, log)
+    assert [(p["line"], p["breakdown"]) for p in again] == [(p["line"], p["breakdown"]) for p in first], "no flicker"
+    txt = " ".join(x for p in first for x in [p["line"]] + p["breakdown"]).lower()
+    assert "real talk" not in txt and "chalk" not in txt
+
+
+def test_breakdown_variety():
+    """The owner: write-ups can't read like yesterday's. A whole board rolled for a day: no 4-word run on two cards, none
+    from yesterday's board, no line the same as yesterday's, every roll no longer than today's version of that line,
+    never "real talk" / "chalk", no leftover template bits - and every card still ends on its bottom line."""
+    import types
+    import sports_breakdown as sb
+    import sports_vocab as vo
+    teams = ["Hawks", "Bulls", "Suns", "Nets", "Kings", "Bucks", "Heat", "Magic", "Spurs", "Rockets", "Lakers", "Knicks"]
+    rnd, games = random.Random(7), {}
+    t0 = datetime(2026, 1, 1, 3, 0)
+    for d in range(40):                                   # a season so far: records, streaks, rest, head to head
+        order = teams[:]
+        rnd.shuffle(order)
+        for i in range(0, len(order), 2):
+            if rnd.random() < 0.5:
+                continue
+            gid = f"nba:h{d}_{i}"
+            hs, as_ = rnd.randint(90, 125), rnd.randint(90, 125)
+            games[gid] = {"id": gid, "league": "nba", "start": (t0 + timedelta(days=d)).strftime("%Y-%m-%dT%H:%MZ"),
+                          "status": "final", "stype": "2", "home": order[i], "away": order[i + 1], "home_name": order[i],
+                          "away_name": order[i + 1], "home_score": str(hs), "away_score": str(as_ + (hs == as_)), "neutral": "0"}
+    elo = {"nba": types.SimpleNamespace(r={t: 1500 + rnd.randint(-120, 120) for t in teams}, hfa=50)}
+    reasons = ["revenge game", "the stronger team", "better rested", "hotter recent form", "letdown spot for the opponent"]
+
+    def board(day):
+        legs = []
+        order = teams[:]
+        random.Random(day).shuffle(order)
+        for i in range(0, len(order), 2):
+            gid = f"nba:u{day}_{i}"
+            ml_h, ml_a = random.Random(gid).choice([(-150, 130), (120, -140), (-110, -110)])
+            games[gid] = {"id": gid, "league": "nba", "start": (t0 + timedelta(days=40 + day)).strftime("%Y-%m-%dT%H:%MZ"),
+                          "status": "pre", "stype": "2", "home": order[i], "away": order[i + 1], "home_name": order[i],
+                          "away_name": order[i + 1], "home_score": "", "away_score": "", "neutral": "0",
+                          "ml_home": str(ml_h), "ml_away": str(ml_a), "ml_home_open": str(ml_h + 15), "ml_away_open": str(ml_a)}
+            for side in ("home", "away"):                   # both sides (two cards on the same game read differently too)
+                odds = ml_h if side == "home" else ml_a
+                dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+                legs.append({"game_id": gid, "league": "nba", "side": side, "market": "ml", "line": None, "odds": odds,
+                             "dec": dec, "p": min(0.8, 1 / dec + random.Random(gid + side).choice([0.01, 0.12])),
+                             "team": games[gid][side + "_name"], "opp": games[gid][("away" if side == "home" else "home") + "_name"],
+                             "reasons": random.Random(gid + side).sample(reasons, 3)})
+        return legs
+
+    said, orig = [], sb.Voice.say
+    def spy(self, key, options, must=False, names=()):     # what Voice itself compares: the line's runs, facts blanked
+        out = orig(self, key, options, must, names)
+        said.append((self.seed, out, sb.grams(out, tuple(names) + self.names) if out else set()))
+        return out
+    sb.Voice.say = spy
+    try:
+        yesterday, cards = [], {}
+        for day in (0, 1):
+            used = sb.recent_grams(yesterday)
+            said.clear()
+            texts = []
+            for leg in board(day):
+                bd = sb.breakdown(leg, games, elo, None, used)
+                assert bd and bd[-1].startswith("✅ Bottom line:"), bd
+                for x in bd:
+                    assert "real talk" not in x.lower() and "chalk" not in x.lower(), x
+                    assert not re.search(r"[\[\]{}\ue000-\ue1ff]", x), x
+                texts += [(x, (leg["team"], leg["opp"])) for x in bd]
+            per = {}
+            for seed, out, g in said:
+                per.setdefault(seed, set()).update(g)
+            seeds = list(per)
+            for i, a in enumerate(seeds):
+                for b in seeds[i + 1:]:
+                    assert not per[a] & per[b], ("a 4-word run on two cards", a, b, per[a] & per[b])
+            if day:
+                old = sb.recent_grams(yesterday)
+                for seed, g in per.items():
+                    assert not g & old, ("a 4-word run from yesterday", seed, g & old)
+                assert not {x for x, _ in texts} & {x for x, _ in yesterday}, "a line word for word from yesterday"
+            cards[day] = texts
+            yesterday = texts
+    finally:
+        sb.Voice.say = orig
+    # every roll stays within today's size for its line, and the big lines have thousands of ways to go
+    for k, ts in sb.T.items():
+        assert k in sb._CAP, k
+        facts = {p: "Xx" for p in re.findall(r"\{(\w+)\}", " ".join(ts)) if p.lower() not in vo.SLOTS and p not in ("field", "a_n", "a_rec")}
+        rolls = sb._roll(k, "t", {"field": "court", "a_n": "a", "a_rec": "a"}, **facts)
+        assert rolls and all(sb._size(r.replace("Xx", "\ue000\ue100\ue001"))[0] <= sb._CAP[k][0] for r in rolls), k
+    assert vo.supply(sb.T["bottom"]) > 5000 and vo.supply(sb.T["bottom_s"]) > 2000 and len(sb.T["bottom"]) >= 10
+    # every call site rolls clean with exactly the facts it passes (no "{x}" left, no pool shadowing a fact)
+    import ast
+    calls, words = {}, {"field": "court", "a_n": "a", "a_rec": "a"}
+    for node in ast.walk(ast.parse(open(sb.__file__).read())):
+        if isinstance(node, ast.Call) and getattr(node.func, "id", "") == "_say":
+            kw = {k.arg for k in node.keywords if k.arg} - {"must", "words", "tkey", "extra", "names"}
+            if not kw:                                    # **names in context_lines
+                kw = {"the_us", "the_them", "The_us", "The_them"}
+            kw |= {"the_us", "the_them", "The_us", "The_them"} if any(k.arg is None for k in node.keywords) else set()
+            tk = next((k.value.value for k in node.keywords if k.arg == "tkey" and isinstance(k.value, ast.Constant)), None)
+            key = node.args[1].value if len(node.args) > 1 and isinstance(node.args[1], ast.Constant) else None
+            for k in ([tk or key] if (tk or key) else []):
+                calls.setdefault(k, set()).update(kw)
+    dyn = {"better": {"us", "them", "us_s"}, "better_s": {"us", "them", "us_s"}, "worse": {"us", "them", "us_s"},
+           "even": {"us", "them", "us_s"}, **{f"{r}_{m}": {"name", "txt"} for r in ("QB", "SP", "G") for m in ("hot", "cold")},
+           **{k: {"The_them", "the_them", "the_them_s", "hl"} for k in sb.T if k.startswith("drama_")},
+           **{k: {"who", "Who", "who_s", "Who_s"} for k in sb.T if k.startswith("talk_")},
+           **{f"splits_{x}": calls.get("splits", set()) for x in ("fade", "ride", "even")},
+           "lean": {"team", "tms"}}
+    for k in sb.T:
+        facts = calls.get(k) or dyn.get(k)
+        assert facts, ("no call site says this line", k)
+        assert not set(sb._P) & facts, ("a word pool shadows a fact", k, set(sb._P) & facts)
+        for r in sb._roll(k, "guard", words, **{f: "Xx" for f in facts}):
+            assert not re.search(r"[\[\]{}]", r), (k, r)
+    lean = sb.lean_tone(["✅ Bottom line: trust the algorithm.", "🔥 Hawks are rolling. Let's eat."], {"team": "Hawks"}, "x")
+    assert lean[-1].startswith("🟡 Bottom line:") and not any(sb.HYPE.search(x) for x in lean), lean
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

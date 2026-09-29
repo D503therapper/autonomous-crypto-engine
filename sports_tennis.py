@@ -1222,17 +1222,31 @@ SURF = {"hard": "hard court", "clay": "clay", "grass": "grass"}
 
 
 def _used(skip=()):
-    """Our big phrases already on the dashboard (main board + tennis), so a new write-up doesn't repeat them."""
+    """Our big phrases already on the dashboard (main board + tennis), plus every wording part the last two tennis
+    slates used - so a new write-up repeats neither today's board nor yesterday's."""
     import sports_breakdown as sb
-    return sb.slang_in(sb.dashboard_texts(skip=skip))
+    out = sb.slang_in(sb.dashboard_texts(skip=skip))
+    for sl_ in _load_picks()[-2:]:
+        for l in sl_.get("picks") or []:
+            if (l.get("id"), l.get("side"), l.get("market")) not in skip:
+                out |= sb.recent_grams((x, (_say_name(l.get("player")), _say_name(l.get("opp"))))
+                                       for x in l.get("breakdown") or [])
+    return out
 
 
-TENNIS_BV = 14                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 15                                   # breakdown version (older ones get rewritten before the match)
+
+
+CN_FAMILY = {"Wang", "Zhang", "Zheng", "Cui", "Ma", "Wu", "Zhu", "Yuan", "Bai", "Gao", "Shang", "Xu", "Li", "Liu",
+             "Yang", "Zhou", "Guo", "Bu", "Wei", "Sun", "Chen", "Lin", "Huang", "Zhao", "Hu", "Tang", "Han", "Duan",
+             "Jiang", "Lu", "Yao", "Xin", "Te", "Zhong", "Fang", "Peng", "You", "Ye", "Feng", "Dang"}
 
 
 def _say_name(name):
     """'Botic Van De Zandschulp' -> 'Van De Zandschulp', 'Marco Trungelliti' -> 'Trungelliti' (how people say it)."""
     parts = str(name or "").split()
+    if len(parts) == 2 and parts[0] in CN_FAMILY:        # Chinese names go family name first: Cui Jie is "Cui Jie"
+        return " ".join(parts)
     for i, w in enumerate(parts[1:], 1):
         if w.lower() in ("van", "de", "da", "del", "der", "di", "le", "la", "von", "dos", "du"):
             return " ".join(parts[i:])
@@ -1283,121 +1297,243 @@ def life_line(v, c, me, them, he, He, his):
     return ""
 
 
+# every tennis line as skeletons + slots (sports_vocab): thousands of ways to say each one
+T_SPREAD_DOG = [
+    "{me} +{h} games. [Even if {he} drops the match, we still cash as long as it's close.|{He} can lose and we still cash, long as it stays within {h}.|{Book} thinks {he} gets blown out. Nah.] {kick}",
+    "Taking the games with {me} (+{h}). [{them} ain't blowing {him} out.|{He} only needs to hang around.|Close still cashes for us.] {kick}",
+    "{me} getting {h} games? [That's {cheap}.|{Book} got this one {cheap}.|We'll take that all day.] {kick}",
+    "Game spread: {me} +{h}. {Algo} has {him} covering {pct}% of the time. {kick}",
+    "We want {me} with the cushion (+{h}). [{He}'s way more dangerous than this number says.|{them} is priced like it's a walkover. It's not.] {kick}",
+    "{h} games of cushion with {me}? [Yes please.|Say less.|Sign us up.] {kick}",
+    "Give us {me} and the {h} games. [{He} steals a set and this is basically over.|This stays tight and tight pays us.] {kick}",
+    "{me} +{h} is the angle. [{Algo} has {him} hanging around way more than {book} thinks.|The cushion does the heavy lifting.] {kick}",
+    "Plus {h} games with {me}. [{them} has to win big to beat us, and we don't see it.|A {pct}% cover in our numbers.] {kick}",
+    "[Cushion play|Games play|Spread play]: {me} +{h}. [{He} keeps it close, we eat.|Lose close, still cash.|Tight match, paid ticket.] ",
+    "{Book} is giving {me} {h} games and {algo} says {he} barely needs them. {kick}",
+    "We're on {me} +{h}. [Blowout? Not in our numbers.|{them} winning by {h}+? We don't see it.] {kick}",
+]
+T_SPREAD_FAV = [
+    "{me} {hc} games. [{He} should roll this by more than {n}.|{n} games is nothing for {him} in this spot.] {kick}",
+    "Why lay {ml}? We take {me} {hc} games. [{He} wins big and we get paid better for it.|Better price, same result.] {kick}",
+    "Skipping the {ml} tax — {me} {hc} games. {kick}",
+    "{me} on the game spread ({hc}). [{Algo} has {him} cooking.|This ain't a match, it's a clinic.] {kick}",
+    "Better price: {me} {hc} games instead of {ml}. [{them} is about to get run off the court.|We expect a beatdown.] ",
+    "No {ml} nonsense. {me} {hc} games, covering {pct}% of the time in our numbers. {kick}",
+    "We'd rather have {me} {hc} games than pay {ml}. [{He}'s about to smack that ass by more than {n}.|Blowout loading.] ",
+    "{me} {hc}. [The moneyline's too pricey, the games ain't.|Laying games beats laying juice here.] {kick}",
+    "Games over juice: {me} {hc}. {He} {wins} by a bunch, [we think|{algo} says]. {kick}",
+    "{me} {hc} games — [{them} doesn't keep this close.|{n} ain't enough cushion for {them}.] {kick}",
+]
+T_FAV = [
+    "{me} is {better} and it ain't close. [{kick}|Big price, but {he} {wins} {more}.]",
+    "{me} runs this. [{Algo} gives {him} {pct}%.|The price is steep for a reason.] {kick}",
+    "{me}, {sure}. [{He}'s about to smack that ass.|Nothing fancy — the better player wins.] {kick}",
+    "{me} is on a different level than {them}. [Pay the price, collect.|We ain't overthinking this one.] {kick}",
+    "This is {me}'s match to lose. {Algo} has {him} at {pct}%. {kick}",
+    "{me} should {beat} {them}. [{them}'s about to get {his} cheeks clapped.|Simple as that.] {kick}",
+    "Give me {me}. [{He} {wins} {more}.|Big number, bigger gap.] {kick}",
+    "{me} takes care of business here. [{Algo} ain't scared of the price.|{pct}% in our numbers.] {kick}",
+    "{them} doesn't have the tools for {me}. {kick}",
+    "Levels to this — {me} is a tier above {them}. {kick}",
+    "[Favorite for a reason|Heavy favorite, earned it]: {me}. {He} should {beat} {them}. {kick}",
+    "{me} over {them}. [We're paying up because {he}'s {better}.|Steep price, steeper gap.] {kick}",
+    "Not much to it: {me} {wins}. [{Algo} has it {pct}%.|{sure}.] {kick}",
+    "{me} is too much for {them}. [{kick}|The better player {wins} {more}.]",
+]
+T_SMALLFAV = [
+    "We [riding|rolling with|backing] {me}. [{Book}'s got this priced kinda close — it ain't.|The price is {cheap}.] {kick}",
+    "{me}, {sure}. [{Book}'s sleeping on {him}.|{Algo} likes {him} way more than {book} does.] {kick}",
+    "Give me {me}. [{He}'s about to take care of business.|It's {his} world, {them} just living in it.] {kick}",
+    "{me} is the pick. Only {o}? [{Algo} has {him} winning way more than that.|That's {cheap}.] {kick}",
+    "Hammer {me}. [{Book} don't respect {him} at {o}.|{o} is a discount for this matchup.] {kick}",
+    "{me} nice nice. [{He}'s about to go off.|The number should be way bigger.] {kick}",
+    "Siding with {me} here. [{Algo} has {him} at {pct}%. The price doesn't.|This line is off and we're taking it.] {kick}",
+    "{me} gets the W. [{o} is {cheap}.|{Book} made this a coin flip. It's not.] {kick}",
+    "Put us down for {me}. [{He} {wins} {more}.|{pct}% in our numbers at {o}.] {kick}",
+    "{me} is the play in this one. [{Book} has it close, {algo} doesn't.|{them} is getting too much respect.] {kick}",
+    "We like {me} a lot here. {o} is [{cheap}|a gift for how good {he} is]. {kick}",
+    "{me} over {them} at {o}. [That price should be steeper.|{Algo} doesn't see a close match.] {kick}",
+    "[Small favorite|Light favorite], big gap: {me}. {kick}",
+    "{Book} barely has {me} favored. {Algo} has {him} well clear. {kick}",
+]
+T_DOG = [
+    "{me} is the dog at {o}? Nah. [{Algo}'s got {him} as {better}.|The price is wrong and we're taking it.] {kick}",
+    "{me} at {o} is a gift. [{He}'s about to cook.|{He} {wins} {more}.] {kick}",
+    "We'll take {me} plus money all day. [{Book} got this one backwards.|{them} is getting too much respect.] {kick}",
+    "{me} gets the nod. [{Algo} says {he}'s the one about to win.|Our number has {him} winning {pct}%.] {kick}",
+    "Plus money on {me}? Say less. {kick}",
+    "Underdog on paper, not in our numbers — {me}. {kick}",
+    "{me} plus money, we're in. [{Book} has the wrong favorite.|{pct}% for {him} in our numbers.] {kick}",
+    "{Book} made {me} the dog. {Algo} disagrees. {kick}",
+    "Getting paid to take {better}? {me} at {o}. {kick}",
+    "{me} {o}. [Dog price, favorite game.|The upset ain't an upset to us.] {kick}",
+]
+T_RANK = [
+    "{me} is #{rk} in the world, {them} is {vs}. [Levels to this.|Not the same tier.|]",
+    "World #{rk} vs {vs}. [Different weight class.|That gap shows up on the big points.|]",
+    "Ranking gap: #{rk} vs {vs}. [{them} is punching up.|Those numbers ain't an accident.|]",
+    "{He}'s #{rk} for a reason — {them} is {vs}.",
+    "#{rk} against {vs}. [{them}'s about to get {his} cheeks clapped.|Not close on paper.|]",
+    "On paper it's #{rk} vs {vs}. [The paper's right.|]",
+    "The rankings say #{rk} vs {vs}. [That's a real gap.|Levels.|]",
+    "{me} sits at #{rk}. {them}? {Vs}.",
+    "Tour ranking: {me} #{rk}, {them} {vs}. [Big gap.|]",
+]
+T_HOME = [
+    "{me} is playing at home. [The whole building got {his} back.|Everybody in there is with {him}.|]",
+    "Home soil for {ours}. [{Crowd} gonna carry {him}.|]",
+    "Home cookin'. [{He}'s got {crowd} behind {him}.|]",
+    "{me} gets the home crowd. [Every big point gets louder for our side.|]",
+    "{me}'s in front of {his} own people. [{them} is playing {crowd} too.|]",
+    "Home match for {me}. [That's worth a few points.|]",
+]
+T_DRAMA = [
+    "{them} got stuff going on off the court ({k}). [Head ain't gonna be right.|]",
+    "Off-court noise for {them} ({k}). [That follows you onto the court.|]",
+    "{them} dealing with {k}. [Distracted players lose — period.|Hard to lock in with that going on.]",
+    "{them} has {k} hanging over {him}. [Tough to focus through that.|]",
+]
+T_CLASH = [
+    "Bad blood between these countries. [No handshake energy.|Pressure match.]",
+    "This one's personal between their countries. [Heat on every point.|]",
+    "There's history between these flags. [Nerves are gonna show.|]",
+    "Country beef on the court tonight. [Pressure on every point.|]",
+]
+T_SURF = [
+    "{He}'s a different animal on {surf}. [That's {his} surface.|]",
+    "On {surf}, {me} is on a whole nother caliber. [There's levels to this shit.|]",
+    "{Surf} is {his} playground. [{He} lives here.|]",
+    "Put {him} on {surf} and {he} turns into a problem.",
+    "{me}'s game was built for {surf}. [The results back it up.|]",
+    "{me} on {surf} hits different. [{them} doesn't see this version of {him} anywhere else.|]",
+    "{Surf} suits {me} perfect. [{His} numbers jump on it.|]",
+]
+T_SURF_OPP = [
+    "{them} ain't the same player on {surf}. [That's our edge.|]",
+    "{Surf} exposes {them}. [That game don't travel.|]",
+    "{them} on {surf}? Booty cheeks. [We're taking advantage.|]",
+    "{them} is complete ass on {surf}. [We're eating.|]",
+    "{them}'s game falls off on {surf}. [The numbers show it.|]",
+    "{Surf} ain't {them}'s thing. [Wrong surface, wrong matchup.|]",
+    "{them} has never figured out {surf}.",
+]
+T_TIRED = [
+    "{them} has been grinding long matches all week. [{Tired}.|]",
+    "{them} played a ton of tennis lately. [{Tired} incoming.|]",
+    "{them}'s coming off marathon matches. [{Ours} is fresher.|]",
+    "{them} is running on fumes. [{Ours}'s about to make {them} work every point.|]",
+    "Heavy mileage on {them} this week. [That catches up by the third set.|]",
+    "{them} has logged way more court time than {me}. [{Tired} + a better player across the net? {them}'s about to get {his} cheeks clapped.|]",
+    "{them} hasn't had an easy match in days. [{Tired}.|]",
+]
+T_FORM = [
+    "{He}'s been {hot} lately and {them} has been {cold}.",
+    "Form says {me}. [{He}'s been cooking.|]",
+    "{me} is {hot} right now. [{them} can't say the same.|]",
+    "{He}'s on a heater. [Don't fade the heater.|]",
+    "{me}'s been stacking W's while {them} keeps taking L's.",
+    "Recent results are all {me}. [Momentum is real in this sport.|]",
+    "{me} came in playing {his} best tennis. [{them} has been {cold}.|]",
+]
+T_H2H = [
+    "{me} owns this matchup. [History's on our side.|]",
+    "{them} has had trouble with {me} in the past. [Same script tonight.|]",
+    "{me} got {them}'s number.",
+    "{them} couldn't handle {him} last time either. [Run it back.|]",
+    "Head to head leans {me}. [Matchups matter.|]",
+    "{me} has already beaten {them}. [{them} already got {his} cheeks clapped by {me} before.|]",
+    "{them} has seen this movie before. [It ends the same.|]",
+]
+T_BO5 = [
+    "Best of 5 at a Slam. [The longer it goes, the more the better player takes over.|]",
+    "Five sets. [{them} has nowhere to hide.|Better player wins these.]",
+    "Slam rules — best of 5. [Upsets get a lot harder over five.|]",
+    "Long format tonight. [Three sets to win means the better player gets there.|]",
+]
+T_BOTTOM = [
+    "[Bottom line|The play|Where we land|The numbers|Final word|The bet|How we see it|Sum it up|The math|Net-net]: {book} says {bk}%, we say {pct}%. {bet} ({od}). [{kick}|{gap}]",
+    "[Bottom line|The play|The math|The bet]: {Book} {bk}%, us {pct}%. {bet} ({od}). {kick}",
+    "[Where we land|Final word|Net-net]: {pct}% for us, {bk}% for {book}. {bet} ({od}). [{gap}|{kick}]",
+    "[The play|The bet|Bottom line]: {bet} ({od}). We got it at {pct}%, the price only implies {bk}%. {kick}",
+    "[The numbers|The math|How we see it]: {bet} ({od}) — {pct}% vs {book}'s {bk}%. [{gap}|{kick}]",
+    "[Sum it up|Final word]: {bet} at {od}. {pct}% on our side of the ledger, {bk}% on theirs. {kick}",
+    "[Bottom line|Net-net]: {algo} {pct}%, {book} {bk}%. {bet} ({od}). [{gap}|{kick}]",
+    "[The play|Where we land]: {bk}% says {book}, {pct}% says {algo}. {bet} ({od}). {kick}",
+    "[The bet|The math]: {book} wants {bk}%, {algo} sees {pct}%. {bet} ({od}). [{gap}|{kick}]",
+    "[How we see it|Bottom line]: {bet} ({od}). {Book} implies {bk}%. We're at {pct}%. {kick}",
+    "[Final word|The play]: {pct} vs {bk}. {bet} ({od}). [{gap}|{kick}]",
+    "[Net-net|Sum it up]: we make it {pct}%, the price makes it {bk}%. {bet}, {od}. {kick}",
+    "[The numbers|The bet]: {bet} {od}. Implied {bk}%, ours {pct}%. {kick}",
+    "[Where we land|The math]: {bet} ({od}), {pct}% in {algo} against a {bk}% price. [{gap}|{kick}]",
+]
+
+
+CAP = {"t_sd": 105, "t_sf": 105, "t_mf": 90, "t_mm": 90, "t_md": 90, "t_bl": 105}   # max chars per line (names as 4)
+
+
 def breakdown(c, rt, used):
-    """Tennis breakdown in OUR voice (he/she by tour, last names, never the same wording twice on a board)."""
+    """Tennis breakdown in OUR voice (he/she by tour, last names). Every line is rolled from skeletons + our
+    vocabulary (sports_vocab), and no 4-word run repeats on the board or from yesterday's slate."""
     import sports_breakdown as sb
-    v = sb.Voice(c["id"], used)
+    import sports_vocab as vb
     me, them, f = _say_name(c["player"]), _say_name(c["opp"]), c["f"]
+    v = sb.Voice(c["id"], used, names=(me, them))
     wta = c.get("tour") == "wta"
     he, him, his = ("she", "her", "her") if wta else ("he", "him", "his")
-    He = he.capitalize()
     ours = "our girl" if wta else "our guy"
     surf = SURF[c["surface"]].lower()
+    kw = dict(me=me, them=them, he=he, him=him, his=his, He=he.capitalize(), His=his.capitalize(), ours=ours,
+              Ours=ours.capitalize(), surf=surf, Surf=surf.capitalize(), pct=round(100 * (c.get("p") or 0.5)))
+
+    def roll(key, emoji, templates, must=False, **more):
+        cap = CAP.get(key, 90)                          # never longer than the old write-ups: new words, same size
+        opts = [x for x in vb.variants(templates, f"{c['id']}|{key}", 80, **kw, **more)
+                if len(x.replace(me, "Name").replace(them, "Name")) <= cap]
+        x = v.say(key, opts, must=must)
+        return f"{emoji} {x}" if x else ""
+
     out = []
     if c.get("market") == "spread" and c["hcp"] > 0:
-        out.append(v.say("t_spread_dog", [
-            f"🎯 {me} +{c['hcp']:g} games. Even if {he} drops the match, we still cash as long as it's close. That's the value.",
-            f"🎯 Book thinks {me} gets blown out. Nah. {me} +{c['hcp']:g} games — {he} keeps it close and we eat.",
-            f"🎯 Taking the games with {me} (+{c['hcp']:g}). Even if {he} loses, it stays close — and close still cashes for us.",
-            f"🎯 {me} getting {c['hcp']:g} games? Free money energy. {He}'s way more dangerous than this number says.",
-            f"🎯 {me} +{c['hcp']:g} games. {He} can lose the match and we still cash — long as {he} don't lose by more than {c['hcp']:g} games."], must=True))
+        out.append(roll("t_sd", "🎯", T_SPREAD_DOG, must=True, h=f"{c['hcp']:g}"))
     elif c.get("market") == "spread":
-        n = abs(c["hcp"])
-        out.append(v.say("t_spread", [
-            f"🎯 Why lay {c['ml']:+d}? We take {me} {c['hcp']:+g} games — {he}'s about to smack that ass by more than {n:g}.",
-            f"🎯 {me} {c['hcp']:+g} games. No {c['ml']:+d} nonsense — {he} should roll this by more than {n:g} games.",
-            f"🎯 {me} on the game spread ({c['hcp']:+g}). The engine's got {him} cooking — covering that is light work.",
-            f"🎯 Skipping the {c['ml']:+d} tax. {me} {c['hcp']:+g} games — {he} wins big and we get paid better for it.",
-            f"🎯 {me} {c['hcp']:+g} games. This ain't a match, it's a clinic. {He} should run away with it."], must=True))
+        out.append(roll("t_sf", "🎯", T_SPREAD_FAV, must=True, hc=f"{c['hcp']:+g}", n=f"{abs(c['hcp']):g}",
+                        ml=f"{c['ml']:+d}"))
     else:
         o = c.get("odds") or c.get("ml") or -110
-        if o <= -150:                                             # a clear favorite: say it plain
-            pct_ = round(100 * c["p"])
-            lines_ = [f"🎾 {me} is the big favorite for a reason — {he}'s about to smack that ass.",
-                      f"🎾 {me} is way better than {them}. The engine gives {him} a {pct_}% chance — {he} takes care of business.",
-                      f"🎾 Everybody knows {me} is winning this one. The engine does too — {pct_}% chance.",
-                      f"🎾 {me} all day. {He}'s the better player by a mile.",
-                      f"🎾 {them} is about to get {his} cheeks clapped. {me} runs this.",
-                      f"🎾 Give me {me}. Big price, but {he} wins this way more often than not.",
-                      ] + [f"🎾 {x}" for x in sports_lingo.good(me, them, c["id"], he=he)]
-        elif o < 0:                                               # a small favorite: the book has it closer than it is
-            lines_ = [f"🎾 We riding {me}. The book's got this priced kinda close — it ain't.",
-                      f"🎾 {me} is nice — the book don't respect it at {o}. {He} about to go off.",
-                      f"🎾 {me} is only {o}? The algorithm has {him} winning this way more than that.",
-                      f"🎾 Hammer {me}. The algorithm likes {him} way more than Vegas does.",
-                      f"🎾 Give me {me}. {He}'s about to take care of business.",
-                      f"🎾 {me}, no hesitation. The book's sleeping on {him}.",
-                      f"🎾 {me} is about to smack that ass. The price is too cheap for how good {he} is."]
-        else:                                                     # an underdog price the engine doesn't buy
-            lines_ = [f"🎾 {me} is the dog at {o:+d}? Nah. The engine's got {him} as the better player.",
-                      f"🎾 Book's got {me} as the underdog — the algorithm says {he}'s the one about to win.",
-                      f"🎾 {me} at {o:+d} is a gift. {He}'s about to cook.",
-                      f"🎾 We'll take {me} plus money all day. The book got this one backwards.",
-                      f"🎾 {me} gets the nod. The price is wrong and we're taking it — let's eat."]
-        out.append(v.say("t_main" + ("f" if o <= -150 else "m" if o < 0 else "d"), lines_, must=True, names=(me, them)))
+        if o <= -150:
+            out.append(roll("t_mf", "🎾", T_FAV, must=True, o=f"{o:+d}"))
+        elif o < 0:
+            out.append(roll("t_mm", "🎾", T_SMALLFAV, must=True, o=f"{o:+d}"))
+        else:
+            out.append(roll("t_md", "🎾", T_DOG, must=True, o=f"{o:+d}"))
     rk_me, rk_them = c.get("rank"), c.get("opp_rank")
     if rk_me and (not rk_them or rk_them - rk_me >= 20):
-        out.append(v.say("t_rank", [f"📈 {me} is #{rk_me} in the world" + (f" — {them} is #{rk_them}. Levels to this." if rk_them else f" — {them} ain't even top 150."),
-                                    f"📈 World #{rk_me} vs " + (f"#{rk_them}. Levels to this shit." if rk_them else "somebody outside the top 150. Levels to this shit."),
-                                    f"📈 {He}'s #{rk_me} in the world for a reason" + (f" — {them} is sitting at #{rk_them}." if rk_them else "."),
-                                    f"📈 Ranking gap is real: #{rk_me}" + (f" vs #{rk_them}." if rk_them else " vs outside the top 150.") + " Not the same tier.",
-                                    f"📈 #{rk_me} vs " + (f"#{rk_them}" if rk_them else "outside the top 150") + f" — {them}'s about to get {his} cheeks clapped."]))
+        vs = f"#{rk_them}" if rk_them else "outside the top 150"
+        out.append(roll("t_rank", "📈", T_RANK, rk=rk_me, vs=vs, Vs=vs[:1].upper() + vs[1:]))
     if f.get("home", 0) > 0:
-        out.append(v.say("t_home", [f"🏟️ {me} is playing at home — the whole crowd's got {his} back.",
-                                    f"🏟️ Home soil for {ours}. That crowd's gonna carry {him}.",
-                                    f"🏟️ Home cookin'. {He}'s got the whole building behind {him}."]))
+        out.append(roll("t_home", "🏟️", T_HOME))
     if c.get("their_drama"):
-        k = c["their_drama"][0]["kind"]
-        out.append(v.say("t_drama", [f"🍿 {them} got stuff going on off the court ({k}). Head ain't gonna be right.",
-                                     f"🍿 Off-court noise for {them} ({k}). That follows you onto the court.",
-                                     f"🍿 {them} dealing with {k}. Distracted players lose — period."]))
+        out.append(roll("t_drama", "🍿", T_DRAMA, k=c["their_drama"][0]["kind"]))
     if f.get("clash"):
-        out.append(v.say("t_clash", ["🔥 Bad blood between these countries — no handshake energy. Pressure match.",
-                                     "🔥 This one's personal between their countries. Heat on every point."]))
+        out.append(roll("t_clash", "🔥", T_CLASH))
     if f["surface_gap"] >= 40:
-        out.append(v.say("t_surf", [f"🟫 {He}'s a different animal on {surf}. That's {his} surface.",
-                                    f"🟫 On {surf}, {me} is on a whole nother caliber. There's levels to this shit.",
-                                    f"🟫 {surf.capitalize()} is {his} playground. {He} lives here.",
-                                    f"🟫 Put {him} on {surf} and {he} turns into a problem."]))
+        out.append(roll("t_surf", "🟫", T_SURF))
     elif f["surface_gap"] <= -40:
-        out.append(v.say("t_surf_opp", [f"🟫 {them} ain't the same player on {surf}. That's our edge.",
-                                        f"🟫 {surf.capitalize()} exposes {them} — that game don't travel.",
-                                        f"🟫 {them} on {surf}? Booty cheeks. We're taking advantage.",
-                                        f"🟫 {them} is complete ass on {surf}. We're eating."]))
+        out.append(roll("t_surf_opp", "🟫", T_SURF_OPP))
     if f["fatigue"] >= 0.66:
-        out.append(v.say("t_tired", [f"😮‍💨 {them} has been grinding long matches all week. Tired legs.",
-                                     f"😮‍💨 {them} played a ton of tennis lately. Legs gonna be heavy.",
-                                     f"😮‍💨 {them}'s coming off marathon matches. {ours.capitalize()} is fresher.",
-                                     f"😮‍💨 {them} is running on fumes. {ours.capitalize()}'s about to make {them} work every point.",
-                                     f"😮‍💨 Tired legs + a better player across the net? {them}'s about to get {his} cheeks clapped."]))
+        out.append(roll("t_tired", "😮‍💨", T_TIRED))
     if f["form"] >= 0.2:
-        out.append(v.say("t_form", [f"🔥 {He}'s been rolling lately and {them} has been ice cold.",
-                                    f"🔥 Form says {me}. {He}'s been cooking.",
-                                    f"🔥 {me} is hot right now — stacking W's while {them} keeps taking L's.",
-                                    f"🔥 {He}'s on a heater. Don't fade the heater."]))
+        out.append(roll("t_form", "🔥", T_FORM))
     if f["h2h"] >= 0.33:
-        out.append(v.say("t_h2h", [f"🆚 {me} owns this matchup — {he}'s beaten {them} before.",
-                                   f"🆚 {them} has had trouble with {me} in the past. History's on our side.",
-                                   f"🆚 {me} got {them}'s number.",
-                                   f"🆚 Been here before — {them} couldn't handle {him} last time either.",
-                                   f"🆚 {them} already got {his} cheeks clapped by {me} before. Run it back."]))
+        out.append(roll("t_h2h", "🆚", T_H2H))
     if int(c["bo"]) == 5:
-        out.append(v.say("t_bo5", ["🏆 Best of 5 at a Slam — the longer it goes, the more the better player takes over.",
-                                   f"🏆 Five sets gives {them} nowhere to hide. Better player wins these."]))
-    out.append(life_line(v, c, me, them, he, He, his))
-    if not c.get("odds"):
-        return [x for x in out if x]
-    book = round(100 / sd.decimal(c["odds"]))
-    pct = round(100 * c["p"])
-    bet = f"{me} {c['hcp']:+g} games" if c.get("market") == "spread" else f"{me} ML"
-    out.append(v.say("t_bottom", [f"✅ Bottom line: book says {book}%, we say {pct}%. We ride {bet} ({c['odds']:+d}).",
-                                  f"✅ Bottom line: book's got it at {book}% — the engine sees {pct}%. {bet} ({c['odds']:+d}). Trust the algorithm.",
-                                  f"✅ Bottom line: {pct}% for us, {book}% for the book. That's the value — {bet} ({c['odds']:+d}). Let's eat.",
-                                  f"✅ Bottom line: Vegas {book}%, us {pct}%. {bet} ({c['odds']:+d}) — tail it.",
-                                  f"✅ Bottom line: the book's at {book}%, we're at {pct}%. {bet} ({c['odds']:+d}). That gap is the money.",
-                                  f"✅ Bottom line: {pct}% vs the book's {book}%. {bet} ({c['odds']:+d}). We eat.",
-                                  f"✅ Bottom line: engine {pct}%, Vegas {book}%. {bet} ({c['odds']:+d}) — lock it in.",
-                                  f"✅ Bottom line: {book}% says the book, {pct}% says the algorithm. {bet} ({c['odds']:+d}). Trust it."], must=True))
+        out.append(roll("t_bo5", "🏆", T_BO5))
+    out.append(life_line(v, c, me, them, he, he.capitalize(), his))
+    if c.get("odds"):
+        bet = f"{me} {c['hcp']:+g} games" if c.get("market") == "spread" else f"{me} ML"
+        out.append(roll("t_bl", "✅", T_BOTTOM, must=True, bk=round(100 / sd.decimal(c["odds"])), bet=bet,
+                        od=f"{c['odds']:+d}"))
+    c["_vk"] = list(v.mine)
     return [x for x in out if x]
 
 
@@ -1511,7 +1647,8 @@ LEG_KEYS = ("id", "match", "side", "player", "opp", "tour", "odds", "p", "edge",
 
 
 def _leg(c, rt, used):
-    return {k: c.get(k) for k in LEG_KEYS} | {"result": None, "breakdown": breakdown(c, rt, used), "bv": TENNIS_BV}
+    bd = breakdown(c, rt, used)
+    return {k: c.get(k) for k in LEG_KEYS} | {"result": None, "breakdown": bd, "bv": TENNIS_BV, "vk": c.get("_vk") or []}
 
 
 ASK_PATH = "docs/sports/reads_tennis.json"
@@ -1529,6 +1666,7 @@ def reads(ms, rt, w, lines, picks, now, gm=None):
         for l in sl_.get("picks") or []:
             if l.get("bv") != TENNIS_BV and not l.get("result") and l["id"] in by_id:
                 l["breakdown"], l["bv"] = breakdown(by_id[l["id"]], rt, used), TENNIS_BV
+                l["vk"] = by_id[l["id"]].get("_vk") or []
     ours = {l["match"] for s in picks[-3:] for l in s.get("picks") or [] if not l.get("result")}
     by = {}
     for c in cands:

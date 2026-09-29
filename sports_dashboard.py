@@ -62,16 +62,6 @@ def _cap(x):
     return x[:1].upper() + x[1:]
 
 
-def _pick(key, options, used, k):
-    """A way to say it that nobody else in this list used yet (falls back to rotating when they're all taken)."""
-    for i in range(len(options)):
-        n = (k + i) % len(options)
-        if (key, n) not in used:
-            used.add((key, n))
-            return options[n]
-    return options[k % len(options)]
-
-
 def _live_story(e, used=None):
     """A live bet in plain talk and our lingo: the score + quarter when it went up, and how it played out.
     No two bets in the list share a phrase."""
@@ -90,38 +80,13 @@ def _live_story(e, used=None):
     n = int(per.group(1)) if per else 0
     unit = {"nhl": "period", "ncaab": "half", "mlb": "inning"}.get(lg, "quarter")
     w = f"in the {({1: '1st', 2: '2nd', 3: '3rd'}.get(n, f'{n}th'))} {unit}" if n else "mid-game"
-    k = sum(map(ord, e["team"] + str(e.get("odds"))))
     an, hn = _the(away, lg), _the(home, lg)
-    score = _pick("score", [f"{_cap(an)} had {a_s}, {hn} had {h_s} {w}.", f"It was {an} {a_s}, {hn} {h_s} {w}.",
-                            f"{_cap(an)} {a_s}, {hn} {h_s} {w}.", f"Score was {an} {a_s}, {hn} {h_s} {w}."], used, k)
     what = "come back" if mine < theirs else "hold on" if mine > theirs else "take it"
     res = e.get("result")
-    if res in ("won", "lost"):
-        thought = _pick("thought", [f"We thought {us} would {what}", f"We figured {us} would {what}", f"We said {us} would {what}",
-                                    f"We knew {us} could {what}"], used, k)
-    else:
-        thought = _pick("riding", [f"We're riding {us} to {what}", f"We like {us} to {what}", f"We got {us} to {what}",
-                                   f"We're on {us} to {what}", f"We backing {us} to {what}", f"We're with {us} to {what}",
-                                   f"We think {us} {'come back' if what == 'come back' else what}"], used, k)
     best = e.get("best_odds") or e.get("odds") or 0
-    if res == "won" and best >= (e.get("odds") or 0) + 40:        # the line ran long while it was up - and it cashed
-        end = _pick("won_ran", [f"the line ran all the way to +{best} and they still cashed. The algorithm was right — let's fucking go. 💰",
-                                f"books pushed it out to +{best} and we held. Cashed. Trust the algorithm. 💰",
-                                f"it got as long as +{best} and they got it done anyway. Told y'all. 💰"], used, k)
-    elif res == "won":
-        end = _pick("won", ["and they did. Cashed. 💰", "and they got it done. Told y'all. 💰", "and they smacked that ass. 💰",
-                            "and they came through. Trust the algorithm. 💰", "and they cashed. Fuck yeah. 💰"], used, k)
-    elif res == "lost":
-        end = _pick("lost", ["they shit the bed. Is what it is.", "they shit the bed. Bad call, our bad.",
-                             "they were booty cheeks. Is what it is.", "they fumbled the bag. Bad call, our bad.",
-                             "they never showed up. Bad call — next one's ours."], used, k)
-    else:
-        end = _pick("pending", ["we gon' see.", "they about to go to work. We gon' see.", "trust the algorithm. We gon' see.",
-                                "hammer time. We gon' see.", "they cooking soon. We gon' see.", "don't be a sheep. We gon' see.",
-                                "the book's sleeping. We gon' see.", "let's eat. We gon' see.", "we finna see.",
-                                "they about to cook. We finna see.", "trust the process. We finna see.",
-                                "hammer time. We finna see."], used, k)
-    return f"{score} {thought} — {end}"
+    ran = res == "won" and best >= (e.get("odds") or 0) + 40      # the line ran long while it was up - and it cashed
+    seed = f'{e.get("posted") or e.get("date")}|{e["team"]}|{e.get("odds")}'    # stable: same bet, same words
+    return sports_lingo.live_story(res, seed, used, ran=ran, an=an, a=a_s, hn=hn, h=h_s, w=w, us=us, what=what, best=best)
 
 
 def _live_icon(e):
@@ -145,23 +110,18 @@ def _tennis_live_story(e, used):
     sets = ", ".join("-".join(map(str, flip(x))) for x in t.get("done") or [])
     g = flip(t.get("games") or (0, 0))
     now_ = f"{g[0]}-{g[1]} in set {t.get('set_no') or 1}"
-    k = sum(map(ord, str(e.get("team")) + str(e.get("odds"))))
-    score = _pick("tn_score", [f"Sets {sets}, {now_} when it went up." if sets else f"{_cap(now_)} when it went up.",
-                               f"It was {sets + ', ' if sets else ''}{now_}." ,
-                               f"We got in at {sets + ', ' if sets else ''}{now_}."], used, k)
+    seed = f'{e.get("posted") or e.get("date")}|{e.get("team")}|{e.get("odds")}'
+    score = sports_lingo.say("tn:score", seed, used, at=f"{sets + ', ' if sets else ''}{now_}")
     dd = " We doubled down on our pregame pick" if e.get("double_down") else ""
     res = e.get("result")
     if res == "won":
-        end = _pick("tn_live_won", [f"{me} turned it around. Cashed. 💰", f"{me} got it done. Told y'all. 💰",
-                                    f"{me} came through — {he} was never out of it. 💰"], used, k)
+        end = sports_lingo.say("tn:won", seed, used, me=me, he=he, his="her" if he == "she" else "his")
     elif res == "lost":
-        end = _pick("tn_live_lost", [f"{me} couldn't close the gap. Is what it is.", f"{me} ran out of road. Our bad.",
-                                     f"{me} never found the turn. Next one's ours."], used, k)
+        end = sports_lingo.say("tn:lost", seed, used, me=me, his="her" if he == "she" else "his")
     elif res == "void":
         end = "Voided — no result, no harm."
     else:
-        end = _pick("tn_live_pend", [f"We like {me} from here — we gon' see.", f"Riding {me} from here. We finna see.",
-                                     f"{me}'s still swinging. We gon' see."], used, k)
+        end = sports_lingo.say("tn:pend", seed, used, me=me)
     return f"{score}{dd + '.' if dd else ''} {end}"
 
 
@@ -220,7 +180,7 @@ def _leg(leg, tagged=False):
     if leg.get("injury_alerts") and not res:            # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>' for a in leg["injury_alerts"][-3:])
     return f"""<div class="leg {res or ''}">
-  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}">{_time(leg["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}">{_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
   {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
@@ -319,7 +279,7 @@ def _tennis():
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "void": '<span class="lr push">VOID</span>'}
 
-    used = set()                                             # (every result line on the card is worded differently)
+    used, recaps = set(), {}                                 # (no 4-word run twice in the recaps on the card)
 
     def ours(l):
         """The score from OUR player's side (the feed lists player 1 first)."""
@@ -331,32 +291,31 @@ def _tennis():
         return sets
 
     def recap(l):
-        """The result, in our voice, on top of a graded pick's breakdown."""
-        k, who = sum(map(ord, l["id"])), l["player"].split()[-1]
+        """The result, in our voice, on top of a graded pick's breakdown (rolled by the pick's id: stable)."""
+        if l["id"] in recaps:
+            return recaps[l["id"]]
+        who = l["player"].split()[-1]
+        his = "her" if stn.tour_of(l) == "wta" else "his"
         sets = ours(l)
         sc = f" ({', '.join(f'{a}-{b}' for a, b in sets)})" if sets else ""
         won_sets = sum(int(a[:1]) > int(b[:1]) for a, b in sets)
         lost_match = bool(sets) and won_sets * 2 < len(sets)
+        out = ""
         if l.get("result") == "won" and l.get("market") == "spread" and lost_match:
-            return _pick("tn_cover", [f"💰 {who} dropped the match{sc} but kept it close — the {l['hcp']:+g} games cashed.",
-                                     f"💰 Lost the match{sc}, won us the bet — {who} stayed inside {l['hcp']:+g} games.",
-                                     f"💰 {who} took the L{sc} but covered the {l['hcp']:+g}. That's why we took the games."], used, k)
-        if l.get("result") == "won":
-            return _pick("tn_won", [f"💰 {who} got it done{sc}. Cashed.", f"💰 {who} handled business{sc}. Told y'all.",
-                                   f"💰 {who} came through{sc}. Trust the algorithm.", f"💰 Cashed — {who} went to work{sc}.",
-                                   f"💰 {who} smacked that{sc}. Easy money."], used, k)
-        if l.get("result") == "lost":
-            return _pick("tn_lost", [f"😤 {who} shit the bed{sc}. Is what it is.", f"😤 {who} fumbled it{sc}. Bad call, our bad.",
-                                    f"😤 {who} never showed up{sc}. Next one's ours.", f"😤 {who} was booty cheeks today{sc}. Our bad.",
-                                    f"😤 That one's on us — {who} folded{sc}. We don't hide nothing."], used, k)
-        if l.get("result") == "void":
-            return "🤷 Voided — no result, no harm."
-        return ""
+            out = sports_lingo.say("rc:cover", l["id"], used, who=who, sc=sc, hcp=f"{l['hcp']:+g}")
+        elif l.get("result") == "won":
+            out = sports_lingo.say("rc:won", l["id"], used, who=who, sc=sc, his=his)
+        elif l.get("result") == "lost":
+            out = sports_lingo.say("rc:lost", l["id"], used, who=who, sc=sc, his=his)
+        elif l.get("result") == "void":
+            out = "🤷 Voided — no result, no harm."
+        recaps[l["id"]] = out
+        return out
 
     def row(l):
         bd = "".join(f"<p>{E(x)}</p>" for x in ([recap(l)] if recap(l) else []) + list(l.get("breakdown") or []))
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}">{_time(l["start"])}</span>')}</div>
+  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or (f'<span class="tm dly">⏳ DELAYED</span>' if _delayed(l) else f'<span class="tm" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}">{_time(l["start"])}</span>')}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
@@ -436,9 +395,17 @@ def _history(picks):
                        f'<span class="hp">{E(x[2])}<small>{E(x[3])}</small>'
                        f'{f"<em>{E(x[4])}</em>" if len(x) > 4 and x[4] else ""}</span></div>' for x in items)
 
-    used = set()                                             # every review on the page worded differently
+    # every review is rolled from its own pick (seeded by date + pick: the same words every run), and they're all
+    # written oldest first against ONE set of 4-word runs - so nothing repeats anywhere in the section, and a new
+    # pick never rewords the older ones.
+    todo = []
     BIG = {"nfl": 14, "ncaaf": 14, "nba": 15, "ncaab": 15, "mlb": 5, "nhl": 3}
     CLOSE = {"nfl": 3, "ncaaf": 3, "nba": 4, "ncaab": 4, "mlb": 1, "nhl": 1}
+
+    def later(date, seed, kind, r, lean=False, **kw):
+        cell = {"key": (date or "", seed), "args": (kind, r, f"{date}|{seed}"), "lean": lean, "kw": kw, "text": ""}
+        todo.append(cell)
+        return cell
 
     def margin(score, team):
         m_ = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", score or "")
@@ -447,19 +414,21 @@ def _history(picks):
         a, x, b, y = m_.group(1), int(m_.group(2)), m_.group(3), int(m_.group(4))
         return x - y if a == team else y - x if b == team else None
 
-    def rev_leg(l, r, p=None, seed=""):
-        """The review for one game pick: blowout / close / confident-and-folded / fav / dog / spread - what happened."""
+    def rev_leg(l, r, date, p=None, lean=False):
+        """The review for one game pick: blowout / close / confident-and-folded / fav / dog / spread / total."""
         lg, mg = l.get("league"), margin(l.get("score"), l.get("team"))
         t_, o_ = _the(l["team"], lg), _the(l.get("opp", "them"), lg)
         kind = "spread" if l.get("market") == "spread" else "dog" if (l.get("odds") or 0) > 0 else "fav"
-        if mg is not None and abs(mg) >= BIG.get(lg, 99) and (mg > 0) == (r == "won"):
+        x = f'{l["line"]:+g}' if l.get("line") is not None else ""
+        if l.get("market") == "total":
+            kind, t_, x = "total", f'{"Over" if l.get("side") == "over" else "Under"} {l.get("line"):g}', f'{l.get("line"):g}'
+        elif mg is not None and abs(mg) >= BIG.get(lg, 99) and (mg > 0) == (r == "won"):
             kind = "big"
         elif mg is not None and abs(mg) <= CLOSE.get(lg, 0) and kind != "spread":
             kind = "close"
         elif r == "lost" and (p or l.get("p") or 0) >= 0.6:
             kind = "conf"
-        x = f'{l["line"]:+g}' if l.get("line") is not None else ""
-        return sports_lingo.review(kind, r, seed or f'{l.get("game_id")}{l.get("side")}', used, t=t_, o=o_, x=x)
+        return later(date, f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}', kind, r, lean, t=t_, o=o_, x=x)
 
     def box(title, items):
         if not items:
@@ -485,29 +454,31 @@ def _history(picks):
         l = e["l"]
         by.setdefault(l["league"], []).append(
             (e["date"], l["result"], f'{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
-             + (f' · {l["score"]}' if l.get("score") else ""), rev_leg(l, l["result"])))
-    out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', by.get(lg, [])) for lg in sd.LEAGUES)
+             + (f' · {l["score"]}' if l.get("score") else ""), rev_leg(l, l["result"], e["date"])))
     # the parlays, as tickets
     tix = [(p["date"], p["status"], f'{kinds.get(p["kind"], p["kind"])} ({_am(p["american"])})',
             " · " + ", ".join(bet(l) + ("" if l.get("result") in (None, "won") else " ❌") for l in p["legs"]),
-            sports_lingo.review("parlay", p["status"], p["date"] + p["kind"], used,
-                                x=" and ".join(_the(l["team"], l["league"]) for l in p["legs"] if l.get("result") == "lost")))
+            later(p["date"], p["kind"], "parlay", p["status"],
+                  x=" and ".join(bet(l) if l.get("market") == "total" else _the(l["team"], l["league"])
+                                 for l in p["legs"] if l.get("result") == "lost")))
            for p in picks if not p.get("lean") and len(p["legs"]) > 1 and p["status"] in ("won", "lost")]
-    out += box("🎟️ Parlays", tix)
     # their own records
     lean = [(p["date"], p["status"], f'{bet(p["legs"][0])} ({_am(p["legs"][0]["odds"])})',
              f' · {sd.LEAGUES.get(p["legs"][0]["league"], ("", "", ""))[2]}'
-             + (f' · {p["legs"][0]["score"]}' if p["legs"][0].get("score") else ""), rev_leg(p["legs"][0], p["status"]))
+             + (f' · {p["legs"][0]["score"]}' if p["legs"][0].get("score") else ""),
+             rev_leg(p["legs"][0], p["status"], p["date"], lean=True))              # a lean: no hype, win or lose
             for p in picks if p.get("lean") and p["status"] in ("won", "lost") and p.get("legs")]
     live = ((_jl(os.path.join(sd.DATA, "live_log.json"), {}) or {}).get("plays") or {}).values()
+
     def rev_live(e):
         mg = margin(e.get("score_at_post"), e.get("team"))
         lg = e.get("league")
         opp = e.get("opp") or next((x for x in re.split(r" \d+ @ | \d+$", e.get("score_at_post") or "") if x and x != e.get("team")), "them")
-        return sports_lingo.review("live_up" if mg is not None and mg > 0 else "live_back", e["result"],
-                                   f'{e.get("date")}{e.get("team")}', used,
-                                   t=_the(e.get("team", ""), lg) if lg in sd.LEAGUES else e.get("team", ""),
-                                   o=_the(opp, lg) if lg in sd.LEAGUES else opp)
+        pro = {"atp": ("him", "his"), "wta": ("her", "her")}.get(e.get("tour"), ("them", "their"))
+        return later(e.get("date", ""), f'live|{e.get("team")}|{e.get("posted")}',
+                     "live_up" if mg is not None and mg > 0 else "live_back", e["result"],
+                     t=_the(e.get("team", ""), lg) if lg in sd.LEAGUES else e.get("team", ""),
+                     o=_the(opp, lg) if lg in sd.LEAGUES else opp, pro=pro[0], pos=pro[1])
     lv = [(e.get("date", ""), e["result"], f'{e.get("team")} ML ({_am(e["odds"])})',
            f' · {sd.LEAGUES.get(e.get("league"), ("", "", "🎾 Tennis"))[2]}'
            + (f' · went up at {e["score_at_post"]} ({e.get("clock_at_post", "")})' if e.get("score_at_post") else ""),
@@ -525,13 +496,21 @@ def _history(picks):
                            for s_ in (l.get("score") or "").split(",") if s_.strip())
             b_ = f'{l["player"]} {l["hcp"]:+g} games' if l.get("market") == "spread" and l.get("hcp") is not None else f'{l["player"]} ML'
             tkind = "spread" if l.get("market") == "spread" else "dog" if (l.get("odds") or 0) > 0 else "fav"
-            trev = sports_lingo.review(tkind, l["result"], l["id"], used, t=l["player"].split()[-1],
-                                       o=(l.get("opp") or "them").split()[-1],
-                                       x=f'{l["hcp"]:+g} games' if l.get("hcp") is not None else "")
-            tn["wta" if l.get("tour") == "wta" else "atp"].append(
+            wta = l.get("tour") == "wta"
+            trev = later(sl["date"], l["id"], tkind, l["result"], t=l["player"].split()[-1],
+                         o=(l.get("opp") or "them").split()[-1], pro="her" if wta else "him", pos="her" if wta else "his",
+                         x=f'{l["hcp"]:+g} games' if l.get("hcp") is not None else "")
+            tn["wta" if wta else "atp"].append(
                 (sl["date"], l["result"], f'{b_} ({_am(l["odds"])})', f' · vs {l.get("opp", "")}' + (f" · {sc}" if sc else ""), trev))
-    own = (box("📡 Live plus money", lv) + box("🟡 Leans", lean) + box("🎾 Men's Tennis", tn["atp"])
-           + box("🎾 Women's Tennis", tn["wta"]))
+    used = set()                                             # one set of 4-word runs for the whole section
+    for c in sorted(todo, key=lambda c: c["key"]):
+        kind, r, seed = c["args"]
+        c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
+    done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
+    out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, []))) for lg in sd.LEAGUES)
+    out += box("🎟️ Parlays", done(tix))
+    own = (box("📡 Live plus money", done(lv)) + box("🟡 Leans", done(lean)) + box("🎾 Men's Tennis", done(tn["atp"]))
+           + box("🎾 Women's Tennis", done(tn["wta"])))
     if not out and not own:
         return ""
     return (f'<details class="hist"><summary>📜 PAST RESULTS <span>every pick, won or lost — tap a sport</span></summary>'
@@ -673,7 +652,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
     pending_ = '<span class="tm">⏳ still going</span>'
     used_ = set()                                            # no two bets in the list share a phrase
-    stories = {id(e): _live_story(e, used_) for e in lrows}
+    stories = {id(e): _live_story(e, used_) for e in sorted(lrows, key=lambda e: e["posted"])}   # oldest first: a new
+    #                                                        bet never rewords the ones already on the list
     try:                                                     # owning our mistakes, right on the bet itself
         with open(os.path.join(sd.DATA, "notes.json")) as f:
             owned = {n["live"]: n["text"] for n in json.load(f) if n.get("live")}
@@ -1044,7 +1024,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
-.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
+.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .fnb{{color:#9aa4b2;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.86em;color:#e8eef6;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
+.tsb{{display:grid;gap:2px 0;align-items:center;max-width:250px;margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.05);font-size:.95em}}
+.tsb .nm{{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .tsb .nm i{{display:inline-block;width:6px;height:6px;border-radius:50%;background:#d7ff3a;margin:0 5px 2px 0}}
+.tsb b{{text-align:center;font-weight:700;color:#cfd6df}} .tsb b.w{{color:#fff;font-weight:900}} .tsb b.l{{color:#7d8794;font-weight:600}}
+.tsb em{{font-style:normal;text-align:center;font-weight:900;color:#ff8a8a}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
 @keyframes lvp{{0%{{box-shadow:0 0 0 0 rgba(255,43,43,.9),0 0 6px 1px #ff2b2b}}70%{{box-shadow:0 0 0 9px rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}100%{{box-shadow:0 0 0 0 rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}}}
 .nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
 .tn{{margin:22px 0 6px;border:1px solid #c6f00066;border-radius:18px;background:linear-gradient(165deg,#c6f00014,var(--card))}}
@@ -1179,6 +1163,7 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
+ window.D503S=(d&&age<10*60000&&d.scores)||{{}};if(window.d503lt)window.d503lt();   // live scores next to our pending picks
  if(d&&(age<10*60000||(!(d.plays||[]).length&&!d.live_games&&age<45*60000)))draw(d);else draw(null);}}
 function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/live-data/live.json?t="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}});}}
 function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
@@ -1207,11 +1192,39 @@ function check(){{if(document.hidden)return;              // a newer page? swap 
        sessionStorage.setItem("d503y",String(window.scrollY));sessionStorage.setItem("d503r",String(Date.now()));}}catch(e){{}}
      location.replace(location.pathname+"?v="+x[1]);}}}})
  .catch(function(){{}});}}
-function liveTags(){{var n=Date.now();document.querySelectorAll(".tm[data-start]").forEach(function(s){{   // 🔴 LIVE while it's being played
+var API="{_ask_url().rstrip('/')}";          // 📡 scores straight from ESPN every second (our server), the live board as backup
+function fastScores(){{if(document.hidden||!API)return;var n=Date.now(),ids={{}};
+ document.querySelectorAll(".tm[data-gid]").forEach(function(s){{var st=Date.parse(s.getAttribute("data-start")),g=s.getAttribute("data-gid");
+  if(g&&st&&n>=st-60000&&n<st+8*3600000)ids[g]=1}});
+ var k=Object.keys(ids);if(!k.length)return;
+ fetch(API+"/scores?ids="+encodeURIComponent(k.join(",")),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}})
+ .then(function(d){{if(d){{window.D503F=d;window.D503Ft=Date.now();liveTags()}}}}).catch(function(){{}});}}
+function flip(sc){{return {{tennis:true,n:[sc.n[1],sc.n[0]],sets:(sc.sets||[]).map(function(x){{return [x[1],x[0]]}}),
+  pts:sc.pts?[sc.pts[1],sc.pts[0]]:null,srv:sc.srv===0?1:sc.srv===1?0:null,done:sc.done,live:sc.live}}}}
+function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D503Ft||0)<15000&&window.D503F)||{{}};
+ Object.keys(W).forEach(function(k){{S[k]=W[k]}});Object.keys(F).forEach(function(k){{S[k]=F[k]}});   // the freshest wins
+ document.querySelectorAll(".tm[data-start]").forEach(function(s){{
+  // 🔴 LIVE while it's being played, with the score + time left right under it (tennis: sets, games, points)
   var st=Date.parse(s.getAttribute("data-start"));if(!st)return;
-  if(n>=st&&n<st+6*3600000){{if(!s.dataset.lv){{s.dataset.lv=s.innerHTML;s.innerHTML='<span class="lvb"><i></i>LIVE</span>'}}}}
-  else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}}})}}
-liveTags();setInterval(liveTags,15000);
+  var sc=S[s.getAttribute("data-gid")||""];if(sc&&sc.p1&&s.getAttribute("data-side")==="2")sc=flip(sc);   // our player first
+  var row=s.closest(".lt"),box=row&&row.nextElementSibling&&row.nextElementSibling.classList.contains("lsc")?row.nextElementSibling:null;
+  var on=sc?true:(n>=st&&n<st+6*3600000);
+  if(on){{if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
+    var tag=sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';if(s.innerHTML!==tag)s.innerHTML=tag;}}
+  else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}
+  if(sc&&on&&row){{var q=function(x){{return String(x).replace(/[&<>"]/g,"")}},h;
+    if(!box){{box=document.createElement("div");box.className="lsc";row.parentNode.insertBefore(box,row.nextSibling)}}
+    if(sc.tennis){{var n=(sc.sets||[]).length,cols="1fr repeat("+n+",1.5em)"+(sc.pts?" 2.4em":"");   // 🎾 a TV-style scoreboard
+      h='<div class="tsb" style="grid-template-columns:'+cols+'">'+[0,1].map(function(i){{
+        return '<span class="nm">'+(sc.live&&sc.srv===i?'<i></i>':'')+q(sc.n[i])+'</span>'+(sc.sets||[]).map(function(st,k){{
+          var won=k<sc.done&&st[i]>st[1-i];return '<b'+(won?' class="w"':k<sc.done?' class="l"':'')+'>'+st[i]+'</b>'}}).join("")+
+          (sc.pts?'<em>'+q(sc.pts[i])+'</em>':'')}}).join("")+'</div>';}}
+    else{{var c=sc.clock&&sc.clock!=="Final"?sc.clock:"";
+      h='<b>'+q(sc.away+" "+sc.a+" @ "+sc.home+" "+sc.h)+'</b>'+(c?' <span>· '+q(c)+'</span>':'');}}
+    if(box.innerHTML!==h)box.innerHTML=h;}}
+  else if(box)box.remove();}})}}
+window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
+document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,60000);document.addEventListener("visibilitychange",check);}})();
 </script><script>
 (function(){{   // 🤔 ASK THE ENGINE: the engine's read on any game, from reads.json (not our picks, never in the record)
