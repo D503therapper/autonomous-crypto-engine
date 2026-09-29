@@ -1026,10 +1026,14 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
     _grade_tennis_csv(log, time.time())
     pre = stl.load_prematch()
     ours = stl.our_picks()
+    live_pending = {e.get("match") for e in log["plays"].values() if e.get("league") == "tennis" and e.get("result") is None}
+    grade_tennis(log, rows)                                  # (graded here first, so the page rebuild has the result)
     TENNIS.update(watching=len(live), priced=0, stale=0, suspended=0)
     for m in rows:                                           # sets + games next to our pending tennis picks
         try:
             state = stn._state(m)
+            if m["id"] in live_pending and state in ("final", "retired", "void"):
+                FINALS.add(f"tennis:{m['id']}")                 # a live bet's match is over: its review goes up now
             if m["id"] in ours and state in ("final", "retired", "void"):
                 FINALS.add(f"tennis:{m['id']}")                 # one of our matches is over: grade it right now
             if state == "live" or (state != "pre" and m["id"] in ours):
@@ -1230,17 +1234,24 @@ def _data(reload=False):
     return _DATA["games"], _DATA["model"]
 
 
+def _live_days():
+    import sports_dashboard as sdb
+    return sdb.live_days(datetime.now(PT))
+
+
 def today_bets(log):
     """Today's live bets (pending ones too) for the page's LIVE PLUS MONEY TODAY list - it adds any the built page
     doesn't have yet, so a bet shows the moment it's logged, not at the next page rebuild. Newest last."""
-    day = datetime.now(PT).date().isoformat()
+    import sports_dashboard as sdb
+    days = sdb.live_days(datetime.now(PT))                   # (till the next board drops at 8 AM PT)
     out = []
     for pid, e in sorted(log.get("plays", {}).items(), key=lambda kv: kv[1].get("posted", "")):
-        if e.get("date") != day:
+        if e.get("date") not in days:
             continue
         lg = e.get("league", "")
         tennis = lg == "tennis"
         out.append({"pid": pid, "team": e.get("team", ""), "odds": e.get("odds"), "result": e.get("result"),
+                    "start": e.get("posted", ""),
                     "icon": "🎾" if tennis else sd.LEAGUES.get(lg, ("", "", "", "🏟️"))[3],
                     "sport": ("Women's Tennis" if e.get("tour") == "wta" else "Men's Tennis") if tennis
                     else sd.LEAGUES.get(lg, ("", "", lg.upper()))[2], "dd": bool(e.get("double_down"))})
@@ -1261,7 +1272,7 @@ def run():
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log),
            "live_games": WATCHING[0] + TENNIS["watching"], "tennis": dict(TENNIS), "scores": dict(SCORES),
            "done": {pid: e["result"] for pid, e in log["plays"].items()          # today's graded live bets: a page
-                    if e.get("date") == datetime.now(PT).date().isoformat() and e.get("result")},   # still showing one
+                    if e.get("date") in _live_days() and e.get("result")},   # still showing one
                                                                                                       # pending refreshes
            "today": today_bets(log),
            "health": health,

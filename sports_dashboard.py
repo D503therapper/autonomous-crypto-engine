@@ -69,6 +69,11 @@ def _live_story(e, used=None):
     No two bets in the list share a phrase."""
     used = set() if used is None else used
     lg = e.get("league", "")
+    if e.get("result") is None:                              # still going: just the hold - a score from when it went
+        import sports_tennis as stn                          # up reads wrong minutes later (the owner, 9/29)
+        me = stn._say_name(e.get("team")) if lg == "tennis" else _the(e.get("team", ""), lg)
+        seed = f'{e.get("posted") or e.get("date")}|{e.get("team")}|{e.get("odds")}'
+        return _cap(sports_lingo.say("lv:hold", seed, used, me=me or "our pick"))
     if lg == "tennis":
         return _tennis_live_story(e, used)
     m = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", str(e.get("score_at_post") or ""))
@@ -89,6 +94,16 @@ def _live_story(e, used=None):
     ran = res == "won" and best >= (e.get("odds") or 0) + 40      # the line ran long while it was up - and it cashed
     seed = f'{e.get("posted") or e.get("date")}|{e["team"]}|{e.get("odds")}'    # stable: same bet, same words
     return sports_lingo.live_story(res, seed, used, ran=ran, an=an, a=a_s, hn=hn, h=h_s, w=w, us=us, what=what, best=best)
+
+
+LIVE_KEEP_HOUR_PT = 8         # a day's live bets (cashed, lost or still going) stay on the list till the next board
+                              # drops at 8 AM PT - then they live on in PAST RESULTS (the owner, 9/29)
+
+
+def live_days(now_pt):
+    """The dates whose live bets are on the LIVE PLUS MONEY TODAY list right now."""
+    d = now_pt.date()
+    return {d.isoformat()} | ({(d - timedelta(days=1)).isoformat()} if now_pt.hour < LIVE_KEEP_HOUR_PT else set())
 
 
 def _live_icon(e):
@@ -788,10 +803,15 @@ def render(picks, model, games, series, start_bank, updated_ms):
         pass
     live = live.get("plays", {})
     # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
-    days_ = {today}
+    days_ = live_days(now)
     lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)   # every one today - the list always matches the record
     badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
-    pending_ = '<span class="tm">⏳ still going</span>'
+    def pending_(pid, e):                                    # still going: the live score shows right under it
+        gid, side = pid.rsplit(":", 1) if pid.count(":") >= 2 else (pid, "")
+        start = str(e.get("posted") or "")
+        start = start if start.endswith("Z") and "T" in start else ""
+        return (f'<span class="tm" data-gid="{E(gid)}" data-start="{E(start)}" data-side="{E(side)}">⏳ still going</span>'
+                if start else '<span class="tm">⏳ still going</span>')
     used_ = set()                                            # no two bets in the list share a phrase
     stories = {id(e): _live_story(e, used_) for e in sorted(lrows, key=lambda e: e["posted"])}   # oldest first: a new
     #                                                        bet never rewords the ones already on the list
@@ -806,15 +826,16 @@ def render(picks, model, games, series, start_bank, updated_ms):
                  '<span class="pk-l">LIVE PLUS MONEY TODAY</span></div>' + "".join(
                      f'<div class="leg {e.get("result") or ""}" data-pid="{E(pid_of.get(id(e), ""))}"><div class="lt"><span class="lgb">{_live_icon(e)} '
                      f'{E(_live_sport(e))}{" · 🔁 DOUBLE DOWN" if e.get("double_down") else ""}</span>'
-                     f'{badge_.get(e.get("result"), pending_)}</div>'
+                     f'{badge_.get(e.get("result")) or pending_(pid_of.get(id(e), ""), e)}</div>'
                      f'<div class="lm"><span class="pick">{E(e["team"])} <em>ML</em></span><span class="od">{_am(e["odds"])}</span></div>'
                      f'<div class="ls">{E(stories[id(e)])}</div>'
                      f'{"<div class=own>" + E(owned[pid_of[id(e)]]) + "</div>" if pid_of.get(id(e)) in owned else ""}</div>'
                      for e in lrows) + "</section>")
     # the engine's grades: locks, value, leans and live - each graded on its own, never lumped into one number
-    def grade(name, c1, c2, rows, today_rows):
+    def grade(name, c1, c2, rows, today_rows, hs=""):
         w_, l_ = sum(r == "won" for r in rows), sum(r == "lost" for r in rows)
-        return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_} won · {l_} lost</div>'
+        tap = f' tap" data-hs="{E(hs)}' if hs and w_ + l_ else ""                  # tap: its past games open right here
+        return (f'<div class="rc gr{tap}" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_} won · {l_} lost</div>'
                 f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%}" if w_ + l_ else "no results yet"}</div></div>')
     # every PICK we posted, graded once (a parlay's picks each count on their own - no parlay record, the owner 9/28;
     # a team we're on twice the same day counts once), by its label: lock / value / lean (leans count from 9/29 on)
@@ -882,10 +903,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
     def tn_box(name, t):
         rows_ = tn_rows[t]
         pw, pl_ = tn_rec[t]["p_won"], tn_rec[t]["p_lost"]
-        return grade(name, "#c6f000", "#1fd17a", [r for r, _ in rows_], [r for r, dd in rows_ if dd == today])   # (no parlay
+        return grade(name, "#c6f000", "#1fd17a", [r for r, _ in rows_], [r for r, dd in rows_ if dd == today],
+                     hs="🎾 Men's Tennis" if t == "atp" else "🎾 Women's Tennis")   # (no parlay
         #                                                        record - the owner, 9/28)
-    others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
-              + (grade("🟡 OLD LEANS (before 9/29)", "#ffc233", "#e8c77a", [p["status"] for p in leans_], []) if leans_ else "")
+    others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today],
+                    hs="📡 Live plus money")
+              + (grade("🟡 OLD LEANS (before 9/29)", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [], hs="🟡 Leans") if leans_ else "")
               + tn_box("🎾 MEN'S TENNIS", "atp") + tn_box("🎾 WOMEN'S TENNIS", "wta"))
     for t, label in (("atp", "men's tennis"), ("wta", "women's tennis")):
         RECORDS[f"{label} (own record, not ours)"] = wlt(sum(r == 'won' for r, _ in tn_rows[t]), sum(r == 'lost' for r, _ in tn_rows[t]))
@@ -1189,7 +1212,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tn summary{{list-style:none;cursor:pointer;padding:24px 20px;display:flex;flex-direction:column;gap:8px}}
 .tn summary::-webkit-details-marker{{display:none}}
 .tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:22px}} .tn-s{{font-size:15px;color:#fff;font-weight:700}}
-.spc.tap{{cursor:pointer}} .spc em{{font-style:normal;color:#9fb0c8;font-size:12px;margin-left:8px}}
+.spc.tap{{cursor:pointer}} .spc.on{{border-color:#22d3ee}}
+.rc.tap{{cursor:pointer}} .rc.on{{outline:1px solid #22d3ee}}
+.spx{{grid-column:1/-1;text-align:left;background:var(--card2);border:1px solid #22d3ee55;border-radius:12px;padding:6px 10px;margin:-2px 0 4px}} .spc em{{font-style:normal;color:#9fb0c8;font-size:12px;margin-left:8px}}
 .tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}}
 .tn-day{{font-size:11px;font-weight:900;letter-spacing:.12em;color:#c6f000;margin:10px 0 -2px}}
 .chip.lean{{background:#ffc233;color:#111;margin-right:6px}} .chip.val{{background:#ff5a1f;color:#fff;margin-right:6px}}
@@ -1292,7 +1317,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="recs grades">{others}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
-  {hist}
+  <div hidden>{hist}</div>
 </section>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
 {brain}
@@ -1318,14 +1343,18 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    '<div class="ls">'+esc(p.score)+(p.ball?' · '+esc(p.ball):'')+'</div><div class="why">'+esc(p.line)+'</div>'+
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
+function badge(r){{return r==="won"?'<span class="lr won">✅ CASHED</span>':r==="lost"?'<span class="lr lost">❌ LOST</span>':""}}
 function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return;   // today's live bets, pending too: straight
- T.forEach(function(e){{if(el.querySelector('.leg[data-pid="'+e.pid+'"]'))return;   // from the watcher, no page rebuild needed
+ T.forEach(function(e){{var have=el.querySelector('.leg[data-pid="'+e.pid+'"]');       // from the watcher, no page rebuild needed
+  if(have){{if(e.result&&!have.classList.contains(e.result)){{have.className="leg "+e.result;   // graded: CASHED / LOST now
+    var t=have.querySelector(".lt>.tm,.lt>.lr");if(t)t.outerHTML=badge(e.result);var sc=have.querySelector(":scope>.lsc");if(sc)sc.remove();}}
+   return}}
   var sec=el.querySelector("section");
   if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY TODAY</span></div></section>';sec=el.querySelector("section");}}
-  var b=e.result==="won"?'<span class="lr won">✅ CASHED</span>':e.result==="lost"?'<span class="lr lost">❌ LOST</span>':'<span class="tm">⏳ still going</span>';
+  var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ still going</span>';
   var h=document.createElement("div");h.className="leg "+(e.result||"");h.setAttribute("data-pid",e.pid);
   h.innerHTML='<div class="lt"><span class="lgb">'+esc(e.icon)+' '+esc(e.sport)+(e.dd?' · 🔁 DOUBLE DOWN':'')+'</span>'+b+'</div><div class="lm"><span class="pick">'+esc(e.team)+' <em>ML</em></span><span class="od">+'+esc(e.odds)+'</span></div>';
-  var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});}}   // newest on top
+  var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});if(window.d503lt)window.d503lt();}}   // newest on top
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
  if(d&&age<6*3600000)today(d.today);
  if(d&&(d.plays||[]).length&&age>PLAY_FRESH_MS)d=Object.assign({{}},d,{{plays:[],live_games:-1}});   // a price we haven't re-checked in 45s never shows
@@ -1404,10 +1433,14 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
       h='<b>'+q(sc.away+" "+sc.a+" @ "+sc.home+" "+sc.h)+'</b>'+(c?' <span>· '+q(c)+'</span>':'');}}
     if(box.innerHTML!==h)box.innerHTML=h;}}
   else if(box)box.remove();}})}}
-document.addEventListener("click",function(ev){{var c=ev.target.closest&&ev.target.closest(".spc.tap");if(!c)return;
+document.addEventListener("click",function(ev){{var c=ev.target.closest&&ev.target.closest("[data-hs].tap");if(!c)return;
  var want=c.getAttribute("data-hs"),hit=null;document.querySelectorAll("details.hs>summary>b").forEach(function(b){{if(b.textContent===want)hit=b.closest("details")}});
- if(!hit)return;for(var d=hit;d;d=d.parentElement&&d.parentElement.closest("details"))d.open=true;   // open it + what it's in
- hit.scrollIntoView({{behavior:"smooth",block:"start"}});}});
+ if(!hit)return;var nx=c.nextElementSibling,was=nx&&nx.classList.contains("spx");   // the results open right under
+ document.querySelectorAll(".spx").forEach(function(x){{x.remove()}});                        // the chip - no jumping down
+ document.querySelectorAll("[data-hs].on").forEach(function(x){{x.classList.remove("on")}});
+ if(was)return;                                                                               // (tap again: closed)
+ var pn=document.createElement("div");pn.className="spx";var sm=hit.querySelector(":scope>summary");
+ pn.innerHTML=hit.innerHTML.replace(sm?sm.outerHTML:"","");c.classList.add("on");c.parentNode.insertBefore(pn,c.nextSibling);}});
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();

@@ -344,10 +344,16 @@ def test_full_cycle_offline():
     try:
         os.chdir(tmp)
         games, _ = fake_league("nhl", days=200)
-        now = datetime.now(timezone.utc)
-        today = now.astimezone(sports.PT).replace(hour=19, minute=0).astimezone(timezone.utc)
-        if today < now + timedelta(minutes=30):
-            today = now + timedelta(hours=1)
+        noon = datetime.now(timezone.utc).astimezone(sports.PT).replace(hour=12, minute=0, second=0, microsecond=0)
+        now = noon.astimezone(timezone.utc)                 # (pinned to noon PT: after 11pm the games would be
+        today = noon.replace(hour=19).astimezone(timezone.utc)   # tomorrow's, and picks only post on game day)
+
+        class _Noon(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return now if tz else now.replace(tzinfo=None)
+        keep_dt = sports.datetime
+        sports.datetime = _Noon
         for i in range(6):
             gid = f"nhl:up{i}"
             games[gid] = {**games["nhl:1"], "id": gid, "status": "pre", "home": str(2 * i), "away": str(2 * i + 1),
@@ -355,7 +361,10 @@ def test_full_cycle_offline():
                           "ml_home": str([-140, 120, -110, 160, 250, -125][i]), "ml_away": str([120, -140, -110, -190, -320, 105][i])}
         sd.save_games(games)
         sd.fetch_injuries = lambda lg: {}
-        picks = sports.run(fetch=False)
+        try:
+            picks = sports.run(fetch=False)
+        finally:
+            sports.datetime = keep_dt
         kinds = {p["kind"] for p in picks}
         assert kinds, "the fake slate has at least one real play"
         assert all(sports.good(l) for p in picks for l in p["legs"]), "every posted leg is a real play"
@@ -1280,7 +1289,7 @@ def test_dashboard_tennis_records():
         assert titles and all(re.search(r"\d-LEG (LEAN )?PARLAY", x) for x in titles), titles
         assert "parlays: men's" not in html and "parlays 0-" not in html, "no parlay records anywhere"
         assert "🎾 Men&#x27;s Tennis · 🔁 DOUBLE DOWN" in html and "4-6, 2-2 in set 2" in html, "the live list: 🎾 and the set/game score"
-        assert html.count("class=\"rc gr\"") >= 6
+        assert html.count("class=\"rc gr") >= 6
         _check_js(html)
     finally:
         sd.DATA = keep
@@ -2946,7 +2955,7 @@ def test_live_bets_today_never_lost():
     t = slv.today_bets({"plays": {"tennis:wta:1:2": {"team": "Andrea Lazaro Garcia", "odds": 125, "date": day, "league": "tennis",
                                                      "tour": "wta", "posted": "x", "result": None},
                                   "nfl:9:home": {"team": "Bears", "odds": 120, "date": "2020-01-01", "league": "nfl"}}})
-    assert t == [{"pid": "tennis:wta:1:2", "team": "Andrea Lazaro Garcia", "odds": 125, "result": None, "icon": "🎾",
+    assert t == [{"pid": "tennis:wta:1:2", "team": "Andrea Lazaro Garcia", "odds": 125, "result": None, "start": "x", "icon": "🎾",
                   "sport": "Women's Tennis", "dd": False}]
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert src.index('<div id="livetoday">') < src.index("TODAY'S BOARD")      # right under the live box
@@ -2961,6 +2970,38 @@ def test_scores_never_go_backwards():
     assert "window.D503B" in open(os.path.join(here, "sports_dashboard.py")).read()
     import sports_live as slv
     assert slv._games({"sets": [[6, 2], [1, 3]]}) == 12
+
+
+def test_pending_live_bet_just_holds():
+    """9/29: a pending live bet said '6-6 in set 1 at post' while the match had moved way on - a pending one never talks
+    score or how it's going, just the hold. The score story waits for the grade."""
+    import re, sports_dashboard as sdb
+    used = set()
+    for e in ({"league": "tennis", "team": "Elvina Kalieva", "odds": 125, "posted": "a", "tour": "wta",
+               "tennis": {"games": [6, 6], "set_no": 1}, "result": None},
+              {"league": "nfl", "team": "Bears", "odds": 120, "posted": "c", "score_at_post": "Eagles 0 @ Bears 7",
+               "clock_at_post": "Q2", "side": "home", "result": None}):
+        line = sdb._live_story(e, used)
+        assert line and not re.search(r"\d", line) and "set" not in line.lower() and "quarter" not in line.lower(), line
+    graded = sdb._live_story({"league": "nfl", "team": "Bears", "odds": 120, "posted": "d", "score_at_post": "Eagles 0 @ Bears 7",
+                              "clock_at_post": "Q2", "side": "home", "result": "won"}, used)
+    assert re.search(r"\d", graded)                        # graded: the full story
+
+
+def test_live_bets_list_stays_till_the_board_drops_and_sport_chips_open_in_place():
+    """The owner, 9/29: live bets (cashed, lost or pending) stay on the list till the 8 AM PT drop, then they're in
+    PAST RESULTS; a pending one shows its live score; a sport chip opens its past bets right under it."""
+    import sports_dashboard as sdb
+    from datetime import datetime
+    late = datetime(2026, 9, 28, 23, 30, tzinfo=sdb.PT)
+    early = datetime(2026, 9, 29, 7, 30, tzinfo=sdb.PT)
+    after = datetime(2026, 9, 29, 8, 5, tzinfo=sdb.PT)
+    assert sdb.live_days(late) == {"2026-09-28"}
+    assert sdb.live_days(early) == {"2026-09-28", "2026-09-29"}
+    assert sdb.live_days(after) == {"2026-09-29"}
+    src = open(sdb.__file__).read()
+    assert 'data-gid="{E(gid)}" data-start="{E(start)}"' in src      # the live score under a pending live bet
+    assert 'pn.className="spx"' in src and "scrollIntoView" not in src.split('closest("[data-hs].tap")')[1][:900]
 
 
 if __name__ == "__main__":

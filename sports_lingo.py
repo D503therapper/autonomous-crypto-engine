@@ -737,6 +737,18 @@ LINES = {
         '{me} fell short. [It happens|Our bad].',
         'Wrong read on {me}. [We own it|Our bad].',
     )),
+    "lv:hold": ((34, 2), False, T(      # a live bet still going: no score, no read on how it's going - just the hold
+        "Locked in on {me}. We [gon'|finna] see.",
+        "[Riding|Rolling|Sticking] with {me} till it's done.",
+        "Ticket's in on {me}. We [gon'|finna] see how it lands.",
+        "We on {me}. Holding till the end.",
+        "{me} is the call. We ride it out.",
+        "Still riding {me}. We [gon'|finna] see.",
+        "Bet's in on {me}. We [gon'|finna] see.",
+        "With {me} all the way. We [gon'|finna] see.",
+        "{me} it is. Holding [tight|steady] till it's over.",
+        "No moves, just {me}. We [gon'|finna] see.",
+    )),
     "tn:pend": ((34, 2), False, T(
         "We like {me} from here — we [gon'|finna] see.",
         "[Riding|Rolling|Sticking] with {me}. We [gon'|finna] see.",
