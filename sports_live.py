@@ -1283,6 +1283,7 @@ def queue_next():
     return r.returncode == 0
 
 
+REGRADE_S = 20 * 60   # after a game ends: re-grade every 2 min for this long (the results feed lags the live one)
 STAY_MIN = 120     # a game within 2 hours keeps the watch up (idling) - it never shuts off right before kickoff again
 
 
@@ -1293,7 +1294,7 @@ def loop(minutes, every_s=1):
     code = _code_hash()
     queued = False
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
-    last_pull, last_scores = 0.0, None
+    last_pull, last_scores, last_grade, regrade_until = 0.0, None, 0.0, 0.0
     finals_seen = None
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
     _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
@@ -1319,7 +1320,8 @@ def loop(minutes, every_s=1):
             queued = queue_next()
         if not any_live_soon(games, STAY_MIN):
             idle_since = idle_since or time.time()
-            if not started or time.time() - idle_since > 5 * 60:        # nothing on: don't burn the clock
+            if (not started or time.time() - idle_since > 5 * 60) and time.time() >= regrade_until:   # nothing on (and
+                #                                              nothing left to grade): don't burn the clock
                 print("live: nothing on - resting")
                 break
         else:
@@ -1348,12 +1350,17 @@ def loop(minutes, every_s=1):
             publish(f"live log {datetime.now(timezone.utc):%H:%M}")
             last_log = _log_key()
         if finals_seen is None:                                   # a watch starts: grade whatever ended meanwhile
-            finals_seen = set(FINALS)
-            grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}")
+            if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):
+                finals_seen, last_grade = set(FINALS), time.time()
         elif FINALS - finals_seen:                                # a game just ended: grade it and post results now
             print(f"{datetime.now(timezone.utc):%H:%M:%S} games ended: grading", flush=True)
-            finals_seen = set(FINALS)
-            grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}")
+            if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):   # (busy? it stays queued)
+                finals_seen, last_grade, regrade_until = set(FINALS), time.time(), time.time() + REGRADE_S
+        elif time.time() < regrade_until and time.time() - last_grade > 120 and not grading():
+            # the results feed can lag the live feed by a few minutes: keep grading every 2 min for 20 min after a
+            # game ends, so a pick never sits ungraded (the owner, 9/28: graded right away)
+            if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):
+                last_grade = time.time()
         time.sleep(max(0.2, every_s - (time.time() - t0)))    # as tight as the feeds allow: a fresh look every second
     if grading():                                                 # let a background grade finish before the job ends
         try:
