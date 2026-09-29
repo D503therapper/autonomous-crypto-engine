@@ -983,8 +983,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     n = sum(p.get("eval_games", 0) for p in params.values())
     if n:
         a_ = sum((p.get("oos") or {}).get("acc", p["accuracy"]) * p.get("eval_games", 0) for p in params.values()) / n
-        lines.append([f"🎯 Calling winners at a {a_:.1%} clip.", f"🎯 Hitting on {a_:.1%} of winners.",
-                      f"🎯 {a_:.1%} of winners called straight up."][k % 3])
+        lines.append([f"🎯 The engine calls the straight-up winner {a_:.0%} of the time on games it never saw.",
+                      f"🎯 On games it never saw, the engine picks the winner {a_:.0%} of the time.",
+                      f"🎯 Straight-up winners, games the engine never saw: {a_:.0%} called right."][k % 3])
     legs = [l for p in picks if p["kind"] != "eight" for l in p["legs"] if l.get("result") in ("won", "lost")]
     if legs:
         said = sum(l["p"] for l in legs) / len(legs)

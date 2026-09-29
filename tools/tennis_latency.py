@@ -17,6 +17,7 @@ try:
 except Exception as e:
     print("bovada feed err", str(e)[:120])
 print("bovada live tennis:", evs[:6])
+evs = [e for e in evs]
 if evs:
     eid = evs[0][0]
     for u in (f"https://services.bovada.lv/services/sports/results/api/v1/scores/{eid}",
@@ -38,10 +39,26 @@ while time.time() < t_end and evs:
     for eid, name in evs[:4]:
         try:
             s = get(f"https://services.bovada.lv/services/sports/results/api/v1/scores/{eid}?t={int(time.time())}")
-            key = json.dumps(s.get("latestScore") or s.get("scores") or s)[:160]
+            key = json.dumps([s.get("previousPeriodsScore"), s.get("currentPeriodScore"), (s.get("sportDetails") or {}).get("tennis"),
+                              s.get("lastUpdated")])
             if last.get(eid) != key:
                 last[eid] = key
                 print(f"{datetime.now(timezone.utc):%H:%M:%S} bovada {name[:30]:30} {key}", flush=True)
         except Exception as e:
             print("err", eid, str(e)[:80]); break
+    try:
+        for tour in ("atp", "wta"):
+            d = get(f"https://site.web.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard")
+            for ev in d.get("events") or []:
+                for g in ev.get("groupings") or []:
+                    for c in g.get("competitions") or []:
+                        if ((c.get("status") or {}).get("type") or {}).get("state") != "in":
+                            continue
+                        nm = " vs ".join(((p.get("athlete") or {}).get("displayName") or "?") for p in c["competitors"])
+                        key = json.dumps([[x.get("value") for x in p.get("linescores") or []] for p in c["competitors"]])
+                        if last.get(("espn", c["id"])) != key:
+                            last[("espn", c["id"])] = key
+                            print(f"{datetime.now(timezone.utc):%H:%M:%S} espn   {nm[:30]:30} {key}", flush=True)
+    except Exception as e:
+        print("espn err", str(e)[:60])
     time.sleep(3)
