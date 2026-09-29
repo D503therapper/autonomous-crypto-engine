@@ -228,17 +228,40 @@ async function bovadaLines({ league, team }) {
 }
 
 async function espnScoreboard({ league, date, team }) {
-  const j = await fetchJson(`https://site.api.espn.com/apis/site/v2/sports/${ESPN_PATH[league]}/scoreboard?dates=${ptDate(date).replaceAll("-", "")}${league === "ncaab" ? "&groups=50" : ""}`);
-  const out = [];
-  for (const ev of j.events || []) {
-    for (const c of ev.competitions || [ev]) {
-      const teams = (c.competitors || []).map((x) => ({ name: (x.team || x.athlete || {}).displayName, home: x.homeAway,
-        score: x.score, record: ((x.records || [])[0] || {}).summary }));
-      if (!has(team, ...teams.map((x) => x.name))) continue;
-      out.push({ game: ev.name || c.notes, start: c.date || ev.date, status: ((c.status || ev.status || {}).type || {}).detail, teams });
+  // ESPN turns Cloudflare away at site.api (9/29: every lookup failed and the AI couldn't see a match) - the web door
+  // first, browser-like. Tennis lives a level down (groupings -> competitions) and Asia's matches sit on the next day.
+  const day = ptDate(date).replaceAll("-", "");
+  const next = new Date(Date.parse(`${ptDate(date)}T12:00:00Z`) + 86400000).toISOString().slice(0, 10).replaceAll("-", "");
+  const tennis = league === "atp" || league === "wta";
+  const q = (d) => `/apis/site/v2/sports/${ESPN_PATH[league]}/scoreboard?dates=${d}${league === "ncaab" ? "&groups=50" : ""}`;
+  const boards = [];
+  for (const d of tennis ? [day, next] : [day]) {
+    for (const host of ["https://site.web.api.espn.com", "https://site.api.espn.com"]) {
+      try {
+        const r = await fetch(host + q(d), { headers: { "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148",
+          Accept: "application/json", Referer: "https://www.espn.com/", Origin: "https://www.espn.com" } });
+        if (r.ok) { boards.push(await r.json()); break; }
+      } catch (e) { /* the other door */ }
     }
   }
-  return out.slice(0, 40);
+  if (!boards.length) throw new Error("ESPN didn't answer");
+  const out = [], seen = new Set();
+  for (const j of boards) {
+    for (const ev of j.events || []) {
+      const comps = tennis ? (ev.groupings || []).flatMap((g) => g.competitions || []) : (ev.competitions || [ev]);
+      for (const c of comps) {
+        if (seen.has(c.id)) continue;
+        seen.add(c.id);
+        const teams = (c.competitors || []).map((x) => ({ name: (x.team || x.athlete || {}).displayName, home: x.homeAway,
+          score: tennis ? (x.linescores || []).map((l) => l.value).join("-") : x.score,       // tennis: games per set
+          record: ((x.records || [])[0] || {}).summary, winner: x.winner }));
+        if (!has(team, ...teams.map((x) => x.name))) continue;
+        out.push({ game: tennis ? teams.map((x) => x.name).join(" vs ") + ` (${ev.name || ""})` : ev.name || c.notes,
+          start: c.date || ev.date, status: ((c.status || ev.status || {}).type || {}).detail, teams });
+      }
+    }
+  }
+  return out.slice(0, 60);
 }
 
 async function runTool(name, input) {
@@ -319,6 +342,7 @@ async function getJson(url, ttl) {
   }
 }
 
+export { espnScoreboard };
 export default {
   async fetch(request, env, ctx) {
     const path = new URL(request.url).pathname.replace(/\/+$/, "");

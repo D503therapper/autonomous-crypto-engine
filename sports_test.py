@@ -3004,6 +3004,15 @@ def test_live_bets_list_stays_till_the_board_drops_and_sport_chips_open_in_place
     assert 'pn.className="spx"' in src and "scrollIntoView" not in src.split('closest("[data-hs].tap")')[1][:900]
 
 
+def test_question_box_finds_the_player_and_retries():
+    """9/29: 'Who wins next set in Han Shi tennis' - the AI hiccuped once and the fallback listed every tennis match
+    ('tennis' matched them all, 'han' matched 'Shang'). Now: sport words never count as a name, a short word only matches
+    a whole name, and the AI gets one retry before the fallback."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert '"tennis":1' in src and 'hit(w,(g.away+" "+g.home).toLowerCase())' in src
+    assert "if(w.length<4) return ts.indexOf(w)>=0" in src and "if(again!==true){{ai(true);return}}" in src
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

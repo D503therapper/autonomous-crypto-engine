@@ -431,7 +431,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790663153852,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790663725681,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
@@ -513,7 +513,7 @@ tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEven
 var games=[], q=document.getElementById("askq"), list=document.getElementById("asklist"), out=document.getElementById("askout");
 if(!q) return;
 var AI="https://d503-ask.issatruestoryofficial.workers.dev", hist=[];                                   // 🧠 the AI question box (the relay), when it's live
-function ai(){
+function ai(again){
   var t=q.value.trim(); if(!AI||!t) return;
   list.innerHTML="";
   out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">🧠 The engine’s doing its homework…</div></section>';
@@ -523,11 +523,12 @@ function ai(){
   .then(function(d){clearTimeout(to);if(!d||!d.answer)throw 0;
     hist.push({role:"user",content:t},{role:"assistant",content:d.answer});hist=hist.slice(-6);
     out.innerHTML='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="ask-l">🤔 '+esc(t)+'</div><div class="ask-a">'+esc(d.answer).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\n/g,"<br>")+'</div></section>'})
-  .catch(function(){clearTimeout(to);out.innerHTML="";render();
+  .catch(function(){clearTimeout(to);if(again!==true){ai(true);return}   // one hiccup never sends you to the fallback
+    out.innerHTML="";render();
     list.insertAdjacentHTML("afterbegin",'<div class="ask-n">The AI’s taking a breather — here’s the engine’s quick read instead. 👇</div>')});
 }
 q.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();ai()}});
-var go=document.getElementById("askgo"); if(go) go.addEventListener("click",ai);
+var go=document.getElementById("askgo"); if(go) go.addEventListener("click",function(){ai()});
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function am(o){return o>0?"+"+o:String(o)}
 function tm(s){try{return new Date(s.replace("Z",":00Z")).toLocaleString("en-US",{weekday:"short",hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"})+" PT"}catch(e){return ""}}
@@ -563,7 +564,10 @@ function show(g){
      '<div class="ask-d">⚠️ Not our pick — this doesn’t count toward our record. '+pick(g.id+"x",OUT)+'</div></section>';
   out.innerHTML=h;
 }
-var STOP={"who":1,"wins":1,"win":1,"will":1,"the":1,"and":1,"what":1,"think":1,"you":1,"about":1,"game":1,"tonight":1,"today":1,"does":1,"engine":1,"gonna":1,"should":1,"bet":1,"take":1,"vs":1,"over":1,"under":1,"first":1,"half":1,"spread":1,"total":1,"lean":1,"lock":1,"pick":1,"with":1,"for":1,"this":1,"that":1,"how":1,"like":1};
+var STOP={"who":1,"wins":1,"win":1,"will":1,"the":1,"and":1,"what":1,"think":1,"you":1,"about":1,"game":1,"tonight":1,"today":1,"does":1,"engine":1,"gonna":1,"should":1,"bet":1,"take":1,"vs":1,"over":1,"under":1,"first":1,"half":1,"spread":1,"total":1,"lean":1,"lock":1,"pick":1,"with":1,"for":1,"this":1,"that":1,"how":1,"like":1,
+  "tennis":1,"match":1,"next":1,"set":1,"sets":1,"mens":1,"womens":1,"men":1,"women":1,"nfl":1,"nba":1,"mlb":1,"nhl":1,
+  "football":1,"basketball":1,"baseball":1,"hockey":1,"college":1,"score":1,"live":1,"right":1,"now":1,"going":1,"happen":1};
+// (sport words never count as a name: "tennis" matched every tennis match - the owner, 9/29)
 var loaded=false, NOPE=["My bad — the engine can’t answer that one yet. We gotta update this shit. 🛠️ Try a team on today’s slate.",
  "Damn, we got nothing on that one. My bad — the engine’s still learning. Try another team. 🛠️",
  "My bad, can’t answer that one right now. Either it ain’t on the slate, it already started, or the books ain’t posted a line. 🛠️",
@@ -581,14 +585,15 @@ function note(){
 function lev(a,b){if(Math.abs(a.length-b.length)>1)return 2;var d=[],i,j;for(i=0;i<=a.length;i++)d[i]=[i];for(j=0;j<=b.length;j++)d[0][j]=j;
   for(i=1;i<=a.length;i++)for(j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]==b[j-1]?0:1));return d[a.length][b.length]}
 function hit(w,hay){                                          // loose matching: part of a name, plurals, a small typo
-  if(hay.indexOf(w)>=0) return true;
-  return hay.split(/[^a-z0-9]+/).some(function(t){return t.length>=4&&w.length>=4&&(t.indexOf(w)==0||w.indexOf(t)==0||(w.length>=5&&lev(w,t)<=1))});
+  var ts=hay.split(/[^a-z0-9]+/);                              // a short word only matches a whole name ("han" isn't
+  if(w.length<4) return ts.indexOf(w)>=0;                          // "shang"), a longer one the start of a name or a typo
+  return ts.some(function(t){return t.length>=4&&(t.indexOf(w)==0||w.indexOf(t)==0||(w.length>=5&&lev(w,t)<=1))});
 }
 function render(){
   out.innerHTML="";
   if(!loaded){list.innerHTML='<div class="ask-n">⏳ Hold up — pulling up the engine’s reads…</div>';return}
   var words=q.value.toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){return w.length>2&&!STOP[w]});
-  var hits=games.filter(function(g){return words.some(function(w){return hit(w,(g.away+" "+g.home+" "+g.sport).toLowerCase())})}).slice(0,12);
+  var hits=games.filter(function(g){return words.some(function(w){return hit(w,(g.away+" "+g.home).toLowerCase())})}).slice(0,12);
   if(!hits.length&&q.value.trim()){                          // no team named (or no match): show the slate - always an answer
     var live=games.filter(function(g){return g.why!="final"&&!g.done});
     list.innerHTML=note()+(live.length?'<div class="ask-n">'+pick(q.value,["Here’s what’s on the slate — tap a game and the engine’ll break it down. 👇",
