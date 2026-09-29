@@ -4,13 +4,12 @@ name: sports
 on:
   schedule:
     - cron: "23 * * * *"
-    - cron: "1,11,31,51 1,2 * * *"   # 🎾 from 6pm Pacific (summer 01:00 / winter 02:00 UTC): tomorrow's tennis slate goes up on time
-    - cron: "2,32 15,16 * * *"       # 8am Pacific (summer 15:00 / winter 16:00 UTC): game day's main board goes up on time
+    - cron: "2,12,32 15,16 * * *"    # 8am Pacific (summer 15:00 / winter 16:00 UTC): game day's main board + tennis slate go up on time
     - cron: "1 6,7 * * *"            # 11pm Pacific: today's graded board clears for the "picks drop 8 AM PT" note
   workflow_dispatch:
     inputs:
       post_now:
-        description: "Post today's board now instead of waiting for 8am Pacific"
+        description: "Post today's board + tennis slate now instead of waiting for 8am Pacific"
         type: boolean
         default: false
   push:

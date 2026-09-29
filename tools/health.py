@@ -9,7 +9,7 @@ Checks:
   5. alerts: the engine's key still opens the 🔔 push (a dry run - nobody gets pinged)
   6. the live board, while games are on: scores flowing, the book's live prices fresh (not its 10-minute cache),
      every live bet today saved (none only on the board)
-  7. posting: the tennis slate is up from 6pm PT, the main board from 8am PT (else: run the engine now)
+  7. posting: the tennis slate and the main board are up from 8am PT (else: run the engine now)
 Prints a summary; FIX lines are actions it took, PROBLEM lines are for the check-in."""
 import json
 import os
@@ -178,7 +178,7 @@ if needed:
 try:
     import tennis_due
     if tennis_due.due(now):
-        dispatch("sports.yml", "tennis slate due (6pm PT) and not up")
+        dispatch("sports.yml", "tennis slate due (8am PT) and not up")
     else:
         ok.append("tennis slate on time")
 except Exception as e:                                   # noqa: BLE001

@@ -1,6 +1,6 @@
-"""Backstop for the tennis slate: prints "yes" when the day's slate should be up (from 6pm Pacific the night before)
+"""Backstop for the tennis slate: prints "yes" when the day's slate should be up (from 8am Pacific on game day)
 and isn't, while the book has lines on the board. The workflows that run it then start the engine right away -
-GitHub skips scheduled runs, and once left the slate waiting past 6pm."""
+GitHub skips scheduled runs, and once left the slate waiting past its time."""
 import json
 import os
 import sys
@@ -13,7 +13,9 @@ import sports_tennis as st     # noqa: E402
 def due(now=None):
     now = now or datetime.now(timezone.utc)
     local = now.astimezone(st.PT)
-    day = ((local + timedelta(days=1)).date() if local.hour >= st.POST_FROM_HOUR_PT else local.date()).isoformat()
+    if local.hour < st.POST_FROM_HOUR_PT:
+        return False
+    day = local.date().isoformat()
     if any(p.get("date") == day for p in st._load_picks()):
         return False
     try:

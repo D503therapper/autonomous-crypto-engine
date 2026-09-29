@@ -35,7 +35,7 @@ HOLD_DAYS = set()             # boards on hold (none): used 9/28 while the new l
                                # post under rules the study showed are weak (the owner, 9/28)
 POST_FROM_HOUR_PT = 8          # a day's plays go up from 8am Pacific ON GAME DAY (the owner, 9/28, after the line study:
                                # closing lines pick more winners - NFL 68% vs 61% early - so the engine watches the lines
-                               # and the news overnight and posts off the sharpest numbers; tennis keeps its 6pm drop)...
+                               # and the news overnight and posts off the sharpest numbers; tennis posts at 8am too, since 9/29)...
 DEADLINE_MIN = 180             # ...as soon as everything that matters is known; if it never is, at the latest
                                # 3 hours before the play's first game (then only from games that are settled).
                                # A posted play is final: it never changes.

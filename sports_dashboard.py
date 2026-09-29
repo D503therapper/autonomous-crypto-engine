@@ -367,9 +367,9 @@ def _delayed(l):
 
 
 TN_DROP_PARTS = (   # no tennis slate up: WHEN + the engine WATCHING + WHY + a closer, built fresh each day
-    ["🎾 Tennis picks drop at <b>6 PM PT</b> the night before.", "🎾 Next tennis slate lands <b>6 PM PT</b>.",
-     "🎾 Tennis board's clear — new picks at <b>6 PM PT</b>.", "🎾 <b>6 PM PT</b> the night before: that's when tennis goes up.",
-     "🎾 Nothing up right now — tennis drops <b>6 PM PT</b>.", "🎾 The tennis card hits at <b>6 PM PT</b> the night before."],
+    ["🎾 Tennis picks drop at <b>8 AM PT</b> on game day.", "🎾 Next tennis slate lands <b>8 AM PT</b>.",
+     "🎾 Tennis board's clear — new picks at <b>8 AM PT</b>.", "🎾 <b>8 AM PT</b> on game day: that's when tennis goes up.",
+     "🎾 Nothing up right now — tennis drops <b>8 AM PT</b>.", "🎾 The tennis card hits at <b>8 AM PT</b> on game day."],
     ["Till then the engine's watching every line", "The engine's on the tennis lines", "Every match line gets watched",
      "The engine's glued to the numbers", "We watch the lines move"],
     ["— the order of play, the draws, who pulled out.", "— sharp money moves tennis lines quick.",
@@ -494,7 +494,7 @@ def _tennis():
                         card = card.replace('-LEG PARLAY</span>', f'-LEG PARLAY · {dname(s_["date"]).upper()}</span>', 1)
                     out += card
         return out                                       # (an old combined parlay stays off the card - it's in the results)
-    # the owner, 9/28: graded picks stay up - CASHED / MISSED with their review - until the NEXT slate posts (6pm PT);
+    # the owner, 9/28: graded picks stay up - CASHED / MISSED with their review - until the NEXT slate posts (8am PT);
     # then the old one goes to the results. (An older slate with a match still going stays up too.)
     live = lambda x: any(l.get("result") is None for l in x["picks"]) or any(p["status"] == "open" for _, p in stn.parlays_of(x))
     # (like the main board: a slate stays up through its own day, graded picks and all, and clears at 11pm PT)
@@ -503,7 +503,7 @@ def _tennis():
     shown = [x for x in slates if up(x) or (live(x) and x["date"] >= (now_pt.date() - timedelta(days=1)).isoformat())]
     nm = sum(stn.tour_of(l) == "atp" for x in shown for l in x["picks"])
     nw = sum(stn.tour_of(l) == "wta" for x in shown for l in x["picks"])
-    what = f"{nm} men's + {nw} women's" if nm + nw else "new picks by 6 PM"
+    what = f"{nm} men's + {nw} women's" if nm + nw else "new picks at 8 AM PT"
     body = tour_blocks(shown) if shown else f'<div class="nopick">{_tn_drop_note(now_pt.date().isoformat())}</div>'
     m_, w_, x_ = r["atp"], r["wta"], r["mixed"]
     pars = (f"parlays: men's {m_['p_won']}-{m_['p_lost']} · women's {w_['p_won']}-{w_['p_lost']}"

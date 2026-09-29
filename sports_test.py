@@ -3063,7 +3063,7 @@ def test_drop_notes_built_fresh_every_day():
         assert "8 AM PT" in note and ("all night" in note.lower() or "overnight" in note.lower()) and "—" in note
         notes.add(note)
     assert len(notes) > 100
-    assert "6 PM PT" in sdb._tn_drop_note("2026-09-29")
+    assert "8 AM PT" in sdb._tn_drop_note("2026-09-29")
 
 
 def test_parlays_fold_to_one_line():
@@ -3079,6 +3079,22 @@ def test_parlays_fold_to_one_line():
     assert "_fold(legs, pk[\"legs\"]) if len(pk[\"legs\"]) > 1 else legs" in src
     f = sdb._fold("<i>legs</i>", two["legs"])
     assert f.startswith('<details class="px">') and "Yankees ML · ✅ Padres ML" in f and "<i>legs</i></details>" in f
+
+
+def test_tennis_posts_at_8am_game_day():
+    """The owner, 9/29: tennis goes up at 8 AM PT on game day, same as the main board (was 6 PM the night before)."""
+    import sports_tennis as stq
+    from datetime import datetime
+    early = datetime(2026, 9, 29, 7, 30, tzinfo=stq.PT)
+    keep = os.environ.pop("SPORTS_POST_NOW", None)
+    try:
+        assert stq.post({}, {}, {}, [], [], early.astimezone(timezone.utc)) is None        # 7:30 AM: not yet
+        assert stq.post({}, {}, {}, [], [{"date": "2026-09-29", "picks": []}],
+                        datetime(2026, 9, 29, 9, 0, tzinfo=stq.PT).astimezone(timezone.utc)) is None   # today's is up
+    finally:
+        if keep is not None:
+            os.environ["SPORTS_POST_NOW"] = keep
+    assert stq.POST_FROM_HOUR_PT == 8
 
 
 if __name__ == "__main__":

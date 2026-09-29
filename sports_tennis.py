@@ -10,7 +10,7 @@ Every engine run:
      travel) are each tested against that model on the same holdout - a factor joins a tour's model only with a
      real gain (paired log-loss z 2+); otherwise its weights stay 0.
   3. Odds: Bovada's public feed (current men's singles moneylines), refreshed every run.
-  4. Once a day (from 6pm Pacific the night before, the next 24 hours of matches): up to 6 men's and 6 women's
+  4. Once a day (from 8am Pacific on game day, like the main board: the next 24 hours of matches): up to 6 men's and 6 women's
      straight picks (55%+ and real value - fewer qualify = fewer picks, never filler), a Men's Tennis Parlay and a
      Women's Tennis Parlay (the 3 likeliest of that tour - never a mixed parlay). Posted picks are final.
      Retirements: void if no set was finished, otherwise the player who advances wins it; walkovers are void.
@@ -80,7 +80,7 @@ MAX_FAV = -300                 # no tennis moneyline shorter than -300: heavier 
                                # and only when that bet itself is a 55%+ play (anchored to the SPREAD's own price)
 MIN_MATCHES = 10               # both players need this many rated matches
 MIN_RATED = 8000               # no tennis picks until the study has real history (several seasons) and learned weights
-POST_FROM_HOUR_PT = 18
+POST_FROM_HOUR_PT = 8          # 8am Pacific, game day - same as the main board (the owner, 9/29)
 MIN_LEAD_MIN = 20
 CLAY = ("roland garros", "french open", "monte carlo", "monte-carlo", "madrid", "rome", "internazionali", "italian open",
         "barcelona", "hamburg", "umag", "croatia open", "kitzbuhel", "kitzbühel", "gstaad", "swiss open", "bastad",
@@ -1737,9 +1737,11 @@ def parlays_of(slate):
 
 
 def post(ms, rt, w, lines, picks, now, gm=None):
-    """Post the day's tennis slate once (from 6pm PT the night before: the next 24 hours of matches)."""
+    """Post the day's tennis slate once (from 8am PT on game day, like the main board: the next 24 hours of matches)."""
     local = now.astimezone(PT)
-    day = (local + timedelta(days=1)).date() if local.hour >= POST_FROM_HOUR_PT else local.date()
+    if local.hour < POST_FROM_HOUR_PT and not os.environ.get("SPORTS_POST_NOW"):
+        return None                                          # (SPORTS_POST_NOW: the owner said post it now)
+    day = local.date()
     iso = day.isoformat()
     if any(p["date"] == iso for p in picks):
         return None
