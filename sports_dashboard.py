@@ -278,8 +278,9 @@ def _fold(inner, legs):
                              else f'{l["line"]:+g}' if l.get("line") is not None else "ML")
         team = ("Over" if l.get("side") == "over" else "Under") if l.get("market") == "total" else l["team"]
         return f'{mark.get(l.get("result"), "")}{E(team)} {E(mk)}'
-    return (f'<details class="px"><summary class="pxs"><span class="pxt">{" · ".join(one(l) for l in legs)}</span>'
-            f'<span class="pxo">tap for the legs ▾</span></summary>{inner}</details>')
+    n = len(legs)                                          # no list of the legs up top (the owner, 9/29: the card
+    return (f'<details class="px"><summary class="pxs"><span class="pxo">▾ Tap to see the {n} legs</span>'   # already
+            f'<span class="pxc">▴ Hide the legs</span></summary>{inner}</details>')              # shows them)
 
 
 def _drop_parts(day, parts=None):
@@ -1178,7 +1179,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk.lost>*:not(.stamp-row){{opacity:.5}}
 .px>summary{{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}}
 .px>summary::-webkit-details-marker{{display:none}} .pxt{{font-weight:800;font-size:15px;line-height:1.35}}
-.pxo{{font-size:12px;color:var(--c1);font-weight:700}} .px[open] .pxo{{display:none}}
+.pxo,.pxc{{font-size:14px;color:var(--c1);font-weight:800}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
 .stamp-row{{display:flex;justify-content:center;margin:6px 0 12px}}
 .stamp{{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
   border-radius:10px;background:rgba(0,0,0,.3)}}

@@ -589,8 +589,8 @@ def test_tennis():
     mixed += [dict(c, id=f"m{i}", match=f"m{i}", tour="atp", p=0.70, odds=-233, dec=sd.decimal(-233), edge=0.7 * sd.decimal(-233) - 1)
               for i, c in enumerate(cands[:8])]
     pk, _ = st.pick_slate(mixed)
-    assert sum(c["tour"] == "wta" for c in pk) == 4 and sum(c["tour"] == "atp" for c in pk) == 6, \
-        "each tour on its own: up to 6 men's, the 4 real women's picks - never filler from the other tour"
+    assert sum(c["tour"] == "wta" for c in pk) == 4 and sum(c["tour"] == "atp" for c in pk) == 4, \
+        "each tour on its own: up to 4 men's, the 4 real women's picks - never filler from the other tour"
     # retirements: void before a set is done, the advancer wins after
     m = {**ms["0"], "status": "STATUS_RETIRED", "done": 0}
     slate = [{"picks": [{"id": "0:1", "match": "0", "side": 1, "result": None}], "parlay": None}]
@@ -938,7 +938,7 @@ def test_tennis_edge_life_atoms():
 
 
 def test_tennis_slates_and_parlays():
-    """Up to 6 men's + 6 women's picks, never a mixed parlay, a tour's parlay only with 3 picks; old slates (one
+    """Up to 4 men's + 4 women's picks (the owner, 9/29), never a mixed parlay, a tour's parlay only with 3 picks; old slates (one
     mixed parlay) and new slates (one per tour) both grade; post() never reposts a match from any slate."""
     import sports_tennis as st
 
@@ -950,7 +950,7 @@ def test_tennis_slates_and_parlays():
                 "ml": odds, "round": "R1", "surface": "hard", "bo": 3}
     many = [c(f"atp:{i}", "atp", 0.60 + 0.01 * i) for i in range(10)] + [c(f"wta:{i}", "wta", 0.58 + 0.01 * i) for i in range(10)]
     picks, pars = st.pick_slate(many)
-    assert sum(x["tour"] == "atp" for x in picks) == 6 and sum(x["tour"] == "wta" for x in picks) == 6
+    assert sum(x["tour"] == "atp" for x in picks) == 4 and sum(x["tour"] == "wta" for x in picks) == 4
     for t in ("atp", "wta"):
         assert len(pars[t]) == 3 and all(x["tour"] == t for x in pars[t]), "never a mixed parlay"
         assert [x["p"] for x in pars[t]] == sorted((x["p"] for x in picks if x["tour"] == t), reverse=True)[:3]
@@ -968,7 +968,7 @@ def test_tennis_slates_and_parlays():
         slate = st.post({}, None, None, [], old, datetime(2026, 9, 30, 20, tzinfo=timezone.utc))
         assert slate and "parlay" not in slate and set(slate["parlays"]) == {"atp", "wta"}
         assert "atp:9" not in {l["match"] for l in slate["picks"]}, "already on a slate: never again"
-        assert sum(l["tour"] == "atp" for l in slate["picks"]) == 6 and sum(l["tour"] == "wta" for l in slate["picks"]) == 6
+        assert sum(l["tour"] == "atp" for l in slate["picks"]) == 4 and sum(l["tour"] == "wta" for l in slate["picks"]) == 4
         legs = {l["id"]: l for l in slate["picks"]}
         for t, par in slate["parlays"].items():
             assert par["tour"] == t and all(legs[i]["tour"] == t for i in par["legs"]) and len(par["legs"]) == 3
@@ -1055,11 +1055,11 @@ def test_tennis_anchored_rules():
     got = {x["match"] for x in picks}
     assert st.fighting(fight) and not st.fighting(ok)
     assert got == {"a", "e"}, got
-    # the breakdown prints the anchored win % (and the book's no-vig %) - no bragging about a gap that isn't there
+    # the bottom line: our one win % said plain (never book-vs-us, the owner 9/29) and no bragging about a gap
     cb = {**ok, "player": "Ace One", "opp": "Bee Two", "surface": "hard", "bo": 3, "f": {"surface_gap": 0, "fatigue": 0,
                                                                                          "form": 0, "h2h": 0}}
     bd = st.breakdown(cb, None, set())
-    assert any("62" in x for x in bd if x.startswith("✅")), bd
+    assert any(x.startswith("✅") and "One ML" in x and x.count("%") == 1 and "62" in x for x in bd), bd
     assert not any(st.BRAG.search(x) for x in bd), bd
 
 
@@ -3067,7 +3067,8 @@ def test_drop_notes_built_fresh_every_day():
 
 
 def test_parlays_fold_to_one_line():
-    """The owner, 9/29: parlays are too long - a parlay card shows its legs in one line, tap to open the full legs;
+    """The owner, 9/29: parlays are too long - a parlay card folds to one 'tap to see the N legs' bar (no list of the
+    legs up top - the card already shows them once open);
     a single pick (the lock, the dog) stays open."""
     import sports_dashboard as sdb
     leg = lambda t, **k: {"team": t, "market": "ml", "league": "mlb", "odds": -120, "start": "2026-09-29T23:00Z", "home": True,
@@ -3078,7 +3079,8 @@ def test_parlays_fold_to_one_line():
     src = open(sdb.__file__).read()
     assert "_fold(legs, pk[\"legs\"]) if len(pk[\"legs\"]) > 1 else legs" in src
     f = sdb._fold("<i>legs</i>", two["legs"])
-    assert f.startswith('<details class="px">') and "Yankees ML · ✅ Padres ML" in f and "<i>legs</i></details>" in f
+    assert f.startswith('<details class="px">') and "Tap to see the 2 legs" in f and "Yankees" not in f.split("</summary>")[0]
+    assert "<i>legs</i></details>" in f
 
 
 def test_tennis_posts_at_8am_game_day():
@@ -3095,6 +3097,33 @@ def test_tennis_posts_at_8am_game_day():
         if keep is not None:
             os.environ["SPORTS_POST_NOW"] = keep
     assert stq.POST_FROM_HOUR_PT == 8
+
+
+def test_bottom_lines_no_odds_talk_and_no_repeats_on_a_board():
+    """The owner, 9/29: 'book says 5 in 10, we say 6 in 10' don't make sense - and the same line on two cards (the
+    Yankees + the Oilers both said 'we with the crowd tonight, but we got our own reasons'). No 'in 10' bottom line, and a
+    board of breakdowns never repeats a wording."""
+    import sports_breakdown_v24 as v24, re
+    src = open(v24.__file__).read()
+    bl = src[src.index("    # bottom line"):src.index("    lines = [x for x in out if x]")]
+    assert "_odds_words" not in bl and " in 10" not in bl
+    used = set()
+    lines = []
+    for i in range(8):                                          # 8 cards on a board: the Voice never repeats a wording
+        v = v24.Voice(f"seed{i}", used)
+        lines.append(v.say("bottom_l", [f"a {i} one", f"b {i} two"], must=False) or "")
+    for key, n in (("bottom_l", 14), ("bottom_s", 12), ("splits_w", 6)):
+        assert src.count(f'v.say("{key}"') == 1
+    assert 'must=True))' not in src[src.index('v.say("splits_f"'):src.index("    # the public: fading them")]
+
+
+def test_tennis_bottom_lines_no_percent_talk():
+    """The owner, 9/29: never 'book says X%, we say Y%' (one number, ours, is fine: '68% to cash, the house agrees'); 'has seen this movie
+    before' always says what happened ('lost to him last time')."""
+    import sports_tennis as stq
+    for tpl in stq.T_BOTTOM + stq.T_BOTTOM_AGREE:            # one number (ours) is fine; never two side by side
+        assert "{bk}" not in tpl and tpl.count("%") <= 1, tpl
+    assert all("movie" not in t or "lost to" in t for t in stq.T_H2H)
 
 
 if __name__ == "__main__":

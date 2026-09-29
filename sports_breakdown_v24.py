@@ -546,25 +546,33 @@ def breakdown(leg, games, elo, injuries, used=None):
         t, m = sp_
         mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]
         if t <= 35:
-            out.append(v.say("splits", [
+            out.append(v.say("splits_f", [
                 f"📊 The whole world on {the_them} — {100 - t}% of the bets and {100 - m}% of the money on {mk}. "
                 f"We fading the public and taking {the_us}. That's how Vegas eats, and tonight we eating with 'em.",
                 f"📊 {100 - t}% of the bets on {the_them} ({100 - m}% of the money). Sheep gon' be sheep — "
                 f"we on {the_us} with the other {t}%.",
                 f"📊 Public's hammering {the_them}: {100 - t}% of the bets, {100 - m}% of the money. "
-                f"We ain't following the herd — {the_us} all day."], must=True))
+                f"We ain't following the herd — {the_us} all day.",
+                f"📊 {100 - t}% of the tickets on {the_them}. The books love that. We on {the_us}.",
+                f"📊 The casuals got {the_them} ({100 - t}% of the bets). We fading 'em — {the_us}.",
+                f"📊 Only {t}% of the bets on {the_us}. That's exactly where we want to be."]))
         elif t >= 65:
-            out.append(v.say("splits", [
+            out.append(v.say("splits_w", [
                 f"📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us}. "
                 f"Sometimes the crowd gets it right.",
-                f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd tonight, but we got our own reasons."],
-                must=True))
+                f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd tonight, but we got our own reasons.",
+                f"📊 The crowd's on {the_us} too — {t}% of the tickets, {m}% of the cash. Broken clock, right time.",
+                f"📊 {t}% of the bets and {m}% of the money on {the_us}. For once the casuals ain't wrong.",
+                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money. We got there on our own though.",
+                f"📊 {the_us} got {t}% of the bets ({m}% of the money). Popular pick, still the right one."]))
         else:
             out.append(v.say("splits", [
                 f"📊 Bets are split — {t}% on {the_us}, {100 - t}% on {the_them} ({m}% / {100 - m}% of the money). "
                 f"Nobody knows nothing on this one, except us.",
-                f"📊 Who's betting who: {t}% of the bets on {the_us}, {100 - t}% on {the_them}. Pretty split crowd."],
-                must=True))
+                f"📊 Who's betting who: {t}% of the bets on {the_us}, {100 - t}% on {the_them}. Pretty split crowd.",
+                f"📊 {t}% on {the_us}, {100 - t}% on {the_them}. Crowd can't make up its mind — we already did.",
+                f"📊 The public's torn on this one ({t}% / {100 - t}%). The engine ain't.",
+                f"📊 Tickets are close to even — {t}% {the_us}, {100 - t}% {the_them}. We got our side."]))
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
@@ -590,36 +598,45 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🤝 Public side on {the_us}, but we got our own reasons — {why_pub}.",
             f"🤝 We're riding with the crowd on {the_us}. Sometimes they get it right — {why_pub}."])))
 
-    # bottom line
-    need, have = leg.get("p_market") or 1 / leg["dec"], leg["p"]       # the fair price (the book's cut taken out)
+    # bottom line - in our lingo, never the book-vs-us odds talk (the owner, 9/29: that don't make sense), and never the
+    # same wording twice on a board (a big pool per kind; the Voice skips any wording already used)
     bet = f"{us} {leg['line']:+g}" if leg["market"] == "spread" else us
     price = f"{bet} ({_am(leg['odds'])})"
-    lock = leg.get("tier") == "lock"
-    if have > need and _odds_words(need) != _odds_words(have):         # we really see more than Vegas: say the gap
-        out.append(v.say("bottom", [
-            f"✅ Bottom line: Vegas has {price} priced like {_odds_words(need)}. The engine sees {_odds_words(have)}. That's the value — trust the algorithm.",
-            f"✅ Bottom line: the book treats {price} like {_odds_words(need)}; we've got it closer to {_odds_words(have)}. Easy call.",
-            f"✅ Bottom line: {price} should be more like {_odds_words(have)}, and Vegas is pricing {_odds_words(need)}. We'll take that all day.",
-            f"✅ Bottom line: {_odds_words(have)} in our book vs {_odds_words(need)} in Vegas for {price}. Trust the algorithm.",
-            f"✅ Bottom line: Vegas says {_odds_words(need)} on {price}, the engine says {_odds_words(have)}. That gap is the whole play.",
-            f"✅ Bottom line: book says {_odds_words(need)}, we say {_odds_words(have)}. We ride {price}.",
-            f"✅ Bottom line: {_odds_words(have)} for us vs {_odds_words(need)} at the book on {price}. Value all day."], must=True))
-    elif lock:                                                            # a lock: our whole chest, never a hedge
+    pct = round(100 * leg["p"])                                          # ONE number, ours, said plain - that's fine
+    if leg.get("tier") == "lock":                                        # a lock: our whole chest, never a hedge
         out.append(v.say("bottom_l", [
             f"✅ Bottom line: {price} is the right side and we're all in. Trust the algorithm.",
             f"✅ Bottom line: {price}. Every angle above points our way. Lock it in.",
-            f"✅ Bottom line: give us {price}. The details all break our way — trust the algorithm.",
+            f"✅ Bottom line: give us {price}. The details all break our way.",
             f"✅ Bottom line: {price}, no second guessing. The engine's all over this one.",
             f"✅ Bottom line: we're riding {price}. Everything above backs it up. Book it.",
-            f"✅ Bottom line: {price} is our lock. The matchup says so, the engine says so."], must=True))
+            f"✅ Bottom line: {price} is our lock. The matchup says so, the engine says so.",
+            f"✅ Bottom line: {price} all day. We ain't overthinking this one.",
+            f"✅ Bottom line: put us down for {price}. Stamp it.",
+            f"✅ Bottom line: {price} and it ain't close. Tap in.",
+            f"✅ Bottom line: {price} is the play. Sleep easy on this one.",
+            f"✅ Bottom line: {price}. The engine don't miss on spots like this.",
+            f"✅ Bottom line: say less — {price}.",
+            f"✅ Bottom line: {price} is money. We locked in.",
+            f"✅ Bottom line: {price}. Everything lines up — we're on it with our whole chest.",
+            f"✅ Bottom line: {price}. {pct}% to cash — done deal.",
+            f"✅ Bottom line: {pct}% to hit on {price}, and we ain't fighting the line. Lock it in."], must=True))
     else:
         out.append(v.say("bottom_s", [
-            f"✅ Bottom line: Vegas got {price} priced like {_odds_words(need)}, but everything above tips it our way. Small edge, real edge — we gon' see.",
-            f"✅ Bottom line: close to {_odds_words(need)} at the book, but the details break our way on {price}. We finna see.",
+            f"✅ Bottom line: {price} ain't flashy. It's just the right side. Tap in.",
+            f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way. We finna see.",
             f"✅ Bottom line: {price} ain't a slam dunk, it's a smart number — and the little things all point our way. Tap in.",
             f"✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way. We gon' see.",
-            f"✅ Bottom line: {price} ain't flashy. It's just the right side. Tap in.",
-            f"✅ Bottom line: the book has {price} close, but the small stuff breaks our way. We finna see."], must=True))
+            f"✅ Bottom line: the details break our way on {price}. We finna see.",
+            f"✅ Bottom line: {price} is the side. Nothing fancy, just the right call.",
+            f"✅ Bottom line: we like {price} here. The engine sees what the casuals don't.",
+            f"✅ Bottom line: {price}. Quiet play, right play.",
+            f"✅ Bottom line: {price} — the number's good and the spot's better. Tap in.",
+            f"✅ Bottom line: we're on {price}. Everything above tips it our way.",
+            f"✅ Bottom line: {price}. Not the loudest pick on the board, but it's a good one.",
+            f"✅ Bottom line: riding {price}. The engine likes it, we like it.",
+            f"✅ Bottom line: {price}. {pct}% to cash — get in.",
+            f"✅ Bottom line: {pct}% to hit on {price}. Tap in."], must=True))
     lines = [x for x in out if x]
     if len(lines) > 2:
         import random

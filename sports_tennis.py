@@ -10,7 +10,7 @@ Every engine run:
      travel) are each tested against that model on the same holdout - a factor joins a tour's model only with a
      real gain (paired log-loss z 2+); otherwise its weights stay 0.
   3. Odds: Bovada's public feed (current men's singles moneylines), refreshed every run.
-  4. Once a day (from 8am Pacific on game day, like the main board: the next 24 hours of matches): up to 6 men's and 6 women's
+  4. Once a day (from 8am Pacific on game day, like the main board: the next 24 hours of matches): up to 4 men's and 4 women's
      straight picks (55%+ and real value - fewer qualify = fewer picks, never filler), a Men's Tennis Parlay and a
      Women's Tennis Parlay (the 3 likeliest of that tour - never a mixed parlay). Posted picks are final.
      Retirements: void if no set was finished, otherwise the player who advances wins it; walkovers are void.
@@ -57,7 +57,7 @@ ESPN = "https://site.api.espn.com/apis/site/v2/sports/tennis/{tour}/scoreboard"
 TOURS = ("atp", "wta")
 BOVADA = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/tennis?marketFilterId=def&lang=en"
 YEARS = 10
-N_PER_TOUR = 6                 # up to 6 men's + 6 women's straights a slate (never filler)
+N_PER_TOUR = 4                 # up to 4 men's + 4 women's straights a slate (the owner, 9/29) - never filler
 N_PICKS = 2 * N_PER_TOUR
 PARLAY_LEGS = 3                # one parlay per tour (the 3 likeliest of that tour) - never a mixed parlay
 TOUR_MIN_RATED = 3000          # a tour learns its own weights once it has this many rated matches; before that it
@@ -1245,7 +1245,7 @@ def _used(skip=()):
     return out
 
 
-TENNIS_BV = 15                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 16                                   # breakdown version (older ones get rewritten before the match)
 
 
 CN_FAMILY = {"Wang", "Zhang", "Zheng", "Cui", "Ma", "Wu", "Zhu", "Yuan", "Bai", "Gao", "Shang", "Xu", "Li", "Liu",
@@ -1453,7 +1453,7 @@ T_H2H = [
     "{them} couldn't handle {him} last time either. [Run it back.|]",
     "Head to head leans {me}. [Matchups matter.|]",
     "{me} has already beaten {them}. [{them} already got {his} cheeks clapped by {me} before.|]",
-    "{them} has seen this movie before. [It ends the same.|]",
+    "{them} has seen this movie before — lost to {me} last time [too|already].",
 ]
 T_BO5 = [
     "Best of 5 at a Slam. [The longer it goes, the more the better player takes over.|]",
@@ -1461,30 +1461,15 @@ T_BO5 = [
     "Slam rules — best of 5. [Upsets get a lot harder over five.|]",
     "Long format tonight. [Three sets to win means the better player gets there.|]",
 ]
-T_BOTTOM = [
-    "[Bottom line|The play|Where we land|The numbers|Final word|The bet|How we see it|Sum it up|The math|Net-net]: {book} says {bk}%, we say {pct}%. {bet} ({od}). [{kick}|{gap}]",
-    "[Bottom line|The play|The math|The bet]: {Book} {bk}%, us {pct}%. {bet} ({od}). {kick}",
-    "[Where we land|Final word|Net-net]: {pct}% for us, {bk}% for {book}. {bet} ({od}). [{gap}|{kick}]",
-    "[The play|The bet|Bottom line]: {bet} ({od}). We got it at {pct}%, the price only implies {bk}%. {kick}",
-    "[The numbers|The math|How we see it]: {bet} ({od}) — {pct}% vs {book}'s {bk}%. [{gap}|{kick}]",
-    "[Sum it up|Final word]: {bet} at {od}. {pct}% on our side of the ledger, {bk}% on theirs. {kick}",
-    "[Bottom line|Net-net]: {algo} {pct}%, {book} {bk}%. {bet} ({od}). [{gap}|{kick}]",
-    "[The play|Where we land]: {bk}% says {book}, {pct}% says {algo}. {bet} ({od}). {kick}",
-    "[The bet|The math]: {book} wants {bk}%, {algo} sees {pct}%. {bet} ({od}). [{gap}|{kick}]",
-    "[How we see it|Bottom line]: {bet} ({od}). {Book} implies {bk}%. We're at {pct}%. {kick}",
-    "[Final word|The play]: {pct} vs {bk}. {bet} ({od}). [{gap}|{kick}]",
-    "[Net-net|Sum it up]: we make it {pct}%, the price makes it {bk}%. {bet}, {od}. {kick}",
-    "[The numbers|The bet]: {bet} {od}. Implied {bk}%, ours {pct}%. {kick}",
-    "[Where we land|The math]: {bet} ({od}), {pct}% in {algo} against a {bk}% price. [{gap}|{kick}]",
-]
-T_BOTTOM_AGREE = [                               # the book and our number land together (the anchored win %)
-    "[Bottom line|The play|Where we land|The bet]: {book} has it at {bk}% and we're right there. {bet} ({od}). {kick}",
+T_BOTTOM_AGREE = [   # ONE number - our win % said plain ("68% to cash, the house agrees"), never "book X%, us Y%"
     "[Bottom line|Net-net|The math]: {pct}% to cash, {book} agrees. {bet} ({od}). {kick}",
-    "[The numbers|How we see it]: {bet} ({od}). {Book} and {algo} both land near {pct}%. {kick}",
     "[Final word|Sum it up]: {bet} at {od}. {pct}% to hit, and we ain't fighting the line. {kick}",
-    "[The play|The bet]: {bet} ({od}), {pct}% in our numbers, same story as the price. {kick}",
     "[Where we land|The math]: {bet} ({od}). No fighting {book} here, {pct}% to cash. {kick}",
+    "[The play|The bet]: {bet} ({od}), {pct}% in our numbers, same story as the price. {kick}",
+    "[Bottom line|The play]: {bet} ({od}). {pct}% to cash — [done deal|get in|tap in].",
+    "[Sum it up|Final word]: {pct}% to hit on {bet} ({od}). {kick}",
 ]
+T_BOTTOM = T_BOTTOM_AGREE          # (the owner, 9/29: one number is the math; two numbers side by side is the stupid part)
 BRAG = re.compile(r"sleeping|price doesn't|line is off|cheap|discount|coin flip|steeper\.|big gap|well clear|respect|"
                   r"kinda close|way more|has it close|barely|backwards|wrong favorite|disagrees|price is wrong|gift")
 
@@ -1705,7 +1690,7 @@ def candidates(ms, rt, w, lines, now, until, ranks=None, news=None, gm=None):
 
 
 def pick_slate(cands):
-    """Up to 6 men's + 6 women's straights we expect to WIN (good(): the anchored win % 55%+, never fighting the line,
+    """Up to 4 men's + 4 women's straights we expect to WIN (good(): the anchored win % 55%+, never fighting the line,
     no dogs without a proven angle), likeliest first, and one parlay per tour (the 3 likeliest of that tour; a tour
     with fewer than 3 picks gets none). Never a mixed parlay, never filler. Returns (picks, {"atp": [...], "wta": [...]})."""
     for c in cands:
@@ -1715,7 +1700,7 @@ def pick_slate(cands):
     for c in sorted(cands, key=lambda c: -c["p"]):
         best.setdefault(c["match"], c)                          # one side per match (the likelier bet: ML or spread)
     ranked = sorted(best.values(), key=lambda c: -c["p"])
-    by = {t: [c for c in ranked if tour_of(c) == t][:N_PER_TOUR] for t in TOURS}   # each tour on its own: up to 6
+    by = {t: [c for c in ranked if tour_of(c) == t][:N_PER_TOUR] for t in TOURS}   # each tour on its own: up to 4
     picks = sorted(by["atp"] + by["wta"], key=lambda c: -c["p"])                 # (one tour short = fewer picks)
     parlays = {t: (by[t][:PARLAY_LEGS] if len(by[t]) >= PARLAY_LEGS else []) for t in TOURS}
     return picks, parlays
