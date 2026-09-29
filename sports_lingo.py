@@ -216,6 +216,33 @@ def bad(opp, seed, n=12):
 # ---- REVIEWS: a line on every graded pick in Past Results ------------------------------------------------------------
 # {t} our side, {o} the other side, {x} the number, {pr}/{pro}/{pos} = they/them/their (he/him/his, she/her/her)
 REVIEWS = {
+    # 🤡 we faded the public (the owner, 9/28: "we knew it - the public's a bunch of clowns")
+    ("fade", "won"): (86, 3, T(
+        "Faded the public on {t} and cashed. [The public stays|The squares stay|The sheep stay] clowns. %wk%",
+        "We knew it. [Everybody|The public|The whole world] was on {o}, and {t} cashed.",
+        "The public loved {o}. We took {t}. [Clowns.|Sheep gonna sheep.|We knew it.]",
+        "The squares ran to {o}. {t} [made 'em pay|cashed for us]. %wk%",
+        "[Told y'all|We knew it]: fading the public on {t} paid. %wk%",
+        "Everybody and their mama on {o}. {t} [said nah|got it done]. %wk%",
+        "The herd went {o}, we went {t}. [Herd lost.|Clowns.|Pay up.]",
+        "{t} over the public's side. [We knew it.|Called it.|Easy fade.] %wk%",
+        "Fade the public, get paid: {t}. %wk%",
+        "The clowns loved {o}. {t} [humbled 'em|cooked 'em|sent 'em home]. %wk%",
+        "Public [money|tickets] on {o}, our money on {t}. [Guess who ate.|We ate.] %wk%",
+        "[Casuals|Squares] on {o} again. {t} [cashed|hit]. Stay fading. %wk%",
+    )),
+    ("fade", "lost"): (86, 3, T(
+        "Faded the public on {t}, and the public got this one. %lk%",
+        "The squares hit one — {o} came through. %lk%",
+        "Even the public's right sometimes. {t} [didn't get there|fell short]. %lk%",
+        "We went against the crowd with {t}. {o} [got it done|won it]. %lk%",
+        "The herd won this round on {o}. %lk%",
+        "The fade didn't land. {t} [came up short|slipped]. %lk%",
+        "{o} bailed out the public this time. %lk%",
+        "Public got lucky on {o}. {t} [came up short|didn't show]. %lk%",
+        "Wrong night to fade the crowd. {o} [had it|got the W]. %lk%",
+        "The clowns cashed one on {o}. Still fading. %lk%",
+    )),
     ("fav", "won"): (59, 2, T(
         "{t} [handled business|took care of business|did what favorites do|took care of it|got the job done] "
         "[vs|against] {o}. %wk%",

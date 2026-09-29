@@ -442,6 +442,8 @@ def _history(picks):
         x = f'{l["line"]:+g}' if l.get("line") is not None else ""
         if l.get("market") == "total":
             kind, t_, x = "total", f'{"Over" if l.get("side") == "over" else "Under"} {l.get("line"):g}', f'{l.get("line"):g}'
+        elif l.get("public") == "fade":                   # 🤡 we faded the public: that's the story, win or lose
+            kind = "fade"
         elif mg is not None and abs(mg) >= BIG.get(lg, 99) and (mg > 0) == (r == "won"):
             kind = "big"
         elif mg is not None and abs(mg) <= CLOSE.get(lg, 0) and kind != "spread":
