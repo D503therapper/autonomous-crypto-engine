@@ -33,8 +33,9 @@ START_BANKROLL = 1000.0
 STAKE = 100.0
 HOLD_DAYS = set()             # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
                                # post under rules the study showed are weak (the owner, 9/28)
-POST_FROM_HOUR_PT = 22         # a day's plays can be posted from 10pm Pacific the night before (the owner, 9/28:
-                               # not 6pm - later lines, more news; tennis keeps its own 6pm drop)...
+POST_FROM_HOUR_PT = 8          # a day's plays go up from 8am Pacific ON GAME DAY (the owner, 9/28, after the line study:
+                               # closing lines pick more winners - NFL 68% vs 61% early - so the engine watches the lines
+                               # and the news overnight and posts off the sharpest numbers; tennis keeps its 6pm drop)...
 DEADLINE_MIN = 180             # ...as soon as everything that matters is known; if it never is, at the latest
                                # 3 hours before the play's first game (then only from games that are settled).
                                # A posted play is final: it never changes.
@@ -1109,7 +1110,7 @@ def run(repick=False, fetch=True):
     if repick:
         picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
-    days = [day] + ([day + timedelta(days=1)] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else [])
+    days = [day] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else []      # game day only, from 8am PT
     days = [d for d in days if d.isoformat() not in HOLD_DAYS]         # a board on hold never posts (owner's call)
     try:                                                                # 📊 who's betting who on today's games
         import sports_public
