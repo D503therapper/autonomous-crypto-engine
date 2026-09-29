@@ -1,0 +1,294 @@
+{
+ "meta": {
+  "nfl": {
+   "train": 1460,
+   "test": 731,
+   "trust": 0.15,
+   "from": "2023-11-26",
+   "to": "2026-09-28"
+  },
+  "ncaaf": {
+   "train": 3390,
+   "test": 1696,
+   "trust": 0.01,
+   "from": "2023-09-09",
+   "to": "2026-09-27"
+  },
+  "nba": {
+   "train": 6798,
+   "test": 3399,
+   "trust": 0.117,
+   "from": "2024-01-11",
+   "to": "2026-06-14"
+  },
+  "mlb": {
+   "train": 12080,
+   "test": 6041,
+   "trust": 0.186,
+   "from": "2024-07-06",
+   "to": "2026-09-27"
+  },
+  "nhl": {
+   "train": 6702,
+   "test": 3352,
+   "trust": 0.279,
+   "from": "2024-02-10",
+   "to": "2026-06-15"
+  },
+  "ncaab": {
+   "train": 19896,
+   "test": 9948,
+   "trust": 0.105,
+   "from": "2024-01-24",
+   "to": "2026-04-06"
+  }
+ },
+ "games": 21142,
+ "days": 1034,
+ "all_engine_sides": {
+  "n": 21142,
+  "hit": 0.397,
+  "roi": -0.044,
+  "avg_odds": 110,
+  "avg_p": 0.396
+ },
+ "rules": {
+  "edge 1+": {
+   "no_edge": {
+    "n": 19186,
+    "hit": 0.396,
+    "roi": -0.044,
+    "avg_odds": 112,
+    "avg_p": 0.392
+   },
+   "value": {
+    "n": 399,
+    "hit": 0.363,
+    "roi": -0.067,
+    "avg_odds": 167,
+    "avg_p": 0.412
+   },
+   "slight_lean": {
+    "n": 991,
+    "hit": 0.353,
+    "roi": -0.036,
+    "avg_odds": 189,
+    "avg_p": 0.372
+   },
+   "strong_lean": {
+    "n": 373,
+    "hit": 0.555,
+    "roi": -0.0,
+    "avg_odds": -125,
+    "avg_p": 0.558
+   },
+   "lock": {
+    "n": 193,
+    "hit": 0.477,
+    "roi": -0.128,
+    "avg_odds": -121,
+    "avg_p": 0.565
+   },
+   "lock_of_the_day": {
+    "n": 154,
+    "hit": 0.513,
+    "roi": -0.067,
+    "avg_odds": -122,
+    "avg_p": 0.568
+   },
+   "days_with_a_lock": 0.149,
+   "locks_per_day": 0.19
+  },
+  "edge 2+": {
+   "no_edge": {
+    "n": 19186,
+    "hit": 0.396,
+    "roi": -0.044,
+    "avg_odds": 112,
+    "avg_p": 0.392
+   },
+   "value": {
+    "n": 107,
+    "hit": 0.402,
+    "roi": -0.021,
+    "avg_odds": 159,
+    "avg_p": 0.433
+   },
+   "slight_lean": {
+    "n": 1283,
+    "hit": 0.352,
+    "roi": -0.047,
+    "avg_odds": 185,
+    "avg_p": 0.379
+   },
+   "strong_lean": {
+    "n": 508,
+    "hit": 0.535,
+    "roi": -0.032,
+    "avg_odds": -124,
+    "avg_p": 0.559
+   },
+   "lock": {
+    "n": 58,
+    "hit": 0.466,
+    "roi": -0.143,
+    "avg_odds": -117,
+    "avg_p": 0.57
+   },
+   "lock_of_the_day": {
+    "n": 53,
+    "hit": 0.453,
+    "roi": -0.171,
+    "avg_odds": -118,
+    "avg_p": 0.571
+   },
+   "days_with_a_lock": 0.051,
+   "locks_per_day": 0.06
+  },
+  "edge 3+": {
+   "no_edge": {
+    "n": 19186,
+    "hit": 0.396,
+    "roi": -0.044,
+    "avg_odds": 112,
+    "avg_p": 0.392
+   },
+   "slight_lean": {
+    "n": 1362,
+    "hit": 0.354,
+    "roi": -0.049,
+    "avg_odds": 183,
+    "avg_p": 0.382
+   },
+   "value": {
+    "n": 28,
+    "hit": 0.464,
+    "roi": 0.167,
+    "avg_odds": 171,
+    "avg_p": 0.435
+   },
+   "strong_lean": {
+    "n": 545,
+    "hit": 0.528,
+    "roi": -0.045,
+    "avg_odds": -124,
+    "avg_p": 0.56
+   },
+   "lock": {
+    "n": 21,
+    "hit": 0.524,
+    "roi": -0.018,
+    "avg_odds": -112,
+    "avg_p": 0.571
+   },
+   "lock_of_the_day": {
+    "n": 20,
+    "hit": 0.5,
+    "roi": -0.069,
+    "avg_odds": -112,
+    "avg_p": 0.571
+   },
+   "days_with_a_lock": 0.019,
+   "locks_per_day": 0.02
+  },
+  "edge 4+": {
+   "no_edge": {
+    "n": 19186,
+    "hit": 0.396,
+    "roi": -0.044,
+    "avg_odds": 112,
+    "avg_p": 0.392
+   },
+   "slight_lean": {
+    "n": 1376,
+    "hit": 0.356,
+    "roi": -0.044,
+    "avg_odds": 183,
+    "avg_p": 0.382
+   },
+   "value": {
+    "n": 14,
+    "hit": 0.357,
+    "roi": -0.14,
+    "avg_odds": 162,
+    "avg_p": 0.459
+   },
+   "strong_lean": {
+    "n": 556,
+    "hit": 0.532,
+    "roi": -0.037,
+    "avg_odds": -124,
+    "avg_p": 0.56
+   },
+   "lock": {
+    "n": 10,
+    "hit": 0.3,
+    "roi": -0.427,
+    "avg_odds": -109,
+    "avg_p": 0.576
+   },
+   "lock_of_the_day": {
+    "n": 9,
+    "hit": 0.222,
+    "roi": -0.586,
+    "avg_odds": -110,
+    "avg_p": 0.577
+   },
+   "days_with_a_lock": 0.009,
+   "locks_per_day": 0.01
+  },
+  "edge 5+": {
+   "no_edge": {
+    "n": 19186,
+    "hit": 0.396,
+    "roi": -0.044,
+    "avg_odds": 112,
+    "avg_p": 0.392
+   },
+   "slight_lean": {
+    "n": 1384,
+    "hit": 0.356,
+    "roi": -0.044,
+    "avg_odds": 183,
+    "avg_p": 0.383
+   },
+   "value": {
+    "n": 6,
+    "hit": 0.333,
+    "roi": -0.205,
+    "avg_odds": 149,
+    "avg_p": 0.487
+   },
+   "strong_lean": {
+    "n": 560,
+    "hit": 0.53,
+    "roi": -0.041,
+    "avg_odds": -124,
+    "avg_p": 0.56
+   },
+   "lock": {
+    "n": 6,
+    "hit": 0.333,
+    "roi": -0.333,
+    "avg_odds": -108,
+    "avg_p": 0.581
+   },
+   "lock_of_the_day": {
+    "n": 5,
+    "hit": 0.2,
+    "roi": -0.6,
+    "avg_odds": -110,
+    "avg_p": 0.584
+   },
+   "days_with_a_lock": 0.005,
+   "locks_per_day": 0.01
+  }
+ },
+ "win_pct_only_58": {
+  "n": 476,
+  "hit": 0.582,
+  "roi": -0.016,
+  "avg_odds": -145,
+  "avg_p": 0.589
+ }
+}
