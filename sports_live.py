@@ -1221,6 +1221,20 @@ def _code_hash():
     return h.hexdigest()
 
 
+def backstop():
+    """Every ~10 min while watching: if the tennis slate is due and not up, start the engine (GitHub skips schedules)."""
+    if not os.environ.get("GH_TOKEN"):
+        return
+    import subprocess
+    try:
+        r = subprocess.run(["bash", "tools/backstop.sh"], capture_output=True, text=True, timeout=90,
+                           env={**os.environ, "SKIP_LIVE": "1"})
+        if r.stdout.strip():
+            print(f"{datetime.now(timezone.utc):%H:%M:%S} {r.stdout.strip()[:200]}", flush=True)
+    except Exception as e:                                        # noqa: BLE001 - never stops the watch
+        print(f"backstop skipped: {e}", flush=True)
+
+
 def queue_next():
     """Queue the next watch right behind this one (GitHub's 30-minute schedule can skip runs - a skipped run once left
     the live board stale). Needs GH_TOKEN (the workflow passes its own token). True if queued."""
@@ -1263,6 +1277,7 @@ def loop(minutes, every_s=1):
                 os.execv(sys.executable, [sys.executable, "-u", "sports_live.py", "--loop", f"{left:.1f}"])
             print(f"{datetime.now(timezone.utc):%H:%M:%S} loading data", flush=True)
             games, _ = _data(reload=True)
+            backstop()
         if any_live_soon(games, STAY_MIN) and not queued:       # the next watch lines up behind this one
             queued = queue_next()
         if not any_live_soon(games, STAY_MIN):
