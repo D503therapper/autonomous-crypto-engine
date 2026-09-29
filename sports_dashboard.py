@@ -953,21 +953,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                          f"💰 Y'all doubted {what} at +{o}{how}? Smacked it. Trust the algorithm. LET'S GO!",
                                          f"💰 {_cap(what)} at +{o}{how}. Books are in shambles. I tried to fucking tell y'all!"]))
     big_live = {(e["team"], e["odds"]) for e in live.values() if e.get("odds", 0) >= BIG_HIT}
-    # the tape: the games that actually finished on TODAY's date (Pacific) - or yesterday's, before today has any.
-    # (It used to count a 30-hour window, and a Monday said "last night's 2 NFL games" - Sunday night + MNF.)
-    by_day = {}
-    for g in (games or {}).values():
-        if g.get("status") == "final" and (g.get("stype") or "?") in sd.REAL and g.get("start"):
-            d_ = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).date().isoformat()
-            by_day.setdefault(d_, {}).setdefault(g["league"], 0)
-            by_day[d_][g["league"]] += 1
-    yday = (now.date() - timedelta(days=1)).isoformat()
-    when, fresh = ("today's", by_day.get(today)) if by_day.get(today) else ("yesterday's", by_day.get(yday))
-    if fresh:
-        parts = [f"{n} {sd.LEAGUES[lg][2]} game{'s' if n > 1 else ''}" for lg, n in sorted(fresh.items(), key=lambda x: -x[1])]
-        what = ", ".join(parts[:-1]) + (" and " if len(parts) > 1 else "") + parts[-1]
-        lines.append([f"🎥 Studied the tape on {when} {what}.", f"🎥 Broke down the film from {when} {what}.",
-                      f"🎥 Went back over {when} {what} and got sharper."][k % 3])
+    # (no "studied the tape on N games" line - the owner, 9/28: it doesn't belong in a daily review)
     n = sum(p.get("eval_games", 0) for p in params.values())
     if n:
         a_ = sum((p.get("oos") or {}).get("acc", p["accuracy"]) * p.get("eval_games", 0) for p in params.values()) / n

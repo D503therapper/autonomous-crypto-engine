@@ -1737,6 +1737,31 @@ def repick(ms, rt, w, lines, picks, now, gm=None):
     return slate
 
 
+def quick_grade(rows=None):
+    """Grade the posted tennis picks right now from ESPN's scoreboards (yesterday / today / tomorrow - Asia's matches
+    sit on the next day's) without running the whole tennis engine. The live watcher calls it the moment one of our
+    matches finishes, so a finished match never sits ungraded. Returns how many legs got graded."""
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+    picks = _load_picks()
+    if rows is None:
+        rows, now = [], _dt.now(_tz.utc)
+        for tour in TOURS:
+            for d in (-1, 0, 1):
+                try:
+                    data, _ = _get(ESPN.format(tour=tour) + f"?dates={(now + _td(days=d)):%Y%m%d}")
+                    rows += parse_espn(data, tour)
+                except Exception as e:                   # noqa: BLE001
+                    print(f"tennis quick grade: espn {tour} {d}: {str(e)[:60]}")
+    ms = {r["id"]: r for r in rows}
+    before = sum(1 for s_ in picks for l in s_.get("picks") or [] if l.get("result"))
+    grade(ms, picks)
+    after = sum(1 for s_ in picks for l in s_.get("picks") or [] if l.get("result"))
+    if after != before:
+        with open(PICKS, "w") as f:
+            json.dump(picks[-120:], f, indent=1)
+    return after - before
+
+
 def grade(ms, picks):
     for s in picks:
         for leg in s["picks"]:

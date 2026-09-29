@@ -2748,6 +2748,21 @@ def test_no_dog_note():
         assert "real talk" not in a.lower() and "chalk" not in a.lower()
 
 
+def test_tennis_quick_grade():
+    """A finished tennis match on our slate grades right away (the watcher calls this the moment it ends)."""
+    import tempfile, sports_tennis as stq
+    d, keep = tempfile.mkdtemp(), stq.PICKS
+    stq.PICKS = os.path.join(d, "p.json")
+    try:
+        json.dump([{"date": "2026-09-29", "picks": [{"id": "atp:9:1", "match": "atp:9", "side": 1, "market": "ml", "result": None}],
+                    "parlays": {}}], open(stq.PICKS, "w"))
+        row = {"id": "atp:9", "status": "STATUS_FINAL", "winner": 2, "sets1": "4 3", "sets2": "6 6", "done": 2,
+               "p1_name": "A B", "p2_name": "C D"}
+        assert stq.quick_grade([row]) == 1 and json.load(open(stq.PICKS))[0]["picks"][0]["result"] == "lost"
+    finally:
+        stq.PICKS = keep
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
