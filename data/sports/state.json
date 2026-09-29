@@ -75,7 +75,7 @@
  },
  "tennis_from": "2016-09-29",
  "tennis_study": {
-  "acc": 0.6428,
+  "acc": 0.6425,
   "acc_elo": 0.6448,
   "games": {
    "atp": {
@@ -95,10 +95,10 @@
     ]
    }
   },
-  "logloss": 0.6275,
-  "logloss_elo": 0.6266,
-  "matches": 71635,
-  "rated": 56034,
+  "logloss": 0.6274,
+  "logloss_elo": 0.6265,
+  "matches": 71636,
+  "rated": 56035,
   "tours": {
    "atp": {
     "acc": 0.6375,
@@ -274,9 +274,9 @@
     ]
    },
    "wta": {
-    "acc": 0.648,
+    "acc": 0.6475,
     "acc_elo": 0.649,
-    "fit": 28168,
+    "fit": 28169,
     "games": {
      "3": [
       2.85,
@@ -286,8 +286,8 @@
     "graded": 2000,
     "life": {
      "base": {
-      "acc": 0.648,
-      "logloss": 0.6239
+      "acc": 0.6475,
+      "logloss": 0.6238
      },
      "combined": {
       "acc": 0.6525,
@@ -296,30 +296,30 @@
        "experience",
        "first_set"
       ],
-      "gain_mnats": 5.411,
+      "gain_mnats": 5.368,
       "logloss": 0.6185,
       "n": 2000,
       "weights": {
        "big": 0.1849,
        "exp": -0.0749,
-       "f2_rate": 0.2132,
-       "fs_rate": 0.2403
+       "f2_rate": 0.2125,
+       "fs_rate": 0.2404
       },
-      "z": 3.03
+      "z": 3.01
      },
      "curve": {
       "16-17": -0.0148,
       "18-19": 0.0,
-      "20-21": -0.01312,
+      "20-21": -0.01313,
       "22-23": -0.0116,
       "24-25": -0.01643,
       "26-27": -0.01908,
-      "28-29": -0.02726,
+      "28-29": -0.02732,
       "30-31": -0.03962,
       "32-33": -0.04471,
       "34-35": -0.04187,
       "36-37": -0.02724,
-      "38+": -0.06517
+      "38+": -0.0641
      },
      "curve_sides": {
       "16-17": 558,
@@ -328,57 +328,57 @@
       "22-23": 8835,
       "24-25": 10027,
       "26-27": 9630,
-      "28-29": 7953,
+      "28-29": 7954,
       "30-31": 5411,
       "32-33": 2744,
       "34-35": 1311,
       "36-37": 705,
-      "38+": 342
+      "38+": 343
      },
      "factors": {
       "age": {
-       "acc": 0.651,
+       "acc": 0.6515,
        "active": 2000,
-       "gain_mnats": 0.706,
-       "logloss": 0.6232,
+       "gain_mnats": 0.708,
+       "logloss": 0.6231,
        "n": 2000,
        "weights": {
-        "age_curve": 0.0819,
-        "age_gap": -0.0609,
+        "age_curve": 0.0811,
+        "age_gap": -0.0608,
         "bio_miss": 0.0,
-        "teen_rise": -0.0671,
+        "teen_rise": -0.067,
         "vet_bo5": 0.0
        },
-       "z": 0.85
+       "z": 0.86
       },
       "experience": {
-       "acc": 0.654,
+       "acc": 0.6535,
        "active": 1999,
-       "gain_mnats": 4.19,
+       "gain_mnats": 4.146,
        "logloss": 0.6197,
        "n": 2000,
        "weights": {
         "big": 0.1827,
-        "exp": -0.0763
+        "exp": -0.0762
        },
-       "z": 2.46
+       "z": 2.43
       },
       "first_set": {
        "acc": 0.65,
        "active": 1968,
-       "gain_mnats": 0.988,
-       "logloss": 0.6229,
+       "gain_mnats": 0.99,
+       "logloss": 0.6228,
        "n": 2000,
        "weights": {
-        "f2_rate": 0.1533,
-        "fs_rate": 0.2214
+        "f2_rate": 0.1525,
+        "fs_rate": 0.2215
        },
-       "z": 2.32
+       "z": 2.33
       },
       "injury": {
        "acc": 0.6525,
        "active": 1714,
-       "gain_mnats": 0.74,
+       "gain_mnats": 0.741,
        "logloss": 0.6231,
        "n": 2000,
        "weights": {
@@ -390,7 +390,7 @@
       "last_match": {
        "acc": 0.648,
        "active": 1935,
-       "gain_mnats": 0.762,
+       "gain_mnats": 0.758,
        "logloss": 0.6231,
        "n": 2000,
        "weights": {
@@ -404,14 +404,14 @@
       "streaks": {
        "acc": 0.646,
        "active": 643,
-       "gain_mnats": -0.364,
+       "gain_mnats": -0.37,
        "logloss": 0.6242,
        "n": 2000,
        "weights": {
         "lost2": -0.1052,
-        "won3": 0.0133
+        "won3": 0.0134
        },
-       "z": -0.72
+       "z": -0.73
       },
       "travel": {
        "acc": 0.648,
@@ -431,7 +431,7 @@
        "logloss": 0.6238,
        "n": 2000,
        "weights": {
-        "teen_vs_vet": 0.0935,
+        "teen_vs_vet": 0.0936,
         "young_hot": -0.0294
        },
        "z": 0.23
@@ -447,10 +447,10 @@
      "used_in_picks": false,
      "z_keep": 2.0
     },
-    "logloss": 0.6239,
-    "logloss_elo": 0.6222,
+    "logloss": 0.6238,
+    "logloss_elo": 0.6221,
     "own_weights": true,
-    "rated": 30168,
+    "rated": 30169,
     "weights": [
      0.006,
      0.907,
