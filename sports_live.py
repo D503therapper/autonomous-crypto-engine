@@ -607,7 +607,7 @@ def bovada_live(league):
 
 
 def backup_team(league):
-    """BetRivers + FanDuel live moneylines for one league (sports_books) - [] if they fail (never breaks the watch)."""
+    """BetRivers live moneylines for one league (sports_books) - [] if they fail (never breaks the watch)."""
     try:
         import sports_books
         return sports_books.team_backup(league)
@@ -958,7 +958,7 @@ def backup_tennis():
 
 
 def tennis_with_backups(lines, backups, now_ms):
-    """Bovada's tennis lines + BetRivers / FanDuel for any match Bovada has no fresh price on. Fresh prices sort
+    """Bovada's tennis lines + BetRivers for any match Bovada has no fresh price on. Fresh prices sort
     first (match_line takes the first line that fits a match), so a stale Bovada line never beats a fresh backup."""
     fresh_bov = [ln for ln in lines if not ln.get("stale")]
     out = list(lines)

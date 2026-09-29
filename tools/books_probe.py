@@ -7,8 +7,6 @@ C = {
     "draftkings nfl": "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusnj/v1/leagues/88808",
     "draftkings tennis (atp)": "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusnj/v1/leagues/2585",
     "draftkings old api nfl": "https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/88808?format=json",
-    "fanduel nfl": "https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=nfl&_ak=FhMFpcPWXMeyZxOx",
-    "fanduel tennis": "https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=SPORT&eventTypeId=2&_ak=FhMFpcPWXMeyZxOx",
     "caesars/william hill nfl": "https://api.americanwagering.com/regions/us/locations/nj/brands/czr/sb/v3/sports/americanfootball/events/schedule",
     "caesars/william hill tennis": "https://api.americanwagering.com/regions/us/locations/nj/brands/czr/sb/v3/sports/tennis/events/schedule",
     "betrivers (kambi) nfl": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/american_football/nfl.json?lang=en_US&market=US",

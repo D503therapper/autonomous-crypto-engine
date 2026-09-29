@@ -3130,9 +3130,9 @@ def test_tennis_bottom_lines_no_percent_talk():
 
 
 def test_backup_books_fill_in_for_bovada():
-    """The owner, 9/29: 'when one fails, it instantly goes to the other'. BetRivers (Kambi) + FanDuel read the same way
-    their real feeds look; a backup fills in only a game Bovada has no fresh price for, and only with a fresh price;
-    a cached FanDuel page is no price; tennis sorts fresh prices first so a stale Bovada line never wins."""
+    """The owner, 9/29: 'when one fails, it instantly goes to the other'. BetRivers (Kambi) reads the way its real feed
+    looks; a backup fills in only a game Bovada has no fresh price for, and only with a fresh price; tennis sorts fresh
+    prices first so a stale Bovada line never wins. No source that needs a borrowed key or access code (FanDuel dropped)."""
     import sports_books as bk, sports_live as slv
     now = time.time() * 1000
     iso = lambda ms: datetime.fromtimestamp(ms / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -3153,12 +3153,6 @@ def test_backup_books_fill_in_for_bovada():
                       {"event": {"englishName": "X Y - Z W", "state": "STARTED", "path": [{}, {"englishName": "ITF Men"}]}, "betOffers": []}]}
     tl = bk.kambi_tennis(ten)
     assert len(tl) == 1 and tl[0]["tour"] == "wta" and tl[0]["a_ml"] == -150 and not tl[0]["suspended"]
-    fd = {"attachments": {"markets": {"1": {"marketType": "MONEY_LINE", "inPlay": True, "marketStatus": "OPEN", "runners": [
-        {"runnerName": "Philadelphia Phillies", "result": {"type": "AWAY"}, "runnerStatus": "ACTIVE", "winRunnerOdds": {"americanDisplayOdds": {"americanOddsInt": 1400}}},
-        {"runnerName": "Atlanta Braves", "result": {"type": "HOME"}, "runnerStatus": "ACTIVE", "winRunnerOdds": {"americanDisplayOdds": {"americanOddsInt": -6000}}}]}}}}
-    f1 = bk.fanduel_team(fd, age=2, now_ms=now)
-    assert f1[0]["home"] == "Atlanta Braves" and f1[0]["ml_home"] == -6000 and f1[0]["mod"] > 0
-    assert bk.fanduel_team(fd, age=300, now_ms=now)[0]["mod"] == 0               # a cached copy: never a live price
     bov = [{"home": "Atlanta Braves", "away": "Philadelphia Phillies", "ml_home": -4000, "ml_away": 900, "src": "bovada"}]
     other = {"home": "Houston Astros", "away": "Seattle Mariners", "ml_home": 120, "ml_away": -140, "mod": now, "src": "betrivers"}
     old = {**other, "home": "Texas Rangers", "away": "Oakland Athletics", "mod": now - 10 * 60 * 1000}
@@ -3174,6 +3168,10 @@ def test_backup_books_fill_in_for_bovada():
     assert ln["src"] == "betrivers" and ln["a_ml"] == -150
     src = open(bk.__file__).read()
     assert "pinnacle" not in src.lower() and "X-API-Key" not in src                     # no borrowed keys
+    import glob
+    for f in [g for g in glob.glob("*.py") + glob.glob("tools/*.py") if "test" not in g]:   # ...and no access codes
+        assert "_ak=" not in open(f).read(), f
+    assert not hasattr(bk, "FANDUEL") and "fanduel" not in open(slv.__file__).read().lower()
 
 
 def test_live_game_list_falls_back_to_espn_and_bets_grade_anyway():

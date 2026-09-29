@@ -1,14 +1,11 @@
 """BACKUP SPORTSBOOKS for live prices (the owner, 9/29: "when one fails, it instantly goes to the other").
 
 Bovada stays first. When it has no fresh price for a game or a tennis match (blocked, cached, down, or just not
-offering it), these fill in, in this order:
-  1. BetRivers (Kambi's public odds feed) - every price carries when it last changed, so the same 60-second freshness
-     rule applies as for Bovada.
-  2. FanDuel (its public sportsbook pages) - no per-price timestamp, so its prices only count when the page itself
-     came back fresh (the server's own Age header), never a cached copy.
+offering it), BetRivers (Kambi's public odds feed) fills in - every price carries when it last changed, so the same
+60-second freshness rule applies as for Bovada.
 
-Plain public pages only: no borrowed keys, and when a book turns us away we just move to the next one - we never
-disguise ourselves to get back in. Every read is logged in STATUS so the hourly bug check can say which source is down.
+Plain public pages only: no borrowed keys or access codes (that's why FanDuel was dropped 9/29 - its feed wants one),
+and when a book turns us away we just move on - we never disguise ourselves to get back in. Every read is logged in STATUS so the hourly bug check can say which source is down.
 """
 import json
 import re
@@ -24,12 +21,6 @@ KAMBI_EVENT = "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/betof
 KAMBI_PATH = {"nfl": "american_football/nfl", "ncaaf": "american_football/ncaaf", "nba": "basketball/nba",
               "ncaab": "basketball/ncaab", "mlb": "baseball/mlb", "nhl": "ice_hockey/nhl",
               "tennis": "tennis/all/all/all/in-play"}
-FANDUEL = "https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?{q}&_ak=FhMFpcPWXMeyZxOx"
-FANDUEL_Q = {"nfl": "page=CUSTOM&customPageId=nfl", "ncaaf": "page=CUSTOM&customPageId=ncaaf",
-             "nba": "page=CUSTOM&customPageId=nba", "ncaab": "page=CUSTOM&customPageId=ncaab",
-             "mlb": "page=CUSTOM&customPageId=mlb", "nhl": "page=CUSTOM&customPageId=nhl",
-             "tennis": "page=SPORT&eventTypeId=2"}
-FRESH_AGE_S = 10              # a FanDuel page older than this (the server's Age header) is a cached copy: no price
 EVERY_S = 3                   # each backup read at most every 3 seconds per league (never hammer a book)
 STATUS = {}                   # "betrivers:mlb" -> {"ok": bool, "at": epoch, "n": prices, "err": str}
 _CACHE = {}                   # url -> (fetched at, data, age)
@@ -132,50 +123,6 @@ def kambi_tennis(data):
     return out
 
 
-# ---------------------------------------------------------------- FanDuel
-def fanduel_team(data, age=None, now_ms=None):
-    """FanDuel content page -> [{home, away, ml_home, ml_away, mod, src}] - in-play moneylines. mod = now when the
-    page came back fresh (Age <= FRESH_AGE_S or no cache), else 0 (a cached copy is never a live price)."""
-    now_ms = now_ms if now_ms is not None else time.time() * 1000
-    mod = now_ms - 1000 * (age or 0) if age is None or age <= FRESH_AGE_S else 0
-    out = []
-    for m in ((data or {}).get("attachments") or {}).get("markets", {}).values():
-        if m.get("marketType") != "MONEY_LINE" or not m.get("inPlay") or m.get("marketStatus") != "OPEN":
-            continue
-        side = {}
-        for r in m.get("runners") or []:
-            t = ((r.get("result") or {}).get("type") or "").upper()
-            odds = ((r.get("winRunnerOdds") or {}).get("americanDisplayOdds") or {}).get("americanOddsInt")
-            if t in ("HOME", "AWAY") and r.get("runnerStatus") == "ACTIVE" and odds is not None:
-                side[t] = (r.get("runnerName"), int(odds))
-        if "HOME" in side and "AWAY" in side:
-            out.append({"home": side["HOME"][0], "away": side["AWAY"][0], "ml_home": side["HOME"][1],
-                        "ml_away": side["AWAY"][1], "mod": mod, "src": "fanduel"})
-    return out
-
-
-def fanduel_tennis(data, age=None, now_ms=None):
-    """FanDuel tennis page -> tennis lines (in-play match betting, singles). Tour unknown here (None): the watcher
-    matches it to ESPN's ATP / WTA match by the two last names."""
-    now_ms = now_ms if now_ms is not None else time.time() * 1000
-    mod = now_ms - 1000 * (age or 0) if age is None or age <= FRESH_AGE_S else 0
-    out = []
-    for m in ((data or {}).get("attachments") or {}).get("markets", {}).values():
-        if m.get("marketType") != "MATCH_BETTING" or not m.get("inPlay"):
-            continue
-        rs = m.get("runners") or []
-        if len(rs) != 2 or any("/" in str(r.get("runnerName")) for r in rs):
-            continue
-        odds = [((r.get("winRunnerOdds") or {}).get("americanDisplayOdds") or {}).get("americanOddsInt") for r in rs]
-        shut = m.get("marketStatus") != "OPEN" or any(o is None for o in odds) or \
-            any(r.get("runnerStatus") != "ACTIVE" for r in rs)
-        out.append({"a": rs[0].get("runnerName"), "b": rs[1].get("runnerName"),
-                    "start": str(m.get("marketTime") or "")[:16] + "Z",
-                    "a_ml": None if odds[0] is None else int(odds[0]), "b_ml": None if odds[1] is None else int(odds[1]),
-                    "suspended": shut, "mod": mod, "event": "", "tour": None, "src": "fanduel"})
-    return out
-
-
 # ---------------------------------------------------------------- the failover reads
 def _read(src, key, url, parse):
     """One source, one league: parsed prices, or [] (and STATUS says why)."""
@@ -193,18 +140,15 @@ def _read(src, key, url, parse):
 
 
 def team_backup(league):
-    """Backup live moneylines for one league: BetRivers, then FanDuel ([] when neither has any)."""
+    """Backup live moneylines for one league from BetRivers ([] when it has none)."""
     got, missing = [], []
     if league in KAMBI_PATH:
         got += _read("betrivers", league, KAMBI.format(p=KAMBI_PATH[league]), lambda d, a: kambi_team(d, missing=missing))
         for eid in missing[:8]:                               # (the NFL: each live game's own page has the moneyline)
             got += _read("betrivers", f"{league}:{eid}", KAMBI_EVENT.format(id=eid), lambda d, a: kambi_event(d))
-    if league in FANDUEL_Q:
-        got += _read("fanduel", league, FANDUEL.format(q=FANDUEL_Q[league]), lambda d, a: fanduel_team(d, a))
     return got
 
 
 def tennis_backup():
-    """Backup live tennis lines: BetRivers, then FanDuel."""
-    return (_read("betrivers", "tennis", KAMBI.format(p=KAMBI_PATH["tennis"]), lambda d, a: kambi_tennis(d))
-            + _read("fanduel", "tennis", FANDUEL.format(q=FANDUEL_Q["tennis"]), lambda d, a: fanduel_tennis(d, a)))
+    """Backup live tennis lines from BetRivers."""
+    return _read("betrivers", "tennis", KAMBI.format(p=KAMBI_PATH["tennis"]), lambda d, a: kambi_tennis(d))

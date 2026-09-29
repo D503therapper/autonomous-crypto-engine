@@ -5,7 +5,6 @@ from datetime import datetime, timezone
 H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
      "Accept": "application/json, text/plain, text/html, */*", "Accept-Language": "en-US,en;q=0.9"}
 K = "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/{p}.json?lang=en_US&market=US"
-FD = "https://sbapi.nj.sportsbook.fanduel.com/api/{p}&_ak=FhMFpcPWXMeyZxOx"
 day = datetime.now(timezone.utc).strftime("%Y%m%d")
 S = {
     # BetRivers (Kambi): pregame + in-play, every league we cover + tennis
@@ -16,11 +15,6 @@ S = {
     "kambi_mlb_inplay": K.format(p="baseball/mlb/all/all/in-play"), "kambi_nhl": K.format(p="ice_hockey/nhl"),
     "kambi_nba": K.format(p="basketball/nba"), "kambi_ncaab": K.format(p="basketball/ncaab"),
     "kambi_all_inplay": K.format(p="all/all/all/all/in-play"),
-    # FanDuel
-    "fd_nfl": FD.format(p="content-managed-page?page=CUSTOM&customPageId=nfl"),
-    "fd_mlb": FD.format(p="content-managed-page?page=CUSTOM&customPageId=mlb"),
-    "fd_tennis": FD.format(p="content-managed-page?page=SPORT&eventTypeId=2"),
-    "fd_live": FD.format(p="in-play?eventTypeId=0&timezone=America%2FLos_Angeles"),
     # splits + lines pages
     "yahoo_nfl": "https://sports.yahoo.com/nfl/odds/", "yahoo_mlb": "https://sports.yahoo.com/mlb/odds/",
     "yahoo_nhl": "https://sports.yahoo.com/nhl/odds/", "yahoo_nba": "https://sports.yahoo.com/nba/odds/",
