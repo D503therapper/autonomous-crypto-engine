@@ -723,12 +723,17 @@ _TN_CSV = [0.0]               # last time ungraded tennis plays were checked aga
 
 def tennis_feeds():
     """(live match rows from ESPN's ATP + WTA scoreboards, all their rows (for grading), Bovada live tennis lines)."""
-    rows = []
+    rows, seen = [], set()
+    nxt = (datetime.now(timezone.utc) + timedelta(days=1)).strftime("%Y%m%d")
     for tour in stn.TOURS:
-        try:
-            rows += stn.parse_espn(_get(stn.ESPN.format(tour=tour)), tour)
-        except Exception as e:                               # noqa: BLE001
-            sd.ERRORS.append(f"espn tennis {tour}: {str(e)[:80]}")
+        for q in ("", f"?dates={nxt}"):                     # Asia's matches sit on the next day's scoreboard
+            try:
+                for r in stn.parse_espn(_get(stn.ESPN.format(tour=tour) + q), tour):
+                    if r["id"] not in seen:
+                        seen.add(r["id"])
+                        rows.append(r)
+            except Exception as e:                           # noqa: BLE001
+                sd.ERRORS.append(f"espn tennis {tour}: {str(e)[:80]}")
     lines, ok = [], False
     for url in (BOVADA, BOVADA_OLD, BOVADA_ALL):             # live feed, older address, full feed (live=True flag)
         try:

@@ -19,11 +19,11 @@ BRAIN = "docs/sports/brain.json"      # everything the AI question box knows (re
 RECORDS = {}
 LIVE_JSON_PATH = "docs/sports/live.json"
 LOOK = {   # kind -> label, accent, second accent
-    "two":   ("2-LEG OF THE DAY", "#2f8bff", "#22d3ee"),
-    "three": ("3-LEG OF THE DAY", "#ffc233", "#ff8a00"),
+    "two":   ("2-LEG PARLAY", "#2f8bff", "#22d3ee"),
+    "three": ("3-LEG PARLAY", "#ffc233", "#ff8a00"),
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
-    "four": ("4-LEG OF THE DAY", "#b36bff", "#ff4fd8"),
+    "four": ("4-LEG PARLAY", "#b36bff", "#ff4fd8"),
     "solo": ("ONE-GAME PICK", "#22e39a", "#22d3ee"),
     "eight": ("8-LEG (RETIRED)", "#8a5cff", "#c04fd8"),
 }
@@ -376,7 +376,7 @@ def _tennis():
     def par_card(key, par, legs):
         stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>'}.get(par["status"], "")
         return f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
-  <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">{PAR_TITLE[key]}</span>{_chip(par["status"])}</div>
+  <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">{PAR_TITLE[key].replace("PARLAY", f'{len(par.get("legs") or [])}-LEG PARLAY')}</span>{_chip(par["status"])}</div>
   <div class="pk-o"><span class="big">{_am(par['american'])}</span><span class="pay">$100 wins <b>${100 * (par['dec'] - 1):,.0f}</b></span></div>
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{"".join(row(legs[i]) for i in par["legs"] if i in legs)}
 </section>"""
@@ -1329,7 +1329,8 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   // 🔴 LIVE while it's being played, with the score + time left right under it (tennis: sets, games, points)
   var st=Date.parse(s.getAttribute("data-start"));if(!st)return;
   var sc=S[s.getAttribute("data-gid")||""];if(sc&&sc.p1&&s.getAttribute("data-side")==="2")sc=flip(sc);   // our player first
-  var row=s.closest(".lt"),box=row&&row.nextElementSibling&&row.nextElementSibling.classList.contains("lsc")?row.nextElementSibling:null;
+  var row=s.closest(".lt"),leg=row&&row.parentNode,box=leg?leg.querySelector(":scope>.lsc"):null;   // the score sits
+  //                                                      under the pick (right above its breakdown), never above it
   var on=sc?true:(n>=st&&n<st+6*3600000&&!s.classList.contains("dly"));   // (not started yet: stays DELAYED)
   if(on){{if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
     var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';
@@ -1337,7 +1338,8 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   if(sc&&!sc.live&&!sc.delayed)window.d503stale=1;       // a pick's game is final: the graded page is coming
   else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}
   if(sc&&on&&row){{var q=function(x){{return String(x).replace(/[&<>"]/g,"")}},h;
-    if(!box){{box=document.createElement("div");box.className="lsc";row.parentNode.insertBefore(box,row.nextSibling)}}
+    if(!box){{box=document.createElement("div");box.className="lsc";var bd=leg.querySelector(":scope>details.bd");
+      if(bd)leg.insertBefore(box,bd);else leg.appendChild(box);}}
     if(sc.tennis){{var n=(sc.sets||[]).length,cols="1fr repeat("+n+",1.5em)"+(sc.pts?" 2.4em":"");   // 🎾 a TV-style scoreboard
       h='<div class="tsb" style="grid-template-columns:'+cols+'">'+[0,1].map(function(i){{
         return '<span class="nm">'+(sc.live&&sc.srv===i?'<i></i>':'')+q(sc.n[i])+'</span>'+(sc.sets||[]).map(function(st,k){{

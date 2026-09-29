@@ -1205,7 +1205,10 @@ def test_dashboard_tennis_records():
         assert "🎾 WOMEN'S TENNIS</div>" in html and "🎾 MEN'S TENNIS</div>" in html and ">🎾 TENNIS<" not in html
         assert "<b>🎾 Men's Tennis</b>" in html and "<b>🎾 Women's Tennis</b>" in html and "<b>🎾 Tennis</b>" not in html
         assert "4 men's + 3 women's" in html, "the card's summary line"
-        assert "MEN'S TENNIS PARLAY" in html and "WOMEN'S TENNIS PARLAY" in html
+        assert "MEN'S TENNIS 3-LEG PARLAY" in html and "WOMEN'S TENNIS" in html
+        # the owner's rule (9/28): EVERY parlay title says how many legs it has
+        titles = [x for x in re.findall(r'class="pk-l[^"]*">([^<]*)<', html) if "PARLAY" in x]
+        assert titles and all(re.search(r"\d-LEG (LEAN )?PARLAY", x) for x in titles), titles
         assert "parlays: men's 0-0 · women's 0-1 · old mixed 0-1" in html
         assert "🎾 Men&#x27;s Tennis · 🔁 DOUBLE DOWN" in html and "4-6, 2-2 in set 2" in html, "the live list: 🎾 and the set/game score"
         assert html.count("class=\"rc gr\"") >= 6

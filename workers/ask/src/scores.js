@@ -12,7 +12,18 @@ const EXTRA = { ncaaf: "?groups=80&limit=1000", ncaab: "?groups=50&limit=1000" }
 const DBG = {};
 const HOSTS = ["https://site.web.api.espn.com", "https://site.api.espn.com"];   // (the first one lets Cloudflare in)
 async function board(key, ctx) {
-  const path = `/apis/site/v2/sports/${PATHS[key]}/scoreboard${EXTRA[key] || ""}`;
+  if (key === "atp" || key === "wta") {                    // tennis runs round the clock: a match in Asia sits on
+    const ymd = (d) => new Date(Date.now() + d * 86400000).toISOString().slice(0, 10).replace(/-/g, "");   // the next
+    const days = await Promise.all([0, 1].map((d) => boardAt(key, ctx, `?dates=${ymd(d)}`).catch(() => null)));   // day's
+    const evs = [];                                                                                       // scoreboard
+    for (const d of [await boardAt(key, ctx, "").catch(() => null), ...days]) if (d) evs.push(...(d.events || []));
+    return evs.length ? { events: evs } : null;
+  }
+  return boardAt(key, ctx, EXTRA[key] || "");
+}
+
+async function boardAt(key, ctx, q) {
+  const path = `/apis/site/v2/sports/${PATHS[key]}/scoreboard${q}`;
   const cache = caches.default;
   const ck = "https://d503-cache" + path;
   const hit = await cache.match(ck);

@@ -33,3 +33,15 @@ test("scores: a rain delay mid-match keeps the score up", async () => {
   const t = (await r.json())["tennis:atp:7"];
   assert.equal(t.delayed, true); assert.equal(t.live, true); assert.deepEqual(t.sets, [[6, 3], [2, 1]]);
 });
+
+test("scores: a match on the NEXT day's scoreboard (Asia) is still found", async () => {
+  const today = { events: [] };
+  const tmr = { events: [{ groupings: [{ competitions: [{ id: "186238", status: { type: { state: "in" } }, competitors: [
+    { athlete: { displayName: "Rinky Hijikata" }, linescores: [{ value: 3 }] },
+    { athlete: { displayName: "Stefanos Tsitsipas" }, linescores: [{ value: 2 }] }] }] }] }] };
+  globalThis.caches = { default: { match: async () => null, put: async () => {} } };
+  globalThis.fetch = async (u) => ({ ok: true, status: 200, text: async () => JSON.stringify(u.includes("dates=") ? tmr : today) });
+  const r = await handleScores(new Request("https://x.workers.dev/scores?ids=tennis:atp:186238"), {}, { waitUntil() {} }, ["https://d503therapper.github.io"]);
+  const t = (await r.json())["tennis:atp:186238"];
+  assert.ok(t && t.live); assert.deepEqual(t.sets, [[3, 2]]);
+});
