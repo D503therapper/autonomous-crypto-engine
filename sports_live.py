@@ -516,7 +516,32 @@ def bovada_live(league):
                         px[_clean(o.get("description"))] = 100 if v == "EVEN" else int(v) if re.match(r"^[+-]?\d+$", v) else None
                     h, a = px.get(comps["home"]), px.get(comps["away"])
                     if h is not None and a is not None:
-                        out.append({"home": comps["home"], "away": comps["away"], "ml_home": h, "ml_away": a})
+                        out.append({"home": comps["home"], "away": comps["away"], "ml_home": h, "ml_away": a,
+                                    "src": "bovada"})
+    return with_backups(out, backup_team(league))
+
+
+def backup_team(league):
+    """BetRivers + FanDuel live moneylines for one league (sports_books) - [] if they fail (never breaks the watch)."""
+    try:
+        import sports_books
+        return sports_books.team_backup(league)
+    except Exception as e:                                   # noqa: BLE001
+        sd.ERRORS.append(f"backup books {league}: {str(e)[:80]}")
+        return []
+
+
+def with_backups(first, backups, now_ms=None):
+    """Bovada's fresh prices first; a backup book fills in any game Bovada has no fresh price for (blocked, cached,
+    down, or not offering it) - only when the backup's own price is fresh too. book_line() takes the first match."""
+    now_ms = now_ms if now_ms is not None else time.time() * 1000
+    out = list(first)
+    for x in backups:
+        if now_ms - (x.get("mod") or 0) > LINE_MAX_AGE_S * 1000:
+            continue                                         # a stale backup price is no price either
+        if any(sd._same(x["home"], y["home"]) and sd._same(x["away"], y["away"]) for y in first):
+            continue                                         # Bovada has this game: Bovada's price stands
+        out.append(x)
     return out
 
 
@@ -827,9 +852,39 @@ def tennis_feeds():
     now_ms = time.time() * 1000
     lines = [{**ln, "stale": True} if not ln.get("mod") or now_ms - ln["mod"] > LINE_MAX_AGE_S * 1000 else ln
              for ln in lines]                                 # a price the book hasn't touched in 60s: not a live price
+    lines = tennis_with_backups(lines, backup_tennis(), now_ms)
     if ok:
-        TENNIS["books"] = f"{len(lines)} live lines, {sum(1 for x in lines if not x.get('stale'))} fresh"
+        by = {}
+        for x in lines:
+            if not x.get("stale"):
+                by[x.get("src", "bovada")] = by.get(x.get("src", "bovada"), 0) + 1
+        TENNIS["books"] = f"{len(lines)} live lines, {sum(by.values())} fresh" + \
+            (" (" + ", ".join(f"{k} {v}" for k, v in sorted(by.items())) + ")" if by else "")
     return [r for r in rows if stn._state(r) == "live"], rows, lines
+
+
+def backup_tennis():
+    try:
+        import sports_books
+        return sports_books.tennis_backup()
+    except Exception as e:                                   # noqa: BLE001
+        sd.ERRORS.append(f"backup books tennis: {str(e)[:80]}")
+        return []
+
+
+def tennis_with_backups(lines, backups, now_ms):
+    """Bovada's tennis lines + BetRivers / FanDuel for any match Bovada has no fresh price on. Fresh prices sort
+    first (match_line takes the first line that fits a match), so a stale Bovada line never beats a fresh backup."""
+    fresh_bov = [ln for ln in lines if not ln.get("stale")]
+    out = list(lines)
+    for x in backups:
+        if now_ms - (x.get("mod") or 0) > LINE_MAX_AGE_S * 1000:
+            x = {**x, "stale": True}
+        if any(stn._last(x["a"]) in (stn._last(y["a"]), stn._last(y["b"])) and
+               stn._last(x["b"]) in (stn._last(y["a"]), stn._last(y["b"])) for y in fresh_bov):
+            continue                                         # Bovada has a fresh price on it: Bovada's stands
+        out.append(x)
+    return sorted(out, key=lambda ln: bool(ln.get("stale")))
 
 
 def tennis_stale(m, now_s):
@@ -1245,6 +1300,17 @@ def _live_days():
     return sdb.live_days(datetime.now(PT))
 
 
+def sources_status():
+    """Each backup book's last read (for the hourly bug check): {"betrivers:mlb": "ok 3" | "down HTTP 403"}."""
+    try:
+        import sports_books
+        now = time.time()
+        return {k: (f"ok {v.get('n', 0)}" if v.get("ok") else f"down {v.get('err', '')}")
+                for k, v in sports_books.STATUS.items() if now - v.get("at", 0) < 600}
+    except Exception:                                         # noqa: BLE001
+        return {}
+
+
 def today_bets(log):
     """Today's live bets (pending ones too) for the page's LIVE PLUS MONEY list - it adds any the built page
     doesn't have yet, so a bet shows the moment it's logged, not at the next page rebuild. Newest last."""
@@ -1281,6 +1347,7 @@ def run():
                     if e.get("date") in _live_days() and e.get("result")},   # still showing one
                                                                                                       # pending refreshes
            "today": today_bets(log),
+           "sources": sources_status(),
            "health": health,
            "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}

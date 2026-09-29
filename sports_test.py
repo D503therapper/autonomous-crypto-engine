@@ -3129,6 +3129,53 @@ def test_tennis_bottom_lines_no_percent_talk():
     assert all("movie" not in t or "lost to" in t for t in stq.T_H2H)
 
 
+def test_backup_books_fill_in_for_bovada():
+    """The owner, 9/29: 'when one fails, it instantly goes to the other'. BetRivers (Kambi) + FanDuel read the same way
+    their real feeds look; a backup fills in only a game Bovada has no fresh price for, and only with a fresh price;
+    a cached FanDuel page is no price; tennis sorts fresh prices first so a stale Bovada line never wins."""
+    import sports_books as bk, sports_live as slv
+    now = time.time() * 1000
+    iso = lambda ms: datetime.fromtimestamp(ms / 1000, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    kam = {"events": [{"event": {"id": 1, "englishName": "Atlanta Braves - Philadelphia Phillies", "state": "STARTED",
+                                 "start": "2026-09-29T18:16:00Z", "path": [{"englishName": "Baseball"}, {"englishName": "MLB"}]},
+                       "betOffers": [{"criterion": {"englishLabel": "Moneyline"}, "betOfferType": {"englishName": "Match"},
+                                      "outcomes": [{"englishLabel": "Atlanta Braves", "oddsAmerican": "-5000", "status": "OPEN", "changedDate": iso(now - 5000)},
+                                                   {"englishLabel": "Philadelphia Phillies", "oddsAmerican": "850", "status": "OPEN", "changedDate": iso(now - 5000)}]}]},
+                      {"event": {"id": 2, "englishName": "A - B", "state": "NOT_STARTED"}, "betOffers": []}]}
+    got = bk.kambi_team(kam)
+    assert got == [{"home": "Atlanta Braves", "away": "Philadelphia Phillies", "ml_home": -5000, "ml_away": 850,
+                    "mod": got[0]["mod"], "src": "betrivers"}] and now - got[0]["mod"] < 10000
+    ten = {"events": [{"event": {"englishName": "Elvina Kalieva - Shi Han", "state": "STARTED", "start": "2026-09-29T05:00:00Z",
+                                 "path": [{"englishName": "Tennis"}, {"englishName": "WTA"}, {"englishName": "Beijing"}]},
+                       "betOffers": [{"criterion": {"englishLabel": "Match Odds"}, "betOfferType": {"englishName": "Match"},
+                                      "outcomes": [{"englishLabel": "Elvina Kalieva", "oddsAmerican": "-150", "status": "OPEN", "changedDate": iso(now)},
+                                                   {"englishLabel": "Shi Han", "oddsAmerican": "120", "status": "OPEN", "changedDate": iso(now)}]}]},
+                      {"event": {"englishName": "X Y - Z W", "state": "STARTED", "path": [{}, {"englishName": "ITF Men"}]}, "betOffers": []}]}
+    tl = bk.kambi_tennis(ten)
+    assert len(tl) == 1 and tl[0]["tour"] == "wta" and tl[0]["a_ml"] == -150 and not tl[0]["suspended"]
+    fd = {"attachments": {"markets": {"1": {"marketType": "MONEY_LINE", "inPlay": True, "marketStatus": "OPEN", "runners": [
+        {"runnerName": "Philadelphia Phillies", "result": {"type": "AWAY"}, "runnerStatus": "ACTIVE", "winRunnerOdds": {"americanDisplayOdds": {"americanOddsInt": 1400}}},
+        {"runnerName": "Atlanta Braves", "result": {"type": "HOME"}, "runnerStatus": "ACTIVE", "winRunnerOdds": {"americanDisplayOdds": {"americanOddsInt": -6000}}}]}}}}
+    f1 = bk.fanduel_team(fd, age=2, now_ms=now)
+    assert f1[0]["home"] == "Atlanta Braves" and f1[0]["ml_home"] == -6000 and f1[0]["mod"] > 0
+    assert bk.fanduel_team(fd, age=300, now_ms=now)[0]["mod"] == 0               # a cached copy: never a live price
+    bov = [{"home": "Atlanta Braves", "away": "Philadelphia Phillies", "ml_home": -4000, "ml_away": 900, "src": "bovada"}]
+    other = {"home": "Houston Astros", "away": "Seattle Mariners", "ml_home": 120, "ml_away": -140, "mod": now, "src": "betrivers"}
+    old = {**other, "home": "Texas Rangers", "away": "Oakland Athletics", "mod": now - 10 * 60 * 1000}
+    out = slv.with_backups(bov, got + [other, old], now)
+    assert out[0]["src"] == "bovada" and other in out and old not in out and len(out) == 2   # Bovada stands; stale out
+    assert slv.with_backups([], got, now) == got                                             # Bovada down: backup takes over
+    stale_bov = [{"a": "Elvina Kalieva", "b": "Shi Han", "a_ml": 125, "b_ml": -150, "stale": True, "src": "bovada"}]
+    merged = slv.tennis_with_backups(stale_bov, tl, now)
+    assert merged[0]["src"] == "betrivers" and merged[-1].get("stale")                        # fresh first
+    import sports_tennis as stq
+    m = {"p1_name": "Elvina Kalieva", "p2_name": "Shi Han", "start": "2026-09-29T05:00Z", "tour": "wta", "id": "wta:1"}
+    ln, _ = stq.match_line(m, merged, hours=12)
+    assert ln["src"] == "betrivers" and ln["a_ml"] == -150
+    src = open(bk.__file__).read()
+    assert "pinnacle" not in src.lower() and "X-API-Key" not in src                     # no borrowed keys
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
