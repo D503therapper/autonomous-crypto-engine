@@ -540,6 +540,12 @@ def test_liquidity_floor_scales_with_account():
 
 def test_sizing_caps_in_entries():
     h, _, d = make({})
+    c = cand(liq=100_000)                                                  # entry re-checks the liquidity floor
+    h.state["passed"][h.key(c)] = dict(c, screen_t=T0, liq=5_000)          # (INUINK: screened $103k, bought at ~$5k)
+    h._try_entry(h.key(c), T0)
+    assert not h.pf.positions
+    h.state["passed"].clear()
+    h.p = {**h.p, "screen": {**h.p["screen"], "min_liq": 0}}               # the size caps below use tiny pools
     c = cand(liq=2000)
     h.state["passed"][h.key(c)] = dict(c, screen_t=T0)
     h._try_entry(h.key(c), T0)
@@ -811,6 +817,8 @@ def test_held_coin_follows_its_own_pool():
     run(h, T0 + 6000, 4)
     assert K in h.pf.positions and abs(h.pf.positions[K]["px"] - 0.0105) < 1e-9, h.pf.positions.get(K)
     shutil.rmtree(d)
+    assert dex._same_pool({"pair": "A"}, {"pair": "A"}) and not dex._same_pool({"pair": "A"}, {"pair": "B"})
+    assert dex._same_pool({"pair": None}, {"pair": "B"}) and dex._same_pool({}, {})
     print("  held coin priced from the pool we bought in, not a junk 'deeper' pool   ok")
 
 

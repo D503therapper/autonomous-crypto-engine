@@ -246,6 +246,13 @@ class AddrMap(dict):
         return super().get(_ak(k), default)
 
 
+def _same_pool(a, b):
+    """True unless both know their pair address and they differ (a token can trade in several pools; junk
+    pools with ~0 prices and fake liquidity must never price a coin we screened or hold)."""
+    pa, pb = a.get("pair"), b.get("pair")
+    return not (pa and pb) or pa == pb
+
+
 def best_pairs(cands, chain=None):
     """{addr: deepest pair} (optionally one chain only); lookups ignore EVM address case."""
     out = AddrMap()
@@ -1204,6 +1211,8 @@ class DexHunter:
         nk = self._nk(self.key(c))
         if nk in passed:                                # screened & waiting: buy on the fresh data now
             pc = self.state["passed"][passed[nk]]
+            if not _same_pool(pc, c):                   # another pool of the same token: not what we screened
+                return
             pc.update(c, screen_t=pc["screen_t"])
             self.dirty = True
             if trig:
@@ -1426,6 +1435,8 @@ class DexHunter:
             return
         if (h1 or 0) > 50:                             # +5,000% in one hour is a data error (a fresh/junk pool read
             return                                     # against a stale price), not a signal: ANTFUN "1h +15101012%"
+        if (c.get("liq") or 0) < self.p["screen"]["min_liq"]:   # the pool must still clear the liquidity floor now
+            return                                     # (INUINK 2026-09-29: screened at $103k, bought at ~$5k)
         eq, X = self.equity(), self.p["exit"]
         tier = tier_for(c, self.p["tiers"], 0, self.on_cex(c["sym"]))
         usd = size_for(eq, c["liq"], tier, self.pf.cash, self.exposure(), self.p)
@@ -1508,6 +1519,8 @@ class DexHunter:
                 # follow the pool we bought in: the "deepest" pair can be a junk pool with a fake reported
                 # liquidity and a ~0 price (ANTFUN 2026-09-28 was sold at $0 off such a pool, -$83)
                 c = by_pair.get(pos.get("pair")) or best.get(pos["addr"])
+                if c and not _same_pool(pos, c):           # our pool missing from this answer, only other pools
+                    continue                               # of the token: skip this update, don't price off them
                 if c and c.get("price"):
                     pos.update(px=c["price"], liq=c["liq"], vol24=c["vol24"], seen_px=now)
                 else:                                          # no pair left: liquidity gone
@@ -1515,7 +1528,10 @@ class DexHunter:
                 self._manage(k, pos, now)
             for key, c in list(st["passed"].items()):
                 if c["chain"] == chain and c["addr"] in best:
-                    c.update(best[c["addr"]], screen_t=c["screen_t"])
+                    fresh = by_pair.get(c.get("pair")) or best[c["addr"]]
+                    if not _same_pool(c, fresh):        # our screened pool is missing from this answer: wait
+                        continue
+                    c.update(fresh, screen_t=c["screen_t"])
                     self._try_entry(key, now)
             self.dirty = True
             return True
