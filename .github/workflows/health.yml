@@ -1,0 +1,32 @@
+# 🩺 THE HOURLY BUG CHECK (free - GitHub only, no Claude): live watcher fresh while games are on, every finished pick
+# graded, the live-scores route up, no failed workflows. Fixes what it can (restarts the watcher, re-grades) and writes
+# the rest to data/sports/health.json for the check-in. See tools/health.py.
+name: health
+on:
+  schedule:
+    - cron: "47 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: health
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: timeout 8m python -u tools/health.py
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/health.json
+          git commit -qm "health $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
