@@ -1,0 +1,12 @@
+# Which sportsbooks' public odds feeds could back up Bovada (tools/books_probe.py). Run by hand.
+name: books_probe
+on:
+  workflow_dispatch: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: tools, sparse-checkout-cone-mode: false }
+      - run: timeout 3m python3 -u tools/books_probe.py
