@@ -2535,6 +2535,12 @@ def test_lean_day_card():
     assert "LEAN</span>" in card and "LOCK OF THE DAY" not in card, card[:300]
     pk["legs"][0]["p"] = 0.66
     assert "STRONG LEAN" in dsh._pick_card("lock", pk), "a 60%+ lean says STRONG LEAN"
+    one = [{"kind": "lock", "status": "open"}]
+    assert "one" in dsh._short_note("2026-09-29", one).lower(), "one play: says so"
+    assert "3 plays" in dsh._short_note("2026-09-29", one + [{"kind": "dog"}, {"kind": "two"}]) or \
+        "Only 3" in dsh._short_note("2026-09-29", one + [{"kind": "dog"}, {"kind": "two"}])
+    full = [{"kind": k} for k in dsh.FULL_BOARD]
+    assert dsh._short_note("2026-09-29", full) == "" and dsh._short_note("2026-09-29", [{"kind": "solo"}]) == ""
     note = dsh._lean_note("2026-09-29")
     assert "leans" in note.lower() and "never in ours" in note and "real talk" not in note.lower()
 

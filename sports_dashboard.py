@@ -228,6 +228,33 @@ def _leg(leg, tagged=False):
 </div>"""
 
 
+FULL_BOARD = ("lock", "dog", "two", "three", "four")
+
+
+def _short_note(day, day_picks):
+    """A short board says so up top (fewer than the usual 5 plays, not a one-game day) - so nobody thinks it broke."""
+    have = {p["kind"] for p in day_picks if not p.get("lean")}           # (a waiting card is still coming: it counts)
+    n = sum(k in have for k in FULL_BOARD)
+    if not n or n >= len(FULL_BOARD) or "solo" in have:
+        return ""
+    one = n == 1
+    notes = ([
+        "🔒 Just one play today. The algorithm only found one spot it really likes — and we don't force the rest "
+        "just to fill the board. The pros pick their spots.",
+        "🔒 One play today, that's it. It's the only spot where the algorithm found a real edge. We don't force picks "
+        "just to have picks — the pros pick their spots.",
+        "🔒 Only one made the cut today. Everything else was a coin flip or overpriced, so we ain't forcing it. "
+        "Pros pick their spots.",
+    ] if one else [
+        f"🔒 Only {n} plays today. That's all the algorithm found with a real edge — we don't force the rest just to "
+        f"fill the board. The pros pick their spots.",
+        f"🔒 {n} plays today, not the usual 5. The rest of the slate didn't have value, and we don't make picks just "
+        f"to make picks. The pros pick their spots.",
+        f"🔒 Short board today — {n} plays. Nothing else cleared the bar, so we ain't forcing it. Pros pick their spots.",
+    ])
+    return f'<div class="drop leanday">{E(notes[sum(map(ord, str(day))) % len(notes)])}</div>'
+
+
 def _lean_note(day):
     """The top note on a leans-only day, in our voice (a different wording day to day)."""
     notes = [
@@ -633,12 +660,15 @@ def render(picks, model, games, series, start_bank, updated_ms):
     board = "".join(_pick_card(p["kind"], p) for p in active) if active else done_today if todays else drop
     if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
         board = _lean_note(today) + board                    # a leans-only day says so up top
+    elif active:
+        board = _short_note(today, todays) + board           # a short board says so too
 
     tmr = (now + timedelta(days=1)).date()
     tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
     tmr_real = [p for p in tomorrows.values() if p["status"] != "waiting"]
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
-                + (_lean_note(tmr.isoformat()) if tmr_real and all(p.get("lean") for p in tmr_real) else "")
+                + (_lean_note(tmr.isoformat()) if tmr_real and all(p.get("lean") for p in tmr_real)
+                   else _short_note(tmr.isoformat(), list(tomorrows.values())))
                 + "".join(_pick_card(k, tomorrows[k]) for k in LOOK if k in tomorrows)) if tomorrows else ""
 
     graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]
