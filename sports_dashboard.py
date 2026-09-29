@@ -225,8 +225,34 @@ def _leg(leg, tagged=False):
 </div>"""
 
 
+def _lean_note(day):
+    """The top note on a leans-only day, in our voice (a different wording day to day)."""
+    notes = [
+        "🟡 No locks today. The algorithm went through every game and nothing cleared the value bar — and we don't force "
+        "picks just to have picks. The pros pick their spots. Today it's leans only, and here they are.",
+        "🟡 Leans only today. Nothing on the board had real value, so we ain't forcing it — that's how you go broke. "
+        "Pros pick their spots. Here's how the algorithm leans.",
+        "🟡 The algorithm didn't find a lock or real value today, and we don't make picks just to make picks. "
+        "Smart money picks its spots. Leans only — here's the read.",
+        "🟡 No value on the board today, so no locks. We don't chase — the pros wait for their spot. "
+        "Leans only today, and here's where the algorithm's at.",
+    ]
+    k = sum(map(ord, str(day)))
+    return (f'<div class="drop leanday">{E(notes[k % len(notes)])}'
+            f'<br><small>Leans keep their own record — never in ours.</small></div>')
+
+
 def _pick_card(kind, pk):
     label, c1, c2 = LOOK[kind]
+    if pk and pk.get("lean") and pk.get("legs"):             # a LEAN is never titled Lock/Dog of the Day
+        c1, c2 = "#ffc233", "#e8c77a"
+        if len(pk["legs"]) == 1:
+            l0 = pk["legs"][0]
+            mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
+            label = E(f'LEAN · {l0["team"]} {mk}'.upper())
+        else:
+            label = f'{len(pk["legs"])}-LEG LEAN'
+
     if kind == "solo" and pk.get("legs"):                    # a one-game day: the header IS the pick (BEARS +3.5)
         l0 = pk["legs"][0]
         mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
@@ -600,10 +626,14 @@ def render(picks, model, games, series, start_bank, updated_ms):
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card goes up from <b>6 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
     board = "".join(_pick_card(p["kind"], p) for p in active) if active else done_today if todays else drop
+    if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
+        board = _lean_note(today) + board                    # a leans-only day says so up top
 
     tmr = (now + timedelta(days=1)).date()
     tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
+    tmr_real = [p for p in tomorrows.values() if p["status"] != "waiting"]
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
+                + (_lean_note(tmr.isoformat()) if tmr_real and all(p.get("lean") for p in tmr_real) else "")
                 + "".join(_pick_card(k, tomorrows[k]) for k in LOOK if k in tomorrows)) if tomorrows else ""
 
     graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]

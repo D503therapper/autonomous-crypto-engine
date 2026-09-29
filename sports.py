@@ -701,9 +701,15 @@ def post_board(games, model, picks, now, day, force=False):
     used = {t for p in picks if p["date"] == iso for l in p["legs"] for t in l.get("bd_tags", [])}   # the board's memory
     used |= sports_breakdown.slang_in(sports_breakdown.dashboard_texts())   # no phrase repeats anywhere on the dashboard
     new = []
+    # the owner: a day where NOTHING on the slate clears the value bar gets LEANS ONLY (own record, never ours) with a
+    # note up top - we don't force picks just to have picks. Decided on the opening board, before anything's posted.
+    lean_day = not any(p["date"] == iso and p["status"] != "waiting" for p in picks) and bool(cands) and \
+        not any(make_board(cands).get(k) for k in ("lock", "dog", "two", "three", "four", "solo"))
+    if lean_day:
+        print(f"{iso}: nothing clears the value bar - leans only today")
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
-        replacing = kind in posted                            # the opening board is value only; replacements may lean
+        replacing = kind in posted or lean_day                # the opening board is value only; replacements may lean
         if replacing and sum(p["date"] == iso and (p.get("round") or 1) > 1 for p in picks) >= MAX_REPLACEMENTS:
             continue                                          # enough for today - accuracy over volume
         avoid = {l["game_id"] for p in picks if p["date"] == iso and p["status"] != "waiting" and p["kind"] not in ("eight", "four")

@@ -2524,6 +2524,19 @@ def test_web_push():
         shutil.rmtree(tmp)
 
 
+def test_lean_day_card():
+    """A leans-only day: a note up top in our voice, and a lean is never titled Lock/Dog of the Day."""
+    import copy
+    import sports_dashboard as dsh
+    real = next(p for p in json.load(open(os.path.join(sd.DATA, "picks.json"))) if len(p.get("legs") or []) == 1)
+    pk = copy.deepcopy(real)
+    pk.update(kind="lock", lean=True, tier="lean")
+    card = dsh._pick_card("lock", pk)
+    assert "LEAN · " in card and "LOCK OF THE DAY" not in card, card[:300]
+    note = dsh._lean_note("2026-09-29")
+    assert "leans" in note.lower() and "never in ours" in note and "real talk" not in note.lower()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
