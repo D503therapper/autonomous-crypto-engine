@@ -277,6 +277,91 @@ def fetch_live(league):
         return []
 
 
+AN_DOWN = {}                  # league -> when Action Network last failed (the watcher's on ESPN's game list meanwhile)
+
+
+def fetch_live_any(league):
+    """Which games are live: Action Network's list, or ESPN's scoreboard (in the same shape) the moment Action
+    Network fails - the owner, 9/29: when one source goes down, the next one takes over."""
+    n = len(sd.ERRORS)
+    got = fetch_live(league)
+    failed = any(str(x).startswith(f"live {league}:") for x in sd.ERRORS[n:])
+    if got or not failed:
+        AN_DOWN.pop(league, None)
+        return got
+    AN_DOWN[league] = time.time()
+    try:
+        path = sd.LEAGUES[league][0]
+        extra = sd.LEAGUES[league][1] or ""
+        day = datetime.now(PT)
+        evs = []
+        for d in (day - timedelta(days=1), day):
+            url = ESPN_SB.format(path=path) + f"?dates={d:%Y%m%d}&limit=300{extra}"
+            evs += (_get(fresh_url(url)) or {}).get("events") or []
+        return [x for x in (espn_as_an(league, e) for e in {e.get("id"): e for e in evs}.values()) if x]
+    except Exception as e:                                   # noqa: BLE001
+        sd.ERRORS.append(f"espn live list {league}: {str(e)[:80]}")
+        return []
+
+
+def espn_as_an(league, ev):
+    """One ESPN scoreboard event in Action Network's shape (what the watcher reads): status, teams, start, and a
+    boxscore with the period, clock, score by period, inning half, and - football - who has the ball and where."""
+    comp = (ev.get("competitions") or [{}])[0]
+    st = comp.get("status") or ev.get("status") or {}
+    ty = st.get("type") or {}
+    side = {c.get("homeAway"): c for c in comp.get("competitors") or []}
+    if "home" not in side or "away" not in side:
+        return None
+    team = lambda c: {"id": str((c.get("team") or {}).get("id")), "full_name": (c.get("team") or {}).get("displayName"),
+                      "abbr": (c.get("team") or {}).get("abbreviation")}
+    h, a = team(side["home"]), team(side["away"])
+    state = ty.get("state")
+    status = "inprogress" if state == "in" else "complete" if state == "post" or ty.get("completed") else "scheduled"
+    lh = [float(x.get("value") or 0) for x in side["home"].get("linescores") or []]
+    la = [float(x.get("value") or 0) for x in side["away"].get("linescores") or []]
+    box = {"period": st.get("period"), "clock": st.get("displayClock"),
+           "total_home_points": int(float(side["home"].get("score") or 0)),
+           "total_away_points": int(float(side["away"].get("score") or 0)),
+           "linescore": [{"home_points": x, "away_points": y} for x, y in zip(lh, la)], "latest_odds": {}}
+    short = str(ty.get("shortDetail") or "")
+    if league == "mlb":
+        box["inning_half"] = "top" if short.lower().startswith(("top", "mid")) else "bottom"
+    sit = comp.get("situation") or {}
+    if league in ("nfl", "ncaaf") and sit.get("possession"):
+        pos = str(sit["possession"])
+        spot = re.match(r"([A-Z]+)\s+(\d+)", str(sit.get("possessionText") or ""))
+        ours = h if pos == h["id"] else a
+        ytg = None
+        if spot:
+            ytg = 100 - int(spot.group(2)) if spot.group(1) == ours.get("abbr") else int(spot.group(2))
+        elif str(sit.get("possessionText") or "").strip().endswith(" 50"):
+            ytg = 50
+        box["situation"] = {"possession": pos, "yards_to_endzone": ytg, "display_short": sit.get("downDistanceText") or ""}
+    win = next((c for c in (side["home"], side["away"]) if c.get("winner")), None)
+    return {"id": f"espn:{ev.get('id')}", "status": status, "real_status": status, "start_time": ev.get("date"),
+            "teams": [h, a], "home_team_id": h["id"], "away_team_id": a["id"], "boxscore": box, "src": "espn",
+            "winning_team_id": team(win)["id"] if win else None}
+
+
+def grade_from_games(log, games):
+    """Live bets graded from our own stored finals too (not just Action Network's list), so a bet posted while the
+    watcher ran on ESPN's list - or whose game dropped off a feed - still grades."""
+    for pid, e in log["plays"].items():
+        if e.get("result") is not None or e.get("league") == "tennis" or pid.count(":") < 2:
+            continue
+        gid, side = pid.rsplit(":", 1)
+        g = (games or {}).get(gid)
+        if not g or g.get("status") != "final":
+            continue
+        try:
+            hs, as_ = int(g["home_score"]), int(g["away_score"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if hs != as_:
+            e["result"] = "won" if (hs > as_) == (side == "home") else "lost"
+
+
 def _match(games, league, ang):
     """Our stored game for an Action Network game (same teams, start within 3 hours)."""
     teams = {t.get("id"): t for t in ang.get("teams") or []}
@@ -732,7 +817,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     WATCHING[0] = PRICED[0] = 0
     BOOKS.clear()
     with ThreadPoolExecutor(12) as ex:                          # everything in parallel: live lines move fast
-        angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live, sd.LEAGUES)))
+        angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live_any, sd.LEAGUES)))
         live_lgs = [lg for lg, angs in angs_by.items()
                     if any((a.get("boxscore") or {}).get("period") and str(a.get("status") or "").lower() not in DONE
                            for a in angs)]
@@ -1305,8 +1390,10 @@ def sources_status():
     try:
         import sports_books
         now = time.time()
-        return {k: (f"ok {v.get('n', 0)}" if v.get("ok") else f"down {v.get('err', '')}")
-                for k, v in sports_books.STATUS.items() if now - v.get("at", 0) < 600}
+        out = {k: (f"ok {v.get('n', 0)}" if v.get("ok") else f"down {v.get('err', '')}")
+               for k, v in sports_books.STATUS.items() if now - v.get("at", 0) < 600}
+        out.update({f"actionnetwork:{lg}": "down - on ESPN's game list" for lg, t in AN_DOWN.items() if now - t < 600})
+        return out
     except Exception:                                         # noqa: BLE001
         return {}
 
@@ -1340,6 +1427,7 @@ def run():
         prev = {}
     _TUNED.update(self_tune(log))
     plays = cycle(games, model, log, showing=list(prev), prev=prev)
+    grade_from_games(log, games)
     health = health_check()
     out = {"updated": int(time.time() * 1000), "plays": plays, "record": record(log),
            "live_games": WATCHING[0] + TENNIS["watching"], "tennis": dict(TENNIS), "scores": dict(SCORES),

@@ -3176,6 +3176,45 @@ def test_backup_books_fill_in_for_bovada():
     assert "pinnacle" not in src.lower() and "X-API-Key" not in src                     # no borrowed keys
 
 
+def test_live_game_list_falls_back_to_espn_and_bets_grade_anyway():
+    """The owner, 9/29: Action Network down = the watcher was blind (no live plays). It moves to ESPN's scoreboard in
+    the same shape the watcher reads - football's ball spot included - and a live bet grades from our own stored finals
+    whichever list it came from."""
+    import sports_live as slv
+    ev = {"id": "401", "date": "2026-10-02T00:15Z", "competitions": [{
+        "status": {"period": 3, "displayClock": "8:42", "type": {"state": "in", "shortDetail": "8:42 - 3rd"}},
+        "situation": {"possession": "3", "possessionText": "CHI 35", "downDistanceText": "2nd & 7 at CHI 35"},
+        "competitors": [{"homeAway": "home", "score": "17", "team": {"id": "3", "displayName": "Chicago Bears", "abbreviation": "CHI"},
+                         "linescores": [{"value": 7}, {"value": 3}, {"value": 7}]},
+                        {"homeAway": "away", "score": "10", "team": {"id": "21", "displayName": "Philadelphia Eagles", "abbreviation": "PHI"},
+                         "linescores": [{"value": 0}, {"value": 10}, {"value": 0}]}]}]}
+    a = slv.espn_as_an("nfl", ev)
+    assert a["status"] == "inprogress" and a["home_team_id"] == "3" and a["teams"][0]["full_name"] == "Chicago Bears"
+    assert slv._score(a["boxscore"], "home") == 17 and slv._score(a["boxscore"], "away") == 10
+    assert a["boxscore"]["situation"] == {"possession": "3", "yards_to_endzone": 65, "display_short": "2nd & 7 at CHI 35"}
+    ev["competitions"][0]["situation"]["possessionText"] = "PHI 20"                    # in the red zone
+    assert slv.espn_as_an("nfl", ev)["boxscore"]["situation"]["yards_to_endzone"] == 20
+    keep = slv.fetch_live, slv._get
+    try:
+        def down(lg):
+            sd.ERRORS.append(f"live {lg}: HTTP Error 403: Forbidden")
+            return []
+        slv.fetch_live = down
+        slv._get = lambda url: {"events": [ev]}
+        got = slv.fetch_live_any("nfl")
+        assert got and got[0]["id"] == "espn:401" and "nfl" in slv.AN_DOWN       # Action Network down: ESPN's list
+        slv.fetch_live = lambda lg: [{"id": 9}]
+        assert slv.fetch_live_any("nfl") == [{"id": 9}] and "nfl" not in slv.AN_DOWN   # back: Action Network again
+    finally:
+        slv.fetch_live, slv._get = keep
+    log = {"plays": {"nfl:401:home": {"result": None, "league": "nfl"}, "nfl:402:away": {"result": None, "league": "nfl"},
+                     "nfl:403:home": {"result": None, "league": "nfl"}}}
+    games = {"nfl:401": {"status": "final", "home_score": "24", "away_score": "20"},
+             "nfl:402": {"status": "final", "home_score": "24", "away_score": "20"}, "nfl:403": {"status": "in"}}
+    slv.grade_from_games(log, games)
+    assert [log["plays"][k]["result"] for k in ("nfl:401:home", "nfl:402:away", "nfl:403:home")] == ["won", "lost", None]
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
