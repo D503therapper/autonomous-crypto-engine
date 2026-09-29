@@ -466,7 +466,12 @@ def breakdown(leg, games, elo, injuries, used=None):
     if _odds_words(need) != _odds_words(have):
         out.append(_say(v, "bottom", must=True, price=price, need=_odds_words(need), have=_odds_words(have)))
     else:
-        out.append(_say(v, "bottom_s", must=True, price=price, need=_odds_words(need)))
+        import sports                                     # a LOCK never hedges (the owner: if we call it a lock, we're
+        lock = leg.get("tier") == "lock" or sports.lock_ok(leg)   # confident; a lean's bottom line gets rewritten anyway)
+        if lock:
+            out.append(_say(v, "bottom_ls", must=True, price=price, need=_odds_words(need)))
+        else:
+            out.append(_say(v, "bottom_s", must=True, price=price, need=_odds_words(need)))
     lines = [x for x in out if x]
     if len(lines) > 2:
         import random
@@ -646,8 +651,8 @@ _P = {   # breakdown-only word pools (one flat [..] each - never nested inside a
     "cash_w": "[of the money|of the cash|of the handle|of the dollars]",
     "ofl": "[{w} of the last {cnt}|{w} of their last {cnt}|{w} out of the last {cnt}|{w} of the past {cnt}|{w} of {cnt} lately|{w} of the {cnt} most recent|{w} in {cnt} tries]",
     "opnow": "[{op} → {now}|{op} to {now}|from {op} to {now}|{op}, now {now}]",
-    "bk": "[Vegas|the book|the sportsbook|the oddsmaker|the house|the market|the window]",
-    "Bk": "[Vegas|The book|The sportsbook|The oddsmaker|The house|The market|The window]",
+    "bk": "[Vegas|the book|the sportsbook|the oddsmaker|the house|the market]",
+    "Bk": "[Vegas|The book|The sportsbook|The oddsmaker|The house|The market]",
     "close": "[That's the value.|That's the play.|That gap is the play.|Trust the algorithm.|Easy call.|Value all day.|"
              "We'll take that all day.|That's the edge.|Math is math.|Tail it.|We ride.|Book it.|Let's eat.|Nice nice.|"
              "Say less.|Light work.|Cook.|Numbers don't lie.|That's where the money's at.|Levels to this.|]",
@@ -672,7 +677,7 @@ _CAP = {"hot": (64, 1), "rec": (82, 2), "cold": (55, 2), "better": (54, 1), "bet
         "home": (70, 2), "road": (65, 2), "b2b": (57, 2), "rest": (53, 1), "bump": (58, 1), "keyout": (60, 1),
         "banged": (45, 1), "healthy": (48, 1), "keyout_us": (143, 3), "sharp": (68, 2), "fade": (103, 2),
         "splits_fade": (180, 3), "splits_ride": (180, 3), "splits_even": (180, 3), "pub_fade": (106, 2),
-        "pub_ride": (81, 2), "bottom": (115, 3), "bottom_s": (126, 3), "lean": (94, 2),
+        "pub_ride": (81, 2), "bottom": (115, 3), "bottom_s": (126, 3), "bottom_ls": (126, 3), "lean": (94, 2),
         "cx_rival": (64, 2), "cx_rival_t": (64, 2), "cx_div": (65, 2), "cx_div_t": (65, 2), "cx_trip": (55, 2),
         "cx_domecold": (77, 2), "cx_domeout": (65, 1), "cx_mustwin": (74, 3), "cx_rest": (71, 2),
         "cx_tank": (69, 2), "cx_elim": (68, 2), "cx_bowl": (60, 2), "cx_hotseat": (69, 2), "cx_ref": (86, 2),
@@ -803,7 +808,7 @@ T = {
         "🐺 [Sure|Yeah|Fine], {them} are better on paper. [That's baked in|That's in the price|Priced in] — the value's on {us}.",
         "🐺 We know {them} got more talent. That's why {us} come [this cheap|at a discount|at this price].",
         "🐺 [Price spot|Value spot]: {them} [have|got] the [names|resume|hype], we [have|got] the [number|price] on {us}.",
-        "🐺 {them} [are favored|get the respect] for a reason. [Still|But], {us} at this [price|number] is [value|the play].",
+        "🐺 {them} [are favored|get the respect] for a reason. [Still,|But] {us} at this [price|number] is [value|the play].",
     ],
     "even": [
         "⚖️ On paper these two [close as hell|neck and neck|dead even|about even] — so we [taking|take] the number that pays.",
@@ -1204,19 +1209,19 @@ T = {
         "✅ Bottom line: {bk} [has|got|lists|hangs] {price} [priced like|pegged at|set at|lined as] {need}. {Algo} [sees|says|has it at|makes it|reads] {have}. {close}",
         "✅ Bottom line: {bk} [treats|prices|lists|reads] {price} [like|as] {need}; {algo} [has it closer to|sees|puts it at|lands at] {have}. {close}",
         "✅ Bottom line: {price} [should be|ought to be|is really] [more like|closer to|nearer] {have}, [and|but|while] {bk} [is pricing|has it at|is charging|is dealing] {need}. {close}",
-        "✅ Bottom line: {have} [in our book|on our sheet|by our math|on our end|per {algo}] [vs|against|versus] {need} [at the window|at the book|in Vegas|on the board] [for|on] {price}. {close}",
+        "✅ Bottom line: {have} [in our book|on our sheet|by our math|on our end|per {algo}] [vs|against|versus] {need} [at the book|in Vegas|on the board] [for|on] {price}. {close}",
         "✅ Bottom line: {bk} [says|shows|posts|hangs] {need} [on|for] {price}, {algo} [says|shows|reads|gets] {have}. {close}",
         "✅ Bottom line: {bk} [says|shows|posts] {need} [on|for] {price}, {algo} [says|reads] {have}. Easy money if {algo}'s right.",
         "✅ Bottom line: {price} [is priced|is pegged|is lined|gets priced] [like|as|at] {need} — [we see|we get|we read|we got] {have}. {close}",
         "✅ Bottom line: {price} [is priced|is lined|gets priced] [like|at] {need}, [and|but] {algo} [sees|says|reads] {have}. That gap is the whole play.",
-        "✅ Bottom line: [book|Vegas|the window|the house] [says|posts|thinks] {need}, [we say|we see|we read|we got] {have}. [We ride {price}.|{price} it is.|Give us {price}.|{price}, say less.|Tail {price}.]",
+        "✅ Bottom line: [the book|Vegas|the house] [says|posts|thinks] {need}, [we say|we see|we read|we got] {have}. [We ride {price}.|{price} it is.|Give us {price}.|{price}, say less.|Tail {price}.]",
         "✅ Bottom line: {price} [is|runs|grades out] {have} [by our numbers|on our sheet|by {algo}|to us], [but|yet|and] it's [priced|paying|lined] [like|as] {need}. {close}",
         "✅ Bottom line: we [make|have|grade|put] {price} [at|as|around] {have}; {bk} [only gives it|is giving it|says|hangs] {need}. {close}",
-        "✅ Bottom line: [our number|our read|the model|our math] [on|for] {price} [is|says|reads] {have}, [vs|against|versus] {need} [at the book|at the window|in Vegas|on the board]. {close}",
+        "✅ Bottom line: [our number|our read|the model|our math] [on|for] {price} [is|says|reads] {have}, [vs|against|versus] {need} [at the book|in Vegas|on the board]. {close}",
         "✅ Bottom line: [priced for|paying like|lined at|posted at] {need}, [real odds|true odds|our odds|fair odds] {have} — {price} [is the play|all day|it is|for us].",
-        "✅ Bottom line: [the gap|the difference|the space] [between|from] {need} ({bk}) [and|to] {have} ({algo}) [is why we're on|puts us on|sends us to|is the case for] {price}.",
+        "✅ Bottom line: [the gap|the difference|the space] between {need} ({bk}) and {have} ({algo}) [is why we're on|puts us on|sends us to|is the case for] {price}.",
         "✅ Bottom line: {bk} [thinks|figures|guesses|says] {need} [for|on] {price}. [We think|We figure|We say|We see|Our read's] {have}. {close}",
-        "✅ Bottom line: {price} [sits|trades|lives|hangs] at {need} [odds|pricing|on the board]; {algo} [lands on|comes out at|spits out|gets] {have}. {close}",
+        "✅ Bottom line: {price} [sits|trades|lives|hangs] at {need} [on the board|in Vegas|at the book]; {algo} [lands on|comes out at|spits out|gets] {have}. {close}",
         "✅ Bottom line: {have} [vs|against|over] {need} — [that's|call it|it's] [our math|the math|our read|our model] [against|over|vs] {bk} [on|for] {price}. {close}",
         "✅ Bottom line: we [call|make|grade] {price} {have}. {Bk} [calls|makes|grades] it {need}. {close}",
         "✅ Bottom line: [we're|we are|we land] at {have} [on|for] {price}; [the market's|the book's|Vegas is] at {need}. {close}",
@@ -1224,10 +1229,20 @@ T = {
         "✅ Bottom line: {need} is what {bk} [charges|asks|posts|hangs]; {have} is what {algo} [sees|reads|gets] on {price}. {close}",
         "✅ Bottom line: {price} [wins|gets there|lands|cashes] {have} [by|on|per] {algo}, [priced|paid|posted] [like|as] {need}. {close}",
     ],
+    "bottom_ls": [   # a LOCK with a small edge: still said with our whole chest - never "not a sure thing" / "thin value"
+        "✅ Bottom line: {price} is the [right|smart|correct] side and we're [on it|riding it|all in]. {close}",
+        "✅ Bottom line: [we like|we're riding|we're on] {price}. {Bk} has it at {need} — [the matchup|the details|everything above] [makes it|puts it] ours. {close}",
+        "✅ Bottom line: {price}. [Every angle|Everything above|The whole breakdown] [points|breaks|leans] our way. {close}",
+        "✅ Bottom line: [tail it|ride it|we're riding it]: {price}. [The details|The matchup|The spots] [all back us|all favor us|line up for us].",
+        "✅ Bottom line: {price} [is our lock|is the lock|is locked in]. [The edges|The details|The angles] above [seal it|decide it|carry it]. {close}",
+        "✅ Bottom line: [confident|locked in|all in] on {price}. {Bk} [sits|is] at {need}; [we see more|we like it more|our side's stronger]. {close}",
+        "✅ Bottom line: [give us|we want|put us on] {price}. [Every little edge|All the details|The whole picture] [goes|breaks|leans] our way. {close}",
+        "✅ Bottom line: {price}, [no hesitation|no second guessing|zero doubt]. {close}",
+    ],
     "bottom_s": [
         "✅ Bottom line: {bk} [got|has|lists] {price} [priced like|pegged at|lined at] {need}, but [everything above|the fine print|the small stuff|every little detail] [tips it our way|leans our way|breaks our way|points our way]. {sclose}",
         "✅ Bottom line: [close to|near|right around] {need} [at the book|in Vegas|on the board], [but|yet|and still] the [details|little things|small edges] [break|lean|tilt] our way on {price}. {sclose}",
-        "✅ Bottom line: {price} [ain't|isn't] a [slam dunk|lock|blowout], it's a [smart|sharp|good] number — [and|plus] the little things all [point|lean|tilt] our way. {sclose}",
+        "✅ Bottom line: {price} [ain't|isn't] a [slam dunk|sure thing|gimme], it's a [smart|sharp|good] number — [and|plus] the little things all [point|lean|tilt] our way. {sclose}",
         "✅ Bottom line: {price} is a [thin|slim|small|skinny] edge, but it's [an edge|still an edge|ours]. {sclose}",
         "✅ Bottom line: no [blowout|runaway|landslide] [expected|coming|in sight] on {price}, just a [smart|sharp|right] number with everything [tilting|leaning|breaking] our way. {sclose}",
         "✅ Bottom line: {price} [ain't|isn't] [flashy|pretty|sexy]. It's just the [right|smart|correct] side. {sclose}",
@@ -1239,7 +1254,7 @@ T = {
         "✅ Bottom line: [fair-ish|tight|honest] price on {price} ({need}); the [edges|extras|details] above [make it|tip it|swing it] ours. {sclose}",
         "✅ Bottom line: {price} is a [grinder|small-edge spot|margin play|quiet one], not a [haymaker|slam dunk|blowout call|big swing]. {sclose}",
         "✅ Bottom line: [tight|close|narrow] number on {price} ({need}), [so|and] the [details|little edges|tiebreakers] [decide it|carry it|settle it]. {sclose}",
-        "✅ Bottom line: {bk} is [basically|pretty much|about] right at {need} on {price}. [The extras|The margins|The details] [are ours|tip it|break our way]. {sclose}",
+        "✅ Bottom line: {bk} is [basically|pretty much|close to] right at {need} on {price}. [The extras|The margins|The details] [are ours|tip it|break our way]. {sclose}",
     ],
     "lean": [
         "🟡 Bottom line: no edge on this one — it's a lean, not a lock. {Algo} just leans {team}.",
@@ -1451,7 +1466,7 @@ T.update({
         "🐺 [Sure|Yeah|Fine], {them} are better on paper. [That's baked in|That's in the price|Priced in] — the value's on {us}.",
         "🐺 We know {them} got more [talent|names]. That's why {us} come [this cheap|at a discount|at this price].",
         "🐺 [Price spot|Value spot]: {them} [have|got] the [names|resume|hype], we [have|got] the [number|price] on {us}.",
-        "🐺 {them} [are favored|get the respect] for a reason. [Still|But], {us} at this [price|number] is [value|the play].",
+        "🐺 {them} [are favored|get the respect] for a reason. [Still,|But] {us} at this [price|number] is [value|the play].",
     ],
     "h2h": [
         "🆚 {us} [own|run] this [matchup|series] — [won|took] {ofl}.",
@@ -2027,7 +2042,7 @@ _DENSE = {   # skeletons with a pick in every 4-word window: they can come back 
     "worse": [
         "🐺 [Sure|Yeah|Fine|OK], {them} [look|grade out|rate] [better|stronger] on paper. [That's|It's|All that's] [baked in|in the price|priced in] — [we like|give us|we'll take] {us} [here|at this number|at this price].",
         "🐺 {them} [get|grab|soak up] [all the|the] [love|hype|respect|headlines]; {us} [get|come with] the [price|number|value]. [We'll take that.|Easy choice.|Say less.]",
-        "🐺 [Paper|The resume|The names] [favor|point to|say] {them}. [The price|This number|The value] [favors|points to|says] {us} — [and we follow the price|we listen to the price|price wins].",
+        "🐺 [On paper it's {them}|The resume says {them}|The names say {them}]. [The price|This number|The value] [favors|points to|says] {us} — [and we follow the price|we listen to the price|price wins].",
         "🐺 [Price spot|Value spot|Number spot]: {them} [have|got|bring] the [names|resume|hype], we [have|got|take] the [number|price|value] [on|with] {us}.",
     ],
     "home": [
@@ -2077,12 +2092,12 @@ _DENSE = {   # skeletons with a pick in every 4-word window: they can come back 
     "cx_rest": ["🪑 [Clinched|Locked in|Spot secured], {the_them} [may|could|might] [rest|sit|limit] [the stars|starters|key guys]."],
     "cx_tank": ["📉 [Lottery|Draft|Tank] [watch|season|mode]: {the_them} ({rec}) [are out of it|are done|are playing for next year]."],
     "drama_legal_trouble": ["🧯 [Legal|Court|Off-field] [stuff|noise|mess] [around|for|hanging over] {the_them} [this week|lately|right now]. [Distractions.|Hard to focus.|Noise.]"],
-    "drama_trade_drama": ["🧯 [Trade|Trade-request|Wants-out] [noise|drama|talk] [around|for|in] {the_them} [this week|lately|right now]. [Awkward room.|Vibes are off.|Messy.]"],
+    "drama_trade_drama": ["🧯 [Trade|Trade-request|Wants-out] [noise|drama|talk] [around|for] {the_them} [this week|lately|right now]. [Awkward room.|Vibes are off.|Messy.]"],
     "drama_family_personal": ["🧯 [Tough|Heavy|Rough] [week|stretch|time] [off the field|away from the game|personally] for {the_them}. [Hard to focus.|Heads elsewhere.|Tough spot.]"],
     "drama_suspension": ["🧯 [Suspension|Discipline] [news|drama|hit] [for|around] {the_them} [this week|lately]. [That hurts.|Tough week.|Rattles a room.]"],
     "talk_must_win": ["📣 [Must-win|Win-or-else|Season-saving] [talk|energy|vibes] [around|out of|from] {who} [this week|all week|lately]."],
-    "talk_contract_year": ["📣 [Contract|Payday|Money] [year|season|talk] [around|for] {who}. [Extra effort|Motivation|Hunger] [expected|incoming|on tap]."],
-    "talk_hot_seat": ["📣 [Coach's job|Job security|The coach's seat] [talk|chatter|questions] [around|for|about] {who} [this week|lately|all week]."],
+    "talk_contract_year": ["📣 [Contract year|Payday season|Money talk] [around|for] {who}. [Extra effort|Motivation|Hunger] [expected|incoming|on tap]."],
+    "talk_hot_seat": ["📣 [Coach's job|Job security] [talk|chatter|questions] [around|for] {who} [this week|lately|all week]."],
     "talk_rivalry_week": ["📣 [Rivalry|Bragging-rights|Grudge] [talk|chatter|hype] [around|from|out of] {who} [this week|all week|lately]."],
     "talk_trash_talk": ["📣 [Big talk|Trash talk|Chirping] [out of|from|around] {who} [this week|lately|all week]. [Talk is cheap.|Now prove it.|Receipts tonight.]"],
     "talk_unhappy": ["📣 [Frustration|Grumbling|Unhappy noise] [coming out of|around|inside] {who} [this week|lately|all week]. [Vibes are off.|Not a happy room.|Tension.]"],
