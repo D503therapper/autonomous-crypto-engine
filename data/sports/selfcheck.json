@@ -3,17 +3,17 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.812,
-   "n": 16,
-   "said": 0.554,
-   "verdict": "only 16 graded - report only"
+   "hit": 0.833,
+   "n": 18,
+   "said": 0.561,
+   "verdict": "only 18 graded - report only"
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.812,
-   "n": 16,
-   "said": 0.554,
-   "verdict": "only 16 graded - report only"
+   "hit": 0.833,
+   "n": 18,
+   "said": 0.561,
+   "verdict": "only 18 graded - report only"
   },
   "label:dog": {
    "extra_edge": 0.0,
@@ -25,9 +25,9 @@
   "label:live": {
    "extra_edge": 0.0,
    "hit": 1.0,
-   "n": 1,
-   "said": 0.968,
-   "verdict": "only 1 graded - report only"
+   "n": 2,
+   "said": 0.843,
+   "verdict": "only 2 graded - report only"
   },
   "label:lock": {
    "extra_edge": 0.0,
@@ -43,6 +43,13 @@
    "said": 0.524,
    "verdict": "only 13 graded - report only"
   },
+  "label:value": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 1,
+   "said": 0.522,
+   "verdict": "only 1 graded - report only"
+  },
   "league:mlb": {
    "extra_edge": 0.0,
    "hit": 0.833,
@@ -52,47 +59,54 @@
   },
   "league:nfl": {
    "extra_edge": 0.0,
-   "hit": 0.8,
-   "n": 10,
-   "said": 0.583,
-   "verdict": "only 10 graded - report only"
+   "hit": 0.833,
+   "n": 12,
+   "said": 0.589,
+   "verdict": "only 12 graded - report only"
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.812,
-   "n": 16,
-   "said": 0.554,
-   "verdict": "only 16 graded - report only"
+   "hit": 0.824,
+   "n": 17,
+   "said": 0.563,
+   "verdict": "only 17 graded - report only"
+  },
+  "market:spread": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 1,
+   "said": 0.522,
+   "verdict": "only 1 graded - report only"
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.714,
-   "n": 7,
-   "said": 0.541,
-   "verdict": "only 7 graded - report only"
+   "hit": 0.75,
+   "n": 8,
+   "said": 0.563,
+   "verdict": "only 8 graded - report only"
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.889,
-   "n": 9,
-   "said": 0.564,
-   "verdict": "only 9 graded - report only"
+   "hit": 0.9,
+   "n": 10,
+   "said": 0.56,
+   "verdict": "only 10 graded - report only"
   },
   "source:live": {
    "extra_edge": 0.0,
    "hit": 1.0,
-   "n": 1,
-   "said": 0.968,
-   "verdict": "only 1 graded - report only"
+   "n": 2,
+   "said": 0.843,
+   "verdict": "only 2 graded - report only"
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.8,
-   "n": 15,
+   "hit": 0.812,
+   "n": 16,
    "said": 0.526,
-   "verdict": "only 15 graded - report only"
+   "verdict": "only 16 graded - report only"
   }
  },
  "live_without_p": 13,
- "updated": "2026-09-29T03:30Z"
+ "updated": "2026-09-29T05:33Z"
 }
