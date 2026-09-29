@@ -1,0 +1,26 @@
+# Asks the question box one question the way the page does and prints the status, the time it took and the answer.
+# Run by hand (for checking why the AI box fell back).
+name: ask_probe
+on:
+  workflow_dispatch:
+    inputs:
+      q: { description: "question", required: false, default: "Who wins the next set in the Han Shi tennis match?" }
+permissions:
+  contents: read
+jobs:
+  ask:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: data/sports/ask_url.txt, sparse-checkout-cone-mode: false }
+      - env: { Q: "${{ inputs.q }}" }
+        run: |
+          ask=$(tr -d '[:space:]' < data/sports/ask_url.txt); ask=${ask%/}
+          body=$(jq -n --arg q "${Q:-Who wins the next set in the Han Shi tennis match?}" '{q:$q,history:[]}')
+          for i in 1 2; do
+            s=$(date +%s)
+            code=$(curl -sS -m 200 -o out.json -w '%{http_code}' -X POST "$ask" -H 'Content-Type: application/json' \
+              -H 'Origin: https://d503therapper.github.io' -d "$body" || echo ERR)
+            echo "try $i: HTTP $code in $(( $(date +%s) - s ))s"; cat out.json; echo
+          done
