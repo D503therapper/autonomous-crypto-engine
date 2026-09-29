@@ -2730,6 +2730,21 @@ def test_breakdown_variety():
     assert lean[-1].startswith("🟡 Bottom line:") and not any(sb.HYPE.search(x) for x in lean), lean
 
 
+def test_no_dog_note():
+    """🐺 A full board with no dog worth it says so where the dog would go - one note, never a second (short-board) one,
+    in our voice, never a sentence from yesterday's note."""
+    import sports_dashboard as dsh, sports_lingo as L
+    full_no_dog = [{"kind": k} for k in ("lock", "two", "three", "four")]
+    assert dsh._dog_note("2026-10-01", full_no_dog) and not dsh._short_note("2026-10-01", full_no_dog)
+    assert not dsh._dog_note("2026-10-01", full_no_dog + [{"kind": "dog"}]), "a dog on the board = no note"
+    short = [{"kind": "lock"}, {"kind": "two"}]
+    assert not dsh._dog_note("2026-10-01", short) and dsh._short_note("2026-10-01", short), "shorter board: its top note only"
+    for d in range(1, 28):
+        a, b = L.dog_note(f"2026-10-{d:02d}"), L.dog_note(f"2026-10-{d + 1:02d}")
+        assert not set(a.split(". ")) & set(b.split(". ")), (a, b)
+        assert "real talk" not in a.lower() and "chalk" not in a.lower()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

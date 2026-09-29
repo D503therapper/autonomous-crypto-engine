@@ -1072,8 +1072,22 @@ NOTES = {
         "Leans only, [no more|nothing more]. Which way {algo} leans:", "Just the leans — where {algo} tilts:",
         "Leans, not picks. Which way {algo} leans:",
     ),
+    # 🐺 no Dog of the Day: no underdog with a proven edge today (the owner, 9/28: say so, don't force one)
+    "dog_open": T(
+        "No Dog of the Day today.", "No dog today.", "Dog's off today.", "No bark today.", "No Dog of the Day.",
+        "Dog of the Day's [sitting|staying] home today.", "[Zero|No] dogs today.", "The dog's [off|resting] today.",
+        "No underdog [pick|play] today.", "Dog spot's empty today.", "We ain't got a dog today.",
+    ),
+    "dog_why": T(
+        "No underdog's worth the risk.", "{Algo} checked every underdog and none of them earned it.",
+        "Every dog on the board is priced right.", "No dog with a real edge on the slate.",
+        "The underdogs are priced tight.", "Not one dog has a proven angle today.",
+        "The dogs today ain't worth our money.", "Nothing plus money cleared the bar.",
+        "{Algo} couldn't find a dog it trusts.", "The underdogs are priced about right — no edge.",
+        "No plus-money spot where our numbers [beat|top] the price.",
+    ),
 }
-NOTE_CAP = {"short": (129, 3), "lean": (246, 5)}
+NOTE_CAP = {"short": (129, 3), "lean": (246, 5), "dog": (129, 3)}
 
 
 def _part(key, seed, n=30, lean=False, **kw):
@@ -1097,6 +1111,22 @@ def short_note(n, seed):
     it = "that one" if n == 1 else "those"
     return _note([first, _part("short_why", s + "w", it=it), _part("close", s + "c")],     # (cap: names count as one)
                  (NOTE_CAP["short"][0] + len(it) - 1 + len(str(n)) - 1, NOTE_CAP["short"][1]))
+
+
+def dog_note(seed, _fresh=True):
+    """The note where the Dog of the Day would go, on a day with no dog worth it. Never a sentence from yesterday's."""
+    s = f"dog{seed}"
+    parts = [_part("dog_open", s), _part("dog_why", s + "w"), _part("close", s + "c")]
+    avoid = set()
+    if _fresh:
+        try:                                              # yesterday's note (seed = the date)
+            from datetime import date, timedelta
+            y = (date.fromisoformat(str(seed)[:10]) - timedelta(days=1)).isoformat()
+            avoid = {x.strip() for x in re.split(r"(?<=[.!?])\s+", dog_note(y, _fresh=False))}
+        except ValueError:
+            pass
+    parts = [[x for x in p if x.strip() not in avoid] or p for p in parts]
+    return _note(parts, NOTE_CAP["dog"])
 
 
 def lean_note(seed):
