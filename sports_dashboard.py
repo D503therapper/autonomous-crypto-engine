@@ -1193,8 +1193,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk.won{{box-shadow:0 0 0 2px var(--up),0 18px 50px -14px var(--up)}}
 .pk.lost>*:not(.stamp-row){{opacity:.5}}
 .px>summary{{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}}
-.px>summary::-webkit-details-marker{{display:none}} .pxt{{font-weight:800;font-size:15px;line-height:1.35}}
-.pxo,.pxc{{font-size:14px;color:var(--c1);font-weight:800}} .pxt{{display:block;font-size:12.5px;color:var(--text);opacity:.8;font-weight:700;margin-top:3px}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
+.px>summary::-webkit-details-marker{{display:none}}
+.pxo,.pxc{{font-size:14px;color:var(--c1);font-weight:800}} .pxt{{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
 .stamp-row{{display:flex;justify-content:center;margin:6px 0 12px}}
 .stamp{{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
   border-radius:10px;background:rgba(0,0,0,.3)}}

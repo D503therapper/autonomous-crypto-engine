@@ -3289,6 +3289,9 @@ def test_parlay_bar_shows_game_times_and_live_stays_live():
     import sports_dashboard as sdb
     legs = [{"start": "2026-09-30T02:30Z"}, {"start": "2026-09-30T00:00Z"}, {"start": "2026-09-30T02:00Z"}]
     assert "🕐 First game starts at 5 PM PT" in sdb._fold_times(legs)
+    css = open(sdb.__file__).read()                  # the owner: yellow at all times (never dull gray, never switching
+    assert "color:var(--gold)" in css[css.index(".pxt{{"):css.index(".pxt{{") + 200]   # colors) - the 🔴 says live
+    assert ".pxt." not in css and "t.className" not in css
     assert "5 PM PT" not in sdb._fold_times([{**legs[1], "result": "won"}, legs[0]])       # a graded game's done
     assert "All games final" in sdb._fold_times([{**l, "result": "won"} for l in legs])
     src = open(sdb.__file__).read()
