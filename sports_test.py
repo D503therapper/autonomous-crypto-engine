@@ -3038,6 +3038,16 @@ def test_watcher_asks_espn_for_fresh_copies():
     assert "_get(fresh_url(stn.ESPN.format(tour=tour) + q))" in src and "_get(fresh_url(ESPN_SB.format(" in src
 
 
+def test_nothing_posts_before_8am_whoever_calls():
+    """9/29: the quick grader (a game ended at 12:21 AM PT) posted the day's whole board - the 8 AM PT rule only lived in
+    run(). It lives in post_board now: nothing posts before 8 AM PT on game day, nothing for another day."""
+    from datetime import datetime
+    day = datetime(2026, 9, 29, 0, 21, tzinfo=sports.PT)
+    assert sports.post_board({}, {}, [], day.astimezone(timezone.utc), day.date()) == []
+    later = datetime(2026, 9, 28, 23, 0, tzinfo=sports.PT)
+    assert sports.post_board({}, {}, [], later.astimezone(timezone.utc), day.date()) == []   # tomorrow's: never tonight
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

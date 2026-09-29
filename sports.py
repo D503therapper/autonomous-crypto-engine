@@ -715,6 +715,10 @@ def post_board(games, model, picks, now, day, force=False):
     DEADLINE_MIN before its first game it is posted from settled games only. force posts everything now.
     A posted play is final. Returns the plays posted by this call."""
     iso = day.isoformat()
+    local = now.astimezone(PT)
+    if day != local.date() or local.hour < POST_FROM_HOUR_PT or iso in HOLD_DAYS:
+        return []                    # game day only, from 8am PT - whoever calls (9/29: the quick grader posted the
+    #                                  day's board at 12:21 AM when a game ended; the rule lives here now, for everyone)
     if not DOGS_ST:                  # no picks until the big underdog + favorite study has run
         print("holding the board: the big study hasn't run yet")
         return []
