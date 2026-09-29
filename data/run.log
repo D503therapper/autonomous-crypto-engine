@@ -2418,3 +2418,28 @@ DEX: $309.30 (-690.70) · Scammed: 1 (-$166.76)
 [2026-09-29 02:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-29 02:06 UTC] crypto/hold_btc  equity $494.32 (-1.1%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), QNT 35 (35/0/0), NEAR 32 (32/0/0), HBAR 29 (29/0/0), LINK 27 (27/0/0)
+   dex screen: REJECT SNDK@solana liq $131,246 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 73%; lp holders unknown
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HOOKED@solana liq $150,287 - holders unknown; lp holders unknown; rugcheck lp locked 36% < 95%
+   dex screen: REJECT GITLAWB@base liq $716,460 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT WETH@solana liq $7,914,332 - mint authority; top-10 holders 77%
+   dex screen: REJECT HOLDOWEEN@solana liq $162,115 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT BITCOIN@ethereum liq $1,084,110 - honeypot (HONEYPOT DETECTED)
+   dex screen: REJECT FUSE@ethereum liq $161,955 - lp locked 0% < 95%
+   >> crypto/momentum: SELL $106.07 of SUI @ 1.09807, P/L $-6.86 (stop hit (live check))
+   dex screen: REJECT CONDO@ethereum liq $101,253 - lp holders unknown
+   dex screen: REJECT QNT@ethereum liq $755,528 - is_mintable; lp locked 0% < 95%
+   dex scanner: 2,445 pools (solana 1,769 / base 367 / ethereum 309), refresh cycle 99s (hot 96s), 3025 calls (108 feed, 429s 0, failed 0), 87,506 refreshed (10014 no pair), +101 added / -58 dropped (dead 57, stale 1, cap 0), movers 10 + warming 23 -> queued 3, screened 4 (passed 0), bought 0
+   dex screen: PASS HOOKEDCAT@solana liq $113,569
+[2026-09-29 03:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-29 03:06 UTC] crypto/mover     equity $448.46 (-10.3%) 1 open  market UP
+[2026-09-29 03:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 03:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 03:06 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-29 03:06 UTC] crypto/breakout10 equity $469.19 (-6.2%) 2 open  market UP
+[2026-09-29 03:06 UTC] crypto/momentum  equity $478.50 (-4.3%) 2 open  market UP
+[2026-09-29 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-29 03:06 UTC] crypto/hold_btc  equity $494.23 (-1.2%) 1 open  market UP
+   social heat top: QNT 49 (37/0/12), TRUMP 35 (35/0/0), NEAR 32 (32/0/0), HBAR 29 (29/0/0), ONDO 27 (27/0/0)
