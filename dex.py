@@ -633,9 +633,33 @@ class DexHunter:
                     self.state.update(json.load(f))
         except Exception as e:
             print(f"   dex: could not read state: {e}")
+        self._new_season()
         C = self.p["cost"]
         self.pf = Portfolio.load(f"{self.acct}/portfolio.json", fee=C["fee"], slippage=C["slip"])
         self._uni_load()
+
+    def _new_season(self):
+        """Owner 2026-09-29: restart the DEX paper account for a clean measure of the fixed engine. When
+        params["season"] changes, the account files and outcomes.csv move to data/dex/archive/<old season>/ (never
+        deleted), a fresh portfolio starts with params["season_cash"], and the scam counter resets. Screening state
+        (seen / passed / follow-ups / universe) is kept."""
+        season = self.p.get("season")
+        old = self.state.get("season") or "season1"
+        if not season or season == self.state.get("season"):
+            return
+        arch = f"{self.dir}/archive/{old}"
+        os.makedirs(arch, exist_ok=True)
+        for src in (f"{self.acct}/portfolio.json", f"{self.acct}/trades.csv", f"{self.acct}/equity.csv",
+                    f"{self.dir}/outcomes.csv"):
+            if os.path.exists(src):
+                os.replace(src, f"{arch}/{os.path.basename(src)}")
+        cash = float(self.p.get("season_cash") or config.STARTING_CASH_USD)
+        os.makedirs(self.acct, exist_ok=True)
+        with open(f"{self.acct}/portfolio.json", "w") as f:
+            json.dump({"cash": cash, "positions": {}, "peak_equity": cash}, f, indent=2)
+        self.state.update(season=season, scams=[], paused=None)
+        self.dirty = True
+        print(f"   dex: new season {season} - account restarted at ${cash:,.2f}; {old} archived in {arch}")
 
     def save(self):
         try:
