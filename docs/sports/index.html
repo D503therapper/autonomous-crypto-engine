@@ -246,7 +246,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🎾 Faria, easy decision. Nothing fancy — the better player wins. Straight up.</p><p>😮‍💨 Vallejo has been grinding long matches all week. No juice.</p><p>🆚 Vallejo couldn&#x27;t handle him last time either.</p><p>✅ Where we land: Faria ML (-175), 71% in our math against a 64% price. Straight up.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="tm dly">⏳ DELAYED</span></div>
+  <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="tm dly" data-start="2026-09-29T02:00Z" data-gid="tennis:atp:186238" data-side="1">⏳ DELAYED</span></div>
   <div class="lm"><span class="pick">Rinky Hijikata <em>+4 games</em></span><span class="od">-130</span></div>
   <div class="ls">vs Stefanos Tsitsipas · Qualifying Final · Hard court</div>
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🎯 Hijikata getting 4 games? Free money energy. He&#x27;s way more dangerous than this number says.</p><p>✅ Bottom line: book says 57%, we say 69%. We ride Hijikata +4 games (-130).</p></div></details>
@@ -285,7 +285,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🎾 Faria, easy decision. Nothing fancy — the better player wins. Straight up.</p><p>😮‍💨 Vallejo has been grinding long matches all week. No juice.</p><p>🆚 Vallejo couldn&#x27;t handle him last time either.</p><p>✅ Where we land: Faria ML (-175), 71% in our math against a 64% price. Straight up.</p></div></details>
   
 </div><div class="leg ">
-  <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="tm dly">⏳ DELAYED</span></div>
+  <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="tm dly" data-start="2026-09-29T02:00Z" data-gid="tennis:atp:186238" data-side="1">⏳ DELAYED</span></div>
   <div class="lm"><span class="pick">Rinky Hijikata <em>+4 games</em></span><span class="od">-130</span></div>
   <div class="ls">vs Stefanos Tsitsipas · Qualifying Final · Hard court</div>
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🎯 Hijikata getting 4 games? Free money energy. He&#x27;s way more dangerous than this number says.</p><p>✅ Bottom line: book says 57%, we say 69%. We ride Hijikata +4 games (-130).</p></div></details>
@@ -401,7 +401,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790649320667,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790650063284,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
@@ -431,7 +431,7 @@ function fastScores(){if(document.hidden||!API)return;var n=Date.now(),ids={};
  fetch(API+"/scores?ids="+encodeURIComponent(k.join(",")),{cache:"no-store"}).then(function(r){return r.ok?r.json():null})
  .then(function(d){if(d){window.D503F=d;window.D503Ft=Date.now();liveTags()}}).catch(function(){});}
 function flip(sc){return {tennis:true,n:[sc.n[1],sc.n[0]],sets:(sc.sets||[]).map(function(x){return [x[1],x[0]]}),
-  pts:sc.pts?[sc.pts[1],sc.pts[0]]:null,srv:sc.srv===0?1:sc.srv===1?0:null,done:sc.done,live:sc.live}}
+  pts:sc.pts?[sc.pts[1],sc.pts[0]]:null,srv:sc.srv===0?1:sc.srv===1?0:null,done:sc.done,live:sc.live,delayed:sc.delayed}}
 function liveTags(){var n=Date.now(),S={},W=window.D503S||{},F=(n-(window.D503Ft||0)<15000&&window.D503F)||{};
  Object.keys(W).forEach(function(k){S[k]=W[k]});Object.keys(F).forEach(function(k){S[k]=F[k]});   // the freshest wins
  document.querySelectorAll(".tm[data-start]").forEach(function(s){
@@ -439,9 +439,10 @@ function liveTags(){var n=Date.now(),S={},W=window.D503S||{},F=(n-(window.D503Ft
   var st=Date.parse(s.getAttribute("data-start"));if(!st)return;
   var sc=S[s.getAttribute("data-gid")||""];if(sc&&sc.p1&&s.getAttribute("data-side")==="2")sc=flip(sc);   // our player first
   var row=s.closest(".lt"),box=row&&row.nextElementSibling&&row.nextElementSibling.classList.contains("lsc")?row.nextElementSibling:null;
-  var on=sc?true:(n>=st&&n<st+6*3600000);
+  var on=sc?true:(n>=st&&n<st+6*3600000&&!s.classList.contains("dly"));   // (not started yet: stays DELAYED)
   if(on){if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
-    var tag=sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';if(s.innerHTML!==tag)s.innerHTML=tag;}
+    var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';
+    s.classList.toggle("dly",!!(sc&&sc.delayed));if(s.innerHTML!==tag)s.innerHTML=tag;}
   else if(s.dataset.lv){s.innerHTML=s.dataset.lv;delete s.dataset.lv}
   if(sc&&on&&row){var q=function(x){return String(x).replace(/[&<>"]/g,"")},h;
     if(!box){box=document.createElement("div");box.className="lsc";row.parentNode.insertBefore(box,row.nextSibling)}
