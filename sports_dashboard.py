@@ -401,20 +401,35 @@ def _tennis():
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{"".join(row(legs[i]) for i in par["legs"] if i in legs)}
 </section>"""
 
-    def block(s):
-        legs = {l["id"]: l for l in s["picks"]}
-        pars = dict(stn.parlays_of(s))
-        day = datetime.strptime(s["date"], "%Y-%m-%d").strftime("%A, %B %-d")
-        out = f'<div class="tn-d">{E(day)}</div>'
-        if "mixed" in pars:                                  # an old slate's one parlay (both tours): as it was posted
-            out += par_card("mixed", pars["mixed"], legs)
-        for t, title in (("atp", "MEN'S TENNIS"), ("wta", "WOMEN'S TENNIS")):    # each tour: its picks + its parlay
-            ls = [l for l in s["picks"] if stn.tour_of(l) == t]
+    def block(s):                                        # (kept for a single slate; the card groups by tour below)
+        return tour_blocks([s])
+
+    def tour_blocks(sl_):
+        """ONE section per tour across every slate on the card (the owner, 9/28: no men's / women's / men's again):
+        MEN'S TENNIS (all picks, by start, each with its day) -> men's parlays -> WOMEN'S TENNIS -> women's parlays."""
+        out = ""
+        many = len(sl_) > 1
+        dname = lambda d: datetime.strptime(d, "%Y-%m-%d").strftime("%a")
+        for t, title in (("atp", "MEN'S TENNIS"), ("wta", "WOMEN'S TENNIS")):
+            ls = sorted(((s_["date"], l) for s_ in sl_ for l in s_["picks"] if stn.tour_of(l) == t),
+                        key=lambda x: (x[0], x[1].get("start") or ""))
             if ls:
                 out += (f'<section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span>'
-                        f'<span class="pk-l">{title}</span></div>{"".join(row(l) for l in ls)}</section>')
-            if t in pars:
-                out += par_card(t, pars[t], legs)
+                        f'<span class="pk-l">{title}</span></div>'
+                        + "".join((f'<div class="tn-day">{dname(d).upper()}</div>' if many and (i == 0 or ls[i - 1][0] != d) else "")
+                                  + row(l) for i, (d, l) in enumerate(ls)) + "</section>")
+            for s_ in sl_:
+                pars = dict(stn.parlays_of(s_))
+                if t in pars:
+                    card = par_card(t, pars[t], {l["id"]: l for l in s_["picks"]})
+                    if many:                             # which day's parlay it is
+                        card = card.replace('-LEG PARLAY</span>', f'-LEG PARLAY · {dname(s_["date"]).upper()}</span>', 1)
+                    out += card
+        for s_ in sl_:                                   # an old slate's one mixed parlay (before the tours split): last
+            pars = dict(stn.parlays_of(s_))
+            if "mixed" in pars:
+                card = par_card("mixed", pars["mixed"], {l["id"]: l for l in s_["picks"]})
+                out += card.replace(" OF THE DAY</span>", f' · {dname(s_["date"]).upper()}</span>', 1) if many else card
         return out
     # the owner, 9/28: graded picks stay up - CASHED / MISSED with their review - until the NEXT slate posts (6pm PT);
     # then the old one goes to the results. (An older slate with a match still going stays up too.)
@@ -426,8 +441,7 @@ def _tennis():
     nm = sum(stn.tour_of(l) == "atp" for x in shown for l in x["picks"])
     nw = sum(stn.tour_of(l) == "wta" for x in shown for l in x["picks"])
     what = f"{nm} men's + {nw} women's" if nm + nw else "new picks by 6 PM"
-    body = "".join(block(x) for x in shown) or \
-        f'<div class="nopick">{_tn_drop_note(now_pt.date().isoformat())}</div>'
+    body = tour_blocks(shown) if shown else f'<div class="nopick">{_tn_drop_note(now_pt.date().isoformat())}</div>'
     m_, w_, x_ = r["atp"], r["wta"], r["mixed"]
     pars = (f"parlays: men's {m_['p_won']}-{m_['p_lost']} · women's {w_['p_won']}-{w_['p_lost']}"
             + (f" · old mixed {x_['p_won']}-{x_['p_lost']}" if x_["p_won"] + x_["p_lost"] else ""))
@@ -1181,6 +1195,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:22px}} .tn-s{{font-size:15px;color:#fff;font-weight:700}}
 .spc.tap{{cursor:pointer}} .spc em{{font-style:normal;color:#9fb0c8;font-size:12px;margin-left:8px}}
 .tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}}
+.tn-day{{font-size:11px;font-weight:900;letter-spacing:.12em;color:#c6f000;margin:10px 0 -2px}}
 .chip.lean{{background:#ffc233;color:#111;margin-right:6px}} .chip.val{{background:#ff5a1f;color:#fff;margin-right:6px}}
 .chip.lk{{background:#22e39a;color:#06281c;margin-right:6px}}
 .pk.lvc{{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b}} .chip.livechip{{color:#fff;background:#ff3b3b}}
