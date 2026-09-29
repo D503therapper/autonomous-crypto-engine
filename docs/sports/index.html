@@ -256,7 +256,7 @@ Ratings · form · rest · injuries · line moves — retrained after every fina
 Picks only — no bets placed · refreshes hourly</div>
 </main>
 <script>
-(function(){   // 📡 LIVE VALUE: checks live.json every 10 seconds; a play disappears the moment its value is gone
+(function(){   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 var last="";
 function idle(n){return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
@@ -279,8 +279,8 @@ function raw(){return fetch("https://raw.githubusercontent.com/D503therapper/aut
 function poll(){if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
-poll();setInterval(poll,5000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790642101845,m=0;   // the whole page stays fresh while it's open
+poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
+(function(){var t=1790642440302,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
