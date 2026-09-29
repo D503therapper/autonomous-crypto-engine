@@ -389,7 +389,8 @@ def good(c):
     if c["odds"] >= 100:                               # an underdog: VALUE only when a proven angle says it's underpriced
         return proven(c) and c["edge"] >= MIN_EDGE
     need = PLAY_MIN_P + (0.02 if c.get("intl") or c.get("our_drama") else 0.0)   # overseas / our own drama: a higher bar
-    return c["p"] >= need
+    need += sports_selfcheck.extra_edge(SELF_ST, c)     # the self-check (every graded pick, leans too): where a kind of
+    return c["p"] >= need                               # pick hits below what we said, it needs a higher win % to go up
 
 
 def _parlay(cands, n, top=40):
