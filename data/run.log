@@ -2640,3 +2640,32 @@ DEX: $309.30 (-690.70) · Scammed: 1 (-$166.76)
 [2026-09-29 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-29 09:05 UTC] crypto/hold_btc  equity $498.84 (-0.2%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), GRASS 37 (37/0/0), HBAR 35 (35/0/0), NEAR 32 (32/0/0), ONDO 27 (27/0/0)
+   dex screen: REJECT DIEM@base liq $494,601 - pool age unknown
+   dex screen: REJECT SAPIJIJU@solana liq $200,309 - top-10 holders 93%; lp holders unknown
+   dex screen: REJECT NEIRO@ethereum liq $3,801,817 - top-10 holders 68%
+   dex screen: REJECT CRVUSD@ethereum liq $14,145,004 - is_mintable; top-10 holders 78%
+   dex screen: REJECT PYUSD@ethereum liq $100,168,624 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 89%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT GP@solana liq $597,401 - top-10 holders 50%; lp holders unknown
+   dex screen: PASS YEE@ethereum liq $611,366
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT NPC@ethereum liq $5,415,419 - top-10 holders 41%
+   dex screen: REJECT AMERICA@solana liq $142,087 - holders unknown; lp holders unknown; rugcheck lp locked 81% < 95%
+   dex screen: REJECT RHEA@solana liq $129,663 - mint authority; lp holders unknown
+   dex screen: REJECT METAC@base liq $1,598,533 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 82%; lp locked 0% < 95%
+   dex screen: PASS TIBBIR@base liq $4,280,709
+   dex screen: REJECT POND@ethereum liq $198,440 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 72%; lp locked 0% < 95%
+   dex scanner: 2,988 pools (solana 2,076 / base 519 / ethereum 393), refresh cycle 135s (hot 131s), 2748 calls (112 feed, 429s 1, failed 3), 79,018 refreshed (11869 no pair), +85 added / -52 dropped (dead 49, stale 3, cap 0), movers 3 + warming 19 -> queued 3, screened 3 (passed 0), bought 0
+[2026-09-29 10:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-29 10:05 UTC] crypto/mover     equity $452.00 (-9.6%) 0 open  market UP
+[2026-09-29 10:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 10:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 10:05 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-29 10:05 UTC] crypto/breakout10 equity $488.14 (-2.4%) 2 open  market UP
+[2026-09-29 10:05 UTC] crypto/momentum  equity $492.52 (-1.5%) 2 open  market UP
+[2026-09-29 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-29 10:05 UTC] crypto/hold_btc  equity $500.55 (+0.1%) 1 open  market UP
+   social heat top: QNT 40 (40/0/0), HBAR 35 (35/0/0), GRASS 32 (32/0/0), PENGU 29 (29/0/0), NEAR 27 (27/0/0)
