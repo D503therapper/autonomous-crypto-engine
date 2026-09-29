@@ -219,6 +219,9 @@ def _cards(day, day_picks, cards_by_kind):
     return out
 
 
+BOARD_CLEAR_HOUR_PT = 23        # 11pm PT: today's board (graded picks + reviews) clears for tomorrow's drop note
+
+
 DROP_NOTES = [   # before the board's up: when picks drop and why we wait (a different one every day)
     "🎯 Picks drop at <b>8 AM PT</b> on game day. Till then the engine's watching every line and every injury report, so we post off the sharpest numbers. Once they're up, they're final.",
     "⏳ Board goes up <b>8 AM PT</b> game day. The engine's up all night watching the lines move and the news come in — we ain't guessing off stale numbers.",
@@ -269,7 +272,7 @@ def _pick_card(kind, pk):
 <span class="pk-l">{label}</span><span class="chip waiting">PICK COMING</span></div>
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
-    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1) for leg in pk["legs"])   # parlays: each leg shows its own tier
+    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1) + _rev(pk, leg) for leg in pk["legs"])   # each leg: its tier (+ review once graded)
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
     hits = sum(l.get("result") == "won" for l in pk["legs"])
@@ -410,6 +413,17 @@ def _jl(path, default):
         return default
 
 
+LEG_REVIEWS = {}   # (date, "game|side|market") -> that pick's review (filled by _history, shown on today's graded cards)
+
+
+def _rev(pk, leg):
+    """A graded pick's review, right on its card (the board keeps graded picks up till 11pm PT)."""
+    if leg.get("result") not in ("won", "lost", "push"):
+        return ""
+    t = LEG_REVIEWS.get((pk.get("date", ""), f'{leg.get("game_id")}|{leg.get("side")}|{leg.get("market")}'))
+    return f'<div class="rvw">📝 {E(t)}</div>' if t else ""
+
+
 def _history(picks):
     """📜 PAST RESULTS: tap open any sport and see every pick that won or lost, newest first."""
     import sports
@@ -548,6 +562,7 @@ def _history(picks):
     for c in sorted(todo, key=lambda c: c["key"]):
         kind, r, seed = c["args"]
         c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
+        LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
     out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, []))) for lg in sd.LEAGUES)
     # (no parlay record - the owner, 9/28: a parlay's picks each count on their own, in their sport)
@@ -639,7 +654,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     today = now.date().isoformat()
     order = list(LOOK)
     todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
-    active = [p for p in todays if p["status"] in ("open", "waiting")]      # the top is only what's still live
+    # the owner, 9/28: today's picks stay up all day - graded ones too, with CASHED/LOST and their review - and at 11pm PT
+    # the board clears for the "picks drop 8 AM PT" note (the results live on below)
+    active = [] if now.hour >= BOARD_CLEAR_HOUR_PT else list(todays)
     board_date = now.strftime("%A, %B %-d")
     ask_url = _ask_url()
     ask_note = ("Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that." if ask_url else
@@ -651,7 +668,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     drop = f'<div class="drop">{_drop_note(today)}</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card drops at <b>8 AM PT</b> on game day — the engine watches the lines and the news overnight.</div>')
-    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active]) if active else done_today if todays else drop
+    hist = _history(picks)                                  # (first: it writes the reviews the graded cards show)
+    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active]) if active else drop
     if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
         board = _lean_note(today) + board                    # a leans-only day says so up top
     elif active:
@@ -1077,7 +1095,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
-.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .fnb{{color:#9aa4b2;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.86em;color:#e8eef6;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
+.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .rvw{{font-size:.86em;color:#cfd6df;margin:2px 0 6px;font-style:italic}} .fnb{{color:#9aa4b2;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.86em;color:#e8eef6;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
 .tsb{{display:grid;gap:2px 0;align-items:center;max-width:250px;margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.05);font-size:.95em}}
 .tsb .nm{{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .tsb .nm i{{display:inline-block;width:6px;height:6px;border-radius:50%;background:#d7ff3a;margin:0 5px 2px 0}}
 .tsb b{{text-align:center;font-weight:700;color:#cfd6df}} .tsb b.w{{color:#fff;font-weight:900}} .tsb b.l{{color:#7d8794;font-weight:600}}
@@ -1188,7 +1206,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="recs grades">{others}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
-  {_history(picks)}
+  {hist}
 </section>
 {live_list}
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>
