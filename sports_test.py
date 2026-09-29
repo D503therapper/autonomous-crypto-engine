@@ -3282,6 +3282,21 @@ def test_added_pick_pings_everyone():
     assert src.count("if had:\n") >= 2 and src.count("announce_pick(pk)") >= 2
 
 
+def test_parlay_bar_shows_game_times_and_live_stays_live():
+    """The owner, 9/29: start times, live times and live scores on the cards - a folded parlay too. The bar says
+    'First game starts at 5 PM PT' (not 'next up'), then '🔴 N LIVE · Next game starts at ...', then 'All games
+    final'. And a live game's LIVE badge stays put (a stray line used to swap the start time right back in)."""
+    import sports_dashboard as sdb
+    legs = [{"start": "2026-09-30T02:30Z"}, {"start": "2026-09-30T00:00Z"}, {"start": "2026-09-30T02:00Z"}]
+    assert "🕐 First game starts at 5 PM PT" in sdb._fold_times(legs)
+    assert "5 PM PT" not in sdb._fold_times([{**legs[1], "result": "won"}, legs[0]])       # a graded game's done
+    assert "All games final" in sdb._fold_times([{**l, "result": "won"} for l in legs])
+    src = open(sdb.__file__).read()
+    assert "Next game starts at" in src and "next up" not in src.replace("next up'", "")
+    i = src.index('if(s.innerHTML!==tag)s.innerHTML=tag;}}')
+    assert src[i:i + 80].split("\n")[1].lstrip().startswith("else if(s.dataset.lv)")        # restore only when not on
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

@@ -280,7 +280,17 @@ def _fold(inner, legs):
         return f'{mark.get(l.get("result"), "")}{E(team)} {E(mk)}'
     n = len(legs)                                          # no list of the legs up top (the owner, 9/29: the card
     return (f'<details class="px"><summary class="pxs"><span class="pxo">▾ Tap to see the {n} legs</span>'   # already
-            f'<span class="pxc">▴ Hide the legs</span></summary>{inner}</details>')              # shows them)
+            f'<span class="pxc">▴ Hide the legs</span>{_fold_times(legs)}</summary>{inner}</details>')  # shows them)
+
+
+def _fold_times(legs):
+    """When the games go (the owner, 9/29: start times, live times, live scores on the cards - a folded parlay too):
+    '🕐 First game starts at 5 PM PT' up top; the page swaps it for '🔴 2 LIVE · Next game starts at 7:30 PM PT' /
+    '🏁 All games final' as the games go (the owner: say 'first game starts at', not 'next up')."""
+    ts = sorted({l["start"][:16] for l in legs if l.get("start") and not l.get("result")})
+    if not ts:
+        return '<span class="pxt">🏁 All games final</span>'
+    return f'<span class="pxt">🕐 First game starts at {_time(ts[0])}</span>'
 
 
 def _drop_parts(day, parts=None):
@@ -1179,7 +1189,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk.lost>*:not(.stamp-row){{opacity:.5}}
 .px>summary{{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}}
 .px>summary::-webkit-details-marker{{display:none}} .pxt{{font-weight:800;font-size:15px;line-height:1.35}}
-.pxo,.pxc{{font-size:14px;color:var(--c1);font-weight:800}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
+.pxo,.pxc{{font-size:14px;color:var(--c1);font-weight:800}} .pxt{{display:block;font-size:12.5px;color:var(--text);opacity:.8;font-weight:700;margin-top:3px}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
 .stamp-row{{display:flex;justify-content:center;margin:6px 0 12px}}
 .stamp{{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
   border-radius:10px;background:rgba(0,0,0,.3)}}
@@ -1474,8 +1484,8 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   if(on){{if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
     var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';
     s.classList.toggle("dly",!!(sc&&sc.delayed));if(s.innerHTML!==tag)s.innerHTML=tag;}}
+  else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}   // (only when it's NOT on - it used to undo LIVE)
   if(sc&&!sc.live&&!sc.delayed)window.d503stale=1;       // a pick's game is final: the graded page is coming
-  else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}
   if(sc&&on&&row){{var q=function(x){{return String(x).replace(/[&<>"]/g,"")}},h;
     if(!box){{box=document.createElement("div");box.className="lsc";var bd=leg.querySelector(":scope>details.bd");
       if(bd)leg.insertBefore(box,bd);else leg.appendChild(box);}}
@@ -1487,7 +1497,15 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
     else{{var c=sc.clock&&sc.clock!=="Final"?sc.clock:"";
       h='<b>'+q(sc.away+" "+sc.a+" @ "+sc.home+" "+sc.h)+'</b>'+(c?' <span>· '+q(c)+'</span>':'');}}
     if(box.innerHTML!==h)box.innerHTML=h;}}
-  else if(box)box.remove();}})}}
+  else if(box)box.remove();}});
+ document.querySelectorAll("details.px").forEach(function(d){{var t=d.querySelector(".pxt");if(!t)return;   // a folded
+  var lv=0,up=[];d.querySelectorAll(".tm[data-start]").forEach(function(s){{   // parlay says how its games are going
+   if(s.querySelector(".lvb"))lv++;else if(!s.querySelector(".fnb")&&s.textContent.indexOf("DELAYED")<0)up.push(Date.parse(s.getAttribute("data-start")))}});
+  if(!lv&&!(up.length&&Math.min.apply(null,up)<=n))return;   // nothing started yet: the start times stay
+  up=up.filter(function(x){{return x>n}});
+  var nx=up.length?new Date(Math.min.apply(null,up)).toLocaleTimeString("en-US",{{hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"}}).replace(":00 "," ")+" PT":"";
+  var h=lv?"🔴 "+lv+" LIVE"+(nx?" · Next game starts at "+nx:""):nx?"🕐 Next game starts at "+nx:"🏁 All games final";
+  if(t.textContent!==h)t.textContent=h;}})}}
 document.addEventListener("click",function(ev){{var c=ev.target.closest&&ev.target.closest("[data-hs].tap");if(!c)return;
  var want=c.getAttribute("data-hs"),hit=null;document.querySelectorAll("details.hs>summary>b").forEach(function(b){{if(b.textContent===want)hit=b.closest("details")}});
  if(!hit)return;var nx=c.nextElementSibling,was=nx&&nx.classList.contains("spx");   // the results open right under
