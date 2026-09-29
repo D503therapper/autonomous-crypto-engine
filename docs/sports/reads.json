@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29T23:13Z",
+ "updated": "2026-09-29T23:20Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -37,6 +37,20 @@
    "start": "2026-09-29T21:00Z",
    "away": "White Sox",
    "home": "Astros",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891827",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "start": "2026-09-29T23:00Z",
+   "away": "Canadiens",
+   "home": "Maple Leafs",
    "h1": null,
    "why": "started",
    "done": false,
@@ -136,8 +150,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Padres",
-    "p": 0.477,
-    "tie": 0.119,
+    "p": 0.478,
+    "tie": 0.118,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -151,8 +165,8 @@
     "opp": "Cubs",
     "market": "spread",
     "line": 1.5,
-    "odds": -211,
-    "p": 0.656,
+    "odds": -208,
+    "p": 0.657,
     "win_p": 0.544,
     "reasons": [
      "hotter recent form"
