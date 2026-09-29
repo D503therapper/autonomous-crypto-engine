@@ -762,6 +762,8 @@ def post_board(games, model, picks, now, day, force=False):
                                                             # the lock/value grades are the opening board's calls only
         for leg in pk["legs"]:
             leg["tier"] = "lean" if pk["lean"] else "lock" if kind == "lock" else leg_tier(leg)
+            if pk["lean"]:                                    # no edge = no hype: an honest lean read
+                leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}{kind}")
         pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         posted[kind] = pk

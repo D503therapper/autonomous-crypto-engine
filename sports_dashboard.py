@@ -166,7 +166,7 @@ def _tennis_live_story(e, used):
 
 
 TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
-             "lean": '<span class="chip lean">🟡 LEAN</span>'}
+             "lean": '<span class="chip lean">🟡 LEAN</span>', "strong": '<span class="chip lean">💪 STRONG LEAN</span>'}
 TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE", "#ff5a1f", "#ff8a00"),
              "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
 
@@ -197,13 +197,16 @@ def _breakdown(leg):
 
 
 LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
-           "lean": '<span class="lt-t lean">🟡 LEAN</span>'}
+           "lean": '<span class="lt-t lean">🟡 LEAN</span>', "strong": '<span class="lt-t lean">💪 STRONG LEAN</span>'}
 
 
 def _leg(leg, tagged=False):
     import sports
     lg = sd.LEAGUES[leg["league"]]
-    ltag = LEG_TAG[leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})] if tagged else ""
+    lt_ = leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
+    if lt_ == "lean" and (leg.get("p") or 0) >= sports.STRONG_LEAN_P:
+        lt_ = "strong"                                       # some leans are stronger than others (60%+ to win/cover)
+    ltag = LEG_TAG[lt_] if tagged else ""
     mk = "ML" if leg["market"] == "ml" else f'{leg["line"]:g}' if leg["market"] == "total" else f'{leg["line"]:+g}'
     res = leg.get("result")
     mark = ""
@@ -228,28 +231,30 @@ def _leg(leg, tagged=False):
 def _lean_note(day):
     """The top note on a leans-only day, in our voice (a different wording day to day)."""
     notes = [
-        "🟡 No locks today. The algorithm went through every game and nothing cleared the value bar — and we don't force "
-        "picks just to have picks. The pros pick their spots. Today it's leans only, and here they are.",
-        "🟡 Leans only today. Nothing on the board had real value, so we ain't forcing it — that's how you go broke. "
-        "Pros pick their spots. Here's how the algorithm leans.",
-        "🟡 The algorithm didn't find a lock or real value today, and we don't make picks just to make picks. "
-        "Smart money picks its spots. Leans only — here's the read.",
-        "🟡 No value on the board today, so no locks. We don't chase — the pros wait for their spot. "
-        "Leans only today, and here's where the algorithm's at.",
+        "🟡 No locks and no value picks today. The algorithm checked every game and didn't find an edge on any of "
+        "them — and we don't force picks just to have picks. The pros pick their spots. Leans only today — "
+        "not locks, just which way the algorithm leans:",
+        "🟡 No locks today, no value either. Nothing on the slate gave us an edge, so we ain't forcing it — "
+        "that's how bankrolls die. Pros pick their spots. Here's how the algorithm leans, for what it's worth:",
+        "🟡 Zero locks, zero value today. The algorithm didn't find an edge anywhere, and we don't make picks just "
+        "to make picks. Leans only — a lean ain't a lock:",
+        "🟡 No locks. No value picks. The algorithm came up empty on edges today, so nothing goes on our record — "
+        "the pros wait for their spot. Just leans today, straight up:",
     ]
     k = sum(map(ord, str(day)))
     return (f'<div class="drop leanday">{E(notes[k % len(notes)])}'
-            f'<br><small>Leans keep their own record — never in ours.</small></div>')
+            f'<br><small>Leans keep their own record — never in ours. No edge = no lock.</small></div>')
 
 
 def _pick_card(kind, pk):
+    import sports                                            # (the strong-lean bar lives there)
     label, c1, c2 = LOOK[kind]
     if pk and pk.get("lean") and pk.get("legs"):             # a LEAN is never titled Lock/Dog of the Day
         c1, c2 = "#ffc233", "#e8c77a"
         if len(pk["legs"]) == 1:
             l0 = pk["legs"][0]
             mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
-            label = E(f'LEAN · {l0["team"]} {mk}'.upper())
+            label = E(f'{l0["team"]} {mk}'.upper())       # the chip says LEAN / STRONG LEAN
         else:
             label = f'{len(pk["legs"])}-LEG LEAN'
 
@@ -285,7 +290,7 @@ def _pick_card(kind, pk):
                       "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
                   if _tier(pk) == "lock" and pk.get("american", 0) > 0 and pk["status"] == "open" else "")
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
-  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP[_tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
+  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{legs}

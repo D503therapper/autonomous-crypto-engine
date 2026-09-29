@@ -2532,7 +2532,9 @@ def test_lean_day_card():
     pk = copy.deepcopy(real)
     pk.update(kind="lock", lean=True, tier="lean")
     card = dsh._pick_card("lock", pk)
-    assert "LEAN · " in card and "LOCK OF THE DAY" not in card, card[:300]
+    assert "LEAN</span>" in card and "LOCK OF THE DAY" not in card, card[:300]
+    pk["legs"][0]["p"] = 0.66
+    assert "STRONG LEAN" in dsh._pick_card("lock", pk), "a 60%+ lean says STRONG LEAN"
     note = dsh._lean_note("2026-09-29")
     assert "leans" in note.lower() and "never in ours" in note and "real talk" not in note.lower()
 

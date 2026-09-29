@@ -153,6 +153,30 @@ class Voice:
         return re.sub(r"(?<!\.)\.\.(?!\.)", ".", options[n])   # "Bain Jr.." -> "Bain Jr."
 
 
+HYPE = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer it|hammer time|smash it|we eating|real edge|"
+                  r"tips it our way|let'?s eat|bag|money energy|can'?t lose|guaranteed", re.I)
+
+
+def lean_tone(lines, leg, seed=""):
+    """A LEAN has no edge on our numbers - so no hype: sentences that sell it hard come out, and the bottom line says
+    straight that it's a lean, not a lock (the owner: never 'trust the algorithm' when there's zero edge)."""
+    out = []
+    for ln in lines or []:
+        if ln.lstrip("✅ ").lower().startswith("bottom line"):
+            continue
+        keep = [s for s in re.split(r"(?<=[.!?])\s+", ln) if s and not HYPE.search(s)]
+        if keep and not (len(keep) == 1 and len(keep[0]) <= 3):
+            out.append(" ".join(keep))
+    team = leg.get("team", "")
+    tms = team + ("'" if team.endswith("s") else "'s")
+    ends = [f"🟡 Bottom line: no edge on this one — it's a lean, not a lock. The algorithm just leans {team}.",
+            f"🟡 Bottom line: the numbers don't give us an edge here. {team} is the lean, nothing more.",
+            f"🟡 Bottom line: lean only. The price is about right, the algorithm just tilts {tms} way.",
+            f"🟡 Bottom line: no value, no lock — {team} is where the algorithm leans, that's it."]
+    out.append(ends[sum(map(ord, str(seed) + team)) % len(ends)])
+    return out
+
+
 def breakdown(leg, games, elo, injuries, used=None):
     """A plain-talk case for one leg: a list of short bullets ending with the bottom line."""
     g = games[leg["game_id"]]
