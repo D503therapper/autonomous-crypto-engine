@@ -31,6 +31,8 @@ DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
 START_BANKROLL = 1000.0
 STAKE = 100.0
+HOLD_DAYS = {"2026-09-29"}    # boards on hold: the new lock/lean rules (tools/tier_study.py) ship first - never
+                               # post under rules the study showed are weak (the owner, 9/28)
 POST_FROM_HOUR_PT = 22         # a day's plays can be posted from 10pm Pacific the night before (the owner, 9/28:
                                # not 6pm - later lines, more news; tennis keeps its own 6pm drop)...
 DEADLINE_MIN = 180             # ...as soon as everything that matters is known; if it never is, at the latest
@@ -1077,6 +1079,7 @@ def run(repick=False, fetch=True):
         picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
     days = [day] + ([day + timedelta(days=1)] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else [])
+    days = [d for d in days if d.isoformat() not in HOLD_DAYS]         # a board on hold never posts (owner's call)
     try:                                                                # 📊 who's betting who on today's games
         import sports_public
         n_pub = len(sports_public.refresh_today(games))
