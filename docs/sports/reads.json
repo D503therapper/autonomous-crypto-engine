@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29T21:09Z",
+ "updated": "2026-09-29T21:36Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -12,6 +12,34 @@
    "h1": null,
    "why": "final",
    "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891773",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "start": "2026-09-29T21:00Z",
+   "away": "Panthers",
+   "home": "Hurricanes",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "mlb:401907896",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "start": "2026-09-29T21:00Z",
+   "away": "White Sox",
+   "home": "Astros",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -80,7 +108,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.497,
+    "p": 0.496,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -96,8 +124,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -193,
-    "p": 0.611,
-    "win_p": 0.433,
+    "p": 0.612,
+    "win_p": 0.434,
     "reasons": []
    }
   },
@@ -195,7 +223,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Braves",
-    "p": 0.453,
+    "p": 0.454,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -211,8 +239,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.631,
-    "win_p": 0.515,
+    "p": 0.632,
+    "win_p": 0.516,
     "reasons": [
      "better starting pitcher",
      "hotter recent form",
