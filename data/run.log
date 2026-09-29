@@ -2601,3 +2601,42 @@ DEX: $309.30 (-690.70) · Scammed: 1 (-$166.76)
 [2026-09-29 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-29 08:06 UTC] crypto/hold_btc  equity $499.78 (-0.0%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), HBAR 37 (37/0/0), NEAR 32 (32/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0)
+   dex screen: REJECT KMNO@solana liq $2,109,855 - top-10 holders 53%
+   dex screen: REJECT VVV@base liq $18,300,870 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; owner_percent 30%; top-10 holders 62%
+   dex screen: REJECT QNT@ethereum liq $839,326 - is_mintable; lp locked 0% < 95%
+   dex screen: REJECT CTM@ethereum liq $2,687,070 - is_mintable
+   dex screen: REJECT AERO@base liq $42,746,249 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 66%
+   dex screen: REJECT USDS@ethereum liq $50,156,392 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%
+   dex screen: REJECT PAXG@ethereum liq $2,067,613 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: REJECT ONDO@ethereum liq $1,345,738 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT E/ACC@solana liq $567,048 - holders unknown; lp holders unknown; rugcheck lp locked 46% < 95%
+   dex screen: REJECT CALI@solana liq $567,921 - holders unknown; lp holders unknown; rugcheck lp locked 33% < 95%
+   dex screen: REJECT AAVE@ethereum liq $13,300,207 - goplus partial data: cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 44%
+   dex screen: REJECT MASK@solana liq $439,163 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT ZEN@base liq $2,518,295 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: REJECT ENA@ethereum liq $3,004,096 - is_mintable; top-10 holders 60%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CODEC@solana liq $543,625 - top-10 holders 41%; lp holders unknown
+   dex screen: REJECT RAY@solana liq $4,059,005 - top-10 holders 76%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT PAID@solana liq $813,310 - holders unknown; lp holders unknown; rugcheck lp locked 28% < 95%
+   dex screen: REJECT CBETH@base liq $666,375 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT SOL@base liq $717,995 - pool age unknown
+   dex screen: PASS PEPE@ethereum liq $31,527,740
+   dex screen: REJECT MANIFEST@solana liq $552,003 - lp holders unknown; rugcheck lp locked 94% < 95%
+   dex screen: PASS BOTIFY@solana liq $131,878
+   dex screen: REJECT SDOG@solana liq $122,631 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT DEGEN@base liq $132,792 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 62%; lp locked 0% < 95%
+   dex scanner: 2,955 pools (solana 2,054 / base 521 / ethereum 380), refresh cycle 124s (hot 120s), 2934 calls (123 feed, 429s 0, failed 0), 84,327 refreshed (13301 no pair), +204 added / -118 dropped (dead 111, stale 7, cap 0), movers 4 + warming 23 -> queued 5, screened 6 (passed 1), bought 0
+[2026-09-29 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-29 09:05 UTC] crypto/mover     equity $452.00 (-9.6%) 0 open  market UP
+[2026-09-29 09:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 09:05 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-29 09:05 UTC] crypto/breakout10 equity $483.63 (-3.3%) 2 open  market UP
+[2026-09-29 09:05 UTC] crypto/momentum  equity $489.55 (-2.1%) 2 open  market UP
+[2026-09-29 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-29 09:05 UTC] crypto/hold_btc  equity $498.84 (-0.2%) 1 open  market UP
+   social heat top: QNT 40 (40/0/0), GRASS 37 (37/0/0), HBAR 35 (35/0/0), NEAR 32 (32/0/0), ONDO 27 (27/0/0)
