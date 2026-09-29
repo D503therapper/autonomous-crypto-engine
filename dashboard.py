@@ -272,21 +272,22 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="chart">{_svg(total_series, 360, 110, accent, "t", base=base)}</div>
 </section>
 {"".join(blocks)}
-<div class="foot"><div class="fname"><span class="f-the">THE</span> <span class="f-d">D503</span> <span class="f-tag">AUTONOMOUS TRADING ENGINE</span></div>started with <b class="gold">{_money(base)}</b> · <span style="white-space:nowrap">refreshes every <b class="gold">5 min</b></span></div>
+<div class="foot"><div class="fname"><span class="f-the">THE</span> <span class="f-d">D503</span> <span class="f-tag">AUTONOMOUS TRADING ENGINE</span></div>started with <b class="gold">{_money(base)}</b> · <span style="white-space:nowrap">refreshes every <b class="gold">minute</b></span></div>
 </main>
 <script>
-(function(){{var t={int(updated_ms)},m=Math.max(0,Math.round((Date.now()-t)/60000));
-var s=m<1?"just now":m<60?m+" min ago":Math.floor(m/60)+"h "+(m%60)+"m ago";
-document.getElementById("ago").textContent="Live · "+s;
-if(m>90)document.getElementById("dot").className="dot stale";
-// the link host (githack) can serve a copy up to ~20 min old: ask GitHub for the newest version
-// (no CDN cache, 60 calls/hour per phone) and swap it in when it's newer
-fetch("https://api.github.com/repos/{REPO}/contents/docs/index.html?ref=main",
-  {{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-store"}})
- .then(function(r){{return r.ok?r.text():""}})
- .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
-   if(x&&+x[1]>t){{document.open();document.write(h);document.close();}}}})
- .catch(function(){{}});}})();
+(function(){{var t={int(updated_ms)},tag=null;
+// owner: just "Live"; the dot turns amber if the numbers are over 10 minutes old
+if(Date.now()-t>600000)document.getElementById("dot").className="dot stale";
+// refresh every minute while the page is open: ask GitHub for the newest copy (If-None-Match, so an
+// unchanged answer is a free 304 and doesn't use the 60 calls/hour limit) and swap it in when newer
+function check(){{
+ var h={{Accept:"application/vnd.github.raw"}};if(tag)h["If-None-Match"]=tag;
+ fetch("https://api.github.com/repos/{REPO}/contents/docs/index.html?ref=main",{{headers:h,cache:"no-store"}})
+ .then(function(r){{if(r.status!==200)return "";tag=r.headers.get("ETag");return r.text()}})
+ .then(function(x){{var m=/var t=(\d+),tag=/.exec(x);
+   if(m&&+m[1]>t){{document.open();document.write(x);document.close();}}}})
+ .catch(function(){{}});}}
+check();setInterval(check,60000);}})();
 </script></body></html>"""
 
 

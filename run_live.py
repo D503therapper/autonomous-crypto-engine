@@ -597,7 +597,7 @@ def write_dashboard(rows=None, total=None):
 
 
 def dashboard_sync():
-    """Every 5 minutes: redraw the dashboard at live prices and push just docs/ (the hourly
+    """Every minute: redraw the dashboard at live prices and push just docs/ (the hourly
     git_sync still commits everything)."""
     try:
         write_dashboard()
@@ -613,7 +613,7 @@ def push_docs(remote="origin", branch="main"):
     """Publish docs/index.html as its own commit on top of the remote branch, built with a
     throwaway index: the working tree, the local branch and the engine's data files are never
     touched (a pull here would trip over the uncommitted data files). A lost race is skipped;
-    the next refresh 5 minutes later tries again, and the hourly git_sync commits everything."""
+    the next refresh a minute later tries again, and the hourly git_sync commits everything."""
     env = dict(os.environ, GIT_INDEX_FILE=os.path.abspath(".git/dash_index"))
 
     def git(*args):
@@ -699,7 +699,7 @@ def main():
     guard, reactor, footprint = PumpGuard(), ListingNoticeReactor(), PrePumpFootprint()   # signals.py
     MOVER.veto = early_veto(guard, scanner)     # hourly take-off buys go through the pump guard too
     last_listing = 0.0
-    last_dash = time.time()                     # first refresh 5 min in (the hourly cycle draws it at start)
+    last_dash = time.time()                     # first refresh 1 min in (the hourly cycle draws it at start)
     while True:
         hour = time.strftime("%Y%m%d%H", time.gmtime())
         if hour != last_hour and time.gmtime().tm_min >= 1:   # new hourly candle has closed
@@ -722,7 +722,7 @@ def main():
                 footprint_cycle(scanner, footprint, guard)
             except Exception as e:
                 print(f"footprint scan failed: {e}")
-        if time.time() - last_dash >= 300:      # dashboard at live prices every 5 minutes
+        if time.time() - last_dash >= 60:       # dashboard at live prices every minute (owner 2026-09-29)
             last_dash = time.time()
             dashboard_sync()
         if time.time() - last_scan >= 60:
