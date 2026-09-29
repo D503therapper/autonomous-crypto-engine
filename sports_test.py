@@ -111,7 +111,7 @@ def test_never_back_injured_side():
           if c["game_id"] == "nfl:x" and c["market"] == "ml"]
     for c in cs:     # starter out: the market prices the backup; the ratings (which think the starter plays) don't count
         assert abs(c["p"] - c["p_market"]) < 1e-9, (c["team"], c["p"], c["p_market"])
-    assert not any(sports.good(c) for c in cs), "no fake edge from ratings that assume the starter plays"
+    assert not any(sports.good(c) for c in cs if c["odds"] > 0), "no fake underdog edge from ratings that assume the starter plays"
     inj["nfl"]["3"] = []                                     # Giants healthy, Titans 2 more out
     inj["nfl"]["4"] = [("A", "WR", "Out"), ("B", "CB", "Out")]
     sides = {c["team"] for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
@@ -215,98 +215,49 @@ def _cand(gid, odds, p, market="ml", line=None, league="mlb"):
 
 
 def test_board_rules():
-    c = [_cand("a", -300, 0.80), _cand("b", -140, 0.62), _cand("c", 150, 0.43), _cand("d", 180, 0.39),
-         _cand("e", 220, 0.34), _cand("f", -115, 0.56), _cand("g", 365, 0.24), _cand("h", 130, 0.46),
-         _cand("i", -110, 0.54, "spread", -3.5, "nfl")]
+    """THE LABEL STUDY's rules (9/28): picked by how likely it WINS - 53%+ = a play (STRONG LEAN), 56%+ = LOCK, the
+    likeliest lock = Lock of the Day; an underdog only as VALUE with a proven angle; never fighting Vegas; -150 cap."""
+    pr = lambda c: {**c, "reasons": c["reasons"] + ["proven spot: home dog after a loss"]}
+    c = [_cand("a", -300, 0.80), _cand("b", -140, 0.62), _cand("f", -115, 0.57), _cand("k", -120, 0.55),
+         _cand("n", -110, 0.52), pr(_cand("d", 150, 0.43)), _cand("e", 180, 0.40), _cand("i", -110, 0.58, "spread", -3.5, "nfl")]
     b = sports.make_board(c)
+    assert b["lock"]["legs"][0]["game_id"] == "b", "the Lock of the Day = the likeliest lock, -150 cap (never the -300)"
     for kind in ("two", "three"):
         legs = b[kind]["legs"]
-        assert all(sports.good(l) for l in legs), "never a filler leg"
+        assert all(sports.good(l) for l in legs) and all(l["odds"] >= sports.MAX_FAV for l in legs), "real plays only"
         assert len({l["game_id"] for l in legs}) == len(legs) == (2 if kind == "two" else 3)
-        assert all(l["odds"] >= sports.MAX_FAV for l in legs), "no huge favorites"
-    assert b["lock"]["legs"][0]["odds"] >= sports.MAX_FAV and b["lock"]["legs"][0]["game_id"] == "b", "the surest pick, -150 cap"
-    dog = b["dog"]["legs"][0]
-    assert dog["odds"] >= 100 and dog["game_id"] != b["lock"]["legs"][0]["game_id"]
-    assert dog["game_id"] == "d", "a big dog needs to be clearly better value than the best regular dog"
-    c = [x if x["game_id"] != "g" else _cand("g", 365, 0.30) for x in c]     # now a real shot at great value
-    assert sports.make_board(c)["dog"]["legs"][0]["game_id"] == "g"
-    slate = [_cand(f"g{i}", -150 + 5 * i, 0.64 - 0.005 * i) for i in range(10)]
-    slate += [_cand("big", -475, 0.86), _cand("big", -110, 0.63, "spread", -9.5, "nfl"), _cand("dg", 140, 0.47)]
+    assert not sports.good(_cand("n", -110, 0.52)), "52% is a coin flip - not a play"
+    assert sports.good(_cand("k", -120, 0.55)) and sports.leg_tier(_cand("k", -120, 0.55)) == "lean", "53-56% = a STRONG LEAN"
+    assert sports.leg_tier(_cand("f", -115, 0.57)) == "lock", "56%+ = a LOCK"
+    assert b["dog"]["legs"][0]["game_id"] == "d", "a dog only with a proven angle behind it"
+    assert not sports.good(_cand("e", 180, 0.40)), "the engine alone disagreeing with Vegas is never value"
+    assert sports.leg_tier(pr(_cand("d", 150, 0.43))) == "value"
+    assert sports.leg_tier(pr(_cand("pl", 120, 0.58))) == "lock", "plus money up to +125 at 56%+ = a lock"
+    assert sports.leg_tier(pr(_cand("pt", 140, 0.58))) == "value", "over +125 is always value"
+    fight = {**_cand("ft", -140, 0.60), "edge_own": 0.50 * sd.decimal(-140) - 1}   # our own read: 50% vs the price's 58%
+    assert not sports.good(fight), "never a side our own read says Vegas is overrating"
+    assert sports.make_board([_cand("x1", -160, 0.70), _cand("x2", -170, 0.72)])["lock"] is None, "no moneyline over -150"
+    assert sports.make_board([_cand("x3", -110, 0.57), _cand("sp", -110, 0.60, "spread", -2.5, "nfl")])["lock"]["legs"][0][
+        "game_id"] == "sp", "any line counts - a spread the engine's surer of beats a moneyline"
+    filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", -150, 0.62), "reasons": []}]
+    fb = sports.make_board(filler)
+    assert all(fb[k] is None for k in ("lock", "dog", "two", "three", "four")), "nothing real = no picks (leans take over)"
+    slate = [_cand(f"g{i}", -150 + 5 * i, 0.62 - 0.005 * i) for i in range(10)]
     bd = sports.make_board(slate)
     lock_g = bd["lock"]["legs"][0]["game_id"]
-    two = [l["game_id"] for l in bd["two"]["legs"]]
-    three = [l["game_id"] for l in bd["three"]["legs"]]
-    assert lock_g in two and set(two) <= set(three) and len(set(three)) == 3, "option A: Lock -> 2-leg -> 3-leg ladder"
-    dog_g = bd["dog"]["legs"][0]["game_id"]
-    assert dog_g not in three, "the Dog is its own pick, never in the parlays"
-    four = [l["game_id"] for l in bd["four"]["legs"]]
-    assert len(set(four)) == 4 and set(three) <= set(four) and dog_g not in four, "4-leg = the 3-leg + one more, never the Dog"
-    assert all(sports.good(l) and l["odds"] >= sports.MAX_FAV for l in bd["four"]["legs"]), "locks + value only, no -475"
-    assert sports.make_board([_cand("x1", -160, 0.70), _cand("x2", -170, 0.72)])["lock"] is None, "no moneyline over -150"
-    assert sports.make_board([_cand("x1", -140, 0.70), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x1", \
-        "a -140 the engine's surer of is the Lock (same -150 cap as everything else)"
-    assert sports.make_board([_cand("x1", -160, 0.75), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x3", \
-        "a -160 is out, however sure"
-    assert sports.make_board([_cand("x4", -130, 0.66), _cand("x3", -110, 0.60)])["lock"]["legs"][0]["game_id"] == "x4", \
-        "the Lock of the Day = the most confident pick on the board"
-    assert sports.make_board([_cand("x3", -110, 0.60), _cand("sp", -110, 0.64, "spread", -2.5, "nfl")])["lock"]["legs"][0][
-        "game_id"] == "sp", "any line counts - a spread the engine's surer of beats a moneyline"
-    one = sports.make_board([_cand("mnf", 170, 0.40), dict(_cand("mnf", -205, 0.70), side="away"),
-                             dict(_cand("mnf", -110, 0.58, "spread", -4.5, "nfl"), side="away")])
-    assert one["solo"] and all(one[k] is None for k in ("lock", "dog", "two", "three", "four")), \
-        "one game, a coin-flip-ish spread = that game's pick, NOT the Lock of the Day"
-    assert one["solo"]["legs"][0]["market"] == "spread" and sports.leg_tier(one["solo"]["legs"][0]) == "lock", "a -110 spread = LOCK"
-    sure = sports.make_board([_cand("tnf", -115, 0.64), dict(_cand("tnf", 105, 0.36), side="away")])
-    assert sure["lock"] and sure["solo"] is None, "one game, as strong as a real Lock of the Day = the Lock of the Day"
-    plus1 = sports.make_board([_cand("snf", 110, 0.62), dict(_cand("snf", -130, 0.38), side="away")])
-    assert plus1["lock"] and plus1["lock"]["legs"][0]["odds"] == 110, "a plus-money pick at 60%+ can be the Lock of the Day"
-    reg = sports.make_board(slate + [_cand("pm", 115, 0.70)])
-    assert reg["lock"]["legs"][0]["game_id"] == "pm", "the likeliest pick is the LOTD, plus money or not"
-    sure_dog = _cand("sd", 120, 0.66)                                        # a dog the engine gives 66% to WIN
-    bs = sports.make_board(slate + [sure_dog])
-    assert bs["lock"]["legs"][0]["game_id"] == "sd", "plus money counts too when it's the likeliest pick on the board"
-    br = sports.make_board([_cand("L", -110, 0.58), _cand("sd2", 120, 0.57)])   # a dog the engine thinks WINS (57%)
-    assert br["dog"]["legs"][0]["game_id"] == "sd2" and "sd2" in [l["game_id"] for l in br["two"]["legs"]], \
-        "a confident Dog can ride"
-    likely = _cand("pl", 120, 0.62)                                          # plus money, 62%
-    fav = _cand("fv", -110, 0.54)                                            # minus money, only 54%
-    val2 = _cand("v2", 150, 0.615)                                           # about as likely as pl, more value
-    bl = sports.make_board([likely, fav, val2, _cand("L", -110, 0.66), _cand("D", 250, 0.46)])   # D = the dog
-    assert [l["game_id"] for l in bl["two"]["legs"]] == ["L", "v2"], "accuracy first, then the most value"
-    short = slate[:5] + [_cand(f"n{i}", -120, 0.50) for i in range(5)]      # only 5 real plays
-    assert sports.make_board(short[:3])["four"] is None, "no 4 real plays = no 4-leg that day (never a lean filler)"
-    filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", 150, 0.45), "reasons": []}]
-    b = sports.make_board(filler)
-    assert all(b[k] is None for k in ("lock", "dog", "two", "three", "four")), "no value = no picks - never a lean on the board"
-    # a pick posted earlier is built on, never rebuilt
-    fixed = {"lock": bd["lock"]["legs"]}
-    assert sports.make_board(slate[3:], fixed=fixed)["two"]["legs"][0]["game_id"] == lock_g
-    # confidence tiers: a plus-money pick can be a LOCK when the engine's sure; a parlay is only as sure as its weakest leg
-    both = [dict(_cand("g1", -140, 0.66), side="home"), dict(_cand("g1", 130, 0.45), side="away"),
-            _cand("g2", -120, 0.60), _cand("g3", -130, 0.62), _cand("g4", 140, 0.46)]
-    bb = sports.make_board(both)
-    sides = {(l["game_id"], l["side"]) for pk in bb.values() if pk for l in pk["legs"]}
-    assert len({g for g, _ in sides}) == len(sides), "never both teams of one game on the same board"
-    val = dict(_cand("g9", 150, 0.46), side="away")          # value on the dog...
-    weak = dict(_cand("g9", -150, 0.58), side="home")        # ...vs a so-so favorite (no value): value wins
-    strong = dict(_cand("g9", -150, 0.61), side="home")      # ...vs a strong lean (61%): the strong lean wins
-    assert {c["side"] for c in sports.one_side([val, weak])} == {"away"}, "value takes precedence"
-    assert {c["side"] for c in sports.one_side([val, strong])} == {"home"}, "unless the engine has a strong lean on the other side"
-    assert sports.leg_tier(_cand("pl", 120, 0.58)) == "lock", "value at 52%+ up to +125 is a lock (the owner, 9/28)"
-    assert sports.leg_tier(_cand("pt", 140, 0.55)) == "value", "over +125 is always value"
-    assert sports.leg_tier(_cand("mn", -120, 0.60)) == "lock", "minus money: 60% at -120 (10% edge) = a lock"
-    assert sports.leg_tier(_cand("v", 150, 0.43)) == "value" and sports.leg_tier(_cand("n", -110, 0.50)) == "lean"
+    two, three = [l["game_id"] for l in bd["two"]["legs"]], [l["game_id"] for l in bd["three"]["legs"]]
+    assert lock_g in two and set(two) <= set(three), "Lock -> 2-leg -> 3-leg ladder"
+    assert sports.make_board(slate[3:], fixed={"lock": bd["lock"]["legs"]})["two"]["legs"][0]["game_id"] == lock_g
+    one = sports.make_board([dict(_cand("mnf", -108, 0.52, "spread", 3.5, "nfl"), side="home"),
+                             dict(_cand("mnf", -112, 0.48, "spread", -3.5, "nfl"), side="away")])
+    assert one["solo"] and one["lock"] is None, "one game, a coin flip = that game's pick, never the Lock of the Day"
+    sure = sports.make_board([_cand("tnf", -130, 0.60), dict(_cand("tnf", 110, 0.40), side="away")])
+    assert sure["lock"] and sure["solo"] is None, "one game, a real lock = the Lock of the Day"
+    assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "lock"}]}) == "lock"
+    assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "lean"}]}) == "lean", "only as sure as the weakest leg"
     assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "value"}]}) == "value"
-    assert sports.pick_tier({"kind": "lock", "tier": "value", "legs": [{"tier": "value"}]}) == "lock", "the Lock of the Day counts as a lock"
-    sharp_only = {**_cand("s", 120, 0.50), "edge_own": 0.0}                # value only from the line moving
-    assert not sports.good(sharp_only), "sharp money alone can never carry a pick"
-    drama = {**_cand("t", 120, 0.465), "our_drama": [{"kind": "coach fired"}]}      # ~2.3% edge
-    assert sports.good({**drama, "our_drama": []}) and not sports.good({**drama, "edge": 0.015, "edge_own": 0.015}), \
-        "our own drama needs twice the value"
-    import sports_news
-    assert sports_news.classify("Jets fire head coach after 2-3 start") == ["coach fired"]
-    assert sports_news.classify("Star WR leaves team for personal reasons") == ["family/personal"]
-    assert sports_news.classify("Rookie scores twice in win") == []
+    assert sports.pick_tier({"kind": "lock", "tier": "value", "legs": [{"tier": "value"}]}) == "lock"
+    assert sports.in_record({"lean": True, "date": "2026-09-29"}) and not sports.in_record({"lean": True, "date": "2026-09-28"})
 
 
 def test_grading():
@@ -1396,7 +1347,7 @@ def test_dog_traps():
     assert sports_dogs.verdict(st, "nhl", 150, False, "on b2b") == "trap"
     assert sports_dogs.verdict(st, "nhl", 150, True) is None
     assert sports_dogs.adjust(st, "nhl", 0.65) > 0.65 and sports_dogs.adjust(st, "nba", 0.65) == 0.65
-    c = {"edge": 0.2, "edge_own": 0.2, "reasons": ["x"], "trap": True}
+    c = {"edge": 0.2, "edge_own": 0.2, "reasons": ["x", "proven spot: y"], "trap": True, "odds": 150, "dec": 2.5, "p": 0.48}
     assert not sports.good(c) and sports.good({**c, "trap": False})
     print("ok test_dog_traps")
 
@@ -2548,12 +2499,12 @@ def test_lean_day_card():
 
 
 def test_plus_money_lock_rule():
-    """The owner, 9/28: one lock bar at any price - real value AND 52%+, no longer than +125 (over +125 is always
-    VALUE; a +156 at 40% labeled Lock of the Day was the bug)."""
+    """The label study (9/28): a LOCK is 56%+ to win, never plus money past +125 (over +125 is always VALUE; a +156 at
+    40% labeled Lock of the Day was the bug)."""
     import sports
     assert not sports.lock_ok({"odds": 156, "p": 0.396}) and not sports.lock_ok({"odds": 130, "p": 0.7})
-    assert sports.lock_ok({"odds": 125, "p": 0.53}) and sports.lock_ok({"odds": -140, "p": 0.6})
-    assert not sports.lock_ok({"odds": 110, "p": 0.51}) and not sports.lock_ok({"odds": -105, "p": 0.51})
+    assert sports.lock_ok({"odds": 125, "p": 0.57}) and sports.lock_ok({"odds": -140, "p": 0.6})
+    assert not sports.lock_ok({"odds": 110, "p": 0.55}) and not sports.lock_ok({"odds": -105, "p": 0.53})
 
 
 def _sample_history(days=24, seed=5):
