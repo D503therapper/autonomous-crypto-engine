@@ -447,7 +447,7 @@ def _tennis():
             + (f" · old mixed {x_['p_won']}-{x_['p_lost']}" if x_["p_won"] + x_["p_lost"] else ""))
     return f"""<details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
 <span class="tn-s">{what} · men's {m_['won']}-{m_['lost']} · women's {w_['won']}-{w_['lost']} · tap to open</span></summary>
-<div class="tn-b"><div class="tn-d">{pars}</div>{body}</div></details>"""
+<div class="tn-b">{body}</div></details>"""
 
 
 def _jl(path, default):
@@ -884,16 +884,14 @@ def render(picks, model, games, series, start_bank, updated_ms):
     def tn_box(name, t):
         rows_ = tn_rows[t]
         pw, pl_ = tn_rec[t]["p_won"], tn_rec[t]["p_lost"]
-        return grade(name, "#c6f000", "#1fd17a", [r for r, _ in rows_], [r for r, dd in rows_ if dd == today]).replace(
-            "</div></div>", f'</div><div class="rc-s">parlays {pw}-{pl_}</div></div>', 1)
+        return grade(name, "#c6f000", "#1fd17a", [r for r, _ in rows_], [r for r, dd in rows_ if dd == today])   # (no parlay
+        #                                                        record - the owner, 9/28)
     others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today])
               + (grade("🟡 OLD LEANS (before 9/29)", "#ffc233", "#e8c77a", [p["status"] for p in leans_], []) if leans_ else "")
               + tn_box("🎾 MEN'S TENNIS", "atp") + tn_box("🎾 WOMEN'S TENNIS", "wta"))
     for t, label in (("atp", "men's tennis"), ("wta", "women's tennis")):
         RECORDS[f"{label} (own record, not ours)"] = wlt(sum(r == 'won' for r, _ in tn_rows[t]), sum(r == 'lost' for r, _ in tn_rows[t]))
-        RECORDS[f"{label} parlays"] = wlt(tn_rec[t]["p_won"], tn_rec[t]["p_lost"])
-    if tn_rec["mixed"]["p_won"] + tn_rec["mixed"]["p_lost"]:
-        RECORDS["old mixed tennis parlays (before the tours were split)"] = wlt(tn_rec["mixed"]["p_won"], tn_rec["mixed"]["p_lost"])
+
     # by sport: just our hit rate on the board - locks, value, leans (live bets are their own category; the 8-leg stays out)
     groups = [("🏈 NFL", ("nfl",)), ("🏈 College Football", ("ncaaf",)), ("🏀 NBA", ("nba",)),
               ("🏀 College Basketball", ("ncaab",)), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
@@ -928,7 +926,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         if kind in ("eight", "solo") and not ps:             # the retired 8-leg / one-game-day pick: only with history
             continue
         r, h = wl(ps)
-        RECORDS.setdefault("by pick", {})[label] = r
+        pass   # (no per-parlay / one-game-pick records - the owner, 9/28)
         rec.append(f'<div class="rc" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{ICON[kind]} {label.replace(" OF THE DAY", "")}</div>'
                    f'<div class="rc-r">{sum(p["status"] == "won" for p in ps)} won · {sum(p["status"] == "lost" for p in ps)} lost</div>'
                    f'<div class="rc-p">{_wl_words(ps, h)}</div></div>')
@@ -1290,7 +1288,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   <div class="lbl">The engine's grades</div>
   <div class="sp-n what"><b>What counts:</b> every pick we post counts once in our record — the Lock of the Day, the Dog of the Day, every pick in the 2-, 3- and 4-leg parlays, and every lean. Parlays don’t keep a record of their own; their picks each count on their own. Locks, value, leans, the Lock of the Day and the Dog of the Day each get their own grade too. Live plus money and tennis keep their own records. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
   {overall}
-  <div class="recs grades">{grades}{"".join(rec)}</div>
+  <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
   <div class="recs grades">{others}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>

@@ -1265,8 +1265,7 @@ def test_dashboard_tennis_records():
         R = dash.RECORDS
         assert R["men's tennis (own record, not ours)"] == "4-0", R          # atp:1 once (two slates), 2, 3, 5
         assert R["women's tennis (own record, not ours)"] == "1-2", R
-        assert R["men's tennis parlays"] == "0-0" and R["women's tennis parlays"] == "0-1"
-        assert R["old mixed tennis parlays (before the tours were split)"] == "0-1"
+        assert not any("parlay" in k for k in R), "no parlay records (the owner, 9/28)"
         assert R["by sport"]["Men's Tennis"] == "4-0" and R["by sport"]["Women's Tennis"] == "1-2" and "Tennis" not in R["by sport"]
         assert R["live plus money (own record, not ours)"] == "1-0", "the tennis live play counts in LIVE PLUS MONEY"
         assert "tennis (own record, not ours)" not in R
@@ -1278,7 +1277,7 @@ def test_dashboard_tennis_records():
         # the owner's rule (9/28): EVERY parlay title says how many legs it has
         titles = [x for x in re.findall(r'class="pk-l[^"]*">([^<]*)<', html) if "PARLAY" in x]
         assert titles and all(re.search(r"\d-LEG (LEAN )?PARLAY", x) for x in titles), titles
-        assert "parlays: men's 0-0 · women's 0-1 · old mixed 0-1" in html
+        assert "parlays: men's" not in html and "parlays 0-" not in html, "no parlay records anywhere"
         assert "🎾 Men&#x27;s Tennis · 🔁 DOUBLE DOWN" in html and "4-6, 2-2 in set 2" in html, "the live list: 🎾 and the set/game score"
         assert html.count("class=\"rc gr\"") >= 6
         _check_js(html)
