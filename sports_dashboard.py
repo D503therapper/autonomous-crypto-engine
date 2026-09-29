@@ -232,8 +232,8 @@ def _lean_note(day):
     """The top note on a leans-only day, in our voice (a different wording day to day)."""
     notes = [
         "🟡 No locks and no value picks today. The algorithm checked every game and didn't find an edge on any of "
-        "them — and we don't force picks just to have picks. The pros pick their spots. Leans only today — "
-        "not locks, just which way the algorithm leans:",
+        "them — and we don't force picks just to have picks. The pros pick their spots. It's leans only today. "
+        "No value, no locks — just which way the algorithm leans:",
         "🟡 No locks today, no value either. Nothing on the slate gave us an edge, so we ain't forcing it — "
         "that's how bankrolls die. Pros pick their spots. Here's how the algorithm leans, for what it's worth:",
         "🟡 Zero locks, zero value today. The algorithm didn't find an edge anywhere, and we don't make picks just "
