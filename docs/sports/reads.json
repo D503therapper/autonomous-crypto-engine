@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29T14:54Z",
+ "updated": "2026-09-29T15:40Z",
  "games": [
   {
    "id": "nhl:401891773",
@@ -7,7 +7,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.364,
+    "p": 0.368,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -23,8 +23,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.691,
-    "win_p": 0.472,
+    "p": 0.682,
+    "win_p": 0.462,
     "reasons": [
      "opponent missing key players",
      "opponent drama: trade drama"
@@ -36,7 +36,7 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Maple Leafs",
+    "team": "Canadiens",
     "p": 0.357,
     "tie": 0.297,
     "name": "1st period"
@@ -45,18 +45,18 @@
    "start": "2026-09-29T23:00Z",
    "away": "Canadiens",
    "home": "Maple Leafs",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Canadiens",
-    "opp": "Maple Leafs",
+    "team": "Maple Leafs",
+    "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.704,
+    "odds": -278,
+    "p": 0.703,
     "win_p": 0.488,
     "reasons": [
-     "the stronger team"
+     "opponent drama: family/personal"
     ]
    }
   },
@@ -96,7 +96,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.487,
+    "p": 0.491,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -104,16 +104,16 @@
    "start": "2026-09-30T00:00Z",
    "away": "Red Sox",
    "home": "Yankees",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "four",
    "lean": {
     "team": "Red Sox",
     "opp": "Yankees",
     "market": "spread",
     "line": 1.5,
     "odds": -206,
-    "p": 0.621,
-    "win_p": 0.444,
+    "p": 0.617,
+    "win_p": 0.439,
     "reasons": []
    }
   },
@@ -131,8 +131,8 @@
    "start": "2026-09-30T02:00Z",
    "away": "Canucks",
    "home": "Oilers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "four",
    "lean": {
     "team": "Oilers",
     "opp": "Canucks",
@@ -154,7 +154,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Padres",
-    "p": 0.485,
+    "p": 0.486,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -162,16 +162,16 @@
    "start": "2026-09-30T02:00Z",
    "away": "Cubs",
    "home": "Padres",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "four",
    "lean": {
     "team": "Cubs",
     "opp": "Padres",
     "market": "spread",
     "line": 1.5,
-    "odds": -206,
-    "p": 0.624,
-    "win_p": 0.447,
+    "odds": -205,
+    "p": 0.623,
+    "win_p": 0.446,
     "reasons": []
    }
   },
@@ -189,8 +189,8 @@
    "start": "2026-09-30T02:30Z",
    "away": "Blackhawks",
    "home": "Golden Knights",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "four",
    "lean": {
     "team": "Golden Knights",
     "opp": "Blackhawks",
