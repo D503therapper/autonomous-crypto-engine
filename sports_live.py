@@ -49,9 +49,15 @@ MAX_GAP = 0.20                # our live chance (score, clock, who has the ball 
 STAY_MAX_ODDS = 500              # ...and comes down if the price blows out past +500 (a prayer, not a live bet)
 STAY_EDGE, STAY_P = 0.0, 0.15    # never count a live dog out: a play that's up stays while there's ANY value left;
                                  # it only comes down when the value's gone or it's shitting the bed (under a 15% chance)
-PAUSE_HOLD_S = 180            # the book pauses its line (drive in the red zone, review): hold the card up to 3 minutes
+PAUSE_HOLD_S = 90             # the book pauses its line (drive in the red zone, review) or we can't confirm the price:
+                              # the card holds, marked LINE PAUSED, up to 90s - then it comes down
 LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
 LIVE_MIN_P = 0.40             # ACCURACY FIRST: a new live bet is one we think has a real shot (40%+)...
+LINE_MAX_AGE_S = 60           # a live price the book last touched 60+ seconds ago is no price (its feeds sit in a
+                              # cache): no new play, no alert; one that's up shows "line paused", then comes down
+MOVE_TOL = 0.03               # the price may lag the score a bit, never go the other way (against_the_score)
+HEARTBEAT_S = 15              # live.json goes out at least this often (the page drops a play not re-checked in 45s)
+WATCHDOG_S = 90               # one check stuck this long (a feed or git call hung): the watch restarts itself
 LIVE_MAX_ODDS = 250           # ...and never longer than +250 when it goes up (the +270..+425 ones kept losing)
 MAX_PLAYS = 2                 # NEVER more than 2 on the board at once (the owner, 9/28): one's value goes, the next can take its slot
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
@@ -396,6 +402,58 @@ BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{p
 BOVADA_OLD = "https://www.bovada.lv/services/sports/event/coupon/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
 BOVADA_ALL = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&lang=en"
 BOVADA_SPORT = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{sport}?marketFilterId=def&liveOnly=true&lang=en"
+# 9/29: the book serves these feeds from a cache (up to 10 minutes per address), and a "fresh" copy of the def-filtered
+# feed still carried 6-minute-old prices - our +125 on Garcia was one (the real line: -150). So: many addresses (each
+# its own cache clock), a few per check in rotation, and per match the NEWEST version any of them had (lastModified).
+_BQ = ["liveOnly=true&lang=en", "lang=en&liveOnly=true", "liveOnly=true&preMatchOnly=false&lang=en",
+       "preMatchOnly=false&liveOnly=true&lang=en", "lang=en&preMatchOnly=false&liveOnly=true", "liveOnly=true",
+       "liveOnly=true&preMatchOnly=false", "preMatchOnly=false&liveOnly=true", "lang=en&liveOnly=true&preMatchOnly=false",
+       "liveOnly=true&lang=en&preMatchOnly=false", "marketFilterId=def&liveOnly=true&lang=en"]
+BOVADA_VARIANTS = [h + "/services/sports/event/v2/events/A/description/{path}?" + q
+                   for q in _BQ for h in ("https://www.bovada.lv", "https://services.bovada.lv")]
+BOV_PER_CHECK = 4             # addresses read per check (rotating): every one gets a look every ~5s
+BOV_EV = {}                   # (path, event id) -> (lastModified, its group without events, the event): the newest seen
+BOV_TURN = {}                 # path -> where the rotation is
+
+
+def bovada_fresh(path):
+    """Bovada's live events for `path`, each the newest version any cache address has shown us (see above).
+    Same shape as the feed (groups with events), one event per group."""
+    n = len(BOVADA_VARIANTS)
+    i = BOV_TURN.get(path, 0)
+    BOV_TURN[path] = (i + BOV_PER_CHECK) % n
+    urls = [BOVADA_VARIANTS[(i + k) % n].format(path=path) for k in range(BOV_PER_CHECK)]
+    with ThreadPoolExecutor(BOV_PER_CHECK) as ex:
+        got = list(ex.map(lambda u: _safe_get(u), urls))
+    if all(g is None for g in got) and not any(k[0] == path for k in BOV_EV):
+        raise RuntimeError("no Bovada address answered")
+    for data in got:
+        remember_events(path, data)
+    now_ms = time.time() * 1000
+    for k in [k for k, v in BOV_EV.items() if now_ms - v[0] > 15 * 60 * 1000]:
+        del BOV_EV[k]                                         # (over, or gone from the board)
+    return [{**grp, "events": [ev]} for (pth, _), (_, grp, ev) in BOV_EV.items() if pth == path]
+
+
+def remember_events(path, data):
+    for grp in data if isinstance(data, list) else []:
+        if not isinstance(grp, dict):
+            continue
+        meta = {k: v for k, v in grp.items() if k != "events"}
+        for ev in grp.get("events") or []:
+            mod = ev.get("lastModified") or 0
+            k = (path, str(ev.get("id")))
+            if k not in BOV_EV or mod > BOV_EV[k][0]:
+                BOV_EV[k] = (mod, meta, ev)
+
+
+def _safe_get(url):
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={**BOV_HDR, "Accept": "application/json, text/plain, */*",
+                                                                         "Referer": "https://www.bovada.lv/sports"}), timeout=8) as r:
+            return json.load(r)
+    except Exception:                                         # noqa: BLE001
+        return None
 # (the liveOnly feed went empty on 2026-09-27 while games were live: the full feed still flags each event live=True)
 ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}/odds"
 BOVADA_PATH = {"nfl": "football/nfl", "ncaaf": "football/college-football", "nba": "basketball/nba",
@@ -411,19 +469,18 @@ def bovada_live(league):
     """[{home, away, ml_home, ml_away}] - the sportsbook's LIVE moneylines right now."""
     data = []
     path = BOVADA_PATH[league]
-    for url in (BOVADA, BOVADA_OLD, BOVADA_ALL, BOVADA_SPORT):   # live feed, older address, full feed, whole sport
-        try:
-            data = _get(url.format(path=path, sport=path.split("/")[0]))
-        except Exception as e:                               # noqa: BLE001
-            sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
-            BOOKS[league] = f"error {str(e)[:60]}"
-            continue
-        data = [{**g, "events": [e for e in g.get("events") or [] if e.get("live")]}
-                for g in (data if isinstance(data, list) else []) if isinstance(g, dict)
-                and path in str(((g.get("path") or [{}])[0] or {}).get("link", path))]     # only this league's group
-        if any(g.get("events") for g in data):
-            break
-    BOOKS[league] = f"{len(data or [])} groups, {sum(len(g.get('events') or []) for g in data or [])} events"
+    try:
+        data = bovada_fresh(path)
+    except Exception as e:                                   # noqa: BLE001
+        sd.ERRORS.append(f"bovada live {league}: {str(e)[:100]}")
+        BOOKS[league] = f"error {str(e)[:60]}"
+        data = []
+    now_ms = time.time() * 1000
+    data = [{**g, "events": [e for e in g.get("events") or [] if e.get("live")
+                             and now_ms - (e.get("lastModified") or 0) <= LINE_MAX_AGE_S * 1000]}   # fresh prices only
+            for g in (data if isinstance(data, list) else []) if isinstance(g, dict)
+            and path in str(((g.get("path") or [{}])[0] or {}).get("link", path))]     # only this league's group
+    BOOKS[league] = f"{len(data or [])} groups, {sum(len(g.get('events') or []) for g in data or [])} fresh events"
     out = []
     for grp in data or []:
         for ev in grp.get("events") or []:
@@ -735,18 +792,25 @@ def tennis_feeds():
             except Exception as e:                           # noqa: BLE001
                 sd.ERRORS.append(f"espn tennis {tour}: {str(e)[:80]}")
     lines, ok = [], False
-    for url in (BOVADA, BOVADA_OLD, BOVADA_ALL):             # live feed, older address, full feed (live=True flag)
+    for _ in (1,):
         try:
-            lines = stn.parse_bovada(_get(url.format(path="tennis", sport="tennis")), live=True)
+            raw_ = bovada_fresh("tennis")
+            lines = stn.parse_bovada(raw_, live=True)
+            for g_ in raw_ if isinstance(raw_, list) else []:          # event id -> the home player (for its scores)
+                for e_ in g_.get("events") or []:
+                    for c_ in e_.get("competitors") or []:
+                        if c_.get("home"):
+                            BOV_HOME[str(e_.get("id"))] = c_.get("name") or ""
             ok = True
         except Exception as e:                               # noqa: BLE001
             sd.ERRORS.append(f"bovada live tennis: {str(e)[:80]}")
             TENNIS["books"] = f"error {str(e)[:60]}"
             continue
-        if lines:
-            break
+    now_ms = time.time() * 1000
+    lines = [{**ln, "stale": True} if not ln.get("mod") or now_ms - ln["mod"] > LINE_MAX_AGE_S * 1000 else ln
+             for ln in lines]                                 # a price the book hasn't touched in 60s: not a live price
     if ok:
-        TENNIS["books"] = f"{len(lines)} live lines"
+        TENNIS["books"] = f"{len(lines)} live lines, {sum(1 for x in lines if not x.get('stale'))} fresh"
     return [r for r in rows if stn._state(r) == "live"], rows, lines
 
 
@@ -861,6 +925,15 @@ def tennis_words(pl, s, side, rs, used, hold, n=0):
     return line, [x for x in bd if x]
 
 
+def against_the_score(pre_p1, live_p1, book_p1, tol=MOVE_TOL):
+    """The live price moved AGAINST the score (9/29: Garcia -115 pregame, up a break, and our line said +125 - the
+    book's feed was minutes old, the real price was -150). A player the score helped since the first ball can't be
+    longer than before it, and the other way round. True = don't trust this price."""
+    helped = live_p1 - pre_p1
+    moved = book_p1 - pre_p1
+    return (helped > tol and moved < -tol) or (helped < -tol and moved > tol)
+
+
 def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
     """Both players of one live match -> plays that clear every bar (plus money, LIVE_MIN_EDGE, the tuned min p,
     the MAX_GAP guard vs the price, the substantial reasons). line: Bovada's live line (not suspended)."""
@@ -874,6 +947,8 @@ def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
     book1 = sd.no_vig(ml1, ml2)
     if abs(p1 - book1) > MAX_GAP:
         return []                  # the price and the score don't agree (a stale score, or the book knows something)
+    if against_the_score(pre_p1, p1, book1):
+        return []                  # the score moved one way and the price the other: an old or wrong line, never value
     out = []
     used = set() if used is None else used
     for side, p, ml in ((1, p1, ml1), (2, 1 - p1, ml2)):
@@ -948,6 +1023,12 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
             if state == "live" or (state != "pre" and m["id"] in ours):
                 SCORES[f"tennis:{m['id']}"] = {**_tennis_score(m, ours.get(m["id"])), "tennis": True, "live": state == "live",
                                                "delayed": any(k in str(m.get("status", "")).upper() for k in ("DELAY", "SUSPEND", "RAIN"))}
+                mine = ours.get(m["id"]) or next((int(x.rsplit(":", 1)[1]) for x in showing
+                                                  if x.startswith(f"tennis:{m['id']}:")), None)
+                if state == "live" and mine:                    # ours / a live play up: Bovada's faster score
+                    ln_, _ = stn.match_line(m, lines, hours=12)
+                    k_ = f"tennis:{m['id']}"
+                    SCORES[k_] = faster_score(SCORES[k_], _bovada_score(m, ln_, mine))
         except Exception:                                    # noqa: BLE001
             pass
     import sports_breakdown as sb
@@ -959,6 +1040,10 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
         ln, flip = stn.match_line(m, lines, hours=12)
         if ln is None or m["id"] not in pre:
             continue
+        if ln.get("stale"):
+            TENNIS["stale_line"] = TENNIS.get("stale_line", 0) + 1
+            continue                                         # no confirmed price: nothing new; one that's up shows
+                                                             # "line paused" and comes down after PAUSE_HOLD_S
         if ln.get("suspended"):
             TENNIS["suspended"] += 1
             continue                                         # the book suspended it: wait (a play that's up holds)
@@ -987,6 +1072,69 @@ def _keep_score(games, lg, ang, box, status):
                            "h": _score(box, "home"), "clock": "Final" if final else _clock_txt(lg, box), "live": not final}
     except Exception:                                         # noqa: BLE001 - a score never breaks the watch
         pass
+
+
+BOV_HOME = {}                 # Bovada live tennis event id -> its home player
+BOV_SCORE = {}                # event id -> (fetched at, score json)
+BOV_SCORE_URL = "https://services.bovada.lv/services/sports/results/api/v1/scores/{eid}"
+BOV_HDR = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
+           "Accept": "*/*", "Referer": "https://www.bovada.lv/", "Origin": "https://www.bovada.lv"}
+
+
+def _bovada_score(m, ln, side):
+    """🎾 Bovada's live score for one of our matches (games per set, who's serving - it posts each game within
+    seconds; ESPN can lag a game or more). Same shape as _tennis_score, from OUR player's side. None if no luck."""
+    eid = str((ln or {}).get("event") or "")
+    if not eid:
+        return None
+    now_s = time.time()
+    got = BOV_SCORE.get(eid)
+    if not got or now_s - got[0] >= 3:                    # (at most every 3s a match - never hammer the book)
+        try:
+            with urllib.request.urlopen(urllib.request.Request(BOV_SCORE_URL.format(eid=eid), headers=BOV_HDR), timeout=5) as r:
+                BOV_SCORE[eid] = got = (now_s, json.load(r))
+        except Exception:                                 # noqa: BLE001
+            BOV_SCORE[eid] = got = (now_s, (got or (0, None))[1])
+    j = got[1]
+    if not j:
+        return None
+    home = BOV_HOME.get(eid, "")
+    same = lambda a, b: stn._last(a) == stn._last(b) or set(stn._norm(a)) == set(stn._norm(b))
+    p1_home = bool(home) and same(home, m["p1_name"])
+    if not p1_home and not (home and same(home, m["p2_name"])):
+        return None                                       # can't tell who's who: leave it to ESPN
+    hv = lambda d: (d.get("home", 0), d.get("visitor", 0)) if p1_home else (d.get("visitor", 0), d.get("home", 0))
+    sets = [list(hv(x)) for x in j.get("previousPeriodsScore") or []]
+    cur = j.get("currentPeriodScore")
+    final = str((j.get("clock") or {}).get("period") or "").upper() == "FINAL"
+    if cur and not final:
+        sets.append(list(hv(cur)))
+    elif cur and final and (not sets or list(hv(cur)) != sets[-1]):
+        sets.append(list(hv(cur)))
+    srv_ = ((j.get("sportDetails") or {}).get("tennis") or {}).get("server")
+    srv = None if srv_ not in ("home", "visitor") else (0 if (srv_ == "home") == p1_home else 1)
+    names = [stn._say_name(m["p1_name"]), stn._say_name(m["p2_name"])]
+    done = len(j.get("previousPeriodsScore") or []) + (1 if final else 0)
+    if side == 2:                                         # our player first
+        names, sets = names[::-1], [x[::-1] for x in sets]
+        srv = None if srv is None else 1 - srv
+    return {"n": names, "sets": sets, "pts": None, "srv": srv, "done": done, "tennis": True, "live": not final,
+            "src": "bovada"}
+
+
+def faster_score(espn, bov):
+    """ESPN's tennis score vs Bovada's: whichever is further along wins (Bovada usually posts each game first).
+    ESPN's points only stay when both are on the same game - points from the last game would be wrong."""
+    if not bov:
+        return espn
+    tot = lambda x: sum(a + b for a, b in x.get("sets") or [])
+    if tot(bov) < tot(espn):
+        return espn
+    out = {**espn, **bov}
+    out["pts"] = espn.get("pts") if tot(bov) == tot(espn) else None
+    if out["pts"] is not None:
+        out["srv"] = espn.get("srv", bov.get("srv"))
+    return out
 
 
 def _tennis_score(m, side=None):
@@ -1154,9 +1302,14 @@ def any_live_soon(games, within_min=45):
     return False
 
 
-def _git(*args):
+def _git(*args, timeout=60):
+    """git, never hanging the watch (9/29: one stuck git call froze the live board on a dead +125 for minutes)."""
     import subprocess
-    return subprocess.run(["git", *args], capture_output=True, text=True)
+    try:
+        return subprocess.run(["git", *args], capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        sd.ERRORS.append(f"git {args[0]} timed out")
+        return subprocess.CompletedProcess(["git", *args], 124, "", "timeout")
 
 
 LIVE_BRANCH = "live-data"      # live.json goes out on its own branch (one tiny commit, force-pushed) the moment it
@@ -1167,10 +1320,11 @@ def push_live():
     """Force-push docs/sports/live.json as the only file of the live-data branch (seconds, no history pile-up)."""
     blob = _git("hash-object", "-w", LIVE_JSON).stdout.strip()
     import subprocess
-    tree = subprocess.run(["git", "mktree"], input=f"100644 blob {blob}\tlive.json\n", capture_output=True, text=True).stdout.strip()
+    tree = subprocess.run(["git", "mktree"], input=f"100644 blob {blob}\tlive.json\n", capture_output=True, text=True,
+                          timeout=30).stdout.strip()
     commit = _git("commit-tree", tree, "-m", f"live {datetime.now(timezone.utc):%H:%M:%S}").stdout.strip()
     for _ in range(3):
-        if _git("push", "-q", "-f", "origin", f"{commit}:refs/heads/{LIVE_BRANCH}").returncode == 0:
+        if _git("push", "-q", "-f", "origin", f"{commit}:refs/heads/{LIVE_BRANCH}", timeout=20).returncode == 0:
             return True
         time.sleep(2)
     return False
@@ -1299,13 +1453,35 @@ def queue_next():
     if not os.environ.get("GH_TOKEN"):
         return False
     import subprocess
-    r = subprocess.run(["gh", "workflow", "run", "sports-live.yml", "--ref", "main"], capture_output=True, text=True)
+    try:
+        r = subprocess.run(["gh", "workflow", "run", "sports-live.yml", "--ref", "main"], capture_output=True, text=True,
+                           timeout=60)
+    except subprocess.TimeoutExpired:
+        return False
     print(f"{datetime.now(timezone.utc):%H:%M:%S} next watch queued: {r.returncode == 0} {r.stderr.strip()[:100]}", flush=True)
     return r.returncode == 0
 
 
 REGRADE_S = 20 * 60   # after a game ends: re-grade every 2 min for this long (the results feed lags the live one)
 STAY_MIN = 120     # a game within 2 hours keeps the watch up (idling) - it never shuts off right before kickoff again
+
+
+BEAT = [0.0]      # when the watch last started a check (the watchdog reads it)
+
+
+def watchdog(limit=None):
+    """A check stuck past WATCHDOG_S (a feed or git call hung - 9/29 the board froze on a dead +125): exit, and the
+    workflow starts a fresh watch right away. Never a frozen board with games on."""
+    import threading
+
+    def run():
+        while True:
+            time.sleep(5)
+            if BEAT[0] and time.time() - BEAT[0] > (limit or WATCHDOG_S):
+                print(f"{datetime.now(timezone.utc):%H:%M:%S} watchdog: a check hung {time.time() - BEAT[0]:.0f}s - restarting",
+                      flush=True)
+                os._exit(75)
+    threading.Thread(target=run, daemon=True).start()
 
 
 def loop(minutes, every_s=1):
@@ -1318,6 +1494,8 @@ def loop(minutes, every_s=1):
     last_pull, last_scores, last_grade, regrade_until = 0.0, None, 0.0, 0.0
     finals_seen = None
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
+    BEAT[0] = time.time() + 120                                 # (startup gets 2 extra minutes)
+    watchdog()
     _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
     board = _git("show", f"origin/{LIVE_BRANCH}:live.json")      # are up stay up (they don't have to re-qualify)
     if board.returncode == 0 and board.stdout.strip():
@@ -1325,6 +1503,7 @@ def loop(minutes, every_s=1):
             f.write(board.stdout)
     while time.time() < end:
         t0 = time.time()
+        BEAT[0] = t0
         if games is None or t0 - last_pull > 600:                      # pull the latest games/model every ~10 min
             last_pull = t0
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pulling", flush=True)
@@ -1363,7 +1542,7 @@ def loop(minutes, every_s=1):
                 pass
         board = _board_key()
         scores = _scores_key()
-        if board != last_board or (scores != last_scores and time.time() - last_push > 10) or time.time() - last_push > 60:
+        if board != last_board or (scores != last_scores and time.time() - last_push > 5) or time.time() - last_push > HEARTBEAT_S:
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pushing the board", flush=True)
             if push_live():
                 last_board, last_scores, last_push = board, scores, time.time()
@@ -1383,6 +1562,7 @@ def loop(minutes, every_s=1):
             if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):
                 last_grade = time.time()
         time.sleep(max(0.2, every_s - (time.time() - t0)))    # as tight as the feeds allow: a fresh look every second
+    BEAT[0] = 0.0                                                 # (the wind-down isn't a hung check)
     if grading():                                                 # let a background grade finish before the job ends
         try:
             GRADER[0].wait(timeout=420)

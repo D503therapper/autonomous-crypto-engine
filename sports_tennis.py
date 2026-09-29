@@ -974,7 +974,8 @@ def parse_bovada(data, live=False):
                         shut = (str(mk.get("status") or "O").upper() != "O" or a is None or b is None
                                 or any(str(o.get("status") or "O").upper() != "O" for o in oc))
                         rows[key] = {"a": key[0], "b": key[1], "start": start, "src": "bovada", "tour": _bov_tour(path),
-                                     "a_ml": a, "b_ml": b, "suspended": shut, "event": str(ev.get("id") or "")}
+                                     "a_ml": a, "b_ml": b, "suspended": shut, "event": str(ev.get("id") or ""),
+                                     "mod": ev.get("lastModified")}   # (when the book last touched it: stale = no price)
                         continue
                     if a is None or b is None:
                         continue

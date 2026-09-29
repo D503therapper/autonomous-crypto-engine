@@ -16,6 +16,7 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sports_data as sd          # noqa: E402
 
 OUT = os.path.join(sd.DATA, "health.json")
@@ -65,7 +66,12 @@ if needed:
         age = time.time() - json.loads(raw)["updated"] / 1000
     except Exception as e:                               # noqa: BLE001
         problems.append(f"live board unreadable: {str(e)[:60]}")
-    if age is not None and age > 8 * 60:
+    if age is not None and age > 5 * 60:
+        import live_stuck                                # "running" but frozen: cancel it first (else "already running")
+        for rid in live_stuck.stuck_runs(age):
+            gh("run", "cancel", str(rid))
+            fixes.append(f"live watch {rid} froze ({age / 60:.0f} min) - cancelled")
+            time.sleep(5)
         dispatch("sports-live.yml", f"live board {age / 60:.0f} min stale with games on")
     elif age is not None:
         ok.append(f"live watcher fresh ({age:.0f}s)")

@@ -5,6 +5,7 @@ import gzip
 import json
 import math
 import os
+import sys
 import random
 import re
 import shutil
@@ -2836,6 +2837,96 @@ def test_tennis_overhype_cap():
     import sports_tennis as stt
     base = {"odds": -150, "dec": sd.decimal(-150), "market": "ml", "mkt": 0.58, "p": 0.58, "edge": 0.0}
     assert stt.good({**base, "own": 0.61}) and not stt.good({**base, "own": 0.66}) and not stt.good({**base, "own": 0.54})
+
+
+def test_tennis_bovada_score():
+    """Tennis scores as fast as the book posts them (the owner, 9/29): Bovada's live score oriented to OUR player,
+    and it beats ESPN only when it's further along (ESPN's points stay only when both sit on the same game)."""
+    import sports_live as slv
+    m = {"p1_name": "Hubert Hurkacz", "p2_name": "Yexin Ma"}
+    slv.BOV_HOME["77"] = "Ma Yexin"                       # home = p2 (name in the other order)
+    slv.BOV_SCORE["77"] = (time.time(), {"clock": {"period": "Set 2"}, "previousPeriodsScore": [{"home": 6, "visitor": 4}],
+                                        "currentPeriodScore": {"home": 1, "visitor": 3},
+                                        "sportDetails": {"tennis": {"server": "visitor"}}})
+    b = slv._bovada_score(m, {"event": 77}, 1)             # we're on Hurkacz (p1 = visitor)
+    assert b["sets"] == [[4, 6], [3, 1]] and b["srv"] == 0 and b["done"] == 1 and b["live"] and b["n"][0] == "Hurkacz"
+    b2 = slv._bovada_score(m, {"event": 77}, 2)            # on Ma: flipped
+    assert b2["sets"] == [[6, 4], [1, 3]] and b2["srv"] == 1
+    assert slv._bovada_score(m, {"event": 78}, 1) is None  # unknown event: ESPN keeps it
+    espn = {"n": ["Hurkacz", "Ma"], "sets": [[4, 6], [2, 1]], "pts": ["30", "15"], "srv": 0, "done": 1, "delayed": False}
+    f = slv.faster_score(espn, b)
+    assert f["sets"] == [[4, 6], [3, 1]] and f["pts"] is None and f["delayed"] is False     # a game ahead: Bovada
+    same = slv.faster_score(espn, {**b, "sets": [[4, 6], [2, 1]]})
+    assert same["pts"] == ["30", "15"]                                                       # same game: ESPN's points
+    assert slv.faster_score({**espn, "sets": [[4, 6], [4, 1]]}, b)["sets"] == [[4, 6], [4, 1]]   # ESPN ahead: ESPN
+    assert slv.faster_score(espn, None) is espn
+
+
+def test_live_price_against_the_score():
+    """9/29 Garcia: -115 pregame (53%), up a break (the score says ~62%), and our line said +125 (43%) - the book's feed
+    was minutes old (real price -150). A price that moved AGAINST the score is never value."""
+    import sports_live as slv
+    assert slv.against_the_score(0.53, 0.62, 0.43)            # score helped her, price says she got worse: stale
+    assert not slv.against_the_score(0.53, 0.62, 0.58)        # price followed the score
+    assert not slv.against_the_score(0.53, 0.54, 0.51)        # small wiggles are fine
+    assert slv.against_the_score(0.60, 0.45, 0.70)            # the other way round too
+
+
+def test_live_lines_newest_version_and_fresh_only():
+    """The book's feeds sit in a cache (a 'fresh' copy carried 6-minute-old prices): per match we keep the NEWEST version
+    any address showed, and a price the book hasn't touched in LINE_MAX_AGE_S is no price (no play, no alert)."""
+    import sports_live as slv
+    now_ms = int(time.time() * 1000)
+    grp = {"path": [{"description": "WTA"}, {"description": "Beijing"}]}
+
+    def ev(mod, a, b, eid="9"):
+        return {"id": eid, "live": True, "lastModified": mod, "startTime": now_ms - 3600000, "description": "X vs Y",
+                "competitors": [{"name": "Andrea Lazaro Garcia", "home": True}, {"name": "Linda Fruhvirtova", "home": False}],
+                "displayGroups": [{"markets": [{"description": "Moneyline", "status": "O",
+                                                "period": {"description": "Live Match", "main": True, "live": True},
+                                                "outcomes": [{"description": "Andrea Lazaro Garcia", "status": "O", "price": {"american": a}},
+                                                             {"description": "Linda Fruhvirtova", "status": "O", "price": {"american": b}}]}]}]}
+    old, new = [{**grp, "events": [ev(now_ms - 400000, "+125", "-155")]}], [{**grp, "events": [ev(now_ms - 5000, "-150", "+120")]}]
+    keep = slv._safe_get, dict(slv.BOV_EV)
+    try:
+        slv.BOV_EV.clear()
+        feeds = iter([new, old, old, old])
+        slv._safe_get = lambda u: next(feeds)
+        got = slv.bovada_fresh("tennis-test")
+        prices = [o["price"]["american"] for o in got[0]["events"][0]["displayGroups"][0]["markets"][0]["outcomes"]]
+        assert len(got) == 1 and prices == ["-150", "+120"]    # the newest version wins, whatever order they came in
+        import sports_tennis as stq
+        ln = stq.parse_bovada(old, live=True)[0]
+        assert ln["mod"] == now_ms - 400000 and now_ms - ln["mod"] > slv.LINE_MAX_AGE_S * 1000   # -> marked stale
+    finally:
+        slv._safe_get = keep[0]
+        slv.BOV_EV.clear()
+        slv.BOV_EV.update(keep[1])
+
+
+def test_live_board_never_shows_a_frozen_price():
+    """9/29: the watcher froze and the page kept a dead +125 up for minutes. Now: the page drops a play not re-checked in
+    PLAY_FRESH_S, the watcher re-sends at least every HEARTBEAT_S, git can't hang, a watchdog restarts a stuck check,
+    and the backstops cancel a watch that says "running" while its board is frozen."""
+    import sports_dashboard as sdb, sports_live as slv
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import live_stuck
+    assert sdb.PLAY_FRESH_S <= 60 and slv.HEARTBEAT_S * 2 < sdb.PLAY_FRESH_S and slv.WATCHDOG_S <= 120
+    assert slv.PAUSE_HOLD_S <= 90
+    src = open(sdb.__file__).read()
+    assert "age>PLAY_FRESH_MS" in src
+    r = slv._git("--version", timeout=5)
+    assert r.returncode == 0
+    from datetime import datetime, timezone, timedelta
+    now = datetime(2026, 9, 29, 5, 0, tzinfo=timezone.utc)
+    runs = [{"databaseId": 1, "status": "in_progress", "startedAt": "2026-09-29T04:20:00Z"},
+            {"databaseId": 2, "status": "queued", "startedAt": None},
+            {"databaseId": 3, "status": "in_progress", "startedAt": "2026-09-29T04:58:00Z"}]
+    assert live_stuck.stuck_runs(age=400, runs=runs, now=now) == [1]      # frozen 6+ min, running 40 min: cancel
+    assert live_stuck.stuck_runs(age=30, runs=runs, now=now) == []        # board fresh: leave it
+    wf = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github/workflows/sports-live.yml")).read()
+    assert '"$code" = 75' in wf                                             # the watchdog's exit restarts the watch
+    assert "live_stuck.py" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools/backstop.sh")).read()
 
 
 if __name__ == "__main__":

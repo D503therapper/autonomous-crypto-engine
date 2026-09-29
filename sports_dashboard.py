@@ -18,6 +18,8 @@ PAGE = "docs/sports/index.html"
 BRAIN = "docs/sports/brain.json"      # everything the AI question box knows (rewritten with the page every run)
 RECORDS = {}
 LIVE_JSON_PATH = "docs/sports/live.json"
+PLAY_FRESH_S = 45             # a live play shows only while the watcher re-checked its price in the last 45s (it
+                              # re-checks every second and re-sends at least every 15s): a frozen price never shows
 LOOK = {   # kind -> label, accent, second accent
     "two":   ("2-LEG PARLAY", "#2f8bff", "#22d3ee"),
     "three": ("3-LEG PARLAY", "#ffc233", "#ff8a00"),
@@ -1300,9 +1302,9 @@ Picks only — no bets placed · refreshes hourly</div>
 <script>
 (function(){{   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
-var last="";
+var last="",PLAY_FRESH_MS={PLAY_FRESH_S}*1000;
 function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
-  '📡 Checking the live games…':n>0?
+  '📡 Checking the live lines…':n>0?
   '👀 No live plus money right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
   '😴 No live plus money right now — no games going.')+'</div></section>';}}
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
@@ -1316,6 +1318,7 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div></section>';}}).join(""):idle(n));}}
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
+ if(d&&(d.plays||[]).length&&age>PLAY_FRESH_MS)d=Object.assign({{}},d,{{plays:[],live_games:-1}});   // a price we haven't re-checked in 45s never shows
  if(d&&d.done)Object.keys(d.done).forEach(function(k){{var r=document.querySelector('.leg[data-pid="'+k+'"]');
    if(r&&!r.classList.contains("won")&&!r.classList.contains("lost"))window.d503stale=1}});   // graded, page says pending
  window.D503S=(d&&age<10*60000&&d.scores)||{{}};if(window.d503lt)window.d503lt();   // live scores next to our pending picks

@@ -436,9 +436,9 @@ Picks only — no bets placed · refreshes hourly</div>
 <script>
 (function(){   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-var last="";
+var last="",PLAY_FRESH_MS=45*1000;
 function idle(n){return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
-  '📡 Checking the live games…':n>0?
+  '📡 Checking the live lines…':n>0?
   '👀 No live plus money right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
   '😴 No live plus money right now — no games going.')+'</div></section>';}
 function draw(d){var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
@@ -452,6 +452,7 @@ function draw(d){var el=document.getElementById("live");if(!el)return;var ps=(d&
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){return"<p>"+esc(x)+"</p>"}).join("")+'</div></details>':'')+
    '</div></section>';}).join(""):idle(n));}
 function show(d){var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
+ if(d&&(d.plays||[]).length&&age>PLAY_FRESH_MS)d=Object.assign({},d,{plays:[],live_games:-1});   // a price we haven't re-checked in 45s never shows
  if(d&&d.done)Object.keys(d.done).forEach(function(k){var r=document.querySelector('.leg[data-pid="'+k+'"]');
    if(r&&!r.classList.contains("won")&&!r.classList.contains("lost"))window.d503stale=1});   // graded, page says pending
  window.D503S=(d&&age<10*60000&&d.scores)||{};if(window.d503lt)window.d503lt();   // live scores next to our pending picks
@@ -461,7 +462,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790658389552,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790658630714,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
