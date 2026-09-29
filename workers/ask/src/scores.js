@@ -10,17 +10,28 @@ const PATHS = {
 const EXTRA = { ncaaf: "?groups=80&limit=1000", ncaab: "?groups=50&limit=1000" };
 
 const DBG = {};
+const HOSTS = ["https://site.api.espn.com", "https://site.web.api.espn.com", "https://site.api.espn.com"];
 async function board(key, ctx) {
-  const url = `https://site.api.espn.com/apis/site/v2/sports/${PATHS[key]}/scoreboard${EXTRA[key] || ""}`;
+  const path = `/apis/site/v2/sports/${PATHS[key]}/scoreboard${EXTRA[key] || ""}`;
   const cache = caches.default;
-  const hit = await cache.match(url);
+  const ck = "https://d503-cache" + path;
+  const hit = await cache.match(ck);
   if (hit) return hit.json();
-  const r = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
-  DBG[key] = `HTTP ${r.status}`;
-  if (!r.ok) return null;
-  const body = await r.text();
-  ctx.waitUntil(cache.put(url, new Response(body, { headers: { "Cache-Control": "max-age=1", "Content-Type": "application/json" } })));
-  return JSON.parse(body);
+  const tries = [];
+  for (const [i, host] of HOSTS.entries()) {                 // ESPN turns some servers away: other doors, browser-like
+    const r = await fetch(host + path, { headers: {
+      "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
+      Accept: "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9",
+      Referer: "https://www.espn.com/", Origin: "https://www.espn.com" }, cf: i === 2 ? { cacheTtl: 1 } : undefined });
+    tries.push(`${host.slice(8, 20)} ${r.status}`);
+    if (!r.ok) continue;
+    DBG[key] = tries.join(" | ");
+    const body = await r.text();
+    ctx.waitUntil(cache.put(ck, new Response(body, { headers: { "Cache-Control": "max-age=1", "Content-Type": "application/json" } })));
+    return JSON.parse(body);
+  }
+  DBG[key] = tries.join(" | ");
+  return null;
 }
 
 function team(ev, want) {

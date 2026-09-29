@@ -15,4 +15,7 @@ jobs:
           API=$(cat data/sports/ask_url.txt)
           IDS=$(python3 -c "import json;p=json.load(open('data/sports/tennis/picks.json'));print(','.join('tennis:'+l['match'] for l in p[-1]['picks'][:4]))")
           echo "ids: nfl:401872963,$IDS"
-          sleep 60; for i in 1 2; do curl -s -m 20 -H "Origin: https://d503therapper.github.io" "$API/scores?debug=1&ids=nfl:401872963,$IDS" -w "\nHTTP %{http_code} %{time_total}s\n"; sleep 1; done
+          echo "--- does ESPN let web pages call it (CORS)?"
+          curl -s -D - -o /dev/null -m 20 -H "Origin: https://d503therapper.github.io" "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard" | grep -i "access-control\|HTTP/" || true
+          curl -s -D - -o /dev/null -m 20 -H "Origin: https://d503therapper.github.io" "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard" | grep -i "access-control\|HTTP/" || true
+          sleep 50; for i in 1 2; do curl -s -m 20 -H "Origin: https://d503therapper.github.io" "$API/scores?debug=1&ids=nfl:401872963,$IDS" -w "\nHTTP %{http_code} %{time_total}s\n"; sleep 1; done
