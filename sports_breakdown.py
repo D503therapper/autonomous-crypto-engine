@@ -676,13 +676,13 @@ def _size(line):
     return len(m), n
 
 
-def _roll(key, seed, words=None, tkey=None, **facts):
+def _roll(key, seed, words=None, tkey=None, keep=60, **facts):
     """This line rolled out many ways (up to 60), the facts dropped in untouched, every roll within today's size."""
     import sports_vocab
     tok = {k: f"{chr(0xe100 + i)}" for i, k in enumerate(facts)}
     lim = _CAP.get(tkey or key)
     out = []
-    for r in sports_vocab.variants(T[tkey or key], f"{seed}|{key}", n=240, **tok, **(words or {})):
+    for r in sports_vocab.variants(T[tkey or key], f"{seed}|{key}", n=keep * 4, **tok, **(words or {})):
         if lim:
             c, s = _size(r)
             if c > lim[0] or s > lim[1]:
@@ -690,7 +690,7 @@ def _roll(key, seed, words=None, tkey=None, **facts):
         for k, t in tok.items():
             r = r.replace(t, str(facts[k]))
         out.append(r)
-        if len(out) >= 60:
+        if len(out) >= keep:
             break
     return out
 
@@ -700,7 +700,8 @@ def _say(v, key, must=False, words=None, tkey=None, extra=(), names=(), **facts)
     just because the numbers or teams changed)."""
     nm = sorted({str(x) for x in facts.values() if len(str(x)) >= 3 and re.search("[A-Za-z]", str(x))} | set(names),
                 key=len, reverse=True)
-    return v.say(tkey or key, list(extra) + _roll(key, v.seed, words, tkey, **facts), must=must, names=tuple(nm))
+    rolls = _roll(key, v.seed, words, tkey, keep=240 if must else 60, **facts)
+    return v.say(tkey or key, list(extra) + rolls, must=must, names=tuple(nm))
 
 
 def _a(x):
@@ -1187,38 +1188,45 @@ T = {
         "🤝 [Same side as|Riding with] the [public|crowd] on {the_us}. [No shame|Fine by us|It happens] — {why}.",
     ],
     "bottom": [
-        "✅ Bottom line: {bk} has {price} priced like {need}. {Algo} [sees|says|has it at|makes it] {have}. {close}",
-        "✅ Bottom line: {bk} [treats|prices|lists] {price} like {need}; {algo} [has it closer to|sees|puts it at] {have}. {close}",
-        "✅ Bottom line: {price} should be more like {have}, and {bk} [is pricing|has it at|is charging] {need}. {close}",
-        "✅ Bottom line: {have} [in our book|on our sheet|by our math] vs {need} [at the window|at the book|in Vegas] for {price}. {close}",
-        "✅ Bottom line: {bk} says {need} on {price}, {algo} says {have}. {close}",
-        "✅ Bottom line: {bk} says {need} on {price}, {algo} says {have}. Easy money if {algo}'s right.",
-        "✅ Bottom line: {price} is priced like {need} — we see {have}. {close}",
-        "✅ Bottom line: {price} is priced like {need}, and {algo} [sees|says] {have}. That gap is the whole play.",
-        "✅ Bottom line: [book|Vegas|the window] says {need}, we say {have}. [We ride {price}.|{price} it is.|Give us {price}.]",
-        "✅ Bottom line: {price} is {have} by our numbers, but it's [priced|paying] like {need}. {close}",
-        "✅ Bottom line: we [make|have] {price} {have}; {bk} [only gives it|is giving it|says] {need}. {close}",
-        "✅ Bottom line: [our number|our read|the model] on {price} is {have}, [vs|against] {need} at the [book|window]. {close}",
-        "✅ Bottom line: [priced for|paying like] {need}, [real odds|true odds|our odds] {have} — {price} [is the play|all day|it is].",
-        "✅ Bottom line: [the gap|the difference] between {need} ({bk}) and {have} ({algo}) is why we're on {price}.",
-        "✅ Bottom line: {bk} [thinks|figures] {need} for {price}. We [think|figure|say] {have}. {close}",
-        "✅ Bottom line: {price} [sits|trades] at {need} [odds|pricing]; {algo} [lands on|comes out at|spits out] {have}. {close}",
-        "✅ Bottom line: {have} vs {need} — that's [our math|the math|our read] against {bk} on {price}. {close}",
+        "✅ Bottom line: {bk} [has|got|lists|hangs] {price} [priced like|pegged at|set at|lined as] {need}. {Algo} [sees|says|has it at|makes it|reads] {have}. {close}",
+        "✅ Bottom line: {bk} [treats|prices|lists|reads] {price} [like|as] {need}; {algo} [has it closer to|sees|puts it at|lands at] {have}. {close}",
+        "✅ Bottom line: {price} [should be|ought to be|is really] [more like|closer to|nearer] {have}, [and|but|while] {bk} [is pricing|has it at|is charging|is dealing] {need}. {close}",
+        "✅ Bottom line: {have} [in our book|on our sheet|by our math|on our end|per {algo}] [vs|against|versus] {need} [at the window|at the book|in Vegas|on the board] [for|on] {price}. {close}",
+        "✅ Bottom line: {bk} [says|shows|posts|hangs] {need} [on|for] {price}, {algo} [says|shows|reads|gets] {have}. {close}",
+        "✅ Bottom line: {bk} [says|shows|posts] {need} [on|for] {price}, {algo} [says|reads] {have}. Easy money if {algo}'s right.",
+        "✅ Bottom line: {price} [is priced|is pegged|is lined|gets priced] [like|as|at] {need} — [we see|we get|we read|we got] {have}. {close}",
+        "✅ Bottom line: {price} [is priced|is lined|gets priced] [like|at] {need}, [and|but] {algo} [sees|says|reads] {have}. That gap is the whole play.",
+        "✅ Bottom line: [book|Vegas|the window|the house] [says|posts|thinks] {need}, [we say|we see|we read|we got] {have}. [We ride {price}.|{price} it is.|Give us {price}.|{price}, say less.|Tail {price}.]",
+        "✅ Bottom line: {price} [is|runs|grades out] {have} [by our numbers|on our sheet|by {algo}|to us], [but|yet|and] it's [priced|paying|lined] [like|as] {need}. {close}",
+        "✅ Bottom line: we [make|have|grade|put] {price} [at|as|around] {have}; {bk} [only gives it|is giving it|says|hangs] {need}. {close}",
+        "✅ Bottom line: [our number|our read|the model|our math] [on|for] {price} [is|says|reads] {have}, [vs|against|versus] {need} [at the book|at the window|in Vegas|on the board]. {close}",
+        "✅ Bottom line: [priced for|paying like|lined at|posted at] {need}, [real odds|true odds|our odds|fair odds] {have} — {price} [is the play|all day|it is|for us].",
+        "✅ Bottom line: [the gap|the difference|the space] [between|from] {need} ({bk}) [and|to] {have} ({algo}) [is why we're on|puts us on|sends us to|is the case for] {price}.",
+        "✅ Bottom line: {bk} [thinks|figures|guesses|says] {need} [for|on] {price}. [We think|We figure|We say|We see|Our read's] {have}. {close}",
+        "✅ Bottom line: {price} [sits|trades|lives|hangs] at {need} [odds|pricing|on the board]; {algo} [lands on|comes out at|spits out|gets] {have}. {close}",
+        "✅ Bottom line: {have} [vs|against|over] {need} — [that's|call it|it's] [our math|the math|our read|our model] [against|over|vs] {bk} [on|for] {price}. {close}",
+        "✅ Bottom line: [call|make|grade] {price} {have}. {Bk} [calls|makes|grades|posts] it {need}. {close}",
+        "✅ Bottom line: [we're|we are|we land] at {have} [on|for] {price}; [the market's|the book's|Vegas is] at {need}. {close}",
+        "✅ Bottom line: [{bk} is|the price is|the board is] {need} [on|for] {price}. [Truth is|The real number is|Our number is|We have it] {have}. {close}",
+        "✅ Bottom line: {need} [is|is what] {bk} [charges|asks|posts|hangs]; {have} [is|is what] {algo} [sees|reads|gets] on {price}. {close}",
+        "✅ Bottom line: {price} [wins|gets there|lands|cashes] {have} [by|on|per] {algo}, [priced|paid|posted] [like|as] {need}. {close}",
     ],
     "bottom_s": [
-        "✅ Bottom line: {bk} got {price} priced like {need}, but [everything above|the fine print|the small stuff|every little detail] [tips it our way|leans our way|breaks our way]. {sclose}",
-        "✅ Bottom line: close to {need} at the book, but the details break our way on {price}. {sclose}",
-        "✅ Bottom line: {price} ain't a slam dunk, it's a smart number — and the little things all point our way. {sclose}",
-        "✅ Bottom line: {price} is a thin edge, but it's an edge. {sclose}",
-        "✅ Bottom line: no blowout expected on {price}, just a smart number with everything tilting our way. {sclose}",
-        "✅ Bottom line: {price} ain't flashy. It's just the right side. {sclose}",
-        "✅ Bottom line: the book has {price} close, but the small stuff breaks our way. {sclose}",
-        "✅ Bottom line: {price} [sits|is priced] near {need}. [Small|Slim|Thin] [edge|margin], [but it's ours|right side|still an edge]. {sclose}",
-        "✅ Bottom line: [not a lot of|little] [cushion|room] on {price} ({need} at {bk}), but every tiebreaker goes our way. {sclose}",
-        "✅ Bottom line: [thin|slim|small] [value|edge] on {price} — {bk} is [close|near fair] at {need}, the extras [favor|push] us. {sclose}",
-        "✅ Bottom line: {price} [won't|ain't gonna] [blow anybody away|wow anybody], [but|and] {algo} still [likes|picks] it. {sclose}",
-        "✅ Bottom line: [fair-ish|tight] price on {price} ({need}); the [edges|extras|details] above [make it|tip it] ours. {sclose}",
-        "✅ Bottom line: {price} is a [grinder|small-edge spot|margin play], not a [haymaker|slam dunk|blowout call]. {sclose}",
+        "✅ Bottom line: {bk} [got|has|lists] {price} [priced like|pegged at|lined at] {need}, but [everything above|the fine print|the small stuff|every little detail] [tips it our way|leans our way|breaks our way|points our way]. {sclose}",
+        "✅ Bottom line: [close to|near|right around] {need} [at the book|in Vegas|on the board], [but|yet|and still] the [details|little things|small edges] [break|lean|tilt] our way on {price}. {sclose}",
+        "✅ Bottom line: {price} [ain't|isn't] a [slam dunk|lock|blowout], it's a [smart|sharp|right] number — [and|plus] the little things all [point|lean|tilt] our way. {sclose}",
+        "✅ Bottom line: {price} is a [thin|slim|small|skinny] edge, but it's [an edge|still an edge|ours]. {sclose}",
+        "✅ Bottom line: no [blowout|runaway|landslide] [expected|coming|in sight] on {price}, just a [smart|sharp|right] number with everything [tilting|leaning|breaking] our way. {sclose}",
+        "✅ Bottom line: {price} [ain't|isn't] [flashy|pretty|sexy]. It's just the [right|smart|correct] side. {sclose}",
+        "✅ Bottom line: [the book|Vegas|the market|the house] [has|got|keeps] {price} close, but the [small stuff|details|margins] [breaks|tips|lean] our way. {sclose}",
+        "✅ Bottom line: {price} [sits|is priced|lives|hangs] [near|around|close to] {need}. [Small|Slim|Thin|Tiny] [edge|margin], [but it's ours|right side|still an edge]. {sclose}",
+        "✅ Bottom line: [not a lot of|little|not much] [cushion|room|space] on {price} ({need} at {bk}), but every [tiebreaker|close call|coin toss] [goes|breaks|leans] our way. {sclose}",
+        "✅ Bottom line: [thin|slim|small|narrow] [value|edge] on {price} — {bk} is [close|near fair|about right] at {need}, the [extras|details|intangibles] [favor|push|help] us. {sclose}",
+        "✅ Bottom line: {price} [won't|ain't gonna] [blow anybody away|wow anybody|make headlines], [but|and|yet] {algo} still [likes|picks|backs] it. {sclose}",
+        "✅ Bottom line: [fair-ish|tight|honest] price on {price} ({need}); the [edges|extras|details] above [make it|tip it|swing it] ours. {sclose}",
+        "✅ Bottom line: {price} is a [grinder|small-edge spot|margin play|quiet one], not a [haymaker|slam dunk|blowout call|big swing]. {sclose}",
+        "✅ Bottom line: [tight|close|narrow] number on {price} ({need}), [so|and] the [details|little edges|tiebreakers] [decide it|carry it|settle it]. {sclose}",
+        "✅ Bottom line: {bk} is [basically|pretty much|about] right at {need} on {price}. [The extras|The margins|The details] [are ours|tip it|break our way]. {sclose}",
     ],
     "lean": [
         "🟡 Bottom line: no edge on this one — it's a lean, not a lock. {Algo} just leans {team}.",
