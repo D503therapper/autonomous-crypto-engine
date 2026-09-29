@@ -1,6 +1,6 @@
 """LIVE VALUE: watch every live game, find in-game bets where the engine's number beats the live line.
 
-Every 10 seconds (.github/workflows/sports-live.yml) - live lines move every second, so we stay on the ball:
+Every second (.github/workflows/sports-live.yml) - live lines move every second, so we stay on the ball:
   1. Action Network's live scoreboard: score, period, clock, (football) who has the ball and where, live odds.
   2. The engine's live win chance, on the curve the comeback study (sports_comeback.py) learned from 10 seasons of
      period-by-period scores: the pregame strength still to come + the scoreboard + the ball + momentum.
@@ -1232,13 +1232,17 @@ def queue_next():
     return r.returncode == 0
 
 
-def loop(minutes, every_s=5):
+STAY_MIN = 120     # a game within 2 hours keeps the watch up (idling) - it never shuts off right before kickoff again
+
+
+def loop(minutes, every_s=1):
     """Watch live games every `every_s` seconds for `minutes`. Phones see every change right away (live-data
     branch, plus a heartbeat every minute); the graded log goes to main when it changes. Rests when nothing's live."""
     end = time.time() + minutes * 60
     code = _code_hash()
     queued = False
     games, idle_since, started, last_board, last_log, last_push = None, None, False, None, _log_key(), 0.0
+    last_pull = 0.0
     finals_seen = None
     print(f"{datetime.now(timezone.utc):%H:%M:%S} watch starting", flush=True)
     _git("fetch", "-q", "origin", LIVE_BRANCH)                  # pick up where the last watch left off: plays that
@@ -1247,7 +1251,9 @@ def loop(minutes, every_s=5):
         with open(LIVE_JSON, "w") as f:
             f.write(board.stdout)
     while time.time() < end:
-        if games is None or int(time.time()) % 600 < every_s:          # pull the latest games/model every ~10 min
+        t0 = time.time()
+        if games is None or t0 - last_pull > 600:                      # pull the latest games/model every ~10 min
+            last_pull = t0
             print(f"{datetime.now(timezone.utc):%H:%M:%S} pulling", flush=True)
             if not grading():                                # (the grader has git busy - pull next time)
                 _git("pull", "-q", "--rebase", "--autostash", "-X", "theirs")
@@ -1257,9 +1263,9 @@ def loop(minutes, every_s=5):
                 os.execv(sys.executable, [sys.executable, "-u", "sports_live.py", "--loop", f"{left:.1f}"])
             print(f"{datetime.now(timezone.utc):%H:%M:%S} loading data", flush=True)
             games, _ = _data(reload=True)
-        if any_live_soon(games) and not queued:
+        if any_live_soon(games, STAY_MIN) and not queued:       # the next watch lines up behind this one
             queued = queue_next()
-        if not any_live_soon(games):
+        if not any_live_soon(games, STAY_MIN):
             idle_since = idle_since or time.time()
             if not started or time.time() - idle_since > 5 * 60:        # nothing on: don't burn the clock
                 print("live: nothing on - resting")
@@ -1295,7 +1301,7 @@ def loop(minutes, every_s=5):
             print(f"{datetime.now(timezone.utc):%H:%M:%S} games ended: grading", flush=True)
             finals_seen = set(FINALS)
             grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}")
-        time.sleep(every_s)
+        time.sleep(max(0.2, every_s - (time.time() - t0)))    # as tight as the feeds allow: a fresh look every second
     if grading():                                                 # let a background grade finish before the job ends
         try:
             GRADER[0].wait(timeout=420)

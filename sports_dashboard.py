@@ -166,7 +166,7 @@ def _tennis_live_story(e, used):
 
 
 TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
-             "lean": '<span class="chip lean">🟡 LEAN</span>', "strong": '<span class="chip lean">💪 STRONG LEAN</span>'}
+             "lean": '<span class="chip lean">🟡 SLIGHT LEAN</span>', "strong": '<span class="chip lean">💪 STRONG LEAN</span>'}
 TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE", "#ff5a1f", "#ff8a00"),
              "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
 
@@ -197,7 +197,7 @@ def _breakdown(leg):
 
 
 LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
-           "lean": '<span class="lt-t lean">🟡 LEAN</span>', "strong": '<span class="lt-t lean">💪 STRONG LEAN</span>'}
+           "lean": '<span class="lt-t lean">🟡 SLIGHT LEAN</span>', "strong": '<span class="lt-t lean">💪 STRONG LEAN</span>'}
 
 
 def _leg(leg, tagged=False):
@@ -242,8 +242,7 @@ def _short_note(day, day_picks):
 
 def _lean_note(day):
     """The top note on a leans-only day, in our voice (a different wording day to day)."""
-    return (f'<div class="drop leanday">🟡 {E(sports_lingo.lean_note(day))}'
-            f'<br><small>Leans keep their own record — never in ours. No edge = no lock.</small></div>')
+    return f'<div class="drop leanday">🟡 {E(sports_lingo.lean_note(day))}</div>'      # one note - no second disclaimer under it
 
 
 def _pick_card(kind, pk):
@@ -254,9 +253,9 @@ def _pick_card(kind, pk):
         if len(pk["legs"]) == 1:
             l0 = pk["legs"][0]
             mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
-            label = E(f'{l0["team"]} {mk}'.upper())       # the chip says LEAN / STRONG LEAN
+            label = E(f'{l0["team"]} {mk}'.upper())       # the chip says SLIGHT LEAN / STRONG LEAN
         else:
-            label = f'{len(pk["legs"])}-LEG LEAN'
+            label = f'{len(pk["legs"])}-LEG LEAN PARLAY'   # every leg wears its own SLIGHT / STRONG tag
 
     if kind == "solo" and pk.get("legs"):                    # a one-game day: the header IS the pick (BEARS +3.5)
         l0 = pk["legs"][0]
@@ -1162,7 +1161,7 @@ Ratings · form · rest · injuries · line moves — retrained after every fina
 Picks only — no bets placed · refreshes hourly</div>
 </main>
 <script>
-(function(){{   // 📡 LIVE VALUE: checks live.json every 10 seconds; a play disappears the moment its value is gone
+(function(){{   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 var last="";
 function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
@@ -1185,7 +1184,7 @@ function raw(){{return fetch("https://raw.githubusercontent.com/{REPO}/live-data
 function poll(){{if(document.hidden)return;   // only while the app's on screen; "nothing changed" answers (304) don't count against GitHub's limit
  fetch("https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",{{headers:{{Accept:"application/vnd.github.raw"}},cache:"no-cache"}})
  .then(function(r){{return r.ok?r.json():raw()}}).catch(raw).then(show).catch(function(){{}});}}
-poll();setInterval(poll,5000);document.addEventListener("visibilitychange",poll);}})();
+poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);}})();
 (function(){{var t={int(updated_ms)},m=0;   // the whole page stays fresh while it's open
 try{{var o=sessionStorage.getItem("d503o");if(o){{sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){{if(ds[i])ds[i].open=true}});}}
