@@ -2852,3 +2852,41 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-09-29 15:07 UTC] stocks/trend     equity $485.33 (-2.9%) 4 open  market UP
 [2026-09-29 15:07 UTC] stocks/hold_spy  equity $497.21 (-0.6%) 1 open  market UP
    social heat top: QNT 46 (35/0/11), AVAX 40 (40/0/0), NEAR 37 (37/0/0), PENGU 32 (32/0/0), AAVE 29 (29/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT BASEMATE@base liq $147,916 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 55%; lp locked 0% < 95%
+   dex screen: REJECT VELVET@base liq $22,946 - liquidity $22,946 < $100,000; pool age unknown; 24h volume $44,844 < $100,000
+   dex screen: REJECT NEAR@ethereum liq $781,152 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT 01@ethereum liq $730,967 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT CBXRP@base liq $631,507 - pool age unknown
+   dex screen: REJECT GO@solana liq $119,777 - holders unknown; lp holders unknown; rugcheck lp locked 61% < 95%
+   dex screen: PASS SWORDCAT@solana liq $123,019
+   >> stocks/trend: SELL $115.56 of MSTR @ 152.854, P/L $-3.76 (stop hit (live check))
+   listings: coinbase failed (10x, retry in 600s): TimeoutError: The read operation timed out
+   dex screen: REJECT SKY@ethereum liq $1,464,450 - is_mintable; top-10 holders 90%
+   dex screen: PASS TSUKI@ethereum liq $156,315
+   dex screen: REJECT BLUECHIP@base liq $148,595 - 24h volume $62,139 < $100,000
+   dex scanner: 3,000 pools (solana 2,084 / base 503 / ethereum 413), refresh cycle 139s (hot 135s), 2692 calls (106 feed, 429s 0, failed 1), 77,549 refreshed (10892 no pair), +71 added / -71 dropped (dead 36, stale 0, cap 35), movers 5 + warming 24 -> queued 2, screened 2 (passed 0), bought 0
+   dex screen: REJECT BNKR@base liq $2,797,202 - goplus partial data: cannot_sell_all unknown; buy tax unknown; top-10 holders 46%
+[2026-09-29 16:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-29 16:07 UTC] crypto/mover     equity $452.00 (-9.6%) 0 open  market UP
+[2026-09-29 16:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 16:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-29 16:07 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-29 16:07 UTC] crypto/breakout10 equity $490.88 (-1.8%) 2 open  market UP
+[2026-09-29 16:07 UTC] crypto/momentum  equity $486.98 (-2.6%) 2 open  market UP
+[2026-09-29 16:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-29 16:07 UTC] crypto/hold_btc  equity $495.01 (-1.0%) 1 open  market UP
+[2026-09-29 16:07 UTC] stocks/rsi2      equity $496.71 (-0.7%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 1, TLT 2, TSLA 4, NFLX 5
+[2026-09-29 16:07 UTC] stocks/dual_momentum equity $498.00 (-0.4%) 2 open  market UP
+[2026-09-29 16:07 UTC] stocks/trend_ensemble equity $497.13 (-0.6%) 5 open  market UP
+[2026-09-29 16:07 UTC] stocks/rotation10 equity $493.27 (-1.3%) 2 open  market UP
+[2026-09-29 16:07 UTC] stocks/momentum  equity $488.25 (-2.4%) 4 open  market UP
+   >> stocks/trend: SELL $29.76 of COIN @ 189.755, P/L $-0.92 (stop hit)
+   >> stocks/trend: BUY $145.37 of AMD @ 613.317 (entry)
+[2026-09-29 16:07 UTC] stocks/trend     equity $484.49 (-3.1%) 3 open  market UP
+[2026-09-29 16:07 UTC] stocks/hold_spy  equity $496.45 (-0.7%) 1 open  market UP
+   social heat top: AVAX 40 (40/0/0), PUMP 38 (29/0/9), QNT 37 (37/0/0), NEAR 35 (35/0/0), PENGU 32 (32/0/0)
