@@ -2740,12 +2740,15 @@ def test_breakdown_variety():
                              "reasons": random.Random(gid + side).sample(reasons, 3)})
         return legs
 
-    said, orig = [], sb.Voice.say
-    def spy(self, key, options, must=False, names=()):     # what Voice itself compares: the line's runs, facts blanked
-        out = orig(self, key, options, must, names)
-        said.append((self.seed, out, sb.grams(out, tuple(names) + self.names) if out else set()))
-        return out
-    sb.Voice.say = spy
+    import sports_breakdown_v24 as v24                     # (the main board's voice since 9/29)
+    said, orig, orig24 = [], sb.Voice.say, v24.Voice.say
+    def spy_of(fn):
+        def spy(self, key, options, must=False, names=()):  # what Voice itself compares: the line's runs, facts blanked
+            out = fn(self, key, options, must, names)
+            said.append((self.seed, out, sb.grams(out, tuple(names) + tuple(self.names)) if out else set()))
+            return out
+        return spy
+    sb.Voice.say, v24.Voice.say = spy_of(orig), spy_of(orig24)
     try:
         yesterday, cards = [], {}
         for day in (0, 1):
@@ -2774,7 +2777,7 @@ def test_breakdown_variety():
             cards[day] = texts
             yesterday = texts
     finally:
-        sb.Voice.say = orig
+        sb.Voice.say, v24.Voice.say = orig, orig24
     # every roll stays within today's size for its line, and the big lines have thousands of ways to go
     for k, ts in sb.T.items():
         assert k in sb._CAP, k

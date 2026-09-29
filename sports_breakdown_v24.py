@@ -119,12 +119,31 @@ def dashboard_texts(skip=()):
     return out
 
 
+SHORT_L = ["Book it.", "Lock it in.", "Stamp it.", "Say less.", "Easy money.", "Trust the algorithm.", "We locked in.",
+           "All day.", "No doubt.", "Bank it.", "Cash it.", "Done deal."]
+SHORT_S = ["Tap in.", "Get in.", "We finna see.", "We gon' see.", "Right side.", "Smart side.", "Good number.", "Say less.",
+           "We like it.", "Ride it.", "Let it ride.", "Easy call."]
+
+
+def _short(v, price, lock):
+    """Every full bottom line is used on this board or yesterday's: the pick + a short closer (too short to repeat a
+    phrase), a closer not used yet on this board."""
+    pool = SHORT_L if lock else SHORT_S
+    for i in range(len(pool)):
+        c = pool[(sum(map(ord, v.seed)) + i) % len(pool)]
+        if f"short:{c}" not in v.used:
+            v.used.add(f"short:{c}")
+            return f"✅ Bottom line: {price}. {c}"
+    return f"✅ Bottom line: {price}."
+
+
 class Voice:
     """Picks a way to say each line: different wording from game to game and day to day, and never the same
     wording twice on one board (share one `used` set across a board's breakdowns)."""
 
     def __init__(self, seed, used=None):
         self.seed, self.used, self.mine = seed, used if used is not None else set(), []
+        self.names = ()
 
     def say(self, key, options, must=False, names=()):
         """A fresh way to say it, or "" (the line is dropped) when every way is already taken on this board.
@@ -141,7 +160,7 @@ class Voice:
                 out += [f"piece:{p.strip().lower()}" for p in re.split(r"(?<=[.!?])\s+", re.sub(r"^\W+", "", t)) if p.strip()]
             return out
         import sports_breakdown as _sb                        # no 4-word run from this board or the last days' boards
-        runs = lambda x: _sb.grams(x, names)                  # (the same memory the vocabulary uses - 9/29)
+        runs = lambda x: _sb.grams(x, tuple(names) + tuple(self.names))   # (the same memory the vocabulary uses)
         unused = [n for n in order if f"{key}:{n}" not in self.used]
         fresh = [n for n in unused if not any(s in self.used for s in slang(options[n]))
                  and not (runs(options[n]) & self.used)]
@@ -195,6 +214,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     ours, theirs = _team_games(fin, tid), _team_games(fin, oid)
     s_ours, s_theirs = _season(ours, start), _season(theirs, start)
     v = Voice(f"{g['id']}|{start:%Y-%m-%d}|{side}", used)
+    v.names = (us, them)                                  # team names blanked when comparing wordings to yesterday's
     pro = lg in ("nfl", "nba", "mlb", "nhl")
     the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
     if ours and theirs and (start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days < 2:
@@ -620,7 +640,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price} is money. We locked in.",
             f"✅ Bottom line: {price}. Everything lines up — we're on it with our whole chest.",
             f"✅ Bottom line: {price}. {pct}% to cash — done deal.",
-            f"✅ Bottom line: {pct}% to hit on {price}, and we ain't fighting the line. Lock it in."], must=True))
+            f"✅ Bottom line: {pct}% to hit on {price}, and we ain't fighting the line. Lock it in."]) or _short(v, price, True))
     else:
         out.append(v.say("bottom_s", [
             f"✅ Bottom line: {price} ain't flashy. It's just the right side. Tap in.",
@@ -636,7 +656,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. Not the loudest pick on the board, but it's a good one.",
             f"✅ Bottom line: riding {price}. The engine likes it, we like it.",
             f"✅ Bottom line: {price}. {pct}% to cash — get in.",
-            f"✅ Bottom line: {pct}% to hit on {price}. Tap in."], must=True))
+            f"✅ Bottom line: {pct}% to hit on {price}. Tap in."]) or _short(v, price, False))
     lines = [x for x in out if x]
     if len(lines) > 2:
         import random

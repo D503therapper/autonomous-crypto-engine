@@ -154,6 +154,7 @@ def grams(text, names=(), n=4):
     """The 4-word runs in a line (names and numbers -> _): what makes two write-ups read alike. No run is said twice
     on a board or from one day to the next - words come back, phrases don't."""
     t = f" {text or ''} ".lower()
+    t = re.sub(r"^\W*bottom line:", " ", t)               # (the card's fixed label - what follows it still can't repeat)
     for nm in names:
         if nm:
             t = t.replace(str(nm).lower(), " _ ")
