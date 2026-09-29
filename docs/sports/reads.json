@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29T23:36Z",
+ "updated": "2026-09-29T23:40Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -58,60 +58,29 @@
    "lean": null
   },
   {
-   "id": "nhl:401891774",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Rangers",
-    "p": 0.354,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "start": "2026-09-30T00:00Z",
-   "away": "Rangers",
-   "home": "Bruins",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Rangers",
-    "opp": "Bruins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -265,
-    "p": 0.719,
-    "win_p": 0.505,
-    "reasons": [
-     "sharp money moving this way",
-     "hotter goalie"
-    ]
-   }
-  },
-  {
    "id": "mlb:401907924",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Yankees",
-    "p": 0.497,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "start": "2026-09-30T00:00Z",
    "away": "Red Sox",
    "home": "Yankees",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
-    "team": "Red Sox",
-    "opp": "Yankees",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -194,
-    "p": 0.611,
-    "win_p": 0.433,
-    "reasons": []
+    "team": "Yankees",
+    "opp": "Red Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -135,
+    "p": 0.561,
+    "win_p": 0.561,
+    "reasons": [
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
@@ -214,14 +183,14 @@
    "start": "2026-09-30T18:00Z",
    "away": "Phillies",
    "home": "Braves",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Braves",
     "opp": "Phillies",
     "market": "spread",
     "line": 1.5,
-    "odds": -191,
+    "odds": -192,
     "p": 0.626,
     "win_p": 0.51,
     "reasons": [
