@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: "23 * * * *"
     - cron: "1,11,31,51 1,2 * * *"   # 🎾 from 6pm Pacific (summer 01:00 / winter 02:00 UTC): tomorrow's tennis slate goes up on time
-    - cron: "2,32 5,6 * * *"         # 10pm Pacific (summer 05:00 / winter 06:00 UTC): tomorrow's main board goes up on time
+    - cron: "2,32 15,16 * * *"       # 8am Pacific (summer 15:00 / winter 16:00 UTC): game day's main board goes up on time
   workflow_dispatch:
     inputs:
       post_now:

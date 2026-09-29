@@ -219,6 +219,26 @@ def _cards(day, day_picks, cards_by_kind):
     return out
 
 
+DROP_NOTES = [   # before the board's up: when picks drop and why we wait (a different one every day)
+    "🎯 Picks drop at <b>8 AM PT</b> on game day. Till then the engine's watching every line and every injury report, so we post off the sharpest numbers. Once they're up, they're final.",
+    "⏳ Board goes up <b>8 AM PT</b> game day. The engine's up all night watching the lines move and the news come in — we ain't guessing off stale numbers.",
+    "👀 The engine's watching every line till <b>8 AM PT</b>. That's when picks drop. Late news is good news — and posted means final.",
+    "🧠 Picks land <b>8 AM PT</b> on game day. We let the lines settle and the injury news hit first. Sharper number, sharper pick.",
+    "📡 Engine's on the lines all night. Picks drop <b>8 AM PT</b> game day — every injury, every move already baked in.",
+    "🕗 <b>8 AM PT</b> on game day: that's when the board drops. Till then we watch the numbers, not guess 'em.",
+]
+
+
+def _drop_note(day):
+    """The before-the-board note, rotated by date (never the same two days in a row)."""
+    from datetime import date as _d
+    try:
+        i = _d.fromisoformat(str(day)[:10]).toordinal()
+    except ValueError:
+        i = 0
+    return DROP_NOTES[i % len(DROP_NOTES)]
+
+
 def _lean_note(day):
     """The top note on a leans-only day, in our voice (a different wording day to day)."""
     return f'<div class="drop leanday">🟡 {E(sports_lingo.lean_note(day))}</div>'      # one note - no second disclaimer under it
@@ -628,9 +648,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     bell = ('<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button>'   # 🔔 Web Push
             '<div class="bell-n" id="belln" hidden></div></div>') if ask_url else ""
     api = ask_url.rstrip("/")
-    drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>10 PM PT</b> the night before. Once posted, they\'re final.</div>'
+    drop = f'<div class="drop">{_drop_note(today)}</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
-                  'Tomorrow\'s card goes up from <b>10 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
+                  'Tomorrow\'s card drops at <b>8 AM PT</b> on game day — the engine watches the lines and the news overnight.</div>')
     board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active]) if active else done_today if todays else drop
     if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
         board = _lean_note(today) + board                    # a leans-only day says so up top
