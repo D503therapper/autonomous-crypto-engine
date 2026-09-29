@@ -23,6 +23,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+      - name: backstops (tennis slate, live watch)
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash tools/backstop.sh
       - run: pip install -q openpyxl xlrd
       - id: fetch
         run: timeout 24m python -u tools/fetch_tennis_odds.py

@@ -21,6 +21,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+      - name: tennis slate backstop
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SKIP_LIVE: "1"
+        run: bash tools/backstop.sh
       - env:
           GH_TOKEN: ${{ github.token }}
         run: |
