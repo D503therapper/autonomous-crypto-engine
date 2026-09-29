@@ -3080,7 +3080,7 @@ def test_parlays_fold_to_one_line():
            "legs": [leg("Yankees"), leg("Padres", result="won")]}
     html = sdb._card("two", two) if hasattr(sdb, "_card") else ""
     src = open(sdb.__file__).read()
-    assert "_fold(legs, pk[\"legs\"]) if len(pk[\"legs\"]) > 1 else legs" in src
+    assert "_fold(legs, pk[\"legs\"]) if len(pk[\"legs\"]) > 1 else _fold_times(pk[\"legs\"], one=True) + legs" in src
     f = sdb._fold("<i>legs</i>", two["legs"])
     assert f.startswith('<details class="px">') and "Tap to see the 2 legs" in f and "Yankees" not in f.split("</summary>")[0]
     assert "<i>legs</i></details>" in f
@@ -3294,6 +3294,10 @@ def test_parlay_bar_shows_game_times_and_live_stays_live():
     assert ".pxt." not in css and "t.className" not in css
     assert "5 PM PT" not in sdb._fold_times([{**legs[1], "result": "won"}, legs[0]])       # a graded game's done
     assert "All games final" in sdb._fold_times([{**l, "result": "won"} for l in legs])
+    one = sdb._fold_times([legs[1]], one=True)                          # the lock / dog card gets the yellow line too
+    assert "🕐 Game starts at 5 PM PT" in one and 'data-one="1"' in one  # (the owner, 9/29: 'it's simply not there')
+    assert "🏁 Final" in sdb._fold_times([{**legs[1], "result": "won"}], one=True)
+    assert '_fold_times(pk["legs"], one=True) + legs' in open(sdb.__file__).read()
     src = open(sdb.__file__).read()
     assert "Next game starts at" in src and "next up" not in src.replace("next up'", "")
     i = src.index('if(s.innerHTML!==tag)s.innerHTML=tag;}}')
