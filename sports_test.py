@@ -3215,6 +3215,29 @@ def test_live_game_list_falls_back_to_espn_and_bets_grade_anyway():
     assert [log["plays"][k]["result"] for k in ("nfl:401:home", "nfl:402:away", "nfl:403:home")] == ["won", "lost", None]
 
 
+def test_yahoo_splits_backup():
+    """Action Network down: the betting splits come from Yahoo's odds page instead (% of bets only - Yahoo shows no
+    money %), matched to our games by team, and a breakdown with bets % only says it plain (no 'None%')."""
+    import sports_public as spb, json as _j
+    games_json = [{"gameId": "mlb.g.1", "alias": {"url": "https://sports.yahoo.com/mlb/philadelphia-phillies-atlanta-braves-460929115/"},
+                   "homeTeam": {"teamId": "mlb.t.15"}, "awayTeam": {"teamId": "mlb.t.22"},
+                   "bets": [{"type": "MONEY_LINE", "eventState": "PREGAME", "options": [
+                       {"name": "Atlanta", "americanOdds": -185, "teamIds": ["mlb.t.15"], "wagerPercentage": "73.47"},
+                       {"name": "Philadelphia", "americanOdds": 155, "teamIds": ["mlb.t.22"], "wagerPercentage": "26.53"}]},
+                            {"type": "MONEY_LINE", "eventState": "LIVE", "options": [{"name": "Atlanta", "teamIds": ["mlb.t.15"]}]}]}]
+    html = 'x<script>self.__next_f.push([1,' + _j.dumps('81:["$","$L83",null,' + _j.dumps({"games": games_json}) + ']') + '])</script>'
+    rows = spb.yahoo_rows(spb.yahoo_games(html))
+    assert rows == [{"home_full": "atlanta braves", "away_full": "philadelphia phillies",
+                     "splits": {"ml_home_t": 73, "ml_home_m": None, "ml_home_odds": -185, "ml_away_t": 27,
+                                "ml_away_m": None, "ml_away_odds": 155, "src": "yahoo"}}]
+    now = datetime(2026, 9, 29, 15, 0, tzinfo=timezone.utc)
+    games = {"mlb:1": {"id": "mlb:1", "league": "mlb", "status": "pre", "start": "2026-09-29T23:15Z",
+                       "home_name": "Atlanta Braves", "away_name": "Philadelphia Phillies"}}
+    assert spb.yahoo_match(games, "mlb", rows, now) == {"mlb:1": rows[0]["splits"]}
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert "if sp_ and sp_[1] is None:" in src
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

@@ -562,6 +562,14 @@ def breakdown(leg, games, elo, injuries, used=None):
 
     # who's betting who: the real splits (the same numbers Google shows)
     sp_ = public_split(leg)
+    if sp_ and sp_[1] is None:                            # bets % only (Yahoo's backup has no money %): say that plain
+        t = sp_[0]
+        crowd = the_us if t >= 50 else the_them
+        out.append(v.say("splits_y", [
+            f"📊 {max(t, 100 - t)}% of the bets are on {crowd}." + (" We with 'em on this one." if t >= 50 else " We on the other side."),
+            f"📊 The public's got {max(t, 100 - t)}% of the tickets on {crowd}." + (" Same side as us." if t >= 50 else " Not us."),
+            f"📊 {crowd} got {max(t, 100 - t)}% of the bets." + (" Popular pick, right pick." if t >= 50 else " We fading that.")]))
+        sp_ = None
     if sp_:
         t, m = sp_
         mk = {"ml": "the moneyline", "spread": "the spread", "total": "the total"}[leg["market"]]

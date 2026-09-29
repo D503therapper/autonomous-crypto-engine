@@ -13,6 +13,7 @@ newer ones it never saw. A spot is PROVEN only if it made money on both halves a
 History: data/sports/public.json (the backfill workflow). Today's games: data/sports/public_live.json (every run).
 The study: data/sports/rigged.json."""
 import json
+import re
 import math
 import os
 import sys
@@ -68,6 +69,79 @@ def parse(payload):
                     "away_full": away.get("full_name") or "", "season": g.get("season"), "week": g.get("week"),
                     "splits": s})
     return out
+
+
+YAHOO = {"nfl": "nfl", "ncaaf": "college-football", "nba": "nba", "ncaab": "college-basketball", "mlb": "mlb", "nhl": "nhl"}
+YAHOO_URL = "https://sports.yahoo.com/{p}/odds/"
+
+
+def yahoo_games(html):
+    """Yahoo Sports' odds page -> its games (the JSON the page is built from)."""
+    chunks = re.findall(r'self\.__next_f\.push\(\[1,"((?:[^"\\]|\\.)*)"\]\)', html)
+    txt = "".join(json.loads('"' + c + '"') for c in chunks)
+    m = re.search(r'\{"games":\s*\[', txt)
+    if not m:
+        return []
+    return json.JSONDecoder().raw_decode(txt[m.start():])[0].get("games") or []
+
+
+def yahoo_rows(games_json):
+    """Yahoo games -> [{home_full, away_full, splits}] - % of BETS only (Yahoo shows no money %), pregame markets.
+    (Yahoo's numbers come from Action Network too: a second door to the same splits when Action Network's own
+    feed turns us away.)"""
+    out = []
+    for g in games_json:
+        slug = str(((g.get("alias") or {}).get("url") or "")).rstrip("/").split("/")[-1]
+        slug = re.sub(r"-\d+$", "", slug)                      # "philadelphia-phillies-atlanta-braves"
+        hid, aid = (g.get("homeTeam") or {}).get("teamId"), (g.get("awayTeam") or {}).get("teamId")
+        s, home_city = {}, None
+        for b in g.get("bets") or []:
+            if b.get("eventState") != "PREGAME":
+                continue
+            key = {"MONEY_LINE": "ml", "POINT_SPREAD": "sp", "SPREAD": "sp", "TOTAL": "tot", "OVER_UNDER": "tot"}.get(b.get("type"))
+            for o in b.get("options") or []:
+                if o.get("wagerPercentage") in (None, "") or not key:
+                    continue
+                tid = (o.get("teamIds") or [None])[0]
+                side = "home" if tid == hid else "away" if tid == aid else \
+                    ("over" if str(o.get("name", "")).lower().startswith("over") else
+                     "under" if str(o.get("name", "")).lower().startswith("under") else None)
+                if side is None:
+                    continue
+                if side == "home" and key == "ml":
+                    home_city = str(o.get("name") or "")
+                s[f"{key}_{side}_t"] = round(float(o["wagerPercentage"]))
+                s[f"{key}_{side}_m"] = None
+                s[f"{key}_{side}_odds"] = o.get("americanOdds")
+        if not home_city or not s.get("ml_home_t"):
+            continue
+        k = slug.find(home_city.lower().replace(" ", "-"))
+        if k <= 0:
+            continue
+        out.append({"home_full": slug[k:].replace("-", " "), "away_full": slug[:k].strip("-").replace("-", " "),
+                    "splits": {**s, "src": "yahoo"}})
+    return out
+
+
+def yahoo_match(games, league, rows, now=None):
+    """{our game id: splits} for Yahoo rows - same teams, a game of ours still to start in the next 36 hours."""
+    now = now or datetime.now(timezone.utc)
+    lo, hi = (now - timedelta(hours=3)).strftime("%Y-%m-%dT%H:%M"), (now + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M")
+    out = {}
+    for r in rows:
+        for g in games.values():
+            if g["league"] == league and g.get("status") == "pre" and lo <= (g.get("start") or "")[:16] <= hi and \
+                    sd._same(g["home_name"], r["home_full"]) and sd._same(g["away_name"], r["away_full"]):
+                out[g["id"]] = r["splits"]
+                break
+    return out
+
+
+def yahoo_splits(games, league):
+    req = urllib.request.Request(YAHOO_URL.format(p=YAHOO[league]), headers={**UA, "Accept": "text/html"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        html = r.read().decode("utf-8", "ignore")
+    return yahoo_match(games, league, yahoo_rows(yahoo_games(html)))
 
 
 def fetch_day(league, day):
@@ -159,6 +233,7 @@ def refresh_today(games, now=None):
     soon = {g["league"] for g in games.values() if g["status"] == "pre"
             and g["start"][:10] in {(now + timedelta(days=k)).strftime("%Y-%m-%d") for k in (0, 1)}}
     for lg in sorted(soon):
+        failed = False
         for k in (0, 1):
             day = (now + timedelta(days=k)).date()
             try:
@@ -169,8 +244,16 @@ def refresh_today(games, now=None):
                 keep.update(match(games, lg, rows))
             except Exception as e:                           # noqa: BLE001
                 print(f"   public splits {lg} {day}: {str(e)[:80]}")
+                failed = True
             if lg in FOOTBALL:
                 break                                        # football pages are by week: one call covers it
+        if failed and lg in YAHOO:                           # Action Network turned us away: Yahoo's page instead
+            try:
+                got = yahoo_splits(games, lg)
+                keep.update({k2: v for k2, v in got.items() if k2 not in keep})
+                print(f"   public splits {lg}: Action Network down - {len(got)} games from Yahoo")
+            except Exception as e:                           # noqa: BLE001
+                print(f"   public splits {lg} (Yahoo): {str(e)[:80]}")
     _save(LIVE, keep)
     return keep
 
