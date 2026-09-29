@@ -3251,6 +3251,21 @@ def test_breakdowns_say_it_plain():
     assert 'v.say("keyout_both"' in src and "_posname(key_us[0][1])" in src and "_posname(key_them[0][1])" in src
 
 
+def test_playoff_game_gets_its_real_teams():
+    """9/29: MLB playoff games were stored while the teams were 'TBD' (ids -1 / -2); ESPN filled in the Astros but our
+    copy kept id -1, the engine knew '0 games' for them and skipped White Sox (+102, bet down from +120) @ Astros
+    entirely. A fresh read with the real team always replaces a placeholder - and a placeholder never wipes a real one."""
+    old = {"id": "mlb:1", "home": "-1", "away": "-2", "home_name": "TBD", "away_name": "TBD", "start": "2026-09-29T21:00Z",
+           "status": "pre", "ml_home": "", "ml_away": ""}
+    new = {**old, "home": "18", "away": "4", "home_name": "Astros", "away_name": "White Sox", "ml_home": "-123",
+           "ml_away": "102", "home_score": "", "away_score": "", "neutral": 0, "sp_home": "", "sp_away": "", "stype": "3",
+           "country": "", "intl": 0, "city": "", "state": "", "indoor": 0}
+    g = sd.merge(old, new, "2026-09-29T15:00Z")
+    assert g["home"] == "18" and g["away"] == "4"
+    back = sd.merge(g, {**new, "home": "-1"}, "2026-09-29T15:05Z")
+    assert back["home"] == "18"                                         # a placeholder never wipes the real team
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

@@ -286,6 +286,14 @@ def save_games(games):
         os.replace(tmp, p)
 
 
+def _real_team(tid):
+    """A real team id (ESPN's placeholders for a not-yet-known team are -1 / -2 / 0 / empty)."""
+    try:
+        return int(str(tid)) > 0
+    except ValueError:
+        return bool(str(tid or "").strip())
+
+
 def merge(old, new, now_iso):
     """Update a stored game with a fresh read. Pre-game odds are kept once the game starts (ESPN often
     drops them), so the last odds seen before the start serve as the closing line. The first odds
@@ -298,6 +306,11 @@ def merge(old, new, now_iso):
         for k in ("ls_home", "ls_away"):
             if new.get(k):
                 g[k] = new[k]
+        for k in ("home", "away"):                           # a playoff game gets posted with "TBD" teams (id -1 / -2):
+            if _real_team(new.get(k)) and str(new.get(k)) != str(g.get(k)):
+                g[k] = new[k]                                # once ESPN fills them in, take the real team (9/29: the
+                #                                              Astros stayed "-1", the engine knew 0 games for them and
+                #                                              skipped White Sox +102 @ Astros entirely)
     has = new["ml_home"] != "" and new["ml_away"] != ""
     if has and (new["status"] == "pre" or old is None or old.get("ml_home", "") == ""):
         for k in ODDS:

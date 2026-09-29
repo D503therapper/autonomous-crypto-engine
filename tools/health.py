@@ -179,6 +179,19 @@ if needed:
     except Exception as e:                               # noqa: BLE001
         problems.append(f"live board check failed: {str(e)[:60]}")
 
+# 6b. no game coming up that the engine can't see (9/29: a playoff game kept a "TBD" team id and was skipped)
+try:
+    soon = (now + timedelta(hours=36)).strftime("%Y-%m-%dT%H:%M")
+    blind = [g for g in (games or {}).values() if g.get("status") == "pre" and now.strftime("%Y-%m-%dT%H:%M") <= (g.get("start") or "")[:16] <= soon
+             and not (sd._real_team(g.get("home")) and sd._real_team(g.get("away"))) and "TBD" not in (g.get("home_name", "") + g.get("away_name", ""))]
+    if blind:
+        problems.append("games the engine can't see (placeholder team): " + ", ".join(f"{g['away_name']} @ {g['home_name']}" for g in blind[:5]))
+        dispatch("sports.yml", "re-sync games with placeholder teams")
+    else:
+        ok.append("every upcoming game has its real teams")
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"placeholder-team check failed: {str(e)[:60]}")
+
 # 7. posting on time
 try:
     import tennis_due
