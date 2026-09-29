@@ -1,0 +1,21 @@
+# Snapshots every backup data source as our servers see it (tools/capture_sources.py) onto the "samples" branch, so the
+# engine's readers can be built and tested against real data. Run by hand (best while games are live).
+name: capture_sources
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: tools, sparse-checkout-cone-mode: false }
+      - run: timeout 5m python3 -u tools/capture_sources.py
+      - run: |
+          stamp=$(date -u +%Y%m%dT%H%M)
+          cd samples && git init -q -b samples && git add -A
+          git -c user.name=paper-trader-bot -c user.email=paper-trader-bot@users.noreply.github.com commit -qm "samples $stamp"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "samples:samples-$stamp"
+          echo "pushed samples-$stamp"
