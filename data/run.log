@@ -2507,3 +2507,8 @@ DEX: $309.30 (-690.70) · Scammed: 1 (-$166.76)
 [2026-09-29 05:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-29 05:05 UTC] crypto/hold_btc  equity $495.51 (-0.9%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), NEAR 35 (35/0/0), HBAR 32 (32/0/0), LINK 29 (29/0/0), PENGU 27 (27/0/0)
+   dex screen: REJECT CURVE@solana liq $34,127 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT ICP@ethereum liq $589,581 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: PASS TIBBIR@base liq $4,228,595
+   dex screen: REJECT RAYCAT@solana liq $264,854 - lp holders unknown; rugcheck lp locked 87% < 95%
+   dex screen: REJECT OPENAI@solana liq $138,900 - freeze authority; mint authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 94%; lp holders unknown
