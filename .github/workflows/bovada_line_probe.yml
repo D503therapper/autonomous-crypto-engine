@@ -1,0 +1,12 @@
+# Is the watcher's Bovada live tennis line stale? (tools/bovada_line_probe.py) Runs by hand.
+name: bovada_line_probe
+on:
+  workflow_dispatch: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: tools, sparse-checkout-cone-mode: false }
+      - run: timeout 4m python3 -u tools/bovada_line_probe.py
