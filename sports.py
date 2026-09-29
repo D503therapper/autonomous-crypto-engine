@@ -42,13 +42,13 @@ MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter
 LOCK_MAX_FAV = -120            # lock of the day: a moneyline no shorter than -120
 LOTD_MAX_ML = MAX_FAV            # the Lock of the Day: the engine's most confident pick on the whole board, same -150 cap
                                # as every other pick (the owner, 9/28: -150s hit more often than -135s, so it has to match)
-LOCK_MIN_P = 0.50             # a lock at minus money is at least a 50% shot
-PLUS_LOCK_MAX = 125            # plus money can be a LOCK only up to +125, and only at LOTD_P (60%+) - the owner, 9/28
+LOCK_MIN_P = 0.52             # a LOCK: real value AND the engine gives it 52%+ - one bar at any price (the owner, 9/28:
+PLUS_LOCK_MAX = 125            # not so strict that locks are rare); plus money only up to +125 (over that = VALUE)
 
 
-def plus_lock(c):
-    """A plus-money price the engine qualifies as a lock: +125 or shorter at 60%+ (a +156 at 40% never is)."""
-    return 100 <= c["odds"] <= PLUS_LOCK_MAX and (c.get("p") or 0) >= LOTD_P
+def lock_ok(c):
+    """A value pick the engine qualifies as a lock: 52%+ at a price no longer than +125 (a +156 at 40% never is)."""
+    return c["odds"] <= PLUS_LOCK_MAX and (c.get("p") or 0) >= LOCK_MIN_P
 
 
 LOTD_P = 0.60                  # a one-game day's lone pick is only called the Lock of the Day at 60%+ to win
@@ -459,7 +459,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # flip) is just that game's pick: a LOCK or VALUE call by its price, never titled Lock/Dog of the Day.
         one = _combo([solo]) if solo else None
         kind = "solo"
-        if solo and solo["market"] in ("ml", "spread") and good(solo) and solo["p"] >= LOTD_P and (solo["odds"] < 0 or plus_lock(solo)) and \
+        if solo and solo["market"] in ("ml", "spread") and good(solo) and solo["p"] >= LOTD_P and lock_ok(solo) and \
                 (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML):
             kind = "lock"
         elif solo and solo["market"] == "ml" and good(solo) and solo["odds"] >= DOG_MIN:
@@ -475,10 +475,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     else:
         # the owner's rule: the Lock of the Day is the ONE pick the engine is most confident in, across the whole board -
         # every sport, moneyline or spread, favorite or dog - as long as a moneyline is no shorter than -135
-        # ...and a LOCK is never a coin flip: 50%+ at minus money; plus money only up to +125 at 60%+ (the owner, 9/28:
-        # a +156 at 40% is no lock of anything)
+        # ...and it has to be a LOCK: 52%+, no longer than +125 (the owner, 9/28: a +156 at 40% is no lock of anything)
         locks = [c for c in cands if good(c) and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
-                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and (c["odds"] < 0 and c["p"] >= LOCK_MIN_P or plus_lock(c))]
+                 and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and lock_ok(c)]
         lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
@@ -526,8 +525,8 @@ def leg_tier(c):
         return "lean"
     if c.get("market") == "total":
         return "ou"                                          # over/unders: no lock/value label - their own thing
-    return "lock" if c["odds"] < 0 or plus_lock(c) else "value"   # owner's rule: minus money = LOCK, plus money = VALUE
-                                                         # (up to +125 at 60%+ it can still be a LOCK); no value = LEAN
+    return "lock" if lock_ok(c) else "value"                 # owner's rule: value at 52%+ (up to +125) = LOCK, other
+                                                         # value = VALUE; no value = LEAN (slight / strong)
 
 
 def pick_tier(pk):
@@ -538,7 +537,7 @@ def pick_tier(pk):
         return "lock"
     if pk.get("kind") == "solo" and len(pk.get("legs") or []) == 1:   # the one-game-day pick: by the rule -
         l0 = pk["legs"][0]                                             # minus money = LOCK, plus money = VALUE
-        return "ou" if l0.get("market") == "total" else "lock" if l0["odds"] < 0 or plus_lock(l0) else "value"
+        return "ou" if l0.get("market") == "total" else "lock" if lock_ok(l0) else "value"
     if pk.get("tier"):
         return pk["tier"]
     # only a real lean play is a LEAN; a parlay's filler leg can't drag the whole card down to one

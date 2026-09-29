@@ -292,8 +292,8 @@ def test_board_rules():
     strong = dict(_cand("g9", -150, 0.61), side="home")      # ...vs a strong lean (61%): the strong lean wins
     assert {c["side"] for c in sports.one_side([val, weak])} == {"away"}, "value takes precedence"
     assert {c["side"] for c in sports.one_side([val, strong])} == {"home"}, "unless the engine has a strong lean on the other side"
-    assert sports.leg_tier(_cand("pl", 120, 0.58)) == "value", "plus money is always value - locks are minus money only"
-    assert sports.leg_tier(_cand("pt", 110, 0.55)) == "value", "plus money treads lightly: 55% at +110 isn't enough for a lock"
+    assert sports.leg_tier(_cand("pl", 120, 0.58)) == "lock", "value at 52%+ up to +125 is a lock (the owner, 9/28)"
+    assert sports.leg_tier(_cand("pt", 140, 0.55)) == "value", "over +125 is always value"
     assert sports.leg_tier(_cand("mn", -120, 0.60)) == "lock", "minus money: 60% at -120 (10% edge) = a lock"
     assert sports.leg_tier(_cand("v", 150, 0.43)) == "value" and sports.leg_tier(_cand("n", -110, 0.50)) == "lean"
     assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "value"}]}) == "value"
@@ -2548,15 +2548,12 @@ def test_lean_day_card():
 
 
 def test_plus_money_lock_rule():
-    """The owner, 9/28: a lock is never a coin flip. Minus money needs 50%+; plus money can be a LOCK only up to +125
-    at 60%+ (a +156 at 40% labeled Lock of the Day was the bug)."""
+    """The owner, 9/28: one lock bar at any price - real value AND 52%+, no longer than +125 (over +125 is always
+    VALUE; a +156 at 40% labeled Lock of the Day was the bug)."""
     import sports
-    assert not sports.plus_lock({"odds": 156, "p": 0.396}) and not sports.plus_lock({"odds": 130, "p": 0.7})
-    assert sports.plus_lock({"odds": 125, "p": 0.61}) and not sports.plus_lock({"odds": 110, "p": 0.55})
-    base = {"market": "ml", "edge_own": 0.1, "edge": 0.1}
-    assert sports.leg_tier({**base, "odds": 156, "p": 0.40}) in ("value", "lean")
-    if sports.good({**base, "odds": 120, "p": 0.62}):
-        assert sports.leg_tier({**base, "odds": 120, "p": 0.62}) == "lock"
+    assert not sports.lock_ok({"odds": 156, "p": 0.396}) and not sports.lock_ok({"odds": 130, "p": 0.7})
+    assert sports.lock_ok({"odds": 125, "p": 0.53}) and sports.lock_ok({"odds": -140, "p": 0.6})
+    assert not sports.lock_ok({"odds": 110, "p": 0.51}) and not sports.lock_ok({"odds": -105, "p": 0.51})
 
 
 def _sample_history(days=24, seed=5):
