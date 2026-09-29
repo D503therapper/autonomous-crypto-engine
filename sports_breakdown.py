@@ -158,7 +158,11 @@ def grams(text, names=(), n=4):
         if nm:
             t = t.replace(str(nm).lower(), " _ ")
     t = re.sub(r"[+-]?\d+(\.\d+)?%?", " # ", t)
-    w = re.findall(r"[a-z_#']+", t)
+    w = []
+    for x in re.findall(r"[a-z_#']+", t):                  # a run of names/numbers is one blank ("_"), however it
+        x = "_" if x.strip("'") in ("_", "#") else x      # was written: yesterday's "9-4" and today's {rec} match
+        if x.strip("'") and not (x == "_" and w and w[-1] == "_"):
+            w.append(x)
     return {"g:" + " ".join(w[i:i + n]) for i in range(len(w) - n + 1)}
 
 
