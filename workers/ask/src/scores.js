@@ -10,7 +10,7 @@ const PATHS = {
 const EXTRA = { ncaaf: "?groups=80&limit=1000", ncaab: "?groups=50&limit=1000" };
 
 const DBG = {};
-const HOSTS = ["https://site.api.espn.com", "https://site.web.api.espn.com", "https://site.api.espn.com"];
+const HOSTS = ["https://site.web.api.espn.com", "https://site.api.espn.com"];   // (the first one lets Cloudflare in)
 async function board(key, ctx) {
   const path = `/apis/site/v2/sports/${PATHS[key]}/scoreboard${EXTRA[key] || ""}`;
   const cache = caches.default;
@@ -22,7 +22,7 @@ async function board(key, ctx) {
     const r = await fetch(host + path, { headers: {
       "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
       Accept: "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9",
-      Referer: "https://www.espn.com/", Origin: "https://www.espn.com" }, cf: i === 2 ? { cacheTtl: 1 } : undefined });
+      Referer: "https://www.espn.com/", Origin: "https://www.espn.com" }, });
     tries.push(`${host.slice(8, 20)} ${r.status}`);
     if (!r.ok) continue;
     DBG[key] = tries.join(" | ");
