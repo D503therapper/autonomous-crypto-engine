@@ -6,6 +6,10 @@ Checks:
   2. grading: no pick (main board or tennis) sitting ungraded 20+ minutes after its game ended (else: re-grade now)
   3. live scores: our server's /scores answers (else: flagged)
   4. workflows: any failed run in the last 2 hours (flagged, with the workflow's name)
+  5. alerts: the engine's key still opens the 🔔 push (a dry run - nobody gets pinged)
+  6. the live board, while games are on: scores flowing, the book's live prices fresh (not its 10-minute cache),
+     every live bet today saved (none only on the board)
+  7. posting: the tennis slate is up from 6pm PT, the main board from 8am PT (else: run the engine now)
 Prints a summary; FIX lines are actions it took, PROBLEM lines are for the check-in."""
 import json
 import os
@@ -132,6 +136,66 @@ try:
         ok.append("no failed workflows")
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"workflow list failed: {str(e)[:60]}")
+
+# 5. alerts: the key still opens the push (dry run)
+try:
+    api = open(os.path.join(sd.DATA, "ask_url.txt")).read().strip().rstrip("/")
+    key = sd._push_key()
+    if not key:
+        problems.append("alert key missing (CLOUDFLARE_* not in this run's env)")
+    else:
+        req = urllib.request.Request(f"{api}/push", data=json.dumps({"key": key, "dry": True}).encode(),
+                                     headers={"Content-Type": "application/json", "Origin": "https://d503therapper.github.io",
+                                              "User-Agent": "Mozilla/5.0"})
+        got = json.load(urllib.request.urlopen(req, timeout=20))
+        (ok if got.get("dry") else problems).append("alerts: engine key " + ("works" if got.get("dry") else f"refused {got}"))
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"alerts check failed: {str(e)[:60]}")
+
+# 6. the live board's insides while games are on
+if needed:
+    try:
+        board = json.loads(urllib.request.urlopen(urllib.request.Request(
+            f"https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",
+            headers={"Accept": "application/vnd.github.raw"}), timeout=20).read())
+        books = str((board.get("tennis") or {}).get("books") or "")
+        if " 0 fresh" in books and not books.startswith("0 "):
+            problems.append(f"tennis live prices all stale ({books}) - no live tennis plays can go up")
+        elif books:
+            ok.append(f"tennis live prices: {books}")
+        if (board.get("live_games") or 0) > 0 and not board.get("scores"):
+            problems.append("games on but no live scores on the board")
+        saved = set((json.load(open(os.path.join(sd.DATA, "live_log.json"))).get("plays") or {}))
+        lost = [t["team"] for t in board.get("today") or [] if t["pid"] not in saved]
+        if lost:
+            problems.append(f"live bets on the board but not saved on main: {', '.join(lost)} (the next page build merges them)")
+        else:
+            ok.append("every live bet today saved")
+    except Exception as e:                               # noqa: BLE001
+        problems.append(f"live board check failed: {str(e)[:60]}")
+
+# 7. posting on time
+try:
+    import tennis_due
+    if tennis_due.due(now):
+        dispatch("sports.yml", "tennis slate due (6pm PT) and not up")
+    else:
+        ok.append("tennis slate on time")
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"tennis slate check failed: {str(e)[:60]}")
+try:
+    from zoneinfo import ZoneInfo
+    pt = now.astimezone(ZoneInfo("America/Los_Angeles"))
+    today = pt.date().isoformat()
+    games_today = [g for g in (games or {}).values() if g.get("start") and
+                   _t(g["start"]).astimezone(ZoneInfo("America/Los_Angeles")).date().isoformat() == today]
+    posted = any(p.get("date") == today for p in json.load(open(os.path.join(sd.DATA, "picks.json"))))
+    if pt.hour >= 9 and games_today and not posted:
+        dispatch("sports.yml", f"main board not up at {pt:%-I:%M %p} PT with {len(games_today)} games today")
+    elif pt.hour >= 9 and games_today:
+        ok.append("main board up")
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"main board check failed: {str(e)[:60]}")
 
 report = {"at": now.strftime("%Y-%m-%dT%H:%MZ"), "fixes": fixes, "problems": problems, "ok": ok}
 try:
