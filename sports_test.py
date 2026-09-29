@@ -3013,6 +3013,21 @@ def test_question_box_finds_the_player_and_retries():
     assert "if(w.length<4) return ts.indexOf(w)>=0" in src and "if(again!==true){{ai(true);return}}" in src
 
 
+def test_tennis_battle_review_only_on_a_real_sweep():
+    """The owner, 9/29: 'Han fought hard but still got her cheeks clapped 2-0. Easy money, trust the algorithm' - only
+    when the final really is a sweep and a set went the distance (7-6 / 7-5); never on a 3-setter or an easy 6-2 6-1."""
+    import sports_dashboard as sdb
+    import sports_lingo
+    def review(score):
+        sets = [tuple(x.strip().split("-", 1)) for x in score.split(",")]
+        if not sdb._battle(sets):
+            return ""
+        return sports_lingo.say("rc:battle", "wta:1:1", set(), who="Kalieva", opp="Shi Han", his="her", sets=f"{len(sets)}-0")
+    assert "2-0" in review("7-6(4), 6-4") and "Han" in review("7-6(4), 6-4")
+    assert "2-0" not in review("6-2, 6-1") and "cheeks" not in review("6-2, 6-1")
+    assert "2-0" not in review("7-6, 4-6, 6-3")
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

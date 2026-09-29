@@ -725,6 +725,13 @@ LINES = {
         '{me} [dug out|climbed out the hole|bounced back]. 💰',
         'W for {me}. [Cashed|Paid|Cook]. 💰',
     )),
+    "rc:battle": ((110, 3), False, T(   # our player won in straight sets, but the other one made a set a real fight
+        "{opp} fought hard but still got {his} cheeks clapped {sets}. Easy money. Trust the fucking algorithm, baby. 💰",
+        "{opp} [battled|scrapped|hung around] but {who} still [swept|took] it {sets}. Easy money. Trust the algorithm. 💰",
+        "{opp} made {who} work for it — still {sets}, still [cashed|paid]. Trust the algorithm, baby. 💰",
+        "Tough fight from {opp}, didn't matter. {who} {sets}. [Easy money|Light work|Cook]. 💰",
+        "{opp} gave {who} a scare, then got sent home {sets}. [Easy money|Cashed]. Trust the algorithm. 💰",
+    )),
     "tn:lost": ((40, 2), False, T(
         "{me} [couldn't close the gap|ran out of road|never found the turn|couldn't flip it|came up short|ran outta gas]. [Is what it is|Our bad|Next one's ours|It happens].",
         'No comeback from {me}. [Our bad|It happens].',

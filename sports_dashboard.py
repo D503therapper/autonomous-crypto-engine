@@ -346,6 +346,15 @@ def _tn_drop_note(day):
     return TN_DROP_NOTES[_d.fromisoformat(day).toordinal() % len(TN_DROP_NOTES)]
 
 
+def _battle(sets):
+    """Won every set, and at least one went to a tiebreak or 7-5: the other side fought, we still swept."""
+    try:
+        g = [(int(re.match(r"\d+", a).group()), int(re.match(r"\d+", b).group())) for a, b in sets]
+    except (ValueError, AttributeError):
+        return False
+    return len(g) >= 2 and all(x > y for x, y in g) and any(x == 7 for x, _ in g)
+
+
 def _tennis():
     """🎾 TENNIS BONUS: collapsed at the very bottom (tap to open) - the latest slate, its parlay, its own record."""
     try:
@@ -384,6 +393,9 @@ def _tennis():
         out = ""
         if l.get("result") == "won" and l.get("market") == "spread" and lost_match:
             out = sports_lingo.say("rc:cover", l["id"], used, who=who, sc="")
+        elif l.get("result") == "won" and _battle(sets):          # swept it, but a set went the distance
+            opp = stn._say_name(l.get("opp")) or "They"
+            out = sports_lingo.say("rc:battle", l["id"], used, who=who, opp=opp, his=his, sets=f"{len(sets)}-0")
         elif l.get("result") == "won":
             out = sports_lingo.say("rc:won", l["id"], used, who=who, sc="", his=his)
         elif l.get("result") == "lost":
