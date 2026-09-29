@@ -1,5 +1,39 @@
 {
-  "cash": 1000.0,
-  "positions": {},
-  "peak_equity": 1000.0
+  "cash": 975.7952,
+  "positions": {
+    "INUINK@solana:9k7NgXqi": {
+      "qty": 5555035.5876801275,
+      "entry": 4.344199999999999e-06,
+      "cost": 24.204800000000002,
+      "peak": 4.344199999999999e-06,
+      "stop": 2.1721000000000013e-07,
+      "took_profit": false,
+      "opened": 1790711992769,
+      "chain": "solana",
+      "addr": "9k7NgXqiJ7tvLtiB6HXdJHnKZZynFz46AB6Eg4Uwpump",
+      "sym": "INUINK",
+      "pair": "E2549WVzvMXBSknhM4nEbMVW1QoqEULoLWKwWGngg8sj",
+      "liq0": 4840.96,
+      "px0": 4.28e-06,
+      "liq": 4840.96,
+      "vol24": 6198025.99,
+      "age_h0": 23.715769166666668,
+      "px": 4.28e-06,
+      "tp1": false,
+      "tp2": false,
+      "realized": 0.0,
+      "cost0": 24.204800000000002,
+      "rescreened": 1790711992769,
+      "impact": 0.005,
+      "tier": "A",
+      "clean": 0,
+      "resized": true,
+      "seen_px": 1790712054412
+    }
+  },
+  "peak_equity": 1000.0,
+  "cooldown": {},
+  "halted": false,
+  "halt_until": 0,
+  "last_rebalance_week": null
 }
