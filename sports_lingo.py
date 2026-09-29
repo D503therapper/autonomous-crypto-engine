@@ -27,7 +27,7 @@ PAL = {
     "wk": ["Told y'all.", "Nice nice.", "Light work.", "Let's eat.", "Cook.", "Another one.", "Paid.", "Bag secured.",
            "Say less.", "Levels to this.", "Easy money.", "We eating.", "Stamp it.", "Keep stacking.", "Money.",
            "Run it back.", "That's how it's done.", "Get in.", "", "", ""],
-    "lk": ["Our bad.", "That's on us.", "Is what it is.", "We move.", "It happens.", "Next one.", "SMH.", "No excuses.",
+    "lk": ["Our bad.", "That's on us.", "Is what it is.", "It happens.", "Next one.", "SMH.", "No excuses.",
            "We own it.", "Every L stays up.", "We bounce back.", "Short memory.", "On to the next.", "Tip the cap.",
            "Can't win em all.", "Part of it.", "Chin up.", "Bad read.", "", ""],
     "go": ["Get in", "Tail it", "Hammer it", "Let's eat", "We buying", "Say less", "Cook", "Take it", "Buy the dip"],
@@ -273,6 +273,9 @@ REVIEWS = {
         "Public got lucky on {o}. {t} [came up short|didn't show]. %lk%",
         "Wrong night to fade the crowd. {o} [had it|got the W]. %lk%",
         "The clowns cashed one on {o}. Still fading. %lk%",
+        "[Faded|Went against] the [crowd|herd|squares] and {o} [made us pay|got there]. %lk%",
+        "The public [ate|cashed] this time on {o}. [We still fade 'em.|Rare one.|Happens.] %lk%",
+        "{t} [left us hanging|let us down] against the public side. %lk%",
     )),
     ("fav", "won"): (59, 2, T(
         "{t} [handled business|took care of business|did what favorites do|took care of it|got the job done] "
@@ -332,6 +335,16 @@ REVIEWS = {
         "Swung at the plus money on {t}, [whiffed|missed]. %lk%",
     )),
     ("spread", "won"): (62, 3, T(
+        "{t} covered. %wk%",
+        "[Cover|Covered|Cashed]: {t} [took care of it|got it done|did enough]. %wk%",
+        "{t} [handled the spread|beat the spread|covered with room]. %wk%",
+        "Spread [ticket|pick] on {t}? [Green|Paid|Money]. %wk%",
+        "{t} [kept it within|stayed within] reach and we cashed. %wk%",
+        "{o} couldn't [shake|pull away from] {t}. Covered. %wk%",
+        "The points [did their job|came through|paid off] with {t}. %wk%",
+        "{t} made the spread look easy. %wk%",
+        "Took {t} with the points. [Right call.|Paid.|Cashed.]",
+        "{t} [got us the cover|delivered the cover]. %wk%",
         "{t} covered the {x}. %wk%",
         "{t} [at|with] the {x}? Covered. %wk%",
         "Took the points with {t} and [it covered|we cashed]. %wk%",
@@ -346,6 +359,14 @@ REVIEWS = {
         "{x} with {t}? [Money|Green|Covered]. %wk%",
     )),
     ("spread", "lost"): (81, 2, T(
+        "{t} couldn't cover. %lk%",
+        "Spread [ticket|pick] on {t} [went red|missed|didn't land]. %lk%",
+        "{o} [pulled away|ran away with it] from {t}. %lk%",
+        "{t} [came up short on the spread|fell short of the cover]. %lk%",
+        "The points weren't enough with {t}. %lk%",
+        "{t} [let it get away|got blown past the number]. %lk%",
+        "No cover from {t}. %lk%",
+        "{t} [didn't hold the spread|lost the spread battle]. %lk%",
         "{t} couldn't cover the {x}. %lk%",
         "{t} [ended up|landed] on the wrong side of the {x}. %lk%",
         "The {x} wasn't enough [for {t}|this time]. %lk%",
@@ -562,12 +583,13 @@ def review(kind, result, seed, used, lean=False, **kw):
     repeating no 4-word run already in `used` (a set shared across the whole Past Results section).
     lean=True: no hype (a lean had no edge). result "push": the money-back line."""
     if result == "push":
-        key = ("push", "x" if kw.get("x") else "")
+        key = ("push", "")                                   # (no numbers in a review)
     else:
         key = (kind, result)
     if key not in REVIEWS:
         return ""
     chars, sents, templates = REVIEWS[key]
+    templates = [x for x in templates if "{x}" not in x] or templates   # no spread numbers in a review (the owner)
     kw.setdefault("pr", "they")
     kw.setdefault("pro", "them")
     kw.setdefault("pos", "their")
@@ -649,17 +671,17 @@ LINES = {
         'which they did. [Cashed|Paid|Nice nice]. 💰',
     )),
     "ls:lost": ((49, 2), True, T(
-        "they [shit the bed|never showed up|fumbled the bag|folded|came up short|laid an egg]. [Our bad|Is what it is|That's on us|Bad call|We move|No excuses].",
+        "they [shit the bed|never showed up|fumbled the bag|folded|came up short|laid an egg]. [Our bad|Is what it is|That's on us|Bad call|No excuses].",
         "they {lost_v}. [Our bad|Is what it is|That's on us|Bad call|We own it].",
-        "it didn't happen. [Our bad|Bad call|We move|Next one's ours|That's on us].",
+        "it didn't happen. [Our bad|Bad call|Next one's ours|That's on us].",
         'nope. [Wrong read|Bad call|Missed it], [our bad|on us].',
         "didn't happen. [That's on us|No excuses|Our bad].",
-        "they [never got there|ran out of time|ran outta road]. [We move|Next one's ours|Our bad].",
+        "they [never got there|ran out of time|ran outta road]. [Next one's ours|Our bad].",
         'swing and a miss. [Our bad|Is what it is|On us].',
         "we were wrong. [Next one's ours|It happens|We own it|Our bad].",
         'it went red. [Our bad|Short memory|We own it].',
         'they were booty cheeks. [Is what it is|Our bad].',
-        "no dice. [That's on us|We move|Our bad].",
+        "no dice. [That's on us|Our bad].",
     )),
     "ls:pending": ((38, 2), True, T(
         "we gon' see.",
@@ -704,15 +726,15 @@ LINES = {
         'W for {me}. [Cashed|Paid|Cook]. 💰',
     )),
     "tn:lost": ((40, 2), False, T(
-        "{me} [couldn't close the gap|ran out of road|never found the turn|couldn't flip it|came up short|ran outta gas]. [Is what it is|Our bad|Next one's ours|We move|It happens].",
-        'No comeback from {me}. [Our bad|We move|It happens].',
-        '{me} [fought|battled|scrapped] but lost. [Our bad|It happens|We move].',
+        "{me} [couldn't close the gap|ran out of road|never found the turn|couldn't flip it|came up short|ran outta gas]. [Is what it is|Our bad|Next one's ours|It happens].",
+        'No comeback from {me}. [Our bad|It happens].',
+        '{me} [fought|battled|scrapped] but lost. [Our bad|It happens].',
         '{me} never got going. [Our bad|On us].',
-        "Didn't happen for {me}. [We move|Our bad].",
+        "Didn't happen for {me}. [Our bad].",
         "{me} [dropped it|lost it]. [That's on us|Our bad|We own it].",
-        'Not {his} day. [Our bad|We move|It happens].',
-        "L on {me}. [Next one's ours|Short memory|We move].",
-        '{me} fell short. [It happens|Our bad|We move].',
+        'Not {his} day. [Our bad|It happens].',
+        "L on {me}. [Next one's ours|Short memory].",
+        '{me} fell short. [It happens|Our bad].',
         'Wrong read on {me}. [We own it|Our bad].',
     )),
     "tn:pend": ((34, 2), False, T(
@@ -730,18 +752,17 @@ LINES = {
         "Need {me} to [close|finish]. We gon' see.",
     )),
     # 🎾 the result on top of a graded tennis pick ({sc} = " (6-4, 6-3)" from our player's side, or "")
-    "rc:cover": ((64, 2), False, T(
-        '💰 {who} [lost the match|dropped the match|took the L]{sc} but covered the {hcp}. [Cashed.|Paid.|Money.]',
-        '💰 Lost the match{sc}, won us the bet — {who} stayed inside {hcp} games.',
-        '💰 {who} [kept it close|hung around|made it tight|stayed close]{sc}. The {hcp} games [came through|got there|delivered|got it done].',
-        '💰 L on the court, W on the ticket{sc}. {who} {hcp} [came through|got there|delivered|got it done].',
-        "💰 {who} [lost|fell|went down]{sc} but the {hcp} games [cashed|paid|hit]. That's why we took the games.",
-        '💰 Took the games for a reason: {who} [lost|fell]{sc}, {hcp} [covered|cashed].',
-        '💰 {who} {hcp} games [covered|cashed|paid]{sc}, even in the loss.',
-        '💰 Match went the other way{sc}, but {who} [covered|cashed] the {hcp}.',
-        '💰 {who} [fell|lost]{sc}, [still covered|still got us paid|still cashed] at {hcp} games.',
-        '💰 Covered{sc}. {who} lost the match, not the bet at {hcp}.',
-        '💰 {who} dropped the match{sc} but kept it close — the {hcp} games [came through|got there|delivered|got it done].',
+    "rc:cover": ((64, 2), False, T(   # (no scores, no spread numbers in a review - the owner, 9/28)
+        '💰 {who} [lost the match|dropped the match|took the L] but kept it close enough. [Cashed.|Paid.|Money.]',
+        '💰 Lost the match, won us the bet — {who} kept it close.',
+        '💰 {who} [kept it close|hung around|made it tight|stayed close]. The games [came through|got there|delivered].',
+        '💰 L on the court, W on the ticket. {who} [came through|got there|delivered].',
+        "💰 {who} [lost|fell|went down] but the games [cashed|paid|hit]. That's why we took the games.",
+        '💰 Took the games for a reason: {who} [lost|fell] and we still [covered|cashed].',
+        '💰 {who} [covered|cashed|paid] even in the loss.',
+        '💰 Match went the other way, but {who} [covered|cashed] for us.',
+        '💰 {who} [fell|lost] and [still covered|still got us paid|still cashed].',
+        '💰 Covered. {who} lost the match, not the bet.',
     )),
     "rc:won": ((39, 2), False, T(
         "💰 {who} [got it done|handled business|came through|went to work|took care of it|smacked that]{sc}. [Cashed.|Paid.|Told y'all.|Nice nice.|Easy money.|Light work.]",
@@ -760,12 +781,12 @@ LINES = {
         "😤 That one's on us — {who} [folded|lost|fell]{sc}. We don't hide nothing.",
         '😤 {who} was booty cheeks today{sc}. [Our bad.|On us.]',
         "😤 Missed{sc}. {who} didn't have it today. [Our bad.|On us.]",
-        '😤 L for {who}{sc}. [We move.|It happens.|On to the next.|Our bad.]',
+        '😤 L for {who}{sc}. [It happens.|On to the next.|Our bad.]',
         '😤 {who} [dropped it|lost it]{sc}. [Wrong call|Bad read], our bad.',
         "😤 Not {his} day{sc}. [We own it.|That's on us.|Our bad.]",
-        "😤 {who} went down{sc}. [Short memory.|Next one's ours.|We move.]",
-        '😤 Red ticket{sc}: {who} [lost|fell short]. [Our bad.|We move.]',
-        '😤 {who} ran outta gas{sc}. [Our bad.|Is what it is.|We move.]',
+        "😤 {who} went down{sc}. [Short memory.|Next one's ours.]",
+        '😤 Red ticket{sc}: {who} [lost|fell short]. [Our bad.]',
+        '😤 {who} ran outta gas{sc}. [Our bad.|Is what it is.]',
     )),
 }
 
@@ -1106,7 +1127,7 @@ NOTES = {
         "Sitting out is a play too.", "Discipline over everything.", "Smart money waits.",
         "We only swing at our pitch.", "No reaching today.", "If it ain't there, it ain't there.",
         "Tomorrow's another slate.", "We ain't clowns betting blind.", "We're not out here betting just to bet.",
-        "Blind betting is for the clowns.", "We move with a reason, not just to be in action.",
+        "Blind betting is for the clowns.",
         "No action for action's sake.", "[Levels to this|Nice nice]. We [wait|pick our spots].",
     ),
     "lean_open": T(

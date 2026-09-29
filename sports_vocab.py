@@ -63,7 +63,7 @@ SLOTS = {
     "sweat": ["a sweat", "a nail-biter", "tight", "a grind", "close", "heart-attack stuff", "down to the wire",
               "a coin-flip finish"],
     "shrug": ["It happens.", "On to the next.", "Part of it.", "Can't win em all.", "Reset and run it.",
-              "Shake it off.", "We move.", "Tomorrow's another slate.", "Next one.", "Short memory.",
+              "Shake it off.", "Tomorrow's another slate.", "Next one.", "Short memory.",
               "Numbers stay the numbers.", "Chin up.", "We keep stacking."],
 }
 
