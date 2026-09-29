@@ -1,6 +1,6 @@
 {
- "matches": 71630,
- "rated": 56030,
+ "matches": 71631,
+ "rated": 56031,
  "weights": [
   0.001,
   0.871,
@@ -203,8 +203,8 @@
    }
   },
   "wta": {
-   "rated": 30166,
-   "fit": 28166,
+   "rated": 30167,
+   "fit": 28167,
    "graded": 2000,
    "own_weights": true,
    "weights": [
@@ -222,19 +222,19 @@
      5.378
     ]
    },
-   "acc": 0.6475,
-   "logloss": 0.6242,
+   "acc": 0.647,
+   "logloss": 0.6241,
    "acc_elo": 0.6485,
-   "logloss_elo": 0.6225,
+   "logloss_elo": 0.6224,
    "life": {
     "base": {
-     "logloss": 0.6242,
-     "acc": 0.6475
+     "logloss": 0.6241,
+     "acc": 0.647
     },
     "graded": 2000,
     "graded_with_both_ages": 2000,
     "curve": {
-     "16-17": -0.01481,
+     "16-17": -0.0148,
      "18-19": 0.0,
      "20-21": -0.01312,
      "22-23": -0.0116,
@@ -243,16 +243,16 @@
      "28-29": -0.02719,
      "30-31": -0.03962,
      "32-33": -0.0447,
-     "34-35": -0.04187,
+     "34-35": -0.04186,
      "36-37": -0.02724,
-     "38+": -0.06517
+     "38+": -0.06516
     },
     "curve_sides": {
      "16-17": 558,
      "18-19": 2710,
      "20-21": 6110,
      "22-23": 8835,
-     "24-25": 10024,
+     "24-25": 10026,
      "26-27": 9630,
      "28-29": 7952,
      "30-31": 5411,
@@ -268,24 +268,24 @@
       "active": 1999,
       "logloss": 0.62,
       "acc": 0.653,
-      "gain_mnats": 4.159,
-      "z": 2.44,
+      "gain_mnats": 4.135,
+      "z": 2.42,
       "weights": {
-       "exp": -0.0763,
-       "big": 0.1827
+       "exp": -0.0762,
+       "big": 0.1826
       }
      },
      "age": {
       "n": 2000,
       "active": 2000,
-      "logloss": 0.6235,
+      "logloss": 0.6234,
       "acc": 0.6505,
-      "gain_mnats": 0.695,
-      "z": 0.84,
+      "gain_mnats": 0.719,
+      "z": 0.87,
       "weights": {
        "age_gap": -0.0609,
        "age_curve": 0.0818,
-       "teen_rise": -0.067,
+       "teen_rise": -0.0671,
        "vet_bo5": 0.0,
        "bio_miss": 0.0
       }
@@ -307,37 +307,37 @@
       "active": 1935,
       "logloss": 0.6234,
       "acc": 0.647,
-      "gain_mnats": 0.776,
-      "z": 0.79,
+      "gain_mnats": 0.74,
+      "z": 0.76,
       "weights": {
-       "last_sets": -0.0382,
-       "last_dist": 0.0703,
-       "last_long": -0.1289,
-       "rest": -0.147
+       "last_sets": -0.0381,
+       "last_dist": 0.071,
+       "last_long": -0.1298,
+       "rest": -0.1469
       }
      },
      "streaks": {
       "n": 2000,
       "active": 644,
-      "logloss": 0.6246,
+      "logloss": 0.6245,
       "acc": 0.6455,
       "gain_mnats": -0.393,
       "z": -0.77,
       "weights": {
-       "lost2": -0.1057,
-       "won3": 0.0134
+       "lost2": -0.1056,
+       "won3": 0.0133
       }
      },
      "first_set": {
       "n": 2000,
       "active": 1968,
-      "logloss": 0.6232,
+      "logloss": 0.6231,
       "acc": 0.6495,
-      "gain_mnats": 0.978,
-      "z": 2.29,
+      "gain_mnats": 0.965,
+      "z": 2.25,
       "weights": {
-       "fs_rate": 0.2221,
-       "f2_rate": 0.1529
+       "fs_rate": 0.2223,
+       "f2_rate": 0.1538
       }
      },
      "injury": {
@@ -345,18 +345,18 @@
       "active": 1714,
       "logloss": 0.6234,
       "acc": 0.652,
-      "gain_mnats": 0.719,
-      "z": 1.24,
+      "gain_mnats": 0.716,
+      "z": 1.23,
       "weights": {
-       "inj_recent": -0.1809,
-       "inj_12m": 0.1874
+       "inj_recent": -0.181,
+       "inj_12m": 0.1876
       }
      },
      "travel": {
       "n": 2000,
       "active": 26,
-      "logloss": 0.6242,
-      "acc": 0.648,
+      "logloss": 0.6241,
+      "acc": 0.6475,
       "gain_mnats": -0.022,
       "z": -0.15,
       "weights": {
@@ -374,13 +374,13 @@
      "active": 2000,
      "logloss": 0.6188,
      "acc": 0.652,
-     "gain_mnats": 5.372,
-     "z": 3.01,
+     "gain_mnats": 5.328,
+     "z": 2.99,
      "weights": {
       "exp": -0.0749,
-      "big": 0.1849,
-      "fs_rate": 0.241,
-      "f2_rate": 0.2128
+      "big": 0.1848,
+      "fs_rate": 0.2412,
+      "f2_rate": 0.2138
      },
      "factors": [
       "experience",
@@ -391,9 +391,9 @@
    }
   }
  },
- "acc": 0.6425,
+ "acc": 0.6422,
  "logloss": 0.6275,
  "acc_elo": 0.6445,
- "logloss_elo": 0.6267,
- "updated": "2026-09-29T04:44Z"
+ "logloss_elo": 0.6266,
+ "updated": "2026-09-29T04:50Z"
 }
