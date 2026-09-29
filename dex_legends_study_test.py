@@ -1,6 +1,8 @@
 """Offline checks for dex_legends_study.py (no network): the live exit, the add-ons, entry and holder replay."""
 import unittest
 
+import config
+
 import dex_legends_study as S
 from dex_exit_study import DAY, HOUR
 
@@ -40,7 +42,7 @@ class T(unittest.TestCase):
         flat = [1.0] * (H14 + 50)
         x = S.simulate(ser(flat), 0, rule(), log=True)
         self.assertEqual(x["sells"][-1][4], "time limit 14d")
-        self.assertAlmostEqual((x["exit_t"] - (T0 + HOUR)) / DAY, 14, delta=0.05)
+        self.assertAlmostEqual((x["exit_t"] - (T0 + HOUR)) / DAY, config.DEX["exit"]["max_hold_days"], delta=0.05)
         up = [1.0] + [2.5] * (H14 + 10) + [2.5 - 0.02 * i for i in range(1, 100)]
         y = S.simulate(ser(up), 0, rule(), log=True)
         self.assertTrue(y["runner"])

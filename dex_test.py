@@ -702,19 +702,20 @@ def test_study_exit():
                 break
         shutil.rmtree(d)
         return out, pos
-    ex, _ = held([0.6, 0.5, 0.7, 1.3])                   # -50% dip inside 14 days: no stop
+    ex, _ = held([0.6, 0.5, 0.7, 1.3])                   # -50% dip inside the hold: no stop
     assert not any(ex)
-    ex, _ = held([1.2] * 16)                              # +20% at day 14 (bought seconds after T0): sold
-    assert ex[-1] and len(ex) == 15
-    ex, pos = held([1.5] * 13 + [2.5] * 3)               # 2.5x at day 14: keeps riding (runner)
+    N = dex.DEX["exit"]["max_hold_days"]
+    ex, _ = held([1.2] * (N + 2))                         # +20% at the limit (bought seconds after T0): sold
+    assert ex[-1] and len(ex) == N + 1
+    ex, pos = held([1.5] * (N - 1) + [2.5] * 3)          # 2.5x at the limit: keeps riding (runner)
     assert not any(ex) and pos.get("runner")
-    ex, _ = held([2.5] * 13 + [2.6, 2.0, 1.2])            # runner then drops 50% from its high -> sold
+    ex, _ = held([2.5] * (N - 1) + [2.6, 2.0, 1.2])       # runner then drops 50% from its high -> sold
     assert ex[-1]
     ex, pos = held([2, 2.9, 3.2])                         # EXPERIMENT 3: at 3x sell the stake (1/3.2), keep the rest
     assert ex == [False, False, True] and "stake back at 3.2x" in pos["exit"]["reason"]
     assert abs(pos["exit"]["frac"] - 1 / 3.2) < 0.01 and pos["sb"]
-    ex, _ = held([2.5] * 13 + [2.6, 2.1, 1.6, 1.5])       # runner at day 14, then -42% from its high -> sold
-    assert ex[-1] and len(ex) == 17
+    ex, _ = held([2.5] * (N - 1) + [2.6, 2.1, 1.6, 1.5])  # runner at the limit, then -42% from its high -> sold
+    assert ex[-1] and len(ex) == N + 3
     print("  live exit: 14-day hold without stop, runner at the limit rides a 40% trail   ok")
 
 
