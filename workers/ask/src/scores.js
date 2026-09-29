@@ -67,14 +67,16 @@ function match(c) {
   const comps = c.competitors || [];
   if (comps.length !== 2) return null;
   const st = ((c.status || {}).type) || {};
-  if (st.state === "pre") return null;
+  const played = comps.some((x) => (x.linescores || []).some((l) => +l.value > 0));
+  if (st.state === "pre" && !played) return null;          // not started yet (a delay mid-match still shows the score)
+  const delayed = /DELAY|SUSPEND|RAIN/i.test(`${st.name || ""} ${st.description || ""} ${st.detail || ""}`) && st.state !== "post";
   const name = (x) => { const a = x.athlete || {}; const n = String(a.displayName || a.fullName || "?").split(" "); return n[n.length - 1]; };
   const s = comps.map((x) => (x.linescores || []).map((l) => Math.round(+l.value || 0)));
   const sets = s[0].map((g, i) => [g, s[1][i] ?? 0]);
   const fin = ([a, b]) => Math.max(a, b) >= 6 && (Math.abs(a - b) >= 2 || Math.max(a, b) === 7);
   let done = 0;
   while (done < sets.length && fin(sets[done])) done++;
-  const live = st.state === "in";
+  const live = st.state === "in" || (delayed && played);
   let pts = null;
   const p = comps.map(points);
   if (live && p[0] !== null && p[1] !== null) {
@@ -84,7 +86,7 @@ function match(c) {
   }
   const sv = comps.map(serving);
   const srv = sv[0] && !sv[1] ? 0 : sv[1] && !sv[0] ? 1 : null;
-  return { tennis: true, p1: true, n: comps.map(name), sets, pts, srv, done, live };
+  return { tennis: true, p1: true, n: comps.map(name), sets, pts, srv, done, live, delayed };
 }
 
 export async function handleScores(request, env, ctx, origins) {
