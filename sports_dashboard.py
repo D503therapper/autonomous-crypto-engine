@@ -101,7 +101,7 @@ LIVE_KEEP_HOUR_PT = 8         # a day's live bets (cashed, lost or still going) 
 
 
 def live_days(now_pt):
-    """The dates whose live bets are on the LIVE PLUS MONEY TODAY list right now."""
+    """The dates whose live bets are on the LIVE PLUS MONEY list right now."""
     d = now_pt.date()
     return {d.isoformat()} | ({(d - timedelta(days=1)).isoformat()} if now_pt.hour < LIVE_KEEP_HOUR_PT else set())
 
@@ -823,7 +823,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     pid_of = {id(e): pid for pid, e in live.items()}
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
-                 '<span class="pk-l">LIVE PLUS MONEY TODAY</span></div>' + "".join(
+                 '<span class="pk-l">LIVE PLUS MONEY</span></div>' + "".join(
                      f'<div class="leg {e.get("result") or ""}" data-pid="{E(pid_of.get(id(e), ""))}"><div class="lt"><span class="lgb">{_live_icon(e)} '
                      f'{E(_live_sport(e))}{" · 🔁 DOUBLE DOWN" if e.get("double_down") else ""}</span>'
                      f'{badge_.get(e.get("result")) or pending_(pid_of.get(id(e), ""), e)}</div>'
@@ -1350,7 +1350,7 @@ function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return
     var t=have.querySelector(".lt>.tm,.lt>.lr");if(t)t.outerHTML=badge(e.result);var sc=have.querySelector(":scope>.lsc");if(sc)sc.remove();}}
    return}}
   var sec=el.querySelector("section");
-  if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY TODAY</span></div></section>';sec=el.querySelector("section");}}
+  if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY</span></div></section>';sec=el.querySelector("section");}}
   var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ still going</span>';
   var h=document.createElement("div");h.className="leg "+(e.result||"");h.setAttribute("data-pid",e.pid);
   h.innerHTML='<div class="lt"><span class="lgb">'+esc(e.icon)+' '+esc(e.sport)+(e.dd?' · 🔁 DOUBLE DOWN':'')+'</span>'+b+'</div><div class="lm"><span class="pick">'+esc(e.team)+' <em>ML</em></span><span class="od">+'+esc(e.odds)+'</span></div>';

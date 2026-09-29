@@ -1240,7 +1240,7 @@ def _live_days():
 
 
 def today_bets(log):
-    """Today's live bets (pending ones too) for the page's LIVE PLUS MONEY TODAY list - it adds any the built page
+    """Today's live bets (pending ones too) for the page's LIVE PLUS MONEY list - it adds any the built page
     doesn't have yet, so a bet shows the moment it's logged, not at the next page rebuild. Newest last."""
     import sports_dashboard as sdb
     days = sdb.live_days(datetime.now(PT))                   # (till the next board drops at 8 AM PT)
