@@ -2630,7 +2630,7 @@ def test_past_results_vocab():
         assert len(revs) >= 80 and all(revs), len(revs)
         names = sorted(list({f"{t}{n}" for p in picks for l in p["legs"] if l["market"] != "total"
                         for n in (l["team"], l["opp"]) for t in ("", "the ")})
-                       + ["Over 44.5", "Under 44.5"], key=len, reverse=True)   # (as the reviews name them)
+                       + ["the over", "the under", "The over", "The under"], key=len, reverse=True)   # (as the reviews name them)
         seen = {}
         for r in revs:
             assert not re.search(r"real talk|chalk", r, re.I), r

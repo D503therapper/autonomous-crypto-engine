@@ -366,11 +366,11 @@ def _tennis():
         lost_match = bool(sets) and won_sets * 2 < len(sets)
         out = ""
         if l.get("result") == "won" and l.get("market") == "spread" and lost_match:
-            out = sports_lingo.say("rc:cover", l["id"], used, who=who, sc=sc, hcp=f"{l['hcp']:+g}")
+            out = sports_lingo.say("rc:cover", l["id"], used, who=who, sc="")
         elif l.get("result") == "won":
-            out = sports_lingo.say("rc:won", l["id"], used, who=who, sc=sc, his=his)
+            out = sports_lingo.say("rc:won", l["id"], used, who=who, sc="", his=his)
         elif l.get("result") == "lost":
-            out = sports_lingo.say("rc:lost", l["id"], used, who=who, sc=sc, his=his)
+            out = sports_lingo.say("rc:lost", l["id"], used, who=who, sc="", his=his)
         elif l.get("result") == "void":
             out = "🤷 Voided — no result, no harm."
         recaps[l["id"]] = out
@@ -537,7 +537,7 @@ def _history(picks):
         kind = "spread" if l.get("market") == "spread" else "dog" if (l.get("odds") or 0) > 0 else "fav"
         x = f'{l["line"]:+g}' if l.get("line") is not None else ""
         if l.get("market") == "total":
-            kind, t_, x = "total", f'{"Over" if l.get("side") == "over" else "Under"} {l.get("line"):g}', f'{l.get("line"):g}'
+            kind, t_, x = "total", ("the over" if l.get("side") == "over" else "the under"), ""   # (no numbers in a review)
         elif flow and flow[1] >= COMEBACK.get(lg, 99) and r == "won":   # down big and came back (how we won matters)
             kind, xtra = "comeback", {"d": flow[1]}
         elif flow and flow[2] >= COMEBACK.get(lg, 99) and r == "lost":  # up big and blew it
@@ -897,8 +897,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
         hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
-        chips.append(f'<div class="spc"><span><b>{name}</b><small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>'
-                     f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i></div>')
+        hs = {"tennis_atp": "🎾 Men's Tennis", "tennis_wta": "🎾 Women's Tennis"}.get(lgs[0]) or \
+            f"{sd.LEAGUES[lgs[0]][3]} {sd.LEAGUES[lgs[0]][2]}"          # the matching Past Results list (tap = open it)
+        chips.append(f'<div class="spc{" tap" if n_ else ""}" data-hs="{E(hs)}"><span><b>{name}</b>'
+                     f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>'
+                     f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i>{"<em>▾</em>" if n_ else ""}</div>')
     by_sport = "".join(chips)
     RECORDS["by sport"] = {name.split(" ", 1)[1]: wlt(sum(r == 'won' for lg, r in res if lg in lgs),
                                                       sum(r == 'lost' for lg, r in res if lg in lgs)) for name, lgs in groups + tn_groups}
@@ -1171,10 +1174,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tsb em{{font-style:normal;text-align:center;font-weight:900;color:#ff8a8a}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
 @keyframes lvp{{0%{{box-shadow:0 0 0 0 rgba(255,43,43,.9),0 0 6px 1px #ff2b2b}}70%{{box-shadow:0 0 0 9px rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}100%{{box-shadow:0 0 0 0 rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}}}
 .nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
-.tn{{margin:22px 0 6px;border:1px solid #c6f00066;border-radius:18px;background:linear-gradient(165deg,#c6f00014,var(--card))}}
-.tn summary{{list-style:none;cursor:pointer;padding:16px 18px;display:flex;flex-direction:column;gap:4px}}
+.tn{{margin:26px 0 10px;border:2px solid #c6f000;border-radius:20px;background:linear-gradient(165deg,#c6f00026,var(--card));box-shadow:0 0 22px #c6f00033}}
+.tn summary{{list-style:none;cursor:pointer;padding:24px 20px;display:flex;flex-direction:column;gap:8px}}
 .tn summary::-webkit-details-marker{{display:none}}
-.tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:15px}} .tn-s{{font-size:12.5px;color:#fff;font-weight:700}}
+.tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:22px}} .tn-s{{font-size:15px;color:#fff;font-weight:700}}
+.spc.tap{{cursor:pointer}} .spc em{{font-style:normal;color:#9fb0c8;font-size:12px;margin-left:8px}}
 .tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}}
 .chip.lean{{background:#ffc233;color:#111;margin-right:6px}} .chip.val{{background:#ff5a1f;color:#fff;margin-right:6px}}
 .chip.lk{{background:#22e39a;color:#06281c;margin-right:6px}}
@@ -1268,7 +1272,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> our record is the start-of-day board — the Lock, the Dog, the 2-Leg, the 3-Leg and the 4-Leg (on a one-game day, that one pick counts too — it only gets called the Lock of the Day when the engine’s as confident as it is in a real one), every leg a 🔒 lock or 🔥 value call the engine is confident in. The live plus money picks and leans that pop up throughout the day each keep their own record as well as tennis. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>What counts:</b> every pick we post counts once in our record — the Lock of the Day, the Dog of the Day, every pick in the 2-, 3- and 4-leg parlays, and every lean. Parlays don’t keep a record of their own; their picks each count on their own. Locks, value, leans, the Lock of the Day and the Dog of the Day each get their own grade too. Live plus money and tennis keep their own records. Question box reads never count. Every W and every L is right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}{"".join(rec)}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
@@ -1370,6 +1374,10 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
       h='<b>'+q(sc.away+" "+sc.a+" @ "+sc.home+" "+sc.h)+'</b>'+(c?' <span>· '+q(c)+'</span>':'');}}
     if(box.innerHTML!==h)box.innerHTML=h;}}
   else if(box)box.remove();}})}}
+document.addEventListener("click",function(ev){{var c=ev.target.closest&&ev.target.closest(".spc.tap");if(!c)return;
+ var want=c.getAttribute("data-hs"),hit=null;document.querySelectorAll("details.hs>summary>b").forEach(function(b){{if(b.textContent===want)hit=b.closest("details")}});
+ if(!hit)return;for(var d=hit;d;d=d.parentElement&&d.parentElement.closest("details"))d.open=true;   // open it + what it's in
+ hit.scrollIntoView({{behavior:"smooth",block:"start"}});}});
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();
