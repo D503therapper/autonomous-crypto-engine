@@ -151,7 +151,7 @@ def memory(picks=None, since=None, skip=()):
 
 
 def grams(text, names=(), n=4):
-    """The 4-word runs in a line (names -> _, numbers -> #): what makes two write-ups read alike. No run is said twice
+    """The 4-word runs in a line (names and numbers -> _): what makes two write-ups read alike. No run is said twice
     on a board or from one day to the next - words come back, phrases don't."""
     t = f" {text or ''} ".lower()
     for nm in names:
@@ -296,7 +296,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     if ours:
         last_us = _line(ours[-1], tid)
         both = f"{us} {last_us}" + (f" · {them} {_line(theirs[-1], oid)}" if theirs else "")
-        out.append(_say(v, "latest", both=both))
+        out.append(_say(v, "latest", words=W, both=both))
 
     # head to head
     h2h = [x for x in ours if oid in (x["home"], x["away"])]
@@ -426,9 +426,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
     if not key_any and op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
-        why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   NO_WHY)
-        said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
+        why, r = _why(leg, said, us, them, f"{v.seed}|why")
+        said.add(r)
         out.append(_nowhy(_say(v, "fade", The_them=_cap(the_them), the_them=the_them, move=move, the_us=the_us,
                                why=why)))
 
@@ -443,8 +442,7 @@ def breakdown(leg, games, elo, injuries, used=None):
 
     # the public: fading them or riding with them
     pub = public_side(leg, g)
-    why_pub = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   NO_WHY)
+    why_pub = _why(leg, said, us, them, f"{v.seed}|whyp")[0]
     if sp_:
         pass                                          # the real splits already said it (with the numbers)
     elif pub == "fade":
@@ -476,25 +474,35 @@ def breakdown(leg, games, elo, injuries, used=None):
     return lines
 
 
-WHY = {   # the pick's reasons, said as a quick "because"
-    "the stronger team": "they're the better team",
-    "hotter recent form": "they're the hotter team",
-    "better rested": "they got extra days of rest",
-    "opponent on a back-to-back": "{them} are on tired legs",
-    "opponent missing key players": "{them} are banged up",
-    "revenge game": "they owe these guys one",
-    "altitude edge": "{them} gonna be sucking wind up there",
-    "opponent's body clock is off": "{them} are playing on jet lag",
-    "cold-weather edge": "{them} aren't built for the cold",
-    "nasty weather helps us": "sloppy weather keeps it close",
-    "rolling off a blowout win": "they're rolling off a blowout",
-    "letdown spot for the opponent": "{them} are due for a letdown",
-    "coming off a bye": "they're fresh off a bye",
-    "opponent on a short week": "{them} are on a short week",
-    "better starting pitcher": "we've got the better arm on the mound",
-    "better QB play lately": "our QB's been playing better",
-    "hotter goalie": "our goalie's been hotter",
+WHY = {   # the pick's reasons, said as a quick "because" (each one several ways)
+    "the stronger team": "[they're the better team|they're just better|they got more talent|they're the stronger side]",
+    "hotter recent form": "[they're the hotter team|they're rolling|they've been playing better|their form's better]",
+    "better rested": "[they got extra days of rest|they're fresher|they had more rest|their legs are fresher]",
+    "opponent on a back-to-back": "[{them} are on tired legs|{them} played last night|{them} are on a back-to-back]",
+    "opponent missing key players": "[{them} are banged up|{them} are missing bodies|{them} are short-handed]",
+    "revenge game": "[they owe these guys one|it's a get-back game|they want this one back]",
+    "altitude edge": "[{them} gonna be sucking wind up there|the thin air gets to {them}|{them} ain't built for altitude]",
+    "opponent's body clock is off": "[{them} are playing on jet lag|{them} are jet-lagged|{them} are on the wrong clock]",
+    "cold-weather edge": "[{them} aren't built for the cold|{them} hate the cold|the cold hits {them} harder]",
+    "nasty weather helps us": "[sloppy weather keeps it close|the slop evens it out|bad weather keeps it tight]",
+    "rolling off a blowout win": "[they're rolling off a blowout|they just blew somebody out|they're coming off a blowout]",
+    "letdown spot for the opponent": "[{them} are due for a letdown|{them} are in a trap spot|{them} could come out flat]",
+    "coming off a bye": "[they're fresh off a bye|they had the bye to prep|they're rested off a bye]",
+    "opponent on a short week": "[{them} are on a short week|{them} had a short week|{them} are on a quick turnaround]",
+    "better starting pitcher": "[we've got the better arm on the mound|our starter's better|we got the better arm]",
+    "better QB play lately": "[our QB's been playing better|our QB's been sharper|we got the hotter QB]",
+    "hotter goalie": "[our goalie's been hotter|our goalie's been sharper|we got the hotter goalie]",
 }
+
+
+def _why(leg, said, us, them, seed):
+    """(the next reason not said yet as a quick "because" - worded fresh per game -, that reason) or (NO_WHY, None)."""
+    import sports_vocab
+    r = next((r for r in leg.get("reasons") or [] if r in WHY and r not in said), None)
+    if r is None:
+        return NO_WHY, None
+    x = sports_vocab.one([WHY[r]], seed, us=us, them=them)
+    return (x[:1].lower() + x[1:] if WHY[r][1:2].islower() else x), r
 
 
 NO_WHY = "\u00a7"     # placeholder: no fresh reason left, so the line ends on our side instead of a filler "because"
