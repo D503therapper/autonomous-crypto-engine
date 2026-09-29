@@ -3028,6 +3028,16 @@ def test_tennis_battle_review_only_on_a_real_sweep():
     assert "2-0" not in review("7-6, 4-6, 6-3")
 
 
+def test_watcher_asks_espn_for_fresh_copies():
+    """9/29: the watcher's ESPN tennis read got old copies (Kalieva stuck at 5-4 after she'd won) - it asks for a fresh
+    copy every second, like the worker."""
+    import sports_live as slv
+    assert slv.fresh_url("https://x/scoreboard").startswith("https://x/scoreboard?_=")
+    assert "?dates=1&_=" in slv.fresh_url("https://x/scoreboard?dates=1")
+    src = open(slv.__file__).read()
+    assert "_get(fresh_url(stn.ESPN.format(tour=tour) + q))" in src and "_get(fresh_url(ESPN_SB.format(" in src
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

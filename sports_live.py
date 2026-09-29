@@ -235,6 +235,12 @@ def full_breakdown(league, us, them, rs, seed, rate_mine=None, used=None):
 
 
 # ---------------------------------------------------------------- one watch cycle
+def fresh_url(url):
+    """ESPN's servers hand out older copies (a tennis score flipped 1-3, 1-2, 1-3; Kalieva's stuck at 5-4 after the match
+    ended - 9/29): a new address every second gets a fresh one."""
+    return f"{url}{'&' if '?' in url else '?'}_={int(time.time())}"
+
+
 def _get(url, tries=2):
     """GET json; one quick retry (feeds hiccup - a connection reset shouldn't cost a check)."""
     for i in range(tries):
@@ -522,7 +528,7 @@ SEEN = set()                  # plays that qualified last cycle: a play only sho
 def espn_scores(league):
     """{espn event id: (home score, away score)} for games going right now - a second source for the score."""
     try:
-        d = _get(ESPN_SB.format(path=sd.LEAGUES[league][0]) + "?limit=300" + (sd.LEAGUES[league][1] or ""))
+        d = _get(fresh_url(ESPN_SB.format(path=sd.LEAGUES[league][0]) + "?limit=300" + (sd.LEAGUES[league][1] or "")))
     except Exception as e:                                   # noqa: BLE001
         sd.ERRORS.append(f"espn scores {league}: {str(e)[:80]}")
         return {}
@@ -797,7 +803,7 @@ def tennis_feeds():
     for tour in stn.TOURS:
         for q in ("", f"?dates={nxt}"):                     # Asia's matches sit on the next day's scoreboard
             try:
-                for r in stn.parse_espn(_get(stn.ESPN.format(tour=tour) + q), tour):
+                for r in stn.parse_espn(_get(fresh_url(stn.ESPN.format(tour=tour) + q)), tour):
                     if r["id"] not in seen:
                         seen.add(r["id"])
                         rows.append(r)
