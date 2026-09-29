@@ -822,6 +822,7 @@ def post_board(games, model, picks, now, day, force=False):
                          if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)
             if same:                                  # the same pick reads the same everywhere it shows up
                 leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
+                leg["why_line"] = same.get("why_line", "")
             else:
                 leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
             leg["public"] = sports_breakdown.public_side(leg, g)
@@ -932,6 +933,7 @@ def add_breakdowns(games, model, picks):
         same = next((l for l in done if _same_leg(l, leg)), None)
         if same:                                      # the same pick reads the same everywhere it shows up
             leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
+            leg["why_line"] = same.get("why_line", "")
         else:
             leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
         leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])

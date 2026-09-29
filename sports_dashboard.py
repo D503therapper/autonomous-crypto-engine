@@ -190,6 +190,27 @@ LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class=
            "lean": '<span class="lt-t lean">🟡 SLIGHT LEAN</span>', "strong": '<span class="lt-t lean">💪 STRONG LEAN</span>'}
 
 
+WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason, still said our way
+    "the stronger team": "💪 {us} are just the better team tonight.",
+    "hotter recent form": "🔥 {us} are playing better ball than {opp} lately.",
+    "opponent missing key players": "🚑 {opp} are banged up — we pouncing.",
+    "sharp money moving this way": "💸 The sharp money's been coming in on {us}.",
+    "better rested": "🛌 {us} got the extra rest. Fresh legs.",
+    "opponent on a back-to-back": "😮‍💨 {opp} played last night — tired legs.",
+    "better starting pitcher": "⚾ We got the better arm on the mound.",
+    "hotter goalie": "🧱 {us} got the hotter goalie.",
+    "better QB play lately": "🎯 {us} got the better QB play lately.",
+    "revenge game": "😤 {us} owe {opp} one.",
+}
+
+
+def _why_fallback(leg):
+    for r in leg.get("reasons") or []:
+        if r in WHY_TAG:
+            return WHY_TAG[r].format(us=leg["team"], opp=leg["opp"])
+    return ""
+
+
 def _leg(leg, tagged=False):
     import sports
     lg = sd.LEAGUES[leg["league"]]
@@ -202,7 +223,7 @@ def _leg(leg, tagged=False):
     mark = ""
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "push": '<span class="lr push">PUSH</span>', "void": '<span class="lr push">VOID</span>'}.get(res, "")
-    why = " · ".join(E(r) for r in leg.get("reasons") or [])
+    why = E(leg.get("why_line") or _why_fallback(leg))      # a real line in our lingo, never a bare tag (the owner, 9/29)
     pub = leg.get("public")
     tag = ('<span class="pub fade">🤡 FADING THE PUBLIC</span>' if pub == "fade" else
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
@@ -1559,6 +1580,14 @@ var OUT=["You’re on your own with this one. Good luck — hope it smacks. 🤞
 function vibe(p,id){{return pick(id+"v",p>=0.65?["The engine likes them to handle business.","They should take care of business.","Engine’s feeling good about this side.","They got the better squad and it shows."]:
  p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
  ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}}
+var WHYL={{"the stronger team":"💪 {{u}} are just the better team tonight.","hotter recent form":"🔥 {{u}} are playing better ball lately.",
+ "opponent missing key players":"🚑 {{o}} are banged up — that's the opening.","sharp money moving this way":"💸 The sharp money's been coming in on {{u}}.",
+ "better rested":"🛌 {{u}} got the extra rest. Fresh legs.","opponent on a back-to-back":"😮‍💨 {{o}} played last night — tired legs.",
+ "better starting pitcher":"⚾ {{u}} got the better arm on the mound.","hotter goalie":"🧱 {{u}} got the hotter goalie.",
+ "better QB play lately":"🎯 {{u}} got the better QB play lately.","revenge game":"😤 {{u}} owe these guys one."}};
+function whyl(L,g){{var o=L.team===g.home?g.away:g.home;   // a read's top reason in our lingo - never a bare tag (the owner, 9/29)
+ for(var i=0;i<L.reasons.length;i++){{var w=WHYL[L.reasons[i]];if(w)return w.replace("{{u}}",L.team).replace("{{o}}",o)}}
+ return "🧠 The engine's numbers lean "+L.team+".";}}
 function show(g){{
   var L=g.lean||{{market:"ml",reasons:[]}}, mk=L.market=="ml"?"ML":(L.line>0?"+":"")+L.line+(g.league=="nhl"?" puck line":g.league=="mlb"?" run line":g.league=="tennis"?" games":""), pct=Math.round(L.p*100);
   var h='<section class="pk ask-c" style="--c1:#22d3ee;--c2:#b36bff"><div class="lt"><span class="lgb">'+g.emoji+" "+esc(g.sport)+'</span><span class="tm">'+tm(g.start)+'</span></div>'+
@@ -1569,13 +1598,13 @@ function show(g){{
       '<div class="ask-a">'+(L.result=="won"?pick(g.id+"w",["Cashed. Told y’all. 💰","That one hit. Trust the algorithm. 💰"]):pick(g.id+"l",["That one didn’t hit. It’s in the record — no hiding.","L on that one. Counted in our record, full transparency."]))+'</div></section>';out.innerHTML=h;return}}
     h+='<div class="ask-l">🎯 We already on this one: <b>'+esc(L.team)+" "+mk0+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
        '<div class="ask-a">It’s in our '+(KIND[g.board]||"board")+'. That’s our side — '+pick(g.id+"b",["tail it or don’t, but we ain’t switching up.","we riding with it.","no flip-flopping over here."])+'</div>'+
-       (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+'</section>';out.innerHTML=h;return}}
+       (L.reasons.length?'<div class="why">'+esc(whyl(L,g))+'</div>':"")+'</section>';out.innerHTML=h;return}}
   if(g.why=="started"||g.why=="final"){{h+='<div class="ask-a">'+(g.why=="final"?"⏹️ This one’s over — no reads on finished games.":
     pick(g.id+"s",["⏱️ This one already kicked off — pregame reads are closed. Peep LIVE PLUS MONEY up top: if the algorithm sees live value, it shows up there.",
                    "⏱️ Game’s already going. No pregame reads once it starts — watch LIVE PLUS MONEY, that’s where the in-game value shows up."]))+'</div></section>';out.innerHTML=h;return}}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
      '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
-     (L.reasons.length?'<div class="why">'+L.reasons.map(esc).join(" · ")+'</div>':"")+
+     (L.reasons.length?'<div class="why">'+esc(whyl(L,g))+'</div>':"")+
      (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":g.h1.name=="1st period"?"After the 1st":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. '+pick(g.id+"h",["No 1st-half line posted yet, so that’s just the read.","Just the read — books ain’t posted the 1st-half line.","That’s our read on the early action."])+'</div>':"")+
      '<div class="ask-w">Why it’s not a pick: '+pick(g.id,WHY[g.why]||WHY.no_value)+'</div>'+
      '<div class="ask-d">⚠️ Not our pick — this doesn’t count toward our record. '+pick(g.id+"x",OUT)+'</div></section>';

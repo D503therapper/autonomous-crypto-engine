@@ -3335,6 +3335,36 @@ def test_top_right_just_says_live():
         assert gone not in src.split("def write(")[1], gone
 
 
+def test_why_line_is_a_real_line_not_a_tag():
+    """The owner, 9/29: 'the stronger team' under the pick is way too vague - a dope, strong line in our lingo, every
+    pick, every sport. The line under the pick is written with the breakdown (real records / streaks / who's out),
+    never a bare reason tag; old picks and the question box's reads get a lingo line too."""
+    import sports_breakdown_v24 as v24, sports_dashboard as sdb
+    g = {"id": "mlb:1", "start": "2026-09-30T00:00Z", "home": "10", "away": "2", "sp_home": "Gerrit Cole", "sp_away": "X"}
+    base = {"team": "Yankees", "opp": "Red Sox", "league": "mlb", "side": "home", "p": 0.58, "tier": "lock", "ctx": []}
+    say = lambda leg, **k: v24.why_line(leg, v24.Voice("s", set()), g, "Yankees", "Red Sox", "the Yankees", "the Red Sox", **k)
+    a = say({**base, "reasons": ["the stronger team"]}, rec_u="93-68", rec_t="87-75")
+    assert "93-68" in a and "stronger team" not in a and a[:1] in "💪"
+    b = say({**base, "reasons": ["hotter recent form"]}, n_hot=4, rec_u="93-68")
+    assert "4 straight" in b or "heater" in b.lower() or "cooking" in b
+    c = say({**base, "reasons": ["opponent missing key players"], "opp_outs": ["Lukas Cormier (D)"]})
+    assert "defenseman Lukas Cormier" in c and "(D)" not in c
+    d = say({**base, "reasons": []})
+    assert "58%" in d
+    v = v24.Voice("board", set())                                       # never the same wording twice on a board
+    lines = [v24.why_line({**base, "reasons": ["the stronger team"]}, v, g, "Yankees", "Red Sox", "the Yankees",
+                          "the Red Sox", rec_u="93-68", rec_t="87-75") for _ in range(4)]
+    assert len(set(lines)) == 4, lines
+    card = sdb._leg({**base, "market": "ml", "odds": -135, "line": None, "home": True, "start": "2026-09-30T00:00Z",
+                     "game_id": "mlb:1", "reasons": ["the stronger team"]})
+    assert "the stronger team" not in card and "better team" in card               # an old pick: still our lingo
+    card2 = sdb._leg({**base, "market": "ml", "odds": -135, "line": None, "home": True, "start": "2026-09-30T00:00Z",
+                      "game_id": "mlb:1", "reasons": ["the stronger team"], "why_line": a})
+    assert "93-68" in card2
+    src = open(sdb.__file__).read()
+    assert 'L.reasons.map(esc).join(" · ")' not in src and "whyl(L,g)" in src     # the question box too
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

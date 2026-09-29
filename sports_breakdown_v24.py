@@ -239,6 +239,9 @@ def breakdown(leg, games, elo, injuries, used=None):
         leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "altitude edge"]
     out, said = [], set()          # said: reasons already used as a "because", so no line repeats another
     leg["bd_tags"] = v.mine        # which wordings this breakdown used (so the rest of the board avoids them)
+    FORM = {}                      # (ours?, "hot"/"cold") -> (starter, his numbers) for the card's "why"
+    rec_t = gap = None
+    n_cold = 0
 
     # form
     rec_u = _record(s_ours, tid) if s_ours else None
@@ -366,6 +369,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             txt, mood = sp.form_line(lg, name, rows, g["start"])
             if not txt:
                 continue
+            FORM[(ours_, mood)] = (name, txt)                 # (the card's one-line "why" can use it)
             if not ours_ and mood == "cold":
                 out.append(v.say(role + "_cold", {
                     "QB": [f"🗑️ {name} has been complete booty cheeks — {txt}.",
@@ -691,6 +695,11 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: riding {price}. The engine likes it, we like it.",
             f"✅ Bottom line: {price}. {pct}% to cash — get in.",
             f"✅ Bottom line: {pct}% to hit on {price}. Tap in."]) or _short(v, price, False))
+    inj_ = (injuries or {}).get(lg)
+    leg["why_line"] = why_line(leg, v, g, us, them, the_us, the_them, rec_u=rec_u, n_hot=n_hot, rec_t=rec_t,
+                               n_cold=n_cold, gap=gap, form=FORM,
+                               key_them=sd.team_key_out(inj_, oid, them, lg) if inj_ else [],
+                               key_us=sd.team_key_out(inj_, tid, us, lg) if inj_ else [])
     lines = [x for x in out if x]
     if len(lines) > 2:
         import random
@@ -705,6 +714,114 @@ def breakdown(leg, games, elo, injuries, used=None):
         rnd.shuffle(body)
         lines = body + [bottom]
     return lines
+
+
+def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=None, n_cold=0, gap=None, form=None,
+             key_them=(), key_us=()):
+    """The line right under the pick on the card (the owner, 9/29: 'the stronger team' is way too vague - a dope,
+    strong line in our lingo, every pick, every sport). The engine's top reason, said with the real facts behind it
+    (records, streaks, who's out, the arms, the miles), plus a short kicker now and then. Never the same wording twice
+    on a board or from the days before (the breakdown's own memory)."""
+    form = form or {}
+    lg = leg["league"]
+    rsn = [r for r in leg.get("reasons") or [] if not str(r).startswith(("proven", "trend:", "opponent drama"))]
+    recs = f" ({rec_u} vs {rec_t})" if rec_u and rec_t else f" ({rec_u})" if rec_u else ""
+    pct = round(100 * (leg.get("p") or 0))
+    sp_us, sp_them = g.get("sp_" + leg["side"]), g.get("sp_" + ("away" if leg["side"] == "home" else "home"))
+    trip = next((c for c in leg.get("ctx") or [] if c.get("k") == "trip" and c.get("who") == "them" and (c.get("mi") or 0) >= 1000), None)
+    rival = any(c.get("k") == "rival" for c in leg.get("ctx") or [])
+    pools = []
+    for r in rsn:
+        if r == "the stronger team":
+            pools.append(("w_better", [
+                f"💪 {us} are just the better team{recs} — and it's not that close.",
+                f"💪 More talent, better results: {us}{recs} got {them} outclassed.",
+                f"💪 {us}{recs} are the better squad top to bottom. Simple as that.",
+                f"💪 Put the rosters side by side — {us} win that matchup{recs}.",
+                f"💪 {us} bring more juice than {them} every way you slice it{recs}."]))
+        elif r == "hotter recent form":
+            hot = f"{n_hot} straight W's" if n_hot >= 2 else None
+            pools.append(("w_hot", [
+                f"🔥 {us} are rolling — {hot}{f', {rec_u} on the year' if rec_u else ''}. Ride the heater." if hot else
+                f"🔥 {us} been playing way better ball than {them} lately. Ride the heat.",
+                f"🔥 {us} are cooking right now{f' ({hot})' if hot else ''} and {them} ain't matching that energy.",
+                f"🔥 Hot hand goes to {us}{f' — {hot}' if hot else ''}. We don't bet against a heater.",
+                f"🔥 {us} are playing their best ball of the year{f' ({hot})' if hot else ''} and we're riding it."]))
+        elif r == "opponent missing key players":
+            if key_them and not key_us:
+                nm = f"their starting {_posname(key_them[0][1])} {key_them[0][0]}"
+            else:                                         # 'Lukas Cormier (D)' -> 'defenseman Lukas Cormier'
+                m = re.match(r"(.+?) \((\w+)\)$", (leg.get("opp_outs") or [""])[0])
+                nm = f"{_posname(m.group(2))} {m.group(1)}" if m else (leg.get("opp_outs") or [""])[0]
+            if nm:
+                pools.append(("w_hurt", [
+                    f"🚑 {them} are without {nm} tonight — that's a hole we're attacking.",
+                    f"🚑 No {nm} for {them}. Short-handed teams get got.",
+                    f"🚑 {them} gotta play this one without {nm}, and we're taking advantage.",
+                    f"🚑 {nm} is out for {them}. That changes the whole game — our way."]))
+            else:
+                pools.append(("w_hurt", [f"🚑 {them} are banged up and thin tonight. We pouncing.",
+                                         f"🚑 {them}' injury list is long and it shows. We on {us}."]))
+        elif r == "sharp money moving this way":
+            pools.append(("w_sharp", [
+                f"💸 The sharp money's been pounding {us} since the line opened. We with the pros.",
+                f"💸 The big bettors are all over {us} — the line's been moving our way all day.",
+                f"💸 Smart money came in on {us} and moved the number. We're on the same side.",
+                f"💸 The pros are loading up on {us}. Follow the money."]))
+        elif r == "better starting pitcher" and sp_us:
+            hot = form.get((True, "hot"))
+            pools.append(("w_arm", [
+                f"⚾ {sp_us} on the mound for {us}{f' — {hot[1]}' if hot else ''}. Better arm, better team.",
+                f"⚾ We got the better arm tonight: {sp_us}{f' over {sp_them}' if sp_them else ''}.",
+                f"⚾ {sp_us} gives {us} the edge on the bump{f' ({hot[1]})' if hot else ''}."]))
+        elif r == "hotter goalie":
+            hot = form.get((True, "hot"))
+            pools.append(("w_goalie", [
+                f"🧱 {hot[0]} has been a brick wall in net for {us} — {hot[1]}." if hot else
+                f"🧱 {us} got the hotter goalie right now, and in hockey that's everything.",
+                f"🧱 Better goalie play on {us}' side{f' ({hot[0]}: {hot[1]})' if hot else ''}. Goals are gonna be tough for {them}."]))
+        elif r == "better QB play lately":
+            hot = form.get((True, "hot"))
+            pools.append(("w_qb", [
+                f"🎯 {hot[0]} has been cooking for {us} — {hot[1]}." if hot else f"🎯 {us} got the better QB play lately, and it ain't close.",
+                f"🎯 The QB edge goes {us}{f' ({hot[0]}: {hot[1]})' if hot else ''}. That's the game."]))
+        elif r in ("better rested", "opponent on a back-to-back"):
+            pools.append(("w_rest", [
+                f"😮‍💨 {them} played last night — tired legs against a fresh {us} team." if r != "better rested" else
+                f"🛌 {us} got the extra rest, {them} don't. Fresh legs win late.",
+                f"😮‍💨 {them} are running on fumes tonight. {us} are fresh." ]))
+        elif r == "revenge game":
+            pools.append(("w_revenge", [f"😤 {us} owe {them} one and they know it. Revenge game.",
+                                        f"😤 Payback's on {us}' mind tonight — {them} got 'em last time."]))
+        elif r == "the engine's scoring read":
+            pools.append(("w_total", [f"📊 The engine's scoring numbers say this total is set wrong. We on it.",
+                                      f"📊 Our scoring model sees this total different than the book does."]))
+        elif r in WHY:
+            pools.append(("w_" + r.split()[0], [f"🧠 {_cap(WHY[r].format(us=us, them=them))} — that's our edge tonight."]))
+    nums = ("w_num", [f"🔒 The numbers love {us} tonight — {pct}% to cash." if leg.get("tier") == "lock" else
+                      f"🧠 The engine's got {us} at {pct}% tonight. We riding with it.",
+                      f"🧠 {pct}% to cash on {us} — the numbers did the talking.",
+                      f"🧠 {us} at {pct}% to get it done. That's the engine talking, not a hunch."])
+    line = ""                                             # the top reason first; every wording of it already used on
+    for key, opts in pools + [nums]:                      # the board? the next reason - a repeat is the last resort
+        line = v.say(key, opts)
+        if line:
+            break
+    if not line:
+        line = v.say(*(pools + [nums])[0], must=True)
+    kick = []                                             # a short second punch, when there's a real one
+    if trip and rsn and "opponent's body clock is off" not in rsn:
+        kick.append(("k_trip", [f" Plus {them} flew {_mi(trip['mi'])} miles for this.",
+                                f" And {them} are coming off a {_mi(trip['mi'])}-mile trip."]))
+    if rival:
+        kick.append(("k_rival", [" Rivalry game, too — bragging rights on the line.", " Division rivals. No love lost."]))
+    if leg.get("public") == "fade":
+        kick.append(("k_fade", [" And the public's on the wrong side.", " The casuals are on the other side, too."]))
+    for key, opts in kick[:1]:
+        k = v.say(key, opts)
+        if k and len(line) + len(k) <= 150:
+            line += k
+    return line
 
 
 WHY = {   # the pick's reasons, said as a quick "because"
