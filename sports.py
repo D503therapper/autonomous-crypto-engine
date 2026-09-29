@@ -31,7 +31,7 @@ DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
 START_BANKROLL = 1000.0
 STAKE = 100.0
-HOLD_DAYS = {"2026-09-29"}    # boards on hold: the new lock/lean rules (tools/tier_study.py) ship first - never
+HOLD_DAYS = set()             # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
                                # post under rules the study showed are weak (the owner, 9/28)
 POST_FROM_HOUR_PT = 22         # a day's plays can be posted from 10pm Pacific the night before (the owner, 9/28:
                                # not 6pm - later lines, more news; tennis keeps its own 6pm drop)...
@@ -44,13 +44,7 @@ MAX_FAV = -150                 # never a huge favorite: no moneyline leg shorter
 LOCK_MAX_FAV = -120            # lock of the day: a moneyline no shorter than -120
 LOTD_MAX_ML = MAX_FAV            # the Lock of the Day: the engine's most confident pick on the whole board, same -150 cap
                                # as every other pick (the owner, 9/28: -150s hit more often than -135s, so it has to match)
-LOCK_MIN_P = 0.52             # a LOCK: real value AND the engine gives it 52%+ - one bar at any price (the owner, 9/28:
-PLUS_LOCK_MAX = 125            # not so strict that locks are rare); plus money only up to +125 (over that = VALUE)
-
-
-def lock_ok(c):
-    """A value pick the engine qualifies as a lock: 52%+ at a price no longer than +125 (a +156 at 40% never is)."""
-    return c["odds"] <= PLUS_LOCK_MAX and (c.get("p") or 0) >= LOCK_MIN_P
+PLUS_LOCK_MAX = 125            # a lock is never plus money past +125 (over that = VALUE)
 
 
 LOTD_P = 0.60                  # a one-game day's lone pick is only called the Lock of the Day at 60%+ to win
@@ -362,14 +356,39 @@ def candidates(games, model, now=None, day=None, injuries=None):
 INTL_MIN_EDGE = 0.02           # overseas games are weird: they need twice the usual value
 
 
+PLAY_MIN_P = 0.53              # THE LABEL STUDY (tools/tier_study.py, ~21k games the engine never saw, 9/28): the engine's
+LOCK_P = 0.56                  # WIN % is honest (it hits what it says) but its disagreement with Vegas isn't (picks chosen
+FIGHT_MAX = 0.03               # for "edge" hit 48% when it said 56%). So a play is picked by how likely it WINS:
+                               #   53%+ = a real play (STRONG LEAN), 56%+ = a LOCK, the day's likeliest lock = Lock of the Day;
+                               #   an underdog only as VALUE when a PROVEN angle backs it - never just the engine vs Vegas;
+                               #   and never a side our own read says Vegas is overrating by 3+ points (fighting the line).
+
+
+def proven(c):
+    """A study-proven angle (it passed the out-of-sample proof bar) is behind this side."""
+    return any(str(r).startswith(("proven", "trend:")) for r in c.get("reasons") or [])
+
+
+def fighting(c):
+    """Our own read (no line move) has this side 3+ points under what the price says: the engine is fighting Vegas."""
+    own = (c.get("edge_own", c["edge"]) + 1) / c["dec"]
+    return own < 1 / c["dec"] - FIGHT_MAX
+
+
 def good(c):
-    """A real play: value on our numbers - from the engine's own read, not just the line moving - and at least one
-    reason. Anything else is filler, and filler never goes up."""
-    need = INTL_MIN_EDGE if c.get("intl") or c.get("our_drama") else MIN_EDGE   # overseas / our own drama: 2x value
-    if c.get("trap"):                  # a dog in a spot the big study proved the books still overprice: never
+    """A real play: likely to win by the engine's (honest) win %, a real reason behind it, and no red flags.
+    Over/unders keep their own value rule (their study proves them separately). Anything else is filler."""
+    if c.get("trap") or not c.get("reasons"):          # a dog the big study proved books overprice / no reason: never
         return False
-    need += sports_selfcheck.extra_edge(SELF_ST, c)   # where our own picks keep hitting less than we said: a higher bar
-    return c["edge"] >= need and c.get("edge_own", c["edge"]) >= need and bool(c.get("reasons"))
+    if c.get("market") == "total":
+        need = MIN_EDGE + sports_selfcheck.extra_edge(SELF_ST, c)
+        return c["edge"] >= need and c.get("edge_own", c["edge"]) >= need
+    if fighting(c):
+        return False
+    if c["odds"] >= 100:                               # an underdog: VALUE only when a proven angle says it's underpriced
+        return proven(c) and c["edge"] >= MIN_EDGE
+    need = PLAY_MIN_P + (0.02 if c.get("intl") or c.get("our_drama") else 0.0)   # overseas / our own drama: a higher bar
+    return c["p"] >= need
 
 
 def _parlay(cands, n, top=40):
@@ -447,12 +466,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     if len({c["game_id"] for c in cands}) == 1:              # a one-game day: one PICK OF THE DAY, no Lock/Dog/parlays
         solo = max((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: (round(c["p"] * 50), c["edge"]),
                    default=None)
-        if solo is None:                                      # the owner wants a pick on a one-game day: the best REAL
-            solo = max((c for c in cands if c["edge"] > 0 and c.get("edge_own", c["edge"]) > 0 and c["odds"] >= MAX_FAV),
-                       key=lambda c: c["edge"], default=None)  # edge (positive, even if thin)
-        if solo is None:                                      # still nothing: a one-game day (Monday/Thursday night) ALWAYS
-            solo = max((c for c in cands if c["odds"] >= MAX_FAV), key=lambda c: c["edge"], default=None)   # gets a pick:
-                                                              # the side closest to value on our numbers
+        if solo is None:                                      # a one-game day (Monday/Thursday night) ALWAYS gets a pick:
+            solo = max((c for c in cands if c["odds"] >= MAX_FAV and not c.get("trap") and not fighting(c)),
+                       key=lambda c: (c["p"], c["edge"]), default=None)   # the side likeliest to win (a lean)
         if fixed.get("lock") or fixed.get("dog") or fixed.get("solo"):   # already posted today: build on it
             return {"lock": fixed.get("lock") and _combo(fixed["lock"]), "dog": fixed.get("dog") and _combo(fixed["dog"]),
                     "two": None, "three": None, "four": None, "solo": fixed.get("solo") and _combo(fixed["solo"])}
@@ -461,7 +477,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # flip) is just that game's pick: a LOCK or VALUE call by its price, never titled Lock/Dog of the Day.
         one = _combo([solo]) if solo else None
         kind = "solo"
-        if solo and solo["market"] in ("ml", "spread") and good(solo) and solo["p"] >= LOTD_P and lock_ok(solo) and \
+        if solo and solo["market"] in ("ml", "spread") and good(solo) and lock_ok(solo) and \
                 (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML):
             kind = "lock"
         elif solo and solo["market"] == "ml" and good(solo) and solo["odds"] >= DOG_MIN:
@@ -518,38 +534,51 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
 
 
 TIERS = ("lean", "value", "lock")
-STRONG_LEAN_P = 0.60                          # 60%+ to win/cover = a strong lean: it beats a value play on the other side
+STRONG_LEAN_P = PLAY_MIN_P                    # 53%+ = STRONG LEAN, under that = SLIGHT LEAN (a lean on the board = 🟡)
+
+
+def lock_ok(c):
+    """A LOCK: a real play the engine gives 56%+ to win (the study: those hit ~56-60%), never plus money past +125."""
+    return c["odds"] <= PLUS_LOCK_MAX and (c.get("p") or 0) >= LOCK_P
 
 
 def leg_tier(c):
-    """lock / value / lean for one leg, from the engine's numbers."""
+    """lock / value / lean for one leg (a lean shows STRONG at 53%+, SLIGHT under)."""
+    if c.get("market") == "total":
+        return "ou" if good(c) else "lean"                   # over/unders: no lock/value label - their own thing
     if not good(c):
         return "lean"
-    if c.get("market") == "total":
-        return "ou"                                          # over/unders: no lock/value label - their own thing
-    return "lock" if lock_ok(c) else "value"                 # owner's rule: value at 52%+ (up to +125) = LOCK, other
-                                                         # value = VALUE; no value = LEAN (slight / strong)
+    if c["odds"] >= 100 and not lock_ok(c):
+        return "value"                                       # a proven underdog
+    return "lock" if lock_ok(c) else "lean"                  # 53-56% = a strong lean (a real play, counts)
+
+
+LEANS_COUNT_FROM = "2026-09-29"   # the owner, 9/28: leans hit about like value - from this board on they count in OUR record
+
+
+def in_record(p):
+    """Does this pick count in our record? Everything we post from 9/29 on (leans too); before that, leans had their own."""
+    return not p.get("lean") or p["date"] >= LEANS_COUNT_FROM
 
 
 def pick_tier(pk):
-    """A play is only as confident as its weakest leg (older picks get it from their legs' numbers)."""
+    """A play is only as sure as its weakest leg: all locks = LOCK; any value leg = VALUE; otherwise a LEAN."""
+    if pk.get("kind") == "lock" and not pk.get("lean"):       # the Lock of the Day is a LOCK
+        return "lock"
     if pk.get("lean"):
         return "lean"
-    if pk.get("kind") == "lock":                              # the Lock of the Day is a LOCK - its results count as locks
-        return "lock"
-    if pk.get("kind") == "solo" and len(pk.get("legs") or []) == 1:   # the one-game-day pick: by the rule -
-        l0 = pk["legs"][0]                                             # minus money = LOCK, plus money = VALUE
-        return "ou" if l0.get("market") == "total" else "lock" if lock_ok(l0) else "value"
     if pk.get("tier"):
         return pk["tier"]
-    # only a real lean play is a LEAN; a parlay's filler leg can't drag the whole card down to one
     tiers = [l.get("tier") or leg_tier({**l, "edge_own": l.get("edge_own", l.get("edge", 0))}) for l in pk.get("legs") or []]
     if tiers == ["ou"]:
         return "ou"
-    return "lock" if tiers and all(t == "lock" for t in tiers) else "value"
+    if tiers and all(t == "lock" for t in tiers):
+        return "lock"
+    return "value" if "value" in tiers else "lean"
 
 
-LEAN_MIN_P = {"two": 0.58, "three": 0.58, "four": 0.58, "lock": 0.62, "dog": 0.42}   # ACCURACY FIRST: a lean is a side we expect to win
+LEAN_MIN_P = {"two": 0.58, "three": 0.58, "four": 0.58, "lock": 0.62, "dog": 0.42}   # a replacement lean (after a pick's graded): a sure side only
+LEAN_DAY_MIN_P = 0.50          # the opening board on a leans-only day (nothing 53%+): the likeliest sides, still favored
 MAX_REPLACEMENTS = 10         # 🟡 LEANS through the day: when a daily pick is graded, a fresh LEAN of the same kind goes
                               # up from the games that haven't started (keeps picks flowing till night). Leans keep their
                               # own record - never ours. Our record stays the start-of-day board.
@@ -570,18 +599,19 @@ def importance(c):
     return 1 if c["league"] in PRO else 0
 
 
-def lean(cands, kind, taken=None):
+def lean(cands, kind, taken=None, floor=None):
     """The best available play when nothing clears the value bar: the closest thing to value on the slate, same rules
     (no big favorites, no games underway, never the banged-up side - candidates already filter those). Tagged LEAN."""
-    ml = [c for c in cands if c["market"] == "ml" and c.get("reasons")]
+    ml = [c for c in cands if c["market"] == "ml" and c.get("reasons") and not fighting(c) and not c.get("trap")]
     if kind == "lock":
-        pool = [c for c in ml if c["odds"] >= LOCK_MAX_FAV and c["p"] >= LEAN_MIN_P["lock"]]
+        pool = [c for c in ml if c["odds"] >= (MAX_FAV if floor else LOCK_MAX_FAV) and c["p"] >= (floor or LEAN_MIN_P["lock"])]
     elif kind == "dog":
         pool = [c for c in ml if c["odds"] >= DOG_MIN and c["p"] >= LEAN_MIN_P["dog"] and c["game_id"] != taken]
     elif kind in ("two", "three", "four"):
         n = {"two": 2, "three": 3, "four": 4}[kind]
         best = {}
-        for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= LEAN_MIN_P[kind]), key=lambda c: -c["p"]):
+        for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= (floor or LEAN_MIN_P[kind]) and not fighting(c)
+                         and not c.get("trap")), key=lambda c: -c["p"]):
             best.setdefault(c["game_id"], c)
         legs = sorted(best.values(), key=lambda c: (-importance(c), -c["p"]))[:n]   # the big games first, then the likeliest
         if len(legs) < n:
@@ -735,7 +765,8 @@ def post_board(games, model, picks, now, day, force=False):
             if best and any(l["game_id"] in avoid for l in best["legs"]):
                 best = None
             if not best:                                      # nothing clears the value bar: the likeliest LEAN instead
-                best = lean([c for c in cands if c["game_id"] not in avoid], kind, taken=lock_game)
+                best = lean([c for c in cands if c["game_id"] not in avoid], kind, taken=lock_game,
+                            floor=LEAN_DAY_MIN_P if lean_day and kind not in posted else None)
         if not best:
             continue
         deadline = min(_start(l) for l in best["legs"]) - timedelta(minutes=DEADLINE_MIN)
