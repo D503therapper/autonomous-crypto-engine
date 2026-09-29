@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 25          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 26          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -234,6 +234,13 @@ def lean_tone(lines, leg, seed=""):
 
 
 def breakdown(leg, games, elo, injuries, used=None):
+    """The main board's breakdown: the ORIGINAL voice (sports_breakdown_v24 - the owner, 9/29: the vocabulary rewrite
+    came out vague and not our lingo). Tennis keeps rolling from this module's vocabulary."""
+    import sports_breakdown_v24 as v24
+    return v24.breakdown(leg, games, elo, injuries, used)
+
+
+def _breakdown_vocab(leg, games, elo, injuries, used=None):
     """A plain-talk case for one leg: a list of short bullets ending with the bottom line."""
     g = games[leg["game_id"]]
     lg, side = leg["league"], leg["side"]

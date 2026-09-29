@@ -247,13 +247,13 @@ def _cards(day, day_picks, cards_by_kind):
 BOARD_CLEAR_HOUR_PT = 23        # 11pm PT: today's board (graded picks + reviews) clears for tomorrow's drop note
 
 
-DROP_NOTES = [   # before the board's up: when picks drop and why we wait (a different one every day)
-    "🎯 Picks drop at <b>8 AM PT</b> on game day. Till then the engine's watching every line and every injury report, so we post off the sharpest numbers. Once they're up, they're final.",
-    "⏳ Board goes up <b>8 AM PT</b> game day. The engine's up all night watching the lines move and the news come in — we ain't guessing off stale numbers.",
-    "👀 The engine's watching every line till <b>8 AM PT</b>. That's when picks drop. Late news is good news — and posted means final.",
-    "🧠 Picks land <b>8 AM PT</b> on game day. We let the lines settle and the injury news hit first. Sharper number, sharper pick.",
-    "📡 Engine's on the lines all night. Picks drop <b>8 AM PT</b> game day — every injury, every move already baked in.",
-    "🕗 <b>8 AM PT</b> on game day: that's when the board drops. Till then we watch the numbers, not guess 'em.",
+DROP_NOTES = [   # the 8 AM note: always says the engine's watching the lines move all night, and why (the owner, 9/29)
+    "🎯 Picks drop at <b>8 AM PT</b> on game day. All night the engine's watching the lines move — where the sharp money goes, what the injury news does — so we post off the sharpest number, not a stale one.",
+    "⏳ Board goes up <b>8 AM PT</b> game day. The engine's up all night watching every line move. When the pros hit a side or a starter sits, we see it before we pick — no guessing off stale numbers.",
+    "👀 The engine's on the lines all night till <b>8 AM PT</b>. Lines move when the money and the news come in — we let 'em move, then we pick. Sharper number, sharper pick.",
+    "🧠 Picks land <b>8 AM PT</b> on game day. Overnight the engine watches the lines move and the injury reports drop, so every pick's got the late news baked in.",
+    "📡 Engine's watching the lines move all night. Picks drop <b>8 AM PT</b> game day — every sharp move, every injury already in the numbers before we post.",
+    "🕗 <b>8 AM PT</b> on game day, the board drops. Till then the engine's watching the lines move all night — the money, the news, all of it — so we don't bite on a bad number.",
 ]
 
 
