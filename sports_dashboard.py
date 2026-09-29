@@ -195,9 +195,28 @@ def _short_note(day, day_picks):
     """A short board says so up top (fewer than the usual 5 plays, not a one-game day) - so nobody thinks it broke."""
     have = {p["kind"] for p in day_picks if not p.get("lean")}           # (a waiting card is still coming: it counts)
     n = sum(k in have for k in FULL_BOARD)
-    if not n or n >= len(FULL_BOARD) or "solo" in have:
-        return ""
+    if not n or n >= len(FULL_BOARD) or "solo" in have or set(FULL_BOARD) - have == {"dog"}:
+        return ""                                            # (only the dog missing: its own note says so - one note)
     return f'<div class="drop leanday">🔒 {E(sports_lingo.short_note(n, day))}</div>'
+
+
+def _dog_note(day, day_picks):
+    """🐺 No Dog of the Day (the owner, 9/28): where the dog card would go, on a full board with no dog worth it.
+    Only when the dog is the ONLY thing missing - a shorter board's top note already covers it (never two notes)."""
+    have = {p["kind"] for p in day_picks if not p.get("lean")}
+    if "solo" in have or set(FULL_BOARD) - have != {"dog"}:
+        return ""
+    return f'<div class="drop leanday">🐺 {E(sports_lingo.dog_note(day))}</div>'
+
+
+def _cards(day, day_picks, cards_by_kind):
+    """The day's cards in board order, with the no-dog note right after the Lock of the Day."""
+    out = ""
+    for k, card in cards_by_kind:
+        out += card
+        if k == "lock":
+            out += _dog_note(day, day_picks)
+    return out
 
 
 def _lean_note(day):
@@ -607,10 +626,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     bell = ('<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button>'   # 🔔 Web Push
             '<div class="bell-n" id="belln" hidden></div></div>') if ask_url else ""
     api = ask_url.rstrip("/")
-    drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>6 PM PT</b> the night before. Once posted, they\'re final.</div>'
+    drop = '<div class="drop">🎯 Picks go up as soon as the engine is sure — from <b>10 PM PT</b> the night before. Once posted, they\'re final.</div>'
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
-                  'Tomorrow\'s card goes up from <b>6 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
-    board = "".join(_pick_card(p["kind"], p) for p in active) if active else done_today if todays else drop
+                  'Tomorrow\'s card goes up from <b>10 PM PT</b>, and at midnight it slides up here as the new slate.</div>')
+    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active]) if active else done_today if todays else drop
     if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
         board = _lean_note(today) + board                    # a leans-only day says so up top
     elif active:
@@ -622,7 +641,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'
                 + (_lean_note(tmr.isoformat()) if tmr_real and all(p.get("lean") for p in tmr_real)
                    else _short_note(tmr.isoformat(), list(tomorrows.values())))
-                + "".join(_pick_card(k, tomorrows[k]) for k in LOOK if k in tomorrows)) if tomorrows else ""
+                + _cards(tmr.isoformat(), list(tomorrows.values()), [(k, _pick_card(k, tomorrows[k])) for k in LOOK if k in tomorrows])) if tomorrows else ""
 
     graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]
     done = [p for p in graded_all if sports.in_record(p)]         # our record (leans count from 9/29 on - the owner)
