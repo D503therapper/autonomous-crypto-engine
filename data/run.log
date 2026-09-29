@@ -3118,3 +3118,11 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-09-29 21:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-29 21:05 UTC] crypto/hold_btc  equity $497.52 (-0.5%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), GRASS 37 (37/0/0), TRUMP 35 (35/0/0), PENGU 29 (29/0/0), NEAR 21 (21/0/0)
+   dex screen: REJECT DOT@base liq $589,666 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS BP@solana liq $323,330
+   dex screen: REJECT RUSH@solana liq $556,207 - mint authority; top-10 holders 94%; lp holders unknown
+   dex screen: REJECT ANYONE@ethereum liq $983,596 - is_blacklisted; top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT STONKCATS@solana liq $166,293 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AGI@solana liq $192,290 - lp holders unknown; rugcheck lp locked 83% < 95%
