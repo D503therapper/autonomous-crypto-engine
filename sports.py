@@ -94,6 +94,23 @@ def american(dec):
     return round((dec - 1) * 100) if dec >= 2 else round(-100 / (dec - 1))
 
 
+def announce_pick(pk):
+    """🔔 A pick added after the day's board is already up (a replacement, a late add): a push to everyone with the
+    dashboard's alerts on (the owner, 9/29). The 8 AM board itself doesn't ping anybody."""
+    try:
+        name = dict(KINDS).get(pk["kind"], "Pick")
+        legs = pk.get("legs") or []
+        what = f"{leg_label(legs[0])} ({fmt_american(legs[0]['odds'])})" if len(legs) == 1 else \
+            f"{len(legs)}-leg parlay ({fmt_american(pk['american'])})"
+        title = f"🆕 NEW PICK: {what}"
+        body = f"{name} just went up on the board. Tap in." if len(legs) == 1 else \
+            f"{name}: " + ", ".join(leg_label(l) for l in legs)[:180]
+        sd.web_push(None, title, body)
+        print(f"   announced: {title}")
+    except Exception as e:                                           # noqa: BLE001 - an alert never breaks the board
+        print(f"   announce failed: {str(e)[:80]}")
+
+
 def fmt_american(a):
     return f"+{a}" if a > 0 else str(a)
 
@@ -1040,9 +1057,12 @@ def quick(now=None):
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
     add_breakdowns(games, model, picks)
+    had = {p["kind"] for p in picks if p["date"] == day.isoformat()}
     posted = post_board(games, model, picks, now, day)          # replaces any graded play (this pass or earlier)
     for pk in posted:
         print(f"posted {pk['kind']} (replacement) for {day}")
+        if had:
+            announce_pick(pk)                                   # added after the board was up: everybody gets a ping
     sd.save_games(games)
     _save("picks.json", picks)
     import sports_dashboard
@@ -1145,7 +1165,10 @@ def run(repick=False, fetch=True):
     except Exception as e:                                              # noqa: BLE001
         print(f"injury watch failed: {e}")
     for d in days:
+        had = {p["kind"] for p in picks if p["date"] == d.isoformat()}
         for pk in post_board(games, model, picks, now, d, force=post_now and d == day):
+            if had:
+                announce_pick(pk)                                # added after the board was up: everybody gets a ping
             legs = " + ".join(f"{leg_label(l)} ({fmt_american(l['odds'])})" for l in pk["legs"])
             print(f"posted {pk['kind']} for {d}: {legs} -> {fmt_american(pk['american'])}, hit {pk['p_hit']:.0%}")
     try:                                                                # 🎾 the tennis bonus (never blocks the main board)

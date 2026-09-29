@@ -3266,6 +3266,24 @@ def test_playoff_game_gets_its_real_teams():
     assert back["home"] == "18"                                         # a placeholder never wipes the real team
 
 
+def test_added_pick_pings_everyone():
+    """The owner, 9/29: when a pick gets added after the board is up, send everyone a notification (the 8 AM board
+    itself doesn't ping)."""
+    sent, keep = [], sd.web_push
+    sd.web_push = lambda raw, title=None, body=None: sent.append((title, body))
+    try:
+        leg = {"team": "Yankees", "market": "ml", "odds": -135, "league": "mlb", "side": "home", "line": None}
+        sports.announce_pick({"kind": "lock", "legs": [leg], "american": -135})
+        sports.announce_pick({"kind": "two", "legs": [leg, {**leg, "team": "Oilers", "market": "spread", "line": -1.5, "odds": -118}],
+                              "american": 212})
+    finally:
+        sd.web_push = keep
+    assert sent[0][0].startswith("🆕 NEW PICK: Yankees") and "-135" in sent[0][0] and "Lock of the Day" in sent[0][1]
+    assert "2-leg parlay (+212)" in sent[1][0] and "Oilers" in sent[1][1]
+    src = open(sports.__file__).read()
+    assert src.count("if had:\n") >= 2 and src.count("announce_pick(pk)") >= 2
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
