@@ -4,6 +4,7 @@ name: sports
 on:
   schedule:
     - cron: "23 * * * *"
+    - cron: "1 1,2 * * *"    # 🎾 right at 6pm Pacific (summer 01:00 / winter 02:00 UTC): tomorrow's tennis slate goes up on time
   workflow_dispatch:
     inputs:
       post_now:
