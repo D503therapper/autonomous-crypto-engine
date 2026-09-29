@@ -122,7 +122,17 @@ test("/push with a real id: title from ntfy, payload-less push to every phone, 4
   assert.equal(pushCalls(calls).length, n);
   const st = await call({ PUSH: kv }, "GET", "/alerts-status");
   assert.equal(st.json.active, 1);
-  assert.equal(st.json.events[0].event, "gone");
+  assert.ok(st.json.events.some((e) => e.event === "gone"));
+  const al = st.json.events.find((e) => e.event === "alert");        // every alert sent is logged: who got it
+  assert.equal(al.sent, 1); assert.equal(al.gone, 1);
+  // straight from the engine with its key: no ntfy lookup at all (Cloudflare can be blocked from ntfy)
+  const before = pushCalls(calls).length;
+  const bad = await call({ PUSH: kv, PUSH_KEY: "k3y" }, "POST", "/push", { body: { key: "nope", title: "x" }, origin: "" });
+  assert.equal(bad.status, 400);
+  const ok = await call({ PUSH: kv, PUSH_KEY: "k3y" }, "POST", "/push", { body: { key: "k3y", title: "✅ CASHED: Bears +120", body: "Live plus money cashed." }, origin: "" });
+  assert.equal(ok.status, 202);
+  assert.ok(pushCalls(calls).length > before);
+  assert.equal((await call({ PUSH: kv }, "GET", "/latest")).json.title, "✅ CASHED: Bears +120");
 });
 
 test("subscribe / unsubscribe (dashboard origin only)", async () => {

@@ -653,6 +653,11 @@ def grade_leg(leg, g, now):
 def grade(picks, games, now=None):
     now = now or datetime.now(timezone.utc)
     settled = []
+    for pk in picks[-40:]:                                   # graded legs from before the flow was kept: fill it in
+        for leg in pk["legs"]:
+            g = games.get(leg.get("game_id"))
+            if leg.get("result") and not (leg.get("flow") or {}).get("h") and g and g.get("ls_home"):
+                leg["flow"] = {"a": g.get("ls_away", ""), "h": g.get("ls_home", "")}
     for pk in picks:
         if pk["status"] == "lost" and any(leg.get("result") is None for leg in pk["legs"]):
             for leg in pk["legs"]:                           # a busted parlay's other legs still get graded (show every
@@ -661,6 +666,7 @@ def grade(picks, games, now=None):
                     g = games.get(leg["game_id"])
                     if leg["result"] and g:
                         leg["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
+                        leg["flow"] = {"a": g.get("ls_away", ""), "h": g.get("ls_home", "")}   # period by period: the review tells how it went
             continue
         if pk["status"] != "open":
             continue
@@ -670,6 +676,7 @@ def grade(picks, games, now=None):
                 g = games.get(leg["game_id"])
                 if leg["result"] and g:
                     leg["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
+                    leg["flow"] = {"a": g.get("ls_away", ""), "h": g.get("ls_home", "")}   # period by period: the review tells how it went
         res = [leg.get("result") for leg in pk["legs"]]
         if "lost" in res:
             pk["status"], pk["pnl"] = "lost", -pk["stake"]
@@ -831,17 +838,17 @@ NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "d503-live-7b1123")
 DASH_URL = "https://d503therapper.github.io/autonomous-crypto-engine/sports/"
 
 
-def _push(title, body):
-    """📲 A heads-up to phones through ntfy (never blocks anything)."""
+def _push(title, body, tag="ambulance"):
+    """📲 A heads-up to phones: the dashboard's own 🔔 alerts (straight to our Worker) + the ntfy channel. Never blocks."""
+    raw = None
     try:
         req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=body.encode(), method="POST", headers={
-            "Title": title.encode("latin-1", "ignore").decode("latin-1"), "Tags": "ambulance", "Click": DASH_URL,
+            "Title": title.encode("latin-1", "ignore").decode("latin-1"), "Tags": tag, "Click": DASH_URL,
             "Priority": "high"})
         raw = urllib.request.urlopen(req, timeout=5).read()
     except Exception as e:                                   # noqa: BLE001
-        print(f"   push failed: {str(e)[:60]}")
-        return None
-    return sd.web_push(raw)                                  # 🔔 + the dashboard's own alerts (Web Push)
+        print(f"   ntfy push failed: {str(e)[:60]}")
+    return sd.web_push(raw, title, body)                     # 🔔 the dashboard's alerts - even if ntfy is down
 
 
 def injury_watch(games, picks, push=True):
@@ -869,14 +876,14 @@ def injury_watch(games, picks, push=True):
                     leg["injury_alerts"].append(msg)
                     alerts.append(msg)
                     if push:
-                        _push(f"INJURY ALERT: {who}", msg)
+                        pass   # (on the card; no phone alert - the only alerts are live plus money bets)
         for who in set(leg["key_seen"]) - set(now_):
             msg = f"{who} is off the injury report — our pick: {leg_label(leg)}"
             if msg not in leg.setdefault("injury_alerts", []):
                 leg["injury_alerts"].append(msg)
                 alerts.append(msg)
                 if push:
-                    _push(f"INJURY UPDATE: {who}", msg)
+                    pass   # (on the card; no phone alert)
         leg["key_seen"] = now_
     for a in alerts:
         print(f"🚑 injury alert: {a}")

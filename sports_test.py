@@ -2554,7 +2554,7 @@ def test_past_results_vocab():
     try:
         picks = _sample_history()
         page = dash._history(picks)
-        revs = [html_.unescape(x) for x in re.findall(r"<em>(.*?)</em>", page)]
+        revs = [html_.unescape(x) for x in re.findall(r"<div class=\"hrv\">📝 (.*?)</div>", page)]
         assert len(revs) >= 80 and all(revs), len(revs)
         names = sorted(list({f"{t}{n}" for p in picks for l in p["legs"] if l["market"] != "total"
                         for n in (l["team"], l["opp"]) for t in ("", "the ")})
@@ -2569,8 +2569,8 @@ def test_past_results_vocab():
         assert any(re.search(r"push|wash|money back|stake back", r.lower()) for r in revs), "a push says so"
         assert dash._history(picks) == page, "the same words every run"
         more = picks + [dict(p, date="2026-10-30") for p in _sample_history(1, seed=9)]
-        old = re.findall(r"<em>(.*?)</em>", dash._history(more))
-        assert set(re.findall(r"<em>(.*?)</em>", page)) <= set(old), "a new day never rewords the old reviews"
+        old = re.findall(r"<div class=\"hrv\">📝 (.*?)</div>", dash._history(more))
+        assert set(re.findall(r"<div class=\"hrv\">📝 (.*?)</div>", page)) <= set(old), "a new day never rewords the old reviews"
         lean_rows = page[page.index("🟡 Leans"):]
         assert not sl.LEAN_BAN.search(html_.unescape(lean_rows)), "no hype on a lean"
     finally:
