@@ -15,14 +15,10 @@ C = {
     "betrivers (kambi) tennis": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/tennis.json?lang=en_US&market=US",
     "betrivers live tennis": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/tennis/all/all/all/in-play.json?lang=en_US&market=US",
     "unibet (kambi) tennis": "https://eu-offering-api.kambicdn.com/offering/v2018/ubusnj/listView/tennis.json?lang=en_US&market=US",
-    "pinnacle nfl": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/889/matchups",
-    "pinnacle tennis sports": "https://guest.api.arcadia.pinnacle.com/0.1/sports/33/matchups?withSpecials=false",
     "betmgm nfl": "https://sports.nj.betmgm.com/en/sports/api/widget/widgetdata?layoutSize=Large&page=CompetitionLobby&sportId=11&regionId=9&competitionId=35",
 }
-PH = {**H, "X-API-Key": "CmX2KcMrXuFmNg6YFbmTxE0y9CIrOi0R", "Referer": "https://www.pinnacle.com/"}
 for name, u in C.items():
     try:
-        r = urllib.request.urlopen(urllib.request.Request(u, headers=PH if "pinnacle" in name else H), timeout=20)
         body = r.read().decode("utf-8", "ignore")
         am = re.findall(r'"(?:american|americanOdds|oddsAmerican|price)"\s*:\s*"?([+-]?\d{3,4})', body)
         live = body.count('"live":true') + body.count('"isLive":true') + body.count('"state":"STARTED"') + body.count('"inPlay":true')

@@ -4,9 +4,7 @@ import gzip, json, os, time, urllib.request
 from datetime import datetime, timezone
 H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
      "Accept": "application/json, text/plain, text/html, */*", "Accept-Language": "en-US,en;q=0.9"}
-PIN = {**H, "X-API-Key": "CmX2KcMrXuFmNg6YFbmTxE0y9CIrOi0R", "Referer": "https://www.pinnacle.com/"}
 K = "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/{p}.json?lang=en_US&market=US"
-P = "https://guest.api.arcadia.pinnacle.com/0.1/"
 FD = "https://sbapi.nj.sportsbook.fanduel.com/api/{p}&_ak=FhMFpcPWXMeyZxOx"
 day = datetime.now(timezone.utc).strftime("%Y%m%d")
 S = {
@@ -18,12 +16,6 @@ S = {
     "kambi_mlb_inplay": K.format(p="baseball/mlb/all/all/in-play"), "kambi_nhl": K.format(p="ice_hockey/nhl"),
     "kambi_nba": K.format(p="basketball/nba"), "kambi_ncaab": K.format(p="basketball/ncaab"),
     "kambi_all_inplay": K.format(p="all/all/all/all/in-play"),
-    # Pinnacle: matchups + straight markets (tennis sport 33, NFL 889, MLB 246, NHL 1456, NBA 487, NCAAF 880, NCAAB 493)
-    "pin_tennis_matchups": P + "sports/33/matchups?withSpecials=false", "pin_tennis_markets": P + "sports/33/markets/straight?primaryOnly=true",
-    "pin_nfl_matchups": P + "leagues/889/matchups", "pin_nfl_markets": P + "leagues/889/markets/straight",
-    "pin_mlb_matchups": P + "leagues/246/matchups", "pin_mlb_markets": P + "leagues/246/markets/straight",
-    "pin_nhl_matchups": P + "leagues/1456/matchups", "pin_nhl_markets": P + "leagues/1456/markets/straight",
-    "pin_live_tennis": P + "sports/33/matchups/live", "pin_live_markets_tennis": P + "sports/33/markets/live/straight",
     # FanDuel
     "fd_nfl": FD.format(p="content-managed-page?page=CUSTOM&customPageId=nfl"),
     "fd_mlb": FD.format(p="content-managed-page?page=CUSTOM&customPageId=mlb"),
@@ -44,7 +36,7 @@ os.makedirs("samples", exist_ok=True)
 man = {"at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "sources": {}}
 for name, u in S.items():
     try:
-        r = urllib.request.urlopen(urllib.request.Request(u, headers=PIN if name.startswith("pin") else H), timeout=25)
+        r = urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=25)
         body = r.read()
         with gzip.open(f"samples/{name}.gz", "wb") as f:
             f.write(body)
