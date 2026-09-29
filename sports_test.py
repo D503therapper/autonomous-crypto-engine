@@ -2547,6 +2547,18 @@ def test_lean_day_card():
     assert "leans" in note.lower() and "never in ours" not in note and note.count("drop leanday") == 1 and "real talk" not in note.lower()
 
 
+def test_plus_money_lock_rule():
+    """The owner, 9/28: a lock is never a coin flip. Minus money needs 50%+; plus money can be a LOCK only up to +125
+    at 60%+ (a +156 at 40% labeled Lock of the Day was the bug)."""
+    import sports
+    assert not sports.plus_lock({"odds": 156, "p": 0.396}) and not sports.plus_lock({"odds": 130, "p": 0.7})
+    assert sports.plus_lock({"odds": 125, "p": 0.61}) and not sports.plus_lock({"odds": 110, "p": 0.55})
+    base = {"market": "ml", "edge_own": 0.1, "edge": 0.1}
+    assert sports.leg_tier({**base, "odds": 156, "p": 0.40}) in ("value", "lean")
+    if sports.good({**base, "odds": 120, "p": 0.62}):
+        assert sports.leg_tier({**base, "odds": 120, "p": 0.62}) == "lock"
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
