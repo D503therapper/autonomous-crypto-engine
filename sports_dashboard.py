@@ -270,6 +270,18 @@ DROP_PARTS = (   # the 8 AM note, built fresh each day: WHEN + the engine WATCHI
 )
 
 
+def _fold(inner, legs):
+    """A parlay card shows its legs in one line - tap to open the full legs (the owner, 9/29: parlays are too long)."""
+    mark = {"won": "✅ ", "lost": "❌ ", "push": "➖ "}
+    def one(l):
+        mk = l.get("mk") or ("ML" if l.get("market") == "ml" else f'{l["line"]:g}' if l.get("market") == "total"
+                             else f'{l["line"]:+g}' if l.get("line") is not None else "ML")
+        team = ("Over" if l.get("side") == "over" else "Under") if l.get("market") == "total" else l["team"]
+        return f'{mark.get(l.get("result"), "")}{E(team)} {E(mk)}'
+    return (f'<details class="px"><summary class="pxs"><span class="pxt">{" · ".join(one(l) for l in legs)}</span>'
+            f'<span class="pxo">tap for the legs ▾</span></summary>{inner}</details>')
+
+
 def _drop_parts(day, parts=None):
     """The pieces for this date. Each piece steps by its own amount every day (plus a drift every lap), so no piece is
     ever the same as the day before's and the combos keep shifting against each other."""
@@ -341,7 +353,7 @@ def _pick_card(kind, pk):
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{legs}
+  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else legs}
 </section>"""
 
 
@@ -454,7 +466,7 @@ def _tennis():
         return f"""<section class="pk {par['status']}" style="--c1:#c6f000;--c2:#1fd17a">
   <div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">{PAR_TITLE[key].replace("PARLAY", f'{len(par.get("legs") or [])}-LEG PARLAY')}</span>{_chip(par["status"])}</div>
   <div class="pk-o"><span class="big">{_am(par['american'])}</span><span class="pay">$100 wins <b>${100 * (par['dec'] - 1):,.0f}</b></span></div>
-  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{"".join(row(legs[i]) for i in par["legs"] if i in legs)}
+  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{_fold("".join(row(legs[i]) for i in par["legs"] if i in legs), [{"team": legs[i]["player"], "result": legs[i].get("result"), "mk": "ML" if legs[i].get("market") != "spread" else f'{legs[i]["hcp"]:+g} games'} for i in par["legs"] if i in legs])}
 </section>"""
 
     def block(s):                                        # (kept for a single slate; the card groups by tour below)
@@ -1164,6 +1176,9 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk::before{{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c2))}}
 .pk.won{{box-shadow:0 0 0 2px var(--up),0 18px 50px -14px var(--up)}}
 .pk.lost>*:not(.stamp-row){{opacity:.5}}
+.px>summary{{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}}
+.px>summary::-webkit-details-marker{{display:none}} .pxt{{font-weight:800;font-size:15px;line-height:1.35}}
+.pxo{{font-size:12px;color:var(--c1);font-weight:700}} .px[open] .pxo{{display:none}}
 .stamp-row{{display:flex;justify-content:center;margin:6px 0 12px}}
 .stamp{{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
   border-radius:10px;background:rgba(0,0,0,.3)}}

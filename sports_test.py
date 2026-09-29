@@ -3066,6 +3066,21 @@ def test_drop_notes_built_fresh_every_day():
     assert "6 PM PT" in sdb._tn_drop_note("2026-09-29")
 
 
+def test_parlays_fold_to_one_line():
+    """The owner, 9/29: parlays are too long - a parlay card shows its legs in one line, tap to open the full legs;
+    a single pick (the lock, the dog) stays open."""
+    import sports_dashboard as sdb
+    leg = lambda t, **k: {"team": t, "market": "ml", "league": "mlb", "odds": -120, "start": "2026-09-29T23:00Z", "home": True,
+                          "opp": "Opp", "reasons": [], "game_id": f"mlb:{t}", "side": "home", "p": 0.58, "tier": "lock", **k}
+    two = {"kind": "two", "date": "2026-09-29", "status": "open", "stake": 100, "dec": 3.1, "american": 210,
+           "legs": [leg("Yankees"), leg("Padres", result="won")]}
+    html = sdb._card("two", two) if hasattr(sdb, "_card") else ""
+    src = open(sdb.__file__).read()
+    assert "_fold(legs, pk[\"legs\"]) if len(pk[\"legs\"]) > 1 else legs" in src
+    f = sdb._fold("<i>legs</i>", two["legs"])
+    assert f.startswith('<details class="px">') and "Yankees ML · ✅ Padres ML" in f and "<i>legs</i></details>" in f
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
