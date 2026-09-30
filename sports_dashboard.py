@@ -1188,7 +1188,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     pid_of = {id(e): pid for pid, e in live.items()}
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
-                 '<span class="pk-l tn8">TONIGHT\'S LIVE BETS</span><span class="chip in">WE\'RE IN</span></div>' + "".join(
+                 '<span class="pk-l tn8">TONIGHT\'S LIVE BETS</span><span class="chip in">WE\'RE IN</span></div>'
+                 + (LIVE_NO_UNITS if UNITS_ON else "") + "".join(
                      f'<div class="leg {e.get("result") or ""}" data-pid="{E(pid_of.get(id(e), ""))}"><div class="lt"><span class="lgb">{_live_icon(e)} '
                      f'{E(_live_sport(e))}{" · 🔁 DOUBLE DOWN" if e.get("double_down") else ""}</span>'
                      f'{badge_.get(e.get("result")) or pending_(pid_of.get(id(e), ""), e)}</div>'
@@ -1751,7 +1752,7 @@ function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&a
 var last="",PLAY_FRESH_MS={PLAY_FRESH_S}*1000;
 var NOU='{LIVE_NO_UNITS if UNITS_ON else ""}';   // no units on live bets (the owner, 9/30): said once, up top
 var HEAD='<div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div>';
-function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+'<div class="nolive">'+(n<0?   // one red box:
+function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+NOU+'<div class="nolive">'+(n<0?   // one red box:
   '👀 The algorithm’s watching every play for value.':n>0?                                                                  // what you can bet
   '👀 The algorithm’s watching every play for value. '+n+' game'+(n>1?'s':'')+' going.':   // right now
   '😴 No games going right now.')+'</div></section>';}}
@@ -1770,11 +1771,11 @@ function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return
   if(e.result){{if(have)have.remove();return}}   // graded: it clears into THE RESULTS right away (the owner, 9/30)
   if(have)return;
   var sec=el.querySelector("section");
-  if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l tn8">TONIGHT&#39;S LIVE BETS</span><span class="chip in">WE&#39;RE IN</span></div></section>';sec=el.querySelector("section");}}
+  if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l tn8">TONIGHT&#39;S LIVE BETS</span><span class="chip in">WE&#39;RE IN</span></div>'+NOU+'</section>';sec=el.querySelector("section");}}
   var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ STILL GOING</span>';
   var h=document.createElement("div");h.className="leg "+(e.result||"");h.setAttribute("data-pid",e.pid);
   h.innerHTML='<div class="lt"><span class="lgb">'+esc(e.icon)+' '+esc(e.sport)+(e.dd?' · 🔁 DOUBLE DOWN':'')+'</span>'+b+'</div><div class="lm"><span class="pick">'+esc(e.team)+' <em>ML</em></span><span class="od">+'+esc(e.odds)+'</span></div>'+(e.story?'<div class="ls">'+esc(e.story)+'</div>':'');
-  var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});
+  var hd=sec.querySelector(".nou")||sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});   // (under the no-units line)
  var s2=el.querySelector("section");if(s2&&!s2.querySelector(".leg"))el.innerHTML="";   // none going: no blue box
  if(window.d503lt)window.d503lt();}}   // newest on top
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
