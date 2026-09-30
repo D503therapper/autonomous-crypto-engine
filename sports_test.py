@@ -4840,7 +4840,7 @@ def test_overreaction_angle():
                           "home": "A", "away": "B", "home_score": hs, "away_score": as_}
              for k, (d, hs, as_) in enumerate(((20, "3", "31"), (27, "10", "38")))}
     st = sf.team_states(games, "2026-09-30T20:00Z")
-    assert st[("nfl", "A")] == (-28.0, -2) and st[("nfl", "B")] == (28.0, 2)
+    assert st[("nfl", "A")][:2] == (-28.0, -2) and st[("nfl", "B")][:2] == (28.0, 2)
     assert sf.team_states(games, "2026-11-30T20:00Z") == {}                 # stale: nothing
 
 
@@ -4959,6 +4959,20 @@ def test_team_stats_kept_for_the_coaching_study():
         assert sr.team_ids("nfl") == {"nfl:1"} and sr.team_ids("nba") == set()
     finally:
         sr.TEAM_DIR = keep
+
+
+def test_upset_bounce_and_hangover():
+    """Schedule spots (9/30): an NBA team that got upset as a -250 favorite bounces back (+4.9% as a fav, 6 of 8 seasons;
+    +7.1% as a dog); a dog right after its +200 upset win is a hangover (NFL -30%, college -28%, MLB -14%)."""
+    c = lambda lg, odds, st: {"league": lg, "odds": odds, "market": "ml", "form_state": st}
+    assert sports.overreact(c("nba", -180, (-6, -1, -300, False)))               # upset as a big favorite: bounce
+    assert not sports.overreact(c("nba", -180, (-6, -1, -150, False)))           # a normal loss: nothing
+    assert sports.hangover(c("nfl", 150, (7, 1, 240, True))) and not sports.overreact(c("nfl", 150, (7, 1, 240, True)))
+    assert not sports.hangover(c("nfl", -150, (7, 1, 240, True)))                # a favorite now: no hangover
+    assert not sports.hangover(c("nba", 150, (7, 1, 240, True)))                 # (NBA: no hangover found)
+    assert sports.overreact(c("nfl", 150, (-24, -1)))                            # the old 2-field state still works
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "mlb", "market": "ml"}
+    assert sports.dog_score({**base, "form_state": (3, 1, 210, True)}) == sports.dog_score(base) - 3
 
 
 if __name__ == "__main__":
