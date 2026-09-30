@@ -25,6 +25,17 @@ S = {
     "espn_mlb": f"https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates={day}",
     "espn_nhl": f"https://site.web.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates={day}",
     "an_mlb": f"https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date={day}",
+    # who's actually playing (MLB's own public stats site): rosters, lineups, season stats - the Judge miss, 9/29
+    "mlb_teams": "https://statsapi.mlb.com/api/v1/teams?sportId=1",
+    "mlb_roster_nyy_active": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=active",
+    "mlb_roster_nyy_40": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=40Man",
+    "mlb_hitting_nyy": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&season=2026&teamId=147&playerPool=ALL&limit=60",
+    "mlb_sched_lineups": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=" + datetime.now(timezone.utc).strftime("%Y-%m-%d") + "&hydrate=lineups,probablePitcher",
+    "mlb_sched_lineups_prev": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2026-09-29&endDate=2026-09-30&hydrate=lineups",
+    "mlb_transactions_nyy": "https://statsapi.mlb.com/api/v1/transactions?teamId=147&startDate=2026-09-01&endDate=2026-09-30",
+    "espn_roster_nyy": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/roster",
+    "espn_summary_nyy": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401907924",
+    "espn_inj_mlb": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/injuries",
 }
 os.makedirs("samples", exist_ok=True)
 man = {"at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "sources": {}}
