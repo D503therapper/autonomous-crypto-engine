@@ -4076,6 +4076,12 @@ def test_patty_vs_the_algorithm():
     shutil.rmtree(tmp, ignore_errors=True)
 
 
+def test_what_counts_says_all_locks():
+    """The owner, 9/30: 'what counts' said 'the Lock of the Day' - it's every lock (the Lock of the Day is one)."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "<b>What counts:</b> all locks, the Dog of the Day" in src
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by
