@@ -4748,7 +4748,8 @@ def test_monday_thursday_football_always_gets_a_pick():
     assert sports.night_pick([c("home", 0.70, -250), c("away", 0.30, 200, trap=True)]) is None   # never past -150 / a trap
     pk = {"date": "2026-10-05", "kind": "night", "status": "open", "lean": True, "legs": [], "american": -140, "dec": 1.7,
           "stake": 100}
-    assert "MONDAY NIGHT FOOTBALL" in d._pick_card("night", {**pk, "status": "waiting", "waiting": [], "deadline": "2026-10-06T00:00Z"})
+    leg = {"team": "Steelers", "market": "ml", "line": None}
+    assert "STEELERS ML" in d._pick_card("night", {**pk, "legs": [leg], "status": "waiting", "waiting": [], "deadline": "2026-10-06T00:00Z"})
     two = d._cards("2026-10-05", [], [("night", "<a>", 111), ("night", "<b>", None)])   # each card its own clock
     assert 'data-gone="111"><a>' in two and two.endswith("<b>")
 
