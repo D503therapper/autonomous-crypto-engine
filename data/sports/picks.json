@@ -1844,5 +1844,510 @@
   "stake": 100.0,
   "status": "lost",
   "tier": "lean"
+ },
+ {
+  "american": -144,
+  "date": "2026-09-30",
+  "dec": 1.6944,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "hot:3",
+     "cold:4",
+     "better_s:0",
+     "bump:1",
+     "keyout_both_bat:1",
+     "bottom_l:0",
+     "w_better:2"
+    ],
+    "breakdown": [
+     "\ud83d\udd25 Yankees can't stop winning: 2 straight, 94-68 overall.",
+     "\ud83d\ude91 Aaron Judge (the Yankees) and Curtis Mead (the Red Sox) are both out. It evens out, and we still like the Yankees.",
+     "\ud83e\uddca Red Sox (87-76) are in a slump \u2014 2 straight.",
+     "\u26be Pitching matchup: Max Fried (Yankees) vs Sonny Gray (Red Sox).",
+     "\ud83d\udcaa Yankees are the better squad, even if it's closer than it looks.",
+     "\u2705 Bottom line: Yankees (-144) is the right side and we're all in. Trust the algorithm."
+    ],
+    "bv": 34,
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.6944444444444444,
+    "drift": -0.0123,
+    "edge": -0.04542869667452465,
+    "edge_own": -0.042796005706134066,
+    "game_id": "mlb:401907963",
+    "home": true,
+    "intl": false,
+    "key_edge": -0.13892991567011248,
+    "key_seen": {
+     "Aaron Judge (Yankees RF)": "10-Day-IL",
+     "Curtis Mead (Red Sox 3B)": "10-Day-IL"
+    },
+    "league": "mlb",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -144,
+    "opp": "Red Sox",
+    "opp_lost_last": true,
+    "opp_outs": [
+     "Mickey Gasper (DH)",
+     "Tyron Guerrero (RP)",
+     "Curtis Mead (3B)",
+     "Anthony Seigler (2B)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Ryan Weathers (SP)",
+     "Aaron Judge (RF)",
+     "Clarke Schmidt (SP)"
+    ],
+    "p": 0.5633535560609363,
+    "p_market": 0.5649072753209701,
+    "public": "ride",
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players",
+     "hotter recent form"
+    ],
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-01T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Yankees",
+    "their_drama": [],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Yankees are about to beat the brakes off Red Sox."
+   }
+  ],
+  "p_hit": 0.5634,
+  "pnl": 0.0,
+  "posted": "2026-09-30T15:04Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": 189,
+  "date": "2026-09-30",
+  "dec": 2.8877,
+  "kind": "two",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "hot:3",
+     "cold:4",
+     "better_s:0",
+     "bump:1",
+     "keyout_both_bat:1",
+     "bottom_l:0",
+     "w_better:2"
+    ],
+    "breakdown": [
+     "\ud83d\udd25 Yankees can't stop winning: 2 straight, 94-68 overall.",
+     "\ud83d\ude91 Aaron Judge (the Yankees) and Curtis Mead (the Red Sox) are both out. It evens out, and we still like the Yankees.",
+     "\ud83e\uddca Red Sox (87-76) are in a slump \u2014 2 straight.",
+     "\u26be Pitching matchup: Max Fried (Yankees) vs Sonny Gray (Red Sox).",
+     "\ud83d\udcaa Yankees are the better squad, even if it's closer than it looks.",
+     "\u2705 Bottom line: Yankees (-144) is the right side and we're all in. Trust the algorithm."
+    ],
+    "bv": 34,
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.6944444444444444,
+    "drift": -0.0123,
+    "edge": -0.04542869667452465,
+    "edge_own": -0.042796005706134066,
+    "game_id": "mlb:401907963",
+    "home": true,
+    "intl": false,
+    "key_edge": -0.13892991567011248,
+    "key_seen": {
+     "Aaron Judge (Yankees RF)": "10-Day-IL",
+     "Curtis Mead (Red Sox 3B)": "10-Day-IL"
+    },
+    "league": "mlb",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -144,
+    "opp": "Red Sox",
+    "opp_lost_last": true,
+    "opp_outs": [
+     "Mickey Gasper (DH)",
+     "Tyron Guerrero (RP)",
+     "Curtis Mead (3B)",
+     "Anthony Seigler (2B)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Ryan Weathers (SP)",
+     "Aaron Judge (RF)",
+     "Clarke Schmidt (SP)"
+    ],
+    "p": 0.5633535560609363,
+    "p_market": 0.5649072753209701,
+    "public": "ride",
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players",
+     "hotter recent form"
+    ],
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-01T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Yankees",
+    "their_drama": [],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Yankees are about to beat the brakes off Red Sox."
+   },
+   {
+    "bd_tags": [
+     "drama_family_personal:1",
+     "keyout:2",
+     "healthy:1",
+     "bottom_l:11",
+     "w_sharp:0"
+    ],
+    "breakdown": [
+     "\u2705 Full squad for Flyers.",
+     "\ud83e\uddef Heavy week for the Penguins off the field. Hard to lock in.",
+     "\ud83d\ude91 Penguins are down their starting goalie, Gabriel D'Aigle.",
+     "\u2705 Bottom line: say less \u2014 Flyers (-142)."
+    ],
+    "bv": 34,
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.704225352112676,
+    "drift": -0.031,
+    "edge": -0.039859760664547994,
+    "edge_own": -0.04816068605693591,
+    "game_id": "nhl:401891821",
+    "home": true,
+    "intl": false,
+    "key_edge": 0.3235440517670496,
+    "key_seen": {
+     "Gabriel D'Aigle (Penguins G)": "Injured Reserve"
+    },
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -142,
+    "opp": "Penguins",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5633880743208024,
+    "p_market": 0.5634920634920635,
+    "public": "ride",
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team",
+     "opponent drama: family/personal"
+    ],
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-09-30T23:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Flyers",
+    "their_drama": [
+     {
+      "date": "2026-09-24",
+      "headline": "Penguins' Kuzmenko takes leave after father killed by bear",
+      "id": "50023292",
+      "kind": "family/personal"
+     }
+    ],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 The engine had Flyers before the number moved \u2014 now the market's catching up."
+   }
+  ],
+  "p_hit": 0.3174,
+  "pnl": 0.0,
+  "posted": "2026-09-30T15:04Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": 400,
+  "date": "2026-09-30",
+  "dec": 4.9955,
+  "kind": "three",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "hot:3",
+     "cold:4",
+     "better_s:0",
+     "bump:1",
+     "keyout_both_bat:1",
+     "bottom_l:0",
+     "w_better:2"
+    ],
+    "breakdown": [
+     "\ud83d\udd25 Yankees can't stop winning: 2 straight, 94-68 overall.",
+     "\ud83d\ude91 Aaron Judge (the Yankees) and Curtis Mead (the Red Sox) are both out. It evens out, and we still like the Yankees.",
+     "\ud83e\uddca Red Sox (87-76) are in a slump \u2014 2 straight.",
+     "\u26be Pitching matchup: Max Fried (Yankees) vs Sonny Gray (Red Sox).",
+     "\ud83d\udcaa Yankees are the better squad, even if it's closer than it looks.",
+     "\u2705 Bottom line: Yankees (-144) is the right side and we're all in. Trust the algorithm."
+    ],
+    "bv": 34,
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.6944444444444444,
+    "drift": -0.0123,
+    "edge": -0.04542869667452465,
+    "edge_own": -0.042796005706134066,
+    "game_id": "mlb:401907963",
+    "home": true,
+    "intl": false,
+    "key_edge": -0.13892991567011248,
+    "key_seen": {
+     "Aaron Judge (Yankees RF)": "10-Day-IL",
+     "Curtis Mead (Red Sox 3B)": "10-Day-IL"
+    },
+    "league": "mlb",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -144,
+    "opp": "Red Sox",
+    "opp_lost_last": true,
+    "opp_outs": [
+     "Mickey Gasper (DH)",
+     "Tyron Guerrero (RP)",
+     "Curtis Mead (3B)",
+     "Anthony Seigler (2B)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Ryan Weathers (SP)",
+     "Aaron Judge (RF)",
+     "Clarke Schmidt (SP)"
+    ],
+    "p": 0.5633535560609363,
+    "p_market": 0.5649072753209701,
+    "public": "ride",
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players",
+     "hotter recent form"
+    ],
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-01T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Yankees",
+    "their_drama": [],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Yankees are about to beat the brakes off Red Sox."
+   },
+   {
+    "bd_tags": [
+     "drama_family_personal:1",
+     "keyout:2",
+     "healthy:1",
+     "bottom_l:11",
+     "w_sharp:0"
+    ],
+    "breakdown": [
+     "\u2705 Full squad for Flyers.",
+     "\ud83e\uddef Heavy week for the Penguins off the field. Hard to lock in.",
+     "\ud83d\ude91 Penguins are down their starting goalie, Gabriel D'Aigle.",
+     "\u2705 Bottom line: say less \u2014 Flyers (-142)."
+    ],
+    "bv": 34,
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.704225352112676,
+    "drift": -0.031,
+    "edge": -0.039859760664547994,
+    "edge_own": -0.04816068605693591,
+    "game_id": "nhl:401891821",
+    "home": true,
+    "intl": false,
+    "key_edge": 0.3235440517670496,
+    "key_seen": {
+     "Gabriel D'Aigle (Penguins G)": "Injured Reserve"
+    },
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -142,
+    "opp": "Penguins",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5633880743208024,
+    "p_market": 0.5634920634920635,
+    "public": "ride",
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team",
+     "opponent drama: family/personal"
+    ],
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-09-30T23:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Flyers",
+    "their_drama": [
+     {
+      "date": "2026-09-24",
+      "headline": "Penguins' Kuzmenko takes leave after father killed by bear",
+      "id": "50023292",
+      "kind": "family/personal"
+     }
+    ],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 The engine had Flyers before the number moved \u2014 now the market's catching up."
+   },
+   {
+    "bd_tags": [
+     "bump:15",
+     "sharp:5",
+     "bottom_s:5",
+     "w_hot:3"
+    ],
+    "breakdown": [
+     "\u26be Don't sleep on Nick Pivetta. He gon' remind everybody tonight.",
+     "\ud83d\udcb0 Everybody else is showing up late on Padres: -132 to -137.",
+     "\u2705 Bottom line: Padres (-137) is the side. Nothing fancy, just the right call."
+    ],
+    "bv": 34,
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf",
+     "them:week3000"
+    ],
+    "dec": 1.72992700729927,
+    "drift": -0.0062,
+    "edge": -0.038442971647827506,
+    "edge_own": -0.02154686264308403,
+    "game_id": "mlb:401907975",
+    "home": true,
+    "intl": false,
+    "key_edge": 1.1629014084507048,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -137,
+    "opp": "Cubs",
+    "opp_lost_last": true,
+    "opp_outs": [
+     "Edward Cabrera (SP)",
+     "Trent Thornton (RP)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Casey Mize (SP)",
+     "Miguel Andujar (DH)",
+     "Jeremiah Estrada (RP)"
+    ],
+    "p": 0.5558367632246736,
+    "p_market": 0.552982006111132,
+    "public": "ride",
+    "reasons": [
+     "hotter recent form",
+     "better starting pitcher",
+     "the stronger team"
+    ],
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-01T02:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Padres",
+    "their_drama": [],
+    "tier": "lean",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udd25 Padres are playing their best ball of the year (3 straight W's) and we're riding it."
+   }
+  ],
+  "p_hit": 0.1764,
+  "pnl": 0.0,
+  "posted": "2026-09-30T15:04Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
