@@ -3869,6 +3869,8 @@ def test_final_score_calls_the_pick_on_the_spot():
 
 
 if __name__ == "__main__":
+    sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
+    sports_live.FINAL_AT.clear()
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
             fn()
