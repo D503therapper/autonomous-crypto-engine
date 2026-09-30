@@ -486,9 +486,12 @@ def team_unsure(inj, team_id, team_name, league):
 # ---------------------------------------------------------------- baseball: who the stars are, who's in the lineup
 MLB_API = "https://statsapi.mlb.com/api/v1"
 STARS_PATH = os.path.join(DATA, "mlb_stars.json")
-STARS_N, STARS_MIN_PA = 3, 150         # a team's 3 best bats by OPS (150+ trips to the plate - real regulars)
+STARS_N, STARS_SHARE = 3, 0.4          # a team's 3 best bats by OPS among real regulars: 40%+ of the trips to the
+#                                        plate its busiest hitter has (a star who missed time still counts - Judge,
+#                                        285 of Rice's 667; a hot part-timer doesn't - works in April and September)
 _STARS = {}
 _STARS_TRY = [0.0]
+STARS_V = 2                            # bump when the rule changes: today's saved list gets rebuilt
 
 
 def _mlb_get(path):
@@ -497,22 +500,23 @@ def _mlb_get(path):
         return json.load(r)
 
 
-def parse_stars(payload, n=STARS_N, min_pa=STARS_MIN_PA):
-    """MLB's season hitting stats (every player) -> {team name: [its best bats]}. A player who was traded counts for
-    the team he last played for (the last split listed)."""
-    best = {}
+def parse_stars(payload, n=STARS_N, share=STARS_SHARE):
+    """MLB's season hitting stats (every player) -> {team name: [its best bats]}. Each team's hitters, as that team
+    (a traded player counts where he played); regulars only (share of the team's most trips to the plate)."""
+    teams = {}
     for sp in ((payload.get("stats") or [{}])[0].get("splits") or []):
         st, who, team = sp.get("stat") or {}, (sp.get("player") or {}).get("fullName"), (sp.get("team") or {}).get("name")
         try:
             pa, ops = int(st.get("plateAppearances") or 0), float(st.get("ops") or 0)
         except (TypeError, ValueError):
             continue
-        if who and team and pa >= min_pa:
-            best[who] = (team, ops)
+        if who and team:
+            teams.setdefault(team, []).append((pa, ops, who))
     out = {}
-    for who, (team, ops) in best.items():
-        out.setdefault(team, []).append((ops, who))
-    return {t: [w for _, w in sorted(v, reverse=True)[:n]] for t, v in out.items()}
+    for team, rows in teams.items():
+        floor = max(30, share * max(r[0] for r in rows))
+        out[team] = [w for _, _, w in sorted(((o, p, w) for p, o, w in rows if p >= floor), reverse=True)[:n]]
+    return out
 
 
 def mlb_stars(refresh=False):
@@ -526,14 +530,14 @@ def mlb_stars(refresh=False):
     except (OSError, ValueError):
         pass
     day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    if old.get("day") == day and old.get("teams") and not refresh:
+    if old.get("day") == day and old.get("v") == STARS_V and old.get("teams") and not refresh:
         _STARS.update(old["teams"])
         return _STARS
     try:
         yr = datetime.now(timezone.utc).year
         teams = parse_stars(_mlb_get(f"/stats?stats=season&group=hitting&season={yr}&sportId=1&playerPool=ALL&limit=3000"))
         if teams:
-            json.dump({"day": day, "teams": teams}, open(STARS_PATH, "w"), indent=1)
+            json.dump({"day": day, "v": STARS_V, "teams": teams}, open(STARS_PATH, "w"), indent=1)
             _STARS.clear()
             _STARS.update(teams)
             return _STARS
