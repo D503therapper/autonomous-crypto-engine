@@ -4668,7 +4668,8 @@ def test_units_and_the_open_bankroll():
     assert all(x in box for x in ("Overall", "Today", "Last 7 days", "ROI", "Started at $1,000"))
     assert "Today" not in d.units_box([day1, day2], "2026-10-09")        # nothing graded that day: no empty row
     assert "Parlays" not in box
-    assert d._units_line(2) == '<div class="un">💰 2 UNITS</div>'   # no $ on a card: everybody's unit is their own
+    assert d._units_line(2) == '<div class="un"><span class="mb">💰</span> 2 UNITS</div>'   # no $ on a card; green bag
+    assert ".mb{{display:inline-block;filter:hue-rotate" in open(d.__file__).read()
     assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
     assert "🔥 VALUE PLAY<" in d.TIER_CHIP["value"] and "🔥 VALUE PLAY<" in d.LEG_TAG["value"]   # 'value plays', not 'value'
     dog = {"date": "2026-09-30", "kind": "dog", "status": "won", "dec": 2.6, "legs": [{"p": 0.40, "tier": "lean"}]}

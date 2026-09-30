@@ -190,7 +190,7 @@ TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE
 
 
 def _units_line(u):
-    return f'<div class="un">💰 {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
+    return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
 
 
 def _units_txt(u):
@@ -220,7 +220,7 @@ def units_box(picks, today=None):
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
                      (("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
                       ("strong", "💪 Strong leans"), ("slight", "🟡 Slight leans"))))
-    return (f'<div class="unb"><div class="ovr-t">💰 BANKROLL</div>'
+    return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
             f'<div class="unp">Started at ${start:,.0f}<br>1 unit = 1% of our bankroll = ${led["unit_today"]:,.2f}</div>'
             f'{out}</div>')
@@ -1497,6 +1497,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
+.mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}
