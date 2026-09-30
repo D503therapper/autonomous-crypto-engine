@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T14:59Z",
+ "updated": "2026-09-30T15:04Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -25,7 +25,7 @@
     "line": 1.5,
     "odds": -185,
     "p": 0.617,
-    "win_p": 0.5,
+    "win_p": 0.501,
     "reasons": [
      "hotter recent form",
      "better starting pitcher",
@@ -59,7 +59,8 @@
     "p": 0.605,
     "win_p": 0.417,
     "reasons": [
-     "hotter recent form"
+     "hotter recent form",
+     "opponent missing key players"
     ]
    }
   },
@@ -110,8 +111,8 @@
    "start": "2026-09-30T23:30Z",
    "away": "Penguins",
    "home": "Flyers",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "three",
    "lean": {
     "team": "Penguins",
     "opp": "Flyers",
@@ -138,8 +139,8 @@
    "start": "2026-10-01T00:00Z",
    "away": "Red Sox",
    "home": "Yankees",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "three",
    "lean": {
     "team": "Red Sox",
     "opp": "Yankees",
@@ -166,8 +167,8 @@
    "start": "2026-10-01T02:00Z",
    "away": "Cubs",
    "home": "Padres",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "three",
    "lean": {
     "team": "Cubs",
     "opp": "Padres",
@@ -176,7 +177,9 @@
     "odds": -198,
     "p": 0.621,
     "win_p": 0.435,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
