@@ -1,0 +1,170 @@
+{
+ "at": "2026-09-30T00:49Z",
+ "sources": {
+  "kambi_tennis_inplay": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/tennis/all/all/all/in-play.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 13
+  },
+  "kambi_tennis": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/tennis.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 324
+  },
+  "kambi_nfl": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/american_football/nfl.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 52
+  },
+  "kambi_nfl_inplay": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/american_football/nfl/all/all/in-play.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 0
+  },
+  "kambi_ncaaf": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/american_football/ncaaf.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 92
+  },
+  "kambi_mlb": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/baseball/mlb.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 7
+  },
+  "kambi_mlb_inplay": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/baseball/mlb/all/all/in-play.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 2
+  },
+  "kambi_nhl": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/ice_hockey/nhl.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 13
+  },
+  "kambi_nba": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/basketball/nba.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 31
+  },
+  "kambi_ncaab": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/basketball/ncaab.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 90
+  },
+  "kambi_all_inplay": {
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/all/all/all/all/in-play.json?lang=en_US&market=US",
+   "status": 200,
+   "kb": 30
+  },
+  "yahoo_nfl": {
+   "url": "https://sports.yahoo.com/nfl/odds/",
+   "status": 200,
+   "kb": 1197
+  },
+  "yahoo_mlb": {
+   "url": "https://sports.yahoo.com/mlb/odds/",
+   "status": 200,
+   "kb": 847
+  },
+  "yahoo_nhl": {
+   "url": "https://sports.yahoo.com/nhl/odds/",
+   "status": 200,
+   "kb": 1108
+  },
+  "yahoo_nba": {
+   "url": "https://sports.yahoo.com/nba/odds/",
+   "status": 200,
+   "kb": 600
+  },
+  "yahoo_ncaaf": {
+   "url": "https://sports.yahoo.com/college-football/odds/",
+   "status": 200,
+   "kb": 1887
+  },
+  "vi_nfl": {
+   "url": "https://www.vegasinsider.com/nfl/odds/las-vegas/",
+   "status": 200,
+   "kb": 1010
+  },
+  "covers_nfl": {
+   "url": "https://contests.covers.com/consensus/topconsensus/nfl/overall",
+   "status": 200,
+   "kb": 444
+  },
+  "espn_nfl": {
+   "url": "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+   "status": 200,
+   "kb": 162
+  },
+  "espn_mlb": {
+   "url": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=20260930",
+   "status": 200,
+   "kb": 64
+  },
+  "espn_nhl": {
+   "url": "https://site.web.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20260930",
+   "status": 200,
+   "kb": 44
+  },
+  "an_mlb": {
+   "url": "https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date=20260930",
+   "status": 200,
+   "kb": 33
+  },
+  "mlb_teams": {
+   "url": "https://statsapi.mlb.com/api/v1/teams?sportId=1",
+   "status": 200,
+   "kb": 22
+  },
+  "mlb_hitting_all": {
+   "url": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&season=2026&sportId=1&playerPool=ALL&limit=3000",
+   "status": 200,
+   "kb": 753
+  },
+  "mlb_roster_nyy_active": {
+   "url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=active",
+   "status": 200,
+   "kb": 6
+  },
+  "mlb_roster_nyy_40": {
+   "url": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=40Man",
+   "status": 200,
+   "kb": 10
+  },
+  "mlb_hitting_nyy": {
+   "url": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&season=2026&teamId=147&playerPool=ALL&limit=60",
+   "status": 200,
+   "kb": 25
+  },
+  "mlb_sched_lineups": {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-09-30&hydrate=lineups,probablePitcher",
+   "status": 200,
+   "kb": 5
+  },
+  "mlb_sched_lineups_prev": {
+   "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2026-09-29&endDate=2026-09-30&hydrate=lineups",
+   "status": 200,
+   "kb": 26
+  },
+  "mlb_transactions_nyy": {
+   "url": "https://statsapi.mlb.com/api/v1/transactions?teamId=147&startDate=2026-09-01&endDate=2026-09-30",
+   "status": 200,
+   "kb": 23
+  },
+  "espn_roster_nyy": {
+   "url": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/teams/10/roster",
+   "status": 200,
+   "kb": 141
+  },
+  "espn_summary_nyy": {
+   "url": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/summary?event=401907924",
+   "status": 200,
+   "kb": 478
+  },
+  "espn_inj_mlb": {
+   "url": "https://site.web.api.espn.com/apis/site/v2/sports/baseball/mlb/injuries",
+   "status": 200,
+   "kb": 3136
+  }
+ }
+}
