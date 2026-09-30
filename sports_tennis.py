@@ -1859,6 +1859,11 @@ def quick_grade(rows=None):
                 except Exception as e:                   # noqa: BLE001
                     print(f"tennis quick grade: espn {tour} {d}: {str(e)[:60]}")
     ms = {r["id"]: r for r in rows}
+    try:                                                     # 🥊 the challenge box grades off the same scoreboards
+        import sports_challenge
+        sports_challenge.update(rows=ms)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"challenge grade failed: {e}")
     before = sum(1 for s_ in picks for l in s_.get("picks") or [] if l.get("result"))
     grade(ms, picks)
     after = sum(1 for s_ in picks for l in s_.get("picks") or [] if l.get("result"))

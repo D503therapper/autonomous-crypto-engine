@@ -4022,6 +4022,51 @@ def test_results_show_reviews_without_a_tap_and_tennis_gets_tennis_words():
     assert "Get in." not in SL.PAL["wk"]
 
 
+def test_patty_vs_the_algorithm():
+    """The owner, 9/30: Patty's 10-leg moneyline ticket vs the engine's. Same count, the engine's payout never less
+    than Patty's (and at most 10% more) - fair; the engine goes for the best shot at hitting ALL of them. It waits
+    for every one of Patty's prices (no guessing), locks once one of its own picks starts, grades each leg, and the box
+    says who got more right. It sits under the day's picks, above the results."""
+    import sports_challenge as C
+    import sports_dashboard as D
+    from html import escape
+    tmp = tempfile.mkdtemp()
+    path = os.path.join(tmp, "c.json")
+    now = datetime(2026, 9, 30, 9, 0, tzinfo=timezone.utc)
+    pm = {}
+    for k in range(14):                                      # 14 matches tomorrow, the engine's side priced -150..+120
+        pm[f"atp:{k}"] = {"p1_name": f"Al{k} Fav{k}", "p2_name": f"Bo{k} Dog{k}", "start": "2026-10-01T04:00Z",
+                          "ml": [-150 - 20 * k, 120 + 15 * k], "model_p1": 0.6 + 0.02 * k, "tour": "atp"}
+    pm["atp:99"] = {"p1_name": "Francisco Cerundolo", "p2_name": "Juan Manuel Cerundolo", "start": "2026-10-01T04:00Z",
+                    "ml": [-150, 125], "model_p1": 0.6}
+    C._save({"name": "Patty", "patty": [{"player": n, "ml": C.EST_ML, "est": True, "result": None}
+                                        for n in ["Al1 Fav1", "Al2 Fav2", "Francisco Cerundolo", "Nobody Yet"]], "algo": []}, path)
+    c = C.update(pm=pm, now=now, path=path)
+    assert c["waiting"] == ["Nobody Yet"] and c["algo"] == [], "an unpriced leg: the engine waits"
+    assert [l["side"] for l in c["patty"][:3]] == [1, 1, 1] and c["patty"][2]["match"] == "atp:99"   # the right Cerundolo
+    c["patty"] = c["patty"][:3]
+    C._save(c, path)
+    c = C.update(pm=pm, now=now, path=path)
+    T = C.total(c["patty"])
+    assert len(c["algo"]) == 3 and T <= C.total(c["algo"]) <= T * C.FAIR_OVER + 1e-9, (T, C.total(c["algo"]))
+    assert len({l["match"] for l in c["algo"]}) == 3
+    first = [l["match"] for l in c["algo"]]
+    later = datetime(2026, 10, 1, 4, 1, tzinfo=timezone.utc)   # its picks have started: locked, never re-picked
+    pm2 = {k: {**v, "model_p1": 0.99} for k, v in pm.items()}
+    c = C.update(pm=pm2, now=later, path=path)
+    assert c.get("locked") and [l["match"] for l in c["algo"]] == first
+    rows = {l["match"]: {"id": l["match"], "status": "STATUS_FINAL", "winner": 1, "done": 2, "sets1": "6 6", "sets2": "3 4"}
+            for l in c["patty"] + c["algo"]}
+    c = C.update(pm=pm2, rows=rows, now=later, path=path)
+    ps, as_, done = C.score(c)
+    assert done and ps == sum(l["side"] == 1 for l in c["patty"]) and as_ == sum(l["side"] == 1 for l in c["algo"])
+    h = C.html(c, escape)
+    assert "PATTY VS THE ALGORITHM" in h and ("WINS" in h or "DEAD EVEN" in h) and "ML</small>" in h
+    src = open(D.__file__).read()
+    assert src.index("{_tennis()}\n{challenge}") < src.index("THE RESULTS</h2>")   # under the daily picks
+    shutil.rmtree(tmp, ignore_errors=True)
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

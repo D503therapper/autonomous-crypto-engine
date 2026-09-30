@@ -1284,6 +1284,11 @@ def run(repick=False, fetch=True):
     try:                                                                # 🎾 the tennis bonus (never blocks the main board)
         import sports_tennis
         sports_tennis.run(state, now, fetch=fetch)
+        try:                                                 # 🥊 Patty vs the algorithm: fresh prices / picks
+            import sports_challenge
+            sports_challenge.update()
+        except Exception as e:                               # noqa: BLE001
+            print(f"challenge update failed: {e}")
     except Exception as e:                                              # noqa: BLE001
         print(f"tennis failed: {e}")
     sd.save_games(games)

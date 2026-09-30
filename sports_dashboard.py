@@ -963,6 +963,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card drops at <b>8 AM PT</b> on game day — the engine watches the lines and the news overnight.</div>')
     hist = _history(picks)                                  # (first: it writes the reviews the graded cards show)
+    try:                                                     # 🥊 a friend's ticket vs the engine's (the owner, 9/30)
+        import sports_challenge as sch
+        challenge = sch.html(sch._load(), E)
+    except Exception as e:                                   # noqa: BLE001 - the page never waits on it
+        print(f"challenge box failed: {e}")
+        challenge = ""
     board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active],
                    {p["kind"]: gone_ms(p) for p in active}) if active else drop
     if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
@@ -1299,6 +1305,18 @@ def render(picks, model, games, series, start_bank, updated_ms):
 <meta name="description" content="Daily 2-Leg, 3-Leg, Lock &amp; Dog of the Day. Trust the algorithm.">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=8"><link rel="icon" href="icon-512.png?v=8"><link rel="manifest" href="manifest.webmanifest">
 <style>
+/* 🥊 PATTY vs THE ALGORITHM (sports_challenge.py) */
+
+.pvw{{font-size:13px;font-weight:800;color:#ffd23f;margin:0 0 6px}}
+.pvx .pvs{{font-size:17px;font-weight:900;color:#fff;margin:6px 0 8px;letter-spacing:.01em}}
+.pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
+.pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
+.pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
+.pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1}}
+.pvc small{{font-size:10px;font-weight:800;opacity:.9}}
+.pvc span{{overflow-wrap:anywhere}} .pvc b{{font-weight:900;font-variant-numeric:tabular-nums}}
+.pvc i{{font-style:normal;min-width:1.2em;text-align:right}} .pvc.lost span,.pvc.lost .pvp b{{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}}
+.pvc.won{{box-shadow:inset 0 0 0 1px #22c55e88}} .pvc.lost{{box-shadow:inset 0 0 0 1px #ff3b3b88}}
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
 *{{box-sizing:border-box}}
 html,body{{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}}
@@ -1526,6 +1544,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 {tomorrow}
 
 {_tennis()}
+{challenge}
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
