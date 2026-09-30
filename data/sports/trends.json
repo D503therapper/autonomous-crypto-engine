@@ -62,12 +62,10 @@
    "strength": 3.53,
    "trend": "over",
    "upcoming": [
-    "mlb:401907897",
     "mlb:401907963",
     "mlb:401907975"
    ],
    "upcoming_names": [
-    "White Sox @ Astros",
     "Red Sox @ Yankees",
     "Cubs @ Padres"
    ],
@@ -168,40 +166,6 @@
    ],
    "league": "mlb",
    "outcome": "home",
-   "price_said": 1136.8,
-   "record": "1134-1015",
-   "season": 2026,
-   "side": 1,
-   "situation": "back-to-back",
-   "streak": 6,
-   "strength": 2.88,
-   "trend": "home team wins",
-   "upcoming": [
-    "mlb:401907897",
-    "mlb:401907963",
-    "mlb:401907975",
-    "mlb:401907973",
-    "mlb:401907898",
-    "mlb:401907964",
-    "mlb:401907976"
-   ],
-   "upcoming_names": [
-    "White Sox @ Astros",
-    "Red Sox @ Yankees",
-    "Cubs @ Padres",
-    "Phillies @ Braves",
-    "White Sox @ Astros",
-    "Red Sox @ Yankees",
-    "Cubs @ Padres"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "streak"
-   ],
-   "league": "mlb",
-   "outcome": "home",
    "price_said": 137.6,
    "record": "139-123",
    "season": 2026,
@@ -271,7 +235,8 @@
     "ncaaf:401862793",
     "ncaaf:401864515",
     "ncaaf:401866430",
-    "ncaaf:401866433"
+    "ncaaf:401866433",
+    "ncaaf:401871090"
    ],
    "upcoming_names": [
     "Western KY @ New Mexico St",
@@ -290,7 +255,8 @@
     "Samford @ UAB",
     "Wyoming @ N Dakota St",
     "Akron @ C Michigan",
-    "E Michigan @ UMass"
+    "E Michigan @ UMass",
+    "Southern Miss @ Troy"
    ],
    "verdict": "coin flip"
   },
@@ -333,6 +299,7 @@
     "ncaaf:401858246",
     "ncaaf:401858250",
     "ncaaf:401858251",
+    "ncaaf:401858252",
     "ncaaf:401858479",
     "ncaaf:401856705",
     "ncaaf:401866432",
@@ -342,7 +309,8 @@
     "ncaaf:401862787",
     "ncaaf:401862793",
     "ncaaf:401864515",
-    "ncaaf:401866430"
+    "ncaaf:401866430",
+    "ncaaf:401871090"
    ],
    "upcoming_names": [
     "Liberty @ Delaware",
@@ -351,6 +319,7 @@
     "Boston College @ SMU",
     "Notre Dame @ North Carolina",
     "Stanford @ Wake Forest",
+    "Syracuse @ UConn",
     "Michigan St @ Wisconsin",
     "Vanderbilt @ Georgia",
     "W Michigan @ Buffalo",
@@ -360,7 +329,8 @@
     "Memphis @ Charlotte",
     "Samford @ UAB",
     "Wyoming @ N Dakota St",
-    "Akron @ C Michigan"
+    "Akron @ C Michigan",
+    "Southern Miss @ Troy"
    ],
    "verdict": "coin flip"
   },
@@ -431,6 +401,7 @@
     "ncaaf:401858246",
     "ncaaf:401858250",
     "ncaaf:401858251",
+    "ncaaf:401858252",
     "ncaaf:401858479",
     "ncaaf:401856705",
     "ncaaf:401866432",
@@ -440,7 +411,8 @@
     "ncaaf:401862787",
     "ncaaf:401862793",
     "ncaaf:401864515",
-    "ncaaf:401866430"
+    "ncaaf:401866430",
+    "ncaaf:401871090"
    ],
    "upcoming_names": [
     "Liberty @ Delaware",
@@ -449,6 +421,7 @@
     "Boston College @ SMU",
     "Notre Dame @ North Carolina",
     "Stanford @ Wake Forest",
+    "Syracuse @ UConn",
     "Michigan St @ Wisconsin",
     "Vanderbilt @ Georgia",
     "W Michigan @ Buffalo",
@@ -458,7 +431,8 @@
     "Memphis @ Charlotte",
     "Samford @ UAB",
     "Wyoming @ N Dakota St",
-    "Akron @ C Michigan"
+    "Akron @ C Michigan",
+    "Southern Miss @ Troy"
    ],
    "verdict": "coin flip"
   },
@@ -656,28 +630,28 @@
    "hit": 0.6886,
    "hit_new": 0.6899,
    "hit_old": 0.6873,
-   "n": 227489,
+   "n": 227490,
    "n_new": 113745,
-   "n_old": 113744,
+   "n_old": 113745,
    "said": 0.6795,
    "status": "watch only",
-   "to": "2026-09-27",
-   "z": 10.05
+   "to": "2026-09-30",
+   "z": 10.04
   },
   "mlb|all": {
-   "edge": 0.0041,
-   "edge_new": 0.0053,
+   "edge": 0.004,
+   "edge_new": 0.0052,
    "edge_old": 0.0029,
    "from": "2018-03-31",
-   "hit": 0.56,
-   "hit_new": 0.5582,
+   "hit": 0.5599,
+   "hit_new": 0.5581,
    "hit_old": 0.5618,
-   "n": 16138,
-   "n_new": 8069,
+   "n": 16139,
+   "n_new": 8070,
    "n_old": 8069,
    "said": 0.5559,
    "status": "watch only",
-   "to": "2026-09-27",
+   "to": "2026-09-30",
    "z": 1.06
   },
   "mlb|rate": {
@@ -745,20 +719,20 @@
    "z": -0.77
   },
   "mlb|streak": {
-   "edge": 0.0005,
+   "edge": 0.0004,
    "edge_new": -0.0046,
    "edge_old": 0.0055,
    "from": "2018-04-06",
    "hit": 0.5367,
-   "hit_new": 0.5243,
+   "hit_new": 0.5242,
    "hit_old": 0.5492,
-   "n": 10776,
-   "n_new": 5388,
+   "n": 10777,
+   "n_new": 5389,
    "n_old": 5388,
    "said": 0.5363,
    "status": "watch only",
-   "to": "2026-09-27",
-   "z": 0.1
+   "to": "2026-09-30",
+   "z": 0.09
   },
   "mlb|streak|fav_ml": {
    "edge": -0.0057,
@@ -777,20 +751,20 @@
    "z": -0.79
   },
   "mlb|streak|home": {
-   "edge": 0.0008,
-   "edge_new": -0.005,
+   "edge": 0.0006,
+   "edge_new": -0.0054,
    "edge_old": 0.0066,
    "from": "2018-04-15",
-   "hit": 0.519,
-   "hit_new": 0.5119,
+   "hit": 0.5188,
+   "hit_new": 0.5115,
    "hit_old": 0.5261,
-   "n": 2684,
-   "n_new": 1342,
+   "n": 2685,
+   "n_new": 1343,
    "n_old": 1342,
    "said": 0.5182,
    "status": "watch only",
-   "to": "2026-09-26",
-   "z": 0.08
+   "to": "2026-09-30",
+   "z": 0.06
   },
   "mlb|streak|total": {
    "edge": 0.0082,
@@ -1744,13 +1718,13 @@
    "hit": 0.6391,
    "hit_new": 0.6397,
    "hit_old": 0.6384,
-   "n": 69190,
-   "n_new": 34595,
+   "n": 69191,
+   "n_new": 34596,
    "n_old": 34595,
    "said": 0.633,
    "status": "watch only",
-   "to": "2026-09-27",
-   "z": 3.53
+   "to": "2026-09-30",
+   "z": 3.52
   },
   "streak|fav_cover": {
    "edge": -0.0072,
@@ -1790,15 +1764,15 @@
    "edge_old": 0.0095,
    "from": "2018-04-15",
    "hit": 0.616,
-   "hit_new": 0.6273,
+   "hit_new": 0.6272,
    "hit_old": 0.6047,
-   "n": 13146,
-   "n_new": 6573,
+   "n": 13147,
+   "n_new": 6574,
    "n_old": 6573,
    "said": 0.6093,
    "status": "watch only",
-   "to": "2026-09-26",
-   "z": 1.79
+   "to": "2026-09-30",
+   "z": 1.78
   },
   "streak|total": {
    "edge": 0.0025,
@@ -1818,7 +1792,7 @@
   }
  },
  "follow_ups": {
-  "mlb": 16138,
+  "mlb": 16139,
   "nba": 33444,
   "ncaab": 138128,
   "ncaaf": 23986,
@@ -1835,5 +1809,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-09-30T18:02Z"
+ "updated": "2026-09-30T21:36Z"
 }
