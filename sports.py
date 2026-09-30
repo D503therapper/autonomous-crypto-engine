@@ -1087,7 +1087,8 @@ def post_board(games, model, picks, now, day, force=False):
     # results), a fresh one of the same kind goes up from the games that haven't started yet - picks all day long.
     todo = [k for k, _ in KINDS if (k not in posted and not started) or
             (k in posted and posted[k]["status"] in ("won", "lost", "push"))]
-    if not todo:
+    nights = night_games(games, day, picks, now)             # 🏈 Monday / Thursday football: a pick on every game
+    if not todo and not nights:
         return []
     injuries = {lg: sd.fetch_injuries(lg) for lg in sd.LEAGUES}
     for g in games.values():
@@ -1119,6 +1120,29 @@ def post_board(games, model, picks, now, day, force=False):
     used |= sports_breakdown.memory(picks, since=(day - timedelta(days=1)).isoformat())   # no phrase repeats on the
     #                                                     dashboard, and no 4-word run from today's or yesterday's write-ups
     new = []
+
+    def dress(b):                                            # the posted legs: who's out, the write-up, the read
+        nonlocal elo
+        for leg in b["legs"]:
+            g = games[leg["game_id"]]
+            other = "away" if leg["side"] == "home" else "home"
+            for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
+                outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
+                leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
+            elo = elo or sm.ratings(games, model)
+            same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
+                         if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)
+            if same:                                  # the same pick reads the same everywhere it shows up
+                leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
+                leg["why_line"] = same.get("why_line", "")
+            else:
+                leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
+            leg["public"] = sports_breakdown.public_side(leg, g)
+            leg["bv"] = sports_breakdown.VERSION
+            leg["key_seen"] = key_status(injuries.get(leg["league"]), g)       # who's in/out when we posted it
+            print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
+                  f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
+
     # the owner: a day where NOTHING on the slate clears the value bar gets LEANS ONLY (own record, never ours) with a
     # note up top - we don't force picks just to have picks. Decided on the opening board, before anything's posted.
     lean_day = not any(p["date"] == iso and p["status"] != "waiting" for p in picks) and bool(cands) and \
@@ -1155,25 +1179,7 @@ def post_board(games, model, picks, now, day, force=False):
             picks.append({"date": iso, "kind": kind, "status": "waiting", "legs": [], "waiting": wait[:3],
                           "deadline": deadline.strftime("%Y-%m-%dT%H:%MZ")})
             continue
-        for leg in b["legs"]:
-            g = games[leg["game_id"]]
-            other = "away" if leg["side"] == "home" else "home"
-            for key, side, name in (("outs", leg["side"], leg["team"]), ("opp_outs", other, leg["opp"])):
-                outs = sd.team_injuries(injuries.get(leg["league"]), g[side], name)
-                leg[key] = [f"{n} ({pos})" if pos else n for n, pos, _ in outs[:4]]
-            elo = elo or sm.ratings(games, model)
-            same = next((l for p in picks + new if p["date"] == iso for l in p["legs"]
-                         if l.get("bv") == sports_breakdown.VERSION and _same_leg(l, leg) and l is not leg), None)
-            if same:                                  # the same pick reads the same everywhere it shows up
-                leg["breakdown"], leg["bd_tags"], leg["reasons"] = same["breakdown"], same.get("bd_tags", []), same.get("reasons", leg.get("reasons"))
-                leg["why_line"] = same.get("why_line", "")
-            else:
-                leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
-            leg["public"] = sports_breakdown.public_side(leg, g)
-            leg["bv"] = sports_breakdown.VERSION
-            leg["key_seen"] = key_status(injuries.get(leg["league"]), g)       # who's in/out when we posted it
-            print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
-                  f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
+        dress(b)
         pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"),
               "round": sum(p["date"] == iso and p["kind"] == kind and p["status"] != "waiting" for p in picks) + 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]),
@@ -1188,7 +1194,67 @@ def post_board(games, model, picks, now, day, force=False):
         picks.append(pk)
         posted[kind] = pk
         new.append(pk)
+    for gid in nights:                                       # 🏈 the owner, 9/30: Monday and Thursday football ALWAYS
+        if gid in _straight_games(picks, iso):               # get a pick - every game (two games = two picks); the
+            continue                                         # engine's call, a lean is fine
+        b = night_pick([c for c in cands if c["game_id"] == gid])
+        if not b:
+            continue
+        deadline = _start(b["legs"][0]) - timedelta(minutes=DEADLINE_MIN)
+        if b["legs"][0]["waiting"] and now < deadline and not force:
+            continue                                         # waiting on news (a QB...): the next run looks again
+        dress(b)
+        leg = b["legs"][0]
+        pk = {"date": iso, "kind": "night", "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1,
+              "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
+              "stake": STAKE, "status": "open", "pnl": 0.0, "lean": bool(b.get("lean"))}
+        leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
+        if pk["lean"]:
+            leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}night{gid}")
+        pk["tier"] = pick_tier({**pk, "tier": None})
+        picks.append(pk)
+        new.append(pk)
     return new
+
+
+NIGHT_DAYS = (0, 3)            # 🏈 Monday, Thursday (Pacific) - every NFL game those days gets a pick (the owner, 9/30)
+STRAIGHT_KINDS = ("lock", "dog", "solo", "night")
+
+
+def _straight_games(picks, iso):
+    """Games already carrying a straight pick today (the Lock, the Dog, a one-game pick, a night pick)."""
+    return {l["game_id"] for p in picks if p["date"] == iso and p["kind"] in STRAIGHT_KINDS and p["status"] != "waiting"
+            for l in p.get("legs") or []}
+
+
+def night_games(games, day, picks, now):
+    """NFL games on a Monday / Thursday (Pacific) not started yet with no straight pick on them yet."""
+    if day.weekday() not in NIGHT_DAYS:
+        return []
+    have = _straight_games(picks, day.isoformat())
+    out = []
+    for g in games.values():
+        if g.get("league") != "nfl" or g.get("status") != "pre" or (g.get("stype") or "2") not in sd.REAL:
+            continue
+        t = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+        if t.astimezone(PT).date() == day and t > now and g["id"] not in have:
+            out.append(g["id"])
+    return sorted(out, key=lambda k: games[k]["start"])
+
+
+def night_pick(pool):
+    """The engine's pick for one Monday / Thursday game: its best real play (value, likeliest first); none clears the
+    bar - the likeliest side it isn't fighting, as a LEAN. Moneyline or spread, never past -150, never a trap."""
+    pool = [c for c in pool if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV and not c.get("trap")]
+    real = [c for c in pool if good(c)]
+    if real:
+        c = max(real, key=lambda c: (round(c["p"] * 50), c["edge"]))
+        return {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}
+    pool = [c for c in pool if not fighting(c)] or pool
+    if not pool:
+        return None
+    c = max(pool, key=lambda c: (c["p"], c["edge"]))
+    return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 
 def key_status(inj, g, lineups=None):

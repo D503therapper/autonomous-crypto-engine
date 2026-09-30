@@ -4727,6 +4727,32 @@ def test_latest_games_line_only_backs_the_pick():
     assert "#fff" in css and "font-weight" in css
 
 
+def test_monday_thursday_football_always_gets_a_pick():
+    """The owner, 9/30: every Monday / Thursday NFL game gets a pick - two games, two picks; a lean is fine."""
+    from datetime import date
+    import sports_dashboard as d
+    mon = date(2026, 10, 5)                                  # a Monday
+    g = lambda i, t, st="pre", lg="nfl": {"id": f"{lg}:{i}", "league": lg, "status": st, "stype": "2", "start": t}
+    games = {x["id"]: x for x in (g(1, "2026-10-06T00:15Z"), g(2, "2026-10-06T03:00Z"), g(3, "2026-10-06T00:15Z", lg="mlb"),
+                                  g(4, "2026-10-06T20:00Z"))}   # (4: Tuesday in Pacific time)
+    now = datetime(2026, 10, 5, 16, 0, tzinfo=timezone.utc)
+    assert sports.night_games(games, mon, [], now) == ["nfl:1", "nfl:2"]          # both Monday games, NFL only
+    assert sports.night_games(games, date(2026, 10, 6), [], now) == []           # Tuesday: no rule
+    lock = {"date": "2026-10-05", "kind": "lock", "status": "open", "legs": [{"game_id": "nfl:1"}]}
+    par = {"date": "2026-10-05", "kind": "two", "status": "open", "legs": [{"game_id": "nfl:2"}]}
+    assert sports.night_games(games, mon, [lock, par], now) == ["nfl:2"]       # the Lock covers it; a parlay leg doesn't
+    c = lambda side, p, odds, **k: {"game_id": "nfl:2", "side": side, "market": "ml", "odds": odds, "p": p, "edge": 0.0,
+                                    "dec": 1 + (odds / 100 if odds > 0 else 100 / -odds), "reasons": [], **k}
+    b = sports.night_pick([c("home", 0.58, -140), c("away", 0.42, 120)])        # nothing clears the bar: a lean
+    assert b["lean"] and b["legs"][0]["side"] == "home"
+    assert sports.night_pick([c("home", 0.70, -250), c("away", 0.30, 200, trap=True)]) is None   # never past -150 / a trap
+    pk = {"date": "2026-10-05", "kind": "night", "status": "open", "lean": True, "legs": [], "american": -140, "dec": 1.7,
+          "stake": 100}
+    assert "MONDAY NIGHT FOOTBALL" in d._pick_card("night", {**pk, "status": "waiting", "waiting": [], "deadline": "2026-10-06T00:00Z"})
+    two = d._cards("2026-10-05", [], [("night", "<a>", 111), ("night", "<b>", None)])   # each card its own clock
+    assert 'data-gone="111"><a>' in two and two.endswith("<b>")
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
