@@ -194,12 +194,10 @@ LIVE_NO_UNITS = '<div class="nou">🎲 NO UNITS ON THESE — WE GAMBLIN’</div>
 UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every play by its own edge (the sizing study)
 
 
-HALF_WHY = {   # (the owner, 9/30: a ½u Lock looks suspect - say why, in plain words, no numbers)
-    "fav": ("We're on it — the price is steep, so we keep the bet small.", "Love the side. Big price, so a small bet.",
-            "Confident in the side — the price just keeps the bet small."),
-    "dog": ("We riding with them — small bet, big payout.", "Plus money does the work. A small bet is plenty.",
-            "Small bet, big return when they cash."),
-}
+HALF_WHY = {"fav": ("The price is too expensive for a big bet.", "Too expensive a price to bet big.",
+                    "Price too tight for a big bet."),
+            "dog": ("Price too tight for a big bet.", "Too tight a price to bet big.", "Tight price — no need to bet big.")}
+# (the owner's words, 9/30: a ½u pick says why - the price, never doubt in our own pick)
 
 
 def _units_line(u, key="", odds=None):
@@ -208,7 +206,7 @@ def _units_line(u, key="", odds=None):
     if not u:                                                # a lean: no units (the owner, 9/30)
         return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
     if u == 0.5:                                             # the engine's minimum: its read barely beats the price
-        pool = HALF_WHY["dog" if (odds or 100) > 0 else "fav"]
+        pool = HALF_WHY["dog" if (odds or 100) > 0 else "fav"]   # (a plus-money dog is never "expensive")
         why = pool[sum(map(ord, key)) % len(pool)]
         return f'<div class="un"><span class="mb">💰</span> ½ UNIT<span class="unw">{E(why)}</span></div>'
     return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
