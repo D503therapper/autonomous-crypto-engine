@@ -603,7 +603,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790805562813,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790805944357,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
@@ -861,7 +861,8 @@ reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s)
  if(!s||Notification.permission!=="granted"){set(false);return}
  set(true);
  return key().then(function(k){
-  if(!same(s,k))return s.unsubscribe().then(function(){return subscribe(k)});   // the Worker's key changed: re-join
+  if(!same(s,k))return post("/unsubscribe",{endpoint:s.endpoint}).catch(function(){}).then(function(){return s.unsubscribe()})
+   .then(function(){return subscribe(k)});   // the Worker's key changed: re-join (the old sign-up dropped - never 2 pings)
   var t=0;try{t=+localStorage.getItem("d503pushT")||0}catch(e){}
   if(Date.now()-t>7*864e5)return post("/subscribe",s.toJSON()).then(function(){try{localStorage.setItem("d503pushT",String(Date.now()))}catch(e){}});
  });
