@@ -1567,7 +1567,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .un{{margin-top:2px;text-align:right;font-size:17px;font-weight:900;letter-spacing:.08em;color:#fff}}
 .evr .un,.egl .un{{text-align:left;margin-top:4px}} .evr .un .mb,.egl .un .mb{{display:inline-block;margin:0}}   /* an early play's units: under its game time */
 .unw{{display:block;font-size:13px;letter-spacing:.02em;font-weight:800;color:#fff;text-transform:none}}   /* why ½u */
-.nou{{text-align:center;font-size:17px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
+.nou{{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
