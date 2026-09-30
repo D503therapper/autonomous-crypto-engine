@@ -194,7 +194,7 @@ def _units_txt(u):
     return "½ UNIT" if u == 0.5 else f"{u:g} UNIT" + ("" if u == 1 else "S")
 
 
-def units_box(picks):
+def units_box(picks, today=None):
     """💰 The open bankroll + units won / lost (the owner + Ricky, 9/30: measure it like money, not just W-L; everything
     transparent): $1,000 to start, a unit = 1% of the bankroll that morning, every graded pick at its size and price."""
     import sports
@@ -207,15 +207,30 @@ def units_box(picks):
         cats["🔒 Lock of the Day" if k == "lock" else "🐺 Dog of the Day" if k == "dog" else
              "🎯 Parlays" if k in sports.PARLAY_UNITS else "🔥 Other picks"].append((u, nu))
     fmt = lambda n: f"{n:+.1f}u"
+    roi = lambda nu, u: f"{nu / u:+.0%} ROI" if u else ""
     tot, risk = sum(nu for _, _, nu, _ in led["rows"]), sum(u for _, u, _, _ in led["rows"])
     bank, start = led["bankroll"], sports.BANKROLL_START
-    rows = "".join(f'<div class="unr"><span>{E(k)}</span><b class="{"up" if sum(n for _, n in v) >= 0 else "dn"}">'
-                   f'{fmt(sum(n for _, n in v))}</b></div>' for k, v in cats.items() if v)
+    today = today or datetime.now(sports.PT).strftime("%Y-%m-%d")
+    wk = (datetime.strptime(today, "%Y-%m-%d") - timedelta(days=6)).strftime("%Y-%m-%d")
+
+    def span(keep):                                          # units, $ and ROI over some days
+        rs = [r for r in led["rows"] if keep(r[0]["date"])]
+        nu, u, nd = sum(r[2] for r in rs), sum(r[1] for r in rs), sum(r[3] for r in rs)
+        return rs, f'{fmt(nu)} · {"+" if nd >= 0 else "-"}${abs(nd):,.2f} · {roi(nu, u)}', nu
+
+    def line(label, txt, n, cls="unr"):
+        return f'<div class="{cls}"><span>{E(label)}</span><b class="{"up" if n >= 0 else "dn"}">{txt}</b></div>'
+    stats = line("Overall", span(lambda d: True)[1], tot, "unr unh")
+    for label, keep in (("Today", lambda d: d == today), ("Last 7 days", lambda d: d >= wk)):
+        rs, txt, nu = span(keep)
+        if rs:
+            stats += line(label, txt, nu)
+    rows = "".join(line(k, f"{fmt(sum(n for _, n in v))} · {roi(sum(n for _, n in v), sum(u for u, _ in v))}",
+                        sum(n for _, n in v)) for k, v in cats.items() if v)
     return (f'<div class="unb"><div class="ovr-t">💰 BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
-            f'<div class="unp">Started at ${start:,.0f} · 1 unit today = ${led["unit_today"]:,.2f}</div>'
-            f'<div class="unr unh"><span>Units</span><b class="{"up" if tot >= 0 else "dn"}">{fmt(tot)} on {risk:g}u bet · '
-            f'{tot / risk:+.0%} ROI</b></div>{rows}</div>')
+            f'<div class="unp">Started at ${start:,.0f} ({(bank - start) / start:+.1%}) · 1 unit today = '
+            f'${led["unit_today"]:,.2f}</div>{stats}{rows}</div>')
 
 
 def _tier(pk):
@@ -258,12 +273,28 @@ def pct_ok(text):
                   else f"likes {m.group(1)} here", out)
 
 
+_LATEST = re.compile(r"^📅 [^:]+: (.*)$")
+_RES = re.compile(r" ([WLT]) \d+-\d+ (?:vs|@) ")
+
+
+def latest_ok(line):
+    """A 'latest games' line only stays when it backs the pick: we won our last one, and they lost theirs or had none
+    (the owner, 9/30: "Kings L 1-5 vs Avalanche" in the Kings' breakdown hurts the pick). Covers breakdowns already
+    posted, before the engine stopped writing them."""
+    m = _LATEST.match(line)
+    if not m:
+        return True
+    parts = m.group(1).split(" · ")
+    res = [(_RES.search(x) or [None, None])[1] for x in parts]
+    return res[0] == "W" and (len(res) < 2 or res[1] == "L")
+
+
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
         return ""
     done = leg.get("result") in ("won", "lost", "push")
-    lines = [pct_ok(x) for x in secs if isinstance(x, str)]
+    lines = [pct_ok(x) for x in secs if isinstance(x, str) and latest_ok(x)]
     if done:                                                 # it's over: no "we gon' see" on a graded pick
         lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
     body = "".join(f"<p>{E(x)}</p>" for x in lines)
@@ -620,7 +651,7 @@ def _tennis():
 
     def row(l):
         done = l.get("result") in ("won", "lost", "push", "void")
-        lines = [x for x in (l.get("breakdown") or []) if isinstance(x, str)]
+        lines = [x for x in (l.get("breakdown") or []) if isinstance(x, str) and latest_ok(x)]
         if done:                                             # it's over: no "we gon' see" in the pregame read
             lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
         tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)   # the headline line up top, like the
@@ -1149,7 +1180,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
                f'{f"<div class=ovr-s>today {tw}-{tl}</div>" if tw + tl else ""}</div>')
-    overall += units_box(picks)
+    overall += units_box(picks, today)
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
     def wlt(w, l):
@@ -1475,11 +1506,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr{{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}}
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
-.un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#ffc233}}
+.un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}
-.unr{{display:flex;justify-content:space-between;font-size:14px;font-weight:800;color:#fff;padding:6px 0;border-top:1px solid var(--line)}}
+.unr{{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:800;color:#fff;padding:6px 0;border-top:1px solid var(--line)}}
 .evx{{margin-top:14px}} .gdx{{margin-top:14px}} .egh{{text-align:right;font-size:10.5px;font-weight:900;letter-spacing:.1em;color:#fff;margin:10px 0 2px}}
 .egr{{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}}
 .egl b{{color:#fff;font-size:19px;font-weight:900}} .egl small{{color:#fff;font-weight:800}} .egl span{{display:block;font-size:14.5px;font-weight:800;color:#fff;margin-top:2px}}

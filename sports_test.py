@@ -4654,6 +4654,27 @@ def test_units_and_the_open_bankroll():
     assert led["bankroll"] == round(1000 + 10.0 - 2 * 10.1, 2)
     import sports_dashboard as d
     assert "BANKROLL" in d.units_box([day1, day2]) and d.units_box([]) == ""
+    box = d.units_box([day1, day2], "2026-09-30")          # the owner, 9/30: every ROI stat - overall, the day, the week
+    assert all(x in box for x in ("Overall", "Today", "Last 7 days", "ROI", "Started at $1,000 ("))
+    assert "Today" not in d.units_box([day1, day2], "2026-10-09")        # nothing graded that day: no empty row
+
+
+def test_latest_games_line_only_backs_the_pick():
+    """The owner, 9/30: 'Kings L 1-5 vs Avalanche' in the Kings' breakdown hurts the pick - the latest-games line only
+    shows when we won our last one and they lost theirs (or had none); the units line is bold white, not yellow."""
+    import inspect
+    import sports_breakdown_v24
+    import sports_dashboard as d
+    assert not d.latest_ok("📅 Most recent games: Kings L 1-5 vs Avalanche · Avalanche L 1-2 @ Golden Knights.")
+    assert not d.latest_ok("📅 Latest: Kings W 3-1 vs Ducks · Avalanche W 4-2 @ Stars.")
+    assert d.latest_ok("📅 Latest: Kings W 3-1 vs Ducks · Avalanche L 1-2 @ Golden Knights.")
+    assert d.latest_ok("📅 Fresh off: Kings W 3-1 vs Ducks.") and d.latest_ok("🔥 Kings are rolling.")
+    leg = {"breakdown": ["🔥 Kings are rolling.", "📅 Latest: Kings L 1-5 vs Avalanche · Avalanche L 1-2 @ Golden Knights."]}
+    assert "Avalanche" not in d._breakdown(leg) and "rolling" in d._breakdown(leg)
+    src = inspect.getsource(sports_breakdown_v24.breakdown)
+    assert '.startswith("W")' in src                        # the engine stops writing a losing latest line too
+    css = re.search(r"\.un\{\{?[^}]*\}", inspect.getsource(d)).group(0)
+    assert "#fff" in css and "font-weight" in css
 
 
 if __name__ == "__main__":

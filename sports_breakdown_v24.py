@@ -329,8 +329,9 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🗑️ {them} are about to get their cheeks clapped. {rec} — they been complete ass.",
             f"🗑️ {rec} lately. {them} are complete ass and it shows."]))
 
-    # last games: just the latest scores - the form/streak lines above already cover runs
-    if ours:
+    # last games: just the latest scores - and only when they back the pick (the owner, 9/30: "Kings L 1-5 vs Avalanche"
+    # in the Kings' breakdown makes no sense - we won our last one, and they lost theirs or had none)
+    if ours and _line(ours[-1], tid).startswith("W") and (not theirs or _line(theirs[-1], oid).startswith("L")):
         last_us = _line(ours[-1], tid)
         both = f"{us} {last_us}" + (f" · {them} {_line(theirs[-1], oid)}" if theirs else "")
         out.append(v.say("latest", [f"📅 Latest: {both}.", f"📅 Last time out: {both}.", f"📅 Most recent games: {both}.",

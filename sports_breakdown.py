@@ -300,8 +300,8 @@ def _breakdown_vocab(leg, games, elo, injuries, used=None):
         if (len(s_theirs) >= 3 and w / len(s_theirs) < 0.35) or n_cold >= 3 or rating_them < 1420:
             out.append(_say(v, "trash", them=them, rec=_record(s_theirs, oid)))
 
-    # last games: just the latest scores - the form/streak lines above already cover runs
-    if ours:
+    # last games: only when they back the pick (the owner, 9/30)
+    if ours and _line(ours[-1], tid).startswith("W") and (not theirs or _line(theirs[-1], oid).startswith("L")):
         last_us = _line(ours[-1], tid)
         both = f"{us} {last_us}" + (f" · {them} {_line(theirs[-1], oid)}" if theirs else "")
         out.append(_say(v, "latest", words=W, both=both))
