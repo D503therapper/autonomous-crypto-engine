@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T04:10Z",
+ "updated": "2026-09-30T04:25Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -183,7 +183,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Braves",
-    "p": 0.446,
+    "p": 0.445,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -199,8 +199,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.623,
-    "win_p": 0.506,
+    "p": 0.622,
+    "win_p": 0.505,
     "reasons": [
      "hotter recent form",
      "better starting pitcher",
@@ -214,7 +214,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Astros",
-    "p": 0.522,
+    "p": 0.513,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -222,18 +222,18 @@
    "start": "2026-09-30T21:00Z",
    "away": "White Sox",
    "home": "Astros",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Astros",
-    "opp": "White Sox",
-    "market": "ml",
-    "line": null,
-    "odds": -155,
-    "p": 0.597,
-    "win_p": 0.597,
+    "team": "White Sox",
+    "opp": "Astros",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -179,
+    "p": 0.593,
+    "win_p": 0.403,
     "reasons": [
-     "the stronger team"
+     "hotter recent form"
     ]
    }
   },
@@ -260,7 +260,7 @@
     "line": 1.5,
     "odds": -238,
     "p": 0.727,
-    "win_p": 0.516,
+    "win_p": 0.517,
     "reasons": [
      "better rested",
      "hotter recent form",
@@ -274,8 +274,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Flyers",
-    "p": 0.378,
-    "tie": 0.297,
+    "p": 0.381,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -290,7 +290,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.664,
+    "p": 0.659,
     "win_p": 0.441,
     "reasons": []
    }
@@ -301,7 +301,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.497,
+    "p": 0.488,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -317,7 +317,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -204,
-    "p": 0.611,
+    "p": 0.62,
     "win_p": 0.433,
     "reasons": []
    }
@@ -328,8 +328,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.402,
-    "tie": 0.295,
+    "p": 0.406,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -339,14 +339,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Kings",
-    "opp": "Avalanche",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -162,
-    "p": 0.615,
-    "win_p": 0.39,
-    "reasons": []
+    "team": "Avalanche",
+    "opp": "Kings",
+    "market": "ml",
+    "line": null,
+    "odds": -180,
+    "p": 0.617,
+    "win_p": 0.617,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   }
  ]
