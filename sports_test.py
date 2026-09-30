@@ -4229,7 +4229,14 @@ def test_early_value_plays():
         st = se.load()
         assert st["picks"][0]["result"] == "won" and se.record(st) == {"won": 1, "lost": 0, "units": 1.85}
         assert "Get it before the line moves" in se.ping_text(st["picks"][0])[1]
-        assert "EARLY VALUE PLAYS" in se.html(st, lambda x: x) and "✅" in se.html(st, lambda x: x)
+        assert "✅" not in se.html(st, lambda x: x) and "Last graded" not in se.html(st, lambda x: x)   # no grading here
+        st["picks"].append({**st["picks"][0], "game_id": "9", "result": None, "team": "Soon Team",
+                            "start": (now + timedelta(days=3)).strftime("%Y-%m-%dT%H:%MZ")})
+        st["picks"].append({**st["picks"][0], "game_id": "8", "result": None, "team": "Today Team",
+                            "start": (now + timedelta(hours=3)).strftime("%Y-%m-%dT%H:%MZ")})
+        h = se.html(st, lambda x: x, now)
+        assert "EARLY VALUE PLAYS" in h and "Soon Team" in h and "game starts at" in h
+        assert "Today Team" not in h                  # game day: no longer an early play, it leaves the box
     finally:
         sm.ratings, sm.own_p, sm.market_p, se.recent_params, se.ON = saved
     assert se.html({"picks": [{"x": 1}]}, lambda x: x) == ""          # off: no box on the page

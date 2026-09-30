@@ -294,28 +294,22 @@ def send(c):
 
 
 def html(st, E, now=None):
-    """The box under today's board: the early plays still to come (price posted at), then the last graded ones, and
-    their own record. Empty until the first one ever posts."""
+    """The box under today's board: the early plays whose game day hasn't come yet (the owner, 9/30: on game day
+    they're no longer early plays - they leave the box; no grading shown here)."""
     now = now or datetime.now(timezone.utc)
-    ps = st.get("picks") or []
-    if not ON or not ps:
+    if not ON or not st.get("picks"):
         return ""
-    up = sorted((p for p in ps if not p.get("result")), key=lambda p: p["start"])
-    done = sorted((p for p in ps if p.get("result") in ("won", "lost", "push")), key=lambda p: p["start"])[-5:][::-1]
+    today = now.astimezone(PT).date()
+    up = sorted((p for p in st["picks"] if not p.get("result") and _t(p["start"]).astimezone(PT).date() > today),
+                key=lambda p: p["start"])
 
     def row(p):
         t = _t(p["start"]).astimezone(PT)
-        mark = {"won": "✅", "lost": "❌", "push": "➖"}.get(p.get("result"), "")
-        st_ = f' data-start="{E(p["start"])}"' if not p.get("result") else ""
-        tag = f'<i>{mark}</i>' if mark else ""
-        return (f'<div class="evr {p.get("result") or ""}"{st_}><div><b>{E(p["team"])}</b> <small>ML</small> '
-                f'<em>+{p["odds"]}</em><span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
-                f'<u>{t.strftime("%A")} · ' + ("final" if p.get("result") else
-                                              f'game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT')
-                + f'</u></div>{tag}</div>')
-    body = "".join(row(p) for p in up) or '<div class="evn">👀 Watching every new line. The next one posts the second it shows up.</div>'
-    past = ('<div class="evh">Last graded</div>' + "".join(row(p) for p in done)) if done else ""
+        return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>ML</small> <em>+{p["odds"]}</em>'
+                f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
+                f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u></div></div>')
+    body = "".join(row(p) for p in up) or \
+        '<div class="evn">👀 Watching every new line. The next one posts the second it shows up.</div>'
     return (f'<section class="pk evx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">⏰</span>'
             f'<span class="pk-l evt">EARLY VALUE PLAYS</span></div>'
-            f'<div class="evb">🔥 GET IT BEFORE THE LINE MOVES 🔥</div>'
-            f'{body}{past}</section>')
+            f'<div class="evb">🔥 GET IT BEFORE THE LINE MOVES 🔥</div>{body}</section>')
