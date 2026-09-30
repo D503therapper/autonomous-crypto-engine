@@ -4654,7 +4654,8 @@ def _units_and_the_open_bankroll():
     """The owner (9/30): units under each label (0.5u up to a 10u max play), and an open bankroll - $1,000 to start, a
     unit is 1% of that morning's bankroll, so it grows as we win. Everything transparent."""
     # the ENGINE sizes every play by its edge (the sizing study, 9/30): quarter-Kelly, ½u-10u
-    lk = lambda own, o: {"kind": "lock", "legs": [{"p": 0.6, "p_market": 0.55, "edge_own": own - 0.55, "odds": o}]}
+    lk = lambda own, o: {"kind": "lock", "legs": [{"p": 0.6, "p_market": 0.55, "odds": o,
+                                                    "edge_own": own * (1 + 100 / -o) - 1}]}   # value per $1, as posted
     assert sports.units_for(lk(0.60, -125)) == 2.5 and sports.units_for(lk(0.52, -125)) == 0.5   # its OWN read, not p
     assert sports.units_for(lk(0.75, -125)) > sports.units_for(lk(0.65, -125)) > 2.5 and sports.UNIT_MAX == 10
     assert sports.kelly_units(0.9, 200) == 10                                                   # the 10u max
@@ -4699,7 +4700,8 @@ def _units_and_the_open_bankroll():
     assert d._units_line(2) == '<div class="un"><span class="mb">💰</span> 2 UNITS</div>'   # no $ on a card; green bag
     assert "NO UNITS — JUST A LEAN" in d._units_line(0)                   # a lean says so (the owner, 9/30)
     assert "½ UNIT" in d._units_line(0.5, "Yankees") and 'class="unw"' in d._units_line(0.5, "Yankees")   # ½u says why
-    assert len({d._units_line(0.5, k) for k in ("Yankees", "Flyers", "Kings", "Padres", "Bears")}) > 1   # not one line on repeat
+    assert len({d._units_line(0.5, k, -140) for k in ("Yankees", "Flyers", "Kings", "Padres", "Bears")}) > 1   # not on repeat
+    assert "pay a lot" in "".join(d.HALF_WHY["fav"]) and "shot" in "".join(d.HALF_WHY["dog"])   # plain words, fav vs dog
     assert ".mb{{display:inline-block;filter:hue-rotate" in open(d.__file__).read()
     assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
     assert "🔥 VALUE PLAY<" in d.TIER_CHIP["value"] and "🔥 VALUE PLAY<" in d.LEG_TAG["value"]   # 'value plays', not 'value'

@@ -422,7 +422,7 @@ def html(st, E, now=None, show_units=None):
                 f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
                 f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
-                + (show_units(units(p), p.get("team", "")) if show_units else "") + '</div></div>')
+                + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "") + '</div></div>')
     body = "".join(row(p) for p in up) or \
         '<div class="evn">👀 Watching every new line. The next one posts the second it shows up.</div>'
     return (f'<section class="pk evx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">⏰</span>'
@@ -474,7 +474,7 @@ def gameday_html(st, games, E, now=None, show_units=None):
                     f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > 55 else "")                           # (the owner, 9/30)
-                    + (show_units(units(p), p.get("team", "")) if show_units else "")
+                    + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "")
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
     if not rows:
         return ""

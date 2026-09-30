@@ -194,18 +194,22 @@ LIVE_NO_UNITS = '<div class="nou">🎲 NO UNITS ON THESE — WE GAMBLIN’</div>
 UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every play by its own edge (the sizing study)
 
 
-HALF_WHY = ("the price is tight — thin edge at this number", "we like the side, not the price",
-            "books got this one priced close", "small edge — the number ate most of it",
-            "right side, short price — not much meat on it")   # (the owner, 9/30: a ½u Lock looks suspect - say why)
+HALF_WHY = {   # (the owner, 9/30: a ½u Lock looks suspect - say why, in plain words, no numbers)
+    "fav": ("Likely winner, but you pay a lot to win a little.", "Good chance to win — the price is just steep.",
+            "We like them, but the books do too. Not much extra here."),
+    "dog": ("A real shot, just not one to bet big on.", "Could hit, but not a big enough shot to go heavy.",
+            "Worth a little, not a lot."),
+}
 
 
-def _units_line(u, key=""):
+def _units_line(u, key="", odds=None):
     if not UNITS_ON:
         return ""
     if not u:                                                # a lean: no units (the owner, 9/30)
         return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
     if u == 0.5:                                             # the engine's minimum: its read barely beats the price
-        why = HALF_WHY[sum(map(ord, key)) % len(HALF_WHY)]
+        pool = HALF_WHY["dog" if (odds or 100) > 0 else "fav"]
+        why = pool[sum(map(ord, key)) % len(pool)]
         return f'<div class="un"><span class="mb">💰</span> ½ UNIT<span class="unw">{E(why)}</span></div>'
     return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
 
@@ -364,7 +368,7 @@ def _leg(leg, tagged=False, review="", units=None):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {_units_line(units, leg.get("team", "")) if units is not None else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units, leg.get("team", ""), leg.get("odds")) if units is not None else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -571,7 +575,7 @@ def _pick_card(kind, pk):
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", "")) if len(pk["legs"]) == 1 else ""}
+  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds")) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 
