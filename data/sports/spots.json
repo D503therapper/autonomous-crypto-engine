@@ -2,8 +2,8 @@
  "_meta": {
   "expected_luck_nominal_max": 5.2,
   "min_n_each_half": 150,
-  "null_bonferroni_avg": 0.15,
-  "null_nominal_avg": 1.95,
+  "null_bonferroni_avg": 0.0,
+  "null_nominal_avg": 2.2,
   "null_sims": 20,
   "spots": {
    "3in4": "3rd game in 4 nights (nba/nhl/ncaab)",
@@ -4408,31 +4408,31 @@
    },
    "revenge|ml|fade": {
     "candidate": false,
-    "edge_new": -0.0067,
+    "edge_new": -0.0066,
     "edge_old": 0.0008,
-    "hit_new": 0.52,
+    "hit_new": 0.5201,
     "hit_old": 0.527,
-    "n_new": 4996,
+    "n_new": 4997,
     "n_old": 4683,
-    "profit_new": -5.75,
+    "profit_new": -5.74,
     "profit_old": -3.9,
     "proven": false,
     "tested": true,
-    "z": -0.62
+    "z": -0.61
    },
    "revenge|ml|team": {
     "candidate": false,
-    "edge_new": 0.0067,
+    "edge_new": 0.0066,
     "edge_old": -0.0008,
-    "hit_new": 0.48,
+    "hit_new": 0.4799,
     "hit_old": 0.473,
-    "n_new": 4996,
+    "n_new": 4997,
     "n_old": 4683,
-    "profit_new": -3.32,
+    "profit_new": -3.34,
     "profit_old": -4.37,
     "proven": false,
     "tested": true,
-    "z": 0.62
+    "z": 0.61
    },
    "road_fav|ml|fade": {
     "candidate": false,
@@ -4524,7 +4524,7 @@
   "cut": {
    "ml": "2022-12-10"
   },
-  "games": 13219,
+  "games": 13220,
   "proven": [],
   "shifts": {
    "ml": {},

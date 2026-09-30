@@ -306,6 +306,22 @@
     "team": "Padres"
    },
    {
+    "close": -125,
+    "clv_cents": 0,
+    "clv_pts": 0.0,
+    "date": "2026-09-29",
+    "game_id": "nhl:401891775",
+    "kind": "four",
+    "league": "nhl",
+    "lean": false,
+    "line": 1.5,
+    "market": "spread",
+    "posted": -125,
+    "result": "lost",
+    "side": "away",
+    "team": "Blackhawks"
+   },
+   {
     "close": -140,
     "clv_cents": 5,
     "clv_pts": 0.89,
@@ -403,16 +419,21 @@
    }
   ],
   "skipped": {
-   "game live": 1
+   "not closed yet": 11
   },
   "summary": {
    "all": {
-    "avg_cents": 1.8,
-    "avg_pts": 0.41,
-    "beat": 0.44,
-    "legs": 25,
-    "tied": 0.16,
-    "unique_bets": 14
+    "avg_cents": 1.7,
+    "avg_pts": 0.4,
+    "beat": 0.423,
+    "legs": 26,
+    "per_bet": {
+     "avg_cents": -0.1,
+     "beat": 0.267,
+     "bets": 15
+    },
+    "tied": 0.192,
+    "unique_bets": 15
    },
    "by_kind": {
     "dog": {
@@ -420,6 +441,11 @@
      "avg_pts": -1.11,
      "beat": 0.0,
      "legs": 1,
+     "per_bet": {
+      "avg_cents": -6.0,
+      "beat": 0.0,
+      "bets": 1
+     },
      "tied": 0.0,
      "unique_bets": 1
     },
@@ -428,22 +454,37 @@
      "avg_pts": 0.03,
      "beat": 0.25,
      "legs": 8,
+     "per_bet": {
+      "avg_cents": 0.0,
+      "beat": 0.25,
+      "bets": 8
+     },
      "tied": 0.375,
      "unique_bets": 8
     },
     "four": {
-     "avg_cents": 2.7,
-     "avg_pts": 0.51,
-     "beat": 0.667,
-     "legs": 3,
-     "tied": 0.0,
-     "unique_bets": 3
+     "avg_cents": 2.0,
+     "avg_pts": 0.38,
+     "beat": 0.5,
+     "legs": 4,
+     "per_bet": {
+      "avg_cents": 2.0,
+      "beat": 0.5,
+      "bets": 4
+     },
+     "tied": 0.25,
+     "unique_bets": 4
     },
     "lock": {
      "avg_cents": 1.0,
      "avg_pts": 0.11,
      "beat": 0.5,
      "legs": 2,
+     "per_bet": {
+      "avg_cents": 1.0,
+      "beat": 0.5,
+      "bets": 2
+     },
      "tied": 0.0,
      "unique_bets": 2
     },
@@ -452,6 +493,11 @@
      "avg_pts": 0.0,
      "beat": 0.0,
      "legs": 1,
+     "per_bet": {
+      "avg_cents": 0.0,
+      "beat": 0.0,
+      "bets": 1
+     },
      "tied": 1.0,
      "unique_bets": 1
     },
@@ -460,6 +506,11 @@
      "avg_pts": 0.68,
      "beat": 0.5,
      "legs": 6,
+     "per_bet": {
+      "avg_cents": 2.8,
+      "beat": 0.5,
+      "bets": 6
+     },
      "tied": 0.0,
      "unique_bets": 6
     },
@@ -468,6 +519,11 @@
      "avg_pts": 1.34,
      "beat": 0.75,
      "legs": 4,
+     "per_bet": {
+      "avg_cents": 6.0,
+      "beat": 0.75,
+      "bets": 4
+     },
      "tied": 0.0,
      "unique_bets": 4
     }
@@ -478,6 +534,11 @@
      "avg_pts": 0.07,
      "beat": 0.417,
      "legs": 12,
+     "per_bet": {
+      "avg_cents": -0.8,
+      "beat": 0.25,
+      "bets": 8
+     },
      "tied": 0.25,
      "unique_bets": 8
     },
@@ -486,16 +547,26 @@
      "avg_pts": 0.7,
      "beat": 0.3,
      "legs": 10,
+     "per_bet": {
+      "avg_cents": 0.2,
+      "beat": 0.2,
+      "bets": 5
+     },
      "tied": 0.1,
      "unique_bets": 5
     },
     "nhl": {
-     "avg_cents": 4.0,
-     "avg_pts": 0.83,
-     "beat": 1.0,
-     "legs": 3,
-     "tied": 0.0,
-     "unique_bets": 1
+     "avg_cents": 3.0,
+     "avg_pts": 0.62,
+     "beat": 0.75,
+     "legs": 4,
+     "per_bet": {
+      "avg_cents": 2.0,
+      "beat": 0.5,
+      "bets": 2
+     },
+     "tied": 0.25,
+     "unique_bets": 2
     }
    }
   }
@@ -4172,19 +4243,19 @@
   "nhl": {
    "cells": {
     "ml|fade|any size|all": {
-     "edge_new": -0.0261,
-     "edge_old": -0.0162,
+     "edge_new": -0.0258,
+     "edge_old": -0.0166,
      "from": "2023-10-10",
-     "n_new": 1902,
-     "n_old": 1899,
+     "n_new": 1901,
+     "n_old": 1901,
      "proven": false,
-     "roi_new": -0.0968,
-     "roi_old": -0.0795,
+     "roi_new": -0.0963,
+     "roi_old": -0.0805,
      "to": "2026-09-30",
      "watch_only": false,
-     "win": 0.4394,
-     "z": -2.68,
-     "z_profit": -5.03
+     "win": 0.4392,
+     "z": -2.69,
+     "z_profit": -5.04
     },
     "ml|fade|any size|toward the dog": {
      "edge_new": -0.0496,
@@ -4202,19 +4273,19 @@
      "z_profit": -4.36
     },
     "ml|fade|any size|toward the favorite": {
-     "edge_new": -0.0125,
-     "edge_old": -0.0156,
+     "edge_new": -0.0121,
+     "edge_old": -0.0162,
      "from": "2023-10-11",
-     "n_new": 1207,
-     "n_old": 1251,
+     "n_new": 1206,
+     "n_old": 1253,
      "proven": false,
-     "roi_new": -0.0788,
-     "roi_old": -0.085,
+     "roi_new": -0.078,
+     "roi_old": -0.0864,
      "to": "2026-09-30",
      "watch_only": false,
-     "win": 0.3836,
-     "z": -1.45,
-     "z_profit": -3.4
+     "win": 0.3835,
+     "z": -1.47,
+     "z_profit": -3.42
     },
     "ml|fade|large|all": {
      "edge_new": 0.0219,
@@ -4307,19 +4378,19 @@
      "z_profit": -2.85
     },
     "ml|fade|small|all": {
-     "edge_new": -0.0035,
-     "edge_old": -0.0233,
+     "edge_new": -0.0029,
+     "edge_old": -0.0241,
      "from": "2023-10-10",
-     "n_new": 864,
-     "n_old": 985,
+     "n_new": 863,
+     "n_old": 987,
      "proven": false,
-     "roi_new": -0.047,
-     "roi_old": -0.0936,
-     "to": "2026-09-29",
+     "roi_new": -0.0459,
+     "roi_old": -0.0954,
+     "to": "2026-09-30",
      "watch_only": false,
-     "win": 0.4602,
-     "z": -1.24,
-     "z_profit": -2.92
+     "win": 0.46,
+     "z": -1.25,
+     "z_profit": -2.94
     },
     "ml|fade|small|toward the dog": {
      "edge_new": -0.0402,
@@ -4337,33 +4408,33 @@
      "z_profit": -2.55
     },
     "ml|fade|small|toward the favorite": {
-     "edge_new": 0.0223,
-     "edge_old": -0.0355,
+     "edge_new": 0.0234,
+     "edge_old": -0.0367,
      "from": "2023-10-11",
-     "n_new": 507,
-     "n_old": 603,
+     "n_new": 506,
+     "n_old": 605,
      "proven": false,
-     "roi_new": 0.0012,
-     "roi_old": -0.1258,
-     "to": "2026-09-29",
-     "watch_only": false,
-     "win": 0.3946,
-     "z": -0.63,
-     "z_profit": -1.91
-    },
-    "ml|follow|any size|all": {
-     "edge_new": 0.0261,
-     "edge_old": 0.0162,
-     "from": "2023-10-10",
-     "n_new": 1902,
-     "n_old": 1899,
-     "proven": false,
-     "roi_new": 0.0093,
-     "roi_old": -0.0102,
+     "roi_new": 0.0031,
+     "roi_old": -0.1287,
      "to": "2026-09-30",
      "watch_only": false,
-     "win": 0.5606,
-     "z": 2.68,
+     "win": 0.3942,
+     "z": -0.64,
+     "z_profit": -1.93
+    },
+    "ml|follow|any size|all": {
+     "edge_new": 0.0258,
+     "edge_old": 0.0166,
+     "from": "2023-10-10",
+     "n_new": 1901,
+     "n_old": 1901,
+     "proven": false,
+     "roi_new": 0.0088,
+     "roi_old": -0.0096,
+     "to": "2026-09-30",
+     "watch_only": false,
+     "win": 0.5608,
+     "z": 2.69,
      "z_profit": -0.03
     },
     "ml|follow|any size|toward the dog": {
@@ -4382,19 +4453,19 @@
      "z_profit": 1.13
     },
     "ml|follow|any size|toward the favorite": {
-     "edge_new": 0.0125,
-     "edge_old": 0.0156,
+     "edge_new": 0.0121,
+     "edge_old": 0.0162,
      "from": "2023-10-11",
-     "n_new": 1207,
-     "n_old": 1251,
+     "n_new": 1206,
+     "n_old": 1253,
      "proven": false,
-     "roi_new": -0.0236,
-     "roi_old": -0.0168,
+     "roi_new": -0.0243,
+     "roi_old": -0.0158,
      "to": "2026-09-30",
      "watch_only": false,
-     "win": 0.6164,
-     "z": 1.45,
-     "z_profit": -1.27
+     "win": 0.6165,
+     "z": 1.47,
+     "z_profit": -1.26
     },
     "ml|follow|large|all": {
      "edge_new": -0.0219,
@@ -4487,19 +4558,19 @@
      "z_profit": -0.33
     },
     "ml|follow|small|all": {
-     "edge_new": 0.0035,
-     "edge_old": 0.0233,
+     "edge_new": 0.0029,
+     "edge_old": 0.0241,
      "from": "2023-10-10",
-     "n_new": 864,
-     "n_old": 985,
+     "n_new": 863,
+     "n_old": 987,
      "proven": false,
-     "roi_new": -0.0336,
-     "roi_old": 0.0034,
-     "to": "2026-09-29",
+     "roi_new": -0.0347,
+     "roi_old": 0.0046,
+     "to": "2026-09-30",
      "watch_only": false,
-     "win": 0.5398,
-     "z": 1.24,
-     "z_profit": -0.63
+     "win": 0.54,
+     "z": 1.25,
+     "z_profit": -0.62
     },
     "ml|follow|small|toward the dog": {
      "edge_new": 0.0402,
@@ -4517,22 +4588,22 @@
      "z_profit": 0.19
     },
     "ml|follow|small|toward the favorite": {
-     "edge_new": -0.0223,
-     "edge_old": 0.0355,
+     "edge_new": -0.0234,
+     "edge_old": 0.0367,
      "from": "2023-10-11",
-     "n_new": 507,
-     "n_old": 603,
+     "n_new": 506,
+     "n_old": 605,
      "proven": false,
-     "roi_new": -0.0834,
-     "roi_old": 0.0174,
-     "to": "2026-09-29",
+     "roi_new": -0.0853,
+     "roi_old": 0.0194,
+     "to": "2026-09-30",
      "watch_only": false,
-     "win": 0.6054,
-     "z": 0.63,
-     "z_profit": -1.2
+     "win": 0.6058,
+     "z": 0.64,
+     "z_profit": -1.18
     }
    },
-   "moved_games": 3801,
+   "moved_games": 3802,
    "proven": []
   }
  }
