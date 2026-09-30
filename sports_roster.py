@@ -130,8 +130,7 @@ def fetch(league, gid, start):
     url = SUMMARY.format(path=sd.LEAGUES[league][0], eid=gid.split(":", 1)[1])
     for i in range(2):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "d503-engine"})
-            with urllib.request.urlopen(req, timeout=15) as r:
+            with urllib.request.urlopen(url, timeout=15) as r:   # (exactly like sports_players' box scores, which work)
                 payload = json.load(r)
             rows = parse(league, gid, start, payload)
             if not rows and (payload.get("boxscore") or {}).get("players"):
@@ -158,12 +157,26 @@ def run_backfill(minutes=38):
     except (OSError, ValueError):
         state = {}
     end = time.time() + minutes * 60
+    import sports_model as sm                            # a quick probe first: 3 recent games, say what came back
+    probe = sorted((g for lg in ("nfl", "nba", "nhl") for g in sm.finals(games, lg)), key=lambda g: g["start"])[-3:]
+    ok = 0
+    for g in probe:
+        n_err = len(_sd.ERRORS)
+        rows = fetch(g["league"], g["id"], g["start"])
+        print(f"probe {g['id']}: " + (f"{len(rows)} players" if rows is not None else f"failed - {_sd.ERRORS[n_err:][:1]}"))
+        ok += rows is not None
+    if not ok:
+        print("every probe failed: stopping (nothing to gain hammering ESPN)")
+        return
     for group in (("nfl", "ncaaf"), ("nhl",), ("nba", "ncaab"), ("mlb",)):
         left = end - time.time()
         if left < 30:
             break
+        n_err = len(_sd.ERRORS)
         got, todo, fails = sync(games, state, budget_s=left, leagues=group)
         print(f"rosters {'+'.join(group)}: {got} games added, {todo - got} still to go, {fails} not reached")
+        for e in _sd.ERRORS[n_err:n_err + 3]:
+            print(f"   e.g. {e}")                        # (the first run failed silently: say why)
         os.makedirs(DIR, exist_ok=True)
         with open(NONE_PATH, "w") as f:
             json.dump(state, f)
