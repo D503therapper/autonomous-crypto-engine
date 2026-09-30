@@ -4055,6 +4055,9 @@ def test_patty_vs_the_algorithm():
     assert len(c["algo"]) == 3 and T <= C.total(c["algo"]) <= T * C.FAIR_OVER + 1e-9, (T, C.total(c["algo"]))
     assert len({l["match"] for l in c["algo"]}) == 3
     assert all(l["p"] >= C.WIN_P for l in c["algo"]) and "Ed Longshot" not in [l["player"] for l in c["algo"]]
+    assert max(l["ml"] for l in c["algo"]) <= max(l["ml"] for l in c["patty"]), "no longer shot than Patty's longest"
+    got = C.pick(pm, 10.0, 2, now, max_ml=-200)
+    assert all(ml <= -200 for _, _, ml, _ in got)
     first = [l["match"] for l in c["algo"]]
     later = datetime(2026, 10, 1, 4, 1, tzinfo=timezone.utc)   # its picks have started: locked, never re-picked
     pm2 = {k: {**v, "model_p1": 0.99} for k, v in pm.items()}

@@ -84,7 +84,7 @@ def find(player, pm, now):
     return best
 
 
-def pick(pm, target_dec, n, now):
+def pick(pm, target_dec, n, now, max_ml=None):
     """The algorithm's n picks: one side per match, not started yet - the most right it can expect (the engine's win %
     per side, summed; the owner, 9/30: "the mission is to beat Patty - get more right than him"), with the ticket's
     total decimal odds in [target, FAIR_OVER * target] - even odds, never an easier ticket. [(mid, side, ml, p)] or []."""
@@ -94,8 +94,11 @@ def pick(pm, target_dec, n, now):
             continue
         p1 = float(v["model_p1"])
         g = [(mid, side, int(ml), p) for side, p, ml in ((1, p1, v["ml"][0]), (2, 1 - p1, v["ml"][1]))
-             if ml is not None and p >= WIN_P]                # only players the engine says WIN (the owner, 9/30:
-        #                                                       "+220 is most likely going to lose")
+             if ml is not None and p >= WIN_P and (max_ml is None or int(ml) <= max_ml)]   # only players the engine
+        #                                                       says WIN, and no longer shot than Patty's longest (the
+        #                                                       owner, 9/30: "+200 is most likely going to lose - Patty's
+        #                                                       biggest dog is +160, he'd have the edge") -
+        #                                                       and "+220 is most likely going to lose")
         if g:
             groups.append(g)
     items = groups
@@ -160,7 +163,7 @@ def update(pm=None, rows=None, now=None, path=PATH):
     if algo_started:
         c["locked"] = c.get("locked") or now.strftime("%Y-%m-%dT%H:%MZ")   # one of its picks is on: ticket locked
     elif not waiting:
-        got = pick(pm, total(c["patty"]), len(c["patty"]), now)
+        got = pick(pm, total(c["patty"]), len(c["patty"]), now, max_ml=max(int(l["ml"]) for l in c["patty"]))
         if got:
             c["algo"] = [{"player": pm[mid]["p1_name" if side == 1 else "p2_name"], "match": mid, "side": side,
                           "ml": ml, "p": round(p, 3), "start": pm[mid]["start"]} for mid, side, ml, p in got]
