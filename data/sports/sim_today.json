@@ -1,5 +1,5 @@
 {
- "at": "2026-09-30T05:59Z",
+ "at": "2026-09-30T15:53Z",
  "by_cfg": {
   "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1": {
    "mlb:401907897": {
@@ -41,6 +41,18 @@
    },
    "mlb:401907976": {
     "ml": 0.4841
+   },
+   "mlb:401907985": {
+    "ml": 0.5455
+   },
+   "mlb:401907990": {
+    "ml": 0.5159
+   },
+   "mlb:401908002": {
+    "ml": 0.5977
+   },
+   "mlb:401908007": {
+    "ml": 0.5859
    }
   },
   "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1": {
@@ -49,12 +61,120 @@
    }
   },
   "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1": {
-   "ncaaf:401858245": {
+   "ncaaf:401856705": {
+    "line": -24.5,
+    "ml": 0.8797,
+    "spread": 0.4446,
+    "tline": 51.5,
+    "total": 0.7081
+   },
+   "ncaaf:401856707": {
+    "line": 6.0,
+    "ml": 0.2642,
+    "spread": 0.3912,
+    "tline": 60.5,
+    "total": 0.4468
+   },
+   "ncaaf:401856708": {
+    "line": 5.5,
+    "ml": 0.6314,
+    "spread": 0.7485,
+    "tline": 56.5,
+    "total": 0.3012
+   },
+   "ncaaf:401856710": {
+    "line": -7.0,
+    "ml": 0.8325,
+    "spread": 0.707,
+    "tline": 54.5,
+    "total": 0.5228
+   },
+   "ncaaf:401856807": {
+    "line": -18.5,
+    "ml": 0.7689,
+    "spread": 0.3904
+   },
+   "ncaaf:401856819": {
+    "line": -12.5,
+    "ml": 0.8103,
+    "spread": 0.5677,
+    "tline": 51.5,
+    "total": 0.5931
+   },
+   "ncaaf:401856822": {
     "line": -3.5,
+    "ml": 0.7882,
+    "spread": 0.7116,
+    "tline": 52.5,
+    "total": 0.5553
+   },
+   "ncaaf:401858245": {
+    "line": -3.0,
     "ml": 0.4414,
-    "spread": 0.3491,
+    "spread": 0.3697,
     "tline": 54.5,
     "total": 0.4663
+   },
+   "ncaaf:401858246": {
+    "line": -21.0,
+    "ml": 0.9092,
+    "spread": 0.5919,
+    "tline": 55.5,
+    "total": 0.4673
+   },
+   "ncaaf:401858247": {
+    "line": -2.5,
+    "ml": 0.7663,
+    "spread": 0.7358,
+    "tline": 53.5,
+    "total": 0.5423
+   },
+   "ncaaf:401858248": {
+    "line": 4.0,
+    "ml": 0.6291,
+    "spread": 0.7287
+   },
+   "ncaaf:401858250": {
+    "line": 21.0,
+    "ml": 0.1558,
+    "spread": 0.5447,
+    "tline": 47.5,
+    "total": 0.6394
+   },
+   "ncaaf:401858251": {
+    "line": -12.5,
+    "ml": 0.9028,
+    "spread": 0.7265,
+    "tline": 53.5,
+    "total": 0.5499
+   },
+   "ncaaf:401858252": {
+    "line": 6.5,
+    "ml": 0.708,
+    "spread": 0.8246,
+    "tline": 50.5,
+    "total": 0.6402
+   },
+   "ncaaf:401858253": {
+    "line": 2.5,
+    "ml": 0.6029,
+    "spread": 0.6382,
+    "tline": 51.5,
+    "total": 0.5378
+   },
+   "ncaaf:401858473": {
+    "line": 14.0,
+    "ml": 0.4642,
+    "spread": 0.7709,
+    "tline": 45.5,
+    "total": 0.4256
+   },
+   "ncaaf:401858474": {
+    "line": 5.5,
+    "ml": 0.6466,
+    "spread": 0.7611,
+    "tline": 43.5,
+    "total": 0.569
    },
    "ncaaf:401858476": {
     "line": 2.5,
@@ -63,12 +183,76 @@
     "tline": 45.5,
     "total": 0.6019
    },
+   "ncaaf:401858479": {
+    "line": -10.0,
+    "ml": 0.8024,
+    "spread": 0.5983,
+    "tline": 43.5,
+    "total": 0.4155
+   },
    "ncaaf:401862786": {
     "line": -1.5,
     "ml": 0.5263,
     "spread": 0.5057,
     "tline": 57.5,
     "total": 0.6805
+   },
+   "ncaaf:401862787": {
+    "line": 20.5,
+    "ml": 0.3366,
+    "spread": 0.7502,
+    "tline": 53.5,
+    "total": 0.4519
+   },
+   "ncaaf:401862791": {
+    "line": -3.0,
+    "ml": 0.5553,
+    "spread": 0.4876,
+    "tline": 46.5,
+    "total": 0.5124
+   },
+   "ncaaf:401862793": {
+    "line": -30.5,
+    "ml": 0.6928,
+    "spread": 0.1307,
+    "tline": 51.5,
+    "total": 0.6399
+   },
+   "ncaaf:401862794": {
+    "ml": 0.5713
+   },
+   "ncaaf:401864515": {
+    "line": -18.5,
+    "ml": 0.8181,
+    "spread": 0.4605
+   },
+   "ncaaf:401866430": {
+    "line": -6.5,
+    "ml": 0.7533,
+    "spread": 0.618
+   },
+   "ncaaf:401866431": {
+    "line": 19.5,
+    "ml": 0.2557,
+    "spread": 0.6533,
+    "tline": 51.5,
+    "total": 0.4604
+   },
+   "ncaaf:401866432": {
+    "line": 13.5,
+    "ml": 0.4405,
+    "spread": 0.7313
+   },
+   "ncaaf:401866433": {
+    "line": -6.5,
+    "ml": 0.4657,
+    "spread": 0.3178
+   },
+   "ncaaf:401869933": {
+    "ml": 0.5858
+   },
+   "ncaaf:401870766": {
+    "ml": 0.9199
    },
    "ncaaf:401871049": {
     "line": -2.5,
@@ -81,8 +265,20 @@
     "line": 7.0,
     "ml": 0.601,
     "spread": 0.7724,
-    "tline": 50.5,
-    "total": 0.5484
+    "tline": 49.5,
+    "total": 0.5735
+   },
+   "ncaaf:401871051": {
+    "ml": 0.6854
+   },
+   "ncaaf:401871052": {
+    "ml": 0.6086
+   },
+   "ncaaf:401871066": {
+    "ml": 0.6703
+   },
+   "ncaaf:401871090": {
+    "ml": 0.7381
    }
   },
   "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1": {
@@ -92,106 +288,267 @@
     "spread": 0.5305,
     "tline": 38.5,
     "total": 0.5691
+   },
+   "nfl:401872965": {
+    "line": 3.5,
+    "ml": 0.4601,
+    "spread": 0.5945,
+    "tline": 47.5,
+    "total": 0.588
+   },
+   "nfl:401872966": {
+    "line": 2.5,
+    "ml": 0.5912,
+    "spread": 0.6418,
+    "tline": 44.5,
+    "total": 0.527
+   },
+   "nfl:401872967": {
+    "line": -2.5,
+    "ml": 0.6169,
+    "spread": 0.5629,
+    "tline": 48.0,
+    "total": 0.5001
+   },
+   "nfl:401872968": {
+    "line": 3.5,
+    "ml": 0.5314,
+    "spread": 0.6612,
+    "tline": 39.5,
+    "total": 0.6775
+   },
+   "nfl:401872969": {
+    "line": -2.5,
+    "ml": 0.3913,
+    "spread": 0.3416,
+    "tline": 51.5,
+    "total": 0.4208
+   },
+   "nfl:401872970": {
+    "line": 3.0,
+    "ml": 0.4494,
+    "spread": 0.5479,
+    "tline": 43.5,
+    "total": 0.5438
+   },
+   "nfl:401872971": {
+    "line": -6.5,
+    "ml": 0.5986,
+    "spread": 0.3723,
+    "tline": 48.5,
+    "total": 0.4464
+   },
+   "nfl:401872972": {
+    "line": -3.5,
+    "ml": 0.7732,
+    "spread": 0.6578,
+    "tline": 43.0,
+    "total": 0.5669
+   },
+   "nfl:401872973": {
+    "line": -11.5,
+    "ml": 0.7715,
+    "spread": 0.4293,
+    "tline": 43.5,
+    "total": 0.5655
+   },
+   "nfl:401872974": {
+    "line": -10.5,
+    "ml": 0.7765,
+    "spread": 0.4519,
+    "tline": 38.5,
+    "total": 0.5846
+   },
+   "nfl:401872975": {
+    "line": -3.0,
+    "ml": 0.5938,
+    "spread": 0.499,
+    "tline": 48.0,
+    "total": 0.4319
+   },
+   "nfl:401872976": {
+    "line": 4.5,
+    "ml": 0.4123,
+    "spread": 0.5741,
+    "tline": 47.5,
+    "total": 0.3692
+   },
+   "nfl:401872977": {
+    "line": -7.0,
+    "ml": 0.7841,
+    "spread": 0.5646,
+    "tline": 43.0,
+    "total": 0.4915
+   },
+   "nfl:401872978": {
+    "line": 3.5,
+    "ml": 0.4588,
+    "spread": 0.5933,
+    "tline": 51.0,
+    "total": 0.4827
+   },
+   "nfl:401872979": {
+    "line": -3.0,
+    "ml": 0.5549,
+    "spread": 0.4567,
+    "tline": 48.5,
+    "total": 0.3853
+   },
+   "nfl:401872980": {
+    "line": -9.5,
+    "ml": 0.5779,
+    "spread": 0.2679,
+    "tline": 47.5,
+    "total": 0.5796
    }
   },
   "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1": {
+   "nhl:401891776": {
+    "line": -1.5,
+    "ml": 0.6395,
+    "spread": 0.3858
+   },
    "nhl:401891777": {
     "line": -1.5,
-    "ml": 0.5103,
-    "spread": 0.2691,
+    "ml": 0.5111,
+    "spread": 0.2697,
     "tline": 5.5,
-    "total": 0.5232
+    "total": 0.5235
    },
    "nhl:401891780": {
     "line": -1.5,
-    "ml": 0.6145,
-    "spread": 0.3575,
+    "ml": 0.6153,
+    "spread": 0.3582,
     "tline": 6.5,
-    "total": 0.4182
+    "total": 0.4184
    },
    "nhl:401891781": {
     "line": -1.5,
-    "ml": 0.4676,
-    "spread": 0.2427,
+    "ml": 0.4684,
+    "spread": 0.2434,
     "tline": 6.0,
-    "total": 0.5272
+    "total": 0.5275
    },
    "nhl:401891782": {
     "line": -1.5,
-    "ml": 0.5484,
-    "spread": 0.3019
+    "ml": 0.5492,
+    "spread": 0.3026
    },
    "nhl:401891803": {
     "line": -1.5,
-    "ml": 0.5032,
-    "spread": 0.2658
+    "ml": 0.504,
+    "spread": 0.2664
+   },
+   "nhl:401891814": {
+    "line": -1.5,
+    "ml": 0.5317,
+    "spread": 0.2894
    },
    "nhl:401891816": {
     "line": 1.5,
-    "ml": 0.4607,
-    "spread": 0.7035,
+    "ml": 0.4615,
+    "spread": 0.7041,
     "tline": 6.5,
-    "total": 0.4486
+    "total": 0.4488
    },
    "nhl:401891817": {
     "line": -1.5,
-    "ml": 0.4894,
-    "spread": 0.2531,
+    "ml": 0.4902,
+    "spread": 0.2537,
     "tline": 5.5,
-    "total": 0.5233
+    "total": 0.5235
+   },
+   "nhl:401891818": {
+    "line": -1.5,
+    "ml": 0.5131,
+    "spread": 0.2706
    },
    "nhl:401891819": {
     "line": 1.5,
-    "ml": 0.4471,
-    "spread": 0.6936,
+    "ml": 0.4478,
+    "spread": 0.6942,
     "tline": 5.5,
-    "total": 0.5487
+    "total": 0.5489
    },
    "nhl:401891821": {
     "line": -1.5,
-    "ml": 0.5079,
-    "spread": 0.2722,
+    "ml": 0.5087,
+    "spread": 0.2728,
     "tline": 6.0,
-    "total": 0.5128
+    "total": 0.5131
+   },
+   "nhl:401891822": {
+    "line": -1.5,
+    "ml": 0.4912,
+    "spread": 0.2615
    },
    "nhl:401891823": {
     "line": 1.5,
-    "ml": 0.45,
-    "spread": 0.6929,
+    "ml": 0.4507,
+    "spread": 0.6935,
     "tline": 6.5,
-    "total": 0.4637
+    "total": 0.4639
+   },
+   "nhl:401891826": {
+    "line": -1.5,
+    "ml": 0.5496,
+    "spread": 0.3047
    },
    "nhl:401891828": {
     "line": -1.5,
-    "ml": 0.6016,
-    "spread": 0.3487,
+    "ml": 0.607,
+    "spread": 0.3537,
     "tline": 5.5,
-    "total": 0.5511
+    "total": 0.5522
    },
    "nhl:401891829": {
     "line": 1.5,
-    "ml": 0.4176,
-    "spread": 0.6618,
+    "ml": 0.4183,
+    "spread": 0.6624,
     "tline": 6.5,
-    "total": 0.4906
+    "total": 0.4909
    },
    "nhl:401891831": {
-    "line": 1.5,
-    "ml": 0.4799,
-    "spread": 0.7226
+    "line": -1.5,
+    "ml": 0.4807,
+    "spread": 0.2471
    },
    "nhl:401892431": {
     "line": -1.5,
-    "ml": 0.4596,
-    "spread": 0.2342,
-    "tline": 6.0,
-    "total": 0.4986
+    "ml": 0.4604,
+    "spread": 0.2348,
+    "tline": 6.5,
+    "total": 0.4437
    },
    "nhl:401892432": {
-    "ml": 0.5745
+    "ml": 0.5753
    },
    "nhl:401892433": {
-    "ml": 0.5801
+    "ml": 0.5855
+   },
+   "nhl:401892434": {
+    "ml": 0.4433
+   },
+   "nhl:401892435": {
+    "ml": 0.4348
+   },
+   "nhl:401892436": {
+    "ml": 0.503
+   },
+   "nhl:401892437": {
+    "ml": 0.5608
+   },
+   "nhl:401892438": {
+    "ml": 0.4541
+   },
+   "nhl:401892439": {
+    "ml": 0.592
+   },
+   "nhl:401892440": {
+    "ml": 0.4664
+   },
+   "nhl:401892441": {
+    "ml": 0.472
    }
   }
  },
@@ -214,7 +571,7 @@
     "fair_away": -109,
     "fair_home": 109,
     "home": 0.4796,
-    "market_home": 0.5809
+    "market_home": 0.5692
    },
    "proj": {
     "away": 4.68,
@@ -228,7 +585,7 @@
     "fair_home": 198,
     "home": 0.3354,
     "line": -1.5,
-    "market_home": 0.3869
+    "market_home": 0.3722
    },
    "spreads": [
     [
@@ -261,7 +618,7 @@
     "fair_over": -142,
     "fair_under": 142,
     "line": 7.5,
-    "market_over": 0.5,
+    "market_over": 0.4978,
     "over": 0.5863,
     "under": 0.4137
    },
@@ -333,7 +690,7 @@
     "fair_away": 118,
     "fair_home": -118,
     "home": 0.5422,
-    "market_home": 0.5511
+    "market_home": 0.5649
    },
    "proj": {
     "away": 3.99,
@@ -347,7 +704,7 @@
     "fair_home": 160,
     "home": 0.3847,
     "line": -1.5,
-    "market_home": 0.3582
+    "market_home": 0.3794
    },
    "spreads": [
     [
@@ -380,7 +737,7 @@
     "fair_over": -181,
     "fair_under": 181,
     "line": 6.5,
-    "market_over": 0.5248,
+    "market_over": 0.5217,
     "over": 0.644,
     "under": 0.356
    },
@@ -452,7 +809,7 @@
     "fair_away": 111,
     "fair_home": -111,
     "home": 0.526,
-    "market_home": 0.4848
+    "market_home": 0.4836
    },
    "proj": {
     "away": 4.23,
@@ -499,7 +856,7 @@
     "fair_over": -168,
     "fair_under": 168,
     "line": 7.0,
-    "market_over": 0.5042,
+    "market_over": 0.5169,
     "over": 0.6274,
     "under": 0.3726
    },
@@ -571,7 +928,7 @@
     "fair_away": -107,
     "fair_home": 107,
     "home": 0.4841,
-    "market_home": 0.5467
+    "market_home": 0.5734
    },
    "proj": {
     "away": 4.57,
@@ -585,7 +942,7 @@
     "fair_home": 201,
     "home": 0.3318,
     "line": -1.5,
-    "market_home": 0.357
+    "market_home": 0.3888
    },
    "spreads": [
     [
@@ -618,7 +975,7 @@
     "fair_over": -134,
     "fair_under": 134,
     "line": 7.5,
-    "market_over": 0.4826,
+    "market_over": 0.4783,
     "over": 0.5729,
     "under": 0.4271
    },
@@ -672,6 +1029,98 @@
    },
    "start": "2026-10-02T02:00Z"
   },
+  "mlb:401907985": {
+   "away": "Yankees/Red Sox",
+   "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.5455
+   },
+   "home": "Rays",
+   "known": false,
+   "league": "mlb",
+   "ml": {
+    "away": 0.4628,
+    "fair_away": 116,
+    "fair_home": -116,
+    "home": 0.5372
+   },
+   "proj": {
+    "away": 4.18,
+    "home": 4.59,
+    "margin": 0.51,
+    "total": 8.43
+   },
+   "start": "2026-10-03T22:30Z"
+  },
+  "mlb:401907990": {
+   "away": "White Sox/Astros",
+   "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.5159
+   },
+   "home": "Guardians",
+   "known": false,
+   "league": "mlb",
+   "ml": {
+    "away": 0.487,
+    "fair_away": 105,
+    "fair_home": -105,
+    "home": 0.513
+   },
+   "proj": {
+    "away": 4.26,
+    "home": 4.4,
+    "margin": 0.18,
+    "total": 8.37
+   },
+   "start": "2026-10-03T17:00Z"
+  },
+  "mlb:401908002": {
+   "away": "Padres/Cubs",
+   "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.5977
+   },
+   "home": "Brewers",
+   "known": false,
+   "league": "mlb",
+   "ml": {
+    "away": 0.4038,
+    "fair_away": 148,
+    "fair_home": -148,
+    "home": 0.5962
+   },
+   "proj": {
+    "away": 4.03,
+    "home": 5.11,
+    "margin": 1.16,
+    "total": 8.9
+   },
+   "start": "2026-10-03T04:00Z"
+  },
+  "mlb:401908007": {
+   "away": "Phillies/Braves",
+   "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.5859
+   },
+   "home": "Dodgers",
+   "known": false,
+   "league": "mlb",
+   "ml": {
+    "away": 0.4081,
+    "fair_away": 145,
+    "fair_home": -145,
+    "home": 0.5919
+   },
+   "proj": {
+    "away": 3.96,
+    "home": 4.94,
+    "margin": 0.99,
+    "total": 8.65
+   },
+   "start": "2026-10-03T04:00Z"
+  },
   "ncaab:401726454": {
    "away": "John Melvin",
    "cfg": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
@@ -695,13 +1144,649 @@
    },
    "start": "2024-11-20T00:30Z"
   },
+  "ncaaf:401856705": {
+   "away": "Vanderbilt",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -24.5,
+    "ml": 0.8797,
+    "spread": 0.4446,
+    "tline": 51.5,
+    "total": 0.7081
+   },
+   "home": "Georgia",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.1195,
+    "fair_away": 737,
+    "fair_home": -737,
+    "home": 0.8805,
+    "market_home": 0.9311
+   },
+   "proj": {
+    "away": 19.54,
+    "home": 41.15,
+    "margin": 21.08,
+    "total": 60.11
+   },
+   "spread": {
+    "away": 0.5493,
+    "fair_away": -122,
+    "fair_home": 122,
+    "home": 0.4507,
+    "line": -24.5,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     -27.5,
+     0.3926
+    ],
+    [
+     -26.5,
+     0.4129
+    ],
+    [
+     -25.5,
+     0.425
+    ],
+    [
+     -23.5,
+     0.4748
+    ],
+    [
+     -22.5,
+     0.4903
+    ],
+    [
+     -21.5,
+     0.5049
+    ]
+   ],
+   "start": "2026-10-03T16:45Z",
+   "total": {
+    "fair_over": -261,
+    "fair_under": 261,
+    "line": 51.5,
+    "market_over": 0.4826,
+    "over": 0.7231,
+    "under": 0.2769
+   },
+   "totals": [
+    [
+     48.5,
+     0.77
+    ],
+    [
+     49.5,
+     0.7502
+    ],
+    [
+     50.5,
+     0.7296
+    ],
+    [
+     52.5,
+     0.6859
+    ],
+    [
+     53.5,
+     0.663
+    ],
+    [
+     54.5,
+     0.6395
+    ]
+   ]
+  },
+  "ncaaf:401856707": {
+   "away": "Alabama",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 6.0,
+    "ml": 0.2642,
+    "spread": 0.3912,
+    "tline": 60.5,
+    "total": 0.4468
+   },
+   "home": "Mississippi St",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.7417,
+    "fair_away": -287,
+    "fair_home": 287,
+    "home": 0.2583,
+    "market_home": 0.3364
+   },
+   "proj": {
+    "away": 35.26,
+    "home": 23.57,
+    "margin": -11.39,
+    "total": 58.4
+   },
+   "spread": {
+    "away": 0.6153,
+    "fair_away": -160,
+    "fair_home": 160,
+    "home": 0.3847,
+    "line": 6.0,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     3.0,
+     0.313
+    ],
+    [
+     4.0,
+     0.3561
+    ],
+    [
+     5.0,
+     0.3744
+    ],
+    [
+     7.0,
+     0.4245
+    ],
+    [
+     8.0,
+     0.4613
+    ],
+    [
+     9.0,
+     0.4743
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": 119,
+    "fair_under": -119,
+    "line": 60.5,
+    "market_over": 0.5,
+    "over": 0.4568,
+    "under": 0.5432
+   },
+   "totals": [
+    [
+     57.5,
+     0.5228
+    ],
+    [
+     58.5,
+     0.4974
+    ],
+    [
+     59.5,
+     0.472
+    ],
+    [
+     61.5,
+     0.4218
+    ],
+    [
+     62.5,
+     0.397
+    ],
+    [
+     63.5,
+     0.3727
+    ]
+   ]
+  },
+  "ncaaf:401856708": {
+   "away": "Florida",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 5.5,
+    "ml": 0.6314,
+    "spread": 0.7485,
+    "tline": 56.5,
+    "total": 0.3012
+   },
+   "home": "Missouri",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.3681,
+    "fair_away": 172,
+    "fair_home": -172,
+    "home": 0.6319,
+    "market_home": 0.3553
+   },
+   "proj": {
+    "away": 21.3,
+    "home": 27.51,
+    "margin": 6.08,
+    "total": 48.31
+   },
+   "spread": {
+    "away": 0.2551,
+    "fair_away": 292,
+    "fair_home": -292,
+    "home": 0.7449,
+    "line": 5.5,
+    "market_home": 0.5108
+   },
+   "spreads": [
+    [
+     2.5,
+     0.6656
+    ],
+    [
+     3.5,
+     0.7172
+    ],
+    [
+     4.5,
+     0.7357
+    ],
+    [
+     6.5,
+     0.765
+    ],
+    [
+     7.5,
+     0.8047
+    ],
+    [
+     8.5,
+     0.8174
+    ]
+   ],
+   "start": "2026-10-03T19:30Z",
+   "total": {
+    "fair_over": 223,
+    "fair_under": -223,
+    "line": 56.5,
+    "market_over": 0.5108,
+    "over": 0.3094,
+    "under": 0.6906
+   },
+   "totals": [
+    [
+     53.5,
+     0.3707
+    ],
+    [
+     54.5,
+     0.3469
+    ],
+    [
+     55.5,
+     0.3237
+    ],
+    [
+     57.5,
+     0.2794
+    ],
+    [
+     58.5,
+     0.2584
+    ],
+    [
+     59.5,
+     0.2383
+    ]
+   ]
+  },
+  "ncaaf:401856710": {
+   "away": "Auburn",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -7.0,
+    "ml": 0.8325,
+    "spread": 0.707,
+    "tline": 54.5,
+    "total": 0.5228
+   },
+   "home": "Tennessee",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.1699,
+    "fair_away": 489,
+    "fair_home": -489,
+    "home": 0.8301,
+    "market_home": 0.7095
+   },
+   "proj": {
+    "away": 19.31,
+    "home": 36.84,
+    "margin": 17.36,
+    "total": 55.4
+   },
+   "spread": {
+    "away": 0.3024,
+    "fair_away": 231,
+    "fair_home": -231,
+    "home": 0.6976,
+    "line": -7.0,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     -10.0,
+     0.644
+    ],
+    [
+     -9.0,
+     0.6586
+    ],
+    [
+     -8.0,
+     0.6712
+    ],
+    [
+     -6.0,
+     0.7321
+    ],
+    [
+     -5.0,
+     0.7456
+    ],
+    [
+     -4.0,
+     0.7611
+    ]
+   ],
+   "start": "2026-10-03T19:30Z",
+   "total": {
+    "fair_over": -116,
+    "fair_under": 116,
+    "line": 54.5,
+    "market_over": 0.5,
+    "over": 0.5375,
+    "under": 0.4625
+   },
+   "totals": [
+    [
+     51.5,
+     0.598
+    ],
+    [
+     52.5,
+     0.5732
+    ],
+    [
+     53.5,
+     0.5481
+    ],
+    [
+     55.5,
+     0.4975
+    ],
+    [
+     56.5,
+     0.4721
+    ],
+    [
+     57.5,
+     0.4469
+    ]
+   ]
+  },
+  "ncaaf:401856807": {
+   "away": "MTSU",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -18.5,
+    "ml": 0.7689,
+    "spread": 0.3904
+   },
+   "home": "Kansas",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.2257,
+    "fair_away": 343,
+    "fair_home": -343,
+    "home": 0.7743,
+    "market_home": 0.887
+   },
+   "proj": {
+    "away": 19.97,
+    "home": 33.77,
+    "margin": 13.28,
+    "total": 53.23
+   },
+   "spread": {
+    "away": 0.603,
+    "fair_away": -152,
+    "fair_home": 152,
+    "home": 0.397,
+    "line": -18.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     -21.5,
+     0.3302
+    ],
+    [
+     -20.5,
+     0.3634
+    ],
+    [
+     -19.5,
+     0.3773
+    ],
+    [
+     -17.5,
+     0.4101
+    ],
+    [
+     -16.5,
+     0.4392
+    ],
+    [
+     -15.5,
+     0.4507
+    ]
+   ],
+   "start": "2026-10-03T16:00Z"
+  },
+  "ncaaf:401856819": {
+   "away": "UCF",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -12.5,
+    "ml": 0.8103,
+    "spread": 0.5677,
+    "tline": 51.5,
+    "total": 0.5931
+   },
+   "home": "Houston",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.1836,
+    "fair_away": 445,
+    "fair_home": -445,
+    "home": 0.8164,
+    "market_home": 0.7867
+   },
+   "proj": {
+    "away": 19.71,
+    "home": 35.99,
+    "margin": 15.84,
+    "total": 55.2
+   },
+   "spread": {
+    "away": 0.4242,
+    "fair_away": 136,
+    "fair_home": -136,
+    "home": 0.5758,
+    "line": -12.5,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     -15.5,
+     0.51
+    ],
+    [
+     -14.5,
+     0.522
+    ],
+    [
+     -13.5,
+     0.5542
+    ],
+    [
+     -11.5,
+     0.5768
+    ],
+    [
+     -10.5,
+     0.5925
+    ],
+    [
+     -9.5,
+     0.621
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": -153,
+    "fair_under": 153,
+    "line": 51.5,
+    "market_over": 0.4892,
+    "over": 0.6054,
+    "under": 0.3946
+   },
+   "totals": [
+    [
+     48.5,
+     0.665
+    ],
+    [
+     49.5,
+     0.6416
+    ],
+    [
+     50.5,
+     0.6175
+    ],
+    [
+     52.5,
+     0.5682
+    ],
+    [
+     53.5,
+     0.5431
+    ],
+    [
+     54.5,
+     0.5178
+    ]
+   ]
+  },
+  "ncaaf:401856822": {
+   "away": "West Virginia",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -3.5,
+    "ml": 0.7882,
+    "spread": 0.7116,
+    "tline": 52.5,
+    "total": 0.5553
+   },
+   "home": "Iowa State",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.2154,
+    "fair_away": 364,
+    "fair_home": -364,
+    "home": 0.7846,
+    "market_home": 0.5934
+   },
+   "proj": {
+    "away": 20.21,
+    "home": 34.79,
+    "margin": 14.44,
+    "total": 54.69
+   },
+   "spread": {
+    "away": 0.2934,
+    "fair_away": 241,
+    "fair_home": -241,
+    "home": 0.7066,
+    "line": -3.5,
+    "market_home": 0.4892
+   },
+   "spreads": [
+    [
+     -6.5,
+     0.6615
+    ],
+    [
+     -5.5,
+     0.6799
+    ],
+    [
+     -4.5,
+     0.6933
+    ],
+    [
+     -2.5,
+     0.7592
+    ],
+    [
+     -1.5,
+     0.7726
+    ],
+    [
+     -0.5,
+     0.7875
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": -126,
+    "fair_under": 126,
+    "line": 52.5,
+    "market_over": 0.5082,
+    "over": 0.5566,
+    "under": 0.4434
+   },
+   "totals": [
+    [
+     49.5,
+     0.6293
+    ],
+    [
+     50.5,
+     0.605
+    ],
+    [
+     51.5,
+     0.5803
+    ],
+    [
+     53.5,
+     0.5301
+    ],
+    [
+     54.5,
+     0.5047
+    ],
+    [
+     55.5,
+     0.4793
+    ]
+   ]
+  },
   "ncaaf:401858245": {
    "away": "Pitt",
    "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
    "exact": {
-    "line": -3.5,
+    "line": -3.0,
     "ml": 0.4414,
-    "spread": 0.3491,
+    "spread": 0.3697,
     "tline": 54.5,
     "total": 0.4663
    },
@@ -722,37 +1807,37 @@
     "total": 53.17
    },
    "spread": {
-    "away": 0.6419,
-    "fair_away": -179,
-    "fair_home": 179,
-    "home": 0.3581,
-    "line": -3.5,
-    "market_home": 0.4826
+    "away": 0.6217,
+    "fair_away": -164,
+    "fair_home": 164,
+    "home": 0.3783,
+    "line": -3.0,
+    "market_home": 0.5174
    },
    "spreads": [
     [
-     -6.5,
-     0.2963
+     -6.0,
+     0.3018
     ],
     [
-     -5.5,
-     0.3147
+     -5.0,
+     0.3192
     ],
     [
-     -4.5,
-     0.3288
+     -4.0,
+     0.3356
     ],
     [
-     -2.5,
-     0.4049
+     -2.0,
+     0.4116
     ],
     [
-     -1.5,
-     0.4213
+     -1.0,
+     0.4297
     ],
     [
-     -0.5,
-     0.4409
+     0.0,
+     0.4414
     ]
    ],
    "start": "2026-10-02T23:00Z",
@@ -760,7 +1845,7 @@
     "fair_over": 117,
     "fair_under": -117,
     "line": 54.5,
-    "market_over": 0.515,
+    "market_over": 0.5138,
     "over": 0.4618,
     "under": 0.5382
    },
@@ -788,6 +1873,834 @@
     [
      57.5,
      0.3915
+    ]
+   ]
+  },
+  "ncaaf:401858246": {
+   "away": "Boston College",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -21.0,
+    "ml": 0.9092,
+    "spread": 0.5919,
+    "tline": 55.5,
+    "total": 0.4673
+   },
+   "home": "SMU",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.0861,
+    "fair_away": 1061,
+    "fair_home": -1061,
+    "home": 0.9139,
+    "market_home": 0.9083
+   },
+   "proj": {
+    "away": 15.33,
+    "home": 40.12,
+    "margin": 23.95,
+    "total": 54.21
+   },
+   "spread": {
+    "away": 0.4021,
+    "fair_away": 149,
+    "fair_home": -149,
+    "home": 0.5979,
+    "line": -21.0,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     -24.0,
+     0.5265
+    ],
+    [
+     -23.0,
+     0.5495
+    ],
+    [
+     -22.0,
+     0.5646
+    ],
+    [
+     -20.0,
+     0.6152
+    ],
+    [
+     -19.0,
+     0.6289
+    ],
+    [
+     -18.0,
+     0.6461
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": 107,
+    "fair_under": -107,
+    "line": 55.5,
+    "market_over": 0.4892,
+    "over": 0.4821,
+    "under": 0.5179
+   },
+   "totals": [
+    [
+     52.5,
+     0.5434
+    ],
+    [
+     53.5,
+     0.5181
+    ],
+    [
+     54.5,
+     0.4927
+    ],
+    [
+     56.5,
+     0.4421
+    ],
+    [
+     57.5,
+     0.4171
+    ],
+    [
+     58.5,
+     0.3925
+    ]
+   ]
+  },
+  "ncaaf:401858247": {
+   "away": "California",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -2.5,
+    "ml": 0.7663,
+    "spread": 0.7358,
+    "tline": 53.5,
+    "total": 0.5423
+   },
+   "home": "UNLV",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.2286,
+    "fair_away": 338,
+    "fair_home": -338,
+    "home": 0.7714,
+    "market_home": 0.5635
+   },
+   "proj": {
+    "away": 20.97,
+    "home": 34.44,
+    "margin": 13.12,
+    "total": 55.17
+   },
+   "spread": {
+    "away": 0.26,
+    "fair_away": 285,
+    "fair_home": -285,
+    "home": 0.74,
+    "line": -2.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     -5.5,
+     0.6531
+    ],
+    [
+     -4.5,
+     0.667
+    ],
+    [
+     -3.5,
+     0.686
+    ],
+    [
+     -1.5,
+     0.7498
+    ],
+    [
+     -0.5,
+     0.7656
+    ],
+    [
+     0.5,
+     0.7666
+    ]
+   ],
+   "start": "2026-10-03T19:30Z",
+   "total": {
+    "fair_over": -119,
+    "fair_under": 119,
+    "line": 53.5,
+    "market_over": 0.4978,
+    "over": 0.5441,
+    "under": 0.4559
+   },
+   "totals": [
+    [
+     50.5,
+     0.6168
+    ],
+    [
+     51.5,
+     0.5923
+    ],
+    [
+     52.5,
+     0.5675
+    ],
+    [
+     54.5,
+     0.517
+    ],
+    [
+     55.5,
+     0.4916
+    ],
+    [
+     56.5,
+     0.4663
+    ]
+   ]
+  },
+  "ncaaf:401858248": {
+   "away": "Louisville",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 4.0,
+    "ml": 0.6291,
+    "spread": 0.7287
+   },
+   "home": "NC State",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.3604,
+    "fair_away": 177,
+    "fair_home": -177,
+    "home": 0.6396,
+    "market_home": 0.3691
+   },
+   "proj": {
+    "away": 25.04,
+    "home": 31.48,
+    "margin": 5.97,
+    "total": 56.59
+   },
+   "spread": {
+    "away": 0.2634,
+    "fair_away": 280,
+    "fair_home": -280,
+    "home": 0.7366,
+    "line": 4.0,
+    "market_home": 0.5108
+   },
+   "spreads": [
+    [
+     1.0,
+     0.6414
+    ],
+    [
+     2.0,
+     0.6581
+    ],
+    [
+     3.0,
+     0.6996
+    ],
+    [
+     5.0,
+     0.7433
+    ],
+    [
+     6.0,
+     0.7591
+    ],
+    [
+     7.0,
+     0.7948
+    ]
+   ],
+   "start": "2026-10-03T19:30Z"
+  },
+  "ncaaf:401858250": {
+   "away": "Notre Dame",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 21.0,
+    "ml": 0.1558,
+    "spread": 0.5447,
+    "tline": 47.5,
+    "total": 0.6394
+   },
+   "home": "North Carolina",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.8441,
+    "fair_away": -541,
+    "fair_home": 541,
+    "home": 0.1559,
+    "market_home": 0.0917
+   },
+   "proj": {
+    "away": 36.28,
+    "home": 17.58,
+    "margin": -18.21,
+    "total": 53.11
+   },
+   "spread": {
+    "away": 0.4576,
+    "fair_away": 119,
+    "fair_home": -119,
+    "home": 0.5424,
+    "line": 21.0,
+    "market_home": 0.5
+   },
+   "spreads": [
+    [
+     18.0,
+     0.4863
+    ],
+    [
+     19.0,
+     0.5036
+    ],
+    [
+     20.0,
+     0.5181
+    ],
+    [
+     22.0,
+     0.5692
+    ],
+    [
+     23.0,
+     0.5843
+    ],
+    [
+     24.0,
+     0.6083
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": -192,
+    "fair_under": 192,
+    "line": 47.5,
+    "market_over": 0.5,
+    "over": 0.6574,
+    "under": 0.3426
+   },
+   "totals": [
+    [
+     44.5,
+     0.7081
+    ],
+    [
+     45.5,
+     0.6859
+    ],
+    [
+     46.5,
+     0.663
+    ],
+    [
+     48.5,
+     0.6154
+    ],
+    [
+     49.5,
+     0.5908
+    ],
+    [
+     50.5,
+     0.5659
+    ]
+   ]
+  },
+  "ncaaf:401858251": {
+   "away": "Stanford",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -12.5,
+    "ml": 0.9028,
+    "spread": 0.7265,
+    "tline": 53.5,
+    "total": 0.5499
+   },
+   "home": "Wake Forest",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.0994,
+    "fair_away": 906,
+    "fair_home": -906,
+    "home": 0.9006,
+    "market_home": 0.8043
+   },
+   "proj": {
+    "away": 16.22,
+    "home": 40.14,
+    "margin": 23.28,
+    "total": 55.47
+   },
+   "spread": {
+    "away": 0.2747,
+    "fair_away": 264,
+    "fair_home": -264,
+    "home": 0.7253,
+    "line": -12.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     -15.5,
+     0.6764
+    ],
+    [
+     -14.5,
+     0.6871
+    ],
+    [
+     -13.5,
+     0.7151
+    ],
+    [
+     -11.5,
+     0.734
+    ],
+    [
+     -10.5,
+     0.7468
+    ],
+    [
+     -9.5,
+     0.7693
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": -130,
+    "fair_under": 130,
+    "line": 53.5,
+    "market_over": 0.5,
+    "over": 0.5652,
+    "under": 0.4348
+   },
+   "totals": [
+    [
+     50.5,
+     0.6241
+    ],
+    [
+     51.5,
+     0.5997
+    ],
+    [
+     52.5,
+     0.575
+    ],
+    [
+     54.5,
+     0.5246
+    ],
+    [
+     55.5,
+     0.4993
+    ],
+    [
+     56.5,
+     0.4739
+    ]
+   ]
+  },
+  "ncaaf:401858252": {
+   "away": "Syracuse",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 6.5,
+    "ml": 0.708,
+    "spread": 0.8246,
+    "tline": 50.5,
+    "total": 0.6402
+   },
+   "home": "UConn",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.2871,
+    "fair_away": 248,
+    "fair_home": -248,
+    "home": 0.7129,
+    "market_home": 0.3194
+   },
+   "proj": {
+    "away": 23.04,
+    "home": 33.29,
+    "margin": 9.91,
+    "total": 56.14
+   },
+   "spread": {
+    "away": 0.168,
+    "fair_away": 495,
+    "fair_home": -495,
+    "home": 0.832,
+    "line": 6.5,
+    "market_home": 0.5
+   },
+   "spreads": [
+    [
+     3.5,
+     0.7837
+    ],
+    [
+     4.5,
+     0.7997
+    ],
+    [
+     5.5,
+     0.8106
+    ],
+    [
+     7.5,
+     0.8577
+    ],
+    [
+     8.5,
+     0.8682
+    ],
+    [
+     9.5,
+     0.873
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": -184,
+    "fair_under": 184,
+    "line": 50.5,
+    "market_over": 0.4979,
+    "over": 0.6473,
+    "under": 0.3527
+   },
+   "totals": [
+    [
+     47.5,
+     0.7088
+    ],
+    [
+     48.5,
+     0.6866
+    ],
+    [
+     49.5,
+     0.6637
+    ],
+    [
+     51.5,
+     0.6161
+    ],
+    [
+     52.5,
+     0.5916
+    ],
+    [
+     53.5,
+     0.5668
+    ]
+   ]
+  },
+  "ncaaf:401858253": {
+   "away": "Virginia",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 2.5,
+    "ml": 0.6029,
+    "spread": 0.6382,
+    "tline": 51.5,
+    "total": 0.5378
+   },
+   "home": "Florida St",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.398,
+    "fair_away": 151,
+    "fair_home": -151,
+    "home": 0.602,
+    "market_home": 0.4365
+   },
+   "proj": {
+    "away": 24.21,
+    "home": 28.96,
+    "margin": 4.73,
+    "total": 52.99
+   },
+   "spread": {
+    "away": 0.3606,
+    "fair_away": 177,
+    "fair_home": -177,
+    "home": 0.6394,
+    "line": 2.5,
+    "market_home": 0.4892
+   },
+   "spreads": [
+    [
+     -0.5,
+     0.6022
+    ],
+    [
+     0.5,
+     0.6034
+    ],
+    [
+     1.5,
+     0.6223
+    ],
+    [
+     3.5,
+     0.6916
+    ],
+    [
+     4.5,
+     0.7109
+    ],
+    [
+     5.5,
+     0.7242
+    ]
+   ],
+   "start": "2026-10-03T19:30Z",
+   "total": {
+    "fair_over": -116,
+    "fair_under": 116,
+    "line": 51.5,
+    "market_over": 0.4913,
+    "over": 0.5372,
+    "under": 0.4628
+   },
+   "totals": [
+    [
+     48.5,
+     0.6124
+    ],
+    [
+     49.5,
+     0.5878
+    ],
+    [
+     50.5,
+     0.5629
+    ],
+    [
+     52.5,
+     0.5124
+    ],
+    [
+     53.5,
+     0.4871
+    ],
+    [
+     54.5,
+     0.4617
+    ]
+   ]
+  },
+  "ncaaf:401858473": {
+   "away": "Ohio State",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 14.0,
+    "ml": 0.4642,
+    "spread": 0.7709,
+    "tline": 45.5,
+    "total": 0.4256
+   },
+   "home": "Iowa",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.5444,
+    "fair_away": -119,
+    "fair_home": 119,
+    "home": 0.4556,
+    "market_home": 0.1729
+   },
+   "proj": {
+    "away": 22.72,
+    "home": 20.66,
+    "margin": -1.63,
+    "total": 42.55
+   },
+   "spread": {
+    "away": 0.2367,
+    "fair_away": 322,
+    "fair_home": -322,
+    "home": 0.7633,
+    "line": 14.0,
+    "market_home": 0.4826
+   },
+   "spreads": [
+    [
+     11.0,
+     0.7282
+    ],
+    [
+     12.0,
+     0.7379
+    ],
+    [
+     13.0,
+     0.7483
+    ],
+    [
+     15.0,
+     0.784
+    ],
+    [
+     16.0,
+     0.7927
+    ],
+    [
+     17.0,
+     0.8112
+    ]
+   ],
+   "start": "2026-10-03T19:30Z",
+   "total": {
+    "fair_over": 131,
+    "fair_under": -131,
+    "line": 45.5,
+    "market_over": 0.5,
+    "over": 0.4325,
+    "under": 0.5675
+   },
+   "totals": [
+    [
+     42.5,
+     0.5013
+    ],
+    [
+     43.5,
+     0.4759
+    ],
+    [
+     44.5,
+     0.4507
+    ],
+    [
+     46.5,
+     0.4008
+    ],
+    [
+     47.5,
+     0.3765
+    ],
+    [
+     48.5,
+     0.3526
+    ]
+   ]
+  },
+  "ncaaf:401858474": {
+   "away": "Michigan",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 5.5,
+    "ml": 0.6466,
+    "spread": 0.7611,
+    "tline": 43.5,
+    "total": 0.569
+   },
+   "home": "Minnesota",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.3599,
+    "fair_away": 178,
+    "fair_home": -178,
+    "home": 0.6401,
+    "market_home": 0.3364
+   },
+   "proj": {
+    "away": 20.07,
+    "home": 26.73,
+    "margin": 6.81,
+    "total": 46.23
+   },
+   "spread": {
+    "away": 0.2417,
+    "fair_away": 314,
+    "fair_home": -314,
+    "home": 0.7583,
+    "line": 5.5,
+    "market_home": 0.5
+   },
+   "spreads": [
+    [
+     2.5,
+     0.6802
+    ],
+    [
+     3.5,
+     0.7306
+    ],
+    [
+     4.5,
+     0.7487
+    ],
+    [
+     6.5,
+     0.7772
+    ],
+    [
+     7.5,
+     0.8157
+    ],
+    [
+     8.5,
+     0.828
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": -135,
+    "fair_under": 135,
+    "line": 43.5,
+    "market_over": 0.4957,
+    "over": 0.5741,
+    "under": 0.4259
+   },
+   "totals": [
+    [
+     40.5,
+     0.6423
+    ],
+    [
+     41.5,
+     0.6183
+    ],
+    [
+     42.5,
+     0.5939
+    ],
+    [
+     44.5,
+     0.5439
+    ],
+    [
+     45.5,
+     0.5186
+    ],
+    [
+     46.5,
+     0.4932
     ]
    ]
   },
@@ -887,6 +2800,102 @@
     ]
    ]
   },
+  "ncaaf:401858479": {
+   "away": "Michigan St",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -10.0,
+    "ml": 0.8024,
+    "spread": 0.5983,
+    "tline": 43.5,
+    "total": 0.4155
+   },
+   "home": "Wisconsin",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.202,
+    "fair_away": 395,
+    "fair_home": -395,
+    "home": 0.798,
+    "market_home": 0.7715
+   },
+   "proj": {
+    "away": 13.27,
+    "home": 28.92,
+    "margin": 15.33,
+    "total": 40.15
+   },
+   "spread": {
+    "away": 0.4017,
+    "fair_away": 149,
+    "fair_home": -149,
+    "home": 0.5983,
+    "line": -10.0,
+    "market_home": 0.5108
+   },
+   "spreads": [
+    [
+     -13.0,
+     0.55
+    ],
+    [
+     -12.0,
+     0.5612
+    ],
+    [
+     -11.0,
+     0.5744
+    ],
+    [
+     -9.0,
+     0.6146
+    ],
+    [
+     -8.0,
+     0.6275
+    ],
+    [
+     -7.0,
+     0.6642
+    ]
+   ],
+   "start": "2026-10-03T16:30Z",
+   "total": {
+    "fair_over": 122,
+    "fair_under": -122,
+    "line": 43.5,
+    "market_over": 0.5,
+    "over": 0.4497,
+    "under": 0.5503
+   },
+   "totals": [
+    [
+     40.5,
+     0.491
+    ],
+    [
+     41.5,
+     0.4657
+    ],
+    [
+     42.5,
+     0.4405
+    ],
+    [
+     44.5,
+     0.3909
+    ],
+    [
+     45.5,
+     0.3667
+    ],
+    [
+     46.5,
+     0.343
+    ]
+   ]
+  },
   "ncaaf:401862786": {
    "away": "North Texas",
    "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
@@ -905,7 +2914,7 @@
     "fair_away": 111,
     "fair_home": -111,
     "home": 0.5251,
-    "market_home": 0.5043
+    "market_home": 0.5174
    },
    "proj": {
     "away": 31.8,
@@ -919,7 +2928,7 @@
     "fair_home": -101,
     "home": 0.5019,
     "line": -1.5,
-    "market_home": 0.4783
+    "market_home": 0.4957
    },
    "spreads": [
     [
@@ -982,6 +2991,699 @@
      0.6096
     ]
    ]
+  },
+  "ncaaf:401862787": {
+   "away": "Memphis",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 20.5,
+    "ml": 0.3366,
+    "spread": 0.7502,
+    "tline": 53.5,
+    "total": 0.4519
+   },
+   "home": "Charlotte",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.658,
+    "fair_away": -192,
+    "fair_home": 192,
+    "home": 0.342,
+    "market_home": 0.1011
+   },
+   "proj": {
+    "away": 29.97,
+    "home": 22.35,
+    "margin": -7.64,
+    "total": 51.6
+   },
+   "spread": {
+    "away": 0.2505,
+    "fair_away": 299,
+    "fair_home": -299,
+    "home": 0.7495,
+    "line": 20.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     17.5,
+     0.7098
+    ],
+    [
+     18.5,
+     0.7272
+    ],
+    [
+     19.5,
+     0.7385
+    ],
+    [
+     21.5,
+     0.7779
+    ],
+    [
+     22.5,
+     0.7886
+    ],
+    [
+     23.5,
+     0.7996
+    ]
+   ],
+   "start": "2026-10-03T19:30Z",
+   "total": {
+    "fair_over": 113,
+    "fair_under": -113,
+    "line": 53.5,
+    "market_over": 0.4978,
+    "over": 0.4689,
+    "under": 0.5311
+   },
+   "totals": [
+    [
+     50.5,
+     0.5279
+    ],
+    [
+     51.5,
+     0.5026
+    ],
+    [
+     52.5,
+     0.4772
+    ],
+    [
+     54.5,
+     0.4268
+    ],
+    [
+     55.5,
+     0.4021
+    ],
+    [
+     56.5,
+     0.3777
+    ]
+   ]
+  },
+  "ncaaf:401862791": {
+   "away": "Navy",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -3.0,
+    "ml": 0.5553,
+    "spread": 0.4876,
+    "tline": 46.5,
+    "total": 0.5124
+   },
+   "home": "Air Force",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.4542,
+    "fair_away": 120,
+    "fair_home": -120,
+    "home": 0.5458,
+    "market_home": 0.6038
+   },
+   "proj": {
+    "away": 22.72,
+    "home": 24.84,
+    "margin": 2.52,
+    "total": 46.99
+   },
+   "spread": {
+    "away": 0.5237,
+    "fair_away": -110,
+    "fair_home": 110,
+    "home": 0.4763,
+    "line": -3.0,
+    "market_home": 0.5174
+   },
+   "spreads": [
+    [
+     -6.0,
+     0.4101
+    ],
+    [
+     -5.0,
+     0.4286
+    ],
+    [
+     -4.0,
+     0.4471
+    ],
+    [
+     -2.0,
+     0.5267
+    ],
+    [
+     -1.0,
+     0.5456
+    ],
+    [
+     0.0,
+     0.5553
+    ]
+   ],
+   "start": "2026-10-03T16:00Z",
+   "total": {
+    "fair_over": -109,
+    "fair_under": 109,
+    "line": 46.5,
+    "market_over": 0.5022,
+    "over": 0.5212,
+    "under": 0.4788
+   },
+   "totals": [
+    [
+     43.5,
+     0.5879
+    ],
+    [
+     44.5,
+     0.5629
+    ],
+    [
+     45.5,
+     0.5378
+    ],
+    [
+     47.5,
+     0.4871
+    ],
+    [
+     48.5,
+     0.4617
+    ],
+    [
+     49.5,
+     0.4366
+    ]
+   ]
+  },
+  "ncaaf:401862793": {
+   "away": "Samford",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -30.5,
+    "ml": 0.6928,
+    "spread": 0.1307,
+    "tline": 51.5,
+    "total": 0.6399
+   },
+   "home": "UAB",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.2997,
+    "fair_away": 234,
+    "fair_home": -234,
+    "home": 0.7003,
+    "market_home": 0.9536
+   },
+   "proj": {
+    "away": 24.07,
+    "home": 33.54,
+    "margin": 9.12,
+    "total": 57.13
+   },
+   "spread": {
+    "away": 0.8659,
+    "fair_away": -646,
+    "fair_home": 646,
+    "home": 0.1341,
+    "line": -30.5,
+    "market_home": 0.5
+   },
+   "spreads": [
+    [
+     -33.5,
+     0.0964
+    ],
+    [
+     -32.5,
+     0.1023
+    ],
+    [
+     -31.5,
+     0.114
+    ],
+    [
+     -29.5,
+     0.137
+    ],
+    [
+     -28.5,
+     0.1456
+    ],
+    [
+     -27.5,
+     0.1683
+    ]
+   ],
+   "start": "2026-10-03T19:30Z",
+   "total": {
+    "fair_over": -185,
+    "fair_under": 185,
+    "line": 51.5,
+    "market_over": 0.5,
+    "over": 0.6497,
+    "under": 0.3503
+   },
+   "totals": [
+    [
+     48.5,
+     0.7085
+    ],
+    [
+     49.5,
+     0.6863
+    ],
+    [
+     50.5,
+     0.6634
+    ],
+    [
+     52.5,
+     0.6159
+    ],
+    [
+     53.5,
+     0.5914
+    ],
+    [
+     54.5,
+     0.5665
+    ]
+   ]
+  },
+  "ncaaf:401862794": {
+   "away": "South Florida",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "ml": 0.5713
+   },
+   "home": "UTSA",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.4356,
+    "fair_away": 130,
+    "fair_home": -130,
+    "home": 0.5644
+   },
+   "proj": {
+    "away": 31.49,
+    "home": 34.5,
+    "margin": 3.26,
+    "total": 65.87
+   },
+   "start": "2026-10-08T23:30Z"
+  },
+  "ncaaf:401864515": {
+   "away": "Wyoming",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -18.5,
+    "ml": 0.8181,
+    "spread": 0.4605
+   },
+   "home": "N Dakota St",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.1866,
+    "fair_away": 436,
+    "fair_home": -436,
+    "home": 0.8134,
+    "market_home": 0.8934
+   },
+   "proj": {
+    "away": 15.67,
+    "home": 32.08,
+    "margin": 16.37,
+    "total": 46.57
+   },
+   "spread": {
+    "away": 0.5484,
+    "fair_away": -121,
+    "fair_home": 121,
+    "home": 0.4516,
+    "line": -18.5,
+    "market_home": 0.5
+   },
+   "spreads": [
+    [
+     -21.5,
+     0.3972
+    ],
+    [
+     -20.5,
+     0.4324
+    ],
+    [
+     -19.5,
+     0.4469
+    ],
+    [
+     -17.5,
+     0.4809
+    ],
+    [
+     -16.5,
+     0.5105
+    ],
+    [
+     -15.5,
+     0.5221
+    ]
+   ],
+   "start": "2026-10-03T19:30Z"
+  },
+  "ncaaf:401866430": {
+   "away": "Akron",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -6.5,
+    "ml": 0.7533,
+    "spread": 0.618
+   },
+   "home": "C Michigan",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.2395,
+    "fair_away": 318,
+    "fair_home": -318,
+    "home": 0.7605,
+    "market_home": 0.6854
+   },
+   "proj": {
+    "away": 17.71,
+    "home": 30.45,
+    "margin": 12.37,
+    "total": 47.31
+   },
+   "spread": {
+    "away": 0.3807,
+    "fair_away": 163,
+    "fair_home": -163,
+    "home": 0.6193,
+    "line": -6.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     -9.5,
+     0.5436
+    ],
+    [
+     -8.5,
+     0.5517
+    ],
+    [
+     -7.5,
+     0.5685
+    ],
+    [
+     -5.5,
+     0.6374
+    ],
+    [
+     -4.5,
+     0.6515
+    ],
+    [
+     -3.5,
+     0.671
+    ]
+   ],
+   "start": "2026-10-03T19:30Z"
+  },
+  "ncaaf:401866431": {
+   "away": "Toledo",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 19.5,
+    "ml": 0.2557,
+    "spread": 0.6533,
+    "tline": 51.5,
+    "total": 0.4604
+   },
+   "home": "Ball State",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.7472,
+    "fair_away": -296,
+    "fair_home": 296,
+    "home": 0.2528,
+    "market_home": 0.113
+   },
+   "proj": {
+    "away": 31.41,
+    "home": 19.27,
+    "margin": -11.87,
+    "total": 49.94
+   },
+   "spread": {
+    "away": 0.352,
+    "fair_away": 184,
+    "fair_home": -184,
+    "home": 0.648,
+    "line": 19.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     16.5,
+     0.5927
+    ],
+    [
+     17.5,
+     0.6213
+    ],
+    [
+     18.5,
+     0.6406
+    ],
+    [
+     20.5,
+     0.6668
+    ],
+    [
+     21.5,
+     0.6988
+    ],
+    [
+     22.5,
+     0.7114
+    ]
+   ],
+   "start": "2026-10-03T18:00Z",
+   "total": {
+    "fair_over": 113,
+    "fair_under": -113,
+    "line": 51.5,
+    "market_over": 0.5169,
+    "over": 0.4688,
+    "under": 0.5312
+   },
+   "totals": [
+    [
+     48.5,
+     0.5365
+    ],
+    [
+     49.5,
+     0.5111
+    ],
+    [
+     50.5,
+     0.4857
+    ],
+    [
+     52.5,
+     0.4353
+    ],
+    [
+     53.5,
+     0.4104
+    ],
+    [
+     54.5,
+     0.3858
+    ]
+   ]
+  },
+  "ncaaf:401866432": {
+   "away": "W Michigan",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 13.5,
+    "ml": 0.4405,
+    "spread": 0.7313
+   },
+   "home": "Buffalo",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.5601,
+    "fair_away": -127,
+    "fair_home": 127,
+    "home": 0.4399,
+    "market_home": 0.1777
+   },
+   "proj": {
+    "away": 25.81,
+    "home": 23.16,
+    "margin": -2.71,
+    "total": 48.62
+   },
+   "spread": {
+    "away": 0.2623,
+    "fair_away": 281,
+    "fair_home": -281,
+    "home": 0.7377,
+    "line": 13.5,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     10.5,
+     0.6968
+    ],
+    [
+     11.5,
+     0.7115
+    ],
+    [
+     12.5,
+     0.7197
+    ],
+    [
+     14.5,
+     0.758
+    ],
+    [
+     15.5,
+     0.7676
+    ],
+    [
+     16.5,
+     0.7765
+    ]
+   ],
+   "start": "2026-10-03T17:00Z"
+  },
+  "ncaaf:401866433": {
+   "away": "E Michigan",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -6.5,
+    "ml": 0.4657,
+    "spread": 0.3178
+   },
+   "home": "UMass",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.5381,
+    "fair_away": -116,
+    "fair_home": 116,
+    "home": 0.4619,
+    "market_home": 0.675
+   },
+   "proj": {
+    "away": 28.11,
+    "home": 26.18,
+    "margin": -1.56,
+    "total": 54.61
+   },
+   "spread": {
+    "away": 0.6867,
+    "fair_away": -219,
+    "fair_home": 219,
+    "home": 0.3133,
+    "line": -6.5,
+    "market_home": 0.4892
+   },
+   "spreads": [
+    [
+     -9.5,
+     0.2494
+    ],
+    [
+     -8.5,
+     0.2564
+    ],
+    [
+     -7.5,
+     0.2715
+    ],
+    [
+     -5.5,
+     0.3367
+    ],
+    [
+     -4.5,
+     0.3512
+    ],
+    [
+     -3.5,
+     0.3719
+    ]
+   ],
+   "start": "2026-10-03T19:30Z"
+  },
+  "ncaaf:401869933": {
+   "away": "South Alabama",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "ml": 0.5858
+   },
+   "home": "Arkansas St",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.4096,
+    "fair_away": 144,
+    "fair_home": -144,
+    "home": 0.5904
+   },
+   "proj": {
+    "away": 25.19,
+    "home": 29.21,
+    "margin": 3.93,
+    "total": 54.3
+   },
+   "start": "2026-10-08T23:30Z"
+  },
+  "ncaaf:401870766": {
+   "away": "Sam Houston",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "ml": 0.9199
+   },
+   "home": "Liberty",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.0845,
+    "fair_away": 1083,
+    "fair_home": -1083,
+    "home": 0.9155
+   },
+   "proj": {
+    "away": 13.71,
+    "home": 39.22,
+    "margin": 25.16,
+    "total": 51.37
+   },
+   "start": "2026-10-08T23:00Z"
   },
   "ncaaf:401871049": {
    "away": "Western KY",
@@ -1048,7 +3750,7 @@
     "fair_over": 158,
     "fair_under": -158,
     "line": 57.5,
-    "market_over": 0.4926,
+    "market_over": 0.5,
     "over": 0.387,
     "under": 0.613
    },
@@ -1086,8 +3788,8 @@
     "line": 7.0,
     "ml": 0.601,
     "spread": 0.7724,
-    "tline": 50.5,
-    "total": 0.5484
+    "tline": 49.5,
+    "total": 0.5735
    },
    "home": "Delaware",
    "known": true,
@@ -1097,7 +3799,7 @@
     "fair_away": 155,
     "fair_home": -155,
     "home": 0.6075,
-    "market_home": 0.2998
+    "market_home": 0.2905
    },
    "proj": {
     "away": 23.83,
@@ -1111,7 +3813,7 @@
     "fair_home": -352,
     "home": 0.7787,
     "line": 7.0,
-    "market_home": 0.4957
+    "market_home": 0.4826
    },
    "spreads": [
     [
@@ -1141,14 +3843,18 @@
    ],
    "start": "2026-10-02T23:00Z",
    "total": {
-    "fair_over": -123,
-    "fair_under": 123,
-    "line": 50.5,
-    "market_over": 0.4923,
-    "over": 0.5525,
-    "under": 0.4475
+    "fair_over": -135,
+    "fair_under": 135,
+    "line": 49.5,
+    "market_over": 0.5082,
+    "over": 0.5745,
+    "under": 0.4255
    },
    "totals": [
+    [
+     46.5,
+     0.6466
+    ],
     [
      47.5,
      0.6227
@@ -1158,8 +3864,8 @@
      0.5983
     ],
     [
-     49.5,
-     0.5735
+     50.5,
+     0.5484
     ],
     [
      51.5,
@@ -1168,12 +3874,100 @@
     [
      52.5,
      0.4978
-    ],
-    [
-     53.5,
-     0.4724
     ]
    ]
+  },
+  "ncaaf:401871051": {
+   "away": "Jax State",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "ml": 0.6854
+   },
+   "home": "Kennesaw St",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.311,
+    "fair_away": 222,
+    "fair_home": -222,
+    "home": 0.689
+   },
+   "proj": {
+    "away": 20.89,
+    "home": 29.77,
+    "margin": 8.74,
+    "total": 49.86
+   },
+   "start": "2026-10-07T23:00Z"
+  },
+  "ncaaf:401871052": {
+   "away": "Missouri St",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "ml": 0.6086
+   },
+   "home": "Western KY",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.3912,
+    "fair_away": 156,
+    "fair_home": -156,
+    "home": 0.6088
+   },
+   "proj": {
+    "away": 25.02,
+    "home": 30.04,
+    "margin": 5.0,
+    "total": 54.93
+   },
+   "start": "2026-10-08T23:00Z"
+  },
+  "ncaaf:401871066": {
+   "away": "New Mexico St",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "ml": 0.6703
+   },
+   "home": "FIU",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.3329,
+    "fair_away": 200,
+    "fair_home": -200,
+    "home": 0.6671
+   },
+   "proj": {
+    "away": 21.68,
+    "home": 29.78,
+    "margin": 7.98,
+    "total": 51.16
+   },
+   "start": "2026-10-07T23:30Z"
+  },
+  "ncaaf:401871090": {
+   "away": "Southern Miss",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "ml": 0.7381
+   },
+   "home": "Troy",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.2637,
+    "fair_away": 279,
+    "fair_home": -279,
+    "home": 0.7363
+   },
+   "proj": {
+    "away": 18.58,
+    "home": 30.0,
+    "margin": 11.52,
+    "total": 47.74
+   },
+   "start": "2026-10-07T00:00Z"
   },
   "nfl:401872964": {
    "away": "Steelers",
@@ -1240,7 +4034,7 @@
     "fair_over": -136,
     "fair_under": 136,
     "line": 38.5,
-    "market_over": 0.492,
+    "market_over": 0.4934,
     "over": 0.5765,
     "under": 0.4235
    },
@@ -1271,64 +4065,1660 @@
     ]
    ]
   },
+  "nfl:401872965": {
+   "away": "Colts",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": 3.5,
+    "ml": 0.4601,
+    "spread": 0.5945,
+    "tline": 47.5,
+    "total": 0.588
+   },
+   "home": "Commanders",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.5438,
+    "fair_away": -119,
+    "fair_home": 119,
+    "home": 0.4562,
+    "market_home": 0.3836
+   },
+   "proj": {
+    "away": 26.05,
+    "home": 24.79,
+    "margin": -1.35,
+    "total": 50.85
+   },
+   "spread": {
+    "away": 0.4095,
+    "fair_away": 144,
+    "fair_home": -144,
+    "home": 0.5905,
+    "line": 3.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     0.5,
+     0.4635
+    ],
+    [
+     1.5,
+     0.4883
+    ],
+    [
+     2.5,
+     0.5147
+    ],
+    [
+     4.5,
+     0.6207
+    ],
+    [
+     5.5,
+     0.6457
+    ],
+    [
+     6.5,
+     0.6829
+    ]
+   ],
+   "start": "2026-10-04T13:30Z",
+   "total": {
+    "fair_over": -142,
+    "fair_under": 142,
+    "line": 47.5,
+    "market_over": 0.4892,
+    "over": 0.5875,
+    "under": 0.4125
+   },
+   "totals": [
+    [
+     44.5,
+     0.6633
+    ],
+    [
+     45.5,
+     0.6388
+    ],
+    [
+     46.5,
+     0.6137
+    ],
+    [
+     48.5,
+     0.562
+    ],
+    [
+     49.5,
+     0.5358
+    ],
+    [
+     50.5,
+     0.5093
+    ]
+   ]
+  },
+  "nfl:401872966": {
+   "away": "Cardinals",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": 2.5,
+    "ml": 0.5912,
+    "spread": 0.6418,
+    "tline": 44.5,
+    "total": 0.527
+   },
+   "home": "Giants",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.4159,
+    "fair_away": 140,
+    "fair_home": -140,
+    "home": 0.5841,
+    "market_home": 0.4486
+   },
+   "proj": {
+    "away": 21.51,
+    "home": 24.33,
+    "margin": 3.12,
+    "total": 45.52
+   },
+   "spread": {
+    "away": 0.3642,
+    "fair_away": 175,
+    "fair_home": -175,
+    "home": 0.6358,
+    "line": 2.5,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     -0.5,
+     0.5876
+    ],
+    [
+     0.5,
+     0.5937
+    ],
+    [
+     1.5,
+     0.6173
+    ],
+    [
+     3.5,
+     0.714
+    ],
+    [
+     4.5,
+     0.7371
+    ],
+    [
+     5.5,
+     0.7585
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": -115,
+    "fair_under": 115,
+    "line": 44.5,
+    "market_over": 0.4922,
+    "over": 0.5354,
+    "under": 0.4646
+   },
+   "totals": [
+    [
+     41.5,
+     0.6052
+    ],
+    [
+     42.5,
+     0.5794
+    ],
+    [
+     43.5,
+     0.5533
+    ],
+    [
+     45.5,
+     0.5005
+    ],
+    [
+     46.5,
+     0.4741
+    ],
+    [
+     47.5,
+     0.4477
+    ]
+   ]
+  },
+  "nfl:401872967": {
+   "away": "Cowboys",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -2.5,
+    "ml": 0.6169,
+    "spread": 0.5629,
+    "tline": 48.0,
+    "total": 0.5001
+   },
+   "home": "Texans",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.3801,
+    "fair_away": 163,
+    "fair_home": -163,
+    "home": 0.6199,
+    "market_home": 0.5635
+   },
+   "proj": {
+    "away": 22.08,
+    "home": 25.95,
+    "margin": 4.02,
+    "total": 48.0
+   },
+   "spread": {
+    "away": 0.4339,
+    "fair_away": 130,
+    "fair_home": -130,
+    "home": 0.5661,
+    "line": -2.5,
+    "market_home": 0.5108
+   },
+   "spreads": [
+    [
+     -5.5,
+     0.4297
+    ],
+    [
+     -4.5,
+     0.4557
+    ],
+    [
+     -3.5,
+     0.4825
+    ],
+    [
+     -1.5,
+     0.589
+    ],
+    [
+     -0.5,
+     0.6132
+    ],
+    [
+     0.5,
+     0.6192
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": -101,
+    "fair_under": 101,
+    "line": 48.0,
+    "market_over": 0.5021,
+    "over": 0.5015,
+    "under": 0.4985
+   },
+   "totals": [
+    [
+     45.0,
+     0.5811
+    ],
+    [
+     46.0,
+     0.5543
+    ],
+    [
+     47.0,
+     0.5273
+    ],
+    [
+     49.0,
+     0.473
+    ],
+    [
+     50.0,
+     0.4459
+    ],
+    [
+     51.0,
+     0.4192
+    ]
+   ]
+  },
+  "nfl:401872968": {
+   "away": "Packers",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": 3.5,
+    "ml": 0.5314,
+    "spread": 0.6612,
+    "tline": 39.5,
+    "total": 0.6775
+   },
+   "home": "Buccaneers",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.477,
+    "fair_away": 110,
+    "fair_home": -110,
+    "home": 0.523,
+    "market_home": 0.3691
+   },
+   "proj": {
+    "away": 22.84,
+    "home": 23.65,
+    "margin": 1.06,
+    "total": 46.44
+   },
+   "spread": {
+    "away": 0.348,
+    "fair_away": 187,
+    "fair_home": -187,
+    "home": 0.652,
+    "line": 3.5,
+    "market_home": 0.4783
+   },
+   "spreads": [
+    [
+     0.5,
+     0.5343
+    ],
+    [
+     1.5,
+     0.5588
+    ],
+    [
+     2.5,
+     0.5845
+    ],
+    [
+     4.5,
+     0.686
+    ],
+    [
+     5.5,
+     0.7093
+    ],
+    [
+     6.5,
+     0.7435
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": -209,
+    "fair_under": 209,
+    "line": 39.5,
+    "market_over": 0.5022,
+    "over": 0.6764,
+    "under": 0.3236
+   },
+   "totals": [
+    [
+     36.5,
+     0.7453
+    ],
+    [
+     37.5,
+     0.7236
+    ],
+    [
+     38.5,
+     0.7009
+    ],
+    [
+     40.5,
+     0.6533
+    ],
+    [
+     41.5,
+     0.6286
+    ],
+    [
+     42.5,
+     0.6032
+    ]
+   ]
+  },
+  "nfl:401872969": {
+   "away": "Jaguars",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -2.5,
+    "ml": 0.3913,
+    "spread": 0.3416,
+    "tline": 51.5,
+    "total": 0.4208
+   },
+   "home": "Bengals",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.6156,
+    "fair_away": -160,
+    "fair_home": 160,
+    "home": 0.3844,
+    "market_home": 0.5721
+   },
+   "proj": {
+    "away": 26.17,
+    "home": 22.52,
+    "margin": -3.73,
+    "total": 48.49
+   },
+   "spread": {
+    "away": 0.6669,
+    "fair_away": -200,
+    "fair_home": 200,
+    "home": 0.3331,
+    "line": -2.5,
+    "market_home": 0.5108
+   },
+   "spreads": [
+    [
+     -5.5,
+     0.2278
+    ],
+    [
+     -4.5,
+     0.2486
+    ],
+    [
+     -3.5,
+     0.2711
+    ],
+    [
+     -1.5,
+     0.3657
+    ],
+    [
+     -0.5,
+     0.389
+    ],
+    [
+     0.5,
+     0.3949
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": 136,
+    "fair_under": -136,
+    "line": 51.5,
+    "market_over": 0.4844,
+    "over": 0.4235,
+    "under": 0.5765
+   },
+   "totals": [
+    [
+     48.5,
+     0.4997
+    ],
+    [
+     49.5,
+     0.4732
+    ],
+    [
+     50.5,
+     0.4469
+    ],
+    [
+     52.5,
+     0.395
+    ],
+    [
+     53.5,
+     0.3697
+    ],
+    [
+     54.5,
+     0.345
+    ]
+   ]
+  },
+  "nfl:401872970": {
+   "away": "Rams",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": 3.0,
+    "ml": 0.4494,
+    "spread": 0.5479,
+    "tline": 43.5,
+    "total": 0.5438
+   },
+   "home": "Eagles",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.554,
+    "fair_away": -124,
+    "fair_home": 124,
+    "home": 0.446,
+    "market_home": 0.4066
+   },
+   "proj": {
+    "away": 23.56,
+    "home": 21.96,
+    "margin": -1.72,
+    "total": 45.16
+   },
+   "spread": {
+    "away": 0.4551,
+    "fair_away": 120,
+    "fair_home": -120,
+    "home": 0.5449,
+    "line": 3.0,
+    "market_home": 0.5043
+   },
+   "spreads": [
+    [
+     0.0,
+     0.4494
+    ],
+    [
+     1.0,
+     0.4643
+    ],
+    [
+     2.0,
+     0.4905
+    ],
+    [
+     4.0,
+     0.5999
+    ],
+    [
+     5.0,
+     0.6262
+    ],
+    [
+     6.0,
+     0.6604
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": -121,
+    "fair_under": 121,
+    "line": 43.5,
+    "market_over": 0.4873,
+    "over": 0.5483,
+    "under": 0.4517
+   },
+   "totals": [
+    [
+     40.5,
+     0.6213
+    ],
+    [
+     41.5,
+     0.5959
+    ],
+    [
+     42.5,
+     0.57
+    ],
+    [
+     44.5,
+     0.5174
+    ],
+    [
+     45.5,
+     0.4909
+    ],
+    [
+     46.5,
+     0.4645
+    ]
+   ]
+  },
+  "nfl:401872971": {
+   "away": "Patriots",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -6.5,
+    "ml": 0.5986,
+    "spread": 0.3723,
+    "tline": 48.5,
+    "total": 0.4464
+   },
+   "home": "Bills",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.3962,
+    "fair_away": 152,
+    "fair_home": -152,
+    "home": 0.6038,
+    "market_home": 0.7136
+   },
+   "proj": {
+    "away": 21.61,
+    "home": 25.02,
+    "margin": 3.37,
+    "total": 46.47
+   },
+   "spread": {
+    "away": 0.6214,
+    "fair_away": -164,
+    "fair_home": 164,
+    "home": 0.3786,
+    "line": -6.5,
+    "market_home": 0.5108
+   },
+   "spreads": [
+    [
+     -9.5,
+     0.2863
+    ],
+    [
+     -8.5,
+     0.2977
+    ],
+    [
+     -7.5,
+     0.3242
+    ],
+    [
+     -5.5,
+     0.4111
+    ],
+    [
+     -4.5,
+     0.437
+    ],
+    [
+     -3.5,
+     0.4637
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": 124,
+    "fair_under": -124,
+    "line": 48.5,
+    "market_over": 0.5,
+    "over": 0.4466,
+    "under": 0.5534
+   },
+   "totals": [
+    [
+     45.5,
+     0.5256
+    ],
+    [
+     46.5,
+     0.4992
+    ],
+    [
+     47.5,
+     0.4727
+    ],
+    [
+     49.5,
+     0.4203
+    ],
+    [
+     50.5,
+     0.3945
+    ],
+    [
+     51.5,
+     0.3692
+    ]
+   ]
+  },
+  "nfl:401872972": {
+   "away": "Jets",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -3.5,
+    "ml": 0.7732,
+    "spread": 0.6578,
+    "tline": 43.0,
+    "total": 0.5669
+   },
+   "home": "Bears",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.2346,
+    "fair_away": 326,
+    "fair_home": -326,
+    "home": 0.7654,
+    "market_home": 0.6092
+   },
+   "proj": {
+    "away": 18.15,
+    "home": 27.86,
+    "margin": 10.05,
+    "total": 45.47
+   },
+   "spread": {
+    "away": 0.3516,
+    "fair_away": 184,
+    "fair_home": -184,
+    "home": 0.6484,
+    "line": -3.5,
+    "market_home": 0.4826
+   },
+   "spreads": [
+    [
+     -6.5,
+     0.5712
+    ],
+    [
+     -5.5,
+     0.6093
+    ],
+    [
+     -4.5,
+     0.6336
+    ],
+    [
+     -2.5,
+     0.7279
+    ],
+    [
+     -1.5,
+     0.75
+    ],
+    [
+     -0.5,
+     0.7696
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": -135,
+    "fair_under": 135,
+    "line": 43.0,
+    "market_over": 0.5087,
+    "over": 0.5737,
+    "under": 0.4263
+   },
+   "totals": [
+    [
+     40.0,
+     0.6453
+    ],
+    [
+     41.0,
+     0.6196
+    ],
+    [
+     42.0,
+     0.5935
+    ],
+    [
+     44.0,
+     0.5399
+    ],
+    [
+     45.0,
+     0.5128
+    ],
+    [
+     46.0,
+     0.4857
+    ]
+   ]
+  },
+  "nfl:401872973": {
+   "away": "Titans",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -11.5,
+    "ml": 0.7715,
+    "spread": 0.4293,
+    "tline": 43.5,
+    "total": 0.5655
+   },
+   "home": "Ravens",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.2191,
+    "fair_away": 356,
+    "fair_home": -356,
+    "home": 0.7809,
+    "market_home": 0.8465
+   },
+   "proj": {
+    "away": 18.27,
+    "home": 28.41,
+    "margin": 9.98,
+    "total": 45.99
+   },
+   "spread": {
+    "away": 0.5612,
+    "fair_away": -128,
+    "fair_home": 128,
+    "home": 0.4388,
+    "line": -11.5,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     -14.5,
+     0.352
+    ],
+    [
+     -13.5,
+     0.3949
+    ],
+    [
+     -12.5,
+     0.4126
+    ],
+    [
+     -10.5,
+     0.445
+    ],
+    [
+     -9.5,
+     0.4792
+    ],
+    [
+     -8.5,
+     0.4918
+    ]
+   ],
+   "start": "2026-10-04T17:00Z",
+   "total": {
+    "fair_over": -137,
+    "fair_under": 137,
+    "line": 43.5,
+    "market_over": 0.5,
+    "over": 0.5779,
+    "under": 0.4221
+   },
+   "totals": [
+    [
+     40.5,
+     0.6421
+    ],
+    [
+     41.5,
+     0.617
+    ],
+    [
+     42.5,
+     0.5915
+    ],
+    [
+     44.5,
+     0.5393
+    ],
+    [
+     45.5,
+     0.5129
+    ],
+    [
+     46.5,
+     0.4864
+    ]
+   ]
+  },
+  "nfl:401872974": {
+   "away": "Dolphins",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -10.5,
+    "ml": 0.7765,
+    "spread": 0.4519,
+    "tline": 38.5,
+    "total": 0.5846
+   },
+   "home": "Vikings",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.218,
+    "fair_away": 359,
+    "fair_home": -359,
+    "home": 0.782,
+    "market_home": 0.8271
+   },
+   "proj": {
+    "away": 16.07,
+    "home": 26.18,
+    "margin": 10.2,
+    "total": 41.72
+   },
+   "spread": {
+    "away": 0.5446,
+    "fair_away": -120,
+    "fair_home": 120,
+    "home": 0.4554,
+    "line": -10.5,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     -13.5,
+     0.4017
+    ],
+    [
+     -12.5,
+     0.4194
+    ],
+    [
+     -11.5,
+     0.4362
+    ],
+    [
+     -9.5,
+     0.4861
+    ],
+    [
+     -8.5,
+     0.4987
+    ],
+    [
+     -7.5,
+     0.5268
+    ]
+   ],
+   "start": "2026-10-04T20:05Z",
+   "total": {
+    "fair_over": -143,
+    "fair_under": 143,
+    "line": 38.5,
+    "market_over": 0.5022,
+    "over": 0.5893,
+    "under": 0.4107
+   },
+   "totals": [
+    [
+     35.5,
+     0.6602
+    ],
+    [
+     36.5,
+     0.6355
+    ],
+    [
+     37.5,
+     0.6103
+    ],
+    [
+     39.5,
+     0.5586
+    ],
+    [
+     40.5,
+     0.5323
+    ],
+    [
+     41.5,
+     0.5059
+    ]
+   ]
+  },
+  "nfl:401872975": {
+   "away": "Broncos",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -3.0,
+    "ml": 0.5938,
+    "spread": 0.499,
+    "tline": 48.0,
+    "total": 0.4319
+   },
+   "home": "49ers",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.4017,
+    "fair_away": 149,
+    "fair_home": -149,
+    "home": 0.5983,
+    "market_home": 0.5721
+   },
+   "proj": {
+    "away": 21.13,
+    "home": 24.35,
+    "margin": 3.21,
+    "total": 45.48
+   },
+   "spread": {
+    "away": 0.4959,
+    "fair_away": 102,
+    "fair_home": -102,
+    "home": 0.5041,
+    "line": -3.0,
+    "market_home": 0.4783
+   },
+   "spreads": [
+    [
+     -6.0,
+     0.3824
+    ],
+    [
+     -5.0,
+     0.417
+    ],
+    [
+     -4.0,
+     0.4439
+    ],
+    [
+     -2.0,
+     0.5539
+    ],
+    [
+     -1.0,
+     0.5799
+    ],
+    [
+     0.0,
+     0.5938
+    ]
+   ],
+   "start": "2026-10-04T20:25Z",
+   "total": {
+    "fair_over": 135,
+    "fair_under": -135,
+    "line": 48.0,
+    "market_over": 0.5043,
+    "over": 0.4251,
+    "under": 0.5749
+   },
+   "totals": [
+    [
+     45.0,
+     0.5131
+    ],
+    [
+     46.0,
+     0.486
+    ],
+    [
+     47.0,
+     0.4589
+    ],
+    [
+     49.0,
+     0.4053
+    ],
+    [
+     50.0,
+     0.3792
+    ],
+    [
+     51.0,
+     0.3536
+    ]
+   ]
+  },
+  "nfl:401872976": {
+   "away": "Chiefs",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": 4.5,
+    "ml": 0.4123,
+    "spread": 0.5741,
+    "tline": 47.5,
+    "total": 0.3692
+   },
+   "home": "Raiders",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.5845,
+    "fair_away": -141,
+    "fair_home": 141,
+    "home": 0.4155,
+    "market_home": 0.3364
+   },
+   "proj": {
+    "away": 22.64,
+    "home": 20.0,
+    "margin": -2.99,
+    "total": 42.47
+   },
+   "spread": {
+    "away": 0.4173,
+    "fair_away": 140,
+    "fair_home": -140,
+    "home": 0.5827,
+    "line": 4.5,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     1.5,
+     0.4405
+    ],
+    [
+     2.5,
+     0.4669
+    ],
+    [
+     3.5,
+     0.5474
+    ],
+    [
+     5.5,
+     0.5998
+    ],
+    [
+     6.5,
+     0.6384
+    ],
+    [
+     7.5,
+     0.686
+    ]
+   ],
+   "start": "2026-10-04T20:25Z",
+   "total": {
+    "fair_over": 172,
+    "fair_under": -172,
+    "line": 47.5,
+    "market_over": 0.5055,
+    "over": 0.3675,
+    "under": 0.6325
+   },
+   "totals": [
+    [
+     44.5,
+     0.4463
+    ],
+    [
+     45.5,
+     0.4202
+    ],
+    [
+     46.5,
+     0.3945
+    ],
+    [
+     48.5,
+     0.3445
+    ],
+    [
+     49.5,
+     0.3204
+    ],
+    [
+     50.5,
+     0.297
+    ]
+   ]
+  },
+  "nfl:401872977": {
+   "away": "Chargers",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -7.0,
+    "ml": 0.7841,
+    "spread": 0.5646,
+    "tline": 43.0,
+    "total": 0.4915
+   },
+   "home": "Seahawks",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.2095,
+    "fair_away": 377,
+    "fair_home": -377,
+    "home": 0.7905,
+    "market_home": 0.76
+   },
+   "proj": {
+    "away": 16.37,
+    "home": 27.0,
+    "margin": 10.53,
+    "total": 42.69
+   },
+   "spread": {
+    "away": 0.4298,
+    "fair_away": 133,
+    "fair_home": -133,
+    "home": 0.5702,
+    "line": -7.0,
+    "market_home": 0.5108
+   },
+   "spreads": [
+    [
+     -10.0,
+     0.4789
+    ],
+    [
+     -9.0,
+     0.5031
+    ],
+    [
+     -8.0,
+     0.5239
+    ],
+    [
+     -6.0,
+     0.6086
+    ],
+    [
+     -5.0,
+     0.6387
+    ],
+    [
+     -4.0,
+     0.6631
+    ]
+   ],
+   "start": "2026-10-04T20:25Z",
+   "total": {
+    "fair_over": -100,
+    "fair_under": 100,
+    "line": 43.0,
+    "market_over": 0.5043,
+    "over": 0.5007,
+    "under": 0.4993
+   },
+   "totals": [
+    [
+     40.0,
+     0.5726
+    ],
+    [
+     41.0,
+     0.5457
+    ],
+    [
+     42.0,
+     0.5186
+    ],
+    [
+     44.0,
+     0.4643
+    ],
+    [
+     45.0,
+     0.4374
+    ],
+    [
+     46.0,
+     0.4107
+    ]
+   ]
+  },
+  "nfl:401872978": {
+   "away": "Lions",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": 3.5,
+    "ml": 0.4588,
+    "spread": 0.5933,
+    "tline": 51.0,
+    "total": 0.4827
+   },
+   "home": "Panthers",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.5443,
+    "fair_away": -119,
+    "fair_home": 119,
+    "home": 0.4557,
+    "market_home": 0.3836
+   },
+   "proj": {
+    "away": 25.98,
+    "home": 24.5,
+    "margin": -1.4,
+    "total": 50.36
+   },
+   "spread": {
+    "away": 0.4087,
+    "fair_away": 145,
+    "fair_home": -145,
+    "home": 0.5913,
+    "line": 3.5,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     0.5,
+     0.4622
+    ],
+    [
+     1.5,
+     0.487
+    ],
+    [
+     2.5,
+     0.5134
+    ],
+    [
+     4.5,
+     0.6195
+    ],
+    [
+     5.5,
+     0.6445
+    ],
+    [
+     6.5,
+     0.6817
+    ]
+   ],
+   "start": "2026-10-05T00:20Z",
+   "total": {
+    "fair_over": 107,
+    "fair_under": -107,
+    "line": 51.0,
+    "market_over": 0.5075,
+    "over": 0.4829,
+    "under": 0.5171
+   },
+   "totals": [
+    [
+     48.0,
+     0.5639
+    ],
+    [
+     49.0,
+     0.537
+    ],
+    [
+     50.0,
+     0.5098
+    ],
+    [
+     52.0,
+     0.4556
+    ],
+    [
+     53.0,
+     0.4287
+    ],
+    [
+     54.0,
+     0.4022
+    ]
+   ]
+  },
+  "nfl:401872979": {
+   "away": "Falcons",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -3.0,
+    "ml": 0.5549,
+    "spread": 0.4567,
+    "tline": 48.5,
+    "total": 0.3853
+   },
+   "home": "Saints",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.4611,
+    "fair_away": 117,
+    "fair_home": -117,
+    "home": 0.5389,
+    "market_home": 0.5721
+   },
+   "proj": {
+    "away": 21.36,
+    "home": 22.85,
+    "margin": 1.87,
+    "total": 44.11
+   },
+   "spread": {
+    "away": 0.5574,
+    "fair_away": -126,
+    "fair_home": 126,
+    "home": 0.4426,
+    "line": -3.0,
+    "market_home": 0.4826
+   },
+   "spreads": [
+    [
+     -6.0,
+     0.3437
+    ],
+    [
+     -5.0,
+     0.3779
+    ],
+    [
+     -4.0,
+     0.4043
+    ],
+    [
+     -2.0,
+     0.5138
+    ],
+    [
+     -1.0,
+     0.5401
+    ],
+    [
+     0.0,
+     0.5549
+    ]
+   ],
+   "start": "2026-10-06T00:15Z",
+   "total": {
+    "fair_over": 160,
+    "fair_under": -160,
+    "line": 48.5,
+    "market_over": 0.4967,
+    "over": 0.3844,
+    "under": 0.6156
+   },
+   "totals": [
+    [
+     45.5,
+     0.4631
+    ],
+    [
+     46.5,
+     0.4369
+    ],
+    [
+     47.5,
+     0.4109
+    ],
+    [
+     49.5,
+     0.3602
+    ],
+    [
+     50.5,
+     0.3356
+    ],
+    [
+     51.5,
+     0.3118
+    ]
+   ]
+  },
+  "nfl:401872980": {
+   "away": "Buccaneers",
+   "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -9.5,
+    "ml": 0.5779,
+    "spread": 0.2679,
+    "tline": 47.5,
+    "total": 0.5796
+   },
+   "home": "Cowboys",
+   "known": true,
+   "league": "nfl",
+   "ml": {
+    "away": 0.4277,
+    "fair_away": 134,
+    "fair_home": -134,
+    "home": 0.5723,
+    "market_home": 0.8082
+   },
+   "proj": {
+    "away": 24.1,
+    "home": 26.45,
+    "margin": 2.66,
+    "total": 50.53
+   },
+   "spread": {
+    "away": 0.7383,
+    "fair_away": -282,
+    "fair_home": 282,
+    "home": 0.2617,
+    "line": -9.5,
+    "market_home": 0.5
+   },
+   "spreads": [
+    [
+     -12.5,
+     0.2132
+    ],
+    [
+     -11.5,
+     0.2262
+    ],
+    [
+     -10.5,
+     0.2389
+    ],
+    [
+     -8.5,
+     0.2791
+    ],
+    [
+     -7.5,
+     0.305
+    ],
+    [
+     -6.5,
+     0.3522
+    ]
+   ],
+   "start": "2026-10-09T00:15Z",
+   "total": {
+    "fair_over": -136,
+    "fair_under": 136,
+    "line": 47.5,
+    "market_over": 0.4944,
+    "over": 0.577,
+    "under": 0.423
+   },
+   "totals": [
+    [
+     44.5,
+     0.6554
+    ],
+    [
+     45.5,
+     0.6307
+    ],
+    [
+     46.5,
+     0.6054
+    ],
+    [
+     48.5,
+     0.5535
+    ],
+    [
+     49.5,
+     0.5272
+    ],
+    [
+     50.5,
+     0.5007
+    ]
+   ]
+  },
+  "nhl:401891776": {
+   "away": "Blackhawks",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -1.5,
+    "ml": 0.6395,
+    "spread": 0.3858
+   },
+   "home": "Sabres",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.35,
+    "fair_away": 186,
+    "fair_home": -186,
+    "home": 0.65,
+    "market_home": 0.6575
+   },
+   "proj": {
+    "away": 2.66,
+    "home": 3.55,
+    "margin": 0.83,
+    "total": 6.3
+   },
+   "spread": {
+    "away": 0.614,
+    "fair_away": -159,
+    "fair_home": 159,
+    "home": 0.386,
+    "line": -1.5,
+    "market_home": 0.4486
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.0676
+    ],
+    [
+     -3.5,
+     0.1352
+    ],
+    [
+     -2.5,
+     0.2418
+    ],
+    [
+     -0.5,
+     0.6395
+    ],
+    [
+     0.5,
+     0.6395
+    ],
+    [
+     1.5,
+     0.8325
+    ]
+   ],
+   "start": "2026-10-03T23:00Z"
+  },
   "nhl:401891777": {
    "away": "Kraken",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.5103,
-    "spread": 0.2691,
+    "ml": 0.5111,
+    "spread": 0.2697,
     "tline": 5.5,
-    "total": 0.5232
+    "total": 0.5235
    },
    "home": "Flames",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4861,
+    "away": 0.4843,
     "fair_away": 106,
     "fair_home": -106,
-    "home": 0.5139,
+    "home": 0.5157,
     "market_home": 0.5108
    },
    "proj": {
     "away": 2.96,
-    "home": 3.04,
+    "home": 3.05,
     "margin": 0.06,
     "total": 6.03
    },
    "spread": {
-    "away": 0.7309,
-    "fair_away": -272,
-    "fair_home": 272,
-    "home": 0.2691,
+    "away": 0.7294,
+    "fair_away": -270,
+    "fair_home": 270,
+    "home": 0.2706,
     "line": -1.5,
     "market_home": 0.3092
    },
    "spreads": [
     [
      -4.5,
-     0.0324
+     0.0325
     ],
     [
      -3.5,
-     0.0741
+     0.0744
     ],
     [
      -2.5,
-     0.1503
+     0.1507
     ],
     [
      -0.5,
-     0.5103
+     0.5111
     ],
     [
      0.5,
-     0.5103
+     0.5111
     ],
     [
      1.5,
-     0.7467
+     0.7473
     ]
    ],
    "start": "2026-10-02T01:00Z",
@@ -1336,9 +5726,9 @@
     "fair_over": -111,
     "fair_under": 111,
     "line": 5.5,
-    "market_over": 0.5,
-    "over": 0.525,
-    "under": 0.475
+    "market_over": 0.5427,
+    "over": 0.5254,
+    "under": 0.4746
    },
    "totals": [
     [
@@ -1347,23 +5737,23 @@
     ],
     [
      3.5,
-     0.831
+     0.8311
     ],
     [
      4.5,
-     0.742
+     0.7422
     ],
     [
      6.5,
-     0.4131
+     0.4134
     ],
     [
      7.5,
-     0.2302
+     0.2304
     ],
     [
      8.5,
-     0.1601
+     0.1602
     ]
    ]
   },
@@ -1372,20 +5762,20 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.6145,
-    "spread": 0.3575,
+    "ml": 0.6153,
+    "spread": 0.3582,
     "tline": 6.5,
-    "total": 0.4182
+    "total": 0.4184
    },
    "home": "Avalanche",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.3838,
+    "away": 0.383,
     "fair_away": 161,
     "fair_home": -161,
-    "home": 0.6162,
-    "market_home": 0.6164
+    "home": 0.617,
+    "market_home": 0.6309
    },
    "proj": {
     "away": 2.67,
@@ -1394,37 +5784,37 @@
     "total": 6.07
    },
    "spread": {
-    "away": 0.6385,
-    "fair_away": -177,
-    "fair_home": 177,
-    "home": 0.3615,
+    "away": 0.6383,
+    "fair_away": -176,
+    "fair_home": 176,
+    "home": 0.3617,
     "line": -1.5,
-    "market_home": 0.4066
+    "market_home": 0.417
    },
    "spreads": [
     [
      -4.5,
-     0.0559
+     0.0562
     ],
     [
      -3.5,
-     0.1167
+     0.1171
     ],
     [
      -2.5,
-     0.2168
+     0.2174
     ],
     [
      -0.5,
-     0.6145
+     0.6153
     ],
     [
      0.5,
-     0.6145
+     0.6153
     ],
     [
      1.5,
-     0.8195
+     0.8199
     ]
    ],
    "start": "2026-10-01T02:00Z",
@@ -1432,34 +5822,34 @@
     "fair_over": 138,
     "fair_under": -138,
     "line": 6.5,
-    "market_over": 0.4913,
-    "over": 0.4203,
-    "under": 0.5797
+    "market_over": 0.4658,
+    "over": 0.4204,
+    "under": 0.5796
    },
    "totals": [
     [
      3.5,
-     0.8351
+     0.8353
     ],
     [
      4.5,
-     0.746
+     0.7462
     ],
     [
      5.5,
-     0.5303
+     0.5305
     ],
     [
      7.5,
-     0.2359
+     0.2361
     ],
     [
      8.5,
-     0.1633
+     0.1635
     ],
     [
      9.5,
-     0.0741
+     0.0742
     ]
    ]
   },
@@ -1468,19 +5858,19 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.4676,
-    "spread": 0.2427,
+    "ml": 0.4684,
+    "spread": 0.2434,
     "tline": 6.0,
-    "total": 0.5272
+    "total": 0.5275
    },
    "home": "Blue Jackets",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5306,
+    "away": 0.53,
     "fair_away": -113,
     "fair_home": 113,
-    "home": 0.4694,
+    "home": 0.47,
     "market_home": 0.5108
    },
    "proj": {
@@ -1490,37 +5880,37 @@
     "total": 6.38
    },
    "spread": {
-    "away": 0.7477,
+    "away": 0.7474,
     "fair_away": -296,
     "fair_home": 296,
-    "home": 0.2523,
+    "home": 0.2526,
     "line": -1.5,
     "market_home": 0.3146
    },
    "spreads": [
     [
      -4.5,
-     0.0288
+     0.0289
     ],
     [
      -3.5,
-     0.066
+     0.0662
     ],
     [
      -2.5,
-     0.1344
+     0.1348
     ],
     [
      -0.5,
-     0.4676
+     0.4684
     ],
     [
      0.5,
-     0.4676
+     0.4684
     ],
     [
      1.5,
-     0.7068
+     0.7074
     ]
    ],
    "start": "2026-10-01T23:00Z",
@@ -1528,34 +5918,34 @@
     "fair_over": -109,
     "fair_under": 109,
     "line": 6.0,
-    "market_over": 0.5,
-    "over": 0.5216,
-    "under": 0.4784
+    "market_over": 0.5174,
+    "over": 0.5222,
+    "under": 0.4778
    },
    "totals": [
     [
      3.0,
-     0.9607
+     0.9608
     ],
     [
      4.0,
-     0.8505
+     0.8506
     ],
     [
      5.0,
-     0.7275
+     0.7277
     ],
     [
      7.0,
-     0.3437
+     0.344
     ],
     [
      8.0,
-     0.2161
+     0.2163
     ],
     [
      9.0,
-     0.1063
+     0.1064
     ]
    ]
   },
@@ -1564,17 +5954,17 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.5484,
-    "spread": 0.3019
+    "ml": 0.5492,
+    "spread": 0.3026
    },
    "home": "Stars",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4527,
+    "away": 0.4518,
     "fair_away": 121,
     "fair_home": -121,
-    "home": 0.5473,
+    "home": 0.5482,
     "market_home": 0.6447
    },
    "proj": {
@@ -1584,37 +5974,37 @@
     "total": 6.15
    },
    "spread": {
-    "away": 0.6963,
-    "fair_away": -229,
-    "fair_home": 229,
-    "home": 0.3037,
+    "away": 0.6951,
+    "fair_away": -228,
+    "fair_home": 228,
+    "home": 0.3049,
     "line": -1.5,
     "market_home": 0.4365
    },
    "spreads": [
     [
      -4.5,
-     0.0412
+     0.0413
     ],
     [
      -3.5,
-     0.09
+     0.0903
     ],
     [
      -2.5,
-     0.1751
+     0.1757
     ],
     [
      -0.5,
-     0.5484
+     0.5492
     ],
     [
      0.5,
-     0.5484
+     0.5492
     ],
     [
      1.5,
-     0.7728
+     0.7734
     ]
    ],
    "start": "2026-10-03T01:00Z"
@@ -1624,119 +6014,179 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.5032,
-    "spread": 0.2658
+    "ml": 0.504,
+    "spread": 0.2664
    },
    "home": "Red Wings",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4994,
-    "fair_away": 100,
-    "fair_home": -100,
-    "home": 0.5006,
+    "away": 0.4981,
+    "fair_away": 101,
+    "fair_home": -101,
+    "home": 0.5019,
     "market_home": 0.5635
    },
    "proj": {
-    "away": 3.05,
+    "away": 3.04,
     "home": 3.05,
     "margin": 0.02,
     "total": 6.15
    },
    "spread": {
-    "away": 0.7348,
-    "fair_away": -277,
-    "fair_home": 277,
-    "home": 0.2652,
+    "away": 0.7332,
+    "fair_away": -275,
+    "fair_home": 275,
+    "home": 0.2668,
     "line": -1.5,
     "market_home": 0.3425
    },
    "spreads": [
     [
      -4.5,
-     0.0325
+     0.0326
     ],
     [
      -3.5,
-     0.0738
+     0.074
     ],
     [
      -2.5,
-     0.1489
+     0.1494
     ],
     [
      -0.5,
-     0.5032
+     0.504
     ],
     [
      0.5,
-     0.5032
+     0.504
     ],
     [
      1.5,
-     0.7392
+     0.7398
     ]
    ],
    "start": "2026-10-02T22:30Z"
+  },
+  "nhl:401891814": {
+   "away": "Bruins",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -1.5,
+    "ml": 0.5317,
+    "spread": 0.2894
+   },
+   "home": "Wild",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4664,
+    "fair_away": 114,
+    "fair_home": -114,
+    "home": 0.5336,
+    "market_home": 0.5934
+   },
+   "proj": {
+    "away": 2.99,
+    "home": 3.17,
+    "margin": 0.18,
+    "total": 6.21
+   },
+   "spread": {
+    "away": 0.7151,
+    "fair_away": -251,
+    "fair_home": 251,
+    "home": 0.2849,
+    "line": -1.5,
+    "market_home": 0.3691
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.0385
+    ],
+    [
+     -3.5,
+     0.0848
+    ],
+    [
+     -2.5,
+     0.1664
+    ],
+    [
+     -0.5,
+     0.5317
+    ],
+    [
+     0.5,
+     0.5317
+    ],
+    [
+     1.5,
+     0.7596
+    ]
+   ],
+   "start": "2026-10-04T00:00Z"
   },
   "nhl:401891816": {
    "away": "Wild",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.4607,
-    "spread": 0.7035,
+    "ml": 0.4615,
+    "spread": 0.7041,
     "tline": 6.5,
-    "total": 0.4486
+    "total": 0.4488
    },
    "home": "Predators",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.543,
-    "fair_away": -119,
-    "fair_home": 119,
-    "home": 0.457,
+    "away": 0.5417,
+    "fair_away": -118,
+    "fair_home": 118,
+    "home": 0.4583,
     "market_home": 0.4365
    },
    "proj": {
     "away": 3.26,
     "home": 3.0,
-    "margin": -0.23,
+    "margin": -0.22,
     "total": 6.25
    },
    "spread": {
-    "away": 0.2947,
-    "fair_away": 239,
-    "fair_home": -239,
-    "home": 0.7053,
+    "away": 0.2939,
+    "fair_away": 240,
+    "fair_home": -240,
+    "home": 0.7061,
     "line": 1.5,
-    "market_home": 0.6575
+    "market_home": 0.6447
    },
    "spreads": [
     [
      -1.5,
-     0.2355
+     0.2361
     ],
     [
      -0.5,
-     0.4607
+     0.4615
     ],
     [
      0.5,
-     0.4607
+     0.4615
     ],
     [
      2.5,
-     0.828
+     0.8284
     ],
     [
      3.5,
-     0.9115
+     0.9117
     ],
     [
      4.5,
-     0.9594
+     0.9596
     ]
    ],
    "start": "2026-10-02T00:00Z",
@@ -1744,34 +6194,34 @@
     "fair_over": 116,
     "fair_under": -116,
     "line": 6.5,
-    "market_over": 0.4675,
-    "over": 0.4624,
-    "under": 0.5376
+    "market_over": 0.4573,
+    "over": 0.4629,
+    "under": 0.5371
    },
    "totals": [
     [
      3.5,
-     0.8515
+     0.8516
     ],
     [
      4.5,
-     0.7686
+     0.7687
     ],
     [
      5.5,
-     0.5592
+     0.5595
     ],
     [
      7.5,
-     0.2602
+     0.2605
     ],
     [
      8.5,
-     0.1843
+     0.1845
     ],
     [
      9.5,
-     0.086
+     0.0862
     ]
    ]
   },
@@ -1780,59 +6230,59 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.4894,
-    "spread": 0.2531,
+    "ml": 0.4902,
+    "spread": 0.2537,
     "tline": 5.5,
-    "total": 0.5233
+    "total": 0.5235
    },
    "home": "Devils",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5067,
-    "fair_away": -103,
-    "fair_home": 103,
-    "home": 0.4933,
+    "away": 0.506,
+    "fair_away": -102,
+    "fair_home": 102,
+    "home": 0.494,
     "market_home": 0.5635
    },
    "proj": {
     "away": 3.01,
-    "home": 2.94,
+    "home": 2.95,
     "margin": -0.06,
     "total": 6.03
    },
    "spread": {
-    "away": 0.7464,
-    "fair_away": -294,
-    "fair_home": 294,
-    "home": 0.2536,
+    "away": 0.7451,
+    "fair_away": -292,
+    "fair_home": 292,
+    "home": 0.2549,
     "line": -1.5,
     "market_home": 0.3553
    },
    "spreads": [
     [
      -4.5,
-     0.0289
+     0.0291
     ],
     [
      -3.5,
-     0.0673
+     0.0676
     ],
     [
      -2.5,
-     0.139
+     0.1395
     ],
     [
      -0.5,
-     0.4894
+     0.4902
     ],
     [
      0.5,
-     0.4894
+     0.4902
     ],
     [
      1.5,
-     0.7307
+     0.7313
     ]
    ],
    "start": "2026-10-01T23:00Z",
@@ -1851,119 +6301,179 @@
     ],
     [
      3.5,
-     0.831
+     0.8311
     ],
     [
      4.5,
-     0.742
+     0.7422
     ],
     [
      6.5,
-     0.4132
+     0.4134
     ],
     [
      7.5,
-     0.2302
+     0.2304
     ],
     [
      8.5,
-     0.1601
+     0.1603
     ]
    ]
+  },
+  "nhl:401891818": {
+   "away": "Devils",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -1.5,
+    "ml": 0.5131,
+    "spread": 0.2706
+   },
+   "home": "Islanders",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4889,
+    "fair_away": 105,
+    "fair_home": -105,
+    "home": 0.5111,
+    "market_home": 0.5174
+   },
+   "proj": {
+    "away": 2.92,
+    "home": 2.99,
+    "margin": 0.07,
+    "total": 5.99
+   },
+   "spread": {
+    "away": 0.7311,
+    "fair_away": -272,
+    "fair_home": 272,
+    "home": 0.2689,
+    "line": -1.5,
+    "market_home": 0.325
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.0325
+    ],
+    [
+     -3.5,
+     0.0744
+    ],
+    [
+     -2.5,
+     0.1511
+    ],
+    [
+     -0.5,
+     0.5131
+    ],
+    [
+     0.5,
+     0.5131
+    ],
+    [
+     1.5,
+     0.7495
+    ]
+   ],
+   "start": "2026-10-03T23:30Z"
   },
   "nhl:401891819": {
    "away": "Lightning",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.4471,
-    "spread": 0.6936,
+    "ml": 0.4478,
+    "spread": 0.6942,
     "tline": 5.5,
-    "total": 0.5487
+    "total": 0.5489
    },
    "home": "Rangers",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5571,
+    "away": 0.5583,
     "fair_away": -126,
     "fair_home": 126,
-    "home": 0.4429,
+    "home": 0.4417,
     "market_home": 0.4365
    },
    "proj": {
     "away": 3.23,
     "home": 2.9,
-    "margin": -0.31,
-    "total": 6.18
+    "margin": -0.3,
+    "total": 6.19
    },
    "spread": {
-    "away": 0.3045,
+    "away": 0.3046,
     "fair_away": 228,
     "fair_home": -228,
-    "home": 0.6955,
+    "home": 0.6954,
     "line": 1.5,
     "market_home": 0.6575
    },
    "spreads": [
     [
      -1.5,
-     0.2245
+     0.2251
     ],
     [
      -0.5,
-     0.4471
+     0.4478
     ],
     [
      0.5,
-     0.4471
+     0.4478
     ],
     [
      2.5,
-     0.8212
+     0.8216
     ],
     [
      3.5,
-     0.9075
+     0.9078
     ],
     [
      4.5,
-     0.9574
+     0.9575
     ]
    ],
    "start": "2026-10-01T23:00Z",
    "total": {
-    "fair_over": -122,
-    "fair_under": 122,
+    "fair_over": -121,
+    "fair_under": 121,
     "line": 5.5,
-    "market_over": 0.5207,
-    "over": 0.5491,
-    "under": 0.4509
+    "market_over": 0.5514,
+    "over": 0.5485,
+    "under": 0.4515
    },
    "totals": [
     [
      2.5,
-     0.9592
+     0.9593
     ],
     [
      3.5,
-     0.8456
+     0.8458
     ],
     [
      4.5,
-     0.7607
+     0.7609
     ],
     [
      6.5,
-     0.4378
+     0.4381
     ],
     [
      7.5,
-     0.2512
+     0.2514
     ],
     [
      8.5,
-     0.1768
+     0.1769
     ]
    ]
   },
@@ -1972,19 +6482,19 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.5079,
-    "spread": 0.2722,
+    "ml": 0.5087,
+    "spread": 0.2728,
     "tline": 6.0,
-    "total": 0.5128
+    "total": 0.5131
    },
    "home": "Flyers",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4918,
+    "away": 0.4916,
     "fair_away": 103,
     "fair_home": -103,
-    "home": 0.5082,
+    "home": 0.5084,
     "market_home": 0.5635
    },
    "proj": {
@@ -1994,37 +6504,37 @@
     "total": 6.3
    },
    "spread": {
-    "away": 0.7268,
-    "fair_away": -266,
-    "fair_home": 266,
-    "home": 0.2732,
+    "away": 0.7264,
+    "fair_away": -265,
+    "fair_home": 265,
+    "home": 0.2736,
     "line": -1.5,
     "market_home": 0.3425
    },
    "spreads": [
     [
      -4.5,
-     0.0349
+     0.0351
     ],
     [
      -3.5,
-     0.0779
+     0.0782
     ],
     [
      -2.5,
-     0.1547
+     0.1551
     ],
     [
      -0.5,
-     0.5079
+     0.5087
     ],
     [
      0.5,
-     0.5079
+     0.5087
     ],
     [
      1.5,
-     0.7401
+     0.7407
     ]
    ],
    "start": "2026-09-30T23:30Z",
@@ -2032,9 +6542,9 @@
     "fair_over": -106,
     "fair_under": 106,
     "line": 6.0,
-    "market_over": 0.5312,
-    "over": 0.5154,
-    "under": 0.4846
+    "market_over": 0.5108,
+    "over": 0.5155,
+    "under": 0.4845
    },
    "totals": [
     [
@@ -2043,44 +6553,104 @@
     ],
     [
      4.0,
-     0.8427
+     0.8429
     ],
     [
      5.0,
-     0.7149
+     0.7151
     ],
     [
      7.0,
-     0.329
+     0.3293
     ],
     [
      8.0,
-     0.2056
+     0.2058
     ],
     [
      9.0,
-     0.0993
+     0.0994
     ]
    ]
+  },
+  "nhl:401891822": {
+   "away": "Canadiens",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -1.5,
+    "ml": 0.4912,
+    "spread": 0.2615
+   },
+   "home": "Penguins",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.5107,
+    "fair_away": -104,
+    "fair_home": 104,
+    "home": 0.4893,
+    "market_home": 0.5
+   },
+   "proj": {
+    "away": 3.22,
+    "home": 3.16,
+    "margin": -0.05,
+    "total": 6.43
+   },
+   "spread": {
+    "away": 0.7487,
+    "fair_away": -298,
+    "fair_home": 298,
+    "home": 0.2513,
+    "line": -1.5,
+    "market_home": 0.3092
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.0333
+    ],
+    [
+     -3.5,
+     0.0744
+    ],
+    [
+     -2.5,
+     0.148
+    ],
+    [
+     -0.5,
+     0.4912
+    ],
+    [
+     0.5,
+     0.4912
+    ],
+    [
+     1.5,
+     0.7247
+    ]
+   ],
+   "start": "2026-10-03T23:00Z"
   },
   "nhl:401891823": {
    "away": "Panthers",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.45,
-    "spread": 0.6929,
+    "ml": 0.4507,
+    "spread": 0.6935,
     "tline": 6.5,
-    "total": 0.4637
+    "total": 0.4639
    },
    "home": "Sharks",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.553,
+    "away": 0.5535,
     "fair_away": -124,
     "fair_home": 124,
-    "home": 0.447,
+    "home": 0.4465,
     "market_home": 0.4486
    },
    "proj": {
@@ -2090,37 +6660,37 @@
     "total": 6.35
    },
    "spread": {
-    "away": 0.302,
-    "fair_away": 231,
-    "fair_home": -231,
-    "home": 0.698,
+    "away": 0.3014,
+    "fair_away": 232,
+    "fair_home": -232,
+    "home": 0.6986,
     "line": 1.5,
     "market_home": 0.6575
    },
    "spreads": [
     [
      -1.5,
-     0.2292
+     0.2298
     ],
     [
      -0.5,
-     0.45
+     0.4507
     ],
     [
      0.5,
-     0.45
+     0.4507
     ],
     [
      2.5,
-     0.8192
+     0.8197
     ],
     [
      3.5,
-     0.9054
+     0.9057
     ],
     [
      4.5,
-     0.9559
+     0.956
     ]
    ],
    "start": "2026-10-02T02:00Z",
@@ -2128,130 +6698,190 @@
     "fair_over": 116,
     "fair_under": -116,
     "line": 6.5,
-    "market_over": 0.4739,
-    "over": 0.463,
-    "under": 0.537
+    "market_over": 0.4675,
+    "over": 0.4625,
+    "under": 0.5375
    },
    "totals": [
     [
      3.5,
-     0.8597
+     0.8598
     ],
     [
      4.5,
-     0.7793
+     0.7795
     ],
     [
      5.5,
-     0.5743
+     0.5746
     ],
     [
      7.5,
-     0.2735
+     0.2737
     ],
     [
      8.5,
-     0.1951
+     0.1953
     ],
     [
      9.5,
-     0.0929
+     0.093
     ]
    ]
+  },
+  "nhl:401891826": {
+   "away": "Capitals",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -1.5,
+    "ml": 0.5496,
+    "spread": 0.3047
+   },
+   "home": "Lightning",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4478,
+    "fair_away": 123,
+    "fair_home": -123,
+    "home": 0.5522,
+    "market_home": 0.5721
+   },
+   "proj": {
+    "away": 2.94,
+    "home": 3.26,
+    "margin": 0.29,
+    "total": 6.24
+   },
+   "spread": {
+    "away": 0.6907,
+    "fair_away": -223,
+    "fair_home": 223,
+    "home": 0.3093,
+    "line": -1.5,
+    "market_home": 0.3553
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.0426
+    ],
+    [
+     -3.5,
+     0.0923
+    ],
+    [
+     -2.5,
+     0.178
+    ],
+    [
+     -0.5,
+     0.5496
+    ],
+    [
+     0.5,
+     0.5496
+    ],
+    [
+     1.5,
+     0.7721
+    ]
+   ],
+   "start": "2026-10-03T23:00Z"
   },
   "nhl:401891828": {
    "away": "Blackhawks",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.6016,
-    "spread": 0.3487,
+    "ml": 0.607,
+    "spread": 0.3537,
     "tline": 5.5,
-    "total": 0.5511
+    "total": 0.5522
    },
    "home": "Mammoth",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.3995,
-    "fair_away": 150,
-    "fair_home": -150,
-    "home": 0.6005,
+    "away": 0.3935,
+    "fair_away": 154,
+    "fair_home": -154,
+    "home": 0.6065,
     "market_home": 0.6309
    },
    "proj": {
-    "away": 2.76,
-    "home": 3.35,
-    "margin": 0.59,
-    "total": 6.2
+    "away": 2.74,
+    "home": 3.37,
+    "margin": 0.62,
+    "total": 6.21
    },
    "spread": {
-    "away": 0.6576,
-    "fair_away": -192,
-    "fair_home": 192,
-    "home": 0.3424,
+    "away": 0.6511,
+    "fair_away": -187,
+    "fair_home": 187,
+    "home": 0.3489,
     "line": -1.5,
     "market_home": 0.4279
    },
    "spreads": [
     [
      -4.5,
-     0.0546
+     0.0562
     ],
     [
      -3.5,
-     0.1137
+     0.1164
     ],
     [
      -2.5,
-     0.2112
+     0.2152
     ],
     [
      -0.5,
-     0.6016
+     0.607
     ],
     [
      0.5,
-     0.6016
+     0.607
     ],
     [
      1.5,
-     0.809
+     0.8126
     ]
    ],
    "start": "2026-10-02T01:30Z",
    "total": {
-    "fair_over": -120,
-    "fair_under": 120,
+    "fair_over": -121,
+    "fair_under": 121,
     "line": 5.5,
-    "market_over": 0.5174,
-    "over": 0.5458,
-    "under": 0.4542
+    "market_over": 0.5203,
+    "over": 0.5474,
+    "under": 0.4526
    },
    "totals": [
     [
      2.5,
-     0.9595
+     0.9597
     ],
     [
      3.5,
-     0.847
+     0.8476
     ],
     [
      4.5,
-     0.7618
+     0.7625
     ],
     [
      6.5,
-     0.4392
+     0.4401
     ],
     [
      7.5,
-     0.2533
+     0.2542
     ],
     [
      8.5,
-     0.1777
+     0.1783
     ]
    ]
   },
@@ -2260,19 +6890,19 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.4176,
-    "spread": 0.6618,
+    "ml": 0.4183,
+    "spread": 0.6624,
     "tline": 6.5,
-    "total": 0.4906
+    "total": 0.4909
    },
    "home": "Canucks",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5755,
+    "away": 0.5758,
     "fair_away": -136,
     "fair_home": 136,
-    "home": 0.4245,
+    "home": 0.4242,
     "market_home": 0.3631
    },
    "proj": {
@@ -2282,37 +6912,37 @@
     "total": 6.52
    },
    "spread": {
-    "away": 0.3351,
-    "fair_away": 198,
-    "fair_home": -198,
-    "home": 0.6649,
+    "away": 0.335,
+    "fair_away": 199,
+    "fair_home": -199,
+    "home": 0.665,
     "line": 1.5,
     "market_home": 0.5635
    },
    "spreads": [
     [
      -1.5,
-     0.2087
+     0.2093
     ],
     [
      -0.5,
-     0.4176
+     0.4183
     ],
     [
      0.5,
-     0.4176
+     0.4183
     ],
     [
      2.5,
-     0.794
+     0.7944
     ],
     [
      3.5,
-     0.8879
+     0.8882
     ],
     [
      4.5,
-     0.9454
+     0.9456
     ]
    ],
    "start": "2026-10-02T02:00Z",
@@ -2320,34 +6950,34 @@
     "fair_over": 106,
     "fair_under": -106,
     "line": 6.5,
-    "market_over": 0.5,
-    "over": 0.4844,
-    "under": 0.5156
+    "market_over": 0.5108,
+    "over": 0.4853,
+    "under": 0.5147
    },
    "totals": [
     [
      3.5,
-     0.8736
+     0.8737
     ],
     [
      4.5,
-     0.7977
+     0.7979
     ],
     [
      5.5,
-     0.6012
+     0.6014
     ],
     [
      7.5,
-     0.2982
+     0.2984
     ],
     [
      8.5,
-     0.2154
+     0.2156
     ],
     [
      9.5,
-     0.1061
+     0.1062
     ]
    ]
   },
@@ -2355,19 +6985,19 @@
    "away": "Bruins",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
-    "line": 1.5,
-    "ml": 0.4799,
-    "spread": 0.7226
+    "line": -1.5,
+    "ml": 0.4807,
+    "spread": 0.2471
    },
    "home": "Jets",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5181,
-    "fair_away": -108,
-    "fair_home": 108,
-    "home": 0.4819,
-    "market_home": 0.4892
+    "away": 0.5174,
+    "fair_away": -107,
+    "fair_home": 107,
+    "home": 0.4826,
+    "market_home": 0.4957
    },
    "proj": {
     "away": 3.06,
@@ -2376,37 +7006,37 @@
     "total": 6.06
    },
    "spread": {
-    "away": 0.2761,
-    "fair_away": 262,
-    "fair_home": -262,
-    "home": 0.7239,
-    "line": 1.5,
-    "market_home": 0.6806
+    "away": 0.7464,
+    "fair_away": -294,
+    "fair_home": 294,
+    "home": 0.2536,
+    "line": -1.5,
+    "market_home": 0.2998
    },
    "spreads": [
     [
-     -1.5,
-     0.2465
+     -4.5,
+     0.0279
+    ],
+    [
+     -3.5,
+     0.0652
+    ],
+    [
+     -2.5,
+     0.1352
     ],
     [
      -0.5,
-     0.4799
+     0.4807
     ],
     [
      0.5,
-     0.4799
+     0.4807
     ],
     [
-     2.5,
-     0.8435
-    ],
-    [
-     3.5,
-     0.922
-    ],
-    [
-     4.5,
-     0.9655
+     1.5,
+     0.7232
     ]
    ],
    "start": "2026-10-03T00:00Z"
@@ -2416,20 +7046,20 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.4596,
-    "spread": 0.2342,
-    "tline": 6.0,
-    "total": 0.4986
+    "ml": 0.4604,
+    "spread": 0.2348,
+    "tline": 6.5,
+    "total": 0.4437
    },
    "home": "Maple Leafs",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.537,
+    "away": 0.5367,
     "fair_away": -116,
     "fair_home": 116,
-    "home": 0.463,
-    "market_home": 0.5217
+    "home": 0.4633,
+    "market_home": 0.5427
    },
    "proj": {
     "away": 3.24,
@@ -2438,72 +7068,72 @@
     "total": 6.22
    },
    "spread": {
-    "away": 0.7604,
-    "fair_away": -317,
-    "fair_home": 317,
-    "home": 0.2396,
+    "away": 0.7589,
+    "fair_away": -315,
+    "fair_home": 315,
+    "home": 0.2411,
     "line": -1.5,
     "market_home": 0.325
    },
    "spreads": [
     [
      -4.5,
-     0.0261
+     0.0262
     ],
     [
      -3.5,
-     0.0612
+     0.0615
     ],
     [
      -2.5,
-     0.1274
+     0.1278
     ],
     [
      -0.5,
-     0.4596
+     0.4604
     ],
     [
      0.5,
-     0.4596
+     0.4604
     ],
     [
      1.5,
-     0.7033
+     0.7039
     ]
    ],
    "start": "2026-09-30T23:30Z",
    "total": {
-    "fair_over": -105,
-    "fair_under": 105,
-    "line": 6.0,
-    "market_over": 0.5,
-    "over": 0.5111,
-    "under": 0.4889
+    "fair_over": 121,
+    "fair_under": -121,
+    "line": 6.5,
+    "market_over": 0.486,
+    "over": 0.4531,
+    "under": 0.5469
    },
    "totals": [
     [
-     3.0,
-     0.9553
+     3.5,
+     0.8488
     ],
     [
-     4.0,
-     0.8348
+     4.5,
+     0.765
     ],
     [
-     5.0,
-     0.702
+     5.5,
+     0.5543
     ],
     [
-     7.0,
-     0.3149
+     7.5,
+     0.256
     ],
     [
-     8.0,
-     0.1953
+     8.5,
+     0.1808
     ],
     [
-     9.0,
-     0.0928
+     9.5,
+     0.0839
     ]
    ]
   },
@@ -2511,21 +7141,21 @@
    "away": "Capitals",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.5745
+    "ml": 0.5753
    },
    "home": "Hurricanes",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4273,
+    "away": 0.427,
     "fair_away": 134,
     "fair_home": -134,
-    "home": 0.5727
+    "home": 0.573
    },
    "proj": {
     "away": 2.85,
     "home": 3.28,
-    "margin": 0.43,
+    "margin": 0.44,
     "total": 6.19
    },
    "start": "2026-10-02T23:00Z"
@@ -2534,26 +7164,210 @@
    "away": "Ducks",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.5801
+    "ml": 0.5855
    },
    "home": "Golden Knights",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4214,
-    "fair_away": 137,
-    "fair_home": -137,
-    "home": 0.5786
+    "away": 0.4162,
+    "fair_away": 140,
+    "fair_home": -140,
+    "home": 0.5838
    },
    "proj": {
-    "away": 2.9,
-    "home": 3.39,
-    "margin": 0.47,
-    "total": 6.35
+    "away": 2.88,
+    "home": 3.41,
+    "margin": 0.5,
+    "total": 6.36
    },
    "start": "2026-10-03T02:00Z"
+  },
+  "nhl:401892434": {
+   "away": "Senators",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.4433
+   },
+   "home": "Maple Leafs",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.5503,
+    "fair_away": -122,
+    "fair_home": 122,
+    "home": 0.4497
+   },
+   "proj": {
+    "away": 3.29,
+    "home": 2.99,
+    "margin": -0.33,
+    "total": 6.33
+   },
+   "start": "2026-10-03T23:00Z"
+  },
+  "nhl:401892435": {
+   "away": "Hurricanes",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.4348
+   },
+   "home": "Flyers",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.5653,
+    "fair_away": -130,
+    "fair_home": 130,
+    "home": 0.4347
+   },
+   "proj": {
+    "away": 3.2,
+    "home": 2.81,
+    "margin": -0.37,
+    "total": 6.1
+   },
+   "start": "2026-10-03T23:00Z"
+  },
+  "nhl:401892436": {
+   "away": "Mammoth",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.503
+   },
+   "home": "Blue Jackets",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4944,
+    "fair_away": 102,
+    "fair_home": -102,
+    "home": 0.5056
+   },
+   "proj": {
+    "away": 3.12,
+    "home": 3.15,
+    "margin": 0.02,
+    "total": 6.28
+   },
+   "start": "2026-10-03T23:00Z"
+  },
+  "nhl:401892437": {
+   "away": "Kraken",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.5608
+   },
+   "home": "Oilers",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4283,
+    "fair_away": 133,
+    "fair_home": -133,
+    "home": 0.5717
+   },
+   "proj": {
+    "away": 2.93,
+    "home": 3.35,
+    "margin": 0.36,
+    "total": 6.38
+   },
+   "start": "2026-10-03T23:00Z"
+  },
+  "nhl:401892438": {
+   "away": "Stars",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.4541
+   },
+   "home": "Predators",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.5499,
+    "fair_away": -122,
+    "fair_home": 122,
+    "home": 0.4501
+   },
+   "proj": {
+    "away": 3.23,
+    "home": 2.93,
+    "margin": -0.27,
+    "total": 6.21
+   },
+   "start": "2026-10-04T00:00Z"
+  },
+  "nhl:401892439": {
+   "away": "Blues",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.592
+   },
+   "home": "Avalanche",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4081,
+    "fair_away": 145,
+    "fair_home": -145,
+    "home": 0.5919
+   },
+   "proj": {
+    "away": 2.79,
+    "home": 3.32,
+    "margin": 0.53,
+    "total": 6.18
+   },
+   "start": "2026-10-04T01:00Z"
+  },
+  "nhl:401892440": {
+   "away": "Flames",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.4664
+   },
+   "home": "Canucks",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.5315,
+    "fair_away": -113,
+    "fair_home": 113,
+    "home": 0.4685
+   },
+   "proj": {
+    "away": 3.15,
+    "home": 2.96,
+    "margin": -0.19,
+    "total": 6.17
+   },
+   "start": "2026-10-04T02:00Z"
+  },
+  "nhl:401892441": {
+   "away": "Kings",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.472
+   },
+   "home": "Sharks",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.5191,
+    "fair_away": -108,
+    "fair_home": 108,
+    "home": 0.4809
+   },
+   "proj": {
+    "away": 3.14,
+    "home": 2.98,
+    "margin": -0.16,
+    "total": 6.19
+   },
+   "start": "2026-10-04T02:00Z"
   }
  },
- "secs": 8.4,
+ "secs": 6.3,
  "sims": 10000
 }
