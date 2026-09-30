@@ -1,0 +1,26 @@
+# 📣 A one-time announcement to everybody's phones - only when the owner asks (the automatic pings are live plus money
+# only). Waits until the live dashboard shows `wait_for`, then sends. tools/announce.py
+name: announce
+on:
+  workflow_dispatch:
+    inputs:
+      title: { description: "Title", required: true }
+      body: { description: "Message", required: true }
+      wait_for: { description: "Only send once the dashboard shows this text (blank = send now)", required: false, default: "" }
+permissions:
+  contents: read
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python -u tools/announce.py "$TITLE" "$BODY" "$WAIT_FOR"
+        env:
+          TITLE: ${{ github.event.inputs.title }}
+          BODY: ${{ github.event.inputs.body }}
+          WAIT_FOR: ${{ github.event.inputs.wait_for }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
