@@ -74,6 +74,8 @@ P_LUCK = 0.5 * math.erfc(Z_SUSPECT / math.sqrt(2))
 FWD_N, FWD_Z = 100, 1.0     # forward bets needed to promote / kill; forward edge z needed to promote
 SHRINK = 400
 BATCH, BUDGET_S = 6000, 480
+DOG_BATCH = 3000            # 🐶 each run's underdog lane: never-tested moneyline angles on a dog, tested first
+DOG_ATOMS = ("dog", "p:40-50", "p:25-40", "p:<25")   # the team is the underdog / priced as one
 MAX_LEVEL = 3
 EARLIER_H = 6               # an earlier game counts only if it started this many hours before
 SEASON_GAP_D = 60           # a league gap longer than this starts a new season (a team gap: its history resets)
@@ -854,9 +856,10 @@ def _brief(key, e):
 
 
 # ---------------------------------------------------------------- the run
-def explore(games, path=PATH, batch=BATCH, budget_s=BUDGET_S, leagues=LEAGUES, verbose=True):
+def explore(games, path=PATH, batch=BATCH, budget_s=BUDGET_S, leagues=LEAGUES, verbose=True, dog_batch=None):
     """One study run: re-check the suspects + proven angles on forward games, then test the next batch of new ones."""
     t0 = time.time()
+    dog_batch = DOG_BATCH if dog_batch is None else dog_batch
     st = load(path)
     seen = _seen(st)
     for k in ("suspects", "proven", "killed"):
@@ -899,28 +902,47 @@ def explore(games, path=PATH, batch=BATCH, budget_s=BUDGET_S, leagues=LEAGUES, v
     del LAST_TESTED[:]
     found, tested, near = [], 0, []
     exhausted = True
+
+    def test(key, atoms, mask):
+        lg, out = key.split("|")[:2]
+        s = grade(groups[(lg, out)].tbl, out, mask)
+        seen.add(_h(key))
+        LAST_TESTED.append(key)
+        if is_suspect(s):
+            st["suspects"][key] = {"league": lg, "outcome": out, "atoms": list(atoms), "cutoff": newest[lg],
+                                   "found": now, "disc": s, "fwd": {}}
+            found.append(key)
+        elif s["n"] >= MIN_N and s["roi_old"] > 0 and s["roi_new"] > 0:
+            near.append((s["z"], key, s))
+    # 🐶 the underdog lane first (the owner, 9/30: "we gotta find a way for the engine to pick out these underdogs"):
+    # up to DOG_BATCH never-tested MONEYLINE angles where the team is the dog - same strict proof as everything else
+    dogs = 0
+    for level in range(1, MAX_LEVEL + 1):
+        gens = (grp.cands(level, seen) for (lg_, out_), grp in sorted(groups.items()) if out_ == "ml")
+        for key, atoms, mask in _round_robin(gens):
+            if dogs >= dog_batch or time.time() - t0 > budget_s / 2:
+                break
+            if not any(a in DOG_ATOMS for a in atoms):
+                continue
+            test(key, atoms, mask)
+            dogs += 1
+            tested += 1
+        else:
+            continue
+        break
     for level in range(1, MAX_LEVEL + 1):
         gens = (grp.cands(level, seen) for _, grp in sorted(groups.items()))
         for key, atoms, mask in _round_robin(gens):
-            if tested >= batch or time.time() - t0 > budget_s:
+            if tested >= batch + dogs or time.time() - t0 > budget_s:
                 exhausted = False
                 break
-            lg, out = key.split("|")[:2]
-            s = grade(groups[(lg, out)].tbl, out, mask)
-            seen.add(_h(key))
-            LAST_TESTED.append(key)
+            test(key, atoms, mask)
             tested += 1
-            if is_suspect(s):
-                st["suspects"][key] = {"league": lg, "outcome": out, "atoms": list(atoms), "cutoff": newest[lg],
-                                       "found": now, "disc": s, "fwd": {}}
-                found.append(key)
-            elif s["n"] >= MIN_N and s["roi_old"] > 0 and s["roi_new"] > 0:
-                near.append((s["z"], key, s))
         else:
             continue
         break
     near.sort(reverse=True)
-    run = {"at": now, "tested": tested, "suspects_found": len(found), "promoted": len(promoted),
+    run = {"at": now, "tested": tested, "dog_angles": dogs, "suspects_found": len(found), "promoted": len(promoted),
            "killed": len(killed), "demoted": len(demoted), "expected_by_luck": round(tested * P_LUCK, 2),
            "secs": round(time.time() - t0, 1), "exhausted": exhausted}
     st["tested"] = st.get("tested", 0) + tested

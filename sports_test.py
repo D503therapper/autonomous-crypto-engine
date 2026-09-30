@@ -1718,7 +1718,7 @@ def test_explorer():
     path = os.path.join(tempfile.mkdtemp(), "explorer_test.json")
     planted, noise = "nba|ml|Sun&home", "nba|ml|Mon"
     games = _explorer_games(420, 1)
-    r1 = ex.explore(games, path, batch=150, leagues=("nba",), verbose=False)
+    r1 = ex.explore(games, path, batch=150, leagues=("nba",), verbose=False, dog_batch=0)
     first = set(ex.LAST_TESTED)
     assert planted in r1["new_suspects"] and noise in first and noise not in r1["suspects"], r1
     assert r1["tested"] == len(first) == 150 and r1["expected_by_luck"] < 1
@@ -1727,18 +1727,18 @@ def test_explorer():
     assert s["disc"]["n"] >= 300 and s["disc"]["roi_old"] > 0 and s["disc"]["roi_new"] > 0 and s["disc"]["z"] >= 3.5
     assert s["cutoff"] == max(g["start"] for g in games.values())
     shutil.copy(path, path + ".kill")
-    r2 = ex.explore(games, path, batch=150, leagues=("nba",), verbose=False)       # same games: only NEW angles
+    r2 = ex.explore(games, path, batch=150, leagues=("nba",), verbose=False, dog_batch=0)       # same games: only NEW angles
     assert r2["tested"] > 0 and not first & set(ex.LAST_TESTED) and r2["tested_total"] == r1["tested"] + r2["tested"]
     assert planted not in r2["new_suspects"] and not r2["new_proven"]               # no forward games yet
     later = {**games, **_explorer_games(160, 2, first=420)}                          # forward games, same edge
-    r3 = ex.explore(later, path, batch=50, leagues=("nba",), verbose=False)
+    r3 = ex.explore(later, path, batch=50, leagues=("nba",), verbose=False, dog_batch=0)
     assert planted in r3["new_proven"] and planted in r3["proven"], r3
     assert noise not in r3["proven"] and all("home" in k.split("|")[2].split("&") for k in r3["proven"]), r3["proven"]
     pv = ex.load(path)["proven"][planted]
     assert pv["fwd"]["n"] >= 100 and pv["fwd"]["roi"] > 0 and pv["fwd"]["z_edge"] >= 1 and pv["shift"] > 0
     # the edge vanishes going forward -> killed
     gone = {**games, **_explorer_games(160, 3, sunday_home=0.2, first=420)}
-    r4 = ex.explore(gone, path + ".kill", batch=10, leagues=("nba",), verbose=False)
+    r4 = ex.explore(gone, path + ".kill", batch=10, leagues=("nba",), verbose=False, dog_batch=0)
     assert planted in r4["new_killed"] and planted not in r4["proven"] + r4["suspects"], r4
     # hooks
     st = ex.load(path)
@@ -4140,6 +4140,31 @@ def test_proven_value_dogs():
            "edge": 0.42 * 2.5 - 1, "edge_own": 0.52 * 2.5 - 1, "trap": False, "drift": 0.0,
            "reasons": ["proven value dog: our read 10+ pts over the price - these won more than the book said, 3+ seasons"]}
     assert sports.proven(dog) and sports.good(dog), "a proven value dog is a real play"
+
+
+def test_explorer_underdog_lane():
+    """The owner, 9/30: 'we gotta find a way for the engine to pick out these underdogs'. Every explorer run tests up
+    to DOG_BATCH never-tested MONEYLINE angles on a dog FIRST (then the regular batch) - same strict proof (300+ bets,
+    money in both halves, z 3.5+, then 100+ forward games) - so underdog angles aren't stuck at the back of the line."""
+    import sports_explorer as X
+    assert X.DOG_BATCH >= 3000 and "dog" in X.DOG_ATOMS and "p:25-40" in X.DOG_ATOMS
+    src = open(X.__file__).read()
+    assert 'if out_ == "ml")' in src and "if not any(a in DOG_ATOMS for a in atoms):" in src
+    assert '"dog_angles": dogs' in src and "tested >= batch + dogs" in src
+    games = {}
+    import random as _r
+    rng = _r.Random(3)
+    for k in range(700):                                      # a toy NBA season: the dog lane tests dog angles only
+        hp = rng.choice([-250, -180, -130, 120, 160, 210])
+        games[f"nba:{k}"] = {"id": f"nba:{k}", "league": "nba", "start": f"2025-{1 + k // 60:02d}-{1 + k % 28:02d}T0{k % 10}:00Z",
+                             "status": "final", "home": str(k % 17), "away": str((k * 7 + 3) % 17), "home_name": f"H{k % 17}",
+                             "away_name": f"A{(k * 7 + 3) % 17}", "home_score": str(100 + rng.randint(-12, 12)),
+                             "away_score": str(100), "ml_home": str(hp), "ml_away": str(-hp if abs(hp) >= 120 else 110),
+                             "stype": "2", "neutral": "0"}
+    tmp = tempfile.mkdtemp()
+    r = X.explore(games, os.path.join(tmp, "x.json"), batch=0, leagues=("nba",), verbose=False, dog_batch=40)
+    assert r["dog_angles"] == len(X.LAST_TESTED) and all("|ml|" in k and any(a in k for a in X.DOG_ATOMS) for k in X.LAST_TESTED)
+    shutil.rmtree(tmp, ignore_errors=True)
 
 
 def test_final_score_calls_the_pick_on_the_spot():
