@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T01:54Z",
+ "updated": "2026-09-30T01:56Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -52,8 +52,8 @@
    "away": "Canadiens",
    "home": "Maple Leafs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -245,8 +245,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Maple Leafs",
-    "p": 0.359,
+    "team": "Islanders",
+    "p": 0.36,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -262,10 +262,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.7,
-    "win_p": 0.483,
+    "p": 0.73,
+    "win_p": 0.519,
     "reasons": [
-     "the stronger team"
+     "better rested",
+     "hotter recent form",
+     "opponent on a back-to-back"
     ]
    }
   },

@@ -464,7 +464,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790733262281,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790733388149,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
@@ -589,7 +589,7 @@ function vibe(p,id){return pick(id+"v",p>=0.65?["The engine likes them to handle
  p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
  ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}
 var WHYL={"the stronger team":"💪 {u} are just the better team tonight.","hotter recent form":"🔥 {u} are playing better ball lately.",
- "opponent missing key players":"🚑 {o} are banged up — that's the opening.","sharp money moving this way":"💸 The sharp money's been coming in on {u}.",
+ "opponent missing key players":"🚑 {o} are banged up — that's the opening.","sharp money moving this way":"💸 The market's catching up to {u} — the engine had it first.",
  "better rested":"🛌 {u} got the extra rest. Fresh legs.","opponent on a back-to-back":"😮‍💨 {o} played last night — tired legs.",
  "better starting pitcher":"⚾ {u} got the better arm on the mound.","hotter goalie":"🧱 {u} got the hotter goalie.",
  "better QB play lately":"🎯 {u} got the better QB play lately.","revenge game":"😤 {u} owe these guys one."};
