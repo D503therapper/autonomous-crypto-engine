@@ -189,7 +189,12 @@ TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE
 
 
 
+UNITS_ON = False             # the owner, 9/30: off till the engine sizes every play by its own edge (tested first)
+
+
 def _units_line(u):
+    if not UNITS_ON:
+        return ""
     return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
 
 
@@ -1170,7 +1175,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
                f'{f"<div class=ovr-s>today {tw}-{tl}</div>" if tw + tl else ""}</div>')
-    overall += units_box(picks, today)
+    overall += units_box(picks, today) if UNITS_ON else ""
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
     def wlt(w, l):

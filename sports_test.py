@@ -4639,6 +4639,16 @@ def test_win_pct_only_over_55():
 
 
 def test_units_and_the_open_bankroll():
+    import sports_dashboard as d
+    on = d.UNITS_ON
+    d.UNITS_ON = True                                       # (tested on; the board shows them once the owner turns them on)
+    try:
+        _units_and_the_open_bankroll()
+    finally:
+        d.UNITS_ON = on
+
+
+def _units_and_the_open_bankroll():
     """The owner (9/30): units under each label (0.5u up to a 10u max play), and an open bankroll - $1,000 to start, a
     unit is 1% of that morning's bankroll, so it grows as we win. Everything transparent."""
     lk = lambda p: {"kind": "lock", "legs": [{"p": p}]}
