@@ -847,13 +847,21 @@ def post_board(games, model, picks, now, day, force=False):
     return new
 
 
-def key_status(inj, g):
-    """{player: status} for every key player (QB / goalie / NBA rotation) listed out or questionable in this game."""
+def key_status(inj, g, lineups=None):
+    """{player: status} for every key player (QB / goalie / NBA rotation / a team's best bats) listed out or
+    questionable in this game - and, once baseball's confirmed lineups are out, a star who isn't in his (9/29: the
+    engine never knew Aaron Judge wasn't playing)."""
     out = {}
     for side in ("home", "away"):
         for n, pos, st in sd.team_key_out(inj, g[side], g[side + "_name"], g["league"]) + \
                 sd.team_unsure(inj, g[side], g[side + "_name"], g["league"]):
             out[f"{n} ({g[side + '_name']}{' ' + pos if pos else ''})"] = st
+        if g["league"] == "mlb" and lineups:
+            lu = sd.lineup_for(lineups, g, side)
+            listed = {k.split(" (")[0] for k in out}
+            for n in (sd.team_stars(g[side + "_name"]) if lu else []):
+                if n not in lu and n not in listed:
+                    out[f"{n} ({g[side + '_name']})"] = "Not in the lineup"
     return out
 
 
@@ -883,12 +891,16 @@ def injury_watch(games, picks, push=True):
     if not legs:
         return []
     injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
+    days = {games[l["game_id"]]["start"][:10] for l in legs if l["league"] == "mlb"}
+    lineups = {}                                             # baseball's confirmed lineups (hours before first pitch)
+    for d in days:
+        lineups.update(sd.mlb_lineups(d))
     alerts = []
     for leg in legs:
         inj = injuries.get(leg["league"])
         if inj is None:
             continue                                         # no report this run: check again next run
-        now_ = key_status(inj, games[leg["game_id"]])
+        now_ = key_status(inj, games[leg["game_id"]], lineups)
         if "key_seen" not in leg:                            # posted before the watch existed: start from here
             leg["key_seen"] = now_
             continue

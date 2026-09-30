@@ -403,11 +403,16 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
 
 
 # ---------------------------------------------------------------- injuries
-SHORT_TERM = ("out", "doubtful")       # counted as missing (long-term IR is already priced into the ratings)
+# every status a player can be off the roster with - baseball too (9/29: ESPN had Aaron Judge as "10-Day-IL" and the
+# reader dropped it, so every MLB injured-list player was invisible). Short stints count as missing; long ones are
+# already priced into the team's results.
+SHORT_TERM = ("out", "doubtful", "7-day", "10-day", "15-day", "paternity", "bereavement", "restricted",
+              "not with team", "personal")
 UNSURE = ("questionable", "game-time", "game time", "day-to-day", "day to day")   # not known yet: wait for news
-LONG_OUT = ("reserve", "suspen", "season")      # injured reserve / suspended / out for the season
-INJ_LEAGUES = ("nfl", "ncaaf", "nhl", "nba")    # leagues where a missing report means we can't know who plays
-KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": set(), "ncaab": set()}  # None = any player
+LONG_OUT = ("reserve", "suspen", "season", "60-day")   # injured reserve / suspended / out for the season / 60-day IL
+INJ_LEAGUES = ("nfl", "ncaaf", "nhl", "nba", "mlb")   # leagues where a missing report means we can't know who plays
+KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": "stars", "ncaab": set()}
+# None = any player; "stars" = the team's best bats by name (mlb_stars: MLB's own season stats)
 
 
 def fetch_injuries(league):
@@ -435,7 +440,7 @@ def parse_injuries(payload):
                 continue
             a = i.get("athlete") or {}
             rows.append((a.get("displayName") or "?", (a.get("position") or {}).get("abbreviation") or "",
-                         status.title()))
+                         status.title().replace("-Il", "-IL").replace(" Il", " IL")))
         for key in (str(t.get("id") or ""), t.get("displayName") or ""):
             if key:
                 out[key] = rows
@@ -458,18 +463,137 @@ def team_injuries(inj, team_id, team_name):
     return [r for r in _team_rows(inj, team_id, team_name) if any(s in r[2].lower() for s in SHORT_TERM)]
 
 
+def _is_key(r, league, team_name):
+    keys = KEY_POS.get(league, set())
+    if keys == "stars":                                  # baseball: the team's best bats, by name
+        return r[0] in team_stars(team_name)
+    return keys is None or r[1] in (keys or set())
+
+
 def team_key_out(inj, team_id, team_name, league):
-    """Starters at a key position (QB, goalie) who are out - short or long term. The ratings can't see these."""
-    keys = KEY_POS.get(league) or set()
+    """Key players (QB, goalie, a team's best bats) who are out - short or long term. The ratings can't see these."""
     return [r for r in _team_rows(inj, team_id, team_name)
-            if r[1] in keys and any(s in r[2].lower() for s in SHORT_TERM + LONG_OUT)]
+            if KEY_POS.get(league) is not None and _is_key(r, league, team_name)
+            and any(s in r[2].lower() for s in SHORT_TERM + LONG_OUT)]
 
 
 def team_unsure(inj, team_id, team_name, league):
-    """Key players whose status is still up in the air (e.g. a questionable QB)."""
-    keys = KEY_POS.get(league, set())
+    """Key players whose status is still up in the air (e.g. a questionable QB, a day-to-day slugger)."""
     return [r for r in _team_rows(inj, team_id, team_name)
-            if any(s in r[2].lower() for s in UNSURE) and (keys is None or r[1] in keys)]
+            if any(s in r[2].lower() for s in UNSURE) and _is_key(r, league, team_name)]
+
+
+# ---------------------------------------------------------------- baseball: who the stars are, who's in the lineup
+MLB_API = "https://statsapi.mlb.com/api/v1"
+STARS_PATH = os.path.join(DATA, "mlb_stars.json")
+STARS_N, STARS_MIN_PA = 3, 150         # a team's 3 best bats by OPS (150+ trips to the plate - real regulars)
+_STARS = {}
+_STARS_TRY = [0.0]
+
+
+def _mlb_get(path):
+    with urllib.request.urlopen(urllib.request.Request(MLB_API + path, headers={"User-Agent": "Mozilla/5.0"}),
+                                timeout=20) as r:
+        return json.load(r)
+
+
+def parse_stars(payload, n=STARS_N, min_pa=STARS_MIN_PA):
+    """MLB's season hitting stats (every player) -> {team name: [its best bats]}. A player who was traded counts for
+    the team he last played for (the last split listed)."""
+    best = {}
+    for sp in ((payload.get("stats") or [{}])[0].get("splits") or []):
+        st, who, team = sp.get("stat") or {}, (sp.get("player") or {}).get("fullName"), (sp.get("team") or {}).get("name")
+        try:
+            pa, ops = int(st.get("plateAppearances") or 0), float(st.get("ops") or 0)
+        except (TypeError, ValueError):
+            continue
+        if who and team and pa >= min_pa:
+            best[who] = (team, ops)
+    out = {}
+    for who, (team, ops) in best.items():
+        out.setdefault(team, []).append((ops, who))
+    return {t: [w for _, w in sorted(v, reverse=True)[:n]] for t, v in out.items()}
+
+
+def mlb_stars(refresh=False):
+    """{team: [best bats]} - refreshed once a day from MLB's own stats site, else the saved copy."""
+    if (_STARS or time.time() - _STARS_TRY[0] < 600) and not refresh:
+        return _STARS                                        # (a failed read waits 10 min - never a hang per check)
+    _STARS_TRY[0] = time.time()
+    old = {}
+    try:
+        old = json.load(open(STARS_PATH))
+    except (OSError, ValueError):
+        pass
+    day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    if old.get("day") == day and old.get("teams") and not refresh:
+        _STARS.update(old["teams"])
+        return _STARS
+    try:
+        yr = datetime.now(timezone.utc).year
+        teams = parse_stars(_mlb_get(f"/stats?stats=season&group=hitting&season={yr}&sportId=1&playerPool=ALL&limit=3000"))
+        if teams:
+            json.dump({"day": day, "teams": teams}, open(STARS_PATH, "w"), indent=1)
+            _STARS.clear()
+            _STARS.update(teams)
+            return _STARS
+    except Exception as e:                                   # noqa: BLE001 - the saved copy still works
+        print(f"   mlb stars: {str(e)[:100]}")
+    _STARS.update(old.get("teams") or {})
+    return _STARS
+
+
+def team_stars(team_name):
+    """A team's best bats ('Yankees' finds 'New York Yankees')."""
+    st = mlb_stars()
+    for t, v in st.items():
+        if team_name and (t == team_name or t.endswith(" " + team_name)):
+            return v
+    return []
+
+
+def parse_lineups(payload):
+    """MLB's schedule (hydrate=lineups) -> {(away team, home team, start): {"away": [...], "home": [...]}} for every
+    game whose confirmed lineups are out (a few hours before first pitch)."""
+    out = {}
+    for d in payload.get("dates") or []:
+        for g in d.get("games") or []:
+            lu = g.get("lineups") or {}
+            if not lu.get("homePlayers") and not lu.get("awayPlayers"):
+                continue
+            t = g.get("teams") or {}
+            key = ((t.get("away") or {}).get("team", {}).get("name"), (t.get("home") or {}).get("team", {}).get("name"),
+                   str(g.get("gameDate") or "")[:16])
+            out[key] = {"away": [p.get("fullName") for p in lu.get("awayPlayers") or []],
+                        "home": [p.get("fullName") for p in lu.get("homePlayers") or []]}
+    return out
+
+
+def mlb_lineups(day):
+    """Today's confirmed lineups ({} when none are out yet or the site's down)."""
+    try:
+        return parse_lineups(_mlb_get(f"/schedule?sportId=1&date={day}&hydrate=lineups"))
+    except Exception as e:                                   # noqa: BLE001
+        print(f"   mlb lineups: {str(e)[:100]}")
+        return {}
+
+
+def lineup_for(lineups, g, side):
+    """The confirmed lineup for one side of our game, or None (not posted yet). Same two teams within 3 hours of our
+    start time (a doubleheader's other game never counts)."""
+    same = lambda full, short: bool(full) and bool(short) and (full == short or full.endswith(" " + str(short)))
+    try:
+        ours = datetime.strptime(str(g.get("start"))[:16], "%Y-%m-%dT%H:%M")
+    except ValueError:
+        return None
+    for (a, h, st), lu in lineups.items():
+        try:
+            gap = abs((datetime.strptime(st[:16], "%Y-%m-%dT%H:%M") - ours).total_seconds())
+        except ValueError:
+            continue
+        if same(a, g.get("away_name")) and same(h, g.get("home_name")) and gap <= 3 * 3600:
+            return lu.get(side) or None
+    return None
 
 
 # ---------------------------------------------------------------- Action Network: odds history

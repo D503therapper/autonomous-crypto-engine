@@ -192,6 +192,24 @@ try:
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"placeholder-team check failed: {str(e)[:60]}")
 
+# 6c. the engine knows who's playing baseball (9/29: Aaron Judge on the IL and the engine never knew)
+try:
+    mlb_soon = [g for g in (games or {}).values() if g.get("league") == "mlb" and g.get("status") == "pre"
+                and now.strftime("%Y-%m-%dT%H:%M") <= (g.get("start") or "")[:16] <= soon]
+    if mlb_soon:
+        st = sd.mlb_stars()
+        age = None
+        try:
+            age = (now.date() - datetime.strptime(json.load(open(sd.STARS_PATH))["day"], "%Y-%m-%d").date()).days
+        except Exception:                                # noqa: BLE001
+            pass
+        if len(st) < 25 or age is None or age > 2:
+            problems.append(f"baseball star list stale or missing ({len(st)} teams, {age} days old) - lineups not watched")
+        else:
+            ok.append(f"baseball star list fresh ({len(st)} teams)")
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"baseball star check failed: {str(e)[:60]}")
+
 # 7. posting on time
 try:
     import tennis_due

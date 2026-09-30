@@ -3413,6 +3413,49 @@ def test_every_parlay_leg_shows_its_start_time():
     assert 'leg.querySelector(":scope>.lst")' in open(sdb.__file__).read()
 
 
+def test_engine_knows_who_is_not_playing_baseball():
+    """9/29: Aaron Judge was on the 10-day IL (ESPN listed him '10-Day-IL') and the engine never knew - the injury
+    reader only kept 'Out' / 'Doubtful' / 'Injured Reserve', so every MLB injured-list player was invisible, and
+    baseball had no key players at all. Now: every roster status counts, each team's best bats are key players (MLB's
+    own season stats), a star missing from the confirmed lineup puts an alert on the card, and the breakdown says it
+    in our lingo - out, but it don't change our call."""
+    inj = sd.parse_injuries({"injuries": [{"id": "10", "displayName": "New York Yankees", "injuries": [
+        {"status": "10-Day-IL", "athlete": {"displayName": "Aaron Judge", "position": {"abbreviation": "RF"}}},
+        {"status": "60-Day-IL", "athlete": {"displayName": "Fernando Cruz", "position": {"abbreviation": "RP"}}},
+        {"status": "paternity", "athlete": {"displayName": "Some Guy", "position": {"abbreviation": "C"}}},
+        {"status": "Day-To-Day", "athlete": {"displayName": "Ben Rice", "position": {"abbreviation": "1B"}}}]}]})
+    names = [r[0] for r in sd.team_injuries(inj, "10", "Yankees")]
+    assert "Aaron Judge" in names and "Some Guy" in names and "Fernando Cruz" not in names   # 60-day: long-term
+    stars = sd.parse_stars({"stats": [{"splits": [
+        {"player": {"fullName": "Ben Rice"}, "team": {"name": "New York Yankees"}, "stat": {"plateAppearances": 667, "ops": ".897"}},
+        {"player": {"fullName": "Aaron Judge"}, "team": {"name": "New York Yankees"}, "stat": {"plateAppearances": 285, "ops": ".871"}},
+        {"player": {"fullName": "Cody Bellinger"}, "team": {"name": "New York Yankees"}, "stat": {"plateAppearances": 562, "ops": ".767"}},
+        {"player": {"fullName": "Jazz Chisholm Jr."}, "team": {"name": "New York Yankees"}, "stat": {"plateAppearances": 532, "ops": ".711"}},
+        {"player": {"fullName": "Call Up"}, "team": {"name": "New York Yankees"}, "stat": {"plateAppearances": 40, "ops": "1.200"}}]}]})
+    assert stars["New York Yankees"] == ["Ben Rice", "Aaron Judge", "Cody Bellinger"]      # regulars only
+    keep = dict(sd._STARS)
+    sd._STARS.clear(); sd._STARS.update(stars)
+    try:
+        assert [r[0] for r in sd.team_key_out(inj, "10", "Yankees", "mlb")] == ["Aaron Judge"]
+        assert [r[0] for r in sd.team_unsure(inj, "10", "Yankees", "mlb")] == ["Ben Rice"]
+        lu = sd.parse_lineups({"dates": [{"games": [{"gameDate": "2026-09-30T00:00:00Z", "teams": {
+            "away": {"team": {"name": "Boston Red Sox"}}, "home": {"team": {"name": "New York Yankees"}}},
+            "lineups": {"homePlayers": [{"fullName": "Paul Goldschmidt"}, {"fullName": "Ben Rice"}],
+                        "awayPlayers": [{"fullName": "Roman Anthony"}]}}]}]})
+        g = {"league": "mlb", "home": "10", "away": "2", "home_name": "Yankees", "away_name": "Red Sox",
+             "start": "2026-09-30T00:00Z"}
+        assert sd.lineup_for(lu, g, "home") == ["Paul Goldschmidt", "Ben Rice"]
+        ks = sports.key_status({}, g, lu)
+        assert ks.get("Cody Bellinger (Yankees)") == "Not in the lineup"                   # a star sat: on the card
+        ks2 = sports.key_status(inj, g, lu)
+        assert "Aaron Judge (Yankees RF)" in ks2 and "Aaron Judge (Yankees)" not in ks2    # said once, as IL
+    finally:
+        sd._STARS.clear(); sd._STARS.update(keep)
+    assert "mlb" in sd.INJ_LEAGUES
+    src = open(__import__("sports_breakdown_v24").__file__).read()
+    assert 'v.say("keyout_us_bat"' in src and "Doesn't change our call" in src
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

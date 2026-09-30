@@ -526,7 +526,12 @@ def breakdown(leg, games, elo, injuries, used=None):
         ours_out, theirs_out = sd.team_injuries(inj, tid, us), sd.team_injuries(inj, oid, them)
         key_them = sd.team_key_out(inj, oid, them, lg)
         both = key_them and sd.team_key_out(inj, tid, us, lg)
-        if key_them and not both:
+        if key_them and not both and lg == "mlb":         # baseball: one of their best bats is out (9/29, Judge)
+            nm = key_them[0][0]
+            out.append(v.say("keyout_bat", [f"🚑 {them} are without {nm} — one of their best bats is on the shelf.",
+                                            f"🚑 No {nm} in {them}' lineup. That's a big bat gone.",
+                                            f"🚑 {them} gotta score without {nm}. Their lineup just got a lot less scary."]))
+        elif key_them and not both:
             pos, nm = _posname(key_them[0][1]), key_them[0][0]
             out.append(v.say("keyout", [f"🚑 {them} are rolling without their starting {pos} ({nm}).",
                                          f"🚑 No {nm} for {them} — that's their starting {pos}.",
@@ -548,13 +553,28 @@ def breakdown(leg, games, elo, injuries, used=None):
     key_us = sd.team_key_out(inj, tid, us, lg)
     key_any = key_us or sd.team_key_out(inj, oid, them, lg)
     key_them2 = sd.team_key_out(inj, oid, them, lg) if inj else None
-    if key_us and key_them2:                              # both teams down a starter: one plain line, not two
+    if key_us and key_them2 and lg == "mlb":
+        nm, nm2 = key_us[0][0], key_them2[0][0]
+        out.append(v.say("keyout_both_bat", [
+            f"🚑 Both lineups are missing a big bat — no {nm} for {the_us}, no {nm2} for {the_them}. Still our side.",
+            f"🚑 {nm} ({the_us}) and {nm2} ({the_them}) are both out. It evens out, and we still like {the_us}."],
+            must=True))
+    elif key_us and key_them2:                            # both teams down a starter: one plain line, not two
         pos, nm, nm2 = _posname(key_us[0][1]), key_us[0][0], key_them2[0][0]
         mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
         out.append(v.say("keyout_both", [
             f"🚑 Both teams are down their starting {pos} — {nm} is out for {the_us}, {nm2} for {the_them}.{mv} We still riding with the algorithm.",
             f"🚑 Backups on both sides tonight: no {nm} for {the_us}, no {nm2} for {the_them}.{mv} The numbers still say this the side.",
             f"🚑 Neither team has its starting {pos} — {nm} ({the_us}) and {nm2} ({the_them}) are both out.{mv} We still like {the_us}."],
+            must=True))
+    elif key_us and lg == "mlb":                          # our best bat is out: say it, and say why we still ride
+        nm = key_us[0][0]                                 # (the owner, 9/29: like the Caleb Williams one - it's out,
+        mv = ""                                           # it don't change our call. A bat on the IL has been out a
+        #                                                   while - today's line move isn't "for it")
+        out.append(v.say("keyout_us_bat", [
+            f"🚑 Yeah, {nm} is out for {the_us}. We know.{mv} The price already knows it too, and the numbers still say this the side.",
+            f"🚑 No {nm} tonight — that's a big bat missing for {the_us}.{mv} Doesn't change our call. We riding with the algorithm.",
+            f"🚑 {nm} ain't playing. Everybody's scared off {the_us} because of it.{mv} We ain't — the rest of this lineup still gets it done."],
             must=True))
     elif key_us:
         pos, nm = _posname(key_us[0][1]), key_us[0][0]
