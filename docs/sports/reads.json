@@ -1,6 +1,21 @@
 {
- "updated": "2026-09-30T18:05Z",
+ "updated": "2026-09-30T18:28Z",
  "games": [
+  {
+   "id": "mlb:401907972",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-09-30T18:00Z",
+   "away": "Phillies",
+   "home": "Braves",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "mlb:401907897",
    "league": "mlb",
@@ -100,7 +115,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.495,
+    "p": 0.479,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -116,9 +131,9 @@
     "opp": "Yankees",
     "market": "spread",
     "line": 1.5,
-    "odds": -187,
-    "p": 0.613,
-    "win_p": 0.425,
+    "odds": -210,
+    "p": 0.63,
+    "win_p": 0.447,
     "reasons": []
    }
   },
@@ -128,7 +143,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Padres",
-    "p": 0.487,
+    "p": 0.501,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -144,9 +159,9 @@
     "opp": "Padres",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
-    "p": 0.621,
-    "win_p": 0.435,
+    "odds": -178,
+    "p": 0.606,
+    "win_p": 0.419,
     "reasons": [
      "opponent missing key players"
     ]
@@ -188,8 +203,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.381,
-    "tie": 0.296,
+    "p": 0.395,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -204,9 +219,9 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
-    "p": 0.659,
-    "win_p": 0.441,
+    "odds": -192,
+    "p": 0.629,
+    "win_p": 0.412,
     "reasons": [
      "hotter goalie"
     ]
@@ -351,9 +366,9 @@
     "opp": "Steelers @ Browns",
     "market": "total",
     "line": 38.5,
-    "odds": -112,
-    "p": 0.665,
-    "win_p": 0.665,
+    "odds": -113,
+    "p": 0.658,
+    "win_p": 0.658,
     "reasons": [
      "the engine's scoring read"
     ]
@@ -393,7 +408,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tulsa",
-    "p": 0.49,
+    "p": 0.491,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -409,9 +424,9 @@
     "opp": "North Texas",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.508,
-    "win_p": 0.508,
+    "odds": -120,
+    "p": 0.509,
+    "win_p": 0.509,
     "reasons": [
      "better QB play lately"
     ]
@@ -423,8 +438,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.414,
-    "tie": 0.294,
+    "p": 0.428,
+    "tie": 0.292,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -439,9 +454,9 @@
     "opp": "Blackhawks",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.633,
-    "win_p": 0.633,
+    "odds": -218,
+    "p": 0.66,
+    "win_p": 0.66,
     "reasons": [
      "better rested",
      "the stronger team",
@@ -501,7 +516,7 @@
     "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -198,
     "p": 0.653,
     "win_p": 0.431,
     "reasons": [
