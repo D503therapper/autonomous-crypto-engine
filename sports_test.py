@@ -5032,6 +5032,17 @@ def test_coaching_study_weights():
     assert co.states("2026-10-05T00:00Z", path)[("nfl", "5")] == (12, False)
 
 
+def test_coach_changes_sections():
+    """Coaching changes (9/30): the coaching sections of a Wikipedia season page are pulled out (the in-season firings
+    ESPN doesn't list); the page names follow Wikipedia's (an en dash for split seasons)."""
+    import sports_coach_changes as cc
+    txt = "== Standings ==\nx\n== Coaching changes ==\n=== In-season ===\n{| \n| Bulls || Billy Donovan\n|}\n== Notes ==\ny"
+    secs = cc.coaching_sections(txt)
+    assert len(secs) == 1 and "Billy Donovan" in secs[0] and "In-season" in secs[0] and "Standings" not in secs[0]
+    assert "Notes" not in secs[0]
+    assert cc.pages(2023)["nba"] == "2023–24 NBA season" and cc.pages(2023)["nfl"] == "2023 NFL season"
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
