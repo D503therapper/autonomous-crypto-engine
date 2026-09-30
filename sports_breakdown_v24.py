@@ -588,12 +588,15 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🚑 Yeah, {nm} is out. Everybody and they mama jumped off {the_us}.{mv} We ain't scared — teams always be coming back.{need}"],
             must=True))
     if not key_any and op is not None and now is not None and op != now and sd.implied(now) > sd.implied(op):
-        out.append(v.say("sharp", [f"💰 Sharp money is on us: {us} opened {_am(op)}, now {_am(now)}.",
-                                    f"💰 The pros are hammering {us} — {_am(op)} at open, {_am(now)} now.",
-                                    f"💰 The line moved our way ({_am(op)} → {_am(now)}). Smart money agrees.",
-                                    f"💰 Money's been pouring in on {us}: {_am(op)} to {_am(now)}.",
-            f"💰 Big money moved {us} from {_am(op)} to {_am(now)}. We like the company.",
-            f"💰 {us} went from {_am(op)} to {_am(now)} — the pros see it too."]))
+        # the price moving our way: the market catching up to US - never "we're with the sharps" (the owner, 9/29: we're
+        # our own engine, not a sharp-money follower)
+        out.append(v.say("sharp", [f"💰 {us} opened {_am(op)}, now {_am(now)}. The market's catching up to what the engine already saw.",
+                                    f"💰 {us} went from {_am(op)} to {_am(now)} since the open. We were here first.",
+                                    f"💰 The line moved toward {us} ({_am(op)} → {_am(now)}). The engine had this side before the move.",
+                                    f"💰 {_am(op)} at the open, {_am(now)} now — the market's coming around to {us}.",
+            f"💰 The price on {us} keeps shortening ({_am(op)} → {_am(now)}). Good thing we're already on it.",
+            f"💰 Everybody else is showing up late on {us}: {_am(op)} to {_am(now)}.",
+            f"💰 The pros are on {us} too ({_am(op)} → {_am(now)}). We rocking with the sharps on this one — we just got here first."]))
 
     # sharp money going the other way and we still like our side: say it our way, with a quick reason
     op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
@@ -603,8 +606,8 @@ def breakdown(leg, games, elo, injuries, used=None):
                    NO_WHY)
         said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
         out.append(_nowhy(v.say("fade", [
-            f"💸 Sharp money's been coming in on {the_them}{move}, but they must be some clowns. We're on {the_us} — {why}.",
-            f"💸 The so-called sharps are all over {the_them}{move}. We're fading the clowns and taking {the_us} — {why}.",
+            f"💸 Money's been coming in on {the_them}{move}, but whoever's betting it must be some clowns. We're on {the_us} — {why}.",
+            f"💸 Somebody's pushing {the_them}{move}. We're fading the clowns and taking {the_us} — {why}.",
             f"💸 Line's moving toward {the_them}{move}. Let 'em — we still like {the_us}, {why}.",
             f"💸 Money's pouring in on {the_them}{move}. They must've lost their minds — we got {the_us}, {why}.",
             f"💸 Everybody's jumping on {the_them}{move}. They're tweaking — we're riding {the_us}, {why}.",
@@ -745,6 +748,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     form = form or {}
     lg = leg["league"]
     rsn = [r for r in leg.get("reasons") or [] if not str(r).startswith(("proven", "trend:", "opponent drama"))]
+    rsn = [r for r in rsn if r != "sharp money moving this way"] + [r for r in rsn if r == "sharp money moving this way"]
     pct = round(100 * (leg.get("p") or 0))
     sp_us, sp_them = g.get("sp_" + leg["side"]), g.get("sp_" + ("away" if leg["side"] == "home" else "home"))
     trip = next((c for c in leg.get("ctx") or [] if c.get("k") == "trip" and c.get("who") == "them" and (c.get("mi") or 0) >= 1000), None)
@@ -782,12 +786,11 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
             else:
                 pools.append(("w_hurt", [f"🚑 {them} are banged up and thin tonight. We pouncing.",
                                          f"🚑 {them}' injury list is long and it shows. We on {us}."]))
-        elif r == "sharp money moving this way":
+        elif r == "sharp money moving this way":             # (never the headline when the engine has its own reason)
             pools.append(("w_sharp", [
-                f"💸 The sharp money's been pounding {us} since the line opened. We with the pros.",
-                f"💸 The big bettors are all over {us} — the line's been moving our way all day.",
-                f"💸 Smart money came in on {us} and moved the number. We're on the same side.",
-                f"💸 The pros are loading up on {us}. Follow the money."]))
+                f"💸 The engine had {us} before the number moved — now the market's catching up.",
+                f"💸 {us}' price keeps shortening since the open. We were already here.",
+                f"💸 The market's coming around to {us}. The engine saw it first."]))
         elif r == "better starting pitcher" and sp_us:
             hot = form.get((True, "hot"))
             pools.append(("w_arm", [

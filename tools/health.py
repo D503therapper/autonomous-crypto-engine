@@ -210,6 +210,22 @@ try:
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"baseball star check failed: {str(e)[:60]}")
 
+# 6d. the studies + the simulator run three times a day (9/29: GitHub's schedule ran them 5-6 hours late and skipped
+#     one - the owner wants three a day). Older than 9 hours: kick one off.
+for name, wf, log in (("studies", "sports_studies.yml", "studies_log.json"), ("simulator", "sports_sims.yml", "sims_log.json")):
+    try:
+        L = json.load(open(os.path.join(sd.DATA, log)))
+        at = max(r["at"] for r in L) if isinstance(L, list) and L else ""
+        age_h = (now - datetime.strptime(at, "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)).total_seconds() / 3600
+        if age_h > 9:
+            problems.append(f"{name} last ran {age_h:.0f}h ago - restarted")
+            if not busy(wf):
+                dispatch(wf, f"{name} overdue ({age_h:.0f}h)")
+        else:
+            ok.append(f"{name} ran {age_h:.0f}h ago")
+    except Exception as e:                               # noqa: BLE001
+        problems.append(f"{name} check failed: {str(e)[:60]}")
+
 # 7. posting on time
 try:
     import tennis_due

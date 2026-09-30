@@ -24,6 +24,7 @@ OWNER = {
     "fought hard": "the loser battled but still lost (the review)",
     "complete ass": "the other side's been terrible",
     "booty cheeks": "the other side's been terrible",
+    "rocking with the sharps": "now and then when the price moved our way - never every card (we're our own engine)",
     # the crew
     "the homies": "the people on the board with us",
 }

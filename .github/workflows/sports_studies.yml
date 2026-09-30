@@ -4,6 +4,7 @@ name: sports_studies
 on:
   schedule:
     - cron: "7 12 * * *"      # ~5 AM Pacific - before the morning board
+    - cron: "7 18 * * *"      # ~11 AM Pacific - midday (the owner: three study runs a day)
     - cron: "7 0 * * *"       # ~5 PM Pacific - before the night games and tomorrow's board
   workflow_dispatch: {}
 permissions:

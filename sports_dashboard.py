@@ -194,7 +194,7 @@ WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason
     "the stronger team": "💪 {us} are just the better team tonight.",
     "hotter recent form": "🔥 {us} are playing better ball than {opp} lately.",
     "opponent missing key players": "🚑 {opp} are banged up — we pouncing.",
-    "sharp money moving this way": "💸 The sharp money's been coming in on {us}.",
+    "sharp money moving this way": "💸 The market's catching up to {us} — the engine had it first.",
     "better rested": "🛌 {us} got the extra rest. Fresh legs.",
     "opponent on a back-to-back": "😮‍💨 {opp} played last night — tired legs.",
     "better starting pitcher": "⚾ We got the better arm on the mound.",
@@ -205,7 +205,8 @@ WHY_TAG = {   # a pick written before the one-line "why" existed: its top reason
 
 
 def _why_fallback(leg):
-    for r in leg.get("reasons") or []:
+    rs = leg.get("reasons") or []
+    for r in [x for x in rs if x != "sharp money moving this way"] + [x for x in rs if x == "sharp money moving this way"]:
         if r in WHY_TAG:
             return WHY_TAG[r].format(us=leg["team"], opp=leg["opp"])
     return ""
@@ -287,11 +288,11 @@ DROP_PARTS = (   # the 8 AM note, built fresh each day: WHEN + the engine WATCHI
      "Till then the engine's on the lines all night", "Overnight the engine watches every number move",
      "The engine's glued to the lines all night", "Every line gets watched all night long",
      "We watching the line movement overnight", "We watching the line movement all night"],
-    ["— where the sharp money goes, what the injury news does.", "— when the pros hit a side or a starter sits, we see it first.",
-     "— the money and the news move the numbers, then we move.", "— so every sharp move and late scratch is baked in.",
-     "— catching the sharp money and the late news before we post.", "— so we never bite on a stale number.",
+    ["— where the money goes, what the injury news does.", "— when a line jumps or a starter sits, we see it first.",
+     "— the money and the news move the numbers, then we move.", "— so every big move and late scratch is baked in.",
+     "— catching the line moves and the late news before we post.", "— so we never bite on a stale number.",
      "— lines tell on themselves overnight, and we're listening.", "— the late injury news always hits before the first pitch.",
-     "— the sharps show their hand overnight, we pick after."],
+     "— the overnight moves get baked in before we post."],
     ["Sharper number, sharper pick.", "No guessing over here.", "We pick off the best number, not the first one.",
      "Posted means final.", "Patience pays.", "That's how the pros do it.", "Trust the algorithm.",
      "Best number wins.", "We don't chase, we wait.", "Tell the homies.", "Tap in at 8."],
@@ -414,7 +415,7 @@ TN_DROP_PARTS = (   # no tennis slate up: WHEN + the engine WATCHING + WHY + a c
      "🎾 Nothing up right now — tennis drops <b>8 AM PT</b>.", "🎾 The tennis card hits at <b>8 AM PT</b> on game day."],
     ["Till then the engine's watching every line", "The engine's on the tennis lines", "Every match line gets watched",
      "The engine's glued to the numbers", "We watch the lines move"],
-    ["— the order of play, the draws, who pulled out.", "— sharp money moves tennis lines quick.",
+    ["— the order of play, the draws, who pulled out.", "— money moves tennis lines quick.",
      "— late withdrawals and injury news hit tennis hard.", "— so the price we post is the right one.",
      "— catching every move before we post."],
     ["We don't guess, we wait.", "Sharper number, sharper pick.", "Patience pays.", "Trust the algorithm.",
@@ -1590,7 +1591,7 @@ function vibe(p,id){{return pick(id+"v",p>=0.65?["The engine likes them to handl
  p>=0.55?["Slight lean our way — nothing crazy.","Small edge, but it’s there.","Leaning this way, not banging the table.","A lil lean — don’t go crazy on it."]:
  ["Barely a lean. Proceed with caution.","Basically a toss-up — tiny lean.","Hair of a lean. Be careful with this one.","Thin lean. Don’t bet the rent."])}}
 var WHYL={{"the stronger team":"💪 {{u}} are just the better team tonight.","hotter recent form":"🔥 {{u}} are playing better ball lately.",
- "opponent missing key players":"🚑 {{o}} are banged up — that's the opening.","sharp money moving this way":"💸 The sharp money's been coming in on {{u}}.",
+ "opponent missing key players":"🚑 {{o}} are banged up — that's the opening.","sharp money moving this way":"💸 The market's catching up to {{u}} — the engine had it first.",
  "better rested":"🛌 {{u}} got the extra rest. Fresh legs.","opponent on a back-to-back":"😮‍💨 {{o}} played last night — tired legs.",
  "better starting pitcher":"⚾ {{u}} got the better arm on the mound.","hotter goalie":"🧱 {{u}} got the hotter goalie.",
  "better QB play lately":"🎯 {{u}} got the better QB play lately.","revenge game":"😤 {{u}} owe these guys one."}};

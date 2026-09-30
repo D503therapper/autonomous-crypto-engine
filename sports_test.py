@@ -3497,6 +3497,27 @@ def test_owner_lingo_is_live_everywhere():
     assert not missing, missing                            # (the banned words: the existing variety tests keep them out)
 
 
+def test_our_own_engine_never_a_sharp_follower():
+    """The owner, 9/29: we're our own engine - the write-ups never say we're following the sharps, and never claim
+    it's 'sharp money' at all (nobody outside the book knows who bet it; all we see is the price move). A price move
+    toward us reads as the market catching up to the engine, and it's never the headline when the engine has its own
+    reason. The studies + simulator run three times a day, with a backstop when GitHub's schedule skips one."""
+    import re, sports_breakdown_v24 as v24, sports_dashboard as sdb
+    shown = "\n".join(re.findall(r'f?"[^"\n]*"', open(v24.__file__).read() + open(sdb.__file__).read())).lower()
+    for gone in ("sharp money's been", "we with the pros", "follow the money", "smart money agrees", "the pros see it",
+                 "so-called sharps", "sharps show their hand", "sharp money is on us"):
+        assert gone not in shown, gone
+    g = {"id": "mlb:1", "start": "2026-09-30T00:00Z"}
+    leg = {"team": "Yankees", "opp": "Red Sox", "league": "mlb", "side": "home", "p": 0.58, "tier": "lock", "ctx": [],
+           "reasons": ["sharp money moving this way", "hotter recent form"]}
+    line = v24.why_line(leg, v24.Voice("s", set()), g, "Yankees", "Red Sox", "the Yankees", "the Red Sox", n_hot=3)
+    assert line.startswith("🔥")                                         # the engine's own reason leads
+    assert "catching up" in sdb._why_fallback({"team": "Yankees", "opp": "Red Sox",
+                                               "reasons": ["sharp money moving this way"]})
+    wf = open(".github/workflows/sports_studies.yml").read()
+    assert wf.count("- cron:") == 3 and 'dispatch(wf, f"{name} overdue' in open("tools/health.py").read()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
