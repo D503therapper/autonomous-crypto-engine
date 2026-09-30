@@ -17,6 +17,18 @@
 <meta name="description" content="Daily 2-Leg, 3-Leg, Lock &amp; Dog of the Day. Trust the algorithm.">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=8"><link rel="icon" href="icon-512.png?v=8"><link rel="manifest" href="manifest.webmanifest">
 <style>
+/* 🥊 PATTY vs THE ALGORITHM (sports_challenge.py) */
+
+.pvw{font-size:13px;font-weight:800;color:#ffd23f;margin:0 0 6px}
+.pvx .pvs{font-size:17px;font-weight:900;color:#fff;margin:6px 0 8px;letter-spacing:.01em}
+.pvr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}
+.pvh>div{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase} .pvh em{font-style:normal;color:#fff}
+.pvc{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}
+.pvp{display:flex;align-items:center;gap:6px} .pvp b{flex:1}
+.pvc small{font-size:10px;font-weight:800;opacity:.9}
+.pvc span{overflow-wrap:anywhere} .pvc b{font-weight:900;font-variant-numeric:tabular-nums}
+.pvc i{font-style:normal;min-width:1.2em;text-align:right} .pvc.lost span,.pvc.lost .pvp b{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}
+.pvc.won{box-shadow:inset 0 0 0 1px #22c55e88} .pvc.lost{box-shadow:inset 0 0 0 1px #ff3b3b88}
 :root{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
@@ -330,6 +342,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
   
   
 </div></section></div></details>
+<section class="pk pvx" style="--c1:#ffd23f;--c2:#ff3b8d"><div class="pk-h"><span class="pk-i">🥊</span><span class="pk-l tn8">PATTY VS THE ALGORITHM</span></div><div class="pvs">Patty 0 · Algorithm 0</div><div class="pvr pvh"><div>Patty <em>+7,715</em></div><div>Algorithm <em>+8,009</em></div></div><div class="pvr"><div class="pvc "><span>Bublik</span><div class="pvp"><b><small>ML</small> +135</b><i></i></div></div><div class="pvc "><span>Cobolli</span><div class="pvp"><b><small>ML</small> -125</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Tsitsipas</span><div class="pvp"><b><small>ML</small> -310</b><i></i></div></div><div class="pvc "><span>Djokovic</span><div class="pvp"><b><small>ML</small> -240</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Rublev</span><div class="pvp"><b><small>ML</small> -175</b><i></i></div></div><div class="pvc "><span>Baez</span><div class="pvp"><b><small>ML</small> +130</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Cerundolo</span><div class="pvp"><b><small>ML</small> -150</b><i></i></div></div><div class="pvc "><span>Cerundolo</span><div class="pvp"><b><small>ML</small> -150</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>de Minaur</span><div class="pvp"><b><small>ML</small> -450</b><i></i></div></div><div class="pvc "><span>Rune</span><div class="pvp"><b><small>ML</small> -195</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Tiafoe</span><div class="pvp"><b><small>ML</small> -400</b><i></i></div></div><div class="pvc "><span>Volynets</span><div class="pvp"><b><small>ML</small> -125</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Hurkacz</span><div class="pvp"><b><small>ML</small> +160</b><i></i></div></div><div class="pvc "><span>Zheng Qinwen</span><div class="pvp"><b><small>ML</small> -1000</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Nakashima</span><div class="pvp"><b><small>ML</small> -275</b><i></i></div></div><div class="pvc "><span>Birrell</span><div class="pvp"><b><small>ML</small> -325</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Ruud</span><div class="pvp"><b><small>ML</small> -230</b><i></i></div></div><div class="pvc "><span>Udvardy</span><div class="pvp"><b><small>ML</small> -195</b><i></i></div></div></div><div class="pvr"><div class="pvc "><span>Medvedev</span><div class="pvp"><b><small>ML</small> -425</b><i></i></div></div><div class="pvc "><span>Frech</span><div class="pvp"><b><small>ML</small> -250</b><i></i></div></div></div></section>
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
@@ -391,7 +404,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790759135212,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790760775615,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
