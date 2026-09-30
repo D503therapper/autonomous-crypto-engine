@@ -21,7 +21,8 @@ OWNER = {
     "cheeks clapped": "a beatdown (tennis straight sets, a blowout)",
     "beat the brakes off": "a mismatch we see coming ('the Bears are about to beat the brakes off the Eagles')",
     "smack that ass": "a blowout we see coming",
-    "smacked": "the other side got beat bad",
+    "smacked": "a WIN - our bet smacked ('+200 moneyline, we smacked'), or our team smacked (9/30); also the other "
+               "side getting beat bad",
     "fought hard": "the loser battled but still lost (the review)",
     "got cooked": "whoever LOST got cooked - our side on a miss ('Blockx got cooked'); never 'Cook.' after a win (9/29)",
     "shit the bed": "our side blew it (a loss review)",

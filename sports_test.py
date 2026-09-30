@@ -3514,6 +3514,9 @@ def test_owner_lingo_is_live_everywhere():
     for k in ("tn:won", "ls:won", "rc:battle"):
         assert not any("cooked" in t for t in SL.LINES[k][2]), k
     assert any("got cooked" in t for t in SL.LINES["tn:lost"][2]) and any("shit the bed" in t for t in SL.LINES["tn:lost"][2])
+    # 9/30: "+200 moneyline, we smacked" / "the 49ers smacked" - a WIN; never "cooked" for a winner
+    assert "We smacked." in SL.PAL["wk"] and any("smacked" in t for t in SL.REVIEWS[("dog", "won")][2])
+    assert not any("cooked" in t for t in SL.REVIEWS[("dog", "won")][2])
 
 
 def test_our_own_engine_never_a_sharp_follower():

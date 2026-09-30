@@ -24,7 +24,7 @@ LEAN_BAN = re.compile(r"trust the algorithm|lock it in|free money|easy money|ham
 
 # our own pools: "%name%" in a template -> [a|b|c] (never put one inside [..] - no nesting)
 PAL = {
-    "wk": ["Told y'all.", "Nice nice.", "Light work.", "Let's eat.", "Another one.", "Paid.", "Bag secured.",
+    "wk": ["Told y'all.", "Nice nice.", "Light work.", "Let's eat.", "Another one.", "Paid.", "Bag secured.", "We smacked.",
            "Say less.", "Levels to this.", "Easy money.", "We eating.", "Stamp it.", "Keep stacking.", "Money.",
            "Run it back.", "That's how it's done.", "Cashed.", "Another W.", "", "", ""],
     "lk": ["Our bad.", "That's on us.", "Is what it is.", "It happens.", "Next one.", "SMH.", "No excuses.",
@@ -307,8 +307,10 @@ REVIEWS = {
         "Laid the juice, got nothing. {o} over {t}. %lk%",
     )),
     ("dog", "won"): (57, 2, T(
+        "{t} smacked at plus money. %wk%",
+        "Plus money and {t} smacked. Let's go.",
         "Dog barked — {t} [took down|got past|beat|stunned] {o}. %wk%",
-        "{t} came in as the dog and [ate|cooked|got fed|feasted]. %wk%",
+        "{t} came in as the dog and [ate|smacked|got fed|feasted]. %wk%",
         "Plus money and {t} [came through|got there|delivered|got it done]. %wk%",
         "Nobody [believed in|was on|rode with] {t} but us. [Paid.|Cashed.|Nice nice.]",
         "The value was real: {t} [got it done|came through|cashed]. %wk%",
