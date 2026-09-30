@@ -4271,6 +4271,38 @@ def test_reviews_are_yellow():
     assert src.count('class="why rvy"') >= 3        # the main card's write-up + review, the tennis card's
 
 
+def test_we_got_in_early_box():
+    """🎯 On game day the early plays move onto Today's Board in ONE box, one row each: the price we got -> now.
+    Came our way = 'we beat the line'; got bigger and the engine still likes it = 'better price now', else 'money went
+    against it'; no move = no label. A graded row stays 3 hours (the board's rule), then it's gone."""
+    import sports_early as se
+    saved = (se.ON, se.passed)
+    se.ON, se.passed = True, lambda path=None: {"nfl": [(0.04, 0.08)]}
+    try:
+        now = datetime(2026, 10, 4, 17, 0, tzinfo=timezone.utc)                  # Sunday 10 AM PT
+        start = (now + timedelta(hours=3)).strftime("%Y-%m-%dT%H:%MZ")
+        pk = lambda i, odds, own: {"game_id": i, "league": "nfl", "side": "home", "team": f"Team{i}", "opp": "Opp",
+                                   "odds": odds, "opp_odds": -220, "own": own, "start": start, "result": None}
+        st = {"picks": [pk("a", 185, 0.40), pk("b", 185, 0.45), pk("c", 185, 0.33), pk("d", 185, 0.40)]}
+        games = {"a": {"status": "pre", "ml_home": "-120"}, "b": {"status": "pre", "ml_home": "220"},
+                 "c": {"status": "pre", "ml_home": "220"}, "d": {"status": "pre", "ml_home": "185"}}
+        h = se.gameday_html(st, games, lambda x: x, now)
+        assert h.count('class="gr"') == 4 and "WE GOT IN EARLY" in h and "still good" not in h
+        rows = h.split('class="gr"')[1:]
+        assert "we beat the line" in rows[0] and "-120" in rows[0]
+        assert "better price now" in rows[1]                  # +220: 45% vs ~30% on the price - still value
+        assert "money went against it" in rows[2]             # +220 and the engine's 33% (vs ~31% on the price) isn't enough now
+        assert "<i>" not in rows[3]                           # no move, no label
+        st["picks"][0].update(result="won", graded_at=(now - timedelta(hours=2)).strftime("%Y-%m-%dT%H:%MZ"))
+        assert "✅" in se.gameday_html(st, games, lambda x: x, now)
+        st["picks"][0]["graded_at"] = (now - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%MZ")
+        assert "Teama" not in se.gameday_html(st, games, lambda x: x, now)     # 3 hours up: gone
+        se.ON = False
+        assert se.gameday_html(st, games, lambda x: x, now) == ""
+    finally:
+        se.ON, se.passed = saved
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

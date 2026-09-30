@@ -972,9 +972,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     try:                                                     # ⏰ early value plays (the owner, 9/30)
         import sports_early
         early = sports_early.html(sports_early.load(), E)
+        early_today = sports_early.gameday_html(sports_early.load(), games, E)
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
-        early = ""
+        early = early_today = ""
     board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active],
                    {p["kind"]: gone_ms(p) for p in active}) if active else drop
     if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
@@ -1414,7 +1415,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr{{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}}
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
-.evx{{margin-top:14px}} .pk-l.evt{{font-size:clamp(18px,5.6vw,27px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}}
+.evx{{margin-top:14px}} .gdx{{margin-top:14px}} .gh{{text-align:right;font-size:10.5px;font-weight:900;letter-spacing:.1em;color:#fff;margin:10px 0 2px}}
+.gr{{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}}
+.gl b{{color:#fff;font-size:15px;font-weight:900}} .gl small{{color:#fff;font-weight:800}} .gl span{{display:block;font-size:12.5px;font-weight:800;color:#fff;margin-top:2px}}
+.gl u{{display:block;text-decoration:none;font-size:12.5px;font-weight:900;color:#ffc233;margin-top:2px}}
+.gp{{text-align:right;white-space:nowrap}} .gp s{{text-decoration:none;font-size:15px;font-weight:900;color:#fff}} .gp em{{font-style:normal;color:#ff7a00;margin:0 4px;font-weight:900}}
+.gp b{{font-size:17px;font-weight:900;color:#fff}} .gp i{{display:block;font-style:normal;font-size:12px;font-weight:900;color:#fff;margin-top:3px}} .pk-l.evt{{font-size:clamp(18px,5.6vw,27px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}}
 .pk-i.evi{{width:46px;height:46px;font-size:24px;border-radius:13px}} .evs{{font-size:13px;font-weight:800;color:#fff;margin:10px 0 6px}} .evs b{{color:#ffc233}}
 .evb{{margin:12px 0 8px;padding:11px 4px;border-radius:12px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:900;font-size:clamp(12px,3.6vw,18px);
 letter-spacing:.03em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);background:linear-gradient(90deg,#d90000,#ff3b3b,#ff7a00,#ff3b3b,#d90000);background-size:200% 100%;
@@ -1558,7 +1564,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 {bell}<div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div><div class="nolive">👀 The algorithm’s watching every play for value.</div></section></div>
 <div id="livetoday">{live_list}</div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
-<div class="board">{board}</div>
+<div class="board">{board}{early_today}</div>
 {tomorrow}
 {early}
 {_tennis()}

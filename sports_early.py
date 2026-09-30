@@ -213,7 +213,7 @@ def scan(games, model, now=None, injuries=None, trap=None):
                 continue
             other = "away" if side == "home" else "home"
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"],
-                        "opp": g[f"{other}_name"], "odds": odds, "open": _int(g.get(f"ml_{side}_open")),
+                        "opp": g[f"{other}_name"], "odds": odds, "opp_odds": _int(g.get(f"ml_{other}")), "open": _int(g.get(f"ml_{side}_open")),
                         "own": round(o_own, 4), "mkt": round(o_mkt, 4), "gap": round(gap, 4), "start": g["start"]})
     return out
 
@@ -264,6 +264,7 @@ def grade(st, games):
             continue
         us, them = (hs, as_) if p["side"] == "home" else (as_, hs)
         p["result"] = "won" if us > them else "lost" if us < them else "push"
+        p["graded_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
         p["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
 
 
@@ -313,3 +314,51 @@ def html(st, E, now=None):
     return (f'<section class="pk evx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">⏰</span>'
             f'<span class="pk-l evt">EARLY VALUE PLAYS</span></div>'
             f'<div class="evb">🔥 GET IT BEFORE THE LINE MOVES 🔥</div>{body}</section>')
+
+
+def label(p, now_odds):
+    """The game-day row's call (the owner, 9/30): the price came our way = we beat the line; it got bigger and the engine
+    still likes it = better price now; bigger and it doesn't = the money went against it; no move = no label."""
+    if now_odds is None or now_odds == p["odds"]:
+        return ""
+    if now_odds < p["odds"]:                              # +185 -> +150 / -120: the money came our way
+        return "🔥 we beat the line"
+    dec = _dec(now_odds)
+    mkt_now = 1 / dec / (1 / dec + 1 / _dec(_int(p.get("opp_odds")) or -200))
+    if p.get("own") is not None and p["own"] - mkt_now >= min(lo for lo, _ in (passed().get(p["league"]) or [(0.04, 1)])):
+        return "💰 better price now"
+    return "👀 money went against it"
+
+
+GRADED_STAYS_H = 3                                        # a graded row stays 3 hours, like every card on the board
+
+
+def gameday_html(st, games, E, now=None):
+    """🎯 WE GOT IN EARLY: on game day the early plays move onto Today's Board - one box, one row each: the price we got
+    -> the price now. A graded row stays 3 hours with its ✅ / ❌ (the board's rule), then it's gone."""
+    now = now or datetime.now(timezone.utc)
+    if not ON:
+        return ""
+    today = now.astimezone(PT).date()
+    rows = []
+    for p in sorted(st.get("picks") or [], key=lambda p: p["start"]):
+        t = _t(p["start"]).astimezone(PT)
+        if t.date() != today:
+            continue
+        if p.get("result") and p.get("graded_at") and now - _t(p["graded_at"]) > timedelta(hours=GRADED_STAYS_H):
+            continue
+        g = games.get(p["game_id"]) or {}
+        now_odds = _int(g.get(f"ml_{p['side']}")) if not p.get("result") and g.get("status") == "pre" else None
+        mark = {"won": "✅", "lost": "❌", "push": "➖"}.get(p.get("result"), "")
+        call = mark or label(p, now_odds)
+        am = lambda o: f"+{o}" if o > 0 else str(o)
+        price = f'<s>{am(p["odds"])}</s>' + (f'<em>➜</em><b>{am(now_odds)}</b>' if now_odds is not None else "")
+        rows.append(f'<div class="gr"><div class="gl"><b>{E(p["team"])}</b> <small>ML</small>'
+                    f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
+                    f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u></div>'
+                    f'<div class="gp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
+    if not rows:
+        return ""
+    return ('<section class="pk gdx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">🎯</span>'
+            '<span class="pk-l evt">WE GOT IN EARLY</span></div><div class="gh">WE GOT IT AT ➜ NOW</div>'
+            + "".join(rows) + '</section>')
