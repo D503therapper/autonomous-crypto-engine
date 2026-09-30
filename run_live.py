@@ -663,16 +663,21 @@ def git_sync():
         return
     # `git add data` already covers data/social and data/dex; naming a subdirectory that does
     # not exist yet makes the whole add fail (pathspec error) and nothing gets committed
-    cmds = ["git add data SCOREBOARD.md LAB.md docs",
-            f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'",
-            "git pull -q --rebase -X theirs", "git push -q"]
-    for c in cmds:
-        if subprocess.run(c, shell=True).returncode:
-            if c.startswith("git commit"):
-                return   # nothing changed
-            if c.startswith("git pull"):   # never leave a rebase in progress: it would block every later sync
-                subprocess.run("git rebase --abort", shell=True, stderr=subprocess.DEVNULL)
-                return
+    subprocess.run("git add data SCOREBOARD.md LAB.md docs", shell=True)
+    subprocess.run(f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'", shell=True,
+                   stdout=subprocess.DEVNULL)              # nothing changed: an earlier unpushed commit may still wait
+    # other sessions push to main all the time (dashboard, sports, wallet tracker): a single pull + push lost the
+    # race at 09:05 UTC on 2026-09-30 and the hour was never saved. Retry, and never leave a rebase in progress.
+    for i in range(5):
+        if subprocess.run("git pull -q --rebase --autostash -X theirs", shell=True).returncode:
+            subprocess.run("git rebase --abort", shell=True, stderr=subprocess.DEVNULL)
+            print(f"   git sync: pull failed (try {i + 1}/5)")
+        elif not subprocess.run("git push -q", shell=True).returncode:
+            return
+        else:
+            print(f"   git sync: push rejected (try {i + 1}/5)")
+        time.sleep(5 + 5 * i)
+    print("   git sync: gave up this hour; the next sync / end of run pushes the saved commit")
 
 
 def main():
