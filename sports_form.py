@@ -151,3 +151,25 @@ def overreaction(league, side_team, odds, states):
     if league in COLD_STREAK and odds < 0 and sk <= -COLD_STREAK[league]:
         return 1                               # a college hoops favorite on a long losing streak
     return 0
+
+
+# FATIGUE (9/30 study, every box score 2021-26, closing prices): a RESTED dog facing a team that played last night -
+# NBA +6.5% (4 of 5 seasons) vs -6.1% for every NBA dog; NHL +1.9% (4 of 5) vs -5.9%. The books under-rate the second
+# night of a back-to-back. (A goalie on back-to-back nights: nothing - already priced.)
+B2B_LEAGUES = ("nba", "nhl")
+
+
+def last_starts(games):
+    """{(league, team): [start of each real game, oldest first]} for the back-to-back check."""
+    out = {}
+    for g in sorted(games.values(), key=lambda g: g.get("start", "")):
+        if g.get("league") in B2B_LEAGUES and g.get("status") in ("final", "live") and (g.get("stype") or "2") in ("2", "3"):
+            for side in ("home", "away"):
+                out.setdefault((g["league"], g[side]), []).append(g["start"])
+    return out
+
+
+def played_yesterday(starts, league, team, start):
+    """Did this team play the day before this game (a back-to-back)?"""
+    prev = [s for s in starts.get((league, team), []) if s < start]
+    return bool(prev) and _days(prev[-1], start) == 1

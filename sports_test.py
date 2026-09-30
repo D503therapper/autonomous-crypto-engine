@@ -4867,6 +4867,18 @@ def test_live_never_takes_a_playoff_favorite_that_lost_the_last_game():
     assert L.series_lost({"stype": "2"}) == set()            # regular season: no series
 
 
+def test_rested_dog_vs_a_back_to_back():
+    """Fatigue study (9/30): a rested dog facing a team on the 2nd night of a back-to-back - NBA +6.5%, NHL +1.9% (4 of
+    5 seasons each) vs -6% for every dog. It adds to the Dog's score."""
+    import sports_form as sf
+    games = {"a": {"league": "nba", "status": "final", "stype": "2", "start": "2026-11-01T00:00Z", "home": "A", "away": "C"},
+             "b": {"league": "nba", "status": "final", "stype": "2", "start": "2026-10-29T00:00Z", "home": "B", "away": "D"}}
+    st = sf.last_starts(games)
+    assert sf.played_yesterday(st, "nba", "A", "2026-11-02T00:30Z") and not sf.played_yesterday(st, "nba", "B", "2026-11-02T00:30Z")
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "nba"}
+    assert sports.dog_score({**base, "rested_vs_b2b": True}) == sports.dog_score(base) + 3
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

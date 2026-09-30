@@ -24,6 +24,7 @@ import sports_breakdown
 import sports_data as sd
 import sports_model as sm
 import sports_players as sp
+import sports_form
 import sports_news
 import sports_weather
 
@@ -297,6 +298,7 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+LAST_STARTS = {}               # {(league, team): [starts]} - the back-to-back check (sports_form)
 TEAM_STATE = {}                # {(league, team): (last margin, streak)} - the overreaction angle (sports_form)
 HOT_KEY = {}                   # {game id: 'home'/'away'} - that side's goalie (NHL) / stars (NBA) are much hotter
 HOT_W = 0.03                   # (sports_form: the books over-rate a hot key player - NHL 5 of 5 seasons, NBA 3 of 4):
@@ -367,6 +369,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "key_edge": (sm.KEY_EDGE[g["id"]] * (1 if side == "home" else -1)) if g["id"] in sm.KEY_EDGE else None,
                     "hot_key": HOT_KEY.get(g["id"]) == side,
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
+                    "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
+                    and not sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"]),
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
                     # display only (the breakdown + the self-check's report-only groups): context facts, pregame talk
                     "ctx": sports_context.display(cx, side), "ctx_tags": sports_context.tags(cx, side),
@@ -709,6 +713,8 @@ def dog_score(c):
     d = c.get("drift") or 0.0                            # + = the money ran away from this side since the open:
     if c.get("league") in ("nhl", "nfl", "ncaaf", "nba") and d >= 0.02:   # those dogs lost - NFL -40%, college
         sc -= 4                                          # football -9%, NBA -8%, hockey -6% every season (baseball: even)
+    if c.get("rested_vs_b2b"):                           # rested, and they played last night: NBA dogs +6.5%, NHL
+        sc += 3                                          # +1.9% (4 of 5 seasons each) vs -6% for every dog
     if overreact(c):                                     # a football dog off a blowout loss: the market overreacts
         sc += 3                                          # (college +11.6%, NFL +7.9% vs -3.6% for every dog)
     if c.get("hot_key"):                                 # its goalie / stars are much hotter: the books already
@@ -1542,6 +1548,8 @@ def quick(now=None):
         HOT_KEY.update(sports_form.hot_sides(games, sp.CACHE, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         TEAM_STATE.clear()
         TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        LAST_STARTS.clear()
+        LAST_STARTS.update(sports_form.last_starts(games))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
         print(f"hot key players failed: {str(e)[:80]}")
     add_breakdowns(games, model, picks)
@@ -1606,6 +1614,8 @@ def run(repick=False, fetch=True):
         HOT_KEY.update(sports_form.hot_sides(games, sp.CACHE, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         TEAM_STATE.clear()
         TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        LAST_STARTS.clear()
+        LAST_STARTS.update(sports_form.last_starts(games))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
         print(f"hot key players failed: {str(e)[:80]}")                     # QB / starting pitcher / goalie form per game
     n_players = sum(len(rows) for rows in sp.CACHE.values())

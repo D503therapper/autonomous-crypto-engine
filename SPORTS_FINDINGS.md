@@ -48,6 +48,11 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   -3.8% for every favorite. Built: sports_form.overreaction / sports.overreact (+3 on the Dog's score, a bump up the
   Lock / parlay line). Watch: college football dogs off a blowout WIN +9.2% (5 of 7).
 
+- **Fatigue (9/30, box scores 2021-26):** a RESTED dog facing a team that played last night: NBA +6.5% (4 of 5
+  seasons), NHL +1.9% (4 of 5) vs about -6% for every dog. Built: +3 on the Dog's score (sports_form.last_starts /
+  played_yesterday). A goalie on back-to-back nights, stars' heavy minutes, MLB tired bullpens and hot/cold lineups:
+  nothing over the price.
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER
