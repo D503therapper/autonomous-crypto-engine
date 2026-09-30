@@ -26,6 +26,13 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   engine's own read +141u (+2.3%, 5 of 7 seasons). Dog sized by its read vs the price +121u (+5.6%, 6 of 7). BUT the
   last 3 seasons were red for both however sized - watch the bankroll box; early plays are the real money-maker.
 
+- **Tennis live: a set means more than the model said (9/30, ~69,000 tour matches at Pinnacle's close, fit 2012-20,
+  graded 2021+):** a player down a set really wins less - women's "57%" was 50%, men's 57% was 52% - and up a set,
+  more. Live plus money is almost always the player behind, so the engine kept over-rating the players it bet (tennis
+  live 3-6, 7 of 9 women's). Built: sports_tennis_live.SET_FIX (lands on the real rate in every bucket, 2021+). Would
+  have skipped Sonmez and Bondar (both down a set, both lost). Still unproven: first-set bets (no live-price history to
+  test them) - watch the tennis live record.
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER

@@ -11,6 +11,7 @@ The model (pure Python, cached):
     deuce/advantage, 7-point tiebreaks at 6-6 and a 10-point tiebreak in the final set of a Slam.
 The feed side (ESPN tennis scoreboards for the score, Bovada's tennis feed for the live price) is parsed with the
 same code sports_tennis uses pregame; sports_live applies the live rules."""
+import math
 import json
 from datetime import timedelta
 from functools import lru_cache
@@ -195,13 +196,30 @@ def score_state(m):
     return {"sets": sets, "games": cur, "done": done, "pts": pts, "server": m.get("server"), "set_no": len(done) + 1}
 
 
+# THE SET CORRECTION (9/30 study, ~69,000 tour matches since 2012 at Pinnacle's closing price, fit on 2012-20, graded
+# on 2021+ it never saw): the point-by-point model under-rates what winning a set means. A player DOWN a set wins less
+# than it said - women's 57% said, 50% real; men's 57% said, 52% real - and up a set, more. Live plus money is almost
+# always the player behind, so the engine kept betting on players it over-rated (tennis live: 3-6). The fix, per tour:
+# logit(p) x SET_FIX[0] + (sets up - sets down) x SET_FIX[1] - it lands on the real rate in every bucket (2021+).
+SET_FIX = {"atp": (1.052, 0.149), "wta": (0.982, 0.306)}
+
+
+def set_fixed(p, tour, sets):
+    """The model's live win % corrected for the set score (SET_FIX)."""
+    a, b = SET_FIX.get(tour, SET_FIX["atp"])
+    p = min(1 - 1e-6, max(1e-6, p))
+    z = a * math.log(p / (1 - p)) + b * (sets[0] - sets[1])
+    return 1 / (1 + math.exp(-z))
+
+
 def p1_live(m, pre_p1):
-    """p1's live win chance for a live match row, from p1's pre-match chance."""
+    """p1's live win chance for a live match row, from p1's pre-match chance (set-corrected - SET_FIX)."""
     tour, bo, ftb = st.tour_of(m), int(m.get("bo") or 3), final_tb_of(m.get("tourney"))
     pa, pb = serve_split(round(pre_p1, 4), tour, bo, ftb)
     s = score_state(m)
     serving = None if s["server"] not in (1, 2) else s["server"] == 1
-    return live_p(pa, pb, s["sets"], s["games"], s["pts"], serving, bo, ftb), (pa, pb), s
+    p = live_p(pa, pb, s["sets"], s["games"], s["pts"], serving, bo, ftb)
+    return set_fixed(p, tour, s["sets"]), (pa, pb), s
 
 
 def score_text(m, s=None):
