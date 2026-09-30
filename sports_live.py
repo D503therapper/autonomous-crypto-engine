@@ -793,10 +793,10 @@ def notify(pl, back=False):
     o = f"+{pl['odds']}" if pl["odds"] > 0 else str(pl["odds"])
     body = f"{pl['team']} ML {o} — {pl.get('score', '')}, {pl.get('clock', '')}. {pl.get('line', '')}".strip()
     title = f"{'BACK ON: ' if back else ''}🔥 LIVE PLUS MONEY: {pl['team']} {o}"
-    return alert(title, body, "rotating_light")
+    return alert(title, body, "rotating_light", ref=pl.get("id"))
 
 
-def alert(title, body, tag="rotating_light"):
+def alert(title, body, tag="rotating_light", ref=None):
     """📲 One alert to everybody: the dashboard's own 🔔 alerts (straight to our Worker) + the ntfy channel. Never blocks."""
     raw = None
     req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=body.encode(), method="POST", headers={
@@ -805,7 +805,7 @@ def alert(title, body, tag="rotating_light"):
         raw = urllib.request.urlopen(req, timeout=5).read()
     except Exception as e:                                   # noqa: BLE001 - a push failing never stops the watch
         sd.ERRORS.append(f"notify: {str(e)[:60]}")
-    return sd.web_push(raw, title, body)                     # 🔔 the dashboard's alerts - even if ntfy is down
+    return sd.web_push(raw, title, body, ref=ref)            # 🔔 the dashboard's alerts - even if ntfy is down
 
 
 def hold(plays, showing, now_s):
@@ -893,8 +893,9 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                                            if k in pl and pl["league"] == "tennis"})
             notify(pl)                                        # a new live bet: push it to everybody's phone
         elif log["plays"][pl["id"]].get("down") and log["plays"][pl["id"]].get("result") is None:
-            log["plays"][pl["id"]].pop("down", None)          # it came down, now it's value again: back on top + a push
-            notify(pl, back=True)
+            log["plays"][pl["id"]].pop("down", None)          # it came down, now it's value again: back on top, quietly
+            #                                                  (9/29: 'BACK ON' pings for bets we're already in read like
+            #                                                  duplicates - one ping per bet, ever)
         pl["posted"] = log["plays"][pl["id"]]["posted"]
         if "words" in pl:
             log["plays"][pl["id"]].setdefault("words", pl["words"])   # (back up later = the same wording)
@@ -1129,8 +1130,11 @@ def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
         return []
     p1, (pa, pb), s = stl.p1_live(m, pre_p1)
     book1 = sd.no_vig(ml1, ml2)
-    if abs(p1 - book1) > TENNIS_MAX_GAP:
-        return []                  # the price and the score don't agree (a bad price, a stale score, or the book knows)
+    up_any = any(f"tennis:{m['id']}:{k}" in hold for k in (1, 2))
+    if abs(p1 - book1) > (MAX_GAP if up_any else TENNIS_MAX_GAP):
+        return []                  # the price and the score don't agree (a bad price, a stale score, or the book knows).
+        #                            A new bet needs them within 8 points; one that's up only comes down past 20
+        #                            (9/29: Snigur went up and came right back down over a small price move)
     if against_the_score(pre_p1, p1, book1):
         return []                  # the score moved one way and the price the other: an old or wrong line, never value
     out = []
@@ -1469,17 +1473,21 @@ def today_bets(log):
     doesn't have yet, so a bet shows the moment it's logged, not at the next page rebuild. Newest last."""
     import sports_dashboard as sdb
     days = sdb.live_days(datetime.now(PT))                   # (till the next board drops at 8 AM PT)
-    out = []
+    out, used = [], set()
     for pid, e in sorted(log.get("plays", {}).items(), key=lambda kv: kv[1].get("posted", "")):
         if e.get("date") not in days:
             continue
+        try:                                                 # its note, same as the built page's (9/29: a new bet
+            story = sdb._live_story(e, used)                 # showed with no note till the next rebuild)
+        except Exception:                                    # noqa: BLE001
+            story = ""
         lg = e.get("league", "")
         tennis = lg == "tennis"
         out.append({"pid": pid, "team": e.get("team", ""), "odds": e.get("odds"), "result": e.get("result"),
                     "start": e.get("posted", ""),
                     "icon": "🎾" if tennis else sd.LEAGUES.get(lg, ("", "", "", "🏟️"))[3],
                     "sport": ("Women's Tennis" if e.get("tour") == "wta" else "Men's Tennis") if tennis
-                    else sd.LEAGUES.get(lg, ("", "", lg.upper()))[2], "dd": bool(e.get("double_down"))})
+                    else sd.LEAGUES.get(lg, ("", "", lg.upper()))[2], "dd": bool(e.get("double_down")), "story": story})
     return out
 
 

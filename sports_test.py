@@ -2964,8 +2964,9 @@ def test_live_bets_today_never_lost():
     t = slv.today_bets({"plays": {"tennis:wta:1:2": {"team": "Andrea Lazaro Garcia", "odds": 125, "date": day, "league": "tennis",
                                                      "tour": "wta", "posted": "x", "result": None},
                                   "nfl:9:home": {"team": "Bears", "odds": 120, "date": "2020-01-01", "league": "nfl"}}})
-    assert t == [{"pid": "tennis:wta:1:2", "team": "Andrea Lazaro Garcia", "odds": 125, "result": None, "start": "x", "icon": "🎾",
-                  "sport": "Women's Tennis", "dd": False}]
+    assert [{k: v for k, v in x.items() if k != "story"} for x in t] == [
+        {"pid": "tennis:wta:1:2", "team": "Andrea Lazaro Garcia", "odds": 125, "result": None, "start": "x", "icon": "🎾",
+         "sport": "Women's Tennis", "dd": False}] and "story" in t[0]
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert src.index('<div id="livetoday">') < src.index("TODAY'S BOARD")      # right under the live box
     assert "today(d.today)" in src and "live_log.json\\n" in open(slv.__file__).read().replace("\\t", "")
@@ -3785,6 +3786,38 @@ def test_graded_card_comes_down_on_time_without_a_rebuild():
     assert f'<div class="gn" data-gone="{D.gone_ms(p)}">' in html and html.count('class="gn"') == 1   # open cards stay put
     src = open(D.__file__).read()
     assert "function gone()" in src and "setInterval(gone," in src and 'id="dropnote"' in src
+
+
+def test_one_ping_per_live_bet_it_stays_up_and_its_note_shows_right_away():
+    """9/29: Snigur +135 went up and came right back down, showed with no note, and phones got 'BACK ON' pings for
+    bets already sent. Now: one ping per bet (the Worker refuses a repeat), a bet that's up only comes down past the
+    old 20-point gap, and the live list carries each bet's note straight from the watcher."""
+    import sports_tennis_live as stl
+    L = sports_live
+    src = open(L.__file__).read()
+    assert "notify(pl, back=True)" not in src and 'ref=pl.get("id")' in src
+    js = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "push.js")).read()
+    assert "ref:${ref}" in js
+    # a bet that's up: a price 12 points off our read keeps it up (a new bet at that gap never goes up)
+    L._TUNED.clear()
+    m = _tn_live_row("wta:184263", "wta", s1="3 6 0", s2="6 4 2", n1="Daria Snigur", n2="Kawa", done=2)
+    pre = {"mkt_p1": 0.60, "model_p1": 0.62}
+    p1 = stl.p1_live(m, 0.60)[0]
+    q = p1 - 0.12
+    line = {"a": "Daria Snigur", "b": "Kawa", "a_ml": int(round(100 * (1 - q) / q)), "b_ml": -int(round(100 * (1 - q) / q)) - 25,
+            "suspended": False, "src": "betrivers"}
+    assert L.evaluate_tennis(m, line, False, pre, None, (), set()) == []
+    up = L.evaluate_tennis(m, line, False, pre, None, ("tennis:wta:184263:1",), set())
+    assert [x["id"] for x in up] == ["tennis:wta:184263:1"], up
+    # the live list carries each bet's note
+    today = datetime.now(L.PT).date().isoformat()
+    log = {"plays": {"tennis:wta:184263:1": {"posted": "2026-09-30T06:26Z", "team": "Daria Snigur", "odds": 135, "league": "tennis",
+                                              "tour": "wta", "date": today, "result": None, "score_at_post": "Snigur vs Kawa · 3-6, 6-4, 0-2",
+                                              "clock_at_post": "Set 3", "reasons": ["strong", "state"], "tennis": {"sets": [1, 1], "games": [0, 2],
+                                              "done": [[3, 6], [6, 4]], "set_no": 3, "side": 1}}}}
+    got = L.today_bets(log)
+    assert got and got[0]["story"], got
+    assert "e.story?" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
 
 
 def test_final_score_calls_the_pick_on_the_spot():

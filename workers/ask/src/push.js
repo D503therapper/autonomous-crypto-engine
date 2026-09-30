@@ -334,6 +334,11 @@ export async function handlePush(request, env, ctx, path, origins) {
   // be blocked from (a live bet alert died that way, 9/28). Or the old way, POST /push {ntfy_id}: checked on the topic.
   let alert;
   if (body && body.key && env && env.PUSH_KEY && body.key === env.PUSH_KEY) {
+    const ref = String(body.ref || "").slice(0, 80);   // the bet: phones ring once per bet, ever (9/29: two pings back to
+    if (ref) {                                         // back for bets already sent - a restarted watch, a 'BACK ON')
+      if (await kv.get(`${PREFIX}ref:${ref}`)) return json({ ok: true, already: true }, 200, cors);
+      if (!body.dry) await kv.put(`${PREFIX}ref:${ref}`, "1", { expirationTtl: 86400 });
+    }
     const id = `d${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
     alert = { id, title: String(body.title || "D503 Sports Engine 🔥").slice(0, 120), body: String(body.body || "").slice(0, 400),
       url: DASH_URL, time: Math.floor(Date.now() / 1000) };

@@ -45,7 +45,7 @@ def _push_key():
     return hashlib.sha256(f"d503-push|{a}|{t}".encode()).hexdigest() if a and t else ""
 
 
-def web_push(ntfy_raw, title=None, body=None):
+def web_push(ntfy_raw, title=None, body=None, ref=None):
     """After an ntfy post: hand its message id to the Worker's /push (from ask_url.txt) so the dashboard's native
     Web Push alerts ring too. The Worker looks the id up on ntfy itself, so no secret is needed. Runs in its own
     thread with a 5s timeout: never blocks, never raises (errors are logged). Returns the thread (tests join it)."""
@@ -61,6 +61,8 @@ def web_push(ntfy_raw, title=None, body=None):
         return None
     # straight to the Worker with the engine's key (no ntfy lookup - Cloudflare can be blocked from ntfy); else the id
     payload = {"key": key, "title": title, "body": body or ""} if key and title else {"ntfy_id": nid}
+    if ref:
+        payload["ref"] = ref                                 # the bet: the Worker rings phones once per bet, ever
 
     def go():
         req = urllib.request.Request(f"{url}/push", data=json.dumps(payload).encode(), method="POST",

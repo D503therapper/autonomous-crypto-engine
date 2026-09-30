@@ -254,3 +254,19 @@ test("9/29: every push carries its own alert (encrypted) - a new bet never rings
   const m2 = kv2.m.get(`wp:sub:${await subHash(FCM)}`).metadata;
   assert.equal(m2.p, b64u(ua)); assert.equal(m2.a, b64u(auth));
 });
+
+test("9/29: one ping per bet - the same bet twice never rings the phones twice", async () => {
+  const kv = memKV();
+  await kv.put(`wp:sub:${await subHash(APPLE)}`, JSON.stringify({ endpoint: APPLE }), { metadata: { e: APPLE } });
+  const calls = mockFetch();
+  const send = (title) => call({ PUSH: kv, PUSH_KEY: "k3y" }, "POST", "/push",
+    { body: { key: "k3y", title, body: "x", ref: "tennis:wta:184263:2" }, origin: "" });
+  assert.equal((await send("🔥 LIVE PLUS MONEY: Daria Snigur +135")).status, 202);
+  const n = pushCalls(calls).length;
+  const again = await send("BACK ON: 🔥 LIVE PLUS MONEY: Daria Snigur +140");
+  assert.equal(again.json.already, true);
+  assert.equal(pushCalls(calls).length, n, "no second ring");
+  const other = await call({ PUSH: kv, PUSH_KEY: "k3y" }, "POST", "/push",
+    { body: { key: "k3y", title: "🔥 LIVE PLUS MONEY: Someone Else +120", body: "y", ref: "tennis:wta:1:1" }, origin: "" });
+  assert.equal(other.status, 202, "a different bet still rings");
+});
