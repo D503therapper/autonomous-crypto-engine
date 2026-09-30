@@ -1519,7 +1519,7 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   if(sc&&on&&row){{var q=function(x){{return String(x).replace(/[&<>"]/g,"")}},h;
     if(!box){{box=document.createElement("div");box.className="lsc";var bd=leg.querySelector(":scope>details.bd");
       if(bd)leg.insertBefore(box,bd);else leg.appendChild(box);}}
-    if(sc.tennis){{var n=(sc.sets||[]).length,cols="1fr repeat("+n+",1.5em)"+(sc.pts?" 2.4em":"");   // 🎾 a TV-style scoreboard
+    if(sc.tennis){{var ns=(sc.sets||[]).length,cols="1fr repeat("+ns+",1.5em)"+(sc.pts?" 2.4em":"");   // 🎾 a TV-style scoreboard
       h='<div class="tsb" style="grid-template-columns:'+cols+'">'+[0,1].map(function(i){{
         return '<span class="nm">'+(sc.live&&sc.srv===i?'<i></i>':'')+q(sc.n[i])+'</span>'+(sc.sets||[]).map(function(st,k){{
           var won=k<sc.done&&st[i]>st[1-i];return '<b'+(won?' class="w"':k<sc.done?' class="l"':'')+'>'+st[i]+'</b>'}}).join("")+
@@ -1530,12 +1530,17 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   else if(box)box.remove();}});
  document.querySelectorAll(".pxt").forEach(function(t){{var d=t.closest("section.pk");if(!d)return;   // a card's yellow
   var one=t.getAttribute("data-one");                                                 // line says how its games are going
-  var lv=0,up=[];d.querySelectorAll(".tm[data-start]").forEach(function(s){{
-   if(s.querySelector(".lvb"))lv++;else if(!s.querySelector(".fnb")&&s.textContent.indexOf("DELAYED")<0)up.push(Date.parse(s.getAttribute("data-start")))}});
-  if(!lv&&!(up.length&&Math.min.apply(null,up)<=n))return;   // nothing started yet: the start times stay
+  var lv=0,dl=0,up=[];d.querySelectorAll(".tm[data-start]").forEach(function(s){{
+   var st=Date.parse(s.getAttribute("data-start")),fin=!!s.querySelector(".fnb");
+   if(s.textContent.indexOf("DELAYED")>=0)dl++;
+   else if(s.querySelector(".lvb")||(!fin&&st<=n))lv++;     // started, not FINAL: live (a score just hasn't landed)
+   else if(!fin)up.push(st)}});
+  if(!lv&&!dl&&!(up.length&&Math.min.apply(null,up)<=n)&&up.length)return;   // nothing started yet: the times stay
   up=up.filter(function(x){{return x>n}});
   var nx=up.length?new Date(Math.min.apply(null,up)).toLocaleTimeString("en-US",{{hour:"numeric",minute:"2-digit",timeZone:"America/Los_Angeles"}}).replace(":00 "," ")+" PT":"";
-  var h=one?(lv?"🔴 LIVE":"🏁 Final"):lv?"🔴 "+lv+" LIVE"+(nx?" · Next game starts at "+nx:""):nx?"🕐 Next game starts at "+nx:"🏁 All games final";
+  var h=one?(lv?"🔴 LIVE":dl?"⏳ DELAYED":"🏁 Final"):
+   lv||dl?(lv?"🔴 "+lv+" LIVE":"")+(lv&&dl?" · ":"")+(dl?"⏳ "+dl+" DELAYED":"")+(nx?" · Next game starts at "+nx:""):
+   nx?"🕐 Next game starts at "+nx:"🏁 All games final";   // ('Final' only once every game really is final)
   if(t.textContent!==h)t.textContent=h;}})}}
 document.addEventListener("click",function(ev){{var c=ev.target.closest&&ev.target.closest("[data-hs].tap");if(!c)return;
  var want=c.getAttribute("data-hs"),hit=null;document.querySelectorAll("details.hs>summary>b").forEach(function(b){{if(b.textContent===want)hit=b.closest("details")}});

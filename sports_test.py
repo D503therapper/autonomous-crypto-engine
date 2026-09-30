@@ -3390,6 +3390,17 @@ def test_facts_only_after_a_claim():
     assert "That's just facts." in open(v24.__file__).read()
 
 
+def test_started_game_is_live_never_final():
+    """9/30: the Lock said '🏁 Final' at first pitch. A tennis 'var n' in the live-tag loop hid the clock 'n' (JS var
+    hoisting), so a started game with no score yet never flipped to LIVE - and the yellow line read that as final.
+    'Final' only once every game really shows FINAL; a delay says DELAYED."""
+    import sports_dashboard as sdb
+    src = open(sdb.__file__).read()
+    loop = src[src.index('document.querySelectorAll(".tm[data-start]").forEach(function(s){{'):src.index('document.querySelectorAll(".pxt")')]
+    assert "var n=" not in loop and "var ns=(sc.sets" in loop
+    assert 'dl?"⏳ DELAYED":"🏁 Final"' in src and "(!fin&&st<=n))lv++" in src
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
