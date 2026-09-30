@@ -756,7 +756,12 @@ def pick_tier(pk):
     return "value" if "value" in tiers else "lean"
 
 
-UNIT_LADDER = ((0.70, 10), (0.65, 7), (0.62, 5), (0.60, 4), (0.58, 3), (0.56, 2))   # the owner, 9/30: 0.5u up to a
+# THE ENGINE SIZES EVERY PLAY (the owner, 9/30 - "however the engine makes the most money"; the sizing study, replayed
+# on 2,034 Lock days and 2,385 Dog days it never saw): a quarter of the Kelly stake, 1u = 1% of the bankroll, ½u-10u.
+#   Lock / a lock: by the engine's OWN read vs the price (+141u vs -2u flat, 5 of 7 seasons up)
+#   Dog of the Day / a value play: by the engine's final read vs the price (+121u, +5.6%, 6 of 7 seasons up)
+#   Early value plays: by the engine's own read vs the price we got (sports_early.units) - the real money-maker
+#   Leans, parlays, live plus money, tennis: no units (no proof they make money - "just a lean")
 UNIT_MAX = 10                  # 10u max play (1u = 1% of the bankroll, so the max play is 10% of it)
 PARLAY_KINDS = ("two", "three", "four", "eight")   # the owner, 9/30: a parlay is for fun - no units on it; each PICK in it
                                                    # carries its own units, as a straight bet
@@ -768,7 +773,7 @@ def _dec(odds):
     return 1 + (odds / 100 if odds > 0 else 100 / -odds)
 
 
-def units_ledger(picks):
+def units_ledger(picks, early=()):
     """The open bankroll (the owner, 9/30: 'everything completely transparent'): every graded STRAIGHT pick in our
     record, once each, in the order it settled, at its units and real price. A parlay itself carries no units (the
     owner, 9/30: 'parlays are just for entertainment') - each pick in it counts as its own straight bet, and a pick
@@ -786,9 +791,19 @@ def units_ledger(picks):
             if key in calls and (parlay or not calls[key][0]):
                 continue                                     # a straight pick wins over the same pick in a parlay
             dec = _dec(l["odds"]) if l.get("odds") else p.get("dec") or 2.0
+            if not leg_units(p, l):
+                continue                                     # a lean: no units, not in the bankroll
             calls[key] = (parlay, {**p, "kind": "pick" if parlay else p.get("kind"), "units_tier": units_tier(p, l)},
                           leg_units(p, l), res, dec,
                           p.get("settled") or p.get("posted") or "")
+    import sports_early                                  # ⏰ early value plays: the price we got in at, sized by the engine's
+    for e in early or ():                                # edge - one count per pick (the early one, when it's on the board too)
+        if e.get("result") not in ("won", "lost", "push") or not e.get("odds"):
+            continue
+        day = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).strftime("%Y-%m-%d")
+        calls[(day, e["game_id"], e["side"])] = (False, {"date": day, "kind": "early", "units_tier": "early",
+                                                         "legs": [{"team": e["team"]}]},
+                                                 sports_early.units(e), e["result"], _dec(e["odds"]), e.get("graded_at") or "")
     rows_in = sorted(calls.values(), key=lambda c: (c[1]["date"], c[5]))
     bank, rows, by_date = BANKROLL_START, [], {}
     for day in sorted({c[1]["date"] for c in rows_in}):
@@ -801,20 +816,32 @@ def units_ledger(picks):
     return {"bankroll": round(bank, 2), "unit_today": round(bank * UNIT_PCT, 2), "by_date": by_date, "rows": rows}
 
 
-def units_for(pk):
-    """How many units a pick gets (the owner, 9/30 - 'put how many units under each label'): a lock by how sure the
-    engine is (2u at 56% up to the 10u max at 70%+), value plays 2u, the Dog of the Day 2u as a value dog else 1u, a strong
-    lean 1u, a slight lean 0.5u. A parlay: 0 - the picks in it carry the units (leg_units)."""
-    kind, legs = pk.get("kind"), pk.get("legs") or []
-    if kind in PARLAY_KINDS:
-        return 0
-    t = pick_tier(pk)
-    p = (legs[0].get("p") or 0) if legs else 0
-    if t == "value" or kind == "dog":                    # the Dog of the Day is a value play (the owner, 9/30)
-        return 2
+def kelly_units(p, odds):
+    """A quarter of the Kelly stake in units (1u = 1% of the bankroll), rounded to ½u, ½u-10u (½u when the edge is thin)."""
+    d = _dec(odds)
+    k = ((p or 0) * d - 1) / (d - 1)
+    return 0.5 if k <= 0 else min(UNIT_MAX, max(0.5, round(0.25 * k / 0.01 * 2) / 2))
+
+
+def _sized(t, leg):
+    """Units for one pick of tier t - the engine's call (see the sizing notes up top)."""
     if t == "lock":
-        return next((u for floor, u in UNIT_LADDER if p >= floor), 2)
-    return 1 if p >= STRONG_LEAN_P else 0.5
+        own = (leg.get("p_market") or 0) + leg["edge_own"] if leg.get("edge_own") is not None and leg.get("p_market") \
+            else leg.get("p")
+        return kelly_units(own, leg.get("odds") or -110)
+    if t == "value":
+        return kelly_units(leg.get("p"), leg.get("odds") or 100)
+    return 0                                                 # a lean is just a lean: no units
+
+
+def units_for(pk):
+    """How many units a pick gets - the ENGINE decides, by its edge (the sizing study). A lean or a parlay: 0 (the
+    picks in a parlay carry their own - leg_units)."""
+    kind, legs = pk.get("kind"), pk.get("legs") or []
+    if kind in PARLAY_KINDS or not legs:
+        return 0
+    t = "value" if kind == "dog" else pick_tier(pk)
+    return _sized(t, legs[0])
 
 
 def units_tier(pk, leg):
@@ -834,7 +861,7 @@ def leg_units(pk, leg):
     if pk.get("kind") not in PARLAY_KINDS:
         return units_for(pk)
     t = leg.get("tier") or leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
-    return units_for({"kind": "pick", "tier": "lean" if t == "ou" else t, "legs": [leg]})
+    return _sized(t, leg)
 
 
 LEAN_MIN_P = {"two": 0.58, "three": 0.58, "four": 0.58, "lock": 0.62, "dog": 0.42}   # a replacement lean (after a pick's graded): a sure side only

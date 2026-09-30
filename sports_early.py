@@ -394,7 +394,19 @@ def send(c):
     sd.web_push(None, title, body, ref=f"early:{c['game_id']}" if c else "early:launch")
 
 
-def html(st, E, now=None):
+UNITS_MAX = 10
+
+
+def units(p):
+    """⏰ An early play's units - the ENGINE's call (the owner, 9/30): sized by how far its own read beats the price we got
+    (a quarter of the Kelly stake, 1u = 1% of the bankroll), ½u to 10u. The sizing study (5 seasons it never saw): at the
+    opening price a bigger engine edge won more AND moved the line more (NFL: the biggest edges moved our way 80% of the
+    time, 61% flipped to favorites) - sized this way it made the most money in the NFL, NBA, NHL and college football."""
+    import sports
+    return sports.kelly_units(p.get("own"), p["odds"])
+
+
+def html(st, E, now=None, show_units=None):
     """The box under today's board: the early plays whose game day hasn't come yet (the owner, 9/30: on game day
     they're no longer early plays - they leave the box; no grading shown here)."""
     now = now or datetime.now(timezone.utc)
@@ -410,7 +422,7 @@ def html(st, E, now=None):
                 f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
                 f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
-                + '</div></div>')
+                + (show_units(units(p)) if show_units else "") + '</div></div>')
     body = "".join(row(p) for p in up) or \
         '<div class="evn">👀 Watching every new line. The next one posts the second it shows up.</div>'
     return (f'<section class="pk evx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">⏰</span>'
@@ -437,7 +449,7 @@ def label(p, now_odds):
 GRADED_STAYS_H = 3                                        # a graded row stays 3 hours, like every card on the board
 
 
-def gameday_html(st, games, E, now=None):
+def gameday_html(st, games, E, now=None, show_units=None):
     """🎯 WE GOT IN EARLY: on game day the early plays move onto Today's Board - one box, one row each: the price we got
     -> the price now. A graded row stays 3 hours with its ✅ / ❌ (the board's rule), then it's gone."""
     now = now or datetime.now(timezone.utc)
@@ -462,6 +474,7 @@ def gameday_html(st, games, E, now=None):
                     f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > 55 else "")                           # (the owner, 9/30)
+                    + (show_units(units(p)) if show_units else "")
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
     if not rows:
         return ""

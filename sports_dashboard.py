@@ -189,12 +189,15 @@ TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE
 
 
 
-UNITS_ON = False             # the owner, 9/30: off till the engine sizes every play by its own edge (tested first)
+LIVE_NO_UNITS = '<div class="nou">🎲 NO UNITS ON THESE — WE GAMBLIN’</div>'   # (the owner, 9/30)
+UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every play by its own edge (the sizing study)
 
 
 def _units_line(u):
     if not UNITS_ON:
         return ""
+    if not u:                                                # a lean: no units (the owner, 9/30)
+        return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
     return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
 
 
@@ -207,7 +210,8 @@ def units_box(picks, today=None):
     to start, a unit = 1% of the bankroll that morning, every graded pick at its size and price. Said in plain dollars +
     ROI only (the owner, 9/30: '+6.6u on 14u bet' was confusing)."""
     import sports
-    led = sports.units_ledger(picks)
+    import sports_early
+    led = sports.units_ledger(picks, sports_early.load().get("picks") or [])
     if not led["rows"]:
         return ""
     bank, start = led["bankroll"], sports.BANKROLL_START
@@ -223,7 +227,7 @@ def units_box(picks, today=None):
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
-                     (("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
+                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
                       ("strong", "💪 Strong leans"), ("slight", "🟡 Slight leans"))))
     return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
@@ -326,7 +330,7 @@ def _why_fallback(leg):
     return ""
 
 
-def _leg(leg, tagged=False, review="", units=0):
+def _leg(leg, tagged=False, review="", units=None):
     import sports
     lg = sd.LEAGUES[leg["league"]]
     lt_ = leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
@@ -351,7 +355,7 @@ def _leg(leg, tagged=False, review="", units=0):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {_units_line(units) if units else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units) if units is not None else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -532,7 +536,7 @@ def _pick_card(kind, pk):
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
     legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg),     # a parlay: each pick in it
-                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else 0) for leg in pk["legs"])   # has its units   # graded: the
+                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else None) for leg in pk["legs"])   # has its units   # graded: the
     #                                                                   after-game review takes the pregame line's spot
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
@@ -1056,8 +1060,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         challenge = ""
     try:                                                     # ⏰ early value plays (the owner, 9/30)
         import sports_early
-        early = sports_early.html(sports_early.load(), E)
-        early_today = sports_early.gameday_html(sports_early.load(), games, E)
+        early = sports_early.html(sports_early.load(), E, show_units=_units_line)
+        early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=_units_line)
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
         early = early_today = ""
@@ -1502,6 +1506,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
+.evr .un,.egl .un{{text-align:left;margin-top:4px}} .evr .un .mb,.egl .un .mb{{display:inline-block;margin:0}}   /* an early play's units: under its game time */
+.nou{{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
@@ -1683,6 +1689,7 @@ Picks only — no bets placed · refreshes hourly</div>
 (function(){{   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 var last="",PLAY_FRESH_MS={PLAY_FRESH_S}*1000;
+var NOU='{LIVE_NO_UNITS if UNITS_ON else ""}';   // no units on live bets (the owner, 9/30): said once, up top
 var HEAD='<div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div>';
 function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+'<div class="nolive">'+(n<0?   // one red box:
   '👀 The algorithm’s watching every play for value.':n>0?                                                                  // what you can bet
@@ -1690,7 +1697,7 @@ function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a
   '😴 No games going right now.')+'</div></section>';}}
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML=(ps.length?'<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+ps.map(function(p){{
+ el.innerHTML=(ps.length?'<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+NOU+ps.map(function(p){{
   return '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+(p.double_down?' · 🔁 DOUBLE DOWN':'')+
    (p.paused?' · ⏸ LINE PAUSED':'')+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
