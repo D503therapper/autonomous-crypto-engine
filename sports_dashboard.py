@@ -826,10 +826,11 @@ async function myHash() {           // the Worker keys this phone by the SHA-256
     return "";
   }
 }
-async function alertNow() {
+async function alertNow(e) {
   let m = {};
-  try {
-    if (!API) throw new Error("no worker");
+  try { m = (e && e.data && e.data.json()) || {}; } catch (x) { m = {}; }   // the alert rides in the push itself
+  if (!m.title) try {                                     // (an old-style empty push: ask the Worker - it only answers
+    if (!API) throw new Error("no worker");               // with an alert under 10 minutes old)
     const ctl = new AbortController();
     const to = setTimeout(() => ctl.abort(), 6000);
     const h = await myHash();
@@ -846,7 +847,7 @@ async function alertNow() {
     data: { url: m.url && m.url.indexOf(DASH) === 0 ? m.url : DASH },
   });
 }
-self.addEventListener("push", (e) => e.waitUntil(alertNow()));
+self.addEventListener("push", (e) => e.waitUntil(alertNow(e)));
 self.addEventListener("notificationclick", (e) => {
   e.notification.close();
   const url = (e.notification.data && e.notification.data.url) || DASH;

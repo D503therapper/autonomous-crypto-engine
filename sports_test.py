@@ -3699,6 +3699,28 @@ def test_question_box_gets_exact_pick_status():
     assert "Never guess it from records" in js                                         # (9/29: 0-0-0 read as preseason)
 
 
+def test_a_live_play_holds_before_it_pings_and_the_push_carries_its_own_alert():
+    """9/29: Kudermetova held 2 one-second checks, went up, pinged every phone and was gone before the owner opened the
+    page - and his phone showed the Kalinina alert from 90 minutes before (it asked the Worker for 'latest' and got a
+    stale copy). Now a play holds 15 seconds straight before it goes up, and each push carries its own text."""
+    import sports_live as L
+    L.SEEN.clear()
+    P = lambda *ids: [{"id": i} for i in ids]
+    t = 1_000_000.0
+    assert L.hold(P("a"), (), t) == []                               # first sight: not yet
+    assert L.hold(P("a"), (), t + 1) == []                           # the old rule posted here (2 checks)
+    assert L.hold(P("a"), (), t + 14) == []
+    assert [p["id"] for p in L.hold(P("a"), (), t + 15)] == ["a"]    # held 15s straight: up
+    assert L.hold(P("b"), (), t + 16) == []                          # "a" missed a check...
+    assert L.hold(P("a", "b"), (), t + 17) == []                     # ...so its clock starts over (a blip back on)
+    assert [p["id"] for p in L.hold(P("a", "b"), ("a",), t + 18)] == ["a"]   # a play that's up stays up
+    L.SEEN.clear()
+    import sports_dashboard as D
+    assert "e.data.json()" in D.SW and "alertNow(e)" in D.SW          # the phone reads the alert out of the push
+    js = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "push.js")).read()
+    assert "encryptPayload" in js and "aes128gcm" in js and "LATEST_MAX_S" in js
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

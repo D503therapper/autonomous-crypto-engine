@@ -1,7 +1,7 @@
 // Offline tests for the Web Push routes (no network: fetch and KV are mocked). Run: node --test workers/ask/test/
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { handlePush, vapidKeys, vapidJwt, unb64u, subHash, DASH_URL, WELCOME } from "../src/push.js";
+import { handlePush, vapidKeys, vapidJwt, unb64u, b64u, subHash, encryptPayload, DASH_URL, WELCOME } from "../src/push.js";
 
 const ORIGINS = ["https://d503therapper.github.io"];
 const W = "https://d503-ask.example.workers.dev";
@@ -34,7 +34,7 @@ function mockFetch({ ntfy = [], status = {} } = {}) {
     const u = String(url);
     calls.push({ url: u, init });
     if (u.startsWith("https://ntfy.sh/")) {
-      const body = ntfy.map((x) => JSON.stringify({ event: "message", time: 1790000000, topic: "d503-live-7b1123", ...x })).join("\n");
+      const body = ntfy.map((x) => JSON.stringify({ event: "message", time: Math.floor(Date.now() / 1000), topic: "d503-live-7b1123", ...x })).join("\n");
       return new Response(body + "\n", { status: 200 });
     }
     return new Response("", { status: status[u] || 201 });
@@ -159,7 +159,7 @@ test("subscribe / unsubscribe (dashboard origin only)", async () => {
 test("welcome push: only the new phone, shown once via /latest?sub=, never twice", async () => {
   const kv = memKV();
   await kv.put(`wp:sub:${await subHash(FCM)}`, JSON.stringify({ endpoint: FCM }), { metadata: { e: FCM } });
-  await kv.put("wp:latest", JSON.stringify({ id: "prev", title: "LIVE PLUS MONEY: old", body: "old" }));
+  await kv.put("wp:latest", JSON.stringify({ id: "prev", title: "LIVE PLUS MONEY: old", body: "old", time: Math.floor(Date.now() / 1000) }));
   const calls = mockFetch();
   const r = await call({ PUSH: kv }, "POST", "/subscribe", { body: { endpoint: APPLE, keys: {} }, ua: IPHONE });
   assert.equal(r.json.welcome, true);
@@ -201,4 +201,56 @@ test("the log + /alerts-status: counts, device, welcome status, no endpoints or 
   assert.ok(!text.includes("push.apple.com") && !text.includes("googleapis") && !text.includes("secretAuth"));
   // a welcome the push service refused is dropped, so it can't pop up in place of a live bet later
   assert.equal(await kv.get(`wp:welcome:${await subHash(FCM)}`), null);
+});
+
+// the phone's side of RFC 8291: what iOS / Android do with the push body
+async function hk(salt, ikm, info, len) {
+  const k = await crypto.subtle.importKey("raw", ikm, "HKDF", false, ["deriveBits"]);
+  return new Uint8Array(await crypto.subtle.deriveBits({ name: "HKDF", hash: "SHA-256", salt, info }, k, len * 8));
+}
+async function phoneDecrypt(pair, ua, auth, buf) {
+  const te = (x) => new TextEncoder().encode(x);
+  const salt = buf.slice(0, 16), idlen = buf[20], as = buf.slice(21, 21 + idlen), ct = buf.slice(21 + idlen);
+  const asKey = await crypto.subtle.importKey("raw", as, { name: "ECDH", namedCurve: "P-256" }, false, []);
+  const shared = new Uint8Array(await crypto.subtle.deriveBits({ name: "ECDH", public: asKey }, pair.privateKey, 256));
+  const info = new Uint8Array([...te("WebPush: info\0"), ...ua, ...as]);
+  const ikm = await hk(auth, shared, info, 32);
+  const cek = await hk(salt, ikm, te("Content-Encoding: aes128gcm\0"), 16);
+  const nonce = await hk(salt, ikm, te("Content-Encoding: nonce\0"), 12);
+  const key = await crypto.subtle.importKey("raw", cek, "AES-GCM", false, ["decrypt"]);
+  const pt = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: nonce }, key, ct));
+  assert.equal(pt[pt.length - 1], 2, "last-record delimiter");
+  return new TextDecoder().decode(pt.slice(0, -1));
+}
+
+test("9/29: every push carries its own alert (encrypted) - a new bet never rings as the one before it", async () => {
+  const pair = await crypto.subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
+  const ua = new Uint8Array(await crypto.subtle.exportKey("raw", pair.publicKey));
+  const auth = crypto.getRandomValues(new Uint8Array(16));
+  const kv = memKV();
+  const meta = { e: APPLE, d: "iphone", p: b64u(ua), a: b64u(auth) };
+  await kv.put(`wp:sub:${await subHash(APPLE)}`, JSON.stringify({ endpoint: APPLE }), { metadata: meta });
+  // the stale edge copy of "latest": the bet from 90 minutes ago (what rang instead of Kudermetova)
+  await kv.put("wp:latest", JSON.stringify({ id: "old", title: "🔥 LIVE PLUS MONEY: Anhelina Kalinina +102", body: "1-0",
+    time: Math.floor(Date.now() / 1000) - 90 * 60 }));
+  assert.deepEqual((await call({ PUSH: kv }, "GET", "/latest")).json, {}, "an old alert is never handed out as new");
+  const calls = mockFetch();
+  const ok = await call({ PUSH: kv, PUSH_KEY: "k3y" }, "POST", "/push",
+    { body: { key: "k3y", title: "🔥 LIVE PLUS MONEY: Polina Kudermetova +100", body: "Kudermetova vs Ma YeXin · 0-1" }, origin: "" });
+  assert.equal(ok.status, 202);
+  const [p] = pushCalls(calls);
+  assert.equal(p.init.headers["Content-Encoding"], "aes128gcm");
+  const got = JSON.parse(await phoneDecrypt(pair, ua, auth, new Uint8Array(p.init.body)));
+  assert.equal(got.title, "🔥 LIVE PLUS MONEY: Polina Kudermetova +100");
+  assert.equal(got.body, "Kudermetova vs Ma YeXin · 0-1");
+  // a fixed salt + key: the same bytes every time (the format itself: salt | 4096 | 65 | key | ciphertext)
+  const buf = await encryptPayload(b64u(ua), b64u(auth), "x", { salt: new Uint8Array(16), pair });
+  assert.equal(new DataView(buf.buffer).getUint32(16), 4096);
+  assert.equal(buf[20], 65);
+  // subscribing saves the phone's keys where the sender reads them
+  const kv2 = memKV();
+  mockFetch();
+  await call({ PUSH: kv2 }, "POST", "/subscribe", { body: { endpoint: FCM, keys: { p256dh: b64u(ua), auth: b64u(auth) } }, ua: ANDROID });
+  const m2 = kv2.m.get(`wp:sub:${await subHash(FCM)}`).metadata;
+  assert.equal(m2.p, b64u(ua)); assert.equal(m2.a, b64u(auth));
 });

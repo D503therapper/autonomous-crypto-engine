@@ -632,7 +632,9 @@ def with_backups(first, backups, now_ms=None):
 
 ESPN_SB = "https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard"
 _ELO = {}
-SEEN = set()                  # plays that qualified last cycle: a play only shows once it qualifies twice in a row
+SEEN = {}                     # play -> when it started qualifying (every check since): it shows once it's held HOLD_S
+HOLD_S = 15                   # 9/29: plays that held 2 one-second checks went up, pinged every phone and were gone
+                              # before anyone opened the page (Kudermetova, "BACK ON" Kalinina) - a play holds 15s first
 
 
 def espn_scores(league):
@@ -802,6 +804,15 @@ def alert(title, body, tag="rotating_light"):
     return sd.web_push(raw, title, body)                     # 🔔 the dashboard's alerts - even if ntfy is down
 
 
+def hold(plays, showing, now_s):
+    """A new play (or one coming back on) goes up - and pings every phone - only once it's qualified every check for
+    HOLD_S seconds. A check it misses starts its clock over. A play already up stays under the usual rules."""
+    held = {p["id"]: SEEN.get(p["id"], now_s) for p in plays}
+    SEEN.clear()
+    SEEN.update(held)
+    return [p for p in plays if p["id"] in showing or now_s - held[p["id"]] >= HOLD_S]
+
+
 def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     """Scan every live game -> the plays on the board right now. Max 2 at a time, no limit per day: a play that's
     up stays up while its value's still there (`showing`); a new one only takes a slot that's open."""
@@ -865,10 +876,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     plays = list(uniq.values())
     locked = locked_sides(log, now)
     plays = [p for p in plays if locked.get(p["id"].rsplit(":", 1)[0], p["id"].rsplit(":", 1)[1]) == p["id"].rsplit(":", 1)[1]]
-    fresh = {p["id"] for p in plays}
-    plays = [p for p in plays if p["id"] in SEEN or p["id"] in showing]   # held two checks in a row (no blips)
-    SEEN.clear()
-    SEEN.update(fresh)
+    plays = hold(plays, showing, now.timestamp())             # held 15s straight before it goes up (no blips)
     plays = settle_words(board(plays, showing), prev or {}, log)   # the wording stays put while a play is up
     for pl in plays:                                          # log the first time each play goes up (graded later)
         if pl["id"] not in log["plays"]:

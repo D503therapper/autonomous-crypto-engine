@@ -5,8 +5,10 @@
 //   POST /push           {ntfy_id}         - the engine: "this ntfy message just went out, ring the phones"
 //   GET  /latest[?sub=h] what to show: that phone's pending welcome, else the newest verified alert (the SW asks)
 //   GET  /alerts-status  counts + the last 20 joins/leaves (no endpoints, no keys) - for the owner's assistant
-// /push trusts nothing in the request but the id: the Worker looks that id up on our ntfy topic and takes the title
-// and message from ntfy itself. The pushes carry no payload (so no encryption); the phone asks /latest what it was.
+// /push trusts nothing in the request but the engine's key (or an id it looks up on our ntfy topic itself).
+// Each push carries its own alert, encrypted for that phone (RFC 8291) - 9/29: a payload-less push made the phone ask
+// /latest, whose one "latest" key can read a minute stale at the phone's edge, so a new bet rang as the one before it.
+// /latest stays only for a phone whose push arrives without the text, and then only an alert under 10 minutes old.
 
 export const NTFY_TOPIC = "d503-live-7b1123";
 export const NTFY = `https://ntfy.sh/${NTFY_TOPIC}`;
@@ -17,6 +19,7 @@ const SUB = `${PREFIX}sub:`;
 const LOG = `${PREFIX}log:`;
 const JWT_TTL = 12 * 3600;                        // VAPID tokens live 12h (the spec caps it at 24h)
 const CONCURRENCY = 8;
+const LATEST_MAX_S = 600;                      // /latest: only an alert this fresh (the push TTL is 10 min too)
 // push services a subscription may point at (the Worker only ever POSTs to these)
 const PUSH_HOSTS = [/\.push\.apple\.com$/, /^fcm\.googleapis\.com$/, /^android\.googleapis\.com$/,
   /^updates\.push\.services\.mozilla\.com$/, /^push\.services\.mozilla\.com$/, /\.notify\.windows\.com$/];
@@ -130,6 +133,39 @@ function toAlert(m) {
     body: String(m.message || "").slice(0, 400), url: click, time: m.time || Math.floor(Date.now() / 1000) };
 }
 
+// ---- the push's own text, encrypted for one phone (RFC 8291, aes128gcm) --------------------------------------
+async function hkdf(salt, ikm, info, len) {
+  const k = await crypto.subtle.importKey("raw", ikm, "HKDF", false, ["deriveBits"]);
+  return new Uint8Array(await crypto.subtle.deriveBits({ name: "HKDF", hash: "SHA-256", salt, info }, k, len * 8));
+}
+
+const cat = (...xs) => {
+  const out = new Uint8Array(xs.reduce((n, x) => n + x.length, 0));
+  let i = 0;
+  for (const x of xs) { out.set(x, i); i += x.length; }
+  return out;
+};
+
+export async function encryptPayload(p256dh, auth, text, { salt, pair } = {}) {
+  const ua = unb64u(p256dh), secret = unb64u(auth);
+  if (ua.length !== 65 || secret.length < 16) throw new Error("bad phone keys");
+  pair = pair || await crypto.subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
+  const as = new Uint8Array(await crypto.subtle.exportKey("raw", pair.publicKey));
+  const uaKey = await crypto.subtle.importKey("raw", ua, { name: "ECDH", namedCurve: "P-256" }, false, []);
+  const shared = new Uint8Array(await crypto.subtle.deriveBits({ name: "ECDH", public: uaKey }, pair.privateKey, 256));
+  const ikm = await hkdf(secret, shared, cat(enc("WebPush: info\0"), ua, as), 32);
+  salt = salt || crypto.getRandomValues(new Uint8Array(16));
+  const cek = await hkdf(salt, ikm, enc("Content-Encoding: aes128gcm\0"), 16);
+  const nonce = await hkdf(salt, ikm, enc("Content-Encoding: nonce\0"), 12);
+  const key = await crypto.subtle.importKey("raw", cek, "AES-GCM", false, ["encrypt"]);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv: nonce }, key, cat(enc(text), new Uint8Array([2]))));
+  const head = new Uint8Array(21);
+  head.set(salt, 0);
+  new DataView(head.buffer).setUint32(16, 4096);
+  head[20] = as.length;
+  return cat(head, as, ct);
+}
+
 // ---- the join/leave log (no endpoints, no keys) ---------------------------------------------------------------
 async function logEvent(kv, ev) {
   const at = new Date();
@@ -141,13 +177,21 @@ async function logEvent(kv, ev) {
 
 // ---- sending --------------------------------------------------------------------------------------------------
 // one payload-less push; returns the push service's status (0 = never got there). 404/410 = gone -> key deleted.
-async function pushOne(kv, keys, sub, jwts, ttl) {
+async function pushOne(kv, keys, sub, jwts, ttl, alert) {
   try {
     const aud = new URL(sub.endpoint).origin;
     if (!jwts.has(aud)) jwts.set(aud, vapidJwt(keys, sub.endpoint));
-    const r = await fetch(sub.endpoint, { method: "POST", headers: {
-      Authorization: `vapid t=${await jwts.get(aud)}, k=${keys.pub}`, TTL: String(ttl), Urgency: "high",
-      "Content-Length": "0" } });
+    const headers = { Authorization: `vapid t=${await jwts.get(aud)}, k=${keys.pub}`, TTL: String(ttl), Urgency: "high" };
+    let body = null;
+    if (alert && sub.p256dh && sub.auth) {                   // the alert rides in the push itself (never a lookup)
+      try {
+        body = await encryptPayload(sub.p256dh, sub.auth, JSON.stringify(alert));
+        headers["Content-Encoding"] = "aes128gcm";
+        headers["Content-Type"] = "application/octet-stream";
+      } catch { body = null; }                               // (bad keys on file: the old way, the phone asks /latest)
+    }
+    if (!body) headers["Content-Length"] = "0";
+    const r = await fetch(sub.endpoint, body ? { method: "POST", headers, body } : { method: "POST", headers });
     if (r.status === 404 || r.status === 410) {
       await kv.delete(sub.key);
       await logEvent(kv, { event: "gone", device: sub.device || "?", status: r.status });
@@ -166,11 +210,11 @@ async function allSubs(kv) {
     const page = await kv.list({ prefix: SUB, cursor });
     for (const k of page.keys) {
       let meta = k.metadata || {};
-      if (!meta.e) {
+      if (!meta.e || !meta.p) {                               // (older phones: the keys live in the value)
         const v = (await kv.get(k.name, "json")) || {};
-        meta = { e: v.endpoint, d: v.device };
+        meta = { e: v.endpoint, d: v.device, p: (v.keys || {}).p256dh, a: (v.keys || {}).auth };
       }
-      if (meta.e) subs.push({ key: k.name, endpoint: meta.e, device: meta.d });
+      if (meta.e) subs.push({ key: k.name, endpoint: meta.e, device: meta.d, p256dh: meta.p, auth: meta.a });
     }
     cursor = page.list_complete ? null : page.cursor;
   } while (cursor);
@@ -178,14 +222,14 @@ async function allSubs(kv) {
 }
 
 // a payload-less push to every phone, a few at a time
-export async function sendAll(kv, keys, { ttl = 600 } = {}) {
+export async function sendAll(kv, keys, { ttl = 600, alert = null } = {}) {
   const subs = await allSubs(kv);
   const jwts = new Map();                         // one token per push service
   const stats = { sent: 0, gone: 0, failed: 0 };
   let i = 0;
   async function worker() {
     while (i < subs.length) {
-      const st = await pushOne(kv, keys, subs[i++], jwts, ttl);
+      const st = await pushOne(kv, keys, subs[i++], jwts, ttl, alert);
       if (st === 404 || st === 410) stats.gone++;
       else if (st >= 200 && st < 300) stats.sent++;
       else stats.failed++;
@@ -229,9 +273,10 @@ export async function handlePush(request, env, ctx, path, origins) {
       const recent = (await ntfyMessages("15m")).reverse().slice(0, 5);
       for (const m of recent) {
         const hit = await kv.get(`${PREFIX}msg:${m.id}`, "json");
-        if (hit && (hit.time || 0) >= (best.time || 0)) { best = hit; break; }
+        if (hit && (hit.time || 0) > (best.time || 0)) { best = hit; break; }
       }
     } catch { /* ntfy unreachable from here: the saved one */ }
+    if (!best.time || Date.now() / 1000 - best.time > LATEST_MAX_S) best = {};   // never an old bet as a new one
     return json(best, 200, cors);
   }
 
@@ -269,13 +314,15 @@ export async function handlePush(request, env, ctx, path, origins) {
     const keys = (body && body.keys) || {};
     const sub = { endpoint, device: dev, keys: { p256dh: String(keys.p256dh || ""), auth: String(keys.auth || "") },
       at: new Date().toISOString() };
-    await kv.put(key, JSON.stringify(sub), endpoint.length <= 900 ? { metadata: { e: endpoint, d: dev } } : {});
+    const meta = { e: endpoint, d: dev, p: sub.keys.p256dh, a: sub.keys.auth };   // (metadata caps at 1024 bytes)
+    await kv.put(key, JSON.stringify(sub), JSON.stringify(meta).length <= 1000 ? { metadata: meta } : {});
     if (!fresh) return json({ ok: true, welcome: false }, 200, cors);
     const [title, text] = WELCOME[Math.floor(Math.random() * WELCOME.length)];
     await kv.put(`${PREFIX}welcome:${h}`, JSON.stringify({ id: `welcome-${h.slice(0, 8)}`, title, body: text,
       url: DASH_URL, welcome: true }), { expirationTtl: 600 });
     later((async () => {
-      const status = await pushOne(kv, await vapidKeys(kv), { key, endpoint, device: dev }, new Map(), 600);
+      const status = await pushOne(kv, await vapidKeys(kv), { key, endpoint, device: dev, p256dh: sub.keys.p256dh, auth: sub.keys.auth },
+        new Map(), 600, { id: `welcome-${h.slice(0, 8)}`, title, body: text, url: DASH_URL, welcome: true });
       if (!(status >= 200 && status < 300)) await kv.delete(`${PREFIX}welcome:${h}`);   // never shown in place of a live bet
       await logEvent(kv, { event: "subscribe", device: dev, welcome_status: status,
         welcome: status >= 200 && status < 300 ? "accepted" : "not accepted" });
@@ -310,7 +357,7 @@ export async function handlePush(request, env, ctx, path, origins) {
   await kv.put(`${PREFIX}msg:${id}`, JSON.stringify(alert), { expirationTtl: 86400 });
   await kv.put(`${PREFIX}latest`, JSON.stringify(alert));
   const keys = await vapidKeys(kv);
-  const job = sendAll(kv, keys).then(async (s) => {         // every alert sent goes in the log (who got it, who didn't)
+  const job = sendAll(kv, keys, { alert }).then(async (s) => {         // every alert sent goes in the log (who got it, who didn't)
     console.log("pushed", id, JSON.stringify(s));
     await logEvent(kv, { event: "alert", device: String(alert.title || "").slice(0, 60), sent: s.sent, gone: s.gone, failed: s.failed });
   });
