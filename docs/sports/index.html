@@ -120,7 +120,12 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .lr{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}
 .lr.won{color:#04110b;background:var(--up)} .lr.lost{color:#fff;background:var(--dn)} .lr.push{color:#000;background:var(--gold)}
 .pk-h{display:flex;align-items:center;gap:10px}
-.evx{margin-top:14px} .pk-l.evt{font-size:clamp(18px,5.6vw,27px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}
+.evx{margin-top:14px} .gdx{margin-top:14px} .gh{text-align:right;font-size:10.5px;font-weight:900;letter-spacing:.1em;color:#fff;margin:10px 0 2px}
+.gr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}
+.gl b{color:#fff;font-size:15px;font-weight:900} .gl small{color:#fff;font-weight:800} .gl span{display:block;font-size:12.5px;font-weight:800;color:#fff;margin-top:2px}
+.gl u{display:block;text-decoration:none;font-size:12.5px;font-weight:900;color:#ffc233;margin-top:2px}
+.gp{text-align:right;white-space:nowrap} .gp s{text-decoration:none;font-size:15px;font-weight:900;color:#fff} .gp em{font-style:normal;color:#ff7a00;margin:0 4px;font-weight:900}
+.gp b{font-size:17px;font-weight:900;color:#fff} .gp i{display:block;font-style:normal;font-size:12px;font-weight:900;color:#fff;margin-top:3px} .pk-l.evt{font-size:clamp(18px,5.6vw,27px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}
 .pk-i.evi{width:46px;height:46px;font-size:24px;border-radius:13px} .evs{font-size:13px;font-weight:800;color:#fff;margin:10px 0 6px} .evs b{color:#ffc233}
 .evb{margin:12px 0 8px;padding:11px 4px;border-radius:12px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:900;font-size:clamp(12px,3.6vw,18px);
 letter-spacing:.03em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);background:linear-gradient(90deg,#d90000,#ff3b3b,#ff7a00,#ff3b3b,#d90000);background-size:200% 100%;
@@ -416,7 +421,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790769815177,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790770211711,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
