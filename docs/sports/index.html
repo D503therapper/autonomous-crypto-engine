@@ -150,6 +150,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .tn-day{font-size:11px;font-weight:900;letter-spacing:.12em;color:#c6f000;margin:10px 0 -2px}
 .chip.lean{background:#ffc233;color:#111;margin-right:6px} .chip.val{background:#ff5a1f;color:#fff;margin-right:6px}
 .chip.lk{background:#22e39a;color:#06281c;margin-right:6px}
+.chip.in{background:#22d3ee;color:#04202a;margin-left:auto} .chip.bin{background:#ff3b3b;color:#fff;margin-left:auto} .sec h2.bn,.sec span.bn{color:#ff4d4d;text-shadow:0 0 12px rgba(255,59,59,.45)} .sec span.bn{font-weight:900;letter-spacing:.08em} .pk-l.tn8{letter-spacing:.1em;font-size:15px;white-space:nowrap}
 .pk.lvc{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b} .chip.livechip{color:#fff;background:#ff3b3b}
 .bd{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}
 .bd summary{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}
@@ -230,9 +231,9 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 <div class="ask-b"><div class="ask-n">Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that.</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send"><button id="askgo" type="button">Ask 🧠</button></div>
 <div id="asklist"></div><div id="askout"></div></div></div>
-<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
-<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button><div class="bell-n" id="belln" hidden></div></div><div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
-<div id="livetoday"><section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY</span></div><div class="leg " data-pid="tennis:wta:184258:1"><div class="lt"><span class="lgb">🎾 Women&#x27;s Tennis</span><span class="tm" data-gid="tennis:wta:184258" data-start="2026-09-30T03:18Z" data-side="1">⏳ still going</span></div><div class="lm"><span class="pick">Anhelina Kalinina <em>ML</em></span><span class="od">+102</span></div><div class="ls">Kalinina is the call. We ride it out.</div></div><div class="leg " data-pid="tennis:atp:183496:1"><div class="lt"><span class="lgb">🎾 Men&#x27;s Tennis</span><span class="tm" data-gid="tennis:atp:183496" data-start="2026-09-30T03:06Z" data-side="1">⏳ still going</span></div><div class="lm"><span class="pick">Alexander Blockx <em>ML</em></span><span class="od">+143</span></div><div class="ls">With Blockx all the way. We finna see.</div></div></section></div>
+<div class="sec"><h2 class="bn"><i class="lv">●</i> LIVE</h2><span>updates every 5 sec</span></div>
+<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button><div class="bell-n" id="belln" hidden></div></div><div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div><div class="nolive">👀 The algorithm’s watching every play for value.</div></section></div>
+<div id="livetoday"><section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l tn8">TONIGHT'S LIVE BETS</span><span class="chip in">WE'RE IN</span></div><div class="leg " data-pid="tennis:wta:184258:1"><div class="lt"><span class="lgb">🎾 Women&#x27;s Tennis</span><span class="tm" data-gid="tennis:wta:184258" data-start="2026-09-30T03:18Z" data-side="1">⏳ STILL GOING</span></div><div class="lm"><span class="pick">Anhelina Kalinina <em>ML</em></span><span class="od">+102</span></div><div class="ls">Kalinina is the call. We ride it out.</div></div><div class="leg " data-pid="tennis:atp:183496:1"><div class="lt"><span class="lgb">🎾 Men&#x27;s Tennis</span><span class="tm" data-gid="tennis:atp:183496" data-start="2026-09-30T03:06Z" data-side="1">⏳ STILL GOING</span></div><div class="lm"><span class="pick">Alexander Blockx <em>ML</em></span><span class="od">+143</span></div><div class="ls">With Blockx all the way. We finna see.</div></div></section></div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>Tuesday, September 29</span></div>
 <div class="board"><section class="pk won" style="--c1:#22e39a;--c2:#0fb87a">
   <div class="pk-h"><span class="pk-i">🔒</span><span class="pk-l">LOCK OF THE DAY</span><span class="chip lk">🔒 LOCK</span><span class="chip won">CASHED ✓</span></div>
@@ -426,29 +427,29 @@ Picks only — no bets placed · refreshes hourly</div>
 (function(){   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 var last="",PLAY_FRESH_MS=45*1000;
-function idle(n){return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
-  '📡 Checking the live lines…':n>0?
-  '👀 No live plus money right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
-  '😴 No live plus money right now — no games going.')+'</div></section>';}
+var HEAD='<div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div>';
+function idle(n){return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+'<div class="nolive">'+(n<0?   // one red box:
+  '👀 The algorithm’s watching every play for value.':n>0?                                                                  // what you can bet
+  '👀 The algorithm’s watching every play for value. '+n+' game'+(n>1?'s':'')+' going.':   // right now
+  '😴 No games going right now.')+'</div></section>';}
 function draw(d){var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML=(ps.length?ps.map(function(p){
-  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">'+(p.double_down?'🔁 DOUBLE DOWN':'LIVE BET')+'</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
-   
-   '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
+ el.innerHTML=(ps.length?'<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+ps.map(function(p){
+  return '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+(p.double_down?' · 🔁 DOUBLE DOWN':'')+
+   (p.paused?' · ⏸ LINE PAUSED':'')+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
    '<div class="ls">'+esc(p.score)+(p.ball?' · '+esc(p.ball):'')+'</div><div class="why">'+esc(p.line)+'</div>'+
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){return"<p>"+esc(x)+"</p>"}).join("")+'</div></details>':'')+
-   '</div></section>';}).join(""):idle(n));}
-function badge(r){return r==="won"?'<span class="lr won">✅ CASHED</span>':r==="lost"?'<span class="lr lost">❌ LOST</span>':""}
+   '</div>';}).join("")+'</section>':idle(n));}
+function badge(r){return r==="won"?'<span class="lr won">✅ CASHED</span>':r==="lost"?'<span class="lr lost">❌ MISSED</span>':""}
 function today(T){var el=document.getElementById("livetoday");if(!el||!T)return;   // today's live bets, pending too: straight
  T.forEach(function(e){var have=el.querySelector('.leg[data-pid="'+e.pid+'"]');       // from the watcher, no page rebuild needed
   if(have){if(e.result&&!have.classList.contains(e.result)){have.className="leg "+e.result;   // graded: CASHED / LOST now
     var t=have.querySelector(".lt>.tm,.lt>.lr");if(t)t.outerHTML=badge(e.result);var sc=have.querySelector(":scope>.lsc");if(sc)sc.remove();}
    return}
   var sec=el.querySelector("section");
-  if(!sec){el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY</span></div></section>';sec=el.querySelector("section");}
-  var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ still going</span>';
+  if(!sec){el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l tn8">TONIGHT&#39;S LIVE BETS</span><span class="chip in">WE&#39;RE IN</span></div></section>';sec=el.querySelector("section");}
+  var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ STILL GOING</span>';
   var h=document.createElement("div");h.className="leg "+(e.result||"");h.setAttribute("data-pid",e.pid);
   h.innerHTML='<div class="lt"><span class="lgb">'+esc(e.icon)+' '+esc(e.sport)+(e.dd?' · 🔁 DOUBLE DOWN':'')+'</span>'+b+'</div><div class="lm"><span class="pick">'+esc(e.team)+' <em>ML</em></span><span class="od">+'+esc(e.odds)+'</span></div>';
   var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);});if(window.d503lt)window.d503lt();}   // newest on top
@@ -464,7 +465,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790740204210,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790740796500,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
