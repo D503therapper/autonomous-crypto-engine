@@ -4485,6 +4485,26 @@ def test_early_retrain_is_cached_for_a_week():
         se.PARAMS_PATH, sm.tune, se.passed = saved
 
 
+def test_lock_is_not_just_the_priciest_favorite():
+    """The owner (9/30): 'any moron could take the biggest favorite closest to -150 and call it the Lock.' The Lock
+    now has to be one the engine's OWN read says is worth its price; the priciest favorite only wins when it agrees."""
+    base = {"league": "mlb", "market": "ml", "line": None, "home": True, "stype": "3", "reasons": ["ratings"], "trap": False,
+            "start": "2026-09-30T21:00Z", "drift": 0.0}
+    def cand(gid, team, odds, p, own):
+        d = sd.decimal(odds)
+        return {**base, "game_id": gid, "side": "home", "team": team, "opp": "X", "odds": odds, "dec": d, "p": p,
+                "p_market": 0.57, "edge": p * d - 1, "edge_own": own * d - 1}
+    priciest = cand("g1", "Pricey", -147, 0.575, 0.567)           # tops the board; the engine's own read isn't sold
+    #                                                               (not "fighting Vegas" - just not convinced)
+    agreed = cand("g2", "Agreed", -140, 0.570, 0.59)              # the engine's own read says worth it
+    assert not sports.own_agrees(priciest) and sports.own_agrees(agreed)
+    b = sports.make_board([priciest, agreed])
+    assert b["lock"] and b["lock"]["legs"][0]["team"] == "Agreed", b["lock"]
+    other = cand("g3", "Other", -135, 0.562, 0.56)                 # nothing agrees: still a Lock (always one, the owner)
+    b = sports.make_board([priciest, other])                       # - the best lock-grade pick, as before
+    assert b["lock"] and b["lock"]["legs"][0]["team"] == "Pricey"
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

@@ -15,7 +15,9 @@ every session:
 - Parlays only when every leg is lock grade, 56%+ (sports.PARLAY_LEG_MIN_P) - never forced; value (plus money that really beats
   the price) is the goal. Judge a sport on thousands of games (sports_strength), never a few nights.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
-- The Lock of the Day always sits on top of the day's board, right under Live Plus Money.
+- The Lock of the Day always sits on top of the day's board, right under Live Plus Money. There's always a Lock. It is
+  never just the biggest favorite closest to -150 ("any moron could do that"): the engine's OWN read has to say it's
+  worth its price, then the best proven win % (sports.own_agrees; tested 1,808 days, 58.1% vs 56.8%).
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
   day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).

@@ -570,7 +570,13 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # ...and it has to be a LOCK: 52%+, no longer than +125 (the owner, 9/28: a +156 at 40% is no lock of anything)
         locks = [c for c in cands if good(c) and c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
                  and (c["market"] != "ml" or c["odds"] >= LOTD_MAX_ML) and lock_ok(c)]
-        lock = max(locks, key=lambda c: (c["p"], c["edge"])) if locks else None
+        # the owner, 9/30: "any moron could take the biggest favorite closest to -150." The Lock has to be a pick the
+        # engine's OWN read (its ratings, not the line) says is worth its price; among those, the one whose win % holds
+        # up best (p is already corrected by the engine's real record in that sport). 1,808 days, 2020-25, one Lock a
+        # day, each season's engine trained on the 3 before it: 58.1% hit, +0.4% vs the old rule's 56.8%, -2.5%
+        # (last 3 seasons 55.6% vs 54.7%). A day nothing agrees: the best lock-grade pick, as before.
+        agree = [c for c in locks if own_agrees(c)]
+        lock = max(agree or locks, key=lambda c: (c["p"], c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -611,6 +617,13 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
 
 TIERS = ("lean", "value", "lock")
 STRONG_LEAN_P = PLAY_MIN_P                    # 53%+ = STRONG LEAN, under that = SLIGHT LEAN (a lean on the board = 🟡)
+
+
+def own_agrees(c):
+    """The engine's own read (its ratings - no line, no sharp money) says this side is worth at least its price."""
+    if c.get("edge_own") is None or not c.get("dec") or c.get("p_market") is None:
+        return False
+    return (c["edge_own"] + 1) / c["dec"] >= c["p_market"]
 
 
 def lock_ok(c):
