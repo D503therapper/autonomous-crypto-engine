@@ -25,7 +25,9 @@ every session:
   worth its price, then the best proven win % (sports.own_agrees; tested 1,808 days, 58.1% vs 56.8%).
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
   day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
-- The only phone notifications are Live Plus Money bets (no pings for new picks or early value plays).
+- The only automatic phone notifications are Live Plus Money bets (no pings for new picks or early value plays) - plus
+  the one Patty-vs-the-Algorithm result ping (sports_challenge.final_words) and one-time announcements the owner asks
+  for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
 - Units (the engine decides, by its edge - quarter-Kelly, ½u-10u; 1 unit = 1% of our bankroll, $1,000 start): early
   value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
