@@ -4698,6 +4698,8 @@ def _units_and_the_open_bankroll():
     assert "\n.nou{{text-align:center" in open(d.__file__).read()          # its own CSS rule (a spliced one broke it)
     assert d._units_line(2) == '<div class="un"><span class="mb">💰</span> 2 UNITS</div>'   # no $ on a card; green bag
     assert "NO UNITS — JUST A LEAN" in d._units_line(0)                   # a lean says so (the owner, 9/30)
+    assert "½ UNIT" in d._units_line(0.5, "Yankees") and 'class="unw"' in d._units_line(0.5, "Yankees")   # ½u says why
+    assert len({d._units_line(0.5, k) for k in ("Yankees", "Flyers", "Kings", "Padres", "Bears")}) > 1   # not one line on repeat
     assert ".mb{{display:inline-block;filter:hue-rotate" in open(d.__file__).read()
     assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
     assert "🔥 VALUE PLAY<" in d.TIER_CHIP["value"] and "🔥 VALUE PLAY<" in d.LEG_TAG["value"]   # 'value plays', not 'value'

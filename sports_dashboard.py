@@ -194,11 +194,19 @@ LIVE_NO_UNITS = '<div class="nou">🎲 NO UNITS ON THESE — WE GAMBLIN’</div>
 UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every play by its own edge (the sizing study)
 
 
-def _units_line(u):
+HALF_WHY = ("the price is tight — thin edge at this number", "we like the side, not the price",
+            "books got this one priced close", "small edge — the number ate most of it",
+            "right side, short price — not much meat on it")   # (the owner, 9/30: a ½u Lock looks suspect - say why)
+
+
+def _units_line(u, key=""):
     if not UNITS_ON:
         return ""
     if not u:                                                # a lean: no units (the owner, 9/30)
         return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
+    if u == 0.5:                                             # the engine's minimum: its read barely beats the price
+        why = HALF_WHY[sum(map(ord, key)) % len(HALF_WHY)]
+        return f'<div class="un"><span class="mb">💰</span> ½ UNIT<span class="unw">{E(why)}</span></div>'
     return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
 
 
@@ -356,7 +364,7 @@ def _leg(leg, tagged=False, review="", units=None):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {_units_line(units) if units is not None else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units, leg.get("team", "")) if units is not None else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -563,7 +571,7 @@ def _pick_card(kind, pk):
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {_units_line(sports.units_for(pk)) if len(pk["legs"]) == 1 else ""}
+  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", "")) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 
@@ -1509,6 +1517,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
 .evr .un,.egl .un{{text-align:left;margin-top:4px}} .evr .un .mb,.egl .un .mb{{display:inline-block;margin:0}}   /* an early play's units: under its game time */
+.unw{{display:block;font-size:12px;letter-spacing:.02em;font-weight:800;color:#fff;text-transform:none}}   /* why ½u */
 .nou{{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
