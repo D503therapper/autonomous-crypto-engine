@@ -189,6 +189,7 @@ TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE
 
 
 
+LIVE_NO_UNITS = '<div class="nou">🎲 NO UNITS ON THESE — WE GAMBLIN’</div>'   # (the owner, 9/30)
 UNITS_ON = False             # the owner, 9/30: off till the engine sizes every play by its own edge (tested first)
 
 
@@ -1504,6 +1505,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
 .evr .un,.egl .un{{text-align:left;margin-top:4px}} .evr .un .mb,.egl .un .mb{{display:inline-block;margin:0}}   /* an early play's units: under its game time */
+.nou{{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
@@ -1685,6 +1687,7 @@ Picks only — no bets placed · refreshes hourly</div>
 (function(){{   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 var last="",PLAY_FRESH_MS={PLAY_FRESH_S}*1000;
+var NOU='{LIVE_NO_UNITS if UNITS_ON else ""}';   // no units on live bets (the owner, 9/30): said once, up top
 var HEAD='<div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div>';
 function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+'<div class="nolive">'+(n<0?   // one red box:
   '👀 The algorithm’s watching every play for value.':n>0?                                                                  // what you can bet
@@ -1692,7 +1695,7 @@ function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a
   '😴 No games going right now.')+'</div></section>';}}
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML=(ps.length?'<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+ps.map(function(p){{
+ el.innerHTML=(ps.length?'<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+NOU+ps.map(function(p){{
   return '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+(p.double_down?' · 🔁 DOUBLE DOWN':'')+
    (p.paused?' · ⏸ LINE PAUSED':'')+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
