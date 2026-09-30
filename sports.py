@@ -298,6 +298,7 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+PDO = {}                       # {nhl team: PDO last 10} - puck luck (sports_form)
 LAST_STARTS = {}               # {(league, team): [starts]} - the back-to-back check (sports_form)
 TEAM_STATE = {}                # {(league, team): (last margin, streak)} - the overreaction angle (sports_form)
 HOT_KEY = {}                   # {game id: 'home'/'away'} - that side's goalie (NHL) / stars (NBA) are much hotter
@@ -369,6 +370,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "key_edge": (sm.KEY_EDGE[g["id"]] * (1 if side == "home" else -1)) if g["id"] in sm.KEY_EDGE else None,
                     "hot_key": HOT_KEY.get(g["id"]) == side,
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
+                    "pdo": PDO.get(g[side]) if lg == "nhl" else None,
                     "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
                     and not sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"]),
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
@@ -713,6 +715,9 @@ def dog_score(c):
     d = c.get("drift") or 0.0                            # + = the money ran away from this side since the open:
     if c.get("league") in ("nhl", "nfl", "ncaaf", "nba") and d >= 0.02:   # those dogs lost - NFL -40%, college
         sc -= 4                                          # football -9%, NBA -8%, hockey -6% every season (baseball: even)
+    pdo = c.get("pdo")                                   # hockey puck luck (last 10): the books over-rate a lucky
+    if pdo is not None:                                  # team - an unlucky dog -0.9% vs a lucky one -10.3% (sports_form)
+        sc += 2 if pdo <= sports_form.PDO_BAD else -3 if pdo >= sports_form.PDO_GOOD else 0
     if c.get("rested_vs_b2b"):                           # rested, and they played last night: NBA dogs +6.5%, NHL
         sc += 3                                          # +1.9% (4 of 5 seasons each) vs -6% for every dog
     if overreact(c):                                     # a football dog off a blowout loss: the market overreacts
@@ -1558,6 +1563,8 @@ def quick(now=None):
         TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         LAST_STARTS.clear()
         LAST_STARTS.update(sports_form.last_starts(games))
+        PDO.clear()
+        PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
         print(f"hot key players failed: {str(e)[:80]}")
     add_breakdowns(games, model, picks)
@@ -1624,6 +1631,8 @@ def run(repick=False, fetch=True):
         TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         LAST_STARTS.clear()
         LAST_STARTS.update(sports_form.last_starts(games))
+        PDO.clear()
+        PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
         print(f"hot key players failed: {str(e)[:80]}")                     # QB / starting pitcher / goalie form per game
     n_players = sum(len(rows) for rows in sp.CACHE.values())
