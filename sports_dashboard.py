@@ -1292,7 +1292,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lt{{display:flex;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--c1)}} .lt>.tm{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35);white-space:nowrap}}
 .lgb{{color:#fff}}
 .lm{{display:flex;justify-content:space-between;align-items:baseline;margin-top:3px}}
-.pick{{font-size:18px;font-weight:850;color:#fff}} .pick em{{font-style:normal;color:var(--c1);font-weight:900;margin-left:2px}}
+.pick{{font-size:18px;font-weight:850;color:#fff}} .pick em{{font-style:normal;color:#fff;font-weight:900;margin-left:2px}}
 .od{{font-size:17px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums}}
 .ls{{font-size:12.5px;color:#fff;margin-top:2px}} .ls b{{color:#fff}}
 .ep{{color:var(--up);font-weight:800}} .en{{color:#ff8a5c;font-weight:800}}

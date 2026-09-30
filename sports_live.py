@@ -1233,7 +1233,15 @@ def _keep_score(games, lg, ang, box, status):
         g = _match(games, lg, ang)
         if not g:
             return
-        final = status in DONE
+        if status in ("scheduled", "created"):
+            return                                            # not started yet - never "Final" (9/29: the Blackhawks
+        #                                                       read "FINAL 0-0" ten minutes after puck drop: the odds feed
+        #                                                       still said "scheduled", and that sat in DONE)
+        if status in ("cancelled", "canceled", "postponed"):
+            SCORES[g["id"]] = {"away": g["away_name"], "home": g["home_name"], "a": _score(box, "away"),
+                               "h": _score(box, "home"), "clock": "Postponed", "live": False, "delayed": True}
+            return
+        final = status in ("complete", "closed", "final")
         SCORES[g["id"]] = {"away": g["away_name"], "home": g["home_name"], "a": _score(box, "away"),
                            "h": _score(box, "home"), "clock": "Final" if final else _clock_txt(lg, box), "live": not final}
     except Exception:                                         # noqa: BLE001 - a score never breaks the watch

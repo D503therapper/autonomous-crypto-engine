@@ -3527,6 +3527,31 @@ def test_bug_check_has_a_backstop():
     assert "workflow_dispatch" in open(".github/workflows/health.yml").read()
 
 
+def test_a_game_that_has_not_started_is_never_final():
+    """9/29: the Blackhawks card read 'FINAL 0-0' ten minutes after puck drop - the odds feed still said 'scheduled'
+    and the watcher's 'done' list held 'scheduled'. Not started = no score; postponed = DELAYED; Final only when over.
+    And the ML / -1.5 next to the team is white (the owner)."""
+    import sports_live as slv, sports_dashboard as sdb
+    games = {"nhl:9": {"id": "nhl:9", "league": "nhl", "home_name": "Golden Knights", "away_name": "Blackhawks",
+                       "start": "2026-09-30T02:30Z", "home": "37", "away": "4"}}
+    keep_m, keep_s = slv._match, dict(slv.SCORES)
+    slv._match = lambda games_, lg, ang: games["nhl:9"]
+    try:
+        slv.SCORES.clear()
+        box = {"period": 1, "clock": "20:00", "total_home_points": 0, "total_away_points": 0}
+        slv._keep_score(games, "nhl", {}, box, "scheduled")
+        assert "nhl:9" not in slv.SCORES
+        slv._keep_score(games, "nhl", {}, box, "postponed")
+        assert slv.SCORES["nhl:9"]["delayed"] and slv.SCORES["nhl:9"]["clock"] != "Final"
+        slv._keep_score(games, "nhl", {}, {**box, "clock": "12:00"}, "inprogress")
+        assert slv.SCORES["nhl:9"]["live"] and slv.SCORES["nhl:9"]["clock"] == "12:00 - 1st"
+        slv._keep_score(games, "nhl", {}, box, "complete")
+        assert slv.SCORES["nhl:9"]["clock"] == "Final" and not slv.SCORES["nhl:9"]["live"]
+    finally:
+        slv._match = keep_m; slv.SCORES.clear(); slv.SCORES.update(keep_s)
+    assert ".pick em{{font-style:normal;color:#fff" in open(sdb.__file__).read()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
