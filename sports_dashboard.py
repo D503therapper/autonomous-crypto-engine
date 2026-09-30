@@ -230,6 +230,8 @@ def _leg(leg, tagged=False):
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
     if leg.get("injury_alerts") and not res:            # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>' for a in leg["injury_alerts"][-3:])
+    if leg.get("line_alerts") and not res:              # the money ran away from us after we posted: loud, on the card
+        outs += "".join(f'<div class="outs">💸 LINE ALERT: {E(a)}</div>' for a in leg["line_alerts"][-1:])
     return f"""<div class="leg {res or ''}">
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>

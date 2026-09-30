@@ -276,6 +276,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
         if f["known"] < MIN_KNOWN:
             continue
         mkt = sm.market_p(g)
+        mkt_open = sm.market_p(g, open_line=True)
         inj = (injuries or {}).get(lg)
         key_out = {side: sd.team_key_out(inj, g[side], g[side + "_name"], lg) for side in ("home", "away")}
         n_out = {side: len(sd.team_injuries(inj, g[side], g[side + "_name"])) for side in ("home", "away")}
@@ -315,6 +316,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "talk_theirs": [{"kind": e["kind"], "headline": e.get("headline", "")} for e in talk[other][:2]]}
             if base["their_drama"]:
                 base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
+            # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
+            base["drift"] = round(((mkt_open - mkt) if side == "home" else (mkt - mkt_open)), 4) \
+                if mkt is not None and mkt_open is not None else 0.0
             odds = int(g[f"ml_{side}"])
             p = ph if side == "home" else 1 - ph
             p_own = ph_own if side == "home" else 1 - ph_own
@@ -387,10 +391,29 @@ def proven(c):
     return any(str(r).startswith(("proven", "trend:")) for r in c.get("reasons") or [])
 
 
+DRIFT_MAX = 0.03               # the money has run 3+ no-vig points away from a side since the open: never the Lock,
+                               # the Dog or a leg (9/29, the Astros: opened -143, the money ran to the White Sox all day,
+                               # they lost. 10 seasons: a favorite the money runs from wins what the CLOSE says - 49-54%
+                               # where the open said 56-64%, every league, old and new seasons). Our engine may go
+                               # against the move only where the study proves it beats the pros (sports_sharps).
+
+
+def money_against(c):
+    """The money's running away from this side - and our engine hasn't proven it knows better in this sport."""
+    if c.get("drift", 0.0) < DRIFT_MAX:
+        return False
+    try:
+        import sports_sharps
+        return not sports_sharps.beats_the_move(c.get("league"))
+    except Exception:                                    # noqa: BLE001 - no study yet: respect the move
+        return True
+
+
 def fighting(c):
-    """Our own read (no line move) has this side 3+ points under what the price says: the engine is fighting Vegas."""
+    """Our own read (no line move) has this side 3+ points under what the price says: the engine is fighting Vegas.
+    Or the money's running away from it (money_against): the pros already said no."""
     own = (c.get("edge_own", c["edge"]) + 1) / c["dec"]
-    return own < 1 / c["dec"] - FIGHT_MAX
+    return own < 1 / c["dec"] - FIGHT_MAX or money_against(c)
 
 
 def good(c):
@@ -882,6 +905,36 @@ def _push(title, body, tag="ambulance"):
     return sd.web_push(raw, title, body)                     # 🔔 the dashboard's alerts - even if ntfy is down
 
 
+LINE_ALERT = 0.03             # the money ran 3+ no-vig points away from our side since we posted it
+
+
+def line_watch(games, picks):
+    """After a pick is up, keep watching its line every run (the owner's rule: the engine watches the line all day).
+    If the money runs away from our side (the Astros, 9/29: -143 at the open, -123 by first pitch - they lost), say
+    it loud on the card: where it was, where it is. The pick itself never changes on its own - the owner decides."""
+    out = []
+    for p in picks:
+        if p["status"] != "open":
+            continue
+        for leg in p["legs"]:
+            g = games.get(leg["game_id"])
+            if not g or g["status"] != "pre" or leg.get("market") != "ml" or leg.get("p_market") is None:
+                continue
+            now = sm.market_p(g)
+            if now is None:
+                continue
+            now_side = now if leg["side"] == "home" else 1 - now
+            odds_now = sm._int(g.get(f"ml_{leg['side']}"))
+            if leg["p_market"] - now_side >= LINE_ALERT and odds_now is not None:
+                msg = (f"The money's running away from {leg['team']}: {fmt_american(leg['odds'])} when we posted, "
+                       f"{fmt_american(odds_now)} now. We still riding — your call.")
+                if not any(a.startswith(f"The money's running away from {leg['team']}") for a in leg.get("line_alerts", [])):
+                    leg.setdefault("line_alerts", []).append(msg)
+                    out.append(msg)
+                    print(f"💸 line alert: {msg}")
+    return out
+
+
 def injury_watch(games, picks, push=True):
     """After a pick is up, keep checking its game's injury report every run. If a key player's status changes (a
     questionable QB ruled out, a star goalie scratched...), push an alert and put it on the card. The pick itself
@@ -1178,6 +1231,10 @@ def run(repick=False, fetch=True):
         injury_watch(games, picks)                                      # 🚑 posted picks: did anybody's status change?
     except Exception as e:                                              # noqa: BLE001
         print(f"injury watch failed: {e}")
+    try:
+        line_watch(games, picks)                                        # 💸 ...or is the money running away from us?
+    except Exception as e:                                              # noqa: BLE001
+        print(f"line watch failed: {e}")
     for d in days:
         had = {p["kind"] for p in picks if p["date"] == d.isoformat()}
         for pk in post_board(games, model, picks, now, d, force=post_now and d == day):

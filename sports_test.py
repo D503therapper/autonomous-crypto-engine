@@ -3456,6 +3456,38 @@ def test_engine_knows_who_is_not_playing_baseball():
     assert 'v.say("keyout_us_bat"' in src and "Doesn't change our call" in src
 
 
+def test_never_lock_a_side_the_money_is_running_from():
+    """9/29, the Astros: opened -143, the money ran to the White Sox all day (-123 at first pitch), they got smacked -
+    and with the placeholder bug fixed the engine would have made them the Lock. 10 seasons: a favorite the money runs
+    from wins what the CLOSE says (49-54% where the open said 56-64%), every league, old and new. Our engine hasn't
+    proven it beats the pros after a move (sports_sharps), so a side the money ran 3+ points from is never the Lock /
+    Dog / a leg; and after posting, the money running from our pick puts a LINE ALERT on the card (pick unchanged)."""
+    import sports_sharps
+    c = {"league": "mlb", "edge": -0.03, "edge_own": -0.03, "dec": 1.7, "drift": 0.034}
+    keep = dict(sports_sharps._CACHE)
+    sports_sharps._CACHE["p"] = set()
+    try:
+        assert sports.money_against(c) and sports.fighting(c)
+        assert not sports.money_against({**c, "drift": 0.01})
+        sports_sharps._CACHE["p"] = {"mlb"}                              # proven someday: our engine may go against it
+        assert not sports.money_against(c)
+    finally:
+        sports_sharps._CACHE.clear(); sports_sharps._CACHE.update(keep)
+    g = {"id": "mlb:1", "league": "mlb", "status": "pre", "ml_home": "-123", "ml_away": "102",
+         "ml_home_open": "-143", "ml_away_open": "120"}
+    leg = {"game_id": "mlb:1", "side": "home", "team": "Astros", "market": "ml", "odds": -143,
+           "p_market": sd.no_vig(-143, 120)}
+    picks = [{"status": "open", "legs": [leg]}]
+    out = sports.line_watch({"mlb:1": g}, picks)
+    assert len(out) == 1 and "-143 when we posted, -123 now" in out[0] and leg["line_alerts"]
+    assert sports.line_watch({"mlb:1": g}, picks) == []                  # said once
+    import sports_dashboard as sdb
+    card = sdb._leg({"team": "Astros", "opp": "White Sox", "league": "mlb", "side": "home", "home": True, "market": "ml",
+                     "line": None, "odds": -143, "start": "2026-09-29T21:00Z", "game_id": "mlb:1", "reasons": [],
+                     "line_alerts": leg["line_alerts"]})
+    assert "💸 LINE ALERT" in card
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
