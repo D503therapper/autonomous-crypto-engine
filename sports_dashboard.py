@@ -231,10 +231,9 @@ def _leg(leg, tagged=False):
     if leg.get("injury_alerts") and not res:            # a status changed after we posted it: loud, right on the card
         outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>' for a in leg["injury_alerts"][-3:])
     return f"""<div class="leg {res or ''}">
-  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}">{_time(leg["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {f'<div class="lst" data-t="🕐 Starts at {_time(leg["start"])}">🕐 Starts at {_time(leg["start"])}</div>' if tagged and not res else ""}
   {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
@@ -494,7 +493,7 @@ def _tennis():
         bd = "".join(f"<p>{E(x)}</p>" for x in lines)                        # main board (the owner, 9/29) - tap for the rest
         rv = f'<div class="rvw">📝 {E(recap(l))}</div>' if done and recap(l) else ""   # the review, right on the pick
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}">{"⏳ DELAYED" if _delayed(l) else _time(l["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}">{"⏳ DELAYED" if _delayed(l) else "Starts at " + _time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<div class="why">{E(tag)}</div>' if tag else ""}
@@ -1221,7 +1220,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk.lost>*:not(.stamp-row){{opacity:.5}}
 .px>summary{{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}}
 .px>summary::-webkit-details-marker{{display:none}}
-.pxo,.pxc{{font-size:14px;color:var(--gold);font-weight:800}} div.pxt{{margin:2px 0 10px!important}} .lst{{font-size:13px;font-weight:900;color:var(--gold);margin:3px 0 2px;text-shadow:0 0 10px rgba(255,194,51,.3)}} .pxt{{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
+.pxo,.pxc{{font-size:14px;color:var(--gold);font-weight:800}} div.pxt{{margin:2px 0 10px!important}} .pxt{{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
 .stamp-row{{display:flex;justify-content:center;margin:6px 0 12px}}
 .stamp{{transform:rotate(-6deg);font-weight:900;font-size:34px;letter-spacing:.16em;padding:4px 22px;border:4px solid currentColor;
   border-radius:10px;background:rgba(0,0,0,.3)}}
@@ -1287,7 +1286,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .big{{font-size:42px;font-weight:900;letter-spacing:-.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 0 24px color-mix(in srgb,var(--c1) 60%,transparent)}}
 .pay{{text-align:right;font-size:14px;color:#fff;font-weight:600}} .pay b{{color:var(--c1);font-size:18px}} .pay span{{color:var(--c1);font-size:12px}}
 .leg{{border-top:1px solid rgba(255,255,255,.07);padding:10px 0 8px}}
-.lt{{display:flex;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--c1)}}
+.lt{{display:flex;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--c1)}} .lt>.tm{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35);white-space:nowrap}}
 .lgb{{color:#fff}}
 .lm{{display:flex;justify-content:space-between;align-items:baseline;margin-top:3px}}
 .pick{{font-size:18px;font-weight:850;color:#fff}} .pick em{{font-style:normal;color:var(--c1);font-weight:900;margin-left:2px}}
@@ -1516,9 +1515,6 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
     var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';
     s.classList.toggle("dly",!!(sc&&sc.delayed));if(s.innerHTML!==tag)s.innerHTML=tag;}}
   else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}   // (only when it's NOT on - it used to undo LIVE)
-  var lt=leg?leg.querySelector(":scope>.lst"):null;       // a parlay leg's own yellow line: start time -> LIVE -> Final
-  if(lt){{var w=!on?lt.getAttribute("data-t"):sc&&sc.delayed?"⏳ DELAYED":sc&&!sc.live?"🏁 Final":"🔴 LIVE";
-    if(lt.textContent!==w)lt.textContent=w;}}
   if(sc&&!sc.live&&!sc.delayed)window.d503stale=1;       // a pick's game is final: the graded page is coming
   if(sc&&on&&row){{var q=function(x){{return String(x).replace(/[&<>"]/g,"")}},h;
     if(!box){{box=document.createElement("div");box.className="lsc";var bd=leg.querySelector(":scope>details.bd");

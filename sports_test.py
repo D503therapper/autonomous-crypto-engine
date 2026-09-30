@@ -3402,15 +3402,15 @@ def test_started_game_is_live_never_final():
 
 
 
-def test_every_parlay_leg_shows_its_start_time():
-    """The owner, 9/29: 'we also don't have start times' - the small corner time got missed on every parlay leg. Each
-    leg gets the same yellow line as the cards: 'Starts at 7 PM PT', then LIVE / DELAYED / Final with its game."""
+def test_every_leg_says_starts_at_in_yellow():
+    """The owner, 9/29: the small corner time got missed and was hard to see - it says 'Starts at 7 PM PT', big and
+    bright yellow, on every leg (it flips to LIVE / FINAL itself). No second time line under the leg."""
     import sports_dashboard as sdb
     leg = {"team": "Oilers", "opp": "Canucks", "league": "nhl", "side": "home", "home": True, "market": "spread",
            "line": -1.5, "odds": -118, "start": "2026-09-30T02:00Z", "game_id": "nhl:1", "reasons": []}
-    assert '🕐 Starts at 7 PM PT' in sdb._leg(leg, tagged=True)
-    assert 'class="lst"' not in sdb._leg(leg) and 'class="lst"' not in sdb._leg({**leg, "result": "won"}, tagged=True)
-    assert 'leg.querySelector(":scope>.lst")' in open(sdb.__file__).read()
+    h = sdb._leg(leg, tagged=True)
+    assert ">Starts at 7 PM PT</span>" in h and 'class="lst"' not in h
+    assert ".lt>.tm{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold)" in open(sdb.__file__).read()
 
 
 def test_engine_knows_who_is_not_playing_baseball():
