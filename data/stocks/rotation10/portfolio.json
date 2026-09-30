@@ -1,15 +1,6 @@
 {
-  "cash": 50.0,
+  "cash": 49.25537339208563,
   "positions": {
-    "AMD": {
-      "qty": 0.35851040662581757,
-      "entry": 627.5968447265625,
-      "cost": 225.0,
-      "peak": 627.5968447265625,
-      "stop": 0.0,
-      "took_profit": false,
-      "opened": 1790602200000
-    },
     "QQQ": {
       "qty": 0.30333027643492283,
       "entry": 741.7657170410156,
@@ -18,11 +9,20 @@
       "stop": 0.0,
       "took_profit": false,
       "opened": 1790602200000
+    },
+    "MSTR": {
+      "qty": 1.3873490011267369,
+      "entry": 156.7383336639404,
+      "cost": 217.45077064693692,
+      "peak": 156.7383336639404,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1790775000000
     }
   },
   "peak_equity": 500.0,
   "cooldown": {},
   "halted": false,
   "halt_until": 0,
-  "last_rebalance_week": "2026-09-29"
+  "last_rebalance_week": "2026-09-30"
 }
