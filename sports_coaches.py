@@ -17,7 +17,7 @@ import sports_data as sd
 PATH = os.path.join(sd.DATA, "coaches.json")
 PROBE = os.path.join(sd.DATA, "coaches_probe.json")
 CORE = "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/seasons/{year}/teams/{team}/coaches?limit=50"
-SEASONS = range(2016, 2027)
+SEASONS = range(2016, 2029)                   # (ESPN names NBA / NHL / college hoops seasons by the year they end)
 
 
 def get(url):
