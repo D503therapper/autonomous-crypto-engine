@@ -3275,8 +3275,18 @@ def test_playoff_game_gets_its_real_teams():
 
 
 def test_added_pick_pings_everyone():
-    """The owner, 9/29: when a pick gets added after the board is up, send everyone a notification (the 8 AM board
-    itself doesn't ping)."""
+    """The owner, 9/29: a pick added after the board is up pinged everyone. 9/30: 'the only notifications should be
+    the live plus money' - so it's off (ANNOUNCE_PINGS); the wording still works for when it's back on."""
+    assert sports.ANNOUNCE_PINGS is False
+    quiet, keep0 = [], sd.web_push
+    sd.web_push = lambda *a, **k: quiet.append(a)
+    try:
+        sports.announce_pick({"kind": "lock", "legs": [{"team": "Yankees", "market": "ml", "odds": -135, "league": "mlb",
+                                                         "side": "home", "line": None}], "american": -135})
+    finally:
+        sd.web_push = keep0
+    assert quiet == []                                               # no ping
+    sports.ANNOUNCE_PINGS = True
     sent, keep = [], sd.web_push
     sd.web_push = lambda raw, title=None, body=None: sent.append((title, body))
     try:
@@ -3286,6 +3296,7 @@ def test_added_pick_pings_everyone():
                               "american": 212})
     finally:
         sd.web_push = keep
+        sports.ANNOUNCE_PINGS = False
     assert sent[0][0].startswith("🆕 NEW PICK: Yankees") and "-135" in sent[0][0] and "Lock of the Day" in sent[0][1]
     assert "2-leg parlay (+212)" in sent[1][0] and "Oilers" in sent[1][1]
     src = open(sports.__file__).read()

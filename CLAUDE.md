@@ -20,6 +20,7 @@ every session:
   worth its price, then the best proven win % (sports.own_agrees; tested 1,808 days, 58.1% vs 56.8%).
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
   day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
+- The only phone notifications are Live Plus Money bets (no pings for new picks or early value plays).
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`
   (`timeout 900 python sports_test.py`, all green before any push).

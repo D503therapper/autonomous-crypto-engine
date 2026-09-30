@@ -94,6 +94,9 @@ def american(dec):
     return round((dec - 1) * 100) if dec >= 2 else round(-100 / (dec - 1))
 
 
+ANNOUNCE_PINGS = False     # the owner, 9/30: "the only notifications should be the live plus money. That's it."
+
+
 def announce_pick(pk):
     """🔔 A pick added after the day's board is already up (a replacement, a late add): a push to everyone with the
     dashboard's alerts on (the owner, 9/29). The 8 AM board itself doesn't ping anybody."""
@@ -105,8 +108,9 @@ def announce_pick(pk):
         title = f"🆕 NEW PICK: {what}"
         body = f"{name} just went up on the board. Tap in." if len(legs) == 1 else \
             f"{name}: " + ", ".join(leg_label(l) for l in legs)[:180]
-        sd.web_push(None, title, body)
-        print(f"   announced: {title}")
+        if ANNOUNCE_PINGS:
+            sd.web_push(None, title, body)
+        print(f"   announced: {title}" + ("" if ANNOUNCE_PINGS else " (no ping: only live plus money pings)"))
     except Exception as e:                                           # noqa: BLE001 - an alert never breaks the board
         print(f"   announce failed: {str(e)[:80]}")
 
