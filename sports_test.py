@@ -3691,8 +3691,12 @@ def test_question_box_gets_exact_pick_status():
     b = sdb._leg_brain({"team": "Oilers", "league": "nhl", "market": "spread", "line": -1.5, "game_id": "nhl:1",
                         "side": "home", "odds": -118})
     assert b["game_id"] == "nhl:1" and b["side"] == "home"
+    for lg in ("nba", "nhl", "nfl", "mlb"):                                            # every sport: never 'preseason' by guess
+        assert sdb._leg_brain({"team": "X", "league": lg, "stype": "2"})["season"] == "regular season"
     js = open("workers/ask/src/index.js").read()
     assert "export function standing(" in js and "never recount the score" in js
+    assert sports.SEASON["2"] == "regular season" and '"season": SEASON.get(' in open(sports.__file__).read()
+    assert "Never guess it from records" in js                                         # (9/29: 0-0-0 read as preseason)
 
 
 if __name__ == "__main__":

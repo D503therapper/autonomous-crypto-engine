@@ -1796,7 +1796,8 @@ def write(picks, model, games, series, start_bank, path=PAGE):
 def _leg_brain(l):
     return {k: l.get(k) for k in ("league", "team", "opp", "market", "line", "odds", "p", "tier", "result", "score",
                                   "start", "breakdown", "outs", "opp_outs", "injury_alerts", "reasons", "game_id", "side")
-            if l.get(k) not in (None, [], "")}
+            if l.get(k) not in (None, [], "")} | ({"season": {"1": "preseason", "2": "regular season", "3": "playoffs"}
+                                                  .get(str(l.get("stype")), "regular season")} if l.get("stype") else {})
 
 
 def write_brain(picks, games, path=BRAIN):

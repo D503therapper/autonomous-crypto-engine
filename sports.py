@@ -1033,6 +1033,9 @@ def bankroll_series(picks):
 
 ASK_STEEP = -300              # "ask the engine": never suggest a moneyline shorter than this - use the spread
 ASK_PATH = "docs/sports/reads.json"
+SEASON = {"1": "preseason", "2": "regular season", "3": "playoffs"}   # ESPN's season type - the question box says it
+#                                                    from THIS, never guesses from records (9/29: 0-0-0 on opening night
+#                                                    read as 'preseason')
 
 
 def engine_reads(games, model, picks, now=None):
@@ -1088,7 +1091,7 @@ def engine_reads(games, model, picks, now=None):
                 h1 = {"team": g["home_name"] if home_ else g["away_name"], "p": round(max(lead_h, lead_a), 3),
                       "tie": round(max(0.0, 1 - lead_h - lead_a), 3), "name": sports_halves.NAME.get(g["league"], "1st half")}
             out.append({"id": gid, "league": g["league"], "emoji": sd.LEAGUES[g["league"]][3], "h1": h1,
-                        "sport": sd.LEAGUES[g["league"]][2], "start": g["start"],
+                        "sport": sd.LEAGUES[g["league"]][2], "season": SEASON.get(str(g.get("stype") or ""), "regular season"), "start": g["start"],
                         "away": g["away_name"], "home": g["home_name"], "why": why, "board": ours.get(gid),
                         "lean": {"team": lean_["team"], "opp": lean_["opp"], "market": lean_["market"],
                                  "line": lean_["line"], "odds": lean_["odds"], "p": round(lean_["p"], 3),
@@ -1105,7 +1108,7 @@ def engine_reads(games, model, picks, now=None):
         if st.astimezone(PT).date() != local or (g.get("status") == "pre" and gid not in legs):
             continue
         pk, l = legs.get(gid, (None, None))
-        out.append({"id": gid, "league": g["league"], "emoji": sd.LEAGUES[g["league"]][3], "sport": sd.LEAGUES[g["league"]][2],
+        out.append({"id": gid, "league": g["league"], "emoji": sd.LEAGUES[g["league"]][3], "sport": sd.LEAGUES[g["league"]][2], "season": SEASON.get(str(g.get("stype") or ""), "regular season"),
                     "start": g["start"], "away": g["away_name"], "home": g["home_name"], "h1": None,
                     "why": "on_board" if l else ("final" if g.get("status") == "final" else "started"),
                     "done": g.get("status") == "final",
