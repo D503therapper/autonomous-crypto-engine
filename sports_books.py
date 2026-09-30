@@ -12,6 +12,8 @@ import re
 import time
 import urllib.error
 import urllib.request
+
+import sports_data as sd
 from datetime import datetime, timezone
 
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
@@ -89,6 +91,48 @@ def kambi_team(data, live_only=True, missing=None):
         mod = max((_ms(o.get("changedDate")) for o in b.get("outcomes") or []), default=0)
         out.append({"home": home, "away": away, "ml_home": h, "ml_away": a, "mod": mod, "src": "betrivers"})
     return out
+
+
+def kambi_pregame(data, missing=None):
+    """Kambi listView -> upcoming games' moneylines: [{home, away, ml_home, ml_away, start, src}] (the early lines:
+    BetRivers posts football a week out). Full team names (homeName / awayName) so they match ours. `missing`
+    collects the events whose list entry has no moneyline (the NFL list shows the spread only)."""
+    out = []
+    for e in (data or {}).get("events") or []:
+        ev = e.get("event") or {}
+        if ev.get("state") not in (None, "NOT_STARTED"):
+            continue
+        home, away = str(ev.get("homeName") or ""), str(ev.get("awayName") or "")
+        b = _kambi_ml(e)
+        if b is None:
+            if missing is not None and ev.get("id"):
+                missing.append(ev["id"])
+            continue
+        if not home or not away:
+            continue
+        px = {}
+        for o in b.get("outcomes") or []:
+            px[str(o.get("participant") or o.get("englishLabel") or "")] = (_am(o.get("oddsAmerican")), o.get("status"))
+        h = next((v for k, v in px.items() if k and (k == home or sd._same(k, home))), (None, None))
+        a = next((v for k, v in px.items() if k and (k == away or sd._same(k, away))), (None, None))
+        if h[0] is None or a[0] is None or h[1] != "OPEN" or a[1] != "OPEN":
+            continue
+        out.append({"home": home, "away": away, "ml_home": h[0], "ml_away": a[0], "start": str(ev.get("start") or ""),
+                    "src": "betrivers"})
+    return out
+
+
+def pregame(league, max_events=25):
+    """BetRivers' moneylines for a league's upcoming games ([] when it has none or it's down)."""
+    if league not in KAMBI_PATH:
+        return []
+    missing = []
+    got = _read("betrivers", f"pre:{league}", KAMBI.format(p=KAMBI_PATH[league]), lambda d, a: kambi_pregame(d, missing))
+    for eid in missing[:max_events]:
+        got += _read("betrivers", f"pre:{league}:{eid}", KAMBI_EVENT.format(id=eid),
+                     lambda d, a: kambi_pregame({"events": [{"event": (d.get("events") or [{}])[0],
+                                                             "betOffers": d.get("betOffers") or []}]}))
+    return got
 
 
 def kambi_event(data):

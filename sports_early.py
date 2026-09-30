@@ -221,12 +221,55 @@ def scan(games, model, now=None, injuries=None, trap=None):
     return out
 
 
-def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None):
+BOOK_LEAGUES = ("nfl", "ncaaf", "nba", "nhl", "mlb", "ncaab")
+
+
+def with_book_lines(games, st, now, fetch=None):
+    """The owner (9/30): 'as soon as the lines come out, that's when we need to see them - some books have lines before
+    others.' A book's line (BetRivers posts football a week out) fills any upcoming game ESPN has no price for yet, and
+    the FIRST price any of our books ever showed is kept as that game's open. Returns a copy - the stored games and
+    the main board never see these."""
+    if fetch is None:
+        import sports_books
+        fetch = sports_books.pregame
+    seen = st.setdefault("first_seen", {})
+    out = dict(games)
+    for lg in [x for x in BOOK_LEAGUES if x in passed()]:
+        try:
+            rows = fetch(lg)
+        except Exception as e:                           # noqa: BLE001 - a book down never breaks the scan
+            print(f"   early lines {lg}: {str(e)[:60]}")
+            continue
+        for r in rows:
+            try:
+                t = datetime.strptime(r["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+            except (KeyError, ValueError):
+                continue
+            for gid, g in games.items():
+                if g.get("league") != lg or g.get("status") != "pre" or not g.get("start"):
+                    continue
+                if abs((_t(g["start"]) - t).total_seconds()) > 3 * 3600 or not sd._same(g["home_name"], r["home"]) \
+                        or not sd._same(g["away_name"], r["away"]):
+                    continue
+                seen.setdefault(gid, {"ml_home": r["ml_home"], "ml_away": r["ml_away"], "src": r.get("src", "book"),
+                                      "at": now.strftime("%Y-%m-%dT%H:%MZ")})
+                g2 = dict(g)
+                if str(g.get("ml_home", "")) == "":          # ESPN hasn't priced it yet: the book's line is the line
+                    g2.update(ml_home=str(r["ml_home"]), ml_away=str(r["ml_away"]))
+                if str(g.get("ml_home_open", "")) == "":     # the first line any book showed = the open
+                    g2.update(ml_home_open=str(seen[gid]["ml_home"]), ml_away_open=str(seen[gid]["ml_away"]))
+                out[gid] = g2
+                break
+    return out
+
+
+def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None, lines=None):
     """Scan, post the new ones (once per game), grade the finished ones. Returns the new posts."""
     now = now or datetime.now(timezone.utc)
     st = load(path)
     if not ON:
         return []
+    games = with_book_lines(games, st, now, lines)
     if not st.get("launched") and ping:              # 🚨 the one-time "engine breakthrough" ping (the owner, 9/30)
         st["launched"] = now.strftime("%Y-%m-%dT%H:%MZ")
         try:

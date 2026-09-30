@@ -4218,10 +4218,10 @@ def test_early_value_plays():
         se.ON = False
         assert se.post(games, {"params": {}}, now, ping=pings.append) == [] and not pings   # off = nothing
         se.ON = True
-        new = se.post(games, {"params": {}}, now, ping=pings.append)
+        new = se.post(games, {"params": {}}, now, ping=pings.append, lines=lambda lg: [])
         assert [c["game_id"] for c in new] == ["1"] and new[0]["odds"] == 185, new
         assert pings[0] is None and pings[1]["game_id"] == "1"        # the breakthrough ping first, then the play
-        assert se.post(games, {"params": {}}, now, ping=pings.append) == [] and len(pings) == 2   # once, ever
+        assert se.post(games, {"params": {}}, now, ping=pings.append, lines=lambda lg: []) == [] and len(pings) == 2
         saved_un = sd.team_unsure                                     # the owner, 9/30: a questionable star on
         sd.team_unsure = lambda inj, tid, name, lg: [("Star", "PG", "Questionable")]   # our side = no early play
         try:
@@ -4233,7 +4233,7 @@ def test_early_value_plays():
         sm.market_p = lambda g, open_line=False: 0.30                 # +10 pts: outside the only band that passed
         assert se.scan(games, {"params": {}}, now) == []
         games["1"].update(status="final", home_score="24", away_score="20")
-        se.post(games, {"params": {}}, now)
+        se.post(games, {"params": {}}, now, lines=lambda lg: [])
         st = se.load()
         assert st["picks"][0]["result"] == "won" and se.record(st) == {"won": 1, "lost": 0, "units": 1.85}
         assert "Get it before the line moves" in se.ping_text(st["picks"][0])[1]
@@ -4365,6 +4365,46 @@ def test_football_lines_loaded_a_week_early():
     assert sd.days_ahead("ncaaf") >= 7 and sd.days_ahead("nfl") >= 7 and sd.days_ahead("nhl") >= 3
     import sports_early as se
     assert se.AHEAD_D >= sd.days_ahead("nfl")          # the early scan looks at least as far as the lines are loaded
+
+
+def test_early_lines_from_a_book_before_espn():
+    """The owner (9/30): 'as soon as the lines come out we need to see them - some books have lines before others.'
+    A book's line fills a game ESPN hasn't priced yet, and the FIRST line any book showed stays that game's open."""
+    import sports_early as se
+    saved = se.passed
+    se.passed = lambda path=None: {"ncaaf": [(0.04, 1)]}
+    try:
+        now = datetime(2026, 9, 28, 18, 0, tzinfo=timezone.utc)
+        games = {"g1": {"league": "ncaaf", "status": "pre", "start": "2026-10-03T19:30Z", "home_name": "Penn State",
+                        "away_name": "Northwestern", "ml_home": "", "ml_away": ""}}
+        rows = [{"home": "Penn State Nittany Lions", "away": "Northwestern Wildcats", "ml_home": -280, "ml_away": 225,
+                 "start": "2026-10-03T19:30:00Z", "src": "betrivers"}]
+        st = {"picks": []}
+        g = se.with_book_lines(games, st, now, lambda lg: rows)["g1"]
+        assert g["ml_away"] == "225" and g["ml_away_open"] == "225" and games["g1"]["ml_away"] == ""   # a copy
+        rows[0].update(ml_home=-140, ml_away=120)                   # the money came in on Northwestern
+        games["g1"].update(ml_home="-140", ml_away="120")           # ...and ESPN's priced it now
+        g = se.with_book_lines(games, st, now, lambda lg: rows)["g1"]
+        assert g["ml_away"] == "120" and g["ml_away_open"] == "225"  # the open stays the first line we ever saw
+        assert se.moved_toward(int(g["ml_away_open"]), int(g["ml_away"])) == 105      # value already taken
+        import sports_books as sbk                                  # BetRivers' own shape -> the rows above
+        data = {"events": [
+            {"event": {"id": 1, "state": "NOT_STARTED", "homeName": "Penn State Nittany Lions",
+                       "awayName": "Northwestern Wildcats", "start": "2026-10-03T19:30:00Z"},
+             "betOffers": [{"criterion": {"englishLabel": "Moneyline"}, "betOfferType": {"englishName": "Match"},
+                            "outcomes": [{"participant": "Penn State Nittany Lions", "oddsAmerican": "-280", "status": "OPEN"},
+                                         {"participant": "Northwestern Wildcats", "oddsAmerican": "+225", "status": "OPEN"}]}]},
+            {"event": {"id": 2, "state": "STARTED", "homeName": "A", "awayName": "B"}, "betOffers": []},
+            {"event": {"id": 3, "state": "NOT_STARTED", "homeName": "C", "awayName": "D"}, "betOffers": []}]}
+        miss = []
+        got = sbk.kambi_pregame(data, miss)
+        assert got == [{"home": "Penn State Nittany Lions", "away": "Northwestern Wildcats", "ml_home": -280,
+                        "ml_away": 225, "start": "2026-10-03T19:30:00Z", "src": "betrivers"}] and miss == [3]
+        def boom(lg):
+            raise OSError("book down")
+        assert se.with_book_lines(games, st, now, boom)["g1"] is games["g1"]            # a book down: no crash
+    finally:
+        se.passed = saved
 
 
 if __name__ == "__main__":
