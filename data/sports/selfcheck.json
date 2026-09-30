@@ -3,24 +3,31 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.8,
-   "n": 25,
-   "said": 0.561,
-   "verdict": "only 25 graded - report only"
+   "hit": 0.733,
+   "n": 30,
+   "said": 0.56,
+   "verdict": "only 30 graded - report only"
+  },
+  "ctx:game:conf": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 2,
+   "said": 0.554,
+   "verdict": "only 2 graded - report only (report only: forward-only tag)"
   },
   "ctx:game:div": {
    "extra_edge": 0.0,
-   "hit": 1.0,
-   "n": 4,
-   "said": 0.561,
-   "verdict": "only 4 graded - report only (report only: forward-only tag)"
+   "hit": 0.571,
+   "n": 7,
+   "said": 0.558,
+   "verdict": "only 7 graded - report only (report only: forward-only tag)"
   },
   "ctx:game:rival": {
    "extra_edge": 0.0,
-   "hit": 1.0,
-   "n": 4,
-   "said": 0.561,
-   "verdict": "only 4 graded - report only (report only: forward-only tag)"
+   "hit": 0.571,
+   "n": 7,
+   "said": 0.558,
+   "verdict": "only 7 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:east1000": {
    "extra_edge": 0.0,
@@ -32,16 +39,37 @@
   "ctx:them:trip1000": {
    "extra_edge": 0.0,
    "hit": 1.0,
-   "n": 4,
-   "said": 0.561,
-   "verdict": "only 4 graded - report only (report only: forward-only tag)"
+   "n": 6,
+   "said": 0.558,
+   "verdict": "only 6 graded - report only (report only: forward-only tag)"
+  },
+  "ctx:them:trip2000": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 2,
+   "said": 0.554,
+   "verdict": "only 2 graded - report only (report only: forward-only tag)"
+  },
+  "ctx:them:week3000": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 2,
+   "said": 0.554,
+   "verdict": "only 2 graded - report only (report only: forward-only tag)"
+  },
+  "ctx:them:west1000": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 2,
+   "said": 0.554,
+   "verdict": "only 2 graded - report only (report only: forward-only tag)"
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.8,
-   "n": 25,
-   "said": 0.561,
-   "verdict": "only 25 graded - report only"
+   "hit": 0.733,
+   "n": 30,
+   "said": 0.56,
+   "verdict": "only 30 graded - report only"
   },
   "label:dog": {
    "extra_edge": 0.0,
@@ -66,10 +94,10 @@
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.875,
-   "n": 16,
-   "said": 0.531,
-   "verdict": "only 16 graded - report only"
+   "hit": 0.762,
+   "n": 21,
+   "said": 0.536,
+   "verdict": "only 21 graded - report only"
   },
   "label:value": {
    "extra_edge": 0.0,
@@ -80,10 +108,10 @@
   },
   "league:mlb": {
    "extra_edge": 0.0,
-   "hit": 0.9,
-   "n": 10,
-   "said": 0.527,
-   "verdict": "only 10 graded - report only"
+   "hit": 0.917,
+   "n": 12,
+   "said": 0.532,
+   "verdict": "only 12 graded - report only"
   },
   "league:nfl": {
    "extra_edge": 0.0,
@@ -91,6 +119,13 @@
    "n": 12,
    "said": 0.589,
    "verdict": "only 12 graded - report only"
+  },
+  "league:nhl": {
+   "extra_edge": 0.0,
+   "hit": 0.0,
+   "n": 3,
+   "said": 0.554,
+   "verdict": "only 3 graded - report only"
   },
   "league:tennis": {
    "extra_edge": 0.0,
@@ -101,17 +136,17 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.792,
-   "n": 24,
-   "said": 0.563,
-   "verdict": "only 24 graded - report only"
+   "hit": 0.808,
+   "n": 26,
+   "said": 0.562,
+   "verdict": "only 26 graded - report only"
   },
   "market:spread": {
    "extra_edge": 0.0,
-   "hit": 1.0,
-   "n": 1,
-   "said": 0.522,
-   "verdict": "only 1 graded - report only"
+   "hit": 0.25,
+   "n": 4,
+   "said": 0.546,
+   "verdict": "only 4 graded - report only"
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
@@ -122,10 +157,10 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.929,
-   "n": 14,
-   "said": 0.56,
-   "verdict": "only 14 graded - report only"
+   "hit": 0.789,
+   "n": 19,
+   "said": 0.558,
+   "verdict": "only 19 graded - report only"
   },
   "source:live": {
    "extra_edge": 0.0,
@@ -136,12 +171,12 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.85,
-   "n": 20,
-   "said": 0.533,
-   "verdict": "only 20 graded - report only"
+   "hit": 0.76,
+   "n": 25,
+   "said": 0.537,
+   "verdict": "only 25 graded - report only"
   }
  },
  "live_without_p": 13,
- "updated": "2026-09-30T05:13Z"
+ "updated": "2026-09-30T05:19Z"
 }
