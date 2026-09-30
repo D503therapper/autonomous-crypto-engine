@@ -904,13 +904,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
     # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
     days_ = live_days(now)
     lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)   # every one today - the list always matches the record
-    badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ LOST</span>'}
+    badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ MISSED</span>'}
     def pending_(pid, e):                                    # still going: the live score shows right under it
         gid, side = pid.rsplit(":", 1) if pid.count(":") >= 2 else (pid, "")
         start = str(e.get("posted") or "")
         start = start if start.endswith("Z") and "T" in start else ""
-        return (f'<span class="tm" data-gid="{E(gid)}" data-start="{E(start)}" data-side="{E(side)}">⏳ still going</span>'
-                if start else '<span class="tm">⏳ still going</span>')
+        return (f'<span class="tm" data-gid="{E(gid)}" data-start="{E(start)}" data-side="{E(side)}">⏳ STILL GOING</span>'
+                if start else '<span class="tm">⏳ STILL GOING</span>')
     used_ = set()                                            # no two bets in the list share a phrase
     stories = {id(e): _live_story(e, used_) for e in sorted(lrows, key=lambda e: e["posted"])}   # oldest first: a new
     #                                                        bet never rewords the ones already on the list
@@ -922,7 +922,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     pid_of = {id(e): pid for pid, e in live.items()}
     live_list = ("" if not lrows else
                  '<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span>'
-                 '<span class="pk-l">LIVE PLUS MONEY</span></div>' + "".join(
+                 '<span class="pk-l tn8">TONIGHT\'S LIVE BETS</span><span class="chip in">WE\'RE IN</span></div>' + "".join(
                      f'<div class="leg {e.get("result") or ""}" data-pid="{E(pid_of.get(id(e), ""))}"><div class="lt"><span class="lgb">{_live_icon(e)} '
                      f'{E(_live_sport(e))}{" · 🔁 DOUBLE DOWN" if e.get("double_down") else ""}</span>'
                      f'{badge_.get(e.get("result")) or pending_(pid_of.get(id(e), ""), e)}</div>'
@@ -1321,6 +1321,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tn-day{{font-size:11px;font-weight:900;letter-spacing:.12em;color:#c6f000;margin:10px 0 -2px}}
 .chip.lean{{background:#ffc233;color:#111;margin-right:6px}} .chip.val{{background:#ff5a1f;color:#fff;margin-right:6px}}
 .chip.lk{{background:#22e39a;color:#06281c;margin-right:6px}}
+.chip.in{{background:#22d3ee;color:#04202a;margin-left:auto}} .chip.bin{{background:#ff3b3b;color:#fff;margin-left:auto}} .sec h2.bn,.sec span.bn{{color:#ff4d4d;text-shadow:0 0 12px rgba(255,59,59,.45)}} .sec span.bn{{font-weight:900;letter-spacing:.08em}} .pk-l.tn8{{letter-spacing:.1em;font-size:15px;white-space:nowrap}}
 .pk.lvc{{box-shadow:0 0 0 2px #ff3b3b,0 18px 50px -14px #ff3b3b}} .chip.livechip{{color:#fff;background:#ff3b3b}}
 .bd{{margin-top:8px;border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;background:rgba(0,0,0,.25)}}
 .bd summary{{list-style:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:800;color:var(--c1);letter-spacing:.04em}}
@@ -1401,8 +1402,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="ask-b"><div class="ask-n">{ask_note}</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send">{ask_btn}</div>
 <div id="asklist"></div><div id="askout"></div></div></div>
-<div class="sec"><h2><i class="lv">●</i> LIVE PLUS MONEY</h2><span>updates every 5 sec</span></div>
-{bell}<div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">📡 Checking the live games…</div></section></div>
+<div class="sec"><h2 class="bn"><i class="lv">●</i> LIVE</h2><span>updates every 5 sec</span></div>
+{bell}<div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div><div class="nolive">👀 The algorithm’s watching every play for value.</div></section></div>
 <div id="livetoday">{live_list}</div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
@@ -1431,29 +1432,29 @@ Picks only — no bets placed · refreshes hourly</div>
 (function(){{   // 📡 LIVE VALUE: checks live.json every 2 seconds; a play disappears the moment its value is gone
 function esc(x){{return String(x).replace(/[&<>"]/g,function(c){{return{{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]}})}}
 var last="",PLAY_FRESH_MS={PLAY_FRESH_S}*1000;
-function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="nolive">'+(n<0?
-  '📡 Checking the live lines…':n>0?
-  '👀 No live plus money right now. '+n+' game'+(n>1?'s':'')+' going — the algorithm’s watching every play for value.':
-  '😴 No live plus money right now — no games going.')+'</div></section>';}}
+var HEAD='<div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div>';
+function idle(n){{return '<section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+'<div class="nolive">'+(n<0?   // one red box:
+  '👀 The algorithm’s watching every play for value.':n>0?                                                                  // what you can bet
+  '👀 The algorithm’s watching every play for value. '+n+' game'+(n>1?'s':'')+' going.':   // right now
+  '😴 No games going right now.')+'</div></section>';}}
 function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d&&d.plays)||[],n=d?(d.live_games||0):-1;
  var key=JSON.stringify(ps)+n;if(key===last)return;last=key;          // unchanged: leave it (an open breakdown stays open)
- el.innerHTML=(ps.length?ps.map(function(p){{
-  return '<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">'+esc(p.emoji)+'</span><span class="pk-l">'+(p.double_down?'🔁 DOUBLE DOWN':'LIVE BET')+'</span><span class="chip livechip">'+(p.paused?'⏸ LINE PAUSED':'📡 LIVE')+'</span></div>'+
-   
-   '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
+ el.innerHTML=(ps.length?'<section class="pk lvc" style="--c1:#ff3b3b;--c2:#ff8a00">'+HEAD+ps.map(function(p){{
+  return '<div class="leg"><div class="lt"><span class="lgb">'+esc(p.emoji)+' '+esc(p.sport)+(p.double_down?' · 🔁 DOUBLE DOWN':'')+
+   (p.paused?' · ⏸ LINE PAUSED':'')+'</span><span class="tm">'+esc(p.clock)+'</span></div>'+
    '<div class="lm"><span class="pick">'+esc(p.team)+' <em>ML</em></span><span class="od">+'+esc(p.odds)+'</span></div>'+
    '<div class="ls">'+esc(p.score)+(p.ball?' · '+esc(p.ball):'')+'</div><div class="why">'+esc(p.line)+'</div>'+
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
-   '</div></section>';}}).join(""):idle(n));}}
-function badge(r){{return r==="won"?'<span class="lr won">✅ CASHED</span>':r==="lost"?'<span class="lr lost">❌ LOST</span>':""}}
+   '</div>';}}).join("")+'</section>':idle(n));}}
+function badge(r){{return r==="won"?'<span class="lr won">✅ CASHED</span>':r==="lost"?'<span class="lr lost">❌ MISSED</span>':""}}
 function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return;   // today's live bets, pending too: straight
  T.forEach(function(e){{var have=el.querySelector('.leg[data-pid="'+e.pid+'"]');       // from the watcher, no page rebuild needed
   if(have){{if(e.result&&!have.classList.contains(e.result)){{have.className="leg "+e.result;   // graded: CASHED / LOST now
     var t=have.querySelector(".lt>.tm,.lt>.lr");if(t)t.outerHTML=badge(e.result);var sc=have.querySelector(":scope>.lsc");if(sc)sc.remove();}}
    return}}
   var sec=el.querySelector("section");
-  if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l">LIVE PLUS MONEY</span></div></section>';sec=el.querySelector("section");}}
-  var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ still going</span>';
+  if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l tn8">TONIGHT&#39;S LIVE BETS</span><span class="chip in">WE&#39;RE IN</span></div></section>';sec=el.querySelector("section");}}
+  var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ STILL GOING</span>';
   var h=document.createElement("div");h.className="leg "+(e.result||"");h.setAttribute("data-pid",e.pid);
   h.innerHTML='<div class="lt"><span class="lgb">'+esc(e.icon)+' '+esc(e.sport)+(e.dd?' · 🔁 DOUBLE DOWN':'')+'</span>'+b+'</div><div class="lm"><span class="pick">'+esc(e.team)+' <em>ML</em></span><span class="od">+'+esc(e.odds)+'</span></div>';
   var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});if(window.d503lt)window.d503lt();}}   // newest on top

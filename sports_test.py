@@ -3589,6 +3589,19 @@ def test_no_dull_gray_text_anywhere():
     assert "color:#e8c77a" not in src and ".pk.lost>*:not(.stamp-row){{opacity" not in src
 
 
+def test_live_boxes_bet_it_now_and_tonights_bets():
+    """The owner, 9/29: two clear boxes. Red: 'LIVE PLUS MONEY · BET IT NOW' - only what you can bet right now (or
+    'The algorithm's watching every play for value. 13 games going.'); blue: 'TONIGHT'S LIVE BETS · WE'RE IN' - our bets, STILL GOING ->
+    CASHED / MISSED, up till the next board. (An apostrophe inside the page script once broke the whole live section:
+    the script is written with &#39;.)"""
+    import sports_dashboard as sdb
+    src = open(sdb.__file__).read()
+    assert 'LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span>' in src
+    assert "TONIGHT&#39;S LIVE BETS" in src and "WE&#39;RE IN" in src and "⏳ STILL GOING" in src and "❌ MISSED" in src
+    assert "Checking the live" not in src and "👀 The algorithm’s watching every play for value. '+n+' game" in src   # (the
+    #                                                                                   owner's own words, short)
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
