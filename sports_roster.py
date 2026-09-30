@@ -132,7 +132,12 @@ def fetch(league, gid, start):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "d503-engine"})
             with urllib.request.urlopen(req, timeout=15) as r:
-                return parse(league, gid, start, json.load(r))
+                payload = json.load(r)
+            rows = parse(league, gid, start, payload)
+            if not rows and (payload.get("boxscore") or {}).get("players"):
+                sd.ERRORS.append(f"roster {gid}: a box score we couldn't read")   # a shape we don't know: retry
+                return None                                  # later, never mark it 'no box score' for good
+            return rows
         except Exception as e:                           # noqa: BLE001
             if i == 1:
                 sd.ERRORS.append(f"roster {gid}: {str(e)[:80]}")

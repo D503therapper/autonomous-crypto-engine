@@ -2,6 +2,7 @@
 grading. Run: python sports_test.py"""
 import csv
 import gzip
+import io
 import json
 import math
 import os
@@ -4355,6 +4356,18 @@ def test_roster_keeps_every_player():
         assert len(sr.load("nba")) == 2 and sr.have_ids("nba") == {"nba:1"}
         assert os.path.exists(os.path.join(d, "nba_2025.csv.gz"))                 # a Jan game = the 2025-26 season
         assert sr.volume("nba", {"minutes": "36"}) == 36 and sr.volume("nhl", {"timeOnIce": "18:30"}) == 18.5
+        # a box score in a shape we can't read is retried later, never written off as "no box score" for good
+        import urllib.request as ur
+        saved_open = ur.urlopen
+        class R(io.BytesIO):
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+        ur.urlopen = lambda req, timeout=0: R(json.dumps({"boxscore": {"players": [{"team": {"id": "1"},
+                                                          "statistics": [{"keys": ["?"], "athletes": []}]}]}}).encode())
+        try:
+            assert sr.fetch("nba", "nba:9", "2026-01-05T00:00Z") is None
+        finally:
+            ur.urlopen = saved_open
     finally:
         sr.DIR = saved
 
