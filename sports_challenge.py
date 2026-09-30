@@ -198,7 +198,7 @@ def final_words(c):
         return (f"🏆 {name} wins vs the Algorithm!", f"There's a new tennis GOAT in town. {name} is him! 🔥")
     if as_ > ps:
         return (f"🏆 Algorithm wins vs {name}", "The Algorithm remains the undisputed GOAT 🔥")
-    return (f"🤝 {name} tied the Algorithm", f"Maybe, and only just maybe, {name} is the Algorithm! 🔥")
+    return (f"🤝 {name} tied the Algorithm!", f"Maybe, and only just maybe, {name} is the Algorithm!!! 🔥🔥🔥")
 
 
 def _ping(title, body):
