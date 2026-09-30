@@ -3276,3 +3276,39 @@ DEX: $997.33 (-2.67) · Scammed: 0
 [2026-09-30 01:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-30 01:05 UTC] crypto/hold_btc  equity $496.44 (-0.7%) 1 open  market UP
    social heat top: QNT 40 (35/0/5), PENGU 37 (37/0/0), PONS 36 (32/0/4), TRUMP 29 (29/0/0), GRASS 27 (27/0/0)
+   dex screen: REJECT DJT@solana liq $443,661 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 48%; lp holders unknown
+   dex screen: REJECT KBTC@ethereum liq $38,639,997 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 100%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   >> dex/dex_hunter: BUY $99.43 of AROS@solana:7174WCmC @ 0.050397 (dex tier A momentum 1h +10% 6h +68% buys/sells 183/57 impact 0.02%)
+   dex screen: REJECT PROS@base liq $7,722 - liquidity $7,722 < $100,000; 24h volume $483 < $100,000
+   dex screen: REJECT TRAC@ethereum liq $443,823 - is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT RLB@ethereum liq $658,768 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT GITLAWB@base liq $571,693 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   scanner: MOVR: +5.4% in 15 min on 15.0x volume @ 1.28 spread 0.71%
+   take-off: MOVR vetoed by pump guard: already +34% in 24h
+   scanner: MOVR: +5.2% in 15 min on 15.0x volume @ 1.277 spread 0.70%
+   take-off: MOVR vetoed by pump guard: blocked 28 more min
+   dex screen: PASS BOTIFY@solana liq $102,948
+   scanner: MOVR: +5.5% in 15 min on 15.1x volume @ 1.281 spread 0.71%
+   take-off: MOVR vetoed by pump guard: blocked 27 more min
+   dex screen: REJECT ZEN@base liq $2,589,215 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; holders unknown; lp locked 0% < 95%
+   dex screen: REJECT BP@solana liq $5,730,248 - freeze authority; mint authority; top-10 holders 97%
+   dex screen: PASS ANTFUN@solana liq $16,746,633
+   dex re-screen: AROS@solana:7174WCmC flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT KTA@base liq $4,456,666 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 68%
+   dex scanner: 3,000 pools (solana 1,989 / base 585 / ethereum 426), refresh cycle 127s (hot 124s), 2955 calls (125 feed, 429s 0, failed 0), 84,899 refreshed (8121 no pair), +189 added / -189 dropped (dead 18, stale 0, cap 171), movers 4 + warming 33 -> queued 3, screened 3 (passed 1), bought 0
+   dex screen: REJECT SPCX@solana liq $499,744 - freeze authority; mint authority; balance_mutable_authority; transfer hook; lp holders unknown
+[2026-09-30 02:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-30 02:05 UTC] crypto/mover     equity $461.69 (-7.7%) 1 open  market UP
+[2026-09-30 02:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 02:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 02:05 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-30 02:05 UTC] crypto/breakout10 equity $498.04 (-0.4%) 2 open  market UP
+[2026-09-30 02:05 UTC] crypto/momentum  equity $488.34 (-2.3%) 2 open  market UP
+[2026-09-30 02:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-30 02:05 UTC] crypto/hold_btc  equity $496.78 (-0.6%) 1 open  market UP
+   social heat top: QNT 42 (37/0/5), PONS 38 (29/0/8), PUMP 32 (32/0/0), NEAR 27 (27/0/0), HBAR 24 (24/0/0)
