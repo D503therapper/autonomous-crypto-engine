@@ -826,8 +826,9 @@ def kelly_units(p, odds):
 def _sized(t, leg):
     """Units for one pick of tier t - the engine's call (see the sizing notes up top)."""
     if t == "lock":
-        own = (leg.get("p_market") or 0) + leg["edge_own"] if leg.get("edge_own") is not None and leg.get("p_market") \
-            else leg.get("p")
+        dec = leg.get("dec") or _dec(leg.get("odds") or -110)
+        own = (leg["edge_own"] + 1) / dec if leg.get("edge_own") is not None else leg.get("p")   # edge_own is value per
+        #                                         $1 (own x dec - 1), the same read own_agrees() uses - not a win % gap
         return kelly_units(own, leg.get("odds") or -110)
     if t == "value":
         return kelly_units(leg.get("p"), leg.get("odds") or 100)
