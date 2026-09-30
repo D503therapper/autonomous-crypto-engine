@@ -280,3 +280,51 @@ def volume(league, st):
 if __name__ == "__main__":
     import sys
     run_backfill(float(sys.argv[1]) if len(sys.argv) > 1 else 38)
+
+
+# 💐 "Somebody give this man his flowers" (the owner, 9/30): one of OUR players went off in a win - the review says so.
+_STAR_CACHE = {}
+
+
+def _big_night(league, st):
+    """Did this stat line 'go off'? (a clear monster game - never a merely good one)."""
+    n = lambda k: _num(st.get(k))
+    if league == "nba":
+        return n("points") >= 35
+    if league == "ncaab":
+        return n("points") >= 30
+    if league in ("nfl", "ncaaf"):
+        tds = n("passingTouchdowns")
+        return n("passingYards") >= 350 or tds >= 4 or n("rushingYards") >= 150 or n("receivingYards") >= 150
+    if league == "nhl":
+        return n("goals") >= 3 or (n("saves") >= 40 and n("goalsAgainst") <= 1)
+    if league == "mlb":
+        return n("strikeouts") >= 10 and "fullInnings.partInnings" in st or n("homeRuns") >= 2 or n("RBIs") >= 5
+    return False
+
+
+def star_night(league, gid, team_id, start=""):
+    """The name of OUR player who went off in this game (the biggest night), or None (no box score yet / nobody did)."""
+    key = (league, str(start)[:4])
+    if key not in _STAR_CACHE:
+        by = defaultdict(list)
+        try:
+            y = int(str(start)[:4])
+            for r in load(league, seasons=[y - 1, y]):
+                by[r["gid"]].append(r)
+        except Exception:                                    # noqa: BLE001 - no box scores: no flowers line
+            pass
+        _STAR_CACHE[key] = by
+    best = None
+    for r in _STAR_CACHE[key].get(gid, []):
+        if r["team"] != str(team_id):
+            continue
+        try:
+            st = json.loads(r["stats"])
+        except ValueError:
+            continue
+        if _big_night(league, st):
+            v = volume(league, st)
+            if best is None or v > best[0]:
+                best = (v, r["player"])
+    return best[1] if best else None

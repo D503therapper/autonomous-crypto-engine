@@ -4992,6 +4992,26 @@ def test_cover_streaks_and_revenge():
     assert sports.dog_score({**base, "revenge": True}) == sports.dog_score(base) + 3
 
 
+def test_his_flowers_said_right():
+    """The owner, 9/30: one of ours went off in a win - 'Somebody give this man his flowers. Cash it, baby.' It's ALWAYS
+    'HIS flowers': never 'give him flowers' / 'give this man flowers' (said wrong it sounds all messed up)."""
+    import itertools
+    import sports_lingo as L
+    import sports_owner_lingo as OL
+    import sports_roster as sr
+    pools = list(L.REVIEWS[("flowers", "won")][2]) + list(L.LINES["rc:flowers"][2])
+    for tpl in pools:
+        low = tpl.lower()
+        assert "flowers" in low and ("his flowers" in low), tpl
+        assert not any(w in low for w in ("give him flowers", "this man flowers", "her flowers")), tpl
+    for seed in range(40):
+        line = L.review("flowers", "won", f"s{seed}", set(), star="Trevor Lawrence", t="the Jaguars")
+        assert "his flowers" in line and "{" not in line and "Trevor Lawrence" in line, line
+    assert "give him flowers" in OL.NEVER and "give this man flowers" in OL.NEVER
+    assert sr._big_night("nba", {"points": "36"}) and not sr._big_night("nba", {"points": "30"})   # only a real monster night
+    assert sr._big_night("nfl", {"passingYards": "362"}) and not sr._big_night("nfl", {"passingYards": "280"})
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
