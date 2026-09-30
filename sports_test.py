@@ -4297,6 +4297,17 @@ def test_we_got_in_early_box():
         assert "✅" in se.gameday_html(st, games, lambda x: x, now)
         st["picks"][0]["graded_at"] = (now - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%MZ")
         assert "Teama" not in se.gameday_html(st, games, lambda x: x, now)     # 3 hours up: gone
+        # the owner, 9/30: our starting QB ruled out after we posted -> the price blows up; never "better price now"
+        games["b"].update(home="1", home_name="Teamb")
+        saved_ko = sd.team_key_out
+        sd.team_key_out = lambda inj, tid, name, lg: [("Lamar Jackson", "QB", "Out")] if name == "Teamb" else []
+        try:
+            se.watch(st, games, {"nfl": {"x": []}})
+        finally:
+            sd.team_key_out = saved_ko
+        row = se.gameday_html(st, games, lambda x: x, now).split('class="gr"')[1]
+        assert "Lamar Jackson out - don't chase it" in row and "better price now" not in row, row
+        assert "ruled out since we posted" in se.html(st, lambda x: x, now - timedelta(days=2))
         se.ON = False
         assert se.gameday_html(st, games, lambda x: x, now) == ""
     finally:

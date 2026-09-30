@@ -244,9 +244,22 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None)
                 ping(c)
             except Exception as e:                   # noqa: BLE001 - an alert never breaks the engine
                 print(f"   early dog ping failed: {str(e)[:60]}")
+    watch(st, games, injuries)
     grade(st, games)
     save(st, path)
     return new
+
+
+def watch(st, games, injuries):
+    """A posted play's key player (QB, goalie...) ruled out after we posted: the price blows up for a reason the early
+    read never saw. The play itself never changes (the owner's rule) - its rows say it plain: don't chase it."""
+    for p in st["picks"]:
+        g = games.get(p["game_id"])
+        inj = (injuries or {}).get(p["league"])
+        if p.get("result") or not g or g.get("status") != "pre" or inj is None:
+            continue
+        out = sd.team_key_out(inj, g.get(p["side"]), g.get(f"{p['side']}_name") or p["team"], p["league"])
+        p["key_out"] = f"{out[0][0]} ({out[0][1]})" if out else None
 
 
 def grade(st, games):
@@ -308,7 +321,9 @@ def html(st, E, now=None):
         t = _t(p["start"]).astimezone(PT)
         return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>ML</small> <em>+{p["odds"]}</em>'
                 f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
-                f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u></div></div>')
+                f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
+                + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
+                + '</div></div>')
     body = "".join(row(p) for p in up) or \
         '<div class="evn">👀 Watching every new line. The next one posts the second it shows up.</div>'
     return (f'<section class="pk evx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">⏰</span>'
@@ -319,6 +334,8 @@ def html(st, E, now=None):
 def label(p, now_odds):
     """The game-day row's call (the owner, 9/30): the price came our way = we beat the line; it got bigger and the engine
     still likes it = better price now; bigger and it doesn't = the money went against it; no move = no label."""
+    if p.get("key_out"):                                  # our QB / goalie ruled out since we posted
+        return f"🚑 {p['key_out'].split(' (')[0]} out - don't chase it"
     if now_odds is None or now_odds == p["odds"]:
         return ""
     if now_odds < p["odds"]:                              # +185 -> +150 / -120: the money came our way
