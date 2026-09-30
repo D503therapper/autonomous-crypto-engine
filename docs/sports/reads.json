@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T01:56Z",
+ "updated": "2026-09-30T02:13Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -155,29 +155,26 @@
    "id": "nhl:401891775",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.44,
-    "tie": 0.29,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "start": "2026-09-30T02:30Z",
    "away": "Blackhawks",
    "home": "Golden Knights",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
-    "team": "Golden Knights",
-    "opp": "Blackhawks",
-    "market": "ml",
-    "line": null,
-    "odds": -258,
-    "p": 0.685,
-    "win_p": 0.685,
+    "team": "Blackhawks",
+    "opp": "Golden Knights",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -125,
+    "p": 0.534,
+    "win_p": 0.534,
     "reasons": [
-     "the stronger team"
-    ]
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
