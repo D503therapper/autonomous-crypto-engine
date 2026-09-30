@@ -1232,6 +1232,10 @@
     ],
     "dec": 1.847457627118644,
     "edge": 0.02382801737743523,
+    "flow": {
+     "a": "1,1,3,1",
+     "h": "1,1,3,0"
+    },
     "game_id": "nhl:401891804",
     "home": true,
     "intl": false,
@@ -1257,7 +1261,8 @@
      "sharp money moving this way",
      "opponent missing key players"
     ],
-    "result": null,
+    "result": "lost",
+    "score": "Canucks 6 @ Oilers 5",
     "side": "home",
     "start": "2026-09-30T02:00Z",
     "stype": "2",
@@ -1271,11 +1276,12 @@
    }
   ],
   "p_hit": 0.3107,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-09-29T15:40Z",
   "round": 1,
+  "settled": "2026-09-30T05:14Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "lean"
  },
  {
@@ -1400,6 +1406,10 @@
     ],
     "dec": 1.847457627118644,
     "edge": 0.02382801737743523,
+    "flow": {
+     "a": "1,1,3,1",
+     "h": "1,1,3,0"
+    },
     "game_id": "nhl:401891804",
     "home": true,
     "intl": false,
@@ -1425,7 +1435,8 @@
      "sharp money moving this way",
      "opponent missing key players"
     ],
-    "result": null,
+    "result": "lost",
+    "score": "Canucks 6 @ Oilers 5",
     "side": "home",
     "start": "2026-09-30T02:00Z",
     "stype": "2",
@@ -1477,6 +1488,10 @@
     "dec": 1.7633587786259541,
     "edge": -0.023421113100612567,
     "edge_own": -0.021633323714821517,
+    "flow": {
+     "a": "0,0,0,0,0,0,0,0,0",
+     "h": "2,0,1,1,3,0,1,0"
+    },
     "game_id": "mlb:401907974",
     "home": true,
     "intl": false,
@@ -1495,7 +1510,8 @@
     "reasons": [
      "hotter recent form"
     ],
-    "result": null,
+    "result": "won",
+    "score": "Cubs 0 @ Padres 8",
     "side": "home",
     "start": "2026-09-30T02:00Z",
     "stype": "3",
@@ -1510,11 +1526,12 @@
    }
   ],
   "p_hit": 0.1721,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-09-29T15:40Z",
   "round": 1,
+  "settled": "2026-09-30T05:14Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "lean"
  },
  {
@@ -1639,6 +1656,10 @@
     ],
     "dec": 1.847457627118644,
     "edge": 0.02382801737743523,
+    "flow": {
+     "a": "1,1,3,1",
+     "h": "1,1,3,0"
+    },
     "game_id": "nhl:401891804",
     "home": true,
     "intl": false,
@@ -1664,7 +1685,8 @@
      "sharp money moving this way",
      "opponent missing key players"
     ],
-    "result": null,
+    "result": "lost",
+    "score": "Canucks 6 @ Oilers 5",
     "side": "home",
     "start": "2026-09-30T02:00Z",
     "stype": "2",
@@ -1716,6 +1738,10 @@
     "dec": 1.7633587786259541,
     "edge": -0.023421113100612567,
     "edge_own": -0.021633323714821517,
+    "flow": {
+     "a": "0,0,0,0,0,0,0,0,0",
+     "h": "2,0,1,1,3,0,1,0"
+    },
     "game_id": "mlb:401907974",
     "home": true,
     "intl": false,
@@ -1734,7 +1760,8 @@
     "reasons": [
      "hotter recent form"
     ],
-    "result": null,
+    "result": "won",
+    "score": "Cubs 0 @ Padres 8",
     "side": "home",
     "start": "2026-09-30T02:00Z",
     "stype": "3",
@@ -1805,11 +1832,12 @@
    }
   ],
   "p_hit": 0.0919,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-09-29T15:40Z",
   "round": 1,
+  "settled": "2026-09-30T05:14Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "lean"
  }
 ]

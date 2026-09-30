@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T04:49Z",
+ "updated": "2026-09-30T05:15Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -114,7 +114,7 @@
    "home": "Oilers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "four",
    "lean": {
     "team": "Oilers",
@@ -129,7 +129,7 @@
      "sharp money moving this way",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -143,7 +143,7 @@
    "home": "Padres",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "four",
    "lean": {
     "team": "Padres",
@@ -156,7 +156,7 @@
     "reasons": [
      "hotter recent form"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -342,7 +342,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Padres",
-    "p": 0.482,
+    "p": 0.478,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -359,8 +359,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.627,
-    "win_p": 0.441,
+    "p": 0.632,
+    "win_p": 0.448,
     "reasons": []
    }
   },
