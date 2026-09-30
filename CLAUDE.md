@@ -24,6 +24,8 @@ every session:
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
   day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
 - The only phone notifications are Live Plus Money bets (no pings for new picks or early value plays).
+- Units under every label: 1 unit = 1% of that morning's bankroll ($1,000 start, it grows with the bankroll), 0.5u up
+  to a 10u max, value plays 2u. The bankroll box shows it all in the open: bankroll, ROI overall / today / 7 days / by pick.
 - A win % only shows on the dashboard when it's over 55% (sports_dashboard.pct_ok) - under that, words say it.
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`

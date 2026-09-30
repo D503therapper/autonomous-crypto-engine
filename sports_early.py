@@ -460,7 +460,8 @@ def gameday_html(st, games, E, now=None):
         rows.append(f'<div class="egr"><div class="egl"><b>{E(p["team"])}</b> <small>ML</small>'
                     f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
                     f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
-                    + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>' if p.get("own") else "")
+                    + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
+                       if (p.get("own") or 0) * 100 > 55 else "")                           # (the owner, 9/30)
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
     if not rows:
         return ""

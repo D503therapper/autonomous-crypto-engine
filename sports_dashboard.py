@@ -187,6 +187,45 @@ TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE
              "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
 
 
+UNIT_TODAY = [10.0]          # $ per unit today (1% of the bankroll) - set each build from the ledger
+
+
+def _units_line(u):
+    return f'<div class="un">💰 {_units_txt(u)} (${u * UNIT_TODAY[0]:,.0f})</div>'
+
+
+def _units_txt(u):
+    return "½ UNIT" if u == 0.5 else f"{u:g} UNIT" + ("" if u == 1 else "S")
+
+
+def units_box(picks, today=None):
+    """💰 The open bankroll (the owner + Ricky, 9/30: measure it like money, not just W-L; everything transparent): $1,000
+    to start, a unit = 1% of the bankroll that morning, every graded pick at its size and price. Said in plain dollars +
+    ROI only (the owner, 9/30: '+6.6u on 14u bet' was confusing)."""
+    import sports
+    led = sports.units_ledger(picks)
+    if not led["rows"]:
+        return ""
+    bank, start = led["bankroll"], sports.BANKROLL_START
+    today = today or datetime.now(sports.PT).strftime("%Y-%m-%d")
+    wk = (datetime.strptime(today, "%Y-%m-%d") - timedelta(days=6)).strftime("%Y-%m-%d")
+
+    def line(label, rs, cls="unr"):                          # '+$66.68 · +47% ROI' over some picks
+        nd, nu, u = sum(r[3] for r in rs), sum(r[2] for r in rs), sum(r[1] for r in rs)
+        return (f'<div class="{cls}"><span>{E(label)}</span><b class="{"up" if nd >= 0 else "dn"}">'
+                f'{"+" if nd >= 0 else "-"}${abs(nd):,.2f} · {nu / u:+.0%} ROI</b></div>') if rs and u else ""
+    rows = led["rows"]
+    kind = lambda r: r[0].get("kind")
+    out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
+           + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
+           + line("🔒 Lock of the Day", [r for r in rows if kind(r) == "lock"])
+           + line("🐺 Dog of the Day", [r for r in rows if kind(r) == "dog"])
+           + line("🔥 Other picks", [r for r in rows if kind(r) not in ("lock", "dog")]))
+    return (f'<div class="unb"><div class="ovr-t">💰 BANKROLL</div>'
+            f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
+            f'<div class="unp">Started at ${start:,.0f} · 1 unit today = ${led["unit_today"]:,.2f}</div>{out}</div>')
+
+
 def _tier(pk):
     import sports
     return sports.pick_tier(pk)
@@ -227,12 +266,28 @@ def pct_ok(text):
                   else f"likes {m.group(1)} here", out)
 
 
+_LATEST = re.compile(r"^📅 [^:]+: (.*)$")
+_RES = re.compile(r" ([WLT]) \d+-\d+ (?:vs|@) ")
+
+
+def latest_ok(line):
+    """A 'latest games' line only stays when it backs the pick: we won our last one, and they lost theirs or had none
+    (the owner, 9/30: "Kings L 1-5 vs Avalanche" in the Kings' breakdown hurts the pick). Covers breakdowns already
+    posted, before the engine stopped writing them."""
+    m = _LATEST.match(line)
+    if not m:
+        return True
+    parts = m.group(1).split(" · ")
+    res = [(_RES.search(x) or [None, None])[1] for x in parts]
+    return res[0] == "W" and (len(res) < 2 or res[1] == "L")
+
+
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
         return ""
     done = leg.get("result") in ("won", "lost", "push")
-    lines = [pct_ok(x) for x in secs if isinstance(x, str)]
+    lines = [pct_ok(x) for x in secs if isinstance(x, str) and latest_ok(x)]
     if done:                                                 # it's over: no "we gon' see" on a graded pick
         lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
     body = "".join(f"<p>{E(x)}</p>" for x in lines)
@@ -266,7 +321,7 @@ def _why_fallback(leg):
     return ""
 
 
-def _leg(leg, tagged=False, review=""):
+def _leg(leg, tagged=False, review="", units=0):
     import sports
     lg = sd.LEAGUES[leg["league"]]
     lt_ = leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
@@ -291,7 +346,7 @@ def _leg(leg, tagged=False, review=""):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units) if units else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -471,7 +526,8 @@ def _pick_card(kind, pk):
 <span class="pk-l">{label}</span><span class="chip waiting">PICK COMING</span></div>
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
-    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg)) for leg in pk["legs"])   # graded: the
+    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg),     # a parlay: each pick in it
+                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else 0) for leg in pk["legs"])   # has its units   # graded: the
     #                                                                   after-game review takes the pregame line's spot
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
@@ -495,6 +551,7 @@ def _pick_card(kind, pk):
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
+  {_units_line(sports.units_for(pk)) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 
@@ -588,7 +645,7 @@ def _tennis():
 
     def row(l):
         done = l.get("result") in ("won", "lost", "push", "void")
-        lines = [x for x in (l.get("breakdown") or []) if isinstance(x, str)]
+        lines = [x for x in (l.get("breakdown") or []) if isinstance(x, str) and latest_ok(x)]
         if done:                                             # it's over: no "we gon' see" in the pregame read
             lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
         tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)   # the headline line up top, like the
@@ -959,6 +1016,10 @@ def write_sw(path):
 
 def render(picks, model, games, series, start_bank, updated_ms):
     import sports
+    try:                                                     # 💰 today's unit in dollars (1% of the open bankroll)
+        UNIT_TODAY[0] = sports.units_ledger(picks)["unit_today"]
+    except Exception as e:                                   # noqa: BLE001
+        print(f"bankroll failed: {e}")
     now = datetime.now(PT)
     today = board_day(now, picks)                           # (yesterday's board till 1 AM / its last game is graded)
     order = list(LOOK)
@@ -1113,6 +1174,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
                f'{f"<div class=ovr-s>today {tw}-{tl}</div>" if tw + tl else ""}</div>')
+    overall += units_box(picks, today)
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
     def wlt(w, l):
@@ -1438,6 +1500,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr{{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}}
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
+.un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
+.unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
+.unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
+.unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}
+.unr{{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:800;color:#fff;padding:6px 0;border-top:1px solid var(--line)}}
 .evx{{margin-top:14px}} .gdx{{margin-top:14px}} .egh{{text-align:right;font-size:10.5px;font-weight:900;letter-spacing:.1em;color:#fff;margin:10px 0 2px}}
 .egr{{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}}
 .egl b{{color:#fff;font-size:19px;font-weight:900}} .egl small{{color:#fff;font-weight:800}} .egl span{{display:block;font-size:14.5px;font-weight:800;color:#fff;margin-top:2px}}
