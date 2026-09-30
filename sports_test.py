@@ -4638,6 +4638,24 @@ def test_win_pct_only_over_55():
     assert "pct>55?" in open(d.__file__).read()                                                        # question box too
 
 
+def test_units_and_the_open_bankroll():
+    """The owner (9/30): units under each label (0.5u up to a 10u max play), and an open bankroll - $1,000 to start, a
+    unit is 1% of that morning's bankroll, so it grows as we win. Everything transparent."""
+    lk = lambda p: {"kind": "lock", "legs": [{"p": p}]}
+    assert [sports.units_for(lk(p)) for p in (0.563, 0.59, 0.61, 0.63, 0.67, 0.72)] == [2, 3, 4, 5, 7, 10]
+    assert max(u for _, u in sports.UNIT_LADDER) == sports.UNIT_MAX == 10
+    assert sports.units_for({"kind": "two", "legs": []}) == 1 and sports.units_for({"kind": "four", "legs": []}) == 0.5
+    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "tier": "lean"}]}) == 1
+    assert sports.units_for({"kind": "solo", "tier": "value", "legs": [{"p": 0.45}]}) == 2
+    day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
+    day2 = {"date": "2026-09-30", "kind": "lock", "status": "lost", "dec": 1.5, "legs": [{"p": 0.563}]}  # 2u, -2u
+    led = sports.units_ledger([day2, day1])
+    assert led["by_date"] == {"2026-09-29": 10.0, "2026-09-30": 10.1}      # the unit grew with the bankroll
+    assert led["bankroll"] == round(1000 + 10.0 - 2 * 10.1, 2)
+    import sports_dashboard as d
+    assert "BANKROLL" in d.units_box([day1, day2]) and d.units_box([]) == ""
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
