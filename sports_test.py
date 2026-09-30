@@ -1195,7 +1195,13 @@ def test_live_tennis_rules():
         L.SCORE_SEEN["wta:77"] = ((m["sets1"], m["sets2"], None, None), time.time() - L.TENNIS_STALE_S - 5)
         assert L.tennis_plays(log, datetime.now(timezone.utc), (), judged) == [] and not judged and L.TENNIS["stale"] == 1
         L.SCORE_SEEN.clear()
-        got = L.tennis_plays(log, datetime.now(timezone.utc), (), judged)
+        assert L.tennis_plays(log, datetime.now(timezone.utc), (), set()) == [], "live tennis bets paused (9/29)"
+        L.SCORE_SEEN.clear()
+        L.TENNIS_BETS[0] = True
+        try:
+            got = L.tennis_plays(log, datetime.now(timezone.utc), (), judged)
+        finally:
+            L.TENNIS_BETS[0] = False
         assert got and got[0]["double_down"] and "tennis:wta:77" in judged
         # graded like every live play: a final result settles it, a retirement before a set is done voids it
         log["plays"]["tennis:wta:77:1"] = {"league": "tennis", "match": "wta:77", "side": "1", "result": None}

@@ -911,6 +911,8 @@ TENNIS_MAX_DOWN = 2           # the score isn't as bad as the price says: at mos
 SCORE_SEEN = {}               # match id -> (score, first time we saw it): how long the score has sat still
 TENNIS = {"watching": 0, "priced": 0, "stale": 0, "suspended": 0, "books": ""}
 TENNIS_ON = [True]
+TENNIS_BETS = [False]         # 9/29: live tennis pinged Kudermetova +100 when the book had her -150, and bets that were
+                              # never on the page - no new live tennis bets till its prices are proven right
 _TN_CSV = [0.0]               # last time ungraded tennis plays were checked against matches.csv
 
 
@@ -1227,7 +1229,7 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
             continue                                         # the score's behind: never act on it
         judged.add(f"tennis:{m['id']}")
         out += evaluate_tennis(m, ln, flip, pre[m["id"]], ours.get(m["id"]), showing, used)
-    return out
+    return out if TENNIS_BETS[0] else []                     # (scores + grading above keep running either way)
 
 
 SCORES = {}                   # {game id: live score + clock} for the dashboard's pending picks (every sport + tennis)
