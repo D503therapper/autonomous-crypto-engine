@@ -26,8 +26,11 @@ if __name__ == "__main__":
     if wait_for:
         for i in range(40):                                  # up to ~13 minutes for the page to show it
             try:
-                if wait_for.lower() in page().lower():
-                    break
+                html = page()
+                board = html[html.find('<div class="board">'):]
+                board = board[:board.find('<div class="sec">')] if '<div class="sec">' in board else board
+                if all(w.strip().lower() in board.lower() for w in wait_for.split("&")):   # today's board only (the
+                    break                                                                   # records say these too)
             except Exception as e:                           # noqa: BLE001
                 print(f"page check failed: {str(e)[:60]}")
             time.sleep(20)
