@@ -4563,6 +4563,12 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     assert sports.dog_score(wsox) > sports.dog_score(kings) > sports.dog_score(pens)
     b = sports.make_board([wsox, pens, kings])
     assert b["dog"] and b["dog"]["legs"][0]["team"] == "White Sox"
+    fav = lambda gid, team, p, lost: {**base, "league": "mlb", "game_id": gid, "side": "home", "team": team, "opp": "X",
+                                      "odds": -140, "dec": sd.decimal(-140), "p": p, "p_market": p, "edge": 0.0,
+                                      "edge_own": p * sd.decimal(-140) - 1, "lost_last": lost}
+    three = sports.make_board([fav("f1", "Yanks", 0.60, False), fav("f2", "Fly", 0.59, False),
+                               fav("f3", "Astros", 0.575, True), fav("f4", "Pads", 0.555, False)])["three"]
+    assert [l["team"] for l in three["legs"]][-1] == "Pads"        # the favorite that just lost goes to the back
     big = dog("x", "Longshot", "mlb", 450, 0.40, 0.18)                              # past +280: never
     assert sports.make_board([big, pens])["dog"]["legs"][0]["team"] == "Penguins"
 

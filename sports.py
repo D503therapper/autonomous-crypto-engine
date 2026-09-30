@@ -287,6 +287,9 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+SERIES_LOST_W = 0.05           # 9/30: Wild Card Game 1 losers won Game 2 in 7 of 24; playoff favorites that just lost
+                               # won 50% (-14%) - weighed in when parlay legs fill (the owner: "the Astros are the
+                               # only one going opposite yesterday's result")
 PARLAY_FILL_MIN_P = 0.52       # the owner, 9/30: a 2-, 3- and 4-leg every day - short of 56%+ legs, the surest plays
                                # 52%+ fill it (the 56% legs always go first)
 NO_PUCK_RUN_LINES = True       # hockey + baseball: moneylines only on the board (football / basketball spreads stay)
@@ -640,8 +643,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         fill = sorted((c for c in cands if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
                        and c["p"] >= PARLAY_FILL_MIN_P and not c.get("trap") and not c.get("waiting")
                        and not fighting(c) and (not dog or c["game_id"] != dog["game_id"])),
-                      key=lambda c: (-c["p"], -c["edge"]))
-        for c in fill:
+                      key=lambda c: (-(c["p"] - (SERIES_LOST_W if c.get("lost_last") and c["odds"] < 0 else 0)),
+                                     -c["edge"]))                 # a playoff favorite that just lost the last game goes
+        for c in fill:                                             # to the back (weighed, never banned - the owner)
             if len(legs) >= n:
                 break
             if c["game_id"] not in {l["game_id"] for l in legs}:
