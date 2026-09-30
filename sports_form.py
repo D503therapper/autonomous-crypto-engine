@@ -111,3 +111,43 @@ def hot_sides(games, players, now_iso, days=2):
 def _plus(iso, days):
     from datetime import datetime, timedelta
     return (datetime.strptime(iso[:10], "%Y-%m-%d") + timedelta(days=days)).strftime("%Y-%m-%d")
+
+
+# THE OVERREACTION (9/30 study, closing prices 2018-26, season by season): bettors overreact to one ugly loss or a cold
+# run. Football dogs coming off a BLOWOUT LOSS: college +11.6% (6 of 8 seasons) and NFL +7.9% vs -3.6% for every dog;
+# college hoops FAVORITES on a 6+ game losing streak: +6.7% (7 of 8 seasons) vs -3.8% for every favorite.
+BLOWOUT = {"nfl": 21, "ncaaf": 30}         # points - "a blowout" (1.5x a normal margin)
+COLD_STREAK = {"ncaab": 6}
+
+
+def team_states(games, now_iso):
+    """{(league, team): (last game's margin, win(+)/loss(-) streak)} from real games in the last 3 weeks."""
+    import sports_model as sm
+    out = {}
+    for lg in set(BLOWOUT) | set(COLD_STREAK):
+        streak, last = {}, {}
+        for g in sorted(sm.finals(games, lg), key=lambda g: g["start"]):
+            if (g.get("stype") or "2") not in ("2", "3"):
+                continue
+            try:
+                hs, as_ = float(g["home_score"]), float(g["away_score"])
+            except (KeyError, ValueError):
+                continue
+            for t, us, them in ((g["home"], hs, as_), (g["away"], as_, hs)):
+                k = streak.get(t, 0)
+                streak[t] = (k + 1 if k >= 0 else 1) if us > them else (k - 1 if k <= 0 else -1) if us < them else 0
+                last[t] = (us - them, g["start"])
+        for t, (mg, st) in last.items():
+            if _days(st, now_iso) <= FRESH_D:
+                out[(lg, t)] = (mg, streak.get(t, 0))
+    return out
+
+
+def overreaction(league, side_team, odds, states):
+    """+1 when this side is one the market overreacts against (see above), else 0."""
+    mg, sk = states.get((league, side_team), (0, 0))
+    if league in BLOWOUT and odds >= 100 and mg <= -BLOWOUT[league]:
+        return 1                               # a football dog coming off a blowout loss
+    if league in COLD_STREAK and odds < 0 and sk <= -COLD_STREAK[league]:
+        return 1                               # a college hoops favorite on a long losing streak
+    return 0
