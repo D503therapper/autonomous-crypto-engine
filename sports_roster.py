@@ -140,6 +140,30 @@ def fetch(league, gid, start):
             time.sleep(1.5)
 
 
+NONE_PATH = os.path.join(DIR, "_no_box.json")
+
+
+def run_backfill(minutes=38):
+    """The download job (rosters.yml): football first (in season), then hockey, hoops, baseball - until time's up."""
+    import sports_data as _sd
+    games = _sd.load_games()
+    try:
+        with open(NONE_PATH) as f:
+            state = json.load(f)
+    except (OSError, ValueError):
+        state = {}
+    end = time.time() + minutes * 60
+    for group in (("nfl", "ncaaf"), ("nhl",), ("nba", "ncaab"), ("mlb",)):
+        left = end - time.time()
+        if left < 30:
+            break
+        got, todo, fails = sync(games, state, budget_s=left, leagues=group)
+        print(f"rosters {'+'.join(group)}: {got} games added, {todo - got} still to go, {fails} not reached")
+        os.makedirs(DIR, exist_ok=True)
+        with open(NONE_PATH, "w") as f:
+            json.dump(state, f)
+
+
 def sync(games, state, workers=6, budget_s=300, leagues=LEAGUES, since="2021-07-01"):
     """Box scores for finished real games we don't have yet: newest first (they matter most), back to `since` (the
     recent seasons - the owner, 9/30: the sports have changed, the old ones hurt more than they help)."""
@@ -191,3 +215,8 @@ def volume(league, st):
         return _num(st.get("atBats")) + 3 * _num(st.get("fullInnings.partInnings"))
     return (_num(st.get("completions/passingAttempts", "0/0").split("/")[-1]) + _num(st.get("rushingAttempts"))
             + 2 * _num(st.get("receptions")) + _num(st.get("totalTackles")))
+
+
+if __name__ == "__main__":
+    import sys
+    run_backfill(float(sys.argv[1]) if len(sys.argv) > 1 else 38)

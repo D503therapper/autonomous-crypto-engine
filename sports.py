@@ -1269,14 +1269,7 @@ def run(repick=False, fetch=True):
         t0 = time.time()
         got, calls, fails = sp.sync(games, state)
         print(f"player stats: {got} box scores added, {calls} to fetch, {fails} failed, {time.time() - t0:.0f}s")
-        if now.astimezone(PT).hour not in (7, 8):                    # (never slows the 8 AM board)
-            try:                                                     # 🧍 every player, every sport (the owner, 9/30)
-                import sports_roster
-                t0 = time.time()
-                got, calls, fails = sports_roster.sync(games, state, budget_s=180)
-                print(f"rosters: {got} games of every player added, {calls} to go, {fails} failed, {time.time() - t0:.0f}s")
-            except Exception as e:                                   # noqa: BLE001 - never blocks the board
-                print(f"rosters failed: {e}")
+        # (every player, every sport: its own GitHub job - .github/workflows/rosters.yml)
         t0 = time.time()
         filled, venues = sports_weather.sync(games)
         print(f"weather: {filled} games got weather, {venues} new stadiums located, {time.time() - t0:.0f}s")

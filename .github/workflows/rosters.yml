@@ -1,0 +1,29 @@
+# EVERY PLAYER, EVERY SPORT (the owner, 9/30): downloads every player's box score from ESPN - recent seasons first,
+# football first - 38 minutes a run until it's caught up, then just the new games. Its own job so the hourly engine
+# never waits on it. (sports_roster.py)
+name: rosters
+on:
+  schedule:
+    - cron: "41 0,3,6,9,18,21 * * *"   # every 3 hours, never near the 8 AM board
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: rosters
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: timeout 40m python -u sports_roster.py 38
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/roster
+          git commit -qm "rosters $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 7; done
