@@ -214,7 +214,8 @@ def html(c, E):
         import sports_tennis as stn
         last = stn._say_name(l["player"]) or str(l["player"])   # (de Minaur, Zheng Qinwen - the way they're said)
         price = "TBD" if l.get("est") else ml(l["ml"])
-        return (f'<div class="pvc {r or ""}"><span>{E(last)}</span>'
+        st = f' data-start="{E(l["start"])}"' if l.get("start") and not r else ""   # the page shows ● LIVE once it starts
+        return (f'<div class="pvc {r or ""}"{st}><span>{E(last)}</span>'
                 f'<div class="pvp"><b><small>ML</small> {E(price)}</b><i>{mark}</i></div></div>')
     rows_ = "".join(f'<div class="pvr">{cell(p)}{cell(a)}</div>'
                     for p, a in zip(c["patty"] + [None] * max(0, len(c.get("algo", [])) - len(c["patty"])),

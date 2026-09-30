@@ -1315,7 +1315,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1}}
 .pvc small{{font-size:10px;font-weight:800;opacity:.9}}
 .pvc span{{overflow-wrap:anywhere}} .pvc b{{font-weight:900;font-variant-numeric:tabular-nums}}
-.pvc i{{font-style:normal;min-width:1.2em;text-align:right}} .pvc.lost span,.pvc.lost .pvp b{{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}}
+.pvc .pvp>i{{font-style:normal;min-width:1.2em;text-align:right;font-size:12px}} .pvc.lost span,.pvc.lost .pvp b{{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}}
 .pvc.won{{box-shadow:inset 0 0 0 1px #22c55e88}} .pvc.lost{{box-shadow:inset 0 0 0 1px #ff3b3b88}}
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
 *{{box-sizing:border-box}}
@@ -1708,6 +1708,10 @@ function gone(){{var n=Date.now(),b=document.querySelector(".board");if(!b)retur
  var t=document.getElementById("dropnote");                                          // comes down right then (it's in
  if(t&&!b.querySelector(".gn,.pk"))b.innerHTML=t.innerHTML;}}                        // the results); board empty: 8 AM note
 gone();setInterval(gone,30000);
+function pvLive(){{var n=Date.now();document.querySelectorAll(".pvc[data-start]").forEach(function(c){{   // 🥊 challenge:
+ var st=Date.parse(c.getAttribute("data-start")),i=c.querySelector(".pvp>i");if(!st||!i)return;          // ● LIVE once
+ var on=n>=st&&n<st+6*3600000;i.innerHTML=on?'<span class="lvb"><i></i>LIVE</span>':""}})}}              // it starts
+pvLive();setInterval(pvLive,15000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();

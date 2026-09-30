@@ -4071,6 +4071,13 @@ def test_patty_vs_the_algorithm():
     assert done and ps == sum(l["side"] == 1 for l in c["patty"]) and as_ == sum(l["side"] == 1 for l in c["algo"])
     h = C.html(c, escape)
     assert "PATTY VS THE ALGORITHM" in h and ("WINS" in h or "DEAD EVEN" in h) and "ML</small>" in h
+    assert "data-start" not in h, "graded legs: no LIVE tag"
+    c2 = json.loads(json.dumps(c))
+    for l in c2["patty"]:
+        l["result"] = None
+    h2 = C.html(c2, escape)                                   # still going: the page's ● LIVE (no scores in the box)
+    assert h2.count('data-start="2026-10-01T04:00Z"') >= 3 and "lsc" not in h2
+    assert "function pvLive()" in open(D.__file__).read()
     src = open(D.__file__).read()
     assert src.index("{_tennis()}\n{challenge}") < src.index("THE RESULTS</h2>")   # under the daily picks
     shutil.rmtree(tmp, ignore_errors=True)
