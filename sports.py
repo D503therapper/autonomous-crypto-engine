@@ -1143,6 +1143,13 @@ def post_board(games, model, picks, now, day, force=False):
         if p["date"] == iso and p["status"] != "waiting":
             for l in p["legs"]:
                 ours.setdefault(l["game_id"], l["side"])
+    try:                                                     # ⏰ ...or in a game we got in EARLY on (the owner, 9/30:
+        import sports_early                                  # an early play can be a daily pick too - never against it)
+        for e in sports_early.load().get("picks") or []:
+            if e.get("result") is None:
+                ours.setdefault(e["game_id"], e["side"])
+    except Exception as e:                                   # noqa: BLE001
+        print(f"early plays (board side check) failed: {e}")
     cands = [c for c in cands if ours.get(c["game_id"], c["side"]) == c["side"]]
     settled = [c for c in cands if not c["waiting"]]
     elo = None
