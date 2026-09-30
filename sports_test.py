@@ -4359,6 +4359,14 @@ def test_roster_keeps_every_player():
         sr.DIR = saved
 
 
+def test_football_lines_loaded_a_week_early():
+    """The owner (9/30): 'college football is Friday and Saturday - we couldn't get no good early lines?' The engine
+    only looked 2 days ahead, so Saturday's / Sunday's lines never loaded till Thursday. Football looks 8 days out."""
+    assert sd.days_ahead("ncaaf") >= 7 and sd.days_ahead("nfl") >= 7 and sd.days_ahead("nhl") >= 3
+    import sports_early as se
+    assert se.AHEAD_D >= sd.days_ahead("nfl")          # the early scan looks at least as far as the lines are loaded
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

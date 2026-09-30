@@ -331,7 +331,15 @@ DEEP_CHUNK = 365          # history pulled per league per hourly run (a season a
 SEASONS_BACK = 10
 
 
-def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget_s=540):
+AHEAD_DAYS = {"nfl": 8, "ncaaf": 8}   # football lines come out a week early (Sunday / Monday for the next weekend) -
+                                       # the early value plays need them the day they open (the owner, 9/30)
+
+
+def days_ahead(league, default=3):
+    return AHEAD_DAYS.get(league, default)
+
+
+def sync(state, backfill_days=550, ahead_days=3, max_days=600, workers=8, budget_s=540):
     """Refresh every league: re-read the last few days + next few, and backfill history on first run.
     Stops starting new calls after budget_s; unfinished days count as failed, so the next run resumes there.
     Returns (games dict, number of API calls, number of failures)."""
@@ -349,7 +357,7 @@ def sync(state, backfill_days=550, ahead_days=2, max_days=600, workers=8, budget
             else today - timedelta(days=backfill_days)
         start = max(start, today - timedelta(days=max_days))
         d = start
-        while d <= today + timedelta(days=ahead_days):
+        while d <= today + timedelta(days=days_ahead(lg, ahead_days)):
             jobs.append((lg, d))
             d += timedelta(days=1)
     deep = {}                                            # older history: 120 days per league per run, back to DEEP_DAYS
