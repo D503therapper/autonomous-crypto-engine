@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T15:31Z",
+ "updated": "2026-09-30T15:39Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -69,8 +69,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Islanders",
-    "p": 0.358,
+    "team": "Maple Leafs",
+    "p": 0.355,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -79,16 +79,16 @@
    "start": "2026-09-30T23:30Z",
    "away": "Islanders",
    "home": "Maple Leafs",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "four",
    "lean": {
     "team": "Islanders",
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.727,
-    "win_p": 0.517,
+    "p": 0.707,
+    "win_p": 0.492,
     "reasons": [
      "better rested",
      "hotter recent form",
@@ -112,7 +112,7 @@
    "away": "Penguins",
    "home": "Flyers",
    "why": "on_board",
-   "board": "three",
+   "board": "four",
    "lean": {
     "team": "Penguins",
     "opp": "Flyers",
@@ -142,7 +142,7 @@
    "away": "Red Sox",
    "home": "Yankees",
    "why": "on_board",
-   "board": "three",
+   "board": "four",
    "lean": {
     "team": "Red Sox",
     "opp": "Yankees",
@@ -170,7 +170,7 @@
    "away": "Cubs",
    "home": "Padres",
    "why": "on_board",
-   "board": "three",
+   "board": "four",
    "lean": {
     "team": "Cubs",
     "opp": "Padres",
@@ -355,7 +355,7 @@
     "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -205,
     "p": 0.651,
     "win_p": 0.429,
     "reasons": []
