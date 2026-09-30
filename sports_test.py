@@ -243,7 +243,9 @@ def test_board_rules():
         "game_id"] == "sp", "any line counts - a spread the engine's surer of beats a moneyline"
     filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", -150, 0.62), "reasons": []}]
     fb = sports.make_board(filler)
-    assert all(fb[k] is None for k in ("lock", "two", "three", "four")), "nothing real = no Lock / parlays (leans)"
+    assert fb["lock"] is None, "nothing real = no Lock"
+    assert fb["two"] and {l["game_id"] for l in fb["two"]["legs"]} == {"q", "r"}   # 9/30, the owner: a 2-, 3-, 4-leg
+    assert fb["three"] is None                                   # every day - but only from real games on the slate
     assert fb["dog"] and fb["dog"]["legs"][0]["game_id"] == "p"      # 9/30, the owner: a Dog of the Day every day
     slate = [_cand(f"g{i}", -150 + 5 * i, 0.62 - 0.005 * i) for i in range(10)]
     bd = sports.make_board(slate)
@@ -3710,7 +3712,10 @@ def test_parlay_legs_must_earn_it():
                          "edge_own": p * 1.8333 - 1, "reasons": ["the stronger team"], "trap": False, "drift": 0.0}
     weak_legs = [mk(i, 0.545 + i * 0.001) for i in range(1, 6)]
     b = sports.make_board(weak_legs)
-    assert not b["two"] and not b["three"] and not b["four"]                          # coin-flip legs: no parlays
+    # 9/30, the owner: "we need a two leg, a three leg and a four leg" - the surest plays fill them (52%+, never a
+    # coin flip under that, never past -150); the 56%+ legs always go first
+    assert b["two"] and b["three"] and b["four"] and all(l["p"] >= sports.PARLAY_FILL_MIN_P for l in b["four"]["legs"])
+    assert not sports.make_board([mk(i, 0.51) for i in range(1, 6)])["two"]          # true coin flips: still nothing
     strong = [mk(i, 0.59 + i * 0.002) for i in range(1, 6)]
     b2 = sports.make_board(strong)
     assert b2["two"] and b2["three"] and all(l["p"] >= sports.PARLAY_LEG_MIN_P for l in b2["three"]["legs"])

@@ -287,6 +287,8 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+PARLAY_FILL_MIN_P = 0.52       # the owner, 9/30: a 2-, 3- and 4-leg every day - short of 56%+ legs, the surest plays
+                               # 52%+ fill it (the 56% legs always go first)
 NO_PUCK_RUN_LINES = True       # hockey + baseball: moneylines only on the board (football / basketball spreads stay)
 
 
@@ -632,6 +634,17 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                 continue
             if c["game_id"] not in {l["game_id"] for l in legs} and \
                     (not dog or c["game_id"] != dog["game_id"] or dog["p"] >= DOG_IN_PARLAY_P):
+                legs.append(c)
+        # the owner, 9/30: "we need a two leg, a three leg and a four leg" - every day. Short of 56%+ legs, the next
+        # surest plays fill it (never past -150, never one the engine's own read is fighting, never a trap)
+        fill = sorted((c for c in cands if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
+                       and c["p"] >= PARLAY_FILL_MIN_P and not c.get("trap") and not c.get("waiting")
+                       and not fighting(c) and (not dog or c["game_id"] != dog["game_id"])),
+                      key=lambda c: (-c["p"], -c["edge"]))
+        for c in fill:
+            if len(legs) >= n:
+                break
+            if c["game_id"] not in {l["game_id"] for l in legs}:
                 legs.append(c)
         return legs if len(legs) >= n else None
     two = fixed.get("two") or ladder([lock] if lock else [], 2)
