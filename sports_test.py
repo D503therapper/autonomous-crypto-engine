@@ -4723,6 +4723,7 @@ def _units_and_the_open_bankroll():
     assert not any(w in " ".join(allw).lower() for w in ("could hit", "not a big", "not worth", "%"))
     # (the owner, 9/30: never sound skeptical of our own pick - the price keeps the bet small, that's all)
     assert ".mb{{display:inline-block;filter:hue-rotate" in open(d.__file__).read()
+    assert ".un{{margin-top:2px;text-align:right;font-size:17px;" in open(d.__file__).read()   # bigger (the owner, 9/30)
     assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
     assert "🔥 VALUE PLAY<" in d.TIER_CHIP["value"] and "🔥 VALUE PLAY<" in d.LEG_TAG["value"]   # 'value plays', not 'value'
     dog = {"date": "2026-09-30", "kind": "dog", "status": "won", "dec": 2.6, "legs": [{"p": 0.40, "odds": 160, "tier": "lean"}]}
