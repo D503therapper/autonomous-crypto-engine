@@ -4303,8 +4303,8 @@ def test_we_got_in_early_box():
         games = {"a": {"status": "pre", "ml_home": "-120"}, "b": {"status": "pre", "ml_home": "220"},
                  "c": {"status": "pre", "ml_home": "220"}, "d": {"status": "pre", "ml_home": "185"}}
         h = se.gameday_html(st, games, lambda x: x, now)
-        assert h.count('class="gr"') == 4 and "WE GOT IN EARLY" in h and "still good" not in h
-        rows = h.split('class="gr"')[1:]
+        assert h.count('class="egr"') == 4 and "WE GOT IN EARLY" in h and "still good" not in h
+        rows = h.split('class="egr"')[1:]
         assert "we beat the line" in rows[0] and "-120" in rows[0]
         assert "The engine has them at 40%" in rows[0]        # the owner, 9/30: say what the engine has them at
         assert "better price now" in rows[1]                  # +220: 45% vs ~30% on the price - still value
@@ -4326,7 +4326,7 @@ def test_we_got_in_early_box():
             assert st["picks"][2]["key_out"] is None
         finally:
             sd.team_key_out = saved_ko
-        row = se.gameday_html(st, games, lambda x: x, now).split('class="gr"')[1]
+        row = se.gameday_html(st, games, lambda x: x, now).split('class="egr"')[1]
         assert "Lamar Jackson out - don't chase it" in row and "better price now" not in row, row
         assert "ruled out since we posted" in se.html(st, lambda x: x, now - timedelta(days=2))
         se.ON = False
@@ -4503,6 +4503,15 @@ def test_lock_is_not_just_the_priciest_favorite():
     other = cand("g3", "Other", -135, 0.562, 0.56)                 # nothing agrees: still a Lock (always one, the owner)
     b = sports.make_board([priciest, other])                       # - the best lock-grade pick, as before
     assert b["lock"] and b["lock"]["legs"][0]["team"] == "Pricey"
+
+
+def test_new_boxes_never_restyle_the_record_cards():
+    """9/30: the WE GOT IN EARLY rows used the class name 'gr' - the record cards' own class - and its flex rule laid
+    every record card out sideways (the numbers cut off on phones). New boxes use their own class names."""
+    import sports_early as se
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert ".gr{{display:flex" not in src and ".egr{{display:flex" in src
+    assert 'class="gr"' not in open(se.__file__).read()
 
 
 if __name__ == "__main__":
