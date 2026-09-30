@@ -919,8 +919,8 @@ def _history(picks):
         if not sports.in_record(p) or p["status"] not in ("won", "lost", "push", "open"):
             continue
         for l in p["legs"]:
-            if l.get("result") not in ("won", "lost", "push"):
-                continue
+            if l.get("result") not in ("won", "lost", "push") or l.get("tier") == "lean":
+                continue                                     # (a lean leg: the leans' own record)
             k = (p["date"], l["game_id"], l["side"], l.get("market"))
             e = legs.setdefault(k, {"l": l, "date": p["date"], "cards": []})
             e["cards"].append(kinds.get(p["kind"], p["kind"]))
@@ -1142,7 +1142,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 + _cards(tmr.isoformat(), list(tomorrows.values()), [(k, _pick_card(k, tomorrows[k])) for k in LOOK if k in tomorrows])) if tomorrows else ""
 
     graded_all = [p for p in picks if p["status"] in ("won", "lost", "push")]
-    done = [p for p in graded_all if sports.in_record(p)]         # our record (leans count from 9/29 on - the owner)
+    done = [p for p in graded_all if sports.in_record(p)]         # our record (leans keep their own - the owner, 9/30)
     done.sort(key=lambda p: (p["date"], p.get("settled", "")))
 
     def wl(ps):
@@ -1214,9 +1214,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     calls = {}
     rank = {"lock": 3, "value": 2, "lean": 1, "ou": 0}
     for p in sorted(picks, key=lambda p: p.get("posted") or ""):
-        if not sports.in_record(p):
-            continue
-        for l in p["legs"]:
+        for l in p["legs"]:                                  # (leans too - they get their own record below)
             if l.get("result") in ("won", "lost"):
                 if l.get("market") == "total":
                     t = "ou"
@@ -1224,6 +1222,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     t = "lean"
                 elif p["kind"] == "lock":
                     t = "lock"
+                elif p["kind"] == "dog":                     # the Dog of the Day is a value play (the owner, 9/30)
+                    t = "value"
                 elif l.get("tier") in ("lock", "value", "lean"):
                     t = l["tier"]
                 else:                                    # older picks: the rule back then (minus money = lock)
@@ -1232,10 +1232,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 if rank.get(calls.get(key, ("",))[0], -1) < rank[t]:
                     calls[key] = (t, l["result"], p["date"])
     by_tier = {t: [(r, d) for tt, r, d in calls.values() if tt == t] for t in ("lock", "value", "lean")}
-    ow = sum(r == "won" for _, r, _ in calls.values())       # OVERALL: every pick we made, once each
-    ol = sum(r == "lost" for _, r, _ in calls.values())
-    tw = sum(r == "won" for _, r, d in calls.values() if d == today)
-    tl = sum(r == "lost" for _, r, d in calls.values() if d == today)
+    ours = [c for c in calls.values() if c[0] != "lean"]   # OVERALL: every pick we made, once each - leans keep their
+    ow = sum(r == "won" for _, r, _ in ours)                # own record (the owner, 9/30: no units on them)
+    ol = sum(r == "lost" for _, r, _ in ours)
+    tw = sum(r == "won" for _, r, d in ours if d == today)
+    tl = sum(r == "lost" for _, r, d in ours if d == today)
     overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
                f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
                f'{f"<div class=ovr-s>today {tw}-{tl}</div>" if tw + tl else ""}</div>')
@@ -1247,17 +1248,16 @@ def render(picks, model, games, series, start_bank, updated_ms):
     RECORDS.update({"overall": wlt(ow, ol), "today": wlt(tw, tl),
                     "locks": wlt(sum(r == "won" for r, _ in by_tier["lock"]), sum(r == "lost" for r, _ in by_tier["lock"])),
                     "value": wlt(sum(r == "won" for r, _ in by_tier["value"]), sum(r == "lost" for r, _ in by_tier["value"])),
-                    "leans (count in our record from 9/29)": wlt(sum(r == "won" for r, _ in by_tier["lean"]), sum(r == "lost" for r, _ in by_tier["lean"])),
+                    "leans (own record, not ours)": wlt(sum(r == "won" for r, _ in by_tier["lean"]), sum(r == "lost" for r, _ in by_tier["lean"])),
                     "live plus money (own record, not ours)": wlt(sum(e["result"] == "won" for e in lrs), sum(e["result"] == "lost" for e in lrs))})
     grades = "".join(grade(*TIER_LOOK[t], [r for r, _ in by_tier[t]], [r for r, d in by_tier[t] if d == today])
-                     for t in ("lock", "value", "lean"))
+                     for t in ("lock", "value"))
     lotd = sorted((p for p in graded_all if p["kind"] == "lock"), key=lambda p: (p["date"], p.get("posted") or ""))
     dotd = sorted((p for p in graded_all if p["kind"] == "dog"), key=lambda p: (p["date"], p.get("posted") or ""))
     grades = (grade("🔒 LOCK OF THE DAY", "#22e39a", "#ffc233", [p["status"] for p in lotd], [p["status"] for p in lotd if p["date"] == today])
               + grade("🐺 DOG OF THE DAY", "#ff3b3b", "#ff8a00", [p["status"] for p in dotd], [p["status"] for p in dotd if p["date"] == today])
               + grades)
     # their own categories, never in our record: live bets and leans
-    leans_ = sorted((p for p in graded_all if not sports.in_record(p)), key=lambda p: (p["date"], p.get("posted") or ""))
     import sports_tennis as stn
     tennis_ = {}                                             # 🎾 tennis: men's and women's, each its own record
     tn_slates = []                                           # (a match counts once; tennis LIVE plays never count here)
@@ -1281,7 +1281,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         #                                                        record - the owner, 9/28)
     others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today],
                     by_sport=_live_by_sport(lrs))
-              + (grade("🟡 OLD LEANS (before 9/29)", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [], hs="🟡 Leans") if leans_ else "")
+              + (grade(*TIER_LOOK["lean"], [r for r, _ in by_tier["lean"]], [r for r, d in by_tier["lean"] if d == today],
+                       hs="🟡 Leans") if by_tier["lean"] else "")     # leans: their own record (the owner, 9/30)
               + tn_box("🎾 MEN'S TENNIS", "atp") + tn_box("🎾 WOMEN'S TENNIS", "wta"))
     for t, label in (("atp", "men's tennis"), ("wta", "women's tennis")):
         RECORDS[f"{label} (own record, not ours)"] = wlt(sum(r == 'won' for r, _ in tn_rows[t]), sum(r == 'lost' for r, _ in tn_rows[t]))
@@ -1291,9 +1292,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
               ("🏀 College Basketball", ("ncaab",)), ("⚾ Baseball", ("mlb",)), ("🏒 Hockey", ("nhl",))]
     seen_ = {}                                               # a team we're on in two picks the same day counts once
     for p in picks:
-        if sports.in_record(p):                            # our daily record (leans count from 9/29 on; never live bets)
+        if sports.in_record(p):                            # our daily record (never leans, never live bets)
             for l in p["legs"]:
-                if l.get("result") in ("won", "lost"):     # if we posted it, it counts
+                if l.get("result") in ("won", "lost") and l.get("tier") != "lean":   # if we posted it, it counts
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
     res = list(seen_.values())
     res += [(f"tennis_{t}", r) for t, r, _ in tennis_.values()]   # 🎾 men's and women's apart (a match counts once)
@@ -1731,7 +1732,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>What counts:</b> all locks, the Dog of the Day, every value pick, parlay leg and lean go in our record. Live plus money and tennis keep their own. Question box reads don’t count. Every W, every L, right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>What counts:</b> all locks, the Dog of the Day and every value pick (parlay legs too) go in our record. Leans, live plus money and tennis keep their own. Question box reads don’t count. Every W, every L, right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>

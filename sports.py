@@ -764,8 +764,9 @@ LEANS_COUNT_FROM = "2026-09-29"   # the owner, 9/28: leans hit about like value 
 
 
 def in_record(p):
-    """Does this pick count in our record? Everything we post from 9/29 on (leans too); before that, leans had their own."""
-    return not p.get("lean") or p["date"] >= LEANS_COUNT_FROM
+    """Does this pick count in our record? Everything but a lean - leans keep their own record (the owner, 9/30: no
+    units on leans, so they're not in ours; 9/29-9/30 they counted)."""
+    return not p.get("lean")
 
 
 def pick_tier(pk):

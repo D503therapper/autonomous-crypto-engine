@@ -106,8 +106,8 @@ THE ENGINE'S RULES (explain them when asked)
   A one-game night: one pick.
 - Never say a win % of 55 or under ("37% to win") - say the price is right / the number's good instead. Only a win % over
   55 gets said as a number.
-- Our record counts every pick once (a parlay's picks each count on their own - no parlay record), leans included from
-  9/29. Categories: Locks, Value, Leans, Lock of the Day, Dog of the Day. Live plus money and tennis keep their own records.
+- Our record counts every pick once (a parlay's picks each count on their own - no parlay record). Categories: Locks,
+  Value, Lock of the Day, Dog of the Day. Leans, live plus money and tennis keep their own records (no units on them).
 - The main board posts at 8am Pacific ON GAME DAY (the engine watches the lines and injury news overnight - closing lines
   pick more winners, NFL most of all); tennis at 8am Pacific on game day too.
 - If we posted it, it counts. Every W and every L stays up - we don't hide nothing. Posted picks never change.
