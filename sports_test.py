@@ -3395,7 +3395,7 @@ def test_tennis_cards_get_the_tag_line():
     import sports_dashboard as sdb
     src = open(sdb.__file__).read()
     assert 'tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)' in src
-    assert "{f'<div class=\"why rvy\">{E(tag)}</div>' if tag else \"\"}" in src     # (yellow: it's the write-up)
+    assert "{f'<div class=\"why rvy\">{E(pct_ok(tag))}</div>' if tag else \"\"}" in src   # (yellow; a win % only over 55)
 
 
 
@@ -4623,6 +4623,19 @@ def test_same_pick_never_counts_twice():
           {"date": "2026-09-30", "kind": "lock", "status": "waiting", "legs": []}]
     out = sports.dedupe_picks(ps)
     assert [p.get("posted") for p in out if p["kind"] == "dog"] == ["15:22", None] and len(out) == 3
+
+
+def test_win_pct_only_over_55():
+    """The owner (9/30): '37% to cash on the Kings - only show a percentage if it's above 55%.' Anything 55 or under is
+    said in words, everywhere a pick is written up (stored write-ups too)."""
+    import sports_dashboard as d
+    assert d.pct_ok("✅ Bottom line: Maple Leafs (-130). 54% to cash — get in.") == \
+        "✅ Bottom line: Maple Leafs (-130). The price is right — get in."
+    assert d.pct_ok("✅ Bottom line: 37% to hit on Kings (+160). Tap in.") == "✅ Bottom line: the price is right on Kings (+160). Tap in."
+    assert d.pct_ok("🧠 The engine's got Kings at 37% tonight.") == "🧠 The engine's got Kings right where we want 'em tonight."
+    assert d.pct_ok("✅ Bottom line: Ruud ML (-230). 67% to cash — tap in.").endswith("67% to cash — tap in.")
+    assert d.pct_ok("📊 The casuals got the Avalanche (93% of the bets).").endswith("(93% of the bets).")   # not a win %
+    assert "pct>55?" in open(d.__file__).read()                                                        # question box too
 
 
 if __name__ == "__main__":

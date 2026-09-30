@@ -207,12 +207,32 @@ def _rot(k, options):
 PENDING_TALK = re.compile(r"\s*(?:—\s*)?[^.!?—]*\b(?:gon'? see|finna see|we'?ll see)\b[^.!?]*[.!?]?", re.I)
 
 
+SHOW_PCT_OVER = 55            # the owner, 9/30: a win % only shows when it's over 55% ("37% to cash is not the greatest")
+_PCT = re.compile(r"(\d{1,2})% (to cash|to hit|to get it done|in our numbers)( on)?")
+
+
+def pct_ok(text):
+    """Any win % of 55 or under said as words instead ('54% to cash' -> 'the price is right')."""
+    def sub(m):
+        if int(m.group(1)) > SHOW_PCT_OVER:
+            return m.group(0)
+        if m.group(2) == "in our numbers":
+            return "right in our numbers"
+        return "the price is right" + (" on" if m.group(3) else "")
+    out = _PCT.sub(sub, text)
+    out = re.sub(r"(^|[.!?—] )the price is right", lambda m: m.group(1) + "The price is right", out)
+    out = re.sub(r"\bat (\d{1,2})%", lambda m: m.group(0) if int(m.group(1)) > SHOW_PCT_OVER
+                 else "right where we want 'em", out)
+    return re.sub(r"\bgives (him|her) (\d{1,2})%", lambda m: m.group(0) if int(m.group(2)) > SHOW_PCT_OVER
+                  else f"likes {m.group(1)} here", out)
+
+
 def _breakdown(leg):
     secs = leg.get("breakdown")
     if not secs:
         return ""
     done = leg.get("result") in ("won", "lost", "push")
-    lines = [x for x in secs if isinstance(x, str)]
+    lines = [pct_ok(x) for x in secs if isinstance(x, str)]
     if done:                                                 # it's over: no "we gon' see" on a graded pick
         lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
     body = "".join(f"<p>{E(x)}</p>" for x in lines)
@@ -258,7 +278,7 @@ def _leg(leg, tagged=False, review=""):
     mark = ""
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "push": '<span class="lr push">PUSH</span>', "void": '<span class="lr push">VOID</span>'}.get(res, "")
-    why = E(leg.get("why_line") or _why_fallback(leg))      # a real line in our lingo, never a bare tag (the owner, 9/29)
+    why = E(pct_ok(leg.get("why_line") or _why_fallback(leg)))      # a real line in our lingo, never a bare tag (the owner, 9/29)
     pub = leg.get("public")
     tag = ('<span class="pub fade">🤡 FADING THE PUBLIC</span>' if pub == "fade" else
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
@@ -572,7 +592,7 @@ def _tennis():
         if done:                                             # it's over: no "we gon' see" in the pregame read
             lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
         tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)   # the headline line up top, like the
-        bd = "".join(f"<p>{E(x)}</p>" for x in lines)                        # main board (the owner, 9/29) - tap for the rest
+        bd = "".join(f"<p>{E(pct_ok(x))}</p>" for x in lines)                        # main board (the owner, 9/29) - tap for the rest
         rv = ""                                              # graded: the review takes the headline line's spot
         if done and recap(l):
             tag = f"📝 {recap(l)}"
@@ -580,7 +600,7 @@ def _tennis():
   <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}" data-mk="{E(l.get("market") or "ml")}">{"⏳ DELAYED" if _delayed(l) else "Starts at " + _time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
-  {f'<div class="why rvy">{E(tag)}</div>' if tag else ""}
+  {f'<div class="why rvy">{E(pct_ok(tag))}</div>' if tag else ""}
   {f'<details class="bd"><summary>🔍 {"Pregame breakdown" if done else "Full breakdown"}</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
   {f'<div class="fin">Final: {E(", ".join(f"{a}-{b}" for a, b in ours(l)) or l["score"])}</div>' if l.get("score") else ""}
   {rv}
@@ -1799,7 +1819,7 @@ function show(g){{
     pick(g.id+"s",["⏱️ This one already kicked off — pregame reads are closed. Peep LIVE PLUS MONEY up top: if the algorithm sees live value, it shows up there.",
                    "⏱️ Game’s already going. No pregame reads once it starts — watch LIVE PLUS MONEY, that’s where the in-game value shows up."]))+'</div></section>';out.innerHTML=h;return}}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
-     '<div class="ask-a">'+pct+'% to '+(L.market=="ml"?"win":"cover")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
+     '<div class="ask-a">'+(pct>55?pct+'% to '+(L.market=="ml"?"win":"cover"):"The price is right")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
      (L.reasons.length?'<div class="why">'+esc(whyl(L,g))+'</div>':"")+
      (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":g.h1.name=="1st period"?"After the 1st":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. '+pick(g.id+"h",["No 1st-half line posted yet, so that’s just the read.","Just the read — books ain’t posted the 1st-half line.","That’s our read on the early action."])+'</div>':"")+
      '<div class="ask-w">Why it’s not a pick: '+pick(g.id,WHY[g.why]||WHY.no_value)+'</div>'+

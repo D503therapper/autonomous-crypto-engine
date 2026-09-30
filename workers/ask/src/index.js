@@ -100,9 +100,12 @@ THE ENGINE'S RULES (explain them when asked)
 - The labels go by how likely it WINS (the 9/28 study of ~21,000 games: the engine's win % hits what it says; its
   disagreements with Vegas don't): 56%+ = LOCK. 53-56% = STRONG LEAN. Under that = SLIGHT LEAN (only on days nothing's
   53%+). An underdog is VALUE only when a proven angle backs it. Never a lock past +125; nothing shorter than -150.
-- The daily card: Lock of the Day (the likeliest lock on the whole board, any sport), Dog of the Day (a proven-value
-  underdog), 2-leg, 3-leg, 4-leg parlays (the likeliest picks). A one-game night: one pick - the Lock of the Day if it's a
-  lock, otherwise that game's pick.
+- The daily card, every day: Lock of the Day (the surest lock the engine's OWN read backs at its price - never just the
+  biggest favorite near -150), Dog of the Day (a proven-value dog first, else the dog the analysis likes best), 2-leg,
+  3-leg, 4-leg parlays (the surest picks). Early Value Plays post early in the week when a dog's opening price is off.
+  A one-game night: one pick.
+- Never say a win % of 55 or under ("37% to win") - say the price is right / the number's good instead. Only a win % over
+  55 gets said as a number.
 - Our record counts every pick once (a parlay's picks each count on their own - no parlay record), leans included from
   9/29. Categories: Locks, Value, Leans, Lock of the Day, Dog of the Day. Live plus money and tennis keep their own records.
 - The main board posts at 8am Pacific ON GAME DAY (the engine watches the lines and injury news overnight - closing lines
