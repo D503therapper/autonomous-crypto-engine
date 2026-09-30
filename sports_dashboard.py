@@ -271,7 +271,7 @@ def _leg(leg, tagged=False, review=""):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {f'<div class="why">📝 {E(review)}</div>' if review else f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -577,7 +577,7 @@ def _tennis():
   <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}" data-mk="{E(l.get("market") or "ml")}">{"⏳ DELAYED" if _delayed(l) else "Starts at " + _time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
-  {f'<div class="why">{E(tag)}</div>' if tag else ""}
+  {f'<div class="why rvy">{E(tag)}</div>' if tag else ""}
   {f'<details class="bd"><summary>🔍 {"Pregame breakdown" if done else "Full breakdown"}</summary><div class="bd-s">{bd}</div></details>' if bd else ""}
   {f'<div class="fin">Final: {E(", ".join(f"{a}-{b}" for a, b in ours(l)) or l["score"])}</div>' if l.get("score") else ""}
   {rv}
@@ -1398,7 +1398,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .hr .hd{{color:#fff;font-weight:700;white-space:nowrap}} .hr .hp{{color:#fff;font-weight:800;overflow-wrap:anywhere}}
 .hx>summary{{list-style:none;cursor:pointer;grid-template-columns:3.6em 1.4em minmax(0,1fr) 1em}} .hx>summary::-webkit-details-marker{{display:none}}
 .hx .hc{{font-style:normal;color:#fff;font-size:12px;transition:transform .2s}} .hx[open] .hc{{transform:rotate(180deg)}}
-.hrv{{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#fff}}
+.hrv{{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#ffc233}}
 .hr .hp small{{color:#fff;font-weight:700}} .hr .hp em{{display:block;font-style:normal;font-weight:800;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#fff}}
 .sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
 .spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
@@ -1446,11 +1446,11 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 .od{{font-size:17px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums}}
 .ls{{font-size:13px;color:#fff;font-weight:700;margin-top:2px}} .ls b{{color:#fff}}
 .ep{{color:var(--up);font-weight:800}} .en{{color:#ff8a5c;font-weight:800}}
-.why{{font-size:13px;color:#fff;font-weight:700;margin-top:4px}}
+.why{{font-size:13px;color:#fff;font-weight:700;margin-top:4px}} .why.rvy{{color:#ffc233}}   /* reviews, pre-game + after: yellow (the owner) */
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
-.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .rvw{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 6px}} .fnb{{color:#fff;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
+.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .fnb{{color:#fff;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
 .tsb{{display:grid;gap:2px 0;align-items:center;max-width:250px;margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.05);font-size:.95em}}
 .tsb .nm{{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .tsb .nm i{{font-style:normal;margin-left:6px;font-size:.78em;font-weight:900;color:#d7ff3a;letter-spacing:.02em}}   /* who's serving, in words (the owner, 9/29) */
 .tsb b{{text-align:center;font-weight:700;color:#fff}} .tsb b.w{{color:#fff;font-weight:900}} .tsb b.l{{color:#fff;font-weight:700}}

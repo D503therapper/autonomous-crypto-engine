@@ -4256,6 +4256,14 @@ def test_no_thin_or_dull_text():
         assert "color:#fff" in rule or cls in (".nut{{",), (cls, rule)
 
 
+def test_reviews_are_yellow():
+    """The owner (9/30): the pre-game and after-game reviews both come through in bold yellow (on the cards and in the
+    results); every other piece of text stays bold white."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert ".why.rvy{{color:#ffc233}}" in src and "font-weight:700;color:#ffc233}}" in src[src.index(".hrv{{"):][:120]
+    assert src.count('class="why rvy"') >= 3        # the main card's write-up + review, the tennis card's
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
