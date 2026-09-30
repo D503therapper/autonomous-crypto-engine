@@ -4895,6 +4895,32 @@ def test_early_play_on_the_daily_board_says_we_got_in_early():
     assert "sports_early.load().get(\"picks\")" in inspect.getsource(sports.post_board)   # never the other side of it
 
 
+def test_challenge_final_ping():
+    """The owner, 9/30: when Patty vs the Algorithm is over - one ping, his words; never twice."""
+    import sports_challenge as ch
+    path = os.path.join(tempfile.mkdtemp(), "challenge.json")
+    c = {"name": "Patty", "made": "2026-09-30T00:00Z", "patty": [{"player": "A", "ml": 150, "match": "m1", "side": 1, "result": "won"}],
+         "algo": [{"player": "B", "ml": 140, "match": "m2", "side": 1, "result": "lost"}]}
+    ch._save(c, path)
+    sent = []
+    ch.update(pm={}, rows=None, path=path, ping=lambda t, b: sent.append((t, b)))
+    ch.update(pm={}, rows=None, path=path, ping=lambda t, b: sent.append((t, b)))   # graded again: no second ping
+    assert sent == [("🏆 Patty wins vs the Algorithm!", "There's a new tennis GOAT in town. Patty is him! 🔥")]
+    c["patty"][0]["result"], c["algo"][0]["result"] = "lost", "won"
+    assert ch.final_words(c) == ("🏆 Algorithm wins vs Patty", "The Algorithm remains the undisputed GOAT 🔥")
+
+
+def test_one_alert_never_rings_twice():
+    """The owner, 9/30: an alert came in twice. A phone signed up twice (a renewed sign-up never dropped the old
+    one) gets the same alert id twice - the 2nd now replaces the 1st quietly, and a renewal drops the old sign-up."""
+    import sports_dashboard as d
+    path = os.path.join(tempfile.mkdtemp(), "sw.js")
+    d.write_sw(path)
+    sw = open(path).read()
+    assert "renotify: !m.id" in sw and "pushsubscriptionchange" in sw and "/unsubscribe" in sw
+    assert 'post("/unsubscribe",{{endpoint:s.endpoint}})' in open(d.__file__).read()
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

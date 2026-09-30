@@ -140,7 +140,7 @@ def total(legs):
     return d
 
 
-def update(pm=None, rows=None, now=None, path=PATH):
+def update(pm=None, rows=None, now=None, path=PATH, ping=None):
     """Refresh prices (before the start), pick / lock the algorithm's side, grade from ESPN rows ({id: row})."""
     c = _load(path)
     if not c:
@@ -179,8 +179,30 @@ def update(pm=None, rows=None, now=None, path=PATH):
             l["result"] = "void"
         elif st in ("final", "retired") and int(m.get("winner") or 0) in (1, 2):
             l["result"] = "won" if int(m["winner"]) == int(l["side"]) else "lost"
+    ps, as_, done = score(c)
+    if done and not c.get("announced"):                      # 📣 the owner, 9/30: one ping when it's over (his words)
+        c["announced"] = now.strftime("%Y-%m-%dT%H:%MZ")
+        try:
+            (ping or _ping)(*final_words(c))
+        except Exception as e:                               # noqa: BLE001 - a ping never breaks the grading
+            print(f"challenge ping failed: {str(e)[:60]}")
     _save(c, path)
     return c
+
+
+def final_words(c):
+    """(title, body) for the one ping when the challenge is over - the owner's words."""
+    name = c.get("name", "Patty")
+    ps, as_, _ = score(c)
+    if ps > as_:
+        return (f"🏆 {name} wins vs the Algorithm!", f"There's a new tennis GOAT in town. {name} is him! 🔥")
+    if as_ > ps:
+        return (f"🏆 Algorithm wins vs {name}", "The Algorithm remains the undisputed GOAT 🔥")
+    return (f"🤝 {name} vs the Algorithm: dead even", f"{ps}-{as_}. Nobody's the GOAT yet. Run it back? 🔥")
+
+
+def _ping(title, body):
+    sd.web_push(None, title, body, ref=f"challenge:{title}")
 
 
 def start(name, players, path=PATH):

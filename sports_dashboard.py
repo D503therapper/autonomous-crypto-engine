@@ -1069,13 +1069,22 @@ async function alertNow(e) {
   return self.registration.showNotification(m.title || "🔥 D503 LIVE BET", {
     body: m.body || "The algorithm just triggered a live bet. Tap to see it. 📡",
     tag: m.id || "d503-live",
-    renotify: true,
+    renotify: !m.id,                                      // the same alert twice (a phone signed up twice): the 2nd
+    //                                                       quietly replaces the 1st - never two rings (the owner, 9/30)
     icon: "icon-512.png?v=8",
     badge: "icon-512.png?v=8",
     data: { url: m.url && m.url.indexOf(DASH) === 0 ? m.url : DASH },
   });
 }
 self.addEventListener("push", (e) => e.waitUntil(alertNow(e)));
+self.addEventListener("pushsubscriptionchange", (e) => e.waitUntil((async () => {   // the phone swapped its sign-up:
+  const old = e.oldSubscription;                          // drop the old one so alerts don't come in twice
+  if (old && API) await fetch(API + "/unsubscribe", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ endpoint: old.endpoint }) }).catch(() => {});
+  const s = e.newSubscription;
+  if (s && API) await fetch(API + "/subscribe", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(s.toJSON()) }).catch(() => {});
+})()));
 self.addEventListener("notificationclick", (e) => {
   e.notification.close();
   const url = (e.notification.data && e.notification.data.url) || DASH;
@@ -2075,7 +2084,8 @@ reg().then(function(r){{return r.pushManager.getSubscription()}}).then(function(
  if(!s||Notification.permission!=="granted"){{set(false);return}}
  set(true);
  return key().then(function(k){{
-  if(!same(s,k))return s.unsubscribe().then(function(){{return subscribe(k)}});   // the Worker's key changed: re-join
+  if(!same(s,k))return post("/unsubscribe",{{endpoint:s.endpoint}}).catch(function(){{}}).then(function(){{return s.unsubscribe()}})
+   .then(function(){{return subscribe(k)}});   // the Worker's key changed: re-join (the old sign-up dropped - never 2 pings)
   var t=0;try{{t=+localStorage.getItem("d503pushT")||0}}catch(e){{}}
   if(Date.now()-t>7*864e5)return post("/subscribe",s.toJSON()).then(function(){{try{{localStorage.setItem("d503pushT",String(Date.now()))}}catch(e){{}}}});
  }});
