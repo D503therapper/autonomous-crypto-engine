@@ -4701,7 +4701,9 @@ def _units_and_the_open_bankroll():
     assert "NO UNITS — JUST A LEAN" in d._units_line(0)                   # a lean says so (the owner, 9/30)
     assert "½ UNIT" in d._units_line(0.5, "Yankees") and 'class="unw"' in d._units_line(0.5, "Yankees")   # ½u says why
     assert len({d._units_line(0.5, k, -140) for k in ("Yankees", "Flyers", "Kings", "Padres", "Bears")}) > 1   # not on repeat
-    assert "pay a lot" in "".join(d.HALF_WHY["fav"]) and "shot" in "".join(d.HALF_WHY["dog"])   # plain words, fav vs dog
+    assert "small" in "".join(d.HALF_WHY["fav"]) and "payout" in "".join(d.HALF_WHY["dog"])   # plain words, fav vs dog
+    assert not any(w in " ".join(d.HALF_WHY["dog"] + d.HALF_WHY["fav"]).lower() for w in ("could hit", "not a big", "pay a lot"))
+    # (the owner, 9/30: never sound skeptical of our own pick - the price keeps the bet small, that's all)
     assert ".mb{{display:inline-block;filter:hue-rotate" in open(d.__file__).read()
     assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
     assert "🔥 VALUE PLAY<" in d.TIER_CHIP["value"] and "🔥 VALUE PLAY<" in d.LEG_TAG["value"]   # 'value plays', not 'value'

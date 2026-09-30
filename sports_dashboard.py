@@ -195,10 +195,10 @@ UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every pl
 
 
 HALF_WHY = {   # (the owner, 9/30: a ½u Lock looks suspect - say why, in plain words, no numbers)
-    "fav": ("Likely winner, but you pay a lot to win a little.", "Good chance to win — the price is just steep.",
-            "We like them, but the books do too. Not much extra here."),
-    "dog": ("A real shot, just not one to bet big on.", "Could hit, but not a big enough shot to go heavy.",
-            "Worth a little, not a lot."),
+    "fav": ("We're on it — the price is steep, so we keep the bet small.", "Love the side. Big price, so a small bet.",
+            "Confident in the side — the price just keeps the bet small."),
+    "dog": ("We riding with them — small bet, big payout.", "Plus money does the work. A small bet is plenty.",
+            "Small bet, big return when they cash."),
 }
 
 
