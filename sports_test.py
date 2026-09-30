@@ -3602,6 +3602,18 @@ def test_live_boxes_bet_it_now_and_tonights_bets():
     #                                                                                   owner's own words, short)
 
 
+def test_tonights_live_bets_box_only_when_we_have_bets():
+    """The owner, 9/29: the TONIGHT'S LIVE BETS box doesn't show at all until we actually have a live bet in. Built
+    empty when there are none; the page adds it only when the first bet arrives; yesterday's clear at the 8 AM board."""
+    import sports_dashboard as sdb
+    from datetime import datetime
+    src = open(sdb.__file__).read()
+    assert 'live_list = ("" if not lrows else' in src and "T.forEach(function(e){{" in src
+    assert "if(!sec){{el.innerHTML=" in src[src.index("function today(T)"):]            # created on the first bet only
+    assert sdb.live_days(datetime(2026, 9, 30, 9, 0)) == {"2026-09-30"}                   # after 8 AM: last night's gone
+    assert sdb.live_days(datetime(2026, 9, 30, 7, 0)) == {"2026-09-30", "2026-09-29"}
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
