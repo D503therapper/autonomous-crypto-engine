@@ -194,26 +194,61 @@ LIVE_NO_UNITS = '<div class="nou">🎲 NO UNITS ON THESE — WE GAMBLIN’</div>
 UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every play by its own edge (the sizing study)
 
 
-HALF_WHY = {"fav": ("The price is too expensive for a big bet.", "Too expensive a price to bet big.",
-                    "Price too tight for a big bet."),
-            "dog": ("Price too tight for a big bet.", "Too tight a price to bet big.", "Tight price — no need to bet big.")}
-# (the owner's words, 9/30: a ½u pick says why - the price, never doubt in our own pick)
+HALF_WHY = {   # ½u - the owner, 9/30: people need the WHY (big bets on expensive lines lose money over time)
+    "fav": ("Line's too expensive — betting big at prices like this loses money over time.",
+            "Expensive line. Big bets at prices like this lose money in the long run.",
+            "Line's too expensive. Big bets at expensive prices lose money long term.",
+            "Pricey line. Over time, big bets at this kind of price lose money.",
+            "At a price this steep, big bets lose money long term. Keep it small.",
+            "Expensive line — the long-run money says keep this bet small."),
+    "dog": ("Small bet, big payout — the value's still worth it.", "Small bet, big payout — still worth it.",
+            "Plus money does the heavy lifting. A small bet is plenty.", "Small stake, big return if they cash.",
+            "Big payout on a small bet — that's the play.", "Keep it small — the plus money pays big when it hits.")}
+FULL_WHY = {   # 1-1½u: why it's more than ½
+    "fav": ("Fair price — worth a full bet.", "The price is fair — a solid bet.", "Price is right where we want it. Full bet.",
+            "Not too expensive — worth a full bet.", "Fair line for how much we like it. Solid bet."),
+    "dog": ("Real value here — worth a full bet.", "The value's real — a solid bet.", "Good value at this price. Full bet.",
+            "The payout's worth more than the risk. Solid bet.", "Plus money with real value — full bet.")}
+BIGGER_WHY = {   # 2-3½u
+    "fav": ("Good price — worth a bigger bet.", "Price is right — we bet this one bigger.",
+            "This line's cheaper than it should be. Bigger bet.", "Good number on a team we like. Bigger bet.",
+            "The price gives us an edge — we go bigger."),
+    "dog": ("The value's there — worth a bigger bet.", "Good value — we bet this one bigger.",
+            "The payout's bigger than it should be. We go bigger.", "Real value on a plus-money price. Bigger bet.",
+            "This dog's paying more than it should. Bigger bet.")}
+BIG_WHY = {   # 4u+
+    "early": ("Big edge before the line moves — load up.", "The engine sees this line moving our way. Big bet.",
+              "We got in before the line moves. Big bet.", "Price won't last — the engine's betting big.",
+              "Early number with a big edge. Load up."),
+    "board": ("Big edge at this price — big bet.", "This price is a gift — load up.", "The engine's all over this one. Big bet.",
+              "Priced way too cheap. We're betting big.", "Too good a price to bet small. Load up.")}
+# (the owner's words, 9/30: EVERY size says why in a few plain words, 5+ ways each so nothing repeats - never doubt in
+# our own pick)
 
 
-def _units_line(u, key="", odds=None):
+WHY_USED = set()                 # the unit reasons already on the page this build (reset in render)
+
+
+def _units_line(u, key="", odds=None, early=False):
     if not UNITS_ON:
         return ""
     if not u:                                                # a lean: no units (the owner, 9/30)
         return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
-    if u == 0.5:                                             # the engine's minimum: its read barely beats the price
-        pool = HALF_WHY["dog" if (odds or 100) > 0 else "fav"]   # (a plus-money dog is never "expensive")
-        why = pool[sum(map(ord, key)) % len(pool)]
-        return f'<div class="un"><span class="mb">💰</span> ½ UNIT<span class="unw">{E(why)}</span></div>'
-    return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
+    side = "dog" if (odds or 100) > 0 else "fav"             # (a plus-money dog is never "expensive")
+    pool = (HALF_WHY[side] if u == 0.5 else FULL_WHY[side] if u < 2 else BIGGER_WHY[side] if u < 4 else
+            BIG_WHY["early" if early else "board"])
+    start = sum(map(ord, key))                               # a line already on the board this build is skipped
+    order = [pool[(start + i) % len(pool)] for i in range(len(pool))]   # (never the same reason twice in a row)
+    why = next((x for x in order if x not in WHY_USED), order[0]) if pool else ""
+    WHY_USED.add(why)
+    return (f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}'
+            + (f'<span class="unw">{E(why)}</span>' if why else "") + '</div>')   # units only - everybody's unit is
+    #                                                                              their own bankroll's (the owner, 9/30)
 
 
 def _units_txt(u):
-    return "½ UNIT" if u == 0.5 else f"{u:g} UNIT" + ("" if u == 1 else "S")
+    n = f"{int(u)}½" if u % 1 else f"{int(u)}"             # 5½ UNITS, not 5.5
+    return "½ UNIT" if u == 0.5 else f"{n} UNIT" + ("" if u == 1 else "S")
 
 
 def units_box(picks, today=None):
@@ -1038,6 +1073,7 @@ def write_sw(path):
 
 def render(picks, model, games, series, start_bank, updated_ms):
     import sports
+    WHY_USED.clear()
     now = datetime.now(PT)
     today = board_day(now, picks)                           # (yesterday's board till 1 AM / its last game is graded)
     order = list(LOOK)
@@ -1073,8 +1109,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
         challenge = ""
     try:                                                     # ⏰ early value plays (the owner, 9/30)
         import sports_early
-        early = sports_early.html(sports_early.load(), E, show_units=_units_line)
-        early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=_units_line)
+        eu = lambda u, k="", o=None: _units_line(u, k, o, early=True)
+        early = sports_early.html(sports_early.load(), E, show_units=eu)
+        early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=eu)
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
         early = early_today = ""

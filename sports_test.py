@@ -4697,13 +4697,27 @@ def _units_and_the_open_bankroll():
     assert "Parlays" not in box
     assert "WE GAMBLIN" in d.LIVE_NO_UNITS and "var NOU=" in open(d.__file__).read()   # live plus money: no units, said so
     assert "\n.nou{{text-align:center" in open(d.__file__).read()          # its own CSS rule (a spliced one broke it)
-    assert d._units_line(2) == '<div class="un"><span class="mb">💰</span> 2 UNITS</div>'   # no $ on a card; green bag
+    assert d._units_line(1).startswith('<div class="un"><span class="mb">💰</span> 1 UNIT<') and "$" not in d._units_line(1)
     assert "NO UNITS — JUST A LEAN" in d._units_line(0)                   # a lean says so (the owner, 9/30)
     assert "½ UNIT" in d._units_line(0.5, "Yankees") and 'class="unw"' in d._units_line(0.5, "Yankees")   # ½u says why
     assert len({d._units_line(0.5, k, -140) for k in ("Yankees", "Flyers", "Kings", "Padres", "Bears")}) > 1   # not on repeat
-    assert "Price too tight for a big bet." in d.HALF_WHY["dog"] and "expensive" in d.HALF_WHY["fav"][0]   # his words
-    assert not any("expensive" in x for x in d.HALF_WHY["dog"])            # a plus-money dog is never "expensive"
-    assert not any(w in " ".join(d.HALF_WHY["fav"] + d.HALF_WHY["dog"]).lower() for w in ("could hit", "not a big", "%"))
+    assert "expensive" in d.HALF_WHY["fav"][0] and not any("expensive" in x for x in d.HALF_WHY["dog"])   # his words
+    assert "long run" in " ".join(d.HALF_WHY["fav"])       # the WHY: big bets on expensive lines lose over time
+    line = d._units_line(0.5, "Kings", 160)                 # a ½u dog: small bet, big payout
+    assert any(d.E(x) in line for x in d.HALF_WHY["dog"])
+    assert all("unw" in d._units_line(u, "Kings", o) for u in (0.5, 1, 1.5, 2, 4, 10) for o in (160, -120))   # always a why
+    line = d._units_line(1, "Padres", -130)
+    assert any(d.E(x) in line for x in d.FULL_WHY["fav"])
+    d.WHY_USED.clear()
+    assert d._units_line(2, "Flyers", 136) != d._units_line(2.5, "Blues", 170).replace("2½ UNITS", "2 UNITS")   # no repeats
+    line, line2 = d._units_line(2.5, "Blues", 170), d._units_line(3, "Yankees", -130)
+    assert any(d.E(x) in line for x in d.BIGGER_WHY["dog"]) and any(d.E(x) in line2 for x in d.BIGGER_WHY["fav"])
+    assert all(len(v) >= 5 for w in (d.HALF_WHY, d.FULL_WHY, d.BIGGER_WHY, d.BIG_WHY) for v in w.values())   # 5+ ways
+    line = d._units_line(5.5, "Jaguars", 124, early=True)
+    assert any(x in line for x in d.BIG_WHY["early"])
+    assert "5½ UNITS" in d._units_line(5.5, "Jaguars", 124) and "1½ UNITS" in d._units_line(1.5)
+    allw = [x for v in (d.HALF_WHY, d.FULL_WHY, d.BIGGER_WHY, d.BIG_WHY) for xs in v.values() for x in xs]
+    assert not any(w in " ".join(allw).lower() for w in ("could hit", "not a big", "not worth", "%"))
     # (the owner, 9/30: never sound skeptical of our own pick - the price keeps the bet small, that's all)
     assert ".mb{{display:inline-block;filter:hue-rotate" in open(d.__file__).read()
     assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
