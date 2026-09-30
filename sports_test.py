@@ -3820,6 +3820,40 @@ def test_one_ping_per_live_bet_it_stays_up_and_its_note_shows_right_away():
     assert "e.story?" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
 
 
+def test_lost_parlay_clock_starts_at_its_first_losing_game():
+    """The owner, 9/29: a parlay's 3 hours on the board count from the first game that loses on it - not from when
+    the grader got to it, and never from its last game."""
+    import sports
+    L = sports_live
+    tmp = tempfile.mkdtemp()
+    keep = (sd.DATA, L.FINAL_AT_PATH, dict(L.FINAL_AT))
+    try:
+        sd.DATA, L.FINAL_AT_PATH = tmp, os.path.join(tmp, "final_at.json")
+        L.FINAL_AT.clear()
+        L.mark_final("nhl:1", datetime(2026, 9, 30, 4, 35, tzinfo=timezone.utc))    # the leg that loses ends first
+        L.mark_final("nhl:1", datetime(2026, 9, 30, 4, 50, tzinfo=timezone.utc))    # (the first sighting sticks)
+        L.mark_final("nhl:2", datetime(2026, 9, 30, 5, 5, tzinfo=timezone.utc))
+        g = lambda gid, hs, as_: {"id": gid, "status": "final", "home_score": str(hs), "away_score": str(as_),
+                                  "home_name": "H", "away_name": "A", "ls_home": "", "ls_away": ""}
+        games = {"nhl:1": g("nhl:1", 5, 6), "nhl:2": g("nhl:2", 4, 2)}
+        leg = lambda gid: {"game_id": gid, "market": "ml", "side": "home", "line": None, "dec": 1.8, "result": None}
+        pk = {"status": "open", "stake": 100, "legs": [leg("nhl:1"), leg("nhl:2")]}
+        sports.grade([pk], games, now=datetime(2026, 9, 30, 5, 14, tzinfo=timezone.utc))
+        assert pk["status"] == "lost" and pk["settled"] == "2026-09-30T04:35Z", pk
+        assert [l["settled"] for l in pk["legs"]] == ["2026-09-30T04:35Z", "2026-09-30T05:05Z"]
+        won = {"status": "open", "stake": 100, "legs": [leg("nhl:2")]}
+        sports.grade([won], games, now=datetime(2026, 9, 30, 5, 14, tzinfo=timezone.utc))
+        assert won["status"] == "won" and won["settled"] == "2026-09-30T05:05Z"
+        none = {"status": "open", "stake": 100, "legs": [leg("nhl:3")]}                  # no watcher time: when graded
+        games["nhl:3"] = g("nhl:3", 1, 0)
+        sports.grade([none], games, now=datetime(2026, 9, 30, 5, 14, tzinfo=timezone.utc))
+        assert none["settled"] == "2026-09-30T05:14Z"
+    finally:
+        sd.DATA, L.FINAL_AT_PATH = keep[0], keep[1]
+        L.FINAL_AT.clear(); L.FINAL_AT.update(keep[2])
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

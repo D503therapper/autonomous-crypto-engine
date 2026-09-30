@@ -1259,6 +1259,37 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
 SCORES = {}                   # {game id: live score + clock} for the dashboard's pending picks (every sport + tennis)
 
 
+FINAL_AT_PATH = os.path.join(sd.DATA, "final_at.json")   # game id -> when the watcher first saw it final (UTC)
+
+
+def _final_at():
+    try:
+        return json.load(open(FINAL_AT_PATH))
+    except (OSError, ValueError):
+        return {}
+
+
+FINAL_AT = _final_at()
+
+
+def mark_final(gid, now=None):
+    """The moment a game goes final: a lost parlay's 3 hours on the board count from its first losing game's end,
+    not from whenever the grader caught up (the owner, 9/29)."""
+    if not gid or gid in FINAL_AT:
+        return
+    now = now or datetime.now(timezone.utc)
+    FINAL_AT[gid] = now.strftime("%Y-%m-%dT%H:%MZ")
+    cut = (now - timedelta(days=3)).strftime("%Y-%m-%dT%H:%MZ")
+    for k in [k for k, v in FINAL_AT.items() if v < cut]:
+        FINAL_AT.pop(k, None)
+    try:
+        with open(FINAL_AT_PATH + ".tmp", "w") as f:
+            json.dump(FINAL_AT, f, indent=1, sort_keys=True)
+        os.replace(FINAL_AT_PATH + ".tmp", FINAL_AT_PATH)
+    except OSError:
+        pass
+
+
 def _keep_score(games, lg, ang, box, status):
     """The score and time left of one game (live, or final) - shown next to our pending picks with the LIVE tag."""
     try:
@@ -1276,6 +1307,8 @@ def _keep_score(games, lg, ang, box, status):
                                "h": _score(box, "home"), "clock": "Postponed", "live": False, "delayed": True}
             return
         final = status in ("complete", "closed", "final")
+        if final:
+            mark_final(g["id"])
         SCORES[g["id"]] = {"away": g["away_name"], "home": g["home_name"], "a": _score(box, "away"),
                            "h": _score(box, "home"), "clock": "Final" if final else _clock_txt(lg, box), "live": not final}
     except Exception:                                         # noqa: BLE001 - a score never breaks the watch
@@ -1690,7 +1723,7 @@ def publish_results(msg):
         print(f"quick grade failed: {e}", flush=True)
         return
     paths = [LOG, TUNE, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
-             os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json")]
+             os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json"), FINAL_AT_PATH]
     _git("add", *[p for p in paths if os.path.exists(p)])
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return

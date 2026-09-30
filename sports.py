@@ -707,9 +707,22 @@ def grade_leg(leg, g, now):
     return "won" if margin > 0 else "lost" if margin < 0 else "push"
 
 
+def _final_at():
+    """When the live watcher saw each game go final ({game id: 'YYYY-MM-DDTHH:MMZ'})."""
+    try:
+        return json.load(open(os.path.join(sd.DATA, "final_at.json")))
+    except (OSError, ValueError):
+        return {}
+
+
 def grade(picks, games, now=None):
     now = now or datetime.now(timezone.utc)
     settled = []
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    ended = _final_at()
+
+    def leg_done(leg):                                       # a graded leg: when its game ended (the grader can lag)
+        leg["settled"] = min(ended.get(leg.get("game_id")) or stamp, stamp)
     for pk in picks[-40:]:                                   # graded legs from before the flow was kept: fill it in
         for leg in pk["legs"]:
             g = games.get(leg.get("game_id"))
@@ -721,6 +734,8 @@ def grade(picks, games, now=None):
                 if leg.get("result") is None:                # hit and miss - full transparency)
                     leg["result"] = grade_leg(leg, games.get(leg["game_id"]), now)
                     g = games.get(leg["game_id"])
+                    if leg["result"]:
+                        leg_done(leg)
                     if leg["result"] and g:
                         leg["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
                         leg["flow"] = {"a": g.get("ls_away", ""), "h": g.get("ls_home", "")}   # period by period: the review tells how it went
@@ -731,6 +746,8 @@ def grade(picks, games, now=None):
             if leg.get("result") is None:
                 leg["result"] = grade_leg(leg, games.get(leg["game_id"]), now)
                 g = games.get(leg["game_id"])
+                if leg["result"]:
+                    leg_done(leg)
                 if leg["result"] and g:
                     leg["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
                     leg["flow"] = {"a": g.get("ls_away", ""), "h": g.get("ls_home", "")}   # period by period: the review tells how it went
@@ -746,7 +763,10 @@ def grade(picks, games, now=None):
             pk["pnl"] = round(pk["stake"] * (dec - 1), 2)
         else:
             continue
-        pk["settled"] = now.strftime("%Y-%m-%dT%H:%MZ")
+        # settled = when it was decided: a lost one the moment its first leg lost (its 3 hours on the board count from
+        # there - the owner, 9/29), a won / pushed one when its last game ended
+        lost_t = [l.get("settled") or stamp for l in pk["legs"] if l.get("result") == "lost"]
+        pk["settled"] = min(lost_t) if lost_t else max(l.get("settled") or stamp for l in pk["legs"])
         settled.append(pk)
     return settled
 
