@@ -3903,3 +3903,47 @@ error: failed to push some refs to 'https://github.co
 [2026-09-30 17:06 UTC] stocks/trend     equity $486.71 (-2.7%) 3 open  market UP
 [2026-09-30 17:06 UTC] stocks/hold_spy  equity $499.67 (-0.1%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), TRUMP 35 (35/0/0), NEAR 32 (32/0/0), PENGU 29 (29/0/0), PONS 27 (21/0/5)
+   dex screen: REJECT CBADA@base liq $130,931 - pool age unknown
+   dex screen: REJECT ETHFI@ethereum liq $333,720 - top-10 holders 64%; lp locked 0% < 95%
+   dex screen: REJECT TEL@ethereum liq $165,008 - top-10 holders 55%; lp locked 0% < 95%
+   dex screen: REJECT ATH@ethereum liq $377,263 - is_mintable; is_whitelisted; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT M87@ethereum liq $1,283,727 - is_whitelisted
+   dex screen: REJECT CONDO@ethereum liq $166,599 - lp locked 0% < 95%
+   dex screen: REJECT WOJAK@ethereum liq $1,089,017 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; honeypot.is: no data
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT LNQ@ethereum liq $623,060 - top-10 holders 63%
+   dex screen: REJECT POND@solana liq $21,404,779 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%; rugcheck score 62
+   dex screen: REJECT NEURAL@ethereum liq $948,992 - transfer_pausable; is_whitelisted; buy tax 4%; sell tax 4%
+   dex screen: REJECT FUSE@ethereum liq $196,554 - lp locked 0% < 95%
+   dex screen: REJECT BOT@solana liq $101,221 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT AMZNC@base liq $1,966,106 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: REJECT TOPENAI@solana liq $834,153 - freeze authority; mint authority; transfer_fee_upgradable; top-10 holders 53%; lp holders unknown
+   dex screen: REJECT SI@solana liq $128,644 - holders unknown; lp holders unknown; rugcheck danger: Single holder ownership
+   dex screen: PASS ASTEROID@ethereum liq $1,085,299
+   dex outcome: normal SS@solana:BYaxkgDf tier A P/L $-93.36 (trailing stop (peak 0.002664))
+   >> dex/dex_hunter: SELL $7.17 of SS@solana:BYaxkgDf @ 8.9e-05, P/L $-93.36 (trailing stop (peak 0.002664))
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT XDP@solana liq $304,725 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT XDP@base liq $1,766,699 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,046 / base 563 / ethereum 391), refresh cycle 130s (hot 126s), 2872 calls (107 feed, 429s 0, failed 0), 82,948 refreshed (6143 no pair), +124 added / -125 dropped (dead 18, stale 0, cap 107), movers 5 + warming 26 -> queued 3, screened 4 (passed 0), bought 0
+[2026-09-30 18:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-30 18:07 UTC] crypto/mover     equity $473.27 (-5.3%) 1 open  market UP
+[2026-09-30 18:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 18:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 18:07 UTC] crypto/social_heat equity $553.60 (+10.7%) 1 open  market UP
+[2026-09-30 18:07 UTC] crypto/breakout10 equity $514.74 (+2.9%) 2 open  market UP
+[2026-09-30 18:07 UTC] crypto/momentum  equity $483.17 (-3.4%) 2 open  market UP
+[2026-09-30 18:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-30 18:07 UTC] crypto/hold_btc  equity $499.39 (-0.1%) 1 open  market UP
+[2026-09-30 18:07 UTC] stocks/rsi2      equity $497.35 (-0.5%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 1, TLT 1, TSLA 3, IWM 6 BUY
+[2026-09-30 18:07 UTC] stocks/dual_momentum equity $498.28 (-0.3%) 2 open  market UP
+[2026-09-30 18:07 UTC] stocks/trend_ensemble equity $499.94 (-0.0%) 5 open  market UP
+[2026-09-30 18:07 UTC] stocks/rotation10 equity $488.14 (-2.4%) 2 open  market UP
+[2026-09-30 18:07 UTC] stocks/momentum  equity $491.79 (-1.6%) 4 open  market UP
+[2026-09-30 18:07 UTC] stocks/trend     equity $484.75 (-3.0%) 3 open  market UP
+[2026-09-30 18:07 UTC] stocks/hold_spy  equity $498.81 (-0.2%) 1 open  market UP
+   social heat top: QNT 40 (40/0/0), TRUMP 37 (37/0/0), NEAR 33 (29/0/4), PENGU 32 (32/0/0), HYPE 24 (24/0/0)
