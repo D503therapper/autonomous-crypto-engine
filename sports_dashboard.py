@@ -1425,7 +1425,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 .evr{{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}}
 .evr b{{color:#fff;font-size:15px}} .evr small{{color:#fff;font-weight:800}} .evr em{{font-style:normal;font-weight:900;color:#fff}}
 .evr span{{display:block;font-size:13px;font-weight:800;color:#fff;margin-top:2px}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:13px;font-weight:900;color:#ffc233;margin-top:3px}}
-.evh{{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--gold);margin-top:10px}} .evn{{font-size:13px;font-weight:700;color:#fff;padding:6px 0}}
+.evh{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#fff;margin-top:10px}} .evn{{font-size:13px;font-weight:700;color:#fff;padding:6px 0}}
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}
 .pk-l.pk-big{{font-size:clamp(22px,6.6vw,30px);letter-spacing:.05em;line-height:1.1}}   /* a one-game day: the pick IS the headline */
