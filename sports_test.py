@@ -3978,6 +3978,23 @@ def test_tennis_points_and_server_checked_every_second():
     assert "bookScore" in js and "kambi" in js.lower()
 
 
+def test_closing_line_counts_each_real_bet_once():
+    """9/30 nightly review: the closing-line number counted a leg once per card (the Vikings -115 four times: 25 legs
+    were really 14 bets). Each real bet counts once now; and the review rules say women's TENNIS is on (only women's
+    team leagues are out) and the board posts 8 AM game day."""
+    import sports_moves as M
+    leg = lambda gid, odds: {"game_id": gid, "market": "ml", "side": "home", "odds": odds, "league": "nfl", "team": "X"}
+    picks = [{"date": "d", "kind": k, "legs": [leg("nfl:1", -115)]} for k in ("lock", "two", "three", "four")] + \
+            [{"date": "d", "kind": "dog", "legs": [leg("nfl:2", 130)]}]
+    games = {"nfl:1": {"league": "nfl", "status": "final", "ml_home": "-125", "ml_away": "105"},
+             "nfl:2": {"league": "nfl", "status": "final", "ml_home": "140", "ml_away": "-160"}}
+    r = M.clv(picks, games)
+    assert r["summary"]["all"]["beat"] == 0.8 and r["summary"]["all"]["per_bet"] == {"bets": 2, "avg_cents": 0.0, "beat": 0.5}
+    assert any("counting each real bet once: beat the closing line 50% of 2 bets" in x for x in M.clv_summary(res=r))
+    rules = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "SPORTS_REVIEW.md")).read()
+    assert "men's AND women's" in rules and "8 AM PT on game day" in rules and "6pm PT the night before" not in rules
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

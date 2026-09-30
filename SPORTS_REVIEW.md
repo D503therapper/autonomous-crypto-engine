@@ -14,10 +14,11 @@ including losing days and your own bugs.
 - **No big favorites.** No parlay leg shorter than -150. The Lock is no shorter than -120. The Dog is plus money.
   Big dogs (+200 and up) are never declined when they trigger: a real shot and clearly the best value on the slate.
 - **Bet types.** Spreads only in NFL, college football, NBA and men's college basketball. No run lines, puck lines
-  or player props. Leagues: NFL, college football, NBA, men's college basketball, MLB, NHL. No women's leagues
-  (no WNBA, no women's college basketball).
-- **Post when sure.** Post from 6pm PT the night before, once the key news is known (starting pitchers,
-  questionable QBs and goalies). The latest a play can post is 3 hours before its first game.
+  or player props. Leagues: NFL, college football, NBA, men's college basketball, MLB, NHL. No women's TEAM
+  leagues (no WNBA, no women's college basketball). Tennis is its own board: men's AND women's (4 + 4 picks), and
+  live women's tennis is on too - that's the owner's call, not a rule break.
+- **Post when sure.** The board and tennis post at 8 AM PT on game day, once the key news is known (starting
+  pitchers, questionable QBs and goalies). The latest a play can post is 3 hours before its first game.
 - **Keep the dashboard look.** Keep the current dashboard (docs/sports/index.html via sports_dashboard.py):
   the original header, no gray, and records only (no dollar amounts). Show the owner a picture before any
   change to its look.

@@ -242,7 +242,16 @@ def clv(picks, games):
                 "avg_cents": round(sum(r["clv_cents"] for r in rows) / n, 1),
                 "beat": round(sum(r["clv_pts"] > 0 for r in rows) / n, 3),
                 "tied": round(sum(r["clv_pts"] == 0 for r in rows) / n, 3),
-                "unique_bets": len({(r["game_id"], r["market"], r["side"], r["posted"]) for r in rows})}
+                "unique_bets": len({(r["game_id"], r["market"], r["side"], r["posted"]) for r in rows}),
+                "per_bet": per_bet(rows)}
+
+    def per_bet(rows):                                       # the same bet on four cards is ONE bet (9/30 review:
+        one = {}                                             # 25 legs were really 14 bets)
+        for r in rows:
+            one.setdefault((r["game_id"], r["market"], r["side"], r["posted"]), r)
+        u = list(one.values())
+        return {"bets": len(u), "avg_cents": round(sum(r["clv_cents"] for r in u) / len(u), 1),
+                "beat": round(sum(r["clv_pts"] > 0 for r in u) / len(u), 3)} if u else {"bets": 0}
     by = lambda f: {k: summ([r for r in legs if f(r) == k]) for k in sorted({f(r) for r in legs})}
     return {"legs": legs, "skipped": skipped,
             "summary": {"all": summ(legs), "by_sport": by(lambda r: r["league"]), "by_kind": by(lambda r: r["kind"])}}
@@ -261,7 +270,11 @@ def clv_summary(picks=None, games=None, res=None):
     def one(name, v):
         return (f"{name}: {v['legs']} legs ({v['unique_bets']} different bets) - average CLV {v['avg_pts']:+.2f} pts "
                 f"({v['avg_cents']:+.1f} cents), beat the close {v['beat']:.0%}, matched it {v['tied']:.0%}")
+    pb = a.get("per_bet") or {}
     lines = ["closing line value - " + one("our picks", a), f"  skipped legs: {sk}"]
+    if pb.get("bets"):
+        lines.append(f"  counting each real bet once: beat the closing line {pb['beat']:.0%} of {pb['bets']} bets "
+                     f"({pb['avg_cents']:+.1f} cents)")
     lines += ["  " + one(k, v) for k, v in s["by_sport"].items()]
     lines += ["  " + one(f"{k} cards", v) for k, v in s["by_kind"].items()]
     if a["legs"] < 100:
