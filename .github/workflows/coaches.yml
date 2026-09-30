@@ -1,0 +1,28 @@
+# COACHES (the owner, 9/30): every team's head coach, season by season, every sport, from ESPN (sports_coaches.py).
+# Its own job - the hourly engine never waits on it. Runs until it's caught up, then weekly for changes (firings).
+name: coaches
+on:
+  schedule:
+    - cron: "17 11 * * 1"   # Mondays (coaching changes land early in the week)
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: coaches
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: timeout 40m python -u sports_coaches.py 38
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/coaches.json data/sports/coaches_probe.json 2>/dev/null || true
+          git commit -qm "coaches $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 7; done

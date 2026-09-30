@@ -4932,6 +4932,17 @@ def test_puck_luck():
     assert sf.pdo_states({}, "2026-10-10T00:00Z") == {}
 
 
+def test_coaches_season_names():
+    """The coaching download (9/30) asks ESPN for each team's coaches by ESPN's season name: football = the year it
+    starts (a January playoff game is last season's), NBA / NHL / college hoops = the year it ends."""
+    import sports_coaches as co
+    g = lambda lg, st: {"league": lg, "start": st, "home": "1", "away": "2"}
+    assert list(co.teams_by_season({"a": g("nfl", "2025-01-12T18:00Z")}, "nfl")) == [2024]
+    assert list(co.teams_by_season({"a": g("nba", "2024-11-01T00:00Z")}, "nba")) == [2025]
+    assert list(co.teams_by_season({"a": g("nba", "2025-03-01T00:00Z")}, "nba")) == [2025]
+    assert list(co.teams_by_season({"a": g("mlb", "2025-06-01T00:00Z")}, "mlb")) == [2025]
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
