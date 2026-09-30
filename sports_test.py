@@ -3678,6 +3678,8 @@ def test_parlay_legs_must_earn_it():
     strong = [mk(i, 0.59 + i * 0.002) for i in range(1, 6)]
     b2 = sports.make_board(strong)
     assert b2["two"] and b2["three"] and all(l["p"] >= sports.PARLAY_LEG_MIN_P for l in b2["three"]["legs"])
+    assert sports.lean(weak_legs, "two", floor=sports.LEAN_DAY_MIN_P) is None       # a leans-only night: no parlay either
+    assert sports.lean(weak_legs, "lock", floor=sports.LEAN_DAY_MIN_P)               # (the Lock lean still goes up)
     assert "we don't force it" in open(sports_lingo.__file__).read()
 
 

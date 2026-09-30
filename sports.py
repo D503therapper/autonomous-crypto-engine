@@ -668,7 +668,7 @@ def lean(cands, kind, taken=None, floor=None):
     elif kind in ("two", "three", "four"):
         n = {"two": 2, "three": 3, "four": 4}[kind]
         best = {}
-        for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= (floor or LEAN_MIN_P[kind]) and not fighting(c)
+        for c in sorted((c for c in cands if c["odds"] >= MAX_FAV and c["p"] >= max(floor or LEAN_MIN_P[kind], PARLAY_LEG_MIN_P) and not fighting(c)
                          and not c.get("trap")), key=lambda c: -c["p"]):
             best.setdefault(c["game_id"], c)
         legs = sorted(best.values(), key=lambda c: (-importance(c), -c["p"]))[:n]   # the big games first, then the likeliest
