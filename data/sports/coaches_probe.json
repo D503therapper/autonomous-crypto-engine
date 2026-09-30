@@ -1,54 +1,4 @@
 {
- "nfl": {
-  "list": {
-   "count": 1,
-   "pageIndex": 1,
-   "pageSize": 50,
-   "pageCount": 1,
-   "items": [
-    {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/coaches/4085970?lang=en&region=us"
-    }
-   ]
-  },
-  "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/coaches/17553?lang=en&region=us",
-   "id": "17553",
-   "uid": "s:20~l:28~co:17553",
-   "firstName": "Andy",
-   "lastName": "Reid",
-   "dateOfBirth": "1958-03-19T08:00Z",
-   "birthPlace": {
-    "city": "Los Angeles",
-    "state": "California",
-    "country": "USA"
-   },
-   "college": {
-    "$ref": "http://sports.core.api.espn.com/v2/colleges/39?lang=en&region=us"
-   },
-   "headshot": {
-    "href": "https://a.espncdn.com/i/headshots/nfl/coaches/65/17553.jpg",
-    "alt": "Andy Reid"
-   },
-   "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/coaches/17553?lang=en&region=us"
-   },
-   "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/12?lang=en&region=us"
-   },
-   "experience": 27,
-   "records": [
-    {
-     "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/teams/12?lang=en&region=us"
-     },
-     "record": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2026/types/2/coaches/17553/record?lang=en&region=us"
-     }
-    }
-   ]
-  }
- },
  "nba": {
   "list": {
    "count": 1,
@@ -57,40 +7,30 @@
    "pageCount": 1,
    "items": [
     {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2026/coaches/52120?lang=en&region=us"
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/3116516?lang=en&region=us"
     }
    ]
   },
   "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2026/coaches/2329295?lang=en&region=us",
-   "id": "2329295",
-   "uid": "s:40~l:46~co:2329295",
-   "firstName": "Nate",
-   "lastName": "Mitchell",
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/6749?lang=en&region=us",
+   "id": "6749",
+   "uid": "s:40~l:46~co:6749",
+   "firstName": "Erik",
+   "lastName": "Spoelstra",
+   "dateOfBirth": "1970-11-01T08:00Z",
    "birthPlace": {
-    "city": "Toronto",
-    "state": "ON",
-    "country": "Canada"
+    "city": "Evanston",
+    "state": "IL",
+    "country": "USA"
    },
-   "college": {
-    "$ref": "http://sports.core.api.espn.com/v2/colleges/511?lang=en&region=us"
+   "headshot": {
+    "href": "https://a.espncdn.com/i/headshots/nba/coaches/65/6749.jpg",
+    "alt": "Erik Spoelstra"
    },
    "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/coaches/2329295?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/coaches/6749?lang=en&region=us"
    },
-   "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2026/teams/111136?lang=en&region=us"
-   },
-   "records": [
-    {
-     "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2026/teams/111136?lang=en&region=us"
-     },
-     "record": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2026/types/2/coaches/2329295/record?lang=en&region=us"
-     }
-    }
-   ]
+   "experience": 16
   }
  },
  "nhl": {
@@ -101,65 +41,24 @@
    "pageCount": 1,
    "items": [
     {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2026/coaches/900?lang=en&region=us"
+     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/coaches/441?lang=en&region=us"
     }
    ]
   },
   "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2026/coaches/883?lang=en&region=us",
-   "id": "883",
-   "uid": "s:70~l:90~co:883",
-   "firstName": "Martin",
-   "lastName": "St. Louis",
-   "dateOfBirth": "1975-06-18T07:00Z",
+   "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/coaches/900?lang=en&region=us",
+   "id": "900",
+   "uid": "s:70~l:90~co:900",
+   "firstName": "Marco",
+   "lastName": "Sturm",
+   "dateOfBirth": "1978-09-08T07:00Z",
    "birthPlace": {
-    "city": "Laval",
-    "state": "Quebec",
-    "country": "Canada"
-   },
-   "college": {
-    "$ref": "http://sports.core.api.espn.com/v2/colleges/261?lang=en&region=us"
+    "city": "Dingolfing",
+    "country": "West Germany"
    },
    "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/coaches/883?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/coaches/900?lang=en&region=us"
    }
-  }
- },
- "mlb": {
-  "list": {
-   "count": 1,
-   "pageIndex": 1,
-   "pageSize": 50,
-   "pageCount": 1,
-   "items": [
-    {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/coaches/290?lang=en&region=us"
-    }
-   ]
-  },
-  "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/coaches/184?lang=en&region=us",
-   "id": "184",
-   "uid": "s:1~l:10~co:184",
-   "firstName": "John",
-   "lastName": "Schneider",
-   "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/coaches/184?lang=en&region=us"
-   },
-   "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/14?lang=en&region=us"
-   },
-   "experience": 4,
-   "records": [
-    {
-     "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/teams/14?lang=en&region=us"
-     },
-     "record": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/seasons/2026/types/2/coaches/184/record?lang=en&region=us"
-     }
-    }
-   ]
   }
  },
  "ncaaf": {
@@ -170,76 +69,30 @@
    "pageCount": 1,
    "items": [
     {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/coaches/2549295?lang=en&region=us"
+     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/coaches/483465?lang=en&region=us"
     }
    ]
   },
   "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/coaches/2553866?lang=en&region=us",
-   "id": "2553866",
-   "uid": "s:20~l:23~co:2553866",
-   "firstName": "Bill",
-   "lastName": "O'Brien",
-   "college": {
-    "$ref": "http://sports.core.api.espn.com/v2/colleges/225?lang=en&region=us"
-   },
+   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/coaches/4407282?lang=en&region=us",
+   "id": "4407282",
+   "uid": "s:20~l:23~co:4407282",
+   "firstName": "Tyson",
+   "lastName": "Helton",
    "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/coaches/2553866?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/coaches/4407282?lang=en&region=us"
    },
    "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/103?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/teams/98?lang=en&region=us"
    },
+   "experience": 0,
    "records": [
     {
      "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/103?lang=en&region=us"
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/teams/98?lang=en&region=us"
      },
      "record": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/coaches/2553866/record?lang=en&region=us"
-     }
-    }
-   ]
-  }
- },
- "ncaab": {
-  "list": {
-   "count": 1,
-   "pageIndex": 1,
-   "pageSize": 50,
-   "pageCount": 1,
-   "items": [
-    {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2026/coaches/5344116?lang=en&region=us"
-    }
-   ]
-  },
-  "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2026/coaches/5945?lang=en&region=us",
-   "id": "5945",
-   "uid": "s:40~l:41~co:5945",
-   "firstName": "Dave",
-   "lastName": "Paulsen",
-   "birthPlace": {
-    "city": "La Puente",
-    "state": "CA",
-    "country": "USA"
-   },
-   "college": {
-    "$ref": "http://sports.core.api.espn.com/v2/colleges/2239?lang=en&region=us"
-   },
-   "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/coaches/5945?lang=en&region=us"
-   },
-   "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2026/teams/107?lang=en&region=us"
-   },
-   "records": [
-    {
-     "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2026/teams/107?lang=en&region=us"
-     },
-     "record": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2026/types/2/coaches/5945/record?lang=en&region=us"
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/types/2/coaches/4407282/record?lang=en&region=us"
      }
     }
    ]
