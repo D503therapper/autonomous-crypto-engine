@@ -11,6 +11,8 @@ every session:
 - **Never lengthen write-ups.** Accuracy over everything. No secrets in the repo. No borrowed keys or disguises to get
   past a site's blocks.
 - Leans count in the record from 9/29. Live plus money and tennis keep their own records. The -150 rule stays.
+- Monday and Thursday football: every NFL game those days gets its own pick (two games = two picks; a lean is fine) -
+  sports.night_games / night_pick, the 🏈 NIGHT FOOTBALL card.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.
 - Every day: a Lock of the Day, a Dog of the Day, and a 2-, 3- and 4-leg parlay. Parlay legs: the 56%+ picks
   first (sports.PARLAY_LEG_MIN_P), then the surest plays 52%+ fill the rest (PARLAY_FILL_MIN_P) - never past -150,

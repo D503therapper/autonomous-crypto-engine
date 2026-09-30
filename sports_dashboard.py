@@ -27,10 +27,11 @@ LOOK = {   # kind -> label, accent, second accent - in BOARD ORDER: the Lock of 
     "three": ("3-LEG PARLAY", "#ffc233", "#ff8a00"),
     "four": ("4-LEG PARLAY", "#b36bff", "#ff4fd8"),
     "solo": ("ONE-GAME PICK", "#22e39a", "#22d3ee"),
+    "night": ("NIGHT FOOTBALL", "#2f8bff", "#22e39a"),   # 🏈 Monday / Thursday football: every game gets a pick
     "eight": ("8-LEG (RETIRED)", "#8a5cff", "#c04fd8"),
 }
 BIG_HIT = 300                 # +300 and up that cashes gets the big brag
-ICON = {"solo": "🎯", "two": "⚡", "three": "👑", "four": "🚀", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
+ICON = {"night": "🏈", "solo": "🎯", "two": "⚡", "three": "👑", "four": "🚀", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
 E = html.escape
 
 
@@ -387,10 +388,11 @@ def _cards(day, day_picks, cards_by_kind, gone=None):
     """The day's cards in board order, with the no-dog note right after the Lock of the Day. gone: {kind: ms} - a
     graded card's 3 hours are up at that moment, and the page takes it down itself (no waiting on a rebuild)."""
     out = ""
-    for k, card in cards_by_kind:
+    for k, card, *g in cards_by_kind:                        # (k, card[, when it comes down]) - two night football
+        g = g[0] if g else (gone or {}).get(k)               # picks share a kind, so each card carries its own
         if k == "lock":
             card += _dog_note(day, day_picks)
-        out += f'<div class="gn" data-gone="{gone[k]}">{card}</div>' if gone and gone.get(k) else card
+        out += f'<div class="gn" data-gone="{g}">{card}</div>' if g else card
     return out
 
 
@@ -522,6 +524,8 @@ def _pick_card(kind, pk):
         else:
             label = f'{len(pk["legs"])}-LEG LEAN PARLAY'   # every leg wears its own SLIGHT / STRONG tag
 
+    if kind == "night":                                      # 🏈 MONDAY NIGHT FOOTBALL / THURSDAY NIGHT FOOTBALL
+        label = E(f'{datetime.strptime(pk["date"], "%Y-%m-%d").strftime("%A").upper()} NIGHT FOOTBALL')
     if kind == "solo" and pk.get("legs"):                    # a one-game day: the header IS the pick (BEARS +3.5)
         l0 = pk["legs"][0]
         mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
@@ -750,7 +754,7 @@ def _history(picks):
     import sports
     ok = {"won": "✅", "lost": "❌", "push": "➖"}
     kinds = {"lock": "Lock of the Day", "dog": "Dog of the Day", "two": "2-Leg", "three": "3-Leg", "four": "4-Leg",
-             "eight": "8-Leg", "solo": "One-Game Pick"}
+             "eight": "8-Leg", "solo": "One-Game Pick", "night": "Night Football"}
 
     def day(d):
         try:
@@ -1065,8 +1069,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
         early = early_today = ""
-    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active],
-                   {p["kind"]: gone_ms(p) for p in active}) if active else drop
+    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p), gone_ms(p)) for p in active]) if active else drop
     if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
         board += f'<template id="dropnote">{drop}</template>'   # the moment the last one's 3 hours are up
     if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
@@ -1257,7 +1260,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         if kind in ("lock", "dog"):                          # (their own boxes up top - no double boxes)
             continue
         ps = [p for p in graded_all if p["kind"] == kind]
-        if kind in ("eight", "solo") and not ps:             # the retired 8-leg / one-game-day pick: only with history
+        if kind in ("eight", "solo", "night") and not ps:             # the retired 8-leg / one-game-day pick: only with history
             continue
         r, h = wl(ps)
         pass   # (no per-parlay / one-game-pick records - the owner, 9/28)
