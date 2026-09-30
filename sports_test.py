@@ -1195,13 +1195,13 @@ def test_live_tennis_rules():
         L.SCORE_SEEN["wta:77"] = ((m["sets1"], m["sets2"], None, None), time.time() - L.TENNIS_STALE_S - 5)
         assert L.tennis_plays(log, datetime.now(timezone.utc), (), judged) == [] and not judged and L.TENNIS["stale"] == 1
         L.SCORE_SEEN.clear()
-        assert L.tennis_plays(log, datetime.now(timezone.utc), (), set()) == [], "live tennis bets paused (9/29)"
-        L.SCORE_SEEN.clear()
-        L.TENNIS_BETS[0] = True
+        L.TENNIS_BETS[0] = False                              # the switch off: no new live tennis bets at all
         try:
-            got = L.tennis_plays(log, datetime.now(timezone.utc), (), judged)
+            assert L.tennis_plays(log, datetime.now(timezone.utc), (), set()) == []
         finally:
-            L.TENNIS_BETS[0] = False
+            L.TENNIS_BETS[0] = True
+        L.SCORE_SEEN.clear()
+        got = L.tennis_plays(log, datetime.now(timezone.utc), (), judged)
         assert got and got[0]["double_down"] and "tennis:wta:77" in judged
         # graded like every live play: a final result settles it, a retirement before a set is done voids it
         log["plays"]["tennis:wta:77:1"] = {"league": "tennis", "match": "wta:77", "side": "1", "result": None}
@@ -3724,6 +3724,52 @@ def test_a_live_play_pings_right_away_and_the_push_carries_its_own_alert():
     assert "e.data.json()" in D.SW and "alertNow(e)" in D.SW          # the phone reads the alert out of the push
     js = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "push.js")).read()
     assert "encryptPayload" in js and "aes128gcm" in js and "LATEST_MAX_S" in js
+
+
+def test_live_tennis_never_bets_a_price_that_is_off():
+    """9/29 twice: Garcia (-150 at the book, +125 on our line) and Kudermetova (-150 at the owner's book, +100 to +133
+    on ours - pinged as LIVE PLUS MONEY). Now: only the MATCH moneyline, two books must agree, and our live read can't
+    be more than 8 points off the price. Every tennis play says which book priced it."""
+    import sports_tennis as stn
+    import sports_tennis_live as stl
+    L = sports_live
+    L._TUNED.clear()
+    # 1) Bovada: a set's moneyline for the same two players never stands in for the match price
+    mk = lambda desc, a, b, per: {"description": desc, "status": "O", "period": per, "outcomes": [
+        {"description": "Polina Kudermetova", "status": "O", "price": {"american": a}},
+        {"description": "Yexin Ma", "status": "O", "price": {"american": b}}]}
+    match = {"description": "Match", "main": True, "live": True}
+    for set_mk in (mk("Moneyline", "+110", "-140", {"description": "1st Set", "live": True}),
+                   mk("1st Set Moneyline", "+110", "-140", {"description": "1st Set", "main": True, "live": True}),
+                   mk("Moneyline", "+110", "-140", {"description": "Current Set", "main": False, "live": True})):
+        bov = [{"path": [{"description": "WTA Beijing"}], "events": [{"id": "9", "live": True, "startTime": 1790000000000,
+                "displayGroups": [{"markets": [mk("Moneyline", "-150", "+120", match), set_mk]}]}]}]
+        rows = stn.parse_bovada(bov, live=True)
+        assert len(rows) == 1 and (rows[0]["a_ml"], rows[0]["b_ml"]) == (-150, 120), (set_mk, rows)
+    # 2) our live read vs the price: 8 points apart at most (the favorite priced like a dog is a bad price)
+    m = _tn_live_row("wta:184266", "wta", s1="1", s2="2", n1="Polina Kudermetova", n2="Ma YeXin", done=0)
+    pre = {"mkt_p1": 0.62, "model_p1": 0.64}
+    p1 = stl.p1_live(m, 0.62)[0]
+    for gap, want in ((0.12, False), (0.05, True)):
+        q = p1 - gap                                             # the book's no-vig chance for her
+        dog = int(round(100 * (1 - q) / q))
+        fav = -int(round(100 * (1 - q + 0.02) / (q - 0.02))) if q < 0.5 else -dog - 20
+        line = {"a": "Polina Kudermetova", "b": "Yexin Ma", "a_ml": dog, "b_ml": fav, "suspended": False, "src": "betrivers"}
+        if abs(p1 - sd.no_vig(line["a_ml"], line["b_ml"])) <= L.TENNIS_MAX_GAP and not want:
+            continue                                             # (the test price landed inside the gap: skip)
+        got = L.evaluate_tennis(m, line, False, pre, 1, (), set())
+        if not want:
+            assert got == [], (gap, line, got)
+        else:
+            assert all(x["src"] == "betrivers" for x in got), got   # the book that priced it rides with the play
+    assert L.TENNIS_MAX_GAP <= 0.08
+    # 3) two books on the same match: they agree, or neither counts
+    a = {"a": "Polina Kudermetova", "b": "Yexin Ma", "a_ml": -150, "b_ml": 120, "src": "bovada"}
+    b = {"a": "Polina Kudermetova", "b": "Ma Yexin", "a_ml": 110, "b_ml": -140, "src": "betrivers"}
+    assert not L.books_agree(m, [a, b]), "-150 at one book, +110 at the other: neither is trusted"
+    assert L.books_agree(m, [a, {**b, "a_ml": -145, "b_ml": 115}])
+    assert L.books_agree(m, [b]) and L.books_agree(m, [a, {**b, "stale": True}])
+    assert L.TENNIS_BETS[0], "live tennis back on, with the guards"
 
 
 def test_final_score_calls_the_pick_on_the_spot():

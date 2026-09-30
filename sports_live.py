@@ -54,6 +54,10 @@ PAUSE_HOLD_S = 90             # the book pauses its line (drive in the red zone,
                               # the card holds, marked LINE PAUSED, up to 90s - then it comes down
 LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
 LIVE_MIN_P = 0.40             # ACCURACY FIRST: a new live bet is one we think has a real shot (40%+)...
+TENNIS_MAX_GAP = 0.08         # tennis: our live read vs the price. 9/29 twice - Garcia (-150 real, +125 on our line) and
+                              # Kudermetova (-150 real, +100 to +133 on ours) - a favorite priced like a dog was a bad
+                              # price, not value. A gap past 8 points: don't trust the price
+BOOKS_AGREE = 0.05            # two books on the same match must be within 5 points of each other, or neither counts
 LINE_MAX_AGE_S = 60           # a live price the book last touched 60+ seconds ago is no price (its feeds sit in a
                               # cache): no new play, no alert; one that's up shows "line paused", then comes down
 MOVE_TOL = 0.03               # the price may lag the score a bit, never go the other way (against_the_score)
@@ -885,7 +889,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                                       "side": pl["id"].rsplit(":", 1)[1], "an_id": pl["an_id"], "result": None,
                                       "reasons": pl["reasons"], "date": now.astimezone(PT).date().isoformat(),
                                       "p": pl["p"]}
-            log["plays"][pl["id"]].update({k: pl[k] for k in ("tour", "match", "double_down", "tennis", "sport", "opp")
+            log["plays"][pl["id"]].update({k: pl[k] for k in ("tour", "match", "double_down", "tennis", "sport", "opp", "src")
                                            if k in pl and pl["league"] == "tennis"})
             notify(pl)                                        # a new live bet: push it to everybody's phone
         elif log["plays"][pl["id"]].get("down") and log["plays"][pl["id"]].get("result") is None:
@@ -911,8 +915,8 @@ TENNIS_MAX_DOWN = 2           # the score isn't as bad as the price says: at mos
 SCORE_SEEN = {}               # match id -> (score, first time we saw it): how long the score has sat still
 TENNIS = {"watching": 0, "priced": 0, "stale": 0, "suspended": 0, "books": ""}
 TENNIS_ON = [True]
-TENNIS_BETS = [False]         # 9/29: live tennis pinged Kudermetova +100 when the book had her -150, and bets that were
-                              # never on the page - no new live tennis bets till its prices are proven right
+TENNIS_BETS = [True]          # (the switch for new live tennis bets - scores + grading run either way. 9/29: back on
+                              # with the price guards: match moneyline only, books agree, TENNIS_MAX_GAP)
 _TN_CSV = [0.0]               # last time ungraded tennis plays were checked against matches.csv
 
 
@@ -980,6 +984,18 @@ def tennis_with_backups(lines, backups, now_ms):
             continue                                         # Bovada has a fresh price on it: Bovada's stands
         out.append(x)
     return sorted(out, key=lambda ln: bool(ln.get("stale")))
+
+
+def books_agree(m, lines):
+    """Every book with a fresh, open price on this match says about the same thing (within BOOKS_AGREE)."""
+    ps = []
+    for src in {x.get("src", "bovada") for x in lines}:
+        ln, flip = stn.match_line(m, [x for x in lines if x.get("src", "bovada") == src], hours=12)
+        if ln is None or ln.get("stale") or ln.get("suspended") or not (_ok(ln.get("a_ml")) and _ok(ln.get("b_ml"))):
+            continue
+        a, b = (ln["b_ml"], ln["a_ml"]) if flip else (ln["a_ml"], ln["b_ml"])
+        ps.append(sd.no_vig(a, b))
+    return not ps or max(ps) - min(ps) <= BOOKS_AGREE
 
 
 def tennis_stale(m, now_s):
@@ -1113,8 +1129,8 @@ def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
         return []
     p1, (pa, pb), s = stl.p1_live(m, pre_p1)
     book1 = sd.no_vig(ml1, ml2)
-    if abs(p1 - book1) > MAX_GAP:
-        return []                  # the price and the score don't agree (a stale score, or the book knows something)
+    if abs(p1 - book1) > TENNIS_MAX_GAP:
+        return []                  # the price and the score don't agree (a bad price, a stale score, or the book knows)
     if against_the_score(pre_p1, p1, book1):
         return []                  # the score moved one way and the price the other: an old or wrong line, never value
     out = []
@@ -1138,6 +1154,7 @@ def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
             continue                   # DOUBLE DOWN is women's tennis only (the crew's call): no chasing a men's pick that's down
         pl = {"id": pid, "league": "tennis", "tour": tour, "emoji": "🎾",
               "sport": "Women's Tennis" if tour == "wta" else "Men's Tennis", "team": me, "opp": them, "odds": ml,
+              "src": line.get("src", "bovada"),
               "edge": round(edge, 4), "p": round(p, 3), "score": stl.score_text(m, s), "clock": stl.clock_text(m, s),
               "ball": "", "an_id": None, "reasons": [k for k, _ in rs], "match": m["id"], "double_down": bool(ours and _trailing(s, side)),
               "tennis": {"sets": list(s["sets"]), "games": list(s["games"]), "done": [list(x) for x in s["done"]],
@@ -1216,6 +1233,9 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
         ln, flip = stn.match_line(m, lines, hours=12)
         if ln is None or m["id"] not in pre:
             continue
+        if not books_agree(m, lines):
+            TENNIS["disagree"] = TENNIS.get("disagree", 0) + 1
+            continue                                         # two books, two different prices: neither is trusted
         if ln.get("stale"):
             TENNIS["stale_line"] = TENNIS.get("stale_line", 0) + 1
             continue                                         # no confirmed price: nothing new; one that's up shows
@@ -1491,7 +1511,8 @@ def run():
         json.dump(out, f, indent=1)
     with open(LOG, "w") as f:
         json.dump(log, f, indent=1, sort_keys=True)
-    print(f"{datetime.now(timezone.utc):%H:%M:%S} live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}" for p in plays))
+    print(f"{datetime.now(timezone.utc):%H:%M:%S} live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}"
+                                                    + (f" [{p['src']}]" if p.get("src") else "") for p in plays))
     return plays
 
 

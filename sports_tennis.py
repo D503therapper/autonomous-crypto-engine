@@ -958,8 +958,9 @@ def parse_bovada(data, live=False):
                     per = mk.get("period") or {}
                     if not per.get("main", True) or ("moneyline" not in desc and "game spread" not in desc):
                         continue
-                    if live and ("moneyline" not in desc or not per.get("live")):
-                        continue
+                    if live and (desc.strip() not in ("moneyline", "match moneyline") or not per.get("live")
+                                 or per.get("main") is False or "set" in str(per.get("description") or "").lower()):
+                        continue             # the MATCH moneyline only - never a set's price passing for the match's
                     oc = mk.get("outcomes") or []
                     if len(oc) != 2:
                         continue
