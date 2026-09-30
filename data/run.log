@@ -3673,3 +3673,38 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-09-30 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-30 12:06 UTC] crypto/hold_btc  equity $499.02 (-0.2%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), TRUMP 37 (37/0/0), NEAR 35 (35/0/0), PENGU 33 (29/0/4), MOVR 32 (32/0/0)
+   dex screen: REJECT WL1@base liq $358,130 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT EMBER@solana liq $357,907 - lp holders unknown; rugcheck lp locked 43% < 95%
+   dex screen: PASS AIRPAD@solana liq $100,907
+   >> dex/dex_hunter: BUY $93.76 of AIRPAD@solana:6ZG6fMHa @ 0.001046 (dex tier A momentum 1h +49% 6h +32% buys/sells 6587/3638 impact 0.09%)
+   dashboard push skipped: remote: fatal error in commit_refs        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]   9ca05b19497d718d342cd73552bfaf285eb4aec7 -> main (failure)
+error: failed 
+   dex screen: REJECT GITLAWB@base liq $530,426 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   social heat: BUY QNT: heat 51: coingecko#1 geckoterminal_5m#6
+   >> crypto/social_heat: BUY $99.81 of QNT @ 309.805 (entry)
+   dex screen: REJECT NPC@solana liq $304,904 - holders unknown; lp holders unknown; rugcheck danger: Low Liquidity
+   dex screen: REJECT FONE@solana liq $592,793 - lp holders unknown; rugcheck lp locked 76% < 95%
+   dex screen: REJECT ZAMA@ethereum liq $626,821 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT ANSEM@solana liq $2,475,007 - top-10 holders 66%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]          16b5091604cceb5d6d981752acec4b16258e1550 -> main (fetch first)
+error: failed to push some refs to 'https://github.co
+   dex screen: PASS XRPN@solana liq $347,501
+   >> dex/dex_hunter: BUY $95.84 of ZCAT@solana:HcRLc9VD @ 0.066766 (dex tier A momentum 1h +10% 6h +10% buys/sells 31/21 impact 0.01%)
+   dex scanner: bought ZCAT@solana on a refresh (1h +10%, buys/sells 31/21)
+   dex screen: REJECT NEARKAT@solana liq $423,903 - transfer_fee_upgradable; lp holders unknown
+   dex screen: PASS DRB@base liq $1,689,372
+   dex screen: REJECT ZAMA@ethereum liq $629,885 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,046 / base 601 / ethereum 353), refresh cycle 178s (hot 174s), 2130 calls (108 feed, 429s 0, failed 7), 60,449 refreshed (3157 no pair), +74 added / -74 dropped (dead 13, stale 0, cap 61), movers 8 + warming 36 -> queued 7, screened 7 (passed 2), bought 1
+[2026-09-30 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-30 13:06 UTC] crypto/mover     equity $475.69 (-4.9%) 1 open  market UP
+[2026-09-30 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 13:06 UTC] crypto/social_heat equity $554.65 (+10.9%) 1 open  market UP
+[2026-09-30 13:06 UTC] crypto/breakout10 equity $518.70 (+3.7%) 2 open  market UP
+[2026-09-30 13:06 UTC] crypto/momentum  equity $488.37 (-2.3%) 2 open  market UP
+[2026-09-30 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-30 13:06 UTC] crypto/hold_btc  equity $505.68 (+1.1%) 1 open  market UP
+   social heat top: NEAR 45 (37/0/8), QNT 42 (40/0/2), MOVR 32 (32/0/0), TRUMP 29 (29/0/0), GRASS 27 (27/0/0)
