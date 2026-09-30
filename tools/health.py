@@ -24,6 +24,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sports_data as sd          # noqa: E402
 
 OUT = os.path.join(sd.DATA, "health.json")
+from zoneinfo import ZoneInfo  # noqa: E402
+PT_ = ZoneInfo("America/Los_Angeles")
 REPO = os.environ.get("GITHUB_REPOSITORY", "D503therapper/autonomous-crypto-engine")
 now = datetime.now(timezone.utc)
 fixes, problems, ok = [], [], []
@@ -165,6 +167,18 @@ if needed:
                 ok.append(f"live tennis points + server: {len(with_pts)} of {len(tn_live)} live matches")
     except Exception as e:                               # noqa: BLE001
         problems.append(f"live tennis points check failed: {str(e)[:60]}")
+
+# 3d. 🔎 the slate check (the 7 AM run and the 8 AM post): no game missed, nothing broken before the board goes up
+try:
+    sc = json.load(open(os.path.join(sd.DATA, "slate_check.json")))
+    if sc.get("day") == datetime.now(timezone.utc).astimezone(PT_).date().isoformat():
+        if sc.get("problems"):
+            problems.extend(f"slate check: {x}" for x in sc["problems"][:6])
+            dispatch("sports.yml", "slate check problem - re-pull before the board")
+        else:
+            ok.append(f"slate check: all {sc.get('games')} of today's games named, priced and looked at")
+except (OSError, ValueError):
+    pass
 
 # 4. failed workflows (last 2 hours)
 try:

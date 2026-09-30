@@ -4089,6 +4089,41 @@ def test_what_counts_says_all_locks():
     assert "<b>What counts:</b> all locks, the Dog of the Day" in src
 
 
+def test_slate_check_before_the_board():
+    """The owner, 9/30: before the 8 AM picks, a checker makes sure nothing's missed and nothing's broken (9/29: a
+    'TBD' playoff placeholder hid White Sox @ Astros). Every real game today: both teams named, a price, looked at by
+    the engine; data pulls OK. A problem holds the opening board (the engine re-pulls at 8:12 / 8:32); from 8:30 it
+    posts what checks out and the bug check flags the rest."""
+    import sports
+    tmp = tempfile.mkdtemp()
+    keep = sports.SLATE_PATH
+    try:
+        sports.SLATE_PATH = os.path.join(tmp, "slate.json")
+        day = datetime(2026, 9, 30).date()
+        now = datetime(2026, 9, 30, 15, 2, tzinfo=timezone.utc)
+        g = lambda gid, a, h, mh="-150", ma="130": {"id": gid, "league": "mlb", "stype": "3", "status": "pre",
+                                                    "start": "2026-09-30T23:00Z", "away_name": a, "home_name": h,
+                                                    "ml_home": mh, "ml_away": ma}
+        games = {"mlb:1": g("mlb:1", "Yankees", "Red Sox"), "mlb:2": g("mlb:2", "White Sox", "TBD"),
+                 "mlb:3": g("mlb:3", "Cubs", "Padres", mh=""), "mlb:4": g("mlb:4", "Mets", "Braves")}
+        cands = [{"game_id": "mlb:1"}]
+        probs = sports.slate_check(games, cands, day, now, errors=["odds: Action Network HTTP 503"])
+        txt = " | ".join(probs)
+        assert "White Sox @ TBD (MLB): a team isn't named yet" in txt
+        assert "Cubs @ Padres (MLB): no price from the books" in txt
+        assert "Mets @ Braves (MLB): priced but the engine never looked at it" in txt
+        assert "data pull failed: odds: Action Network HTTP 503" in txt and "Yankees" not in txt
+        saved = json.load(open(sports.SLATE_PATH))
+        assert saved["games"] == 4 and saved["looked_at"] == 1 and len(saved["problems"]) == 4
+        assert sports.slate_check({"mlb:1": games["mlb:1"]}, cands, day, now, errors=[]) == []
+    finally:
+        sports.SLATE_PATH = keep
+        shutil.rmtree(tmp, ignore_errors=True)
+    src = open(sports.__file__).read()
+    assert "if probs and (local.hour, local.minute) < SLATE_LAST_TRY:" in src and "preflight(games, model, now)" in src
+    assert "slate check:" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

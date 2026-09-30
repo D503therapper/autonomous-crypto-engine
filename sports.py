@@ -785,6 +785,55 @@ def first_start(games, day):
     return min(starts) if starts else None
 
 
+SLATE_PATH = os.path.join(sd.DATA, "slate_check.json")
+SLATE_LAST_TRY = (8, 30)       # the 8 AM post holds while the slate check finds a problem (the engine re-pulls at
+                               # 8:12 and 8:32); from 8:30 PT it posts what checks out and flags the rest loudly
+
+
+def slate_check(games, cands, day, now, errors=None):
+    """🔎 Before the board goes up (the owner, 9/30: "it can't be missing no games and no bugs"): every real game on
+    the day's slate has both teams named (9/29: a 'TBD' playoff placeholder hid White Sox @ Astros), a price, and was
+    looked at by the engine; and the run's data pulls didn't fail. Writes data/sports/slate_check.json.
+    Returns the problems (plain words)."""
+    todays = [g for g in games.values() if g.get("league") in sd.LEAGUES and (g.get("stype") or "?") in sd.REAL
+              and g.get("status") == "pre" and g.get("start")
+              and datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).date() == day]
+    seen = {c["game_id"] for c in cands}
+    probs = []
+    for g in sorted(todays, key=lambda g: g["start"]):
+        name = f'{g.get("away_name") or "?"} @ {g.get("home_name") or "?"} ({g["league"].upper()})'
+        if any(not n or "TBD" in str(n).upper() or str(n).strip() in ("?", "-") for n in (g.get("away_name"), g.get("home_name"))):
+            probs.append(f"{name}: a team isn't named yet")
+        elif sm._int(g.get("ml_home")) is None or sm._int(g.get("ml_away")) is None:
+            probs.append(f"{name}: no price from the books")
+        elif g["id"] not in seen:
+            probs.append(f"{name}: priced but the engine never looked at it")
+    bad = [e for e in (errors if errors is not None else sd.ERRORS)
+           if any(k in str(e).lower() for k in ("odds", "scoreboard", "schedule", "action network", "espn"))]
+    probs += [f"data pull failed: {str(e)[:80]}" for e in bad[:5]]
+    out = {"at": now.strftime("%Y-%m-%dT%H:%MZ"), "day": day.isoformat(), "games": len(todays),
+           "looked_at": len([g for g in todays if g["id"] in seen]), "problems": probs}
+    try:
+        with open(SLATE_PATH + ".tmp", "w") as f:
+            json.dump(out, f, indent=1)
+        os.replace(SLATE_PATH + ".tmp", SLATE_PATH)
+    except OSError:
+        pass
+    for x in probs:
+        print(f"SLATE CHECK: {x}", flush=True)
+    return probs
+
+
+def preflight(games, model, now):
+    """The 7 AM PT run: the same slate check an hour before the board, so a problem gets caught (and the hourly bug
+    check flags it) before 8."""
+    day = now.astimezone(PT).date()
+    try:
+        return slate_check(games, candidates(games, model, now, day, {}), day, now)
+    except Exception as e:                                   # noqa: BLE001 - the check itself breaking is a problem
+        return [f"the slate check crashed: {str(e)[:80]}"]
+
+
 def post_board(games, model, picks, now, day, force=False):
     """Post the day's plays. A play goes up as soon as none of its games is waiting on news (a starting
     pitcher, a questionable QB/goalie...); otherwise its card says what it's waiting on, and at the latest
@@ -822,6 +871,13 @@ def post_board(games, model, picks, now, day, force=False):
         for side in ("home", "away"):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
     cands = candidates(games, model, now, day, injuries)
+    opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
+    if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
+        probs = slate_check(games, cands, day, now)
+        if probs and (local.hour, local.minute) < SLATE_LAST_TRY:
+            print(f"holding the board: the slate check found {len(probs)} problem(s) - the engine re-pulls and tries "
+                  f"again (last try 8:30 PT)")
+            return []
     ours = {}                                                # games we're already on today (any pick, graded or not):
     for p in picks:                                          # a new pick never takes the other team in them
         if p["date"] == iso and p["status"] != "waiting":
@@ -1207,6 +1263,8 @@ def run(repick=False, fetch=True):
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")
     day = now.astimezone(PT).date()
+    if now.astimezone(PT).hour == 7:                         # 🔎 an hour before the board: the slate check
+        preflight(games, model, now)
     post_now = os.environ.get("SPORTS_POST_NOW") == "1"
     n_final = sum(len(sm.finals(games, lg)) for lg in sd.LEAGUES)          # real games only (no preseason)
     if (model.get("today") or {}).get("date") != day.isoformat():       # baseline for tonight's "in a nutshell"
