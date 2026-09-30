@@ -278,6 +278,21 @@ BOARD_KEEP_HOUR_PT = 1          # the day's board (graded picks + their reviews)
                                 # and a late game can be the Lock) - then it goes to the results and the 8 AM note shows
 
 
+SHOW_GRADED_H = 3               # a graded card stays up with its grade + review for 3 hours, then it's in the results only
+#                                 (the owner, 9/29) - so once the day's cards are all done, the 8 AM note shows early
+
+
+def still_up(p, now_utc):
+    """A pick still on the board: not graded yet, or graded less than SHOW_GRADED_H hours ago."""
+    if p.get("status") in ("open", "waiting"):
+        return True
+    try:
+        t = datetime.strptime(str(p.get("settled"))[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return False                                        # (graded long ago, before the time was kept)
+    return (now_utc - t).total_seconds() < SHOW_GRADED_H * 3600
+
+
 def board_day(now_pt, picks):
     """The date whose board is up right now: yesterday's till 1 AM PT, or till its last game is graded (before the next
     8 AM board); otherwise today's."""
@@ -862,8 +877,16 @@ def render(picks, model, games, series, start_bank, updated_ms):
     today = board_day(now, picks)                           # (yesterday's board till 1 AM / its last game is graded)
     order = list(LOOK)
     todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
-    # the owner, 9/28-29: the day's picks stay up - graded ones too, with CASHED/LOST and their review - till 1 AM PT (or
-    # their last game's graded); then the "picks drop 8 AM PT" note (the results live on below)
+    # the owner, 9/29: every card stays up till it's graded, then 3 more hours with CASHED/MISSED and its review; then
+    # it's in the results only. Nothing left up: the "picks drop 8 AM PT" note shows right away (the results live below)
+    now_utc = datetime.now(timezone.utc)
+    recent = {(now.date() - timedelta(days=1)).isoformat(), now.date().isoformat(), today}
+    todays = [p for p in sorted((p for p in picks if p["date"] in recent),
+                                key=lambda p: (p["date"], order.index(p["kind"]) if p["kind"] in order else 99,
+                                               p.get("posted") or "")) if still_up(p, now_utc)]
+    todays = sorted(todays, key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p["date"]))   # Lock on top
+    if todays:
+        today = max(p["date"] for p in todays)
     active = list(todays)
     board_date = datetime.strptime(today, "%Y-%m-%d").strftime("%A, %B %-d")
     ask_url = _ask_url()

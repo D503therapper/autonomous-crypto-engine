@@ -3629,6 +3629,19 @@ def test_board_stays_up_till_1am_or_its_last_game_is_graded():
     assert "BOARD_CLEAR_HOUR_PT" not in open(sdb.__file__).read()
 
 
+def test_graded_card_stays_3_hours_then_results():
+    """The owner, 9/29: a graded card stays up with its grade + review for about 3 hours, then it's in the results only -
+    so once the day's cards are done, the 8 AM note shows early and nobody wonders where the picks went."""
+    import sports_dashboard as sdb
+    from datetime import datetime, timezone
+    now = datetime(2026, 9, 30, 5, 0, tzinfo=timezone.utc)
+    assert sdb.still_up({"status": "open"}, now)
+    assert sdb.still_up({"status": "won", "settled": "2026-09-30T03:17Z"}, now)        # graded 1h43m ago: up
+    assert not sdb.still_up({"status": "lost", "settled": "2026-09-30T01:30Z"}, now)   # 3h30m ago: results only
+    assert not sdb.still_up({"status": "won"}, now)                                    # no time kept: long gone
+    assert sdb.SHOW_GRADED_H == 3
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
