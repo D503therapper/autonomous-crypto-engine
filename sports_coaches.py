@@ -109,3 +109,38 @@ def run(minutes=38, leagues=("nfl", "nba", "nhl", "mlb", "ncaaf", "ncaab")):
 
 if __name__ == "__main__":
     run(float(sys.argv[1]) if len(sys.argv) > 1 else 38)
+
+
+# THE COACHING STUDY, round 1 (9/30, closing prices 2018-26, season by season - SPORTS_FINDINGS.md):
+#   NFL dogs with a 10+ year head coach: +10.6% (7 of 8 seasons) vs -3.5% for every dog; ATS +2.0% (6 of 8)
+#   a NEW coach's team as a favorite (1st year with the team): NBA -6.2% (worse 7 of 8), college hoops -8.5% (7 of 8)
+VET_DOG = {"nfl": 10}
+NEW_FAV = ("nba", "ncaab")
+
+
+def espn_season(league, iso):
+    y, m = int(iso[:4]), int(iso[5:7])
+    if league in ("nba", "nhl", "ncaab"):
+        return y + 1 if m >= 7 else y
+    if league in ("nfl", "ncaaf"):
+        return y - 1 if m < 7 else y
+    return y
+
+
+def states(now_iso, path=PATH):
+    """{(league, team id): (years as a head coach, new with this team this season)} for this season."""
+    try:
+        with open(path) as f:
+            c = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for lg, seasons in c.items():
+        s = espn_season(lg, now_iso)
+        cur, prev = seasons.get(str(s)) or {}, seasons.get(str(s - 1)) or {}
+        for t, cs in cur.items():
+            if not cs:
+                continue
+            p = (prev.get(t) or [{}])[0].get("id")
+            out[(lg, t)] = (cs[0].get("exp"), bool(p) and p != cs[0].get("id"))
+    return out
