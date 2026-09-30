@@ -212,7 +212,7 @@ def _why_fallback(leg):
     return ""
 
 
-def _leg(leg, tagged=False):
+def _leg(leg, tagged=False, review=""):
     import sports
     lg = sd.LEAGUES[leg["league"]]
     lt_ = leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
@@ -237,7 +237,7 @@ def _leg(leg, tagged=False):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {f'<div class="why">📝 {E(review)}</div>' if review else f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -374,7 +374,8 @@ def _pick_card(kind, pk):
 <span class="pk-l">{label}</span><span class="chip waiting">PICK COMING</span></div>
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
-    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1) + _rev(pk, leg) for leg in pk["legs"])   # each leg: its tier (+ review once graded)
+    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg)) for leg in pk["legs"])   # graded: the
+    #                                                                   after-game review takes the pregame line's spot
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
     hits = sum(l.get("result") == "won" for l in pk["legs"])
@@ -494,7 +495,9 @@ def _tennis():
             lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
         tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)   # the headline line up top, like the
         bd = "".join(f"<p>{E(x)}</p>" for x in lines)                        # main board (the owner, 9/29) - tap for the rest
-        rv = f'<div class="rvw">📝 {E(recap(l))}</div>' if done and recap(l) else ""   # the review, right on the pick
+        rv = ""                                              # graded: the review takes the headline line's spot
+        if done and recap(l):
+            tag = f"📝 {recap(l)}"
         return f"""<div class="leg {l['result'] or ''}">
   <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}">{"⏳ DELAYED" if _delayed(l) else "Starts at " + _time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
@@ -569,12 +572,12 @@ def _jl(path, default):
 LEG_REVIEWS = {}   # (date, "game|side|market") -> that pick's review (filled by _history, shown on today's graded cards)
 
 
-def _rev(pk, leg):
-    """A graded pick's review, right on its card (the board keeps graded picks up till 11pm PT)."""
+def _rev_text(pk, leg):
+    """A graded pick's after-game review ("" before it's graded)."""
     if leg.get("result") not in ("won", "lost", "push"):
         return ""
-    t = LEG_REVIEWS.get((pk.get("date", ""), f'{leg.get("game_id")}|{leg.get("side")}|{leg.get("market")}'))
-    return f'<div class="rvw">📝 {E(t)}</div>' if t else ""
+    return LEG_REVIEWS.get((pk.get("date", ""), f'{leg.get("game_id")}|{leg.get("side")}|{leg.get("market")}')) or ""
+
 
 
 def _history(picks):
@@ -1296,7 +1299,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .od{{font-size:17px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums}}
 .ls{{font-size:12.5px;color:#fff;margin-top:2px}} .ls b{{color:#fff}}
 .ep{{color:var(--up);font-weight:800}} .en{{color:#ff8a5c;font-weight:800}}
-.why{{font-size:12px;color:#e8c77a;margin-top:4px}}
+.why{{font-size:12px;color:#fff;margin-top:4px}}
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}

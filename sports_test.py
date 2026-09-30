@@ -3552,6 +3552,22 @@ def test_a_game_that_has_not_started_is_never_final():
     assert ".pick em{{font-style:normal;color:#fff" in open(sdb.__file__).read()
 
 
+def test_graded_card_shows_the_review_where_the_pregame_line_was():
+    """The owner, 9/29: once a card is graded, the pregame line goes away and the after-game review takes its spot -
+    both in white. (Main board and tennis.)"""
+    import sports_dashboard as sdb
+    leg = {"team": "Yankees", "opp": "Red Sox", "league": "mlb", "side": "home", "home": True, "market": "ml",
+           "line": None, "odds": -135, "start": "2026-09-30T00:00Z", "game_id": "mlb:1", "reasons": [],
+           "why_line": "💪 Yankees are just the better team.", "result": "won", "score": "Red Sox 0 @ Yankees 9"}
+    h = sdb._leg(leg, review="The Yankees beat the Red Sox like they stole something.")
+    assert "📝 The Yankees beat the Red Sox like they stole something." in h and "just the better team" not in h
+    assert h.count('class="why"') == 1
+    pre = sdb._leg({**leg, "result": None})
+    assert "just the better team" in pre and "📝" not in pre
+    src = open(sdb.__file__).read()
+    assert ".why{{font-size:12px;color:#fff" in src and 'tag = f"📝 {recap(l)}"' in src
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
