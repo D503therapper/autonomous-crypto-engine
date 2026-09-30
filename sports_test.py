@@ -4943,6 +4943,24 @@ def test_coaches_season_names():
     assert list(co.teams_by_season({"a": g("mlb", "2025-06-01T00:00Z")}, "mlb")) == [2025]
 
 
+def test_team_stats_kept_for_the_coaching_study():
+    """The coaching-style study (9/30): each team's own box (4th-down tries, 3-point attempts...) is kept from the same
+    ESPN download as the players - every stat ESPN gives, one line per game."""
+    import sports_roster as sr
+    pay = {"boxscore": {"teams": [{"team": {"id": "12"}, "statistics": [{"name": "fourthDownEff", "displayValue": "2-3"},
+                                                                         {"name": "rushingAttempts", "displayValue": "31"},
+                                                                         {"name": "x", "displayValue": "--"}]},
+                                  {"team": {"id": "7"}, "statistics": []}]}}
+    assert sr.parse_team("nfl", "nfl:1", "2026-09-01T00:00Z", pay) == {"12": {"fourthDownEff": "2-3", "rushingAttempts": "31"}}
+    keep = sr.TEAM_DIR
+    sr.TEAM_DIR = tempfile.mkdtemp()
+    try:
+        sr.add_team("nfl", "nfl:1", "2026-09-01T00:00Z", {"12": {"a": "1"}})
+        assert sr.team_ids("nfl") == {"nfl:1"} and sr.team_ids("nba") == set()
+    finally:
+        sr.TEAM_DIR = keep
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

@@ -71,6 +71,39 @@ def _path(league, season):
     return os.path.join(DIR, f"{league}_{season}.csv.gz")
 
 
+TEAM_DIR = os.path.join(sd.DATA, "teamstats")   # 🧢 the coaching-style study (the owner, 9/30): each team's own box
+#                                                 (4th-down tries, 3-point attempts, rushes vs passes...) - same download
+
+
+def parse_team(league, gid, start, payload):
+    """Each team's stat line in an ESPN summary -> {team id: {stat name: value}} (every stat ESPN gives, as text)."""
+    out = {}
+    for t in (payload.get("boxscore") or {}).get("teams") or []:
+        tid = str((t.get("team") or {}).get("id") or "")
+        st = {x.get("name") or x.get("label"): x.get("displayValue") for x in t.get("statistics") or []
+              if (x.get("name") or x.get("label")) and x.get("displayValue") not in (None, "", "--")}
+        if tid and st:
+            out[tid] = st
+    return out
+
+
+def add_team(league, gid, start, stats):
+    """Append one game's team stats to data/sports/teamstats/{league}.jsonl (one line per game)."""
+    if not stats:
+        return
+    os.makedirs(TEAM_DIR, exist_ok=True)
+    with open(os.path.join(TEAM_DIR, f"{league}.jsonl"), "a") as f:
+        f.write(json.dumps({"gid": gid, "start": start, "teams": stats}, separators=(",", ":")) + "\n")
+
+
+def team_ids(league):
+    p = os.path.join(TEAM_DIR, f"{league}.jsonl")
+    if not os.path.exists(p):
+        return set()
+    with open(p) as f:
+        return {json.loads(x)["gid"] for x in f if x.strip()}
+
+
 def have_ids(league):
     """Game ids already stored for a league (every season file)."""
     ids = set()
@@ -133,6 +166,7 @@ def fetch(league, gid, start):
             with urllib.request.urlopen(url, timeout=15) as r:   # (exactly like sports_players' box scores, which work)
                 payload = json.load(r)
             rows = parse(league, gid, start, payload)
+            TEAM_GOT[gid] = parse_team(league, gid, start, payload)   # (the coaching-style study - same download)
             if not rows and (payload.get("boxscore") or {}).get("players"):
                 sd.ERRORS.append(f"roster {gid}: a box score we couldn't read")   # a shape we don't know: retry
                 return None                                  # later, never mark it 'no box score' for good
@@ -145,6 +179,7 @@ def fetch(league, gid, start):
 
 
 NONE_PATH = os.path.join(DIR, "_no_box.json")
+TEAM_GOT = {}                                            # gid -> team stats from this run's downloads
 
 
 def run_backfill(minutes=38):
@@ -190,8 +225,9 @@ def sync(games, state, workers=6, budget_s=300, leagues=LEAGUES, since="2021-07-
     jobs = []
     for lg in leagues:
         have = have_ids(lg)
+        have_t = team_ids(lg)
         jobs += [(lg, g["id"], g["start"]) for g in sm.finals(games, lg)
-                 if g["start"] >= since and g["id"] not in have and g["id"] not in none]
+                 if g["start"] >= since and g["id"] not in none and (g["id"] not in have or g["id"] not in have_t)]
     jobs.sort(key=lambda j: j[2], reverse=True)
     deadline = time.time() + budget_s
 
@@ -199,6 +235,8 @@ def sync(games, state, workers=6, budget_s=300, leagues=LEAGUES, since="2021-07-
         return job, (fetch(*job) if time.time() < deadline else None)
     with ThreadPoolExecutor(workers) as ex:
         results = list(ex.map(run, jobs))
+    have_by = {lg: have_ids(lg) for lg in {j[0] for j in jobs}}
+    team_ids_by = {}
     got = defaultdict(list)
     for (lg, gid, _), rows in results:
         if rows is None:
@@ -208,7 +246,11 @@ def sync(games, state, workers=6, budget_s=300, leagues=LEAGUES, since="2021-07-
         else:
             none.add(gid)                                # ESPN has no box score for it: don't ask again
     for lg, rows in got.items():
-        add(lg, rows)
+        add(lg, [r for r in rows if r["gid"] not in have_by.get(lg, set())])   # (a game re-fetched for its team stats
+    for (lg, gid, start), rows in results:                                      # only: its players are already stored)
+        if rows is not None and TEAM_GOT.get(gid) and gid not in team_ids_by.setdefault(lg, team_ids(lg)):
+            add_team(lg, gid, start, TEAM_GOT[gid])
+            team_ids_by[lg].add(gid)
     state["roster_none"] = sorted(none)[-50000:]
     n_games = sum(len({r["gid"] for r in rows}) for rows in got.values())
     return n_games, len(jobs), sum(1 for _, r in results if r is None)
