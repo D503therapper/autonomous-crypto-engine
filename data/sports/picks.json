@@ -2355,5 +2355,85 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lean"
+ },
+ {
+  "american": 160,
+  "date": "2026-09-30",
+  "dec": 2.6,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "worse:2",
+     "latest:2",
+     "road:2",
+     "keyout:1",
+     "healthy:3",
+     "splits_f:4",
+     "bottom_s:3",
+     "w_num:1"
+    ],
+    "breakdown": [
+     "\ud83e\uddf3 Kings walk into a hostile building \u2014 we're not worried.",
+     "\ud83d\udcc5 Most recent games: Kings L 1-5 vs Avalanche \u00b7 Avalanche L 1-2 @ Golden Knights.",
+     "\ud83d\ude91 No Trent Miner for Avalanche \u2014 that's their starting goalie.",
+     "\ud83d\udc3a Avalanche are the name brand here, but the price on Kings is too good to pass.",
+     "\ud83d\udcca The casuals got the Avalanche (93% of the bets). We fading 'em \u2014 the Kings.",
+     "\u2705 Bottom line: no blowout expected on Kings (+160), just a smart number with everything tilting our way. We gon' see."
+    ],
+    "bv": 34,
+    "by_analysis": true,
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.6,
+    "drift": 0.0085,
+    "edge": -0.027220144276812297,
+    "edge_own": -0.023736677058818545,
+    "game_id": "nhl:401891780",
+    "home": false,
+    "intl": false,
+    "key_edge": -0.10317675807764992,
+    "key_seen": {
+     "Trent Miner (Avalanche G)": "Injured Reserve"
+    },
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 160,
+    "opp": "Avalanche",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.3741460983550722,
+    "p_market": 0.3690596562184024,
+    "public": "fade",
+    "reasons": [],
+    "road_opener": true,
+    "side": "away",
+    "start": "2026-10-01T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Kings",
+    "their_drama": [],
+    "tier": "lean",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 37% to cash on Kings \u2014 the numbers did the talking."
+   }
+  ],
+  "p_hit": 0.3741,
+  "pnl": 0.0,
+  "posted": "2026-09-30T15:22Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
