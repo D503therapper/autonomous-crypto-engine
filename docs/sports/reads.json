@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T03:36Z",
+ "updated": "2026-09-30T03:38Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -182,8 +182,8 @@
    "league": "mlb",
    "emoji": "\u26be",
    "h1": {
-    "team": "Phillies",
-    "p": 0.442,
+    "team": "Braves",
+    "p": 0.45,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -198,9 +198,9 @@
     "opp": "Phillies",
     "market": "spread",
     "line": 1.5,
-    "odds": -180,
-    "p": 0.615,
-    "win_p": 0.498,
+    "odds": -185,
+    "p": 0.627,
+    "win_p": 0.511,
     "reasons": [
      "hotter recent form",
      "better starting pitcher",
@@ -214,7 +214,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Astros",
-    "p": 0.513,
+    "p": 0.517,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -222,18 +222,18 @@
    "start": "2026-09-30T21:00Z",
    "away": "White Sox",
    "home": "Astros",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "White Sox",
-    "opp": "Astros",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -179,
-    "p": 0.592,
-    "win_p": 0.414,
+    "team": "Astros",
+    "opp": "White Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -150,
+    "p": 0.59,
+    "win_p": 0.59,
     "reasons": [
-     "hotter recent form"
+     "the stronger team"
     ]
    }
   },
@@ -243,7 +243,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Islanders",
-    "p": 0.36,
+    "p": 0.358,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -259,8 +259,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.73,
-    "win_p": 0.519,
+    "p": 0.727,
+    "win_p": 0.516,
     "reasons": [
      "better rested",
      "hotter recent form",
@@ -292,6 +292,33 @@
     "odds": -218,
     "p": 0.664,
     "win_p": 0.441,
+    "reasons": []
+   }
+  },
+  {
+   "id": "mlb:401907963",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Yankees",
+    "p": 0.488,
+    "tie": 0.118,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "start": "2026-10-01T00:00Z",
+   "away": "Red Sox",
+   "home": "Yankees",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Red Sox",
+    "opp": "Yankees",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -215,
+    "p": 0.62,
+    "win_p": 0.443,
     "reasons": []
    }
   },

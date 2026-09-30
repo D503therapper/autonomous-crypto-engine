@@ -1,12 +1,12 @@
 {
  "mlb": {
-  "games": 19221,
+  "games": 19222,
   "grade": {
    "all": {
-    "hit": 0.5059,
+    "hit": 0.5058,
     "low80": 0.4978,
-    "n": 6407,
-    "roi": -0.0316
+    "n": 6408,
+    "roi": -0.0318
    },
    "top10": {
     "hit": 0.4734,
@@ -27,21 +27,21 @@
     "roi": -0.0683
    }
   },
-  "hit_all": 0.5059,
+  "hit_all": 0.5058,
   "hit_top": 0.4865,
-  "intercept": -0.03471,
+  "intercept": -0.03461,
   "kept": [
    "ou_away"
   ],
-  "ll_test_base": 0.69312,
+  "ll_test_base": 0.69313,
   "ll_test_kept": 0.69333,
   "ll_val_base": 0.69308,
   "ll_val_kept": 0.69295,
   "n_top": 1922,
   "norm": {
    "ou_away": [
-    0.47226,
-    1.01965
+    0.4722,
+    1.01966
    ]
   },
   "proven": false,
@@ -117,9 +117,9 @@
    }
   },
   "test_from": "2024-05-21",
-  "test_games": 6407,
+  "test_games": 6408,
   "weights": {
-   "ou_away": -0.00543
+   "ou_away": -0.00556
   }
  },
  "nba": {
