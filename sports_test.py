@@ -4448,6 +4448,43 @@ def test_early_pings_wait_for_the_dashboard():
     assert se.pending(now, path) == []
 
 
+def test_early_short_dog_bands_and_pitcher_swap():
+    """9/30: short dogs (+100..+149) at +8..12 pts passed with who's pitching / in net - a band carries its own price
+    range. Baseball only posts with both starters announced; our pitcher swapped after we posted -> don't chase it."""
+    import sports_early as se
+    assert se.band([0.04, 0.08]) == (0.04, 0.08, 100, 280) and se.band((0.08, 0.12, 100, 149)) == (0.08, 0.12, 100, 149)
+    assert se.band_name((0.08, 0.12, 100, 149)) == "+8..12 (+100..+149 dogs)" and se.band_name((0.08, 1.0)) == "+8+"
+    st = {"picks": [{"game_id": "m", "league": "mlb", "side": "home", "team": "Cubs", "sp": "Kevin Gausman",
+                     "result": None}]}
+    games = {"m": {"status": "pre", "sp_home": "Kevin Gausman"}}
+    se.watch(st, games, {})
+    assert not st["picks"][0].get("key_out")
+    games["m"]["sp_home"] = "Some Bullpen Guy"                  # scratched late
+    se.watch(st, games, {})
+    assert st["picks"][0]["key_out"] == "Kevin Gausman (SP)"
+    assert "Kevin Gausman out - don't chase it" in se.label(st["picks"][0], 130)
+
+
+def test_early_retrain_is_cached_for_a_week():
+    """9/30: the recent-seasons retrain lived in early.json, and post() saved over it - it retrained every hour."""
+    import sports_early as se
+    saved = (se.PARAMS_PATH, sm.tune, se.passed)
+    se.PARAMS_PATH = os.path.join(tempfile.mkdtemp(), "p.json")
+    calls = []
+    sm.tune = lambda games, lg, prev=None: calls.append(lg) or {"k": 1, "hfa": 0, "w": [0]}
+    se.passed = lambda path=None: {"nfl": [(0.04, 1)]}
+    try:
+        now = datetime(2026, 10, 1, tzinfo=timezone.utc)
+        se.recent_params({}, now)
+        se.save({"picks": []}, os.path.join(tempfile.mkdtemp(), "e.json"))     # post() saving its own file
+        se.recent_params({}, now + timedelta(hours=1))
+        assert calls == ["nfl"]                                             # retrained once, not every hour
+        se.recent_params({}, now + timedelta(days=8))
+        assert calls == ["nfl", "nfl"]                                      # a week later: fresh
+    finally:
+        se.PARAMS_PATH, sm.tune, se.passed = saved
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
@@ -4455,6 +4492,7 @@ if __name__ == "__main__":
     sports_early.PATH = os.path.join(tempfile.mkdtemp(), "early.json")                   # (nor the early plays)
     sports_early.ON = False              # (live in the engine; tests switch it on themselves, never touching real books)
     sports_early.PINGS_PATH = os.path.join(tempfile.mkdtemp(), "early_pings.json")
+    sports_early.PARAMS_PATH = os.path.join(tempfile.mkdtemp(), "early_params.json")
     sports_live.FINAL_AT.clear()
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

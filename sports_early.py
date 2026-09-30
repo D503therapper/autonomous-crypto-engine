@@ -25,12 +25,16 @@ import sports_model as sm
 PT = ZoneInfo("America/Los_Angeles")
 PATH = os.path.join(sd.DATA, "early.json")
 EXAM_PATH = os.path.join(sd.DATA, "early_exam.json")
+PARAMS_PATH = os.path.join(sd.DATA, "early_params.json")   # the engine retrained on recent seasons (a week's cache)
 ON = True                               # the owner OK'd it 9/30 (the box, the game-day box, the ping)
 LEARN_Y = 3                             # the engine for these learns on the last 3 seasons only: the owner's call
                                         # (9/30: "the sports have changed"), and the exam agreed - NBA and college
                                         # football only pass it learning recent, the NFL passes both ways
 LEAGUES = ("nfl", "ncaaf", "nba", "ncaab", "nhl", "mlb")   # every sport takes the exam, 3 times a day
-BANDS = ((0.04, 0.08), (0.08, 1.0))     # how far the engine's own read beats the early price: +4..8 pts, +8 or more
+BANDS = ((0.04, 0.08, 100, 280), (0.08, 1.0, 100, 280),   # (how far the engine's own read beats the early price,
+         (0.08, 0.12, 100, 149))                          #  the dog's price range): +4..8, +8 or more, and short dogs
+                                                          # +100..+149 at +8..12 (9/30, with who's pitching / in net:
+                                                          # MLB 4 of 4 seasons +11.5%, NHL 3 of 3 +7.4%)
 PASS_N, PASS_SEASON_N, PASS_ROI = 60, 20, 0.02   # a band passes: 60+ dogs, 20+ in each exam season, +2% in EACH
 # what passed on 9/30 (used until the first study run writes early_exam.json)
 EARLY = {"nfl": [(0.04, 0.08), (0.08, 1.0)], "nba": [(0.04, 0.08)]}
@@ -66,6 +70,18 @@ def _int(x):
         return None
 
 
+def band(b):
+    """(lo, hi, min price, max price) - older 2-number bands cover every dog +100..+280."""
+    b = tuple(b)
+    return b if len(b) == 4 else (b[0], b[1], DOG_MIN, DOG_MAX)
+
+
+def band_name(b):
+    lo, hi, omin, omax = band(b)
+    return (f"+{round(lo * 100)}{'..' + str(round(hi * 100)) if hi < 1 else '+'}"
+            + ("" if (omin, omax) == (DOG_MIN, DOG_MAX) else f" (+{omin}..+{omax} dogs)"))
+
+
 def passed(path=None):
     """league -> the bands that passed the latest early-price exam."""
     try:
@@ -83,7 +99,11 @@ def recent_params(games, now=None, leagues=None):
     """The engine retrained on the last LEARN_Y seasons only (cached in early.json for a week: a retrain is slow)."""
     now = now or datetime.now(timezone.utc)
     leagues = leagues or list(passed())
-    st = load()
+    try:                                                 # (its own file: post() saves early.json after this and
+        with open(PARAMS_PATH) as f:                     #  would drop the cache - it retrained every hour, 9/30)
+            st = json.load(f)
+    except (OSError, ValueError):
+        st = {}
     cache = st.get("params") or {}
     fresh = st.get("tuned") and now - _t(st["tuned"]) < timedelta(days=7)
     if fresh and all(lg in cache for lg in leagues):
@@ -95,7 +115,8 @@ def recent_params(games, now=None, leagues=None):
         if p:
             cache[lg] = p
     st["params"], st["tuned"] = cache, now.strftime("%Y-%m-%dT%H:%MZ")
-    save(st)
+    with open(PARAMS_PATH, "w") as f:
+        json.dump(st, f)
     return {lg: cache[lg] for lg in leagues if lg in cache}
 
 
@@ -111,6 +132,12 @@ def exam(games, now=None, leagues=LEAGUES, path=None):
     y = now.year if now.month >= 7 else now.year - 1
     split, mid = f"{y - 2}-07-01", f"{y - 1}-07-01"
     learn = {k: g for k, g in games.items() if f"{y - 2 - LEARN_Y}-07-01" <= g.get("start", "") < split}
+    if not sm.KEY_EDGE:                                  # who's pitching / in net / at QB (form from earlier starts only):
+        try:                                             # the live scan has it, so the exam has to grade with it too
+            import sports_players as sp
+            sm.KEY_EDGE = sp.key_edges(games, sp.load())
+        except Exception as e:                           # noqa: BLE001
+            print(f"   early exam: no starters ({str(e)[:60]})")
     out = {}
     for lg in leagues:
         p = sm.tune(learn, lg)
@@ -135,23 +162,24 @@ def exam(games, now=None, leagues=LEAGUES, path=None):
                 for o, won, ow, m in ((a, hs > as_, own, mk), (b, as_ > hs, 1 - own, 1 - mk)):
                     if not DOG_MIN <= o <= DOG_MAX:
                         continue
-                    for lo, hi in BANDS:
-                        if lo <= ow - m < hi:
-                            rows.setdefault((price, lo, hi), []).append((g["start"] >= mid, won, _dec(o)))
+                    for b in BANDS:
+                        lo, hi, omin, omax = b
+                        if lo <= ow - m < hi and omin <= o <= omax:
+                            rows.setdefault((price, b), []).append((g["start"] >= mid, won, _dec(o)))
         roi = lambda b: round(sum((d - 1) if w else -1 for _, w, d in b) / len(b), 4) if b else None
         res, ok = {}, []
-        for (price, lo, hi), b in sorted(rows.items()):
+        for (price, bd), b in sorted(rows.items()):
             s1, s2 = [r for r in b if not r[0]], [r for r in b if r[0]]
-            res[f"{price} +{round(lo * 100)}{'..' + str(round(hi * 100)) if hi < 1 else '+'}"] = {
+            res[f"{price} {band_name(bd)}"] = {
                 "dogs": len(b), "won": round(sum(r[1] for r in b) / len(b), 3), "money": roi(b),
                 "season1": [len(s1), roi(s1)], "season2": [len(s2), roi(s2)]}
             if price == "early" and len(b) >= PASS_N and min(len(s1), len(s2)) >= PASS_SEASON_N \
                     and roi(s1) >= PASS_ROI and roi(s2) >= PASS_ROI:
-                ok.append([lo, hi])
+                ok.append(list(bd))
         out[lg] = {"bands": res, "passed": ok}
     ex = {"at": now.strftime("%Y-%m-%dT%H:%MZ"), "learned_on": [f"{y - 2 - LEARN_Y}-07", split[:7]],
           "exam": [split[:7], now.strftime("%Y-%m")], "leagues": out,
-          "proven": [f"{lg} +{round(lo * 100)}" for lg, v in out.items() for lo, _ in v["passed"]]}
+          "proven": [f"{lg} {band_name(b)}" for lg, v in out.items() for b in v["passed"]]}
     if path is not False:
         with open(path or EXAM_PATH, "w") as f:
             json.dump(ex, f, indent=1)
@@ -203,8 +231,10 @@ def scan(games, model, now=None, injuries=None, trap=None):
             if odds is None or not DOG_MIN <= odds <= DOG_MAX:
                 continue
             gap = o_own - o_mkt
-            if not any(lo <= gap < hi for lo, hi in bands[lg]):
+            if not any(lo <= gap < hi and omin <= odds <= omax for lo, hi, omin, omax in map(band, bands[lg])):
                 continue
+            if lg == "mlb" and not (g.get("sp_home") and g.get("sp_away")):
+                continue                             # baseball: both starting pitchers announced, or no read at all
             if moved_toward(_int(g.get(f"ml_{side}_open")), odds) > MOVED_MAX:
                 continue                             # the money already took the value
             if inj and sd.team_key_out(inj, g[side], g[f"{side}_name"], lg):
@@ -216,7 +246,7 @@ def scan(games, model, now=None, injuries=None, trap=None):
                 continue
             other = "away" if side == "home" else "home"
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"],
-                        "opp": g[f"{other}_name"], "odds": odds, "opp_odds": _int(g.get(f"ml_{other}")), "open": _int(g.get(f"ml_{side}_open")),
+                        "opp": g[f"{other}_name"], "odds": odds, "opp_odds": _int(g.get(f"ml_{other}")), "sp": g.get(f"sp_{side}") or None, "open": _int(g.get(f"ml_{side}_open")),
                         "own": round(o_own, 4), "mkt": round(o_mkt, 4), "gap": round(gap, 4), "start": g["start"]})
     return out
 
@@ -305,6 +335,9 @@ def watch(st, games, injuries):
     read never saw. The play itself never changes (the owner's rule) - its rows say it plain: don't chase it."""
     for p in st["picks"]:
         g = games.get(p["game_id"])
+        if p.get("sp") and g and not p.get("result") and g.get(f"sp_{p['side']}") and g[f"sp_{p['side']}"] != p["sp"]:
+            p["key_out"] = f"{p['sp']} (SP)"                 # the owner, 9/30: a last-minute pitcher swap blows up the
+            continue                                         # line - our starter isn't going: don't chase it
         inj = (injuries or {}).get(p["league"])
         if p.get("result") or not g or g.get("status") != "pre" or inj is None:
             continue
@@ -395,7 +428,7 @@ def label(p, now_odds):
         return "🔥 we beat the line"
     dec = _dec(now_odds)
     mkt_now = 1 / dec / (1 / dec + 1 / _dec(_int(p.get("opp_odds")) or -200))
-    if p.get("own") is not None and p["own"] - mkt_now >= min(lo for lo, _ in (passed().get(p["league"]) or [(0.04, 1)])):
+    if p.get("own") is not None and p["own"] - mkt_now >= min(band(b)[0] for b in (passed().get(p["league"]) or [(0.04, 1)])):
         return "💰 better price now"
     return "👀 money went against it"
 

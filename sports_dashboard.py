@@ -1417,20 +1417,20 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .evx{{margin-top:14px}} .gdx{{margin-top:14px}} .gh{{text-align:right;font-size:10.5px;font-weight:900;letter-spacing:.1em;color:#fff;margin:10px 0 2px}}
 .gr{{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}}
-.gl b{{color:#fff;font-size:15px;font-weight:900}} .gl small{{color:#fff;font-weight:800}} .gl span{{display:block;font-size:12.5px;font-weight:800;color:#fff;margin-top:2px}}
-.gl u{{display:block;text-decoration:none;font-size:12.5px;font-weight:900;color:#ffc233;margin-top:2px}}
-.gp{{text-align:right;white-space:nowrap}} .gp s{{text-decoration:none;font-size:15px;font-weight:900;color:#fff}} .gp em{{font-style:normal;color:#ff7a00;margin:0 4px;font-weight:900}}
-.gp b{{font-size:17px;font-weight:900;color:#fff}} .gp i{{display:block;font-style:normal;font-size:12px;font-weight:900;color:#fff;margin-top:3px}} .pk-l.evt{{font-size:clamp(18px,5.6vw,27px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}}
+.gl b{{color:#fff;font-size:19px;font-weight:900}} .gl small{{color:#fff;font-weight:800}} .gl span{{display:block;font-size:14.5px;font-weight:800;color:#fff;margin-top:2px}}
+.gl u{{display:block;text-decoration:none;font-size:14.5px;font-weight:900;color:#ffc233;margin-top:2px}}
+.gp{{text-align:right;white-space:nowrap}} .gp s{{text-decoration:none;font-size:17px;font-weight:900;color:#fff}} .gp em{{font-style:normal;color:#ff7a00;margin:0 4px;font-weight:900}}
+.gp b{{font-size:20px;font-weight:900;color:#fff}} .gp i{{display:block;font-style:normal;font-size:13.5px;font-weight:900;color:#fff;margin-top:3px}} .pk-l.evt{{font-size:clamp(17px,5vw,23px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}}
 .pk-i.evi{{width:46px;height:46px;font-size:24px;border-radius:13px}} .evs{{font-size:13px;font-weight:800;color:#fff;margin:10px 0 6px}} .evs b{{color:#ffc233}}
-.evb{{margin:12px 0 8px;padding:11px 4px;border-radius:12px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:900;font-size:clamp(12px,3.6vw,18px);
+.evb{{margin:12px 0 6px;padding:8px 4px;border-radius:12px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:900;font-size:clamp(11px,3.3vw,15px);
 letter-spacing:.03em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);background:linear-gradient(90deg,#d90000,#ff3b3b,#ff7a00,#ff3b3b,#d90000);background-size:200% 100%;
 box-shadow:0 0 24px -4px rgba(255,45,45,.85);animation:evb 3s linear infinite;white-space:nowrap;overflow:hidden}}
 @keyframes evb{{to{{background-position:-200% 0}}}}
 .evr i.evg{{flex-shrink:0;white-space:nowrap;font-size:12px;font-weight:900;letter-spacing:.08em;color:#fff;background:#ff2d2d;padding:6px 10px;border-radius:999px;
 box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyframes evp{{50%{{transform:scale(1.07)}}}}
 .evr{{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}}
-.evr b{{color:#fff;font-size:15px}} .evr small{{color:#fff;font-weight:800}} .evr em{{font-style:normal;font-weight:900;color:#fff}}
-.evr span{{display:block;font-size:13px;font-weight:800;color:#fff;margin-top:2px}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:13px;font-weight:900;color:#ffc233;margin-top:3px}}
+.evr b{{color:#fff;font-size:20px;font-weight:900}} .evr small{{color:#fff;font-weight:800;font-size:14px}} .evr em{{font-style:normal;font-weight:900;color:#fff;font-size:20px}}
+.evr span{{display:block;font-size:15px;font-weight:800;color:#fff;margin-top:4px}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:15px;font-weight:900;color:#ffc233;margin-top:4px}}
 .evh{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#fff;margin-top:10px}} .evn{{font-size:13px;font-weight:700;color:#fff;padding:6px 0}}
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}
