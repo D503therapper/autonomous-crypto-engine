@@ -28,8 +28,9 @@ PAL = {
            "Say less.", "Levels to this.", "Easy money.", "We eating.", "Stamp it.", "Keep stacking.", "Money.",
            "Run it back.", "That's how it's done.", "Cashed.", "Another W.", "", "", ""],
     "lk": ["Our bad.", "That's on us.", "Is what it is.", "It happens.", "Next one.", "SMH.", "No excuses.",
-           "We own it.", "Every L stays up.", "We bounce back.", "Short memory.", "On to the next.", "Tip the cap.",
-           "Can't win em all.", "Part of it.", "Chin up.", "Bad read.", "", ""],
+           "We own it.", "Every L stays up.", "We bounce back.", "Short memory.", "On to the next.",
+           "Can't win em all.", "Part of it.", "Chin up.", "", ""],   # (9/30: no 'Tip the cap' after OUR side let it slip,
+    #                                                  no 'Bad read. Bad read.' - both live in the lines that fit them)
     "go": ["Get in", "Tail it", "Hammer it", "Let's eat", "We buying", "Say less", "Take it", "Buy the dip"],
     "go_": ["get in", "tail it", "hammer it", "let's eat", "we buying", "say less", "take it", "buy the dip"],
     "dn": ["down", "down", "behind by", "trailing by", "in a hole by"],
@@ -435,7 +436,7 @@ REVIEWS = {
     ("tlive_back", "lost"): (72, 3, T(
         "{t} [never found the break back|couldn't break {o}|never got a look on return]. %lk%",
         "Bought {t} [down a break|trailing] and [it never turned|the comeback never came]. %lk%",
-        "{o} [served it out|held serve all the way|closed the door]. %lk%",
+        "{o} [served it out|held serve all the way|closed the door] and beat {t}. %lk%",
         "{t} [got cooked|ran outta gas|faded] — no comeback. %lk%",
         "{t} [shit the bed on the big points|couldn't convert|choked the break points]. %lk%",
         "{o} [was too clean on serve|never gave {pro} a look]. %lk%",
@@ -454,7 +455,7 @@ REVIEWS = {
     )),
     ("tlive_up", "lost"): (67, 3, T(
         "{t} [let it slip|got broke late|couldn't serve it out]. %lk%",
-        "Had {t} ahead and {o} [came back|broke back|flipped it]. %lk%",
+        "Had {t} ahead and {o} [came back|broke back|flipped it] to win it. %lk%",
         "{t} [shit the bed|got cooked|folded] from in front. %lk%",
         "Lead gone — {o} [took over|ran it back|won the big points]. %lk%",
         "{t} was up and [couldn't close|lost the thread|let {o} back in]. %lk%",

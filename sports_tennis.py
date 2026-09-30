@@ -1280,12 +1280,12 @@ def life_line(v, c, me, them, he, He, his):
         age = int(a_me)
         return v.say("t_life_vet5", [
             f"🧓 {age} years old in a best-of-5? That's {his} whole game — {he}'s been in these marathons before.",
-            f"🧓 Vet in a five-setter. {me}'s {age} and knows how to pace a long one.",
+            f"🧓 Vet in a five-setter. {me} is {age} and knows how to pace a long one.",
             f"🧓 Best of 5 is a grown folks' match. {me} has seen every version of this.",
             f"🧓 Five sets rewards patience, and {me}'s got {age} years of it."])
     if b_me >= 10 and b_me >= 3 * (b_them + 1):
         return v.say("t_life_big", [
-            f"🧓 Vet move — {he}'s been in {b_me} of these big matches, {them}'s been in {b_them}.",
+            f"🧓 Vet move — {he}'s been in {b_me} of these big matches, {them} has been in {b_them}.",
             f"🧓 {me} has played {b_me} Slam / late-round matches. {them}? {b_them}. The moment won't be too big.",
             f"🧓 Big-stage reps: {me} {b_me}, {them} {b_them}. {He}'s been here, done this.",
             f"🧓 {b_me} big matches on {his} résumé vs {b_them} for {them}. Experience shows up when it's tight."])
@@ -1343,12 +1343,12 @@ T_FAV = [
  "{me}, [no hesitation|zero doubt|no debate]. [{He}'s about to smack that ass.|Nothing fancy — the better player wins.]",
  "{me} is on a different level than {them}. [Pay the price, collect.|We ain't overthinking this one.]",
  "This is {me}'s match to lose. [Our math|The engine|Our model] has {him} at {pct}%.",
- "{me} should {beat} {them}. [{them}'s about to get {his} cheeks clapped.|Simple as that.]",
+ "{me} should {beat} {them}. [{them} is about to get {his} cheeks clapped.|Simple as that.]",
  "Give me {me}. [{He} {wins}.|Big number, bigger gap.]",
  "{me} takes care of business here. [[Our math|The engine|Our model] ain't scared of the price.|{pct}% in our numbers.]",
  "{them} doesn't have the tools for {me}.",
  "Levels to this — {me} is a tier above {them}. [That's just facts.]",
- "{me}'s about to beat the brakes off {them}. [Levels to this.|]",
+ "{me} is about to beat the brakes off {them}. [Levels to this.|]",
  "[Favorite for a reason|Heavy favorite, earned it]: {me}. {He} should {beat} {them}.",
  "{me} over {them}. [We're paying up because {he}'s the better player.|Steep price, steeper gap.]",
  "Not much to it: {me} {wins}. [[Our math|The engine|Our model] has it {pct}%.|No debate.]",
@@ -1387,7 +1387,7 @@ T_RANK = [
  "World #{rk} vs {vs}. [Different weight class.|That gap shows up on the big points.|]",
  "Ranking gap: #{rk} vs {vs}. [{them} is punching up.|Those numbers ain't an accident.|]",
  "{He}'s #{rk} for a reason — {them} is {vs}.",
- "#{rk} against {vs}. [{them}'s about to get {his} cheeks clapped.|Not close on paper.|]",
+ "#{rk} against {vs}. [{them} is about to get {his} cheeks clapped.|Not close on paper.|]",
  "On paper it's #{rk} vs {vs}. [The paper's right.|]",
  "The rankings say #{rk} vs {vs}. [That's a real gap.|Levels.|]",
  "{me} sits at #{rk}. {them}? {Vs}.",
@@ -1398,7 +1398,7 @@ T_HOME = [
  "Home soil for {ours}. [{Crowd} gonna carry {him}.|]",
  "Home cookin'. [{He}'s got {crowd} behind {him}.|]",
  "{me} gets the home crowd. [Every big point gets louder for our side.|]",
- "{me}'s in front of {his} own people. [{them} is playing {crowd} too.|]",
+ "{me} is in front of {his} own people. [{them} is playing {crowd} too.|]",
  "Home match for {me}. [That's worth a few points.|]",
 ]
 T_DRAMA = [
@@ -1437,7 +1437,7 @@ T_TIRED = [
  "{them}'s coming off marathon matches. [{Ours} is fresher.|]",
  "{them} is running on fumes. [{Ours}'s about to make {them} work every point.|]",
  "Heavy mileage on {them} this week. [That catches up by the third set.|]",
- "{them} has logged way more court time than {me}. [[Tired legs|Heavy legs|Legs on empty] + a better player across the net? {them}'s about to get {his} cheeks clapped.|]",
+ "{them} has logged way more court time than {me}. [[Tired legs|Heavy legs|Legs on empty] + a better player across the net? {them} is about to get {his} cheeks clapped.|]",
  "{them} hasn't had an easy match in days. [[Tired legs|Heavy legs|Legs on empty].|]",
 ]
 T_FORM = [

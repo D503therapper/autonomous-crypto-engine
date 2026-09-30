@@ -557,7 +557,7 @@ def breakdown(leg, games, elo, injuries, used=None):
         nm, nm2 = key_us[0][0], key_them2[0][0]
         out.append(v.say("keyout_both_bat", [
             f"🚑 Both lineups are missing a big bat — no {nm} for {the_us}, no {nm2} for {the_them}. Still our side.",
-            f"🚑 {nm} ({the_us}) and {nm2} ({the_them}) are both out. It evens out, and we still like {the_us}."],
+            f"🚑 Both sides are missing someone: {nm} ({the_us}) and {nm2} ({the_them}). The price already has it - we still like {the_us}."],
             must=True))
     elif key_us and key_them2:                            # both teams down a starter: one plain line, not two
         pos, nm, nm2 = _posname(key_us[0][1]), key_us[0][0], key_them2[0][0]
@@ -759,7 +759,6 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
             pools.append(("w_better", [                   # (no record tacked on - the owner, 9/29: 'better team' says it)
                 f"💪 {us} are just the better team — and it's not that close.",
                 f"💪 {us} are just the better team. That's just facts.",
-                f"💪 {us} are about to beat the brakes off {them}.",
                 f"💪 More talent, better results: {us} got {them} outclassed.",
                 f"💪 {us} are the better squad top to bottom. Simple as that.",
                 f"💪 Put the rosters side by side — {us} win that matchup.",
@@ -770,8 +769,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                 f"🔥 {us} are rolling — {hot}{f', {rec_u} on the year' if rec_u else ''}. Ride the heater." if hot else
                 f"🔥 {us} been playing way better ball than {them} lately. Ride the heat.",
                 f"🔥 {us} are cooking right now{f' ({hot})' if hot else ''} and {them} ain't matching that energy.",
-                f"🔥 Hot hand goes to {us}{f' — {hot}' if hot else ''}. We don't bet against a heater.",
-                f"🔥 {us} are playing their best ball of the year{f' ({hot})' if hot else ''} and we're riding it."]))
+                f"🔥 Hot hand goes to {us}{f' — {hot}' if hot else ''}. We don't bet against a heater."]))
         elif r == "opponent missing key players":
             if key_them and not key_us:
                 nm = f"their starting {_posname(key_them[0][1])} {key_them[0][0]}"

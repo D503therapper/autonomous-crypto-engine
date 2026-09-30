@@ -4573,6 +4573,10 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     gm = {"a": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-10-01T02:00Z"}}
     assert sports.home_opener(gm, gm["a"]) and not sports.home_opener(
         {**gm, "b": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-09-29T02:00Z"}}, gm["a"])
+    fixed3 = [fav("f1", "Yanks", 0.60, False), fav("f2", "Fly", 0.59, False), fav("f4", "Pads", 0.555, False)]
+    b4 = sports.make_board(fixed3 + [fav("f3", "Astros", 0.575, True)], fixed={"three": fixed3})
+    assert b4["four"] and [l["team"] for l in b4["four"]["legs"]] == ["Yanks", "Fly", "Pads", "Astros"]   # 9/30: the 4-leg
+    #                                                             never drops the posted 3-leg's 55.5% leg
     held = {**fav("f9", "Waiting Fav", 0.58, False), "waiting": ["starting pitcher"]}    # a favorite waiting on news
     assert sports.make_board([wsox, kings, held])["dog"]["legs"][0]["team"] == "White Sox"   # never holds the Dog
     big = dog("x", "Longshot", "mlb", 450, 0.40, 0.18)                              # past +280: never
@@ -4594,6 +4598,20 @@ def test_parlay_never_says_they_got_us_as_the_dog():
     except TypeError:
         h = sdb._pick_card(pk)
     assert "trippin" not in h and "got us as the dog" not in h
+
+
+def test_writeups_make_sense():
+    """The owner (9/30): check every review - not vague, makes sense, our lingo right. Found on the live board:
+    'Bad read. Bad read.', 'Bergs's about to...', 'let it slip. Tip the cap.' (credit to the other side after OUR guy
+    blew it), 'Judge and Mead are both out. It evens out' (a star isn't a bench guy), 'about to beat the brakes off' on a
+    57% pick, 'best ball of the year (3 straight W's)', and live tennis reviews that never said win or lose."""
+    import sports_lingo as L, sports_tennis as T, sports_breakdown_v24 as B
+    assert "Tip the cap." not in L.PAL["lk"] and "Bad read." not in L.PAL["lk"]
+    src_t, src_l, src_b = open(T.__file__).read(), open(L.__file__).read(), open(B.__file__).read()
+    assert "{them}'s about" not in src_t and "{me}'s about" not in src_t and "{me}'s {age}" not in src_t
+    assert "It evens out, and we still like" not in src_b and "best ball of the year" not in src_b
+    assert "about to beat the brakes off {them}.\",\n" not in src_b.split('"w_better"')[1][:900]
+    assert "closed the door] and beat {t}" in src_l and "flipped it] to win it" in src_l
 
 
 if __name__ == "__main__":

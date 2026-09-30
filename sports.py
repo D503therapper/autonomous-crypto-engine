@@ -641,7 +641,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     board["dog"] = _combo([dog]) if dog else None
 
     def ladder(start, n):
-        legs = [l for l in start if l["p"] >= PARLAY_LEG_MIN_P]      # every leg earns it - the Lock included
+        legs = [l for l in start if l["p"] >= PARLAY_FILL_MIN_P]     # every leg earns it (9/30: a posted 3-leg's 52%+
+        #                                   leg can't be dropped - the 4-leg builds on the 3-leg as posted)
         for c in good_:
             if len(legs) >= n:
                 break
