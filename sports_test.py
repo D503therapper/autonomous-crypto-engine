@@ -4326,6 +4326,38 @@ def test_we_got_in_early_box():
         se.ON, se.passed = saved
 
 
+def test_roster_keeps_every_player():
+    """The owner (9/30): the engine has to know every player - stars, bench, backups - in every sport. The roster
+    collector keeps EVERYBODY from ESPN's box score (not just the starting QB / pitcher / goalie), skips guys who
+    didn't play, and never breaks on a shape it doesn't know."""
+    import sports_roster as sr
+    d = tempfile.mkdtemp()
+    saved = sr.DIR
+    sr.DIR = d
+    try:
+        payload = {"boxscore": {"players": [
+            {"team": {"id": "7"}, "statistics": [{"name": "", "keys": ["minutes", "points", "rebounds", "assists", "plusMinus"],
+             "athletes": [
+                 {"athlete": {"id": "1", "displayName": "Star Guy", "position": {"abbreviation": "PG"}}, "starter": True,
+                  "stats": ["36", "31", "5", "9", "+12"]},
+                 {"athlete": {"id": "2", "displayName": "Bench Guy", "position": {"abbreviation": "F"}}, "starter": False,
+                  "stats": ["14", "6", "3", "1", "-4"]},
+                 {"athlete": {"id": "3", "displayName": "Sat Out"}, "didNotPlay": True, "stats": []}]}]},
+            {"team": {"id": "9"}, "statistics": [{"name": "weird", "keys": ["whatever"], "athletes": [
+                {"athlete": {"id": "4", "displayName": "Odd"}, "stats": ["1"]}]}]}]}}
+        rows = sr.parse("nba", "nba:1", "2026-01-05T00:00Z", payload)
+        assert [r["player"] for r in rows] == ["Star Guy", "Bench Guy"]           # the DNP and unknown stats skipped
+        assert rows[0]["starter"] == "1" and json.loads(rows[0]["stats"])["points"] == "31"
+        assert sr.parse("nba", "x", "2026-01-05T00:00Z", {}) == [] and sr.parse("nba", "x", "", {"boxscore": None}) == []
+        sr.add("nba", rows)
+        sr.add("nba", rows)                                                        # twice: no doubles
+        assert len(sr.load("nba")) == 2 and sr.have_ids("nba") == {"nba:1"}
+        assert os.path.exists(os.path.join(d, "nba_2025.csv.gz"))                 # a Jan game = the 2025-26 season
+        assert sr.volume("nba", {"minutes": "36"}) == 36 and sr.volume("nhl", {"timeOnIce": "18:30"}) == 18.5
+    finally:
+        sr.DIR = saved
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
