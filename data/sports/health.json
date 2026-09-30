@@ -1,24 +1,32 @@
 {
- "at": "2026-09-30T02:43Z",
- "fixes": [],
+ "at": "2026-09-30T04:22Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-09-29 Alexander Blockx) - sports.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (8s)",
-  "every finished pick graded",
+  "live watcher fresh (18s)",
   "scores route up (200)",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 7 live lines, 6 fresh (betrivers 6)",
   "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 4h ago",
+  "studies ran 2h ago",
+  "simulator ran 6h ago",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-09-30T04:22Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-09-29 Alexander Blockx) - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-09-30T02:43Z",
    "fixes": [],
