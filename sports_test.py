@@ -4037,6 +4037,10 @@ def test_patty_vs_the_algorithm():
     for k in range(14):                                      # 14 matches tomorrow, the engine's side priced -150..+120
         pm[f"atp:{k}"] = {"p1_name": f"Al{k} Fav{k}", "p2_name": f"Bo{k} Dog{k}", "start": "2026-10-01T04:00Z",
                           "ml": [-150 - 20 * k, 120 + 15 * k], "model_p1": 0.6 + 0.02 * k, "tour": "atp"}
+    pm["atp:50"] = {"p1_name": "Cy Value", "p2_name": "Dee Chalky", "start": "2026-10-01T04:00Z",   # a plus-money
+                    "ml": [150, -180], "model_p1": 0.55, "tour": "atp"}                              # player it has winning
+    pm["atp:51"] = {"p1_name": "Ed Longshot", "p2_name": "Flo Fav", "start": "2026-10-01T04:00Z",
+                    "ml": [400, -600], "model_p1": 0.3, "tour": "atp"}                               # a dog it has losing
     pm["atp:99"] = {"p1_name": "Francisco Cerundolo", "p2_name": "Juan Manuel Cerundolo", "start": "2026-10-01T04:00Z",
                     "ml": [-150, 125], "model_p1": 0.6}
     C._save({"name": "Patty", "patty": [{"player": n, "ml": C.EST_ML, "est": True, "result": None}
@@ -4050,6 +4054,7 @@ def test_patty_vs_the_algorithm():
     T = C.total(c["patty"])
     assert len(c["algo"]) == 3 and T <= C.total(c["algo"]) <= T * C.FAIR_OVER + 1e-9, (T, C.total(c["algo"]))
     assert len({l["match"] for l in c["algo"]}) == 3
+    assert all(l["p"] >= C.WIN_P for l in c["algo"]) and "Ed Longshot" not in [l["player"] for l in c["algo"]]
     first = [l["match"] for l in c["algo"]]
     later = datetime(2026, 10, 1, 4, 1, tzinfo=timezone.utc)   # its picks have started: locked, never re-picked
     pm2 = {k: {**v, "model_p1": 0.99} for k, v in pm.items()}

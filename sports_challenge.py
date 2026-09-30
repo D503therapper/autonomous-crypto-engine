@@ -21,6 +21,8 @@ import sports_data as sd
 
 PATH = os.path.join(sd.DATA, "challenge.json")
 PREMATCH = os.path.join(sd.DATA, "tennis", "prematch.json")
+WIN_P = 0.5                    # every algorithm pick is a player the engine has winning (50%+) - plus money only when
+                               # the engine says that player wins anyway
 EST_ML = -200                  # (a placeholder only - the algorithm never picks while any of Patty's legs is unpriced)
 FAIR_OVER = 1.05               # the algorithm's payout: at least Patty's, at most 5% more - even (the owner, 9/30: "the
                                # algorithm cannot have an edge with the odds" - a smaller payout = an easier ticket)
@@ -91,7 +93,9 @@ def pick(pm, target_dec, n, now):
         if not v.get("ml") or v.get("model_p1") is None or _t(v["start"]) <= now:
             continue
         p1 = float(v["model_p1"])
-        g = [(mid, side, int(ml), p) for side, p, ml in ((1, p1, v["ml"][0]), (2, 1 - p1, v["ml"][1])) if ml is not None]
+        g = [(mid, side, int(ml), p) for side, p, ml in ((1, p1, v["ml"][0]), (2, 1 - p1, v["ml"][1]))
+             if ml is not None and p >= WIN_P]                # only players the engine says WIN (the owner, 9/30:
+        #                                                       "+220 is most likely going to lose")
         if g:
             groups.append(g)
     items = groups
