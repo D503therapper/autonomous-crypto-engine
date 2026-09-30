@@ -4569,6 +4569,13 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     three = sports.make_board([fav("f1", "Yanks", 0.60, False), fav("f2", "Fly", 0.59, False),
                                fav("f3", "Astros", 0.575, True), fav("f4", "Pads", 0.555, False)])["three"]
     assert [l["team"] for l in three["legs"]][-1] == "Pads"        # the favorite that just lost goes to the back
+    # hoops / hockey bounce back after losing the last game (NBA +28%, NHL +29%); baseball doesn't
+    assert sports.dog_score(dog("h", "H", "nhl", 130, 0.43, 0.43, lost_last=True)) > 0 > \
+        sports.dog_score(dog("m", "M", "mlb", 130, 0.43, 0.43, lost_last=True))
+    assert sports.dog_score(dog("o", "O", "nhl", 160, 0.38, 0.38, road_opener=True)) > 0
+    gm = {"a": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-10-01T02:00Z"}}
+    assert sports.home_opener(gm, gm["a"]) and not sports.home_opener(
+        {**gm, "b": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-09-29T02:00Z"}}, gm["a"])
     big = dog("x", "Longshot", "mlb", 450, 0.40, 0.18)                              # past +280: never
     assert sports.make_board([big, pens])["dog"]["legs"][0]["team"] == "Penguins"
 

@@ -158,6 +158,16 @@ def _reasons(side, f, g, league, params):
     return [r[1] for r in out[:3]]
 
 
+def home_opener(games, g):
+    """The home team's first regular-season home game of the season."""
+    if (g.get("stype") or "") != "2":
+        return False
+    y, m = int(g["start"][:4]), int(g["start"][5:7])
+    season0 = f"{y if m >= 7 else y - 1}-07-01"
+    return not any(x.get("league") == g.get("league") and x.get("home") == g["home"] and x.get("stype") == "2"
+                   and season0 <= x.get("start", "") < g["start"] for x in games.values())
+
+
 def lost_last_in_series(games, g, side):
     """Playoffs: did this side lose the last game of this series (same two teams, the week before)?"""
     if (g.get("stype") or "") != "3":
@@ -349,6 +359,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
                     "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
+                    "road_opener": side == "away" and home_opener(games, g),
                     "key_edge": (sm.KEY_EDGE[g["id"]] * (1 if side == "home" else -1)) if g["id"] in sm.KEY_EDGE else None,
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
                     # display only (the breakdown + the self-check's report-only groups): context facts, pregame talk
@@ -680,8 +691,11 @@ def dog_score(c):
     sc = (own - (c.get("p_market") or own)) * 100
     if c.get("opp_lost_last"):
         sc += 3
-    if c.get("lost_last"):
-        sc -= 3
+    if c.get("lost_last"):                               # lost the last game of the series: baseball, Game 2 is the
+        sc += 3 if c.get("league") in ("nba", "nhl") else -3   # pitcher (-); hoops / hockey bounce back as a dog
+                                                         # (NBA +28.2%, NHL +28.7%)
+    if c.get("road_opener") and c.get("league") == "nhl":   # a road dog in the other team's home opener: +10.9%
+        sc += 1.5                                        # the last 3 seasons (the hype's overpriced)
     d = c.get("drift") or 0.0                            # + = the money ran away from this side since the open:
     if c.get("league") in ("nhl", "nfl", "ncaaf", "nba") and d >= 0.02:   # those dogs lost - NFL -40%, college
         sc -= 4                                          # football -9%, NBA -8%, hockey -6% every season (baseball: even)
