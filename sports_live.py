@@ -435,7 +435,7 @@ def settle_words(plays, prev, log):
 
 
 def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball_txt, key, checked=False, hold=(),
-             half_ball=None):
+             half_ball=None, lost_last=()):
     """Both sides of one live game -> plays that clear every bar (plus money, 5%+ edge, substantial reasons)."""
     fit = ((st.get(league) or {}).get("curve") or {})
     if fit.get("ll") is None or pre_market_p is None:
@@ -458,6 +458,9 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
         if not up and blind:
             continue                                         # late in a football game and we can't see who has the ball
+        if not up and league == "mlb" and side in lost_last and (pre_market_p >= 0.5) == (side == "home"):
+            continue       # 9/30 (the Astros, +133 down 4-0): a playoff FAVORITE that lost the last game of the series -
+            #                baseball won 50%, -14% (the board's study). The live price on them is a trap, not value.
         if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else min_p()) \
                 or (up and ml > STAY_MAX_ODDS) or (not up and ml > LIVE_MAX_ODDS):
             continue                                         # plus money, real value, a real chance
@@ -748,6 +751,23 @@ def board(plays, showing=()):
     return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
 
 
+_SERIES = {"at": 0.0, "games": {}}
+
+
+def series_lost(g):
+    """Playoffs: the side(s) that lost the last game of this series (sports.lost_last_in_series), the games file read
+    at most every 10 minutes."""
+    if (g.get("stype") or "") != "3":
+        return set()
+    try:
+        if time.time() - _SERIES["at"] > 600:
+            _SERIES.update(at=time.time(), games=sd.load_games())
+        import sports
+        return {side for side in ("home", "away") if sports.lost_last_in_series(_SERIES["games"], g, side)}
+    except Exception:                                        # noqa: BLE001 - never blocks a live check
+        return set()
+
+
 def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showing, judged):
     """One live game -> its plays (marked judged when it had a real price)."""
     plays = []
@@ -775,7 +795,8 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
             elif not halftime(lg, ang, box):         # 2nd quarter: it counts more as the half runs out
                 mins = _clock_min(box.get("clock"))
                 ball += (HALF_BALL if rec == "home" else -HALF_BALL) * (1 - (mins if mins is not None else 15) / 15)
-    for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing, rec):
+    lost = series_lost(g)
+    for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing, rec, lost):
         pl["an_id"] = ang.get("id")
         plays.append(pl)
     return plays
