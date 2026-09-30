@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "at": "2026-09-30T19:37Z",
+  "at": "2026-09-30T22:12Z",
   "expected_false_positives": 0.134,
   "game_flags": {
    "conf": "same conference, not the division",
@@ -17,7 +17,7 @@
   "null_sims": 3,
   "p_luck": 0.00023262907903552504,
   "refs": "officials.json loaded",
-  "secs": 33.7,
+  "secs": 20.6,
   "team_flags": {
    "bowl5": "college football team at 5 wins going for bowl-eligible 6",
    "clinched": "late season, playoff spot clinched",
@@ -499,52 +499,52 @@
     "z_edge": 2.42
    },
    "div|ml|dog": {
-    "edge": -0.0052,
-    "n": 7979,
+    "edge": -0.0053,
+    "n": 7980,
     "n_new": 3990,
-    "n_old": 3989,
-    "roi": -0.0508,
+    "n_old": 3990,
+    "roi": -0.0509,
     "roi_new": -0.0499,
-    "roi_old": -0.0517,
+    "roi_old": -0.0519,
     "tested": true,
-    "z": -3.88,
-    "z_edge": -0.96
+    "z": -3.89,
+    "z_edge": -0.97
    },
    "div|ml|fav": {
-    "edge": 0.0052,
-    "n": 7979,
+    "edge": 0.0053,
+    "n": 7980,
     "n_new": 3990,
-    "n_old": 3989,
-    "roi": -0.0273,
-    "roi_new": -0.0396,
-    "roi_old": -0.015,
+    "n_old": 3990,
+    "roi": -0.0272,
+    "roi_new": -0.0395,
+    "roi_old": -0.0149,
     "tested": true,
-    "z": -2.99,
-    "z_edge": 0.96
+    "z": -2.98,
+    "z_edge": 0.97
    },
    "div|ml|home": {
-    "edge": 0.0121,
-    "n": 8073,
+    "edge": 0.012,
+    "n": 8074,
     "n_new": 4037,
-    "n_old": 4036,
-    "roi": -0.0142,
-    "roi_new": -0.0189,
-    "roi_old": -0.0096,
+    "n_old": 4037,
+    "roi": -0.0143,
+    "roi_new": -0.0194,
+    "roi_old": -0.0092,
     "tested": true,
-    "z": -1.35,
-    "z_edge": 2.23
+    "z": -1.37,
+    "z_edge": 2.21
    },
    "div|ml|road": {
-    "edge": -0.0121,
-    "n": 8073,
+    "edge": -0.012,
+    "n": 8074,
     "n_new": 4037,
-    "n_old": 4036,
-    "roi": -0.0637,
-    "roi_new": -0.0701,
-    "roi_old": -0.0573,
+    "n_old": 4037,
+    "roi": -0.0636,
+    "roi_new": -0.0697,
+    "roi_old": -0.0576,
     "tested": true,
-    "z": -5.37,
-    "z_edge": -2.23
+    "z": -5.36,
+    "z_edge": -2.21
    },
    "div|total|over": {
     "edge": -0.0047,
@@ -1341,7 +1341,7 @@
   },
   "closest": [],
   "confirmed": [],
-  "games": 23241,
+  "games": 23242,
   "killed": [],
   "proven": [],
   "shifts": {}
