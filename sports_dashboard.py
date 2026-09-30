@@ -1347,7 +1347,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .sec{{display:flex;align-items:baseline;justify-content:space-between;margin:22px 2px 10px}}
 .sec h2{{margin:0;font-size:13px;font-weight:900;letter-spacing:.2em;color:#fff}}
 .sec h2 i{{font-style:normal;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.6)}}
-.sec span{{font-size:12px;color:var(--gold);font-weight:600}}
+.sec span{{font-size:12px;color:var(--gold);font-weight:800}}
 .board{{position:relative}}
 .trust-wrap{{display:flex;justify-content:center;margin:14px 0 4px}}
 .trust{{font-weight:900;font-style:italic;font-size:22px;letter-spacing:.14em;color:#fff;padding:0 6px 8px;position:relative}}
@@ -1372,7 +1372,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask{{background:var(--card);border:1px solid rgba(34,211,238,.35);border-radius:12px;margin:10px 0;overflow:hidden}}
 .ask-top{{padding:10px 12px 6px}}
 .ask-t{{font-size:13px;font-weight:900;letter-spacing:.08em;color:#22d3ee;white-space:nowrap}} .ask-s{{font-size:12px;font-weight:700;color:#ffc233;white-space:nowrap}}
-.ask-b{{padding:0 12px 12px}} .ask-n{{font-size:12px;font-weight:600;color:#ffe08a;margin:2px 0 8px}} .ask-n b{{color:#22e39a}}
+.ask-b{{padding:0 12px 12px}} .ask-n{{font-size:12px;font-weight:700;color:#fff;margin:2px 0 8px}} .ask-n b{{color:#22e39a}}
 .ask-row{{display:flex;gap:6px}} #askgo{{flex:none;font-size:15px;font-weight:900;padding:8px 12px;border-radius:12px;border:0;background:linear-gradient(90deg,#22d3ee,#b36bff);color:#04060c}}
 #askq{{width:100%;font-size:16px;padding:8px 11px;border-radius:12px;border:1px solid rgba(34,211,238,.55);background:#060a12;color:#fff}}
 #askq::placeholder{{color:#5fd4e8}}
@@ -1380,8 +1380,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-g{{text-align:left;background:var(--card2);border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700}}
 .ask-g small{{color:#22d3ee;font-weight:700;margin-left:6px}}
 .ask-c{{margin-top:12px}} .ask-l{{font-size:17px;margin:8px 0 2px}} .ask-l b{{color:#fff}}
-.ask-a{{font-weight:800;color:#22e39a;margin:2px 0 6px}} .ask-w{{font-size:13px;font-weight:600;color:#ff9f5a;margin:6px 0}}
-.ask-h{{font-size:13px;font-weight:600;color:#b9a4ff;margin:4px 0}} .ask-h b{{color:#fff}}
+.ask-a{{font-weight:800;color:#22e39a;margin:2px 0 6px}} .ask-w{{font-size:13px;font-weight:700;color:#fff;margin:6px 0}}
+.ask-h{{font-size:13px;font-weight:700;color:#fff;margin:4px 0}} .ask-h b{{color:#fff}}
 .ask-prop{{font-size:15px;font-weight:900;color:#ff5a7a;margin:6px 0 10px}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}
 .own{{font-size:13px;font-weight:800;color:#ffc233;margin-top:6px;border-left:3px solid #ffc233;padding-left:8px}}
@@ -1399,7 +1399,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .hx>summary{{list-style:none;cursor:pointer;grid-template-columns:3.6em 1.4em minmax(0,1fr) 1em}} .hx>summary::-webkit-details-marker{{display:none}}
 .hx .hc{{font-style:normal;color:#fff;font-size:12px;transition:transform .2s}} .hx[open] .hc{{transform:rotate(180deg)}}
 .hrv{{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#fff}}
-.hr .hp small{{color:#fff;font-weight:700}} .hr .hp em{{display:block;font-style:normal;font-weight:600;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#ffb4b4}}
+.hr .hp small{{color:#fff;font-weight:700}} .hr .hp em{{display:block;font-style:normal;font-weight:800;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#fff}}
 .sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
 .spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
   border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:9px 12px;font-size:15px;font-weight:900}}
@@ -1423,8 +1423,8 @@ box-shadow:0 0 24px -4px rgba(255,45,45,.85);animation:evb 3s linear infinite;wh
 .evr i.evg{{flex-shrink:0;white-space:nowrap;font-size:12px;font-weight:900;letter-spacing:.08em;color:#fff;background:#ff2d2d;padding:6px 10px;border-radius:999px;
 box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyframes evp{{50%{{transform:scale(1.07)}}}}
 .evr{{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}}
-.evr b{{color:#fff;font-size:15px}} .evr small{{color:#fff;font-weight:800}} .evr em{{font-style:normal;font-weight:900;color:#ffc233}}
-.evr span{{display:block;font-size:12px;font-weight:700;color:#ffe08a;margin-top:2px}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:13px;font-weight:900;color:#ffc233;margin-top:3px}}
+.evr b{{color:#fff;font-size:15px}} .evr small{{color:#fff;font-weight:800}} .evr em{{font-style:normal;font-weight:900;color:#fff}}
+.evr span{{display:block;font-size:13px;font-weight:800;color:#fff;margin-top:2px}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:13px;font-weight:900;color:#ffc233;margin-top:3px}}
 .evh{{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--gold);margin-top:10px}} .evn{{font-size:13px;font-weight:700;color:#fff;padding:6px 0}}
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}
@@ -1437,7 +1437,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 .chip.won{{color:#04110b;background:var(--up)}} .chip.lost{{color:#fff;background:var(--dn)}} .chip.push{{color:#000;background:var(--gold)}}
 .pk-o{{display:flex;align-items:center;justify-content:space-between;margin:12px 0 6px}}
 .big{{font-size:42px;font-weight:900;letter-spacing:-.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 0 24px color-mix(in srgb,var(--c1) 60%,transparent)}}
-.pay{{text-align:right;font-size:14px;color:#fff;font-weight:600}} .pay b{{color:var(--c1);font-size:18px}} .pay span{{color:var(--c1);font-size:12px}}
+.pay{{text-align:right;font-size:14px;color:#fff;font-weight:700}} .pay b{{color:var(--c1);font-size:18px}} .pay span{{color:var(--c1);font-size:12px}}
 .leg{{border-top:1px solid rgba(255,255,255,.07);padding:10px 0 8px}}
 .lt{{display:flex;justify-content:space-between;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--c1)}} .lt>.tm{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35);white-space:nowrap}}
 .lgb{{color:#fff}}
@@ -1475,21 +1475,21 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 .bd summary::-webkit-details-marker{{display:none}}
 .bd summary:after{{content:"▾";float:right;transition:transform .2s}} .bd[open] summary:after{{transform:rotate(180deg)}}
 .bd-s{{padding:2px 12px 8px}} .bd-t{{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:4px}}
-.bd-s p{{margin:6px 0;font-size:13.5px;color:#fff;line-height:1.45}} .bd-s p:last-child{{color:var(--gold);font-weight:700}}
+.bd-s p{{margin:6px 0;font-size:13.5px;color:#fff;font-weight:700;line-height:1.45}} .bd-s p:last-child{{color:var(--gold);font-weight:700}}
 .outs{{font-size:11.5px;color:#ff8a5c;margin-top:3px}}
 .fin{{font-size:12.5px;color:#fff;font-weight:700;margin-top:3px}}
 .lw{{color:var(--up);margin-right:6px}} .ll{{color:var(--dn);margin-right:6px}} .lp{{color:var(--gold);margin-right:6px}}
-.nopick{{color:var(--muted);font-weight:600;font-size:13px;padding:12px 0 6px}}
+.nopick{{color:#fff;font-weight:700;font-size:13px;padding:12px 0 6px}}
 .hero{{position:relative;background:linear-gradient(160deg,#131a28 0%,var(--card) 60%);border:1px solid rgba(255,194,51,.28);border-radius:24px;padding:20px 20px 8px;overflow:hidden;
   box-shadow:0 20px 60px -24px rgba(255,160,40,.45)}}
 .lbl{{color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}
 .total{{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
-.sp-n{{font-size:12px;color:#fff;margin:4px 0 12px}}
+.sp-n{{font-size:12px;color:#fff;font-weight:700;margin:4px 0 12px}}
 .grades{{margin-bottom:12px}}
 .ovr{{text-align:center;background:linear-gradient(160deg,rgba(34,227,154,.14),rgba(255,194,51,.10));border:1px solid rgba(34,227,154,.45);border-radius:16px;padding:14px 12px;margin:10px 0 12px}}
 .ovr-t{{font-size:13px;font-weight:900;letter-spacing:.12em;color:#22e39a}} .ovr-r{{font-size:46px;font-weight:900;line-height:1.1}}
 .ovr-p{{font-size:15px;font-weight:800;color:#ffc233}} .ovr-s{{font-size:13px;font-weight:700;color:#22d3ee;margin-top:2px}}
-.sp-n.what{{color:#ffe08a;font-weight:600;line-height:1.5}} .sp-n.what b{{color:#22e39a}}
+.sp-n.what{{color:#fff;font-weight:700;line-height:1.5}} .sp-n.what b{{color:#22e39a}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
 .pill small{{color:#fff;font-weight:900;font-size:11px;letter-spacing:.08em}}
@@ -1519,21 +1519,21 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 .rr{{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}} .rr:last-child{{border:0}}
 .rk{{font-size:18px}} .rd{{flex:1;min-width:0}}
 .rl{{font-weight:750;color:#fff;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-.rm{{font-size:11.5px;color:var(--muted);font-weight:600}}
+.rm{{font-size:11.5px;color:#fff;font-weight:700}}
 .rv{{font-weight:900;font-variant-numeric:tabular-nums}}
-.empty{{color:var(--muted);font-weight:600;font-size:13px;padding:12px 0}}
+.empty{{color:#fff;font-weight:700;font-size:13px;padding:12px 0}}
 .br{{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:10px}}
 .br.self{{border-color:rgba(255,194,51,.35)}}
 .bh{{display:flex;justify-content:space-between;align-items:center}}
 .bn{{font-weight:900;color:#fff;font-size:15px}} .bt{{font-size:12px;color:var(--muted);font-weight:700}} .bt b{{color:var(--gold)}}
-.bs{{font-size:12.5px;color:#fff;margin-top:3px}} .bs b{{color:#fff}} .bs b.up,.bs .up{{color:var(--up)}} .bs b.dn,.bs .dn{{color:var(--dn)}}
+.bs{{font-size:12.5px;color:#fff;font-weight:700;margin-top:3px}} .bs b{{color:#fff}} .bs b.up,.bs .up{{color:var(--up)}} .bs b.dn,.bs .dn{{color:var(--dn)}}
 .fxs{{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}}
 .fx{{position:relative;font-size:10px;font-weight:800;color:#fff;letter-spacing:.04em;padding-top:8px;text-align:center}}
 .fx i{{position:absolute;top:0;left:0;height:4px;border-radius:4px;box-shadow:0 0 8px currentColor}}
 .fx::before{{content:"";position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px;background:rgba(255,255,255,.08)}}
 .bc{{font-size:11.5px;color:#fff;margin-top:8px}}
-.nut{{font-size:13.5px;margin-top:7px;padding-left:14px;position:relative}} .nut:before{{content:"▸";position:absolute;left:0;color:var(--gold)}}
-.foot{{text-align:center;color:#ffe08a;font-size:12px;margin-top:22px;line-height:1.6}}
+.nut{{font-size:13.5px;font-weight:700;margin-top:7px;padding-left:14px;position:relative}} .nut:before{{content:"▸";position:absolute;left:0;color:var(--gold)}}
+.foot{{text-align:center;color:#fff;font-weight:700;font-size:12px;margin-top:22px;line-height:1.6}}
 .foot b{{color:#fff}} .foot a{{color:#22d3ee;text-decoration:none;font-weight:700}}
 .bell{{margin:-2px 2px 10px}}
 #bellb{{display:inline-flex;align-items:center;gap:6px;max-width:100%;white-space:nowrap;font-size:13px;font-weight:900;letter-spacing:.04em;color:#fff;
@@ -1542,7 +1542,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 #bellb[hidden],.bell-n[hidden]{{display:none}}
 #bellb:active{{transform:scale(.97)}} #bellb:disabled{{opacity:.6}}
 #bellb.on{{color:var(--up);border-color:rgba(34,227,154,.45);background:rgba(34,227,154,.08);box-shadow:none}}
-.bell-n{{font-size:12px;font-weight:700;color:#ffe08a;margin:7px 2px 0;line-height:1.4}} .bell-n b{{color:#fff}}
+.bell-n{{font-size:12px;font-weight:700;color:#fff;margin:7px 2px 0;line-height:1.4}} .bell-n b{{color:#fff}}
 </style></head><body><main>
 <header class="head">
   <div class="title"><span class="the">THE</span> <span class="d503">D503</span></div>

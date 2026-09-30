@@ -4245,6 +4245,17 @@ def test_early_exam_pass_rule():
     assert se.passed(os.path.join(tempfile.mkdtemp(), "none.json")) == se.EARLY   # no exam yet: the 9/30 result
 
 
+def test_no_thin_or_dull_text():
+    """The owner (9/30): no dull gray, no thin text, no colored moneylines - text is bold white (accents stay in color:
+    headers, times, LIVE, percentages). A lost pick in the results stays white too (it was pink)."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert not re.findall(r"font-weight:[1-6]00\b", src), re.findall(r".{40}font-weight:[1-6]00", src)[:3]
+    assert "#ffb4b4" not in src and ".hr.lost .hp{{color:#fff}}" in src
+    for cls in (".foot{{", ".nut{{", ".bs{{", ".ask-n{{", ".sp-n.what{{", ".evr em{{"):
+        rule = src[src.index(cls):src.index("}}", src.index(cls))]
+        assert "color:#fff" in rule or cls in (".nut{{",), (cls, rule)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
