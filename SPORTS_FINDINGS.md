@@ -70,6 +70,13 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   team that blew them out last meeting +15.7% (6 of 7). Built: sports.cover_run_w (spread picks up/back the line),
   +3 on the Dog's score for the revenge dog. Revenge in the other sports, blowout winners next meeting: nothing steady.
 
+- **Coaching, round 1 (9/30, ESPN's head coach per team-season 2016-26, closing prices):** NFL DOGS with a 10+ year
+  head coach +10.6% (7 of 8 seasons) vs -3.5% for every dog, ATS +2.0% (6 of 8); a NEW coach's team as a FAVORITE is
+  over-rated: NBA -6.2% (worse 7 of 8), college hoops -8.5% (7 of 8). Built: +3 on the Dog's score / back of the line
+  (sports_coaches.states, sports.coach_w). A coach's past money vs the price: bounces season to season - not used.
+  First-year head coaches: a bit worse everywhere, not steady. ESPN lists one coach per season (no mid-season firing
+  dates yet). Styles (4th downs, pace, 3s): waiting on data/sports/teamstats to fill in.
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER

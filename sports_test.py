@@ -5014,6 +5014,24 @@ def test_his_flowers_said_right():
     assert sr._big_night("nfl", {"passingYards": "362"}) and not sr._big_night("nfl", {"passingYards": "280"})
 
 
+def test_coaching_study_weights():
+    """Coaching study round 1 (9/30): an NFL dog with a 10+ year head coach +3 on the Dog's score (+10.6%, 7 of 8
+    seasons); a NEW coach's team as a favorite (NBA / college hoops) moves back the Lock / parlay line."""
+    import sports_coaches as co
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "nfl", "market": "ml"}
+    assert sports.dog_score({**base, "coach": (12, False)}) == sports.dog_score(base) + 3
+    assert sports.dog_score({**base, "coach": (4, False)}) == sports.dog_score(base)
+    assert sports.coach_w({"league": "nba", "odds": -150, "coach": (3, True)}) == -sports.HOT_W
+    assert sports.coach_w({"league": "nba", "odds": 150, "coach": (3, True)}) == 0          # (a dog: no effect found)
+    assert sports.coach_w({"league": "nfl", "odds": -150, "coach": (3, True)}) == 0
+    path = os.path.join(tempfile.mkdtemp(), "c.json")
+    json.dump({"nba": {"2026": {"1": [{"id": "9", "exp": 1}]}, "2025": {"1": [{"id": "7", "exp": 8}]}},
+               "nfl": {"2026": {"5": [{"id": "3", "exp": 12}]}, "2025": {"5": [{"id": "3", "exp": 11}]}}}, open(path, "w"))
+    st = co.states("2025-11-01T00:00Z", path)                              # NBA 2025-26 = ESPN's 2026
+    assert st[("nba", "1")] == (1, True)
+    assert co.states("2026-10-05T00:00Z", path)[("nfl", "5")] == (12, False)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
