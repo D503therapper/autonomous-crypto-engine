@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T01:28Z",
+ "updated": "2026-09-30T01:54Z",
  "games": [
   {
    "id": "mlb:401907965",
@@ -101,57 +101,54 @@
    "id": "nhl:401891804",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Oilers",
-    "p": 0.479,
-    "tie": 0.282,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "start": "2026-09-30T02:00Z",
    "away": "Canucks",
    "home": "Oilers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
     "team": "Oilers",
     "opp": "Canucks",
     "market": "spread",
     "line": -1.5,
-    "odds": -122,
-    "p": 0.55,
-    "win_p": 0.752,
+    "odds": -118,
+    "p": 0.554,
+    "win_p": 0.554,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
-    ]
+     "sharp money moving this way",
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
    "id": "mlb:401907974",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Padres",
-    "p": 0.484,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "start": "2026-09-30T02:00Z",
    "away": "Cubs",
    "home": "Padres",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
-    "team": "Cubs",
-    "opp": "Padres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -206,
-    "p": 0.625,
-    "win_p": 0.448,
-    "reasons": []
+    "team": "Padres",
+    "opp": "Cubs",
+    "market": "ml",
+    "line": null,
+    "odds": -131,
+    "p": 0.554,
+    "win_p": 0.554,
+    "reasons": [
+     "hotter recent form"
+    ],
+    "result": null
    }
   },
   {
