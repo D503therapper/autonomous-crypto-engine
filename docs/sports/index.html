@@ -104,7 +104,7 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .hr .hd{color:#fff;font-weight:700;white-space:nowrap} .hr .hp{color:#fff;font-weight:800;overflow-wrap:anywhere}
 .hx>summary{list-style:none;cursor:pointer;grid-template-columns:3.6em 1.4em minmax(0,1fr) 1em} .hx>summary::-webkit-details-marker{display:none}
 .hx .hc{font-style:normal;color:#fff;font-size:12px;transition:transform .2s} .hx[open] .hc{transform:rotate(180deg)}
-.hrv{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#fff}
+.hrv{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#ffc233}
 .hr .hp small{color:#fff;font-weight:700} .hr .hp em{display:block;font-style:normal;font-weight:800;color:#ffc233;margin-top:3px} .hr.lost .hp{color:#fff}
 .sports{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}
 .spc{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
@@ -131,7 +131,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
 .evr{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
 .evr b{color:#fff;font-size:15px} .evr small{color:#fff;font-weight:800} .evr em{font-style:normal;font-weight:900;color:#fff}
 .evr span{display:block;font-size:13px;font-weight:800;color:#fff;margin-top:2px} .evr i{font-style:normal;font-size:18px} .evr u{display:block;text-decoration:none;font-size:13px;font-weight:900;color:#ffc233;margin-top:3px}
-.evh{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--gold);margin-top:10px} .evn{font-size:13px;font-weight:700;color:#fff;padding:6px 0}
+.evh{font-size:11px;font-weight:900;letter-spacing:.14em;color:#fff;margin-top:10px} .evn{font-size:13px;font-weight:700;color:#fff;padding:6px 0}
 .pk-i{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}
 .pk-l{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}
 .pk-l.pk-big{font-size:clamp(22px,6.6vw,30px);letter-spacing:.05em;line-height:1.1}   /* a one-game day: the pick IS the headline */
@@ -152,11 +152,11 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
 .od{font-size:17px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums}
 .ls{font-size:13px;color:#fff;font-weight:700;margin-top:2px} .ls b{color:#fff}
 .ep{color:var(--up);font-weight:800} .en{color:#ff8a5c;font-weight:800}
-.why{font-size:13px;color:#fff;font-weight:700;margin-top:4px}
+.why{font-size:13px;color:#fff;font-weight:700;margin-top:4px} .why.rvy{color:#ffc233}   /* reviews, pre-game + after: yellow (the owner) */
 .pubs{margin-top:6px} .pub{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}
 .pub.fade{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b} .pub.ride{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}
 .lv{color:#ff3b3b !important;animation:blink 1.2s infinite} @keyframes blink{50%{opacity:.2}}
-.dly{color:#ffc233;font-weight:900;letter-spacing:.06em} .lvb{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)} .rvw{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 6px} .fnb{color:#fff;font-weight:900;letter-spacing:.08em} .lsc{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 4px;font-variant-numeric:tabular-nums} .lsc b{font-weight:800} .lsc>span{color:#ff8a8a;font-weight:700}
+.dly{color:#ffc233;font-weight:900;letter-spacing:.06em} .lvb{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)} .fnb{color:#fff;font-weight:900;letter-spacing:.08em} .lsc{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 4px;font-variant-numeric:tabular-nums} .lsc b{font-weight:800} .lsc>span{color:#ff8a8a;font-weight:700}
 .tsb{display:grid;gap:2px 0;align-items:center;max-width:250px;margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.05);font-size:.95em}
 .tsb .nm{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .tsb .nm i{font-style:normal;margin-left:6px;font-size:.78em;font-weight:900;color:#d7ff3a;letter-spacing:.02em}   /* who's serving, in words (the owner, 9/29) */
 .tsb b{text-align:center;font-weight:700;color:#fff} .tsb b.w{color:#fff;font-weight:900} .tsb b.l{color:#fff;font-weight:700}
@@ -273,7 +273,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="tm" data-start="2026-09-30T02:00Z" data-gid="tennis:atp:183490" data-side="2" data-mk="ml">Starts at 7 PM PT</span></div>
   <div class="lm"><span class="pick">Jiri Lehecka <em>ML</em></span><span class="od">-275</span></div>
   <div class="ls">vs Zizou Bergs · Round 1 · Hard court</div>
-  <div class="why">🎾 Lehecka should get past Bergs. Bergs&#x27;s about to get his cheeks clapped.</div>
+  <div class="why rvy">🎾 Lehecka should get past Bergs. Bergs&#x27;s about to get his cheeks clapped.</div>
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🆚 Bergs has had trouble with Lehecka in the past. Same script tonight.</p><p>✅ Sum it up: Lehecka ML at -275. 70% to hit, and we ain&#x27;t fighting the line.</p></div></details>
   
   
@@ -281,7 +281,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="lr lost">❌ MISSED</span></div>
   <div class="lm"><span class="pick">Alexander Blockx <em>ML</em></span><span class="od">-140</span></div>
   <div class="ls">vs Valentin Vacherot · Round 1 · Hard court</div>
-  <div class="why">📝 😤 Blockx shit the bed. Bad call, our bad.</div>
+  <div class="why rvy">📝 😤 Blockx shit the bed. Bad call, our bad.</div>
   <details class="bd"><summary>🔍 Pregame breakdown</summary><div class="bd-s"><p>🟫 Hard court ain&#x27;t Vacherot&#x27;s thing. Wrong surface, wrong matchup.</p><p>✅ The bet: Blockx ML (-140), 56% in our numbers, same story as the price.</p></div></details>
   <div class="fin">Final: 6-7, 6-7</div>
   
@@ -289,7 +289,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · China Open</span><span class="lr lost">❌ MISSED</span></div>
   <div class="lm"><span class="pick">Felix Auger-Aliassime <em>ML</em></span><span class="od">-165</span></div>
   <div class="ls">vs Karen Khachanov · Round 1 · Hard court</div>
-  <div class="why">📝 😤 That one&#x27;s on us — Auger-Aliassime fell. We don&#x27;t hide nothing.</div>
+  <div class="why rvy">📝 😤 That one&#x27;s on us — Auger-Aliassime fell. We don&#x27;t hide nothing.</div>
   <details class="bd"><summary>🔍 Pregame breakdown</summary><div class="bd-s"><p>✅ Bottom line: Auger-Aliassime ML (-165). 59% to cash — done deal.</p></div></details>
   <div class="fin">Final: 3-6, 3-6</div>
   
@@ -297,7 +297,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="lr lost">❌ MISSED</span></div>
   <div class="lm"><span class="pick">Tommy Paul <em>ML</em></span><span class="od">-285</span></div>
   <div class="ls">vs Alejandro Tabilo · Round 1 · Hard court</div>
-  <div class="why">📝 😤 Paul ran outta gas. Our bad.</div>
+  <div class="why rvy">📝 😤 Paul ran outta gas. Our bad.</div>
   <details class="bd"><summary>🔍 Pregame breakdown</summary><div class="bd-s"><p>🆚 Tabilo has seen this movie before — lost to Paul last time already.</p><p>✅ Net-net: 71% to cash, the book agrees. Paul ML (-285).</p></div></details>
   <div class="fin">Final: 1-6, 2-6</div>
   
@@ -305,7 +305,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · China Open</span><span class="lr lost">❌ MISSED</span></div>
   <div class="lm"><span class="pick">Thiago Agustin Tirante <em>ML</em></span><span class="od">-175</span></div>
   <div class="ls">vs Jan-Lennard Struff · Round 1 · Hard court</div>
-  <div class="why">📝 😤 Tirante went down. Next one&#x27;s ours.</div>
+  <div class="why rvy">📝 😤 Tirante went down. Next one&#x27;s ours.</div>
   <details class="bd"><summary>🔍 Pregame breakdown</summary><div class="bd-s"><p>✅ Final word: 61% to hit on Tirante ML (-175).</p></div></details>
   <div class="fin">Final: 1-6, 4-6</div>
   
@@ -316,7 +316,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="lr lost">❌ MISSED</span></div>
   <div class="lm"><span class="pick">Tommy Paul <em>ML</em></span><span class="od">-285</span></div>
   <div class="ls">vs Alejandro Tabilo · Round 1 · Hard court</div>
-  <div class="why">📝 😤 Paul ran outta gas. Our bad.</div>
+  <div class="why rvy">📝 😤 Paul ran outta gas. Our bad.</div>
   <details class="bd"><summary>🔍 Pregame breakdown</summary><div class="bd-s"><p>🆚 Tabilo has seen this movie before — lost to Paul last time already.</p><p>✅ Net-net: 71% to cash, the book agrees. Paul ML (-285).</p></div></details>
   <div class="fin">Final: 1-6, 2-6</div>
   
@@ -324,7 +324,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · Kinoshita Group Japan Open Tennis Championships</span><span class="tm" data-start="2026-09-30T02:00Z" data-gid="tennis:atp:183490" data-side="2" data-mk="ml">Starts at 7 PM PT</span></div>
   <div class="lm"><span class="pick">Jiri Lehecka <em>ML</em></span><span class="od">-275</span></div>
   <div class="ls">vs Zizou Bergs · Round 1 · Hard court</div>
-  <div class="why">🎾 Lehecka should get past Bergs. Bergs&#x27;s about to get his cheeks clapped.</div>
+  <div class="why rvy">🎾 Lehecka should get past Bergs. Bergs&#x27;s about to get his cheeks clapped.</div>
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🆚 Bergs has had trouble with Lehecka in the past. Same script tonight.</p><p>✅ Sum it up: Lehecka ML at -275. 70% to hit, and we ain&#x27;t fighting the line.</p></div></details>
   
   
@@ -332,7 +332,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Men's Tennis · China Open</span><span class="lr lost">❌ MISSED</span></div>
   <div class="lm"><span class="pick">Thiago Agustin Tirante <em>ML</em></span><span class="od">-175</span></div>
   <div class="ls">vs Jan-Lennard Struff · Round 1 · Hard court</div>
-  <div class="why">📝 😤 Tirante went down. Next one&#x27;s ours.</div>
+  <div class="why rvy">📝 😤 Tirante went down. Next one&#x27;s ours.</div>
   <details class="bd"><summary>🔍 Pregame breakdown</summary><div class="bd-s"><p>✅ Final word: 61% to hit on Tirante ML (-175).</p></div></details>
   <div class="fin">Final: 1-6, 4-6</div>
   
@@ -341,7 +341,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Women's Tennis · China Open</span><span class="lr won">✅ CASHED</span></div>
   <div class="lm"><span class="pick">Maria Timofeeva <em>ML</em></span><span class="od">-155</span></div>
   <div class="ls">vs Darja Vidmanova · Round 1 · Hard court</div>
-  <div class="why">📝 💰 Timofeeva did her thing.</div>
+  <div class="why rvy">📝 💰 Timofeeva did her thing.</div>
   <details class="bd"><summary>🔍 Pregame breakdown</summary><div class="bd-s"><p>🟫 Hard court exposes Vidmanova. That game don&#x27;t travel.</p><p>🔥 Recent results are all Timofeeva.</p><p>✅ Bottom line: 58% to cash, Vegas agrees. Timofeeva ML (-155).</p></div></details>
   <div class="fin">Final: 6-3, 6-3</div>
   
@@ -349,7 +349,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="lt"><span class="lgb">🎾 Women's Tennis · China Open</span><span class="tm" data-start="2026-09-30T12:30Z" data-gid="tennis:wta:184288" data-side="2" data-mk="ml">Starts at 5:30 AM PT</span></div>
   <div class="lm"><span class="pick">Anna Bondar <em>ML</em></span><span class="od">-240</span></div>
   <div class="ls">vs Renata Zarazua · Round 1 · Hard court</div>
-  <div class="why">🎾 This is Bondar&#x27;s match to lose. The engine has her at 68%.</div>
+  <div class="why rvy">🎾 This is Bondar&#x27;s match to lose. The engine has her at 68%.</div>
   <details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s"><p>🔥 She&#x27;s been rolling lately and Zarazua has been ice cold.</p><p>🆚 Bondar has already beaten Zarazua. Same result tonight.</p><p>✅ The math: Bondar ML (-240). No fighting Vegas here, 68% to cash.</p></div></details>
   
   
@@ -416,7 +416,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790767972216,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790769002178,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
