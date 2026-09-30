@@ -263,14 +263,26 @@ def _dog_note(day, day_picks):
     return f'<div class="drop leanday">🐺 {E(sports_lingo.dog_note(day))}</div>'
 
 
-def _cards(day, day_picks, cards_by_kind):
-    """The day's cards in board order, with the no-dog note right after the Lock of the Day."""
+def _cards(day, day_picks, cards_by_kind, gone=None):
+    """The day's cards in board order, with the no-dog note right after the Lock of the Day. gone: {kind: ms} - a
+    graded card's 3 hours are up at that moment, and the page takes it down itself (no waiting on a rebuild)."""
     out = ""
     for k, card in cards_by_kind:
-        out += card
         if k == "lock":
-            out += _dog_note(day, day_picks)
+            card += _dog_note(day, day_picks)
+        out += f'<div class="gn" data-gone="{gone[k]}">{card}</div>' if gone and gone.get(k) else card
     return out
+
+
+def gone_ms(p):
+    """When a graded card comes down (settled + SHOW_GRADED_H), in epoch ms - None while it's not graded."""
+    if p.get("status") not in ("won", "lost", "push"):
+        return None
+    try:
+        t = datetime.strptime(str(p.get("settled"))[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+    return int((t.timestamp() + SHOW_GRADED_H * 3600) * 1000)
 
 
 BOARD_KEEP_HOUR_PT = 1          # the day's board (graded picks + their reviews) stays up till 1 AM PT the next morning -
@@ -901,7 +913,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card drops at <b>8 AM PT</b> on game day — the engine watches the lines and the news overnight.</div>')
     hist = _history(picks)                                  # (first: it writes the reviews the graded cards show)
-    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active]) if active else drop
+    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active],
+                   {p["kind"]: gone_ms(p) for p in active}) if active else drop
+    if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
+        board += f'<template id="dropnote">{drop}</template>'   # the moment the last one's 3 hours are up
     if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
         board = _lean_note(today) + board                    # a leans-only day says so up top
     elif active:
@@ -1606,6 +1621,11 @@ document.addEventListener("click",function(ev){{var c=ev.target.closest&&ev.targ
  if(was)return;                                                                               // (tap again: closed)
  var pn=document.createElement("div");pn.className="spx";var sm=hit.querySelector(":scope>summary");
  pn.innerHTML=hit.innerHTML.replace(sm?sm.outerHTML:"","");c.classList.add("on");c.parentNode.insertBefore(pn,c.nextSibling);}});
+function gone(){{var n=Date.now(),b=document.querySelector(".board");if(!b)return;   // a graded card's 3 hours are up:
+ b.querySelectorAll(".gn[data-gone]").forEach(function(c){{if(n>=+c.getAttribute("data-gone"))c.remove()}});   // it
+ var t=document.getElementById("dropnote");                                          // comes down right then (it's in
+ if(t&&!b.querySelector(".gn,.pk"))b.innerHTML=t.innerHTML;}}                        // the results); board empty: 8 AM note
+gone();setInterval(gone,30000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();

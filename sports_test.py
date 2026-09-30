@@ -3772,6 +3772,21 @@ def test_live_tennis_never_bets_a_price_that_is_off():
     assert L.TENNIS_BETS[0], "live tennis back on, with the guards"
 
 
+def test_graded_card_comes_down_on_time_without_a_rebuild():
+    """9/29: the Lock (graded 8:17 PM PT) was still up past 11:17 PM - the page only dropped a card when it got rebuilt,
+    and the last rebuild was at 11:10. Now each graded card carries its drop time and the page takes it down itself;
+    once they're all down, the 8 AM note shows."""
+    import sports_dashboard as D
+    p = {"kind": "lock", "status": "won", "settled": "2026-09-30T03:17Z"}
+    assert D.gone_ms(p) == int(datetime(2026, 9, 30, 6, 17, tzinfo=timezone.utc).timestamp() * 1000)
+    assert D.gone_ms({"status": "open"}) is None and D.gone_ms({"status": "won", "settled": None}) is None
+    html = D._cards("2026-09-29", [], [("lock", "<section class='pk'>L</section>"), ("two", "<section class='pk'>2</section>")],
+                    {"lock": D.gone_ms(p), "two": None})
+    assert f'<div class="gn" data-gone="{D.gone_ms(p)}">' in html and html.count('class="gn"') == 1   # open cards stay put
+    src = open(D.__file__).read()
+    assert "function gone()" in src and "setInterval(gone," in src and 'id="dropnote"' in src
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by
