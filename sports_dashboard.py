@@ -205,10 +205,10 @@ HALF_WHY = {   # ½u - the owner, 9/30: people need the WHY (big bets on expensi
             "Plus money does the heavy lifting. A small bet is plenty.", "Small stake, big return if they cash.",
             "Big payout on a small bet — that's the play.", "Keep it small — the plus money pays big when it hits.")}
 FULL_WHY = {   # 1-1½u: why it's more than ½
-    "fav": ("Fair price — worth a full bet.", "The price is fair — a solid bet.", "Price is right where we want it. Full bet.",
-            "Not too expensive — worth a full bet.", "Fair line for how much we like it. Solid bet."),
-    "dog": ("Real value here — worth a full bet.", "The value's real — a solid bet.", "Good value at this price. Full bet.",
-            "The payout's worth more than the risk. Solid bet.", "Plus money with real value — full bet.")}
+    "fav": ("Fair price — worth a full unit.", "The price is fair — a solid bet.", "Price is right where we want it. Full unit.",
+            "Not too expensive — worth a full unit.", "Fair line for how much we like it. Solid bet."),
+    "dog": ("Real value here — worth a full unit.", "The value's real — a solid bet.", "Good value at this price. Full unit.",
+            "The payout's worth more than the risk. Solid bet.", "Plus money with real value — full unit.")}
 BIGGER_WHY = {   # 2-3½u
     "fav": ("Good price — worth a bigger bet.", "Price is right — we bet this one bigger.",
             "This line's cheaper than it should be. Bigger bet.", "Good number on a team we like. Bigger bet.",
