@@ -273,7 +273,21 @@ def _cards(day, day_picks, cards_by_kind):
     return out
 
 
-BOARD_CLEAR_HOUR_PT = 23        # 11pm PT: today's board (graded picks + reviews) clears for tomorrow's drop note
+BOARD_KEEP_HOUR_PT = 1          # the day's board (graded picks + their reviews) stays up till 1 AM PT the next morning -
+                                # later if a pick is still being played (the owner, 9/29: late college football games,
+                                # and a late game can be the Lock) - then it goes to the results and the 8 AM note shows
+
+
+def board_day(now_pt, picks):
+    """The date whose board is up right now: yesterday's till 1 AM PT, or till its last game is graded (before the next
+    8 AM board); otherwise today's."""
+    d = now_pt.date()
+    y = (d - timedelta(days=1)).isoformat()
+    if now_pt.hour < BOARD_KEEP_HOUR_PT:
+        return y
+    if now_pt.hour < 8 and any(p["date"] == y and p.get("status") == "open" for p in picks):   # a game still going
+        return y
+    return d.isoformat()
 
 
 DROP_NOTES = []   # (replaced by DROP_PARTS: the note's built fresh each day)
@@ -545,9 +559,10 @@ def _tennis():
     # the owner, 9/28: graded picks stay up - CASHED / MISSED with their review - until the NEXT slate posts (8am PT);
     # then the old one goes to the results. (An older slate with a match still going stays up too.)
     live = lambda x: any(l.get("result") is None for l in x["picks"]) or any(p["status"] == "open" for _, p in stn.parlays_of(x))
-    # (like the main board: a slate stays up through its own day, graded picks and all, and clears at 11pm PT)
+    # (like the main board: a slate stays up through its own day, graded picks and all, till 1 AM PT)
     now_pt = datetime.now(PT)
-    up = lambda x: x["date"] > now_pt.date().isoformat() or (x["date"] == now_pt.date().isoformat() and now_pt.hour < BOARD_CLEAR_HOUR_PT)
+    bd = board_day(now_pt, [{"date": x["date"], "status": "open" if live(x) else "done"} for x in slates])
+    up = lambda x: x["date"] >= bd                        # (same clock as the main board: till 1 AM / last match graded)
     shown = [x for x in slates if up(x) or (live(x) and x["date"] >= (now_pt.date() - timedelta(days=1)).isoformat())]
     nm = sum(stn.tour_of(l) == "atp" for x in shown for l in x["picks"])
     nw = sum(stn.tour_of(l) == "wta" for x in shown for l in x["picks"])
@@ -844,13 +859,13 @@ def write_sw(path):
 def render(picks, model, games, series, start_bank, updated_ms):
     import sports
     now = datetime.now(PT)
-    today = now.date().isoformat()
+    today = board_day(now, picks)                           # (yesterday's board till 1 AM / its last game is graded)
     order = list(LOOK)
     todays = sorted((p for p in picks if p["date"] == today), key=lambda p: (order.index(p["kind"]) if p["kind"] in order else 99, p.get("posted") or ""))
-    # the owner, 9/28: today's picks stay up all day - graded ones too, with CASHED/LOST and their review - and at 11pm PT
-    # the board clears for the "picks drop 8 AM PT" note (the results live on below)
-    active = [] if now.hour >= BOARD_CLEAR_HOUR_PT else list(todays)
-    board_date = now.strftime("%A, %B %-d")
+    # the owner, 9/28-29: the day's picks stay up - graded ones too, with CASHED/LOST and their review - till 1 AM PT (or
+    # their last game's graded); then the "picks drop 8 AM PT" note (the results live on below)
+    active = list(todays)
+    board_date = datetime.strptime(today, "%Y-%m-%d").strftime("%A, %B %-d")
     ask_url = _ask_url()
     ask_note = ("Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that." if ask_url else
                 "Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.")
@@ -868,7 +883,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     elif active:
         board = _short_note(today, todays) + board           # a short board says so too
 
-    tmr = (now + timedelta(days=1)).date()
+    tmr = datetime.strptime(today, "%Y-%m-%d").date() + timedelta(days=1)
     tomorrows = {p["kind"]: p for p in picks if p["date"] == tmr.isoformat()}
     tmr_real = [p for p in tomorrows.values() if p["status"] != "waiting"]
     tomorrow = (f'<div class="sec"><h2><i>●</i> TOMORROW\'S BOARD</h2><span>{tmr:%A, %B %-d}</span></div>'

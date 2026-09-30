@@ -3614,6 +3614,21 @@ def test_tonights_live_bets_box_only_when_we_have_bets():
     assert sdb.live_days(datetime(2026, 9, 30, 7, 0)) == {"2026-09-30", "2026-09-29"}
 
 
+def test_board_stays_up_till_1am_or_its_last_game_is_graded():
+    """The owner, 9/29: the day's board - Lock of the Day and all, graded with its review - stays up till about 1 AM PT
+    (late college football), and past that if a pick is still being played; then it goes to the results."""
+    import sports_dashboard as sdb
+    from datetime import datetime
+    done = [{"date": "2026-09-29", "status": "won"}]
+    going = [{"date": "2026-09-29", "status": "open"}]
+    assert sdb.board_day(datetime(2026, 9, 29, 23, 30), done) == "2026-09-29"       # 11:30 PM: still up
+    assert sdb.board_day(datetime(2026, 9, 30, 0, 40), done) == "2026-09-29"        # 12:40 AM: still up
+    assert sdb.board_day(datetime(2026, 9, 30, 1, 5), done) == "2026-09-30"         # 1:05 AM, all graded: cleared
+    assert sdb.board_day(datetime(2026, 9, 30, 1, 5), going) == "2026-09-29"        # a late game still going: stays
+    assert sdb.board_day(datetime(2026, 9, 30, 9, 0), going) == "2026-09-30"        # the new 8 AM board takes over
+    assert "BOARD_CLEAR_HOUR_PT" not in open(sdb.__file__).read()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
