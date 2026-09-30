@@ -1506,14 +1506,16 @@ def today_bets(log):
     doesn't have yet, so a bet shows the moment it's logged, not at the next page rebuild. Newest last."""
     import sports_dashboard as sdb
     days = sdb.live_days(datetime.now(PT))                   # (till the next board drops at 8 AM PT)
-    out, used = [], set()
+    out = []
+    todays = [e for e in log.get("plays", {}).values() if e.get("date") in days]
+    try:                                                     # its note, same as the built page's (9/29: a new bet
+        stories = sdb.live_stories(todays)                   # showed with no note till the next rebuild)
+    except Exception:                                        # noqa: BLE001
+        stories = {}
     for pid, e in sorted(log.get("plays", {}).items(), key=lambda kv: kv[1].get("posted", "")):
         if e.get("date") not in days:
             continue
-        try:                                                 # its note, same as the built page's (9/29: a new bet
-            story = sdb._live_story(e, used)                 # showed with no note till the next rebuild)
-        except Exception:                                    # noqa: BLE001
-            story = ""
+        story = stories.get(id(e), "")
         lg = e.get("league", "")
         tennis = lg == "tennis"
         out.append({"pid": pid, "team": e.get("team", ""), "odds": e.get("odds"), "result": e.get("result"),

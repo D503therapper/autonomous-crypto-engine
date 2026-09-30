@@ -70,10 +70,7 @@ def _live_story(e, used=None):
     used = set() if used is None else used
     lg = e.get("league", "")
     if e.get("result") is None:                              # still going: just the hold - a score from when it went
-        import sports_tennis as stn                          # up reads wrong minutes later (the owner, 9/29)
-        me = stn._say_name(e.get("team")) if lg == "tennis" else _the(e.get("team", ""), lg)
-        seed = f'{e.get("posted") or e.get("date")}|{e.get("team")}|{e.get("odds")}'
-        return _cap(sports_lingo.say("lv:hold", seed, used, me=me or "our pick"))
+        return _hold_line(e, used)                           # up reads wrong minutes later (the owner, 9/29)
     if lg == "tennis":
         return _tennis_live_story(e, used)
     m = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", str(e.get("score_at_post") or ""))
@@ -99,6 +96,27 @@ def _live_story(e, used=None):
     ran = res == "won" and best >= (e.get("odds") or 0) + 40      # the line ran long while it was up - and it cashed
     seed = f'{e.get("posted") or e.get("date")}|{e["team"]}|{e.get("odds")}'    # stable: same bet, same words
     return sports_lingo.live_story(res, seed, used, ran=ran, an=an, a=a_s, hn=hn, h=h_s, w=w, us=us, what=what, best=best)
+
+
+def _hold_line(e, used):
+    """A still-going live bet's line. The name's masked while it's picked, so no two bets on the night share a line's
+    shape (9/29: 'Sticking with Kudermetova till it's done', then 'Sticking with Snigur till it's done')."""
+    lg = e.get("league", "")
+    import sports_tennis as stn
+    me = (stn._say_name(e.get("team")) if lg == "tennis" else _the(e.get("team", ""), lg)) or "our pick"
+    seed = f'{e.get("posted") or e.get("date")}|{e.get("team")}|{e.get("odds")}'
+    return _cap(sports_lingo.say("lv:hold", seed, used, me="ourplayer").replace("ourplayer", me).replace("Ourplayer", me))
+
+
+def live_stories(entries):
+    """Every live bet's line on the list, oldest first, sharing one `used`: a graded bet's hold line (what it said
+    while it was going) stays spoken for, so a newer bet never repeats it later that night."""
+    used, out = set(), {}
+    for e in sorted(entries, key=lambda e: e.get("posted", "")):
+        if e.get("result") is not None:
+            _hold_line(e, used)
+        out[id(e)] = _live_story(e, used)
+    return out
 
 
 LIVE_KEEP_HOUR_PT = 8         # a day's live bets (cashed, lost or still going) stay on the list till the next board
@@ -965,8 +983,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         start = start if start.endswith("Z") and "T" in start else ""
         return (f'<span class="tm" data-gid="{E(gid)}" data-start="{E(start)}" data-side="{E(side)}">⏳ STILL GOING</span>'
                 if start else '<span class="tm">⏳ STILL GOING</span>')
-    used_ = set()                                            # no two bets in the list share a phrase
-    stories = {id(e): _live_story(e, used_) for e in sorted(lrows, key=lambda e: e["posted"])}   # oldest first: a new
+    stories = live_stories(lrows)                            # no two bets in the list share a phrase - oldest first: a new
     #                                                        bet never rewords the ones already on the list
     try:                                                     # owning our mistakes, right on the bet itself
         with open(os.path.join(sd.DATA, "notes.json")) as f:

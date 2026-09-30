@@ -1372,7 +1372,7 @@ T_SMALLFAV = [
 ]
 T_DOG = [
  "{me} is the dog at {o}? Nah. [[Our math|The engine|Our model]'s got {him} as the better player.|The price is wrong and we're taking it.]",
- "{me} at {o} is a gift. [{He}'s about to cook.|{He} {wins}.]",
+ "{me} at {o} is a gift. [{He}'s about to go to work.|{He} {wins}.]",
  "We'll take {me} plus money all day. [[The book|Vegas] got this one backwards.|{them} is getting too much respect.]",
  "{me} gets the nod. [[Our math|The engine|Our model] says {he}'s the one about to win.|Our number has {him} winning {pct}%.]",
  "Plus money on {me}? Say less.",

@@ -23,6 +23,8 @@ OWNER = {
     "smack that ass": "a blowout we see coming",
     "smacked": "the other side got beat bad",
     "fought hard": "the loser battled but still lost (the review)",
+    "got cooked": "whoever LOST got cooked - our side on a miss ('Blockx got cooked'); never 'Cook.' after a win (9/29)",
+    "shit the bed": "our side blew it (a loss review)",
     "complete ass": "the other side's been terrible",
     "booty cheeks": "the other side's been terrible",
     "rocking with the sharps": "now and then when the price moved our way - never every card (we're our own engine)",
@@ -32,7 +34,8 @@ OWNER = {
 }
 
 # words he's said NOT to use (the dashboard never says these)
-NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both calendars", "leaky")
+NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both calendars", "leaky",
+         "class of this")   # (9/29: "class of the match" - he's never heard it said)
 
 # where the write-ups live (what the test searches)
 SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py")

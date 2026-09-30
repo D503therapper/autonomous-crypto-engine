@@ -3502,6 +3502,16 @@ def test_owner_lingo_is_live_everywhere():
     text = "\n".join(open(f).read() for f in ol.SOURCES).lower()
     missing = [w for w in ol.OWNER if w.lower() not in text]
     assert not missing, missing                            # (the banned words: the existing variety tests keep them out)
+    every = "\n".join(open(f).read() for f in ol.SOURCES + ("sports_vocab.py", "sports_breakdown.py")).lower()
+    assert "class of th" not in every, "9/29: 'the class of the match' - he's never heard it said"
+    assert "class of this" in ol.NEVER
+    # 9/29: "Snigur won it. Cook." - bare 'Cook' after a win reads wrong; "got cooked" / "shit the bed" are for a LOSS
+    assert not re.search(r"[\[|\"']Cook\.?[\]|\"']", every.replace("cook", "x") if False else
+                         "\n".join(open(f).read() for f in ol.SOURCES + ("sports_vocab.py", "sports_breakdown.py"))), "bare Cook"
+    import sports_lingo as SL
+    for k in ("tn:won", "ls:won", "rc:battle"):
+        assert not any("cooked" in t for t in SL.LINES[k][2]), k
+    assert any("got cooked" in t for t in SL.LINES["tn:lost"][2]) and any("shit the bed" in t for t in SL.LINES["tn:lost"][2])
 
 
 def test_our_own_engine_never_a_sharp_follower():
@@ -3852,6 +3862,33 @@ def test_lost_parlay_clock_starts_at_its_first_losing_game():
         sd.DATA, L.FINAL_AT_PATH = keep[0], keep[1]
         L.FINAL_AT.clear(); L.FINAL_AT.update(keep[2])
         shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_live_bet_lines_never_repeat_their_shape_in_a_night():
+    """9/29: 'Sticking with Kudermetova till it's done', later 'Sticking with Snigur till it's done', and 'Locked in on
+    X. We finna see.' again - machine-like. A night's live bets never share a line's shape (the name doesn't make it
+    different), a graded bet's old line stays spoken for, and 'we gon'/finna see' is rare in the pool."""
+    import sports_dashboard as D
+    import sports_lingo as SL
+    names = ["Polina Kudermetova", "Daria Snigur", "Anhelina Kalinina", "Alexander Blockx", "Tommy Paul", "Jiri Lehecka",
+             "Iga Swiatek", "Coco Gauff", "Jannik Sinner", "Carlos Alcaraz", "Emma Navarro", "Holger Rune"]
+    es = [{"team": n, "league": "tennis", "tour": "wta", "odds": 100 + 7 * k, "posted": f"2026-09-30T0{k % 10}:{10 + k}Z",
+           "result": "lost" if k < 3 else None, "tennis": {"side": 1, "sets": [0, 0], "games": [1, 0], "done": [], "set_no": 1},
+           "score_at_post": f"{n} vs X · 1-0", "clock_at_post": "Set 1"} for k, n in enumerate(names)]
+    st = D.live_stories(es)
+    holds = [st[id(e)] for e in es if e["result"] is None]
+    shapes = []
+    for e, line in zip([e for e in es if e["result"] is None], holds):
+        me = __import__("sports_tennis")._say_name(e["team"])
+        assert me in line, line
+        shapes.append(re.sub(r"\b(finna|gon')\b", "~", line.replace(me, "@")))
+    first3 = [" ".join(x.split()[:3]) for x in shapes]
+    assert len(set(first3)) == len(first3), shapes                  # every line opens its own way
+    assert sum("see" in x for x in shapes) <= 2, shapes             # 'we gon'/finna see' stays rare
+    pool = SL.LINES["lv:hold"][2]
+    assert len(pool) >= 18 and sum("see" in t for t in pool) <= 2
+    for t in pool:
+        assert not any(w in t.lower() for w in ("real talk", "chalk"))
 
 
 def test_final_score_calls_the_pick_on_the_spot():

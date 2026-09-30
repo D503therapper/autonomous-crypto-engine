@@ -27,12 +27,12 @@ SLOTS = {
              "no question", "without blinking", "top to bottom", "with our whole chest", "no overthinking",
              "and it ain't close", "hands down", "every time"],
     "better": ["the better player", "the better team", "the sharper side", "the stronger side", "the real deal",
-               "a tier above", "levels above", "the class of this matchup"],
+               "a tier above", "levels above"],
     "cheap": ["too cheap", "a discount", "mispriced", "short", "off", "light", "a bargain", "priced wrong",
               "undervalued", "disrespectful", "a steal", "not respecting the matchup"],
     "wins": ["wins this", "gets the W", "takes it", "closes it out", "handles business", "gets it done",
              "comes out on top", "finishes the job", "takes care of it", "walks away with it", "punches the ticket"],
-    "beat": ["handle", "take care of", "get past", "run through", "outlast", "put away", "cook", "dust", "outclass",
+    "beat": ["handle", "take care of", "get past", "run through", "outlast", "put away", "dust", "outclass",
              "handle light", "get the better of", "take down", "wear down", "outwork"],
     "more": ["way more often than not", "more often than the price says", "a lot more than the book thinks",
              "more than people think", "most nights", "more than this number implies", "way more than that"],
@@ -43,7 +43,7 @@ SLOTS = {
     "edge_noun": ["edge", "value", "gap", "cushion", "angle", "advantage"],
     # sayings after a line (optional flavor; short ones repeat, that's fine). Never a bare facts - it lands after a
     # percentage and makes no sense; "that's just facts" only follows a claim (the owner, 9/29: 'better team, facts')
-    "kick": ["", "", "", "", "", "Let's eat.", "Nice nice.", "Cook.", "Easy work.", "Run it.", "We outside.",
+    "kick": ["", "", "", "", "", "Let's eat.", "Nice nice.", "Easy work.", "Run it.", "We outside.",
              "Say less.", "Book it.", "Light work.", "Tuck in.", "Get in.", "Bet.", "We're good.", "Pull up.",
              "Period.", "Simple.", "Done deal.", "Don't overthink it.", "You already know.",
              "Stamp it.", "Buckle up.", "We live.", "Clean.", "Straight up.", "On sight."],

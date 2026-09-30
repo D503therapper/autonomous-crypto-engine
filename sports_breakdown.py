@@ -663,7 +663,7 @@ _P = {   # breakdown-only word pools (one flat [..] each - never nested inside a
     "Bk": "[Vegas|The book|The sportsbook|The oddsmaker|The house|The market]",
     "close": "[That's the value.|That's the play.|That gap is the play.|Trust the algorithm.|Easy call.|Value all day.|"
              "We'll take that all day.|That's the edge.|Math is math.|Tail it.|We ride.|Book it.|Let's eat.|Nice nice.|"
-             "Say less.|Light work.|Cook.|Numbers don't lie.|That's where the money's at.|Levels to this.|]",
+             "Say less.|Light work.|Numbers don't lie.|That's where the money's at.|Levels to this.|]",
     "sclose": "[We gon' see.|We finna see.|Tap in.|I won't let y'all down.|Right side, that's all.|Quiet play.|"
               "Stay disciplined.|We'll see.|Small bet energy.|Let it ride.|]",
 }
