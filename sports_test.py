@@ -3699,6 +3699,20 @@ def test_question_box_gets_exact_pick_status():
     assert "Never guess it from records" in js                                         # (9/29: 0-0-0 read as preseason)
 
 
+def test_final_score_calls_the_pick_on_the_spot():
+    """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
+    The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by
+    enough / inside the number) or tennis sets - and the official grade + review follow."""
+    import sports_dashboard as sdb
+    leg = {"team": "Oilers", "opp": "Canucks", "league": "nhl", "side": "home", "home": True, "market": "spread",
+           "line": -1.5, "odds": -118, "start": "2026-09-30T02:00Z", "game_id": "nhl:1", "reasons": []}
+    h = sdb._leg(leg, tagged=True)
+    assert 'data-side="home" data-mk="spread" data-line="-1.5"' in h
+    src = open(sdb.__file__).read()
+    assert "function called(s,sc)" in src and "(called(s,sc)||" in src
+    assert 'data-mk="{E(l.get("market") or "ml")}"' in src                              # tennis legs too
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

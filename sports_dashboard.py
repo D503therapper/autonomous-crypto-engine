@@ -234,7 +234,7 @@ def _leg(leg, tagged=False, review=""):
     if leg.get("line_alerts") and not res:              # the money ran away from us after we posted: loud, on the card
         outs += "".join(f'<div class="outs">💸 LINE ALERT: {E(a)}</div>' for a in leg["line_alerts"][-1:])
     return f"""<div class="leg {res or ''}">
-  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}">Starts at {_time(leg["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
   {f'<div class="why">📝 {E(review)}</div>' if review else f'<div class="why">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
@@ -528,7 +528,7 @@ def _tennis():
         if done and recap(l):
             tag = f"📝 {recap(l)}"
         return f"""<div class="leg {l['result'] or ''}">
-  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}">{"⏳ DELAYED" if _delayed(l) else "Starts at " + _time(l["start"])}</span>'}</div>
+  <div class="lt"><span class="lgb">🎾 {"Women's Tennis" if stn.tour_of(l) == "wta" else "Men's Tennis"} · {E(l['tourney'])}</span>{badge.get(l['result']) or f'<span class="tm{" dly" if _delayed(l) else ""}" data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}" data-mk="{E(l.get("market") or "ml")}">{"⏳ DELAYED" if _delayed(l) else "Starts at " + _time(l["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{E(l['player'])} <em>{f"{l['hcp']:+g} games" if l.get("market") == "spread" else "ML"}</em></span><span class="od">{_am(l['odds'])}</span></div>
   <div class="ls">vs {E(l['opp'])} · {E(l['round'])} · {E({"hard": "Hard court", "clay": "Clay", "grass": "Grass"}.get(l['surface'], l['surface']))}</div>
   {f'<div class="why">{E(tag)}</div>' if tag else ""}
@@ -1540,6 +1540,16 @@ function fastScores(){{if(document.hidden||!API)return;var n=Date.now(),ids={{}}
 function games(sc){{return (sc.sets||[]).reduce(function(t,x){{return t+(+x[0]||0)+(+x[1]||0)}},0)}}
 function flip(sc){{return {{tennis:true,n:[sc.n[1],sc.n[0]],sets:(sc.sets||[]).map(function(x){{return [x[1],x[0]]}}),
   pts:sc.pts?[sc.pts[1],sc.pts[0]]:null,srv:sc.srv===0?1:sc.srv===1?0:null,done:sc.done,live:sc.live,delayed:sc.delayed}}}}
+function called(s,sc){{   // the second it's final: ✅ HIT / ❌ MISS from the final score (the official grade + review follow)
+ var mk=s.getAttribute("data-mk")||"",side=s.getAttribute("data-side")||"",r=null;
+ if(sc.tennis){{if(mk!=="ml")return null;var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
+   if(w[0]===w[1])return null;r=w[0]>w[1]?"won":"lost";}}    // (our player's always first here)
+ else{{if(side!=="home"&&side!=="away")return null;var us=side==="home"?+sc.h:+sc.a,th=side==="home"?+sc.a:+sc.h;
+   if(mk==="ml")r=us>th?"won":us<th?"lost":null;
+   else if(mk==="spread"){{var L=parseFloat(s.getAttribute("data-line"));if(isNaN(L))return null;var m=us-th+L;r=m>0?"won":m<0?"lost":"push";}}
+   else return null;}}
+ if(!r)return null;
+ return r==="won"?'<span class="lr won">✅ HIT</span>':r==="lost"?'<span class="lr lost">❌ MISS</span>':'<span class="lr push">PUSH</span>';}}
 function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D503Ft||0)<15000&&window.D503F)||{{}};
  Object.keys(W).forEach(function(k){{S[k]=W[k]}});
  Object.keys(F).forEach(function(k){{var w=W[k],f=F[k];   // tennis: whichever feed is further along wins (the watcher's
@@ -1557,7 +1567,7 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   //                                                      under the pick (right above its breakdown), never above it
   var on=sc?true:(n>=st&&n<st+6*3600000&&!s.classList.contains("dly"));   // (not started yet: stays DELAYED)
   if(on){{if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
-    var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?'<span class="fnb">FINAL</span>':'<span class="lvb"><i></i>LIVE</span>';
+    var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?(called(s,sc)||'<span class="fnb">FINAL</span>'):'<span class="lvb"><i></i>LIVE</span>';
     s.classList.toggle("dly",!!(sc&&sc.delayed));if(s.innerHTML!==tag)s.innerHTML=tag;}}
   else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}   // (only when it's NOT on - it used to undo LIVE)
   if(sc&&!sc.live&&!sc.delayed)window.d503stale=1;       // a pick's game is final: the graded page is coming
@@ -1576,7 +1586,7 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
  document.querySelectorAll(".pxt").forEach(function(t){{var d=t.closest("section.pk");if(!d)return;   // a card's yellow
   var one=t.getAttribute("data-one");                                                 // line says how its games are going
   var lv=0,dl=0,up=[];d.querySelectorAll(".tm[data-start]").forEach(function(s){{
-   var st=Date.parse(s.getAttribute("data-start")),fin=!!s.querySelector(".fnb");
+   var st=Date.parse(s.getAttribute("data-start")),fin=!!s.querySelector(".fnb,.lr");
    if(s.textContent.indexOf("DELAYED")>=0)dl++;
    else if(s.querySelector(".lvb")||(!fin&&st<=n))lv++;     // started, not FINAL: live (a score just hasn't landed)
    else if(!fin)up.push(st)}});
