@@ -1380,7 +1380,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .ask-g{{text-align:left;background:var(--card2);border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700}}
 .ask-g small{{color:#22d3ee;font-weight:700;margin-left:6px}}
 .ask-c{{margin-top:12px}} .ask-l{{font-size:17px;margin:8px 0 2px}} .ask-l b{{color:#fff}}
-.ask-a{{font-weight:800;color:#22e39a;margin:2px 0 6px}} .ask-w{{font-size:13px;font-weight:700;color:#fff;margin:6px 0}}
+.ask-a{{font-weight:800;color:#fff;margin:2px 0 6px}} .ask-w{{font-size:13px;font-weight:700;color:#fff;margin:6px 0}}
 .ask-h{{font-size:13px;font-weight:700;color:#fff;margin:4px 0}} .ask-h b{{color:#fff}}
 .ask-prop{{font-size:15px;font-weight:900;color:#ff5a7a;margin:6px 0 10px}}
 .ask-d{{font-size:12px;font-weight:800;color:#ffc233;margin-top:8px}}

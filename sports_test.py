@@ -4251,7 +4251,7 @@ def test_no_thin_or_dull_text():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert not re.findall(r"font-weight:[1-6]00\b", src), re.findall(r".{40}font-weight:[1-6]00", src)[:3]
     assert "#ffb4b4" not in src and ".hr.lost .hp{{color:#fff}}" in src
-    for cls in (".foot{{", ".nut{{", ".bs{{", ".ask-n{{", ".sp-n.what{{", ".evr em{{"):
+    for cls in (".foot{{", ".nut{{", ".bs{{", ".ask-n{{", ".sp-n.what{{", ".evr em{{", ".ask-a{{"):   # (question box answers too)
         rule = src[src.index(cls):src.index("}}", src.index(cls))]
         assert "color:#fff" in rule or cls in (".nut{{",), (cls, rule)
 
