@@ -1222,6 +1222,12 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
                     ln_, _ = stn.match_line(m, lines, hours=12)
                     k_ = f"tennis:{m['id']}"
                     SCORES[k_] = faster_score(SCORES[k_], _bovada_score(m, ln_, mine))
+                if state == "live":                             # the book's point-by-point score: who's serving,
+                    k_ = f"tennis:{m['id']}"                    # 15-0 / 30-0 (the owner, 9/29) - when it's as far along
+                    lb, _ = stn.match_line(m, [x for x in lines if x.get("live")], hours=12)
+                    bk = book_score(m, lb, SCORES[k_])
+                    if bk and _games(bk) >= _games(SCORES[k_]):
+                        SCORES[k_] = {**bk, "tennis": True, "live": True, "delayed": SCORES[k_].get("delayed", False)}
                 k_ = f"tennis:{m['id']}"
                 SCORES[k_] = BEST.setdefault(k_, SCORES[k_]) if SCORES[k_].get("live") and \
                     _games(SCORES[k_]) < _games(BEST.get(k_, SCORES[k_])) else SCORES[k_]
@@ -1368,6 +1374,38 @@ BEST = {}                     # match -> the furthest-along score seen (ESPN's s
 
 def _games(sc):
     return sum(a + b for a, b in (sc or {}).get("sets") or [])
+
+
+def _set_over(g):
+    a, b = g
+    return max(a, b) >= 7 or (max(a, b) >= 6 and abs(a - b) >= 2)
+
+
+def book_score(m, ln, base):
+    """🎾 The book's live score (BetRivers posts every point) in the page's shape, lined up with `base` (our
+    _tennis_score for this match: same names, same side first) - or None. Who's serving + 15-0 / 30-0 when it has them."""
+    lv = (ln or {}).get("live")
+    if not lv or not base:
+        return None
+    sets = [[a, b] for a, b in lv["sets"] if a >= 0 and b >= 0]
+    while len(sets) > 1 and sets[-1] == [0, 0] and not _set_over(sets[-2]):
+        sets.pop()                                           # (unplayed sets the book lists as 0-0)
+    while len(sets) > 1 and sets[-1] == [0, 0] and sets[-2] == [0, 0]:
+        sets.pop()
+    if sets and _set_over(sets[-1]) and len(sets) < int(m.get("bo") or 3):
+        sets.append([0, 0])                                  # a set just ended: the next one's at 0-0
+    home = lv.get("home") or ""
+    other = ln["b"] if home == ln.get("a") else ln["a"] if home == ln.get("b") else None
+    got, home_is_p2 = stn.match_line(m, [{"a": home, "b": other, "start": ln.get("start"), "tour": ln.get("tour")}], hours=12) \
+        if other else (None, False)
+    if got is None:
+        return None                                          # (can't tell who's who: never guess a score)
+    p1_first = base["n"][0] == stn._say_name(m["p1_name"]) and base["n"][1] == stn._say_name(m["p2_name"])
+    home_first = (not home_is_p2) == p1_first
+    sw = (lambda t: list(t)) if home_first else (lambda t: [t[1], t[0]])
+    pts = sw(lv["pts"]) if lv.get("pts") else None
+    srv = None if lv.get("home_serves") is None else (0 if lv["home_serves"] == home_first else 1)
+    return {**base, "sets": [sw(x) for x in sets], "pts": pts, "srv": srv, "done": max(0, len(sets) - 1), "src": "book"}
 
 
 def faster_score(espn, bov):

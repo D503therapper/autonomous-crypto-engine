@@ -119,8 +119,24 @@ def kambi_tennis(data):
                     "b": oc[1].get("englishLabel") or oc[1].get("participant"),
                     "start": str(ev.get("start") or "")[:16] + "Z", "a_ml": a_ml, "b_ml": b_ml, "suspended": shut,
                     "mod": max((_ms(o.get("changedDate")) for o in oc), default=0), "event": "",
-                    "tour": tour, "src": "betrivers"})
+                    "tour": tour, "src": "betrivers", "live": kambi_live(e)})
     return out
+
+
+def kambi_live(e):
+    """The book's own live score for a tennis match: {home, sets: [[home, away], ...] (the last one is being played),
+    pts: [home, away] ('15', '30', 'AD' / tiebreak points), home_serves} - or None. (The owner, 9/29: always show who's
+    serving, and 15-0 / 30-0 if it's accurate - the book posts every point.)"""
+    ld = e.get("liveData") or {}
+    st = ((ld.get("statistics") or {}).get("sets")) or {}
+    h, a = st.get("home") or [], st.get("away") or []
+    if not h or len(h) != len(a):
+        return None
+    sc = ld.get("score") or {}
+    pts = [str(sc.get("home")), str(sc.get("away"))] if sc.get("home") is not None and sc.get("away") is not None else None
+    hs = st.get("homeServe")
+    return {"home": (e.get("event") or {}).get("homeName") or "", "sets": [[int(x), int(y)] for x, y in zip(h, a)],
+            "pts": pts, "home_serves": hs if isinstance(hs, bool) else None}
 
 
 # ---------------------------------------------------------------- the failover reads

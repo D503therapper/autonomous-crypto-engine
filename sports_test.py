@@ -3891,6 +3891,37 @@ def test_live_bet_lines_never_repeat_their_shape_in_a_night():
         assert not any(w in t.lower() for w in ("real talk", "chalk"))
 
 
+def test_live_tennis_shows_who_is_serving_and_the_points():
+    """The owner, 9/29: always show who's serving, and 15-0 / 30-0 if it's accurate. The book (BetRivers) posts every
+    point, who's serving and the games per set - lined up to our player's side, never guessed."""
+    import sports_books as sb
+    L = sports_live
+    ev = lambda home, away, h, a, pts, hs: {"event": {"homeName": home, "awayName": away}, "liveData": {
+        "score": {"home": pts[0], "away": pts[1]}, "statistics": {"sets": {"home": h, "away": a, "homeServe": hs}}}}
+    lv = sb.kambi_live(ev("Yexin Ma", "Polina Kudermetova", [7, 3, 0], [6, 6, 0], ("30", "15"), False))
+    assert lv == {"home": "Yexin Ma", "sets": [[7, 6], [3, 6], [0, 0]], "pts": ["30", "15"], "home_serves": False}
+    assert sb.kambi_live({"liveData": {}}) is None
+    m = _tn_live_row("wta:184266", "wta", s1="6 6", s2="7 3", n1="Polina Kudermetova", n2="Ma YeXin", done=1)
+    m["bo"] = 3
+    ln = {"a": "Yexin Ma", "b": "Polina Kudermetova", "start": m["start"], "tour": "wta", "live": lv, "src": "betrivers"}
+    for side in (None, 1, 2):                                   # our player first, whichever side she's on
+        base = L._tennis_score(m, side)
+        bk = L.book_score(m, ln, base)
+        kud_first = base["n"][0] == "Kudermetova"
+        assert bk and bk["n"] == base["n"], (side, bk)
+        assert bk["sets"] == ([[6, 7], [6, 3], [0, 0]] if kud_first else [[7, 6], [3, 6], [0, 0]]), bk
+        assert bk["pts"] == (["15", "30"] if kud_first else ["30", "15"])
+        assert bk["srv"] == (0 if kud_first else 1), "Kudermetova's serving (the book: home doesn't serve)"
+        assert bk["done"] == 2
+    # a set list padded with unplayed 0-0 sets: trimmed to the one being played
+    lv2 = {**lv, "sets": [[3, 1], [0, 0], [0, 0]]}
+    assert L.book_score(m, {**ln, "live": lv2}, L._tennis_score(m, 1))["sets"] == [[1, 3]]
+    # names that don't line up: no score at all (never a guess)
+    assert L.book_score(m, {**ln, "a": "Some One", "b": "Else Who", "live": {**lv, "home": "Some One"}}, L._tennis_score(m, 1)) is None
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "wg===fg&&w.pts&&!f.pts" in src
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

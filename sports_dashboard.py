@@ -1586,7 +1586,7 @@ function called(s,sc){{   // the second it's final: ✅ HIT / ❌ MISS from the 
 function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D503Ft||0)<15000&&window.D503F)||{{}};
  Object.keys(W).forEach(function(k){{S[k]=W[k]}});
  Object.keys(F).forEach(function(k){{var w=W[k],f=F[k];   // tennis: whichever feed is further along wins (the watcher's
-  if(w&&w.tennis&&f&&f.tennis){{var wg=games(w),fg=games(f);if(wg>fg){{S[k]=w;return}}}}   // book score beats a
+  if(w&&w.tennis&&f&&f.tennis){{var wg=games(w),fg=games(f);if(wg>fg||(wg===fg&&w.pts&&!f.pts)){{S[k]=w;return}}}}   // book score beats a
   S[k]=f}});                                                                                       // lagging ESPN one
  var B=window.D503B=window.D503B||{{}};   // a score never goes backwards (ESPN's servers hand out older copies)
  Object.keys(S).forEach(function(k){{var sc=S[k],p=B[k];if(!sc)return;
