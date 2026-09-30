@@ -1,15 +1,14 @@
 {
- "at": "2026-09-30T04:24Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-09-29 Alexander Blockx) - sports.yml already running"
- ],
+ "at": "2026-09-30T04:29Z",
+ "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (134s)",
+  "live watcher fresh (27s)",
+  "every finished pick graded",
   "scores route up (200)",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 7 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 6 live lines, 5 fresh (betrivers 5)",
   "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
@@ -20,6 +19,11 @@
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-09-30T04:29Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-09-30T04:24Z",
    "fixes": [
