@@ -58,6 +58,12 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   Dog's score +2 / -3 (sports_form.pdo_states). NBA stars' shooting slumps / hot streaks and MLB starters' strikeout-
   minus-walk form: nothing over the price.
 
+- **Upsets (9/30, closing prices 2018-26):** an NBA team that got upset as a -250 favorite bounces back - next game
+  +4.9% as a favorite (6 of 8 seasons), +7.1% as a dog. A dog right after its +200 upset win is a HANGOVER as a dog
+  again: NFL -30%, college football -28%, MLB -14% vs about -3% for every dog. Built: the bounce counts like the
+  overreaction angle; the hangover -3 on the Dog's score. Road trips (4th+ road game, first game home) and NFL/college
+  off a bye: nothing steady.
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER

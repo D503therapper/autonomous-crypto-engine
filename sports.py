@@ -720,6 +720,8 @@ def dog_score(c):
         sc += 2 if pdo <= sports_form.PDO_BAD else -3 if pdo >= sports_form.PDO_GOOD else 0
     if c.get("rested_vs_b2b"):                           # rested, and they played last night: NBA dogs +6.5%, NHL
         sc += 3                                          # +1.9% (4 of 5 seasons each) vs -6% for every dog
+    if hangover(c):                                      # a dog again after its big upset win: the hangover
+        sc -= 3
     if overreact(c):                                     # a football dog off a blowout loss: the market overreacts
         sc += 3                                          # (college +11.6%, NFL +7.9% vs -3.6% for every dog)
     if c.get("hot_key"):                                 # its goalie / stars are much hotter: the books already
@@ -739,7 +741,17 @@ def overreact(c):
     st = c.get("form_state")
     if not st or c.get("market") != "ml":
         return False
-    return bool(sports_form.overreaction(c.get("league"), None, c["odds"], {(c.get("league"), None): tuple(st)}))
+    return sports_form.overreaction(c.get("league"), None, c["odds"], {(c.get("league"), None): tuple(st)}) > 0
+
+
+def hangover(c):
+    """A dog again right after its big upset win - the market's too high on it (sports_form: NFL -30%, college -28%,
+    MLB -14% vs about -3% for every dog)."""
+    import sports_form
+    st = c.get("form_state")
+    if not st or c.get("market") != "ml":
+        return False
+    return sports_form.overreaction(c.get("league"), None, c["odds"], {(c.get("league"), None): tuple(st)}) < 0
 
 
 def own_agrees(c):

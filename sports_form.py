@@ -120,11 +120,17 @@ BLOWOUT = {"nfl": 21, "ncaaf": 30}         # points - "a blowout" (1.5x a normal
 COLD_STREAK = {"ncaab": 6}
 
 
+UPSET_BOUNCE = ("nba",)                    # got upset as a -250 favorite: next game +4.9% as a fav (6 of 8), +7.1% as a dog
+UPSET_HANGOVER = ("nfl", "ncaaf", "mlb")   # won as a +200 dog: next game AS A DOG NFL -30%, college -28%, MLB -14%
+#                                            (vs about -3% for every dog - the market gets too high on the upset winner)
+
+
 def team_states(games, now_iso):
-    """{(league, team): (last game's margin, win(+)/loss(-) streak)} from real games in the last 3 weeks."""
+    """{(league, team): (last game's margin, win(+)/loss(-) streak, last game's moneyline, won it)} - real games in the
+    last 3 weeks."""
     import sports_model as sm
     out = {}
-    for lg in set(BLOWOUT) | set(COLD_STREAK):
+    for lg in set(BLOWOUT) | set(COLD_STREAK) | set(UPSET_BOUNCE) | set(UPSET_HANGOVER):
         streak, last = {}, {}
         for g in sorted(sm.finals(games, lg), key=lambda g: g["start"]):
             if (g.get("stype") or "2") not in ("2", "3"):
@@ -133,19 +139,29 @@ def team_states(games, now_iso):
                 hs, as_ = float(g["home_score"]), float(g["away_score"])
             except (KeyError, ValueError):
                 continue
-            for t, us, them in ((g["home"], hs, as_), (g["away"], as_, hs)):
+            for t, us, them, ml in ((g["home"], hs, as_, g.get("ml_home")), (g["away"], as_, hs, g.get("ml_away"))):
                 k = streak.get(t, 0)
                 streak[t] = (k + 1 if k >= 0 else 1) if us > them else (k - 1 if k <= 0 else -1) if us < them else 0
-                last[t] = (us - them, g["start"])
-        for t, (mg, st) in last.items():
+                try:
+                    ml = int(float(ml))
+                except (TypeError, ValueError):
+                    ml = None
+                last[t] = (us - them, g["start"], ml)
+        for t, (mg, st, ml) in last.items():
             if _days(st, now_iso) <= FRESH_D:
-                out[(lg, t)] = (mg, streak.get(t, 0))
+                out[(lg, t)] = (mg, streak.get(t, 0), ml, mg > 0)
     return out
 
 
 def overreaction(league, side_team, odds, states):
-    """+1 when this side is one the market overreacts against (see above), else 0."""
-    mg, sk = states.get((league, side_team), (0, 0))
+    """+1 when this side is one the market overreacts against (see above), -1 when it's one the market's too high on
+    (the upset hangover), else 0."""
+    st = tuple(states.get((league, side_team), (0, 0))) + (None, None)
+    mg, sk, last_ml, won = st[:4]
+    if league in UPSET_BOUNCE and last_ml is not None and last_ml <= -250 and won is False:
+        return 1                               # an NBA team that got upset as a big favorite: it bounces back
+    if league in UPSET_HANGOVER and odds >= 100 and last_ml is not None and last_ml >= 200 and won:
+        return -1                              # a dog again after its big upset win: the hangover
     if league in BLOWOUT and odds >= 100 and mg <= -BLOWOUT[league]:
         return 1                               # a football dog coming off a blowout loss
     if league in COLD_STREAK and odds < 0 and sk <= -COLD_STREAK[league]:
