@@ -3488,6 +3488,15 @@ def test_never_lock_a_side_the_money_is_running_from():
     assert "💸 LINE ALERT" in card
 
 
+def test_owner_lingo_is_live_everywhere():
+    """The owner, 9/29: 'always remember how I talk ... and add it into the engine'. Every phrase on his list is live
+    somewhere in the write-ups, and the words he's banned never show up."""
+    import sports_owner_lingo as ol
+    text = "\n".join(open(f).read() for f in ol.SOURCES).lower()
+    missing = [w for w in ol.OWNER if w.lower() not in text]
+    assert not missing, missing                            # (the banned words: the existing variety tests keep them out)
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

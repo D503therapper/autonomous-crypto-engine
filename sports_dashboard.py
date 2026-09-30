@@ -294,7 +294,7 @@ DROP_PARTS = (   # the 8 AM note, built fresh each day: WHEN + the engine WATCHI
      "— the sharps show their hand overnight, we pick after."],
     ["Sharper number, sharper pick.", "No guessing over here.", "We pick off the best number, not the first one.",
      "Posted means final.", "Patience pays.", "That's how the pros do it.", "Trust the algorithm.",
-     "Best number wins.", "We don't chase, we wait.", "Good things come to those who wait.", "Tap in at 8."],
+     "Best number wins.", "We don't chase, we wait.", "Tell the homies.", "Tap in at 8."],
 )
 
 
@@ -388,7 +388,7 @@ def _pick_card(kind, pk):
                       "🔒 They got us as the dog? Line makers trippin'. We calling it a LOCK.",
                       "🔒 Plus money on this? Somebody at the book was sleepin'. LOCK.",
                       "🔒 The books ain't see what we see. Plus money and a LOCK — let's eat.",
-                      "🔒 Line makers trippin' fr. We're getting paid extra on a LOCK.",
+                      "🔒 Plus money on a LOCK? That's super value. Line makers trippin' fr.",
                       "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
                   if _tier(pk) == "lock" and pk.get("american", 0) > 0 and pk["status"] == "open" else "")
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
