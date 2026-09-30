@@ -4222,6 +4222,14 @@ def test_early_value_plays():
         assert [c["game_id"] for c in new] == ["1"] and new[0]["odds"] == 185, new
         assert pings[0] is None and pings[1]["game_id"] == "1"        # the breakthrough ping first, then the play
         assert se.post(games, {"params": {}}, now, ping=pings.append) == [] and len(pings) == 2   # once, ever
+        saved_un = sd.team_unsure                                     # the owner, 9/30: a questionable star on
+        sd.team_unsure = lambda inj, tid, name, lg: [("Star", "PG", "Questionable")]   # our side = no early play
+        try:
+            games["6"] = game("6", 185, 190)
+            assert se.scan(games, {"params": {}}, now, injuries={"nfl": {"x": []}}) == []
+        finally:
+            sd.team_unsure = saved_un
+            del games["6"]
         sm.market_p = lambda g, open_line=False: 0.30                 # +10 pts: outside the only band that passed
         assert se.scan(games, {"params": {}}, now) == []
         games["1"].update(status="final", home_score="24", away_score="20")
@@ -4302,7 +4310,11 @@ def test_we_got_in_early_box():
         saved_ko = sd.team_key_out
         sd.team_key_out = lambda inj, tid, name, lg: [("Lamar Jackson", "QB", "Out")] if name == "Teamb" else []
         try:
+            st["picks"][1]["out_at_post"] = []                 # nobody out when it posted
+            st["picks"][2]["out_at_post"] = ["Lamar Jackson"]  # already out when it posted: priced in, not news
+            games["c"].update(home="2", home_name="Teamb")
             se.watch(st, games, {"nfl": {"x": []}})
+            assert st["picks"][2]["key_out"] is None
         finally:
             sd.team_key_out = saved_ko
         row = se.gameday_html(st, games, lambda x: x, now).split('class="gr"')[1]

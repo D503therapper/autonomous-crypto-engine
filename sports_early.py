@@ -209,6 +209,9 @@ def scan(games, model, now=None, injuries=None, trap=None):
                 continue                             # the money already took the value
             if inj and sd.team_key_out(inj, g[side], g[f"{side}_name"], lg):
                 continue                             # a key player out on OUR side: the ratings can't see it
+            if inj and sd.team_unsure(inj, g[side], g[f"{side}_name"], lg):
+                continue                             # ...or QUESTIONABLE (the owner, 9/30: the good early price is only
+                                                     # good because the book's guessing he plays - then he's ruled out)
             if trap and trap(lg, odds, side == "home"):
                 continue
             other = "away" if side == "home" else "home"
@@ -236,6 +239,10 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None)
         if c["game_id"] in have:
             continue                                 # one early dog per game, posted = final
         c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
+        g = games.get(c["game_id"]) or {}
+        inj = (injuries or {}).get(c["league"])
+        if inj is not None:                          # already out at post (priced in): the watch only flags NEW outs
+            c["out_at_post"] = [r[0] for r in sd.team_key_out(inj, g.get(c["side"]), c["team"], c["league"])]
         st["picks"].append(c)
         have.add(c["game_id"])
         new.append(c)
@@ -259,7 +266,10 @@ def watch(st, games, injuries):
         if p.get("result") or not g or g.get("status") != "pre" or inj is None:
             continue
         out = sd.team_key_out(inj, g.get(p["side"]), g.get(f"{p['side']}_name") or p["team"], p["league"])
-        p["key_out"] = f"{out[0][0]} ({out[0][1]})" if out else None
+        if "out_at_post" not in p:                   # who was already out when it posted: priced in, not news
+            p["out_at_post"] = [r[0] for r in out]
+        new = [r for r in out if r[0] not in p["out_at_post"]]
+        p["key_out"] = f"{new[0][0]} ({new[0][1]})" if new else None
 
 
 def grade(st, games):
