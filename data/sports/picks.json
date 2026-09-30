@@ -1012,529 +1012,6 @@
   "tier": "lock"
  },
  {
-  "american": -135,
-  "date": "2026-09-29",
-  "dec": 1.7407,
-  "kind": "lock",
-  "lean": false,
-  "legs": [
-   {
-    "bd_tags": [
-     "better_s:3",
-     "h2h:0",
-     "cx_rival:0",
-     "cx_trip:0",
-     "home:3",
-     "rest:4",
-     "splits_w:2",
-     "bottom_l:6",
-     "w_better:0",
-     "k_trip:1"
-    ],
-    "breakdown": [
-     "\ud83d\udcaa Yankees have a little more juice than Red Sox.",
-     "\ud83d\udd25 Rivalry game. The Yankees and the Red Sox got real history.",
-     "\ud83d\udcca The crowd's on the Yankees too \u2014 82% of the tickets, 85% of the cash. Public's usually wrong \u2014 not this time.",
-     "\ud83d\udecc Yankees had extra days to get right.",
-     "\ud83c\udfdf\ufe0f Yankees are home tonight and ready to handle business.",
-     "\ud83e\uddf3 The Red Sox: 1,040-mile trip east. That travel adds up.",
-     "\u2705 Bottom line: Yankees (-135) all day. We ain't overthinking this one."
-    ],
-    "bv": 31,
-    "country": "",
-    "ctx": [
-     {
-      "k": "rival"
-     },
-     {
-      "dir": "E",
-      "k": "trip",
-      "mi": 1039,
-      "road6": 1,
-      "who": "them",
-      "wk": 2240
-     }
-    ],
-    "ctx_tags": [
-     "game:div",
-     "game:rival",
-     "them:east1000",
-     "them:trip1000"
-    ],
-    "dec": 1.7407407407407407,
-    "edge": -0.023973820085147812,
-    "edge_own": -0.026436977538158657,
-    "flow": {
-     "a": "0,0,0,0,0,0,0,0,0",
-     "h": "0,1,0,0,1,0,2,5"
-    },
-    "game_id": "mlb:401907924",
-    "home": true,
-    "intl": false,
-    "key_seen": {},
-    "league": "mlb",
-    "line": null,
-    "market": "ml",
-    "odds": -135,
-    "opp": "Red Sox",
-    "opp_outs": [],
-    "our_drama": [],
-    "outs": [],
-    "p": 0.5606958905893832,
-    "p_market": 0.54911742133538,
-    "public": "ride",
-    "reasons": [
-     "the stronger team"
-    ],
-    "result": "won",
-    "score": "Red Sox 0 @ Yankees 9",
-    "side": "home",
-    "start": "2026-09-30T00:00Z",
-    "stype": "3",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "Yankees",
-    "their_drama": [],
-    "tier": "lock",
-    "trap": false,
-    "waiting": [],
-    "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
-   }
-  ],
-  "p_hit": 0.5607,
-  "pnl": 74.07,
-  "posted": "2026-09-29T15:40Z",
-  "round": 1,
-  "settled": "2026-09-30T03:17Z",
-  "stake": 100.0,
-  "status": "won",
-  "tier": "lock"
- },
- {
-  "american": 222,
-  "date": "2026-09-29",
-  "dec": 3.2159,
-  "kind": "two",
-  "lean": false,
-  "legs": [
-   {
-    "bd_tags": [
-     "better_s:3",
-     "h2h:0",
-     "cx_rival:0",
-     "cx_trip:0",
-     "home:3",
-     "rest:4",
-     "splits_w:2",
-     "bottom_l:6",
-     "w_better:0",
-     "k_trip:1"
-    ],
-    "breakdown": [
-     "\ud83d\udcaa Yankees have a little more juice than Red Sox.",
-     "\ud83d\udd25 Rivalry game. The Yankees and the Red Sox got real history.",
-     "\ud83d\udcca The crowd's on the Yankees too \u2014 82% of the tickets, 85% of the cash. Public's usually wrong \u2014 not this time.",
-     "\ud83d\udecc Yankees had extra days to get right.",
-     "\ud83c\udfdf\ufe0f Yankees are home tonight and ready to handle business.",
-     "\ud83e\uddf3 The Red Sox: 1,040-mile trip east. That travel adds up.",
-     "\u2705 Bottom line: Yankees (-135) all day. We ain't overthinking this one."
-    ],
-    "bv": 31,
-    "country": "",
-    "ctx": [
-     {
-      "k": "rival"
-     },
-     {
-      "dir": "E",
-      "k": "trip",
-      "mi": 1039,
-      "road6": 1,
-      "who": "them",
-      "wk": 2240
-     }
-    ],
-    "ctx_tags": [
-     "game:div",
-     "game:rival",
-     "them:east1000",
-     "them:trip1000"
-    ],
-    "dec": 1.7407407407407407,
-    "edge": -0.023973820085147812,
-    "edge_own": -0.026436977538158657,
-    "flow": {
-     "a": "0,0,0,0,0,0,0,0,0",
-     "h": "0,1,0,0,1,0,2,5"
-    },
-    "game_id": "mlb:401907924",
-    "home": true,
-    "intl": false,
-    "key_seen": {},
-    "league": "mlb",
-    "line": null,
-    "market": "ml",
-    "odds": -135,
-    "opp": "Red Sox",
-    "opp_outs": [],
-    "our_drama": [],
-    "outs": [],
-    "p": 0.5606958905893832,
-    "p_market": 0.54911742133538,
-    "public": "ride",
-    "reasons": [
-     "the stronger team"
-    ],
-    "result": "won",
-    "score": "Red Sox 0 @ Yankees 9",
-    "side": "home",
-    "start": "2026-09-30T00:00Z",
-    "stype": "3",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "Yankees",
-    "their_drama": [],
-    "tier": "lock",
-    "trap": false,
-    "waiting": [],
-    "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
-   },
-   {
-    "bd_tags": [
-     "better:0",
-     "h2h:1",
-     "G_cold:0",
-     "cx_rival:1",
-     "home:4",
-     "keyout_both:2",
-     "bottom_s:1",
-     "w_better:1",
-     "k_rival:0"
-    ],
-    "breakdown": [
-     "\ud83d\udcaa Oilers are straight up the better team right now.",
-     "\ud83c\udfdf\ufe0f Oilers got the whole building behind 'em tonight.",
-     "\ud83c\udd9a Oilers have had Canucks's number: 2 of the last 3.",
-     "\ud83d\ude91 Neither team has its starting goalie \u2014 Frederik Andersen (the Oilers) and Thatcher Demko (the Canucks) are both out. The line already moved for it (-275 \u2192 -305). We still like the Oilers.",
-     "\ud83e\udd45 The Canucks' goalie Kevin Lankinen has been giving up a lot of goals \u2014 a 0.881 save % (12 goals on 101 shots) over his last 3 starts.",
-     "\u2705 Bottom line: the book has Oilers -1.5 (-118) close, but the small stuff breaks our way. We finna see."
-    ],
-    "bv": 33,
-    "country": "Canada",
-    "ctx": [
-     {
-      "k": "rival"
-     }
-    ],
-    "ctx_tags": [
-     "game:div",
-     "game:rival"
-    ],
-    "dec": 1.847457627118644,
-    "edge": 0.02382801737743523,
-    "flow": {
-     "a": "1,1,3,1",
-     "h": "1,1,3,0"
-    },
-    "game_id": "nhl:401891804",
-    "home": true,
-    "intl": false,
-    "key_seen": {
-     "Frederik Andersen (Oilers G)": "Injured Reserve",
-     "Thatcher Demko (Canucks G)": "Injured Reserve"
-    },
-    "league": "nhl",
-    "line": -1.5,
-    "market": "spread",
-    "odds": -118,
-    "opp": "Canucks",
-    "opp_outs": [
-     "Mackenzie MacEachern (LW)"
-    ],
-    "our_drama": [],
-    "outs": [],
-    "p": 0.5541821378465016,
-    "p_market": 0.5412844036697247,
-    "public": "ride",
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ],
-    "result": "lost",
-    "score": "Canucks 6 @ Oilers 5",
-    "side": "home",
-    "start": "2026-09-30T02:00Z",
-    "stype": "2",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "Oilers",
-    "their_drama": [],
-    "tier": "lean",
-    "waiting": [],
-    "why_line": "\ud83d\udcaa Oilers are just the better team. That's just facts. Rivalry game, too \u2014 bragging rights on the line."
-   }
-  ],
-  "p_hit": 0.3107,
-  "pnl": -100.0,
-  "posted": "2026-09-29T15:40Z",
-  "round": 1,
-  "settled": "2026-09-30T05:14Z",
-  "stake": 100.0,
-  "status": "lost",
-  "tier": "lean"
- },
- {
-  "american": 467,
-  "date": "2026-09-29",
-  "dec": 5.6709,
-  "kind": "three",
-  "lean": false,
-  "legs": [
-   {
-    "bd_tags": [
-     "better_s:3",
-     "h2h:0",
-     "cx_rival:0",
-     "cx_trip:0",
-     "home:3",
-     "rest:4",
-     "splits_w:2",
-     "bottom_l:6",
-     "w_better:0",
-     "k_trip:1"
-    ],
-    "breakdown": [
-     "\ud83d\udcaa Yankees have a little more juice than Red Sox.",
-     "\ud83d\udd25 Rivalry game. The Yankees and the Red Sox got real history.",
-     "\ud83d\udcca The crowd's on the Yankees too \u2014 82% of the tickets, 85% of the cash. Public's usually wrong \u2014 not this time.",
-     "\ud83d\udecc Yankees had extra days to get right.",
-     "\ud83c\udfdf\ufe0f Yankees are home tonight and ready to handle business.",
-     "\ud83e\uddf3 The Red Sox: 1,040-mile trip east. That travel adds up.",
-     "\u2705 Bottom line: Yankees (-135) all day. We ain't overthinking this one."
-    ],
-    "bv": 31,
-    "country": "",
-    "ctx": [
-     {
-      "k": "rival"
-     },
-     {
-      "dir": "E",
-      "k": "trip",
-      "mi": 1039,
-      "road6": 1,
-      "who": "them",
-      "wk": 2240
-     }
-    ],
-    "ctx_tags": [
-     "game:div",
-     "game:rival",
-     "them:east1000",
-     "them:trip1000"
-    ],
-    "dec": 1.7407407407407407,
-    "edge": -0.023973820085147812,
-    "edge_own": -0.026436977538158657,
-    "flow": {
-     "a": "0,0,0,0,0,0,0,0,0",
-     "h": "0,1,0,0,1,0,2,5"
-    },
-    "game_id": "mlb:401907924",
-    "home": true,
-    "intl": false,
-    "key_seen": {},
-    "league": "mlb",
-    "line": null,
-    "market": "ml",
-    "odds": -135,
-    "opp": "Red Sox",
-    "opp_outs": [],
-    "our_drama": [],
-    "outs": [],
-    "p": 0.5606958905893832,
-    "p_market": 0.54911742133538,
-    "public": "ride",
-    "reasons": [
-     "the stronger team"
-    ],
-    "result": "won",
-    "score": "Red Sox 0 @ Yankees 9",
-    "side": "home",
-    "start": "2026-09-30T00:00Z",
-    "stype": "3",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "Yankees",
-    "their_drama": [],
-    "tier": "lock",
-    "trap": false,
-    "waiting": [],
-    "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
-   },
-   {
-    "bd_tags": [
-     "better:0",
-     "h2h:1",
-     "G_cold:0",
-     "cx_rival:1",
-     "home:4",
-     "keyout_both:2",
-     "bottom_s:1",
-     "w_better:1",
-     "k_rival:0"
-    ],
-    "breakdown": [
-     "\ud83d\udcaa Oilers are straight up the better team right now.",
-     "\ud83c\udfdf\ufe0f Oilers got the whole building behind 'em tonight.",
-     "\ud83c\udd9a Oilers have had Canucks's number: 2 of the last 3.",
-     "\ud83d\ude91 Neither team has its starting goalie \u2014 Frederik Andersen (the Oilers) and Thatcher Demko (the Canucks) are both out. The line already moved for it (-275 \u2192 -305). We still like the Oilers.",
-     "\ud83e\udd45 The Canucks' goalie Kevin Lankinen has been giving up a lot of goals \u2014 a 0.881 save % (12 goals on 101 shots) over his last 3 starts.",
-     "\u2705 Bottom line: the book has Oilers -1.5 (-118) close, but the small stuff breaks our way. We finna see."
-    ],
-    "bv": 33,
-    "country": "Canada",
-    "ctx": [
-     {
-      "k": "rival"
-     }
-    ],
-    "ctx_tags": [
-     "game:div",
-     "game:rival"
-    ],
-    "dec": 1.847457627118644,
-    "edge": 0.02382801737743523,
-    "flow": {
-     "a": "1,1,3,1",
-     "h": "1,1,3,0"
-    },
-    "game_id": "nhl:401891804",
-    "home": true,
-    "intl": false,
-    "key_seen": {
-     "Frederik Andersen (Oilers G)": "Injured Reserve",
-     "Thatcher Demko (Canucks G)": "Injured Reserve"
-    },
-    "league": "nhl",
-    "line": -1.5,
-    "market": "spread",
-    "odds": -118,
-    "opp": "Canucks",
-    "opp_outs": [
-     "Mackenzie MacEachern (LW)"
-    ],
-    "our_drama": [],
-    "outs": [],
-    "p": 0.5541821378465016,
-    "p_market": 0.5412844036697247,
-    "public": "ride",
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ],
-    "result": "lost",
-    "score": "Canucks 6 @ Oilers 5",
-    "side": "home",
-    "start": "2026-09-30T02:00Z",
-    "stype": "2",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "Oilers",
-    "their_drama": [],
-    "tier": "lean",
-    "waiting": [],
-    "why_line": "\ud83d\udcaa Oilers are just the better team. That's just facts. Rivalry game, too \u2014 bragging rights on the line."
-   },
-   {
-    "bd_tags": [
-     "hot:5",
-     "better_s:4",
-     "cx_trip:1",
-     "sharp:2",
-     "splits:3",
-     "bottom_s:2",
-     "w_hot:1",
-     "k_trip:0"
-    ],
-    "breakdown": [
-     "\ud83d\udd25 Heat check: Padres have won 2 in a row (91-71).",
-     "\ud83e\uddf3 2,080-mile trip west for the Cubs. Frequent flyer points, heavy legs.",
-     "\ud83d\udcca The public's torn on this one (62% / 38%). The engine ain't.",
-     "\ud83d\udcaa Close-ish on paper, but Padres are better.",
-     "\u2705 Bottom line: Padres (-131) ain't a slam dunk, it's a smart number \u2014 and the little things all point our way. Tap in."
-    ],
-    "bv": 33,
-    "country": "",
-    "ctx": [
-     {
-      "dir": "W",
-      "k": "trip",
-      "mi": 2077,
-      "road6": 3,
-      "who": "them",
-      "wk": 4128
-     }
-    ],
-    "ctx_tags": [
-     "game:conf",
-     "them:trip1000",
-     "them:trip2000",
-     "them:week3000",
-     "them:west1000"
-    ],
-    "dec": 1.7633587786259541,
-    "edge": -0.023421113100612567,
-    "edge_own": -0.021633323714821517,
-    "flow": {
-     "a": "0,0,0,0,0,0,0,0,0",
-     "h": "2,0,1,1,3,0,1,0"
-    },
-    "game_id": "mlb:401907974",
-    "home": true,
-    "intl": false,
-    "key_seen": {},
-    "league": "mlb",
-    "line": null,
-    "market": "ml",
-    "odds": -131,
-    "opp": "Cubs",
-    "opp_outs": [],
-    "our_drama": [],
-    "outs": [],
-    "p": 0.5538174639992197,
-    "p_market": 0.541193294669103,
-    "public": null,
-    "reasons": [
-     "hotter recent form"
-    ],
-    "result": "won",
-    "score": "Cubs 0 @ Padres 8",
-    "side": "home",
-    "start": "2026-09-30T02:00Z",
-    "stype": "3",
-    "talk_ours": [],
-    "talk_theirs": [],
-    "team": "Padres",
-    "their_drama": [],
-    "tier": "lean",
-    "trap": false,
-    "waiting": [],
-    "why_line": "\ud83d\udd25 Padres are cooking right now (2 straight W's) and Cubs ain't matching that energy. Plus Cubs flew 2,080 miles for this."
-   }
-  ],
-  "p_hit": 0.1721,
-  "pnl": -100.0,
-  "posted": "2026-09-29T15:40Z",
-  "round": 1,
-  "settled": "2026-09-30T05:14Z",
-  "stake": 100.0,
-  "status": "lost",
-  "tier": "lean"
- },
- {
   "american": 921,
   "date": "2026-09-29",
   "dec": 10.2076,
@@ -1832,6 +1309,529 @@
    }
   ],
   "p_hit": 0.0919,
+  "pnl": -100.0,
+  "posted": "2026-09-29T15:40Z",
+  "round": 1,
+  "settled": "2026-09-30T05:14Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "lean"
+ },
+ {
+  "american": -135,
+  "date": "2026-09-29",
+  "dec": 1.7407,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "better_s:3",
+     "h2h:0",
+     "cx_rival:0",
+     "cx_trip:0",
+     "home:3",
+     "rest:4",
+     "splits_w:2",
+     "bottom_l:6",
+     "w_better:0",
+     "k_trip:1"
+    ],
+    "breakdown": [
+     "\ud83d\udcaa Yankees have a little more juice than Red Sox.",
+     "\ud83d\udd25 Rivalry game. The Yankees and the Red Sox got real history.",
+     "\ud83d\udcca The crowd's on the Yankees too \u2014 82% of the tickets, 85% of the cash. Public's usually wrong \u2014 not this time.",
+     "\ud83d\udecc Yankees had extra days to get right.",
+     "\ud83c\udfdf\ufe0f Yankees are home tonight and ready to handle business.",
+     "\ud83e\uddf3 The Red Sox: 1,040-mile trip east. That travel adds up.",
+     "\u2705 Bottom line: Yankees (-135) all day. We ain't overthinking this one."
+    ],
+    "bv": 31,
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     },
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 1039,
+      "road6": 1,
+      "who": "them",
+      "wk": 2240
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival",
+     "them:east1000",
+     "them:trip1000"
+    ],
+    "dec": 1.7407407407407407,
+    "edge": -0.023973820085147812,
+    "edge_own": -0.026436977538158657,
+    "flow": {
+     "a": "0,0,0,0,0,0,0,0,0",
+     "h": "0,1,0,0,1,0,2,5"
+    },
+    "game_id": "mlb:401907924",
+    "home": true,
+    "intl": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "market": "ml",
+    "odds": -135,
+    "opp": "Red Sox",
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5606958905893832,
+    "p_market": 0.54911742133538,
+    "public": "ride",
+    "reasons": [
+     "the stronger team"
+    ],
+    "result": "won",
+    "score": "Red Sox 0 @ Yankees 9",
+    "side": "home",
+    "start": "2026-09-30T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Yankees",
+    "their_drama": [],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
+   }
+  ],
+  "p_hit": 0.5607,
+  "pnl": 74.07,
+  "posted": "2026-09-29T15:40Z",
+  "round": 1,
+  "settled": "2026-09-30T03:17Z",
+  "stake": 100.0,
+  "status": "won",
+  "tier": "lock"
+ },
+ {
+  "american": 467,
+  "date": "2026-09-29",
+  "dec": 5.6709,
+  "kind": "three",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "better_s:3",
+     "h2h:0",
+     "cx_rival:0",
+     "cx_trip:0",
+     "home:3",
+     "rest:4",
+     "splits_w:2",
+     "bottom_l:6",
+     "w_better:0",
+     "k_trip:1"
+    ],
+    "breakdown": [
+     "\ud83d\udcaa Yankees have a little more juice than Red Sox.",
+     "\ud83d\udd25 Rivalry game. The Yankees and the Red Sox got real history.",
+     "\ud83d\udcca The crowd's on the Yankees too \u2014 82% of the tickets, 85% of the cash. Public's usually wrong \u2014 not this time.",
+     "\ud83d\udecc Yankees had extra days to get right.",
+     "\ud83c\udfdf\ufe0f Yankees are home tonight and ready to handle business.",
+     "\ud83e\uddf3 The Red Sox: 1,040-mile trip east. That travel adds up.",
+     "\u2705 Bottom line: Yankees (-135) all day. We ain't overthinking this one."
+    ],
+    "bv": 31,
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     },
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 1039,
+      "road6": 1,
+      "who": "them",
+      "wk": 2240
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival",
+     "them:east1000",
+     "them:trip1000"
+    ],
+    "dec": 1.7407407407407407,
+    "edge": -0.023973820085147812,
+    "edge_own": -0.026436977538158657,
+    "flow": {
+     "a": "0,0,0,0,0,0,0,0,0",
+     "h": "0,1,0,0,1,0,2,5"
+    },
+    "game_id": "mlb:401907924",
+    "home": true,
+    "intl": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "market": "ml",
+    "odds": -135,
+    "opp": "Red Sox",
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5606958905893832,
+    "p_market": 0.54911742133538,
+    "public": "ride",
+    "reasons": [
+     "the stronger team"
+    ],
+    "result": "won",
+    "score": "Red Sox 0 @ Yankees 9",
+    "side": "home",
+    "start": "2026-09-30T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Yankees",
+    "their_drama": [],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
+   },
+   {
+    "bd_tags": [
+     "better:0",
+     "h2h:1",
+     "G_cold:0",
+     "cx_rival:1",
+     "home:4",
+     "keyout_both:2",
+     "bottom_s:1",
+     "w_better:1",
+     "k_rival:0"
+    ],
+    "breakdown": [
+     "\ud83d\udcaa Oilers are straight up the better team right now.",
+     "\ud83c\udfdf\ufe0f Oilers got the whole building behind 'em tonight.",
+     "\ud83c\udd9a Oilers have had Canucks's number: 2 of the last 3.",
+     "\ud83d\ude91 Neither team has its starting goalie \u2014 Frederik Andersen (the Oilers) and Thatcher Demko (the Canucks) are both out. The line already moved for it (-275 \u2192 -305). We still like the Oilers.",
+     "\ud83e\udd45 The Canucks' goalie Kevin Lankinen has been giving up a lot of goals \u2014 a 0.881 save % (12 goals on 101 shots) over his last 3 starts.",
+     "\u2705 Bottom line: the book has Oilers -1.5 (-118) close, but the small stuff breaks our way. We finna see."
+    ],
+    "bv": 33,
+    "country": "Canada",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.847457627118644,
+    "edge": 0.02382801737743523,
+    "flow": {
+     "a": "1,1,3,1",
+     "h": "1,1,3,0"
+    },
+    "game_id": "nhl:401891804",
+    "home": true,
+    "intl": false,
+    "key_seen": {
+     "Frederik Andersen (Oilers G)": "Injured Reserve",
+     "Thatcher Demko (Canucks G)": "Injured Reserve"
+    },
+    "league": "nhl",
+    "line": -1.5,
+    "market": "spread",
+    "odds": -118,
+    "opp": "Canucks",
+    "opp_outs": [
+     "Mackenzie MacEachern (LW)"
+    ],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5541821378465016,
+    "p_market": 0.5412844036697247,
+    "public": "ride",
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent missing key players"
+    ],
+    "result": "lost",
+    "score": "Canucks 6 @ Oilers 5",
+    "side": "home",
+    "start": "2026-09-30T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Oilers",
+    "their_drama": [],
+    "tier": "lean",
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Oilers are just the better team. That's just facts. Rivalry game, too \u2014 bragging rights on the line."
+   },
+   {
+    "bd_tags": [
+     "hot:5",
+     "better_s:4",
+     "cx_trip:1",
+     "sharp:2",
+     "splits:3",
+     "bottom_s:2",
+     "w_hot:1",
+     "k_trip:0"
+    ],
+    "breakdown": [
+     "\ud83d\udd25 Heat check: Padres have won 2 in a row (91-71).",
+     "\ud83e\uddf3 2,080-mile trip west for the Cubs. Frequent flyer points, heavy legs.",
+     "\ud83d\udcca The public's torn on this one (62% / 38%). The engine ain't.",
+     "\ud83d\udcaa Close-ish on paper, but Padres are better.",
+     "\u2705 Bottom line: Padres (-131) ain't a slam dunk, it's a smart number \u2014 and the little things all point our way. Tap in."
+    ],
+    "bv": 33,
+    "country": "",
+    "ctx": [
+     {
+      "dir": "W",
+      "k": "trip",
+      "mi": 2077,
+      "road6": 3,
+      "who": "them",
+      "wk": 4128
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:trip1000",
+     "them:trip2000",
+     "them:week3000",
+     "them:west1000"
+    ],
+    "dec": 1.7633587786259541,
+    "edge": -0.023421113100612567,
+    "edge_own": -0.021633323714821517,
+    "flow": {
+     "a": "0,0,0,0,0,0,0,0,0",
+     "h": "2,0,1,1,3,0,1,0"
+    },
+    "game_id": "mlb:401907974",
+    "home": true,
+    "intl": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "market": "ml",
+    "odds": -131,
+    "opp": "Cubs",
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5538174639992197,
+    "p_market": 0.541193294669103,
+    "public": null,
+    "reasons": [
+     "hotter recent form"
+    ],
+    "result": "won",
+    "score": "Cubs 0 @ Padres 8",
+    "side": "home",
+    "start": "2026-09-30T02:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Padres",
+    "their_drama": [],
+    "tier": "lean",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udd25 Padres are cooking right now (2 straight W's) and Cubs ain't matching that energy. Plus Cubs flew 2,080 miles for this."
+   }
+  ],
+  "p_hit": 0.1721,
+  "pnl": -100.0,
+  "posted": "2026-09-29T15:40Z",
+  "round": 1,
+  "settled": "2026-09-30T05:14Z",
+  "stake": 100.0,
+  "status": "lost",
+  "tier": "lean"
+ },
+ {
+  "american": 222,
+  "date": "2026-09-29",
+  "dec": 3.2159,
+  "kind": "two",
+  "lean": false,
+  "legs": [
+   {
+    "bd_tags": [
+     "better_s:3",
+     "h2h:0",
+     "cx_rival:0",
+     "cx_trip:0",
+     "home:3",
+     "rest:4",
+     "splits_w:2",
+     "bottom_l:6",
+     "w_better:0",
+     "k_trip:1"
+    ],
+    "breakdown": [
+     "\ud83d\udcaa Yankees have a little more juice than Red Sox.",
+     "\ud83d\udd25 Rivalry game. The Yankees and the Red Sox got real history.",
+     "\ud83d\udcca The crowd's on the Yankees too \u2014 82% of the tickets, 85% of the cash. Public's usually wrong \u2014 not this time.",
+     "\ud83d\udecc Yankees had extra days to get right.",
+     "\ud83c\udfdf\ufe0f Yankees are home tonight and ready to handle business.",
+     "\ud83e\uddf3 The Red Sox: 1,040-mile trip east. That travel adds up.",
+     "\u2705 Bottom line: Yankees (-135) all day. We ain't overthinking this one."
+    ],
+    "bv": 31,
+    "country": "",
+    "ctx": [
+     {
+      "k": "rival"
+     },
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 1039,
+      "road6": 1,
+      "who": "them",
+      "wk": 2240
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival",
+     "them:east1000",
+     "them:trip1000"
+    ],
+    "dec": 1.7407407407407407,
+    "edge": -0.023973820085147812,
+    "edge_own": -0.026436977538158657,
+    "flow": {
+     "a": "0,0,0,0,0,0,0,0,0",
+     "h": "0,1,0,0,1,0,2,5"
+    },
+    "game_id": "mlb:401907924",
+    "home": true,
+    "intl": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "market": "ml",
+    "odds": -135,
+    "opp": "Red Sox",
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5606958905893832,
+    "p_market": 0.54911742133538,
+    "public": "ride",
+    "reasons": [
+     "the stronger team"
+    ],
+    "result": "won",
+    "score": "Red Sox 0 @ Yankees 9",
+    "side": "home",
+    "start": "2026-09-30T00:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Yankees",
+    "their_drama": [],
+    "tier": "lock",
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
+   },
+   {
+    "bd_tags": [
+     "better:0",
+     "h2h:1",
+     "G_cold:0",
+     "cx_rival:1",
+     "home:4",
+     "keyout_both:2",
+     "bottom_s:1",
+     "w_better:1",
+     "k_rival:0"
+    ],
+    "breakdown": [
+     "\ud83d\udcaa Oilers are straight up the better team right now.",
+     "\ud83c\udfdf\ufe0f Oilers got the whole building behind 'em tonight.",
+     "\ud83c\udd9a Oilers have had Canucks's number: 2 of the last 3.",
+     "\ud83d\ude91 Neither team has its starting goalie \u2014 Frederik Andersen (the Oilers) and Thatcher Demko (the Canucks) are both out. The line already moved for it (-275 \u2192 -305). We still like the Oilers.",
+     "\ud83e\udd45 The Canucks' goalie Kevin Lankinen has been giving up a lot of goals \u2014 a 0.881 save % (12 goals on 101 shots) over his last 3 starts.",
+     "\u2705 Bottom line: the book has Oilers -1.5 (-118) close, but the small stuff breaks our way. We finna see."
+    ],
+    "bv": 33,
+    "country": "Canada",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.847457627118644,
+    "edge": 0.02382801737743523,
+    "flow": {
+     "a": "1,1,3,1",
+     "h": "1,1,3,0"
+    },
+    "game_id": "nhl:401891804",
+    "home": true,
+    "intl": false,
+    "key_seen": {
+     "Frederik Andersen (Oilers G)": "Injured Reserve",
+     "Thatcher Demko (Canucks G)": "Injured Reserve"
+    },
+    "league": "nhl",
+    "line": -1.5,
+    "market": "spread",
+    "odds": -118,
+    "opp": "Canucks",
+    "opp_outs": [
+     "Mackenzie MacEachern (LW)"
+    ],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5541821378465016,
+    "p_market": 0.5412844036697247,
+    "public": "ride",
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "opponent missing key players"
+    ],
+    "result": "lost",
+    "score": "Canucks 6 @ Oilers 5",
+    "side": "home",
+    "start": "2026-09-30T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Oilers",
+    "their_drama": [],
+    "tier": "lean",
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Oilers are just the better team. That's just facts. Rivalry game, too \u2014 bragging rights on the line."
+   }
+  ],
+  "p_hit": 0.3107,
   "pnl": -100.0,
   "posted": "2026-09-29T15:40Z",
   "round": 1,
