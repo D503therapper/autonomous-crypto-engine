@@ -4185,3 +4185,26 @@ DEX: $773.51 (-226.49) · Scammed: 0
 [2026-09-30 22:33 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-30 22:33 UTC] crypto/hold_btc  equity $498.49 (-0.3%) 1 open  market UP
    social heat top: TRUMP 35 (35/0/0), NEAR 29 (29/0/0), QNT 27 (27/0/0), PENGU 24 (24/0/0), MOVR 21 (21/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '85619.03', 'l': '82914.43', 'a': '83780.15', 'v': '3723.5789', 'vv': '312678928.97', 'c': '0.0030', 'b': '83780.15', 'k': '83780.16', 'oi': '0', 't': 1790807641586}
+   dex outcome: normal AIRPAD@solana:6ZG6fMHa tier A P/L $-93.36 (trailing stop (peak 0.002147))
+   >> dex/dex_hunter: SELL $0.68 of AIRPAD@solana:6ZG6fMHa @ 8e-06, P/L $-93.36 (trailing stop (peak 0.002147))
+   dex screen: REJECT XSOL@solana liq $589,928 - mint authority; top-10 holders 45%; lp holders unknown
+   dex screen: REJECT POTUS@solana liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT BSI@solana liq $147,720 - holders unknown; lp holders unknown; rugcheck danger: Creator history of rugged tokens; rugcheck score 76
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT ZEC@solana liq $2,981,719 - mint authority
+   dex screen: REJECT NVDAC@base liq $2,392,172 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 75%; lp locked 0% < 95%
+   dex scanner: 2,998 pools (solana 2,061 / base 532 / ethereum 405), refresh cycle 117s (hot 114s), 1381 calls (55 feed, 429s 1, failed 1), 39,715 refreshed (3727 no pair), +63 added / -65 dropped (dead 14, stale 0, cap 51), movers 5 + warming 13 -> queued 1, screened 1 (passed 0), bought 0
+[2026-09-30 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-30 23:06 UTC] crypto/mover     equity $491.03 (-1.8%) 1 open  market UP
+[2026-09-30 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 23:06 UTC] crypto/social_heat equity $549.04 (+9.8%) 1 open  market UP
+[2026-09-30 23:06 UTC] crypto/breakout10 equity $516.50 (+3.3%) 2 open  market UP
+[2026-09-30 23:06 UTC] crypto/momentum  equity $483.61 (-3.3%) 2 open  market UP
+[2026-09-30 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-30 23:06 UTC] crypto/hold_btc  equity $497.85 (-0.4%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), QNT 32 (32/0/0), PENGU 29 (29/0/0), NEAR 27 (27/0/0), PONS 26 (16/0/10)
