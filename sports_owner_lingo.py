@@ -30,13 +30,17 @@ OWNER = {
     "booty cheeks": "the other side's been terrible",
     "rocking with the sharps": "now and then when the price moved our way - never every card (we're our own engine)",
     "like they stole something": "a blowout win's review (the owner loved it, 9/29 - keep it)",
+    "somebody give this man his flowers": "one of OUR players went off in a win ('Trevor Lawrence went crazy. Somebody "
+                                           "give this man his flowers. Cash it, baby.') - always HIS flowers (9/30)",
+    "cash it, baby": "right after the flowers line, on a win",
     # the crew
     "the homies": "the people on the board with us",
 }
 
 # words he's said NOT to use (the dashboard never says these)
 NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both calendars", "leaky",
-         "class of this")   # (9/29: "class of the match" - he's never heard it said)
+         "class of this", "give him flowers", "give this man flowers", "give her flowers")   # (9/30: it's always
+#                                                                        "somebody give this man HIS flowers")   # (9/29: "class of the match" - he's never heard it said)
 
 # where the write-ups live (what the test searches)
 SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py")

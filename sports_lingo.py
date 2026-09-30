@@ -489,6 +489,19 @@ REVIEWS = {
         "The lead didn't hold. %lk%",
         "Blown lead on {t}. [Pain.|Brutal.|Ugly.] %lk%",
     )),
+    ("flowers", "won"): (100, 3, T(   # 💐 one of ours went off in a win (the owner's words, 9/30 - always "HIS flowers")
+        "{star} [went crazy|went off|was on one|was cooking|put on a show|had it going]. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.|Let's eat.|Nice nice.] [💐|💰]",
+        "{star} went the fuck off. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.] [💰|💐]",
+        "Somebody give {star} his flowers. {t} [cashed|got it done|came through|handled business] [and he was the reason|behind him|on his back]. [💐|💰]",
+        "{t} [got it done|cashed|handled business] and {star} [went off|went crazy|was on one|cooked]. Somebody give this man his flowers. [💰|💐]",
+        "[Cash it, baby.|Paid.|Cashed.] {star} [went crazy|went off|was on one|put on a show]. Somebody give this man his flowers. [💐|💰]",
+        "{star} [took over|carried us|did it all|went nuclear]. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.|Let's eat.] [💐|💰]",
+        "[What a night|What a game|Big-time night] from {star}. Somebody give this man his flowers. [Cash it, baby.|Paid.|Cashed.|Nice nice.] [💐|💰]",
+        "{t} [cashed|won|got there] because {star} [went off|went crazy|took over|was on one]. Somebody give this man his flowers. [💐|💰]",
+        "Somebody give this man his flowers: {star} [went off|went crazy|took over|was on one|put on a show]. [Cash it, baby.|Paid.|Cashed.] [💐|💰]",
+        "{star} [balled out|showed out|showed up big|played out of his mind]. Somebody give this man his flowers. [Cash it, baby.|Paid.|Cashed.|Let's eat.] [💐|💰]",
+        "[Ticket cashed|We got paid|Green ticket] and {star} [balled out|went off|went crazy|took over]. Somebody give this man his flowers. [💐|💰]",
+    )),
     ("big", "won"): (59, 3, T(
         "{t} ran {o} out the building. %wk%",
         "{t} beat {o} like they stole something.",
@@ -853,6 +866,11 @@ LINES = {
         '💰 Match went the other way, but {who} [covered|cashed] for us.',
         '💰 {who} [fell|lost] and [still covered|still got us paid|still cashed].',
         '💰 Covered. {who} lost the match, not the bet.',
+    )),
+    "rc:flowers": ((90, 3), False, T(   # 💐 a men's player who dominated (the owner, 9/30 - always "HIS flowers")
+        "💐 {who} [went crazy|went off|was on one|put on a clinic]{sc}. Somebody give this man his flowers. [Cash it, baby.|Cashed.|Paid.]",
+        "💐 {who} went the fuck off{sc}. Somebody give this man his flowers. [Cash it, baby.|Paid.]",
+        "💐 Somebody give {who} his flowers{sc}. [Cashed.|Paid.|Cash it, baby.]",
     )),
     "rc:won": ((39, 2), False, T(
         "💰 {who} [got it done|handled business|came through|went to work|took care of it|smacked that]{sc}. [Cashed.|Paid.|Told y'all.|Nice nice.|Easy money.|Light work.]",

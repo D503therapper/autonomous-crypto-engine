@@ -710,6 +710,9 @@ def _tennis():
         elif l.get("result") == "won" and _battle(sets):          # swept it, but a set went the distance
             opp = stn._say_name(l.get("opp")) or "They"
             out = sports_lingo.say("rc:battle", l["id"], used, who=who, opp=opp, his=his, sets=f"{len(sets)}-0")
+        elif l.get("result") == "won" and his == "his" and len(sets) >= 2 and won_sets == len(sets) \
+                and sum(int(b[:1]) for _, b in sets) <= 4:         # 💐 a men's straight-sets beatdown: his flowers
+            out = sports_lingo.say("rc:flowers", l["id"], used, who=who, sc="")
         elif l.get("result") == "won":
             out = sports_lingo.say("rc:won", l["id"], used, who=who, sc="", his=his)
         elif l.get("result") == "lost":
@@ -822,6 +825,9 @@ def _tn_count(shown, tour_of):
     return f"{nm} men's + {nw} women's" + (f" · {held} from yesterday still going" if held else "")
 
 
+_GAMES_ = [{}]                   # the games file for the reviews' box-score lookups (set once per build)
+
+
 def _history(picks):
     """📜 PAST RESULTS: tap open any sport and see every pick that won or lost, newest first."""
     import sports
@@ -895,6 +901,14 @@ def _history(picks):
             return None
         return (sum(us) - sum(them) + adj, max(0, -min(marg)), max(0, max(marg)))
 
+    def _star(l):
+        try:
+            import sports_roster as sr
+            g = _GAMES_[0].get(l.get("game_id")) or {}
+            return sr.star_night(l.get("league"), l.get("game_id"), g.get(l.get("side")), l.get("start") or g.get("start", ""))
+        except Exception:                                    # noqa: BLE001
+            return None
+
     def rev_leg(l, r, date, p=None, lean=False):
         """The review for one game pick: blowout / close / confident-and-folded / fav / dog / spread / total."""
         lg, mg = l.get("league"), margin(l.get("score"), l.get("team"))
@@ -919,6 +933,10 @@ def _history(picks):
             kind = "close"
         elif r == "lost" and (p or l.get("p") or 0) >= 0.6:
             kind = "conf"
+        if r == "won" and l.get("market") != "total" and kind not in ("comeback",):   # 💐 one of ours went off: his
+            star = _star(l)                                   # flowers (the owner's words, 9/30)
+            if star:
+                kind, xtra = "flowers", {"star": star}
         if r == "lost" and l.get("market") == "spread" and (l.get("line") or 0) < 0 and mg is not None and mg < 0 \
                 and kind not in ("collapse", "fade"):          # laid the points and lost the game outright: say so,
             kind, xtra = "outright", {}                     # (the owner, 9/29 - never just "couldn't cover")
@@ -1112,6 +1130,7 @@ def write_sw(path):
 def render(picks, model, games, series, start_bank, updated_ms):
     import sports
     WHY_USED.clear()
+    _GAMES_[0] = games or {}
     try:                                                     # ⏰ which of today's picks we already got in early on
         import sports_early
         EARLY_IN.clear()
