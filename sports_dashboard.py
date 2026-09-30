@@ -207,7 +207,8 @@ def units_box(picks, today=None):
     to start, a unit = 1% of the bankroll that morning, every graded pick at its size and price. Said in plain dollars +
     ROI only (the owner, 9/30: '+6.6u on 14u bet' was confusing)."""
     import sports
-    led = sports.units_ledger(picks)
+    import sports_early
+    led = sports.units_ledger(picks, sports_early.load().get("picks") or [])
     if not led["rows"]:
         return ""
     bank, start = led["bankroll"], sports.BANKROLL_START
@@ -223,7 +224,7 @@ def units_box(picks, today=None):
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
            + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
-                     (("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
+                     (("early", "⏰ Early value plays"), ("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
                       ("strong", "💪 Strong leans"), ("slight", "🟡 Slight leans"))))
     return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
@@ -1056,8 +1057,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         challenge = ""
     try:                                                     # ⏰ early value plays (the owner, 9/30)
         import sports_early
-        early = sports_early.html(sports_early.load(), E)
-        early_today = sports_early.gameday_html(sports_early.load(), games, E)
+        early = sports_early.html(sports_early.load(), E, show_units=_units_line)
+        early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=_units_line)
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
         early = early_today = ""
@@ -1502,6 +1503,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
+.evr .un,.egl .un{{text-align:left;margin-top:4px}} .evr .un .mb,.egl .un .mb{{display:inline-block;margin:0}}   /* an early play's units: under its game time */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}

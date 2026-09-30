@@ -756,7 +756,9 @@ def pick_tier(pk):
     return "value" if "value" in tiers else "lean"
 
 
-UNIT_LADDER = ((0.70, 10), (0.65, 7), (0.62, 5), (0.60, 4), (0.58, 3), (0.56, 2))   # the owner, 9/30: 0.5u up to a
+GAMEDAY_UNITS = 1             # the sizing study (9/30, 5 seasons it never saw): at GAME-TIME prices a bigger engine edge
+                               # did NOT win more - sizing up lost more money in every sport. So game-day plays go flat: 1u
+                               # (a slight lean ½u). Early plays are where the engine's edge grows the money (sports_early.units).
 UNIT_MAX = 10                  # 10u max play (1u = 1% of the bankroll, so the max play is 10% of it)
 PARLAY_KINDS = ("two", "three", "four", "eight")   # the owner, 9/30: a parlay is for fun - no units on it; each PICK in it
                                                    # carries its own units, as a straight bet
@@ -768,7 +770,7 @@ def _dec(odds):
     return 1 + (odds / 100 if odds > 0 else 100 / -odds)
 
 
-def units_ledger(picks):
+def units_ledger(picks, early=()):
     """The open bankroll (the owner, 9/30: 'everything completely transparent'): every graded STRAIGHT pick in our
     record, once each, in the order it settled, at its units and real price. A parlay itself carries no units (the
     owner, 9/30: 'parlays are just for entertainment') - each pick in it counts as its own straight bet, and a pick
@@ -789,6 +791,14 @@ def units_ledger(picks):
             calls[key] = (parlay, {**p, "kind": "pick" if parlay else p.get("kind"), "units_tier": units_tier(p, l)},
                           leg_units(p, l), res, dec,
                           p.get("settled") or p.get("posted") or "")
+    import sports_early                                  # ⏰ early value plays: the price we got in at, sized by the engine's
+    for e in early or ():                                # edge - one count per pick (the early one, when it's on the board too)
+        if e.get("result") not in ("won", "lost", "push") or not e.get("odds"):
+            continue
+        day = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).strftime("%Y-%m-%d")
+        calls[(day, e["game_id"], e["side"])] = (False, {"date": day, "kind": "early", "units_tier": "early",
+                                                         "legs": [{"team": e["team"]}]},
+                                                 sports_early.units(e), e["result"], _dec(e["odds"]), e.get("graded_at") or "")
     rows_in = sorted(calls.values(), key=lambda c: (c[1]["date"], c[5]))
     bank, rows, by_date = BANKROLL_START, [], {}
     for day in sorted({c[1]["date"] for c in rows_in}):
@@ -802,19 +812,17 @@ def units_ledger(picks):
 
 
 def units_for(pk):
-    """How many units a pick gets (the owner, 9/30 - 'put how many units under each label'): a lock by how sure the
-    engine is (2u at 56% up to the 10u max at 70%+), value plays 2u, the Dog of the Day 2u as a value dog else 1u, a strong
-    lean 1u, a slight lean 0.5u. A parlay: 0 - the picks in it carry the units (leg_units)."""
+    """How many units a game-day pick gets (the owner, 9/30 - 'the engine decides'): the sizing study found a bigger engine
+    edge at game-time prices doesn't make more money, so every game-day play is 1u and a slight lean ½u. A parlay: 0 - the
+    picks in it carry the units (leg_units). Early value plays are sized by the engine's edge (sports_early.units)."""
     kind, legs = pk.get("kind"), pk.get("legs") or []
     if kind in PARLAY_KINDS:
         return 0
-    t = pick_tier(pk)
+    t = "value" if kind == "dog" else pick_tier(pk)
     p = (legs[0].get("p") or 0) if legs else 0
-    if t == "value" or kind == "dog":                    # the Dog of the Day is a value play (the owner, 9/30)
-        return 2
-    if t == "lock":
-        return next((u for floor, u in UNIT_LADDER if p >= floor), 2)
-    return 1 if p >= STRONG_LEAN_P else 0.5
+    if t in ("lock", "value") or p >= STRONG_LEAN_P:
+        return GAMEDAY_UNITS
+    return 0.5
 
 
 def units_tier(pk, leg):

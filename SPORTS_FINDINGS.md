@@ -15,6 +15,14 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
 - **Playoff series spot:** a favorite that just lost the last game - baseball won 50% (-14%), NBA/NHL favorites facing
   elimination -15% / -19%. Wild Card Game 1 winners closed out 17 of 24; teams shut out in Game 1 went 0 for 5.
 
+- **Unit sizing (9/30, 5 seasons it never saw, every sport):** at the OPENING price, the bigger the engine's edge the
+  more the line moves our way (NFL biggest edges: moved our way 80%, flipped to favorites 61%; NHL 78% / 39%; MLB 76% /
+  31%) and the more money it makes - sizing early plays by the edge (quarter-Kelly, ½-10u) beat flat units: NFL +242u
+  vs +20u, NBA +124u vs -18u, NHL +90u vs +57u, college football +72u vs -9u. Rest, home, season phase add almost
+  nothing on top (a separate move model did worse than the edge alone). At GAME-TIME prices a bigger edge did NOT win
+  more (sizing up lost more in every sport) - so game-day plays are flat 1u (slight lean ½u). College hoops and MLB
+  early: sizing didn't help. Live plus money and tennis: no units (their own records).
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER
