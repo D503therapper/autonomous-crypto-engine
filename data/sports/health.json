@@ -1,24 +1,33 @@
 {
- "at": "2026-09-30T04:29Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-09-30T06:00Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-09-29 Tommy Paul) - started sports.yml"
+ ],
+ "problems": [
+  "live board check failed: HTTP Error 403: rate limit exceeded"
+ ],
  "ok": [
-  "live watcher fresh (27s)",
-  "every finished pick graded",
+  "live watcher fresh (32s)",
   "scores route up (200)",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 5 fresh (betrivers 5)",
-  "all 4 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 6h ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-09-30T06:00Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-09-29 Tommy Paul) - started sports.yml"
+   ],
+   "problems": [
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-09-30T04:29Z",
    "fixes": [],
