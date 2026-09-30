@@ -4035,7 +4035,8 @@ def test_patty_vs_the_algorithm():
     now = datetime(2026, 9, 30, 9, 0, tzinfo=timezone.utc)
     pm = {}
     for k in range(14):                                      # 14 matches tomorrow, the engine's side priced -150..+120
-        pm[f"atp:{k}"] = {"p1_name": f"Al{k} Fav{k}", "p2_name": f"Bo{k} Dog{k}", "start": "2026-10-01T04:00Z",
+        L_ = "ABCDEFGHIJKLMN"[k]                              # (letters: the name matcher ignores digits)
+        pm[f"atp:{k}"] = {"p1_name": f"Al Fav{L_}", "p2_name": f"Bo Dog{L_}", "start": "2026-10-01T04:00Z",
                           "ml": [-150 - 20 * k, 120 + 15 * k], "model_p1": 0.6 + 0.02 * k, "tour": "atp"}
     pm["atp:50"] = {"p1_name": "Cy Value", "p2_name": "Dee Chalky", "start": "2026-10-01T04:00Z",   # a plus-money
                     "ml": [150, -180], "model_p1": 0.55, "tour": "atp"}                              # player it has winning
@@ -4044,10 +4045,10 @@ def test_patty_vs_the_algorithm():
     pm["atp:99"] = {"p1_name": "Francisco Cerundolo", "p2_name": "Juan Manuel Cerundolo", "start": "2026-10-01T04:00Z",
                     "ml": [-150, 125], "model_p1": 0.6}
     C._save({"name": "Patty", "patty": [{"player": n, "ml": C.EST_ML, "est": True, "result": None}
-                                        for n in ["Al1 Fav1", "Al2 Fav2", "Francisco Cerundolo", "Nobody Yet"]], "algo": []}, path)
+                                        for n in ["Al FavB", "Bo DogC", "Francisco Cerundolo", "Nobody Yet"]], "algo": []}, path)
     c = C.update(pm=pm, now=now, path=path)
     assert c["waiting"] == ["Nobody Yet"] and c["algo"] == [], "an unpriced leg: the engine waits"
-    assert [l["side"] for l in c["patty"][:3]] == [1, 1, 1] and c["patty"][2]["match"] == "atp:99"   # the right Cerundolo
+    assert [l["side"] for l in c["patty"][:3]] == [1, 2, 1] and c["patty"][2]["match"] == "atp:99"   # the right Cerundolo
     c["patty"] = c["patty"][:3]
     C._save(c, path)
     c = C.update(pm=pm, now=now, path=path)
