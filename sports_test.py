@@ -4879,6 +4879,22 @@ def test_rested_dog_vs_a_back_to_back():
     assert sports.dog_score({**base, "rested_vs_b2b": True}) == sports.dog_score(base) + 3
 
 
+def test_early_play_on_the_daily_board_says_we_got_in_early():
+    """The owner, 9/30: an early value play can still be a daily pick on game day (at the new line, if it's still a
+    play) - its card says we got in early and why it's still worth it; the board never takes the other side of it."""
+    import inspect
+    import sports_dashboard as d
+    d.EARLY_IN.clear()
+    d.EARLY_IN[("nhl:1", "home")] = 136
+    leg = {"game_id": "nhl:1", "side": "home", "market": "ml", "team": "Flyers", "odds": 110}
+    assert "We got in early at +136" in d.E(d._early_line(leg)).replace("&amp;", "&") or "+136" in d._early_line(leg)
+    assert "still" in d._early_line(leg)                               # the line moved against us: still worth it
+    assert any(w in d._early_line({**leg, "odds": 150}) for w in ("better", "even more"))   # the price got better
+    assert d._early_line({**leg, "side": "away"}) == "" and d._early_line({**leg, "market": "spread"}) == ""
+    d.EARLY_IN.clear()
+    assert "sports_early.load().get(\"picks\")" in inspect.getsource(sports.post_board)   # never the other side of it
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

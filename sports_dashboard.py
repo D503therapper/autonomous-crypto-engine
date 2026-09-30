@@ -376,6 +376,25 @@ def _why_fallback(leg):
     return ""
 
 
+EARLY_IN = {}                    # {(game id, side): the price we got in at} - early value plays (set in render)
+EARLY_WHY = {   # (the owner, 9/30: an early play on the daily board says we got in early - and why it's still a play)
+    "worse": ("⏰ We got in early at {o}. The market corrected, and it's still worth it at this price.",
+              "⏰ Early bettors got {o}. The line moved, but the value's still here.",
+              "⏰ We grabbed this at {o} early. Even after the move, it's still worth a bet."),
+    "better": ("⏰ We got in early at {o} — and the price is even better now.",
+               "⏰ Early bettors got {o}. It's paying even more now — still a play.")}
+
+
+def _early_line(leg):
+    """The 'we got in early' line for a daily pick that's also one of our early value plays ('' otherwise)."""
+    o = EARLY_IN.get((leg.get("game_id"), leg.get("side")))
+    if o is None or leg.get("market") != "ml":
+        return ""
+    better = sd.decimal(leg["odds"]) > sd.decimal(o)
+    pool = EARLY_WHY["better" if better else "worse"]
+    return f'<div class="why">{E(pool[sum(map(ord, leg.get("team", ""))) % len(pool)].format(o=_am(o)))}</div>'
+
+
 def _leg(leg, tagged=False, review="", units=None):
     import sports
     lg = sd.LEAGUES[leg["league"]]
@@ -401,7 +420,7 @@ def _leg(leg, tagged=False, review="", units=None):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {_units_line(units, leg.get("team", ""), leg.get("odds")) if units is not None else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units, leg.get("team", ""), leg.get("odds")) if units is not None else ""}{_early_line(leg) if not res else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -1084,6 +1103,13 @@ def write_sw(path):
 def render(picks, model, games, series, start_bank, updated_ms):
     import sports
     WHY_USED.clear()
+    try:                                                     # ⏰ which of today's picks we already got in early on
+        import sports_early
+        EARLY_IN.clear()
+        EARLY_IN.update({(e["game_id"], e["side"]): e["odds"] for e in sports_early.load().get("picks") or []
+                         if e.get("odds") and e.get("result") is None})
+    except Exception as e:                                   # noqa: BLE001
+        print(f"early-in map failed: {e}")
     now = datetime.now(PT)
     today = board_day(now, picks)                           # (yesterday's board till 1 AM / its last game is graded)
     order = list(LOOK)
