@@ -4655,7 +4655,7 @@ def test_units_and_the_open_bankroll():
     led = sports.units_ledger([two, lock])                 # the lock counts once (not again as a parlay leg)
     assert len(led["rows"]) == 2 and led["rows"][0][0]["kind"] == "lock"
     assert abs(sum(r[2] for r in led["rows"]) - (5 * 100 / 140 - 1)) < 1e-9
-    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "tier": "lean"}]}) == 1
+    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "tier": "lean"}]}) == 2    # a value play
     assert sports.units_for({"kind": "solo", "tier": "value", "legs": [{"p": 0.45}]}) == 2
     day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
     day2 = {"date": "2026-09-30", "kind": "lock", "status": "lost", "dec": 1.5, "legs": [{"p": 0.563}]}  # 2u, -2u
@@ -4668,6 +4668,12 @@ def test_units_and_the_open_bankroll():
     assert all(x in box for x in ("Overall", "Today", "Last 7 days", "ROI", "Started at $1,000"))
     assert "Today" not in d.units_box([day1, day2], "2026-10-09")        # nothing graded that day: no empty row
     assert "Parlays" not in box
+    assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
+    assert "🔥 VALUE PLAY<" in d.TIER_CHIP["value"] and "🔥 VALUE PLAY<" in d.LEG_TAG["value"]   # 'value plays', not 'value'
+    dog = {"date": "2026-09-30", "kind": "dog", "status": "won", "dec": 2.6, "legs": [{"p": 0.40, "tier": "lean"}]}
+    lean = {"date": "2026-09-30", "kind": "solo", "lean": True, "status": "lost", "dec": 1.9, "legs": [{"p": 0.52}]}
+    tiers = [r[0]["units_tier"] for r in sports.units_ledger([dog, lean, two])["rows"]]
+    assert sorted(tiers) == ["lock", "slight", "strong", "value"]          # the Dog of the Day is a value play
     assert "u bet" not in box and "u ·" not in box          # plain dollars + ROI (the owner: '+6.6u on 14u bet' confused him)
 
 

@@ -181,9 +181,9 @@ def _tennis_live_story(e, used):
     return f"{score}{dd + '.' if dd else ''} {end}"
 
 
-TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
+TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE PLAY</span>',
              "lean": '<span class="chip lean">🟡 SLIGHT LEAN</span>', "strong": '<span class="chip lean">💪 STRONG LEAN</span>'}
-TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE", "#ff5a1f", "#ff8a00"),
+TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE PLAYS", "#ff5a1f", "#ff8a00"),
              "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
 
 
@@ -215,12 +215,12 @@ def units_box(picks, today=None):
         return (f'<div class="{cls}"><span>{E(label)}</span><b class="{"up" if nd >= 0 else "dn"}">'
                 f'{"+" if nd >= 0 else "-"}${abs(nd):,.2f} · {nu / u:+.0%} ROI</b></div>') if rs and u else ""
     rows = led["rows"]
-    kind = lambda r: r[0].get("kind")
+    tier = lambda r: r[0].get("units_tier")
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
-           + line("🔒 Lock of the Day", [r for r in rows if kind(r) == "lock"])
-           + line("🐺 Dog of the Day", [r for r in rows if kind(r) == "dog"])
-           + line("🔥 Other picks", [r for r in rows if kind(r) not in ("lock", "dog")]))
+           + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
+                     (("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
+                      ("strong", "💪 Strong leans"), ("slight", "🟡 Slight leans"))))
     return (f'<div class="unb"><div class="ovr-t">💰 BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
             f'<div class="unp">Started at ${start:,.0f} · 1 unit today = ${led["unit_today"]:,.2f}</div>{out}</div>')
@@ -295,7 +295,7 @@ def _breakdown(leg):
             f'<div class="bd-s">{body}</div></details>')
 
 
-LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
+LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE PLAY</span>',
            "lean": '<span class="lt-t lean">🟡 SLIGHT LEAN</span>', "strong": '<span class="lt-t lean">💪 STRONG LEAN</span>'}
 
 

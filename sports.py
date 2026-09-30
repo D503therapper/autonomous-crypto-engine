@@ -786,7 +786,8 @@ def units_ledger(picks):
             if key in calls and (parlay or not calls[key][0]):
                 continue                                     # a straight pick wins over the same pick in a parlay
             dec = _dec(l["odds"]) if l.get("odds") else p.get("dec") or 2.0
-            calls[key] = (parlay, p if not parlay else {**p, "kind": "pick"}, leg_units(p, l), res, dec,
+            calls[key] = (parlay, {**p, "kind": "pick" if parlay else p.get("kind"), "units_tier": units_tier(p, l)},
+                          leg_units(p, l), res, dec,
                           p.get("settled") or p.get("posted") or "")
     rows_in = sorted(calls.values(), key=lambda c: (c[1]["date"], c[5]))
     bank, rows, by_date = BANKROLL_START, [], {}
@@ -809,13 +810,23 @@ def units_for(pk):
         return 0
     t = pick_tier(pk)
     p = (legs[0].get("p") or 0) if legs else 0
-    if t == "value":
+    if t == "value" or kind == "dog":                    # the Dog of the Day is a value play (the owner, 9/30)
         return 2
-    if kind == "dog":
-        return 1
     if t == "lock":
         return next((u for floor, u in UNIT_LADDER if p >= floor), 2)
     return 1 if p >= STRONG_LEAN_P else 0.5
+
+
+def units_tier(pk, leg):
+    """lock / value / strong / slight for one pick - the bankroll's rows (the owner, 9/30: the Dog of the Day is a value
+    play; leans split strong and slight)."""
+    if pk.get("kind") in PARLAY_KINDS:
+        t = leg.get("tier") or leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
+    else:
+        t = "value" if pk.get("kind") == "dog" else pick_tier(pk)
+    if t in ("lock", "value"):
+        return t
+    return "strong" if (leg.get("p") or 0) >= STRONG_LEAN_P else "slight"
 
 
 def leg_units(pk, leg):
