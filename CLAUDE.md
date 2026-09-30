@@ -29,3 +29,4 @@ every session:
   (`timeout 900 python sports_test.py`, all green before any push).
 - Once the owner OKs something, publish it without asking again. Show a preview for new visual changes.
 - Commit to main and to the `claude/...` branch; don't open a PR unless asked.
+- What the studies found (built, not built yet, dead ends): `SPORTS_FINDINGS.md` - read it first, add to it.
