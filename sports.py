@@ -632,8 +632,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                and c["edge"] >= (dog["edge"] if dog else 0) + BIG_DOG_EXTRA_EDGE]
         if big:
             dog = max(big, key=lambda c: c["edge"])
-        if dog is None and not any(c.get("waiting") for c in cands):   # (once the slate's settled: a proven dog
-            # always gets first shot)  the owner, 9/30: there's a Dog of the Day every day - the dog
+        if dog is None and not any(c.get("waiting") and c["market"] == "ml" and c["odds"] >= DOG_MIN for c in cands):
+            # (only a dog still waiting on news holds it - a proven dog gets first shot; 9/30: waiting on the WHOLE
+            # slate skipped the 8 AM Dog)  the owner, 9/30: there's a Dog of the Day every day - the dog
             pool = [c for c in cands if c["market"] == "ml" and DOG_MIN <= c["odds"] <= DOG_DAY_MAX   # the analysis
                     and not c.get("trap") and not c.get("waiting") and c["game_id"] not in taken]   # likes best
             dog = {**max(pool, key=dog_score), "by_analysis": True} if pool else None

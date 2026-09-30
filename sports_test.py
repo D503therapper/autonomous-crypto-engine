@@ -2581,8 +2581,7 @@ def test_lean_day_card():
     pk["legs"][0]["p"] = 0.66
     assert "STRONG LEAN" in dsh._pick_card("lock", pk), "a 60%+ lean says STRONG LEAN"
     one = [{"kind": "lock", "status": "open"}]
-    assert "one" in dsh._short_note("2026-09-29", one).lower(), "one play: says so"
-    assert "3" in dsh._short_note("2026-09-29", one + [{"kind": "dog"}, {"kind": "two"}]), "the count's in it"
+    assert dsh._short_note("2026-09-29", one) == "", "9/30, the owner: no 'short board' disclaimer - ever"
     import sports_lingo as sl
     notes = {sl.short_note(1, f"2026-10-{d:02d}") for d in range(1, 31)}
     assert len(notes) >= 25 and sum("pros pick their spots" in x for x in notes) <= 5, "never the same line every day"
@@ -2832,10 +2831,8 @@ def test_no_dog_note():
     in our voice, never a sentence from yesterday's note."""
     import sports_dashboard as dsh, sports_lingo as L
     full_no_dog = [{"kind": k} for k in ("lock", "two", "three", "four")]
-    assert dsh._dog_note("2026-10-01", full_no_dog) and not dsh._short_note("2026-10-01", full_no_dog)
-    assert not dsh._dog_note("2026-10-01", full_no_dog + [{"kind": "dog"}]), "a dog on the board = no note"
-    short = [{"kind": "lock"}, {"kind": "two"}]
-    assert not dsh._dog_note("2026-10-01", short) and dsh._short_note("2026-10-01", short), "shorter board: its top note only"
+    assert not dsh._dog_note("2026-10-01", full_no_dog) and not dsh._short_note("2026-10-01", full_no_dog)   # 9/30: a
+    #                                                   Dog of the Day every day - no disclaimers (the owner)
     for d in range(1, 28):
         a, b = L.dog_note(f"2026-10-{d:02d}"), L.dog_note(f"2026-10-{d + 1:02d}")
         assert not set(a.split(". ")) & set(b.split(". ")), (a, b)
@@ -4576,6 +4573,8 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     gm = {"a": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-10-01T02:00Z"}}
     assert sports.home_opener(gm, gm["a"]) and not sports.home_opener(
         {**gm, "b": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-09-29T02:00Z"}}, gm["a"])
+    held = {**fav("f9", "Waiting Fav", 0.58, False), "waiting": ["starting pitcher"]}    # a favorite waiting on news
+    assert sports.make_board([wsox, kings, held])["dog"]["legs"][0]["team"] == "White Sox"   # never holds the Dog
     big = dog("x", "Longshot", "mlb", 450, 0.40, 0.18)                              # past +280: never
     assert sports.make_board([big, pens])["dog"]["legs"][0]["team"] == "Penguins"
 

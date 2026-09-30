@@ -281,7 +281,8 @@ FULL_BOARD = ("lock", "dog", "two", "three", "four")
 
 def _short_note(day, day_picks):
     """A short board says so up top (fewer than the usual 5 plays, not a one-game day) - so nobody thinks it broke."""
-    have = {p["kind"] for p in day_picks if not p.get("lean")}           # (a waiting card is still coming: it counts)
+    return ""                                                # the owner, 9/30: "take away that stupid disclaimer" -
+    have = {p["kind"] for p in day_picks if not p.get("lean")}           # the board's always full now (Lock, Dog, 2/3/4)
     n = sum(k in have for k in FULL_BOARD)
     if not n or n >= len(FULL_BOARD) or "solo" in have or set(FULL_BOARD) - have == {"dog"}:
         return ""                                            # (only the dog missing: its own note says so - one note)
@@ -291,6 +292,7 @@ def _short_note(day, day_picks):
 def _dog_note(day, day_picks):
     """🐺 No Dog of the Day (the owner, 9/28): where the dog card would go, on a full board with no dog worth it.
     Only when the dog is the ONLY thing missing - a shorter board's top note already covers it (never two notes)."""
+    return ""                                                # (9/30: a Dog of the Day every day - no note)
     have = {p["kind"] for p in day_picks if not p.get("lean")}
     if "solo" in have or set(FULL_BOARD) - have != {"dog"}:
         return ""
