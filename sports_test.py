@@ -3565,7 +3565,28 @@ def test_graded_card_shows_the_review_where_the_pregame_line_was():
     pre = sdb._leg({**leg, "result": None})
     assert "just the better team" in pre and "📝" not in pre
     src = open(sdb.__file__).read()
-    assert ".why{{font-size:12px;color:#fff" in src and 'tag = f"📝 {recap(l)}"' in src
+    assert ".why{{font-size:13px;color:#fff" in src and 'tag = f"📝 {recap(l)}"' in src
+
+
+def test_lock_of_the_day_on_top_and_text_solid_white():
+    """The owner, 9/29: the Lock of the Day always sits on top of the day's board (right under live plus money), graded
+    or not; and the text on the cards is bold, solid white - no thin or faded gray (vs line, pregame line, review, final)."""
+    import sports_dashboard as sdb
+    assert list(sdb.LOOK)[:2] == ["lock", "dog"]
+    css = open(sdb.__file__).read()
+    for rule in (".ls{{font-size:13px;color:#fff;font-weight:700", ".why{{font-size:13px;color:#fff;font-weight:700",
+                 ".fin{{font-size:12.5px;color:#fff;font-weight:700"):
+        assert rule in css, rule
+
+
+def test_no_dull_gray_text_anywhere():
+    """The owner, 9/29: 'we don't want any dull gray - always solid bold white'. No gray/tan text colors, no faded lost
+    cards, the score line / FINAL tag / tennis scoreboard / past results all white."""
+    import re, sports_dashboard as sdb
+    src = open(sdb.__file__).read()
+    for gray in ("9fb0c8", "9aa4b2", "e8eef6", "cfd6df", "7d8794"):
+        assert "color:#" + gray not in src and 'hue = "#' + gray not in src, gray
+    assert "color:#e8c77a" not in src and ".pk.lost>*:not(.stamp-row){{opacity" not in src
 
 
 if __name__ == "__main__":

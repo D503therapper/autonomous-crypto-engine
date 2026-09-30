@@ -55,3 +55,15 @@ test("scores: hockey's break between periods says intermission", async () => {
   assert.equal(clockText("nfl", { shortDetail: "Halftime" }), "Halftime");
   assert.equal(clockText("nfl", { shortDetail: "End of 1st" }), "End of 1st");
 });
+
+test("scores: a tennis match ESPN still calls 'pre' after games are played is live, never final", async () => {
+  const { handleScores } = await import("../src/scores.js");
+  const LAG = { events: [{ groupings: [{ competitions: [{ id: "9", status: { type: { state: "pre", name: "STATUS_SCHEDULED" } }, competitors: [
+    { athlete: { displayName: "Tommy Paul" }, linescores: [{ value: 2 }] },
+    { athlete: { displayName: "Alejandro Tabilo" }, linescores: [{ value: 1 }] }] }] }] }] };
+  globalThis.caches = { default: { match: async () => null, put: async () => {} } };
+  globalThis.fetch = async () => ({ ok: true, text: async () => JSON.stringify(LAG) });
+  const req = new Request("https://x.workers.dev/scores?ids=tennis:atp:9", { headers: { Origin: "https://d503therapper.github.io" } });
+  const d = await (await handleScores(req, {}, { waitUntil() {} }, ["https://d503therapper.github.io"])).json();
+  assert.equal(d["tennis:atp:9"].live, true);
+});

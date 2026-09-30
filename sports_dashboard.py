@@ -20,11 +20,11 @@ RECORDS = {}
 LIVE_JSON_PATH = "docs/sports/live.json"
 PLAY_FRESH_S = 45             # a live play shows only while the watcher re-checked its price in the last 45s (it
                               # re-checks every second and re-sends at least every 15s): a frozen price never shows
-LOOK = {   # kind -> label, accent, second accent
-    "two":   ("2-LEG PARLAY", "#2f8bff", "#22d3ee"),
-    "three": ("3-LEG PARLAY", "#ffc233", "#ff8a00"),
+LOOK = {   # kind -> label, accent, second accent - in BOARD ORDER: the Lock of the Day always on top (the owner, 9/29)
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
+    "two":   ("2-LEG PARLAY", "#2f8bff", "#22d3ee"),
+    "three": ("3-LEG PARLAY", "#ffc233", "#ff8a00"),
     "four": ("4-LEG PARLAY", "#b36bff", "#ff4fd8"),
     "solo": ("ONE-GAME PICK", "#22e39a", "#22d3ee"),
     "eight": ("8-LEG (RETIRED)", "#8a5cff", "#c04fd8"),
@@ -1028,7 +1028,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     for name, lgs in groups + tn_groups:
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
-        hue = "#9fb0c8" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
+        hue = "#fff" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
         hs = {"tennis_atp": "🎾 Men's Tennis", "tennis_wta": "🎾 Women's Tennis"}.get(lgs[0]) or \
             f"{sd.LEAGUES[lgs[0]][3]} {sd.LEAGUES[lgs[0]][2]}"          # the matching Past Results list (tap = open it)
         chips.append(f'<div class="spc{" tap" if n_ else ""}" data-hs="{E(hs)}"><span><b>{name}</b>'
@@ -1223,7 +1223,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
   border-radius:22px;padding:16px 16px 10px;margin-bottom:14px;overflow:hidden;box-shadow:0 18px 50px -22px var(--c1),inset 0 1px 0 rgba(255,255,255,.05)}}
 .pk::before{{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c2))}}
 .pk.won{{box-shadow:0 0 0 2px var(--up),0 18px 50px -14px var(--up)}}
-.pk.lost>*:not(.stamp-row){{opacity:.5}}
+
 .px>summary{{list-style:none;cursor:pointer;padding:10px 12px;margin:6px 0 2px;border:1px solid rgba(255,255,255,.18);border:1px solid color-mix(in srgb,var(--c1) 45%,transparent);border-radius:12px;display:flex;flex-direction:column;gap:4px}}
 .px>summary::-webkit-details-marker{{display:none}}
 .pxo,.pxc{{font-size:14px;color:var(--gold);font-weight:800}} div.pxt{{margin:2px 0 10px!important}} .pxt{{display:block;font-size:13.5px;font-weight:900;margin-top:4px;letter-spacing:.2px;color:var(--gold);text-shadow:0 0 10px rgba(255,194,51,.35)}} .pxc{{display:none}} .px[open] .pxo{{display:none}} .px[open] .pxc{{display:inline}}
@@ -1252,19 +1252,19 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .own{{font-size:13px;font-weight:800;color:#ffc233;margin-top:6px;border-left:3px solid #ffc233;padding-left:8px}}
 .hist{{margin:4px 0 14px;border:1px solid rgba(255,194,51,.35);border-radius:12px;background:var(--card2);padding:0 12px}}
 .hist>summary{{list-style:none;cursor:pointer;padding:12px 0;font-weight:900;font-size:15px;letter-spacing:.06em;color:#ffc233}}
-.hist>summary span{{display:block;font-size:12px;font-weight:700;letter-spacing:0;color:#9fb0c8;margin-top:2px}}
+.hist>summary span{{display:block;font-size:12px;font-weight:700;letter-spacing:0;color:#fff;margin-top:2px}}
 .hist summary::-webkit-details-marker{{display:none}}
 .hs{{border-top:1px solid rgba(255,255,255,.08)}}
 .hs>summary{{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;font-size:15px}}
 .hs>summary b{{color:#fff;font-weight:900}} .hs>summary span{{color:#ffc233;font-weight:800;white-space:nowrap}}
-.hs>summary::after{{content:"▾";color:#9fb0c8;margin-left:6px}} .hs[open]>summary::after{{content:"▴"}}
-.hs-own{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#9fb0c8;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.08)}}
+.hs>summary::after{{content:"▾";color:#fff;margin-left:6px}} .hs[open]>summary::after{{content:"▴"}}
+.hs-own{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#fff;padding:12px 0 2px;border-top:1px solid rgba(255,255,255,.08)}}
 .hr{{display:grid;grid-template-columns:3.6em 1.4em minmax(0,1fr);gap:6px;padding:7px 0;border-top:1px dashed rgba(255,255,255,.06);font-size:13.5px;align-items:start}}
-.hr .hd{{color:#9fb0c8;font-weight:700;white-space:nowrap}} .hr .hp{{color:#fff;font-weight:800;overflow-wrap:anywhere}}
+.hr .hd{{color:#fff;font-weight:700;white-space:nowrap}} .hr .hp{{color:#fff;font-weight:800;overflow-wrap:anywhere}}
 .hx>summary{{list-style:none;cursor:pointer;grid-template-columns:3.6em 1.4em minmax(0,1fr) 1em}} .hx>summary::-webkit-details-marker{{display:none}}
-.hx .hc{{font-style:normal;color:#9fb0c8;font-size:12px;transition:transform .2s}} .hx[open] .hc{{transform:rotate(180deg)}}
+.hx .hc{{font-style:normal;color:#fff;font-size:12px;transition:transform .2s}} .hx[open] .hc{{transform:rotate(180deg)}}
 .hrv{{padding:2px 0 9px calc(5em + 12px);font-size:13.5px;font-weight:700;color:#fff}}
-.hr .hp small{{color:#9fb0c8;font-weight:600}} .hr .hp em{{display:block;font-style:normal;font-weight:600;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#ffb4b4}}
+.hr .hp small{{color:#fff;font-weight:700}} .hr .hp em{{display:block;font-style:normal;font-weight:600;color:#ffc233;margin-top:3px}} .hr.lost .hp{{color:#ffb4b4}}
 .sports{{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0 14px}}
 .spc{{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--card2);
   border:1px solid rgba(255,194,51,.35);border-radius:10px;padding:9px 12px;font-size:15px;font-weight:900}}
@@ -1297,16 +1297,16 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lm{{display:flex;justify-content:space-between;align-items:baseline;margin-top:3px}}
 .pick{{font-size:18px;font-weight:850;color:#fff}} .pick em{{font-style:normal;color:#fff;font-weight:900;margin-left:2px}}
 .od{{font-size:17px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums}}
-.ls{{font-size:12.5px;color:#fff;margin-top:2px}} .ls b{{color:#fff}}
+.ls{{font-size:13px;color:#fff;font-weight:700;margin-top:2px}} .ls b{{color:#fff}}
 .ep{{color:var(--up);font-weight:800}} .en{{color:#ff8a5c;font-weight:800}}
-.why{{font-size:12px;color:#fff;margin-top:4px}}
+.why{{font-size:13px;color:#fff;font-weight:700;margin-top:4px}}
 .pubs{{margin-top:6px}} .pub{{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.1em;padding:4px 9px;border-radius:999px}}
 .pub.fade{{color:#fff;background:linear-gradient(90deg,#7c3aed00,#e3121b33);border:1px solid #ff3b3b}} .pub.ride{{color:#22e39a;border:1px solid #22e39a;background:rgba(34,227,154,.1)}}
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
-.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .rvw{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 6px}} .fnb{{color:#9aa4b2;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.86em;color:#e8eef6;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
+.dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .rvw{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 6px}} .fnb{{color:#fff;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
 .tsb{{display:grid;gap:2px 0;align-items:center;max-width:250px;margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.05);font-size:.95em}}
 .tsb .nm{{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .tsb .nm i{{display:inline-block;width:6px;height:6px;border-radius:50%;background:#d7ff3a;margin:0 5px 2px 0}}
-.tsb b{{text-align:center;font-weight:700;color:#cfd6df}} .tsb b.w{{color:#fff;font-weight:900}} .tsb b.l{{color:#7d8794;font-weight:600}}
+.tsb b{{text-align:center;font-weight:700;color:#fff}} .tsb b.w{{color:#fff;font-weight:900}} .tsb b.l{{color:#fff;font-weight:700}}
 .tsb em{{font-style:normal;text-align:center;font-weight:900;color:#ff8a8a}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
 @keyframes lvp{{0%{{box-shadow:0 0 0 0 rgba(255,43,43,.9),0 0 6px 1px #ff2b2b}}70%{{box-shadow:0 0 0 9px rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}100%{{box-shadow:0 0 0 0 rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}}}
 .nolive{{font-size:14px;font-weight:700;color:#fff;line-height:1.45}} .pk.lvi{{padding-top:16px;padding-bottom:16px}}
@@ -1316,8 +1316,8 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .tn-t{{font-weight:900;letter-spacing:.14em;color:#c6f000;font-size:22px}} .tn-s{{font-size:15px;color:#fff;font-weight:700}}
 .spc.tap{{cursor:pointer}} .spc.on{{border-color:#22d3ee}}
 .rc.tap{{cursor:pointer}} .rc.on{{outline:1px solid #22d3ee}}
-.spx{{grid-column:1/-1;text-align:left;background:var(--card2);border:1px solid #22d3ee55;border-radius:12px;padding:6px 10px;margin:-2px 0 4px}} .spc em{{font-style:normal;color:#9fb0c8;font-size:12px;margin-left:8px}}
-.tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#e8c77a;font-weight:700;margin:0 6px 10px}}
+.spx{{grid-column:1/-1;text-align:left;background:var(--card2);border:1px solid #22d3ee55;border-radius:12px;padding:6px 10px;margin:-2px 0 4px}} .spc em{{font-style:normal;color:#fff;font-size:12px;margin-left:8px}}
+.tn[open] .tn-s{{color:#c6f000}} .tn-b{{padding:0 12px 14px}} .tn-d{{font-size:12px;color:#fff;font-weight:700;margin:0 6px 10px}}
 .tn-day{{font-size:11px;font-weight:900;letter-spacing:.12em;color:#c6f000;margin:10px 0 -2px}}
 .chip.lean{{background:#ffc233;color:#111;margin-right:6px}} .chip.val{{background:#ff5a1f;color:#fff;margin-right:6px}}
 .chip.lk{{background:#22e39a;color:#06281c;margin-right:6px}}
@@ -1329,14 +1329,14 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .bd-s{{padding:2px 12px 8px}} .bd-t{{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:4px}}
 .bd-s p{{margin:6px 0;font-size:13.5px;color:#fff;line-height:1.45}} .bd-s p:last-child{{color:var(--gold);font-weight:700}}
 .outs{{font-size:11.5px;color:#ff8a5c;margin-top:3px}}
-.fin{{font-size:12px;color:#fff;opacity:.75;margin-top:3px}}
+.fin{{font-size:12.5px;color:#fff;font-weight:700;margin-top:3px}}
 .lw{{color:var(--up);margin-right:6px}} .ll{{color:var(--dn);margin-right:6px}} .lp{{color:var(--gold);margin-right:6px}}
 .nopick{{color:var(--muted);font-weight:600;font-size:13px;padding:12px 0 6px}}
 .hero{{position:relative;background:linear-gradient(160deg,#131a28 0%,var(--card) 60%);border:1px solid rgba(255,194,51,.28);border-radius:24px;padding:20px 20px 8px;overflow:hidden;
   box-shadow:0 20px 60px -24px rgba(255,160,40,.45)}}
 .lbl{{color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}}
 .total{{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 8px;font-variant-numeric:tabular-nums}}
-.sp-n{{font-size:12px;color:#9fb0c8;margin:4px 0 12px}}
+.sp-n{{font-size:12px;color:#fff;margin:4px 0 12px}}
 .grades{{margin-bottom:12px}}
 .ovr{{text-align:center;background:linear-gradient(160deg,rgba(34,227,154,.14),rgba(255,194,51,.10));border:1px solid rgba(34,227,154,.45);border-radius:16px;padding:14px 12px;margin:10px 0 12px}}
 .ovr-t{{font-size:13px;font-weight:900;letter-spacing:.12em;color:#22e39a}} .ovr-r{{font-size:46px;font-weight:900;line-height:1.1}}
@@ -1378,7 +1378,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .fx{{position:relative;font-size:10px;font-weight:800;color:#fff;letter-spacing:.04em;padding-top:8px;text-align:center}}
 .fx i{{position:absolute;top:0;left:0;height:4px;border-radius:4px;box-shadow:0 0 8px currentColor}}
 .fx::before{{content:"";position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px;background:rgba(255,255,255,.08)}}
-.bc{{font-size:11.5px;color:#e8c77a;margin-top:8px}}
+.bc{{font-size:11.5px;color:#fff;margin-top:8px}}
 .nut{{font-size:13.5px;margin-top:7px;padding-left:14px;position:relative}} .nut:before{{content:"▸";position:absolute;left:0;color:var(--gold)}}
 .foot{{text-align:center;color:#ffe08a;font-size:12px;margin-top:22px;line-height:1.6}}
 .foot b{{color:#fff}} .foot a{{color:#22d3ee;text-decoration:none;font-weight:700}}

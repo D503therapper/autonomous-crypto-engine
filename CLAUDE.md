@@ -12,6 +12,8 @@ every session:
   past a site's blocks.
 - Leans count in the record from 9/29. Live plus money and tennis keep their own records. The -150 rule stays.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
+- The Lock of the Day always sits on top of the day's board, right under Live Plus Money.
+- No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`
   (`timeout 900 python sports_test.py`, all green before any push).
 - Once the owner OKs something, publish it without asking again. Show a preview for new visual changes.

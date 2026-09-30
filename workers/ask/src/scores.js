@@ -97,7 +97,9 @@ function match(c) {
   const fin = ([a, b]) => Math.max(a, b) >= 6 && (Math.abs(a - b) >= 2 || Math.max(a, b) === 7);
   let done = 0;
   while (done < sets.length && fin(sets[done])) done++;
-  const live = st.state === "in" || (delayed && played);
+  const live = st.state !== "post";                       // started (games on the board) and not over = live - ESPN
+  //                                                           lags tennis and can still say "pre" mid-match (9/29: a
+  //                                                           match read FINAL while it was being played)
   let pts = null;
   const p = comps.map(points);
   if (live && p[0] !== null && p[1] !== null) {
