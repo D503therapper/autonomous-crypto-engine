@@ -4977,6 +4977,21 @@ def test_upset_bounce_and_hangover():
     assert sports.dog_score({**base, "form_state": (3, 1, 210, True)}) == sports.dog_score(base) - 3
 
 
+def test_cover_streaks_and_revenge():
+    """Cover streaks & revenge (9/30): a spread pick on a team that failed to cover 4+ straight moves up the line, one
+    that covered 4+ straight moves back; a college football dog facing the team that blew it out last meeting +3."""
+    c = lambda run, mk="spread", lg="nfl": {"market": mk, "league": lg, "ats_run": run}
+    assert sports.cover_run_w(c(-4)) == sports.HOT_W and sports.cover_run_w(c(5)) == -sports.HOT_W
+    assert sports.cover_run_w(c(2)) == 0 and sports.cover_run_w(c(-5, "ml")) == 0 and sports.cover_run_w(c(-5, lg="nhl")) == 0
+    import sports_form as sf
+    g = lambda k, d, hs, as_, sp: {"id": k, "league": "ncaaf", "status": "final", "stype": "2", "start": f"2025-10-{d}T00:00Z",
+                                   "home": "A", "away": "B", "home_score": hs, "away_score": as_, "spread_home": sp}
+    ats, meet = sf.ats_states({"1": g("1", 10, "45", "7", "-10"), "2": g("2", 17, "30", "20", "-14")})
+    assert ats[("ncaaf", "A")] == -1 and ats[("ncaaf", "B")] == 1 and meet[("ncaaf", "B", "A")] == -10
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "ncaaf", "market": "ml"}
+    assert sports.dog_score({**base, "revenge": True}) == sports.dog_score(base) + 3
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
