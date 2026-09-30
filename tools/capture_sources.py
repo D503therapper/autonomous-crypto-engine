@@ -27,6 +27,7 @@ S = {
     "an_mlb": f"https://api.actionnetwork.com/web/v1/scoreboard/mlb?period=game&date={day}",
     # who's actually playing (MLB's own public stats site): rosters, lineups, season stats - the Judge miss, 9/29
     "mlb_teams": "https://statsapi.mlb.com/api/v1/teams?sportId=1",
+    "mlb_hitting_all": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&season=2026&sportId=1&playerPool=ALL&limit=3000",
     "mlb_roster_nyy_active": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=active",
     "mlb_roster_nyy_40": "https://statsapi.mlb.com/api/v1/teams/147/roster?rosterType=40Man",
     "mlb_hitting_nyy": "https://statsapi.mlb.com/api/v1/stats?stats=season&group=hitting&season=2026&teamId=147&playerPool=ALL&limit=60",
