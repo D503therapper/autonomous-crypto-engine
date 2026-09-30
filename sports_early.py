@@ -382,8 +382,9 @@ def gameday_html(st, games, E, now=None):
         price = f'<s>{am(p["odds"])}</s>' + (f'<em>➜</em><b>{am(now_odds)}</b>' if now_odds is not None else "")
         rows.append(f'<div class="gr"><div class="gl"><b>{E(p["team"])}</b> <small>ML</small>'
                     f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
-                    f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u></div>'
-                    f'<div class="gp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
+                    f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
+                    + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>' if p.get("own") else "")
+                    + f'</div><div class="gp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
     if not rows:
         return ""
     return ('<section class="pk gdx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">🎯</span>'

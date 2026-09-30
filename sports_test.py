@@ -4298,6 +4298,7 @@ def test_we_got_in_early_box():
         assert h.count('class="gr"') == 4 and "WE GOT IN EARLY" in h and "still good" not in h
         rows = h.split('class="gr"')[1:]
         assert "we beat the line" in rows[0] and "-120" in rows[0]
+        assert "The engine has them at 40%" in rows[0]        # the owner, 9/30: say what the engine has them at
         assert "better price now" in rows[1]                  # +220: 45% vs ~30% on the price - still value
         assert "money went against it" in rows[2]             # +220 and the engine's 33% (vs ~31% on the price) isn't enough now
         assert "<i>" not in rows[3]                           # no move, no label
