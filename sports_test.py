@@ -1137,11 +1137,13 @@ def test_live_tennis_rules():
     assert L.evaluate_tennis(m, line, flip, pre, 1, (), set()) == [], "no double down in men's tennis"
     # ...a WOMEN'S pick in the same spot: DOUBLE DOWN
     wm = _tn_live_row("wta:77", "wta", n1="Jessica Pegula", n2="Emma Navarro")
-    wline = {"a": "Emma Navarro", "b": "Jessica Pegula", "a_ml": -ml1 - 40, "b_ml": ml1, "suspended": False}
+    wpre = {"mkt_p1": 0.83, "model_p1": 0.85}                # (a bigger pregame favorite: down a set, the 9/30 SET_FIX
+    wml = _ml_for(stl.p1_live(wm, 0.83)[0], 0.10)            # rates her lower - still over the live min win %)
+    wline = {"a": "Emma Navarro", "b": "Jessica Pegula", "a_ml": -wml - 40, "b_ml": wml, "suspended": False}
     _, wflip = stn.match_line(wm, [wline])
     used = set()
-    pl = L.evaluate_tennis(wm, wline, wflip, pre, 1, (), used)
-    assert len(pl) == 1 and pl[0]["team"] == "Jessica Pegula" and pl[0]["odds"] == ml1 and pl[0]["double_down"], pl
+    pl = L.evaluate_tennis(wm, wline, wflip, wpre, 1, (), used)
+    assert len(pl) == 1 and pl[0]["team"] == "Jessica Pegula" and pl[0]["odds"] == wml and pl[0]["double_down"], pl
     x = pl[0]
     assert x["emoji"] == "🎾" and x["league"] == "tennis" and x["sport"] == "Women's Tennis" and x["id"] == "tennis:wta:77:1"
     assert "4-6" in x["score"] and x["clock"].startswith("Set 2") and {"ours", "strong", "state"} <= set(x["reasons"])
@@ -1151,8 +1153,9 @@ def test_live_tennis_rules():
     assert "real talk" not in txt and "chalk" not in txt
     # a WTA play in the same check: she/her, and no wording repeated from the first play
     w = _tn_live_row("wta:5", "wta", n1="Coco Gauff", n2="Iga Swiatek")
-    wl = {"a": "Coco Gauff", "b": "Iga Swiatek", "a_ml": ml1, "b_ml": -ml1 - 40, "suspended": False}
-    wp = L.evaluate_tennis(w, wl, False, pre, 1, (), used)
+    gml = _ml_for(stl.p1_live(w, 0.83)[0], 0.10)
+    wl = {"a": "Coco Gauff", "b": "Iga Swiatek", "a_ml": gml, "b_ml": -gml - 40, "suspended": False}
+    wp = L.evaluate_tennis(w, wl, False, wpre, 1, (), used)
     assert wp and wp[0]["sport"] == "Women's Tennis" and not __import__("re").search(r"\b(he|him|his)\b", " ".join([wp[0]["line"]] + wp[0]["breakdown"]))
     assert wp[0]["line"] != x["line"] and not set(wp[0]["breakdown"]) & set(x["breakdown"]), "fresh wording, no repeats"
     # a strong favorite on our numbers (not our pick): a play, but no double down
@@ -1189,7 +1192,7 @@ def test_live_tennis_rules():
     log = {"plays": {}}
     try:
         m, line = wm, wline                                   # (a women's pick - the double down is women's only)
-        stl.load_prematch = lambda path=None: {"wta:77": pre}
+        stl.load_prematch = lambda path=None: {"wta:77": wpre}
         stl.our_picks = lambda path=None: {"wta:77": 1}
         L.SCORE_SEEN.clear()
         L.tennis_feeds = lambda: ([m], [m], [{**line, "suspended": True}])
@@ -4785,6 +4788,18 @@ def test_tennis_count_is_todays_slate():
     t = {"date": "2026-09-30", "picks": [{"tour": "atp", "result": None}] * 4 + [{"tour": "wta", "result": None}] * 2}
     assert d._tn_count([y, t], tour) == "4 men's + 2 women's · 1 from yesterday still going"
     assert d._tn_count([t], tour) == "4 men's + 2 women's" and d._tn_count([], tour) == "new picks at 8 AM PT"
+
+
+def test_tennis_live_set_correction():
+    """9/30: tennis live plus money went 3-6 - the live model under-rated a set (69k matches, 2021+ never seen: women's
+    down a set said 57%, really 50%). The player behind is now rated right; level sets are untouched."""
+    import sports_tennis_live as stl
+    assert abs(stl.set_fixed(0.57, "wta", (0, 1)) - 0.49) < 0.01 and abs(stl.set_fixed(0.57, "atp", (0, 1)) - 0.537) < 0.01
+    assert stl.set_fixed(0.43, "wta", (1, 0)) > 0.50                    # up a set: more than the model said
+    assert stl.set_fixed(0.5, "wta", (1, 1)) == 0.5 and abs(stl.set_fixed(0.6, "atp", (0, 0)) - 0.6) < 0.01   # level
+    # the 9/30 bets it would have skipped: Sonmez +132 down a set (the model's 46%), Bondar +128 down a set (47%)
+    for p, odds in ((0.46, 132), (0.47, 128)):
+        assert stl.set_fixed(p, "wta", (0, 1)) * (1 + odds / 100) - 1 < 0.03      # no longer a live edge
 
 
 if __name__ == "__main__":
