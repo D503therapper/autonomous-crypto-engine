@@ -259,10 +259,11 @@ def _proven_reason(name, side_home_shift):
 
 import sports_strength  # noqa: E402
 
-PARLAY_LEG_MIN_P = 0.57        # a parlay only when EVERY leg is 57%+ (the owner, 9/29: don't look like clowns). 3+ seasons
-                               # replayed: 53-55% legs lose 5-10% a card and every parlay dies together ~2 days in 3,
-                               # however they're arranged; the bar rising to 56-58% is where it turns (58% bounced
-                               # year to year - not proven, so 57). Nights nothing clears it: the Lock (+ Dog), no filler.
+PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%+ (the owner, 9/29: don't look like clowns;
+                               # 9/30: 57% left a 3-lock slate at 56.1-56.5% with no parlays at all - "we want parlays").
+                               # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
+                               # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
+                               # Nights nothing clears it: the Lock (+ Dog), no filler.
 NO_PUCK_RUN_LINES = True       # hockey + baseball: moneylines only on the board (football / basketball spreads stay)
 
 

@@ -3684,22 +3684,26 @@ def test_strengths_by_sport_and_no_puck_or_run_lines():
 
 
 def test_parlay_legs_must_earn_it():
-    """The owner, 9/29 (don't look like clowns): a parlay only when EVERY leg is 57%+ (3+ seasons replayed: 53-55% legs
-    lose 5-10% a card and all the parlays die together ~2 nights in 3). Nights nothing clears it: the Lock (+ Dog), and
-    the board says why in our lingo."""
+    """The owner, 9/29 (don't look like clowns): a parlay only when EVERY leg is lock grade - 56%+ since 9/30 ("we want
+    parlays": 57% left three 56% locks with no parlay). Nights nothing clears it: the Lock (+ Dog), and the board says
+    why in our lingo."""
     import sports_lingo
     mk = lambda gid, p: {"game_id": f"mlb:{gid}", "league": "mlb", "market": "ml", "side": "home", "team": f"T{gid}",
                          "opp": "X", "odds": -120, "dec": 1.8333, "p": p, "p_market": 0.53, "edge": p * 1.8333 - 1,
                          "edge_own": p * 1.8333 - 1, "reasons": ["the stronger team"], "trap": False, "drift": 0.0}
-    weak_legs = [mk(i, 0.555 + i * 0.001) for i in range(1, 6)]
+    weak_legs = [mk(i, 0.545 + i * 0.001) for i in range(1, 6)]
     b = sports.make_board(weak_legs)
-    assert b["lock"] and not b["two"] and not b["three"] and not b["four"]           # coin-flip legs: no parlays
+    assert not b["two"] and not b["three"] and not b["four"]                          # coin-flip legs: no parlays
     strong = [mk(i, 0.59 + i * 0.002) for i in range(1, 6)]
     b2 = sports.make_board(strong)
     assert b2["two"] and b2["three"] and all(l["p"] >= sports.PARLAY_LEG_MIN_P for l in b2["three"]["legs"])
     assert sports.lean(weak_legs, "two", floor=sports.LEAN_DAY_MIN_P) is None       # a leans-only night: no parlay either
     assert sports.lean(weak_legs, "lock", floor=sports.LEAN_DAY_MIN_P)               # (the Lock lean still goes up)
     assert "we don't force it" in open(sports_lingo.__file__).read()
+    assert sports.PARLAY_LEG_MIN_P == 0.56 == sports.LOCK_P, "every parlay leg is lock grade, no higher"
+    three_locks = [mk(1, 0.565), mk(2, 0.564), mk(3, 0.561)]          # 9/30's slate: Yankees, Flyers, Padres
+    b3 = sports.make_board(three_locks)
+    assert b3["two"] and b3["three"], "three lock-grade plays = a 2-leg and a 3-leg"
 
 
 

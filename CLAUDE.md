@@ -12,7 +12,7 @@ every session:
   past a site's blocks.
 - Leans count in the record from 9/29. Live plus money and tennis keep their own records. The -150 rule stays.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.
-- Parlays only when every leg is 57%+ (sports.PARLAY_LEG_MIN_P) - never forced; value (plus money that really beats
+- Parlays only when every leg is lock grade, 56%+ (sports.PARLAY_LEG_MIN_P) - never forced; value (plus money that really beats
   the price) is the goal. Judge a sport on thousands of games (sports_strength), never a few nights.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
 - The Lock of the Day always sits on top of the day's board, right under Live Plus Money.
