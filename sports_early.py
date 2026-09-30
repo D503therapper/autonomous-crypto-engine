@@ -25,7 +25,7 @@ import sports_model as sm
 PT = ZoneInfo("America/Los_Angeles")
 PATH = os.path.join(sd.DATA, "early.json")
 EXAM_PATH = os.path.join(sd.DATA, "early_exam.json")
-ON = False                              # goes on once the owner OKs the dashboard box (the rules: a preview first)
+ON = True                               # the owner OK'd it 9/30 (the box, the game-day box, the ping)
 LEARN_Y = 3                             # the engine for these learns on the last 3 seasons only: the owner's call
                                         # (9/30: "the sports have changed"), and the exam agreed - NBA and college
                                         # football only pass it learning recent, the NFL passes both ways
@@ -270,12 +270,6 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     if not ON:
         return []
     games = with_book_lines(games, st, now, lines)
-    if not st.get("launched") and ping:              # 🚨 the one-time "engine breakthrough" ping (the owner, 9/30)
-        st["launched"] = now.strftime("%Y-%m-%dT%H:%MZ")
-        try:
-            ping(None)
-        except Exception as e:                       # noqa: BLE001
-            print(f"   launch ping failed: {str(e)[:60]}")
     have = {p["game_id"] for p in st["picks"]}
     new = []
     for c in scan(games, model, now, injuries, trap):
@@ -289,6 +283,12 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         st["picks"].append(c)
         have.add(c["game_id"])
         new.append(c)
+        if ping and not st.get("launched"):          # 🚨 the one-time breakthrough ping - with the FIRST real play
+            st["launched"] = now.strftime("%Y-%m-%dT%H:%MZ")   # (the owner, 9/30: "send it when the first play posts")
+            try:
+                ping(None)
+            except Exception as e:                   # noqa: BLE001
+                print(f"   launch ping failed: {str(e)[:60]}")
         if ping:
             try:
                 ping(c)
@@ -341,8 +341,8 @@ def record(st):
     return {"won": w, "lost": len(ps) - w, "units": round(units, 2)}
 
 
-LAUNCH = ("🚨 MAJOR ENGINE BREAKTHROUGH",                     # the owner's wording, 9/30 (sent once, when he says go)
-          "We found an edge on underdogs. Get in early before the line moves. 🔥")
+LAUNCH = ("🚨 MAJOR ENGINE BREAKTHROUGH",                     # the owner's pick (#1), 9/30 - sent once, with the first play
+          "We just found an edge on underdogs: get in early before the line moves. 🔥 Most plays start next week.")
 
 
 def ping_text(c):
@@ -433,3 +433,45 @@ def gameday_html(st, games, E, now=None):
     return ('<section class="pk gdx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">🎯</span>'
             '<span class="pk-l evt">WE GOT IN EARLY</span></div><div class="gh">WE GOT IT AT ➜ NOW</div>'
             + "".join(rows) + '</section>')
+
+
+PINGS_PATH = os.path.join(sd.DATA, "early_pings.json")
+PING_FRESH_MIN = 50                                      # a queue older than this is a past run's: never re-sent
+
+
+def queue_pings(items, now, path=None):
+    """This run's pings (None = the breakthrough ping), written for tools/early_ping.py - it sends them only once the
+    live dashboard shows the play (the owner, 9/29-9/30: never a ping for something that's not on the dashboard).
+    Written every run, empty when there's nothing, so a past run's pings never go out twice."""
+    with open(path or PINGS_PATH, "w") as f:
+        json.dump({"at": now.strftime("%Y-%m-%dT%H:%MZ"), "pings": items}, f)
+
+
+def pending(now, path=None):
+    """This run's queued pings (fresh only), or []."""
+    try:
+        with open(path or PINGS_PATH) as f:
+            q = json.load(f)
+    except (OSError, ValueError):
+        return []
+    return q.get("pings") or [] if now - _t(q.get("at") or "2000-01-01T00:00") <= timedelta(minutes=PING_FRESH_MIN) else []
+
+
+def send_queued(page, now=None, path=None, send_fn=None):
+    """-> the pings sent: only a fresh queue, and only plays whose team the live `page` (html text) already shows."""
+    now = now or datetime.now(timezone.utc)
+    try:
+        with open(path or PINGS_PATH) as f:
+            q = json.load(f)
+    except (OSError, ValueError):
+        return []
+    if not q.get("pings") or now - _t(q["at"]) > timedelta(minutes=PING_FRESH_MIN):
+        return []
+    plays = [c for c in q["pings"] if c]
+    box = page[page.find("EARLY VALUE PLAYS"):] if "EARLY VALUE PLAYS" in page else ""
+    if not plays or not all(c["team"] in box for c in plays):
+        return []                                        # not live yet: wait (the caller checks again)
+    send_fn = send_fn or send
+    for c in q["pings"]:
+        send_fn(c)
+    return q["pings"]

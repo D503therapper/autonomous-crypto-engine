@@ -4219,6 +4219,8 @@ def test_early_value_plays():
         se.ON = False
         assert se.post(games, {"params": {}}, now, ping=pings.append) == [] and not pings   # off = nothing
         se.ON = True
+        quiet = {k: v for k, v in games.items() if k != "1"}         # nothing qualifies: no breakthrough ping yet
+        assert se.post(quiet, {"params": {}}, now, ping=pings.append, lines=lambda lg: []) == [] and not pings
         new = se.post(games, {"params": {}}, now, ping=pings.append, lines=lambda lg: [])
         assert [c["game_id"] for c in new] == ["1"] and new[0]["odds"] == 185, new
         assert pings[0] is None and pings[1]["game_id"] == "1"        # the breakthrough ping first, then the play
@@ -4238,6 +4240,9 @@ def test_early_value_plays():
         st = se.load()
         assert st["picks"][0]["result"] == "won" and se.record(st) == {"won": 1, "lost": 0, "units": 1.85}
         assert "Get it before the line moves" in se.ping_text(st["picks"][0])[1]
+        assert se.ping_text(None) == ("🚨 MAJOR ENGINE BREAKTHROUGH", "We just found an edge on underdogs: get in early "
+                                      "before the line moves. 🔥 Most plays start next week.")
+        assert len(se.ping_text(None)[1]) <= 150                       # fits a lock screen without getting cut
         assert "✅" not in se.html(st, lambda x: x) and "Last graded" not in se.html(st, lambda x: x)   # no grading here
         st["picks"].append({**st["picks"][0], "game_id": "9", "result": None, "team": "Soon Team",
                             "start": (now + timedelta(days=3)).strftime("%Y-%m-%dT%H:%MZ")})
@@ -4248,7 +4253,9 @@ def test_early_value_plays():
         assert "Today Team" not in h                  # game day: no longer an early play, it leaves the box
     finally:
         sm.ratings, sm.own_p, sm.market_p, se.recent_params, se.ON = saved
+    was, se.ON = se.ON, False
     assert se.html({"picks": [{"x": 1}]}, lambda x: x) == ""          # off: no box on the page
+    se.ON = was
 
 
 def test_early_exam_pass_rule():
@@ -4420,11 +4427,34 @@ def test_early_lines_from_a_book_before_espn():
         se.passed = saved
 
 
+def test_early_pings_wait_for_the_dashboard():
+    """The owner (9/30): 'they get the notification, then they look' - an early play's ping (and the one-time
+    breakthrough ping with it) goes out only once the LIVE dashboard's Early Value Plays box shows the play; a past
+    run's queue never goes out twice."""
+    import sports_early as se
+    path = os.path.join(tempfile.mkdtemp(), "pings.json")
+    now = datetime(2026, 10, 4, 3, 30, tzinfo=timezone.utc)
+    play = {"game_id": "g", "team": "Browns", "odds": 185, "opp": "Steelers", "start": "2026-10-05T17:00Z"}
+    se.queue_pings([None, play], now, path)
+    sent = []
+    assert se.pending(now, path) == [None, play]
+    assert se.send_queued("<html>no box yet</html>", now, path, sent.append) == [] and not sent
+    assert se.send_queued("<b>Browns</b> on the main board, EARLY box not up", now, path, sent.append) == []
+    live = "<section>EARLY VALUE PLAYS ... <b>Browns</b> ML +185</section>"
+    assert se.send_queued(live, now, path, sent.append) == [None, play] and sent == [None, play]   # breakthrough first
+    sent.clear()
+    assert se.send_queued(live, now + timedelta(hours=1), path, sent.append) == [] and not sent   # stale: never again
+    se.queue_pings([], now, path)
+    assert se.pending(now, path) == []
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
     import sports_early
     sports_early.PATH = os.path.join(tempfile.mkdtemp(), "early.json")                   # (nor the early plays)
+    sports_early.ON = False              # (live in the engine; tests switch it on themselves, never touching real books)
+    sports_early.PINGS_PATH = os.path.join(tempfile.mkdtemp(), "early_pings.json")
     sports_live.FINAL_AT.clear()
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

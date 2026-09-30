@@ -48,3 +48,10 @@ jobs:
           git add data/sports docs/sports
           git commit -qm "sports $(date -u '+%F %H:%M') UTC" || exit 0
           for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+      - name: early value play pings (once the dashboard shows them)
+        if: always()
+        continue-on-error: true
+        run: timeout 7m python -u tools/early_ping.py
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

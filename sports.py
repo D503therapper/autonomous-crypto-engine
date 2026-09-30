@@ -1354,9 +1354,11 @@ def run(repick=False, fetch=True):
     try:                                                                # ⏰ early value plays: posted the second the
         import sports_early                                             # engine finds one, before the line moves
         inj = {lg: sd.fetch_injuries(lg) for lg in sports_early.passed()} if sports_early.ON else None
-        for c in sports_early.post(games, model, now, inj, ping=sports_early.send,
+        queue = []                                                      # (pinged only once the dashboard shows them:
+        for c in sports_early.post(games, model, now, inj, ping=queue.append,   # tools/early_ping.py, after the push)
                                    trap=lambda lg, o, h: sports_dogs.verdict(DOGS_ST, lg, o, h) == "trap"):
             print(f"early value play: {c['team']} +{c['odds']} ({c['league']}, own {c['own']:.0%} vs price {c['mkt']:.0%})")
+        sports_early.queue_pings(queue, now)
     except Exception as e:                                              # noqa: BLE001 - never blocks the board
         print(f"early value plays failed: {e}")
     for d in days:
