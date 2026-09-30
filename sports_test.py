@@ -4921,6 +4921,17 @@ def test_one_alert_never_rings_twice():
     assert 'post("/unsubscribe",{{endpoint:s.endpoint}})' in open(d.__file__).read()
 
 
+def test_puck_luck():
+    """NHL puck luck (9/30): the books over-rate a lucky team - a dog whose PDO (last 10) is <= 985 gets +2 on the Dog's
+    score, >= 1015 gets -3."""
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "nhl"}
+    s0 = sports.dog_score(base)
+    assert sports.dog_score({**base, "pdo": 975}) == s0 + 2 and sports.dog_score({**base, "pdo": 1025}) == s0 - 3
+    assert sports.dog_score({**base, "pdo": 1000}) == s0
+    import sports_form as sf
+    assert sf.pdo_states({}, "2026-10-10T00:00Z") == {}
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

@@ -173,3 +173,48 @@ def played_yesterday(starts, league, team, start):
     """Did this team play the day before this game (a back-to-back)?"""
     prev = [s for s in starts.get((league, team), []) if s < start]
     return bool(prev) and _days(prev[-1], start) == 1
+
+
+# PUCK LUCK (9/30 study, every NHL box score 2021-26, closing prices): PDO = shooting % + save % over the last 10 games
+# (x1000; 1000 = average, it always comes back). A dog whose luck's been BAD (<= 985): -0.9% (4 of 5 seasons better than
+# the -5.8% every dog does); luck's been GOOD (>= 1015): -10.3% (worse 4 of 5). The books over-rate a lucky team.
+PDO_BAD, PDO_GOOD = 985, 1015
+
+
+def pdo_states(games, now_iso):
+    """{team: PDO over its last 10 games} (NHL, games in the last 3 weeks only)."""
+    import json
+    import sports_model as sm
+    import sports_roster as sr
+    y = int(now_iso[:4])
+    try:
+        rows = sr.load("nhl", seasons=[y - 1, y])
+    except Exception:                                        # noqa: BLE001
+        return {}
+    shots = defaultdict(lambda: defaultdict(float))
+    for r in rows:
+        if r["group"] in ("forwards", "defenses"):
+            try:
+                shots[r["gid"]][r["team"]] += float(json.loads(r["stats"]).get("shotsTotal") or 0)
+            except (ValueError, TypeError):
+                pass
+    log, last = defaultdict(list), {}
+    for g in sorted(sm.finals(games, "nhl"), key=lambda g: g["start"]):
+        sh = shots.get(g["id"])
+        if not sh or (g.get("stype") or "2") not in ("2", "3"):
+            continue
+        try:
+            hs, as_ = float(g["home_score"]), float(g["away_score"])
+        except (KeyError, ValueError):
+            continue
+        for t, o, gf, ga in ((g["home"], g["away"], hs, as_), (g["away"], g["home"], as_, hs)):
+            if sh.get(t) and sh.get(o):
+                log[t].append((gf, sh[t], ga, sh[o]))
+                last[t] = g["start"]
+    out = {}
+    for t, L in log.items():
+        L = L[-10:]
+        if len(L) == 10 and _days(last[t], now_iso) <= FRESH_D:
+            gf, sf_, ga, sa = (sum(x[k] for x in L) for k in range(4))
+            out[t] = (gf / sf_ + 1 - ga / sa) * 1000
+    return out
