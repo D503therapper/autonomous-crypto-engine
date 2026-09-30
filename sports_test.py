@@ -3518,6 +3518,15 @@ def test_our_own_engine_never_a_sharp_follower():
     assert wf.count("- cron:") == 3 and 'dispatch(wf, f"{name} overdue' in open("tools/health.py").read()
 
 
+
+def test_bug_check_has_a_backstop():
+    """9/29: the 'hourly' bug check had 3-hour gaps (GitHub's schedule skips runs). The engine's backstop (run by every
+    engine run) starts it when it's 90+ minutes old - the same way the studies, the simulator and the live watch are covered."""
+    s = open("tools/backstop.sh").read()
+    assert "gh workflow run health.yml" in s and '-gt 90' in s
+    assert "workflow_dispatch" in open(".github/workflows/health.yml").read()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
