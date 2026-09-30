@@ -3922,6 +3922,17 @@ def test_live_tennis_shows_who_is_serving_and_the_points():
     assert "wg===fg&&w.pts&&!f.pts" in src
 
 
+def test_question_box_checked_hourly_and_retries_lean():
+    """9/29: the question box fell back to 'the AI's taking a breather' on a live-bet question and nobody knew why.
+    The hourly bug check asks it a real question now; the Worker retries once without the web tools, says why when
+    it can't answer, and knows tonight's live bets (the price we took) for 'what odds on Bai?'."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    h = open(os.path.join(here, "tools", "health.py")).read()
+    assert "question box" in h and "HTTPError" in h
+    js = open(os.path.join(here, "workers", "ask", "src", "index.js")).read()
+    assert "retry lean" in js and "why:" in js and "tonight's live bets we're in" in js and "Date.now() - t0 > 45000" in js
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

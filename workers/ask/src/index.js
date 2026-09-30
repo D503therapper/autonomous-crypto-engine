@@ -477,12 +477,25 @@ export default {
           ...history,
           {
             role: "user",
-            content: `${q}\n\n[live plus money on the board right now: ${JSON.stringify((live && live.plays) || [])}]`,
+            content: `${q}\n\n[live plus money on the board right now: ${JSON.stringify((live && live.plays) || [])}]` +
+              `\n[tonight's live bets we're in (team, the price we took, result - null = still going): ${
+                JSON.stringify(((live && live.today) || []).map((t) => ({ team: t.team, odds: t.odds, result: t.result, sport: t.sport })))}]`,
           },
         ],
       };
-      let response = await client.beta.messages.create(params);
-      for (let i = 0; i < 8; i++) {                         // run its lookups until it has the answer
+      let response;
+      try {
+        response = await client.beta.messages.create(params);
+      } catch (e) {                                          // a hiccup on the full call (web tools, the bigger model):
+        if (e instanceof Anthropic.RateLimitError) throw e;  // one more try, lean - our own feeds only (9/29: the box
+        console.log("retry lean", e && e.status, String(e && e.message).slice(0, 160));   // went to the fallback twice)
+        params.tools = TOOLS;
+        for (const k of ["betas", "fallbacks", "thinking", "output_config"]) delete params[k];
+        response = await client.beta.messages.create(params);
+      }
+      const t0 = Date.now();
+      for (let i = 0; i < 8; i++) {
+        if (Date.now() - t0 > 45000) break;                  // (the page gives up at 90s: answer with what we have)                         // run its lookups until it has the answer
         if (response.stop_reason === "pause_turn") {        // a long search: let it keep going
           params.messages = [...params.messages, { role: "assistant", content: response.content }];
         } else if (response.stop_reason === "tool_use") {   // our live feeds: fetch them and hand back the numbers
@@ -517,10 +530,10 @@ export default {
       }
       if (err instanceof Anthropic.APIError) {
         console.log("anthropic error", err.status, err.message);
-        return reply({ error: "ai unavailable" }, 502, cors);
+        return reply({ error: "ai unavailable", why: `${err.status} ${String(err.message).slice(0, 160)}` }, 502, cors);
       }
       console.log("error", String(err));
-      return reply({ error: "ai unavailable" }, 502, cors);
+      return reply({ error: "ai unavailable", why: String(err).slice(0, 160) }, 502, cors);   // (the hourly check reads it)
     }
   },
 };

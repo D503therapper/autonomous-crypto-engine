@@ -125,6 +125,20 @@ try:
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"scores route down: {str(e)[:60]}")
 
+# 3b. the question box answers (9/29: it went to "the AI's taking a breather" and nobody knew why)
+try:
+    api = open(os.path.join(sd.DATA, "ask_url.txt")).read().strip().rstrip("/")
+    req = urllib.request.Request(api, data=json.dumps({"q": "health check: what's the Lock of the Day? one line"}).encode(),
+                                 headers={"Content-Type": "application/json", "Origin": "https://d503therapper.github.io",
+                                          "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) Mobile/15E148"})
+    try:
+        got = json.load(urllib.request.urlopen(req, timeout=90))
+        (ok if got.get("answer") else problems).append("question box " + ("answers" if got.get("answer") else f"empty: {got}"[:120]))
+    except urllib.error.HTTPError as e:
+        problems.append(f"question box down ({e.code}): {e.read()[:160].decode('utf-8', 'ignore')}")
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"question box check failed: {str(e)[:60]}")
+
 # 4. failed workflows (last 2 hours)
 try:
     runs = json.loads(gh("run", "list", "--limit", "60", "--json", "name,conclusion,createdAt,url") or "[]")
