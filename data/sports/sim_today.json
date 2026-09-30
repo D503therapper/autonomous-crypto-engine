@@ -1,48 +1,46 @@
 {
- "at": "2026-09-29T22:36Z",
+ "at": "2026-09-30T05:59Z",
  "by_cfg": {
   "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1": {
    "mlb:401907897": {
-    "ml": 0.4808
+    "line": -1.5,
+    "ml": 0.4785,
+    "spread": 0.3322,
+    "tline": 7.5,
+    "total": 0.5882
    },
    "mlb:401907898": {
-    "ml": 0.4808
-   },
-   "mlb:401907924": {
-    "line": -1.5,
-    "ml": 0.5279,
-    "spread": 0.3693,
-    "tline": 6.0,
-    "total": 0.7033
+    "ml": 0.4785
    },
    "mlb:401907963": {
-    "ml": 0.5279
+    "line": -1.5,
+    "ml": 0.5409,
+    "spread": 0.3821,
+    "tline": 6.5,
+    "total": 0.6476
    },
    "mlb:401907964": {
-    "ml": 0.5279
+    "ml": 0.5409
    },
    "mlb:401907972": {
     "line": 1.5,
-    "ml": 0.5178,
-    "spread": 0.6508,
+    "ml": 0.5191,
+    "spread": 0.6519,
     "tline": 7.0,
-    "total": 0.6181
+    "total": 0.618
    },
    "mlb:401907973": {
-    "ml": 0.5178
-   },
-   "mlb:401907974": {
-    "line": 1.5,
-    "ml": 0.4721,
-    "spread": 0.604,
-    "tline": 7.5,
-    "total": 0.5726
+    "ml": 0.5191
    },
    "mlb:401907975": {
-    "ml": 0.4721
+    "line": -1.5,
+    "ml": 0.4841,
+    "spread": 0.3349,
+    "tline": 7.5,
+    "total": 0.5716
    },
    "mlb:401907976": {
-    "ml": 0.4721
+    "ml": 0.4841
    }
   },
   "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1": {
@@ -51,6 +49,20 @@
    }
   },
   "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1": {
+   "ncaaf:401858245": {
+    "line": -3.5,
+    "ml": 0.4414,
+    "spread": 0.3491,
+    "tline": 54.5,
+    "total": 0.4663
+   },
+   "ncaaf:401858476": {
+    "line": 2.5,
+    "ml": 0.457,
+    "spread": 0.4946,
+    "tline": 45.5,
+    "total": 0.6019
+   },
    "ncaaf:401862786": {
     "line": -1.5,
     "ml": 0.5263,
@@ -64,6 +76,13 @@
     "spread": 0.5855,
     "tline": 57.5,
     "total": 0.3866
+   },
+   "ncaaf:401871050": {
+    "line": 7.0,
+    "ml": 0.601,
+    "spread": 0.7724,
+    "tline": 50.5,
+    "total": 0.5484
    }
   },
   "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1": {
@@ -76,94 +95,103 @@
    }
   },
   "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1": {
-   "nhl:401891774": {
-    "line": -1.5,
-    "ml": 0.5241,
-    "spread": 0.2826,
-    "tline": 5.5,
-    "total": 0.5464
-   },
-   "nhl:401891775": {
-    "line": -1.5,
-    "ml": 0.6267,
-    "spread": 0.3709,
-    "tline": 5.5,
-    "total": 0.5472
-   },
    "nhl:401891777": {
     "line": -1.5,
-    "ml": 0.5107,
-    "spread": 0.2695
+    "ml": 0.5103,
+    "spread": 0.2691,
+    "tline": 5.5,
+    "total": 0.5232
    },
    "nhl:401891780": {
     "line": -1.5,
-    "ml": 0.6148,
-    "spread": 0.3579,
-    "tline": 6.0,
-    "total": 0.4728
+    "ml": 0.6145,
+    "spread": 0.3575,
+    "tline": 6.5,
+    "total": 0.4182
    },
    "nhl:401891781": {
     "line": -1.5,
-    "ml": 0.468,
-    "spread": 0.2432
+    "ml": 0.4676,
+    "spread": 0.2427,
+    "tline": 6.0,
+    "total": 0.5272
    },
-   "nhl:401891804": {
+   "nhl:401891782": {
     "line": -1.5,
-    "ml": 0.6143,
-    "spread": 0.3658,
-    "tline": 6.5,
-    "total": 0.4824
+    "ml": 0.5484,
+    "spread": 0.3019
+   },
+   "nhl:401891803": {
+    "line": -1.5,
+    "ml": 0.5032,
+    "spread": 0.2658
    },
    "nhl:401891816": {
     "line": 1.5,
-    "ml": 0.4611,
-    "spread": 0.7037
+    "ml": 0.4607,
+    "spread": 0.7035,
+    "tline": 6.5,
+    "total": 0.4486
    },
    "nhl:401891817": {
     "line": -1.5,
-    "ml": 0.4898,
-    "spread": 0.2535
+    "ml": 0.4894,
+    "spread": 0.2531,
+    "tline": 5.5,
+    "total": 0.5233
    },
    "nhl:401891819": {
     "line": 1.5,
-    "ml": 0.4537,
-    "spread": 0.6985
+    "ml": 0.4471,
+    "spread": 0.6936,
+    "tline": 5.5,
+    "total": 0.5487
    },
    "nhl:401891821": {
     "line": -1.5,
-    "ml": 0.5083,
-    "spread": 0.2726,
+    "ml": 0.5079,
+    "spread": 0.2722,
     "tline": 6.0,
-    "total": 0.5146
+    "total": 0.5128
    },
    "nhl:401891823": {
     "line": 1.5,
-    "ml": 0.4539,
-    "spread": 0.6953
-   },
-   "nhl:401891827": {
-    "line": -1.5,
-    "ml": 0.4456,
-    "spread": 0.2271,
+    "ml": 0.45,
+    "spread": 0.6929,
     "tline": 6.5,
-    "total": 0.4747
+    "total": 0.4637
    },
    "nhl:401891828": {
     "line": -1.5,
-    "ml": 0.6019,
-    "spread": 0.3491
+    "ml": 0.6016,
+    "spread": 0.3487,
+    "tline": 5.5,
+    "total": 0.5511
    },
    "nhl:401891829": {
     "line": 1.5,
-    "ml": 0.4106,
-    "spread": 0.6566
+    "ml": 0.4176,
+    "spread": 0.6618,
+    "tline": 6.5,
+    "total": 0.4906
+   },
+   "nhl:401891831": {
+    "line": 1.5,
+    "ml": 0.4799,
+    "spread": 0.7226
    },
    "nhl:401892431": {
     "line": -1.5,
-    "ml": 0.494,
-    "spread": 0.2603,
+    "ml": 0.4596,
+    "spread": 0.2342,
     "tline": 6.0,
-    "total": 0.5021
+    "total": 0.4986
+   },
+   "nhl:401892432": {
+    "ml": 0.5745
+   },
+   "nhl:401892433": {
+    "ml": 0.5801
    }
   }
  },
@@ -172,187 +200,237 @@
    "away": "White Sox",
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.4808
+    "line": -1.5,
+    "ml": 0.4785,
+    "spread": 0.3322,
+    "tline": 7.5,
+    "total": 0.5882
    },
    "home": "Astros",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.5189,
-    "fair_away": -108,
-    "fair_home": 108,
-    "home": 0.4811
+    "away": 0.5204,
+    "fair_away": -109,
+    "fair_home": 109,
+    "home": 0.4796,
+    "market_home": 0.5809
    },
    "proj": {
-    "away": 4.67,
+    "away": 4.68,
     "home": 4.42,
-    "margin": -0.22,
+    "margin": -0.25,
     "total": 8.85
    },
-   "start": "2026-09-30T21:00Z"
+   "spread": {
+    "away": 0.6646,
+    "fair_away": -198,
+    "fair_home": 198,
+    "home": 0.3354,
+    "line": -1.5,
+    "market_home": 0.3869
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.1287
+    ],
+    [
+     -3.5,
+     0.1814
+    ],
+    [
+     -2.5,
+     0.2491
+    ],
+    [
+     -0.5,
+     0.4785
+    ],
+    [
+     0.5,
+     0.4785
+    ],
+    [
+     1.5,
+     0.6081
+    ]
+   ],
+   "start": "2026-09-30T21:00Z",
+   "total": {
+    "fair_over": -142,
+    "fair_under": 142,
+    "line": 7.5,
+    "market_over": 0.5,
+    "over": 0.5863,
+    "under": 0.4137
+   },
+   "totals": [
+    [
+     4.5,
+     0.8668
+    ],
+    [
+     5.5,
+     0.7723
+    ],
+    [
+     6.5,
+     0.6991
+    ],
+    [
+     8.5,
+     0.5095
+    ],
+    [
+     9.5,
+     0.4075
+    ],
+    [
+     10.5,
+     0.3396
+    ]
+   ]
   },
   "mlb:401907898": {
    "away": "White Sox",
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.4808
+    "ml": 0.4785
    },
    "home": "Astros",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.5233,
-    "fair_away": -110,
-    "fair_home": 110,
-    "home": 0.4767
+    "away": 0.5273,
+    "fair_away": -112,
+    "fair_home": 112,
+    "home": 0.4727
    },
    "proj": {
-    "away": 4.65,
-    "home": 4.42,
-    "margin": -0.22,
+    "away": 4.68,
+    "home": 4.41,
+    "margin": -0.25,
     "total": 8.85
    },
    "start": "2026-10-01T21:00Z"
-  },
-  "mlb:401907924": {
-   "away": "Red Sox",
-   "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
-   "exact": {
-    "line": -1.5,
-    "ml": 0.5279,
-    "spread": 0.3693,
-    "tline": 6.0,
-    "total": 0.7033
-   },
-   "home": "Yankees",
-   "known": true,
-   "league": "mlb",
-   "ml": {
-    "away": 0.4759,
-    "fair_away": 110,
-    "fair_home": -110,
-    "home": 0.5241,
-    "market_home": 0.5575
-   },
-   "proj": {
-    "away": 4.09,
-    "home": 4.34,
-    "margin": 0.31,
-    "total": 8.14
-   },
-   "spread": {
-    "away": 0.6329,
-    "fair_away": -172,
-    "fair_home": 172,
-    "home": 0.3671,
-    "line": -1.5,
-    "market_home": 0.3691
-   },
-   "spreads": [
-    [
-     -4.5,
-     0.1431
-    ],
-    [
-     -3.5,
-     0.2019
-    ],
-    [
-     -2.5,
-     0.2774
-    ],
-    [
-     -0.5,
-     0.5279
-    ],
-    [
-     0.5,
-     0.5279
-    ],
-    [
-     1.5,
-     0.6624
-    ]
-   ],
-   "start": "2026-09-30T00:00Z",
-   "total": {
-    "fair_over": -234,
-    "fair_under": 234,
-    "line": 6.0,
-    "market_over": 0.5117,
-    "over": 0.7009,
-    "under": 0.2991
-   },
-   "totals": [
-    [
-     3.0,
-     0.9573
-    ],
-    [
-     4.0,
-     0.8867
-    ],
-    [
-     5.0,
-     0.8159
-    ],
-    [
-     7.0,
-     0.5991
-    ],
-    [
-     8.0,
-     0.4867
-    ],
-    [
-     9.0,
-     0.3852
-    ]
-   ]
   },
   "mlb:401907963": {
    "away": "Red Sox",
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.5279
+    "line": -1.5,
+    "ml": 0.5409,
+    "spread": 0.3821,
+    "tline": 6.5,
+    "total": 0.6476
    },
    "home": "Yankees",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.4689,
-    "fair_away": 113,
-    "fair_home": -113,
-    "home": 0.5311
+    "away": 0.4578,
+    "fair_away": 118,
+    "fair_home": -118,
+    "home": 0.5422,
+    "market_home": 0.5511
    },
    "proj": {
-    "away": 4.06,
-    "home": 4.37,
-    "margin": 0.31,
-    "total": 8.14
+    "away": 3.99,
+    "home": 4.44,
+    "margin": 0.45,
+    "total": 8.16
    },
-   "start": "2026-10-01T00:00Z"
+   "spread": {
+    "away": 0.6153,
+    "fair_away": -160,
+    "fair_home": 160,
+    "home": 0.3847,
+    "line": -1.5,
+    "market_home": 0.3582
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.1513
+    ],
+    [
+     -3.5,
+     0.2119
+    ],
+    [
+     -2.5,
+     0.289
+    ],
+    [
+     -0.5,
+     0.5409
+    ],
+    [
+     0.5,
+     0.5409
+    ],
+    [
+     1.5,
+     0.6741
+    ]
+   ],
+   "start": "2026-10-01T00:00Z",
+   "total": {
+    "fair_over": -181,
+    "fair_under": 181,
+    "line": 6.5,
+    "market_over": 0.5248,
+    "over": 0.644,
+    "under": 0.356
+   },
+   "totals": [
+    [
+     3.5,
+     0.8936
+    ],
+    [
+     4.5,
+     0.8364
+    ],
+    [
+     5.5,
+     0.7281
+    ],
+    [
+     7.5,
+     0.5292
+    ],
+    [
+     8.5,
+     0.4487
+    ],
+    [
+     9.5,
+     0.3473
+    ]
+   ]
   },
   "mlb:401907964": {
    "away": "Red Sox",
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.5279
+    "ml": 0.5409
    },
    "home": "Yankees",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.4745,
-    "fair_away": 111,
-    "fair_home": -111,
-    "home": 0.5255
+    "away": 0.4631,
+    "fair_away": 116,
+    "fair_home": -116,
+    "home": 0.5369
    },
    "proj": {
-    "away": 4.04,
-    "home": 4.29,
-    "margin": 0.31,
-    "total": 8.14
+    "away": 3.97,
+    "home": 4.35,
+    "margin": 0.45,
+    "total": 8.16
    },
    "start": "2026-10-02T00:00Z"
   },
@@ -361,90 +439,90 @@
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.5178,
-    "spread": 0.6508,
+    "ml": 0.5191,
+    "spread": 0.6519,
     "tline": 7.0,
-    "total": 0.6181
+    "total": 0.618
    },
    "home": "Braves",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.4754,
-    "fair_away": 110,
-    "fair_home": -110,
-    "home": 0.5246,
-    "market_home": 0.4773
+    "away": 0.474,
+    "fair_away": 111,
+    "fair_home": -111,
+    "home": 0.526,
+    "market_home": 0.4848
    },
    "proj": {
     "away": 4.23,
-    "home": 4.47,
-    "margin": 0.2,
+    "home": 4.48,
+    "margin": 0.21,
     "total": 8.35
    },
    "spread": {
-    "away": 0.3447,
-    "fair_away": 190,
-    "fair_home": -190,
-    "home": 0.6553,
+    "away": 0.3441,
+    "fair_away": 191,
+    "fair_home": -191,
+    "home": 0.6559,
     "line": 1.5,
-    "market_home": 0.6145
+    "market_home": 0.6206
    },
    "spreads": [
     [
      -1.5,
-     0.3627
+     0.3639
     ],
     [
      -0.5,
-     0.5178
+     0.5191
     ],
     [
      0.5,
-     0.5178
+     0.5191
     ],
     [
      2.5,
-     0.751
+     0.752
     ],
     [
      3.5,
-     0.8245
+     0.8254
     ],
     [
      4.5,
-     0.8783
+     0.879
     ]
    ],
    "start": "2026-09-30T18:00Z",
    "total": {
-    "fair_over": -169,
-    "fair_under": 169,
+    "fair_over": -168,
+    "fair_under": 168,
     "line": 7.0,
-    "market_over": 0.5052,
-    "over": 0.6279,
-    "under": 0.3721
+    "market_over": 0.5042,
+    "over": 0.6274,
+    "under": 0.3726
    },
    "totals": [
     [
      4.0,
-     0.8944
+     0.8943
     ],
     [
      5.0,
-     0.8276
+     0.8275
     ],
     [
      6.0,
-     0.7191
+     0.719
     ],
     [
      8.0,
-     0.5065
+     0.5064
     ],
     [
      9.0,
-     0.4053
+     0.4052
     ],
     [
      10.0,
@@ -456,164 +534,141 @@
    "away": "Phillies",
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.5178
+    "ml": 0.5191
    },
    "home": "Braves",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.4852,
-    "fair_away": 106,
-    "fair_home": -106,
-    "home": 0.5148
+    "away": 0.4811,
+    "fair_away": 108,
+    "fair_home": -108,
+    "home": 0.5189
    },
    "proj": {
-    "away": 4.18,
-    "home": 4.34,
-    "margin": 0.2,
+    "away": 4.17,
+    "home": 4.36,
+    "margin": 0.21,
     "total": 8.35
    },
    "start": "2026-10-01T18:00Z"
-  },
-  "mlb:401907974": {
-   "away": "Cubs",
-   "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
-   "exact": {
-    "line": 1.5,
-    "ml": 0.4721,
-    "spread": 0.604,
-    "tline": 7.5,
-    "total": 0.5726
-   },
-   "home": "Padres",
-   "known": true,
-   "league": "mlb",
-   "ml": {
-    "away": 0.5308,
-    "fair_away": -113,
-    "fair_home": 113,
-    "home": 0.4692,
-    "market_home": 0.5291
-   },
-   "proj": {
-    "away": 4.63,
-    "home": 4.31,
-    "margin": -0.32,
-    "total": 8.66
-   },
-   "spread": {
-    "away": 0.4028,
-    "fair_away": 148,
-    "fair_home": -148,
-    "home": 0.5972,
-    "line": 1.5,
-    "market_home": 0.6482
-   },
-   "spreads": [
-    [
-     -1.5,
-     0.3239
-    ],
-    [
-     -0.5,
-     0.4721
-    ],
-    [
-     0.5,
-     0.4721
-    ],
-    [
-     2.5,
-     0.7069
-    ],
-    [
-     3.5,
-     0.7855
-    ],
-    [
-     4.5,
-     0.8456
-    ]
-   ],
-   "start": "2026-09-30T02:00Z",
-   "total": {
-    "fair_over": -134,
-    "fair_under": 134,
-    "line": 7.5,
-    "market_over": 0.4807,
-    "over": 0.5724,
-    "under": 0.4276
-   },
-   "totals": [
-    [
-     4.5,
-     0.8592
-    ],
-    [
-     5.5,
-     0.761
-    ],
-    [
-     6.5,
-     0.6857
-    ],
-    [
-     8.5,
-     0.4933
-    ],
-    [
-     9.5,
-     0.3912
-    ],
-    [
-     10.5,
-     0.324
-    ]
-   ]
   },
   "mlb:401907975": {
    "away": "Cubs",
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.4721
+    "line": -1.5,
+    "ml": 0.4841,
+    "spread": 0.3349,
+    "tline": 7.5,
+    "total": 0.5716
    },
    "home": "Padres",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.5281,
-    "fair_away": -112,
-    "fair_home": 112,
-    "home": 0.4719
+    "away": 0.5159,
+    "fair_away": -107,
+    "fair_home": 107,
+    "home": 0.4841,
+    "market_home": 0.5467
    },
    "proj": {
-    "away": 4.66,
-    "home": 4.3,
-    "margin": -0.32,
-    "total": 8.66
+    "away": 4.57,
+    "home": 4.34,
+    "margin": -0.18,
+    "total": 8.65
    },
-   "start": "2026-10-01T02:00Z"
+   "spread": {
+    "away": 0.6682,
+    "fair_away": -201,
+    "fair_home": 201,
+    "home": 0.3318,
+    "line": -1.5,
+    "market_home": 0.357
+   },
+   "spreads": [
+    [
+     -4.5,
+     0.1282
+    ],
+    [
+     -3.5,
+     0.1814
+    ],
+    [
+     -2.5,
+     0.2503
+    ],
+    [
+     -0.5,
+     0.4841
+    ],
+    [
+     0.5,
+     0.4841
+    ],
+    [
+     1.5,
+     0.6157
+    ]
+   ],
+   "start": "2026-10-01T02:00Z",
+   "total": {
+    "fair_over": -134,
+    "fair_under": 134,
+    "line": 7.5,
+    "market_over": 0.4826,
+    "over": 0.5729,
+    "under": 0.4271
+   },
+   "totals": [
+    [
+     4.5,
+     0.8587
+    ],
+    [
+     5.5,
+     0.7603
+    ],
+    [
+     6.5,
+     0.6849
+    ],
+    [
+     8.5,
+     0.4923
+    ],
+    [
+     9.5,
+     0.3902
+    ],
+    [
+     10.5,
+     0.323
+    ]
+   ]
   },
   "mlb:401907976": {
    "away": "Cubs",
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
    "exact": {
-    "ml": 0.4721
+    "ml": 0.4841
    },
    "home": "Padres",
    "known": true,
    "league": "mlb",
    "ml": {
-    "away": 0.5235,
-    "fair_away": -110,
-    "fair_home": 110,
-    "home": 0.4765
+    "away": 0.517,
+    "fair_away": -107,
+    "fair_home": 107,
+    "home": 0.483
    },
    "proj": {
-    "away": 4.61,
-    "home": 4.28,
-    "margin": -0.32,
-    "total": 8.66
+    "away": 4.56,
+    "home": 4.32,
+    "margin": -0.18,
+    "total": 8.65
    },
    "start": "2026-10-02T02:00Z"
   },
@@ -639,6 +694,198 @@
     "total": 134.91
    },
    "start": "2024-11-20T00:30Z"
+  },
+  "ncaaf:401858245": {
+   "away": "Pitt",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": -3.5,
+    "ml": 0.4414,
+    "spread": 0.3491,
+    "tline": 54.5,
+    "total": 0.4663
+   },
+   "home": "Virginia Tech",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.5542,
+    "fair_away": -124,
+    "fair_home": 124,
+    "home": 0.4458,
+    "market_home": 0.5934
+   },
+   "proj": {
+    "away": 27.83,
+    "home": 25.23,
+    "margin": -2.67,
+    "total": 53.17
+   },
+   "spread": {
+    "away": 0.6419,
+    "fair_away": -179,
+    "fair_home": 179,
+    "home": 0.3581,
+    "line": -3.5,
+    "market_home": 0.4826
+   },
+   "spreads": [
+    [
+     -6.5,
+     0.2963
+    ],
+    [
+     -5.5,
+     0.3147
+    ],
+    [
+     -4.5,
+     0.3288
+    ],
+    [
+     -2.5,
+     0.4049
+    ],
+    [
+     -1.5,
+     0.4213
+    ],
+    [
+     -0.5,
+     0.4409
+    ]
+   ],
+   "start": "2026-10-02T23:00Z",
+   "total": {
+    "fair_over": 117,
+    "fair_under": -117,
+    "line": 54.5,
+    "market_over": 0.515,
+    "over": 0.4618,
+    "under": 0.5382
+   },
+   "totals": [
+    [
+     51.5,
+     0.5423
+    ],
+    [
+     52.5,
+     0.517
+    ],
+    [
+     53.5,
+     0.4916
+    ],
+    [
+     55.5,
+     0.4411
+    ],
+    [
+     56.5,
+     0.4161
+    ],
+    [
+     57.5,
+     0.3915
+    ]
+   ]
+  },
+  "ncaaf:401858476": {
+   "away": "Penn State",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 2.5,
+    "ml": 0.457,
+    "spread": 0.4946,
+    "tline": 45.5,
+    "total": 0.6019
+   },
+   "home": "Northwestern",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.542,
+    "fair_away": -118,
+    "fair_home": 118,
+    "home": 0.458,
+    "market_home": 0.4365
+   },
+   "proj": {
+    "away": 25.86,
+    "home": 24.02,
+    "margin": -1.96,
+    "total": 49.56
+   },
+   "spread": {
+    "away": 0.5055,
+    "fair_away": -102,
+    "fair_home": 102,
+    "home": 0.4945,
+    "line": 2.5,
+    "market_home": 0.4826
+   },
+   "spreads": [
+    [
+     -0.5,
+     0.4564
+    ],
+    [
+     0.5,
+     0.4577
+    ],
+    [
+     1.5,
+     0.4776
+    ],
+    [
+     3.5,
+     0.5532
+    ],
+    [
+     4.5,
+     0.5748
+    ],
+    [
+     5.5,
+     0.59
+    ]
+   ],
+   "start": "2026-10-03T00:00Z",
+   "total": {
+    "fair_over": -153,
+    "fair_under": 153,
+    "line": 45.5,
+    "market_over": 0.4957,
+    "over": 0.6051,
+    "under": 0.3949
+   },
+   "totals": [
+    [
+     42.5,
+     0.6733
+    ],
+    [
+     43.5,
+     0.6501
+    ],
+    [
+     44.5,
+     0.6263
+    ],
+    [
+     46.5,
+     0.5772
+    ],
+    [
+     47.5,
+     0.5521
+    ],
+    [
+     48.5,
+     0.5269
+    ]
+   ]
   },
   "ncaaf:401862786": {
    "away": "North Texas",
@@ -832,6 +1079,102 @@
     ]
    ]
   },
+  "ncaaf:401871050": {
+   "away": "Liberty",
+   "cfg": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "exact": {
+    "line": 7.0,
+    "ml": 0.601,
+    "spread": 0.7724,
+    "tline": 50.5,
+    "total": 0.5484
+   },
+   "home": "Delaware",
+   "known": true,
+   "league": "ncaaf",
+   "ml": {
+    "away": 0.3925,
+    "fair_away": 155,
+    "fair_home": -155,
+    "home": 0.6075,
+    "market_home": 0.2998
+   },
+   "proj": {
+    "away": 23.83,
+    "home": 28.86,
+    "margin": 4.64,
+    "total": 52.41
+   },
+   "spread": {
+    "away": 0.2213,
+    "fair_away": 352,
+    "fair_home": -352,
+    "home": 0.7787,
+    "line": 7.0,
+    "market_home": 0.4957
+   },
+   "spreads": [
+    [
+     4.0,
+     0.7035
+    ],
+    [
+     5.0,
+     0.7188
+    ],
+    [
+     6.0,
+     0.7353
+    ],
+    [
+     8.0,
+     0.7926
+    ],
+    [
+     9.0,
+     0.8004
+    ],
+    [
+     10.0,
+     0.8193
+    ]
+   ],
+   "start": "2026-10-02T23:00Z",
+   "total": {
+    "fair_over": -123,
+    "fair_under": 123,
+    "line": 50.5,
+    "market_over": 0.4923,
+    "over": 0.5525,
+    "under": 0.4475
+   },
+   "totals": [
+    [
+     47.5,
+     0.6227
+    ],
+    [
+     48.5,
+     0.5983
+    ],
+    [
+     49.5,
+     0.5735
+    ],
+    [
+     51.5,
+     0.5232
+    ],
+    [
+     52.5,
+     0.4978
+    ],
+    [
+     53.5,
+     0.4724
+    ]
+   ]
+  },
   "nfl:401872964": {
    "away": "Steelers",
    "cfg": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
@@ -928,312 +1271,156 @@
     ]
    ]
   },
-  "nhl:401891774": {
-   "away": "Rangers",
-   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
-   "exact": {
-    "line": -1.5,
-    "ml": 0.5241,
-    "spread": 0.2826,
-    "tline": 5.5,
-    "total": 0.5464
-   },
-   "home": "Bruins",
-   "known": true,
-   "league": "nhl",
-   "ml": {
-    "away": 0.4806,
-    "fair_away": 108,
-    "fair_home": -108,
-    "home": 0.5194,
-    "market_home": 0.5
-   },
-   "proj": {
-    "away": 2.99,
-    "home": 3.11,
-    "margin": 0.14,
-    "total": 6.17
-   },
-   "spread": {
-    "away": 0.7215,
-    "fair_away": -259,
-    "fair_home": 259,
-    "home": 0.2785,
-    "line": -1.5,
-    "market_home": 0.3042
-   },
-   "spreads": [
-    [
-     -4.5,
-     0.0365
-    ],
-    [
-     -3.5,
-     0.0814
-    ],
-    [
-     -2.5,
-     0.1612
-    ],
-    [
-     -0.5,
-     0.5241
-    ],
-    [
-     0.5,
-     0.5241
-    ],
-    [
-     1.5,
-     0.7545
-    ]
-   ],
-   "start": "2026-09-30T00:00Z",
-   "total": {
-    "fair_over": -120,
-    "fair_under": 120,
-    "line": 5.5,
-    "market_over": 0.5467,
-    "over": 0.5455,
-    "under": 0.4545
-   },
-   "totals": [
-    [
-     2.5,
-     0.9589
-    ],
-    [
-     3.5,
-     0.8444
-    ],
-    [
-     4.5,
-     0.7593
-    ],
-    [
-     6.5,
-     0.436
-    ],
-    [
-     7.5,
-     0.2493
-    ],
-    [
-     8.5,
-     0.1755
-    ]
-   ]
-  },
-  "nhl:401891775": {
-   "away": "Blackhawks",
-   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
-   "exact": {
-    "line": -1.5,
-    "ml": 0.6267,
-    "spread": 0.3709,
-    "tline": 5.5,
-    "total": 0.5472
-   },
-   "home": "Golden Knights",
-   "known": true,
-   "league": "nhl",
-   "ml": {
-    "away": 0.3738,
-    "fair_away": 168,
-    "fair_home": -168,
-    "home": 0.6262,
-    "market_home": 0.6908
-   },
-   "proj": {
-    "away": 2.69,
-    "home": 3.43,
-    "margin": 0.74,
-    "total": 6.18
-   },
-   "spread": {
-    "away": 0.6339,
-    "fair_away": -173,
-    "fair_home": 173,
-    "home": 0.3661,
-    "line": -1.5,
-    "market_home": 0.4675
-   },
-   "spreads": [
-    [
-     -4.5,
-     0.0612
-    ],
-    [
-     -3.5,
-     0.1252
-    ],
-    [
-     -2.5,
-     0.2285
-    ],
-    [
-     -0.5,
-     0.6267
-    ],
-    [
-     0.5,
-     0.6267
-    ],
-    [
-     1.5,
-     0.8259
-    ]
-   ],
-   "start": "2026-09-30T02:30Z",
-   "total": {
-    "fair_over": -120,
-    "fair_under": 120,
-    "line": 5.5,
-    "market_over": 0.5572,
-    "over": 0.5452,
-    "under": 0.4548
-   },
-   "totals": [
-    [
-     2.5,
-     0.9587
-    ],
-    [
-     3.5,
-     0.8448
-    ],
-    [
-     4.5,
-     0.7584
-    ],
-    [
-     6.5,
-     0.4345
-    ],
-    [
-     7.5,
-     0.25
-    ],
-    [
-     8.5,
-     0.1744
-    ]
-   ]
-  },
   "nhl:401891777": {
    "away": "Kraken",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.5107,
-    "spread": 0.2695
+    "ml": 0.5103,
+    "spread": 0.2691,
+    "tline": 5.5,
+    "total": 0.5232
    },
    "home": "Flames",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4854,
+    "away": 0.4861,
     "fair_away": 106,
     "fair_home": -106,
-    "home": 0.5146,
+    "home": 0.5139,
     "market_home": 0.5108
    },
    "proj": {
     "away": 2.96,
-    "home": 3.05,
+    "home": 3.04,
     "margin": 0.06,
-    "total": 6.04
+    "total": 6.03
    },
    "spread": {
-    "away": 0.7298,
-    "fair_away": -270,
-    "fair_home": 270,
-    "home": 0.2702,
+    "away": 0.7309,
+    "fair_away": -272,
+    "fair_home": 272,
+    "home": 0.2691,
     "line": -1.5,
     "market_home": 0.3092
    },
    "spreads": [
     [
      -4.5,
-     0.0326
+     0.0324
     ],
     [
      -3.5,
-     0.0744
+     0.0741
     ],
     [
      -2.5,
-     0.1507
+     0.1503
     ],
     [
      -0.5,
-     0.5107
+     0.5103
     ],
     [
      0.5,
-     0.5107
+     0.5103
     ],
     [
      1.5,
-     0.7468
+     0.7467
     ]
    ],
-   "start": "2026-10-02T01:00Z"
+   "start": "2026-10-02T01:00Z",
+   "total": {
+    "fair_over": -111,
+    "fair_under": 111,
+    "line": 5.5,
+    "market_over": 0.5,
+    "over": 0.525,
+    "under": 0.475
+   },
+   "totals": [
+    [
+     2.5,
+     0.9543
+    ],
+    [
+     3.5,
+     0.831
+    ],
+    [
+     4.5,
+     0.742
+    ],
+    [
+     6.5,
+     0.4131
+    ],
+    [
+     7.5,
+     0.2302
+    ],
+    [
+     8.5,
+     0.1601
+    ]
+   ]
   },
   "nhl:401891780": {
    "away": "Kings",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.6148,
-    "spread": 0.3579,
-    "tline": 6.0,
-    "total": 0.4728
+    "ml": 0.6145,
+    "spread": 0.3575,
+    "tline": 6.5,
+    "total": 0.4182
    },
    "home": "Avalanche",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.3823,
-    "fair_away": 162,
-    "fair_home": -162,
-    "home": 0.6177,
+    "away": 0.3838,
+    "fair_away": 161,
+    "fair_home": -161,
+    "home": 0.6162,
     "market_home": 0.6164
    },
    "proj": {
-    "away": 2.68,
-    "home": 3.36,
+    "away": 2.67,
+    "home": 3.35,
     "margin": 0.66,
-    "total": 6.08
+    "total": 6.07
    },
    "spread": {
-    "away": 0.6382,
-    "fair_away": -176,
-    "fair_home": 176,
-    "home": 0.3618,
+    "away": 0.6385,
+    "fair_away": -177,
+    "fair_home": 177,
+    "home": 0.3615,
     "line": -1.5,
     "market_home": 0.4066
    },
    "spreads": [
     [
      -4.5,
-     0.0562
+     0.0559
     ],
     [
      -3.5,
-     0.1171
+     0.1167
     ],
     [
      -2.5,
-     0.2173
+     0.2168
     ],
     [
      -0.5,
-     0.6148
+     0.6145
     ],
     [
      0.5,
-     0.6148
+     0.6145
     ],
     [
      1.5,
@@ -1242,37 +1429,37 @@
    ],
    "start": "2026-10-01T02:00Z",
    "total": {
-    "fair_over": 110,
-    "fair_under": -110,
-    "line": 6.0,
-    "market_over": 0.5217,
-    "over": 0.4752,
-    "under": 0.5248
+    "fair_over": 138,
+    "fair_under": -138,
+    "line": 6.5,
+    "market_over": 0.4913,
+    "over": 0.4203,
+    "under": 0.5797
    },
    "totals": [
     [
-     3.0,
-     0.9497
+     3.5,
+     0.8351
     ],
     [
-     4.0,
-     0.8201
+     4.5,
+     0.746
     ],
     [
-     5.0,
-     0.6778
+     5.5,
+     0.5303
     ],
     [
-     7.0,
-     0.2902
+     7.5,
+     0.2359
     ],
     [
-     8.0,
-     0.1773
+     8.5,
+     0.1633
     ],
     [
-     9.0,
-     0.0821
+     9.5,
+     0.0741
     ]
    ]
   },
@@ -1281,201 +1468,263 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.468,
-    "spread": 0.2432
+    "ml": 0.4676,
+    "spread": 0.2427,
+    "tline": 6.0,
+    "total": 0.5272
    },
    "home": "Blue Jackets",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5303,
+    "away": 0.5306,
     "fair_away": -113,
     "fair_home": 113,
-    "home": 0.4697,
+    "home": 0.4694,
     "market_home": 0.5108
    },
    "proj": {
     "away": 3.24,
     "home": 3.07,
     "margin": -0.19,
-    "total": 6.39
+    "total": 6.38
    },
    "spread": {
-    "away": 0.7478,
-    "fair_away": -297,
-    "fair_home": 297,
-    "home": 0.2522,
+    "away": 0.7477,
+    "fair_away": -296,
+    "fair_home": 296,
+    "home": 0.2523,
     "line": -1.5,
     "market_home": 0.3146
    },
    "spreads": [
     [
      -4.5,
-     0.029
+     0.0288
     ],
     [
      -3.5,
-     0.0662
+     0.066
     ],
     [
      -2.5,
-     0.1348
+     0.1344
     ],
     [
      -0.5,
-     0.468
+     0.4676
     ],
     [
      0.5,
-     0.468
+     0.4676
     ],
     [
      1.5,
-     0.7069
+     0.7068
     ]
    ],
-   "start": "2026-10-01T23:00Z"
+   "start": "2026-10-01T23:00Z",
+   "total": {
+    "fair_over": -109,
+    "fair_under": 109,
+    "line": 6.0,
+    "market_over": 0.5,
+    "over": 0.5216,
+    "under": 0.4784
+   },
+   "totals": [
+    [
+     3.0,
+     0.9607
+    ],
+    [
+     4.0,
+     0.8505
+    ],
+    [
+     5.0,
+     0.7275
+    ],
+    [
+     7.0,
+     0.3437
+    ],
+    [
+     8.0,
+     0.2161
+    ],
+    [
+     9.0,
+     0.1063
+    ]
+   ]
   },
-  "nhl:401891804": {
-   "away": "Canucks",
+  "nhl:401891782": {
+   "away": "Blues",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.6143,
-    "spread": 0.3658,
-    "tline": 6.5,
-    "total": 0.4824
+    "ml": 0.5484,
+    "spread": 0.3019
    },
-   "home": "Oilers",
+   "home": "Stars",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.389,
-    "fair_away": 157,
-    "fair_home": -157,
-    "home": 0.611,
-    "market_home": 0.7221
+    "away": 0.4527,
+    "fair_away": 121,
+    "fair_home": -121,
+    "home": 0.5473,
+    "market_home": 0.6447
    },
    "proj": {
-    "away": 2.87,
-    "home": 3.55,
-    "margin": 0.68,
-    "total": 6.47
+    "away": 2.9,
+    "home": 3.19,
+    "margin": 0.28,
+    "total": 6.15
    },
    "spread": {
-    "away": 0.6394,
-    "fair_away": -177,
-    "fair_home": 177,
-    "home": 0.3606,
+    "away": 0.6963,
+    "fair_away": -229,
+    "fair_home": 229,
+    "home": 0.3037,
     "line": -1.5,
-    "market_home": 0.5261
+    "market_home": 0.4365
    },
    "spreads": [
     [
      -4.5,
-     0.0628
+     0.0412
     ],
     [
      -3.5,
-     0.1263
+     0.09
     ],
     [
      -2.5,
-     0.2274
+     0.1751
     ],
     [
      -0.5,
-     0.6143
+     0.5484
     ],
     [
      0.5,
-     0.6143
+     0.5484
     ],
     [
      1.5,
-     0.8137
+     0.7728
     ]
    ],
-   "start": "2026-09-30T02:00Z",
-   "total": {
-    "fair_over": 107,
-    "fair_under": -107,
-    "line": 6.5,
-    "market_over": 0.5108,
-    "over": 0.4833,
-    "under": 0.5167
+   "start": "2026-10-03T01:00Z"
+  },
+  "nhl:401891803": {
+   "away": "Rangers",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": -1.5,
+    "ml": 0.5032,
+    "spread": 0.2658
    },
-   "totals": [
+   "home": "Red Wings",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4994,
+    "fair_away": 100,
+    "fair_home": -100,
+    "home": 0.5006,
+    "market_home": 0.5635
+   },
+   "proj": {
+    "away": 3.05,
+    "home": 3.05,
+    "margin": 0.02,
+    "total": 6.15
+   },
+   "spread": {
+    "away": 0.7348,
+    "fair_away": -277,
+    "fair_home": 277,
+    "home": 0.2652,
+    "line": -1.5,
+    "market_home": 0.3425
+   },
+   "spreads": [
     [
-     3.5,
-     0.87
+     -4.5,
+     0.0325
     ],
     [
-     4.5,
-     0.7922
+     -3.5,
+     0.0738
     ],
     [
-     5.5,
-     0.594
+     -2.5,
+     0.1489
     ],
     [
-     7.5,
-     0.2915
+     -0.5,
+     0.5032
     ],
     [
-     8.5,
-     0.209
+     0.5,
+     0.5032
     ],
     [
-     9.5,
-     0.1024
+     1.5,
+     0.7392
     ]
-   ]
+   ],
+   "start": "2026-10-02T22:30Z"
   },
   "nhl:401891816": {
    "away": "Wild",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.4611,
-    "spread": 0.7037
+    "ml": 0.4607,
+    "spread": 0.7035,
+    "tline": 6.5,
+    "total": 0.4486
    },
    "home": "Predators",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5426,
+    "away": 0.543,
     "fair_away": -119,
     "fair_home": 119,
-    "home": 0.4574,
+    "home": 0.457,
     "market_home": 0.4365
    },
    "proj": {
     "away": 3.26,
-    "home": 3.01,
+    "home": 3.0,
     "margin": -0.23,
-    "total": 6.26
+    "total": 6.25
    },
    "spread": {
-    "away": 0.2946,
+    "away": 0.2947,
     "fair_away": 239,
     "fair_home": -239,
-    "home": 0.7054,
+    "home": 0.7053,
     "line": 1.5,
     "market_home": 0.6575
    },
    "spreads": [
     [
      -1.5,
-     0.236
+     0.2355
     ],
     [
      -0.5,
-     0.4611
+     0.4607
     ],
     [
      0.5,
-     0.4611
+     0.4607
     ],
     [
      2.5,
@@ -1483,228 +1732,334 @@
     ],
     [
      3.5,
-     0.9114
+     0.9115
     ],
     [
      4.5,
      0.9594
     ]
    ],
-   "start": "2026-10-02T00:00Z"
+   "start": "2026-10-02T00:00Z",
+   "total": {
+    "fair_over": 116,
+    "fair_under": -116,
+    "line": 6.5,
+    "market_over": 0.4675,
+    "over": 0.4624,
+    "under": 0.5376
+   },
+   "totals": [
+    [
+     3.5,
+     0.8515
+    ],
+    [
+     4.5,
+     0.7686
+    ],
+    [
+     5.5,
+     0.5592
+    ],
+    [
+     7.5,
+     0.2602
+    ],
+    [
+     8.5,
+     0.1843
+    ],
+    [
+     9.5,
+     0.086
+    ]
+   ]
   },
   "nhl:401891817": {
    "away": "Flyers",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.4898,
-    "spread": 0.2535
+    "ml": 0.4894,
+    "spread": 0.2531,
+    "tline": 5.5,
+    "total": 0.5233
    },
    "home": "Devils",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5066,
+    "away": 0.5067,
     "fair_away": -103,
     "fair_home": 103,
-    "home": 0.4934,
+    "home": 0.4933,
     "market_home": 0.5635
    },
    "proj": {
     "away": 3.01,
-    "home": 2.95,
+    "home": 2.94,
     "margin": -0.06,
-    "total": 6.04
+    "total": 6.03
    },
    "spread": {
-    "away": 0.7451,
-    "fair_away": -292,
-    "fair_home": 292,
-    "home": 0.2549,
+    "away": 0.7464,
+    "fair_away": -294,
+    "fair_home": 294,
+    "home": 0.2536,
     "line": -1.5,
     "market_home": 0.3553
    },
    "spreads": [
     [
      -4.5,
-     0.0291
+     0.0289
     ],
     [
      -3.5,
-     0.0676
+     0.0673
     ],
     [
      -2.5,
-     0.1394
+     0.139
     ],
     [
      -0.5,
-     0.4898
+     0.4894
     ],
     [
      0.5,
-     0.4898
+     0.4894
     ],
     [
      1.5,
-     0.7308
+     0.7307
     ]
    ],
-   "start": "2026-10-01T23:00Z"
+   "start": "2026-10-01T23:00Z",
+   "total": {
+    "fair_over": -110,
+    "fair_under": 110,
+    "line": 5.5,
+    "market_over": 0.5108,
+    "over": 0.5235,
+    "under": 0.4765
+   },
+   "totals": [
+    [
+     2.5,
+     0.9543
+    ],
+    [
+     3.5,
+     0.831
+    ],
+    [
+     4.5,
+     0.742
+    ],
+    [
+     6.5,
+     0.4132
+    ],
+    [
+     7.5,
+     0.2302
+    ],
+    [
+     8.5,
+     0.1601
+    ]
+   ]
   },
   "nhl:401891819": {
    "away": "Lightning",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.4537,
-    "spread": 0.6985
+    "ml": 0.4471,
+    "spread": 0.6936,
+    "tline": 5.5,
+    "total": 0.5487
    },
    "home": "Rangers",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5518,
-    "fair_away": -123,
-    "fair_home": 123,
-    "home": 0.4482,
+    "away": 0.5571,
+    "fair_away": -126,
+    "fair_home": 126,
+    "home": 0.4429,
     "market_home": 0.4365
    },
    "proj": {
-    "away": 3.22,
-    "home": 2.93,
-    "margin": -0.27,
-    "total": 6.21
+    "away": 3.23,
+    "home": 2.9,
+    "margin": -0.31,
+    "total": 6.18
    },
    "spread": {
-    "away": 0.2993,
-    "fair_away": 234,
-    "fair_home": -234,
-    "home": 0.7007,
+    "away": 0.3045,
+    "fair_away": 228,
+    "fair_home": -228,
+    "home": 0.6955,
     "line": 1.5,
     "market_home": 0.6575
    },
    "spreads": [
     [
      -1.5,
-     0.2299
+     0.2245
     ],
     [
      -0.5,
-     0.4537
+     0.4471
     ],
     [
      0.5,
-     0.4537
+     0.4471
     ],
     [
      2.5,
-     0.8246
+     0.8212
     ],
     [
      3.5,
-     0.9095
+     0.9075
     ],
     [
      4.5,
-     0.9584
+     0.9574
     ]
    ],
-   "start": "2026-10-01T23:00Z"
+   "start": "2026-10-01T23:00Z",
+   "total": {
+    "fair_over": -122,
+    "fair_under": 122,
+    "line": 5.5,
+    "market_over": 0.5207,
+    "over": 0.5491,
+    "under": 0.4509
+   },
+   "totals": [
+    [
+     2.5,
+     0.9592
+    ],
+    [
+     3.5,
+     0.8456
+    ],
+    [
+     4.5,
+     0.7607
+    ],
+    [
+     6.5,
+     0.4378
+    ],
+    [
+     7.5,
+     0.2512
+    ],
+    [
+     8.5,
+     0.1768
+    ]
+   ]
   },
   "nhl:401891821": {
    "away": "Penguins",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.5083,
-    "spread": 0.2726,
+    "ml": 0.5079,
+    "spread": 0.2722,
     "tline": 6.0,
-    "total": 0.5146
+    "total": 0.5128
    },
    "home": "Flyers",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.4913,
-    "fair_away": 104,
-    "fair_home": -104,
-    "home": 0.5087,
+    "away": 0.4918,
+    "fair_away": 103,
+    "fair_home": -103,
+    "home": 0.5082,
     "market_home": 0.5635
    },
    "proj": {
     "away": 3.12,
     "home": 3.16,
     "margin": 0.05,
-    "total": 6.31
+    "total": 6.3
    },
    "spread": {
-    "away": 0.7263,
-    "fair_away": -265,
-    "fair_home": 265,
-    "home": 0.2737,
+    "away": 0.7268,
+    "fair_away": -266,
+    "fair_home": 266,
+    "home": 0.2732,
     "line": -1.5,
     "market_home": 0.3425
    },
    "spreads": [
     [
      -4.5,
-     0.0351
+     0.0349
     ],
     [
      -3.5,
-     0.0782
+     0.0779
     ],
     [
      -2.5,
-     0.1551
+     0.1547
     ],
     [
      -0.5,
-     0.5083
+     0.5079
     ],
     [
      0.5,
-     0.5083
+     0.5079
     ],
     [
      1.5,
-     0.7402
+     0.7401
     ]
    ],
    "start": "2026-09-30T23:30Z",
    "total": {
-    "fair_over": -107,
-    "fair_under": 107,
+    "fair_over": -106,
+    "fair_under": 106,
     "line": 6.0,
-    "market_over": 0.5174,
-    "over": 0.5172,
-    "under": 0.4828
+    "market_over": 0.5312,
+    "over": 0.5154,
+    "under": 0.4846
    },
    "totals": [
     [
      3.0,
-     0.9584
+     0.9581
     ],
     [
      4.0,
-     0.8437
+     0.8427
     ],
     [
      5.0,
-     0.7164
+     0.7149
     ],
     [
      7.0,
-     0.3308
+     0.329
     ],
     [
      8.0,
-     0.2068
+     0.2056
     ],
     [
      9.0,
-     0.1001
+     0.0993
     ]
    ]
   },
@@ -1713,154 +2068,94 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.4539,
-    "spread": 0.6953
+    "ml": 0.45,
+    "spread": 0.6929,
+    "tline": 6.5,
+    "total": 0.4637
    },
    "home": "Sharks",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5489,
-    "fair_away": -122,
-    "fair_home": 122,
-    "home": 0.4511,
+    "away": 0.553,
+    "fair_away": -124,
+    "fair_home": 124,
+    "home": 0.447,
     "market_home": 0.4486
    },
    "proj": {
-    "away": 3.3,
-    "home": 3.02,
-    "margin": -0.27,
-    "total": 6.39
+    "away": 3.29,
+    "home": 2.99,
+    "margin": -0.29,
+    "total": 6.35
    },
    "spread": {
-    "away": 0.3014,
-    "fair_away": 232,
-    "fair_home": -232,
-    "home": 0.6986,
+    "away": 0.302,
+    "fair_away": 231,
+    "fair_home": -231,
+    "home": 0.698,
     "line": 1.5,
     "market_home": 0.6575
    },
    "spreads": [
     [
      -1.5,
-     0.2328
+     0.2292
     ],
     [
      -0.5,
-     0.4539
+     0.45
     ],
     [
      0.5,
-     0.4539
+     0.45
     ],
     [
      2.5,
-     0.8207
+     0.8192
     ],
     [
      3.5,
-     0.9061
+     0.9054
     ],
     [
      4.5,
-     0.9562
+     0.9559
     ]
    ],
-   "start": "2026-10-02T02:00Z"
-  },
-  "nhl:401891827": {
-   "away": "Canadiens",
-   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
-   "exact": {
-    "line": -1.5,
-    "ml": 0.4456,
-    "spread": 0.2271,
-    "tline": 6.5,
-    "total": 0.4747
-   },
-   "home": "Maple Leafs",
-   "known": true,
-   "league": "nhl",
-   "ml": {
-    "away": 0.5487,
-    "fair_away": -122,
-    "fair_home": 122,
-    "home": 0.4513,
-    "market_home": 0.5108
-   },
-   "proj": {
-    "away": 3.36,
-    "home": 3.04,
-    "margin": -0.32,
-    "total": 6.42
-   },
-   "spread": {
-    "away": 0.7612,
-    "fair_away": -319,
-    "fair_home": 319,
-    "home": 0.2388,
-    "line": -1.5,
-    "market_home": 0.3092
-   },
-   "spreads": [
-    [
-     -4.5,
-     0.0257
-    ],
-    [
-     -3.5,
-     0.0599
-    ],
-    [
-     -2.5,
-     0.1239
-    ],
-    [
-     -0.5,
-     0.4456
-    ],
-    [
-     0.5,
-     0.4456
-    ],
-    [
-     1.5,
-     0.6879
-    ]
-   ],
-   "start": "2026-09-29T23:00Z",
+   "start": "2026-10-02T02:00Z",
    "total": {
-    "fair_over": 107,
-    "fair_under": -107,
+    "fair_over": 116,
+    "fair_under": -116,
     "line": 6.5,
-    "market_over": 0.4978,
-    "over": 0.4824,
-    "under": 0.5176
+    "market_over": 0.4739,
+    "over": 0.463,
+    "under": 0.537
    },
    "totals": [
     [
      3.5,
-     0.8654
+     0.8597
     ],
     [
      4.5,
-     0.7869
+     0.7793
     ],
     [
      5.5,
-     0.5852
+     0.5743
     ],
     [
      7.5,
-     0.2833
+     0.2735
     ],
     [
      8.5,
-     0.2033
+     0.1951
     ],
     [
      9.5,
-     0.098
+     0.0929
     ]
    ]
   },
@@ -1869,179 +2164,311 @@
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.6019,
-    "spread": 0.3491
+    "ml": 0.6016,
+    "spread": 0.3487,
+    "tline": 5.5,
+    "total": 0.5511
    },
    "home": "Mammoth",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.3971,
-    "fair_away": 152,
-    "fair_home": -152,
-    "home": 0.6029,
+    "away": 0.3995,
+    "fair_away": 150,
+    "fair_home": -150,
+    "home": 0.6005,
     "market_home": 0.6309
    },
    "proj": {
     "away": 2.76,
-    "home": 3.36,
+    "home": 3.35,
     "margin": 0.59,
-    "total": 6.21
+    "total": 6.2
    },
    "spread": {
-    "away": 0.6559,
-    "fair_away": -191,
-    "fair_home": 191,
-    "home": 0.3441,
+    "away": 0.6576,
+    "fair_away": -192,
+    "fair_home": 192,
+    "home": 0.3424,
     "line": -1.5,
     "market_home": 0.4279
    },
    "spreads": [
     [
      -4.5,
-     0.0548
+     0.0546
     ],
     [
      -3.5,
-     0.1141
+     0.1137
     ],
     [
      -2.5,
-     0.2116
+     0.2112
     ],
     [
      -0.5,
-     0.6019
+     0.6016
     ],
     [
      0.5,
-     0.6019
+     0.6016
     ],
     [
      1.5,
-     0.8091
+     0.809
     ]
    ],
-   "start": "2026-10-02T01:30Z"
+   "start": "2026-10-02T01:30Z",
+   "total": {
+    "fair_over": -120,
+    "fair_under": 120,
+    "line": 5.5,
+    "market_over": 0.5174,
+    "over": 0.5458,
+    "under": 0.4542
+   },
+   "totals": [
+    [
+     2.5,
+     0.9595
+    ],
+    [
+     3.5,
+     0.847
+    ],
+    [
+     4.5,
+     0.7618
+    ],
+    [
+     6.5,
+     0.4392
+    ],
+    [
+     7.5,
+     0.2533
+    ],
+    [
+     8.5,
+     0.1777
+    ]
+   ]
   },
   "nhl:401891829": {
    "away": "Oilers",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": 1.5,
-    "ml": 0.4106,
-    "spread": 0.6566
+    "ml": 0.4176,
+    "spread": 0.6618,
+    "tline": 6.5,
+    "total": 0.4906
    },
    "home": "Canucks",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.586,
-    "fair_away": -142,
-    "fair_home": 142,
-    "home": 0.414,
+    "away": 0.5755,
+    "fair_away": -136,
+    "fair_home": 136,
+    "home": 0.4245,
     "market_home": 0.3631
    },
    "proj": {
-    "away": 3.47,
-    "home": 2.93,
-    "margin": -0.53,
-    "total": 6.47
+    "away": 3.46,
+    "home": 2.98,
+    "margin": -0.49,
+    "total": 6.52
    },
    "spread": {
-    "away": 0.343,
-    "fair_away": 192,
-    "fair_home": -192,
-    "home": 0.657,
+    "away": 0.3351,
+    "fair_away": 198,
+    "fair_home": -198,
+    "home": 0.6649,
     "line": 1.5,
     "market_home": 0.5635
    },
    "spreads": [
     [
      -1.5,
-     0.2032
+     0.2087
     ],
     [
      -0.5,
-     0.4106
+     0.4176
     ],
     [
      0.5,
-     0.4106
+     0.4176
     ],
     [
      2.5,
-     0.7903
+     0.794
     ],
     [
      3.5,
-     0.8857
+     0.8879
     ],
     [
      4.5,
-     0.9443
+     0.9454
     ]
    ],
-   "start": "2026-10-02T02:00Z"
+   "start": "2026-10-02T02:00Z",
+   "total": {
+    "fair_over": 106,
+    "fair_under": -106,
+    "line": 6.5,
+    "market_over": 0.5,
+    "over": 0.4844,
+    "under": 0.5156
+   },
+   "totals": [
+    [
+     3.5,
+     0.8736
+    ],
+    [
+     4.5,
+     0.7977
+    ],
+    [
+     5.5,
+     0.6012
+    ],
+    [
+     7.5,
+     0.2982
+    ],
+    [
+     8.5,
+     0.2154
+    ],
+    [
+     9.5,
+     0.1061
+    ]
+   ]
+  },
+  "nhl:401891831": {
+   "away": "Bruins",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "line": 1.5,
+    "ml": 0.4799,
+    "spread": 0.7226
+   },
+   "home": "Jets",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.5181,
+    "fair_away": -108,
+    "fair_home": 108,
+    "home": 0.4819,
+    "market_home": 0.4892
+   },
+   "proj": {
+    "away": 3.06,
+    "home": 2.96,
+    "margin": -0.11,
+    "total": 6.06
+   },
+   "spread": {
+    "away": 0.2761,
+    "fair_away": 262,
+    "fair_home": -262,
+    "home": 0.7239,
+    "line": 1.5,
+    "market_home": 0.6806
+   },
+   "spreads": [
+    [
+     -1.5,
+     0.2465
+    ],
+    [
+     -0.5,
+     0.4799
+    ],
+    [
+     0.5,
+     0.4799
+    ],
+    [
+     2.5,
+     0.8435
+    ],
+    [
+     3.5,
+     0.922
+    ],
+    [
+     4.5,
+     0.9655
+    ]
+   ],
+   "start": "2026-10-03T00:00Z"
   },
   "nhl:401892431": {
    "away": "Islanders",
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "exact": {
     "line": -1.5,
-    "ml": 0.494,
-    "spread": 0.2603,
+    "ml": 0.4596,
+    "spread": 0.2342,
     "tline": 6.0,
-    "total": 0.5021
+    "total": 0.4986
    },
    "home": "Maple Leafs",
    "known": true,
    "league": "nhl",
    "ml": {
-    "away": 0.5099,
-    "fair_away": -104,
-    "fair_home": 104,
-    "home": 0.4901,
+    "away": 0.537,
+    "fair_away": -116,
+    "fair_home": 116,
+    "home": 0.463,
     "market_home": 0.5217
    },
    "proj": {
-    "away": 3.14,
-    "home": 3.11,
-    "margin": -0.03,
-    "total": 6.24
+    "away": 3.24,
+    "home": 3.0,
+    "margin": -0.23,
+    "total": 6.22
    },
    "spread": {
-    "away": 0.7339,
-    "fair_away": -276,
-    "fair_home": 276,
-    "home": 0.2661,
+    "away": 0.7604,
+    "fair_away": -317,
+    "fair_home": 317,
+    "home": 0.2396,
     "line": -1.5,
     "market_home": 0.325
    },
    "spreads": [
     [
      -4.5,
-     0.0318
+     0.0261
     ],
     [
      -3.5,
-     0.0722
+     0.0612
     ],
     [
      -2.5,
-     0.1457
+     0.1274
     ],
     [
      -0.5,
-     0.494
+     0.4596
     ],
     [
      0.5,
-     0.494
+     0.4596
     ],
     [
      1.5,
-     0.7304
+     0.7033
     ]
    ],
    "start": "2026-09-30T23:30Z",
@@ -2049,38 +2476,84 @@
     "fair_over": -105,
     "fair_under": 105,
     "line": 6.0,
-    "market_over": 0.5279,
-    "over": 0.5125,
-    "under": 0.4875
+    "market_over": 0.5,
+    "over": 0.5111,
+    "under": 0.4889
    },
    "totals": [
     [
      3.0,
-     0.956
+     0.9553
     ],
     [
      4.0,
-     0.8367
+     0.8348
     ],
     [
      5.0,
-     0.7052
+     0.702
     ],
     [
      7.0,
-     0.3183
+     0.3149
     ],
     [
      8.0,
-     0.1979
+     0.1953
     ],
     [
      9.0,
-     0.0943
+     0.0928
     ]
    ]
+  },
+  "nhl:401892432": {
+   "away": "Capitals",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.5745
+   },
+   "home": "Hurricanes",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4273,
+    "fair_away": 134,
+    "fair_home": -134,
+    "home": 0.5727
+   },
+   "proj": {
+    "away": 2.85,
+    "home": 3.28,
+    "margin": 0.43,
+    "total": 6.19
+   },
+   "start": "2026-10-02T23:00Z"
+  },
+  "nhl:401892433": {
+   "away": "Ducks",
+   "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "exact": {
+    "ml": 0.5801
+   },
+   "home": "Golden Knights",
+   "known": true,
+   "league": "nhl",
+   "ml": {
+    "away": 0.4214,
+    "fair_away": 137,
+    "fair_home": -137,
+    "home": 0.5786
+   },
+   "proj": {
+    "away": 2.9,
+    "home": 3.39,
+    "margin": 0.47,
+    "total": 6.35
+   },
+   "start": "2026-10-03T02:00Z"
   }
  },
- "secs": 6.8,
+ "secs": 8.4,
  "sims": 10000
 }

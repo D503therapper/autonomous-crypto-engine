@@ -25,7 +25,7 @@
    "since": "2026-09-28T15:13Z"
   }
  },
- "cell_tests": 13068,
+ "cell_tests": 15228,
  "cfg_killed": {
   "mlb|disp=2.5|form=0.25|gain=0.75|hfa=none|pace=0.33|park=1|regress=0.4|rest=1": {
    "checked": "2026-09-29T18:14Z",
@@ -124,6 +124,31 @@
    "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "why": "crowded out by a stronger variant before its forward test"
   },
+  "nba|disp=1.12|form=0.25|gain=0.5|hfa=team|pace=1.5|park=1|regress=0.2|rest=0": {
+   "checked": "2026-09-30T05:55Z",
+   "cutoff": "2026-06-14T00:30Z",
+   "disc": {
+    "new": {
+     "diff": -0.00268,
+     "n": 15185,
+     "z": 2.78
+    },
+    "old": {
+     "diff": -0.00322,
+     "n": 15123,
+     "z": 3.67
+    }
+   },
+   "found": "2026-09-28T15:18Z",
+   "fwd": {
+    "n": 0
+   },
+   "gain": 0.0059,
+   "killed": "2026-09-30T05:55Z",
+   "league": "nba",
+   "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "why": "crowded out by a stronger variant before its forward test"
+  },
   "nba|disp=1.12|form=0.25|gain=0.75|hfa=learned|pace=1.0|park=1|regress=0.1|rest=1": {
    "checked": "2026-09-29T06:08Z",
    "cutoff": "2026-06-14T00:30Z",
@@ -145,6 +170,31 @@
    },
    "gain": 0.00548,
    "killed": "2026-09-29T06:08Z",
+   "league": "nba",
+   "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "why": "crowded out by a stronger variant before its forward test"
+  },
+  "nba|disp=1.12|form=0.5|gain=0.5|hfa=learned|pace=2.0|park=1|regress=0.4|rest=1": {
+   "checked": "2026-09-30T05:55Z",
+   "cutoff": "2026-06-14T00:30Z",
+   "disc": {
+    "new": {
+     "diff": -0.00293,
+     "n": 15185,
+     "z": 4.51
+    },
+    "old": {
+     "diff": -0.00319,
+     "n": 15123,
+     "z": 5.26
+    }
+   },
+   "found": "2026-09-29T06:08Z",
+   "fwd": {
+    "n": 0
+   },
+   "gain": 0.00612,
+   "killed": "2026-09-30T05:55Z",
    "league": "nba",
    "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "why": "crowded out by a stronger variant before its forward test"
@@ -217,6 +267,31 @@
    },
    "gain": 0.00833,
    "killed": "2026-09-28T15:18Z",
+   "league": "ncaab",
+   "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+   "why": "crowded out by a stronger variant before its forward test"
+  },
+  "ncaab|disp=1.12|form=0.0|gain=1.0|hfa=learned|pace=0.33|park=1|regress=0.2|rest=1": {
+   "checked": "2026-09-30T05:55Z",
+   "cutoff": "2026-04-07T00:50Z",
+   "disc": {
+    "new": {
+     "diff": -0.00721,
+     "n": 44588,
+     "z": 12.5
+    },
+    "old": {
+     "diff": -0.0061,
+     "n": 44138,
+     "z": 11.18
+    }
+   },
+   "found": "2026-09-28T15:18Z",
+   "fwd": {
+    "n": 0
+   },
+   "gain": 0.01331,
+   "killed": "2026-09-30T05:55Z",
    "league": "ncaab",
    "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
    "why": "crowded out by a stronger variant before its forward test"
@@ -296,6 +371,28 @@
    "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
    "why": "crowded out by a stronger variant before its forward test"
   },
+  "ncaaf|disp=1.06|form=0.5|gain=0.75|hfa=team|keys=1|pace=0.33|park=0|regress=0.1|rest=1": {
+   "cutoff": "2026-09-27T01:00Z",
+   "disc": {
+    "new": {
+     "diff": -0.00637,
+     "n": 7542,
+     "z": 4.13
+    },
+    "old": {
+     "diff": -0.00449,
+     "n": 7497,
+     "z": 3.2
+    }
+   },
+   "found": "2026-09-30T05:55Z",
+   "fwd": {},
+   "gain": 0.01086,
+   "killed": "2026-09-30T05:55Z",
+   "league": "ncaaf",
+   "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "why": "crowded out by a stronger variant before its forward test"
+  },
   "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.1|rest=1": {
    "checked": "2026-09-28T15:18Z",
    "cutoff": "2026-09-27T01:00Z",
@@ -368,6 +465,31 @@
    "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
    "why": "crowded out by a stronger variant before its forward test"
   },
+  "ncaaf|disp=1.12|form=0.0|gain=1.0|hfa=team|keys=1|pace=1.0|park=0|regress=0.2|rest=0": {
+   "checked": "2026-09-30T05:55Z",
+   "cutoff": "2026-09-27T01:00Z",
+   "disc": {
+    "new": {
+     "diff": -0.00556,
+     "n": 7542,
+     "z": 8.42
+    },
+    "old": {
+     "diff": -0.00371,
+     "n": 7497,
+     "z": 6.24
+    }
+   },
+   "found": "2026-09-29T18:14Z",
+   "fwd": {
+    "n": 0
+   },
+   "gain": 0.00927,
+   "killed": "2026-09-30T05:55Z",
+   "league": "ncaaf",
+   "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1",
+   "why": "crowded out by a stronger variant before its forward test"
+  },
   "nfl|disp=1.06|form=0.0|gain=1.0|hfa=team|keys=0|pace=0.33|park=1|regress=0.4|rest=1": {
    "checked": "2026-09-29T06:08Z",
    "cutoff": "2026-09-28T00:20Z",
@@ -398,7 +520,7 @@
  },
  "cfg_suspects": {
   "mlb|disp=2.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-27T19:10Z",
    "disc": {
     "new": {
@@ -414,16 +536,16 @@
    },
    "found": "2026-09-28T15:13Z",
    "fwd": {
-    "diff": 0.0097,
-    "n": 3,
-    "z": -0.57
+    "diff": 0.00964,
+    "n": 12,
+    "z": -1.39
    },
    "gain": 0.00168,
    "league": "mlb",
    "vs": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1"
   },
   "mlb|disp=2.5|form=0.5|gain=0.75|hfa=none|pace=0.33|park=1|regress=0.4|rest=0": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-27T19:10Z",
    "disc": {
     "new": {
@@ -439,16 +561,16 @@
    },
    "found": "2026-09-28T23:27Z",
    "fwd": {
-    "diff": 0.00961,
-    "n": 3,
-    "z": -1.17
+    "diff": 0.01116,
+    "n": 12,
+    "z": -1.49
    },
    "gain": 0.002,
    "league": "mlb",
    "vs": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1"
   },
   "mlb|disp=2.5|form=0.5|gain=0.75|hfa=none|pace=1.0|park=1|regress=0.2|rest=0": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-27T19:10Z",
    "disc": {
     "new": {
@@ -464,39 +586,56 @@
    },
    "found": "2026-09-29T18:14Z",
    "fwd": {
-    "diff": 0.03022,
-    "n": 3,
-    "z": -1.95
+    "diff": 0.01509,
+    "n": 12,
+    "z": -1.93
    },
    "gain": 0.0023,
    "league": "mlb",
    "vs": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1"
   },
-  "nba|disp=1.12|form=0.25|gain=0.5|hfa=team|pace=1.5|park=1|regress=0.2|rest=0": {
-   "checked": "2026-09-29T22:32Z",
+  "nba|disp=1.12|form=0.0|gain=0.5|hfa=team|pace=1.5|park=1|regress=0.4|rest=1": {
    "cutoff": "2026-06-14T00:30Z",
    "disc": {
     "new": {
-     "diff": -0.00268,
+     "diff": -0.00282,
      "n": 15185,
-     "z": 2.78
+     "z": 2.4
     },
     "old": {
-     "diff": -0.00322,
+     "diff": -0.00375,
      "n": 15123,
-     "z": 3.67
+     "z": 3.37
     }
    },
-   "found": "2026-09-28T15:18Z",
-   "fwd": {
-    "n": 0
+   "found": "2026-09-30T05:55Z",
+   "fwd": {},
+   "gain": 0.00657,
+   "league": "nba",
+   "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
+  },
+  "nba|disp=1.12|form=0.0|gain=1.0|hfa=learned|pace=0.5|park=1|regress=0.4|rest=1": {
+   "cutoff": "2026-06-14T00:30Z",
+   "disc": {
+    "new": {
+     "diff": -0.0039,
+     "n": 15185,
+     "z": 4.21
+    },
+    "old": {
+     "diff": -0.00327,
+     "n": 15123,
+     "z": 3.69
+    }
    },
-   "gain": 0.0059,
+   "found": "2026-09-30T05:55Z",
+   "fwd": {},
+   "gain": 0.00717,
    "league": "nba",
    "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nba|disp=1.12|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-06-14T00:30Z",
    "disc": {
     "new": {
@@ -518,54 +657,8 @@
    "league": "nba",
    "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
-  "nba|disp=1.12|form=0.5|gain=0.5|hfa=learned|pace=2.0|park=1|regress=0.4|rest=1": {
-   "checked": "2026-09-29T22:32Z",
-   "cutoff": "2026-06-14T00:30Z",
-   "disc": {
-    "new": {
-     "diff": -0.00293,
-     "n": 15185,
-     "z": 4.51
-    },
-    "old": {
-     "diff": -0.00319,
-     "n": 15123,
-     "z": 5.26
-    }
-   },
-   "found": "2026-09-29T06:08Z",
-   "fwd": {
-    "n": 0
-   },
-   "gain": 0.00612,
-   "league": "nba",
-   "vs": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
-  },
-  "ncaab|disp=1.12|form=0.0|gain=1.0|hfa=learned|pace=0.33|park=1|regress=0.2|rest=1": {
-   "checked": "2026-09-29T22:32Z",
-   "cutoff": "2026-04-07T00:50Z",
-   "disc": {
-    "new": {
-     "diff": -0.00721,
-     "n": 44588,
-     "z": 12.5
-    },
-    "old": {
-     "diff": -0.0061,
-     "n": 44138,
-     "z": 11.18
-    }
-   },
-   "found": "2026-09-28T15:18Z",
-   "fwd": {
-    "n": 0
-   },
-   "gain": 0.01331,
-   "league": "ncaab",
-   "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
-  },
   "ncaab|disp=1.12|form=0.25|gain=0.5|hfa=learned|pace=0.5|park=0|regress=0.1|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-04-07T00:50Z",
    "disc": {
     "new": {
@@ -588,7 +681,7 @@
    "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "ncaab|disp=1.12|form=0.5|gain=0.5|hfa=team|pace=0.33|park=0|regress=0.1|rest=0": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-04-07T00:50Z",
    "disc": {
     "new": {
@@ -610,8 +703,28 @@
    "league": "ncaab",
    "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
+  "ncaab|disp=1.12|form=0.5|gain=0.5|hfa=team|pace=0.5|park=0|regress=0.1|rest=1": {
+   "cutoff": "2026-04-07T00:50Z",
+   "disc": {
+    "new": {
+     "diff": -0.01014,
+     "n": 44588,
+     "z": 15.88
+    },
+    "old": {
+     "diff": -0.00778,
+     "n": 44138,
+     "z": 12.86
+    }
+   },
+   "found": "2026-09-30T05:55Z",
+   "fwd": {},
+   "gain": 0.01792,
+   "league": "ncaab",
+   "vs": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
+  },
   "ncaaf|disp=1.06|form=0.5|gain=0.75|hfa=team|keys=0|pace=0.33|park=1|regress=0.1|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-27T01:00Z",
    "disc": {
     "new": {
@@ -633,31 +746,28 @@
    "league": "ncaaf",
    "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1"
   },
-  "ncaaf|disp=1.12|form=0.0|gain=1.0|hfa=team|keys=1|pace=1.0|park=0|regress=0.2|rest=0": {
-   "checked": "2026-09-29T22:32Z",
+  "ncaaf|disp=1.12|form=0.25|gain=0.75|hfa=learned|keys=0|pace=1.5|park=1|regress=0.1|rest=0": {
    "cutoff": "2026-09-27T01:00Z",
    "disc": {
     "new": {
-     "diff": -0.00556,
+     "diff": -0.00795,
      "n": 7542,
-     "z": 8.42
+     "z": 6.57
     },
     "old": {
-     "diff": -0.00371,
+     "diff": -0.00457,
      "n": 7497,
-     "z": 6.24
+     "z": 4.23
     }
    },
-   "found": "2026-09-29T18:14Z",
-   "fwd": {
-    "n": 0
-   },
-   "gain": 0.00927,
+   "found": "2026-09-30T05:55Z",
+   "fwd": {},
+   "gain": 0.01252,
    "league": "ncaaf",
    "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1"
   },
   "ncaaf|disp=1.12|form=0.25|gain=0.75|hfa=learned|keys=1|pace=1.0|park=1|regress=0.1|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-27T01:00Z",
    "disc": {
     "new": {
@@ -680,7 +790,7 @@
    "vs": "ncaaf|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.2|rest=1"
   },
   "nfl|disp=1.06|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-28T00:20Z",
    "disc": {
     "new": {
@@ -705,7 +815,7 @@
    "vs": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nfl|disp=1.12|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-28T00:20Z",
    "disc": {
     "new": {
@@ -730,7 +840,7 @@
    "vs": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nfl|disp=1.12|form=0.0|gain=1.0|hfa=learned|keys=1|pace=2.0|park=0|regress=0.4|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-09-29T00:15Z",
    "disc": {
     "new": {
@@ -753,7 +863,7 @@
    "vs": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nhl|disp=10.0|form=0.25|gain=1.0|hfa=learned|pace=0.5|park=1|regress=0.4|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-06-15T00:00Z",
    "disc": {
     "new": {
@@ -769,14 +879,16 @@
    },
    "found": "2026-09-28T15:18Z",
    "fwd": {
-    "n": 0
+    "diff": -0.01,
+    "n": 12,
+    "z": 0.75
    },
    "gain": 0.00117,
    "league": "nhl",
    "vs": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1"
   },
   "nhl|disp=10.0|form=0.5|gain=0.5|hfa=learned|pace=0.33|park=0|regress=0.1|rest=1": {
-   "checked": "2026-09-29T22:32Z",
+   "checked": "2026-09-30T05:55Z",
    "cutoff": "2026-06-15T00:00Z",
    "disc": {
     "new": {
@@ -792,7 +904,9 @@
    },
    "found": "2026-09-28T23:27Z",
    "fwd": {
-    "n": 0
+    "diff": 0.011,
+    "n": 12,
+    "z": -0.68
    },
    "gain": 0.0016,
    "league": "nhl",
@@ -801,151 +915,173 @@
  },
  "closest": [
   {
-   "key": "ncaaf|total|thr:0.10|ncaaf|disp=1.12|form=0.0|gain=0.75|hfa=team|keys=1|pace=0.5|park=0|regress=0.1|rest=0",
-   "n": 2006,
-   "roi_new": 0.0093,
-   "roi_old": 0.0026,
-   "z": 2.44
+   "key": "mlb|spread|thr:0.10|mlb|disp=7.0|form=0.5|gain=0.75|hfa=none|pace=0.33|park=0|regress=0.1|rest=0",
+   "n": 2409,
+   "roi_new": 0.0107,
+   "roi_old": 0.0094,
+   "z": 2.6
   },
   {
-   "key": "nhl|total|thr:0.08|nhl|disp=10.0|form=0.5|gain=2.0|hfa=team|pace=0.33|park=0|regress=0.2|rest=1",
-   "n": 992,
-   "roi_new": 0.0004,
-   "roi_old": 0.0485,
-   "z": 2.34
+   "key": "nhl|total|thr:0.06|nhl|disp=25.0|form=0.0|gain=1.0|hfa=team|pace=1.5|park=0|regress=0.4|rest=0",
+   "n": 1713,
+   "roi_new": 0.0028,
+   "roi_old": 0.0246,
+   "z": 2.55
   },
   {
-   "key": "nhl|total|thr:0.08|nhl|disp=0.0|form=0.25|gain=2.0|hfa=none|pace=0.5|park=0|regress=0.4|rest=1",
-   "n": 573,
-   "roi_new": 0.032,
-   "roi_old": 0.0588,
-   "z": 2.33
+   "key": "nhl|total|thr:0.08|nhl|disp=10.0|form=0.25|gain=1.5|hfa=learned|pace=1.0|park=0|regress=0.4|rest=0",
+   "n": 982,
+   "roi_new": 0.037,
+   "roi_old": 0.0144,
+   "z": 2.35
   },
   {
-   "gain_new": 0.0001,
-   "key": "ncaab|total|blend|ncaab|disp=1.06|form=0.0|gain=3.0|hfa=team|pace=2.0|park=1|regress=0.6|rest=1",
+   "key": "nhl|total|thr:0.08|nhl|disp=25.0|form=0.0|gain=1.0|hfa=learned|pace=2.0|park=0|regress=0.6|rest=1",
+   "n": 667,
+   "roi_new": 0.0486,
+   "roi_old": 0.0356,
+   "z": 2.35
+  },
+  {
+   "key": "mlb|ml|thr:0.08|mlb|disp=7.0|form=0.5|gain=0.75|hfa=none|pace=0.33|park=0|regress=0.1|rest=0",
+   "n": 4782,
+   "roi_new": 0.0022,
+   "roi_old": 0.0011,
+   "z": 2.3
+  },
+  {
+   "key": "nhl|total|thr:0.08|nhl|disp=25.0|form=0.0|gain=1.0|hfa=team|pace=1.5|park=0|regress=0.4|rest=0",
+   "n": 645,
+   "roi_new": 0.0151,
+   "roi_old": 0.0574,
+   "z": 2.25
+  },
+  {
+   "gain_new": 7e-05,
+   "key": "ncaab|total|blend|ncaab|disp=0.94|form=0.25|gain=3.0|hfa=learned|pace=1.5|park=0|regress=0.2|rest=1",
    "n": 14764,
-   "w": 0.0101,
-   "z": 2.19
+   "w": 0.0056,
+   "z": 2.16
   },
   {
-   "key": "nhl|total|thr:0.08|nhl|disp=25.0|form=0.0|gain=1.5|hfa=none|pace=1.5|park=0|regress=0.4|rest=0",
-   "n": 746,
-   "roi_new": 0.0363,
-   "roi_old": 0.0217,
+   "key": "nhl|total|thr:0.08|nhl|disp=10.0|form=0.0|gain=1.5|hfa=team|pace=1.5|park=0|regress=0.2|rest=0",
+   "n": 1139,
+   "roi_new": 0.0228,
+   "roi_old": 0.0023,
    "z": 2.11
   },
   {
-   "key": "mlb|ml|thr:0.10|mlb|disp=7.0|form=0.5|gain=0.5|hfa=team|pace=0.33|park=1|regress=0.2|rest=0",
-   "n": 3411,
-   "roi_new": 0.0027,
-   "roi_old": 0.0091,
-   "z": 2.08
-  },
-  {
-   "gain_new": 6e-05,
-   "key": "ncaab|total|blend|ncaab|disp=1.06|form=0.5|gain=2.0|hfa=team|pace=1.5|park=0|regress=0.1|rest=1",
-   "n": 14764,
-   "w": 0.0075,
-   "z": 1.96
-  },
-  {
-   "key": "nhl|total|thr:0.10|nhl|disp=10.0|form=0.0|gain=3.0|hfa=none|pace=1.5|park=0|regress=0.1|rest=0",
-   "n": 1087,
-   "roi_new": 0.0091,
-   "roi_old": 0.0033,
+   "gain_new": 0.00013,
+   "key": "ncaab|ml|blend|ncaab|disp=0.94|form=0.25|gain=3.0|hfa=learned|pace=1.5|park=0|regress=0.2|rest=1",
+   "n": 14900,
+   "w": 0.019,
    "z": 1.85
   },
   {
-   "key": "nhl|total|thr:0.08|nhl|disp=25.0|form=0.25|gain=0.5|hfa=none|pace=1.5|park=0|regress=0.2|rest=0",
-   "n": 689,
-   "roi_new": 0.0155,
-   "roi_old": 0.0164,
-   "z": 1.75
-  },
-  {
-   "gain_new": 0.0001,
-   "key": "ncaab|total|blend|ncaab|disp=1.0|form=0.25|gain=1.5|hfa=team|pace=2.0|park=1|regress=0.1|rest=0",
-   "n": 14764,
-   "w": 0.0157,
-   "z": 1.63
+   "key": "nhl|total|thr:0.10|nhl|disp=25.0|form=0.25|gain=1.0|hfa=none|pace=2.0|park=0|regress=0.2|rest=1",
+   "n": 524,
+   "roi_new": 0.0106,
+   "roi_old": 0.0355,
+   "z": 1.7
   }
  ],
  "closest_cfg": [
   {
-   "gain": 0.01273,
-   "key": "ncaab|disp=1.06|form=0.0|gain=0.75|hfa=team|pace=1.5|park=0|regress=0.1|rest=1",
+   "gain": 0.01416,
+   "key": "ncaab|disp=1.12|form=0.25|gain=1.0|hfa=team|pace=0.5|park=1|regress=0.1|rest=0",
    "new": {
-    "diff": -0.0074,
+    "diff": -0.00832,
     "n": 44588,
-    "z": 13.72
+    "z": 12.0
    },
    "old": {
-    "diff": -0.00533,
+    "diff": -0.00584,
     "n": 44138,
-    "z": 10.15
+    "z": 8.93
    }
   },
   {
-   "gain": 0.00964,
-   "key": "ncaab|disp=1.0|form=0.5|gain=0.5|hfa=team|pace=0.33|park=0|regress=0.1|rest=0",
+   "gain": 0.0117,
+   "key": "ncaab|disp=1.12|form=0.25|gain=0.5|hfa=learned|pace=2.0|park=1|regress=0.1|rest=0",
    "new": {
-    "diff": -0.00567,
+    "diff": -0.00711,
     "n": 44588,
-    "z": 7.46
+    "z": 13.22
    },
    "old": {
-    "diff": -0.00397,
+    "diff": -0.00459,
     "n": 44138,
-    "z": 5.48
+    "z": 8.72
    }
   },
   {
-   "gain": 0.00377,
-   "key": "ncaaf|disp=1.12|form=0.0|gain=0.75|hfa=team|keys=1|pace=0.5|park=0|regress=0.1|rest=0",
+   "gain": 0.00958,
+   "key": "ncaab|disp=1.06|form=0.0|gain=0.75|hfa=team|pace=0.5|park=0|regress=0.2|rest=1",
    "new": {
-    "diff": -0.0039,
+    "diff": -0.00501,
+    "n": 44588,
+    "z": 8.09
+   },
+   "old": {
+    "diff": -0.00457,
+    "n": 44138,
+    "z": 7.78
+   }
+  },
+  {
+   "gain": 0.00656,
+   "key": "ncaaf|disp=1.06|form=0.25|gain=0.75|hfa=learned|keys=1|pace=0.5|park=1|regress=0.2|rest=0",
+   "new": {
+    "diff": -0.00362,
     "n": 7542,
-    "z": 3.13
+    "z": 4.91
    },
    "old": {
-    "diff": 0.00013,
+    "diff": -0.00294,
     "n": 7497,
-    "z": -0.15
+    "z": 4.27
    }
   },
   {
-   "gain": 0.00259,
-   "key": "nba|disp=1.12|form=0.0|gain=0.5|hfa=team|pace=1.0|park=0|regress=0.1|rest=1",
+   "gain": 0.00206,
+   "key": "ncaaf|disp=1.12|form=0.25|gain=0.75|hfa=none|keys=1|pace=1.5|park=1|regress=0.2|rest=0",
    "new": {
-    "diff": -0.00087,
-    "n": 15185,
-    "z": 0.64
+    "diff": -0.00292,
+    "n": 7542,
+    "z": 1.29
    },
    "old": {
-    "diff": -0.00172,
-    "n": 15123,
-    "z": 1.33
-   }
-  },
-  {
-   "gain": 0.00228,
-   "key": "ncaab|disp=1.12|form=0.0|gain=0.75|hfa=learned|pace=0.5|park=0|regress=0.4|rest=1",
-   "new": {
-    "diff": -0.0012,
-    "n": 44588,
-    "z": 2.2
-   },
-   "old": {
-    "diff": -0.00108,
-    "n": 44138,
-    "z": 2.03
+    "diff": 0.00086,
+    "n": 7497,
+    "z": -0.44
    }
   }
  ],
  "exhausted": false,
  "killed": {},
  "log": [
+  {
+   "at": "2026-09-30T05:55Z",
+   "cell_tests": 2160,
+   "cfg_killed": 0,
+   "cfg_promoted": 0,
+   "cfg_suspects_found": 4,
+   "demoted": 0,
+   "eval_secs": {
+    "mlb": 3.2,
+    "nba": 0.9,
+    "ncaab": 3.3,
+    "ncaaf": 1.3,
+    "nfl": 0.4,
+    "nhl": 1.4
+   },
+   "expected_by_luck": 0.502,
+   "killed": 0,
+   "promoted": 0,
+   "secs": 240.8,
+   "suspects_found": 0,
+   "tested_configs": 120
+  },
   {
    "at": "2026-09-29T22:32Z",
    "cell_tests": 2160,
@@ -1083,7 +1219,7 @@
  "results": {
   "mlb": {
    "cfg": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
-   "games": 23238,
+   "games": 23241,
    "markets": {
     "ml": {
      "best_bet": {
@@ -1100,8 +1236,8 @@
       "z_edge": 2.0
      },
      "best_thr": "0.08",
-     "blend_w": 0.0828,
-     "blend_z": 0.52,
+     "blend_w": 0.0835,
+     "blend_z": 0.5,
      "brier_mkt_new": 0.2418,
      "brier_sim_new": 0.2449,
      "cal_new": [
@@ -1116,7 +1252,7 @@
        "bin": "0.4-0.6",
        "hit": 0.527,
        "market": 0.53,
-       "n": 8946,
+       "n": 8948,
        "sim": 0.501
       },
       {
@@ -1130,47 +1266,47 @@
      "ll_blend_new": 0.6763,
      "ll_mkt_new": 0.6764,
      "ll_sim_new": 0.6828,
-     "n": 20054,
+     "n": 20057,
      "split": "2022-09-25",
      "thr": {
       "0.02": {
        "edge": 0.0062,
-       "fair": 0.4149,
-       "n": 15293,
-       "n_new": 7507,
-       "n_old": 7786,
+       "fair": 0.415,
+       "n": 15296,
+       "n_new": 7509,
+       "n_old": 7787,
        "roi": -0.0229,
-       "roi_new": -0.0269,
-       "roi_old": -0.019,
+       "roi_new": -0.0272,
+       "roi_old": -0.0188,
        "win": 0.4212,
-       "z": -2.4,
-       "z_edge": 1.58
+       "z": -2.41,
+       "z_edge": 1.57
       },
       "0.04": {
        "edge": 0.0036,
        "fair": 0.398,
-       "n": 10868,
-       "n_new": 5218,
-       "n_old": 5650,
+       "n": 10870,
+       "n_new": 5219,
+       "n_old": 5651,
        "roi": -0.0289,
-       "roi_new": -0.0381,
-       "roi_old": -0.0203,
-       "win": 0.4016,
+       "roi_new": -0.0383,
+       "roi_old": -0.0201,
+       "win": 0.4017,
        "z": -2.48,
        "z_edge": 0.78
       },
       "0.06": {
-       "edge": 0.0083,
+       "edge": 0.0082,
        "fair": 0.3815,
-       "n": 7201,
-       "n_new": 3383,
+       "n": 7202,
+       "n_new": 3384,
        "n_old": 3818,
-       "roi": -0.0188,
-       "roi_new": -0.019,
+       "roi": -0.0189,
+       "roi_new": -0.0193,
        "roi_old": -0.0185,
        "win": 0.3898,
-       "z": -1.27,
-       "z_edge": 1.46
+       "z": -1.28,
+       "z_edge": 1.45
       },
       "0.08": {
        "edge": 0.0146,
@@ -1204,21 +1340,21 @@
      "best_bet": {
       "edge": 0.0041,
       "fair": 0.5165,
-      "n": 14311,
-      "n_new": 6895,
-      "n_old": 7416,
+      "n": 14313,
+      "n_new": 6896,
+      "n_old": 7417,
       "roi": -0.0323,
-      "roi_new": -0.0413,
-      "roi_old": -0.024,
+      "roi_new": -0.0415,
+      "roi_old": -0.0238,
       "win": 0.5206,
       "z": -4.05,
-      "z_edge": 1.0
+      "z_edge": 0.99
      },
      "best_thr": "0.02",
-     "blend_w": 0.0992,
-     "blend_z": -1.38,
+     "blend_w": 0.0999,
+     "blend_z": -1.39,
      "brier_mkt_new": 0.2412,
-     "brier_sim_new": 0.2451,
+     "brier_sim_new": 0.2452,
      "cal_new": [
       {
        "bin": "0.0-0.2",
@@ -1231,14 +1367,14 @@
        "bin": "0.2-0.4",
        "hit": 0.4,
        "market": 0.404,
-       "n": 3392,
+       "n": 3395,
        "sim": 0.359
       },
       {
        "bin": "0.4-0.6",
        "hit": 0.508,
        "market": 0.512,
-       "n": 4685,
+       "n": 4684,
        "sim": 0.504
       },
       {
@@ -1252,31 +1388,31 @@
      "ll_blend_new": 0.6755,
      "ll_mkt_new": 0.6753,
      "ll_sim_new": 0.6844,
-     "n": 19916,
+     "n": 19919,
      "split": "2022-09-23",
      "thr": {
       "0.02": {
        "edge": 0.0041,
        "fair": 0.5165,
-       "n": 14311,
-       "n_new": 6895,
-       "n_old": 7416,
+       "n": 14313,
+       "n_new": 6896,
+       "n_old": 7417,
        "roi": -0.0323,
-       "roi_new": -0.0413,
-       "roi_old": -0.024,
+       "roi_new": -0.0415,
+       "roi_old": -0.0238,
        "win": 0.5206,
        "z": -4.05,
-       "z_edge": 1.0
+       "z_edge": 0.99
       },
       "0.04": {
        "edge": 0.005,
        "fair": 0.5136,
        "n": 9466,
-       "n_new": 4388,
-       "n_old": 5078,
+       "n_new": 4387,
+       "n_old": 5079,
        "roi": -0.0324,
-       "roi_new": -0.0382,
-       "roi_old": -0.0274,
+       "roi_new": -0.0384,
+       "roi_old": -0.0272,
        "win": 0.5186,
        "z": -3.3,
        "z_edge": 0.99
@@ -1324,23 +1460,23 @@
     },
     "total": {
      "best_bet": {
-      "edge": 0.0048,
+      "edge": 0.0049,
       "fair": 0.4988,
-      "n": 14850,
-      "n_new": 7462,
-      "n_old": 7388,
-      "roi": -0.0344,
-      "roi_new": -0.0467,
-      "roi_old": -0.0221,
+      "n": 14852,
+      "n_new": 7463,
+      "n_old": 7389,
+      "roi": -0.0343,
+      "roi_new": -0.0463,
+      "roi_old": -0.0222,
       "win": 0.5036,
-      "z": -4.37,
-      "z_edge": 1.17
+      "z": -4.36,
+      "z_edge": 1.18
      },
      "best_thr": "0.02",
-     "blend_w": 0.0558,
-     "blend_z": -0.41,
+     "blend_w": 0.0554,
+     "blend_z": -0.36,
      "brier_mkt_new": 0.2504,
-     "brier_sim_new": 0.2557,
+     "brier_sim_new": 0.2556,
      "cal_new": [
       {
        "bin": "0.0-0.2",
@@ -1358,89 +1494,89 @@
       },
       {
        "bin": "0.4-0.6",
-       "hit": 0.492,
+       "hit": 0.493,
        "market": 0.499,
-       "n": 8139,
+       "n": 8140,
        "sim": 0.508
       },
       {
        "bin": "0.6-0.8",
        "hit": 0.493,
        "market": 0.505,
-       "n": 948,
+       "n": 949,
        "sim": 0.636
       }
      ],
      "ll_blend_new": 0.694,
      "ll_mkt_new": 0.694,
-     "ll_sim_new": 0.705,
-     "n": 19216,
+     "ll_sim_new": 0.7049,
+     "n": 19219,
      "split": "2022-09-29",
      "thr": {
       "0.02": {
-       "edge": 0.0048,
+       "edge": 0.0049,
        "fair": 0.4988,
-       "n": 14850,
-       "n_new": 7462,
-       "n_old": 7388,
-       "roi": -0.0344,
-       "roi_new": -0.0467,
-       "roi_old": -0.0221,
+       "n": 14852,
+       "n_new": 7463,
+       "n_old": 7389,
+       "roi": -0.0343,
+       "roi_new": -0.0463,
+       "roi_old": -0.0222,
        "win": 0.5036,
-       "z": -4.37,
-       "z_edge": 1.17
+       "z": -4.36,
+       "z_edge": 1.18
       },
       "0.04": {
-       "edge": -0.0003,
+       "edge": -0.0002,
        "fair": 0.4985,
-       "n": 10757,
-       "n_new": 5419,
+       "n": 10759,
+       "n_new": 5421,
        "n_old": 5338,
-       "roi": -0.0441,
-       "roi_new": -0.0493,
+       "roi": -0.0439,
+       "roi_new": -0.049,
        "roi_old": -0.0387,
-       "win": 0.4983,
-       "z": -4.76,
-       "z_edge": -0.05
+       "win": 0.4984,
+       "z": -4.74,
+       "z_edge": -0.03
       },
       "0.06": {
-       "edge": -0.0005,
+       "edge": -0.0004,
        "fair": 0.498,
-       "n": 7385,
-       "n_new": 3719,
+       "n": 7387,
+       "n_new": 3721,
        "n_old": 3666,
-       "roi": -0.0449,
-       "roi_new": -0.0467,
+       "roi": -0.0446,
+       "roi_new": -0.0462,
        "roi_old": -0.0429,
-       "win": 0.4975,
-       "z": -4.01,
-       "z_edge": -0.09
+       "win": 0.4976,
+       "z": -3.99,
+       "z_edge": -0.07
       },
       "0.08": {
-       "edge": 0.0021,
+       "edge": 0.0022,
        "fair": 0.498,
-       "n": 4841,
-       "n_new": 2441,
+       "n": 4842,
+       "n_new": 2442,
        "n_old": 2400,
-       "roi": -0.0398,
-       "roi_new": -0.0402,
+       "roi": -0.0396,
+       "roi_new": -0.0398,
        "roi_old": -0.0394,
-       "win": 0.5001,
-       "z": -2.88,
-       "z_edge": 0.29
+       "win": 0.5002,
+       "z": -2.87,
+       "z_edge": 0.31
       },
       "0.10": {
-       "edge": 0.005,
+       "edge": 0.0051,
        "fair": 0.4979,
-       "n": 2995,
-       "n_new": 1463,
+       "n": 2996,
+       "n_new": 1464,
        "n_old": 1532,
-       "roi": -0.0348,
-       "roi_new": -0.0456,
+       "roi": -0.0345,
+       "roi_new": -0.045,
        "roi_old": -0.0246,
-       "win": 0.5028,
-       "z": -1.98,
-       "z_edge": 0.54
+       "win": 0.503,
+       "z": -1.97,
+       "z_edge": 0.56
       }
      }
     }
@@ -3006,26 +3142,26 @@
   },
   "nhl": {
    "cfg": "nhl|disp=0.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
-   "games": 13215,
+   "games": 13219,
    "markets": {
     "ml": {
      "best_bet": {
-      "edge": 0.0118,
-      "fair": 0.3841,
-      "n": 879,
-      "n_new": 428,
+      "edge": 0.0126,
+      "fair": 0.384,
+      "n": 880,
+      "n_new": 429,
       "n_old": 451,
-      "roi": -0.0048,
-      "roi_new": -0.0117,
+      "roi": -0.002,
+      "roi_new": -0.006,
       "roi_old": 0.0018,
-      "win": 0.3959,
-      "z": -0.11,
-      "z_edge": 0.72
+      "win": 0.3966,
+      "z": -0.05,
+      "z_edge": 0.77
      },
      "best_thr": "0.08",
      "blend_w": 0.0,
      "blend_z": -0.27,
-     "brier_mkt_new": 0.2354,
+     "brier_mkt_new": 0.2355,
      "brier_sim_new": 0.2382,
      "cal_new": [
       {
@@ -3039,14 +3175,14 @@
        "bin": "0.4-0.6",
        "hit": 0.505,
        "market": 0.51,
-       "n": 3393,
+       "n": 3394,
        "sim": 0.514
       },
       {
        "bin": "0.6-0.8",
        "hit": 0.669,
        "market": 0.664,
-       "n": 1239,
+       "n": 1240,
        "sim": 0.656
       },
       {
@@ -3057,97 +3193,97 @@
        "sim": 0.813
       }
      ],
-     "ll_blend_new": 0.6629,
-     "ll_mkt_new": 0.6629,
-     "ll_sim_new": 0.6688,
-     "n": 10027,
+     "ll_blend_new": 0.6631,
+     "ll_mkt_new": 0.6631,
+     "ll_sim_new": 0.6689,
+     "n": 10031,
      "split": "2022-12-10",
      "thr": {
       "0.02": {
-       "edge": -0.0128,
+       "edge": -0.0126,
        "fair": 0.4296,
-       "n": 6648,
-       "n_new": 3266,
+       "n": 6652,
+       "n_new": 3270,
        "n_old": 3382,
-       "roi": -0.0705,
-       "roi_new": -0.062,
+       "roi": -0.0699,
+       "roi_new": -0.0609,
        "roi_old": -0.0786,
-       "win": 0.4168,
-       "z": -5.0,
-       "z_edge": -2.16
+       "win": 0.417,
+       "z": -4.96,
+       "z_edge": -2.13
       },
       "0.04": {
-       "edge": -0.0038,
+       "edge": -0.0036,
        "fair": 0.4119,
-       "n": 3940,
-       "n_new": 1957,
+       "n": 3943,
+       "n_new": 1960,
        "n_old": 1983,
-       "roi": -0.051,
-       "roi_new": -0.067,
+       "roi": -0.0504,
+       "roi_new": -0.0657,
        "roi_old": -0.0352,
-       "win": 0.4081,
-       "z": -2.69,
-       "z_edge": -0.49
+       "win": 0.4083,
+       "z": -2.65,
+       "z_edge": -0.47
       },
       "0.06": {
-       "edge": -0.0086,
+       "edge": -0.008,
        "fair": 0.3992,
-       "n": 2002,
-       "n_new": 982,
+       "n": 2004,
+       "n_new": 984,
        "n_old": 1020,
-       "roi": -0.0545,
-       "roi_new": -0.0848,
+       "roi": -0.0527,
+       "roi_new": -0.0812,
        "roi_old": -0.0253,
-       "win": 0.3906,
-       "z": -1.98,
-       "z_edge": -0.8
+       "win": 0.3912,
+       "z": -1.92,
+       "z_edge": -0.74
       },
       "0.08": {
-       "edge": 0.0118,
-       "fair": 0.3841,
-       "n": 879,
-       "n_new": 428,
+       "edge": 0.0126,
+       "fair": 0.384,
+       "n": 880,
+       "n_new": 429,
        "n_old": 451,
-       "roi": -0.0048,
-       "roi_new": -0.0117,
+       "roi": -0.002,
+       "roi_new": -0.006,
        "roi_old": 0.0018,
-       "win": 0.3959,
-       "z": -0.11,
-       "z_edge": 0.72
+       "win": 0.3966,
+       "z": -0.05,
+       "z_edge": 0.77
       },
       "0.10": {
-       "edge": -0.0012,
-       "fair": 0.3743,
-       "n": 327,
-       "n_new": 167,
+       "edge": 0.001,
+       "fair": 0.374,
+       "n": 328,
+       "n_new": 168,
        "n_old": 160,
-       "roi": -0.0524,
-       "roi_new": -0.108,
+       "roi": -0.0448,
+       "roi_new": -0.0927,
        "roi_old": 0.0056,
-       "win": 0.3731,
-       "z": -0.75,
-       "z_edge": -0.05
+       "win": 0.375,
+       "z": -0.64,
+       "z_edge": 0.04
       }
      }
     },
     "spread": {
      "best_bet": {
-      "edge": 0.0233,
+      "edge": 0.0238,
       "fair": 0.5477,
-      "n": 1231,
-      "n_new": 650,
-      "n_old": 581,
-      "roi": -0.0006,
-      "roi_new": 0.0095,
-      "roi_old": -0.0121,
-      "win": 0.5711,
-      "z": -0.03,
-      "z_edge": 1.68
+      "n": 1232,
+      "n_new": 649,
+      "n_old": 583,
+      "roi": 0.0002,
+      "roi_new": 0.0087,
+      "roi_old": -0.0094,
+      "win": 0.5714,
+      "z": 0.01,
+      "z_edge": 1.71
      },
      "best_thr": "0.10",
-     "blend_w": 0.0756,
-     "blend_z": 0.43,
-     "brier_mkt_new": 0.2309,
+     "blend_w": 0.0804,
+     "blend_z": 0.39,
+     "brier_mkt_new": 0.231,
      "brier_sim_new": 0.235,
      "cal_new": [
       {
@@ -3161,7 +3297,7 @@
        "bin": "0.2-0.4",
        "hit": 0.361,
        "market": 0.372,
-       "n": 2662,
+       "n": 2665,
        "sim": 0.32
       },
       {
@@ -3175,7 +3311,7 @@
        "bin": "0.6-0.8",
        "hit": 0.637,
        "market": 0.638,
-       "n": 1705,
+       "n": 1704,
        "sim": 0.701
       },
       {
@@ -3186,76 +3322,76 @@
        "sim": 0.81
       }
      ],
-     "ll_blend_new": 0.6542,
-     "ll_mkt_new": 0.6543,
-     "ll_sim_new": 0.6634,
-     "n": 9992,
+     "ll_blend_new": 0.6543,
+     "ll_mkt_new": 0.6544,
+     "ll_sim_new": 0.6635,
+     "n": 9996,
      "split": "2022-12-10",
      "thr": {
       "0.02": {
-       "edge": 0.0041,
+       "edge": 0.0042,
        "fair": 0.6063,
-       "n": 8461,
-       "n_new": 4262,
-       "n_old": 4199,
-       "roi": -0.0342,
-       "roi_new": -0.0418,
-       "roi_old": -0.0265,
-       "win": 0.6104,
+       "n": 8464,
+       "n_new": 4263,
+       "n_old": 4201,
+       "roi": -0.0341,
+       "roi_new": -0.0421,
+       "roi_old": -0.0261,
+       "win": 0.6105,
        "z": -3.96,
        "z_edge": 0.79
       },
       "0.04": {
-       "edge": 0.0053,
+       "edge": 0.0055,
        "fair": 0.6014,
-       "n": 6513,
+       "n": 6515,
        "n_new": 3316,
-       "n_old": 3197,
-       "roi": -0.0312,
+       "n_old": 3199,
+       "roi": -0.031,
        "roi_new": -0.0322,
-       "roi_old": -0.0302,
-       "win": 0.6068,
-       "z": -3.16,
-       "z_edge": 0.89
+       "roi_old": -0.0297,
+       "win": 0.6069,
+       "z": -3.14,
+       "z_edge": 0.91
       },
       "0.06": {
-       "edge": 0.0023,
+       "edge": 0.0025,
        "fair": 0.5898,
-       "n": 4368,
+       "n": 4370,
        "n_new": 2246,
-       "n_old": 2122,
-       "roi": -0.036,
+       "n_old": 2124,
+       "roi": -0.0356,
        "roi_new": -0.0375,
-       "roi_old": -0.0344,
-       "win": 0.592,
-       "z": -2.9,
-       "z_edge": 0.31
+       "roi_old": -0.0336,
+       "win": 0.5922,
+       "z": -2.88,
+       "z_edge": 0.33
       },
       "0.08": {
-       "edge": 0.0055,
+       "edge": 0.0059,
        "fair": 0.5708,
-       "n": 2457,
+       "n": 2459,
        "n_new": 1288,
-       "n_old": 1169,
-       "roi": -0.032,
-       "roi_new": -0.0311,
-       "roi_old": -0.0331,
-       "win": 0.5763,
-       "z": -1.87,
-       "z_edge": 0.56
+       "n_old": 1171,
+       "roi": -0.0315,
+       "roi_new": -0.0312,
+       "roi_old": -0.0317,
+       "win": 0.5767,
+       "z": -1.84,
+       "z_edge": 0.6
       },
       "0.10": {
-       "edge": 0.0233,
+       "edge": 0.0238,
        "fair": 0.5477,
-       "n": 1231,
-       "n_new": 650,
-       "n_old": 581,
-       "roi": -0.0006,
-       "roi_new": 0.0095,
-       "roi_old": -0.0121,
-       "win": 0.5711,
-       "z": -0.03,
-       "z_edge": 1.68
+       "n": 1232,
+       "n_new": 649,
+       "n_old": 583,
+       "roi": 0.0002,
+       "roi_new": 0.0087,
+       "roi_old": -0.0094,
+       "win": 0.5714,
+       "z": 0.01,
+       "z_edge": 1.71
       }
      }
     },
@@ -3274,7 +3410,7 @@
       "z_edge": 2.21
      },
      "best_thr": "0.06",
-     "blend_w": 0.1599,
+     "blend_w": 0.1609,
      "blend_z": -0.58,
      "brier_mkt_new": 0.2493,
      "brier_sim_new": 0.2512,
@@ -3290,7 +3426,7 @@
        "bin": "0.4-0.6",
        "hit": 0.497,
        "market": 0.504,
-       "n": 4771,
+       "n": 4773,
        "sim": 0.485
       },
       {
@@ -3304,21 +3440,21 @@
      "ll_blend_new": 0.6919,
      "ll_mkt_new": 0.6918,
      "ll_sim_new": 0.6955,
-     "n": 9720,
-     "split": "2022-12-18",
+     "n": 9724,
+     "split": "2022-12-19",
      "thr": {
       "0.02": {
-       "edge": 0.0034,
+       "edge": 0.0035,
        "fair": 0.4921,
-       "n": 6187,
-       "n_new": 3092,
+       "n": 6190,
+       "n_new": 3095,
        "n_old": 3095,
-       "roi": -0.0372,
-       "roi_new": -0.0465,
+       "roi": -0.037,
+       "roi_new": -0.0463,
        "roi_old": -0.0278,
        "win": 0.4956,
-       "z": -3.0,
-       "z_edge": 0.54
+       "z": -2.99,
+       "z_edge": 0.56
       },
       "0.04": {
        "edge": 0.0064,
@@ -3377,9 +3513,9 @@
    }
   }
  },
- "runs": 6,
- "seen": "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",
+ "runs": 7,
+ "seen": "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",
  "suspects": {},
- "tested": 726,
- "updated": "2026-09-29T22:32Z"
+ "tested": 846,
+ "updated": "2026-09-30T05:55Z"
 }
