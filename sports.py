@@ -407,10 +407,14 @@ FIGHT_MAX = 0.03               # for "edge" hit 48% when it said 56%). So a play
                                #   and never a side our own read says Vegas is overrating by 3+ points (fighting the line).
 
 
-VALUE_DOG = {                  # 🐶 the owner, 9/30: "we want value plays - underdogs win every day". 3+ seasons, every
-    "nhl": (0.10, 0.15, 0.02),     # sport: when our OWN read had a +100..+280 dog 10-15 pts over the book, hockey dogs
-    "ncaab": (0.10, 0.15, 0.02),   # won 42% / 48% (book 40%) and college hoops 40% / 40% (book 38%) - money in BOTH
-}                                  # halves. NBA ~break-even (-2%); NFL / MLB flip half to half; NCAAF loses - not there.
+VALUE_DOG = {                  # 🐶 the owner, 9/30: "we want value plays - underdogs win every day". (lo, hi, lift):
+    #                              a +100..+280 dog our OWN read has lo..hi points over the price is a proven value dog.
+    "nfl": (0.04, 1.0, 0.03),      # 9/30 night studies (tools/): the engine retrained on seasons before 7/2024 only, then
+    "nhl": (0.08, 1.0, 0.03),      # graded on the two seasons since at the MORNING price: NFL own +8 147 dogs won 49%
+    "ncaab": (0.10, 0.15, 0.02),   # +20% (+34% / +7%), own +4..8 74 dogs +11% (+15% / +9%); NHL own +8 139 dogs won 46%
+}                                  # +10% (+19% / +1%) - money in BOTH new seasons, and the money followed the engine's
+#                                    dog 73-79% of the time (it sees them first). NCAAB 10-15 pts: 3+ seasons, both
+#                                    halves. MLB / NBA / NCAAF failed the exam - not there. Lift = the smaller edge, shrunk.
 VALUE_DOG_MAX = 280            # (lo, hi, lift). Never longer than +280 (the owner: "+400 is crazy")
 
 

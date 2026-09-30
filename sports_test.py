@@ -4133,7 +4133,8 @@ def test_proven_value_dogs():
     almost never saw a dog as value. 3+ seasons: when its OWN read had a +100..+280 dog 10-15 pts over the book, hockey
     and college hoops dogs won more than the book said in BOTH halves - those are proven value dogs now. Other sports'
     'value dogs' lost money (or flipped) - not there. Never longer than +280."""
-    assert set(sports.VALUE_DOG) == {"nhl", "ncaab"} and sports.VALUE_DOG_MAX == 280
+    assert set(sports.VALUE_DOG) == {"nhl", "ncaab", "nfl"} and sports.VALUE_DOG_MAX == 280
+    assert sports.VALUE_DOG["nfl"][0] == 0.04 and sports.VALUE_DOG["nhl"][0] == 0.08, "9/30 exam: NFL own +4, NHL own +8"
     src = open(sports.__file__).read()
     assert "100 <= odds <= VALUE_DOG_MAX and vd[0] <= p_own - p_mk < vd[1]" in src and "p = max(p, p_mk + vd[2])" in src
     dog = {"game_id": "nhl:1", "league": "nhl", "market": "ml", "side": "away", "odds": 150, "dec": 2.5, "p": 0.42,

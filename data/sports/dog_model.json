@@ -1,0 +1,263 @@
+{
+ "at": "2026-09-30T10:42Z",
+ "leagues": {
+  "mlb": {
+   "learn": 14216,
+   "exam": 2963,
+   "weights": {
+    "gap": 0.032,
+    "rest": 0.001,
+    "b2b": -0.004,
+    "form": 0.015,
+    "revenge": 0.017,
+    "travel": -0.017,
+    "cold": -0.001,
+    "alt": 0.006,
+    "weather": 0.002,
+    "move": 0.003,
+    "home": -0.006
+   },
+   "bias": -0.022,
+   "every_dog_exam_roi": -0.0067,
+   "edge2": {
+    "learn_n": 949,
+    "learn_roi": 0.0177,
+    "exam_n": 132,
+    "exam_hit": 0.3409,
+    "exam_roi": -0.1015,
+    "exam_avg_price": 2.727
+   },
+   "edge4": {
+    "learn_n": 376,
+    "learn_roi": -0.0671,
+    "exam_n": 50,
+    "exam_hit": 0.32,
+    "exam_roi": -0.1142,
+    "exam_avg_price": 2.902
+   },
+   "edge6": {
+    "learn_n": 121,
+    "learn_roi": 0.0471,
+    "exam_n": 15,
+    "exam_hit": 0.2667,
+    "exam_roi": -0.188,
+    "exam_avg_price": 3.025
+   }
+  },
+  "nfl": {
+   "learn": 1414,
+   "exam": 232,
+   "weights": {
+    "gap": 0.003,
+    "rest": -0.01,
+    "b2b": 0.0,
+    "form": -0.053,
+    "revenge": 0.06,
+    "travel": -0.115,
+    "cold": 0.046,
+    "alt": -0.003,
+    "weather": 0.022,
+    "move": 0.064,
+    "home": -0.009
+   },
+   "bias": 0.003,
+   "every_dog_exam_roi": -0.0291,
+   "edge2": {
+    "learn_n": 526,
+    "learn_roi": 0.0849,
+    "exam_n": 77,
+    "exam_hit": 0.3247,
+    "exam_roi": -0.1753,
+    "exam_avg_price": 2.68
+   },
+   "edge4": {
+    "learn_n": 460,
+    "learn_roi": 0.0616,
+    "exam_n": 73,
+    "exam_hit": 0.3288,
+    "exam_roi": -0.1664,
+    "exam_avg_price": 2.697
+   },
+   "edge6": {
+    "learn_n": 394,
+    "learn_roi": 0.0558,
+    "exam_n": 61,
+    "exam_hit": 0.3607,
+    "exam_roi": -0.073,
+    "exam_avg_price": 2.729
+   }
+  },
+  "ncaaf": {
+   "learn": 2052,
+   "exam": 265,
+   "weights": {
+    "gap": -0.016,
+    "rest": 0.029,
+    "b2b": 0.0,
+    "form": 0.024,
+    "revenge": 0.031,
+    "travel": 0.015,
+    "cold": 0.033,
+    "alt": -0.001,
+    "weather": -0.017,
+    "move": 0.01,
+    "home": 0.041
+   },
+   "bias": 0.027,
+   "every_dog_exam_roi": -0.0397,
+   "edge2": {
+    "learn_n": 731,
+    "learn_roi": 0.0767,
+    "exam_n": 104,
+    "exam_hit": 0.3462,
+    "exam_roi": -0.0604,
+    "exam_avg_price": 2.734
+   },
+   "edge4": {
+    "learn_n": 520,
+    "learn_roi": 0.0879,
+    "exam_n": 77,
+    "exam_hit": 0.3117,
+    "exam_roi": -0.1603,
+    "exam_avg_price": 2.719
+   },
+   "edge6": {
+    "learn_n": 368,
+    "learn_roi": 0.0658,
+    "exam_n": 53,
+    "exam_hit": 0.283,
+    "exam_roi": -0.2106,
+    "exam_avg_price": 2.776
+   }
+  },
+  "nba": {
+   "learn": 6001,
+   "exam": 823,
+   "weights": {
+    "gap": -0.014,
+    "rest": 0.028,
+    "b2b": -0.003,
+    "form": -0.046,
+    "revenge": -0.0,
+    "travel": -0.005,
+    "cold": 0.0,
+    "alt": 0.019,
+    "weather": 0.0,
+    "move": -0.011,
+    "home": -0.015
+   },
+   "bias": 0.022,
+   "every_dog_exam_roi": -0.0555,
+   "edge2": {
+    "learn_n": 708,
+    "learn_roi": 0.0966,
+    "exam_n": 122,
+    "exam_hit": 0.2541,
+    "exam_roi": -0.3374,
+    "exam_avg_price": 2.807
+   },
+   "edge4": {
+    "learn_n": 381,
+    "learn_roi": 0.1345,
+    "exam_n": 80,
+    "exam_hit": 0.2625,
+    "exam_roi": -0.3305,
+    "exam_avg_price": 2.796
+   },
+   "edge6": {
+    "learn_n": 217,
+    "learn_roi": 0.0979,
+    "exam_n": 51,
+    "exam_hit": 0.2745,
+    "exam_roi": -0.279,
+    "exam_avg_price": 2.821
+   }
+  },
+  "ncaab": {
+   "learn": 14909,
+   "exam": 2152,
+   "weights": {
+    "gap": 0.032,
+    "rest": -0.012,
+    "b2b": 0.004,
+    "form": 0.018,
+    "revenge": 0.004,
+    "travel": 0.005,
+    "cold": 0.0,
+    "alt": -0.001,
+    "weather": 0.0,
+    "move": -0.004,
+    "home": 0.002
+   },
+   "bias": -0.029,
+   "every_dog_exam_roi": -0.0395,
+   "edge2": {
+    "learn_n": 325,
+    "learn_roi": 0.0386,
+    "exam_n": 59,
+    "exam_hit": 0.3559,
+    "exam_roi": -0.0403,
+    "exam_avg_price": 2.707
+   },
+   "edge4": {
+    "learn_n": 159,
+    "learn_roi": 0.1431,
+    "exam_n": 25,
+    "exam_hit": 0.36,
+    "exam_roi": -0.0112,
+    "exam_avg_price": 2.844
+   },
+   "edge6": {
+    "learn_n": 82,
+    "learn_roi": 0.2355,
+    "exam_n": 14,
+    "exam_hit": 0.3571,
+    "exam_roi": 0.0729,
+    "exam_avg_price": 2.975
+   }
+  },
+  "nhl": {
+   "learn": 7382,
+   "exam": 1174,
+   "weights": {
+    "gap": 0.026,
+    "rest": -0.005,
+    "b2b": 0.036,
+    "form": -0.041,
+    "revenge": 0.017,
+    "travel": 0.012,
+    "cold": 0.0,
+    "alt": -0.001,
+    "weather": 0.0,
+    "move": 0.014,
+    "home": -0.031
+   },
+   "bias": 0.001,
+   "every_dog_exam_roi": 0.0238,
+   "edge2": {
+    "learn_n": 736,
+    "learn_roi": 0.0983,
+    "exam_n": 109,
+    "exam_hit": 0.4679,
+    "exam_roi": 0.0901,
+    "exam_avg_price": 2.373
+   },
+   "edge4": {
+    "learn_n": 484,
+    "learn_roi": 0.0636,
+    "exam_n": 68,
+    "exam_hit": 0.4559,
+    "exam_roi": 0.0529,
+    "exam_avg_price": 2.299
+   },
+   "edge6": {
+    "learn_n": 330,
+    "learn_roi": 0.0772,
+    "exam_n": 51,
+    "exam_hit": 0.4118,
+    "exam_roi": -0.0329,
+    "exam_avg_price": 2.323
+   }
+  }
+ }
+}
