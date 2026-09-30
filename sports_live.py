@@ -633,8 +633,8 @@ def with_backups(first, backups, now_ms=None):
 ESPN_SB = "https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard"
 _ELO = {}
 SEEN = {}                     # play -> when it started qualifying (every check since): it shows once it's held HOLD_S
-HOLD_S = 15                   # 9/29: plays that held 2 one-second checks went up, pinged every phone and were gone
-                              # before anyone opened the page (Kudermetova, "BACK ON" Kalinina) - a play holds 15s first
+HOLD_S = 1                    # a play goes up (and pings) once it's held 2 checks in a row (~2 seconds). The owner,
+                              # 9/29: a 15-second wait is too slow - "we need to get these pings right away"
 
 
 def espn_scores(league):
@@ -876,7 +876,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     plays = list(uniq.values())
     locked = locked_sides(log, now)
     plays = [p for p in plays if locked.get(p["id"].rsplit(":", 1)[0], p["id"].rsplit(":", 1)[1]) == p["id"].rsplit(":", 1)[1]]
-    plays = hold(plays, showing, now.timestamp())             # held 15s straight before it goes up (no blips)
+    plays = hold(plays, showing, now.timestamp())             # held 2 checks in a row (no one-check blips)
     plays = settle_words(board(plays, showing), prev or {}, log)   # the wording stays put while a play is up
     for pl in plays:                                          # log the first time each play goes up (graded later)
         if pl["id"] not in log["plays"]:

@@ -3705,21 +3705,20 @@ def test_question_box_gets_exact_pick_status():
     assert "Never guess it from records" in js                                         # (9/29: 0-0-0 read as preseason)
 
 
-def test_a_live_play_holds_before_it_pings_and_the_push_carries_its_own_alert():
-    """9/29: Kudermetova held 2 one-second checks, went up, pinged every phone and was gone before the owner opened the
-    page - and his phone showed the Kalinina alert from 90 minutes before (it asked the Worker for 'latest' and got a
-    stale copy). Now a play holds 15 seconds straight before it goes up, and each push carries its own text."""
+def test_a_live_play_pings_right_away_and_the_push_carries_its_own_alert():
+    """9/29: the Kudermetova alert rang as the Kalinina bet from 90 minutes before (the phone asked the Worker for
+    'latest' and got a stale copy) - now each push carries its own text. The owner: pings go right away - a play
+    goes up once it holds 2 checks in a row (~2 seconds), never a 15-second wait."""
     import sports_live as L
     L.SEEN.clear()
     P = lambda *ids: [{"id": i} for i in ids]
     t = 1_000_000.0
-    assert L.hold(P("a"), (), t) == []                               # first sight: not yet
-    assert L.hold(P("a"), (), t + 1) == []                           # the old rule posted here (2 checks)
-    assert L.hold(P("a"), (), t + 14) == []
-    assert [p["id"] for p in L.hold(P("a"), (), t + 15)] == ["a"]    # held 15s straight: up
-    assert L.hold(P("b"), (), t + 16) == []                          # "a" missed a check...
-    assert L.hold(P("a", "b"), (), t + 17) == []                     # ...so its clock starts over (a blip back on)
-    assert [p["id"] for p in L.hold(P("a", "b"), ("a",), t + 18)] == ["a"]   # a play that's up stays up
+    assert L.HOLD_S <= 2, "pings right away"
+    assert L.hold(P("a"), (), t) == []                               # one check: could be a blip
+    assert [p["id"] for p in L.hold(P("a"), (), t + 1)] == ["a"]     # held 2 checks in a row: up + ping
+    assert L.hold(P("b"), (), t + 2) == []                           # "a" missed a check...
+    assert L.hold(P("a", "b"), (), t + 3) == [{"id": "b"}]           # ...so it starts over; "b" held 2 checks
+    assert [p["id"] for p in L.hold(P("a"), ("a",), t + 4)] == ["a"]   # a play that's up stays up
     L.SEEN.clear()
     import sports_dashboard as D
     assert "e.data.json()" in D.SW and "alertNow(e)" in D.SW          # the phone reads the alert out of the push
