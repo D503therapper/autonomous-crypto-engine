@@ -407,14 +407,13 @@ FIGHT_MAX = 0.03               # for "edge" hit 48% when it said 56%). So a play
                                #   and never a side our own read says Vegas is overrating by 3+ points (fighting the line).
 
 
-VALUE_DOG = {                  # 🐶 the owner, 9/30: "we want value plays - underdogs win every day". (lo, hi, lift):
-    #                              a +100..+280 dog our OWN read has lo..hi points over the price is a proven value dog.
-    "nfl": (0.04, 1.0, 0.03),      # 9/30 night studies (tools/): the engine retrained on seasons before 7/2024 only, then
-    "nhl": (0.08, 1.0, 0.03),      # graded on the two seasons since at the MORNING price: NFL own +8 147 dogs won 49%
-    "ncaab": (0.10, 0.15, 0.02),   # +20% (+34% / +7%), own +4..8 74 dogs +11% (+15% / +9%); NHL own +8 139 dogs won 46%
-}                                  # +10% (+19% / +1%) - money in BOTH new seasons, and the money followed the engine's
-#                                    dog 73-79% of the time (it sees them first). NCAAB 10-15 pts: 3+ seasons, both
-#                                    halves. MLB / NBA / NCAAF failed the exam - not there. Lift = the smaller edge, shrunk.
+VALUE_DOG = {}                 # 🐶 proven value dogs: (lo, hi, lift) per league - a +100..+280 dog our OWN read has lo..hi
+#                                points over the price. EMPTY on purpose (9/30 night): the engine retrained on seasons
+#                                before 7/2024 and graded on the two since shows its dog edge exists only at the MORNING
+#                                price (NFL own +8 dogs +20% there, -8% at game time; NHL +10% vs -12%) - the money follows
+#                                its read and takes the value by game time. The board posts at 8 AM game day, at prices
+#                                near the close, so no league qualifies there. (The earlier NHL / NCAAB 10-15 pt rule came
+#                                from an engine tuned on all seasons - it flattered itself; the honest exam failed it.)
 VALUE_DOG_MAX = 280            # (lo, hi, lift). Never longer than +280 (the owner: "+400 is crazy")
 
 

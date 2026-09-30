@@ -4129,12 +4129,11 @@ def test_slate_check_before_the_board():
 
 
 def test_proven_value_dogs():
-    """The owner, 9/30: 'we want value plays - underdogs win every day'. The engine's % mostly follows the line, so it
-    almost never saw a dog as value. 3+ seasons: when its OWN read had a +100..+280 dog 10-15 pts over the book, hockey
-    and college hoops dogs won more than the book said in BOTH halves - those are proven value dogs now. Other sports'
-    'value dogs' lost money (or flipped) - not there. Never longer than +280."""
-    assert set(sports.VALUE_DOG) == {"nhl", "ncaab", "nfl"} and sports.VALUE_DOG_MAX == 280
-    assert sports.VALUE_DOG["nfl"][0] == 0.04 and sports.VALUE_DOG["nhl"][0] == 0.08, "9/30 exam: NFL own +4, NHL own +8"
+    """The owner, 9/30: 'we want value plays - underdogs win every day'. The value-dog machinery stays (a league goes in
+    VALUE_DOG only once it passes the honest exam at the prices the board really posts at); the 9/30 night exam found
+    the engine's dog edge only at the MORNING price, so none qualify at 8 AM. Never longer than +280."""
+    assert sports.VALUE_DOG == {} and sports.VALUE_DOG_MAX == 280, \
+        "9/30 honest exam: the dog edge is only at the MORNING price - nothing qualifies at the 8 AM board's prices"
     src = open(sports.__file__).read()
     assert "100 <= odds <= VALUE_DOG_MAX and vd[0] <= p_own - p_mk < vd[1]" in src and "p = max(p, p_mk + vd[2])" in src
     dog = {"game_id": "nhl:1", "league": "nhl", "market": "ml", "side": "away", "odds": 150, "dec": 2.5, "p": 0.42,
