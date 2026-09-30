@@ -524,9 +524,8 @@ def _pick_card(kind, pk):
         else:
             label = f'{len(pk["legs"])}-LEG LEAN PARLAY'   # every leg wears its own SLIGHT / STRONG tag
 
-    if kind == "night":                                      # 🏈 MONDAY NIGHT FOOTBALL / THURSDAY NIGHT FOOTBALL
-        label = E(f'{datetime.strptime(pk["date"], "%Y-%m-%d").strftime("%A").upper()} NIGHT FOOTBALL')
-    if kind == "solo" and pk.get("legs"):                    # a one-game day: the header IS the pick (BEARS +3.5)
+    if kind in ("solo", "night") and pk.get("legs"):      # a one-game day / Monday-Thursday football: the header IS the
+        #                                                     pick (STEELERS ML - the owner, 9/30), the 🏈 says football                    # a one-game day: the header IS the pick (BEARS +3.5)
         l0 = pk["legs"][0]
         mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
         label = E(f'{l0["team"]} {mk}'.upper())
