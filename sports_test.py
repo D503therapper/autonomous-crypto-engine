@@ -4128,6 +4128,20 @@ def test_slate_check_before_the_board():
     assert "slate check:" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
 
 
+def test_proven_value_dogs():
+    """The owner, 9/30: 'we want value plays - underdogs win every day'. The engine's % mostly follows the line, so it
+    almost never saw a dog as value. 3+ seasons: when its OWN read had a +100..+280 dog 10-15 pts over the book, hockey
+    and college hoops dogs won more than the book said in BOTH halves - those are proven value dogs now. Other sports'
+    'value dogs' lost money (or flipped) - not there. Never longer than +280."""
+    assert set(sports.VALUE_DOG) == {"nhl", "ncaab"} and sports.VALUE_DOG_MAX == 280
+    src = open(sports.__file__).read()
+    assert "100 <= odds <= VALUE_DOG_MAX and vd[0] <= p_own - p_mk < vd[1]" in src and "p = max(p, p_mk + vd[2])" in src
+    dog = {"game_id": "nhl:1", "league": "nhl", "market": "ml", "side": "away", "odds": 150, "dec": 2.5, "p": 0.42,
+           "edge": 0.42 * 2.5 - 1, "edge_own": 0.52 * 2.5 - 1, "trap": False, "drift": 0.0,
+           "reasons": ["proven value dog: our read 10+ pts over the price - these won more than the book said, 3+ seasons"]}
+    assert sports.proven(dog) and sports.good(dog), "a proven value dog is a real play"
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by

@@ -334,11 +334,18 @@ def candidates(games, model, now=None, day=None, injuries=None):
             if not (key_out["home"] or key_out["away"]):  # honest: the engine's own read, corrected by its record in
                 p = sports_strength.calibrate(lg, p)      # this sport (a starter-out game goes by the market as is)
             p_own = ph_own if side == "home" else 1 - ph_own
+            vd = VALUE_DOG.get(lg)                        # 🐶 a proven value dog: our own read 10-15 pts over the price
+            p_mk = mkt if side == "home" else 1 - mkt
+            value_dog = bool(vd and mkt is not None and 100 <= odds <= VALUE_DOG_MAX and vd[0] <= p_own - p_mk < vd[1])
+            if value_dog:
+                p = max(p, p_mk + vd[2])                  # credited only the lift it really won (the smaller half)
             trap = odds > 0 and sports_dogs.verdict(DOGS_ST, lg, odds, side == "home") == "trap"
             out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p, "trap": trap,
                         "p_market": mkt if side == "home" else 1 - mkt, "edge": p * sd.decimal(odds) - 1,
                         "edge_own": p_own * sd.decimal(odds) - 1,
-                        "reasons": base["reasons"] + _proven_reason(n_ml, s_ml if side == "home" else -s_ml)})
+                        "reasons": base["reasons"] + _proven_reason(n_ml, s_ml if side == "home" else -s_ml)
+                        + (["proven value dog: our read 10+ pts over the price - these won more than the book said, "
+                            "3+ seasons"] if value_dog else [])})
             if lg in ("nhl", "mlb") and NO_PUCK_RUN_LINES:
                 pass                                      # the owner, 9/29: no puck lines, no run lines on our board
             elif lg in ("nhl", "mlb") and g.get("spread_home", "") != "" and LINES_ST:   # puck line / run line: the chance
@@ -398,6 +405,13 @@ FIGHT_MAX = 0.03               # for "edge" hit 48% when it said 56%). So a play
                                #   53%+ = a real play (STRONG LEAN), 56%+ = a LOCK, the day's likeliest lock = Lock of the Day;
                                #   an underdog only as VALUE when a PROVEN angle backs it - never just the engine vs Vegas;
                                #   and never a side our own read says Vegas is overrating by 3+ points (fighting the line).
+
+
+VALUE_DOG = {                  # 🐶 the owner, 9/30: "we want value plays - underdogs win every day". 3+ seasons, every
+    "nhl": (0.10, 0.15, 0.02),     # sport: when our OWN read had a +100..+280 dog 10-15 pts over the book, hockey dogs
+    "ncaab": (0.10, 0.15, 0.02),   # won 42% / 48% (book 40%) and college hoops 40% / 40% (book 38%) - money in BOTH
+}                                  # halves. NBA ~break-even (-2%); NFL / MLB flip half to half; NCAAF loses - not there.
+VALUE_DOG_MAX = 280            # (lo, hi, lift). Never longer than +280 (the owner: "+400 is crazy")
 
 
 def proven(c):
