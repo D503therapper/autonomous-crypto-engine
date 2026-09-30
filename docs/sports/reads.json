@@ -1,11 +1,12 @@
 {
- "updated": "2026-09-30T04:39Z",
+ "updated": "2026-09-30T04:43Z",
  "games": [
   {
    "id": "mlb:401907965",
    "league": "mlb",
    "emoji": "\u26be",
    "sport": "MLB",
+   "season": "playoffs",
    "start": "2026-09-29T18:00Z",
    "away": "Phillies",
    "home": "Braves",
@@ -20,6 +21,7 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-09-29T21:00Z",
    "away": "Panthers",
    "home": "Hurricanes",
@@ -34,6 +36,7 @@
    "league": "mlb",
    "emoji": "\u26be",
    "sport": "MLB",
+   "season": "playoffs",
    "start": "2026-09-29T21:00Z",
    "away": "White Sox",
    "home": "Astros",
@@ -48,6 +51,7 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-09-29T23:00Z",
    "away": "Canadiens",
    "home": "Maple Leafs",
@@ -62,6 +66,7 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-09-30T00:00Z",
    "away": "Rangers",
    "home": "Bruins",
@@ -76,6 +81,7 @@
    "league": "mlb",
    "emoji": "\u26be",
    "sport": "MLB",
+   "season": "playoffs",
    "start": "2026-09-30T00:00Z",
    "away": "Red Sox",
    "home": "Yankees",
@@ -102,6 +108,7 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-09-30T02:00Z",
    "away": "Canucks",
    "home": "Oilers",
@@ -130,6 +137,7 @@
    "league": "mlb",
    "emoji": "\u26be",
    "sport": "MLB",
+   "season": "playoffs",
    "start": "2026-09-30T02:00Z",
    "away": "Cubs",
    "home": "Padres",
@@ -156,6 +164,7 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-09-30T02:45Z",
    "away": "Blackhawks",
    "home": "Golden Knights",
@@ -188,6 +197,7 @@
     "name": "first 5 innings"
    },
    "sport": "MLB",
+   "season": "playoffs",
    "start": "2026-09-30T18:00Z",
    "away": "Phillies",
    "home": "Braves",
@@ -219,6 +229,7 @@
     "name": "first 5 innings"
    },
    "sport": "MLB",
+   "season": "playoffs",
    "start": "2026-09-30T21:00Z",
    "away": "White Sox",
    "home": "Astros",
@@ -248,6 +259,7 @@
     "name": "1st period"
    },
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-09-30T23:30Z",
    "away": "Islanders",
    "home": "Maple Leafs",
@@ -279,6 +291,7 @@
     "name": "1st period"
    },
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-09-30T23:30Z",
    "away": "Penguins",
    "home": "Flyers",
@@ -306,6 +319,7 @@
     "name": "first 5 innings"
    },
    "sport": "MLB",
+   "season": "playoffs",
    "start": "2026-10-01T00:00Z",
    "away": "Red Sox",
    "home": "Yankees",
@@ -323,6 +337,34 @@
    }
   },
   {
+   "id": "mlb:401907975",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Padres",
+    "p": 0.482,
+    "tie": 0.118,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-01T02:00Z",
+   "away": "Cubs",
+   "home": "Padres",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Cubs",
+    "opp": "Padres",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -205,
+    "p": 0.627,
+    "win_p": 0.441,
+    "reasons": []
+   }
+  },
+  {
    "id": "nhl:401891780",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -333,6 +375,7 @@
     "name": "1st period"
    },
    "sport": "NHL",
+   "season": "regular season",
    "start": "2026-10-01T02:00Z",
    "away": "Kings",
    "home": "Avalanche",
