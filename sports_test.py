@@ -4653,23 +4653,25 @@ def test_units_and_the_open_bankroll():
 def _units_and_the_open_bankroll():
     """The owner (9/30): units under each label (0.5u up to a 10u max play), and an open bankroll - $1,000 to start, a
     unit is 1% of that morning's bankroll, so it grows as we win. Everything transparent."""
-    lk = lambda p: {"kind": "lock", "legs": [{"p": p}]}
-    # the sizing study (9/30): at game-time prices a bigger edge didn't win more - every game-day play is 1u, slight lean ½u
-    assert [sports.units_for(lk(p)) for p in (0.563, 0.63, 0.72)] == [1, 1, 1] and sports.UNIT_MAX == 10
+    # the ENGINE sizes every play by its edge (the sizing study, 9/30): quarter-Kelly, ½u-10u
+    lk = lambda own, o: {"kind": "lock", "legs": [{"p": 0.6, "p_market": 0.55, "edge_own": own - 0.55, "odds": o}]}
+    assert sports.units_for(lk(0.60, -125)) == 2.5 and sports.units_for(lk(0.52, -125)) == 0.5   # its OWN read, not p
+    assert sports.units_for(lk(0.75, -125)) > sports.units_for(lk(0.65, -125)) > 2.5 and sports.UNIT_MAX == 10
+    assert sports.kelly_units(0.9, 200) == 10                                                   # the 10u max
     assert sports.units_for({"kind": "two", "legs": []}) == 0 == sports.units_for({"kind": "four", "legs": []})
     # a parlay has no units - each pick in it carries its own, as a straight bet (the owner, 9/30)
     two = {"date": "2026-09-30", "kind": "two", "status": "lost", "dec": 3.0, "legs": [
         {"game_id": "g1", "side": "home", "odds": -140, "p": 0.63, "tier": "lock", "result": "won"},
         {"game_id": "g2", "side": "away", "odds": -120, "p": 0.54, "tier": "lean", "result": "lost"}]}
-    assert [sports.leg_units(two, l) for l in two["legs"]] == [1, 1]
+    assert [sports.leg_units(two, l) for l in two["legs"]] == [3, 0]         # a lean in a parlay: no units
     lock = {"date": "2026-09-30", "kind": "lock", "status": "won", "dec": 1 + 100 / 140, "legs": [
         {"game_id": "g1", "side": "home", "odds": -140, "p": 0.63, "tier": "lock", "result": "won"}]}
     led = sports.units_ledger([two, lock])                 # the lock counts once (not again as a parlay leg)
-    assert len(led["rows"]) == 2 and led["rows"][0][0]["kind"] == "lock"
-    assert abs(sum(r[2] for r in led["rows"]) - (100 / 140 - 1)) < 1e-9
-    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "tier": "lean"}]}) == 1    # a value play
-    assert sports.units_for({"kind": "solo", "tier": "value", "legs": [{"p": 0.45}]}) == 1
-    assert sports.units_for({"kind": "solo", "lean": True, "legs": [{"p": 0.51}]}) == 0.5
+    assert len(led["rows"]) == 1 and led["rows"][0][0]["kind"] == "lock"   # (the lean isn't in the bankroll)
+    assert abs(sum(r[2] for r in led["rows"]) - 3 * 100 / 140) < 1e-9
+    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "odds": 160, "tier": "lean"}]}) == 0.5   # a value play
+    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.45, "odds": 160}]}) == 2.5                     # by its edge
+    assert sports.units_for({"kind": "solo", "lean": True, "legs": [{"p": 0.51}]}) == 0                   # just a lean
     # ⏰ early plays: the ENGINE's call - sized by how far its own read beats the price we got (the owner, 9/30)
     import sports_early as se
     assert se.units({"odds": 124, "own": 0.5703}) == 5.5 and se.units({"odds": 170, "own": 0.40}) == 1 and se.units({"odds": 160, "own": 0.39}) == 0.5
@@ -4684,8 +4686,8 @@ def _units_and_the_open_bankroll():
     day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
     day2 = {"date": "2026-09-30", "kind": "lock", "status": "lost", "dec": 1.5, "legs": [{"p": 0.563}]}  # 2u, -2u
     led = sports.units_ledger([day2, day1])
-    assert led["by_date"] == {"2026-09-29": 10.0, "2026-09-30": 10.05}     # the unit grew with the bankroll
-    assert led["bankroll"] == round(1000 + 5.0 - 10.05, 2)
+    assert led["by_date"] == {"2026-09-29": 10.0, "2026-09-30": 10.1}      # the unit grew with the bankroll
+    assert led["bankroll"] == round(1000 + 10.0 - 2 * 10.1, 2)
     import sports_dashboard as d
     assert "BANKROLL" in d.units_box([day1, day2]) and d.units_box([]) == ""
     box = d.units_box([day1, day2], "2026-09-30")          # the owner, 9/30: every ROI stat - overall, the day, the week
@@ -4695,13 +4697,15 @@ def _units_and_the_open_bankroll():
     assert "WE GAMBLIN" in d.LIVE_NO_UNITS and "var NOU=" in open(d.__file__).read()   # live plus money: no units, said so
     assert "\n.nou{{text-align:center" in open(d.__file__).read()          # its own CSS rule (a spliced one broke it)
     assert d._units_line(2) == '<div class="un"><span class="mb">💰</span> 2 UNITS</div>'   # no $ on a card; green bag
+    assert "NO UNITS — JUST A LEAN" in d._units_line(0)                   # a lean says so (the owner, 9/30)
     assert ".mb{{display:inline-block;filter:hue-rotate" in open(d.__file__).read()
     assert "🔒 Locks" in box and "Lock of the Day" not in box       # rows by kind of pick (the owner, 9/30)
     assert "🔥 VALUE PLAY<" in d.TIER_CHIP["value"] and "🔥 VALUE PLAY<" in d.LEG_TAG["value"]   # 'value plays', not 'value'
-    dog = {"date": "2026-09-30", "kind": "dog", "status": "won", "dec": 2.6, "legs": [{"p": 0.40, "tier": "lean"}]}
+    dog = {"date": "2026-09-30", "kind": "dog", "status": "won", "dec": 2.6, "legs": [{"p": 0.40, "odds": 160, "tier": "lean"}]}
     lean = {"date": "2026-09-30", "kind": "solo", "lean": True, "status": "lost", "dec": 1.9, "legs": [{"p": 0.52}]}
     tiers = [r[0]["units_tier"] for r in sports.units_ledger([dog, lean, two])["rows"]]
-    assert sorted(tiers) == ["lock", "slight", "strong", "value"]          # the Dog of the Day is a value play
+    assert sorted(tiers) == ["lock", "value"]          # the Dog of the Day is a value play; leans stay out
+    assert "Strong leans" not in box and "Slight leans" not in box
     assert "u bet" not in box and "u ·" not in box          # plain dollars + ROI (the owner: '+6.6u on 14u bet' confused him)
 
 

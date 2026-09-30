@@ -24,9 +24,10 @@ every session:
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
   day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
 - The only phone notifications are Live Plus Money bets (no pings for new picks or early value plays).
-- Units (the engine decides): 1 unit = 1% of our bankroll ($1,000 start, it grows with it). Early value plays are
-  sized by the engine's edge (½u-10u, sports_early.units); game-day plays 1u, slight leans ½u (the sizing study);
-  parlays carry none (each pick in it has its own); no units on live plus money or tennis. Cards show units only, no $.
+- Units (the engine decides, by its edge - quarter-Kelly, ½u-10u; 1 unit = 1% of our bankroll, $1,000 start): early
+  value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. Leans keep their
+  STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
+  live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.
 - A win % only shows on the dashboard when it's over 55% (sports_dashboard.pct_ok) - under that, words say it.
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`

@@ -402,9 +402,8 @@ def units(p):
     (a quarter of the Kelly stake, 1u = 1% of the bankroll), ½u to 10u. The sizing study (5 seasons it never saw): at the
     opening price a bigger engine edge won more AND moved the line more (NFL: the biggest edges moved our way 80% of the
     time, 61% flipped to favorites) - sized this way it made the most money in the NFL, NBA, NHL and college football."""
-    d = _dec(p["odds"])
-    k = ((p.get("own") or 0) * d - 1) / (d - 1)
-    return 0.5 if k <= 0 else min(UNITS_MAX, max(0.5, round(0.25 * k / 0.01 * 2) / 2))
+    import sports
+    return sports.kelly_units(p.get("own"), p["odds"])
 
 
 def html(st, E, now=None, show_units=None):

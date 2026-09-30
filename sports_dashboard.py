@@ -190,12 +190,14 @@ TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE
 
 
 LIVE_NO_UNITS = '<div class="nou">🎲 NO UNITS ON THESE — WE GAMBLIN’</div>'   # (the owner, 9/30)
-UNITS_ON = False             # the owner, 9/30: off till the engine sizes every play by its own edge (tested first)
+UNITS_ON = True              # the owner OK'd it 9/30: the engine sizes every play by its own edge (the sizing study)
 
 
 def _units_line(u):
     if not UNITS_ON:
         return ""
+    if not u:                                                # a lean: no units (the owner, 9/30)
+        return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
     return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
 
 
@@ -328,7 +330,7 @@ def _why_fallback(leg):
     return ""
 
 
-def _leg(leg, tagged=False, review="", units=0):
+def _leg(leg, tagged=False, review="", units=None):
     import sports
     lg = sd.LEAGUES[leg["league"]]
     lt_ = leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
@@ -353,7 +355,7 @@ def _leg(leg, tagged=False, review="", units=0):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {_units_line(units) if units else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units) if units is not None else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -534,7 +536,7 @@ def _pick_card(kind, pk):
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
     legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg),     # a parlay: each pick in it
-                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else 0) for leg in pk["legs"])   # has its units   # graded: the
+                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else None) for leg in pk["legs"])   # has its units   # graded: the
     #                                                                   after-game review takes the pregame line's spot
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")

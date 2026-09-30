@@ -22,6 +22,9 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   nothing on top (a separate move model did worse than the edge alone). At GAME-TIME prices a bigger edge did NOT win
   more (sizing up lost more in every sport) - so game-day plays are flat 1u (slight lean ½u). College hoops and MLB
   early: sizing didn't help. Live plus money and tennis: no units (their own records).
+  The daily Lock / Dog replayed (2,034 / 2,385 days): Lock won 58.1% but flat 1u broke even (-2u); sized by the
+  engine's own read +141u (+2.3%, 5 of 7 seasons). Dog sized by its read vs the price +121u (+5.6%, 6 of 7). BUT the
+  last 3 seasons were red for both however sized - watch the bankroll box; early plays are the real money-maker.
 
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
