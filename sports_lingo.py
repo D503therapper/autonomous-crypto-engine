@@ -358,6 +358,18 @@ REVIEWS = {
         "Cover secured, {t} {x}. %wk%",
         "{x} with {t}? [Money|Green|Covered]. %wk%",
     )),
+    ("outright", "lost"): (81, 2, T(    # 9/29: "The Oilers couldn't cover" - they lost the whole game. Say that.
+        "{t} didn't just miss the cover — they lost the [whole game|game outright] to {o}. %lk%",
+        "Forget the spread. {o} beat {t} [straight up|outright|flat out]. %lk%",
+        "{t} got cooked. Lost the [whole game|game], not just the spread. %lk%",
+        "{t} shit the bed — [lost to {o} outright|dropped the whole game to {o}]. %lk%",
+        "Not even close: {t} lost the game [outright|straight up]. %lk%",
+        "{o} won it [straight up|outright]. {t} never had a shot at the cover. %lk%",
+        "{t} lost the [game|whole thing], so the spread was dead. %lk%",
+        "Straight-up L. {o} [beat|handled|took care of] {t}. %lk%",
+        "{t} [never led when it counted|got outplayed] and lost it outright. %lk%",
+        "Covering was the least of it — {t} lost to {o}. %lk%",
+    )),
     ("spread", "lost"): (81, 2, T(
         "{t} couldn't cover. %lk%",
         "Spread [ticket|pick] on {t} [went red|missed|didn't land]. %lk%",

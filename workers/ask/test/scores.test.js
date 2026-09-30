@@ -18,7 +18,7 @@ test("scores: team score + clock, tennis scoreboard from player 1's side", async
   const t = d["tennis:atp:186239"];
   assert.deepEqual(t.n, ["Vallejo", "Faria"]);
   assert.deepEqual(t.sets, [[4, 6], [2, 3]]);
-  assert.deepEqual(t.pts, ["15", "30"]);
+  assert.equal(t.pts, null, "ESPN points sit frozen: only the book's ever show"); assert.deepEqual(t.espn_pts, ["15", "30"]);
   assert.equal(t.srv, 1); assert.equal(t.done, 1); assert.equal(t.live, true);
   assert.equal(d["nfl:1"], undefined);
 });
@@ -66,4 +66,19 @@ test("scores: a tennis match ESPN still calls 'pre' after games are played is li
   const req = new Request("https://x.workers.dev/scores?ids=tennis:atp:9", { headers: { Origin: "https://d503therapper.github.io" } });
   const d = await (await handleScores(req, {}, { waitUntil() {} }, ["https://d503therapper.github.io"])).json();
   assert.equal(d["tennis:atp:9"].live, true);
+});
+
+import { bookScore } from "../src/scores.js";
+test("9/29: the book's point-by-point - who's serving + 15-0 / 30-0, from ESPN's player 1's side, never a guess", () => {
+  const ev = (home, away, h, a, pts, hs) => ({ event: { homeName: home, awayName: away },
+    liveData: { score: { home: pts[0], away: pts[1] }, statistics: { sets: { home: h, away: a, homeServe: hs } } } });
+  const d = { events: [ev("Other Guy", "Someone", [1], [0], ["0", "0"], true),
+                       ev("Yexin Ma", "Polina Kudermetova", [7, 3, 0], [6, 6, 0], ["30", "15"], false)] };
+  const b = bookScore(d, "Polina Kudermetova", "Ma YeXin");
+  assert.deepEqual(b, { sets: [[6, 7], [6, 3], [0, 0]], pts: ["15", "30"], srv: 0, done: 2 });   // she's serving
+  const c = bookScore(d, "Ma YeXin", "Polina Kudermetova");
+  assert.deepEqual(c.pts, ["30", "15"]); assert.equal(c.srv, 1);
+  assert.equal(bookScore(d, "Nobody Here", "Ma YeXin"), null, "both names must match");
+  const pad = { events: [ev("A Guy", "B Guy", [3, 0, 0], [1, 0, 0], ["15", "0"], true)] };
+  assert.deepEqual(bookScore(pad, "A Guy", "B Guy").sets, [[3, 1]], "unplayed 0-0 sets trimmed");
 });

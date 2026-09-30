@@ -3919,7 +3919,7 @@ def test_live_tennis_shows_who_is_serving_and_the_points():
     # names that don't line up: no score at all (never a guess)
     assert L.book_score(m, {**ln, "a": "Some One", "b": "Else Who", "live": {**lv, "home": "Some One"}}, L._tennis_score(m, 1)) is None
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
-    assert "wg===fg&&w.pts&&!f.pts" in src
+    assert 'wg===fg&&w.pts&&!f.pts&&w.src==="book"' in src
 
 
 def test_question_box_checked_hourly_and_retries_lean():
@@ -3948,6 +3948,34 @@ def test_live_plus_money_record_is_by_sport_behind_a_tap():
     src = open(D.__file__).read()
     assert "Tap a sport to see full results" in src and "lvbox" in src and 'box(f"📡 {k}"' in src
     assert 'grade("📡 LIVE PLUS MONEY"' in src and "by_sport=_live_by_sport(lrs)" in src
+
+
+def test_tennis_points_and_server_checked_every_second():
+    """The owner, 9/29: the 15-30-40 and who's serving must be right to the second, with a constant check. The watcher
+    flags a live match that's gone a minute without them; the hourly bug check reads that, and asks the page's
+    1-second score route for the book's points."""
+    L = sports_live
+    keep = dict(L.SCORES)
+    try:
+        L.SCORES.clear(); L.NO_PTS.clear(); L.PTS_SEEN.clear()
+        L.SCORES["tennis:wta:1"] = {"tennis": True, "live": True, "n": ["Bai", "Fruhvirtova"], "sets": [[2, 6]], "pts": None, "srv": None}
+        L.SCORES["tennis:wta:2"] = {"tennis": True, "live": True, "n": ["Sonmez", "Inglis"], "sets": [[4, 6]], "pts": ["0", "30"], "srv": 1}
+        assert L.tennis_score_check(1000.0) == []                       # just noticed: give it a minute
+        got = L.tennis_score_check(1061.0)
+        assert got == ["tennis Bai vs Fruhvirtova: no points for 61s"], got
+        L.SCORES["tennis:wta:1"].update(pts=["15", "0"], srv=0)
+        assert L.tennis_score_check(1062.0) == [] and "tennis:wta:1" not in L.NO_PTS
+        # "0-15 sitting there forever": the same point score for 3 minutes is flagged frozen
+        got = L.tennis_score_check(1062.0 + L.PTS_FROZEN_S)
+        assert any("Bai vs Fruhvirtova: points frozen at 15-0" in x for x in got), got
+        L.SCORES["tennis:wta:1"].update(pts=["30", "0"])
+        assert not any("Bai" in x for x in L.tennis_score_check(1063.0 + L.PTS_FROZEN_S))
+    finally:
+        L.SCORES.clear(); L.SCORES.update(keep); L.NO_PTS.clear()
+    h = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
+    assert "live tennis points" in h and "/scores?debug=1" in h
+    js = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "scores.js")).read()
+    assert "bookScore" in js and "kambi" in js.lower()
 
 
 def test_final_score_calls_the_pick_on_the_spot():

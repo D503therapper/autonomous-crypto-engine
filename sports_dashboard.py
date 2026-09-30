@@ -753,6 +753,9 @@ def _history(picks):
             kind = "close"
         elif r == "lost" and (p or l.get("p") or 0) >= 0.6:
             kind = "conf"
+        if r == "lost" and l.get("market") == "spread" and (l.get("line") or 0) < 0 and mg is not None and mg < 0 \
+                and kind not in ("collapse", "fade"):          # laid the points and lost the game outright: say so,
+            kind, xtra = "outright", {}                     # (the owner, 9/29 - never just "couldn't cover")
         return later(date, f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}', kind, r, lean, t=t_, o=o_, x=x, **xtra)
 
     def box(title, items, head=""):
@@ -1401,7 +1404,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lv{{color:#ff3b3b !important;animation:blink 1.2s infinite}} @keyframes blink{{50%{{opacity:.2}}}}
 .dly{{color:#ffc233;font-weight:900;letter-spacing:.06em}} .lvb{{color:#ff4040;font-weight:900;letter-spacing:.08em;white-space:nowrap;text-shadow:0 0 8px rgba(255,64,64,.6)}} .rvw{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 6px}} .fnb{{color:#fff;font-weight:900;letter-spacing:.08em}} .lsc{{font-size:.9em;color:#fff;font-weight:700;margin:2px 0 4px;font-variant-numeric:tabular-nums}} .lsc b{{font-weight:800}} .lsc>span{{color:#ff8a8a;font-weight:700}}
 .tsb{{display:grid;gap:2px 0;align-items:center;max-width:250px;margin:4px 0 6px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.05);font-size:.95em}}
-.tsb .nm{{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .tsb .nm i{{display:inline-block;width:6px;height:6px;border-radius:50%;background:#d7ff3a;margin:0 5px 2px 0}}
+.tsb .nm{{color:#fff;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}} .tsb .nm i{{font-style:normal;margin-left:6px;font-size:.78em;font-weight:900;color:#d7ff3a;letter-spacing:.02em}}   /* who's serving, in words (the owner, 9/29) */
 .tsb b{{text-align:center;font-weight:700;color:#fff}} .tsb b.w{{color:#fff;font-weight:900}} .tsb b.l{{color:#fff;font-weight:700}}
 .tsb em{{font-style:normal;text-align:center;font-weight:900;color:#ff8a8a}} .lvb i{{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff2b2b;margin-right:6px;vertical-align:0;box-shadow:0 0 6px 1px #ff2b2b;animation:lvp 1.4s infinite}}
 @keyframes lvp{{0%{{box-shadow:0 0 0 0 rgba(255,43,43,.9),0 0 6px 1px #ff2b2b}}70%{{box-shadow:0 0 0 9px rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}100%{{box-shadow:0 0 0 0 rgba(255,43,43,0),0 0 6px 1px #ff2b2b}}}}
@@ -1616,7 +1619,7 @@ function called(s,sc){{   // the second it's final: ✅ HIT / ❌ MISS from the 
 function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D503Ft||0)<15000&&window.D503F)||{{}};
  Object.keys(W).forEach(function(k){{S[k]=W[k]}});
  Object.keys(F).forEach(function(k){{var w=W[k],f=F[k];   // tennis: whichever feed is further along wins (the watcher's
-  if(w&&w.tennis&&f&&f.tennis){{var wg=games(w),fg=games(f);if(wg>fg||(wg===fg&&w.pts&&!f.pts)){{S[k]=w;return}}}}   // book score beats a
+  if(w&&w.tennis&&f&&f.tennis){{var wg=games(w),fg=games(f);if(wg>fg||(wg===fg&&w.pts&&!f.pts&&w.src==="book")){{S[k]=w;return}}}}   // book score beats a
   S[k]=f}});                                                                                       // lagging ESPN one
  var B=window.D503B=window.D503B||{{}};   // a score never goes backwards (ESPN's servers hand out older copies)
  Object.keys(S).forEach(function(k){{var sc=S[k],p=B[k];if(!sc)return;
@@ -1639,7 +1642,7 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
       if(bd)leg.insertBefore(box,bd);else leg.appendChild(box);}}
     if(sc.tennis){{var ns=(sc.sets||[]).length,cols="1fr repeat("+ns+",1.5em)"+(sc.pts?" 2.4em":"");   // 🎾 a TV-style scoreboard
       h='<div class="tsb" style="grid-template-columns:'+cols+'">'+[0,1].map(function(i){{
-        return '<span class="nm">'+(sc.live&&sc.srv===i?'<i></i>':'')+q(sc.n[i])+'</span>'+(sc.sets||[]).map(function(st,k){{
+        return '<span class="nm">'+q(sc.n[i])+(sc.live&&sc.srv===i?'<i>serving</i>':'')+'</span>'+(sc.sets||[]).map(function(st,k){{
           var won=k<sc.done&&st[i]>st[1-i];return '<b'+(won?' class="w"':k<sc.done?' class="l"':'')+'>'+st[i]+'</b>'}}).join("")+
           (sc.pts?'<em>'+q(sc.pts[i])+'</em>':'')}}).join("")+'</div>';}}
     else{{var c=sc.clock&&sc.clock!=="Final"?sc.clock:"";

@@ -109,7 +109,64 @@ function match(c) {
   }
   const sv = comps.map(serving);
   const srv = sv[0] && !sv[1] ? 0 : sv[1] && !sv[0] ? 1 : null;
-  return { tennis: true, p1: true, n: comps.map(name), sets, pts, srv, done, live, delayed };
+  // ESPN's points sit frozen (9/29: "0-15 sitting there forever") - the points only ever come from the book below
+  return { tennis: true, p1: true, n: comps.map(name), sets, pts: null, espn_pts: pts, srv, done, live, delayed };
+}
+
+// 🎾 THE BOOK'S POINT-BY-POINT (BetRivers / Kambi in-play): every point, who's serving, games per set - seconds ahead
+// of ESPN, which mostly has no points at all (the owner, 9/29: "15, 30, 40 ... accurate down to the second").
+const KAMBI_TN = "https://eu-offering-api.kambicdn.com/offering/v2018/rsiusnj/listView/tennis/all/all/all/in-play.json?lang=en_US&market=US";
+export const BOOK = { at: 0, n: 0, err: "" };             // (the hourly check reads these through ?debug)
+
+async function kambiTennis(ctx) {
+  const cache = caches.default, ck = "https://d503-cache/kambi-tennis-inplay";
+  const hit = await cache.match(ck);
+  if (hit) return hit.json();
+  try {
+    const r = await fetch(`${KAMBI_TN}&_=${Math.floor(Date.now() / 1000)}`, { headers: { Accept: "application/json",
+      "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148" } });
+    if (!r.ok) { BOOK.err = `HTTP ${r.status}`; return null; }
+    const body = await r.text();
+    ctx.waitUntil(cache.put(ck, new Response(body, { headers: { "Cache-Control": "max-age=1", "Content-Type": "application/json" } })));
+    const d = JSON.parse(body);
+    BOOK.at = Date.now(); BOOK.n = (d.events || []).length; BOOK.err = "";
+    return d;
+  } catch (e) {
+    BOOK.err = String(e).slice(0, 80);
+    return null;
+  }
+}
+
+const toks = (s) => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+  .replace(/[^a-z\s-]/g, " ").split(/[\s-]+/).filter(Boolean);
+function samePlayer(a, b) {                                // same last name, either name order ("Ma YeXin" = "Yexin Ma")
+  const A = toks(a), B = toks(b);
+  return !!(A.length && B.length && (B.includes(A[A.length - 1]) || A.includes(B[B.length - 1])));
+}
+const setOver = ([a, b]) => Math.max(a, b) >= 7 || (Math.max(a, b) >= 6 && Math.abs(a - b) >= 2);
+
+// the book's live score for ESPN's match (p1 = ESPN's first player): {sets, pts, srv, done} or null - never a guess
+export function bookScore(d, p1, p2, bo = 3) {
+  for (const e of (d && d.events) || []) {
+    const ev = e.event || {}, ld = e.liveData || {};
+    const st = ((ld.statistics || {}).sets) || {}, h = st.home || [], a = st.away || [];
+    if (!h.length || h.length !== a.length) continue;
+    let homeP1;
+    if (samePlayer(ev.homeName, p1) && samePlayer(ev.awayName, p2)) homeP1 = true;
+    else if (samePlayer(ev.homeName, p2) && samePlayer(ev.awayName, p1)) homeP1 = false;
+    else continue;
+    let sets = h.map((x, i) => [+x, +a[i]]).filter(([x, y]) => x >= 0 && y >= 0);
+    while (sets.length > 1 && sets[sets.length - 1][0] === 0 && sets[sets.length - 1][1] === 0 &&
+           (!setOver(sets[sets.length - 2]) || (sets[sets.length - 2][0] === 0 && sets[sets.length - 2][1] === 0))) sets.pop();
+    if (sets.length && setOver(sets[sets.length - 1]) && sets.length < bo) sets.push([0, 0]);
+    const sw = (t) => (homeP1 ? [t[0], t[1]] : [t[1], t[0]]);
+    const sc = ld.score || {};
+    const pts = sc.home != null && sc.away != null ? sw([String(sc.home), String(sc.away)]) : null;
+    const hs = st.homeServe;
+    const srv = typeof hs === "boolean" ? (hs === homeP1 ? 0 : 1) : null;
+    return { sets: sets.map(sw), pts, srv, done: Math.max(0, sets.length - 1) };
+  }
+  return null;
 }
 
 export async function handleScores(request, env, ctx, origins) {
@@ -125,7 +182,7 @@ export async function handleScores(request, env, ctx, origins) {
     if (!PATHS[key]) continue;
     (want[key] = want[key] || []).push(id);
   }
-  const out = {};
+  const out = {}, full = {};
   const debug = new URL(request.url).searchParams.has("debug");
   await Promise.all(Object.keys(want).map(async (key) => {
     let d;
@@ -137,7 +194,14 @@ export async function handleScores(request, env, ctx, origins) {
       if (key === "atp" || key === "wta") {
         for (const g of ev.groupings || []) for (const c of g.competitions || []) {
           const id = `tennis:${key}:${c.id}`;
-          if (need.has(id)) { const m = match(c); if (m) out[id] = m; }
+          if (need.has(id)) {
+            const m = match(c);
+            if (m) {
+              out[id] = m;
+              const nm = (x) => ((x || {}).athlete || {}).displayName || (x || {}).displayName || "";
+              full[id] = (c.competitors || []).map(nm);
+            }
+          }
         }
       } else {
         const id = `${key}:${ev.id}`;
@@ -145,6 +209,15 @@ export async function handleScores(request, env, ctx, origins) {
       }
     }
   }));
-  if (debug) out._debug = { ...DBG, want };
+  const tn = Object.keys(full).filter((id) => out[id] && out[id].live);
+  if (tn.length) {                                          // 🎾 the book's points + who's serving, when it's as far along
+    const kd = await kambiTennis(ctx);
+    const games = (x) => (x.sets || []).reduce((t, [a, b]) => t + a + b, 0);
+    for (const id of tn) {
+      const b = bookScore(kd, full[id][0], full[id][1]);
+      if (b && games(b) >= games(out[id])) out[id] = { ...out[id], ...b, src: "book" };
+    }
+  }
+  if (debug) out._debug = { ...DBG, want, book: BOOK };
   return new Response(JSON.stringify(out), { headers: { ...cors, "Content-Type": "application/json" } });
 }

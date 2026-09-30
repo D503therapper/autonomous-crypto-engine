@@ -1228,6 +1228,8 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
                     bk = book_score(m, lb, SCORES[k_])
                     if bk and _games(bk) >= _games(SCORES[k_]):
                         SCORES[k_] = {**bk, "tennis": True, "live": True, "delayed": SCORES[k_].get("delayed", False)}
+                    else:                                       # ESPN's points sit frozen ("0-15 sitting there
+                        SCORES[k_] = {**SCORES[k_], "pts": None}   # forever", 9/29): only the book's, or none
                 k_ = f"tennis:{m['id']}"
                 SCORES[k_] = BEST.setdefault(k_, SCORES[k_]) if SCORES[k_].get("live") and \
                     _games(SCORES[k_]) < _games(BEST.get(k_, SCORES[k_])) else SCORES[k_]
@@ -1644,9 +1646,48 @@ def health_check():
     empty = [lg for lg, v in BOOKS.items() if v.startswith("0 groups") or v.startswith("error") or " 0 events" in v]
     if empty and WATCHING[0]:
         issues.append("Bovada has no live lines for " + ", ".join(sorted(empty)))
+    issues += tennis_score_check()
     for x in issues:
         print(f"HEALTH: {x}", flush=True)
     return issues
+
+
+NO_PTS = {}                   # tennis score id -> since when it's had no points / no server (live)
+PTS_SEEN = {}                 # tennis score id -> (score, since when): a point score that never moves is frozen
+PTS_FROZEN_S = 180            # (a point takes ~30s; 3 minutes on the same point = the feed's stuck)
+NO_PTS_S = 60                 # a live tennis match on our page this long without the points or who's serving: flag it
+
+
+def tennis_score_check(now_s=None):
+    """🎾 The owner, 9/29: the points (15-30-40) and who's serving have to be right, to the second, and checked all
+    the time. Every check: a live tennis match on our page that's gone a minute without points or a server gets
+    flagged in live.json's health (the hourly bug check reads it too)."""
+    now_s = now_s or time.time()
+    out = []
+    live_ids = set()
+    for k, sc in SCORES.items():
+        if not (k.startswith("tennis:") and sc.get("live") and not sc.get("delayed")):
+            continue
+        live_ids.add(k)
+        key = (tuple(tuple(x) for x in sc.get("sets") or []), tuple(sc.get("pts") or ()))
+        last = PTS_SEEN.get(k)
+        if not last or last[0] != key:
+            PTS_SEEN[k] = (key, now_s)
+        elif sc.get("pts") and now_s - last[1] >= PTS_FROZEN_S:   # the same points for minutes: frozen, not live
+            out.append(f"tennis {' vs '.join(sc.get('n') or [k])}: points frozen at "
+                       f"{'-'.join(sc['pts'])} for {int(now_s - last[1])}s")
+        if sc.get("pts") and sc.get("srv") in (0, 1):
+            NO_PTS.pop(k, None)
+            continue
+        since = NO_PTS.setdefault(k, now_s)
+        if now_s - since >= NO_PTS_S:
+            n = " vs ".join(sc.get("n") or [k])
+            out.append(f"tennis {n}: no {'points' if not sc.get('pts') else 'server'} for {int(now_s - since)}s")
+    for k in [k for k in NO_PTS if k not in live_ids]:
+        NO_PTS.pop(k, None)
+    for k in [k for k in PTS_SEEN if k not in live_ids]:
+        PTS_SEEN.pop(k, None)
+    return out
 
 
 def any_live_soon(games, within_min=45):

@@ -139,6 +139,33 @@ try:
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"question box check failed: {str(e)[:60]}")
 
+# 3c. 🎾 live tennis points + who's serving, to the second (the owner, 9/29): the page's 1-second score route has the
+#     book's point-by-point for a live match, and the watcher hasn't flagged a match without them
+if needed:
+    try:
+        board = json.loads(urllib.request.urlopen(urllib.request.Request(
+            f"https://api.github.com/repos/{REPO}/contents/live.json?ref=live-data",
+            headers={"Accept": "application/vnd.github.raw"}), timeout=20).read())
+        tn_live = [k for k, v in (board.get("scores") or {}).items() if k.startswith("tennis:") and v.get("live")]
+        flagged = [h for h in board.get("health") or [] if h.startswith("tennis ") and
+                   ("no points" in h or "no server" in h or "frozen" in h)]
+        problems.extend(f"live tennis scores: {h}" for h in flagged)
+        if tn_live:
+            api = open(os.path.join(sd.DATA, "ask_url.txt")).read().strip().rstrip("/")
+            got = json.load(urllib.request.urlopen(urllib.request.Request(
+                f"{api}/scores?debug=1&ids=" + ",".join(tn_live[:10]),
+                headers={"Origin": "https://d503therapper.github.io", "User-Agent": "Mozilla/5.0 (iPhone) Mobile/15E148"}), timeout=20))
+            book = (got.get("_debug") or {}).get("book") or {}
+            with_pts = [k for k in tn_live if (got.get(k) or {}).get("pts") and (got.get(k) or {}).get("srv") in (0, 1)]
+            if book.get("err"):
+                problems.append(f"live tennis points: the book's feed failed ({book['err']})")
+            elif not with_pts:
+                problems.append(f"live tennis points: none of {len(tn_live)} live matches has points + server on the 1-second route")
+            else:
+                ok.append(f"live tennis points + server: {len(with_pts)} of {len(tn_live)} live matches")
+    except Exception as e:                               # noqa: BLE001
+        problems.append(f"live tennis points check failed: {str(e)[:60]}")
+
 # 4. failed workflows (last 2 hours)
 try:
     runs = json.loads(gh("run", "list", "--limit", "60", "--json", "name,conclusion,createdAt,url") or "[]")
