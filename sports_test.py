@@ -4775,6 +4775,18 @@ def test_monday_thursday_football_always_gets_a_pick():
     assert 'data-gone="111"><a>' in two and two.endswith("<b>")
 
 
+def test_tennis_count_is_todays_slate():
+    """The owner, 9/30: the tennis card said '9 men's + 4 women's' - yesterday's slate (a match moved to tonight) and
+    today's added together. It counts today's; a yesterday match still going is said on its own."""
+    import sports_dashboard as d
+    tour = lambda l: l["tour"]
+    y = {"date": "2026-09-29", "picks": [{"tour": "atp", "result": "lost"}] * 4 + [{"tour": "atp", "result": None}]
+         + [{"tour": "wta", "result": "won"}] * 2}
+    t = {"date": "2026-09-30", "picks": [{"tour": "atp", "result": None}] * 4 + [{"tour": "wta", "result": None}] * 2}
+    assert d._tn_count([y, t], tour) == "4 men's + 2 women's · 1 from yesterday still going"
+    assert d._tn_count([t], tour) == "4 men's + 2 women's" and d._tn_count([], tour) == "new picks at 8 AM PT"
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

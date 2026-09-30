@@ -762,9 +762,7 @@ def _tennis():
     bd = board_day(now_pt, [{"date": x["date"], "status": "open" if live(x) else "done"} for x in slates])
     up = lambda x: x["date"] >= bd                        # (same clock as the main board: till 1 AM / last match graded)
     shown = [x for x in slates if up(x) or (live(x) and x["date"] >= (now_pt.date() - timedelta(days=1)).isoformat())]
-    nm = sum(stn.tour_of(l) == "atp" for x in shown for l in x["picks"])
-    nw = sum(stn.tour_of(l) == "wta" for x in shown for l in x["picks"])
-    what = f"{nm} men's + {nw} women's" if nm + nw else "new picks at 8 AM PT"
+    what = _tn_count(shown, stn.tour_of)
     body = tour_blocks(shown) if shown else f'<div class="nopick">{_tn_drop_note(now_pt.date().isoformat())}</div>'
     m_, w_, x_ = r["atp"], r["wta"], r["mixed"]
     pars = (f"parlays: men's {m_['p_won']}-{m_['p_lost']} · women's {w_['p_won']}-{w_['p_lost']}"
@@ -791,6 +789,18 @@ def _rev_text(pk, leg):
         return ""
     return LEG_REVIEWS.get((pk.get("date", ""), f'{leg.get("game_id")}|{leg.get("side")}|{leg.get("market")}')) or ""
 
+
+
+def _tn_count(shown, tour_of):
+    """The tennis card's count: TODAY's slate (the owner, 9/30: "9 men's + 4 women's" was two days added together) -
+    plus a yesterday match that's still going (moved / suspended) said on its own."""
+    last = max((x["date"] for x in shown), default=None)
+    cur = [l for x in shown if x["date"] == last for l in x["picks"]]
+    nm, nw = sum(tour_of(l) == "atp" for l in cur), sum(tour_of(l) == "wta" for l in cur)
+    held = sum(l.get("result") is None for x in shown if x["date"] != last for l in x["picks"])
+    if not nm + nw:
+        return "new picks at 8 AM PT"
+    return f"{nm} men's + {nw} women's" + (f" · {held} from yesterday still going" if held else "")
 
 
 def _history(picks):
