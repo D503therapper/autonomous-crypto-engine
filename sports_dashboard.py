@@ -181,17 +181,16 @@ def _tennis_live_story(e, used):
     return f"{score}{dd + '.' if dd else ''} {end}"
 
 
-TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE</span>',
+TIER_CHIP = {"ou": '<span class="chip val">📏 O/U</span>', "lock": '<span class="chip lk">🔒 LOCK</span>', "value": '<span class="chip val">🔥 VALUE PLAY</span>',
              "lean": '<span class="chip lean">🟡 SLIGHT LEAN</span>', "strong": '<span class="chip lean">💪 STRONG LEAN</span>'}
-TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE", "#ff5a1f", "#ff8a00"),
+TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE PLAYS", "#ff5a1f", "#ff8a00"),
              "lean": ("🟡 LEANS", "#ffc233", "#e8c77a")}
 
 
-UNIT_TODAY = [10.0]          # $ per unit today (1% of the bankroll) - set each build from the ledger
 
 
 def _units_line(u):
-    return f'<div class="un">💰 {_units_txt(u)} (${u * UNIT_TODAY[0]:,.0f})</div>'
+    return f'<div class="un"><span class="mb">💰</span> {_units_txt(u)}</div>'      # units only: everybody's unit is their own bankroll's (the owner, 9/30)
 
 
 def _units_txt(u):
@@ -215,15 +214,16 @@ def units_box(picks, today=None):
         return (f'<div class="{cls}"><span>{E(label)}</span><b class="{"up" if nd >= 0 else "dn"}">'
                 f'{"+" if nd >= 0 else "-"}${abs(nd):,.2f} · {nu / u:+.0%} ROI</b></div>') if rs and u else ""
     rows = led["rows"]
-    kind = lambda r: r[0].get("kind")
+    tier = lambda r: r[0].get("units_tier")
     out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
            + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
-           + line("🔒 Lock of the Day", [r for r in rows if kind(r) == "lock"])
-           + line("🐺 Dog of the Day", [r for r in rows if kind(r) == "dog"])
-           + line("🔥 Other picks", [r for r in rows if kind(r) not in ("lock", "dog")]))
-    return (f'<div class="unb"><div class="ovr-t">💰 BANKROLL</div>'
+           + "".join(line(k, [r for r in rows if tier(r) == t]) for t, k in    # by kind of pick (the owner, 9/30: the
+                     (("lock", "🔒 Locks"), ("value", "🔥 Value plays"),        # Dog of the Day is a value play)
+                      ("strong", "💪 Strong leans"), ("slight", "🟡 Slight leans"))))
+    return (f'<div class="unb"><div class="ovr-t"><span class="mb">💰</span> BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
-            f'<div class="unp">Started at ${start:,.0f} · 1 unit today = ${led["unit_today"]:,.2f}</div>{out}</div>')
+            f'<div class="unp">Started at ${start:,.0f}<br>1 unit = 1% of our bankroll = ${led["unit_today"]:,.2f}</div>'
+            f'{out}</div>')
 
 
 def _tier(pk):
@@ -295,7 +295,7 @@ def _breakdown(leg):
             f'<div class="bd-s">{body}</div></details>')
 
 
-LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE</span>',
+LEG_TAG = {"ou": '<span class="lt-t val">📏 O/U</span>', "lock": '<span class="lt-t lk">🔒 LOCK</span>', "value": '<span class="lt-t val">🔥 VALUE PLAY</span>',
            "lean": '<span class="lt-t lean">🟡 SLIGHT LEAN</span>', "strong": '<span class="lt-t lean">💪 STRONG LEAN</span>'}
 
 
@@ -548,7 +548,7 @@ def _pick_card(kind, pk):
                   if len(pk["legs"]) == 1 and _tier(pk) == "lock" and pk.get("american", 0) > 0   # one pick at plus money:
                   and pk["status"] == "open" else "")      # a parlay always pays plus - that's no dog (the owner, 9/30)
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
-  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
+  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
   {_units_line(sports.units_for(pk)) if len(pk["legs"]) == 1 else ""}
@@ -1016,10 +1016,6 @@ def write_sw(path):
 
 def render(picks, model, games, series, start_bank, updated_ms):
     import sports
-    try:                                                     # 💰 today's unit in dollars (1% of the open bankroll)
-        UNIT_TODAY[0] = sports.units_ledger(picks)["unit_today"]
-    except Exception as e:                                   # noqa: BLE001
-        print(f"bankroll failed: {e}")
     now = datetime.now(PT)
     today = board_day(now, picks)                           # (yesterday's board till 1 AM / its last game is graded)
     order = list(LOOK)
@@ -1501,6 +1497,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
 .un{{margin-top:2px;text-align:right;font-size:13px;font-weight:900;letter-spacing:.08em;color:#fff}}
+.mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}
