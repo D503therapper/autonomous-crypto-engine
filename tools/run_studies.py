@@ -51,6 +51,7 @@ def main():
         ("situational spots", "sports_spots", lambda m: m.study(games)),        # (runs once it exists)
         ("line movement + CLV", "sports_moves", lambda m: m.study(games)),      # (runs once it exists)
         ("our engine vs the move (can it beat the pros?)", "sports_sharps", lambda m: m.study(games)),
+        ("the engine's strengths, sport by sport", "sports_strength", lambda m: m.study(games)),
         ("context: rivalries, travel, domes, stakes, refs", "sports_context", lambda m: m.study(games)),
         ("the explorer: NEW angles", "sports_explorer", lambda m: m.explore(games)),   # new questions every run
         ("tennis edge", "sports_tennis_edge", lambda m: m.study()),

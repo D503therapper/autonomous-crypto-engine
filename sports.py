@@ -257,6 +257,15 @@ def _proven_reason(name, side_home_shift):
     return ["a proven angle the explorer confirmed"]
 
 
+import sports_strength  # noqa: E402
+
+PARLAY_LEG_MIN_P = 0.57        # a parlay only when EVERY leg is 57%+ (the owner, 9/29: don't look like clowns). 3+ seasons
+                               # replayed: 53-55% legs lose 5-10% a card and every parlay dies together ~2 days in 3,
+                               # however they're arranged; the bar rising to 56-58% is where it turns (58% bounced
+                               # year to year - not proven, so 57). Nights nothing clears it: the Lock (+ Dog), no filler.
+NO_PUCK_RUN_LINES = True       # hockey + baseball: moneylines only on the board (football / basketball spreads stay)
+
+
 def candidates(games, model, now=None, day=None, injuries=None):
     """Every bettable side on the day's (Pacific) slate: moneylines, plus spreads in NFL/NCAAF/NBA."""
     now = now or datetime.now(timezone.utc)
@@ -321,13 +330,17 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 if mkt is not None and mkt_open is not None else 0.0
             odds = int(g[f"ml_{side}"])
             p = ph if side == "home" else 1 - ph
+            if not (key_out["home"] or key_out["away"]):  # honest: the engine's own read, corrected by its record in
+                p = sports_strength.calibrate(lg, p)      # this sport (a starter-out game goes by the market as is)
             p_own = ph_own if side == "home" else 1 - ph_own
             trap = odds > 0 and sports_dogs.verdict(DOGS_ST, lg, odds, side == "home") == "trap"
             out.append({**base, "market": "ml", "line": None, "odds": odds, "dec": sd.decimal(odds), "p": p, "trap": trap,
                         "p_market": mkt if side == "home" else 1 - mkt, "edge": p * sd.decimal(odds) - 1,
                         "edge_own": p_own * sd.decimal(odds) - 1,
                         "reasons": base["reasons"] + _proven_reason(n_ml, s_ml if side == "home" else -s_ml)})
-            if lg in ("nhl", "mlb") and g.get("spread_home", "") != "" and LINES_ST:   # puck line / run line: the chance
+            if lg in ("nhl", "mlb") and NO_PUCK_RUN_LINES:
+                pass                                      # the owner, 9/29: no puck lines, no run lines on our board
+            elif lg in ("nhl", "mlb") and g.get("spread_home", "") != "" and LINES_ST:   # puck line / run line: the chance
                 line = float(g["spread_home"]) * (1 if side == "home" else -1)          # of winning by 2+, from the study
                 sodds = sm._int(g.get(f"spread_{side}_odds"))
                 pc = sports_lines.cover(LINES_ST, lg, ph, side, line)
@@ -411,9 +424,10 @@ def money_against(c):
 
 def fighting(c):
     """Our own read (no line move) has this side 3+ points under what the price says: the engine is fighting Vegas.
-    Or the money's running away from it (money_against): the pros already said no."""
+    Or the money's running away from it (money_against): the pros already said no. Or the sport's proven weak for the
+    engine (sports_strength: its picks below the price and losing, old and new games) - no Lock / Dog / leg there."""
     own = (c.get("edge_own", c["edge"]) + 1) / c["dec"]
-    return own < 1 / c["dec"] - FIGHT_MAX or money_against(c)
+    return own < 1 / c["dec"] - FIGHT_MAX or money_against(c) or sports_strength.weak(c.get("league"))
 
 
 def good(c):
@@ -555,10 +569,12 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     board["dog"] = _combo([dog]) if dog else None
 
     def ladder(start, n):
-        legs = list(start)
+        legs = [l for l in start if l["p"] >= PARLAY_LEG_MIN_P]      # every leg earns it - the Lock included
         for c in good_:
             if len(legs) >= n:
                 break
+            if c["p"] < PARLAY_LEG_MIN_P:
+                continue
             if c["game_id"] not in {l["game_id"] for l in legs} and \
                     (not dog or c["game_id"] != dog["game_id"] or dog["p"] >= DOG_IN_PARLAY_P):
                 legs.append(c)

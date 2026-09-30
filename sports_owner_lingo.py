@@ -19,6 +19,7 @@ OWNER = {
     "that's just facts": "after a claim ('just the better team')",
     # the other side getting beat
     "cheeks clapped": "a beatdown (tennis straight sets, a blowout)",
+    "beat the brakes off": "a mismatch we see coming ('the Bears are about to beat the brakes off the Eagles')",
     "smack that ass": "a blowout we see coming",
     "smacked": "the other side got beat bad",
     "fought hard": "the loser battled but still lost (the review)",

@@ -1245,7 +1245,7 @@ def _used(skip=()):
     return out
 
 
-TENNIS_BV = 18                                   # breakdown version (older ones get rewritten before the match)
+TENNIS_BV = 19                                   # breakdown version (older ones get rewritten before the match)
 
 
 CN_FAMILY = {"Wang", "Zhang", "Zheng", "Cui", "Ma", "Wu", "Zhu", "Yuan", "Bai", "Gao", "Shang", "Xu", "Li", "Liu",
@@ -1347,6 +1347,7 @@ T_FAV = [
  "{me} takes care of business here. [[Our math|The engine|Our model] ain't scared of the price.|{pct}% in our numbers.]",
  "{them} doesn't have the tools for {me}.",
  "Levels to this — {me} is a tier above {them}. [That's just facts.]",
+ "{me}'s about to beat the brakes off {them}. [Levels to this.|]",
  "[Favorite for a reason|Heavy favorite, earned it]: {me}. {He} should {beat} {them}.",
  "{me} over {them}. [We're paying up because {he}'s the better player.|Steep price, steeper gap.]",
  "Not much to it: {me} {wins}. [[Our math|The engine|Our model] has it {pct}%.|No debate.]",

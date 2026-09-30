@@ -3642,6 +3642,45 @@ def test_graded_card_stays_3_hours_then_results():
     assert sdb.SHOW_GRADED_H == 3
 
 
+def test_strengths_by_sport_and_no_puck_or_run_lines():
+    """The owner, 9/29: train on the engine's strengths - judged on thousands of games, never one night. Each sport's
+    win % is corrected by its real track record; a sport PROVEN weak (200+ picks in each half, below the price and
+    losing in both) can't be the Lock / Dog / a leg. And no puck lines or run lines on the board (spreads in football /
+    basketball stay)."""
+    import sports_strength as ss
+    keep = dict(ss._CACHE)
+    ss._CACHE["s"] = {"mlb": {"bias": -0.03, "weak": False}, "nba": {"bias": -0.03, "weak": True}}
+    try:
+        assert abs(ss.calibrate("mlb", 0.58) - 0.55) < 1e-9                  # overconfident sport: said 58, really 55
+        assert ss.calibrate("mlb", 0.50) == 0.50                              # a coin flip isn't moved
+        assert ss.calibrate("nhl", 0.58) == 0.58                              # no record: as is
+        assert ss.weak("nba") and not ss.weak("mlb")
+        c = {"league": "nba", "edge": 0.02, "edge_own": 0.02, "dec": 1.8, "drift": 0.0}
+        assert sports.fighting(c) and not sports.fighting({**c, "league": "mlb"})
+    finally:
+        ss._CACHE.clear(); ss._CACHE.update(keep)
+    h = {"old": {"n": 150, "won": 0.54, "price": 0.56, "roi": -0.05}, "new": {"n": 150, "won": 0.53, "price": 0.56, "roi": -0.07}}
+    assert not all(x["n"] >= ss.MIN_N for x in h.values())                   # NFL-sized sample: never barred yet
+    assert sports.NO_PUCK_RUN_LINES and "no puck lines, no run lines on our board" in open(sports.__file__).read()
+
+
+def test_parlay_legs_must_earn_it():
+    """The owner, 9/29 (don't look like clowns): a parlay only when EVERY leg is 57%+ (3+ seasons replayed: 53-55% legs
+    lose 5-10% a card and all the parlays die together ~2 nights in 3). Nights nothing clears it: the Lock (+ Dog), and
+    the board says why in our lingo."""
+    import sports_lingo
+    mk = lambda gid, p: {"game_id": f"mlb:{gid}", "league": "mlb", "market": "ml", "side": "home", "team": f"T{gid}",
+                         "opp": "X", "odds": -120, "dec": 1.8333, "p": p, "p_market": 0.53, "edge": p * 1.8333 - 1,
+                         "edge_own": p * 1.8333 - 1, "reasons": ["the stronger team"], "trap": False, "drift": 0.0}
+    weak_legs = [mk(i, 0.555 + i * 0.001) for i in range(1, 6)]
+    b = sports.make_board(weak_legs)
+    assert b["lock"] and not b["two"] and not b["three"] and not b["four"]           # coin-flip legs: no parlays
+    strong = [mk(i, 0.59 + i * 0.002) for i in range(1, 6)]
+    b2 = sports.make_board(strong)
+    assert b2["two"] and b2["three"] and all(l["p"] >= sports.PARLAY_LEG_MIN_P for l in b2["three"]["legs"])
+    assert "we don't force it" in open(sports_lingo.__file__).read()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

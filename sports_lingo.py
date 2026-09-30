@@ -1137,6 +1137,7 @@ NOTES = {
         "That's all the value on the board.", "{Algo} passed on the rest.",
         "The other games didn't give us a reason.", "{Algo} only liked {it}.",
         "The rest of the games? [No edge|Priced right|Coin flips].", "Everything else [came up short|was a pass].",
+        "No parlays — the legs ain't strong enough and we don't force it.", "No parlay tonight. We don't stack coin flips.",
     ),
     "close": T(
         "We don't force picks just to have picks.", "We ain't filling the board with junk.", "Quality over quantity.",

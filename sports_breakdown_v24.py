@@ -759,6 +759,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
             pools.append(("w_better", [                   # (no record tacked on - the owner, 9/29: 'better team' says it)
                 f"💪 {us} are just the better team — and it's not that close.",
                 f"💪 {us} are just the better team. That's just facts.",
+                f"💪 {us} are about to beat the brakes off {them}.",
                 f"💪 More talent, better results: {us} got {them} outclassed.",
                 f"💪 {us} are the better squad top to bottom. Simple as that.",
                 f"💪 Put the rosters side by side — {us} win that matchup.",
