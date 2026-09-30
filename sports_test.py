@@ -4699,6 +4699,8 @@ def _units_and_the_open_bankroll():
     assert "Today" not in d.units_box([day1, day2], "2026-10-09")        # nothing graded that day: no empty row
     assert "Parlays" not in box
     assert "WE GAMBLIN" in d.LIVE_NO_UNITS and "var NOU=" in open(d.__file__).read()   # live plus money: no units, said so
+    src = open(d.__file__).read()                             # it stays up (the owner, 9/30): the watching box, a live
+    assert "+HEAD+NOU+'<div class=\"nolive\">'" in src and "WE&#39;RE IN</span></div>'+NOU+'</section>'" in src   # bet, tonight's bets
     assert "\n.nou{{text-align:center" in open(d.__file__).read()          # its own CSS rule (a spliced one broke it)
     assert d._units_line(1).startswith('<div class="un"><span class="mb">💰</span> 1 UNIT<') and "$" not in d._units_line(1)
     assert "NO UNITS — JUST A LEAN" in d._units_line(0)                   # a lean says so (the owner, 9/30)
