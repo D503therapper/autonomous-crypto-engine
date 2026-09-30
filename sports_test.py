@@ -3401,6 +3401,18 @@ def test_started_game_is_live_never_final():
     assert 'dl?"⏳ DELAYED":"🏁 Final"' in src and "(!fin&&st<=n))lv++" in src
 
 
+
+def test_every_parlay_leg_shows_its_start_time():
+    """The owner, 9/29: 'we also don't have start times' - the small corner time got missed on every parlay leg. Each
+    leg gets the same yellow line as the cards: 'Starts at 7 PM PT', then LIVE / DELAYED / Final with its game."""
+    import sports_dashboard as sdb
+    leg = {"team": "Oilers", "opp": "Canucks", "league": "nhl", "side": "home", "home": True, "market": "spread",
+           "line": -1.5, "odds": -118, "start": "2026-09-30T02:00Z", "game_id": "nhl:1", "reasons": []}
+    assert '🕐 Starts at 7 PM PT' in sdb._leg(leg, tagged=True)
+    assert 'class="lst"' not in sdb._leg(leg) and 'class="lst"' not in sdb._leg({**leg, "result": "won"}, tagged=True)
+    assert 'leg.querySelector(":scope>.lst")' in open(sdb.__file__).read()
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
