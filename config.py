@@ -268,7 +268,10 @@ DEX = {
     # without its best trade, on growth and in BOTH halves): no protection trail inside the 14 days and a 40%
     # runner trail after day 14 won (+$82.7k vs +$54.5k; growth 20.1 vs 11.7). The 60%-after-3x trail, a
     # concentration cap and take-profits at 10x/50x/100x all cost money. The stake (20-25%) is the loss limit.
-    "exit": {"trail": 0.95, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [],
+    # EXPERIMENT 5 (2026-09-30): no price stop inside the hold (was a 95% trail). That trail only ever fired at the very
+    # bottom of a crash wick: SS sold at -95% then bounced +417%, BABYCALI +30% after, XPAD (bad tick). A real rug
+    # still exits through the liquidity-pull check; runners past the limit keep their 40% trail.
+    "exit": {"trail": 1.0, "tp1": (999.0, 0.0), "ladder": [], "trail_steps": [],
              # EXPERIMENT 4 (2026-09-29): 7-day hold (was 14). The account sat frozen with $8 cash and 4 coins
              # locked for up to 12 more days; dex_consolidated_study resampled: 7d beat 14d in both halves.
              "max_hold_days": 7, "runner_at_limit": (1.0, 0.40),    # >= +100% at the limit: 40% trail, no clock
