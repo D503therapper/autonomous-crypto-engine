@@ -4614,6 +4614,17 @@ def test_writeups_make_sense():
     assert "closed the door] and beat {t}" in src_l and "flipped it] to win it" in src_l
 
 
+def test_same_pick_never_counts_twice():
+    """9/30: two runs at once both posted the Kings as the Dog of the Day - the same pick is kept once."""
+    leg = {"game_id": "nhl:1", "side": "away", "market": "ml", "line": None, "team": "Kings"}
+    ps = [{"date": "2026-09-30", "kind": "dog", "legs": [leg], "posted": "15:22"},
+          {"date": "2026-09-30", "kind": "dog", "legs": [dict(leg)], "posted": "15:26"},
+          {"date": "2026-09-30", "kind": "dog", "round": 2, "legs": [dict(leg)]},          # a replacement round: its own
+          {"date": "2026-09-30", "kind": "lock", "status": "waiting", "legs": []}]
+    out = sports.dedupe_picks(ps)
+    assert [p.get("posted") for p in out if p["kind"] == "dog"] == ["15:22", None] and len(out) == 3
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

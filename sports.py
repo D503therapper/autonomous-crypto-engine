@@ -1357,11 +1357,25 @@ def quick(now=None):
     return graded, posted
 
 
+def dedupe_picks(picks):
+    """9/30: two engine runs at once both posted the Dog of the Day (the saves merged) - it would count twice. The same
+    day + kind + round + legs is one pick: the first one posted stays."""
+    seen, out = set(), []
+    for p in picks:
+        k = (p.get("date"), p.get("kind"), p.get("round") or 1,
+             tuple((l.get("game_id"), l.get("side"), l.get("market"), l.get("line")) for l in p.get("legs") or []))
+        if p.get("legs") and k in seen:
+            continue
+        seen.add(k)
+        out.append(p)
+    return out
+
+
 def run(repick=False, fetch=True):
     now = datetime.now(timezone.utc)
     state = _load("state.json", {})
     model = _load("model.json", {"params": {}, "log": []})
-    picks = _load("picks.json", [])
+    picks = dedupe_picks(_load("picks.json", []))
     if fetch:
         t0 = time.time()
         games, calls, fails = sd.sync(state)
