@@ -3382,7 +3382,7 @@ def test_tennis_cards_get_the_tag_line():
     import sports_dashboard as sdb
     src = open(sdb.__file__).read()
     assert 'tag, lines = (lines[0], lines[1:]) if len(lines) > 1 else ("", lines)' in src
-    assert "{f'<div class=\"why\">{E(tag)}</div>' if tag else \"\"}" in src
+    assert "{f'<div class=\"why rvy\">{E(tag)}</div>' if tag else \"\"}" in src     # (yellow: it's the write-up)
 
 
 
@@ -3583,7 +3583,7 @@ def test_graded_card_shows_the_review_where_the_pregame_line_was():
            "why_line": "💪 Yankees are just the better team.", "result": "won", "score": "Red Sox 0 @ Yankees 9"}
     h = sdb._leg(leg, review="The Yankees beat the Red Sox like they stole something.")
     assert "📝 The Yankees beat the Red Sox like they stole something." in h and "just the better team" not in h
-    assert h.count('class="why"') == 1
+    assert h.count('class="why rvy"') == 1
     pre = sdb._leg({**leg, "result": None})
     assert "just the better team" in pre and "📝" not in pre
     src = open(sdb.__file__).read()
