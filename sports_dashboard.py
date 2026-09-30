@@ -676,13 +676,13 @@ def _history(picks):
             return f'{l["team"]} {l["line"]:+g}'
         return f'{l["team"]} ML'
 
-    def rows(items):                                         # tap a game to read its review
-        def one(x):
+    def rows(items):                                         # every game with its review right under it - no tap
+        def one(x):                                          # (the owner, 9/30)
             head = (f'<span class="hd">{day(x[0])}</span><span class="hw">{ok.get(x[1], "")}</span>'
                     f'<span class="hp">{E(x[2])}<small>{E(x[3])}</small></span>')
             if len(x) > 4 and x[4]:
-                return (f'<details class="hx {x[1]}"><summary class="hr {x[1]}">{head}<i class="hc">▾</i></summary>'
-                        f'<div class="hrv">📝 {E(x[4])}</div></details>')
+                return (f'<div class="hx hxo {x[1]}"><div class="hr {x[1]}">{head}</div>'
+                        f'<div class="hrv">📝 {E(x[4])}</div></div>')
             return f'<div class="hr {x[1]}">{head}</div>'
         return "".join(one(x) for x in items)
 
@@ -801,6 +801,16 @@ def _history(picks):
     def rev_live(e):
         mg = margin(e.get("score_at_post"), e.get("team"))
         lg = e.get("league")
+        if lg == "tennis":                                   # 🎾 tennis words: ahead / behind in sets, then games
+            t = e.get("tennis") or {}
+            me_, them_ = (t.get("sets") or [0, 0])[:2] if len(t.get("sets") or []) >= 2 else (0, 0)
+            g1, g2 = (t.get("games") or [0, 0])[:2] if len(t.get("games") or []) >= 2 else (0, 0)
+            ahead = me_ > them_ or (me_ == them_ and g1 > g2)
+            wta = e.get("tour") == "wta"
+            return later(e.get("date", ""), f'live|{e.get("team")}|{e.get("posted")}',
+                         "tlive_up" if ahead else "tlive_back", e["result"], t=e.get("team", ""),
+                         o=e.get("opp") or "them", pr="she" if wta else "he", pro="her" if wta else "him",
+                         pos="her" if wta else "his")
         opp = e.get("opp") or next((x for x in re.split(r" \d+ @ | \d+$", e.get("score_at_post") or "") if x and x != e.get("team")), "them")
         pro = {"atp": ("him", "his"), "wta": ("her", "her")}.get(e.get("tour"), ("them", "their"))
         return later(e.get("date", ""), f'live|{e.get("team")}|{e.get("posted")}',

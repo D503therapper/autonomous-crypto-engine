@@ -4007,6 +4007,21 @@ def test_graded_live_bet_clears_into_the_results_right_away():
     assert "clears into the results" in open(os.path.join(os.path.dirname(D.__file__), "CLAUDE.md")).read()
 
 
+def test_results_show_reviews_without_a_tap_and_tennis_gets_tennis_words():
+    """The owner, 9/30: the reviews show right under each result - no tap. And a live tennis bet's review talks tennis
+    ('never got the stops we needed' is football). No 'Get in.' after a result - that's what you say before a bet."""
+    import sports_dashboard as D
+    import sports_lingo as SL
+    src = open(D.__file__).read()
+    assert '<div class="hx hxo {x[1]}"><div class="hr {x[1]}">{head}</div>' in src and "<summary class=\"hr" not in src
+    assert '"tlive_up" if ahead else "tlive_back"' in src
+    for k in ("tlive_back", "tlive_up"):
+        for r in ("won", "lost"):
+            for t in SL.REVIEWS[(k, r)][2]:
+                assert not re.search(r"\b(stops|drive|quarter|inning|period|touchdown|goal)\b", t), t
+    assert "Get in." not in SL.PAL["wk"]
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by
