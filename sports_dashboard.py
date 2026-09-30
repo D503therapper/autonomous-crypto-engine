@@ -190,47 +190,40 @@ TIER_LOOK = {"lock": ("🔒 LOCKS", "#22e39a", "#0fb87a"), "value": ("🔥 VALUE
 UNIT_TODAY = [10.0]          # $ per unit today (1% of the bankroll) - set each build from the ledger
 
 
+def _units_line(u):
+    return f'<div class="un">💰 {_units_txt(u)} (${u * UNIT_TODAY[0]:,.0f})</div>'
+
+
 def _units_txt(u):
     return "½ UNIT" if u == 0.5 else f"{u:g} UNIT" + ("" if u == 1 else "S")
 
 
 def units_box(picks, today=None):
-    """💰 The open bankroll + units won / lost (the owner + Ricky, 9/30: measure it like money, not just W-L; everything
-    transparent): $1,000 to start, a unit = 1% of the bankroll that morning, every graded pick at its size and price."""
+    """💰 The open bankroll (the owner + Ricky, 9/30: measure it like money, not just W-L; everything transparent): $1,000
+    to start, a unit = 1% of the bankroll that morning, every graded pick at its size and price. Said in plain dollars +
+    ROI only (the owner, 9/30: '+6.6u on 14u bet' was confusing)."""
     import sports
     led = sports.units_ledger(picks)
     if not led["rows"]:
         return ""
-    cats = {"🔒 Lock of the Day": [], "🐺 Dog of the Day": [], "🎯 Parlays": [], "🔥 Other picks": []}
-    for p, u, nu, nd in led["rows"]:
-        k = p.get("kind")
-        cats["🔒 Lock of the Day" if k == "lock" else "🐺 Dog of the Day" if k == "dog" else
-             "🎯 Parlays" if k in sports.PARLAY_UNITS else "🔥 Other picks"].append((u, nu))
-    fmt = lambda n: f"{n:+.1f}u"
-    roi = lambda nu, u: f"{nu / u:+.0%} ROI" if u else ""
-    tot, risk = sum(nu for _, _, nu, _ in led["rows"]), sum(u for _, u, _, _ in led["rows"])
     bank, start = led["bankroll"], sports.BANKROLL_START
     today = today or datetime.now(sports.PT).strftime("%Y-%m-%d")
     wk = (datetime.strptime(today, "%Y-%m-%d") - timedelta(days=6)).strftime("%Y-%m-%d")
 
-    def span(keep):                                          # units, $ and ROI over some days
-        rs = [r for r in led["rows"] if keep(r[0]["date"])]
-        nu, u, nd = sum(r[2] for r in rs), sum(r[1] for r in rs), sum(r[3] for r in rs)
-        return rs, f'{fmt(nu)} · {"+" if nd >= 0 else "-"}${abs(nd):,.2f} · {roi(nu, u)}', nu
-
-    def line(label, txt, n, cls="unr"):
-        return f'<div class="{cls}"><span>{E(label)}</span><b class="{"up" if n >= 0 else "dn"}">{txt}</b></div>'
-    stats = line("Overall", span(lambda d: True)[1], tot, "unr unh")
-    for label, keep in (("Today", lambda d: d == today), ("Last 7 days", lambda d: d >= wk)):
-        rs, txt, nu = span(keep)
-        if rs:
-            stats += line(label, txt, nu)
-    rows = "".join(line(k, f"{fmt(sum(n for _, n in v))} · {roi(sum(n for _, n in v), sum(u for u, _ in v))}",
-                        sum(n for _, n in v)) for k, v in cats.items() if v)
+    def line(label, rs, cls="unr"):                          # '+$66.68 · +47% ROI' over some picks
+        nd, nu, u = sum(r[3] for r in rs), sum(r[2] for r in rs), sum(r[1] for r in rs)
+        return (f'<div class="{cls}"><span>{E(label)}</span><b class="{"up" if nd >= 0 else "dn"}">'
+                f'{"+" if nd >= 0 else "-"}${abs(nd):,.2f} · {nu / u:+.0%} ROI</b></div>') if rs and u else ""
+    rows = led["rows"]
+    kind = lambda r: r[0].get("kind")
+    out = (line("Overall", rows, "unr unh") + line("Today", [r for r in rows if r[0]["date"] == today])
+           + line("Last 7 days", [r for r in rows if r[0]["date"] >= wk])
+           + line("🔒 Lock of the Day", [r for r in rows if kind(r) == "lock"])
+           + line("🐺 Dog of the Day", [r for r in rows if kind(r) == "dog"])
+           + line("🔥 Other picks", [r for r in rows if kind(r) not in ("lock", "dog")]))
     return (f'<div class="unb"><div class="ovr-t">💰 BANKROLL</div>'
             f'<div class="unt {"up" if bank >= start else "dn"}">${bank:,.2f}</div>'
-            f'<div class="unp">Started at ${start:,.0f} ({(bank - start) / start:+.1%}) · 1 unit today = '
-            f'${led["unit_today"]:,.2f}</div>{stats}{rows}</div>')
+            f'<div class="unp">Started at ${start:,.0f} · 1 unit today = ${led["unit_today"]:,.2f}</div>{out}</div>')
 
 
 def _tier(pk):
@@ -328,7 +321,7 @@ def _why_fallback(leg):
     return ""
 
 
-def _leg(leg, tagged=False, review=""):
+def _leg(leg, tagged=False, review="", units=0):
     import sports
     lg = sd.LEAGUES[leg["league"]]
     lt_ = leg.get("tier") or sports.leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
@@ -353,7 +346,7 @@ def _leg(leg, tagged=False, review=""):
   <div class="lt"><span class="lgb">{lg[3]} {lg[2]}{ltag}</span>{badge or f'<span class="tm" data-start="{E(leg["start"])}" data-gid="{E(leg.get("game_id", ""))}" data-side="{E(leg.get("side", ""))}" data-mk="{E(leg.get("market", ""))}" data-line="{E(str(leg.get("line") if leg.get("line") is not None else ""))}">Starts at {_time(leg["start"])}</span>'}</div>
   <div class="lm"><span class="pick">{mark}{E(leg["team"])} <em>{mk}</em></span><span class="od">{_am(leg["odds"])}</span></div>
   <div class="ls">{E(leg["opp"]) if leg["market"] == "total" else ("vs " if leg["home"] else "@ ") + E(leg["opp"])}</div>
-  {f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
+  {_units_line(units) if units else ""}{f'<div class="why rvy">📝 {E(review)}</div>' if review else f'<div class="why rvy">{why}</div>' if why else ""}{f'<div class="pubs">{tag}</div>' if tag else ""}{outs}{_breakdown(leg)}
   {f'<div class="fin">Final: {E(leg["score"])}</div>' if leg.get("score") else ""}
 </div>"""
 
@@ -533,7 +526,8 @@ def _pick_card(kind, pk):
 <span class="pk-l">{label}</span><span class="chip waiting">PICK COMING</span></div>
 <div class="lock">⏳ Waiting on: {why}</div><div class="lock">Posted by {_time(pk["deadline"])} at the latest — once it's up, it's final.</div></section>"""
     win = pk["stake"] * (pk["dec"] - 1)
-    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg)) for leg in pk["legs"])   # graded: the
+    legs = "".join(_leg(leg, tagged=len(pk["legs"]) > 1, review=_rev_text(pk, leg),     # a parlay: each pick in it
+                        units=sports.leg_units(pk, leg) if len(pk["legs"]) > 1 else 0) for leg in pk["legs"])   # has its units   # graded: the
     #                                                                   after-game review takes the pregame line's spot
     stamp = {"won": '<div class="stamp won">CASHED</div>', "lost": '<div class="stamp lost">LOST</div>',
              "push": '<div class="stamp push">PUSH</div>'}.get(pk["status"], "")
@@ -557,7 +551,7 @@ def _pick_card(kind, pk):
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  <div class="un">💰 {_units_txt(sports.units_for(pk))} (${sports.units_for(pk) * UNIT_TODAY[0]:,.0f})</div>
+  {_units_line(sports.units_for(pk)) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 

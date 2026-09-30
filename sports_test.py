@@ -4321,7 +4321,7 @@ def test_we_got_in_early_box():
         assert h.count('class="egr"') == 4 and "WE GOT IN EARLY" in h and "still good" not in h
         rows = h.split('class="egr"')[1:]
         assert "we beat the line" in rows[0] and "-120" in rows[0]
-        assert "The engine has them at 40%" in rows[0]        # the owner, 9/30: say what the engine has them at
+        assert "The engine has them at" not in rows[0]        # the owner, 9/30: a win % only shows over 55%
         assert "better price now" in rows[1]                  # +220: 45% vs ~30% on the price - still value
         assert "money went against it" in rows[2]             # +220 and the engine's 33% (vs ~31% on the price) isn't enough now
         assert "<i>" not in rows[3]                           # no move, no label
@@ -4644,7 +4644,17 @@ def test_units_and_the_open_bankroll():
     lk = lambda p: {"kind": "lock", "legs": [{"p": p}]}
     assert [sports.units_for(lk(p)) for p in (0.563, 0.59, 0.61, 0.63, 0.67, 0.72)] == [2, 3, 4, 5, 7, 10]
     assert max(u for _, u in sports.UNIT_LADDER) == sports.UNIT_MAX == 10
-    assert sports.units_for({"kind": "two", "legs": []}) == 1 and sports.units_for({"kind": "four", "legs": []}) == 0.5
+    assert sports.units_for({"kind": "two", "legs": []}) == 0 == sports.units_for({"kind": "four", "legs": []})
+    # a parlay has no units - each pick in it carries its own, as a straight bet (the owner, 9/30)
+    two = {"date": "2026-09-30", "kind": "two", "status": "lost", "dec": 3.0, "legs": [
+        {"game_id": "g1", "side": "home", "odds": -140, "p": 0.63, "tier": "lock", "result": "won"},
+        {"game_id": "g2", "side": "away", "odds": -120, "p": 0.54, "tier": "lean", "result": "lost"}]}
+    assert [sports.leg_units(two, l) for l in two["legs"]] == [5, 1]
+    lock = {"date": "2026-09-30", "kind": "lock", "status": "won", "dec": 1 + 100 / 140, "legs": [
+        {"game_id": "g1", "side": "home", "odds": -140, "p": 0.63, "tier": "lock", "result": "won"}]}
+    led = sports.units_ledger([two, lock])                 # the lock counts once (not again as a parlay leg)
+    assert len(led["rows"]) == 2 and led["rows"][0][0]["kind"] == "lock"
+    assert abs(sum(r[2] for r in led["rows"]) - (5 * 100 / 140 - 1)) < 1e-9
     assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "tier": "lean"}]}) == 1
     assert sports.units_for({"kind": "solo", "tier": "value", "legs": [{"p": 0.45}]}) == 2
     day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
@@ -4655,8 +4665,10 @@ def test_units_and_the_open_bankroll():
     import sports_dashboard as d
     assert "BANKROLL" in d.units_box([day1, day2]) and d.units_box([]) == ""
     box = d.units_box([day1, day2], "2026-09-30")          # the owner, 9/30: every ROI stat - overall, the day, the week
-    assert all(x in box for x in ("Overall", "Today", "Last 7 days", "ROI", "Started at $1,000 ("))
+    assert all(x in box for x in ("Overall", "Today", "Last 7 days", "ROI", "Started at $1,000"))
     assert "Today" not in d.units_box([day1, day2], "2026-10-09")        # nothing graded that day: no empty row
+    assert "Parlays" not in box
+    assert "u bet" not in box and "u ·" not in box          # plain dollars + ROI (the owner: '+6.6u on 14u bet' confused him)
 
 
 def test_latest_games_line_only_backs_the_pick():
