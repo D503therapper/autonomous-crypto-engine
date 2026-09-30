@@ -10,7 +10,7 @@ every session:
   Use it the way he does ("that's just facts" after a claim, never after a number).
 - **Never lengthen write-ups.** Accuracy over everything. No secrets in the repo. No borrowed keys or disguises to get
   past a site's blocks.
-- Leans count in the record from 9/29. Live plus money and tennis keep their own records. The -150 rule stays.
+- Leans keep their OWN record (9/30: no units on leans, so not in ours - they counted 9/29-9/30). Live plus money and tennis keep their own records. The -150 rule stays.
 - Monday and Thursday football: every NFL game those days gets its own pick (two games = two picks; a lean is fine) -
   sports.night_games / night_pick, the 🏈 NIGHT FOOTBALL card.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.

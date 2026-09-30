@@ -262,7 +262,7 @@ def test_board_rules():
     assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "lean"}]}) == "lean", "only as sure as the weakest leg"
     assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "value"}]}) == "value"
     assert sports.pick_tier({"kind": "lock", "tier": "value", "legs": [{"tier": "value"}]}) == "lock"
-    assert sports.in_record({"lean": True, "date": "2026-09-29"}) and not sports.in_record({"lean": True, "date": "2026-09-28"})
+    assert not sports.in_record({"lean": True, "date": "2026-09-30"}) and sports.in_record({"date": "2026-09-30"})   # leans: their own record (the owner, 9/30)
 
 
 def test_grading():
