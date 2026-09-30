@@ -234,3 +234,37 @@ def pdo_states(games, now_iso):
             gf, sf_, ga, sa = (sum(x[k] for x in L) for k in range(4))
             out[t] = (gf / sf_ + 1 - ga / sa) * 1000
     return out
+
+
+# COVER STREAKS & REVENGE (9/30 study, closing prices 2018-26): the public chases a cover streak. A team that FAILED to
+# cover 4+ straight spreads beat the average spread bet: NBA 8 of 8 seasons, college hoops 6 of 8, college football 6
+# of 8 (+2.9%), NFL 5 of 8; one that COVERED 4+ straight did worse (NFL -11.8%, college -10.7%). And a college football
+# dog facing the team that blew it out last meeting: +15.7% (6 of 7 seasons) vs -3.6% for every dog.
+ATS_LEAGUES = ("nfl", "ncaaf", "nba", "ncaab")
+ATS_RUN = 4
+REVENGE = {"ncaaf": 30}                    # lost the last meeting by this many (a blowout)
+
+
+def ats_states(games):
+    """({(league, team): cover streak (+ covered / - failed)}, {(league, team, opp): last meeting's margin})."""
+    import sports_model as sm
+    ats, meet = {}, {}
+    for lg in ATS_LEAGUES:
+        for g in sorted(sm.finals(games, lg), key=lambda g: g["start"]):
+            if (g.get("stype") or "2") not in ("2", "3"):
+                continue
+            try:
+                hs, as_ = float(g["home_score"]), float(g["away_score"])
+            except (KeyError, ValueError):
+                continue
+            meet[(lg, g["home"], g["away"])], meet[(lg, g["away"], g["home"])] = hs - as_, as_ - hs
+            try:
+                mg = hs - as_ + float(g["spread_home"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if mg == 0:
+                continue
+            for t, cov in ((g["home"], mg > 0), (g["away"], mg < 0)):
+                k = ats.get((lg, t), 0)
+                ats[(lg, t)] = (k + 1 if k >= 0 else 1) if cov else (k - 1 if k <= 0 else -1)
+    return ats, meet

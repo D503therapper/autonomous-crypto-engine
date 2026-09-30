@@ -298,6 +298,7 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+ATS = ({}, {})                 # (cover streaks, last meetings) - sports_form.ats_states
 PDO = {}                       # {nhl team: PDO last 10} - puck luck (sports_form)
 LAST_STARTS = {}               # {(league, team): [starts]} - the back-to-back check (sports_form)
 TEAM_STATE = {}                # {(league, team): (last margin, streak)} - the overreaction angle (sports_form)
@@ -371,6 +372,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "hot_key": HOT_KEY.get(g["id"]) == side,
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
+                    "ats_run": ATS[0].get((lg, g[side]), 0),
+                    "revenge": lg in sports_form.REVENGE and ATS[1].get((lg, g[side], g[other]), 0) <= -sports_form.REVENGE[lg],
                     "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
                     and not sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"]),
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
@@ -631,7 +634,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # (last 3 seasons 55.6% vs 54.7%). A day nothing agrees: the best lock-grade pick, as before.
         agree = [c for c in locks if own_agrees(c)]
         lock = max(agree or locks, key=lambda c: (c["p"] - (HOT_W if c.get("hot_key") else 0)
-                                                  + (HOT_W if overreact(c) else 0), c["edge"])) if locks else None
+                                                  + (HOT_W if overreact(c) else 0) + cover_run_w(c), c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -670,7 +673,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                        and c["p"] >= PARLAY_FILL_MIN_P and not c.get("trap") and not c.get("waiting")
                        and not fighting(c) and (not dog or c["game_id"] != dog["game_id"])),
                       key=lambda c: (-(c["p"] - (SERIES_LOST_W if c.get("lost_last") and c["odds"] < 0 else 0)
-                                       - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) else 0)),
+                                       - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) else 0)
+                                       + cover_run_w(c)),
                                      -c["edge"]))                 # a playoff favorite that just lost the last game goes
         for c in fill:                                             # to the back (weighed, never banned - the owner)
             if len(legs) >= n:
@@ -720,6 +724,8 @@ def dog_score(c):
         sc += 2 if pdo <= sports_form.PDO_BAD else -3 if pdo >= sports_form.PDO_GOOD else 0
     if c.get("rested_vs_b2b"):                           # rested, and they played last night: NBA dogs +6.5%, NHL
         sc += 3                                          # +1.9% (4 of 5 seasons each) vs -6% for every dog
+    if c.get("revenge") and c.get("market") == "ml":     # college football: a dog facing the team that blew it out
+        sc += 3                                          # last meeting - +15.7% (6 of 7 seasons)
     if hangover(c):                                      # a dog again after its big upset win: the hangover
         sc -= 3
     if overreact(c):                                     # a football dog off a blowout loss: the market overreacts
@@ -752,6 +758,16 @@ def hangover(c):
     if not st or c.get("market") != "ml":
         return False
     return sports_form.overreaction(c.get("league"), None, c["odds"], {(c.get("league"), None): tuple(st)}) < 0
+
+
+def cover_run_w(c):
+    """Spread picks: the public chases a cover streak (sports_form) - a team that failed to cover 4+ straight moves up
+    the line (+HOT_W), one that covered 4+ straight moves back."""
+    import sports_form
+    if c.get("market") != "spread" or c.get("league") not in sports_form.ATS_LEAGUES:
+        return 0.0
+    k = c.get("ats_run") or 0
+    return HOT_W if k <= -sports_form.ATS_RUN else -HOT_W if k >= sports_form.ATS_RUN else 0.0
 
 
 def own_agrees(c):
@@ -1575,6 +1591,8 @@ def quick(now=None):
         TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         LAST_STARTS.clear()
         LAST_STARTS.update(sports_form.last_starts(games))
+        a_, m_ = sports_form.ats_states(games)
+        ATS[0].clear(), ATS[0].update(a_), ATS[1].clear(), ATS[1].update(m_)
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
@@ -1643,6 +1661,8 @@ def run(repick=False, fetch=True):
         TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         LAST_STARTS.clear()
         LAST_STARTS.update(sports_form.last_starts(games))
+        a_, m_ = sports_form.ats_states(games)
+        ATS[0].clear(), ATS[0].update(a_), ATS[1].clear(), ATS[1].update(m_)
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
