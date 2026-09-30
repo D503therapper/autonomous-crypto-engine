@@ -997,7 +997,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live = live.get("plays", {})
     # today's live bets only (a new day starts clean - old ones live on in the records): what they were, did they cash
     days_ = live_days(now)
-    lrows = sorted((e for e in live.values() if e.get("date") in days_), key=lambda e: e["posted"], reverse=True)   # every one today - the list always matches the record
+    tonight_ = [e for e in live.values() if e.get("date") in days_]
+    lrows = sorted((e for e in tonight_ if e.get("result") is None), key=lambda e: e["posted"], reverse=True)   # still
+    #   going only (the owner, 9/30): the second a live bet's graded it clears into THE RESULTS, under its sport
     badge_ = {"won": '<span class="lr won">✅ CASHED</span>', "lost": '<span class="lr lost">❌ MISSED</span>'}
     def pending_(pid, e):                                    # still going: the live score shows right under it
         gid, side = pid.rsplit(":", 1) if pid.count(":") >= 2 else (pid, "")
@@ -1005,8 +1007,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
         start = start if start.endswith("Z") and "T" in start else ""
         return (f'<span class="tm" data-gid="{E(gid)}" data-start="{E(start)}" data-side="{E(side)}">⏳ STILL GOING</span>'
                 if start else '<span class="tm">⏳ STILL GOING</span>')
-    stories = live_stories(lrows)                            # no two bets in the list share a phrase - oldest first: a new
-    #                                                        bet never rewords the ones already on the list
+    stories = live_stories(tonight_)                         # no two bets share a line - oldest first, graded ones
+    #                                                        too (their lines stay spoken for the night)
     try:                                                     # owning our mistakes, right on the bet itself
         with open(os.path.join(sd.DATA, "notes.json")) as f:
             owned = {n["live"]: n["text"] for n in json.load(f) if n.get("live")}
@@ -1553,15 +1555,16 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
 function badge(r){{return r==="won"?'<span class="lr won">✅ CASHED</span>':r==="lost"?'<span class="lr lost">❌ MISSED</span>':""}}
 function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return;   // today's live bets, pending too: straight
  T.forEach(function(e){{var have=el.querySelector('.leg[data-pid="'+e.pid+'"]');       // from the watcher, no page rebuild needed
-  if(have){{if(e.result&&!have.classList.contains(e.result)){{have.className="leg "+e.result;   // graded: CASHED / LOST now
-    var t=have.querySelector(".lt>.tm,.lt>.lr");if(t)t.outerHTML=badge(e.result);var sc=have.querySelector(":scope>.lsc");if(sc)sc.remove();}}
-   return}}
+  if(e.result){{if(have)have.remove();return}}   // graded: it clears into THE RESULTS right away (the owner, 9/30)
+  if(have)return;
   var sec=el.querySelector("section");
   if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l tn8">TONIGHT&#39;S LIVE BETS</span><span class="chip in">WE&#39;RE IN</span></div></section>';sec=el.querySelector("section");}}
   var i=e.pid.lastIndexOf(":"),b=badge(e.result)||'<span class="tm" data-gid="'+esc(e.pid.slice(0,i))+'" data-start="'+esc(e.start||"")+'" data-side="'+esc(e.pid.slice(i+1))+'">⏳ STILL GOING</span>';
   var h=document.createElement("div");h.className="leg "+(e.result||"");h.setAttribute("data-pid",e.pid);
   h.innerHTML='<div class="lt"><span class="lgb">'+esc(e.icon)+' '+esc(e.sport)+(e.dd?' · 🔁 DOUBLE DOWN':'')+'</span>'+b+'</div><div class="lm"><span class="pick">'+esc(e.team)+' <em>ML</em></span><span class="od">+'+esc(e.odds)+'</span></div>'+(e.story?'<div class="ls">'+esc(e.story)+'</div>':'');
-  var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});if(window.d503lt)window.d503lt();}}   // newest on top
+  var hd=sec.querySelector(".pk-h");hd.parentNode.insertBefore(h,hd.nextSibling);}});
+ var s2=el.querySelector("section");if(s2&&!s2.querySelector(".leg"))el.innerHTML="";   // none going: no blue box
+ if(window.d503lt)window.d503lt();}}   // newest on top
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
  if(d&&age<6*3600000)today(d.today);
  if(d&&(d.plays||[]).length&&age>PLAY_FRESH_MS)d=Object.assign({{}},d,{{plays:[],live_games:-1}});   // a price we haven't re-checked in 45s never shows

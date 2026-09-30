@@ -1294,7 +1294,9 @@ def test_dashboard_tennis_records():
         titles = [x for x in re.findall(r'class="pk-l[^"]*">([^<]*)<', html) if "PARLAY" in x]
         assert titles and all(re.search(r"\d-LEG (LEAN )?PARLAY", x) for x in titles), titles
         assert "parlays: men's" not in html and "parlays 0-" not in html, "no parlay records anywhere"
-        assert "🎾 Men&#x27;s Tennis · 🔁 DOUBLE DOWN" in html and "4-6, 2-2 in set 2" in html, "the live list: 🎾 and the set/game score"
+        live_list = html.split('id="livetoday">')[1].split("</div></div>")[0] if 'id="livetoday">' in html else ""
+        assert "DOUBLE DOWN" not in live_list, "graded: out of tonight's list (the owner, 9/30)"
+        assert "<b>📡 🎾 Men's Tennis</b>" in html and "Sinner vs Rune · 4-6, 2-2" in html, "...and in the results, under its sport"
         assert html.count("class=\"rc gr") >= 6
         _check_js(html)
     finally:
@@ -3993,6 +3995,16 @@ def test_closing_line_counts_each_real_bet_once():
     assert any("counting each real bet once: beat the closing line 50% of 2 bets" in x for x in M.clv_summary(res=r))
     rules = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "SPORTS_REVIEW.md")).read()
     assert "men's AND women's" in rules and "8 AM PT on game day" in rules and "6pm PT the night before" not in rules
+
+
+def test_graded_live_bet_clears_into_the_results_right_away():
+    """The owner, 9/30: a live bet clears out of TONIGHT'S LIVE BETS the second it's graded - it's in THE RESULTS under
+    its sport, with its review. Only bets still going show; none going, no blue box."""
+    import sports_dashboard as D
+    src = open(D.__file__).read()
+    assert 'if e.get("result") is None), key=lambda e: e["posted"]' in src
+    assert "if(e.result){{if(have)have.remove();return}}" in src and 'if(s2&&!s2.querySelector(".leg"))el.innerHTML=""' in src
+    assert "clears into the results" in open(os.path.join(os.path.dirname(D.__file__), "CLAUDE.md")).read()
 
 
 def test_final_score_calls_the_pick_on_the_spot():

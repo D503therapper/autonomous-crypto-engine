@@ -17,7 +17,7 @@ every session:
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
 - The Lock of the Day always sits on top of the day's board, right under Live Plus Money.
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
-  day's cards are gone the 8 AM note shows. Live bets stay in TONIGHT'S LIVE BETS till the 8 AM board.
+  day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`
   (`timeout 900 python sports_test.py`, all green before any push).
