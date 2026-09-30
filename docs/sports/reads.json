@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T23:00Z",
+ "updated": "2026-09-30T23:22Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -35,62 +35,56 @@
    "id": "nhl:401892431",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Maple Leafs",
-    "p": 0.366,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-09-30T23:30Z",
    "away": "Islanders",
    "home": "Maple Leafs",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
-    "team": "Islanders",
-    "opp": "Maple Leafs",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -225,
-    "p": 0.688,
-    "win_p": 0.471,
+    "team": "Maple Leafs",
+    "opp": "Islanders",
+    "market": "ml",
+    "line": null,
+    "odds": -130,
+    "p": 0.544,
+    "win_p": 0.544,
     "reasons": [
-     "better rested",
-     "hotter recent form",
-     "opponent on a back-to-back"
-    ]
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401891821",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Flyers",
-    "p": 0.385,
-    "tie": 0.296,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-09-30T23:30Z",
    "away": "Penguins",
    "home": "Flyers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
-    "team": "Penguins",
-    "opp": "Flyers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.65,
-    "win_p": 0.433,
+    "team": "Flyers",
+    "opp": "Penguins",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
-     "opponent missing key players"
-    ]
+     "sharp money moving this way",
+     "the stronger team",
+     "opponent drama: family/personal"
+    ],
+    "result": null
    }
   },
   {
@@ -115,7 +109,7 @@
     "opp": "Yankees",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
+    "odds": -194,
     "p": 0.618,
     "win_p": 0.43,
     "reasons": []
@@ -157,8 +151,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.413,
-    "tie": 0.294,
+    "p": 0.42,
+    "tie": 0.293,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -173,11 +167,12 @@
     "opp": "Kings",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -205,
+    "p": 0.645,
+    "win_p": 0.645,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
