@@ -50,6 +50,9 @@ honest test is forward. Probe/collector left as a tool; the 95-min workflow re-r
   failed the same way, so ~1.5 h of DEX paper trades were lost (08:05 -> 09:44: ASTEROID sold, BOTIFY and SI bought;
   that run showed $974.14, the restored 08:05 state $1,004.22). Fix (e973fb9): git_sync and the end-of-run commit retry
   5x with --autostash and abort failed rebases; tested against a racing bare remote.
+- 2026-09-30 22:30 UTC: moon alerts never reached the phone - the rocket emoji in the title isn't allowed in an HTTP
+  header ('latin-1' error at the AIRPAD 2.1x alert, 19:06). Fix: non-latin-1 titles go RFC 2047-encoded (ntfy decodes
+  them); regression test in moon_alerts_test.py. AIRPAD itself faded back to 0.26x - no alert missed now.
 
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |

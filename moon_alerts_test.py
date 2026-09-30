@@ -24,6 +24,18 @@ def test_steps_fire_once():
     assert len(sent) == 2
 
 
+
+def test_emoji_title_is_header_safe():
+    # 2026-09-30: the AIRPAD 2x alert never reached the phone - an emoji title isn't latin-1
+    import base64
+    h = run_live._header("\U0001f680 AIRPAD is up 2.1x")
+    h.encode("latin-1")
+    assert base64.b64decode(h[10:-2]).decode() == "\U0001f680 AIRPAD is up 2.1x"
+    assert run_live._header("plain") == "plain"
+
+
 if __name__ == "__main__":
     test_steps_fire_once()
     print("ok test_steps_fire_once")
+    test_emoji_title_is_header_safe()
+    print("ok test_emoji_title_is_header_safe")

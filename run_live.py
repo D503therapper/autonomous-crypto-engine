@@ -6,6 +6,7 @@
 Every strategy in every market has its own $500 paper account under data/<market>/<strategy>/.
 """
 import argparse
+import base64
 import csv
 import json
 import os
@@ -29,13 +30,22 @@ _CRYPTO = {s.name: s for s in MARKETS["crypto"]["strategies"]}
 EARLY, MOVER, ANNOUNCE = _CRYPTO["early_mover"], _CRYPTO["mover"], _CRYPTO["announce"]
 
 
+def _header(text):
+    """HTTP headers must be latin-1; an emoji title (the moon alerts) goes RFC 2047-encoded, which ntfy decodes."""
+    try:
+        text.encode("latin-1")
+        return text
+    except UnicodeEncodeError:
+        return "=?UTF-8?B?" + base64.b64encode(text.encode()).decode() + "?="
+
+
 def notify(title, msg, priority="default"):
     print(f"   [alert] {title}: {msg}")
     if not NTFY_TOPIC:
         return
     try:
         req = urllib.request.Request(f"https://ntfy.sh/{NTFY_TOPIC}", data=msg.encode(),
-                                     headers={"Title": title, "Priority": priority})
+                                     headers={"Title": _header(title), "Priority": priority})
         urllib.request.urlopen(req, timeout=10)
     except Exception as e:
         print(f"   alert failed: {e}")
