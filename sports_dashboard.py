@@ -467,7 +467,8 @@ def _pick_card(kind, pk):
                       "🔒 The books ain't see what we see. Plus money and a LOCK — let's eat.",
                       "🔒 Plus money on a LOCK? That's super value. Line makers trippin' fr.",
                       "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
-                  if _tier(pk) == "lock" and pk.get("american", 0) > 0 and pk["status"] == "open" else "")
+                  if len(pk["legs"]) == 1 and _tier(pk) == "lock" and pk.get("american", 0) > 0   # one pick at plus money:
+                  and pk["status"] == "open" else "")      # a parlay always pays plus - that's no dog (the owner, 9/30)
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>

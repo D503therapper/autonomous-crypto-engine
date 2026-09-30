@@ -4580,6 +4580,23 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     assert sports.make_board([big, pens])["dog"]["legs"][0]["team"] == "Penguins"
 
 
+def test_parlay_never_says_they_got_us_as_the_dog():
+    """The owner (9/30): a 2-leg of -144 and -142 said 'They got us as the dog? Line makers trippin'.' A parlay always
+    pays plus money - the 'plus-money lock' lines are for ONE pick priced plus money, never a parlay."""
+    import sports_dashboard as sdb
+    leg = lambda t, o: {"game_id": t, "league": "mlb", "market": "ml", "side": "home", "team": t, "opp": "X", "odds": o,
+                        "p": 0.57, "line": None, "start": "2026-09-30T23:00Z", "home": True, "reasons": ["r"],
+                        "result": None, "tier": "lock", "dec": sd.decimal(o), "edge": 0.0, "edge_own": 0.0,
+                        "p_market": 0.57, "drift": 0.0}
+    pk = {"kind": "two", "date": "2026-09-30", "status": "open", "stake": 100, "dec": 2.89, "american": 189,
+          "legs": [leg("Yankees", -144), leg("Flyers", -142)]}
+    try:
+        h = sdb._pick_card("two", pk)
+    except TypeError:
+        h = sdb._pick_card(pk)
+    assert "trippin" not in h and "got us as the dog" not in h
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
