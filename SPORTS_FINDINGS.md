@@ -41,6 +41,13 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   Lock and parlay line, -3 on the Dog's score; form older than 3 weeks never counts). Baseball pitchers, QBs, college:
   mixed - not used. Coaches: no data yet.
 
+- **The overreaction (9/30, form dug deeper, closing prices 2018-26):** win streaks, losing streaks and "hot scoring"
+  vs the total mostly lose to the vig everywhere - but bettors overreact to ONE ugly loss / a cold run: football dogs
+  off a BLOWOUT loss (college 30+, NFL 21+): college +11.6% (6 of 8 seasons, last 3 +31.6%), NFL +7.9% (last 3
+  +23.2%) vs -3.6% for every dog; college hoops FAVORITES on a 6+ game losing streak +6.7% (7 of 8, last 3 +9.4%) vs
+  -3.8% for every favorite. Built: sports_form.overreaction / sports.overreact (+3 on the Dog's score, a bump up the
+  Lock / parlay line). Watch: college football dogs off a blowout WIN +9.2% (5 of 7).
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER

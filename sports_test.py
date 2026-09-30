@@ -4823,6 +4823,25 @@ def test_hot_key_player_counts_against_a_pick():
     assert max([c(0.65, True), c(0.585, False)], key=key)["p"] == 0.65      # ...weighed, not banned
 
 
+def test_overreaction_angle():
+    """The form study, deeper (9/30): bettors overreact to an ugly loss. A football dog off a blowout loss (college
+    +11.6%, NFL +7.9% vs -3.6% for every dog) and a college hoops favorite on a 6+ game losing streak (+6.7%, 7 of 8
+    seasons) get weight - the Dog's score, the Lock / parlay line. Weighed, never a ban."""
+    c = lambda lg, odds, st, mk="ml": {"league": lg, "odds": odds, "market": mk, "form_state": st}
+    assert sports.overreact(c("nfl", 150, (-24, -1))) and sports.overreact(c("ncaaf", 200, (-35, -2)))
+    assert not sports.overreact(c("nfl", 150, (-10, -1)))                  # a close loss: nothing
+    assert not sports.overreact(c("nfl", -150, (-24, -1)))                 # a favorite off a blowout: no angle
+    assert sports.overreact(c("ncaab", -140, (-3, -6))) and not sports.overreact(c("ncaab", 140, (-3, -6)))
+    assert not sports.overreact(c("nfl", 150, (-24, -1), "spread")) and not sports.overreact(c("nba", 150, (-40, -8)))
+    import sports_form as sf
+    games = {f"nfl:{k}": {"id": f"nfl:{k}", "league": "nfl", "status": "final", "stype": "2", "start": f"2026-09-{d}T17:00Z",
+                          "home": "A", "away": "B", "home_score": hs, "away_score": as_}
+             for k, (d, hs, as_) in enumerate(((20, "3", "31"), (27, "10", "38")))}
+    st = sf.team_states(games, "2026-09-30T20:00Z")
+    assert st[("nfl", "A")] == (-28.0, -2) and st[("nfl", "B")] == (28.0, 2)
+    assert sf.team_states(games, "2026-11-30T20:00Z") == {}                 # stale: nothing
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
