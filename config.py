@@ -276,7 +276,7 @@ DEX = {
              # locked for up to 12 more days; dex_consolidated_study resampled: 7d beat 14d in both halves.
              "max_hold_days": 7, "runner_at_limit": (1.0, 0.40),    # >= +100% at the limit: 40% trail, no clock
              "liq_pull": 0.50, "rug_tax": 0.50,
-             "stake_back": 3.0},                    # EXPERIMENT 3: at 3x sell the stake (~1/3), rest rides as before
+             "stake_back": 2.0},                    # EXPERIMENT 3b (09-30): at 2x sell the stake (~half), rest rides free
     # WIDE SCANNER (owner #1 priority: catch runners earlier and more often): up to 3,000 live pools refreshed in
     # bulk from DexScreener (30 tokens per call, <= 60 calls/min on its own budget); movers go to the front of the
     # screening queue. Every scam check still applies. Other knobs: dex.DEFAULTS["scan"].

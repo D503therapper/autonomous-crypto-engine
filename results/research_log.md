@@ -63,6 +63,7 @@ honest test is forward. Probe/collector left as a tool; the 95-min workflow re-r
 | 4 | 2026-09-29 05:40 | DEX: max hold 7 days instead of 14 (runner rule at day 7) | ~2026-10-20 | DEX frozen: $8 cash, 4 coins locked up to 12 more days; consolidated study resampled 7d > 14d both halves | pending |
 | - | 2026-09-29 ~14:00 | DEX SEASON 2: account restarted at $1,000 (season 1: -$700, archived in data/dex/archive/season1/). Experiments 1, 3, 4 are measured from here | - | season 1 | - |
 | 5 | 2026-09-30 21:40 | DEX: no price stop inside the hold (95% trail removed); rug check + 7-day limit + stake-back remain | ~2026-10-14 | 95% trail sold SS at the wick bottom (-$93; +417% after), BABYCALI +30% after | pending |
+| 3b | 2026-09-30 23:30 | DEX: take the stake back at 2x (sells ~half) instead of 3x; the rest rides free, no stop | ~2026-10-28 | live: 3 of 3 coins that doubled went on to lose 79-99% (BABYCALI 4.3x -> -$101, SS 2.1x -> -$93, AIRPAD 2.05x -> -$93); with this rule each ends about break-even or better (~+$290 on the DEX). Cost: a legend keeps about half its multiple (PNUT 30x -> ~16x); the floor study's half-at-2x variant was mixed by half | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 

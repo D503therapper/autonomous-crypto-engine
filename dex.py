@@ -1583,8 +1583,9 @@ class DexHunter:
             if not self._confirmed(pos, "stop_seen", now):
                 return
             return self._request_exit(k, 1.0, f"trailing stop (peak {pos['peak']:g})", "normal", now, "stop")
-        # EXPERIMENT 3 (owner 2026-09-28): at `stake_back` x (3x) sell the stake once - the rest rides on house money.
-        # BABYCALI went 4.3x and then -95% within an hour, ending -$101 instead of banking its gain.
+        # EXPERIMENT 3 (owner 2026-09-28): at `stake_back` x sell the stake once - the rest rides on house money.
+        # BABYCALI went 4.3x and then -95% within an hour, ending -$101 instead of banking its gain. 3b (09-30): 3x -> 2x
+        # after SS (2.1x -> -93%) and AIRPAD (2.05x -> -99%): every live coin that doubled round-tripped to a big loss.
         SB = X.get("stake_back")
         if SB and not pos.get("sb") and p >= pos["entry"] * SB:
             pos["sb"] = True

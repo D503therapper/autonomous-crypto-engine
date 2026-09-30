@@ -717,10 +717,11 @@ def test_study_exit():
     """Live config (dex_exit_study + dex_legends_study): no stop for 14 days, time limit, a runner at the
     limit keeps riding on a 40% trail."""
     live = {"entry": dex.DEX["entry"], "exit": dex.DEX["exit"]}
-    def held(px_path, days_between=1):
+    def held(px_path, days_between=1, sb=True):
         h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, h1=12)), **live)
         screen(h, cand(h1=12))
         pos = h.pf.positions[K]
+        pos["sb"] = sb                                    # runner cases: the stake already came back
         out = []
         for i, m in enumerate(px_path):
             pos["px"] = 0.0101 * m
@@ -739,9 +740,9 @@ def test_study_exit():
     assert not any(ex) and pos.get("runner")
     ex, _ = held([2.5] * (N - 1) + [2.6, 2.0, 1.2])       # runner then drops 50% from its high -> sold
     assert ex[-1]
-    ex, pos = held([2, 2.9, 3.2])                         # EXPERIMENT 3: at 3x sell the stake (1/3.2), keep the rest
-    assert ex == [False, False, True] and "stake back at 3.2x" in pos["exit"]["reason"]
-    assert abs(pos["exit"]["frac"] - 1 / 3.2) < 0.01 and pos["sb"]
+    ex, pos = held([1.5, 1.9, 2.2], sb=False)             # EXPERIMENT 3b: at 2x sell the stake (1/2.2), keep the rest
+    assert ex == [False, False, True] and "stake back at 2.2x" in pos["exit"]["reason"]
+    assert abs(pos["exit"]["frac"] - 1 / 2.2) < 0.01 and pos["sb"]
     ex, _ = held([2.5] * (N - 1) + [2.6, 2.1, 1.6, 1.5])  # runner at the limit, then -42% from its high -> sold
     assert ex[-1] and len(ex) == N + 3
     print("  live exit: 14-day hold without stop, runner at the limit rides a 40% trail   ok")
@@ -752,14 +753,15 @@ def test_stake_back_executes():
     h, fetch, d, px = held()
     h.p = {**h.p, "exit": {**dex.DEX["exit"]}}
     q0 = h.pf.positions[K]["qty"]
-    t = poll(h, T0 + 6000, px, v=0.0101 * 3.3)
-    assert K in h.pf.positions and abs(h.pf.positions[K]["qty"] - q0 * (1 - 1 / 3.3)) < q0 * 0.02, h.pf.positions[K]["qty"] / q0
+    m = dex.DEX["exit"]["stake_back"] * 1.1
+    t = poll(h, T0 + 6000, px, v=0.0101 * m)
+    assert K in h.pf.positions and abs(h.pf.positions[K]["qty"] - q0 * (1 - 1 / m)) < q0 * 0.02, h.pf.positions[K]["qty"] / q0
     assert "stake back" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
     q1 = h.pf.positions[K]["qty"]
-    poll(h, t, px, v=0.0101 * 4)
+    poll(h, t, px, v=0.0101 * m * 1.3)
     assert h.pf.positions[K]["qty"] == q1
     shutil.rmtree(d)
-    print("  stake back at 3x: sells ~1/3 once, the rest keeps riding   ok")
+    print("  stake back: sells the stake once, the rest keeps riding   ok")
 
 
 def test_resize_old_small_position():
