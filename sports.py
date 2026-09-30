@@ -1350,6 +1350,14 @@ def run(repick=False, fetch=True):
         line_watch(games, picks)                                        # 💸 ...or is the money running away from us?
     except Exception as e:                                              # noqa: BLE001
         print(f"line watch failed: {e}")
+    try:                                                                # ⏰ early value plays: posted the second the
+        import sports_early                                             # engine finds one, before the line moves
+        inj = {lg: sd.fetch_injuries(lg) for lg in sports_early.EARLY} if sports_early.ON else None
+        for c in sports_early.post(games, model, now, inj, ping=sports_early.send,
+                                   trap=lambda lg, o, h: sports_dogs.verdict(DOGS_ST, lg, o, h) == "trap"):
+            print(f"early value play: {c['team']} +{c['odds']} ({c['league']}, own {c['own']:.0%} vs price {c['mkt']:.0%})")
+    except Exception as e:                                              # noqa: BLE001 - never blocks the board
+        print(f"early value plays failed: {e}")
     for d in days:
         had = {p["kind"] for p in picks if p["date"] == d.isoformat()}
         for pk in post_board(games, model, picks, now, d, force=post_now and d == day):

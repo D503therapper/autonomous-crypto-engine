@@ -4184,9 +4184,72 @@ def test_final_score_calls_the_pick_on_the_spot():
     assert 'data-mk="{E(l.get("market") or "ml")}"' in src                              # tennis legs too
 
 
+def test_early_value_plays():
+    """⏰ Early value plays (the owner, 9/30: get it before the line moves): a +100..+280 dog in a sport that passed the
+    early-price exam, the engine's own read in a passed band over the price, the money not already on it -> posted
+    once, pinged once (plus the one-time breakthrough ping), graded at the posted price. Nothing while it's off."""
+    import sports_early as se
+    d = tempfile.mkdtemp()
+    se.PATH, se.EXAM_PATH = os.path.join(d, "early.json"), os.path.join(d, "early_exam.json")
+    now = datetime(2026, 10, 1, 18, 0, tzinfo=timezone.utc)
+
+    class Elo:
+        def features(self, g):
+            return {"known": 10}
+    saved = (sm.ratings, sm.own_p, sm.market_p, se.recent_params, se.ON)
+    sm.ratings = lambda games, model: {lg: Elo() for lg in sd.LEAGUES}
+    sm.own_p = lambda params, f: 0.40                       # the engine: the home dog wins 40%
+    sm.market_p = lambda g, open_line=False: 0.34           # the price: 34% (+6 pts: the +4..8 band)
+    se.recent_params = lambda games, now=None, leagues=None: {"nfl": {"w": [0], "k": 1, "hfa": 0}}
+    try:
+        def game(i, ml, ml_open, lg="nfl", hours=48):
+            return {"id": i, "league": lg, "status": "pre", "stype": "2", "home": f"h{i}", "away": f"a{i}",
+                    "home_name": f"Home {i}", "away_name": f"Away {i}", "ml_home": str(ml), "ml_away": "-220",
+                    "ml_home_open": str(ml_open), "ml_away_open": "-220",
+                    "start": (now + timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%MZ")}
+        games = {"1": game("1", 185, 190),                  # a live one: +185, barely moved from the open
+                 "2": game("2", 150, 185),                  # the money already moved it 35 cents: value's gone
+                 "3": game("3", 320, 320),                  # past +280
+                 "4": game("4", 185, 185, lg="mlb"),        # a sport that hasn't passed the exam
+                 "5": game("5", 185, 185, hours=1)}         # starts too soon
+        with open(se.EXAM_PATH, "w") as f:
+            json.dump({"leagues": {"nfl": {"passed": [[0.04, 0.08]]}, "mlb": {"passed": []}}}, f)
+        pings = []
+        se.ON = False
+        assert se.post(games, {"params": {}}, now, ping=pings.append) == [] and not pings   # off = nothing
+        se.ON = True
+        new = se.post(games, {"params": {}}, now, ping=pings.append)
+        assert [c["game_id"] for c in new] == ["1"] and new[0]["odds"] == 185, new
+        assert pings[0] is None and pings[1]["game_id"] == "1"        # the breakthrough ping first, then the play
+        assert se.post(games, {"params": {}}, now, ping=pings.append) == [] and len(pings) == 2   # once, ever
+        sm.market_p = lambda g, open_line=False: 0.30                 # +10 pts: outside the only band that passed
+        assert se.scan(games, {"params": {}}, now) == []
+        games["1"].update(status="final", home_score="24", away_score="20")
+        se.post(games, {"params": {}}, now)
+        st = se.load()
+        assert st["picks"][0]["result"] == "won" and se.record(st) == {"won": 1, "lost": 0, "units": 1.85}
+        assert "Get it before the line moves" in se.ping_text(st["picks"][0])[1]
+        assert "EARLY VALUE PLAYS" in se.html(st, lambda x: x) and "✅" in se.html(st, lambda x: x)
+    finally:
+        sm.ratings, sm.own_p, sm.market_p, se.recent_params, se.ON = saved
+    assert se.html({"picks": [{"x": 1}]}, lambda x: x) == ""          # off: no box on the page
+
+
+def test_early_exam_pass_rule():
+    """A band only goes live if it made +2% in EACH of the two exam seasons on 60+ dogs (20+ a season)."""
+    import sports_early as se
+    ok = lambda n1, r1, n2, r2: n1 + n2 >= se.PASS_N and min(n1, n2) >= se.PASS_SEASON_N and min(r1, r2) >= se.PASS_ROI
+    assert ok(29, 0.33, 33, 0.08)                    # the NFL +4..8 on 9/30
+    assert not ok(27, 0.11, 24, 0.14)                # college football: +11% / +14% but only 51 dogs (yet)
+    assert not ok(205, 0.003, 207, 0.03)             # NBA +8: one flat season
+    assert se.passed(os.path.join(tempfile.mkdtemp(), "none.json")) == se.EARLY   # no exam yet: the 9/30 result
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
+    import sports_early
+    sports_early.PATH = os.path.join(tempfile.mkdtemp(), "early.json")                   # (nor the early plays)
     sports_live.FINAL_AT.clear()
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

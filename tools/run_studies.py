@@ -53,6 +53,7 @@ def main():
         ("our engine vs the move (can it beat the pros?)", "sports_sharps", lambda m: m.study(games)),
         ("the engine's strengths, sport by sport", "sports_strength", lambda m: m.study(games)),
         ("context: rivalries, travel, domes, stakes, refs", "sports_context", lambda m: m.study(games)),
+        ("early value plays: the early-price exam", "sports_early", lambda m: m.study(games)),
         ("the explorer: NEW angles", "sports_explorer", lambda m: m.explore(games)),   # new questions every run
         ("tennis edge", "sports_tennis_edge", lambda m: m.study()),
         ("tennis first set", "sports_tennis_set1", lambda m: m.study()),        # research only

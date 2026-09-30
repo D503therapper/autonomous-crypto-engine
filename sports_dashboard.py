@@ -969,6 +969,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
     except Exception as e:                                   # noqa: BLE001 - the page never waits on it
         print(f"challenge box failed: {e}")
         challenge = ""
+    try:                                                     # ⏰ early value plays (the owner, 9/30)
+        import sports_early
+        early = sports_early.html(sports_early.load(), E)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"early box failed: {e}")
+        early = ""
     board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p)) for p in active],
                    {p["kind"]: gone_ms(p) for p in active}) if active else drop
     if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
@@ -1408,6 +1414,18 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .lr{{font-size:11.5px;font-weight:900;letter-spacing:.1em;padding:3px 8px;border-radius:999px}}
 .lr.won{{color:#04110b;background:var(--up)}} .lr.lost{{color:#fff;background:var(--dn)}} .lr.push{{color:#000;background:var(--gold)}}
 .pk-h{{display:flex;align-items:center;gap:10px}}
+.evx{{margin-top:14px}} .pk-l.evt{{font-size:clamp(18px,5.6vw,27px);letter-spacing:.04em;line-height:1.1;white-space:nowrap;color:#fff;text-shadow:0 0 14px rgba(255,45,45,.85)}}
+.pk-i.evi{{width:46px;height:46px;font-size:24px;border-radius:13px}} .evs{{font-size:13px;font-weight:800;color:#fff;margin:10px 0 6px}} .evs b{{color:#ffc233}}
+.evb{{margin:12px 0 8px;padding:11px 4px;border-radius:12px;display:flex;justify-content:center;align-items:center;text-align:center;font-weight:900;font-size:clamp(12px,3.6vw,18px);
+letter-spacing:.03em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);background:linear-gradient(90deg,#d90000,#ff3b3b,#ff7a00,#ff3b3b,#d90000);background-size:200% 100%;
+box-shadow:0 0 24px -4px rgba(255,45,45,.85);animation:evb 3s linear infinite;white-space:nowrap;overflow:hidden}}
+@keyframes evb{{to{{background-position:-200% 0}}}}
+.evr i.evg{{flex-shrink:0;white-space:nowrap;font-size:12px;font-weight:900;letter-spacing:.08em;color:#fff;background:#ff2d2d;padding:6px 10px;border-radius:999px;
+box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyframes evp{{50%{{transform:scale(1.07)}}}}
+.evr{{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}}
+.evr b{{color:#fff;font-size:15px}} .evr small{{color:#fff;font-weight:800}} .evr em{{font-style:normal;font-weight:900;color:#ffc233}}
+.evr span{{display:block;font-size:12px;font-weight:700;color:#ffe08a;margin-top:2px}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:13px;font-weight:900;color:#ffc233;margin-top:3px}}
+.evh{{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--gold);margin-top:10px}} .evn{{font-size:13px;font-weight:700;color:#fff;padding:6px 0}}
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}
 .pk-l.pk-big{{font-size:clamp(22px,6.6vw,30px);letter-spacing:.05em;line-height:1.1}}   /* a one-game day: the pick IS the headline */
@@ -1542,7 +1560,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
 <div class="board">{board}</div>
 {tomorrow}
-
+{early}
 {_tennis()}
 {challenge}
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
