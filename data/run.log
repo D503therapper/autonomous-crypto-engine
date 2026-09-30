@@ -3312,3 +3312,25 @@ DEX: $997.33 (-2.67) · Scammed: 0
 [2026-09-30 02:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-09-30 02:05 UTC] crypto/hold_btc  equity $496.78 (-0.6%) 1 open  market UP
    social heat top: QNT 42 (37/0/5), PONS 38 (29/0/8), PUMP 32 (32/0/0), NEAR 27 (27/0/0), HBAR 24 (24/0/0)
+   dex screen: REJECT KTA@base liq $4,441,225 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 68%
+   dex screen: REJECT KLIK@ethereum liq $139,875 - lp locked 0% < 95%
+   dex outcome: emergency_exit AROS@solana:7174WCmC tier A P/L $+8.27 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%)
+   >> dex/dex_hunter: SELL $108.33 of AROS@solana:7174WCmC @ 0.054906, P/L $+8.27 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%)
+   scanner: QNT: +6.8% in 15 min on 6.4x volume @ 302.012 spread 0.17%
+   scanner: QNT: +8.0% in 15 min on 7.4x volume @ 306.523 spread 0.00%
+   scanner: QNT: +7.7% in 15 min on 8.0x volume @ 304.885 spread 0.05%
+   scanner: QNT: +5.5% in 16 min on 7.7x volume @ 298.429 spread 0.22%
+   dex screen: REJECT CRV@ethereum liq $1,956,025 - is_mintable; top-10 holders 57%
+   dex screen: REJECT ICP@base liq $12,242 - liquidity $12,242 < $100,000; 24h volume $38,587 < $100,000
+   >> dex/dex_hunter: BUY $100.26 of TIBBIR@base:0xA4A2E2 @ 0.325329 (dex tier A momentum 1h +10% 6h -25% buys/sells 76/16 impact 0.00%)
+   dex scanner: 2,999 pools (solana 1,986 / base 601 / ethereum 412), refresh cycle 127s (hot 123s), 2958 calls (126 feed, 429s 0, failed 0), 84,958 refreshed (7971 no pair), +227 added / -228 dropped (dead 10, stale 0, cap 218), movers 7 + warming 20 -> queued 1, screened 2 (passed 0), bought 0
+[2026-09-30 03:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-09-30 03:05 UTC] crypto/mover     equity $461.17 (-7.8%) 1 open  market UP
+[2026-09-30 03:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 03:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-09-30 03:05 UTC] crypto/social_heat equity $556.71 (+11.3%) 0 open  market UP
+[2026-09-30 03:05 UTC] crypto/breakout10 equity $494.61 (-1.1%) 2 open  market UP
+[2026-09-30 03:05 UTC] crypto/momentum  equity $487.55 (-2.5%) 2 open  market UP
+[2026-09-30 03:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-09-30 03:05 UTC] crypto/hold_btc  equity $495.97 (-0.8%) 1 open  market UP
+   social heat top: QNT 42 (37/0/5), PENGU 35 (35/0/0), NEAR 32 (32/0/0), GRASS 29 (29/0/0), PONS 25 (19/0/6)
