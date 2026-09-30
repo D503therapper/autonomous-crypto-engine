@@ -297,6 +297,9 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+HOT_KEY = {}                   # {game id: 'home'/'away'} - that side's goalie (NHL) / stars (NBA) are much hotter
+HOT_W = 0.03                   # (sports_form: the books over-rate a hot key player - NHL 5 of 5 seasons, NBA 3 of 4):
+                               # a pick riding a hot goalie / hot stars goes toward the back of the Lock / parlay line
 SERIES_LOST_W = 0.05           # 9/30: Wild Card Game 1 losers won Game 2 in 7 of 24; playoff favorites that just lost
                                # won 50% (-14%) - weighed in when parlay legs fill (the owner: "the Astros are the
                                # only one going opposite yesterday's result")
@@ -361,6 +364,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
                     "road_opener": side == "away" and home_opener(games, g),
                     "key_edge": (sm.KEY_EDGE[g["id"]] * (1 if side == "home" else -1)) if g["id"] in sm.KEY_EDGE else None,
+                    "hot_key": HOT_KEY.get(g["id"]) == side,
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
                     # display only (the breakdown + the self-check's report-only groups): context facts, pregame talk
                     "ctx": sports_context.display(cx, side), "ctx_tags": sports_context.tags(cx, side),
@@ -618,7 +622,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # day, each season's engine trained on the 3 before it: 58.1% hit, +0.4% vs the old rule's 56.8%, -2.5%
         # (last 3 seasons 55.6% vs 54.7%). A day nothing agrees: the best lock-grade pick, as before.
         agree = [c for c in locks if own_agrees(c)]
-        lock = max(agree or locks, key=lambda c: (c["p"], c["edge"])) if locks else None
+        lock = max(agree or locks, key=lambda c: (c["p"] - (HOT_W if c.get("hot_key") else 0), c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -656,7 +660,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         fill = sorted((c for c in cands if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV
                        and c["p"] >= PARLAY_FILL_MIN_P and not c.get("trap") and not c.get("waiting")
                        and not fighting(c) and (not dog or c["game_id"] != dog["game_id"])),
-                      key=lambda c: (-(c["p"] - (SERIES_LOST_W if c.get("lost_last") and c["odds"] < 0 else 0)),
+                      key=lambda c: (-(c["p"] - (SERIES_LOST_W if c.get("lost_last") and c["odds"] < 0 else 0)
+                                       - (HOT_W if c.get("hot_key") else 0)),
                                      -c["edge"]))                 # a playoff favorite that just lost the last game goes
         for c in fill:                                             # to the back (weighed, never banned - the owner)
             if len(legs) >= n:
@@ -701,6 +706,8 @@ def dog_score(c):
     d = c.get("drift") or 0.0                            # + = the money ran away from this side since the open:
     if c.get("league") in ("nhl", "nfl", "ncaaf", "nba") and d >= 0.02:   # those dogs lost - NFL -40%, college
         sc -= 4                                          # football -9%, NBA -8%, hockey -6% every season (baseball: even)
+    if c.get("hot_key"):                                 # its goalie / stars are much hotter: the books already
+        sc -= 3                                          # over-rate that (NHL 5 of 5 seasons, NBA 3 of 4 - sports_form)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
         k = c.get("key_edge")
@@ -1514,6 +1521,12 @@ def quick(now=None):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']}")
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
+    try:                                                     # 🔥 who's much hotter tonight (sports_form)
+        import sports_form
+        HOT_KEY.clear()
+        HOT_KEY.update(sports_form.hot_sides(games, sp.CACHE, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+    except Exception as e:                                   # noqa: BLE001 - never blocks the board
+        print(f"hot key players failed: {str(e)[:80]}")
     add_breakdowns(games, model, picks)
     had = {p["kind"] for p in picks if p["date"] == day.isoformat()}
     posted = post_board(games, model, picks, now, day)          # replaces any graded play (this pass or earlier)
@@ -1569,7 +1582,13 @@ def run(repick=False, fetch=True):
     else:
         games = sd.load_games()
     sp.CACHE = sp.load()
-    sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)                     # QB / starting pitcher / goalie form per game
+    sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
+    try:                                                     # 🔥 who's much hotter tonight (sports_form)
+        import sports_form
+        HOT_KEY.clear()
+        HOT_KEY.update(sports_form.hot_sides(games, sp.CACHE, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+    except Exception as e:                                   # noqa: BLE001 - never blocks the board
+        print(f"hot key players failed: {str(e)[:80]}")                     # QB / starting pitcher / goalie form per game
     n_players = sum(len(rows) for rows in sp.CACHE.values())
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")

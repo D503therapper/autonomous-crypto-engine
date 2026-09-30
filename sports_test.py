@@ -4803,6 +4803,26 @@ def test_tennis_live_set_correction():
         assert stl.set_fixed(p, "wta", (0, 1)) * (1 + odds / 100) - 1 < 0.03      # no longer a live edge
 
 
+def test_hot_key_player_counts_against_a_pick():
+    """The form study (9/30): the books over-rate a hot key player - the side with the much hotter goalie (NHL, worse
+    than average 5 of 5 seasons) / stars (NBA, 3 of 4) goes toward the back of the Lock / parlay line and the Dog's
+    score. Weighed, never a ban. Last spring's form never carries into a new season."""
+    import sports_form as sf
+    assert sf.hot_side("nhl", 6.0) == "home" and sf.hot_side("nhl", -6.0) == "away" and sf.hot_side("nhl", 3.0) is None
+    assert sf.hot_side("mlb", 50) is None                                     # baseball / QBs: mixed - not used
+    rows = [{"player": "G1", "start": f"2026-01-{d:02d}T00:00Z", "sa": "30", "ga": "3"} for d in range(1, 21)] + \
+           [{"player": "G1", "start": f"2026-01-{d:02d}T00:00Z", "sa": "30", "ga": "0"} for d in range(21, 26)]
+    assert sf.goalie_form(rows, "G1", "2026-01-27T00:00Z") > 5             # a hot run: save % way up
+    assert sf.goalie_form(rows, "G1", "2026-10-07T00:00Z") is None         # last spring's streak: doesn't count
+    box = lambda pts: ("2026-01-01T00:00Z", {"A": (36, pts), "B": (34, 20), "C": (10, 2)})
+    games = [box(20)] * 15 + [(f"2026-01-{d:02d}T00:00Z", {"A": (36, 35), "B": (34, 20), "C": (10, 2)}) for d in range(10, 15)]
+    assert sf.star_form(games, "2026-01-16T00:00Z") > 7 and sf.star_form(games, "2026-03-20T00:00Z") is None
+    c = lambda p, hot: {"p": p, "edge": 0.0, "hot_key": hot}
+    key = lambda c: (c["p"] - (sports.HOT_W if c.get("hot_key") else 0), c["edge"])
+    assert max([c(0.60, True), c(0.585, False)], key=key)["p"] == 0.585     # the Lock: the hot-goalie side goes back
+    assert max([c(0.65, True), c(0.585, False)], key=key)["p"] == 0.65      # ...weighed, not banned
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

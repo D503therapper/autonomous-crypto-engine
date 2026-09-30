@@ -33,6 +33,14 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   have skipped Sonmez and Bondar (both down a set, both lost). Still unproven: first-set bets (no live-price history to
   test them) - watch the tennis live record.
 
+- **Recent form (9/30, every player's box score 2021-now, closing prices, seasons never seen):** team form (last
+  5/10 vs expectations) and win/loss streaks add nothing over the price in any sport. Player form: the books - and the
+  public - OVER-rate a hot key player. The side whose goalie is much hotter (top 20%): worse than an average bet 5 of
+  5 NHL seasons (-12.4% vs -4.0%); NBA stars 3 of 4 (-10.4% vs -5.1%). Backing the COLD side doesn't beat the vig
+  either - it's a caution, not a bet. Built: sports_form (hot goalie / hot stars count against a pick: HOT_W in the
+  Lock and parlay line, -3 on the Dog's score; form older than 3 weeks never counts). Baseball pitchers, QBs, college:
+  mixed - not used. Coaches: no data yet.
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER
