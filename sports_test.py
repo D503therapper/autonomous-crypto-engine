@@ -4908,6 +4908,8 @@ def test_challenge_final_ping():
     assert sent == [("🏆 Patty wins vs the Algorithm!", "There's a new tennis GOAT in town. Patty is him! 🔥")]
     c["patty"][0]["result"], c["algo"][0]["result"] = "lost", "won"
     assert ch.final_words(c) == ("🏆 Algorithm wins vs Patty", "The Algorithm remains the undisputed GOAT 🔥")
+    c["patty"][0]["result"] = "won"                                          # 1-1: a tie - the owner's words
+    assert ch.final_words(c) == ("🤝 Patty tied the Algorithm", "Maybe, and only just maybe, Patty is the Algorithm! 🔥")
 
 
 def test_one_alert_never_rings_twice():
