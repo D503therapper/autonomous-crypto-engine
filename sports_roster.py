@@ -87,21 +87,46 @@ def parse_team(league, gid, start, payload):
     return out
 
 
+RUN_TAG = time.strftime("%Y%m%d-%H%M%S", time.gmtime())   # each run writes its OWN file (9/30: two runs at once
+#                                                           both appended to one file and the save clashed - failed)
+
+
+def _team_files(league):
+    """Every team-stats file for a league: the old single file + one per run (data/sports/teamstats/{league}/)."""
+    out = [os.path.join(TEAM_DIR, f"{league}.jsonl")]
+    d = os.path.join(TEAM_DIR, league)
+    if os.path.isdir(d):
+        out += [os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".jsonl")]
+    return [p for p in out if os.path.exists(p)]
+
+
 def add_team(league, gid, start, stats):
-    """Append one game's team stats to data/sports/teamstats/{league}.jsonl (one line per game)."""
+    """Add one game's team stats (one line) to this run's own file."""
     if not stats:
         return
-    os.makedirs(TEAM_DIR, exist_ok=True)
-    with open(os.path.join(TEAM_DIR, f"{league}.jsonl"), "a") as f:
+    d = os.path.join(TEAM_DIR, league)
+    os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, f"{RUN_TAG}.jsonl"), "a") as f:
         f.write(json.dumps({"gid": gid, "start": start, "teams": stats}, separators=(",", ":")) + "\n")
 
 
+def team_rows(league):
+    """Every stored game's team stats for a league (one per game, oldest file first)."""
+    seen = {}
+    for p in _team_files(league):
+        with open(p) as f:
+            for x in f:
+                if x.strip() and not x.startswith(("<<<<<<<", "=======", ">>>>>>>")):
+                    try:
+                        r = json.loads(x)
+                    except ValueError:
+                        continue
+                    seen.setdefault(r["gid"], r)
+    return list(seen.values())
+
+
 def team_ids(league):
-    p = os.path.join(TEAM_DIR, f"{league}.jsonl")
-    if not os.path.exists(p):
-        return set()
-    with open(p) as f:
-        return {json.loads(x)["gid"] for x in f if x.strip()}
+    return {r["gid"] for r in team_rows(league)}
 
 
 def have_ids(league):

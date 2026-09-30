@@ -4961,8 +4961,15 @@ def test_team_stats_kept_for_the_coaching_study():
     try:
         sr.add_team("nfl", "nfl:1", "2026-09-01T00:00Z", {"12": {"a": "1"}})
         assert sr.team_ids("nfl") == {"nfl:1"} and sr.team_ids("nba") == set()
+        # 9/30: two runs appended to ONE file at once and the save clashed (the job failed, the owner got emails) -
+        # each run now writes its own file; an old file with clash markers still reads
+        assert os.listdir(os.path.join(sr.TEAM_DIR, "nfl")) == [f"{sr.RUN_TAG}.jsonl"]
+        with open(os.path.join(sr.TEAM_DIR, "nfl.jsonl"), "w") as f:
+            f.write('<<<<<<< HEAD\n{"gid": "nfl:2", "start": "x", "teams": {}}\n=======\n>>>>>>> abc\n')
+        assert sr.team_ids("nfl") == {"nfl:1", "nfl:2"}
     finally:
         sr.TEAM_DIR = keep
+    assert "-X theirs" in open(".github/workflows/rosters.yml").read()
 
 
 def test_upset_bounce_and_hangover():
