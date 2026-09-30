@@ -243,7 +243,8 @@ def test_board_rules():
         "game_id"] == "sp", "any line counts - a spread the engine's surer of beats a moneyline"
     filler = [_cand("p", 130, 0.43), _cand("q", -115, 0.52), {**_cand("r", -150, 0.62), "reasons": []}]
     fb = sports.make_board(filler)
-    assert all(fb[k] is None for k in ("lock", "dog", "two", "three", "four")), "nothing real = no picks (leans take over)"
+    assert all(fb[k] is None for k in ("lock", "two", "three", "four")), "nothing real = no Lock / parlays (leans)"
+    assert fb["dog"] and fb["dog"]["legs"][0]["game_id"] == "p"      # 9/30, the owner: a Dog of the Day every day
     slate = [_cand(f"g{i}", -150 + 5 * i, 0.62 - 0.005 * i) for i in range(10)]
     bd = sports.make_board(slate)
     lock_g = bd["lock"]["legs"][0]["game_id"]
@@ -368,7 +369,8 @@ def test_full_cycle_offline():
             sports.datetime = keep_dt
         kinds = {p["kind"] for p in picks}
         assert kinds, "the fake slate has at least one real play"
-        assert all(sports.good(l) for p in picks for l in p["legs"]), "every posted leg is a real play"
+        assert all(sports.good(l) or l.get("by_analysis") for p in picks for l in p["legs"]), \
+        "every posted leg is a real play (or the Dog of the Day the analysis likes best - the owner, 9/30)"
         assert os.path.exists("docs/sports/index.html")
         html = open("docs/sports/index.html").read()
         assert "TRUST THE ALGORITHM" in html and "LOCK OF THE DAY" in html
@@ -4531,6 +4533,33 @@ def test_early_plays_post_without_pings():
     assert se.PINGS is False
     src = open(sports.__file__).read()
     assert "ping=queue.append if sports_early.PINGS else None" in src
+
+
+def test_series_spot_and_a_dog_of_the_day_every_day():
+    """The owner (9/30): 'no dog clearing the bar is bullshit - there's always dogs that win.' When no dog passes the
+    proven bar, the Dog of the Day is the dog the analysis likes best (own read vs price + the 9/30 factors: a playoff
+    favorite that just lost, hockey money moves, goalies). Weighed, never a hard 'can't' (the owner: no rigid rules)."""
+    games = {"g1": {"id": "g1", "league": "mlb", "status": "final", "stype": "3", "start": "2026-09-29T21:00Z",
+                    "home": "H", "away": "A", "home_score": "3", "away_score": "6"},
+             "g2": {"id": "g2", "league": "mlb", "status": "pre", "stype": "3", "start": "2026-09-30T21:00Z",
+                    "home": "H", "away": "A"}}
+    assert sports.lost_last_in_series(games, games["g2"], "home") is True
+    assert sports.lost_last_in_series(games, games["g2"], "away") is False
+    assert sports.lost_last_in_series(games, {**games["g2"], "stype": "2"}, "home") is False       # regular season
+    base = {"market": "ml", "line": None, "home": False, "stype": "3", "reasons": [], "trap": False,
+            "start": "2026-09-30T21:00Z", "drift": 0.0}
+    def dog(gid, team, lg, odds, own, mkt, **kw):
+        d = sd.decimal(odds)
+        return {**base, "league": lg, "game_id": gid, "side": "away", "team": team, "opp": "X", "odds": odds, "dec": d,
+                "p": mkt, "p_market": mkt, "edge": mkt * d - 1, "edge_own": own * d - 1, **kw}
+    wsox = dog("w", "White Sox", "mlb", 122, 0.42, 0.43, opp_lost_last=True)        # facing the desperate favorite
+    pens = dog("p", "Penguins", "nhl", 120, 0.46, 0.44, drift=0.03)                  # the money ran away from them
+    kings = dog("k", "Kings", "nhl", 160, 0.38, 0.37)
+    assert sports.dog_score(wsox) > sports.dog_score(kings) > sports.dog_score(pens)
+    b = sports.make_board([wsox, pens, kings])
+    assert b["dog"] and b["dog"]["legs"][0]["team"] == "White Sox"
+    big = dog("x", "Longshot", "mlb", 450, 0.40, 0.18)                              # past +280: never
+    assert sports.make_board([big, pens])["dog"]["legs"][0]["team"] == "Penguins"
 
 
 if __name__ == "__main__":

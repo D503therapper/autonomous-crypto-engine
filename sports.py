@@ -158,6 +158,25 @@ def _reasons(side, f, g, league, params):
     return [r[1] for r in out[:3]]
 
 
+def lost_last_in_series(games, g, side):
+    """Playoffs: did this side lose the last game of this series (same two teams, the week before)?"""
+    if (g.get("stype") or "") != "3":
+        return False
+    pair = {g["home"], g["away"]}
+    prev = [x for x in games.values() if x.get("league") == g.get("league") and x.get("status") == "final"
+            and {x.get("home"), x.get("away")} == pair and x.get("start", "") < g["start"]
+            and x["start"][:10] >= (datetime.strptime(g["start"][:10], "%Y-%m-%d") - timedelta(days=7)).strftime("%Y-%m-%d")]
+    if not prev:
+        return False
+    last = max(prev, key=lambda x: x["start"])
+    try:
+        hs, as_ = float(last["home_score"]), float(last["away_score"])
+    except (KeyError, ValueError):
+        return False
+    winner = last["home"] if hs > as_ else last["away"]
+    return winner != g[side]
+
+
 def waiting_on(g, injuries):
     """What still isn't known for a game (empty when it's safe to post): a starting pitcher, a key player's status."""
     out = []
@@ -323,6 +342,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
+                    "lost_last": lost_last_in_series(games, g, side),
+                    "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
+                    "key_edge": (sm.KEY_EDGE[g["id"]] * (1 if side == "home" else -1)) if g["id"] in sm.KEY_EDGE else None,
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
                     # display only (the breakdown + the self-check's report-only groups): context facts, pregame talk
                     "ctx": sports_context.display(cx, side), "ctx_tags": sports_context.tags(cx, side),
@@ -594,6 +616,11 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                and c["edge"] >= (dog["edge"] if dog else 0) + BIG_DOG_EXTRA_EDGE]
         if big:
             dog = max(big, key=lambda c: c["edge"])
+        if dog is None and not any(c.get("waiting") for c in cands):   # (once the slate's settled: a proven dog
+            # always gets first shot)  the owner, 9/30: there's a Dog of the Day every day - the dog
+            pool = [c for c in cands if c["market"] == "ml" and DOG_MIN <= c["odds"] <= DOG_DAY_MAX   # the analysis
+                    and not c.get("trap") and not c.get("waiting") and c["game_id"] not in taken]   # likes best
+            dog = {**max(pool, key=dog_score), "by_analysis": True} if pool else None
     board["dog"] = _combo([dog]) if dog else None
 
     def ladder(start, n):
@@ -621,6 +648,32 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
 
 TIERS = ("lean", "value", "lock")
 STRONG_LEAN_P = PLAY_MIN_P                    # 53%+ = STRONG LEAN, under that = SLIGHT LEAN (a lean on the board = 🟡)
+
+
+DOG_DAY_MAX = 280            # the owner: no dog past +280
+
+
+def dog_score(c):
+    """How much the analysis likes a dog (points of win chance over its price, give or take what 9/30's studies found):
+    the engine's own read vs the price, then - playoffs: facing a favorite that just lost the last game of the series
+    (baseball 50% / -14%; NBA / NHL desperate favorites -15% / -19%), or we just lost it; hockey: the money ran away
+    from the dog (lost every season since 2023, -6%) or came in on it (+6% / +15% 2 of 3); the books overprice a
+    better goalie (the dog WITH the better goalie -9% to -12%, the dog facing it +2%)."""
+    own = (c.get("edge_own", c["edge"]) + 1) / c["dec"]
+    sc = (own - (c.get("p_market") or own)) * 100
+    if c.get("opp_lost_last"):
+        sc += 3
+    if c.get("lost_last"):
+        sc -= 3
+    d = c.get("drift") or 0.0                            # + = the money ran away from this side since the open:
+    if c.get("league") in ("nhl", "nfl", "ncaaf", "nba") and d >= 0.02:   # those dogs lost - NFL -40%, college
+        sc -= 4                                          # football -9%, NBA -8%, hockey -6% every season (baseball: even)
+    if c.get("league") == "nhl":
+        sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
+        k = c.get("key_edge")
+        if k is not None:
+            sc += -2 if k >= 0.4 else 1 if k <= -0.4 else 0
+    return sc
 
 
 def own_agrees(c):
