@@ -110,6 +110,8 @@ THE ENGINE'S RULES (explain them when asked)
 - If we posted it, it counts. Every W and every L stays up - we don't hide nothing. Posted picks never change.
 - The engine never posts player props - they're never picks and never in our record. Over/unders only in sports where the
   study proved an edge.
+- Our picks in live games: "our picks right now" has the exact score and what each pick still needs (goals to tie,
+  the swing a spread needs). Use those words as-is - never do that math yourself.
 - Injuries come first: a star who's questionable holds the game; a starter who's out means the engine goes by the book's line.
 - "Every game's read" entries are the engine's lean on games that are NOT our picks - say so if you use one.
 - Tennis: the engine posts its OWN tennis picks every day (men's and women's, straights + a parlay) with their own
@@ -329,6 +331,45 @@ function trim(brain, text) {
   return matched ? { core, extra } : { core: brain, extra: {} };
 }
 
+// Where each of OUR pending picks stands right now, worked out exactly (9/29: the AI read "down 5-4" right, then said
+// the Oilers needed two goals to tie - it does the math, so it never recounts): the live score from the engine's own
+// live board, and what the pick still needs.
+export function standing(leg, sc) {
+  if (!leg || !sc || !leg.side || !["home", "away"].includes(leg.side)) return null;
+  const us = leg.side === "home" ? +sc.h : +sc.a, them = leg.side === "home" ? +sc.a : +sc.h;
+  const m = us - them, unit = leg.league === "nhl" ? "goal" : leg.league === "mlb" ? "run" : "point";
+  const n = (k) => `${k} ${unit}${k === 1 ? "" : "s"}`;
+  const where = m > 0 ? `up ${us}-${them}` : m < 0 ? `down ${us}-${them}` : `tied ${us}-${them}`;
+  const clock = sc.live ? ` (${sc.clock})` : " (final)";
+  let need;
+  if (leg.market === "spread" && leg.line != null) {
+    const L = +leg.line, finish = Math.floor(-L) + 1;          // -1.5 -> win by 2+; +1.5 -> lose by 1 or better
+    const lead = m + L;                                         // > 0 = covering right now
+    if (L < 0) need = lead > 0 ? `covering ${leg.line} right now (needs to finish ahead by ${finish}+)` :
+      `needs to finish ahead by ${finish}+ to cash ${leg.line}: a ${finish - m}-${unit} swing from here` +
+      (m < 0 ? `; ${n(-m)} just ties it` : "");
+    else need = lead > 0 ? `covering ${leg.line > 0 ? "+" : ""}${leg.line} right now` :
+      `needs a ${Math.ceil(-lead)}-${unit} swing to get back inside ${leg.line > 0 ? "+" : ""}${leg.line}`;
+  } else if (leg.market === "ml") {
+    need = m > 0 ? `winning - hold on` : m === 0 ? `tied - needs the win` : `${n(-m)} ties it, ${n(-m + 1)} wins it` +
+      (leg.league === "nhl" || leg.league === "mlb" ? " in regulation (a tie goes to extras)" : "");
+  } else return null;
+  return `${leg.team} ${where}${clock} - ${need}`;
+}
+
+function liveStanding(brain, live) {
+  const sc = (live && live.scores) || {};
+  const out = [];
+  for (const p of brain["board (today + tomorrow)"] || []) {
+    for (const l of p.legs || []) {
+      if (l.result || !l.game_id || !sc[l.game_id]) continue;
+      const s = standing(l, sc[l.game_id]);
+      if (s && !out.includes(s)) out.push(s);
+    }
+  }
+  return out;
+}
+
 function reply(body, status, cors) {
   return new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 }
@@ -393,6 +434,8 @@ export default {
     }
 
     const sheet = trim(brain, [q, ...history.filter((m) => m.role === "user").map((m) => m.content)].join(" \n "));
+    const now = liveStanding(brain, live);                     // our pending picks, exactly where they stand
+    if (now.length) sheet.core["our picks right now (exact - use these words, never recount the score)"] = now;
     const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
     const model = env.MODEL || "claude-haiku-4-5";
     // Haiku (the cheapest) answers straight up; the bigger models get adaptive thinking + the refusal fallback

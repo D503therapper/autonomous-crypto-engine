@@ -3683,6 +3683,18 @@ def test_parlay_legs_must_earn_it():
     assert "we don't force it" in open(sports_lingo.__file__).read()
 
 
+
+def test_question_box_gets_exact_pick_status():
+    """9/29: the question box read 'Oilers down 5-4' right, then said they'd need two goals to tie. Each pick in the
+    data sheet carries its game id + side, and the Worker hands the AI the exact standing (tested in the Worker)."""
+    import sports_dashboard as sdb
+    b = sdb._leg_brain({"team": "Oilers", "league": "nhl", "market": "spread", "line": -1.5, "game_id": "nhl:1",
+                        "side": "home", "odds": -118})
+    assert b["game_id"] == "nhl:1" and b["side"] == "home"
+    js = open("workers/ask/src/index.js").read()
+    assert "export function standing(" in js and "never recount the score" in js
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
