@@ -274,8 +274,8 @@ def record(st):
     return {"won": w, "lost": len(ps) - w, "units": round(units, 2)}
 
 
-LAUNCH = ("🚨 MAJOR ENGINE BREAKTHROUGH",
-          "We found an edge on underdogs: get in early, before the line moves. 🔥 Early Value Plays are live.")
+LAUNCH = ("🚨 MAJOR ENGINE BREAKTHROUGH",                     # the owner's wording, 9/30 (sent once, when he says go)
+          "We found an edge on underdogs. Get in early before the line moves. 🔥")
 
 
 def ping_text(c):
