@@ -129,6 +129,22 @@ def live_days(now_pt):
     return {d.isoformat()} | ({(d - timedelta(days=1)).isoformat()} if now_pt.hour < LIVE_KEEP_HOUR_PT else set())
 
 
+def _live_by_sport(entries):
+    """The live plus money record, one line per sport (the owner, 9/29: see how the engine does in each sport - never
+    one number for all of them). Busiest sport first."""
+    by = {}
+    for e in entries:
+        if e.get("result") in ("won", "lost"):
+            by.setdefault(live_sport_key(e), [0, 0])[e["result"] == "lost"] += 1
+    return ('<div class="hs-by">' + "".join(                 # tap a sport: its live bets open right under it
+        f'<div class="tap" data-hs="📡 {E(k)}"><span>{E(k)}</span><b>{w_}-{l_}</b><i>{w_ / (w_ + l_):.0%}</i><em>▾</em></div>'
+        for k, (w_, l_) in sorted(by.items(), key=lambda kv: -sum(kv[1]))) + "</div>") if by else ""
+
+
+def live_sport_key(e):
+    return f"{_live_icon(e)} {_live_sport(e)}"
+
+
 def _live_icon(e):
     return "🎾" if e.get("league") == "tennis" else sd.LEAGUES.get(e["league"], ("", "", "", "🏟️"))[3]
 
@@ -739,13 +755,13 @@ def _history(picks):
             kind = "conf"
         return later(date, f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}', kind, r, lean, t=t_, o=o_, x=x, **xtra)
 
-    def box(title, items):
+    def box(title, items, head=""):
         if not items:
             return ""
         items = sorted(items, key=lambda x: x[0], reverse=True)
         w, l_ = sum(x[1] == "won" for x in items), sum(x[1] == "lost" for x in items)
-        return (f'<details class="hs"><summary><b>{title}</b><span>{w}-{l_}'
-                f'{f" · {w / (w + l_):.0%}" if w + l_ else ""}</span></summary>{rows(items)}</details>')
+        tot = "by sport ▾" if head else f'{w}-{l_}{f" · {w / (w + l_):.0%}" if w + l_ else ""}'   # (live: never lumped)
+        return (f'<details class="hs"><summary><b>{title}</b><span>{tot}</span></summary>{head}{rows(items)}</details>')
 
     # our record, by sport: every leg we posted (a team we're on in two picks the same day shows once, with both cards)
     legs = {}
@@ -793,6 +809,7 @@ def _history(picks):
            + (f' · went up at {e["score_at_post"]} ({e.get("clock_at_post", "")})' if e.get("score_at_post") else ""),
            rev_live(e))
           for e in live if e.get("result") in ("won", "lost")]
+    lv_keys = [live_sport_key(e) for e in live if e.get("result") in ("won", "lost")]   # (same order as lv)
     tn = {"atp": [], "wta": []}
     seen = set()
     for sl in reversed(_jl(os.path.join(sd.DATA, "tennis", "picks.json"), []) or []):
@@ -819,7 +836,9 @@ def _history(picks):
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
     out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, []))) for lg in sd.LEAGUES)
     # (no parlay record - the owner, 9/28: a parlay's picks each count on their own, in their sport)
-    own = (box("📡 Live plus money", done(lv)) + box("🟡 Leans", done(lean)) + box("🎾 Men's Tennis", done(tn["atp"]))
+    lv_done = done(lv)                                       # the live bets: one box per sport (the grades' live
+    own = ("".join(box(f"📡 {k}", [x for x, kk in zip(lv_done, lv_keys) if kk == k])   # box opens each one by name)
+                   for k in dict.fromkeys(lv_keys)) + box("🟡 Leans", done(lean)) + box("🎾 Men's Tennis", done(tn["atp"]))
            + box("🎾 Women's Tennis", done(tn["wta"])))
     if not out and not own:
         return ""
@@ -1002,9 +1021,15 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      f'{"<div class=own>" + E(owned[pid_of[id(e)]]) + "</div>" if pid_of.get(id(e)) in owned else ""}</div>'
                      for e in lrows) + "</section>")
     # the engine's grades: locks, value, leans and live - each graded on its own, never lumped into one number
-    def grade(name, c1, c2, rows, today_rows, hs=""):
+    def grade(name, c1, c2, rows, today_rows, hs="", by_sport=False):
         w_, l_ = sum(r == "won" for r in rows), sum(r == "lost" for r in rows)
         tap = f' tap" data-hs="{E(hs)}' if hs and w_ + l_ else ""                  # tap: its past games open right here
+        if by_sport is not False:                            # the owner, 9/29: never one lumped-together number -
+            if not by_sport:                                 # line per sport, behind one tap: box -> sports -> bets
+                return (f'<div class="rc gr" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div>'
+                        f'<div class="rc-p" style="margin-top:8px">no results yet</div></div>')
+            return (f'<div class="rc gr rc-wide lvbox" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div>'
+                    f'<div class="rc-p lvt">Tap a sport to see full results ▾</div>{by_sport}</div>')
         return (f'<div class="rc gr{tap}" style="--c1:{c1};--c2:{c2}"><div class="rc-t">{name}</div><div class="rc-r">{w_} won · {l_} lost</div>'
                 f'<div class="rc-p">{f"{w_ / (w_ + l_):.0%}" if w_ + l_ else "no results yet"}</div></div>')
     # every PICK we posted, graded once (a parlay's picks each count on their own - no parlay record, the owner 9/28;
@@ -1077,7 +1102,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                      hs="🎾 Men's Tennis" if t == "atp" else "🎾 Women's Tennis")   # (no parlay
         #                                                        record - the owner, 9/28)
     others = (grade("📡 LIVE PLUS MONEY", "#22d3ee", "#2f8bff", [e["result"] for e in lrs], [e["result"] for e in lrs if e.get("date") == today],
-                    hs="📡 Live plus money")
+                    by_sport=_live_by_sport(lrs))
               + (grade("🟡 OLD LEANS (before 9/29)", "#ffc233", "#e8c77a", [p["status"] for p in leans_], [], hs="🟡 Leans") if leans_ else "")
               + tn_box("🎾 MEN'S TENNIS", "atp") + tn_box("🎾 WOMEN'S TENNIS", "wta"))
     for t, label in (("atp", "men's tennis"), ("wta", "women's tennis")):
@@ -1431,6 +1456,11 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .recs{{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}}
 .rc{{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;overflow:hidden}}
 .rc::before{{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2))}}
+.rc-wide{{grid-column:1/-1}} .rc-wide .hs-by{{margin:8px 0 0}} .lvt{{margin-top:6px}}
+.hs-by{{margin:6px 0 10px;padding:8px 10px;border-radius:10px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25)}}
+.hs-by>div{{display:flex;align-items:baseline;gap:8px;font-size:13px;font-weight:800;color:#fff;padding:3px 0}}
+.hs-by>div>span{{flex:1}} .hs-by>div.tap{{cursor:pointer}} .hs-by em{{font-style:normal;color:#22d3ee;font-size:11px}}
+.hs-by>div.on{{color:#22d3ee}} .hs-by .spx{{display:block;padding:6px 10px;font-size:inherit;overflow:hidden}} .hs-by b{{font-variant-numeric:tabular-nums}} .hs-by i{{font-style:normal;color:#22d3ee;min-width:3.2em;text-align:right}}
 .rc-t{{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--c1)}}
 .rc-r{{font-size:clamp(13px,4vw,15.5px);font-weight:900;color:#fff;margin-top:8px;white-space:nowrap;letter-spacing:-.01em;font-variant-numeric:tabular-nums}}
 .rc-p{{font-weight:800;color:var(--c1);font-size:12.5px;white-space:nowrap;letter-spacing:-.01em}} .rc-s{{font-size:11.5px;color:var(--c2);font-weight:700;margin-top:2px}}

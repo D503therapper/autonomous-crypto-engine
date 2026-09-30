@@ -3933,6 +3933,23 @@ def test_question_box_checked_hourly_and_retries_lean():
     assert "retry lean" in js and "why:" in js and "tonight's live bets we're in" in js and "Date.now() - t0 > 45000" in js
 
 
+def test_live_plus_money_record_is_by_sport_behind_a_tap():
+    """The owner, 9/29: live plus money by sport, never one lumped number, without cluttering the results - the box
+    says 'Tap for full results', then each sport's record, then tap a sport for every bet in it."""
+    import sports_dashboard as D
+    es = [{"league": "nfl", "result": "won"}, {"league": "nfl", "result": "lost"}, {"league": "nfl", "result": "won"},
+          {"league": "tennis", "tour": "wta", "result": "lost"}, {"league": "tennis", "tour": "atp", "result": None}]
+    h = D._live_by_sport(es)
+    assert "🏈 NFL" in h and "<b>2-1</b>" in h and "67%" in h and "Women&#x27;s Tennis" in h and "<b>0-1</b>" in h
+    assert "Men's Tennis" not in h                                   # (still going: not a result yet)
+    assert h.index("NFL") < h.index("Women&#x27;s Tennis")           # busiest sport first
+    assert 'data-hs="📡 🏈 NFL"' in h and 'class="tap"' in h
+    assert D._live_by_sport([]) == ""
+    src = open(D.__file__).read()
+    assert "Tap a sport to see full results" in src and "lvbox" in src and 'box(f"📡 {k}"' in src
+    assert 'grade("📡 LIVE PLUS MONEY"' in src and "by_sport=_live_by_sport(lrs)" in src
+
+
 def test_final_score_calls_the_pick_on_the_spot():
     """The owner, 9/29: tennis showed FINAL but no grade (the official grade waits for the engine run + page rebuild).
     The second a game's final, the card calls it from the final score - HIT / MISS / PUSH, moneyline, spread (win by
