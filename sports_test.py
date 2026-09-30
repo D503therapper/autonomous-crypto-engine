@@ -4842,6 +4842,29 @@ def test_overreaction_angle():
     assert sf.team_states(games, "2026-11-30T20:00Z") == {}                 # stale: nothing
 
 
+def test_live_never_takes_a_playoff_favorite_that_lost_the_last_game():
+    """9/30: the engine grabbed the Astros live (+133, down 4-0 in the 1st) - a playoff favorite that lost the last game
+    of the series (baseball: won 50%, -14%; the owner: "the Astros was a trap"). Live now knows the series too."""
+    L = sports_live
+    keep = (L.live_prob, L.substantial, L.time_left, L.min_p)
+    try:
+        L.live_prob = lambda *a, **k: 0.50
+        L.substantial = lambda *a, **k: True
+        L.time_left = lambda *a, **k: 8.5
+        L.min_p = lambda: 0.40
+        st = {"mlb": {"curve": {"ll": 0.6}, "table": {}}}
+        box = {"period": 1, "total_home_points": 0, "total_away_points": 4, "linescore": [{"home_points": 0, "away_points": 4}]}
+        g = {"id": "mlb:x", "home_name": "Astros", "away_name": "White Sox", "stype": "3"}
+        ev = lambda lost: [p["team"] for p in L.evaluate("mlb", g, box, 133, -160, st, 0.62, 0.62, 0.0, "", 1, True,
+                                                          lost_last=lost)]
+        assert ev(()) == ["Astros"]                          # (the price alone said value)
+        assert ev({"home"}) == []                            # lost the last game of the series as the favorite: no
+        assert ev({"away"}) == ["Astros"]                    # (the other side losing it changes nothing here)
+    finally:
+        L.live_prob, L.substantial, L.time_left, L.min_p = keep
+    assert L.series_lost({"stype": "2"}) == set()            # regular season: no series
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
