@@ -4514,6 +4514,14 @@ def test_new_boxes_never_restyle_the_record_cards():
     assert 'class="gr"' not in open(se.__file__).read()
 
 
+def test_early_plays_post_without_pings():
+    """The owner (9/30): turn off the notifications for early value plays - they still post in the box."""
+    import sports_early as se
+    assert se.PINGS is False
+    src = open(sports.__file__).read()
+    assert "ping=queue.append if sports_early.PINGS else None" in src
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

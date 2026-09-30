@@ -27,6 +27,7 @@ PATH = os.path.join(sd.DATA, "early.json")
 EXAM_PATH = os.path.join(sd.DATA, "early_exam.json")
 PARAMS_PATH = os.path.join(sd.DATA, "early_params.json")   # the engine retrained on recent seasons (a week's cache)
 ON = True                               # the owner OK'd it 9/30 (the box, the game-day box, the ping)
+PINGS = False                           # the owner, 9/30: no phone pings for early plays - they just post in the box
 LEARN_Y = 3                             # the engine for these learns on the last 3 seasons only: the owner's call
                                         # (9/30: "the sports have changed"), and the exam agreed - NBA and college
                                         # football only pass it learning recent, the NFL passes both ways
