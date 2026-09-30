@@ -4860,8 +4860,10 @@ def test_live_never_takes_a_playoff_favorite_that_lost_the_last_game():
         ev = lambda lost: [p["team"] for p in L.evaluate("mlb", g, box, 133, -160, st, 0.62, 0.62, 0.0, "", 1, True,
                                                           lost_last=lost)]
         assert ev(()) == ["Astros"]                          # (the price alone said value)
-        assert ev({"home"}) == []                            # lost the last game of the series as the favorite: no
+        assert ev({"home"}) == []                            # lost the last game as the favorite: 8 points off - no value left
         assert ev({"away"}) == ["Astros"]                    # (the other side losing it changes nothing here)
+        L.live_prob = lambda *a, **k: 0.62                   # a real mispriced spot: still value after the knock -
+        assert ev({"home"}) == ["Astros"]                    # weighed, not banned (the owner: no rigid rules)
     finally:
         L.live_prob, L.substantial, L.time_left, L.min_p = keep
     assert L.series_lost({"stype": "2"}) == set()            # regular season: no series

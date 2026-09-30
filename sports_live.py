@@ -458,9 +458,10 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
         if not up and blind:
             continue                                         # late in a football game and we can't see who has the ball
-        if not up and league == "mlb" and side in lost_last and (pre_market_p >= 0.5) == (side == "home"):
-            continue       # 9/30 (the Astros, +133 down 4-0): a playoff FAVORITE that lost the last game of the series -
-            #                baseball won 50%, -14% (the board's study). The live price on them is a trap, not value.
+        if league == "mlb" and side in lost_last and (pre_market_p >= 0.5) == (side == "home"):
+            p -= SERIES_LOST_LIVE   # 9/30 (the Astros, +133 down 1-0 in the 1st): a playoff FAVORITE that lost the last game of
+            edge = p * sd.decimal(ml) - 1   # the series won ~8-10 points under its price (the board's study) - weighed,
+            #                                 not banned (the owner: no rigid rules): what's left has to still be value
         if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else min_p()) \
                 or (up and ml > STAY_MAX_ODDS) or (not up and ml > LIVE_MAX_ODDS):
             continue                                         # plus money, real value, a real chance
@@ -751,6 +752,7 @@ def board(plays, showing=()):
     return sorted(plays, key=lambda x: (x["id"] not in showing, -x["edge"]))[:MAX_PLAYS]
 
 
+SERIES_LOST_LIVE = 0.08       # the live knock on that spot (baseball: favorites that lost the last game, 50% vs ~58-60%)
 _SERIES = {"at": 0.0, "games": {}}
 
 
