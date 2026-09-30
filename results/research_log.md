@@ -44,6 +44,13 @@ RESULT (67 entries with buyers: 58 Base 07-08..08-21 + 9 Solana from the last da
 DECISION: nothing to change in dex.py. Smart money cannot be backfilled for free on Solana (our main runner chain), so the only
 honest test is forward. Probe/collector left as a tool; the 95-min workflow re-runs only on edits to its two files.
 
+## Hourly check fixes
+- 2026-09-30 09:40 UTC: the engine's 09:05 hourly save never reached GitHub (one pull + push attempt; other sessions push
+  every minute; a dirty tracked file also blocks a plain rebase). The end-of-run save of the run my fix push replaced
+  failed the same way, so ~1.5 h of DEX paper trades were lost (08:05 -> 09:44: ASTEROID sold, BOTIFY and SI bought;
+  that run showed $974.14, the restored 08:05 state $1,004.22). Fix (e973fb9): git_sync and the end-of-run commit retry
+  5x with --autostash and abort failed rebases; tested against a racing bare remote.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|
