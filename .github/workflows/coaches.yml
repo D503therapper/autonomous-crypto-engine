@@ -26,4 +26,4 @@ jobs:
           git config user.email "paper-trader-bot@users.noreply.github.com"
           git add data/sports/coaches.json data/sports/coaches_probe.json data/sports/coach_changes_raw.json 2>/dev/null || true
           git commit -qm "coaches $(date -u '+%F %H:%M') UTC" || exit 0
-          for i in 1 2 3 4 5; do git pull --rebase -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 7; done
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; git rebase --abort 2>/dev/null; sleep 7; done
