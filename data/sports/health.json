@@ -1,18 +1,14 @@
 {
- "at": "2026-09-30T15:49Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-09-29 Anna Bondar) - started sports.yml",
-  "studies overdue (11h) - started sports_studies.yml",
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-09-30T16:34Z",
+ "fixes": [],
  "problems": [
+  "live tennis scores: tennis Ercan vs Jeanjean: no points for 2660s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
-  "studies last ran 11h ago - restarted",
-  "simulator last ran 10h ago - restarted"
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (61s)",
+  "live watcher fresh (32s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 7 of today's games named, priced and looked at",
@@ -22,9 +18,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "tennis slate on time"
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-09-30T16:34Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ercan vs Jeanjean: no points for 2660s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-09-30T15:49Z",
    "fixes": [
