@@ -9,6 +9,7 @@ on:
       market: { description: "check / h2h / spreads", default: "check" }
       sports: { description: "blank = both, or americanfootball_nfl / americanfootball_ncaaf", default: "" }
       guard: { description: "stop with this many credits left", default: "2500" }
+      newest_first: { description: "1 = latest seasons first", default: "" }
 permissions:
   contents: write
 concurrency:
@@ -30,6 +31,7 @@ jobs:
           MARKET: ${{ inputs.market }}
           SPORTS: ${{ inputs.sports }}
           GUARD: ${{ inputs.guard }}
+          NEWEST_FIRST: ${{ inputs.newest_first }}
       - if: always()
         run: |
           git config user.name "paper-trader-bot"

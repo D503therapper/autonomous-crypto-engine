@@ -112,6 +112,8 @@ def main():
                 for x in f:
                     have.add(json.loads(x).get("want"))
         todo = [s for s in snaps(sport, today, plan) if s not in have]
+        if os.environ.get("NEWEST_FIRST"):
+            todo.reverse()                                   # (few credits left: the latest seasons first)
         print(f"{sport}: {len(todo)} snapshots to pull ({len(have)} already saved)", flush=True)
         for i, s in enumerate(todo):
             if time.time() > budget_end:
