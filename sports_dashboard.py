@@ -281,6 +281,24 @@ def units_box(picks, today=None):
             f'{out}</div>')
 
 
+def day_calls(picks, today):
+    """The day's PICKS, each once (a parlay's picks count on their own; a pick on two cards once) -> ({key: result},
+    anything still to grade?). The brain's day line and 📊 TODAY'S RESULTS both use it (the owner, 10/1: 3-2, not 1-4)."""
+    import sports
+    calls, pending = {}, False
+    for p in picks:
+        if p["date"] != today or p["kind"] == "eight" or not sports.in_record(p):
+            continue
+        for l in p.get("legs") or []:
+            r = l.get("result") or (p.get("status") if len(p["legs"]) == 1 else None)
+            key = (l.get("game_id"), l.get("side"), l.get("market"))
+            if r in ("won", "lost"):
+                calls[key] = r
+            elif r not in ("push", "void") and key not in calls:
+                pending = True
+    return calls, pending
+
+
 def day_recap(picks, today=None, early=None, now=None):
     """📊 The day's units, up top once every pick with units that day is graded (the owner, 10/1: 'after the last
     game of the day' - never a half-day number), gone at midnight Pacific. The bankroll's own plays only: the Lock, the
@@ -291,12 +309,13 @@ def day_recap(picks, today=None, early=None, now=None):
     today = today or now.strftime("%Y-%m-%d")
     early = sports_early.load().get("picks") or [] if early is None else early
     rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[0]["date"] == today]
-    if not rows or sports.day_pending(picks, early, today):
-        return ""
+    calls, pending = day_calls(picks, today)
+    if not rows or pending or sports.day_pending(picks, early, today):
+        return ""                                            # (every pick in - leans too - never a half-day number)
     bet, net = sum(r[1] for r in rows), sum(r[2] for r in rows)
-    w = sum(1 for r in rows if r[2] > 0)
-    l = sum(1 for r in rows if r[2] < 0)
-    pu = sum(1 for r in rows if r[2] == 0)
+    w = sum(r == "won" for r in calls.values())              # the record: every pick (the owner, 10/1: we went 3-2 -
+    l = sum(r == "lost" for r in calls.values())             # leans count in our record; the units are the plays with
+    pu = 0                                                   # units only, leans carry none)
     midnight = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=sports.PT) + timedelta(days=1)
     rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
     return (f'<div class="dayr {"up" if net >= 0 else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
@@ -1454,17 +1473,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
             lines += [n["text"] for n in json.load(f) if n.get("date") == today and not n.get("live")]
     except (OSError, ValueError, KeyError):
         pass
-    calls_, open_ = {}, False                                 # the day's PICKS, each once (the owner, 10/1: "we won
-    for p in picks:                                           # three and lost two" - a parlay's picks count on their own,
-        if p["date"] != today or p["kind"] == "eight" or not sports.in_record(p):   # never the parlay card as an L)
-            continue
-        for l in p.get("legs") or []:
-            r = l.get("result") or (p.get("status") if len(p["legs"]) == 1 else None)
-            key = (l.get("game_id"), l.get("side"), l.get("market"))
-            if r in ("won", "lost"):
-                calls_[key] = r
-            elif r not in ("push", "void") and key not in calls_:
-                open_ = True
+    calls_, open_ = day_calls(picks, today)                  # the day's PICKS, each once (the owner, 10/1: "we won
+    #                                                          three and lost two" - never the parlay cards as L's)
     w_, l_ = sum(r == "won" for r in calls_.values()), sum(r == "lost" for r in calls_.values())
     graded = [p for p in done if p["date"] == today and p["kind"] != "eight"]           # (the cards: the big-hit lines)
     live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())

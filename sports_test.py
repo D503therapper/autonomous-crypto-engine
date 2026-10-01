@@ -5348,7 +5348,17 @@ def test_nutshell_counts_picks_not_cards():
     once, a parlay's picks on their own (the record's rule)."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     nut = src[src.index("# the brain, in a nutshell"):src.index("live_today = any(")]
-    assert "calls_[key] = r" in nut and 'p["status"] == "won" for p in graded' not in nut
+    assert "day_calls(picks, today)" in nut and 'p["status"] == "won" for p in graded' not in nut
+    import sports_dashboard as D
+    leg = lambda t, r, tier="lock": {"team": t, "game_id": t, "side": "home", "market": "ml", "result": r, "tier": tier}
+    day = [{"date": "2026-09-30", "kind": "lock", "status": "won", "legs": [leg("Yankees", "won")]},
+           {"date": "2026-09-30", "kind": "dog", "status": "lost", "legs": [leg("Kings", "lost")]},
+           {"date": "2026-09-30", "kind": "four", "status": "lost", "legs": [leg("Yankees", "won"), leg("Flyers", "lost"),
+                                                                              leg("Padres", "won", "lean"), leg("Maple Leafs", "won", "lean")]}]
+    calls, pending = D.day_calls(day, "2026-09-30")
+    assert sorted(calls.values()).count("won") == 3 and list(calls.values()).count("lost") == 2 and not pending
+    day[2]["legs"][2]["result"] = None
+    assert D.day_calls(day, "2026-09-30")[1]                                # the Padres still going: not done
 
 
 def test_team_name_match_is_not_loose():
