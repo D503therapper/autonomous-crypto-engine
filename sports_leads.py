@@ -16,6 +16,19 @@ def tags(c, sports):
     """The leads firing on one candidate side (moneylines)."""
     if c.get("market") != "ml":
         return []
+    try:                                                     # the sharp-money signals, any side (the owner, 10/1: "the
+        import sports_breakdown                              # smart money looks to be on the Browns - track it")
+        sp_ = sports_breakdown.public_split(c)
+    except Exception:                                        # noqa: BLE001
+        sp_ = None
+    sharp = []
+    if sp_ and sp_[0] is not None and sp_[1] is not None:
+        if sp_[1] - sp_[0] >= 10:
+            sharp.append("money 10+ over tickets")
+        if sp_[0] >= 70:
+            sharp.append("70%+ of tickets")
+        if sp_[0] < 50 and (c.get("drift") or 0) <= -0.02:
+            sharp.append("reverse line move to it")
     t, lg, mo = [], c.get("league"), c.get("dog_more") or {}
     dog = c.get("odds", 0) >= 100
     if dog:
@@ -39,6 +52,11 @@ def tags(c, sports):
             t.append(".700 college dog")
         if (mo.get("win_streak") or 0) >= 3 and lg == "nfl":
             t.append("NFL dog 3+ win streak")
+        try:
+            if sports.sharp_dog(c):
+                t.append("sharp dog: line to it + money over tickets")
+        except Exception:                                    # noqa: BLE001
+            pass
         if c.get("west_trip_dog"):
             t.append("East home dog vs West favorite (fade)")
         if c.get("key_out_me") and lg in ("nfl", "ncaaf"):
@@ -57,7 +75,7 @@ def tags(c, sports):
             t.append("West Coast road fav in the East")
         if any("12+ innings" in r for r in c.get("reasons") or []):
             t.append("MLB scoring-drought fav")
-    return t
+    return t + sharp
 
 
 def load():

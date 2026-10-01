@@ -274,6 +274,14 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   - DATA: MLB sp_home / sp_away hold the ACTUAL starter (overwritten after the game) - pitcher angles must wait for the
     confirmed starter or they leak.
 
+- **Sharp money (10/1, Action Network splits, 24,301 games 2023-26, at the close; 237 cuts):** money-over-tickets
+  (on or fade, dogs or favorites, 10 or 20 pts), reverse line moves, "pros vs joes", 70%+ public favorites - all dead
+  (the close already has the money in it; the splits are the final kickoff snapshot, so they can't be bet earlier).
+  LEAD only: NHL dogs the line moved TO (2+ pts) against the tickets with money 10+ over tickets: +14.3% on 190, beat
+  the close by 8 pts, 2 of 2 seasons - WIRED +1 on the dog score (sharp_dog). Every sharp signal is in the lead tracker.
+  Steelers-Browns 10/1: money over tickets AND the line move were both on Pittsburgh - the "smart money on the Browns"
+  line from a betting site didn't match the numbers.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a

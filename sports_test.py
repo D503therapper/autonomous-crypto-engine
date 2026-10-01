@@ -6110,6 +6110,26 @@ def test_lead_tracker():
     assert sports_ats.ATS_CAP == 0.015 and sports_ats.ATS_SHRINK == 0.5
 
 
+def test_sharp_money_lead():
+    """10/1, the owner: "the smart money looks to be on the Browns - dig into it." The study (24,301 games): every
+    "sharp" cut was dead except NHL dogs the line moved to against the tickets with the money over the tickets (+14.3%
+    on 190) - a +1 lead weight; every sharp signal goes in the lead tracker."""
+    import sports_breakdown as sb
+    keep = sb.public_split
+    try:
+        sb.public_split = lambda leg: (40, 55)
+        dog = {**_cand("g", 130, 0.43, league="nhl"), "drift": -0.03, "dog_ctx": {}}
+        assert sports.sharp_dog(dog) and sports.dog_spots(dog) == 1
+        assert not sports.sharp_dog({**dog, "drift": 0.0})
+        sb.public_split = lambda leg: (40, 45)
+        assert not sports.sharp_dog(dog)
+        import sports_leads
+        sb.public_split = lambda leg: (75, 90)
+        assert "money 10+ over tickets" in sports_leads.tags({**_cand("f", -140, 0.58, league="nfl")}, sports)
+    finally:
+        sb.public_split = keep
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

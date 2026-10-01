@@ -994,6 +994,21 @@ def _dog_ctx(lg, me, them):
     return out
 
 
+def sharp_dog(c):
+    """The pros-not-joes dog: the line moved to it 2+ no-vig points since the open while it has under half the tickets,
+    and its share of the money is 10+ points over its share of the tickets (the real splits)."""
+    if c.get("market") != "ml" or (c.get("drift") or 0.0) > -0.02 or not c.get("game_id"):
+        return False
+    try:
+        import sports_breakdown
+        sp_ = sports_breakdown.public_split(c)
+    except Exception:                                        # noqa: BLE001
+        return False
+    if not sp_ or sp_[0] is None or sp_[1] is None:
+        return False
+    return sp_[0] < 50 and sp_[1] - sp_[0] >= 10
+
+
 def dog_spots(c):
     """Points the 10/1 dog studies add to the Dog's score (every one vs all dogs at the same price, steady season to
     season and again on 2024-26). See sports_form.dog_states."""
@@ -1039,6 +1054,10 @@ def dog_spots(c):
         #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
     if mo.get("mnf"):
         sc += 2                    # a Monday night NFL dog: +21.4% on 119 (5 of 6), the engine agreeing +20.7%
+    if lg == "nhl" and sharp_dog(c):
+        sc += 1                    # an NHL dog the line moved TO (2+ pts) against the tickets, with 10+ pts more of the
+        #                            money than the tickets: +14.3% on 190, beat the close by 8 pts, 2 of 2 seasons (10/1
+        #                            sharp-money study - a LEAD; every other "sharp" cut was dead across 24,301 games)
     if c.get("west_trip_dog"):
         sc -= 2                    # the Eastern home dog vs a West Coast favorite: -23.5% (10/1 study)
     if lg in ("nfl", "ncaaf") and c.get("key_out_me"):
