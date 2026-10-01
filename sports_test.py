@@ -3403,7 +3403,10 @@ def test_why_line_is_a_real_line_not_a_tag():
     b = say({**base, "reasons": ["hotter recent form"]}, n_hot=4, rec_u="93-68")
     assert "4 straight" in b or "heater" in b.lower() or "cooking" in b
     c = say({**base, "reasons": ["opponent missing key players"], "opp_outs": ["Lukas Cormier (D)"]})
-    assert "defenseman Lukas Cormier" in c and "(D)" not in c
+    assert "Lukas Cormier" not in c and "(D)" not in c   # (10/1, the owner: a depth D is never sold as our edge)
+    c2 = v24.why_line({**base, "reasons": ["opponent missing key players"]}, v24.Voice("s2", set()), g, "Yankees",
+                      "Red Sox", "the Yankees", "the Red Sox", key_them=[("Garrett Crochet", "SP", "Out")], key_us=[])
+    assert "Garrett Crochet" in c2                     # a KEY player out is named
     d = say({**base, "reasons": []})
     assert "58%" in d
     v = v24.Voice("board", set())                                       # never the same wording twice on a board
