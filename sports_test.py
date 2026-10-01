@@ -6872,6 +6872,18 @@ def test_pick_rules_audit_10_1():
     assert "if room <= 0:" in esrc
 
 
+def test_position_words_by_sport():
+    """The owner, 10/1: 'the Browns are playing without the goalie?' - a football G is a guard (Teven Jenkins). The
+    position letter becomes a word by the SPORT: hockey G = goalie, football / hoops G = guard."""
+    import sports_breakdown_v24 as v24
+    assert v24._posname("G", "nfl") == "guard" and v24._posname("G", "ncaaf") == "guard"
+    assert v24._posname("G", "nhl") == "goalie" and v24._posname("G", "nba") == "guard"
+    assert v24._posname("C", "mlb") == "catcher" and v24._posname("D", "nhl") == "defenseman"
+    assert v24._posname("QB", "nfl") == "quarterback"
+    src = open(v24.__file__).read()
+    assert "_posname(key_them[0][1])" not in src and "_posname(m.group(2))" not in src
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
