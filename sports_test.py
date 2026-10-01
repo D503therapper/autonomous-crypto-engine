@@ -6866,6 +6866,29 @@ def test_college_football_stays_on():
         ss._load = keep
 
 
+def test_pick_rules_audit_10_1():
+    """10/1 pick-rules audit: (1) a one-game day's Dog must pass the money check, or it stays the game's pick (it got
+    0u, was pulled, and left a Monday / Thursday game with no pick); (2) the backup Lock is never past +125; (3) an early
+    play's 3-day window holds on every path (the Jaguars went up 95h after its fair number); (4) the early read over
+    the price is capped like the game-day dog score (big reads are traps); (5) never past 2 early plays a week."""
+    src = open(sports.__file__).read()
+    assert 'dog_score(solo) > 0 and beats_price(solo)' in src
+    assert 'MAX_FAV <= c["odds"] <= PLUS_LOCK_MAX and c.get("edge_own") is not None' in src
+    plus = {"market": "ml", "odds": 150, "dec": 2.5, "edge_own": 0.6 * 2.5 - 1, "reasons": ["r"], "league": "mlb",
+            "p": 0.45, "p_market": 0.4}
+    keep = sports.fighting
+    sports.fighting = lambda c: False
+    try:
+        assert sports.backup_lock([plus]) is None
+    finally:
+        sports.fighting = keep
+    import sports_early as se
+    esrc = open(se.__file__).read()
+    assert "if r and now > r + timedelta(hours=SPOT_WINDOW_H):\n" in esrc
+    assert 'gap = 0.0 if lg in ("nfl", "nba") else sports_own_cap() / 100' in esrc
+    assert "if room <= 0:" in esrc
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

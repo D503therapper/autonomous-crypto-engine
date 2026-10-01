@@ -354,10 +354,16 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                 return None
             o = sm.own_p(p_, {**f, "inj": 0.0, "key": 0.0, "weather": 0.0, "cold": 0.0})   # Tuesday-known only
             return o if side == "home" else 1 - o
+        ws_ = week_start(now)
+        room = SPOT_MAX_WEEK - sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted")
+                                   and _t(p["posted"]) >= ws_)
         for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have) + \
                 min_one(games, st, now, injuries, own_of, have):
             if c["game_id"] in have:
                 continue
+            if room <= 0:
+                break                                        # (10/1 audit: never past 2 a week, both paths together)
+            room -= 1
             c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
             st["picks"].append(c)
             have.add(c["game_id"])
@@ -655,8 +661,9 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
         r = ready(sched, g)
         if r and now < r:
             continue                                         # last week's games aren't over: not a fair price yet
-        if r and now > r + timedelta(hours=SPOT_WINDOW_H) and not any_dog:
-            continue                                         # the early number's gone - late is not early (10/1)
+        if r and now > r + timedelta(hours=SPOT_WINDOW_H):
+            continue                                         # the early number's gone - late is not early (10/1; the
+            #                                                  audit: the backup path skipped this - the Jaguars, 95h)
         oh, oa = _int(g.get("ml_home")), _int(g.get("ml_away"))
         if oh is None or oa is None:
             continue
@@ -733,7 +740,10 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
                 continue                                     # no engine read, or the engine's read is fighting it
             fades = _fades(sched, g, side, lg, et)
             extra = lead_weights(games, g, side, other, lg, own, mk) if dog else 0.0
-            total = round((own - mk) + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades) + extra, 4)
+            gap = own - mk                                   # (10/1 audit) the engine's read over the price, capped like
+            if gap * 100 > sports_own_cap():                 # the game-day dog score: big reads are traps - 12 pts at
+                gap = 0.0 if lg in ("nfl", "nba") else sports_own_cap() / 100   # most, none past 12 in the NFL
+            total = round(gap + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades) + extra, 4)
             if total < (0.0 if any_dog else SPOT_MIN_TOTAL):
                 continue                                     # everything weighed together doesn't say value
             main = max(hit, key=lambda h: SPOTS[h][1])
@@ -747,6 +757,11 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
         sides.setdefault(c["game_id"], set()).add(c["side"])
     return [c for c in out if len(sides[c["game_id"]]) == 1]   # both sides of one game hit (the engine likes one,
     #                                                             the money hammered the other): they cancel - no play
+
+
+def sports_own_cap():
+    import sports
+    return sports.OWN_CAP
 
 
 LEAD_W = {"win_pct": 0.015, "neutral": 0.015, "win_streak": 0.01, "go4": 0.01, "style": -0.02, "rain": 0.015}
