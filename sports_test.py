@@ -5043,21 +5043,47 @@ def test_his_flowers_said_right():
 
 
 def test_coaching_study_weights():
-    """Coaching study round 1 (9/30): an NFL dog with a 10+ year head coach +3 on the Dog's score (+10.6%, 7 of 8
-    seasons); a NEW coach's team as a favorite (NBA / college hoops) moves back the Lock / parlay line."""
+    """Coaching study round 1 (9/30) was measured on ESPN's per-season coach list - which turned out to be bad history
+    (10/1: today's coach repeated back through every season in the NFL / NHL / MLB / college football, partly wrong in
+    the NBA / college hoops). Both weights are OFF until re-tested on real history: no pick moves on them."""
     import sports_coaches as co
+    assert co.VET_DOG == {} and co.NEW_FAV == ()
     base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "nfl", "market": "ml"}
-    assert sports.dog_score({**base, "coach": (12, False)}) == sports.dog_score(base) + 3
-    assert sports.dog_score({**base, "coach": (4, False)}) == sports.dog_score(base)
-    assert sports.coach_w({"league": "nba", "odds": -150, "coach": (3, True)}) == -sports.HOT_W
-    assert sports.coach_w({"league": "nba", "odds": 150, "coach": (3, True)}) == 0          # (a dog: no effect found)
-    assert sports.coach_w({"league": "nfl", "odds": -150, "coach": (3, True)}) == 0
+    assert sports.dog_score({**base, "coach": (12, False)}) == sports.dog_score(base)
+    assert sports.coach_w({"league": "nba", "odds": -150, "coach": (3, True)}) == 0
     path = os.path.join(tempfile.mkdtemp(), "c.json")
     json.dump({"nba": {"2026": {"1": [{"id": "9", "exp": 1}]}, "2025": {"1": [{"id": "7", "exp": 8}]}},
                "nfl": {"2026": {"5": [{"id": "3", "exp": 12}]}, "2025": {"5": [{"id": "3", "exp": 11}]}}}, open(path, "w"))
     st = co.states("2025-11-01T00:00Z", path)                              # NBA 2025-26 = ESPN's 2026
     assert st[("nba", "1")] == (1, True)
     assert co.states("2026-10-05T00:00Z", path)[("nfl", "5")] == (12, False)
+
+
+def test_first_time_head_coach_dog():
+    """10/1, the owner's Belichick-at-UNC point: a FIRST-TIME head coach's first season, his team a +200 or bigger
+    college football dog: -40% (+200..+399) / -72% (+400+) vs -7% / -26% for every such dog, every full season 2022-25.
+    -4 on the Dog's score. A coach who's run a program before (Belichick) is NOT a first-timer."""
+    import sports_coach_changes as scc
+    base = {"odds": 250, "dec": 3.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.28, "league": "ncaaf", "market": "ml"}
+    assert sports.dog_score({**base, "first_timer": True}) == sports.dog_score(base) - 4
+    assert sports.dog_score({**base, "odds": 150, "first_timer": True}) == sports.dog_score({**base, "odds": 150})
+    assert sports.dog_score({**base, "league": "nfl", "first_timer": True}) == sports.dog_score({**base, "league": "nfl"})
+    row = lambda team, out, date, why, rep, prev: f"| [[{team}]] || [[{out}]] || {date} || {why} || [[{rep}]] || {prev}"
+    tb = "{|class=\"wikitable\"\n|-\n! School\n! Outgoing coach\n! Date\n! Reason\n! Replacement\n! Previous position\n" + \
+         "\n|-\n".join(["|-", row("North Carolina", "Freddie Kitchens (interim)", "December 11, 2024", "Permanent replacement",
+                                   "Bill Belichick", "[[New England Patriots]] head coach"),
+                         row("Ole Miss", "Lane Kiffin", "November 30, 2025", "Hired by LSU", "Pete Golding",
+                             "Ole Miss defensive coordinator"),
+                         row("Fresno State", "Tim Skipper (interim)", "December 4, 2024", "Permanent replacement",
+                             "Matt Entz", "USC associate head coach")]) + "\n|}"
+    raw = {"ncaaf:2024": {"sections": [tb]}}
+    h = {r["coach"]: r for r in scc.hires(raw)}
+    assert h["Bill Belichick"]["first_time"] is False and h["Bill Belichick"]["season"] == 2025
+    assert h["Pete Golding"]["first_time"] is True and h["Pete Golding"]["season"] == 2026
+    assert h["Matt Entz"]["first_time"] is True                             # 'associate head coach' isn't head coach
+    games = {"ncaaf:1": {"league": "ncaaf", "home": "145", "home_name": "Ole Miss", "away": "153",
+                         "away_name": "North Carolina", "start": "2026-09-05T17:00Z"}}
+    assert scc.first_timers(games, "2026-10-01T12:00Z", raw) == {("ncaaf", "145")}
 
 
 def test_coach_changes_sections():

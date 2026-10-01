@@ -194,6 +194,90 @@ def parse(games, raw=None):
     return sorted(keep, key=lambda r: (r["league"], r["date"]))
 
 
+# NEW HEAD COACHES (10/1, the owner's Belichick-at-UNC point - every college football hire with its "Previous
+# position" on Wikipedia's season pages (2022-26 seasons; older pages don't list it, so a vet like Mack Brown would
+# read as a first-timer - left out), closing prices, the coach's FIRST season): a FIRST-TIME head coach's team as a
+# +200 or bigger dog: +200..+399 -40.0% (56) vs -6.7% for every such dog, +400 and up -71.7% (81) vs -26.3% - worse
+# every full season 2022-25. They get overmatched. (+100..+199: fine, +7.9%.) A coach who's run a program before:
+# about even (dogs +3.1%). NFL looks the other way (retreads -14.4% as dogs) but only 21 hires - not used.
+FIRST_TIMER_DOG = {"ncaaf": 200}
+PREV_HEAD = re.compile(r"head coach", re.I)
+NOT_HEAD = re.compile(r"(associate|assistant|interim|co-)\s*head", re.I)
+
+
+def _cells(row):
+    return [_clean(c).strip() for c in re.split(r"\|\||\n\||\n!|!!", row.strip().lstrip("|"))]
+
+
+def hires(raw=None, leagues=("ncaaf",)):
+    """Every permanent head-coach hire: [{league, team (its name), season (the coach's first), coach, first_time}]."""
+    if raw is None:
+        with open(RAW) as f:
+            raw = json.load(f)
+    rows = []
+    for key, v in sorted(raw.items()):
+        lg, page = key.split(":")[0], int(key.split(":")[1])
+        for sec in v.get("sections") or []:
+            for tb in re.findall(r"\{\|.*?\n\|\}", sec, re.S):
+                hdr = [_clean(h).strip().lower() for h in re.findall(r"^!\s*(?:[^|\n]*\|)?\s*([^\n]+)$", tb, re.M)]
+                rep = [i for i, h in enumerate(hdr) if ("replacement" in h and "interim" not in h) or "incoming coach" in h]
+                if not rep or "position" in hdr or any("gm" in h or "general manager" in h for h in hdr):
+                    continue
+                prev = next((i for i, h in enumerate(hdr) if "previous" in h), None)
+                date = next((i for i, h in enumerate(hdr) if h == "date"), None)
+                for r in tb.split("\n|-")[1:]:
+                    c = _cells(r)
+                    if len(c) <= rep[0] or not c[0] or c[0].startswith("!"):
+                        continue
+                    rows.append((lg, page, c, rep[0], prev, date))
+    left = {}                                            # coach -> the first page he LEFT a (non-interim) head job on
+    for lg, page, c, ri, pi, di in rows:
+        if len(c) > 1 and "interim" not in c[1].lower():
+            nm = re.sub(r"\s*\(.*?\)", "", c[1]).strip()
+            left[nm] = min(left.get(nm, page), page)
+    out, seen = [], set()
+    for lg, page, c, ri, pi, di in rows:
+        if lg not in leagues:
+            continue
+        rep = c[ri]
+        if not rep or ("interim" in rep.lower() and "permanent" not in rep.lower()):
+            continue
+        coach = re.sub(r"\s*\(.*", "", rep).strip()
+        m = DATE.search(c[di]) if di is not None and di < len(c) else None
+        season = page + 1
+        if m and m.group(3):
+            season = int(m.group(3)) + (1 if MONTHS[m.group(1)] >= 8 else 0)
+        prev = c[pi] if pi is not None and pi < len(c) else ""
+        been = (bool(PREV_HEAD.search(prev)) and not NOT_HEAD.search(prev)) or left.get(coach, 9999) <= page
+        team = re.sub(r"\s*\(.*?\)", "", c[0]).strip()
+        if (lg, team, season) not in seen:
+            seen.add((lg, team, season))
+            out.append({"league": lg, "team": team, "season": season, "coach": coach, "first_time": not been})
+    return out
+
+
+def _norm(n):
+    return re.sub(r"\bState\b", "St", re.sub(r"\bCentral\b", "C", n)).replace(".", "").strip()
+
+
+def first_timers(games, now_iso, raw=None):
+    """{(league, team id)} - teams in a first-time head coach's FIRST season (this season)."""
+    season = int(now_iso[:4]) - (1 if int(now_iso[5:7]) < 6 else 0)
+    ids = {}
+    for g in games.values():
+        lg = g.get("league")
+        if lg in FIRST_TIMER_DOG:
+            for side in ("home", "away"):
+                if g.get(side + "_name"):
+                    ids.setdefault((lg, _norm(g[side + "_name"])), str(g[side]))
+    try:
+        rows = hires(raw, tuple(FIRST_TIMER_DOG))
+    except (OSError, ValueError):
+        return set()
+    return {(r["league"], ids[(r["league"], _norm(r["team"]))]) for r in rows
+            if r["first_time"] and r["season"] == season and (r["league"], _norm(r["team"])) in ids}
+
+
 def _minus(day, n):
     from datetime import datetime, timedelta
     return (datetime.strptime(day, "%Y-%m-%d") - timedelta(days=n)).strftime("%Y-%m-%d")

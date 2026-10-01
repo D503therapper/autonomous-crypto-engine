@@ -74,13 +74,22 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   team that blew them out last meeting +15.7% (6 of 7). Built: sports.cover_run_w (spread picks up/back the line),
   +3 on the Dog's score for the revenge dog. Revenge in the other sports, blowout winners next meeting: nothing steady.
 
-- **Coaching, round 1 (9/30, ESPN's head coach per team-season 2016-26, closing prices):** NFL DOGS with a 10+ year
+- **Coaching, round 1 - PULLED 10/1 (bad data):** ESPN's per-season coach list repeats TODAY's coach back through
+  every season in the NFL / NHL / MLB / college football (Belichick at UNC in 2016) and is partly wrong in the NBA /
+  college hoops (Mazzulla on the 2020 Celtics). Both weights below are OFF (sports_coaches.VET_DOG / NEW_FAV empty)
+  until re-tested on real coach history. What it said (9/30, ESPN's head coach per team-season 2016-26, closing prices): NFL DOGS with a 10+ year
   head coach +10.6% (7 of 8 seasons) vs -3.5% for every dog, ATS +2.0% (6 of 8); a NEW coach's team as a FAVORITE is
   over-rated: NBA -6.2% (worse 7 of 8), college hoops -8.5% (7 of 8). Built: +3 on the Dog's score / back of the line
   (sports_coaches.states, sports.coach_w). A coach's past money vs the price: bounces season to season - not used.
   First-year head coaches: a bit worse everywhere, not steady. ESPN lists one coach per season (no mid-season firing
   dates yet). Styles (4th downs, pace, 3s): waiting on data/sports/teamstats to fill in.
 
+- **New head coaches (10/1, the owner's Belichick-at-UNC point - college football hires with Wikipedia's "Previous
+  position", 2022-26 seasons):** a FIRST-TIME head coach's first season, his team a +200 or bigger dog: +200..+399
+  -40.0% (56) vs -6.7% for every such dog, +400+ -71.7% (81) vs -26.3% - worse every full season 2022-25. Small dogs
+  (+100..+199) fine. A coach who's run a program before: about even (+3.1%). Built: -4 on the Dog's score
+  (sports_coach_changes.first_timers / FIRST_TIMER_DOG). NFL looked the other way (retreads -14.4% as dogs vs
+  first-timers +3.3%) on only 21 hires - not built. Belichick at UNC: 1-4 in the 2025 games we have, 2-1 in 2026.
 - **Mid-season firings (9/30, 153 changes 2016-26 from Wikipedia's season pages, closing prices):** a DOG that just
   fired its coach keeps losing in football and hoops - rest of the season NFL -28%, college football -30%, NBA -10.7%,
   college hoops -18.4% (every dog about -4% to -7%): the market prices a bounce that doesn't come. Hockey is the

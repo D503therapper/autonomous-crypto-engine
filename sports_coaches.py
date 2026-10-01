@@ -114,8 +114,11 @@ if __name__ == "__main__":
 # THE COACHING STUDY, round 1 (9/30, closing prices 2018-26, season by season - SPORTS_FINDINGS.md):
 #   NFL dogs with a 10+ year head coach: +10.6% (7 of 8 seasons) vs -3.5% for every dog; ATS +2.0% (6 of 8)
 #   a NEW coach's team as a favorite (1st year with the team): NBA -6.2% (worse 7 of 8), college hoops -8.5% (7 of 8)
-VET_DOG = {"nfl": 10}
-NEW_FAV = ("nba", "ncaab")
+# 10/1: OFF. ESPN's per-season coach list is bad history - NFL / NHL / MLB / college football repeat TODAY's coach for
+# every past season (Belichick at UNC in 2016), NBA / college hoops are partly wrong (Mazzulla on the 2020 Celtics).
+# Both results above were measured on it (look-ahead), so neither touches a pick until it's re-tested on real history.
+VET_DOG = {}
+NEW_FAV = ()
 
 
 def espn_season(league, iso):

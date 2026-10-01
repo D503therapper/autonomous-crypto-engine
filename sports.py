@@ -300,6 +300,7 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
 SEASON_START = {}              # {league: first regular-season day this season} - early-season hockey (season_w)
 FIRED = {}                     # {(league, team): date of a mid-season coaching change} - sports_coach_changes
+FIRST_TIMER = set()            # {(league, team)}: a first-time head coach's first season (sports_coach_changes)
 COACH = {}                     # {(league, team): (coach's years, new with the team)} - sports_coaches.states
 ATS = ({}, {})                 # (cover streaks, last meetings) - sports_form.ats_states
 PDO = {}                       # {nhl team: PDO last 10} - puck luck (sports_form)
@@ -377,6 +378,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
                     "coach": COACH.get((lg, str(g[side]))),
                     "fired_on": FIRED.get((lg, str(g[side]))),
+                    "first_timer": (lg, str(g[side])) in FIRST_TIMER,
                     "ats_run": ATS[0].get((lg, g[side]), 0),
                     "revenge": lg in sports_form.REVENGE and ATS[1].get((lg, g[side], g[other]), 0) <= -sports_form.REVENGE[lg],
                     "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
@@ -734,8 +736,10 @@ def dog_score(c):
         import sports_coach_changes as scc               # losing in football / hoops (-10% to -30%); hockey teams
         lg_ = c.get("league")                            # beat their price after a change
         sc += -3 if lg_ in scc.FADE_AFTER and c.get("odds", 0) >= 100 else 2 if lg_ in scc.BUMP_AFTER else 0
+    if c.get("first_timer") and c.get("odds", 0) >= sports_coach_changes_dog(c.get("league")):
+        sc -= 4                                          # a first-time head coach's first year, a +200 dog: -40% / -72%
     k = c.get("coach")                                   # the coaching study: an NFL dog with a 10+ year head coach
-    if k and c.get("league") == "nfl" and (k[0] or 0) >= 10:   # +10.6% (7 of 8 seasons) vs -3.5% for every dog
+    if k and c.get("league") in sports_coaches_vet() and (k[0] or 0) >= sports_coaches_vet()[c["league"]]:
         sc += 3
     if c.get("revenge") and c.get("market") == "ml":     # college football: a dog facing the team that blew it out
         sc += 3                                          # last meeting - +15.7% (6 of 7 seasons)
@@ -751,6 +755,18 @@ def dog_score(c):
         if k is not None:
             sc += -2 if k >= 0.4 else 1 if k <= -0.4 else 0
     return sc
+
+
+def sports_coaches_vet():
+    """{league: years} for the vet-coach dog bump - OFF until it's re-tested on real coach history (sports_coaches)."""
+    import sports_coaches
+    return sports_coaches.VET_DOG
+
+
+def sports_coach_changes_dog(league):
+    """The price a first-time head coach's team has to be a dog at for the fade (sports_coach_changes)."""
+    import sports_coach_changes
+    return sports_coach_changes.FIRST_TIMER_DOG.get(league, 10 ** 6)
 
 
 def overreact(c):
@@ -1660,6 +1676,8 @@ def quick(now=None):
         import sports_coach_changes
         FIRED.clear()
         FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        FIRST_TIMER.clear()
+        FIRST_TIMER.update(sports_coach_changes.first_timers(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
@@ -1738,6 +1756,8 @@ def run(repick=False, fetch=True):
         import sports_coach_changes
         FIRED.clear()
         FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        FIRST_TIMER.clear()
+        FIRST_TIMER.update(sports_coach_changes.first_timers(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
