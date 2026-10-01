@@ -9,7 +9,9 @@ or a breakthrough - and the report says which checks it passed: (1) FAIR PRICES 
 ended (early_football_study.fair), no look-ahead lines; (2) BLIND - each season graded by a model trained only on the
 seasons before it, and no game-day facts (injury report, starters, weather) unless the bet waits for them; (3) MOST
 SEASONS up, not one hot year; (4) THE CURRENT SEASON - games no model has seen; (5) A SECOND, INDEPENDENT CHECK of the
-same idea (another cut, another sport, or our own line history).
+same idea (another cut, another sport, or our own line history). The owner, 10/1: "the sport changes every year -
+going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
+tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
 ## Built into the engine
 - **Get in early - CORRECTED 10/1 (data audit):** the 9/30 numbers (NFL +8+ +24.7%, NBA +5.8%, NHL +8.9%) were graded
