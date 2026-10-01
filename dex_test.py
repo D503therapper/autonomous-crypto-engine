@@ -794,6 +794,33 @@ def test_entry_needs_a_run():
     print("  entry needs the coin already up >= +50% in 6h   ok")
 
 
+def test_recycle_stale_for_stronger_coin():
+    """EXPERIMENT 7: no cash for a coin that passed -> the weakest holding >= 24h old and below its buy price is sold."""
+    h, fetch, d, px = held()
+    h.p = {**h.p, "exit": {**h.p["exit"], "recycle": {"min_hold_h": 24, "max_x": 1.0}}, "entry": dex.DEX["entry"]}
+    pos = h.pf.positions[K]
+    h.pf.cash = 0.0
+    new = dict(cand(chain="base", addr="0xabc0000000000000000000000000000000000002", sym="NEW", h1=30, h6=80,
+                    pair="PAIR2"), price=0.5)
+    h.state["passed"]["NEW"] = new
+    pos["px"] = pos["entry"] * 0.8
+    h._try_entry("NEW", pos["opened"] + 3_600_000)                    # 1h old: kept
+    assert not pos.get("exit")
+    h._try_entry("NEW", pos["opened"] + 25 * 3_600_000)               # 25h old, 0.8x: swapped out
+    assert pos.get("exit") and "swapped for a stronger coin" in pos["exit"]["reason"]
+    pos.pop("exit")
+    pos["px"] = pos["entry"] * 1.2                                     # in profit: never swapped
+    h._try_entry("NEW", pos["opened"] + 25 * 3_600_000)
+    assert not pos.get("exit")
+    pos["px"] = pos["entry"] * 0.8
+    weak = dict(new, h6=0.1)                                           # the newcomer must meet the entry rule
+    h.state["passed"]["NEW"] = weak
+    h._try_entry("NEW", pos["opened"] + 25 * 3_600_000)
+    assert not pos.get("exit")
+    shutil.rmtree(d)
+    print("  no cash for a strong coin: the weakest stale holding (24h+, below cost) is swapped out   ok")
+
+
 def test_resize_old_small_position():
     h, _, d = make(table_evm())
     screen(h, cand())
@@ -1480,6 +1507,7 @@ if __name__ == "__main__":
     test_stake_back_executes()
     test_entry_needs_a_run()
     test_far_off_tick_needs_15_minutes()
+    test_recycle_stale_for_stronger_coin()
     test_resize_old_small_position()
     test_study_exit()
     test_max_hold()
