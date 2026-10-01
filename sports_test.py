@@ -4585,9 +4585,10 @@ def test_new_boxes_never_restyle_the_record_cards():
 
 
 def test_early_plays_post_without_pings():
-    """The owner (9/30): turn off the notifications for early value plays - they still post in the box."""
+    """The owner (9/30): turn off the notifications for early value plays. 10/1 he turned them back on: "when the
+    engine detects an early value play, it will send it over" - one ping each, only once the dashboard shows it."""
     import sports_early as se
-    assert se.PINGS is False
+    assert se.PINGS is True and se.SPOT_MAX_WEEK is None             # (10/1: no weekly cap either)
     src = open(sports.__file__).read()
     assert "ping=queue.append if sports_early.PINGS else None" in src
 
