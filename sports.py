@@ -393,6 +393,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "tired_vs_rested": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"])
                     and not sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"]),
                     "dog_ctx": _dog_ctx(lg, g[side], g[other]),
+                    "dog_more": _dog_more(games, g, side, other, lg),
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
                     # display only (the breakdown + the self-check's report-only groups): context facts, pregame talk
                     "ctx": sports_context.display(cx, side), "ctx_tags": sports_context.tags(cx, side),
@@ -769,6 +770,97 @@ def dog_score(c):
     return sc
 
 
+_SCHED = {}
+
+
+def _sched(games):
+    """The schedule + each team's home time zone, built once per games dict (sports_early's helpers)."""
+    if _SCHED.get("k") != id(games):
+        import sports_early
+        _SCHED.update(k=id(games), s=sports_early._schedule(games), tz=sports_early._home_tz(games))
+    return _SCHED["s"], _SCHED["tz"]
+
+
+CFB_CONSERVATIVE_4TH = 1.3      # 4th-down tries a game - the bottom quarter of college teams (10/1 round 3)
+CFB_FAST_PLAYS = 71.6           # plays a game - the top quarter
+_STYLE = {}
+
+
+def _cfb_style():
+    """{team id: (4th-down tries / game, plays / game)} this college season (3+ games), from the box scores."""
+    if "v" in _STYLE:
+        return _STYLE["v"]
+    out, acc = {}, {}
+    now = datetime.now(timezone.utc)
+    season = now.year if now.month >= 7 else now.year - 1
+    try:
+        with open(os.path.join(DATA, "teamstats", "ncaaf.jsonl")) as f:
+            for x in f:
+                try:
+                    r = json.loads(x)
+                except ValueError:
+                    continue
+                if (r.get("start") or "") < f"{season}-07-01":
+                    continue
+                for tid, st in (r.get("teams") or {}).items():
+                    try:
+                        fourth = float(str(st.get("fourthDownEff", "")).split("-")[1])
+                        plays = float(str(st.get("completionAttempts", "")).split("/")[1]) + float(st.get("rushingAttempts"))
+                    except (IndexError, ValueError, TypeError):
+                        continue
+                    a = acc.setdefault(tid, [0, 0.0, 0.0])
+                    a[0] += 1
+                    a[1] += fourth
+                    a[2] += plays
+    except OSError:
+        pass
+    for tid, (n, fo, pl) in acc.items():
+        if n >= 3:
+            out[tid] = (fo / n, pl / n)
+    _STYLE["v"] = out
+    return out
+
+
+def _dog_more(games, g, side, other, lg):
+    """The 10/1 dog findings the owner OK'd to WEIGH (never to pick off alone - "the engine weighs every factor"),
+    each held at game-day prices and at the early number: football fades (ice cold, an NFL coach's first season, a
+    college losing streak, Thursday night), an NFL East Coast team out West, a college team off a 17+ win, college
+    coaching style (conservative 4th downs, fast pace), and the MLB playoff dog that just got blown out by this team."""
+    if lg not in ("nfl", "ncaaf", "mlb"):
+        return {}
+    import sports_early as se
+    try:
+        sched, htz = _sched(games)
+        start = se._t(g["start"])
+        out = {}
+        prev = se._prev(sched, lg, g[side], g["start"])
+        margin = None
+        if prev and prev.get("status") == "final" and (start - se._t(prev["start"])).days <= 21:
+            m = float(prev["home_score"]) - float(prev["away_score"])
+            margin = m if prev["home"] == g[side] else -m
+        if lg in ("nfl", "ncaaf"):
+            out["fades"] = se._fades(sched, g, side, lg, start.astimezone(ZoneInfo("America/New_York")))
+            out["last_margin"] = margin
+            if lg == "nfl" and side == "away" and str(g.get("neutral")) != "1":
+                mine = htz.get((lg, g[side]))
+                try:
+                    gtz = float(g.get("tzo"))
+                except (TypeError, ValueError):
+                    gtz = None
+                out["east_west"] = mine is not None and gtz is not None and mine >= -5 and gtz <= -7
+            if lg == "ncaaf":
+                stl = _cfb_style().get(str(g[side]))
+                if stl:
+                    out["conservative"] = stl[0] <= CFB_CONSERVATIVE_4TH
+                    out["fast"] = stl[1] >= CFB_FAST_PLAYS
+        elif str(g.get("stype")) == "3" and prev and margin is not None and margin <= -5 and \
+                g[other] in (prev.get("home"), prev.get("away")):
+            out["series_blowout"] = True                # MLB playoffs: lost to THIS team by 5+ last game
+        return out
+    except Exception:                                   # noqa: BLE001 - extra facts never block the board
+        return {}
+
+
 def _dog_ctx(lg, me, them):
     """The 10/1 dog studies' facts for one side: our / their last result, run share gap (MLB), shot share gap (NHL)."""
     a, b = DOG_ST.get((lg, me)) or {}, DOG_ST.get((lg, them)) or {}
@@ -812,6 +904,22 @@ def dog_spots(c):
     ss = x.get("ss_gap")
     if lg == "nhl" and ss is not None:
         sc += 3 if ss > 0 else -3 if ss <= -0.03 else 0   # out-shooting them: +1.0% vs -5.7% (5 of 5); out-shot -10.5%
+    # 10/1, the owner: "wire in what you believe in - the engine WEIGHS it with everything else, never picks off it"
+    # (each held at game-day prices AND the early number, dogs +100..+220, 2020-26):
+    mo = c.get("dog_more") or {}
+    if lg == "nfl" and mo.get("east_west"):
+        sc += 3                    # an East Coast team as a road dog out West: +20% game day (5 of 6), +17% early
+    if lg == "ncaaf" and (mo.get("last_margin") or 0) >= 17:
+        sc += 2                    # a college dog off a 17+ win: +9% on 327 (all college dogs ~even), +9% early
+    for f in mo.get("fades") or []:
+        sc -= {"ice cold": 3,                # last 3 games 7+ worse than its season: NFL -15%, college -13% (1 of 6)
+               "coach's first season": 3,    # an NFL dog in its coach's first season with the team: -16% (-26% last 3)
+               "losing streak": 3,           # a college dog on a 3+ game losing streak: -15% (-21% early)
+               "Thursday night": 2}.get(f, 0)   # Thursday night dogs: NFL -11%, college -19% (early)
+    if lg == "ncaaf" and (mo.get("conservative") or mo.get("fast")):
+        sc -= 2                    # college coaching style: conservative 4th downs / fast pace dogs -11%, 0 of 5
+    if lg == "mlb" and mo.get("series_blowout"):
+        sc += 3                    # MLB playoffs: lost to THIS team by 5+ last game: +27.5% on 37 (6 of 8) - thin
     return sc
 
 

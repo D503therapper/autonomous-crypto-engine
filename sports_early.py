@@ -458,6 +458,14 @@ SPOTS = {   # key: (label, units, leagues)
     "blowout":   ("💥 Blew somebody out last week", 0.5, ("nfl", "ncaaf")),      # +8 / +9%, both sports
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
 }
+# THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh
+# everything, never automatically take a pick because the numbers back one thing"). A spot only ADDS weight to the
+# engine's own full read (ratings, form, rest, injuries...); the fades take weight away. An early play posts only when
+# the engine's read isn't fighting the side AND everything added up clears SPOT_MIN_TOTAL - ranked by that total.
+SPOT_WEIGHT = {"bye": 0.04, "mnf": 0.03, "eastwest": 0.03, "blowout": 0.02, "hammered": 0.02, "engine": 0.0}
+FADE_WEIGHT = {"ice cold": -0.04, "coach's first season": -0.04, "losing streak": -0.04, "Thursday night": -0.03}
+SPOT_MIN_TOTAL = 0.05                   # the engine's edge + the spots + the fades, in win-% points
+SPOT_FIGHT = 0.01                       # the engine's own read may not be more than 1 point under the price
 SPOT_MAX_WEEK = 2                       # the owner, 10/1: "just two of these early plays, not three". The engine
 #                                         ranks everything it finds and posts the best 2 a week (Tuesday to Monday)
 SPOT_ORDER = ("bye", "mnf", "eastwest", "blowout", "hammered", "engine")   # most believed first
@@ -544,6 +552,55 @@ def first_fair(gid, since, hist_dir=None):
     return (h, a) if h is not None and a is not None else None
 
 
+_COACH = {}
+
+
+def _first_season_coach(lg, team_name, season):
+    """An NFL team in its head coach's first season with it (real coach history - sports_coach_history)."""
+    if lg != "nfl":
+        return False
+    if "exp" not in _COACH:
+        try:
+            import sports_coach_history as ch
+            _COACH["exp"] = ch.experience(ch.load(), "nfl")
+        except Exception:                                    # noqa: BLE001
+            _COACH["exp"] = {}
+    for (team, s_), (_, _, first, _) in _COACH["exp"].items():
+        if s_ == season and team_name and sd._same(team_name, team):
+            return bool(first)
+    return False
+
+
+def _fades(sched, g, side, lg, et):
+    """The fades that held (10/1 studies, game-day AND early prices): ice cold (last 3 games 7+ points worse than its
+    season, 5+ games in), an NFL team in its coach's first season, a college team on a 3+ game losing streak, a
+    Thursday night dog."""
+    start = g["start"]
+    season = int(start[:4]) if int(start[5:7]) >= 7 else int(start[:4]) - 1
+    lo = f"{season}-07-01"
+    ms = []
+    for st, x in sched.get((lg, g[side]), []):
+        if st >= start:
+            break
+        if st < lo or x.get("status") != "final":
+            continue
+        try:
+            m = float(x["home_score"]) - float(x["away_score"])
+        except (KeyError, ValueError, TypeError):
+            continue
+        ms.append(m if x["home"] == g[side] else -m)
+    out = []
+    if len(ms) >= 5 and sum(ms[-3:]) / 3 - sum(ms) / len(ms) <= -7:
+        out.append("ice cold")
+    if _first_season_coach(lg, g.get(f"{side}_name"), season):
+        out.append("coach's first season")
+    if lg == "ncaaf" and len(ms) >= 3 and all(m < 0 for m in ms[-3:]):
+        out.append("losing streak")
+    if et.weekday() == 3:
+        out.append("Thursday night")
+    return out
+
+
 def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
     """-> the six spots' new candidates right now: {game_id, league, side, team, opp, odds, opp_odds, start, spot,
     spots, own}. Fair prices only, never game day, never a side with a key player out / questionable."""
@@ -624,10 +681,17 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
             hit = [h for h in hit if lg in SPOTS[h][2]]
             if not hit:
                 continue
+            own = own_of(g, side) if own_of else None
+            if own is None or own < mk - SPOT_FIGHT:
+                continue                                     # no engine read, or the engine's read is fighting it
+            fades = _fades(sched, g, side, lg, et)
+            total = round((own - mk) + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades), 4)
+            if total < SPOT_MIN_TOTAL:
+                continue                                     # everything weighed together doesn't say value
             main = max(hit, key=lambda h: SPOTS[h][1])
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
                         "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
-                        "mkt": round(mk, 4), "own": (round(own_of(g, side), 4) if own_of else None),
+                        "fades": fades, "score": round(total, 4), "mkt": round(mk, 4), "own": round(own, 4),
                         "fair_at": r.strftime("%Y-%m-%dT%H:%MZ") if r else None})
     sides = {}
     for c in out:
@@ -644,8 +708,8 @@ def week_start(now):
 
 
 def pick_spots(cands, st, now):
-    """The best SPOT_MAX_WEEK a week (the owner, 10/1: "the most confident ones" - two): ranked by how much we believe the
-    spot, then the engine's edge. Before Tuesday 6 AM PT it waits for the whole slate (the NFL's numbers come after
+    """The best SPOT_MAX_WEEK a week (the owner, 10/1: "the most confident ones" - two): ranked by the engine's whole
+    weighed total (its own read + the spots - the fades), never one factor. Before Tuesday 6 AM PT it waits for the whole slate (the NFL's numbers come after
     Monday night) - unless a play's early window would close first."""
     ws = week_start(now)
     loc = now.astimezone(PT)
@@ -655,9 +719,7 @@ def pick_spots(cands, st, now):
         cands = [c for c in cands if c.get("fair_at") and _t(c["fair_at"]) + timedelta(hours=SPOT_WINDOW_H) < slate]
     taken = sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws)
     room = max(0, SPOT_MAX_WEEK - taken)
-    for c in cands:
-        c["gap"] = round((c["own"] if c.get("own") is not None else c["mkt"]) - c["mkt"], 4)
-    cands.sort(key=lambda c: (SPOT_ORDER.index(c["spot"]), -c["gap"]))
+    cands.sort(key=lambda c: -(c.get("score") or 0))          # everything weighed together - the best total first
     return cands[:room]
 
 

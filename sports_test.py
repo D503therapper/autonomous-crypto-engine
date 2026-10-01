@@ -5605,30 +5605,49 @@ def test_six_early_spots():
     }
     G["r_home"] = gm("r_home", "nfl", "2026-09-14T20:00Z", "R", "Q", "Rams", "Q", status="final", hs="1", as_="0", tzo="-8.0")
     G["g_home"] = gm("g_home", "nfl", "2026-09-14T17:00Z", "P", "V", "Packers", "V", status="final", hs="1", as_="0", tzo="-6.0")
-    got = {(c["team"], c["spot"]): c for c in se.spot_scan(G, now, hist_dir=tempfile.mkdtemp())}
+    def imp(o):
+        o = int(o)
+        return 100 / (o + 100) if o > 0 else -o / (-o + 100)
+    def own_by(lean):                     # the engine's own read: the price's win % + `lean` (its full read, all factors)
+        def f(g, side):
+            h, a = imp(g["ml_home"]), imp(g["ml_away"])
+            p = (h if side == "home" else a) / (h + a)
+            return p + lean
+        return f
+    agree = own_by(0.02)
+    se._COACH["exp"] = {}                                                   # (no coach history in the test)
+    got = {(c["team"], c["spot"]): c for c in se.spot_scan(G, now, own_of=agree, hist_dir=tempfile.mkdtemp())}
     assert ("Bills", "bye") in got and se.units(got[("Bills", "bye")]) == 1.0
     rams = [c for c in got.values() if c["team"] == "Rams"][0]
     assert "mnf" in rams["spots"] and "blowout" in rams["spots"] and se.units(rams) == 0.5
     assert not any(c["team"] in ("Jets", "Packers") for c in got.values())          # favorites: never these spots
+    # 10/1, the owner: "the engine NEVER picks off one factor - it weighs everything." No engine read, or the engine's
+    # read fighting the side: no play, whatever the spot. A spot with the engine just at the price: not enough alone.
+    assert se.spot_scan(G, now, hist_dir=tempfile.mkdtemp()) == []
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, own_of=own_by(-0.03), hist_dir=tempfile.mkdtemp()))
+    flat = {(c["team"], c["spot"]) for c in se.spot_scan(G, now, own_of=own_by(0.0), hist_dir=tempfile.mkdtemp())}
+    assert ("Bills", "bye") not in flat and ("Rams", "mnf") in flat     # the bye alone (+4) < 5; Rams: Monday + blowout
+    thu = {**G, "n3": {**G["n3"], "start": "2026-10-08T00:15Z"}}       # the Bills on Thursday night: a fade weighs in
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(thu, now - timedelta(days=1), own_of=agree, hist_dir=tempfile.mkdtemp()))
     # not before last week's games are over (the 10/1 audit: an early price then 'knew' nothing the engine knew)
     early = datetime(2026, 10, 4, 18, 0, tzinfo=timezone.utc)                       # the Jets' game still on
-    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, early, hist_dir=tempfile.mkdtemp()))
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, early, own_of=agree, hist_dir=tempfile.mkdtemp()))
     # never on game day
     gd = datetime(2026, 10, 11, 15, 0, tzinfo=timezone.utc)
-    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, gd, hist_dir=tempfile.mkdtemp()))
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, gd, own_of=agree, hist_dir=tempfile.mkdtemp()))
     # a key player out / questionable on our side: never
     keep = (sd.team_key_out, sd.team_unsure)
     sd.team_key_out = lambda inj, tid, name, lg: [("QB1", "QB", "Out")] if name == "Bills" else []
     sd.team_unsure = lambda inj, tid, name, lg: []
     try:
-        assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"nfl": {"x": 1}}, hist_dir=tempfile.mkdtemp()))
+        assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"nfl": {"x": 1}}, agree, hist_dir=tempfile.mkdtemp()))
     finally:
         sd.team_key_out, sd.team_unsure = keep
     # hammered early: the first fair price we recorded vs now (the line history)
     d = tempfile.mkdtemp()
     with open(os.path.join(d, "2026-10.jsonl"), "w") as f:
         f.write(json.dumps({"g": "n3", "t": "2026-10-05T12:00Z", "s": "2026-10-11T17:00Z", "h": "-260", "a": "210"}) + "\n")
-    assert "hammered" in [c for c in se.spot_scan(G, now, hist_dir=d) if c["team"] == "Bills"][0]["spots"]
+    assert "hammered" in [c for c in se.spot_scan(G, now, own_of=agree, hist_dir=d) if c["team"] == "Bills"][0]["spots"]
     # the engine spot (college): the engine likes the side, the price went OUT 2+ since the first fair price
     C = {"c0": gm("c0", "ncaaf", "2026-10-03T19:00Z", "U", "K", "Utah", "K", status="final", hs="20", as_="21"),
          "c1": gm("c1", "ncaaf", "2026-10-03T19:00Z", "T", "L", "TCU", "L", status="final", hs="20", as_="21"),
@@ -5641,13 +5660,15 @@ def test_six_early_spots():
     assert [(c["team"], c["spot"]) for c in got] == [("Utah", "engine")]
     with open(os.path.join(d2, "2026-10.jsonl"), "w") as f:              # moved further: TCU now "hammered" too - the
         f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-140", "a": "120"}) + "\n")
-    assert se.spot_scan(C, now, own_of=own, hist_dir=d2) == []           # two sides of one game cancel: no play
+    assert [c["team"] for c in se.spot_scan(C, now, own_of=own, hist_dir=d2)] == ["Utah"]   # TCU got hammered, but
+    #   the engine's read is against TCU - it never takes a side it's fighting
     # the best 3 a week (the owner, 10/1), the most believed spots first; they wait for Tuesday's full slate
     tue = datetime(2026, 10, 6, 14, 0, tzinfo=timezone.utc)                   # Tuesday 7 AM PT
-    mk = lambda gid, spot, gap=0.0, fair="2026-10-05T12:00Z": {"game_id": gid, "spot": spot, "own": 0.4 + gap, "mkt": 0.4,
-                                                             "fair_at": fair}
-    cs = [mk("a", "engine", .2), mk("b", "blowout"), mk("c", "bye"), mk("d", "mnf", .01), mk("e", "mnf", .05)]
-    assert [c["game_id"] for c in se.pick_spots([dict(c) for c in cs], {"picks": []}, tue)] == ["c", "e"]   # 2 a week
+    mk = lambda gid, spot, score=0.06, fair="2026-10-05T12:00Z": {"game_id": gid, "spot": spot, "score": score,
+                                                                "fair_at": fair}
+    cs = [mk("a", "engine", .07), mk("b", "blowout", .05), mk("c", "bye", .11), mk("d", "mnf", .06), mk("e", "mnf", .09)]
+    assert [c["game_id"] for c in se.pick_spots([dict(c) for c in cs], {"picks": []}, tue)] == ["c", "e"]   # 2 a week,
+    #                                                           the best weighed totals - never one spot's rank
     posted = {"picks": [{"spot": "bye", "posted": "2026-10-06T13:30Z"}]}
     assert [c["game_id"] for c in se.pick_spots([dict(c) for c in cs], posted, tue)] == ["c"]    # 1 slot left this week
     posted["picks"].append({"spot": "mnf", "posted": "2026-10-06T13:40Z"})
@@ -5657,9 +5678,9 @@ def test_six_early_spots():
     closing = mk("z", "blowout", fair="2026-10-02T00:00Z")                   # ...unless its window closes first
     assert [c["game_id"] for c in se.pick_spots([closing], {"picks": []}, sun)] == ["z"]
     late = datetime(2026, 10, 9, 18, 0, tzinfo=timezone.utc)                  # the Bills' number went fair Sun 10/4
-    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, late, hist_dir=tempfile.mkdtemp()))   # late = no play
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, late, own_of=agree, hist_dir=tempfile.mkdtemp()))   # late
     big = {**G, "n3": {**G["n3"], "ml_away": "260", "ml_home": "-320"}}       # never past +220 (the owner, 10/1)
-    assert not any(c["team"] == "Bills" for c in se.spot_scan(big, now, hist_dir=tempfile.mkdtemp()))
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(big, now, own_of=agree, hist_dir=tempfile.mkdtemp()))
     # the box: the spot's name on the row, each spot's own record
     st = {"picks": [{**rams, "result": "won", "graded_at": "2026-10-13T04:00Z"},
                     {**got[0], "result": None, "posted": "2026-10-06T18:00Z"}]}
@@ -5669,6 +5690,39 @@ def test_six_early_spots():
     finally:
         se.ON = keep_on
     assert "Engine likes it, the line moved away" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+
+
+def test_dog_findings_weighed_never_auto():
+    """10/1, the owner: "wire in what you believe in - but the engine NEVER picks off one thing, it weighs every factor."
+    The findings move the Dog's score (dog_spots) up or down; they never post a pick on their own."""
+    base = {"league": "nfl", "odds": 150, "dog_ctx": {}}
+    s0 = sports.dog_spots(base)
+    assert sports.dog_spots({**base, "dog_more": {"east_west": True}}) == s0 + 3
+    assert sports.dog_spots({**base, "dog_more": {"fades": ["ice cold"]}}) == s0 - 3
+    assert sports.dog_spots({**base, "dog_more": {"fades": ["coach's first season", "Thursday night"]}}) == s0 - 5
+    cf = {**base, "league": "ncaaf"}
+    assert sports.dog_spots({**cf, "dog_more": {"last_margin": 21}}) == sports.dog_spots(cf) + 2
+    assert sports.dog_spots({**cf, "dog_more": {"fast": True}}) == sports.dog_spots(cf) - 2
+    mlb = {**base, "league": "mlb"}
+    assert sports.dog_spots({**mlb, "dog_more": {"series_blowout": True}}) == sports.dog_spots(mlb) + 3
+    # the facts, from the schedule: an East Coast team (home time zone -5) at a West Coast game (-8)
+    G = {"h1": {"id": "h1", "league": "nfl", "stype": "2", "status": "final", "start": "2026-09-27T17:00Z", "home": "E",
+                "away": "Z", "home_name": "Giants", "away_name": "Z", "home_score": "38", "away_score": "10", "tzo": "-5.0"},
+         "g1": {"id": "g1", "league": "nfl", "stype": "2", "status": "pre", "start": "2026-10-04T20:05Z", "home": "W",
+                "away": "E", "home_name": "Rams", "away_name": "Giants", "tzo": "-8.0"}}
+    import sports_early as se
+    keep, se._COACH["exp"] = se._COACH.get("exp"), {}                    # (no coach history in the test)
+    try:
+        mo = sports._dog_more(G, G["g1"], "away", "home", "nfl")
+    finally:
+        se._COACH.pop("exp", None)
+        if keep is not None:
+            se._COACH["exp"] = keep
+    assert mo["east_west"] is True and mo["last_margin"] == 28 and mo["fades"] == []
+    assert sports._dog_more(G, G["g1"], "away", "home", "nba") == {}
+    src = open(sports.__file__).read()
+    assert '"dog_more": _dog_more(games, g, side, other, lg)' in src     # every candidate carries them - weighed in
+    #                                                                     dog_score with everything else, never a pick
 
 
 if __name__ == "__main__":

@@ -4,6 +4,10 @@ A picks-only sports dashboard (GitHub Pages) for the owner and his friends. Thes
 every session:
 
 - **Picks only. Never change a posted pick** without the owner's explicit OK.
+- **The engine NEVER picks off one factor** (the owner, 10/1: "an East Coast dog out West still gets blown out - it
+  weighs every factor, never automatically takes a team because the numbers back one thing"). Every study finding -
+  proven or just believed in - is a WEIGHT the engine adds to its full read (dog_spots / dog_more, the early spots'
+  SPOT_WEIGHT / FADE_WEIGHT), never a trigger. A pick happens only when the whole picture says it's worth the price.
 - **Everything in his lingo** (`sports_owner_lingo.py`). Never repetitive across the board or day to day, never robotic,
   no marketing tone. Plain words ("goalie", not "G"), no confusing sayings. Never "real talk" or "chalk" (see `NEVER`).
 - **When the owner uses new slang in chat, add it to `sports_owner_lingo.py` and into the write-up pools where it fits.**
@@ -26,8 +30,9 @@ every session:
   few nights. Analyze and weigh, no rigid rules.
 - ⏰ Early value plays (the owner, 10/1 - "there's only one way to prove it: you do it"): the six spots from the
   odds-history studies (sports_early.SPOTS - bye-week dog 1u; Monday night NFL dog, East Coast NFL team flying West,
-  blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. MAX 2 A WEEK
-  (SPOT_MAX_WEEK), the engine's most confident (SPOT_ORDER, then its edge), ranked together Tuesday 6 AM PT; dogs
+  blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. The spots are
+  WEIGHTS on the engine's own read (never a trigger), the fades subtract; it posts only if the engine isn't fighting
+  the side and the total clears SPOT_MIN_TOTAL. MAX 2 A WEEK (SPOT_MAX_WEEK), the best totals, ranked Tuesday 6 AM PT; dogs
   +100..+220 only ("never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
   late is not early; never game day; never a side with a key player out or questionable. No pings.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
