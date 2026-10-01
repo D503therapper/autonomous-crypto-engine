@@ -1612,7 +1612,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
 .pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
 .pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
-.pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1}}
+.pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1;white-space:nowrap}}
+.pvl{{font-size:12px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}} .pvl:empty{{display:none}}
 .pvc small{{font-size:10px;font-weight:800;opacity:.9}}
 .pvc span{{overflow-wrap:anywhere}} .pvc b{{font-weight:900;font-variant-numeric:tabular-nums}}
 .pvc .pvp>i{{font-style:normal;min-width:1.2em;text-align:right;font-size:12px}} .pvc.lost>span,.pvc.lost .pvp b{{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}}
@@ -2049,18 +2050,16 @@ function gone(){{var n=Date.now(),b=document.querySelector(".board");if(!b)retur
  if(t&&!b.querySelector(".gn,.pk"))b.innerHTML=t.innerHTML;}}                        // the results); board empty: 8 AM note
 gone();setInterval(gone,30000);
 function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data-gid]").forEach(function(c){{   // 🥊 challenge:
- var i=c.querySelector(".pvp>i"),sc=B[c.getAttribute("data-gid")];if(!i)return;   // 10/1, the owner: it said LIVE for
- sc=orient(sc,c.getAttribute("data-side"));                      // 6 hours off the clock - now only the
- var h="";if(sc&&sc.live&&!sc.delayed){{                                          // real score feed says LIVE / done
-   var st_=sc.sets||[],dn=sc.done||0,sw=[0,0];st_.slice(0,dn).forEach(function(x){{if(x[0]>x[1])sw[0]++;else if(x[1]>x[0])sw[1]++}});
-   var cur=st_[dn];                                              // (10/1, the owner: Zheng's 3-setter "looked all messed
-   h='<span class="lvb"><i></i>LIVE</span> '+(dn?sw[0]+"-"+sw[1]+" sets"+(cur?" · "+cur[0]+"-"+cur[1]:""):(cur?cur[0]+"-"+cur[1]:""));}}   // up" - every set
-   //                                                              crammed in the cell. Now: sets won, then this set.
- else if(sc&&sc.delayed)h="⏳";
+ var i=c.querySelector(".pvp>i"),l=c.querySelector(".pvl"),sc=B[c.getAttribute("data-gid")];if(!i)return;   // only the real
+ sc=orient(sc,c.getAttribute("data-side"));                                                  // score feed says LIVE / done
+ var h="",lv="";if(sc&&sc.live&&!sc.delayed){{   // 10/1, the owner (twice): the live score crammed next to the price
+   lv='<span class="lvb"><i></i>LIVE</span> '+(sc.sets||[]).map(function(x){{return x[0]+"-"+x[1]}}).join(", ");}}   // broke
+   //                                     the cell. Now its own line under the price, the way tennis is read: 3-6, 1-1
+ else if(sc&&sc.delayed)lv="⏳ DELAYED";
  else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
    h=Math.max(w[0],w[1])<2?"":w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':'<span class="pvw-l">❌ LOSS</span>';}}
  c.classList.toggle("won",h.indexOf("WIN")>=0);c.classList.toggle("lost",h.indexOf("LOSS")>=0);   // (10/1, the owner: a loss
- if(i.innerHTML!==h)i.innerHTML=h;}});
+ if(i.innerHTML!==h)i.innerHTML=h;if(l&&l.innerHTML!==lv)l.innerHTML=lv;}});              //  called live = a graded one)
  var top=document.querySelector(".pvs[data-live]");if(top){{var ps=0,as=0;   // the score up top counts a match the second
   document.querySelectorAll(".pvx .pvr:not(.pvh)").forEach(function(r){{var c=r.children;   // it's called (10/1, the owner:
    if(c[0]&&c[0].classList.contains("won"))ps++;if(c[1]&&c[1].classList.contains("won"))as++;}});   // "Patty won one and

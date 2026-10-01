@@ -240,7 +240,9 @@ def html(c, E):
         st = (f' data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}"'
               if l.get("start") and not r else "")      # the page shows ● LIVE + the sets from the live score feed
         return (f'<div class="pvc {r or ""}"{st}><span>{E(last)}</span>'
-                f'<div class="pvp"><b><small>ML</small> {E(price)}</b><i>{mark}</i></div></div>')
+                f'<div class="pvp"><b><small>ML</small> {E(price)}</b><i>{mark}</i></div>'
+                f'{"<div class=pvl></div>" if st else ""}</div>')    # (10/1: the live score's own line - never
+        #                                                   crammed next to the price, which then broke onto 2 lines)
     rows_ = "".join(f'<div class="pvr">{cell(p)}{cell(a)}</div>'
                     for p, a in zip(c["patty"] + [None] * max(0, len(c.get("algo", [])) - len(c["patty"])),
                                     c.get("algo", []) + [None] * max(0, len(c["patty"]) - len(c.get("algo", [])))))
