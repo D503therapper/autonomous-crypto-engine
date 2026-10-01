@@ -1065,6 +1065,8 @@ def _history(picks):
             kind, xtra = "outright", {}                     # (the owner, 9/29 - never just "couldn't cover")
         key = f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}'
         dec = l.get("decider") if l.get("decider") is not None else deciders.get(l.get("game_id"))
+        if dec and not sports_decider.score_matches(dec, l):  # (the owner, 10/1: only THIS game's facts, never another's)
+            dec = None
         if dec and not dec.get("_fail") and l.get("market") != "total" and (dec.get("win") == l.get("side")) == (r == "won") \
                 and not (kind == "flowers" and dec.get("type") == "blowout"):   # 🎯 how it was won or lost: say it
             how = sports_decider.say(dec, l.get("side"), t_, o_, lg, f"{date}|{key}")   # (the owner, 10/1)

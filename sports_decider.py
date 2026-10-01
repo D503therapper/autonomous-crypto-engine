@@ -377,6 +377,22 @@ def say(d, side, us, them, league, seed, cap=MAX_LEN):
 
 
 # ---------------------------------------------------------------- once per graded game
+def same_game(p, eid):
+    """The summary is THIS game (its event id) and it's over - never another game's, never a past season's."""
+    hd = (p or {}).get("header") or {}
+    comp = (hd.get("competitions") or [None])[0] or {}
+    done = (((comp.get("status") or {}).get("type") or {}).get("completed"))
+    return str(hd.get("id") or "") == str(eid) and done is not False
+
+
+def score_matches(d, leg):
+    """The decider's final ('24-21', winner first) is the score we graded the leg on (leg['score'], any order)."""
+    want = sorted(int(x) for x in re.findall(r"(\d+)(?=\s*@|\s*$)", str(leg.get("score") or ""))[:2]) \
+        if leg.get("score") else None                    # ('49ers 20 @ Rams 17': the scores, never the "49")
+    got = sorted(int(x) for x in re.findall(r"\d+", str(d.get("s") or ""))[:2]) if d.get("s") else None
+    return want is None or got is None or want == got
+
+
 def fill(picks, fetch=None, budget_s=45, last=80):
     """Put each newly graded leg's decider on it (leg["decider"]: the fact, or {} for nothing big). One fetch per game
     (kept in deciders.json); a failure is tried again next run (3 tries, then {}), and never stops the grading."""
@@ -394,7 +410,8 @@ def fill(picks, fetch=None, budget_s=45, last=80):
                     continue
                 tried.add(gid)
                 try:
-                    d = parse(lg, fetch(lg, gid.split(":", 1)[1]))
+                    raw = fetch(lg, gid.split(":", 1)[1])
+                    d = parse(lg, raw) if same_game(raw, gid.split(":", 1)[1]) else {}
                 except Exception as ex:                  # noqa: BLE001 - never blocks grading
                     print(f"   decider {gid}: {str(ex)[:80]}")
                     d = None
@@ -406,6 +423,8 @@ def fill(picks, fetch=None, budget_s=45, last=80):
                 if e["_fail"] >= MAX_TRIES:
                     leg["decider"] = {}
                 continue
+            if e and not score_matches(e, leg):              # (the owner, 10/1: never from another game - the
+                e = {}                                       # decider's final must be the score we graded)
             leg["decider"] = e
     if changed:
         try:
