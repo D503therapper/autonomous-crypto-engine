@@ -6242,6 +6242,30 @@ def test_steep_lean_says_why_its_not_the_lock():
     assert len(two) == 2                                                       # never the same line twice on a page
 
 
+def test_early_plays_one_minimum_two_max():
+    """10/1, the owner: "one minimum, two max early value plays - get them today before the line moves." A week the spots
+    find nothing: from Wednesday 6 AM PT the engine's best weighed dog goes up (a 2nd only if it clears the normal bar);
+    never once the week has one; never a dog whose whole weighed total is under its price."""
+    import sports_early as se
+    keep = se.spot_scan
+    try:
+        rows = [{"game_id": "a", "team": "A", "score": 0.20, "start": "2026-10-04T17:00Z", "spot": "best"},
+                {"game_id": "b", "team": "B", "score": 0.08, "start": "2026-10-04T17:00Z", "spot": "best"},
+                {"game_id": "c", "team": "C", "score": 0.02, "start": "2026-10-04T17:00Z", "spot": "best"}]
+        se.spot_scan = lambda *a, **k: [dict(r) for r in rows]
+        thu = datetime(2026, 10, 1, 20, tzinfo=timezone.utc)                 # Thursday 1 PM PT
+        assert [c["game_id"] for c in se.min_one({}, {"picks": []}, thu, {}, None)] == ["a", "b"]
+        tue = datetime(2026, 9, 29, 20, tzinfo=timezone.utc)                 # Tuesday: the spots get the first shot
+        assert se.min_one({}, {"picks": []}, tue, {}, None) == []
+        had = {"picks": [{"spot": "bye", "posted": "2026-09-30T14:00Z"}]}
+        assert se.min_one({}, had, thu, {}, None) == []
+        rows[:] = [{**r, "score": -0.01} for r in rows]
+        assert se.min_one({}, {"picks": []}, thu, {}, None) == []
+    finally:
+        se.spot_scan = keep
+    assert se.units({"spot": "best", "odds": 120}) == 0.5
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
