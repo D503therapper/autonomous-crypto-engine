@@ -245,6 +245,15 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   NEXT: the move model needs the first-look price live - line_history (hourly, since 10/1) records it; build once a
   few weeks of it confirm the model on this season.
 
+- **NFL style, matchups and coaching (10/1, nflverse play-by-play 2016-26, 2,258 games at the close, blind walk-forward
+  2020-26):** DEAD against the closing price - pass offense vs pass D, run vs run D, pass-heavy vs weak pass D, pass
+  rate over expected, pace, pressure / sacks, explosives, turnovers / INTs, success rate, vet coach vs first-time head
+  coach (-5.7%, vet dogs -11%), coach new to his team. One model with all of it lost to the market's own number 6 of 7
+  seasons (its 3+ point edges -6.9%, last 3 + 2026 -12%). LEAD only: a dog whose coach goes for it on 4th down clearly
+  less than the other coach covered 48.4% (0 of 9 seasons over breakeven), ML -13.4% - same direction as the college
+  conservative-coach fade. Not wired yet (needs live 4th-down go rates); worth -1 on the dog's read. Script/data:
+  scratchpad nflstyle (build_games / study / fixed_rules / robust_go4).
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a
