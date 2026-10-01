@@ -1,25 +1,48 @@
 {
- "at": "2026-10-01T14:30Z",
- "fixes": [],
+ "at": "2026-10-01T16:01Z",
+ "fixes": [
+  "slate check problem - re-pull before the board - started sports.yml",
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "workflow failed: rosters 2026-10-01T13:50 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36871695003",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "slate check: White Sox @ Astros (MLB): no price from the books",
+  "slate check: Red Sox @ Yankees (MLB): no price from the books",
+  "slate check: Cubs @ Padres (MLB): no price from the books",
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (36s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-01T16:01Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml",
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "slate check: White Sox @ Astros (MLB): no price from the books",
+    "slate check: Red Sox @ Yankees (MLB): no price from the books",
+    "slate check: Cubs @ Padres (MLB): no price from the books",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-01T14:30Z",
    "fixes": [],
