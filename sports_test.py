@@ -5833,6 +5833,19 @@ def test_lean_is_a_who_wins_call():
     assert not sports.plays([ps], ())                          # never a UNIT play the engine's read is fighting
 
 
+def test_there_is_always_a_lock():
+    """The owner (CLAUDE.md; 10/1: "we need a Lock of the Day - how many times I gotta tell you"). Nothing clears the
+    full Lock test = the pick the engine's own read has winning 56%+ that still beats its price, as a unit Lock; never
+    the pricey hockey favorite, never past -150, never one its read is fighting."""
+    nt = {**_cand("unt", -112, 0.519, league="ncaaf"), "edge_own": 0.588 * sd.decimal(-112) - 1, "p_market": 0.504}
+    wild = {**_cand("wild", -142, 0.576, league="nhl"), "edge_own": 0.571 * sd.decimal(-142) - 1, "p_market": 0.563}
+    coin = {**_cand("coin", -108, 0.50, league="nhl"), "edge_own": 0.50 * sd.decimal(-108) - 1}
+    b = sports.make_board([nt, wild, coin])
+    assert b["lock"] and b["lock"]["legs"][0]["game_id"] == "unt"
+    assert sports.units_for({"kind": "lock", "legs": b["lock"]["legs"]}) > 0
+    assert sports.make_board([wild, coin])["lock"] is None         # only a near -150 hockey favorite: never that
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

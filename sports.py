@@ -725,6 +725,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # among the likely winners (lock_ok: 56%+), the win % (with the proven nudges) breaking ties. None = no Lock
         # today, and the board says so - never a fake one.
         lock = max(agree, key=lambda c: (round(lock_value(c), 3), rank_p(c))) if agree else None
+        if lock is None:
+            lock = backup_lock(cands)
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -1309,6 +1311,19 @@ def real_value(c):
         return c["dog_p"] * c["dec"] > 1                     # (a gated dog: everything weighed beats its real price)
     return (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) > 0   # (units are sized by
     #                                                          the engine's own read - it has to beat the real price)
+
+
+LOCK_BACKUP_OWN = 0.56
+
+
+def backup_lock(cands):
+    """The owner (CLAUDE.md, again 10/1): "There's always a Lock." When nothing clears the full Lock test, the pick the
+    engine's OWN read has winning 56%+ that still beats its price - the most value first - never past -150, never the
+    pricey hockey favorite, never a trap, never one the engine is fighting. A unit play (sized by that read)."""
+    pool = [c for c in cands if c["market"] == "ml" and c["odds"] >= MAX_FAV and c.get("edge_own") is not None
+            and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
+            and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0]
+    return max(pool, key=lambda c: (round(c["edge_own"], 3), (c["edge_own"] + 1) / c["dec"])) if pool else None
 
 
 def lock_value(c):
