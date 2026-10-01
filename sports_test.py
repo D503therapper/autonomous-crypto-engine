@@ -3625,12 +3625,13 @@ def test_graded_card_shows_the_review_where_the_pregame_line_was():
     import sports_dashboard as sdb
     leg = {"team": "Yankees", "opp": "Red Sox", "league": "mlb", "side": "home", "home": True, "market": "ml",
            "line": None, "odds": -135, "start": "2026-09-30T00:00Z", "game_id": "mlb:1", "reasons": [],
-           "why_line": "💪 Yankees are just the better team.", "result": "won", "score": "Red Sox 0 @ Yankees 9"}
+           "why_line": "💪 Yankees (93-68) vs Red Sox (88-74) — the better team's on our side.", "result": "won",
+           "score": "Red Sox 0 @ Yankees 9"}                     # (a real line - filler is the card guard's job, 10/1)
     h = sdb._leg(leg, review="The Yankees beat the Red Sox like they stole something.")
-    assert "📝 The Yankees beat the Red Sox like they stole something." in h and "just the better team" not in h
+    assert "📝 The Yankees beat the Red Sox like they stole something." in h and "93-68" not in h
     assert h.count('class="why rvy"') == 1
     pre = sdb._leg({**leg, "result": None})
-    assert "just the better team" in pre and "📝" not in pre
+    assert "93-68" in pre and "📝" not in pre
     src = open(sdb.__file__).read()
     assert ".why{{font-size:13px;color:#fff" in src and 'tag = f"📝 {recap(l)}"' in src
 
