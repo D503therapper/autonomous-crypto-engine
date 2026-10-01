@@ -621,8 +621,10 @@ def _fades(sched, g, side, lg, et):
     out = []
     if len(ms) >= 5 and sum(ms[-3:]) / 3 - sum(ms) / len(ms) <= -7:
         out.append("ice cold")
-    if _first_season_coach(lg, g.get(f"{side}_name"), season):
-        out.append("coach's first season")
+    other = "away" if side == "home" else "home"
+    if _first_season_coach(lg, g.get(f"{side}_name"), season) and \
+            not _first_season_coach(lg, g.get(f"{other}_name"), season):   # (10/1 audit: both coaches new cancels,
+        out.append("coach's first season")                               # like the game-day dog score does)
     if lg == "ncaaf" and len(ms) >= 3 and all(m < 0 for m in ms[-3:]):
         out.append("losing streak")
     if et.weekday() == 3:
@@ -640,7 +642,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
     cfin = None
     for g in games.values():
         lg = g.get("league")
-        if lg not in ("nfl", "ncaaf") or g.get("status") != "pre" or (g.get("stype") or "?") not in sd.REAL:
+        if lg not in ("nfl", "ncaaf") or g.get("status") != "pre" or (g.get("stype") or "?") not in sd.REAL \
+                or g.get("tbd") == "1":                      # (no start time set yet: "game day" can't be known)
             continue
         try:
             start = _t(g["start"])
@@ -825,7 +828,9 @@ def min_one(games, st, now, injuries, own_of, have=()):
     cands.sort(key=lambda c: -(c.get("score") or 0))
     out = cands[:SPOT_MIN_WEEK]                             # the minimum one: the best weighed dog
     out += [c for c in cands[SPOT_MIN_WEEK:SPOT_MAX_WEEK] if c["score"] >= SPOT_MIN_TOTAL]   # a 2nd only if it clears
-    return out                                              # the normal bar too ("one minimum, two max")
+    for c in out:                                           # the normal bar too ("one minimum, two max")
+        c["spot"] = "best"                                  # (10/1 audit: a backup pick skipped the spots' own window -
+    return out                                              # it counts as the engine's best dog, never in a spot's record)
 
 
 def spot_record(st):

@@ -1864,9 +1864,10 @@ def publish_results(msg):
     import sports
     import sports_dashboard
     try:
+        pull()   # grade the latest picks, never a stale copy (10/1 audit: pull FIRST, then reload - the reload ran
+        #          the code from before this pull)
         importlib.reload(sports_dashboard)                   # the watcher runs for 50 min: always rebuild the page
         importlib.reload(sports)                             # with the newest pulled code, never an older look
-        pull()   # grade the latest picks, never a stale copy
         tn = 0
         try:                                                 # 🎾 our tennis picks first (the page below shows them)
             import sports_tennis

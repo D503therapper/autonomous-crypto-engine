@@ -30,4 +30,5 @@ jobs:
           git config user.email "paper-trader-bot@users.noreply.github.com"
           git add data/sports/public.json data/sports/rigged.json data/sports/public_run.log
           git commit -qm "public splits + rigged study $(date -u '+%F %H:%M') UTC" || exit 0
-          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null; sleep 5; done
+          [ -n "$ok" ] || exit 1

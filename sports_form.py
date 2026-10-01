@@ -191,7 +191,7 @@ def last_starts(games):
     """{(league, team): [start of each real game, oldest first]} for the back-to-back check."""
     out = {}
     for g in sorted(games.values(), key=lambda g: g.get("start", "")):
-        if g.get("league") in B2B_LEAGUES and g.get("status") in ("final", "live") and (g.get("stype") or "2") in ("2", "3"):
+        if g.get("league") in B2B_LEAGUES and g.get("status") in ("final", "live") and (g.get("stype") or "2") in ("2", "3", "5"):
             for side in ("home", "away"):
                 out.setdefault((g["league"], g[side]), []).append(g["start"])
     return out

@@ -31,8 +31,19 @@ FIELDS = ["id", "league", "start", "status", "home", "away", "home_name", "away_
           "inj_home", "inj_away", "sp_home", "sp_away", "stype", "country", "intl", "city", "state", "indoor",
           "elev", "wx_temp", "wx_wind", "wx_rain", "tzo", "ls_home", "ls_away",
           "h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds",
-          "total", "over_odds", "under_odds"]
-REAL = ("2", "3", "?")          # regular season + playoffs; preseason / spring training / all-star games don't count
+          "total", "over_odds", "under_odds", "tbd"]
+# tbd (10/1 audit): ESPN's timeValid false - no start time set yet (stored at midnight ET, the wrong Pacific day: the
+# Padres' NLDS Game 1 read as a Friday game). "1" = the board and the early plays skip it until a real time comes.
+REAL = ("2", "3", "5", "?")     # regular season + playoffs (+ the NBA play-in, type 5); preseason / spring training /
+#                                 all-star games don't count (10/1 audit: the play-in was left out, all-star games in)
+EXHIBITION = {"AFC", "NFC", "American", "National", "EAST", "WEST", "World", "USA", "Canada", "Finland", "Sweden",
+              "Atlantic", "Central", "Metro", "Pacific"}   # all-star / Pro Bowl / 4 Nations sides - never real games
+
+
+def exhibition(g):
+    """An all-star / Pro Bowl / international showcase game (its 'teams' aren't franchises)."""
+    return any(str(g.get(k) or "") in EXHIBITION or (g.get("league") in ("nba", "nhl")
+               and str(g.get(k) or "").startswith("Team ")) for k in ("home_name", "away_name"))
 ODDS = ["ml_home", "ml_away", "spread_home", "spread_home_odds", "spread_away_odds"]
 
 
@@ -234,6 +245,7 @@ def parse_scoreboard(league, payload):
             "sp_home": probable("home"), "sp_away": probable("away"),
             "stype": str((ev.get("season") or {}).get("type") or "?"),     # 1 preseason, 2 regular, 3 playoffs
             "ls_home": lines("home") if status == "final" else "", "ls_away": lines("away") if status == "final" else "",
+            "tbd": "1" if comp.get("timeValid") is False or ev.get("timeValid") is False else "",
             **{k: ("" if v is None else v) for k, v in od.items()},
         })
     return out
@@ -246,6 +258,10 @@ def parse_scoreboard(league, payload):
 SPLIT = {"ncaaf": ("&groups=80", "&groups=81") + tuple(f"&groups={c}" for c in (1, 4, 5, 8, 9, 12, 15, 17, 37, 151, 18))}
 # (10/1, the owner: "we don't want any gaps" - groups=81 is FCS, the smaller schools the big ones play: Samford,
 # McNeese, Texas Southern had only their games against FBS teams, so their records were half a picture)
+# 10/1 audit: groups=81 is capped at 25 games like 80 was - FCS conference by conference too (Big Sky, MVFC, Ivy, MEAC,
+# NEC, OVC, Patriot, Pioneer, Southern, Southland, SWAC, CAA, Big South, UAC, FCS independents). OPTIONAL: a failed or
+# wrong id never fails the day - the FBS calls above stay required (tools/ncaaf_backfill.py logs what each returns).
+SPLIT_OPTIONAL = {"ncaaf": tuple(f"&groups={c}" for c in (20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 48, 40, 176, 32))}
 
 
 def fetch_day(league, day, retries=2):
@@ -257,11 +273,14 @@ def fetch_day(league, day, retries=2):
                 return None                              # one conference missing = the day failed (it's retried)
             for r in rows:
                 out[r["id"]] = r
+        for extra in SPLIT_OPTIONAL.get(league, ()):
+            for r in _fetch_one(league, day, extra, 1, quiet=True) or []:   # (never fails the day, never holds it)
+                out.setdefault(r["id"], r)
         return list(out.values())
     return _fetch_one(league, day, LEAGUES[league][1], retries)
 
 
-def _fetch_one(league, day, extra, retries=2):
+def _fetch_one(league, day, extra, retries=2, quiet=False):
     path = LEAGUES[league][0]
     url = ESPN.format(path=path, day=day.strftime("%Y%m%d"), extra=extra)
     for i in range(retries):
@@ -270,6 +289,8 @@ def _fetch_one(league, day, extra, retries=2):
                 return parse_scoreboard(league, json.load(r))
         except Exception as e:                       # noqa: BLE001 - network: retry, then give up on this day
             if i == retries - 1:
+                if quiet:
+                    return None
                 ERRORS.append(f"{league} {day:%Y-%m-%d}: {str(e)[:120]}")
                 if len(ERRORS) <= 5:
                     print(f"   {ERRORS[-1]}", flush=True)
@@ -327,6 +348,7 @@ def merge(old, new, now_iso):
         for k in ("start", "status", "home_name", "away_name", "home_score", "away_score", "neutral", "sp_home", "sp_away",
                   "stype", "country", "intl", "city", "state", "indoor"):
             g[k] = new[k]
+        g["tbd"] = new.get("tbd", "")                        # (a time that's been set clears it)
         for k in ("ls_home", "ls_away"):
             if new.get(k):
                 g[k] = new[k]

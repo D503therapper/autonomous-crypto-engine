@@ -214,7 +214,12 @@ def key_edges(games, players):
 def form_line(league, player, rows, before):
     """Plain-talk recap of a player's last few starts, and whether that's good or bad: (text, 'hot'|'cold'|None)."""
     role = ROLE.get(league)
-    starts = [r for r in rows if r["player"] == player and r["start"] < before][-3:]
+    try:                                                     # (10/1 audit: "lately" was last May's playoff starts -
+        from datetime import datetime, timedelta             # a 45-day window, so "lately" means this season)
+        lo = (datetime.strptime(before[:10], "%Y-%m-%d") - timedelta(days=45)).strftime("%Y-%m-%d")
+    except (TypeError, ValueError):
+        lo = ""
+    starts = [r for r in rows if r["player"] == player and lo <= r["start"] < before][-3:]
     if not role or not starts:
         return None, None
     n = len(starts)
