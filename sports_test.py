@@ -3396,7 +3396,10 @@ def test_why_line_is_a_real_line_not_a_tag():
     base = {"team": "Yankees", "opp": "Red Sox", "league": "mlb", "side": "home", "p": 0.58, "tier": "lock", "ctx": []}
     say = lambda leg, **k: v24.why_line(leg, v24.Voice("s", set()), g, "Yankees", "Red Sox", "the Yankees", "the Red Sox", **k)
     a = say({**base, "reasons": ["the stronger team"]}, rec_u="93-68", rec_t="87-75")
-    assert "93-68" not in a and "stronger team" not in a and a[:1] in "💪"   # 'better team' - no record after it
+    assert "93-68" in a and "87-75" in a and "stronger team" not in a and a[:1] in "💪"   # (10/1, never vague: the
+    #                                                          records ARE the fact - "just the better team" is banned)
+    assert not say({**base, "reasons": ["the stronger team"]}, rec_u="80-80", rec_t="90-70").startswith("💪")   # worse
+    #                                                          record: never "the better team"
     b = say({**base, "reasons": ["hotter recent form"]}, n_hot=4, rec_u="93-68")
     assert "4 straight" in b or "heater" in b.lower() or "cooking" in b
     c = say({**base, "reasons": ["opponent missing key players"], "opp_outs": ["Lukas Cormier (D)"]})
@@ -4137,9 +4140,14 @@ def test_patty_vs_the_algorithm():
 
 
 def test_what_counts_says_all_locks():
-    """The owner, 9/30: 'what counts' said 'the Lock of the Day' - it's every lock (the Lock of the Day is one)."""
+    """The owner, 9/30: 'what counts' said 'the Lock of the Day' - it's every lock (the Lock of the Day is one). 10/1
+    audit: it also said leans keep their own record - they COUNT in ours (marked 🟡) - and 'what counts' is a NEVER
+    phrase. The leans box sits with our records, never under 'not in our record'."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
-    assert "<b>What counts:</b> all locks, the Dog of the Day" in src
+    assert "<b>Our record:</b> every lock, the Dog of the Day, every value pick and every 🟡 lean" in src
+    assert "What counts" not in src and "leans (own record, not ours)" not in src
+    i = src.index("# their own categories, never in our record")
+    assert 'TIER_LOOK["lean"]' not in src[i:i + 900]
 
 
 def test_slate_check_before_the_board():
@@ -4158,7 +4166,9 @@ def test_slate_check_before_the_board():
                                                     "start": "2026-09-30T23:00Z", "away_name": a, "home_name": h,
                                                     "ml_home": mh, "ml_away": ma}
         games = {"mlb:1": g("mlb:1", "Yankees", "Red Sox"), "mlb:2": g("mlb:2", "White Sox", "TBD"),
-                 "mlb:3": g("mlb:3", "Cubs", "Padres", mh=""), "mlb:4": g("mlb:4", "Mets", "Braves")}
+                 "mlb:3": {**g("mlb:3", "Cubs", "Padres", mh=""), "stype": "2"}, "mlb:4": g("mlb:4", "Mets", "Braves")}
+        #   (an unpriced REGULAR-season game holds the board; an unpriced playoff game is likely an "if necessary" one
+        #    that won't be played - logged, not held: 10/1 audit)
         cands = [{"game_id": "mlb:1"}]
         probs = sports.slate_check(games, cands, day, now, errors=["odds: Action Network HTTP 503"])
         txt = " | ".join(probs)
@@ -5236,16 +5246,20 @@ def test_college_football_pulled_conference_by_conference():
     seen = []
     keep = sd._fetch_one
 
-    def fake(league, day, extra, retries=2):
+    def fake(league, day, extra, retries=2, quiet=False):
         seen.append(extra)
         return [{"id": "ncaaf:1"}, {"id": "ncaaf:" + extra}]
     sd._fetch_one = fake
     try:
         rows = sd.fetch_day("ncaaf", datetime(2025, 9, 6))
-        assert len(seen) == len(sd.SPLIT["ncaaf"]) >= 11 and "&groups=8" in seen and "&groups=80" in seen
+        n_req, n_opt = len(sd.SPLIT["ncaaf"]), len(sd.SPLIT_OPTIONAL["ncaaf"])
+        assert len(seen) == n_req + n_opt and n_req >= 11 and "&groups=8" in seen and "&groups=80" in seen
         assert len(rows) == len(seen) + 1                                   # 'ncaaf:1' once
-        sd._fetch_one = lambda league, day, extra, retries=2: None if extra == "&groups=8" else []
+        sd._fetch_one = lambda league, day, extra, retries=2, quiet=False: None if extra == "&groups=8" else []
         assert sd.fetch_day("ncaaf", datetime(2025, 9, 6)) is None
+        # (10/1 audit) the FCS conferences are optional: one failing never fails the day
+        sd._fetch_one = lambda league, day, extra, retries=2, quiet=False: None if extra == "&groups=20" else []
+        assert sd.fetch_day("ncaaf", datetime(2025, 9, 6)) == []
         seen.clear()
         sd._fetch_one = fake
         sd.fetch_day("nfl", datetime(2025, 9, 7))
@@ -6473,6 +6487,98 @@ def test_coach_firings_refresh_this_season():
         assert json.load(open(scc.RAW))[f"nfl:{yr}"]["sections"] == ["new"]
     finally:
         scc.RAW, scc.PARSED, scc.fetch, scc.coaching_sections, scc.time.sleep = keep
+
+
+def test_slate_check_holds_on_real_pull_errors_not_phantom_playoff_games():
+    """10/1 audit: (1) a failed scoreboard pull ('nfl 2026-10-01: HTTP Error 500') never held the board - the error
+    filter looked for words the real messages don't have; (2) three unpriced 'if necessary' playoff games that were
+    never played held the 8 AM board till 8:38."""
+    from datetime import date, datetime, timezone
+    day = date(2026, 10, 1)
+    now = datetime(2026, 10, 1, 15, tzinfo=timezone.utc)
+    G = {"p": {"id": "p", "league": "mlb", "stype": "3", "status": "pre", "start": "2026-10-01T21:00Z",
+               "home_name": "Astros", "away_name": "White Sox", "ml_home": "", "ml_away": ""}}
+    assert sports.slate_check(G, [], day, now, errors=[]) == []
+    probs = sports.slate_check(G, [], day, now, errors=["nfl 2026-10-01: HTTP Error 500", "web push: 404"])
+    assert len(probs) == 1 and "HTTP Error 500" in probs[0], probs
+    G["p"]["stype"] = "2"                                     # a regular-season game with no price still holds it
+    assert any("no price" in x for x in sports.slate_check(G, [], day, now, errors=[]))
+
+
+def test_one_input_failing_never_blanks_the_rest():
+    """10/1 audit: every input the engine weighs loaded in one try block - one failure (say the coaches) left every
+    input after it empty, silently. Each loads on its own now, and the double check reports what failed."""
+    import sports_coaches
+    keep = sports_coaches.states
+    sports_coaches.states = lambda iso: 1 / 0
+    try:
+        G = {"g": {"id": "g", "league": "nfl", "start": "2026-09-20T17:00Z", "status": "final", "stype": "2",
+                   "home": "A", "away": "B", "home_name": "Al", "away_name": "Bo", "home_score": "30", "away_score": "3",
+                   "ml_home": "-150", "ml_away": "130"}}
+        sports.load_states(G)
+        assert sports.STATE_FAILS == ["coaches"], sports.STATE_FAILS
+        assert any("coaches" in x for x in sports.factor_check(G, [], {}, None, datetime.now(timezone.utc)))
+    finally:
+        sports_coaches.states = keep
+        sports.load_states({})
+    assert sports.STATE_FAILS == []
+
+
+def test_merge_keeps_a_deleted_pick_deleted():
+    """10/1 audit: the picks merge ignored the base version - a pick pulled on one side came back whenever the other
+    side's commit still had it. Three-way now: deleted stays deleted, unless the other side changed it (then kept)."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json
+    a = {"date": "2026-10-01", "kind": "lock", "round": 1, "posted": "15:00", "status": "open", "legs": []}
+    b = {"date": "2026-10-01", "kind": "dog", "round": 1, "posted": "15:00", "status": "open", "legs": []}
+    out = merge_json.merge_picks([a], [a, b], base=[a, b])         # ours pulled the dog, theirs didn't touch it
+    assert [p["kind"] for p in out] == ["lock"], out
+    graded = {**b, "status": "won"}
+    out = merge_json.merge_picks([a], [a, graded], base=[a, b])    # theirs graded it meanwhile: kept, never lost
+    assert {p["kind"] for p in out} == {"lock", "dog"}
+    new = {**b, "posted": "16:00"}
+    out = merge_json.merge_picks([a, new], [a], base=[a])          # a brand-new pick on one side: kept
+    assert len(out) == 2
+    assert len(merge_json.merge_picks([a], [a, b])) == 2            # no base: the old union, as before
+
+
+def test_audit_batch_10_1():
+    """10/1 audits (data, math, grading) - each a bug that was live:
+    graded units re-sized after the fact (bankroll $1,059.70 -> $1,050.32); the MLB drought and the hockey early-season
+    weight counted twice; a time-not-set game on the wrong day; all-star games as real games, the NBA play-in left out;
+    a goalie's 'lately' from last May; '1 of 2' called owning the matchup; "UNLV' way"; a dog card as a lean."""
+    import sports_breakdown_v24 as v24
+    import sports_players as spl
+    # units: a pick posted before the money check keeps its rule; a graded pick keeps the units it was graded at
+    assert sports.kelly_units(0.40, -150, legacy=True) == 0.5 and sports.kelly_units(0.40, -150) == 0.0
+    pk = {"date": "2026-10-02", "kind": "lock", "status": "won", "units": 3.0, "legs": [{"odds": -120, "p": 0.3}]}
+    assert sports.units_for(pk) == 3.0
+    # the drought: once in the read, never again in the ranking
+    c = {"p": 0.58, "league": "mlb", "odds": -130, "drought_w": True}
+    keep = sports.overreact
+    sports.overreact = lambda c_: True
+    try:
+        assert abs(sports.rank_p(c) - (0.58 + sports.cover_run_w(c) + sports.coach_w(c) + sports.season_w(c))) < 1e-9
+    finally:
+        sports.overreact = keep
+    # time not set / exhibitions / the play-in
+    assert "5" in sd.REAL and sd.exhibition({"league": "nba", "home_name": "Team Stars", "away_name": "Team Stripes"})
+    assert sd.exhibition({"league": "mlb", "home_name": "American", "away_name": "National"})
+    assert not sd.exhibition({"league": "nba", "home_name": "Lakers", "away_name": "Celtics"})
+    assert "tbd" in sd.FIELDS
+    src = open(sports.__file__).read()
+    assert 'g.get("tbd") == "1"' in src
+    # "lately" = the last 45 days only
+    rows = [{"player": "G1", "start": "2026-05-02T00:00Z", "sa": "30", "ga": "5"}]
+    assert spl.form_line("nhl", "G1", rows, "2026-10-02T00:00Z") == (None, None)
+    assert spl.form_line("nhl", "G1", rows, "2026-05-10T00:00Z")[0]
+    # possessives, records = regular season, streaks = this season
+    assert v24._pos("UNLV") == "UNLV's" and v24._pos("Steelers") == "Steelers'"
+    bsrc = open(v24.__file__).read()
+    assert "2 * w > len(last3)" in bsrc and "r_ours = [x for x in s_ours if" in bsrc and "heat = _streak(s_ours, tid)" in bsrc
+    assert "it ain't close" not in bsrc and '"k_rival"' not in bsrc
+    dsrc = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert 'p["kind"] not in ("lock", "dog")' in dsrc
 
 
 if __name__ == "__main__":

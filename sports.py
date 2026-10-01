@@ -336,8 +336,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
     out = []
     for g in games.values():
         if g["status"] != "pre" or g.get("ml_home", "") == "" or g["league"] not in sd.LEAGUES \
-                or (g.get("stype") or "?") not in sd.REAL:
-            continue
+                or (g.get("stype") or "?") not in sd.REAL or g.get("tbd") == "1" or sd.exhibition(g):   # (no time set:
+            continue                                                                # date is a placeholder - 10/1 audit)
         start = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
         if start.astimezone(PT).date() != day or start < now + timedelta(minutes=MIN_LEAD_MIN):
             continue
@@ -1350,22 +1350,26 @@ def units_ledger(picks, early=()):
     return {"bankroll": round(bank, 2), "unit_today": round(bank * UNIT_PCT, 2), "by_date": by_date, "rows": rows}
 
 
-def kelly_units(p, odds):
-    """A quarter of the Kelly stake in units (1u = 1% of the bankroll), rounded to ½u, ½u-10u (½u when the edge is thin)."""
+def kelly_units(p, odds, legacy=False):
+    """A quarter of the Kelly stake in units (1u = 1% of the bankroll), rounded to ½u, ½u-10u (½u when the edge is thin).
+    legacy: a pick posted before MONEY_CHECK_FROM keeps the rule it was posted under (no edge = ½u) - a posted, graded
+    pick's units never change after the fact (10/1 audit: the 'no edge = 0u' change re-sized 9 graded rows)."""
     d = _dec(odds)
     k = ((p or 0) * d - 1) / (d - 1)
-    return 0.0 if k <= 0 else min(UNIT_MAX, max(0.5, round(0.25 * k / 0.01 * 2) / 2))   # no edge = no units (10/1)
+    if k <= 0 and not legacy:
+        return 0.0                                                                   # no edge = no units (10/1)
+    return min(UNIT_MAX, max(0.5, round(0.25 * k / 0.01 * 2) / 2))
 
 
-def _sized(t, leg):
+def _sized(t, leg, legacy=False):
     """Units for one pick of tier t - the engine's call (see the sizing notes up top)."""
     if t == "lock":
         dec = leg.get("dec") or _dec(leg.get("odds") or -110)
         own = leg.get("w_p") or ((leg["edge_own"] + 1) / dec if leg.get("edge_own") is not None else leg.get("p"))   # edge_own is value per
         #                                         $1 (own x dec - 1), the same read own_agrees() uses - not a win % gap
-        return kelly_units(own, leg.get("odds") or -110)
+        return kelly_units(own, leg.get("odds") or -110, legacy)
     if t == "value":
-        u = kelly_units(leg.get("dog_p") or leg.get("p"), leg.get("odds") or 100)   # (a gated dog: the weighed read)
+        u = kelly_units(leg.get("dog_p") or leg.get("p"), leg.get("odds") or 100, legacy)   # (a gated dog: the weighed read)
         if leg.get("dog_p") is not None:
             u = min(u, DOG_SCORE_MAX_U)                    # the dog score's points rank dogs - they aren't proven win
         return u                                           # % - so a score-picked dog is a lead-sized bet (10/1, UConn)
@@ -1400,11 +1404,13 @@ def units_for(pk):
     kind, legs = pk.get("kind"), pk.get("legs") or []
     if kind in PARLAY_KINDS or not legs:
         return 0
+    if pk.get("units") is not None and pk.get("status") in ("won", "lost", "push", "void"):
+        return pk["units"]                                   # graded: the units it was graded at, forever (10/1 audit)
     if pk.get("lean"):
         u = pk.get("lean_units") or 0                        # a lean: none - or ½u on a lean we like (the owner, 10/1)
         return u if u and ((pk.get("date") or "9999") < MONEY_CHECK_FROM or beats_price(legs[0])) else 0   # (the money check)
     t = "value" if kind == "dog" else pick_tier(pk)
-    u = _sized(t, legs[0])
+    u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
     if u and (pk.get("date") or "9999") >= MONEY_CHECK_FROM and not beats_price(legs[0]):
         print(f"   money check: {legs[0].get('team')} {legs[0].get('odds')} - its read doesn't beat the real price, 0 units")
         return 0                                             # (the owner, 10/1: "build the money check")
@@ -1427,8 +1433,10 @@ def leg_units(pk, leg):
     """Units on one pick: a straight pick's own, or a parlay leg sized as the straight bet it is (its own tier)."""
     if pk.get("kind") not in PARLAY_KINDS:
         return units_for(pk)
+    if leg.get("units") is not None and leg.get("result") in ("won", "lost", "push", "void"):
+        return leg["units"]                                  # graded: frozen (10/1 audit)
     t = leg.get("tier") or leg_tier({**leg, "edge_own": leg.get("edge_own", leg.get("edge", 0))})
-    return _sized(t, leg)
+    return _sized(t, leg, legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
 
 
 LEAN_MIN_P = {"two": 0.58, "three": 0.58, "four": 0.58, "lock": 0.62, "dog": 0.42}   # a replacement lean (after a pick's graded): a sure side only
@@ -1458,8 +1466,9 @@ def rank_p(c):
     (over-rated), an overreaction (under-rated), cover runs, coaches, the season phase, and a playoff FAVORITE that just
     lost the last game of the series (10/1 bug check: the Astros Lock - SERIES_LOST_W only lived in the old parlay
     ladder, so the Lock and the unit plays never saw it)."""
-    return (c["p"] - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) else 0) + cover_run_w(c) + coach_w(c)
-            + season_w(c) - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
+    return (c["p"] - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) and not c.get("drought_w") else 0)
+            + cover_run_w(c) + coach_w(c) + season_w(c)        # (10/1 audit: the MLB drought was in p AND here - twice)
+            - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
 
 
 def real_value(c):
@@ -1490,7 +1499,9 @@ def lock_value(c):
     """The Lock's value with every proven nudge in (rank_p's): the engine's own read, moved as rank_p moves the win %,
     over the price (10/1: ranked by raw value, the Astros - a playoff favorite that just lost the last game - got back
     in)."""
-    own = c.get("w_p") or (c["edge_own"] + 1) / c["dec"]
+    if c.get("w_p") is not None:                             # (10/1 audit) a hockey favorite's weighed read already
+        return (c["w_p"] + rank_p(c) - c["p"] - season_w(c)) * c["dec"] - 1   # holds the early-season weight - once
+    own = (c["edge_own"] + 1) / c["dec"]
     return (own + rank_p(c) - c["p"]) * c["dec"] - 1
 
 
@@ -1519,7 +1530,8 @@ def mark_hockey_favorites(cands):
         if fav.get("p_market") is not None:
             lift = max(-NHL_FAV_CAP, min(NHL_FAV_CAP, -NHL_FAV_PER_PT * fav["opp_dog"]))
             early = NHL_EARLY_FAV if season_w(fav) < 0 else 0.0
-            tired = NHL_3IN4_FAV if third_in_four(fav, dog) else 0.0
+            tired = NHL_3IN4_FAV if third_in_four(fav, dog) and not dog.get("tired_vs_rested") else 0.0   # (10/1
+            #         audit: a dog that played last night is already -3 in its score, which lifts the favorite - once)
             slump = NHL_SV_SLUMP_FAV if str(fav.get("team_id")) in SV_SLUMP else 0.0
             if slump:
                 dog["opp_sv_slump"] = True
@@ -1540,6 +1552,7 @@ def weigh_mlb_drought(cands):
             if c.get("edge_own") is not None:
                 c["edge_own"] = min(0.95, (c["edge_own"] + 1) / c["dec"] + MLB_DROUGHT_W) * c["dec"] - 1
             c["reasons"] = c["reasons"] + ["hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"]
+            c["drought_w"] = True                            # (already in its read: rank_p never adds it twice)
 
 
 NHL_SV_SLUMP_FAV = 0.015   # 10/1 study: a favorite whose goalie is slumping (last-10 save % bottom quarter) beat its
@@ -1847,6 +1860,15 @@ def grade(picks, games, now=None):
         # there - the owner, 9/29), a won / pushed one when its last game ended
         lost_t = [l.get("settled") or stamp for l in pk["legs"] if l.get("result") == "lost"]
         pk["settled"] = min(lost_t) if lost_t else max(l.get("settled") or stamp for l in pk["legs"])
+        try:                                                 # (10/1 audit) the units it was graded at, frozen on the pick:
+            if pk.get("kind") in PARLAY_KINDS:               # a later code change never re-sizes a graded pick
+                for l in pk["legs"]:
+                    if l.get("result") and l.get("units") is None:
+                        l["units"] = leg_units(pk, l)
+            elif pk.get("units") is None:
+                pk["units"] = units_for(pk)
+        except Exception as e:                               # noqa: BLE001 - grading never fails over the freeze
+            print(f"units freeze failed: {str(e)[:80]}")
         settled.append(pk)
     return settled
 
@@ -1876,7 +1898,7 @@ def slate_check(games, cands, day, now, errors=None):
     looked at by the engine; and the run's data pulls didn't fail. Writes data/sports/slate_check.json.
     Returns the problems (plain words)."""
     todays = [g for g in games.values() if g.get("league") in sd.LEAGUES and (g.get("stype") or "?") in sd.REAL
-              and g.get("status") == "pre" and g.get("start")
+              and g.get("status") == "pre" and g.get("start") and g.get("tbd") != "1"
               and datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).date() == day]
     seen = {c["game_id"] for c in cands}
     probs = []
@@ -1885,11 +1907,16 @@ def slate_check(games, cands, day, now, errors=None):
         if any(not n or "TBD" in str(n).upper() or str(n).strip() in ("?", "-") for n in (g.get("away_name"), g.get("home_name"))):
             probs.append(f"{name}: a team isn't named yet")
         elif sm._int(g.get("ml_home")) is None or sm._int(g.get("ml_away")) is None:
+            if str(g.get("stype")) == "3":           # (10/1 audit: three "if necessary" playoff games that were never
+                print(f"SLATE CHECK (not held): {name}: no price - an 'if necessary' playoff game?", flush=True)
+                continue                             # played held the 8 AM board till 8:38)
             probs.append(f"{name}: no price from the books")
         elif g["id"] not in seen:
             probs.append(f"{name}: priced but the engine never looked at it")
-    bad = [e for e in (errors if errors is not None else sd.ERRORS)
-           if any(k in str(e).lower() for k in ("odds", "scoreboard", "schedule", "action network", "espn"))]
+    days = (day.isoformat(), (day - timedelta(days=1)).isoformat())   # (10/1 audit: the real messages are "nfl
+    bad = [e for e in (errors if errors is not None else sd.ERRORS)   # 2026-10-01: HTTP Error 500" - the old word
+           if any(d in str(e) for d in days)                         # filter never matched one: today's / last
+           or any(k in str(e).lower() for k in ("odds", "scoreboard", "schedule", "action network", "espn"))]   # night's
     probs += [f"data pull failed: {str(e)[:80]}" for e in bad[:5]]
     out = {"at": now.strftime("%Y-%m-%dT%H:%MZ"), "day": day.isoformat(), "games": len(todays),
            "looked_at": len([g for g in todays if g["id"] in seen]), "problems": probs}
@@ -1935,13 +1962,51 @@ def data_gaps(games, cands, now):
     return out
 
 
+STATE_FAILS = []   # (10/1 audit) the inputs that failed to load this run - each loads on its own and the double
+#                    check reports them (one failure used to leave every input after it empty, silently)
+
+
+def load_states(games):
+    """Load every state the engine weighs, each on its own (a failure never blanks the rest); STATE_FAILS lists them."""
+    import sports_form
+    import sports_coaches
+    import sports_coach_changes
+    iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+    del STATE_FAILS[:]
+
+    def ats():
+        a_, m_ = sports_form.ats_states(games)
+        ATS[0].clear(), ATS[0].update(a_), ATS[1].clear(), ATS[1].update(m_)
+    steps = [("hot players", HOT_KEY, lambda: sports_form.hot_sides(games, sp.CACHE, iso)),
+             ("team form", TEAM_STATE, lambda: sports_form.team_states(games, iso)),
+             ("rest / back-to-backs", LAST_STARTS, lambda: sports_form.last_starts(games)),
+             ("cover streaks", None, ats),
+             ("season starts", SEASON_START, lambda: season_starts(games, datetime.now(timezone.utc))),
+             ("coaches", COACH, lambda: sports_coaches.states(iso)),
+             ("coach firings", FIRED, lambda: sports_coach_changes.recent(iso)),
+             ("first-time coaches", FIRST_TIMER, lambda: sports_coach_changes.first_timers(games, iso)),
+             ("dog studies' form", DOG_ST, lambda: sports_form.dog_states(games, iso)),
+             ("hockey puck luck", PDO, lambda: sports_form.pdo_states(games, iso)),
+             ("goalie save % slumps", SV_SLUMP, lambda: (str(t) for t in sports_form.sv_slump()))]
+    for name, box, fn in steps:                          # (same order as before: PDO fills LAST_SV before sv_slump)
+        try:
+            if box is None:
+                fn()
+                continue
+            box.clear()
+            box.update(fn())
+        except Exception as e:                               # noqa: BLE001 - one input failing never blanks the rest
+            STATE_FAILS.append(name)
+            print(f"{name} failed to load: {str(e)[:80]}", flush=True)
+
+
 def factor_check(games, cands, injuries, day, now):
     """🔎 THE DOUBLE CHECK, part 1 (the owner, 10/1: "every day before the engine posts there needs to be a check - make
     sure it's weighing every factor, every study"): every study's data actually loaded for the sports on today's slate.
     A missing piece holds the board (the engine re-pulls) until SLATE_LAST_TRY, then it posts and the log says what
     was missing. Adds the result to slate_check.json."""
     lgs = {c["league"] for c in cands}
-    probs = []
+    probs = [f"the {x} data failed to load" for x in STATE_FAILS]
     for lg in sorted(lgs):
         if lg in ("nfl", "ncaaf", "ncaab", "nba", "nhl", "mlb") and not any(k[0] == lg for k in DOG_ST):
             probs.append(f"{lg.upper()}: the last-result / form data (dog studies) didn't load")
@@ -2544,34 +2609,7 @@ def quick(now=None):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']}")
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
-    try:                                                     # 🔥 who's much hotter tonight (sports_form)
-        import sports_form
-        HOT_KEY.clear()
-        HOT_KEY.update(sports_form.hot_sides(games, sp.CACHE, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        TEAM_STATE.clear()
-        TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        LAST_STARTS.clear()
-        LAST_STARTS.update(sports_form.last_starts(games))
-        a_, m_ = sports_form.ats_states(games)
-        ATS[0].clear(), ATS[0].update(a_), ATS[1].clear(), ATS[1].update(m_)
-        import sports_coaches
-        SEASON_START.clear()
-        SEASON_START.update(season_starts(games, datetime.now(timezone.utc)))
-        COACH.clear()
-        COACH.update(sports_coaches.states(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        import sports_coach_changes
-        FIRED.clear()
-        FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        FIRST_TIMER.clear()
-        FIRST_TIMER.update(sports_coach_changes.first_timers(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        DOG_ST.clear()
-        DOG_ST.update(sports_form.dog_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        PDO.clear()
-        PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        SV_SLUMP.clear()
-        SV_SLUMP.update(str(t) for t in sports_form.sv_slump())
-    except Exception as e:                                   # noqa: BLE001 - never blocks the board
-        print(f"hot key players failed: {str(e)[:80]}")
+    load_states(games)                                       # 🔥 every input the engine weighs, each on its own
     add_breakdowns(games, model, picks)
     had = {p["kind"] for p in picks if p["date"] == day.isoformat()}
     posted = post_board(games, model, picks, now, day)          # replaces any graded play (this pass or earlier)
@@ -2633,34 +2671,7 @@ def run(repick=False, fetch=True):
         games = sd.load_games()
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
-    try:                                                     # 🔥 who's much hotter tonight (sports_form)
-        import sports_form
-        HOT_KEY.clear()
-        HOT_KEY.update(sports_form.hot_sides(games, sp.CACHE, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        TEAM_STATE.clear()
-        TEAM_STATE.update(sports_form.team_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        LAST_STARTS.clear()
-        LAST_STARTS.update(sports_form.last_starts(games))
-        a_, m_ = sports_form.ats_states(games)
-        ATS[0].clear(), ATS[0].update(a_), ATS[1].clear(), ATS[1].update(m_)
-        import sports_coaches
-        SEASON_START.clear()
-        SEASON_START.update(season_starts(games, datetime.now(timezone.utc)))
-        COACH.clear()
-        COACH.update(sports_coaches.states(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        import sports_coach_changes
-        FIRED.clear()
-        FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        FIRST_TIMER.clear()
-        FIRST_TIMER.update(sports_coach_changes.first_timers(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        DOG_ST.clear()
-        DOG_ST.update(sports_form.dog_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        PDO.clear()
-        PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
-        SV_SLUMP.clear()
-        SV_SLUMP.update(str(t) for t in sports_form.sv_slump())
-    except Exception as e:                                   # noqa: BLE001 - never blocks the board
-        print(f"hot key players failed: {str(e)[:80]}")                     # QB / starting pitcher / goalie form per game
+    load_states(games)                                       # 🔥 every input the engine weighs, each on its own
     n_players = sum(len(rows) for rows in sp.CACHE.values())
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")

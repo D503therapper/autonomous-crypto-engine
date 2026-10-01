@@ -84,7 +84,8 @@ def line_move(g):
 
 def finals(games, league):
     out = [g for g in games.values() if g["league"] == league and g["status"] == "final"
-           and g["home_score"] != "" and g["away_score"] != "" and (g.get("stype") or "?") in sd.REAL]
+           and g["home_score"] != "" and g["away_score"] != "" and (g.get("stype") or "?") in sd.REAL
+           and not sd.exhibition(g)]
     out.sort(key=lambda g: (g["start"], g["id"]))
     return out
 

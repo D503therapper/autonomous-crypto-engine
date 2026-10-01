@@ -21,14 +21,27 @@ def _load(path):
         return None
 
 
-def merge_picks(ours, theirs):
-    def key(p):
-        return (p.get("date"), p.get("kind"), p.get("round") or 1, p.get("posted") or "")
+def _pkey(p):
+    if p.get("status") == "waiting":
+        return (p.get("date"), p.get("kind"), "waiting")
+    return (p.get("date"), p.get("kind"), p.get("round") or 1, p.get("posted") or "")
+
+
+def merge_picks(ours, theirs, base=None):
+    # (10/1 audit) three-way: a pick that was in the base and one side deleted stays deleted - unless the other side
+    # changed it since (graded it, say): then it's kept. Without the base, a pulled pick came back on the next merge.
+    gone = set()
+    if base:
+        b_ = {_pkey(p): p for p in base}
+        o_, t_ = {_pkey(p): p for p in ours or []}, {_pkey(p): p for p in theirs or []}
+        for k, p in b_.items():
+            if (k not in o_ and t_.get(k, p) == p) or (k not in t_ and o_.get(k, p) == p):
+                gone.add(k)
     out = {}
     for p in (ours or []) + (theirs or []):
-        k = key(p)
-        if p.get("status") == "waiting":
-            k = (p.get("date"), p.get("kind"), "waiting")
+        k = _pkey(p)
+        if k in gone:
+            continue
         old = out.get(k)
         if old is None or RANK.get(p.get("status"), 0) > RANK.get(old.get("status"), 0) or \
                 (RANK.get(p.get("status"), 0) == RANK.get(old.get("status"), 0)
@@ -66,7 +79,9 @@ def merge_log(ours, theirs):
 def main(base, ours_path, theirs_path):
     ours, theirs = _load(ours_path), _load(theirs_path)
     if isinstance(ours, list) or isinstance(theirs, list):
-        merged = merge_picks(ours if isinstance(ours, list) else [], theirs if isinstance(theirs, list) else [])
+        b_ = _load(base) if base else None
+        merged = merge_picks(ours if isinstance(ours, list) else [], theirs if isinstance(theirs, list) else [],
+                             b_ if isinstance(b_, list) else None)
     else:
         merged = merge_log(ours, theirs)
     with open(ours_path, "w") as f:

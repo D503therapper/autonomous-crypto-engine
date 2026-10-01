@@ -21,6 +21,9 @@ CONFS = (1, 4, 5, 8, 9, 12, 15, 17, 37, 151, 18)
 YEARS = {2026: 7}
 # Run 3 (10/1): FCS too (groups=81) - the smaller schools' own games, so a Samford or McNeese record is whole.
 CONFS = CONFS + (81,)
+# Run 4 (10/1 audit): groups=81 is capped at 25 like 80 was - the FCS conferences one by one (sports_data.SPLIT_OPTIONAL;
+# the probe line below shows what each id returns, so a wrong one shows up as 0).
+CONFS = CONFS + (20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 48, 40, 176, 32)
 
 
 def get(url):

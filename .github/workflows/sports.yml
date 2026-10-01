@@ -45,9 +45,11 @@ jobs:
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
           git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
+          tail -n 3000 data/sports/run.log > /tmp/run.log && mv /tmp/run.log data/sports/run.log || true   # (10/1 audit: it grew without end)
           git add data/sports docs/sports
           git commit -qm "sports $(date -u '+%F %H:%M') UTC" || exit 0
-          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null; sleep 5; done
+          [ -n "$ok" ] || { echo "push failed - this run's board / grades never reached main"; exit 1; }   # (10/1 audit: it showed green)
       - name: early value play pings (once the dashboard shows them)
         if: always()
         continue-on-error: true
