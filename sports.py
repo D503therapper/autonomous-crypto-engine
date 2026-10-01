@@ -301,6 +301,7 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
 SEASON_START = {}              # {league: first regular-season day this season} - early-season hockey (season_w)
 FIRED = {}                     # {(league, team): date of a mid-season coaching change} - sports_coach_changes
 FIRST_TIMER = set()            # {(league, team)}: a first-time head coach's first season (sports_coach_changes)
+DOG_ST = {}                    # {(league, team): {won, rs, ss}} - the 10/1 dog studies (sports_form.dog_states)
 COACH = {}                     # {(league, team): (coach's years, new with the team)} - sports_coaches.states
 ATS = ({}, {})                 # (cover streaks, last meetings) - sports_form.ats_states
 PDO = {}                       # {nhl team: PDO last 10} - puck luck (sports_form)
@@ -383,6 +384,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "revenge": lg in sports_form.REVENGE and ATS[1].get((lg, g[side], g[other]), 0) <= -sports_form.REVENGE[lg],
                     "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
                     and not sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"]),
+                    "tired_vs_rested": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"])
+                    and not sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"]),
+                    "dog_ctx": _dog_ctx(lg, g[side], g[other]),
                     "our_drama": drama[side][:1], "their_drama": drama["away" if side == "home" else "home"][:1],
                     # display only (the breakdown + the self-check's report-only groups): context facts, pregame talk
                     "ctx": sports_context.display(cx, side), "ctx_tags": sports_context.tags(cx, side),
@@ -717,6 +721,9 @@ def dog_score(c):
     better goalie (the dog WITH the better goalie -9% to -12%, the dog facing it +2%)."""
     own = (c.get("edge_own", c["edge"]) + 1) / c["dec"]
     sc = (own - (c.get("p_market") or own)) * 100
+    if sc > OWN_CAP:
+        sc = 0.0 if c.get("league") in OWN_TRAP else OWN_CAP
+    sc += dog_spots(c)
     if c.get("opp_lost_last"):
         sc += 3
     if c.get("lost_last"):                               # lost the last game of the series: baseball, Game 2 is the
@@ -755,6 +762,47 @@ def dog_score(c):
         if k is not None:
             sc += -2 if k >= 0.4 else 1 if k <= -0.4 else 0
     return sc
+
+
+def _dog_ctx(lg, me, them):
+    """The 10/1 dog studies' facts for one side: our / their last result, run share gap (MLB), shot share gap (NHL)."""
+    a, b = DOG_ST.get((lg, me)) or {}, DOG_ST.get((lg, them)) or {}
+    out = {"won": a.get("won"), "opp_won": b.get("won")}
+    for k in ("rs", "ss"):
+        if a.get(k) is not None and b.get(k) is not None:
+            out[k + "_gap"] = round(a[k] - b[k], 4)
+    return out
+
+
+def dog_spots(c):
+    """Points the 10/1 dog studies add to the Dog's score (every one vs all dogs at the same price, steady season to
+    season and again on 2024-26). See sports_form.dog_states."""
+    lg, odds, x = c.get("league"), c.get("odds", 0), c.get("dog_ctx") or {}
+    sc = 0.0
+    if lg == "nhl" and c.get("tired_vs_rested"):
+        sc -= 3                    # NHL: the dog played last night, the favorite didn't - -17.4% vs -4.8%, worse 7 of 8
+    won, opp_won = x.get("won"), x.get("opp_won")
+    if lg in ("nfl", "ncaaf", "ncaab"):
+        if opp_won is False:
+            sc += 2                # the favorite lost its last: -1.0% vs -5.5% (7 of 9)
+        elif won is False and opp_won is True and not overreact(c):
+            sc -= 3                # we lost ours, they won theirs: -11.3% vs -6.2% (worse 7 of 8)
+    elif lg == "nhl" and won is False and opp_won is False:
+        sc += 2                    # both lost their last: +1.6% vs -4.7% (7 of 8)
+    elif lg == "nba" and won is True and opp_won is False:
+        sc -= 2                    # we won, they lost: -10.0% vs -4.4% (worse 7 of 8)
+    if (lg == "mlb" and 200 <= odds <= 249) or (lg == "nhl" and odds >= 200):
+        sc -= 2                    # the price: MLB +200..+249 -14.9% (1 of 9 seasons up), NHL +200 and up -11..-14%
+    if lg == "mlb" and (x.get("rs_gap") or 0) >= 0.02:
+        sc += 1.5                  # out-scoring the favorite lately (small - 5 of 9 seasons at +130..+199)
+    ss = x.get("ss_gap")
+    if lg == "nhl" and ss is not None:
+        sc += 3 if ss > 0 else -3 if ss <= -0.03 else 0   # out-shooting them: +1.0% vs -5.7% (5 of 5); out-shot -10.5%
+    return sc
+
+
+OWN_CAP = 12                       # 10/1 study 11 (walk-forward, 43k dogs): big own reads are traps - the score counts
+OWN_TRAP = ("nfl", "nba")          # at most +12 points of it, and none at all past +12 in the NFL / NBA (2 of 8 seasons)
 
 
 def sports_coaches_vet():
@@ -1703,6 +1751,8 @@ def quick(now=None):
         FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         FIRST_TIMER.clear()
         FIRST_TIMER.update(sports_coach_changes.first_timers(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        DOG_ST.clear()
+        DOG_ST.update(sports_form.dog_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
@@ -1783,6 +1833,8 @@ def run(repick=False, fetch=True):
         FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         FIRST_TIMER.clear()
         FIRST_TIMER.update(sports_coach_changes.first_timers(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        DOG_ST.clear()
+        DOG_ST.update(sports_form.dog_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board

@@ -163,6 +163,22 @@ noise either way.
   team never batted in the 9th skews everything toward the road team (any line-score study: keep 8-inning games).
   What can't be tested yet: the live PRICES (no history of them) - every live play's price + result is logged now.
 
+- **The 15 dog studies (10/1, the owner: "all these dogs win every day - find them"; closing prices 2018-26, every
+  result vs ALL dogs at the same price in the same season, then 2024-26):** BUILT (sports.dog_spots / OWN_CAP):
+  NHL dog played last night vs a rested favorite -17.4% vs -4.8% (worse 7 of 8, our check agrees) -3; NFL / college
+  football / college hoops: the favorite lost its last +2 (7 of 9), the dog lost & the favorite won -3 (worse 7 of 8);
+  NHL both lost their last +2 (7 of 8); NBA dog won & favorite lost -2 (worse 7 of 8); NHL shot share (last 10) dog
+  ahead +3 (5 of 5, 2024-26 +9.3%), behind by 3+ -3; MLB run share (last 15) +1.5 (our check: only 5 of 9 at +130..+199
+  - weaker than first said); price bands that lose: MLB +200..+249 (-14.9%, 1 of 9) and NHL +200+ -2; big own reads
+  are traps (walk-forward: today's rule went -6.9% in 2024-26) - capped at +12, and 0 past +12 in the NFL / NBA.
+  FOUND, NOT BUILT YET (needs game-time data): MLB favorite resting 2+ more regulars than the dog: dog +8.9% vs -3.0%
+  (5 of 6, 2024-26 +15.7%) - lineups post 2-4 hours before first pitch, after the 8 AM board; NHL goalie roles (dog
+  starts its #1, favorite doesn't: -0.6% vs -6.7%, 4 of 5) - needs the confirmed starter; college football yards
+  margin (+50: +4.9%, 4 of 5); high totals hurt NFL / college hoops dogs (-2). Cautions: NBA dog missing its top scorer
+  -10.5% (contradicts the older star-out line - reconcile), football dog's usual QB out (small). NOISE: pitcher form
+  streaks, NBA favorite missing a star (carried by 2021 / +300s), rest / byes / road trips, division games outside
+  MLB, MLB series spots, line-move sizes outside the NHL, marquee favorites (team by team), public % (look-ahead risk).
+
 ## Data audit (10/1, the owner: "gotta confirm we don't gather bad data")
 - **Coaches (ESPN per season): BAD** - today's coach copied back through every season (NFL / NHL / MLB / college
   football), partly wrong in hoops. Coaching round 1 weights OFF.

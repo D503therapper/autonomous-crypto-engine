@@ -5318,6 +5318,30 @@ def test_coach_history_infobox():
     assert ex[("B", 2021)] == ("X", 2, True, False)                        # a retread: 2 seasons before, new team
 
 
+def test_dog_studies_10_1():
+    """10/1, the owner ("all these dogs win every day - find them"): the 15 dog studies' steady angles go into the
+    Dog's score - last results, tired NHL dogs, shot share, run share, the price bands that lose, and big own reads
+    capped (traps in the NFL / NBA)."""
+    import sports_form as sf
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "market": "ml"}
+    ds = lambda **k: sports.dog_score({**base, **k})
+    assert ds(league="nhl", tired_vs_rested=True) == ds(league="nhl") - 3
+    assert ds(league="nfl", dog_ctx={"won": True, "opp_won": False}) == ds(league="nfl") + 2
+    assert ds(league="ncaab", dog_ctx={"won": False, "opp_won": True}) == ds(league="ncaab") - 3
+    assert ds(league="nhl", dog_ctx={"won": False, "opp_won": False}) == ds(league="nhl") + 2
+    assert ds(league="nba", dog_ctx={"won": True, "opp_won": False}) == ds(league="nba") - 2
+    assert ds(league="nhl", dog_ctx={"ss_gap": 0.02}) == ds(league="nhl") + 3
+    assert ds(league="nhl", dog_ctx={"ss_gap": -0.05}) == ds(league="nhl") - 3
+    assert ds(league="mlb", dog_ctx={"rs_gap": 0.03}) == ds(league="mlb") + 1.5
+    big = {"edge_own": 0.5}                                                # own read way over the price
+    assert ds(league="nba", **big) < ds(league="mlb", **big)               # NBA / NFL: a big own read is a trap
+    assert sports.dog_spots({"league": "mlb", "odds": 230}) == -2 and sports.dog_spots({"league": "mlb", "odds": 160}) == 0
+    games = {f"mlb:{k}": {"id": f"mlb:{k}", "league": "mlb", "status": "final", "stype": "2", "start": f"2026-09-{10 + k}T23:00Z",
+                          "home": "A", "away": "B", "home_score": "5", "away_score": "2"} for k in range(8)}
+    st = sf.dog_states(games, "2026-09-30T12:00Z", team_rows=[])
+    assert st[("mlb", "A")]["won"] is True and abs(st[("mlb", "A")]["rs"] - 40 / 56) < 1e-9 and st[("mlb", "B")]["won"] is False
+
+
 def test_team_name_match_is_not_loose():
     """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
     'Texas St' the Longhorns'. The rest of the short name has to be in there too."""

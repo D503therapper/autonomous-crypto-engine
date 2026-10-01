@@ -282,3 +282,69 @@ def ats_states(games):
                 k = ats.get((lg, t), 0)
                 ats[(lg, t)] = (k + 1 if k >= 0 else 1) if cov else (k - 1 if k <= 0 else -1)
     return ats, meet
+
+
+# THE DOG STUDIES (10/1, the owner: "all these dogs win every day - find them"; 15 studies, closing prices 2018-26,
+# every result vs ALL dogs at the same price in the same season, checked again on 2024-26 it never shaped):
+#   - a team's LAST RESULT (within 30 days): NFL / college football / college hoops dogs facing a favorite that LOST its
+#     last: -1.0% vs -5.5% (7 of 9 seasons, 2024-26 -0.1% vs -5.4%); a dog that lost its last vs a favorite that won
+#     its last: -11.3% vs -6.2% (worse 7 of 8); NHL both teams lost their last: +1.6% vs -4.7% (7 of 8); an NBA dog that
+#     won its last vs a favorite that lost its last: -10.0% vs -4.4% (worse 7 of 8)
+#   - MLB run share (last 15 games, 7+): the dog's runs-for share 2+ points over the favorite's - small, 5 of 9 seasons
+#     at +130..+199 (the 2nd check, ours: weaker than the first said)
+#   - NHL shot share (last 10, 5+): a dog out-shooting the favorite +1.0% vs -5.7% (5 of 5, 2024-26 +9.3% vs -1.6%);
+#     out-shot by 3+ points -10.5% vs -5.6% (0 of 5)
+LAST_FRESH_D = 30
+
+
+def dog_states(games, now_iso, team_rows=None):
+    """{(league, team): {"won": last game won (or None if stale), "rs": MLB run share last 15, "ss": NHL shot share
+    last 10}} - from finished regular-season games only."""
+    import sports_model as sm
+    out = {}
+    for lg in ("nfl", "ncaaf", "ncaab", "nba", "nhl", "mlb"):
+        hist = {}
+        for g in sorted(sm.finals(games, lg), key=lambda g: g["start"]):
+            if (g.get("stype") or "2") != "2" or g["start"] > now_iso:
+                continue
+            try:
+                hs, as_ = float(g["home_score"]), float(g["away_score"])
+            except (KeyError, ValueError):
+                continue
+            for t, us, them in ((g["home"], hs, as_), (g["away"], as_, hs)):
+                hist.setdefault(t, []).append((g["start"], us, them, g["id"]))
+        for t, rows in hist.items():
+            st, us, them, _ = rows[-1]
+            d = {"won": (us > them) if _days(st, now_iso) <= LAST_FRESH_D else None}
+            if lg == "mlb":
+                q = [r for r in rows[-15:] if _days(r[0], now_iso) <= 45]
+                if len(q) >= 7 and sum(r[1] + r[2] for r in q):
+                    d["rs"] = sum(r[1] for r in q) / sum(r[1] + r[2] for r in q)
+            out[(lg, t)] = d
+    rows = team_rows if team_rows is not None else _nhl_team_rows()
+    by_gid = {r["gid"]: r for r in rows}
+    shots = {}
+    for g in sorted(sm.finals(games, "nhl"), key=lambda g: g["start"]):
+        r = by_gid.get(g["id"])
+        if not r or (g.get("stype") or "2") != "2" or g["start"] > now_iso or _days(g["start"], now_iso) > 40:
+            continue
+        tm = r.get("teams") or {}
+        try:
+            sh, sa = float(tm[str(g["home"])]["shotsTotal"]), float(tm[str(g["away"])]["shotsTotal"])
+        except (KeyError, ValueError, TypeError):
+            continue
+        shots.setdefault(g["home"], []).append((sh, sa))
+        shots.setdefault(g["away"], []).append((sa, sh))
+    for t, q in shots.items():
+        q = q[-10:]
+        if len(q) >= 5 and sum(a + b for a, b in q):
+            out.setdefault(("nhl", t), {"won": None})["ss"] = sum(a for a, _ in q) / sum(a + b for a, b in q)
+    return out
+
+
+def _nhl_team_rows():
+    try:
+        import sports_roster
+        return sports_roster.team_rows("nhl")
+    except Exception:                                        # noqa: BLE001
+        return []
