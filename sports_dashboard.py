@@ -457,10 +457,8 @@ def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
         if k == "lock":
             card += _dog_note(day, day_picks)
         out += f'<div class="gn" data-gone="{g}">{card}</div>' if g else card
-        if k == "lock" and after_lock:                       # 🎯 WE GOT IN EARLY: top of game day, right under the
-            out += after_lock                                # Lock (the owner, 9/30) - its own box, never coming
-            after_lock = ""                                  # down with the Lock's card
-    return after_lock + out if after_lock else out       # (no Lock up: it leads the board)
+    return after_lock + out                              # 🎯 WE GOT IN EARLY on game day: just ABOVE the Lock of
+    #                                                      the Day (the owner, 9/30) - its own box
 
 
 def gone_ms(p):
