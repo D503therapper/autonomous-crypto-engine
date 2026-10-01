@@ -5670,6 +5670,12 @@ def _six_early_spots():
         f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-135", "a": "115"}) + "\n")
     own = lambda g, side: 0.58 if side == "home" else 0.42
     got = se.spot_scan(C, now, own_of=own, hist_dir=d2)
+    assert got == []                                          # (10/1: a favorite is never an early play - game day)
+    C["c2"] = {**C["c2"], "ml_home": "105", "ml_away": "-125"}     # Utah a dog now, out from -115 at the first look
+    d3 = tempfile.mkdtemp()
+    with open(os.path.join(d3, "2026-10.jsonl"), "w") as f:
+        f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-115", "a": "-105"}) + "\n")
+    got = se.spot_scan(C, now, own_of=own, hist_dir=d3)
     assert [(c["team"], c["spot"]) for c in got] == [("Utah", "engine")]
     with open(os.path.join(d2, "2026-10.jsonl"), "w") as f:              # moved further: TCU now "hammered" too - the
         f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-140", "a": "120"}) + "\n")
@@ -6152,6 +6158,22 @@ def test_last_leads_wired():
     c = {"league": "mlb", "market": "ml", "game_id": "b"}
     sports.mark_doubleheader_game2(games, [c])
     assert c.get("dh_game2")
+
+
+def test_price_path_timing():
+    """10/1 odds studies: dogs early, favorites on game day (a favorite's price only gets worse through the week) - no
+    early favorite ever; the hourly price log keeps the spread juice (the juice moves before the number)."""
+    import inspect, sports_early as se, tempfile
+    assert "if not hit or not dog:" in inspect.getsource(se.spot_scan)
+    d = tempfile.mkdtemp()
+    g = {"g1": {"id": "g1", "status": "pre", "start": "2026-10-04T17:00Z", "ml_home": "-130", "ml_away": "110",
+                "spread_home": "-2.5", "spread_home_odds": "-120", "spread_away_odds": "100"}}
+    now = datetime(2026, 10, 1, 12, tzinfo=timezone.utc)
+    assert sd.record_lines(g, now, d) == 1 and sd.record_lines(g, now, d) == 0
+    g["g1"]["spread_home_odds"] = "-125"
+    assert sd.record_lines(g, now, d) == 1                 # a juice change alone is a new row
+    row = [json.loads(x) for x in open(os.path.join(d, "2026-10.jsonl"))][-1]
+    assert row["spo"] == ["-125", "100"]
 
 
 if __name__ == "__main__":

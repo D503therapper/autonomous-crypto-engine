@@ -296,6 +296,23 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   flat lately. KEEP the 56% floor + the money check. Note: even 56%+ favorites are slightly negative over the seasons -
   the proven money is in the dog angles and the early spots, not in more favorites.
 
+- **The paid odds history, round 4 (10/1; NFL + college 2020-26, ~20 books, fair looks only, median-book prices, ~330
+  cuts across two teams):**
+  - TIMING RULE (passes all five as timing, not profit): dogs +100..+220 are best bet at the Tuesday fair price (+1.5
+    to +2.8 pts of value vs the close; NFL 6/7 seasons, college 7/7, 2026 too); favorites -150..-101 are best on game
+    day (Tuesday 1-2 pts worse; NFL road favorites -7.9% on Tuesday vs -4.8% at the close). WIRED: early plays are dogs
+    only (the college engine spot let favorites in). Weight 0 on the read.
+  - The juice moves before the number: a spread shaded 2%+ on Tuesday moved its way 66% of the time (NFL; 74% at 4%+);
+    a juiced favorite on 3 goes up off 3 twice as often - but betting the shaded side at its juice loses (priced in).
+    A timing tool: line_history now keeps the spread juice (spo).
+  - Catching the side the close crosses 3/7 toward = +11.9% in the NFL, but nothing on Tuesday predicts it.
+  - DEAD: book dispersion (consensus or outlier), leader/follower books, regular vs sharp book gaps (tiny, close from
+    both sides), ML juice (books don't shade ML), steady / late moves (follow or fade), ML-vs-spread gaps (the ML
+    leads, the spread follows, betting the lag loses), the engine's read vs the next move (a coin flip).
+  - LEADS (log only): NFL spike-then-revert / round trip, bet the spike side (+19% on 53, no 2026 yet); college early-
+    only move, fade it (+8 to +14%, but the NFL goes the other way); NFL dog only one book is out on -10.8% (overlaps
+    "split books"). Per-book prices aren't in our live feed yet - needed to re-test the book leads on 2026.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a

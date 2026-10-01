@@ -874,12 +874,16 @@ def record_lines(games, now=None, path=None):
         if g.get("status") != "pre" or not (stamp < (g.get("start") or "") <= hi):
             continue
         h, a, sp = g.get("ml_home"), g.get("ml_away"), g.get("spread_home") or ""
+        spo = [g.get("spread_home_odds") or "", g.get("spread_away_odds") or ""]   # (10/1 books study: the juice
+        #                                   moves before the number - a shaded spread moved its way 66% of the time)
         if (h in (None, "") or a in (None, "")) and sp == "":
             continue
-        if last.get(g["id"]) in ([str(h), str(a)], [str(h), str(a), str(sp)]) and (sp == "" or len(last[g["id"]]) == 3):
+        cur = [str(h), str(a), str(sp), str(spo[0]), str(spo[1])]
+        if last.get(g["id"]) == cur or (last.get(g["id"]) in ([str(h), str(a)], [str(h), str(a), str(sp)])
+                                        and spo == ["", ""] and (sp == "" or len(last[g["id"]]) == 3)):
             continue
-        last[g["id"]] = [str(h), str(a), str(sp)]
-        rows.append({"g": g["id"], "t": stamp, "s": g["start"], "h": h, "a": a, "sp": sp})   # (10/1: the home
+        last[g["id"]] = cur
+        rows.append({"g": g["id"], "t": stamp, "s": g["start"], "h": h, "a": a, "sp": sp, "spo": spo})   # (10/1: the home
         #   spread too - the engine's read beats the TUESDAY NFL number, so the live play needs that number kept)
     if rows:
         with open(os.path.join(d, f"{stamp[:7]}.jsonl"), "a") as f:

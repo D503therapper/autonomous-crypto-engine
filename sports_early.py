@@ -679,8 +679,11 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
             if not hit:
                 continue
             hit = [h for h in hit if lg in SPOTS[h][2]]
-            if not hit:
-                continue
+            if not hit or not dog:
+                continue                                     # (10/1 price-path study: a favorite's price only gets
+                #                                              worse through the week - favorites on game day, never
+                #                                              early; a dog's only shortens - dogs early. NFL 6 of 7
+                #                                              seasons, college 6 of 7, 2026 too)
             own = own_of(g, side) if own_of else None
             if own is None or own < mk - SPOT_FIGHT:
                 continue                                     # no engine read, or the engine's read is fighting it
