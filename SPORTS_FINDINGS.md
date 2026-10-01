@@ -144,6 +144,23 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   points everywhere. (10/1 credits: a push-started re-pull burned ~7,400 - the pull is hand-run only now.) ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
 
 
+- **EARLY ROUND 2 - 15 angles x moneyline dogs AND spreads x NFL AND college, at the first number of the week (10/1,
+  the owner: streaks, start of season, form, coaches, injuries, Monday / Thursday night, out of the country;
+  tools/early_round2.py, results/early_round2.json). ~200 cuts - trust what shows in BOTH sports.** STRONGEST (both
+  sports): a dog that BLEW SOMEONE OUT last week (17+): NFL +8.5% on 158 (4 of 6), with the engine +16.5% (4 of 6);
+  college +8.9% on 580 (4 of 6), with the engine +11.6% (5 of 6). A dog OFF A BYE vs a team that played: NFL +22.8% on
+  51 (5 of 6); college +7.7% on 244 (4 of 6), with the engine +20.7% (5 of 6). MONDAY NIGHT NFL dogs +21.3% on 118 (5
+  of 6), engine agreeing +20.7% (4 of 6); THURSDAY night dogs -10.9% (NFL), -18.6% (college) - the owner's "whole
+  other monster" is real, and it's the dog on Monday. FADES: an NFL dog in its coach's FIRST season with the team
+  -17.0% on 425, 0 of 6 (engine liking it -35%), spread -10.9% (1 of 6) - first-time head coaches -14% (college is
+  the other way: +6.9%, 4 of 6); dogs on a 3+ losing streak -15% NFL / -21% college; "cold" dogs (last 3 games 7+ worse
+  than their season) -15% / -19%, and "hot" NFL dogs -21%. College dogs in the first 3 games +12.9% (5 of 6 - but 2026
+  -23%). HINDSIGHT (game-day facts, not bettable Tuesday): the QB / key starter edge on the dog's side +10% NFL, +29%
+  college with the engine - news is worth waiting for. Injury counts: not in the past games' data (0 rows) - can't
+  test yet. Out of the country: 22 NFL dogs - too few. College spreads: the engine's read does NOT beat the early
+  number (49-51% at every edge - its college margin model is rough); NFL only. (Spread angles that take both sides of
+  a game - night games, rematches - sit at 50% by construction.)
+
 - **🏈 EARLY NFL SPREADS - THE ENGINE BEATS THE TUESDAY NUMBER (10/1, the owner: "+9.5 that drops to +3.5 - the
   opening number covering vs the market's correction by game day"). The Odds API Tuesday spreads 2020-26 (median
   book) vs our closing spreads, 3,280 sides; walk-forward (each season's engine trained only on the 3 before it) AND
