@@ -20,7 +20,9 @@ every session:
   likes best (sports.dog_score). Value (plus money that really beats the price) is the goal. Judge a sport on
   thousands of games (sports_strength), never a few nights. Analyze and weigh, no rigid rules.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
-- The Lock of the Day always sits on top of the day's board, right under Live Plus Money. There's always a Lock. It is
+- The Lock of the Day always sits on top of the day's board, right under Live Plus Money - except on game day the
+  🎯 WE GOT IN EARLY box (our early value plays playing today) goes just above it (the owner, 9/30). An early play is
+  never posted on its own game day. There's always a Lock. It is
   never just the biggest favorite closest to -150 ("any moron could do that"): the engine's OWN read has to say it's
   worth its price, then the best proven win % (sports.own_agrees; tested 1,808 days, 58.1% vs 56.8%).
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the

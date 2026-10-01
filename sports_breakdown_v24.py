@@ -788,9 +788,9 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                                          f"🚑 {them}' injury list is long and it shows. We on {us}."]))
         elif r == "sharp money moving this way":             # (never the headline when the engine has its own reason)
             pools.append(("w_sharp", [
-                f"💸 The engine had {us} before the number moved — now the market's catching up.",
-                f"💸 {us}' price keeps shortening since the open. We were already here.",
-                f"💸 The market's coming around to {us}. The engine saw it first."]))
+                f"💸 The money's been coming in on {us} since the open.",          # (9/30: never "the engine had
+                f"💸 {us}' price keeps shortening since the open — the money's on them.",   # them first" - we
+                f"💸 Smart money's been moving toward {us} all day."]))           # posted AFTER the move)
         elif r == "better starting pitcher" and sp_us:
             hot = form.get((True, "hot"))
             pools.append(("w_arm", [

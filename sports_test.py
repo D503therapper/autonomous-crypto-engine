@@ -5093,16 +5093,27 @@ def test_early_season_hockey_favorites():
 
 def test_early_is_never_game_day_and_leads_game_day():
     """9/30 (the owner: 'we got this game day, not early'): the Kings went up as an 'early' play at 5 PM PT for a 7 PM
-    game - an early play is never on its game day. And WE GOT IN EARLY sits at the top of game day, right under the
-    Lock (its own box: it never comes down with the Lock's card)."""
+    game - an early play is never on its game day. And WE GOT IN EARLY on game day goes just ABOVE the Lock of the Day
+    (the owner, 9/30), its own box."""
     import inspect
     import sports_early as se
     import sports_dashboard as d
     assert "start.astimezone(PT).date() <= now.astimezone(PT).date()" in inspect.getsource(se.scan)
     out = d._cards("2026-10-01", [], [("lock", "<L>", 111), ("dog", "<D>", None)], after_lock="<EARLY>")
-    assert out.index("<L>") < out.index("<EARLY>") < out.index("<D>")
-    assert out.index("</div><EARLY>") >= 0                                    # outside the Lock's coming-down wrapper
+    assert out.startswith("<EARLY>") and out.index("<EARLY>") < out.index("<L>") < out.index("<D>")   # just above the Lock
     assert d._cards("2026-10-01", [], [("dog", "<D>", None)], after_lock="<EARLY>").startswith("<EARLY>")
+
+
+def test_sharp_money_line_never_claims_we_were_first():
+    """9/30 (the owner: 'we never got in early'): 'The engine had Flyers before the number moved' - the Flyers went
+    -125 -> -142 BEFORE we posted at 8 AM. The money-moving line says what's true (the money's on them since the open),
+    never that the engine got there first."""
+    import inspect
+    import sports_breakdown_v24 as b
+    src = inspect.getsource(b)
+    for bad in ("before the number moved", "saw it first", "were already here"):
+        assert bad not in src.replace("never \"the engine had", ""), bad
+    assert "The money's been coming in on {us} since the open." in src
 
 
 if __name__ == "__main__":
