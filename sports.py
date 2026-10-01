@@ -865,6 +865,12 @@ def leg_tier(c):
         return "lean"
     if c["odds"] >= 100 and not lock_ok(c):
         return "value"                                       # a proven underdog
+    read = c.get("edge_own") is not None and c.get("dec") and c.get("p_market") is not None
+    if lock_ok(c) and read and not own_agrees(c):
+        return "lean"                                        # 10/1, the owner: the Flyers said 🔒 LOCK (56% - the
+        #                                                      price's own number) while the engine's own read was
+        #                                                      against the price, and got blown out. The Lock rule
+        #                                                      holds for the label too: no own read, no LOCK.
     return "lock" if lock_ok(c) else "lean"                  # 53-56% = a strong lean (a real play, counts)
 
 

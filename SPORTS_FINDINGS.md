@@ -139,6 +139,10 @@ wobbles (-1, -7, -2, +2 points vs baseline 2023-26) - not steady enough to weigh
 Hockey home openers (10/1 recheck, 8 seasons): road dogs -16.0% on 164, home favorites +3.8% but down 2024-26 -
 noise either way.
 
+- **A leg's 🔒 LOCK label (10/1, the owner - the Flyers):** the label only checked 56%+, which a -142 price gives by
+  itself; the engine's own read was against the Flyers' price. Now a leg is a LOCK only if the own read backs it
+  (sports.own_agrees - the Lock of the Day's rule); otherwise it shows as a lean.
+
 ## Data audit (10/1, the owner: "gotta confirm we don't gather bad data")
 - **Coaches (ESPN per season): BAD** - today's coach copied back through every season (NFL / NHL / MLB / college
   football), partly wrong in hoops. Coaching round 1 weights OFF.

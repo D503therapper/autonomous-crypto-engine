@@ -5129,6 +5129,22 @@ def test_firing_study():
     assert sports.dog_score({**base, "league": "nhl", "fired_on": "2023-10-31"}) == sports.dog_score({**base, "league": "nhl"}) + 2
 
 
+def test_leg_lock_label_needs_the_engines_own_read():
+    """10/1, the owner: the Flyers' parlay leg said 🔒 LOCK and got blown out - it was 56% only because the price said
+    so; the engine's OWN read was against the price. A leg is a LOCK only when the own read backs it (the Lock rule)."""
+    flyers = {"odds": -142, "dec": 1.704, "p": 0.5634, "p_market": 0.5635, "edge": -0.04, "edge_own": -0.048,
+              "market": "ml", "league": "nhl", "kind": "two", "reasons": ["form"]}
+    yanks = {**flyers, "odds": -144, "dec": 1.694, "p_market": 0.5649, "edge_own": -0.0428}
+    keep = sports.good
+    sports.good = lambda c: True                                           # (both were real plays that night)
+    try:
+        assert sports.leg_tier(flyers) == "lean" and sports.leg_tier(yanks) == "lock"
+        assert sports.leg_tier({k: v for k, v in flyers.items() if k != "edge_own"}) == "lock"   # an old leg, no read: as before
+    finally:
+        sports.good = keep
+    assert not sports.own_agrees(flyers) and sports.own_agrees(yanks)
+
+
 def test_team_name_match_is_not_loose():
     """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
     'Texas St' the Longhorns'. The rest of the short name has to be in there too."""
