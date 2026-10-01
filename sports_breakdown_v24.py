@@ -256,7 +256,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🔥 {us} are cooking — {n_hot} straight W's, {rec_u} overall.",
             f"🔥 Heat check: {us} have won {n_hot} in a row ({rec_u})."]))
     elif rec_u:
-        out.append(v.say("rec", [f"📋 {us} sitting at {rec_u} on the year. Tonight's the only one that counts though.",
+        out.append(v.say("rec", [f"📋 {us} sitting at {rec_u} on the year.",
                                   f"📋 Record check: {us} {rec_u}. We already did our homework.",
                                   f"📋 {rec_u} so far for {us} — the record don't cash tickets, the number does.",
             f"📋 {us} rolling in at {rec_u}.",

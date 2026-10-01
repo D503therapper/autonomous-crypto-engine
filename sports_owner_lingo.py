@@ -43,7 +43,7 @@ OWNER = {
 
 # words he's said NOT to use (the dashboard never says these)
 NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both calendars", "leaky",
-         "class of this", "give him flowers", "give this man flowers", "give her flowers")   # (9/30: it's always
+         "class of this", "give him flowers", "give this man flowers", "give her flowers", "only one that counts", "only this one matters", "what counts", "clean slate tonight")   # (10/1: "that don't make no sense")   # (9/30: it's always
 #                                                                        "somebody give this man HIS flowers")   # (9/29: "class of the match" - he's never heard it said)
 
 # where the write-ups live (what the test searches)

@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 34          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 35          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -757,12 +757,12 @@ T = {
         "🔥 [Hottest|Hot|Rolling] team in the [building|matchup]: {us}, {cnt} {str8} and {rec}.",
     ],
     "rec": [
-        "📋 {us} [sitting at|rolling in at|walking in at|come in at] {rec} {yr}. [Tonight's the only one that counts though.|Only this one matters now.|Clean slate tonight.|Tonight's what counts.]",
+        "📋 {us} [sitting at|rolling in at|walking in at|come in at] {rec} {yr}.",
         "📋 [Record check|Quick check|Resume check]: {us} {rec}. [We already did our homework.|The homework's done.|We did the digging already.|We know the rest.]",
         "📋 {rec} {yr} for {us} — the record [don't|doesn't] [cash tickets|pay us|win bets], the number does.",
         "📋 {us} got {a_rec} {rec} record [walking in|coming in|on the board]. [We gon' see what they do with it.|Now go prove it.|Let's see what it's worth.]",
         "📋 {us} are {rec} {rn} — the rest [is|gets decided|gets settled] on the {field}.",
-        "📋 {rec} {yr} for {us}. [Nice resume|Solid|Fine], but [tonight|this game|this one] is what [counts|matters|pays].",
+        "📋 {rec} {yr} for {us} — the record's in the price already. We bet the number.",
         "📋 [Where they stand|The resume|Standing|The record]: {us} at {rec} {yr}.",
         "📋 {us} [sit at|stand at|check in at] {rec}. [Records don't cash tickets|The record's just background|The record ain't the bet] — the [price|number] is.",
         "📋 [Resume|Track record|Report card] for {us}: {rec} {yr}. [Now the real part.|The {field} settles the rest.|Numbers did the rest.]",
