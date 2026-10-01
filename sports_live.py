@@ -961,10 +961,22 @@ TENNIS_BETS = [True]          # (the switch for new live tennis bets - scores + 
 _TN_CSV = [0.0]               # last time ungraded tennis plays were checked against matches.csv
 
 
+PREV_TN = [0.0, []]           # yesterday's tennis scoreboards (a 30-second cache)
+
+
 def tennis_feeds():
     """(live match rows from ESPN's ATP + WTA scoreboards, all their rows (for grading), Bovada live tennis lines)."""
     rows, seen = [], set()
     nxt = (datetime.now(timezone.utc) + timedelta(days=1)).strftime("%Y%m%d")
+    prv = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y%m%d")
+    if time.time() - PREV_TN[0] > 30:                       # 10/1, the owner: Volynets (11 PM ET) won and the box still
+        got = []                                             # said Algorithm 2 - a late-night match sits on YESTERDAY's
+        for tour in stn.TOURS:                               # scoreboard, which the watcher never read, so it never saw
+            try:                                             # it end. Now it does (every 30 seconds).
+                got += stn.parse_espn(_get(fresh_url(stn.ESPN.format(tour=tour) + f"?dates={prv}")), tour)
+            except Exception as e:                           # noqa: BLE001
+                sd.ERRORS.append(f"espn tennis {tour} yesterday: {str(e)[:80]}")
+        PREV_TN[0], PREV_TN[1] = time.time(), got
     for tour in stn.TOURS:
         for q in ("", f"?dates={nxt}"):                     # Asia's matches sit on the next day's scoreboard
             try:
@@ -974,6 +986,10 @@ def tennis_feeds():
                         rows.append(r)
             except Exception as e:                           # noqa: BLE001
                 sd.ERRORS.append(f"espn tennis {tour}: {str(e)[:80]}")
+    for r in PREV_TN[1]:                                     # (today's copy wins when a match is on both)
+        if r["id"] not in seen:
+            seen.add(r["id"])
+            rows.append(r)
     lines, ok = [], False
     for _ in (1,):
         try:

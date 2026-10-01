@@ -5376,6 +5376,30 @@ def test_nutshell_counts_picks_not_cards():
     assert D.day_calls(day, "2026-09-30")[1]                                # the Padres still going: not done
 
 
+def test_tennis_watch_reads_yesterdays_scoreboard():
+    """10/1, the owner: Volynets (an 11 PM ET match) won and the challenge box still said Algorithm 2 - the watcher only
+    read today's + tomorrow's scoreboards, so it never saw a late-night match end (and never graded it). Yesterday's
+    is read too now (every 30 seconds)."""
+    import sports_tennis as stn
+    L = sports_live
+    keep = (L._get, stn.parse_espn, L.bovada_fresh, L.PREV_TN[:])
+    asked = []
+    try:
+        L._get = lambda url: (asked.append(url), url)[1]
+        prv = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y%m%d")
+        stn.parse_espn = lambda url, tour: [{"id": f"{tour}:{'old' if prv in url else 'new'}", "status": "STATUS_FINAL"}]
+        L.bovada_fresh = lambda sport: []
+        L.PREV_TN[0], L.PREV_TN[1] = 0.0, []
+        _, rows, _ = L.tennis_feeds()
+        ids = {r["id"] for r in rows}
+        assert "wta:old" in ids and "atp:old" in ids, ids                        # yesterday's matches are watched
+        L.tennis_feeds()
+        assert sum(prv in u for u in asked) == 2                               # (cached: not re-read every second)
+    finally:
+        L._get, stn.parse_espn, L.bovada_fresh = keep[:3]
+        L.PREV_TN[:] = keep[3]
+
+
 def test_team_name_match_is_not_loose():
     """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
     'Texas St' the Longhorns'. The rest of the short name has to be in there too."""
