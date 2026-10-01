@@ -3149,7 +3149,7 @@ def test_bottom_lines_no_odds_talk_and_no_repeats_on_a_board():
     import sports_breakdown_v24 as v24, re
     src = open(v24.__file__).read()
     bl = src[src.index("    # bottom line"):src.index("    lines = [x for x in out if x]")]
-    assert "_odds_words" not in bl and " in 10" not in bl
+    assert "_odds_words" not in bl and not re.search(r" in 10\b", bl)    # (10/1: 'N in 100' is a real number, fine)
     used = set()
     lines = []
     for i in range(8):                                          # 8 cards on a board: the Voice never repeats a wording
@@ -6304,6 +6304,65 @@ def test_early_play_reason_in_plain_words():
                    now=datetime(2030, 10, 1, tzinfo=timezone.utc))
     se.ON = keep_on
     assert "35-6" in html
+
+
+def test_never_false_info_on_a_card():
+    """The owner, 10/1: 'North Texas is not 0-1 ... they're 2-2. Our engine cannot have false information.' The 2026
+    college feed held 1 of their 4 games. A college team whose games we don't all hold gets no record, streak, last game
+    or series line; even records never say 'better'; a read under the price never reads like value; the bottom line
+    always says our read vs what the price needs."""
+    import sports_breakdown_v24 as v24
+    G = {}
+    def gm(i, day, a, h, sa, sh, an=None, hn=None):
+        G[f"ncaaf:{i}"] = {"id": f"ncaaf:{i}", "league": "ncaaf", "start": f"2026-{day}T23:00Z", "status": "final",
+                           "home": h, "away": a, "home_name": hn or h, "away_name": an or a, "home_score": str(sh),
+                           "away_score": str(sa), "stype": "2", "neutral": "0", "elev": "100"}
+    i = 0
+    for w, day in enumerate(("09-05", "09-12", "09-19", "09-26")):
+        for k in range(0, 20, 2):                                   # 20 fully-covered teams, a game every week
+            i += 1
+            gm(i, day, f"T{k}", f"T{(k + 2 * w + 1) % 20}", 10, 20)
+    i += 1
+    gm(i, "09-05", "NT", "T0", 16, 52, an="North Texas")              # the one North Texas game we hold
+    G["g"] = {"id": "g", "league": "ncaaf", "start": "2026-10-02T23:00Z", "status": "pre", "home": "TU", "away": "NT",
+              "home_name": "Tulsa", "away_name": "North Texas", "home_score": "", "away_score": "", "stype": "2",
+              "neutral": "0", "elev": "100"}
+    fin = [x for x in G.values() if x["status"] == "final"]
+    when = v24._t("2026-10-02T23:00Z")
+    assert not v24.seen_all(fin, "NT", when, "ncaaf") and v24.seen_all(fin, "T0", when, "ncaaf")
+    assert v24.seen_all(fin, "NT", when, "nfl")                     # pro leagues: every game is in the feed
+    leg = {"game_id": "g", "league": "ncaaf", "side": "away", "team": "North Texas", "opp": "Tulsa", "market": "ml",
+           "odds": -122, "dec": 1 / 0.55, "p": 0.52, "edge_own": 0.61 / 0.55 - 1, "tier": "lock", "reasons": []}
+    bd = v24.breakdown(dict(leg), G, {}, {}, set())
+    assert not any("0-1" in x or "1-0" in x for x in bd), bd
+    assert any(x.startswith("✅") and "61%" in x and "55%" in x for x in bd), bd    # our own read vs the price
+    steep = {**leg, "edge_own": 0.59 / 0.6 - 1, "dec": 1 / 0.6, "odds": -150, "tier": "lean"}
+    last = [x for x in v24.breakdown(steep, G, {}, {}, set()) if x.startswith("✅")][0]
+    assert "59%" in last and "60%" in last and "lean" in last.lower(), last
+    assert not any(w in last for w in ("That's the value", "the edge", "Tap in", "Get in")), last
+    src = open(v24.__file__).read()
+    assert "_w(_ru) > _w(_rt)" in src and "_w(_rt) > _w(_ru)" in src   # 2-1 vs 2-1 is never 'the better squad'
+
+
+def test_early_college_spot_needs_every_game():
+    """10/1: Delaware went up as a 'bye-week dog' - they'd played at Virginia 9/26, we just didn't have the game. A
+    college early spot only fires when we hold every game both teams played this season."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_early.py")).read()
+    i = src.index('if lg == "ncaaf":                                    # (10/1: Delaware')
+    assert "seen_all(cfin, g[\"home\"]" in src[i:i + 600] and "continue" in src[i:i + 700]
+
+
+def test_early_box_says_how_the_line_moved():
+    """The owner, 10/1: the WE GOT IN EARLY row explains the move in our words - 'the line moved in our favor, let's go
+    to work' / 'got worse for us, but this still gon' smack' - with the real numbers; nothing once it's graded."""
+    import sports_early as se
+    p = {"team": "Jaguars", "odds": 120, "game_id": "nfl:1"}
+    for call, now in (("🔥 we beat the line", -105), ("💰 better price now", 135), ("👀 money went against it", 140),
+                      ("", 120)):
+        s = se.move_say(p, now, call)
+        assert "+120" in s and (str(now) if now < 0 else f"+{now}") in s, s
+    assert se.move_say({**p, "result": "won"}, 110, "🔥 we beat the line") == ""
+    assert se.move_say(p, None, "") == ""
 
 
 if __name__ == "__main__":

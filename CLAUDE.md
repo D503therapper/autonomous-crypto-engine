@@ -15,6 +15,10 @@ every session:
 - **Never vague** (the owner, 10/1): every line in a write-up or review says something specific - a name, a number, a
   score, a stat, what actually happened ("Jaguars beat the Patriots 35-6 last week"), never filler like "they travel just
   fine", "they're just better", "division rivals know each other", "everything above tips it our way". No fact = no line.
+- **Never false information** (the owner, 10/1 - "North Texas is not 0-1, they're 2-2 ... that will cost us money"):
+  the engine never states or leans on a fact it can't fully see. A college team whose games we don't all hold gets no
+  record / streak / last-game line and no early spot (sports_breakdown_v24.seen_all); the feed is pulled conference by
+  conference (sports_data.SPLIT). Check a claim against the real schedule before posting it.
 - **Reviews say how it was won or lost** (the owner, 10/1): when something big decided the game - a last-second field
   goal, a blocked kick, a pick-six, overtime, a walk-off, an empty-netter, a late comeback - the graded review says it.
 - **Never lengthen write-ups.** Accuracy over everything. No secrets in the repo. No borrowed keys or disguises to get
