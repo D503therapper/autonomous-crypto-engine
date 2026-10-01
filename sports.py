@@ -298,6 +298,7 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+SEASON_START = {}              # {league: first regular-season day this season} - early-season hockey (season_w)
 FIRED = {}                     # {(league, team): date of a mid-season coaching change} - sports_coach_changes
 COACH = {}                     # {(league, team): (coach's years, new with the team)} - sports_coaches.states
 ATS = ({}, {})                 # (cover streaks, last meetings) - sports_form.ats_states
@@ -638,7 +639,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # (last 3 seasons 55.6% vs 54.7%). A day nothing agrees: the best lock-grade pick, as before.
         agree = [c for c in locks if own_agrees(c)]
         lock = max(agree or locks, key=lambda c: (c["p"] - (HOT_W if c.get("hot_key") else 0)
-                                                  + (HOT_W if overreact(c) else 0) + cover_run_w(c) + coach_w(c),
+                                                  + (HOT_W if overreact(c) else 0) + cover_run_w(c) + coach_w(c) + season_w(c),
                                                   c["edge"])) if locks else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
@@ -679,7 +680,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                        and not fighting(c) and (not dog or c["game_id"] != dog["game_id"])),
                       key=lambda c: (-(c["p"] - (SERIES_LOST_W if c.get("lost_last") and c["odds"] < 0 else 0)
                                        - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) else 0)
-                                       + cover_run_w(c) + coach_w(c)),
+                                       + cover_run_w(c) + coach_w(c) + season_w(c)),
                                      -c["edge"]))                 # a playoff favorite that just lost the last game goes
         for c in fill:                                             # to the back (weighed, never banned - the owner)
             if len(legs) >= n:
@@ -780,6 +781,35 @@ def cover_run_w(c):
         return 0.0
     k = c.get("ats_run") or 0
     return HOT_W if k <= -sports_form.ATS_RUN else -HOT_W if k >= sports_form.ATS_RUN else 0.0
+
+
+EARLY_NHL_D = 14               # 9/30 (the owner: "we gotta tighten up hockey"): NHL favorites in the FIRST 2 WEEKS of a
+                               # season won 55%, -4.3% (3 of 7 seasons up) - last year's ratings are stale; weeks 3-4: 65%,
+                               # +11.7% (6 of 7). So early on, a hockey favorite moves back the Lock / parlay line.
+
+
+def season_w(c):
+    """Early-season hockey favorites move back the line (EARLY_NHL_D)."""
+    st = SEASON_START.get(c.get("league"))
+    if c.get("league") != "nhl" or not st or c.get("odds", 0) >= 0 or not c.get("start"):
+        return 0.0
+    try:
+        days = (datetime.strptime(c["start"][:10], "%Y-%m-%d") - datetime.strptime(st, "%Y-%m-%d")).days
+    except ValueError:
+        return 0.0
+    return -HOT_W if 0 <= days < EARLY_NHL_D else 0.0
+
+
+def season_starts(games, now):
+    """{league: first regular-season game day of the season going on now}."""
+    out = {}
+    for g in games.values():
+        if (g.get("stype") or "") != "2" or not g.get("start"):
+            continue
+        lg, d = g.get("league"), g["start"][:10]
+        if d <= now.strftime("%Y-%m-%d") and d >= (now - timedelta(days=200)).strftime("%Y-%m-%d"):
+            out[lg] = min(out.get(lg, d), d)
+    return out
 
 
 def coach_w(c):
@@ -1616,6 +1646,8 @@ def quick(now=None):
         a_, m_ = sports_form.ats_states(games)
         ATS[0].clear(), ATS[0].update(a_), ATS[1].clear(), ATS[1].update(m_)
         import sports_coaches
+        SEASON_START.clear()
+        SEASON_START.update(season_starts(games, datetime.now(timezone.utc)))
         COACH.clear()
         COACH.update(sports_coaches.states(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         import sports_coach_changes
@@ -1692,6 +1724,8 @@ def run(repick=False, fetch=True):
         a_, m_ = sports_form.ats_states(games)
         ATS[0].clear(), ATS[0].update(a_), ATS[1].clear(), ATS[1].update(m_)
         import sports_coaches
+        SEASON_START.clear()
+        SEASON_START.update(season_starts(games, datetime.now(timezone.utc)))
         COACH.clear()
         COACH.update(sports_coaches.states(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         import sports_coach_changes

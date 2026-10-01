@@ -83,6 +83,11 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   opposite: after a change the team beats its price (dogs -0.6% vs -5.4% rest of season; games 4-10 +7.6% / +4.5%).
   Built: -3 / +2 on the Dog's score (sports_coach_changes.recent). Smaller samples (~20-50 changes a sport) - weighed.
 
+- **Early-season hockey (9/30, lock-grade NHL favorites by week of the season, 7 seasons):** first 2 weeks 55.3%,
+  -4.3% (3 of 7 up) - the ratings still lean on last year; weeks 3-4 64.9%, +11.7% (6 of 7); rest -1.0%. Built:
+  sports.season_w (early hockey favorites move back the Lock / parlay line). Long run, NHL lock-grade favorites are the
+  best of any sport (57.6%, the engine agreeing +1.5%) - a bad night isn't a broken sport. NBA: no early-season effect.
+
 ## Found, not built yet
 - **Coaching styles, round 1 (9/30, each team's style from its EARLIER games that season, closing prices):** NFL
   4th-down aggressiveness, pass rate, pace: nothing steady (the books know who goes for it). College football: PASS-
