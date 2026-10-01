@@ -4259,3 +4259,35 @@ DEX: $773.51 (-226.49) · Scammed: 0
 [2026-10-01 00:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-01 00:06 UTC] crypto/hold_btc  equity $496.99 (-0.6%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), QNT 32 (32/0/0), NEAR 29 (29/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0)
+   dex screen: REJECT AQUA@solana liq $188,106 - holders unknown; lp holders unknown; rugcheck lp locked 69% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: PASS AIRPAD@solana liq $258,292
+   dex screen: REJECT PHA@ethereum liq $315,580 - transfer_pausable; hidden_owner; top-10 holders 72%; lp locked 0% < 95%
+   dex screen: REJECT WPRL@ethereum liq $435,235 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT WPRL@ethereum liq $435,235 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT DRV@base liq $658,852 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 57%; lp locked 0% < 95%
+   dex screen: REJECT XCN@ethereum liq $863,165 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 51%; lp locked 0% < 95%
+   dex screen: REJECT FOLD@ethereum liq $1,582,793 - goplus partial data: cannot_sell_all unknown; is_mintable; honeypot_with_same_creator; buy tax unknown; sell tax unknown; owner_percent 39%; top-10 holders 75%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ZEC@solana liq $1,650,347,860 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT ZEC@solana liq $1,382,791,969 - top-10 holders 100%
+   dex screen: REJECT GP@solana liq $283,054 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT WSTETH@base liq $101,235 - 24h volume $60,515 < $100,000
+   dex screen: REJECT PROS@ethereum liq $125,115 - is_mintable; top-10 holders 88%; lp locked 0% < 95%
+   dex screen: REJECT SEND@ethereum liq $360,779 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   >> dex/dex_hunter: BUY $73.29 of SHARTCOIN@solana:UpBBfyC7 @ 0.000398 (dex tier A momentum 1h +12% 6h -45% buys/sells 44/21 impact 0.03%)
+   dex scanner: 2,999 pools (solana 2,050 / base 524 / ethereum 425), refresh cycle 137s (hot 132s), 2753 calls (113 feed, 429s 1, failed 4), 79,135 refreshed (8315 no pair), +145 added / -146 dropped (dead 21, stale 0, cap 125), movers 3 + warming 19 -> queued 4, screened 5 (passed 0), bought 0
+[2026-10-01 01:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   early_mover: MOVR vetoed by pump guard: already +87% in 24h
+[2026-10-01 01:06 UTC] crypto/mover     equity $526.86 (+5.4%) 1 open  market UP
+[2026-10-01 01:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 01:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 01:06 UTC] crypto/social_heat equity $551.37 (+10.3%) 1 open  market UP
+[2026-10-01 01:06 UTC] crypto/breakout10 equity $513.13 (+2.6%) 2 open  market UP
+[2026-10-01 01:06 UTC] crypto/momentum  equity $482.36 (-3.5%) 2 open  market UP
+[2026-10-01 01:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 01:06 UTC] crypto/hold_btc  equity $496.68 (-0.7%) 1 open  market UP
+   social heat top: TRUMP 42 (35/0/7), QNT 37 (37/0/0), MON 32 (32/0/0), STONK 30 (21/0/9), NEAR 29 (29/0/0)
