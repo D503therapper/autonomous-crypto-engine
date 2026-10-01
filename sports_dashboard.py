@@ -1744,7 +1744,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
 .pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
 .pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
-.byo{{text-align:center;font-size:14px;font-weight:900;color:#fff;margin:2px 0 14px;letter-spacing:.02em}}
+.byo{{text-align:center;font-size:21px;font-weight:900;color:#fff;margin:4px 0 14px;padding:12px 14px;border:2px solid #ffc233;border-radius:14px;background:rgba(255,194,51,.10);letter-spacing:.01em;line-height:1.25}}
 .pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1;white-space:nowrap}}
 .pvl{{font-size:12px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}} .pvl:empty{{display:none}}
 .pvc small{{font-size:10px;font-weight:800;opacity:.9}}
