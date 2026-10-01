@@ -1466,6 +1466,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
             elif r not in ("push", "void") and key not in calls_:
                 open_ = True
     w_, l_ = sum(r == "won" for r in calls_.values()), sum(r == "lost" for r in calls_.values())
+    graded = [p for p in done if p["date"] == today and p["kind"] != "eight"]           # (the cards: the big-hit lines)
     live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
     if w_ + l_ == 0 and live_today:
         pass                                                      # the live results below speak for the day
