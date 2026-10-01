@@ -102,7 +102,9 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   dogs facing elimination NBA +10.9%, NHL +10.2%. (Baseball: the opposite - Game 2 is about the pitcher.)
 - **Mid-size baseball dogs (+140..+199) the engine backs:** three different studies agree; weakened once starting
   pitchers were in (last 3: +0.7%). Watch.
-- **Hockey home openers:** road dogs +10.9% the last 3 seasons (not steady over 8). Watch.
+- **Baseball playoffs (10/1, 404 games 2016-25):** a dog that just lost to the SAME team by 5+ runs: +27.5% on 37, up 6
+  of 8 seasons - the blowout pushes the price too far. Regular season the same spot is nothing (+0.3% on 2,315), so
+  only 37 games carry it - too thin to build. Every playoff favorite -8.9% (329). Bye-team rust: nothing (21 games).
 - **College football big dogs** the engine likes by 12+: 2 of 3 seasons. Close.
 
 ## Tested and dead (don't re-chase)
@@ -114,6 +116,8 @@ zero - the books know it), the backup-QB "edge" (fake: in-game injuries).
 Buying a favorite late after the money moved it our way 3+ points (10/1 study, -150 to -101): hockey -0.2% on 115,
 NBA +2.2%, NFL +3.0% - neutral. Baseball looked bad (-6.5% on 1,224 vs -3.4% for all favorites) but year to year it
 wobbles (-1, -7, -2, +2 points vs baseline 2023-26) - not steady enough to weigh. Recheck after 2027.
+Hockey home openers (10/1 recheck, 8 seasons): road dogs -16.0% on 164, home favorites +3.8% but down 2024-26 -
+noise either way.
 
 ## Data the engine gained
 Every player's box score, every sport, 2021-now (data/sports/roster, rosters.yml keeps it filling). Next: player
