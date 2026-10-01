@@ -5255,7 +5255,8 @@ def test_todays_damage_after_the_last_game():
         assert "+$" in h and "Leans count" not in h                       # dollars too; no note (the owner, 10/1)
         assert "(UNIT PLAYS ONLY)" in h                                      # the owner, 10/1: said right in the header
         src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
-        assert ".dayr-t{{font-size:14px;font-weight:900;color:#fff" in src and ".dayr-u{{color:#fff;font-size:12px;font-weight:900}}" in src
+        assert ".dayr-t{{font-size:16px;font-weight:900;color:#fff" in src and ".dayr-u{{color:#fff;font-size:12px;font-weight:900" in src
+        assert '<div class="dayr-t">📊 TODAY\'S RESULTS</div><div class="dayr-u">(UNIT PLAYS ONLY)</div>' in h   # its own line, under
     finally:
         sports.leg_units = keep
     until = int(re.search(r'data-until="(\d+)"', h).group(1))
