@@ -4683,3 +4683,42 @@ error: failed to push some refs to 'https://github.co
 [2026-10-01 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-01 11:06 UTC] crypto/hold_btc  equity $498.63 (-0.3%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), NEAR 37 (37/0/0), MOVR 35 (35/0/0), TRUMP 29 (24/0/5), MON 27 (27/0/0)
+   dex screen: REJECT ZEREBRO@solana liq $3,211,495 - top-10 holders 78%
+   dex screen: REJECT SDOG@solana liq $99,546 - liquidity $99,546 < $100,000
+   dex screen: REJECT ZC@base liq $199,155 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT PAID@solana liq $734,050 - holders unknown; lp holders unknown; rugcheck lp locked 33% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT JEANPHIL@solana liq $259,760 - holders unknown; lp holders unknown; rugcheck lp locked 50% < 95%
+   dex screen: REJECT SPCX@solana liq $499,227 - freeze authority; mint authority; balance_mutable_authority; transfer hook; lp holders unknown
+   dex screen: REJECT SPCX@solana liq $1,247,432,347 - top-10 holders 100%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CBETH@base liq $2,317,131 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT ADI@ethereum liq $2,994,708 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 98%
+   dex screen: REJECT CRVUSD@ethereum liq $14,284,104 - is_mintable; top-10 holders 78%
+   dex screen: UNREACHABLE GULD@ethereum liq $1,803,129 - honeypot.is unreachable
+   dex screen: REJECT E/ACC@solana liq $701,273 - holders unknown; lp holders unknown; rugcheck lp locked 51% < 95%
+   dex screen: REJECT FLOCK@base liq $493,264 - pool age unknown
+   dex screen: PASS CATE@solana liq $2,934,398
+   dex screen: UNREACHABLE GULD@ethereum liq $1,801,914 - honeypot.is unreachable
+   dex screen: REJECT LUNA@solana liq $55,479,825 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%; rugcheck score 63
+   dex screen: REJECT SWEAT@ethereum liq $157,054 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 73%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]          052c9dc88e98ef4ecb641da8bc2cb33bfea83579 -> main (fetch first)
+error: failed to push some refs to 'https://github.co
+   dex screen: REJECT VRAX@base liq $111,368 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT GOOGLC@base liq $1,632,829 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 71%; lp locked 0% < 95%
+   dex screen: REJECT SWEAT@ethereum liq $153,949 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 73%; lp locked 0% < 95%
+   dex screen: PASS STONK@solana liq $2,379,821
+   dex screen: REJECT ZEN@base liq $2,743,512 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: REJECT SERV@ethereum liq $1,504,155 - transfer_pausable; is_blacklisted; is_whitelisted; honeypot_with_same_creator
+   dex scanner: 3,000 pools (solana 2,268 / base 489 / ethereum 243), refresh cycle 127s (hot 123s), 3046 calls (186 feed, 429s 0, failed 0), 85,790 refreshed (1758 no pair), +587 added / -587 dropped (dead 7, stale 0, cap 580), movers 4 + warming 20 -> queued 3, screened 4 (passed 0), bought 0
+[2026-10-01 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-01 12:06 UTC] crypto/mover     equity $470.29 (-5.9%) 2 open  market UP
+[2026-10-01 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 12:06 UTC] crypto/social_heat equity $545.02 (+9.0%) 2 open  market UP
+[2026-10-01 12:06 UTC] crypto/breakout10 equity $503.22 (+0.6%) 2 open  market UP
+[2026-10-01 12:06 UTC] crypto/momentum  equity $484.56 (-3.1%) 2 open  market UP
+[2026-10-01 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 12:06 UTC] crypto/hold_btc  equity $499.46 (-0.1%) 1 open  market UP
+   social heat top: TRUMP 45 (40/0/5), MOVR 32 (32/0/0), QNT 29 (29/0/0), MON 27 (27/0/0), PENGU 21 (21/0/0)
