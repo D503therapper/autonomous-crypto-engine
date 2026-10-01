@@ -929,6 +929,9 @@ def _dog_more(games, g, side, other, lg):
                 out["bye"] = True                               # off a bye vs a team that played
             if lg == "nfl" and start.astimezone(ZoneInfo("America/New_York")).weekday() == 0:
                 out["mnf"] = True                               # Monday night
+            if lg == "nfl":
+                import sports_go4
+                out["go4_gap"] = sports_go4.gap(g.get(side + "_name"), g.get(other + "_name"))   # 4th-down nerve
             if lg == "nfl" and "coach's first season" in out["fades"]:
                 season = int(g["start"][:4]) if int(g["start"][5:7]) >= 7 else int(g["start"][:4]) - 1
                 if se._first_season_coach(lg, g.get(other + "_name"), season):   # (10/1, the owner: Monken AND
@@ -1011,6 +1014,12 @@ def dog_spots(c):
         #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
     if mo.get("mnf"):
         sc += 2                    # a Monday night NFL dog: +21.4% on 119 (5 of 6), the engine agreeing +20.7%
+    if lg == "nfl" and mo.get("go4_gap") is not None:
+        import sports_go4          # the NFL style study's one lead (sports_go4): a dog whose coach goes for it on 4th
+        if mo["go4_gap"] <= sports_go4.GAP_LO:   # down clearly less than the other coach - covered 48.4%, 0 of 9
+            sc -= 1                # seasons; the most aggressive quarter covered 53.9% (6 of 9). A weight, a lead.
+        elif mo["go4_gap"] >= sports_go4.GAP_HI:
+            sc += 1
     for f in mo.get("fades") or []:
         sc -= {"ice cold": 3,                # last 3 games 7+ worse than its season: NFL -15%, college -13% (1 of 6)
                "coach's first season": 3,    # an NFL dog in its coach's first season with the team: -16% (-26% last 3)
@@ -2242,6 +2251,11 @@ def run(repick=False, fetch=True):
         t0 = time.time()
         filled, venues = sports_weather.sync(games)
         print(f"weather: {filled} games got weather, {venues} new stadiums located, {time.time() - t0:.0f}s")
+        try:
+            import sports_go4
+            print(f"4th-down rates: {len(sports_go4.refresh().get('teams') or {})} NFL teams")
+        except Exception as e:                           # noqa: BLE001 - never blocks the board
+            print(f"4th-down rates failed: {str(e)[:60]}")
         print(f"news: {sports_news.sync()} new drama tags")
     else:
         games = sd.load_games()

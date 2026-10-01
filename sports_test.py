@@ -5937,6 +5937,26 @@ def test_wiring_audit_weights():
         sports.overreact = keep
 
 
+def test_nfl_4th_down_nerve_weighs_the_dog():
+    """10/1, the owner: "everything needs to be wired in - coaches, how they play." The NFL style study's one lead: a dog
+    whose coach goes for it on 4th down clearly less than the other coach -1 on its score, a clearly bolder one +1."""
+    import sports_go4 as g4
+    rows = [("CLE", "2026-09-14", True), ("CLE", "2026-09-07", True), ("PIT", "2026-09-14", False),
+            ("PIT", "2026-09-07", False)]
+    r, league = g4.rates(rows)
+    assert r["CLE"] > league > r["PIT"]
+    keep = dict(g4._CACHE)
+    try:
+        g4._CACHE["d"] = {"teams": {"Browns": 0.70, "Steelers": 0.55, "Bears": 0.66}}
+        assert g4.gap("Browns", "Steelers") == 0.15 and g4.gap("Browns", "Nobody") is None
+        base = {"league": "nfl", "odds": 150, "dog_ctx": {}}
+        assert sports.dog_spots({**base, "dog_more": {"go4_gap": 0.15}}) == 1
+        assert sports.dog_spots({**base, "dog_more": {"go4_gap": -0.15}}) == -1
+        assert sports.dog_spots({**base, "dog_more": {"go4_gap": 0.01}}) == 0
+    finally:
+        g4._CACHE.clear(); g4._CACHE.update(keep)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
