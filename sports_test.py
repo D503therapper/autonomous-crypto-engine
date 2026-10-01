@@ -5712,6 +5712,20 @@ def _six_early_spots():
     mk = lambda gid, spot, score=0.06, fair="2026-10-05T12:00Z": {"game_id": gid, "spot": spot, "score": score,
                                                                 "fair_at": fair}
     cs = [mk("a", "engine", .07), mk("b", "blowout", .05), mk("c", "bye", .11), mk("d", "mnf", .06), mk("e", "mnf", .09)]
+    # (the owner, 10/1: no weekly cap - every one that cleared the bar, best total first, posted now - never held)
+    assert se.SPOT_MAX_WEEK is None
+    assert [c["game_id"] for c in se.pick_spots([dict(c) for c in cs], {"picks": []}, tue)] == ["c", "e", "a", "d", "b"]
+    assert len(se.pick_spots([dict(c) for c in cs], {"picks": []}, datetime(2026, 10, 4, 20, 0, tzinfo=timezone.utc))) == 5
+    keep_cap = se.SPOT_MAX_WEEK                                                  # the cap code still works if it's
+    se.SPOT_MAX_WEEK = 2                                                         # ever turned back on
+    try:
+        _capped_spots(se, cs, mk, tue)
+    finally:
+        se.SPOT_MAX_WEEK = keep_cap
+    _six_early_spots_rest(se, G, now, agree, rams, got, escape)
+
+
+def _capped_spots(se, cs, mk, tue):
     assert [c["game_id"] for c in se.pick_spots([dict(c) for c in cs], {"picks": []}, tue)] == ["c", "e"]   # 2 a week,
     #                                                           the best weighed totals - never one spot's rank
     posted = {"picks": [{"spot": "bye", "posted": "2026-10-06T13:30Z"}]}
@@ -5722,6 +5736,9 @@ def _six_early_spots():
     assert se.pick_spots([dict(c) for c in cs], {"picks": []}, sun) == []      # Sunday: waits for Tuesday's slate...
     closing = mk("z", "blowout", fair="2026-10-02T00:00Z")                   # ...unless its window closes first
     assert [c["game_id"] for c in se.pick_spots([closing], {"picks": []}, sun)] == ["z"]
+
+
+def _six_early_spots_rest(se, G, now, agree, rams, got, escape):
     late = datetime(2026, 10, 9, 18, 0, tzinfo=timezone.utc)                  # the Bills' number went fair Sun 10/4
     assert not any(c["team"] == "Bills" for c in se.spot_scan(G, late, own_of=agree, hist_dir=tempfile.mkdtemp()))   # late
     big = {**G, "n3": {**G["n3"], "ml_away": "260", "ml_home": "-320"}}       # never past +220 (the owner, 10/1)
