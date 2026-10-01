@@ -857,7 +857,7 @@ LINE_HIST_DAYS = 10
 
 
 def record_lines(games, now=None, path=None):
-    """Append {"g": game id, "t": when, "h": home ml, "a": away ml} for every game starting in the next LINE_HIST_DAYS
+    """Append {"g": game id, "t": when, "h": home ml, "a": away ml, "sp": home spread} for every game starting in the next LINE_HIST_DAYS
     whose price changed since it was last saved. Returns how many rows were added."""
     now = now or datetime.now(timezone.utc)
     d = path or LINE_HIST_DIR
@@ -873,13 +873,14 @@ def record_lines(games, now=None, path=None):
     for g in games.values():
         if g.get("status") != "pre" or not (stamp < (g.get("start") or "") <= hi):
             continue
-        h, a = g.get("ml_home"), g.get("ml_away")
-        if h in (None, "") or a in (None, ""):
+        h, a, sp = g.get("ml_home"), g.get("ml_away"), g.get("spread_home") or ""
+        if (h in (None, "") or a in (None, "")) and sp == "":
             continue
-        if last.get(g["id"]) == [str(h), str(a)]:
+        if last.get(g["id"]) in ([str(h), str(a)], [str(h), str(a), str(sp)]) and (sp == "" or len(last[g["id"]]) == 3):
             continue
-        last[g["id"]] = [str(h), str(a)]
-        rows.append({"g": g["id"], "t": stamp, "s": g["start"], "h": h, "a": a})
+        last[g["id"]] = [str(h), str(a), str(sp)]
+        rows.append({"g": g["id"], "t": stamp, "s": g["start"], "h": h, "a": a, "sp": sp})   # (10/1: the home
+        #   spread too - the engine's read beats the TUESDAY NFL number, so the live play needs that number kept)
     if rows:
         with open(os.path.join(d, f"{stamp[:7]}.jsonl"), "a") as f:
             for r in rows:

@@ -5416,6 +5416,11 @@ def test_line_history_kept():
     assert sd.record_lines(g, now + timedelta(hours=2), d) == 1
     rows = [json.loads(x) for x in open(os.path.join(d, "2026-10.jsonl"))]
     assert [r["a"] for r in rows] == ["124", "120"] and rows[1]["t"] == "2026-10-01T14:00Z"
+    g["nfl:1"]["spread_home"] = "-2.5"                                     # the spread moves, the ml doesn't: kept
+    assert sd.record_lines(g, now + timedelta(hours=3), d) == 1
+    assert sd.record_lines(g, now + timedelta(hours=4), d) == 0
+    rows = [json.loads(x) for x in open(os.path.join(d, "2026-10.jsonl"))]
+    assert rows[-1]["sp"] == "-2.5" and rows[-1]["a"] == "120"
 
 
 def test_team_name_match_is_not_loose():
