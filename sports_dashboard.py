@@ -231,11 +231,13 @@ BIG_WHY = {   # 4u+
 WHY_USED = set()                 # the unit reasons already on the page this build (reset in render)
 
 
-def _units_line(u, key="", odds=None, early=False):
+def _units_line(u, key="", odds=None, early=False, lean=False):
     if not UNITS_ON:
         return ""
     if not u:                                                # a lean: no units (the owner, 9/30)
         return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
+    if lean:                                                 # a lean we like: ½u, never called a lock (the owner, 10/1)
+        return f'<div class="un">🟡 A LEAN WE LIKE — {_units_txt(u)}</div>'
     side = "dog" if (odds or 100) > 0 else "fav"             # (a plus-money dog is never "expensive")
     pool = (HALF_WHY[side] if u == 0.5 else FULL_WHY[side] if u < 2 else BIGGER_WHY[side] if u < 4 else
             BIG_WHY["early" if early else "board"])
@@ -692,7 +694,7 @@ def _pick_card(kind, pk):
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds")) if len(pk["legs"]) == 1 else ""}
+  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean"))) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 

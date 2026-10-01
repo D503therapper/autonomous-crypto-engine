@@ -5886,6 +5886,38 @@ def test_hockey_favorites_weigh_the_dog_across():
         sports.SEASON_START.clear(); sports.SEASON_START.update(keep)
 
 
+def test_first_season_coach_on_both_sides_cancels():
+    """10/1, the owner: "who's this new coach - is he a vet?" The Browns (Monken, year 1) took the coach's-first-season
+    fade while the Steelers (McCarthy, also year 1 in Pittsburgh) weren't checked. Both new = it cancels."""
+    import inspect
+    src = inspect.getsource(sports._dog_more)
+    assert 'se._first_season_coach(lg, g.get(other + "_name"), season)' in src
+    import sports_early as se
+    keep = se._COACH.get("exp")
+    try:
+        se._COACH["exp"] = {("Cleveland Browns", 2026): (0, 0, True, 0), ("Pittsburgh Steelers", 2026): (0, 0, True, 0)}
+        assert se._first_season_coach("nfl", "Steelers", 2026) and se._first_season_coach("nfl", "Browns", 2026)
+    finally:
+        se._COACH.pop("exp", None)
+        if keep is not None:
+            se._COACH["exp"] = keep
+
+
+def test_money_on_leans_we_like():
+    """10/1, the owner: "we can put money on leans we're confident about - it avoids calling them locks." ½u on a lean the
+    engine has 55%+ whose own read isn't under the line; it counts in the bankroll; a coin-flip lean stays no units."""
+    import sports_dashboard as dash
+    like = {**_cand("stl", -130, 0.58, league="nfl"), "edge_own": 0.585 * sd.decimal(-130) - 1, "p_market": 0.55}
+    coin = {**_cand("buf", -108, 0.50, league="nhl"), "edge_own": 0.50 * sd.decimal(-108) - 1, "p_market": 0.50}
+    assert sports.confident_lean(like) and not sports.confident_lean(coin)
+    pk = {"kind": "lean", "lean": True, "lean_units": sports.CONF_LEAN_UNITS, "legs": [like]}
+    assert sports.units_for(pk) == 0.5 and sports.units_for({"kind": "lean", "lean": True, "legs": [coin]}) == 0
+    assert "A LEAN WE LIKE" in dash._units_line(0.5, "stl", -130, lean=True) and "LOCK" not in dash._units_line(0.5, "stl", -130, lean=True)
+    graded = {**pk, "date": "2026-10-01", "status": "won", "legs": [{**like, "result": "won"}]}
+    led = sports.units_ledger([graded])
+    assert led["rows"] and led["rows"][0][1] == 0.5                # in the bankroll at ½u
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

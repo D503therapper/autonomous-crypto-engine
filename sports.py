@@ -922,6 +922,11 @@ def _dog_more(games, g, side, other, lg):
             margin = m if prev["home"] == g[side] else -m
         if lg in ("nfl", "ncaaf"):
             out["fades"] = se._fades(sched, g, side, lg, start.astimezone(ZoneInfo("America/New_York")))
+            if lg == "nfl" and "coach's first season" in out["fades"]:
+                season = int(g["start"][:4]) if int(g["start"][5:7]) >= 7 else int(g["start"][:4]) - 1
+                if se._first_season_coach(lg, g.get(other + "_name"), season):   # (10/1, the owner: Monken AND
+                    out["fades"] = [f for f in out["fades"] if f != "coach's first season"]   # McCarthy are both new -
+                    #                                     the same spot on both sides cancels, never just the dog's)
             out["last_margin"] = margin
             if lg == "nfl" and side == "away" and str(g.get("neutral")) != "1":
                 mine = htz.get((lg, g[side]))
@@ -1255,8 +1260,10 @@ def units_for(pk):
     """How many units a pick gets - the ENGINE decides, by its edge (the sizing study). A lean or a parlay: 0 (the
     picks in a parlay carry their own - leg_units)."""
     kind, legs = pk.get("kind"), pk.get("legs") or []
-    if kind in PARLAY_KINDS or not legs or pk.get("lean"):
-        return 0                                             # (10/1 bug check: a lean Dog carried 2u)
+    if kind in PARLAY_KINDS or not legs:
+        return 0
+    if pk.get("lean"):
+        return pk.get("lean_units") or 0                     # a lean: none - or ½u on a lean we like (the owner, 10/1)
     t = "value" if kind == "dog" else pick_tier(pk)
     return _sized(t, legs[0])
 
@@ -1403,6 +1410,23 @@ def plays(cands, avoid):
 
 
 LEAN_WINNER_OWN = 0.55
+CONF_LEAN_P = 0.55       # the owner, 10/1: "we can put money on leans we're confident about - it might not be a lock, but
+CONF_LEAN_UNITS = 0.5    # we're comfortable enough to put money on it" (both leans won today). ½u on a lean the engine has
+#                          winning 55%+ (its weighed read for hockey favorites), its own read not under the line's number,
+#                          never past -150, never one its read is fighting. Graded in the bankroll like any unit play.
+
+
+def confident_lean(c):
+    """A lean we like enough for ½ unit."""
+    if c.get("market") not in ("ml", "spread") or c.get("odds", -999) < MAX_FAV or c.get("trap") or fighting(c) \
+            or hockey_fav_bad(c) or nhl_pricey(c):
+        return False
+    p = min(c["p"], c["w_p"]) if c.get("w_p") is not None else c["p"]
+    if p < CONF_LEAN_P:
+        return False
+    if c.get("edge_own") is None or c.get("p_market") is None:
+        return False
+    return c.get("w_p") is not None or (c["edge_own"] + 1) / c["dec"] >= c["p_market"]
 
 
 def viewer_leans(cands, avoid):
@@ -1781,6 +1805,8 @@ def post_board(games, model, picks, now, day, force=False):
             pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1, "legs": b["legs"],
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
+            if kind == "lean" and confident_lean(c):
+                pk["lean_units"] = CONF_LEAN_UNITS
             leg = pk["legs"][0]
             leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
             if pk["lean"]:
@@ -1803,6 +1829,8 @@ def post_board(games, model, picks, now, day, force=False):
         pk = {"date": iso, "kind": "night", "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1,
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
               "stake": STAKE, "status": "open", "pnl": 0.0, "lean": bool(b.get("lean"))}
+        if pk["lean"] and confident_lean(leg):
+            pk["lean_units"] = CONF_LEAN_UNITS
         leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
         if pk["lean"]:
             leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}night{gid}")
