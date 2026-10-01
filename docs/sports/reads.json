@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T05:05Z",
+ "updated": "2026-10-01T05:17Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -127,7 +127,7 @@
    "home": "Padres",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "four",
    "lean": {
     "team": "Padres",
@@ -142,7 +142,7 @@
      "better starting pitcher",
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -171,42 +171,12 @@
    }
   },
   {
-   "id": "mlb:401907973",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "h1": {
-    "team": "Braves",
-    "p": 0.446,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
-   "sport": "MLB",
-   "season": "playoffs",
-   "start": "2026-10-01T18:00Z",
-   "away": "Phillies",
-   "home": "Braves",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Braves",
-    "opp": "Phillies",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -174,
-    "p": 0.623,
-    "win_p": 0.506,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
    "id": "nhl:401891817",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.408,
+    "p": 0.41,
     "tie": 0.294,
     "name": "1st period"
    },
@@ -223,8 +193,8 @@
     "market": "ml",
     "line": null,
     "odds": -162,
-    "p": 0.621,
-    "win_p": 0.621,
+    "p": 0.625,
+    "win_p": 0.625,
     "reasons": [
      "better rested",
      "hotter recent form",
@@ -238,7 +208,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.384,
+    "p": 0.385,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -255,8 +225,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.65,
-    "win_p": 0.428,
+    "p": 0.649,
+    "win_p": 0.427,
     "reasons": []
    }
   },
@@ -285,6 +255,36 @@
     "odds": -278,
     "p": 0.715,
     "win_p": 0.501,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401907973",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Braves",
+    "p": 0.446,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-02T00:00Z",
+   "away": "Phillies",
+   "home": "Braves",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Braves",
+    "opp": "Phillies",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -174,
+    "p": 0.623,
+    "win_p": 0.506,
     "reasons": [
      "the stronger team"
     ]
@@ -444,7 +444,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.427,
+    "p": 0.428,
     "tie": 0.292,
     "name": "1st period"
    },
@@ -461,8 +461,8 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.659,
-    "win_p": 0.659,
+    "p": 0.66,
+    "win_p": 0.66,
     "reasons": [
      "better rested",
      "the stronger team",
@@ -523,8 +523,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.652,
-    "win_p": 0.43,
+    "p": 0.653,
+    "win_p": 0.431,
     "reasons": [
      "better rested",
      "hotter goalie"
