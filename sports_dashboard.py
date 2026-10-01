@@ -481,7 +481,9 @@ def _breakdown(leg):
     if not secs:
         return ""
     done = leg.get("result") in ("won", "lost", "push")
-    lines = [pct_ok(x) for x in secs if isinstance(x, str) and latest_ok(x)]
+    import sports_card_guard                                 # 🛡️ the last stop: a card written before a fix never
+    lines = [pct_ok(x) for x in sports_card_guard.clean(    # shows the mistake either (the owner, 10/1)
+        [x for x in secs if isinstance(x, str) and latest_ok(x)], leg.get("league"), leg.get("team", ""))]
     if done:                                                 # it's over: no "we gon' see" on a graded pick
         lines = [PENDING_TALK.sub("", x).rstrip(" —") or x for x in lines]
     body = "".join(f"<p>{E(x)}</p>" for x in lines)
@@ -546,7 +548,9 @@ def _leg(leg, tagged=False, review="", units=None):
     mark = ""
     badge = {"won": '<span class="lr won">✅ HIT</span>', "lost": '<span class="lr lost">❌ MISS</span>',
              "push": '<span class="lr push">PUSH</span>', "void": '<span class="lr push">VOID</span>'}.get(res, "")
-    why = E(pct_ok(leg.get("why_line") or _why_fallback(leg)))      # a real line in our lingo, never a bare tag (the owner, 9/29)
+    import sports_card_guard
+    why = E(pct_ok(sports_card_guard.one(leg.get("why_line"), leg.get("league"), leg.get("team", ""))
+                   or _why_fallback(leg)))      # a real line in our lingo, never a bare tag (the owner, 9/29) - guarded
     pub = leg.get("public")
     tag = ('<span class="pub fade">🤡 FADING THE PUBLIC</span>' if pub == "fade" else
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
