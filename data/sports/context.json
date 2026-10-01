@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "at": "2026-09-30T22:12Z",
+  "at": "2026-10-01T00:10Z",
   "expected_false_positives": 0.134,
   "game_flags": {
    "conf": "same conference, not the division",
@@ -17,7 +17,7 @@
   "null_sims": 3,
   "p_luck": 0.00023262907903552504,
   "refs": "officials.json loaded",
-  "secs": 20.6,
+  "secs": 22.1,
   "team_flags": {
    "bowl5": "college football team at 5 wins going for bowl-eligible 6",
    "clinched": "late season, playoff spot clinched",
@@ -907,52 +907,52 @@
     "z_edge": 1.54
    },
    "ref_home-|ml|dog": {
-    "edge": 0.0014,
-    "n": 2834,
-    "n_new": 1417,
+    "edge": 0.0013,
+    "n": 2835,
+    "n_new": 1418,
     "n_old": 1417,
-    "roi": -0.0326,
-    "roi_new": -0.0183,
+    "roi": -0.033,
+    "roi_new": -0.019,
     "roi_old": -0.047,
     "tested": true,
-    "z": -1.49,
-    "z_edge": 0.16
+    "z": -1.5,
+    "z_edge": 0.14
    },
    "ref_home-|ml|fav": {
-    "edge": -0.0014,
-    "n": 2834,
-    "n_new": 1417,
+    "edge": -0.0013,
+    "n": 2835,
+    "n_new": 1418,
     "n_old": 1417,
-    "roi": -0.0386,
-    "roi_new": -0.0594,
+    "roi": -0.0383,
+    "roi_new": -0.0588,
     "roi_old": -0.0178,
     "tested": true,
-    "z": -2.5,
-    "z_edge": -0.16
+    "z": -2.48,
+    "z_edge": -0.14
    },
    "ref_home-|ml|home": {
-    "edge": 0.0012,
-    "n": 2869,
+    "edge": 0.001,
+    "n": 2870,
     "n_new": 1435,
-    "n_old": 1434,
-    "roi": -0.0328,
-    "roi_new": -0.0344,
-    "roi_old": -0.0312,
+    "n_old": 1435,
+    "roi": -0.0331,
+    "roi_new": -0.0357,
+    "roi_old": -0.0305,
     "tested": true,
-    "z": -1.85,
-    "z_edge": 0.13
+    "z": -1.87,
+    "z_edge": 0.11
    },
    "ref_home-|ml|road": {
-    "edge": -0.0012,
-    "n": 2869,
+    "edge": -0.001,
+    "n": 2870,
     "n_new": 1435,
-    "n_old": 1434,
-    "roi": -0.0386,
-    "roi_new": -0.0434,
-    "roi_old": -0.0337,
+    "n_old": 1435,
+    "roi": -0.0383,
+    "roi_new": -0.0421,
+    "roi_old": -0.0344,
     "tested": true,
-    "z": -1.94,
-    "z_edge": -0.13
+    "z": -1.92,
+    "z_edge": -0.11
    },
    "ref_home-|total|over": {
     "edge": -0.0104,
