@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T11:30Z",
+ "updated": "2026-10-01T11:39Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -67,7 +67,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.352,
+    "p": 0.357,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -76,19 +76,17 @@
    "start": "2026-10-01T23:00Z",
    "away": "Sabres",
    "home": "Blue Jackets",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Sabres",
-    "opp": "Blue Jackets",
+    "team": "Blue Jackets",
+    "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.715,
-    "win_p": 0.501,
-    "reasons": [
-     "the stronger team"
-    ]
+    "odds": -285,
+    "p": 0.703,
+    "win_p": 0.488,
+    "reasons": []
    }
   },
   {
@@ -610,7 +608,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.59,
+    "p": 0.586,
     "tie": 0.111,
     "name": "first 5 innings"
    },
@@ -626,9 +624,9 @@
     "opp": "Padres",
     "market": "ml",
     "line": null,
-    "odds": -226,
-    "p": 0.674,
-    "win_p": 0.674,
+    "odds": -219,
+    "p": 0.669,
+    "win_p": 0.669,
     "reasons": [
      "the stronger team",
      "better rested"
