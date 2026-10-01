@@ -6052,6 +6052,42 @@ def test_the_daily_double_check():
     assert len(probs) == 4
 
 
+def test_hockey_third_game_in_four_nights():
+    """10/1 study: a rested hockey favorite vs a team on its 3rd game in 4 nights beat its price 8 of 8 seasons - a
+    weight (+1.5 pts) on the favorite's read."""
+    keep = dict(sports.LAST_STARTS)
+    try:
+        sports.LAST_STARTS.clear()
+        sports.LAST_STARTS[("nhl", "D")] = ["2026-10-08T23:00Z", "2026-10-10T23:00Z"]   # played 3 and 1 days before
+        sports.LAST_STARTS[("nhl", "F")] = ["2026-10-08T23:00Z"]
+        fav = {**_cand("g", -140, 0.57, league="nhl"), "team_id": "F", "start": "2026-10-11T23:00Z", "p_market": 0.565,
+               "side": "home"}
+        dog = {**_cand("g", 120, 0.43, league="nhl"), "team_id": "D", "start": "2026-10-11T23:00Z", "p_market": 0.435,
+               "side": "away", "dog_ctx": {}}
+        assert sports.third_in_four(fav, dog)
+        sports.LAST_STARTS[("nhl", "F")] = ["2026-10-10T23:00Z"]                        # the favorite played yesterday
+        assert not sports.third_in_four(fav, dog)
+    finally:
+        sports.LAST_STARTS.clear(); sports.LAST_STARTS.update(keep)
+
+
+def test_overnight_study_weights():
+    """10/1 overnight studies, wired as weights: the West Coast road favorite in the East (+2 pts on its read, -2 on the
+    home dog's score) and a football dog without its key player (-3)."""
+    games = {"g": {"id": "g", "league": "nfl", "away": "SF", "home": "NYG", "tzo": "-5.0", "neutral": "0"}}
+    keep = dict(sports._SCHED)
+    try:
+        sports._SCHED.update(k=id(games), s={}, tz={("nfl", "SF"): -8.0})
+        fav = {**_cand("g", -140, 0.58, league="nfl"), "home": False, "side": "away"}
+        dog = {**_cand("g", 120, 0.42, league="nfl"), "home": True, "side": "home", "dog_ctx": {}}
+        sports.weigh_west_coast_road_fav(games, [fav, dog])
+        assert abs(fav["p"] - 0.60) < 1e-9 and dog.get("west_trip_dog")
+        assert sports.dog_spots(dog) == -2
+    finally:
+        sports._SCHED.clear(); sports._SCHED.update(keep)
+    assert sports.dog_spots({"league": "nfl", "odds": 150, "dog_ctx": {}, "key_out_me": True}) == -3
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

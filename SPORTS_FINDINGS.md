@@ -254,6 +254,26 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   conservative-coach fade. Not wired yet (needs live 4th-down go rates); worth -1 on the dog's read. Script/data:
   scratchpad nflstyle (build_games / study / fixed_rules / robust_go4).
 
+- **Overnight studies (10/1, 22 angles, closing prices, fixed rules, multiple-testing aware):**
+  - NHL 3rd game in 4 nights: the rested favorite (not on a back-to-back) beat its price 8 of 8 seasons (+5.2 pts vs the
+    same price, z 2.7, 2023+ 3 of 3) - LEAD, WIRED +1.5 pts on the favorite's weighed read (third_in_four).
+  - NFL West Coast team FAVORED on the road in an Eastern-time city: won 76%, +20.6% at the close, +12.8% at the early
+    fair number, 7 of 8 seasons, 3 of 3 recent; the Eastern home dog -23.5% - LEAD (no 2026 games yet), WIRED +2 pts on
+    the favorite, -2 on that dog's score (weigh_west_coast_road_fav).
+  - Injury timing (NFL 2020-26): QB news is priced by Tuesday; after an Out the line moves ~1.4 pts at the next look
+    and stops; backups (587), returning starters (165) and Questionable QBs (119) are priced right at the close - no
+    "beat the market" window. LEAD: a dog whose QB1 is out a second straight week (not IR) -54% on 57, covered 33% -
+    WIRED -3 on a football dog with its key player out (key_out_me). NOTE: the older "QB questionable dog -20.8%"
+    counted backups on the report; with QB1 only it's +4.2% at the close (n=77) - re-check before leaning on it.
+  - WATCH: MLB doubleheader game-2 dog (+9.5%, 2026 +31% on 25; the line posts after 8 AM), NFL dog that scored 10 or
+    fewer last game (+7%, 2023+ +21%), Group-of-5 dog vs Power-4 (+8.6% at +100..+220), college dog with better yards per
+    play than its record (thin data), Week 18 resting teams' opponents (+32.8% on 43).
+  - DEAD: NHL favorite off a shutout loss, early-season dogs by last year's standing, goalie lit up last start,
+    rematches; MLB elimination games, bye rust, short rest, day after night; NFL out-gained-but-lost dog, EPA "unlucky"
+    teams, off a Monday night, division rematches; college conference openers, FCS tune-ups, rivalry week.
+  - DATA: MLB sp_home / sp_away hold the ACTUAL starter (overwritten after the game) - pitcher angles must wait for the
+    confirmed starter or they leak.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a

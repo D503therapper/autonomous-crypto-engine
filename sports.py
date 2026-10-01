@@ -378,12 +378,14 @@ def candidates(games, model, now=None, day=None, injuries=None):
                 continue                                  # never back the more banged-up team
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
+                    "team_id": g[side],
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
                     "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
                     "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
                     "road_opener": side == "away" and home_opener(games, g),
                     "key_edge": (sm.KEY_EDGE[g["id"]] * (1 if side == "home" else -1)) if g["id"] in sm.KEY_EDGE else None,
+                    "key_out_me": bool(key_out[side]),
                     "hot_key": HOT_KEY.get(g["id"]) == side,
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
@@ -474,6 +476,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                                 "reasons": base["reasons"] + _proven_reason(n_sp, s_sp if side == "home" else -s_sp)})
     mark_hockey_favorites(out)
     weigh_mlb_drought(out)
+    weigh_west_coast_road_fav(games, out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -1036,6 +1039,11 @@ def dog_spots(c):
         #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
     if mo.get("mnf"):
         sc += 2                    # a Monday night NFL dog: +21.4% on 119 (5 of 6), the engine agreeing +20.7%
+    if c.get("west_trip_dog"):
+        sc -= 2                    # the Eastern home dog vs a West Coast favorite: -23.5% (10/1 study)
+    if lg in ("nfl", "ncaaf") and c.get("key_out_me"):
+        sc -= 3                    # a football dog playing without its key player (QB): QB-out-again dogs -54% on 57,
+        #                            covered 33% (10/1 injury timing study); a QB-out-last-week dog -17.5% (early studies)
     # the believed-but-unproven early-round leads (the owner, 10/1: "the engine needs all the good things we found,
     # weighed against the numbers") - small weights, smaller samples:
     if lg == "ncaaf" and (mo.get("win_pct") or 0) >= 0.70:
@@ -1460,7 +1468,8 @@ def mark_hockey_favorites(cands):
         if fav.get("p_market") is not None:
             lift = max(-NHL_FAV_CAP, min(NHL_FAV_CAP, -NHL_FAV_PER_PT * fav["opp_dog"]))
             early = NHL_EARLY_FAV if season_w(fav) < 0 else 0.0
-            fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early)), 4)
+            tired = NHL_3IN4_FAV if third_in_four(fav, dog) else 0.0
+            fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early + tired)), 4)
 
 
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
@@ -1477,6 +1486,68 @@ def weigh_mlb_drought(cands):
             if c.get("edge_own") is not None:
                 c["edge_own"] = min(0.95, (c["edge_own"] + 1) / c["dec"] + MLB_DROUGHT_W) * c["dec"] - 1
             c["reasons"] = c["reasons"] + ["hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"]
+
+
+NHL_3IN4_FAV = 0.015     # 10/1 study: a rested hockey favorite vs a team on its 3rd game in 4 nights (the favorite not on a
+#                          back-to-back) beat its price 8 of 8 seasons (+5.2 pts vs the same price, 2023+ 3 of 3) - half of
+#                          that as a weight on the favorite's read (a lead: it doesn't clear the multiple-testing bar)
+
+
+def third_in_four(fav, dog):
+    """The dog side is on its 3rd game in 4 nights and the favorite didn't play yesterday."""
+    import sports_form
+    st = fav.get("start")
+    if not st:
+        return False
+    try:
+        t0 = datetime.strptime(st[:10], "%Y-%m-%d")
+    except ValueError:
+        return False
+    def n_recent(team):
+        out = 0
+        for s_ in LAST_STARTS.get(("nhl", team), []):
+            try:
+                d = (t0 - datetime.strptime(s_[:10], "%Y-%m-%d")).days
+            except ValueError:
+                continue
+            out += 1 <= d <= 3
+        return out
+    tid_fav, tid_dog = fav.get("team_id"), dog.get("team_id")
+    if tid_fav is None or tid_dog is None:
+        return False
+    return n_recent(tid_dog) >= 2 and not sports_form.played_yesterday(LAST_STARTS, "nhl", tid_fav, st)
+
+
+NFL_WEST_FAV_W = 0.02   # 10/1 study: a West Coast NFL team FAVORED on the road in an Eastern-time city won 76%, +20.6% at
+#                         the close (+12.8% at the early fair number), 7 of 8 seasons, 3 of 3 recent; the Eastern home
+#                         dog in those games -23.5% - the market over-penalizes the traveler (same as the East->West dog).
+#                         A lead (no 2026 games yet): +2 win-% points on the favorite's read, -2 on that home dog's score
+
+
+def weigh_west_coast_road_fav(games, cands):
+    """The West Coast road favorite in an Eastern city: its read moves up NFL_WEST_FAV_W; the home dog gets marked."""
+    try:
+        _, htz = _sched(games)
+    except Exception:                                        # noqa: BLE001 - extra facts never block the board
+        return
+    for c in cands:
+        if c.get("league") != "nfl" or c.get("market") != "ml" or c.get("home") or not -150 <= c.get("odds", 0) < 0:
+            continue
+        g = games.get(c["game_id"]) or {}
+        try:
+            gtz = float(g.get("tzo"))
+        except (TypeError, ValueError):
+            continue
+        if str(g.get("neutral")) == "1" or (htz.get(("nfl", g.get("away"))) or 0) > -7 or gtz < -5:
+            continue
+        c["p"] = min(0.95, c["p"] + NFL_WEST_FAV_W)
+        c["edge"] = c["p"] * c["dec"] - 1
+        if c.get("edge_own") is not None:
+            c["edge_own"] = min(0.95, (c["edge_own"] + 1) / c["dec"] + NFL_WEST_FAV_W) * c["dec"] - 1
+        c["reasons"] = c["reasons"] + ["a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"]
+        for d in cands:
+            if d["game_id"] == c["game_id"] and d is not c and d.get("market") == "ml":
+                d["west_trip_dog"] = True
 
 
 def hockey_fav_bad(c):
