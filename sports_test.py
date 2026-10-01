@@ -223,7 +223,7 @@ def test_board_rules():
     c = [_cand("a", -300, 0.80), _cand("b", -140, 0.62), _cand("f", -115, 0.57), _cand("k", -120, 0.55),
          _cand("n", -110, 0.52), pr(_cand("d", 150, 0.43)), _cand("e", 180, 0.40), _cand("i", -110, 0.58, "spread", -3.5, "nfl")]
     b = sports.make_board(c)
-    assert b["lock"]["legs"][0]["game_id"] == "i", "the Lock of the Day = the most value the engine's own read sees, -150 cap (never the -300)"
+    assert b["lock"]["legs"][0]["game_id"] == "b", "the Lock of the Day = the likeliest winner worth its price, -150 cap (never the -300)"
     for kind in ("two", "three"):
         legs = b[kind]["legs"]
         assert all(sports.good(l) for l in legs) and all(l["odds"] >= sports.MAX_FAV for l in legs), "real plays only"

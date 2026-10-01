@@ -731,7 +731,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # priciest favorite allowed, right at -150. Now it's the most VALUE - the engine's own read over the price -
         # among the likely winners (lock_ok: 56%+), the win % (with the proven nudges) breaking ties. None = no Lock
         # today, and the board says so - never a fake one.
-        lock = max(agree, key=lambda c: (round(lock_value(c), 3), rank_p(c))) if agree else None
+        lock = max(agree, key=lambda c: (round(rank_p(c), 3), lock_value(c))) if agree else None   # (the owner, 10/1:
+        #   "the Lock should be the most confident win" - among the picks worth their price, the likeliest winner)
         if lock is None:
             lock = backup_lock(cands)
     board["lock"] = _combo([lock]) if lock else None
@@ -1362,7 +1363,7 @@ def backup_lock(cands):
     pool = [c for c in cands if c["market"] == "ml" and c["odds"] >= MAX_FAV and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
             and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0]
-    return max(pool, key=lambda c: (round(c["edge_own"], 3), (c["edge_own"] + 1) / c["dec"])) if pool else None
+    return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
 
 
 def lock_value(c):
