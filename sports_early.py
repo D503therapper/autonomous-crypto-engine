@@ -471,7 +471,7 @@ SPOT_FIGHT = 0.01                       # the engine's own read may not be more 
 SPOT_MAX_WEEK = 2                       # the owner, 10/1: "just two of these early plays, not three". The engine
 #                                         ranks everything it finds and posts the best 2 a week (Tuesday to Monday)
 SPOT_ORDER = ("bye", "mnf", "eastwest", "blowout", "hammered", "engine", "best")
-SPOT_MIN_WEEK = 1                       # the owner, 10/1: "one minimum, two max early value plays" - a week the spots
+SPOT_MIN_WEEK = 0                       # the owner, 10/1: "one minimum, two max early value plays" - a week the spots
 MIN_ONE_FROM = (2, 6)                   # find nothing, the engine's best weighed dog goes up (½u) from Wednesday 6 AM
 #                                         PT on - early, before the line moves (dog prices only shorten in the week)   # most believed first
 SPOT_WINDOW_H = 72                      # an early play posts within 3 days of its first fair number - after that the
@@ -768,6 +768,9 @@ def min_one(games, st, now, injuries, own_of, have=()):
     weighed dog (+100..+220, the engine not fighting it, everything weighed - its read, the spots, the fades, the leads)
     for an upcoming game this week, ½u. Never on its own game day; never a total that says it's overpriced."""
     ws = week_start(now)
+    if not SPOT_MIN_WEEK:
+        return []                                           # (10/1: paused - the owner: "I don't want to force early
+        #                                                     plays if the algorithm doesn't believe")
     if sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws) >= SPOT_MIN_WEEK:
         return []                                           # (the week already has its early play)
     loc = now.astimezone(PT)

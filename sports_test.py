@@ -6247,7 +6247,8 @@ def test_early_plays_one_minimum_two_max():
     find nothing: from Wednesday 6 AM PT the engine's best weighed dog goes up (a 2nd only if it clears the normal bar);
     never once the week has one; never a dog whose whole weighed total is under its price."""
     import sports_early as se
-    keep = se.spot_scan
+    keep, keep_min = se.spot_scan, se.SPOT_MIN_WEEK
+    se.SPOT_MIN_WEEK = 1                                       # (the rule itself, as built - paused live 10/1)
     try:
         rows = [{"game_id": "a", "team": "A", "score": 0.20, "start": "2026-10-04T17:00Z", "spot": "best"},
                 {"game_id": "b", "team": "B", "score": 0.08, "start": "2026-10-04T17:00Z", "spot": "best"},
@@ -6262,7 +6263,7 @@ def test_early_plays_one_minimum_two_max():
         rows[:] = [{**r, "score": -0.01} for r in rows]
         assert se.min_one({}, {"picks": []}, thu, {}, None) == []
     finally:
-        se.spot_scan = keep
+        se.spot_scan, se.SPOT_MIN_WEEK = keep, keep_min
     assert se.units({"spot": "best", "odds": 120}) == 0.5
 
 
