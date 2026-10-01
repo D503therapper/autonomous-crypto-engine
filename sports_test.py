@@ -6386,6 +6386,20 @@ def test_data_gaps_every_sport():
     assert "DATA GAP (no pick on this game)" in src and "data_gaps(games, cands, now)" in src
 
 
+def test_brain_never_says_tickets_cooking_before_a_game_starts():
+    """The owner, 10/1: 'we're sitting at 0-0, there ain't no tickets that have started - that's not right.' At 0-0
+    the brain says nothing's started and when the first one goes, or how many are playing right now."""
+    import sports_dashboard as d
+    from datetime import datetime, timezone
+    ps = [{"date": "2026-10-01", "kind": "lock", "status": "open", "legs": [{"start": "2026-10-02T01:00Z"}]},
+          {"date": "2026-10-01", "kind": "solo", "status": "open", "legs": [{"start": "2026-10-02T00:15Z"}]}]
+    early = d.day_wait_line(ps, "2026-10-01", datetime(2026, 10, 1, 21, tzinfo=timezone.utc), 0)
+    assert "5:15 PM PT" in early and "cooking" not in early and "live" not in early, early
+    mid = d.day_wait_line(ps, "2026-10-01", datetime(2026, 10, 2, 0, 30, tzinfo=timezone.utc), 1)
+    assert "1 of" in mid and "2" in mid, mid
+    assert "groups=81" in open(sd.__file__).read()                       # FCS in the college feed: no gaps
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
