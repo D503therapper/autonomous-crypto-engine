@@ -282,6 +282,14 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   Steelers-Browns 10/1: money over tickets AND the line move were both on Pittsburgh - the "smart money on the Browns"
   line from a betting site didn't match the numbers.
 
+- **Coaching / play styles, round 2 (10/1; NBA + college hoops 2023-25, college football 2021-25, closing prices, vs
+  the same season / side / price band; 120 tests, best z 2.7):** round 1's watch items are DEAD - college 3-point-heavy
+  dogs, NBA slow-pace dogs, college football pass-heavy favorites (round 1 compared to every favorite, not the same
+  price). Also dead: pace, 4th-down aggressiveness, pass/run mix vs the closing moneyline in all three. LEAD (hoops
+  favorites "win inside"): a college favorite that takes few 3s / any favorite that crashes the offensive glass beat its
+  price band 3 of 3 seasons under every cutoff (+3 to +7 pts), still only ~break-even ROI. TO WIRE before the 2026-27
+  hoops season: +1 win-% point on such a favorite's read (needs this season's team stats live). No dog-score points.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a
