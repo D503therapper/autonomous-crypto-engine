@@ -130,6 +130,19 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   of 8 seasons - the blowout pushes the price too far. Regular season the same spot is nothing (+0.3% on 2,315), so
   only 37 games carry it - too thin to build. Every playoff favorite -8.9% (329). Bye-team rust: nothing (21 games).
 - **College football big dogs** the engine likes by 12+: 2 of 3 seasons. Close.
+- **EARLY FOOTBALL on REAL midweek prices (10/1, The Odds API history the owner paid for: 1,757 NFL + 4,175 college
+  games 2020-26, median book, walk-forward - each season graded by an engine trained only on the 3 before it; graded
+  on WINS at the price we'd have bet, per the owner).** tools/early_football_study.py, results/early_football.json.
+  NFL: DEAD as a moneyline early play - the engine's own read beating the first price of the week lost at every gap
+  (dogs -3..-8%, favorites -2..-8%), at every time of the week; the early price is only ~2 pts of ROI better than the
+  close. (The 9/30 "+57%" was the stale summer opens - confirmed.) Close to something only: off a bye vs a normal week
+  +18% on 59 (4 of 6) - but it vanishes when the engine agrees (+3%), so likely luck. College football: the engine's
+  BIG reads (12+ over the first price) on dogs +11.3% on 508, up 4 of 6 - but 2024 and 2025 were flat (-1.5%, -0.2%):
+  fading. Neutral-site dogs the engine likes by 4+: +17% on 106, 5 of 6 (small). Blowout winners last week (+4.4% on
+  610, 5 of 6 with the engine). Bad spots: a CLOSE LOSS last week (-15% NCAAF / -13% NFL, the engine liking them
+  even worse -23%), road favorites (NFL -12.6%, 0 of 6), home dogs in the NFL (-17%). Shopping the best book adds ~3
+  points everywhere. ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
+
 
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
