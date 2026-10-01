@@ -223,7 +223,7 @@ def test_board_rules():
     c = [_cand("a", -300, 0.80), _cand("b", -140, 0.62), _cand("f", -115, 0.57), _cand("k", -120, 0.55),
          _cand("n", -110, 0.52), pr(_cand("d", 150, 0.43)), _cand("e", 180, 0.40), _cand("i", -110, 0.58, "spread", -3.5, "nfl")]
     b = sports.make_board(c)
-    assert b["lock"]["legs"][0]["game_id"] == "b", "the Lock of the Day = the likeliest lock, -150 cap (never the -300)"
+    assert b["lock"]["legs"][0]["game_id"] == "i", "the Lock of the Day = the most value the engine's own read sees, -150 cap (never the -300)"
     for kind in ("two", "three"):
         legs = b[kind]["legs"]
         assert all(sports.good(l) for l in legs) and all(l["odds"] >= sports.MAX_FAV for l in legs), "real plays only"
@@ -5768,6 +5768,26 @@ def test_pick_logic_bug_check():
           {"game_id": "b", "spot": "mnf", "score": .08, "fair_at": "2026-10-05T12:00Z"},
           {"game_id": "c", "spot": "mnf", "score": .07, "fair_at": "2026-10-05T12:00Z"}]
     assert [c["game_id"] for c in se.pick_spots(cs, {"picks": []}, tue, have={"a"})] == ["b", "c"]
+
+
+def test_dog_gate_uses_everything_we_learned():
+    """10/1, the owner: "you wired all that dog knowledge in and it came up with the Red Wings at -142." The knowledge
+    sat behind an old gate (a proven spot from before) - a football dog now qualifies on its whole DOG SCORE (the
+    engine's read + every spot and fade) at 8+, and its units come from that weighed read. Never one factor alone."""
+    base = {"league": "nfl", "market": "ml", "odds": 150, "dec": 2.5, "p": 0.40, "p_market": 0.40, "edge": 0.0,
+            "edge_own": 0.43 * 2.5 - 1, "reasons": ["r"], "dog_ctx": {}, "home": False, "side": "away", "start": "2026-10-04T20:00Z"}
+    plain = dict(base)
+    assert not sports.dog_gate(plain)                          # the read alone (+3) isn't enough
+    spotted = {**base, "dog_more": {"east_west": True, "last_margin": 3}, "dog_ctx": {"opp_won": False}}
+    assert sports.dog_gate(spotted) and spotted["dog_p"] > 0.40   # read +3, East-West +3, the favorite lost its last +2
+    assert sports.good(spotted) and sports.real_value(spotted)
+    assert sports.units_for({"kind": "dog", "legs": [spotted]}) > 0
+    cold = {**spotted, "dog_more": {"east_west": True, "fades": ["ice cold"]}}
+    assert not sports.dog_gate(cold)                           # a fade takes it back under - weighed, never one factor
+    assert not sports.dog_gate({**spotted, "odds": 260, "dec": 3.6})   # never past +220 / the Dog's cap
+    assert not sports.dog_gate({**spotted, "league": "ncaaf"})   # college football: didn't hold the last 3 seasons
+    hoops = {**base, "league": "ncaab", "edge_own": 0.46 * 2.5 - 1}
+    assert sports.dog_gate(hoops)                              # college hoops: its own read 6 points over the price
 
 
 if __name__ == "__main__":

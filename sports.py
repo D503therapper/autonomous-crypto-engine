@@ -527,6 +527,34 @@ def fighting(c):
     return own < 1 / c["dec"] - FIGHT_MAX or money_against(c) or sports_strength.weak(c.get("league"))
 
 
+DOG_GATE = 8.0                 # the owner, 10/1 ("the engine should use everything we learned about dogs"): a football
+#                                dog qualifies when its DOG SCORE - the engine's read over the price + every spot and
+#                                fade (dog_spots / dog_more) - is 8+ points. Backtest (game-day prices, 2020-26): the
+#                                spots added ROI at every level; NFL 8+ +10.0% on 212, last 3 + now +2.2% (2024 -24%,
+#                                2025 +45%). College football didn't hold the last 3 seasons (-9.7%) - NFL only
+NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
+#                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
+
+
+def dog_gate(c):
+    """A dog the engine's WEIGHED read says is underpriced (never one factor alone - the whole dog score)."""
+    if c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") or fighting(c):
+        return False
+    lg = c.get("league")
+    if lg == "nfl":
+        sc = round(dog_score(c), 2)
+        if sc >= DOG_GATE:
+            c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the
+            return True                                                                       # weighed read)
+        return False
+    if lg == "ncaab" and c.get("edge_own") is not None:
+        own = (c["edge_own"] + 1) / c["dec"]
+        if own - (c.get("p_market") or 1 / c["dec"]) >= NCAAB_DOG_EDGE:
+            c["dog_p"] = round(own, 4)
+            return True
+    return False
+
+
 def good(c):
     """A real play: likely to win by the engine's (honest) win %, a real reason behind it, and no red flags.
     Over/unders keep their own value rule (their study proves them separately). Anything else is filler."""
@@ -538,7 +566,7 @@ def good(c):
     if fighting(c):
         return False
     if c["odds"] >= 100:                               # an underdog: VALUE only when a proven angle says it's underpriced
-        return proven(c) and c["edge"] >= MIN_EDGE
+        return (proven(c) and c["edge"] >= MIN_EDGE) or dog_gate(c)   # ...or the whole dog score does (10/1)
     need = PLAY_MIN_P + (0.02 if c.get("intl") or c.get("our_drama") else 0.0)   # overseas / our own drama: a higher bar
     need += sports_selfcheck.extra_edge(SELF_ST, c)     # the self-check (every graded pick, leans too): where a kind of
     return c["p"] >= need                               # pick hits below what we said, it needs a higher win % to go up
@@ -727,6 +755,7 @@ STRONG_LEAN_P = PLAY_MIN_P                    # 53%+ = STRONG LEAN, under that =
 
 
 DOG_DAY_MAX = 280            # the owner: no dog past +280
+DAILY_DOG_MAX = 220          # ...and the every-day Dog (and the dog gate) +100..+220 (the owner, 10/1: "never no +400")
 
 
 def dog_score(c):
@@ -1173,7 +1202,7 @@ def _sized(t, leg):
         #                                         $1 (own x dec - 1), the same read own_agrees() uses - not a win % gap
         return kelly_units(own, leg.get("odds") or -110)
     if t == "value":
-        return kelly_units(leg.get("p"), leg.get("odds") or 100)
+        return kelly_units(leg.get("dog_p") or leg.get("p"), leg.get("odds") or 100)   # (a gated dog: the weighed read)
     return 0                                                 # a lean is just a lean: no units
 
 
@@ -1241,6 +1270,8 @@ def rank_p(c):
 def real_value(c):
     """A UNIT play has to beat its real price by the engine's OWN read (10/1 bug check: a -150 the engine's own read
     gives 58.5% went up with ½u - the bet loses money by the engine's own numbers)."""
+    if c.get("dog_p") is not None and c.get("odds", 0) >= 100:
+        return c["dog_p"] * c["dec"] > 1                     # (a gated dog: everything weighed beats its real price)
     return (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) > 0   # (units are sized by
     #                                                          the engine's own read - it has to beat the real price)
 
@@ -1623,6 +1654,9 @@ def post_board(games, model, picks, now, day, force=False):
         room = cap - sum(p["kind"] == kind for p in today_)
         if kind == "lean":                                    # leans only fill the board up to BOARD_TARGET picks
             room = min(room, BOARD_TARGET - sum(p["kind"] in STRAIGHT_KINDS for p in today_))
+        if kind == "lean" and started:
+            room = 0                                          # (10/1: leans go up with the opening board only - the
+        #                                                       record is the start-of-day board, never topped up later)
         used = {l["game_id"] for p in today_ for l in p["legs"]}
         for c in pool(cands, used):
             if room <= 0:
