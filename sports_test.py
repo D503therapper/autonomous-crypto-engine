@@ -6965,6 +6965,26 @@ def test_only_a_key_player_out_is_sold_as_an_edge():
     #                                                                     'that's what it implies') - says so, gladly)
 
 
+def test_there_is_always_a_lock_near_the_price():
+    """The owner, 10/1 ('yes' - there's always a Lock): the audit found no Lock on 30 of 65 days, mostly -135..-150
+    favorites the engine had about 1 point short of the price. A day nothing clears the Lock test, the best own read
+    (56%+) within 1 point of its price is the Lock - ½u floor, never past +125 / -150, its card honest (a small bet at a
+    fair price - never 'value', never 'just a lean')."""
+    fav = {"market": "ml", "odds": -140, "dec": sd.decimal(-140), "edge_own": 0.578 * sd.decimal(-140) - 1, "p": 0.57,
+           "p_market": 0.57, "reasons": ["r"], "league": "mlb", "team": "Dodgers", "game_id": "m1", "side": "home"}
+    far = {**fav, "edge_own": 0.55 * sd.decimal(-140) - 1, "team": "Mets", "game_id": "m2"}         # 3 pts short: no
+    big = {**fav, "odds": -200, "dec": sd.decimal(-200), "edge_own": 0.66 * sd.decimal(-200) - 1, "game_id": "m3"}
+    c = sports.near_lock([fav, far, big])
+    assert c is fav and fav["near_price"]
+    assert sports.near_lock([far, big]) is None
+    pk = {"kind": "lock", "date": "2026-10-05", "status": "open", "legs": [fav]}
+    assert sports.units_for(pk) >= 0.5
+    assert not any("doesn't beat" in x for x in sports.rule_check([pk], [pk], "2026-10-05"))
+    import sports_breakdown_v24 as v24
+    src = open(v24.__file__).read()
+    assert 'if leg.get("near_price"):' in src and '"bottom_near"' in src
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
