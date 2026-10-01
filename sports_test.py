@@ -5959,6 +5959,20 @@ def test_nfl_4th_down_nerve_weighs_the_dog():
         g4._CACHE.clear(); g4._CACHE.update(keep)
 
 
+def test_the_money_check():
+    """10/1, the owner: "build the money check." No pick carries units unless its read beats the REAL price we pay -
+    the Steelers at -148 with the engine at 58.7% (needs 59.7%) carry none, whatever kind of pick they are."""
+    st = {**_cand("pit", -148, 0.60, league="nfl"), "edge_own": 0.587 * sd.decimal(-148) - 1, "p_market": 0.572}
+    assert not sports.beats_price(st)
+    for kind in ("lock", "solo", "dog"):
+        assert sports.units_for({"kind": kind, "legs": [st]}) == 0
+    assert sports.units_for({"kind": "lean", "lean": True, "lean_units": 0.5, "legs": [st]}) == 0
+    unt = {**_cand("unt", -112, 0.52, league="ncaaf"), "edge_own": 0.589 * sd.decimal(-112) - 1}
+    assert sports.beats_price(unt) and sports.units_for({"kind": "lock", "legs": [unt]}) > 0
+    hawks = {**_cand("chi", 180, 0.347, league="nhl"), "dog_p": 0.392}
+    assert sports.beats_price(hawks) and sports.units_for({"kind": "dog", "legs": [hawks]}) > 0
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

@@ -745,7 +745,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # force a dog: a forced one takes our ROI down." Only a REAL-value dog (good(): the price really beats it, a
         # proven reason behind it), the one the dog analysis (dog_score: the studies' spots and fades) likes best - and
         # never one the analysis flags as a trap (score under 0). None = no Dog of the Day, and the board says so.
-        dogs = [c for c in cands if c["market"] == "ml" and good(c) and DOG_MIN <= c["odds"] <= DOG_DAY_MAX
+        dogs = [c for c in cands if c["market"] == "ml" and good(c) and beats_price(c) and DOG_MIN <= c["odds"] <= DOG_DAY_MAX
                 and c["game_id"] not in taken and not c.get("trap") and dog_score(c) > 0]
         regular = [c for c in dogs if c["odds"] < BIG_DOG]
         dog = max(regular, key=lambda c: (dog_score(c), c["edge"])) if regular else None
@@ -1279,6 +1279,25 @@ def _sized(t, leg):
     return 0                                                 # a lean is just a lean: no units
 
 
+def read_of(c):
+    """The read a pick's units ride on: a gated dog's weighed read, a hockey favorite's weighed read, else the engine's
+    own read (no line move), else its win %."""
+    if c.get("dog_p") is not None and c.get("odds", 0) >= 100:
+        return c["dog_p"]
+    if c.get("w_p") is not None:
+        return c["w_p"]
+    if c.get("edge_own") is not None and c.get("dec"):
+        return (c["edge_own"] + 1) / c["dec"]
+    return c.get("p")
+
+
+def beats_price(c):
+    """💰 THE MONEY CHECK (the owner, 10/1 - after the Steelers ½u at -148): a pick only carries units when its read
+    beats the REAL price we pay (the juice in). Every unit pick - Lock, Dog, plays, leans - passes it or goes 0."""
+    r, dec = read_of(c), c.get("dec") or (_dec(c["odds"]) if c.get("odds") else None)
+    return r is not None and dec is not None and r * dec > 1
+
+
 def units_for(pk):
     """How many units a pick gets - the ENGINE decides, by its edge (the sizing study). A lean or a parlay: 0 (the
     picks in a parlay carry their own - leg_units)."""
@@ -1286,9 +1305,14 @@ def units_for(pk):
     if kind in PARLAY_KINDS or not legs:
         return 0
     if pk.get("lean"):
-        return pk.get("lean_units") or 0                     # a lean: none - or ½u on a lean we like (the owner, 10/1)
+        u = pk.get("lean_units") or 0                        # a lean: none - or ½u on a lean we like (the owner, 10/1)
+        return u if u and beats_price(legs[0]) else 0       # (the money check)
     t = "value" if kind == "dog" else pick_tier(pk)
-    return _sized(t, legs[0])
+    u = _sized(t, legs[0])
+    if u and not beats_price(legs[0]):
+        print(f"   money check: {legs[0].get('team')} {legs[0].get('odds')} - its read doesn't beat the real price, 0 units")
+        return 0                                             # (the owner, 10/1: "build the money check")
+    return u
 
 
 def units_tier(pk, leg):
