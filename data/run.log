@@ -4598,3 +4598,32 @@ error: failed to push some refs to 'https://github.co
 [2026-10-01 08:37 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-01 08:37 UTC] crypto/hold_btc  equity $495.14 (-1.0%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), MOVR 37 (37/0/0), NEAR 32 (32/0/0), PENGU 27 (27/0/0), MON 24 (24/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '85619.03', 'l': '82984.27', 'a': '83302.35', 'v': '4121.2330', 'vv': '346178066.81', 'c': '0.0035', 'b': '83301.48', 'k': '83301.49', 'oi': '0', 't': 1790843843009}
+   dex screen: REJECT AJAX@solana liq $126,709 - holders unknown; lp holders unknown; rugcheck lp locked 54% < 95%
+   dex screen: REJECT CIRBTC@ethereum liq $5,761,627 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GULD@ethereum liq $1,805,263 - honeypot.is unreachable
+   dex screen: PASS USELESS@solana liq $5,155,066
+   dex screen: PASS CURVE@solana liq $330,405
+   >> dex/dex_hunter: BUY $77.77 of CURVE@solana:7ioeSgzf @ 0.000453 (dex tier A momentum 1h +75% 6h +173% buys/sells 1532/1073 impact 0.02%)
+   dex screen: REJECT MICRO@solana liq $115,682 - top-10 holders 100%; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT VELVET@base liq $16,043 - liquidity $16,043 < $100,000; pool age unknown; 24h volume $56,821 < $100,000
+   dex screen: UNREACHABLE GULD@ethereum liq $1,805,340 - honeypot.is unreachable
+   dex screen: REJECT PI@solana liq $94,081,916 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT PI@solana liq $92,941,146 - top-10 holders 100%
+   dex scanner: 3,000 pools (solana 2,092 / base 563 / ethereum 345), refresh cycle 113s (hot 110s), 1274 calls (79 feed, 429s 0, failed 0), 35,820 refreshed (2086 no pair), +294 added / -294 dropped (dead 0, stale 0, cap 294), movers 2 + warming 9 -> queued 2, screened 2 (passed 1), bought 1
+[2026-10-01 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: BUY $205.10 of JASMY @ 0.005981 (entry)
+[2026-10-01 09:06 UTC] crypto/mover     equity $462.01 (-7.6%) 2 open  market UP
+[2026-10-01 09:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 09:06 UTC] crypto/social_heat equity $551.08 (+10.2%) 2 open  market UP
+[2026-10-01 09:06 UTC] crypto/breakout10 equity $504.89 (+1.0%) 2 open  market UP
+[2026-10-01 09:06 UTC] crypto/momentum  equity $484.83 (-3.0%) 2 open  market UP
+[2026-10-01 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 09:06 UTC] crypto/hold_btc  equity $497.06 (-0.6%) 1 open  market UP
+   social heat top: QNT 37 (37/0/0), NEAR 35 (35/0/0), MOVR 32 (32/0/0), MON 29 (29/0/0), PENGU 27 (27/0/0)
