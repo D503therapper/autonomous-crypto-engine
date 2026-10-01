@@ -930,6 +930,25 @@ def _dog_more(games, g, side, other, lg):
                 out["bye"] = True                               # off a bye vs a team that played
             if lg == "nfl" and start.astimezone(ZoneInfo("America/New_York")).weekday() == 0:
                 out["mnf"] = True                               # Monday night
+            mine = [x for st_, x in sched.get((lg, g[side]), []) if st_ < g["start"] and x.get("status") == "final"]
+            season0 = f"{int(g['start'][:4]) if int(g['start'][5:7]) >= 7 else int(g['start'][:4]) - 1}-07-01"
+            res = []
+            for x in mine:
+                if x["start"] >= season0:
+                    try:
+                        m_ = float(x["home_score"]) - float(x["away_score"])
+                    except (TypeError, ValueError):
+                        continue
+                    res.append((m_ if x["home"] == g[side] else -m_) > 0)
+            if len(res) >= 4:
+                out["win_pct"] = round(sum(res) / len(res), 3)    # this season's record (the .700+ dog)
+            streak = 0
+            for w in reversed(res):
+                if not w:
+                    break
+                streak += 1
+            out["win_streak"] = streak
+            out["neutral"] = str(g.get("neutral")) == "1"
             if lg == "nfl":
                 import sports_go4
                 out["go4_gap"] = sports_go4.gap(g.get(side + "_name"), g.get(other + "_name"))   # 4th-down nerve
@@ -1015,6 +1034,16 @@ def dog_spots(c):
         #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
     if mo.get("mnf"):
         sc += 2                    # a Monday night NFL dog: +21.4% on 119 (5 of 6), the engine agreeing +20.7%
+    # the believed-but-unproven early-round leads (the owner, 10/1: "the engine needs all the good things we found,
+    # weighed against the numbers") - small weights, smaller samples:
+    if lg == "ncaaf" and (mo.get("win_pct") or 0) >= 0.70:
+        sc += 1.5                  # a .700+ college team as the dog: +11% (4 of 6)
+    if lg in ("nfl", "ncaaf") and mo.get("neutral"):
+        own = (c.get("edge_own", c.get("edge", 0)) + 1) / c["dec"] if c.get("dec") else None
+        if own is not None and own > (c.get("p_market") or 1):
+            sc += 1.5              # a neutral-site dog the engine likes: +15.7% on 106 (5 of 6)
+    if lg == "nfl" and (mo.get("win_streak") or 0) >= 3:
+        sc += 1                    # an NFL dog on a 3+ game win streak: +6.7% (4 of 6)
     if lg == "nfl" and mo.get("go4_gap") is not None:
         import sports_go4          # the NFL style study's one lead (sports_go4): a dog whose coach goes for it on 4th
         if mo["go4_gap"] <= sports_go4.GAP_LO:   # down clearly less than the other coach - covered 48.4%, 0 of 9

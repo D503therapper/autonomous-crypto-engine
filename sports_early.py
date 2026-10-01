@@ -685,7 +685,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
             if own is None or own < mk - SPOT_FIGHT:
                 continue                                     # no engine read, or the engine's read is fighting it
             fades = _fades(sched, g, side, lg, et)
-            total = round((own - mk) + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades), 4)
+            extra = lead_weights(games, g, side, other, lg, own, mk) if dog else 0.0
+            total = round((own - mk) + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades) + extra, 4)
             if total < SPOT_MIN_TOTAL:
                 continue                                     # everything weighed together doesn't say value
             main = max(hit, key=lambda h: SPOTS[h][1])
@@ -698,6 +699,34 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
         sides.setdefault(c["game_id"], set()).add(c["side"])
     return [c for c in out if len(sides[c["game_id"]]) == 1]   # both sides of one game hit (the engine likes one,
     #                                                             the money hammered the other): they cancel - no play
+
+
+LEAD_W = {"win_pct": 0.015, "neutral": 0.015, "win_streak": 0.01, "go4": 0.01, "style": -0.02}
+
+
+def lead_weights(games, g, side, other, lg, own, mk):
+    """The believed-but-unproven leads, weighed in (the owner, 10/1: "the engine needs all the good things we found -
+    even the ones you couldn't prove - for the early plays too"): a .700+ college dog, a neutral-site dog the engine
+    likes, an NFL dog on a 3+ win streak, 4th-down nerve (NFL), college coaching style. Small weights, never a trigger."""
+    try:
+        import sports
+        mo = sports._dog_more(games, g, side, other, lg) or {}
+    except Exception:                                        # noqa: BLE001 - extra facts never block a play
+        return 0.0
+    w = 0.0
+    if lg == "ncaaf" and (mo.get("win_pct") or 0) >= 0.70:
+        w += LEAD_W["win_pct"]
+    if mo.get("neutral") and own > mk:
+        w += LEAD_W["neutral"]
+    if lg == "nfl" and (mo.get("win_streak") or 0) >= 3:
+        w += LEAD_W["win_streak"]
+    gap = mo.get("go4_gap")
+    if lg == "nfl" and gap is not None:
+        import sports_go4
+        w += -LEAD_W["go4"] if gap <= sports_go4.GAP_LO else LEAD_W["go4"] if gap >= sports_go4.GAP_HI else 0.0
+    if lg == "ncaaf" and (mo.get("conservative") or mo.get("fast")):
+        w += LEAD_W["style"]
+    return round(w, 4)
 
 
 def week_start(now):

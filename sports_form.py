@@ -209,6 +209,9 @@ def played_yesterday(starts, league, team, start):
 PDO_BAD, PDO_GOOD = 985, 1015
 
 
+PDO_SPAN_D = 60
+
+
 def pdo_states(games, now_iso):
     """{team: PDO over its last 10 games} (NHL, games in the last 3 weeks only)."""
     import json
@@ -237,12 +240,12 @@ def pdo_states(games, now_iso):
             continue
         for t, o, gf, ga in ((g["home"], g["away"], hs, as_), (g["away"], g["home"], as_, hs)):
             if sh.get(t) and sh.get(o):
-                log[t].append((gf, sh[t], ga, sh[o]))
+                log[t].append((gf, sh[t], ga, sh[o], g["start"]))
                 last[t] = g["start"]
     out = {}
     for t, L in log.items():
-        L = L[-10:]
-        if len(L) == 10 and _days(last[t], now_iso) <= FRESH_D:
+        L = [x for x in L if _days(x[4], now_iso) <= PDO_SPAN_D][-10:]   # (10/1 audit: the last 10 reached back to
+        if len(L) == 10 and _days(last[t], now_iso) <= FRESH_D:          # last April early in a new season)
             gf, sf_, ga, sa = (sum(x[k] for x in L) for k in range(4))
             out[t] = (gf / sf_ + 1 - ga / sa) * 1000
     return out

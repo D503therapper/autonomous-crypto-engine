@@ -5589,6 +5589,16 @@ def test_six_early_spots():
     Monday night NFL dogs, East Coast NFL teams flying West, a dog that blew somebody out, and college sides the engine
     likes after the line moved away. Fair prices only (after both teams' last games), never game day, never a side with
     a key player out or questionable."""
+    import sports_go4
+    _go4 = dict(sports_go4._CACHE)
+    sports_go4._CACHE["d"] = {}                  # (no real 4th-down rates leaking into the made-up teams)
+    try:
+        _six_early_spots()
+    finally:
+        sports_go4._CACHE.clear(); sports_go4._CACHE.update(_go4)
+
+
+def _six_early_spots():
     import sports_early as se
     from html import escape
     now = datetime(2026, 10, 6, 18, 0, tzinfo=timezone.utc)                 # a Tuesday
@@ -5974,6 +5984,35 @@ def test_the_money_check():
     assert sports.beats_price(unt) and sports.units_for({"kind": "lock", "legs": [unt]}) > 0
     hawks = {**_cand("chi", 180, 0.347, league="nhl"), "dog_p": 0.392}
     assert sports.beats_price(hawks) and sports.units_for({"kind": "dog", "legs": [hawks]}) > 0
+
+
+def test_believed_leads_weighed_small():
+    """10/1, the owner: "the engine needs all the good things we found - even the ones you believe in but couldn't
+    prove - weighed against the numbers." The early rounds' smaller leads as small weights on the dog score."""
+    base = {"league": "ncaaf", "odds": 150, "dog_ctx": {}, "dec": 2.5, "edge_own": 0.45 * 2.5 - 1, "p_market": 0.40}
+    assert sports.dog_spots({**base, "dog_more": {"win_pct": 0.75}}) == 1.5
+    assert sports.dog_spots({**base, "dog_more": {"neutral": True}}) == 1.5
+    assert sports.dog_spots({**base, "edge_own": 0.38 * 2.5 - 1, "dog_more": {"neutral": True}}) == 0   # the engine
+    assert sports.dog_spots({**base, "league": "nfl", "dog_more": {"win_streak": 3}}) == 1               # must like it
+    import sports_form
+    assert sports_form.PDO_SPAN_D == 60
+
+
+def test_early_plays_weigh_the_believed_leads():
+    """10/1, the owner: "don't forget the early plays - the engine needs all the edges we found, even the unproven
+    ones, weighed for the early plays too - and no more than two a week." The early total adds the same small lead
+    weights the game-day dog score uses; the 2-a-week cap and the units by edge stay."""
+    import sports_early as se
+    keep = sports._dog_more
+    try:
+        sports._dog_more = lambda *a: {"win_pct": 0.75, "conservative": True}
+        assert abs(se.lead_weights({}, {}, "away", "home", "ncaaf", 0.45, 0.40) - (0.015 - 0.02)) < 1e-9
+        sports._dog_more = lambda *a: {"neutral": True, "win_streak": 4}
+        assert abs(se.lead_weights({}, {}, "away", "home", "nfl", 0.45, 0.40) - 0.025) < 1e-9
+        assert abs(se.lead_weights({}, {}, "away", "home", "nfl", 0.38, 0.40) - 0.01) < 1e-9   # neutral: engine must like it
+    finally:
+        sports._dog_more = keep
+    assert se.SPOT_MAX_WEEK == 2
 
 
 if __name__ == "__main__":
