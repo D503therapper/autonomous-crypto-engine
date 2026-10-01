@@ -5120,3 +5120,35 @@ error: could not detach HEAD
    [alert] Today -16.25 | Total -244.70: Stocks: $502.64  today +4.60  total +2.64
 DEX: $752.66  today -20.85  total -247.34
 DEX: $752.66 (-247.34) · Scammed: 0
+   dex screen: REJECT HNT@solana liq $425,767 - mint authority; lp locked 0% < 95%
+   dex screen: REJECT GP@solana liq $644,499 - top-10 holders 50%; lp holders unknown
+   dex screen: PASS BANDIT@solana liq $297,319
+   dex screen: REJECT MORPHO@base liq $1,119,508 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 84%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CARS@solana liq $236,581 - mint authority; top-10 holders 82%; lp holders unknown
+   dex screen: REJECT B3@base liq $856,685 - pool age unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT PSOL@solana liq $2,281,992 - mint authority
+   dex screen: REJECT BASECAT@base liq $71,581 - liquidity $71,581 < $100,000; 24h volume $78,356 < $100,000
+   dex screen: REJECT GO@solana liq $123,637 - holders unknown; lp holders unknown; rugcheck lp locked 62% < 95%
+   dex screen: REJECT SHIB@ethereum liq $321,098 - lp locked 0% < 95%
+   dex outcome: normal ZCAT@solana:HcRLc9VD tier A P/L $-28.76 (swapped for a stronger coin (BANDIT: 1h +10%, 6h +76%); this one 0.71x after 34h)
+   >> dex/dex_hunter: SELL $67.57 of ZCAT@solana:HcRLc9VD @ 0.047072, P/L $-28.76 (swapped for a stronger coin (BANDIT: 1h +10%, 6h +76%); this one 0.71x after 34h)
+   >> dex/dex_hunter: BUY $69.50 of BANDIT@solana:3cgCqhms @ 0.011325 (dex tier A momentum 1h +11% 6h +76% buys/sells 846/138 impact 0.02%)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS TIBBIR@base liq $3,768,530
+   dex screen: REJECT GTC@ethereum liq $173,585 - owner_percent 13%; top-10 holders 66%; lp locked 0% < 95%
+   dex scanner: 3,001 pools (solana 2,118 / base 524 / ethereum 359), refresh cycle 126s (hot 123s), 3011 calls (153 feed, 429s 0, failed 1), 85,735 refreshed (4460 no pair), +367 added / -366 dropped (dead 12, stale 0, cap 354), movers 2 + warming 18 -> queued 3, screened 3 (passed 1), bought 0
+[2026-10-01 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-01 23:06 UTC] crypto/mover     equity $456.05 (-8.8%) 2 open  market UP
+[2026-10-01 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 23:06 UTC] crypto/social_heat equity $536.33 (+7.3%) 2 open  market UP
+[2026-10-01 23:06 UTC] crypto/breakout10 equity $490.11 (-2.0%) 2 open  market UP
+[2026-10-01 23:06 UTC] crypto/momentum  equity $485.19 (-3.0%) 2 open  market UP
+[2026-10-01 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 23:06 UTC] crypto/hold_btc  equity $503.22 (+0.6%) 1 open  market UP
+   social heat top: TRUMP 40 (35/0/5), NEAR 32 (32/0/0), PENGU 30 (21/0/9), MON 29 (29/0/0), QNT 24 (24/0/0)
