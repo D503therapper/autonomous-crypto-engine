@@ -473,6 +473,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                                 "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1,
                                 "reasons": base["reasons"] + _proven_reason(n_sp, s_sp if side == "home" else -s_sp)})
     mark_hockey_favorites(out)
+    weigh_mlb_drought(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -922,6 +923,12 @@ def _dog_more(games, g, side, other, lg):
             margin = m if prev["home"] == g[side] else -m
         if lg in ("nfl", "ncaaf"):
             out["fades"] = se._fades(sched, g, side, lg, start.astimezone(ZoneInfo("America/New_York")))
+            op_prev = se._prev(sched, lg, g[other], g["start"])  # (10/1 wiring audit: the early studies' game-day spots)
+            if prev and op_prev and (start - se._t(prev["start"])).days >= se.REST_BYE \
+                    and (start - se._t(op_prev["start"])).days <= se.REST_NORMAL:
+                out["bye"] = True                               # off a bye vs a team that played
+            if lg == "nfl" and start.astimezone(ZoneInfo("America/New_York")).weekday() == 0:
+                out["mnf"] = True                               # Monday night
             if lg == "nfl" and "coach's first season" in out["fades"]:
                 season = int(g["start"][:4]) if int(g["start"][5:7]) >= 7 else int(g["start"][:4]) - 1
                 if se._first_season_coach(lg, g.get(other + "_name"), season):   # (10/1, the owner: Monken AND
@@ -996,8 +1003,14 @@ def dog_spots(c):
     mo = c.get("dog_more") or {}
     if lg == "nfl" and mo.get("east_west"):
         sc += 3                    # an East Coast team as a road dog out West: +20% game day (5 of 6), +17% early
-    if lg == "ncaaf" and (mo.get("last_margin") or 0) >= 17:
-        sc += 2                    # a college dog off a 17+ win: +9% on 327 (all college dogs ~even), +9% early
+    if lg in ("ncaaf", "nfl") and (mo.get("last_margin") or 0) >= 17:
+        sc += 2                    # a college dog off a 17+ win: +9% on 327 (all college dogs ~even), +9% early; an NFL
+        #                            dog that blew someone out: +7.9%, the engine agreeing +13%, 5 of 6 (10/1 audit)
+    if mo.get("bye"):
+        sc += 3 if lg == "nfl" else 2   # off a bye vs a team that played: NFL +26.7% on 49 (5 of 6), college +7.5% on
+        #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
+    if mo.get("mnf"):
+        sc += 2                    # a Monday night NFL dog: +21.4% on 119 (5 of 6), the engine agreeing +20.7%
     for f in mo.get("fades") or []:
         sc -= {"ice cold": 3,                # last 3 games 7+ worse than its season: NFL -15%, college -13% (1 of 6)
                "coach's first season": 3,    # an NFL dog in its coach's first season with the team: -16% (-26% last 3)
@@ -1377,6 +1390,22 @@ def mark_hockey_favorites(cands):
             lift = max(-NHL_FAV_CAP, min(NHL_FAV_CAP, -NHL_FAV_PER_PT * fav["opp_dog"]))
             early = NHL_EARLY_FAV if season_w(fav) < 0 else 0.0
             fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early)), 4)
+
+
+MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
+#                          seasons (sports_form) - the books overreact. Was a ranking nudge only; now it moves the read
+#                          (the 10/1 wiring audit; the owner: "everything we studied has to be wired in")
+
+
+def weigh_mlb_drought(cands):
+    """The scoring-drought favorite's read moves up by MLB_DROUGHT_W (its win %, and its own read with it)."""
+    for c in cands:
+        if c.get("league") == "mlb" and c.get("market") == "ml" and -150 <= c.get("odds", 0) < 0 and overreact(c):
+            c["p"] = min(0.95, c["p"] + MLB_DROUGHT_W)
+            c["edge"] = c["p"] * c["dec"] - 1
+            if c.get("edge_own") is not None:
+                c["edge_own"] = min(0.95, (c["edge_own"] + 1) / c["dec"] + MLB_DROUGHT_W) * c["dec"] - 1
+            c["reasons"] = c["reasons"] + ["hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"]
 
 
 def hockey_fav_bad(c):

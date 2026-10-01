@@ -5918,6 +5918,25 @@ def test_money_on_leans_we_like():
     assert led["rows"] and led["rows"][0][1] == 0.5                # in the bankroll at ½u
 
 
+def test_wiring_audit_weights():
+    """10/1, the owner: "not everything we studied is wired in - the engine forgets so much." The audit's real edges
+    that only lived in early plays or a ranking nudge now WEIGH the read: off a bye, Monday night, an NFL dog off a
+    blowout win, and the baseball scoring-drought favorite."""
+    base = {"league": "nfl", "odds": 150, "dog_ctx": {}}
+    assert sports.dog_spots({**base, "dog_more": {"bye": True}}) == 3
+    assert sports.dog_spots({**base, "league": "ncaaf", "dog_more": {"bye": True}}) == 2
+    assert sports.dog_spots({**base, "dog_more": {"mnf": True}}) == 2
+    assert sports.dog_spots({**base, "dog_more": {"last_margin": 21}}) == 2
+    fav = {**_cand("nyy", -130, 0.56), "form_state": None}
+    keep = sports.overreact
+    try:
+        sports.overreact = lambda c: True
+        c = dict(fav); sports.weigh_mlb_drought([c])
+        assert abs(c["p"] - 0.59) < 1e-9 and "12+ innings" in c["reasons"][-1]
+    finally:
+        sports.overreact = keep
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
