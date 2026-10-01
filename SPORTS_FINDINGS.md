@@ -151,6 +151,18 @@ noise either way.
   on prices that move in seconds, never tested on real live prices (no history of them). A new play now needs a 65%+
   pre-match favorite on the books gone plus money AND a 10%+ edge. Watch its record.
 
+- **Live tuning, round 1 (10/1, the owner - every line score 2018-26; learned 2018-23, checked 2024-26):** the live
+  curve vs what happened at every period's end. NFL / NBA / college hoops: right. Runs HIGH the same way both times:
+  MLB trailing pregame favorites (said 38-39%, won 36%), college football tied favorites (57% / 51%) and trailing
+  favorites (45% / 41-42%), NHL trailing pregame dogs (30-31% / 24-28%) - built: sports_live.LIVE_CAL takes the gap off.
+  Late + trailing, the real-history pull: MLB all the way (curve 25.6%, half 23.3%, history 20.9%, won 21.7%), NHL all
+  the way (26.1 / 25.4 / 24.7 / 24.6), others stay halfway - built: LATE_HIST_W. Player data (the starting pitcher /
+  goalie matchup): a trailing team with the BETTER one won ~3 points under the curve (MLB 36%/33%, NHL 35%/32%) -
+  mostly the same games as the trailing-favorite fix, not added twice. Coaches: ESPN's coach history is bad (see the
+  audit) - no live coach study until it's rebuilt. A study bug caught on the way: dropping MLB games where the home
+  team never batted in the 9th skews everything toward the road team (any line-score study: keep 8-inning games).
+  What can't be tested yet: the live PRICES (no history of them) - every live play's price + result is logged now.
+
 ## Data audit (10/1, the owner: "gotta confirm we don't gather bad data")
 - **Coaches (ESPN per season): BAD** - today's coach copied back through every season (NFL / NHL / MLB / college
   football), partly wrong in hoops. Coaching round 1 weights OFF.

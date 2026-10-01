@@ -53,6 +53,9 @@ STAY_EDGE, STAY_P = 0.0, 0.15    # never count a live dog out: a play that's up 
 PAUSE_HOLD_S = 90             # the book pauses its line (drive in the red zone, review) or we can't confirm the price:
                               # the card holds, marked LINE PAUSED, up to 90s - then it comes down
 LATE_REAL = 1 / 3             # the last third of a game: a trailing team's chance is pulled halfway to the real history
+LATE_HIST_W = {"mlb": 1.0, "nhl": 1.0}   # 10/1 live check (2024-26, late trailing teams): baseball / hockey go ALL the way
+#   to the real history (MLB curve 25.6%, half 23.3%, history 20.9%, won 21.7%; NHL 26.1 / 25.4 / 24.7 / 24.6) - the
+#   other sports stay halfway (their curve already lands on it)
 LIVE_MIN_P = 0.40             # ACCURACY FIRST: a new live bet is one we think has a real shot (40%+)...
 TENNIS_MAX_GAP = 0.08         # tennis: our live read vs the price. 9/29 twice - Garcia (-150 real, +125 on our line) and
                               # Kudermetova (-150 real, +100 to +133 on ours) - a favorite priced like a dog was a bad
@@ -63,6 +66,12 @@ LINE_MAX_AGE_S = 60           # a live price the book last touched 60+ seconds a
 MOVE_TOL = 0.03               # the price may lag the score a bit, never go the other way (against_the_score)
 HEARTBEAT_S = 15              # live.json goes out at least this often (the page drops a play not re-checked in 45s)
 WATCHDOG_S = 90               # one check stuck this long (a feed or git call hung): the watch restarts itself
+# 10/1 LIVE CHECK (every line score 2018-26, the live curve at each period's end vs what happened; learned on 2018-23,
+# checked on 2024-26): the curve is right in the NFL / NBA / college hoops; a few spots run high, the same way in both:
+# MLB trailing pregame favorites (said 38-39%, won 36%), college football tied favorites (57% / 51%) and trailing
+# favorites (45% / 41-42%), NHL trailing pregame dogs (30-31% / 24-28%). Those come down by the gap.
+LIVE_CAL = {("mlb", "trail", "fav"): -0.025, ("ncaaf", "tied", "fav"): -0.05, ("ncaaf", "trail", "fav"): -0.035,
+            ("nhl", "trail", "dog"): -0.03}
 LIVE_MAX_ODDS = 250           # ...and never longer than +250 when it goes up (the +270..+425 ones kept losing)
 MAX_PLAYS = 2                 # NEVER more than 2 on the board at once (the owner, 9/28): one's value goes, the next can take its slot
 SIGMA = sc.SIGMA            # final-margin spread per sport (the study scales it)
@@ -453,7 +462,10 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         if my < their and left <= LATE_REAL:                 # late and behind: lean on what really happened to teams
             h = sc.spot(st, league, left, their - my, (pre_market_p >= 0.5) == (side == "home"), side == "home")   # in this exact spot (home/away split -
             if h:                                            # in baseball the home team bats last)
-                p = (p + h[1]) / 2
+                w_ = LATE_HIST_W.get(league, 0.5)
+                p = (1 - w_) * p + w_ * h[1]
+        p += LIVE_CAL.get((league, "trail" if my < their else "lead" if my > their else "tied",
+                           "fav" if (pre_market_p >= 0.5) == (side == "home") else "dog"), 0.0)
         edge = p * sd.decimal(ml) - 1
         up = f"{g['id']}:{side}" in hold                    # already on the board: it stays while value's still there
         if not up and blind:

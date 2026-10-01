@@ -4910,8 +4910,9 @@ def test_live_never_takes_a_playoff_favorite_that_lost_the_last_game():
         L.time_left = lambda *a, **k: 8.5
         L.min_p = lambda: 0.40
         st = {"mlb": {"curve": {"ll": 0.6}, "table": {}}}
-        box = {"period": 1, "total_home_points": 0, "total_away_points": 4, "linescore": [{"home_points": 0, "away_points": 4}]}
-        g = {"id": "mlb:x", "home_name": "Astros", "away_name": "White Sox", "stype": "3"}
+        box = {"period": 1, "total_home_points": 0, "total_away_points": 0, "linescore": [{"home_points": 0, "away_points": 0}]}
+        g = {"id": "mlb:x", "home_name": "Astros", "away_name": "White Sox", "stype": "3"}   # (tied: the 10/1 trailing
+        #                                                    cap below is its own rule - this one's the series knock)
         ev = lambda lost: [p["team"] for p in L.evaluate("mlb", g, box, 133, -160, st, 0.62, 0.62, 0.0, "", 1, True,
                                                           lost_last=lost)]
         assert ev(()) == ["Astros"]                          # (the price alone said value)
@@ -4922,6 +4923,32 @@ def test_live_never_takes_a_playoff_favorite_that_lost_the_last_game():
     finally:
         L.live_prob, L.substantial, L.time_left, L.min_p = keep
     assert L.series_lost({"stype": "2"}) == set()            # regular season: no series
+
+
+def test_live_calibration_spots():
+    """10/1 live check (line scores 2018-26; learned 2018-23, checked 2024-26): the live curve runs high in a few spots,
+    the same way both times - MLB trailing pregame favorites, college football tied / trailing favorites, NHL trailing
+    pregame dogs. Those come down by the gap; everything else is left alone."""
+    L = sports_live
+    keep = (L.live_prob, L.substantial, L.time_left, L.min_p)
+    try:
+        L.live_prob = lambda *a, **k: 0.45
+        L.substantial = lambda *a, **k: True
+        L.time_left = lambda *a, **k: 7.0
+        L.min_p = lambda: 0.30
+        st = {"mlb": {"curve": {"ll": 0.6}, "table": {}}}
+        box = {"period": 3, "total_home_points": 1, "total_away_points": 2, "linescore": [{"home_points": 1, "away_points": 2}]}
+        g = {"id": "mlb:y", "home_name": "Mets", "away_name": "Braves", "stype": "2"}
+        ev = lambda pre: L.evaluate("mlb", g, box, 170, -200, st, pre, pre, 0.0, "", 1, True)
+        fav, dog = ev(0.6), ev(0.4)                          # the Mets down a run at +170: a pregame favorite / dog
+        assert dog and abs(dog[0]["p"] - 0.45) < 0.002
+        assert fav and abs(fav[0]["p"] - (0.45 + L.LIVE_CAL[("mlb", "trail", "fav")])) < 0.002
+        assert ("nfl", "trail", "fav") not in L.LIVE_CAL and ("nba", "trail", "dog") not in L.LIVE_CAL
+        assert L.LATE_HIST_W == {"mlb": 1.0, "nhl": 1.0}            # late + trailing: all the way to the real history
+        src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_live.py")).read()
+        assert "p = (1 - w_) * p + w_ * h[1]" in src
+    finally:
+        L.live_prob, L.substantial, L.time_left, L.min_p = keep
 
 
 def test_rested_dog_vs_a_back_to_back():
