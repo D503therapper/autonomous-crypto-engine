@@ -5639,7 +5639,10 @@ def _six_early_spots():
     assert se.spot_scan(G, now, hist_dir=tempfile.mkdtemp()) == []
     assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, own_of=own_by(-0.03), hist_dir=tempfile.mkdtemp()))
     flat = {(c["team"], c["spot"]) for c in se.spot_scan(G, now, own_of=own_by(0.0), hist_dir=tempfile.mkdtemp())}
-    assert ("Bills", "bye") not in flat and ("Rams", "mnf") in flat     # the bye alone (+4) < 5; Rams: Monday + blowout
+    assert ("Bills", "bye") not in flat and ("Rams", "mnf") not in flat   # the bye alone (+4) < 5; Rams: Monday (+1.5,
+    #                                                                     halved 10/1) + blowout (+2) = 3.5 < 5 too
+    lift = {(c["team"], c["spot"]) for c in se.spot_scan(G, now, own_of=own_by(0.02), hist_dir=tempfile.mkdtemp())}
+    assert ("Rams", "mnf") in lift                                      # ...with the engine 2 pts over the price: in
     thu = {**G, "n3": {**G["n3"], "start": "2026-10-08T00:15Z"}}       # the Bills on Thursday night: a fade weighs in
     assert not any(c["team"] == "Bills" for c in se.spot_scan(thu, now - timedelta(days=1), own_of=agree, hist_dir=tempfile.mkdtemp()))
     # not before last week's games are over (the 10/1 audit: an early price then 'knew' nothing the engine knew)
