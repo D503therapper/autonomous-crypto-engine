@@ -300,6 +300,9 @@ def breakdown(leg, games, elo, injuries, used=None):
         w_t = sum(1 for x in r_theirs if _line(x, oid).startswith("W"))
         rating_t = elo[lg].r.get(oid, 1500.0) if elo.get(lg) is not None else 1500.0
         trash = (len(r_theirs) >= 3 and w_t / len(r_theirs) < 0.35) or n_cold >= 3 or rating_t < 1420
+        if elo.get(lg) is not None and elo[lg].r.get(tid, 1500.0) <= rating_t:
+            trash = False                                # (no 'cold' dig either when the ratings don't have us better)
+            n_cold = n_cold if n_cold < 2 else 0
         if n_cold >= 2 and not trash:                   # the trash-talk line below covers the really bad ones
             out.append(v.say("cold", [f"🧊 {them} are {rec_t} and ice cold — {n_cold} straight L's.",
                                        f"🧊 {them} have dropped {n_cold} in a row ({rec_t}).",
@@ -327,7 +330,15 @@ def breakdown(leg, games, elo, injuries, used=None):
                 out.append(v.say("worse", [f"🐺 {them} ({_rt}) look better than {us} ({_ru}) — that's why the price is this good.",
                                             f"🐺 {_rt} vs {_ru} — {them} get the respect, we get the price on {us}.",
                                             f"🐺 {them} are {_rt}, {us} {_ru}. The record's in the price already."]))
-            elif abs(_w(_ru) - _w(_rt)) <= 0.15:            # 2-2 vs 3-1 is not "even" (10/1) - no fact, no line
+            elif abs(_w(_ru) - _w(_rt)) <= 0.15 and gap > 15:   # same-ish records, but the ratings (who they PLAYED)
+                tough = [x for x in r_ours if _line(x, tid).startswith("L")]   # say we're better - name who beat us
+                names = [x.get("away_name") if x.get("home") == tid else x.get("home_name") for x in tough][-3:]
+                if names:
+                    nm = ", ".join(names[:-1]) + (" and " if len(names) > 1 else "") + names[-1]
+                    out.append(v.say("sched", [f"⚖️ {us} {_ru}, {them} {_rt} — but {_pos(us)} L's came against {nm}.",
+                                               f"⚖️ Same kind of record, tougher schedule: {us} lost to {nm}.",
+                                               f"⚖️ Don't let {_ru} fool you — {us} took those L's from {nm}."]))
+            elif abs(_w(_ru) - _w(_rt)) <= 0.15 and abs(gap) <= 15:   # records AND ratings close: a coin-flip game
                 out.append(v.say("even", [f"⚖️ {us} {_ru}, {them} {_rt} — about even, so the price makes the play.",
                                            f"⚖️ {_ru} vs {_rt}. Close matchup — the number's where the value is.",
                                            f"⚖️ Records are close ({us} {_ru}, {them} {_rt}). We're taking the side that pays."]))
@@ -337,7 +348,9 @@ def breakdown(leg, games, elo, injuries, used=None):
         w = sum(1 for x in r_theirs if _line(x, oid).startswith("W"))
         rating_them = e.r.get(oid, 1500.0) if e is not None else 1500.0
         n_cold = int(_streak(s_theirs, oid).split()[1]) if _streak(s_theirs, oid).startswith("lost") else 0
-        if (len(r_theirs) >= 3 and w / len(r_theirs) < 0.35) or n_cold >= 3 or rating_them < 1420:
+        better = e is None or e.r.get(tid, 1500.0) > rating_them   # (10/1, the owner: a record doesn't show who they
+        if better and ((len(r_theirs) >= 3 and w / len(r_theirs) < 0.35) or n_cold >= 3 or rating_them < 1420):
+            #   played - trash talk only when the engine's ratings, which count the schedule, have us better)
             rec = _record(r_theirs, oid)
             out.append(v.say("trash", [f"🗑️ {them} have been complete ass lately — {rec} and it ain't getting prettier.",
                                         f"🗑️ Straight up, {them} are trash right now ({rec}).",
@@ -573,6 +586,15 @@ def breakdown(leg, games, elo, injuries, used=None):
 
     # a starting QB/goalie out: the line moved for the INJURY, not sharp money - say that, never "sharps"/"clowns"
     op, now = sm._int(g.get(f"ml_{side}_open")), sm._int(g.get(f"ml_{side}"))
+    op_o_fb = None
+    if lg in ("nfl", "ncaaf"):                            # (10/1: a football "open" is the summer look-ahead line - a
+        try:                                              # move from it is the season, not money. The move is from our
+            import sports_early as _se                    # own first fair price this week, or there's no move line)
+            ff = _se.first_fair(g["id"], _se.ready(_se._schedule(games), g))
+        except Exception:                                 # noqa: BLE001
+            ff = None
+        op = (ff[0] if side == "home" else ff[1]) if ff else None
+        op_o_fb = (ff[1] if side == "home" else ff[0]) if ff else None
     key_us = sd.team_key_out(inj, tid, us, lg)
     key_any = key_us or sd.team_key_out(inj, oid, them, lg)
     key_them2 = sd.team_key_out(inj, oid, them, lg) if inj else None
@@ -623,6 +645,8 @@ def breakdown(leg, games, elo, injuries, used=None):
 
     # sharp money going the other way and we still like our side: say it our way, with a quick reason
     op_o, now_o = sm._int(g.get(f"ml_{other}_open")), sm._int(g.get(f"ml_{other}"))
+    if lg in ("nfl", "ncaaf"):
+        op_o = op_o_fb
     if not key_any and op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
         why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
