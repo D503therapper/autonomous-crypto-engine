@@ -238,6 +238,98 @@ def studies(rows):
     return S
 
 
+# ---------------------------------------------------------------- SPREADS (the owner, 10/1: "we got +9.5 and it went
+# to +3.5 - we're looking at the cover: where it opened, where it ended, and if the opening number covered")
+def spread_rows(lg):
+    """Every side with a Tuesday spread: that number, its price, the close, did it cover the Tuesday number, and the
+    engine's own margin read (trained only on the 3 seasons before)."""
+    games = sd.load_games(lg)
+    snaps = []
+    path = os.path.join(sd.DATA, "odds_history", f"{SPORTS[lg]}_spreads.jsonl.gz")
+    if os.path.exists(path):
+        with gzip.open(path, "rt") as f:
+            snaps = [r for r in map(json.loads, f) if "b" in r]
+    tue = {}
+    for r in snaps:                                   # reuse the moneyline matcher: points ride in the price slots
+        pts = [v[0] for v in r["b"].values() if v and v[0] is not None]
+        prs = [v[1] for v in r["b"].values() if v and v[1] is not None]
+        if len(pts) < 2:
+            continue
+        tue_line, tue_price = statistics.median(pts), (round(statistics.median(prs)) if prs else -110)
+        m, _ = match([{**r, "b": {"x": [100, 100], "y": [100, 100]}}], games)
+        for gid, xs in m.items():
+            flip = sd._same(games[gid].get("home_name") or "", r["a"]) and not \
+                sd._same(games[gid].get("home_name") or "", r["h"])
+            tue[gid] = (xs[0][0], -tue_line if flip else tue_line, tue_price)
+    out = []
+    for season in SEASONS:
+        lo, hi = f"{season}-07-01", f"{season + 1}-07-01"
+        learn = {k: g for k, g in games.items() if f"{season - 3}-07-01" <= g.get("start", "") < lo}
+        p = sm.tune(learn, lg)
+        if not p or "sw" not in p:
+            continue
+        _, played = sm.replay(sm.finals(games, lg), p["k"], p["hfa"], lg)
+        for g, f, *_ in played:
+            if not lo <= g["start"] < hi or g["id"] not in tue:
+                continue
+            days, line, price = tue[g["id"]]
+            close = sm._num(g.get("spread_home"))
+            try:
+                margin = float(g["home_score"]) - float(g["away_score"])
+            except (KeyError, ValueError):
+                continue
+            if close is None or days < 2:
+                continue
+            ours = sum(a * b for a, b in zip(p["sw"], sm._spread_x(f)))          # the engine's own home margin
+            for side, sg in (("home", 1), ("away", -1)):
+                ln, cl, mg = line * sg, close * sg, margin * sg                    # (this side's number: + = getting points)
+                if mg + ln == 0:
+                    continue                                                       # a push
+                out.append({"season": season, "side": side, "line": ln, "close": cl, "moved": ln - cl,
+                            "cover": mg + ln > 0, "cover_close": mg + cl > 0 if mg + cl != 0 else None,
+                            "edge": sg * ours + ln, "dec": _dec(price if -200 < price < 200 else -110)})
+    return out
+
+
+def sgrade(rs):
+    if not rs:
+        return None
+    n = len(rs)
+    roi = sum((r["dec"] - 1) if r["cover"] else -1 for r in rs) / n
+    cc = [r["cover_close"] for r in rs if r["cover_close"] is not None]
+    by = {}
+    for r in rs:
+        by.setdefault(r["season"], []).append((r["dec"] - 1) if r["cover"] else -1)
+    seasons = {s: [len(v), round(sum(v) / len(v), 3)] for s, v in sorted(by.items())}
+    return {"bets": n, "covered": round(sum(r["cover"] for r in rs) / n, 3),
+            "covered_close": round(sum(cc) / len(cc), 3) if cc else None, "roi": round(roi, 3),
+            "avg_move": round(sum(r["moved"] for r in rs) / n, 2),
+            "seasons_up": f"{sum(1 for v in seasons.values() if v[1] > 0)}/{len(seasons)}", "by_season": seasons}
+
+
+def spread_studies(rs):
+    S = {}
+    # S1 Did the Tuesday number cover more than the closing number? (every side - the baseline)
+    S["S1 every side at the Tuesday number"] = {"all": sgrade(rs)}
+    # S2 The owner's question, in hindsight: the side the line moved TOWARD - did its Tuesday number cover? (the move
+    #    isn't known Tuesday; this says how much catching the move is worth - S3-S5 say if it can be called ahead)
+    S["S2 hindsight: the side the line moved to (Tuesday number)"] = {
+        f"moved {a}+ pts": sgrade([r for r in rs if r["moved"] >= a]) for a in (1, 2, 3, 5)}
+    # S3 The engine's own margin read beating the Tuesday number
+    S["S3 engine's margin read vs the Tuesday number"] = {
+        f"{a}+ pts better": sgrade([r for r in rs if r["edge"] >= a]) for a in (2, 3.5, 5, 7)}
+    # S4 ...as a dog getting points / a favorite laying them
+    S["S4 engine 3.5+ pts better, dog or favorite"] = {
+        "getting points": sgrade([r for r in rs if r["edge"] >= 3.5 and r["line"] > 0]),
+        "laying points": sgrade([r for r in rs if r["edge"] >= 3.5 and r["line"] < 0])}
+    # S5 Key numbers (the owner's +9.5 -> +3.5): Tuesday dogs on the far side of 7 / 3 the engine likes
+    S["S5 key numbers, engine 2+ pts better"] = {
+        lbl: sgrade([r for r in rs if r["edge"] >= 2 and lo_ <= r["line"] <= hi_])
+        for lbl, lo_, hi_ in (("+7.5 to +10.5", 7.5, 10.5), ("+3.5 to +6.5", 3.5, 6.5), ("+1 to +3", 1, 3),
+                              ("-1 to -3", -3, -1), ("-3.5 to -6.5", -6.5, -3.5), ("-7.5 to -10.5", -10.5, -7.5))}
+    return S
+
+
 def main():
     report = {}
     try:
@@ -261,6 +353,21 @@ def main():
                       f"ROI {gr['roi']:+.1%} at our price ({gr['roi_close']:+.1%} at close)  "
                       f"line our way {gr['line_our_way']:.0%}  seasons up {gr['seasons_up']} {gr['by_season']}{flag}")
         report[lg] = S
+        rs = spread_rows(lg)
+        print(f"\n===================== {lg.upper()} SPREADS: {len(rs)} sides with a Tuesday number")
+        SS = spread_studies(rs)
+        for st, vs in SS.items():
+            print(f"\n-- {st}")
+            for v, gr in vs.items():
+                if not gr:
+                    continue
+                up, of = map(int, gr["seasons_up"].split("/"))
+                flag = "  << HOLDS UP" if gr["bets"] >= MIN_N and gr["roi"] > 0 and up >= max(2, -(-2 * of // 3)) else ""
+                cc = f"{gr['covered_close']:.1%}" if gr["covered_close"] is not None else "-"
+                print(f"   {v:28s} {gr['bets']:4d} bets  covered {gr['covered']:.1%} at our number ({cc} at the close)"
+                      f"  ROI {gr['roi']:+.1%}  moved {gr['avg_move']:+.1f} pts  seasons up {gr['seasons_up']} "
+                      f"{gr['by_season']}{flag}")
+        report[lg + "_spreads"] = SS
     os.makedirs("results", exist_ok=True)
     with open("results/early_football.json", "w") as f:
         json.dump(report, f, indent=1)

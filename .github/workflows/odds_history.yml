@@ -22,10 +22,14 @@ jobs:
       - run: mkdir -p results && python -u tools/odds_history.py | tee results/odds_history.txt
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      - run: python -u tools/odds_history.py | tee results/odds_history_spreads.txt
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          MARKET: spreads
       - if: always()
         run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
-          git add data/sports/odds_history results/odds_history.txt 2>/dev/null || true
+          git add data/sports/odds_history results/odds_history.txt results/odds_history_spreads.txt 2>/dev/null || true
           git commit -qm "odds history $(date -u '+%F %H:%M') UTC" || exit 0
           for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; git rebase --abort 2>/dev/null; sleep 7; done

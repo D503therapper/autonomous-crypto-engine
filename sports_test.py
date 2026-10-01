@@ -5514,6 +5514,14 @@ def test_odds_history_pull():
         {"id": "e2", "home_team": "A", "away_team": "B", "bookmakers": []}]}
     r = oh.rows(p, "x")
     assert len(r) == 1 and r[0]["b"] == {"fanduel": [124, -148]} and r[0]["snap"] == "2024-10-01T18:00:00Z"
+    # spreads (the owner: "+9.5 that drops to +3.5" - one Tuesday look a week, the close is in our games)
+    sp = {"data": [{"id": "e1", "home_team": "Jacksonville Jaguars", "away_team": "Houston Texans", "bookmakers": [
+        {"key": "dk", "markets": [{"key": "spreads", "outcomes": [{"name": "Jacksonville Jaguars", "price": -110,
+                                                                   "point": 9.5},
+                                                                  {"name": "Houston Texans", "price": -110, "point": -9.5}]}]}]}]}
+    assert oh.rows(sp, "x", "spreads")[0]["b"] == {"dk": [9.5, -110, -9.5, -110]}
+    assert oh.rows(sp, "x") == []                                           # (a moneyline pull never reads spreads)
+    assert 0 < sum(len(oh.snaps(s, date(2026, 10, 1), oh.SPREAD_PLAN)) for s in oh.SPREAD_PLAN) * 10 < 3500
 
 
 if __name__ == "__main__":
