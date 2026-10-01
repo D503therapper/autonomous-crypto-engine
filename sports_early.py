@@ -216,6 +216,9 @@ def scan(games, model, now=None, injuries=None, trap=None):
             continue
         if start < now + timedelta(hours=LEAD_H) or start > now + timedelta(days=AHEAD_D):
             continue
+        if start.astimezone(PT).date() <= now.astimezone(PT).date():
+            continue                                 # game day is the daily board's, never "early" (9/30: the Kings
+            #                                          went up at 5 PM for a 7 PM game - the owner: "that's not early")
         mkt = sm.market_p(g)
         if mkt is None:
             continue
