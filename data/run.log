@@ -4916,3 +4916,41 @@ error: could not detach HEAD
 [2026-10-01 17:07 UTC] stocks/trend     equity $484.06 (-3.2%) 3 open  market DOWN
 [2026-10-01 17:07 UTC] stocks/hold_spy  equity $495.79 (-0.8%) 1 open  market DOWN
    social heat top: NEAR 40 (40/0/0), MEGA 37 (37/0/0), MON 35 (35/0/0), QNT 32 (27/0/5), MOVR 29 (29/0/0)
+   dex screen: REJECT ZRO@base liq $164,285 - pool age unknown
+   dex screen: REJECT AGL@ethereum liq $790,504 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 63%; lp holders unknown
+   dex re-screen: MORI@solana:8ZHE4ow1 flagged once (rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT CONDO@ethereum liq $134,058 - lp locked 0% < 95%
+   dex screen: REJECT BIKETYSON@solana liq $155,161 - lp holders unknown; rugcheck lp locked 82% < 95%
+   dex screen: REJECT NEURAL@ethereum liq $870,010 - transfer_pausable; is_whitelisted; buy tax 4%; sell tax 4%
+   dex screen: REJECT FUSE@ethereum liq $189,576 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT TOPENAI@solana liq $941,148 - freeze authority; mint authority; transfer_fee_upgradable; top-10 holders 53%; lp holders unknown
+   dex screen: REJECT CBBTC@ethereum liq $4,759,275 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 82%
+   dex screen: REJECT XDP@solana liq $20,990,623 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   listing: kraken_pairs #DEBIT 'New Kraken listing (DEBIT)' -> ['DEBIT']
+   listing: DEBIT: kraken_pairs notice "New Kraken listing (DEBIT)" -> not on Crypto.com USD
+   dex screen: REJECT BATON@solana liq $315,675 - lp holders unknown; rugcheck lp locked 57% < 95%
+   dex screen: REJECT PARASITE@solana liq $107,049 - holders unknown; lp holders unknown; rugcheck lp locked 72% < 95%
+   dex screen: REJECT RAIL@ethereum liq $1,764,497 - is_mintable; top-10 holders 77%
+   dex scanner: 3,000 pools (solana 2,284 / base 470 / ethereum 246), refresh cycle 130s (hot 127s), 2868 calls (106 feed, 429s 0, failed 0), 82,858 refreshed (1951 no pair), +81 added / -81 dropped (dead 14, stale 0, cap 67), movers 1 + warming 24 -> queued 2, screened 3 (passed 0), bought 0
+[2026-10-01 18:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-01 18:07 UTC] crypto/mover     equity $454.91 (-9.0%) 2 open  market UP
+[2026-10-01 18:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 18:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 18:07 UTC] crypto/social_heat equity $542.29 (+8.5%) 2 open  market UP
+[2026-10-01 18:07 UTC] crypto/breakout10 equity $496.14 (-0.8%) 2 open  market UP
+[2026-10-01 18:07 UTC] crypto/momentum  equity $483.75 (-3.3%) 2 open  market UP
+[2026-10-01 18:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 18:07 UTC] crypto/hold_btc  equity $503.98 (+0.8%) 1 open  market UP
+[2026-10-01 18:07 UTC] stocks/rsi2      equity $498.17 (-0.4%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, IWM 3 BUY, XLB 4
+[2026-10-01 18:07 UTC] stocks/dual_momentum equity $497.26 (-0.5%) 2 open  market DOWN
+[2026-10-01 18:07 UTC] stocks/trend_ensemble equity $498.88 (-0.2%) 5 open  market UP
+[2026-10-01 18:07 UTC] stocks/rotation10 equity $493.24 (-1.4%) 2 open  market UP
+[2026-10-01 18:07 UTC] stocks/momentum  equity $492.73 (-1.5%) 4 open  market DOWN
+[2026-10-01 18:07 UTC] stocks/trend     equity $484.32 (-3.1%) 3 open  market DOWN
+[2026-10-01 18:07 UTC] stocks/hold_spy  equity $496.11 (-0.8%) 1 open  market DOWN
+   social heat top: TRUMP 48 (37/0/11), NEAR 40 (40/0/0), QNT 37 (32/0/5), MEGA 35 (35/0/0), MON 29 (29/0/0)
