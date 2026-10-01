@@ -354,7 +354,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                 return None
             o = sm.own_p(p_, {**f, "inj": 0.0, "key": 0.0, "weather": 0.0, "cold": 0.0})   # Tuesday-known only
             return o if side == "home" else 1 - o
-        for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have):
+        for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have) + \
+                min_one(games, st, now, injuries, own_of, have):
             if c["game_id"] in have:
                 continue
             c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
@@ -457,18 +458,22 @@ SPOTS = {   # key: (label, units, leagues)
     "eastwest":  ("✈️ East Coast team flying West", 0.5, ("nfl",)),              # NFL +17%, 6 of 6
     "blowout":   ("💥 Blew somebody out last week", 0.5, ("nfl", "ncaaf")),      # +8 / +9%, both sports
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
+    "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
 }
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh
 # everything, never automatically take a pick because the numbers back one thing"). A spot only ADDS weight to the
 # engine's own full read (ratings, form, rest, injuries...); the fades take weight away. An early play posts only when
 # the engine's read isn't fighting the side AND everything added up clears SPOT_MIN_TOTAL - ranked by that total.
-SPOT_WEIGHT = {"bye": 0.04, "mnf": 0.015, "eastwest": 0.03, "blowout": 0.02, "hammered": 0.02, "engine": 0.0}
+SPOT_WEIGHT = {"best": 0.0, "bye": 0.04, "mnf": 0.015, "eastwest": 0.03, "blowout": 0.02, "hammered": 0.02, "engine": 0.0}
 FADE_WEIGHT = {"ice cold": -0.04, "coach's first season": -0.04, "losing streak": -0.04, "Thursday night": -0.03}
 SPOT_MIN_TOTAL = 0.05                   # the engine's edge + the spots + the fades, in win-% points
 SPOT_FIGHT = 0.01                       # the engine's own read may not be more than 1 point under the price
 SPOT_MAX_WEEK = 2                       # the owner, 10/1: "just two of these early plays, not three". The engine
 #                                         ranks everything it finds and posts the best 2 a week (Tuesday to Monday)
-SPOT_ORDER = ("bye", "mnf", "eastwest", "blowout", "hammered", "engine")   # most believed first
+SPOT_ORDER = ("bye", "mnf", "eastwest", "blowout", "hammered", "engine", "best")
+SPOT_MIN_WEEK = 1                       # the owner, 10/1: "one minimum, two max early value plays" - a week the spots
+MIN_ONE_FROM = (2, 6)                   # find nothing, the engine's best weighed dog goes up (½u) from Wednesday 6 AM
+#                                         PT on - early, before the line moves (dog prices only shorten in the week)   # most believed first
 SPOT_WINDOW_H = 72                      # an early play posts within 3 days of its first fair number - after that the
 #                                         early number's gone (the owner, 10/1: "we're already late" on a Thursday)
 SPOT_SLATE_HOUR_PT = 6                  # it waits for the whole slate: college numbers come Sunday, the NFL's after
@@ -601,7 +606,7 @@ def _fades(sched, g, side, lg, et):
     return out
 
 
-def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
+def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_dog=False):
     """-> the six spots' new candidates right now: {game_id, league, side, team, opp, odds, opp_odds, start, spot,
     spots, own}. Fair prices only, never game day, never a side with a key player out / questionable."""
     now = now or datetime.now(timezone.utc)
@@ -622,7 +627,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
         r = ready(sched, g)
         if r and now < r:
             continue                                         # last week's games aren't over: not a fair price yet
-        if r and now > r + timedelta(hours=SPOT_WINDOW_H):
+        if r and now > r + timedelta(hours=SPOT_WINDOW_H) and not any_dog:
             continue                                         # the early number's gone - late is not early (10/1)
         oh, oa = _int(g.get("ml_home")), _int(g.get("ml_away"))
         if oh is None or oa is None:
@@ -679,6 +684,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
             if not hit:
                 continue
             hit = [h for h in hit if lg in SPOTS[h][2]]
+            if any_dog and dog and not hit:
+                hit = ["best"]                               # the minimum-one week: the engine's best weighed dog
             if not hit or not dog:
                 continue                                     # (10/1 price-path study: a favorite's price only gets
                 #                                              worse through the week - favorites on game day, never
@@ -690,7 +697,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
             fades = _fades(sched, g, side, lg, et)
             extra = lead_weights(games, g, side, other, lg, own, mk) if dog else 0.0
             total = round((own - mk) + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades) + extra, 4)
-            if total < SPOT_MIN_TOTAL:
+            if total < (0.0 if any_dog else SPOT_MIN_TOTAL):
                 continue                                     # everything weighed together doesn't say value
             main = max(hit, key=lambda h: SPOTS[h][1])
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
@@ -754,6 +761,25 @@ def pick_spots(cands, st, now, have=()):
     room = max(0, SPOT_MAX_WEEK - taken)
     cands.sort(key=lambda c: -(c.get("score") or 0))          # everything weighed together - the best total first
     return cands[:room]
+
+
+def min_one(games, st, now, injuries, own_of, have=()):
+    """The owner, 10/1: "one minimum, two max." A week with no early play yet: from Wednesday 6 AM PT, the engine's best
+    weighed dog (+100..+220, the engine not fighting it, everything weighed - its read, the spots, the fades, the leads)
+    for an upcoming game this week, ½u. Never on its own game day; never a total that says it's overpriced."""
+    ws = week_start(now)
+    if sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws) >= SPOT_MIN_WEEK:
+        return []                                           # (the week already has its early play)
+    loc = now.astimezone(PT)
+    if ((loc.weekday() - 1) % 7, loc.hour) < (MIN_ONE_FROM[0] - 1, MIN_ONE_FROM[1]):
+        return []                                            # (Tuesday's slate gets the first shot)
+    nxt = ws + timedelta(days=7)
+    cands = [c for c in spot_scan(games, now, injuries, own_of, any_dog=True)
+             if c["game_id"] not in have and _t(c["start"]) < nxt and (c.get("score") or 0) > 0]
+    cands.sort(key=lambda c: -(c.get("score") or 0))
+    out = cands[:SPOT_MIN_WEEK]                             # the minimum one: the best weighed dog
+    out += [c for c in cands[SPOT_MIN_WEEK:SPOT_MAX_WEEK] if c["score"] >= SPOT_MIN_TOTAL]   # a 2nd only if it clears
+    return out                                              # the normal bar too ("one minimum, two max")
 
 
 def spot_record(st):

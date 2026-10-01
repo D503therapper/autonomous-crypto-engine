@@ -32,7 +32,7 @@ every session:
   odds-history studies (sports_early.SPOTS - bye-week dog 1u; Monday night NFL dog, East Coast NFL team flying West,
   blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. The spots are
   WEIGHTS on the engine's own read (never a trigger), the fades subtract; it posts only if the engine isn't fighting
-  the side and the total clears SPOT_MIN_TOTAL. MAX 2 A WEEK (SPOT_MAX_WEEK), the best totals, ranked Tuesday 6 AM PT; dogs
+  the side and the total clears SPOT_MIN_TOTAL. ONE MINIMUM, TWO MAX A WEEK (the owner, 10/1: a week the spots find nothing, the engine's best weighed dog goes up from Wednesday 6 AM PT, ½u - sports_early.min_one), the best totals, ranked Tuesday 6 AM PT; dogs
   +100..+220 only ("never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
   late is not early; never game day; never a side with a key player out or questionable. No pings.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
