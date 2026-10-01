@@ -512,9 +512,13 @@ DRIFT_MAX = 0.03               # the money has run 3+ no-vig points away from a 
                                # against the move only where the study proves it beats the pros (sports_sharps).
 
 
+STALE_OPEN = ("nfl", "ncaaf")   # (10/1 bug hunt) a football "open" is the summer look-ahead line: 75-80% of NFL games
+#                                 move 3+ points from it by kickoff - that's the season happening, not money running away
+
+
 def money_against(c):
     """The money's running away from this side - and our engine hasn't proven it knows better in this sport."""
-    if c.get("drift", 0.0) < DRIFT_MAX:
+    if c.get("drift", 0.0) < DRIFT_MAX or c.get("league") in STALE_OPEN:
         return False
     try:
         import sports_sharps
@@ -647,8 +651,9 @@ def one_side(cands):
     """One side per game - never both teams. Value wins, unless the other side is a lock or a strong lean."""
     side, ou = {}, {}
     def rank(c):                     # value first - a popular favorite with no value never blocks the other side;
-        g_ = good(c)                 # among real value plays: a lock / strong lean first; otherwise the bigger edge
-        return (g_, g_ and leg_tier(c) == "lock", g_ and c["p"] >= STRONG_LEAN_P, c["edge"])
+        g_ = good(c) and c["odds"] >= MAX_FAV   # (10/1 bug hunt: a -162 we can't post hid the +136 dog)
+        #                              among real value plays: a lock / strong lean first; otherwise the bigger edge
+        return (c["odds"] >= MAX_FAV, g_, g_ and leg_tier(c) == "lock", g_ and c["p"] >= STRONG_LEAN_P, c["edge"])
     for c in sorted(cands, key=rank, reverse=True):
         (ou if c.get("market") == "total" else side).setdefault(c["game_id"], c["side"])   # one side / one total each
     return [c for c in cands if c["side"] == (ou if c.get("market") == "total" else side).get(c["game_id"])]
@@ -1586,7 +1591,9 @@ def post_board(games, model, picks, now, day, force=False):
         if p["date"] == iso:
             posted[p["kind"]] = p
     first = first_start(games, day)
-    started = first is not None and now >= first and not force
+    started = first is not None and now >= first and not force and \
+        any(p["date"] == iso and p["status"] != "waiting" for p in picks)   # (10/1 bug hunt: a 6:30 AM London NFL game
+    #                                     or an 8:05 first pitch wiped out the whole opening board - Lock, Dog, leans)
     # the opening board goes up before the day's first game. After that, whenever a play is graded (it moves to the
     # results), a fresh one of the same kind goes up from the games that haven't started yet - picks all day long.
     todo = [k for k, _ in KINDS if (k not in posted and (not started or k in pending)) or   # (10/1 bug check: a Lock
@@ -1793,8 +1800,8 @@ def night_pick(pool):
     """The engine's pick for one Monday / Thursday game: its best real play (value, likeliest first); none clears the
     bar - the likeliest side it isn't fighting, as a LEAN. Moneyline or spread, never past -150, never a trap."""
     pool = [c for c in pool if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV and not c.get("trap")]
-    real = [c for c in pool if good(c)]
-    if real:
+    real = [c for c in pool if good(c) and real_value(c)]   # (10/1 bug hunt: the Steelers at -148 - 0.4 short of the
+    if real:                                                 # price - went up labeled LOCK with 0 units)
         c = max(real, key=lambda c: (round(c["p"] * 50), c["edge"]))
         return {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}
     pool = [c for c in pool if not fighting(c)] or pool

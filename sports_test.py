@@ -5846,6 +5846,23 @@ def test_there_is_always_a_lock():
     assert sports.make_board([wild, coin])["lock"] is None         # only a near -150 hockey favorite: never that
 
 
+def test_bug_hunt_10_1():
+    """10/1, the owner: "there's 10, 20 bugs in this engine - fix them." The bug hunt's verified ones, pinned."""
+    import inspect
+    # a game that starts before 8 AM (London NFL, 8:05 first pitch) never wipes out the opening board
+    assert 'any(p["date"] == iso and p["status"] != "waiting" for p in picks)' in inspect.getsource(sports.post_board)
+    # a -162 favorite we can never post doesn't hide the other side's dog
+    fav = {**_cand("g", -162, 0.63, league="nhl"), "side": "home"}
+    dog = {**_cand("g", 136, 0.43, league="nhl"), "side": "away", "edge_own": 0.43 * sd.decimal(136) - 1}
+    assert [c["side"] for c in sports.one_side([fav, dog])] == ["away"]
+    # the night game: a likely winner the price eats is a LEAN, never a 0-unit "LOCK"
+    st = {**_cand("pit", -148, 0.572, league="nfl"), "edge_own": 0.593 * sd.decimal(-148) - 1, "p_market": 0.572}
+    assert sports.night_pick([st]).get("lean")
+    # football opens are summer look-ahead lines: a big move from them isn't "the money running away"
+    assert not sports.money_against({**_cand("unt", -112, 0.55, league="ncaaf"), "drift": 0.09})
+    assert sports.money_against({**_cand("x", -112, 0.55, league="mlb"), "drift": 0.09}) in (True, False)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
