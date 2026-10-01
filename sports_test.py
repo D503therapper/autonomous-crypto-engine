@@ -6245,7 +6245,7 @@ def test_brain_knows_what_the_engine_weighs():
     (from the live constants) and the lead tracker's grades."""
     import sports_dashboard as d
     w = d.engine_weights()
-    assert "Lock" in w["the board"] and "NHL" in w["dog gates (the whole dog score)"] and "max 2 a week" in w["early plays"]
+    assert "Lock" in w["the board"] and "NHL" in w["dog gates (the whole dog score)"] and "every one that clears the bar" in w["early plays"]
     import inspect
     assert '"leads being tested (graded every day)"' in inspect.getsource(d)
 
