@@ -1318,7 +1318,7 @@ def viewer_leans(cands, avoid):
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
         if c["p"] >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
-        return 100 <= c["odds"] <= DOG_DAY_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
+        return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
         #                                                      underpriced (the owner, 10/1: "we need value plays")
     best = {}
     for c in sorted((c for c in cands if ok(c)), key=lambda c: -rank_p(c)):
