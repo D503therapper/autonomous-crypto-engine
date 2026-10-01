@@ -1421,7 +1421,11 @@ class DexHunter:
     # ---- entries ----
     def _try_entry(self, key, now):
         c, E, st = self.state["passed"].get(key), self.p["entry"], self.state
-        if not c or self.pf.halted or self.paused() or len(self.pf.positions) >= self.p["slots"]:
+        if not c or self.pf.halted or self.paused():
+            return
+        if len(self.pf.positions) >= self.p["slots"]:
+            if entry_trigger(c, E):
+                self._recycle(now, c)
             return
         pk = self.pkey(c)
         if pk in self.pf.positions or self.pf.cooldown.get(pk, 0) > now or not c.get("price"):
@@ -1440,6 +1444,7 @@ class DexHunter:
         tier = tier_for(c, self.p["tiers"], 0, self.on_cex(c["sym"]))
         usd = size_for(eq, c["liq"], tier, self.pf.cash, self.exposure(), self.p)
         if usd < config.MIN_ORDER_USD:
+            self._recycle(now, c)
             return
         impact = usd / c["liq"]
         self.pf.slippage = trade_cost(usd, c["liq"], self.p)
@@ -1452,6 +1457,24 @@ class DexHunter:
         del st["passed"][key]
         self.dirty = True
         self._save_pf(now)                        # no phone alert: owner wants daily P/L only
+
+    def _recycle(self, now, c):
+        """EXPERIMENT 7 (2026-10-01): no cash or slot for a coin that passed every check -> sell the weakest STALE
+        holding (held >= min_hold_h, below max_x of its buy price) to fund it. Live scanner replay: a coin bought
+        on a +10% hour that is flat or down a day later went on -11% on average (median -9%) while a fresh 6h >= +50%
+        entry averaged +24..44%. One swap at a time; never a runner, a coin past its stake-back or one already exiting."""
+        R = self.p["exit"].get("recycle")
+        if not R or any(p.get("exit") for p in self.pf.positions.values()):
+            return
+        stale = [(p["px"] / p["entry"], k) for k, p in self.pf.positions.items()
+                 if p.get("px") and p.get("entry") and now - p["opened"] >= R["min_hold_h"] * HOUR
+                 and p["px"] < p["entry"] * R["max_x"] and not p.get("runner") and not p.get("sb") and not p["tp1"]]
+        if not stale:
+            return
+        x, k = min(stale)
+        self._request_exit(k, 1.0, f"swapped for a stronger coin ({c.get('sym')}: 1h {c.get('h1') or 0:+.0%}, "
+                                   f"6h {c.get('h6') or 0:+.0%}); this one {x:.2f}x after "
+                                   f"{(now - self.pf.positions[k]['opened']) / HOUR:.0f}h", "normal", now, "stop")
 
     def _upgrade(self, k, pos, now):
         """After a clean re-screen: a held token that now earns a higher tier is topped up to that
