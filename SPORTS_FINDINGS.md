@@ -290,6 +290,12 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   price band 3 of 3 seasons under every cutoff (+3 to +7 pts), still only ~break-even ROI. TO WIRE before the 2026-27
   hoops season: +1 win-% point on such a favorite's read (needs this season's team stats live). No dog-score points.
 
+- **Unit-play bar (10/1, walk-forward 2018-26, closing prices, favorites -150..-101):** lowering units from p 56%+ to
+  53-56% (own read beating the real price) LOSES: 53-56 band -9.6% on 919 (won 48% when the engine said 53-56%) vs 56%+
+  -3.7% on 1,978 (pooled NFL/NCAAF/NBA/NHL/MLB). A bigger value margin doesn't rescue it; quarter-Kelly lost more than
+  flat lately. KEEP the 56% floor + the money check. Note: even 56%+ favorites are slightly negative over the seasons -
+  the proven money is in the dog angles and the early spots, not in more favorites.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a
