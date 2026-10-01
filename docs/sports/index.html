@@ -128,11 +128,11 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .mb{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}   /* the money bag in green (the owner, 9/30) */
 .dayr{margin:12px 0 0;padding:14px;border-radius:12px;background:var(--card);border:2px solid #22e39a;text-align:center}
 .dayr.dn{border-color:#ff3b3b}
-.dayr-t{font-size:14px;font-weight:900;color:#ffc233;letter-spacing:.06em}
+.dayr-t{font-size:16px;font-weight:900;color:#fff;letter-spacing:.06em}
 .dayr-n{font-size:28px;font-weight:900;color:#22e39a;margin-top:4px}
 .dayr.dn .dayr-n{color:#ff5a5a}
 .dayr-s{font-size:15px;font-weight:800;color:#fff;margin-top:2px}
-.dayr-u{color:#fff;font-size:12px}
+.dayr-u{color:#fff;font-size:12px;font-weight:900;letter-spacing:.06em;margin-top:2px}
 .unb{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}
 .unt{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1} .unt.up,.unr b.up{color:var(--up)} .unt.dn,.unr b.dn{color:var(--dn)}
 .unp{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}
@@ -278,7 +278,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="live"><span class="dot" id="dot"></span><span id="ago">LIVE</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
-<div class="dayr dn" data-until="1790838000000"><div class="dayr-t">📊 TODAY'S RESULTS</div><div class="dayr-n">-0.7 UNITS</div><div class="dayr-s">ROI -44% · 3-2</div></div><script>(function(){var d=document.currentScript.previousElementSibling;if(Date.now()>+d.dataset.until)d.remove();})();</script>
+<div class="dayr dn" data-until="1790838000000"><div class="dayr-t">📊 TODAY'S RESULTS</div><div class="dayr-u">(UNIT PLAYS ONLY)</div><div class="dayr-n">-0.7 UNITS</div><div class="dayr-s">-$6.97 · ROI -44% · 1-2</div></div><script>(function(){var d=document.currentScript.previousElementSibling;if(Date.now()>+d.dataset.until)d.remove();})();</script>
 <div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 QUESTION BOX</span></div>
 <div class="ask-b"><div class="ask-n">Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that.</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send"><button id="askgo" type="button">Ask 🧠</button></div>
@@ -540,7 +540,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790832709369,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790833086869,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
