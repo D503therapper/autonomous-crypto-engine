@@ -8,12 +8,15 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 import sports_early as se      # noqa: E402
+import sports_pings as spg     # noqa: E402  (💰 mid-day value plays - the same rule: only once the dashboard shows it)
 
 URL = "https://d503therapper.github.io/autonomous-crypto-engine/sports/"
 
 if __name__ == "__main__":
-    if not se.pending(datetime.now(timezone.utc)):
-        print("no early-play pings this run")
+    now0 = datetime.now(timezone.utc)
+    want_e, want_p = bool(se.pending(now0)), bool(spg.pending(now0))
+    if not want_e and not want_p:
+        print("no early-play or mid-day pings this run")
         sys.exit(0)
     for i in range(18):
         try:
@@ -23,11 +26,19 @@ if __name__ == "__main__":
         except Exception as e:                           # noqa: BLE001
             print(f"dashboard check failed: {str(e)[:60]}")
             page = ""
-        sent = se.send_queued(page, datetime.now(timezone.utc))
-        if sent:
+        if want_e:
+            sent = se.send_queued(page, datetime.now(timezone.utc))
+            if sent:
+                want_e = False
+                print(f"sent {len(sent)} early-play ping(s) - the dashboard shows them")
+        if want_p:
+            sent = spg.send_queued(page, datetime.now(timezone.utc))
+            if sent:
+                want_p = False
+                print(f"sent {len(sent)} mid-day value play ping(s) - the dashboard shows them")
+        if not want_e and not want_p:
             time.sleep(6)                                # (the pushes run in threads: let them finish)
-            print(f"sent {len(sent)} early-play ping(s) - the dashboard shows them")
             break
         time.sleep(20)
     else:
-        print("no early-play pings to send (or the dashboard never showed them)")
+        print("some pings never went out: the dashboard never showed the play")
