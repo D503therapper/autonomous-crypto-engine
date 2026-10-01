@@ -6942,6 +6942,23 @@ def test_card_guard_catches_every_slip_the_owner_caught():
     assert dsrc.count("sports_card_guard.") >= 2
 
 
+def test_only_a_key_player_out_is_sold_as_an_edge():
+    """The owner, 10/1: 'Teven Jenkins - is he even a star? If he's not a factor the engine shouldn't put that' (and
+    the Mammoth / Flames depth guys). A card names a missing player as our edge ONLY when he's a key player (their QB,
+    goalie, one of their best bats); a depth player never gets 'that changes the whole game'."""
+    import sports_breakdown_v24 as v24
+    g = {"id": "nfl:1", "start": "2026-10-02T00:15Z", "home": "5", "away": "23", "sp_home": "", "sp_away": ""}
+    base = {"team": "Steelers", "opp": "Browns", "league": "nfl", "side": "away", "p": 0.58, "tier": "lean", "ctx": [],
+            "reasons": ["opponent missing key players"], "opp_outs": ["Teven Jenkins (G)", "Tylan Wallace (WR)"]}
+    say = lambda key_them: v24.why_line(base, v24.Voice("s", set()), g, "Steelers", "Browns", "the Steelers",
+                                        "the Browns", key_them=key_them, key_us=[])
+    assert "Jenkins" not in say([])                                     # a guard on the list: never our "edge"
+    qb = say([("Deshaun Watson", "QB", "Out")])
+    assert "Deshaun Watson" in qb and "starting quarterback" in qb, qb
+    src = open(v24.__file__).read()                                     # (the owner: a team that's hella banged up -
+    assert "if len(theirs_out) >= 3 and len(theirs_out) - len(ours_out) >= 2:" in src   # 3+ out - says so, gladly)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
