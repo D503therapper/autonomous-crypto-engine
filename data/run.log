@@ -4954,3 +4954,39 @@ error: could not detach HEAD
 [2026-10-01 18:07 UTC] stocks/trend     equity $484.32 (-3.1%) 3 open  market DOWN
 [2026-10-01 18:07 UTC] stocks/hold_spy  equity $496.11 (-0.8%) 1 open  market DOWN
    social heat top: TRUMP 48 (37/0/11), NEAR 40 (40/0/0), QNT 37 (32/0/5), MEGA 35 (35/0/0), MON 29 (29/0/0)
+   dex screen: REJECT BEAM@ethereum liq $2,447,036 - is_mintable; owner_change_balance; top-10 holders 59%
+   listings: kraken_pairs failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT DOMAIN@solana liq $120,724 - holders unknown; lp holders unknown; rugcheck lp locked 55% < 95%
+   dex screen: PASS DRB@base liq $1,846,823
+   dex screen: REJECT DENIM@base liq $119,792 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT AGI@solana liq $123,672 - lp holders unknown; rugcheck lp locked 79% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS NPC@ethereum liq $5,187,297
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     74d2ec031d5efa90c0827e544f765d33771de1da -> main (cannot lock ref 'refs/heads/main': is at 2d020b68ba7a29c72f20ce7
+   dex screen: REJECT DENIM@base liq $127,680 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 42%; lp holders unknown
+   dex screen: REJECT SKY@ethereum liq $1,394,257 - is_mintable; top-10 holders 90%
+   dex screen: REJECT POND@solana liq $21,404,813 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%; rugcheck score 62
+   dex screen: REJECT NOCK@base liq $1,115,198 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT WOOF@ethereum liq $114,900 - top-10 holders 54%; lp locked 0% < 95%
+   dex screen: REJECT XDP@base liq $1,736,357 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT EMBER@solana liq $311,016 - lp holders unknown; rugcheck lp locked 40% < 95%
+   dex scanner: 3,001 pools (solana 2,301 / base 455 / ethereum 245), refresh cycle 142s (hot 138s), 2651 calls (106 feed, 429s 0, failed 2), 76,288 refreshed (1910 no pair), +131 added / -130 dropped (dead 7, stale 0, cap 123), movers 1 + warming 33 -> queued 7, screened 7 (passed 0), bought 0
+[2026-10-01 19:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-01 19:07 UTC] crypto/mover     equity $455.90 (-8.8%) 2 open  market UP
+[2026-10-01 19:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 19:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 19:07 UTC] crypto/social_heat equity $540.32 (+8.1%) 2 open  market UP
+[2026-10-01 19:07 UTC] crypto/breakout10 equity $494.62 (-1.1%) 2 open  market UP
+[2026-10-01 19:07 UTC] crypto/momentum  equity $484.89 (-3.0%) 2 open  market UP
+[2026-10-01 19:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 19:07 UTC] crypto/hold_btc  equity $503.50 (+0.7%) 1 open  market UP
+[2026-10-01 19:07 UTC] stocks/rsi2      equity $502.96 (+0.6%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, IWM 3 BUY, XLB 4
+[2026-10-01 19:07 UTC] stocks/dual_momentum equity $498.43 (-0.3%) 2 open  market UP
+[2026-10-01 19:07 UTC] stocks/trend_ensemble equity $500.91 (+0.2%) 5 open  market UP
+[2026-10-01 19:07 UTC] stocks/rotation10 equity $496.81 (-0.6%) 2 open  market UP
+[2026-10-01 19:07 UTC] stocks/momentum  equity $494.78 (-1.0%) 4 open  market UP
+[2026-10-01 19:07 UTC] stocks/trend     equity $485.61 (-2.9%) 3 open  market UP
+[2026-10-01 19:07 UTC] stocks/hold_spy  equity $497.25 (-0.5%) 1 open  market UP
+   social heat top: NEAR 40 (40/0/0), MON 37 (37/0/0), MEGA 35 (35/0/0), PENGU 31 (19/0/12), QNT 29 (24/0/5)
