@@ -2835,5 +2835,476 @@
   "stake": 100.0,
   "status": "lost",
   "tier": "lean"
+ },
+ {
+  "american": -118,
+  "date": "2026-10-01",
+  "dec": 1.8475,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -2,
+    "bd_tags": [
+     "rec:4",
+     "better:1",
+     "h2h:3",
+     "road:1",
+     "healthy:2",
+     "sharp:2",
+     "splits:2",
+     "bottom_s:9",
+     "w_better:4"
+    ],
+    "breakdown": [
+     "\ud83e\uddf3 Road game for North Texas, but they travel just fine.",
+     "\ud83d\udcb0 The line moved toward North Texas (+130 \u2192 -118). The engine had this side before the move.",
+     "\ud83d\udcaa This is a mismatch \u2014 North Texas are just better.",
+     "\u2705 North Texas have everybody available.",
+     "\ud83d\udccb North Texas got a 0-1 record walking in. We gon' see what they do with it.",
+     "\ud83d\udcca 38% on North Texas, 62% on Tulsa. Crowd can't make up its mind \u2014 we already did.",
+     "\ud83c\udd9a North Texas been owning Tulsa lately \u2014 2 of the last 2.",
+     "\u2705 Bottom line: we're on North Texas (-118). Everything above tips it our way."
+    ],
+    "bv": 34,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 1.847457627118644,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": null,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [
+      "Thursday night"
+     ],
+     "last_margin": null,
+     "last_pts": null,
+     "neutral": false,
+     "win_streak": 0
+    },
+    "drift": -0.101,
+    "edge": -0.03427279360906532,
+    "edge_own": 0.09487577669540248,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "game_id": "ncaaf:401862786",
+    "home": false,
+    "hot_key": false,
+    "intl": false,
+    "key_edge": 0.03193262676021291,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -118,
+    "opp": "Tulsa",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5227330750189463,
+    "p_market": 0.5173641257162702,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": true,
+    "side": "away",
+    "start": "2026-10-02T01:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "North Texas",
+    "team_id": "249",
+    "their_drama": [],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Put the rosters side by side \u2014 North Texas win that matchup."
+   }
+  ],
+  "p_hit": 0.5227,
+  "pnl": 0.0,
+  "posted": "2026-10-01T15:38Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": 180,
+  "date": "2026-10-01",
+  "dec": 2.8,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:0",
+     "worse:1",
+     "h2h:4",
+     "G_cold:0",
+     "cx_div:3",
+     "road:6",
+     "fade:3",
+     "splits_f:3",
+     "bottom_s:7",
+     "w_num:2"
+    ],
+    "breakdown": [
+     "\ud83d\udccb Blackhawks sitting at 0-1 on the year. Tonight's the only one that counts though.",
+     "\ud83d\udc3a Everybody's on Mammoth. That's how we get Blackhawks at this number.",
+     "\ud83e\udd45 The Mammoth's goalie Karel Vejmelka has been giving up a lot of goals \u2014 a 0.859 save % (14 goals on 99 shots) over his last 3 starts.",
+     "\ud83e\uddf3 Blackhawks hit the road. Doesn't matter to us.",
+     "\ud83c\udd9a Mammoth can't figure Blackhawks out: 3 of 3 to Blackhawks.",
+     "\ud83d\udcb8 Money's pouring in on the Mammoth (-200 \u2192 -218). They must've lost their minds \u2014 we got the Blackhawks.",
+     "\u2705 Bottom line: Blackhawks (+180). Quiet play, right play."
+    ],
+    "bv": 34,
+    "coach": [
+     7,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 2.8,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": null,
+     "won": false
+    },
+    "dog_more": {},
+    "dog_p": 0.3717,
+    "drift": 0.0189,
+    "edge": -0.029156697045448765,
+    "edge_own": -0.029156697045448765,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "game_id": "nhl:401891828",
+    "home": false,
+    "hot_key": false,
+    "intl": false,
+    "key_edge": -1.1057669067530307,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 180,
+    "opp": "Mammoth",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [
+     "Andrew Mangiapane (LW)"
+    ],
+    "p": 0.3467297510551969,
+    "p_market": 0.3425247738043947,
+    "pdo": null,
+    "public": "fade",
+    "reasons": [],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": true,
+    "side": "away",
+    "start": "2026-10-02T01:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Blackhawks",
+    "team_id": "4",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 Blackhawks at 35% to get it done. That's the engine talking, not a hunch."
+   }
+  ],
+  "p_hit": 0.3467,
+  "pnl": 0.0,
+  "posted": "2026-10-01T15:38Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -148,
+  "date": "2026-10-01",
+  "dec": 1.6757,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "rec:4",
+     "better_s:0",
+     "h2h:2",
+     "revenge:0",
+     "cx_rival:0",
+     "road:4",
+     "banged:3",
+     "sharp:5",
+     "splits_w:5",
+     "bottom_s:5",
+     "w_better:4",
+     "k_rival:0"
+    ],
+    "breakdown": [
+     "\ud83d\ude24 Revenge game \u2014 Steelers lost the last meeting and they haven't forgotten.",
+     "\ud83d\udccb Steelers got a 2-1 record walking in. We gon' see what they do with it.",
+     "\ud83e\uddf3 Steelers on the road, but this team doesn't care where they play.",
+     "\ud83c\udd9a History's on our side \u2014 2 of the last 3 meetings went Steelers' way.",
+     "\ud83d\udcaa Steelers are the better squad, even if it's closer than it looks.",
+     "\ud83d\udcb0 Everybody else is showing up late on Steelers: -135 to -148.",
+     "\ud83d\ude91 Browns are dealing with injuries: Teven Jenkins, Elgton Jenkins, Tylan Wallace.",
+     "\ud83d\udcca the Steelers got 79% of the bets (96% of the money). Popular pick, still the right one.",
+     "\ud83d\udfe1 Bottom line: no value on our numbers \u2014 Steelers is the lean, not a lock."
+    ],
+    "bv": 34,
+    "coach": [
+     18,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:div",
+     "game:rival"
+    ],
+    "dec": 1.6756756756756757,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "east_west": false,
+     "fades": [
+      "Thursday night"
+     ],
+     "go4_gap": -0.0373,
+     "last_margin": 3.0,
+     "last_pts": 30.0,
+     "neutral": false,
+     "win_streak": 1
+    },
+    "drift": -0.0206,
+    "edge": -0.0414135836554389,
+    "edge_own": -0.011898522288855351,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     3.0,
+     1,
+     150,
+     true,
+     0
+    ],
+    "game_id": "nfl:401872964",
+    "home": false,
+    "hot_key": false,
+    "intl": false,
+    "key_edge": -0.6745395838316193,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -148,
+    "opp": "Browns",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Teven Jenkins (G)",
+     "Elgton Jenkins (C)",
+     "Tylan Wallace (WR)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Rico Dowdle (RB)"
+    ],
+    "p": 0.5720596355604639,
+    "p_market": 0.5720596355604639,
+    "pdo": null,
+    "public": "ride",
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players",
+     "revenge game"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-02T00:15Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Steelers",
+    "team_id": "23",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Put the rosters side by side \u2014 Steelers win that matchup. Rivalry game, too \u2014 bragging rights on the line."
+   }
+  ],
+  "p_hit": 0.5721,
+  "pnl": 0.0,
+  "posted": "2026-10-01T15:38Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -108,
+  "date": "2026-10-01",
+  "dec": 1.9259,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "worse:4",
+     "h2h:4",
+     "G_hot:0",
+     "cx_div:1",
+     "road:2",
+     "banged:4",
+     "sharp:3",
+     "splits:2",
+     "bottom_s:10",
+     "w_hurt:2"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Flames are short-handed (Henry Mews).",
+     "\ud83e\uddf3 Kraken walk into a hostile building \u2014 we're not worried.",
+     "\ud83d\udcb0 -105 at the open, -108 now \u2014 the market's coming around to Kraken.",
+     "\ud83d\udcca 45% on the Kraken, 55% on the Flames. Crowd can't make up its mind \u2014 we already did.",
+     "\ud83e\uddf1 The Kraken's goalie Victor Ostman has been a brick wall \u2014 a 0.943 save % (2 goals on 35 shots) over his last 1 start.",
+     "\ud83c\udd9a Flames can't figure Kraken out: 2 of 3 to Kraken.",
+     "\ud83d\udd25 Division rivals. They know each other's playbook cold.",
+     "\ud83d\udc3a Flames get all the love \u2014 that's why Kraken are sitting at this number.",
+     "\ud83d\udfe1 Bottom line: no edge on this one \u2014 it's a lean, not a lock. The algorithm just leans Kraken."
+    ],
+    "bv": 34,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 1.925925925925926,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": null,
+     "won": null
+    },
+    "dog_more": {},
+    "drift": -0.0065,
+    "edge": -0.035487151768521574,
+    "edge_own": -0.035601958084707896,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "game_id": "nhl:401891777",
+    "home": false,
+    "hot_key": false,
+    "intl": false,
+    "key_edge": -0.10021257212268209,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -108,
+    "opp": "Flames",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Henry Mews (D)"
+    ],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5008047481201907,
+    "p_market": 0.49567024593003106,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": true,
+    "side": "away",
+    "start": "2026-10-02T01:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Kraken",
+    "team_id": "124292",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\ude91 Flames gotta play this one without defenseman Henry Mews, and we're taking advantage."
+   }
+  ],
+  "p_hit": 0.5008,
+  "pnl": 0.0,
+  "posted": "2026-10-01T15:38Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
