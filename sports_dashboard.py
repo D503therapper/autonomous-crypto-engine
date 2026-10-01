@@ -232,26 +232,21 @@ WHY_USED = set()                 # the unit reasons already on the page this bui
 
 
 STEEP = (
-    "🔒 They should win this one — but at {o} the price ain't right. We only call it a Lock when it is.",
-    "🔒 Lock-level team, not a Lock-level price. At {o} the books already charged us for it.",
-    "🔒 Good chance they take it — {o} just eats the value. No Lock at that number.",
-    "🔒 Likely winner, steep price. At {o} it's a lean, not a Lock.",
-    "🔒 We like 'em to win. We don't like paying {o} for it.",
-    "🔒 Could've been a Lock — the number ({o}) said no. We only lock it when the price is right.",
-    "🔒 They're the side, but {o} is too rich. No Lock, no units.",
-    "🔒 Winning team, losing price. At {o} we keep our money and call it a lean.",
-    "🔒 The books priced every bit of this in. At {o} it's not worth a Lock.",
-    "🔒 Right team, wrong number. {o} is too steep to lock.",
-    "🔒 They probably get it done — but probably ain't enough at {o}.",
-    "🔒 Strong side, bad price. A Lock has to be worth the money, and {o} isn't.",
-    "🔒 We'd lock this at a better number. At {o}, it's just a lean.",
-    "🔒 You pay {o} to win a hundred here — that's too much for what this team gives us.",
-    "🔒 They should handle it. The price ({o}) is what keeps it off the Lock spot.",
-    "🔒 {t} are most likely to win this one — they just didn't get the Lock label. Blame the price ({o}).",
-    "🔒 {t} should take it. No Lock tag though — {o} is too much to pay.",
-    "🔒 Our pick to win is {t}. Our pick for a Lock? Not at {o}.",
-    "🔒 {t} got the better chance tonight, not the better price. That's why it's no Lock.",
-    "🔒 {t} win this more often than not — but at {o} that's already in the number.")
+    "📉 {t} win this about {p} of the time — but at {o} you need {n} to make money. The odds don't beat the price.",
+    "📉 {t} should win ({p}), but {o} only pays off at {n}. Their odds don't catch up to the price.",
+    "📉 {p} to win, {n} to break even at {o}. Close — but the odds don't beat the price.",
+    "📉 We've got {t} at {p}. The price ({o}) needs {n}. Not enough — no Lock, no units.",
+    "📉 {t} probably win — {p}. But {o} costs you like they win {n}. The odds come up short.",
+    "📉 At {o}, {t} have to win {n} for this to pay. We have 'em at {p}. Doesn't beat the price.",
+    "📉 {t} win {p} by our numbers. {o} asks for {n}. The price wins that one.",
+    "📉 Likely winner, but the math: {p} chance vs the {n} that {o} needs. Odds don't beat the price.",
+    "📉 {t} are the side ({p}). At {o} you'd need {n} — so it's a lean, not a Lock.",
+    "📉 {p} isn't enough when the price is {o} — that needs {n}. That's why it's no Lock.",
+    "📉 Our read: {t} {p}. The price: {o}, which needs {n}. Odds short of the price = no units.",
+    "📉 {t} take this {p} of the time. To make money at {o} they'd need {n}. Not there.",
+    "📉 The win chance ({p}) doesn't beat the price ({o} needs {n}). Good team, bad number.",
+    "📉 {o} means {t} have to win {n} to break even — we see {p}. That's why no Lock.",
+    "📉 {t} {p}, price needs {n}. The odds didn't catch the price — lean only.")
 # (the owner, 10/1: "we couldn't label this a lock simply because the price is not worth it - say that")
 
 
@@ -268,7 +263,10 @@ def _steep_line(leg, key=""):
     order = [STEEP[(sum(map(ord, (key or str(o)) + day)) + i) % len(STEEP)] for i in range(len(STEEP))]   # same twice)
     line = next((x for x in order if x not in WHY_USED), order[0])
     WHY_USED.add(line)
-    return line.format(o=f"{o:+d}" if isinstance(o, int) else o, t=leg.get("team") or "They")
+    own, need = sports.read_of(leg), 1 / (leg.get("dec") or sports._dec(o))
+    pr, nr = round(own * 100), round(need * 100)
+    fmt = (lambda x: f"{x * 100:.1f}%") if pr == nr else (lambda x: f"{round(x * 100)}%")   # (never "59% vs 59%")
+    return line.format(o=f"{o:+d}" if isinstance(o, int) else o, t=leg.get("team") or "They", p=fmt(own), n=fmt(need))
 
 
 def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
