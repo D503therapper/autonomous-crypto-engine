@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T20:39Z",
+ "updated": "2026-10-01T21:09Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -141,9 +141,9 @@
     "opp": "Western KY",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.504,
-    "win_p": 0.504,
+    "odds": -125,
+    "p": 0.503,
+    "win_p": 0.503,
     "reasons": [
      "sharp money moving this way",
      "better QB play lately"
@@ -244,7 +244,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Texas",
-    "p": 0.57,
+    "p": 0.571,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -260,12 +260,13 @@
     "opp": "Tulsa",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.545,
-    "win_p": 0.545,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "rolling off a blowout win"
     ]
    }
   },
@@ -430,8 +431,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Liberty",
-    "p": 0.615,
-    "tie": 0.032,
+    "p": 0.628,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -447,9 +448,11 @@
     "market": "ml",
     "line": null,
     "odds": -270,
-    "p": 0.597,
-    "win_p": 0.597,
-    "reasons": []
+    "p": 0.613,
+    "win_p": 0.613,
+    "reasons": [
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -458,8 +461,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.487,
-    "tie": 0.034,
+    "p": 0.526,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -467,7 +470,7 @@
    "start": "2026-10-02T23:00Z",
    "away": "Pitt",
    "home": "Virginia Tech",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Virginia Tech",
@@ -475,9 +478,10 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.505,
-    "win_p": 0.505,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
+     "the stronger team",
      "hotter recent form"
     ]
    }
@@ -519,8 +523,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Penn State",
-    "p": 0.585,
-    "tie": 0.032,
+    "p": 0.57,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -539,8 +543,7 @@
     "p": 0.572,
     "win_p": 0.572,
     "reasons": [
-     "better QB play lately",
-     "the stronger team"
+     "better QB play lately"
     ]
    }
   },
@@ -602,6 +605,37 @@
     "reasons": [
      "the stronger team",
      "hotter recent form"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401868094",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Montana St",
+    "p": 0.753,
+    "tie": 0.026,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T02:30Z",
+   "away": "Montana St",
+   "home": "Idaho",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Montana St",
+    "opp": "Idaho",
+    "market": "spread",
+    "line": -17.5,
+    "odds": -104,
+    "p": 0.502,
+    "win_p": 0.751,
+    "reasons": [
+     "hotter recent form",
+     "the stronger team"
     ]
    }
   },
