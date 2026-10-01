@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T15:30Z",
+ "updated": "2026-10-01T15:44Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -193,8 +193,8 @@
    "start": "2026-10-02T00:15Z",
    "away": "Steelers",
    "home": "Browns",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Under",
     "opp": "Steelers @ Browns",
@@ -223,8 +223,8 @@
    "start": "2026-10-02T01:00Z",
    "away": "Kraken",
    "home": "Flames",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Kraken",
     "opp": "Flames",
@@ -253,8 +253,8 @@
    "start": "2026-10-02T01:00Z",
    "away": "North Texas",
    "home": "Tulsa",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "North Texas",
     "opp": "Tulsa",
@@ -284,8 +284,8 @@
    "start": "2026-10-02T01:30Z",
    "away": "Blackhawks",
    "home": "Mammoth",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Mammoth",
     "opp": "Blackhawks",
@@ -414,9 +414,9 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -222,
-    "p": 0.662,
-    "win_p": 0.444,
+    "odds": -218,
+    "p": 0.661,
+    "win_p": 0.443,
     "reasons": [
      "hotter recent form",
      "better rested",
@@ -458,7 +458,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia Tech",
-    "p": 0.491,
+    "p": 0.49,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -474,9 +474,9 @@
     "opp": "Pitt",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.509,
-    "win_p": 0.509,
+    "odds": -155,
+    "p": 0.508,
+    "win_p": 0.508,
     "reasons": [
      "hotter recent form"
     ]
@@ -580,7 +580,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.393,
+    "p": 0.389,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -596,9 +596,9 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
-    "p": 0.634,
-    "win_p": 0.415,
+    "odds": -198,
+    "p": 0.642,
+    "win_p": 0.424,
     "reasons": [
      "better rested"
     ]
