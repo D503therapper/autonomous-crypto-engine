@@ -141,8 +141,24 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   fading. Neutral-site dogs the engine likes by 4+: +17% on 106, 5 of 6 (small). Blowout winners last week (+4.4% on
   610, 5 of 6 with the engine). Bad spots: a CLOSE LOSS last week (-15% NCAAF / -13% NFL, the engine liking them
   even worse -23%), road favorites (NFL -12.6%, 0 of 6), home dogs in the NFL (-17%). Shopping the best book adds ~3
-  points everywhere. ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
+  points everywhere. (10/1 credits: a push-started re-pull burned ~7,400 - the pull is hand-run only now.) ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
 
+
+- **15 EARLY DOG STUDIES (10/1, the owner: "train the engine to spot the dogs that win" - all need the midweek
+  prices, so none repeat rounds 1-2; tools/early_dog_studies.py, results/early_dogs.json; walk-forward; graded on
+  wins at the price bet).** The big one: THE ENGINE CAN LEARN WHICH DOGS THE LINE WILL MOVE TO. A small model trained
+  only on past seasons (Tuesday-known stuff: its read, the price, home / road, last week, rest, the books' spread)
+  picked NFL dogs that moved toward them by kickoff 81% of the time (top 10%): +11.4% at the first-look price on 127
+  (4 of 5 seasons) - the SAME dogs at the close -6.3%. Top 20% +6.2% (79% moved), college top 20% +7.8% (75% moved,
+  4 of 5). A win-value model (which dogs win more than the price says): NFL top 20% +13.6% (3 of 5), college top 10%
+  +8.5% (4 of 5). Sept 2026 (never seen, tiny): NFL move picks 67-100% moved, +53% on 9; college win-value 0-4 -
+  too few to confirm either way. College dogs in the first 3 weeks (last year's prices): +12.7% on 506 (5 of 6),
+  +160 and up +14.8% (6 of 6) - but 2026 went -23% on 41: watch. DEAD / BAD: a dog that drifted OUT early (-9..-13%),
+  dogs the money hammered all week (out 30+ cents: -19% NFL / -10% college, out 50+: -30% / -28%, 0 of 6 - follow the
+  steam), stale-book shopping alone (-1..-6%), split books (-14% NFL), 6 or fewer books up (-15..-18%), look-ahead
+  (fav's next opponent 70%+: -15.5% NFL, 0 of 6 - the books price it), letdown, better-record dogs, big +250 dogs.
+  NEXT: the move model needs the first-look price live - line_history (hourly, since 10/1) records it; build once a
+  few weeks of it confirm the model on this season.
 
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
