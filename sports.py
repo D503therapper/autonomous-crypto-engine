@@ -1943,6 +1943,12 @@ def post_board(games, model, picks, now, day, force=False):
         for side in ("home", "away"):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
     cands = candidates(games, model, now, day, injuries)
+    try:                                                     # 🧪 the lead tracker (for Claude, not the dashboard)
+        import sports_leads
+        sports_leads.log(iso, cands, sys.modules[__name__])
+        sports_leads.grade(games)
+    except Exception as e:                                   # noqa: BLE001 - the tracker never blocks the board
+        print(f"lead tracker failed: {str(e)[:80]}")
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
     if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
         probs = slate_check(games, cands, day, now) + factor_check(games, cands, injuries, day, now)

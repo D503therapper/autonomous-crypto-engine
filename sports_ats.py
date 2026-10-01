@@ -85,8 +85,14 @@ def adjust(st, league, g, p_home_cover):
     x = gap(g, league)
     if not s.get("proven") or x is None:
         return p_home_cover
-    z = math.log(max(1e-6, p_home_cover) / max(1e-6, 1 - p_home_cover)) + s["b"] * x
-    return _sig(z)
+    z = math.log(max(1e-6, p_home_cover) / max(1e-6, 1 - p_home_cover)) + ATS_SHRINK * s["b"] * x
+    p = _sig(z)                                          # (10/1 spread study: fine at the close, 54.2%, but 50.2% at the
+    return max(p_home_cover - ATS_CAP, min(p_home_cover + ATS_CAP, p))   # fair early number and college goes the
+    #                                                      other way - it failed the second check: halved, capped)
+
+
+ATS_SHRINK = 0.5
+ATS_CAP = 0.015
 
 
 if __name__ == "__main__":

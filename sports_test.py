@@ -6088,6 +6088,28 @@ def test_overnight_study_weights():
     assert sports.dog_spots({"league": "nfl", "odds": 150, "dog_ctx": {}, "key_out_me": True}) == -3
 
 
+def test_lead_tracker():
+    """10/1, the owner: "keep a tracker to see if we can prove your theory - it's for you, not the dashboard." Every side
+    where an unproven lead fires is logged with its price, then graded per lead (W-L, units, ROI)."""
+    import sports_leads as sl, tempfile
+    keep = (sl.PATH, sl.RECORD)
+    try:
+        d = tempfile.mkdtemp()
+        sl.PATH, sl.RECORD = os.path.join(d, "t.json"), os.path.join(d, "r.json")
+        dog = {**_cand("g1", 150, 0.40, league="nfl"), "side": "away", "dog_ctx": {}, "dog_more": {"mnf": True, "bye": True}}
+        fav = {**_cand("g2", -140, 0.58, league="nhl"), "side": "home", "w_p": 0.60, "p_market": 0.565}
+        assert sl.log("2026-10-12", [dog, fav], sports) == 2 and sl.log("2026-10-12", [dog, fav], sports) == 0
+        games = {"g1": {"status": "final", "home_score": "17", "away_score": "20"},
+                 "g2": {"status": "final", "home_score": "1", "away_score": "3"}}
+        rec = sl.grade(games)
+        assert rec["Monday night dog"] == {"w": 1, "l": 0, "units": 1.5, "roi": 1.5}
+        assert rec["hockey fav weighed UP"]["l"] == 1
+    finally:
+        sl.PATH, sl.RECORD = keep
+    import sports_ats
+    assert sports_ats.ATS_CAP == 0.015 and sports_ats.ATS_SHRINK == 0.5
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
