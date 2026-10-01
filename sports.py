@@ -1337,14 +1337,22 @@ def plays(cands, avoid):
     return out
 
 
+LEAN_WINNER_OWN = 0.55
+
+
 def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
     the pricey hockey favorite - on games we're not playing; the big games first, 2 a sport."""
     def ok(c):
-        if c["market"] not in ("ml", "spread") or c["odds"] < MAX_FAV or fighting(c) or c.get("trap") or nhl_pricey(c) \
+        if c["market"] not in ("ml", "spread") or c["odds"] < MAX_FAV or c.get("trap") or nhl_pricey(c) \
                 or c["game_id"] in avoid:
             return False
+        if fighting(c) and not (c["market"] == "ml" and c.get("edge_own") is not None
+                                and (c["edge_own"] + 1) / c["dec"] >= LEAN_WINNER_OWN):
+            return False                                     # a lean is a WHO-WINS call (no units): a favorite the
+            #                                                  engine's own read still has winning 55%+ is a lean even
+            #                                                  when the price is a bit high (10/1: two picks on 9 games)
         if c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005:
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
         if c["p"] >= LEAN_PICK_P:

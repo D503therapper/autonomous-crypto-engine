@@ -5820,6 +5820,18 @@ def test_calibration_never_goes_under_the_line():
     assert "never below the line's own number" in src and "p = m_side" in src
 
 
+def test_lean_is_a_who_wins_call():
+    """10/1, the owner: "two picks out of all those games - that's a broken engine." A lean carries no units - it's
+    who wins. A favorite the engine's own read still has winning 55%+ is a lean even when the price is a bit high
+    (a -142 at own 55%, the line 59%); under 55% it stays off."""
+    ps = {**_cand("psu", -142, 0.59, league="ncaaf"), "edge_own": 0.551 * sd.decimal(-142) - 1, "p_market": 0.59}
+    assert sports.fighting(ps)
+    assert [c["game_id"] for c in sports.viewer_leans([ps], ())] == ["psu"]
+    weak = {**ps, "game_id": "w", "edge_own": 0.53 * sd.decimal(-142) - 1}
+    assert not sports.viewer_leans([weak], ())
+    assert not sports.plays([ps], ())                          # never a UNIT play the engine's read is fighting
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
