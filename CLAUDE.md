@@ -86,7 +86,8 @@ docs/index.html refreshes every minute. Read first: GOALS.md, REVIEW.md, results
   main paper accounts (no side/shadow accounts) and log each one in the EXPERIMENTS LOG with a judge date.
 - Talk to him in plain, short English - no jargon (no "tiers", "trail", "6h", "stake-back" words; say what it does).
 - Accounts: Stocks $500 (rsi2 dip-buying), DEX season 2 from 2026-09-29 at $1,000 (season 1 archived in data/dex/archive/).
-- Checks: 8-hour reviews 05:23 / 13:23 / 21:23 UTC (REVIEW.md); quiet bug checks 01:26 / 09:26 / 17:26 UTC - say nothing
+- Checks: 8-hour reviews 05:23 / 13:23 / 21:23 UTC (REVIEW.md) - the only scheduled checks (bug checks turned off 10-01 to
+  save usage; the engine restarts itself if frozen). Say nothing between reviews
   unless something major can't be undone. Phone alerts: moon alerts at 2x/3x/5x/10x/25x/50x/100x only.
 - Never push to branch pending/crypto-into-dex. Never delete trading history (archive). Never loosen scam protection
   without evidence. Don't work around safety-classifier denials.
