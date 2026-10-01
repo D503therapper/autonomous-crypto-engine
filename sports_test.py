@@ -6253,6 +6253,24 @@ def test_hockey_goalie_slump():
         sports.SV_SLUMP.clear(); sports.SV_SLUMP.update(keep[1])
 
 
+def test_steep_lean_says_why_its_not_the_lock():
+    """10/1, the owner: "the algorithm should have said we couldn't label this a lock simply because the price isn't
+    worth it." A lean the engine has at 56%+ whose price is too steep says so on its card; a coin flip doesn't."""
+    import sports_dashboard as d
+    st = {**_cand("pit", -148, 0.572, league="nfl"), "edge_own": 0.587 * sd.decimal(-148) - 1, "team": "Steelers"}
+    line = d._units_line(0, "Steelers", -148, lean=True, leg=st)
+    assert "-148" in line and "NO UNITS" in line and "Steelers" in line and "%" not in line and "in 100" not in line
+    #   (the owner, 10/1: the likelier winner, a bad bet at the price - plain words, never number-vs-number jargon)
+    coin = {**_cand("buf", -108, 0.501, league="nhl")}
+    assert d._units_line(0, "Sabres", -108, lean=True, leg=coin) == '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
+    worth = {**_cand("unt", -112, 0.58, league="ncaaf"), "edge_own": 0.589 * sd.decimal(-112) - 1}
+    assert d._steep_line(worth) == ""                      # worth its price: never "too steep"
+    assert len(d.STEEP) >= 12 and not any("likeliest" in x or "on the board" in x or "label" in x or "%" in x for x in d.STEEP)   # many ways to say it, never "the
+    d.WHY_USED.clear()                                                         # likeliest on the board" (10/1)
+    two = {d._steep_line({**st, "team": t}, t) for t in ("Steelers", "Lions")}
+    assert len(two) == 2                                                       # never the same line twice on a page
+
+
 def test_early_plays_one_minimum_two_max():
     """10/1, the owner: "one minimum, two max early value plays - get them today before the line moves." A week the spots
     find nothing: from Wednesday 6 AM PT the engine's best weighed dog goes up (a 2nd only if it clears the normal bar);
@@ -6882,21 +6900,18 @@ def test_position_words_by_sport():
     assert v24._posname("QB", "nfl") == "quarterback"
     src = open(v24.__file__).read()
     assert "_posname(key_them[0][1])" not in src and "_posname(m.group(2))" not in src
-def test_steep_lean_says_why_its_not_the_lock():
-    """10/1, the owner: "the algorithm should have said we couldn't label this a lock simply because the price isn't
-    worth it." A lean the engine has at 56%+ whose price is too steep says so on its card; a coin flip doesn't."""
-    import sports_dashboard as d
-    st = {**_cand("pit", -148, 0.572, league="nfl"), "edge_own": 0.587 * sd.decimal(-148) - 1}
-    line = d._units_line(0, "Steelers", -148, lean=True, leg=st)
-    assert "-148" in line and "NO UNITS" in line and "59%" in line and "60%" in line   # the chance vs what the price needs
-    coin = {**_cand("buf", -108, 0.501, league="nhl")}
-    assert d._units_line(0, "Sabres", -108, lean=True, leg=coin) == '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
-    worth = {**_cand("unt", -112, 0.58, league="ncaaf"), "edge_own": 0.589 * sd.decimal(-112) - 1}
-    assert d._steep_line(worth) == ""                      # worth its price: never "too steep"
-    assert len(d.STEEP) >= 15 and not any("likeliest" in x or "on the board" in x or "label" in x for x in d.STEEP)   # many ways to say it, never "the
-    d.WHY_USED.clear()                                                         # likeliest on the board" (10/1)
-    two = {d._steep_line({**st, "team": t}, t) for t in ("Steelers", "Lions")}
-    assert len(two) == 2                                                       # never the same line twice on a page
+def test_one_game_day_pick_always_has_units():
+    """The owner, 10/1: 'on a one-game day we always put units on - a Lock, the Dog, or a value play with units.' The
+    day's one pick carries units even when its read doesn't clear the money check (½u floor), and the rule check never
+    pulls it for that."""
+    leg = {"odds": -130, "dec": sd.decimal(-130), "p": 0.55, "edge_own": -0.02, "market": "ml", "league": "nfl",
+           "team": "Bears", "game_id": "g1", "side": "home"}
+    pk = {"kind": "solo", "date": "2026-10-05", "status": "open", "legs": [leg]}
+    assert sports.units_for(pk) >= 0.5
+    rich = {**leg, "edge_own": 0.6 * sd.decimal(-130) - 1}
+    assert sports.units_for({**pk, "legs": [rich]}) >= sports.units_for(pk)
+    probs = sports.rule_check([pk], [pk], "2026-10-05")
+    assert not any("doesn't beat" in x for x in probs) and pk in [pk]
 
 
 if __name__ == "__main__":
