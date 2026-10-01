@@ -673,8 +673,16 @@ def fetch_an_day(league, day):
 
 
 def _same(short, full):
+    """ESPN's short name vs a book's full name. The first-word fallback ('Miami OH' ~ 'Miami (OH) RedHawks') also needs
+    the rest of the short name in there - 10/1 audit: 'UC Davis' matched any 'UC ...' school, 'Texas St' the Longhorns."""
     short, full = short.lower().strip(), full.lower()
-    return bool(short) and (short in full or full.startswith(short.split(" ")[0] + " "))
+    if not short:
+        return False
+    if short in full:
+        return True
+    words = short.split(" ")
+    rest = [w.strip(".()") for w in words[1:] if w.strip(".()")]
+    return full.startswith(words[0] + " ") and all(w in full for w in rest)
 
 
 H1 = ("h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds")

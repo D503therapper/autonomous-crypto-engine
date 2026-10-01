@@ -172,9 +172,10 @@ def parse(games, raw=None):
         for tid, nm in (names.get(lg) or {}).items():
             pat = re.escape(nm)
             if college:                                  # 'Illinois' must not match 'Northern Illinois' / 'Illinois
-                pat = r"(?<![A-Z][a-z]\s)(?<![A-Z][a-z]{2}\s)(?<![A-Z][a-z]{3}\s)(?<![A-Z][a-z]{4}\s)" \
-                      r"(?<![A-Z][a-z]{5}\s)(?<![A-Z][a-z]{6}\s)(?<![A-Z][a-z]{7}\s)(?<![A-Z][a-z]{8}\s)" + pat + \
-                      r"(?!\s(?:State|St\b|Tech|A&M|Christian|Southern|Atlantic|International|[A-Z]{2,}))"
+                pat = "".join(rf"(?<![A-Z][a-z]{{{n}}}\s)" for n in range(1, 14)) + pat + \
+                      r"(?!\s(?:State|St\b|Tech|A&M|A&T|Upstate|Christian|Southern|Atlantic|International|[A-Z]{2,}))"
+                #                                  (10/1 audit: 'Charleston Southern' read as 'Southern', 'USC
+                #                                   Upstate' as 'USC', 'North Carolina A&T' as 'North Carolina')
             if nm and re.search(r"\b" + pat + r"\b", head) and (best is None or len(nm) > len(best[1])):
                 best = (tid, nm)                         # (the longest team name that fits: 'Miami (OH)' over 'Miami')
         if not best:
@@ -188,6 +189,10 @@ def parse(games, raw=None):
             seen.add((lg, best[0], day))
             out.append({"league": lg, "team": best[0], "name": best[1], "date": day,
                         "interim": bool(re.search(r"interim", text, re.I)), "text": head})
+    yearless = {(r["league"], r["team"], r["date"]) for r in out}
+    out = [r for r in out if (r["league"], r["team"], f"{int(r['date'][:4]) - 1}{r['date'][4:]}") not in yearless]
+    #   (10/1 audit: next season's page repeats last season's firing with no year - Staley's 12/15/2023 firing came
+    #    back as a 12/15/2024 one. The same team, the same day a year later: the repeat.)
     out.sort(key=lambda r: (r["league"], r["team"], r["date"]))
     keep = [r for i, r in enumerate(out) if not (i and out[i - 1]["league"] == r["league"] and out[i - 1]["team"] == r["team"]
                                                  and r["date"] <= _plus(out[i - 1]["date"], 14))]   # (one change, twice)

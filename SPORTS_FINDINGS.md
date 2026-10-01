@@ -4,9 +4,13 @@ Every number below: the engine trained only on seasons BEFORE the ones it's grad
 prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old seasons can mislead). Built = in the engine.
 
 ## Built into the engine
-- **Get in early (the breakthrough):** dogs the engine's own read likes at the OPENING price win; the same dogs at
-  game-day prices lose. NFL +8+ pts (+24.7%), NBA +4..8 (+5.8%), NHL +4..8 (+8.9%, both seasons). sports_early.py,
-  re-examined 3x a day (a sport drops out on its own if it stops passing).
+- **Get in early - CORRECTED 10/1 (data audit):** the 9/30 numbers (NFL +8+ +24.7%, NBA +5.8%, NHL +8.9%) were graded
+  at the "open" - and the NFL's open is often the SUMMER look-ahead line (Ravens opened -250, closed +265), a price the
+  scan can never bet a week out. All of the NFL's edge was in dogs whose price ran 10+ points our way (+57%, 97% moved
+  - stale opens); the rest lost -23%. The exam now grades only dogs the live scan could have taken (price not already
+  run MOVED_MAX+ toward them - sports_early.bettable). Re-run: only MLB short dogs (+100..+149, own read +8..12)
+  pass (+6.6% / +13.6%); NFL / NBA / NHL / college fail. MLB opens before 2023 = the close (no real open) - skipped.
+  sports_early.py, re-examined 3x a day.
 - **The Lock:** the priciest favorite under -150 is not the Lock. The engine's own read has to agree; 1,808 days:
   58.1% vs 56.8%, the only rule that made money. The books are sharp on favorites (7 seasons: no rule beats them).
 - **Money running away from a dog** (NFL -40%, NCAAF -9%, NBA -8%, NHL -6% every season): weighed in the Dog of the
@@ -15,7 +19,8 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
 - **Playoff series spot:** a favorite that just lost the last game - baseball won 50% (-14%), NBA/NHL favorites facing
   elimination -15% / -19%. Wild Card Game 1 winners closed out 17 of 24; teams shut out in Game 1 went 0 for 5.
 
-- **Unit sizing (9/30, 5 seasons it never saw, every sport):** at the OPENING price, the bigger the engine's edge the
+- **Unit sizing (9/30 - its 'at the opening price' numbers carry the same stale-open problem; quarter-Kelly by the
+  edge stays, the +242u / +124u totals don't hold):** at the OPENING price, the bigger the engine's edge the
   more the line moves our way (NFL biggest edges: moved our way 80%, flipped to favorites 61%; NHL 78% / 39%; MLB 76% /
   31%) and the more money it makes - sizing early plays by the edge (quarter-Kelly, ½-10u) beat flat units: NFL +242u
   vs +20u, NBA +124u vs -18u, NHL +90u vs +57u, college football +72u vs -9u. Rest, home, season phase add almost
@@ -133,6 +138,24 @@ NBA +2.2%, NFL +3.0% - neutral. Baseball looked bad (-6.5% on 1,224 vs -3.4% for
 wobbles (-1, -7, -2, +2 points vs baseline 2023-26) - not steady enough to weigh. Recheck after 2027.
 Hockey home openers (10/1 recheck, 8 seasons): road dogs -16.0% on 164, home favorites +3.8% but down 2024-26 -
 noise either way.
+
+## Data audit (10/1, the owner: "gotta confirm we don't gather bad data")
+- **Coaches (ESPN per season): BAD** - today's coach copied back through every season (NFL / NHL / MLB / college
+  football), partly wrong in hoops. Coaching round 1 weights OFF.
+- **Opening lines: STALE in the NFL** (summer look-ahead lines; the open moves 15+ win-% points by kickoff in 7% of
+  September games, 35% of December); MLB 2019-22 has no real open (= the close). Early exam fixed (see Get in early).
+  Every "since the open" study in the NFL should be read with that in mind.
+- **College football 2024-25: ~45% of games missing** (~500 a season vs ~930 before) - ratings and every "last 3
+  seasons" college football finding lean on a partial slate. Backfill: ncaaf_backfill.yml.
+- **Firings (Wikipedia): 4 of 153 wrong** (Staley's 2023 firing repeated as 2024; 'Charleston Southern' / 'USC Upstate'
+  / 'North Carolina A&T' read as other teams) - parser fixed, file rebuilt (149).
+- **Team-name match for odds was loose** ('UC Davis' ~ any 'UC' school, 'Texas St' ~ the Longhorns; 11 of ~24,000
+  games off) - fixed (sports_data._same).
+- **Injuries:** the history is empty except NFL 2026; the injury weights start at 0 and only move on the games that have
+  reports (MLB 0.119, NFL 0.204, NHL 0.053) - thin, watch.
+- **OK:** closing moneylines (no home/away swaps), line scores (sum to the final 126k of 126k), starting pitchers (99.6%
+  match the box score), NHL goalies (95-97%), player box scores (right team, by player id), team stats.
+- Small: 2 duplicate MLB games (2017, 2018) - harmless.
 
 ## Data the engine gained
 Every player's box score, every sport, 2021-now (data/sports/roster, rosters.yml keeps it filling). Next: player

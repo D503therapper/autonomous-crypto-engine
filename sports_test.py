@@ -4283,7 +4283,18 @@ def test_early_exam_pass_rule():
     assert ok(29, 0.33, 33, 0.08)                    # the NFL +4..8 on 9/30
     assert not ok(27, 0.11, 24, 0.14)                # college football: +11% / +14% but only 51 dogs (yet)
     assert not ok(205, 0.003, 207, 0.03)             # NBA +8: one flat season
-    assert se.passed(os.path.join(tempfile.mkdtemp(), "none.json")) == se.EARLY   # no exam yet: the 9/30 result
+    assert se.passed(os.path.join(tempfile.mkdtemp(), "none.json")) == se.EARLY == {}   # no exam yet: nothing posts
+
+
+def test_early_exam_grades_only_bettable_prices():
+    """10/1 data audit: the NFL's "open" is often the summer look-ahead line (Ravens opened -250, closed +265) - a price
+    nobody can bet a week out. Grading the engine's read at it made NFL early dogs look +57% (and -23% on the rest).
+    The exam now skips a dog whose price ran MOVED_MAX+ cents toward it - the same dogs the live scan would skip."""
+    import sports_early as se
+    assert se.bettable(150, 150) and se.bettable(150, 140) and se.bettable(150, 190)   # moved away: still bettable
+    assert not se.bettable(205, -320) and not se.bettable(160, 140)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_early.py")).read()
+    assert 'if price == "early" and not bettable(o, c):' in src
 
 
 def test_no_thin_or_dull_text():
@@ -5116,6 +5127,38 @@ def test_firing_study():
     base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "nfl", "market": "ml"}
     assert sports.dog_score({**base, "fired_on": "2023-10-31"}) == sports.dog_score(base) - 3
     assert sports.dog_score({**base, "league": "nhl", "fired_on": "2023-10-31"}) == sports.dog_score({**base, "league": "nhl"}) + 2
+
+
+def test_team_name_match_is_not_loose():
+    """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
+    'Texas St' the Longhorns'. The rest of the short name has to be in there too."""
+    import sports_data as sd
+    assert sd._same("Miami OH", "Miami (OH) RedHawks") and sd._same("Chiefs", "Kansas City Chiefs")
+    assert sd._same("North Carolina", "North Carolina Tar Heels")
+    assert not sd._same("UC Davis", "UC Santa Barbara Gauchos") and not sd._same("Texas St", "Texas Longhorns")
+    assert not sd._same("", "Texas Longhorns")
+
+
+def test_firing_parse_audit_fixes():
+    """10/1 data audit: next season's page repeats last season's yearless firing (Staley 12/15/2023 came back as
+    12/15/2024) - the repeat goes; and a college row for 'Charleston Southern' / 'USC Upstate' / 'North Carolina A&T'
+    never lands on 'Southern' / 'USC' / 'North Carolina'."""
+    import sports_coach_changes as cc
+    days = ("10-01", "10-08", "10-15", "10-22", "11-05", "11-12", "11-19", "12-01", "12-08", "12-22", "12-29", "01-05")
+    games = {}
+    for y in (2023, 2024):
+        for i, d in enumerate(days):
+            yr = y + 1 if d.startswith("01") else y
+            games[f"nfl{y}{i}"] = {"id": f"nfl{y}{i}", "league": "nfl", "status": "final", "stype": "2",
+                                    "start": f"{yr}-{d}T17:00Z", "home": "24", "away": "1", "home_name": "Chargers", "away_name": "Bears"}
+            games[f"cb{y}{i}"] = {"id": f"cb{y}{i}", "league": "ncaab", "status": "final", "stype": "2",
+                                   "start": f"{yr}-{d}T17:00Z", "home": "9", "away": "8", "home_name": "Southern", "away_name": "Alcorn St"}
+    row = "! scope=\"row\" |Los Angeles Chargers\n| Fired\n| After a start, Staley was fired on December 15 after almost three seasons."
+    raw = {"nfl:2023": {"sections": ["== In-season ==\n{|\n|-\n" + row + "\n|}"]},
+           "nfl:2024": {"sections": ["== Offseason ==\n{|\n|-\n" + row + "\n|}"]},
+           "ncaab:2024": {"sections": ["== In-season ==\n{|\n|-\n| Charleston Southern || Barclay Radebaugh || December 1, 2024 || Fired\n|}"]}}
+    got = cc.parse(games, raw)
+    assert [(r["league"], r["team"], r["date"]) for r in got] == [("nfl", "24", "2023-12-15")]
 
 
 def test_early_season_hockey_favorites():

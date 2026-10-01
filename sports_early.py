@@ -37,8 +37,8 @@ BANDS = ((0.04, 0.08, 100, 280), (0.08, 1.0, 100, 280),   # (how far the engine'
                                                           # +100..+149 at +8..12 (9/30, with who's pitching / in net:
                                                           # MLB 4 of 4 seasons +11.5%, NHL 3 of 3 +7.4%)
 PASS_N, PASS_SEASON_N, PASS_ROI = 60, 20, 0.02   # a band passes: 60+ dogs, 20+ in each exam season, +2% in EACH
-# what passed on 9/30 (used until the first study run writes early_exam.json)
-EARLY = {"nfl": [(0.04, 0.08), (0.08, 1.0)], "nba": [(0.04, 0.08)]}
+EARLY = {}                              # 10/1: nothing until an exam on bettable prices passes (the 9/30 NFL / NBA
+#                                         passes were graded at the NFL's summer look-ahead opens - see bettable())
 DOG_MIN, DOG_MAX = 100, 280
 MOVED_MAX = 15                          # cents the price may have already moved toward the dog since the open
 LEAD_H = 2                              # the game at least this many hours away
@@ -160,9 +160,15 @@ def exam(games, now=None, leagues=LEAGUES, path=None):
             for price, (a, b) in (("early", (oh, oa)), ("game time", (ch, ca))):
                 pa, pb = 1 / _dec(a), 1 / _dec(b)
                 mk = pa / (pa + pb)
-                for o, won, ow, m in ((a, hs > as_, own, mk), (b, as_ > hs, 1 - own, 1 - mk)):
+                for o, won, ow, m, c in ((a, hs > as_, own, mk, ch), (b, as_ > hs, 1 - own, 1 - mk, ca)):
                     if not DOG_MIN <= o <= DOG_MAX:
                         continue
+                    if price == "early" and not bettable(o, c):
+                        continue                         # 10/1 audit: the live scan never posts once the price has
+                        #                                  run MOVED_MAX+ toward the dog - and the NFL's "open" is often
+                        #                                  the summer look-ahead line (Ravens opened -250, closed +265),
+                        #                                  a price nobody can bet a week out. Grading at it made the NFL
+                        #                                  look +57% on exactly those dogs (-23% on the rest).
                     for b in BANDS:
                         lo, hi, omin, omax = b
                         if lo <= ow - m < hi and omin <= o <= omax:
@@ -189,6 +195,12 @@ def exam(games, now=None, leagues=LEAGUES, path=None):
 
 def study(games):
     return exam(games)
+
+
+def bettable(open_ml, close_ml):
+    """Could the live scan have posted this dog at its open? Only if the price hadn't run MOVED_MAX+ cents toward it -
+    the exam grades the same dogs the scan would take (10/1: the NFL's summer look-ahead opens made it look +57%)."""
+    return moved_toward(open_ml, close_ml) <= MOVED_MAX
 
 
 def moved_toward(open_ml, now_ml):
