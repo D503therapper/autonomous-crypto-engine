@@ -59,18 +59,23 @@ def coaching_sections(text):
     return out
 
 
-def run(seasons=range(2015, 2027)):
+def run(seasons=None):
     try:
         with open(RAW) as f:
             raw = json.load(f)
     except (OSError, ValueError):
         raw = {}
-    for season in seasons:
+    from datetime import datetime, timezone
+    yr = datetime.now(timezone.utc).year
+    for season in seasons or range(2015, yr + 1):
         for lg, page in pages(season).items():
             key = f"{lg}:{season}"
-            if raw.get(key, {}).get("sections"):
-                continue
+            if raw.get(key, {}).get("sections") and season < yr:
+                continue                                     # (10/1 audit: this season's page is re-read every week -
+            #                                                  a firing mid-season never came in once it was cached)
             secs = coaching_sections(fetch(page))
+            if not secs and raw.get(key, {}).get("sections"):
+                continue                                     # a failed read never wipes what we had
             raw[key] = {"page": page, "sections": secs}
             print(f"{key}: {page} - {len(secs)} coaching section(s), {sum(len(s) for s in secs)} chars", flush=True)
             time.sleep(0.5)                                  # (gentle on Wikipedia)
