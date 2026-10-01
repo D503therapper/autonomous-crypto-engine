@@ -83,7 +83,13 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   opposite: after a change the team beats its price (dogs -0.6% vs -5.4% rest of season; games 4-10 +7.6% / +4.5%).
   Built: -3 / +2 on the Dog's score (sports_coach_changes.recent). Smaller samples (~20-50 changes a sport) - weighed.
 
-## Found, not built yet (build before their season / playoffs)
+## Found, not built yet
+- **Coaching styles, round 1 (9/30, each team's style from its EARLIER games that season, closing prices):** NFL
+  4th-down aggressiveness, pass rate, pace: nothing steady (the books know who goes for it). College football: PASS-
+  HEAVY favorites worse than every favorite 4 of 5 seasons (-14.5% vs -7.4%), run-heavy favorites better 4 of 5 -
+  WATCH. Hockey: high-shot-volume dogs a bit better than every dog 4 of 4 (still losing). Hoops (only ~1 season of
+  team stats so far): college 3-point-HEAVY dogs +6%, NBA slow-PACE dogs +5.7% (2 of 2) - high-variance styles making
+  upsets; re-run once data/sports/teamstats fills in older seasons. (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER
   bench +4.6% (4 of 5), the dog version +10..18% the last 3 seasons (the owner's Nuggets point).
