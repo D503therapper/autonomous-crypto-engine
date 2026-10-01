@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T08:27Z",
+ "updated": "2026-10-01T08:57Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -115,7 +115,7 @@
     "line": 1.5,
     "odds": -174,
     "p": 0.621,
-    "win_p": 0.504,
+    "win_p": 0.505,
     "reasons": [
      "the stronger team"
     ]
@@ -393,13 +393,45 @@
    }
   },
   {
+   "id": "nhl:401892432",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Hurricanes",
+    "p": 0.379,
+    "tie": 0.297,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-02T23:00Z",
+   "away": "Capitals",
+   "home": "Hurricanes",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Capitals",
+    "opp": "Hurricanes",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -222,
+    "p": 0.662,
+    "win_p": 0.444,
+    "reasons": [
+     "hotter recent form",
+     "better rested",
+     "opponent drama: trade drama"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401871050",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Liberty",
-    "p": 0.627,
-    "tie": 0.031,
+    "p": 0.621,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -415,8 +447,8 @@
     "market": "ml",
     "line": null,
     "odds": -285,
-    "p": 0.612,
-    "win_p": 0.612,
+    "p": 0.605,
+    "win_p": 0.605,
     "reasons": []
    }
   },
@@ -539,6 +571,36 @@
     "win_p": 0.644,
     "reasons": [
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892433",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Golden Knights",
+    "p": 0.393,
+    "tie": 0.296,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-03T02:00Z",
+   "away": "Ducks",
+   "home": "Golden Knights",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Ducks",
+    "opp": "Golden Knights",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -192,
+    "p": 0.634,
+    "win_p": 0.415,
+    "reasons": [
+     "better rested"
     ]
    }
   },
