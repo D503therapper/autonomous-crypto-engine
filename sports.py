@@ -1735,6 +1735,89 @@ def slate_check(games, cands, day, now, errors=None):
     return probs
 
 
+def factor_check(games, cands, injuries, day, now):
+    """🔎 THE DOUBLE CHECK, part 1 (the owner, 10/1: "every day before the engine posts there needs to be a check - make
+    sure it's weighing every factor, every study"): every study's data actually loaded for the sports on today's slate.
+    A missing piece holds the board (the engine re-pulls) until SLATE_LAST_TRY, then it posts and the log says what
+    was missing. Adds the result to slate_check.json."""
+    lgs = {c["league"] for c in cands}
+    probs = []
+    for lg in sorted(lgs):
+        if lg in ("nfl", "ncaaf", "ncaab", "nba", "nhl", "mlb") and not any(k[0] == lg for k in DOG_ST):
+            probs.append(f"{lg.upper()}: the last-result / form data (dog studies) didn't load")
+        if lg in sports_form.B2B_LEAGUES and not any(k[0] == lg for k in LAST_STARTS):   # (rest data: hockey / hoops)
+            probs.append(f"{lg.upper()}: the rest / back-to-back data didn't load")
+        if not (injuries or {}).get(lg):
+            probs.append(f"{lg.upper()}: the injury report didn't load")
+    fb = [c for c in cands if c["league"] in ("nfl", "ncaaf") and c.get("market") == "ml"]
+    if fb and not any("win_streak" in (c.get("dog_more") or {}) for c in fb):
+        probs.append("football: the dog findings (bye, Monday night, streaks, coaches) didn't load")
+    if any(c["league"] == "nfl" for c in cands):
+        import sports_go4
+        up = sports_go4.load().get("updated")
+        try:
+            stale = (now - datetime.strptime(up, "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)).days > 3
+        except (TypeError, ValueError):
+            stale = True
+        if stale:
+            probs.append("NFL: the 4th-down rates are missing or 3+ days old")
+    hk = [c for c in cands if c["league"] == "nhl" and c.get("market") == "ml" and c.get("odds", 0) < 0 and c["odds"] >= -300]
+    if hk and not any(c.get("w_p") is not None for c in hk):
+        probs.append("NHL: the hockey favorites weren't weighed against the dog across the ice")
+    try:
+        cur = json.load(open(SLATE_PATH)) if os.path.exists(SLATE_PATH) else {}
+        cur["factors"] = probs
+        with open(SLATE_PATH + ".tmp", "w") as f:
+            json.dump(cur, f, indent=1)
+        os.replace(SLATE_PATH + ".tmp", SLATE_PATH)
+    except (OSError, ValueError):
+        pass
+    for x in probs:
+        print(f"FACTOR CHECK: {x}", flush=True)
+    return probs
+
+
+def rule_check(picks, new, iso, games=None, day=None, now=None):
+    """🔎 THE DOUBLE CHECK, part 2: every pick about to go up obeys the owner's rules - never past -150, no puck / run
+    lines, one pick per game, a Lock / Dog always carries units, the Dog never past its cap, units only when the read
+    beats the real price. A pick that breaks one is pulled before it posts (and the log says why). Also flags a
+    Monday / Thursday NFL game left without its pick. Returns the problems."""
+    probs, seen = [], {}
+    for p in picks:
+        if p["date"] == iso and p["status"] != "waiting" and p not in new and p.get("kind") not in PARLAY_KINDS:
+            for l in p["legs"]:
+                seen[l["game_id"]] = p
+    for pk in list(new):
+        l = (pk.get("legs") or [{}])[0]
+        why = None
+        if l.get("market") == "ml" and (l.get("odds") or 0) < MAX_FAV:
+            why = "past -150"
+        elif l.get("league") in ("nhl", "mlb") and l.get("market") not in ("ml", "total"):
+            why = "a puck line / run line"
+        elif l.get("game_id") in seen:
+            why = "a second pick on a game we're already on"
+        elif pk.get("kind") in ("lock", "dog") and not pk.get("lean") and not units_for(pk):
+            why = f"a {pk['kind']} with no units"
+        elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DOG_DAY_MAX:
+            why = "a Dog past its cap"
+        elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM:
+            why = "units on a price its read doesn't beat"
+        if why:
+            probs.append(f"pulled {pk.get('kind')} {l.get('team')} {l.get('odds')}: {why}")
+            new.remove(pk)
+            if pk in picks:
+                picks.remove(pk)
+        else:
+            seen[l.get("game_id")] = pk
+    if games is not None and day is not None and day.weekday() in (0, 3):
+        for gid in night_games(games, day, picks, now or datetime.now(timezone.utc)):
+            if gid not in _straight_games(picks, iso):
+                probs.append(f"Monday/Thursday NFL game {gid} has no pick yet")
+    for x in probs:
+        print(f"RULE CHECK: {x}", flush=True)
+    return probs
+
+
 def preflight(games, model, now):
     """The 7 AM PT run: the same slate check an hour before the board, so a problem gets caught (and the hourly bug
     check flags it) before 8."""
@@ -1791,7 +1874,7 @@ def post_board(games, model, picks, now, day, force=False):
     cands = candidates(games, model, now, day, injuries)
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
     if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
-        probs = slate_check(games, cands, day, now)
+        probs = slate_check(games, cands, day, now) + factor_check(games, cands, injuries, day, now)
         if probs and (local.hour, local.minute) < SLATE_LAST_TRY:
             print(f"holding the board: the slate check found {len(probs)} problem(s) - the engine re-pulls and tries "
                   f"again (last try 8:30 PT)")
@@ -1946,6 +2029,7 @@ def post_board(games, model, picks, now, day, force=False):
         pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         new.append(pk)
+    rule_check(picks, new, iso, games, day, now)
     return new
 
 

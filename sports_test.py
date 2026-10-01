@@ -6022,6 +6022,36 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_the_daily_double_check():
+    """10/1, the owner: "every day before the engine posts there needs to be a double check - every factor, every study,
+    no bugs on the picks." Part 1: a missing study's data holds the board. Part 2: a pick breaking a rule gets pulled."""
+    from datetime import date
+    keep = {k: dict(getattr(sports, k)) for k in ("DOG_ST", "LAST_STARTS")}
+    try:
+        sports.DOG_ST.clear(); sports.LAST_STARTS.clear()
+        c = {**_cand("g", -120, 0.55, league="mlb")}
+        probs = sports.factor_check({}, [c], {}, date(2026, 10, 1), datetime(2026, 10, 1, 15, tzinfo=timezone.utc))
+        assert any("dog studies" in p for p in probs) and any("injury report" in p for p in probs)
+        sports.DOG_ST[("mlb", "1")] = {"won": True}; sports.LAST_STARTS[("mlb", "1")] = ["x"]
+        probs = sports.factor_check({}, [c], {"mlb": {"1": []}}, date(2026, 10, 1), datetime(2026, 10, 1, 15, tzinfo=timezone.utc))
+        assert not probs, probs
+    finally:
+        for k, v in keep.items():
+            getattr(sports, k).clear(); getattr(sports, k).update(v)
+    iso = "2026-10-01"
+    ok = {"date": iso, "kind": "lean", "lean": True, "status": "open", "legs": [{**_cand("a", -120, 0.55), "game_id": "a"}]}
+    big = {"date": iso, "kind": "lean", "lean": True, "status": "open", "legs": [{**_cand("b", -180, 0.65), "game_id": "b"}]}
+    dup = {"date": iso, "kind": "lean", "lean": True, "status": "open", "legs": [{**_cand("a2", -110, 0.52), "game_id": "a"}]}
+    pl = {"date": iso, "kind": "lean", "lean": True, "status": "open",
+          "legs": [{**_cand("c", -110, 0.55, market="spread", line=-1.5, league="nhl"), "game_id": "c"}]}
+    nolock = {"date": iso, "kind": "lock", "status": "open",
+              "legs": [{**_cand("d", -148, 0.57), "edge_own": 0.58 * sd.decimal(-148) - 1, "game_id": "d"}]}
+    picks = [ok, big, dup, pl, nolock]; new = list(picks)
+    probs = sports.rule_check(picks, new, iso)
+    assert new == [ok] and picks == [ok], [p["legs"][0]["game_id"] for p in new]
+    assert len(probs) == 4
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
