@@ -5342,6 +5342,15 @@ def test_dog_studies_10_1():
     assert st[("mlb", "A")]["won"] is True and abs(st[("mlb", "A")]["rs"] - 40 / 56) < 1e-9 and st[("mlb", "B")]["won"] is False
 
 
+def test_nutshell_counts_picks_not_cards():
+    """10/1, the owner: the brain said 1-4 on a night we went 3-2 (Yankees, Maple Leafs, Padres won; Flyers, Kings
+    lost) - it counted the 2-, 3- and 4-leg cards as three L's off one Flyers loss. The day's line counts each PICK
+    once, a parlay's picks on their own (the record's rule)."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    nut = src[src.index("# the brain, in a nutshell"):src.index("live_today = any(")]
+    assert "calls_[key] = r" in nut and 'p["status"] == "won" for p in graded' not in nut
+
+
 def test_team_name_match_is_not_loose():
     """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
     'Texas St' the Longhorns'. The rest of the short name has to be in there too."""

@@ -1454,12 +1454,22 @@ def render(picks, model, games, series, start_bank, updated_ms):
             lines += [n["text"] for n in json.load(f) if n.get("date") == today and not n.get("live")]
     except (OSError, ValueError, KeyError):
         pass
-    graded = [p for p in done if p["date"] == today and p["kind"] != "eight"]           # a new day never talks about yesterday
-    w_, l_ = sum(p["status"] == "won" for p in graded), sum(p["status"] == "lost" for p in graded)
+    calls_, open_ = {}, False                                 # the day's PICKS, each once (the owner, 10/1: "we won
+    for p in picks:                                           # three and lost two" - a parlay's picks count on their own,
+        if p["date"] != today or p["kind"] == "eight" or not sports.in_record(p):   # never the parlay card as an L)
+            continue
+        for l in p.get("legs") or []:
+            r = l.get("result") or (p.get("status") if len(p["legs"]) == 1 else None)
+            key = (l.get("game_id"), l.get("side"), l.get("market"))
+            if r in ("won", "lost"):
+                calls_[key] = r
+            elif r not in ("push", "void") and key not in calls_:
+                open_ = True
+    w_, l_ = sum(r == "won" for r in calls_.values()), sum(r == "lost" for r in calls_.values())
     live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
     if w_ + l_ == 0 and live_today:
         pass                                                      # the live results below speak for the day
-    elif any(p["date"] == today and p["kind"] != "eight" and p["status"] == "open" for p in picks):
+    elif open_:
         lines.append(_rot(k, [f"⏳ {w_}-{l_} so far today — still got tickets live. We gon' see.",
                               f"⏳ {w_}-{l_} so far. Tickets still cooking — we finna see.",
                               f"⏳ Sitting at {w_}-{l_} right now. Day ain't over — more tickets still cooking.",
