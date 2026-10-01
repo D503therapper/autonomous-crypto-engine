@@ -1972,7 +1972,10 @@ function fastScores(){{if(document.hidden||!API)return;var n=Date.now(),ids={{}}
  .then(function(d){{if(d){{window.D503F=d;window.D503Ft=Date.now();liveTags()}}}}).catch(function(){{}});}}
 function games(sc){{return (sc.sets||[]).reduce(function(t,x){{return t+(+x[0]||0)+(+x[1]||0)}},0)}}
 function flip(sc){{return {{tennis:true,n:[sc.n[1],sc.n[0]],sets:(sc.sets||[]).map(function(x){{return [x[1],x[0]]}}),
-  pts:sc.pts?[sc.pts[1],sc.pts[0]]:null,srv:sc.srv===0?1:sc.srv===1?0:null,done:sc.done,live:sc.live,delayed:sc.delayed}}}}
+  pts:sc.pts?[sc.pts[1],sc.pts[0]]:null,srv:sc.srv===0?1:sc.srv===1?0:null,done:sc.done,live:sc.live,delayed:sc.delayed,
+  first:sc.p1?2:(+sc.first||1)===1?2:1}}}}
+function orient(sc,side){{   // a tennis score, turned so THIS box's player is first (10/1: every feed says who it lists
+ if(!sc||!sc.tennis)return sc;var f=sc.p1?1:(+sc.first||1),w=+side===2?2:1;return f===w?sc:flip(sc)}}   // first)
 function called(s,sc){{   // the second it's final: ✅ HIT / ❌ MISS from the final score (the official grade + review follow)
  var mk=s.getAttribute("data-mk")||"",side=s.getAttribute("data-side")||"",r=null;
  if(sc.tennis){{if(mk!=="ml")return null;var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
@@ -1997,7 +2000,7 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
  document.querySelectorAll(".tm[data-start]").forEach(function(s){{
   // 🔴 LIVE while it's being played, with the score + time left right under it (tennis: sets, games, points)
   var st=Date.parse(s.getAttribute("data-start"));if(!st)return;
-  var sc=S[s.getAttribute("data-gid")||""];if(sc&&sc.p1&&s.getAttribute("data-side")==="2")sc=flip(sc);   // our player first
+  var sc=S[s.getAttribute("data-gid")||""];if(sc&&sc.tennis)sc=orient(sc,s.getAttribute("data-side"));   // our player first
   var row=s.closest(".lt"),leg=row&&row.parentNode,box=leg?leg.querySelector(":scope>.lsc"):null;   // the score sits
   //                                                      under the pick (right above its breakdown), never above it
   var on=sc?true:(n>=st&&n<st+6*3600000&&!s.classList.contains("dly"));   // (not started yet: stays DELAYED)
@@ -2047,7 +2050,7 @@ function gone(){{var n=Date.now(),b=document.querySelector(".board");if(!b)retur
 gone();setInterval(gone,30000);
 function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data-gid]").forEach(function(c){{   // 🥊 challenge:
  var i=c.querySelector(".pvp>i"),sc=B[c.getAttribute("data-gid")];if(!i)return;   // 10/1, the owner: it said LIVE for
- if(sc&&sc.p1&&c.getAttribute("data-side")==="2")sc=flip(sc);                      // 6 hours off the clock - now only the
+ sc=orient(sc,c.getAttribute("data-side"));                      // 6 hours off the clock - now only the
  var h="";if(sc&&sc.live&&!sc.delayed){{                                          // real score feed says LIVE / done
    var st_=sc.sets||[],dn=sc.done||0,sw=[0,0];st_.slice(0,dn).forEach(function(x){{if(x[0]>x[1])sw[0]++;else if(x[1]>x[0])sw[1]++}});
    var cur=st_[dn];                                              // (10/1, the owner: Zheng's 3-setter "looked all messed

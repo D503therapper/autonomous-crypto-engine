@@ -1286,10 +1286,10 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
             if m["id"] in ours and state in ("final", "retired", "void"):
                 FINALS.add(f"tennis:{m['id']}")                 # one of our matches is over: grade it right now
             if state == "live" or (state != "pre" and m["id"] in ours):
-                SCORES[f"tennis:{m['id']}"] = {**_tennis_score(m, ours.get(m["id"])), "tennis": True, "live": state == "live",
-                                               "delayed": any(k in str(m.get("status", "")).upper() for k in ("DELAY", "SUSPEND", "RAIN"))}
                 mine = ours.get(m["id"]) or next((int(x.rsplit(":", 1)[1]) for x in showing
                                                   if x.startswith(f"tennis:{m['id']}:")), None)
+                SCORES[f"tennis:{m['id']}"] = {**_tennis_score(m, mine), "tennis": True, "live": state == "live",
+                                               "delayed": any(k in str(m.get("status", "")).upper() for k in ("DELAY", "SUSPEND", "RAIN"))}
                 if state == "live" and mine:                    # ours / a live play up: Bovada's faster score
                     ln_, _ = stn.match_line(m, lines, hours=12)
                     k_ = f"tennis:{m['id']}"
@@ -1440,7 +1440,7 @@ def _bovada_score(m, ln, side):
         names, sets = names[::-1], [x[::-1] for x in sets]
         srv = None if srv is None else 1 - srv
     return {"n": names, "sets": sets, "pts": None, "srv": srv, "done": done, "tennis": True, "live": not final,
-            "src": "bovada"}
+            "src": "bovada", "first": 2 if side == 2 else 1}
 
 
 BEST = {}                     # match -> the furthest-along score seen (ESPN's servers hand out older copies)
@@ -1517,7 +1517,9 @@ def _tennis_score(m, side=None):
     srv = {1: 0, 2: 1}.get(s.get("server"))
     if flip and srv is not None:
         srv = 1 - srv
-    return {"n": names, "sets": sets, "pts": pts, "srv": srv, "done": len(s["done"])}
+    return {"n": names, "sets": sets, "pts": pts, "srv": srv, "done": len(s["done"]), "first": 2 if flip else 1}
+    # ("first": whose score is listed first - the page turns it to each box's own player. 10/1: the Patty box read a
+    #  score listed for OUR pick's player as its own, and a side-2 player showed the other guy's sets / a WIN as a LOSS)
 
 
 def _score(box, side):

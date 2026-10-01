@@ -5279,7 +5279,7 @@ def test_challenge_live_comes_from_the_score_feed():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert '.tm[data-gid],.pvc[data-gid]' in src                        # the challenge's matches are fetched too
     js = src[src.index("function pvLive"):src.index("pvLive();setInterval")]
-    assert "st+6*3600000" not in js and "sc.live" in js and "flip(sc)" in js
+    assert "st+6*3600000" not in js and "sc.live" in js and "orient(sc," in js
     assert "✅ WIN" in js and "❌ LOSS" in js                              # the owner, 10/1: the mark AND the word
     assert "Math.max(w[0],w[1])<2" in js                                   # one set in is never a result (Ruud, 10/1)
     assert 'c.classList.toggle("lost"' in js                               # a live-called loss looks like a graded one
@@ -5522,6 +5522,38 @@ def test_odds_history_pull():
     assert oh.rows(sp, "x", "spreads")[0]["b"] == {"dk": [9.5, -110, -9.5, -110]}
     assert oh.rows(sp, "x") == []                                           # (a moneyline pull never reads spreads)
     assert 0 < sum(len(oh.snaps(s, date(2026, 10, 1), oh.SPREAD_PLAN)) for s in oh.SPREAD_PLAN) * 10 < 3500
+
+
+def test_challenge_score_turned_to_each_players_side():
+    """10/1, the owner: the Patty box's scores 'look fucked up again'. The live scores come from two feeds - ESPN's
+    order (p1 first) and our own picks' (OUR player first) - and only the first one said so: a box player listed
+    second, or on the other side of one of our picks, showed the other guy's sets (and a WIN as a LOSS). Every score
+    now says who's first, and the page turns it to each box's own player."""
+    import subprocess
+    m = {"id": "atp:1", "p1_name": "Casper Ruud", "p2_name": "Holger Rune", "status": "live"}
+    orig = sports_live.stl.score_state
+    sports_live.stl.score_state = lambda m_: {"done": [(6, 3), (2, 6)], "games": (5, 1), "pts": None, "server": 1}
+    try:
+        a, b = sports_live._tennis_score(m, 1), sports_live._tennis_score(m, 2)
+    finally:
+        sports_live.stl.score_state = orig
+    assert a["first"] == 1 and b["first"] == 2 and b["sets"][0] == [3, 6]
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    js = src[src.index("function flip(sc)"):src.index("function called(")].replace("{{", "{").replace("}}", "}")
+    assert "sc.p1&&" not in src                                  # (the old rule: only ESPN's order ever got turned)
+    if not shutil.which("node"):
+        return
+    test = js + """
+var espn={tennis:true,p1:true,n:["Ruud","Rune"],sets:[[6,3],[2,6],[5,1]],done:2,live:true};
+var ours2={tennis:true,first:2,n:["Rune","Ruud"],sets:[[3,6],[6,2],[1,5]],done:2,live:true};
+var old={tennis:true,n:["Ruud","Rune"],sets:[[6,3]],done:1,live:true};
+var out=[orient(espn,"1").n[0],orient(espn,"2").n[0],orient(ours2,"1").n[0],orient(ours2,"2").n[0],
+ orient(ours2,"1").sets[0].join("-"),orient(orient(espn,"2"),"1").n[0],orient(old,"1").n[0],orient(old,"2").n[0]];
+console.log(out.join("|"));"""
+    path = os.path.join(tempfile.mkdtemp(), "orient.js")
+    open(path, "w").write(test)
+    r = subprocess.run(["node", path], capture_output=True, text=True)
+    assert r.stdout.strip() == "Ruud|Rune|Ruud|Rune|6-3|Ruud|Ruud|Rune", (r.stdout, r.stderr[:300])
 
 
 if __name__ == "__main__":
