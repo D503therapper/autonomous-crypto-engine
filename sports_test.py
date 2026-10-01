@@ -5091,6 +5091,20 @@ def test_early_season_hockey_favorites():
         sports.SEASON_START.clear(); sports.SEASON_START.update(keep)
 
 
+def test_early_is_never_game_day_and_leads_game_day():
+    """9/30 (the owner: 'we got this game day, not early'): the Kings went up as an 'early' play at 5 PM PT for a 7 PM
+    game - an early play is never on its game day. And WE GOT IN EARLY sits at the top of game day, right under the
+    Lock (its own box: it never comes down with the Lock's card)."""
+    import inspect
+    import sports_early as se
+    import sports_dashboard as d
+    assert "start.astimezone(PT).date() <= now.astimezone(PT).date()" in inspect.getsource(se.scan)
+    out = d._cards("2026-10-01", [], [("lock", "<L>", 111), ("dog", "<D>", None)], after_lock="<EARLY>")
+    assert out.index("<L>") < out.index("<EARLY>") < out.index("<D>")
+    assert out.index("</div><EARLY>") >= 0                                    # outside the Lock's coming-down wrapper
+    assert d._cards("2026-10-01", [], [("dog", "<D>", None)], after_lock="<EARLY>").startswith("<EARLY>")
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

@@ -448,7 +448,7 @@ def _dog_note(day, day_picks):
     return f'<div class="drop leanday">🐺 {E(sports_lingo.dog_note(day))}</div>'
 
 
-def _cards(day, day_picks, cards_by_kind, gone=None):
+def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
     """The day's cards in board order, with the no-dog note right after the Lock of the Day. gone: {kind: ms} - a
     graded card's 3 hours are up at that moment, and the page takes it down itself (no waiting on a rebuild)."""
     out = ""
@@ -457,7 +457,10 @@ def _cards(day, day_picks, cards_by_kind, gone=None):
         if k == "lock":
             card += _dog_note(day, day_picks)
         out += f'<div class="gn" data-gone="{g}">{card}</div>' if g else card
-    return out
+        if k == "lock" and after_lock:                       # 🎯 WE GOT IN EARLY: top of game day, right under the
+            out += after_lock                                # Lock (the owner, 9/30) - its own box, never coming
+            after_lock = ""                                  # down with the Lock's card
+    return after_lock + out if after_lock else out       # (no Lock up: it leads the board)
 
 
 def gone_ms(p):
@@ -1179,7 +1182,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
         early = early_today = ""
-    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p), gone_ms(p)) for p in active]) if active else drop
+    board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p), gone_ms(p)) for p in active],
+                   after_lock=early_today) if active else early_today + drop
     if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
         board += f'<template id="dropnote">{drop}</template>'   # the moment the last one's 3 hours are up
     if todays and all(p.get("lean") for p in todays if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
@@ -1778,7 +1782,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 {bell}<div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div><div class="nolive">👀 The algorithm’s watching every play for value.</div></section></div>
 <div id="livetoday">{live_list}</div>
 <div class="sec"><h2><i>●</i> TODAY'S BOARD</h2><span>{E(board_date)}</span></div>
-<div class="board">{board}{early_today}</div>
+<div class="board">{board}</div>
 {tomorrow}
 {early}
 {_tennis()}
