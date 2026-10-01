@@ -53,16 +53,17 @@ jobs:
       - run: |
           end=$((SECONDS + 345 * 60))
           while [ $SECONDS -lt $((end - 120)) ]; do
-            # append line by line (reopening the file): the hourly `git pull --rebase` replaces data/run.log on disk,
-            # and `tee -a` kept writing to the deleted copy, so run.log stopped updating after the first hour
-            python -u run_live.py --watch $(( (end - SECONDS) / 60 )) 2>&1 | python3 -u tools/append_log.py data/run.log
+            # append line by line to an UNTRACKED live log; git_sync copies the new part into data/run.log before each
+            # commit (a tracked file written every second broke the hourly pull at 13:06 on 2026-10-01)
+            python -u run_live.py --watch $(( (end - SECONDS) / 60 )) 2>&1 | python3 -u tools/append_log.py data/run.live.log
             [ $SECONDS -lt $((end - 120)) ] || break
-            echo "[$(date -u '+%F %H:%M') UTC] ENGINE STOPPED EARLY - restarting in 30s" | tee -a data/run.log
+            echo "[$(date -u '+%F %H:%M') UTC] ENGINE STOPPED EARLY - restarting in 30s" | tee -a data/run.live.log
             sleep 30
           done
       - if: always()
         run: |
           rm -f .git/index.lock; git rebase --abort 2>/dev/null || true   # a killed git can leave both behind
+          python3 -c "import run_live; run_live.flush_log()" || true       # untracked live log -> data/run.log
           git add data SCOREBOARD.md LAB.md docs || true
           git commit -qm "paper-trade end of run $(date -u +%FT%TZ)" || exit 0
           for i in 1 2 3 4 5; do git pull --rebase --autostash -q -X theirs && git push && break; git rebase --abort 2>/dev/null; sleep 10; done

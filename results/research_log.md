@@ -79,6 +79,10 @@ CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live
   90 s limit is killed (sh -c execs git, SIGKILL) and leaves .git/index.lock / a half-done rebase, so every later save
   fails. Fix: git_unjam() clears a stale lock / rebase before each sync and after a timeout; limit 300 s; the workflow's
   end-of-run step clears them too. Test: run_live_watchdog_test.py. No DEX trades since 08:41, so little or nothing lost.
+  ROOT CAUSE (run.log, after the end-of-run save at 13:59): not a lock - 'local changes to data/run.log would be
+  overwritten': the log is tracked AND written every second, so the autostashed pull raced it 5 times. Fix: the engine's
+  output goes to an untracked data/run.live.log; git_sync (and the end-of-run step) copy the new part into data/run.log
+  right before committing. Nothing was lost: the 13:06 commit and the end-of-run save reached GitHub at 13:59.
 
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |

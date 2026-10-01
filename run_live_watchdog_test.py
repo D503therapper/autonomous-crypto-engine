@@ -55,8 +55,25 @@ def test_git_unjam_clears_stale_lock_and_rebase():
         os.chdir(cwd)
 
 
+def test_flush_log_copies_only_new_lines():
+    # 13:06 2026-10-01: a tracked run.log written every second broke the hourly pull; the live log is untracked now
+    import os, tempfile
+    d = tempfile.mkdtemp()
+    live, out, off = (os.path.join(d, n) for n in ("live", "out", "off"))
+    open(out, "w").write("old\n")
+    open(live, "w").write("a\nb\n")
+    run_live.flush_log(live, out, off)
+    open(live, "a").write("c\n")
+    run_live.flush_log(live, out, off)
+    run_live.flush_log(live, out, off)                      # nothing new: nothing added
+    assert open(out).read() == "old\na\nb\nc\n"
+    open(live, "w").write("x\n")                            # a new run's fresh live log
+    run_live.flush_log(live, out, off)
+    assert open(out).read().endswith("c\nx\n")
+
+
 if __name__ == "__main__":
     for f in (test_watchdog_fires_when_loop_stalls, test_watchdog_quiet_while_ticking, test_hung_git_is_bounded,
-              test_git_unjam_clears_stale_lock_and_rebase):
+              test_git_unjam_clears_stale_lock_and_rebase, test_flush_log_copies_only_new_lines):
         f()
         print("ok", f.__name__)

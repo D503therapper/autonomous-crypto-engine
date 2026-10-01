@@ -724,6 +724,34 @@ def sh(cmd, **kw):
         return 124
 
 
+LIVE_LOG, RUN_LOG, LIVE_OFF = "data/run.live.log", "data/run.log", "data/run.live.offset"
+
+
+def flush_log(live=LIVE_LOG, out=RUN_LOG, off=LIVE_OFF):
+    """The workflow pipes the engine's output into an UNTRACKED file (data/run.live.log, written every second); the
+    tracked data/run.log only changes here, right before a commit. A tracked file written mid-pull broke every
+    hourly save at 13:06 on 2026-10-01 ('local changes to data/run.log would be overwritten')."""
+    try:
+        start = int(open(off).read().strip() or 0)
+    except (OSError, ValueError):
+        start = 0
+    try:
+        size = os.path.getsize(live)
+    except OSError:
+        return
+    if size < start:                                     # a new run started a fresh live log
+        start = 0
+    if size == start:
+        return
+    with open(live, "rb") as f:
+        f.seek(start)
+        chunk = f.read(size - start)
+    with open(out, "ab") as f:
+        f.write(chunk)
+    with open(off, "w") as f:
+        f.write(str(size))
+
+
 def git_sync():
     """In the cloud runner: commit the paper accounts back to GitHub every hour."""
     if os.environ.get("GIT_AUTOPUSH") != "1":
@@ -731,6 +759,7 @@ def git_sync():
     # `git add data` already covers data/social and data/dex; naming a subdirectory that does
     # not exist yet makes the whole add fail (pathspec error) and nothing gets committed
     git_unjam()
+    flush_log()
     sh("git add data SCOREBOARD.md LAB.md docs")
     sh(f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'", stdout=subprocess.DEVNULL)              # nothing changed: an earlier unpushed commit may still wait
     # other sessions push to main all the time (dashboard, sports, wallet tracker): a single pull + push lost the
