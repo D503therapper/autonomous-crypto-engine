@@ -1,15 +1,6 @@
 {
-  "cash": 5.684341886080802e-14,
+  "cash": 2.9240149823466766,
   "positions": {
-    "AMZN": {
-      "qty": 0.6781821500688636,
-      "entry": 245.7550182495117,
-      "cost": 166.66666666666666,
-      "peak": 245.7550182495117,
-      "stop": 0.0,
-      "took_profit": false,
-      "opened": 1790688600000
-    },
     "IWM": {
       "qty": 0.5960369383336741,
       "entry": 279.6247278442383,
@@ -27,11 +18,20 @@
       "stop": 0.0,
       "took_profit": false,
       "opened": 1790688600000
+    },
+    "MSTR": {
+      "qty": 1.0523589375857119,
+      "entry": 156.51822244262695,
+      "cost": 164.71335028252702,
+      "peak": 156.51822244262695,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1790861400000
     }
   },
   "peak_equity": 500.0,
   "cooldown": {},
   "halted": false,
   "halt_until": 0,
-  "last_rebalance_week": "2026-09-30"
+  "last_rebalance_week": "2026-10-01"
 }

@@ -1,25 +1,33 @@
 {
- "at": "2026-10-01T12:59Z",
+ "at": "2026-10-01T14:30Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "workflow failed: rosters 2026-10-01T13:50 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36871695003",
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+ ],
  "ok": [
-  "live watcher fresh (29s)",
+  "live watcher fresh (36s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
-  "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 7h ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-01T14:30Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: rosters 2026-10-01T13:50 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36871695003",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-01T12:59Z",
    "fixes": [],
