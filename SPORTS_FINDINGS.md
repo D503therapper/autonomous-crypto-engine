@@ -144,6 +144,15 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   points everywhere. (10/1 credits: a push-started re-pull burned ~7,400 - the pull is hand-run only now.) ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
 
 
+- **EARLY ROUND 3 - 20 new angles, fair prices (10/1; tools/early_round3.py, results/early_round3.json).** HELD:
+  NFL East team flying West as a dog +17.0% on 88 (6 of 6); college rain / snow dogs +8.1% on 822 (engine +10.9%, 5
+  of 6); college dogs vs a December .700+ team... i.e. a .700+ team AS the dog +11.0% (4 of 6); college freezing games,
+  spread + the engine 60.9% on 69 (4 of 5). COLLEGE COACHING STYLE (each team's earlier games that season): dogs with
+  a CONSERVATIVE coach (fewest 4th-down tries) -10.9%, 0 of 5; PASS-HEAVY teams on the spread 46.5%, 0 of 5;
+  FAST-PACE dogs -11.2%, 0 of 5 and their spreads 0 of 5; aggressive-coach dogs +2.9% (3 of 5, not proven).
+  Nothing in NFL weather / altitude / OT / division / 4th-down style held (season totals only - real play-by-play
+  coaching style is next: nflverse / cfbfastR).
+
 - **⚠️ 10/1 CORRECTION - THE EARLY STUDIES RE-RUN HONESTLY (read this before the early entries below).** Two leaks:
   (1) the "first look of the week" was often posted while last week's games were still being played (NFL Sunday 3 PM
   ET, college Saturday afternoon) - the engine's read already knew those scores, the book's line didn't; (2) the first

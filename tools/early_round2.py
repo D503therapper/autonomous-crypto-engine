@@ -192,6 +192,14 @@ def build(lg):
                     pa, pb = 1 / ef._dec(first[1]), 1 / ef._dec(first[2])
                     mk = pa / (pa + pb) if side == "home" else pb / (pa + pb)
                     r.update(ml=first[i], ml_gap=(own if side == "home" else 1 - own) - mk)
+                try:
+                    r["ml_close"] = int(float(g[f"ml_{side}"]))
+                except (KeyError, ValueError, TypeError):
+                    r["ml_close"] = None
+                try:
+                    r["sp_close"] = float(g["spread_home"]) * sg
+                except (KeyError, ValueError, TypeError):
+                    r["sp_close"] = None
                 if sp_:
                     ln = sp_[1] * sg
                     if mg + ln != 0:
