@@ -348,6 +348,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
             continue
         mkt = sm.market_p(g)
         mkt_open = sm.market_p(g, open_line=True)
+        if lg in STALE_OPEN:                         # (10/1 audit) a football "open" is the summer look-ahead line, so
+            mkt_open = fair_open(games, g)           # the drift runs from our own first fair price (after both
+            #                                          teams' last games) - none yet = no drift, never a false one
         inj = (injuries or {}).get(lg)
         key_out = {side: sd.team_key_out(inj, g[side], g[side + "_name"], lg) for side in ("home", "away")}
         n_out = {side: len(sd.team_injuries(inj, g[side], g[side + "_name"])) for side in ("home", "away")}
@@ -521,6 +524,21 @@ DRIFT_MAX = 0.03               # the money has run 3+ no-vig points away from a 
 
 STALE_OPEN = ("nfl", "ncaaf")   # (10/1 bug hunt) a football "open" is the summer look-ahead line: 75-80% of NFL games
 #                                 move 3+ points from it by kickoff - that's the season happening, not money running away
+
+
+def fair_open(games, g):
+    """Football's real open: the first price our line history holds after both teams' last games (sports_early.ready /
+    first_fair), as the home side's no-vig chance - or None."""
+    try:
+        import sports_early as se
+        ff = se.first_fair(g["id"], se.ready(se._schedule(games), g))
+    except Exception:                                        # noqa: BLE001
+        return None
+    if not ff:
+        return None
+    ih, ia = (100 / (ff[0] + 100) if ff[0] > 0 else -ff[0] / (-ff[0] + 100)), \
+        (100 / (ff[1] + 100) if ff[1] > 0 else -ff[1] / (-ff[1] + 100))
+    return ih / (ih + ia)
 
 
 def money_against(c):
@@ -1909,7 +1927,9 @@ def data_gaps(games, cands, now):
                     continue
             for x in games.values():
                 if x.get("league") == lg and tid in (x.get("home"), x.get("away")) and x.get("status") == "pre" \
-                        and now - timedelta(days=10) < _t(x["start"]) < now - timedelta(hours=8):
+                        and now - timedelta(days=10) < _t(x["start"]) < now - timedelta(hours=8) \
+                        and x.get("ml_home") not in ("", None):      # (10/1: an "if necessary" playoff game that never
+                    #                                                  got played never had a price - not a missing result)
                     out[(lg, tid)] = f"{g.get(side + '_name')}: no result for their {x['start'][:10]} game"
                     break
     return out

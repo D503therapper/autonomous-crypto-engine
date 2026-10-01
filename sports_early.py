@@ -744,7 +744,9 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
     #                                                             the money hammered the other): they cancel - no play
 
 
-LEAD_W = {"win_pct": 0.015, "neutral": 0.015, "win_streak": 0.01, "go4": 0.01, "style": -0.02}
+LEAD_W = {"win_pct": 0.015, "neutral": 0.015, "win_streak": 0.01, "go4": 0.01, "style": -0.02, "rain": 0.015}
+#  rain (10/1 audit - standing on fair prices, never wired till now): college dogs with rain / snow in the forecast,
+#  outdoors (0.5+, early_round3's cut) +8.1% on 822, the engine liking them +10.9%, 5 of 6 seasons
 
 
 def lead_weights(games, g, side, other, lg, own, mk):
@@ -769,6 +771,12 @@ def lead_weights(games, g, side, other, lg, own, mk):
         w += -LEAD_W["go4"] if gap <= sports_go4.GAP_LO else LEAD_W["go4"] if gap >= sports_go4.GAP_HI else 0.0
     if lg == "ncaaf" and (mo.get("conservative") or mo.get("fast")):
         w += LEAD_W["style"]
+    try:
+        wet = str(g.get("indoor")) != "1" and float(g.get("wx_rain") or 0) >= 0.5
+    except (TypeError, ValueError):
+        wet = False
+    if lg == "ncaaf" and wet:
+        w += LEAD_W["rain"]
     return round(w, 4)
 
 

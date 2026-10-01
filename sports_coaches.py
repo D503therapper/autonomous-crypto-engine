@@ -146,4 +146,8 @@ def states(now_iso, path=PATH):
                 continue
             p = (prev.get(t) or [{}])[0].get("id")
             out[(lg, t)] = (cs[0].get("exp"), bool(p) and p != cs[0].get("id"))
+        for t, cs in prev.items():                   # (10/1 audit: ESPN hadn't posted 2026-27 hoops coaches - 2 of 30
+            if cs and (lg, t) not in out:            # NBA teams, 0 college) last season's coach for his years, and
+                e = cs[0].get("exp")                 # "new with the team" UNKNOWN (None) - never a false "new coach"
+                out[(lg, t)] = (e + 1 if isinstance(e, int) else e, None)
     return out

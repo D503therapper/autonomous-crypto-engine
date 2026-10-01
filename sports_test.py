@@ -6356,14 +6356,16 @@ def test_data_gaps_every_sport():
     from datetime import datetime, timezone
     now = datetime(2026, 10, 1, 20, tzinfo=timezone.utc)
     G = {"old": {"id": "old", "league": "nhl", "start": "2026-09-29T23:00Z", "status": "pre", "home": "A", "away": "B",
-                 "home_name": "Hawks", "away_name": "Blues"},
+                 "home_name": "Hawks", "away_name": "Blues", "ml_home": "-140"},
          "now": {"id": "now", "league": "nhl", "start": "2026-10-02T23:00Z", "status": "pre", "home": "A", "away": "C",
                  "home_name": "Hawks", "away_name": "Stars"},
          "ok": {"id": "ok", "league": "nhl", "start": "2026-10-02T23:00Z", "status": "pre", "home": "D", "away": "E",
                 "home_name": "Kings", "away_name": "Ducks"}}
     gaps = sports.data_gaps(G, [{"game_id": "now", "league": "nhl"}, {"game_id": "ok", "league": "nhl"}], now)
     assert set(gaps) == {("nhl", "A")} and "no result" in gaps[("nhl", "A")] and "2026-09-29" in gaps[("nhl", "A")]
-    G["old"]["status"] = "final"
+    G["old"]["ml_home"] = ""                                  # an "if necessary" game 3 that never got played:
+    assert sports.data_gaps(G, [{"game_id": "now", "league": "nhl"}], now) == {}   # no price, not a gap (10/1)
+    G["old"]["ml_home"], G["old"]["status"] = "-140", "final"
     assert sports.data_gaps(G, [{"game_id": "now", "league": "nhl"}], now) == {}
     src = open(sports.__file__).read()
     assert "DATA GAP (no pick on this game)" in src and "data_gaps(games, cands, now)" in src
@@ -6381,6 +6383,63 @@ def test_brain_never_says_tickets_cooking_before_a_game_starts():
     mid = d.day_wait_line(ps, "2026-10-01", datetime(2026, 10, 2, 0, 30, tzinfo=timezone.utc), 1)
     assert "1 of" in mid and "2" in mid, mid
     assert "groups=81" in open(sd.__file__).read()                       # FCS in the college feed: no gaps
+
+
+def test_coaches_fall_back_to_last_season_never_a_false_new_coach():
+    """10/1 audit: ESPN hadn't posted the 2026-27 NBA / college hoops coaches (2 of 30 NBA teams, 0 college), so the
+    coach factor was blank for those sports. A team missing this season takes last season's coach (a year more
+    experience) with 'new with the team' unknown (None) - never a false new-coach weight."""
+    import sports_coaches as sc
+    tmp = os.path.join(tempfile.mkdtemp(), "coaches.json")
+    json.dump({"nba": {"2027": {"1": [{"id": "a", "exp": 5}]},
+                       "2026": {"1": [{"id": "x", "exp": 3}], "2": [{"id": "b", "exp": 9}]}}}, open(tmp, "w"))
+    st = sc.states("2026-10-01T21:00Z", tmp)
+    assert st[("nba", "1")] == (5, True)                      # posted this season: a new coach, known
+    assert st[("nba", "2")] == (10, None)                     # not posted yet: last season's man, "new" unknown
+    import sports
+    assert sports.coach_w({"coach": (10, None), "league": "nba", "odds": -150}) == 0.0
+
+
+def test_football_drift_runs_from_the_fair_open_not_the_summer_line():
+    """10/1 audit: football's 'money ran away from this dog' (-4 on the dog score) was measured from ESPN's summer
+    look-ahead open - the season moving, not money. It runs from our own first fair price now; none = no drift."""
+    import sports_early as se
+    d = tempfile.mkdtemp()
+    keep = sd.LINE_HIST_DIR
+    sd.LINE_HIST_DIR = d
+    try:
+        G = {"p1": {"id": "p1", "league": "nfl", "start": "2026-09-27T17:00Z", "status": "final", "stype": "2",
+                    "home": "A", "away": "X"},
+             "p2": {"id": "p2", "league": "nfl", "start": "2026-09-27T17:00Z", "status": "final", "stype": "2",
+                    "home": "B", "away": "Y"},
+             "g": {"id": "g", "league": "nfl", "start": "2026-10-04T17:00Z", "status": "pre", "stype": "2",
+                   "home": "A", "away": "B"}}
+        se._SCHED.clear() if isinstance(getattr(se, "_SCHED", None), dict) else None
+        assert sports.fair_open(G, G["g"]) is None                         # no fair price yet: no drift at all
+        with open(os.path.join(d, "2026-09.jsonl"), "w") as f:
+            f.write(json.dumps({"g": "g", "t": "2026-09-27T12:00Z", "h": -300, "a": 250}) + "\n")   # before the games
+            f.write(json.dumps({"g": "g", "t": "2026-09-28T12:00Z", "h": -150, "a": 130}) + "\n")   # the fair open
+        fo = sports.fair_open(G, G["g"])
+        assert fo is not None and 0.56 < fo < 0.58, fo
+    finally:
+        sd.LINE_HIST_DIR = keep
+
+
+def test_early_college_rain_dog_weighed():
+    """10/1 audit: college rain / snow dogs (+8.1% on 822 at fair prices, 5 of 6 seasons) were standing but never
+    wired - a weight on the early read now (outdoors, 0.5+ in the forecast), never a trigger, never indoors."""
+    import sports_early as se
+    g = {"id": "g", "league": "ncaaf", "home": "A", "away": "B", "start": "2026-10-03T17:00Z", "wx_rain": "2.0",
+         "indoor": "0"}
+    keep = sports._dog_more
+    sports._dog_more = lambda *a, **k: {}
+    try:
+        assert se.lead_weights({}, g, "away", "home", "ncaaf", 0.4, 0.38) == se.LEAD_W["rain"]
+        assert se.lead_weights({}, {**g, "indoor": "1"}, "away", "home", "ncaaf", 0.4, 0.38) == 0.0
+        assert se.lead_weights({}, {**g, "wx_rain": "0.0"}, "away", "home", "ncaaf", 0.4, 0.38) == 0.0
+        assert se.lead_weights({}, g, "away", "home", "nfl", 0.4, 0.38) == 0.0
+    finally:
+        sports._dog_more = keep
 
 
 if __name__ == "__main__":
