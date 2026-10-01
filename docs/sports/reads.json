@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T12:14Z",
+ "updated": "2026-10-01T12:59Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -76,19 +76,17 @@
    "start": "2026-10-01T23:00Z",
    "away": "Sabres",
    "home": "Blue Jackets",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Sabres",
-    "opp": "Blue Jackets",
+    "team": "Blue Jackets",
+    "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.724,
-    "win_p": 0.513,
-    "reasons": [
-     "the stronger team"
-    ]
+    "odds": -285,
+    "p": 0.703,
+    "win_p": 0.488,
+    "reasons": []
    }
   },
   {
@@ -202,9 +200,9 @@
     "opp": "Steelers @ Browns",
     "market": "total",
     "line": 38.5,
-    "odds": -110,
-    "p": 0.614,
-    "win_p": 0.614,
+    "odds": -111,
+    "p": 0.612,
+    "win_p": 0.612,
     "reasons": [
      "the engine's scoring read"
     ]
@@ -244,7 +242,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Texas",
-    "p": 0.55,
+    "p": 0.549,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -261,8 +259,8 @@
     "market": "ml",
     "line": null,
     "odds": -112,
-    "p": 0.52,
-    "win_p": 0.52,
+    "p": 0.519,
+    "win_p": 0.519,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -353,7 +351,7 @@
     "opp": "Panthers",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -198,
     "p": 0.645,
     "win_p": 0.423,
     "reasons": [
