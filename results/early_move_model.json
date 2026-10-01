@@ -1,0 +1,610 @@
+{
+ "nfl": {
+  "drivers": {
+   "every side": {
+    "n": 3368,
+    "spread_pts": 0.0,
+    "ml_pts": 0.01,
+    "moved_our_way_1pt": 0.217
+   },
+   "engine likes it (ml +4)": {
+    "n": 1112,
+    "spread_pts": -0.02,
+    "ml_pts": 0.01,
+    "moved_our_way_1pt": 0.221
+   },
+   "engine spread read 3.5+": {
+    "n": 480,
+    "spread_pts": 0.07,
+    "ml_pts": 0.14,
+    "moved_our_way_1pt": 0.254
+   },
+   "blew someone out last week": {
+    "n": 439,
+    "spread_pts": 0.04,
+    "ml_pts": 0.14,
+    "moved_our_way_1pt": 0.212
+   },
+   "got blown out last week": {
+    "n": 437,
+    "spread_pts": -0.06,
+    "ml_pts": -0.15,
+    "moved_our_way_1pt": 0.23
+   },
+   "popular team": {
+    "n": 964,
+    "spread_pts": -0.03,
+    "ml_pts": -0.02,
+    "moved_our_way_1pt": 0.208
+   },
+   "vs a popular team": {
+    "n": 964,
+    "spread_pts": 0.03,
+    "ml_pts": 0.06,
+    "moved_our_way_1pt": 0.231
+   },
+   "our coach's 1st season": {
+    "n": 709,
+    "spread_pts": -0.09,
+    "ml_pts": -0.14,
+    "moved_our_way_1pt": 0.203
+   },
+   "prime time": {
+    "n": 690,
+    "spread_pts": 0.0,
+    "ml_pts": 0.03,
+    "moved_our_way_1pt": 0.207
+   },
+   "win streak 3+": {
+    "n": 509,
+    "spread_pts": -0.03,
+    "ml_pts": -0.15,
+    "moved_our_way_1pt": 0.183
+   },
+   "losing streak 3+": {
+    "n": 442,
+    "spread_pts": -0.14,
+    "ml_pts": -0.27,
+    "moved_our_way_1pt": 0.223
+   },
+   "home": {
+    "n": 1653,
+    "spread_pts": 0.11,
+    "ml_pts": 0.25,
+    "moved_our_way_1pt": 0.234
+   },
+   "off a bye": {
+    "n": 375,
+    "spread_pts": 0.08,
+    "ml_pts": 0.27,
+    "moved_our_way_1pt": 0.229
+   },
+   "their QB out last week": {
+    "n": 209,
+    "spread_pts": 0.27,
+    "ml_pts": 0.79,
+    "moved_our_way_1pt": 0.32
+   },
+   "our QB out last week": {
+    "n": 209,
+    "spread_pts": -0.27,
+    "ml_pts": -0.77,
+    "moved_our_way_1pt": 0.212
+   },
+   "LATER: their QB ruled out": {
+    "n": 132,
+    "spread_pts": 0.57,
+    "ml_pts": 1.85,
+    "moved_our_way_1pt": 0.381
+   },
+   "LATER: our QB ruled out": {
+    "n": 132,
+    "spread_pts": -0.57,
+    "ml_pts": -1.93,
+    "moved_our_way_1pt": 0.103
+   }
+  },
+  "model": {
+   "spread top 5%": {
+    "n": 135,
+    "rate": 0.556,
+    "said": 0.524,
+    "roi": 0.061,
+    "up": "3/5",
+    "by": {
+     "2021": [
+      27,
+      0.061
+     ],
+     "2022": [
+      27,
+      -0.081
+     ],
+     "2023": [
+      27,
+      0.131
+     ],
+     "2024": [
+      27,
+      -0.081
+     ],
+     "2025": [
+      27,
+      0.273
+     ]
+    },
+    "moved_our_way": 0.274
+   },
+   "spread top 10%": {
+    "n": 273,
+    "rate": 0.535,
+    "said": 0.524,
+    "roi": 0.021,
+    "up": "3/5",
+    "by": {
+     "2021": [
+      54,
+      0.061
+     ],
+     "2022": [
+      54,
+      -0.01
+     ],
+     "2023": [
+      55,
+      0.041
+     ],
+     "2024": [
+      55,
+      -0.028
+     ],
+     "2025": [
+      55,
+      0.041
+     ]
+    },
+    "moved_our_way": 0.256
+   },
+   "spread top 20%": {
+    "n": 547,
+    "rate": 0.528,
+    "said": 0.524,
+    "roi": 0.009,
+    "up": "3/5",
+    "by": {
+     "2021": [
+      108,
+      0.025
+     ],
+     "2022": [
+      108,
+      0.043
+     ],
+     "2023": [
+      111,
+      0.015
+     ],
+     "2024": [
+      110,
+      -0.011
+     ],
+     "2025": [
+      110,
+      -0.028
+     ]
+    },
+    "moved_our_way": 0.278
+   },
+   "spread weights (last season's model)": {
+    "bias": -1.148,
+    "engine ml read": -0.181,
+    "engine spread read": 0.428,
+    "the line": 0.018,
+    "home": 0.039,
+    "neutral": 0.001,
+    "last week margin": -0.017,
+    "win streak": 0.048,
+    "opp win streak": -0.184,
+    "cover streak": -0.172,
+    "rest edge": 0.43,
+    "our coach new": -0.198,
+    "their coach new": 0.21,
+    "prime time": -0.067,
+    "division": -0.103,
+    "wind": -0.119,
+    "cold": -0.039,
+    "popular team": -0.017,
+    "popular opponent": 0.1,
+    "our QB out last wk": -0.096,
+    "their QB out last wk": 0.37,
+    "their extra injuries last wk": 0.023,
+    "first 3 games": -0.297,
+    "season point diff": 0.003
+   },
+   "ML dog top 5%": {
+    "n": 51,
+    "rate": 0.431,
+    "said": 0.434,
+    "roi": -0.03,
+    "up": "2/4",
+    "by": {
+     "2022": [
+      13,
+      0.309
+     ],
+     "2023": [
+      13,
+      0.215
+     ],
+     "2024": [
+      13,
+      -0.565
+     ],
+     "2025": [
+      12,
+      -0.083
+     ]
+    },
+    "moved_our_way": 0.373
+   },
+   "ML dog top 10%": {
+    "n": 104,
+    "rate": 0.375,
+    "said": 0.433,
+    "roi": -0.151,
+    "up": "1/4",
+    "by": {
+     "2022": [
+      27,
+      -0.033
+     ],
+     "2023": [
+      26,
+      0.072
+     ],
+     "2024": [
+      26,
+      -0.269
+     ],
+     "2025": [
+      25,
+      -0.386
+     ]
+    },
+    "moved_our_way": 0.327
+   },
+   "ML dog top 20%": {
+    "n": 211,
+    "rate": 0.384,
+    "said": 0.423,
+    "roi": -0.099,
+    "up": "1/4",
+    "by": {
+     "2022": [
+      54,
+      0.004
+     ],
+     "2023": [
+      53,
+      -0.094
+     ],
+     "2024": [
+      53,
+      -0.253
+     ],
+     "2025": [
+      51,
+      -0.052
+     ]
+    },
+    "moved_our_way": 0.346
+   },
+   "ML dog weights (last season's model)": {
+    "bias": -0.587,
+    "engine ml read": -0.053,
+    "engine spread read": 0.128,
+    "the line": -0.91,
+    "home": 0.312,
+    "neutral": -0.046,
+    "last week margin": 0.053,
+    "win streak": 0.086,
+    "opp win streak": -0.117,
+    "cover streak": -0.197,
+    "rest edge": 0.444,
+    "our coach new": -0.167,
+    "their coach new": 0.088,
+    "prime time": -0.509,
+    "division": -0.026,
+    "wind": 0.05,
+    "cold": 0.124,
+    "popular team": 0.046,
+    "popular opponent": -0.005,
+    "our QB out last wk": -0.262,
+    "their QB out last wk": 0.017,
+    "their extra injuries last wk": 0.128,
+    "first 3 games": 0.25,
+    "season point diff": 0.091
+   }
+  }
+ },
+ "ncaaf": {
+  "drivers": {
+   "every side": {
+    "n": 7682,
+    "spread_pts": 0.0,
+    "ml_pts": 0.09,
+    "moved_our_way_1pt": 0.248
+   },
+   "engine likes it (ml +4)": {
+    "n": 2661,
+    "spread_pts": -0.01,
+    "ml_pts": 0.21,
+    "moved_our_way_1pt": 0.242
+   },
+   "engine spread read 3.5+": {
+    "n": 1749,
+    "spread_pts": -0.04,
+    "ml_pts": 0.05,
+    "moved_our_way_1pt": 0.234
+   },
+   "blew someone out last week": {
+    "n": 2001,
+    "spread_pts": 0.07,
+    "ml_pts": 0.25,
+    "moved_our_way_1pt": 0.267
+   },
+   "got blown out last week": {
+    "n": 1501,
+    "spread_pts": -0.07,
+    "ml_pts": 0.17,
+    "moved_our_way_1pt": 0.234
+   },
+   "popular team": {
+    "n": 1784,
+    "spread_pts": -0.01,
+    "ml_pts": 0.12,
+    "moved_our_way_1pt": 0.238
+   },
+   "vs a popular team": {
+    "n": 1784,
+    "spread_pts": 0.01,
+    "ml_pts": 0.05,
+    "moved_our_way_1pt": 0.247
+   },
+   "our coach's 1st season": {
+    "n": 1006,
+    "spread_pts": 0.02,
+    "ml_pts": 0.1,
+    "moved_our_way_1pt": 0.248
+   },
+   "prime time": {
+    "n": 364,
+    "spread_pts": 0.0,
+    "ml_pts": 0.08,
+    "moved_our_way_1pt": 0.265
+   },
+   "win streak 3+": {
+    "n": 1366,
+    "spread_pts": -0.03,
+    "ml_pts": -0.1,
+    "moved_our_way_1pt": 0.227
+   },
+   "losing streak 3+": {
+    "n": 859,
+    "spread_pts": 0.04,
+    "ml_pts": 0.38,
+    "moved_our_way_1pt": 0.232
+   },
+   "home": {
+    "n": 3539,
+    "spread_pts": -0.08,
+    "ml_pts": -0.1,
+    "moved_our_way_1pt": 0.231
+   },
+   "off a bye": {
+    "n": 1898,
+    "spread_pts": 0.04,
+    "ml_pts": 0.15,
+    "moved_our_way_1pt": 0.285
+   }
+  },
+  "model": {
+   "spread top 5%": {
+    "n": 188,
+    "rate": 0.521,
+    "said": 0.524,
+    "roi": -0.005,
+    "up": "2/3",
+    "by": {
+     "2023": [
+      62,
+      0.047
+     ],
+     "2024": [
+      64,
+      -0.105
+     ],
+     "2025": [
+      62,
+      0.047
+     ]
+    },
+    "moved_our_way": 0.33
+   },
+   "spread top 10%": {
+    "n": 378,
+    "rate": 0.548,
+    "said": 0.524,
+    "roi": 0.045,
+    "up": "2/3",
+    "by": {
+     "2023": [
+      124,
+      -0.03
+     ],
+     "2024": [
+      129,
+      0.036
+     ],
+     "2025": [
+      125,
+      0.13
+     ]
+    },
+    "moved_our_way": 0.299
+   },
+   "spread top 20%": {
+    "n": 757,
+    "rate": 0.517,
+    "said": 0.524,
+    "roi": -0.014,
+    "up": "2/3",
+    "by": {
+     "2023": [
+      248,
+      -0.076
+     ],
+     "2024": [
+      258,
+      0.021
+     ],
+     "2025": [
+      251,
+      0.012
+     ]
+    },
+    "moved_our_way": 0.284
+   },
+   "spread weights (last season's model)": {
+    "bias": -0.915,
+    "engine ml read": 0.059,
+    "engine spread read": -0.085,
+    "the line": -0.021,
+    "home": -0.208,
+    "neutral": 0.177,
+    "last week margin": 0.154,
+    "win streak": -0.129,
+    "opp win streak": -0.003,
+    "cover streak": -0.051,
+    "rest edge": 0.13,
+    "our coach new": -0.078,
+    "their coach new": -0.043,
+    "prime time": -0.029,
+    "division": 0.0,
+    "wind": -0.161,
+    "cold": -0.077,
+    "popular team": -0.034,
+    "popular opponent": -0.047,
+    "our QB out last wk": 0.0,
+    "their QB out last wk": 0.0,
+    "their extra injuries last wk": 0.0,
+    "first 3 games": 0.109,
+    "season point diff": -0.088
+   },
+   "ML dog top 5%": {
+    "n": 98,
+    "rate": 0.378,
+    "said": 0.419,
+    "roi": -0.084,
+    "up": "2/4",
+    "by": {
+     "2022": [
+      24,
+      0.059
+     ],
+     "2023": [
+      24,
+      -0.268
+     ],
+     "2024": [
+      25,
+      0.298
+     ],
+     "2025": [
+      25,
+      -0.426
+     ]
+    },
+    "moved_our_way": 0.327
+   },
+   "ML dog top 10%": {
+    "n": 199,
+    "rate": 0.382,
+    "said": 0.416,
+    "roi": -0.08,
+    "up": "2/4",
+    "by": {
+     "2022": [
+      49,
+      0.107
+     ],
+     "2023": [
+      48,
+      -0.182
+     ],
+     "2024": [
+      51,
+      0.174
+     ],
+     "2025": [
+      51,
+      -0.417
+     ]
+    },
+    "moved_our_way": 0.377
+   },
+   "ML dog top 20%": {
+    "n": 400,
+    "rate": 0.375,
+    "said": 0.408,
+    "roi": -0.091,
+    "up": "1/4",
+    "by": {
+     "2022": [
+      99,
+      0.094
+     ],
+     "2023": [
+      97,
+      -0.12
+     ],
+     "2024": [
+      102,
+      -0.026
+     ],
+     "2025": [
+      102,
+      -0.307
+     ]
+    },
+    "moved_our_way": 0.378
+   },
+   "ML dog weights (last season's model)": {
+    "bias": -0.537,
+    "engine ml read": -0.191,
+    "engine spread read": 0.203,
+    "the line": -0.672,
+    "home": 0.13,
+    "neutral": 0.116,
+    "last week margin": 0.017,
+    "win streak": -0.026,
+    "opp win streak": -0.111,
+    "cover streak": -0.089,
+    "rest edge": 0.073,
+    "our coach new": -0.143,
+    "their coach new": 0.005,
+    "prime time": -0.069,
+    "division": 0.0,
+    "wind": 0.026,
+    "cold": 0.144,
+    "popular team": -0.101,
+    "popular opponent": -0.133,
+    "our QB out last wk": 0.0,
+    "their QB out last wk": 0.0,
+    "their extra injuries last wk": 0.0,
+    "first 3 games": -0.143,
+    "season point diff": 0.21
+   }
+  }
+ }
+}

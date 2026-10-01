@@ -1,0 +1,1323 @@
+{
+ "nfl": {
+  "seasons": {
+   "2018": {
+    "games": 268,
+    "points_per_game": 46.5,
+    "home_win": 0.597,
+    "home_margin": 2.32,
+    "close_games": 0.489,
+    "favorites_won": 0.663,
+    "dog_win_rate": 0.32,
+    "dogs_roi": -0.038,
+    "dogs +100..+149 roi": -0.03,
+    "dogs +150..+249 roi": -0.072,
+    "dogs +250 and up roi": -0.004,
+    "price_log_loss": 0.6104,
+    "favorites_covered": 0.464,
+    "home_covered": 0.477,
+    "overs": 0.468
+   },
+   "2019": {
+    "games": 268,
+    "points_per_game": 45.8,
+    "home_win": 0.521,
+    "home_margin": 0.09,
+    "close_games": 0.478,
+    "favorites_won": 0.649,
+    "dog_win_rate": 0.339,
+    "dogs_roi": 0.021,
+    "dogs +100..+149 roi": -0.011,
+    "dogs +150..+249 roi": 0.077,
+    "dogs +250 and up roi": -0.024,
+    "price_log_loss": 0.6159,
+    "favorites_covered": 0.476,
+    "home_covered": 0.444,
+    "overs": 0.5
+   },
+   "2020": {
+    "games": 269,
+    "points_per_game": 49.5,
+    "home_win": 0.496,
+    "home_margin": 0.09,
+    "close_games": 0.468,
+    "favorites_won": 0.673,
+    "dog_win_rate": 0.319,
+    "dogs_roi": -0.076,
+    "dogs +100..+149 roi": 0.059,
+    "dogs +150..+249 roi": 0.002,
+    "dogs +250 and up roi": -0.265,
+    "price_log_loss": 0.591,
+    "favorites_covered": 0.44,
+    "home_covered": 0.494,
+    "overs": 0.509
+   },
+   "2021": {
+    "games": 286,
+    "points_per_game": 46.2,
+    "home_win": 0.514,
+    "home_margin": 1.93,
+    "close_games": 0.441,
+    "favorites_won": 0.628,
+    "dog_win_rate": 0.374,
+    "dogs_roi": 0.097,
+    "dogs +100..+149 roi": 0.182,
+    "dogs +150..+249 roi": 0.252,
+    "dogs +250 and up roi": -0.125,
+    "price_log_loss": 0.6258,
+    "favorites_covered": 0.475,
+    "home_covered": 0.484,
+    "overs": 0.456,
+    "engine_right": 0.635
+   },
+   "2022": {
+    "games": 285,
+    "points_per_game": 44.1,
+    "home_win": 0.57,
+    "home_margin": 2.25,
+    "close_games": 0.526,
+    "favorites_won": 0.661,
+    "dog_win_rate": 0.328,
+    "dogs_roi": -0.11,
+    "dogs +100..+149 roi": -0.053,
+    "dogs +150..+249 roi": -0.017,
+    "dogs +250 and up roi": -0.321,
+    "price_log_loss": 0.6032,
+    "favorites_covered": 0.45,
+    "home_covered": 0.493,
+    "overs": 0.44,
+    "engine_right": 0.608
+   },
+   "2023": {
+    "games": 286,
+    "points_per_game": 44.1,
+    "home_win": 0.566,
+    "home_margin": 2.95,
+    "close_games": 0.497,
+    "favorites_won": 0.67,
+    "dog_win_rate": 0.324,
+    "dogs_roi": -0.072,
+    "dogs +100..+149 roi": -0.183,
+    "dogs +150..+249 roi": -0.033,
+    "dogs +250 and up roi": 0.079,
+    "price_log_loss": 0.6264,
+    "favorites_covered": 0.514,
+    "home_covered": 0.5,
+    "overs": 0.463,
+    "engine_right": 0.626
+   },
+   "2024": {
+    "games": 286,
+    "points_per_game": 46.3,
+    "home_win": 0.538,
+    "home_margin": 2.09,
+    "close_games": 0.507,
+    "favorites_won": 0.709,
+    "dog_win_rate": 0.282,
+    "dogs_roi": -0.202,
+    "dogs +100..+149 roi": -0.112,
+    "dogs +150..+249 roi": -0.398,
+    "dogs +250 and up roi": -0.058,
+    "price_log_loss": 0.5896,
+    "favorites_covered": 0.532,
+    "home_covered": 0.511,
+    "overs": 0.535,
+    "engine_right": 0.633
+   },
+   "2025": {
+    "games": 286,
+    "points_per_game": 46.2,
+    "home_win": 0.534,
+    "home_margin": 2.2,
+    "close_games": 0.5,
+    "favorites_won": 0.656,
+    "dog_win_rate": 0.335,
+    "dogs_roi": -0.037,
+    "dogs +100..+149 roi": 0.073,
+    "dogs +150..+249 roi": -0.049,
+    "dogs +250 and up roi": -0.136,
+    "price_log_loss": 0.6062,
+    "favorites_covered": 0.481,
+    "home_covered": 0.502,
+    "overs": 0.518,
+    "engine_right": 0.653
+   },
+   "2026": {
+    "games": 48,
+    "points_per_game": 45.7,
+    "home_win": 0.609,
+    "home_margin": 1.41,
+    "close_games": 0.479,
+    "favorites_won": 0.646,
+    "dog_win_rate": 0.356,
+    "dogs_roi": 0.071,
+    "dogs +100..+149 roi": -0.324,
+    "dogs +150..+249 roi": 0.097,
+    "dogs +250 and up roi": 0.495,
+    "price_log_loss": 0.6613,
+    "favorites_covered": 0.478,
+    "home_covered": 0.522,
+    "overs": 0.479,
+    "engine_right": 0.604
+   }
+  },
+  "this_season_flags": {
+   "home_win": {
+    "now": 0.609,
+    "last3": [
+     0.566,
+     0.538,
+     0.534
+    ]
+   },
+   "home_margin": {
+    "now": 1.41,
+    "last3": [
+     2.95,
+     2.09,
+     2.2
+    ]
+   },
+   "close_games": {
+    "now": 0.479,
+    "last3": [
+     0.497,
+     0.507,
+     0.5
+    ]
+   },
+   "favorites_won": {
+    "now": 0.646,
+    "last3": [
+     0.67,
+     0.709,
+     0.656
+    ]
+   },
+   "dog_win_rate": {
+    "now": 0.356,
+    "last3": [
+     0.324,
+     0.282,
+     0.335
+    ]
+   },
+   "dogs_roi": {
+    "now": 0.071,
+    "last3": [
+     -0.072,
+     -0.202,
+     -0.037
+    ]
+   },
+   "dogs +100..+149 roi": {
+    "now": -0.324,
+    "last3": [
+     -0.183,
+     -0.112,
+     0.073
+    ]
+   },
+   "dogs +150..+249 roi": {
+    "now": 0.097,
+    "last3": [
+     -0.033,
+     -0.398,
+     -0.049
+    ]
+   },
+   "dogs +250 and up roi": {
+    "now": 0.495,
+    "last3": [
+     0.079,
+     -0.058,
+     -0.136
+    ]
+   },
+   "price_log_loss": {
+    "now": 0.6613,
+    "last3": [
+     0.6264,
+     0.5896,
+     0.6062
+    ]
+   },
+   "favorites_covered": {
+    "now": 0.478,
+    "last3": [
+     0.514,
+     0.532,
+     0.481
+    ]
+   },
+   "home_covered": {
+    "now": 0.522,
+    "last3": [
+     0.5,
+     0.511,
+     0.502
+    ]
+   },
+   "engine_right": {
+    "now": 0.604,
+    "last3": [
+     0.626,
+     0.633,
+     0.653
+    ]
+   }
+  }
+ },
+ "ncaaf": {
+  "seasons": {
+   "2018": {
+    "games": 974,
+    "points_per_game": 57.4,
+    "home_win": 0.638,
+    "home_margin": 7.75,
+    "close_games": 0.291,
+    "favorites_won": 0.765,
+    "dog_win_rate": 0.224,
+    "dogs_roi": -0.164,
+    "dogs +100..+149 roi": -0.084,
+    "dogs +150..+249 roi": 0.027,
+    "dogs +250 and up roi": -0.261,
+    "price_log_loss": 0.4739,
+    "favorites_covered": 0.514,
+    "home_covered": 0.514,
+    "overs": 0.497
+   },
+   "2019": {
+    "games": 983,
+    "points_per_game": 55.8,
+    "home_win": 0.648,
+    "home_margin": 7.78,
+    "close_games": 0.31,
+    "favorites_won": 0.763,
+    "dog_win_rate": 0.225,
+    "dogs_roi": -0.101,
+    "dogs +100..+149 roi": 0.019,
+    "dogs +150..+249 roi": -0.008,
+    "dogs +250 and up roi": -0.168,
+    "price_log_loss": 0.4723,
+    "favorites_covered": 0.508,
+    "home_covered": 0.491,
+    "overs": 0.465
+   },
+   "2020": {
+    "games": 576,
+    "points_per_game": 57.6,
+    "home_win": 0.595,
+    "home_margin": 3.79,
+    "close_games": 0.332,
+    "favorites_won": 0.748,
+    "dog_win_rate": 0.25,
+    "dogs_roi": -0.062,
+    "dogs +100..+149 roi": 0.053,
+    "dogs +150..+249 roi": 0.056,
+    "dogs +250 and up roi": -0.135,
+    "price_log_loss": 0.5122,
+    "favorites_covered": 0.503,
+    "home_covered": 0.502,
+    "overs": 0.511
+   },
+   "2021": {
+    "games": 976,
+    "points_per_game": 55.0,
+    "home_win": 0.624,
+    "home_margin": 7.0,
+    "close_games": 0.316,
+    "favorites_won": 0.744,
+    "dog_win_rate": 0.252,
+    "dogs_roi": -0.013,
+    "dogs +100..+149 roi": 0.106,
+    "dogs +150..+249 roi": 0.011,
+    "dogs +250 and up roi": -0.066,
+    "price_log_loss": 0.4979,
+    "favorites_covered": 0.506,
+    "home_covered": 0.511,
+    "overs": 0.473,
+    "engine_right": 0.724
+   },
+   "2022": {
+    "games": 971,
+    "points_per_game": 54.9,
+    "home_win": 0.629,
+    "home_margin": 7.47,
+    "close_games": 0.348,
+    "favorites_won": 0.759,
+    "dog_win_rate": 0.237,
+    "dogs_roi": -0.154,
+    "dogs +100..+149 roi": -0.031,
+    "dogs +150..+249 roi": -0.098,
+    "dogs +250 and up roi": -0.216,
+    "price_log_loss": 0.4913,
+    "favorites_covered": 0.481,
+    "home_covered": 0.483,
+    "overs": 0.505,
+    "engine_right": 0.711
+   },
+   "2023": {
+    "games": 966,
+    "points_per_game": 53.8,
+    "home_win": 0.638,
+    "home_margin": 7.67,
+    "close_games": 0.308,
+    "favorites_won": 0.759,
+    "dog_win_rate": 0.23,
+    "dogs_roi": -0.23,
+    "dogs +100..+149 roi": 0.052,
+    "dogs +150..+249 roi": -0.004,
+    "dogs +250 and up roi": -0.429,
+    "price_log_loss": 0.4699,
+    "favorites_covered": 0.5,
+    "home_covered": 0.491,
+    "overs": 0.525,
+    "engine_right": 0.737
+   },
+   "2024": {
+    "games": 936,
+    "points_per_game": 54.0,
+    "home_win": 0.645,
+    "home_margin": 8.77,
+    "close_games": 0.316,
+    "favorites_won": 0.728,
+    "dog_win_rate": 0.26,
+    "dogs_roi": -0.103,
+    "dogs +100..+149 roi": 0.057,
+    "dogs +150..+249 roi": -0.13,
+    "dogs +250 and up roi": -0.156,
+    "price_log_loss": 0.5123,
+    "favorites_covered": 0.496,
+    "home_covered": 0.504,
+    "overs": 0.509,
+    "engine_right": 0.709
+   },
+   "2025": {
+    "games": 938,
+    "points_per_game": 52.8,
+    "home_win": 0.647,
+    "home_margin": 9.18,
+    "close_games": 0.322,
+    "favorites_won": 0.744,
+    "dog_win_rate": 0.246,
+    "dogs_roi": -0.183,
+    "dogs +100..+149 roi": -0.049,
+    "dogs +150..+249 roi": -0.007,
+    "dogs +250 and up roi": -0.327,
+    "price_log_loss": 0.5006,
+    "favorites_covered": 0.499,
+    "home_covered": 0.504,
+    "overs": 0.485,
+    "engine_right": 0.733
+   },
+   "2026": {
+    "games": 147,
+    "points_per_game": 55.2,
+    "home_win": 0.775,
+    "home_margin": 21.0,
+    "close_games": 0.211,
+    "favorites_won": 0.861,
+    "dog_win_rate": 0.139,
+    "dogs_roi": -0.241,
+    "dogs +100..+149 roi": -0.524,
+    "dogs +150..+249 roi": -0.121,
+    "dogs +250 and up roi": -0.216,
+    "price_log_loss": 0.3718,
+    "favorites_covered": 0.538,
+    "home_covered": 0.519,
+    "overs": 0.565,
+    "engine_right": 0.83
+   }
+  },
+  "this_season_flags": {
+   "points_per_game": {
+    "now": 55.2,
+    "last3": [
+     53.8,
+     54.0,
+     52.8
+    ]
+   },
+   "home_win": {
+    "now": 0.775,
+    "last3": [
+     0.638,
+     0.645,
+     0.647
+    ]
+   },
+   "home_margin": {
+    "now": 21.0,
+    "last3": [
+     7.67,
+     8.77,
+     9.18
+    ]
+   },
+   "close_games": {
+    "now": 0.211,
+    "last3": [
+     0.308,
+     0.316,
+     0.322
+    ]
+   },
+   "favorites_won": {
+    "now": 0.861,
+    "last3": [
+     0.759,
+     0.728,
+     0.744
+    ]
+   },
+   "dog_win_rate": {
+    "now": 0.139,
+    "last3": [
+     0.23,
+     0.26,
+     0.246
+    ]
+   },
+   "dogs_roi": {
+    "now": -0.241,
+    "last3": [
+     -0.23,
+     -0.103,
+     -0.183
+    ]
+   },
+   "dogs +100..+149 roi": {
+    "now": -0.524,
+    "last3": [
+     0.052,
+     0.057,
+     -0.049
+    ]
+   },
+   "price_log_loss": {
+    "now": 0.3718,
+    "last3": [
+     0.4699,
+     0.5123,
+     0.5006
+    ]
+   },
+   "favorites_covered": {
+    "now": 0.538,
+    "last3": [
+     0.5,
+     0.496,
+     0.499
+    ]
+   },
+   "home_covered": {
+    "now": 0.519,
+    "last3": [
+     0.491,
+     0.504,
+     0.504
+    ]
+   },
+   "overs": {
+    "now": 0.565,
+    "last3": [
+     0.525,
+     0.509,
+     0.485
+    ]
+   },
+   "engine_right": {
+    "now": 0.83,
+    "last3": [
+     0.737,
+     0.709,
+     0.733
+    ]
+   }
+  }
+ },
+ "nba": {
+  "seasons": {
+   "2018": {
+    "games": 1314,
+    "points_per_game": 222.1,
+    "home_win": 0.59,
+    "home_margin": 2.79,
+    "close_games": 0.275,
+    "favorites_won": 0.675,
+    "dog_win_rate": 0.319,
+    "dogs_roi": -0.007,
+    "dogs +100..+149 roi": 0.068,
+    "dogs +150..+249 roi": -0.102,
+    "dogs +250 and up roi": 0.016,
+    "price_log_loss": 0.5945,
+    "favorites_covered": 0.504,
+    "home_covered": 0.505,
+    "overs": 0.499
+   },
+   "2019": {
+    "games": 973,
+    "points_per_game": 223.0,
+    "home_win": 0.553,
+    "home_margin": 2.21,
+    "close_games": 0.261,
+    "favorites_won": 0.673,
+    "dog_win_rate": 0.321,
+    "dogs_roi": 0.014,
+    "dogs +100..+149 roi": 0.011,
+    "dogs +150..+249 roi": -0.082,
+    "dogs +250 and up roi": 0.1,
+    "price_log_loss": 0.6047,
+    "favorites_covered": 0.494,
+    "home_covered": 0.49,
+    "overs": 0.521
+   },
+   "2020": {
+    "games": 1328,
+    "points_per_game": 224.2,
+    "home_win": 0.541,
+    "home_margin": 1.13,
+    "close_games": 0.265,
+    "favorites_won": 0.656,
+    "dog_win_rate": 0.334,
+    "dogs_roi": -0.005,
+    "dogs +100..+149 roi": -0.08,
+    "dogs +150..+249 roi": 0.036,
+    "dogs +250 and up roi": 0.03,
+    "price_log_loss": 0.6243,
+    "favorites_covered": 0.513,
+    "home_covered": 0.488,
+    "overs": 0.502
+   },
+   "2021": {
+    "games": 1327,
+    "points_per_game": 220.8,
+    "home_win": 0.548,
+    "home_margin": 1.87,
+    "close_games": 0.249,
+    "favorites_won": 0.674,
+    "dog_win_rate": 0.319,
+    "dogs_roi": -0.028,
+    "dogs +100..+149 roi": -0.064,
+    "dogs +150..+249 roi": -0.088,
+    "dogs +250 and up roi": 0.073,
+    "price_log_loss": 0.6099,
+    "favorites_covered": 0.504,
+    "home_covered": 0.484,
+    "overs": 0.498,
+    "engine_right": 0.649
+   },
+   "2022": {
+    "games": 1315,
+    "points_per_game": 228.8,
+    "home_win": 0.582,
+    "home_margin": 2.61,
+    "close_games": 0.274,
+    "favorites_won": 0.659,
+    "dog_win_rate": 0.333,
+    "dogs_roi": -0.01,
+    "dogs +100..+149 roi": -0.109,
+    "dogs +150..+249 roi": -0.038,
+    "dogs +250 and up roi": 0.144,
+    "price_log_loss": 0.6265,
+    "favorites_covered": 0.499,
+    "home_covered": 0.513,
+    "overs": 0.508,
+    "engine_right": 0.632
+   },
+   "2023": {
+    "games": 1314,
+    "points_per_game": 227.5,
+    "home_win": 0.546,
+    "home_margin": 2.27,
+    "close_games": 0.234,
+    "favorites_won": 0.688,
+    "dog_win_rate": 0.302,
+    "dogs_roi": -0.085,
+    "dogs +100..+149 roi": -0.044,
+    "dogs +150..+249 roi": -0.028,
+    "dogs +250 and up roi": -0.167,
+    "price_log_loss": 0.5838,
+    "favorites_covered": 0.503,
+    "home_covered": 0.488,
+    "overs": 0.493,
+    "engine_right": 0.669
+   },
+   "2024": {
+    "games": 1318,
+    "points_per_game": 226.6,
+    "home_win": 0.546,
+    "home_margin": 1.94,
+    "close_games": 0.251,
+    "favorites_won": 0.69,
+    "dog_win_rate": 0.299,
+    "dogs_roi": -0.06,
+    "dogs +100..+149 roi": -0.074,
+    "dogs +150..+249 roi": -0.033,
+    "dogs +250 and up roi": -0.074,
+    "price_log_loss": 0.5856,
+    "favorites_covered": 0.503,
+    "home_covered": 0.5,
+    "overs": 0.524,
+    "engine_right": 0.66
+   },
+   "2025": {
+    "games": 1320,
+    "points_per_game": 229.8,
+    "home_win": 0.555,
+    "home_margin": 1.71,
+    "close_games": 0.242,
+    "favorites_won": 0.685,
+    "dog_win_rate": 0.302,
+    "dogs_roi": -0.08,
+    "dogs +100..+149 roi": -0.006,
+    "dogs +150..+249 roi": -0.039,
+    "dogs +250 and up roi": -0.162,
+    "price_log_loss": 0.5764,
+    "favorites_covered": 0.497,
+    "home_covered": 0.516,
+    "overs": 0.495,
+    "engine_right": 0.681
+   }
+  },
+  "this_season_flags": {
+   "points_per_game": {
+    "now": 229.8,
+    "last3": [
+     228.8,
+     227.5,
+     226.6
+    ]
+   },
+   "home_margin": {
+    "now": 1.71,
+    "last3": [
+     2.61,
+     2.27,
+     1.94
+    ]
+   },
+   "dogs +100..+149 roi": {
+    "now": -0.006,
+    "last3": [
+     -0.109,
+     -0.044,
+     -0.074
+    ]
+   },
+   "dogs +150..+249 roi": {
+    "now": -0.039,
+    "last3": [
+     -0.038,
+     -0.028,
+     -0.033
+    ]
+   },
+   "price_log_loss": {
+    "now": 0.5764,
+    "last3": [
+     0.6265,
+     0.5838,
+     0.5856
+    ]
+   },
+   "favorites_covered": {
+    "now": 0.497,
+    "last3": [
+     0.499,
+     0.503,
+     0.503
+    ]
+   },
+   "home_covered": {
+    "now": 0.516,
+    "last3": [
+     0.513,
+     0.488,
+     0.5
+    ]
+   },
+   "engine_right": {
+    "now": 0.681,
+    "last3": [
+     0.632,
+     0.669,
+     0.66
+    ]
+   }
+  }
+ },
+ "ncaab": {
+  "seasons": {
+   "2018": {
+    "games": 6049,
+    "points_per_game": 144.4,
+    "home_win": 0.675,
+    "home_margin": 7.81,
+    "close_games": 0.254,
+    "favorites_won": 0.72,
+    "dog_win_rate": 0.272,
+    "dogs_roi": -0.149,
+    "dogs +100..+149 roi": -0.003,
+    "dogs +150..+249 roi": -0.129,
+    "dogs +250 and up roi": -0.25,
+    "price_log_loss": 0.5373,
+    "favorites_covered": 0.507,
+    "home_covered": 0.506,
+    "overs": 0.476
+   },
+   "2019": {
+    "games": 5767,
+    "points_per_game": 141.1,
+    "home_win": 0.684,
+    "home_margin": 8.11,
+    "close_games": 0.258,
+    "favorites_won": 0.726,
+    "dog_win_rate": 0.266,
+    "dogs_roi": -0.107,
+    "dogs +100..+149 roi": -0.034,
+    "dogs +150..+249 roi": -0.082,
+    "dogs +250 and up roi": -0.164,
+    "price_log_loss": 0.5308,
+    "favorites_covered": 0.492,
+    "home_covered": 0.497,
+    "overs": 0.505
+   },
+   "2020": {
+    "games": 4290,
+    "points_per_game": 142.1,
+    "home_win": 0.644,
+    "home_margin": 6.87,
+    "close_games": 0.263,
+    "favorites_won": 0.716,
+    "dog_win_rate": 0.28,
+    "dogs_roi": -0.132,
+    "dogs +100..+149 roi": -0.012,
+    "dogs +150..+249 roi": -0.061,
+    "dogs +250 and up roi": -0.252,
+    "price_log_loss": 0.5428,
+    "favorites_covered": 0.504,
+    "home_covered": 0.496,
+    "overs": 0.502
+   },
+   "2021": {
+    "games": 5966,
+    "points_per_game": 140.8,
+    "home_win": 0.668,
+    "home_margin": 7.95,
+    "close_games": 0.263,
+    "favorites_won": 0.728,
+    "dog_win_rate": 0.262,
+    "dogs_roi": -0.151,
+    "dogs +100..+149 roi": -0.034,
+    "dogs +150..+249 roi": -0.087,
+    "dogs +250 and up roi": -0.253,
+    "price_log_loss": 0.5289,
+    "favorites_covered": 0.477,
+    "home_covered": 0.486,
+    "overs": 0.505,
+    "engine_right": 0.735
+   },
+   "2022": {
+    "games": 6222,
+    "points_per_game": 142.2,
+    "home_win": 0.678,
+    "home_margin": 8.39,
+    "close_games": 0.27,
+    "favorites_won": 0.728,
+    "dog_win_rate": 0.26,
+    "dogs_roi": -0.172,
+    "dogs +100..+149 roi": -0.047,
+    "dogs +150..+249 roi": -0.118,
+    "dogs +250 and up roi": -0.283,
+    "price_log_loss": 0.5311,
+    "favorites_covered": 0.5,
+    "home_covered": 0.509,
+    "overs": 0.513,
+    "engine_right": 0.727
+   },
+   "2023": {
+    "games": 6243,
+    "points_per_game": 145.9,
+    "home_win": 0.681,
+    "home_margin": 8.34,
+    "close_games": 0.254,
+    "favorites_won": 0.726,
+    "dog_win_rate": 0.264,
+    "dogs_roi": -0.124,
+    "dogs +100..+149 roi": -0.038,
+    "dogs +150..+249 roi": -0.11,
+    "dogs +250 and up roi": -0.182,
+    "price_log_loss": 0.533,
+    "favorites_covered": 0.507,
+    "home_covered": 0.507,
+    "overs": 0.509,
+    "engine_right": 0.731
+   },
+   "2024": {
+    "games": 6292,
+    "points_per_game": 146.3,
+    "home_win": 0.68,
+    "home_margin": 8.93,
+    "close_games": 0.271,
+    "favorites_won": 0.736,
+    "dog_win_rate": 0.255,
+    "dogs_roi": -0.204,
+    "dogs +100..+149 roi": -0.045,
+    "dogs +150..+249 roi": -0.046,
+    "dogs +250 and up roi": -0.382,
+    "price_log_loss": 0.5128,
+    "favorites_covered": 0.497,
+    "home_covered": 0.507,
+    "overs": 0.51,
+    "engine_right": 0.735
+   },
+   "2025": {
+    "games": 6300,
+    "points_per_game": 150.1,
+    "home_win": 0.678,
+    "home_margin": 9.13,
+    "close_games": 0.261,
+    "favorites_won": 0.721,
+    "dog_win_rate": 0.266,
+    "dogs_roi": -0.148,
+    "dogs +100..+149 roi": -0.001,
+    "dogs +150..+249 roi": -0.039,
+    "dogs +250 and up roi": -0.285,
+    "price_log_loss": 0.523,
+    "favorites_covered": 0.486,
+    "home_covered": 0.492,
+    "overs": 0.497,
+    "engine_right": 0.731
+   }
+  },
+  "this_season_flags": {
+   "points_per_game": {
+    "now": 150.1,
+    "last3": [
+     142.2,
+     145.9,
+     146.3
+    ]
+   },
+   "home_margin": {
+    "now": 9.13,
+    "last3": [
+     8.39,
+     8.34,
+     8.93
+    ]
+   },
+   "favorites_won": {
+    "now": 0.721,
+    "last3": [
+     0.728,
+     0.726,
+     0.736
+    ]
+   },
+   "dog_win_rate": {
+    "now": 0.266,
+    "last3": [
+     0.26,
+     0.264,
+     0.255
+    ]
+   },
+   "dogs +100..+149 roi": {
+    "now": -0.001,
+    "last3": [
+     -0.047,
+     -0.038,
+     -0.045
+    ]
+   },
+   "dogs +150..+249 roi": {
+    "now": -0.039,
+    "last3": [
+     -0.118,
+     -0.11,
+     -0.046
+    ]
+   },
+   "favorites_covered": {
+    "now": 0.486,
+    "last3": [
+     0.5,
+     0.507,
+     0.497
+    ]
+   },
+   "home_covered": {
+    "now": 0.492,
+    "last3": [
+     0.509,
+     0.507,
+     0.507
+    ]
+   },
+   "overs": {
+    "now": 0.497,
+    "last3": [
+     0.513,
+     0.509,
+     0.51
+    ]
+   }
+  }
+ },
+ "nhl": {
+  "seasons": {
+   "2018": {
+    "games": 1361,
+    "points_per_game": 6.0,
+    "home_win": 0.536,
+    "home_margin": 0.31,
+    "close_games": 0.411,
+    "favorites_won": 0.573,
+    "dog_win_rate": 0.41,
+    "dogs_roi": -0.012,
+    "dogs +100..+149 roi": -0.022,
+    "dogs +150..+249 roi": -0.0,
+    "dogs +250 and up roi": 0.07,
+    "price_log_loss": 0.6753,
+    "favorites_covered": 0.359,
+    "home_covered": 0.472,
+    "overs": 0.488
+   },
+   "2019": {
+    "games": 1085,
+    "points_per_game": 6.1,
+    "home_win": 0.533,
+    "home_margin": 0.24,
+    "close_games": 0.425,
+    "favorites_won": 0.564,
+    "dog_win_rate": 0.432,
+    "dogs_roi": 0.023,
+    "dogs +100..+149 roi": 0.037,
+    "dogs +150..+249 roi": 0.016,
+    "dogs +250 and up roi": -0.284,
+    "price_log_loss": 0.6791,
+    "favorites_covered": 0.352,
+    "home_covered": 0.442,
+    "overs": 0.503
+   },
+   "2020": {
+    "games": 1078,
+    "points_per_game": 5.8,
+    "home_win": 0.533,
+    "home_margin": 0.26,
+    "close_games": 0.442,
+    "favorites_won": 0.608,
+    "dog_win_rate": 0.376,
+    "dogs_roi": -0.085,
+    "dogs +100..+149 roi": -0.073,
+    "dogs +150..+249 roi": -0.132,
+    "dogs +250 and up roi": 0.078,
+    "price_log_loss": 0.6601,
+    "favorites_covered": 0.357,
+    "home_covered": 0.502,
+    "overs": 0.475
+   },
+   "2021": {
+    "games": 1408,
+    "points_per_game": 6.3,
+    "home_win": 0.542,
+    "home_margin": 0.29,
+    "close_games": 0.388,
+    "favorites_won": 0.648,
+    "dog_win_rate": 0.334,
+    "dogs_roi": -0.161,
+    "dogs +100..+149 roi": -0.156,
+    "dogs +150..+249 roi": -0.177,
+    "dogs +250 and up roi": -0.125,
+    "price_log_loss": 0.6449,
+    "favorites_covered": 0.412,
+    "home_covered": 0.486,
+    "overs": 0.528,
+    "engine_right": 0.635
+   },
+   "2022": {
+    "games": 1403,
+    "points_per_game": 6.4,
+    "home_win": 0.521,
+    "home_margin": 0.18,
+    "close_games": 0.406,
+    "favorites_won": 0.609,
+    "dog_win_rate": 0.382,
+    "dogs_roi": -0.044,
+    "dogs +100..+149 roi": -0.019,
+    "dogs +150..+249 roi": -0.067,
+    "dogs +250 and up roi": -0.101,
+    "price_log_loss": 0.6584,
+    "favorites_covered": 0.401,
+    "home_covered": 0.453,
+    "overs": 0.503,
+    "engine_right": 0.599
+   },
+   "2023": {
+    "games": 1403,
+    "points_per_game": 6.2,
+    "home_win": 0.538,
+    "home_margin": 0.22,
+    "close_games": 0.39,
+    "favorites_won": 0.609,
+    "dog_win_rate": 0.382,
+    "dogs_roi": -0.065,
+    "dogs +100..+149 roi": -0.032,
+    "dogs +150..+249 roi": -0.082,
+    "dogs +250 and up roi": -0.256,
+    "price_log_loss": 0.6565,
+    "favorites_covered": 0.388,
+    "home_covered": 0.481,
+    "overs": 0.482,
+    "engine_right": 0.605
+   },
+   "2024": {
+    "games": 1405,
+    "points_per_game": 6.1,
+    "home_win": 0.565,
+    "home_margin": 0.34,
+    "close_games": 0.379,
+    "favorites_won": 0.607,
+    "dog_win_rate": 0.378,
+    "dogs_roi": -0.071,
+    "dogs +100..+149 roi": -0.062,
+    "dogs +150..+249 roi": -0.049,
+    "dogs +250 and up roi": -0.284,
+    "price_log_loss": 0.6568,
+    "favorites_covered": 0.399,
+    "home_covered": 0.504,
+    "overs": 0.489,
+    "engine_right": 0.586
+   },
+   "2025": {
+    "games": 1394,
+    "points_per_game": 6.2,
+    "home_win": 0.519,
+    "home_margin": 0.1,
+    "close_games": 0.433,
+    "favorites_won": 0.555,
+    "dog_win_rate": 0.437,
+    "dogs_roi": 0.021,
+    "dogs +100..+149 roi": 0.039,
+    "dogs +150..+249 roi": -0.019,
+    "dogs +250 and up roi": -0.053,
+    "price_log_loss": 0.6805,
+    "favorites_covered": 0.329,
+    "home_covered": 0.448,
+    "overs": 0.506,
+    "engine_right": 0.544
+   },
+   "2026": {
+    "games": 8,
+    "points_per_game": 6.1,
+    "home_win": 0.5,
+    "home_margin": 0.12,
+    "close_games": 0.5,
+    "favorites_won": 0.5,
+    "dog_win_rate": 0.5,
+    "dogs_roi": 0.298,
+    "dogs +100..+149 roi": 0.447,
+    "dogs +150..+249 roi": 0.15,
+    "dogs +250 and up roi": null,
+    "price_log_loss": 0.7111,
+    "favorites_covered": 0.375,
+    "home_covered": 0.375,
+    "overs": 0.5,
+    "engine_right": 0.5
+   }
+  },
+  "this_season_flags": {}
+ },
+ "mlb": {
+  "seasons": {
+   "2018": {
+    "games": 2466,
+    "points_per_game": 8.9,
+    "home_win": 0.527,
+    "home_margin": 0.14,
+    "close_games": 0.275,
+    "favorites_won": 0.583,
+    "dog_win_rate": 0.411,
+    "dogs_roi": -0.018,
+    "dogs +100..+149 roi": 0.007,
+    "dogs +150..+249 roi": -0.062,
+    "dogs +250 and up roi": -0.02,
+    "price_log_loss": 0.6691,
+    "favorites_covered": 0.426,
+    "home_covered": 0.47,
+    "overs": 0.48
+   },
+   "2019": {
+    "games": 2466,
+    "points_per_game": 9.6,
+    "home_win": 0.529,
+    "home_margin": -0.02,
+    "close_games": 0.264,
+    "favorites_won": 0.597,
+    "dog_win_rate": 0.393,
+    "dogs_roi": -0.038,
+    "dogs +100..+149 roi": -0.071,
+    "dogs +150..+249 roi": 0.025,
+    "dogs +250 and up roi": -0.086,
+    "price_log_loss": 0.6657,
+    "favorites_covered": 0.448,
+    "home_covered": 0.455,
+    "overs": 0.501
+   },
+   "2020": {
+    "games": 951,
+    "points_per_game": 9.3,
+    "home_win": 0.551,
+    "home_margin": 0.18,
+    "close_games": 0.271,
+    "favorites_won": 0.598,
+    "dog_win_rate": 0.395,
+    "dogs_roi": -0.038,
+    "dogs +100..+149 roi": -0.07,
+    "dogs +150..+249 roi": 0.015,
+    "dogs +250 and up roi": 0.009,
+    "price_log_loss": 0.6731,
+    "favorites_covered": 0.444,
+    "home_covered": 0.498,
+    "overs": 0.498
+   },
+   "2021": {
+    "games": 2467,
+    "points_per_game": 9.1,
+    "home_win": 0.54,
+    "home_margin": 0.15,
+    "close_games": 0.28,
+    "favorites_won": 0.589,
+    "dog_win_rate": 0.404,
+    "dogs_roi": -0.022,
+    "dogs +100..+149 roi": -0.027,
+    "dogs +150..+249 roi": 0.001,
+    "dogs +250 and up roi": -0.272,
+    "price_log_loss": 0.6714,
+    "favorites_covered": 0.432,
+    "home_covered": 0.479,
+    "overs": 0.492,
+    "engine_right": 0.585
+   },
+   "2022": {
+    "games": 2471,
+    "points_per_game": 8.5,
+    "home_win": 0.534,
+    "home_margin": 0.07,
+    "close_games": 0.289,
+    "favorites_won": 0.604,
+    "dog_win_rate": 0.387,
+    "dogs_roi": -0.062,
+    "dogs +100..+149 roi": -0.066,
+    "dogs +150..+249 roi": -0.088,
+    "dogs +250 and up roi": 0.262,
+    "price_log_loss": 0.6652,
+    "favorites_covered": 0.446,
+    "home_covered": 0.485,
+    "overs": 0.48,
+    "engine_right": 0.582
+   },
+   "2023": {
+    "games": 2472,
+    "points_per_game": 9.2,
+    "home_win": 0.518,
+    "home_margin": -0.06,
+    "close_games": 0.277,
+    "favorites_won": 0.57,
+    "dog_win_rate": 0.413,
+    "dogs_roi": -0.018,
+    "dogs +100..+149 roi": -0.028,
+    "dogs +150..+249 roi": 0.01,
+    "dogs +250 and up roi": -0.17,
+    "price_log_loss": 0.677,
+    "favorites_covered": 0.44,
+    "home_covered": 0.484,
+    "overs": 0.497,
+    "engine_right": 0.555
+   },
+   "2024": {
+    "games": 2473,
+    "points_per_game": 8.8,
+    "home_win": 0.522,
+    "home_margin": -0.02,
+    "close_games": 0.277,
+    "favorites_won": 0.575,
+    "dog_win_rate": 0.407,
+    "dogs_roi": -0.045,
+    "dogs +100..+149 roi": -0.036,
+    "dogs +150..+249 roi": -0.073,
+    "dogs +250 and up roi": 0.04,
+    "price_log_loss": 0.6742,
+    "favorites_covered": 0.432,
+    "home_covered": 0.484,
+    "overs": 0.499,
+    "engine_right": 0.575
+   },
+   "2025": {
+    "games": 2478,
+    "points_per_game": 8.9,
+    "home_win": 0.543,
+    "home_margin": 0.09,
+    "close_games": 0.293,
+    "favorites_won": 0.563,
+    "dog_win_rate": 0.424,
+    "dogs_roi": -0.01,
+    "dogs +100..+149 roi": 0.014,
+    "dogs +150..+249 roi": -0.044,
+    "dogs +250 and up roi": -0.404,
+    "price_log_loss": 0.676,
+    "favorites_covered": 0.398,
+    "home_covered": 0.495,
+    "overs": 0.48,
+    "engine_right": 0.563
+   },
+   "2026": {
+    "games": 2438,
+    "points_per_game": 9.0,
+    "home_win": 0.53,
+    "home_margin": 0.06,
+    "close_games": 0.274,
+    "favorites_won": 0.569,
+    "dog_win_rate": 0.424,
+    "dogs_roi": -0.028,
+    "dogs +100..+149 roi": -0.021,
+    "dogs +150..+249 roi": -0.044,
+    "dogs +250 and up roi": -0.243,
+    "price_log_loss": 0.6787,
+    "favorites_covered": 0.435,
+    "home_covered": 0.484,
+    "overs": 0.5,
+    "engine_right": 0.561
+   }
+  },
+  "this_season_flags": {
+   "close_games": {
+    "now": 0.274,
+    "last3": [
+     0.277,
+     0.277,
+     0.293
+    ]
+   },
+   "price_log_loss": {
+    "now": 0.6787,
+    "last3": [
+     0.677,
+     0.6742,
+     0.676
+    ]
+   },
+   "overs": {
+    "now": 0.5,
+    "last3": [
+     0.497,
+     0.499,
+     0.48
+    ]
+   }
+  }
+ }
+}
