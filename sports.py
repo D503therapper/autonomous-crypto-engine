@@ -1060,11 +1060,14 @@ def dog_spots(c):
         sc += 3 if lg == "nfl" else 2   # off a bye vs a team that played: NFL +26.7% on 49 (5 of 6), college +7.5% on
         #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
     if mo.get("mnf"):
-        sc += 2                    # a Monday night NFL dog: +21.4% on 119 (5 of 6), the engine agreeing +20.7%
+        sc += 1                    # a Monday night NFL dog: +21.4% on 119 overall, but only +3.3% on 80 inside the
+        #                            +100..+220 band at the first fair price (10/1 daily study) - halved
     if lg == "mlb" and c.get("dh_game2"):
         sc += 1                    # the doubleheader game-2 dog: +9.5% on 327, 2026 +31% on 25 (10/1 - a watch lead)
     if lg == "nfl" and mo.get("last_pts") is not None and mo["last_pts"] <= 10:
         sc += 1                    # an NFL dog whose offense scored 10 or fewer last game: +7%, 2023+ +21% (a lead)
+    if lg == "nhl" and c.get("opp_sv_slump"):
+        sc -= 2                    # the dog facing a favorite whose goalie is slumping: -8.0 pts, 0 of 5 seasons (10/1)
     if lg == "nhl" and sharp_dog(c):
         sc += 1                    # an NHL dog the line moved TO (2+ pts) against the tickets, with 10+ pts more of the
         #                            money than the tickets: +14.3% on 190, beat the close by 8 pts, 2 of 2 seasons (10/1
@@ -1499,7 +1502,10 @@ def mark_hockey_favorites(cands):
             lift = max(-NHL_FAV_CAP, min(NHL_FAV_CAP, -NHL_FAV_PER_PT * fav["opp_dog"]))
             early = NHL_EARLY_FAV if season_w(fav) < 0 else 0.0
             tired = NHL_3IN4_FAV if third_in_four(fav, dog) else 0.0
-            fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early + tired)), 4)
+            slump = NHL_SV_SLUMP_FAV if str(fav.get("team_id")) in SV_SLUMP else 0.0
+            if slump:
+                dog["opp_sv_slump"] = True
+            fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early + tired + slump)), 4)
 
 
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
@@ -1518,6 +1524,9 @@ def weigh_mlb_drought(cands):
             c["reasons"] = c["reasons"] + ["hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"]
 
 
+NHL_SV_SLUMP_FAV = 0.015   # 10/1 study: a favorite whose goalie is slumping (last-10 save % bottom quarter) beat its
+#                            price 5 of 5 seasons by ~8 pts - half of it on the favorite's weighed read (a lead)
+SV_SLUMP = set()           # {nhl team id} with a slumping goalie (sports_form.sv_slump, refreshed each run)
 NHL_3IN4_FAV = 0.015     # 10/1 study: a rested hockey favorite vs a team on its 3rd game in 4 nights (the favorite not on a
 #                          back-to-back) beat its price 8 of 8 seasons (+5.2 pts vs the same price, 2023+ 3 of 3) - half of
 #                          that as a weight on the favorite's read (a lead: it doesn't clear the multiple-testing bar)
@@ -2501,6 +2510,8 @@ def quick(now=None):
         DOG_ST.update(sports_form.dog_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        SV_SLUMP.clear()
+        SV_SLUMP.update(str(t) for t in sports_form.sv_slump())
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
         print(f"hot key players failed: {str(e)[:80]}")
     add_breakdowns(games, model, picks)
@@ -2588,6 +2599,8 @@ def run(repick=False, fetch=True):
         DOG_ST.update(sports_form.dog_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        SV_SLUMP.clear()
+        SV_SLUMP.update(str(t) for t in sports_form.sv_slump())
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
         print(f"hot key players failed: {str(e)[:80]}")                     # QB / starting pitcher / goalie form per game
     n_players = sum(len(rows) for rows in sp.CACHE.values())

@@ -210,6 +210,11 @@ PDO_BAD, PDO_GOOD = 985, 1015
 
 
 PDO_SPAN_D = 60
+LAST_SV = {}                 # {nhl team: save % over its last 10 (8+) games} - filled by pdo_states
+SV_MIN_G = 8
+SV_SLUMP_MAX = 0.876         # 10/1 study: last season's bottom quarter of last-10 save % - a favorite with a slumping
+#                              goalie beat its price 5 of 5 seasons (+7.9 pts on 852, 2023+ 3 of 3); the dog facing it
+#                              lost 5 of 5 (-8.0) - the books knock a good team down too far for a bad 10 days in net
 
 
 def pdo_states(games, now_iso):
@@ -243,12 +248,22 @@ def pdo_states(games, now_iso):
                 log[t].append((gf, sh[t], ga, sh[o], g["start"]))
                 last[t] = g["start"]
     out = {}
+    LAST_SV.clear()
     for t, L in log.items():
         L = [x for x in L if _days(x[4], now_iso) <= PDO_SPAN_D][-10:]   # (10/1 audit: the last 10 reached back to
-        if len(L) == 10 and _days(last[t], now_iso) <= FRESH_D:          # last April early in a new season)
+        if len(L) >= SV_MIN_G and _days(last[t], now_iso) <= FRESH_D:     # last April early in a new season)
+            ga, sa = sum(x[2] for x in L), sum(x[3] for x in L)
+            if sa:
+                LAST_SV[t] = 1 - ga / sa                     # save % last 10 (goals against incl. empty-netters)
+        if len(L) == 10 and _days(last[t], now_iso) <= FRESH_D:
             gf, sf_, ga, sa = (sum(x[k] for x in L) for k in range(4))
             out[t] = (gf / sf_ + 1 - ga / sa) * 1000
     return out
+
+
+def sv_slump():
+    """Hockey teams whose goalies are slumping: last-10 save % at or under SV_SLUMP_MAX (filled by pdo_states)."""
+    return {t for t, v in LAST_SV.items() if v <= SV_SLUMP_MAX}
 
 
 # COVER STREAKS & REVENGE (9/30 study, closing prices 2018-26): the public chases a cover streak. A team that FAILED to

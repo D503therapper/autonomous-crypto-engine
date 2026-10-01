@@ -313,6 +313,22 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
     only move, fade it (+8 to +14%, but the NFL goes the other way); NFL dog only one book is out on -10.8% (overlaps
     "split books"). Per-book prices aren't in our live feed yet - needed to re-test the book leads on 2026.
 
+- **Daily studies, 10/1 (10 angles; NHL / MLB / college football / the paid odds history):**
+  - WIRED (lead): NHL favorite with a SLUMPING GOALIE (last-10 save % <= last season's bottom quarter, .876 for
+    2026-27): beat its price 5 of 5 seasons, +7.9 pts on 852 (2023+ 3 of 3); the dog facing it -8.0, 0 of 5; holds at
+    every cut and inside every dog-score third. +1.5 pts on the favorite's weighed read, -2 on that dog's score.
+  - CORRECTED: the Monday night NFL dog is +3.3% on 80 inside the +100..+220 band at the first fair price (the +21.4%
+    came from bigger dogs / other looks) - game-day weight +2 -> +1, early SPOT_WEIGHT 0.03 -> 0.015.
+  - LOG ONLY: NHL home favorite on a back-to-back, first home game after a 3+ road trip (+28 pts on 114, but the
+    opponent-rest split contradicts); NFL "dead number" dog (price still while the week's slate moved) -20% (college
+    the opposite); fade a college favorite with bad turnover luck vs a lucky opponent (-19.6 pts, 0 of 5, thin).
+  - WATCH: NHL first home game after a 4+ trip with 2+ days rest (+10 on 193), close-game-unlucky hockey dog (+3.4),
+    Group-of-5 dog vs Power-4 (September +23%, same at the close), MLB playoff game-1 rested home team (10 games).
+  - DEAD: kickoff slot (primetime / night games), NFL weeks 1-4 dogs, record vs the week-1 price, college conference
+    openers (again), hockey travel / time zones / early vs late in a trip / home letdown, comeback / OT / empty-net
+    luck, power-play chances, MLB after 10+ runs, MLB last-10 run-differential and one-run luck, college out-gained-
+    but-lost dog. College turnover-luck dogs: fading in 2024-25 - WATCH only.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a

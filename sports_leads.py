@@ -61,6 +61,8 @@ def tags(c, sports):
             t.append("MLB doubleheader game-2 dog")
         if lg == "nfl" and mo.get("last_pts") is not None and mo["last_pts"] <= 10:
             t.append("NFL dog scored 10 or fewer last game")
+        if c.get("opp_sv_slump"):
+            t.append("NHL dog vs a slumping goalie (fade)")
         if c.get("west_trip_dog"):
             t.append("East home dog vs West favorite (fade)")
         if c.get("key_out_me") and lg in ("nfl", "ncaaf"):

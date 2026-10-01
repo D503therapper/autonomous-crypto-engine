@@ -462,7 +462,7 @@ SPOTS = {   # key: (label, units, leagues)
 # everything, never automatically take a pick because the numbers back one thing"). A spot only ADDS weight to the
 # engine's own full read (ratings, form, rest, injuries...); the fades take weight away. An early play posts only when
 # the engine's read isn't fighting the side AND everything added up clears SPOT_MIN_TOTAL - ranked by that total.
-SPOT_WEIGHT = {"bye": 0.04, "mnf": 0.03, "eastwest": 0.03, "blowout": 0.02, "hammered": 0.02, "engine": 0.0}
+SPOT_WEIGHT = {"bye": 0.04, "mnf": 0.015, "eastwest": 0.03, "blowout": 0.02, "hammered": 0.02, "engine": 0.0}
 FADE_WEIGHT = {"ice cold": -0.04, "coach's first season": -0.04, "losing streak": -0.04, "Thursday night": -0.03}
 SPOT_MIN_TOTAL = 0.05                   # the engine's edge + the spots + the fades, in win-% points
 SPOT_FIGHT = 0.01                       # the engine's own read may not be more than 1 point under the price

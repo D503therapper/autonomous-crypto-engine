@@ -5946,7 +5946,7 @@ def test_wiring_audit_weights():
     base = {"league": "nfl", "odds": 150, "dog_ctx": {}}
     assert sports.dog_spots({**base, "dog_more": {"bye": True}}) == 3
     assert sports.dog_spots({**base, "league": "ncaaf", "dog_more": {"bye": True}}) == 2
-    assert sports.dog_spots({**base, "dog_more": {"mnf": True}}) == 2
+    assert sports.dog_spots({**base, "dog_more": {"mnf": True}}) == 1      # (10/1 daily study: halved)
     assert sports.dog_spots({**base, "dog_more": {"last_margin": 21}}) == 2
     fav = {**_cand("nyy", -130, 0.56), "form_state": None}
     keep = sports.overreact
@@ -6195,6 +6195,31 @@ def test_brain_knows_what_the_engine_weighs():
     assert "Lock" in w["the board"] and "NHL" in w["dog gates (the whole dog score)"] and "max 2 a week" in w["early plays"]
     import inspect
     assert '"leads being tested (graded every day)"' in inspect.getsource(d)
+
+
+def test_hockey_goalie_slump():
+    """10/1 daily study: a hockey favorite whose goalie is slumping (last-10 save % bottom quarter) beat its price 5 of 5
+    seasons - +1.5 pts on its weighed read; the dog facing it -2 on its score."""
+    import sports_form
+    keep = (dict(sports_form.LAST_SV), set(sports.SV_SLUMP))
+    try:
+        sports_form.LAST_SV.clear(); sports_form.LAST_SV.update({"F": 0.870, "G": 0.905})
+        assert sports_form.sv_slump() == {"F"}
+        sports.SV_SLUMP.clear(); sports.SV_SLUMP.update({"F"})
+        fav = {**_cand("g", -140, 0.57, league="nhl"), "team_id": "F", "start": "2025-12-01T00:00Z", "p_market": 0.565,
+               "side": "home"}
+        dog = {**_cand("g", 120, 0.43, league="nhl"), "team_id": "D", "start": "2025-12-01T00:00Z", "p_market": 0.435,
+               "side": "away", "dog_ctx": {}}
+        f2, d2 = dict(fav), dict(dog)
+        sports.SV_SLUMP.clear()
+        sports.mark_hockey_favorites([f2, d2])
+        sports.SV_SLUMP.update({"F"})
+        sports.mark_hockey_favorites([fav, dog])
+        assert abs(fav["w_p"] - f2["w_p"] - 0.015) < 1e-9 and dog.get("opp_sv_slump")
+        assert sports.dog_spots(dog) - sports.dog_spots(d2) == -2
+    finally:
+        sports_form.LAST_SV.clear(); sports_form.LAST_SV.update(keep[0])
+        sports.SV_SLUMP.clear(); sports.SV_SLUMP.update(keep[1])
 
 
 if __name__ == "__main__":
