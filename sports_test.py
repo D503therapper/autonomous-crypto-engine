@@ -6071,7 +6071,7 @@ def test_early_plays_weigh_the_believed_leads():
         assert abs(se.lead_weights({}, {}, "away", "home", "nfl", 0.38, 0.40) - 0.01) < 1e-9   # neutral: engine must like it
     finally:
         sports._dog_more = keep
-    assert se.SPOT_MAX_WEEK == 2
+    assert se.SPOT_MAX_WEEK is None                      # (the owner, 10/1 later: no weekly cap - newest rule wins)
 
 
 def test_score_picked_dogs_are_lead_sized():
