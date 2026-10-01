@@ -47,4 +47,5 @@ NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both ca
 #                                                                        "somebody give this man HIS flowers")   # (9/29: "class of the match" - he's never heard it said)
 
 # where the write-ups live (what the test searches)
-SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py")
+SOURCES = ("sports_lingo.py", "sports_breakdown_v24.py", "sports_tennis.py", "sports_dashboard.py",
+           "sports_decider.py")

@@ -1800,6 +1800,16 @@ def grade_leg(leg, g, now):
     return "won" if margin > 0 else "lost" if margin < 0 else "push"
 
 
+def deciders(picks, budget_s=45):
+    """🎯 How each newly graded game was decided (a last-second kick, overtime, a pick-six...) - for its review. One
+    ESPN summary per game, kept; never blocks grading (sports_decider)."""
+    try:
+        import sports_decider
+        sports_decider.fill(picks, budget_s=budget_s)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"deciders failed: {str(e)[:80]}")
+
+
 def _final_at():
     """When the live watcher saw each game go final ({game id: 'YYYY-MM-DDTHH:MMZ'})."""
     try:
@@ -2607,6 +2617,7 @@ def quick(now=None):
     graded = grade(picks, games, now)
     for pk in graded:
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']}")
+    deciders(picks, budget_s=12)                             # (the live watcher calls this: keep it quick)
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)
     load_states(games)                                       # 🔥 every input the engine weighs, each on its own
@@ -2675,6 +2686,8 @@ def run(repick=False, fetch=True):
     n_players = sum(len(rows) for rows in sp.CACHE.values())
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")
+    if fetch:
+        deciders(picks)
     day = now.astimezone(PT).date()
     if now.astimezone(PT).hour == 7:                         # 🔎 an hour before the board: the slate check
         preflight(games, model, now)

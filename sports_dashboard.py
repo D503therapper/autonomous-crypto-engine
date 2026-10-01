@@ -10,6 +10,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 import sports_data as sd
+import sports_decider
 import sports_lingo
 
 PT = ZoneInfo("America/Los_Angeles")
@@ -991,6 +992,7 @@ _GAMES_ = [{}]                   # the games file for the reviews' box-score loo
 def _history(picks):
     """📜 PAST RESULTS: tap open any sport and see every pick that won or lost, newest first."""
     import sports
+    deciders = sports_decider.load()                         # how each game was decided (sports_decider)
     ok = {"won": "✅", "lost": "❌", "push": "➖"}
     kinds = {"lock": "Lock of the Day", "dog": "Dog of the Day", "two": "2-Leg", "three": "3-Leg", "four": "4-Leg",
              "eight": "8-Leg", "solo": "One-Game Pick", "night": "Night Football"}
@@ -1102,7 +1104,14 @@ def _history(picks):
         if r == "lost" and l.get("market") == "spread" and (l.get("line") or 0) < 0 and mg is not None and mg < 0 \
                 and kind not in ("collapse", "fade"):          # laid the points and lost the game outright: say so,
             kind, xtra = "outright", {}                     # (the owner, 9/29 - never just "couldn't cover")
-        return later(date, f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}', kind, r, lean, t=t_, o=o_, x=x, **xtra)
+        key = f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}'
+        dec = l.get("decider") if l.get("decider") is not None else deciders.get(l.get("game_id"))
+        if dec and not dec.get("_fail") and l.get("market") != "total" and (dec.get("win") == l.get("side")) == (r == "won") \
+                and not (kind == "flowers" and dec.get("type") == "blowout"):   # 🎯 how it was won or lost: say it
+            how = sports_decider.say(dec, l.get("side"), t_, o_, lg, f"{date}|{key}")   # (the owner, 10/1)
+            if how:
+                return later(date, key, "how", r, lean, how=how)
+        return later(date, key, kind, r, lean, t=t_, o=o_, x=x, **xtra)
 
     def box(title, items, head="", leans=()):
         if not items and not leans:
@@ -1215,7 +1224,10 @@ def _history(picks):
     used = set()                                             # one set of 4-word runs for the whole section
     for c in sorted(todo, key=lambda c: c["key"]):
         kind, r, seed = c["args"]
-        c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
+        if kind == "how":                                    # something big decided it: the review says what
+            c["text"] = sports_lingo.review_how(c["kw"]["how"], r, seed, used, lean=c["lean"])
+        else:
+            c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
         LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
     out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, [])), leans=done(by_lean.get(lg, [])))

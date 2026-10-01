@@ -6598,6 +6598,206 @@ def test_audit_batch_10_1():
     assert 'p["kind"] not in ("lock", "dog")' in dsrc
 
 
+def _summ(hs, as_, plays=(), per=4, detail="Final", lines=None, key="scoringPlays", drives=None):
+    """A tiny fake ESPN game summary (home team id 1, away 2) - for the decider tests, no network."""
+    lines = lines or ((), ())
+    comp = {"competitors": [{"homeAway": "home", "score": str(hs), "team": {"id": "1"},
+                             "linescores": [{"displayValue": str(x)} for x in lines[0]]},
+                            {"homeAway": "away", "score": str(as_), "team": {"id": "2"},
+                             "linescores": [{"displayValue": str(x)} for x in lines[1]]}],
+            "status": {"period": per, "type": {"detail": detail}}}
+    p = {"header": {"competitions": [comp]}, key: list(plays)}
+    if drives:
+        p["drives"] = {"previous": drives}
+    return p
+
+
+def _sp(h, a, per, clock, text, typ="", team="1", half=""):
+    return {"homeScore": h, "awayScore": a, "period": {"number": per, "type": half}, "clock": {"displayValue": clock},
+            "text": text, "type": {"text": typ}, "team": {"id": team}, "scoringPlay": True}
+
+
+def test_decider_finds_how_the_game_was_decided():
+    """10/1, the owner: "reviews say how it was won or lost" - a last-second field goal, a blocked kick, a pick-six,
+    overtime, a walk-off, an empty-netter, a late comeback. Each one read from ESPN's game summary (fake ones here),
+    told from OUR side, short, with the real names and numbers."""
+    import sports_decider as D
+    import sports_owner_lingo as L
+
+    def both(lg, d, us="the Chiefs", them="the Bills"):
+        w = D.say(d, "home", us, them, lg, "s1")
+        l_ = D.say(d, "away", them, us, lg, "s1")
+        for x in (w, l_):
+            assert x and len(x) <= D.MAX_LEN and "{" not in x and "None" not in x, (d, x)
+            assert not any(n in x.lower() for n in L.NEVER), x
+        return w, l_
+    # overtime, won on a field goal
+    ot = D.parse("nfl", _summ(10, 7, [_sp(0, 7, 1, "5:00", "Josh Allen 3 Yd Run (Tyler Bass Kick)", "Rushing Touchdown", "2"),
+                                      _sp(7, 7, 4, "9:00", "Travis Kelce 12 Yd pass from Patrick Mahomes (Harrison Butker Kick)", "Passing Touchdown"),
+                                      _sp(10, 7, 5, "2:11", "Harrison Butker 52 Yd Field Goal", "Field Goal Good")],
+                                 per=5, detail="Final/OT"))
+    assert ot["type"] == "ot" and ot["p"] == "Harrison Butker" and ot["y"] == 52 and ot["win"] == "home", ot
+    w, l_ = both("nfl", ot)
+    assert re.search(r"overtime|OT", w) and "52" in w and l_.startswith(("Lost", "The Chiefs won")) and re.search(r"overtime|OT", l_), (w, l_)
+    # hockey shootout
+    so = D.parse("nhl", _summ(3, 2, per=5, detail="Final/SO"))
+    assert so["type"] == "so" and "shootout" in D.say(so, "away", "the Kings", "the Ducks", "nhl", "x")
+    # walk-off
+    wo = D.parse("mlb", _summ(4, 3, [_sp(2, 0, 3, "", "Giancarlo Stanton homered to left (402 feet), Juan Soto scored."),
+                                     _sp(2, 3, 8, "", "Rafael Devers doubled to right, two scored.", team="2"),
+                                     _sp(4, 3, 9, "", "Aaron Judge homered to left (410 feet), Juan Soto scored.", half="Bottom")],
+                             per=9, key="plays"))
+    assert wo["type"] == "walkoff" and wo["p"] == "Aaron Judge" and wo["w"] == "homer" and wo["n"] == 9, wo
+    w, l_ = both("mlb", wo, "the Yankees", "the Red Sox")
+    assert "9th" in w + l_ and "Judge" in w and ("walk" in l_.lower()), (w, l_)
+    # a go-ahead field goal with 0:03 left
+    late = D.parse("nfl", _summ(20, 17, [_sp(7, 0, 1, "8:00", "CeeDee Lamb 20 Yd pass from Dak Prescott (Brandon Aubrey Kick)", "Passing Touchdown"),
+                                         _sp(7, 17, 3, "4:00", "Saquon Barkley 5 Yd Run (Jake Elliott Kick)", "Rushing Touchdown", "2"),
+                                         _sp(17, 17, 4, "6:00", "CeeDee Lamb 40 Yd pass from Dak Prescott (Brandon Aubrey Kick)", "Passing Touchdown"),
+                                         _sp(20, 17, 4, "0:03", "Brandon Aubrey 52 Yd Field Goal", "Field Goal Good")]))
+    assert late["type"] == "late" and late["c"] == "0:03" and late["y"] == 52 and late["k"] == "fg", late
+    w, l_ = both("nfl", late, "the Cowboys", "the Eagles")
+    assert "0:03" in w and "0:03" in l_ and "52" in w + l_, (w, l_)
+    # their kick got blocked at the end (no late score)
+    blk = D.parse("nfl", _summ(20, 17, [_sp(14, 0, 2, "3:00", "A 1 Yd Run (B Kick)", "Rushing Touchdown"),
+                                        _sp(14, 17, 3, "1:00", "C 3 Yd Run (D Kick)", "Rushing Touchdown", "2"),
+                                        _sp(17, 17, 3, "0:10", "E 30 Yd Field Goal", "Field Goal Good", "1"),
+                                        _sp(20, 17, 4, "9:00", "E 41 Yd Field Goal", "Field Goal Good", "1")],
+                                  drives=[{"team": {"id": "2"}, "plays": [
+                                      {"text": "Jake Elliott 48 yard field goal is BLOCKED", "type": {"text": "Blocked Field Goal"},
+                                       "period": {"number": 4}, "clock": {"displayValue": "1:10"}}]}]))
+    assert blk["type"] == "kick" and blk["blocked"] and blk["c"] == "1:10" and blk["y"] == 48, blk
+    w, l_ = both("nfl", blk)
+    assert "1:10" in w and "blocked" in l_.lower() and "1:10" in l_, (w, l_)
+    # a missed one
+    miss = D.parse("ncaaf", _summ(20, 17, [_sp(20, 17, 2, "3:00", "A 1 Yd Run (B Kick)", "Rushing Touchdown")],
+                                  drives=[{"team": {"id": "2"}, "plays": [
+                                      {"text": "Will Reichard 45 yd field goal is no good, wide right", "type": {"text": "Field Goal Missed"},
+                                       "period": {"number": 4}, "clock": {"displayValue": "0:02"}}]}]))
+    assert miss["type"] == "kick" and not miss["blocked"] and miss["y"] == 45
+    assert "0:02" in D.say(miss, "away", "Alabama", "Auburn", "ncaaf", "q")
+    # a pick-six that swung it
+    p6 = D.parse("nfl", _summ(24, 20, [_sp(0, 10, 1, "2:00", "x 2 Yd Run", "Rushing Touchdown", "2"),
+                                       _sp(10, 10, 2, "5:00", "y 9 Yd Run", "Rushing Touchdown"),
+                                       _sp(17, 10, 3, "7:00", "Trent McDuffie 34 Yd Interception Return (Harrison Butker Kick)", "Interception Return Touchdown"),
+                                       _sp(24, 20, 4, "6:00", "z 1 Yd Run", "Rushing Touchdown")]))
+    assert p6["type"] == "dtd" and p6["how"] == "pick-six" and p6["p"] == "Trent McDuffie", p6
+    w, l_ = both("nfl", p6)
+    assert "pick-six" in w and "pick-six" in l_ and "swung" in w
+    # an empty-netter that sealed it
+    en = D.parse("nhl", _summ(3, 1, [_sp(1, 0, 1, "10:00", "William Nylander (3) Snap Shot"),
+                                     _sp(1, 1, 2, "8:00", "Sidney Crosby (2) Wrist Shot", team="2"),
+                                     _sp(2, 1, 3, "12:00", "Mitch Marner (4) Backhand"),
+                                     _sp(3, 1, 3, "0:45", "Auston Matthews (12) Wrist Shot, Empty Net")], per=3, key="plays"))
+    assert en["type"] == "en" and en["p"] == "Auston Matthews" and en["s"] == "3-1", en
+    w, l_ = both("nhl", en, "the Maple Leafs", "the Penguins")
+    assert "empty" in w.lower() and "empty" in l_.lower()
+    # a big comeback (in-game) and one from the period scores only
+    cb = D.parse("nfl", _summ(28, 21, [_sp(0, 7, 1, "9:00", "a", "Rushing Touchdown", "2"), _sp(0, 14, 1, "2:00", "b", "Rushing Touchdown", "2"),
+                                       _sp(0, 21, 2, "4:00", "c", "Rushing Touchdown", "2"), _sp(7, 21, 2, "0:30", "d", "Rushing Touchdown"),
+                                       _sp(14, 21, 3, "6:00", "e", "Rushing Touchdown"), _sp(21, 21, 4, "12:00", "f", "Rushing Touchdown"),
+                                       _sp(28, 21, 4, "8:00", "g", "Rushing Touchdown")]))
+    assert cb["type"] == "comeback" and cb["d"] == 21, cb
+    w, l_ = both("nfl", cb)
+    assert "21" in w and "21" in l_ and "lead" in l_, (w, l_)
+    cb2 = D.parse("nhl", _summ(4, 3, per=3, lines=((0, 2, 2), (3, 0, 0))))
+    assert cb2["type"] == "comeback" and cb2["d"] == 3
+    # a blowout (the halftime score) and nothing big at all
+    bo = D.parse("nfl", _summ(41, 10, lines=((14, 14, 7, 6), (3, 0, 7, 0))))
+    assert bo["type"] == "blowout" and bo["h"] == "28-3" and bo["s"] == "41-10"
+    w, l_ = both("nfl", bo)
+    assert "41-10" in w and "41-10" in l_
+    assert D.parse("nfl", _summ(27, 20, [_sp(0, 3, 1, "9:00", "k 30 Yd Field Goal", "Field Goal Good", "2"),
+                                         _sp(7, 3, 2, "9:00", "a 2 Yd Run", "Rushing Touchdown")])) == {}
+    assert D.parse("nfl", {"header": {}}) is None and D.say({}, "home", "a", "b", "nfl", "s") == ""
+
+
+def test_decider_fetched_once_and_never_blocks_grading():
+    """One summary per graded game (kept in deciders.json); a failed fetch leaves the leg alone (tried again next run,
+    3 tries, then nothing) - grading never waits on it."""
+    import sports_decider as D
+    keep, tmp = sd.DATA, tempfile.mkdtemp()
+    sd.DATA = tmp
+    try:
+        calls = []
+
+        def fetch(lg, eid):
+            calls.append(eid)
+            return _summ(41, 10, lines=((14, 14, 7, 6), (3, 0, 7, 0)))
+        picks = [{"legs": [{"game_id": "nfl:9", "result": "won", "side": "home"},
+                           {"game_id": "nfl:9", "result": "lost", "side": "away"},
+                           {"game_id": "nfl:10", "result": None}]}]
+        D.fill(picks, fetch=fetch)
+        assert calls == ["9"] and picks[0]["legs"][0]["decider"]["type"] == "blowout"
+        assert picks[0]["legs"][1]["decider"]["type"] == "blowout" and "decider" not in picks[0]["legs"][2]
+        again = [{"legs": [{"game_id": "nfl:9", "result": "won", "side": "home"}]}]
+        D.fill(again, fetch=fetch)
+        assert calls == ["9"] and again[0]["legs"][0]["decider"]["type"] == "blowout", "fetched once"
+
+        def down(lg, eid):
+            raise OSError("ESPN down")
+        bad = [{"legs": [{"game_id": "nhl:5", "result": "lost", "side": "home"}]}]
+        for i in range(D.MAX_TRIES - 1):
+            D.fill(bad, fetch=down)
+            assert "decider" not in bad[0]["legs"][0], "a failed fetch: tried again next run"
+        D.fill(bad, fetch=down)
+        assert bad[0]["legs"][0]["decider"] == {}, "3 tries, then the review goes without it"
+    finally:
+        sd.DATA = keep
+        shutil.rmtree(tmp)
+
+
+def test_review_says_how_it_was_won_or_lost():
+    """The graded review tells the decider from OUR side - win or loss - in about the same length as the old line,
+    never with banned words, no hype on a lean. No decider (or a spread we covered while losing the game) = the usual
+    review, still there."""
+    import html as html_
+    import sports_dashboard as dash
+    import sports_decider as D
+    import sports_lingo as sl
+    import sports_owner_lingo as L
+    keep, tmp = sd.DATA, tempfile.mkdtemp()
+    sd.DATA = tmp
+    try:
+        late = {"type": "late", "win": "home", "s": "20-17", "p": "Brandon Aubrey", "k": "fg", "y": 52, "c": "0:03"}
+        blk = {"type": "kick", "win": "away", "s": "20-17", "blocked": True, "c": "1:10", "y": 48}
+
+        def pk(date, side, res, dec, lean=False, market="ml", line=None):
+            l = {"game_id": f"nfl:{date}{side}", "league": "nfl", "side": side, "team": "Cowboys", "opp": "Eagles",
+                 "market": market, "odds": -120, "line": line, "result": res, "p": 0.6, "score": "Eagles 17 @ Cowboys 20"}
+            if dec is not None:
+                l["decider"] = dec
+            return {"date": date, "kind": "lean" if lean else "lock", "status": res, "lean": lean, "legs": [l], "american": -120}
+        picks = [pk("2026-09-20", "home", "won", late), pk("2026-09-21", "home", "lost", blk),
+                 pk("2026-09-22", "home", "won", late, lean=True), pk("2026-09-23", "home", "won", None),
+                 pk("2026-09-24", "away", "won", late, market="spread", line=6.5)]
+        page = html_.unescape(dash._history(picks))
+        revs = re.findall(r"📝 (.*?)</div>", page)
+        assert len(revs) >= 5 and all(revs), revs
+        won = dash.LEG_REVIEWS[("2026-09-20", "nfl:2026-09-20home|home|ml")]
+        lost = dash.LEG_REVIEWS[("2026-09-21", "nfl:2026-09-21home|home|ml")]
+        lean = dash.LEG_REVIEWS[("2026-09-22", "nfl:2026-09-22home|home|ml")]
+        plain = dash.LEG_REVIEWS[("2026-09-23", "nfl:2026-09-23home|home|ml")]
+        cover = dash.LEG_REVIEWS[("2026-09-24", "nfl:2026-09-24away|away|spread")]
+        assert "0:03" in won and not won.startswith("Lost"), won
+        assert "1:10" in lost and "block" in lost.lower(), lost
+        assert "0:03" in lean and not sl.LEAN_BAN.search(lean), lean
+        assert plain and "0:03" not in plain, "no decider: the usual review"
+        assert "0:03" not in cover, "we covered while the game was lost: the decider isn't our story"
+        for r in (won, lost, lean):
+            assert len(r) <= sl.HOW_CAP and not any(n in r.lower() for n in L.NEVER), r
+        assert dash._history(picks) == dash._history(picks), "the same words every run"
+        # the cache (no decider on the leg yet) works too
+        json.dump({"nfl:77": late}, open(os.path.join(tmp, "deciders.json"), "w"))
+        p2 = [pk("2026-09-25", "home", "won", None)]
+        p2[0]["legs"][0]["game_id"] = "nfl:77"
+        dash._history(p2)
+        assert "0:03" in dash.LEG_REVIEWS[("2026-09-25", "nfl:77|home|ml")]
+    finally:
+        sd.DATA = keep
+        shutil.rmtree(tmp)
+    assert "sports_decider.fill" in open("sports.py").read() and "def deciders(" in open("sports.py").read()
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

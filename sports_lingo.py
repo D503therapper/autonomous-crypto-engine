@@ -902,6 +902,31 @@ LINES = {
 }
 
 
+
+# ---- HOW IT WAS DECIDED (the owner, 10/1: "reviews say how it was won or lost") --------------------------------------
+# {how} is sports_decider.say's sentence ("Won it on a 52-yard field goal with 0:03 left."); the closer is short, so a
+# review that says how is no longer than the line it replaces.
+LINES.update({
+    "rv:how_won": ((22, 2), False, T(
+        "{how} %wk%", "{how} %wk%", "{how} We'll take it.", "{how} [Cashed|Paid|Green].",
+    )),
+    "rv:how_lost": ((24, 2), False, T(
+        "{how} %lk%", "{how} %lk%", "{how} Tough way to lose one.", "{how} [That one stung.|Brutal.|Pain.]",
+    )),
+})
+HOW_CAP = 92                                             # (the longest old review line is 96)
+
+
+def review_how(how, result, seed, used, lean=False):
+    """The review for a game that something big decided: that sentence, then a short closer (fresh against `used`).
+    "" when there's nothing to say (the caller keeps its usual line)."""
+    if not how or result not in ("won", "lost"):
+        return ""
+    cap, _, templates = LINES[f"rv:how_{result}"]
+    opts = [o.strip() for o in roll(templates, seed, cap, 40, False, LEAN_BAN if lean else None, how=how)]
+    opts = [o for o in opts if len(o) <= HOW_CAP] or [how]
+    return fresh(opts, used, [how]) or how
+
 def live_story(result, seed, used, ran=False, **kw):
     """(score, thought, end) of a live bet on the list - kw: an a hn h w us what best."""
     score = say("ls:score", seed, used, an=kw["an"], a=kw["a"], hn=kw["hn"], h=kw["h"], w=kw["w"])
