@@ -179,6 +179,17 @@ noise either way.
   streaks, NBA favorite missing a star (carried by 2021 / +300s), rest / byes / road trips, division games outside
   MLB, MLB series spots, line-move sizes outside the NHL, marquee favorites (team by team), public % (look-ahead risk).
 
+- **Dog studies round 2 (10/1 - NEW angles only, ~700 slices, judged strictly for multiple testing):** BUILT: NBA dog
+  that WON 2+ close games (3 or less / OT) in its last 5 -20.0% vs -3.4% (worse 7 of 8 - our own check agrees; college
+  hoops weaker, -1) -3; NHL dog in the top quarter of hit margin (last 10, ranked within the season) +2.2% vs -6.1%
+  (5 of 5, 2024-26 +7.6%; adds to shot share) +2; MLB dog 10+ points unluckier than the favorite (win % vs Pythagorean,
+  season) +2.7% vs -3.5% (6 of 9) +1, watch. WATCH: college football dogs with bad turnover luck but even-or-better
+  yards (+25% on 113 - thin box-score coverage). DEAD: MLB weather (wind speed / rain / cold - and low-scoring spots HURT
+  dogs; hot 85F+ games look bad but may be game-time weather), one-run / one-goal / OT records, football close-game
+  luck (close wins there are real), NHL special teams / penalty minutes / faceoffs / blocks, NFL turnover luck, third
+  downs / possession / penalties. Data note: NHL takeaways / giveaways are counted differently from 2024 on - rank
+  within a season.
+
 ## Data audit (10/1, the owner: "gotta confirm we don't gather bad data")
 - **Coaches (ESPN per season): BAD** - today's coach copied back through every season (NFL / NHL / MLB / college
   football), partly wrong in hoops. Coaching round 1 weights OFF.

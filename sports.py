@@ -768,9 +768,10 @@ def _dog_ctx(lg, me, them):
     """The 10/1 dog studies' facts for one side: our / their last result, run share gap (MLB), shot share gap (NHL)."""
     a, b = DOG_ST.get((lg, me)) or {}, DOG_ST.get((lg, them)) or {}
     out = {"won": a.get("won"), "opp_won": b.get("won")}
-    for k in ("rs", "ss"):
+    for k in ("rs", "ss", "luck"):
         if a.get(k) is not None and b.get(k) is not None:
             out[k + "_gap"] = round(a[k] - b[k], 4)
+    out["cw5"], out["hits_top"] = a.get("cw5") or 0, bool(a.get("hits_top"))
     return out
 
 
@@ -795,6 +796,14 @@ def dog_spots(c):
         sc -= 2                    # the price: MLB +200..+249 -14.9% (1 of 9 seasons up), NHL +200 and up -11..-14%
     if lg == "mlb" and (x.get("rs_gap") or 0) >= 0.02:
         sc += 1.5                  # out-scoring the favorite lately (small - 5 of 9 seasons at +130..+199)
+    if lg == "nba" and (x.get("cw5") or 0) >= 2:
+        sc -= 3                    # won 2+ close games lately: -20.0% vs -3.4% (worse 7 of 8) - over-rated
+    elif lg == "ncaab" and (x.get("cw5") or 0) >= 2:
+        sc -= 1                    # (college hoops: the same, weaker - worse 5 of 8)
+    if lg == "nhl" and x.get("hits_top"):
+        sc += 2                    # out-hitting people (top quarter, last 10): +2.2% vs -6.1% (5 of 5)
+    if lg == "mlb" and (x.get("luck_gap") or 0) <= -0.10:
+        sc += 1                    # much unluckier than the favorite this season: +2.7% vs -3.5% (6 of 9) - watch
     ss = x.get("ss_gap")
     if lg == "nhl" and ss is not None:
         sc += 3 if ss > 0 else -3 if ss <= -0.03 else 0   # out-shooting them: +1.0% vs -5.7% (5 of 5); out-shot -10.5%

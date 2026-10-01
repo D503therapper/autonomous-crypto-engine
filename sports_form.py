@@ -294,6 +294,10 @@ def ats_states(games):
 #     at +130..+199 (the 2nd check, ours: weaker than the first said)
 #   - NHL shot share (last 10, 5+): a dog out-shooting the favorite +1.0% vs -5.7% (5 of 5, 2024-26 +9.3% vs -1.6%);
 #     out-shot by 3+ points -10.5% vs -5.6% (0 of 5)
+#   round 2 (10/1, new angles only): an NBA dog that WON 2+ close games (3 or less / OT) in its last 5: -20.0% vs -3.4%
+#     (worse 7 of 8, 2024-26 -18.9%) - the books over-rate close wins (college hoops the same, weaker); NHL dogs in the
+#     top quarter of hit margin (last 10, ranked within the season): +2.2% vs -6.1% (5 of 5, 2024-26 +7.6%); MLB: the
+#     dog 10+ points unluckier than the favorite (win % vs Pythagorean, season) +2.7% vs -3.5% (6 of 9) - small, watch
 LAST_FRESH_D = 30
 
 
@@ -311,19 +315,29 @@ def dog_states(games, now_iso, team_rows=None):
                 hs, as_ = float(g["home_score"]), float(g["away_score"])
             except (KeyError, ValueError):
                 continue
+            per = len([x for x in str(g.get("ls_home") or "").split(",") if x != ""])
             for t, us, them in ((g["home"], hs, as_), (g["away"], as_, hs)):
-                hist.setdefault(t, []).append((g["start"], us, them, g["id"]))
+                hist.setdefault(t, []).append((g["start"], us, them, g["id"], per))
         for t, rows in hist.items():
-            st, us, them, _ = rows[-1]
+            st, us, them = rows[-1][:3]
             d = {"won": (us > them) if _days(st, now_iso) <= LAST_FRESH_D else None}
             if lg == "mlb":
                 q = [r for r in rows[-15:] if _days(r[0], now_iso) <= 45]
                 if len(q) >= 7 and sum(r[1] + r[2] for r in q):
                     d["rs"] = sum(r[1] for r in q) / sum(r[1] + r[2] for r in q)
+            if lg in ("nba", "ncaab"):                     # close wins in the last 5 (3 or less, or overtime)
+                q = [r for r in rows[-5:] if _days(r[0], now_iso) <= 30]
+                d["cw5"] = sum(1 for r in q if r[1] > r[2] and (r[1] - r[2] <= 3 or r[4] > (4 if lg == "nba" else 2)))
+            if lg == "mlb":                                # season luck: win % minus the Pythagorean win % (20+ games)
+                yr = now_iso[:4]
+                q = [r for r in rows if r[0][:4] == yr]
+                rf, ra = sum(r[1] for r in q), sum(r[2] for r in q)
+                if len(q) >= 20 and rf + ra:
+                    d["luck"] = sum(r[1] > r[2] for r in q) / len(q) - rf ** 1.83 / (rf ** 1.83 + ra ** 1.83)
             out[(lg, t)] = d
     rows = team_rows if team_rows is not None else _nhl_team_rows()
     by_gid = {r["gid"]: r for r in rows}
-    shots = {}
+    shots, hits = {}, {}
     for g in sorted(sm.finals(games, "nhl"), key=lambda g: g["start"]):
         r = by_gid.get(g["id"])
         if not r or (g.get("stype") or "2") != "2" or g["start"] > now_iso or _days(g["start"], now_iso) > 40:
@@ -335,6 +349,17 @@ def dog_states(games, now_iso, team_rows=None):
             continue
         shots.setdefault(g["home"], []).append((sh, sa))
         shots.setdefault(g["away"], []).append((sa, sh))
+        try:
+            hh, ha = float(tm[str(g["home"])]["hits"]), float(tm[str(g["away"])]["hits"])
+            hits.setdefault(g["home"], []).append(hh - ha)
+            hits.setdefault(g["away"], []).append(ha - hh)
+        except (KeyError, ValueError, TypeError):
+            pass
+    hm = {t: sum(q[-10:]) / 10 for t, q in hits.items() if len(q) >= 10}
+    if len(hm) >= 8:                                     # top quarter THIS season (hit counting shifts season to season)
+        cut = sorted(hm.values())[int(len(hm) * 0.75)]
+        for t, v in hm.items():
+            out.setdefault(("nhl", t), {"won": None})["hits_top"] = v >= cut
     for t, q in shots.items():
         q = q[-10:]
         if len(q) >= 5 and sum(a + b for a, b in q):

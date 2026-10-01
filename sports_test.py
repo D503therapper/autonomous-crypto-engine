@@ -5343,6 +5343,14 @@ def test_dog_studies_10_1():
     big = {"edge_own": 0.5}                                                # own read way over the price
     assert ds(league="nba", **big) < ds(league="mlb", **big)               # NBA / NFL: a big own read is a trap
     assert sports.dog_spots({"league": "mlb", "odds": 230}) == -2 and sports.dog_spots({"league": "mlb", "odds": 160}) == 0
+    assert ds(league="nba", dog_ctx={"cw5": 2}) == ds(league="nba") - 3                # round 2: close-win trap
+    assert ds(league="ncaab", dog_ctx={"cw5": 3}) == ds(league="ncaab") - 1
+    assert ds(league="nhl", dog_ctx={"hits_top": True}) == ds(league="nhl") + 2      # out-hitting people
+    assert ds(league="mlb", dog_ctx={"luck_gap": -0.12}) == ds(league="mlb") + 1     # the unlucky dog (watch)
+    nba = {f"nba:{k}": {"id": f"nba:{k}", "league": "nba", "status": "final", "stype": "2", "start": f"2026-09-{20 + k}T23:00Z",
+                        "home": "A", "away": "B", "home_score": str(100 + (2 if k < 2 else 20)), "away_score": "100",
+                        "ls_home": "25,25,25,25", "ls_away": "25,25,25,25"} for k in range(4)}
+    assert sf.dog_states(nba, "2026-09-30T12:00Z", team_rows=[])[("nba", "A")]["cw5"] == 2
     games = {f"mlb:{k}": {"id": f"mlb:{k}", "league": "mlb", "status": "final", "stype": "2", "start": f"2026-09-{10 + k}T23:00Z",
                           "home": "A", "away": "B", "home_score": "5", "away_score": "2"} for k in range(8)}
     st = sf.dog_states(games, "2026-09-30T12:00Z", team_rows=[])
