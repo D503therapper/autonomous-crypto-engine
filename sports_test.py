@@ -5083,7 +5083,9 @@ def test_early_season_hockey_favorites():
         assert sports.season_w({**fav, "start": "2026-10-20T23:00Z"}) == 0          # week 4: the best spot - no knock
         assert sports.season_w({**fav, "odds": 150}) == 0 and sports.season_w({**fav, "league": "nba"}) == 0
         games = {"a": {"league": "nhl", "stype": "2", "start": "2026-09-24T23:00Z"},
-                 "b": {"league": "nhl", "stype": "1", "start": "2026-09-10T23:00Z"}}     # (preseason doesn't count)
+                 "b": {"league": "nhl", "stype": "1", "start": "2026-09-10T23:00Z"},      # (preseason doesn't count)
+                 "c": {"league": "nhl", "stype": "2", "start": "2026-03-15T23:00Z"},      # last season: never the start
+                 "d": {"league": "nhl", "stype": "2", "start": "2026-04-12T23:00Z"}}      # (9/30: it picked last March)
         assert sports.season_starts(games, datetime(2026, 9, 30, tzinfo=timezone.utc)) == {"nhl": "2026-09-24"}
     finally:
         sports.SEASON_START.clear(); sports.SEASON_START.update(keep)
