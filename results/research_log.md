@@ -44,16 +44,6 @@ RESULT (67 entries with buyers: 58 Base 07-08..08-21 + 9 Solana from the last da
 DECISION: nothing to change in dex.py. Smart money cannot be backfilled for free on Solana (our main runner chain), so the only
 honest test is forward. Probe/collector left as a tool; the 95-min workflow re-runs only on edits to its two files.
 
-## Hourly check fixes
-- 2026-09-30 09:40 UTC: the engine's 09:05 hourly save never reached GitHub (one pull + push attempt; other sessions push
-  every minute; a dirty tracked file also blocks a plain rebase). The end-of-run save of the run my fix push replaced
-  failed the same way, so ~1.5 h of DEX paper trades were lost (08:05 -> 09:44: ASTEROID sold, BOTIFY and SI bought;
-  that run showed $974.14, the restored 08:05 state $1,004.22). Fix (e973fb9): git_sync and the end-of-run commit retry
-  5x with --autostash and abort failed rebases; tested against a racing bare remote.
-- 2026-09-30 22:30 UTC: moon alerts never reached the phone - the rocket emoji in the title isn't allowed in an HTTP
-  header ('latin-1' error at the AIRPAD 2.1x alert, 19:06). Fix: non-latin-1 titles go RFC 2047-encoded (ntfy decodes
-  them); regression test in moon_alerts_test.py. AIRPAD itself faded back to 0.26x - no alert missed now.
-
 ### DONE 2026-10-01 04:30 - Tighten the DEX (owner: "we're losing our ass") -> EXPERIMENT 6 (entry needs 6h >= +50%), 3b undone
 Q: what separates the live losers from winners? METHOD: (1) dex_tighten_study.py on the consolidated 205 cached pools (same
 account as dex_consolidated_study, 10 slots, halves + 300 resampled accounts); (2) NEW dex_live_replay_study.py on the engine's
@@ -65,6 +55,16 @@ halves negative under all 7 exits; 6h >= +50% n 38, +6.8 / +13.4. Backtest per t
 3x stake back vs live +392% / +364% (2x), resampled medians higher in both halves, maxDD -18% vs -26%. Exit: 3x stake back beat
 2x in both data sets (backtest both halves; live replay +9.3 vs +6.8 on the 6h >= +50% trades) -> 3b undone, stake back at 3x.
 CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live replay is only 4 days. Judge on live results.
+
+## Hourly check fixes
+- 2026-09-30 09:40 UTC: the engine's 09:05 hourly save never reached GitHub (one pull + push attempt; other sessions push
+  every minute; a dirty tracked file also blocks a plain rebase). The end-of-run save of the run my fix push replaced
+  failed the same way, so ~1.5 h of DEX paper trades were lost (08:05 -> 09:44: ASTEROID sold, BOTIFY and SI bought;
+  that run showed $974.14, the restored 08:05 state $1,004.22). Fix (e973fb9): git_sync and the end-of-run commit retry
+  5x with --autostash and abort failed rebases; tested against a racing bare remote.
+- 2026-09-30 22:30 UTC: moon alerts never reached the phone - the rocket emoji in the title isn't allowed in an HTTP
+  header ('latin-1' error at the AIRPAD 2.1x alert, 19:06). Fix: non-latin-1 titles go RFC 2047-encoded (ntfy decodes
+  them); regression test in moon_alerts_test.py. AIRPAD itself faded back to 0.26x - no alert missed now.
 
 - 2026-10-01 05:30 UTC: AIRPAD sold at 8e-06 (2026-09-30 22:34) on bad DexScreener-profile readings for its real pool
   (1/50th of the price, $5.7k liquidity, on and off for hours). A 20x+ drop between readings now needs 15 min of
