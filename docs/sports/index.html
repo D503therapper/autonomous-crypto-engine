@@ -18,6 +18,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=8"><link rel="icon" href="icon-512.png?v=8"><link rel="manifest" href="manifest.webmanifest">
 <style>
 /* 🥊 PATTY vs THE ALGORITHM (sports_challenge.py) */
+.pvw-w{color:#22e39a;font-weight:900}.pvw-l{color:#ff5a5a;font-weight:900}
 
 .pvw{font-size:13px;font-weight:800;color:#ffd23f;margin:0 0 6px}
 .pvx .pvs{font-size:17px;font-weight:900;color:#fff;margin:6px 0 8px;letter-spacing:.01em}
@@ -610,7 +611,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790827303718,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790827425648,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
@@ -719,7 +720,7 @@ function pvLive(){var B=window.D503B||{};document.querySelectorAll(".pvc[data-gi
    h='<span class="lvb"><i></i>LIVE</span> '+(sc.sets||[]).map(function(x){return x[0]+"-"+x[1]}).join(" ");}
  else if(sc&&sc.delayed)h="⏳";
  else if(sc&&!sc.live){var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++});
-   h=w[0]>w[1]?"✅":w[1]>w[0]?"❌":"";}
+   h=w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':w[1]>w[0]?'<span class="pvw-l">❌ LOSS</span>':"";}
  if(i.innerHTML!==h)i.innerHTML=h;})}
 pvLive();setInterval(pvLive,3000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
