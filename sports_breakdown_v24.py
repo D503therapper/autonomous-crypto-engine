@@ -849,7 +849,8 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
         if line:
             break
     if not line:
-        line = v.say(*(pools + [nums])[0], must=True)
+        line = v.say("w_any", [o for _, opts in pools + [nums] for o in opts], must=True)   # every wording in play: the
+                                                          # one that repeats the fewest phrases
     kick = []                                             # a short second punch, when there's a real one
     if trip and rsn and "opponent's body clock is off" not in rsn:
         kick.append(("k_trip", [f" Plus {them} flew {_mi(trip['mi'])} miles for this.",
