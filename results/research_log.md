@@ -70,6 +70,11 @@ CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live
   (1/50th of the price, $5.7k liquidity, on and off for hours). A 20x+ drop between readings now needs 15 min of
   readings before a stop / rug sale (dex.py _confirmed; test_far_off_tick_needs_15_minutes). Cost: ~$33 vs a real-price sale.
 
+- 2026-10-01 08:30 UTC: the engine froze at 08:06 (run still 'in progress', no output or commits for 20+ min). Every git call
+  (hourly save, minute dashboard push) ran without a time limit in the single-threaded loop, so one hung network call
+  stops trading. Fix: git calls time out after 90 s, and a watchdog thread exits the engine when the main loop is silent
+  25 min (the workflow restarts it in 30 s). Tests: run_live_watchdog_test.py. This push restarts the frozen run.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|

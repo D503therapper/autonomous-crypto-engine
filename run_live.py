@@ -11,6 +11,7 @@ import csv
 import json
 import os
 import subprocess
+import threading
 import time
 import urllib.request
 
@@ -627,7 +628,8 @@ def push_docs(remote="origin", branch="main"):
     env = dict(os.environ, GIT_INDEX_FILE=os.path.abspath(".git/dash_index"))
 
     def git(*args):
-        return subprocess.run(["git", *args], env=env, capture_output=True, text=True, check=True).stdout.strip()
+        return subprocess.run(["git", *args], env=env, capture_output=True, text=True, check=True,
+                              timeout=GIT_TIMEOUT).stdout.strip()
     try:
         git("fetch", "-q", remote, branch)
         base = git("rev-parse", "FETCH_HEAD")
@@ -641,6 +643,8 @@ def push_docs(remote="origin", branch="main"):
         git("push", "-q", remote, f"{commit}:refs/heads/{branch}")
     except subprocess.CalledProcessError as e:
         print(f"   dashboard push skipped: {(e.stderr or '').strip()[:200]}")
+    except subprocess.TimeoutExpired:
+        print(f"   dashboard push skipped: git took over {GIT_TIMEOUT}s")
 
 
 def daily_summary(rows):
@@ -667,22 +671,55 @@ def daily_summary(rows):
         json.dump({"date": today, "balances": now_bal}, f)
 
 
+GIT_TIMEOUT = 90     # 2026-10-01 08:06: the engine went silent mid-run; every git call can hang on the network and the
+                     # loop is single-threaded, so a stuck fetch / push froze trading. Bounded now.
+
+
+WATCHDOG_S = 25 * 60   # main loop silent this long = frozen: exit, the workflow restarts the engine in 30 s
+_tick = [time.time()]
+
+
+def watchdog(limit=WATCHDOG_S, exit_fn=None, every=60):
+    """Background thread: if the main loop stops ticking for `limit` seconds, end the process (the workflow's
+    restart loop brings it back). A hang anywhere - git, a socket without a timeout - can't freeze trading for hours."""
+    exit_fn = exit_fn or (lambda: os._exit(3))
+
+    def run():
+        while True:
+            time.sleep(every)
+            if time.time() - _tick[0] > limit:
+                print(f"   WATCHDOG: main loop silent for {(time.time() - _tick[0]) / 60:.0f} min - restarting", flush=True)
+                exit_fn()
+                return
+    t = threading.Thread(target=run, daemon=True)
+    t.start()
+    return t
+
+
+def sh(cmd, **kw):
+    """git via the shell with a time limit; a hung call counts as failed (returncode 124)."""
+    try:
+        return subprocess.run(cmd, shell=True, timeout=GIT_TIMEOUT, **kw).returncode
+    except subprocess.TimeoutExpired:
+        print(f"   git: '{cmd[:40]}' took over {GIT_TIMEOUT}s - skipped")
+        return 124
+
+
 def git_sync():
     """In the cloud runner: commit the paper accounts back to GitHub every hour."""
     if os.environ.get("GIT_AUTOPUSH") != "1":
         return
     # `git add data` already covers data/social and data/dex; naming a subdirectory that does
     # not exist yet makes the whole add fail (pathspec error) and nothing gets committed
-    subprocess.run("git add data SCOREBOARD.md LAB.md docs", shell=True)
-    subprocess.run(f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'", shell=True,
-                   stdout=subprocess.DEVNULL)              # nothing changed: an earlier unpushed commit may still wait
+    sh("git add data SCOREBOARD.md LAB.md docs")
+    sh(f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'", stdout=subprocess.DEVNULL)              # nothing changed: an earlier unpushed commit may still wait
     # other sessions push to main all the time (dashboard, sports, wallet tracker): a single pull + push lost the
     # race at 09:05 UTC on 2026-09-30 and the hour was never saved. Retry, and never leave a rebase in progress.
     for i in range(5):
-        if subprocess.run("git pull -q --rebase --autostash -X theirs", shell=True).returncode:
-            subprocess.run("git rebase --abort", shell=True, stderr=subprocess.DEVNULL)
+        if sh("git pull -q --rebase --autostash -X theirs"):
+            sh("git rebase --abort", stderr=subprocess.DEVNULL)
             print(f"   git sync: pull failed (try {i + 1}/5)")
-        elif not subprocess.run("git push -q", shell=True).returncode:
+        elif not sh("git push -q"):
             return
         else:
             print(f"   git sync: push rejected (try {i + 1}/5)")
@@ -715,7 +752,10 @@ def main():
     MOVER.veto = early_veto(guard, scanner)     # hourly take-off buys go through the pump guard too
     last_listing = 0.0
     last_dash = time.time()                     # first refresh 1 min in (the hourly cycle draws it at start)
+    if os.environ.get("GIT_AUTOPUSH") == "1":
+        watchdog()
     while True:
+        _tick[0] = time.time()
         hour = time.strftime("%Y%m%d%H", time.gmtime())
         if hour != last_hour and time.gmtime().tm_min >= 1:   # new hourly candle has closed
             for m, c in clients.items():
