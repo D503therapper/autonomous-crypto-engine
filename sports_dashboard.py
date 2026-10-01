@@ -309,24 +309,21 @@ def day_recap(picks, today=None, early=None, now=None):
     today = today or now.strftime("%Y-%m-%d")
     early = sports_early.load().get("picks") or [] if early is None else early
     rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[0]["date"] == today]
-    calls, pending = day_calls(picks, today)
-    if not rows or pending or sports.day_pending(picks, early, today):
-        return ""                                            # (every pick in - leans too - never a half-day number)
+    if not rows or sports.day_pending(picks, early, today):
+        return ""                                            # (every play with units in - never a half-day number)
     bet, net = sum(r[1] for r in rows), sum(r[2] for r in rows)
-    w = sum(r == "won" for r in calls.values())              # the record: every pick (the owner, 10/1: we went 3-2 -
-    l = sum(r == "lost" for r in calls.values())             # leans count in our record; the units are the plays with
-    pu = 0                                                   # units only, leans carry none)
+    w = sum(1 for r in rows if r[2] > 0)                     # the plays with units only (the owner, 10/1: "the ROI is
+    l = sum(1 for r in rows if r[2] < 0)                     # the ROI" - leans carry no units, their cards say so)
+    pu = sum(1 for r in rows if r[2] == 0)
     midnight = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=sports.PT) + timedelta(days=1)
     led = sports.units_ledger(picks, early)
     usd = net * (led["by_date"].get(today) or led["unit_today"])                 # the units in dollars (the owner, 10/1)
-    rec = f"{w}-{l}" + (f" · {w / (w + l):.0%}" if w + l else "")
+    rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
     up = net >= 0
     return (f'<div class="dayr {"up" if up else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
             f'<div class="dayr-t">📊 TODAY\'S RESULTS</div>'
-            f'<div class="dayr-n">{rec}</div>'
-            f'<div class="dayr-s"><b class="{"up" if up else "dn"}">{"+" if up else "-"}{abs(net):.1f} UNITS '
-            f'({"+" if up else "-"}${abs(usd):,.2f})</b> · ROI {net / bet:+.0%}</div>'
-            f'<div class="dayr-x">Leans count in the record, not the units.</div></div>'
+            f'<div class="dayr-n">{"+" if up else "-"}{abs(net):.1f} UNITS</div>'
+            f'<div class="dayr-s">{"+" if up else "-"}${abs(usd):,.2f} · ROI {net / bet:+.0%} · {rec}</div></div>'
             f'<script>(function(){{var d=document.currentScript.previousElementSibling;'
             f'if(Date.now()>+d.dataset.until)d.remove();}})();</script>') if bet else ""
 
@@ -1716,12 +1713,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .unw{{display:block;font-size:13px;letter-spacing:.02em;font-weight:800;color:#fff;text-transform:none}}   /* why ½u */
 .nou{{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
-.dayr{{margin:12px 0 0;padding:14px;border-radius:12px;background:var(--card);border:2px solid #ffc233;text-align:center}}
+.dayr{{margin:12px 0 0;padding:14px;border-radius:12px;background:var(--card);border:2px solid #22e39a;text-align:center}}
+.dayr.dn{{border-color:#ff3b3b}}
 .dayr-t{{font-size:14px;font-weight:900;color:#ffc233;letter-spacing:.06em}}
-.dayr-n{{font-size:30px;font-weight:900;color:#fff;margin-top:4px}}
-.dayr-s{{font-size:16px;font-weight:800;color:#fff;margin-top:2px}}
-.dayr-s b.up{{color:#22e39a}} .dayr-s b.dn{{color:#ff5a5a}}
-.dayr-x{{font-size:12px;font-weight:800;color:#ffc233;margin-top:4px}}
+.dayr-n{{font-size:28px;font-weight:900;color:#22e39a;margin-top:4px}}
+.dayr.dn .dayr-n{{color:#ff5a5a}}
+.dayr-s{{font-size:15px;font-weight:800;color:#fff;margin-top:2px}}
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}

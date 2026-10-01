@@ -38,10 +38,10 @@ every session:
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.
 - Tennis live plus money (the owner, 10/1 - "tighten it up"): only SUPER value - a 65%+ pre-match favorite on the
   books now at plus money, with a 10%+ edge (sports_live.TENNIS_SUPER_PRE / TENNIS_MIN_EDGE).
-- 📊 TODAY'S RESULTS (the owner, 10/1 - not 'damage': it sounded like a loss): at the very top once EVERY pick that day is
-  graded (never a half-day number), gone at midnight PT (sports_dashboard.day_recap). Big line = the day's record, every
-  pick once, leans in (3-2 · 60%); under it the units in units AND dollars + ROI (plays with units only); a note says
-  leans count in the record, not the units. The brain's day line uses the same count (day_calls), never parlay cards.
+- 📊 TODAY'S RESULTS (the owner, 10/1 - not 'damage': it sounded like a loss): at the very top once every play with units
+  graded (never a half-day number), gone at midnight PT (sports_dashboard.day_recap): the units big, then dollars · ROI ·
+  the record of the plays with units (the owner: "the ROI is the ROI" - leans carry no units, no note about it). The
+  brain's day line counts every pick once, leans in (day_calls), never parlay cards.
 - A win % only shows on the dashboard when it's over 55% (sports_dashboard.pct_ok) - under that, words say it.
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`
