@@ -331,23 +331,28 @@ def engine_weights():
                              f"{sports.DOG_SCORE_MAX_U:g}u max",
                       "units": "only when the read beats the real price (the money check), sized by the edge "
                                f"(quarter-Kelly, up to {sports.UNIT_MAX}u); plays need {round(sports.LOCK_P * 100)}%+",
-                      "leans": "who-wins calls; a lean we like gets units sized by its edge"},
+                      "leans": "who-wins calls, no units - except a lean the engine has 55%+ whose read beats the "
+                               "price (units sized by its edge)"},
         "dog gates (the whole dog score)": {"NFL": f"{sports.DOG_GATE:g}+", "NHL": f"{sports.NHL_DOG_GATE:g}+ (or the best "
                                             "hockey dog that beats its price)", "college football": f"{sports.NCAAF_DOG_GATE:g}+",
                                             "college hoops": f"own read {round(sports.NCAAB_DOG_EDGE * 100)}+ pts over the price"},
         "weights on the read": ["hockey favorite: the line moved by the dog across the ice, the first 2 weeks, a tired "
-                                "opponent (3rd game in 4 nights)", "MLB scoring-drought favorite +3",
+                                "opponent (3rd game in 4 nights), the other goalie in a save % slump", "MLB scoring-drought favorite +3",
                                 "NFL West Coast road favorite in the East +2", "hoops favorite that wins inside +1",
                                 "the record correction never puts a side under the line"],
         "dog score points": ["off a bye", "Monday night", "East team flying West", "off a blowout win",
-                             "last result / form / shots / hits / luck / rest", "4th-down nerve", ".700 college dog",
+                             "last result / form / shots / hits / puck luck / rest (hockey; NBA and MLB: the Dog of the "
+                             "Day's screen)", "4th-down nerve", ".700 college dog",
                              "neutral-site dog the engine likes", "NFL dog on a win streak", "NFL dog off a 10-or-fewer game",
-                             "MLB doubleheader game 2", "hockey sharp dog (line to it + money over tickets)",
+                             "MLB doubleheader game 2 (the Dog of the Day's screen)", "hockey sharp dog (line to it + money over tickets)",
                              "fades: ice cold, coach's first season (cancels if both new), losing streak, Thursday night, "
                              "key player out, East home dog vs a West favorite, money running away"],
         "early plays": f"max {se.SPOT_MAX_WEEK} a week, dogs +{se.SPOT_DOG[0]}..+{se.SPOT_DOG[1]} only (dogs early, "
-                       "favorites on game day), the spots + believed leads weighed, sized by the edge",
-        "daily double check": "every study's data loaded + every pick checked against the rules before the board posts"}
+                       "favorites on game day), the spots + believed leads + college rain / snow weighed, both teams' "
+                       "injury reports checked; 1u off a bye, ½u the other spots" + ("" if se.SPOT_MIN_WEEK else
+                       " - never forced (the one-a-week minimum is paused)"),
+        "daily double check": "every study's data loaded, every team's results in (a gap = no pick on that game), "
+                              "every pick checked against the rules before the board posts"}
 
 
 def day_recap(picks, today=None, early=None, now=None):

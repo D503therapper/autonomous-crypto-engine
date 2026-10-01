@@ -660,6 +660,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
         mk_h = _imp(oh) / (_imp(oh) + _imp(oa))
         ff = None
         inj = (injuries or {}).get(lg)
+        if injuries is not None and inj is None:
+            continue                                         # no injury report = we can't see who's out: never post
         et = start.astimezone(ZoneInfo("America/New_York"))
         if lg == "ncaaf":                                    # (10/1: Delaware "off a bye" - we were missing their
             if cfin is None:                                 # 9/26 game at Virginia) a college spot needs every game

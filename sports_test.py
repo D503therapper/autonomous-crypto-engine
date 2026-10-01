@@ -5659,6 +5659,10 @@ def _six_early_spots():
         assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"nfl": {"x": 1}}, agree, hist_dir=tempfile.mkdtemp()))
     finally:
         sd.team_key_out, sd.team_unsure = keep
+    # (10/1 audit) no NFL injury report at all = we can't see who's out: never post blind
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"mlb": {}}, agree, hist_dir=tempfile.mkdtemp()))
+    src = open(sports.__file__).read()
+    assert '| {"nfl", "ncaaf"}' in src                       # the run fetches football's report for the early plays
     # hammered early: the first fair price we recorded vs now (the line history)
     d = tempfile.mkdtemp()
     with open(os.path.join(d, "2026-10.jsonl"), "w") as f:
@@ -6440,6 +6444,35 @@ def test_early_college_rain_dog_weighed():
         assert se.lead_weights({}, g, "away", "home", "nfl", 0.4, 0.38) == 0.0
     finally:
         sports._dog_more = keep
+
+
+def test_coach_firings_refresh_this_season():
+    """10/1 audit: the firing data was frozen - a season page already cached was never read again, so a coach fired
+    mid-season never reached the engine (FIRED was empty). This season's pages are re-read every run; a failed read
+    never wipes what we had; past seasons stay cached."""
+    import sports_coach_changes as scc
+    from datetime import datetime, timezone
+    yr = datetime.now(timezone.utc).year
+    tmp = tempfile.mkdtemp()
+    keep = (scc.RAW, scc.PARSED, scc.fetch, scc.coaching_sections, scc.time.sleep)
+    scc.time.sleep = lambda s_: None
+    scc.RAW, scc.PARSED = os.path.join(tmp, "raw.json"), os.path.join(tmp, "parsed.json")
+    json.dump({f"nfl:{yr}": {"page": "x", "sections": ["old"]}, f"nfl:{yr - 1}": {"page": "y", "sections": ["past"]}},
+              open(scc.RAW, "w"))
+    read = []
+    scc.fetch = lambda page: read.append(page) or page
+    scc.coaching_sections = lambda txt: ["new"] if str(yr) in txt and "NFL" in txt else []
+    try:
+        scc.run(seasons=[yr - 1, yr])
+        raw = json.load(open(scc.RAW))
+        assert raw[f"nfl:{yr}"]["sections"] == ["new"]                 # this season: read again
+        assert raw[f"nfl:{yr - 1}"]["sections"] == ["past"]            # a past season: kept as is
+        assert f"{yr - 1} NFL season" not in read
+        scc.coaching_sections = lambda txt: []                          # a failed read: keeps what we had
+        scc.run(seasons=[yr])
+        assert json.load(open(scc.RAW))[f"nfl:{yr}"]["sections"] == ["new"]
+    finally:
+        scc.RAW, scc.PARSED, scc.fetch, scc.coaching_sections, scc.time.sleep = keep
 
 
 if __name__ == "__main__":
