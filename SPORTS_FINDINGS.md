@@ -154,6 +154,21 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   points everywhere. (10/1 credits: a push-started re-pull burned ~7,400 - the pull is hand-run only now.) ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
 
 
+- **🛌 THE EARLY-PLAY LEAD THAT HELD: A DOG OFF A BYE vs A TEAM THAT PLAYED (10/1, the 20 early studies -
+  tools/early_sharp_books.py, early_ml_vs_spread.py, early_overreaction.py, early_juice.py, early_batch.py;
+  results/early_*.json).** Bet the dog's moneyline at the FIRST FAIR number of the week (the middle book's price):
+  NFL +29.4% on 48 (13+ days rest, the other team on a normal week; 44% won at a median +180; 5 of 6 seasons up - 2024
+  -62%), college +16.4% on 190 (4 of 6 - 2025 -39%); the last 3 seasons + now +24% NFL / +21% college. Holds at every
+  rest cutoff (10 / 12 / 13 / 14 days) in both sports; the mirror (a dog FACING a team off a bye) -18% NFL; the line
+  moved toward these dogs by kickoff 65% NFL / 60% college (early is right: +180 -> +170). Only the DOG moneyline -
+  favorites off a bye and the spreads are priced right. Checks: fair price YES, blind (a fixed rule, schedules are known
+  ahead) YES, most seasons YES, two sports + every cutoff YES, THIS SEASON - not yet (college 6 bets +66%; NFL byes
+  start week 5). A LEAD ready to go live small, not proven. Everything else in the 20 (sharp books vs regular books,
+  moneyline vs its own spread, the look-ahead overreaction, the spread juice, line paths - buybacks / steam, market
+  error to date, pick'ems, big spreads) found nothing that held - three "passes" (#7 steam 3+, #15, #16) were lucky
+  cutoffs whose neighbors failed. The max-value dog spots together (#17) fade: big 2020-22, ~+1..4% the last 3 seasons,
+  2026 -18% on 31 - only the bye spot holds up recent.
+
 - **EARLY ROUND 3 - 20 new angles, fair prices (10/1; tools/early_round3.py, results/early_round3.json).** HELD:
   NFL East team flying West as a dog +17.0% on 88 (6 of 6); college rain / snow dogs +8.1% on 822 (engine +10.9%, 5
   of 6); college dogs vs a December .700+ team... i.e. a .700+ team AS the dog +11.0% (4 of 6); college freezing games,
