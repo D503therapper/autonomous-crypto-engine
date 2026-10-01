@@ -6298,9 +6298,11 @@ def test_early_play_reason_in_plain_words():
                "away_name": "Jaguars", "status": "pre", "stype": "2"}}
     why = se.spot_why(se._schedule(G), G["g"], "away", "home", "nfl", "blowout")
     assert "Jaguars beat Patriots 35-6 last week" in why and "Blew somebody out" not in why
+    keep_on, se.ON = se.ON, True                                    # (another test may switch the box off)
     html = se.html({"picks": [{"team": "Jaguars", "opp": "Bengals", "league": "nfl", "odds": 120, "spot": "blowout",
                                "why": why, "start": "2030-10-04T17:00Z", "game_id": "g"}]}, lambda x: x,
                    now=datetime(2030, 10, 1, tzinfo=timezone.utc))
+    se.ON = keep_on
     assert "35-6" in html
 
 
