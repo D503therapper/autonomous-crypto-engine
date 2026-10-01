@@ -625,6 +625,24 @@ def test_crash_needs_a_second_reading():
     print("  crash / rug sale needs a second reading >= 2 min later (single bad ticks ignored)   ok")
 
 
+def test_far_off_tick_needs_15_minutes():
+    """AIRPAD 2026-09-30: the feed gave 1/50th of the real price (and $5.7k liquidity) on and off; two such
+    readings 2+ min apart sold it at 8e-06. A 20x+ drop now needs 15 min of readings before any sale."""
+    h, fetch, d, px = held()
+    h.p = {**h.p, "confirm_ms": 120_000}
+    t = poll(h, T0 + 6000, px, v=0.0101)
+    t = poll(h, t, px, v=0.0101 / 50, liq=5_000)
+    t = poll(h, t + 120_000, px, v=0.0101 / 50, liq=5_000)                 # the old rule sold here
+    assert K in h.pf.positions and not h.pf.positions[K].get("exit")
+    t = poll(h, t, px, v=0.0101, liq=600_000)                              # real price back: reset
+    assert K in h.pf.positions and h.pf.positions[K].get("suspect") is False
+    t = poll(h, t, px, v=0.0101 / 50, liq=5_000)
+    t = poll(h, t + 900_000, px, v=0.0101 / 50, liq=5_000)                 # still there 15+ min later: a real crash
+    assert K not in h.pf.positions or h.pf.positions[K].get("exit")
+    shutil.rmtree(d)
+    print("  a 20x+ drop between readings needs 15 min before a sale (AIRPAD bad feed)   ok")
+
+
 def test_new_season_restarts_account():
     """A new params['season'] archives the account + outcomes (never deletes) and starts fresh at season_cash."""
     h, fetch, d, px = held()
@@ -1461,6 +1479,7 @@ if __name__ == "__main__":
     test_take_profit_steps()
     test_stake_back_executes()
     test_entry_needs_a_run()
+    test_far_off_tick_needs_15_minutes()
     test_resize_old_small_position()
     test_study_exit()
     test_max_hold()

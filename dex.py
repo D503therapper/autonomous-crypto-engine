@@ -1538,10 +1538,17 @@ class DexHunter:
 
     CONFIRM_MS = 120_000
 
+    CRASH_MS = 900_000
+
     def _confirmed(self, pos, key, now):
         """A crash / rug reading must repeat on a later price update >= 2 min after the first before we sell:
-        single bad ticks from DexScreener sold XPAD at 7.1e-05 on 2026-09-28 (7 min later: 0.000365, -$34)."""
+        single bad ticks from DexScreener sold XPAD at 7.1e-05 on 2026-09-28 (7 min later: 0.000365, -$34).
+        A reading 20x+ below the last normal one (pos["suspect"]) needs 15 min: DexScreener's profile feed gave
+        AIRPAD 4.6e-06 / $5.7k liquidity for its real pool (0.00036 / $274k) on and off for hours, and two such
+        readings sold it at 8e-06 on 2026-09-30 (-$93 booked instead of ~-$60; it was worth 0.00036 an hour later)."""
         wait = self.p.get("confirm_ms", self.CONFIRM_MS)
+        if pos.get("suspect") and wait > 0:
+            wait = max(wait, self.p.get("confirm_crash_ms", self.CRASH_MS))
         if wait <= 0:
             return True
         first = pos.get(key)
@@ -1555,6 +1562,10 @@ class DexHunter:
         if pos.get("exit"):
             return
         X, p, liq = self.p["exit"], pos["px"], pos["liq"]
+        good = pos.get("last_good") or p                  # a 20x+ drop between readings is a suspected bad tick
+        pos["suspect"] = p < good * 0.05
+        if not pos["suspect"]:
+            pos["last_good"] = p
         # A pool's $ liquidity falls with the price on its own (constant-product pool: $ liquidity ~ sqrt(price)),
         # so a -78% dump shows "-52% liquidity" with nothing pulled (GENO 2026-09-27: sold as a rug, pool back at
         # $100k 34 min later). Rug = liquidity missing BEYOND what the price move explains. Price rises don't

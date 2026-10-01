@@ -66,6 +66,10 @@ halves negative under all 7 exits; 6h >= +50% n 38, +6.8 / +13.4. Backtest per t
 2x in both data sets (backtest both halves; live replay +9.3 vs +6.8 on the 6h >= +50% trades) -> 3b undone, stake back at 3x.
 CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live replay is only 4 days. Judge on live results.
 
+- 2026-10-01 05:30 UTC: AIRPAD sold at 8e-06 (2026-09-30 22:34) on bad DexScreener-profile readings for its real pool
+  (1/50th of the price, $5.7k liquidity, on and off for hours). A 20x+ drop between readings now needs 15 min of
+  readings before a stop / rug sale (dex.py _confirmed; test_far_off_tick_needs_15_minutes). Cost: ~$33 vs a real-price sale.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|
