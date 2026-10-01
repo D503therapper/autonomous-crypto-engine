@@ -1886,6 +1886,35 @@ def slate_check(games, cands, day, now, errors=None):
     return probs
 
 
+def data_gaps(games, cands, now):
+    """🔎 NEVER FALSE INFO (the owner, 10/1: "North Texas is not 0-1, they're 2-2 ... we always have to have updated
+    data"): every team on the slate, every sport - a college team we don't hold every game for this season, or a game of
+    theirs from the last 10 days whose result never came in. {(league, team id): what's missing}. A team with a gap holds
+    the board (the engine re-pulls) and never gets a pick: its read would run on half the picture."""
+    import sports_breakdown_v24 as v24
+    _t = v24._t
+    fin, out = {}, {}
+    for c in cands:
+        g = games.get(c["game_id"]) or {}
+        lg = c["league"]
+        for side in ("home", "away"):
+            tid = g.get(side)
+            if not tid or (lg, tid) in out:
+                continue
+            if lg in ("ncaaf", "ncaab"):
+                if lg not in fin:
+                    fin[lg] = [x for x in sm.finals(games, lg) if _t(x["start"]) < now]
+                if not v24.seen_all(fin[lg], tid, _t(g["start"]), lg):
+                    out[(lg, tid)] = f"{g.get(side + '_name')}: we don't hold all their games this season"
+                    continue
+            for x in games.values():
+                if x.get("league") == lg and tid in (x.get("home"), x.get("away")) and x.get("status") == "pre" \
+                        and now - timedelta(days=10) < _t(x["start"]) < now - timedelta(hours=8):
+                    out[(lg, tid)] = f"{g.get(side + '_name')}: no result for their {x['start'][:10]} game"
+                    break
+    return out
+
+
 def factor_check(games, cands, injuries, day, now):
     """🔎 THE DOUBLE CHECK, part 1 (the owner, 10/1: "every day before the engine posts there needs to be a check - make
     sure it's weighing every factor, every study"): every study's data actually loaded for the sports on today's slate.
@@ -2031,11 +2060,20 @@ def post_board(games, model, picks, now, day, force=False):
         print(f"lead tracker failed: {str(e)[:80]}")
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
     if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
-        probs = slate_check(games, cands, day, now) + factor_check(games, cands, injuries, day, now)
+        gaps = data_gaps(games, cands, now)
+        probs = slate_check(games, cands, day, now) + factor_check(games, cands, injuries, day, now) + \
+            [f"data gap - {x}" for x in gaps.values() if "no result" in x]   # (a re-pull fixes a missing result;
+                                                                                 # a small school's gap just gets no pick)
         if probs and (local.hour, local.minute) < SLATE_LAST_TRY:
             print(f"holding the board: the slate check found {len(probs)} problem(s) - the engine re-pulls and tries "
                   f"again (last try 8:30 PT)")
             return []
+    gaps = data_gaps(games, cands, now)                      # never a pick off half the picture (the owner, 10/1)
+    if gaps:
+        for x in gaps.values():
+            print(f"DATA GAP (no pick on this game): {x}", flush=True)
+        cands = [c for c in cands if not any((c["league"], (games.get(c["game_id"]) or {}).get(s_)) in gaps
+                                             for s_ in ("home", "away"))]
     ours = {}                                                # games we're already on today (any pick, graded or not):
     for p in picks:                                          # a new pick never takes the other team in them
         if p["date"] == iso and p["status"] != "waiting":

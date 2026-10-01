@@ -6365,6 +6365,27 @@ def test_early_box_says_how_the_line_moved():
     assert se.move_say(p, None, "") == ""
 
 
+
+def test_data_gaps_every_sport():
+    """The owner, 10/1: 'we can never have false information - we always have to have updated data', every sport. A
+    team whose result from the last 10 days never came in (any league), or a college team we don't hold every game for,
+    is a data gap: no pick on that game, and a missing result holds the opening board for a re-pull."""
+    from datetime import datetime, timezone
+    now = datetime(2026, 10, 1, 20, tzinfo=timezone.utc)
+    G = {"old": {"id": "old", "league": "nhl", "start": "2026-09-29T23:00Z", "status": "pre", "home": "A", "away": "B",
+                 "home_name": "Hawks", "away_name": "Blues"},
+         "now": {"id": "now", "league": "nhl", "start": "2026-10-02T23:00Z", "status": "pre", "home": "A", "away": "C",
+                 "home_name": "Hawks", "away_name": "Stars"},
+         "ok": {"id": "ok", "league": "nhl", "start": "2026-10-02T23:00Z", "status": "pre", "home": "D", "away": "E",
+                "home_name": "Kings", "away_name": "Ducks"}}
+    gaps = sports.data_gaps(G, [{"game_id": "now", "league": "nhl"}, {"game_id": "ok", "league": "nhl"}], now)
+    assert set(gaps) == {("nhl", "A")} and "no result" in gaps[("nhl", "A")] and "2026-09-29" in gaps[("nhl", "A")]
+    G["old"]["status"] = "final"
+    assert sports.data_gaps(G, [{"game_id": "now", "league": "nhl"}], now) == {}
+    src = open(sports.__file__).read()
+    assert "DATA GAP (no pick on this game)" in src and "data_gaps(games, cands, now)" in src
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

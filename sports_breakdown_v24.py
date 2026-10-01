@@ -318,7 +318,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                 out.append(v.say("worse", [f"🐺 {them} ({_rt}) look better than {us} ({_ru}) — that's why the price is this good.",
                                             f"🐺 {_rt} vs {_ru} — {them} get the respect, we get the price on {us}.",
                                             f"🐺 {them} are {_rt}, {us} {_ru}. The record's in the price already."]))
-            else:
+            elif abs(_w(_ru) - _w(_rt)) <= 0.15:            # 2-2 vs 3-1 is not "even" (10/1) - no fact, no line
                 out.append(v.say("even", [f"⚖️ {us} {_ru}, {them} {_rt} — about even, so the price makes the play.",
                                            f"⚖️ {_ru} vs {_rt}. Close matchup — the number's where the value is.",
                                            f"⚖️ Records are close ({us} {_ru}, {them} {_rt}). We're taking the side that pays."]))
