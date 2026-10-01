@@ -5279,6 +5279,8 @@ def test_challenge_live_comes_from_the_score_feed():
     assert "✅ WIN" in js and "❌ LOSS" in js                              # the owner, 10/1: the mark AND the word
     assert "Math.max(w[0],w[1])<2" in js                                   # one set in is never a result (Ruud, 10/1)
     assert 'c.classList.toggle("lost"' in js                               # a live-called loss looks like a graded one
+    assert '.pvs[data-live]' in js and 'classList.contains("won"))ps++' in js   # the score counts a live-called win
+    assert 'data-live=1' in C.html(c, escape)
     assert ".pvc.lost>span,.pvc.lost .pvp b{{text-decoration:line-through" in src   # the name + price struck, never ❌ LOSS
     assert ".pvc.lost span," not in src
     called = src[src.index("function called("):src.index("function liveTags(")]

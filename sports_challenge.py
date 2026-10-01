@@ -255,7 +255,7 @@ def html(c, E):
             f'picks once {E(name)}\'s whole ticket is priced, so the odds are fair.</div>') if wait else ""
     return (f'<section class="pk pvx" style="--c1:#ffd23f;--c2:#ff3b8d"><div class="pk-h"><span class="pk-i">🥊</span>'
             f'<span class="pk-l tn8">{E(name.upper())} VS THE ALGORITHM</span></div>'
-            f'<div class="pvs">{top}</div>{note}'
+            f'<div class="pvs" data-name="{E(name)}"{"" if done else " data-live=1"}>{top}</div>{note}'
             f'<div class="pvr pvh"><div>{E(name)} <em>{ptot}</em></div>'
             f'<div>Algorithm <em>{am(total(c["algo"])) if c.get("algo") else "—"}</em></div></div>{rows_}</section>')
 

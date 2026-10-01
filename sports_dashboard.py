@@ -2056,7 +2056,11 @@ function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data
  else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
    h=Math.max(w[0],w[1])<2?"":w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':'<span class="pvw-l">❌ LOSS</span>';}}
  c.classList.toggle("won",h.indexOf("WIN")>=0);c.classList.toggle("lost",h.indexOf("LOSS")>=0);   // (10/1, the owner: a loss
- if(i.innerHTML!==h)i.innerHTML=h;}})}}                     // called live looks just like a graded one)
+ if(i.innerHTML!==h)i.innerHTML=h;}});
+ var top=document.querySelector(".pvs[data-live]");if(top){{var ps=0,as=0;   // the score up top counts a match the second
+  document.querySelectorAll(".pvx .pvr:not(.pvh)").forEach(function(r){{var c=r.children;   // it's called (10/1, the owner:
+   if(c[0]&&c[0].classList.contains("won"))ps++;if(c[1]&&c[1].classList.contains("won"))as++;}});   // "Patty won one and
+  var t=top.getAttribute("data-name")+" "+ps+" · Algorithm "+as;if(top.textContent!==t)top.textContent=t;}}}}   // it still says 0")
 pvLive();setInterval(pvLive,3000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);
