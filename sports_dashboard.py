@@ -1916,7 +1916,9 @@ function flip(sc){{return {{tennis:true,n:[sc.n[1],sc.n[0]],sets:(sc.sets||[]).m
 function called(s,sc){{   // the second it's final: ✅ HIT / ❌ MISS from the final score (the official grade + review follow)
  var mk=s.getAttribute("data-mk")||"",side=s.getAttribute("data-side")||"",r=null;
  if(sc.tennis){{if(mk!=="ml")return null;var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
-   if(w[0]===w[1])return null;r=w[0]>w[1]?"won":"lost";}}    // (our player's always first here)
+   if(w[0]===w[1]||Math.max(w[0],w[1])<2)return null;r=w[0]>w[1]?"won":"lost";}}    // (our player's first here; 10/1:
+   //                                                         the feed once said "over" after ONE set - Ruud was down
+   //                                                         a set, not done. Only 2 sets won calls it.)
  else{{if(side!=="home"&&side!=="away")return null;var us=side==="home"?+sc.h:+sc.a,th=side==="home"?+sc.a:+sc.h;
    if(mk==="ml")r=us>th?"won":us<th?"lost":null;
    else if(mk==="spread"){{var L=parseFloat(s.getAttribute("data-line"));if(isNaN(L))return null;var m=us-th+L;r=m>0?"won":m<0?"lost":"push";}}
@@ -1990,7 +1992,7 @@ function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data
    h='<span class="lvb"><i></i>LIVE</span> '+(sc.sets||[]).map(function(x){{return x[0]+"-"+x[1]}}).join(" ");}}
  else if(sc&&sc.delayed)h="⏳";
  else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
-   h=w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':w[1]>w[0]?'<span class="pvw-l">❌ LOSS</span>':"";}}
+   h=Math.max(w[0],w[1])<2?"":w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':'<span class="pvw-l">❌ LOSS</span>';}}
  if(i.innerHTML!==h)i.innerHTML=h;}})}}
 pvLive();setInterval(pvLive,3000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);

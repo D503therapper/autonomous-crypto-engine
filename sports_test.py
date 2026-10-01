@@ -5226,6 +5226,9 @@ def test_challenge_live_comes_from_the_score_feed():
     js = src[src.index("function pvLive"):src.index("pvLive();setInterval")]
     assert "st+6*3600000" not in js and "sc.live" in js and "flip(sc)" in js
     assert "✅ WIN" in js and "❌ LOSS" in js                              # the owner, 10/1: the mark AND the word
+    assert "Math.max(w[0],w[1])<2" in js                                   # one set in is never a result (Ruud, 10/1)
+    called = src[src.index("function called("):src.index("function liveTags(")]
+    assert "Math.max(w[0],w[1])<2" in called
     c["patty"][0]["result"], c["algo"][0]["result"] = "lost", "won"
     h = C.html(c, escape)
     assert ">❌ LOSS<" in h and ">✅ WIN<" in h
