@@ -1451,7 +1451,7 @@ def plays(cands, avoid):
 LEAN_WINNER_OWN = 0.55
 CONF_LEAN_P = 0.55       # the owner, 10/1: "we can put money on leans we're confident about - it might not be a lock, but
 CONF_LEAN_UNITS = 0.5    # we're comfortable enough to put money on it" (both leans won today). ½u on a lean the engine has
-#                          winning 55%+ (its weighed read for hockey favorites), its own read not under the line's number,
+#                          winning 55%+ (its weighed read for hockey favorites), its own read beating the real price,
 #                          never past -150, never one its read is fighting. Graded in the bankroll like any unit play.
 
 
@@ -1465,7 +1465,10 @@ def confident_lean(c):
         return False
     if c.get("edge_own") is None or c.get("p_market") is None:
         return False
-    return c.get("w_p") is not None or (c["edge_own"] + 1) / c["dec"] >= c["p_market"]
+    own = c["w_p"] if c.get("w_p") is not None else (c["edge_own"] + 1) / c["dec"]
+    return own * c["dec"] > 1                                # (the owner, 10/1: "Steelers -148 at ½u - don't we lose
+    #                                                          money in the long run?" Units only when the read beats
+    #                                                          the REAL price we pay, never just the no-vig line)
 
 
 def viewer_leans(cands, avoid):

@@ -5910,6 +5910,8 @@ def test_money_on_leans_we_like():
     like = {**_cand("stl", -130, 0.58, league="nfl"), "edge_own": 0.585 * sd.decimal(-130) - 1, "p_market": 0.55}
     coin = {**_cand("buf", -108, 0.50, league="nhl"), "edge_own": 0.50 * sd.decimal(-108) - 1, "p_market": 0.50}
     assert sports.confident_lean(like) and not sports.confident_lean(coin)
+    steelers = {**_cand("pit", -148, 0.572, league="nfl"), "edge_own": 0.587 * sd.decimal(-148) - 1, "p_market": 0.572}
+    assert not sports.confident_lean(steelers)                 # 58.7% where -148 needs 59.7%: no money on a loser
     pk = {"kind": "lean", "lean": True, "lean_units": sports.CONF_LEAN_UNITS, "legs": [like]}
     assert sports.units_for(pk) == 0.5 and sports.units_for({"kind": "lean", "lean": True, "legs": [coin]}) == 0
     assert "A LEAN WE LIKE" in dash._units_line(0.5, "stl", -130, lean=True) and "LOCK" not in dash._units_line(0.5, "stl", -130, lean=True)
