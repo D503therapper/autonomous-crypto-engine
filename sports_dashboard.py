@@ -303,6 +303,23 @@ def day_calls(picks, today):
     return calls, pending
 
 
+def day_wait_line(picks, today, now, k):
+    """The brain's line at 0-0 with picks still to play: nothing's started yet (and when the first one goes), or how many
+    are playing right now - never "more tickets still cooking" before a game's kicked off (the owner, 10/1)."""
+    import sports
+    _t = lambda x: datetime.strptime(x, "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)
+    st_ = sorted(_t(l["start"]) for p in picks if p["date"] == today and p["kind"] != "eight" and sports.in_record(p)
+                 and p.get("status") not in ("won", "lost", "push", "void") for l in p.get("legs") or [] if l.get("start"))
+    on_ = sum(t_ <= now for t_ in st_)
+    if st_ and not on_:
+        at_ = st_[0].astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")
+        return _rot(k, [f"⏳ {len(st_)} picks up, none started yet. First one goes at {at_} PT.",
+                        f"⏳ Nothing's kicked off yet - first game's at {at_} PT. {len(st_)} picks on the board.",
+                        f"⏳ 0-0 till {at_} PT, that's when our first one starts."])
+    return _rot(k, [f"⏳ Nothing graded yet - {on_} of our {len(st_)} picks are playing right now.",
+                    f"⏳ 0-0 so far, {on_} of {len(st_)} going right now. We finna see."])
+
+
 def engine_weights():
     """The brain's list of everything the engine weighs today (the owner, 10/1: "every day the brain gets updated") -
     read from the live constants, so it's always what the engine is really doing."""
@@ -1531,6 +1548,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     live_today = any(e.get("result") in ("won", "lost") and e.get("date") == today for e in live.values())
     if w_ + l_ == 0 and live_today:
         pass                                                      # the live results below speak for the day
+    elif open_ and w_ + l_ == 0:                             # 0-0: say what's true - nothing's started, or what's live
+        lines.append(day_wait_line(picks, today, now, k))    # (the owner, 10/1: "no tickets have started")
     elif open_:
         lines.append(_rot(k, [f"⏳ {w_}-{l_} so far today — still got tickets live. We gon' see.",
                               f"⏳ {w_}-{l_} so far. Tickets still cooking — we finna see.",

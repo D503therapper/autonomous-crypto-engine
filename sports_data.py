@@ -243,7 +243,9 @@ def parse_scoreboard(league, payload):
 # had ~500 finished games a season instead of ~930. Conference by conference gets them all (each conference's games,
 # non-conference ones too; the same game from two conferences is one game): ACC, Big 12, Big Ten, SEC, Pac-12, C-USA,
 # MAC, Mountain West, Sun Belt, American, FBS independents - plus the FBS feed itself.
-SPLIT = {"ncaaf": ("&groups=80",) + tuple(f"&groups={c}" for c in (1, 4, 5, 8, 9, 12, 15, 17, 37, 151, 18))}
+SPLIT = {"ncaaf": ("&groups=80", "&groups=81") + tuple(f"&groups={c}" for c in (1, 4, 5, 8, 9, 12, 15, 17, 37, 151, 18))}
+# (10/1, the owner: "we don't want any gaps" - groups=81 is FCS, the smaller schools the big ones play: Samford,
+# McNeese, Texas Southern had only their games against FBS teams, so their records were half a picture)
 
 
 def fetch_day(league, day, retries=2):

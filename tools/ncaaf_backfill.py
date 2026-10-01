@@ -19,6 +19,8 @@ CONFS = (1, 4, 5, 8, 9, 12, 15, 17, 37, 151, 18)
 # Run 2 (10/1): 2024-25 are full now; 2026's first weeks were read before the conference split - North Texas showed
 # 1 game, so the engine called them "0-1". Refill this season (every week played so far).
 YEARS = {2026: 7}
+# Run 3 (10/1): FCS too (groups=81) - the smaller schools' own games, so a Samford or McNeese record is whole.
+CONFS = CONFS + (81,)
 
 
 def get(url):
