@@ -12,6 +12,11 @@ every session:
   no marketing tone. Plain words ("goalie", not "G"), no confusing sayings. Never "real talk" or "chalk" (see `NEVER`).
 - **When the owner uses new slang in chat, add it to `sports_owner_lingo.py` and into the write-up pools where it fits.**
   Use it the way he does ("that's just facts" after a claim, never after a number).
+- **Never vague** (the owner, 10/1): every line in a write-up or review says something specific - a name, a number, a
+  score, a stat, what actually happened ("Jaguars beat the Patriots 35-6 last week"), never filler like "they travel just
+  fine", "they're just better", "division rivals know each other", "everything above tips it our way". No fact = no line.
+- **Reviews say how it was won or lost** (the owner, 10/1): when something big decided the game - a last-second field
+  goal, a blocked kick, a pick-six, overtime, a walk-off, an empty-netter, a late comeback - the graded review says it.
 - **Never lengthen write-ups.** Accuracy over everything. No secrets in the repo. No borrowed keys or disguises to get
   past a site's blocks.
 - Leans COUNT in our record - overall and by sport, marked 🟡 LEAN (the owner, 10/1: "we put leans in our daily picks -
