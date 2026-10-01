@@ -1,0 +1,31 @@
+# ODDS HISTORY (10/1): the owner's one-month The Odds API plan - midweek NFL / college football moneylines since 2020
+# (tools/odds_history.py). The key lives in the ODDS_API_KEY secret, never in the repo. Resumable; a credit guard.
+name: odds_history
+on:
+  push:
+    branches: [main]
+    paths: ["tools/odds_history.py", ".github/workflows/odds_history.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: odds_history
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: mkdir -p results && python -u tools/odds_history.py | tee results/odds_history.txt
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/odds_history results/odds_history.txt 2>/dev/null || true
+          git commit -qm "odds history $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; git rebase --abort 2>/dev/null; sleep 7; done

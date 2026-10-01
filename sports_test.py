@@ -5495,6 +5495,27 @@ def test_sharp_money_line_never_claims_we_were_first():
     assert "The money's been coming in on {us} since the open." in src
 
 
+def test_odds_history_pull():
+    """10/1: the owner paid one month of The Odds API so the engine can learn early football value on REAL midweek
+    prices. The pull stays under the plan (20,000 credits, 10 per historical call) and keeps a game only with both
+    sides priced."""
+    import sys as _s
+    _s.path.insert(0, "tools")
+    import odds_history as oh
+    from datetime import date
+    n = sum(len(oh.snaps(s, date(2026, 10, 1))) for s in oh.PLAN)
+    assert 0 < n * 10 < 20000 - oh.GUARD
+    assert all(datetime.fromisoformat(x.replace("Z", "+00:00")).weekday() in oh.PLAN["americanfootball_nfl"]["days"]
+               for x in oh.snaps("americanfootball_nfl", date(2026, 10, 1)))
+    p = {"timestamp": "2024-10-01T18:00:00Z", "data": [
+        {"id": "e1", "commence_time": "2024-10-06T17:00:00Z", "home_team": "Jacksonville Jaguars",
+         "away_team": "Houston Texans", "bookmakers": [{"key": "fanduel", "markets": [{"key": "h2h", "outcomes": [
+             {"name": "Jacksonville Jaguars", "price": 124}, {"name": "Houston Texans", "price": -148}]}]}]},
+        {"id": "e2", "home_team": "A", "away_team": "B", "bookmakers": []}]}
+    r = oh.rows(p, "x")
+    assert len(r) == 1 and r[0]["b"] == {"fanduel": [124, -148]} and r[0]["snap"] == "2024-10-01T18:00:00Z"
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
