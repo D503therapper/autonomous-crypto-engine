@@ -572,10 +572,10 @@ def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
         if k == "lock":
             card += _dog_note(day, day_picks)
         out += f'<div class="gn" data-gone="{g}">{card}</div>' if g else card
-        if i == last_play and straight >= 2:                 # 🧩 the owner, 10/1: no posted parlays - "build your own
-            out += '<div class="byo">🧩 Build your own parlay from today\'s plays.</div>'   # from today's plays'
-    no_lock = not any(k == "lock" for k, *_ in cards_by_kind)
-    return (after_lock + _lock_note(day, day_picks) + (_dog_note(day, day_picks) if no_lock else "")   # 🎯 WE GOT IN
+    byo = ('<div class="byo">🧩 Build your own parlay from today\'s plays.</div>'   # 🧩 the owner, 10/1: no posted
+           if last_play is not None and straight >= 2 else "")                      # parlays - and the line sits AT
+    no_lock = not any(k == "lock" for k, *_ in cards_by_kind)                       # THE TOP of the day's board
+    return (byo + after_lock + _lock_note(day, day_picks) + (_dog_note(day, day_picks) if no_lock else "")   # 🎯 WE GOT IN
             + out)                                         # EARLY on game day: just ABOVE the Lock of
     #                                                      the Day (the owner, 9/30) - its own box
 
