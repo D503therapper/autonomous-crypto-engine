@@ -6266,6 +6266,17 @@ def test_early_plays_one_minimum_two_max():
     assert se.units({"spot": "best", "odds": 120}) == 0.5
 
 
+def test_no_only_one_that_counts():
+    """10/1, the owner: "this team's record is so-and-so - tonight's the only one that counts. That don't make no sense."
+    Gone from every write-up, and on the NEVER list so it can't come back."""
+    import sports_owner_lingo as L
+    for f in L.SOURCES:
+        txt = open(f).read().lower()
+        for w in ("only one that counts", "only this one matters", "clean slate tonight", "tonight's what counts"):
+            assert w not in txt, (f, w)
+    assert "only one that counts" in L.NEVER
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
