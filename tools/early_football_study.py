@@ -266,6 +266,7 @@ def spread_rows(lg):
                 sd._same(games[gid].get("home_name") or "", r["h"])
             tue[gid] = (xs[0][0], -tue_line if flip else tue_line, tue_price)
     out = []
+    lastg = last_games(games, lg)
     for season in SEASONS:
         lo, hi = f"{season}-07-01", f"{season + 1}-07-01"
         learn = {k: g for k, g in games.items() if f"{season - 3}-07-01" <= g.get("start", "") < lo}
@@ -289,7 +290,12 @@ def spread_rows(lg):
                 ln, cl, mg = line * sg, close * sg, margin * sg                    # (this side's number: + = getting points)
                 if mg + ln == 0:
                     continue                                                       # a push
+                other = "away" if side == "home" else "home"
+                lm = lastg.get(g["id"], {})
                 out.append({"season": season, "side": side, "line": ln, "close": cl, "moved": ln - cl,
+                            "home": side == "home", "neutral": str(g.get("neutral")) == "1",
+                            "me_last": lm.get(side, (None, None))[1], "them_last": lm.get(other, (None, None))[1],
+                            "rest": lm.get(side, (None, None))[0], "orest": lm.get(other, (None, None))[0],
                             "cover": mg + ln > 0, "cover_close": mg + cl > 0 if mg + cl != 0 else None,
                             "edge": sg * ours + ln, "dec": _dec(price if -200 < price < 200 else -110)})
     return out
@@ -331,6 +337,37 @@ def spread_studies(rs):
         lbl: sgrade([r for r in rs if r["edge"] >= 2 and lo_ <= r["line"] <= hi_])
         for lbl, lo_, hi_ in (("+7.5 to +10.5", 7.5, 10.5), ("+3.5 to +6.5", 3.5, 6.5), ("+1 to +3", 1, 3),
                               ("-1 to -3", -3, -1), ("-3.5 to -6.5", -6.5, -3.5), ("-7.5 to -10.5", -10.5, -7.5))}
+    # S6 The engine LEARNS which Tuesday numbers the market will move toward (only past seasons, only what's known
+    #    Tuesday), and we take its top picks at the Tuesday number - graded on the cover (the owner's +9.5 -> +3.5)
+    import math
+    def fx(r):
+        return [1.0, r["edge"] / 7, r["line"] / 7, 1.0 if r["home"] else 0.0, 1.0 if r["neutral"] else 0.0,
+                (r["me_last"] or 0) / 14, (r["them_last"] or 0) / 14,
+                max(-7, min(7, (r["rest"] or 7) - (r["orest"] or 7))) / 7, 1.0 if abs(r["line"]) in (2.5, 3.5, 6.5, 7.5) else 0.0]
+    def fit(X, y):
+        w = [0.0] * len(X[0])
+        for _ in range(250):
+            gr = [0.0] * len(w)
+            for xi, yi in zip(X, y):
+                p_ = 1 / (1 + math.exp(-max(-30, min(30, sum(a * b for a, b in zip(w, xi))))))
+                for j, v in enumerate(xi):
+                    gr[j] += (p_ - yi) * v / len(X)
+            w = [wi - 0.5 * gi - 0.001 * wi for wi, gi in zip(w, gr)]
+        return w
+    for need in (1.5, 3):
+        res = {}
+        for top in (.1, .2):
+            picks = []
+            for s_ in SEASONS:
+                tr = [r for r in rs if r["season"] < s_]
+                te = [r for r in rs if r["season"] == s_]
+                if len(tr) < 300 or not te:
+                    continue
+                w = fit([fx(r) for r in tr], [1.0 if r["moved"] >= need else 0.0 for r in tr])
+                te.sort(key=lambda r: -sum(a * b for a, b in zip(w, fx(r))))
+                picks += te[:max(1, int(len(te) * top))]
+            res[f"top {int(top * 100)}%"] = sgrade(picks)
+        S[f"S6 engine learns which numbers move {need}+ pts our way"] = res
     return S
 
 

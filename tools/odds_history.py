@@ -17,7 +17,7 @@ from datetime import date, datetime, timedelta, timezone
 
 OUT = "data/sports/odds_history"
 API = "https://api.the-odds-api.com/v4/historical/sports/{sport}/odds"
-GUARD = 2500                                   # stop with this many credits left (the plan has 20,000)
+GUARD = int(os.environ.get("GUARD") or 2500)   # stop with this many credits left (the plan has 20,000)
 # when to look, by weekday (Mon=0): NFL Tue/Thu/Sat + Sunday morning; college Tue/Thu + Saturday morning
 PLAN = {"americanfootball_nfl": {"days": {1: "18:00", 3: "18:00", 5: "18:00", 6: "15:00"}, "season": ("09-01", "02-15")},
         "americanfootball_ncaaf": {"days": {1: "18:00", 3: "18:00", 5: "14:00"}, "season": ("08-20", "01-20")}}
@@ -76,17 +76,35 @@ def rows(payload, snap, market="h2h"):
     return out
 
 
+def credits_left(key):
+    """The plan's credits left - from the FREE sports list (costs 0)."""
+    req = urllib.request.Request("https://api.the-odds-api.com/v4/sports?" + urllib.parse.urlencode({"apiKey": key}),
+                                 headers={"User-Agent": "D503-sports-engine/1.0"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.headers.get("x-requests-remaining"), r.headers.get("x-requests-used")
+
+
 def main():
     key = os.environ.get("ODDS_API_KEY")
     if not key:
         print("no ODDS_API_KEY secret - stopping")
         return 1
+    left, used = credits_left(key)
+    print(f"credits left {left}, used {used}", flush=True)
+    if os.environ.get("MARKET") == "check":
+        return 0
+    if left is not None and int(float(left)) < GUARD + 100:
+        print("not enough credits for a pull - stopping")
+        return 0
     os.makedirs(OUT, exist_ok=True)
     today = datetime.now(timezone.utc).date()
     budget_end = time.time() + 40 * 60
     market = os.environ.get("MARKET") or "h2h"
     plan = SPREAD_PLAN if market == "spreads" else PLAN
+    only = os.environ.get("SPORTS")                          # e.g. "americanfootball_nfl" - one sport only
     for sport in plan:
+        if only and sport not in only.split(","):
+            continue
         path = os.path.join(OUT, f"{sport}{'_spreads' if market == 'spreads' else ''}.jsonl.gz")
         have = set()
         if os.path.exists(path):

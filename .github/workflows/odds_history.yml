@@ -1,11 +1,14 @@
-# ODDS HISTORY (10/1): the owner's one-month The Odds API plan - midweek NFL / college football moneylines since 2020
-# (tools/odds_history.py). The key lives in the ODDS_API_KEY secret, never in the repo. Resumable; a credit guard.
+# ODDS HISTORY (10/1): the owner's one-month The Odds API plan - midweek NFL / college football lines since 2020
+# (tools/odds_history.py). The key lives in the ODDS_API_KEY secret, never in the repo.
+# Run by hand only (10/1: a push-started run checked out a commit from before the last pull was saved and pulled it all
+# again). It pulls the latest main first, so it always skips what's already saved. market: check (free) / h2h / spreads.
 name: odds_history
 on:
-  push:
-    branches: [main]
-    paths: ["tools/odds_history.py", ".github/workflows/odds_history.yml"]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      market: { description: "check / h2h / spreads", default: "check" }
+      sports: { description: "blank = both, or americanfootball_nfl / americanfootball_ncaaf", default: "" }
+      guard: { description: "stop with this many credits left", default: "2500" }
 permissions:
   contents: write
 concurrency:
@@ -17,19 +20,20 @@ jobs:
     timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
+        with: { ref: main }
+      - run: git pull -q origin main
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
-      - run: mkdir -p results && python -u tools/odds_history.py | tee results/odds_history.txt
+      - run: mkdir -p results && python -u tools/odds_history.py | tee "results/odds_history_${{ inputs.market }}.txt"
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-      - run: python -u tools/odds_history.py | tee results/odds_history_spreads.txt
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-          MARKET: spreads
+          MARKET: ${{ inputs.market }}
+          SPORTS: ${{ inputs.sports }}
+          GUARD: ${{ inputs.guard }}
       - if: always()
         run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
-          git add data/sports/odds_history results/odds_history.txt results/odds_history_spreads.txt 2>/dev/null || true
-          git commit -qm "odds history $(date -u '+%F %H:%M') UTC" || exit 0
-          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; git rebase --abort 2>/dev/null; sleep 7; done
+          git add data/sports/odds_history results/odds_history_*.txt 2>/dev/null || true
+          git commit -qm "odds history ${{ inputs.market }} $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push -q origin HEAD:main && break; git rebase --abort 2>/dev/null; sleep 7; done
