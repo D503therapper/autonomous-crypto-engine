@@ -6130,6 +6130,30 @@ def test_sharp_money_lead():
         sb.public_split = keep
 
 
+def test_last_leads_wired():
+    """10/1, the owner: "wire everything in the engine." The watch leads as small weights: the hoops favorite that wins
+    inside (+1 pt), the MLB doubleheader game-2 dog (+1), an NFL dog whose offense scored 10 or fewer (+1)."""
+    import sports_hoops_style as hs
+    rows = []
+    for k in range(10):
+        teams = {str(t): {"fieldGoalsMade-fieldGoalsAttempted": "30-60",
+                          "threePointFieldGoalsMade-threePointFieldGoalsAttempted": f"8-{10 + 2 * t}",
+                          "offensiveRebounds": str(16 - t)} for t in range(12)}
+        rows.append({"start": f"2026-11-{10 + k:02d}T00:00Z", "teams": teams})
+    st = hs.states("ncaab", "2026-12-01T00:00Z", rows=rows)
+    assert hs.inside(st, "ncaab", "0", "11") == 1          # crashes the glass, few 3s, facing a weak rebounder
+    assert hs.inside(st, "ncaab", "0", "1") == 0           # ...facing a glass-crashing team: cancels (college)
+    assert hs.inside(st, "ncaab", "11", "5") == 0
+    base = {"odds": 150, "dog_ctx": {}}
+    assert sports.dog_spots({**base, "league": "mlb", "dh_game2": True}) == 1
+    assert sports.dog_spots({**base, "league": "nfl", "dog_more": {"last_pts": 7}}) == 1
+    games = {"a": {"id": "a", "league": "mlb", "home": "1", "away": "2", "start": "2026-08-01T17:00Z"},
+             "b": {"id": "b", "league": "mlb", "home": "1", "away": "2", "start": "2026-08-01T23:00Z"}}
+    c = {"league": "mlb", "market": "ml", "game_id": "b"}
+    sports.mark_doubleheader_game2(games, [c])
+    assert c.get("dh_game2")
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

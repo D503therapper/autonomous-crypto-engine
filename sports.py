@@ -477,6 +477,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
     mark_hockey_favorites(out)
     weigh_mlb_drought(out)
     weigh_west_coast_road_fav(games, out)
+    weigh_hoops_inside(games, out, now)
+    mark_doubleheader_game2(games, out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -923,10 +925,14 @@ def _dog_more(games, g, side, other, lg):
         start = se._t(g["start"])
         out = {}
         prev = se._prev(sched, lg, g[side], g["start"])
-        margin = None
+        margin = last_pts = None
         if prev and prev.get("status") == "final" and (start - se._t(prev["start"])).days <= 21:
             m = float(prev["home_score"]) - float(prev["away_score"])
             margin = m if prev["home"] == g[side] else -m
+            try:
+                last_pts = float(prev["home_score"] if prev["home"] == g[side] else prev["away_score"])
+            except (TypeError, ValueError, KeyError):
+                last_pts = None
         if lg in ("nfl", "ncaaf"):
             out["fades"] = se._fades(sched, g, side, lg, start.astimezone(ZoneInfo("America/New_York")))
             op_prev = se._prev(sched, lg, g[other], g["start"])  # (10/1 wiring audit: the early studies' game-day spots)
@@ -963,6 +969,7 @@ def _dog_more(games, g, side, other, lg):
                     out["fades"] = [f for f in out["fades"] if f != "coach's first season"]   # McCarthy are both new -
                     #                                     the same spot on both sides cancels, never just the dog's)
             out["last_margin"] = margin
+            out["last_pts"] = last_pts if margin is not None else None
             if lg == "nfl" and side == "away" and str(g.get("neutral")) != "1":
                 mine = htz.get((lg, g[side]))
                 try:
@@ -1054,6 +1061,10 @@ def dog_spots(c):
         #                            242 (4 of 6) at fair prices - discounted: the line moves to them 60-65% by kickoff
     if mo.get("mnf"):
         sc += 2                    # a Monday night NFL dog: +21.4% on 119 (5 of 6), the engine agreeing +20.7%
+    if lg == "mlb" and c.get("dh_game2"):
+        sc += 1                    # the doubleheader game-2 dog: +9.5% on 327, 2026 +31% on 25 (10/1 - a watch lead)
+    if lg == "nfl" and mo.get("last_pts") is not None and mo["last_pts"] <= 10:
+        sc += 1                    # an NFL dog whose offense scored 10 or fewer last game: +7%, 2023+ +21% (a lead)
     if lg == "nhl" and sharp_dog(c):
         sc += 1                    # an NHL dog the line moved TO (2+ pts) against the tickets, with 10+ pts more of the
         #                            money than the tickets: +14.3% on 190, beat the close by 8 pts, 2 of 2 seasons (10/1
@@ -1567,6 +1578,47 @@ def weigh_west_coast_road_fav(games, cands):
         for d in cands:
             if d["game_id"] == c["game_id"] and d is not c and d.get("market") == "ml":
                 d["west_trip_dog"] = True
+
+
+HOOPS_INSIDE_W = 0.01
+
+
+def weigh_hoops_inside(games, cands, now):
+    """🏀 A hoops favorite that wins inside: +1 win-% point on its read (sports_hoops_style - a lead)."""
+    hoops = [c for c in cands if c.get("league") in ("nba", "ncaab") and c.get("market") == "ml" and -300 <= c.get("odds", 0) < 0]
+    if not hoops:
+        return
+    try:
+        import sports_hoops_style as hs
+        sts = {lg: hs.states(lg, now.strftime("%Y-%m-%dT%H:%MZ")) for lg in {c["league"] for c in hoops}}
+    except Exception as e:                                   # noqa: BLE001 - extra facts never block the board
+        print(f"hoops style failed: {str(e)[:60]}")
+        return
+    for c in hoops:
+        g = games.get(c["game_id"]) or {}
+        other = "away" if c["side"] == "home" else "home"
+        if hs.inside(sts[c["league"]], c["league"], g.get(c["side"]), g.get(other)):
+            c["p"] = min(0.95, c["p"] + HOOPS_INSIDE_W)
+            c["edge"] = c["p"] * c["dec"] - 1
+            if c.get("edge_own") is not None:
+                c["edge_own"] = min(0.95, (c["edge_own"] + 1) / c["dec"] + HOOPS_INSIDE_W) * c["dec"] - 1
+            c["hoops_inside"] = True
+            c["reasons"] = c["reasons"] + ["wins inside - the glass / few 3s (beat its price 3 of 3 seasons)"]
+
+
+def mark_doubleheader_game2(games, cands):
+    """⚾ The second game of a doubleheader (the same two teams already played / play earlier the same day)."""
+    for c in cands:
+        if c.get("league") != "mlb" or c.get("market") != "ml":
+            continue
+        g = games.get(c["game_id"]) or {}
+        day = (g.get("start") or "")[:10]
+        for x in games.values():
+            if x is g or x.get("league") != "mlb" or (x.get("start") or "")[:10] != day:
+                continue
+            if {x.get("home"), x.get("away")} == {g.get("home"), g.get("away")} and x.get("start", "") < g.get("start", ""):
+                c["dh_game2"] = True
+                break
 
 
 def hockey_fav_bad(c):

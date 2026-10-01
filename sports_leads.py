@@ -57,6 +57,10 @@ def tags(c, sports):
                 t.append("sharp dog: line to it + money over tickets")
         except Exception:                                    # noqa: BLE001
             pass
+        if c.get("dh_game2"):
+            t.append("MLB doubleheader game-2 dog")
+        if lg == "nfl" and mo.get("last_pts") is not None and mo["last_pts"] <= 10:
+            t.append("NFL dog scored 10 or fewer last game")
         if c.get("west_trip_dog"):
             t.append("East home dog vs West favorite (fade)")
         if c.get("key_out_me") and lg in ("nfl", "ncaaf"):
@@ -73,6 +77,8 @@ def tags(c, sports):
             t.append("hockey fav weighed UP" if c["w_p"] > (c.get("p_market") or 0) else "hockey fav weighed DOWN (fade)")
         if any("West Coast favorite" in r for r in c.get("reasons") or []):
             t.append("West Coast road fav in the East")
+        if c.get("hoops_inside"):
+            t.append("hoops fav wins inside")
         if any("12+ innings" in r for r in c.get("reasons") or []):
             t.append("MLB scoring-drought fav")
     return t + sharp
