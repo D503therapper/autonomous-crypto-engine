@@ -23,6 +23,8 @@ PLAY_FRESH_S = 45             # a live play shows only while the watcher re-chec
 LOOK = {   # kind -> label, accent, second accent - in BOARD ORDER: the Lock of the Day always on top (the owner, 9/29)
     "lock":  ("LOCK OF THE DAY", "#22e39a", "#0fb87a"),
     "dog":   ("DOG OF THE DAY", "#ff5a1f", "#ff2a2a"),
+    "play":  ("VALUE PLAY", "#ff8a00", "#ffc233"),      # 💰 the unit plays, straight (the owner, 10/1 - no parlays)
+    "lean":  ("LEAN", "#ffc233", "#e8c77a"),            # 🟡 the viewers' leans (no units, in the record)
     "two":   ("2-LEG PARLAY", "#2f8bff", "#22d3ee"),
     "three": ("3-LEG PARLAY", "#ffc233", "#ff8a00"),
     "four": ("4-LEG PARLAY", "#b36bff", "#ff4fd8"),
@@ -31,7 +33,7 @@ LOOK = {   # kind -> label, accent, second accent - in BOARD ORDER: the Lock of 
     "eight": ("8-LEG (RETIRED)", "#8a5cff", "#c04fd8"),
 }
 BIG_HIT = 300                 # +300 and up that cashes gets the big brag
-ICON = {"night": "🏈", "solo": "🎯", "two": "⚡", "three": "👑", "four": "🚀", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
+ICON = {"night": "🏈", "solo": "🎯", "play": "💰", "lean": "🟡", "two": "⚡", "three": "👑", "four": "🚀", "eight": "🎰", "lock": "🔒", "dog": "🐺"}
 E = html.escape
 
 
@@ -472,7 +474,7 @@ def _leg(leg, tagged=False, review="", units=None):
 </div>"""
 
 
-FULL_BOARD = ("lock", "dog", "two", "three", "four")
+FULL_BOARD = ("lock", "dog")              # (10/1: no more posted parlays - the unit plays + leans come and go)
 
 
 def _short_note(day, day_picks):
@@ -486,9 +488,9 @@ def _short_note(day, day_picks):
 
 
 def _dog_note(day, day_picks):
-    """🐺 No Dog of the Day (the owner, 9/28): where the dog card would go, on a full board with no dog worth it.
+    """🐺 No Dog of the Day (the owner, 9/28 - and again 10/1: "we pick our spots, we don't force a dog"): where the dog
+    card would go, on a full board with no dog worth it.
     Only when the dog is the ONLY thing missing - a shorter board's top note already covers it (never two notes)."""
-    return ""                                                # (9/30: a Dog of the Day every day - no note)
     have = {p["kind"] for p in day_picks if not p.get("lean")}
     if "solo" in have or set(FULL_BOARD) - have != {"dog"}:
         return ""
@@ -499,11 +501,16 @@ def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
     """The day's cards in board order, with the no-dog note right after the Lock of the Day. gone: {kind: ms} - a
     graded card's 3 hours are up at that moment, and the page takes it down itself (no waiting on a rebuild)."""
     out = ""
-    for k, card, *g in cards_by_kind:                        # (k, card[, when it comes down]) - two night football
+    straight = sum(p["kind"] in ("lock", "dog", "play", "lean", "solo", "night") and p.get("status") == "open"
+                   for p in day_picks)
+    last_play = max((i for i, (k, *_) in enumerate(cards_by_kind) if k in ("lock", "dog", "play", "lean")), default=None)
+    for i, (k, card, *g) in enumerate(cards_by_kind):        # (k, card[, when it comes down]) - two night football
         g = g[0] if g else (gone or {}).get(k)               # picks share a kind, so each card carries its own
         if k == "lock":
             card += _dog_note(day, day_picks)
         out += f'<div class="gn" data-gone="{g}">{card}</div>' if g else card
+        if i == last_play and straight >= 2:                 # 🧩 the owner, 10/1: no posted parlays - "build your own
+            out += '<div class="byo">🧩 Build your own parlay from today\'s plays.</div>'   # from today's plays'
     return after_lock + out                              # 🎯 WE GOT IN EARLY on game day: just ABOVE the Lock of
     #                                                      the Day (the owner, 9/30) - its own box
 
@@ -636,7 +643,7 @@ def _pick_card(kind, pk):
         else:
             label = f'{len(pk["legs"])}-LEG LEAN PARLAY'   # every leg wears its own SLIGHT / STRONG tag
 
-    if kind in ("solo", "night") and pk.get("legs"):      # a one-game day / Monday-Thursday football: the header IS the
+    if kind in ("solo", "night", "play") and pk.get("legs"):   # a one-game day / Monday-Thursday football / a unit play:
         #                                                     pick (STEELERS ML - the owner, 9/30), the 🏈 says football                    # a one-game day: the header IS the pick (BEARS +3.5)
         l0 = pk["legs"][0]
         mk = "ML" if l0["market"] == "ml" else f'{l0["line"]:g}' if l0["market"] == "total" else f'{l0["line"]:+g}'
@@ -1612,6 +1619,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
 .pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
 .pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
+.byo{{text-align:center;font-size:14px;font-weight:900;color:#fff;margin:2px 0 14px;letter-spacing:.02em}}
 .pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1;white-space:nowrap}}
 .pvl{{font-size:12px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}} .pvl:empty{{display:none}}
 .pvc small{{font-size:10px;font-weight:800;opacity:.9}}

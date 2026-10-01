@@ -246,7 +246,8 @@ def test_board_rules():
     assert fb["lock"] is None, "nothing real = no Lock"
     assert fb["two"] and {l["game_id"] for l in fb["two"]["legs"]} == {"q", "r"}   # 9/30, the owner: a 2-, 3-, 4-leg
     assert fb["three"] is None                                   # every day - but only from real games on the slate
-    assert fb["dog"] and fb["dog"]["legs"][0]["game_id"] == "p"      # 9/30, the owner: a Dog of the Day every day
+    assert fb["dog"] is None                                     # 10/1, the owner: no real value = no Dog of the Day
+    #   (a forced dog takes our ROI down - it's a unit play like the Lock, or it's not posted)
     slate = [_cand(f"g{i}", -150 + 5 * i, 0.62 - 0.005 * i) for i in range(10)]
     bd = sports.make_board(slate)
     lock_g = bd["lock"]["legs"][0]["game_id"]
@@ -313,7 +314,8 @@ def test_post_when_settled_and_never_change():
     late = now + timedelta(hours=8)                                           # past every deadline (3h before)
     sports.post_board(games, model, picks, late, day)
     assert [p for p in picks if p["status"] == "open"][:len(posted)] == posted
-    assert all(p["status"] == "open" for p in picks) and len(picks) >= 2
+    assert all(p["status"] == "open" for p in picks) and len(picks) >= 1   # (10/1: no filler parlays - this slate has
+    #                                                    nothing real, so it's the Lock (a lean) and the leans)
     assert all(not l["waiting"] for p in picks for l in p["legs"])
     # picks all day: once a play is graded, a fresh one of the same kind goes up from games that haven't started
     lock = next((p for p in picks if p["kind"] == "lock"), picks[0])
@@ -324,9 +326,9 @@ def test_post_when_settled_and_never_change():
     assert not sports.post_board(games, model, picks, now + timedelta(hours=11), day), \
         "no afternoon replacements: the record is the start-of-day board (ASK THE ENGINE covers the rest)"
     assert lock in picks, "the graded one stays in the results"
-    kept = [p for p in picks if p["kind"] != "two"]                           # say the 2-leg never went up...
-    started = now + timedelta(hours=10, minutes=1)                            # ...once the first game starts, it can't
-    assert sports.post_board(games, model, kept, started, day) == [] and all(p["kind"] != "two" for p in kept)
+    kept = [p for p in picks if p["kind"] != "play"]                          # say a unit play never went up...
+    started = now + timedelta(hours=10, minutes=1)                            # ...once the games start, it can't
+    assert sports.post_board(games, model, kept, started, day) == [] and all(p["kind"] != "play" for p in kept)
 
 
 def _check_js(html):
@@ -372,8 +374,9 @@ def test_full_cycle_offline():
             sports.datetime = keep_dt
         kinds = {p["kind"] for p in picks}
         assert kinds, "the fake slate has at least one real play"
-        assert all(sports.good(l) or l.get("by_analysis") for p in picks for l in p["legs"]), \
-        "every posted leg is a real play (or the Dog of the Day the analysis likes best - the owner, 9/30)"
+        bad = [(p["kind"], p.get("lean"), l["team"], l["odds"], round(l["p"], 3)) for p in picks for l in p["legs"]
+               if not (sports.good(l) or l.get("by_analysis") or p.get("lean"))]
+        assert not bad, bad
         assert os.path.exists("docs/sports/index.html")
         html = open("docs/sports/index.html").read()
         assert "TRUST THE ALGORITHM" in html and "LOCK OF THE DAY" in html
@@ -2857,8 +2860,8 @@ def test_no_dog_note():
     in our voice, never a sentence from yesterday's note."""
     import sports_dashboard as dsh, sports_lingo as L
     full_no_dog = [{"kind": k} for k in ("lock", "two", "three", "four")]
-    assert not dsh._dog_note("2026-10-01", full_no_dog) and not dsh._short_note("2026-10-01", full_no_dog)   # 9/30: a
-    #                                                   Dog of the Day every day - no disclaimers (the owner)
+    assert dsh._dog_note("2026-10-01", full_no_dog) and not dsh._short_note("2026-10-01", full_no_dog)   # 10/1, the
+    #   owner: no dog worth it = the board says so ("we pick our spots"), one note
     for d in range(1, 28):
         a, b = L.dog_note(f"2026-10-{d:02d}"), L.dog_note(f"2026-10-{d + 1:02d}")
         assert not set(a.split(". ")) & set(b.split(". ")), (a, b)
@@ -4576,8 +4579,8 @@ def test_early_plays_post_without_pings():
 
 
 def test_series_spot_and_a_dog_of_the_day_every_day():
-    """The owner (9/30): 'no dog clearing the bar is bullshit - there's always dogs that win.' When no dog passes the
-    proven bar, the Dog of the Day is the dog the analysis likes best (own read vs price + the 9/30 factors: a playoff
+    """(9/30 the owner wanted a Dog every day; 10/1 he reversed it: "a Dog of the Day is a unit play - we don't force
+    it".) Among the REAL-value dogs, the Dog of the Day is the one the analysis likes best (own read vs price + the 9/30 factors: a playoff
     favorite that just lost, hockey money moves, goalies). Weighed, never a hard 'can't' (the owner: no rigid rules)."""
     games = {"g1": {"id": "g1", "league": "mlb", "status": "final", "stype": "3", "start": "2026-09-29T21:00Z",
                     "home": "H", "away": "A", "home_score": "3", "away_score": "6"},
@@ -4597,7 +4600,15 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     kings = dog("k", "Kings", "nhl", 160, 0.38, 0.37)
     assert sports.dog_score(wsox) > sports.dog_score(kings) > sports.dog_score(pens)
     b = sports.make_board([wsox, pens, kings])
-    assert b["dog"] and b["dog"]["legs"][0]["team"] == "White Sox"
+    assert b["dog"] is None                     # 10/1, the owner: none has real value = no Dog of the Day (a forced dog
+    #                                             takes our ROI down - the Dog is a unit play like the Lock, never a lean)
+    keep_good = sports.good
+    sports.good = lambda c: True                # ...among REAL-value dogs, the analysis picks: the White Sox, never the
+    try:                                        # Penguins the money ran from (a trap score under 0 is never the Dog)
+        b = sports.make_board([wsox, pens, kings])
+        assert b["dog"] and b["dog"]["legs"][0]["team"] == "White Sox"
+    finally:
+        sports.good = keep_good
     fav = lambda gid, team, p, lost: {**base, "league": "mlb", "game_id": gid, "side": "home", "team": team, "opp": "X",
                                       "odds": -140, "dec": sd.decimal(-140), "p": p, "p_market": p, "edge": 0.0,
                                       "edge_own": p * sd.decimal(-140) - 1, "lost_last": lost}
@@ -4616,9 +4627,14 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     assert b4["four"] and [l["team"] for l in b4["four"]["legs"]] == ["Yanks", "Fly", "Pads", "Astros"]   # 9/30: the 4-leg
     #                                                             never drops the posted 3-leg's 55.5% leg
     held = {**fav("f9", "Waiting Fav", 0.58, False), "waiting": ["starting pitcher"]}    # a favorite waiting on news
-    assert sports.make_board([wsox, kings, held])["dog"]["legs"][0]["team"] == "White Sox"   # never holds the Dog
     big = dog("x", "Longshot", "mlb", 450, 0.40, 0.18)                              # past +280: never
-    assert sports.make_board([big, pens])["dog"]["legs"][0]["team"] == "Penguins"
+    keep_good = sports.good
+    sports.good = lambda c: True
+    try:
+        assert sports.make_board([wsox, kings, held])["dog"]["legs"][0]["team"] == "White Sox"   # never holds the Dog
+        assert (sports.make_board([big, kings])["dog"] or {"legs": [{}]})["legs"][0].get("team") != "Longshot"
+    finally:
+        sports.good = keep_good
 
 
 def test_parlay_never_says_they_got_us_as_the_dog():

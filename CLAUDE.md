@@ -16,11 +16,14 @@ every session:
 - Monday and Thursday football: every NFL game those days gets its own pick (two games = two picks; a lean is fine) -
   sports.night_games / night_pick, the 🏈 NIGHT FOOTBALL card.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.
-- Every day: a Lock of the Day, a Dog of the Day, and a 2-, 3- and 4-leg parlay. Parlay legs: the 56%+ picks
-  first (sports.PARLAY_LEG_MIN_P), then the surest plays 52%+ fill the rest (PARLAY_FILL_MIN_P) - never past -150,
-  never a leg the engine's own read is fighting. The Dog of the Day: a proven dog first, else the dog the analysis
-  likes best (sports.dog_score). Value (plus money that really beats the price) is the goal. Judge a sport on
-  thousands of games (sports_strength), never a few nights. Analyze and weigh, no rigid rules.
+- Every day: a Lock of the Day, then every real value play STRAIGHT with its units (sports.plays, up to MAX_PLAYS),
+  then leans for the viewers (sports.viewer_leans, no units, 🟡 in the record) - and a "🧩 Build your own parlay from
+  today's plays" line. NO posted parlays (the owner, 10/1: the ladder went 1 for 8; the viewer builds his own). A play
+  is never past -150, never one the engine's own read is fighting. The Dog of the Day is a UNIT play like the Lock: only
+  a real-value dog (the one the dog analysis, sports.dog_score, likes best) - none = no Dog, and the board says so. Never
+  a lean Dog of the Day, never a forced one ("it takes our ROI down"). Value (plus money that really beats the price) is
+  the goal; what matters is the ROI on the unit plays. Judge a sport on thousands of games (sports_strength), never a
+  few nights. Analyze and weigh, no rigid rules.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
 - The Lock of the Day always sits on top of the day's board, right under Live Plus Money - except on game day the
   🎯 WE GOT IN EARLY box (our early value plays playing today) goes just above it (the owner, 9/30). An early play is
