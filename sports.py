@@ -1389,6 +1389,7 @@ def read_of(c):
     return c.get("p")
 
 
+SOLO_UNITS_FROM = "2026-10-02"   # one-game days: the pick always carries units (the owner, 10/1) - from tomorrow on
 MONEY_CHECK_FROM = "2026-10-01"   # picks posted from here on (a posted, graded pick's units never change after the fact)
 
 
@@ -1407,6 +1408,9 @@ def units_for(pk):
         return 0
     if pk.get("units") is not None and pk.get("status") in ("won", "lost", "push", "void"):
         return pk["units"]                                   # graded: the units it was graded at, forever (10/1 audit)
+    if kind == "solo" and (pk.get("date") or "") >= SOLO_UNITS_FROM:   # (the owner, 10/1: "on a one-game day we always
+        t_ = pick_tier({**pk, "lean": False})                #  put units on" - a Lock or a value play, never a lean)
+        return _sized("lock" if t_ == "lock" else "value", legs[0]) or 0.5
     if pk.get("lean"):
         u = pk.get("lean_units") or 0                        # a lean: none - or ½u on a lean we like (the owner, 10/1)
         return u if u and ((pk.get("date") or "9999") < MONEY_CHECK_FROM or beats_price(legs[0])) else 0   # (the money check)
@@ -2076,7 +2080,8 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
             why = f"a {pk['kind']} with no units"
         elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DOG_DAY_MAX:
             why = "a Dog past its cap"
-        elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM:
+        elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
+                and pk.get("kind") != "solo":                # (a one-game day's pick always carries units - the owner)
             why = "units on a price its read doesn't beat"
         if why:
             probs.append(f"pulled {pk.get('kind')} {l.get('team')} {l.get('odds')}: {why}")
