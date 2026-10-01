@@ -3286,7 +3286,7 @@ def test_breakdowns_say_it_plain():
     src = open(v24.__file__).read()
     for gone in ("leaky as hell", "beach ball", "Circled on", "out the window", "roken clock", "stopped clock", "starting {pos}\"" , "{key_them[0][1]}"):
         assert gone not in src, gone
-    assert 'v.say("keyout_both"' in src and "_posname(key_us[0][1])" in src and "_posname(key_them[0][1])" in src
+    assert 'v.say("keyout_both"' in src and "_posname(key_us[0][1], lg)" in src and "_posname(key_them[0][1], lg)" in src
 
 
 def test_playoff_game_gets_its_real_teams():
