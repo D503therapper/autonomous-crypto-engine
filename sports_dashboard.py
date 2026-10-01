@@ -232,10 +232,53 @@ BIG_WHY = {   # 4u+
 WHY_USED = set()                 # the unit reasons already on the page this build (reset in render)
 
 
-def _units_line(u, key="", odds=None, early=False, lean=False):
+STEEP = (
+    "🔒 They should win this one — but at {o} the price ain't right. We only call it a Lock when it is.",
+    "🔒 Lock-level team, not a Lock-level price. At {o} the books already charged us for it.",
+    "🔒 Good chance they take it — {o} just eats the value. No Lock at that number.",
+    "🔒 Likely winner, steep price. At {o} it's a lean, not a Lock.",
+    "🔒 We like 'em to win. We don't like paying {o} for it.",
+    "🔒 Could've been a Lock — the number ({o}) said no. We only lock it when the price is right.",
+    "🔒 They're the side, but {o} is too rich. No Lock, no units.",
+    "🔒 Winning team, losing price. At {o} we keep our money and call it a lean.",
+    "🔒 The books priced every bit of this in. At {o} it's not worth a Lock.",
+    "🔒 Right team, wrong number. {o} is too steep to lock.",
+    "🔒 They probably get it done — but probably ain't enough at {o}.",
+    "🔒 Strong side, bad price. A Lock has to be worth the money, and {o} isn't.",
+    "🔒 We'd lock this at a better number. At {o}, it's just a lean.",
+    "🔒 You pay {o} to win a hundred here — that's too much for what this team gives us.",
+    "🔒 They should handle it. The price ({o}) is what keeps it off the Lock spot.",
+    "🔒 {t} are most likely to win this one — they just didn't get the Lock label. Blame the price ({o}).",
+    "🔒 {t} should take it. No Lock tag though — {o} is too much to pay.",
+    "🔒 Our pick to win is {t}. Our pick for a Lock? Not at {o}.",
+    "🔒 {t} got the better chance tonight, not the better price. That's why it's no Lock.",
+    "🔒 {t} win this more often than not — but at {o} that's already in the number.")
+# (the owner, 10/1: "we couldn't label this a lock simply because the price is not worth it - say that")
+
+
+def _steep_line(leg, key=""):
+    """A lean the engine has winning 56%+ whose price is too steep for units: say why it isn't the Lock."""
+    try:
+        import sports
+        if (leg.get("p") or 0) < sports.LOCK_P or (leg.get("odds") or 0) >= 0 or sports.beats_price(leg):
+            return ""
+    except Exception:                                        # noqa: BLE001 - a card line never breaks the page
+        return ""
+    o = leg.get("odds")
+    day = (leg.get("start") or "")[:10]                       # a different line each day and each team (never the
+    order = [STEEP[(sum(map(ord, (key or str(o)) + day)) + i) % len(STEEP)] for i in range(len(STEEP))]   # same twice)
+    line = next((x for x in order if x not in WHY_USED), order[0])
+    WHY_USED.add(line)
+    return line.format(o=f"{o:+d}" if isinstance(o, int) else o, t=leg.get("team") or "They")
+
+
+def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
     if not UNITS_ON:
         return ""
     if not u:                                                # a lean: no units (the owner, 9/30)
+        steep = _steep_line(leg, key) if leg else ""
+        if steep:
+            return f'<div class="un">{E(steep)}<br>🟡 NO UNITS — JUST A LEAN</div>'
         return '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
     if lean:                                                 # a lean we like: ½u, never called a lock (the owner, 10/1)
         return f'<div class="un">🟡 A LEAN WE LIKE — {_units_txt(u)}</div>'
@@ -747,7 +790,7 @@ def _pick_card(kind, pk):
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
-  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean"))) if len(pk["legs"]) == 1 else ""}
+  {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean")), leg=pk["legs"][0]) if len(pk["legs"]) == 1 else ""}
   {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 
