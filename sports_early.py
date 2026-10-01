@@ -503,6 +503,30 @@ def _schedule(games):
     return out
 
 
+def spot_why(sched, g, side, other, lg, spot):
+    """The early play's reason in plain words, with what actually happened (the owner, 10/1: "'blew somebody out last
+    week' is very vague"). One line."""
+    me, opp = g.get(f"{side}_name") or "They", g.get(f"{other}_name") or "them"
+    p = _prev(sched, lg, g[side], g["start"])
+    try:
+        if spot == "blowout" and p:
+            mine = p["home"] == g[side]
+            us, them = (p["home_score"], p["away_score"]) if mine else (p["away_score"], p["home_score"])
+            vs = p.get("away_name") if mine else p.get("home_name")
+            return (f"💥 {me} beat {vs} {int(float(us))}-{int(float(them))} last week. Dogs coming off a big win like that "
+                    f"have beaten their price in our studies - the books don't give them enough credit.")
+        if spot == "bye" and p:
+            return (f"🛌 {me} had last week off; {opp} played. Rested dogs against a team that just played have beaten "
+                    f"their price in our studies.")
+    except (KeyError, ValueError, TypeError):
+        pass
+    return {"mnf": f"🏈 {me} as a Monday night dog - those have beaten their price in our studies.",
+            "eastwest": f"✈️ {me} flying from the East Coast out West as a dog - the books overrate the trip.",
+            "hammered": f"🔨 The money hammered {me} early - their price came in hard since the first fair number.",
+            "engine": f"🧠 The engine likes {me} and the line moved away from them - a better price for us.",
+            "best": f"🎯 The engine's best-weighed dog of the week: {me}."}.get(spot, "")
+
+
 def _prev(sched, lg, team, start):
     """The team's previous game before `start` (any status), or None."""
     prev = None
@@ -700,9 +724,10 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             if total < (0.0 if any_dog else SPOT_MIN_TOTAL):
                 continue                                     # everything weighed together doesn't say value
             main = max(hit, key=lambda h: SPOTS[h][1])
+            why = spot_why(sched, g, side, other, lg, main)
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
                         "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
-                        "fades": fades, "score": round(total, 4), "mkt": round(mk, 4), "own": round(own, 4),
+                        "fades": fades, "score": round(total, 4), "why": why, "mkt": round(mk, 4), "own": round(own, 4),
                         "fair_at": r.strftime("%Y-%m-%dT%H:%MZ") if r else None})
     sides = {}
     for c in out:
@@ -815,7 +840,7 @@ def html(st, E, now=None, show_units=None):
         o = p["odds"]
         return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>ML</small> <em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
-                + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "") +
+                + (f'<span>{E(p.get("why") or SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "") +
                 f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
                 + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "") + '</div></div>')

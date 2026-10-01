@@ -5711,7 +5711,7 @@ def _six_early_spots():
         h = se.html(st, escape, now)
     finally:
         se.ON = keep_on
-    assert "Engine likes it, the line moved away" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+    assert "The engine likes Utah and the line moved away" in h and "How each spot" in h and "1-0 (+0.65u)" in h
 
 
 def test_dog_findings_weighed_never_auto():
@@ -6287,6 +6287,21 @@ def test_tracker_follows_the_engines_big_disagreements():
     assert "engine read 12+ over the line (believe it?)" in sports_leads.tags(jags, sports)
     mild = {**jags, "edge_own": 0.47 * sd.decimal(120) - 1}
     assert "engine read 12+ over the line (believe it?)" not in sports_leads.tags(mild, sports)
+
+
+def test_early_play_reason_in_plain_words():
+    """10/1, the owner: "'blew somebody out last week' is very vague - reword it." The early play says what happened."""
+    import sports_early as se
+    G = {"p": {"id": "p", "league": "nfl", "start": "2026-09-28T17:00Z", "home": "J", "away": "N", "home_name": "Jaguars",
+               "away_name": "Patriots", "home_score": "35", "away_score": "6", "status": "final", "stype": "2"},
+         "g": {"id": "g", "league": "nfl", "start": "2026-10-04T17:00Z", "home": "C", "away": "J", "home_name": "Bengals",
+               "away_name": "Jaguars", "status": "pre", "stype": "2"}}
+    why = se.spot_why(se._schedule(G), G["g"], "away", "home", "nfl", "blowout")
+    assert "Jaguars beat Patriots 35-6 last week" in why and "Blew somebody out" not in why
+    html = se.html({"picks": [{"team": "Jaguars", "opp": "Bengals", "league": "nfl", "odds": 120, "spot": "blowout",
+                               "why": why, "start": "2030-10-04T17:00Z", "game_id": "g"}]}, lambda x: x,
+                   now=datetime(2030, 10, 1, tzinfo=timezone.utc))
+    assert "35-6" in html
 
 
 if __name__ == "__main__":
