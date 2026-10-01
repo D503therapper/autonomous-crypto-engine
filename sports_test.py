@@ -5050,6 +5050,27 @@ def test_coach_changes_sections():
     assert cc.pages(2023)["nba"] == "2023–24 NBA season" and cc.pages(2023)["nfl"] == "2023 NFL season"
 
 
+def test_firing_study():
+    """The firing study (9/30): mid-season coaching changes parsed from Wikipedia's season pages (a dated change for a
+    team playing within ~2 weeks on both sides - truly mid-season); a dog that just fired its coach -3 on the Dog's
+    score in football / hoops, an NHL team after a change +2."""
+    import sports_coach_changes as cc
+    g = lambda k, d, h, a: {"id": k, "league": "nfl", "status": "final", "stype": "2", "start": f"2023-{d}T17:00Z",
+                            "home": h, "away": a, "home_name": "Raiders" if h == "13" else "Chiefs", "away_name": "Chiefs" if a == "12" else "Raiders"}
+    games = {f"g{i}": g(f"g{i}", d, "13", "12") for i, d in enumerate(("10-08", "10-15", "10-22", "10-29", "11-05", "11-12", "11-19"))}
+    raw = {"nfl:2023": {"sections": ["== In-season ==\n{|\n|-\n! scope=\"row\" |Las Vegas Raiders\n| Fired\n| After a "
+                                    "start, McDaniels was fired on October 31 after one and a half seasons.\n|}",
+                                    "* On June 18, 2023, the Las Vegas Raiders fired someone in the offseason."]}}
+    got = cc.parse(games, raw)
+    assert [(r["team"], r["date"]) for r in got] == [("13", "2023-10-31")]      # (June: not mid-season)
+    path = os.path.join(tempfile.mkdtemp(), "f.json")
+    json.dump(got, open(path, "w"))
+    assert cc.recent("2023-11-20T00:00Z", path) == {("nfl", "13"): "2023-10-31"} and cc.recent("2024-09-20T00:00Z", path) == {}
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "nfl", "market": "ml"}
+    assert sports.dog_score({**base, "fired_on": "2023-10-31"}) == sports.dog_score(base) - 3
+    assert sports.dog_score({**base, "league": "nhl", "fired_on": "2023-10-31"}) == sports.dog_score({**base, "league": "nhl"}) + 2
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

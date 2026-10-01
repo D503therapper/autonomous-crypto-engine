@@ -298,6 +298,7 @@ PARLAY_LEG_MIN_P = 0.56        # a parlay only when EVERY leg is lock grade, 56%
                                # 3+ seasons replayed: 55% vs 57% legs hit parlays at the same rate for the same payout
                                # (2-leg 34%, +190); the engine's % holds up (it said 55-57%, those won 55%; 57-60%, 57%).
                                # Nights nothing clears it: the Lock (+ Dog), no filler.
+FIRED = {}                     # {(league, team): date of a mid-season coaching change} - sports_coach_changes
 COACH = {}                     # {(league, team): (coach's years, new with the team)} - sports_coaches.states
 ATS = ({}, {})                 # (cover streaks, last meetings) - sports_form.ats_states
 PDO = {}                       # {nhl team: PDO last 10} - puck luck (sports_form)
@@ -374,6 +375,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
                     "coach": COACH.get((lg, str(g[side]))),
+                    "fired_on": FIRED.get((lg, str(g[side]))),
                     "ats_run": ATS[0].get((lg, g[side]), 0),
                     "revenge": lg in sports_form.REVENGE and ATS[1].get((lg, g[side], g[other]), 0) <= -sports_form.REVENGE[lg],
                     "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
@@ -727,6 +729,10 @@ def dog_score(c):
         sc += 2 if pdo <= sports_form.PDO_BAD else -3 if pdo >= sports_form.PDO_GOOD else 0
     if c.get("rested_vs_b2b"):                           # rested, and they played last night: NBA dogs +6.5%, NHL
         sc += 3                                          # +1.9% (4 of 5 seasons each) vs -6% for every dog
+    if c.get("fired_on"):                                # the firing study: a dog that just fired its coach keeps
+        import sports_coach_changes as scc               # losing in football / hoops (-10% to -30%); hockey teams
+        lg_ = c.get("league")                            # beat their price after a change
+        sc += -3 if lg_ in scc.FADE_AFTER and c.get("odds", 0) >= 100 else 2 if lg_ in scc.BUMP_AFTER else 0
     k = c.get("coach")                                   # the coaching study: an NFL dog with a 10+ year head coach
     if k and c.get("league") == "nfl" and (k[0] or 0) >= 10:   # +10.6% (7 of 8 seasons) vs -3.5% for every dog
         sc += 3
@@ -1612,6 +1618,9 @@ def quick(now=None):
         import sports_coaches
         COACH.clear()
         COACH.update(sports_coaches.states(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        import sports_coach_changes
+        FIRED.clear()
+        FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
@@ -1685,6 +1694,9 @@ def run(repick=False, fetch=True):
         import sports_coaches
         COACH.clear()
         COACH.update(sports_coaches.states(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
+        import sports_coach_changes
+        FIRED.clear()
+        FIRED.update(sports_coach_changes.recent(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
         PDO.clear()
         PDO.update(sports_form.pdo_states(games, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")))
     except Exception as e:                                   # noqa: BLE001 - never blocks the board
