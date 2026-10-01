@@ -1291,11 +1291,14 @@ def read_of(c):
     return c.get("p")
 
 
+MONEY_CHECK_FROM = "2026-10-01"   # picks posted from here on (a posted, graded pick's units never change after the fact)
+
+
 def beats_price(c):
     """💰 THE MONEY CHECK (the owner, 10/1 - after the Steelers ½u at -148): a pick only carries units when its read
     beats the REAL price we pay (the juice in). Every unit pick - Lock, Dog, plays, leans - passes it or goes 0."""
     r, dec = read_of(c), c.get("dec") or (_dec(c["odds"]) if c.get("odds") else None)
-    return r is not None and dec is not None and r * dec > 1
+    return r is not None and dec is not None and r * dec > 1   # (no price on it = nothing to check = no units)
 
 
 def units_for(pk):
@@ -1306,10 +1309,10 @@ def units_for(pk):
         return 0
     if pk.get("lean"):
         u = pk.get("lean_units") or 0                        # a lean: none - or ½u on a lean we like (the owner, 10/1)
-        return u if u and beats_price(legs[0]) else 0       # (the money check)
+        return u if u and ((pk.get("date") or "9999") < MONEY_CHECK_FROM or beats_price(legs[0])) else 0   # (the money check)
     t = "value" if kind == "dog" else pick_tier(pk)
     u = _sized(t, legs[0])
-    if u and not beats_price(legs[0]):
+    if u and (pk.get("date") or "9999") >= MONEY_CHECK_FROM and not beats_price(legs[0]):
         print(f"   money check: {legs[0].get('team')} {legs[0].get('odds')} - its read doesn't beat the real price, 0 units")
         return 0                                             # (the owner, 10/1: "build the money check")
     return u
