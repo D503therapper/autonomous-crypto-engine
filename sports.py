@@ -729,8 +729,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                 (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML) and own_agrees(solo) and real_value(solo):
             kind = "lock"
         elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DOG_DAY_MAX and \
-                not solo.get("trap") and dog_score(solo) > 0:
-            kind = "dog"                                     # (10/1 bug check: the one-game day skipped the Dog rules)
+                not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo):   # (10/1 audit: a Dog that fails
+            kind = "dog"                                     # the money check got 0u, was pulled, and left a Monday /
+            #                                                  Thursday game with no pick - it stays the game's pick)
         return {"lock": None, "dog": None, "two": None, "three": None, "four": None, "solo": None, kind: one}
     # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely
     # (within 2%), the one with the most value
@@ -1489,7 +1490,7 @@ def backup_lock(cands):
     """The owner (CLAUDE.md, again 10/1): "There's always a Lock." When nothing clears the full Lock test, the pick the
     engine's OWN read has winning 56%+ that still beats its price - the most value first - never past -150, never the
     pricey hockey favorite, never a trap, never one the engine is fighting. A unit play (sized by that read)."""
-    pool = [c for c in cands if c["market"] == "ml" and c["odds"] >= MAX_FAV and c.get("edge_own") is not None
+    pool = [c for c in cands if c["market"] == "ml" and MAX_FAV <= c["odds"] <= PLUS_LOCK_MAX and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
             and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0]
     return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
