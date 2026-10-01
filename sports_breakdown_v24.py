@@ -761,7 +761,14 @@ def breakdown(leg, games, elo, injuries, used=None):
     wp = f"{round(100 * _own)}%" if _own > 0.55 else ""                 # (10/1, the owner: "50 out of 100, the price
     pos = f" {us} at {wp}." if wp else ""                                # needs 48" is jargon - plain words: does our
     _fact = "Our read beats this price." if not _need or _own > _need else "The price is too steep for units."
-    if _need and _own <= _need:                                          # read beat the price or not; ONE % only
+    if leg.get("near_price"):                                            # the always-a-Lock backup (the owner, 10/1):
+        out.append(v.say("bottom_near", [                                # the likeliest winner, priced about right -
+            f"✅ Bottom line: {price}. Our Lock today, priced about right - a small bet, not a big one.",
+            f"✅ Bottom line: {price}. We like {us} to win; the price is close to fair, so we keep it small.",
+            f"✅ Bottom line: {price}. Fair price on a side we trust - small bet.",
+            f"✅ Bottom line: {us} to win, {price}. The number's about even with our read - we ride it light."]) or
+                   _short(v, price, True, ""))                           # (small, honest - never "value")
+    elif _need and _own <= _need:                                        # read beat the price or not; ONE % only
         out.append(v.say("bottom_n", [                                   # when it's over 55. Never "value" on a read
             f"✅ Bottom line: {price}. Right side, but the price is too steep for units - just a lean.",   # under it)
             f"✅ Bottom line: we like {us}, not the price. A lean, no money on it.",
@@ -912,6 +919,9 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                           f"🧠 The engine's got {us} at {pct}% tonight. We riding with it.",
                           f"🧠 {pct}% to cash on {us} — the numbers did the talking.",
                           f"🧠 {us} at {pct}% to get it done. That's the engine talking, not a hunch."])
+    elif leg.get("near_price"):                           # the always-a-Lock backup: the likeliest winner, priced fair
+        nums = ("w_num", [f"🔒 We trust {us} to win this one - priced about right, so it's a small bet.",
+                          f"🔒 {us} to win at a fair price. A light bet, not a big one."])
     elif need and own <= need:                            # the read doesn't beat the price: say so, never "value"
         nums = ("w_num", [f"🧠 {us} is the side, but the price is too steep for units.",   # (plain words, no jargon -
                           f"🧠 We like {us} - just not at this price."])                    # the owner, 10/1)

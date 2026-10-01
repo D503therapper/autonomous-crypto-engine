@@ -761,6 +761,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         #   "the Lock should be the most confident win" - among the picks worth their price, the likeliest winner)
         if lock is None:
             lock = backup_lock(cands)
+        if lock is None:
+            lock = near_lock(cands)                          # (the owner, 10/1: "there's always a Lock")
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -1415,6 +1417,8 @@ def units_for(pk):
         u = pk.get("lean_units") or 0                        # a lean: none - or ½u on a lean we like (the owner, 10/1)
         return u if u and ((pk.get("date") or "9999") < MONEY_CHECK_FROM or beats_price(legs[0])) else 0   # (the money check)
     t = "value" if kind == "dog" else pick_tier(pk)
+    if kind == "lock" and legs[0].get("near_price"):        # the always-a-Lock backup (the owner, 10/1): ½u floor
+        return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
     if u and (pk.get("date") or "9999") >= MONEY_CHECK_FROM and not beats_price(legs[0]):
         print(f"   money check: {legs[0].get('team')} {legs[0].get('odds')} - its read doesn't beat the real price, 0 units")
@@ -1488,6 +1492,30 @@ def real_value(c):
 
 
 LOCK_BACKUP_OWN = 0.56
+NEAR_LOCK_GAP = 0.01     # the owner, 10/1 ("yes" - there's always a Lock): a day nothing clears the Lock test, the best
+#                          own read (56%+) within 1 point of its price - ½u floor, marked near_price (the audit: 30 of 65
+#                          days had none, mostly -135..-150 baseball favorites 1 point short)
+
+
+def near_lock(cands):
+    """The last-resort Lock: the engine's own read 56%+ and within NEAR_LOCK_GAP of what the price needs - never past
+    +125 / -150, never a trap, never the engine fighting it, never the pricey hockey favorite. The likeliest first."""
+    pool = []
+    for c in cands:
+        if c.get("market") != "ml" or not MAX_FAV <= c.get("odds", 0) <= PLUS_LOCK_MAX or c.get("edge_own") is None \
+                or not c.get("reasons") or c.get("trap") or c.get("waiting") or nhl_pricey(c) or hockey_fav_bad(c):
+            continue
+        own = read_of(c)
+        if own is None or own < LOCK_BACKUP_OWN or own < 1 / c["dec"] - NEAR_LOCK_GAP:
+            continue
+        if own < 1 / c["dec"] - FIGHT_MAX or money_against(c) or sports_strength.weak(c.get("league")):
+            continue                                         # (fighting() minus its own-read test, which is this one)
+        pool.append((round(own, 3), c))
+    if not pool:
+        return None
+    best = max(pool, key=lambda x: x[0])[1]
+    best["near_price"] = True                                # (sized ½u+, never pulled by the money check)
+    return best
 
 
 def backup_lock(cands):
@@ -2081,7 +2109,8 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
         elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DOG_DAY_MAX:
             why = "a Dog past its cap"
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
-                and pk.get("kind") != "solo":                # (a one-game day's pick always carries units - the owner)
+                and pk.get("kind") != "solo" and not l.get("near_price"):   # (a one-game day's pick / the always-a-
+            #                                                  Lock backup always carry units - the owner)
             why = "units on a price its read doesn't beat"
         if why:
             probs.append(f"pulled {pk.get('kind')} {l.get('team')} {l.get('odds')}: {why}")
