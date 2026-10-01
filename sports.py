@@ -691,7 +691,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # priciest favorite allowed, right at -150. Now it's the most VALUE - the engine's own read over the price -
         # among the likely winners (lock_ok: 56%+), the win % (with the proven nudges) breaking ties. None = no Lock
         # today, and the board says so - never a fake one.
-        lock = max(agree, key=lambda c: (round(c["edge_own"], 3), rank_p(c))) if agree else None
+        lock = max(agree, key=lambda c: (round(lock_value(c), 3), rank_p(c))) if agree else None
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -1274,6 +1274,13 @@ def real_value(c):
         return c["dog_p"] * c["dec"] > 1                     # (a gated dog: everything weighed beats its real price)
     return (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) > 0   # (units are sized by
     #                                                          the engine's own read - it has to beat the real price)
+
+
+def lock_value(c):
+    """The Lock's value with every proven nudge in (rank_p's): the engine's own read, moved as rank_p moves the win %,
+    over the price (10/1: ranked by raw value, the Astros - a playoff favorite that just lost the last game - got back
+    in)."""
+    return ((c["edge_own"] + 1) / c["dec"] + rank_p(c) - c["p"]) * c["dec"] - 1
 
 
 def nhl_pricey(c):
