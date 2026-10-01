@@ -3148,7 +3148,7 @@ def test_bottom_lines_no_odds_talk_and_no_repeats_on_a_board():
     board of breakdowns never repeats a wording."""
     import sports_breakdown_v24 as v24, re
     src = open(v24.__file__).read()
-    bl = src[src.index("    # bottom line"):src.index("    lines = [x for x in out if x]")]
+    bl = src[src.index("    # bottom line"):src.index("    lines = sports_card_guard.clean(")]
     assert "_odds_words" not in bl and not re.search(r" in 10\b", bl)    # (10/1: 'N in 100' is a real number, fine)
     used = set()
     lines = []
