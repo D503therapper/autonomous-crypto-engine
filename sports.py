@@ -801,14 +801,21 @@ def season_w(c):
 
 
 def season_starts(games, now):
-    """{league: first regular-season game day of the season going on now}."""
-    out = {}
+    """{league: first regular-season game day of the season going on now} - the first game after the offseason (the
+    last 30+ day gap), never last season's games (9/30: a 200-day look-back picked last March)."""
+    days = {}
+    today = now.strftime("%Y-%m-%d")
     for g in games.values():
-        if (g.get("stype") or "") != "2" or not g.get("start"):
-            continue
-        lg, d = g.get("league"), g["start"][:10]
-        if d <= now.strftime("%Y-%m-%d") and d >= (now - timedelta(days=200)).strftime("%Y-%m-%d"):
-            out[lg] = min(out.get(lg, d), d)
+        if (g.get("stype") or "") == "2" and g.get("start") and g["start"][:10] <= today:
+            days.setdefault(g.get("league"), set()).add(g["start"][:10])
+    out = {}
+    for lg, ds in days.items():
+        ds = sorted(ds)
+        start = ds[0]
+        for a_, b_ in zip(ds, ds[1:]):
+            if (datetime.strptime(b_, "%Y-%m-%d") - datetime.strptime(a_, "%Y-%m-%d")).days > 30:
+                start = b_
+        out[lg] = start
     return out
 
 
