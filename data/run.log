@@ -4990,3 +4990,19 @@ error: could not detach HEAD
 [2026-10-01 19:07 UTC] stocks/trend     equity $485.61 (-2.9%) 3 open  market UP
 [2026-10-01 19:07 UTC] stocks/hold_spy  equity $497.25 (-0.5%) 1 open  market UP
    social heat top: NEAR 40 (40/0/0), MON 37 (37/0/0), MEGA 35 (35/0/0), PENGU 31 (19/0/12), QNT 29 (24/0/5)
+   dex screen: REJECT SPIKE@base liq $256,870 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT ZC@ethereum liq $492,415 - lp locked 0% < 95%
+   dex screen: PASS SENDCAT@ethereum liq $111,300
+   dex screen: REJECT AMC@solana liq $301,479 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 54%; lp holders unknown
+   dex screen: REJECT BLUECHIP@base liq $112,428 - 24h volume $77,134 < $100,000
+   dex screen: REJECT MASK@solana liq $510,329 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT EURC@ethereum liq $2,632,792 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 40%
+   dex screen: REJECT RLUSD@ethereum liq $20,005,752 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 73%
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex screen: REJECT NOS@solana liq $661,017 - top-10 holders 43%; lp holders unknown
+   dex screen: REJECT JANE@solana liq $101,982 - holders unknown; lp holders unknown; rugcheck lp locked 66% < 95%
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 4 min)
+   dex screen: REJECT STOCKER@ethereum liq $276,237 - lp locked 0% < 95%
+   dex re-screen: PINK@solana:AVBN6kXd flagged once (lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT ZC@ethereum liq $506,319 - lp locked 0% < 95%
+   dex screen: REJECT USDS@ethereum liq $50,005,505 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%
