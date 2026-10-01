@@ -4561,3 +4561,24 @@ error: failed to push some refs to 'https://github.co
 [2026-10-01 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-01 07:06 UTC] crypto/hold_btc  equity $499.90 (-0.0%) 1 open  market UP
    social heat top: MON 37 (37/0/0), NEAR 35 (35/0/0), MOVR 32 (32/0/0), QNT 29 (29/0/0), PENGU 24 (24/0/0)
+   dex screen: REJECT ALON@solana liq $937,312 - lp locked 0% < 95%
+   dex screen: REJECT SUPEROETHB@base liq $20,163 - liquidity $20,163 < $100,000; 24h volume $314 < $100,000
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT NVDAC@base liq $2,292,966 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 69%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]   42895bde842555735d18cf6708b0eeaa36ecf246 -> main (cannot lock ref 'refs/heads/main': is at 790eb61dd9b7830bc425dd030
+   dex scanner: 3,000 pools (solana 2,075 / base 543 / ethereum 382), refresh cycle 124s (hot 120s), 3027 calls (123 feed, 429s 0, failed 0), 87,115 refreshed (5922 no pair), +249 added / -247 dropped (dead 5, stale 0, cap 242), movers 1 + warming 17 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-01 08:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   early_mover: MOVR vetoed by pump guard: already +70% in 24h
+[2026-10-01 08:06 UTC] crypto/mover     equity $461.89 (-7.6%) 1 open  market UP
+[2026-10-01 08:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 08:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 08:06 UTC] crypto/social_heat equity $552.60 (+10.5%) 2 open  market UP
+[2026-10-01 08:06 UTC] crypto/breakout10 equity $507.92 (+1.6%) 2 open  market UP
+[2026-10-01 08:06 UTC] crypto/momentum  equity $483.50 (-3.3%) 2 open  market UP
+[2026-10-01 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 08:06 UTC] crypto/hold_btc  equity $496.37 (-0.7%) 1 open  market UP
+   social heat top: NEAR 37 (37/0/0), QNT 35 (35/0/0), MOVR 32 (32/0/0), MON 29 (29/0/0), PENGU 26 (21/0/4)
