@@ -6834,6 +6834,16 @@ def test_build_your_own_parlay_line_on_top():
     assert "🧩" not in one                                     # one pick: nothing to build
 
 
+def test_never_trash_a_team_with_our_record():
+    """The owner, 10/1: 'we said New Mexico State's been complete ass - Western Kentucky has the same record.' The
+    trash-talk / cold lines about the other side only run when our record is better."""
+    import sports_breakdown_v24 as v24
+    src = open(v24.__file__).read()
+    assert "better = e is None or e.r.get(tid, 1500.0) > rating_them" in src     # (the owner: a record doesn't
+    assert "if better and ((len(r_theirs) >= 3" in src                          # show who they played - ratings do)
+    assert "abs(gap) <= 15" in src and "tougher schedule" in src
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
