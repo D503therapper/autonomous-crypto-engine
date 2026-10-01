@@ -6854,6 +6854,18 @@ def test_never_trash_a_team_with_our_record():
     assert "abs(gap) <= 15" in src and "tougher schedule" in src
 
 
+def test_college_football_stays_on():
+    """The owner, 10/1: the strength study flipped college football to 'weak' (0.06 pts under the price on 463 picks)
+    and shut off the whole college slate - 'turn it back on'. It never reads weak, whatever strength.json says."""
+    import sports_strength as ss
+    keep = ss._load
+    ss._load = lambda: {"ncaaf": {"weak": True}, "nba": {"weak": True}}
+    try:
+        assert not ss.weak("ncaaf") and ss.weak("nba")
+    finally:
+        ss._load = keep
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

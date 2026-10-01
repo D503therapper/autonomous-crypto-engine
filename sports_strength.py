@@ -103,6 +103,12 @@ def calibrate(league, p):
     return min(0.99, max(0.01, p + b * min(1.0, (p - 0.5) / 0.07)))
 
 
+OWNER_ON = {"ncaaf"}   # the owner, 10/1: college football flipped "weak" by 0.06 pts on 463 picks after the data refill -
+#                       "turn it back on" (not thousands of games). Never weak, whatever the study file says.
+
+
 def weak(league):
     """A sport proven weak (the engine's picks below the price and losing, old AND new games): no Lock / Dog / leg."""
+    if league in OWNER_ON:
+        return False
     return bool((_load().get(league) or {}).get("weak"))
