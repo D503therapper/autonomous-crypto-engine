@@ -13,6 +13,7 @@ import urllib.request
 import sports_data as sd
 
 RAW = os.path.join(sd.DATA, "coach_changes_raw.json")
+PARSED = os.path.join(sd.DATA, "coach_changes.json")      # the mid-season changes (parse()), saved each run
 API = "https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=wikitext&redirects=1&page={page}"
 UA = "D503-sports-engine/1.0 (https://github.com/D503therapper/autonomous-crypto-engine; coaching study)"
 
@@ -75,6 +76,132 @@ def run(seasons=range(2015, 2027)):
             time.sleep(0.5)                                  # (gentle on Wikipedia)
     with open(RAW, "w") as f:
         json.dump(raw, f)
+    try:
+        with open(PARSED, "w") as f:
+            json.dump(parse(sd.load_games(), raw), f, indent=0)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"parse failed: {str(e)[:80]}")
+
+
+# THE FIRING STUDY (9/30, 153 mid-season coaching changes 2016-26, closing prices): a DOG that just fired its coach
+# keeps losing in football and hoops - rest of the season NFL -28%, college football -30%, NBA -10.7%, college hoops
+# -18.4% (every dog about -4% to -7%): the market prices a bounce that doesn't come. Hockey is the opposite: after a
+# change the team beats its price (dogs rest of season -0.6% vs -5.4%; games 4-10 +7.6% dogs / +4.5% favorites).
+FADE_AFTER = ("nfl", "ncaaf", "nba", "ncaab")
+BUMP_AFTER = ("nhl",)
+
+
+def recent(now_iso, path=None, days=120):
+    """{(league, team id): date of its mid-season coaching change} - changes within the last `days`."""
+    try:
+        with open(path or PARSED) as f:
+            rows = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    lo = _minus(now_iso[:10], days)
+    return {(r["league"], str(r["team"])): r["date"] for r in rows if lo <= r["date"] <= now_iso[:10]}
+
+
+MONTHS = {m: i for i, m in enumerate(("January", "February", "March", "April", "May", "June", "July", "August",
+                                       "September", "October", "November", "December"), 1)}
+EVENT = re.compile(r"\b(fired|dismissed|relieved|resign|stepped down|step down|parted ways|terminated|let go|"
+                   r"interim|retire)", re.I)
+
+
+def _clean(t):
+    t = re.sub(r"<ref[^>]*/>|<ref[^>]*>.*?</ref>", "", t, flags=re.S)
+    t = re.sub(r"\{\{[^{}]*\}\}", "", t)
+    return re.sub(r"\[\[(?:[^\]|]*\|)?([^\]]*)\]\]", r"\1", t)
+
+
+PLANNED = re.compile(r"will (step down|retire|resign|not return|leave)|at the (end|conclusion) of the season|"
+                     r"following the season|after the season(?!'s| opener)", re.I)
+DATE = re.compile(r"(January|February|March|April|May|June|July|August|September|October|November|December)"
+                  r"\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(\d{4}))?")
+
+
+def events(raw):
+    """Every dated coaching change: [(league, 'YYYY-MM-DD', its text)] - from a table row OR a bullet ('On January 23,
+    2024, the Milwaukee Bucks fired head coach Adrian Griffin...' / '| Michigan State || Mel Tucker || September 27,
+    2023 || Fired'). A date without a year gets the season's (fall months = the season's first year)."""
+    out = []
+    for key, v in raw.items():
+        lg, season = key.split(":")[0], int(key.split(":")[1])
+        for sec in v.get("sections") or []:
+            text = _clean(sec)
+            chunks = re.split(r"\n\|-[^\n]*|\n(?=\*)", text)      # table rows / bullets
+            for ch in chunks:
+                flat = " ".join(ch.split())
+                if not EVENT.search(flat) or re.search(r"general manager|\bGM\b|president of", flat, re.I):
+                    continue                             # (baseball's GM changes aren't coaching changes)
+                m = DATE.search(flat)                    # the FIRST date in a row is the change itself (later ones:
+                if m:                                    # 'named full-time on November 15', a hiring...)
+                    mon = MONTHS[m.group(1)]
+                    yr = int(m.group(3)) if m.group(3) else (season if lg == "mlb" or mon >= 7 else season + 1)
+                    out.append((lg, f"{yr}-{mon:02d}-{int(m.group(2)):02d}", flat[:400]))
+    return out
+
+
+def parse(games, raw=None):
+    """Mid-season coaching changes: [{league, team, date, interim, text}] - a dated change for a team that played
+    real games both before AND after it that season (so it's truly in-season)."""
+    import sports_model as sm
+    if raw is None:
+        with open(RAW) as f:
+            raw = json.load(f)
+    names = {}
+    starts = {}
+    for g in games.values():
+        lg = g.get("league")
+        if g.get("status") != "final" or (g.get("stype") or "2") != "2":
+            continue                                     # (regular season only: a change after the last game isn't
+            #                                              in-season, even with playoff games to come)
+        for side in ("home", "away"):
+            names.setdefault(lg, {})[g[side]] = g.get(side + "_name") or ""
+            starts.setdefault((lg, g[side]), []).append(g["start"][:10])
+    out, seen = [], set()
+    for lg, day, text in events(raw):
+        if PLANNED.search(text):
+            continue                                     # 'will step down after the season': he coached the rest of it
+        head = text[:220]
+        if text[:1] in "|!":                             # a table row: the team is its FIRST cell (other teams get
+            cells = [c.strip() for c in re.split(r"\|\|?|!!?", text) if c.strip() and "=" not in c]   # mentioned
+            head = cells[0] if cells else head                                                         # in its notes)
+        best = None
+        college = lg in ("ncaaf", "ncaab")
+        for tid, nm in (names.get(lg) or {}).items():
+            pat = re.escape(nm)
+            if college:                                  # 'Illinois' must not match 'Northern Illinois' / 'Illinois
+                pat = r"(?<![A-Z][a-z]\s)(?<![A-Z][a-z]{2}\s)(?<![A-Z][a-z]{3}\s)(?<![A-Z][a-z]{4}\s)" \
+                      r"(?<![A-Z][a-z]{5}\s)(?<![A-Z][a-z]{6}\s)(?<![A-Z][a-z]{7}\s)(?<![A-Z][a-z]{8}\s)" + pat + \
+                      r"(?!\s(?:State|St\b|Tech|A&M|Christian|Southern|Atlantic|International|[A-Z]{2,}))"
+            if nm and re.search(r"\b" + pat + r"\b", head) and (best is None or len(nm) > len(best[1])):
+                best = (tid, nm)                         # (the longest team name that fits: 'Miami (OH)' over 'Miami')
+        if not best:
+            continue
+        ss = sorted(starts.get((lg, best[0]), []))
+        before = [x for x in ss if x < day and x >= _minus(day, 120)]
+        after = [x for x in ss if x > day and x <= _plus(day, 120)]
+        near = before and after and before[-1] >= _minus(day, 16) and after[0] <= _plus(day, 16)
+        if near and len(before) >= 3 and len(after) >= 3 and (lg, best[0], day) not in seen:   # (playing on both
+            #                                                    sides within ~2 weeks: truly mid-season, not June)
+            seen.add((lg, best[0], day))
+            out.append({"league": lg, "team": best[0], "name": best[1], "date": day,
+                        "interim": bool(re.search(r"interim", text, re.I)), "text": head})
+    out.sort(key=lambda r: (r["league"], r["team"], r["date"]))
+    keep = [r for i, r in enumerate(out) if not (i and out[i - 1]["league"] == r["league"] and out[i - 1]["team"] == r["team"]
+                                                 and r["date"] <= _plus(out[i - 1]["date"], 14))]   # (one change, twice)
+    return sorted(keep, key=lambda r: (r["league"], r["date"]))
+
+
+def _minus(day, n):
+    from datetime import datetime, timedelta
+    return (datetime.strptime(day, "%Y-%m-%d") - timedelta(days=n)).strftime("%Y-%m-%d")
+
+
+def _plus(day, n):
+    from datetime import datetime, timedelta
+    return (datetime.strptime(day, "%Y-%m-%d") + timedelta(days=n)).strftime("%Y-%m-%d")
 
 
 if __name__ == "__main__":

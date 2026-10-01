@@ -77,6 +77,12 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   First-year head coaches: a bit worse everywhere, not steady. ESPN lists one coach per season (no mid-season firing
   dates yet). Styles (4th downs, pace, 3s): waiting on data/sports/teamstats to fill in.
 
+- **Mid-season firings (9/30, 153 changes 2016-26 from Wikipedia's season pages, closing prices):** a DOG that just
+  fired its coach keeps losing in football and hoops - rest of the season NFL -28%, college football -30%, NBA -10.7%,
+  college hoops -18.4% (every dog about -4% to -7%): the market prices a bounce that doesn't come. Hockey is the
+  opposite: after a change the team beats its price (dogs -0.6% vs -5.4% rest of season; games 4-10 +7.6% / +4.5%).
+  Built: -3 / +2 on the Dog's score (sports_coach_changes.recent). Smaller samples (~20-50 changes a sport) - weighed.
+
 ## Found, not built yet (build before their season / playoffs)
 - **NBA star out** (player data, 5 seasons): favorites facing a team missing its star -7.8%, every season (a trap);
   dogs missing their star -0.4% vs -9% for dogs at full strength; a favorite missing its star but with the DEEPER
