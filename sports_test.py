@@ -7003,6 +7003,82 @@ def test_there_is_always_a_lock_near_the_price():
     assert 'if leg.get("near_price"):' in src and '"bottom_near"' in src
 
 
+
+def test_a_lean_says_the_real_reason_it_has_no_units():
+    """10/1, the owner: "it says we like the Kraken, just not at this price - and the Kraken's only -108. It's not even
+    expensive. That's real vague." A near coin flip says it's close to a coin flip; only a steep price blames the price;
+    and a rewrite (a new wording version) keeps a lean in its lean voice."""
+    import sports_breakdown as sb
+    import sports_card_guard as cg
+    close = sb.lean_ends({"team": "Kraken", "odds": -108, "p": 0.50, "market": "ml"})
+    assert all("coin flip" in x or "50-50" in x or "close to even" in x for x in close)
+    assert not any(w in x.lower() for x in close for w in ("steep", "too rich", "not at this price", "costs too much"))
+    steep = sb.lean_ends({"team": "Steelers", "odds": -300, "p": 0.72, "market": "ml"})
+    assert all("coin flip" not in x and "(-300)" in x for x in steep)
+    dog = sb.lean_ends({"team": "Ducks", "odds": 140, "p": 0.44, "market": "ml"})
+    assert all("hair" not in x for x in dog)
+    assert not any(cg.problem(x) for x in close + steep + dog)
+    leg = {"team": "Kraken", "opp": "Flames", "odds": -108, "p": 0.50, "dec": 1.926, "market": "ml", "side": "home",
+           "game_id": "g1", "league": "nhl", "line": None}
+    unit = {**leg, "game_id": "g2"}
+    picks = [{"date": "2026-10-01", "kind": "lean", "status": "open", "lean": True, "legs": [leg]},
+             {"date": "2026-10-01", "kind": "play", "status": "open", "lean": False, "legs": [unit]}]
+    games = {"g1": {"status": "pre"}, "g2": {"status": "pre"}}
+    keep = (sports.sd.fetch_injuries, sb.breakdown, sb.public_side, sports.sm.ratings)
+    try:
+        sports.sd.fetch_injuries = lambda lg: {}
+        sb.breakdown = lambda *a, **k: ["📊 Kraken won 4 of their last 5.",
+                                                      "✅ Bottom line: Kraken (-108). We'd ride Kraken, but not with money at this price."]
+        sb.public_side = lambda *a: None
+        sports.sm.ratings = lambda *a: {}
+        sports.add_breakdowns(games, {}, picks)
+    finally:
+        sports.sd.fetch_injuries, sb.breakdown, sb.public_side, sports.sm.ratings = keep
+    end = leg["breakdown"][-1]
+    assert leg["breakdown"][0].startswith("📊") and end.startswith("🟡") and any(w in end for w in ("coin flip", "50-50", "close to even"))
+    assert "not with money at this price" in unit["breakdown"][-1]        # (a unit play's own bottom line is untouched)
+
+
+def test_midday_value_plays_ping_once_when_the_dashboard_shows_them():
+    """10/1, the owner ("yes, yes, and yes"): the board drops at 8 AM, the engine keeps checking the lines all day, and a
+    unit play it adds after the board is up sends ONE notification - only once the dashboard shows it. Leans never ping,
+    the 8 AM board never pings, and nothing rings twice."""
+    import sports_pings as spg
+    from datetime import datetime, timezone
+    path = os.path.join(tempfile.mkdtemp(), "play_pings.json")
+    now = datetime(2026, 10, 1, 19, 23, tzinfo=timezone.utc)
+    leg = {"team": "Kraken", "opp": "Flames", "odds": -108, "p": 0.56, "dec": 1.926, "market": "ml", "side": "home",
+           "game_id": "nhl:1", "league": "nhl", "line": None, "start": "2026-10-02T02:00Z", "edge_own": 0.08}
+    play = {"date": "2026-10-01", "kind": "play", "status": "open", "lean": False, "midday": True,
+            "posted": "2026-10-01T19:23Z", "legs": [leg]}
+    lean = {**play, "kind": "lean", "lean": True, "legs": [{**leg, "game_id": "nhl:2"}]}
+    morning = {**play, "midday": False, "posted": "2026-10-01T15:02Z", "legs": [{**leg, "game_id": "nhl:3"}]}
+    keep = sports.units_for
+    try:
+        sports.units_for = lambda pk: 0 if pk.get("lean") else 1.5
+        q = spg.queue([play, lean, morning], now, path)
+        assert spg.queue([play], now, os.path.join(tempfile.mkdtemp(), "x.json")) and \
+            (sports.__setattr__("units_for", lambda pk: 0) or not spg.queue([play], now, os.path.join(tempfile.mkdtemp(), "y.json")))
+    finally:
+        sports.units_for = keep                                           # (a pick with no units never pings)
+    assert [x["gid"] for x in q] == ["nhl:1"], q
+    assert "Kraken ML -108" in q[0]["title"] and "Flames, 1½ units." in q[0]["body"], q
+    assert not any(cg_bad in q[0]["body"] for cg_bad in ("in 100", "price needs"))
+    sent = []
+    assert spg.send_queued("<html>no card yet</html>", now, path, sent.append) == [] and not sent   # not live: wait
+    page = '<span class="tm" data-start="x" data-gid="nhl:1" data-side="home" data-mk="ml">'
+    assert len(spg.send_queued(page, now, path, sent.append)) == 1 and sent[0]["ref"] == "play:2026-10-01:nhl:1"
+    later = datetime(2026, 10, 1, 20, 23, tzinfo=timezone.utc)
+    sports.units_for = lambda pk: 1.5
+    try:
+        assert spg.queue([play, lean, morning], later, path) == []       # the next run: already pinged, never twice
+    finally:
+        sports.units_for = keep
+    assert spg.send_queued(page, later + timedelta(hours=2), path, sent.append) == [] and len(sent) == 1
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert 'pk["midday"] = True' in src and "sports_pings.queue(picks, now)" in src          # wired in the engine
+    assert "spg.send_queued" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "early_ping.py")).read()
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
@@ -7010,6 +7086,8 @@ if __name__ == "__main__":
     sports_early.PATH = os.path.join(tempfile.mkdtemp(), "early.json")                   # (nor the early plays)
     sports_early.ON = False              # (live in the engine; tests switch it on themselves, never touching real books)
     sports_early.PINGS_PATH = os.path.join(tempfile.mkdtemp(), "early_pings.json")
+    import sports_pings
+    sports_pings.PATH = os.path.join(tempfile.mkdtemp(), "play_pings.json")                # (nor the mid-day pings)
     sports_early.PARAMS_PATH = os.path.join(tempfile.mkdtemp(), "early_params.json")
     sports_live.FINAL_AT.clear()
     for name, fn in list(globals().items()):
