@@ -755,7 +755,7 @@ def dog_score(c):
 
 def overreact(c):
     """The market overreacts against this side (sports_form: a football dog off a blowout loss, a college hoops
-    favorite on a long losing streak) - moneyline only."""
+    favorite on a long losing streak, a baseball favorite that hasn't scored in 12+ innings) - moneyline only."""
     import sports_form
     st = c.get("form_state")
     if not st or c.get("market") != "ml":

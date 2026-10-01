@@ -4844,6 +4844,27 @@ def test_overreaction_angle():
     assert sf.team_states(games, "2026-11-30T20:00Z") == {}                 # stale: nothing
 
 
+def test_scoring_drought_favorite():
+    """10/1, the owner's Red Sox point (announcer: their longest scoreless run going into the playoffs): a baseball
+    FAVORITE that hasn't scored in 12+ innings in a row did +4.9% vs -3.8% for every favorite (-150..-101: +10.2%, 7 of
+    9 seasons) - bettors fade cold bats too hard. It's weight on the Lock / parlay line, never a ban; dogs get nothing."""
+    c = lambda lg, odds, st: {"league": lg, "odds": odds, "market": "ml", "form_state": st}
+    assert sports.overreact(c("mlb", -130, (-9, -1, -120, False, 16)))
+    assert not sports.overreact(c("mlb", -130, (-9, -1, -120, False, 11)))  # 11 innings: not a drought yet
+    assert not sports.overreact(c("mlb", 130, (-9, -1, -120, False, 16)))   # a dog in a drought: no bump
+    assert not sports.overreact(c("nhl", -130, (-3, -1, -120, False, 16)))  # baseball only
+    assert not sports.overreact(c("mlb", -130, (-9, -1)))                   # old 2-field states still work
+    import sports_form as sf
+    ls = lambda runs: ",".join(map(str, runs))
+    games = {f"mlb:{k}": {"id": f"mlb:{k}", "league": "mlb", "status": "final", "stype": "2",
+                          "start": f"2026-09-{d}T17:00Z", "home": "A", "away": "B", "home_score": str(sum(h)),
+                          "away_score": str(sum(a)), "ls_home": ls(h), "ls_away": ls(a)}
+             for k, (d, h, a) in enumerate(((27, [0, 2, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0]),
+                                            (29, [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0, 0])))}
+    st = sf.team_states(games, "2026-09-30T20:00Z")
+    assert st[("mlb", "A")][4] == 15 and st[("mlb", "B")][4] == 6          # A: 7 + 8 scoreless innings in a row
+
+
 def test_live_never_takes_a_playoff_favorite_that_lost_the_last_game():
     """9/30: the engine grabbed the Astros live (+133, down 4-0 in the 1st) - a playoff favorite that lost the last game
     of the series (baseball: won 50%, -14%; the owner: "the Astros was a trap"). Live now knows the series too."""
