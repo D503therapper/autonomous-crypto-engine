@@ -4880,3 +4880,39 @@ error: could not detach HEAD
 [2026-10-01 16:07 UTC] stocks/trend     equity $483.44 (-3.3%) 3 open  market DOWN
 [2026-10-01 16:07 UTC] stocks/hold_spy  equity $495.45 (-0.9%) 1 open  market DOWN
    social heat top: TRUMP 42 (40/0/2), NEAR 37 (37/0/0), PENGU 35 (27/0/8), QNT 32 (32/0/0), MON 24 (24/0/0)
+   dex screen: REJECT NEARKAT@solana liq $308,871 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT AAVE@base liq $1,555,739 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT STONKEX@base liq $415,821 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT JIMOTHY@solana liq $635,348 - lp holders unknown; rugcheck lp locked 76% < 95%
+   dex screen: REJECT SI@solana liq $818,870 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): HTTPError: HTTP Error 503: Service Unavailable
+   dex screen: REJECT GOLD@solana liq $218,611 - mint authority; top-10 holders 82%; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT NEAR@ethereum liq $803,662 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT BAGSPAY@solana liq $147,707 - holders unknown; lp holders unknown; rugcheck lp locked 85% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT NEURAL@ethereum liq $871,482 - transfer_pausable; is_whitelisted; buy tax 4%; sell tax 4%
+   dex screen: REJECT GOIF@solana liq $2,535,229 - holders unknown; lp holders unknown; rugcheck score 53
+   dex screen: REJECT FEELSGOOD@solana liq $128,378 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT PEPECOIN@ethereum liq $1,942,828 - 24h volume $99,925 < $100,000
+   dex screen: PASS SPX@ethereum liq $12,472,560
+   dex scanner: 3,000 pools (solana 2,294 / base 461 / ethereum 245), refresh cycle 131s (hot 128s), 2861 calls (106 feed, 429s 0, failed 0), 82,649 refreshed (1769 no pair), +89 added / -90 dropped (dead 6, stale 0, cap 84), movers 2 + warming 22 -> queued 5, screened 5 (passed 0), bought 0
+[2026-10-01 17:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-01 17:07 UTC] crypto/mover     equity $453.65 (-9.3%) 2 open  market UP
+[2026-10-01 17:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 17:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 17:07 UTC] crypto/social_heat equity $539.74 (+7.9%) 2 open  market UP
+[2026-10-01 17:07 UTC] crypto/breakout10 equity $491.49 (-1.7%) 2 open  market UP
+[2026-10-01 17:07 UTC] crypto/momentum  equity $481.28 (-3.7%) 2 open  market UP
+[2026-10-01 17:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 17:07 UTC] crypto/hold_btc  equity $500.99 (+0.2%) 1 open  market UP
+[2026-10-01 17:07 UTC] stocks/rsi2      equity $498.43 (-0.3%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, IWM 3 BUY, XLB 4
+[2026-10-01 17:07 UTC] stocks/dual_momentum equity $496.32 (-0.7%) 2 open  market DOWN
+[2026-10-01 17:07 UTC] stocks/trend_ensemble equity $498.68 (-0.3%) 5 open  market UP
+[2026-10-01 17:07 UTC] stocks/rotation10 equity $492.99 (-1.4%) 2 open  market UP
+[2026-10-01 17:07 UTC] stocks/momentum  equity $492.38 (-1.5%) 4 open  market DOWN
+[2026-10-01 17:07 UTC] stocks/trend     equity $484.06 (-3.2%) 3 open  market DOWN
+[2026-10-01 17:07 UTC] stocks/hold_spy  equity $495.79 (-0.8%) 1 open  market DOWN
+   social heat top: NEAR 40 (40/0/0), MEGA 37 (37/0/0), MON 35 (35/0/0), QNT 32 (27/0/5), MOVR 29 (29/0/0)
