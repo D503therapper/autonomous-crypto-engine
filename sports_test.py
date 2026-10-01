@@ -4605,7 +4605,8 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     keep_good = sports.good
     sports.good = lambda c: True                # ...among REAL-value dogs, the analysis picks: the White Sox, never the
     try:                                        # Penguins the money ran from (a trap score under 0 is never the Dog)
-        b = sports.make_board([wsox, pens, kings])
+        wsox_v = {**wsox, "edge_own": 0.47 * wsox["dec"] - 1}   # (10/1 money check: a unit Dog's read beats its price)
+        b = sports.make_board([wsox_v, pens, kings])
         assert b["dog"] and b["dog"]["legs"][0]["team"] == "White Sox"
     finally:
         sports.good = keep_good
@@ -4631,7 +4632,7 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     keep_good = sports.good
     sports.good = lambda c: True
     try:
-        assert sports.make_board([wsox, kings, held])["dog"]["legs"][0]["team"] == "White Sox"   # never holds the Dog
+        assert sports.make_board([wsox_v, kings, held])["dog"]["legs"][0]["team"] == "White Sox"   # never holds the Dog
         assert (sports.make_board([big, kings])["dog"] or {"legs": [{}]})["legs"][0].get("team") != "Longshot"
     finally:
         sports.good = keep_good
@@ -5910,6 +5911,8 @@ def test_money_on_leans_we_like():
     like = {**_cand("stl", -130, 0.58, league="nfl"), "edge_own": 0.585 * sd.decimal(-130) - 1, "p_market": 0.55}
     coin = {**_cand("buf", -108, 0.50, league="nhl"), "edge_own": 0.50 * sd.decimal(-108) - 1, "p_market": 0.50}
     assert sports.confident_lean(like) and not sports.confident_lean(coin)
+    strong = {**like, "edge_own": 0.66 * sd.decimal(-130) - 1}
+    assert sports.lean_units(strong) > sports.lean_units(like) >= 0.5      # sized by its edge, not a flat ½u
     steelers = {**_cand("pit", -148, 0.572, league="nfl"), "edge_own": 0.587 * sd.decimal(-148) - 1, "p_market": 0.572}
     assert not sports.confident_lean(steelers)                 # 58.7% where -148 needs 59.7%: no money on a loser
     pk = {"kind": "lean", "lean": True, "lean_units": sports.CONF_LEAN_UNITS, "legs": [like]}

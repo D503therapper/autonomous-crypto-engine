@@ -1479,6 +1479,12 @@ CONF_LEAN_UNITS = 0.5    # we're comfortable enough to put money on it" (both le
 #                          never past -150, never one its read is fighting. Graded in the bankroll like any unit play.
 
 
+def lean_units(c):
+    """A lean we like is sized like every other pick - by how far its read beats the price (quarter-Kelly, ½u up;
+    the owner, 10/1: "why does a lean have to be a half a unit? It depends on the lean")."""
+    return max(CONF_LEAN_UNITS, kelly_units(read_of(c), c.get("odds") or -110))
+
+
 def confident_lean(c):
     """A lean we like enough for ½ unit."""
     if c.get("market") not in ("ml", "spread") or c.get("odds", -999) < MAX_FAV or c.get("trap") or fighting(c) \
@@ -1872,7 +1878,7 @@ def post_board(games, model, picks, now, day, force=False):
                   "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
                   "stake": STAKE, "status": "open", "pnl": 0.0, "lean": kind == "lean"}
             if kind == "lean" and confident_lean(c):
-                pk["lean_units"] = CONF_LEAN_UNITS
+                pk["lean_units"] = lean_units(c)
             leg = pk["legs"][0]
             leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
             if pk["lean"]:
@@ -1896,7 +1902,7 @@ def post_board(games, model, picks, now, day, force=False):
               "legs": b["legs"], "dec": round(b["dec"], 4), "american": american(b["dec"]), "p_hit": round(b["p_hit"], 4),
               "stake": STAKE, "status": "open", "pnl": 0.0, "lean": bool(b.get("lean"))}
         if pk["lean"] and confident_lean(leg):
-            pk["lean_units"] = CONF_LEAN_UNITS
+            pk["lean_units"] = lean_units(leg)
         leg["tier"] = "lean" if pk["lean"] else leg_tier(leg)
         if pk["lean"]:
             leg["breakdown"] = sports_breakdown.lean_tone(leg.get("breakdown"), leg, f"{iso}night{gid}")
