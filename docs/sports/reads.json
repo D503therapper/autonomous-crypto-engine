@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T23:32Z",
+ "updated": "2026-10-01T23:41Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -47,91 +47,30 @@
    "lean": null
   },
   {
-   "id": "mlb:401907973",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "h1": {
-    "team": "Braves",
-    "p": 0.445,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
-   "sport": "MLB",
-   "season": "playoffs",
-   "start": "2026-10-02T00:00Z",
-   "away": "Phillies",
-   "home": "Braves",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Braves",
-    "opp": "Phillies",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -197,
-    "p": 0.621,
-    "win_p": 0.505,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401871049",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "New Mexico St",
-    "p": 0.484,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-02T00:00Z",
    "away": "Western KY",
    "home": "New Mexico St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "New Mexico St",
-    "opp": "Western KY",
+    "team": "Western KY",
+    "opp": "New Mexico St",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.501,
-    "win_p": 0.501,
+    "odds": 110,
+    "p": 0.486,
+    "win_p": 0.486,
     "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401891816",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Wild",
-    "p": 0.387,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-02T00:00Z",
-   "away": "Wild",
-   "home": "Predators",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Predators",
-    "opp": "Wild",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.643,
-    "win_p": 0.421,
-    "reasons": []
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
@@ -156,7 +95,7 @@
     "opp": "Steelers @ Browns",
     "market": "total",
     "line": 38.0,
-    "odds": -111,
+    "odds": -109,
     "p": 0.614,
     "win_p": 0.614,
     "reasons": [
@@ -200,7 +139,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "North Texas",
-    "p": 0.589,
+    "p": 0.59,
     "tie": 0.032,
     "name": "1st half"
    },
