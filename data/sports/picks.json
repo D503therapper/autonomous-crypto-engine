@@ -24,6 +24,12 @@
     ],
     "bv": 16,
     "dec": 2.3,
+    "decider": {
+     "h": "14-3",
+     "s": "35-6",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": 0.043455349921663,
     "flow": {
      "a": "0,3,0,3",
@@ -95,6 +101,13 @@
     ],
     "bv": 16,
     "dec": 1.8695652173913042,
+    "decider": {
+     "how": "punt",
+     "p": "Myles Price",
+     "s": "23-16",
+     "type": "dtd",
+     "win": "away"
+    },
     "edge": 0.17355393316404633,
     "flow": {
      "a": "10,7,0,6",
@@ -167,6 +180,13 @@
     ],
     "bv": 16,
     "dec": 1.8695652173913042,
+    "decider": {
+     "how": "punt",
+     "p": "Myles Price",
+     "s": "23-16",
+     "type": "dtd",
+     "win": "away"
+    },
     "edge": 0.1713815419968503,
     "flow": {
      "a": "10,7,0,6",
@@ -220,6 +240,12 @@
     ],
     "bv": 16,
     "dec": 2.3,
+    "decider": {
+     "h": "14-3",
+     "s": "35-6",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": 0.037137223491294336,
     "flow": {
      "a": "0,3,0,3",
@@ -274,6 +300,15 @@
     ],
     "bv": 16,
     "dec": 2.1,
+    "decider": {
+     "c": "0:47",
+     "k": "td",
+     "p": "Bo Nix",
+     "s": "30-26",
+     "type": "late",
+     "win": "home",
+     "y": null
+    },
     "edge": 0.024212534207521452,
     "flow": {
      "a": "7,9,0,10",
@@ -346,6 +381,13 @@
     ],
     "bv": 16,
     "dec": 1.8695652173913042,
+    "decider": {
+     "how": "punt",
+     "p": "Myles Price",
+     "s": "23-16",
+     "type": "dtd",
+     "win": "away"
+    },
     "edge": 0.1713815419968503,
     "flow": {
      "a": "10,7,0,6",
@@ -401,6 +443,15 @@
     ],
     "bv": 16,
     "dec": 2.1,
+    "decider": {
+     "c": "0:47",
+     "k": "td",
+     "p": "Bo Nix",
+     "s": "30-26",
+     "type": "late",
+     "win": "home",
+     "y": null
+    },
     "edge": 0.024212534207521452,
     "flow": {
      "a": "7,9,0,10",
@@ -474,6 +525,13 @@
     "bv": 16,
     "country": "USA",
     "dec": 1.8333333333333335,
+    "decider": {
+     "how": "punt",
+     "p": "Myles Price",
+     "s": "23-16",
+     "type": "dtd",
+     "win": "away"
+    },
     "edge": 0.12237705067981186,
     "edge_own": 0.10480261662153834,
     "flow": {
@@ -541,6 +599,7 @@
     "bv": 16,
     "country": "",
     "dec": 2.3,
+    "decider": {},
     "edge": 0.03458925063667473,
     "edge_own": 0.02496986788611366,
     "flow": {
@@ -596,6 +655,15 @@
     ],
     "bv": 16,
     "dec": 2.1,
+    "decider": {
+     "c": "0:47",
+     "k": "td",
+     "p": "Bo Nix",
+     "s": "30-26",
+     "type": "late",
+     "win": "home",
+     "y": null
+    },
     "edge": 0.024212534207521452,
     "flow": {
      "a": "7,9,0,10",
@@ -657,6 +725,7 @@
     "bv": 16,
     "country": "",
     "dec": 1.8695652173913042,
+    "decider": {},
     "edge": -0.015621170105744042,
     "edge_own": -0.019182751972647405,
     "flow": {
@@ -716,6 +785,7 @@
     "bv": 16,
     "country": "",
     "dec": 1.7936507936507935,
+    "decider": {},
     "edge": -0.059158257365218736,
     "edge_own": -0.05389447732845709,
     "flow": {
@@ -779,6 +849,7 @@
     "bv": 16,
     "country": "",
     "dec": 1.9174311926605505,
+    "decider": {},
     "edge": 0.005310402459391517,
     "edge_own": -0.005696431714475758,
     "flow": {
@@ -832,6 +903,7 @@
     "bv": 16,
     "country": "",
     "dec": 1.8547008547008548,
+    "decider": {},
     "edge": -0.060697900067192,
     "edge_own": -0.0668420948901769,
     "flow": {
@@ -882,6 +954,7 @@
     "bv": 16,
     "country": "",
     "dec": 1.9523809523809523,
+    "decider": {},
     "edge": -0.023629086292580537,
     "edge_own": -0.01972488984844456,
     "flow": {
@@ -954,6 +1027,7 @@
     "bv": 24,
     "country": "USA",
     "dec": 1.925925925925926,
+    "decider": {},
     "edge": 0.004856504152144003,
     "flow": {
      "a": "0,7,0,0",
@@ -1062,6 +1136,11 @@
      "them:trip1000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {
+     "s": "9-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": -0.023973820085147812,
     "edge_own": -0.026436977538158657,
     "flow": {
@@ -1132,6 +1211,15 @@
      "game:rival"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Paul Cotter",
+     "s": "6-5",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "edge": 0.02382801737743523,
     "flow": {
      "a": "1,1,3,1",
@@ -1213,6 +1301,11 @@
      "them:west1000"
     ],
     "dec": 1.7633587786259541,
+    "decider": {
+     "s": "8-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": -0.023421113100612567,
     "edge_own": -0.021633323714821517,
     "flow": {
@@ -1274,6 +1367,7 @@
      "us:west1000"
     ],
     "dec": 1.8,
+    "decider": {},
     "edge": -0.03913632811376466,
     "flow": {
      "a": "0,1,1",
@@ -1373,6 +1467,11 @@
      "them:trip1000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {
+     "s": "9-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": -0.023973820085147812,
     "edge_own": -0.026436977538158657,
     "flow": {
@@ -1472,6 +1571,11 @@
      "them:trip1000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {
+     "s": "9-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": -0.023973820085147812,
     "edge_own": -0.026436977538158657,
     "flow": {
@@ -1542,6 +1646,15 @@
      "game:rival"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Paul Cotter",
+     "s": "6-5",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "edge": 0.02382801737743523,
     "flow": {
      "a": "1,1,3,1",
@@ -1623,6 +1736,11 @@
      "them:west1000"
     ],
     "dec": 1.7633587786259541,
+    "decider": {
+     "s": "8-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": -0.023421113100612567,
     "edge_own": -0.021633323714821517,
     "flow": {
@@ -1722,6 +1840,11 @@
      "them:trip1000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {
+     "s": "9-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "edge": -0.023973820085147812,
     "edge_own": -0.026436977538158657,
     "flow": {
@@ -1792,6 +1915,15 @@
      "game:rival"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Paul Cotter",
+     "s": "6-5",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "edge": 0.02382801737743523,
     "flow": {
      "a": "1,1,3,1",
@@ -1882,6 +2014,11 @@
      "game:rival"
     ],
     "dec": 1.6944444444444444,
+    "decider": {
+     "s": "9-2",
+     "type": "blowout",
+     "win": "home"
+    },
     "drift": -0.0123,
     "edge": -0.04542869667452465,
     "edge_own": -0.042796005706134066,
@@ -1989,6 +2126,11 @@
      "game:rival"
     ],
     "dec": 1.6944444444444444,
+    "decider": {
+     "s": "9-2",
+     "type": "blowout",
+     "win": "home"
+    },
     "drift": -0.0123,
     "edge": -0.04542869667452465,
     "edge_own": -0.042796005706134066,
@@ -2075,6 +2217,11 @@
      "game:rival"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "s": "7-0",
+     "type": "blowout",
+     "win": "away"
+    },
     "drift": -0.031,
     "edge": -0.039859760664547994,
     "edge_own": -0.04816068605693591,
@@ -2158,6 +2305,7 @@
      "them:week3000"
     ],
     "dec": 1.72992700729927,
+    "decider": {},
     "drift": -0.0062,
     "edge": -0.038442971647827506,
     "edge_own": -0.02154686264308403,
@@ -2258,6 +2406,11 @@
      "game:rival"
     ],
     "dec": 1.6944444444444444,
+    "decider": {
+     "s": "9-2",
+     "type": "blowout",
+     "win": "home"
+    },
     "drift": -0.0123,
     "edge": -0.04542869667452465,
     "edge_own": -0.042796005706134066,
@@ -2344,6 +2497,11 @@
      "game:rival"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "s": "7-0",
+     "type": "blowout",
+     "win": "away"
+    },
     "drift": -0.031,
     "edge": -0.039859760664547994,
     "edge_own": -0.04816068605693591,
@@ -2443,6 +2601,11 @@
      "game:conf"
     ],
     "dec": 2.6,
+    "decider": {
+     "s": "8-4",
+     "type": "blowout",
+     "win": "home"
+    },
     "drift": 0.0085,
     "edge": -0.027220144276812297,
     "edge_own": -0.023736677058818545,
@@ -2534,6 +2697,11 @@
      "game:rival"
     ],
     "dec": 1.6944444444444444,
+    "decider": {
+     "s": "9-2",
+     "type": "blowout",
+     "win": "home"
+    },
     "drift": -0.0123,
     "edge": -0.04542869667452465,
     "edge_own": -0.042796005706134066,
@@ -2620,6 +2788,11 @@
      "game:rival"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "s": "7-0",
+     "type": "blowout",
+     "win": "away"
+    },
     "drift": -0.031,
     "edge": -0.039859760664547994,
     "edge_own": -0.04816068605693591,
@@ -2703,6 +2876,7 @@
      "them:week3000"
     ],
     "dec": 1.72992700729927,
+    "decider": {},
     "drift": -0.0062,
     "edge": -0.038442971647827506,
     "edge_own": -0.02154686264308403,
@@ -2780,6 +2954,7 @@
      "game:conf"
     ],
     "dec": 1.7692307692307692,
+    "decider": {},
     "drift": -0.0427,
     "edge": -0.03675298019730899,
     "edge_own": -0.048638114732284854,
@@ -2846,17 +3021,15 @@
    {
     "ats_run": 0,
     "bd_tags": [
-     "G_cold:1",
      "splits_f:3",
      "w_num:2",
      "k_fade:0"
     ],
     "breakdown": [
      "\ud83d\udcca 89% of the tickets on the Mammoth. The books love that. We on the Blackhawks.",
-     "\ud83e\udd45 The Mammoth's goalie Karel Vejmelka can't keep the puck out lately: a 0.859 save % (14 goals on 99 shots) over his last 3 starts.",
-     "\u2705 Bottom line: Blackhawks (+180). We see 37 in 100, the price needs 36 in 100. Good number."
+     "\u2705 Bottom line: Blackhawks (+180). Our read beats this price. Good number."
     ],
-    "bv": 36,
+    "bv": 38,
     "coach": [
      7,
      false
@@ -2925,7 +3098,7 @@
     "tired_vs_rested": false,
     "trap": false,
     "waiting": [],
-    "why_line": "\ud83e\udde0 Blackhawks at 35% to get it done. That's the engine talking, not a hunch. And the public's on the wrong side."
+    "why_line": "\ud83e\udde0 Our read likes Blackhawks more than the price does. And the public's on the wrong side."
    }
   ],
   "p_hit": 0.3467,
@@ -2949,17 +3122,16 @@
      "even:0",
      "revenge:0",
      "banged:3",
-     "bottom_n:5",
-     "w_better:5",
-     "k_rival:1"
+     "bottom_n:0",
+     "w_hurt:2"
     ],
     "breakdown": [
      "\ud83d\ude91 Browns are dealing with injuries: Teven Jenkins, Elgton Jenkins, Tylan Wallace.",
      "\ud83d\ude24 Revenge game \u2014 Steelers lost the last meeting and they haven't forgotten.",
      "\u2696\ufe0f Steelers 2-1, Browns 2-1 \u2014 about even, so the price makes the play.",
-     "\u2705 Bottom line: Steelers (-148) costs 60%, we see 59%. Too pricey for units - we lean it."
+     "\u2705 Bottom line: Steelers (-148). Right side, but the price is too steep for units - just a lean."
     ],
-    "bv": 36,
+    "bv": 38,
     "coach": [
      18,
      false
@@ -3052,10 +3224,109 @@
     "tired_vs_rested": false,
     "trap": false,
     "waiting": [],
-    "why_line": "\ud83d\udcaa Steelers bring more juice than Browns every way you slice it. Division rivals. No love lost."
+    "why_line": "\ud83d\ude91 Browns gotta play this one without goalie Teven Jenkins, and we're taking advantage."
    }
   ],
   "p_hit": 0.5721,
+  "pnl": 0.0,
+  "posted": "2026-10-01T15:38Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -108,
+  "date": "2026-10-01",
+  "dec": 1.9259,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "banged:4",
+     "bottom_n:5",
+     "w_hurt:3"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Flames are short-handed (Henry Mews).",
+     "\u2705 Bottom line: Kraken (-108). We'd ride Kraken, but not with money at this price."
+    ],
+    "bv": 38,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 1.925925925925926,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": null,
+     "won": null
+    },
+    "dog_more": {},
+    "drift": -0.0065,
+    "edge": -0.035487151768521574,
+    "edge_own": -0.035601958084707896,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "game_id": "nhl:401891777",
+    "home": false,
+    "hot_key": false,
+    "intl": false,
+    "key_edge": -0.10021257212268209,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -108,
+    "opp": "Flames",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Henry Mews (D)"
+    ],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.5008047481201907,
+    "p_market": 0.49567024593003106,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": true,
+    "side": "away",
+    "start": "2026-10-02T01:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Kraken",
+    "team_id": "124292",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\ude91 defenseman Henry Mews is out for Flames. That changes the whole game \u2014 our way."
+   }
+  ],
+  "p_hit": 0.5008,
   "pnl": 0.0,
   "posted": "2026-10-01T15:38Z",
   "round": 1,
@@ -3073,17 +3344,19 @@
    {
     "ats_run": -2,
     "bd_tags": [
+     "QB_hot:2",
      "road:1",
      "splits:0",
      "bottom_l:2",
-     "w_better:4"
+     "w_sharp:2"
     ],
     "breakdown": [
      "\ud83d\udcca Bets are split \u2014 40% on North Texas, 60% on Tulsa (62% / 38% of the money). Nobody knows nothing on this one, except us.",
      "\ud83e\uddf3 Road game for North Texas \u2014 0-2 away from home so far.",
-     "\u2705 Bottom line: North Texas (-118). The price needs 54%; the engine has 59%. We're all in."
+     "\ud83c\udfaf Tayven Jackson is slinging it \u2014 6 TDs, 1 pick and 995 yards in his last 3 games.",
+     "\u2705 Bottom line: North Texas (-118). The books got this one priced wrong. Stamp it."
     ],
-    "bv": 36,
+    "bv": 38,
     "coach": [
      null,
      false
@@ -3156,7 +3429,7 @@
     "tired_vs_rested": false,
     "trap": false,
     "waiting": [],
-    "why_line": "\ud83d\udcaa Put the rosters side by side \u2014 North Texas win that matchup."
+    "why_line": "\ud83d\udcb8 Smart money's been moving toward North Texas all day."
    }
   ],
   "p_hit": 0.5227,
@@ -3166,5 +3439,118 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lock"
+ },
+ {
+  "american": 110,
+  "date": "2026-10-01",
+  "dec": 2.1,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "trash:8",
+     "fade:2",
+     "w_num:0",
+     "k_fade:1"
+    ],
+    "breakdown": [
+     "\ud83d\udcb8 Line's moving toward New Mexico St (-110 \u2192 -125). Let 'em \u2014 we still like Western KY.",
+     "\ud83d\uddd1\ufe0f New Mexico St are about to get their cheeks clapped. 1-3 \u2014 they been complete ass.",
+     "\u2705 Bottom line: Western KY (+110). Our read beats this price. We finna see."
+    ],
+    "bv": 38,
+    "coach": [
+     0,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf",
+     "us:trip1000",
+     "us:west1000"
+    ],
+    "dec": 2.1,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [
+      "Thursday night"
+     ],
+     "last_margin": 45.0,
+     "last_pts": 52.0,
+     "neutral": false,
+     "win_pct": 0.25,
+     "win_streak": 1
+    },
+    "dog_p": 0.501,
+    "drift": -0.0087,
+    "edge": 0.02150076156718872,
+    "edge_own": 0.009943961984509642,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     45.0,
+     1,
+     -20000,
+     true,
+     0
+    ],
+    "game_id": "ncaaf:401871049",
+    "home": false,
+    "hot_key": false,
+    "intl": false,
+    "key_edge": 0.09641686586658116,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 110,
+    "opp": "New Mexico St",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.48642893407961363,
+    "p_market": 0.4572564612326043,
+    "pdo": null,
+    "public": "fade",
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-02T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Western KY",
+    "team_id": "98",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 The engine gives Western KY a better shot than the books do. The casuals are on the other side, too."
+   }
+  ],
+  "p_hit": 0.4864,
+  "pnl": 0.0,
+  "posted": "2026-10-01T21:32Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]
