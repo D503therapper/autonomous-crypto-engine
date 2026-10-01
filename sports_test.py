@@ -5253,6 +5253,7 @@ def test_todays_damage_after_the_last_game():
         assert "TODAY" in h and "RESULTS" in h and "DAMAGE" not in h and "1-1" in h and "ROI +18%" in h
         assert "+0.5 UNITS" in h                                                   # 2u won at -130 (+1.54), 1u lost
         assert "+$" in h and "Leans count" not in h                       # dollars too; no note (the owner, 10/1)
+        assert "(UNIT PLAYS ONLY)" in h                                      # the owner, 10/1: said right in the header
     finally:
         sports.leg_units = keep
     until = int(re.search(r'data-until="(\d+)"', h).group(1))

@@ -321,7 +321,7 @@ def day_recap(picks, today=None, early=None, now=None):
     rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
     up = net >= 0
     return (f'<div class="dayr {"up" if up else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
-            f'<div class="dayr-t">📊 TODAY\'S RESULTS</div>'
+            f'<div class="dayr-t">📊 TODAY\'S RESULTS <span class="dayr-u">(UNIT PLAYS ONLY)</span></div>'
             f'<div class="dayr-n">{"+" if up else "-"}{abs(net):.1f} UNITS</div>'
             f'<div class="dayr-s">{"+" if up else "-"}${abs(usd):,.2f} · ROI {net / bet:+.0%} · {rec}</div></div>'
             f'<script>(function(){{var d=document.currentScript.previousElementSibling;'
@@ -1719,6 +1719,7 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .dayr-n{{font-size:28px;font-weight:900;color:#22e39a;margin-top:4px}}
 .dayr.dn .dayr-n{{color:#ff5a5a}}
 .dayr-s{{font-size:15px;font-weight:800;color:#fff;margin-top:2px}}
+.dayr-u{{color:#fff;font-size:12px}}
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}
