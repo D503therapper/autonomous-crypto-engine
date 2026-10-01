@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           API=$(cat data/sports/ask_url.txt)
-          IDS=$(python3 -c "import json;p=json.load(open('data/sports/tennis/picks.json'));print(','.join('tennis:'+l['match'] for s in p[-2:] for l in s['picks']))")
+          IDS=$(python3 -c "import json;p=json.load(open('data/sports/tennis/picks.json'));c=json.load(open('data/sports/challenge.json'));print(','.join(sorted({'tennis:'+l['match'] for s in p[-2:] for l in s['picks']}|{'tennis:'+l['match'] for k in ('patty','algo') for l in c.get(k,[]) if not l.get('result')})))")
           echo "ids: nfl:401872963,$IDS"
           echo "--- does ESPN let web pages call it (CORS)?"
           curl -s -D - -o /dev/null -m 20 -H "Origin: https://d503therapper.github.io" "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard" | grep -i "access-control\|HTTP/" || true
