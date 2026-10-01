@@ -281,6 +281,32 @@ def units_box(picks, today=None):
             f'{out}</div>')
 
 
+def day_recap(picks, today=None, early=None, now=None):
+    """📊 The day's units, up top once every pick with units that day is graded (the owner, 10/1: 'after the last
+    game of the day' - never a half-day number), gone at midnight Pacific. The bankroll's own plays only: the Lock, the
+    Dog, value plays, early value plays (leans, parlays, live plus money, tennis keep their own records)."""
+    import sports
+    import sports_early
+    now = now or datetime.now(sports.PT)
+    today = today or now.strftime("%Y-%m-%d")
+    early = sports_early.load().get("picks") or [] if early is None else early
+    rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[0]["date"] == today]
+    if not rows or sports.day_pending(picks, early, today):
+        return ""
+    bet, net = sum(r[1] for r in rows), sum(r[2] for r in rows)
+    w = sum(1 for r in rows if r[2] > 0)
+    l = sum(1 for r in rows if r[2] < 0)
+    pu = sum(1 for r in rows if r[2] == 0)
+    midnight = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=sports.PT) + timedelta(days=1)
+    rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
+    return (f'<div class="dayr {"up" if net >= 0 else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
+            f'<div class="dayr-t">📊 TODAY\'S DAMAGE</div>'
+            f'<div class="dayr-n">{"+" if net >= 0 else "-"}{abs(net):.1f} UNITS</div>'
+            f'<div class="dayr-s">ROI {net / bet:+.0%} · {rec}</div></div>'
+            f'<script>(function(){{var d=document.currentScript.previousElementSibling;'
+            f'if(Date.now()>+d.dataset.until)d.remove();}})();</script>') if bet else ""
+
+
 def _tier(pk):
     import sports
     return sports.pick_tier(pk)
@@ -1627,6 +1653,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .unw{{display:block;font-size:13px;letter-spacing:.02em;font-weight:800;color:#fff;text-transform:none}}   /* why ½u */
 .nou{{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
+.dayr{{margin:12px 0 0;padding:14px;border-radius:12px;background:var(--card);border:2px solid #22e39a;text-align:center}}
+.dayr.dn{{border-color:#ff3b3b}}
+.dayr-t{{font-size:14px;font-weight:900;color:#ffc233;letter-spacing:.06em}}
+.dayr-n{{font-size:28px;font-weight:900;color:#22e39a;margin-top:4px}}
+.dayr.dn .dayr-n{{color:#ff5a5a}}
+.dayr-s{{font-size:15px;font-weight:800;color:#fff;margin-top:2px}}
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}
@@ -1772,6 +1804,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
   <div class="live"><span class="dot" id="dot"></span><span id="ago">LIVE</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
+{day_recap(picks) if UNITS_ON else ""}
 <div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 QUESTION BOX</span></div>
 <div class="ask-b"><div class="ask-n">{ask_note}</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send">{ask_btn}</div>

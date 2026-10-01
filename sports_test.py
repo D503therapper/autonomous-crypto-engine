@@ -5184,6 +5184,31 @@ def test_college_football_pulled_conference_by_conference():
         sd._fetch_one = keep
 
 
+def test_todays_damage_after_the_last_game():
+    """10/1, the owner: the day's units / ROI / record go up top AFTER the last game of the day (never a half-day number)
+    and come down at midnight Pacific. Only plays with units count (leans keep their own record)."""
+    import sports_dashboard as D
+    now = datetime(2026, 10, 1, 22, 0, tzinfo=sports.PT)
+    leg = lambda team, res, odds=-130: {"team": team, "odds": odds, "result": res, "game_id": team, "side": "home",
+                                       "p": 0.6, "edge_own": 0.05, "dec": 1.77, "p_market": 0.56}
+    lock = {"date": "2026-10-01", "kind": "lock", "legs": [leg("Yankees", "won")], "status": "won", "units": 2}
+    dog = {"date": "2026-10-01", "kind": "dog", "legs": [leg("Kings", None, 160)], "status": "pending", "units": 1}
+    keep = sports.leg_units
+    sports.leg_units = lambda p, l: p.get("units", 0)
+    try:
+        assert D.day_recap([lock, dog], "2026-10-01", [], now) == ""                 # the Kings still going: nothing yet
+        dog["legs"][0]["result"], dog["status"] = "lost", "lost"
+        h = D.day_recap([lock, dog], "2026-10-01", [], now)
+        assert "TODAY" in h and "DAMAGE" in h and "1-1" in h and "ROI +18%" in h
+        assert "+0.5 UNITS" in h                                                   # 2u won at -130 (+1.54), 1u lost
+    finally:
+        sports.leg_units = keep
+    until = int(re.search(r'data-until="(\d+)"', h).group(1))
+    assert datetime.fromtimestamp(until / 1000, sports.PT) == datetime(2026, 10, 2, 0, 0, tzinfo=sports.PT)   # midnight PT
+    assert "Date.now()>+d.dataset.until" in h
+    assert D.day_recap([], "2026-10-01", [], now) == ""                          # no plays with units: nothing
+
+
 def test_team_name_match_is_not_loose():
     """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
     'Texas St' the Longhorns'. The rest of the short name has to be in there too."""

@@ -916,6 +916,24 @@ def _dec(odds):
     return 1 + (odds / 100 if odds > 0 else 100 / -odds)
 
 
+def day_pending(picks, early, day):
+    """Is anything with units still to be graded on this (PT) day? Our straight picks and parlay legs, and the early
+    value plays playing that day - the day's recap only goes up once it's all in (the owner, 10/1)."""
+    for p in picks:
+        if p.get("date") != day or not in_record(p):
+            continue
+        for n, l in enumerate(p.get("legs") or []):
+            res = l.get("result") or (p.get("status") if len(p["legs"]) == 1 else None)
+            if res not in ("won", "lost", "push", "void", "canceled") and leg_units(p, l):
+                return True
+    for e in early or ():
+        if e.get("result") is None and e.get("start"):
+            when = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT)
+            if when.strftime("%Y-%m-%d") == day:
+                return True
+    return False
+
+
 def units_ledger(picks, early=()):
     """The open bankroll (the owner, 9/30: 'everything completely transparent'): every graded STRAIGHT pick in our
     record, once each, in the order it settled, at its units and real price. A parlay itself carries no units (the
