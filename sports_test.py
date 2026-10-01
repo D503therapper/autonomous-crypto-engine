@@ -5580,6 +5580,79 @@ console.log(out.join("|"));"""
     assert r.stdout.strip() == "Ruud|Rune|Ruud|Rune|6-3|Ruud|Ruud|Rune", (r.stdout, r.stderr[:300])
 
 
+def test_six_early_spots():
+    """10/1, the owner: "there's only one way to prove anything - you do it." The six early spots from the odds-history
+    studies go live small, each with its own record: off a bye vs a team that played (1u), and ½u on hammered early,
+    Monday night NFL dogs, East Coast NFL teams flying West, a dog that blew somebody out, and college sides the engine
+    likes after the line moved away. Fair prices only (after both teams' last games), never game day, never a side with
+    a key player out or questionable."""
+    import sports_early as se
+    from html import escape
+    now = datetime(2026, 10, 6, 18, 0, tzinfo=timezone.utc)                 # a Tuesday
+    def gm(gid, lg, start, home, away, hn, an, mh=None, ma=None, status="pre", hs="", as_="", tzo="-5.0", neutral="0"):
+        return {"id": gid, "league": lg, "stype": "2", "status": status, "start": start, "home": home, "away": away,
+                "home_name": hn, "away_name": an, "ml_home": mh or "", "ml_away": ma or "", "home_score": hs,
+                "away_score": as_, "tzo": tzo, "neutral": neutral}
+    G = {
+        # Bills (B) were off last week (a bye): last game 9/27; the Jets played 10/4. Sunday 10/11: Bills +150
+        "n1": gm("n1", "nfl", "2026-09-27T17:00Z", "B", "X", "Bills", "X", status="final", hs="20", as_="17"),
+        "n2": gm("n2", "nfl", "2026-10-04T17:00Z", "J", "Y", "Jets", "Y", status="final", hs="24", as_="10"),
+        "n3": gm("n3", "nfl", "2026-10-11T17:00Z", "J", "B", "Jets", "Bills", "-170", "150"),
+        # Monday night 10/12 (ET): the Rams +130 at the Packers - both played 10/4-10/5
+        "m0": gm("m0", "nfl", "2026-10-05T00:20Z", "R", "Z", "Rams", "Z", status="final", hs="27", as_="3", tzo="-8.0"),
+        "m1": gm("m1", "nfl", "2026-10-04T17:00Z", "P", "W", "Packers", "W", status="final", hs="10", as_="13"),
+        "m2": gm("m2", "nfl", "2026-10-13T00:15Z", "P", "R", "Packers", "Rams", "-150", "130"),
+    }
+    G["r_home"] = gm("r_home", "nfl", "2026-09-14T20:00Z", "R", "Q", "Rams", "Q", status="final", hs="1", as_="0", tzo="-8.0")
+    G["g_home"] = gm("g_home", "nfl", "2026-09-14T17:00Z", "P", "V", "Packers", "V", status="final", hs="1", as_="0", tzo="-6.0")
+    got = {(c["team"], c["spot"]): c for c in se.spot_scan(G, now, hist_dir=tempfile.mkdtemp())}
+    assert ("Bills", "bye") in got and se.units(got[("Bills", "bye")]) == 1.0
+    rams = [c for c in got.values() if c["team"] == "Rams"][0]
+    assert "mnf" in rams["spots"] and "blowout" in rams["spots"] and se.units(rams) == 0.5
+    assert not any(c["team"] in ("Jets", "Packers") for c in got.values())          # favorites: never these spots
+    # not before last week's games are over (the 10/1 audit: an early price then 'knew' nothing the engine knew)
+    early = datetime(2026, 10, 4, 18, 0, tzinfo=timezone.utc)                       # the Jets' game still on
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, early, hist_dir=tempfile.mkdtemp()))
+    # never on game day
+    gd = datetime(2026, 10, 11, 15, 0, tzinfo=timezone.utc)
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, gd, hist_dir=tempfile.mkdtemp()))
+    # a key player out / questionable on our side: never
+    keep = (sd.team_key_out, sd.team_unsure)
+    sd.team_key_out = lambda inj, tid, name, lg: [("QB1", "QB", "Out")] if name == "Bills" else []
+    sd.team_unsure = lambda inj, tid, name, lg: []
+    try:
+        assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"nfl": {"x": 1}}, hist_dir=tempfile.mkdtemp()))
+    finally:
+        sd.team_key_out, sd.team_unsure = keep
+    # hammered early: the first fair price we recorded vs now (the line history)
+    d = tempfile.mkdtemp()
+    with open(os.path.join(d, "2026-10.jsonl"), "w") as f:
+        f.write(json.dumps({"g": "n3", "t": "2026-10-05T12:00Z", "s": "2026-10-11T17:00Z", "h": "-260", "a": "210"}) + "\n")
+    assert "hammered" in [c for c in se.spot_scan(G, now, hist_dir=d) if c["team"] == "Bills"][0]["spots"]
+    # the engine spot (college): the engine likes the side, the price went OUT 2+ since the first fair price
+    C = {"c0": gm("c0", "ncaaf", "2026-10-03T19:00Z", "U", "K", "Utah", "K", status="final", hs="20", as_="21"),
+         "c1": gm("c1", "ncaaf", "2026-10-03T19:00Z", "T", "L", "TCU", "L", status="final", hs="20", as_="21"),
+         "c2": gm("c2", "ncaaf", "2026-10-10T19:00Z", "U", "T", "Utah", "TCU", "-120", "100")}
+    d2 = tempfile.mkdtemp()
+    with open(os.path.join(d2, "2026-10.jsonl"), "w") as f:
+        f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-135", "a": "115"}) + "\n")
+    own = lambda g, side: 0.58 if side == "home" else 0.42
+    got = se.spot_scan(C, now, own_of=own, hist_dir=d2)
+    assert [(c["team"], c["spot"]) for c in got] == [("Utah", "engine")]
+    with open(os.path.join(d2, "2026-10.jsonl"), "w") as f:              # moved further: TCU now "hammered" too - the
+        f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-140", "a": "120"}) + "\n")
+    assert se.spot_scan(C, now, own_of=own, hist_dir=d2) == []           # two sides of one game cancel: no play
+    # the box: the spot's name on the row, each spot's own record
+    st = {"picks": [{**rams, "result": "won", "graded_at": "2026-10-13T04:00Z"},
+                    {**got[0], "result": None, "posted": "2026-10-06T18:00Z"}]}
+    keep_on, se.ON = se.ON, True                                           # (the suite switches the box off)
+    try:
+        h = se.html(st, escape, now)
+    finally:
+        se.ON = keep_on
+    assert "Engine likes it, the line moved away" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

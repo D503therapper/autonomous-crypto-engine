@@ -340,6 +340,29 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                 ping(c)
             except Exception as e:                   # noqa: BLE001 - an alert never breaks the engine
                 print(f"   early dog ping failed: {str(e)[:60]}")
+    try:                                                     # 🧪 the six spots (the owner, 10/1)
+        elo = None
+
+        def own_of(g, side):
+            nonlocal elo
+            p_ = (model.get("params") or {}).get(g["league"]) or sm.default_params(g["league"])
+            if "w" not in p_:
+                return None
+            elo = elo or sm.ratings(games, model)
+            f = elo[g["league"]].features(g)
+            if f.get("known", 0) < 3:
+                return None
+            o = sm.own_p(p_, {**f, "inj": 0.0, "key": 0.0, "weather": 0.0, "cold": 0.0})   # Tuesday-known only
+            return o if side == "home" else 1 - o
+        for c in spot_scan(games, now, injuries, own_of):
+            if c["game_id"] in have:
+                continue
+            c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None, gap=round((c["own"] or c["mkt"]) - c["mkt"], 4))
+            st["picks"].append(c)
+            have.add(c["game_id"])
+            new.append(c)
+    except Exception as e:                                   # noqa: BLE001 - the spots never break the engine
+        print(f"   early spots failed: {str(e)[:120]}")
     watch(st, games, injuries)
     grade(st, games)
     save(st, path)
@@ -417,8 +440,204 @@ def units(p):
     (a quarter of the Kelly stake, 1u = 1% of the bankroll), ½u to 10u. The sizing study (5 seasons it never saw): at the
     opening price a bigger engine edge won more AND moved the line more (NFL: the biggest edges moved our way 80% of the
     time, 61% flipped to favorites) - sized this way it made the most money in the NFL, NBA, NHL and college football."""
+    if p.get("spot") in SPOTS:                               # 🧪 a spot play: its fixed size until it proves
+        return SPOTS[p["spot"]][1]                           # itself live (the owner, 10/1)
     import sports
     return sports.kelly_units(p.get("own"), p["odds"])
+
+
+# ---------------------------------------------------------------- 🧪 THE SIX EARLY SPOTS (the owner, 10/1: "there's only
+# one way to prove anything - you do it"). The studies on the odds history (SPORTS_FINDINGS, 10/1) - every one at a
+# FAIR price (posted after both teams' last games ended) - live, small, each with its OWN record so the real ones show.
+# The one that held every honest test gets 1 unit; the leads get ½ unit until they prove it (30-40 live bets each).
+SPOTS = {   # key: (label, units, leagues)
+    "bye":       ("🛌 Off a bye vs a team that played", 1.0, ("nfl", "ncaaf")),   # NFL +29% / college +16% (fair)
+    "hammered":  ("🔨 Hammered early", 0.5, ("nfl", "ncaaf")),                  # in 4+ win-% pts since the first fair price
+    "mnf":       ("🏈 Monday night dog", 0.5, ("nfl",)),                          # NFL +21%, 5 of 6
+    "eastwest":  ("✈️ East Coast team flying West", 0.5, ("nfl",)),              # NFL +17%, 6 of 6
+    "blowout":   ("💥 Blew somebody out last week", 0.5, ("nfl", "ncaaf")),      # +8 / +9%, both sports
+    "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
+}
+SPOT_DOG = (100, 400)                   # the dog spots: plus money up to +400 (the studies' range)
+SPOT_ANY = (-150, 400)                  # the engine spot: any side, never past -150 (the -150 rule)
+REST_BYE, REST_NORMAL = 13, 8           # off a bye: 13+ days since its last game; the other team on a normal week
+HAMMER_PTS, ENGINE_OUT_PTS, ENGINE_GAP = 4.0, 2.0, 0.04
+BLOWOUT = 17
+
+
+def _imp(o):
+    return 1 / _dec(o)
+
+
+def _schedule(games):
+    """{team key: [(start, game)]} by league - every real game, in order."""
+    out = {}
+    for g in games.values():
+        if not g.get("start") or (g.get("stype") or "?") not in sd.REAL:
+            continue
+        for side in ("home", "away"):
+            out.setdefault((g.get("league"), g[side]), []).append((g["start"], g))
+    for v in out.values():
+        v.sort(key=lambda x: x[0])
+    return out
+
+
+def _prev(sched, lg, team, start):
+    """The team's previous game before `start` (any status), or None."""
+    prev = None
+    for st, g in sched.get((lg, team), []):
+        if st >= start:
+            break
+        prev = g
+    return prev
+
+
+def ready(sched, g):
+    """When both teams' last games were over (their start + 4h) - an early price only counts after that (10/1)."""
+    ps = [_prev(sched, g["league"], g[s], g["start"]) for s in ("home", "away")]
+    ps = [p for p in ps if p]
+    return (_t(max(p["start"] for p in ps)) + timedelta(hours=4)) if ps else None
+
+
+def _home_tz(games):
+    tz = {}
+    for g in games.values():
+        if str(g.get("neutral")) != "1" and g.get("tzo") not in (None, ""):
+            try:
+                tz.setdefault((g.get("league"), g["home"]), []).append(float(g["tzo"]))
+            except ValueError:
+                pass
+    return {k: max(set(v), key=v.count) for k, v in tz.items()}
+
+
+def first_fair(gid, since, hist_dir=None):
+    """The first price we recorded for this game at or after `since`: (home ml, away ml) - from the line history the
+    engine keeps every hour (sports_data.record_lines)."""
+    d = hist_dir or sd.LINE_HIST_DIR
+    best = None
+    try:
+        files = sorted(f for f in os.listdir(d) if f.endswith(".jsonl"))[-2:]
+    except OSError:
+        return None
+    for fn in files:
+        with open(os.path.join(d, fn)) as f:
+            for x in f:
+                try:
+                    r = json.loads(x)
+                except ValueError:
+                    continue
+                if r.get("g") != gid or (since and r.get("t", "") < since.strftime("%Y-%m-%dT%H:%MZ")):
+                    continue
+                if best is None or r["t"] < best["t"]:
+                    best = r
+    if not best:
+        return None
+    h, a = _int(best.get("h")), _int(best.get("a"))
+    return (h, a) if h is not None and a is not None else None
+
+
+def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
+    """-> the six spots' new candidates right now: {game_id, league, side, team, opp, odds, opp_odds, start, spot,
+    spots, own}. Fair prices only, never game day, never a side with a key player out / questionable."""
+    now = now or datetime.now(timezone.utc)
+    sched = _schedule(games)
+    htz = _home_tz(games)
+    out = []
+    for g in games.values():
+        lg = g.get("league")
+        if lg not in ("nfl", "ncaaf") or g.get("status") != "pre" or (g.get("stype") or "?") not in sd.REAL:
+            continue
+        try:
+            start = _t(g["start"])
+        except (KeyError, ValueError):
+            continue
+        if start < now + timedelta(hours=LEAD_H) or start > now + timedelta(days=AHEAD_D) or \
+                start.astimezone(PT).date() <= now.astimezone(PT).date():
+            continue                                         # never on its own game day (the owner, 9/30)
+        r = ready(sched, g)
+        if r and now < r:
+            continue                                         # last week's games aren't over: not a fair price yet
+        oh, oa = _int(g.get("ml_home")), _int(g.get("ml_away"))
+        if oh is None or oa is None:
+            continue
+        mk_h = _imp(oh) / (_imp(oh) + _imp(oa))
+        ff = None
+        inj = (injuries or {}).get(lg)
+        et = start.astimezone(ZoneInfo("America/New_York"))
+        for side, other, odds, opp_odds in (("home", "away", oh, oa), ("away", "home", oa, oh)):
+            if inj and (sd.team_key_out(inj, g[side], g[f"{side}_name"], lg) or sd.team_unsure(inj, g[side], g[f"{side}_name"], lg)):
+                continue                                     # a dog whose QB is questionable: -21% (10/1) - never
+            mk = mk_h if side == "home" else 1 - mk_h
+            me_prev = _prev(sched, lg, g[side], g["start"])
+            op_prev = _prev(sched, lg, g[other], g["start"])
+            hit = []
+            dog = SPOT_DOG[0] <= odds <= SPOT_DOG[1]
+            if dog and me_prev and op_prev:
+                rest = (start - _t(me_prev["start"])).days
+                orest = (start - _t(op_prev["start"])).days
+                if rest >= REST_BYE and orest <= REST_NORMAL:
+                    hit.append("bye")
+            if dog and lg == "nfl" and et.weekday() == 0:
+                hit.append("mnf")
+            if dog and lg == "nfl" and str(g.get("neutral")) != "1" and side == "away":
+                mine, gtz = htz.get((lg, g[side])), _int(g.get("tzo"))
+                try:
+                    gtz = float(g.get("tzo"))
+                except (TypeError, ValueError):
+                    gtz = None
+                if mine is not None and gtz is not None and mine >= -5 and gtz <= -7:
+                    hit.append("eastwest")
+            if dog and me_prev and me_prev.get("status") == "final" and \
+                    (_t(g["start"]) - _t(me_prev["start"])).days <= 21:
+                try:
+                    m = float(me_prev["home_score"]) - float(me_prev["away_score"])
+                    m = m if me_prev["home"] == g[side] else -m
+                    if m >= BLOWOUT:
+                        hit.append("blowout")
+                except (KeyError, ValueError, TypeError):
+                    pass
+            if dog or (lg == "ncaaf" and SPOT_ANY[0] <= odds <= SPOT_ANY[1]):
+                if ff is None:
+                    ff = first_fair(g["id"], r, hist_dir) or False
+                if ff:
+                    f_odds = ff[0] if side == "home" else ff[1]
+                    f_opp = ff[1] if side == "home" else ff[0]
+                    f_mk = _imp(f_odds) / (_imp(f_odds) + _imp(f_opp))
+                    moved = (mk - f_mk) * 100                # + = the price came IN toward this side
+                    if dog and moved >= HAMMER_PTS:
+                        hit.append("hammered")
+                    own = own_of(g, side) if own_of else None
+                    if lg == "ncaaf" and own is not None and own - mk >= ENGINE_GAP and moved <= -ENGINE_OUT_PTS:
+                        hit.append("engine")
+            if not hit:
+                continue
+            hit = [h for h in hit if lg in SPOTS[h][2]]
+            if not hit:
+                continue
+            main = max(hit, key=lambda h: SPOTS[h][1])
+            out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
+                        "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
+                        "mkt": round(mk, 4), "own": (round(own_of(g, side), 4) if own_of else None)})
+    sides = {}
+    for c in out:
+        sides.setdefault(c["game_id"], set()).add(c["side"])
+    return [c for c in out if len(sides[c["game_id"]]) == 1]   # both sides of one game hit (the engine likes one,
+    #                                                             the money hammered the other): they cancel - no play
+
+
+def spot_record(st):
+    """{spot: (won, lost, units)} - each spot's own live record (the owner: the real ones show)."""
+    out = {}
+    for p in st.get("picks", []):
+        if not p.get("spot") or p.get("result") not in ("won", "lost"):
+            continue
+        w, l_, u = out.get(p["spot"], (0, 0, 0.0))
+        uu = units(p)
+        if p["result"] == "won":
+            out[p["spot"]] = (w + 1, l_, u + uu * (_dec(p["odds"]) - 1))
+        else:
+            out[p["spot"]] = (w, l_ + 1, u - uu)
+    return out
 
 
 def html(st, E, now=None, show_units=None):
@@ -433,16 +652,23 @@ def html(st, E, now=None, show_units=None):
 
     def row(p):
         t = _t(p["start"]).astimezone(PT)
-        return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>ML</small> <em>+{p["odds"]}</em>'
+        o = p["odds"]
+        return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>ML</small> <em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
+                + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "") +
                 f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
                 + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "") + '</div></div>')
     body = "".join(row(p) for p in up) or \
         '<div class="evn">👀 Watching every new line. The next one posts the second it shows up.</div>'
+    rec = spot_record(st)                                    # 🧪 each spot's own live record (the owner, 10/1)
+    num = lambda u: f"{u:.2f}".rstrip("0").rstrip(".")      # +0.65u, +1.5u, -1u
+    recs = " · ".join(f'{E(SPOTS[k][0])} {w}-{l_} ({"+" if u >= 0 else ""}{num(u)}u)' for k, (w, l_, u) in rec.items()
+                      if k in SPOTS)
     return (f'<section class="pk evx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">⏰</span>'
             f'<span class="pk-l evt">EARLY VALUE PLAYS</span></div>'
-            f'<div class="evb">🔥 GET IT BEFORE THE LINE MOVES 🔥</div>{body}</section>')
+            f'<div class="evb">🔥 GET IT BEFORE THE LINE MOVES 🔥</div>{body}'
+            + (f'<div class="evn">🧪 How each spot\'s doing live: {recs}</div>' if recs else "") + '</section>')
 
 
 def label(p, now_odds):
@@ -487,6 +713,7 @@ def gameday_html(st, games, E, now=None, show_units=None):
         rows.append(f'<div class="egr"><div class="egl"><b>{E(p["team"])}</b> <small>ML</small>'
                     f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
                     f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
+                    + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > 55 else "")                           # (the owner, 9/30)
                     + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "")
