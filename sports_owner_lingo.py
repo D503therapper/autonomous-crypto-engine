@@ -33,6 +33,9 @@ OWNER = {
     "somebody give this man his flowers": "one of OUR players went off in a win ('Trevor Lawrence went crazy. Somebody "
                                            "give this man his flowers. Cash it, baby.') - always HIS flowers (9/30)",
     "cash it, baby": "right after the flowers line, on a win",
+    # taking the shot (the owner, 10/1 - "the motto")
+    "scared money don't make no money": "a dog / plus-money WIN - we took the shot and it paid",
+    "you can't win if you don't play": "a dog LOSS - we took the shot, no regrets (never a lean)",
     # the crew
     "the homies": "the people on the board with us",
 }

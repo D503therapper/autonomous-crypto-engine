@@ -322,6 +322,7 @@ REVIEWS = {
         "{Book} slept on {t}. We didn't. %wk%",
         "{t} [shocked|stunned|upset] {o}. [Plus money|The dog|The value] [hit|cashed].",
         "We got paid [on the dog|at plus money]: {t} over {o}.",
+        "Scared money don't make no money. {t} over {o} at plus money. %wk%",
     )),
     ("dog", "lost"): (87, 2, T(
         "{t} had the value, just [not the juice|not the legs|not enough]. %lk%",
@@ -336,6 +337,7 @@ REVIEWS = {
         "Value bet, no payoff: {t} [lost|went down] to {o}. %lk%",
         "Dog stayed on the porch. {o} over {t}. %lk%",
         "Swung at the plus money on {t}, [whiffed|missed]. %lk%",
+        "{t} [came up short|fell short] [vs|against] {o}. You can't win if you don't play. %lk%",
     )),
     ("spread", "won"): (62, 3, T(
         "{t} covered. %wk%",
