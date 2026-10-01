@@ -589,13 +589,15 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.say("keyout", [f"🚑 {them} are rolling without their starting {pos} ({nm}).",
                                          f"🚑 No {nm} for {them} — that's their starting {pos}.",
                                          f"🚑 {them} are down their starting {pos}, {nm}."]))
-        if theirs_out and len(theirs_out) > len(ours_out):
+        # (the owner, 10/1: one depth guy out is no edge - "is he even a star?" - but "if a team's hella banged up and
+        #  got a bunch of injured players, that line is totally good": 3+ out, and 2+ more than us)
+        if len(theirs_out) >= 3 and len(theirs_out) - len(ours_out) >= 2:
             out.append(v.say("banged", [f"🚑 {them} are hella banged up ({_names(theirs_out)}).",
                                          f"🚑 {_pos(them)} injury list is stacking up: {_names(theirs_out)}.",
                                          f"🚑 {them} are missing bodies — {_names(theirs_out)}.",
             f"🚑 {them} are dealing with injuries: {_names(theirs_out)}.",
             f"🚑 {them} are short-handed ({_names(theirs_out)})."]))
-        elif not ours_out:
+        elif not ours_out and not theirs_out:
             out.append(v.say("healthy", [f"✅ {us} are healthy — nobody important sitting.",
                                           f"✅ Full squad for {us}.", f"✅ {us} have everybody available.",
             f"✅ {us} are at full strength.",
@@ -843,20 +845,17 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                 f"🔥 {us} are cooking right now{f' ({hot})' if hot else ''} and {them} ain't matching that energy.",
                 f"🔥 Hot hand goes to {us}{f' — {hot}' if hot else ''}. We don't bet against a heater."]))
         elif r == "opponent missing key players":
-            if key_them and not key_us:
-                nm = f"their starting {_posname(key_them[0][1], lg)} {key_them[0][0]}"
-            else:                                         # 'Lukas Cormier (D)' -> 'defenseman Lukas Cormier'
-                m = re.match(r"(.+?) \((\w+)\)$", (leg.get("opp_outs") or [""])[0])
-                nm = f"{_posname(m.group(2), leg.get('league'))} {m.group(1)}" if m else (leg.get("opp_outs") or [""])[0]
-            if nm:
-                pools.append(("w_hurt", [
-                    f"🚑 {them} are without {nm} tonight — that's a hole we're attacking.",
-                    f"🚑 No {nm} for {them}. Short-handed teams get got.",
-                    f"🚑 {them} gotta play this one without {nm}, and we're taking advantage.",
-                    f"🚑 {nm} is out for {them}. That changes the whole game — our way."]))
-            else:
-                pools.append(("w_hurt", [f"🚑 {them} are banged up and thin tonight. We pouncing.",
-                                         f"🚑 {_pos(them)} injury list is long and it shows. We on {us}."]))
+            if not key_them or key_us:                    # (the owner, 10/1: "is he even a star? If he's not a factor
+                continue                                  # the engine shouldn't put that" - only a KEY player out (their
+            #                                               QB, goalie, one of their best bats) gets named; a depth
+            #                                               guard or a 3rd-pair defenseman never does)
+            star = "one of their best bats" if lg == "mlb" else f"their starting {_posname(key_them[0][1], lg)}"
+            nm = f"{star}, {key_them[0][0]}" if lg == "mlb" else f"{star} {key_them[0][0]}"
+            pools.append(("w_hurt", [
+                f"🚑 {them} are without {nm} tonight — that's a hole we're attacking.",
+                f"🚑 No {nm} for {them}. Short-handed teams get got.",
+                f"🚑 {them} gotta play this one without {nm}, and we're taking advantage.",
+                f"🚑 {_cap(nm)} is out for {them}. That changes the whole game — our way."]))
         elif r == "sharp money moving this way":             # (never the headline when the engine has its own reason)
             pools.append(("w_sharp", [
                 f"💸 The money's been coming in on {us} since the open.",          # (9/30: never "the engine had
