@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T03:15Z",
+ "updated": "2026-10-01T03:17Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -206,8 +206,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.404,
-    "tie": 0.295,
+    "p": 0.409,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -215,17 +215,21 @@
    "start": "2026-10-01T23:00Z",
    "away": "Flyers",
    "home": "Devils",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Flyers",
-    "opp": "Devils",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.612,
-    "win_p": 0.395,
-    "reasons": []
+    "team": "Devils",
+    "opp": "Flyers",
+    "market": "ml",
+    "line": null,
+    "odds": -162,
+    "p": 0.622,
+    "win_p": 0.622,
+    "reasons": [
+     "better rested",
+     "hotter recent form",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
