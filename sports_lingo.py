@@ -323,6 +323,7 @@ REVIEWS = {
         "{t} [shocked|stunned|upset] {o}. [Plus money|The dog|The value] [hit|cashed].",
         "We got paid [on the dog|at plus money]: {t} over {o}.",
         "Scared money don't make no money. {t} over {o} at plus money. %wk%",
+        "No risk, no reward. {t} [cashed|paid|came through] at plus money. %wk%",
     )),
     ("dog", "lost"): (87, 2, T(
         "{t} had the value, just [not the juice|not the legs|not enough]. %lk%",

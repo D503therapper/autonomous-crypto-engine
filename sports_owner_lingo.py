@@ -36,6 +36,7 @@ OWNER = {
     # taking the shot (the owner, 10/1 - "the motto")
     "scared money don't make no money": "a dog / plus-money WIN - we took the shot and it paid",
     "you can't win if you don't play": "a dog LOSS - we took the shot, no regrets (never a lean)",
+    "no risk, no reward": "a dog / plus-money WIN (the owner, 10/1 - 'big risk, big reward')",
     # the crew
     "the homies": "the people on the board with us",
 }
