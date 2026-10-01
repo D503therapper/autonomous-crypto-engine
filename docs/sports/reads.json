@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T00:53Z",
+ "updated": "2026-10-01T01:21Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -280,17 +280,19 @@
    "start": "2026-10-01T23:00Z",
    "away": "Sabres",
    "home": "Blue Jackets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Blue Jackets",
-    "opp": "Sabres",
+    "team": "Sabres",
+    "opp": "Blue Jackets",
     "market": "spread",
     "line": 1.5,
     "odds": -278,
-    "p": 0.712,
-    "win_p": 0.499,
-    "reasons": []
+    "p": 0.715,
+    "win_p": 0.501,
+    "reasons": [
+     "the stronger team"
+    ]
    }
   },
   {
@@ -330,7 +332,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.388,
+    "p": 0.384,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -347,8 +349,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.643,
-    "win_p": 0.421,
+    "p": 0.651,
+    "win_p": 0.429,
     "reasons": []
    }
   },
@@ -374,7 +376,7 @@
     "opp": "Steelers @ Browns",
     "market": "total",
     "line": 38.5,
-    "odds": -113,
+    "odds": -115,
     "p": 0.657,
     "win_p": 0.657,
     "reasons": [
