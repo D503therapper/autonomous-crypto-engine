@@ -492,9 +492,17 @@ def _dog_note(day, day_picks):
     card would go, on a full board with no dog worth it.
     Only when the dog is the ONLY thing missing - a shorter board's top note already covers it (never two notes)."""
     have = {p["kind"] for p in day_picks if not p.get("lean")}
-    if "solo" in have or set(FULL_BOARD) - have != {"dog"}:
-        return ""
+    if "solo" in have or "dog" in have or not day_picks:
+        return ""                                            # (no Lock either: the dog note still says the dog's off)
     return f'<div class="drop leanday">🐺 {E(sports_lingo.dog_note(day))}</div>'
+
+
+def _lock_note(day, day_picks):
+    """🔒 No Lock of the Day (the owner, 10/1): on a day with picks up but no real Lock, it says so up top."""
+    live = [p for p in day_picks if p.get("status") != "waiting"]
+    if not live or any(p["kind"] in ("lock", "solo") and not p.get("lean") for p in live):
+        return ""
+    return f'<div class="drop leanday">🔒 {E(sports_lingo.lock_note(day))}</div>'
 
 
 def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
@@ -511,7 +519,9 @@ def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
         out += f'<div class="gn" data-gone="{g}">{card}</div>' if g else card
         if i == last_play and straight >= 2:                 # 🧩 the owner, 10/1: no posted parlays - "build your own
             out += '<div class="byo">🧩 Build your own parlay from today\'s plays.</div>'   # from today's plays'
-    return after_lock + out                              # 🎯 WE GOT IN EARLY on game day: just ABOVE the Lock of
+    no_lock = not any(k == "lock" for k, *_ in cards_by_kind)
+    return (after_lock + _lock_note(day, day_picks) + (_dog_note(day, day_picks) if no_lock else "")   # 🎯 WE GOT IN
+            + out)                                         # EARLY on game day: just ABOVE the Lock of
     #                                                      the Day (the owner, 9/30) - its own box
 
 

@@ -1263,6 +1263,15 @@ NOTES = {
         "Leans only, [no more|nothing more]. Which way {algo} leans:", "Just the leans — where {algo} tilts:",
         "Leans, not picks. Which way {algo} leans:",
     ),
+    # 🔒 no Lock of the Day: nothing's worth our units (the owner, 10/1: never a fake Lock, never a lean called the Lock)
+    "lock_open": T(
+        "No Lock of the Day today.", "No Lock today.", "The Lock's sitting this one out.", "No Lock on this slate.",
+        "Lock spot's empty today.", "We ain't got a Lock today.",
+    ),
+    "lock_why": T(
+        "Nothing on the slate is worth our units.", "{Algo} checked every game and nothing beat its price.",
+        "Every favorite is priced too high for what {algo} sees.", "No pick earned the Lock - we don't fake one.",
+    ),
     # 🐺 no Dog of the Day: no underdog with a proven edge today (the owner, 9/28: say so, don't force one)
     "dog_open": T(
         "No Dog of the Day today.", "No dog today.", "Dog's off today.", "No bark today.", "No Dog of the Day.",
@@ -1302,6 +1311,12 @@ def short_note(n, seed):
     it = "that one" if n == 1 else "those"
     return _note([first, _part("short_why", s + "w", it=it), _part("close", s + "c")],     # (cap: names count as one)
                  (NOTE_CAP["short"][0] + len(it) - 1 + len(str(n)) - 1, NOTE_CAP["short"][1]))
+
+
+def lock_note(seed):
+    """The note where the Lock of the Day would go, on a day nothing's worth it."""
+    s = f"lock{seed}"
+    return _note([_part("lock_open", s), _part("lock_why", s + "w"), _part("close", s + "c")], NOTE_CAP["dog"])
 
 
 def dog_note(seed, _fresh=True):
