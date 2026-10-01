@@ -35,7 +35,8 @@ every session:
   is never past -150, never one the engine's own read is fighting. The Dog of the Day is a UNIT play like the Lock: only
   a real-value dog (the one the dog analysis, sports.dog_score, likes best) - none = no Dog, and the board says so. Never
   a lean Dog of the Day, never a forced one ("it takes our ROI down"). Value (plus money that really beats the price) is
-  the goal; what matters is the ROI on the unit plays. Judge a sport on thousands of games (sports_strength), never a
+  the goal; what matters is the ROI on the unit plays. College football stays ON (the owner, 10/1 - sports_strength.OWNER_ON).
+  Judge a sport on thousands of games (sports_strength), never a
   few nights. Analyze and weigh, no rigid rules.
 - ⏰ Early value plays (the owner, 10/1 - "there's only one way to prove it: you do it"): the six spots from the
   odds-history studies (sports_early.SPOTS - bye-week dog 1u; Monday night NFL dog, East Coast NFL team flying West,
