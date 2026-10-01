@@ -6958,7 +6958,8 @@ def test_only_a_key_player_out_is_sold_as_an_edge():
     qb = say([("Deshaun Watson", "QB", "Out")])
     assert "Deshaun Watson" in qb and "starting quarterback" in qb, qb
     src = open(v24.__file__).read()                                     # (the owner: a team that's hella banged up -
-    assert "if len(theirs_out) >= 3 and len(theirs_out) - len(ours_out) >= 2:" in src   # 3+ out - says so, gladly)
+    assert "if len(starters_out) >= 3 and len(theirs_out) - len(ours_out) >= 2:" in src   # 3+ STARTERS out (the owner:
+    #                                                                     'that's what it implies') - says so, gladly)
 
 
 if __name__ == "__main__":

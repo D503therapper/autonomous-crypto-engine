@@ -591,7 +591,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                                          f"🚑 {them} are down their starting {pos}, {nm}."]))
         # (the owner, 10/1: one depth guy out is no edge - "is he even a star?" - but "if a team's hella banged up and
         #  got a bunch of injured players, that line is totally good": 3+ out, and 2+ more than us)
-        if len(theirs_out) >= 3 and len(theirs_out) - len(ours_out) >= 2:
+        starters_out = sd.team_key_out(inj, oid, them, lg)    # (the owner, 10/1: "hella banged up" means STARTERS -
+        if len(starters_out) >= 3 and len(theirs_out) - len(ours_out) >= 2:   # only players we KNOW are key count;
+            #                                                       a depth guy on the report never does)
             out.append(v.say("banged", [f"🚑 {them} are hella banged up ({_names(theirs_out)}).",
                                          f"🚑 {_pos(them)} injury list is stacking up: {_names(theirs_out)}.",
                                          f"🚑 {them} are missing bodies — {_names(theirs_out)}.",
