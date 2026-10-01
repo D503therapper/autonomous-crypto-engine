@@ -2440,6 +2440,10 @@
     "drift": 0.0085,
     "edge": -0.027220144276812297,
     "edge_own": -0.023736677058818545,
+    "flow": {
+     "a": "1,2,1",
+     "h": "2,4,2"
+    },
     "game_id": "nhl:401891780",
     "home": false,
     "intl": false,
@@ -2461,8 +2465,10 @@
     "p_market": 0.3690596562184024,
     "public": "fade",
     "reasons": [],
-    "result": null,
+    "result": "lost",
     "road_opener": true,
+    "score": "Kings 4 @ Avalanche 8",
+    "settled": "2026-10-01T04:57Z",
     "side": "away",
     "start": "2026-10-01T02:00Z",
     "stype": "2",
@@ -2477,11 +2483,12 @@
    }
   ],
   "p_hit": 0.3741,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-09-30T15:22Z",
   "round": 1,
+  "settled": "2026-10-01T04:57Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "lean"
  },
  {
