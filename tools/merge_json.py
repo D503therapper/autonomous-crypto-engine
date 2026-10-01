@@ -24,7 +24,9 @@ def _load(path):
 def _pkey(p):
     if p.get("status") == "waiting":
         return (p.get("date"), p.get("kind"), "waiting")
-    return (p.get("date"), p.get("kind"), p.get("round") or 1, p.get("posted") or "")
+    games = tuple(sorted(str(l.get("game_id")) + "|" + str(l.get("side")) for l in p.get("legs") or []))
+    return (p.get("date"), p.get("kind"), p.get("round") or 1, p.get("posted") or "", games)   # (10/1: two leans
+    #   posted the same minute shared one key - the merge kept the Steelers and dropped the Kraken; the game is in it)
 
 
 def merge_picks(ours, theirs, base=None):

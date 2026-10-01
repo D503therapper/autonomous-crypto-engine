@@ -6336,10 +6336,14 @@ def test_never_false_info_on_a_card():
            "odds": -122, "dec": 1 / 0.55, "p": 0.52, "edge_own": 0.61 / 0.55 - 1, "tier": "lock", "reasons": []}
     bd = v24.breakdown(dict(leg), G, {}, {}, set())
     assert not any("0-1" in x or "1-0" in x for x in bd), bd
-    assert any(x.startswith("✅") and "61%" in x and "55%" in x for x in bd), bd    # our own read vs the price
+    jargon = ("in 100", "price needs", "break even", "break-even", "55%")   # (10/1, the owner: "50 out of 100, the
+    for seed in range(6):                                                  # price needs 48" is jargon - plain words)
+        bd_ = v24.breakdown(dict(leg), G, {}, {}, {f"x{seed}"})
+        bl = [x for x in bd_ if x.startswith("✅")][0]
+        assert not any(j in bl for j in jargon) and "lean" not in bl.lower(), bl
     steep = {**leg, "edge_own": 0.59 / 0.6 - 1, "dec": 1 / 0.6, "odds": -150, "tier": "lean"}
     last = [x for x in v24.breakdown(steep, G, {}, {}, set()) if x.startswith("✅")][0]
-    assert "59%" in last and "60%" in last and "lean" in last.lower(), last
+    assert ("lean" in last.lower() or "steep" in last or "not the price" in last) and not any(j in last for j in jargon), last
     assert not any(w in last for w in ("That's the value", "the edge", "Tap in", "Get in")), last
     src = open(v24.__file__).read()
     assert "_w(_ru) > _w(_rt)" in src and "_w(_rt) > _w(_ru)" in src   # 2-1 vs 2-1 is never 'the better squad'
@@ -6540,6 +6544,13 @@ def test_merge_keeps_a_deleted_pick_deleted():
     out = merge_json.merge_picks([a, new], [a], base=[a])          # a brand-new pick on one side: kept
     assert len(out) == 2
     assert len(merge_json.merge_picks([a], [a, b])) == 2            # no base: the old union, as before
+    # (10/1: the Kraken lean vanished) two leans posted the same minute are two picks, never one
+    s1 = {"date": "2026-10-01", "kind": "lean", "round": 1, "posted": "15:38", "status": "open",
+          "legs": [{"game_id": "nfl:1", "side": "away", "team": "Steelers"}]}
+    k1 = {**s1, "legs": [{"game_id": "nhl:2", "side": "home", "team": "Kraken"}]}
+    out = merge_json.merge_picks([s1, k1], [s1, k1], base=[s1, k1])
+    assert {p["legs"][0]["team"] for p in out} == {"Steelers", "Kraken"}, out
+    assert len(merge_json.merge_picks([k1, s1], [s1])) == 2
 
 
 def test_audit_batch_10_1():
