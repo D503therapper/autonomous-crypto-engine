@@ -10,7 +10,12 @@ sys.path.insert(0, ".")
 import sports_data as sd  # noqa: E402
 
 WEEK = ("https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard"
-        "?dates={y}&seasontype={t}&week={w}&groups=80&limit=1000")
+        "?dates={y}&seasontype={t}&week={w}&groups={grp}&limit=1000")
+DAY = ("https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard"
+       "?dates={d}&groups={grp}&limit=1000")
+# Run 1 (10/1): groups=80 (all of FBS) gives only ~25 games a Saturday now - so ask conference by conference:
+# ACC, Big 12, Big Ten, SEC, Pac-12, C-USA, MAC, Mountain West, Sun Belt, American, FBS independents.
+CONFS = (1, 4, 5, 8, 9, 12, 15, 17, 37, 151, 18)
 
 
 def get(url):
@@ -28,18 +33,15 @@ def main():
     before = {y: sum(1 for g in games.values() if g["league"] == "ncaaf" and g.get("status") == "final"
                      and g["start"][:4] == str(y) and g.get("stype") == "2") for y in (2023, 2024, 2025)}
     print("finished regular-season games before:", before)
-    probe = date(2025, 9, 6)
-    print("probe 2025-09-06 by day:", len(sd.fetch_day("ncaaf", probe) or []),
-          "| 2025 week 2 by week:", len(get(WEEK.format(y=2025, t=2, w=2)) or []))
+    for grp in (80, 90) + CONFS:
+        print(f"probe 2025 week 2, groups={grp}:", len(get(WEEK.format(y=2025, t=2, w=2, grp=grp)) or []))
     rows = []
     for y in (2024, 2025):
-        d = date(y, 8, 20)
-        while d <= date(y + 1, 1, 25):
-            rows += sd.fetch_day("ncaaf", d) or []
-            d += timedelta(days=1)
         for t, n in ((2, 16), (3, 1)):
             for w in range(1, n + 1):
-                rows += get(WEEK.format(y=y, t=t, w=w)) or []
+                for grp in CONFS:
+                    rows += get(WEEK.format(y=y, t=t, w=w, grp=grp)) or []
+        print(f"{y}: {len(rows)} rows so far", flush=True)
     added = 0
     for r in rows:
         if r["id"] not in games:
