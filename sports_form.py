@@ -254,7 +254,9 @@ def pdo_states(games, now_iso):
 # dog facing the team that blew it out last meeting: +15.7% (6 of 7 seasons) vs -3.6% for every dog.
 ATS_LEAGUES = ("nfl", "ncaaf", "nba", "ncaab")
 ATS_RUN = 4
-REVENGE = {"ncaaf": 30}                    # lost the last meeting by this many (a blowout)
+REVENGE = {}                               # 10/1 OFF: with the 2024-25 college football games the feed had missed,
+#                                            the revenge dog (lost the last meeting by 30+) beat every dog only 4 of 8
+#                                            seasons (-1.3% vs -13.4%; 2024 and 2025 both worse). (Was {"ncaaf": 30}.)
 
 
 def ats_states(games):

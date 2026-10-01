@@ -205,7 +205,9 @@ def parse(games, raw=None):
 # +200 or bigger dog: +200..+399 -40.0% (56) vs -6.7% for every such dog, +400 and up -71.7% (81) vs -26.3% - worse
 # every full season 2022-25. They get overmatched. (+100..+199: fine, +7.9%.) A coach who's run a program before:
 # about even (dogs +3.1%). NFL looks the other way (retreads -14.4% as dogs) but only 21 hires - not used.
-FIRST_TIMER_DOG = {"ncaaf": 200}
+FIRST_TIMER_DOG = {}                       # 10/1 OFF: re-run with the 2024-25 games the feed had missed (~45%), it
+#                                            flips - +200..+399 first-timers +28% in 2024 AND 2025. It held 2022-23
+#                                            only. (Was {"ncaaf": 200}.)
 PREV_HEAD = re.compile(r"head coach", re.I)
 NOT_HEAD = re.compile(r"(associate|assistant|interim|co-)\s*head", re.I)
 

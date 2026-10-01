@@ -239,8 +239,28 @@ def parse_scoreboard(league, payload):
     return out
 
 
+# 10/1 data audit: ESPN's all-of-FBS feed (groups=80) gives only ~25 games a Saturday now - college football 2024-25
+# had ~500 finished games a season instead of ~930. Conference by conference gets them all (each conference's games,
+# non-conference ones too; the same game from two conferences is one game): ACC, Big 12, Big Ten, SEC, Pac-12, C-USA,
+# MAC, Mountain West, Sun Belt, American, FBS independents - plus the FBS feed itself.
+SPLIT = {"ncaaf": ("&groups=80",) + tuple(f"&groups={c}" for c in (1, 4, 5, 8, 9, 12, 15, 17, 37, 151, 18))}
+
+
 def fetch_day(league, day, retries=2):
-    path, extra, _, _ = LEAGUES[league]
+    if league in SPLIT:
+        out = {}
+        for extra in SPLIT[league]:
+            rows = _fetch_one(league, day, extra, retries)
+            if rows is None:
+                return None                              # one conference missing = the day failed (it's retried)
+            for r in rows:
+                out[r["id"]] = r
+        return list(out.values())
+    return _fetch_one(league, day, LEAGUES[league][1], retries)
+
+
+def _fetch_one(league, day, extra, retries=2):
+    path = LEAGUES[league][0]
     url = ESPN.format(path=path, day=day.strftime("%Y%m%d"), extra=extra)
     for i in range(retries):
         try:

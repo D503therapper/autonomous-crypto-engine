@@ -95,6 +95,8 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   (+100..+199) fine. A coach who's run a program before: about even (+3.1%). Built: -4 on the Dog's score
   (sports_coach_changes.first_timers / FIRST_TIMER_DOG). NFL looked the other way (retreads -14.4% as dogs vs
   first-timers +3.3%) on only 21 hires - not built. Belichick at UNC: 1-4 in the 2025 games we have, 2-1 in 2026.
+  **10/1 later - TURNED OFF:** with the 2024-25 games the feed had missed put back (500 -> 888 / 498 -> 892), the
+  first-timers' +200..+399 dogs made +28% in 2024 AND 2025 - it only held 2022-23. FIRST_TIMER_DOG = {}.
 - **Mid-season firings (9/30, 153 changes 2016-26 from Wikipedia's season pages, closing prices):** a DOG that just
   fired its coach keeps losing in football and hoops - rest of the season NFL -28%, college football -30%, NBA -10.7%,
   college hoops -18.4% (every dog about -4% to -7%): the market prices a bounce that doesn't come. Hockey is the
@@ -149,7 +151,12 @@ noise either way.
 - **Opening lines: STALE in the NFL** (summer look-ahead lines; the open moves 15+ win-% points by kickoff in 7% of
   September games, 35% of December); MLB 2019-22 has no real open (= the close). Early exam fixed (see Get in early).
   Every "since the open" study in the NFL should be read with that in mind.
-- **College football 2024-25: ~45% of games missing** (~500 a season vs ~930 before) - ratings and every "last 3
+- **College football re-check with every game (10/1):** dogs off a 30+ blowout loss (last game within 3 weeks) -5.4%
+  vs -13.4% for every dog, better 6 of 8 seasons - still real, smaller than first measured (stays). Revenge dogs (lost
+  the last meeting by 30+) -1.3%, better only 4 of 8 (2024, 2025 worse) - OFF (sports_form.REVENGE = {}). Cover
+  streaks: failed to cover 4+ straight +1.4% vs -4.6% (6 of 8), covered 4+ -11.1% (worse 7 of 8) - stays.
+- **College football 2024-25: ~45% of games missing - FIXED 10/1** (ESPN's all-of-FBS feed gives ~25 games a
+  Saturday now; the pull goes conference by conference - sports_data.SPLIT; refilled to 888 / 892). (~500 a season vs ~930 before) - ratings and every "last 3
   seasons" college football finding lean on a partial slate. Backfill: ncaaf_backfill.yml.
 - **Firings (Wikipedia): 4 of 153 wrong** (Staley's 2023 firing repeated as 2024; 'Charleston Southern' / 'USC Upstate'
   / 'North Carolina A&T' read as other teams) - parser fixed, file rebuilt (149).

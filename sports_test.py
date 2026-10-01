@@ -5030,7 +5030,8 @@ def test_cover_streaks_and_revenge():
     ats, meet = sf.ats_states({"1": g("1", 10, "45", "7", "-10"), "2": g("2", 17, "30", "20", "-14")})
     assert ats[("ncaaf", "A")] == -1 and ats[("ncaaf", "B")] == 1 and meet[("ncaaf", "B", "A")] == -10
     base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "league": "ncaaf", "market": "ml"}
-    assert sports.dog_score({**base, "revenge": True}) == sports.dog_score(base) + 3
+    assert sports.dog_score({**base, "revenge": True}) == sports.dog_score(base) + 3   # (the mechanism)
+    assert sf.REVENGE == {}          # 10/1: OFF - with the 2024-25 games back in, 4 of 8 seasons: no flag gets set
 
 
 def test_his_flowers_said_right():
@@ -5076,9 +5077,16 @@ def test_first_time_head_coach_dog():
     -4 on the Dog's score. A coach who's run a program before (Belichick) is NOT a first-timer."""
     import sports_coach_changes as scc
     base = {"odds": 250, "dec": 3.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.28, "league": "ncaaf", "market": "ml"}
-    assert sports.dog_score({**base, "first_timer": True}) == sports.dog_score(base) - 4
-    assert sports.dog_score({**base, "odds": 150, "first_timer": True}) == sports.dog_score({**base, "odds": 150})
-    assert sports.dog_score({**base, "league": "nfl", "first_timer": True}) == sports.dog_score({**base, "league": "nfl"})
+    keep = dict(scc.FIRST_TIMER_DOG)
+    assert scc.FIRST_TIMER_DOG == {}                    # 10/1: OFF - with the 2024-25 games back in, it flipped
+    assert sports.dog_score({**base, "first_timer": True}) == sports.dog_score(base)
+    scc.FIRST_TIMER_DOG.update({"ncaaf": 200})          # (the mechanism, if a later study turns it back on)
+    try:
+        assert sports.dog_score({**base, "first_timer": True}) == sports.dog_score(base) - 4
+        assert sports.dog_score({**base, "odds": 150, "first_timer": True}) == sports.dog_score({**base, "odds": 150})
+        assert sports.dog_score({**base, "league": "nfl", "first_timer": True}) == sports.dog_score({**base, "league": "nfl"})
+    finally:
+        scc.FIRST_TIMER_DOG.clear(); scc.FIRST_TIMER_DOG.update(keep)
     row = lambda team, out, date, why, rep, prev: f"| [[{team}]] || [[{out}]] || {date} || {why} || [[{rep}]] || {prev}"
     tb = "{|class=\"wikitable\"\n|-\n! School\n! Outgoing coach\n! Date\n! Reason\n! Replacement\n! Previous position\n" + \
          "\n|-\n".join(["|-", row("North Carolina", "Freddie Kitchens (interim)", "December 11, 2024", "Permanent replacement",
@@ -5094,7 +5102,12 @@ def test_first_time_head_coach_dog():
     assert h["Matt Entz"]["first_time"] is True                             # 'associate head coach' isn't head coach
     games = {"ncaaf:1": {"league": "ncaaf", "home": "145", "home_name": "Ole Miss", "away": "153",
                          "away_name": "North Carolina", "start": "2026-09-05T17:00Z"}}
-    assert scc.first_timers(games, "2026-10-01T12:00Z", raw) == {("ncaaf", "145")}
+    assert scc.first_timers(games, "2026-10-01T12:00Z", raw) == set()      # OFF: nobody gets the fade
+    scc.FIRST_TIMER_DOG.update({"ncaaf": 200})
+    try:
+        assert scc.first_timers(games, "2026-10-01T12:00Z", raw) == {("ncaaf", "145")}
+    finally:
+        scc.FIRST_TIMER_DOG.clear()
 
 
 def test_coach_changes_sections():
@@ -5143,6 +5156,32 @@ def test_leg_lock_label_needs_the_engines_own_read():
     finally:
         sports.good = keep
     assert not sports.own_agrees(flyers) and sports.own_agrees(yanks)
+
+
+def test_college_football_pulled_conference_by_conference():
+    """10/1 data audit: ESPN's all-of-FBS feed gives only ~25 games a Saturday now (2024-25 had ~500 finished games a
+    season, not ~930). The pull goes conference by conference; a game two conferences both list is one game, and one
+    conference failing fails the day (so it's retried, never half-saved)."""
+    import sports_data as sd
+    seen = []
+    keep = sd._fetch_one
+
+    def fake(league, day, extra, retries=2):
+        seen.append(extra)
+        return [{"id": "ncaaf:1"}, {"id": "ncaaf:" + extra}]
+    sd._fetch_one = fake
+    try:
+        rows = sd.fetch_day("ncaaf", datetime(2025, 9, 6))
+        assert len(seen) == len(sd.SPLIT["ncaaf"]) >= 11 and "&groups=8" in seen and "&groups=80" in seen
+        assert len(rows) == len(seen) + 1                                   # 'ncaaf:1' once
+        sd._fetch_one = lambda league, day, extra, retries=2: None if extra == "&groups=8" else []
+        assert sd.fetch_day("ncaaf", datetime(2025, 9, 6)) is None
+        seen.clear()
+        sd._fetch_one = fake
+        sd.fetch_day("nfl", datetime(2025, 9, 7))
+        assert seen == [""]                                                 # the other leagues: one call, as before
+    finally:
+        sd._fetch_one = keep
 
 
 def test_team_name_match_is_not_loose():
