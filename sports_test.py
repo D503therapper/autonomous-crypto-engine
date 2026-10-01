@@ -6083,7 +6083,7 @@ def test_overnight_study_weights():
     games = {"g": {"id": "g", "league": "nfl", "away": "SF", "home": "NYG", "tzo": "-5.0", "neutral": "0"}}
     keep = dict(sports._SCHED)
     try:
-        sports._SCHED.update(k=id(games), s={}, tz={("nfl", "SF"): -8.0})
+        sports._SCHED.update(ref=games, k=id(games), s={}, tz={("nfl", "SF"): -8.0})
         fav = {**_cand("g", -140, 0.58, league="nfl"), "home": False, "side": "away"}
         dog = {**_cand("g", 120, 0.42, league="nfl"), "home": True, "side": "home", "dog_ctx": {}}
         sports.weigh_west_coast_road_fav(games, [fav, dog])
@@ -6174,6 +6174,17 @@ def test_price_path_timing():
     assert sd.record_lines(g, now, d) == 1                 # a juice change alone is a new row
     row = [json.loads(x) for x in open(os.path.join(d, "2026-10.jsonl"))][-1]
     assert row["spo"] == ["-125", "100"]
+
+
+def test_schedule_cache_holds_the_dict():
+    """10/1: the schedule cache was keyed by id(games) - a new games dict at a freed address read the old schedule (the
+    East-West spot vanished mid test run). It holds the dict itself now."""
+    a = {"x": {"id": "x", "league": "nfl", "home": "1", "away": "2", "start": "2026-10-04T17:00Z", "status": "pre"}}
+    sports._sched(a)
+    assert sports._SCHED["ref"] is a
+    b = dict(a)
+    sports._sched(b)
+    assert sports._SCHED["ref"] is b
 
 
 if __name__ == "__main__":

@@ -866,9 +866,9 @@ _SCHED = {}
 
 def _sched(games):
     """The schedule + each team's home time zone, built once per games dict (sports_early's helpers)."""
-    if _SCHED.get("k") != id(games):
-        import sports_early
-        _SCHED.update(k=id(games), s=sports_early._schedule(games), tz=sports_early._home_tz(games))
+    if _SCHED.get("ref") is not games:                   # (10/1: keyed by id() alone, a new dict at a freed
+        import sports_early                              # address read the old schedule - hold the dict itself)
+        _SCHED.update(ref=games, k=id(games), s=sports_early._schedule(games), tz=sports_early._home_tz(games))
     return _SCHED["s"], _SCHED["tz"]
 
 
