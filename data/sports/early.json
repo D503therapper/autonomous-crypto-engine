@@ -1,28 +1,6 @@
 {
  "picks": [
   {
-   "game_id": "ncaaf:401871050",
-   "league": "ncaaf",
-   "side": "home",
-   "team": "Delaware",
-   "opp": "Liberty",
-   "odds": 220,
-   "opp_odds": -270,
-   "start": "2026-10-02T23:00Z",
-   "spot": "bye",
-   "spots": [
-    "bye"
-   ],
-   "fades": [],
-   "score": 0.3559,
-   "mkt": 0.2998,
-   "own": 0.6157,
-   "fair_at": "2026-09-25T03:30Z",
-   "posted": "2026-10-01T20:14Z",
-   "result": null,
-   "why": "\ud83d\udecc Delaware had last week off; Liberty played. Rested dogs against a team that just played have beaten their price in our studies."
-  },
-  {
    "game_id": "nfl:401872969",
    "league": "nfl",
    "side": "away",
@@ -239,5 +217,30 @@
    "at": "2026-10-01T04:13Z"
   }
  },
- "launched": "2026-09-30T12:56Z"
+ "launched": "2026-09-30T12:56Z",
+ "pulled": [
+  {
+   "game_id": "ncaaf:401871050",
+   "league": "ncaaf",
+   "side": "home",
+   "team": "Delaware",
+   "opp": "Liberty",
+   "odds": 220,
+   "opp_odds": -270,
+   "start": "2026-10-02T23:00Z",
+   "spot": "bye",
+   "spots": [
+    "bye"
+   ],
+   "fades": [],
+   "score": 0.3559,
+   "mkt": 0.2998,
+   "own": 0.6157,
+   "fair_at": "2026-09-25T03:30Z",
+   "posted": "2026-10-01T20:14Z",
+   "result": null,
+   "why": "\ud83d\udecc Delaware had last week off; Liberty played. Rested dogs against a team that just played have beaten their price in our studies.",
+   "pulled": "2026-10-01: posted as 'off a bye' - Delaware played at Virginia 9/26 (missing from our feed). Pulled with the owner's OK; never counts."
+  }
+ ]
 }
