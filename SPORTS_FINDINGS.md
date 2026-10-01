@@ -144,6 +144,18 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   points everywhere. (10/1 credits: a push-started re-pull burned ~7,400 - the pull is hand-run only now.) ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
 
 
+- **🏈 EARLY NFL SPREADS - THE ENGINE BEATS THE TUESDAY NUMBER (10/1, the owner: "+9.5 that drops to +3.5 - the
+  opening number covering vs the market's correction by game day"). The Odds API Tuesday spreads 2020-26 (median
+  book) vs our closing spreads, 3,280 sides; walk-forward (each season's engine trained only on the 3 before it) AND
+  only what's known Tuesday (no injury report, starters, weather).** The engine's OWN margin read 3.5+ points better
+  than the Tuesday number: covered 58.5% (-110 needs 52.4%), +11.1% on 554, up 5 of 6 seasons; 5+ points 60.7%
+  +15.3% (5 of 6); 7+ points 66.1% +25.5% on 127, up ALL 6. The same sides at the game-day number cover only ~51% -
+  the edge is the early number (the market moves to the engine: +2..4 pts on average). Getting points 3.5+: 58.1%,
+  6 of 6. A learned "which numbers move 3+ our way" model: top 10% 59.4%, 4 of 5. Hindsight (can't be bet, shows the
+  prize): the side the line moved 3+ to covered 69% at the Tuesday number, 6 of 6. Key-number bands: nothing special
+  past 7 (+7.5..+10.5 50%). NEXT: build as an early NFL spread play once the live Tuesday number is recorded
+  (line_history has spreads? - check) and a few weeks of 2026 confirm. Only 6 seasons - size it small at first.
+
 - **15 EARLY DOG STUDIES (10/1, the owner: "train the engine to spot the dogs that win" - all need the midweek
   prices, so none repeat rounds 1-2; tools/early_dog_studies.py, results/early_dogs.json; walk-forward; graded on
   wins at the price bet).** The big one: THE ENGINE CAN LEARN WHICH DOGS THE LINE WILL MOVE TO. A small model trained

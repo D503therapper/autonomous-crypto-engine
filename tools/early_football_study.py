@@ -297,7 +297,7 @@ def spread_rows(lg):
                             "me_last": lm.get(side, (None, None))[1], "them_last": lm.get(other, (None, None))[1],
                             "rest": lm.get(side, (None, None))[0], "orest": lm.get(other, (None, None))[0],
                             "cover": mg + ln > 0, "cover_close": mg + cl > 0 if mg + cl != 0 else None,
-                            "edge": sg * ours + ln, "dec": _dec(price if -200 < price < 200 else -110)})
+                            "edge": sg * ours + ln, "dec": _dec(price if (-200 < price <= -100 or 100 <= price < 200) else -110)})
     return out
 
 
