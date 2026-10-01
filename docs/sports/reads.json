@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T23:22Z",
+ "updated": "2026-09-30T23:59Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -91,28 +91,29 @@
    "id": "mlb:401907963",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Yankees",
-    "p": 0.491,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-01T00:00Z",
    "away": "Red Sox",
    "home": "Yankees",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
-    "team": "Red Sox",
-    "opp": "Yankees",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -194,
-    "p": 0.618,
-    "win_p": 0.43,
-    "reasons": []
+    "team": "Yankees",
+    "opp": "Red Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -144,
+    "p": 0.563,
+    "win_p": 0.563,
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players",
+     "hotter recent form"
+    ],
+    "result": null
    }
   },
   {
@@ -198,7 +199,7 @@
     "opp": "Phillies",
     "market": "spread",
     "line": 1.5,
-    "odds": -186,
+    "odds": -184,
     "p": 0.629,
     "win_p": 0.514,
     "reasons": [
@@ -286,7 +287,7 @@
     "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
+    "odds": -285,
     "p": 0.712,
     "win_p": 0.499,
     "reasons": []
