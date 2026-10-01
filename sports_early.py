@@ -637,6 +637,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
     sched = _schedule(games)
     htz = _home_tz(games)
     out = []
+    cfin = None
     for g in games.values():
         lg = g.get("league")
         if lg not in ("nfl", "ncaaf") or g.get("status") != "pre" or (g.get("stype") or "?") not in sd.REAL:
@@ -660,6 +661,13 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
         ff = None
         inj = (injuries or {}).get(lg)
         et = start.astimezone(ZoneInfo("America/New_York"))
+        if lg == "ncaaf":                                    # (10/1: Delaware "off a bye" - we were missing their
+            if cfin is None:                                 # 9/26 game at Virginia) a college spot needs every game
+                cfin = [x for x in games.values() if x.get("league") == "ncaaf" and x.get("status") == "final"
+                        and (x.get("stype") or "?") in sd.REAL and _t(x["start"]) < now]
+            import sports_breakdown_v24 as v24           # both teams played this season, or it's a guess
+            if not (v24.seen_all(cfin, g["home"], start, lg) and v24.seen_all(cfin, g["away"], start, lg)):
+                continue
         for side, other, odds, opp_odds in (("home", "away", oh, oa), ("away", "home", oa, oh)):
             if inj and (sd.team_key_out(inj, g[side], g[f"{side}_name"], lg) or sd.team_unsure(inj, g[side], g[f"{side}_name"], lg)):
                 continue                                     # a dog whose QB is questionable: -21% (10/1) - never
@@ -872,6 +880,35 @@ def label(p, now_odds):
     return "👀 money went against it"
 
 
+MOVE_SAY = {   # (10/1, the owner: every row explains the move - "the line moved in our favor, let's go to work")
+    "🔥 we beat the line": (
+        "We got {t} at {a}, it's {n} now. The line came our way - let's go to work.",
+        "{a} when we got in, {n} now. The books moved toward us - we already got the better number.",
+        "Grabbed {t} at {a} and the market followed us to {n}. That's beating the line."),
+    "💰 better price now": (
+        "{t} went from {a} to {n}, and the engine still likes 'em. Line got worse for us, but this still gon' smack.",
+        "We took {a}, it's {n} now - a bigger price and our read didn't move. Still riding.",
+        "{a} to {n}: the price drifted off us, but the engine still has the edge on {t}."),
+    "👀 money went against it": (
+        "{a} when we got in, {n} now - the money went the other way. Our number's locked; we see how it plays.",
+        "The line ran from {a} to {n} against us. We already got ours - now it's on the field.",
+        "Money came in on the other side ({a} to {n}). We're holding {a}."),
+    "": (
+        "Still {a}, same as when we got in. Nobody's touched this line.",
+        "{t} hasn't moved off {a}. The books ain't budging, and neither are we."),
+}
+
+
+def move_say(p, now_odds, call):
+    """The plain-words line under a game-day early row: what the price did since we got in, and where that leaves us."""
+    if now_odds is None or p.get("result") or call.startswith("🚑"):
+        return ""
+    pool = MOVE_SAY.get(call) or MOVE_SAY[""]
+    am = lambda o: f"+{o}" if o > 0 else str(o)
+    line = pool[sum(map(ord, p.get("game_id", "") + p.get("team", ""))) % len(pool)]
+    return line.format(t=p.get("team", ""), a=am(p["odds"]), n=am(now_odds))
+
+
 GRADED_STAYS_H = 3                                        # a graded row stays 3 hours, like every card on the board
 
 
@@ -901,6 +938,7 @@ def gameday_html(st, games, E, now=None, show_units=None):
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > 55 else "")                           # (the owner, 9/30)
+                    + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")
                     + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "")
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')
     if not rows:

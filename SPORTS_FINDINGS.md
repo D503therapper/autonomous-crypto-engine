@@ -414,3 +414,12 @@ noise either way.
 ## Data the engine gained
 Every player's box score, every sport, 2021-now (data/sports/roster, rosters.yml keeps it filling). Next: player
 studies for football (stars, backups), baseball (lineups, hot/cold hitters, AAA call-ups), coaches.
+
+## 10/1 - false records from a half-filled college feed (major bug)
+- The 2026 college football games were read before the conference-by-conference split: ~25 games a Saturday instead
+  of ~65. North Texas showed 1 game ("0-1"; really 2-2), Northwestern "0-1", Minnesota 1 game, and Delaware looked
+  "off a bye" - they lost 42-3 at Virginia 9/26. Delaware's early play (+220) came off that and was pulled (the owner's OK).
+- Every other league checked whole: NFL 3 games a team, MLB 162, NBA 82, NHL just started.
+- Fixes: tools/ncaaf_backfill.py refills 2026; seen_all keeps a partly-seen college team's record, streak, last game
+  and series off the card and out of the early spots; the bottom line says our own read vs what the price needs, and a
+  read under the price says "lean", never "value".
