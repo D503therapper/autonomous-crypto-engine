@@ -542,6 +542,8 @@ DOG_GATE = 8.0                 # the owner, 10/1 ("the engine should use everyth
 #                                fade (dog_spots / dog_more) - is 8+ points. Backtest (game-day prices, 2020-26): the
 #                                spots added ROI at every level; NFL 8+ +10.0% on 212, last 3 + now +2.2% (2024 -24%,
 #                                2025 +45%). College football didn't hold the last 3 seasons (-9.7%) - NFL only
+DOG_SCORE_MAX_U = 2.0          # the owner, 10/1: "4 units on a +215 seems like a lot" - a dog picked by the dog score
+#                                (dog_p) carries 2u at most until the score proves itself live
 NHL_DOG_GATE = 6.0             # hockey (10/1 per-sport backtest, every dog +100..+220, 2018-26, the live read + every
 #                                spot and fade): score 6+ won 48.7%, +12.8% on 542 (7 of 7 seasons up; 2023+ +18%,
 #                                this season +11%) - the own read alone LOST; it's the weighed factors (a LEAD: the
@@ -1304,7 +1306,10 @@ def _sized(t, leg):
         #                                         $1 (own x dec - 1), the same read own_agrees() uses - not a win % gap
         return kelly_units(own, leg.get("odds") or -110)
     if t == "value":
-        return kelly_units(leg.get("dog_p") or leg.get("p"), leg.get("odds") or 100)   # (a gated dog: the weighed read)
+        u = kelly_units(leg.get("dog_p") or leg.get("p"), leg.get("odds") or 100)   # (a gated dog: the weighed read)
+        if leg.get("dog_p") is not None:
+            u = min(u, DOG_SCORE_MAX_U)                    # the dog score's points rank dogs - they aren't proven win
+        return u                                           # % - so a score-picked dog is a lead-sized bet (10/1, UConn)
     return 0                                                 # a lean is just a lean: no units
 
 

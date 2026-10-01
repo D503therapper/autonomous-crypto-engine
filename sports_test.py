@@ -6015,6 +6015,13 @@ def test_early_plays_weigh_the_believed_leads():
     assert se.SPOT_MAX_WEEK == 2
 
 
+def test_score_picked_dogs_are_lead_sized():
+    """10/1, the owner: "4 units on UConn +215 seems like a lot." A dog picked by the dog score (its points rank dogs,
+    they aren't proven win %) carries 2u at most."""
+    uconn = {**_cand("uconn", 215, 0.31, league="ncaaf"), "dog_p": 0.425}
+    assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
