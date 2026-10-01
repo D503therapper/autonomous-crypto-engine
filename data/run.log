@@ -4350,3 +4350,33 @@ DEX: $773.51 (-226.49) · Scammed: 0
 [2026-10-01 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-01 03:06 UTC] crypto/hold_btc  equity $496.80 (-0.6%) 1 open  market UP
    social heat top: TRUMP 38 (27/0/11), MON 35 (35/0/0), QNT 32 (32/0/0), PENGU 29 (29/0/0), NEAR 24 (24/0/0)
+   footprint: SUI: footprint 3/4 (drift+hikes+rising_lows) 48h +5.6%, 3 volume hikes, 44% quiet hours @ 1.17717
+   dex screen: REJECT 🎒@solana liq $366,765 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT SURPLUS@base liq $835,703 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT RECALL@base liq $520,055 - pool age unknown
+   dex screen: REJECT LAPTOP@base liq $1,211,928 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 91%; lp locked 0% < 95%
+   dex screen: PASS SENDCAT@ethereum liq $108,442
+   dex screen: REJECT ANYONE@ethereum liq $944,031 - is_blacklisted; top-10 holders 45%; lp locked 0% < 95%
+   dex screen: PASS NPC@ethereum liq $5,218,034
+   dex screen: REJECT FET@ethereum liq $1,728,435 - transfer_pausable; is_mintable; hidden_owner; top-10 holders 49%
+   dex screen: REJECT KTA@base liq $4,227,925 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 67%
+   >> crypto/mover: SELL $203.23 of ARK @ 0.246194, P/L $+0.70 (stop hit (live check))
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   >> dex/dex_hunter: BUY $73.51 of SENDCAT@ethereum:0x56D487 @ 0.002226 (dex tier A momentum 1h +47% 6h +76% buys/sells 38/31 impact 0.07%)
+   dex screen: REJECT AGRS@ethereum liq $371,500 - is_mintable; is_blacklisted; hidden_owner; creator_percent 31%; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT LIT@ethereum liq $403,339 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 63%; lp locked 0% < 95%
+   dex screen: PASS ANTFUN@solana liq $15,619,230
+   dex screen: REJECT STONKEX@base liq $370,253 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT ORE@solana liq $169,583 - mint authority; top-10 holders 52%; lp holders unknown
+   dex screen: REJECT XAUT@ethereum liq $5,479,444 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 56%
+   dex screen: REJECT SURPLUS@base liq $851,518 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT UPTOBER@solana liq $101,128 - lp locked 0% < 95%
+   dex screen: REJECT SAFE@ethereum liq $305,763 - transfer_pausable; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: REJECT SAFE@ethereum liq $305,664 - transfer_pausable; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: REJECT OMI@base liq $356,441 - goplus partial data: cannot_sell_all unknown; is_mintable; owner_change_balance; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT BACKPACK@solana liq $117,498 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex scanner: 3,000 pools (solana 2,081 / base 522 / ethereum 397), refresh cycle 129s (hot 125s), 2886 calls (108 feed, 429s 0, failed 1), 83,309 refreshed (9917 no pair), +141 added / -125 dropped (dead 29, stale 0, cap 96), movers 7 + warming 28 -> queued 7, screened 7 (passed 0), bought 0
+   dex screen: REJECT CONDO@ethereum liq $159,999 - lp locked 0% < 95%
