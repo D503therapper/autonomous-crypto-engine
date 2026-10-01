@@ -62,6 +62,7 @@ jobs:
           done
       - if: always()
         run: |
+          rm -f .git/index.lock; git rebase --abort 2>/dev/null || true   # a killed git can leave both behind
           git add data SCOREBOARD.md LAB.md docs || true
           git commit -qm "paper-trade end of run $(date -u +%FT%TZ)" || exit 0
           for i in 1 2 3 4 5; do git pull --rebase --autostash -q -X theirs && git push && break; git rebase --abort 2>/dev/null; sleep 10; done

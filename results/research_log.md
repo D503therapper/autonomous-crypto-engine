@@ -75,6 +75,11 @@ CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live
   stops trading. Fix: git calls time out after 90 s, and a watchdog thread exits the engine when the main loop is silent
   25 min (the workflow restarts it in 30 s). Tests: run_live_watchdog_test.py. This push restarts the frozen run.
 
+- 2026-10-01 14:00 UTC: no hourly save from 13:06 (loop alive, dashboard fine). Likely my 08:28 fix: a git pull over the
+  90 s limit is killed (sh -c execs git, SIGKILL) and leaves .git/index.lock / a half-done rebase, so every later save
+  fails. Fix: git_unjam() clears a stale lock / rebase before each sync and after a timeout; limit 300 s; the workflow's
+  end-of-run step clears them too. Test: run_live_watchdog_test.py. No DEX trades since 08:41, so little or nothing lost.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|

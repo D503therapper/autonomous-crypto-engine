@@ -671,8 +671,26 @@ def daily_summary(rows):
         json.dump({"date": today, "balances": now_bal}, f)
 
 
-GIT_TIMEOUT = 90     # 2026-10-01 08:06: the engine went silent mid-run; every git call can hang on the network and the
-                     # loop is single-threaded, so a stuck fetch / push froze trading. Bounded now.
+GIT_TIMEOUT = 300    # 2026-10-01 08:06: the engine went silent mid-run; every git call can hang on the network and the
+                     # loop is single-threaded, so a stuck fetch / push froze trading. Bounded now (90 s killed slow pulls).
+
+
+def git_unjam(lock_age=120):
+    """A git killed mid-pull (time limit) leaves .git/index.lock and a half-done rebase behind, and every later
+    add / commit / pull fails on them - no hourly save from 13:06 on 2026-10-01. Clear both before syncing."""
+    lock = os.path.join(".git", "index.lock")
+    try:
+        if os.path.exists(lock) and time.time() - os.path.getmtime(lock) > lock_age:
+            os.remove(lock)
+            print("   git: removed a stale index.lock")
+    except OSError:
+        pass
+    for d in ("rebase-merge", "rebase-apply"):
+        if os.path.isdir(os.path.join(".git", d)):
+            if subprocess.run("git rebase --abort", shell=True, stderr=subprocess.DEVNULL).returncode:
+                import shutil
+                shutil.rmtree(os.path.join(".git", d), ignore_errors=True)
+            print(f"   git: cleared a half-done rebase ({d})")
 
 
 WATCHDOG_S = 25 * 60   # main loop silent this long = frozen: exit, the workflow restarts the engine in 30 s
@@ -702,6 +720,7 @@ def sh(cmd, **kw):
         return subprocess.run(cmd, shell=True, timeout=GIT_TIMEOUT, **kw).returncode
     except subprocess.TimeoutExpired:
         print(f"   git: '{cmd[:40]}' took over {GIT_TIMEOUT}s - skipped")
+        git_unjam(lock_age=0)                           # it was killed: whatever it left behind is stale now
         return 124
 
 
@@ -711,6 +730,7 @@ def git_sync():
         return
     # `git add data` already covers data/social and data/dex; naming a subdirectory that does
     # not exist yet makes the whole add fail (pathspec error) and nothing gets committed
+    git_unjam()
     sh("git add data SCOREBOARD.md LAB.md docs")
     sh(f"git commit -qm 'paper-trade {ts(int(time.time() * 1000))} UTC'", stdout=subprocess.DEVNULL)              # nothing changed: an earlier unpushed commit may still wait
     # other sessions push to main all the time (dashboard, sports, wallet tracker): a single pull + push lost the
