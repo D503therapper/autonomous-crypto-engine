@@ -4754,3 +4754,24 @@ error: failed to push some refs to 'https://github.co
 [2026-10-01 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-01 13:06 UTC] crypto/hold_btc  equity $498.03 (-0.4%) 1 open  market UP
    social heat top: TRUMP 40 (35/0/5), QNT 37 (37/0/0), PENGU 34 (27/0/8), MON 29 (29/0/0), MOVR 24 (24/0/0)
+Created autostash: 83df5cc5
+error: Your local changes to the following files would be overwritten by checkout:
+	data/run.log
+Please commit your changes or stash them before you switch branches.
+Aborting
+Your local changes are stashed, however applying them
+resulted in conflicts.  You can either resolve the conflicts
+and then discard the stash with "git stash drop", or, if you
+do not want to resolve them now, run "git reset --hard" and
+apply the local changes later by running "git stash pop".
+error: could not detach HEAD
+   git sync: pull failed (try 5/5)
+   git sync: gave up this hour; the next sync / end of run pushes the saved commit
+   dex screen: REJECT EDEL@base liq $1,179,326 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 48%
+   dex screen: PASS FWA@ethereum liq $1,012,867
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS DRB@base liq $1,716,481
+   dex screen: REJECT CPOOL@ethereum liq $202,778 - top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT BOAR@base liq $302,202 - goplus partial data: cannot_sell_all unknown; buy tax unknown; lp locked 0% < 95%
+   dex screen: REJECT METAC@base liq $1,506,163 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 84%; lp locked 0% < 95%
