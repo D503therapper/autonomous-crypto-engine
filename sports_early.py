@@ -354,7 +354,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                 return None
             o = sm.own_p(p_, {**f, "inj": 0.0, "key": 0.0, "weather": 0.0, "cold": 0.0})   # Tuesday-known only
             return o if side == "home" else 1 - o
-        for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now):
+        for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have):
             if c["game_id"] in have:
                 continue
             c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
@@ -707,7 +707,7 @@ def week_start(now):
     return datetime(d.year, d.month, d.day, tzinfo=PT)
 
 
-def pick_spots(cands, st, now):
+def pick_spots(cands, st, now, have=()):
     """The best SPOT_MAX_WEEK a week (the owner, 10/1: "the most confident ones" - two): ranked by the engine's whole
     weighed total (its own read + the spots - the fades), never one factor. Before Tuesday 6 AM PT it waits for the whole slate (the NFL's numbers come after
     Monday night) - unless a play's early window would close first."""
@@ -717,6 +717,7 @@ def pick_spots(cands, st, now):
     slate = datetime(d.year, d.month, d.day, SPOT_SLATE_HOUR_PT, tzinfo=PT)
     if loc.weekday() in (5, 6, 0, 1) and now < slate:        # Saturday-Tuesday 6 AM: hold for Tuesday's full slate
         cands = [c for c in cands if c.get("fair_at") and _t(c["fair_at"]) + timedelta(hours=SPOT_WINDOW_H) < slate]
+    cands = [c for c in cands if c["game_id"] not in have]   # (10/1 bug check: an already-posted game used a slot)
     taken = sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws)
     room = max(0, SPOT_MAX_WEEK - taken)
     cands.sort(key=lambda c: -(c.get("score") or 0))          # everything weighed together - the best total first

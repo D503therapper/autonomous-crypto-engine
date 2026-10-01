@@ -612,6 +612,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     fixed: {kind: [legs]} already posted today (a pick posted earlier is built on, never rebuilt)."""
     cands = one_side(cands)
     fixed = fixed or {}
+    if avoid:                                                # (10/1 bug check: a later Lock / Dog landed on a game
+        cands = [c for c in cands if c["game_id"] not in avoid]   # that was already a unit play - double units)
     if len({c["game_id"] for c in cands}) == 1:              # a one-game day: one PICK OF THE DAY, no Lock/Dog/parlays
         solo = max((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: (round(c["p"] * 50), c["edge"]),
                    default=None)
@@ -627,10 +629,11 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         one = _combo([solo]) if solo else None
         kind = "solo"
         if solo and solo["market"] in ("ml", "spread") and good(solo) and lock_ok(solo) and \
-                (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML):
+                (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML) and own_agrees(solo) and real_value(solo):
             kind = "lock"
-        elif solo and solo["market"] == "ml" and good(solo) and solo["odds"] >= DOG_MIN:
-            kind = "dog"
+        elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DOG_DAY_MAX and \
+                not solo.get("trap") and dog_score(solo) > 0:
+            kind = "dog"                                     # (10/1 bug check: the one-game day skipped the Dog rules)
         return {"lock": None, "dog": None, "two": None, "three": None, "four": None, "solo": None, kind: one}
     # every leg is a real value play: the likeliest first (accuracy always comes first); when two are about as likely
     # (within 2%), the one with the most value
@@ -650,10 +653,9 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # up best (p is already corrected by the engine's real record in that sport). 1,808 days, 2020-25, one Lock a
         # day, each season's engine trained on the 3 before it: 58.1% hit, +0.4% vs the old rule's 56.8%, -2.5%
         # (last 3 seasons 55.6% vs 54.7%). A day nothing agrees: the best lock-grade pick, as before.
-        agree = [c for c in locks if own_agrees(c)]
-        lock = max(agree or locks, key=lambda c: (c["p"] - (HOT_W if c.get("hot_key") else 0)
-                                                  + (HOT_W if overreact(c) else 0) + cover_run_w(c) + coach_w(c) + season_w(c),
-                                                  c["edge"])) if locks else None
+        agree = [c for c in locks if own_agrees(c) and real_value(c)]   # (10/1 bug check: it fell back to a lock
+        lock = max(agree, key=lambda c: (rank_p(c), c["edge"])) if agree else None   # its own read disagreed with -
+        #   the Flyers again. None = the Lock of the Day goes up as a LEAN - there's always a Lock, never a fake one)
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -1152,7 +1154,7 @@ def kelly_units(p, odds):
     """A quarter of the Kelly stake in units (1u = 1% of the bankroll), rounded to ½u, ½u-10u (½u when the edge is thin)."""
     d = _dec(odds)
     k = ((p or 0) * d - 1) / (d - 1)
-    return 0.5 if k <= 0 else min(UNIT_MAX, max(0.5, round(0.25 * k / 0.01 * 2) / 2))
+    return 0.0 if k <= 0 else min(UNIT_MAX, max(0.5, round(0.25 * k / 0.01 * 2) / 2))   # no edge = no units (10/1)
 
 
 def _sized(t, leg):
@@ -1171,8 +1173,8 @@ def units_for(pk):
     """How many units a pick gets - the ENGINE decides, by its edge (the sizing study). A lean or a parlay: 0 (the
     picks in a parlay carry their own - leg_units)."""
     kind, legs = pk.get("kind"), pk.get("legs") or []
-    if kind in PARLAY_KINDS or not legs:
-        return 0
+    if kind in PARLAY_KINDS or not legs or pk.get("lean"):
+        return 0                                             # (10/1 bug check: a lean Dog carried 2u)
     t = "value" if kind == "dog" else pick_tier(pk)
     return _sized(t, legs[0])
 
@@ -1219,15 +1221,30 @@ def importance(c):
     return 1 if c["league"] in PRO else 0
 
 
+def rank_p(c):
+    """The win % every straight pick is ranked by - the engine's honest %, with the proven nudges: a hot key player
+    (over-rated), an overreaction (under-rated), cover runs, coaches, the season phase, and a playoff FAVORITE that just
+    lost the last game of the series (10/1 bug check: the Astros Lock - SERIES_LOST_W only lived in the old parlay
+    ladder, so the Lock and the unit plays never saw it)."""
+    return (c["p"] - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) else 0) + cover_run_w(c) + coach_w(c)
+            + season_w(c) - (SERIES_LOST_W if c.get("lost_last") and c.get("odds", 0) < 0 else 0))
+
+
+def real_value(c):
+    """A UNIT play has to beat its real price by the engine's OWN read (10/1 bug check: a -150 the engine's own read
+    gives 58.5% went up with ½u - the bet loses money by the engine's own numbers)."""
+    return (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) > 0   # (units are sized by
+    #                                                          the engine's own read - it has to beat the real price)
+
+
 def plays(cands, avoid):
     """💰 Every real UNIT play on the slate (the owner, 10/1: straight bets with units - the viewer builds his own
     parlay): real value (good()), a LOCK or VALUE grade (a strong lean carries no units - it's a lean), never past -150,
     never one the engine's own read is fighting, never a trap; one per game, never a game in `avoid`; surest first
     (the order the parlay legs used: win % with the proven nudges, then value)."""
     pool = sorted((c for c in cands if c["market"] in ("ml", "spread") and good(c) and c["odds"] >= MAX_FAV
-                   and leg_tier(c) in ("lock", "value") and not fighting(c) and not c.get("trap")),
-                  key=lambda c: (-(c["p"] - (HOT_W if c.get("hot_key") else 0) + (HOT_W if overreact(c) else 0)
-                                   + cover_run_w(c) + coach_w(c) + season_w(c)), -c["edge"]))
+                   and leg_tier(c) in ("lock", "value") and not fighting(c) and not c.get("trap") and real_value(c)),
+                  key=lambda c: (-rank_p(c), -c["edge"]))
     out, seen = [], set(avoid)
     for c in pool:
         if c["game_id"] not in seen:
@@ -1242,9 +1259,9 @@ def viewer_leans(cands, avoid):
     best = {}
     for c in sorted((c for c in cands if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV and c["p"] >= LEAN_PICK_P
                      and c.get("reasons") and not fighting(c) and not c.get("trap") and c["game_id"] not in avoid),
-                    key=lambda c: -c["p"]):
+                    key=lambda c: -rank_p(c)):
         best.setdefault(c["game_id"], c)
-    return sorted(best.values(), key=lambda c: (-importance(c), -c["p"]))
+    return sorted(best.values(), key=lambda c: (-importance(c), -rank_p(c)))
 
 
 def lean(cands, kind, taken=None, floor=None):
@@ -1273,7 +1290,7 @@ def lean(cands, kind, taken=None, floor=None):
         return None
     if not pool:
         return None
-    c = max(pool, key=lambda c: (importance(c), c["p"], c["edge"]))   # the big games first, then the likeliest winner
+    c = max(pool, key=lambda c: (importance(c), rank_p(c), c["edge"]))   # the big games first, then the likeliest
     return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 
@@ -1437,6 +1454,7 @@ def post_board(games, model, picks, now, day, force=False):
     if not DOGS_ST:                  # no picks until the big underdog + favorite study has run
         print("holding the board: the big study hasn't run yet")
         return []
+    pending = {p["kind"] for p in picks if p["status"] == "waiting" and p["date"] == iso}
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] <= iso)]   # rebuilt every run
     posted = {}
     for p in picks:                  # the latest play of each kind today (a graded one gets replaced below)
@@ -1446,8 +1464,9 @@ def post_board(games, model, picks, now, day, force=False):
     started = first is not None and now >= first and not force
     # the opening board goes up before the day's first game. After that, whenever a play is graded (it moves to the
     # results), a fresh one of the same kind goes up from the games that haven't started yet - picks all day long.
-    todo = [k for k, _ in KINDS if (k not in posted and not started) or
-            (k in posted and posted[k]["status"] in ("won", "lost", "push"))]
+    todo = [k for k, _ in KINDS if (k not in posted and (not started or k in pending)) or   # (10/1 bug check: a Lock
+            (k in posted and posted[k]["status"] in ("won", "lost", "push"))]   # waiting on news vanished once the
+    #                                                                             day's first game started)
     nights = night_games(games, day, picks, now)             # 🏈 Monday / Thursday football: a pick on every game
     full = all(sum(p["date"] == iso and p["kind"] == k and p["status"] != "waiting" for p in picks) >= cap
                for k, cap in (("play", MAX_PLAYS), ("lean", MAX_LEANS)))
@@ -1522,6 +1541,8 @@ def post_board(games, model, picks, now, day, force=False):
     for kind in todo:
         lock_game = posted["lock"]["legs"][0]["game_id"] if "lock" in posted and posted["lock"]["status"] == "open" else None
         replacing = kind in posted or lean_day                # the opening board is value only; replacements may lean
+        if kind == "dog" and replacing:
+            continue                                          # never a lean / replacement Dog of the Day (10/1 bug check)
         if replacing and sum(p["date"] == iso and (p.get("round") or 1) > 1 for p in picks) >= MAX_REPLACEMENTS:
             continue                                          # enough for today - accuracy over volume
         avoid = {l["game_id"] for p in picks if p["date"] == iso and p["status"] != "waiting" and p["kind"] not in ("eight", "four")
@@ -1535,6 +1556,9 @@ def post_board(games, model, picks, now, day, force=False):
             if not best and kind != "dog":                    # nothing clears the value bar: the likeliest LEAN instead
                 best = lean([c for c in cands if c["game_id"] not in avoid], kind, taken=lock_game,   # (never a lean
                             floor=LEAN_DAY_MIN_P if lean_day and kind not in posted else None)        #  Dog - 10/1)
+        elif not best and kind == "lock":                     # there's always a Lock (the owner) - when nothing the
+            best = lean([c for c in cands if c["game_id"] not in avoid], "lock", floor=LEAN_DAY_MIN_P)   # engine's own
+            #                                                   read backs clears the bar, it goes up as a LEAN Lock
         if not best:
             continue
         deadline = min(_start(l) for l in best["legs"]) - timedelta(minutes=DEADLINE_MIN)

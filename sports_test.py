@@ -213,7 +213,7 @@ def _cand(gid, odds, p, market="ml", line=None, league="mlb"):
     dec = sd.decimal(odds)
     return {"game_id": gid, "league": league, "side": "home", "team": gid, "opp": "x", "home": True,
             "start": "2026-09-27T23:00Z", "reasons": ["the stronger team"], "market": market, "line": line, "odds": odds,
-            "dec": dec, "p": p, "p_market": 1 / dec, "edge": p * dec - 1}
+            "dec": dec, "p": p, "p_market": 1 / dec, "edge": p * dec - 1, "edge_own": p * dec - 1}   # (own read = p)
 
 
 def test_board_rules():
@@ -4556,9 +4556,9 @@ def test_lock_is_not_just_the_priciest_favorite():
     assert not sports.own_agrees(priciest) and sports.own_agrees(agreed)
     b = sports.make_board([priciest, agreed])
     assert b["lock"] and b["lock"]["legs"][0]["team"] == "Agreed", b["lock"]
-    other = cand("g3", "Other", -135, 0.562, 0.56)                 # nothing agrees: still a Lock (always one, the owner)
-    b = sports.make_board([priciest, other])                       # - the best lock-grade pick, as before
-    assert b["lock"] and b["lock"]["legs"][0]["team"] == "Pricey"
+    other = cand("g3", "Other", -135, 0.562, 0.56)                 # nothing agrees: no fake Lock (10/1 bug check -
+    b = sports.make_board([priciest, other])                       # the Flyers) - post_board puts up a LEAN Lock
+    assert b["lock"] is None
 
 
 def test_new_boxes_never_restyle_the_record_cards():
@@ -4710,7 +4710,8 @@ def _units_and_the_open_bankroll():
     # the ENGINE sizes every play by its edge (the sizing study, 9/30): quarter-Kelly, ½u-10u
     lk = lambda own, o: {"kind": "lock", "legs": [{"p": 0.6, "p_market": 0.55, "odds": o,
                                                     "edge_own": own * (1 + 100 / -o) - 1}]}   # value per $1, as posted
-    assert sports.units_for(lk(0.60, -125)) == 2.5 and sports.units_for(lk(0.52, -125)) == 0.5   # its OWN read, not p
+    assert sports.units_for(lk(0.60, -125)) == 2.5 and sports.units_for(lk(0.52, -125)) == 0.0   # its OWN read, not p
+    #   (10/1 bug check: a pick its own read says loses money gets NO units - it was ½u)
     assert sports.units_for(lk(0.75, -125)) > sports.units_for(lk(0.65, -125)) > 2.5 and sports.UNIT_MAX == 10
     assert sports.kelly_units(0.9, 200) == 10                                                   # the 10u max
     assert sports.units_for({"kind": "two", "legs": []}) == 0 == sports.units_for({"kind": "four", "legs": []})
@@ -4724,7 +4725,8 @@ def _units_and_the_open_bankroll():
     led = sports.units_ledger([two, lock])                 # the lock counts once (not again as a parlay leg)
     assert len(led["rows"]) == 1 and led["rows"][0][0]["kind"] == "lock"   # (the lean isn't in the bankroll)
     assert abs(sum(r[2] for r in led["rows"]) - 3 * 100 / 140) < 1e-9
-    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "odds": 160, "tier": "lean"}]}) == 0.5   # a value play
+    assert sports.units_for({"kind": "dog", "legs": [{"p": 0.37, "odds": 160, "tier": "lean"}]}) == 0.0   # no edge
+    #   (+160 needs 38.5% - 37% is no value: no units, 10/1 bug check; a real-value dog gets its edge's units:)
     assert sports.units_for({"kind": "dog", "legs": [{"p": 0.45, "odds": 160}]}) == 2.5                     # by its edge
     assert sports.units_for({"kind": "solo", "lean": True, "legs": [{"p": 0.51}]}) == 0                   # just a lean
     # ⏰ early plays: the ENGINE's call - sized by how far its own read beats the price we got (the owner, 9/30)
@@ -5723,6 +5725,49 @@ def test_dog_findings_weighed_never_auto():
     src = open(sports.__file__).read()
     assert '"dog_more": _dog_more(games, g, side, other, lg)' in src     # every candidate carries them - weighed in
     #                                                                     dog_score with everything else, never a pick
+
+
+def test_pick_logic_bug_check():
+    """10/1, the owner: "check how it picks its dogs, its locks, everything - the Astros was a trap and I was right."
+    The bug check's findings, each one pinned so it can't come back."""
+    own = lambda c, o: {**c, "edge_own": o * c["dec"] - 1}
+    # 1. the Astros: a playoff favorite that just lost the last game of the series is weighed in the Lock and the plays
+    trap = own({**_cand("astros", -140, 0.62), "stype": "3", "lost_last": True}, 0.62)
+    clean = own(_cand("clean", -130, 0.60), 0.60)
+    assert sports.make_board([trap, clean])["lock"]["legs"][0]["game_id"] == "clean"
+    assert sports.rank_p(trap) < sports.rank_p(clean)
+    assert [c["game_id"] for c in sports.plays([trap, clean], ())][0] == "clean"
+    # 2. the Lock never falls back to a pick the engine's own read disagrees with (the Flyers)
+    fight = own(_cand("flyers", -120, 0.57), 0.53)
+    assert sports.make_board([fight])["lock"] is None                 # -> post_board puts up a LEAN Lock instead
+    # 3. no units on a bet that loses by the engine's own numbers: -150 needs 60%, the engine says 57%
+    neg = own(_cand("neg", -150, 0.62), 0.585)                         # its blended % says 62, its own read 58.5:
+    assert not sports.real_value(neg) and sports.plays([neg], ()) == [] and sports.kelly_units(0.585, -150) == 0.0
+    assert sports.kelly_units(0.62, -130) > 0
+    # 4. the Lock / Dog never on a game already on the board today
+    assert sports.make_board([clean], avoid={"clean"})["lock"] is None
+    # 5. a lean never carries units (the lean Dog carried 2u)
+    assert sports.units_for({"kind": "dog", "lean": True, "legs": [clean]}) == 0
+    # 6. a one-game day's Dog follows the Dog rules (the +280 cap, the dog analysis) and its Lock the own read
+    big = {**_cand("long", 400, 0.30), "reasons": ["proven spot: x"]}
+    keep = sports.good
+    sports.good = lambda c: True
+    try:
+        assert sports.make_board([big])["dog"] is None
+        assert sports.make_board([fight])["lock"] is None
+    finally:
+        sports.good = keep
+    # 7. a pending Lock is rebuilt after the day's first game starts (it vanished before)
+    src = open(sports.__file__).read()
+    assert "(not started or k in pending)" in src
+    # 8. an early play's slot is never used up by a game already posted
+    import sports_early as se
+    from datetime import datetime, timezone
+    tue = datetime(2026, 10, 6, 14, 0, tzinfo=timezone.utc)
+    cs = [{"game_id": "a", "spot": "bye", "score": .1, "fair_at": "2026-10-05T12:00Z"},
+          {"game_id": "b", "spot": "mnf", "score": .08, "fair_at": "2026-10-05T12:00Z"},
+          {"game_id": "c", "spot": "mnf", "score": .07, "fair_at": "2026-10-05T12:00Z"}]
+    assert [c["game_id"] for c in se.pick_spots(cs, {"picks": []}, tue, have={"a"})] == ["b", "c"]
 
 
 if __name__ == "__main__":
