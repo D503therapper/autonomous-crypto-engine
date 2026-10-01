@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T02:04Z",
+ "updated": "2026-10-01T02:24Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -42,7 +42,7 @@
    "home": "Maple Leafs",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "four",
    "lean": {
     "team": "Maple Leafs",
@@ -55,7 +55,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -69,7 +69,7 @@
    "home": "Flyers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "four",
    "lean": {
     "team": "Flyers",
@@ -84,7 +84,7 @@
      "the stronger team",
      "opponent drama: family/personal"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -206,8 +206,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.395,
-    "tie": 0.295,
+    "p": 0.409,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -218,15 +218,17 @@
    "why": "tight",
    "board": null,
    "lean": {
-    "team": "Flyers",
-    "opp": "Devils",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.629,
-    "win_p": 0.412,
+    "team": "Devils",
+    "opp": "Flyers",
+    "market": "ml",
+    "line": null,
+    "odds": -162,
+    "p": 0.622,
+    "win_p": 0.622,
     "reasons": [
-     "hotter goalie"
+     "better rested",
+     "hotter recent form",
+     "opponent on a back-to-back"
     ]
    }
   },
