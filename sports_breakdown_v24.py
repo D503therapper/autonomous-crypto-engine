@@ -713,39 +713,38 @@ def breakdown(leg, games, elo, injuries, used=None):
         _own = _sp.read_of(leg) or leg["p"]
     except Exception:                                                    # noqa: BLE001
         _own = leg["p"]
-    _big = _own > 0.55 or (_need or 0) > 0.55                            # a % only over 55 (pct_ok) - else "N in 100"
-    _pc = (lambda x: f"{round(100 * x)}%") if _big else (lambda x: f"{round(100 * x)} in 100")
-    wp = ww = _pc(_own)
-    np_ = pw = _pc(_need) if _need else "the price"
-    _fact = f"We see {wp}, the price needs {np_}."
-    if _need and _own <= _need:                                          # (10/1, the owner: never false info) our read
-        out.append(v.say("bottom_n", [                                   # doesn't beat the price: say so - never "value"
-            f"✅ Bottom line: {price}. We see {wp}, the price needs {np_}. The number's a hair steep - lean only, no units.",
-            f"✅ Bottom line: {price} — our read {wp}, the break-even {np_}. Right side, wrong price, so it's just a lean.",
-            f"✅ Bottom line: {us} is the side, but {price} needs {np_} and we got {wp}. No money on it - a lean.",
-            f"✅ Bottom line: {price}. {wp} our way, {np_} to break even. The odds didn't beat the price - lean.",
-            f"✅ Bottom line: the books want {np_} on {price}; the engine has {wp}. We like the side, not the price.",
-            f"✅ Bottom line: {price} costs {np_}, we see {wp}. Too pricey for units - we lean it."]) or _short(v, price, False, _fact))
+    wp = f"{round(100 * _own)}%" if _own > 0.55 else ""                 # (10/1, the owner: "50 out of 100, the price
+    pos = f" {us} at {wp}." if wp else ""                                # needs 48" is jargon - plain words: does our
+    _fact = "Our read beats this price." if not _need or _own > _need else "The price is too steep for units."
+    if _need and _own <= _need:                                          # read beat the price or not; ONE % only
+        out.append(v.say("bottom_n", [                                   # when it's over 55. Never "value" on a read
+            f"✅ Bottom line: {price}. Right side, but the price is too steep for units - just a lean.",   # under it)
+            f"✅ Bottom line: we like {us}, not the price. A lean, no money on it.",
+            f"✅ Bottom line: {price} costs too much for what we see. Lean only.",
+            f"✅ Bottom line: {us} is the side - the odds just don't beat the price. A lean.",
+            f"✅ Bottom line: good side, bad number. {price} is a lean, no units.",
+            f"✅ Bottom line: {price}. We'd ride {us}, but not with money at this price.",
+            f"✅ Bottom line: {us} is our side; {price} is too rich for units. Lean it."]) or _short(v, price, False, _fact))
     elif leg.get("tier") == "lock":                                      # a lock: our whole chest, never a hedge
         out.append(v.say("bottom_l", [
-            f"✅ Bottom line: {price}. We see {wp}, the price only needs {np_}. That's the edge.",
-            f"✅ Bottom line: {price} — {wp} by our numbers vs the {np_} this price asks for. Lock it in.",
-            f"✅ Bottom line: {price}. The price needs {np_}; the engine has {wp}. We're all in.",
-            f"✅ Bottom line: {wp} to cash on {price}, and you only need {np_} to make money. Tap in.",
-            f"✅ Bottom line: {price}. Books priced it {np_}, we got it {wp}. Stamp it.",
-            f"✅ Bottom line: {price} — needs {np_} to pay, we see {wp}. That's money.",
-            f"✅ Bottom line: {np_} is the break-even on {price}. We see {wp}. Say less.",
-            f"✅ Bottom line: {price}. {wp} our way against a {np_} price. Locked in."]) or _short(v, price, True, _fact))
+            f"✅ Bottom line: {price}. The engine likes {us} more than the books do. Lock it in.",
+            f"✅ Bottom line: {price} — this price is cheaper than it should be. We're all in.",
+            f"✅ Bottom line: {price}. The books got this one priced wrong. Stamp it.",
+            f"✅ Bottom line: {price}. Our read beats this number. Say less.",
+            f"✅ Bottom line: {price} — the value's on our side.{pos} Locked in.",
+            f"✅ Bottom line: {price}.{pos} The price didn't catch up to our read. Tap in.",
+            f"✅ Bottom line: {price}. We'd lay this all day - the number's in our favor.",
+            f"✅ Bottom line: {price}. The side we trust most today, at a price that pays. That's money."]) or _short(v, price, True, _fact))
     else:
         out.append(v.say("bottom_s", [
-            f"✅ Bottom line: {price}. We see {us} winning {ww}; the price pays like {pw}. That gap is the bet.",
-            f"✅ Bottom line: {price} — the books say {pw}, we say {ww}. Tap in.",
-            f"✅ Bottom line: {price}. Priced like {pw}, our read is {ww}. We finna see.",
-            f"✅ Bottom line: we see {ww} on {price}. The price says {pw}. That's the value.",
-            f"✅ Bottom line: {price} pays like {pw}, and we got {us} at {ww}. Quiet play, right play.",
-            f"✅ Bottom line: {price}. Our number: {ww}. Their number: {pw}.",
-            f"✅ Bottom line: the price has {us} at {pw}; the engine has {ww}. Riding {price}.",
-            f"✅ Bottom line: {price} — {ww} by our numbers vs {pw} by the book's. Get in."]) or _short(v, price, False, _fact))
+            f"✅ Bottom line: {price}. The engine gives {us} a better shot than this price does. That's the bet.",
+            f"✅ Bottom line: {price} pays more than it should. Tap in.",
+            f"✅ Bottom line: {price}. The books are sleeping on {us}. We finna see.",
+            f"✅ Bottom line: {price}. Our read beats the number. Riding {us}.",
+            f"✅ Bottom line: {price} — the price is the value. Get in.",
+            f"✅ Bottom line: {price}. {us} are better than this number says. Quiet play, right play.",
+            f"✅ Bottom line: {price}.{pos} The books undersold 'em.",
+            f"✅ Bottom line: {price}. The number's in our favor - that's why we're on {us}."]) or _short(v, price, False, _fact))
     inj_ = (injuries or {}).get(lg)
     leg["why_line"] = why_line(leg, v, g, us, them, the_us, the_them, rec_u=rec_u, n_hot=n_hot, rec_t=rec_t,
                                n_cold=n_cold, gap=gap, form=FORM,
@@ -870,14 +869,12 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                           f"🧠 {pct}% to cash on {us} — the numbers did the talking.",
                           f"🧠 {us} at {pct}% to get it done. That's the engine talking, not a hunch."])
     elif need and own <= need:                            # the read doesn't beat the price: say so, never "value"
-        o, n = round(100 * own), round(100 * need)
-        nums = ("w_num", [f"🧠 {us}: {o} in 100 by our read, {n} to break even - we like the side, not the price.",
-                          f"🧠 Our read has {us} at {o} in 100; the price needs {n}. A lean, no more."])
-    elif need:                                            # 55 or under: never a bare % (pct_ok) - the read vs the price
-        o, n = round(100 * own), round(100 * need)
-        nums = ("w_num", [f"🧠 {us} win this {o} times in 100 by our read - the price only needs {n}.",
-                          f"🧠 The price needs {n} in 100 from {us}. The engine has them at {o}.",
-                          f"🧠 {o} in 100 is our read on {us}; {n} in 100 is all this price asks."])
+        nums = ("w_num", [f"🧠 {us} is the side, but the price is too steep for units.",   # (plain words, no jargon -
+                          f"🧠 We like {us} - just not at this price."])                    # the owner, 10/1)
+    elif need:                                            # 55 or under: never a bare %, never number-vs-number
+        nums = ("w_num", [f"🧠 The engine gives {us} a better shot than the books do.",
+                          f"🧠 {us} at this price is the value - the books undersold 'em.",
+                          f"🧠 Our read likes {us} more than the price does."])
     else:
         nums = ("w_num", [])
     line = ""                                             # the top reason first; every wording of it already used on
