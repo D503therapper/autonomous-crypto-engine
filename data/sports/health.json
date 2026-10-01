@@ -1,19 +1,17 @@
 {
- "at": "2026-10-01T16:01Z",
+ "at": "2026-10-01T16:02Z",
  "fixes": [
-  "slate check problem - re-pull before the board - started sports.yml",
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (10h) - started sports_sims.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
   "slate check: White Sox @ Astros (MLB): no price from the books",
   "slate check: Red Sox @ Yankees (MLB): no price from the books",
   "slate check: Cubs @ Padres (MLB): no price from the books",
-  "studies last ran 10h ago - restarted",
+  "studies last ran 11h ago - restarted",
   "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (44s)",
+  "live watcher fresh (34s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -28,6 +26,19 @@
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-01T16:02Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: White Sox @ Astros (MLB): no price from the books",
+    "slate check: Red Sox @ Yankees (MLB): no price from the books",
+    "slate check: Cubs @ Padres (MLB): no price from the books",
+    "studies last ran 11h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-01T16:01Z",
    "fixes": [
