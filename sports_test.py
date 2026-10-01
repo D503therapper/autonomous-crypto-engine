@@ -5812,6 +5812,16 @@ def test_dog_gate_uses_everything_we_learned():
     """10/1, the owner: "you wired all that dog knowledge in and it came up with the Red Wings at -142." The knowledge
     sat behind an old gate (a proven spot from before) - a football dog now qualifies on its whole DOG SCORE (the
     engine's read + every spot and fade) at 8+, and its units come from that weighed read. Never one factor alone."""
+    import sports_strength
+    keep_weak = sports_strength.weak
+    sports_strength.weak = lambda lg: False                    # (the gate's own math - never today's strength file)
+    try:
+        _dog_gate_checks()
+    finally:
+        sports_strength.weak = keep_weak
+
+
+def _dog_gate_checks():
     base = {"league": "nfl", "market": "ml", "odds": 150, "dec": 2.5, "p": 0.40, "p_market": 0.40, "edge": 0.0,
             "edge_own": 0.43 * 2.5 - 1, "reasons": ["r"], "dog_ctx": {}, "home": False, "side": "away", "start": "2026-10-04T20:00Z"}
     plain = dict(base)
