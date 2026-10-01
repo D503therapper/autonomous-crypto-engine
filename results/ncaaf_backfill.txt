@@ -1,6 +1,19 @@
 finished regular-season games before: {2023: 923, 2024: 500, 2025: 498}
-probe 2025-09-06 by day: 25 | 2025 week 2 by week: 25
-ESPN rows read: 1862, new games: 0
-   AN ncaaf 2024-01-01: HTTP Error 504: Gateway Time-out
-games that got odds: 0
-finished regular-season games after: {2023: 923, 2024: 500, 2025: 498}
+probe 2025 week 2, groups=80: 25
+probe 2025 week 2, groups=90: 25
+probe 2025 week 2, groups=1: 16
+probe 2025 week 2, groups=4: 15
+probe 2025 week 2, groups=5: 18
+probe 2025 week 2, groups=8: 15
+probe 2025 week 2, groups=9: 2
+probe 2025 week 2, groups=12: 11
+probe 2025 week 2, groups=15: 13
+probe 2025 week 2, groups=17: 11
+probe 2025 week 2, groups=37: 14
+probe 2025 week 2, groups=151: 13
+probe 2025 week 2, groups=18: 1
+2024: 1176 rows so far
+2025: 2355 rows so far
+ESPN rows read: 2355, new games: 783
+games that got odds: 565
+finished regular-season games after: {2023: 923, 2024: 888, 2025: 892}
