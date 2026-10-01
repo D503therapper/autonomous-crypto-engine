@@ -4847,3 +4847,36 @@ error: could not detach HEAD
 [2026-10-01 15:07 UTC] stocks/trend     equity $482.21 (-3.6%) 3 open  market DOWN
 [2026-10-01 15:07 UTC] stocks/hold_spy  equity $494.62 (-1.1%) 1 open  market DOWN
    social heat top: NEAR 40 (40/0/0), MOVR 37 (37/0/0), QNT 35 (35/0/0), MON 32 (32/0/0), TRUMP 29 (29/0/0)
+   dex screen: PASS KURUMI@solana liq $121,273
+   dex screen: REJECT SPCXC@base liq $1,127,327 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 70%; lp locked 0% < 95%
+   scanner: SYN: +5.1% in 15 min on 98.7x volume @ 0.196479 spread 0.00%
+   scanner: SYN: +5.3% in 15 min on 103.4x volume @ 0.19726 spread 0.00%
+   scanner: SYN: +6.6% in 17 min on 99.5x volume @ 0.199678 spread 0.26%
+   scanner: SYN: +6.8% in 18 min on 100.2x volume @ 0.200056 spread 0.24%
+   dex screen: REJECT WOTF@solana liq $1,514,231 - holders unknown; lp holders unknown; rugcheck score 54
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT COCKROACH@solana liq $162,127 - holders unknown; lp holders unknown; rugcheck lp locked 45% < 95%
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex screen: PASS ELON@solana liq $102,558
+   dex scanner: 3,001 pools (solana 2,301 / base 458 / ethereum 242), refresh cycle 133s (hot 130s), 2821 calls (109 feed, 429s 1, failed 1), 81,359 refreshed (1553 no pair), +120 added / -118 dropped (dead 12, stale 0, cap 106), movers 1 + warming 26 -> queued 3, screened 3 (passed 1), bought 0
+[2026-10-01 16:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-01 16:07 UTC] crypto/mover     equity $453.33 (-9.3%) 2 open  market UP
+[2026-10-01 16:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 16:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 16:07 UTC] crypto/social_heat equity $539.92 (+8.0%) 2 open  market UP
+[2026-10-01 16:07 UTC] crypto/breakout10 equity $492.73 (-1.5%) 2 open  market UP
+[2026-10-01 16:07 UTC] crypto/momentum  equity $482.53 (-3.5%) 2 open  market UP
+[2026-10-01 16:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 16:07 UTC] crypto/hold_btc  equity $500.56 (+0.1%) 1 open  market UP
+[2026-10-01 16:07 UTC] stocks/rsi2      equity $496.16 (-0.8%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, IWM 3 BUY, XLB 4
+[2026-10-01 16:07 UTC] stocks/dual_momentum equity $496.09 (-0.8%) 2 open  market DOWN
+[2026-10-01 16:07 UTC] stocks/trend_ensemble equity $498.36 (-0.3%) 5 open  market UP
+[2026-10-01 16:07 UTC] stocks/rotation10 equity $490.98 (-1.8%) 2 open  market UP
+[2026-10-01 16:07 UTC] stocks/momentum  equity $491.19 (-1.8%) 4 open  market DOWN
+[2026-10-01 16:07 UTC] stocks/trend     equity $483.44 (-3.3%) 3 open  market DOWN
+[2026-10-01 16:07 UTC] stocks/hold_spy  equity $495.45 (-0.9%) 1 open  market DOWN
+   social heat top: TRUMP 42 (40/0/2), NEAR 37 (37/0/0), PENGU 35 (27/0/8), QNT 32 (32/0/0), MON 24 (24/0/0)
