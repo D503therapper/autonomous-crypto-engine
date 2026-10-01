@@ -6723,7 +6723,9 @@ def test_decider_fetched_once_and_never_blocks_grading():
 
         def fetch(lg, eid):
             calls.append(eid)
-            return _summ(41, 10, lines=((14, 14, 7, 6), (3, 0, 7, 0)))
+            p_ = _summ(41, 10, lines=((14, 14, 7, 6), (3, 0, 7, 0)))
+            p_["header"]["id"] = eid                              # (the summary carries its own event id)
+            return p_
         picks = [{"legs": [{"game_id": "nfl:9", "result": "won", "side": "home"},
                            {"game_id": "nfl:9", "result": "lost", "side": "away"},
                            {"game_id": "nfl:10", "result": None}]}]
@@ -6742,6 +6744,17 @@ def test_decider_fetched_once_and_never_blocks_grading():
             assert "decider" not in bad[0]["legs"][0], "a failed fetch: tried again next run"
         D.fill(bad, fetch=down)
         assert bad[0]["legs"][0]["decider"] == {}, "3 tries, then the review goes without it"
+        # (the owner, 10/1: "it can't be from a past season") a summary for ANOTHER game is never used, and a decider
+        # whose final isn't the score we graded is never said
+        other = [{"legs": [{"game_id": "nfl:77", "result": "won", "side": "home"}]}]
+        D.fill(other, fetch=lambda lg, eid: {**_summ(41, 10), "header": {**_summ(41, 10)["header"], "id": "12345"}})
+        assert other[0]["legs"][0]["decider"] == {}
+        mism = [{"legs": [{"game_id": "nfl:9", "result": "won", "side": "home", "score": "Bills 17 @ Jets 20"}]}]
+        D.fill(mism, fetch=fetch)
+        assert mism[0]["legs"][0]["decider"] == {}
+        ok = [{"legs": [{"game_id": "nfl:9", "result": "won", "side": "home", "score": "Bills 10 @ Jets 41"}]}]
+        D.fill(ok, fetch=fetch)
+        assert ok[0]["legs"][0]["decider"]["type"] == "blowout"
     finally:
         sd.DATA = keep
         shutil.rmtree(tmp)
