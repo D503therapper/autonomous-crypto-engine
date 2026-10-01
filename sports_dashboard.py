@@ -987,19 +987,20 @@ def _history(picks):
         for l in p["legs"]:
             if l.get("result") not in ("won", "lost", "push"):
                 continue
-            if l.get("tier") == "lean":                      # a lean leg: listed in its sport (the owner, 10/1: "the
+            if l.get("tier") == "lean" and p["date"] < sports.LEANS_COUNT_FROM:   # a lean leg: in its sport (the owner,
                 k = (p["date"], l["game_id"], l["side"], l.get("market"))   # hockey from yesterday's not in here"),
                 e = lean_legs.setdefault(k, {"l": l, "date": p["date"], "cards": []})   # marked LEAN, never in its record
                 e["cards"].append(kinds.get(p["kind"], p["kind"]))
                 continue
             k = (p["date"], l["game_id"], l["side"], l.get("market"))
-            e = legs.setdefault(k, {"l": l, "date": p["date"], "cards": []})
+            e = legs.setdefault(k, {"l": l, "date": p["date"], "cards": [], "lean": True})
             e["cards"].append(kinds.get(p["kind"], p["kind"]))
+            e["lean"] = e["lean"] and bool(p.get("lean") or l.get("tier") == "lean")   # (a lean anywhere it's posted)
     by = {}
     for e in legs.values():
         l = e["l"]
         by.setdefault(l["league"], []).append(
-            (e["date"], l["result"], f'{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
+            (e["date"], l["result"], f'{"🟡 LEAN · " if e["lean"] else ""}{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
              + (f' · {l["score"]}' if l.get("score") else ""), rev_leg(l, l["result"], e["date"])))
     for p in picks:                                          # a lean on its own (not in our record) shows in its sport too
         if sports.in_record(p) or p.get("status") not in ("won", "lost") or len(p.get("legs") or []) != 1:
@@ -1338,8 +1339,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 if rank.get(calls.get(key, ("",))[0], -1) < rank[t]:
                     calls[key] = (t, l["result"], p["date"])
     by_tier = {t: [(r, d) for tt, r, d in calls.values() if tt == t] for t in ("lock", "value", "lean")}
-    ours = [c for c in calls.values() if c[0] != "lean"]   # OVERALL: every pick we made, once each - leans keep their
-    ow = sum(r == "won" for _, r, _ in ours)                # own record (the owner, 9/30: no units on them)
+    ours = [c for c in calls.values() if c[0] != "lean" or c[2] >= sports.LEANS_COUNT_FROM]   # OVERALL: every pick we
+    ow = sum(r == "won" for _, r, _ in ours)                # made, once each - leans too (the owner, 10/1)
     ol = sum(r == "lost" for _, r, _ in ours)
     tw = sum(r == "won" for _, r, d in ours if d == today)
     tl = sum(r == "lost" for _, r, d in ours if d == today)
@@ -1400,14 +1401,14 @@ def render(picks, model, games, series, start_bank, updated_ms):
     for p in picks:
         if sports.in_record(p):                            # our daily record (never leans, never live bets)
             for l in p["legs"]:
-                if l.get("result") in ("won", "lost") and l.get("tier") != "lean":   # if we posted it, it counts
+                if l.get("result") in ("won", "lost") and (l.get("tier") != "lean" or p["date"] >= sports.LEANS_COUNT_FROM):
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
     res = list(seen_.values())
     lean_ = {}                                               # 🟡 the leans in each sport (the owner, 10/1: "leans or not,
     for p in picks:                                          # put everything in the correct sport") - shown, never in
         for l in p.get("legs") or []:                        # the sport's record
             lr = l.get("result") or (p.get("status") if len(p.get("legs") or []) == 1 else None)
-            if lr in ("won", "lost") and (l.get("tier") == "lean" or not sports.in_record(p)) and l.get("league"):
+            if lr in ("won", "lost") and not sports.in_record(p) and l.get("league"):   # (only leans before 9/29 now)
                 k = (p["date"], l.get("game_id"), l.get("side"))
                 if k not in seen_:
                     lean_[k] = (l["league"], lr)

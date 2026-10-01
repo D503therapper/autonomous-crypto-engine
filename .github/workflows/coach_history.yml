@@ -1,0 +1,31 @@
+# COACH HISTORY (the owner, 10/1): every NFL / NBA / NHL / MLB team's real head coach / manager, season by season since
+# 2000, from Wikipedia's team-season pages (sports_coach_history.py). ESPN's coach history is bad. Weekly after it's full.
+name: coach_history
+on:
+  push:
+    branches: [main]
+    paths: ["sports_coach_history.py", ".github/workflows/coach_history.yml"]
+  schedule:
+    - cron: "41 12 * * 2"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: coach_history
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: timeout 45m python -u sports_coach_history.py 42 || true
+      - if: always()
+        run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add data/sports/coach_history.json 2>/dev/null || true
+          git commit -qm "coach history $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; git rebase --abort 2>/dev/null; sleep 7; done

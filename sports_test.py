@@ -262,7 +262,8 @@ def test_board_rules():
     assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "lean"}]}) == "lean", "only as sure as the weakest leg"
     assert sports.pick_tier({"legs": [{"tier": "lock"}, {"tier": "value"}]}) == "value"
     assert sports.pick_tier({"kind": "lock", "tier": "value", "legs": [{"tier": "value"}]}) == "lock"
-    assert not sports.in_record({"lean": True, "date": "2026-09-30"}) and sports.in_record({"date": "2026-09-30"})   # leans: their own record (the owner, 9/30)
+    assert sports.in_record({"lean": True, "date": "2026-09-30"}) and sports.in_record({"date": "2026-09-30"})   # leans count
+    assert not sports.in_record({"lean": True, "date": "2026-09-27"})       # (the owner, 10/1) - from 9/29 on
 
 
 def test_grading():
@@ -5287,9 +5288,9 @@ def test_challenge_live_comes_from_the_score_feed():
 
 
 def test_leans_show_in_their_sport():
-    """10/1, the owner: "the hockey from yesterday's not in here... leans or not, put everything in the correct sport".
-    A lean (its own leg in a parlay, or a lean pick) is listed in its sport's results marked 🟡 LEAN, with its own
-    'leans W-L' - never in that sport's record."""
+    """10/1, the owner: "the hockey from yesterday's not in here... leans or not, put everything in the correct sport"
+    and "leans have to go in our record": a lean (a leg in a parlay, or a lean pick) is listed in its sport marked
+    🟡 LEAN and counts in that sport's record and ours (no units: never the bankroll)."""
     import sports_dashboard as D
     leg = lambda team, res, tier: {"team": team, "opp": "Canucks", "odds": -118, "result": res, "league": "nhl",
                                    "game_id": "nhl:" + team, "side": "home", "market": "ml", "tier": tier, "line": None,
@@ -5299,7 +5300,22 @@ def test_leans_show_in_their_sport():
     h = D._history(picks)
     i = h.index("NHL")
     sec = h[i:h.index("</details>", i)]
-    assert "0-1" in sec and "leans 0-1" in sec and "🟡 LEAN · Oilers" in sec and "Flyers ML" in sec
+    assert "0-2" in sec and "🟡 LEAN · Oilers" in sec and "Flyers ML" in sec    # 10/1 later, the owner: leans
+    #                                                    count in our record too (they still carry no units)
+
+
+def test_coach_history_infobox():
+    """10/1: the real coach history (ESPN's is today's coach copied back). A team-season page's infobox -> its head
+    coach(es) in order (a mid-season change lists them all); experience counts his seasons BEFORE this one."""
+    import sports_coach_history as ch
+    w = "{{Infobox NFL season\n| team = Raiders\n| head_coach = [[Jon Gruden]] (fired)<br />[[Rich Bisaccia]] (interim)\n| general_manager = [[Mike Mayock]]\n}}"
+    assert ch.coaches(w, "nfl") == ["Jon Gruden", "Rich Bisaccia"]
+    assert ch.coaches("{{Infobox MLB season\n| manager = [[Aaron Boone]]\n| owners = x\n}}", "mlb") == ["Aaron Boone"]
+    assert ch.page("nba", "Boston Celtics", 2019) == "2019–20 Boston Celtics season"
+    hist = {"nfl": {"A": {"2019": ["X"], "2020": ["X"], "2021": ["Y", "Z"]}, "B": {"2021": ["X"]}}}
+    ex = ch.experience(hist, "nfl")
+    assert ex[("A", 2020)] == ("X", 1, False, False) and ex[("A", 2021)] == ("Y", 0, True, True)
+    assert ex[("B", 2021)] == ("X", 2, True, False)                        # a retread: 2 seasons before, new team
 
 
 def test_team_name_match_is_not_loose():
