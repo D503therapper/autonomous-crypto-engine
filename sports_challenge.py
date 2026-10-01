@@ -236,7 +236,8 @@ def html(c, E):
         import sports_tennis as stn
         last = stn._say_name(l["player"]) or str(l["player"])   # (de Minaur, Zheng Qinwen - the way they're said)
         price = "TBD" if l.get("est") else ml(l["ml"])
-        st = f' data-start="{E(l["start"])}"' if l.get("start") and not r else ""   # the page shows ● LIVE once it starts
+        st = (f' data-start="{E(l["start"])}" data-gid="tennis:{E(l.get("match", ""))}" data-side="{E(str(l.get("side", "")))}"'
+              if l.get("start") and not r else "")      # the page shows ● LIVE + the sets from the live score feed
         return (f'<div class="pvc {r or ""}"{st}><span>{E(last)}</span>'
                 f'<div class="pvp"><b><small>ML</small> {E(price)}</b><i>{mark}</i></div></div>')
     rows_ = "".join(f'<div class="pvr">{cell(p)}{cell(a)}</div>'
@@ -244,7 +245,7 @@ def html(c, E):
                                     c.get("algo", []) + [None] * max(0, len(c["patty"]) - len(c.get("algo", [])))))
     if done:
         top = (f"🏆 THE ALGORITHM WINS {as_}-{ps}" if as_ > ps else f"🏆 {E(name.upper())} WINS {ps}-{as_}" if ps > as_
-               else f"🤝 DEAD EVEN {ps}-{as_}")
+               else f"🤝 {E(name.upper())} TIED THE ALGORITHM {ps}-{as_}")   # (the owner: 'dead even' is lame)
     else:
         top = f"{E(name)} {ps} · Algorithm {as_}"
     wait = c.get("waiting") or []

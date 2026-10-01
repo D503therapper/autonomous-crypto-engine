@@ -34,7 +34,7 @@ every session:
   value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.
-- 📊 TODAY'S DAMAGE (the owner, 10/1): the day's units / ROI / record sit at the very top once every play with units
+- 📊 TODAY'S RESULTS (the owner, 10/1 - not 'damage': it sounded like a loss): the day's units / ROI / record sit at the very top once every play with units
   that day is graded (never a half-day number), gone at midnight PT (sports_dashboard.day_recap).
 - A win % only shows on the dashboard when it's over 55% (sports_dashboard.pct_ok) - under that, words say it.
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).

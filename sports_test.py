@@ -4096,7 +4096,8 @@ def test_patty_vs_the_algorithm():
     ps, as_, done = C.score(c)
     assert done and ps == sum(l["side"] == 1 for l in c["patty"]) and as_ == sum(l["side"] == 1 for l in c["algo"])
     h = C.html(c, escape)
-    assert "PATTY VS THE ALGORITHM" in h and ("WINS" in h or "DEAD EVEN" in h) and "ML</small>" in h
+    assert "PATTY VS THE ALGORITHM" in h and ("WINS" in h or "TIED THE ALGORITHM" in h) and "ML</small>" in h
+    assert "DEAD EVEN" not in h
     assert "data-start" not in h, "graded legs: no LIVE tag"
     c2 = json.loads(json.dumps(c))
     for l in c2["patty"]:
@@ -5199,7 +5200,7 @@ def test_todays_damage_after_the_last_game():
         assert D.day_recap([lock, dog], "2026-10-01", [], now) == ""                 # the Kings still going: nothing yet
         dog["legs"][0]["result"], dog["status"] = "lost", "lost"
         h = D.day_recap([lock, dog], "2026-10-01", [], now)
-        assert "TODAY" in h and "DAMAGE" in h and "1-1" in h and "ROI +18%" in h
+        assert "TODAY" in h and "RESULTS" in h and "DAMAGE" not in h and "1-1" in h and "ROI +18%" in h
         assert "+0.5 UNITS" in h                                                   # 2u won at -130 (+1.54), 1u lost
     finally:
         sports.leg_units = keep
@@ -5207,6 +5208,23 @@ def test_todays_damage_after_the_last_game():
     assert datetime.fromtimestamp(until / 1000, sports.PT) == datetime(2026, 10, 2, 0, 0, tzinfo=sports.PT)   # midnight PT
     assert "Date.now()>+d.dataset.until" in h
     assert D.day_recap([], "2026-10-01", [], now) == ""                          # no plays with units: nothing
+
+
+def test_challenge_live_comes_from_the_score_feed():
+    """10/1, the owner: Patty vs the Algorithm said LIVE for hours - it went off the clock (6 hours after the start),
+    not the score. Each open pick carries its match id + side, the live feed is asked for it, and the page only says
+    LIVE (with the sets) while the feed says it's being played; a finished one shows ✅ / ❌ right away."""
+    import sports_challenge as C
+    from html import escape
+    c = {"name": "Patty", "patty": [{"player": "Casper Ruud", "ml": -230, "match": "atp:183492", "side": 1,
+                                     "start": "2026-10-01T02:00Z", "result": None}],
+         "algo": [{"player": "Holger Rune", "ml": -195, "match": "atp:183484", "side": 2, "start": "2026-10-01T03:30Z"}]}
+    h = C.html(c, escape)
+    assert 'data-gid="tennis:atp:183492" data-side="1"' in h and 'data-gid="tennis:atp:183484" data-side="2"' in h
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert '.tm[data-gid],.pvc[data-gid]' in src                        # the challenge's matches are fetched too
+    js = src[src.index("function pvLive"):src.index("pvLive();setInterval")]
+    assert "st+6*3600000" not in js and "sc.live" in js and "flip(sc)" in js
 
 
 def test_team_name_match_is_not_loose():

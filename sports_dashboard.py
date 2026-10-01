@@ -300,7 +300,7 @@ def day_recap(picks, today=None, early=None, now=None):
     midnight = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=sports.PT) + timedelta(days=1)
     rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
     return (f'<div class="dayr {"up" if net >= 0 else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
-            f'<div class="dayr-t">📊 TODAY\'S DAMAGE</div>'
+            f'<div class="dayr-t">📊 TODAY\'S RESULTS</div>'
             f'<div class="dayr-n">{"+" if net >= 0 else "-"}{abs(net):.1f} UNITS</div>'
             f'<div class="dayr-s">ROI {net / bet:+.0%} · {rec}</div></div>'
             f'<script>(function(){{var d=document.currentScript.previousElementSibling;'
@@ -1904,7 +1904,7 @@ function check(){{if(document.hidden)return;              // a newer page? swap 
  .catch(function(){{}});}}
 var API="{_ask_url().rstrip('/')}";          // 📡 scores straight from ESPN every second (our server), the live board as backup
 function fastScores(){{if(document.hidden||!API)return;var n=Date.now(),ids={{}};
- document.querySelectorAll(".tm[data-gid]").forEach(function(s){{var st=Date.parse(s.getAttribute("data-start")),g=s.getAttribute("data-gid");
+ document.querySelectorAll(".tm[data-gid],.pvc[data-gid]").forEach(function(s){{var st=Date.parse(s.getAttribute("data-start")),g=s.getAttribute("data-gid");
   if(g&&st&&n>=st-60000&&n<st+8*3600000)ids[g]=1}});
  var k=Object.keys(ids);if(!k.length)return;
  fetch(API+"/scores?ids="+encodeURIComponent(k.join(",")),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}})
@@ -1982,10 +1982,16 @@ function gone(){{var n=Date.now(),b=document.querySelector(".board");if(!b)retur
  var t=document.getElementById("dropnote");                                          // comes down right then (it's in
  if(t&&!b.querySelector(".gn,.pk"))b.innerHTML=t.innerHTML;}}                        // the results); board empty: 8 AM note
 gone();setInterval(gone,30000);
-function pvLive(){{var n=Date.now();document.querySelectorAll(".pvc[data-start]").forEach(function(c){{   // 🥊 challenge:
- var st=Date.parse(c.getAttribute("data-start")),i=c.querySelector(".pvp>i");if(!st||!i)return;          // ● LIVE once
- var on=n>=st&&n<st+6*3600000;i.innerHTML=on?'<span class="lvb"><i></i>LIVE</span>':""}})}}              // it starts
-pvLive();setInterval(pvLive,15000);
+function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data-gid]").forEach(function(c){{   // 🥊 challenge:
+ var i=c.querySelector(".pvp>i"),sc=B[c.getAttribute("data-gid")];if(!i)return;   // 10/1, the owner: it said LIVE for
+ if(sc&&sc.p1&&c.getAttribute("data-side")==="2")sc=flip(sc);                      // 6 hours off the clock - now only the
+ var h="";if(sc&&sc.live&&!sc.delayed){{                                          // real score feed says LIVE / done
+   h='<span class="lvb"><i></i>LIVE</span> '+(sc.sets||[]).map(function(x){{return x[0]+"-"+x[1]}}).join(" ");}}
+ else if(sc&&sc.delayed)h="⏳";
+ else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
+   h=w[0]>w[1]?"✅":w[1]>w[0]?"❌":"";}}
+ if(i.innerHTML!==h)i.innerHTML=h;}})}}
+pvLive();setInterval(pvLive,3000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();
