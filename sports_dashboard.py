@@ -317,11 +317,16 @@ def day_recap(picks, today=None, early=None, now=None):
     l = sum(r == "lost" for r in calls.values())             # leans count in our record; the units are the plays with
     pu = 0                                                   # units only, leans carry none)
     midnight = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=sports.PT) + timedelta(days=1)
-    rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
-    return (f'<div class="dayr {"up" if net >= 0 else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
+    led = sports.units_ledger(picks, early)
+    usd = net * (led["by_date"].get(today) or led["unit_today"])                 # the units in dollars (the owner, 10/1)
+    rec = f"{w}-{l}" + (f" · {w / (w + l):.0%}" if w + l else "")
+    up = net >= 0
+    return (f'<div class="dayr {"up" if up else "dn"}" data-until="{int(midnight.timestamp() * 1000)}">'
             f'<div class="dayr-t">📊 TODAY\'S RESULTS</div>'
-            f'<div class="dayr-n">{"+" if net >= 0 else "-"}{abs(net):.1f} UNITS</div>'
-            f'<div class="dayr-s">ROI {net / bet:+.0%} · {rec}</div></div>'
+            f'<div class="dayr-n">{rec}</div>'
+            f'<div class="dayr-s"><b class="{"up" if up else "dn"}">{"+" if up else "-"}{abs(net):.1f} UNITS '
+            f'({"+" if up else "-"}${abs(usd):,.2f})</b> · ROI {net / bet:+.0%}</div>'
+            f'<div class="dayr-x">Leans count in the record, not the units.</div></div>'
             f'<script>(function(){{var d=document.currentScript.previousElementSibling;'
             f'if(Date.now()>+d.dataset.until)d.remove();}})();</script>') if bet else ""
 
@@ -1711,12 +1716,12 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .unw{{display:block;font-size:13px;letter-spacing:.02em;font-weight:800;color:#fff;text-transform:none}}   /* why ½u */
 .nou{{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}}   /* live: no units */
 .mb{{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}}   /* the money bag in green (the owner, 9/30) */
-.dayr{{margin:12px 0 0;padding:14px;border-radius:12px;background:var(--card);border:2px solid #22e39a;text-align:center}}
-.dayr.dn{{border-color:#ff3b3b}}
+.dayr{{margin:12px 0 0;padding:14px;border-radius:12px;background:var(--card);border:2px solid #ffc233;text-align:center}}
 .dayr-t{{font-size:14px;font-weight:900;color:#ffc233;letter-spacing:.06em}}
-.dayr-n{{font-size:28px;font-weight:900;color:#22e39a;margin-top:4px}}
-.dayr.dn .dayr-n{{color:#ff5a5a}}
-.dayr-s{{font-size:15px;font-weight:800;color:#fff;margin-top:2px}}
+.dayr-n{{font-size:30px;font-weight:900;color:#fff;margin-top:4px}}
+.dayr-s{{font-size:16px;font-weight:800;color:#fff;margin-top:2px}}
+.dayr-s b.up{{color:#22e39a}} .dayr-s b.dn{{color:#ff5a5a}}
+.dayr-x{{font-size:12px;font-weight:800;color:#ffc233;margin-top:4px}}
 .unb{{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}}
 .unt{{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1}} .unt.up,.unr b.up{{color:var(--up)}} .unt.dn,.unr b.dn{{color:var(--dn)}}
 .unp{{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}}

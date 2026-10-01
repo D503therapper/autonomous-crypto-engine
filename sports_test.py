@@ -5252,6 +5252,7 @@ def test_todays_damage_after_the_last_game():
         h = D.day_recap([lock, dog], "2026-10-01", [], now)
         assert "TODAY" in h and "RESULTS" in h and "DAMAGE" not in h and "1-1" in h and "ROI +18%" in h
         assert "+0.5 UNITS" in h                                                   # 2u won at -130 (+1.54), 1u lost
+        assert "+0.5 UNITS (+$" in h and "Leans count in the record, not the units." in h   # dollars too (10/1)
     finally:
         sports.leg_units = keep
     until = int(re.search(r'data-until="(\d+)"', h).group(1))
