@@ -6225,6 +6225,23 @@ def test_hockey_goalie_slump():
         sports.SV_SLUMP.clear(); sports.SV_SLUMP.update(keep[1])
 
 
+def test_steep_lean_says_why_its_not_the_lock():
+    """10/1, the owner: "the algorithm should have said we couldn't label this a lock simply because the price isn't
+    worth it." A lean the engine has at 56%+ whose price is too steep says so on its card; a coin flip doesn't."""
+    import sports_dashboard as d
+    st = {**_cand("pit", -148, 0.572, league="nfl"), "edge_own": 0.587 * sd.decimal(-148) - 1}
+    line = d._units_line(0, "Steelers", -148, lean=True, leg=st)
+    assert "Lock" in line and "-148" in line and "NO UNITS" in line
+    coin = {**_cand("buf", -108, 0.501, league="nhl")}
+    assert d._units_line(0, "Sabres", -108, lean=True, leg=coin) == '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
+    worth = {**_cand("unt", -112, 0.58, league="ncaaf"), "edge_own": 0.589 * sd.decimal(-112) - 1}
+    assert d._steep_line(worth) == ""                      # worth its price: never "too steep"
+    assert len(d.STEEP) >= 18 and not any("likeliest" in x or "on the board" in x for x in d.STEEP)   # many ways to say it, never "the
+    d.WHY_USED.clear()                                                         # likeliest on the board" (10/1)
+    two = {d._steep_line({**st, "team": t}, t) for t in ("Steelers", "Lions")}
+    assert len(two) == 2                                                       # never the same line twice on a page
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
