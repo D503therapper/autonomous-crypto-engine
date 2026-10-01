@@ -6278,6 +6278,17 @@ def test_no_only_one_that_counts():
     assert "only one that counts" in L.NEVER
 
 
+def test_tracker_follows_the_engines_big_disagreements():
+    """10/1, the owner (the Jaguars): "if the engine's right, it beat the line - it should believe in itself." Every dog
+    the engine's own read likes 12+ pts over the line is tracked, so we learn whether those reads are right."""
+    import sports_leads
+    jags = {**_cand("jax", 120, 0.44, league="nfl"), "edge_own": 0.608 * sd.decimal(120) - 1, "p_market": 0.436,
+            "dog_ctx": {}}
+    assert "engine read 12+ over the line (believe it?)" in sports_leads.tags(jags, sports)
+    mild = {**jags, "edge_own": 0.47 * sd.decimal(120) - 1}
+    assert "engine read 12+ over the line (believe it?)" not in sports_leads.tags(mild, sports)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
