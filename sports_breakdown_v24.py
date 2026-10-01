@@ -926,6 +926,9 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     elif leg.get("near_price"):                           # the always-a-Lock backup: the likeliest winner, priced fair
         nums = ("w_num", [f"🔒 We trust {us} to win this one - priced about right, so it's a small bet.",
                           f"🔒 {us} to win at a fair price. A light bet, not a big one."])
+    elif need and own <= need and own < 0.56:             # (10/1, the owner: the Kraken at -108 - a near coin flip
+        nums = ("w_num", [f"🧠 We've got {us} close to a coin flip - a hair better, not enough for units.",   # is the
+                          f"🧠 Close to 50-50 on our read, {us} by a hair."])                              # reason)
     elif need and own <= need:                            # the read doesn't beat the price: say so, never "value"
         nums = ("w_num", [f"🧠 {us} is the side, but the price is too steep for units.",   # (plain words, no jargon -
                           f"🧠 We like {us} - just not at this price."])                    # the owner, 10/1)

@@ -7016,6 +7016,8 @@ def test_a_lean_says_the_real_reason_it_has_no_units():
     dog = sb.lean_ends({"team": "Ducks", "odds": 140, "p": 0.44, "market": "ml"})
     assert all("hair" not in x for x in dog)
     assert not any(cg.problem(x) for x in close + steep + dog)
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    assert 'own <= need and own < 0.56' in src and "close to a coin flip - a hair better" in src   # the why line too
     leg = {"team": "Kraken", "opp": "Flames", "odds": -108, "p": 0.50, "dec": 1.926, "market": "ml", "side": "home",
            "game_id": "g1", "league": "nhl", "line": None}
     unit = {**leg, "game_id": "g2"}
