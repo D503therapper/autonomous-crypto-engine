@@ -791,7 +791,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                                n_cold=n_cold, gap=gap, form=FORM,
                                key_them=sd.team_key_out(inj_, oid, them, lg) if inj_ else [],
                                key_us=sd.team_key_out(inj_, tid, us, lg) if inj_ else [])
-    lines = [x for x in out if x]
+    import sports_card_guard                              # 🛡️ every line passes the owner's checks before it posts
+    leg["why_line"] = sports_card_guard.one(leg["why_line"], lg, us)
+    lines = sports_card_guard.clean([x for x in out if x], lg, us)
     if len(lines) > 2:
         import random
         rnd = random.Random(f"{g['id']}|{start:%Y-%m-%d}|{side}|shape")

@@ -6914,6 +6914,33 @@ def test_one_game_day_pick_always_has_units():
     assert not any("doesn't beat" in x for x in probs) and pk in [pk]
 
 
+def test_card_guard_catches_every_slip_the_owner_caught():
+    """The owner, 10/1: 'wire everything into the engine so it can't be making all these mistakes and then I gotta go
+    tell you to fix it.' Every card line passes the guard: jargon, the wrong sport's position word, a name not set yet,
+    filler, a NEVER word, a broken template - dropped (logged); a bad bottom line is cut back to the pick, never lost.
+    It runs where the write-up is made AND where the page shows it."""
+    import sports_card_guard as g
+    import sports_breakdown_v24 as v24
+    import sports_dashboard as d
+    bad = [("✅ Bottom line: Western KY (+110). We see 50 in 100, the price needs 48 in 100. We finna see.", "ncaaf"),
+           ("🚑 Browns gotta play this one without goalie Teven Jenkins, and we're taking advantage.", "nfl"),
+           ("⚾ TBA gets the ball for Yankees against Drew Rasmussen.", "mlb"),
+           ("🧳 Road game for North Texas, but they travel just fine.", "ncaaf"),
+           ("📊 Real talk, the chalk is on the other side.", "nba"),
+           ("🎯 None has been cooking.", "nfl")]
+    for line, lg in bad:
+        assert g.problem(line, lg), line
+    assert g.clean([bad[0][0]], "ncaaf") == ["✅ Bottom line: Western KY (+110)."]
+    good = [("🧱 Igor Shesterkin has been a brick wall in net for the Rangers.", "nhl"),
+            ("🎯 Rodney Tisdale Jr. has been cooking — 4 TDs, 0 picks and 512 yards in his last 2 games.", "ncaaf"),
+            ("✅ Bottom line: Western KY (+110) pays more than it should. Tap in.", "ncaaf")]
+    for line, lg in good:
+        assert not g.problem(line, lg), line
+    assert "sports_card_guard.clean(" in open(v24.__file__).read() and "sports_card_guard.one(" in open(v24.__file__).read()
+    dsrc = open(d.__file__).read()
+    assert dsrc.count("sports_card_guard.") >= 2
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
