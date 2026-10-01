@@ -11,6 +11,8 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   run MOVED_MAX+ toward them - sports_early.bettable). Re-run: only MLB short dogs (+100..+149, own read +8..12)
   pass (+6.6% / +13.6%); NFL / NBA / NHL / college fail. MLB opens before 2023 = the close (no real open) - skipped.
   sports_early.py, re-examined 3x a day.
+  The 5 early plays posted 9/30 under the bad exam (Jaguars, Predators, Blues, Flyers, Blackhawks) were pulled
+  before their games with the owner's OK (10/1) - never graded, not in any record.
 - **The Lock:** the priciest favorite under -150 is not the Lock. The engine's own read has to agree; 1,808 days:
   58.1% vs 56.8%, the only rule that made money. The books are sharp on favorites (7 seasons: no rule beats them).
 - **Money running away from a dog** (NFL -40%, NCAAF -9%, NBA -8%, NHL -6% every season): weighed in the Dog of the
