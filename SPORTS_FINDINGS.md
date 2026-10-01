@@ -3,6 +3,14 @@
 Every number below: the engine trained only on seasons BEFORE the ones it's graded on (no peeking), graded at real
 prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old seasons can mislead). Built = in the engine.
 
+**THE RULE BEFORE ANYTHING IS CALLED AN EDGE (the owner, 10/1 - three "breakthroughs" were taken back the same night,
+every time because the result was reported before the leak checks).** Until ALL five pass it's a "LEAD", never an edge
+or a breakthrough - and the report says which checks it passed: (1) FAIR PRICES - posted after both teams' last games
+ended (early_football_study.fair), no look-ahead lines; (2) BLIND - each season graded by a model trained only on the
+seasons before it, and no game-day facts (injury report, starters, weather) unless the bet waits for them; (3) MOST
+SEASONS up, not one hot year; (4) THE CURRENT SEASON - games no model has seen; (5) A SECOND, INDEPENDENT CHECK of the
+same idea (another cut, another sport, or our own line history).
+
 ## Built into the engine
 - **Get in early - CORRECTED 10/1 (data audit):** the 9/30 numbers (NFL +8+ +24.7%, NBA +5.8%, NHL +8.9%) were graded
   at the "open" - and the NFL's open is often the SUMMER look-ahead line (Ravens opened -250, closed +265), a price the
