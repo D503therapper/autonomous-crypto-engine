@@ -1,5 +1,28 @@
 {
- "picks": [],
+ "picks": [
+  {
+   "game_id": "nfl:401872969",
+   "league": "nfl",
+   "side": "away",
+   "team": "Jaguars",
+   "opp": "Bengals",
+   "odds": 120,
+   "opp_odds": -142,
+   "start": "2026-10-04T17:00Z",
+   "spot": "blowout",
+   "spots": [
+    "blowout"
+   ],
+   "fades": [],
+   "score": 0.2016,
+   "mkt": 0.4365,
+   "own": 0.6081,
+   "fair_at": "2026-09-27T21:00Z",
+   "posted": "2026-10-01T20:14Z",
+   "result": null,
+   "why": "\ud83d\udca5 Jaguars beat Patriots 35-6 last week. Dogs coming off a big win like that have beaten their price in our studies - the books don't give them enough credit."
+  }
+ ],
  "first_seen": {
   "nfl:401872964": {
    "ml_home": 123,
@@ -194,5 +217,30 @@
    "at": "2026-10-01T04:13Z"
   }
  },
- "launched": "2026-09-30T12:56Z"
+ "launched": "2026-09-30T12:56Z",
+ "pulled": [
+  {
+   "game_id": "ncaaf:401871050",
+   "league": "ncaaf",
+   "side": "home",
+   "team": "Delaware",
+   "opp": "Liberty",
+   "odds": 220,
+   "opp_odds": -270,
+   "start": "2026-10-02T23:00Z",
+   "spot": "bye",
+   "spots": [
+    "bye"
+   ],
+   "fades": [],
+   "score": 0.3559,
+   "mkt": 0.2998,
+   "own": 0.6157,
+   "fair_at": "2026-09-25T03:30Z",
+   "posted": "2026-10-01T20:14Z",
+   "result": null,
+   "why": "\ud83d\udecc Delaware had last week off; Liberty played. Rested dogs against a team that just played have beaten their price in our studies.",
+   "pulled": "2026-10-01: posted as 'off a bye' - Delaware played at Virginia 9/26 (missing from our feed). Pulled with the owner's OK; never counts."
+  }
+ ]
 }
