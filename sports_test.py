@@ -5071,6 +5071,24 @@ def test_firing_study():
     assert sports.dog_score({**base, "league": "nhl", "fired_on": "2023-10-31"}) == sports.dog_score({**base, "league": "nhl"}) + 2
 
 
+def test_early_season_hockey_favorites():
+    """9/30 (the owner: 'we gotta tighten up hockey'): NHL favorites in the first 2 weeks of a season won 55%, -4.3%
+    (ratings still lean on last year) - weeks 3-4 won 65%. Early on, a hockey favorite moves back the line."""
+    keep = dict(sports.SEASON_START)
+    try:
+        sports.SEASON_START.clear()
+        sports.SEASON_START["nhl"] = "2026-09-24"
+        fav = {"league": "nhl", "odds": -140, "start": "2026-09-30T23:00Z"}
+        assert sports.season_w(fav) == -sports.HOT_W
+        assert sports.season_w({**fav, "start": "2026-10-20T23:00Z"}) == 0          # week 4: the best spot - no knock
+        assert sports.season_w({**fav, "odds": 150}) == 0 and sports.season_w({**fav, "league": "nba"}) == 0
+        games = {"a": {"league": "nhl", "stype": "2", "start": "2026-09-24T23:00Z"},
+                 "b": {"league": "nhl", "stype": "1", "start": "2026-09-10T23:00Z"}}     # (preseason doesn't count)
+        assert sports.season_starts(games, datetime(2026, 9, 30, tzinfo=timezone.utc)) == {"nhl": "2026-09-24"}
+    finally:
+        sports.SEASON_START.clear(); sports.SEASON_START.update(keep)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
