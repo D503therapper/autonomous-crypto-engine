@@ -6187,6 +6187,16 @@ def test_schedule_cache_holds_the_dict():
     assert sports._SCHED["ref"] is b
 
 
+def test_brain_knows_what_the_engine_weighs():
+    """10/1, the owner: "the brain on the dashboard needs to be updated - every day." It lists what the engine weighs
+    (from the live constants) and the lead tracker's grades."""
+    import sports_dashboard as d
+    w = d.engine_weights()
+    assert "Lock" in w["the board"] and "NHL" in w["dog gates (the whole dog score)"] and "max 2 a week" in w["early plays"]
+    import inspect
+    assert '"leads being tested (graded every day)"' in inspect.getsource(d)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
