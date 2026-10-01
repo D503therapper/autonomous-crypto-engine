@@ -111,6 +111,9 @@ Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~
 group (-4.6%), Yankees-Red Sox rivalry dogs overall (-9%; last 3 seasons lean dog, small), opening-week hockey dogs,
 hockey parity as a bet-the-dogs signal (it's a stay-away signal), season run differential on top of the price (adds
 zero - the books know it), the backup-QB "edge" (fake: in-game injuries).
+Buying a favorite late after the money moved it our way 3+ points (10/1 study, -150 to -101): hockey -0.2% on 115,
+NBA +2.2%, NFL +3.0% - neutral. Baseball looked bad (-6.5% on 1,224 vs -3.4% for all favorites) but year to year it
+wobbles (-1, -7, -2, +2 points vs baseline 2023-26) - not steady enough to weigh. Recheck after 2027.
 
 ## Data the engine gained
 Every player's box score, every sport, 2021-now (data/sports/roster, rosters.yml keeps it filling). Next: player
