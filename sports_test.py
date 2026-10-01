@@ -5401,6 +5401,23 @@ def test_tennis_watch_reads_yesterdays_scoreboard():
         L.PREV_TN[:] = keep[3]
 
 
+def test_line_history_kept():
+    """10/1, the owner: the engine has to KNOW early value - which needs the midweek price, which our data never had
+    (only the stale summer open and the close). Every run saves each upcoming game's moneyline when it changes."""
+    import sports_data as sd
+    d = tempfile.mkdtemp()
+    now = datetime(2026, 10, 1, 12, 0, tzinfo=timezone.utc)
+    g = {"nfl:1": {"id": "nfl:1", "status": "pre", "start": "2026-10-04T17:00Z", "ml_home": "-148", "ml_away": "124"},
+         "nfl:2": {"id": "nfl:2", "status": "final", "start": "2026-09-28T17:00Z", "ml_home": "-110", "ml_away": "-110"},
+         "nfl:3": {"id": "nfl:3", "status": "pre", "start": "2026-11-20T17:00Z", "ml_home": "-110", "ml_away": "-110"}}
+    assert sd.record_lines(g, now, d) == 1                                  # only the upcoming game in the window
+    assert sd.record_lines(g, now + timedelta(hours=1), d) == 0             # no change, no row
+    g["nfl:1"]["ml_away"] = "120"                                           # the Jaguars +124 -> +120
+    assert sd.record_lines(g, now + timedelta(hours=2), d) == 1
+    rows = [json.loads(x) for x in open(os.path.join(d, "2026-10.jsonl"))]
+    assert [r["a"] for r in rows] == ["124", "120"] and rows[1]["t"] == "2026-10-01T14:00Z"
+
+
 def test_team_name_match_is_not_loose():
     """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
     'Texas St' the Longhorns'. The rest of the short name has to be in there too."""

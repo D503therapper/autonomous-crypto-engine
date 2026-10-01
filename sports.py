@@ -1921,6 +1921,10 @@ def run(repick=False, fetch=True):
         line_watch(games, picks)                                        # 💸 ...or is the money running away from us?
     except Exception as e:                                              # noqa: BLE001
         print(f"line watch failed: {e}")
+    try:                                                                # 📈 every line, every run (line_history):
+        sd.record_lines(games, now)                                     # the midweek price, kept for the early exam
+    except Exception as e:                                              # noqa: BLE001
+        print(f"line history failed: {e}")
     try:                                                                # ⏰ early value plays: posted the second the
         import sports_early                                             # engine finds one, before the line moves
         inj = {lg: sd.fetch_injuries(lg) for lg in sports_early.passed()} if sports_early.ON else None

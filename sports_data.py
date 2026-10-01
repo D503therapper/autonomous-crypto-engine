@@ -847,3 +847,45 @@ def live_log_from_branch():
         return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else {}
     except Exception:                                         # noqa: BLE001
         return {}
+
+
+# 📈 LINE HISTORY (10/1, the owner: the engine has to KNOW early value, not guess): every upcoming game's moneyline,
+# every run, saved when it changes - so the midweek price (what an early play would really get) is kept, and the
+# early-price exam can grade on it instead of the stale summer "open" (data audit). data/sports/line_history/YYYY-MM.jsonl
+LINE_HIST_DIR = os.path.join(DATA, "line_history")
+LINE_HIST_DAYS = 10
+
+
+def record_lines(games, now=None, path=None):
+    """Append {"g": game id, "t": when, "h": home ml, "a": away ml} for every game starting in the next LINE_HIST_DAYS
+    whose price changed since it was last saved. Returns how many rows were added."""
+    now = now or datetime.now(timezone.utc)
+    d = path or LINE_HIST_DIR
+    os.makedirs(d, exist_ok=True)
+    last_p = os.path.join(d, "last.json")
+    try:
+        with open(last_p) as f:
+            last = json.load(f)
+    except (OSError, ValueError):
+        last = {}
+    stamp, hi = now.strftime("%Y-%m-%dT%H:%MZ"), (now + timedelta(days=LINE_HIST_DAYS)).strftime("%Y-%m-%dT%H:%MZ")
+    rows = []
+    for g in games.values():
+        if g.get("status") != "pre" or not (stamp < (g.get("start") or "") <= hi):
+            continue
+        h, a = g.get("ml_home"), g.get("ml_away")
+        if h in (None, "") or a in (None, ""):
+            continue
+        if last.get(g["id"]) == [str(h), str(a)]:
+            continue
+        last[g["id"]] = [str(h), str(a)]
+        rows.append({"g": g["id"], "t": stamp, "s": g["start"], "h": h, "a": a})
+    if rows:
+        with open(os.path.join(d, f"{stamp[:7]}.jsonl"), "a") as f:
+            for r in rows:
+                f.write(json.dumps(r) + "\n")
+    keep = (now - timedelta(days=2)).strftime("%Y-%m-%d")
+    last = {k: v for k, v in last.items() if (games.get(k) or {}).get("start", "9999")[:10] >= keep}
+    with open(last_p, "w") as f:
+        json.dump(last, f)
+    return len(rows)
