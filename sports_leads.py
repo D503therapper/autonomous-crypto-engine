@@ -57,6 +57,12 @@ def tags(c, sports):
                 t.append("sharp dog: line to it + money over tickets")
         except Exception:                                    # noqa: BLE001
             pass
+        try:                                             # the owner, 10/1 (the Jaguars): "if the engine's right,
+            own = (c["edge_own"] + 1) / c["dec"]         # it beat the line - it should believe in itself." Track every
+            if own - (c.get("p_market") or 1) >= 0.12:   # dog the engine's own read likes 12+ pts over the line
+                t.append("engine read 12+ over the line (believe it?)")
+        except (KeyError, TypeError, ZeroDivisionError):
+            pass
         if c.get("dh_game2"):
             t.append("MLB doubleheader game-2 dog")
         if lg == "nfl" and mo.get("last_pts") is not None and mo["last_pts"] <= 10:
