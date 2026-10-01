@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T01:38Z",
+ "updated": "2026-10-01T01:48Z",
  "games": [
   {
    "id": "mlb:401907972",
@@ -120,61 +120,54 @@
    "id": "mlb:401907975",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Padres",
-    "p": 0.498,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-01T02:00Z",
    "away": "Cubs",
    "home": "Padres",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "four",
    "lean": {
-    "team": "Cubs",
-    "opp": "Padres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -178,
-    "p": 0.609,
-    "win_p": 0.421,
+    "team": "Padres",
+    "opp": "Cubs",
+    "market": "ml",
+    "line": null,
+    "odds": -137,
+    "p": 0.556,
+    "win_p": 0.556,
     "reasons": [
-     "opponent missing key players"
-    ]
+     "hotter recent form",
+     "better starting pitcher",
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401891780",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.42,
-    "tie": 0.293,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-01T02:00Z",
    "away": "Kings",
    "home": "Avalanche",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Avalanche",
-    "opp": "Kings",
+    "team": "Kings",
+    "opp": "Avalanche",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.645,
-    "win_p": 0.645,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
-    ]
+    "odds": 160,
+    "p": 0.374,
+    "win_p": 0.374,
+    "reasons": [],
+    "result": null
    }
   },
   {
