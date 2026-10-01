@@ -245,7 +245,10 @@ DEX = {
     },
     # dex_exit_study.py (results/dex_exit_study.txt, 2026-09-26): the "fast10" entry (1h >= +10%) beat the old
     # 1h +5% / 6h +10% entry; buys must still outnumber sells
-    "entry": {"h1": 0.10, "h6": -1.0, "buy_ratio": 1.2},
+    # dex_tighten_study + dex_live_replay_study (2026-10-01): a +10% hour only pays when the coin is already in a run.
+    # 6h < +50%: 73 survivorship-free live-scanner trades lost under every exit, both halves (bounces in a fall:
+    # SHARTCOIN 6h -45%, MORI -57%); 6h >= +50% won in the 205-pool backtest in both halves, maxDD -25% -> -18%.
+    "entry": {"h1": 0.10, "h6": 0.50, "buy_ratio": 1.2},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%
         # idle. Owner 2026-09-26: size like the tested portfolio. Still capped at 0.5% of pool liquidity.
@@ -276,7 +279,8 @@ DEX = {
              # locked for up to 12 more days; dex_consolidated_study resampled: 7d beat 14d in both halves.
              "max_hold_days": 7, "runner_at_limit": (1.0, 0.40),    # >= +100% at the limit: 40% trail, no clock
              "liq_pull": 0.50, "rug_tax": 0.50,
-             "stake_back": 2.0},                    # EXPERIMENT 3b (09-30): at 2x sell the stake (~half), rest rides free
+             "stake_back": 3.0},                    # EXPERIMENT 3: at 3x sell the stake (~1/3); 2x (3b, 09-30) undone 10-01:
+                                                    # 3x beat 2x in both studies (dex_tighten / dex_live_replay)
     # WIDE SCANNER (owner #1 priority: catch runners earlier and more often): up to 3,000 live pools refreshed in
     # bulk from DexScreener (30 tokens per call, <= 60 calls/min on its own budget); movers go to the front of the
     # screening queue. Every scam check still applies. Other knobs: dex.DEFAULTS["scan"].

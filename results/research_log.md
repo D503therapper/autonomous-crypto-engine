@@ -54,6 +54,18 @@ honest test is forward. Probe/collector left as a tool; the 95-min workflow re-r
   header ('latin-1' error at the AIRPAD 2.1x alert, 19:06). Fix: non-latin-1 titles go RFC 2047-encoded (ntfy decodes
   them); regression test in moon_alerts_test.py. AIRPAD itself faded back to 0.26x - no alert missed now.
 
+### DONE 2026-10-01 04:30 - Tighten the DEX (owner: "we're losing our ass") -> EXPERIMENT 6 (entry needs 6h >= +50%), 3b undone
+Q: what separates the live losers from winners? METHOD: (1) dex_tighten_study.py on the consolidated 205 cached pools (same
+account as dex_consolidated_study, 10 slots, halves + 300 resampled accounts); (2) NEW dex_live_replay_study.py on the engine's
+own scanner log data/dex/scan/*.csv.gz (09-27..09-30, 13,969 pairs, 111 live-entry trades; dead coins included, so NO
+survivorship bias - the earlier studies only saw pools >= 8 days old; scam screen not replayable; ~2 days of follow-up).
+RESULTS: entry by the 6h move before the +10% hour - live replay: 6h < +50% n 73, sum per $1 -6.0 (2x) / -9.8 (no sell), both
+halves negative under all 7 exits; 6h >= +50% n 38, +6.8 / +13.4. Backtest per trade: 6h 0..+50% n 360 mean +11% median -7%;
++50..200% mean +113% median +9%; > +200% mean +145% median +45%. Account "need 6h >= +50%": older/newer +626% / +507% with
+3x stake back vs live +392% / +364% (2x), resampled medians higher in both halves, maxDD -18% vs -26%. Exit: 3x stake back beat
+2x in both data sets (backtest both halves; live replay +9.3 vs +6.8 on the 6h >= +50% trades) -> 3b undone, stake back at 3x.
+CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live replay is only 4 days. Judge on live results.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|
@@ -63,7 +75,8 @@ honest test is forward. Probe/collector left as a tool; the 95-min workflow re-r
 | 4 | 2026-09-29 05:40 | DEX: max hold 7 days instead of 14 (runner rule at day 7) | ~2026-10-20 | DEX frozen: $8 cash, 4 coins locked up to 12 more days; consolidated study resampled 7d > 14d both halves | pending |
 | - | 2026-09-29 ~14:00 | DEX SEASON 2: account restarted at $1,000 (season 1: -$700, archived in data/dex/archive/season1/). Experiments 1, 3, 4 are measured from here | - | season 1 | - |
 | 5 | 2026-09-30 21:40 | DEX: no price stop inside the hold (95% trail removed); rug check + 7-day limit + stake-back remain | ~2026-10-14 | 95% trail sold SS at the wick bottom (-$93; +417% after), BABYCALI +30% after | pending |
-| 3b | 2026-09-30 23:30 | DEX: take the stake back at 2x (sells ~half) instead of 3x; the rest rides free, no stop | ~2026-10-28 | live: 3 of 3 coins that doubled went on to lose 79-99% (BABYCALI 4.3x -> -$101, SS 2.1x -> -$93, AIRPAD 2.05x -> -$93); with this rule each ends about break-even or better (~+$290 on the DEX). Cost: a legend keeps about half its multiple (PNUT 30x -> ~16x); the floor study's half-at-2x variant was mixed by half | pending |
+| 3b | 2026-09-30 23:30 | DEX: take the stake back at 2x (sells ~half) instead of 3x; the rest rides free, no stop | ~2026-10-28 | live: 3 of 3 coins that doubled went on to lose 79-99% (BABYCALI 4.3x -> -$101, SS 2.1x -> -$93, AIRPAD 2.05x -> -$93); with this rule each ends about break-even or better (~+$290 on the DEX). Cost: a legend keeps about half its multiple (PNUT 30x -> ~16x); the floor study's half-at-2x variant was mixed by half | UNDONE 2026-10-01: 3x kept more than 2x in both studies below |
+| 6 | 2026-10-01 04:30 | DEX entry: buy a +10% hour only if the coin is already up >= +50% over 6h (was: any 6h) | ~2026-10-22 | live season 2: 6 of 6 buys with 6h < +50% are down (TIBBIR, ASTEROID, FARTCOIN, ZCAT, SHARTCOIN, MORI); replay of the live scanner log (111 trades, no survivorship): 6h < +50% lost under every exit in both halves (-$6 per $73 bet), 6h >= +50% +$7 per $38; 205-pool backtest: wins both halves and resampled, maxDD -25% -> -18% | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 

@@ -1,0 +1,69 @@
+pools 205; 3464 signal hours; window 2026-07-07 22:00 .. 2026-09-27 18:05; halves split at 2026-09-03 10:00; 10 slots, tiers A 10.0%; exit {'trail': 1.0, 'tp1': (999.0, 0.0), 'ladder': [], 'trail_steps': [], 'max_hold_days': 7, 'runner_at_limit': (1.0, 0.4), 'liq_pull': 0.5, 'rug_tax': 0.5, 'stake_back': 3.0}
+
+======================================================================================================================
+1. PER-TRADE (pool-sequential, live entry): what each exit does to the trades that doubled
+======================================================================================================================
+  never sell early           n 470  mean  +50.5%  median  -8.7%  >=2x closed 9%  <=-70% 4% | trades that peaked >=2x: 107, closed at a loss 19, mean +268.3%
+  stake back at 3x           n 470  mean  +40.3%  median  -6.9%  >=2x closed 11%  <=-70% 3% | trades that peaked >=2x: 107, closed at a loss 12, mean +223.5%
+  stake back at 2x (live)    n 470  mean  +31.0%  median  -5.8%  >=2x closed 9%  <=-70% 3% | trades that peaked >=2x: 107, closed at a loss 2, mean +182.4%
+
+======================================================================================================================
+2. ENTRY: trades by the 6h move before the +10% hour (pool-sequential, live exit)
+======================================================================================================================
+  6h   low ..  -40%: n   5  mean  -55.5%  median -89.3%  win 20%  <=-50% 60%
+  6h  -40% ..  -20%: n  10  mean +270.7%  median  +6.0%  win 70%  <=-50% 0%
+  6h  -20% ..   +0%: n  36  mean  +22.6%  median  -5.3%  win 42%  <=-50% 14%
+  6h   +0% ..  +50%: n 360  mean  +10.9%  median  -7.2%  win 37%  <=-50% 3%
+  6h  +50% .. +200%: n  36  mean +112.5%  median  +9.4%  win 56%  <=-50% 11%
+  6h +200% .. high: n  23  mean +145.2%  median +44.5%  win 61%  <=-50% 22%
+
+======================================================================================================================
+3. ACCOUNT: monthly return per half (each half from $1,000) and resampled medians [p10..p90]
+======================================================================================================================
+  entry                         exit                          older    newer  maxDD  resampled older            resampled newer
+  live entry                    never sell early            +756.7%  +827.1%   -25%  +407.1% [ +135%.. +655%]  +593.0% [ +149%.. +961%]
+  live entry                    stake back at 3x            +543.0%  +568.9%   -23%  +295.4% [ +116%.. +505%]  +392.6% [ +132%.. +667%]
+  live entry                    stake back at 2x (live)     +391.5%  +364.3%   -26%  +208.3% [  +78%.. +381%]  +294.0% [ +120%.. +468%]
+  skip if 6h <= -30%            never sell early            +761.1%  +842.9%   -25%  +395.5% [ +132%.. +662%]  +552.7% [  +96%.. +902%]
+  skip if 6h <= -30%            stake back at 3x            +547.8%  +536.8%   -24%  +291.3% [ +114%.. +519%]  +381.0% [  +96%.. +618%]
+  skip if 6h <= -30%            stake back at 2x (live)     +405.8%  +365.0%   -26%  +204.9% [  +75%.. +385%]  +284.3% [  +81%.. +452%]
+  skip if 6h <= -40%            never sell early            +756.7%  +842.9%   -25%  +400.5% [ +138%.. +664%]  +552.7% [  +98%.. +903%]
+  skip if 6h <= -40%            stake back at 3x            +543.0%  +536.8%   -23%  +293.6% [ +115%.. +515%]  +369.2% [  +97%.. +605%]
+  skip if 6h <= -40%            stake back at 2x (live)     +391.5%  +365.0%   -26%  +206.7% [  +75%.. +390%]  +284.3% [  +81%.. +448%]
+  skip if 6h <= -20%            never sell early            +611.9%  +842.9%   -26%  +396.2% [ +125%.. +640%]  +552.7% [ +120%.. +902%]
+  skip if 6h <= -20%            stake back at 3x            +431.8%  +536.8%   -24%  +283.7% [ +110%.. +482%]  +382.2% [  +96%.. +625%]
+  skip if 6h <= -20%            stake back at 2x (live)     +306.0%  +365.0%   -27%  +199.8% [  +72%.. +373%]  +279.1% [  +80%.. +448%]
+  skip if 6h >= +200%           never sell early            +785.9%  +827.1%   -26%  +348.3% [ +136%.. +643%]  +589.5% [ +166%.. +961%]
+  skip if 6h >= +200%           stake back at 3x            +443.9%  +568.9%   -24%  +258.6% [ +107%.. +466%]  +392.6% [ +142%.. +672%]
+  skip if 6h >= +200%           stake back at 2x (live)     +304.0%  +364.3%   -27%  +183.8% [  +72%.. +331%]  +290.4% [ +123%.. +470%]
+  skip 6h <= -30% or >= +200%   never sell early            +790.1%  +842.9%   -26%  +342.8% [ +133%.. +629%]  +552.7% [ +100%.. +903%]
+  skip 6h <= -30% or >= +200%   stake back at 3x            +448.8%  +536.8%   -24%  +260.9% [ +108%.. +470%]  +368.6% [ +103%.. +617%]
+  skip 6h <= -30% or >= +200%   stake back at 2x (live)     +316.8%  +365.0%   -27%  +189.1% [  +76%.. +341%]  +279.2% [  +81%.. +452%]
+  need 6h >= +25%               never sell early            +507.0%  +278.7%   -28%  +616.0% [ +342%.. +879%]  +139.6% [   -6%.. +329%]
+  need 6h >= +25%               stake back at 3x            +441.5%  +263.6%   -28%  +486.3% [ +255%.. +669%]  +145.8% [  +15%.. +305%]
+  need 6h >= +25%               stake back at 2x (live)     +357.1%  +176.2%   -23%  +357.1% [ +176%.. +520%]   +98.2% [   +3%.. +213%]
+  need 6h >= +50%               never sell early            +832.9%  +397.9%   -15%  +644.8% [ +376%.. +814%]  +344.9% [ +168%.. +590%]
+  need 6h >= +50%               stake back at 3x            +625.5%  +507.4%   -18%  +522.7% [ +299%.. +653%]  +446.9% [ +261%.. +658%]
+  need 6h >= +50%               stake back at 2x (live)     +493.8%  +331.7%   -20%  +377.6% [ +207%.. +502%]  +308.7% [ +191%.. +440%]
+  need 6h >= +100%              never sell early            +556.0%   +95.8%   -28%  +487.1% [ +206%.. +583%]   +62.0% [   +6%.. +132%]
+  need 6h >= +100%              stake back at 3x            +445.8%  +310.7%   -17%  +368.4% [ +166%.. +467%]  +185.9% [  +97%.. +275%]
+  need 6h >= +100%              stake back at 2x (live)     +342.6%  +241.0%   -18%  +256.1% [ +119%.. +362%]  +159.0% [  +96%.. +228%]
+
+======================================================================================================================
+4. VERDICT  (vs live entry + live exit; must win both halves AND both resampled medians)
+======================================================================================================================
+  PASSES  live entry + never sell early: older +756.7% / newer +827.1% (live +391.5% / +364.3%), maxDD -25%
+  PASSES  live entry + stake back at 3x: older +543.0% / newer +568.9% (live +391.5% / +364.3%), maxDD -23%
+  PASSES  skip if 6h <= -30% + never sell early: older +761.1% / newer +842.9% (live +391.5% / +364.3%), maxDD -25%
+  PASSES  skip if 6h <= -30% + stake back at 3x: older +547.8% / newer +536.8% (live +391.5% / +364.3%), maxDD -24%
+  PASSES  skip if 6h <= -40% + never sell early: older +756.7% / newer +842.9% (live +391.5% / +364.3%), maxDD -25%
+  PASSES  skip if 6h <= -40% + stake back at 3x: older +543.0% / newer +536.8% (live +391.5% / +364.3%), maxDD -23%
+  PASSES  skip if 6h <= -20% + never sell early: older +611.9% / newer +842.9% (live +391.5% / +364.3%), maxDD -26%
+  PASSES  skip if 6h <= -20% + stake back at 3x: older +431.8% / newer +536.8% (live +391.5% / +364.3%), maxDD -24%
+  PASSES  skip if 6h >= +200% + never sell early: older +785.9% / newer +827.1% (live +391.5% / +364.3%), maxDD -26%
+  PASSES  skip if 6h >= +200% + stake back at 3x: older +443.9% / newer +568.9% (live +391.5% / +364.3%), maxDD -24%
+  PASSES  skip 6h <= -30% or >= +200% + never sell early: older +790.1% / newer +842.9% (live +391.5% / +364.3%), maxDD -26%
+  PASSES  skip 6h <= -30% or >= +200% + stake back at 3x: older +448.8% / newer +536.8% (live +391.5% / +364.3%), maxDD -24%
+  PASSES  need 6h >= +50% + never sell early: older +832.9% / newer +397.9% (live +391.5% / +364.3%), maxDD -15%
+  PASSES  need 6h >= +50% + stake back at 3x: older +625.5% / newer +507.4% (live +391.5% / +364.3%), maxDD -18%
+  (no line above = nothing beats the live rules everywhere)

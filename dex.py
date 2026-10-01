@@ -953,9 +953,8 @@ class DexHunter:
         then the strongest 1h movers, then deeper pools. Ordering by liquidity alone spent the one-request
         budget on big slow pools while the movers' jumps ended in the queue (seen 2026-09-26)."""
         c, E = job["c"], self.p["entry"]
-        h1, b1, s1 = c.get("h1") or 0.0, c.get("b1") or 0, c.get("s1") or 0
-        ready = h1 >= E["h1"] and b1 >= max(1, s1 * E["buy_ratio"])
-        return (0 if ready else 1, -h1, -c["liq"])
+        h1 = c.get("h1") or 0.0
+        return (0 if entry_trigger(c, E) else 1, -h1, -c["liq"])
 
     # ---- WIDE SCANNER: rolling pool universe, bulk refresh, movers to the front of the screen ----
     # Universe = up to scan.max_pools tokens on config.DEX["chains"], fed by every discovery source plus
@@ -1584,8 +1583,8 @@ class DexHunter:
                 return
             return self._request_exit(k, 1.0, f"trailing stop (peak {pos['peak']:g})", "normal", now, "stop")
         # EXPERIMENT 3 (owner 2026-09-28): at `stake_back` x sell the stake once - the rest rides on house money.
-        # BABYCALI went 4.3x and then -95% within an hour, ending -$101 instead of banking its gain. 3b (09-30): 3x -> 2x
-        # after SS (2.1x -> -93%) and AIRPAD (2.05x -> -99%): every live coin that doubled round-tripped to a big loss.
+        # BABYCALI went 4.3x and then -95% within an hour, ending -$101 instead of banking its gain. 3b (09-30) tried 2x
+        # after SS / AIRPAD round-tripped; undone 10-01: 3x kept more in both the backtest and the live-scanner replay.
         SB = X.get("stake_back")
         if SB and not pos.get("sb") and p >= pos["entry"] * SB:
             pos["sb"] = True
