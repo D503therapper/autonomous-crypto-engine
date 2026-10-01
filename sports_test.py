@@ -6822,6 +6822,18 @@ def test_review_says_how_it_was_won_or_lost():
         shutil.rmtree(tmp)
     assert "sports_decider.fill" in open("sports.py").read() and "def deciders(" in open("sports.py").read()
 
+def test_build_your_own_parlay_line_on_top():
+    """The owner, 10/1: '🧩 Build your own parlay from today's plays' goes AT THE TOP of the day's board (it sat
+    under the last play card, where nobody saw it) - whenever there are 2+ straight picks up."""
+    import sports_dashboard as d
+    from datetime import date
+    picks = [{"kind": "lock", "status": "open", "legs": []}, {"kind": "play", "status": "open", "legs": []}]
+    html = d._cards(date(2026, 10, 1), picks, [("lock", "<div>LOCK</div>"), ("play", "<div>PLAY</div>")])
+    assert "🧩 Build your own parlay" in html and html.index("🧩") < html.index("LOCK"), html[:300]
+    one = d._cards(date(2026, 10, 1), picks[:1], [("lock", "<div>LOCK</div>")])
+    assert "🧩" not in one                                     # one pick: nothing to build
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
