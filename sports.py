@@ -472,6 +472,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     out.append({**base, "market": "spread", "line": line, "odds": sodds, "dec": sd.decimal(sodds),
                                 "p": pc, "p_market": 1 / sd.decimal(sodds), "edge": pc * sd.decimal(sodds) - 1,
                                 "reasons": base["reasons"] + _proven_reason(n_sp, s_sp if side == "home" else -s_sp)})
+    mark_hockey_favorites(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -600,7 +601,7 @@ def good(c):
     if c.get("market") == "total":
         need = MIN_EDGE + sports_selfcheck.extra_edge(SELF_ST, c)
         return c["edge"] >= need and c.get("edge_own", c["edge"]) >= need
-    if fighting(c):
+    if fighting(c) or hockey_fav_bad(c):
         return False
     if c["odds"] >= 100:                               # an underdog: VALUE only when a proven angle says it's underpriced
         return (proven(c) and c["edge"] >= MIN_EDGE) or dog_gate(c)   # ...or the whole dog score does (10/1)
@@ -1100,6 +1101,8 @@ def own_agrees(c):
     """The engine's own read (its ratings - no line, no sharp money) says this side is worth at least its price."""
     if c.get("edge_own") is None or not c.get("dec") or c.get("p_market") is None:
         return False
+    if c.get("w_p") is not None:
+        return c["w_p"] >= c["p_market"]                     # (hockey: the weighed read)
     return (c["edge_own"] + 1) / c["dec"] >= c["p_market"]
 
 
@@ -1240,7 +1243,7 @@ def _sized(t, leg):
     """Units for one pick of tier t - the engine's call (see the sizing notes up top)."""
     if t == "lock":
         dec = leg.get("dec") or _dec(leg.get("odds") or -110)
-        own = (leg["edge_own"] + 1) / dec if leg.get("edge_own") is not None else leg.get("p")   # edge_own is value per
+        own = leg.get("w_p") or ((leg["edge_own"] + 1) / dec if leg.get("edge_own") is not None else leg.get("p"))   # edge_own is value per
         #                                         $1 (own x dec - 1), the same read own_agrees() uses - not a win % gap
         return kelly_units(own, leg.get("odds") or -110)
     if t == "value":
@@ -1314,6 +1317,8 @@ def real_value(c):
     gives 58.5% went up with ½u - the bet loses money by the engine's own numbers)."""
     if c.get("dog_p") is not None and c.get("odds", 0) >= 100:
         return c["dog_p"] * c["dec"] > 1                     # (a gated dog: everything weighed beats its real price)
+    if c.get("w_p") is not None:
+        return c["w_p"] * c["dec"] > 1                       # (a hockey favorite facing a bad dog: the weighed read)
     return (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) > 0   # (units are sized by
     #                                                          the engine's own read - it has to beat the real price)
 
@@ -1327,7 +1332,7 @@ def backup_lock(cands):
     pricey hockey favorite, never a trap, never one the engine is fighting. A unit play (sized by that read)."""
     pool = [c for c in cands if c["market"] == "ml" and c["odds"] >= MAX_FAV and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
-            and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0]
+            and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0]
     return max(pool, key=lambda c: (round(c["edge_own"], 3), (c["edge_own"] + 1) / c["dec"])) if pool else None
 
 
@@ -1335,12 +1340,48 @@ def lock_value(c):
     """The Lock's value with every proven nudge in (rank_p's): the engine's own read, moved as rank_p moves the win %,
     over the price (10/1: ranked by raw value, the Astros - a playoff favorite that just lost the last game - got back
     in)."""
-    return ((c["edge_own"] + 1) / c["dec"] + rank_p(c) - c["p"]) * c["dec"] - 1
+    own = c.get("w_p") or (c["edge_own"] + 1) / c["dec"]
+    return (own + rank_p(c) - c["p"]) * c["dec"] - 1
+
+
+NHL_FAV_PER_PT = 0.005   # the hockey favorite study (10/1, 2019-26, -150 or better): the dog across from it, scored with
+NHL_FAV_CAP = 0.04       # every spot and fade, WEIGHS the favorite's read - half a point of win % per point of the dog's
+#                          score the other way (dog -4 or lower: the favorite won 58.9%, +2.6% on 671, 2023+ +1.9%;
+#                          dog 0 or higher: 53.5%, -6.2%, 2023+ -11..-12%). The 1-8 hockey run (the owner, 10/1).
+NHL_EARLY_FAV = -0.03    # ...and the season's first 2 weeks weigh every hockey favorite down (55% won, -4.3%; the owner:
+#                          "opening week the dogs are winning") - weights, never a rule (the owner, 10/1)
+
+
+def mark_hockey_favorites(cands):
+    """Every hockey moneyline favorite gets its WEIGHED read (w_p): the no-vig line, moved by the dog score of the team
+    across from it (opp_dog) and the early-season weight. It's a pick only if that whole read beats its price."""
+    ml = {}
+    for c in cands:
+        if c.get("league") == "nhl" and c.get("market") == "ml":
+            ml.setdefault(c["game_id"], []).append(c)
+    for pair in ml.values():
+        if len(pair) != 2:
+            continue
+        fav, dog = sorted(pair, key=lambda c: c["odds"])
+        if fav["odds"] >= 0 or not 100 <= dog["odds"] <= DAILY_DOG_MAX:
+            continue
+        fav["opp_dog"] = round(dog_score(dog), 2)
+        if fav.get("p_market") is not None:
+            lift = max(-NHL_FAV_CAP, min(NHL_FAV_CAP, -NHL_FAV_PER_PT * fav["opp_dog"]))
+            early = NHL_EARLY_FAV if season_w(fav) < 0 else 0.0
+            fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early)), 4)
+
+
+def hockey_fav_bad(c):
+    """A hockey favorite whose WEIGHED read (w_p) doesn't beat its price - everything weighed says no."""
+    return c.get("w_p") is not None and c.get("odds", 0) < 0 and c["w_p"] * c["dec"] <= 1
 
 
 def nhl_pricey(c):
     """A hockey moneyline favorite at -130..-150 the engine's own read doesn't beat by NHL_FAV_EDGE (the owner, 10/1:
     "the biggest hockey favorite close to -150 - they keep losing")."""
+    if c.get("w_p") is not None:
+        return False                                         # (the weighed read backs it - the dog across is a bad one)
     return (c.get("league") == "nhl" and c.get("market") == "ml" and NHL_FAV_BAND[0] <= c.get("odds", 0) <= NHL_FAV_BAND[1]
             and (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) < NHL_FAV_EDGE)
 
@@ -1370,7 +1411,7 @@ def viewer_leans(cands, avoid):
     the pricey hockey favorite - on games we're not playing; the big games first, 2 a sport."""
     def ok(c):
         if c["market"] not in ("ml", "spread") or c["odds"] < MAX_FAV or c.get("trap") or nhl_pricey(c) \
-                or c["game_id"] in avoid:
+                or hockey_fav_bad(c) or c["game_id"] in avoid:
             return False
         if fighting(c) and not (c["market"] == "ml" and c.get("edge_own") is not None
                                 and (c["edge_own"] + 1) / c["dec"] >= LEAN_WINNER_OWN):

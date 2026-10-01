@@ -5863,6 +5863,29 @@ def test_bug_hunt_10_1():
     assert sports.money_against({**_cand("x", -112, 0.55, league="mlb"), "drift": 0.09}) in (True, False)
 
 
+def test_hockey_favorites_weigh_the_dog_across():
+    """10/1, the owner: "hockey's been killing us" (1-8) - and "stop adding rules, it's weighed in." A hockey favorite's
+    read is the line moved by the dog across the ice (its whole dog score) and the early-season weight; it's a pick
+    only when that weighed read beats its price."""
+    fav = {**_cand("g", -140, 0.57, league="nhl"), "side": "home", "edge_own": 0.565 * sd.decimal(-140) - 1, "p_market": 0.565}
+    base_dog = {**_cand("g", 120, 0.43, league="nhl"), "side": "away", "home": False, "edge_own": 0.43 * sd.decimal(120) - 1,
+                "p_market": 0.435, "dog_ctx": {}}
+    keep = dict(sports.SEASON_START)
+    try:
+        sports.SEASON_START["nhl"] = "2025-10-07"                # (mid-season: no early weight)
+        bad = {**base_dog, "tired_vs_rested": True, "dog_ctx": {"ss_gap": -0.05}}     # tired, out-shot: -6
+        f1 = dict(fav); sports.mark_hockey_favorites([f1, dict(bad)])
+        assert f1["w_p"] > f1["p_market"] and sports.real_value(f1) and not sports.hockey_fav_bad(f1)
+        good_dog = {**base_dog, "dog_ctx": {"won": False, "opp_won": False, "hits_top": True}}    # +4
+        f2 = dict(fav); sports.mark_hockey_favorites([f2, dict(good_dog)])
+        assert f2["w_p"] < f2["p_market"] and sports.hockey_fav_bad(f2) and not sports.good(f2)
+        sports.SEASON_START["nhl"] = "2026-09-20"                # the season's first 2 weeks: weighed down
+        f3 = dict(fav); sports.mark_hockey_favorites([f3, dict(bad)])
+        assert f3["w_p"] < f1["w_p"]
+    finally:
+        sports.SEASON_START.clear(); sports.SEASON_START.update(keep)
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
