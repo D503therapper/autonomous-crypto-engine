@@ -383,7 +383,8 @@ def engine_weights():
                              "MLB doubleheader game 2 (the Dog of the Day's screen)", "hockey sharp dog (line to it + money over tickets)",
                              "fades: ice cold, coach's first season (cancels if both new), losing streak, Thursday night, "
                              "key player out, East home dog vs a West favorite, money running away"],
-        "early plays": f"max {se.SPOT_MAX_WEEK} a week, dogs +{se.SPOT_DOG[0]}..+{se.SPOT_DOG[1]} only (dogs early, "
+        "early plays": ("every one that clears the bar, posted the moment it's found (checked every hour), one ping each"
+                        if se.SPOT_MAX_WEEK is None else f"max {se.SPOT_MAX_WEEK} a week") + f", dogs +{se.SPOT_DOG[0]}..+{se.SPOT_DOG[1]} only (dogs early, "
                        "favorites on game day), the spots + believed leads + college rain / snow weighed, both teams' "
                        "injury reports checked; 1u off a bye, ½u the other spots" + ("" if se.SPOT_MIN_WEEK else
                        " - never forced (the one-a-week minimum is paused)"),

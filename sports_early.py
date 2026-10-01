@@ -27,7 +27,8 @@ PATH = os.path.join(sd.DATA, "early.json")
 EXAM_PATH = os.path.join(sd.DATA, "early_exam.json")
 PARAMS_PATH = os.path.join(sd.DATA, "early_params.json")   # the engine retrained on recent seasons (a week's cache)
 ON = True                               # the owner OK'd it 9/30 (the box, the game-day box, the ping)
-PINGS = False                           # the owner, 9/30: no phone pings for early plays - they just post in the box
+PINGS = True                            # the owner, 10/1: "when the engine detects an early value play, it will send it
+#                                         over" - one ping each, only once the dashboard shows it (tools/early_ping.py)
 LEARN_Y = 3                             # the engine for these learns on the last 3 seasons only: the owner's call
                                         # (9/30: "the sports have changed"), and the exam agreed - NBA and college
                                         # football only pass it learning recent, the NFL passes both ways
@@ -355,8 +356,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             o = sm.own_p(p_, {**f, "inj": 0.0, "key": 0.0, "weather": 0.0, "cold": 0.0})   # Tuesday-known only
             return o if side == "home" else 1 - o
         ws_ = week_start(now)
-        room = SPOT_MAX_WEEK - sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted")
-                                   and _t(p["posted"]) >= ws_)
+        room = 10 ** 6 if SPOT_MAX_WEEK is None else SPOT_MAX_WEEK - sum(
+            1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws_)
         for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now, have) + \
                 min_one(games, st, now, injuries, own_of, have):
             if c["game_id"] in have:
@@ -474,7 +475,9 @@ SPOT_WEIGHT = {"best": 0.0, "bye": 0.04, "mnf": 0.015, "eastwest": 0.03, "blowou
 FADE_WEIGHT = {"ice cold": -0.04, "coach's first season": -0.04, "losing streak": -0.04, "Thursday night": -0.03}
 SPOT_MIN_TOTAL = 0.05                   # the engine's edge + the spots + the fades, in win-% points
 SPOT_FIGHT = 0.01                       # the engine's own read may not be more than 1 point under the price
-SPOT_MAX_WEEK = 2                       # the owner, 10/1: "just two of these early plays, not three". The engine
+SPOT_MAX_WEEK = None                    # the owner, 10/1 (later): "I don't want to cap the early value plays at two -
+#                                         build it the best for us": every play that clears the whole bar posts, the
+#                                         moment it's found (waiting costs the price). None = no cap. (Was 2.) The engine
 #                                         ranks everything it finds and posts the best 2 a week (Tuesday to Monday)
 SPOT_ORDER = ("bye", "mnf", "eastwest", "blowout", "hammered", "engine", "best")
 SPOT_MIN_WEEK = 0                       # the owner, 10/1: "one minimum, two max early value plays" - a week the spots
@@ -815,11 +818,12 @@ def pick_spots(cands, st, now, have=()):
     loc = now.astimezone(PT)
     d = loc.date() + timedelta(days=(1 - loc.weekday()) % 7)        # the coming Tuesday (today, on a Tuesday)
     slate = datetime(d.year, d.month, d.day, SPOT_SLATE_HOUR_PT, tzinfo=PT)
-    if loc.weekday() in (5, 6, 0, 1) and now < slate:        # Saturday-Tuesday 6 AM: hold for Tuesday's full slate
+    if SPOT_MAX_WEEK is not None and loc.weekday() in (5, 6, 0, 1) and now < slate:   # (a cap: hold for Tuesday's
+        #                                                   full slate to rank it - no cap: post it now, before it moves)
         cands = [c for c in cands if c.get("fair_at") and _t(c["fair_at"]) + timedelta(hours=SPOT_WINDOW_H) < slate]
     cands = [c for c in cands if c["game_id"] not in have]   # (10/1 bug check: an already-posted game used a slot)
     taken = sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws)
-    room = max(0, SPOT_MAX_WEEK - taken)
+    room = len(cands) if SPOT_MAX_WEEK is None else max(0, SPOT_MAX_WEEK - taken)
     cands.sort(key=lambda c: -(c.get("score") or 0))          # everything weighed together - the best total first
     return cands[:room]
 
@@ -842,7 +846,7 @@ def min_one(games, st, now, injuries, own_of, have=()):
              if c["game_id"] not in have and _t(c["start"]) < nxt and (c.get("score") or 0) > 0]
     cands.sort(key=lambda c: -(c.get("score") or 0))
     out = cands[:SPOT_MIN_WEEK]                             # the minimum one: the best weighed dog
-    out += [c for c in cands[SPOT_MIN_WEEK:SPOT_MAX_WEEK] if c["score"] >= SPOT_MIN_TOTAL]   # a 2nd only if it clears
+    out += [c for c in cands[SPOT_MIN_WEEK:SPOT_MAX_WEEK or len(cands)] if c["score"] >= SPOT_MIN_TOTAL]   # a 2nd if it clears
     for c in out:                                           # the normal bar too ("one minimum, two max")
         c["spot"] = "best"                                  # (10/1 audit: a backup pick skipped the spots' own window -
     return out                                              # it counts as the engine's best dog, never in a spot's record)

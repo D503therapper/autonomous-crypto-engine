@@ -42,9 +42,12 @@ every session:
   odds-history studies (sports_early.SPOTS - bye-week dog 1u; Monday night NFL dog, East Coast NFL team flying West,
   blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. The spots are
   WEIGHTS on the engine's own read (never a trigger), the fades subtract; it posts only if the engine isn't fighting
-  the side and the total clears SPOT_MIN_TOTAL. ONE MINIMUM, TWO MAX A WEEK (the owner, 10/1: a week the spots find nothing, the engine's best weighed dog goes up from Wednesday 6 AM PT, ½u - sports_early.min_one), the best totals, ranked Tuesday 6 AM PT; dogs
+  the side and the total clears SPOT_MIN_TOTAL. NO WEEKLY CAP (the owner, 10/1: "I don't want to cap the early value plays
+  at two - build it the best for us"): the engine checks every hour and posts every play that clears the whole bar the
+  moment it finds it (sports_early.SPOT_MAX_WEEK = None), with ONE phone ping each once the dashboard shows it
+  (sports_early.PINGS); never forced (the one-a-week minimum stays paused); dogs
   +100..+220 only ("never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
-  late is not early; never game day; never a side with a key player out or questionable. No pings.
+  late is not early; never game day; never a side with a key player out or questionable.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
 - The Lock of the Day always sits on top of the day's board, right under Live Plus Money - except on game day the
   🎯 WE GOT IN EARLY box (our early value plays playing today) goes just above it (the owner, 9/30). An early play is
@@ -53,7 +56,8 @@ every session:
   worth its price, then the best proven win % (sports.own_agrees; tested 1,808 days, 58.1% vs 56.8%).
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
   day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
-- The only automatic phone notifications are Live Plus Money bets (no pings for new picks or early value plays) - plus
+- The only automatic phone notifications are Live Plus Money bets and early value plays (one ping each, once the
+  dashboard shows it - the owner, 10/1) - plus
   the one Patty-vs-the-Algorithm result ping (sports_challenge.final_words) and one-time announcements the owner asks
   for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
 - Units (the engine decides, by its edge - quarter-Kelly, ½u-10u; 1 unit = 1% of our bankroll, $1,000 start): early
