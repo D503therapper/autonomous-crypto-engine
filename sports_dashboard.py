@@ -1556,7 +1556,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1}}
 .pvc small{{font-size:10px;font-weight:800;opacity:.9}}
 .pvc span{{overflow-wrap:anywhere}} .pvc b{{font-weight:900;font-variant-numeric:tabular-nums}}
-.pvc .pvp>i{{font-style:normal;min-width:1.2em;text-align:right;font-size:12px}} .pvc.lost span,.pvc.lost .pvp b{{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}}
+.pvc .pvp>i{{font-style:normal;min-width:1.2em;text-align:right;font-size:12px}} .pvc.lost>span,.pvc.lost .pvp b{{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}}
 .pvc.won{{box-shadow:inset 0 0 0 1px #22c55e88}} .pvc.lost{{box-shadow:inset 0 0 0 1px #ff3b3b88}}
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
 *{{box-sizing:border-box}}
@@ -1993,7 +1993,8 @@ function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data
  else if(sc&&sc.delayed)h="⏳";
  else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
    h=Math.max(w[0],w[1])<2?"":w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':'<span class="pvw-l">❌ LOSS</span>';}}
- if(i.innerHTML!==h)i.innerHTML=h;}})}}
+ c.classList.toggle("won",h.indexOf("WIN")>=0);c.classList.toggle("lost",h.indexOf("LOSS")>=0);   // (10/1, the owner: a loss
+ if(i.innerHTML!==h)i.innerHTML=h;}})}}                     // called live looks just like a graded one)
 pvLive();setInterval(pvLive,3000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
 document.addEventListener("visibilitychange",fastScores);

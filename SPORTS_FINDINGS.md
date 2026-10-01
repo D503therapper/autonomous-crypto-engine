@@ -147,6 +147,10 @@ noise either way.
   itself; the engine's own read was against the Flyers' price. Now a leg is a LOCK only if the own read backs it
   (sports.own_agrees - the Lock of the Day's rule); otherwise it shows as a lean.
 
+- **Tennis live tightened (10/1, the owner):** 3-6 (-27%) on its first 9 plays, thin edges (Tsitsipas +104 at 52%)
+  on prices that move in seconds, never tested on real live prices (no history of them). A new play now needs a 65%+
+  pre-match favorite on the books gone plus money AND a 10%+ edge. Watch its record.
+
 ## Data audit (10/1, the owner: "gotta confirm we don't gather bad data")
 - **Coaches (ESPN per season): BAD** - today's coach copied back through every season (NFL / NHL / MLB / college
   football), partly wrong in hoops. Coaching round 1 weights OFF.

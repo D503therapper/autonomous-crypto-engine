@@ -1119,6 +1119,28 @@ def _ml_for(p, edge):
     return int(round((dec - 1) * 100))
 
 
+def test_live_tennis_super_value_only():
+    """10/1, the owner: tennis live was popping up all night and losing (3-6) - "the engine has to see a super value".
+    A NEW tennis live play needs a big pre-match favorite on the BOOKS (65%+) gone plus money, and a 10%+ edge."""
+    import sports_tennis as stn
+    import sports_tennis_live as stl
+    L = sports_live
+    L._TUNED.clear()
+    m = _tn_live_row()
+    pre = {"mkt_p1": 0.78, "model_p1": 0.8}
+    p1 = stl.p1_live(m, 0.78)[0]
+    def line_at(edge):
+        ml = _ml_for(p1, edge)
+        return {"a": "Holger Rune", "b": "Jannik Sinner", "a_ml": -ml - 40, "b_ml": ml, "suspended": False}
+    ok = line_at(0.12)
+    _, flip = stn.match_line(m, [ok])
+    assert L.evaluate_tennis(m, ok, flip, pre, None)                             # a -350 favorite, now plus, 12%: a play
+    assert L.evaluate_tennis(m, line_at(0.07), flip, pre, None) == []            # 7%: not super value any more
+    mild = {"mkt_p1": 0.62, "model_p1": 0.8}                                     # only a -165 favorite pre-match
+    assert L.evaluate_tennis(m, line_at(0.12), flip, mild, None) == []
+    assert L.TENNIS_SUPER_PRE == 0.65 and L.TENNIS_MIN_EDGE == 0.10
+
+
 def test_live_tennis_rules():
     import sports_tennis as stn
     import sports_tennis_live as stl
@@ -5227,6 +5249,9 @@ def test_challenge_live_comes_from_the_score_feed():
     assert "st+6*3600000" not in js and "sc.live" in js and "flip(sc)" in js
     assert "✅ WIN" in js and "❌ LOSS" in js                              # the owner, 10/1: the mark AND the word
     assert "Math.max(w[0],w[1])<2" in js                                   # one set in is never a result (Ruud, 10/1)
+    assert 'c.classList.toggle("lost"' in js                               # a live-called loss looks like a graded one
+    assert ".pvc.lost>span,.pvc.lost .pvp b{{text-decoration:line-through" in src   # the name + price struck, never ❌ LOSS
+    assert ".pvc.lost span," not in src
     called = src[src.index("function called("):src.index("function liveTags(")]
     assert "Math.max(w[0],w[1])<2" in called
     c["patty"][0]["result"], c["algo"][0]["result"] = "lost", "won"

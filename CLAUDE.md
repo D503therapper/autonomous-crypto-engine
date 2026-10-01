@@ -34,6 +34,8 @@ every session:
   value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.
+- Tennis live plus money (the owner, 10/1 - "tighten it up"): only SUPER value - a 65%+ pre-match favorite on the
+  books now at plus money, with a 10%+ edge (sports_live.TENNIS_SUPER_PRE / TENNIS_MIN_EDGE).
 - 📊 TODAY'S RESULTS (the owner, 10/1 - not 'damage': it sounded like a loss): the day's units / ROI / record sit at the very top once every play with units
   that day is graded (never a half-day number), gone at midnight PT (sports_dashboard.day_recap).
 - A win % only shows on the dashboard when it's over 55% (sports_dashboard.pct_ok) - under that, words say it.

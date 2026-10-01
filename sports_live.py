@@ -936,6 +936,11 @@ TENNIS_STALE_S = 600          # ESPN's tennis score runs behind: a score that ha
                               # ~4) can't be trusted against a live price - no new play, a play that's up holds paused
 TENNIS_STRONG_PRE = 0.60      # "the engine liked this player pregame": one of our picks, or 60%+ on our own numbers
 TENNIS_MAX_DOWN = 2           # the score isn't as bad as the price says: at most a break (2 games) down in this set
+# 10/1, the owner ("we gotta tighten it up" - tennis live was 3-6 and popping up all night): a NEW tennis live play needs
+# SUPER value - the books had this player as a big favorite before the match (65%+, about -185 or shorter) and now
+# he's plus money, AND the engine's live read beats the live price by 10%+ (double every other sport's bar).
+TENNIS_SUPER_PRE = 0.65
+TENNIS_MIN_EDGE = 0.10
 SCORE_SEEN = {}               # match id -> (score, first time we saw it): how long the score has sat still
 TENNIS = {"watching": 0, "priced": 0, "stale": 0, "suspended": 0, "books": ""}
 TENNIS_ON = [True]
@@ -1169,6 +1174,10 @@ def evaluate_tennis(m, line, flip, pre, ours_side, hold=(), used=None):
         if ml < DOG_MIN or edge < (STAY_EDGE if up else LIVE_MIN_EDGE) or p < (STAY_P if up else min_p()) \
                 or (up and ml > STAY_MAX_ODDS) or (not up and ml > LIVE_MAX_ODDS):
             continue
+        mkt_pre = pre.get("mkt_p1")
+        if not up and (edge < TENNIS_MIN_EDGE or mkt_pre is None
+                       or (mkt_pre if side == 1 else 1 - mkt_pre) < TENNIS_SUPER_PRE):
+            continue                   # (super value only: a big pre-match favorite gone plus money, 10%+ edge)
         mp = pre.get("model_p1")
         model_pre = None if mp is None else (mp if side == 1 else 1 - mp)
         ours = ours_side == side
