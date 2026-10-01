@@ -6888,12 +6888,12 @@ def test_steep_lean_says_why_its_not_the_lock():
     import sports_dashboard as d
     st = {**_cand("pit", -148, 0.572, league="nfl"), "edge_own": 0.587 * sd.decimal(-148) - 1}
     line = d._units_line(0, "Steelers", -148, lean=True, leg=st)
-    assert "Lock" in line and "-148" in line and "NO UNITS" in line
+    assert "-148" in line and "NO UNITS" in line and "59%" in line and "60%" in line   # the chance vs what the price needs
     coin = {**_cand("buf", -108, 0.501, league="nhl")}
     assert d._units_line(0, "Sabres", -108, lean=True, leg=coin) == '<div class="un">🟡 NO UNITS — JUST A LEAN</div>'
     worth = {**_cand("unt", -112, 0.58, league="ncaaf"), "edge_own": 0.589 * sd.decimal(-112) - 1}
     assert d._steep_line(worth) == ""                      # worth its price: never "too steep"
-    assert len(d.STEEP) >= 18 and not any("likeliest" in x or "on the board" in x for x in d.STEEP)   # many ways to say it, never "the
+    assert len(d.STEEP) >= 15 and not any("likeliest" in x or "on the board" in x or "label" in x for x in d.STEEP)   # many ways to say it, never "the
     d.WHY_USED.clear()                                                         # likeliest on the board" (10/1)
     two = {d._steep_line({**st, "team": t}, t) for t in ("Steelers", "Lions")}
     assert len(two) == 2                                                       # never the same line twice on a page
