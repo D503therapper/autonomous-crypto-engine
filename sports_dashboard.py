@@ -2049,7 +2049,10 @@ function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data
  var i=c.querySelector(".pvp>i"),sc=B[c.getAttribute("data-gid")];if(!i)return;   // 10/1, the owner: it said LIVE for
  if(sc&&sc.p1&&c.getAttribute("data-side")==="2")sc=flip(sc);                      // 6 hours off the clock - now only the
  var h="";if(sc&&sc.live&&!sc.delayed){{                                          // real score feed says LIVE / done
-   h='<span class="lvb"><i></i>LIVE</span> '+(sc.sets||[]).map(function(x){{return x[0]+"-"+x[1]}}).join(" ");}}
+   var st_=sc.sets||[],dn=sc.done||0,sw=[0,0];st_.slice(0,dn).forEach(function(x){{if(x[0]>x[1])sw[0]++;else if(x[1]>x[0])sw[1]++}});
+   var cur=st_[dn];                                              // (10/1, the owner: Zheng's 3-setter "looked all messed
+   h='<span class="lvb"><i></i>LIVE</span> '+(dn?sw[0]+"-"+sw[1]+" sets"+(cur?" · "+cur[0]+"-"+cur[1]:""):(cur?cur[0]+"-"+cur[1]:""));}}   // up" - every set
+   //                                                              crammed in the cell. Now: sets won, then this set.
  else if(sc&&sc.delayed)h="⏳";
  else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
    h=Math.max(w[0],w[1])<2?"":w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':'<span class="pvw-l">❌ LOSS</span>';}}

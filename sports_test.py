@@ -5284,6 +5284,7 @@ def test_challenge_live_comes_from_the_score_feed():
     assert "Math.max(w[0],w[1])<2" in js                                   # one set in is never a result (Ruud, 10/1)
     assert 'c.classList.toggle("lost"' in js                               # a live-called loss looks like a graded one
     assert '.pvs[data-live]' in js and 'classList.contains("won"))ps++' in js   # the score counts a live-called win
+    assert '" sets"' in js and 'join(" ")' not in js                      # sets won + this set, not every set crammed in
     assert 'data-live=1' in C.html(c, escape)
     assert ".pvc.lost>span,.pvc.lost .pvp b{{text-decoration:line-through" in src   # the name + price struck, never ❌ LOSS
     assert ".pvc.lost span," not in src
