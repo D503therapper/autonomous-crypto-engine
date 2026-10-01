@@ -5006,3 +5006,27 @@ error: could not detach HEAD
    dex re-screen: PINK@solana:AVBN6kXd flagged once (lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
    dex screen: REJECT ZC@ethereum liq $506,319 - lp locked 0% < 95%
    dex screen: REJECT USDS@ethereum liq $50,005,505 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-01 19:52 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-01 19:52 UTC] crypto/mover     equity $456.12 (-8.8%) 2 open  market UP
+[2026-10-01 19:52 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 19:52 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-01 19:52 UTC] crypto/social_heat equity $538.22 (+7.6%) 2 open  market UP
+[2026-10-01 19:52 UTC] crypto/breakout10 equity $495.30 (-0.9%) 2 open  market UP
+[2026-10-01 19:52 UTC] crypto/momentum  equity $485.59 (-2.9%) 2 open  market UP
+[2026-10-01 19:52 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-01 19:52 UTC] crypto/hold_btc  equity $503.12 (+0.6%) 1 open  market UP
+[2026-10-01 19:52 UTC] stocks/rsi2      equity $502.64 (+0.5%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, IWM 3 BUY, XLB 4
+[2026-10-01 19:52 UTC] stocks/dual_momentum equity $499.30 (-0.1%) 2 open  market UP
+[2026-10-01 19:52 UTC] stocks/trend_ensemble equity $501.66 (+0.3%) 5 open  market UP
+[2026-10-01 19:52 UTC] stocks/rotation10 equity $498.05 (-0.4%) 2 open  market UP
+[2026-10-01 19:52 UTC] stocks/momentum  equity $495.85 (-0.8%) 4 open  market UP
+[2026-10-01 19:52 UTC] stocks/trend     equity $487.08 (-2.6%) 3 open  market UP
+[2026-10-01 19:52 UTC] stocks/hold_spy  equity $497.88 (-0.4%) 1 open  market UP
+   social heat top: TRUMP 42 (37/0/5), NEAR 40 (40/0/0), PUMP 35 (27/0/8), MON 35 (35/0/0), PENGU 30 (16/0/14)
