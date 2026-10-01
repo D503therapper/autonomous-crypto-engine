@@ -18,7 +18,8 @@ import sports_model as sm     # noqa: E402
 
 SPORTS = {"nfl": "americanfootball_nfl", "ncaaf": "americanfootball_ncaaf"}
 SEASONS = (2020, 2021, 2022, 2023, 2024, 2025)
-WINDOWS = (("5-6 days out", 4.5, 7.5), ("2-4 days out", 1.5, 4.5), ("game morning", 0.05, 1.5))
+E, M, G = "first look of the week", "last look before game day", "game morning"
+WINDOWS = ((E,), (M,), (G,))
 MIN_N = 40
 
 
@@ -129,11 +130,15 @@ def build(lg):
                 continue
             own = sm.own_p(p, f)
             own_blind = sm.own_p(p, {**f, "inj": 0.0, "key": 0.0})      # only what's known midweek
-            win = {}
-            for name, dlo, dhi in WINDOWS:
-                snap = [x for x in pr[g["id"]] if dlo <= x[0] < dhi]
-                if snap:
-                    win[name] = max(snap)                                 # the earliest look in the window
+            win = {}                                  # the week's FIRST look (Tuesday for a Saturday / Sunday game), the
+            ahead = sorted(x for x in pr[g["id"]] if 1.5 <= x[0] < 7.5)   # last look before game day, game morning
+            if ahead:
+                win[E] = ahead[-1]
+                if len(ahead) > 1:
+                    win[M] = ahead[0]
+            morning = [x for x in pr[g["id"]] if 0.05 <= x[0] < 1.5]
+            if morning:
+                win[G] = max(morning)
             if not win:
                 continue
             for side, sign in (("home", 1), ("away", -1)):
@@ -193,13 +198,12 @@ GAP = ((0.04, 0.08), (0.08, 0.12), (0.12, 1.0))
 
 def studies(rows):
     """The ten angles -> {study: {variant: grade}}."""
-    E, M, G = "5-6 days out", "2-4 days out", "game morning"
     S = {}
     # 1. The engine's own read vs the early price - dogs, by how far it beats the price
-    S["1 engine read, dogs, 5-6 days out"] = {f"+{a:.0%}..{b:.0%}": grade(sel(rows, E, lambda r, w, g, a=a, b=b:
+    S["1 engine read, dogs, first look"] = {f"+{a:.0%}..{b:.0%}": grade(sel(rows, E, lambda r, w, g, a=a, b=b:
                                               kind(w["price"]) == "dog" and a <= g < b)) for a, b in GAP}
     # 2. ...favorites (never past -150)
-    S["2 engine read, favorites, 5-6 days out"] = {f"+{a:.0%}..{b:.0%}": grade(sel(rows, E, lambda r, w, g, a=a, b=b:
+    S["2 engine read, favorites, first look"] = {f"+{a:.0%}..{b:.0%}": grade(sel(rows, E, lambda r, w, g, a=a, b=b:
                                                    kind(w["price"]) == "fav" and a <= g < b)) for a, b in GAP}
     # 3. Timing: the same rule (own read 8+ over the price, any side) bet at each window
     S["3 when to bet (engine +8 or more)"] = {nm: grade(sel(rows, nm, lambda r, w, g: g >= 0.08)) for nm, *_ in WINDOWS}
