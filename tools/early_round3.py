@@ -62,9 +62,19 @@ def style(lg):
                                        "to": (h["tot"] - h["tom"]) / h["n"]}
         for me, st, them, so in ((a, sa, b, sb), (b, sb, a, sa)):
             h = acc.setdefault((s, me), {"n": 0, "fourth": 0, "pa": 0, "ru": 0, "plays": 0, "yf": 0, "ya": 0, "tot": 0, "tom": 0})
+            def plays(x):                        # (college boxes have no plays / yards-per-play: pass + rush tries)
+                p_ = _f(x.get("totalOffensivePlays"))
+                if p_ is None and _pair(x.get("completionAttempts"), 1) is not None and _f(x.get("rushingAttempts")) is not None:
+                    p_ = _pair(x.get("completionAttempts"), 1) + _f(x.get("rushingAttempts"))
+                return p_
+
+            def ypp(x):
+                y_ = _f(x.get("yardsPerPlay"))
+                if y_ is None and plays(x) and _f(x.get("totalYards")) is not None:
+                    y_ = _f(x.get("totalYards")) / plays(x)
+                return y_
             vals = (_pair(st.get("fourthDownEff"), 1), _pair(st.get("completionAttempts"), 1), _f(st.get("rushingAttempts")),
-                    _f(st.get("totalOffensivePlays")), _f(st.get("yardsPerPlay")), _f(so.get("yardsPerPlay")),
-                    _f(so.get("turnovers")), _f(st.get("turnovers")))
+                    plays(st), ypp(st), ypp(so), _f(so.get("turnovers")), _f(st.get("turnovers")))
             if None in vals:
                 continue
             h["n"] += 1
@@ -184,7 +194,7 @@ def quarters(vals):
 
 def main():
     rep = {}
-    for lg in ("nfl", "ncaaf"):
+    for lg in (sys.argv[1:] or ["nfl", "ncaaf"]):
         games = sd.load_games(lg)
         rows = r2.build(lg)
         ctx = context(lg, games)
@@ -222,6 +232,11 @@ def main():
                       f"up {v['up']} {v['by']}{flag}")
         rep[lg] = out
     os.makedirs("results", exist_ok=True)
+    try:
+        with open("results/early_round3.json") as f:
+            rep = {**json.load(f), **rep}
+    except (OSError, ValueError):
+        pass
     with open("results/early_round3.json", "w") as f:
         json.dump(rep, f, indent=1)
 

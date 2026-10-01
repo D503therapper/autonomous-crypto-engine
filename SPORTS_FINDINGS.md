@@ -144,6 +144,28 @@ prices. "Last 3" = 2023-26 alone (the owner: the sports have changed, old season
   points everywhere. (10/1 credits: a push-started re-pull burned ~7,400 - the pull is hand-run only now.) ~70 cuts per sport were tried, so a few "up 4 of 6" are luck - nothing posts off this alone.
 
 
+- **⚠️ 10/1 CORRECTION - THE EARLY STUDIES RE-RUN HONESTLY (read this before the early entries below).** Two leaks:
+  (1) the "first look of the week" was often posted while last week's games were still being played (NFL Sunday 3 PM
+  ET, college Saturday afternoon) - the engine's read already knew those scores, the book's line didn't; (2) the first
+  spread study took look-ahead lines posted 2-4 weeks out (same problem, bigger). Every study now only uses a price
+  posted AFTER both teams' last games ended (early_football_study.ready_at / fair), within 7.5 days. DEAD after the
+  fix: the early NFL spread play (the engine's read vs the fair early number: 49% at 3.5+ - the "58.5%" was the leak),
+  the NFL early moneyline read, the NFL win-value model. STILL STANDING (fair prices): the move model - which dogs the
+  money comes to - NFL top 20% 75% moved, +6.0% at the early price (4 of 5), college top 20% 74% moved +5.8% (4 of 5);
+  NFL dogs already 20+ cents shorter by the 2nd look +15.7% (4 of 6); MONDAY NIGHT NFL dogs +21.4% on 119 (5 of 6);
+  a dog OFF A BYE vs a team that played: NFL +26.7% on 49 (5 of 6), college +7.5% on 242 (4 of 6); a dog that BLEW
+  SOMEONE OUT last week: NFL +7.9% (with the engine +13.0%, 5 of 6), college +8.8% (engine +12.1%, 5 of 6); NFL dogs
+  on a 3+ win streak +6.7% (4 of 6); NFL East team flying West as a dog +17.0% on 88 (6 of 6); college: first 3 games
+  dogs +11.3% (+160 and up +12.5%, 6 of 6 - but 2026 -23%), the engine's big (12+) dog reads +10.4% (4 of 6),
+  neutral-site dogs it likes +15.7% (5 of 6), rain / snow dogs +8.1% (engine +10.9%, 5 of 6), dogs vs a December
+  .700+ team... (the GOOD team as the dog) +11.0%. FADES that held: dogs the money hammered all week (out 50+ cents)
+  -30% NFL / -35% college, 0 of 6; dogs that drifted out early -15%; NFL dogs in their coach's first season -17%
+  (0 of 6); a dog whose QB is QUESTIONABLE on the final report -20.8% (engine liking it -33.7%, 0 of 6); a dog with
+  4+ more players out (final report) -32% (engine -64%, 0 of 6); a dog whose QB was out last week -17.5%. Hindsight
+  value of a move: the side the NFL line moved 2+ to covered 60.2% at the early number (6 of 6) - the prize is real,
+  calling it ahead is what's hard. Injury reports: data/sports/injuries/nfl.csv.gz (tools/nfl_injuries.py,
+  tools/early_injuries.py). The entries below this one were measured BEFORE the fix - trust this one.
+
 - **EARLY ROUND 2 - 15 angles x moneyline dogs AND spreads x NFL AND college, at the first number of the week (10/1,
   the owner: streaks, start of season, form, coaches, injuries, Monday / Thursday night, out of the country;
   tools/early_round2.py, results/early_round2.json). ~200 cuts - trust what shows in BOTH sports.** STRONGEST (both
