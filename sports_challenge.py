@@ -232,7 +232,8 @@ def html(c, E):
         if not l:
             return '<div class="pvc"></div>'
         r = l.get("result")
-        mark = {"won": "✅", "lost": "❌", "void": "➖"}.get(r, "")
+        mark = {"won": '<span class="pvw-w">✅ WIN</span>', "lost": '<span class="pvw-l">❌ LOSS</span>',
+                "void": "VOID"}.get(r, "")                      # (the owner, 10/1: ✅ WIN / ❌ LOSS)
         import sports_tennis as stn
         last = stn._say_name(l["player"]) or str(l["player"])   # (de Minaur, Zheng Qinwen - the way they're said)
         price = "TBD" if l.get("est") else ml(l["ml"])

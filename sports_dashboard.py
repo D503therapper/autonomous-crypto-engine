@@ -1546,6 +1546,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=8"><link rel="icon" href="icon-512.png?v=8"><link rel="manifest" href="manifest.webmanifest">
 <style>
 /* 🥊 PATTY vs THE ALGORITHM (sports_challenge.py) */
+.pvw-w{{color:#22e39a;font-weight:900}}.pvw-l{{color:#ff5a5a;font-weight:900}}
 
 .pvw{{font-size:13px;font-weight:800;color:#ffd23f;margin:0 0 6px}}
 .pvx .pvs{{font-size:17px;font-weight:900;color:#fff;margin:6px 0 8px;letter-spacing:.01em}}
@@ -1989,7 +1990,7 @@ function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data
    h='<span class="lvb"><i></i>LIVE</span> '+(sc.sets||[]).map(function(x){{return x[0]+"-"+x[1]}}).join(" ");}}
  else if(sc&&sc.delayed)h="⏳";
  else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
-   h=w[0]>w[1]?"✅":w[1]>w[0]?"❌":"";}}
+   h=w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':w[1]>w[0]?'<span class="pvw-l">❌ LOSS</span>':"";}}
  if(i.innerHTML!==h)i.innerHTML=h;}})}}
 pvLive();setInterval(pvLive,3000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);

@@ -19,3 +19,17 @@ jobs:
           curl -s -D - -o /dev/null -m 20 -H "Origin: https://d503therapper.github.io" "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard" | grep -i "access-control\|HTTP/" || true
           curl -s -D - -o /dev/null -m 20 -H "Origin: https://d503therapper.github.io" "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard" | grep -i "access-control\|HTTP/" || true
           for i in 1; do curl -s -m 20 -H "Origin: https://d503therapper.github.io" "$API/scores?debug=1&ids=$IDS" -w "\nHTTP %{http_code} %{time_total}s\n"; sleep 1; done
+      - run: |
+          python3 - <<'PY'
+          import json, sports_tennis as st
+          from datetime import datetime, timedelta, timezone
+          c = json.load(open("data/sports/challenge.json"))
+          want = {l["match"] for k in ("patty", "algo") for l in c.get(k, []) if not l.get("result")}
+          now = datetime.now(timezone.utc)
+          for tour in ("atp", "wta"):
+              for d in (-1, 0, 1):
+                  data, _ = st._get(st.ESPN.format(tour=tour) + f"?dates={(now + timedelta(days=d)):%Y%m%d}")
+                  for r in st.parse_espn(data, tour):
+                      if r["id"] in want:
+                          print(r["id"], r["p1_name"], "v", r["p2_name"], r["status"], "winner", r["winner"], r["sets1"], "/", r["sets2"], "|", r["detail"])
+          PY

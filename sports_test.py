@@ -5225,6 +5225,10 @@ def test_challenge_live_comes_from_the_score_feed():
     assert '.tm[data-gid],.pvc[data-gid]' in src                        # the challenge's matches are fetched too
     js = src[src.index("function pvLive"):src.index("pvLive();setInterval")]
     assert "st+6*3600000" not in js and "sc.live" in js and "flip(sc)" in js
+    assert "✅ WIN" in js and "❌ LOSS" in js                              # the owner, 10/1: the mark AND the word
+    c["patty"][0]["result"], c["algo"][0]["result"] = "lost", "won"
+    h = C.html(c, escape)
+    assert ">❌ LOSS<" in h and ">✅ WIN<" in h
 
 
 def test_team_name_match_is_not_loose():
