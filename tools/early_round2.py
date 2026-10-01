@@ -34,6 +34,7 @@ def spread_index(lg, games):
     for g in games.values():
         if g.get("start"):
             by_day.setdefault(g["start"][:10], []).append(g)
+    ready = ef.ready_at(games, lg)
     out = {}
     with gzip.open(path, "rt") as f:
         for x in f:
@@ -52,10 +53,16 @@ def spread_index(lg, games):
                 for g in by_day.get((t + timedelta(days=d)).strftime("%Y-%m-%d"), []):
                     if abs((ef._t(g["start"]) - t).total_seconds()) > 14 * 3600:
                         continue
+                    if not ef.fair(ready, g["id"], g["start"], days):
+                        continue                    # (posted before last week's games ended - 10/1 audit)
                     if sd._same(g.get("home_name") or "", r["h"]) and sd._same(g.get("away_name") or "", r["a"]):
-                        out.setdefault(g["id"], (days, line))
+                        v = (days, line)
                     elif sd._same(g.get("home_name") or "", r["a"]) and sd._same(g.get("away_name") or "", r["h"]):
-                        out.setdefault(g["id"], (days, -line))
+                        v = (days, -line)
+                    else:
+                        continue
+                    if g["id"] not in out or days > out[g["id"]][0]:
+                        out[g["id"]] = v            # the earliest fair look
     return out
 
 
@@ -136,6 +143,7 @@ def build(lg):
     hist = history(games, lg)
     coach = coaches(lg, games)
     lastg = ef.last_games(games, lg)
+    ready = ef.ready_at(games, lg)
     try:
         import sports_players as sp
         keys = sp.key_edges(games, sp.load())
@@ -162,7 +170,7 @@ def build(lg):
             fb = {**f, **BLIND}
             own = sm.own_p(p, fb)
             ours = sum(a * b for a, b in zip(p["sw"], sm._spread_x(fb))) if "sw" in p else None
-            lk = sorted(looks.get(g["id"], []), key=lambda x: -x[0])
+            lk = sorted((x for x in looks.get(g["id"], []) if ef.fair(ready, g["id"], g["start"], x[0])), key=lambda x: -x[0])
             first = lk[0] if lk and lk[0][0] >= 1.5 else None
             sp_ = spreads.get(g["id"])
             if not first and not sp_:
@@ -176,7 +184,8 @@ def build(lg):
                 ih = ia = 0
             for side, other, sg in (("home", "away", 1), ("away", "home", -1)):
                 mg = (hs - as_) * sg
-                r = {"season": season, "side": side, "won": mg > 0, "neutral": str(g.get("neutral")) == "1",
+                r = {"gid": g["id"], "tid": g[side], "oid": g[other], "start": g["start"],
+                     "season": season, "side": side, "won": mg > 0, "neutral": str(g.get("neutral")) == "1",
                      "intl": str(g.get("intl")) == "1", "night": night, "month": int(g["start"][5:7])}
                 if first:
                     i = 1 if side == "home" else 2

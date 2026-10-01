@@ -116,6 +116,7 @@ def build(lg):
     looks = match_all(lg, games)
     ctx = team_context(games, lg)
     lastg = ef.last_games(games, lg)
+    ready = ef.ready_at(games, lg)
     rows = []
     for season in ef.SEASONS:
         lo, hi = f"{season}-07-01", f"{season + 1}-07-01"
@@ -134,11 +135,11 @@ def build(lg):
                 continue
             if hs == as_:
                 continue
-            lk = sorted(looks[g["id"]], key=lambda x: -x[0])              # first look first
-            first = lk[0]
-            if first[0] < 1.5:
-                continue                                                   # no look before game day
-            second = next((x for x in lk[1:] if x[0] >= 1.5), None)
+            lk = sorted((x for x in looks[g["id"]] if ef.fair(ready, g["id"], g["start"], x[0])), key=lambda x: -x[0])
+            if not lk or lk[0][0] < 1.5:
+                continue                                                   # no fair look before game day
+            first = lk[0]                                                  # (the first look AFTER both teams' last
+            second = next((x for x in lk[1:] if x[0] >= 1.5), None)        #  games were over - 10/1 audit)
             own = sm.own_p(p, f)
             for side in ("home", "away"):
                 i = 1 if side == "home" else 2

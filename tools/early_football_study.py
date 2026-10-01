@@ -89,6 +89,26 @@ def match(snaps, games):
     return out, miss
 
 
+def ready_at(games, lg):
+    """{game id: the moment both teams' previous games were over (their start + 4h)} - an early price only counts if
+    it was up AFTER that (10/1 audit: the NFL Sunday 3 PM / college Saturday look came while last week's games were
+    still on, but the engine's read already knew those scores - that was 'predicting' the line with the answer)."""
+    allg = sorted((g for g in games.values() if g.get("start") and (g.get("stype") or "?") in sd.REAL
+                   and g.get("league") == lg), key=lambda g: g["start"])
+    last, out = {}, {}
+    for g in allg:
+        prev = [last[t] for t in (g["home"], g["away"]) if t in last]
+        out[g["id"]] = (_t(max(prev)) + timedelta(hours=4)) if prev else None
+        last[g["home"]] = last[g["away"]] = g["start"]
+    return out
+
+
+def fair(ready, gid, start, days):
+    """Was a look `days` before kickoff up after both teams' last games ended?"""
+    r = ready.get(gid)
+    return r is None or _t(start) - timedelta(days=days) >= r
+
+
 def last_games(games, lg):
     """{game id: {side: (days since that team's last game, its margin then)}}."""
     fin = sm.finals(games, lg)
@@ -110,6 +130,7 @@ def build(lg):
     games = sd.load_games(lg)
     pr, miss = match(snapshots(SPORTS[lg]), games)
     lastg = last_games(games, lg)
+    ready = ready_at(games, lg)
     rows = []
     for season in SEASONS:
         lo, hi = f"{season}-07-01", f"{season + 1}-07-01"
@@ -130,8 +151,8 @@ def build(lg):
                 continue
             own = sm.own_p(p, f)
             own_blind = sm.own_p(p, {**f, "inj": 0.0, "key": 0.0})      # only what's known midweek
-            win = {}                                  # the week's FIRST look (Tuesday for a Saturday / Sunday game), the
-            ahead = sorted(x for x in pr[g["id"]] if 1.5 <= x[0] < 7.5)   # last look before game day, game morning
+            win = {}                                  # the week's FIRST fair look (after both teams' last games), the
+            ahead = sorted(x for x in pr[g["id"]] if 1.5 <= x[0] < 7.5 and fair(ready, g["id"], g["start"], x[0]))
             if ahead:
                 win[E] = ahead[-1]
                 if len(ahead) > 1:
@@ -248,6 +269,7 @@ def spread_rows(lg):
     """Every side with a Tuesday spread: that number, its price, the close, did it cover the Tuesday number, and the
     engine's own margin read (trained only on the 3 seasons before)."""
     games = sd.load_games(lg)
+    ready = ready_at(games, lg)
     snaps = []
     path = os.path.join(sd.DATA, "odds_history", f"{SPORTS[lg]}_spreads.jsonl.gz")
     if os.path.exists(path):
@@ -264,7 +286,12 @@ def spread_rows(lg):
         for gid, xs in m.items():
             flip = sd._same(games[gid].get("home_name") or "", r["a"]) and not \
                 sd._same(games[gid].get("home_name") or "", r["h"])
-            tue[gid] = (xs[0][0], -tue_line if flip else tue_line, tue_price)
+            d_ = xs[0][0]
+            if not (1.5 <= d_ < 7.5 and fair(ready, gid, games[gid]["start"], d_)):
+                continue                              # (10/1: no look-ahead lines from weeks out, nothing posted
+            #                                           before last week's games ended - the engine knew those scores)
+            if gid not in tue or d_ > tue[gid][0]:
+                tue[gid] = (d_, -tue_line if flip else tue_line, tue_price)
     out = []
     lastg = last_games(games, lg)
     for season in SEASONS:
@@ -283,7 +310,7 @@ def spread_rows(lg):
                 margin = float(g["home_score"]) - float(g["away_score"])
             except (KeyError, ValueError):
                 continue
-            if close is None or days < 2:
+            if close is None:
                 continue
             ours = sum(a * b for a, b in zip(p["sw"], sm._spread_x(f)))          # the engine's own home margin
             for side, sg in (("home", 1), ("away", -1)):
