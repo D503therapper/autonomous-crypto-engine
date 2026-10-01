@@ -125,6 +125,12 @@ main{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px)
 .unw{display:block;font-size:13px;letter-spacing:.02em;font-weight:800;color:#fff;text-transform:none}   /* why ½u */
 .nou{text-align:center;font-size:14px;font-weight:900;letter-spacing:.06em;color:#fff;margin:2px 0 8px}   /* live: no units */
 .mb{display:inline-block;filter:hue-rotate(75deg) saturate(1.6)}   /* the money bag in green (the owner, 9/30) */
+.dayr{margin:12px 0 0;padding:14px;border-radius:12px;background:var(--card);border:2px solid #22e39a;text-align:center}
+.dayr.dn{border-color:#ff3b3b}
+.dayr-t{font-size:14px;font-weight:900;color:#ffc233;letter-spacing:.06em}
+.dayr-n{font-size:28px;font-weight:900;color:#22e39a;margin-top:4px}
+.dayr.dn .dayr-n{color:#ff5a5a}
+.dayr-s{font-size:15px;font-weight:800;color:#fff;margin-top:2px}
 .unb{margin-top:12px;padding:14px;border-radius:16px;background:var(--card);border:1px solid rgba(255,194,51,.45)}
 .unt{font-size:clamp(34px,10vw,46px);font-weight:900;text-align:center;line-height:1.1} .unt.up,.unr b.up{color:var(--up)} .unt.dn,.unr b.dn{color:var(--dn)}
 .unp{text-align:center;font-size:13px;font-weight:800;color:#fff;margin:2px 0 8px}
@@ -270,6 +276,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
   <div class="live"><span class="dot" id="dot"></span><span id="ago">LIVE</span></div>
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
+
 <div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 QUESTION BOX</span></div>
 <div class="ask-b"><div class="ask-n">Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that.</div>
 <div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send"><button id="askgo" type="button">Ask 🧠</button></div>
@@ -376,7 +383,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite} @keyfr
 </div></details>
 </section></div></div>
 
-<section class="pk evx" style="--c1:#ff2d2d;--c2:#ff7a00"><div class="pk-h"><span class="pk-i evi">⏰</span><span class="pk-l evt">EARLY VALUE PLAYS</span></div><div class="evb">🔥 GET IT BEFORE THE LINE MOVES 🔥</div><div class="evr"><div><b>Flyers</b> <small>ML</small> <em>+136</em><span>vs Devils · NHL</span><u>Thursday · game starts at 4 PM PT</u><div class="un"><span class="mb">💰</span> 2 UNITS<span class="unw">This dog&#x27;s paying more than it should. Bigger bet.</span></div></div></div><div class="evr"><div><b>Predators</b> <small>ML</small> <em>+120</em><span>vs Wild · NHL</span><u>Thursday · game starts at 5 PM PT</u><div class="un"><span class="mb">💰</span> 1 UNIT<span class="unw">The payout&#x27;s worth more than the risk. Solid bet.</span></div></div></div><div class="evr"><div><b>Blackhawks</b> <small>ML</small> <em>+180</em><span>vs Mammoth · NHL</span><u>Thursday · game starts at 6:30 PM PT</u><div class="un"><span class="mb">💰</span> 1 UNIT<span class="unw">Plus money with real value — full unit.</span></div></div></div><div class="evr"><div><b>Blues</b> <small>ML</small> <em>+170</em><span>vs Stars · NHL</span><u>Friday · game starts at 6 PM PT</u><div class="un"><span class="mb">💰</span> 2½ UNITS<span class="unw">The payout&#x27;s bigger than it should be. We go bigger.</span></div></div></div><div class="evr"><div><b>Jaguars</b> <small>ML</small> <em>+124</em><span>vs Bengals · NFL</span><u>Sunday · game starts at 10 AM PT</u><div class="un"><span class="mb">💰</span> 5½ UNITS<span class="unw">We got in before the line moves. Big bet.</span></div></div></div></section>
+
 <details class="tn"><summary><span class="tn-t">🎾 TENNIS BONUS</span>
 <span class="tn-s">4 men's + 2 women's · 1 from yesterday still going · men's 10-10 · women's 3-8 · tap to open</span></summary>
 <div class="tn-b"><section class="pk" style="--c1:#c6f000;--c2:#1fd17a"><div class="pk-h"><span class="pk-i">🎾</span><span class="pk-l">MEN'S TENNIS</span></div><div class="tn-day">TUE</div><div class="leg ">
@@ -603,7 +610,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790822816906,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790823786577,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
