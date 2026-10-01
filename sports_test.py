@@ -5286,6 +5286,22 @@ def test_challenge_live_comes_from_the_score_feed():
     assert ">❌ LOSS<" in h and ">✅ WIN<" in h
 
 
+def test_leans_show_in_their_sport():
+    """10/1, the owner: "the hockey from yesterday's not in here... leans or not, put everything in the correct sport".
+    A lean (its own leg in a parlay, or a lean pick) is listed in its sport's results marked 🟡 LEAN, with its own
+    'leans W-L' - never in that sport's record."""
+    import sports_dashboard as D
+    leg = lambda team, res, tier: {"team": team, "opp": "Canucks", "odds": -118, "result": res, "league": "nhl",
+                                   "game_id": "nhl:" + team, "side": "home", "market": "ml", "tier": tier, "line": None,
+                                   "score": "Canucks 6 @ " + team + " 5"}
+    picks = [{"date": "2026-09-30", "kind": "two", "status": "lost", "american": 250, "legs": [leg("Flyers", "lost", "lock"),
+                                                                                                 leg("Oilers", "lost", "lean")]}]
+    h = D._history(picks)
+    i = h.index("NHL")
+    sec = h[i:h.index("</details>", i)]
+    assert "0-1" in sec and "leans 0-1" in sec and "🟡 LEAN · Oilers" in sec and "Flyers ML" in sec
+
+
 def test_team_name_match_is_not_loose():
     """10/1 data audit: the name match fell back to the first word, so 'UC Davis' took any 'UC ...' school's odds and
     'Texas St' the Longhorns'. The rest of the short name has to be in there too."""

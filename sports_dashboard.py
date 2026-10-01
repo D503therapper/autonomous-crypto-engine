@@ -969,22 +969,29 @@ def _history(picks):
             kind, xtra = "outright", {}                     # (the owner, 9/29 - never just "couldn't cover")
         return later(date, f'{l.get("game_id")}|{l.get("side")}|{l.get("market")}', kind, r, lean, t=t_, o=o_, x=x, **xtra)
 
-    def box(title, items, head=""):
-        if not items:
+    def box(title, items, head="", leans=()):
+        if not items and not leans:
             return ""
-        items = sorted(items, key=lambda x: x[0], reverse=True)
-        w, l_ = sum(x[1] == "won" for x in items), sum(x[1] == "lost" for x in items)
+        w, l_ = sum(x[1] == "won" for x in items), sum(x[1] == "lost" for x in items)   # (the leans never count here)
+        lw, ll_ = sum(x[1] == "won" for x in leans), sum(x[1] == "lost" for x in leans)
+        items = sorted(list(items) + list(leans), key=lambda x: x[0], reverse=True)
         tot = "by sport ▾" if head else f'{w}-{l_}{f" · {w / (w + l_):.0%}" if w + l_ else ""}'   # (live: never lumped)
+        tot += f" · leans {lw}-{ll_}" if lw + ll_ else ""
         return (f'<details class="hs"><summary><b>{title}</b><span>{tot}</span></summary>{head}{rows(items)}</details>')
 
     # our record, by sport: every leg we posted (a team we're on in two picks the same day shows once, with both cards)
-    legs = {}
+    legs, lean_legs = {}, {}
     for p in picks:
         if not sports.in_record(p) or p["status"] not in ("won", "lost", "push", "open"):
             continue
         for l in p["legs"]:
-            if l.get("result") not in ("won", "lost", "push") or l.get("tier") == "lean":
-                continue                                     # (a lean leg: the leans' own record)
+            if l.get("result") not in ("won", "lost", "push"):
+                continue
+            if l.get("tier") == "lean":                      # a lean leg: listed in its sport (the owner, 10/1: "the
+                k = (p["date"], l["game_id"], l["side"], l.get("market"))   # hockey from yesterday's not in here"),
+                e = lean_legs.setdefault(k, {"l": l, "date": p["date"], "cards": []})   # marked LEAN, never in its record
+                e["cards"].append(kinds.get(p["kind"], p["kind"]))
+                continue
             k = (p["date"], l["game_id"], l["side"], l.get("market"))
             e = legs.setdefault(k, {"l": l, "date": p["date"], "cards": []})
             e["cards"].append(kinds.get(p["kind"], p["kind"]))
@@ -994,6 +1001,22 @@ def _history(picks):
         by.setdefault(l["league"], []).append(
             (e["date"], l["result"], f'{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
              + (f' · {l["score"]}' if l.get("score") else ""), rev_leg(l, l["result"], e["date"])))
+    for p in picks:                                          # a lean on its own (not in our record) shows in its sport too
+        if sports.in_record(p) or p.get("status") not in ("won", "lost") or len(p.get("legs") or []) != 1:
+            continue
+        l = p["legs"][0]
+        lean_legs.setdefault((p["date"], l.get("game_id"), l.get("side"), l.get("market")),
+                             {"l": {**l, "result": l.get("result") or p["status"]}, "date": p["date"],
+                              "cards": [kinds.get(p["kind"], p["kind"])]})
+    by_lean = {}
+    for k, e in lean_legs.items():
+        l = e["l"]
+        if k in legs:
+            continue                                         # (the same pick counted as ours elsewhere: once)
+        by_lean.setdefault(l["league"], []).append(
+            (e["date"], l["result"], f'🟡 LEAN · {bet(l)} ({_am(l["odds"])})',
+             f' · {" + ".join(dict.fromkeys(e["cards"]))}' + (f' · {l["score"]}' if l.get("score") else ""),
+             rev_leg(l, l["result"], e["date"], lean=True)))
     # the parlays, as tickets
     tix = [(p["date"], p["status"], f'{kinds.get(p["kind"], p["kind"])} ({_am(p["american"])})',
             " · " + ", ".join(bet(l) + ("" if l.get("result") in (None, "won") else " ❌") for l in p["legs"]),
@@ -1058,7 +1081,8 @@ def _history(picks):
         c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
         LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
-    out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, []))) for lg in sd.LEAGUES)
+    out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, [])), leans=done(by_lean.get(lg, [])))
+                  for lg in sd.LEAGUES)
     # (no parlay record - the owner, 9/28: a parlay's picks each count on their own, in their sport)
     lv_done = done(lv)                                       # the live bets: one box per sport (the grades' live
     own = ("".join(box(f"📡 {k}", [x for x, kk in zip(lv_done, lv_keys) if kk == k])   # box opens each one by name)
@@ -1379,6 +1403,14 @@ def render(picks, model, games, series, start_bank, updated_ms):
                 if l.get("result") in ("won", "lost") and l.get("tier") != "lean":   # if we posted it, it counts
                     seen_[(p["date"], l["game_id"], l["side"])] = (l["league"], l["result"])
     res = list(seen_.values())
+    lean_ = {}                                               # 🟡 the leans in each sport (the owner, 10/1: "leans or not,
+    for p in picks:                                          # put everything in the correct sport") - shown, never in
+        for l in p.get("legs") or []:                        # the sport's record
+            lr = l.get("result") or (p.get("status") if len(p.get("legs") or []) == 1 else None)
+            if lr in ("won", "lost") and (l.get("tier") == "lean" or not sports.in_record(p)) and l.get("league"):
+                k = (p["date"], l.get("game_id"), l.get("side"))
+                if k not in seen_:
+                    lean_[k] = (l["league"], lr)
     res += [(f"tennis_{t}", r) for t, r, _ in tennis_.values()]   # 🎾 men's and women's apart (a match counts once)
     tn_groups = [("🎾 Men's Tennis", ("tennis_atp",)), ("🎾 Women's Tennis", ("tennis_wta",))]
     chips = []
@@ -1388,9 +1420,12 @@ def render(picks, model, games, series, start_bank, updated_ms):
         hue = "#fff" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
         hs = {"tennis_atp": "🎾 Men's Tennis", "tennis_wta": "🎾 Women's Tennis"}.get(lgs[0]) or \
             f"{sd.LEAGUES[lgs[0]][3]} {sd.LEAGUES[lgs[0]][2]}"          # the matching Past Results list (tap = open it)
-        chips.append(f'<div class="spc{" tap" if n_ else ""}" data-hs="{E(hs)}"><span><b>{name}</b>'
-                     f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>'
-                     f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i>{"<em>▾</em>" if n_ else ""}</div>')
+        lr_ = [r for lg, r in lean_.values() if lg in lgs]
+        lw_ = sum(r == "won" for r in lr_)
+        ltxt = f" · leans {lw_}-{len(lr_) - lw_}" if lr_ else ""
+        chips.append(f'<div class="spc{" tap" if n_ or lr_ else ""}" data-hs="{E(hs)}"><span><b>{name}</b>'
+                     f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}{ltxt}</small></span>'
+                     f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i>{"<em>▾</em>" if n_ or lr_ else ""}</div>')
     by_sport = "".join(chips)
     RECORDS["by sport"] = {name.split(" ", 1)[1]: wlt(sum(r == 'won' for lg, r in res if lg in lgs),
                                                       sum(r == 'lost' for lg, r in res if lg in lgs)) for name, lgs in groups + tn_groups}
