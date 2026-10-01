@@ -412,6 +412,10 @@ def candidates(games, model, now=None, day=None, injuries=None):
             p = ph if side == "home" else 1 - ph
             if not (key_out["home"] or key_out["away"]):  # honest: the engine's own read, corrected by its record in
                 p = sports_strength.calibrate(lg, p)      # this sport (a starter-out game goes by the market as is)
+                if mkt is not None:                       # 10/1: the correction only takes back what the engine said
+                    m_side = mkt if side == "home" else 1 - mkt   # OVER the line - never below the line's own number
+                    if p < m_side <= (ph if side == "home" else 1 - ph):   # (college football's -6 put every favorite
+                        p = m_side                        # 6-8 points under the line: "overpriced" across the board)
             p_own = ph_own if side == "home" else 1 - ph_own
             vd = VALUE_DOG.get(lg)                        # 🐶 a proven value dog: our own read 10-15 pts over the price
             p_mk = mkt if side == "home" else 1 - mkt
@@ -532,6 +536,11 @@ DOG_GATE = 8.0                 # the owner, 10/1 ("the engine should use everyth
 #                                fade (dog_spots / dog_more) - is 8+ points. Backtest (game-day prices, 2020-26): the
 #                                spots added ROI at every level; NFL 8+ +10.0% on 212, last 3 + now +2.2% (2024 -24%,
 #                                2025 +45%). College football didn't hold the last 3 seasons (-9.7%) - NFL only
+NHL_DOG_GATE = 6.0             # hockey (10/1 per-sport backtest, every dog +100..+220, 2018-26, the live read + every
+#                                spot and fade): score 6+ won 48.7%, +12.8% on 542 (7 of 7 seasons up; 2023+ +18%,
+#                                this season +11%) - the own read alone LOST; it's the weighed factors (a LEAD: the
+#                                spots came from these seasons - graded live from here)
+NHL_BEST_DOG_MIN = 0.0         # ...and the best hockey dog of the day (score over 0): 2023+ +11.7%, this season +17%
 NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
 
@@ -541,9 +550,9 @@ def dog_gate(c):
     if c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") or fighting(c):
         return False
     lg = c.get("league")
-    if lg == "nfl":
+    if lg in ("nfl", "nhl"):
         sc = round(dog_score(c), 2)
-        if sc >= DOG_GATE:
+        if sc >= (DOG_GATE if lg == "nfl" else NHL_DOG_GATE):
             c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the
             return True                                                                       # weighed read)
         return False
@@ -553,6 +562,26 @@ def dog_gate(c):
             c["dog_p"] = round(own, 4)
             return True
     return False
+
+
+def best_hockey_dog(cands, taken=()):
+    """The owner, 10/1: "every day there's dogs that smack - the engine has to find the one with the most value." No
+    real-value dog anywhere = the hockey dog the whole dog score likes best (over 0, +100..+220, never a trap, never one
+    its own read fights), only when that weighed read still beats its price (backtest: the best one a day, 2023+ +11.7%,
+    this season +17%)."""
+    best = None
+    for c in cands:
+        if c.get("league") != "nhl" or c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX \
+                or c["game_id"] in taken or c.get("trap") or c.get("waiting") or fighting(c):
+            continue
+        sc = round(dog_score(c), 2)
+        dp = min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100)
+        if sc > NHL_BEST_DOG_MIN and dp * c["dec"] > 1 and (best is None or sc > best[0]):
+            best = (sc, c, dp)
+    if best:
+        best[1]["dog_p"] = round(best[2], 4)
+        return best[1]
+    return None
 
 
 def good(c):
@@ -710,6 +739,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
                and c["edge"] >= (dog["edge"] if dog else 0) + BIG_DOG_EXTRA_EDGE]
         if big:
             dog = max(big, key=lambda c: (dog_score(c), c["edge"]))
+        if dog is None:
+            dog = best_hockey_dog(cands, taken)
     board["dog"] = _combo([dog]) if dog else None
 
     def ladder(start, n):

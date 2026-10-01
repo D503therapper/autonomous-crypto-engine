@@ -5792,6 +5792,34 @@ def test_dog_gate_uses_everything_we_learned():
     assert sports.dog_gate(hoops)                              # college hoops: its own read 6 points over the price
 
 
+def test_hockey_dogs_by_the_whole_score():
+    """10/1, the owner: "4 in 10 dogs win every day - the engine has to find the one that smacks AND has the most value."
+    Hockey dogs on the whole dog score: 6+ qualifies anywhere (+12.8%, 7 of 7 seasons); no real-value dog on the board =
+    the best hockey dog of the day whose weighed read still beats its price (2023+ +11.7%)."""
+    base = {"league": "nhl", "market": "ml", "odds": 180, "dec": 2.8, "p": 0.343, "p_market": 0.343, "edge": 0.343 * 2.8 - 1,
+            "edge_own": 0.343 * 2.8 - 1, "reasons": ["r"], "dog_ctx": {}, "home": False, "side": "away",
+            "start": "2026-10-04T20:00Z", "game_id": "hawks", "team": "Hawks", "opp": "x"}
+    hot = {**base, "dog_ctx": {"won": False, "opp_won": False, "hits_top": True, "ss_gap": 0.02}}   # +2 +2 +3 = 7
+    assert sports.dog_gate(dict(hot))
+    assert not sports.dog_gate(dict(base))
+    fav = _cand("fav", -130, 0.56, league="nhl")
+    mild = {**base, "dog_ctx": {"won": False, "opp_won": False}}                      # +2: 36.3% vs the 35.7% price
+    b = sports.make_board([fav, dict(mild)])
+    assert b["dog"] and b["dog"]["legs"][0]["game_id"] == "hawks"
+    assert sports.units_for({"kind": "dog", "legs": b["dog"]["legs"]}) >= 0.5
+    assert sports.make_board([fav, dict(base)])["dog"] is None        # score 0: nothing says it's worth the price
+    assert sports.best_hockey_dog([{**mild, "odds": 250, "dec": 3.5}]) is None   # never past +220
+
+
+def test_calibration_never_goes_under_the_line():
+    """10/1, the owner: "college football tomorrow - a lot of locks, a lot of plus money - and the engine finds nothing."
+    The record correction (college football -6) was taken off the WHOLE win %, putting every favorite 6-8 points under
+    the line's own number (Virginia Tech: 52% vs the line's 60%). It only takes back what the engine said over the line."""
+    import inspect
+    src = inspect.getsource(sports.candidates)
+    assert "never below the line's own number" in src and "p = m_side" in src
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
