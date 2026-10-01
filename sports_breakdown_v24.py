@@ -165,9 +165,26 @@ POSNAME = {"G": "goalie", "QB": "quarterback", "SP": "starting pitcher", "LW": "
            "PF": "power forward", "RB": "running back", "WR": "receiver", "TE": "tight end", "K": "kicker"}
 
 
-def _posname(pos):
-    """'G' -> 'goalie' - a sentence never says just the letters (the owner, 9/29: 'the backup G' confused everybody)."""
-    return POSNAME.get(str(pos or "").upper(), str(pos or ""))
+POSNAME_LG = {   # (10/1, the owner: "the Browns are playing without the goalie?" - a football G is a GUARD) by sport
+    "nfl": {"G": "guard", "C": "center", "T": "tackle", "OT": "tackle", "OG": "guard", "OL": "lineman", "DE": "defensive end",
+            "DT": "defensive tackle", "DL": "defensive lineman", "LB": "linebacker", "CB": "cornerback", "S": "safety",
+            "FS": "safety", "SS": "safety", "P": "punter", "LS": "long snapper", "FB": "fullback"},
+    "nba": {"G": "guard", "F": "forward", "C": "center"},
+    "nhl": {"G": "goalie", "C": "center", "D": "defenseman"},
+    "mlb": {"C": "catcher", "RP": "reliever", "1B": "first baseman", "2B": "second baseman", "3B": "third baseman",
+            "SS": "shortstop", "LF": "left fielder", "CF": "center fielder", "RF": "right fielder", "DH": "designated hitter"}}
+POSNAME_LG["ncaaf"], POSNAME_LG["ncaab"] = POSNAME_LG["nfl"], POSNAME_LG["nba"]
+
+
+def _posname(pos, lg=None):
+    """'G' -> 'goalie' in hockey, 'guard' in football / hoops - a sentence never says just the letters (the owner, 9/29:
+    'the backup G' confused everybody), and never the wrong sport's word (10/1: a Browns guard became a 'goalie')."""
+    k = str(pos or "").upper()
+    if lg in POSNAME_LG and k in POSNAME_LG[lg]:
+        return POSNAME_LG[lg][k]
+    if lg is not None and lg != "nhl" and k == "G":
+        return "guard"
+    return POSNAME.get(k, str(pos or ""))
 
 
 def _poss(team):
@@ -568,7 +585,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                             f"🚑 No {nm} in {_pos(them)} lineup. That's a big bat gone.",
                                             f"🚑 {them} gotta score without {nm}. Their lineup just got a lot less scary."]))
         elif key_them and not both:
-            pos, nm = _posname(key_them[0][1]), key_them[0][0]
+            pos, nm = _posname(key_them[0][1], lg), key_them[0][0]
             out.append(v.say("keyout", [f"🚑 {them} are rolling without their starting {pos} ({nm}).",
                                          f"🚑 No {nm} for {them} — that's their starting {pos}.",
                                          f"🚑 {them} are down their starting {pos}, {nm}."]))
@@ -605,7 +622,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🚑 Both sides are missing someone: {nm} ({the_us}) and {nm2} ({the_them}). The price already has it - we still like {the_us}."],
             must=True))
     elif key_us and key_them2:                            # both teams down a starter: one plain line, not two
-        pos, nm, nm2 = _posname(key_us[0][1]), key_us[0][0], key_them2[0][0]
+        pos, nm, nm2 = _posname(key_us[0][1], lg), key_us[0][0], key_them2[0][0]
         mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
         out.append(v.say("keyout_both", [
             f"🚑 Both teams are down their starting {pos} — {nm} is out for {the_us}, {nm2} for {the_them}.{mv} We still riding with the algorithm.",
@@ -622,7 +639,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"🚑 {nm} ain't playing. Everybody's scared off {the_us} because of it.{mv} We ain't — the rest of this lineup still gets it done."],
             must=True))
     elif key_us:
-        pos, nm = _posname(key_us[0][1]), key_us[0][0]
+        pos, nm = _posname(key_us[0][1], lg), key_us[0][0]
         mv = f" The line already moved for it ({_am(op)} → {_am(now)})." if op is not None and now is not None and op != now else ""
         pts = leg.get("line") if leg.get("market") == "spread" else None
         need = f" {_cap(the_them)} gotta win by {int(pts) + 1}+ to beat us. Win by {int(pts)}, win by 1, or lose — we cash." \
@@ -825,10 +842,10 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                 f"🔥 Hot hand goes to {us}{f' — {hot}' if hot else ''}. We don't bet against a heater."]))
         elif r == "opponent missing key players":
             if key_them and not key_us:
-                nm = f"their starting {_posname(key_them[0][1])} {key_them[0][0]}"
+                nm = f"their starting {_posname(key_them[0][1], lg)} {key_them[0][0]}"
             else:                                         # 'Lukas Cormier (D)' -> 'defenseman Lukas Cormier'
                 m = re.match(r"(.+?) \((\w+)\)$", (leg.get("opp_outs") or [""])[0])
-                nm = f"{_posname(m.group(2))} {m.group(1)}" if m else (leg.get("opp_outs") or [""])[0]
+                nm = f"{_posname(m.group(2), leg.get('league'))} {m.group(1)}" if m else (leg.get("opp_outs") or [""])[0]
             if nm:
                 pools.append(("w_hurt", [
                     f"🚑 {them} are without {nm} tonight — that's a hole we're attacking.",
