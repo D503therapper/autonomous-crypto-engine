@@ -24,6 +24,12 @@ every session:
   a lean Dog of the Day, never a forced one ("it takes our ROI down"). Value (plus money that really beats the price) is
   the goal; what matters is the ROI on the unit plays. Judge a sport on thousands of games (sports_strength), never a
   few nights. Analyze and weigh, no rigid rules.
+- ⏰ Early value plays (the owner, 10/1 - "there's only one way to prove it: you do it"): the six spots from the
+  odds-history studies (sports_early.SPOTS - bye-week dog 1u; Monday night NFL dog, East Coast NFL team flying West,
+  blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. MAX 2 A WEEK
+  (SPOT_MAX_WEEK), the engine's most confident (SPOT_ORDER, then its edge), ranked together Tuesday 6 AM PT; dogs
+  +100..+220 only ("never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
+  late is not early; never game day; never a side with a key player out or questionable. No pings.
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
 - The Lock of the Day always sits on top of the day's board, right under Live Plus Money - except on game day the
   🎯 WE GOT IN EARLY box (our early value plays playing today) goes just above it (the owner, 9/30). An early play is

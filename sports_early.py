@@ -354,10 +354,10 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                 return None
             o = sm.own_p(p_, {**f, "inj": 0.0, "key": 0.0, "weather": 0.0, "cold": 0.0})   # Tuesday-known only
             return o if side == "home" else 1 - o
-        for c in spot_scan(games, now, injuries, own_of):
+        for c in pick_spots(spot_scan(games, now, injuries, own_of), st, now):
             if c["game_id"] in have:
                 continue
-            c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None, gap=round((c["own"] or c["mkt"]) - c["mkt"], 4))
+            c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
             st["picks"].append(c)
             have.add(c["game_id"])
             new.append(c)
@@ -458,8 +458,16 @@ SPOTS = {   # key: (label, units, leagues)
     "blowout":   ("💥 Blew somebody out last week", 0.5, ("nfl", "ncaaf")),      # +8 / +9%, both sports
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
 }
-SPOT_DOG = (100, 400)                   # the dog spots: plus money up to +400 (the studies' range)
-SPOT_ANY = (-150, 400)                  # the engine spot: any side, never past -150 (the -150 rule)
+SPOT_MAX_WEEK = 2                       # the owner, 10/1: "just two of these early plays, not three". The engine
+#                                         ranks everything it finds and posts the best 2 a week (Tuesday to Monday)
+SPOT_ORDER = ("bye", "mnf", "eastwest", "blowout", "hammered", "engine")   # most believed first
+SPOT_WINDOW_H = 72                      # an early play posts within 3 days of its first fair number - after that the
+#                                         early number's gone (the owner, 10/1: "we're already late" on a Thursday)
+SPOT_SLATE_HOUR_PT = 6                  # it waits for the whole slate: college numbers come Sunday, the NFL's after
+#                                         Monday night - it ranks them all together Tuesday 6 AM PT, then fills
+SPOT_DOG = (100, 220)                   # the dog spots: +100 to +220 (the owner, 10/1: "never no damn +400" - the
+#                                         +130..+160 that moves toward a favorite is the target, a +220 now and then)
+SPOT_ANY = (-150, 220)                  # the engine spot: any side, never past -150 (the -150 rule) or +220
 REST_BYE, REST_NORMAL = 13, 8           # off a bye: 13+ days since its last game; the other team on a normal week
 HAMMER_PTS, ENGINE_OUT_PTS, ENGINE_GAP = 4.0, 2.0, 0.04
 BLOWOUT = 17
@@ -557,6 +565,8 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
         r = ready(sched, g)
         if r and now < r:
             continue                                         # last week's games aren't over: not a fair price yet
+        if r and now > r + timedelta(hours=SPOT_WINDOW_H):
+            continue                                         # the early number's gone - late is not early (10/1)
         oh, oa = _int(g.get("ml_home")), _int(g.get("ml_away"))
         if oh is None or oa is None:
             continue
@@ -617,12 +627,38 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None):
             main = max(hit, key=lambda h: SPOTS[h][1])
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
                         "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
-                        "mkt": round(mk, 4), "own": (round(own_of(g, side), 4) if own_of else None)})
+                        "mkt": round(mk, 4), "own": (round(own_of(g, side), 4) if own_of else None),
+                        "fair_at": r.strftime("%Y-%m-%dT%H:%MZ") if r else None})
     sides = {}
     for c in out:
         sides.setdefault(c["game_id"], set()).add(c["side"])
     return [c for c in out if len(sides[c["game_id"]]) == 1]   # both sides of one game hit (the engine likes one,
     #                                                             the money hammered the other): they cancel - no play
+
+
+def week_start(now):
+    """This betting week's start: the latest Tuesday 00:00 PT."""
+    loc = now.astimezone(PT)
+    d = loc.date() - timedelta(days=(loc.weekday() - 1) % 7)
+    return datetime(d.year, d.month, d.day, tzinfo=PT)
+
+
+def pick_spots(cands, st, now):
+    """The best SPOT_MAX_WEEK a week (the owner, 10/1: "the most confident ones" - two): ranked by how much we believe the
+    spot, then the engine's edge. Before Tuesday 6 AM PT it waits for the whole slate (the NFL's numbers come after
+    Monday night) - unless a play's early window would close first."""
+    ws = week_start(now)
+    loc = now.astimezone(PT)
+    d = loc.date() + timedelta(days=(1 - loc.weekday()) % 7)        # the coming Tuesday (today, on a Tuesday)
+    slate = datetime(d.year, d.month, d.day, SPOT_SLATE_HOUR_PT, tzinfo=PT)
+    if loc.weekday() in (5, 6, 0, 1) and now < slate:        # Saturday-Tuesday 6 AM: hold for Tuesday's full slate
+        cands = [c for c in cands if c.get("fair_at") and _t(c["fair_at"]) + timedelta(hours=SPOT_WINDOW_H) < slate]
+    taken = sum(1 for p in st.get("picks", []) if p.get("spot") and p.get("posted") and _t(p["posted"]) >= ws)
+    room = max(0, SPOT_MAX_WEEK - taken)
+    for c in cands:
+        c["gap"] = round((c["own"] if c.get("own") is not None else c["mkt"]) - c["mkt"], 4)
+    cands.sort(key=lambda c: (SPOT_ORDER.index(c["spot"]), -c["gap"]))
+    return cands[:room]
 
 
 def spot_record(st):

@@ -5642,6 +5642,24 @@ def test_six_early_spots():
     with open(os.path.join(d2, "2026-10.jsonl"), "w") as f:              # moved further: TCU now "hammered" too - the
         f.write(json.dumps({"g": "c2", "t": "2026-10-04T12:00Z", "s": "2026-10-10T19:00Z", "h": "-140", "a": "120"}) + "\n")
     assert se.spot_scan(C, now, own_of=own, hist_dir=d2) == []           # two sides of one game cancel: no play
+    # the best 3 a week (the owner, 10/1), the most believed spots first; they wait for Tuesday's full slate
+    tue = datetime(2026, 10, 6, 14, 0, tzinfo=timezone.utc)                   # Tuesday 7 AM PT
+    mk = lambda gid, spot, gap=0.0, fair="2026-10-05T12:00Z": {"game_id": gid, "spot": spot, "own": 0.4 + gap, "mkt": 0.4,
+                                                             "fair_at": fair}
+    cs = [mk("a", "engine", .2), mk("b", "blowout"), mk("c", "bye"), mk("d", "mnf", .01), mk("e", "mnf", .05)]
+    assert [c["game_id"] for c in se.pick_spots([dict(c) for c in cs], {"picks": []}, tue)] == ["c", "e"]   # 2 a week
+    posted = {"picks": [{"spot": "bye", "posted": "2026-10-06T13:30Z"}]}
+    assert [c["game_id"] for c in se.pick_spots([dict(c) for c in cs], posted, tue)] == ["c"]    # 1 slot left this week
+    posted["picks"].append({"spot": "mnf", "posted": "2026-10-06T13:40Z"})
+    assert se.pick_spots([dict(c) for c in cs], posted, tue) == []                               # the week's full
+    sun = datetime(2026, 10, 4, 20, 0, tzinfo=timezone.utc)
+    assert se.pick_spots([dict(c) for c in cs], {"picks": []}, sun) == []      # Sunday: waits for Tuesday's slate...
+    closing = mk("z", "blowout", fair="2026-10-02T00:00Z")                   # ...unless its window closes first
+    assert [c["game_id"] for c in se.pick_spots([closing], {"picks": []}, sun)] == ["z"]
+    late = datetime(2026, 10, 9, 18, 0, tzinfo=timezone.utc)                  # the Bills' number went fair Sun 10/4
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(G, late, hist_dir=tempfile.mkdtemp()))   # late = no play
+    big = {**G, "n3": {**G["n3"], "ml_away": "260", "ml_home": "-320"}}       # never past +220 (the owner, 10/1)
+    assert not any(c["team"] == "Bills" for c in se.spot_scan(big, now, hist_dir=tempfile.mkdtemp()))
     # the box: the spot's name on the row, each spot's own record
     st = {"picks": [{**rams, "result": "won", "graded_at": "2026-10-13T04:00Z"},
                     {**got[0], "result": None, "posted": "2026-10-06T18:00Z"}]}
