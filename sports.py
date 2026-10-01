@@ -2354,8 +2354,15 @@ def post_board(games, model, picks, now, day, force=False):
         pk["tier"] = pick_tier({**pk, "tier": None})
         picks.append(pk)
         new.append(pk)
+    if not opening:                                          # 💰 a unit play added after the board went up (the owner,
+        for pk in new:                                       # 10/1: the engine keeps checking the lines all day) - ONE
+            if not pk.get("lean") and pk["kind"] in MIDDAY_KINDS:   # ping, once the dashboard shows it (sports_pings);
+                pk["midday"] = True                          # leans never ping
     rule_check(picks, new, iso, games, day, now)
     return new
+
+
+MIDDAY_KINDS = ("play", "lock", "dog", "solo", "night")      # the unit plays a mid-day ping can be for
 
 
 NIGHT_DAYS = (0, 3)            # 🏈 Monday, Thursday (Pacific) - every NFL game those days gets a pick (the owner, 9/30)
@@ -2517,6 +2524,9 @@ def add_breakdowns(games, model, picks):
             if l.get("bv") != sports_breakdown.VERSION and l["game_id"] in games and games[l["game_id"]]["status"] == "pre"]
     if not legs:
         return
+    leans = {id(l): f"{p['date']}{p['kind']}{l['game_id']}" for p in picks if p["status"] == "open" and p.get("lean")
+             for l in p["legs"]}             # (10/1, the owner - the Kraken lean: a rewrite kept a lean in its lean voice;
+    #                                          it came back with a unit play's "not at this price" bottom line)
     injuries = {lg: sd.fetch_injuries(lg) for lg in {l["league"] for l in legs}}
     redo = {id(l) for l in legs}
     used = {t for p in picks for l in p["legs"] if id(l) not in redo for t in l.get("bd_tags", [])}
@@ -2529,6 +2539,8 @@ def add_breakdowns(games, model, picks):
             leg["why_line"] = same.get("why_line", "")
         else:
             leg["breakdown"] = sports_breakdown.breakdown(leg, games, elo, injuries, used)
+            if id(leg) in leans:
+                leg["breakdown"] = sports_breakdown.lean_tone(leg["breakdown"], leg, leans[id(leg)])
         leg["public"] = sports_breakdown.public_side(leg, games[leg["game_id"]])
         leg["bv"] = sports_breakdown.VERSION
         done.append(leg)
@@ -2816,6 +2828,12 @@ def run(repick=False, fetch=True):
                 announce_pick(pk)                                # added after the board was up: everybody gets a ping
             legs = " + ".join(f"{leg_label(l)} ({fmt_american(l['odds'])})" for l in pk["legs"])
             print(f"posted {pk['kind']} for {d}: {legs} -> {fmt_american(pk['american'])}, hit {pk['p_hit']:.0%}")
+    try:                                                                # 💰 mid-day value plays: one ping each, sent
+        import sports_pings                                             # once the dashboard shows it (tools/early_ping)
+        for q in sports_pings.queue(picks, now):
+            print(f"mid-day value play ping queued: {q['title']}")
+    except Exception as e:                                              # noqa: BLE001 - never blocks the board
+        print(f"mid-day pings failed: {e}")
     try:                                                                # 🎾 the tennis bonus (never blocks the main board)
         import sports_tennis
         sports_tennis.run(state, now, fetch=fetch)

@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 42          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 43          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -229,9 +229,41 @@ def lean_tone(lines, leg, seed=""):
         if keep and not (len(keep) == 1 and len(keep[0]) <= 3):
             out.append(" ".join(keep))
     team = leg.get("team", "")
-    ends = [x for x in _roll("lean", f"{seed}|{team}", team=team, tms=_pos(team)) if not HYPE.search(x)]
+    ends = lean_ends(leg)
     out.append(ends[sum(map(ord, str(seed) + team)) % len(ends)])
     return out
+
+
+LEAN_CLOSE = 0.56          # a lean the engine has under this is close to a coin flip - the card says so, not "the price"
+
+
+def lean_ends(leg):
+    """A lean's bottom line says WHY it's no unit play, with its price (the owner, 10/1: "we like the Kraken, just not at
+    this price" on a -108 lean is vague and makes no sense - -108 isn't expensive; the real reason is the engine has the
+    game close to a coin flip). Steep favorites: the price is the reason. Never "the algorithm just leans" filler."""
+    team = leg.get("team", "") or "They"
+    o = leg.get("odds")
+    bet = f"{team} {leg['line']:+g}" if leg.get("market") == "spread" and leg.get("line") is not None else team
+    price = f"{bet} ({_am(o)})" if isinstance(o, (int, float)) else bet
+    try:
+        import sports as _sp
+        own = _sp.read_of(leg) or leg.get("p") or 0.5
+    except Exception:                                         # noqa: BLE001
+        own = leg.get("p") or 0.5
+    if own < 0.47:                                            # an underdog lean: never "by a hair" on a team we
+        return [f"🟡 Bottom line: {price}. {team} are the underdog side we lean - not enough on our read for units.",   # have losing
+                f"🟡 Bottom line: {price}. A live dog to us - not live enough to put money on. Lean only.",
+                f"🟡 Bottom line: {price}. {team} can steal this one; the price isn't quite big enough for units.",
+                f"🟡 Bottom line: {price}. Underdog lean - we see a shot, not a bet we put money on."]
+    if own < LEAN_CLOSE:
+        return [f"🟡 Bottom line: {price}. We've got this game close to a coin flip - {team} by a hair, not enough to put money on.",
+                f"🟡 Bottom line: {price}. Close to 50-50 on our read. We tilt {team}, no units.",
+                f"🟡 Bottom line: {price}. This one's near a coin flip to us - {team} is the side if you're playing it, no money from us.",
+                f"🟡 Bottom line: {price}. Our read has it close to even, {team} a hair better. Lean only."]
+    return [f"🟡 Bottom line: {price}. {team} should win more than they lose, but at that price there's no profit in it. Lean only.",
+            f"🟡 Bottom line: {price}. {team} are the likelier winner - the price already accounts for that. No units.",
+            f"🟡 Bottom line: {price}. Right side, but the price costs about what they're worth. A lean.",
+            f"🟡 Bottom line: {price}. We'd pick {team} to win; at that price it's not a bet we put money on."]
 
 
 def breakdown(leg, games, elo, injuries, used=None):
