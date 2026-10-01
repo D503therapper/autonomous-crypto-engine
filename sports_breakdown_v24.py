@@ -248,12 +248,9 @@ def lean_tone(lines, leg, seed=""):
         keep = [s for s in re.split(r"(?<=[.!?])\s+", ln) if s and not HYPE.search(s)]
         if keep and not (len(keep) == 1 and len(keep[0]) <= 3):
             out.append(" ".join(keep))
+    import sports_breakdown as _sb
     team = leg.get("team", "")
-    tms = team + ("'" if team.endswith("s") else "'s")
-    ends = [f"🟡 Bottom line: no edge on this one — it's a lean, not a lock. The algorithm just leans {team}.",
-            f"🟡 Bottom line: the numbers don't give us an edge here. {team} is the lean, nothing more.",
-            f"🟡 Bottom line: lean only. The price is about right, the algorithm just tilts {tms} way.",
-            f"🟡 Bottom line: no value, no lock — {team} is where the algorithm leans, that's it."]
+    ends = _sb.lean_ends(leg)                       # (10/1, the owner: the real reason - a coin flip or the price)
     out.append(ends[sum(map(ord, str(seed) + team)) % len(ends)])
     return out
 
@@ -768,6 +765,13 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. Fair price on a side we trust - small bet.",
             f"✅ Bottom line: {us} to win, {price}. The number's about even with our read - we ride it light."]) or
                    _short(v, price, True, ""))                           # (small, honest - never "value")
+    elif _need and _own <= _need and _own < 0.56:                        # (10/1, the owner: "we like the Kraken,
+        out.append(v.say("bottom_c", [                                   # just not at this price" at -108 makes no
+            f"✅ Bottom line: {price}. We've got this one close to a coin flip - {us} by a hair. No units.",   # sense:
+            f"✅ Bottom line: {price}. Close to 50-50 on our read, {us} a hair better. Just a lean.",          # the real
+            f"✅ Bottom line: {price}. Near a coin flip to us - {us} is the side, not a bet we put money on.",  # reason is
+            f"✅ Bottom line: {price}. Our read has it close to even. {us} by a hair - a lean."]) or         # a coin flip)
+                   _short(v, price, False, "Close to a coin flip on our read."))
     elif _need and _own <= _need:                                        # read beat the price or not; ONE % only
         out.append(v.say("bottom_n", [                                   # when it's over 55. Never "value" on a read
             f"✅ Bottom line: {price}. Right side, but the price is too steep for units - just a lean.",   # under it)
