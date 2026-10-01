@@ -540,6 +540,10 @@ NHL_DOG_GATE = 6.0             # hockey (10/1 per-sport backtest, every dog +100
 #                                spot and fade): score 6+ won 48.7%, +12.8% on 542 (7 of 7 seasons up; 2023+ +18%,
 #                                this season +11%) - the own read alone LOST; it's the weighed factors (a LEAD: the
 #                                spots came from these seasons - graded live from here)
+NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backtest, the live read + every spot and fade):
+#                                4+ won 48.7%, +18.9% on 228 (7 of 8 seasons up, 2023+ +17%) - but this season's first
+#                                9 went -46% and a narrower game-day test was -9.7% since 2023: a LEAD, graded live
+#                                (the owner, 10/1: "only one way to prove it - you do it"; UConn +210)
 NHL_BEST_DOG_MIN = 0.0         # ...and the best hockey dog of the day (score over 0): 2023+ +11.7%, this season +17%
 NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
@@ -550,9 +554,9 @@ def dog_gate(c):
     if c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") or fighting(c):
         return False
     lg = c.get("league")
-    if lg in ("nfl", "nhl"):
+    if lg in ("nfl", "nhl", "ncaaf"):
         sc = round(dog_score(c), 2)
-        if sc >= (DOG_GATE if lg == "nfl" else NHL_DOG_GATE):
+        if sc >= {"nfl": DOG_GATE, "nhl": NHL_DOG_GATE, "ncaaf": NCAAF_DOG_GATE}[lg]:
             c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the
             return True                                                                       # weighed read)
         return False

@@ -5785,7 +5785,8 @@ def test_dog_gate_uses_everything_we_learned():
     cold = {**spotted, "dog_more": {"east_west": True, "fades": ["ice cold"]}}
     assert not sports.dog_gate(cold)                           # a fade takes it back under - weighed, never one factor
     assert not sports.dog_gate({**spotted, "odds": 260, "dec": 3.6})   # never past +220 / the Dog's cap
-    assert not sports.dog_gate({**spotted, "league": "ncaaf"})   # college football: didn't hold the last 3 seasons
+    assert sports.dog_gate({**spotted, "league": "ncaaf"})       # college football: 4+ (10/1, a lead - UConn +210)
+    assert not sports.dog_gate({**base, "league": "ncaaf"})      # its read alone (+3) isn't enough
     far = {**_cand("far", 230, 0.34), "edge_own": 0.40 * sd.decimal(230) - 1}
     assert not sports.viewer_leans([far], ())                   # a lean dog past +220: never (Delaware +230, 10/1)
     hoops = {**base, "league": "ncaab", "edge_own": 0.46 * 2.5 - 1}
