@@ -56,6 +56,18 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
 - Dylan Larkin (Red Wings captain) out 2 games; Hellebuyck (Jets) suspended to 10/17 - both were on the feed but
   skaters / suspensions weren't weighed.
 
+**10/2 afternoon**
+- NO FORCED LOCK (the owner's call): a Lock only when the read beats the price; the Lock spot says so otherwise.
+- Missing key players now move the engine's own read (sports_absences, the 10/2 absence studies - SPORTS_FINDINGS).
+- Injury data pipeline for college: workers find the official reports -> GitHub reads the pages (Actions ->
+  fetch_pages, results/pages) -> verified lists go into injuries_official.json (10/3: 29 teams so far). Snippets alone
+  are never trusted (several were 2024/2025 articles). A game with no injury report is off the table (not 'waiting').
+- Fixed today: duplicate picks (merge keyed by post time), board posts at 8:00 sharp (7:44/7:47 runs), stale summer
+  opens, 'running on fumes' on rested teams, both-teams-hot streak lines, report jobs failing to save, Cloudflare CPU.
+- Waiting on the owner: the 8 AM note rewrite (on the claude/ branch, not main).
+- NEXT: Dr. Bob tracker + capper studies; early plays for hockey / baseball / hoops (study first, then live WITH units);
+  the beat-the-close record on the dashboard.
+
 **Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**
 - Benchmark: Dr. Bob (Bob Stoll, drbobsports.com) - the owner's pick as THE proven capper. Self-published: NFL best
   bets 514-379-12 (57.6%) in 10 seasons (play-by-play model), college football best bets 55.1% since 1999, his
