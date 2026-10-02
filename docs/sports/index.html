@@ -25,7 +25,7 @@
 .pvr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}
 .pvh>div{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase} .pvh em{font-style:normal;color:#fff}
 .pvc{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}
-.slate-note{margin:0 0 12px;padding:10px 14px;border:2px solid var(--gold);border-radius:14px;font-weight:800;
+.slate-note{margin:12px 0 12px;padding:10px 14px;border:2px solid var(--gold);border-radius:14px;font-weight:800;
   color:#fff;text-align:center;font-size:16px}
 .byo{text-align:center;font-size:21px;font-weight:900;color:#fff;margin:4px 0 14px;padding:12px 14px;border:2px solid #ffc233;border-radius:14px;background:rgba(255,194,51,.10);letter-spacing:.01em;line-height:1.25}
 .pvp{display:flex;align-items:center;gap:6px} .pvp b{flex:1;white-space:nowrap}
@@ -361,7 +361,7 @@ function poll(){if(document.hidden)return;   // only while the app's on screen; 
  fetch("https://api.github.com/repos/D503therapper/autonomous-crypto-engine/contents/live.json?ref=live-data",{headers:{Accept:"application/vnd.github.raw"},cache:"no-cache"})
  .then(function(r){return r.ok?r.json():raw()}).catch(raw).then(show).catch(function(){});}
 poll();setInterval(poll,2000);document.addEventListener("visibilitychange",poll);})();
-(function(){var t=1790945531490,m=0;   // the whole page stays fresh while it's open
+(function(){var t=1790945968807,m=0;   // the whole page stays fresh while it's open
 try{var o=sessionStorage.getItem("d503o");if(o){sessionStorage.removeItem("d503o");var ds=document.querySelectorAll("details");   // reopen what was open
   JSON.parse(o).forEach(function(i){if(ds[i])ds[i].open=true});}
  var y=sessionStorage.getItem("d503y");if(y!==null){sessionStorage.removeItem("d503y");window.scrollTo(0,+y);}}catch(e){}
