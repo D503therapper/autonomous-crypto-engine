@@ -46,6 +46,16 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   a sizing check, and a checker self-test (12 broken inputs, each must be caught).
 - NEXT (offered, not built): a "beat the closing price" record on the dashboard - the fastest real test of an edge.
 
+**10/2 later morning - INJURY DATA (the owner: "the most important thing in sports")**
+- Found: ESPN's college injury feed listed 3 teams - Virginia Tech, Pitt, Penn State, Northwestern... were read as
+  "nobody hurt". Fixed: official reports file (injuries_official.json) + a twice-daily routine that fills it; a team
+  with no injury data gets no pick; 2+ out / 4+ questionable = no units, card names who's out; the 10/2 board was held
+  until the owner said post (HOLD_DAYS).
+- NEXT (big): weigh every position from box scores (RB / WR / OL / defense in football, top scorers in hockey, NBA
+  starters) instead of the blunt no-units rule; automate the conference reports (their pages are script-built).
+- Dylan Larkin (Red Wings captain) out 2 games; Hellebuyck (Jets) suspended to 10/17 - both were on the feed but
+  skaters / suspensions weren't weighed.
+
 **Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**
 - Benchmark: Dr. Bob (Bob Stoll, drbobsports.com) - the owner's pick as THE proven capper. Self-published: NFL best
   bets 514-379-12 (57.6%) in 10 seasons (play-by-play model), college football best bets 55.1% since 1999, his
