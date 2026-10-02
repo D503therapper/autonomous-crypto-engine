@@ -304,6 +304,28 @@ def with_fact(text, fact):
     return f"{text} {fact}".strip()
 
 
+def close_box(path=None):
+    """📈 BEAT THE CLOSE (the owner, 10/2: "we need to have a record of everything"): did our price beat the last price
+    before the game? Vegas lines are sharp - a better number than the close, over and over, is the clearest sign of a
+    real edge (weeks, not seasons). From sports_clv's record; nothing until a pick has a trustworthy close."""
+    try:
+        with open(path or os.path.join(sd.DATA, "clv_record.json")) as f:
+            st = json.load(f)
+    except (OSError, ValueError):
+        return ""
+    u = st.get("unit_plays") or {}
+    if not u.get("n"):
+        return ""
+    row = lambda name, r: (f'<div class="clv-r"><b>{name}</b><span{" class=neg" if r["avg_pts"] < 0 else ""}>{r["beat"]} of {r["n"]} beat the close · '   # noqa: E731
+                           f'avg {r["avg_pts"]:+.1f} pts</span></div>') if r and r.get("n") else ""
+    k = st.get("by_kind") or {}
+    rows = row("💰 Unit plays", u) + row("🔒 Locks", k.get("lock")) + row("🐶 Dogs", k.get("dog")) + \
+        row("💵 Value plays", k.get("play")) + row("🟡 Leans", k.get("lean"))
+    return (f'<div class="lbl" style="margin-top:4px">📈 Beat the closing price '
+            f'<small style="color:#ffc233;letter-spacing:0">· our number vs where Vegas closed it</small></div>'
+            f'<div class="clv">{rows}</div>')
+
+
 def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
     if not UNITS_ON:
         return ""
@@ -1816,6 +1838,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
 .pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
 .pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
+.clv{{display:grid;gap:6px;margin:6px 0 4px}} .clv-r{{display:flex;justify-content:space-between;gap:10px;
+  padding:9px 12px;border:1px solid rgba(34,227,154,.35);border-radius:12px;font-weight:800;color:#fff;font-size:14px}}
+.clv-r span{{color:#22e39a;font-weight:900;text-align:right}} .clv-r span.neg{{color:#ff5c5c}}
 .slate-note{{margin:12px 0 12px;padding:10px 14px;border:2px solid var(--gold);border-radius:14px;font-weight:800;
   color:#fff;text-align:center;font-size:16px}}
 .byo{{text-align:center;font-size:21px;font-weight:900;color:#fff;margin:4px 0 14px;padding:12px 14px;border:2px solid #ffc233;border-radius:14px;background:rgba(255,194,51,.10);letter-spacing:.01em;line-height:1.25}}
@@ -2097,6 +2122,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
   <div class="recs grades">{others}</div>
   <div class="lbl" style="margin-top:4px">By sport</div>
   <div class="sports">{by_sport}</div>
+  {close_box()}
   <div hidden>{hist}</div>
 </section>
 <div class="sec"><h2><i>●</i> THE BRAIN</h2><span>retrained {E(tuned)}</span></div>

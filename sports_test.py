@@ -6122,6 +6122,19 @@ def test_missing_key_players_move_the_own_read():
         ab._TEAM.clear(); ab._TEAM.update(keep)
 
 
+def test_beat_the_close_box():
+    """10/2: the dashboard's 'beat the closing price' record - unit plays and each kind, a red number when we got the
+    worse number on average; nothing at all until a pick has a trustworthy close."""
+    import sports_dashboard as d, tempfile as _t
+    p = os.path.join(_t.mkdtemp(), "clv.json")
+    json.dump({"unit_plays": {"n": 4, "beat": 2, "avg_pts": 1.2}, "by_kind": {"dog": {"n": 1, "beat": 0, "avg_pts": -1.2}}},
+              open(p, "w"))
+    h = d.close_box(p)
+    assert "2 of 4 beat the close" in h and "avg +1.2 pts" in h and 'class=neg>0 of 1' in h
+    json.dump({"unit_plays": {"n": 0}}, open(p, "w"))
+    assert d.close_box(p) == ""
+
+
 def test_save_retry_survives_a_push_race():
     """10/2: a run's save died on a push race - 'git rebase --abort' with no rebase going exits 128 and bash -e killed the
     retry loop, so the run's board / grades never reached main. Every workflow's abort is '|| true'."""
