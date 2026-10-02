@@ -525,7 +525,8 @@ def check_market(c, S):
 def entry_trigger(c, E):
     """The live entry trigger (config.DEX["entry"]): 1h >= h1, 6h >= h6, 1h buys >= max(1, buy_ratio x sells)."""
     h1, h6, b1, s1 = c.get("h1"), c.get("h6"), c.get("b1") or 0, c.get("s1") or 0
-    return not (h1 is None or h6 is None or h1 < E["h1"] or h6 < E["h6"] or b1 < max(1, s1 * E["buy_ratio"]))
+    return not (h1 is None or h6 is None or h1 < E["h1"] or h6 < E["h6"] or b1 < max(1, s1 * E["buy_ratio"])
+                or h1 >= E.get("h1_max", float("inf")))
 
 
 # ---- tiered sizing (pure) --------------------------------------------------------------------------

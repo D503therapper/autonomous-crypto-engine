@@ -248,7 +248,10 @@ DEX = {
     # dex_tighten_study + dex_live_replay_study (2026-10-01): a +10% hour only pays when the coin is already in a run.
     # 6h < +50%: 73 survivorship-free live-scanner trades lost under every exit, both halves (bounces in a fall:
     # SHARTCOIN 6h -45%, MORI -57%); 6h >= +50% won in the 205-pool backtest in both halves, maxDD -25% -> -18%.
-    "entry": {"h1": 0.10, "h6": 0.50, "buy_ratio": 1.2},
+    # EXPERIMENT 8 (10-02): no buy after a single hour of +100% or more (SACC 1h +266% -> 0.09x, AGENCY +1265% -> 0.46x
+    # within hours). Live scanner replay: 1h >= +100% n 18, 72% lost half or more, sum -5.8 per $1 bet; backtest:
+    # the cap is even in the older half, better in the newer (+551% vs +507%/month).
+    "entry": {"h1": 0.10, "h6": 0.50, "buy_ratio": 1.2, "h1_max": 1.0},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%
         # idle. Owner 2026-09-26: size like the tested portfolio. Still capped at 0.5% of pool liquidity.
