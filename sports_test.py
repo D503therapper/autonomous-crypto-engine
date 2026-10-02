@@ -7732,6 +7732,7 @@ if __name__ == "__main__":
     sports_leads.RECORD = os.path.join(tempfile.mkdtemp(), "lead_record.json")
     sports_early.PARAMS_PATH = os.path.join(tempfile.mkdtemp(), "early_params.json")
     sports_live.FINAL_AT.clear()
+    sports.HOLD_DAYS = set()                             # (a real day on hold - 10/2 - never stops the test slates)
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
             fn()

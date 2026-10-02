@@ -2349,9 +2349,9 @@ def factor_check(games, cands, injuries, day, now, model=None):
                   f"old ones", flush=True)
     except Exception:                                        # noqa: BLE001
         pass
-    blind = sorted({g_[s_ + "_name"] for g_ in (games.get(x) for x in gids) if g_ for s_ in ("home", "away")
-                    if (injuries or {}).get(g_["league"]) is not None
-                    and not sd.covered(injuries[g_["league"]], g_["league"], g_[s_], g_[s_ + "_name"])})
+    blind = sorted({g_.get(s_ + "_name") or g_[s_] for g_ in (games.get(x) for x in gids) if g_ for s_ in ("home", "away")
+                    if g_.get(s_) and (injuries or {}).get(g_.get("league")) is not None
+                    and not sd.covered(injuries[g_["league"]], g_["league"], g_[s_], g_.get(s_ + "_name", ""))})
     if blind:                                                # (10/2: ESPN's college feed listed 3 teams - the engine
         print(f"FACTOR NOTE: no injury report for {len(blind)} team(s) - no pick on their games: "   # never picks blind)
               f"{', '.join(blind[:8])}", flush=True)
