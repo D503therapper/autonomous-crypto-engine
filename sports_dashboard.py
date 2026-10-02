@@ -615,9 +615,31 @@ def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
     byo = ('<div class="byo">🧩 Build your own parlay from today\'s plays.</div>'   # 🧩 the owner, 10/1: no posted
            if last_play is not None and straight >= 2 else "")                      # parlays - and the line sits AT
     no_lock = not any(k == "lock" for k, *_ in cards_by_kind)                       # THE TOP of the day's board
-    return (byo + after_lock + _lock_note(day, day_picks) + (_dog_note(day, day_picks) if no_lock else "")   # 🎯 WE GOT IN
+    return (_small_slate(day) + byo + after_lock + _lock_note(day, day_picks) + (_dog_note(day, day_picks) if no_lock else "")   # 🎯 WE GOT IN
             + out)                                         # EARLY on game day: just ABOVE the Lock of
     #                                                      the Day (the owner, 9/30) - its own box
+
+
+SMALL_SLATE = 12        # fewer real, priced games than this on the day = a small slate (the owner, 10/2)
+
+
+def _small_slate(day):
+    """🗓️ The owner, 10/2: "when there's small slates like this, we should put a disclaimer - small slate today, not
+    many games on the board." Real, priced games that day (Pacific) - said plainly, with the count."""
+    try:
+        import sports
+        n = 0
+        for g in (_GAMES_[0] or {}).values():
+            if g.get("league") not in sd.LEAGUES or (g.get("stype") or "2") not in sd.REAL or g.get("status") == "void" \
+                    or str(g.get("ml_home", "")) == "" or not g.get("start"):
+                continue
+            t = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+            n += t.astimezone(sports.PT).date().isoformat() == day
+    except Exception:                                        # noqa: BLE001 - a note never breaks the page
+        return ""
+    if not 0 < n < SMALL_SLATE:
+        return ""
+    return f'<div class="slate-note">🗓️ Small slate today — only {n} games on the board. Let\'s go to work.</div>'
 
 
 def gone_ms(p):
@@ -1744,6 +1766,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
 .pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
 .pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
+.slate-note{{margin:0 0 12px;padding:10px 14px;border:2px solid var(--gold);border-radius:14px;font-weight:800;
+  color:#fff;text-align:center;font-size:16px}}
 .byo{{text-align:center;font-size:21px;font-weight:900;color:#fff;margin:4px 0 14px;padding:12px 14px;border:2px solid #ffc233;border-radius:14px;background:rgba(255,194,51,.10);letter-spacing:.01em;line-height:1.25}}
 .pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1;white-space:nowrap}}
 .pvl{{font-size:12px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}} .pvl:empty{{display:none}}
