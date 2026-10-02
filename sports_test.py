@@ -7359,6 +7359,24 @@ def test_final_score_stamps_the_card_right_away():
     assert "cd.querySelectorAll(\".leg\").length===1&&!cd.querySelector(\".stamp\")" in src
     assert "'<div class=\"stamp '+rs+'\">'" in src
 
+
+def test_a_backup_qb_out_is_never_the_starter():
+    """10/2, the Steelers card: "Both teams are down their starting quarterback - Drew Allar is out for the Steelers,
+    Taylen Green for the Browns." Both were BACKUPS (Rodgers and Watson started) - false, and the engine weighed it
+    ('opponent missing key players'). Only a QB / goalie who started one of the team's last 3 games is key."""
+    import sports_players as sp
+    keep = sp.CACHE
+    try:
+        sp.CACHE = {"nfl": [{"gid": f"g{i}", "start": f"2026-09-{10 + i}", "team": "23", "player": "Aaron Rodgers",
+                             "role": "QB"} for i in range(3)]}
+        inj = {"23": [("Drew Allar", "QB", "Out"), ("Aaron Rodgers", "QB", "Out")], "5": [("Taylen Green", "QB", "Out")]}
+        assert [r[0] for r in sd.team_key_out(inj, "23", "Steelers", "nfl")] == ["Aaron Rodgers"]
+        assert sd.team_key_out(inj, "5", "Browns", "nfl") == [("Taylen Green", "QB", "Out")]   # no box scores: unknown
+        sp.CACHE["nfl"] += [{"gid": "b1", "start": "2026-09-20", "team": "5", "player": "Deshaun Watson", "role": "QB"}]
+        assert sd.team_key_out(inj, "5", "Browns", "nfl") == []                                   # a backup: never key
+    finally:
+        sp.CACHE = keep
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

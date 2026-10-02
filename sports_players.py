@@ -87,6 +87,30 @@ def fetch_box(league, gid, start):
             time.sleep(1.5)
 
 
+def _nm(x):
+    return " ".join(str(x or "").lower().replace(".", "").replace(" jr", "").replace(" sr", "").replace(" iii", "")
+                    .replace(" ii", "").split())
+
+
+def recent_starters(league, team_id, n=3):
+    """The names that started at QB / in goal for this team in its last `n` games (our box scores), or None when we
+    hold none (unknown). The 10/2 Steelers card: 'both teams are down their starting quarterback' - Drew Allar and
+    Taylen Green, two BACKUPS on the injury report; Rodgers and Watson started. Only a real starter is a key player."""
+    rows = [r for r in CACHE.get(league) or [] if str(r.get("team")) == str(team_id)]
+    if not rows:
+        return None
+    gids = []
+    for r in reversed(rows):                         # rows are sorted by start: the last n games
+        if r["gid"] not in gids:
+            gids.append(r["gid"])
+        if len(gids) >= n:
+            break
+    return {_nm(r["player"]) for r in rows if r["gid"] in gids}
+
+
+sd.STARTER_OF = lambda lg, tid, name: (lambda st: None if st is None else _nm(name) in st)(recent_starters(lg, tid))
+
+
 def _path(league):
     return os.path.join(sd.DATA, "players", f"{league}.csv")
 
