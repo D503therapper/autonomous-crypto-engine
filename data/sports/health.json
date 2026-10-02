@@ -1,28 +1,34 @@
 {
- "at": "2026-10-02T13:47Z",
+ "at": "2026-10-02T14:10Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Andreeva vs Pridankina: no points for 2654s",
-  "live tennis scores: tennis Stefanini vs Jeanjean: no points for 2654s"
+  "live tennis scores: tennis Stefanini vs Jeanjean: no points for 1339s"
  ],
  "ok": [
-  "live watcher fresh (32s)",
+  "live watcher fresh (17s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 4 live matches",
+  "live tennis points + server: 1 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
+  "studies ran 9h ago",
   "simulator ran 8h ago",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-02T14:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Stefanini vs Jeanjean: no points for 1339s"
+   ]
+  },
   {
    "at": "2026-10-02T13:47Z",
    "fixes": [],
@@ -628,11 +634,6 @@
    "problems": [
     "workflow failed: sports 2026-09-29T16:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36598307541"
    ]
-  },
-  {
-   "at": "2026-09-29T10:55Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
