@@ -722,6 +722,14 @@ def two_books(dk, bov):
     return None, None, False
 
 
+def book_src(lines, g):
+    """Which book our game's live line came from (bovada / betrivers), or "?"."""
+    for ln in lines:
+        if sd._same(g["home_name"], ln["home"]) and sd._same(g["away_name"], ln["away"]):
+            return ln.get("src") or "?"
+    return "?"
+
+
 def book_line(lines, g):
     """(home ml, away ml) for our game from the sportsbook's live lines, or (None, None)."""
     for ln in lines:
@@ -800,7 +808,11 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
     es = scores_f[lg].result().get(g["id"].split(":", 1)[1]) if lg in scores_f else None
     if es is not None and es != (_score(box, "home"), _score(box, "away")):
         return plays                                       # the two score feeds disagree (a few seconds apart): wait
-    mlh, mla, checked = two_books(dk_f.result(), book_line(books_f[lg].result() if lg in books_f else [], g))
+    lines_ = books_f[lg].result() if lg in books_f else []
+    bov_ = book_line(lines_, g)
+    mlh, mla, checked = two_books(dk_f.result(), bov_)
+    src = book_src(lines_, g) if (mlh, mla) == tuple(bov_) and mlh is not None else "draftkings"   # (10/1: which book
+    #                                                             the price came from - the Devils +145 never said)
     PRICED[0] += mlh is not None and mla is not None
     if mlh is None or mla is None:
         return plays                                       # the book paused its line: wait
@@ -824,6 +836,7 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
     lost = series_lost(g)
     for pl in evaluate(lg, g, box, mlh, mla, st, p_model, mkt, ball, ball_txt, now.hour, checked, showing, rec, lost):
         pl["an_id"] = ang.get("id")
+        pl["src"] = src + ("+confirmed" if checked else "")
         plays.append(pl)
     return plays
 
@@ -938,6 +951,8 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                                       "p": pl["p"]}
             log["plays"][pl["id"]].update({k: pl[k] for k in ("tour", "match", "double_down", "tennis", "sport", "opp", "src")
                                            if k in pl and pl["league"] == "tennis"})
+            if pl.get("src") and pl["league"] != "tennis":
+                log["plays"][pl["id"]]["src"] = pl["src"]   # (10/1: every live bet says which book priced it)
             notify(pl)                                        # a new live bet: push it to everybody's phone
         elif log["plays"][pl["id"]].get("down") and log["plays"][pl["id"]].get("result") is None:
             log["plays"][pl["id"]].pop("down", None)          # it came down, now it's value again: back on top, quietly
@@ -1680,7 +1695,7 @@ def run():
         json.dump(out, f, indent=1)
     with open(LOG, "w") as f:
         json.dump(log, f, indent=1, sort_keys=True)
-    print(f"{datetime.now(timezone.utc):%H:%M:%S} live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%}"
+    print(f"{datetime.now(timezone.utc):%H:%M:%S} live ({time.time() - t0:.1f}s): {WATCHING[0]} games live, {PRICED[0]} priced by a sportsbook, {len(plays)} plays on the board" + "".join(f"\n   {p['team']} {p['odds']:+d} ({p['score']}, {p['clock']}) edge {p['edge']:.1%} [{p.get('src', '?')}]"
                                                     + (f" [{p['src']}]" if p.get("src") else "") for p in plays))
     return plays
 

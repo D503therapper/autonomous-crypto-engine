@@ -5662,8 +5662,6 @@ def _six_early_spots():
     #                                                                     halved 10/1) + blowout (+2) = 3.5 < 5 too
     lift = {(c["team"], c["spot"]) for c in se.spot_scan(G, now, own_of=own_by(0.02), hist_dir=tempfile.mkdtemp())}
     assert ("Rams", "mnf") in lift                                      # ...with the engine 2 pts over the price: in
-    thu = {**G, "n3": {**G["n3"], "start": "2026-10-08T00:15Z"}}       # the Bills on Thursday night: a fade weighs in
-    assert not any(c["team"] == "Bills" for c in se.spot_scan(thu, now - timedelta(days=1), own_of=agree, hist_dir=tempfile.mkdtemp()))
     # not before last week's games are over (the 10/1 audit: an early price then 'knew' nothing the engine knew)
     early = datetime(2026, 10, 4, 18, 0, tzinfo=timezone.utc)                       # the Jets' game still on
     assert not any(c["team"] == "Bills" for c in se.spot_scan(G, early, own_of=agree, hist_dir=tempfile.mkdtemp()))
@@ -5761,7 +5759,10 @@ def test_dog_findings_weighed_never_auto():
     s0 = sports.dog_spots(base)
     assert sports.dog_spots({**base, "dog_more": {"east_west": True}}) == s0 + 3
     assert sports.dog_spots({**base, "dog_more": {"fades": ["ice cold"]}}) == s0 - 3
-    assert sports.dog_spots({**base, "dog_more": {"fades": ["coach's first season", "Thursday night"]}}) == s0 - 5
+    assert sports.dog_spots({**base, "dog_more": {"fades": ["coach's first season", "Thursday night"]}}) == s0 - 3
+    #   (10/1, the owner: no Thursday-night fade - "a night of football like any other"; a small, noisy sample)
+    _se = __import__("sports_early")
+    assert "Thursday night" not in _se.FADE_WEIGHT and 'out.append("Thursday night")' not in open(_se.__file__).read()
     cf = {**base, "league": "ncaaf"}
     assert sports.dog_spots({**cf, "dog_more": {"last_margin": 21}}) == sports.dog_spots(cf) + 2
     assert sports.dog_spots({**cf, "dog_more": {"fast": True}}) == sports.dog_spots(cf) - 2
@@ -7133,6 +7134,10 @@ def test_a_favorite_tied_at_plus_money_needs_two_books():
     src = open(sports_live.__file__).read()
     assert "my >= their and (pre_market_p if side == \"home\" else 1 - pre_market_p) >= FAV_PRE" in src
     assert sports_live.FAV_PRE == 0.55
+    g = {"home_name": "Devils", "away_name": "Flyers"}
+    assert sports_live.book_src([{"home": "Devils", "away": "Flyers", "src": "betrivers"}], g) == "betrivers"
+    assert sports_live.book_src([], g) == "?"
+    assert 'log["plays"][pl["id"]]["src"] = pl["src"]' in src            # every live bet logs which book priced it
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
