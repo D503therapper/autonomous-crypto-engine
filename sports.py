@@ -33,7 +33,7 @@ DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
 START_BANKROLL = 1000.0
 STAKE = 100.0
-HOLD_DAYS = set()             # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
+HOLD_DAYS = {"2026-10-02"}           # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
                                # post under rules the study showed are weak (the owner, 9/28)
 POST_FROM_HOUR_PT = 8          # a day's plays go up from 8am Pacific ON GAME DAY (the owner, 9/28, after the line study:
                                # closing lines pick more winners - NFL 68% vs 61% early - so the engine watches the lines
