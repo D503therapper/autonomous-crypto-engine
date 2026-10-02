@@ -852,8 +852,8 @@ def dog_score(c):
     if c.get("lost_last"):                               # lost the last game of the series: baseball, Game 2 is the
         sc += 3 if c.get("league") in ("nba", "nhl") else -3   # pitcher (-); hoops / hockey bounce back as a dog
                                                          # (NBA +28.2%, NHL +28.7%)
-    if c.get("road_opener") and c.get("league") == "nhl":   # a road dog in the other team's home opener: +10.9%
-        sc += 1.5                                        # the last 3 seasons (the hype's overpriced)
+    # (an NHL road dog in the other team's home opener was +1.5 - the 10/2 point-system study, walk-forward on 41,497
+    #  dogs: -7.3 points vs its price inside own-read buckets, the wrong sign. Off.)
     d = c.get("drift") or 0.0                            # + = the money ran away from this side since the open:
     if c.get("league") in ("nhl", "nfl", "ncaaf", "nba") and d >= 0.02:   # those dogs lost - NFL -40%, college
         sc -= 4                                          # football -9%, NBA -8%, hockey -6% every season (baseball: even)
@@ -876,13 +876,16 @@ def dog_score(c):
     if hangover(c):                                      # a dog again after its big upset win: the hangover
         sc -= 3
     if overreact(c):                                     # a football dog off a blowout loss: the market overreacts
-        sc += 3                                          # (college +11.6%, NFL +7.9% vs -3.6% for every dog)
+        sc += 5 if c.get("league") == "nba" else 3       # (10/2 study: NBA +11 pts, 7 of 7 seasons, passes the
+        #                                                   false-discovery check - +5)
+        #                                           (college +11.6%, NFL +7.9% vs -3.6% for every dog)
     if c.get("hot_key"):                                 # its goalie / stars are much hotter: the books already
         sc -= 3                                          # over-rate that (NHL 5 of 5 seasons, NBA 3 of 4 - sports_form)
     if c.get("league") == "nhl":
         sc += 2 if d <= -0.02 else 0                     # hockey: the money came IN on the dog
         k = c.get("key_edge")
-        if k is not None:
+        if k is not None and not c.get("hot_key"):       # (10/2 study: 93% of hot_key dogs got this too - -5 stacked,
+            #                                              the data says ~-2 in all: one or the other, never both)
             sc += -2 if k >= 0.4 else 1 if k <= -0.4 else 0
     return base + max(-STUDY_CAP, min(STUDY_CAP, sc - base))   # (the owner, 10/2: "I don't want the engine to
     #                                                             overweight these" - the angles overlap; their sum is capped)
@@ -967,7 +970,7 @@ def _dog_more(games, g, side, other, lg):
         if lg in ("nfl", "ncaaf"):
             out["fades"] = se._fades(sched, g, side, lg, start.astimezone(ZoneInfo("America/New_York")))
             op_prev = se._prev(sched, lg, g[other], g["start"])  # (10/1 wiring audit: the early studies' game-day spots)
-            if prev and op_prev and (start - se._t(prev["start"])).days >= se.REST_BYE \
+            if prev and op_prev and se.REST_BYE <= (start - se._t(prev["start"])).days <= 30 \
                     and (start - se._t(op_prev["start"])).days <= se.REST_NORMAL:
                 out["bye"] = True                               # off a bye vs a team that played
             if lg == "nfl" and start.astimezone(ZoneInfo("America/New_York")).weekday() == 0:
@@ -1103,11 +1106,13 @@ def dog_spots(c):
         elif won is False and opp_won is True and not overreact(c):
             sc -= 3                # we lost ours, they won theirs: -11.3% vs -6.2% (worse 7 of 8)
     elif lg == "nhl" and won is False and opp_won is False:
-        sc += 2                    # both lost their last: +1.6% vs -4.7% (7 of 8)
+        sc += 3.5                  # (10/2 study: +4.3 pts, 6 of 7 seasons, passes the false-discovery check)
+        #                     both lost their last: +1.6% vs -4.7% (7 of 8)
     elif lg == "nba" and won is True and opp_won is False:
         sc -= 2                    # we won, they lost: -10.0% vs -4.4% (worse 7 of 8)
     if (lg == "mlb" and 200 <= odds <= 249) or (lg == "nhl" and odds >= 200):
-        sc -= 2                    # the price: MLB +200..+249 -14.9% (1 of 9 seasons up), NHL +200 and up -11..-14%
+        sc -= 4 if lg == "mlb" else 2   # (10/2 study: MLB -5.3 pts, passes the false-discovery check - -4)
+        #                     the price: MLB +200..+249 -14.9% (1 of 9 seasons up), NHL +200 and up -11..-14%
     if lg == "mlb" and (x.get("rs_gap") or 0) >= 0.02:
         sc += 1.5                  # out-scoring the favorite lately (small - 5 of 9 seasons at +130..+199)
     if lg == "nba" and (x.get("cw5") or 0) >= 2:
@@ -1166,7 +1171,10 @@ def dog_spots(c):
             sc -= 1                # seasons; the most aggressive quarter covered 53.9% (6 of 9). A weight, a lead.
         elif mo["go4_gap"] >= sports_go4.GAP_HI:
             sc += 1
-    for f in mo.get("fades") or []:
+    fd = mo.get("fades") or []
+    if lg == "ncaaf" and "ice cold" in fd and "losing streak" in fd:
+        sc += 2                    # (10/2 study: 61% overlap, -6 stacked - the pair counts -4 together)
+    for f in fd:
         sc -= {"ice cold": 3,                # last 3 games 7+ worse than its season: NFL -15%, college -13% (1 of 6)
                "coach's first season": 3,    # an NFL dog in its coach's first season with the team: -16% (-26% last 3)
                "losing streak": 3,           # a college dog on a 3+ game losing streak: -15% (-21% early)
