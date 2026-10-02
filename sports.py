@@ -1919,6 +1919,20 @@ def viewer_leans(cands, avoid):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:        # (spread across the sports - "not five hockey games")
             per[c["league"]] = per.get(c["league"], 0) + 1
             out.append(c)
+    # 🟡 THE FILL (the owner, 10/2: "we need five picks so we can have two more leans"): a lean is a WHO-WINS call with
+    # no units, so a side the engine has winning whose PRICE isn't value (a hockey favorite) can still be a lean - after
+    # the regular leans, the likeliest winners. Never past -150, never fighting its own read, never a trap, never a
+    # read-less spread, never a game we're on.
+    def fill_ok(c):
+        return (c["market"] == "ml" and c["odds"] >= MAX_FAV and not c.get("trap") and c["game_id"] not in avoid
+                and c["game_id"] not in best and not fighting(c) and c["p"] >= LEAN_PICK_P)
+    extra = {}
+    for c in sorted((c for c in cands if fill_ok(c)), key=lambda c: -c["p"]):
+        extra.setdefault(c["game_id"], c)
+    for c in sorted(extra.values(), key=lambda c: -c["p"]):
+        if per.get(c["league"], 0) < LEAN_PER_SPORT:
+            per[c["league"]] = per.get(c["league"], 0) + 1
+            out.append(c)
     return out
 
 
