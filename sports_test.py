@@ -6093,6 +6093,34 @@ def test_both_teams_hot_never_called_our_heater():
     assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{them} {their_hot}" in blk
 
 
+def test_missing_key_players_move_the_own_read():
+    """10/2 absence studies (the owner: "if the running backs are out and the wide receivers are out ... that changes
+    everything"): key players come from the team's own last games (no look-ahead); a key player out takes the studied
+    points off the engine's OWN read - NFL QB 8 / RB 3 / WR 3 / two+ 10, college QB 3 / two+ 5, NHL top scorer 6 /
+    top-2 4 / two of top 3 7, NBA 9 / 11; MLB none."""
+    import sports_absences as ab
+    keep = dict(ab._TEAM)
+    try:
+        def box(players):
+            return [{"player": n, "stats": json.dumps(st)} for n, st in players]
+        ab._TEAM["nfl"] = {"1": [("2026-09-%02dT17:00Z" % d, f"nfl:{d}", box([
+            ("Q B", {"completions/passingAttempts": "20/30"}), ("R B", {"rushingYards": "90"}),
+            ("Wide Ace", {"receivingYards": "80"}), ("Wide Bee", {"receivingYards": "60"}), ("Wide Cee", {"receivingYards": "5"})]))
+            for d in (7, 14, 21)]}
+        G = {f"nfl:{d}": {"stype": "2"} for d in (7, 14, 21)}
+        g = {"league": "nfl", "home": "1", "away": "2", "home_name": "A", "away_name": "B", "start": "2026-09-28T17:00Z"}
+        assert ab.key_players(G, "nfl", "1", g["start"]) == {"qb": "Q B", "rb": "R B", "wr": ["Wide Ace", "Wide Bee"]}
+        inj = lambda *rows: {"nfl": {"1": list(rows)}}                         # noqa: E731
+        assert ab.penalty(G, g, "home", inj(("R B", "RB", "Out")))[0] == 0.03
+        assert ab.penalty(G, g, "home", inj(("Q B", "QB", "Out")))[0] == 0.08
+        assert ab.penalty(G, g, "home", inj(("R B", "RB", "Out"), ("Wide Ace", "WR", "Doubtful")))[0] == 0.10
+        assert ab.penalty(G, g, "home", inj(("Wide Cee", "WR", "Out")))[0] == 0.0           # not a key player
+        assert ab.penalty(G, g, "home", inj(("R B", "RB", "Questionable")))[0] == 0.0  # questionable isn't out
+        assert ab.penalty(G, g, "home", inj(("Q B", "QB", "Out")), skip_qb=True)[0] == 0.0   # the key_out path has it
+    finally:
+        ab._TEAM.clear(); ab._TEAM.update(keep)
+
+
 def test_fetch_pages_reads_text():
     """10/2: the official availability reports get read on GitHub's servers (tools/fetch_pages.py) - scripts and styles
     stripped, the readable lines kept."""

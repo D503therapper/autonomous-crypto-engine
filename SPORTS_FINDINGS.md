@@ -493,3 +493,21 @@ studies for football (stars, backups), baseball (lineups, hot/cold hitters, AAA 
 - Fixes: tools/ncaaf_backfill.py refills 2026; seen_all keeps a partly-seen college team's record, streak, last game
   and series off the card and out of the early spots; the bottom line says our own read vs what the price needs, and a
   read under the price says "lean", never "value".
+
+## 10/2 - what a missing player is worth (the owner: "if the running backs are out and the wide receivers are out ... that changes everything")
+Our own box scores 2021-26 regular seasons; key players from each team's own previous games (no look-ahead: football
+last 3 - most pass attempts / rushing yards / top-2 receiving yards; hockey / NBA last 10 - points; MLB last 20 - top
+bats); 'absent' = not in that game's box score; the engine's own read replayed pre-game; gaps net of a no-one-out control.
+- NFL (9,256 team-games): QB out own read overstates -10.6 pts (5 of 5 seasons; the market prices most - ROI -19% at the
+  close, ~2 SE), lead RB out -4.5 (3 of 5), a top-2 WR out -5.1 (4 of 5), 2+ of those -13.7 (5 of 5, ROI -24%), both WRs
+  n=22 noise. BUILT (shrunk): QB -8, RB -3, WR -3, two+ -10 (cap, never stacked).
+- College: RB / WR out ~0 (the ratings and the market have it), QB -3.2 (4 of 5), 2+ -5.2 (4 of 5). BUILT: QB -3, two+ -5.
+- NHL (12,355 team-games): top scorer out -7.0 vs the own read (market -4.0; shrinking lately: 2021 -13 ... 2025 -3),
+  one of top 2 -4.8, two of top 3 -9.0 (n=108), backup goalie -1.0 (noise). BUILT: -6 / -4 / -7, cap 8; goalie none.
+- NBA (2021-25): top scorer out -9.2 (every season), two of top 3 -11.6; the market prices it fully (ROI = vig). BUILT:
+  -9 / -11, cap 12.
+- MLB: best bat out +0.3, two of top 3 +1.5 - noise. DEAD (no weight); watch: the market may overrate the OPPONENT of a
+  depleted lineup by ~3 pts (ROI -12%, 1.9 SE) - a LEAD.
+Wired as sports_absences.penalty -> the engine's OWN read only (a starting QB / goalie the engine already treats as key
+keeps the go-by-the-market path - never counted twice). 'Out' = the injury report says out / doubtful / suspended.
+Caveat: box-score absence counts trades / long injuries too; real-time 'out' lists are cleaner - re-check on live picks.
