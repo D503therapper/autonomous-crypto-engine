@@ -5401,3 +5401,36 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 06:06 UTC] crypto/hold_btc  equity $510.73 (+2.1%) 1 open  market UP
    social heat top: QNT 35 (35/0/0), BTC 32 (32/0/0), NEAR 29 (29/0/0), PENGU 27 (27/0/0), ZRO 24 (24/0/0)
+   dex screen: REJECT PILL@solana liq $218,218 - holders unknown; lp holders unknown; rugcheck lp locked 52% < 95%
+   dex screen: REJECT AVNT@base liq $730,302 - pool age unknown
+   dex screen: REJECT MSFTC@base liq $1,025,795 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: REJECT SHFL@ethereum liq $9,587,215 - top-10 holders 87%
+   dex screen: REJECT PHA@ethereum liq $308,601 - transfer_pausable; hidden_owner; top-10 holders 71%; lp locked 0% < 95%
+   listing: upbit_markets #POD 'New Upbit listing (POD)' -> ['POD']
+   listing: POD: upbit_markets notice "New Upbit listing (POD)" -> not on Crypto.com USD
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT LAPTOP@base liq $1,159,401 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 91%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]          8b942dbb1638b7d1d273b3535ed4f8a8845eb9ca -> main (fetch first)
+error: failed to push some refs to 'https://github.co
+   dex screen: REJECT SKHY@solana liq $2,475,994 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 80%
+   dex screen: REJECT DOT@base liq $641,448 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   >> crypto/social_heat: SELL $76.63 of QNT @ 237.857, P/L $-23.89 (stop hit (live check))
+   dex screen: REJECT WOJAK@solana liq $384,492 - lp holders unknown; rugcheck lp locked 91% < 95%
+   dex screen: REJECT WOJAK@ethereum liq $1,028,239 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; honeypot.is: no data
+   dex screen: REJECT GITLAWB@base liq $507,649 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex scanner: 2,999 pools (solana 2,029 / base 553 / ethereum 417), refresh cycle 123s (hot 119s), 3056 calls (123 feed, 429s 0, failed 0), 87,982 refreshed (6894 no pair), +221 added / -224 dropped (dead 8, stale 0, cap 216), movers 1 + warming 24 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-02 07:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 07:06 UTC] crypto/mover     equity $450.10 (-10.0%) 1 open  market UP
+[2026-10-02 07:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 07:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 07:06 UTC] crypto/social_heat equity $533.91 (+6.8%) 1 open  market UP
+[2026-10-02 07:06 UTC] crypto/breakout10 equity $501.25 (+0.2%) 2 open  market UP
+[2026-10-02 07:06 UTC] crypto/momentum  equity $489.57 (-2.1%) 2 open  market UP
+[2026-10-02 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 07:06 UTC] crypto/hold_btc  equity $510.18 (+2.0%) 1 open  market UP
+   social heat top: BTC 37 (37/0/0), PENGU 32 (32/0/0), QNT 29 (29/0/0), NEAR 27 (27/0/0), ZRO 21 (21/0/0)
