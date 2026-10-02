@@ -6082,6 +6082,31 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_no_blind_picks_and_official_reports():
+    """10/2, the owner: "our engine needs to have all the data". ESPN's college feed listed 3 teams, so 'nobody listed'
+    meant UNKNOWN for Virginia Tech, Pitt, Penn State... A college team the data doesn't cover holds its game; the
+    official availability reports we keep count as coverage; a side with 2+ players out (or 4+ questionable) the engine
+    doesn't weigh carries no units."""
+    import json as _j, tempfile as _t
+    keep = sd.OFFICIAL_PATH
+    try:
+        sd.OFFICIAL_PATH = os.path.join(_t.mkdtemp(), "o.json")
+        today = (datetime.now(timezone.utc) - timedelta(hours=7)).date().isoformat()
+        _j.dump({today: {"ncaaf": {"259": {"players": [["Justin Terry", "OL", "Out"], ["Emmett Laws", "DL", "Out"]]}}}},
+                open(sd.OFFICIAL_PATH, "w"))
+        assert sd.official("ncaaf") == {"259": [("Justin Terry", "OL", "Out"), ("Emmett Laws", "DL", "Out")]}
+        inj = {"99": [("Somebody", "QB", "Out")], **sd.official("ncaaf")}
+        g = {"league": "ncaaf", "home": "259", "away": "221", "home_name": "Virginia Tech", "away_name": "Pitt"}
+        assert sd.covered(inj, "ncaaf", "259") and not sd.covered(inj, "ncaaf", "221")
+        assert any("Pitt injury report" in w for w in sports.waiting_on(g, {"ncaaf": inj}))
+        assert sd.covered({"1": []}, "nhl", "5")                  # a pro feed: a team not listed = nobody hurt
+        assert sports.hurt(g, "home", {"ncaaf": inj}) == ["Justin Terry", "Emmett Laws"]
+        one = {"259": [("Justin Terry", "OL", "Out")]}
+        assert sports.hurt(g, "home", {"ncaaf": one}) == []       # one player out: weighed by the price, units stay
+    finally:
+        sd.OFFICIAL_PATH = keep
+
+
 def test_fill_lean_skips_a_team_missing_players():
     """10/2: the Red Wings fill lean had Dylan Larkin OUT, the Jets fill lean Connor Hellebuyck (their starting goalie)
     suspended - the engine weighs neither. A fill lean whose team has anyone out / doubtful, or a key player suspended,

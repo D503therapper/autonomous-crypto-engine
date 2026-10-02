@@ -469,8 +469,48 @@ KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": "st
 # None = any player; "stars" = the team's best bats by name (mlb_stars: MLB's own season stats)
 
 
+OFFICIAL_PATH = os.path.join(DATA, "injuries_official.json")
+PRO = ("nfl", "nba", "nhl", "mlb")       # ESPN's pro feeds list every team that has anybody hurt: a team missing = healthy
+
+
+def official(league, day=None):
+    """{team id: [(player, position, status)]} from the official availability reports kept in injuries_official.json
+    for today / tomorrow (Pacific) - what the ESPN feed doesn't carry (10/2: its college feed listed 3 teams)."""
+    try:
+        with open(OFFICIAL_PATH) as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    now = datetime.now(timezone.utc) - timedelta(hours=7)
+    out = {}
+    for k in sorted({(now + timedelta(days=i)).date().isoformat() for i in (-1, 0, 1)} if day is None else {day}):
+        for tid, t in ((d.get(k) or {}).get(league) or {}).items():
+            out[str(tid)] = [tuple(x) for x in t.get("players") or []]
+    return out
+
+
+def covered(inj, league, team_id, team_name=""):
+    """Does the injury data really cover this team? A pro feed lists every team with anybody hurt (missing = nobody);
+    a college team only counts when it's IN the data (ESPN or an official report) - never 'nobody hurt' by default."""
+    if inj is None:
+        return False
+    if team_id in inj or (team_name and _team_rows(inj, team_id, team_name)):
+        return True
+    return league in PRO
+
+
 def fetch_injuries(league):
-    """{team id or name: [(player, position, status)]} for players listed Out / Doubtful."""
+    """{team id or name: [(player, position, status)]} for players listed Out / Doubtful - ESPN's feed plus the
+    official availability reports we keep (injuries_official.json)."""
+    got = _fetch_espn_injuries(league)
+    if got is None:
+        return None
+    for tid, rows in official(league).items():
+        got[tid] = rows                                  # (the official report is the full list for that team)
+    return got
+
+
+def _fetch_espn_injuries(league):
     path = LEAGUES[league][0]
     url = f"https://site.api.espn.com/apis/site/v2/sports/{path}/injuries"
     for i in range(3):                               # the injury report matters too much to give up on one hiccup
