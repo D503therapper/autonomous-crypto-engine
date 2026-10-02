@@ -5206,3 +5206,35 @@ DEX: $752.66 (-247.34) · Scammed: 0
 [2026-10-02 01:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 01:06 UTC] crypto/hold_btc  equity $503.64 (+0.7%) 1 open  market UP
    social heat top: TRUMP 40 (35/0/5), QNT 29 (29/0/0), MON 27 (27/0/0), NEAR 24 (24/0/0), PENGU 23 (13/0/10)
+   dex screen: REJECT SAPLING@solana liq $207,474 - holders unknown; lp holders unknown; rugcheck lp locked 69% < 95%
+   dex screen: REJECT GRASS@solana liq $283,272 - mint authority; top-10 holders 51%; lp holders unknown
+   dex screen: REJECT JTO@solana liq $1,354,954 - top-10 holders 48%
+   dex screen: REJECT XCN@ethereum liq $890,175 - is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   dex screen: REJECT SI@solana liq $121,920 - holders unknown; lp holders unknown; rugcheck danger: Single holder ownership
+   dex screen: PASS FWA@ethereum liq $994,692
+   dex screen: REJECT SEC@solana liq $100,282 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]   66e61e9a8ee68e8dc9b7e96b38be6e2cf12bcab9 -> main (cannot lock ref 'refs/heads/main': is at 8f17c8563ff999af933fb344c
+   dex screen: PASS DRB@base liq $1,823,549
+   dex screen: REJECT PROS@base liq $7,723 - liquidity $7,723 < $100,000; 24h volume $321 < $100,000
+   dex screen: REJECT TRAC@ethereum liq $514,967 - is_mintable; top-10 holders 52%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT BP@solana liq $5,628,449 - freeze authority; mint authority; top-10 holders 97%
+   dex screen: REJECT SEND@ethereum liq $352,273 - lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,164 / base 486 / ethereum 350), refresh cycle 125s (hot 122s), 2981 calls (108 feed, 429s 0, failed 0), 86,187 refreshed (4924 no pair), +109 added / -109 dropped (dead 8, stale 0, cap 101), movers 3 + warming 18 -> queued 3, screened 4 (passed 0), bought 0
+   scanner: GTC: +19.1% in 60 min on 3.8x volume @ 0.173726 spread 1.04%
+[2026-10-02 02:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 02:06 UTC] crypto/mover     equity $456.59 (-8.7%) 2 open  market UP
+[2026-10-02 02:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 02:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 02:06 UTC] crypto/social_heat equity $538.58 (+7.7%) 2 open  market UP
+[2026-10-02 02:06 UTC] crypto/breakout10 equity $497.35 (-0.5%) 2 open  market UP
+[2026-10-02 02:06 UTC] crypto/momentum  equity $485.44 (-2.9%) 2 open  market UP
+[2026-10-02 02:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 02:06 UTC] crypto/hold_btc  equity $504.42 (+0.9%) 1 open  market UP
+   social heat top: TRUMP 40 (35/0/5), QNT 32 (32/0/0), PUMP 29 (29/0/0), PENGU 28 (13/0/14), MON 24 (24/0/0)
