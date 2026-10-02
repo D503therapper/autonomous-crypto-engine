@@ -482,6 +482,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_west_coast_road_fav(games, out)
     weigh_hoops_inside(games, out, now)
     mark_doubleheader_game2(games, out)
+    weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -1646,6 +1647,34 @@ def mark_hockey_favorites(cands):
             fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early + tired + slump)), 4)
 
 
+FAV_PER_PT = 0.005       # the owner, 10/2: "make sure the engine weighs everything making its picks." Hockey already
+FAV_CAP = 0.04           # weighed the favorite by the dog across from it; every other sport's favorite only had its own
+#                          read - the studies (dog_spots: fades, spots, momentum, injuries, prices) moved the DOG's score
+#                          and never the favorite's. Now each favorite's read moves the other way, half a point per point
+#                          of the dog's study score (capped 4) - hockey's tested size, a weight, never a trigger.
+
+
+def weigh_favorites(cands):
+    """Every non-hockey moneyline favorite gets its WEIGHED read (w_p): its own read, moved the other way by the study
+    points on the dog across from it (dog_spots - not the dog's own-read gap, that's the same ratings counted twice)."""
+    ml = {}
+    for c in cands:
+        if c.get("league") != "nhl" and c.get("market") == "ml":
+            ml.setdefault(c["game_id"], []).append(c)
+    for pair in ml.values():
+        if len(pair) != 2:
+            continue
+        fav, dog = sorted(pair, key=lambda c: c["odds"])
+        if fav["odds"] >= 0 or dog["odds"] < 100 or fav.get("w_p") is not None or fav.get("edge_own") is None:
+            continue
+        pts = dog_spots(dog)
+        if not pts:
+            continue
+        lift = max(-FAV_CAP, min(FAV_CAP, -FAV_PER_PT * pts))
+        fav["opp_dog_pts"] = round(pts, 2)
+        fav["w_p"] = round(min(0.95, max(0.05, (fav["edge_own"] + 1) / fav["dec"] + lift)), 4)
+
+
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
 #                          seasons (sports_form) - the books overreact. Was a ranking nudge only; now it moves the read
 #                          (the 10/1 wiring audit; the owner: "everything we studied has to be wired in")
@@ -1771,7 +1800,7 @@ def mark_doubleheader_game2(games, cands):
 
 def hockey_fav_bad(c):
     """A hockey favorite whose WEIGHED read (w_p) doesn't beat its price - everything weighed says no."""
-    return c.get("w_p") is not None and c.get("odds", 0) < 0 and c["w_p"] * c["dec"] <= 1
+    return c.get("league") == "nhl" and c.get("w_p") is not None and c.get("odds", 0) < 0 and c["w_p"] * c["dec"] <= 1
 
 
 def nhl_pricey(c):
