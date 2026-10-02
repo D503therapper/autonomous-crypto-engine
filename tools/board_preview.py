@@ -30,6 +30,7 @@ def main(day_iso=None):
     except Exception:                                                          # noqa: BLE001
         pass
     sports.announce_pick = lambda pk: None
+    sports.HOLD_DAYS = set()                                                   # (a held board still previews)
     games = sd.load_games()
     model = sports._load("model.json", {"params": {}, "log": []})
     picks = copy.deepcopy(sports.dedupe_picks(sports._load("picks.json", [])))

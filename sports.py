@@ -199,6 +199,22 @@ def lost_last_in_series(games, g, side):
     return winner != g[side]
 
 
+HURT_OUT, HURT_UNSURE = 2, 4   # unweighed absences that take the money off a side (until every position is weighed)
+
+
+def hurt(g, side, injuries):
+    """Players out / doubtful (2+) or questionable (4+) the engine doesn't weigh yet (10/2, the owner: "if the running
+    backs are out and the wide receivers are out and they got a bunch of backups, that changes everything"): a side like
+    that never carries units - a lean at most, and its card names who's out. Season-long absences are already in the
+    team's results, so they don't count."""
+    inj = (injuries or {}).get(g["league"])
+    rows = sd._team_rows(inj, g[side], g[side + "_name"])
+    rows = [r for r in rows if not sd._is_key(r, g["league"], g[side + "_name"])]   # (key players are weighed already)
+    gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM) and "season" not in r[2].lower()]
+    unsure = [r[0] for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
+    return gone + unsure if len(gone) >= HURT_OUT or len(unsure) >= HURT_UNSURE else []
+
+
 def waiting_on(g, injuries, maybe=True):
     """What still isn't known for a game (empty when it's safe to post): a starting pitcher, a key player's status.
     maybe=False (a lean - no money on it; the owner, 10/2: "it's not a starting goalie ... it doesn't change the
@@ -210,6 +226,10 @@ def waiting_on(g, injuries, maybe=True):
             and g["league"] in sd.INJ_LEAGUES:           # the injury report didn't load: we don't know who's playing,
         out.append("the injury report")                  # so the game waits (never a pick made blind)
     inj = (injuries or {}).get(g["league"])
+    if injuries is not None and g["league"] in injuries and inj is not None:
+        for side in ("away", "home"):                    # (10/2: never a pick made blind - a team the injury data
+            if not sd.covered(inj, g["league"], g[side], g[side + "_name"]):   # doesn't cover is UNKNOWN)
+                out.append(f"{g[side + '_name']} injury report (not in our data)")
     for side in ("away", "home"):
         out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable"
                 for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"], maybe=maybe)[:2]]
@@ -375,6 +395,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
         s_ml, n_ml = study_shift(games, g, "ml", cx)
         ph, ph_own = _shifted(ph, s_ml), _shifted(ph_own, s_ml)
         waiting = waiting_on(g, injuries)
+        hurt_ = {sd_: hurt(g, sd_, injuries) for sd_ in ("home", "away")}
         news = sports_news.load()
         drama = {side: sports_news.drama(news, lg, g[side]) for side in ("home", "away")}
         talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
@@ -386,7 +407,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "team_id": g[side],
                     "home": side == "home", "start": g["start"], "reasons": _reasons(side, f, g, lg, params),
-                    "waiting": waiting, "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
+                    "waiting": waiting, "hurt": hurt_[side], "intl": str(g.get("intl")) == "1", "country": g.get("country", ""),
                     "lost_last": lost_last_in_series(games, g, side),
                     "opp_lost_last": lost_last_in_series(games, g, "away" if side == "home" else "home"),
                     "road_opener": side == "away" and home_opener(games, g),
@@ -2328,6 +2349,12 @@ def factor_check(games, cands, injuries, day, now, model=None):
                   f"old ones", flush=True)
     except Exception:                                        # noqa: BLE001
         pass
+    blind = sorted({g_[s_ + "_name"] for g_ in (games.get(x) for x in gids) if g_ for s_ in ("home", "away")
+                    if (injuries or {}).get(g_["league"]) is not None
+                    and not sd.covered(injuries[g_["league"]], g_["league"], g_[s_], g_[s_ + "_name"])})
+    if blind:                                                # (10/2: ESPN's college feed listed 3 teams - the engine
+        print(f"FACTOR NOTE: no injury report for {len(blind)} team(s) - no pick on their games: "   # never picks blind)
+              f"{', '.join(blind[:8])}", flush=True)
     if OPEN_FIXED:                                           # (10/2: stale summer opens, fixed before the read)
         print(f"FACTOR NOTE: {len(OPEN_FIXED)} stale opening line(s) replaced by the first price we saw that week: "
               f"{'; '.join(OPEN_FIXED[:3])}", flush=True)
@@ -2548,7 +2575,11 @@ def post_board(games, model, picks, now, day, force=False):
         inj = injuries[g["league"]]
         for side in ("home", "away"):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
-    cands = candidates(games, model, now, day, injuries)
+    all_cands = candidates(games, model, now, day, injuries)
+    cands = [c for c in all_cands if not c.get("hurt")]      # (10/2: a side missing players the engine doesn't weigh
+    for c in all_cands:                                      #  never carries units - a lean at most)
+        if c.get("hurt") and c.get("market") == "ml":
+            print(f"   no units on {c['team']}: missing {', '.join(c['hurt'][:4])}")
     try:                                                     # 🧪 the lead tracker (for Claude, not the dashboard)
         import sports_leads
         sports_leads.log(iso, cands, sys.modules[__name__])
@@ -2680,7 +2711,7 @@ def post_board(games, model, picks, now, day, force=False):
             room = 0                                          # (10/1: leans go up with the opening board only - the
         #                                                       record is the start-of-day board, never topped up later)
         used = {l["game_id"] for p in today_ for l in p["legs"]}
-        for c in pool(cands, used):
+        for c in pool(all_cands if kind == "lean" else cands, used):
             if room <= 0:
                 break
             if c["waiting"] and not force and not (kind == "lean" and not waiting_on(games[c["game_id"]], injuries, maybe=False)):

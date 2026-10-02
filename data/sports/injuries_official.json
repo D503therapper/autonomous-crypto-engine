@@ -1,0 +1,22 @@
+{
+ "_why": "Official availability reports the ESPN feed doesn't carry (10/2: ESPN's college feed listed 3 teams). One entry per game day (Pacific); each team: the source and every player [name, position, status]. Read by sports_data.fetch_injuries - a team listed here counts as COVERED.",
+ "2026-10-02": {
+  "ncaaf": {
+   "259": {"team": "Virginia Tech", "src": "ACC availability report (via SI / 247Sports, 10/1)", "players": [
+     ["Justin Terry", "OL", "Out"], ["Emmett Laws", "DL", "Out"],
+     ["Takye Heath", "WR", "Questionable"], ["Shamarius Peterkin", "WR", "Questionable"], ["Bill Davis", "RB", "Questionable"],
+     ["Jojo Crim", "CB", "Questionable"], ["Lucas Austin", "OL", "Questionable"], ["Roseby Lubintus", "OL", "Questionable"],
+     ["Brody Meadows", "OL", "Questionable"], ["L.J. Booker", "WR", "Questionable"], ["Luke Stuewe", "WR", "Questionable"]]},
+   "221": {"team": "Pitt", "src": "ACC availability report (via On3, 10/1)", "players": [
+     ["Zach Crothers", "DE", "Doubtful"], ["Elijah Lagg", "TE", "Doubtful"], ["Cruce Brookins", "S", "Questionable"]]},
+   "213": {"team": "Penn State", "src": "Big Ten availability report (via 247Sports / Yahoo, 10/1)", "players": [
+     ["Koby Howard", "WR", "Out"], ["Max Granville", "DE", "Out For Season"], ["LaVar Arrington II", "DE", "Out"],
+     ["Tyler Armstead", "CB", "Out"], ["Joshua Johnson", "CB", "Out"], ["Mason Robinson", "DE", "Out"],
+     ["Dayshaun Burnett", "DE", "Out"], ["Daryus Dixson", "CB", "Questionable"]]},
+   "77": {"team": "Northwestern", "src": "the owner's report 10/2 (not confirmed by a second source)", "players": [
+     ["Luke Dehnicke", "TE", "Doubtful"]]},
+   "48": {"team": "Delaware", "src": "Delaware News Journal via Yahoo (10/1)", "players": [
+     ["Nick Minicucci", "QB", "Questionable"]]}
+  }
+ }
+}
