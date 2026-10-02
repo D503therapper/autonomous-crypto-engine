@@ -6082,6 +6082,21 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_reviews_say_what_happened():
+    """10/2, the owner: "our reviews should never be vague" - 'Not even close - New Mexico St smacked Western KY' had no
+    score; 'Lost 6-0. Never close. Brutal.' no fact. Every game review gets who led at the half / after two periods and
+    the final (only the half when the score's already there); nothing when we don't hold the period scores."""
+    import sports_dashboard as d
+    wk = {"league": "ncaaf", "side": "away", "team": "Western KY", "opp": "New Mexico St",
+          "flow": {"a": "3,0,7,3", "h": "10,10,7,7"}}
+    assert d.game_fact(wk) == "New Mexico St led 20-3 at the half and won 34-13."
+    bh = {"league": "nhl", "side": "away", "team": "Blackhawks", "opp": "Mammoth", "flow": {"a": "0,0,0", "h": "1,2,3"}}
+    assert d.with_fact("Lost 6-0. Brutal.", d.game_fact(bh)) == "Lost 6-0. Brutal. Mammoth led 3-0 after two periods."
+    nt = {"league": "ncaaf", "side": "away", "team": "North Texas", "opp": "Tulsa", "flow": {"a": "7,10,14,14", "h": "14,10,10,10"}}
+    assert d.game_fact(nt) == "Tulsa led 24-17 at the half, then North Texas won 45-44."
+    assert d.game_fact({**wk, "flow": {}}) is None and d.with_fact("Won 3-2.", None) == "Won 3-2."
+
+
 def test_leans_fill_the_board_to_five():
     """10/2, the owner: "we need five picks so we can have two more leans." A hockey favorite whose price isn't value is
     still a who-wins lean (no units) when the board is short - never past -150, never fighting its own read."""

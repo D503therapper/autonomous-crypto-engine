@@ -49,7 +49,7 @@ every session:
   moment it finds it (sports_early.SPOT_MAX_WEEK = None), with ONE phone ping each once the dashboard shows it
   (sports_early.PINGS); never forced (the one-a-week minimum stays paused); dogs
   +100..+220 only ("never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
-  late is not early; never game day; never a side with a key player out or questionable.
+  late is not early; never game day; never a side with a key player out or questionable. Early plays ALWAYS carry units (the owner, 10/2) - in every sport they get added to (hockey / baseball / hoops early spots: study first, then live with units and their own record).
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
 - The Lock of the Day always sits on top of the day's board, right under Live Plus Money - except on game day the
   🎯 WE GOT IN EARLY box (our early value plays playing today) goes just above it (the owner, 9/30). An early play is

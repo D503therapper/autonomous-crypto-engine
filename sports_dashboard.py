@@ -264,6 +264,46 @@ def _steep_line(leg, key=""):
     return line.format(o=f"{o:+d}" if isinstance(o, int) else o, t=leg.get("team") or "They")
 
 
+CHECKPOINT = {"nfl": (2, "at the half"), "ncaaf": (2, "at the half"), "nba": (2, "at the half"),
+              "ncaab": (1, "at the half"), "nhl": (2, "after two periods"), "mlb": (6, "after six innings")}
+
+
+def game_fact(l):
+    """📝 One real fact from the game for its review (the owner, 10/2: "our reviews should never be vague" - 'Never close.
+    Brutal.' says nothing): who led at the half / after two periods / after six innings, and the final. From the period
+    scores we hold; None when we don't hold them (then the review keeps its score and nothing made up)."""
+    f = l.get("flow") or {}
+    try:
+        h = [int(x) for x in str(f.get("h") or "").split(",") if x != ""]
+        a = [int(x) for x in str(f.get("a") or "").split(",") if x != ""]
+    except ValueError:
+        return None
+    n, when = CHECKPOINT.get(l.get("league"), (None, None))
+    if not n or len(h) <= n or len(h) != len(a):
+        return None
+    us, them = (h, a) if l.get("side") == "home" else (a, h)
+    me, opp = l.get("team") or "", l.get("opp") or ""
+    if not (me and opp):
+        return None
+    x, y, fx, fy = sum(us[:n]), sum(them[:n]), sum(us), sum(them)
+    lead = me if x > y else opp if y > x else None
+    win = me if fx > fy else opp if fy > fx else None
+    half = f"{lead} led {max(x, y)}-{min(x, y)} {when}" if lead else f"It was tied {x}-{x} {when}"
+    if win is None:
+        return f"{half}; it ended {fx}-{fy}."
+    fin = f"{max(fx, fy)}-{min(fx, fy)}"
+    return f"{half} and won {fin}." if win == lead else f"{half}, then {win} won {fin}." if lead else f"{half}; {win} won {fin}."
+
+
+def with_fact(text, fact):
+    """The review + its fact: the final only when the review doesn't already give the score."""
+    if not fact:
+        return text
+    if re.search(r"\b\d+-\d+\b", text or ""):
+        fact = re.split(r"(?: and won|, then|;) ", fact)[0] + "."
+    return f"{text} {fact}".strip()
+
+
 def _units_line(u, key="", odds=None, early=False, lean=False, leg=None):
     if not UNITS_ON:
         return ""
@@ -1147,7 +1187,9 @@ def _history(picks):
             how = sports_decider.say(dec, l.get("side"), t_, o_, lg, f"{date}|{key}")   # (the owner, 10/1)
             if how:
                 return later(date, key, "how", r, lean, how=how)
-        return later(date, key, kind, r, lean, t=t_, o=o_, x=x, **xtra)
+        cell = later(date, key, kind, r, lean, t=t_, o=o_, x=x, **xtra)
+        cell["fact"] = game_fact(l)                          # (the owner, 10/2: never vague - what actually happened)
+        return cell
 
     def box(title, items, head="", leans=()):
         if not items and not leans:
@@ -1265,6 +1307,7 @@ def _history(picks):
             c["text"] = sports_lingo.review_how(c["kw"]["how"], r, seed, used, lean=c["lean"])
         else:
             c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
+            c["text"] = with_fact(c["text"], c.get("fact"))
         LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
     out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, [])), leans=done(by_lean.get(lg, [])))
