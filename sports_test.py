@@ -7325,6 +7325,30 @@ def test_audit_10_2_fixes():
     sports.grade([pk], {})
     assert pk.get("void") and pk["status"] == "push"
 
+
+def test_board_audit_10_2():
+    """10/2 board audit: (1) a one-game PICK only on a real one-game day - never the last unpicked game of a bigger
+    slate; (2) its fallback never a no-read 50/50 spread; (3) a Monday/Thursday strong lean posts as a LEAN, never a
+    ½u play; (4) the daily Dog +100..+220 (the owner, 10/1); (5) unpriced small-school college games never hold the
+    8 AM board."""
+    src = open(sports.__file__).read()
+    assert "len(slate_games) == 1 and" in src
+    assert 'c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005' in src
+    assert 'DOG_MIN <= c["odds"] <= DAILY_DOG_MAX' in src and 'DOG_MIN <= solo["odds"] <= DAILY_DOG_MAX' in src
+    assert "a small-school game the books skip" in src and sports.DAILY_DOG_MAX == 220
+    c = {"market": "ml", "odds": -110, "dec": 1.909, "p": 0.545, "edge": 0.04, "edge_own": 0.04, "game_id": "n"}
+    keep = (sports.good, sports.real_value, sports.leg_tier, sports.fighting)
+    try:
+        sports.good = lambda c: True
+        sports.real_value = lambda c: True
+        sports.fighting = lambda c: False
+        sports.leg_tier = lambda c: "lean"
+        assert sports.night_pick([c]).get("lean") is True                 # a strong lean is a LEAN
+        sports.leg_tier = lambda c: "value"
+        assert not sports.night_pick([c]).get("lean")                     # a real value play stays one
+    finally:
+        sports.good, sports.real_value, sports.leg_tier, sports.fighting = keep
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
