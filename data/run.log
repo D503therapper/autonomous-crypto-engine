@@ -6011,3 +6011,19 @@ error: failed to push some refs to 'https://github.co
    [alert] Today -282.89 | Total -527.59: Stocks: $502.99  today +0.35  total +2.99
 DEX: $469.42  today -283.24  total -530.58
 DEX: $469.42 (-530.58) · Scammed: 0
+   dex screen: REJECT LFI@base liq $541,847 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 50%; lp locked 0% < 95%
+   dex screen: REJECT UNI@ethereum liq $176,993 - goplus partial data: cannot_sell_all unknown; owner_percent 26%; top-10 holders 41%; lp holders unknown
+   dex re-screen: PINK@solana:AVBN6kXd flagged once (lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT STOCKER@ethereum liq $204,125 - lp locked 0% < 95%
+   dex screen: REJECT SHIB@ethereum liq $323,112 - lp locked 0% < 95%
+   dex scanner: 3,001 pools (solana 2,075 / base 591 / ethereum 335), refresh cycle 124s (hot 120s), 3023 calls (108 feed, 429s 0, failed 0), 87,450 refreshed (8089 no pair), +91 added / -91 dropped (dead 20, stale 0, cap 71), movers 0 + warming 24 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-02 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 23:06 UTC] crypto/mover     equity $445.31 (-10.9%) 1 open  market UP
+[2026-10-02 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 23:06 UTC] crypto/social_heat equity $528.40 (+5.7%) 2 open  market UP
+[2026-10-02 23:06 UTC] crypto/breakout10 equity $475.90 (-4.8%) 2 open  market UP
+[2026-10-02 23:06 UTC] crypto/momentum  equity $484.44 (-3.1%) 2 open  market UP
+[2026-10-02 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 23:06 UTC] crypto/hold_btc  equity $502.45 (+0.5%) 1 open  market UP
+   social heat top: PENGU 38 (29/0/9), TRUMP 37 (37/0/0), PONS 36 (32/0/4), SC 35 (35/0/1), QNT 27 (27/0/0)
