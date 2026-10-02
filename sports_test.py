@@ -6083,6 +6083,16 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_running_on_fumes_only_on_a_back_to_back():
+    """10/2: the Jets card said 'Bruins are running on fumes tonight' - the Bruins had two nights off. 'Better rested'
+    never says fumes or 'played last night'; only a real back-to-back does."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    i = src.index('pools.append(("w_rest"')
+    block = src[i:src.index("elif r ==", i)]
+    rested = block[block.index('if r != "better rested" else'):]
+    assert "fumes" not in rested and "last night" not in rested and "extra rest" in rested
+
+
 def test_board_always_has_lock_dog_three_leans_with_injuries_named():
     """10/2, the owner: "we need a lock, we need a dog, and we need three leans, no matter what." With the injury reports
     in, a banged-up side can't carry units - but the backup Lock still goes up (it can be that side, ½u) and a lean can be
