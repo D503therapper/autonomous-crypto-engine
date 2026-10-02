@@ -1,21 +1,17 @@
 {
- "at": "2026-10-02T13:12Z",
+ "at": "2026-10-02T13:47Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Andreeva vs Pridankina: no points for 577s",
-  "live tennis scores: tennis Stefanini vs Jeanjean: no points for 577s",
-  "workflow failed: health 2026-10-02T13:05 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010678589",
-  "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010398830",
-  "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010339923",
-  "workflow failed: health 2026-10-02T12:56 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009802392",
-  "workflow failed: health 2026-10-02T12:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009350093"
+  "live tennis scores: tennis Andreeva vs Pridankina: no points for 2654s",
+  "live tennis scores: tennis Stefanini vs Jeanjean: no points for 2654s"
  ],
  "ok": [
-  "live watcher fresh (36s)",
+  "live watcher fresh (32s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 2 of 4 live matches",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
@@ -23,10 +19,18 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 8h ago",
-  "simulator ran 7h ago",
+  "simulator ran 8h ago",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-02T13:47Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreeva vs Pridankina: no points for 2654s",
+    "live tennis scores: tennis Stefanini vs Jeanjean: no points for 2654s"
+   ]
+  },
   {
    "at": "2026-10-02T13:12Z",
    "fixes": [],
@@ -627,11 +631,6 @@
   },
   {
    "at": "2026-09-29T10:55Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-09-29T05:57Z",
    "fixes": [],
    "problems": []
   }
