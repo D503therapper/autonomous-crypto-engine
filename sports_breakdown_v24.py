@@ -51,7 +51,16 @@ def seen_all(fin, tid, before, lg):
     ref = sorted(n.values())[int(0.97 * (len(n) - 1))]   # (10/2 audit: the 90th percentile sank with the missing
     #                                                     games themselves - 4 instead of 5 - and let 0-4 Mercyhurst through)
     need = ref - 1 if lg == "ncaaf" else 0.8 * ref
-    return n.get(tid, 0) >= need
+    if n.get(tid, 0) >= need:
+        return True
+    if lg != "ncaaf" or not n.get(tid):                  # (10/2, the owner: the check blocked Penn State-Northwestern -
+        return False                                     #  a Big Ten team that started a week late + had a bye: 3
+    mine = sorted(_t(g["start"]) for g in season if tid in (g["home"], g["away"]))   # games, all of them) - judged by
+    first0 = min(_t(g["start"]) for g in season)         # its OWN calendar: one game a week since its first, one bye
+    if (mine[0] - first0).days > 9:                      # allowed - only when its opener is in our data (never a team
+        return False                                     # whose first games might be the missing ones)
+    weeks = -(-(before - mine[0]).days // 7)             # weekly slots since its first game (ceiling)
+    return len(mine) >= weeks - 1
 
 
 def _pos(name):
