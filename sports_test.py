@@ -6083,6 +6083,19 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_always_a_lock_even_under_the_floor():
+    """10/2: Virginia Tech moved -135 -> -130, fell under the backup Lock's floor, and the board went up with NO Lock.
+    There's ALWAYS a Lock (the owner): the likeliest winner the engine isn't fighting, never past -150, never blind."""
+    cs = [{**_cand("vt", -130, 0.54, league="ncaaf"), "game_id": "vt"},
+          {**_cand("rw", -130, 0.58, league="nhl"), "game_id": "rw"},
+          {**_cand("big", -190, 0.65, league="nhl"), "game_id": "big"},
+          {**_cand("blind", -120, 0.6, league="ncaaf"), "game_id": "blind", "waiting": ["Idaho injury report (not in our data)"]}]
+    b = sports.last_lock(cs)
+    assert b["legs"][0]["game_id"] == "rw" and b["legs"][0]["near_price"]
+    assert sports.units_for({"date": "2026-10-03", "kind": "lock", "status": "open", "legs": b["legs"]}) == 0.5
+    assert sports.last_lock(cs, avoid={"rw"})["legs"][0]["game_id"] == "vt"
+
+
 def test_board_goes_up_at_8_sharp():
     """10/2, the owner's friend: "the board doesn't usually go up till 9." The 7:44 / 7:47 runs pull and check
     everything, then wait and post at 8:00 sharp."""

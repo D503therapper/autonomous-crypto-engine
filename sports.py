@@ -1961,6 +1961,20 @@ def viewer_leans(cands, avoid):
     return out
 
 
+def last_lock(cands, avoid=()):
+    """The Lock when nothing else is left (10/2: Virginia Tech moved -135 -> -130, fell under the backup Lock's floor,
+    and the board went up with NO Lock - "there's ALWAYS a Lock"): the engine's likeliest winner on a moneyline - never
+    past -150, never a side its own read is fighting, never a trap, never a game we can't see (blind / a key player
+    unknown). Posted as the backup Lock (½u, under the 'nothing met the standard' box)."""
+    pool = [c for c in cands if c.get("market") == "ml" and c["odds"] >= MAX_FAV and not c.get("trap")
+            and not fighting(c) and c["game_id"] not in avoid and c.get("p", 0) >= 0.5
+            and not any("injury report" in w for w in c.get("waiting") or [])]
+    if not pool:
+        return None
+    c = max(pool, key=lambda c: (c["p"], c.get("edge") or 0))
+    return {"legs": [{**c, "near_price": True}], "dec": c["dec"], "p_hit": c["p"]}
+
+
 def injury_line(g, side, injuries):
     """🚑 The card's injury line for a side that's missing players (10/2, the owner: "a lock, a dog and three leans, no
     matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions."""
@@ -2693,7 +2707,7 @@ def post_board(games, model, picks, now, day, force=False):
                  if k in posted and posted[k].get("status") == "open" and posted[k].get("legs")}   # (never a graded one)
         best = make_board(cands, lock_game, allow_lean=replacing, avoid=avoid, fixed=fixed).get(kind)
         if not best and kind == "lock" and not replacing:   # ALWAYS a Lock (the owner, 10/2 - "no matter what"): when
-            best = make_board(all_cands, lock_game, avoid=avoid, fixed=fixed).get(kind)   # every healthy side falls
+            best = make_board(all_cands, lock_game, avoid=avoid, fixed=fixed).get(kind) or last_lock(all_cands, avoid)   # every healthy side falls
             #                                                  short, the backup Lock can be a banged-up side - ½u,
             #                                                  its card names who's out (never a blind one)
         if replacing:                                         # a lean never repeats a game we're already on today
