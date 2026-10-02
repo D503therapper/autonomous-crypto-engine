@@ -6082,6 +6082,23 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_lean_waits_only_on_a_verified_starter():
+    """10/2, the owner: "the player listed is questionable. It's not a starting goalie ... it doesn't change the game."
+    A lean (no money) waits only on a goalie our box scores show starting; a unit play keeps the safety (an unknown
+    goalie still holds it)."""
+    keep = sd.STARTER_OF
+    try:
+        sd.STARTER_OF = lambda lg, tid, name: None           # the season just started: we don't know him yet
+        g = {"league": "nhl", "home": "1", "away": "2", "home_name": "Red Wings", "away_name": "Rangers"}
+        inj = {"nhl": {"1": [("Cam Talbot", "G", "Questionable")]}}
+        assert sports.waiting_on(g, inj)                         # a unit play: held
+        assert sports.waiting_on(g, inj, maybe=False) == []      # a lean: posts
+        sd.STARTER_OF = lambda lg, tid, name: True           # the real starter questionable: the lean waits too
+        assert sports.waiting_on(g, inj, maybe=False)
+    finally:
+        sd.STARTER_OF = keep
+
+
 def test_reviews_say_what_happened():
     """10/2, the owner: "our reviews should never be vague" - 'Not even close - New Mexico St smacked Western KY' had no
     score; 'Lost 6-0. Never close. Brutal.' no fact. Every game review gets who led at the half / after two periods and
