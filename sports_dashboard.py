@@ -2547,6 +2547,8 @@ def write_brain(picks, games, path=BRAIN):
                         for k, v in pars.items() if v}})
     brain = {"updated": now.strftime("%Y-%m-%d %I:%M %p PT"), "today": today, "tomorrow": tmr,
              "records": RECORDS, "board (today + tomorrow)": board, "recent graded picks": recent,
+             "no Lock today - what it would have been (NOT a pick, no units, not in our record)":
+                 {k: v for k, v in (_j(os.path.join(sd.DATA, "lock_miss.json"), {}) or {}).items() if k in (today, tmr)},
              "every game's read (not our picks)": (_j("docs/sports/reads.json", {}) or {}).get("games", []),
              "tennis picks (own record, not ours)": tennis_picks,
              "tennis reads": (_j("docs/sports/reads_tennis.json", {}) or {}).get("games", []),

@@ -6409,6 +6409,36 @@ def test_checker_checks_itself_and_the_sizing():
     assert sports_public.splits_for("g", live={"g": {"at": "", "ml_home_m": 70}}, hist={}) is None
 
 
+def test_question_box_knows_no_forced_lock():
+    """10/2: the question box's rules still said 'Lock of the Day every day', '56%+ = LOCK' and posted parlays - asked
+    'what would the Lock have been', it could crown a lean (Virginia Tech -130). It now knows: no Lock = no Lock."""
+    w = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "index.js")).read()
+    assert "NO FORCED LOCK" in w and "WOULD have been" in w and "56%+ = LOCK" not in w and "3-leg, 4-leg" not in w
+    assert "what it would have been" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+
+
+def test_lock_miss_names_the_closest_pick():
+    """10/2 (the owner): no Lock posted -> the engine saves what the Lock would have been and why it fell short (Virginia
+    Tech -130), for the question box. It never touches the candidates (no near_price flag left behind)."""
+    import tempfile as _t
+    c = {"market": "ml", "odds": -130, "dec": 1 + 100 / 130, "edge_own": 0.0, "edge": 0.0, "reasons": ["x"], "team": "Virginia Tech",
+         "opp": "Pitt", "league": "ncaaf", "game_id": "ncaaf:1", "waiting": [], "p": 0.565}
+    c["edge_own"] = 0.57 * c["dec"] - 1
+    old = sports.money_against
+    sports.money_against = lambda c_: False
+    try:
+        m = sports.lock_miss([c])
+    finally:
+        sports.money_against = old
+    assert m and m["team"] == "Virginia Tech" and m["odds"] == -130 and "near_price" not in c
+    assert m["engine's own read %"] == 57 and "beats the price by" in m["why it's not the Lock"]
+    p = os.path.join(_t.mkdtemp(), "m.json")
+    for d in range(1, 10):
+        sports.save_lock_miss(f"2026-10-{d:02d}", m, p)
+    st = json.load(open(p))
+    assert len(st) == 7 and "2026-10-09" in st and "2026-10-01" not in st
+
+
 def test_health_restarts_a_skipped_engine():
     """10/2: GitHub skipped the engine's hourly runs for 3 hours and nothing restarted it (the board check only looks
     after 9 AM). The hourly bug check now starts the engine when its last run is 80+ minutes old."""
@@ -7925,6 +7955,7 @@ if __name__ == "__main__":
     sports_clv.PATH = os.path.join(tempfile.mkdtemp(), "clv_record.json")               # (nor the close record /
     sports_clv.JOURNAL = os.path.join(tempfile.mkdtemp(), "pick_journal.json")          #  the pick journal)
     import sports_capper; sports_capper.PATH = os.path.join(tempfile.mkdtemp(), "capper_drbob.json")  # (nor the capper record)
+    sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")              # (nor the Lock near-miss)
     import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list
     sd.STARTER_OF = lambda lg, tid, name: True           #  made-up injured starters - the starter tests use the real check)
     import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)

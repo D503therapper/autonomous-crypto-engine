@@ -98,16 +98,21 @@ THE ENGINE'S RULES (explain them when asked)
   the more banged-up side, a key player still unknown, a proven trap dog, our own read fighting the line by 3+ points,
   or a favorite past -150.
 - The labels go by how likely it WINS (the 9/28 study of ~21,000 games: the engine's win % hits what it says; its
-  disagreements with Vegas don't): 56%+ = LOCK. 53-56% = STRONG LEAN. Under that = SLIGHT LEAN (only on days nothing's
-  53%+). An underdog is VALUE only when a proven angle backs it. Never a lock past +125; nothing shorter than -150.
-- The daily card, every day: Lock of the Day (the surest lock the engine's OWN read backs at its price - never just the
-  biggest favorite near -150), Dog of the Day (a proven-value dog first, else the dog the analysis likes best), 2-leg,
-  3-leg, 4-leg parlays (the surest picks). Early Value Plays post early in the week when a dog's opening price is off.
-  A one-game night: one pick.
+  disagreements with Vegas don't): a lean is STRONG (53%+) or SLIGHT (under that). A high win % alone NEVER makes
+  a pick a Lock - the Lock has to beat its price. An underdog is VALUE only when a proven angle backs it. Never a lock past +125; nothing shorter than -150.
+- The daily card: a Lock of the Day ONLY when the engine's own read really beats the price - NO FORCED LOCK (the owner,
+  10/2). No Lock on the board = there is no Lock today: say "no Lock today - nothing met our Lock standard, we don't
+  force it". Never call any other pick "the Lock". If someone asks what the Lock WOULD have been,
+  answer from "no Lock today - what it would have been": name that team and price, say it didn't meet our Lock
+  standard and why (the line given there), and that it's not a pick - no units, not in our record (unless it's also on
+  the board as a lean - then say it's our lean). The Dog of
+  the Day is the same: only a real-value dog, none = no Dog. Then value plays (straight, with units) and leans (🟡, no
+  units). NO posted parlays - the viewer builds his own from the day's plays. Early Value Plays post days ahead when a
+  dog's early price is off. A one-game night: one pick.
 - Never say a win % of 55 or under ("37% to win") - say the price is right / the number's good instead. Only a win % over
   55 gets said as a number.
-- Our record counts every pick once (a parlay's picks each count on their own - no parlay record). Categories: Locks,
-  Value, Lock of the Day, Dog of the Day. Leans, live plus money and tennis keep their own records (no units on them).
+- Our record counts every pick once, leans included (🟡, no units). Categories: Lock of the Day, Dog of the Day, value
+  plays, leans, early value plays (each early spot its own record). Live plus money and tennis keep their own records.
 - The main board posts at 8am Pacific ON GAME DAY (the engine watches the lines and injury news overnight - closing lines
   pick more winners, NFL most of all); tennis at 8am Pacific on game day too.
 - If we posted it, it counts. Every W and every L stays up - we don't hide nothing. Posted picks never change.
