@@ -401,8 +401,9 @@ def candidates(games, model, now=None, day=None, injuries=None):
         talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
-            if n_out[side] - n_out[other] > MAX_EXTRA_OUT:
-                continue                                  # never back the more banged-up team
+            if n_out[side] - n_out[other] > MAX_EXTRA_OUT and not hurt_[side]:   # the more banged-up team: never
+                hurt_[side] = [f"{n_out[side]} players out ({n_out[other]} for {g[other + '_name']})"]   # units (10/2:
+                #                                    a lean still fills the board - its card names who's out)
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
             base = {"game_id": g["id"], "league": lg, "side": side, "team": team, "opp": opp, "stype": g.get("stype") or "",
                     "team_id": g[side],
@@ -1959,6 +1960,25 @@ def viewer_leans(cands, avoid):
     return out
 
 
+def injury_line(g, side, injuries):
+    """🚑 The card's injury line for a side that's missing players (10/2, the owner: "a lock, a dog and three leans, no
+    matter what" - a banged-up side can still be on the board, and the card says who's missing): names, positions."""
+    inj = (injuries or {}).get(g["league"])
+    rows = sd._team_rows(inj, g[side], g[side + "_name"])
+    gone = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
+            and "season" not in r[2].lower()]
+    unsure = [f"{r[1]} {r[0]}".strip() for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
+    if len(gone) + len(unsure) < 2 and not any("suspen" in r[2].lower() for r in rows):
+        return ""
+    gone += [f"{r[1]} {r[0]} (suspended)".strip() for r in rows if "suspen" in r[2].lower()]
+    parts = []
+    if gone:
+        parts.append(f"out: {', '.join(gone[:4])}" + (f" +{len(gone) - 4} more" if len(gone) > 4 else ""))
+    if unsure:
+        parts.append(f"questionable: {', '.join(unsure[:3])}" + (f" +{len(unsure) - 3} more" if len(unsure) > 3 else ""))
+    return f"🚑 {g[side + '_name']} {' · '.join(parts)}."
+
+
 def fill_hurt(g, side, injuries):
     """A fill lean's team missing somebody the engine doesn't weigh (10/2: the Red Wings lean with Dylan Larkin OUT,
     the Jets lean with Connor Hellebuyck suspended): anyone ruled out / doubtful, or a key player (goalie / QB) on a
@@ -2642,13 +2662,16 @@ def post_board(games, model, picks, now, day, force=False):
             leg["public"] = sports_breakdown.public_side(leg, g)
             leg["bv"] = sports_breakdown.VERSION
             leg["key_seen"] = key_status(injuries.get(leg["league"]), g)       # who's in/out when we posted it
+            line = injury_line(g, leg["side"], injuries)        # (10/2: a banged-up side on the board says who's out)
+            if line and not any(str(x).startswith("🚑") for x in leg.get("breakdown") or []):
+                leg["breakdown"] = [line] + list(leg.get("breakdown") or [])
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
                   f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
 
     # the owner: a day where NOTHING on the slate clears the value bar gets LEANS ONLY (own record, never ours) with a
     # note up top - we don't force picks just to have picks. Decided on the opening board, before anything's posted.
     lean_day = not any(p["date"] == iso and p["status"] != "waiting" for p in picks) and bool(cands) and \
-        not any(make_board(cands).get(k) for k in ("lock", "dog", "solo")) and not plays(cands, ())
+        not any(make_board(all_cands).get(k) for k in ("lock", "dog", "solo")) and not plays(cands, ())
     if lean_day:
         print(f"{iso}: nothing clears the value bar - leans only today")
     for kind in todo:
@@ -2665,6 +2688,10 @@ def post_board(games, model, picks, now, day, force=False):
         fixed = {k: posted[k]["legs"] for k in ("lock", "dog", "two", "three")          # build on what's still up
                  if k in posted and posted[k].get("status") == "open" and posted[k].get("legs")}   # (never a graded one)
         best = make_board(cands, lock_game, allow_lean=replacing, avoid=avoid, fixed=fixed).get(kind)
+        if not best and kind == "lock" and not replacing:   # ALWAYS a Lock (the owner, 10/2 - "no matter what"): when
+            best = make_board(all_cands, lock_game, avoid=avoid, fixed=fixed).get(kind)   # every healthy side falls
+            #                                                  short, the backup Lock can be a banged-up side - ½u,
+            #                                                  its card names who's out (never a blind one)
         if replacing:                                         # a lean never repeats a game we're already on today
             if best and any(l["game_id"] in avoid for l in best["legs"]):
                 best = None
@@ -2716,9 +2743,9 @@ def post_board(games, model, picks, now, day, force=False):
                 break
             if c["waiting"] and not force and not (kind == "lean" and not waiting_on(games[c["game_id"]], injuries, maybe=False)):
                 continue                                     # (a lean waits only on a verified starter - 10/2)
-            if c.get("fill") and fill_hurt(games[c["game_id"]], c["side"], injuries):
-                print(f"   fill lean skipped: {c['team']} - missing {', '.join(fill_hurt(games[c['game_id']], c['side'], injuries)[:3])}")
-                continue
+            if c.get("fill") and fill_hurt(games[c["game_id"]], c["side"], injuries):   # (10/2, the owner: "a lock,
+                print(f"   fill lean on {c['team']} - missing {', '.join(fill_hurt(games[c['game_id']], c['side'], injuries)[:3])}")
+                #                                      a dog and three leans, no matter what" - it goes up, named)
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             dress(b)
             pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1, "legs": b["legs"],

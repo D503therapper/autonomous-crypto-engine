@@ -6082,6 +6082,21 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_board_always_has_lock_dog_three_leans_with_injuries_named():
+    """10/2, the owner: "we need a lock, we need a dog, and we need three leans, no matter what." With the injury reports
+    in, a banged-up side can't carry units - but the backup Lock still goes up (it can be that side, ½u) and a lean can be
+    that side, and the card names who's out."""
+    g = {"league": "ncaaf", "home": "259", "away": "221", "home_name": "Virginia Tech", "away_name": "Pitt"}
+    inj = {"ncaaf": {"259": [("Justin Terry", "OL", "Out"), ("Emmett Laws", "DL", "Out"),
+                             ("Bill Davis", "RB", "Questionable")]}}
+    line = sports.injury_line(g, "home", inj)
+    assert line.startswith("🚑 Virginia Tech out: OL Justin Terry, DL Emmett Laws") and "RB Bill Davis" in line
+    assert sports.injury_line(g, "away", inj) == ""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "best = make_board(all_cands, lock_game" in src         # the Lock falls back to every side we have data on
+    assert 'pool(all_cands if kind == "lean" else cands' in src     # the leans fill from every side we have data on
+
+
 def test_no_blind_picks_and_official_reports():
     """10/2, the owner: "our engine needs to have all the data". ESPN's college feed listed 3 teams, so 'nobody listed'
     meant UNKNOWN for Virginia Tech, Pitt, Penn State... A college team the data doesn't cover holds its game; the
