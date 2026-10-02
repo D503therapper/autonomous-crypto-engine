@@ -2614,7 +2614,11 @@ def post_board(games, model, picks, now, day, force=False):
         inj = injuries[g["league"]]
         for side in ("home", "away"):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
-    all_cands = candidates(games, model, now, day, injuries)
+    raw_cands = candidates(games, model, now, day, injuries)   # (the checks read every side the engine looked at)
+    all_cands = [c for c in raw_cands                        # (10/2: a game we have no injury report for
+                 if not any("(not in our data)" in w for w in c.get("waiting") or [])]   # is off the table - never a
+    #                                                  blind pick, and never a Lock / Dog left 'waiting' on a report that
+    #                                                  never comes (Cal @ UNLV: Cal doesn't publish for non-conference)
     cands = [c for c in all_cands if not c.get("hurt")]      # (10/2: a side missing players the engine doesn't weigh
     for c in all_cands:                                      #  never carries units - a lean at most)
         if c.get("hurt") and c.get("market") == "ml":
@@ -2628,7 +2632,7 @@ def post_board(games, model, picks, now, day, force=False):
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
     if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
         gaps = data_gaps(games, all_cands, now)               # (10/2: the checks read every side we looked at -
-        probs = slate_check(games, all_cands, day, now) + factor_check(games, all_cands, injuries, day, now, model) + \
+        probs = slate_check(games, raw_cands, day, now) + factor_check(games, raw_cands, injuries, day, now, model) + \
             checker_selftest() + \
             [f"data gap - {x}" for x in gaps.values() if "no result" in x]   # (a re-pull fixes a missing result;
                                                                                  # a small school's gap just gets no pick)

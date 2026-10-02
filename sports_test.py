@@ -6165,7 +6165,8 @@ def test_board_always_has_lock_dog_three_leans_with_injuries_named():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "best = make_board(all_cands, lock_game" in src         # the Lock falls back to every side we have data on
     assert 'pool(all_cands if kind == "lean" else cands' in src     # the leans fill from every side we have data on
-    assert "slate_check(games, all_cands, day, now)" in src        # (10/2: a no-units side isn't 'never looked at')
+    assert "slate_check(games, raw_cands, day, now)" in src        # (10/2: a no-units / blind side isn't 'never looked at')
+    assert '"(not in our data)" in w' in src                         # (a blind game is off the table, not 'waiting')
     assert "all_cands = [c for c in all_cands if no_gap(c)]" in src  # every safety filter covers the leans' pool too
     assert 'all_cands = [c for c in all_cands if ours.get(c["game_id"], c["side"]) == c["side"]]' in src
     assert 'night_pick([c for c in all_cands if c["game_id"] == gid])' in src
