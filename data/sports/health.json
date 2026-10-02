@@ -1,9 +1,13 @@
 {
- "at": "2026-10-02T22:51Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-02T23:18Z",
+ "fixes": [
+  "engine 116 min since its last run - started sports.yml"
+ ],
+ "problems": [
+  "engine last started 116 min ago (GitHub skipped its hourly runs) - restarted"
+ ],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,16 +15,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "simulator ran 0h ago",
+  "simulator ran 1h ago",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-02T23:18Z",
+   "fixes": [
+    "engine 116 min since its last run - started sports.yml"
+   ],
+   "problems": [
+    "engine last started 116 min ago (GitHub skipped its hourly runs) - restarted"
+   ]
+  },
   {
    "at": "2026-10-02T22:51Z",
    "fixes": [],
@@ -631,11 +644,6 @@
   },
   {
    "at": "2026-09-30T07:31Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-09-30T06:45Z",
    "fixes": [],
    "problems": []
   }
