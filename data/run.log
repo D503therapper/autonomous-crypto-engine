@@ -5457,3 +5457,23 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 08:06 UTC] crypto/hold_btc  equity $511.21 (+2.2%) 1 open  market UP
    social heat top: QNT 37 (37/0/0), NEAR 32 (32/0/0), BTC 29 (29/0/0), AAVE 27 (27/0/0), PENGU 24 (24/0/0)
+   dex screen: REJECT NVDAC@base liq $2,356,399 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 74%; lp locked 0% < 95%
+   dex screen: REJECT RAY@solana liq $3,834,091 - top-10 holders 76%
+   dex screen: REJECT AGRS@ethereum liq $432,852 - is_mintable; is_blacklisted; hidden_owner; creator_percent 31%; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: PASS TROLL@solana liq $3,504,855
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AGRS@ethereum liq $433,406 - is_mintable; is_blacklisted; hidden_owner; creator_percent 31%; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT VVV@base liq $19,143,930 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; owner_percent 30%; top-10 holders 62%
+   dex scanner: 3,000 pools (solana 2,053 / base 560 / ethereum 387), refresh cycle 124s (hot 120s), 3038 calls (123 feed, 429s 0, failed 0), 87,450 refreshed (5196 no pair), +185 added / -184 dropped (dead 10, stale 0, cap 174), movers 1 + warming 23 -> queued 2, screened 3 (passed 0), bought 0
+[2026-10-02 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $188.43 of JASMY @ 0.005494, P/L $-18.25 (time limit)
+[2026-10-02 09:06 UTC] crypto/mover     equity $450.18 (-10.0%) 0 open  market UP
+[2026-10-02 09:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 09:06 UTC] crypto/social_heat equity $534.20 (+6.8%) 1 open  market UP
+[2026-10-02 09:06 UTC] crypto/breakout10 equity $497.56 (-0.5%) 2 open  market UP
+[2026-10-02 09:06 UTC] crypto/momentum  equity $489.50 (-2.1%) 2 open  market UP
+[2026-10-02 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 09:06 UTC] crypto/hold_btc  equity $511.47 (+2.3%) 1 open  market UP
+   social heat top: QNT 37 (37/0/0), PENGU 36 (32/0/4), SAND 35 (35/0/0), ENA 29 (29/0/0), NEAR 27 (27/0/0)
