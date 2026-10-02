@@ -6082,6 +6082,29 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_close_record_and_journal():
+    """10/2, the owner: "a record of everything so we can go back and improve the engine always". Every graded pick's
+    price vs the close (the last pre-game price - never an in-game line, never a guess) and the journal row: the
+    engine's reads, units, injuries seen, the score."""
+    import sports_clv
+    G = {"g1": {"league": "ncaaf", "start": "2026-10-02T01:00Z", "status": "final", "home_score": "44", "away_score": "45",
+                "ml_home": "130", "ml_away": "-160", "odds_time": "2026-10-02T01:20Z"},
+         "g2": {"league": "nhl", "start": "2026-10-02T01:00Z", "status": "final", "home_score": "6", "away_score": "0",
+                "ml_away": "190", "ml_home": "-230", "odds_time": "2026-10-02T03:00Z"}}
+    hist = {"g1": [("2026-10-01T20:00Z", 100, -120, "", None), ("2026-10-02T00:58Z", 125, -148, "", None)]}
+    l1 = {**_cand("g1", -118, 0.52, league="ncaaf"), "game_id": "g1", "side": "away", "team": "North Texas",
+          "opp": "Tulsa", "key_seen": {}}
+    l2 = {**_cand("g2", 180, 0.35, league="nhl"), "game_id": "g2", "side": "away", "team": "Blackhawks"}
+    picks = [{"date": "2026-10-01", "kind": "lock", "status": "won", "units": 3.0, "legs": [l1]},
+             {"date": "2026-10-01", "kind": "dog", "status": "lost", "units": 0.5, "legs": [l2]}]
+    st, journal = sports_clv.build(picks, G, hist)
+    assert st["all"]["n"] == 1 and st["picks"][0]["close"] == -148 and st["picks"][0]["pts"] > 5   # g2: saved after the start
+    assert st["lock_by_size"]["2-4u"]["beat"] == 1
+    j = {r["team"]: r for r in journal}
+    assert j["North Texas"]["score"] == "45-44" and j["North Texas"]["margin"] == 1 and j["North Texas"]["units"] == 3.0
+    assert j["North Texas"]["beat_close_pts"] > 5 and j["Blackhawks"]["close"] is None and j["Blackhawks"]["pnl_units"] == -0.5
+
+
 def test_backup_lock_says_so():
     """10/2, the owner: a day nothing meets the Lock of the Day standard has no Lock of the Day - the best call goes up
     titled just LOCK, with its own box above it saying so. A real Lock of the Day never shows the box."""
@@ -7595,6 +7618,9 @@ if __name__ == "__main__":
     sports_pings.PATH = os.path.join(tempfile.mkdtemp(), "play_pings.json")                # (nor the mid-day pings)
     import sports_audit
     sports_audit.PATH = os.path.join(tempfile.mkdtemp(), "pick_audit.json")             # (nor the pick audit)
+    import sports_clv
+    sports_clv.PATH = os.path.join(tempfile.mkdtemp(), "clv_record.json")               # (nor the close record /
+    sports_clv.JOURNAL = os.path.join(tempfile.mkdtemp(), "pick_journal.json")          #  the pick journal)
     import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list
     sd.STARTER_OF = lambda lg, tid, name: True           #  made-up injured starters - the starter tests use the real check)
     import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)
