@@ -7445,6 +7445,25 @@ def test_point_system_study_10_2():
     both = sports.dog_spots({**cf, "dog_more": {"fades": ["ice cold", "losing streak"]}}) - sports.dog_spots(cf)
     assert both == -4
 
+
+def test_late_start_plus_a_bye_is_a_full_season():
+    """10/2, the owner: the completeness check held Penn State-Northwestern - Northwestern started a week late and had a
+    bye (3 games, all of them) and failed the 'played about as many as the busiest teams' bar. A college team counts as
+    fully seen when it has a game every week since its own opener (one bye allowed) and that opener is in our data."""
+    import sports_breakdown_v24 as v24
+    from datetime import datetime, timezone
+    def g(d, h, a):
+        return {"start": f"2026-{d}T19:00Z", "home": h, "away": a}
+    fin = [g(f"08-{29 + i}", f"t{i}", f"u{i}") for i in range(2)]
+    for wk, d in enumerate(("08-29", "09-05", "09-12", "09-19", "09-26")):
+        for k in range(20):
+            fin.append(g(d, f"busy{k}", f"opp{wk}_{k}"))
+    fin += [g("09-05", "NW", "x1"), g("09-19", "NW", "x2"), g("09-26", "x3", "NW")]     # week 2 a bye
+    fin += [g("09-19", "LATE", "y1"), g("09-26", "LATE", "y2")]                         # opener missing from our data
+    before = datetime(2026, 10, 3, tzinfo=timezone.utc)
+    assert v24.seen_all(fin, "NW", before, "ncaaf")
+    assert not v24.seen_all(fin, "LATE", before, "ncaaf")
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
