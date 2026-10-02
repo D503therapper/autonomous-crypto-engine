@@ -331,7 +331,15 @@ def breakdown(leg, games, elo, injuries, used=None):
     rec_u = _record(r_ours, tid) if r_ours else None
     heat = _streak(s_ours, tid)
     n_hot = int(heat.split()[1]) if heat.startswith("won") else 0
-    if rec_u and n_hot >= 2:
+    heat_t = _streak(s_theirs, oid)                 # (10/2, the owner: "Virginia Tech, four straight W's, we don't go
+    their_hot = int(heat_t.split()[1]) if heat_t.startswith("won") else 0   # against a heater - well, the other team
+    if n_hot >= 2 and their_hot >= n_hot:                                    # has four straight W's"): both hot = say
+        said.add("hotter recent form")                                       # both, never "the heater's ours"
+        out.append(v.say("bothhot", [f"🔥 Both teams are rolling: {us} have won {n_hot} straight, {them} {their_hot}.",
+                                      f"🔥 Heater vs heater - {us} {n_hot} straight W's, {them} {their_hot}.",
+                                      f"🔥 Neither team has lost lately: {us} {n_hot} in a row, {them} {their_hot}."]))
+        n_hot = 0                                                             # (no 'hot hand' line in the why either)
+    elif rec_u and n_hot >= 2:
         said.add("hotter recent form")
         out.append(v.say("hot", [f"🔥 {us} are {rec_u} and on a {n_hot}-game heater.",
                                   f"🔥 {us} ({rec_u}) have won {n_hot} straight and they're rolling.",

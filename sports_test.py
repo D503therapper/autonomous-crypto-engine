@@ -6084,6 +6084,16 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_both_teams_hot_never_called_our_heater():
+    """10/2, the owner: "Virginia Tech, four straight W's, we don't go against a heater. Well, the other team has four
+    straight W's" (Pitt 4-0 too). When the other team's streak is as long, the card says both, and the why never says
+    the hot hand is ours."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    i = src.index("their_hot = ")
+    blk = src[i:src.index("elif rec_u and n_hot >= 2:", i)]
+    assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{them} {their_hot}" in blk
+
+
 def test_always_a_lock_even_under_the_floor():
     """10/2: Virginia Tech moved -135 -> -130, fell under the backup Lock's floor, and the board went up with NO Lock.
     There's ALWAYS a Lock (the owner): the likeliest winner the engine isn't fighting, never past -150, never blind."""
