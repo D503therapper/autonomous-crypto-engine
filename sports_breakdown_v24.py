@@ -941,10 +941,10 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                 f"🎯 {hot[0]} has been cooking for {us} — {hot[1]}.",
                 f"🎯 The QB edge goes {us} ({hot[0]}: {hot[1]}). That's the game."]))
         elif r in ("better rested", "opponent on a back-to-back"):
-            pools.append(("w_rest", [
-                f"😮‍💨 {them} played last night — tired legs against a fresh {us} team." if r != "better rested" else
-                f"🛌 {us} got the extra rest, {them} don't. Fresh legs win late.",
-                f"😮‍💨 {them} are running on fumes tonight. {us} are fresh." ]))
+            pools.append(("w_rest", [                    # (10/2: "running on fumes" went on a Bruins team with two
+                f"😮‍💨 {them} played last night — tired legs against a fresh {us} team.",   # nights off - only a
+                f"😮‍💨 {them} are running on fumes tonight. {us} are fresh."]           # real back-to-back says that)
+                if r != "better rested" else [f"🛌 {us} got the extra rest, {them} don't. Fresh legs win late."]))
         elif r == "revenge game":
             pools.append(("w_revenge", [f"😤 {us} owe {them} one and they know it. Revenge game.",
                                         f"😤 Payback's on {_pos(us)} mind tonight — {them} got 'em last time.",
