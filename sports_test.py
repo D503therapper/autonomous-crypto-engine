@@ -116,9 +116,10 @@ def test_never_back_injured_side():
     assert not any(sports.good(c) for c in cs if c["odds"] > 0), "no fake underdog edge from ratings that assume the starter plays"
     inj["nfl"]["3"] = []                                     # Giants healthy, Titans 2 more out
     inj["nfl"]["4"] = [("A", "WR", "Out"), ("B", "CB", "Out")]
-    sides = {c["team"] for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj)
-             if c["game_id"] == "nfl:x"}
-    assert "Titans" not in sides and "Giants" in sides, "never back the more banged-up team"
+    cs = [c for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj) if c["game_id"] == "nfl:x"]
+    sides = {c["team"] for c in cs}
+    assert "Giants" in sides and all(c.get("hurt") for c in cs if c["team"] == "Titans"), \
+        "never put money on the more banged-up team (10/2: it can still be a lean, its injuries named)"
 
 
 def test_player_stats():
