@@ -1,27 +1,42 @@
 {
- "at": "2026-10-02T14:10Z",
- "fixes": [],
+ "at": "2026-10-02T15:48Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Stefanini vs Jeanjean: no points for 1339s"
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (17s)",
+  "live watcher fresh (3s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
+  "slate check: all 9 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-02T15:48Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-02T14:10Z",
    "fixes": [],
@@ -627,13 +642,6 @@
    "at": "2026-09-29T21:32Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-09-29T17:03Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-09-29T16:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36598307541"
-   ]
   }
  ]
 }
