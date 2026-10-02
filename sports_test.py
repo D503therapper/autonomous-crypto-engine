@@ -7229,6 +7229,8 @@ def test_every_sport_weighs_the_favorite_by_the_dog_across():
     finally:
         sports.dog_spots = keep
     assert not sports.hockey_fav_bad({**fav, "w_p": 0.5})              # (outside hockey the backup Lock still works)
+    src_ = open(sports.__file__).read()                                 # ...and "always a Lock" stands: the backup falls
+    assert "return near_lock(cands, raw=True) if not raw else None" in src_   # back to the raw own read
     src = open(sports.__file__).read()
     assert "weigh_favorites(out)" in src
 

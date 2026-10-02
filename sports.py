@@ -1580,7 +1580,7 @@ NEAR_LOCK_GAP = 0.01     # the owner, 10/1 ("yes" - there's always a Lock): a da
 #                          days had none, mostly -135..-150 baseball favorites 1 point short)
 
 
-def near_lock(cands):
+def near_lock(cands, raw=False):
     """The last-resort Lock: the engine's own read 56%+ and within NEAR_LOCK_GAP of what the price needs - never past
     +125 / -150, never a trap, never the engine fighting it, never the pricey hockey favorite. The likeliest first."""
     pool = []
@@ -1588,15 +1588,15 @@ def near_lock(cands):
         if c.get("market") != "ml" or not MAX_FAV <= c.get("odds", 0) <= PLUS_LOCK_MAX or c.get("edge_own") is None \
                 or not c.get("reasons") or c.get("trap") or c.get("waiting") or nhl_pricey(c) or hockey_fav_bad(c):
             continue
-        own = read_of(c)
+        own = read_of(c) if not raw else (c["edge_own"] + 1) / c["dec"]
         if own is None or own < LOCK_BACKUP_OWN or own < 1 / c["dec"] - NEAR_LOCK_GAP:
             continue
         if own < 1 / c["dec"] - FIGHT_MAX or money_against(c) or sports_strength.weak(c.get("league")):
             continue                                         # (fighting() minus its own-read test, which is this one)
         pool.append((round(own, 3), c))
-    if not pool:
-        return None
-    best = max(pool, key=lambda x: x[0])[1]
+    if not pool:                                             # (10/2: the favorites' weighed read can leave no one;
+        return near_lock(cands, raw=True) if not raw else None   # the owner's "always a Lock" stands - his own read,
+    best = max(pool, key=lambda x: x[0])[1]                  #  as before, until he says otherwise)
     best["near_price"] = True                                # (sized ½u+, never pulled by the money check)
     return best
 
