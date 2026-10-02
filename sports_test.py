@@ -7052,6 +7052,8 @@ def test_midday_value_plays_ping_once_when_the_dashboard_shows_them():
     now = datetime(2026, 10, 1, 19, 23, tzinfo=timezone.utc)
     leg = {"team": "Kraken", "opp": "Flames", "odds": -108, "p": 0.56, "dec": 1.926, "market": "ml", "side": "home",
            "game_id": "nhl:1", "league": "nhl", "line": None, "start": "2026-10-02T02:00Z", "edge_own": 0.08}
+    assert "vs Pitt," in spg.text({"legs": [{**leg, "league": "ncaaf", "opp": "Pitt"}], "kind": "play", "status": "open"})[1] \
+        if sports.units_for({"legs": [{**leg, "league": "ncaaf"}], "kind": "play", "status": "open"}) else True
     play = {"date": "2026-10-01", "kind": "play", "status": "open", "lean": False, "midday": True,
             "posted": "2026-10-01T19:23Z", "legs": [leg]}
     lean = {**play, "kind": "lean", "lean": True, "legs": [{**leg, "game_id": "nhl:2"}]}
@@ -7229,6 +7231,97 @@ def test_every_sport_weighs_the_favorite_by_the_dog_across():
     assert not sports.hockey_fav_bad({**fav, "w_p": 0.5})              # (outside hockey the backup Lock still works)
     src = open(sports.__file__).read()
     assert "weigh_favorites(out)" in src
+
+
+def test_game_files_merge_by_id():
+    """10/2 audit: the hourly job's stale month file, rebased with -X theirs, wiped 316 backfilled college games (Idaho,
+    Montana St: 'we don't hold all their games'). The games CSVs merge row by row: a game is never dropped by a stale
+    copy, the further-along copy of a game wins, a real removal (moved month) stays removed."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_csv as mc
+    f = ["id", "start", "status", "home_score"]
+    a = {"id": "a", "start": "2026-09-06", "status": "final", "home_score": "51"}
+    b_pre = {"id": "b", "start": "2026-09-13", "status": "pre", "home_score": ""}
+    b_fin = {**b_pre, "status": "final", "home_score": "20"}
+    c = {"id": "c", "start": "2026-09-20", "status": "final", "home_score": "9"}
+    base = (f, {"b": b_pre, "c": c})
+    ours = (f, {"a": a, "b": b_pre, "c": c})          # upstream: the backfill added game a
+    theirs = (f, {"b": b_fin})                           # the job: graded b, and moved c to another month
+    _, rows = mc.merge(base, ours, theirs)
+    got = {r["id"]: r for r in rows}
+    assert set(got) == {"a", "b"} and got["b"]["status"] == "final"
+    assert open(".gitattributes").read().count("merge=sportscsv") == 1
+    for wf in ("sports.yml", "sports-live.yml", "ncaaf_backfill.yml"):
+        assert "merge.sportscsv.driver" in open(os.path.join(".github", "workflows", wf)).read(), wf
+
+
+def test_audit_10_2_fixes():
+    """10/2 'double check for bugs on every aspect' (the owner) - each confirmed bug, pinned."""
+    import sports_books as sb
+    import sports_early as se
+    import sports_breakdown as sbd
+    import sports_breakdown_v24 as v24
+    import sports_card_guard as cg
+    # live: a 3rd-period / regular-time Kambi line is never the moneyline (the Devils +145)
+    two = [{"englishLabel": "A"}, {"englishLabel": "B"}]
+    for lab in ("Moneyline - Period 3", "Moneyline - Regular Time", "Moneyline - 1st Half", "Moneyline - Quarter 4"):
+        assert not sb.two_way(lab, two), lab
+    assert sb.two_way("Moneyline - Including Overtime", two) and sb.two_way("Moneyline", two)
+    # live: "complete" with no winner never grades both sides lost; a tie / void game grades void
+    log = {"plays": {"g:1:home": {"result": None, "an_id": 5, "side": "home"}}}
+    sports_live._grade(log, {"status": "complete", "id": 5, "winning_team_id": None})
+    assert log["plays"]["g:1:home"]["result"] is None
+    log = {"plays": {"nfl:9:home": {"result": None, "league": "nfl"}}}
+    sports_live.grade_from_games(log, {"nfl:9": {"status": "final", "home_score": "20", "away_score": "20"}})
+    assert log["plays"]["nfl:9:home"]["result"] == "void"
+    # a void (the owner's call) always survives the log merges
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import merge_json
+    v, lo = {"result": "void"}, {"result": "lost", "odds": 145, "x": 1, "y": 2}
+    assert merge_json.merge_log({"plays": {"p": lo}}, {"plays": {"p": v}})["plays"]["p"]["result"] == "void"
+    assert sd.merge_live_logs({"plays": {"p": v}}, {"plays": {"p": lo}})["plays"]["p"]["result"] == "void"
+    assert sd.merge_live_logs({"plays": {"p": lo}}, {"plays": {"p": v}})["plays"]["p"]["result"] == "void"
+    # MLB late rally counts a road team that lost (ESPN lists no bottom 9th when the home team wins)
+    x = {"home": "NYY", "away": "BOS", "home_score": "7", "away_score": "6",
+         "ls_home": "3,2,2,0,0,0,0,0", "ls_away": "0,0,0,0,0,1,2,1,2"}
+    assert sports.late_rally(x, "BOS")
+    # a one-game day's pick follows the small-edge rule; a lean never carries units (from 10/2)
+    leg = {"team": "A", "odds": 160, "dec": 2.6, "p": 0.45, "dog_p": 0.45, "edge_own": 0.01, "market": "ml"}
+    keep = sports.pick_tier
+    try:
+        sports.pick_tier = lambda pk: "value"
+        assert sports.units_for({"kind": "solo", "date": "2026-10-02", "status": "open", "legs": [leg]}) == 0.5
+        assert sports.units_for({"kind": "lean", "lean": True, "lean_units": 1.0, "date": "2026-10-02",
+                                 "status": "open", "legs": [leg]}) == 0
+    finally:
+        sports.pick_tier = keep
+    # a spread lean talks about covering, never "win" / "underdog"
+    for x_ in sbd.lean_ends({"team": "Bills", "odds": -110, "p": 0.45, "market": "spread", "line": -3.5}):
+        assert "-3.5" in x_ and "underdog" not in x_ and "by a hair, not enough" not in x_
+    # crowd lines with no reason are filler
+    assert cg.problem("📊 70% of bets and 60% of the money on the Rams. We agree, for our own reasons.")
+    # "washed" only for an old QB (career by 2012), never a cold prime-age star
+    v24._PIDS["m"] = {"Aaron Rodgers": 8439, "Patrick Mahomes": 3139477}
+    try:
+        assert v24.old_qb("Aaron Rodgers") and not v24.old_qb("Patrick Mahomes") and not v24.old_qb("Nobody")
+    finally:
+        v24._PIDS.clear()
+    # early plays: a pulled play never re-posts; the spots ping; the ping waits for the BOX itself; stuck = void at 4 days
+    src = open(se.__file__).read()
+    assert 'p.get("game_id") for p in st.get("pulled") or []' in src and "early spot ping failed" in src
+    path = os.path.join(tempfile.mkdtemp(), "q.json")
+    now = datetime(2026, 10, 2, 3, 0, tzinfo=timezone.utc)
+    se.queue_pings([{"team": "Jaguars", "game_id": "g"}], now, path)
+    page = '<section>EARLY VALUE PLAYS Watching...</section><section>RESULTS Jaguars 35</section>'
+    assert se.send_queued(page, now, path, send_fn=lambda c: None) == []
+    st = {"picks": [{"game_id": "x", "start": "2026-09-20T17:00Z", "result": None, "side": "home"}]}
+    se.grade(st, {"x": {"status": "live"}})
+    assert st["picks"][0]["result"] == "void"
+    assert se.record({"picks": [{"result": "won", "odds": -150}]})["units"] > 0
+    # a called-off game reads VOID, never PUSH
+    pk = {"kind": "lock", "status": "open", "stake": 1, "legs": [{"game_id": "v", "result": "void", "dec": 1.8}]}
+    sports.grade([pk], {})
+    assert pk.get("void") and pk["status"] == "push"
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)

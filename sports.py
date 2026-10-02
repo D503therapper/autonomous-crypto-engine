@@ -1026,6 +1026,8 @@ def _ls(x, team):
     try:
         h = [float(v) for v in str(x.get("ls_home") or "").split(",") if v.strip() != ""]
         a = [float(v) for v in str(x.get("ls_away") or "").split(",") if v.strip() != ""]
+        if h and len(h) == len(a) - 1 and sum(h) > sum(a):   # (10/2 audit: the home team won without batting in
+            h = h + [0.0]                                    #  the bottom of the last inning - ESPN lists one fewer)
         if not h or len(h) != len(a) or sum(h) != float(x["home_score"]) or sum(a) != float(x["away_score"]):
             return None, None
     except (TypeError, ValueError, KeyError):
@@ -1459,7 +1461,12 @@ def units_for(pk):
         return pk["units"]                                   # graded: the units it was graded at, forever (10/1 audit)
     if kind == "solo" and (pk.get("date") or "") >= SOLO_UNITS_FROM:   # (the owner, 10/1: "on a one-game day we always
         t_ = pick_tier({**pk, "lean": False})                #  put units on" - a Lock or a value play, never a lean)
-        return _sized("lock" if t_ == "lock" else "value", legs[0]) or 0.5
+        u_ = _sized("lock" if t_ == "lock" else "value", legs[0]) or 0.5
+        return 0.5 if (pk.get("date") or "") >= THIN_FROM and thin_edge(legs[0]) else u_   # (10/2 audit: a small edge
+        #                                                                                   is a small bet here too)
+    if pk.get("lean") and (pk.get("date") or "") >= THIN_FROM:
+        return 0                                             # (the owner, 10/1 later: "the only thing that doesn't get
+        #                                                      units is leans" - a lean we like is still just a lean)
     if pk.get("lean"):
         u = pk.get("lean_units") or 0                        # a lean: none - or ½u on a lean we like (the owner, 10/1)
         return u if u and ((pk.get("date") or "9999") < MONEY_CHECK_FROM or beats_price(legs[0])) else 0   # (the money check)
@@ -2001,6 +2008,8 @@ def grade(picks, games, now=None):
                     dec *= leg["dec"]
             pk["status"] = "won" if "won" in res else "push"
             pk["pnl"] = round(pk["stake"] * (dec - 1), 2)
+            if all(r == "void" for r in res):
+                pk["void"] = True                            # (10/2 audit: a called-off game read PUSH - it's a VOID)
         else:
             continue
         # settled = when it was decided: a lost one the moment its first leg lost (its 3 hours on the board count from

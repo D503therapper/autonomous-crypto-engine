@@ -23,6 +23,7 @@ jobs:
         run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
+          git config merge.sportscsv.driver "python tools/merge_csv.py %O %A %B"   # (10/2: games merged by id, never dropped)
           git add data/sports/games/ncaaf results/ncaaf_backfill.txt 2>/dev/null || true
           git commit -qm "ncaaf backfill $(date -u '+%F %H:%M') UTC" || exit 0
           for i in 1 2 3 4 5; do git pull --rebase -X theirs -q origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; git rebase --abort 2>/dev/null; sleep 7; done

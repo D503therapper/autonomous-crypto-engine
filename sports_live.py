@@ -366,14 +366,16 @@ def grade_from_games(log, games):
             continue
         gid, side = pid.rsplit(":", 1)
         g = (games or {}).get(gid)
+        if g and g.get("status") == "void":
+            e["result"] = "void"                             # (10/2 audit: a called-off game never graded - stuck
+            continue                                         #  on STILL GOING)
         if not g or g.get("status") != "final":
             continue
         try:
             hs, as_ = int(g["home_score"]), int(g["away_score"])
         except (KeyError, TypeError, ValueError):
             continue
-        if hs != as_:
-            e["result"] = "won" if (hs > as_) == (side == "home") else "lost"
+        e["result"] = "void" if hs == as_ else "won" if (hs > as_) == (side == "home") else "lost"   # (a tie: void)
 
 
 def _match(games, league, ang):
@@ -687,14 +689,15 @@ def espn_scores(league):
 def dk_live(league, g):
     """DraftKings' LIVE moneyline for our game, through ESPN's odds feed: (home ml, away ml) or (None, None)."""
     sport, lg = sd.LEAGUES[league][0].split("/")
-    try:
-        items = _get(ESPN_ODDS.format(sport=sport, league=lg, eid=g["id"].split(":", 1)[1])).get("items") or []
+    try:                                                     # (10/2 audit: a fresh copy, never ESPN's cached one)
+        items = _get(fresh_url(ESPN_ODDS.format(sport=sport, league=lg, eid=g["id"].split(":", 1)[1]))).get("items") or []
     except Exception as e:                                   # noqa: BLE001
         sd.ERRORS.append(f"dk live {g['id']}: {str(e)[:80]}")
         return None, None
     for it in items:
-        if "live" not in str((it.get("provider") or {}).get("name", "")).lower():
-            continue
+        name = str((it.get("provider") or {}).get("name", "")).lower()
+        if "live" not in name or "draft" not in name:
+            continue                                         # (10/2 audit: DraftKings' live line only, not any "live")
         h, a = (it.get("homeTeamOdds") or {}).get("moneyLine"), (it.get("awayTeamOdds") or {}).get("moneyLine")
         try:
             return int(h), int(a)
@@ -1600,6 +1603,8 @@ def _grade(log, ang):
     if status not in ("complete", "closed", "final"):
         return
     win = ang.get("winning_team_id")
+    if win is None:
+        return            # (10/2 audit: "complete" with no winner yet graded BOTH sides lost, for good - wait for it)
     for pid, e in log["plays"].items():
         if e["result"] is None and e.get("an_id") == ang.get("id"):
             e["result"] = "won" if (win == (ang.get("home_team_id") if e["side"] == "home" else ang.get("away_team_id"))) else "lost"
@@ -2054,7 +2059,10 @@ def loop(minutes, every_s=1):
                 print(f"{datetime.now(timezone.utc):%H:%M:%S} new code - restarting on it ({left:.0f} min left)", flush=True)
                 os.execv(sys.executable, [sys.executable, "-u", "sports_live.py", "--loop", f"{left:.1f}"])
             print(f"{datetime.now(timezone.utc):%H:%M:%S} loading data", flush=True)
-            games, _ = _data(reload=True)
+            try:
+                games, _ = _data(reload=True)
+            except Exception as e:                           # noqa: BLE001 - (10/2 audit: a bad reload killed the
+                print(f"data reload failed, keeping the last copy: {str(e)[:80]}", flush=True)   # whole watch)
             backstop()
         if any_live_soon(games, STAY_MIN) and not queued:       # the next watch lines up behind this one
             queued = queue_next()
