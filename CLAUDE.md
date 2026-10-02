@@ -21,6 +21,7 @@ every session:
   the engine never states or leans on a fact it can't fully see. A college team whose games we don't all hold gets no
   record / streak / last-game line and no early spot (sports_breakdown_v24.seen_all); the feed is pulled conference by
   conference (sports_data.SPLIT). Check a claim against the real schedule before posting it.
+- **FULL injury data, every sport, every team - the most important thing (the owner, 10/2).** ESPN's feed covers the pros but almost no college teams (10/2: 3 college football teams), so `data/sports/injuries_official.json` holds the official availability reports (filled at 5:47 AM and 11:47 AM PT by the 'D503 official injury reports' routine). A team with no injury data is UNKNOWN, never 'healthy' - it gets no pick (sd.covered / sports.waiting_on) and the factor check names it. A side with 2+ out or 4+ questionable the engine doesn't weigh yet carries no units (a lean or the backup Lock at most) and its card names who's out (🚑 sports.injury_line). The board is a Lock, a Dog and three leans no matter what (the owner, 10/2). Check: Actions -> injury_report.
 - **Reviews say how it was won or lost** (the owner, 10/1): when something big decided the game - a last-second field
   goal, a blocked kick, a pick-six, overtime, a walk-off, an empty-netter, a late comeback - the graded review says it.
 - **Never lengthen write-ups.** Accuracy over everything. No secrets in the repo. No borrowed keys or disguises to get
