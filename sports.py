@@ -35,6 +35,7 @@ START_BANKROLL = 1000.0
 STAKE = 100.0
 HOLD_DAYS = set()             # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
                                # post under rules the study showed are weak (the owner, 9/28)
+BOARD_EARLY_MIN = 40          # a run that starts 7:40+ PT pulls everything, then waits and posts at 8:00 sharp
 POST_FROM_HOUR_PT = 8          # a day's plays go up from 8am Pacific ON GAME DAY (the owner, 9/28, after the line study:
                                # closing lines pick more winners - NFL 68% vs 61% early - so the engine watches the lines
                                # and the news overnight and posts off the sharpest numbers; tennis posts at 8am too, since 9/29)...
@@ -3224,6 +3225,13 @@ def run(repick=False, fetch=True):
     if repick:
         picks[:] = [p for p in picks if p["date"] != day.isoformat() or p["status"] not in ("open", "waiting")]
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] < day.isoformat())]
+    local = datetime.now(timezone.utc).astimezone(PT)        # ⏰ ON TIME (10/2, the owner's friend: "the board doesn't
+    if (local.hour == POST_FROM_HOUR_PT - 1 and local.minute >= BOARD_EARLY_MIN and local.date() == day  # usually go up
+            and not any(p["date"] == day.isoformat() and p["status"] != "waiting" for p in picks)):   # till 9"): the
+        wait = (local.replace(hour=POST_FROM_HOUR_PT, minute=0, second=5, microsecond=0) - local).total_seconds()
+        print(f"everything's pulled and checked - the board goes up at 8:00 sharp (waiting {wait:.0f}s)", flush=True)
+        time.sleep(max(0.0, wait))                           # 7:45 run does the pulling, then posts right at 8:00
+        now = datetime.now(timezone.utc)
     days = [day] if now.astimezone(PT).hour >= POST_FROM_HOUR_PT else []      # game day only, from 8am PT
     days = [d for d in days if d.isoformat() not in HOLD_DAYS]         # a board on hold never posts (owner's call)
     try:                                                                # 📊 who's betting who on today's games
