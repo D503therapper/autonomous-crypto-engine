@@ -6082,6 +6082,23 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_checker_checks_itself_and_the_sizing():
+    """10/2, the owner: "make sure our checker is working properly" / "is our sizing system checked properly?" The
+    self-test feeds every check made-up broken data and each one has to catch it; the sizing check flags any pick off
+    the unit system; the backup Lock is ½u; a public split from a failed pull is never quoted as today's."""
+    assert sports.checker_selftest() == []
+    leg = {**_cand("s", 120, 0.5), "game_id": "s"}
+    assert sports.sizing_check([{"date": "2026-10-02", "kind": "play", "status": "open", "legs": [leg]}]) == []
+    assert sports.sizing_check([{"date": "2026-10-02", "kind": "dog", "status": "open", "legs": [leg]}]) == []
+    near = {**_cand("n", -140, 0.56), "game_id": "n", "near_price": True}
+    assert sports.units_for({"date": "2026-10-02", "kind": "lock", "status": "open", "legs": [near]}) == 0.5
+    import sports_public
+    now = datetime(2026, 10, 2, 15, tzinfo=timezone.utc)
+    assert sports_public.fresh({"at": "2026-10-02T14:00Z"}, now) and not sports_public.fresh({"at": ""}, now)
+    assert not sports_public.fresh({"at": "2026-10-01T20:00Z"}, now)
+    assert sports_public.splits_for("g", live={"g": {"at": "", "ml_home_m": 70}}, hist={}) is None
+
+
 def test_health_job_pushes_only_its_report():
     """10/2: the hourly health check went red 5 runs in a row - every check OK, but files it touched blocked its
     'git pull --rebase'. It commits health.json, sets everything else aside, then pulls."""

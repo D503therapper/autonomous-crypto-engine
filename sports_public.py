@@ -250,18 +250,39 @@ def refresh_today(games, now=None):
         if failed and lg in YAHOO:                           # Action Network turned us away: Yahoo's page instead
             try:
                 got = yahoo_splits(games, lg)
-                keep.update({k2: v for k2, v in got.items() if k2 not in keep})
+                keep.update({k2: v for k2, v in got.items() if k2 not in keep or keep[k2] is live.get(k2)})
                 print(f"   public splits {lg}: Action Network down - {len(got)} games from Yahoo")
             except Exception as e:                           # noqa: BLE001
                 print(f"   public splits {lg} (Yahoo): {str(e)[:80]}")
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    for k, v in keep.items():                                # (10/2: when each game's split was really pulled - a
+        if k not in live or live[k] is not v:                #  failed pull keeps yesterday's, never quoted as today's)
+            v["at"] = stamp
+        else:
+            v.setdefault("at", "")
     _save(LIVE, keep)
     return keep
+
+
+STALE_H = 12
+
+
+def fresh(v, now=None):
+    """A live split pulled in the last STALE_H hours (one without a stamp is from before 10/2 - still fine in tests)."""
+    at = v.get("at")
+    if at is None:
+        return True
+    try:
+        t = datetime.strptime(at[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return False
+    return (now or datetime.now(timezone.utc)) - t <= timedelta(hours=STALE_H)
 
 
 def splits_for(game_id, live=None, hist=None):
     live = _load(LIVE) if live is None else live
     if game_id in live:
-        return live[game_id]
+        return live[game_id] if fresh(live[game_id]) else None
     hist = _load(PATH) if hist is None else hist
     return (hist.get("games") or {}).get(game_id)
 
