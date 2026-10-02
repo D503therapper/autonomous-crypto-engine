@@ -2284,7 +2284,7 @@ function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data
    if(c[0]&&c[0].classList.contains("won"))ps++;if(c[1]&&c[1].classList.contains("won"))as++;}});   // "Patty won one and
   var t=top.getAttribute("data-name")+" "+ps+" · Algorithm "+as;if(top.textContent!==t)top.textContent=t;}}}}   // it still says 0")
 pvLive();setInterval(pvLive,3000);
-window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,1000);
+window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,3000);
 document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();
 </script><script>

@@ -82,3 +82,21 @@ test("9/29: the book's point-by-point - who's serving + 15-0 / 30-0, from ESPN's
   const pad = { events: [ev("A Guy", "B Guy", [3, 0, 0], [1, 0, 0], ["15", "0"], true)] };
   assert.deepEqual(bookScore(pad, "A Guy", "B Guy").sets, [[3, 1]], "unplayed 0-0 sets trimmed");
 });
+
+test("scores: a team board is boiled down once and shared (10/2: Cloudflare cut us off 1,000+ times a day)", async () => {
+  const store = new Map(); let pulls = 0;
+  globalThis.caches = { default: {
+    match: async (k) => (store.has(k) ? new Response(store.get(k)) : null),
+    put: async (k, r) => { store.set(k, await r.text()); } } };
+  globalThis.fetch = async () => { pulls++; return { ok: true, status: 200, text: async () => JSON.stringify(NFL) }; };
+  const ctx = { waitUntil(p) { return p; } };
+  const ask = async () => (await (await handleScores(new Request("https://x.workers.dev/scores?ids=nfl:401872963"), {}, ctx,
+    ["https://d503therapper.github.io"])).json())["nfl:401872963"];
+  const first = await ask();
+  await new Promise((r) => setTimeout(r, 0));
+  const second = await ask();
+  assert.deepEqual(second, first);
+  assert.equal(first.h, 17);
+  assert.ok(store.has("https://d503-cache/compact/nfl"), "the small copy is cached");
+  assert.equal(pulls, 1, "the second phone never touches ESPN's big board");
+});
