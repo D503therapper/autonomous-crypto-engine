@@ -1,9 +1,9 @@
 {
- "at": "2026-10-02T22:36Z",
+ "at": "2026-10-02T22:51Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (34s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,7 +11,7 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
@@ -21,6 +21,11 @@
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-02T22:51Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-02T22:36Z",
    "fixes": [],
@@ -632,13 +637,6 @@
   {
    "at": "2026-09-30T06:45Z",
    "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-09-30T06:00Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-09-29 Tommy Paul) - sports.yml already running"
-   ],
    "problems": []
   }
  ]
