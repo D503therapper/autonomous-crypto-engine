@@ -199,8 +199,10 @@ def lost_last_in_series(games, g, side):
     return winner != g[side]
 
 
-def waiting_on(g, injuries):
-    """What still isn't known for a game (empty when it's safe to post): a starting pitcher, a key player's status."""
+def waiting_on(g, injuries, maybe=True):
+    """What still isn't known for a game (empty when it's safe to post): a starting pitcher, a key player's status.
+    maybe=False (a lean - no money on it; the owner, 10/2: "it's not a starting goalie ... it doesn't change the
+    game"): only a VERIFIED starter's status holds it, never a player our box scores don't show starting."""
     out = []
     if g["league"] == "mlb":
         out += [f"{g[side + '_name']} starting pitcher" for side in ("away", "home") if not g.get("sp_" + side)]
@@ -210,7 +212,7 @@ def waiting_on(g, injuries):
     inj = (injuries or {}).get(g["league"])
     for side in ("away", "home"):
         out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable"
-                for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"], maybe=True)[:2]]
+                for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"], maybe=maybe)[:2]]
     return out
 
 
@@ -2671,8 +2673,8 @@ def post_board(games, model, picks, now, day, force=False):
         for c in pool(cands, used):
             if room <= 0:
                 break
-            if c["waiting"] and not force:
-                continue
+            if c["waiting"] and not force and not (kind == "lean" and not waiting_on(games[c["game_id"]], injuries, maybe=False)):
+                continue                                     # (a lean waits only on a verified starter - 10/2)
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             dress(b)
             pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1, "legs": b["legs"],
