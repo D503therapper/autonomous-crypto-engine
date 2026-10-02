@@ -5379,3 +5379,25 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 05:30 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 05:30 UTC] crypto/hold_btc  equity $512.00 (+2.4%) 1 open  market UP
    social heat top: QNT 32 (32/0/0), BTC 29 (29/0/0), PENGU 27 (27/0/0), NEAR 24 (24/0/0), ENA 21 (21/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '86873.45', 'l': '83125.37', 'a': '86336.98', 'v': '5442.3998', 'vv': '459225107.41', 'c': '0.0249', 'b': '86336.98', 'k': '86336.99', 'oi': '0', 't': 1790919041206}
+   dex screen: PASS TIBBIR@base liq $3,835,258
+   dex screen: REJECT OCTO@solana liq $124,896 - holders unknown; lp holders unknown; rugcheck lp locked 59% < 95%
+   dex screen: PASS E/ACC@solana liq $100,446
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex outcome: emergency_exit AGENCY@solana:7VertkgF tier A P/L $-16.63 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 66% < 95%)
+   >> dex/dex_hunter: SELL $23.60 of AGENCY@solana:7VertkgF @ 0.000993, P/L $-16.63 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 66% < 95%)
+   dex screen: REJECT SUPER@ethereum liq $4,017,338 - is_mintable; top-10 holders 53%
+   dex scanner: 3,002 pools (solana 2,072 / base 513 / ethereum 417), refresh cycle 111s (hot 108s), 1632 calls (62 feed, 429s 0, failed 0), 47,072 refreshed (4070 no pair), +97 added / -95 dropped (dead 3, stale 0, cap 92), movers 2 + warming 16 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-02 06:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 06:06 UTC] crypto/mover     equity $453.19 (-9.4%) 1 open  market UP
+[2026-10-02 06:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 06:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 06:06 UTC] crypto/social_heat equity $537.39 (+7.5%) 2 open  market UP
+[2026-10-02 06:06 UTC] crypto/breakout10 equity $502.72 (+0.5%) 2 open  market UP
+[2026-10-02 06:06 UTC] crypto/momentum  equity $489.44 (-2.1%) 2 open  market UP
+[2026-10-02 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 06:06 UTC] crypto/hold_btc  equity $510.73 (+2.1%) 1 open  market UP
+   social heat top: QNT 35 (35/0/0), BTC 32 (32/0/0), NEAR 29 (29/0/0), PENGU 27 (27/0/0), ZRO 24 (24/0/0)
