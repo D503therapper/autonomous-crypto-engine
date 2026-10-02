@@ -393,7 +393,11 @@ Peeking: model re-tuned per season on earlier seasons, but the rules / study wei
   NBA .38, MLB .22); a per-sport-scaled Dog of the Day +6.1% vs +2.9% as-is (2023+ +11.0% vs +6.9%) - but the angles
   were found on the same seasons (partly in-sample): a LEAD - re-check before building. No price scaling (no pattern).
   Hockey stays in the Dog of the Day (since 2023 +1.8% with it vs -1.3% without; NHL score 6+ +12.6%, 7 of 7).
-- STUDY_CAP ±6 binds on 3.6% of dogs - kept.
+- STUDY_CAP ±6 binds on 3.6% of dogs - kept. The cap / stacking replay (337 game days, make_board at 8:35 AM): caps 4
+  to none all the same within noise (only 3 looks worse); positive angles add up fully through ~2 angles, then about
+  half per point past ~6 - what the cap already does; negative angles stack fully (two+ = -24.7% ROI, 0 of 5 seasons).
+  Favorites' weighed read (weigh_favorites) on at 0.005 / cap 0.04: unit plays +4.3% (4 of 6) vs off +1.6% (2 of 6),
+  Locks flat +0.9% vs -3.6% off - kept as is (0.01 a little better on Locks, worse on plays, not proven).
 
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets

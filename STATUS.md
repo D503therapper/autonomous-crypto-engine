@@ -23,10 +23,13 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   restored (316 had been wiped by the hourly job; game files now merge by id).
 - Daily board dry run: tools/board_preview.py / Actions -> board_preview.
 
-**Running / waiting on results**
-- Unit-sizing replay (current Kelly vs flat vs tiers vs confidence buckets) -> pick the unit system.
-- Five point-system studies: cap size, learned angle points, stacking, overlap / double counting, points by price and
-  sport -> set STUDY_CAP / FAV_CAP and the angle points by the data.
+**Studies done overnight (all in SPORTS_FINDINGS.md 10/2)**
+- Unit system BUILT: the Lock by its own read, the Dog flat 1u, value plays ½u (712-day replay: since 7/2023 +10.5u
+  vs the old sizing -15.2u; value plays lose at any size).
+- Point system BUILT: NBA overreaction +5, NHL both-lost +3.5, MLB +200..+249 -4, NHL road-opener off, no double
+  counting (NHL hot key / key edge; college ice cold + losing streak), college bye only within 30 days. STUDY_CAP 6,
+  linear stacking and the favorites' weighing confirmed (no change). Per-sport point scaling = a LEAD (re-check).
+- The backup near_lock loses (-17% flat) - kept at ½u because the owner wants a Lock every day.
 
 **Open decisions (the owner's call)**
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md
