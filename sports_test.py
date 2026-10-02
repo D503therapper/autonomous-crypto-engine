@@ -7209,6 +7209,9 @@ if __name__ == "__main__":
     sports_early.PINGS_PATH = os.path.join(tempfile.mkdtemp(), "early_pings.json")
     import sports_pings
     sports_pings.PATH = os.path.join(tempfile.mkdtemp(), "play_pings.json")                # (nor the mid-day pings)
+    import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)
+    sports_leads.PATH = os.path.join(tempfile.mkdtemp(), "lead_tracker.json")
+    sports_leads.RECORD = os.path.join(tempfile.mkdtemp(), "lead_record.json")
     sports_early.PARAMS_PATH = os.path.join(tempfile.mkdtemp(), "early_params.json")
     sports_live.FINAL_AT.clear()
     for name, fn in list(globals().items()):
