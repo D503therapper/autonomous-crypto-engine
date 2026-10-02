@@ -12,6 +12,7 @@ Every hour (GitHub Actions, .github/workflows/sports.yml):
     SPORTS_POST_NOW=1 python sports.py   # post every play right now
 """
 import itertools
+import copy
 import json
 import os
 import sys
@@ -1489,6 +1490,8 @@ def units_for(pk):
         return u if u and ((pk.get("date") or "9999") < MONEY_CHECK_FROM or beats_price(legs[0])) else 0   # (the money check)
     t = "value" if kind == "dog" else pick_tier(pk)
     if kind == "lock" and legs[0].get("near_price"):        # the always-a-Lock backup (the owner, 10/1): ½u floor
+        if (pk.get("date") or "") >= SIZING_FROM:            # (the unit system, 10/2: the backup Lock ½u - it lost -17%
+            return 0.5                                       #  flat in the replay; the sizing check caught it at more)
         return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
     if (pk.get("date") or "") >= SIZING_FROM:              # 💰 THE UNIT SYSTEM (the 10/2 sizing replay - 712 board days,
@@ -2191,7 +2194,7 @@ def _ts(x):
         return datetime(1970, 1, 1, tzinfo=timezone.utc)
 
 
-def factor_check(games, cands, injuries, day, now):
+def factor_check(games, cands, injuries, day, now, model=None):
     """🔎 THE DOUBLE CHECK, part 1 (the owner, 10/1: "every day before the engine posts there needs to be a check - make
     sure it's weighing every factor, every study"): every study's data actually loaded for the sports on today's slate.
     A missing piece holds the board (the engine re-pulls) until SLATE_LAST_TRY, then it posts and the log says what
@@ -2244,6 +2247,23 @@ def factor_check(games, cands, injuries, day, now):
     if out_ and sum(str(g.get("wx_temp", "")) == "" for g in out_) > len(out_) / 2:   # the weather: outdoor games
         probs.append(f"the weather is missing for {sum(str(g.get('wx_temp', '')) == '' for g in out_)} of "
                      f"{len(out_)} outdoor games")
+    priced = [games[g] for g in gids if g in games and games[g].get("ml_home")]
+    if priced and sum(1 for g in priced if not g.get("ml_home_open")) * 2 > len(priced):
+        probs.append(f"the opening lines are missing for {sum(1 for g in priced if not g.get('ml_home_open'))} of "
+                     f"{len(priced)} games (the line movement can't be weighed)")
+    if model is not None:                                    # the engine's own read: every sport's model loaded
+        for lg in sorted(lgs):
+            if not (model.get("params") or {}).get(lg):
+                probs.append(f"{lg.upper()}: the engine's model for this sport didn't load")
+    try:                                                     # the public splits: card lines only (nothing proven, so
+        import sports_public                                 # they don't move a pick) - a note when they're old
+        live = sports_public._load(sports_public.LIVE)
+        have = [g for g in gids if g in live and sports_public.fresh(live[g], now)]
+        if gids and games and len(have) * 2 < len(gids & set(games)):
+            print(f"FACTOR NOTE: public splits fresh for only {len(have)} of {len(gids)} games - the cards skip the "
+                  f"old ones", flush=True)
+    except Exception:                                        # noqa: BLE001
+        pass
     hk = [c for c in cands if c["league"] == "nhl" and c.get("market") == "ml" and c.get("odds", 0) < 0 and c["odds"] >= -300]
     if hk and not any(c.get("w_p") is not None for c in hk):
         probs.append("NHL: the hockey favorites weren't weighed against the dog across the ice")
@@ -2294,6 +2314,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
                 picks.remove(pk)
         else:
             seen[l.get("game_id")] = pk
+    probs += sizing_check(new)
     if games is not None and day is not None and day.weekday() in (0, 3):
         for gid in night_games(games, day, picks, now or datetime.now(timezone.utc)):
             if gid not in _straight_games(picks, iso):
@@ -2301,6 +2322,110 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
     for x in probs:
         print(f"RULE CHECK: {x}", flush=True)
     return probs
+
+
+def sizing_check(new):
+    """🔎 THE SIZING CHECK (the owner, 10/2: "is our sizing system checked properly?"): every pick about to post carries
+    the units the unit system says - a lean 0, a value play ½u, the Dog 1u, the backup Lock ½u, a Lock ½u-10u (½u on a
+    thin edge), a one-game day's pick ½u+. Reports only (a Lock is never pulled - there's always a Lock)."""
+    out = []
+    for pk in new:
+        if (pk.get("date") or "") < SIZING_FROM or pk.get("kind") in PARLAY_KINDS or not pk.get("legs"):
+            continue
+        l, u, k = pk["legs"][0], units_for(pk), pk.get("kind")
+        want = None
+        if pk.get("lean"):
+            want = (0, 0) if k != "solo" else (0.5, 10)
+        elif k == "play":
+            want = (PLAY_UNITS, PLAY_UNITS)
+        elif k == "dog":
+            want = (DOG_UNITS, DOG_UNITS)
+        elif k == "lock" and l.get("near_price"):
+            want = (0.5, 0.5)
+        elif k == "lock":
+            want = (0.5, 0.5) if thin_edge(l) else (0.5, 10)
+        elif k in ("solo", "night"):
+            want = (0.5, 10) if not pk.get("lean") else (0, 0)
+        if want and not want[0] <= u <= want[1]:
+            out.append(f"sizing: {k} {l.get('team')} {l.get('odds')} at {u:g}u - the unit system says "
+                       f"{want[0]:g}u" + (f"-{want[1]:g}u" if want[1] != want[0] else ""))
+    return out
+
+
+def checker_selftest():
+    """🧪 THE CHECKER CHECKS ITSELF (the owner, 10/2: "make sure our checker is working properly"): before every
+    opening board it feeds the factor check and the sizing check made-up broken data, one problem at a time, and makes
+    sure each one gets caught. A check that misses its problem is reported (and holds the board like any other).
+    Never touches a real pick or a real file."""
+    from datetime import date as _date
+    now = datetime(2026, 10, 2, 15, tzinfo=timezone.utc)
+    d = _date(2026, 10, 2)
+    keep = (dict(DOG_ST), dict(LAST_STARTS), list(STATE_FAILS), sp.CACHE, SLATE_PATH)
+    import tempfile
+    globals()["SLATE_PATH"] = os.path.join(tempfile.mkdtemp(), "selftest.json")
+    missed = []
+    try:
+        DOG_ST.clear(); LAST_STARTS.clear(); del STATE_FAILS[:]
+        DOG_ST[("nba", "1")] = {"won": True}; LAST_STARTS[("nba", "1")] = ["x"]
+        sp.CACHE = {"mlb": [{"player": "x"}]}
+        G = {f"t{i}": {"league": "nba", "status": "pre", "start": "2026-10-02T23:00Z", "home_name": f"T{i}",
+                       "odds_time": "2026-10-02T14:30Z", "ml_home": "-120", "ml_home_open": "-120"} for i in range(3)}
+        cs = [{"league": "nba", "game_id": f"t{i}", "market": "ml", "odds": -120} for i in range(3)]
+        inj = {"nba": {"1": []}, "mlb": {"1": []}}
+        M = {"params": {"nba": {"trust": 1}, "mlb": {"trust": 1}}}
+        quiet = lambda *a, **k: None                                       # noqa: E731
+        import builtins
+        pr, builtins.print = builtins.print, quiet
+        try:
+            if factor_check(G, cs, inj, d, now, model=M):
+                missed.append("it flagged good data")
+            cases = {
+                ("a stale price", "fresh price"): lambda g, c, i, m: [x.update(odds_time="2026-10-01T10:00Z") for x in g.values()],
+                ("a missing final score", "final score"): lambda g, c, i, m: g.update({f"y{k}": {"league": "nba", "status": "pre",
+                                                                     "start": "2026-10-02T01:00Z"} for k in range(3)}),
+                ("a missing injury report", "injury report"): lambda g, c, i, m: i.pop("nba"),
+                ("missing form data", "dog studies"): lambda g, c, i, m: DOG_ST.clear(),
+                ("missing rest data", "back-to-back"): lambda g, c, i, m: LAST_STARTS.clear(),
+                ("a data load failure", "failed to load"): lambda g, c, i, m: STATE_FAILS.append("coaches"),
+                ("no opening line (line movement)", "opening lines"): lambda g, c, i, m: [x.pop("ml_home_open") for x in g.values()],
+                ("a sport's model missing", "model for this sport"): lambda g, c, i, m: m["params"].pop("nba"),
+                ("missing player stats", "player stats"): lambda g, c, i, m: (c.append({"league": "mlb", "game_id": "m1", "market": "ml",
+                                                                      "odds": -110}), DOG_ST.update({("mlb", "1"): 1}),
+                                                            sp.CACHE.clear()),
+            }
+            for (name, word), breakit in cases.items():
+                g2, c2, i2, m2 = copy.deepcopy(G), copy.deepcopy(cs), copy.deepcopy(inj), copy.deepcopy(M)
+                DOG_ST.clear(); DOG_ST[("nba", "1")] = {"won": True}
+                LAST_STARTS.clear(); LAST_STARTS[("nba", "1")] = ["x"]; del STATE_FAILS[:]
+                sp.CACHE = {"mlb": [{"player": "x"}]}
+                breakit(g2, c2, i2, m2)
+                if not any(word in x for x in factor_check(g2, c2, i2, d, now, model=m2)):
+                    missed.append(f"it missed {name}")
+            leg = {"league": "nba", "game_id": "s", "market": "ml", "odds": 120, "team": "X", "p": 0.5, "own_p": 0.5}
+            bad = [{"date": "2026-10-02", "kind": "play", "status": "open", "units": 3, "legs": [leg]}]
+            real_units = globals()["units_for"]
+            globals()["units_for"] = lambda pk: pk.get("units", 0)
+            try:
+                if not sizing_check(bad):
+                    missed.append("it missed a value play at 3u")
+                bad[0].update(kind="lean", lean=True, units=1)
+                if not sizing_check(bad):
+                    missed.append("it missed a lean with units")
+            finally:
+                globals()["units_for"] = real_units
+        finally:
+            builtins.print = pr
+    except Exception as e:                                   # noqa: BLE001 - the self-test breaking is itself a problem
+        missed.append(f"the self-test crashed: {str(e)[:80]}")
+    finally:
+        DOG_ST.clear(); DOG_ST.update(keep[0]); LAST_STARTS.clear(); LAST_STARTS.update(keep[1])
+        STATE_FAILS[:] = keep[2]; sp.CACHE = keep[3]; globals()["SLATE_PATH"] = keep[4]
+    out = [f"the checker is broken: {m}" for m in missed]
+    for x in out:
+        print(f"CHECKER SELF-TEST: {x}", flush=True)
+    if not out:
+        print(f"CHECKER SELF-TEST: all {len(cases) + 3} checks caught their problem", flush=True)
+    return out
 
 
 def preflight(games, model, now):
@@ -2366,7 +2491,8 @@ def post_board(games, model, picks, now, day, force=False):
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
     if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
         gaps = data_gaps(games, cands, now)
-        probs = slate_check(games, cands, day, now) + factor_check(games, cands, injuries, day, now) + \
+        probs = slate_check(games, cands, day, now) + factor_check(games, cands, injuries, day, now, model) + \
+            checker_selftest() + \
             [f"data gap - {x}" for x in gaps.values() if "no result" in x]   # (a re-pull fixes a missing result;
                                                                                  # a small school's gap just gets no pick)
         if probs and (local.hour, local.minute) < SLATE_LAST_TRY:
