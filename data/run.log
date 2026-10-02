@@ -5623,3 +5623,43 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 13:06 UTC] crypto/hold_btc  equity $515.29 (+3.1%) 1 open  market UP
    social heat top: SC 50 (40/0/10), QNT 35 (35/0/0), TRUMP 34 (29/0/5), SAND 32 (32/0/0), NEAR 27 (27/0/0)
+   dex screen: REJECT GITLAWB@base liq $517,536 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT ZEN@base liq $2,596,603 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: REJECT EDEL@base liq $1,233,614 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 47%
+   dex screen: PASS FWA@ethereum liq $972,370
+   dex screen: REJECT CALI@solana liq $191,022 - holders unknown; lp holders unknown; rugcheck lp locked 38% < 95%
+   dex screen: PASS DRB@base liq $1,817,925
+   dex screen: REJECT METAC@base liq $1,949,929 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 83%; lp locked 0% < 95%
+   dex screen: REJECT BOAR@base liq $290,381 - goplus partial data: cannot_sell_all unknown; buy tax unknown; lp locked 0% < 95%
+   dex screen: REJECT FREN PET@base liq $990,497 - goplus partial data: cannot_sell_all unknown; is_blacklisted; is_whitelisted; buy tax unknown; sell tax unknown; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT GOOGLC@base liq $1,746,344 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 73%; lp locked 0% < 95%
+   dex screen: PASS PUMPOWEEN@solana liq $115,285
+   dex screen: REJECT JEANPHIL@solana liq $219,328 - holders unknown; lp holders unknown; rugcheck lp locked 44% < 95%
+   dex screen: REJECT JEANPHIL@solana liq $275,144 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS JEANPHIL@solana liq $133,579
+   dex screen: REJECT JEANPHIL@solana liq $280,922 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT SYN@ethereum liq $177,678 - goplus partial data: selfdestruct unknown; is_mintable; top-10 holders 67%; lp locked 0% < 95%
+   dex screen: REJECT NVDAON@ethereum liq $305,484 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 75%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,062 / base 581 / ethereum 357), refresh cycle 128s (hot 124s), 2920 calls (108 feed, 429s 0, failed 0), 84,358 refreshed (5728 no pair), +97 added / -97 dropped (dead 11, stale 0, cap 86), movers 1 + warming 28 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-02 14:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 14:06 UTC] crypto/mover     equity $450.18 (-10.0%) 0 open  market UP
+[2026-10-02 14:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 14:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 14:06 UTC] crypto/social_heat equity $535.81 (+7.2%) 2 open  market UP
+[2026-10-02 14:06 UTC] crypto/breakout10 equity $501.30 (+0.3%) 2 open  market UP
+[2026-10-02 14:06 UTC] crypto/momentum  equity $491.13 (-1.8%) 2 open  market UP
+[2026-10-02 14:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 14:06 UTC] crypto/hold_btc  equity $513.77 (+2.8%) 1 open  market UP
+   >> stocks/rsi2: SELL $174.89 of MSTR @ 166.187, P/L $+10.17 (mean reversion: bounced or time limit)
+   >> stocks/rsi2: BUY $170.80 of XLV @ 166.113 (entry)
+[2026-10-02 14:06 UTC] stocks/rsi2      equity $512.30 (+2.5%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, XLB 2, XLV 4 BUY
+[2026-10-02 14:06 UTC] stocks/dual_momentum equity $505.21 (+1.0%) 2 open  market UP
+[2026-10-02 14:06 UTC] stocks/trend_ensemble equity $506.68 (+1.3%) 5 open  market UP
+   >> stocks/rotation10: SELL $230.56 of MSTR @ 166.187, P/L $+13.11 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: BUY $228.75 of PLTR @ 192.009 (entry)
+[2026-10-02 14:06 UTC] stocks/rotation10 equity $508.21 (+1.6%) 2 open  market UP
+[2026-10-02 14:06 UTC] stocks/momentum  equity $505.86 (+1.2%) 4 open  market UP
+[2026-10-02 14:06 UTC] stocks/trend     equity $494.48 (-1.1%) 3 open  market UP
+[2026-10-02 14:06 UTC] stocks/hold_spy  equity $501.45 (+0.3%) 1 open  market UP
+   social heat top: SC 52 (40/0/12), TRUMP 40 (35/0/5), PENGU 36 (27/0/9), SAND 32 (32/0/0), NEAR 29 (29/0/0)
