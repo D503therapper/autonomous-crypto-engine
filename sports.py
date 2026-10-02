@@ -35,6 +35,10 @@ START_BANKROLL = 1000.0
 STAKE = 100.0
 HOLD_DAYS = set()                   # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
                                # post under rules the study showed are weak (the owner, 9/28)
+FORCE_LOCK = False             # the owner, 10/2 ("there doesn't always have to be a lock ... you make the call"): a Lock
+#                                only when the engine's read really beats the price (the full Lock test or backup_lock);
+#                                the forced backup (near_lock - its read under the price) lost 17% flat over 78 replay
+#                                days. No Lock = the board says so; the Dog and the leans still go up.
 BOARD_EARLY_MIN = 40          # a run that starts 7:40+ PT pulls everything, then waits and posts at 8:00 sharp
 POST_FROM_HOUR_PT = 8          # a day's plays go up from 8am Pacific ON GAME DAY (the owner, 9/28, after the line study:
                                # closing lines pick more winners - NFL 68% vs 61% early - so the engine watches the lines
@@ -791,8 +795,8 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         #   "the Lock should be the most confident win" - among the picks worth their price, the likeliest winner)
         if lock is None:
             lock = backup_lock(cands)
-        if lock is None:
-            lock = near_lock(cands)                          # (the owner, 10/1: "there's always a Lock")
+        if lock is None and FORCE_LOCK:
+            lock = near_lock(cands)                          # (off since 10/2 - FORCE_LOCK)
     board["lock"] = _combo([lock]) if lock else None
     if fixed.get("dog"):
         dog = fixed["dog"][0]
@@ -2706,7 +2710,7 @@ def post_board(games, model, picks, now, day, force=False):
         fixed = {k: posted[k]["legs"] for k in ("lock", "dog", "two", "three")          # build on what's still up
                  if k in posted and posted[k].get("status") == "open" and posted[k].get("legs")}   # (never a graded one)
         best = make_board(cands, lock_game, allow_lean=replacing, avoid=avoid, fixed=fixed).get(kind)
-        if not best and kind == "lock" and not replacing:   # ALWAYS a Lock (the owner, 10/2 - "no matter what"): when
+        if not best and kind == "lock" and not replacing and FORCE_LOCK:   # (off since 10/2 - FORCE_LOCK) when
             best = make_board(all_cands, lock_game, avoid=avoid, fixed=fixed).get(kind) or last_lock(all_cands, avoid)   # every healthy side falls
             #                                                  short, the backup Lock can be a banged-up side - ½u,
             #                                                  its card names who's out (never a blind one)

@@ -6093,6 +6093,17 @@ def test_both_teams_hot_never_called_our_heater():
     assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{them} {their_hot}" in blk
 
 
+def test_no_forced_lock():
+    """10/2, the owner: "there doesn't always have to be a lock ... if we put the lock, we put units on it, and we
+    potentially lose units - you make the call." A Lock only when the engine's read beats the price; the forced backup
+    (near_lock) is off - it lost 17% flat over 78 replay days. The Lock spot says so."""
+    import sports_dashboard as d
+    assert sports.FORCE_LOCK is False
+    under = {**_cand("u", -130, 0.54, league="ncaaf"), "game_id": "u", "edge_own": -0.02, "reasons": ["the stronger team"]}
+    assert not sports.make_board([under]).get("lock")
+    assert "No Lock of the Day today" in d._pick_card("lock", None)
+
+
 def test_always_a_lock_even_under_the_floor():
     """10/2: Virginia Tech moved -135 -> -130, fell under the backup Lock's floor, and the board went up with NO Lock.
     There's ALWAYS a Lock (the owner): the likeliest winner the engine isn't fighting, never past -150, never blind."""

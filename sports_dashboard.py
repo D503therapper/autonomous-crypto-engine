@@ -826,7 +826,7 @@ def _pick_card(kind, pk):
         label = E(f'{l0["team"]} {mk}'.upper())
     if not pk:
         return f"""<section class="pk" style="--c1:{c1};--c2:{c2}"><div class="pk-h"><span class="pk-i">{ICON[kind]}</span>
-<span class="pk-l">{label}</span></div><div class="nopick">No play today — nothing on the slate has real value. We don't force it.</div></section>"""
+<span class="pk-l">{label}</span></div><div class="nopick">{"No Lock of the Day today — nothing on the board met our Lock standard. We don't force it." if kind == "lock" else "No play today — nothing on the slate has real value. We don't force it."}</div></section>"""
     if pk["status"] == "waiting":
         why = " · ".join(E(w) for w in pk.get("waiting") or [])
         return f"""<section class="pk waiting" style="--c1:{c1};--c2:{c2}"><div class="pk-h"><span class="pk-i">{ICON[kind]}</span>
