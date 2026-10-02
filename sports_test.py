@@ -4634,7 +4634,7 @@ def test_series_spot_and_a_dog_of_the_day_every_day():
     # hoops / hockey bounce back after losing the last game (NBA +28%, NHL +29%); baseball doesn't
     assert sports.dog_score(dog("h", "H", "nhl", 130, 0.43, 0.43, lost_last=True)) > 0 > \
         sports.dog_score(dog("m", "M", "mlb", 130, 0.43, 0.43, lost_last=True))
-    assert sports.dog_score(dog("o", "O", "nhl", 160, 0.38, 0.38, road_opener=True)) > 0
+    assert sports.dog_score(dog("o", "O", "nhl", 160, 0.38, 0.38, road_opener=True)) == sports.dog_score(dog("o", "O", "nhl", 160, 0.38, 0.38))   # (10/2 study: the road-opener angle is off - wrong sign)
     gm = {"a": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-10-01T02:00Z"}}
     assert sports.home_opener(gm, gm["a"]) and not sports.home_opener(
         {**gm, "b": {"league": "nhl", "home": "7", "stype": "2", "start": "2026-09-29T02:00Z"}}, gm["a"])
@@ -5377,14 +5377,14 @@ def test_dog_studies_10_1():
     assert ds(league="nhl", tired_vs_rested=True) == ds(league="nhl") - 3
     assert ds(league="nfl", dog_ctx={"won": True, "opp_won": False}) == ds(league="nfl") + 2
     assert ds(league="ncaab", dog_ctx={"won": False, "opp_won": True}) == ds(league="ncaab") - 3
-    assert ds(league="nhl", dog_ctx={"won": False, "opp_won": False}) == ds(league="nhl") + 2
+    assert ds(league="nhl", dog_ctx={"won": False, "opp_won": False}) == ds(league="nhl") + 3.5   # (10/2 study)
     assert ds(league="nba", dog_ctx={"won": True, "opp_won": False}) == ds(league="nba") - 2
     assert ds(league="nhl", dog_ctx={"ss_gap": 0.02}) == ds(league="nhl") + 3
     assert ds(league="nhl", dog_ctx={"ss_gap": -0.05}) == ds(league="nhl") - 3
     assert ds(league="mlb", dog_ctx={"rs_gap": 0.03}) == ds(league="mlb") + 1.5
     big = {"edge_own": 0.5}                                                # own read way over the price
     assert ds(league="nba", **big) < ds(league="mlb", **big)               # NBA / NFL: a big own read is a trap
-    assert sports.dog_spots({"league": "mlb", "odds": 230}) == -2 and sports.dog_spots({"league": "mlb", "odds": 160}) == 0
+    assert sports.dog_spots({"league": "mlb", "odds": 230}) == -4 and sports.dog_spots({"league": "mlb", "odds": 160}) == 0
     assert ds(league="nba", dog_ctx={"cw5": 2}) == ds(league="nba") - 3                # round 2: close-win trap
     assert ds(league="ncaab", dog_ctx={"cw5": 3}) == ds(league="ncaab") - 1
     assert ds(league="nhl", dog_ctx={"hits_top": True}) == ds(league="nhl") + 2      # out-hitting people
@@ -7423,6 +7423,25 @@ def test_daily_pick_audit_catches_false_data():
     finally:
         sa._ROSTER.clear(); sa._ROSTER.update(keep[0]); sp.CACHE, sports.units_for = keep[1], keep[2]
     assert "sports_audit.run(picks, games" in open(sports.__file__).read()
+
+
+def test_point_system_study_10_2():
+    """10/2 point-system study (walk-forward, 41,497 dogs, 2019-26): only the changes that passed the false-discovery
+    check or fixed a real double count / bug - NBA overreaction +5, NHL both-lost +3.5, MLB +200..+249 -4, the NHL
+    road-opener angle off (wrong sign), NHL hot-key and key-edge never both, college ice-cold + losing-streak -4
+    together, and a college 'bye' only within 30 days (it fired on season openers)."""
+    src = open(sports.__file__).read()
+    assert 'sc += 5 if c.get("league") == "nba" else 3' in src and "sc += 3.5" in src
+    assert 'sc -= 4 if lg == "mlb" else 2' in src and 'if c.get("road_opener") and c.get("league") == "nhl"' not in src
+    assert 'if k is not None and not c.get("hot_key")' in src
+    assert 'se.REST_BYE <= (start - se._t(prev["start"])).days <= 30' in src
+    base = {"league": "nhl", "odds": 150, "dog_ctx": {"won": False, "opp_won": False}}
+    assert sports.dog_spots(base) - sports.dog_spots({**base, "dog_ctx": {}}) == 3.5
+    m = {"league": "mlb", "odds": 210, "dog_ctx": {}}
+    assert sports.dog_spots(m) - sports.dog_spots({**m, "odds": 150}) == -4
+    cf = {"league": "ncaaf", "odds": 150, "dog_ctx": {}}
+    both = sports.dog_spots({**cf, "dog_more": {"fades": ["ice cold", "losing streak"]}}) - sports.dog_spots(cf)
+    assert both == -4
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)

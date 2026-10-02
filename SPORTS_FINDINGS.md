@@ -369,6 +369,22 @@ winner - the profit is in the dog gates. BUILT: own read under 3% = ½u (sports.
 ½u was built and rolled back the same night (the owner: "we can't be having half units all across the board"). Sizing sim: old -125u / last 3 -139u / 2026 -4.5u -> ½u <8% + favorites ½u +73u / -59u / +6.2u. Re-check on
 a full-board replay (gates, spots, calibration) - a LEAD until then.
 
+## 10/2 - the point system (5 studies, walk-forward, 41,497 dogs +100..+220, 2019-26, closing prices)
+- **Hand points beat learned points out of sample** (top pick/day: hand +1.5%, learned -0.2%, no angles +0.1%; all
+  dogs score > 0: -2.0% vs -2.6% vs -3.1%; within noise ±2.5%). The own read barely predicts dog wins (0.02-0.09 per
+  point); the study angles carry it. 71 angles tested, 4 survive a false-discovery check (q .10).
+- **BUILT (passed the false-discovery check or fixed a real double count / bug):** NBA overreaction +3 -> +5 (+11 pts,
+  7 of 7); NHL both-lost +2 -> +3.5 (+4.3, 6 of 7); MLB +200..+249 -2 -> -4 (-5.3); NHL road-opener +1.5 -> off
+  (wrong sign, -7.3 inside own-read buckets); NHL hot_key and key_edge never both (93% overlap, -5 stacked); college
+  ice cold + losing streak -4 together (61% overlap); college 'bye' only within 30 days (it fired on season openers).
+- **NOT built (noise / look-ahead in the study):** drift_away cuts (the study measured open-to-close drift - the 8 AM
+  board can't see the close), go4 (current rates), the other "too big / too small" suggestions (inside noise).
+- **Per-sport point scaling (study 5):** one point is worth ~0.35 points of real win % (NHL .55, NCAAF .74, NFL .48,
+  NBA .38, MLB .22); a per-sport-scaled Dog of the Day +6.1% vs +2.9% as-is (2023+ +11.0% vs +6.9%) - but the angles
+  were found on the same seasons (partly in-sample): a LEAD - re-check before building. No price scaling (no pattern).
+  Hockey stays in the Dog of the Day (since 2023 +1.8% with it vs -1.3% without; NHL score 6+ +12.6%, 7 of 7).
+- STUDY_CAP ±6 binds on 3.6% of dogs - kept.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a
