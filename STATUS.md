@@ -22,6 +22,10 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
 - Five audits' bug fixes (live, data merge of college games, early-play pings, board rules, grading). College games
   restored (316 had been wiped by the hourly job; game files now merge by id).
 - Daily board dry run: tools/board_preview.py / Actions -> board_preview.
+- The factor check before the 8 AM board (sports.factor_check) now also checks the data is FRESH: most of the slate
+  priced 12h+ ago (odds pull failed), recent games with no final score, the QB / pitcher / goalie stats missing - each
+  holds the board until the last try; a game or two the books stopped listing is only a note. The daily pick audit
+  also checks the cards' own words (streaks, home/road, players named out vs the injury report).
 
 **Studies done overnight (all in SPORTS_FINDINGS.md 10/2)**
 - Unit system BUILT: the Lock by its own read, the Dog flat 1u, value plays ½u (712-day replay: since 7/2023 +10.5u
