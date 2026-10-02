@@ -108,7 +108,45 @@ def recent_starters(league, team_id, n=3):
     return {_nm(r["player"]) for r in rows if r["gid"] in gids}
 
 
-sd.STARTER_OF = lambda lg, tid, name: (lambda st: None if st is None else _nm(name) in st)(recent_starters(lg, tid))
+_NBA = {}
+
+
+def nba_starters(team_id, n=10, need=3):
+    """NBA: the players who started 3+ of the team's last 10 games (the roster box scores), or None when we hold none
+    this season. (10/2, the owner: "that goes for all sports" - any NBA player on the report counted as key, the 15th
+    man too.)"""
+    if "rows" not in _NBA:
+        import csv
+        import glob
+        import gzip
+        from datetime import datetime, timedelta, timezone
+        rows = []
+        for f in sorted(glob.glob(os.path.join(sd.DATA, "roster", "nba_*.csv.gz")))[-1:]:
+            try:
+                with gzip.open(f, "rt", newline="") as fh:
+                    rows = [r for r in csv.DictReader(fh) if r.get("starter") == "1"]
+            except (OSError, EOFError, ValueError):
+                rows = []
+        cut = (datetime.now(timezone.utc) - timedelta(days=60)).strftime("%Y-%m-%d")
+        _NBA["rows"] = [r for r in rows if (r.get("start") or "") >= cut]
+    rows = [r for r in _NBA["rows"] if str(r.get("team")) == str(team_id)]
+    if not rows:
+        return None
+    gids = sorted({(r["start"], r["gid"]) for r in rows})[-n:]
+    keep = {g for _, g in gids}
+    count = {}
+    for r in rows:
+        if r["gid"] in keep:
+            count[_nm(r["player"])] = count.get(_nm(r["player"]), 0) + 1
+    return {p for p, k in count.items() if k >= min(need, len(keep))}
+
+
+def _starter_of(lg, tid, name):
+    st = nba_starters(tid) if lg == "nba" else recent_starters(lg, tid)
+    return None if st is None else _nm(name) in st
+
+
+sd.STARTER_OF = _starter_of
 
 
 def _path(league):

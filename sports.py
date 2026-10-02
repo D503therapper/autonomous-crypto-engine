@@ -209,7 +209,7 @@ def waiting_on(g, injuries):
     inj = (injuries or {}).get(g["league"])
     for side in ("away", "home"):
         out += [f"{n} ({pos}) questionable" if pos else f"{n} questionable"
-                for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"])[:2]]
+                for n, pos, _ in sd.team_unsure(inj, g[side], g[side + "_name"], g["league"], maybe=True)[:2]]
     return out
 
 
