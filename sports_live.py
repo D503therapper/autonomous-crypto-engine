@@ -45,6 +45,7 @@ LOG = os.path.join(sd.DATA, "live_log.json")
 LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we want a real 5%+ edge
 DOG_MIN = 100                 # live plays are plus money only
 LATE = 0.06                   # the last ~3.5 minutes of a football game: who has the ball decides it
+FAV_PRE = 0.55                # a pregame favorite (55%+) tied or ahead at plus money needs two books agreeing
 MAX_GAP = 0.20                # our live chance (score, clock, who has the ball and where) vs the confirmed price: a
                               # bigger gap means the book knows something the scoreboard can't show (injury, ejection)
 STAY_MAX_ODDS = 500              # ...and comes down if the price blows out past +500 (a prayer, not a live bet)
@@ -480,6 +481,10 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
         if not checked and p - (book_h if side == "home" else 1 - book_h) > MAX_GAP:
             continue       # only one source and the price is miles from what the score says: can't tell a real
                            # price from a glitch, so no play. Two sources agreeing = a real price = it plays.
+        if not up and not checked and my >= their and (pre_market_p if side == "home" else 1 - pre_market_p) >= FAV_PRE:
+            continue       # (10/1, the owner: the Devils, a -180 favorite TIED after 2, showed +145 - the books had
+            #                -174.) A pregame favorite that isn't losing at plus money is a wrong line until a second
+            #                book says the same price - like tennis's favorite-priced-like-a-dog rule
         us, them = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
         side_pre = pre_market_p if side == "home" else 1 - pre_market_p
         pre_value = pre_model_p is not None and ((pre_model_p - pre_market_p) if side == "home" else (pre_market_p - pre_model_p)) >= 0.02
@@ -707,8 +712,11 @@ def two_books(dk, bov):
     """The live price: Bovada's line (a real sportsbook - enough on its own); DraftKings' (via ESPN) when Bovada has
     none. confirmed = the other book roughly agrees, which also switches off the too-far-off filter."""
     ok = [_ok(x[0]) and _ok(x[1]) for x in (dk, bov)]
+    if ok[0] and ok[1] and abs(sd.no_vig(*bov) - sd.no_vig(*dk)) > AGREE:
+        return None, None, False     # (10/1, the Devils +145 - the books had -174: two books far apart = one of them
+        #                              is the wrong line or glitched = no price, never a play off it)
     if ok[1]:
-        return bov[0], bov[1], ok[0] and abs(sd.no_vig(*bov) - sd.no_vig(*dk)) <= AGREE
+        return bov[0], bov[1], ok[0]
     if ok[0]:
         return dk[0], dk[1], False
     return None, None, False
