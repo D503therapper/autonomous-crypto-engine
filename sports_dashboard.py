@@ -731,11 +731,14 @@ DROP_NOTES = []   # (replaced by DROP_PARTS: the note's built fresh each day)
 DROP_PARTS = (   # the 8 AM note, plain words (the owner, 10/2: "Posted means final ... the whole wording is just weird"):
     #             WHEN + what the engine checks before it posts - a different mix each day
     ["🕗 Picks go up at <b>8 AM PT</b> on game day.", "🕗 Today's board goes up at <b>8 AM PT</b>.",
-     "🕗 The board drops at <b>8 AM PT</b> on game day.", "🕗 New picks at <b>8 AM PT</b> on game day."],
+     "🕗 The board drops at <b>8 AM PT</b> on game day.", "🕗 New picks at <b>8 AM PT</b> on game day.",
+     "🕗 The homies get the board at <b>8 AM PT</b> on game day."],
     ["Until then the engine checks every line", "Before it posts, the engine checks every line",
-     "Overnight the engine checks every line", "Till then the engine checks every line"],
-    ["and every injury report.", "and the latest injury news.", "and who's in and who's out.",
-     "and every team's injury report."],
+     "Overnight the engine checks every line", "Till then the engine checks every line",
+     "Before 8 the engine checks every line", "First the engine checks every line"],
+    ["and every injury report.", "and the latest injury news.", "and every team's injury report.",
+     "and every team's injury list.", "and the injury reports for every team.", "and every injury update.",
+     "and the newest injury reports."],
 )
 
 
