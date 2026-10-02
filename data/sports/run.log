@@ -1,24 +1,3 @@
-spread/moneyline study: {'nfl': (0.5361, True), 'ncaaf': (0.4962, False), 'nba': (0.4521, False), 'ncaab': (0.4812, False)}
-hockey study: ['b2b', 'rest', 'travel'] 0.66551 vs line 0.66584
-all: following hit 68.9% vs 68.0% the price said over 227489 (edge +0.9% older, +0.9% newer, z 10.05) -> watch only
-streak: following hit 63.9% vs 63.3% the price said over 69190 (edge +0.6% older, +0.6% newer, z 3.53) -> watch only
-rate: following hit 71.0% vs 70.0% the price said over 158299 (edge +0.9% older, +1.2% newer, z 9.8) -> watch only
-streak|total: following hit 50.2% vs 50.0% the price said over 12232 (edge +0.2% older, +0.3% newer, z 0.54) -> watch only
-streak|fav_ml: following hit 72.4% vs 71.4% the price said over 36344 (edge +0.9% older, +1.0% newer, z 4.33) -> watch only
-streak|fav_cover: following hit 49.3% vs 50.0% the price said over 7468 (edge -1.5% older, +0.0% newer, z -1.25) -> watch only
-streak|home: following hit 61.6% vs 60.9% the price said over 13146 (edge +0.9% older, +0.4% newer, z 1.79) -> watch only
-rate|total: following hit 50.9% vs 50.0% the price said over 3884 (edge +1.1% older, +0.7% newer, z 1.16) -> watch only
-rate|fav_ml: following hit 73.8% vs 72.7% the price said over 111515 (edge +0.9% older, +1.2% newer, z 8.36) -> watch only
-rate|fav_cover: following hit 48.9% vs 50.0% the price said over 1763 (edge -0.1% older, -2.0% newer, z -0.88) -> watch only
-rate|home: following hit 66.4% vs 65.3% the price said over 41137 (edge +1.1% older, +1.1% newer, z 5.41) -> watch only
-nfl|streak: following hit 58.3% vs 59.7% the price said over 1529 (edge -2.3% older, -0.5% newer, z -1.2) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4068 (edge -0.2% older, +0.4% newer, z 0.11) -> watch only
-ncaaf|streak: following hit 70.8% vs 70.5% the price said over 6029 (edge -0.1% older, +0.7% newer, z 0.53) -> watch only
-ncaaf|rate: following hit 72.9% vs 72.1% the price said over 17957 (edge +0.9% older, +0.8% newer, z 2.82) -> watch only
-nba|streak: following hit 61.2% vs 61.4% the price said over 9771 (edge -0.3% older, -0.0% newer, z -0.34) -> watch only
-nba|rate: following hit 68.5% vs 68.7% the price said over 23673 (edge -0.2% older, -0.3% newer, z -0.78) -> watch only
-ncaab|streak: following hit 67.8% vs 66.8% the price said over 36038 (edge +0.9% older, +1.1% newer, z 4.36) -> watch only
-ncaab|rate: following hit 72.5% vs 71.1% the price said over 102090 (edge +1.5% older, +1.4% newer, z 10.93) -> watch only
 mlb|streak: following hit 53.7% vs 53.6% the price said over 10776 (edge +0.5% older, -0.5% newer, z 0.1) -> watch only
 mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
 nhl|streak: following hit 56.9% vs 55.5% the price said over 5047 (edge +1.8% older, +1.1% newer, z 2.12) -> watch only
@@ -2990,6 +2969,27 @@ public splits: 79 upcoming games
    no units on Virginia Tech: missing Justin Terry, Emmett Laws, Takye Heath, Shamarius Peterkin
    no units on Pitt: missing Zach Crothers, Elijah Lagg, Cruce Brookins
    no units on Penn State: missing Koby Howard, LaVar Arrington II, Tyler Armstead, Joshua Johnson
+   no units on Red Wings: missing Dylan Larkin, Simon Edvinsson
+tennis sync: 72704 matches stored, 18 calls, 0 failed
+tennis study ATP: 25910 rated matches, acc 0.6355 (surface ratings alone 0.6375), loss 0.632 vs 0.6322, own weights [-0.005, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
+tennis study ATP life factors vs current loss 0.632: experience 0.633 (-0.93 mnats, z -0.89), age 0.6283 (+3.77 mnats, z 2.75), young_vs_aging 0.6314 (+0.66 mnats, z 1.6), last_match 0.6293 (+2.70 mnats, z 1.88), streaks 0.6325 (-0.48 mnats, z -0.47), first_set 0.6309 (+1.08 mnats, z 1.72), injury 0.6327 (-0.66 mnats, z -0.94), travel 0.6321 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30244 rated matches, acc 0.6465 (surface ratings alone 0.6465), loss 0.622 vs 0.6206, own weights [0.005, 0.906, -0.001, -0.102, 0.31, 0.029, -0.192]
+tennis study WTA life factors vs current loss 0.622: experience 0.6177 (+4.34 mnats, z 2.57), age 0.6216 (+0.37 mnats, z 0.44), young_vs_aging 0.6219 (+0.07 mnats, z 0.4), last_match 0.6214 (+0.57 mnats, z 0.58), streaks 0.6223 (-0.30 mnats, z -0.6), first_set 0.621 (+1.00 mnats, z 2.34), injury 0.6212 (+0.83 mnats, z 1.44), travel 0.6221 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+sync: 130601 games stored, 52 calls, 0 failed, 12s
+odds history: 0 games got odds, 55 calls, 0 failed, 7s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 118 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 3 new drama tags
+beat the close: unit plays 2 of 4 better than the close, avg +1.2 pts
+public splits: 79 upcoming games
+   no units on Virginia Tech: missing Justin Terry, Emmett Laws, Takye Heath, Shamarius Peterkin
+   no units on Pitt: missing Zach Crothers, Elijah Lagg, Cruce Brookins
+   no units on Northwestern: missing Damon Walters, Braden Turner, Luke Dehnicke, Seth Valeri
+   no units on Penn State: missing Koby Howard, LaVar Arrington II, Tyler Armstead, Joshua Johnson
+   no units on Montana St: missing Taco Dowler, Caden Dowler, Adam Jones
    no units on Red Wings: missing Dylan Larkin, Simon Edvinsson
 tennis sync: 72704 matches stored, 18 calls, 0 failed
 tennis study ATP: 25910 rated matches, acc 0.6355 (surface ratings alone 0.6375), loss 0.632 vs 0.6322, own weights [-0.005, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
