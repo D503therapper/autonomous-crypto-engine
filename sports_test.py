@@ -6410,6 +6410,14 @@ def test_checker_checks_itself_and_the_sizing():
     assert sports_public.splits_for("g", live={"g": {"at": "", "ml_home_m": 70}}, hist={}) is None
 
 
+def test_health_restarts_a_skipped_engine():
+    """10/2: GitHub skipped the engine's hourly runs for 3 hours and nothing restarted it (the board check only looks
+    after 9 AM). The hourly bug check now starts the engine when its last run is 80+ minutes old."""
+    h = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
+    assert "ENGINE_STALE_MIN = 80" in h and 'dispatch("sports.yml", f"engine {age_m:.0f} min since its last run")' in h
+    assert '"--workflow", "sports.yml", "--limit", "1"' in h
+
+
 def test_health_job_pushes_only_its_report():
     """10/2: the hourly health check went red 5 runs in a row - every check OK, but files it touched blocked its
     'git pull --rebase'. It commits health.json, sets everything else aside, then pulls."""
