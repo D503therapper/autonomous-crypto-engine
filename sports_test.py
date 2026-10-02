@@ -7812,6 +7812,27 @@ def test_audit_checks_the_cards_words():
     ok = {**leg, "breakdown": ["🔥 Virginia Tech — 2 straight W's.", "🚑 Pitt are without John Real tonight."]}
     assert sa.card_facts(ok, games) == []
 
+def test_every_workflow_file_parses():
+    """10/2: a step name in sports.yml had '10/2: a' unquoted - the colon broke the YAML and every sports run failed
+    with 'No jobs were run'. Every workflow file has to parse, with its jobs and steps."""
+    import glob
+    import subprocess
+    files = sorted(glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github", "workflows", "*.y*ml")))
+    assert files
+    code = ("import sys, yaml\nbad = []\nfor f in sys.argv[1:]:\n    try:\n        d = yaml.safe_load(open(f))\n"
+            "        assert isinstance(d, dict) and isinstance(d.get('jobs'), dict) and d['jobs'], 'no jobs'\n"
+            "        for j in d['jobs'].values():\n            assert isinstance(j.get('steps', []), list), 'bad steps'\n"
+            "    except Exception as e:\n        bad.append(f + ': ' + str(e).splitlines()[0])\nprint('\\n'.join(bad))\n"
+            "sys.exit(1 if bad else 0)\n")
+    try:
+        import yaml  # noqa: F401
+        py = sys.executable
+    except ImportError:                       # (the Actions python has no PyYAML; the runner's system python does)
+        py = "/usr/bin/python3"
+    r = subprocess.run([py, "-c", code, *files], capture_output=True, text=True)
+    assert "No module named 'yaml'" not in r.stderr, "no PyYAML anywhere to check the workflow files with"
+    assert r.returncode == 0, "workflow files that don't parse:\n" + r.stdout + r.stderr
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
