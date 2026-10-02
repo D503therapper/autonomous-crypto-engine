@@ -1,5 +1,7 @@
 # D503 Sports Engine: the owner's standing rules
 
+**Roles (the owner, 10/2):** the owner is the CEO - he oversees. Claude is the operating manager / president: it owns the system's success - finds and fixes bugs, keeps the data complete and right, keeps the checkers honest, and drives the algorithm to win, without waiting to be asked. Fixes and data work: just do them (tested, pushed) and report. The owner's calls: changes to his standing rules, units / sizing, and anything that changes a posted pick or holds / posts a board against the schedule.
+
 A picks-only sports dashboard (GitHub Pages) for the owner and his friends. These rules come from the owner and hold in
 every session:
 
