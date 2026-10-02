@@ -2184,6 +2184,13 @@ def load_states(games):
             print(f"{name} failed to load: {str(e)[:80]}", flush=True)
 
 
+def _ts(x):
+    try:
+        return datetime.strptime(str(x)[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return datetime(1970, 1, 1, tzinfo=timezone.utc)
+
+
 def factor_check(games, cands, injuries, day, now):
     """🔎 THE DOUBLE CHECK, part 1 (the owner, 10/1: "every day before the engine posts there needs to be a check - make
     sure it's weighing every factor, every study"): every study's data actually loaded for the sports on today's slate.
@@ -2210,6 +2217,33 @@ def factor_check(games, cands, injuries, day, now):
             stale = True
         if stale:
             probs.append("NFL: the 4th-down rates are missing or 3+ days old")
+    # (the owner, 10/2: "did the engine have all the accurate, updated daily data across every aspect?")
+    gids = {c["game_id"] for c in cands}
+    stale = []
+    for gid in gids & set(games):                           # the prices: every game priced by the books lately
+        g = games[gid]
+        try:
+            t = datetime.strptime(str(g.get("odds_time"))[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+            if now - t > timedelta(hours=12):
+                stale.append(g.get("home_name") or gid)
+        except ValueError:
+            stale.append(g.get("home_name") or gid)
+    if stale and len(stale) * 2 > len(gids & set(games)):                 # most of the slate unpriced = the odds pull failed: hold
+        probs.append(f"{len(stale)} of {len(gids)} games without a fresh price (12h+): {', '.join(sorted(stale)[:4])}")
+    elif stale:                                              # a few the books stopped listing: say so, never hold
+        print(f"FACTOR NOTE: {len(stale)} game(s) priced 12h+ ago: {', '.join(sorted(stale)[:4])}", flush=True)
+    late = [g for g in games.values() if g.get("league") in lgs and g.get("status") not in ("final", "void", "post")
+            and timedelta(hours=8) < now - _ts(g.get("start")) < timedelta(days=3)]
+    if len(late) > 2:                                        # the scores: recent games still without a final
+        probs.append(f"{len(late)} recent games have no final score yet (the form / rest / streak data is behind)")
+    for lg in sorted(lgs & set(sp.ROLE)):                     # the players: QB / pitcher / goalie numbers loaded
+        if not sp.CACHE.get(lg):
+            probs.append(f"{lg.upper()}: the player stats (QB / pitcher / goalie) didn't load")
+    out_ = [games[g] for g in gids if (games.get(g) or {}).get("league") in ("nfl", "ncaaf", "mlb")
+            and str(games[g].get("indoor")) != "1"]
+    if out_ and sum(str(g.get("wx_temp", "")) == "" for g in out_) > len(out_) / 2:   # the weather: outdoor games
+        probs.append(f"the weather is missing for {sum(str(g.get('wx_temp', '')) == '' for g in out_)} of "
+                     f"{len(out_)} outdoor games")
     hk = [c for c in cands if c["league"] == "nhl" and c.get("market") == "ml" and c.get("odds", 0) < 0 and c["odds"] >= -300]
     if hk and not any(c.get("w_p") is not None for c in hk):
         probs.append("NHL: the hockey favorites weren't weighed against the dog across the ice")
