@@ -67,7 +67,10 @@ every session:
 - Units (the engine decides, by its edge - quarter-Kelly, ½u-10u; 1 unit = 1% of our bankroll, $1,000 start): early
   value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. From 10/2 every
   value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 3%
-  over the price = ½u (sports.THIN_EDGE). Never half units across the whole board (the owner, 10/2). Leans keep their
+  over the price = ½u (sports.THIN_EDGE). Never half units across the whole board (the owner, 10/2). THE UNIT SYSTEM
+  (the 10/2 sizing replay, 712 board days - the owner: "wire it in when you figure out the sizing"): the Lock sized by
+  its own read (½u-10u; the backup Lock ½u), the Dog of the Day flat 1u (sports.DOG_UNITS), every value play ½u
+  (sports.PLAY_UNITS - they lost at every size; sizing up on edge lost more). Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.
 - Tennis live plus money (the owner, 10/1 - "tighten it up"): only SUPER value - a 65%+ pre-match favorite on the

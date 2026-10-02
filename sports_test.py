@@ -7156,9 +7156,13 @@ def test_a_small_edge_is_half_a_unit():
         old = {**new, "date": "2026-10-01"}
         assert sports.units_for(new) == 0.5 and sports.units_for(old) == 1.0
         big = {**new, "legs": [{**leg, "edge_own": 0.12, "dog_p": 0.56}]}
-        assert sports.units_for(big) > 0.5                                # a real edge on a dog keeps its size
-        fav = {**new, "legs": [{**leg, "odds": -130, "dec": 1.769, "edge_own": 0.12, "dog_p": None, "p": 0.64}]}
-        assert sports.units_for(fav) > 0.5                                # a favorite with a real edge sizes up (10/2)
+        assert sports.units_for(big) == 0.5                               # (the 10/2 sizing replay: every value play
+        #                                                                   ½u - they lost at every size)
+        sports.pick_tier = lambda pk: "lock"
+        lock = {**new, "kind": "lock", "legs": [{**leg, "odds": -130, "dec": 1.769, "edge_own": 0.12, "dog_p": None,
+                                                 "p": 0.64}]}
+        assert sports.units_for(lock) > 0.5                               # the Lock sizes by its own read
+        assert sports.units_for({**new, "kind": "dog"}) == 1.0            # the Dog of the Day flat 1u
     finally:
         sports.pick_tier, sports.beats_price = keep
 
@@ -7185,8 +7189,8 @@ def test_every_unit_play_has_units_only_leans_dont():
     try:
         sports.pick_tier = lambda pk: "value"
         sports.beats_price = lambda leg: False
-        for kind in ("play", "lock", "dog"):
-            assert sports.units_for({"kind": kind, "date": "2026-10-02", "status": "open", "legs": [leg]}) == 0.5, kind
+        for kind, u in (("play", 0.5), ("lock", 0.5), ("dog", 1.0)):     # (the Dog flat 1u - the 10/2 sizing replay)
+            assert sports.units_for({"kind": kind, "date": "2026-10-02", "status": "open", "legs": [leg]}) == u, kind
         assert sports.units_for({"kind": "lean", "lean": True, "date": "2026-10-02", "status": "open", "legs": [leg]}) == 0
     finally:
         sports.pick_tier, sports.beats_price = keep

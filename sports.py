@@ -1491,6 +1491,11 @@ def units_for(pk):
     if kind == "lock" and legs[0].get("near_price"):        # the always-a-Lock backup (the owner, 10/1): ½u floor
         return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
+    if (pk.get("date") or "") >= SIZING_FROM:              # 💰 THE UNIT SYSTEM (the 10/2 sizing replay - 712 board days,
+        if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
+            return DOG_UNITS                                 # every value play ½u (they lose at any size - sizing up on
+        if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
+            return PLAY_UNITS                                # 7/2023 +10.5u vs today's sizing -57u overall
     if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
         if not u or thin_edge(legs[0]):                      # only thing that doesn't get units is leans") - ½u
             return 0.5                                       # floor; a small edge is a small bet
@@ -1503,6 +1508,9 @@ def units_for(pk):
     return u
 
 
+SIZING_FROM = "2026-10-02"     # the unit system below, from the 10/2 board on (posted picks keep their units)
+DOG_UNITS = 1.0                # the Dog of the Day: flat 1u (the replay: sizing it by edge lost; flat +8.9%)
+PLAY_UNITS = 0.5               # a value play: ½u (they lost at every size: -6.7% flat, -10.5% sized up)
 THIN_FROM = "2026-10-02"         # the owner, 10/1 (Western KY +110 at 1u, its own read ~1 point over the price): "a small
 THIN_EDGE = 0.03                 # value like that - probably should've been a half a unit." The engine's OWN read under 3%
 #                                  over the price (per dollar) = ½u, whatever the sizing read says. Posted picks keep theirs.
