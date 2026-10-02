@@ -238,6 +238,10 @@ HYPE = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer 
                   r"tips it our way|let'?s eat|bag|money energy|can'?t lose|guaranteed", re.I)
 
 
+VET_STARTS = {"QB": 100, "SP": 200, "G": 350}   # "washed" (the owner, 10/1) only for a long-time starter: this many
+#                                                  starts in our box scores (2016 on - a QB's 100 = 6+ full seasons)
+
+
 def lean_tone(lines, leg, seed=""):
     """A LEAN has no edge on our numbers - so no hype: sentences that sell it hard come out, and the bottom line says
     straight that it's a lean, not a lock (the owner: never 'trust the algorithm' when there's zero edge)."""
@@ -419,7 +423,13 @@ def breakdown(leg, games, elo, injuries, used=None):
             if not txt:
                 continue
             FORM[(ours_, mood)] = (name, txt)                 # (the card's one-line "why" can use it)
-            if not ours_ and mood == "cold":
+            vet = sum(r["player"] == name and r["start"] < g["start"] for r in rows) >= VET_STARTS.get(role, 10 ** 9)
+            if not ours_ and mood == "cold" and vet:          # (the owner, 10/1: "this dude is washed - old, out of his
+                out.append(v.say(role + "_washed", [          #  prime") - only a long-time starter who's cold NOW
+                    f"🧓 {name} is washed — {txt}.",
+                    f"🧓 {name} looks washed: {txt}.",
+                    f"🧓 Father Time is catching {name} — {txt}. Washed."]))
+            elif not ours_ and mood == "cold":
                 out.append(v.say(role + "_cold", {
                     "QB": [f"🗑️ {name} has been complete booty cheeks — {txt}.",
                            f"🗑️ {name} has been throwing it to the other team — {txt}.",

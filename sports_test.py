@@ -7139,6 +7139,39 @@ def test_a_favorite_tied_at_plus_money_needs_two_books():
     assert sports_live.book_src([], g) == "?"
     assert 'log["plays"][pl["id"]]["src"] = pl["src"]' in src            # every live bet logs which book priced it
 
+
+def test_a_small_edge_is_half_a_unit():
+    """10/1, the owner (Western KY +110 at 1u - the engine's own read only ~1 point over the price): "a small value like
+    that, probably should've been a half a unit." From 10/2: own read under 3% over the price = ½u. Posted picks keep
+    their size."""
+    leg = {"team": "Western KY", "odds": 110, "dec": 2.1, "p": 0.486, "dog_p": 0.501, "edge_own": 0.0099, "market": "ml"}
+    assert sports.thin_edge(leg) and not sports.thin_edge({**leg, "edge_own": 0.08, "dog_p": 0.52})
+    keep = (sports.pick_tier, sports.beats_price)
+    try:
+        sports.pick_tier = lambda pk: "value"
+        sports.beats_price = lambda leg: True
+        new = {"kind": "play", "date": "2026-10-02", "status": "open", "legs": [leg]}
+        old = {**new, "date": "2026-10-01"}
+        assert sports.units_for(new) == 0.5 and sports.units_for(old) == 1.0
+        big = {**new, "legs": [{**leg, "edge_own": 0.12, "dog_p": 0.56}]}
+        assert sports.units_for(big) > 0.5                                # a real edge keeps its size
+    finally:
+        sports.pick_tier, sports.beats_price = keep
+
+
+def test_washed_is_only_for_a_cold_long_time_starter():
+    """10/1, the owner: "this dude is washed - he's old and out of his prime" (Aaron Rodgers). In his lingo now - only
+    on the other side's long-time starter (100+ QB starts in our box scores) who's cold right now, with his numbers."""
+    import sports_breakdown_v24 as v24
+    import sports_card_guard as cg
+    import sports_owner_lingo as ol
+    assert "washed" in ol.OWNER and v24.VET_STARTS["QB"] == 100
+    src = open(v24.__file__).read()
+    assert 'if not ours_ and mood == "cold" and vet:' in src and 'role + "_washed"' in src
+    for x in ("🧓 Aaron Rodgers is washed — 1 TD, 3 picks and 512 yards in his last 3 games.",
+              "🧓 Father Time is catching Aaron Rodgers — 1 TD, 3 picks and 512 yards in his last 3 games. Washed."):
+        assert not cg.problem(x), x
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

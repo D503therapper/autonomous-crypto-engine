@@ -1469,7 +1469,25 @@ def units_for(pk):
     if u and (pk.get("date") or "9999") >= MONEY_CHECK_FROM and not beats_price(legs[0]):
         print(f"   money check: {legs[0].get('team')} {legs[0].get('odds')} - its read doesn't beat the real price, 0 units")
         return 0                                             # (the owner, 10/1: "build the money check")
+    if u > 0.5 and (pk.get("date") or "") >= THIN_FROM and thin_edge(legs[0]):
+        return 0.5                                           # a small edge is a small bet (the owner, 10/1: Western KY)
     return u
+
+
+THIN_FROM = "2026-10-02"         # the owner, 10/1 (Western KY +110 at 1u, its own read ~1 point over the price): "a small
+THIN_EDGE = 0.03                 # value like that - probably should've been a half a unit." The engine's OWN read under 3%
+#                                  over the price (per dollar) = ½u, whatever the sizing read says. Posted picks keep theirs.
+
+
+def thin_edge(leg):
+    """The engine's own read beats the price by under THIN_EDGE per dollar (the smaller of its own read and the read
+    the units ride on - a small edge is a small bet)."""
+    dec = leg.get("dec") or _dec(leg.get("odds") or 100)
+    eds = [leg["edge_own"]] if leg.get("edge_own") is not None else []
+    r = read_of(leg)
+    if r is not None:
+        eds.append(r * dec - 1)
+    return bool(eds) and min(eds) < THIN_EDGE
 
 
 def units_tier(pk, leg):

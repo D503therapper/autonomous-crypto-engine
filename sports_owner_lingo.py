@@ -27,6 +27,8 @@ OWNER = {
     "got cooked": "whoever LOST got cooked - our side on a miss ('Blockx got cooked'); never 'Cook.' after a win (9/29)",
     "shit the bed": "our side blew it (a loss review)",
     "complete ass": "the other side's been terrible",
+    "washed": "an old, out-of-his-prime player who's cold now ('Aaron Rodgers is washed', 10/1) - only a long-time "
+              "starter (sports_breakdown_v24.VET_STARTS) with his bad numbers right there",
     "booty cheeks": "the other side's been terrible",
     "rocking with the sharps": "now and then when the price moved our way - never every card (we're our own engine)",
     "like they stole something": "a blowout win's review (the owner loved it, 9/29 - keep it)",
