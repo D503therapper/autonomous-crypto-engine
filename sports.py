@@ -710,13 +710,16 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
     fixed: {kind: [legs]} already posted today (a pick posted earlier is built on, never rebuilt)."""
     cands = one_side(cands)
     fixed = fixed or {}
+    slate_games = {c["game_id"] for c in cands}               # (10/2 audit: decided on the WHOLE slate - after `avoid`,
     if avoid:                                                # (10/1 bug check: a later Lock / Dog landed on a game
         cands = [c for c in cands if c["game_id"] not in avoid]   # that was already a unit play - double units)
-    if len({c["game_id"] for c in cands}) == 1:              # a one-game day: one PICK OF THE DAY, no Lock/Dog/parlays
+    if len(slate_games) == 1 and len({c["game_id"] for c in cands}) == 1:   # a one-game day: one PICK OF THE DAY
+    #                                                   the last unpicked game of a 3-game day read as a "one-game day")
         solo = max((c for c in cands if good(c) and c["odds"] >= MAX_FAV), key=lambda c: (round(c["p"] * 50), c["edge"]),
                    default=None)
         if solo is None:                                      # a one-game day (Monday/Thursday night) ALWAYS gets a pick:
-            solo = max((c for c in cands if c["odds"] >= MAX_FAV and not c.get("trap") and not fighting(c)),
+            solo = max((c for c in cands if c["odds"] >= MAX_FAV and not c.get("trap") and not fighting(c)
+                        and not (c["market"] == "spread" and c.get("edge_own") is None and abs(c["p"] - 0.5) < 0.005)),
                        key=lambda c: (c["p"], c["edge"]), default=None)   # the side likeliest to win (a lean)
         if fixed.get("lock") or fixed.get("dog") or fixed.get("solo"):   # already posted today: build on it
             return {"lock": fixed.get("lock") and _combo(fixed["lock"]), "dog": fixed.get("dog") and _combo(fixed["dog"]),
@@ -729,7 +732,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         if solo and solo["market"] in ("ml", "spread") and good(solo) and lock_ok(solo) and \
                 (solo["market"] != "ml" or solo["odds"] >= LOTD_MAX_ML) and own_agrees(solo) and real_value(solo):
             kind = "lock"
-        elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DOG_DAY_MAX and \
+        elif solo and solo["market"] == "ml" and good(solo) and DOG_MIN <= solo["odds"] <= DAILY_DOG_MAX and \
                 not solo.get("trap") and dog_score(solo) > 0 and beats_price(solo):   # (10/1 audit: a Dog that fails
             kind = "dog"                                     # the money check got 0u, was pulled, and left a Monday /
             #                                                  Thursday game with no pick - it stays the game's pick)
@@ -774,7 +777,7 @@ def make_board(cands, lock_game=None, allow_lean=False, avoid=(), core=None, fix
         # force a dog: a forced one takes our ROI down." Only a REAL-value dog (good(): the price really beats it, a
         # proven reason behind it), the one the dog analysis (dog_score: the studies' spots and fades) likes best - and
         # never one the analysis flags as a trap (score under 0). None = no Dog of the Day, and the board says so.
-        dogs = [c for c in cands if c["market"] == "ml" and good(c) and beats_price(c) and DOG_MIN <= c["odds"] <= DOG_DAY_MAX
+        dogs = [c for c in cands if c["market"] == "ml" and good(c) and beats_price(c) and DOG_MIN <= c["odds"] <= DAILY_DOG_MAX
                 and c["game_id"] not in taken and not c.get("trap") and dog_score(c) > 0]
         regular = [c for c in dogs if c["odds"] < BIG_DOG]
         dog = max(regular, key=lambda c: (dog_score(c), c["edge"])) if regular else None
@@ -2066,6 +2069,9 @@ def slate_check(games, cands, day, now, errors=None):
             if str(g.get("stype")) == "3":           # (10/1 audit: three "if necessary" playoff games that were never
                 print(f"SLATE CHECK (not held): {name}: no price - an 'if necessary' playoff game?", flush=True)
                 continue                             # played held the 8 AM board till 8:38)
+            if g.get("league") in ("ncaaf", "ncaab"):    # (10/2 audit: ~25 unpriced small-school games held every
+                print(f"SLATE CHECK (not held): {name}: no price - a small-school game the books skip", flush=True)
+                continue                                 # college Saturday's 8 AM board till 8:30)
             probs.append(f"{name}: no price from the books")
         elif g["id"] not in seen:
             probs.append(f"{name}: priced but the engine never looked at it")
@@ -2219,7 +2225,7 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
             why = "a second pick on a game we're already on"
         elif pk.get("kind") in ("lock", "dog") and not pk.get("lean") and not units_for(pk):
             why = f"a {pk['kind']} with no units"
-        elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DOG_DAY_MAX:
+        elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DAILY_DOG_MAX:   # (10/2 audit: +220, the owner's 10/1
             why = "a Dog past its cap"
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
                 and pk.get("kind") != "solo" and not l.get("near_price"):   # (a one-game day's pick / the always-a-
@@ -2507,7 +2513,8 @@ def night_pick(pool):
     """The engine's pick for one Monday / Thursday game: its best real play (value, likeliest first); none clears the
     bar - the likeliest side it isn't fighting, as a LEAN. Moneyline or spread, never past -150, never a trap."""
     pool = [c for c in pool if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV and not c.get("trap")]
-    real = [c for c in pool if good(c) and real_value(c)]   # (10/1 bug hunt: the Steelers at -148 - 0.4 short of the
+    real = [c for c in pool if good(c) and real_value(c) and leg_tier(c) in ("lock", "value")]   # (10/2 audit: a strong
+    #   lean posted as a ½u unit play labeled LEAN) (10/1 bug hunt: the Steelers at -148 - 0.4 short of the
     if real:                                                 # price - went up labeled LOCK with 0 units)
         c = max(real, key=lambda c: (round(c["p"] * 50), c["edge"]))
         return {"legs": [c], "dec": c["dec"], "p_hit": c["p"]}
