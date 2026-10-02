@@ -3416,6 +3416,12 @@
      "game:conf"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "n": 1,
+     "s": "45-44",
+     "type": "ot",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -3436,6 +3442,10 @@
     "edge_own": 0.09487577669540248,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,7,21,7,7",
+     "h": "0,17,7,14,6"
+    },
     "form_state": null,
     "game_id": "ncaaf:401862786",
     "home": false,
@@ -3463,9 +3473,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": true,
+    "score": "North Texas 45 @ Tulsa 44",
+    "settled": "2026-10-02T05:12Z",
     "side": "away",
     "start": "2026-10-02T01:00Z",
     "stype": "2",
@@ -3482,12 +3494,14 @@
    }
   ],
   "p_hit": 0.5227,
-  "pnl": 0.0,
+  "pnl": 84.75,
   "posted": "2026-10-01T15:38Z",
   "round": 1,
+  "settled": "2026-10-02T05:12Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 3.0
  },
  {
   "american": 110,
