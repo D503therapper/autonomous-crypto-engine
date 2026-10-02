@@ -845,6 +845,7 @@ def dog_score(c):
     sc = (own - (c.get("p_market") or own)) * 100
     if sc > OWN_CAP:
         sc = 0.0 if c.get("league") in OWN_TRAP else OWN_CAP
+    base = sc                                            # the engine's own read - everything below is the studies
     sc += dog_spots(c)
     if c.get("opp_lost_last"):
         sc += 3
@@ -883,7 +884,12 @@ def dog_score(c):
         k = c.get("key_edge")
         if k is not None:
             sc += -2 if k >= 0.4 else 1 if k <= -0.4 else 0
-    return sc
+    return base + max(-STUDY_CAP, min(STUDY_CAP, sc - base))   # (the owner, 10/2: "I don't want the engine to
+    #                                                             overweight these" - the angles overlap; their sum is capped)
+
+
+STUDY_CAP = 6     # all the study angles on one dog together count at most ±6 points (6 points of win chance): a stack of
+#                   overlapping spots (a rested bye-week dog off a blowout on Monday night...) never outweighs the read
 
 
 _SCHED = {}
