@@ -1,28 +1,36 @@
 {
- "at": "2026-10-02T16:03Z",
+ "at": "2026-10-02T17:35Z",
  "fixes": [],
  "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "workflow failed: sports 2026-10-02T17:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37039344253"
  ],
  "ok": [
-  "live watcher fresh (39s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 9 of today's games named, priced and looked at",
-  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
-  "simulator ran 0h ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-02T17:35Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "workflow failed: sports 2026-10-02T17:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37039344253"
+   ]
+  },
   {
    "at": "2026-10-02T16:03Z",
    "fixes": [],
@@ -635,11 +643,6 @@
    "fixes": [
     "1 finished pick(s) not graded (tennis 2026-09-29 Alexander Blockx) - sports.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-09-30T02:43Z",
-   "fixes": [],
    "problems": []
   }
  ]
