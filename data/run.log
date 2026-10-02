@@ -5735,3 +5735,22 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 16:07 UTC] stocks/trend     equity $490.63 (-1.9%) 3 open  market UP
 [2026-10-02 16:07 UTC] stocks/hold_spy  equity $500.42 (+0.1%) 1 open  market UP
    social heat top: SC 52 (40/0/12), PENGU 40 (32/0/8), BLAST 37 (37/0/0), TRUMP 34 (29/0/5), QNT 27 (27/0/0)
+   footprint: LTC: footprint 3/4 (drift+hikes+rising_lows) 48h +5.0%, 2 volume hikes, 44% quiet hours @ 70.773
+   footprint: BUY LTC (footprint 3/4 drift+hikes+rising_lows): LTC: footprint 3/4 (drift+hikes+rising_lows) 48h +5.0%, 2 volume hikes, 44% quiet hours @ 70.773
+   >> crypto/mover: BUY $201.77 of LTC @ 70.8438 (footprint 3/4 drift+hikes+rising_lows)
+   dex screen: REJECT BREAD@solana liq $0 - liquidity $0 < $100,000
+   dex screen: REJECT PUMP@solana liq $28,280,364 - transfer hook; top-10 holders 60%
+   dex screen: REJECT MASKCAT@solana liq $126,666 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT POPCAT@solana liq $4,173,054 - top-10 holders 43%
+   dex screen: REJECT STONKEX@base liq $544,617 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT VSOF@solana liq $1,532,552 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 53
+   dex screen: REJECT DARK@solana liq $101,376 - holders unknown; lp holders unknown; rugcheck lp locked 91% < 95%
+   dex screen: REJECT SI@solana liq $960,111 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: PASS KURUMI@solana liq $155,479
+   dex screen: REJECT ARTHUR@solana liq $110,927 - holders unknown; lp holders unknown; rugcheck lp locked 76% < 95%
+   dex re-screen: PINK@solana:AVBN6kXd flagged once (lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT WLD@ethereum liq $231,485 - is_mintable; owner_percent 12%; top-10 holders 66%; lp locked 0% < 95%
+   dex screen: PASS $PAAL@ethereum liq $1,434,281
+   dex screen: REJECT AGENCY@solana liq $169,453 - holders unknown; lp holders unknown; rugcheck lp locked 49% < 95%
+   dex screen: REJECT JIMOTHY@solana liq $575,054 - lp holders unknown; rugcheck lp locked 75% < 95%
+   dex scanner: 3,000 pools (solana 2,085 / base 561 / ethereum 354), refresh cycle 135s (hot 129s), 2786 calls (106 feed, 429s 0, failed 1), 80,370 refreshed (7074 no pair), +60 added / -59 dropped (dead 24, stale 0, cap 35), movers 3 + warming 21 -> queued 5, screened 5 (passed 1), bought 0
