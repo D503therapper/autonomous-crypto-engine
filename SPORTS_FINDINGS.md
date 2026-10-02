@@ -360,6 +360,15 @@ finals in all but 15 of ~124k games, the next game always after the trigger ende
   the "-36%" only held leaving out OT losses; with them -24.4% vs -9.8%, 6 of 9, z -1.3 - noise. Heartbreak / walk-off
   losses, letdown / sandwich spots, finishing strong on its own.
 
+## 10/2 - edge size vs units (the owner: Western KY +110 at 1u on a ~1-point read)
+11,941 moneyline candidates 2018-26, each season graded blind (sports_model.tune on the 3 seasons before), closing
+prices, the bare own read (no dog gates / spots / calibration). Own edge per dollar -> ROI: <1% -2.4%, 1-2% -3.6%,
+2-3% -4.2%, 3-5% -3.2%, 5-8% -4.5%, 8-12% +1.5% (6 of 8), 12%+ +6.2% (6 of 8). Dogs 8%+ +6.7% on 1,506 (8-12% last 3
++5.3%, 3 of 3); favorites 8%+ -4.3% (last 3 -9.7%, 0 of 3). No MIN_EDGE between 1% and 8% makes the bare read a
+winner - the profit is in the dog gates. BUILT (sizes only DOWN): own read under 8% = ½u, favorites ½u (sports.
+THIN_EDGE). Sizing sim: old -125u / last 3 -139u / 2026 -4.5u -> ½u <8% + favorites ½u +73u / -59u / +6.2u. Re-check on
+a full-board replay (gates, spots, calibration) - a LEAD until then.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a

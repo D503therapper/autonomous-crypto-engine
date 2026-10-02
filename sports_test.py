@@ -7143,7 +7143,8 @@ def test_a_small_edge_is_half_a_unit():
     that, probably should've been a half a unit." From 10/2: own read under 3% over the price = ½u. Posted picks keep
     their size."""
     leg = {"team": "Western KY", "odds": 110, "dec": 2.1, "p": 0.486, "dog_p": 0.501, "edge_own": 0.0099, "market": "ml"}
-    assert sports.thin_edge(leg) and not sports.thin_edge({**leg, "edge_own": 0.08, "dog_p": 0.52})
+    assert sports.thin_edge(leg) and not sports.thin_edge({**leg, "edge_own": 0.10, "dog_p": 0.54})
+    assert sports.thin_edge({**leg, "edge_own": 0.05, "dog_p": 0.53})    # (the edge study: under 8% is ½u)
     keep = (sports.pick_tier, sports.beats_price)
     try:
         sports.pick_tier = lambda pk: "value"
@@ -7152,7 +7153,9 @@ def test_a_small_edge_is_half_a_unit():
         old = {**new, "date": "2026-10-01"}
         assert sports.units_for(new) == 0.5 and sports.units_for(old) == 1.0
         big = {**new, "legs": [{**leg, "edge_own": 0.12, "dog_p": 0.56}]}
-        assert sports.units_for(big) > 0.5                                # a real edge keeps its size
+        assert sports.units_for(big) > 0.5                                # a real edge on a dog keeps its size
+        fav = {**new, "legs": [{**leg, "odds": -130, "dec": 1.769, "edge_own": 0.12, "dog_p": None, "p": 0.64}]}
+        assert sports.units_for(fav) == 0.5                               # a favorite never sizes up (the edge study)
     finally:
         sports.pick_tier, sports.beats_price = keep
 
