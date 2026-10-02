@@ -5552,3 +5552,43 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 11:17 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 11:17 UTC] crypto/hold_btc  equity $512.82 (+2.6%) 1 open  market UP
    social heat top: TRUMP 45 (40/0/5), SAND 37 (37/0/0), QNT 35 (35/0/0), NEAR 32 (32/0/0), AAVE 27 (27/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '86873.45', 'l': '83422.53', 'a': '86421.86', 'v': '5240.5512', 'vv': '443379452.63', 'c': '0.0310', 'b': '86421.85', 'k': '86421.86', 'oi': '0', 't': 1790939829929}
+   dex screen: REJECT E/ACC@solana liq $737,426 - holders unknown; lp holders unknown; rugcheck lp locked 54% < 95%
+   dex screen: REJECT XDP@base liq $195,217 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT QNT@ethereum liq $893,002 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $3,147,551
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT VRAX@base liq $245,310 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS STONK@solana liq $2,363,802
+   scanner: SAND: +6.0% in 15 min on 3.7x volume @ 0.07077 spread 0.58%
+   take-off: SAND vetoed by pump guard: already +64% in 24h
+   scanner: SAND: +6.0% in 15 min on 3.4x volume @ 0.07065 spread 0.57%
+   take-off: SAND vetoed by pump guard: blocked 29 more min
+   scanner: SAND: +5.9% in 15 min on 3.4x volume @ 0.07107 spread 0.59%
+   take-off: SAND vetoed by pump guard: blocked 28 more min
+   scanner: SAND: +6.7% in 15 min on 3.6x volume @ 0.07157 spread 0.56%
+   take-off: SAND vetoed by pump guard: blocked 26 more min
+   scanner: SAND: +6.2% in 15 min on 3.8x volume @ 0.07236 spread 0.61%
+   take-off: SAND vetoed by pump guard: blocked 25 more min
+   scanner: SAND: +6.2% in 15 min on 3.8x volume @ 0.07252 spread 0.59%
+   take-off: SAND vetoed by pump guard: blocked 24 more min
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   dex scanner: 3,000 pools (solana 2,038 / base 596 / ethereum 366), refresh cycle 113s (hot 109s), 2368 calls (89 feed, 429s 1, failed 1), 68,357 refreshed (3723 no pair), +102 added / -101 dropped (dead 7, stale 0, cap 94), movers 1 + warming 22 -> queued 3, screened 3 (passed 0), bought 0
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   scanner: SAND: +6.5% in 15 min on 4.1x volume @ 0.07236 spread 0.61%
+   take-off: SAND vetoed by pump guard: blocked 23 more min
+[2026-10-02 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 12:06 UTC] crypto/mover     equity $450.18 (-10.0%) 0 open  market UP
+[2026-10-02 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 12:06 UTC] crypto/social_heat equity $536.98 (+7.4%) 1 open  market UP
+[2026-10-02 12:06 UTC] crypto/breakout10 equity $492.07 (-1.6%) 2 open  market UP
+[2026-10-02 12:06 UTC] crypto/momentum  equity $488.97 (-2.2%) 2 open  market UP
+[2026-10-02 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 12:06 UTC] crypto/hold_btc  equity $512.23 (+2.4%) 1 open  market UP
+   social heat top: TRUMP 45 (40/0/5), SC 36 (24/0/12), SAND 35 (35/0/0), PENGU 32 (32/0/0), NEAR 29 (29/0/0)
