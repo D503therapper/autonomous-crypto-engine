@@ -5863,3 +5863,60 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 18:06 UTC] stocks/trend     equity $488.47 (-2.3%) 3 open  market UP
 [2026-10-02 18:06 UTC] stocks/hold_spy  equity $500.09 (+0.0%) 1 open  market UP
    social heat top: SC 52 (40/0/12), TRUMP 35 (35/0/0), BLAST 32 (32/0/0), PENGU 32 (21/0/10), QNT 29 (29/0/0)
+   footprint: LTC: footprint 3/4 (drift+hikes+rising_lows) 48h +5.9%, 3 volume hikes, 40% quiet hours @ 69.8
+   dex screen: PASS SPX@ethereum liq $12,516,822
+   scanner: GTC: +15.6% in 68 min on 4.1x volume @ 0.168959 spread 0.42%
+   take-off: GTC vetoed by pump guard: already +58% in 24h
+   scanner: GTC: +15.6% in 69 min on 4.1x volume @ 0.168959 spread 1.06%
+   take-off: GTC vetoed by pump guard: blocked 28 more min
+   dex screen: REJECT ZRO@solana liq $1,789,807,530 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   scanner: GTC: +15.6% in 73 min on 4.1x volume @ 0.16896 spread 0.45%
+   take-off: GTC vetoed by pump guard: blocked 24 more min
+   scanner: GTC: +14.1% in 75 min on 4.1x volume @ 0.166743 spread 0.75%
+   take-off: GTC vetoed by pump guard: blocked 22 more min
+   scanner: GTC: +14.7% in 76 min on 4.1x volume @ 0.167641 spread 1.05%
+   take-off: GTC vetoed by pump guard: blocked 21 more min
+   scanner: GTC: +14.7% in 77 min on 4.1x volume @ 0.167641 spread 0.57%
+   take-off: GTC vetoed by pump guard: blocked 20 more min
+   dex screen: REJECT SERV@ethereum liq $1,457,540 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_blacklisted; is_whitelisted; honeypot_with_same_creator; buy tax unknown; sell tax unknown
+   scanner: GTC: +16.3% in 79 min on 4.1x volume @ 0.169999 spread 0.95%
+   take-off: GTC vetoed by pump guard: blocked 18 more min
+   scanner: GTC: +13.9% in 80 min on 4.1x volume @ 0.166482 spread 1.01%
+   take-off: GTC vetoed by pump guard: blocked 17 more min
+   scanner: GTC: +13.9% in 81 min on 4.1x volume @ 0.166482 spread 1.02%
+   take-off: GTC vetoed by pump guard: blocked 16 more min
+   listing: kraken_pairs #PNT 'New Kraken listing (PNT)' -> ['PNT']
+   listing: PNT: kraken_pairs notice "New Kraken listing (PNT)" -> not on Crypto.com USD
+   dex screen: PASS DRB@base liq $1,698,988
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   >> stocks/momentum: SELL $111.53 of MSTR @ 156.472, P/L $-0.97 (stop hit (live check))
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: geckoterminal_5m HTTP 0 0 pools (retry in 2 min)
+   dex screen: REJECT SKY@ethereum liq $1,768,123 - is_mintable; top-10 holders 90%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]   a6c1455aeb64526053d2caa64a7afea3c8506807 -> main (cannot lock ref 'refs/heads/main': is at 899ac01ad00fc34b771862f71
+   dex screen: REJECT WOOF@ethereum liq $170,855 - top-10 holders 40%; lp locked 0% < 95%
+   dex scanner: 3,001 pools (solana 2,016 / base 618 / ethereum 367), refresh cycle 130s (hot 126s), 2879 calls (108 feed, 429s 0, failed 0), 83,126 refreshed (5626 no pair), +112 added / -111 dropped (dead 10, stale 0, cap 101), movers 2 + warming 22 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-02 19:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 19:06 UTC] crypto/mover     equity $442.77 (-11.4%) 1 open  market UP
+[2026-10-02 19:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 19:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 19:06 UTC] crypto/social_heat equity $523.81 (+4.8%) 2 open  market UP
+[2026-10-02 19:06 UTC] crypto/breakout10 equity $474.18 (-5.2%) 2 open  market UP
+[2026-10-02 19:06 UTC] crypto/momentum  equity $482.12 (-3.6%) 2 open  market UP
+[2026-10-02 19:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 19:06 UTC] crypto/hold_btc  equity $501.16 (+0.2%) 1 open  market UP
+[2026-10-02 19:07 UTC] stocks/rsi2      equity $502.99 (+0.6%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, XLB 2, XLV 4 BUY
+[2026-10-02 19:07 UTC] stocks/dual_momentum equity $502.83 (+0.6%) 2 open  market UP
+[2026-10-02 19:07 UTC] stocks/trend_ensemble equity $503.06 (+0.6%) 5 open  market UP
+[2026-10-02 19:07 UTC] stocks/rotation10 equity $503.71 (+0.7%) 2 open  market UP
+[2026-10-02 19:07 UTC] stocks/momentum  equity $496.48 (-0.7%) 3 open  market UP
+[2026-10-02 19:07 UTC] stocks/trend     equity $488.36 (-2.3%) 3 open  market UP
+[2026-10-02 19:07 UTC] stocks/hold_spy  equity $500.16 (+0.0%) 1 open  market UP
+   social heat top: SC 48 (40/0/8), PENGU 36 (24/0/12), TRUMP 32 (32/0/0), BTC 32 (27/0/5), BLAST 29 (29/0/0)
