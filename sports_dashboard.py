@@ -758,11 +758,12 @@ def _lean_note(day):
     return f'<div class="drop leanday">🟡 {E(sports_lingo.lean_note(day))}</div>'      # one note - no second disclaimer under it
 
 
-BACKUP_LOCK = [   # the owner, 10/2: a day nothing clears the full Lock bar, the backup Lock still goes up - and says so
-    "⚠️ Nothing hit our full Lock standard today. This is our best call on the board — small bet, keep it light.",
-    "⚠️ No full-strength Lock today. This is the top of what we got — half a unit and that's it.",
-    "⚠️ The slate didn't give us a true Lock today. Best call we got, so it's a small bet.",
-    "⚠️ Heads up: this one didn't clear every Lock test. Still our top call — we keep the bet small.",
+BACKUP_LOCK = [   # the owner, 10/2: a day nothing clears the Lock of the Day standard, there's no Lock of the Day -
+    #               the best call goes up as a plain LOCK, with this box above it
+    "🔒 Nothing on today's board met our Lock of the Day standard — so no Lock of the Day. Here's our top lock.",
+    "🔒 No Lock of the Day today — nothing cleared our standard. The lock below is the best we got.",
+    "🔒 Nothing hit the Lock of the Day bar today. We don't fake it — here's our top lock instead.",
+    "🔒 No pick on the board met our Lock of the Day standard today. Our best lock is below.",
 ]
 
 
@@ -813,14 +814,16 @@ def _pick_card(kind, pk):
                       "🔒 The book priced this wrong and we ain't complaining. Plus money LOCK."]) + '</div>'
                   if len(pk["legs"]) == 1 and _tier(pk) == "lock" and pk.get("american", 0) > 0   # one pick at plus money:
                   and pk["status"] == "open" else "")      # a parlay always pays plus - that's no dog (the owner, 9/30)
-    backup = ('<div class="bw backup">' + _rot(spin, BACKUP_LOCK) + '</div>'
-              if kind == "lock" and len(pk["legs"]) == 1 and pk["legs"][0].get("near_price") and not pk.get("lean") else "")
-    return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
+    backup = ""
+    if kind == "lock" and len(pk["legs"]) == 1 and pk["legs"][0].get("near_price") and not pk.get("lean"):
+        label = "LOCK"                                       # (the owner, 10/2: not the Lock of the Day - just a Lock,
+        backup = '<div class="slate-note backup-note">' + _rot(spin, BACKUP_LOCK) + '</div>\n'   # its own box above)
+    return backup + f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
   <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip("void" if pk.get("void") else pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
   {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean")), leg=pk["legs"][0]) if len(pk["legs"]) == 1 else ""}
-  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{backup}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
+  {f'<div class="stamp-row">{stamp}</div>' if stamp else ""}{book_wrong}{track}{_fold(legs, pk["legs"]) if len(pk["legs"]) > 1 else _fold_times(pk["legs"], one=True) + legs}
 </section>"""
 
 
@@ -1869,7 +1872,6 @@ main{{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px
 .spc small{{display:block;font-size:13px;font-weight:700;color:#ffc233;white-space:nowrap}}
 .spc i{{font-style:normal;text-align:right;white-space:nowrap;font-size:17px}}
 .bw{{font-size:13px;font-weight:900;color:#22e39a;margin:2px 0 6px}}
-.bw.backup{{color:var(--gold)}}
 .track{{font-size:13px;font-weight:900;letter-spacing:.04em;color:var(--gold);margin:2px 0 4px}}
 .leg.won{{border-left:4px solid var(--up);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(34,227,154,.10),transparent 60%)}}
 .leg.lost{{border-left:4px solid var(--dn);padding-left:10px;margin-left:-14px;background:linear-gradient(90deg,rgba(255,59,59,.10),transparent 60%)}}
