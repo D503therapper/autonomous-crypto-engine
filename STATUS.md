@@ -46,6 +46,16 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   a sizing check, and a checker self-test (12 broken inputs, each must be caught).
 - NEXT (offered, not built): a "beat the closing price" record on the dashboard - the fastest real test of an edge.
 
+**Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**
+- Benchmark: Dr. Bob (Bob Stoll, drbobsports.com) - the owner's pick as THE proven capper. Self-published: NFL best
+  bets 514-379-12 (57.6%) in 10 seasons (play-by-play model), college football best bets 55.1% since 1999, his
+  releases move lines worldwide (outside proof of beating the close). Not doing college football in 2026.
+- Five studies planned: (1) claimed vs graded records, (2) beat the close, (3) do max plays win more, (4) do hot
+  cappers stay hot, (5) what the real ones do that we don't (spreads, play-by-play model, early timing, star sizing).
+  Data: public pages only (SuperContest / Circa contest picks, dated expert picks) - no logins, no tricks.
+- Compare: our engine's early NFL spread read (3.5+ pts off the Tuesday number) covered 58.5% on 554 (findings 10/1)
+  - Dr. Bob-level, but a study, not live; build the early NFL spread play and track it live vs his 57.6%.
+
 **Open decisions (the owner's call)**
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md
   still says ALWAYS a Lock until the owner says the words). The Dog stays real-value only; leans fill to 5+ picks.
