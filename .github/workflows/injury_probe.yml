@@ -1,0 +1,27 @@
+# 🚑 Every injured player on a day's slate (tools/injury_probe.py) - read only, nothing saved but
+# results/injury_probe.txt. Run it by hand: Actions -> injury_probe -> Run (day = YYYY-MM-DD, blank = today PT).
+name: injury_probe
+on:
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Day to preview (YYYY-MM-DD, blank = today Pacific)"
+        type: string
+        default: ""
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: timeout 10m python -u tools/injury_probe.py
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results/injury_probe.txt
+          git commit -qm "board preview $(date -u '+%F %H:%M') UTC" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
