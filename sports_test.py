@@ -3352,8 +3352,8 @@ def test_parlay_bar_shows_game_times_and_live_stays_live():
     assert '_fold_times(pk["legs"], one=True) + legs' in open(sdb.__file__).read()
     src = open(sdb.__file__).read()
     assert "Next game starts at" in src and "next up" not in src.replace("next up'", "")
-    i = src.index('if(s.innerHTML!==tag)s.innerHTML=tag;}}')
-    assert src[i:i + 80].split("\n")[1].lstrip().startswith("else if(s.dataset.lv)")        # restore only when not on
+    i = src.index('leg.parentNode.insertBefore(sr,leg);}}}}')          # (10/2: the final-score stamp closes the on-branch)
+    assert src[i:i + 120].split("\n")[1].lstrip().startswith("else if(s.dataset.lv)")       # restore only when not on
 
 
 def test_game_clock_says_intermission_and_all_that():
@@ -7348,6 +7348,16 @@ def test_board_audit_10_2():
         assert not sports.night_pick([c]).get("lean")                     # a real value play stays one
     finally:
         sports.good, sports.real_value, sports.leg_tier, sports.fighting = keep
+
+
+def test_final_score_stamps_the_card_right_away():
+    """10/2, the owner: "one says LOST across the middle, the Steelers does not" - the Steelers' game was final (the live
+    scores marked MISS) but the stamp waited ~15 min for the official grade. The page stamps a one-pick card CASHED /
+    LOST the second its game is final, same as a graded card."""
+    import sports_dashboard as sdb
+    src = open(sdb.__file__).read()
+    assert "cd.querySelectorAll(\".leg\").length===1&&!cd.querySelector(\".stamp\")" in src
+    assert "'<div class=\"stamp '+rs+'\">'" in src
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
