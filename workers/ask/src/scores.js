@@ -169,6 +169,24 @@ export function bookScore(d, p1, p2, bo = 3) {
   return null;
 }
 
+// 10/2: Cloudflare's free plan cut the Worker off 1,000+ times a day (10ms of CPU per request) - every phone, every
+// second, read ESPN's whole scoreboard (a Saturday's college football board is huge). Now each team sport's board is
+// boiled down ONCE to {game id: score} and that small copy is shared for COMPACT_TTL seconds by every phone.
+const COMPACT_TTL = 3;
+export async function compactBoard(key, ctx) {
+  const cache = caches.default;
+  const ck = `https://d503-cache/compact/${key}`;
+  const hit = await cache.match(ck);
+  if (hit) return { compact: await hit.json() };
+  const d = await board(key, ctx);
+  if (!d) return null;
+  const compact = {};
+  for (const ev of d.events || []) { const t = team(ev, key); if (t) compact[`${key}:${ev.id}`] = t; }
+  ctx.waitUntil(cache.put(ck, new Response(JSON.stringify(compact), {
+    headers: { "Cache-Control": `max-age=${COMPACT_TTL}`, "Content-Type": "application/json" } })));
+  return { compact };
+}
+
 export async function handleScores(request, env, ctx, origins) {
   const origin = request.headers.get("Origin") || "";
   const cors = { "Access-Control-Allow-Origin": origins.includes(origin) ? origin : origins[0], Vary: "Origin",
@@ -186,10 +204,15 @@ export async function handleScores(request, env, ctx, origins) {
   const debug = new URL(request.url).searchParams.has("debug");
   await Promise.all(Object.keys(want).map(async (key) => {
     let d;
-    try { d = await board(key, ctx); } catch (e) { DBG[key] = `error ${String(e).slice(0, 80)}`; d = null; }
+    try { d = key === "atp" || key === "wta" ? await board(key, ctx) : await compactBoard(key, ctx); }
+    catch (e) { DBG[key] = `error ${String(e).slice(0, 80)}`; d = null; }
     if (debug && d) DBG[key + "_events"] = (d.events || []).map((e) => e.id).slice(0, 30).join(",");
     if (!d) return;
     const need = new Set(want[key]);
+    if (d.compact) {                                        // (a team sport, already boiled down: just look it up)
+      for (const id of need) if (d.compact[id]) out[id] = d.compact[id];
+      return;
+    }
     for (const ev of d.events || []) {
       if (key === "atp" || key === "wta") {
         for (const g of ev.groupings || []) for (const c of g.competitions || []) {
