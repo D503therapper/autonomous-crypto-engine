@@ -381,7 +381,7 @@ def engine_weights():
                              "Day's screen)", "4th-down nerve", ".700 college dog",
                              "neutral-site dog the engine likes", "NFL dog on a win streak", "NFL dog off a 10-or-fewer game",
                              "MLB doubleheader game 2 (the Dog of the Day's screen)", "hockey sharp dog (line to it + money over tickets)",
-                             "fades: ice cold, coach's first season (cancels if both new), losing streak, Thursday night, "
+                             "fades: ice cold, coach's first season (cancels if both new), losing streak, "
                              "key player out, East home dog vs a West favorite, money running away"],
         "early plays": ("every one that clears the bar, posted the moment it's found (checked every hour), one ping each"
                         if se.SPOT_MAX_WEEK is None else f"max {se.SPOT_MAX_WEEK} a week") + f", dogs +{se.SPOT_DOG[0]}..+{se.SPOT_DOG[1]} only (dogs early, "

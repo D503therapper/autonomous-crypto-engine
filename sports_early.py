@@ -472,7 +472,7 @@ SPOTS = {   # key: (label, units, leagues)
 # engine's own full read (ratings, form, rest, injuries...); the fades take weight away. An early play posts only when
 # the engine's read isn't fighting the side AND everything added up clears SPOT_MIN_TOTAL - ranked by that total.
 SPOT_WEIGHT = {"best": 0.0, "bye": 0.04, "mnf": 0.015, "eastwest": 0.03, "blowout": 0.02, "hammered": 0.02, "engine": 0.0}
-FADE_WEIGHT = {"ice cold": -0.04, "coach's first season": -0.04, "losing streak": -0.04, "Thursday night": -0.03}
+FADE_WEIGHT = {"ice cold": -0.04, "coach's first season": -0.04, "losing streak": -0.04}
 SPOT_MIN_TOTAL = 0.05                   # the engine's edge + the spots + the fades, in win-% points
 SPOT_FIGHT = 0.01                       # the engine's own read may not be more than 1 point under the price
 SPOT_MAX_WEEK = None                    # the owner, 10/1 (later): "I don't want to cap the early value plays at two -
@@ -636,9 +636,9 @@ def _fades(sched, g, side, lg, et):
         out.append("coach's first season")                               # like the game-day dog score does)
     if lg == "ncaaf" and len(ms) >= 3 and all(m < 0 for m in ms[-3:]):
         out.append("losing streak")
-    if et.weekday() == 3:
-        out.append("Thursday night")
-    return out
+    return out   # (no Thursday-night fade - the owner, 10/1: "that's a night of football like any other... a small
+    #               sample." Checked: 91 NFL Thursday dogs at the close since 2018, up 5 of 9 seasons, the -9% from 3 bad
+    #               years; college 72, all over the place. Noise - every game gets read on its own)
 
 
 def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_dog=False):

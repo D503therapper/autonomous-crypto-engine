@@ -206,8 +206,9 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   sports): a dog that BLEW SOMEONE OUT last week (17+): NFL +8.5% on 158 (4 of 6), with the engine +16.5% (4 of 6);
   college +8.9% on 580 (4 of 6), with the engine +11.6% (5 of 6). A dog OFF A BYE vs a team that played: NFL +22.8% on
   51 (5 of 6); college +7.7% on 244 (4 of 6), with the engine +20.7% (5 of 6). MONDAY NIGHT NFL dogs +21.3% on 118 (5
-  of 6), engine agreeing +20.7% (4 of 6); THURSDAY night dogs -10.9% (NFL), -18.6% (college) - the owner's "whole
-  other monster" is real, and it's the dog on Monday. FADES: an NFL dog in its coach's FIRST season with the team
+  of 6), engine agreeing +20.7% (4 of 6); THURSDAY night dogs -10.9% (NFL), -18.6% (college) - REMOVED 10/1 (the owner: "a night of football like
+  any other... a small sample"; at the close since 2018: NFL 91 dogs, up 5 of 9 seasons, the -9% from 2018 / 2021 /
+  2024; college 72, -6%, all over the place - noise, no fade). The owner's "whole other monster" is the dog on Monday. FADES: an NFL dog in its coach's FIRST season with the team
   -17.0% on 425, 0 of 6 (engine liking it -35%), spread -10.9% (1 of 6) - first-time head coaches -14% (college is
   the other way: +6.9%, 4 of 6); dogs on a 3+ losing streak -15% NFL / -21% college; "cold" dogs (last 3 games 7+ worse
   than their season) -15% / -19%, and "hot" NFL dogs -21%. College dogs in the first 3 games +12.9% (5 of 6 - but 2026

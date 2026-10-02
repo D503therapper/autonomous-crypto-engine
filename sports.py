@@ -936,7 +936,7 @@ def _cfb_style():
 def _dog_more(games, g, side, other, lg):
     """The 10/1 dog findings the owner OK'd to WEIGH (never to pick off alone - "the engine weighs every factor"),
     each held at game-day prices and at the early number: football fades (ice cold, an NFL coach's first season, a
-    college losing streak, Thursday night), an NFL East Coast team out West, a college team off a 17+ win, college
+    college losing streak), an NFL East Coast team out West, a college team off a 17+ win, college
     coaching style (conservative 4th downs, fast pace), and the MLB playoff dog that just got blown out by this team."""
     if lg not in ("nfl", "ncaaf", "mlb", "nba"):
         return {}
@@ -1158,7 +1158,7 @@ def dog_spots(c):
         sc -= {"ice cold": 3,                # last 3 games 7+ worse than its season: NFL -15%, college -13% (1 of 6)
                "coach's first season": 3,    # an NFL dog in its coach's first season with the team: -16% (-26% last 3)
                "losing streak": 3,           # a college dog on a 3+ game losing streak: -15% (-21% early)
-               "Thursday night": 2}.get(f, 0)   # Thursday night dogs: NFL -11%, college -19% (early)
+               }.get(f, 0)    # (Thursday night: no fade - the owner, 10/1; a small, noisy sample)
     if lg == "ncaaf" and (mo.get("conservative") or mo.get("fast")):
         sc -= 2                    # college coaching style: conservative 4th downs / fast pace dogs -11%, 0 of 5
     if lg == "mlb" and mo.get("series_blowout"):
