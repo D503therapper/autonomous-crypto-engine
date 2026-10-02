@@ -281,6 +281,22 @@ for name, wf, log in (("studies", "sports_studies.yml", "studies_log.json"), ("s
     except Exception as e:                               # noqa: BLE001
         problems.append(f"{name} check failed: {str(e)[:60]}")
 
+# 6e. the engine itself (10/2: GitHub skipped its hourly runs for 3 hours, 10:54 AM - 2:03 PM PT - nothing restarted it;
+#     the board check only looks after 9 AM). No engine run started in 80+ minutes: start one now.
+ENGINE_STALE_MIN = 80
+try:
+    out = gh("run", "list", "--workflow", "sports.yml", "--limit", "1", "--json", "createdAt")
+    runs = json.loads(out or "[]")
+    if runs:
+        age_m = (now - datetime.strptime(runs[0]["createdAt"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)).total_seconds() / 60
+        if age_m > ENGINE_STALE_MIN:
+            problems.append(f"engine last started {age_m:.0f} min ago (GitHub skipped its hourly runs) - restarted")
+            dispatch("sports.yml", f"engine {age_m:.0f} min since its last run")
+        else:
+            ok.append(f"engine ran {age_m:.0f} min ago")
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"engine run check failed: {str(e)[:60]}")
+
 # 7. posting on time
 try:
     import tennis_due
