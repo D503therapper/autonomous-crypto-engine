@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T01:03Z",
+ "updated": "2026-10-02T01:12Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -191,32 +191,25 @@
    "id": "nhl:401891828",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.426,
-    "tie": 0.294,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-02T01:30Z",
    "away": "Blackhawks",
    "home": "Mammoth",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Mammoth",
-    "opp": "Blackhawks",
+    "team": "Blackhawks",
+    "opp": "Mammoth",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.659,
-    "win_p": 0.659,
-    "reasons": [
-     "better rested",
-     "the stronger team",
-     "hotter recent form"
-    ]
+    "odds": 180,
+    "p": 0.347,
+    "win_p": 0.347,
+    "reasons": [],
+    "result": null
    }
   },
   {
