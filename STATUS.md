@@ -35,6 +35,17 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   linear stacking and the favorites' weighing confirmed (no change). Per-sport point scaling = a LEAD (re-check).
 - The backup near_lock loses (-17% flat) - kept at ½u because the owner wants a Lock every day.
 
+**10/2 morning**
+- Units: unchanged (value plays ½u, Dog 1u, Lock by read, backup Lock ½u). Claude's recommendation: keep them and
+  reassess on OUR live results after 100-200 graded unit plays, not the replay - the owner was ASKING, not deciding
+  (his words: "I'm not telling you anything. I'm asking you"); value plays -> no units is still open (the replay ran the current engine over 2023-26:
+  -1.1% overall, +1.2% since 7/2023 - roughly break-even, and partly flattered by peeking; the owner doesn't trust it
+  as proof). Live so far: Lock 4-0 +7.61u, Dog 0-3 -2u, plays 0-1.
+- Backup Lock: titled LOCK with its own box above ("nothing met our Lock of the Day standard").
+- The full pre-board check: data freshness (prices, finals, opening lines, models, player stats, weather, injuries),
+  a sizing check, and a checker self-test (12 broken inputs, each must be caught).
+- NEXT (offered, not built): a "beat the closing price" record on the dashboard - the fastest real test of an edge.
+
 **Open decisions (the owner's call)**
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md
   still says ALWAYS a Lock until the owner says the words). The Dog stays real-value only; leans fill to 5+ picks.
