@@ -5592,3 +5592,34 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 12:06 UTC] crypto/hold_btc  equity $512.23 (+2.4%) 1 open  market UP
    social heat top: TRUMP 45 (40/0/5), SC 36 (24/0/12), SAND 35 (35/0/0), PENGU 32 (32/0/0), NEAR 29 (29/0/0)
+   dex screen: REJECT PAID@solana liq $730,346 - holders unknown; lp holders unknown; rugcheck lp locked 34% < 95%
+   dex screen: REJECT ZC@base liq $249,067 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT VELVET@base liq $18,006 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 70%; lp locked 0% < 95%
+   dex screen: REJECT STAMP@solana liq $111,222 - holders unknown; lp holders unknown; rugcheck lp locked 88% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]   eddff1b80111455abdddbb97ff209578b85a3f1e -> main (cannot lock ref 'refs/heads/main': is at 8458d26b1d3f67b15fd1243ba
+   dex screen: REJECT BRETT@base liq $906,765 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT ADI@ethereum liq $2,977,999 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 98%
+   social heat: BUY SC: heat 51: geckoterminal_1h#6 coingecko#1
+   >> crypto/social_heat: BUY $96.57 of SC @ 0.00107 (entry)
+   dex screen: REJECT AAVE@ethereum liq $199,080 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT DJT@solana liq $486,565 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 55%; lp holders unknown
+   dex screen: REJECT FONE@solana liq $596,971 - lp holders unknown; rugcheck lp locked 78% < 95%
+   dex screen: REJECT CBETH@base liq $950,040 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 92%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT FUSE@ethereum liq $187,809 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   dex scanner: 3,000 pools (solana 2,065 / base 585 / ethereum 350), refresh cycle 126s (hot 121s), 2974 calls (108 feed, 429s 0, failed 0), 85,943 refreshed (5281 no pair), +72 added / -72 dropped (dead 15, stale 0, cap 57), movers 0 + warming 22 -> queued 4, screened 4 (passed 0), bought 0
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+[2026-10-02 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 13:06 UTC] crypto/mover     equity $450.18 (-10.0%) 0 open  market UP
+[2026-10-02 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 13:06 UTC] crypto/social_heat equity $537.46 (+7.5%) 2 open  market UP
+[2026-10-02 13:06 UTC] crypto/breakout10 equity $503.38 (+0.7%) 2 open  market UP
+[2026-10-02 13:06 UTC] crypto/momentum  equity $491.18 (-1.8%) 2 open  market UP
+[2026-10-02 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 13:06 UTC] crypto/hold_btc  equity $515.29 (+3.1%) 1 open  market UP
+   social heat top: SC 50 (40/0/10), QNT 35 (35/0/0), TRUMP 34 (29/0/5), SAND 32 (32/0/0), NEAR 27 (27/0/0)
