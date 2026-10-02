@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T00:36Z",
+ "updated": "2026-10-02T00:45Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -136,62 +136,55 @@
    "id": "nhl:401891777",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kraken",
-    "p": 0.351,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-02T01:00Z",
    "away": "Kraken",
    "home": "Flames",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Kraken",
     "opp": "Flames",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -278,
-    "p": 0.715,
+    "market": "ml",
+    "line": null,
+    "odds": -108,
+    "p": 0.501,
     "win_p": 0.501,
     "reasons": [
      "opponent missing key players"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "ncaaf:401862786",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "North Texas",
-    "p": 0.595,
-    "tie": 0.032,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-02T01:00Z",
    "away": "North Texas",
    "home": "Tulsa",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lock",
    "lean": {
     "team": "North Texas",
     "opp": "Tulsa",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.574,
-    "win_p": 0.574,
+    "odds": -118,
+    "p": 0.523,
+    "win_p": 0.523,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "better QB play lately"
-    ]
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
