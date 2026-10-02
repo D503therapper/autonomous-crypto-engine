@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T12:17Z",
+ "updated": "2026-10-02T12:51Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -54,7 +54,7 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -218,
     "p": 0.663,
     "win_p": 0.445,
     "reasons": [
@@ -1537,17 +1537,19 @@
    "start": "2026-10-03T23:00Z",
    "away": "Canadiens",
    "home": "Penguins",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Canadiens",
-    "opp": "Penguins",
+    "team": "Penguins",
+    "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
     "odds": -278,
-    "p": 0.721,
-    "win_p": 0.508,
+    "p": 0.707,
+    "win_p": 0.493,
     "reasons": [
+     "hotter recent form",
+     "hotter goalie",
      "opponent drama: family/personal"
     ]
    }
@@ -1774,7 +1776,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UTSA",
-    "p": 0.793,
+    "p": 0.8,
     "tie": 0.023,
     "name": "1st half"
    },
@@ -1792,11 +1794,11 @@
     "line": -12.5,
     "odds": -108,
     "p": 0.502,
-    "win_p": 0.802,
+    "win_p": 0.81,
     "reasons": [
      "the stronger team",
      "hotter recent form",
-     "better QB play lately"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1901,7 +1903,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Florida",
-    "p": 0.651,
+    "p": 0.652,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -1918,8 +1920,8 @@
     "market": "ml",
     "line": null,
     "odds": -250,
-    "p": 0.699,
-    "win_p": 0.699,
+    "p": 0.7,
+    "win_p": 0.7,
     "reasons": [
      "the stronger team",
      "hotter recent form"
