@@ -6082,6 +6082,14 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_health_job_pushes_only_its_report():
+    """10/2: the hourly health check went red 5 runs in a row - every check OK, but files it touched blocked its
+    'git pull --rebase'. It commits health.json, sets everything else aside, then pulls."""
+    y = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github", "workflows", "health.yml")).read()
+    assert y.index("git stash -q --include-untracked") > y.index('git commit -qm "health')
+    assert y.index("git stash -q --include-untracked") < y.index("git pull --rebase")
+
+
 def test_factor_check_has_fresh_data():
     """10/2, the owner: "did the engine have all the accurate, updated daily data across every aspect?" Before the
     board: most of the slate priced 12h+ ago (the odds pull failed), recent games with no final score, the player stats
