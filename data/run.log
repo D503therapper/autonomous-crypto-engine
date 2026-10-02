@@ -5509,3 +5509,28 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 10:06 UTC] crypto/hold_btc  equity $512.36 (+2.5%) 1 open  market UP
    social heat top: TRUMP 42 (37/0/5), SAND 40 (40/0/0), QNT 35 (35/0/1), NEAR 27 (27/0/0), ENA 24 (24/0/0)
+   dex screen: REJECT HOOKED@solana liq $233,095 - holders unknown; lp holders unknown; rugcheck lp locked 10% < 95%
+   dex screen: REJECT CATGPT@solana liq $120,263 - holders unknown; lp holders unknown; rugcheck lp locked 46% < 95%
+   dex screen: REJECT STETH@ethereum liq $106,385,506 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 63%
+   dex screen: REJECT SYN@ethereum liq $173,669 - goplus partial data: selfdestruct unknown; is_mintable; top-10 holders 67%; lp locked 0% < 95%
+   dex screen: REJECT KMNO@solana liq $2,028,073 - top-10 holders 53%
+   dex screen: REJECT PERPSPAD@solana liq $153,179 - lp holders unknown; rugcheck lp locked 63% < 95%
+   dex screen: REJECT AGL@ethereum liq $854,378 - top-10 holders 63%; lp holders unknown
+   dex screen: REJECT ONDO@ethereum liq $1,477,998 - transfer_pausable; top-10 holders 68%
+   dex screen: PASS TIBBIR@base liq $3,861,599
+   dex screen: REJECT PYUSD@ethereum liq $100,148,650 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 89%
+   dex screen: REJECT DOT@base liq $634,669 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   scanner: SAND: +5.1% in 15 min on 3.9x volume @ 0.06644 spread 0.57%
+   take-off: SAND vetoed by pump guard: already +56% in 24h
+   dex scanner: 3,000 pools (solana 2,046 / base 576 / ethereum 378), refresh cycle 123s (hot 119s), 3039 calls (108 feed, 429s 0, failed 0), 87,928 refreshed (4734 no pair), +81 added / -80 dropped (dead 12, stale 0, cap 68), movers 0 + warming 23 -> queued 4, screened 4 (passed 0), bought 0
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-10-02 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 11:06 UTC] crypto/mover     equity $450.18 (-10.0%) 0 open  market UP
+[2026-10-02 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 11:06 UTC] crypto/social_heat equity $536.36 (+7.3%) 1 open  market UP
+[2026-10-02 11:06 UTC] crypto/breakout10 equity $495.71 (-0.9%) 2 open  market UP
+[2026-10-02 11:06 UTC] crypto/momentum  equity $489.60 (-2.1%) 2 open  market UP
+[2026-10-02 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 11:06 UTC] crypto/hold_btc  equity $512.04 (+2.4%) 1 open  market UP
+   social heat top: TRUMP 45 (40/0/5), SAND 37 (37/0/0), QNT 32 (32/0/0), NEAR 29 (29/0/0), AAVE 27 (27/0/0)
