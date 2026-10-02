@@ -6082,6 +6082,20 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_backup_lock_says_so():
+    """10/2, the owner: the backup Lock is still the Lock of the Day, with a note that nothing hit the full Lock
+    standard. A real Lock never shows it."""
+    import sports_dashboard
+    leg = {**_cand("vt", -135, 0.55, league="ncaaf"), "game_id": "vt", "team": "Virginia Tech", "opp": "Pitt",
+           "near_price": True, "start": "2026-10-02T23:30Z", "breakdown": []}
+    pk = {"date": "2026-10-02", "kind": "lock", "status": "open", "legs": [leg], "dec": leg["dec"], "american": -135,
+          "stake": 100, "p_hit": 0.55}
+    html = sports_dashboard._pick_card("lock", pk)
+    assert 'class="bw backup"' in html and any(x[:20] in html for x in sports_dashboard.BACKUP_LOCK)
+    leg2 = {**leg, "near_price": False}
+    assert 'class="bw backup"' not in sports_dashboard._pick_card("lock", {**pk, "legs": [leg2]})
+
+
 def test_checker_checks_itself_and_the_sizing():
     """10/2, the owner: "make sure our checker is working properly" / "is our sizing system checked properly?" The
     self-test feeds every check made-up broken data and each one has to catch it; the sizing check flags any pick off
