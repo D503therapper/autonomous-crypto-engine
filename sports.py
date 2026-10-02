@@ -1670,15 +1670,16 @@ def near_lock(cands, raw=False):
 LOCK_MISS_PATH = os.path.join(sd.DATA, "lock_miss.json")
 
 
-def lock_miss(cands):
+def lock_miss(cands, all_cands=None):
     """(the owner, 10/2: "can someone ask the question box what it would have been ... Virginia Tech, but it didn't quite
     meet the criteria") A day with no Lock: the pick that came closest (the old forced-Lock pick, near_lock) and why it
     fell short - for the question box only. Never a pick, never units, never in the record."""
-    pool = [x for x in cands if x.get("market") == "ml" and MAX_FAV <= x.get("odds", 0) <= PLUS_LOCK_MAX and x.get("dec")
-            and not x.get("trap") and not x.get("waiting") and read_of(x) is not None]
-    if not pool:                                              # the likeliest winner by our read in the Lock's price range
-        return None                                           # (-150..+125) - the pick the Lock test looks at first
-    c = max(pool, key=read_of)
+    c = near_lock([dict(x) for x in cands])                  # the same pick the forced Lock made (10/2: Virginia
+    if not c:                                                 # Tech all morning) - the healthy pool first, then any
+        b = last_lock([dict(x) for x in (all_cands or cands)])   # side the board could still post
+        c = b["legs"][0] if b else None
+    if not c or not c.get("dec") or read_of(c) is None:
+        return None
     own, need = read_of(c), 1 / c["dec"]
     gap = round((own - need) * 100, 1)
     return {"team": c.get("team"), "opp": c.get("opp"), "league": c.get("league"), "odds": c.get("odds"),
@@ -2801,7 +2802,7 @@ def post_board(games, model, picks, now, day, force=False):
         new.append(pk)
     if "lock" in todo and not started and not any(p["date"] == iso and p["kind"] == "lock" and p["status"] != "waiting" for p in picks):
         try:                                                  # no Lock today: what it would have been, and why not
-            miss = lock_miss(all_cands)                       # (the question box answers "what would the Lock have been")
+            miss = lock_miss(cands, all_cands)                # (the question box answers "what would the Lock have been")
             if miss:
                 save_lock_miss(iso, miss)
         except Exception as e:                               # noqa: BLE001 - never blocks the board
