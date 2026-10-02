@@ -6093,6 +6093,21 @@ def test_both_teams_hot_never_called_our_heater():
     assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{them} {their_hot}" in blk
 
 
+def test_same_board_posted_twice_merges_to_one():
+    """10/2: two engine runs posted the same board 8 minutes apart; the merge keyed picks by their post time, so the
+    dashboard showed every pick twice. The same day + kind + round + games is one pick - the first one posted stays."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("mj", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "merge_json.py"))
+    mj = importlib.util.module_from_spec(spec); spec.loader.exec_module(mj)
+    leg = {"game_id": "nhl:1", "side": "away", "market": "ml"}
+    a = {"date": "2026-10-02", "kind": "dog", "status": "open", "posted": "2026-10-02T15:33Z", "legs": [leg]}
+    b = {**a, "posted": "2026-10-02T15:41Z"}
+    out = mj.merge_picks([b], [a])
+    assert len(out) == 1 and out[0]["posted"] == "2026-10-02T15:33Z"
+    c = {**a, "legs": [{**leg, "game_id": "nhl:2"}], "kind": "lean"}
+    assert len(mj.merge_picks([a], [c])) == 2
+
+
 def test_no_forced_lock():
     """10/2, the owner: "there doesn't always have to be a lock ... if we put the lock, we put units on it, and we
     potentially lose units - you make the call." A Lock only when the engine's read beats the price; the forced backup

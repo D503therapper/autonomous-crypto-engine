@@ -3,7 +3,7 @@
 
 A line-by-line merge of two versions of these files once stitched two different 8-legs into one broken pick (9 legs,
 the same game twice). This merges them record by record instead:
-  picks.json    - one entry per (date, kind, round, posted); a graded version beats an open one beats a waiting one
+  picks.json    - one entry per (date, kind, round, games); a graded version beats an open one beats a waiting one
   live_log.json - one entry per live play id; a graded version beats an ungraded one, the longest best price is kept
 Usage (set up in the workflows):  git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
 Writes the merged result to %A (ours) and exits 0 (no conflict)."""
@@ -25,7 +25,8 @@ def _pkey(p):
     if p.get("status") == "waiting":
         return (p.get("date"), p.get("kind"), "waiting")
     games = tuple(sorted(str(l.get("game_id")) + "|" + str(l.get("side")) for l in p.get("legs") or []))
-    return (p.get("date"), p.get("kind"), p.get("round") or 1, p.get("posted") or "", games)   # (10/1: two leans
+    return (p.get("date"), p.get("kind"), p.get("round") or 1, games)   # (10/2: two runs posted the same board 8
+    #   minutes apart - with the post time in the key both copies stayed: the dashboard showed every pick twice) (10/1: two leans
     #   posted the same minute shared one key - the merge kept the Steelers and dropped the Kraken; the game is in it)
 
 
@@ -45,6 +46,10 @@ def merge_picks(ours, theirs, base=None):
         if k in gone:
             continue
         old = out.get(k)
+        if old is not None and RANK.get(p.get("status"), 0) == RANK.get(old.get("status"), 0) \
+                and (p.get("posted") or "9") < (old.get("posted") or "9") and not p.get("legs", [{}])[0].get("result"):
+            out[k] = p                                       # (the same pick twice: the first one posted stays)
+            continue
         if old is None or RANK.get(p.get("status"), 0) > RANK.get(old.get("status"), 0) or \
                 (RANK.get(p.get("status"), 0) == RANK.get(old.get("status"), 0)
                  and sum(bool(l.get("result")) for l in p.get("legs") or []) > sum(bool(l.get("result")) for l in old.get("legs") or [])):

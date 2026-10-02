@@ -36,6 +36,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: bash tools/backstop.sh
       - run: python sports_test.py
+      - name: start from the newest data (10/2: a queued run started from its push's old copy and posted the board twice)
+        run: git pull -q --rebase -X theirs origin "${GITHUB_REF_NAME}" || git rebase --abort || true
       - run: timeout 30m python -u sports.py 2>&1 | tee -a data/sports/run.log
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}     # (the engine's key for the 🔔 alerts - never printed)
