@@ -728,23 +728,14 @@ def board_day(now_pt, picks):
 DROP_NOTES = []   # (replaced by DROP_PARTS: the note's built fresh each day)
 
 
-DROP_PARTS = (   # the 8 AM note, built fresh each day: WHEN + the engine WATCHING the lines all night + WHY + a closer
-    ["🎯 Picks drop at <b>8 AM PT</b> on game day.", "⏳ Board goes up <b>8 AM PT</b> game day.",
-     "🧠 Picks land <b>8 AM PT</b> on game day.", "🕗 <b>8 AM PT</b> on game day — that's when the board drops.",
-     "📡 The board hits at <b>8 AM PT</b> on game day.", "👀 <b>8 AM PT</b> game day, the picks go up.",
-     "🔔 Picks come out <b>8 AM PT</b> on game day."],
-    ["All night the engine's watching the lines move", "The engine's up all night watching every line move",
-     "Till then the engine's on the lines all night", "Overnight the engine watches every number move",
-     "The engine's glued to the lines all night", "Every line gets watched all night long",
-     "We watching the line movement overnight", "We watching the line movement all night"],
-    ["— where the money goes, what the injury news does.", "— when a line jumps or a starter sits, we see it first.",
-     "— the money and the news move the numbers, then we move.", "— so every big move and late scratch is baked in.",
-     "— catching the line moves and the late news before we post.", "— so we never bite on a stale number.",
-     "— lines tell on themselves overnight, and we're listening.", "— the late injury news always hits before the first pitch.",
-     "— the overnight moves get baked in before we post."],
-    ["Sharper number, sharper pick.", "No guessing over here.", "We pick off the best number, not the first one.",
-     "Posted means final.", "Patience pays.", "That's how the pros do it.", "Trust the algorithm.",
-     "Best number wins.", "We don't chase, we wait.", "Tell the homies.", "Tap in at 8."],
+DROP_PARTS = (   # the 8 AM note, plain words (the owner, 10/2: "Posted means final ... the whole wording is just weird"):
+    #             WHEN + what the engine checks before it posts - a different mix each day
+    ["🕗 Picks go up at <b>8 AM PT</b> on game day.", "🕗 Today's board goes up at <b>8 AM PT</b>.",
+     "🕗 The board drops at <b>8 AM PT</b> on game day.", "🕗 New picks at <b>8 AM PT</b> on game day."],
+    ["Until then the engine checks every line", "Before it posts, the engine checks every line",
+     "Overnight the engine checks every line", "Till then the engine checks every line"],
+    ["and every injury report.", "and the latest injury news.", "and who's in and who's out.",
+     "and every team's injury report."],
 )
 
 

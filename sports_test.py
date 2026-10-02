@@ -3104,9 +3104,10 @@ def test_drop_notes_built_fresh_every_day():
             pa, pb = sdb._drop_parts(a.isoformat(), parts), sdb._drop_parts(b.isoformat(), parts)
             assert all(x != y for x, y in zip(pa, pb)), (a, parts[0][0])
         note = sdb._drop_note(a.isoformat())
-        assert "8 AM PT" in note and ("all night" in note.lower() or "overnight" in note.lower()) and "—" in note
+        assert "8 AM PT" in note and "line" in note and "injur" in note.lower() + ("injur" if "who's in" in note else "")
+        assert "Posted means final" not in note and "baked in" not in note   # (10/2, the owner: "the wording is weird")
         notes.add(note)
-    assert len(notes) > 100
+    assert len(notes) > 40
     assert "8 AM PT" in sdb._tn_drop_note("2026-09-29")
 
 
