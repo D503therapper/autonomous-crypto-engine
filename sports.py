@@ -2153,8 +2153,46 @@ STATE_FAILS = []   # (10/1 audit) the inputs that failed to load this run - each
 #                    check reports them (one failure used to leave every input after it empty, silently)
 
 
+STALE_OPEN_PTS = 0.04   # the stored open vs the first price we saw that week: 4+ points of win % apart = a stale open
+OPEN_FIXED = []         # this run's corrected opens (the factor check reports them)
+
+
+def fix_opens(games, hist=None):
+    """📈 THE REAL OPEN (10/2, the owner caught it: "how could Penn State open at -278?"). ESPN's college "open" can be
+    a lookahead line from the summer (Penn State -278, now -142 - but -142 since the first price we saw 10/1, it never
+    moved). Every upcoming game our line history tracked from at least 12 hours out gets its open set to the first
+    price we saw that week when the stored one is 4+ points of win % off it - so no card, reason, dog angle or early
+    play reads a summer line as 'sharp money moving'. Past games (the model's training) are never touched."""
+    import sports_clv
+    hist = sports_clv._hist() if hist is None else hist
+    del OPEN_FIXED[:]
+    for gid, rows in hist.items():
+        g = games.get(gid)
+        if not g or g.get("status") != "pre" or not rows:
+            continue
+        t0, h, a = rows[0][0], sm._int(rows[0][1]), sm._int(rows[0][2])
+        if h is None or a is None:
+            continue
+        try:
+            lead = (datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M") - datetime.strptime(t0[:16], "%Y-%m-%dT%H:%M"))
+        except (KeyError, ValueError):
+            continue
+        if lead < timedelta(hours=12):
+            continue                                         # we only saw it late: the stored open may be the better one
+        first = sm.market_p({"ml_home": h, "ml_away": a})
+        cur = sm.market_p(g, open_line=True)
+        if first is not None and (cur is None or abs(cur - first) >= STALE_OPEN_PTS):
+            OPEN_FIXED.append(f"{g.get('away_name')} @ {g.get('home_name')}: open {g.get('ml_home_open') or '-'} -> {h}")
+            g["ml_home_open"], g["ml_away_open"] = str(h), str(a)
+    return OPEN_FIXED
+
+
 def load_states(games):
     """Load every state the engine weighs, each on its own (a failure never blanks the rest); STATE_FAILS lists them."""
+    try:
+        fix_opens(games)                                     # (10/2: the real open before anything reads a line move)
+    except Exception as e:                                   # noqa: BLE001
+        print(f"open fix failed: {str(e)[:80]}")
     import sports_form
     import sports_coaches
     import sports_coach_changes
@@ -2264,6 +2302,9 @@ def factor_check(games, cands, injuries, day, now, model=None):
                   f"old ones", flush=True)
     except Exception:                                        # noqa: BLE001
         pass
+    if OPEN_FIXED:                                           # (10/2: stale summer opens, fixed before the read)
+        print(f"FACTOR NOTE: {len(OPEN_FIXED)} stale opening line(s) replaced by the first price we saw that week: "
+              f"{'; '.join(OPEN_FIXED[:3])}", flush=True)
     hk = [c for c in cands if c["league"] == "nhl" and c.get("market") == "ml" and c.get("odds", 0) < 0 and c["odds"] >= -300]
     if hk and not any(c.get("w_p") is not None for c in hk):
         probs.append("NHL: the hockey favorites weren't weighed against the dog across the ice")

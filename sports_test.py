@@ -6082,6 +6082,24 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_stale_summer_open_replaced():
+    """10/2, the owner: "how could Penn State open at -278?" ESPN's college open was a summer lookahead line; the
+    first price we saw that week was -142 and it never moved. The open becomes the first price we saw (12+ hours out),
+    so nothing reads it as money moving; a game we only saw late, and past games, keep theirs."""
+    G = {"psu": {"status": "pre", "start": "2026-10-03T00:00Z", "home_name": "Northwestern", "away_name": "Penn State",
+                 "ml_home": "120", "ml_away": "-142", "ml_home_open": "225", "ml_away_open": "-278"},
+         "late": {"status": "pre", "start": "2026-10-01T12:00Z", "ml_home": "-150", "ml_away": "130",
+                  "ml_home_open": "-200", "ml_away_open": "170"},
+         "done": {"status": "final", "start": "2026-10-01T00:00Z", "ml_home_open": "-300", "ml_away_open": "250"},
+         "ok": {"status": "pre", "start": "2026-10-03T00:00Z", "ml_home": "-110", "ml_away": "-110",
+                "ml_home_open": "-115", "ml_away_open": "-105"}}
+    hist = {"psu": [("2026-10-01T05:54Z", 120, -142, "", None)], "late": [("2026-10-01T05:54Z", -150, 130, "", None)],
+            "done": [("2026-09-28T05:54Z", -150, 130, "", None)], "ok": [("2026-10-01T05:54Z", -112, -108, "", None)]}
+    fixed = sports.fix_opens(G, hist)
+    assert G["psu"]["ml_away_open"] == "-142" and abs(sports.sm.line_move(G["psu"])) < 1e-9 and len(fixed) == 1
+    assert G["late"]["ml_home_open"] == "-200" and G["done"]["ml_home_open"] == "-300" and G["ok"]["ml_home_open"] == "-115"
+
+
 def test_close_record_and_journal():
     """10/2, the owner: "a record of everything so we can go back and improve the engine always". Every graded pick's
     price vs the close (the last pre-game price - never an in-game line, never a guess) and the journal row: the
