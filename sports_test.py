@@ -7466,6 +7466,23 @@ def test_late_start_plus_a_bye_is_a_full_season():
     assert v24.seen_all(fin, "NW", before, "ncaaf")
     assert not v24.seen_all(fin, "LATE", before, "ncaaf")
 
+
+def test_small_slate_note():
+    """10/2, the owner: "when there's small slates like this, we should put a disclaimer - small slate today, not many
+    games on the board ... let's go to work." Under SMALL_SLATE real, priced games that day: the note, with the count."""
+    import sports_dashboard as sdb
+    keep = sdb._GAMES_[0]
+    try:
+        sdb._GAMES_[0] = {f"g{i}": {"league": "nhl", "stype": "2", "status": "pre", "ml_home": "-120",
+                                     "start": "2026-10-03T01:00Z"} for i in range(5)}
+        note = sdb._small_slate("2026-10-02")
+        assert "Small slate today — only 5 games on the board. Let's go to work." in note
+        sdb._GAMES_[0] = {f"g{i}": {"league": "nhl", "stype": "2", "status": "pre", "ml_home": "-120",
+                                     "start": "2026-10-03T01:00Z"} for i in range(20)}
+        assert sdb._small_slate("2026-10-02") == ""
+    finally:
+        sdb._GAMES_[0] = keep
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
