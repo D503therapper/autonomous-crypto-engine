@@ -1,32 +1,45 @@
 {
- "at": "2026-10-02T03:57Z",
- "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
- ],
+ "at": "2026-10-02T13:12Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Jones vs Okamura: no points for 2644s",
-  "slate check: White Sox @ Astros (MLB): no price from the books",
-  "slate check: Red Sox @ Yankees (MLB): no price from the books",
-  "slate check: Cubs @ Padres (MLB): no price from the books",
-  "sources down (the backups took over): betrivers:nhl:1028398371 HTTP 404"
+  "live tennis scores: tennis Andreeva vs Pridankina: no points for 577s",
+  "live tennis scores: tennis Stefanini vs Jeanjean: no points for 577s",
+  "workflow failed: health 2026-10-02T13:05 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010678589",
+  "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010398830",
+  "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010339923",
+  "workflow failed: health 2026-10-02T12:56 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009802392",
+  "workflow failed: health 2026-10-02T12:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009350093"
  ],
  "ok": [
-  "live watcher fresh (243s)",
+  "live watcher fresh (36s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 6 live matches",
-  "no failed workflows",
+  "live tennis points + server: 2 of 4 live matches",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 5 fresh (betrivers 5)",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
-  "studies ran 5h ago",
-  "simulator ran 5h ago",
-  "tennis slate on time",
-  "main board up"
+  "baseball star list fresh (30 teams)",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-02T13:12Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreeva vs Pridankina: no points for 577s",
+    "live tennis scores: tennis Stefanini vs Jeanjean: no points for 577s",
+    "workflow failed: health 2026-10-02T13:05 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010678589",
+    "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010398830",
+    "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010339923",
+    "workflow failed: health 2026-10-02T12:56 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009802392",
+    "workflow failed: health 2026-10-02T12:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009350093"
+   ]
+  },
   {
    "at": "2026-10-02T03:57Z",
    "fixes": [
@@ -621,13 +634,6 @@
    "at": "2026-09-29T05:57Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-09-29T04:03Z",
-   "fixes": [],
-   "problems": [
-    "scores route down: HTTP Error 403: Forbidden"
-   ]
   }
  ]
 }
