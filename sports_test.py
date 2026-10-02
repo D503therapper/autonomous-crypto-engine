@@ -7172,6 +7172,21 @@ def test_washed_is_only_for_a_cold_long_time_starter():
               "🧓 Father Time is catching Aaron Rodgers — 1 TD, 3 picks and 512 yards in his last 3 games. Washed."):
         assert not cg.problem(x), x
 
+
+def test_every_unit_play_has_units_only_leans_dont():
+    """10/1, the owner: "we do need units on value plays. The only thing that doesn't get units is leans." From 10/2 a
+    value play / Lock / Dog never shows 0 units (½u at least); a lean stays at none."""
+    leg = {"team": "A", "odds": 120, "dec": 2.2, "p": 0.40, "edge_own": -0.02, "market": "ml"}
+    keep = (sports.pick_tier, sports.beats_price)
+    try:
+        sports.pick_tier = lambda pk: "value"
+        sports.beats_price = lambda leg: False
+        for kind in ("play", "lock", "dog"):
+            assert sports.units_for({"kind": kind, "date": "2026-10-02", "status": "open", "legs": [leg]}) == 0.5, kind
+        assert sports.units_for({"kind": "lean", "lean": True, "date": "2026-10-02", "status": "open", "legs": [leg]}) == 0
+    finally:
+        sports.pick_tier, sports.beats_price = keep
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
