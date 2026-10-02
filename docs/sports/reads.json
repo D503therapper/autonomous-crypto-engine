@@ -1,130 +1,60 @@
 {
- "updated": "2026-10-02T22:07Z",
+ "updated": "2026-10-02T22:52Z",
  "games": [
   {
    "id": "nhl:401891803",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Red Wings",
-    "p": 0.385,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-02T22:30Z",
    "away": "Rangers",
    "home": "Red Wings",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Rangers",
-    "opp": "Red Wings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.648,
-    "win_p": 0.429,
-    "reasons": [
-     "hotter goalie",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892432",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Hurricanes",
-    "p": 0.382,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-02T23:00Z",
-   "away": "Capitals",
-   "home": "Hurricanes",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Capitals",
-    "opp": "Hurricanes",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.655,
-    "win_p": 0.436,
-    "reasons": [
-     "hotter recent form",
-     "better rested",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401871050",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Liberty",
-    "p": 0.701,
-    "tie": 0.029,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-02T23:00Z",
-   "away": "Liberty",
-   "home": "Delaware",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Liberty",
-    "opp": "Delaware",
+    "team": "Red Wings",
+    "opp": "Rangers",
     "market": "ml",
     "line": null,
-    "odds": -270,
-    "p": 0.704,
-    "win_p": 0.704,
+    "odds": -130,
+    "p": 0.576,
+    "win_p": 0.576,
     "reasons": [
-     "better QB play lately",
-     "hotter recent form"
-    ]
+     "better rested",
+     "opponent on a back-to-back"
+    ],
+    "result": null
    }
   },
   {
    "id": "ncaaf:401858245",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Virginia Tech",
-    "p": 0.51,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-02T23:00Z",
    "away": "Pitt",
    "home": "Virginia Tech",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Virginia Tech",
     "opp": "Pitt",
     "market": "ml",
     "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "the stronger team",
      "hotter recent form"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -164,7 +94,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Penn State",
-    "p": 0.555,
+    "p": 0.566,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -180,9 +110,9 @@
     "opp": "Northwestern",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "opponent missing key players"
     ]
@@ -256,7 +186,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana St",
-    "p": 0.807,
+    "p": 0.81,
     "tie": 0.022,
     "name": "1st half"
    },
@@ -272,9 +202,9 @@
     "opp": "Idaho",
     "market": "spread",
     "line": -14.5,
-    "odds": -109,
+    "odds": -114,
     "p": 0.502,
-    "win_p": 0.814,
+    "win_p": 0.817,
     "reasons": [
      "the stronger team",
      "hotter recent form"
