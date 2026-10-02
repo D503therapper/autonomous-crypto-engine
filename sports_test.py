@@ -6122,6 +6122,15 @@ def test_missing_key_players_move_the_own_read():
         ab._TEAM.clear(); ab._TEAM.update(keep)
 
 
+def test_save_retry_survives_a_push_race():
+    """10/2: a run's save died on a push race - 'git rebase --abort' with no rebase going exits 128 and bash -e killed the
+    retry loop, so the run's board / grades never reached main. Every workflow's abort is '|| true'."""
+    import glob
+    for f in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github", "workflows", "*.yml")):
+        y = open(f).read()
+        assert "git rebase --abort 2>/dev/null;" not in y, f
+
+
 def test_fetch_pages_reads_text():
     """10/2: the official availability reports get read on GitHub's servers (tools/fetch_pages.py) - scripts and styles
     stripped, the readable lines kept."""
