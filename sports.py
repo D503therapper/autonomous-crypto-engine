@@ -1674,9 +1674,11 @@ def lock_miss(cands):
     """(the owner, 10/2: "can someone ask the question box what it would have been ... Virginia Tech, but it didn't quite
     meet the criteria") A day with no Lock: the pick that came closest (the old forced-Lock pick, near_lock) and why it
     fell short - for the question box only. Never a pick, never units, never in the record."""
-    c = near_lock([dict(x) for x in cands])
-    if not c or not c.get("dec"):
-        return None
+    pool = [x for x in cands if x.get("market") == "ml" and MAX_FAV <= x.get("odds", 0) <= PLUS_LOCK_MAX and x.get("dec")
+            and not x.get("trap") and not x.get("waiting") and read_of(x) is not None]
+    if not pool:                                              # the likeliest winner by our read in the Lock's price range
+        return None                                           # (-150..+125) - the pick the Lock test looks at first
+    c = max(pool, key=read_of)
     own, need = read_of(c), 1 / c["dec"]
     gap = round((own - need) * 100, 1)
     return {"team": c.get("team"), "opp": c.get("opp"), "league": c.get("league"), "odds": c.get("odds"),
@@ -1687,12 +1689,15 @@ def lock_miss(cands):
 
 
 def save_lock_miss(iso, miss, path=None):
-    """Keeps the last 7 days' near-misses (data/sports/lock_miss.json)."""
+    """Keeps the last 7 days' near-misses (data/sports/lock_miss.json) - the opening board's, never overwritten later
+    in the day by whatever games are left."""
     path = path or LOCK_MISS_PATH
     try:
         st = json.load(open(path))
     except (OSError, ValueError):
         st = {}
+    if iso in st:
+        return
     st[iso] = miss
     st = {k: st[k] for k in sorted(st)[-7:]}
     with open(path, "w") as f:
@@ -2794,7 +2799,7 @@ def post_board(games, model, picks, now, day, force=False):
         picks.append(pk)
         posted[kind] = pk
         new.append(pk)
-    if "lock" in todo and not any(p["date"] == iso and p["kind"] == "lock" and p["status"] != "waiting" for p in picks):
+    if "lock" in todo and not started and not any(p["date"] == iso and p["kind"] == "lock" and p["status"] != "waiting" for p in picks):
         try:                                                  # no Lock today: what it would have been, and why not
             miss = lock_miss(all_cands)                       # (the question box answers "what would the Lock have been")
             if miss:

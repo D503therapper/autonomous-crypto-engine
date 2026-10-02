@@ -6437,6 +6437,14 @@ def test_lock_miss_names_the_closest_pick():
         sports.save_lock_miss(f"2026-10-{d:02d}", m, p)
     st = json.load(open(p))
     assert len(st) == 7 and "2026-10-09" in st and "2026-10-01" not in st
+    sports.save_lock_miss("2026-10-09", {"team": "Later"}, p)          # a later run never overwrites the morning's
+    assert json.load(open(p))["2026-10-09"]["team"] == "Virginia Tech"
+    pen = dict(c, team="Penn State", odds=-142, dec=1 + 100 / 142, game_id="ncaaf:2")
+    pen["edge_own"] = 0.589 * pen["dec"] - 1
+    under = dict(c, edge_own=0.55 * c["dec"] - 1)                       # VT 55% vs the 56.5% -130 needs
+    m2 = sports.lock_miss([under, pen])
+    assert m2["team"] == "Penn State" and "beats the price by 0.2" in m2["why it's not the Lock"]
+    assert "under what the price needs" in sports.lock_miss([under])["why it's not the Lock"]
 
 
 def test_health_restarts_a_skipped_engine():
