@@ -5350,3 +5350,16 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 05:06 UTC] crypto/hold_btc  equity $513.78 (+2.8%) 1 open  market UP
    social heat top: QNT 32 (32/0/0), MON 27 (27/0/0), BTC 24 (24/0/0), NEAR 21 (21/0/0), PENGU 19 (19/0/0)
+   dex screen: REJECT DOT@solana liq $247,348,307 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SURPLUS@base liq $1,032,584 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT LDO@ethereum liq $79,112 - liquidity $79,112 < $100,000; 24h volume $93,179 < $100,000
+   dex screen: REJECT WPRL@ethereum liq $410,556 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: PASS SPX@ethereum liq $12,830,793
+   dex screen: REJECT XAUT@ethereum liq $1,992,135 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 56%
+   dex outcome: emergency_exit SACC@solana:4K8V9yH6 tier A P/L $-67.91 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%)
+   >> dex/dex_hunter: SELL $0.16 of SACC@solana:4K8V9yH6 @ 3e-06, P/L $-67.91 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%)
+   dex screen: REJECT SURPLUS@base liq $1,033,117 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT CRED@solana liq $2,200,607 - mint authority; top-10 holders 74%
+   dex screen: REJECT O@base liq $1,922,066 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT AXLUSDC@base liq $151,983 - goplus partial data: cannot_sell_all unknown; is_mintable; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 80%; lp locked 0% < 95%
+   dex re-screen: AGENCY@solana:7VertkgF flagged once (holders unknown; lp holders unknown; rugcheck lp locked 75% < 95%); re-checking before selling
