@@ -2617,12 +2617,14 @@ def post_board(games, model, picks, now, day, force=False):
             print(f"holding the board: the slate check found {len(probs)} problem(s) - the engine re-pulls and tries "
                   f"again (last try 8:30 PT)")
             return []
-    gaps = data_gaps(games, cands, now)                      # never a pick off half the picture (the owner, 10/1)
+    gaps = data_gaps(games, all_cands, now)                  # never a pick off half the picture (the owner, 10/1)
     if gaps:
         for x in gaps.values():
             print(f"DATA GAP (no pick on this game): {x}", flush=True)
-        cands = [c for c in cands if not any((c["league"], (games.get(c["game_id"]) or {}).get(s_)) in gaps
-                                             for s_ in ("home", "away"))]
+        no_gap = lambda c: not any((c["league"], (games.get(c["game_id"]) or {}).get(s_)) in gaps   # noqa: E731
+                                   for s_ in ("home", "away"))
+        cands = [c for c in cands if no_gap(c)]
+        all_cands = [c for c in all_cands if no_gap(c)]      # (10/2: the leans / backup Lock pool gets every filter too)
     ours = {}                                                # games we're already on today (any pick, graded or not):
     for p in picks:                                          # a new pick never takes the other team in them
         if p["date"] == iso and p["status"] != "waiting":
@@ -2636,6 +2638,7 @@ def post_board(games, model, picks, now, day, force=False):
     except Exception as e:                                   # noqa: BLE001
         print(f"early plays (board side check) failed: {e}")
     cands = [c for c in cands if ours.get(c["game_id"], c["side"]) == c["side"]]
+    all_cands = [c for c in all_cands if ours.get(c["game_id"], c["side"]) == c["side"]]
     settled = [c for c in cands if not c["waiting"]]
     elo = None
     used = {t for p in picks if p["date"] == iso for l in p["legs"] for t in l.get("bd_tags", [])}   # the board's memory
@@ -2764,7 +2767,8 @@ def post_board(games, model, picks, now, day, force=False):
     for gid in nights:                                       # 🏈 the owner, 9/30: Monday and Thursday football ALWAYS
         if gid in _straight_games(picks, iso):               # get a pick - every game (two games = two picks); the
             continue                                         # engine's call, a lean is fine
-        b = night_pick([c for c in cands if c["game_id"] == gid])
+        b = night_pick([c for c in all_cands if c["game_id"] == gid])   # (every NFL night game gets its pick - a
+        #                                                  banged-up side can be its lean; night_pick sizes it)
         if not b:
             continue
         deadline = _start(b["legs"][0]) - timedelta(minutes=DEADLINE_MIN)
@@ -2823,7 +2827,7 @@ def night_pick(pool):
     """The engine's pick for one Monday / Thursday game: its best real play (value, likeliest first); none clears the
     bar - the likeliest side it isn't fighting, as a LEAN. Moneyline or spread, never past -150, never a trap."""
     pool = [c for c in pool if c["market"] in ("ml", "spread") and c["odds"] >= MAX_FAV and not c.get("trap")]
-    real = [c for c in pool if good(c) and real_value(c) and leg_tier(c) in ("lock", "value")]   # (10/2 audit: a strong
+    real = [c for c in pool if good(c) and real_value(c) and leg_tier(c) in ("lock", "value") and not c.get("hurt")]   # (10/2 audit: a strong
     #   lean posted as a ½u unit play labeled LEAN) (10/1 bug hunt: the Steelers at -148 - 0.4 short of the
     if real:                                                 # price - went up labeled LOCK with 0 units)
         c = max(real, key=lambda c: (round(c["p"] * 50), c["edge"]))

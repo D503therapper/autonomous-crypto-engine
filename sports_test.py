@@ -6107,6 +6107,12 @@ def test_board_always_has_lock_dog_three_leans_with_injuries_named():
     assert "best = make_board(all_cands, lock_game" in src         # the Lock falls back to every side we have data on
     assert 'pool(all_cands if kind == "lean" else cands' in src     # the leans fill from every side we have data on
     assert "slate_check(games, all_cands, day, now)" in src        # (10/2: a no-units side isn't 'never looked at')
+    assert "all_cands = [c for c in all_cands if no_gap(c)]" in src  # every safety filter covers the leans' pool too
+    assert 'all_cands = [c for c in all_cands if ours.get(c["game_id"], c["side"]) == c["side"]]' in src
+    assert 'night_pick([c for c in all_cands if c["game_id"] == gid])' in src
+    c = {**_cand("n", 120, 0.6, league="nfl"), "game_id": "n", "hurt": ["A", "B"]}
+    pk = sports.night_pick([c])
+    assert pk and pk.get("lean"), "a banged-up night-football side is its game's lean, never a unit play"
 
 
 def test_no_blind_picks_and_official_reports():
