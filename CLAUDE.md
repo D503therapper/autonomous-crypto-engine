@@ -83,3 +83,6 @@ every session:
 - Once the owner OKs something, publish it without asking again. Show a preview for new visual changes.
 - Commit to main and to the `claude/...` branch; don't open a PR unless asked.
 - What the studies found (built, not built yet, dead ends): `SPORTS_FINDINGS.md` - read it first, add to it.
+- **Every new chat: read `STATUS.md` first** (what's live, what's being tested, the owner's open decisions, what's next)
+  and update it before the session ends - the owner starts fresh chats to save usage, and a new chat must pick up
+  right where the last one left off.
