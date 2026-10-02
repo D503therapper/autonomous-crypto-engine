@@ -6083,6 +6083,15 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_board_goes_up_at_8_sharp():
+    """10/2, the owner's friend: "the board doesn't usually go up till 9." The 7:44 / 7:47 runs pull and check
+    everything, then wait and post at 8:00 sharp."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert "local.minute >= BOARD_EARLY_MIN" in src and 40 <= sports.BOARD_EARLY_MIN < 60
+    wf = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github", "workflows", "sports.yml")).read()
+    assert '"44,47 14,15 * * *"' in wf
+
+
 def test_running_on_fumes_only_on_a_back_to_back():
     """10/2: the Jets card said 'Bruins are running on fumes tonight' - the Bruins had two nights off. 'Better rested'
     never says fumes or 'played last night'; only a real back-to-back does."""

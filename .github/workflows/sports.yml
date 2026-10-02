@@ -4,6 +4,7 @@ name: sports
 on:
   schedule:
     - cron: "23 * * * *"
+    - cron: "44,47 14,15 * * *"          # 7:44 / 7:47 Pacific (10/2: "the board doesn't usually go up till 9"): pull + check everything, post at 8:00 sharp
     - cron: "2,12,32,42,52 15,16 * * *"    # 8am Pacific (10/1: GitHub skipped 8:02 + 8:12 - more tries) (summer 15:00 / winter 16:00 UTC): game day's main board + tennis slate go up on time
     - cron: "1 6,7 * * *"            # 11pm Pacific: today's graded board clears for the "picks drop 8 AM PT" note
   workflow_dispatch:
