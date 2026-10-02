@@ -938,7 +938,7 @@ def _dog_more(games, g, side, other, lg):
     each held at game-day prices and at the early number: football fades (ice cold, an NFL coach's first season, a
     college losing streak, Thursday night), an NFL East Coast team out West, a college team off a 17+ win, college
     coaching style (conservative 4th downs, fast pace), and the MLB playoff dog that just got blown out by this team."""
-    if lg not in ("nfl", "ncaaf", "mlb"):
+    if lg not in ("nfl", "ncaaf", "mlb", "nba"):
         return {}
     import sports_early as se
     try:
@@ -1003,12 +1003,52 @@ def _dog_more(games, g, side, other, lg):
                 if stl:
                     out["conservative"] = stl[0] <= CFB_CONSERVATIVE_4TH
                     out["fast"] = stl[1] >= CFB_FAST_PLAYS
-        elif str(g.get("stype")) == "3" and prev and margin is not None and margin <= -5 and \
-                g[other] in (prev.get("home"), prev.get("away")):
-            out["series_blowout"] = True                # MLB playoffs: lost to THIS team by 5+ last game
+        elif lg == "nba":                               # the 10/2 momentum study (checked twice, from scratch): a team
+            op_prev = se._prev(sched, lg, g[other], g["start"])   # off a COMEBACK win is overpriced next game
+            fresh = lambda x: x and x.get("status") == "final" and (start - se._t(x["start"])).days <= 7   # noqa: E731
+            out["comeback"] = bool(fresh(prev) and comeback_win(prev, g[side]))
+            out["opp_comeback"] = bool(fresh(op_prev) and comeback_win(op_prev, g[other]))
+        else:
+            if str(g.get("stype")) == "3" and prev and margin is not None and margin <= -5 and \
+                    g[other] in (prev.get("home"), prev.get("away")):
+                out["series_blowout"] = True            # MLB playoffs: lost to THIS team by 5+ last game
+            if prev and prev.get("status") == "final" and margin is not None and margin < 0 and \
+                    (start - se._t(prev["start"])).days <= 3:
+                out["late_rally"] = late_rally(prev, g[side])   # lost, but won the last 3 innings by 4+
         return out
     except Exception:                                   # noqa: BLE001 - extra facts never block the board
         return {}
+
+
+def _ls(x, team):
+    """(our line score, theirs) for a final as lists of numbers, or (None, None) when it's missing / broken."""
+    try:
+        h = [float(v) for v in str(x.get("ls_home") or "").split(",") if v.strip() != ""]
+        a = [float(v) for v in str(x.get("ls_away") or "").split(",") if v.strip() != ""]
+        if not h or len(h) != len(a) or sum(h) != float(x["home_score"]) or sum(a) != float(x["away_score"]):
+            return None, None
+    except (TypeError, ValueError, KeyError):
+        return None, None
+    return (h, a) if x.get("home") == team else (a, h)
+
+
+def comeback_win(x, team):
+    """NBA: trailed going into the 4th, won by 3 or less (overtime counts) - the 10/2 momentum study: fading that team
+    next game covered 58.3% (+11.2% ATS, +8.5% ML on 574, up 6 of 8 seasons, 2023-25 all up; it fades smoothly as the
+    win gets less close and grows with the deficit - a LEAD: one sport, the NBA season not started)."""
+    me, them = _ls(x, team)
+    if not me or len(me) < 4:
+        return False
+    return sum(me[:3]) < sum(them[:3]) and 0 < sum(me) - sum(them) <= 3
+
+
+def late_rally(x, team):
+    """MLB: lost, but won the last 3 innings by 4+ - the 10/2 momentum study: next game as a +100..+220 dog +12.0% vs
+    -4.7% for the same prices (411, z 2.6), 3+ / 4+ / 5+ runs all +14..16% (it held in baseball only - a LEAD)."""
+    me, them = _ls(x, team)
+    if not me or len(me) < 3 or sum(me) >= sum(them):
+        return False
+    return sum(me[-3:]) - sum(them[-3:]) >= 4
 
 
 def _dog_ctx(lg, me, them):
@@ -1123,6 +1163,12 @@ def dog_spots(c):
         sc -= 2                    # college coaching style: conservative 4th downs / fast pace dogs -11%, 0 of 5
     if lg == "mlb" and mo.get("series_blowout"):
         sc += 3                    # MLB playoffs: lost to THIS team by 5+ last game: +27.5% on 37 (6 of 8) - thin
+    if lg == "nba" and mo.get("opp_comeback"):
+        sc += 2                    # the favorite is off a comeback win (down after 3, won by 3 or less): fading it +11%
+    if lg == "nba" and mo.get("comeback"):
+        sc -= 2                    # ...and the dog off one is overpriced the same way (10/2 momentum study - a lead)
+    if lg == "mlb" and mo.get("late_rally") and 100 <= odds <= 220:
+        sc += 1.5                  # lost, but won the last 3 innings by 4+: +12% vs -4.7% (10/2 - a lead, baseball only)
     return sc
 
 

@@ -5781,7 +5781,7 @@ def test_dog_findings_weighed_never_auto():
         if keep is not None:
             se._COACH["exp"] = keep
     assert mo["east_west"] is True and mo["last_margin"] == 28 and mo["fades"] == []
-    assert sports._dog_more(G, G["g1"], "away", "home", "nba") == {}
+    assert sports._dog_more(G, G["g1"], "away", "home", "nhl") == {}   # (10/2: the NBA has its momentum facts now)
     src = open(sports.__file__).read()
     assert '"dog_more": _dog_more(games, g, side, other, lg)' in src     # every candidate carries them - weighed in
     #                                                                     dog_score with everything else, never a pick
@@ -7080,6 +7080,28 @@ def test_midday_value_plays_ping_once_when_the_dashboard_shows_them():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert 'pk["midday"] = True' in src and "sports_pings.queue(picks, now)" in src          # wired in the engine
     assert "spg.send_queued" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "early_ping.py")).read()
+
+
+def test_momentum_leads_are_weights():
+    """10/2, the owner: "run five studies on what changes the dynamics of a game - the crowd, nerves, pressure - across
+    the sports." Two held a from-scratch re-check: an NBA team off a COMEBACK win is overpriced next game, and an MLB dog
+    that lost but won the last 3 innings by 4+ is underpriced. Each is a small weight on the dog score, never a trigger;
+    a broken line score never counts (no fact = no weight)."""
+    nba = {"status": "final", "home": "A", "away": "B", "home_score": "101", "away_score": "99",
+           "ls_home": "20,25,24,32", "ls_away": "30,25,24,20"}            # A trailed 69-79 after 3, won by 2
+    assert sports.comeback_win(nba, "A") and not sports.comeback_win(nba, "B")
+    assert not sports.comeback_win({**nba, "home_score": "110", "ls_home": "20,25,24,41"}, "A")   # won by 11: no
+    assert not sports.comeback_win({**nba, "ls_home": "20,25,24,30"}, "A")   # line score doesn't add up: no fact
+    mlb = {"status": "final", "home": "A", "away": "B", "home_score": "6", "away_score": "8",
+           "ls_home": "0,0,0,1,0,0,2,1,2", "ls_away": "3,2,3,0,0,0,0,0,0"}   # lost 6-8, won the 7th-9th 5-0
+    assert sports.late_rally(mlb, "A") and not sports.late_rally(mlb, "B")
+    assert not sports.late_rally({**mlb, "ls_home": "0,0,0,3,0,0,1,1,1", "ls_away": "3,2,3,0,0,0,0,0,0"}, "A")   # 3-0: no
+    base = {"league": "nba", "odds": 150, "dog_ctx": {}}
+    assert sports.dog_spots({**base, "dog_more": {"opp_comeback": True}}) - sports.dog_spots(base) == 2
+    assert sports.dog_spots({**base, "dog_more": {"comeback": True}}) - sports.dog_spots(base) == -2
+    b2 = {"league": "mlb", "odds": 150, "dog_ctx": {}}
+    assert sports.dog_spots({**b2, "dog_more": {"late_rally": True}}) - sports.dog_spots(b2) == 1.5
+    assert sports.dog_spots({**b2, "odds": 240, "dog_more": {"late_rally": True}}) == sports.dog_spots({**b2, "odds": 240})
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
