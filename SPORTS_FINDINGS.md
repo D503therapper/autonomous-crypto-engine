@@ -329,6 +329,36 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
     luck, power-play chances, MLB after 10+ runs, MLB last-10 run-differential and one-run luck, college out-gained-
     but-lost dog. College turnover-luck dogs: fading in 2024-25 - WATCH only.
 
+## 10/2 - five studies on game dynamics: crowd, pressure, nerves, experience, momentum (the owner: "across the sports")
+Closing prices, flat 1u, 2018-26; every lead re-built from scratch by a second check (no leaks: line scores match the
+finals in all but 15 of ~124k games, the next game always after the trigger ended). Scripts: scratchpad, not in repo.
+- **WIRED (small weights on the dog score, never a trigger - sports.comeback_win / late_rally):**
+  - NBA team off a COMEBACK win (trailed after 3, won by 3 or less, OT counts): next game fading it +11.2% ATS / +8.5%
+    ML on 574, covered 41.7%, up 6 of 8 seasons, 2023-25 +10 / +20 / +18; fades smoothly (won by <=5 +5.5, <=6 +2.8),
+    grows with the deficit (trailed 8+ +16). NOT in college hoops (-4.7% on 2,006) or football. Dog score: the
+    favorite off one +2, the dog off one -2. Passes checks 1, 3; 4 waits for the NBA season.
+  - MLB dog that lost but won the last 3 innings by 4+, next game at +100..+220: +12.0% vs -4.7% at the same prices
+    (411, z 2.6; 3+ / 5+ runs +15.6 / +14.2), 2026 +37% on 18. Hockey / basketball versions fail the re-check
+    (threshold-fitted). +1.5.
+- **WATCH (re-check when the season gets there):** NFL division dog in the last 4 weeks with a team in the playoff race
+  85-57 ATS (+14.7%, 6 of 8, 3 of 3 recent - from ~250 cuts); NFL dogs of a 2nd / 3rd-year head coach in Dec / Jan
+  -30.5% ML, covered 44.8% (0 of 8 seasons; the same coaches covered 56% Sep-Nov); NBA team losing the close ones but
+  winning the rest, as a +100..+220 dog +16.1% on 167 (only the tightest cut); NBA conference finals / Finals dogs
+  +17.6% ML (8 of 8) but -2.8% ATS; Game 7 dogs +23% on 78; MLB postseason veteran home starter -16.3% (1 of 9 -
+  overlaps playoff favorites -8.9%); NFL / college fortress home dog +15% / +14% (dies with another look-back);
+  NBA short dog on a 7+ losing streak (+14 vs base on 150).
+- **RE-CHECK:** "NHL dogs facing elimination +10.2%" (above) didn't reproduce: -11.8% on 106 (2018-26). Re-run before
+  the NHL playoffs.
+- **DEAD:** loud / fortress buildings as bets - the Seahawks 12th man (-6.4% then -6.6% at home), Saints dome -28%,
+  Ravens -24%, altitude (Jazz / Nuggets / Rockies priced in), hockey barns; a team's extra home edge doesn't carry to the
+  next season in the pros (r ~0). Motivation: needs-it vs nothing to play for -3.3% on 1,718; resting / tanking /
+  bowl-chasing teams; college rivalry dogs -24.7% (they don't rise up); conference tourney dogs -12.8%. Clutch is luck in
+  every sport (close-game win % doesn't carry: r -0.11..+0.01); blown late leads, comeback-heavy teams, OT records.
+  Nerves / experience: first-time playoff teams don't choke (NFL covered 59%), rookie QBs on the road (+1.7 last 3) or
+  primetime (+17.9%), young NHL playoff goalies, roster playoff experience. College football 4th-quarter heartbreak dog:
+  the "-36%" only held leaving out OT losses; with them -24.4% vs -9.8%, 6 of 9, z -1.3 - noise. Heartbreak / walk-off
+  losses, letdown / sandwich spots, finishing strong on its own.
+
 ## Tested and dead (don't re-chase)
 Hot teams as dogs (-5..-8%, books overcorrect), fading the public (-7..-12% on ~18,000 bets), big money over the bets
 (-10%), baseball travel (no effect), baseball bounce-back after a loss (none, even since 2023), Wild Card dogs as a
