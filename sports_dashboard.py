@@ -615,7 +615,7 @@ def _cards(day, day_picks, cards_by_kind, gone=None, after_lock=""):
     byo = ('<div class="byo">🧩 Build your own parlay from today\'s plays.</div>'   # 🧩 the owner, 10/1: no posted
            if last_play is not None and straight >= 2 else "")                      # parlays - and the line sits AT
     no_lock = not any(k == "lock" for k, *_ in cards_by_kind)                       # THE TOP of the day's board
-    return (_small_slate(day) + byo + after_lock + _lock_note(day, day_picks) + (_dog_note(day, day_picks) if no_lock else "")   # 🎯 WE GOT IN
+    return (byo + _small_slate(day) + after_lock + _lock_note(day, day_picks) + (_dog_note(day, day_picks) if no_lock else "")   # 🎯 WE GOT IN
             + out)                                         # EARLY on game day: just ABOVE the Lock of
     #                                                      the Day (the owner, 9/30) - its own box
 
@@ -1766,7 +1766,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
 .pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
 .pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
 .pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
-.slate-note{{margin:0 0 12px;padding:10px 14px;border:2px solid var(--gold);border-radius:14px;font-weight:800;
+.slate-note{{margin:12px 0 12px;padding:10px 14px;border:2px solid var(--gold);border-radius:14px;font-weight:800;
   color:#fff;text-align:center;font-size:16px}}
 .byo{{text-align:center;font-size:21px;font-weight:900;color:#fff;margin:4px 0 14px;padding:12px 14px;border:2px solid #ffc233;border-radius:14px;background:rgba(255,194,51,.10);letter-spacing:.01em;line-height:1.25}}
 .pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1;white-space:nowrap}}

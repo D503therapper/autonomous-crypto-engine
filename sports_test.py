@@ -7475,6 +7475,7 @@ def test_small_slate_note():
                                      "start": "2026-10-03T01:00Z"} for i in range(5)}
         note = sdb._small_slate("2026-10-02")
         assert "Small slate today — only 5 games on the board. Let's go to work." in note
+        assert "return (byo + _small_slate(day) + after_lock" in open(sdb.__file__).read()   # under the parlay line
         sdb._GAMES_[0] = {f"g{i}": {"league": "nhl", "stype": "2", "status": "pre", "ml_home": "-120",
                                      "start": "2026-10-03T01:00Z"} for i in range(20)}
         assert sdb._small_slate("2026-10-02") == ""
