@@ -12,6 +12,12 @@ import urllib.request
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
 OUT = "results/pages"
 KEY = re.compile(r"(availab|injur|questionable|doubtful|\bout\b|probable|game-time)", re.I)
+# 10/2: Dr. Bob's free analysis (the capper benchmark - tracked, never copied): keep his leans, plays and margins.
+PICKS = re.compile(r"(\blean|best bet|strong opinion|\bplay\b|predict|\bover\b|\bunder\b|[+-]\d+(\.5)?\b|\bATS\b)", re.I)
+
+
+def key_for(url):
+    return PICKS if "drbobsports.com" in url else KEY
 
 
 def text_of(body):
@@ -30,7 +36,7 @@ def main(urls):
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
                 lines = text_of(r.read().decode("utf-8", "replace"))
             title = next((x for x in lines if len(x) > 25), "")[:150]
-            hits = [i for i, x in enumerate(lines) if KEY.search(x)]
+            hits = [i for i, x in enumerate(lines) if key_for(url).search(x)]
             keep = sorted({j for i in hits for j in range(max(0, i - 3), min(len(lines), i + 4))})
             body = "\n".join(lines[j] for j in keep)[:30000]
             dates = sorted(set(re.findall(r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2},? 20\d\d", " ".join(lines))))[:6]

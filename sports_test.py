@@ -6137,6 +6137,9 @@ def test_fetch_pages_reads_text():
     spec = importlib.util.spec_from_file_location("fp", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py"))
     fp = importlib.util.module_from_spec(spec); spec.loader.exec_module(fp)
     assert fp.text_of("<p>WR Koby Howard - Out</p><script>var x=1</script><style>p{}</style>") == ["WR Koby Howard - Out"]
+    # Dr. Bob's pages keep his leans and margins, not injury words
+    assert fp.key_for("https://drbobsports.com/nfl-analysis/").search("Lean: Packers -3.5")
+    assert not fp.key_for("https://www.on3.com/x").search("Lean: Packers")
 
 
 def test_same_board_posted_twice_merges_to_one():
