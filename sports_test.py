@@ -6082,6 +6082,44 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_factor_check_has_fresh_data():
+    """10/2, the owner: "did the engine have all the accurate, updated daily data across every aspect?" Before the
+    board: most of the slate priced 12h+ ago (the odds pull failed), recent games with no final score, the player stats
+    missing - each holds the board. A game or two the books stopped listing is only a note (never holds good picks)."""
+    from datetime import date
+    now = datetime(2026, 10, 2, 15, tzinfo=timezone.utc)
+    keep = {k: dict(getattr(sports, k)) for k in ("DOG_ST", "LAST_STARTS")}
+    keep_cache = sp.CACHE
+    try:
+        sports.DOG_ST[("nba", "1")] = {"won": True}; sports.LAST_STARTS[("nba", "1")] = ["x"]
+        inj = {"nba": {"1": []}}
+        G = {f"g{i}": {"league": "nba", "status": "pre", "start": "2026-10-02T23:00Z", "home_name": f"T{i}",
+                       "odds_time": "2026-10-02T14:30Z"} for i in range(4)}
+        cs = [{**_cand(f"g{i}", -120, 0.55, league="nba"), "game_id": f"g{i}"} for i in range(4)]
+        assert not sports.factor_check(G, cs, inj, date(2026, 10, 2), now)
+        G["g0"]["odds_time"] = "2026-10-01T22:00Z"                # one stale price: a note, not a hold
+        assert not sports.factor_check(G, cs, inj, date(2026, 10, 2), now)
+        for i in range(3):
+            G[f"g{i}"]["odds_time"] = "2026-10-01T22:00Z"         # most stale: the pull failed - hold
+        assert any("fresh price" in p for p in sports.factor_check(G, cs, inj, date(2026, 10, 2), now))
+        for i in range(4):
+            G[f"g{i}"]["odds_time"] = "2026-10-02T14:30Z"
+        for i in range(3):                                       # last night's games never got their finals
+            G[f"y{i}"] = {"league": "nba", "status": "pre", "start": "2026-10-02T00:00Z"}
+        assert any("final score" in p for p in sports.factor_check(G, cs, inj, date(2026, 10, 2), now))
+        for i in range(3):
+            G[f"y{i}"]["status"] = "final"
+        assert not sports.factor_check(G, cs, inj, date(2026, 10, 2), now)
+        sports.DOG_ST[("mlb", "1")] = {"won": True}; inj["mlb"] = {"1": []}
+        sp.CACHE = {}
+        mc = [{**_cand("m", -120, 0.55, league="mlb"), "game_id": "m"}]
+        assert any("player stats" in p for p in sports.factor_check(G, mc, inj, date(2026, 10, 2), now))
+    finally:
+        sp.CACHE = keep_cache
+        for k, v in keep.items():
+            getattr(sports, k).clear(); getattr(sports, k).update(v)
+
+
 def test_the_daily_double_check():
     """10/1, the owner: "every day before the engine posts there needs to be a double check - every factor, every study,
     no bugs on the picks." Part 1: a missing study's data holds the board. Part 2: a pick breaking a rule gets pulled."""
@@ -6093,7 +6131,9 @@ def test_the_daily_double_check():
         probs = sports.factor_check({}, [c], {}, date(2026, 10, 1), datetime(2026, 10, 1, 15, tzinfo=timezone.utc))
         assert any("dog studies" in p for p in probs) and any("injury report" in p for p in probs)
         sports.DOG_ST[("mlb", "1")] = {"won": True}; sports.LAST_STARTS[("mlb", "1")] = ["x"]
+        keep_cache, sp.CACHE = sp.CACHE, {"mlb": [{"player": "x"}]}
         probs = sports.factor_check({}, [c], {"mlb": {"1": []}}, date(2026, 10, 1), datetime(2026, 10, 1, 15, tzinfo=timezone.utc))
+        sp.CACHE = keep_cache
         assert not probs, probs
     finally:
         for k, v in keep.items():
