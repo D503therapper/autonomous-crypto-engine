@@ -6337,6 +6337,9 @@ def test_health_job_pushes_only_its_report():
     y = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github", "workflows", "health.yml")).read()
     assert y.index("git stash -q --include-untracked") > y.index('git commit -qm "health')
     assert y.index("git stash -q --include-untracked") < y.index("git pull --rebase")
+    for wf in ("board_preview", "injury_report", "injury_probe"):   # (10/2: the board preview's save failed the same way)
+        y2 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github", "workflows", wf + ".yml")).read()
+        assert y2.index("git stash -q --include-untracked") < y2.index("git pull --rebase"), wf
 
 
 def test_factor_check_has_fresh_data():
