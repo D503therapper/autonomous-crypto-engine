@@ -7484,6 +7484,27 @@ def test_small_slate_note():
     finally:
         sdb._GAMES_[0] = keep
 
+
+def test_audit_checks_the_cards_words():
+    """10/2, the owner: "the checker needs to check all injury reports ... absolutely everything, no bugs." The audit
+    checks a card's own words: a win streak vs the real games, 'road game' vs who's home, every player named as out vs
+    the injury report it was posted with. It only reports - never touches a pick."""
+    import sports_audit as sa
+    games = {"p1": {"league": "ncaaf", "status": "final", "home": "VT", "away": "a", "home_score": "30",
+                    "away_score": "10", "start": "2026-09-20T19:00Z"},
+             "p2": {"league": "ncaaf", "status": "final", "home": "b", "away": "VT", "home_score": "10",
+                    "away_score": "20", "start": "2026-09-27T19:00Z"},
+             "g": {"league": "ncaaf", "status": "pre", "home": "VT", "away": "PIT", "home_name": "Virginia Tech",
+                   "away_name": "Pitt", "neutral": "0", "start": "2026-10-03T19:00Z"}}
+    leg = {"team": "Virginia Tech", "opp": "Pitt", "side": "home", "league": "ncaaf", "game_id": "g",
+           "outs": [], "opp_outs": ["John Real (WR)"], "key_seen": {},
+           "breakdown": ["🔥 Virginia Tech — 4 straight W's.", "🧳 Road game for Virginia Tech.",
+                         "🚑 Pitt are without Fake Guy tonight."], "why_line": ""}
+    txt = " | ".join(sa.card_facts(leg, games))
+    assert "4 straight wins, the games say 2" in txt and "road game for Virginia Tech" in txt and "Fake Guy" in txt
+    ok = {**leg, "breakdown": ["🔥 Virginia Tech — 2 straight W's.", "🚑 Pitt are without John Real tonight."]}
+    assert sa.card_facts(ok, games) == []
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

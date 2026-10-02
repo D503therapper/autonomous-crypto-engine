@@ -55,6 +55,60 @@ def _started(league, gid, team):
 SEEN = re.compile(r"^(.*?) \((.*?)\)$")
 
 
+STREAK = re.compile(r"(\d+) straight (?:W's|wins|Ws)", re.I)
+NAMED_OUT = re.compile(r"(?:no|without|down|out:?)\s+([A-Z][a-z]+(?: [A-Z][a-zA-Z'\.-]+)+)")
+
+
+def _streak(games, league, team, before):
+    """The team's current win streak going into `before` (finals only)."""
+    res = []
+    for g in sorted((g for g in games.values() if g.get("league") == league and g.get("status") == "final"
+                     and team in (g.get("home"), g.get("away")) and (g.get("start") or "") < before),
+                    key=lambda g: g["start"]):
+        try:
+            m = float(g["home_score"]) - float(g["away_score"])
+        except (TypeError, ValueError, KeyError):
+            continue
+        res.append((m if g["home"] == team else -m) > 0)
+    n = 0
+    for w in reversed(res):
+        if not w:
+            break
+        n += 1
+    return n
+
+
+def card_facts(leg, games):
+    """The card's own words vs the real games and the injury report it was posted with (10/2, the owner: "check all
+    injury reports ... absolutely everything, no bugs"): a win streak it states, 'road game' / 'at home', and every
+    player it names as out. Reports only - never touches a pick."""
+    out = []
+    g = games.get(leg.get("game_id")) or {}
+    lines = list(leg.get("breakdown") or []) + [leg.get("why_line") or ""]
+    text = " ".join(lines)
+    side, other = leg.get("side"), "away" if leg.get("side") == "home" else "home"
+    us, them = leg.get("team") or "", leg.get("opp") or ""
+    for ln in lines:
+        m = STREAK.search(ln)
+        if m and g:
+            who = g.get(side) if us and us in ln else g.get(other) if them and them in ln else None
+            if who is not None:
+                real = _streak(games, leg.get("league"), who, g.get("start") or "")
+                if real != int(m.group(1)):
+                    out.append(f"the card says {m.group(1)} straight wins, the games say {real}: '{ln[:80]}'")
+        if g and str(g.get("neutral")) != "1":
+            if re.search(r"road game for " + re.escape(us), ln, re.I) and side == "home":
+                out.append(f"the card calls it a road game for {us} - they're at home")
+    seen = " ".join(list(leg.get("outs") or []) + list(leg.get("opp_outs") or []) + list((leg.get("key_seen") or {}).keys()))
+    for m in NAMED_OUT.finditer(text):
+        nm = m.group(1)
+        if nm in (us, them) or nm.split()[0] in ("The", "Both", "Backups", "Neither"):
+            continue
+        if nm not in seen and leg.get("outs") is not None:
+            out.append(f"the card names {nm} as out - he's not on the injury report it was posted with")
+    return out
+
+
 def audit_day(picks, games, day):
     """-> {"flags": [...], "clv": [...], "checked": n} for the graded picks of `day` (YYYY-MM-DD)."""
     import sports
@@ -85,6 +139,7 @@ def audit_day(picks, games, day):
                                 if SEEN.match(w) and g.get(f"{side}_name", "?") in SEEN.match(w).group(2)]
                     if real and _nm(real) in {_nm(x) for x in said_out}:
                         flags.append(f"{label}: {real} started for the {g.get(f'{side}_name')} - we had him out")
+            flags += [f"{label}: {x}" for x in card_facts(leg, games)]
             close = sm._int(g.get(f"ml_{leg.get('side')}")) if leg.get("market") == "ml" else None
             if close is not None and leg.get("odds"):
                 a, b = sd.decimal(leg["odds"]), sd.decimal(close)
