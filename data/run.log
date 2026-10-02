@@ -5180,3 +5180,29 @@ DEX: $752.66 (-247.34) · Scammed: 0
 [2026-10-02 00:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-02 00:06 UTC] crypto/hold_btc  equity $503.98 (+0.8%) 1 open  market UP
    social heat top: PENGU 43 (32/0/11), TRUMP 40 (35/0/5), MON 27 (27/0/0), BTC 24 (24/0/0), FET 21 (21/0/0)
+   dex screen: REJECT ZEC@solana liq $2,792,801 - mint authority
+   dex screen: PASS SACC@solana liq $104,136
+   dex outcome: normal TIBBIR@base:0xA4A2E2 tier B P/L $-22.93 (swapped for a stronger coin (SACC: 1h +261%, 6h +435%); this one 0.83x after 45h)
+   >> dex/dex_hunter: SELL $102.89 of TIBBIR@base:0xA4A2E2 @ 0.268283, P/L $-22.93 (swapped for a stronger coin (SACC: 1h +261%, 6h +435%); this one 0.83x after 45h)
+   >> dex/dex_hunter: BUY $67.87 of SACC@solana:4K8V9yH6 @ 0.001211 (dex tier A momentum 1h +266% 6h +405% buys/sells 5419/3572 impact 0.07%)
+   dex screen: PASS ZCAT@solana liq $1,109,521
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CHILLGUY@solana liq $1,593,059 - top-10 holders 50%
+   dex screen: REJECT SYRUP@ethereum liq $1,194,834 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 46%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT TRAC@ethereum liq $516,162 - is_mintable; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: REJECT AZTEC@ethereum liq $14,842,109 - top-10 holders 100%
+   dex screen: REJECT ARC@base liq $149,017 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT SNDKC@base liq $1,216,570 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT DRV@base liq $699,904 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 56%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,160 / base 495 / ethereum 345), refresh cycle 127s (hot 124s), 2947 calls (108 feed, 429s 0, failed 0), 85,169 refreshed (4777 no pair), +166 added / -166 dropped (dead 11, stale 0, cap 155), movers 1 + warming 25 -> queued 3, screened 3 (passed 1), bought 0
+[2026-10-02 01:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 01:06 UTC] crypto/mover     equity $456.21 (-8.8%) 2 open  market UP
+[2026-10-02 01:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 01:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 01:06 UTC] crypto/social_heat equity $535.97 (+7.2%) 2 open  market UP
+[2026-10-02 01:06 UTC] crypto/breakout10 equity $491.99 (-1.6%) 2 open  market UP
+[2026-10-02 01:06 UTC] crypto/momentum  equity $486.41 (-2.7%) 2 open  market UP
+[2026-10-02 01:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 01:06 UTC] crypto/hold_btc  equity $503.64 (+0.7%) 1 open  market UP
+   social heat top: TRUMP 40 (35/0/5), QNT 29 (29/0/0), MON 27 (27/0/0), NEAR 24 (24/0/0), PENGU 23 (13/0/10)
