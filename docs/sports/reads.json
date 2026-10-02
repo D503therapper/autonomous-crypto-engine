@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T07:45Z",
+ "updated": "2026-10-02T07:58Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -719,7 +719,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.51,
+    "p": 0.518,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -728,17 +728,20 @@
    "start": "2026-10-03T17:00Z",
    "away": "White Sox",
    "home": "Guardians",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "White Sox",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -175,
-    "p": 0.596,
-    "win_p": 0.415,
-    "reasons": []
+    "team": "Guardians",
+    "opp": "White Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -162,
+    "p": 0.591,
+    "win_p": 0.591,
+    "reasons": [
+     "better rested",
+     "the stronger team"
+    ]
    }
   },
   {
@@ -2000,7 +2003,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.593,
+    "p": 0.589,
     "tie": 0.111,
     "name": "first 5 innings"
    },
@@ -2016,9 +2019,9 @@
     "opp": "Padres",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.677,
-    "win_p": 0.677,
+    "odds": -225,
+    "p": 0.673,
+    "win_p": 0.673,
     "reasons": [
      "the stronger team",
      "better rested"
