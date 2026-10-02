@@ -66,7 +66,7 @@ jobs:
           python3 -c "import run_live; run_live.flush_log()" || true       # untracked live log -> data/run.log
           git add data SCOREBOARD.md LAB.md docs || true
           git commit -qm "paper-trade end of run $(date -u +%FT%TZ)" || exit 0
-          for i in 1 2 3 4 5; do git pull --rebase --autostash -q -X theirs && git push && break; git rebase --abort 2>/dev/null; sleep 10; done
+          for i in 1 2 3 4 5; do git pull --rebase --autostash -q -X theirs && git push && break; git rebase --abort 2>/dev/null || true; sleep 10; done
       # Hand-off: GitHub drops some scheduled runs (the engine sat idle 11:12-12:30+ UTC on 2026-09-28), so a run that
       # reaches its normal end starts its own successor. Not on cancel/failure (a push already started a new one).
       - if: success()

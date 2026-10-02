@@ -32,5 +32,5 @@ jobs:
           git add data/sports/health.json
           git commit -qm "health $(date -u '+%F %H:%M') UTC" || exit 0
           git stash -q --include-untracked || true   # (10/2: files the check touched blocked the pull - only health.json ships)
-          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null; sleep 5; done
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null || true; sleep 5; done
           [ -n "$ok" ] || exit 1
