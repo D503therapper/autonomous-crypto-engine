@@ -56,13 +56,24 @@ def _am(v):
     return int(s) if re.fullmatch(r"-?\d{3,5}", s) else None
 
 
+def two_way(label, outcomes):
+    """A real moneyline: exactly two sides, overtime in. Never a 3-way / regulation-only line (a tie loses - the Devils
+    at +145 tied after 2 against a -180 close, 10/1: that price is the 60-minute line, not the moneyline)."""
+    lab = str(label or "").lower()
+    if any(w in lab for w in ("3-way", "3 way", "three way", "regulation", "1x2", "60 min")):
+        return False
+    oc = list(outcomes or [])
+    return len(oc) == 2 and not any(str(o.get("englishLabel") or o.get("description") or o.get("type") or "").strip()
+                                    .lower() in ("draw", "tie", "x") for o in oc)
+
+
 # ---------------------------------------------------------------- BetRivers (Kambi)
 def _kambi_ml(e):
     """The event's match moneyline betOffer, or None."""
     for b in e.get("betOffers") or []:
         lab = str((b.get("criterion") or {}).get("englishLabel") or "")
         if (lab.startswith("Moneyline") or lab == "Match Odds") and \
-                str((b.get("betOfferType") or {}).get("englishName")) == "Match":
+                str((b.get("betOfferType") or {}).get("englishName")) == "Match" and two_way(lab, b.get("outcomes")):
             return b
     return None
 

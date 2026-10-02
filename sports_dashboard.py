@@ -2050,9 +2050,10 @@ function draw(d){{var el=document.getElementById("live");if(!el)return;var ps=(d
    ((p.breakdown||[]).length?'<details class="bd"><summary>🔍 Full breakdown</summary><div class="bd-s">'+p.breakdown.map(function(x){{return"<p>"+esc(x)+"</p>"}}).join("")+'</div></details>':'')+
    '</div>';}}).join("")+'</section>':idle(n));}}
 function badge(r){{return r==="won"?'<span class="lr won">✅ CASHED</span>':r==="lost"?'<span class="lr lost">❌ MISSED</span>':""}}
-function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return;   // today's live bets, pending too: straight
- T.forEach(function(e){{var have=el.querySelector('.leg[data-pid="'+e.pid+'"]');       // from the watcher, no page rebuild needed
-  if(e.result){{if(have)have.remove();return}}   // graded: it clears into THE RESULTS right away (the owner, 9/30)
+function today(T,up){{var el=document.getElementById("livetoday");if(!el||!T)return;   // today's live bets, pending too: straight
+ var on={{}};(up||[]).forEach(function(p){{on[p.id]=1}});   // (the owner, 10/1: never in both boxes at once - a bet still up
+ T.forEach(function(e){{var have=el.querySelector('.leg[data-pid="'+e.pid+'"]');       // top as BET IT NOW shows there only)
+  if(e.result||on[e.pid]){{if(have)have.remove();return}}   // graded: it clears into THE RESULTS right away (the owner, 9/30)
   if(have)return;
   var sec=el.querySelector("section");
   if(!sec){{el.innerHTML='<section class="pk" style="--c1:#22d3ee;--c2:#2f8bff;margin-top:14px"><div class="pk-h"><span class="pk-i">📡</span><span class="pk-l tn8">TONIGHT&#39;S LIVE BETS</span><span class="chip in">WE&#39;RE IN</span></div>'+NOU+'</section>';sec=el.querySelector("section");}}
@@ -2063,8 +2064,8 @@ function today(T){{var el=document.getElementById("livetoday");if(!el||!T)return
  var s2=el.querySelector("section");if(s2&&!s2.querySelector(".leg"))el.innerHTML="";   // none going: no blue box
  if(window.d503lt)window.d503lt();}}   // newest on top
 function show(d){{var age=d?Date.now()-d.updated:1e12;   // plays must be fresh; a "nothing on" board holds till the next watch
- if(d&&age<6*3600000)today(d.today);
  if(d&&(d.plays||[]).length&&age>PLAY_FRESH_MS)d=Object.assign({{}},d,{{plays:[],live_games:-1}});   // a price we haven't re-checked in 45s never shows
+ if(d&&age<6*3600000)today(d.today,(age<10*60000&&d.plays)||[]);
  if(d&&d.done)Object.keys(d.done).forEach(function(k){{var r=document.querySelector('.leg[data-pid="'+k+'"]');
    if(r&&!r.classList.contains("won")&&!r.classList.contains("lost"))window.d503stale=1}});   // graded, page says pending
  window.D503S=(d&&age<10*60000&&d.scores)||{{}};if(window.d503lt)window.d503lt();   // live scores next to our pending picks
