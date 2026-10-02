@@ -73,6 +73,11 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   under 2 SE. Best lead: NHL rested team vs a back-to-back, engine 3+ over the open - log it live before any units.
 - Waiting on the owner: the beat-the-close box on the dashboard (preview sent; code sits uncommitted on the claude/
   branch checkout - sports_dashboard.close_box + its test).
+- 10/2 night: GitHub skipped the engine's hourly runs 3 hours - the hourly bug check now restarts it after 80 min.
+- College injury coverage, the hard truth (10/2 night, 10/3 slate): 52 of ~200 lined-game teams verified. NO official
+  report exists for non-conference games (UNC-Notre Dame, Syracuse-UConn, Cal-UNLV...) or for the Sun Belt / CUSA /
+  AAC; the MAC posts game-day reports only (~3h before kickoff, getsomemaction.com). Those games stay off the board
+  (no pick off blind data). The 5:47 / 11:47 routine knows all this now (prompt updated 10/2).
 - NEXT: capper studies (1)-(5) below; NHL rested-vs-back-to-back live log (no units); weigh OL / defense absences.
 
 **Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**
