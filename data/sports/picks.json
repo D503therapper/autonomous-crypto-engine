@@ -3044,6 +3044,11 @@
      "game:div"
     ],
     "dec": 2.8,
+    "decider": {
+     "s": "6-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -3057,6 +3062,10 @@
     "edge_own": -0.029156697045448765,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0",
+     "h": "2,3,1"
+    },
     "form_state": null,
     "game_id": "nhl:401891828",
     "home": false,
@@ -3083,9 +3092,11 @@
     "public": "fade",
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": true,
+    "score": "Blackhawks 0 @ Mammoth 6",
+    "settled": "2026-10-02T04:43Z",
     "side": "away",
     "start": "2026-10-02T01:30Z",
     "stype": "2",
@@ -3102,12 +3113,14 @@
    }
   ],
   "p_hit": 0.3467,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-01T15:38Z",
   "round": 1,
+  "settled": "2026-10-02T04:43Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0.5
  },
  {
   "american": -148,
