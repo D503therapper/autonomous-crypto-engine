@@ -1,28 +1,37 @@
 {
- "at": "2026-10-02T17:35Z",
+ "at": "2026-10-02T18:19Z",
  "fixes": [],
  "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "workflow failed: sports 2026-10-02T17:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37039344253"
+  "live tennis scores: tennis Kostovic vs Ruzic: no points for 730s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (32s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 9 of today's games named, priced and looked at",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-02T18:19Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kostovic vs Ruzic: no points for 730s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-02T17:35Z",
    "fixes": [],
@@ -633,13 +642,6 @@
   },
   {
    "at": "2026-09-30T04:24Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-09-29 Alexander Blockx) - sports.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-09-30T04:22Z",
    "fixes": [
     "1 finished pick(s) not graded (tennis 2026-09-29 Alexander Blockx) - sports.yml already running"
    ],
