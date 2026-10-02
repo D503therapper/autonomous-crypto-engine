@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T15:27Z",
+ "updated": "2026-10-02T15:39Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -16,8 +16,8 @@
    "start": "2026-10-02T22:30Z",
    "away": "Rangers",
    "home": "Red Wings",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Rangers",
     "opp": "Red Wings",
@@ -111,8 +111,8 @@
    "start": "2026-10-02T23:00Z",
    "away": "Pitt",
    "home": "Virginia Tech",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Virginia Tech",
     "opp": "Pitt",
@@ -142,8 +142,8 @@
    "start": "2026-10-03T00:00Z",
    "away": "Bruins",
    "home": "Jets",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Bruins",
     "opp": "Jets",
@@ -173,8 +173,8 @@
    "start": "2026-10-03T00:00Z",
    "away": "Penn State",
    "home": "Northwestern",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Penn State",
     "opp": "Northwestern",
@@ -201,8 +201,8 @@
    "start": "2026-10-03T01:00Z",
    "away": "Blues",
    "home": "Stars",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Stars",
     "opp": "Blues",
@@ -268,10 +268,10 @@
     "team": "Montana St",
     "opp": "Idaho",
     "market": "spread",
-    "line": -14.0,
-    "odds": -117,
+    "line": -14.5,
+    "odds": -115,
     "p": 0.502,
-    "win_p": 0.821,
+    "win_p": 0.82,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -1219,7 +1219,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.575,
+    "p": 0.577,
     "tie": 0.112,
     "name": "first 5 innings"
    },
@@ -1235,9 +1235,9 @@
     "opp": "Braves",
     "market": "ml",
     "line": null,
-    "odds": -215,
-    "p": 0.657,
-    "win_p": 0.657,
+    "odds": -217,
+    "p": 0.659,
+    "win_p": 0.659,
     "reasons": [
      "better rested",
      "the stronger team",
@@ -1616,8 +1616,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.383,
-    "tie": 0.298,
+    "p": 0.373,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1632,11 +1632,12 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -222,
-    "p": 0.651,
-    "win_p": 0.43,
+    "odds": -230,
+    "p": 0.669,
+    "win_p": 0.45,
     "reasons": [
      "hotter recent form",
+     "sharp money moving this way",
      "opponent drama: trade drama"
     ]
    }
@@ -1647,7 +1648,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Oilers",
-    "p": 0.432,
+    "p": 0.435,
     "tie": 0.293,
     "name": "1st period"
    },
@@ -1663,9 +1664,9 @@
     "opp": "Kraken",
     "market": "ml",
     "line": null,
-    "odds": -233,
-    "p": 0.669,
-    "win_p": 0.669,
+    "odds": -238,
+    "p": 0.674,
+    "win_p": 0.674,
     "reasons": [
      "the stronger team"
     ]
@@ -1705,7 +1706,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.368,
+    "p": 0.367,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1721,9 +1722,9 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -244,
-    "p": 0.682,
-    "win_p": 0.464,
+    "odds": -230,
+    "p": 0.683,
+    "win_p": 0.465,
     "reasons": [
      "better rested",
      "the stronger team",
