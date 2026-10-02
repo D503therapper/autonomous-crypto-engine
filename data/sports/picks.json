@@ -3147,6 +3147,15 @@
      "game:rival"
     ],
     "dec": 1.6756756756756757,
+    "decider": {
+     "c": "0:10",
+     "k": "fg",
+     "p": "Andre Szmyt",
+     "s": "27-24",
+     "type": "late",
+     "win": "home",
+     "y": 56
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -3169,6 +3178,10 @@
     "edge_own": -0.011898522288855351,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,3,0,14",
+     "h": "0,21,0,6"
+    },
     "form_state": [
      3.0,
      1,
@@ -3218,9 +3231,11 @@
      "revenge game"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Steelers 24 @ Browns 27",
+    "settled": "2026-10-02T03:58Z",
     "side": "away",
     "start": "2026-10-02T00:15Z",
     "stype": "2",
@@ -3237,12 +3252,14 @@
    }
   ],
   "p_hit": 0.5721,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-01T15:38Z",
   "round": 1,
+  "settled": "2026-10-02T03:58Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -108,
@@ -3274,6 +3291,11 @@
      "game:div"
     ],
     "dec": 1.925925925925926,
+    "decider": {
+     "s": "6-1",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -3286,6 +3308,10 @@
     "edge_own": -0.035601958084707896,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,0,3",
+     "h": "0,0,1"
+    },
     "form_state": null,
     "game_id": "nhl:401891777",
     "home": false,
@@ -3314,9 +3340,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": true,
+    "score": "Kraken 6 @ Flames 1",
+    "settled": "2026-10-02T03:58Z",
     "side": "away",
     "start": "2026-10-02T01:00Z",
     "stype": "2",
@@ -3333,12 +3361,14 @@
    }
   ],
   "p_hit": 0.5008,
-  "pnl": 0.0,
+  "pnl": 92.59,
   "posted": "2026-10-01T15:38Z",
   "round": 1,
+  "settled": "2026-10-02T03:58Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T03:52Z",
+ "updated": "2026-10-02T03:58Z",
  "games": [
   {
    "id": "nhl:401891817",
@@ -114,7 +114,7 @@
    "home": "Browns",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Steelers",
@@ -129,7 +129,7 @@
      "opponent missing key players",
      "revenge game"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -143,7 +143,7 @@
    "home": "Flames",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Kraken",
@@ -156,7 +156,7 @@
     "reasons": [
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -404,7 +404,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Penn State",
-    "p": 0.564,
+    "p": 0.561,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -493,8 +493,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana St",
-    "p": 0.779,
-    "tie": 0.024,
+    "p": 0.829,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -511,10 +511,10 @@
     "line": -17.5,
     "odds": -104,
     "p": 0.503,
-    "win_p": 0.777,
+    "win_p": 0.843,
     "reasons": [
-     "hotter recent form",
-     "the stronger team"
+     "the stronger team",
+     "hotter recent form"
     ]
    }
   }
