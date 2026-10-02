@@ -7396,6 +7396,32 @@ def test_study_angles_never_outweigh_the_read():
         sports.dog_spots = keep
     assert abs(hi - mid - sports.STUDY_CAP) < 1e-9 and abs(mid - lo - sports.STUDY_CAP) < 1e-9 and sports.STUDY_CAP == 6
 
+
+def test_daily_pick_audit_catches_false_data():
+    """10/2, the owner: "we need to put a review on the engine's picks every day to make sure it made the picks with
+    the right data and the right decisions." A player we said was OUT who played, a lean with units, a thin edge at
+    more than ½u - each one flagged; the close vs our price logged."""
+    import sports_audit as sa
+    import sports_players as sp
+    keep = (dict(sa._ROSTER), sp.CACHE, sports.units_for)
+    try:
+        sa._ROSTER.clear()
+        sa._ROSTER["nfl"] = {"nfl:1": {"aaron rodgers", "deshaun watson", "drew allar"}}
+        sp.CACHE = {"nfl": [{"gid": "nfl:1", "team": "5", "player": "Deshaun Watson", "role": "QB"}]}
+        games = {"nfl:1": {"home": "5", "away": "23", "home_name": "Browns", "away_name": "Steelers", "ml_away": "-148"}}
+        leg = {"team": "Steelers", "odds": -118, "dec": 1.847, "side": "away", "market": "ml", "league": "nfl",
+               "game_id": "nfl:1", "edge_own": 0.08, "p": 0.6,
+               "key_seen": {"Drew Allar (Steelers QB)": "Out", "Deshaun Watson (Browns QB)": "Out"}}
+        lean = {"date": "2026-10-02", "kind": "lean", "lean": True, "status": "lost", "legs": [dict(leg)]}
+        sports.units_for = lambda pk: 1.0
+        r = sa.audit_day([lean], games, "2026-10-02")
+        txt = " | ".join(r["flags"])
+        assert "Drew Allar OUT" in txt and "Deshaun Watson OUT" in txt and "started for the Browns" in txt
+        assert "a lean carried 1.0u" in txt and r["clv"] and "beat the close" in r["clv"][0]
+    finally:
+        sa._ROSTER.clear(); sa._ROSTER.update(keep[0]); sp.CACHE, sports.units_for = keep[1], keep[2]
+    assert "sports_audit.run(picks, games" in open(sports.__file__).read()
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
@@ -7405,6 +7431,8 @@ if __name__ == "__main__":
     sports_early.PINGS_PATH = os.path.join(tempfile.mkdtemp(), "early_pings.json")
     import sports_pings
     sports_pings.PATH = os.path.join(tempfile.mkdtemp(), "play_pings.json")                # (nor the mid-day pings)
+    import sports_audit
+    sports_audit.PATH = os.path.join(tempfile.mkdtemp(), "pick_audit.json")             # (nor the pick audit)
     import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list
     sd.STARTER_OF = lambda lg, tid, name: True           #  made-up injured starters - the starter tests use the real check)
     import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)

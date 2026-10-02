@@ -2859,6 +2859,12 @@ def run(repick=False, fetch=True):
     n_players = sum(len(rows) for rows in sp.CACHE.values())
     for pk in grade(picks, games, now):
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']} {pk['pnl']:+.2f}")
+    try:                                                     # 🔎 the daily pick audit (the owner, 10/2): did every
+        import sports_audit                                  # graded pick use the right data and the right size?
+        d0 = now.astimezone(PT).date()
+        sports_audit.run(picks, games, [(d0 - timedelta(days=k)).isoformat() for k in (2, 1, 0)])
+    except Exception as e:                                   # noqa: BLE001 - the audit never blocks the board
+        print(f"pick audit failed: {str(e)[:80]}")
     if fetch:
         deciders(picks)
     day = now.astimezone(PT).date()
