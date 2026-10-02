@@ -369,6 +369,16 @@ winner - the profit is in the dog gates. BUILT: own read under 3% = ½u (sports.
 ½u was built and rolled back the same night (the owner: "we can't be having half units all across the board"). Sizing sim: old -125u / last 3 -139u / 2026 -4.5u -> ½u <8% + favorites ½u +73u / -59u / +6.2u. Re-check on
 a full-board replay (gates, spots, calibration) - a LEAD until then.
 
+## 10/2 - the unit system (walk-forward replay of the real board: 712 days, 1,192 unit plays, 2023-26)
+Units won / ROI / since 7/2023 / 2026: today's sizing (Kelly on everything) -57.0u / -4.3% / -15.2u / +16.7u; flat 1u
+-35.7u / -3.0%; tiers -38.2u; confidence buckets -54.8u; Lock by read + rest flat -27.5u / +0.7u / +27.8u; **Lock by
+read, Dog 1u, plays ½u -12.2u / -1.1% / +10.5u / +33.7u (3 of 5 seasons) - BUILT**; same with the Dog 2u (+ hockey 2u)
++13.0u / +1.0% - not built (picked after seeing the numbers, rides one hot hockey season). By kind (flat): value plays
+-6.7% (1 of 5 seasons; sized up -10.5%), Lock -6.0% flat but -3.2% by read and +12.7% in 2026, Dog +8.9% (3 of 5;
+hockey dogs +11.2% on 211, almost all 2025-26). The backup near_lock -17% flat (78 days) - the owner keeps a Lock
+every day, at ½u. Daily units: today's sizing ran from ½u days to a 33.5u day (sd 3.7); the new system sd ~2.
+Peeking: model re-tuned per season on earlier seasons, but the rules / study weights were built with every season seen.
+
 ## 10/2 - the point system (5 studies, walk-forward, 41,497 dogs +100..+220, 2019-26, closing prices)
 - **Hand points beat learned points out of sample** (top pick/day: hand +1.5%, learned -0.2%, no angles +0.1%; all
   dogs score > 0: -2.0% vs -2.6% vs -3.1%; within noise ±2.5%). The own read barely predicts dog wins (0.02-0.09 per
