@@ -6082,6 +6082,21 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_fill_lean_skips_a_team_missing_players():
+    """10/2: the Red Wings fill lean had Dylan Larkin OUT, the Jets fill lean Connor Hellebuyck (their starting goalie)
+    suspended - the engine weighs neither. A fill lean whose team has anyone out / doubtful, or a key player suspended,
+    doesn't go up; injured-reserve depth players don't stop it."""
+    g = {"league": "nhl", "home": "1", "away": "2", "home_name": "Red Wings", "away_name": "Rangers"}
+    inj = {"nhl": {"1": [("Dylan Larkin", "C", "Out"), ("Carter Bear", "LW", "Injured Reserve")],
+                   "2": [("Aidan Thompson", "C", "Injured Reserve")],
+                   "3": [("Connor Hellebuyck", "G", "Suspension")]}}
+    assert sports.fill_hurt(g, "home", inj) == ["Dylan Larkin"] and sports.fill_hurt(g, "away", inj) == []
+    j = {"league": "nhl", "home": "3", "away": "2", "home_name": "Jets", "away_name": "Bruins"}
+    assert sports.fill_hurt(j, "home", inj) == ["Connor Hellebuyck"]
+    cs = [{**_cand("rw", -130, 0.576, league="nhl"), "game_id": "rw", "w_p": 0.55}]
+    assert sports.viewer_leans(cs, set())[0].get("fill") is True
+
+
 def test_lean_waits_only_on_a_verified_starter():
     """10/2, the owner: "the player listed is questionable. It's not a starting goalie ... it doesn't change the game."
     A lean (no money) waits only on a goalie our box scores show starting; a unit play keeps the safety (an unknown

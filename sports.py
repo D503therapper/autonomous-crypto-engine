@@ -1934,8 +1934,18 @@ def viewer_leans(cands, avoid):
     for c in sorted(extra.values(), key=lambda c: -c["p"]):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:
             per[c["league"]] = per.get(c["league"], 0) + 1
-            out.append(c)
+            out.append({**c, "fill": True})
     return out
+
+
+def fill_hurt(g, side, injuries):
+    """A fill lean's team missing somebody the engine doesn't weigh (10/2: the Red Wings lean with Dylan Larkin OUT,
+    the Jets lean with Connor Hellebuyck suspended): anyone ruled out / doubtful, or a key player (goalie / QB) on a
+    suspension. The fill leans are the engine's thinnest calls - one of those and it isn't a lean."""
+    inj = (injuries or {}).get(g["league"])
+    rows = sd._team_rows(inj, g[side], g[side + "_name"])
+    return [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM)
+            or ("suspen" in r[2].lower() and sd._is_key(r, g["league"], g[side + "_name"]))]
 
 
 def lean(cands, kind, taken=None, floor=None):
@@ -2675,6 +2685,9 @@ def post_board(games, model, picks, now, day, force=False):
                 break
             if c["waiting"] and not force and not (kind == "lean" and not waiting_on(games[c["game_id"]], injuries, maybe=False)):
                 continue                                     # (a lean waits only on a verified starter - 10/2)
+            if c.get("fill") and fill_hurt(games[c["game_id"]], c["side"], injuries):
+                print(f"   fill lean skipped: {c['team']} - missing {', '.join(fill_hurt(games[c['game_id']], c['side'], injuries)[:3])}")
+                continue
             b = {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": kind == "lean"}
             dress(b)
             pk = {"date": iso, "kind": kind, "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "round": 1, "legs": b["legs"],
