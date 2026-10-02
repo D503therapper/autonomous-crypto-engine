@@ -524,17 +524,32 @@ def _is_key(r, league, team_name):
     return keys is None or r[1] in (keys or set())
 
 
+STARTER_OF = None      # (league, team id, name) -> True / False / None (unknown) - set by sports_players: is he the
+#                        team's real starter at QB / in goal lately? (10/2: two backup QBs read as "starting QB out")
+
+
+def _starter(r, league, team_id):
+    if league not in ("nfl", "ncaaf", "nhl") or STARTER_OF is None:
+        return True
+    try:
+        ok = STARTER_OF(league, team_id, r[0])
+    except Exception:                                    # noqa: BLE001
+        ok = None
+    return ok is not False                               # unknown (no box scores) keeps the old read
+
+
 def team_key_out(inj, team_id, team_name, league):
-    """Key players (QB, goalie, a team's best bats) who are out - short or long term. The ratings can't see these."""
+    """Key players (the STARTING QB / goalie, a team's best bats) who are out - short or long term. The ratings can't
+    see these. A backup QB / goalie on the report is never one (10/2)."""
     return [r for r in _team_rows(inj, team_id, team_name)
             if KEY_POS.get(league) is not None and _is_key(r, league, team_name)
-            and any(s in r[2].lower() for s in SHORT_TERM + LONG_OUT)]
+            and any(s in r[2].lower() for s in SHORT_TERM + LONG_OUT) and _starter(r, league, team_id)]
 
 
 def team_unsure(inj, team_id, team_name, league):
     """Key players whose status is still up in the air (e.g. a questionable QB, a day-to-day slugger)."""
     return [r for r in _team_rows(inj, team_id, team_name)
-            if any(s in r[2].lower() for s in UNSURE) and _is_key(r, league, team_name)]
+            if any(s in r[2].lower() for s in UNSURE) and _is_key(r, league, team_name) and _starter(r, league, team_id)]
 
 
 # ---------------------------------------------------------------- baseball: who the stars are, who's in the lineup
