@@ -528,28 +528,39 @@ STARTER_OF = None      # (league, team id, name) -> True / False / None (unknown
 #                        team's real starter at QB / in goal lately? (10/2: two backup QBs read as "starting QB out")
 
 
-def _starter(r, league, team_id):
-    if league not in ("nfl", "ncaaf", "nhl") or STARTER_OF is None:
+def _starter(r, league, team_id, maybe=False):
+    if league not in ("nfl", "ncaaf", "nhl", "nba"):
         return True
+    if STARTER_OF is None:                               # (the starter list isn't loaded: nothing is claimed)
+        try:
+            import sports_players                        # noqa: F401 - installs STARTER_OF
+        except Exception:                                # noqa: BLE001
+            return False
+        if STARTER_OF is None:
+            return False
     try:
         ok = STARTER_OF(league, team_id, r[0])
     except Exception:                                    # noqa: BLE001
         ok = None
-    return ok is not False                               # unknown (no box scores) keeps the old read
+    return ok is True or (maybe and ok is None)          # (the owner, 10/2: "that absolutely cannot ever happen
+    #   again") - only a VERIFIED starter (started one of the team's last 3 games in our box scores) is key; unknown
+    #   (no box scores yet - week 1, a small school) is never claimed or weighed (never false information)
 
 
-def team_key_out(inj, team_id, team_name, league):
+def team_key_out(inj, team_id, team_name, league, maybe=False):
     """Key players (the STARTING QB / goalie, a team's best bats) who are out - short or long term. The ratings can't
     see these. A backup QB / goalie on the report is never one (10/2)."""
     return [r for r in _team_rows(inj, team_id, team_name)
             if KEY_POS.get(league) is not None and _is_key(r, league, team_name)
-            and any(s in r[2].lower() for s in SHORT_TERM + LONG_OUT) and _starter(r, league, team_id)]
+            and any(s in r[2].lower() for s in SHORT_TERM + LONG_OUT) and _starter(r, league, team_id, maybe)]
 
 
-def team_unsure(inj, team_id, team_name, league):
+def team_unsure(inj, team_id, team_name, league, maybe=False):
     """Key players whose status is still up in the air (e.g. a questionable QB, a day-to-day slugger)."""
     return [r for r in _team_rows(inj, team_id, team_name)
-            if any(s in r[2].lower() for s in UNSURE) and _is_key(r, league, team_name) and _starter(r, league, team_id)]
+            if any(s in r[2].lower() for s in UNSURE) and _is_key(r, league, team_name) and _starter(r, league, team_id, maybe)]
+#   maybe=True (the safety blocks only - an early play, a pick waiting on news): an unverified QB / goalie still BLOCKS
+#   the bet; it's never claimed on a card or weighed in the read
 
 
 # ---------------------------------------------------------------- baseball: who the stars are, who's in the lineup

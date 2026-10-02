@@ -4285,7 +4285,7 @@ def test_early_value_plays():
         assert pings[0] is None and pings[1]["game_id"] == "1"        # the breakthrough ping first, then the play
         assert se.post(games, {"params": {}}, now, ping=pings.append, lines=lambda lg: []) == [] and len(pings) == 2
         saved_un = sd.team_unsure                                     # the owner, 9/30: a questionable star on
-        sd.team_unsure = lambda inj, tid, name, lg: [("Star", "PG", "Questionable")]   # our side = no early play
+        sd.team_unsure = lambda inj, tid, name, lg, maybe=False: [("Star", "PG", "Questionable")]   # our side = no early play
         try:
             games["6"] = game("6", 185, 190)
             assert se.scan(games, {"params": {}}, now, injuries={"nfl": {"x": []}}) == []
@@ -4387,7 +4387,7 @@ def test_we_got_in_early_box():
         # the owner, 9/30: our starting QB ruled out after we posted -> the price blows up; never "better price now"
         games["b"].update(home="1", home_name="Teamb")
         saved_ko = sd.team_key_out
-        sd.team_key_out = lambda inj, tid, name, lg: [("Lamar Jackson", "QB", "Out")] if name == "Teamb" else []
+        sd.team_key_out = lambda inj, tid, name, lg, maybe=False: [("Lamar Jackson", "QB", "Out")] if name == "Teamb" else []
         try:
             st["picks"][1]["out_at_post"] = []                 # nobody out when it posted
             st["picks"][2]["out_at_post"] = ["Lamar Jackson"]  # already out when it posted: priced in, not news
@@ -5670,8 +5670,8 @@ def _six_early_spots():
     assert not any(c["team"] == "Bills" for c in se.spot_scan(G, gd, own_of=agree, hist_dir=tempfile.mkdtemp()))
     # a key player out / questionable on our side: never
     keep = (sd.team_key_out, sd.team_unsure)
-    sd.team_key_out = lambda inj, tid, name, lg: [("QB1", "QB", "Out")] if name == "Bills" else []
-    sd.team_unsure = lambda inj, tid, name, lg: []
+    sd.team_key_out = lambda inj, tid, name, lg, maybe=False: [("QB1", "QB", "Out")] if name == "Bills" else []
+    sd.team_unsure = lambda inj, tid, name, lg, maybe=False: []
     try:
         assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"nfl": {"x": 1}}, agree, hist_dir=tempfile.mkdtemp()))
     finally:
@@ -7363,17 +7363,21 @@ def test_a_backup_qb_out_is_never_the_starter():
     Taylen Green for the Browns." Both were BACKUPS (Rodgers and Watson started) - false, and the engine weighed it
     ('opponent missing key players'). Only a QB / goalie who started one of the team's last 3 games is key."""
     import sports_players as sp
-    keep = sp.CACHE
+    keep, keep_hook = sp.CACHE, sd.STARTER_OF
+    sd.STARTER_OF = sp._starter_of
     try:
         sp.CACHE = {"nfl": [{"gid": f"g{i}", "start": f"2026-09-{10 + i}", "team": "23", "player": "Aaron Rodgers",
                              "role": "QB"} for i in range(3)]}
         inj = {"23": [("Drew Allar", "QB", "Out"), ("Aaron Rodgers", "QB", "Out")], "5": [("Taylen Green", "QB", "Out")]}
         assert [r[0] for r in sd.team_key_out(inj, "23", "Steelers", "nfl")] == ["Aaron Rodgers"]
-        assert sd.team_key_out(inj, "5", "Browns", "nfl") == [("Taylen Green", "QB", "Out")]   # no box scores: unknown
+        assert sd.team_key_out(inj, "5", "Browns", "nfl") == []          # no box scores: unknown = never claimed
+        assert sd.team_key_out(inj, "5", "Browns", "nfl", maybe=True) == [("Taylen Green", "QB", "Out")]   # ...but an
+        #                                                     unverified QB still BLOCKS a bet (the safety checks only)
         sp.CACHE["nfl"] += [{"gid": "b1", "start": "2026-09-20", "team": "5", "player": "Deshaun Watson", "role": "QB"}]
         assert sd.team_key_out(inj, "5", "Browns", "nfl") == []                                   # a backup: never key
+        assert sd.team_key_out(inj, "5", "Browns", "nfl", maybe=True) == []                       # nor a block
     finally:
-        sp.CACHE = keep
+        sp.CACHE, sd.STARTER_OF = keep, keep_hook
 
 
 def test_study_angles_never_outweigh_the_read():
@@ -7401,6 +7405,8 @@ if __name__ == "__main__":
     sports_early.PINGS_PATH = os.path.join(tempfile.mkdtemp(), "early_pings.json")
     import sports_pings
     sports_pings.PATH = os.path.join(tempfile.mkdtemp(), "play_pings.json")                # (nor the mid-day pings)
+    import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list
+    sd.STARTER_OF = lambda lg, tid, name: True           #  made-up injured starters - the starter tests use the real check)
     import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)
     sports_leads.PATH = os.path.join(tempfile.mkdtemp(), "lead_tracker.json")
     sports_leads.RECORD = os.path.join(tempfile.mkdtemp(), "lead_record.json")
