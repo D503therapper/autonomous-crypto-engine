@@ -7202,6 +7202,34 @@ def test_no_reasonless_crowd_line():
     assert cg.problem("📊 91% of the bets on Penn State (30% of the money). We with the crowd tonight, but we got our own reasons.")
     assert not cg.problem("🤝 Public side on Penn State, but we got our own reasons — 4 straight W's.")
 
+
+def test_every_sport_weighs_the_favorite_by_the_dog_across():
+    """10/2, the owner: "make sure the engine weighs everything making its picks." The study weights (fades, spots,
+    momentum, injuries) moved only the DOG's score outside hockey - a favorite like Virginia Tech never felt them. Now
+    every favorite's read moves the other way: half a point per point of the dog's study score, capped at 4."""
+    fav = {"game_id": "g", "league": "ncaaf", "market": "ml", "odds": -142, "dec": 1.704, "edge_own": -0.012, "p": 0.56}
+    dog = {"game_id": "g", "league": "ncaaf", "market": "ml", "odds": 120, "dec": 2.2, "dog_ctx": {}, "dog_more": {}}
+    own = (fav["edge_own"] + 1) / fav["dec"]
+    keep = sports.dog_spots
+    try:
+        sports.dog_spots = lambda c: -3                                 # e.g. the dog's key player is out
+        a, b = dict(fav), dict(dog)
+        sports.weigh_favorites([a, b])
+        assert abs(a["w_p"] - (own + 0.015)) < 1e-4 and sports.read_of(a) == a["w_p"]
+        sports.dog_spots = lambda c: 20                                 # capped at 4 points
+        a = dict(fav)
+        sports.weigh_favorites([a, dict(dog)])
+        assert abs(a["w_p"] - (own - 0.04)) < 1e-4
+        sports.dog_spots = lambda c: 0                                  # nothing on the dog: the favorite's own read
+        a = dict(fav)
+        sports.weigh_favorites([a, dict(dog)])
+        assert "w_p" not in a
+    finally:
+        sports.dog_spots = keep
+    assert not sports.hockey_fav_bad({**fav, "w_p": 0.5})              # (outside hockey the backup Lock still works)
+    src = open(sports.__file__).read()
+    assert "weigh_favorites(out)" in src
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
