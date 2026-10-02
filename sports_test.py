@@ -458,7 +458,7 @@ def test_comeback_study_and_live_rules():
     assert sports_live.two_books((-145, 110), (-140, 115)) == (-140, 115, True)        # Bovada's price, confirmed
     assert sports_live.two_books((None, None), (-140, 115)) == (-140, 115, False)      # Bovada alone is enough
     assert sports_live.two_books((-145, 110), (None, None)) == (-145, 110, False)      # DraftKings when Bovada has none
-    assert sports_live.two_books((-145, 110), (220, -295)) == (220, -295, False)       # books apart: Bovada, unconfirmed
+    assert sports_live.two_books((-145, 110), (220, -295)) == (None, None, False)       # books apart: no price (10/1)
     assert sports_live.two_books((None, None), (None, None)) == (None, None, False)
     assert sports_live.two_books((0, 0), (None, None)) == (None, None, False), "a pulled line (0) is no price"
     # a play that's already up stays while there's any value left, a new one needs 5%+
@@ -7122,6 +7122,17 @@ def test_a_live_bet_is_never_in_both_boxes_and_never_a_3way_price():
     assert "sports_books.two_way(" in src
     dash = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert "function today(T,up)" in dash and "if(e.result||on[e.pid])" in dash and "today(d.today,(age<10*60000&&d.plays)||[])" in dash
+
+
+def test_a_favorite_tied_at_plus_money_needs_two_books():
+    """10/1, the owner ("this needs fixed so it doesn't happen again"): the Devils, a -180 favorite tied after 2, went up
+    at +145 - the books had them -174. Two books far apart = no price; and a pregame favorite that isn't losing at plus
+    money only plays when a second book confirms that price."""
+    assert sports_live.two_books((-174, 119), (145, -190)) == (None, None, False)
+    assert sports_live.two_books((-174, 119), (-170, 125))[2] is True
+    src = open(sports_live.__file__).read()
+    assert "my >= their and (pre_market_p if side == \"home\" else 1 - pre_market_p) >= FAV_PRE" in src
+    assert sports_live.FAV_PRE == 0.55
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
