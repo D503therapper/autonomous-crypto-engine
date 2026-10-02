@@ -1667,6 +1667,43 @@ def near_lock(cands, raw=False):
     return best
 
 
+LOCK_MISS_PATH = os.path.join(sd.DATA, "lock_miss.json")
+
+
+def lock_miss(cands):
+    """(the owner, 10/2: "can someone ask the question box what it would have been ... Virginia Tech, but it didn't quite
+    meet the criteria") A day with no Lock: the pick that came closest (the old forced-Lock pick, near_lock) and why it
+    fell short - for the question box only. Never a pick, never units, never in the record."""
+    pool = [x for x in cands if x.get("market") == "ml" and MAX_FAV <= x.get("odds", 0) <= PLUS_LOCK_MAX and x.get("dec")
+            and not x.get("trap") and not x.get("waiting") and read_of(x) is not None]
+    if not pool:                                              # the likeliest winner by our read in the Lock's price range
+        return None                                           # (-150..+125) - the pick the Lock test looks at first
+    c = max(pool, key=read_of)
+    own, need = read_of(c), 1 / c["dec"]
+    gap = round((own - need) * 100, 1)
+    return {"team": c.get("team"), "opp": c.get("opp"), "league": c.get("league"), "odds": c.get("odds"),
+            "game_id": c.get("game_id"), "start": c.get("start"), "engine's own read %": round(own * 100),
+            "the price needs %": round(need * 100, 1),
+            "why it's not the Lock": (f"our read only beats the price by {gap} points - not enough for the Lock" if gap > 0
+                                      else f"our read is {abs(gap)} points under what the price needs - no value at that price")}
+
+
+def save_lock_miss(iso, miss, path=None):
+    """Keeps the last 7 days' near-misses (data/sports/lock_miss.json) - the opening board's, never overwritten later
+    in the day by whatever games are left."""
+    path = path or LOCK_MISS_PATH
+    try:
+        st = json.load(open(path))
+    except (OSError, ValueError):
+        st = {}
+    if iso in st:
+        return
+    st[iso] = miss
+    st = {k: st[k] for k in sorted(st)[-7:]}
+    with open(path, "w") as f:
+        json.dump(st, f, indent=1, sort_keys=True)
+
+
 def backup_lock(cands):
     """The owner (CLAUDE.md, again 10/1): "There's always a Lock." When nothing clears the full Lock test, the pick the
     engine's OWN read has winning 56%+ that still beats its price - the most value first - never past -150, never the
@@ -2762,6 +2799,13 @@ def post_board(games, model, picks, now, day, force=False):
         picks.append(pk)
         posted[kind] = pk
         new.append(pk)
+    if "lock" in todo and not started and not any(p["date"] == iso and p["kind"] == "lock" and p["status"] != "waiting" for p in picks):
+        try:                                                  # no Lock today: what it would have been, and why not
+            miss = lock_miss(all_cands)                       # (the question box answers "what would the Lock have been")
+            if miss:
+                save_lock_miss(iso, miss)
+        except Exception as e:                               # noqa: BLE001 - never blocks the board
+            print(f"lock miss not saved: {str(e)[:80]}")
     # 💰 THE UNIT PLAYS, STRAIGHT (the owner, 10/1) - then 🟡 the viewer leans. Each its own pick, one per game, never a
     # game we're already on today; a play waiting on news (a starter, a QB) goes up on a later run once it's settled.
     for kind, pool, cap in (("play", plays, MAX_PLAYS), ("lean", viewer_leans, MAX_LEANS)):
