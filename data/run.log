@@ -5833,3 +5833,33 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 17:46 UTC] stocks/trend     equity $488.63 (-2.3%) 3 open  market UP
 [2026-10-02 17:46 UTC] stocks/hold_spy  equity $500.01 (+0.0%) 1 open  market UP
    social heat top: SC 53 (40/0/13), TRUMP 40 (35/0/5), PENGU 36 (29/0/7), BLAST 35 (32/0/3), BTC 27 (27/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '87240.82', 'l': '84471.18', 'a': '84575.93', 'v': '5269.1932', 'vv': '451426911.25', 'c': '-0.0050', 'b': '84575.06', 'k': '84575.07', 'oi': '0', 't': 1790963165008}
+   dex screen: REJECT TOPENAI@solana liq $937,741 - freeze authority; mint authority; transfer_fee_upgradable; top-10 holders 53%; lp holders unknown
+   dex screen: REJECT XDP@base liq $1,718,319 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT XDP@solana liq $20,990,636 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex scanner: 3,000 pools (solana 1,974 / base 646 / ethereum 380), refresh cycle 114s (hot 112s), 755 calls (31 feed, 429s 1, failed 1), 21,638 refreshed (2227 no pair), +43 added / -67 dropped (dead 2, stale 0, cap 65), movers 0 + warming 14 -> queued 0, screened 0 (passed 0), bought 0
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-10-02 18:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 18:06 UTC] crypto/mover     equity $446.40 (-10.7%) 1 open  market UP
+[2026-10-02 18:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 18:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 18:06 UTC] crypto/social_heat equity $527.31 (+5.5%) 2 open  market UP
+[2026-10-02 18:06 UTC] crypto/breakout10 equity $487.17 (-2.6%) 2 open  market UP
+[2026-10-02 18:06 UTC] crypto/momentum  equity $488.63 (-2.3%) 2 open  market UP
+[2026-10-02 18:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 18:06 UTC] crypto/hold_btc  equity $504.08 (+0.8%) 1 open  market UP
+[2026-10-02 18:06 UTC] stocks/rsi2      equity $502.91 (+0.6%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, XLB 2, XLV 4 BUY
+[2026-10-02 18:06 UTC] stocks/dual_momentum equity $502.73 (+0.5%) 2 open  market UP
+[2026-10-02 18:06 UTC] stocks/trend_ensemble equity $502.95 (+0.6%) 5 open  market UP
+[2026-10-02 18:06 UTC] stocks/rotation10 equity $504.11 (+0.8%) 2 open  market UP
+[2026-10-02 18:06 UTC] stocks/momentum  equity $497.02 (-0.6%) 4 open  market UP
+   >> stocks/trend: SELL $146.61 of PLTR @ 188.686, P/L $+0.25 (stop hit)
+   >> stocks/trend: BUY $146.21 of PLTR @ 189.66 (entry)
+[2026-10-02 18:06 UTC] stocks/trend     equity $488.47 (-2.3%) 3 open  market UP
+[2026-10-02 18:06 UTC] stocks/hold_spy  equity $500.09 (+0.0%) 1 open  market UP
+   social heat top: SC 52 (40/0/12), TRUMP 35 (35/0/0), BLAST 32 (32/0/0), PENGU 32 (21/0/10), QNT 29 (29/0/0)
