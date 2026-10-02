@@ -511,3 +511,27 @@ bats); 'absent' = not in that game's box score; the engine's own read replayed p
 Wired as sports_absences.penalty -> the engine's OWN read only (a starting QB / goalie the engine already treats as key
 keeps the go-by-the-market path - never counted twice). 'Out' = the injury report says out / doubtful / suspended.
 Caveat: box-score absence counts trades / long injuries too; real-time 'out' lists are cleaner - re-check on live picks.
+
+## Early value plays - hockey / baseball (10/2 study; nothing built)
+Real opens exist only for NHL 2023-25 (~3,950 games) and MLB 2023-26 (~9,700) - honest day-before prices (no-vig moves
+2.4-2.9 pts both ways), same vig as the close. Engine read walk-forward (prior 3 seasons only). ~70 cuts looked at, so
+a +10% here and there is what chance gives; nothing clears 2 SE.
+- Every dog +100..+220 at the open: NHL -1.4%, MLB -2.5% (+191..+220: -18% / -13%). DEAD - dogs aren't an edge.
+- Favorites at the open, both sports: -3% to -11%. DEAD.
+- Engine vs the open: the line DOES move toward the engine's read (corr +0.27 NHL / +0.25 MLB, +1 to +2.3 pts of CLV at
+  gaps 5+), but the money doesn't follow: NHL dogs gap 8+ +11.1% (n=205, t=1.3) falls to +6.9% priced mid-move and
+  -1.1% once the dogs that already ran are skipped - the profit is the move itself. LEAD (re-test with 2026-27 opens).
+- NHL goalie spots: DEAD early (the starter isn't known at the open).
+- NHL rested team vs a back-to-back (n=790): +4.2% at open, line moves toward them 70%; engine agrees by 3+ (n=534)
+  +6.5%, 3 of 3 seasons, t=1.5. Best LEAD - log live (no units) ~150 plays before it gets any.
+- NHL dog ON a back-to-back vs rested: -24% on 372, t=-4.1, 0 of 3 seasons - a FADE weight only (engine has b2b).
+- MLB: no spot beats the baseline (off a loss, home/road dog, game 1 of a series). Divisional dogs -5% (t=-2.1) - mild
+  fade at most. Keep only the live +100..+149 dog with the engine 8..12 over (n=510 +7.8% at open); widening to 12+ loses.
+Scripts + tables: the 10/2 session scratchpad (study_early_nhl_mlb.md) - re-run against fresh opens next season.
+
+## Capper benchmark - Dr. Bob (10/2)
+Free NFL Analysis page: a Lean when his predicted margin is 4+ pts off the line ("Lean - Cleveland (+3 -115) or
+better"), totals Leans since 2022. His published records: Free Leans 1101-913-38 all-time (college) but 81-80-3 in
+2025; Leans 4+ off 1008-853-37; NFL Best Bets 2016-26 517-382-12 (57.5%, paid). No college in 2026. Tracked live in
+sports_capper (graded vs ours) - the free Leans are his coin-flip tier, so judge them on a season, never a week.
+
