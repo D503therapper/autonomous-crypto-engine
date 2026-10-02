@@ -7375,6 +7375,23 @@ def test_a_backup_qb_out_is_never_the_starter():
     finally:
         sp.CACHE = keep
 
+
+def test_study_angles_never_outweigh_the_read():
+    """10/2, the owner: "I just don't want the engine to overweight these aspects." A dog's study angles together count
+    at most ±STUDY_CAP points on top of the engine's own read - a stack of overlapping spots can't take over."""
+    keep = sports.dog_spots
+    c = {"league": "nfl", "odds": 200, "dec": 3.0, "edge": 0.0, "edge_own": 0.0, "p_market": 0.333}
+    try:
+        sports.dog_spots = lambda c: 15
+        hi = sports.dog_score(c)
+        sports.dog_spots = lambda c: -15
+        lo = sports.dog_score(c)
+        sports.dog_spots = lambda c: 0
+        mid = sports.dog_score(c)
+    finally:
+        sports.dog_spots = keep
+    assert abs(hi - mid - sports.STUDY_CAP) < 1e-9 and abs(mid - lo - sports.STUDY_CAP) < 1e-9 and sports.STUDY_CAP == 6
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

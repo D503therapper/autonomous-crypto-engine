@@ -8,6 +8,8 @@ every session:
   weighs every factor, never automatically takes a team because the numbers back one thing"). Every study finding -
   proven or just believed in - is a WEIGHT the engine adds to its full read (dog_spots / dog_more, the early spots'
   SPOT_WEIGHT / FADE_WEIGHT), never a trigger. A pick happens only when the whole picture says it's worth the price.
+  Never overweighted (the owner, 10/2): all the study angles on one dog together count at most ±6 points
+  (sports.STUDY_CAP), a favorite's weighed read moves at most 4 (sports.FAV_CAP).
 - **Everything in his lingo** (`sports_owner_lingo.py`). Never repetitive across the board or day to day, never robotic,
   no marketing tone. Plain words ("goalie", not "G"), no confusing sayings. Never "real talk" or "chalk" (see `NEVER`).
 - **When the owner uses new slang in chat, add it to `sports_owner_lingo.py` and into the write-up pools where it fits.**
