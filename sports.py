@@ -1466,6 +1466,8 @@ def units_for(pk):
     if kind == "lock" and legs[0].get("near_price"):        # the always-a-Lock backup (the owner, 10/1): ½u floor
         return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
+    if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
+        return 0.5 if not u or thin_edge(legs[0]) else u    #  only thing that doesn't get units is leans") - ½u floor
     if u and (pk.get("date") or "9999") >= MONEY_CHECK_FROM and not beats_price(legs[0]):
         print(f"   money check: {legs[0].get('team')} {legs[0].get('odds')} - its read doesn't beat the real price, 0 units")
         return 0                                             # (the owner, 10/1: "build the money check")
