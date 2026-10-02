@@ -3002,7 +3002,7 @@ def test_live_bets_today_never_lost():
          "sport": "Women's Tennis", "dd": False}] and "story" in t[0]
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert src.index('<div id="livetoday">') < src.index("TODAY'S BOARD")      # right under the live box
-    assert "today(d.today)" in src and "live_log.json\\n" in open(slv.__file__).read().replace("\\t", "")
+    assert "today(d.today," in src and "live_log.json\\n" in open(slv.__file__).read().replace("\\t", "")
 
 
 def test_scores_never_go_backwards():
@@ -3680,7 +3680,7 @@ def test_tonights_live_bets_box_only_when_we_have_bets():
     from datetime import datetime
     src = open(sdb.__file__).read()
     assert 'live_list = ("" if not lrows else' in src and "T.forEach(function(e){{" in src
-    assert "if(!sec){{el.innerHTML=" in src[src.index("function today(T)"):]            # created on the first bet only
+    assert "if(!sec){{el.innerHTML=" in src[src.index("function today(T,up)"):]            # created on the first bet only
     assert sdb.live_days(datetime(2026, 9, 30, 9, 0)) == {"2026-09-30"}                   # after 8 AM: last night's gone
     assert sdb.live_days(datetime(2026, 9, 30, 7, 0)) == {"2026-09-30", "2026-09-29"}
 
@@ -4062,7 +4062,7 @@ def test_graded_live_bet_clears_into_the_results_right_away():
     import sports_dashboard as D
     src = open(D.__file__).read()
     assert 'if e.get("result") is None), key=lambda e: e["posted"]' in src
-    assert "if(e.result){{if(have)have.remove();return}}" in src and 'if(s2&&!s2.querySelector(".leg"))el.innerHTML=""' in src
+    assert "if(e.result||on[e.pid]){{if(have)have.remove();return}}" in src and 'if(s2&&!s2.querySelector(".leg"))el.innerHTML=""' in src
     assert "clears into the results" in open(os.path.join(os.path.dirname(D.__file__), "CLAUDE.md")).read()
 
 
@@ -7102,6 +7102,26 @@ def test_momentum_leads_are_weights():
     b2 = {"league": "mlb", "odds": 150, "dog_ctx": {}}
     assert sports.dog_spots({**b2, "dog_more": {"late_rally": True}}) - sports.dog_spots(b2) == 1.5
     assert sports.dog_spots({**b2, "odds": 240, "dog_more": {"late_rally": True}}) == sports.dog_spots({**b2, "odds": 240})
+
+
+def test_a_live_bet_is_never_in_both_boxes_and_never_a_3way_price():
+    """10/1, the owner (Devils ML +145, tied after 2, a -180 favorite at the close - in LIVE PLUS MONEY and TONIGHT'S
+    LIVE BETS at once): "shouldn't be in both at the same time." A bet still up top as BET IT NOW shows there only; the
+    blue box gets it once its value's gone. And a live price only ever comes from the real two-way moneyline - never a
+    3-way / regulation-only line (a tie loses it, so it runs long and looks like value it isn't)."""
+    import sports_books as sb
+    two = [{"description": "Devils", "price": {"american": "-130"}}, {"description": "Flyers", "price": {"american": "+110"}}]
+    three = two + [{"description": "Draw", "price": {"american": "+300"}}]
+    assert sb.two_way("Moneyline Live Game", two)
+    assert not sb.two_way("3-Way Moneyline", two) and not sb.two_way("Moneyline Regulation Time", two)
+    assert not sb.two_way("Moneyline", three)
+    assert not sb.two_way("Moneyline", [two[0], {"englishLabel": "X", "description": ""}])
+    assert sb._kambi_ml({"betOffers": [{"criterion": {"englishLabel": "Moneyline"}, "betOfferType": {"englishName": "Match"},
+                                        "outcomes": [{"englishLabel": "A"}, {"englishLabel": "Draw"}, {"englishLabel": "B"}]}]}) is None
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_live.py")).read()
+    assert "sports_books.two_way(" in src
+    dash = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "function today(T,up)" in dash and "if(e.result||on[e.pid])" in dash and "today(d.today,(age<10*60000&&d.plays)||[])" in dash
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)

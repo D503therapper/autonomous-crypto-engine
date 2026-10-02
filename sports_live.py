@@ -615,6 +615,10 @@ def bovada_live(league):
                     per = mk.get("period") or {}
                     if "moneyline" not in str(mk.get("description", "")).lower() or not per.get("live") or not per.get("main"):
                         continue
+                    import sports_books                         # (10/1: never the 3-way / regulation-only line - a tie
+                    if not sports_books.two_way(f'{mk.get("description", "")} {per.get("description", "")}',
+                                                mk.get("outcomes")):   # loses it, so its price runs long)
+                        continue
                     px = {}
                     for o in mk.get("outcomes") or []:
                         v = str((o.get("price") or {}).get("american") or "").upper()
