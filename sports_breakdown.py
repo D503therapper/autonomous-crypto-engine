@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 46          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 47          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -250,7 +250,18 @@ def lean_ends(leg):
         own = _sp.read_of(leg) or leg.get("p") or 0.5
     except Exception:                                         # noqa: BLE001
         own = leg.get("p") or 0.5
-    if own < 0.47:                                            # an underdog lean: never "by a hair" on a team we
+    if leg.get("market") == "spread" and leg.get("line") is not None:   # (10/2 audit: a spread lean's read is the
+        ln = f"{leg['line']:+g}"                                         #  chance to COVER - never "win" / "underdog")
+        if own < LEAN_CLOSE:
+            return [f"🟡 Bottom line: {price}. Close to a coin flip on {team} covering {ln} - by a hair, no units.",
+                    f"🟡 Bottom line: {price}. {team} {ln} is near 50-50 to cover on our read. Lean only.",
+                    f"🟡 Bottom line: {price}. Our read has {team} covering {ln} a hair more often than not. Just a lean.",
+                    f"🟡 Bottom line: {price}. {team} {ln} is the side, but it's close to even on our read. No units."]
+        return [f"🟡 Bottom line: {price}. {team} cover {ln} more often than not on our read - not by enough for units.",
+                f"🟡 Bottom line: {price}. {team} {ln} is the side we lean; the price already pays for it. No units.",
+                f"🟡 Bottom line: {price}. {team} should cover {ln}, just not by enough to put money on. Lean only.",
+                f"🟡 Bottom line: {price}. We'd take {team} {ln}; at that price it's not a bet we put money on."]
+    if own < 0.47 and (o or 0) > 0:                           # an underdog lean: never "by a hair" on a team we
         return [f"🟡 Bottom line: {price}. {team} are the underdog side we lean - not enough on our read for units.",   # have losing
                 f"🟡 Bottom line: {price}. A live dog to us - not live enough to put money on. Lean only.",
                 f"🟡 Bottom line: {price}. {team} can steal this one; the price isn't quite big enough for units.",
@@ -1213,7 +1224,7 @@ T = {
     "splits_ride": [
         "📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us} ({mk}). Sometimes the crowd gets it right.",
         "📊 {t}% of the bets on {the_us} ({m}% of the money) on {mk}. We with the crowd on this one.",
-        "📊 [Splits|The splits|Betting splits] on {mk}: {t}% of [bets|tickets] and {m}% of the money on {the_us}. [Crowd's right this time.|We agree, for our own reasons.|Same side, different reasons.]",
+        "📊 [Splits|The splits|Betting splits] on {mk}: {t}% of [bets|tickets] and {m}% of the money on {the_us}. [Same side as us.|We with the crowd on this one.]",
         "📊 {The_us} [are pulling|got] {t}% of the [tickets|bets] and {m}% of the money on {mk}. [The public's not wrong every time.|No shame riding with the crowd.|We're on it too.]",
         "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Same side as us.|We with the crowd on this one.]",
     ],
@@ -2016,7 +2027,7 @@ T.update({
     "splits_ride": [
         "📊 [Public's|The crowd's] with us on this one — {t}% of the bets and {m}% of the money on {the_us} ({mk}). Sometimes the crowd gets it right.",
         "📊 {t}% of the bets on {the_us} ({m}% of the money) on {mk}. We with the crowd on this one.",
-        "📊 [Splits|The splits|Betting splits] on {mk}: {t}% of [bets|tickets] and {m}% of the money on {the_us}. [Crowd's right this time.|We agree, for our own reasons.|Same side, different reasons.]",
+        "📊 [Splits|The splits|Betting splits] on {mk}: {t}% of [bets|tickets] and {m}% of the money on {the_us}. [Same side as us.|We with the crowd on this one.]",
         "📊 {The_us} [are pulling|got] {t}% of the [tickets|bets] and {m}% of the money on {mk}. [The public's not wrong every time.|No shame riding with the crowd.|We're on it too.]",
         "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Same side as us.|We with the crowd on this one.]",
     ],

@@ -60,8 +60,10 @@ def two_way(label, outcomes):
     """A real moneyline: exactly two sides, overtime in. Never a 3-way / regulation-only line (a tie loses - the Devils
     at +145 tied after 2 against a -180 close, 10/1: that price is the 60-minute line, not the moneyline)."""
     lab = str(label or "").lower()
-    if any(w in lab for w in ("3-way", "3 way", "three way", "regulation", "1x2", "60 min")):
-        return False
+    if any(w in lab for w in ("3-way", "3 way", "three way", "regulation", "1x2", "60 min")) or \
+            re.search(r"\bperiod|\bhalf\b|\bquarter|\binning|\bset\b|regular time|\b(1st|2nd|3rd|4th)\b", lab):
+        return False      # (the 10/2 audit: Kambi's "Moneyline - Period 3" / "- Regular Time" got through as the game's
+        #                   moneyline - a tied favorite after 2 periods is about +145 to win the 3rd: the Devils' price)
     oc = list(outcomes or [])
     return len(oc) == 2 and not any(str(o.get("englishLabel") or o.get("description") or o.get("type") or "").strip()
                                     .lower() in ("draw", "tie", "x") for o in oc)
@@ -94,6 +96,8 @@ def kambi_team(data, live_only=True, missing=None):
         if not b or len(parts) != 2:
             continue
         home, away = parts[0].strip(), parts[1].strip()        # Kambi lists the home team first ("ATL - PHI")
+        if ev.get("homeName") and ev.get("awayName"):          # (10/2 audit: its own home / away fields when it has them)
+            home, away = str(ev["homeName"]).strip(), str(ev["awayName"]).strip()
         px = {str(o.get("englishLabel") or o.get("participant")): (_am(o.get("oddsAmerican")), o.get("status"))
               for o in b.get("outcomes") or []}
         (h, hs), (a, as_) = px.get(home, (None, None)), px.get(away, (None, None))

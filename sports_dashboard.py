@@ -55,8 +55,8 @@ def _time(iso):
 def _chip(status):
     if status == "open":                                     # the tier chip says it all - no "LOCKED" next to "LOCK"
         return ""
-    txt = {"won": "CASHED ✓", "lost": "LOST", "push": "PUSH"}[status]
-    return f'<span class="chip {status}">{txt}</span>'
+    txt = {"won": "CASHED ✓", "lost": "LOST", "push": "PUSH", "void": "VOID"}[status]
+    return f'<span class="chip {"push" if status == "void" else status}">{txt}</span>'
 
 
 def _the(team, league):
@@ -784,7 +784,7 @@ def _pick_card(kind, pk):
                   if len(pk["legs"]) == 1 and _tier(pk) == "lock" and pk.get("american", 0) > 0   # one pick at plus money:
                   and pk["status"] == "open" else "")      # a parlay always pays plus - that's no dog (the owner, 9/30)
     return f"""<section class="pk {pk["status"]}" style="--c1:{c1};--c2:{c2}">
-  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip(pk["status"])}</div>
+  <div class="pk-h"><span class="pk-i">{ICON[kind]}</span><span class="pk-l{' pk-big' if kind == 'solo' else ''}">{label}</span>{TIER_CHIP["value" if kind == "dog" else "strong" if _tier(pk) == "lean" and (pk["legs"][0].get("p") or 0) >= sports.STRONG_LEAN_P else _tier(pk)] if len(pk["legs"]) == 1 else ""}{_chip("void" if pk.get("void") else pk["status"])}</div>
   <div class="pk-o"><span class="big">{_am(pk["american"])}</span>
     <span class="pay">$100 wins <b>${win:,.0f}</b></span></div>
   {_units_line(sports.units_for(pk), pk["legs"][0].get("team", ""), pk["legs"][0].get("odds"), lean=bool(pk.get("lean")), leg=pk["legs"][0]) if len(pk["legs"]) == 1 else ""}
@@ -1176,7 +1176,8 @@ def _history(picks):
              f' · {sd.LEAGUES.get(p["legs"][0]["league"], ("", "", ""))[2]}'
              + (f' · {p["legs"][0]["score"]}' if p["legs"][0].get("score") else ""),
              rev_leg(p["legs"][0], p["status"], p["date"], lean=True))              # a lean: no hype, win or lose
-            for p in picks if not sports.in_record(p) and p["status"] in ("won", "lost") and p.get("legs")]
+            for p in picks if p.get("lean") and p["status"] in ("won", "lost") and p.get("legs")]   # (10/2 audit: every
+    #                                         lean - since 9/29 they're in the record too, and the box came out empty)
     live = ((_jl(os.path.join(sd.DATA, "live_log.json"), {}) or {}).get("plays") or {}).values()
 
     def rev_live(e):

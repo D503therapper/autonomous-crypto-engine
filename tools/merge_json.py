@@ -70,7 +70,8 @@ def merge_log(ours, theirs):
         if old is None:
             plays[pid] = e
             continue
-        best = dict(e if (e.get("result") and not old.get("result")) else old)
+        best = dict(e if (e.get("result") == "void" and old.get("result") != "void")   # a void (the owner's call) always
+                    or (e.get("result") and not old.get("result")) else old)              # wins (10/2 audit)
         b = max(old.get("best_odds") or old.get("odds") or 0, e.get("best_odds") or e.get("odds") or 0)
         if b:
             best["best_odds"] = b

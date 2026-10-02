@@ -317,8 +317,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     if not ON:
         return []
     games = with_book_lines(games, st, now, lines)
-    have = {p["game_id"] for p in st["picks"]}
-    new = []
+    have = {p["game_id"] for p in st["picks"]} | {p.get("game_id") for p in st.get("pulled") or []}   # (10/2 audit:
+    new = []                                         # a pulled play never comes back)
     for c in scan(games, model, now, injuries, trap):
         if c["game_id"] in have:
             continue                                 # one early dog per game, posted = final
@@ -369,6 +369,11 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
             st["picks"].append(c)
             have.add(c["game_id"])
             new.append(c)
+            if ping:                                         # (10/2 audit: the spots - the only football path -
+                try:                                         #  never pinged; the Jaguars went up silent)
+                    ping(c)
+                except Exception as e:                       # noqa: BLE001
+                    print(f"   early spot ping failed: {str(e)[:60]}")
     except Exception as e:                                   # noqa: BLE001 - the spots never break the engine
         print(f"   early spots failed: {str(e)[:120]}")
     watch(st, games, injuries)
@@ -401,9 +406,10 @@ def grade(st, games):
             continue
         g = games.get(p["game_id"])
         if not g or g.get("status") != "final":
-            if g and g.get("status") in ("void", "postponed", "canceled", "cancelled"):
-                p["result"] = "void"
-            continue
+            stale = bool(p.get("start")) and datetime.now(timezone.utc) - _t(p["start"]) > timedelta(days=4)
+            if (g and g.get("status") in ("void", "postponed", "canceled", "cancelled")) or stale:
+                p["result"] = "void"                         # (10/2 audit: a game that never went final was stuck
+            continue                                         #  pending forever - 4 days, like the board's picks)
         try:
             hs, as_ = float(g["home_score"]), float(g["away_score"])
         except (KeyError, ValueError):
@@ -417,7 +423,7 @@ def grade(st, games):
 def record(st):
     ps = [p for p in st.get("picks", []) if p.get("result") in ("won", "lost")]
     w = sum(p["result"] == "won" for p in ps)
-    units = sum((p["odds"] / 100) if p["result"] == "won" else -1 for p in ps)
+    units = sum((_dec(p["odds"]) - 1) if p["result"] == "won" else -1 for p in ps)   # (10/2 audit: -150 won = -1.5u)
     return {"won": w, "lost": len(ps) - w, "units": round(units, 2)}
 
 
@@ -1016,6 +1022,8 @@ def send_queued(page, now=None, path=None, send_fn=None):
         return []
     plays = [c for c in q["pings"] if c]
     box = page[page.find("EARLY VALUE PLAYS"):] if "EARLY VALUE PLAYS" in page else ""
+    box = box[:box.find("</section>")] if "</section>" in box else box   # (10/2 audit: the box only, never the
+    #                                                                       results further down the page)
     if not plays or not all(c["team"] in box for c in plays):
         return []                                        # not live yet: wait (the caller checks again)
     send_fn = send_fn or send

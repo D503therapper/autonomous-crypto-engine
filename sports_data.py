@@ -853,7 +853,9 @@ def merge_live_logs(a, b):
     out = {"plays": dict((a or {}).get("plays") or {})}
     for pid, e in ((b or {}).get("plays") or {}).items():
         mine = out["plays"].get(pid)
-        if mine is None or (e.get("result") and not mine.get("result")) or \
+        if mine is not None and mine.get("result") == "void":
+            continue                                          # a void (the owner's call) always stands (10/2 audit)
+        if mine is None or e.get("result") == "void" or (e.get("result") and not mine.get("result")) or \
                 (bool(e.get("result")) == bool(mine.get("result")) and len(e) > len(mine)):
             out["plays"][pid] = e
     for k, v in ((a or {}).items()):

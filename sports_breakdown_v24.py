@@ -48,7 +48,8 @@ def seen_all(fin, tid, before, lg):
     for g in season:
         for t in (g["home"], g["away"]):
             n[t] = n.get(t, 0) + 1
-    ref = sorted(n.values())[int(0.9 * (len(n) - 1))]
+    ref = sorted(n.values())[int(0.97 * (len(n) - 1))]   # (10/2 audit: the 90th percentile sank with the missing
+    #                                                     games themselves - 4 instead of 5 - and let 0-4 Mercyhurst through)
     need = ref - 1 if lg == "ncaaf" else 0.8 * ref
     return n.get(tid, 0) >= need
 
@@ -240,6 +241,31 @@ HYPE = re.compile(r"trust the algorithm|lock it in|free money|easy money|hammer 
 
 VET_STARTS = {"QB": 100, "SP": 200, "G": 350}   # "washed" (the owner, 10/1) only for a long-time starter: this many
 #                                                  starts in our box scores (2016 on - a QB's 100 = 6+ full seasons)
+OLD_PID = 20000     # ...AND old: ESPN's player id under 20,000 = in the league by 2012 (Rodgers 8439, Stafford 12483 -
+#                     Mahomes 3139477, Goff 3046779). The 10/2 audit: starts alone called a cold prime-age star "washed".
+#                     No age for pitchers / goalies on file - so "washed" is QBs only (never false information).
+_PIDS = {}
+
+
+def old_qb(name):
+    """A QB whose career started by 2012 (ESPN id under OLD_PID, from our NFL rosters)."""
+    if "m" not in _PIDS:
+        import csv
+        import glob
+        import gzip
+        import os
+        m = {}
+        for f in sorted(glob.glob(os.path.join(sd.DATA, "roster", "nfl_*.csv.gz")))[-2:]:
+            try:
+                with gzip.open(f, "rt", newline="") as fh:
+                    for r in csv.DictReader(fh):
+                        if r.get("group") == "passing" and r.get("player") and str(r.get("pid") or "").isdigit():
+                            m[r["player"]] = int(r["pid"])
+            except (OSError, EOFError, ValueError):
+                continue
+        _PIDS["m"] = m
+    pid = _PIDS["m"].get(name)
+    return pid is not None and pid < OLD_PID
 
 
 def lean_tone(lines, leg, seed=""):
@@ -423,7 +449,8 @@ def breakdown(leg, games, elo, injuries, used=None):
             if not txt:
                 continue
             FORM[(ours_, mood)] = (name, txt)                 # (the card's one-line "why" can use it)
-            vet = sum(r["player"] == name and r["start"] < g["start"] for r in rows) >= VET_STARTS.get(role, 10 ** 9)
+            vet = role == "QB" and old_qb(name) and \
+                sum(r["player"] == name and r["start"] < g["start"] for r in rows) >= VET_STARTS["QB"]
             if not ours_ and mood == "cold" and vet:          # (the owner, 10/1: "this dude is washed - old, out of his
                 out.append(v.say(role + "_washed", [          #  prime") - only a long-time starter who's cold NOW
                     f"🧓 {name} is washed — {txt}.",
@@ -775,7 +802,7 @@ def breakdown(leg, games, elo, injuries, used=None):
             f"✅ Bottom line: {price}. Fair price on a side we trust - small bet.",
             f"✅ Bottom line: {us} to win, {price}. The number's about even with our read - we ride it light."]) or
                    _short(v, price, True, ""))                           # (small, honest - never "value")
-    elif _need and _own <= _need and _own < 0.56:                        # (10/1, the owner: "we like the Kraken,
+    elif _need and _own <= _need and _own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: "we like the Kraken,
         out.append(v.say("bottom_c", [                                   # just not at this price" at -108 makes no
             f"✅ Bottom line: {price}. We've got this one close to a coin flip - {us} by a hair. No units.",   # sense:
             f"✅ Bottom line: {price}. Close to 50-50 on our read, {us} a hair better. Just a lean.",          # the real
@@ -936,7 +963,7 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     elif leg.get("near_price"):                           # the always-a-Lock backup: the likeliest winner, priced fair
         nums = ("w_num", [f"🔒 We trust {us} to win this one - priced about right, so it's a small bet.",
                           f"🔒 {us} to win at a fair price. A light bet, not a big one."])
-    elif need and own <= need and own < 0.56:             # (10/1, the owner: the Kraken at -108 - a near coin flip
+    elif need and own <= need and own < 0.56 and leg.get("market") == "ml":   # (10/1, the owner: the Kraken at -108 - a near coin flip
         nums = ("w_num", [f"🧠 We've got {us} close to a coin flip - a hair better, not enough for units.",   # is the
                           f"🧠 Close to 50-50 on our read, {us} by a hair."])                              # reason)
     elif need and own <= need:                            # the read doesn't beat the price: say so, never "value"

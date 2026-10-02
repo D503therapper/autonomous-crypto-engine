@@ -36,7 +36,8 @@ def text(pk):
     when = t.strftime("%-I:%M %p").replace(":00 ", " ")
     label = f"{sports.leg_label(leg)} {sports.fmt_american(leg['odds'])}"
     return (f"💰 NEW VALUE PLAY: {label}",
-            f"{label} vs the {leg['opp']}, {size}. Starts at {when} PT. It's on the dashboard now.")
+            f"{label} vs {'the ' if leg.get('league') in ('nfl', 'nba', 'mlb', 'nhl') else ''}{leg['opp']}, {size}. "
+            f"Starts at {when} PT. It's on the dashboard now.")   # (10/2 audit: "vs the Pitt" for a college team)
 
 
 def queue(picks, now, path=None):

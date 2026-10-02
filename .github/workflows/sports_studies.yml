@@ -26,6 +26,7 @@ jobs:
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
           git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
+          git config merge.sportscsv.driver "python tools/merge_csv.py %O %A %B"
           git add data/sports
           git commit -qm "studies $(date -u '+%F %H:%M') UTC" || exit 0
           for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
