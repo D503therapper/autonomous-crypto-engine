@@ -1,31 +1,45 @@
 {
- "at": "2026-10-02T03:12Z",
+ "at": "2026-10-02T03:57Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
+  "live tennis scores: tennis Jones vs Okamura: no points for 2644s",
   "slate check: White Sox @ Astros (MLB): no price from the books",
   "slate check: Red Sox @ Yankees (MLB): no price from the books",
   "slate check: Cubs @ Padres (MLB): no price from the books",
-  "workflow failed: health 2026-10-02T03:11 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36959045486"
+  "sources down (the backups took over): betrivers:nhl:1028398371 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (77s)",
+  "live watcher fresh (243s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 7 live matches",
+  "live tennis points + server: 5 of 6 live matches",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 5 live lines, 5 fresh (betrivers 5)",
-  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "studies ran 5h ago",
-  "simulator ran 4h ago",
+  "simulator ran 5h ago",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-02T03:57Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Jones vs Okamura: no points for 2644s",
+    "slate check: White Sox @ Astros (MLB): no price from the books",
+    "slate check: Red Sox @ Yankees (MLB): no price from the books",
+    "slate check: Cubs @ Padres (MLB): no price from the books",
+    "sources down (the backups took over): betrivers:nhl:1028398371 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-02T03:12Z",
    "fixes": [
