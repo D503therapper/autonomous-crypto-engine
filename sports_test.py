@@ -6440,11 +6440,16 @@ def test_lock_miss_names_the_closest_pick():
     assert len(st) == 7 and "2026-10-09" in st and "2026-10-01" not in st
     sports.save_lock_miss("2026-10-09", {"team": "Later"}, p)          # a later run never overwrites the morning's
     assert json.load(open(p))["2026-10-09"]["team"] == "Virginia Tech"
-    pen = dict(c, team="Penn State", odds=-142, dec=1 + 100 / 142, game_id="ncaaf:2")
+    # the healthy pool decides first, like the Lock itself: a banged-up Penn State with the higher read never jumps
+    # ahead of the pick the engine actually backed (10/2: Virginia Tech)
+    pen = dict(c, team="Penn State", odds=-142, dec=1 + 100 / 142, game_id="ncaaf:2", hurt=["Koby Howard"])
     pen["edge_own"] = 0.589 * pen["dec"] - 1
-    under = dict(c, edge_own=0.55 * c["dec"] - 1)                       # VT 55% vs the 56.5% -130 needs
-    m2 = sports.lock_miss([under, pen])
-    assert m2["team"] == "Penn State" and "beats the price by 0.2" in m2["why it's not the Lock"]
+    sports.money_against = lambda c_: False
+    try:
+        assert sports.lock_miss([c], [c, pen])["team"] == "Virginia Tech"
+    finally:
+        sports.money_against = old
+    under = dict(c, edge_own=0.55 * c["dec"] - 1, p=0.55)              # VT 55% vs the 56.5% -130 needs
     assert "under what the price needs" in sports.lock_miss([under])["why it's not the Lock"]
 
 
