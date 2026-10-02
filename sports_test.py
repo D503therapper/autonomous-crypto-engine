@@ -6106,6 +6106,7 @@ def test_board_always_has_lock_dog_three_leans_with_injuries_named():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "best = make_board(all_cands, lock_game" in src         # the Lock falls back to every side we have data on
     assert 'pool(all_cands if kind == "lean" else cands' in src     # the leans fill from every side we have data on
+    assert "slate_check(games, all_cands, day, now)" in src        # (10/2: a no-units side isn't 'never looked at')
 
 
 def test_no_blind_picks_and_official_reports():

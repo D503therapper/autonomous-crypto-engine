@@ -2608,8 +2608,8 @@ def post_board(games, model, picks, now, day, force=False):
         print(f"lead tracker failed: {str(e)[:80]}")
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
     if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
-        gaps = data_gaps(games, cands, now)
-        probs = slate_check(games, cands, day, now) + factor_check(games, cands, injuries, day, now, model) + \
+        gaps = data_gaps(games, all_cands, now)               # (10/2: the checks read every side we looked at -
+        probs = slate_check(games, all_cands, day, now) + factor_check(games, all_cands, injuries, day, now, model) + \
             checker_selftest() + \
             [f"data gap - {x}" for x in gaps.values() if "no result" in x]   # (a re-pull fixes a missing result;
                                                                                  # a small school's gap just gets no pick)
