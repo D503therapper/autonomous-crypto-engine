@@ -6082,6 +6082,18 @@ def test_score_picked_dogs_are_lead_sized():
     assert sports.kelly_units(0.425, 215) > 2 and sports.units_for({"kind": "dog", "legs": [uconn]}) == 2.0
 
 
+def test_leans_fill_the_board_to_five():
+    """10/2, the owner: "we need five picks so we can have two more leans." A hockey favorite whose price isn't value is
+    still a who-wins lean (no units) when the board is short - never past -150, never fighting its own read."""
+    def hk(gid, odds, p):
+        return {**_cand(gid, odds, p, league="nhl"), "game_id": gid, "w_p": p - 0.03, "reasons": ["the stronger team"]}
+    cs = [hk("rw", -130, 0.576), hk("jets", -122, 0.525), hk("big", -190, 0.63)]
+    assert all(sports.hockey_fav_bad(c) for c in cs[:2])
+    got = [c["game_id"] for c in sports.viewer_leans(cs, set())]
+    assert got == ["rw", "jets"]                              # the likeliest first; -190 is past -150
+    assert sports.viewer_leans(cs, {"rw", "jets"}) == []
+
+
 def test_stale_summer_open_replaced():
     """10/2, the owner: "how could Penn State open at -278?" ESPN's college open was a summer lookahead line; the
     first price we saw that week was -142 and it never moved. The open becomes the first price we saw (12+ hours out),
