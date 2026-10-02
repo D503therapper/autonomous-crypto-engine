@@ -3041,6 +3041,11 @@ def run(repick=False, fetch=True):
         sports_audit.run(picks, games, [(d0 - timedelta(days=k)).isoformat() for k in (2, 1, 0)])
     except Exception as e:                                   # noqa: BLE001 - the audit never blocks the board
         print(f"pick audit failed: {str(e)[:80]}")
+    try:                                                     # 📈📓 beat the close + the pick journal (the owner, 10/2:
+        import sports_clv                                    # "a record of everything ... every week we go back")
+        sports_clv.run(picks, games)
+    except Exception as e:                                   # noqa: BLE001 - the record never blocks the board
+        print(f"close record failed: {str(e)[:80]}")
     if fetch:
         deciders(picks)
     day = now.astimezone(PT).date()
