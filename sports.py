@@ -1467,8 +1467,8 @@ def units_for(pk):
         return _sized("lock", legs[0]) or 0.5
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
     if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
-        if not u or thin_edge(legs[0]) or (legs[0].get("odds") or 0) < 0:   # only thing that doesn't get units is
-            return 0.5                                       # leans") - ½u floor; a favorite is ½u (the edge study)
+        if not u or thin_edge(legs[0]):                      # only thing that doesn't get units is leans") - ½u
+            return 0.5                                       # floor; a small edge is a small bet
         return u
     if u and (pk.get("date") or "9999") >= MONEY_CHECK_FROM and not beats_price(legs[0]):
         print(f"   money check: {legs[0].get('team')} {legs[0].get('odds')} - its read doesn't beat the real price, 0 units")
@@ -1479,13 +1479,15 @@ def units_for(pk):
 
 
 THIN_FROM = "2026-10-02"         # the owner, 10/1 (Western KY +110 at 1u, its own read ~1 point over the price): "a small
-THIN_EDGE = 0.08                 # value like that - probably should've been a half a unit." The engine's OWN read under 8%
+THIN_EDGE = 0.03                 # value like that - probably should've been a half a unit." The engine's OWN read under 3%
 #                                  over the price (per dollar) = ½u, whatever the sizing read says. Posted picks keep theirs.
 #   THE EDGE STUDY (10/2, 11,941 bets, each season graded blind by a model trained on the 3 before it, closing prices):
 #   the bare own read loses under 8% at every cut (<3% -3.3%, 3-8% -3.8%); dogs 8%+ +6.7% on 1,506 (8-12% up 7 of 8,
 #   last 3 +5.3%, 3 of 3); FAVORITES 8%+ -4.3% (last 3 -9.7%, 0 of 3) - so a favorite never sizes up on its edge.
 #   Sizing sim (units won): today's rule -125u / last 3 -139u / 2026 -4.5u; ½u under 8% -9u / -105u / +16.8u; plus
-#   favorites ½u +73u / -59u / +6.2u. A lead (bare read, no dog gates) - it only ever sizes DOWN.
+#   favorites ½u +73u / -59u / +6.2u. A lead (bare read, no dog gates). NOT built that far (the owner, 10/2: "we can't
+#   be having half units all across the board" - 8% put ~80% of plays at ½u and every favorite Lock at ½u forever):
+#   3% stays the line, the Lock sizes by its own read. Re-check on a full-board replay.
 
 
 def thin_edge(leg):

@@ -63,8 +63,8 @@ every session:
   for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
 - Units (the engine decides, by its edge - quarter-Kelly, ½u-10u; 1 unit = 1% of our bankroll, $1,000 start): early
   value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. From 10/2 every
-  value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 8%
-  over the price = ½u, and a favorite is ½u (the 10/2 edge study, sports.THIN_EDGE). Leans keep their
+  value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 3%
+  over the price = ½u (sports.THIN_EDGE). Never half units across the whole board (the owner, 10/2). Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.
 - Tennis live plus money (the owner, 10/1 - "tighten it up"): only SUPER value - a 65%+ pre-match favorite on the
