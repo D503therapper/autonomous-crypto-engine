@@ -6093,6 +6093,15 @@ def test_both_teams_hot_never_called_our_heater():
     assert "their_hot >= n_hot" in blk and "n_hot = 0" in blk and "{them} {their_hot}" in blk
 
 
+def test_fetch_pages_reads_text():
+    """10/2: the official availability reports get read on GitHub's servers (tools/fetch_pages.py) - scripts and styles
+    stripped, the readable lines kept."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("fp", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py"))
+    fp = importlib.util.module_from_spec(spec); spec.loader.exec_module(fp)
+    assert fp.text_of("<p>WR Koby Howard - Out</p><script>var x=1</script><style>p{}</style>") == ["WR Koby Howard - Out"]
+
+
 def test_same_board_posted_twice_merges_to_one():
     """10/2: two engine runs posted the same board 8 minutes apart; the merge keyed picks by their post time, so the
     dashboard showed every pick twice. The same day + kind + round + games is one pick - the first one posted stays."""

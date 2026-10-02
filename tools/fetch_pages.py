@@ -1,0 +1,51 @@
+"""📰 Read public news / conference pages on GitHub's servers (10/2: Claude's sandbox can't open them, only see search
+snippets - and a snippet can't prove which week an injury report is from). Usage: python tools/fetch_pages.py URL [URL ...]
+or one URL per line in results/pages/urls.txt. Saves each page's readable text to results/pages/<n>.txt (the part with
+the injury / availability words first) plus results/pages/index.txt. Public pages only - a plain request, nothing that
+gets around a site's blocks. Read only."""
+import html
+import os
+import re
+import sys
+import urllib.request
+
+UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"}
+OUT = "results/pages"
+KEY = re.compile(r"(availab|injur|questionable|doubtful|\bout\b|probable|game-time)", re.I)
+
+
+def text_of(body):
+    body = re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", body)
+    body = re.sub(r"(?s)<!--.*?-->", " ", body)
+    t = html.unescape(re.sub(r"<[^>]+>", "\n", body))
+    lines = [re.sub(r"\s+", " ", x).strip() for x in t.split("\n")]
+    return [x for x in lines if x]
+
+
+def main(urls):
+    os.makedirs(OUT, exist_ok=True)
+    idx = []
+    for n, url in enumerate(urls):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
+                lines = text_of(r.read().decode("utf-8", "replace"))
+            title = next((x for x in lines if len(x) > 25), "")[:150]
+            hits = [i for i, x in enumerate(lines) if KEY.search(x)]
+            keep = sorted({j for i in hits for j in range(max(0, i - 3), min(len(lines), i + 4))})
+            body = "\n".join(lines[j] for j in keep)[:30000]
+            dates = sorted(set(re.findall(r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2},? 20\d\d", " ".join(lines))))[:6]
+            with open(os.path.join(OUT, f"{n:03d}.txt"), "w") as f:
+                f.write(f"URL: {url}\nTITLE: {title}\nDATES SEEN: {dates}\n\n{body}\n")
+            idx.append(f"{n:03d} OK {len(body):,} chars  {url}")
+        except Exception as e:                               # noqa: BLE001
+            idx.append(f"{n:03d} FAILED {str(e)[:80]}  {url}")
+    with open(os.path.join(OUT, "index.txt"), "w") as f:
+        f.write("\n".join(idx) + "\n")
+    print("\n".join(idx))
+
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if not args and os.path.exists(os.path.join(OUT, "urls.txt")):
+        args = [x.strip() for x in open(os.path.join(OUT, "urls.txt")) if x.strip().startswith("http")]
+    main(args)
