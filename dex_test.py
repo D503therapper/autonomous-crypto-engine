@@ -791,6 +791,7 @@ def test_entry_needs_a_run():
     assert not dex.entry_trigger({**base, "h6": -0.45}, E)              # SHARTCOIN-style bounce in a fall
     assert not dex.entry_trigger({**base, "h6": 0.15}, E)
     assert dex.entry_trigger({**base, "h6": 0.80}, E)
+    assert not dex.entry_trigger({**base, "h1": 2.66, "h6": 4.05}, E)  # SACC 2026-10-02: +266% in one hour -> 0.09x
     print("  entry needs the coin already up >= +50% in 6h   ok")
 
 

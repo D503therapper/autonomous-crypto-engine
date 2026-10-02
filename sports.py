@@ -33,7 +33,7 @@ DATA = sd.DATA
 PT = ZoneInfo("America/Los_Angeles")
 START_BANKROLL = 1000.0
 STAKE = 100.0
-HOLD_DAYS = set()             # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
+HOLD_DAYS = set()                   # boards on hold (none): used 9/28 while the new lock/lean rules (tools/tier_study.py) shipped - never
                                # post under rules the study showed are weak (the owner, 9/28)
 FORCE_LOCK = False             # the owner, 10/2 ("there doesn't always have to be a lock ... you make the call"): a Lock
 #                                only when the engine's read really beats the price (the full Lock test or backup_lock);
@@ -241,6 +241,7 @@ def waiting_on(g, injuries, maybe=True):
     return out
 
 
+import sports_absences  # noqa: E402
 import sports_lines  # noqa: E402
 
 LINES_ST = sports_lines.load()               # the puck line / run line study (how often teams really win by 2+)
@@ -391,6 +392,12 @@ def candidates(games, model, now=None, day=None, injuries=None):
         # the big study's price check: in a sport where favorites/dogs really win more/less than their price says
         # (proven on games it never saw), every read is shifted by it
         ph, ph_own = sports_dogs.adjust(DOGS_ST, lg, ph), sports_dogs.adjust(DOGS_ST, lg, ph_own)
+        # 🚑 a missing key player moves the engine's OWN read (the 10/2 absence studies - sports_absences: NFL QB -8 /
+        # RB -3 / WR -3 / two+ -10, college QB -3 / two+ -5, NHL top scorer -6, NBA top scorer -9; MLB none)
+        absent = {s_: sports_absences.penalty(games, g, s_, injuries, skip_qb=bool(key_out[s_])) if injuries else (0.0, [])
+                  for s_ in ("home", "away")}
+        if absent["home"][0] or absent["away"][0]:
+            ph_own = min(0.99, max(0.01, ph_own - absent["home"][0] + absent["away"][0]))
         # the studies' PROVEN angles (context factors, situational spots, the explorer): the single strongest one
         try:
             cx = _index(games, "context").facts(g)
@@ -441,6 +448,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
             if base["their_drama"]:
                 base["reasons"] = base["reasons"] + [f"opponent drama: {base['their_drama'][0]['kind']}"]
             # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
+            if absent[side][1]:                           # (who's missing, for the card / the journal)
+                base["absent"] = absent[side][1]
             base["drift"] = round(((mkt_open - mkt) if side == "home" else (mkt - mkt_open)), 4) \
                 if mkt is not None and mkt_open is not None else 0.0
             odds = int(g[f"ml_{side}"])

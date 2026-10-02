@@ -91,3 +91,23 @@ every session:
 - **Every new chat: read `STATUS.md` first** (what's live, what's being tested, the owner's open decisions, what's next)
   and update it before the session ends - the owner starts fresh chats to save usage, and a new chat must pick up
   right where the last one left off.
+
+# D503 Autonomous Trading Engine (crypto / DEX / stocks paper trading): the owner's standing rules
+
+Paper money only (no real keys, ever). Engine: run_live.py on GitHub Actions 24/7 (paper-trade.yml); dashboard
+docs/index.html refreshes every minute. Read first: GOALS.md, REVIEW.md, results/research_log.md (EXPERIMENTS LOG table,
+"Hourly check fixes", studies), the newest results/daily_review_*.md.
+
+- Goals: $4,000+/month once live; long term "to the moon" (catch the next PEPE / Shiba early); never get scammed; never
+  lose everything; money always working (no idle cash).
+- Act as the professional: don't ask permission, decide from evidence, fix bugs yourself. Experiment directly in the
+  main paper accounts (no side/shadow accounts) and log each one in the EXPERIMENTS LOG with a judge date.
+- Talk to him in plain, short English - no jargon (no "tiers", "trail", "6h", "stake-back" words; say what it does).
+- Accounts: Stocks $500 (rsi2 dip-buying), DEX season 2 from 2026-09-29 at $1,000 (season 1 archived in data/dex/archive/).
+- Checks: 8-hour reviews 05:23 / 13:23 / 21:23 UTC (REVIEW.md) - the only scheduled checks (bug checks turned off 10-01 to
+  save usage; the engine restarts itself if frozen). Say nothing between reviews
+  unless something major can't be undone. Phone alerts: moon alerts at 2x/3x/5x/10x/25x/50x/100x only.
+- Never push to branch pending/crypto-into-dex. Never delete trading history (archive). Never loosen scam protection
+  without evidence. Don't work around safety-classifier denials.
+- Live money later: Crypto.com as the on/off ramp, Phantom for the engine's Solana wallet; the key only in GitHub
+  Secrets; never ask for or store a seed phrase. Live trading code gets built only after paper results prove it.

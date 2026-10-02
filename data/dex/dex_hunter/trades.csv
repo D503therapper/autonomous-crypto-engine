@@ -19,3 +19,11 @@ time,side,coin,qty,price,usd,fee,pnl,reason
 2026-10-01 03:07,BUY,SENDCAT@ethereum:0x56D487,33031.44268231,0.002226,73.51,0.22,,dex tier A momentum 1h +47% 6h +76% buys/sells 38/31 impact 0.07%
 2026-10-01 05:56,BUY,PINK@solana:AVBN6kXd,116699.83334928,0.00066,77.05,0.23,,dex tier A momentum 1h +50% 6h +74% buys/sells 475/390 impact 0.07%
 2026-10-01 08:41,BUY,CURVE@solana:7ioeSgzf,171710.91787667,0.000453,77.77,0.23,,dex tier A momentum 1h +75% 6h +173% buys/sells 1532/1073 impact 0.02%
+2026-10-01 22:27,SELL,ZCAT@solana:HcRLc9VD,1435.43342269,0.047072,67.57,0.2,-28.76,"swapped for a stronger coin (BANDIT: 1h +10%, 6h +76%); this one 0.71x after 34h"
+2026-10-01 22:28,BUY,BANDIT@solana:3cgCqhms,6137.23648664,0.011325,69.5,0.21,,dex tier A momentum 1h +11% 6h +76% buys/sells 846/138 impact 0.02%
+2026-10-01 23:58,SELL,BANDIT@solana:3cgCqhms,6137.23648664,0.000923,5.67,0.02,-64.06,re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+2026-10-02 00:07,SELL,TIBBIR@base:0xA4A2E2,383.50255081,0.268283,102.89,0.31,-22.93,"swapped for a stronger coin (SACC: 1h +261%, 6h +435%); this one 0.83x after 45h"
+2026-10-02 00:08,BUY,SACC@solana:4K8V9yH6,56054.6514506,0.001211,67.87,0.2,,dex tier A momentum 1h +266% 6h +405% buys/sells 5419/3572 impact 0.07%
+2026-10-02 04:53,BUY,AGENCY@solana:7VertkgF,23770.92732671,0.001684,40.03,0.12,,dex tier A momentum 1h +1265% 6h +3239% buys/sells 3512/2846 impact 0.03%
+2026-10-02 05:08,SELL,SACC@solana:4K8V9yH6,56054.6514506,3e-06,0.16,0.0,-67.91,re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%
+2026-10-02 05:53,SELL,AGENCY@solana:7VertkgF,23770.92732671,0.000993,23.6,0.07,-16.63,re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 66% < 95%
