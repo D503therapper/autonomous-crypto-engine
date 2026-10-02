@@ -1598,8 +1598,8 @@ def near_lock(cands, raw=False):
             continue                                         # (fighting() minus its own-read test, which is this one)
         pool.append((round(own, 3), c))
     if not pool:                                             # (10/2: the favorites' weighed read can leave no one;
-        return near_lock(cands, raw=True) if not raw else None   # the owner's "always a Lock" stands - his own read,
-    best = max(pool, key=lambda x: x[0])[1]                  #  as before, until he says otherwise)
+        return near_lock(cands, raw=True) if not raw else None   # the owner, 10/2: "how many times I gotta tell you,
+    best = max(pool, key=lambda x: x[0])[1]                  #  yes, there's ALWAYS a Lock of the Day" - permanent)
     best["near_price"] = True                                # (sized ½u+, never pulled by the money check)
     return best
 

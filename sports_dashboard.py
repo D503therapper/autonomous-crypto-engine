@@ -2141,7 +2141,12 @@ function liveTags(){{var n=Date.now(),S={{}},W=window.D503S||{{}},F=(n-(window.D
   var on=sc?true:(n>=st&&n<st+6*3600000&&!s.classList.contains("dly"));   // (not started yet: stays DELAYED)
   if(on){{if(!s.dataset.lv)s.dataset.lv=s.innerHTML;
     var tag=sc&&sc.delayed?'⏳ DELAYED':sc&&!sc.live?(called(s,sc)||'<span class="fnb">FINAL</span>'):'<span class="lvb"><i></i>LIVE</span>';
-    s.classList.toggle("dly",!!(sc&&sc.delayed));if(s.innerHTML!==tag)s.innerHTML=tag;}}
+    s.classList.toggle("dly",!!(sc&&sc.delayed));if(s.innerHTML!==tag)s.innerHTML=tag;
+    var rs=tag.indexOf("lr won")>=0?"won":tag.indexOf("lr lost")>0?"lost":null,cd=s.closest("section.pk");   // (10/2, the
+    if(rs&&cd&&leg&&cd.querySelectorAll(".leg").length===1&&!cd.querySelector(".stamp")){{   // owner: the Steelers card
+      var sr=document.createElement("div");sr.className="stamp-row";   // had MISS but no LOST across the middle - the
+      sr.innerHTML='<div class="stamp '+rs+'">'+(rs==="won"?"CASHED":"LOST")+'</div>';   // stamp waited on the grade)
+      leg.parentNode.insertBefore(sr,leg);}}}}
   else if(s.dataset.lv){{s.innerHTML=s.dataset.lv;delete s.dataset.lv}}   // (only when it's NOT on - it used to undo LIVE)
   if(sc&&!sc.live&&!sc.delayed)window.d503stale=1;       // a pick's game is final: the graded page is coming
   if(sc&&on&&row){{var q=function(x){{return String(x).replace(/[&<>"]/g,"")}},h;
