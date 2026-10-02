@@ -18,7 +18,8 @@ import sports_owner_lingo
 JARGON = re.compile(r"\b\d{1,3}\s*(?:times\s+)?in\s+100\b|\bprice\s+(?:only\s+)?needs\b|\bbreak[- ]even\b", re.I)
 UNSET = re.compile(r"\bTBA\b|\bTBD\b")
 FILLER = re.compile(r"travel just fine|just the better team|they'?re just better|division rivals|no love lost|"
-                    r"everything above tips|and it ain'?t close", re.I)
+                    r"everything above tips|and it ain'?t close|got our own reasons\.|got there on our own", re.I)
+#   (10/2: "we got our own reasons." with no reason after it is filler - the owner's never-vague rule)
 BROKEN = re.compile(r"\bNone\b|\bnan\b|[{}]")
 WRONG_POS = {   # words that can't belong to the sport
     "nfl": re.compile(r"\bgoalie|\bgoaltend|\bpitcher\b|\bdefenseman\b", re.I),

@@ -10,7 +10,7 @@ import sports_model as sm
 import sports_players as sp
 
 PT = ZoneInfo("America/Los_Angeles")
-VERSION = 45          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
+VERSION = 46          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
 def _t(iso):
@@ -1212,10 +1212,10 @@ T = {
     ],
     "splits_ride": [
         "📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us} ({mk}). Sometimes the crowd gets it right.",
-        "📊 {t}% of the bets on {the_us} ({m}% of the money) on {mk}. We with the crowd tonight, but we got our own reasons.",
+        "📊 {t}% of the bets on {the_us} ({m}% of the money) on {mk}. We with the crowd on this one.",
         "📊 [Splits|The splits|Betting splits] on {mk}: {t}% of [bets|tickets] and {m}% of the money on {the_us}. [Crowd's right this time.|We agree, for our own reasons.|Same side, different reasons.]",
         "📊 {The_us} [are pulling|got] {t}% of the [tickets|bets] and {m}% of the money on {mk}. [The public's not wrong every time.|No shame riding with the crowd.|We're on it too.]",
-        "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Fine by us — our numbers got there first.|Broken clock, right time.|We got our own reasons.]",
+        "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Same side as us.|We with the crowd on this one.]",
     ],
     "splits_even": [
         "📊 Bets are split — {t}% on {the_us}, {pt}% on {the_them} ({m}% / {pm}% of the money). Nobody knows nothing on this one, except us.",
@@ -2015,10 +2015,10 @@ T.update({
     ],
     "splits_ride": [
         "📊 [Public's|The crowd's] with us on this one — {t}% of the bets and {m}% of the money on {the_us} ({mk}). Sometimes the crowd gets it right.",
-        "📊 {t}% of the bets on {the_us} ({m}% of the money) on {mk}. We with the crowd [tonight|today], but we got our own reasons.",
+        "📊 {t}% of the bets on {the_us} ({m}% of the money) on {mk}. We with the crowd on this one.",
         "📊 [Splits|The splits|Betting splits] on {mk}: {t}% of [bets|tickets] and {m}% of the money on {the_us}. [Crowd's right this time.|We agree, for our own reasons.|Same side, different reasons.]",
         "📊 {The_us} [are pulling|got] {t}% of the [tickets|bets] and {m}% of the money on {mk}. [The public's not wrong every time.|No shame riding with the crowd.|We're on it too.]",
-        "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Fine by us — our numbers got there first.|Broken clock, right time.|We got our own reasons.]",
+        "📊 [The crowd|The public|Everybody] [likes|is on] {the_us} on {mk} ({t}% of bets, {m}% of money). [Same side as us.|We with the crowd on this one.]",
     ],
 })
 _SPLIT = {   # the public-splits line: an opener with the numbers x a closer with our stance (every window varies)

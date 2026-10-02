@@ -7189,6 +7189,17 @@ def test_every_unit_play_has_units_only_leans_dont():
     finally:
         sports.pick_tier, sports.beats_price = keep
 
+
+def test_no_reasonless_crowd_line():
+    """10/2 board preview: "We with the crowd tonight, but we got our own reasons." - no reason given = filler (the
+    owner's never-vague rule). Gone from the pools, and the card guard drops it if it ever comes back."""
+    import sports_card_guard as cg
+    for f in ("sports_breakdown_v24.py", "sports_breakdown.py"):
+        src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), f)).read()
+        assert "got our own reasons." not in src and "got there on our own" not in src, f
+    assert cg.problem("📊 91% of the bets on Penn State (30% of the money). We with the crowd tonight, but we got our own reasons.")
+    assert not cg.problem("🤝 Public side on Penn State, but we got our own reasons — 4 straight W's.")
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

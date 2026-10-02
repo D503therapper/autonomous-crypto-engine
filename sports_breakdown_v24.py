@@ -716,10 +716,10 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.say("splits_w", [
                 f"📊 Public's with us on this one — {t}% of the bets and {m}% of the money on {the_us}. "
                 f"Sometimes the crowd gets it right.",
-                f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd tonight, but we got our own reasons.",
+                f"📊 {t}% of the bets on {the_us} ({m}% of the money). We with the crowd on this one.",
                 f"📊 The crowd's on {the_us} too — {t}% of the tickets, {m}% of the cash. Public's usually wrong — not this time.",
                 f"📊 {t}% of the bets and {m}% of the money on {the_us}. For once the casuals ain't wrong.",
-                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money. We got there on our own though.",
+                f"📊 Everybody and they mama on {the_us}: {t}% of the bets, {m}% of the money. Same side as us.",
                 f"📊 {the_us} got {t}% of the bets ({m}% of the money). Popular pick, still the right one."]))
         else:
             out.append(v.say("splits", [
