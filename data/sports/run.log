@@ -1,17 +1,3 @@
-proven: ncaab|rate|fav_cover
-ACTIVE ncaaf away favorite: favorites win 22-4 (prices said 19.6) (7 straight) -> coin flip · next: Liberty @ Delaware, Penn State @ Northwestern
-ACTIVE ncaaf saturday: favorites win 69-12 (prices said 66.2) (5 straight) -> coin flip
-ACTIVE mlb sunday: home team wins 216-185 (prices said 213.5) (6 straight) -> coin flip
-ACTIVE mlb home favorite: over 790-770 (5 straight) -> coin flip · next: White Sox @ Astros, Red Sox @ Yankees
-ACTIVE mlb back-to-back: home team wins 1134-1015 (prices said 1136.8) (6 straight) -> coin flip · next: Phillies @ Braves, White Sox @ Astros, Red Sox @ Yankees
-ACTIVE mlb monday: home team wins 139-123 (prices said 137.6) (5 straight) -> coin flip
-ACTIVE ncaaf friday: favorites win 13-1 (prices said 11.2) -> coin flip · next: Pitt @ Virginia Tech, Liberty @ Delaware, Penn State @ Northwestern
-ACTIVE ncaaf home favorite: favorites win 71-11 (prices said 68.6) -> coin flip · next: Western KY @ New Mexico St, North Texas @ Tulsa, Pitt @ Virginia Tech
-totals study: {'nfl': (0.558, True), 'ncaaf': (0.4727, False), 'nba': (0.4871, False), 'ncaab': (0.53, True), 'mlb': (0.4865, False), 'nhl': (0.4841, False)}
-public splits: 14 upcoming games
-self-check: 24 graded picks - we said 56%, they hit 83% (only 24 graded - report only)
-  drama:none: 24 graded, said 56%, hit 83% - only 24 graded - report only
-  market:ml: 23 graded, said 56%, hit 83% - only 23 graded - report only
   source:pregame: 20 graded, said 53%, hit 85% - only 20 graded - report only
   label:parlay leg: 16 graded, said 53%, hit 88% - only 16 graded - report only
   price:-149..-101: 14 graded, said 56%, hit 93% - only 14 graded - report only
@@ -2988,6 +2974,20 @@ sync: 130601 games stored, 52 calls, 0 failed, 9s
 odds history: 0 games got odds, 55 calls, 0 failed, 8s
 player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
 weather: 120 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 3 new drama tags
+public splits: 79 upcoming games
+tennis sync: 72704 matches stored, 18 calls, 0 failed
+tennis study ATP: 25908 rated matches, acc 0.6355 (surface ratings alone 0.6375), loss 0.6321 vs 0.6323, own weights [-0.005, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
+tennis study ATP life factors vs current loss 0.6321: experience 0.6331 (-0.98 mnats, z -0.94), age 0.6283 (+3.81 mnats, z 2.78), young_vs_aging 0.6314 (+0.69 mnats, z 1.66), last_match 0.6294 (+2.70 mnats, z 1.87), streaks 0.6326 (-0.46 mnats, z -0.46), first_set 0.631 (+1.07 mnats, z 1.71), injury 0.6327 (-0.65 mnats, z -0.93), travel 0.6322 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30243 rated matches, acc 0.647 (surface ratings alone 0.647), loss 0.6216 vs 0.6202, own weights [0.005, 0.906, -0.001, -0.102, 0.31, 0.029, -0.192]
+tennis study WTA life factors vs current loss 0.6216: experience 0.6174 (+4.24 mnats, z 2.51), age 0.6213 (+0.38 mnats, z 0.46), young_vs_aging 0.6216 (+0.08 mnats, z 0.45), last_match 0.6211 (+0.56 mnats, z 0.57), streaks 0.622 (-0.31 mnats, z -0.62), first_set 0.6206 (+1.01 mnats, z 2.36), injury 0.6208 (+0.83 mnats, z 1.43), travel 0.6217 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+sync: 130601 games stored, 52 calls, 0 failed, 19s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 111 games got weather, 0 new stadiums located, 240s
 4th-down rates: 32 NFL teams
 news: 3 new drama tags
 public splits: 79 upcoming games
