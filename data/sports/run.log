@@ -1,3 +1,5 @@
+ncaaf|rate: following hit 72.9% vs 72.1% the price said over 17957 (edge +0.9% older, +0.8% newer, z 2.82) -> watch only
+nba|streak: following hit 61.2% vs 61.4% the price said over 9771 (edge -0.3% older, -0.0% newer, z -0.34) -> watch only
 nba|rate: following hit 68.5% vs 68.7% the price said over 23673 (edge -0.2% older, -0.3% newer, z -0.78) -> watch only
 ncaab|streak: following hit 67.8% vs 66.8% the price said over 36038 (edge +0.9% older, +1.1% newer, z 4.36) -> watch only
 ncaab|rate: following hit 72.5% vs 71.1% the price said over 102090 (edge +1.5% older, +1.4% newer, z 10.93) -> watch only
@@ -2910,15 +2912,13 @@ tennis study WTA: 30225 rated matches, acc 0.649 (surface ratings alone 0.6485),
 tennis study WTA life factors vs current loss 0.6227: experience 0.6179 (+4.74 mnats, z 2.83), age 0.6224 (+0.29 mnats, z 0.36), young_vs_aging 0.6226 (+0.05 mnats, z 0.31), last_match 0.6222 (+0.50 mnats, z 0.52), streaks 0.623 (-0.37 mnats, z -0.74), first_set 0.6216 (+1.08 mnats, z 2.54), injury 0.6218 (+0.86 mnats, z 1.5), travel 0.6228 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-sync: 130601 games stored, 52 calls, 0 failed, 14s
-odds history: 0 games got odds, 55 calls, 0 failed, 5s
-player stats: 218 box scores added, 223 to fetch, 0 failed, 9s
-weather: 168 games got weather, 9 new stadiums located, 251s
+sync: 130601 games stored, 52 calls, 0 failed, 21s
+odds history: 0 games got odds, 55 calls, 0 failed, 7s
+player stats: 218 box scores added, 223 to fetch, 0 failed, 10s
+weather: 174 games got weather, 9 new stadiums located, 253s
 4th-down rates: 32 NFL teams
 news: 3 new drama tags
-settled 2026-10-01 lean: lost -100.00
-settled 2026-10-01 lean: won +92.59
-tuned in 115s: mlb trust 26% acc 58.7%, nba trust 19% acc 69.8%, ncaab trust 5% acc 67.4%, ncaaf trust 11% acc 74.4%, nfl trust 12% acc 66.2%, nhl trust 15% acc 54.2%
+tuned in 116s: mlb trust 26% acc 58.7%, nba trust 19% acc 69.8%, ncaab trust 5% acc 67.4%, ncaaf trust 11% acc 74.4%, nfl trust 12% acc 66.2%, nhl trust 15% acc 54.2%
 cover study: nba big favorites covered 50% of 3600 (adjust +0.03); ncaab big favorites covered 49% of 12334 (adjust -0.03); ncaaf big favorites covered 51% of 3371 (adjust +0.01); nfl big favorites covered 48% of 508 (adjust +0.04)
 comeback study: nfl 2251 games s=1.3 w=1.50 m=+0.0 loss 0.476->0.468; ncaaf 5775 games s=1.2 w=1.25 m=+0.0 loss 0.361->0.360; nba 10227 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19827 games s=1.0 w=1.00 m=+0.1 loss 0.457->0.457; nhl 10060 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.507; ncaab 29448 games s=1.3 w=1.50 m=-0.1 loss 0.433->0.416
 halves study: nfl 2259 games: 1st half gets 51% of the edge (sd 10.29), 2nd 40%; 1st half leader wins 78%, tied 7%; ncaaf 5776 games: 1st half gets 61% of the edge (sd 11.88), 2nd 43%; 1st half leader wins 82%, tied 6%; nba 10227 games: 1st half gets 60% of the edge (sd 10.85), 2nd 43%; 1st half leader wins 74%, tied 3%; ncaab 29448 games: 1st half gets 62% of the edge (sd 9.11), 2nd 51%; 1st half leader wins 77%, tied 4%; mlb 20061 games: first 5 innings gets 67% of the edge (sd 3.34), 2nd 23%; first 5 innings leader wins 83%, tied 15%; nhl 10060 games: 1st period gets 28% of the edge (sd 1.3), 2nd 76%; 1st period leader wins 74%, tied 34%
@@ -2959,21 +2959,21 @@ ACTIVE ncaaf home favorite: favorites win 144-22 (prices said 137.6) -> coin fli
 ACTIVE ncaaf friday: favorites win 13-1 (prices said 11.2) -> coin flip · next: Pitt @ Virginia Tech, Liberty @ Delaware, Penn State @ Northwestern
 totals study: {'nfl': (0.558, True), 'ncaaf': (0.4902, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.486, False), 'nhl': (0.4836, False)}
 public splits: 78 upcoming games
-self-check: 51 graded picks - we said 55%, they hit 63% (hitting at or above what we said)
-  drama:none: 48 graded, said 55%, hit 67% - hitting at or above what we said
-  market:ml: 46 graded, said 55%, hit 67% - hitting at or above what we said
-  source:pregame: 38 graded, said 54%, hit 68% - only 38 graded - report only
-  label:parlay leg: 32 graded, said 54%, hit 69% - only 32 graded - report only
-  price:-149..-101: 30 graded, said 56%, hit 73% - only 30 graded - report only
+self-check: 53 graded picks - we said 55%, they hit 62% (hitting at or above what we said)
+  drama:none: 50 graded, said 54%, hit 66% - hitting at or above what we said
+  market:ml: 48 graded, said 55%, hit 67% - hitting at or above what we said
+  source:pregame: 40 graded, said 54%, hit 68% - hitting at or above what we said
+  label:parlay leg: 34 graded, said 54%, hit 68% - only 34 graded - report only
+  price:-149..-101: 32 graded, said 56%, hit 72% - only 32 graded - report only
   price:+101..+179: 20 graded, said 52%, hit 45% - only 20 graded - report only
   league:mlb: 19 graded, said 54%, hit 90% - only 19 graded - report only
-  ctx:game:div: 14 graded, said 56%, hit 57% - only 14 graded - report only (report only: forward-only tag)
-  ctx:game:rival: 14 graded, said 56%, hit 57% - only 14 graded - report only (report only: forward-only tag)
+  ctx:game:div: 16 graded, said 56%, hit 56% - only 16 graded - report only (report only: forward-only tag)
+  ctx:game:rival: 15 graded, said 56%, hit 53% - only 15 graded - report only (report only: forward-only tag)
   label:live: 13 graded, said 57%, hit 46% - only 13 graded - report only
+  league:nfl: 13 graded, said 59%, hit 77% - only 13 graded - report only
   source:live: 13 graded, said 57%, hit 46% - only 13 graded - report only
-  league:nfl: 12 graded, said 59%, hit 83% - only 12 graded - report only
+  league:nhl: 10 graded, said 53%, hit 20% - only 10 graded - report only
   league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  league:nhl: 9 graded, said 53%, hit 11% - only 9 graded - report only
   ctx:game:conf: 8 graded, said 52%, hit 62% - only 8 graded - report only (report only: forward-only tag)
   ctx:them:trip1000: 6 graded, said 56%, hit 100% - only 6 graded - report only (report only: forward-only tag)
   market:spread: 5 graded, said 54%, hit 20% - only 5 graded - report only
