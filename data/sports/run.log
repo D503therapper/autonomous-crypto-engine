@@ -1,17 +1,3 @@
-rate|total: following hit 50.9% vs 50.0% the price said over 3884 (edge +1.1% older, +0.7% newer, z 1.16) -> watch only
-rate|fav_ml: following hit 73.8% vs 72.7% the price said over 111515 (edge +0.9% older, +1.2% newer, z 8.36) -> watch only
-rate|fav_cover: following hit 48.9% vs 50.0% the price said over 1763 (edge -0.1% older, -2.0% newer, z -0.88) -> watch only
-rate|home: following hit 66.4% vs 65.3% the price said over 41137 (edge +1.1% older, +1.1% newer, z 5.41) -> watch only
-nfl|streak: following hit 58.3% vs 59.7% the price said over 1529 (edge -2.3% older, -0.5% newer, z -1.2) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4068 (edge -0.2% older, +0.4% newer, z 0.11) -> watch only
-ncaaf|streak: following hit 70.8% vs 70.5% the price said over 6029 (edge -0.1% older, +0.7% newer, z 0.53) -> watch only
-ncaaf|rate: following hit 72.9% vs 72.1% the price said over 17957 (edge +0.9% older, +0.8% newer, z 2.82) -> watch only
-nba|streak: following hit 61.2% vs 61.4% the price said over 9771 (edge -0.3% older, -0.0% newer, z -0.34) -> watch only
-nba|rate: following hit 68.5% vs 68.7% the price said over 23673 (edge -0.2% older, -0.3% newer, z -0.78) -> watch only
-ncaab|streak: following hit 67.8% vs 66.8% the price said over 36038 (edge +0.9% older, +1.1% newer, z 4.36) -> watch only
-ncaab|rate: following hit 72.5% vs 71.1% the price said over 102090 (edge +1.5% older, +1.4% newer, z 10.93) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10776 (edge +0.5% older, -0.5% newer, z 0.1) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
 nhl|streak: following hit 56.9% vs 55.5% the price said over 5047 (edge +1.8% older, +1.1% newer, z 2.12) -> watch only
 nhl|rate: following hit 61.8% vs 61.1% the price said over 5149 (edge +0.3% older, +1.1% newer, z 1.06) -> watch only
 proven: ncaab|rate|fav_cover
@@ -2996,5 +2982,19 @@ tennis study ATP: 25905 rated matches, acc 0.6345 (surface ratings alone 0.6365)
 tennis study ATP life factors vs current loss 0.6331: experience 0.6342 (-1.08 mnats, z -1.02), age 0.6292 (+3.83 mnats, z 2.79), young_vs_aging 0.6323 (+0.73 mnats, z 1.78), last_match 0.6304 (+2.68 mnats, z 1.85), streaks 0.6336 (-0.50 mnats, z -0.49), first_set 0.632 (+1.08 mnats, z 1.73), injury 0.6338 (-0.70 mnats, z -1.0), travel 0.6332 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
 tennis study WTA: 30232 rated matches, acc 0.6475 (surface ratings alone 0.6475), loss 0.622 vs 0.6205, own weights [0.005, 0.905, -0.0, -0.101, 0.31, 0.029, -0.191]
 tennis study WTA life factors vs current loss 0.622: experience 0.6174 (+4.55 mnats, z 2.7), age 0.6216 (+0.35 mnats, z 0.42), young_vs_aging 0.6219 (+0.08 mnats, z 0.49), last_match 0.6214 (+0.59 mnats, z 0.61), streaks 0.6224 (-0.39 mnats, z -0.78), first_set 0.621 (+1.00 mnats, z 2.34), injury 0.6211 (+0.88 mnats, z 1.53), travel 0.6221 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+sync: 130601 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 120 games got weather, 0 new stadiums located, 249s
+4th-down rates: 32 NFL teams
+news: 3 new drama tags
+public splits: 78 upcoming games
+tennis sync: 72661 matches stored, 18 calls, 0 failed
+tennis study ATP: 25905 rated matches, acc 0.6345 (surface ratings alone 0.6365), loss 0.6331 vs 0.6333, own weights [-0.005, 0.829, 0.074, 0.141, 0.425, 0.052, 0.049]
+tennis study ATP life factors vs current loss 0.6331: experience 0.6342 (-1.08 mnats, z -1.02), age 0.6292 (+3.83 mnats, z 2.79), young_vs_aging 0.6323 (+0.73 mnats, z 1.78), last_match 0.6304 (+2.68 mnats, z 1.85), streaks 0.6336 (-0.50 mnats, z -0.49), first_set 0.632 (+1.08 mnats, z 1.73), injury 0.6338 (-0.70 mnats, z -1.0), travel 0.6332 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30233 rated matches, acc 0.648 (surface ratings alone 0.648), loss 0.6217 vs 0.6202, own weights [0.005, 0.905, -0.0, -0.102, 0.31, 0.029, -0.191]
+tennis study WTA life factors vs current loss 0.6217: experience 0.6171 (+4.61 mnats, z 2.74), age 0.6214 (+0.34 mnats, z 0.4), young_vs_aging 0.6216 (+0.08 mnats, z 0.49), last_match 0.6211 (+0.58 mnats, z 0.59), streaks 0.6221 (-0.39 mnats, z -0.78), first_set 0.6207 (+1.00 mnats, z 2.33), injury 0.6209 (+0.86 mnats, z 1.51), travel 0.6218 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
