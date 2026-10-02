@@ -54,7 +54,7 @@ every session:
 - The Lock of the Day always sits on top of the day's board, right under Live Plus Money - except on game day the
   🎯 WE GOT IN EARLY box (our early value plays playing today) goes just above it (the owner, 9/30). An early play is
   never posted on its own game day. There's ALWAYS a Lock of the Day - never ask again (the owner, 10/2: "how many
-  times I gotta tell you"): a day nothing clears the Lock test, the backup Lock (sports.near_lock) goes up at ½u. It is
+  times I gotta tell you"): a day nothing clears the Lock test, the backup Lock (sports.near_lock) goes up at ½u - titled just LOCK (not Lock of the Day), with its own box above it saying nothing met the Lock of the Day standard (the owner, 10/2; sports_dashboard.BACKUP_LOCK). It is
   never just the biggest favorite closest to -150 ("any moron could do that"): the engine's OWN read has to say it's
   worth its price, then the best proven win % (sports.own_agrees; tested 1,808 days, 58.1% vs 56.8%).
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
