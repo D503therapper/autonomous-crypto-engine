@@ -6131,6 +6131,34 @@ def test_save_retry_survives_a_push_race():
         assert "git rebase --abort 2>/dev/null;" not in y, f
 
 
+def test_capper_benchmark_logs_and_grades():
+    """10/2: Dr. Bob's free NFL leans - every shape on his page parsed ('Cleveland (+3 -115) or better', 'Arizona (-2.5)
+    over NY GIANTS', 'Over (51.5) - CINCINNATI (-2.5)'), logged once with the number he gave, graded off the final next to
+    our pick on the same game. A later page never rewrites a logged lean."""
+    import sports_capper as cp, tempfile as _t
+    lines = ["Pittsburgh Steelers", "@", "Cleveland Browns", "Thu, Oct 1 5:15 PM PT", "Lean – Cleveland (+3 -115) or better",
+             "My ratings favor Pittsburgh by just 1.4 points with 38.2 total points.",
+             "Arizona Cardinals", "@", "New York Giants", "Sun, Oct 4 10:00 AM PT", "Lean – Arizona (-2.5) over NY GIANTS",
+             "Jacksonville Jaguars", "@", "Cincinnati Bengals", "Sun, Oct 4 10:00 AM PT",
+             "Lean – Over (51.5) – CINCINNATI (-2.5) vs Jacksonville"]
+    page = cp.parse(lines, 2026)
+    assert page[0]["leans"] == [{"side": "home", "line": 3.0, "price": -115}] and page[0]["rating"] == ["away", 1.4]
+    assert page[1]["leans"][0]["side"] == "away" and page[1]["leans"][0]["line"] == -2.5
+    assert [x["side"] for x in page[2]["leans"]] == ["over", "home"]
+    games = {"nfl:1": {"id": "nfl:1", "league": "nfl", "start": "2026-10-02T00:15Z", "status": "final", "home_name": "Browns",
+                       "away_name": "Steelers", "home_score": "27", "away_score": "24"}}
+    picks = [{"kind": "lean", "lean": True, "status": "lost", "legs": [{"league": "nfl", "game_id": "nfl:1", "side": "away", "market": "ml"}]}]
+    p = os.path.join(_t.mkdtemp(), "bob.json")
+    now = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
+    st = cp.run(games, picks, now, path=p, page=page)
+    row = st["leans"]["2026-10-01|Pittsburgh Steelers|Cleveland Browns|home"]
+    assert row["result"] == "won" and row["us"]["same"] is False and st["record"]["against_us"]["won"] == 1
+    assert st["record"]["all"]["won"] == 1 and sum(st["record"]["all"].values()) == 1      # Sunday's not played yet
+    page[0]["leans"][0]["line"] = 1.5                                  # he moved it later: the first number stands
+    st = cp.run(games, picks, now, path=p, page=page)
+    assert st["leans"]["2026-10-01|Pittsburgh Steelers|Cleveland Browns|home"]["line"] == 3.0
+
+
 def test_fetch_pages_reads_text():
     """10/2: the official availability reports get read on GitHub's servers (tools/fetch_pages.py) - scripts and styles
     stripped, the readable lines kept."""
@@ -6138,6 +6166,9 @@ def test_fetch_pages_reads_text():
     spec = importlib.util.spec_from_file_location("fp", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py"))
     fp = importlib.util.module_from_spec(spec); spec.loader.exec_module(fp)
     assert fp.text_of("<p>WR Koby Howard - Out</p><script>var x=1</script><style>p{}</style>") == ["WR Koby Howard - Out"]
+    # Dr. Bob's pages keep his leans and margins, not injury words
+    assert fp.key_for("https://drbobsports.com/nfl-analysis/").search("Lean: Packers -3.5")
+    assert not fp.key_for("https://www.on3.com/x").search("Lean: Packers")
 
 
 def test_same_board_posted_twice_merges_to_one():
@@ -7886,6 +7917,7 @@ if __name__ == "__main__":
     import sports_clv
     sports_clv.PATH = os.path.join(tempfile.mkdtemp(), "clv_record.json")               # (nor the close record /
     sports_clv.JOURNAL = os.path.join(tempfile.mkdtemp(), "pick_journal.json")          #  the pick journal)
+    import sports_capper; sports_capper.PATH = os.path.join(tempfile.mkdtemp(), "capper_drbob.json")  # (nor the capper record)
     import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list
     sd.STARTER_OF = lambda lg, tid, name: True           #  made-up injured starters - the starter tests use the real check)
     import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)

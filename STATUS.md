@@ -65,8 +65,15 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
 - Fixed today: duplicate picks (merge keyed by post time), board posts at 8:00 sharp (7:44/7:47 runs), stale summer
   opens, 'running on fumes' on rested teams, both-teams-hot streak lines, report jobs failing to save, Cloudflare CPU.
 - Waiting on the owner: the 8 AM note rewrite (on the claude/ branch, not main).
-- NEXT: Dr. Bob tracker + capper studies; early plays for hockey / baseball / hoops (study first, then live WITH units);
-  the beat-the-close record on the dashboard.
+- 10/2 evening: Dr. Bob tracker LIVE (sports_capper -> data/sports/capper_drbob.json): his free NFL Leans from
+  drbobsports.com/nfl-analysis, logged the first time seen with his number, graded off the final next to our pick on
+  the same game (with_us / against_us). Record only - never moves a pick. First lean: Cleveland +3 -115 (won, 27-24).
+  His site confirms: NO college football this year (NFL only).
+- 10/2 evening: early hockey / baseball study done (SPORTS_FINDINGS) - NOTHING built: every spot either dead or a lead
+  under 2 SE. Best lead: NHL rested team vs a back-to-back, engine 3+ over the open - log it live before any units.
+- Waiting on the owner: the beat-the-close box on the dashboard (preview sent; code sits uncommitted on the claude/
+  branch checkout - sports_dashboard.close_box + its test).
+- NEXT: capper studies (1)-(5) below; NHL rested-vs-back-to-back live log (no units); weigh OL / defense absences.
 
 **Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**
 - Benchmark: Dr. Bob (Bob Stoll, drbobsports.com) - the owner's pick as THE proven capper. Self-published: NFL best

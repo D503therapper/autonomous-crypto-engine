@@ -5778,3 +5778,58 @@ error: failed to push some refs to 'https://github.co
 [2026-10-02 17:04 UTC] stocks/trend     equity $490.05 (-2.0%) 3 open  market UP
 [2026-10-02 17:04 UTC] stocks/hold_spy  equity $500.45 (+0.1%) 1 open  market UP
    social heat top: SC 50 (40/0/10), PENGU 38 (29/0/8), TRUMP 37 (32/0/5), BLAST 35 (35/0/0), MON 27 (27/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '87240.82', 'l': '84332.14', 'a': '85169.63', 'v': '5363.9852', 'vv': '459446975.51', 'c': '0.0088', 'b': '85169.63', 'k': '85169.64', 'oi': '0', 't': 1790960686127}
+   dex screen: REJECT PLAY@base liq $425,319 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT ZRO@base liq $163,172 - pool age unknown
+   scanner: GTC: +15.2% in 72 min on 7.0x volume @ 0.148579 spread 0.60%
+   take-off: GTC vetoed by pump guard: already +38% in 24h
+   scanner: GTC: +15.2% in 73 min on 7.0x volume @ 0.148579 spread 0.53%
+   take-off: GTC vetoed by pump guard: blocked 28 more min
+   scanner: GTC: +15.2% in 74 min on 7.0x volume @ 0.148579 spread 0.64%
+   take-off: GTC vetoed by pump guard: blocked 27 more min
+   scanner: GTC: +13.2% in 75 min on 7.0x volume @ 0.146123 spread 0.70%
+   take-off: GTC vetoed by pump guard: blocked 26 more min
+   dex screen: PASS DREGG@solana liq $206,723
+   scanner: GTC: +13.2% in 77 min on 7.0x volume @ 0.146123 spread 0.56%
+   take-off: GTC vetoed by pump guard: blocked 24 more min
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   scanner: GTC: +13.5% in 81 min on 7.0x volume @ 0.146481 spread 1.21%
+   take-off: GTC vetoed by pump guard: blocked 20 more min
+   scanner: GTC: +13.5% in 83 min on 7.0x volume @ 0.146481 spread 0.67%
+   take-off: GTC vetoed by pump guard: blocked 18 more min
+   dex screen: REJECT CONWAY@base liq $310,757 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; top-10 holders 73%; lp locked 0% < 95%
+   scanner: GTC: +15.0% in 87 min on 7.0x volume @ 0.148335 spread 0.59%
+   take-off: GTC vetoed by pump guard: blocked 14 more min
+   scanner: GTC: +16.2% in 88 min on 7.0x volume @ 0.149916 spread 1.01%
+   take-off: GTC vetoed by pump guard: blocked 13 more min
+   scanner: GTC: +16.2% in 89 min on 7.0x volume @ 0.149916 spread 0.63%
+   take-off: GTC vetoed by pump guard: blocked 12 more min
+   dex screen: REJECT EDEL@base liq $1,336,913 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 47%
+   dex screen: REJECT EDEL@solana liq $32,305,492 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-02 17:45 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-02 17:45 UTC] crypto/mover     equity $446.08 (-10.8%) 1 open  market UP
+[2026-10-02 17:45 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 17:45 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-02 17:45 UTC] crypto/social_heat equity $527.70 (+5.5%) 2 open  market UP
+[2026-10-02 17:45 UTC] crypto/breakout10 equity $486.19 (-2.8%) 2 open  market UP
+[2026-10-02 17:45 UTC] crypto/momentum  equity $487.23 (-2.6%) 2 open  market UP
+[2026-10-02 17:45 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-02 17:45 UTC] crypto/hold_btc  equity $502.50 (+0.5%) 1 open  market UP
+[2026-10-02 17:46 UTC] stocks/rsi2      equity $503.06 (+0.6%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): XLRE 0, TLT 1, XLB 2, XLV 4 BUY
+[2026-10-02 17:46 UTC] stocks/dual_momentum equity $502.38 (+0.5%) 2 open  market UP
+[2026-10-02 17:46 UTC] stocks/trend_ensemble equity $502.48 (+0.5%) 5 open  market UP
+[2026-10-02 17:46 UTC] stocks/rotation10 equity $503.24 (+0.6%) 2 open  market UP
+[2026-10-02 17:46 UTC] stocks/momentum  equity $496.85 (-0.6%) 4 open  market UP
+[2026-10-02 17:46 UTC] stocks/trend     equity $488.63 (-2.3%) 3 open  market UP
+[2026-10-02 17:46 UTC] stocks/hold_spy  equity $500.01 (+0.0%) 1 open  market UP
+   social heat top: SC 53 (40/0/13), TRUMP 40 (35/0/5), PENGU 36 (29/0/7), BLAST 35 (32/0/3), BTC 27 (27/0/0)

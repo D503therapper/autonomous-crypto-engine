@@ -3211,6 +3211,12 @@ def run(repick=False, fetch=True):
     except Exception as e:                                   # noqa: BLE001 - the record never blocks the board
         print(f"close record failed: {str(e)[:80]}")
     if fetch:
+        try:                                                 # 🎓 the capper benchmark (the owner, 10/2): Dr. Bob's free
+            import sports_capper                             # NFL leans logged + graded next to ours - never copied
+            sports_capper.run(games, picks, now)
+        except Exception as e:                               # noqa: BLE001 - never blocks the board
+            print(f"capper record failed: {str(e)[:80]}")
+    if fetch:
         deciders(picks)
     day = now.astimezone(PT).date()
     if now.astimezone(PT).hour == 7:                         # 🔎 an hour before the board: the slate check
