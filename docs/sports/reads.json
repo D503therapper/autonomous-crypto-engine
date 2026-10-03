@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T19:28Z",
+ "updated": "2026-10-03T19:30Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -41,8 +41,8 @@
    "away": "Boston College",
    "home": "SMU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -266,8 +266,8 @@
    "away": "West Virginia",
    "home": "Iowa State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -656,38 +656,6 @@
      "rolling off a blowout win"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "ncaaf:401856708",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Florida",
-    "p": 0.642,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-03T19:50Z",
-   "away": "Florida",
-   "home": "Missouri",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Florida",
-    "opp": "Missouri",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
-    "reasons": [
-     "opponent missing key players",
-     "hotter recent form",
-     "rolling off a blowout win"
-    ]
    }
   },
   {
@@ -1286,7 +1254,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Southern",
-    "p": 0.561,
+    "p": 0.525,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1302,9 +1270,9 @@
     "opp": "AR-Pine Bluff",
     "market": "ml",
     "line": null,
-    "odds": -167,
-    "p": 0.594,
-    "win_p": 0.594,
+    "odds": -138,
+    "p": 0.55,
+    "win_p": 0.55,
     "reasons": [
      "the stronger team"
     ]
