@@ -6297,3 +6297,20 @@ error: failed to push some refs to 'https://github.co
    dex screen: PASS ZCAT@solana liq $1,020,915
    dex screen: REJECT MCDX@solana liq $216,771 - 24h volume $11,774 < $100,000
    dex screen: REJECT 🎒@solana liq $236,460 - transfer_fee_upgradable; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-03 05:18 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   early_mover: SAND vetoed by pump guard: already +75% in 24h
+[2026-10-03 05:18 UTC] crypto/mover     equity $444.03 (-11.2%) 1 open  market UP
+[2026-10-03 05:18 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 05:18 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 05:18 UTC] crypto/social_heat equity $528.75 (+5.8%) 2 open  market UP
+[2026-10-03 05:18 UTC] crypto/breakout10 equity $481.64 (-3.7%) 2 open  market UP
+[2026-10-03 05:18 UTC] crypto/momentum  equity $486.10 (-2.8%) 2 open  market UP
+[2026-10-03 05:18 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 05:18 UTC] crypto/hold_btc  equity $502.67 (+0.5%) 1 open  market UP
+   social heat top: SC 49 (40/0/9), PENGU 47 (35/0/12), PONS 46 (37/0/9), SAND 40 (40/0/0), GALA 32 (32/0/0)
