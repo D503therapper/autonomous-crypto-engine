@@ -69,7 +69,8 @@
   "posted": "2026-09-27T08:57Z",
   "settled": "2026-09-27T20:20Z",
   "stake": 100.0,
-  "status": "lost"
+  "status": "lost",
+  "units": 1.0
  },
  {
   "american": -115,
@@ -148,7 +149,8 @@
   "posted": "2026-09-27T08:57Z",
   "settled": "2026-09-27T23:37Z",
   "stake": 100.0,
-  "status": "won"
+  "status": "won",
+  "units": 5.0
  },
  {
   "american": 803,
@@ -219,6 +221,7 @@
     "side": "away",
     "start": "2026-09-27T20:05Z",
     "team": "Vikings",
+    "units": 5.0,
     "waiting": []
    },
    {
@@ -277,6 +280,7 @@
     "side": "away",
     "start": "2026-09-27T17:00Z",
     "team": "Patriots",
+    "units": 0,
     "waiting": []
    },
    {
@@ -341,6 +345,7 @@
     "side": "home",
     "start": "2026-09-28T00:20Z",
     "team": "Broncos",
+    "units": 0,
     "waiting": []
    }
   ],
@@ -420,6 +425,7 @@
     "side": "away",
     "start": "2026-09-27T20:05Z",
     "team": "Vikings",
+    "units": 5.0,
     "waiting": []
    },
    {
@@ -484,6 +490,7 @@
     "side": "home",
     "start": "2026-09-28T00:20Z",
     "team": "Broncos",
+    "units": 0,
     "waiting": []
    }
   ],
@@ -569,6 +576,7 @@
     "team": "Vikings",
     "their_drama": [],
     "tier": "lock",
+    "units": 3.0,
     "waiting": []
    },
    {
@@ -632,6 +640,7 @@
     "team": "Padres",
     "their_drama": [],
     "tier": "value",
+    "units": 0.5,
     "waiting": []
    },
    {
@@ -697,6 +706,7 @@
     "start": "2026-09-28T00:20Z",
     "team": "Broncos",
     "tier": "value",
+    "units": 0.5,
     "waiting": []
    },
    {
@@ -756,6 +766,7 @@
     "team": "Cubs",
     "their_drama": [],
     "tier": "lock",
+    "units": 0.5,
     "waiting": []
    },
    {
@@ -817,6 +828,7 @@
     "team": "Marlins",
     "their_drama": [],
     "tier": "lock",
+    "units": 0.5,
     "waiting": []
    },
    {
@@ -882,6 +894,7 @@
     "team": "Guardians",
     "their_drama": [],
     "tier": "lock",
+    "units": 0.5,
     "waiting": []
    },
    {
@@ -934,6 +947,7 @@
     "team": "Pirates",
     "their_drama": [],
     "tier": "lock",
+    "units": 0.5,
     "waiting": []
    },
    {
@@ -987,6 +1001,7 @@
     "team": "Twins",
     "their_drama": [],
     "tier": "lock",
+    "units": 0.5,
     "waiting": []
    }
   ],
@@ -1083,7 +1098,8 @@
   "settled": "2026-09-29T03:15Z",
   "stake": 100.0,
   "status": "won",
-  "tier": "lock"
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 921,
@@ -1176,6 +1192,7 @@
     "their_drama": [],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
    },
@@ -1260,6 +1277,7 @@
     "team": "Oilers",
     "their_drama": [],
     "tier": "lean",
+    "units": 0,
     "waiting": [],
     "why_line": "\ud83d\udcaa Oilers are just the better team. That's just facts. Rivalry game, too \u2014 bragging rights on the line."
    },
@@ -1341,6 +1359,7 @@
     "their_drama": [],
     "tier": "lean",
     "trap": false,
+    "units": 0,
     "waiting": [],
     "why_line": "\ud83d\udd25 Padres are cooking right now (2 straight W's) and Cubs ain't matching that energy. Plus Cubs flew 2,080 miles for this."
    },
@@ -1403,6 +1422,7 @@
     "team": "Blackhawks",
     "their_drama": [],
     "tier": "lean",
+    "units": 0,
     "waiting": [],
     "why_line": "\ud83d\ude91 No defenseman Lukas Cormier for Golden Knights. Short-handed teams get got."
    }
@@ -1518,7 +1538,8 @@
   "settled": "2026-09-30T03:17Z",
   "stake": 100.0,
   "status": "won",
-  "tier": "lock"
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 467,
@@ -1611,6 +1632,7 @@
     "their_drama": [],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
    },
@@ -1695,6 +1717,7 @@
     "team": "Oilers",
     "their_drama": [],
     "tier": "lean",
+    "units": 0,
     "waiting": [],
     "why_line": "\ud83d\udcaa Oilers are just the better team. That's just facts. Rivalry game, too \u2014 bragging rights on the line."
    },
@@ -1776,6 +1799,7 @@
     "their_drama": [],
     "tier": "lean",
     "trap": false,
+    "units": 0,
     "waiting": [],
     "why_line": "\ud83d\udd25 Padres are cooking right now (2 straight W's) and Cubs ain't matching that energy. Plus Cubs flew 2,080 miles for this."
    }
@@ -1880,6 +1904,7 @@
     "their_drama": [],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcaa Yankees are just the better team \u2014 and it's not that close. And Red Sox are coming off a 1,040-mile trip."
    },
@@ -1964,6 +1989,7 @@
     "team": "Oilers",
     "their_drama": [],
     "tier": "lean",
+    "units": 0,
     "waiting": [],
     "why_line": "\ud83d\udcaa Oilers are just the better team. That's just facts. Rivalry game, too \u2014 bragging rights on the line."
    }
@@ -2087,7 +2113,8 @@
   "settled": "2026-10-01T03:15Z",
   "stake": 100.0,
   "status": "won",
-  "tier": "lock"
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 400,
@@ -2188,6 +2215,7 @@
     "their_drama": [],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcaa Yankees are about to beat the brakes off Red Sox."
    },
@@ -2276,6 +2304,7 @@
     ],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcb8 The money's been coming in on Flyers since the open."
    },
@@ -2356,6 +2385,7 @@
     "their_drama": [],
     "tier": "lean",
     "trap": false,
+    "units": 0,
     "waiting": [],
     "why_line": "\u26be We got the better arm tonight: Nick Pivetta over Kevin Gausman."
    }
@@ -2468,6 +2498,7 @@
     "their_drama": [],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcaa Yankees are about to beat the brakes off Red Sox."
    },
@@ -2554,6 +2585,7 @@
     ],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcb8 The money's been coming in on Flyers since the open."
    }
@@ -2658,7 +2690,8 @@
   "settled": "2026-10-01T04:57Z",
   "stake": 100.0,
   "status": "lost",
-  "tier": "lean"
+  "tier": "lean",
+  "units": 0.5
  },
  {
   "american": 784,
@@ -2759,6 +2792,7 @@
     "their_drama": [],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcaa Yankees are about to beat the brakes off Red Sox."
    },
@@ -2847,6 +2881,7 @@
     ],
     "tier": "lock",
     "trap": false,
+    "units": 0.5,
     "waiting": [],
     "why_line": "\ud83d\udcb8 The money's been coming in on Flyers since the open."
    },
@@ -2927,6 +2962,7 @@
     "their_drama": [],
     "tier": "lean",
     "trap": false,
+    "units": 0,
     "waiting": [],
     "why_line": "\u26be We got the better arm tonight: Nick Pivetta over Kevin Gausman."
    },
@@ -2998,6 +3034,7 @@
     "their_drama": [],
     "tier": "lean",
     "trap": false,
+    "units": 0,
     "waiting": [],
     "why_line": "\ud83d\udcb8 Maple Leafs' price keeps shortening since the open. We were already here."
    }
