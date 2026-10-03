@@ -6633,3 +6633,16 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 16:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 16:06 UTC] crypto/hold_btc  equity $504.20 (+0.8%) 1 open  market UP
    social heat top: PONS 41 (40/0/1), NEAR 37 (37/0/0), QNT 35 (35/0/0), ZRO 32 (32/0/0), GRASS 29 (29/0/0)
+   dex screen: PASS JEANPHIL@solana liq $131,205
+   dex screen: REJECT JEANPHIL@solana liq $133,691 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT FUN@base liq $325,888 - pool age unknown
+   social heat: BUY ZRO: heat 51: coingecko#2 geckoterminal_5m#3
+   >> crypto/social_heat: BUY $94.45 of ZRO @ 2.10801 (entry)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT MASKCAT@solana liq $127,917 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT BONK@solana liq $424,785 - lp holders unknown; rugcheck lp locked 15% < 95%
+   dex re-screen: OMNI@solana:5GDX5fJT flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT PUMP@solana liq $28,295,474 - transfer hook; top-10 holders 60%
+   dex screen: REJECT PONK@solana liq $457,402,139 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT STONKEX@base liq $445,074 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
