@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T23:05Z",
+ "updated": "2026-10-03T23:06Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -773,8 +773,8 @@
    "away": "Louisville",
    "home": "NC State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1255,6 +1255,51 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaaf:401856711",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T23:00Z",
+   "away": "Arkansas",
+   "home": "Texas A&M",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856818",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T23:00Z",
+   "away": "BYU",
+   "home": "TCU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891776",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-03T23:00Z",
+   "away": "Blackhawks",
+   "home": "Sabres",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401867688",
@@ -2116,7 +2161,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arizona",
-    "p": 0.639,
+    "p": 0.648,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2132,9 +2177,9 @@
     "opp": "Cincinnati",
     "market": "ml",
     "line": null,
-    "odds": -250,
-    "p": 0.685,
-    "win_p": 0.685,
+    "odds": -265,
+    "p": 0.696,
+    "win_p": 0.696,
     "reasons": [
      "the stronger team"
     ]
