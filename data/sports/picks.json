@@ -3659,6 +3659,11 @@
      "game:div"
     ],
     "dec": 2.54,
+    "decider": {
+     "s": "4-0",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -3672,6 +3677,10 @@
     "edge_own": -0.02567699963379011,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,2",
+     "h": "0,0,0"
+    },
     "form_state": null,
     "game_id": "nhl:401891782",
     "home": false,
@@ -3699,9 +3708,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": true,
+    "score": "Blues 4 @ Stars 0",
+    "settled": "2026-10-03T04:03Z",
     "side": "away",
     "start": "2026-10-03T01:00Z",
     "stype": "2",
@@ -3718,12 +3729,14 @@
    }
   ],
   "p_hit": 0.3836,
-  "pnl": 0.0,
+  "pnl": 154.0,
   "posted": "2026-10-02T15:33Z",
   "round": 1,
+  "settled": "2026-10-03T04:03Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 1.0
  },
  {
   "american": -142,
