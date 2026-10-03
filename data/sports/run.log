@@ -1,24 +1,3 @@
-  label:live: 12 graded, said 57%, hit 42% - only 12 graded - report only
-  league:nfl: 12 graded, said 59%, hit 83% - only 12 graded - report only
-  source:live: 12 graded, said 57%, hit 42% - only 12 graded - report only
-  league:nhl: 9 graded, said 53%, hit 11% - only 9 graded - report only
-  league:tennis: 9 graded, said 52%, hit 33% - only 9 graded - report only
-  ctx:them:trip1000: 6 graded, said 56%, hit 100% - only 6 graded - report only (report only: forward-only tag)
-  ctx:game:conf: 5 graded, said 51%, hit 60% - only 5 graded - report only (report only: forward-only tag)
-  market:spread: 5 graded, said 54%, hit 20% - only 5 graded - report only
-  ctx:them:east1000: 4 graded, said 56%, hit 100% - only 4 graded - report only (report only: forward-only tag)
-  drama:theirs: 3 graded, said 56%, hit 0% - only 3 graded - report only
-  label:lock: 3 graded, said 58%, hit 100% - only 3 graded - report only
-  ctx:them:trip2000: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  ctx:them:week3000: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  ctx:them:west1000: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  label:dog: 2 graded, said 41%, hit 0% - only 2 graded - report only
-  ctx:us:trip1000: 1 graded, said 53%, hit 0% - only 1 graded - report only (report only: forward-only tag)
-  ctx:us:west1000: 1 graded, said 53%, hit 0% - only 1 graded - report only (report only: forward-only tag)
-  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
-  price:pick'em: 1 graded, said 58%, hit 100% - only 1 graded - report only
-  (13 graded live bets were logged without a said chance - left out)
-extra edge now needed: none
 tennis sync: 72661 matches stored, 18 calls, 0 failed
 tennis study ATP: 25887 rated matches, acc 0.635 (surface ratings alone 0.637), loss 0.633 vs 0.6331, own weights [-0.005, 0.83, 0.074, 0.139, 0.425, 0.053, 0.049]
 tennis study ATP life factors vs current loss 0.633: experience 0.6341 (-1.07 mnats, z -1.01), age 0.6292 (+3.81 mnats, z 2.76), young_vs_aging 0.6323 (+0.69 mnats, z 1.65), last_match 0.6305 (+2.46 mnats, z 1.71), streaks 0.6336 (-0.60 mnats, z -0.59), first_set 0.6319 (+1.05 mnats, z 1.68), injury 0.6337 (-0.66 mnats, z -0.95), travel 0.6331 (-0.09 mnats, z -1.2) -> KEPT age · 2000/2000 graded matches have both ages
@@ -2990,6 +2969,27 @@ public splits: 90 upcoming games
    announced: 🆕 NEW PICK: UNLV ML (-120) (no ping: only live plus money pings)
 posted lock for 2026-10-03: UNLV ML (-120) -> -120, hit 52%
 mid-day value play ping queued: 💰 NEW VALUE PLAY: UNLV ML -120
+tennis sync: 72765 matches stored, 18 calls, 0 failed
+tennis study ATP: 25919 rated matches, acc 0.637 (surface ratings alone 0.6385), loss 0.6312 vs 0.6313, own weights [-0.005, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
+tennis study ATP life factors vs current loss 0.6312: experience 0.6321 (-0.98 mnats, z -0.93), age 0.6273 (+3.84 mnats, z 2.81), young_vs_aging 0.6305 (+0.69 mnats, z 1.66), last_match 0.6285 (+2.69 mnats, z 1.86), streaks 0.6317 (-0.52 mnats, z -0.51), first_set 0.63 (+1.15 mnats, z 1.84), injury 0.6318 (-0.61 mnats, z -0.88), travel 0.6312 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30264 rated matches, acc 0.649 (surface ratings alone 0.6485), loss 0.6215 vs 0.6202, own weights [0.005, 0.906, -0.001, -0.103, 0.31, 0.028, -0.188]
+tennis study WTA life factors vs current loss 0.6215: experience 0.617 (+4.44 mnats, z 2.65), age 0.6213 (+0.21 mnats, z 0.25), young_vs_aging 0.6214 (+0.11 mnats, z 0.66), last_match 0.621 (+0.49 mnats, z 0.5), streaks 0.6218 (-0.35 mnats, z -0.72), first_set 0.6206 (+0.92 mnats, z 2.14), injury 0.6208 (+0.73 mnats, z 1.28), travel 0.6216 (-0.08 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 11 matches
+sync: 130629 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 157 games got weather, 0 new stadiums located, 245s
+4th-down rates: 32 NFL teams
+news: 3 new drama tags
+PICK AUDIT FLAG 2026-10-02: dog Blues 154: 1.0u on a thin edge (under 3%) - should be ½u
+beat the close: unit plays 2 of 5 better than the close, avg +1.0 pts
+public splits: 90 upcoming games
+   no units on Braves: missing Martin Perez, Bryce Elder, Reynaldo Lopez, Tyler Mahle
+   no units on Padres: missing Walker Buehler, Casey Mize, Miguel Andujar, Jeremiah Estrada
+   no units on Utah State: missing Harrison Taggart, Chris Joe
+   no units on Blackhawks: missing Bowen Byram, Andrew Mangiapane
 tennis sync: 72765 matches stored, 18 calls, 0 failed
 tennis study ATP: 25919 rated matches, acc 0.637 (surface ratings alone 0.6385), loss 0.6312 vs 0.6313, own weights [-0.005, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
 tennis study ATP life factors vs current loss 0.6312: experience 0.6321 (-0.98 mnats, z -0.93), age 0.6273 (+3.84 mnats, z 2.81), young_vs_aging 0.6305 (+0.69 mnats, z 1.66), last_match 0.6285 (+2.69 mnats, z 1.86), streaks 0.6317 (-0.52 mnats, z -0.51), first_set 0.63 (+1.15 mnats, z 1.84), injury 0.6318 (-0.61 mnats, z -0.88), travel 0.6312 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
