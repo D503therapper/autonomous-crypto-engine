@@ -6314,3 +6314,25 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 05:18 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 05:18 UTC] crypto/hold_btc  equity $502.67 (+0.5%) 1 open  market UP
    social heat top: SC 49 (40/0/9), PENGU 47 (35/0/12), PONS 46 (37/0/9), SAND 40 (40/0/0), GALA 32 (32/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '87240.82', 'l': '83747.67', 'a': '84579.19', 'v': '4743.3414', 'vv': '405725540.57', 'c': '-0.0218', 'b': '84579.19', 'k': '84579.20', 'oi': '0', 't': 1791004715665}
+   dex screen: REJECT CONWAY@base liq $122,727 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; top-10 holders 63%; lp locked 0% < 95%
+   dex screen: REJECT CONDO@ethereum liq $116,159 - lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT PAXG@ethereum liq $2,099,718 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: REJECT OCTO@solana liq $227,517 - holders unknown; lp holders unknown; rugcheck lp locked 39% < 95%
+   dex screen: REJECT SURPLUS@base liq $1,043,600 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT SUPER@ethereum liq $4,011,616 - is_mintable; top-10 holders 53%
+   dex scanner: 3,000 pools (solana 2,101 / base 539 / ethereum 360), refresh cycle 116s (hot 113s), 2228 calls (98 feed, 429s 0, failed 0), 63,878 refreshed (7824 no pair), +214 added / -216 dropped (dead 29, stale 0, cap 187), movers 2 + warming 18 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-03 06:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-03 06:05 UTC] crypto/mover     equity $444.57 (-11.1%) 1 open  market UP
+[2026-10-03 06:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 06:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 06:05 UTC] crypto/social_heat equity $527.67 (+5.5%) 2 open  market UP
+[2026-10-03 06:05 UTC] crypto/breakout10 equity $483.73 (-3.3%) 2 open  market UP
+[2026-10-03 06:05 UTC] crypto/momentum  equity $485.81 (-2.8%) 2 open  market UP
+[2026-10-03 06:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 06:05 UTC] crypto/hold_btc  equity $503.20 (+0.6%) 1 open  market UP
+   social heat top: PONS 47 (37/0/10), SAND 40 (40/0/0), SC 37 (27/0/10), PENGU 35 (35/0/0), GALA 32 (32/0/0)
