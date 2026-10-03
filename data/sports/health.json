@@ -1,34 +1,50 @@
 {
- "at": "2026-10-03T17:18Z",
+ "at": "2026-10-03T18:03Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
   "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
   "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
   "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
   "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
   "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-  "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
  ],
  "ok": [
-  "live watcher fresh (66s)",
+  "live watcher fresh (30s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 4 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
+  "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 0 min ago",
+  "engine ran 4 min ago",
+  "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-03T18:03Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+   ]
+  },
   {
    "at": "2026-10-03T17:18Z",
    "fixes": [
@@ -642,13 +658,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Lehecka vs Bergs: no points for 1209s"
-   ]
-  },
-  {
-   "at": "2026-10-01T06:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lehecka vs Bergs: no points for 612s"
    ]
   }
  ]
