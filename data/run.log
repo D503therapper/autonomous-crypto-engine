@@ -6585,3 +6585,32 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 14:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 14:06 UTC] crypto/hold_btc  equity $504.16 (+0.8%) 1 open  market UP
    social heat top: PONS 40 (35/0/5), QNT 37 (37/0/0), ZRO 32 (32/0/0), WLD 29 (29/0/0), NEAR 27 (27/0/0)
+   dex screen: REJECT $WIF@solana liq $178,298 - top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT FONE@solana liq $532,366 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dex screen: PASS CRIME@solana liq $391,421
+   dex screen: REJECT BOAR@base liq $272,958 - goplus partial data: cannot_sell_all unknown; buy tax unknown; lp locked 0% < 95%
+   dex outcome: emergency_exit PINK@solana:AVBN6kXd tier A P/L $-52.48 (re-screen flagged twice: top-10 holders 40%; lp holders unknown)
+   >> dex/dex_hunter: SELL $24.88 of PINK@solana:AVBN6kXd @ 0.000213, P/L $-52.48 (re-screen flagged twice: top-10 holders 40%; lp holders unknown)
+   dex screen: REJECT GITLAWB@base liq $469,975 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS HOTBOT@solana liq $112,255
+   dex screen: REJECT AGL@base liq $176,400 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT RETARDIO@solana liq $156,996 - top-10 holders 44%; lp holders unknown
+   dex screen: REJECT LMAO!@solana liq $310,706 - lp holders unknown; rugcheck lp locked 90% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,999 pools (solana 2,133 / base 496 / ethereum 370), refresh cycle 123s (hot 118s), 3036 calls (108 feed, 429s 0, failed 0), 87,837 refreshed (11558 no pair), +130 added / -131 dropped (dead 18, stale 0, cap 113), movers 0 + warming 33 -> queued 5, screened 5 (passed 1), bought 0
+[2026-10-03 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-03 15:06 UTC] crypto/mover     equity $451.46 (-9.7%) 2 open  market UP
+[2026-10-03 15:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+   >> crypto/social_heat: SELL $98.99 of TRUMP @ 2.06194, P/L $-0.80 (heat collapsed (<20 for 12h))
+[2026-10-03 15:06 UTC] crypto/social_heat equity $526.46 (+5.3%) 1 open  market UP
+[2026-10-03 15:06 UTC] crypto/breakout10 equity $485.50 (-2.9%) 2 open  market UP
+[2026-10-03 15:06 UTC] crypto/momentum  equity $489.23 (-2.2%) 2 open  market UP
+[2026-10-03 15:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 15:06 UTC] crypto/hold_btc  equity $503.82 (+0.8%) 1 open  market UP
+   social heat top: PONS 45 (37/0/8), QNT 35 (35/0/0), PENGU 32 (32/0/0), NEAR 29 (29/0/0), SAND 27 (27/0/0)
