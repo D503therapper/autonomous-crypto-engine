@@ -6662,3 +6662,18 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 16:55 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 16:55 UTC] crypto/hold_btc  equity $504.23 (+0.8%) 1 open  market UP
    social heat top: PONS 44 (40/0/4), NEAR 37 (37/0/0), BTC 35 (35/0/0), ZRO 32 (32/0/0), PENGU 29 (29/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '85251.86', 'l': '83747.67', 'a': '84861.21', 'v': '2236.8653', 'vv': '189057944.85', 'c': '-0.0034', 'b': '84855.85', 'k': '84855.86', 'oi': '0', 't': 1791046551570}
+   dex screen: REJECT AGENCY@solana liq $356,047 - holders unknown; lp holders unknown; rugcheck lp locked 32% < 95%
+   dex scanner: 3,000 pools (solana 2,117 / base 488 / ethereum 395), refresh cycle 110s (hot 110s), 223 calls (13 feed, 429s 1, failed 1), 6,251 refreshed (964 no pair), +63 added / -59 dropped (dead 4, stale 0, cap 55), movers 0 + warming 13 -> queued 1, screened 1 (passed 0), bought 0
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-10-03 17:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $196.93 of LTC @ 69.1428, P/L $-6.44 (time limit)
+[2026-10-03 17:06 UTC] crypto/mover     equity $455.81 (-8.8%) 1 open  market UP
+[2026-10-03 17:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 17:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 17:06 UTC] crypto/social_heat equity $525.07 (+5.0%) 2 open  market UP
+[2026-10-03 17:06 UTC] crypto/breakout10 equity $485.02 (-3.0%) 2 open  market UP
+[2026-10-03 17:06 UTC] crypto/momentum  equity $487.71 (-2.5%) 2 open  market UP
+[2026-10-03 17:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 17:06 UTC] crypto/hold_btc  equity $504.32 (+0.9%) 1 open  market UP
+   social heat top: PONS 44 (40/0/4), NEAR 37 (37/0/0), BTC 35 (35/0/0), ZRO 32 (32/0/0), PENGU 29 (29/0/0)
