@@ -258,9 +258,9 @@ DEX = {
         # EXPERIMENT 1 (2026-09-28, owner: experiment in the main account): 10 coins x ~10% instead of 5 x 20-25%.
         # More shots at the ~1 in 8 coins that double, half the damage per rug (consolidated study: max drawdown
         # -49% -> -20%, returns mixed). Judge vs the 5-slot history at the review ~2026-10-12.
-        "A": {"pct": 0.10},                                                                   # "new"
-        "B": {"pct": 0.125, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},   # "proven"
-        "C": {"pct": 0.125, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},          # "blue"
+        "A": {"pct": 0.05},                                                                   # "new"
+        "B": {"pct": 0.0625, "age_d": 7, "liq": 1_000_000, "vol24": 1_000_000, "clean": 2},   # "proven"
+        "C": {"pct": 0.0625, "age_d": 30, "liq": 5_000_000, "clean": 0, "cex": True},          # "blue"
     },
     "cex_list": [],                                # extra CEX-listed symbols (Crypto.com tickers are used live)
     "size": {"liq_pct": 0.005, "max_exposure": 1.0},     # 4 slots x 20-25% = fully invested
@@ -291,7 +291,11 @@ DEX = {
     # bulk from DexScreener (30 tokens per call, <= 60 calls/min on its own budget); movers go to the front of the
     # screening queue. Every scam check still applies. Other knobs: dex.DEFAULTS["scan"].
     "scan": {"enabled": True, "max_pools": 3000, "hot_s": 30, "cold_s": 120, "warm_h1": 0.05},
-    "slots": 10,                                   # EXPERIMENT 1: 10 x ~10% = the whole DEX account invested (was 5 x 20%)
+    # EXPERIMENT 9 (10-03): 20 x ~5% (was 10 x 10%). Live replay (80 current-rule trades): all the profit comes from the
+    # top 4 (4-8x); without them every stake size loses. 5% keeps most of the growth (+0.71% vs +0.85%/trade at 10%)
+    # and halves the damage of a dry run (-0.81% vs -1.85%/trade); twice the coins = twice the shots at a runner.
+    # Live season 2: 10 of 10 buys in $100-135k pools lost (5 rugged), -$508.
+    "slots": 20,
     # Owner 2026-09-29: restart the DEX paper account at $1,000 (season 1 archived in data/dex/archive/season1/)
     "season": "2026-09-29", "season_cash": 1000.0,
     "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to
