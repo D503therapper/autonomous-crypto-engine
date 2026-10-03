@@ -6372,6 +6372,7 @@ def test_two_records_unit_plays_and_leans():
     assert "UNIT PLAYS RECORD" in h and ">1-0<" in h and "+1.5 UNITS" in h and "The good bets we put money on" in h
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert "OVERALL RECORD" not in src and "OVERALL · LEANS" not in src and "🟡 LEANS RECORD" in src
+    assert "today {ltw}-{ltl}" not in src                                  # (the owner: no 'today' line on the leans)
     assert ".ovu .ovr-t,.ovl .ovr-t{{color:#fff;font-weight:900}}" in src and src.count('class="ovr-s ovw"') == 2   # bold white
 
 
