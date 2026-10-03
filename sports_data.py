@@ -613,14 +613,14 @@ def _page_lines(url):
 
 def parse_team_page(lines):
     """Covers' injury page (as text lines) -> {school: [(player, pos, status)]}: a school's block starts at its
-    'Status' header (the school name just above it, or above 'Player' / 'POS'), then player / position / 'Out -
-    Undisclosed' rows; 'No injuries to report.' = listed, nobody hurt. A block with no school name (a bare code like
-    'AF') is skipped - never guessed."""
+    'Status' header (the school name is the line after the '">' marker a few lines up), then player / position / 'Out -
+    Undisclosed' rows; 'No injuries to report.' = listed, nobody hurt. A block with no school name is skipped - never
+    guessed."""
     out, cur = {}, None
     for i, x in enumerate(lines):
         if x == "Status":
-            j = i - 3 if i >= 3 and lines[i - 1] == "POS" and lines[i - 2] == "Player" else i - 1
-            nm = lines[j] if j >= 0 else ""
+            mk = [j for j in range(max(0, i - 8), i) if lines[j].endswith('">')]    # code | `"> | School | Mascot | (1) |
+            nm = lines[mk[-1] + 1] if mk else ""                                     # Player | POS | Status
             cur = None if (re.fullmatch(r"[A-Z]{1,4}", nm) or not re.search(r"[a-z]", nm)) else nm
             if cur:
                 out.setdefault(cur, [])
@@ -647,9 +647,6 @@ def page_injuries(league, names, get=None):
     if len(teams) < WEB_MIN_TEAMS:
         print(f"   {league} injury page: only {len(teams)} schools - not used ({len(lines)} lines, "
               f"{lines.count('Status')} 'Status', starts: {' | '.join(lines[:3])[:120]})")
-        st = [i for i, x in enumerate(lines) if x == "Status"]
-        for i in st[:3] + st[60:61]:                     # the layout around a school header, to fix the reader
-            print("      page layout: " + " | ".join(lines[max(0, i - 8):i + 10])[:400])
         return {}
     import difflib
     by = {}
