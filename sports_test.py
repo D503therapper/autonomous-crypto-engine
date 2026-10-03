@@ -6825,6 +6825,24 @@ def test_nba_on_and_injured_list_only_counts_players_who_play():
 
 
 
+def test_web_injuries_cover_every_school_it_lists():
+    """10/3 (the owner: "I can get injury reports at any second from Google, and the engine needs to be able to do the
+    same"): Rotowire's college injury feed is read every run - every school it lists is covered with its players,
+    names matched to our teams (UNC Charlotte = Charlotte); a thin / broken read adds nothing (never 'healthy')."""
+    names = {"2429": "Charlotte", "2439": "UNLV", "25": "California", "194": "Ohio State"}
+    rows = [{"RotoSchoolName": "UNC Charlotte", "player": "Conner Harrell", "position": "QB", "IR": "Out"},
+            {"RotoSchoolName": "UNLV", "player": "Alex Orji", "position": "QB", "IR": "Out For Season"},
+            {"RotoSchoolName": "California", "player": "Adam Mohammed", "position": "RB", "IR": "Questionable"},
+            {"RotoSchoolName": "Nowhere Tech", "player": "X", "position": "WR", "IR": "Out"}] * 6
+    got = sd.web_injuries("ncaaf", names, get=lambda u: rows)
+    assert ("Conner Harrell", "QB", "Out") in got["2429"] and "2439" in got and "25" in got and "194" not in got
+    assert sd.web_injuries("ncaaf", names, get=lambda u: rows[:3]) == {}            # thin read: not used
+    def boom(u):
+        raise OSError("blocked")
+    assert sd.web_injuries("ncaaf", names, get=boom) == {}
+    assert sd.web_injuries("nfl", names, get=lambda u: rows) == {}                  # pros keep ESPN's feed
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
