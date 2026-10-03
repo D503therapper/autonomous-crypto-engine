@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T20:31Z",
+ "updated": "2026-10-03T21:07Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -341,8 +341,8 @@
    "away": "Dayton",
    "home": "Drake",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -356,8 +356,8 @@
    "away": "Elon",
    "home": "New Hampshire",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -386,8 +386,8 @@
    "away": "Morgan St",
    "home": "Villanova",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -474,8 +474,8 @@
    "away": "Mercer",
    "home": "VMI",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1063,69 +1063,6 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401868295",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jackson St",
-    "p": 0.689,
-    "tie": 0.029,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-03T21:00Z",
-   "away": "Alabama A&M",
-   "home": "Jackson St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Jackson St",
-    "opp": "Alabama A&M",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -106,
-    "p": 0.501,
-    "win_p": 0.742,
-    "reasons": [
-     "hotter recent form",
-     "better QB play lately",
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401867891",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Youngstown St",
-    "p": 0.603,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-03T21:00Z",
-   "away": "Youngstown St",
-   "home": "S Illinois",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Youngstown St",
-    "opp": "S Illinois",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.617,
-    "win_p": 0.617,
-    "reasons": [
-     "better QB play lately",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401866657",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1377,7 +1314,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Southern",
-    "p": 0.525,
+    "p": 0.547,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1393,9 +1330,9 @@
     "opp": "AR-Pine Bluff",
     "market": "ml",
     "line": null,
-    "odds": -138,
-    "p": 0.55,
-    "win_p": 0.55,
+    "odds": -155,
+    "p": 0.577,
+    "win_p": 0.577,
     "reasons": [
      "the stronger team"
     ]
@@ -1422,8 +1359,8 @@
     "team": "Texas A&M",
     "opp": "Arkansas",
     "market": "spread",
-    "line": -14.0,
-    "odds": -110,
+    "line": -13.5,
+    "odds": -115,
     "p": 0.502,
     "win_p": 0.827,
     "reasons": [
@@ -1826,8 +1763,8 @@
     "team": "UTSA",
     "opp": "Rice",
     "market": "spread",
-    "line": -12.5,
-    "odds": -108,
+    "line": -11.5,
+    "odds": -115,
     "p": 0.501,
     "win_p": 0.8,
     "reasons": [
@@ -2085,8 +2022,8 @@
     "win_p": 0.664,
     "reasons": [
      "the stronger team",
-     "hotter recent form",
-     "rolling off a blowout win"
+     "opponent missing key players",
+     "hotter recent form"
     ]
    }
   },
@@ -2284,8 +2221,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.581,
-    "tie": 0.112,
+    "p": 0.588,
+    "tie": 0.111,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -2300,13 +2237,13 @@
     "opp": "Padres",
     "market": "ml",
     "line": null,
-    "odds": -209,
-    "p": 0.664,
-    "win_p": 0.664,
+    "odds": -218,
+    "p": 0.672,
+    "win_p": 0.672,
     "reasons": [
      "the stronger team",
      "better rested",
-     "better starting pitcher"
+     "opponent missing key players"
     ]
    }
   },
