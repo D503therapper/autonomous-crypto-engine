@@ -3729,13 +3729,13 @@ def test_strengths_by_sport_and_no_puck_or_run_lines():
     basketball stay)."""
     import sports_strength as ss
     keep = dict(ss._CACHE)
-    ss._CACHE["s"] = {"mlb": {"bias": -0.03, "weak": False}, "nba": {"bias": -0.03, "weak": True}}
+    ss._CACHE["s"] = {"mlb": {"bias": -0.03, "weak": False}, "nhl": {"bias": -0.03, "weak": True}}
     try:
         assert abs(ss.calibrate("mlb", 0.58) - 0.55) < 1e-9                  # overconfident sport: said 58, really 55
         assert ss.calibrate("mlb", 0.50) == 0.50                              # a coin flip isn't moved
-        assert ss.calibrate("nhl", 0.58) == 0.58                              # no record: as is
-        assert ss.weak("nba") and not ss.weak("mlb")
-        c = {"league": "nba", "edge": 0.02, "edge_own": 0.02, "dec": 1.8, "drift": 0.0}
+        assert ss.calibrate("nfl", 0.58) == 0.58                              # no record: as is
+        assert ss.weak("nhl") and not ss.weak("mlb") and not ss.weak("nba")   # (10/3: the NBA always on)
+        c = {"league": "nhl", "edge": 0.02, "edge_own": 0.02, "dec": 1.8, "drift": 0.0}
         assert sports.fighting(c) and not sports.fighting({**c, "league": "mlb"})
     finally:
         ss._CACHE.clear(); ss._CACHE.update(keep)
@@ -6805,6 +6805,26 @@ def test_card_wording_kentucky_fixes():
     assert 'if kind == "suspension" and any(' in src and 'startswith("💪")' in src
 
 
+def test_nba_on_and_injured_list_only_counts_players_who_play():
+    """10/3 (the owner): "the NBA is my favorite sport and I crush NBA" - never shut out as a 'weak' sport; and hockey /
+    baseball players on the 10/15-day IL who haven't been playing lately don't take a team's units away."""
+    import sports_strength as ss, sports_absences as A
+    assert ss.weak("nba") is False and "nba" in ss.OWNER_ON
+    keep = dict(A._TEAM)
+    games = [(f"2026-09-{d:02d}T19:00Z", f"g{d}", [{"player": "Every Day", "team": "1"}] + ([{"player": "Hurt Guy", "team": "1"}] if d < 3 else []))
+             for d in range(1, 16)]
+    A._TEAM["mlb"] = {"1": games}
+    try:
+        reg = A.played_lately(None, "mlb", "1", "2026-10-03T19:00Z")
+        assert "every day" in reg and "hurt guy" not in reg
+        g = {"league": "mlb", "home": "1", "home_name": "Sox", "away": "2", "away_name": "Jays", "start": "2026-10-03T19:00Z"}
+        rep = {"mlb": {"1": [("Hurt Guy", "SP", "10-Day-IL"), ("Gone Two", "RF", "15-Day-IL"), ("Every Day", "SS", "Out")]}}
+        assert sports.hurt(g, "home", rep) == []          # only Every Day plays - 1 out, units stay
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
@@ -7716,7 +7736,7 @@ def test_college_football_stays_on():
     keep = ss._load
     ss._load = lambda: {"ncaaf": {"weak": True}, "nba": {"weak": True}}
     try:
-        assert not ss.weak("ncaaf") and ss.weak("nba")
+        assert not ss.weak("ncaaf") and not ss.weak("nba")              # (10/3: the owner turned the NBA on too)
     finally:
         ss._load = keep
 

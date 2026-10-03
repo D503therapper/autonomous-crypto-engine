@@ -78,6 +78,26 @@ def key_players(games, league, team, before):
 
 
 REGULARS = {"pass": 1, "rush": 2, "rec": 4, "tkl": 11}   # football: who actually plays (QB, 2 backs, 4 catchers, 11 tacklers)
+PLAYED_WINDOW = {"nhl": 10, "mlb": 15}                   # hockey / baseball: the team's last N games...
+PLAYED_MIN = 0.3                                         # ...a regular played in 30%+ of them (3 of 10 / 5 of 15)
+
+
+def played_lately(games, league, team, before):
+    """Normalized names of players who've actually been playing (in 30%+ of the team's last N box scores). None = no
+    box scores (the old rule stays)."""
+    real = [(s, gid, rs) for s, gid, rs in _games(league).get(str(team), [])
+            if s < before and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
+    last = real[-PLAYED_WINDOW[league]:]
+    if not last:
+        return None
+    seen = {}
+    for _, _, rs in last:
+        for p in {_nm(r["player"]) for r in rs}:
+            seen[p] = seen.get(p, 0) + 1
+    need = max(1, round(PLAYED_MIN * len(last)))
+    return {p for p, k in seen.items() if k >= need} or None
+
+
 NBA_ROTATION = 3                                         # hoops: played in 3+ of the team's last 10 games
 
 
@@ -104,7 +124,9 @@ def regulars(games, league, team, before):
     normalized names. None = no box scores / not a league this covers (the old rule stays).
     (10/3, the owner: Saturday's board had NO college picks - college availability reports list backup linemen,
     redshirts and walk-ons, so nearly every team tripped '2+ out'. Only players who play count now.)"""
-    if league not in ("nfl", "ncaaf", "nba"):
+    if league in PLAYED_WINDOW:                              # hockey / baseball (10/3, the owner: "a lot of these times
+        return played_lately(games, league, team, before)    # the teams still be doing good without them" - a player
+    if league not in ("nfl", "ncaaf", "nba"):                # on the 10-day IL who hasn't played lately isn't a factor)
         return None
     real = [(s, gid, rs) for s, gid, rs in _games(league).get(str(team), [])
             if s < before and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
