@@ -229,6 +229,21 @@ def hurt(g, side, injuries):
     return gone + unsure if len(gone) >= HURT_OUT or len(unsure) >= HURT_UNSURE else []
 
 
+def out_count(g, side, injuries):
+    """How many players out / doubtful count against a side in the banged-up test (MAX_EXTRA_OUT): the same list hurt()
+    reads - football only players who actually play (sports_absences.regulars), never a season-long absence (already in
+    the team's results). (10/3 sweep: the raw count still read every walk-on and redshirt on a college availability
+    report - 13 college sides on one Saturday lost their units as 'the more banged-up team' right after the regulars
+    rule had cleared them.)"""
+    inj = (injuries or {}).get(g["league"])
+    rows = [r for r in sd.team_injuries(inj, g[side], g[side + "_name"]) if "season" not in r[2].lower()]
+    import sports_absences
+    reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
+    if reg:
+        rows = [r for r in rows if sports_absences._nm(r[0]) in reg]
+    return len(rows)
+
+
 def waiting_on(g, injuries, maybe=True):
     """What still isn't known for a game (empty when it's safe to post): a starting pitcher, a key player's status.
     maybe=False (a lean - no money on it; the owner, 10/2: "it's not a starting goalie ... it doesn't change the
@@ -391,7 +406,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
             #                                          teams' last games) - none yet = no drift, never a false one
         inj = (injuries or {}).get(lg)
         key_out = {side: sd.team_key_out(inj, g[side], g[side + "_name"], lg) for side in ("home", "away")}
-        n_out = {side: len(sd.team_injuries(inj, g[side], g[side + "_name"])) for side in ("home", "away")}
+        n_out = {side: out_count(g, side, injuries) for side in ("home", "away")}   # (who really plays - out_count)
         # a missing starting QB / goalie is news the ratings can't see. The line prices the backup (a solid
         # one barely moves it, a bad one moves it a lot), so on this game go by the market + where sharp money goes
         ph = sm.sigmoid(sm.logit(mkt) + params.get("move_w", 0) * sm.line_move(g)) \
@@ -660,7 +675,9 @@ def best_hockey_dog(cands, taken=()):
             continue
         sc = round(dog_score(c), 2)
         dp = min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100)
-        if sc > NHL_BEST_DOG_MIN and dp * c["dec"] > 1 and (best is None or sc > best[0]):
+        if sc > NHL_BEST_DOG_MIN and dp * c["dec"] - 1 >= MIN_EDGE and (best is None or sc > best[0]):   # (10/3 sweep:
+            #   the Jets +105 went up as the Dog, 1u, on a weighed read 0.04 points over the price - MIN_EDGE holds for
+            #   the Dog like every other unit play: real value, 1%+)
             best = (sc, c, dp)
     if best:
         best[1]["dog_p"] = round(best[2], 4)
@@ -679,6 +696,8 @@ def good(c):
     if fighting(c) or hockey_fav_bad(c):
         return False
     if c["odds"] >= 100:                               # an underdog: VALUE only when a proven angle says it's underpriced
+        if c["odds"] > DOG_DAY_MAX:                    # (10/3 sweep: the owner's "no dog past +280" only lived on the
+            return False                               #  Dog of the Day - a +400 with a proven trend was a ½u value play)
         return (proven(c) and c["edge"] >= MIN_EDGE) or dog_gate(c)   # ...or the whole dog score does (10/1)
     need = PLAY_MIN_P + (0.02 if c.get("intl") or c.get("our_drama") else 0.0)   # overseas / our own drama: a higher bar
     need += sports_selfcheck.extra_edge(SELF_ST, c)     # the self-check (every graded pick, leans too): where a kind of

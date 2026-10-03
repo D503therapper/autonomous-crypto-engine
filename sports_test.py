@@ -118,7 +118,13 @@ def test_never_back_injured_side():
     assert not any(sports.good(c) for c in cs if c["odds"] > 0), "no fake underdog edge from ratings that assume the starter plays"
     inj["nfl"]["3"] = []                                     # Giants healthy, Titans 2 more out
     inj["nfl"]["4"] = [("A", "WR", "Out"), ("B", "CB", "Out")]
-    cs = [c for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj) if c["game_id"] == "nfl:x"]
+    import sports_absences as A
+    keep_box = dict(A._TEAM)
+    A._TEAM["nfl"] = {}          # (10/3: only players who play count - these made-up names have no box scores, so the
+    try:                         #  count falls back to the old rule, like a team with no box scores does)
+        cs = [c for c in sports.candidates(games, model, now, now.astimezone(sports.PT).date(), inj) if c["game_id"] == "nfl:x"]
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep_box)
     sides = {c["team"] for c in cs}
     assert "Giants" in sides and all(c.get("hurt") for c in cs if c["team"] == "Titans"), \
         "never put money on the more banged-up team (10/2: it can still be a lean, its injuries named)"
@@ -6685,6 +6691,98 @@ def test_how_it_was_decided_review_still_carries_the_game_fact():
     rev = D.LEG_REVIEWS[("2026-10-02", "nhl:1|away|ml")]
     assert "Blues led 2-0 after two periods" in rev and rev.count("4-0") == 1, rev
     assert "after two periods" in h
+
+
+def test_banged_up_count_reads_only_players_who_play():
+    """10/3 (the picks sweep): the regulars rule cleared hurt() but the 'more banged-up team' count (MAX_EXTRA_OUT) still
+    read every walk-on, redshirt and season-long absence on a college availability report - 13 college sides on one
+    Saturday lost their units off lists the engine had already said don't matter. The count reads the same list hurt()
+    reads: football players who actually play, never a season-long absence; no box scores = the old count."""
+    import sports_absences as A
+    keep = dict(A._TEAM)
+    rows = lambda gid, start: [
+        {"gid": gid, "start": start, "team": "1", "player": "Star Back", "stats": '{"rushingAttempts":"20"}'},
+        {"gid": gid, "start": start, "team": "1", "player": "Top Wideout", "stats": '{"receptions":"8"}'}]
+    A._TEAM["ncaaf"] = {"1": [("2026-09-20T19:00Z", "g1", rows("g1", "2026-09-20T19:00Z"))]}
+    try:
+        g = {"id": "ncaaf:1", "league": "ncaaf", "home": "1", "home_name": "State", "away": "2", "away_name": "Tech",
+             "start": "2026-10-03T19:00Z"}
+        walkons = [("Walk On", "OL", "Out"), ("Red Shirt", "DL", "Out"), ("Third Stringer", "LB", "Out"),
+                   ("Old Starter", "WR", "Out For Season")]
+        inj = {"ncaaf": {"1": walkons, "2": []}}
+        assert sports.out_count(g, "home", inj) == 0                         # nobody who plays: not 'banged up'
+        assert sports.out_count(g, "away", inj) == 0
+        inj["ncaaf"]["1"] = walkons + [("Star Back", "RB", "Out")]
+        assert sports.out_count(g, "home", inj) == 1                         # one who plays counts (so does a QB)
+        A._TEAM["ncaaf"] = {}                                                # no box scores: the old rule, minus
+        assert sports.out_count(g, "home", inj) == 4                         # the season-long absence
+        assert sports.out_count({**g, "league": "nhl"}, "home", {"nhl": {"1": walkons}}) == 3   # hockey: as before
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+    import inspect
+    src = inspect.getsource(sports.candidates)
+    assert "out_count(g, side, injuries)" in src and "len(sd.team_injuries(" not in src   # the board uses it
+
+
+def test_best_hockey_dog_needs_real_value():
+    """10/3 (the picks sweep): the Jets +105 went up as the Dog of the Day, 1 unit, on a weighed read 0.04 points over
+    the price (48.80% vs 48.78%) - a lean in all but the units. The best hockey dog has to beat its price by MIN_EDGE
+    like every other unit pick; a real edge still goes up."""
+    base = {"league": "nhl", "market": "ml", "odds": 105, "dec": 2.05, "p": 0.47, "p_market": 1 / 2.05,
+            "edge": 0.47 * 2.05 - 1, "edge_own": 0.473 * 2.05 - 1, "reasons": ["r"], "dog_ctx": {}, "home": False,
+            "side": "away", "start": "2026-10-04T20:00Z", "game_id": "jets", "team": "Jets", "opp": "x", "waiting": []}
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: 1.5                                     # 48.78% + 1.5 = 50.3%: 3% over - a Dog
+        assert sports.best_hockey_dog([dict(base)]) is not None
+        sports.dog_score = lambda c: 0.02                                    # +0.02 points: 0.04% value - no Dog
+        assert sports.best_hockey_dog([dict(base)]) is None
+        assert sports.make_board([dict(base)])["dog"] is None
+    finally:
+        sports.dog_score = keep
+
+
+def test_no_value_play_past_the_dog_cap():
+    """10/3 (the picks sweep): the owner's "no dog past +280" (DOG_DAY_MAX) only guarded the Dog of the Day - a +400 dog
+    with a proven angle and 1% of value was a ½-unit value play. A plus-money play never goes past +280; a +250 with a
+    proven angle still does."""
+    pr = lambda c: {**c, "reasons": c["reasons"] + ["proven spot: home dog after a loss"]}
+    far = pr(_cand("far", 400, 0.22, league="nfl"))                        # 0.22 x 5.0 = 10% of 'value'
+    near = pr(_cand("near", 250, 0.30, league="nfl"))                      # 0.30 x 3.5 = 5%
+    assert not sports.good(far) and not sports.plays([far], ())
+    assert sports.good(near) and sports.plays([near], ())
+
+
+def test_early_play_never_on_a_team_without_injury_data():
+    """10/3 (the picks sweep): the board refuses a pick on a college team the injury data doesn't cover (UNKNOWN, never
+    'healthy') - the early spots didn't: a Delaware-type dog with no report would post with units. A side whose team
+    isn't in the data gets no early play; a pro team (the feed lists every team with anybody hurt) still does."""
+    import sports_early as se
+    now = datetime(2026, 10, 6, 18, 0, tzinfo=timezone.utc)                 # a Tuesday
+    def gm(gid, lg, start, home, away, hn, an, mh=None, ma=None, status="pre", hs="", as_=""):
+        return {"id": gid, "league": lg, "stype": "2", "status": status, "start": start, "home": home, "away": away,
+                "home_name": hn, "away_name": an, "ml_home": mh or "", "ml_away": ma or "", "home_score": hs,
+                "away_score": as_, "tzo": "-5.0", "neutral": "0"}
+    G = {"n1": gm("n1", "nfl", "2026-09-27T17:00Z", "B", "X", "Bills", "X", status="final", hs="20", as_="17"),
+         "n2": gm("n2", "nfl", "2026-10-04T17:00Z", "J", "Y", "Jets", "Y", status="final", hs="24", as_="10"),
+         "n3": gm("n3", "nfl", "2026-10-11T17:00Z", "J", "B", "Jets", "Bills", "-170", "150")}
+    def imp(o):
+        o = int(o)
+        return 100 / (o + 100) if o > 0 else -o / (-o + 100)
+    def agree(g, side):
+        h, a = imp(g["ml_home"]), imp(g["ml_away"])
+        return (h if side == "home" else a) / (h + a) + 0.02
+    se._COACH["exp"] = {}
+    keep = sd.covered
+    try:
+        assert any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"nfl": {}}, agree, hist_dir=tempfile.mkdtemp()))
+        sd.covered = lambda inj, lg, tid, name="": name != "Bills"          # (a college-style team with no report)
+        assert not any(c["team"] == "Bills" for c in se.spot_scan(G, now, {"nfl": {}}, agree, hist_dir=tempfile.mkdtemp()))
+    finally:
+        sd.covered = keep
+    src = open(se.__file__).read()
+    assert src.count("not sd.covered(inj, lg, g[side]") == 2               # the spots and the band scan both check
+
 
 
 def test_patty_challenge_removed():

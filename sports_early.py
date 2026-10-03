@@ -254,6 +254,8 @@ def scan(games, model, now=None, injuries=None, trap=None):
                 continue                             # baseball: both starting pitchers announced, or no read at all
             if moved_toward(_int(g.get(f"ml_{side}_open")), odds) > MOVED_MAX:
                 continue                             # the money already took the value
+            if inj is not None and not sd.covered(inj, lg, g[side], g[f"{side}_name"]):
+                continue                             # (10/3 sweep) no injury data on this team = unknown, never a play
             if inj and sd.team_key_out(inj, g[side], g[f"{side}_name"], lg, maybe=True):
                 continue                             # a key player out on OUR side: the ratings can't see it
             if inj and sd.team_unsure(inj, g[side], g[f"{side}_name"], lg, maybe=True):
@@ -690,6 +692,10 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             if not (v24.seen_all(cfin, g["home"], start, lg) and v24.seen_all(cfin, g["away"], start, lg)):
                 continue
         for side, other, odds, opp_odds in (("home", "away", oh, oa), ("away", "home", oa, oh)):
+            if inj is not None and not sd.covered(inj, lg, g[side], g[f"{side}_name"]):
+                continue                                     # (10/3 sweep) a team the injury data doesn't cover is
+                #                                              UNKNOWN, never 'healthy' - the board already refuses a
+                #                                              blind pick; an early play (units, always) does too
             if inj and (sd.team_key_out(inj, g[side], g[f"{side}_name"], lg, maybe=True) or
                         sd.team_unsure(inj, g[side], g[f"{side}_name"], lg, maybe=True)):
                 continue                                     # a dog whose QB is questionable: -21% (10/1) - never
