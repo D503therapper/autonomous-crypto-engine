@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 9,
-  "beat": 2,
+  "n": 10,
+  "beat": 3,
   "same": 4,
   "worse": 3,
-  "avg_pts": 0.42
+  "avg_pts": 0.48
  },
  "unit_plays": {
   "n": 4,
@@ -22,11 +22,11 @@
    "avg_pts": -1.2
   },
   "lean": {
-   "n": 5,
-   "beat": 0,
+   "n": 6,
+   "beat": 1,
    "same": 4,
    "worse": 1,
-   "avg_pts": -0.2
+   "avg_pts": 0.0
   },
   "lock": {
    "n": 2,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "ncaaf": {
-   "n": 3,
-   "beat": 2,
+   "n": 4,
+   "beat": 3,
    "same": 0,
    "worse": 1,
-   "avg_pts": 1.9
+   "avg_pts": 1.68
   },
   "nfl": {
    "n": 2,
@@ -167,6 +167,20 @@
    "close": 105,
    "pts": 1.2,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Penn State",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -148,
+   "pts": 1.0,
+   "units": 0,
    "result": "lost"
   },
   {
