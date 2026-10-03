@@ -6479,3 +6479,41 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 11:09 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 11:09 UTC] crypto/hold_btc  equity $503.10 (+0.6%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), SAND 35 (35/0/0), PONS 27 (24/0/3), ZRO 27 (27/0/0), PRL 27 (27/0/0)
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '87240.82', 'l': '83747.67', 'a': '84641.47', 'v': '4474.5514', 'vv': '382311658.56', 'c': '-0.0209', 'b': '84641.47', 'k': '84641.48', 'oi': '0', 't': 1791025745710}
+   dex screen: REJECT WWW@solana liq $115,022 - holders unknown; lp holders unknown; rugcheck lp locked 49% < 95%
+   dex screen: REJECT GTC@ethereum liq $167,765 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; owner_percent 13%; top-10 holders 66%; lp locked 0% < 95%
+   dex screen: REJECT AGL@ethereum liq $1,097,127 - top-10 holders 58%; lp locked 0% < 95%
+   dex screen: REJECT IXS@ethereum liq $349,226 - transfer_pausable; is_mintable; hidden_owner; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS $PAAL@ethereum liq $1,383,759
+   dex screen: REJECT VRAX@base liq $261,371 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $3,078,625
+   dex screen: REJECT E/ACC@solana liq $706,335 - holders unknown; lp holders unknown; rugcheck lp locked 53% < 95%
+   dex screen: PASS STONK@solana liq $2,445,128
+   dex screen: REJECT PILL@solana liq $234,302 - holders unknown; lp holders unknown; rugcheck lp locked 56% < 95%
+   dex screen: REJECT LDO@ethereum liq $79,730 - liquidity $79,730 < $100,000
+   dex screen: REJECT CROW@solana liq $378,817 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT SKHY@solana liq $2,477,054 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 80%
+   dex screen: PASS SARP@solana liq $100,190
+   >> dex/dex_hunter: BUY $37.39 of SARP@solana:AznQHuzy @ 0.001152 (dex tier A momentum 1h +26% 6h +105% buys/sells 1258/825 impact 0.04%)
+   scanner: GLMR: +9.3% in 15 min on 15.0x volume @ 0.011873 spread 0.15%
+   dex screen: REJECT CTM@ethereum liq $2,615,601 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex scanner: 3,003 pools (solana 2,096 / base 514 / ethereum 393), refresh cycle 112s (hot 108s), 2841 calls (105 feed, 429s 1, failed 1), 81,854 refreshed (9176 no pair), +104 added / -99 dropped (dead 22, stale 0, cap 77), movers 1 + warming 27 -> queued 5, screened 5 (passed 1), bought 1
+   scanner: GLMR: +7.7% in 15 min on 15.4x volume @ 0.011751 spread 1.39%
+[2026-10-03 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-03 12:06 UTC] crypto/mover     equity $458.72 (-8.3%) 2 open  market UP
+[2026-10-03 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 12:06 UTC] crypto/social_heat equity $527.29 (+5.5%) 2 open  market UP
+[2026-10-03 12:06 UTC] crypto/breakout10 equity $488.80 (-2.2%) 2 open  market UP
+[2026-10-03 12:06 UTC] crypto/momentum  equity $489.30 (-2.1%) 2 open  market UP
+[2026-10-03 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 12:06 UTC] crypto/hold_btc  equity $503.31 (+0.7%) 1 open  market UP
+   social heat top: PONS 38 (32/0/6), SAND 37 (37/0/0), QNT 35 (35/0/0), ZRO 29 (29/0/0), PENGU 27 (27/0/0)
