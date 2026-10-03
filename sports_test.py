@@ -4083,68 +4083,6 @@ def test_results_show_reviews_without_a_tap_and_tennis_gets_tennis_words():
     assert "Get in." not in SL.PAL["wk"]
 
 
-def test_patty_vs_the_algorithm():
-    """The owner, 9/30: Patty's 10-leg moneyline ticket vs the engine's. Same count, the engine's payout never less
-    than Patty's (and at most 10% more) - fair; the engine goes for the best shot at hitting ALL of them. It waits
-    for every one of Patty's prices (no guessing), locks once one of its own picks starts, grades each leg, and the box
-    says who got more right. It sits under the day's picks, above the results."""
-    import sports_challenge as C
-    import sports_dashboard as D
-    from html import escape
-    tmp = tempfile.mkdtemp()
-    path = os.path.join(tmp, "c.json")
-    now = datetime(2026, 9, 30, 9, 0, tzinfo=timezone.utc)
-    pm = {}
-    for k in range(14):                                      # 14 matches tomorrow, the engine's side priced -150..+120
-        L_ = "ABCDEFGHIJKLMN"[k]                              # (letters: the name matcher ignores digits)
-        pm[f"atp:{k}"] = {"p1_name": f"Al Fav{L_}", "p2_name": f"Bo Dog{L_}", "start": "2026-10-01T04:00Z",
-                          "ml": [-150 - 20 * k, 120 + 15 * k], "model_p1": 0.6 + 0.02 * k, "tour": "atp"}
-    pm["atp:50"] = {"p1_name": "Cy Value", "p2_name": "Dee Chalky", "start": "2026-10-01T04:00Z",   # a plus-money
-                    "ml": [150, -180], "model_p1": 0.55, "tour": "atp"}                              # player it has winning
-    pm["atp:51"] = {"p1_name": "Ed Longshot", "p2_name": "Flo Fav", "start": "2026-10-01T04:00Z",
-                    "ml": [400, -600], "model_p1": 0.3, "tour": "atp"}                               # a dog it has losing
-    pm["atp:99"] = {"p1_name": "Francisco Cerundolo", "p2_name": "Juan Manuel Cerundolo", "start": "2026-10-01T04:00Z",
-                    "ml": [-150, 125], "model_p1": 0.6}
-    C._save({"name": "Patty", "patty": [{"player": n, "ml": C.EST_ML, "est": True, "result": None}
-                                        for n in ["Al FavB", "Bo DogC", "Francisco Cerundolo", "Nobody Yet"]], "algo": []}, path)
-    c = C.update(pm=pm, now=now, path=path)
-    assert c["waiting"] == ["Nobody Yet"] and c["algo"] == [], "an unpriced leg: the engine waits"
-    assert [l["side"] for l in c["patty"][:3]] == [1, 2, 1] and c["patty"][2]["match"] == "atp:99"   # the right Cerundolo
-    c["patty"] = c["patty"][:3]
-    C._save(c, path)
-    c = C.update(pm=pm, now=now, path=path)
-    T = C.total(c["patty"])
-    assert len(c["algo"]) == 3 and T <= C.total(c["algo"]) <= T * C.FAIR_OVER + 1e-9, (T, C.total(c["algo"]))
-    assert len({l["match"] for l in c["algo"]}) == 3
-    assert all(l["p"] >= C.WIN_P for l in c["algo"]) and "Ed Longshot" not in [l["player"] for l in c["algo"]]
-    assert max(l["ml"] for l in c["algo"]) <= max(l["ml"] for l in c["patty"]), "no longer shot than Patty's longest"
-    got = C.pick(pm, 10.0, 2, now, max_ml=-200)
-    assert all(ml <= -200 for _, _, ml, _ in got)
-    first = [l["match"] for l in c["algo"]]
-    later = datetime(2026, 10, 1, 4, 1, tzinfo=timezone.utc)   # its picks have started: locked, never re-picked
-    pm2 = {k: {**v, "model_p1": 0.99} for k, v in pm.items()}
-    c = C.update(pm=pm2, now=later, path=path)
-    assert c.get("locked") and [l["match"] for l in c["algo"]] == first
-    rows = {l["match"]: {"id": l["match"], "status": "STATUS_FINAL", "winner": 1, "done": 2, "sets1": "6 6", "sets2": "3 4"}
-            for l in c["patty"] + c["algo"]}
-    c = C.update(pm=pm2, rows=rows, now=later, path=path)
-    ps, as_, done = C.score(c)
-    assert done and ps == sum(l["side"] == 1 for l in c["patty"]) and as_ == sum(l["side"] == 1 for l in c["algo"])
-    h = C.html(c, escape)
-    assert "PATTY VS THE ALGORITHM" in h and ("WINS" in h or "TIED THE ALGORITHM" in h) and "ML</small>" in h
-    assert "DEAD EVEN" not in h
-    assert "data-start" not in h, "graded legs: no LIVE tag"
-    c2 = json.loads(json.dumps(c))
-    for l in c2["patty"]:
-        l["result"] = None
-    h2 = C.html(c2, escape)                                   # still going: the page's ● LIVE (no scores in the box)
-    assert h2.count('data-start="2026-10-01T04:00Z"') >= 3 and "lsc" not in h2
-    assert "function pvLive()" in open(D.__file__).read()
-    src = open(D.__file__).read()
-    assert src.index("{_tennis()}\n{challenge}") < src.index("THE RESULTS</h2>")   # under the daily picks
-    shutil.rmtree(tmp, ignore_errors=True)
-
-
 def test_what_counts_says_all_locks():
     """The owner, 9/30: 'what counts' said 'the Lock of the Day' - it's every lock (the Lock of the Day is one). 10/1
     audit: it also said leans keep their own record - they COUNT in ours (marked 🟡) - and 'what counts' is a NEVER
@@ -5016,23 +4954,6 @@ def test_early_play_on_the_daily_board_says_we_got_in_early():
     assert "sports_early.load().get(\"picks\")" in inspect.getsource(sports.post_board)   # never the other side of it
 
 
-def test_challenge_final_ping():
-    """The owner, 9/30: when Patty vs the Algorithm is over - one ping, his words; never twice."""
-    import sports_challenge as ch
-    path = os.path.join(tempfile.mkdtemp(), "challenge.json")
-    c = {"name": "Patty", "made": "2026-09-30T00:00Z", "patty": [{"player": "A", "ml": 150, "match": "m1", "side": 1, "result": "won"}],
-         "algo": [{"player": "B", "ml": 140, "match": "m2", "side": 1, "result": "lost"}]}
-    ch._save(c, path)
-    sent = []
-    ch.update(pm={}, rows=None, path=path, ping=lambda t, b: sent.append((t, b)))
-    ch.update(pm={}, rows=None, path=path, ping=lambda t, b: sent.append((t, b)))   # graded again: no second ping
-    assert sent == [("🏆 Patty wins vs the Algorithm!", "There's a new tennis GOAT in town. Patty is him! 🔥")]
-    c["patty"][0]["result"], c["algo"][0]["result"] = "lost", "won"
-    assert ch.final_words(c) == ("🏆 Algorithm wins vs Patty", "The Algorithm remains the undisputed GOAT 🔥")
-    c["patty"][0]["result"] = "won"                                          # 1-1: a tie - the owner's words
-    assert ch.final_words(c) == ("🤝 Patty tied the Algorithm!", "Maybe, and only just maybe, Patty is the Algorithm!!! 🔥🔥🔥")
-
-
 def test_one_alert_never_rings_twice():
     """The owner, 9/30: an alert came in twice. A phone signed up twice (a renewed sign-up never dropped the old
     one) gets the same alert id twice - the 2nd now replaces the 1st quietly, and a renewal drops the old sign-up."""
@@ -5303,39 +5224,6 @@ def test_todays_damage_after_the_last_game():
     assert datetime.fromtimestamp(until / 1000, sports.PT) == datetime(2026, 10, 2, 0, 0, tzinfo=sports.PT)   # midnight PT
     assert "Date.now()>+d.dataset.until" in h
     assert D.day_recap([], "2026-10-01", [], now) == ""                          # no plays with units: nothing
-
-
-def test_challenge_live_comes_from_the_score_feed():
-    """10/1, the owner: Patty vs the Algorithm said LIVE for hours - it went off the clock (6 hours after the start),
-    not the score. Each open pick carries its match id + side, the live feed is asked for it, and the page only says
-    LIVE (with the sets) while the feed says it's being played; a finished one shows ✅ / ❌ right away."""
-    import sports_challenge as C
-    from html import escape
-    c = {"name": "Patty", "patty": [{"player": "Casper Ruud", "ml": -230, "match": "atp:183492", "side": 1,
-                                     "start": "2026-10-01T02:00Z", "result": None}],
-         "algo": [{"player": "Holger Rune", "ml": -195, "match": "atp:183484", "side": 2, "start": "2026-10-01T03:30Z"}]}
-    h = C.html(c, escape)
-    assert 'data-gid="tennis:atp:183492" data-side="1"' in h and 'data-gid="tennis:atp:183484" data-side="2"' in h
-    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
-    assert '.tm[data-gid],.pvc[data-gid]' in src                        # the challenge's matches are fetched too
-    js = src[src.index("function pvLive"):src.index("pvLive();setInterval")]
-    assert "st+6*3600000" not in js and "sc.live" in js and "orient(sc," in js
-    assert "✅ WIN" in js and "❌ LOSS" in js                              # the owner, 10/1: the mark AND the word
-    assert "Math.max(w[0],w[1])<2" in js                                   # one set in is never a result (Ruud, 10/1)
-    assert 'c.classList.toggle("lost"' in js                               # a live-called loss looks like a graded one
-    assert '.pvs[data-live]' in js and 'classList.contains("won"))ps++' in js   # the score counts a live-called win
-    assert 'querySelector(".pvl")' in js and 'join(", ")' in js and "i.innerHTML!==h" in js   # the live score on its own
-    #   line (3-6, 1-1), never in the mark next to the price (10/1, the owner: the price broke onto 2 lines)
-    assert "lv=" in js and "h='<span class=\"lvb\"" not in js
-    assert '<div class=pvl></div>' in h and ".pvp b{{flex:1;white-space:nowrap}}" in src
-    assert 'data-live=1' in C.html(c, escape)
-    assert ".pvc.lost>span,.pvc.lost .pvp b{{text-decoration:line-through" in src   # the name + price struck, never ❌ LOSS
-    assert ".pvc.lost span," not in src
-    called = src[src.index("function called("):src.index("function liveTags(")]
-    assert "Math.max(w[0],w[1])<2" in called
-    c["patty"][0]["result"], c["algo"][0]["result"] = "lost", "won"
-    h = C.html(c, escape)
-    assert ">❌ LOSS<" in h and ">✅ WIN<" in h
 
 
 def test_leans_show_in_their_sport():
@@ -6169,6 +6057,7 @@ def test_fetch_pages_reads_text():
     # Dr. Bob's pages keep his leans and margins, not injury words
     assert fp.key_for("https://drbobsports.com/nfl-analysis/").search("Lean: Packers -3.5")
     assert not fp.key_for("https://www.on3.com/x").search("Lean: Packers")
+    assert "keep the whole page" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py")).read()
 
 
 def test_same_board_posted_twice_merges_to_one():
@@ -6416,6 +6305,20 @@ def test_question_box_knows_no_forced_lock():
     w = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "index.js")).read()
     assert "NO FORCED LOCK" in w and "however it's worded" in w and '"best Lock"' in w and "56%+ = LOCK" not in w and "3-leg, 4-leg" not in w
     assert "what it would have been" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+
+
+def test_patty_challenge_removed():
+    """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
+    its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    assert not os.path.exists(os.path.join(here, "sports_challenge.py"))
+    assert not os.path.exists(os.path.join(here, "data", "sports", "challenge.json"))
+    for f in ("sports.py", "sports_dashboard.py", "sports_live.py", "sports_tennis.py", ".github/workflows/scores_check.yml"):
+        src = open(os.path.join(here, f)).read()
+        assert "sports_challenge" not in src and "challenge.json" not in src and "pvLive" not in src, f
+    src = open(os.path.join(here, "sports_dashboard.py")).read()
+    called = src[src.index("function called("):src.index("function liveTags(")]
+    assert "Math.max(w[0],w[1])<2" in called
 
 
 def test_lock_miss_names_the_closest_pick():

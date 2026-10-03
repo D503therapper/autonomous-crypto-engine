@@ -64,8 +64,7 @@ every session:
 - The only automatic phone notifications are Live Plus Money bets, early value plays, and unit plays the engine adds
   after the 8 AM board is up (sports_pings - it keeps checking the lines all day; one ping each, once the dashboard
   shows it - the owner, 10/1; leans and the 8 AM board never ping) - plus
-  the one Patty-vs-the-Algorithm result ping (sports_challenge.final_words) and one-time announcements the owner asks
-  for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
+  one-time announcements the owner asks for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
 - Units (the engine decides, by its edge - quarter-Kelly, ½u-10u; 1 unit = 1% of our bankroll, $1,000 start): early
   value plays and locks by the engine's own read, the Dog / value plays by its read vs the price. From 10/2 every
   value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 3%

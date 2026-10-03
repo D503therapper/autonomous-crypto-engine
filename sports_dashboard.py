@@ -1439,12 +1439,6 @@ def render(picks, model, games, series, start_bank, updated_ms):
     done_today = ('<div class="drop">✅ Everything on today\'s board is graded — scroll down to <b>THE RESULTS</b>. '
                   'Tomorrow\'s card drops at <b>8 AM PT</b> on game day — the engine watches the lines and the news overnight.</div>')
     hist = _history(picks)                                  # (first: it writes the reviews the graded cards show)
-    try:                                                     # 🥊 a friend's ticket vs the engine's (the owner, 9/30)
-        import sports_challenge as sch
-        challenge = sch.html(sch._load(), E)
-    except Exception as e:                                   # noqa: BLE001 - the page never waits on it
-        print(f"challenge box failed: {e}")
-        challenge = ""
     try:                                                     # ⏰ early value plays (the owner, 9/30)
         import sports_early
         eu = lambda u, k="", o=None: _units_line(u, k, o, early=True)
@@ -1808,23 +1802,10 @@ def render(picks, model, games, series, start_bank, updated_ms):
 <meta name="description" content="Daily 2-Leg, 3-Leg, Lock &amp; Dog of the Day. Trust the algorithm.">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=8"><link rel="icon" href="icon-512.png?v=8"><link rel="manifest" href="manifest.webmanifest">
 <style>
-/* 🥊 PATTY vs THE ALGORITHM (sports_challenge.py) */
-.pvw-w{{color:#22e39a;font-weight:900}}.pvw-l{{color:#ff5a5a;font-weight:900}}
 
-.pvw{{font-size:13px;font-weight:800;color:#ffd23f;margin:0 0 6px}}
-.pvx .pvs{{font-size:17px;font-weight:900;color:#fff;margin:6px 0 8px;letter-spacing:.01em}}
-.pvr{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin-top:6px}}
-.pvh>div{{font-size:12px;font-weight:900;letter-spacing:.08em;color:#ffd23f;text-transform:uppercase}} .pvh em{{font-style:normal;color:#fff}}
-.pvc{{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border-radius:10px;padding:7px 9px;font-size:14px;font-weight:800;color:#fff;min-width:0}}
 .slate-note{{margin:12px 0 12px;padding:10px 14px;border:2px solid var(--gold);border-radius:14px;font-weight:800;
   color:#fff;text-align:center;font-size:16px}}
 .byo{{text-align:center;font-size:21px;font-weight:900;color:#fff;margin:4px 0 14px;padding:12px 14px;border:2px solid #ffc233;border-radius:14px;background:rgba(255,194,51,.10);letter-spacing:.01em;line-height:1.25}}
-.pvp{{display:flex;align-items:center;gap:6px}} .pvp b{{flex:1;white-space:nowrap}}
-.pvl{{font-size:12px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}} .pvl:empty{{display:none}}
-.pvc small{{font-size:10px;font-weight:800;opacity:.9}}
-.pvc span{{overflow-wrap:anywhere}} .pvc b{{font-weight:900;font-variant-numeric:tabular-nums}}
-.pvc .pvp>i{{font-style:normal;min-width:1.2em;text-align:right;font-size:12px}} .pvc.lost>span,.pvc.lost .pvp b{{text-decoration:line-through;text-decoration-color:#ff3b3b;text-decoration-thickness:2px}}
-.pvc.won{{box-shadow:inset 0 0 0 1px #22c55e88}} .pvc.lost{{box-shadow:inset 0 0 0 1px #ff3b3b88}}
 :root{{--bg:#040609;--card:#0b0f17;--card2:#101723;--line:#1b2433;--text:#f2f5fb;--muted:#22d3ee;--up:#22e39a;--dn:#ff3b3b;--gold:#ffc233;--accent:#ffc233}}
 *{{box-sizing:border-box}}
 html,body{{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}}
@@ -2086,7 +2067,6 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 {tomorrow}
 {early}
 {_tennis()}
-{challenge}
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
@@ -2174,7 +2154,7 @@ function check(){{if(document.hidden)return;              // a newer page? swap 
  .catch(function(){{}});}}
 var API="{_ask_url().rstrip('/')}";          // 📡 scores straight from ESPN every second (our server), the live board as backup
 function fastScores(){{if(document.hidden||!API)return;var n=Date.now(),ids={{}};
- document.querySelectorAll(".tm[data-gid],.pvc[data-gid]").forEach(function(s){{var st=Date.parse(s.getAttribute("data-start")),g=s.getAttribute("data-gid");
+ document.querySelectorAll(".tm[data-gid]").forEach(function(s){{var st=Date.parse(s.getAttribute("data-start")),g=s.getAttribute("data-gid");
   if(g&&st&&n>=st-60000&&n<st+8*3600000)ids[g]=1}});
  var k=Object.keys(ids);if(!k.length)return;
  fetch(API+"/scores?ids="+encodeURIComponent(k.join(",")),{{cache:"no-store"}}).then(function(r){{return r.ok?r.json():null}})
@@ -2262,22 +2242,6 @@ function gone(){{var n=Date.now(),b=document.querySelector(".board");if(!b)retur
  var t=document.getElementById("dropnote");                                          // comes down right then (it's in
  if(t&&!b.querySelector(".gn,.pk"))b.innerHTML=t.innerHTML;}}                        // the results); board empty: 8 AM note
 gone();setInterval(gone,30000);
-function pvLive(){{var B=window.D503B||{{}};document.querySelectorAll(".pvc[data-gid]").forEach(function(c){{   // 🥊 challenge:
- var i=c.querySelector(".pvp>i"),l=c.querySelector(".pvl"),sc=B[c.getAttribute("data-gid")];if(!i)return;   // only the real
- sc=orient(sc,c.getAttribute("data-side"));                                                  // score feed says LIVE / done
- var h="",lv="";if(sc&&sc.live&&!sc.delayed){{   // 10/1, the owner (twice): the live score crammed next to the price
-   lv='<span class="lvb"><i></i>LIVE</span> '+(sc.sets||[]).map(function(x){{return x[0]+"-"+x[1]}}).join(", ");}}   // broke
-   //                                     the cell. Now its own line under the price, the way tennis is read: 3-6, 1-1
- else if(sc&&sc.delayed)lv="⏳ DELAYED";
- else if(sc&&!sc.live){{var w=[0,0];(sc.sets||[]).slice(0,sc.done||0).forEach(function(x){{if(x[0]>x[1])w[0]++;else if(x[1]>x[0])w[1]++}});
-   h=Math.max(w[0],w[1])<2?"":w[0]>w[1]?'<span class="pvw-w">✅ WIN</span>':'<span class="pvw-l">❌ LOSS</span>';}}
- c.classList.toggle("won",h.indexOf("WIN")>=0);c.classList.toggle("lost",h.indexOf("LOSS")>=0);   // (10/1, the owner: a loss
- if(i.innerHTML!==h)i.innerHTML=h;if(l&&l.innerHTML!==lv)l.innerHTML=lv;}});              //  called live = a graded one)
- var top=document.querySelector(".pvs[data-live]");if(top){{var ps=0,as=0;   // the score up top counts a match the second
-  document.querySelectorAll(".pvx .pvr:not(.pvh)").forEach(function(r){{var c=r.children;   // it's called (10/1, the owner:
-   if(c[0]&&c[0].classList.contains("won"))ps++;if(c[1]&&c[1].classList.contains("won"))as++;}});   // "Patty won one and
-  var t=top.getAttribute("data-name")+" "+ps+" · Algorithm "+as;if(top.textContent!==t)top.textContent=t;}}}}   // it still says 0")
-pvLive();setInterval(pvLive,3000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,3000);
 document.addEventListener("visibilitychange",fastScores);
 tick();setInterval(tick,30000);check();setInterval(check,15000);document.addEventListener("visibilitychange",check);}})();

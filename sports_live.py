@@ -1285,15 +1285,6 @@ def _grade_tennis_csv(log, now_s):
     grade_tennis(log, list(stn.load_matches().values()))
 
 
-def CHALLENGE_IDS():
-    """Match ids on the 🥊 challenge box (Patty vs the algorithm), still ungraded."""
-    try:
-        c = json.load(open(os.path.join(sd.DATA, "challenge.json")))
-        return {l["match"] for l in c.get("patty", []) + c.get("algo", []) if l.get("match") and not l.get("result")}
-    except (OSError, ValueError, KeyError, TypeError):
-        return set()
-
-
 def tennis_plays(log, now, showing=(), judged=None, taken=()):
     """Every live ATP / WTA match -> tennis plays (graded plays settle here too)."""
     judged = set() if judged is None else judged
@@ -1305,14 +1296,11 @@ def tennis_plays(log, now, showing=(), judged=None, taken=()):
     live_pending = {e.get("match") for e in log["plays"].values() if e.get("league") == "tennis" and e.get("result") is None}
     grade_tennis(log, rows)                                  # (graded here first, so the page rebuild has the result)
     TENNIS.update(watching=len(live), priced=0, stale=0, suspended=0)
-    ch_ids = CHALLENGE_IDS()
     for m in rows:                                           # sets + games next to our pending tennis picks
         try:
             state = stn._state(m)
             if m["id"] in live_pending and state in ("final", "retired", "void"):
                 FINALS.add(f"tennis:{m['id']}")                 # a live bet's match is over: its review goes up now
-            if m["id"] in ch_ids and state in ("final", "retired", "void"):
-                FINALS.add(f"tennis:{m['id']}")                 # 🥊 a challenge match ended: grade the box now
             if m["id"] in ours and state in ("final", "retired", "void"):
                 FINALS.add(f"tennis:{m['id']}")                 # one of our matches is over: grade it right now
             if state == "live" or (state != "pre" and m["id"] in ours):
@@ -1548,8 +1536,8 @@ def _tennis_score(m, side=None):
     if flip and srv is not None:
         srv = 1 - srv
     return {"n": names, "sets": sets, "pts": pts, "srv": srv, "done": len(s["done"]), "first": 2 if flip else 1}
-    # ("first": whose score is listed first - the page turns it to each box's own player. 10/1: the Patty box read a
-    #  score listed for OUR pick's player as its own, and a side-2 player showed the other guy's sets / a WIN as a LOSS)
+    # ("first": whose score is listed first - the page turns it to each box's own player. 10/1: a box read a score
+    #  listed for OUR pick's player as its own, and a side-2 player showed the other guy's sets / a WIN as a LOSS)
 
 
 def _score(box, side):
@@ -1911,8 +1899,7 @@ def publish_results(msg):
         print(f"quick grade failed: {e}", flush=True)
         return
     paths = [LOG, TUNE, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
-             os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json"), FINAL_AT_PATH,
-             os.path.join(sd.DATA, "challenge.json")]
+             os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json"), FINAL_AT_PATH]
     _git("add", *[p for p in paths if os.path.exists(p)])
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return
