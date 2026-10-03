@@ -6291,3 +6291,9 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 05:06 UTC] crypto/hold_btc  equity $502.58 (+0.5%) 1 open  market UP
    social heat top: SC 54 (40/0/14), PENGU 37 (37/0/0), SAND 35 (35/0/0), PONS 34 (32/0/2), GALA 29 (29/0/0)
+   dex screen: REJECT GOIF@solana liq $1,845,575 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 53
+   dex screen: REJECT HAMSTER@solana liq $0 - liquidity $0 < $100,000
+   dex screen: REJECT SURPLUS@base liq $1,053,603 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: PASS ZCAT@solana liq $1,020,915
+   dex screen: REJECT MCDX@solana liq $216,771 - 24h volume $11,774 < $100,000
+   dex screen: REJECT 🎒@solana liq $236,460 - transfer_fee_upgradable; lp holders unknown
