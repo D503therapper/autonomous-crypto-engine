@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T18:05Z",
+ "updated": "2026-10-03T18:15Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -525,6 +525,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401867986",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T18:00Z",
+   "away": "The Citadel",
+   "home": "SC State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401866431",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -620,7 +635,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Dakota",
-    "p": 0.81,
+    "p": 0.803,
     "tie": 0.022,
     "name": "1st half"
    },
@@ -635,10 +650,10 @@
     "team": "South Dakota",
     "opp": "Indiana St",
     "market": "spread",
-    "line": -17.5,
-    "odds": -103,
+    "line": -16.5,
+    "odds": -111,
     "p": 0.503,
-    "win_p": 0.868,
+    "win_p": 0.861,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -1621,7 +1636,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Gardner-Webb",
-    "p": 0.699,
+    "p": 0.687,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1630,16 +1645,16 @@
    "start": "2026-10-03T22:00Z",
    "away": "Gardner-Webb",
    "home": "Charleston So",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Gardner-Webb",
     "opp": "Charleston So",
-    "market": "spread",
-    "line": -7.5,
-    "odds": -113,
-    "p": 0.5,
-    "win_p": 0.716,
+    "market": "ml",
+    "line": null,
+    "odds": -285,
+    "p": 0.703,
+    "win_p": 0.703,
     "reasons": [
      "better QB play lately"
     ]
@@ -1715,8 +1730,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "E Kentucky",
-    "p": 0.518,
-    "tie": 0.033,
+    "p": 0.485,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1731,9 +1746,9 @@
     "opp": "North Alabama",
     "market": "ml",
     "line": null,
-    "odds": -134,
-    "p": 0.542,
-    "win_p": 0.542,
+    "odds": -122,
+    "p": 0.503,
+    "win_p": 0.503,
     "reasons": []
    }
   },
@@ -1775,7 +1790,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tennessee Tech",
-    "p": 0.729,
+    "p": 0.735,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -1790,10 +1805,10 @@
     "team": "Tennessee Tech",
     "opp": "W Carolina",
     "market": "spread",
-    "line": -9.5,
+    "line": -10.0,
     "odds": -113,
     "p": 0.501,
-    "win_p": 0.736,
+    "win_p": 0.742,
     "reasons": [
      "the stronger team",
      "hotter recent form",
