@@ -6810,3 +6810,7 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 21:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 21:06 UTC] crypto/hold_btc  equity $503.81 (+0.8%) 1 open  market UP
    social heat top: PUMP 42 (29/0/13), STRK 37 (37/0/0), PONS 35 (35/0/1), PENGU 32 (32/0/0), AERO 24 (24/0/0)
+   dex screen: REJECT NEAR@ethereum liq $807,063 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT ETHFI@ethereum liq $349,577 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 65%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SLOPCORE@solana liq $98,686 - liquidity $98,686 < $100,000
