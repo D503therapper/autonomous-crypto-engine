@@ -1627,14 +1627,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
     leans_ = [(r, d) for t, r, d in ours if t == "lean"]     # (the owner, 10/2: no overall record - two records: the
     lw = sum(r == "won" for r, _ in leans_)                  #  bets with units, and the leans, the only picks without)
     ll = sum(r == "lost" for r, _ in leans_)
-    ltw = sum(r == "won" for r, d in leans_ if d == today)
-    ltl = sum(r == "lost" for r, d in leans_ if d == today)
     pct_ = f" · {lw / (lw + ll):.0%}" if lw + ll and lw / (lw + ll) * 100 > SHOW_PCT_OVER else ""
     overall = unit_record(picks, today) + (
         f'<div class="ovr ovl"><div class="ovr-t">🟡 LEANS RECORD</div><div class="ovr-r">{lw}-{ll}</div>'
         f'<div class="ovr-p">{f"{lw} won · {ll} lost{pct_}" if lw + ll else "no results yet"}</div>'
-        f'<div class="ovr-s ovw">no units on these - just our lean</div>'
-        f'{f"<div class=ovr-s>today {ltw}-{ltl}</div>" if ltw + ltl else ""}</div>') if leans_ else unit_record(picks, today)
+        f'<div class="ovr-s ovw">no units on these - just our lean</div></div>') if leans_ else unit_record(picks, today)
     overall += units_box(picks, today) if UNITS_ON else ""
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
