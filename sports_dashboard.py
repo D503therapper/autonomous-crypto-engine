@@ -1487,7 +1487,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     active = list(todays)
     board_date = datetime.strptime(today, "%Y-%m-%d").strftime("%A, %B %-d")
     ask_url = _ask_url()
-    ask_note = ("Tap in! Ask me whatever the fuck. No stupid shit though. Ain't nobody got time for that." if ask_url else
+    ask_note = ("Tap in! No stupid shit though. Ain't nobody got time for that." if ask_url else
                 "Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.")
     ask_btn = '<button id="askgo" type="button">Ask 🧠</button>' if ask_url else ""
     bell = ('<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button>'   # 🔔 Web Push
