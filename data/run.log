@@ -6860,3 +6860,34 @@ error: failed to push some refs to 'https://github.
    [alert] Today -133.97 | Total -661.56: Stocks: $502.99  today +0.00  total +2.99
 DEX: $335.45  today -133.97  total -664.55
 DEX: $335.45 (-664.55) · Scammed: 1 (-$73.73)
+   dex screen: REJECT CARDS@solana liq $3,917,783 - top-10 holders 73%
+   dex screen: REJECT MET@solana liq $1,320,407 - top-10 holders 80%
+   dex screen: PASS TROLL@solana liq $3,361,332
+   dex screen: PASS PEPE@ethereum liq $31,697,329
+   dex screen: REJECT UP@base liq $569,686 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 85%; lp locked 0% < 95%
+   dex screen: REJECT SI@solana liq $114,160 - lp holders unknown; rugcheck lp locked 69% < 95%
+   dex screen: REJECT LFI@base liq $502,137 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 50%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT SHFL@ethereum liq $9,018,073 - top-10 holders 87%
+   dex screen: REJECT SHIB@ethereum liq $155,118 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     c1bb526712ea2f433083b779f8a2e443d7882f43 -> main (cannot lock ref 'refs/heads/main': is at e5297d1bdaa1d898b2aa881
+   dex screen: REJECT HLX@ethereum liq $355,985 - top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT USDG@ethereum liq $4,329,736 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 75%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            01088d70e9f60414061f937909ab90837eccb93f -> main (fetch first)
+error: failed to push some refs to 'https://github.
+   dex scanner: 2,898 pools (solana 2,075 / base 427 / ethereum 396), refresh cycle 124s (hot 119s), 2901 calls (108 feed, 429s 0, failed 1), 83,711 refreshed (13474 no pair), +89 added / -83 dropped (dead 77, stale 6, cap 0), movers 0 + warming 18 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-03 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-03 23:06 UTC] crypto/mover     equity $464.99 (-7.0%) 1 open  market UP
+[2026-10-03 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 23:06 UTC] crypto/social_heat equity $522.33 (+4.5%) 1 open  market UP
+[2026-10-03 23:06 UTC] crypto/breakout10 equity $491.00 (-1.8%) 2 open  market UP
+[2026-10-03 23:06 UTC] crypto/momentum  equity $489.71 (-2.1%) 2 open  market UP
+[2026-10-03 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 23:06 UTC] crypto/hold_btc  equity $503.83 (+0.8%) 1 open  market UP
+   social heat top: PUMP 37 (37/0/0), TAO 35 (35/0/0), STRK 32 (32/0/0), QNT 29 (29/0/0), PENGU 27 (27/0/0)
