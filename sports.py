@@ -215,6 +215,10 @@ def hurt(g, side, injuries):
     inj = (injuries or {}).get(g["league"])
     rows = sd._team_rows(inj, g[side], g[side + "_name"])
     rows = [r for r in rows if not sd._is_key(r, g["league"], g[side + "_name"])]   # (key players are weighed already)
+    import sports_absences
+    reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
+    if reg:                                                  # football: only players who actually play count (10/3 -
+        rows = [r for r in rows if sports_absences._nm(r[0]) in reg]   # a college report lists walk-ons and redshirts)
     gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM) and "season" not in r[2].lower()]
     unsure = [r[0] for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
     return gone + unsure if len(gone) >= HURT_OUT or len(unsure) >= HURT_UNSURE else []
