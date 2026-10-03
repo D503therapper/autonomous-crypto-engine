@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T17:55Z",
+ "updated": "2026-10-03T18:50Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -11,8 +11,8 @@
    "away": "Memphis",
    "home": "Charlotte",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -495,125 +495,79 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401868359",
+   "id": "ncaaf:401867869",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Grambling",
-    "p": 0.621,
-    "tie": 0.032,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-03T19:00Z",
-   "away": "Alcorn St",
-   "home": "Grambling",
-   "why": "tight",
+   "start": "2026-10-03T18:00Z",
+   "away": "Murray St",
+   "home": "North Dakota",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Grambling",
-    "opp": "Alcorn St",
-    "market": "ml",
-    "line": null,
-    "odds": -234,
-    "p": 0.665,
-    "win_p": 0.665,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401866656",
+   "id": "ncaaf:401867918",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Howard",
-    "p": 0.712,
-    "tie": 0.028,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-03T19:00Z",
-   "away": "Howard",
-   "home": "Hampton",
-   "why": "coin_flip",
+   "start": "2026-10-03T18:00Z",
+   "away": "Norfolk St",
+   "home": "Robert Morris",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Howard",
-    "opp": "Hampton",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -104,
-    "p": 0.501,
-    "win_p": 0.743,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401867859",
+   "id": "ncaaf:401867986",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "South Dakota",
-    "p": 0.81,
-    "tie": 0.022,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-03T19:00Z",
-   "away": "Indiana St",
-   "home": "South Dakota",
-   "why": "coin_flip",
+   "start": "2026-10-03T18:00Z",
+   "away": "The Citadel",
+   "home": "SC State",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "South Dakota",
-    "opp": "Indiana St",
-    "market": "spread",
-    "line": -17.5,
-    "odds": -103,
-    "p": 0.503,
-    "win_p": 0.868,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401868965",
+   "id": "ncaaf:401866431",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Prairie View",
-    "p": 0.896,
-    "tie": 0.014,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-03T19:00Z",
-   "away": "Prairie View",
-   "home": "Miss Valley St",
-   "why": "coin_flip",
+   "start": "2026-10-03T18:00Z",
+   "away": "Toledo",
+   "home": "Ball State",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Prairie View",
-    "opp": "Miss Valley St",
-    "market": "spread",
-    "line": -28.5,
-    "odds": -102,
-    "p": 0.506,
-    "win_p": 0.921,
-    "reasons": [
-     "hotter recent form"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868375",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T18:00Z",
+   "away": "Wofford",
+   "home": "Furman",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401866430",
@@ -726,8 +680,8 @@
    "start": "2026-10-03T19:30Z",
    "away": "California",
    "home": "UNLV",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "UNLV",
     "opp": "California",
@@ -836,38 +790,6 @@
    }
   },
   {
-   "id": "ncaaf:401856708",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Florida",
-    "p": 0.642,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-03T19:30Z",
-   "away": "Florida",
-   "home": "Missouri",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Florida",
-    "opp": "Missouri",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
-    "reasons": [
-     "opponent missing key players",
-     "hotter recent form",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401868025",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -905,8 +827,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.592,
-    "tie": 0.032,
+    "p": 0.647,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -921,11 +843,12 @@
     "opp": "NC State",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.6,
-    "win_p": 0.6,
+    "odds": -218,
+    "p": 0.657,
+    "win_p": 0.657,
     "reasons": [
      "better QB play lately",
+     "sharp money moving this way",
      "opponent missing key players"
     ]
    }
@@ -1089,7 +1012,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia",
-    "p": 0.526,
+    "p": 0.527,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1136,8 +1059,8 @@
     "team": "N Dakota St",
     "opp": "Wyoming",
     "market": "spread",
-    "line": -16.5,
-    "odds": -112,
+    "line": -17.5,
+    "odds": -110,
     "p": 0.503,
     "win_p": 0.868,
     "reasons": [
@@ -1176,6 +1099,38 @@
      "the stronger team",
      "rolling off a blowout win",
      "better QB play lately"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401856708",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Florida",
+    "p": 0.642,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T19:50Z",
+   "away": "Florida",
+   "home": "Missouri",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Florida",
+    "opp": "Missouri",
+    "market": "ml",
+    "line": null,
+    "odds": -218,
+    "p": 0.657,
+    "win_p": 0.657,
+    "reasons": [
+     "opponent missing key players",
+     "hotter recent form",
+     "rolling off a blowout win"
     ]
    }
   },
@@ -1312,7 +1267,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana",
-    "p": 0.842,
+    "p": 0.845,
     "tie": 0.019,
     "name": "1st half"
    },
@@ -1327,10 +1282,10 @@
     "team": "Montana",
     "opp": "N Colorado",
     "market": "spread",
-    "line": -22.5,
-    "odds": -105,
+    "line": -21.5,
+    "odds": -111,
     "p": 0.504,
-    "win_p": 0.898,
+    "win_p": 0.9,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1451,8 +1406,8 @@
     "team": "Illinois",
     "opp": "Purdue",
     "market": "spread",
-    "line": -9.5,
-    "odds": -112,
+    "line": -10.0,
+    "odds": -105,
     "p": 0.501,
     "win_p": 0.757,
     "reasons": [
@@ -1561,7 +1516,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Gardner-Webb",
-    "p": 0.687,
+    "p": 0.688,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1623,7 +1578,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bryant",
-    "p": 0.737,
+    "p": 0.724,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -1638,10 +1593,10 @@
     "team": "Bryant",
     "opp": "NC A&T",
     "market": "spread",
-    "line": -14.5,
-    "odds": -104,
+    "line": -13.5,
+    "odds": -111,
     "p": 0.502,
-    "win_p": 0.794,
+    "win_p": 0.78,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1836,7 +1791,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "BYU",
-    "p": 0.655,
+    "p": 0.656,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -2162,7 +2117,7 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
+    "odds": -270,
     "p": 0.712,
     "win_p": 0.497,
     "reasons": [
@@ -2413,9 +2368,9 @@
     "team": "Boise St",
     "opp": "Utah State",
     "market": "spread",
-    "line": -18.5,
-    "odds": -115,
-    "p": 0.503,
+    "line": -19.5,
+    "odds": -110,
+    "p": 0.504,
     "win_p": 0.899,
     "reasons": [
      "the stronger team",
@@ -2462,8 +2417,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisiana",
-    "p": 0.625,
-    "tie": 0.031,
+    "p": 0.62,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2478,9 +2433,9 @@
     "opp": "Arkansas St",
     "market": "ml",
     "line": null,
-    "odds": -230,
-    "p": 0.669,
-    "win_p": 0.669,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -2590,8 +2545,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Southern Utah",
-    "p": 0.773,
-    "tie": 0.025,
+    "p": 0.774,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2795,7 +2750,8 @@
     "win_p": 0.507,
     "reasons": [
      "hotter goalie",
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -2895,7 +2851,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas St",
-    "p": 0.753,
+    "p": 0.754,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -3171,7 +3127,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.558,
+    "p": 0.56,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -3187,9 +3143,9 @@
     "opp": "Buccaneers",
     "market": "ml",
     "line": null,
-    "odds": -166,
-    "p": 0.6,
-    "win_p": 0.6,
+    "odds": -170,
+    "p": 0.604,
+    "win_p": 0.604,
     "reasons": [
      "hotter recent form",
      "better rested",

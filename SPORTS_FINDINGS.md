@@ -553,3 +553,20 @@ NBA 2011-24, NHL 2011-23, MLB 2010-23, college 2018-23); today's prices from ESP
 - NEXT (the one real lead): mid-season futures vs the game lines - team strength from the books' own closing lines,
   simulate the rest of the season, compare to the slow-moving futures board. Needs conference maps + playoff formats.
 
+## Why so few Locks / value plays (10/3 Fable sweep, walk-forward, real closing prices)
+- strust = 0 is CORRECT: the engine's margin predicts the final margin worse than the closing spread in every season of
+  every spread sport (NFL RMSE 12.9-14.1 vs market 11.5-13.6; college 17.4-20.6 vs 14.8-16.4). No spread Locks with
+  this model. DEAD until a different margin model.
+- Own moneyline read vs the close: "own 56%+ and beats the price" at -150..+125 wins 50-53%, -1.3% to -8.9% a unit in
+  every sport (NFL -6.7% on 228, college -5.7% on 518, NBA -1.3%, NCAAB -1.9%, NHL -8.9%, MLB -4.4%). Lower or higher
+  bars lose more. More Locks = more losses: the leans are the engine being right.
+- own_agrees: +5 to +7 ROI pts in college hoops / NHL / MLB, nothing in NFL / college football / NBA (LEAD: make it a
+  sport-aware Lock tiebreaker, gate unchanged).
+- CORRECTION: the 10/1 "early NFL spread 3.5+ off Tuesday = 58.5% on 554" was a LEAK (last week's games still on).
+  Fair: NFL 49.1% on 497, college 49.1% on 1,634 (0 of 5 seasons). DEAD.
+- Leaks found: sports_players.key_edges trains 'key' on the actual box-score starter but predicts with the guess (NHL
+  goalie guess wrong 53-55%) - fix train/predict match; 'inj' feature has 16-23 games - hold at 0; tune() eval window
+  overlaps training (flatters, never hides edge).
+- What makes money (built): dog_score angles, the fair-price early dog spots, hockey favorite weights. Nothing else
+  cleared n>=200 with 4+ of 7 seasons up (66 cells tested).
+
