@@ -6145,3 +6145,27 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 02:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 02:06 UTC] crypto/hold_btc  equity $503.10 (+0.6%) 1 open  market UP
    social heat top: STONK 41 (29/0/11), SC 40 (37/0/3), PONS 40 (35/0/5), TRUMP 35 (35/0/0), SOL 32 (32/0/0)
+   dex screen: REJECT EMBER@solana liq $302,736 - lp holders unknown; rugcheck lp locked 45% < 95%
+   dex screen: REJECT WDYT@solana liq $156,167 - holders unknown; lp holders unknown; rugcheck lp locked 87% < 95%
+   dex screen: PASS ANTFUN@solana liq $15,205,890
+   dex screen: UNREACHABLE GULD@ethereum liq $1,808,195 - honeypot.is unreachable
+   dex screen: REJECT ICP@ethereum liq $605,093 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: REJECT 67@solana liq $432,380 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dex screen: UNREACHABLE GULD@ethereum liq $1,806,651 - honeypot.is unreachable
+   dex screen: PASS ASTEROID@ethereum liq $1,028,468
+   dex screen: REJECT ICP@base liq $12,597 - liquidity $12,597 < $100,000; 24h volume $39,482 < $100,000
+   dex screen: REJECT HOLDOWEEN@solana liq $145,927 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS E/ACC@solana liq $100,682
+   dex screen: UNREACHABLE GULD@ethereum liq $1,806,537 - honeypot.is unreachable
+   dex screen: REJECT VELVET@base liq $1,167,861 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 70%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,091 / base 552 / ethereum 357), refresh cycle 128s (hot 124s), 2926 calls (108 feed, 429s 0, failed 1), 84,506 refreshed (9769 no pair), +91 added / -91 dropped (dead 18, stale 0, cap 73), movers 2 + warming 26 -> queued 3, screened 3 (passed 1), bought 0
+[2026-10-03 03:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-03 03:06 UTC] crypto/mover     equity $446.79 (-10.6%) 1 open  market UP
+[2026-10-03 03:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 03:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 03:06 UTC] crypto/social_heat equity $528.41 (+5.7%) 2 open  market UP
+[2026-10-03 03:06 UTC] crypto/breakout10 equity $484.64 (-3.1%) 2 open  market UP
+[2026-10-03 03:06 UTC] crypto/momentum  equity $486.93 (-2.6%) 2 open  market UP
+[2026-10-03 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 03:06 UTC] crypto/hold_btc  equity $502.86 (+0.6%) 1 open  market UP
+   social heat top: SC 43 (37/0/5), PENGU 35 (35/0/0), CARDS 33 (29/0/4), QNT 32 (32/0/0), BTC 24 (24/0/0)
