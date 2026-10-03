@@ -1,7 +1,7 @@
 {
- "at": "2026-10-03T21:57Z",
+ "at": "2026-10-03T23:29Z",
  "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
+  "slate check problem - re-pull before the board - started sports.yml"
  ],
  "problems": [
   "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
@@ -9,28 +9,42 @@
   "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
   "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
   "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-  "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
-  "workflow failed: health 2026-10-03T21:49 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37156364492"
+  "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
  ],
  "ok": [
-  "live watcher fresh (141s)",
+  "live watcher fresh (11s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "all 9 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 10 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-03T23:29Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+   ]
+  },
   {
    "at": "2026-10-03T21:57Z",
    "fixes": [
@@ -699,13 +713,6 @@
    "problems": [
     "live tennis scores: tennis Rublev vs Griekspoor: points frozen at 0-0 for 229s",
     "live tennis scores: tennis Blinkova vs Boisson: no points for 1187s"
-   ]
-  },
-  {
-   "at": "2026-10-01T09:26Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Sidorova vs Falei: no points for 878s"
    ]
   }
  ]
