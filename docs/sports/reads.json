@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T17:20Z",
+ "updated": "2026-10-03T17:42Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -465,126 +465,34 @@
    }
   },
   {
-   "id": "ncaaf:401867918",
+   "id": "ncaaf:401868381",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Robert Morris",
-    "p": 0.486,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-03T18:00Z",
-   "away": "Norfolk St",
-   "home": "Robert Morris",
-   "why": "coin_flip",
+   "start": "2026-10-03T17:30Z",
+   "away": "Mercer",
+   "home": "VMI",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Robert Morris",
-    "opp": "Norfolk St",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.503,
-    "win_p": 0.503,
-    "reasons": []
-   }
+   "lean": null
   },
   {
-   "id": "ncaaf:401867986",
+   "id": "ncaaf:401867835",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "SC State",
-    "p": 0.801,
-    "tie": 0.023,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-03T18:00Z",
-   "away": "The Citadel",
-   "home": "SC State",
-   "why": "coin_flip",
+   "start": "2026-10-03T17:30Z",
+   "away": "Penn",
+   "home": "Dartmouth",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "SC State",
-    "opp": "The Citadel",
-    "market": "spread",
-    "line": -17.5,
-    "odds": -105,
-    "p": 0.503,
-    "win_p": 0.859,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401866431",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Toledo",
-    "p": 0.882,
-    "tie": 0.016,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-03T18:00Z",
-   "away": "Toledo",
-   "home": "Ball State",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Toledo",
-    "opp": "Ball State",
-    "market": "spread",
-    "line": -21.0,
-    "odds": -102,
-    "p": 0.504,
-    "win_p": 0.893,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868375",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Furman",
-    "p": 0.582,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-03T18:00Z",
-   "away": "Wofford",
-   "home": "Furman",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Furman",
-    "opp": "Wofford",
-    "market": "ml",
-    "line": null,
-    "odds": -188,
-    "p": 0.619,
-    "win_p": 0.619,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401868359",
@@ -592,8 +500,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Grambling",
-    "p": 0.64,
-    "tie": 0.031,
+    "p": 0.621,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -608,9 +516,9 @@
     "opp": "Alcorn St",
     "market": "ml",
     "line": null,
-    "odds": -261,
-    "p": 0.687,
-    "win_p": 0.687,
+    "odds": -234,
+    "p": 0.665,
+    "win_p": 0.665,
     "reasons": [
      "the stronger team"
     ]
@@ -997,7 +905,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.591,
+    "p": 0.592,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1308,7 +1216,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.581,
+    "p": 0.58,
     "tie": 0.112,
     "name": "first 5 innings"
    },
@@ -1325,8 +1233,8 @@
     "market": "ml",
     "line": null,
     "odds": -212,
-    "p": 0.664,
-    "win_p": 0.664,
+    "p": 0.663,
+    "win_p": 0.663,
     "reasons": [
      "better starting pitcher",
      "better rested",
@@ -1509,8 +1417,8 @@
    "start": "2026-10-03T20:15Z",
    "away": "Kentucky",
    "home": "South Carolina",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
     "team": "South Carolina",
     "opp": "Kentucky",
@@ -1981,7 +1889,8 @@
     "win_p": 0.669,
     "reasons": [
      "the stronger team",
-     "opponent missing key players"
+     "opponent missing key players",
+     "opponent drama: family/personal"
     ]
    }
   },
@@ -2285,7 +2194,7 @@
     "opp": "UL Monroe",
     "market": "spread",
     "line": -13.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.502,
     "win_p": 0.817,
     "reasons": [
@@ -2332,8 +2241,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Army",
-    "p": 0.531,
-    "tie": 0.033,
+    "p": 0.501,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2348,9 +2257,9 @@
     "opp": "Louisiana Tech",
     "market": "ml",
     "line": null,
-    "odds": -115,
-    "p": 0.511,
-    "win_p": 0.511,
+    "odds": -110,
+    "p": 0.503,
+    "win_p": 0.503,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -3232,7 +3141,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.363,
+    "p": 0.36,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -3248,9 +3157,9 @@
     "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -230,
-    "p": 0.69,
-    "win_p": 0.473,
+    "odds": -250,
+    "p": 0.696,
+    "win_p": 0.48,
     "reasons": [
      "opponent drama: trade drama"
     ]
@@ -3262,7 +3171,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.561,
+    "p": 0.558,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -3278,9 +3187,9 @@
     "opp": "Buccaneers",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.604,
-    "win_p": 0.604,
+    "odds": -166,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "hotter recent form",
      "better rested",
@@ -3356,8 +3265,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ravens",
-    "p": 0.722,
-    "tie": 0.032,
+    "p": 0.73,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -3373,8 +3282,8 @@
     "market": "spread",
     "line": 11.5,
     "odds": -112,
-    "p": 0.507,
-    "win_p": 0.167,
+    "p": 0.508,
+    "win_p": 0.159,
     "reasons": [
      "revenge game"
     ]
@@ -3386,8 +3295,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Vikings",
-    "p": 0.669,
-    "tie": 0.034,
+    "p": 0.666,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -3403,12 +3312,12 @@
     "market": "spread",
     "line": 10.0,
     "odds": -112,
-    "p": 0.511,
-    "win_p": 0.203,
+    "p": 0.51,
+    "win_p": 0.207,
     "reasons": [
      "better QB play lately",
-     "revenge game",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "revenge game"
     ]
    }
   },
@@ -3572,7 +3481,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Panthers",
-    "p": 0.373,
+    "p": 0.377,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -3589,8 +3498,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.67,
-    "win_p": 0.45,
+    "p": 0.662,
+    "win_p": 0.442,
     "reasons": [
      "hotter recent form"
     ]

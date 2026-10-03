@@ -1,10 +1,11 @@
 """Git merge driver for the sports data files that more than one job writes at the same time
-(data/sports/picks.json and data/sports/live_log.json).
+(data/sports/picks.json, data/sports/live_log.json and data/sports/tennis/picks.json).
 
 A line-by-line merge of two versions of these files once stitched two different 8-legs into one broken pick (9 legs,
 the same game twice). This merges them record by record instead:
   picks.json    - one entry per (date, kind, round, games); a graded version beats an open one beats a waiting one
   live_log.json - one entry per live play id; a graded version beats an ungraded one, the longest best price is kept
+  tennis/picks.json - one slate per date, one leg per pick id; a graded leg beats an ungraded one
 Usage (set up in the workflows):  git config merge.sportsjson.driver "python tools/merge_json.py %O %A %B"
 Writes the merged result to %A (ours) and exits 0 (no conflict)."""
 import json
@@ -84,9 +85,39 @@ def merge_log(ours, theirs):
     return {**(ours or {}), "plays": plays}
 
 
+def _is_tennis(rows):
+    return isinstance(rows, list) and any(isinstance(r, dict) and "picks" in r and "legs" not in r for r in rows)
+
+
+def merge_tennis(ours, theirs):
+    """data/sports/tennis/picks.json: one slate per date, one leg per pick id; a graded leg beats an ungraded one.
+    (10/3 audit: the engine's save rebased with -X theirs over a slate the live watcher had just graded - with no merge
+    driver the engine's older copy won and the grade was lost till the next re-grade.)"""
+    slates = {}
+    for s_ in (ours or []) + (theirs or []):
+        if not isinstance(s_, dict) or not s_.get("date"):
+            continue
+        cur = slates.get(s_["date"])
+        if cur is None:
+            slates[s_["date"]] = {**s_, "picks": [dict(l) for l in s_.get("picks") or []]}
+            continue
+        legs = {l.get("id"): l for l in cur["picks"]}
+        for l in s_.get("picks") or []:
+            old = legs.get(l.get("id"))
+            if old is None or (l.get("result") is not None and old.get("result") is None):
+                legs[l.get("id")] = dict(l)
+        cur["picks"] = list(legs.values())
+        for k, v in s_.items():                          # anything only the other side has (a parlay, a note)
+            if k != "picks" and cur.get(k) is None:
+                cur[k] = v
+    return [slates[d] for d in sorted(slates)][-120:]
+
+
 def main(base, ours_path, theirs_path):
     ours, theirs = _load(ours_path), _load(theirs_path)
-    if isinstance(ours, list) or isinstance(theirs, list):
+    if _is_tennis(ours) or _is_tennis(theirs):
+        merged = merge_tennis(ours if isinstance(ours, list) else [], theirs if isinstance(theirs, list) else [])
+    elif isinstance(ours, list) or isinstance(theirs, list):
         b_ = _load(base) if base else None
         merged = merge_picks(ours if isinstance(ours, list) else [], theirs if isinstance(theirs, list) else [],
                              b_ if isinstance(b_, list) else None)

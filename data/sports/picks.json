@@ -4877,5 +4877,165 @@
   "stake": 100.0,
   "status": "open",
   "tier": "value"
+ },
+ {
+  "american": 120,
+  "date": "2026-10-03",
+  "dec": 2.2,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "absent": [
+     "WR DJ Miller"
+    ],
+    "ats_run": 2,
+    "bd_tags": [
+     "hot:2",
+     "cold:5",
+     "better:3",
+     "latest:0",
+     "QB_cold:1",
+     "drama_suspension:0",
+     "talk_must_win:2",
+     "talk_must_win:3",
+     "sharp:1",
+     "splits_f:5",
+     "bottom_s:0",
+     "w_better:1"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Kentucky out: CB Grant Grayton, WR DJ Miller, LS Cole Marszalek \u00b7 questionable: OL Jay Clark, LB Tavion Wallace.",
+     "\ud83d\udce3 South Carolina say their season rides on this one.",
+     "\ud83d\udce3 Win-or-else talk coming out of Kentucky.",
+     "\ud83d\udd25 Kentucky are rolling \u2014 2 wins in a row, 3-1 on the year.",
+     "\ud83e\uddef South Carolina got a suspension hanging over them: \"South Carolina, SEC jointly suspend Dylan Stewart for 1 game\"",
+     "\ud83e\uddca South Carolina forgot how to win: 2 straight L's.",
+     "\ud83d\udcca Only 26% of the bets on Kentucky. That's exactly where we want to be.",
+     "\ud83d\uddd1\ufe0f LaNorris Sellers has been throwing it to the other team \u2014 3 TDs, 4 picks and 563 yards in his last 3 games.",
+     "\ud83d\udcaa Kentucky are 3-1, South Carolina 2-2. We're on the better squad.",
+     "\u2705 Bottom line: Kentucky (+120). The engine gives Kentucky a better shot than this price does. That's the bet."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.2,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "conservative": false,
+     "fades": [],
+     "fast": false,
+     "last_margin": 24.0,
+     "last_pts": 45.0,
+     "neutral": false,
+     "win_pct": 0.75,
+     "win_streak": 2
+    },
+    "dog_p": 0.4957,
+    "drift": -0.0086,
+    "edge": -0.029797693910273093,
+    "edge_own": -0.030383655368010687,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     24.0,
+     2,
+     -1600,
+     true,
+     0
+    ],
+    "game_id": "ncaaf:401856709",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.867107340173638,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 120,
+    "opp": "South Carolina",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Dylan Stewart (EDGE)",
+     "Jalewis Solomon (DB)",
+     "Jayden Sellers (WR)",
+     "AJ Holloway (LB)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Grant Grayton (CB)",
+     "DJ Miller (WR)",
+     "Cole Marszalek (LS)"
+    ],
+    "p": 0.4410010482226031,
+    "p_market": 0.4365079365079365,
+    "pdo": null,
+    "public": "fade",
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "opponent missing key players",
+     "opponent drama: suspension"
+    ],
+    "rested_vs_b2b": false,
+    "result": null,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-03T20:15Z",
+    "stype": "2",
+    "talk_ours": [
+     {
+      "headline": "How will South Carolina handle pressure of must-win matchup vs. Kentucky?",
+      "kind": "must-win"
+     }
+    ],
+    "talk_theirs": [
+     {
+      "headline": "How will South Carolina handle pressure of must-win matchup vs. Kentucky?",
+      "kind": "must-win"
+     }
+    ],
+    "team": "Kentucky",
+    "team_id": "96",
+    "their_drama": [
+     {
+      "date": "2026-09-28",
+      "headline": "South Carolina, SEC jointly suspend Dylan Stewart for 1 game",
+      "id": "50055151",
+      "kind": "suspension"
+     }
+    ],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa 3-1 against 2-2: Kentucky have been the better team."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.441,
+  "pnl": 0.0,
+  "posted": "2026-10-03T17:27Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]

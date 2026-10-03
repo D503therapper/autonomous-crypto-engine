@@ -7992,6 +7992,114 @@ def test_every_workflow_file_parses():
     assert "No module named 'yaml'" not in r.stderr, "no PyYAML anywhere to check the workflow files with"
     assert r.returncode == 0, "workflow files that don't parse:\n" + r.stdout + r.stderr
 
+
+def _tool(name):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(name, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", name + ".py"))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def test_pacer_keeps_the_clock_when_github_skips_crons():
+    """10/3: GitHub skipped every 7:44 / 7:47 / 8 AM board cron (1 of ~25 engine crons fired; 1 bug-check cron in 17 hours),
+    so the restart chain (engine <-> bug check) had nothing to stand on. The pacer (tools/pacer.py, pacer.yml) is a job
+    that's always running: it starts the engine when its hourly run is 65+ min late, at 7:40 PT for the 8:00 board, and
+    every ~10 min in the 8 AM hour while a game day's board isn't up - right on both sides of the clock change."""
+    pc = _tool("pacer")
+    due = pc.engine_due
+    T = lambda s: datetime.strptime(s, "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)   # noqa: E731
+    assert "hourly" in due(T("2026-10-03T16:00"), T("2026-10-03T14:50"), False, False, 0)        # 70 min: skipped
+    assert due(T("2026-10-03T16:00"), T("2026-10-03T15:30"), False, False, 0) == ""              # 30 min: fine
+    assert due(T("2026-10-03T16:00"), T("2026-10-03T14:50"), False, False, 1) == ""              # one's running: wait
+    assert "no engine run" in due(T("2026-10-03T16:00"), None, False, False, 0)
+    assert "7:40" in due(T("2026-10-03T14:41"), T("2026-10-03T14:23"), False, False, 0)          # 7:41 PDT, last 7:23
+    assert due(T("2026-10-03T14:41"), T("2026-10-03T14:40"), False, False, 0) == ""              # the 7:40 run is on
+    assert due(T("2026-10-03T14:20"), T("2026-10-03T13:23"), False, False, 0) == ""              # 7:20: not yet
+    assert "board not up" in due(T("2026-10-03T15:12"), T("2026-10-03T15:02"), False, True, 0)   # 8:12, no board
+    assert due(T("2026-10-03T15:12"), T("2026-10-03T15:02"), True, True, 0) == ""                # board's up
+    assert due(T("2026-10-03T15:12"), T("2026-10-03T15:02"), False, False, 0) == ""              # no games today
+    assert due(T("2026-10-03T15:06"), T("2026-10-03T15:02"), False, True, 0) == ""               # a try 4 min ago
+    assert "7:40" in due(T("2026-11-15T15:41"), T("2026-11-15T15:23"), False, False, 0)          # 7:41 PST (UTC-8)
+    assert due(T("2026-11-15T14:41"), T("2026-11-15T14:23"), False, False, 0) == ""              # 6:41 PST: not 7:40
+    assert "board not up" in due(T("2026-11-15T16:12"), T("2026-11-15T16:02"), False, True, 0)   # 8:12 PST
+    assert pc.BOARD_PULL == (7, sports.BOARD_EARLY_MIN) and pc.HOURLY_MIN >= 60
+    rows = [{"status": "in_progress", "databaseId": 5}, {"status": "queued", "databaseId": 6}, {"status": "completed", "databaseId": 7}]
+    assert pc.busy(rows) == 2 and pc.busy(rows, skip_id="5") == 1 and pc.busy([]) == 0
+    root = os.path.dirname(os.path.abspath(__file__))
+    y = open(os.path.join(root, ".github", "workflows", "pacer.yml")).read()
+    assert "workflow_dispatch" in y and "group: pacer" in y and "cancel-in-progress: false" in y
+    assert "tools/pacer.py --backstop" in y and "tools/pacer.py --next" in y and "git fetch -q origin main" in y
+    assert "workflows: [sports]" in y                      # every finished engine run can restart a broken chain
+    assert "gh workflow run pacer.yml" in open(os.path.join(root, "tools", "backstop.sh")).read()
+    assert 'dispatch("pacer.yml"' in open(os.path.join(root, "tools", "health.py")).read()
+    assert "actions: write" in y and "contents: write" not in y   # it starts jobs, never commits
+
+
+def test_bug_check_calls_the_board_late_from_805():
+    """10/3 audit: the bug check only looked for the main board after 9 AM PT - an hour after the 8:00 post the owner
+    wants, and the one restart that doesn't depend on the engine's own crons. From 8:05 a game day with no board is late."""
+    h = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
+    assert "BOARD_LATE = (8, 5)" in h and "pt.hour >= 9" not in h
+    assert "(pt.hour, pt.minute) >= BOARD_LATE" in h
+
+
+def test_every_sports_save_step_retries_and_never_fails_green():
+    """10/2 17:14 (run 37039344253): the engine's push was rejected (another job pushed first), 'git rebase --abort'
+    returned non-zero under bash -e and killed the retry loop - one try, red. Nine other sports jobs had no abort and no
+    check at all: a failed save ended GREEN with nothing on main (studies, sims, refs, injury reports, fetched pages).
+    Every save loop: retry after a rejected push (abort || true), and go red when nothing landed."""
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".github", "workflows")
+    for wf in ("sports", "health", "sports_studies", "sports_sims", "sports_refs", "tennis_players", "fetch_pages",
+               "injury_report", "board_preview", "injury_probe", "deploy_ask", "sports_public", "tennis_odds"):
+        y = open(os.path.join(root, wf + ".yml")).read()
+        assert "git rebase --abort 2>/dev/null || true" in y, wf
+        assert "&& ok=1 && break" in y and '[ -n "$ok" ] ||' in y, wf
+
+
+def test_tennis_slates_merge_graded_over_ungraded():
+    """10/3 audit: data/sports/tennis/picks.json had no merge driver. The engine (10+ min a run) and the live watcher's
+    quick grade both write it; the engine's 'pull --rebase -X theirs' kept its own older copy and dropped a grade the
+    watcher had just saved. The driver merges slate by date, leg by id; a graded leg always wins."""
+    mj = _tool("merge_json")
+    a = {"id": "atp:1:2", "match": "atp:1", "player": "Munar", "result": None}
+    b = {"id": "wta:2:1", "match": "wta:2", "player": "Swiatek", "result": None}
+    ours = [{"date": "2026-10-02", "posted": "2026-10-02T15:02Z", "picks": [{**a, "id": "atp:0:1", "result": "won"}]},
+            {"date": "2026-10-03", "posted": "2026-10-03T15:02Z", "picks": [a, b], "parlays": {"atp": None}}]
+    theirs = [{"date": "2026-10-03", "posted": "2026-10-03T15:02Z", "picks": [{**a, "result": "lost", "final": "6-4 6-3"}, b]}]
+    assert mj._is_tennis(ours) and not mj._is_tennis([{"date": "x", "kind": "lock", "legs": []}])
+    out = mj.merge_tennis(ours, theirs)
+    assert [s["date"] for s in out] == ["2026-10-02", "2026-10-03"]
+    legs = {l["id"]: l for l in out[1]["picks"]}
+    assert legs["atp:1:2"]["result"] == "lost" and legs["atp:1:2"]["final"] == "6-4 6-3" and legs["wta:2:1"]["result"] is None
+    assert out[1]["parlays"] == {"atp": None}            # the side that had the extra field keeps it
+    assert mj.merge_tennis(theirs, ours)[1]["picks"][0]["result"] == "lost"   # either way round
+    d = tempfile.mkdtemp()
+    for name, rows in (("o", ours), ("t", theirs), ("b", ours[:1])):
+        json.dump(rows, open(os.path.join(d, name), "w"))
+    assert mj.main(os.path.join(d, "b"), os.path.join(d, "o"), os.path.join(d, "t")) == 0
+    got = json.load(open(os.path.join(d, "o")))
+    assert {l["id"]: l["result"] for l in got[1]["picks"]} == {"atp:1:2": "lost", "wta:2:1": None}
+    assert "data/sports/tennis/picks.json merge=sportsjson" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gitattributes")).read()
+
+
+def test_official_reports_and_the_capper_use_pacific_time_both_sides_of_dst():
+    """10/3 audit: sports_data.official() and the capper's game match took Pacific as a fixed UTC-7. From Nov 1 Pacific
+    is UTC-8: the official injury reports' 'today' would be off by an hour at the day's edge. The real zone, not a number."""
+    import inspect
+    import sports_capper
+    assert "timedelta(hours=7)" not in inspect.getsource(sd.official) and "timedelta(hours=7)" not in inspect.getsource(sports_capper._ours)
+    assert str(sd.PT_) == "America/Los_Angeles"
+    keep = sd.OFFICIAL_PATH
+    try:
+        sd.OFFICIAL_PATH = os.path.join(tempfile.mkdtemp(), "injuries_official.json")
+        today = datetime.now(sd.PT_).date().isoformat()
+        json.dump({today: {"ncaaf": {"333": {"players": [["A Guy", "QB", "out"]]}}}}, open(sd.OFFICIAL_PATH, "w"))
+        assert sd.official("ncaaf") == {"333": [("A Guy", "QB", "out")]}
+        assert sd.official("ncaaf", day="2020-01-01") == {}
+    finally:
+        sd.OFFICIAL_PATH = keep
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

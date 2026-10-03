@@ -10,9 +10,12 @@ import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 ESPN = "https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard?dates={day}&limit=1000{extra}"
 DATA = "data/sports"
+
+PT_ = ZoneInfo("America/Los_Angeles")          # Pacific, both sides of the clock change (never a fixed -7h)
 
 # league key -> ESPN path, extra query, display name, emoji
 LEAGUES = {
@@ -481,7 +484,7 @@ def official(league, day=None):
             d = json.load(f)
     except (OSError, ValueError):
         return {}
-    now = datetime.now(timezone.utc) - timedelta(hours=7)
+    now = datetime.now(timezone.utc).astimezone(PT_)   # (10/3 audit: a fixed -7h is wrong from Nov 1 - Pacific is UTC-8)
     out = {}
     for k in sorted({(now + timedelta(days=i)).date().isoformat() for i in (-1, 0, 1)} if day is None else {day}):
         for tid, t in ((d.get(k) or {}).get(league) or {}).items():

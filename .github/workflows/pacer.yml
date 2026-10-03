@@ -1,0 +1,44 @@
+# ⏱ THE PACER - the clock GitHub's schedule isn't (10/3: GitHub skipped every 7:44 / 7:47 / 8 AM board cron; 10/2 it
+# skipped the engine's hourly runs for 3 hours - and the hourly bug check that restarts the engine is a cron that gets
+# skipped the same way). One pacer leg is always running: every minute it starts whatever should have started (the
+# engine's hourly run, the 7:40 pull so the board posts at 8:00 sharp, the 8 AM board retries, the tennis slate, the
+# live watch, the bug check - tools/pacer.py), then after ~50 minutes queues the next leg. Dispatches never skip.
+# A broken chain is restarted by the engine's and the live watch's backstop, the bug check, every engine run finishing
+# (workflow_run) and this file's own cron. Free: the repo is public. Never commits anything.
+name: pacer
+on:
+  schedule:
+    - cron: "9,39 * * * *"
+  workflow_dispatch: {}
+  workflow_run:
+    workflows: [sports]
+    types: [completed]
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: pacer
+  cancel-in-progress: false      # one leg runs, one waits behind it (a third would cancel the waiting one, not the running one)
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: keep time (~50 minutes, a check every minute)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          end=$(( $(date +%s) + 50*60 )); i=0
+          while [ "$(date +%s)" -lt "$end" ]; do
+            git fetch -q origin main && git reset -q --hard origin/main || true     # the newest picks + games (the slate posted?)
+            if [ $(( i % 5 )) -eq 0 ]; then timeout 4m python -u tools/pacer.py --backstop || true; else timeout 2m python -u tools/pacer.py || true; fi
+            i=$(( i + 1 )); sleep 60
+          done
+      - name: queue the next leg
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: timeout 2m python -u tools/pacer.py --next || true
