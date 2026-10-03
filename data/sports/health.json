@@ -1,28 +1,35 @@
 {
- "at": "2026-10-03T05:46Z",
+ "at": "2026-10-03T07:25Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Falei vs Maneiro: no points for 580s"
+ ],
  "ok": [
-  "live watcher fresh (12s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 6 live matches",
-  "slate check: all 9 of today's games named, priced and looked at",
+  "live tennis points + server: 4 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 5 fresh (betrivers 5)",
+  "tennis live prices: 9 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 2 min ago",
-  "tennis slate on time",
-  "main board up"
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 48 min ago",
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-03T07:25Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Falei vs Maneiro: no points for 580s"
+   ]
+  },
   {
    "at": "2026-10-03T05:46Z",
    "fixes": [],
@@ -610,14 +617,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 625s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T18:05Z",
-   "fixes": [],
-   "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
