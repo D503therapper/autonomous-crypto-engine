@@ -384,9 +384,9 @@ def breakdown(leg, games, elo, injuries, used=None):
             _w = lambda r: (lambda a: a[0] / max(1, a[0] + a[1]))([int(x) for x in r.split("-")[:2]])
             if gap > 15 and _w(_ru) > _w(_rt):           # the records do)
                 out.append(v.say("better", [f"💪 {us} ({_ru}) vs {them} ({_rt}) — the better team is on our side.",
-                                             f"💪 {_ru} against {_rt}: {us} have been the better team.",
+                                             f"💪 {_ru} against {_rt}: {us} been the better team.",
                                              f"💪 Records say it: {us} {_ru}, {them} {_rt}.",
-                                             f"💪 {us} are {_ru}, {them} {_rt}. We're on the better squad."]))
+                                             f"💪 {us} {_ru}, {them} {_rt}. Better squad on our side."]))
             elif gap < -15 and _w(_rt) > _w(_ru):
                 out.append(v.say("worse", [f"🐺 {them} ({_rt}) look better than {us} ({_ru}) — that's why the price is this good.",
                                             f"🐺 {_rt} vs {_ru} — {them} get the respect, we get the price on {us}.",
@@ -553,6 +553,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                              f"🤒 {_cap(the_them)} got guys under the weather."],
                  "trade drama": [f"🧯 Trade drama in {the_them}' locker room: \"{ev['headline']}\"",
                                  f"🧯 {_cap(the_them)} got a guy wanting out. Locker room's split."]}.get(kind)
+        named = [str(n).split(" (")[0] for n in (leg.get("opp_outs") or []) + list((leg.get("key_seen") or {}).keys())]
+        if kind == "suspension" and any(n and n.split(" (")[0] in ev.get("headline", "") for n in named):
+            lines = None                                 # (10/3: Dylan Stewart's suspension was already in the 🚑 line)
         if lines:
             out.append(v.say("drama_" + kind.replace("/", "_").replace(" ", "_"), lines))
         said.add(drama_r)
@@ -863,6 +866,8 @@ def breakdown(leg, games, elo, injuries, used=None):
     import sports_card_guard                              # 🛡️ every line passes the owner's checks before it posts
     leg["why_line"] = sports_card_guard.one(leg["why_line"], lg, us)
     lines = sports_card_guard.clean([x for x in out if x], lg, us)
+    if str(leg.get("why_line") or "").startswith("💪"):   # (10/3: the record said twice - the headline already has it)
+        lines = [x for x in lines if not str(x).startswith("💪")]
     if len(lines) > 2:
         import random
         rnd = random.Random(f"{g['id']}|{start:%Y-%m-%d}|{side}|shape")
@@ -899,9 +904,9 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
             if rec_u and rec_t and _wr(rec_u) > _wr(rec_t):   # (10/1 audit + the owner's never-vague rule: "just the
                 pools.append(("w_better", [                     # better team" with no fact is gone - the records say it,
                     f"💪 {us} ({rec_u}) vs {them} ({rec_t}) — the better team's on our side.",   # or no line)
-                    f"💪 {rec_u} against {rec_t}: {us} have been the better team.",
-                    f"💪 {us} are {rec_u}, {them} {rec_t}. We're on the better squad.",
-                    f"💪 {us} ({rec_u}) are the better team than {them} ({rec_t}). That's just facts."]))
+                    f"💪 {rec_u} against {rec_t}: {us} been the better team.",
+                    f"💪 {us} {rec_u}, {them} {rec_t}. Better squad on our side.",
+                    f"💪 {us} ({rec_u}) over {them} ({rec_t}) on the record. That's just facts."]))
         elif r == "hotter recent form":
             if n_hot < 2:
                 continue                                  # (no streak to show = no line, never "the hotter team")
@@ -1163,10 +1168,11 @@ def context_lines(leg, v, us, them, the_us, the_them, g):
                                         f"🦓 {nm} officiating. His track record leans {what}.",
                                         f"🦓 Officials matter: {nm}'s games have gone {what}'s way more than the book expected."]))
     for key, who in (("talk_theirs", the_them), ("talk_ours", the_us)):
-        for t in (leg.get(key) or [])[:1]:
-            opts = TALK_LINES.get(t.get("kind"))
-            if opts and not total:
-                out.append(v.say("talk_" + t["kind"].replace(" ", "_").replace("-", "_"), opts(who)))
+        for t in (leg.get(key) or [])[:1]:                 # (10/3, the owner: "season rides on this one" says
+            hl = str(t.get("headline") or "").strip()        # nothing - a talk line only with the actual quote)
+            if TALK_LINES.get(t.get("kind")) and not total and hl:
+                out.append(v.say("talk_q", [f"📣 Out of {who}'s camp this week: \"{hl}\"",
+                                            f"📣 {_cap(who)} in the papers: \"{hl}\""]))
     return [x for x in out if x]
 
 

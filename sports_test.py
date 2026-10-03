@@ -6794,6 +6794,17 @@ def test_lock_can_post_after_the_first_game_starts():
     assert "start < now + timedelta(minutes=MIN_LEAD_MIN)" in src
 
 
+def test_card_wording_kentucky_fixes():
+    """10/3 (the owner, the Kentucky card: "the wording is all fucked up"): no vague talk lines ("season rides on this
+    one", "win-or-else talk") - a talk line only with the real quote; a suspension already in the 🚑 line isn't pasted
+    again; the record isn't said twice; no "Kentucky have been"."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
+    i = src.index("for key, who in ((\"talk_theirs\"")
+    assert "and hl:" in src[i:i + 700] and "talk_q" in src[i:i + 700]
+    assert "have been the better team" not in src and "We're on the better squad" not in src
+    assert 'if kind == "suspension" and any(' in src and 'startswith("💪")' in src
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
