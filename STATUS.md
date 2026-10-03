@@ -78,6 +78,12 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   report exists for non-conference games (UNC-Notre Dame, Syracuse-UConn, Cal-UNLV...) or for the Sun Belt / CUSA /
   AAC; the MAC posts game-day reports only (~3h before kickoff, getsomemaction.com). Those games stay off the board
   (no pick off blind data). The 5:47 / 11:47 routine knows all this now (prompt updated 10/2).
+- 10/3 evening: THE ENGINE READS COLLEGE INJURY REPORTS ITSELF every run (the owner: "the engine needs to be able to
+  do the same" as Google). Football: Covers' public injury page (sports_data.page_injuries - 127 schools on 10/3, every
+  one matched; a school listed with "No injuries to report" counts as covered). Basketball: Rotowire's feed
+  (sports_data.web_injuries - 150 schools). Official reports in injuries_official.json still override. Short names
+  ("J. Dawson") match the box-score regulars (sports_absences.match). Rotowire's FOOTBALL feed is too thin (7 rows) -
+  not used. Check the engine log line "ncaaf injury page: N schools".
 - 10/3: futures study (SPORTS_FINDINGS) - preseason longshots never beat their price; daily futures price log LIVE
   (sports_futures); the owner, 10/3: WAIT - no futures on the board until the mid-season study finds a real edge. Patty vs the
   Algorithm removed for good (the owner). No-Lock days: the question box names what the Lock would have been
