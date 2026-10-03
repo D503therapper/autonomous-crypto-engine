@@ -6458,8 +6458,10 @@ def test_empty_pro_injury_feed_is_unknown():
     reports). An official report never erases ESPN's long-term rows (injured reserve / suspended) for that team."""
     import json as _j, tempfile as _t
     keep, keep_p = sd._fetch_espn_injuries, sd.OFFICIAL_PATH
-    fetch = _REAL_FETCH_INJURIES
+    keep_w, keep_pg = sd.web_injuries, sd.page_injuries      # (10/3: offline - on GitHub these read the live college
+    fetch = _REAL_FETCH_INJURIES                             #  injury pages and found real players)
     try:
+        sd.web_injuries = sd.page_injuries = lambda *a, **k: {}
         sd.OFFICIAL_PATH = os.path.join(_t.mkdtemp(), "o.json")
         _j.dump({}, open(sd.OFFICIAL_PATH, "w"))
         sd._fetch_espn_injuries = lambda lg: {}
@@ -6480,6 +6482,7 @@ def test_empty_pro_injury_feed_is_unknown():
         assert len(got) == 2, got                                  # the report's word on Odunze stands; Moore (short-term,
     finally:                                                       # not on the official list) is gone
         sd._fetch_espn_injuries, sd.OFFICIAL_PATH = keep, keep_p
+        sd.web_injuries, sd.page_injuries = keep_w, keep_pg
 
 
 def test_nba_banged_up_side_carries_no_units():
