@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 10,
+  "n": 11,
   "beat": 3,
-  "same": 4,
+  "same": 5,
   "worse": 3,
-  "avg_pts": 0.48
+  "avg_pts": 0.44
  },
  "unit_plays": {
-  "n": 4,
+  "n": 5,
   "beat": 2,
-  "same": 0,
+  "same": 1,
   "worse": 2,
-  "avg_pts": 1.2
+  "avg_pts": 0.96
  },
  "by_kind": {
   "dog": {
-   "n": 1,
+   "n": 2,
    "beat": 0,
-   "same": 0,
+   "same": 1,
    "worse": 1,
-   "avg_pts": -1.2
+   "avg_pts": -0.6
   },
   "lean": {
    "n": 6,
@@ -59,11 +59,11 @@
    "avg_pts": -0.35
   },
   "nhl": {
-   "n": 4,
+   "n": 5,
    "beat": 0,
-   "same": 3,
+   "same": 4,
    "worse": 1,
-   "avg_pts": -0.3
+   "avg_pts": -0.24
   }
  },
  "lock_by_size": {
@@ -168,6 +168,20 @@
    "pts": 1.2,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Blues",
+   "market": "ml",
+   "line": null,
+   "odds": 154,
+   "close": 154,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "won"
   },
   {
    "date": "2026-10-02",

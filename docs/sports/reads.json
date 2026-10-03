@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T04:00Z",
+ "updated": "2026-10-03T04:11Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -151,7 +151,7 @@
    "home": "Stars",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Blues",
@@ -164,7 +164,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -2426,7 +2426,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.432,
+    "p": 0.431,
     "tie": 0.293,
     "name": "1st period"
    },
@@ -3048,7 +3048,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.418,
+    "p": 0.417,
     "tie": 0.295,
     "name": "1st period"
    },
@@ -3169,7 +3169,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.378,
+    "p": 0.364,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -3178,7 +3178,7 @@
    "start": "2026-10-04T00:00Z",
    "away": "Stars",
    "home": "Predators",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Predators",
@@ -3186,9 +3186,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.661,
-    "win_p": 0.44,
-    "reasons": []
+    "p": 0.687,
+    "win_p": 0.469,
+    "reasons": [
+     "opponent on a back-to-back",
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -3260,8 +3263,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.479,
-    "tie": 0.284,
+    "p": 0.492,
+    "tie": 0.281,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3277,11 +3280,11 @@
     "market": "ml",
     "line": null,
     "odds": -298,
-    "p": 0.752,
-    "win_p": 0.752,
+    "p": 0.773,
+    "win_p": 0.773,
     "reasons": [
      "the stronger team",
-     "hotter recent form"
+     "opponent on a back-to-back"
     ]
    }
   },
