@@ -1,28 +1,37 @@
 {
- "at": "2026-10-03T12:02Z",
+ "at": "2026-10-03T12:12Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Shang Juncheng vs Zverev: no points for 102s"
+  "live tennis scores: tennis Shang Juncheng vs Zverev: points frozen at 40-30 for 496s",
+  "live tennis scores: tennis Boisson vs Andreeva: no points for 107s"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 3 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 31 min ago",
+  "simulator ran 7h ago",
+  "engine ran 41 min ago",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-03T12:12Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Shang Juncheng vs Zverev: points frozen at 40-30 for 496s",
+    "live tennis scores: tennis Boisson vs Andreeva: no points for 107s"
+   ]
+  },
   {
    "at": "2026-10-03T12:02Z",
    "fixes": [],
@@ -606,13 +615,6 @@
    "at": "2026-10-01T02:23Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-01T00:52Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
