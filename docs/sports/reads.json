@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T23:37Z",
+ "updated": "2026-10-03T00:00Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -91,61 +91,53 @@
    "id": "nhl:401891831",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Jets",
-    "p": 0.362,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-03T00:00Z",
    "away": "Bruins",
    "home": "Jets",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Bruins",
-    "opp": "Jets",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.693,
-    "win_p": 0.476,
+    "team": "Jets",
+    "opp": "Bruins",
+    "market": "ml",
+    "line": null,
+    "odds": -122,
+    "p": 0.525,
+    "win_p": 0.525,
     "reasons": [
-     "hotter recent form",
-     "the stronger team"
-    ]
+     "better rested",
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
    "id": "ncaaf:401858476",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Penn State",
-    "p": 0.555,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-03T00:00Z",
    "away": "Penn State",
    "home": "Northwestern",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Penn State",
     "opp": "Northwestern",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
-    "reasons": [
-     "opponent missing key players"
-    ]
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -942,7 +934,7 @@
     "opp": "Buffalo",
     "market": "spread",
     "line": -12.5,
-    "odds": -112,
+    "odds": -115,
     "p": 0.502,
     "win_p": 0.81,
     "reasons": [
@@ -1820,8 +1812,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.581,
-    "tie": 0.112,
+    "p": 0.586,
+    "tie": 0.111,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -1836,9 +1828,9 @@
     "opp": "Braves",
     "market": "ml",
     "line": null,
-    "odds": -223,
-    "p": 0.664,
-    "win_p": 0.664,
+    "odds": -230,
+    "p": 0.669,
+    "win_p": 0.669,
     "reasons": [
      "better rested",
      "the stronger team",
@@ -2146,7 +2138,7 @@
     "team": "Campbell",
     "opp": "NC Central",
     "market": "spread",
-    "line": -10.0,
+    "line": -10.5,
     "odds": -113,
     "p": 0.501,
     "win_p": 0.781,
@@ -2285,7 +2277,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.687,
+    "p": 0.696,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -2301,9 +2293,9 @@
     "opp": "Colorado St",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.69,
-    "win_p": 0.69,
+    "odds": -258,
+    "p": 0.699,
+    "win_p": 0.699,
     "reasons": [
      "better QB play lately",
      "sharp money moving this way",
@@ -2667,7 +2659,7 @@
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
+    "odds": -285,
     "p": 0.704,
     "win_p": 0.489,
     "reasons": [
@@ -3399,7 +3391,7 @@
    "start": "2026-10-04T02:00Z",
    "away": "Kings",
    "home": "Sharks",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Kings",
@@ -3409,9 +3401,7 @@
     "odds": -250,
     "p": 0.7,
     "win_p": 0.484,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "reasons": []
    }
   },
   {
