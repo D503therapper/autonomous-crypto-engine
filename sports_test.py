@@ -6849,15 +6849,18 @@ def test_covers_injury_page_covers_every_school():
     same." College football reads Covers' page every run: every school it lists is covered (nobody hurt included),
     short names ('J. Dawson') still match the box-score regulars, a bare code block is never guessed."""
     import sports_absences as sa
-    page = ["College Football Injuries", "Expand All", "Collapse All", "AF", "Status", "J. Dawson", "WR",
-            "Out - Undisclosed", "(", "Fri, Sep 25)", "Dawson has been out.",
-            "AK", "`\">", "Akron", "Status", "C. Gee", "RB", "Questionable - Undisclosed", "(", "Sat, Sep 26)", "Gee note.",
-            "AP", "`\">", "Appalachian State", "Player", "POS", "Status", "No injuries to report.",
-            "AR", "`\">", "Arizona", "Status", "C. Warren III", "RB", "Out - Knee", "(", "Sat, Sep 26)", "Warren note."]
+    page = ["College Football Injuries", "Expand All", "Collapse All", "AF", "Player", "POS", "Status", "J. Dawson",
+            "WR", "Out - Undisclosed", "(", "Fri, Sep 25)", "Dawson has been out.",          # (no marker: not guessed)
+            "AK", "`\">", "Akron", "Zips", "(1)", "Player", "POS", "Status", "C. Gee", "RB",
+            "Questionable - Undisclosed", "(", "Sat, Sep 26)", "Gee note.",
+            "AP", "`\">", "Appalachian State", "Mountaineers", "(0)", "Player", "POS", "Status", "No injuries to report.",
+            "AR", "`\">", "Arizona", "Wildcats", "(1)", "Player", "POS", "Status", "C. Warren III", "RB", "Out - Knee",
+            "(", "Sat, Sep 26)", "Warren note."]   # (the 10/3 page: code | marker | school | mascot | count | headers)
     t = sd.parse_team_page(page)
     assert t == {"Akron": [("C. Gee", "RB", "Questionable")], "Appalachian State": [],
                  "Arizona": [("C. Warren III", "RB", "Out")]}, t
     names = {"2006": "Akron", "2026": "App State", "12": "Arizona", "9": "Arizona State"}
+    assert sd._wn("Pittsburgh") in sd.WEB_ALIAS and sd.WEB_ALIAS[sd._wn("Jacksonville State")] == sd._wn("Jax State")
     old = sd.WEB_MIN_TEAMS
     sd.WEB_MIN_TEAMS = 3
     try:
@@ -6865,7 +6868,7 @@ def test_covers_injury_page_covers_every_school():
     finally:
         sd.WEB_MIN_TEAMS = old
     assert got["2006"] == [("C. Gee", "RB", "Questionable")] and got["12"] and "9" not in got, got
-    assert sd.page_injuries("ncaaf", names, get=lambda u: page[:12]) == {}          # a thin read is never 'healthy'
+    assert sd.page_injuries("ncaaf", names, get=lambda u: page[:13]) == {}          # a thin read is never 'healthy'
     assert sa.match("J. Dawson", {"jalen dawson", "mike smith"})
     assert not sa.match("J. Dawson", {"jalen dawson", "jay dawson"})               # two candidates = no guess
     assert sa.match("C. Warren III", {"cameron warren"})

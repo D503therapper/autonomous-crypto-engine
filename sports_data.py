@@ -541,7 +541,8 @@ WEB_ALIAS = {"unc charlotte": "charlotte", "miami fl": "miami", "miami oh": "mia
              "louisiana monroe": "ul monroe", "san jose state": "san jose st", "hawaii": "hawai'i",
              "appalachian st": "app st", "coastal carolina": "coastal", "georgia southern": "ga southern",
              "western kentucky": "western ky", "louisiana lafayette": "louisiana", "ul lafayette": "louisiana",
-             "stephen f austin": "sf austin", "north carolina st": "nc state", "ole miss": "ole miss"}
+             "stephen f austin": "sf austin", "north carolina st": "nc state", "pittsburgh": "pitt",
+             "jacksonville st": "jax st", "north dakota st": "n dakota st", "south dakota st": "s dakota st"}
 _DIR = {"eastern": "e", "western": "w", "northern": "n", "southern": "s", "central": "c"}   # 'Eastern Michigan' = ESPN's 'E Michigan'
 
 
@@ -607,21 +608,20 @@ def _page_lines(url):
     spec = importlib.util.spec_from_file_location("fp", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py"))
     fp = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(fp)
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/126 Safari/537.36"})
-    with urllib.request.urlopen(req, timeout=25) as r:
+    with urllib.request.urlopen(urllib.request.Request(url, headers=fp.UA), timeout=25) as r:
         return fp.text_of(r.read().decode("utf-8", "replace"))
 
 
 def parse_team_page(lines):
     """Covers' injury page (as text lines) -> {school: [(player, pos, status)]}: a school's block starts at its
-    'Status' header (the school name just above it, or above 'Player' / 'POS'), then player / position / 'Out -
-    Undisclosed' rows; 'No injuries to report.' = listed, nobody hurt. A block with no school name (a bare code like
-    'AF') is skipped - never guessed."""
+    'Status' header (the school name is the line after the '">' marker a few lines up), then player / position / 'Out -
+    Undisclosed' rows; 'No injuries to report.' = listed, nobody hurt. A block with no school name is skipped - never
+    guessed."""
     out, cur = {}, None
     for i, x in enumerate(lines):
         if x == "Status":
-            j = i - 3 if i >= 3 and lines[i - 1] == "POS" and lines[i - 2] == "Player" else i - 1
-            nm = lines[j] if j >= 0 else ""
+            mk = [j for j in range(max(0, i - 8), i) if lines[j].endswith('">')]    # code | `"> | School | Mascot | (1) |
+            nm = lines[mk[-1] + 1] if mk else ""                                     # Player | POS | Status
             cur = None if (re.fullmatch(r"[A-Z]{1,4}", nm) or not re.search(r"[a-z]", nm)) else nm
             if cur:
                 out.setdefault(cur, [])
@@ -640,12 +640,14 @@ def page_injuries(league, names, get=None):
     if not url:
         return {}
     try:
-        teams = parse_team_page(get(url) if get else _page_lines(url))
+        lines = get(url) if get else _page_lines(url)
+        teams = parse_team_page(lines)
     except Exception as e:                                   # noqa: BLE001 - a missed read never blocks the board
         print(f"   {league} injury page: {str(e)[:100]}")
         return {}
     if len(teams) < WEB_MIN_TEAMS:
-        print(f"   {league} injury page: only {len(teams)} schools - not used")
+        print(f"   {league} injury page: only {len(teams)} schools - not used ({len(lines)} lines, "
+              f"{lines.count('Status')} 'Status', starts: {' | '.join(lines[:3])[:120]})")
         return {}
     import difflib
     by = {}
