@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T23:37Z",
+ "updated": "2026-10-03T23:40Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -1631,224 +1631,31 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401869932",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Louisiana",
-    "p": 0.604,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T00:00Z",
-   "away": "Arkansas St",
-   "home": "Louisiana",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Louisiana",
-    "opp": "Arkansas St",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.645,
-    "win_p": 0.645,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401891814",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Wild",
-    "p": 0.439,
-    "tie": 0.292,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-04T00:00Z",
-   "away": "Bruins",
-   "home": "Wild",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Wild",
-    "opp": "Bruins",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.682,
-    "win_p": 0.682,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401858477",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Indiana",
-    "p": 0.91,
-    "tie": 0.013,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T00:00Z",
-   "away": "Indiana",
-   "home": "Rutgers",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Indiana",
-    "opp": "Rutgers",
-    "market": "spread",
-    "line": -24.5,
-    "odds": -105,
-    "p": 0.504,
-    "win_p": 0.926,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868104",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Idaho St",
-    "p": 0.661,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T00:00Z",
-   "away": "N Arizona",
-   "home": "Idaho St",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Idaho St",
-    "opp": "N Arizona",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.711,
-    "win_p": 0.711,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868160",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Southern Utah",
-    "p": 0.76,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T00:00Z",
-   "away": "Southern Utah",
-   "home": "Utah Tech",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Southern Utah",
-    "opp": "Utah Tech",
-    "market": "spread",
-    "line": -12.5,
-    "odds": -111,
-    "p": 0.501,
-    "win_p": 0.794,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
    "id": "nhl:401892438",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.37,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-04T00:00Z",
    "away": "Stars",
    "home": "Predators",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
     "team": "Predators",
     "opp": "Stars",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -225,
-    "p": 0.676,
-    "win_p": 0.457,
+    "market": "ml",
+    "line": null,
+    "odds": 114,
+    "p": 0.469,
+    "win_p": 0.469,
     "reasons": [
      "opponent on a back-to-back",
      "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868077",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Cal Poly",
-    "p": 0.624,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T00:00Z",
-   "away": "Weber St",
-   "home": "Cal Poly",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Cal Poly",
-    "opp": "Weber St",
-    "market": "ml",
-    "line": null,
-    "odds": -238,
-    "p": 0.668,
-    "win_p": 0.668,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
-    ]
+    ],
+    "result": null
    }
   },
   {
