@@ -6859,6 +6859,7 @@ def test_covers_injury_page_covers_every_school():
     assert t == {"Akron": [("C. Gee", "RB", "Questionable")], "Appalachian State": [],
                  "Arizona": [("C. Warren III", "RB", "Out")]}, t
     names = {"2006": "Akron", "2026": "App State", "12": "Arizona", "9": "Arizona State"}
+    assert sd._wn("Pittsburgh") in sd.WEB_ALIAS and sd.WEB_ALIAS[sd._wn("Jacksonville State")] == sd._wn("Jax State")
     old = sd.WEB_MIN_TEAMS
     sd.WEB_MIN_TEAMS = 3
     try:

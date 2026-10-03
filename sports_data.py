@@ -541,7 +541,8 @@ WEB_ALIAS = {"unc charlotte": "charlotte", "miami fl": "miami", "miami oh": "mia
              "louisiana monroe": "ul monroe", "san jose state": "san jose st", "hawaii": "hawai'i",
              "appalachian st": "app st", "coastal carolina": "coastal", "georgia southern": "ga southern",
              "western kentucky": "western ky", "louisiana lafayette": "louisiana", "ul lafayette": "louisiana",
-             "stephen f austin": "sf austin", "north carolina st": "nc state", "ole miss": "ole miss"}
+             "stephen f austin": "sf austin", "north carolina st": "nc state", "pittsburgh": "pitt",
+             "jacksonville st": "jax st", "north dakota st": "n dakota st", "south dakota st": "s dakota st"}
 _DIR = {"eastern": "e", "western": "w", "northern": "n", "southern": "s", "central": "c"}   # 'Eastern Michigan' = ESPN's 'E Michigan'
 
 
