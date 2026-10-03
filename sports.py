@@ -214,12 +214,17 @@ def hurt(g, side, injuries):
     team's results, so they don't count."""
     inj = (injuries or {}).get(g["league"])
     rows = sd._team_rows(inj, g[side], g[side + "_name"])
-    rows = [r for r in rows if not sd._is_key(r, g["league"], g[side + "_name"])]   # (key players are weighed already)
+    if g["league"] != "nba":                                 # (key players are weighed already - hoops has no key
+        rows = [r for r in rows if not sd._is_key(r, g["league"], g[side + "_name"])]   # position: the 10/3 sweep found
+    #   _is_key read EVERY NBA player as key, so an NBA side with 3 out and 4 day-to-day never lost its units)
     import sports_absences
     reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
-    if reg:                                                  # football: only players who actually play count (10/3 -
-        rows = [r for r in rows if sports_absences._nm(r[0]) in reg]   # a college report lists walk-ons and redshirts)
-    gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM) and "season" not in r[2].lower()]
+    if reg:                                                  # football / hoops: only players who actually play count
+        rows = [r for r in rows if sports_absences.match(r[0], reg)]   # (10/3 - a college report lists walk-ons and
+        #   redshirts); a regular ruled out long-term (injured reserve, out for the season) just PLAYED - a fresh hole
+        gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM + sd.LONG_OUT)]
+    else:
+        gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM) and "season" not in r[2].lower()]
     unsure = [r[0] for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
     return gone + unsure if len(gone) >= HURT_OUT or len(unsure) >= HURT_UNSURE else []
 

@@ -78,18 +78,50 @@ def key_players(games, league, team, before):
 
 
 REGULARS = {"pass": 1, "rush": 2, "rec": 4, "tkl": 11}   # football: who actually plays (QB, 2 backs, 4 catchers, 11 tacklers)
+NBA_ROTATION = 3                                         # hoops: played in 3+ of the team's last 10 games
+
+
+def match(name, pool):
+    """Is this player in `pool` (normalized names from the box scores / the report)? The exact name, else the ONE pool
+    name with the same last name whose first name starts the same way ('Mike Hughes' ~ 'Michael Hughes', "Brenton
+    'Inky' Jones" ~ 'Brenten Jones', 'Kait Wheaton' ~ 'Kai Wheaton' - the 10/3 sweep: 23 of 485 official-report names
+    were spelled differently from ESPN's box score, so a starter ruled out wasn't counted). Two candidates = no guess."""
+    n = _nm(name)
+    if not pool or not n:
+        return False
+    if n in pool:
+        return True
+    w = n.split()
+    if len(w) < 2:
+        return False
+    close = [p for p in pool if len(q := p.split()) >= 2 and q[-1] == w[-1] and q[0][:2] == w[0][:2]]
+    return len(close) == 1
 
 
 def regulars(games, league, team, before):
-    """Football players who actually play for this team (its last 3 real games' box scores): the QB, the top 2 ball
-    carriers, top 4 pass catchers, top 11 tacklers - normalized names. None = no box scores (the old rule stays).
+    """Players who actually play for this team - football (its last 3 real games' box scores): the QB, the top 2 ball
+    carriers, top 4 pass catchers, top 11 tacklers; hoops (its last 10): the rotation, anyone who played 3+ of them -
+    normalized names. None = no box scores / not a league this covers (the old rule stays).
     (10/3, the owner: Saturday's board had NO college picks - college availability reports list backup linemen,
     redshirts and walk-ons, so nearly every team tripped '2+ out'. Only players who play count now.)"""
-    if league not in ("nfl", "ncaaf"):
+    if league not in ("nfl", "ncaaf", "nba"):
         return None
     real = [(s, gid, rs) for s, gid, rs in _games(league).get(str(team), [])
             if s < before and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
     last = real[-WINDOW[league]:]
+    if league == "nba":
+        played = {}
+        for _, _, rs in last:
+            for r in rs:
+                try:
+                    st = json.loads(r.get("stats") or "{}")
+                except ValueError:
+                    continue
+                if _num(st.get("minutes")) > 0:
+                    played[_nm(r["player"])] = played.get(_nm(r["player"]), 0) + 1
+        if not played:
+            return None
+        return {p for p, k in played.items() if k >= min(NBA_ROTATION, len(last))}
     tot = {}
     for _, _, rs in last:
         for r in rs:
@@ -111,8 +143,11 @@ def regulars(games, league, team, before):
 
 
 def _gone(status):
+    """Ruled out: out / doubtful / a short IL stint, or long-term (injured reserve, suspended, out for the season) - a
+    key player here PLAYED in the team's last games, so a fresh trip to IR is a new absence the results don't hold yet
+    (the 10/3 sweep: a lead back put on injured reserve midweek was weighed as playing)."""
     s = str(status).lower()
-    return any(x in s for x in sd.SHORT_TERM) or "suspen" in s
+    return any(x in s for x in sd.SHORT_TERM + sd.LONG_OUT)
 
 
 def penalty(games, g, side, injuries, skip_qb=False):
@@ -125,7 +160,7 @@ def penalty(games, g, side, injuries, skip_qb=False):
     if not out:
         return 0.0, []
     kp = key_players(games, lg, g[side], g.get("start") or "9")
-    is_out = lambda p: p is not None and _nm(p) in out          # noqa: E731
+    is_out = lambda p: p is not None and match(p, out)          # noqa: E731
     if lg in ("nfl", "ncaaf"):
         roles = [("QB", kp.get("qb"))] if not skip_qb else []
         roles += [("RB", kp.get("rb"))] + [("WR", w) for w in kp.get("wr") or []]

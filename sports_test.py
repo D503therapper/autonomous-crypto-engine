@@ -15,8 +15,10 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import sports
+
 import sports_comeback as sc
 import sports_data as sd
+_REAL_FETCH_INJURIES = sd.fetch_injuries        # (older tests swap sd.fetch_injuries for a stub and never put it back)
 import sports_model as sm
 import sports_live
 sports_live.NOTIFY[0] = False                                       # (no real pushes from tests)
@@ -6439,6 +6441,134 @@ def test_hurt_counts_only_players_who_play():
         assert len(sports.hurt(g, "home", rep(walkons))) == 3                          # no box scores: the old rule
     finally:
         A._TEAM.clear(); A._TEAM.update(keep)
+
+
+
+def test_empty_pro_injury_feed_is_unknown():
+    """10/3 sweep: ESPN's pro feeds list only the teams with somebody hurt, so a team missing reads as 'nobody hurt' -
+    a feed that came back EMPTY (a blank 200) would have cleared every NFL / NBA / NHL / MLB team to be picked blind.
+    Empty pro feed = we don't know (the board waits); college can be near-empty (its real coverage is the official
+    reports). An official report never erases ESPN's long-term rows (injured reserve / suspended) for that team."""
+    import json as _j, tempfile as _t
+    keep, keep_p = sd._fetch_espn_injuries, sd.OFFICIAL_PATH
+    fetch = _REAL_FETCH_INJURIES
+    try:
+        sd.OFFICIAL_PATH = os.path.join(_t.mkdtemp(), "o.json")
+        _j.dump({}, open(sd.OFFICIAL_PATH, "w"))
+        sd._fetch_espn_injuries = lambda lg: {}
+        for lg in sd.PRO:
+            assert fetch(lg) is None, lg
+        assert fetch("ncaaf") == {}                                # college: the feed is nearly empty on a good day
+        g = {"id": "nfl:1", "league": "nfl", "home": "3", "away": "21", "home_name": "Bears", "away_name": "Eagles",
+             "status": "pre"}
+        assert "the injury report" in sports.waiting_on(g, {"nfl": fetch("nfl")})
+        sd._fetch_espn_injuries = lambda lg: {"3": [("Caleb Williams", "QB", "Out")]}
+        assert fetch("nfl") == {"3": [("Caleb Williams", "QB", "Out")]}
+        today = (datetime.now(timezone.utc) - timedelta(hours=7)).date().isoformat()
+        _j.dump({today: {"nfl": {"3": {"players": [["Rome Odunze", "WR", "Questionable"]]}}}}, open(sd.OFFICIAL_PATH, "w"))
+        sd._fetch_espn_injuries = lambda lg: {"3": [("Caleb Williams", "QB", "Injured Reserve"), ("D.J. Moore", "WR", "Out"),
+                                                   ("Rome Odunze", "WR", "Out")]}
+        got = fetch("nfl")["3"]
+        assert got[0] == ("Rome Odunze", "WR", "Questionable") and ("Caleb Williams", "QB", "Injured Reserve") in got
+        assert len(got) == 2, got                                  # the report's word on Odunze stands; Moore (short-term,
+    finally:                                                       # not on the official list) is gone
+        sd._fetch_espn_injuries, sd.OFFICIAL_PATH = keep, keep_p
+
+
+def test_nba_banged_up_side_carries_no_units():
+    """10/3 sweep: hoops has no key position (team_key_out never lists an NBA player), yet _is_key read EVERY NBA player
+    as 'weighed already' - hurt() dropped them all, so an NBA side with 3 out and 4 day-to-day kept its units. Now the
+    rotation counts (anyone who played 3+ of the last 10 box scores); a two-way guy who never plays doesn't."""
+    import sports_absences as A
+    keep = dict(A._TEAM)
+    try:
+        g = {"league": "nba", "home": "1", "away": "2", "home_name": "Lakers", "away_name": "Celtics", "start": "2026-11-01T02:00Z"}
+        rep = lambda ps: {"nba": {"1": ps}}
+        out3 = [("A Guard", "G", "Out"), ("B Wing", "F", "Out"), ("C Big", "C", "Out")]
+        A._TEAM["nba"] = {}                                       # no box scores: the plain rule
+        assert sports.hurt(g, "home", rep(out3)) == ["A Guard", "B Wing", "C Big"]
+        assert sports.hurt(g, "home", rep(out3[:1])) == []
+        dtd = [(f"{n} Guy", "F", "Day-To-Day") for n in "DEFG"]
+        assert len(sports.hurt(g, "home", rep(dtd))) == 4
+        rows = lambda gid, start: [{"gid": gid, "start": start, "team": "1", "player": p, "stats": '{"minutes":"30"}'}
+                                   for p in ("A Guard", "B Wing", "C Big")]
+        A._TEAM["nba"] = {"1": [(f"2026-10-{20 + i}T02:00Z", f"g{i}", rows(f"g{i}", f"2026-10-{20 + i}T02:00Z")) for i in range(5)]}
+        assert A.regulars(None, "nba", "1", "2026-11-01") == {"a guard", "b wing", "c big"}
+        assert sports.hurt(g, "home", rep(out3)) == ["A Guard", "B Wing", "C Big"]
+        bench = [("Two Way", "G", "Out"), ("G League", "F", "Out"), ("A Guard", "G", "Out")]
+        assert sports.hurt(g, "home", rep(bench)) == []            # one rotation player out: the price has it
+        assert sd.team_key_out(rep(out3)["nba"], "1", "Lakers", "nba") == []   # (still no key-position path for hoops)
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+
+
+def test_report_names_match_box_scores():
+    """10/3 sweep: 23 of 485 official-report names were spelled differently from ESPN's box score ('Mike Hughes' /
+    'Michael Hughes', "Brenton 'Inky' Jones" / 'Brenten Jones', 'Kait Wheaton' / 'Kai Wheaton'), so a regular ruled out
+    didn't count. One close match (same last name, first name starts the same) counts; two candidates never. And a lead
+    back put on injured reserve midweek (he played last week) is a fresh absence the read has to carry."""
+    import sports_absences as A
+    assert A.match("Mike Hughes", {"michael hughes", "carmelo taylor"}) and A.match("Brenton 'Inky' Jones", {"brenten jones"})
+    assert A.match("Kait Wheaton", {"kai wheaton"}) and A.match("Marvin Harrison Jr.", {"marvin harrison"})
+    assert not A.match("Rashad Smith", {"xavier smith", "shay smith"})       # two Smiths: no guess
+    assert not A.match("Jalen Williams", {"ramar williams"}) and not A.match("Mason Robinson", {"zay robinson"})
+    assert not A.match("Smith", {"xavier smith"}) and not A.match("", {"x y"})
+    keep = dict(A._TEAM)
+    try:
+        rows = lambda gid, start: [
+            {"gid": gid, "start": start, "team": "7", "player": "Star Back", "stats": '{"rushingYards":"120","rushingAttempts":"20"}'},
+            {"gid": gid, "start": start, "team": "7", "player": "Mike Hughes", "stats": '{"receivingYards":"90","receptions":"6"}'},
+            {"gid": gid, "start": start, "team": "7", "player": "Field General", "stats": '{"completions/passingAttempts":"20/30"}'}]
+        A._TEAM["nfl"] = {"7": [("2026-09-27T17:00Z", "g1", rows("g1", "2026-09-27T17:00Z"))]}
+        g = {"league": "nfl", "home": "7", "away": "8", "home_name": "Vikings", "away_name": "Lions", "start": "2026-10-04T17:00Z"}
+        pts, who = A.penalty({}, g, "home", {"nfl": {"7": [("Star Back", "RB", "Injured Reserve")]}}, skip_qb=True)
+        assert abs(pts - 0.03) < 1e-9 and who == ["RB Star Back"], (pts, who)
+        pts, who = A.penalty({}, g, "home", {"nfl": {"7": [("Michael Hughes", "WR", "Out")]}}, skip_qb=True)
+        assert abs(pts - 0.03) < 1e-9 and who == ["WR Mike Hughes"], (pts, who)
+        assert A.penalty({}, g, "home", {"nfl": {"7": [("Star Back", "RB", "Probable")]}}, skip_qb=True) == (0.0, [])
+        hurt_ = sports.hurt(g, "home", {"nfl": {"7": [("Michael Hughes", "WR", "Out"), ("Star Back", "RB", "Injured Reserve"),
+                                                      ("Walk On", "OL", "Out")]}})
+        assert hurt_ == ["Michael Hughes", "Star Back"], hurt_   # two regulars gone (one to IR this week): no units
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+
+
+def test_sync_voids_a_game_espn_dropped():
+    """10/3 sweep: three Wild Card Game 3s the sweeps made moot stayed 'pre' forever (ESPN dropped them from its
+    schedule), and the factor check read them as "3 recent games have no final score yet" - the 10/3 board was held on
+    nothing. A scheduled game 8h+ past its start that ESPN no longer lists on any day we fully re-read is void; a game
+    still listed, a game that only just started, or a league with a failed day is left alone."""
+    import csv as _c, tempfile as _t
+    now = datetime(2026, 10, 3, 17, 0, tzinfo=timezone.utc)
+    lo = {"mlb": now.date() - timedelta(days=4), "nhl": now.date() - timedelta(days=4)}
+    base = {"league": "mlb", "status": "pre", "home": "1", "away": "2"}
+    games = {"mlb:g3": {**base, "id": "mlb:g3", "start": "2026-10-02T00:00Z"},            # the moot Game 3
+             "mlb:late": {**base, "id": "mlb:late", "start": "2026-10-03T12:00Z"},        # started 5h ago: still a game
+             "mlb:listed": {**base, "id": "mlb:listed", "start": "2026-10-01T21:00Z"},    # ESPN still lists it
+             "mlb:edge": {**base, "id": "mlb:edge", "start": (now.date() - timedelta(days=4)).isoformat() + "T23:00Z"},   # the
+             "nhl:x": {**base, "id": "nhl:x", "league": "nhl", "start": "2026-10-01T23:00Z"}}  # first re-read day: Eastern
+    n = sd.drop_unlisted(games, {"mlb": {"mlb:listed"}}, {"mlb": lo["mlb"]}, now)              # time could hide it (left)
+    assert n == 1 and games["mlb:g3"]["status"] == "void", games
+    assert all(games[k]["status"] == "pre" for k in ("mlb:late", "mlb:listed", "mlb:edge", "nhl:x")), games
+    # the whole sync: a stored stale game, ESPN's pages without it, one league with a failed day
+    keep_data, keep_fetch = sd.DATA, sd.fetch_day
+    try:
+        sd.DATA = _t.mkdtemp()
+        today = datetime.now(timezone.utc).date()
+        old = (datetime.now(timezone.utc) - timedelta(days=2)).strftime("%Y-%m-%dT%H:%MZ")
+        stale = {k: "" for k in sd.FIELDS}
+        stale.update({"id": "mlb:stale", "league": "mlb", "start": old, "status": "pre", "home": "1", "away": "2",
+                      "home_name": "A", "away_name": "B", "stype": "3", "intl": "0", "indoor": "0", "neutral": "0"})
+        sd.save_games({"mlb:stale": stale, "nhl:stale": {**stale, "id": "nhl:stale", "league": "nhl"}})
+        sd.fetch_day = lambda lg, day, retries=2: None if lg == "nhl" and day == today else []
+        state = {"synced": {lg: today.isoformat() for lg in sd.LEAGUES}, "ls_walk": list(sd.LEAGUES),
+                 "from": {lg: (today - timedelta(days=4000)).isoformat() for lg in sd.LEAGUES}}
+        got, _, _ = sd.sync(state, backfill_days=5, ahead_days=1, max_days=5)
+        assert got["mlb:stale"]["status"] == "void" and got["nhl:stale"]["status"] == "pre", {k: v["status"] for k, v in got.items()}
+        assert sd.load_games("mlb")["mlb:stale"]["status"] == "void"
+    finally:
+        sd.DATA, sd.fetch_day = keep_data, keep_fetch
+
 
 
 def test_patty_challenge_removed():
