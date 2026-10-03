@@ -1,5 +1,5 @@
 {
- "at": "2026-10-03T21:52Z",
+ "at": "2026-10-03T21:57Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running"
  ],
@@ -13,7 +13,7 @@
   "workflow failed: health 2026-10-03T21:49 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37156364492"
  ],
  "ok": [
-  "live watcher fresh (207s)",
+  "live watcher fresh (141s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -25,12 +25,27 @@
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 6 min ago",
+  "engine ran 10 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-03T21:57Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
+    "workflow failed: health 2026-10-03T21:49 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37156364492"
+   ]
+  },
   {
    "at": "2026-10-03T21:52Z",
    "fixes": [
@@ -692,11 +707,6 @@
    "problems": [
     "live tennis scores: tennis Sidorova vs Falei: no points for 878s"
    ]
-  },
-  {
-   "at": "2026-10-01T09:12Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
