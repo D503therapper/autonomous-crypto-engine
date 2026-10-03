@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T02:59Z",
+ "updated": "2026-10-03T03:01Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -98,7 +98,7 @@
    "home": "Jets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Jets",
@@ -112,7 +112,7 @@
      "better rested",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -3048,8 +3048,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.404,
-    "tie": 0.297,
+    "p": 0.419,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3065,10 +3065,11 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.614,
-    "win_p": 0.614,
+    "p": 0.644,
+    "win_p": 0.644,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
