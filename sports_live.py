@@ -1993,7 +1993,9 @@ def queue_next():
     return r.returncode == 0
 
 
-REGRADE_S = 20 * 60   # after a game ends: re-grade every 2 min for this long (the results feed lags the live one)
+REGRADE_S = 60 * 60   # after a game ends: re-grade every 2 min for this long (the results feed lags the live one -
+#                       10/2: ESPN still had Blues-Stars 'live' 20+ min after the 4-0 final; the 20-minute window ran out
+#                       and the Dog sat ungraded, so TODAY'S RESULTS never showed till a manual run)
 STAY_MIN = 120     # a game within 2 hours keeps the watch up (idling) - it never shuts off right before kickoff again
 
 
@@ -2092,7 +2094,7 @@ def loop(minutes, every_s=1):
             if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):   # (busy? it stays queued)
                 finals_seen, last_grade, regrade_until = set(FINALS), time.time(), time.time() + REGRADE_S
         elif time.time() < regrade_until and time.time() - last_grade > 120 and not grading():
-            # the results feed can lag the live feed by a few minutes: keep grading every 2 min for 20 min after a
+            # the results feed can lag the live feed: keep grading every 2 min for an hour after a
             # game ends, so a pick never sits ungraded (the owner, 9/28: graded right away)
             if grade_in_background(f"results {datetime.now(timezone.utc):%H:%M}"):
                 last_grade = time.time()

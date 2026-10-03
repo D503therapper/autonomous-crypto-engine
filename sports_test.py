@@ -6376,6 +6376,12 @@ def test_two_records_unit_plays_and_leans():
     assert ".ovu .ovr-t,.ovl .ovr-t{{color:#fff;font-weight:900}}" in src and src.count('class="ovr-s ovw"') == 2   # bold white
 
 
+def test_regrade_window_outlasts_a_lagging_results_feed():
+    """10/2: the Blues won 4-0 (the Dog, 1u) but ESPN's results feed said 'live' for 20+ minutes after the final - the
+    watcher's 20-minute re-grade window ran out and TODAY'S RESULTS never showed. It keeps re-grading for an hour."""
+    assert sports_live.REGRADE_S >= 60 * 60
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
