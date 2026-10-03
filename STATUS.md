@@ -79,7 +79,7 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   AAC; the MAC posts game-day reports only (~3h before kickoff, getsomemaction.com). Those games stay off the board
   (no pick off blind data). The 5:47 / 11:47 routine knows all this now (prompt updated 10/2).
 - 10/3: futures study (SPORTS_FINDINGS) - preseason longshots never beat their price; daily futures price log LIVE
-  (sports_futures); the owner's call: a no-units 🏆 FUTURES WATCH card or wait for the mid-season study. Patty vs the
+  (sports_futures); the owner, 10/3: WAIT - no futures on the board until the mid-season study finds a real edge. Patty vs the
   Algorithm removed for good (the owner). No-Lock days: the question box names what the Lock would have been
   (sports.lock_miss).
 - NEXT: capper studies (1)-(5) below; NHL rested-vs-back-to-back live log (no units); weigh OL / defense absences.
