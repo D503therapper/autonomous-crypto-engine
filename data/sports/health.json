@@ -1,13 +1,11 @@
 {
- "at": "2026-10-03T02:22Z",
- "fixes": [
-  "engine 89 min since its last run - started sports.yml"
- ],
+ "at": "2026-10-03T02:40Z",
+ "fixes": [],
  "problems": [
-  "engine last started 89 min ago (GitHub skipped its hourly runs) - restarted"
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (31s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,17 +13,24 @@
   "slate check: all 9 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
-  "all 4 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
+  "studies ran 5h ago",
   "simulator ran 4h ago",
+  "engine ran 19 min ago",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-03T02:40Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-03T02:22Z",
    "fixes": [
@@ -634,16 +639,6 @@
     "live tennis scores: tennis Pridankina vs Crawley: no points for 2684s",
     "workflow failed: sports 2026-09-30T11:41 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36710042710",
     "workflow failed: sports 2026-09-30T11:38 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36709825814"
-   ]
-  },
-  {
-   "at": "2026-09-30T10:31Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ferro vs Wei Sijia: no points for 238s",
-    "live tennis scores: tennis Waltert vs Andreeva: no points for 2680s",
-    "live tennis scores: tennis Riera vs Ruzic: no points for 2680s",
-    "live tennis scores: tennis Yuan Yue vs Oliynykova: no points for 2680s"
    ]
   }
  ]
