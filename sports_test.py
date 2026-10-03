@@ -6132,7 +6132,7 @@ def test_board_always_has_lock_dog_three_leans_with_injuries_named():
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
     assert "best = make_board(all_cands, lock_game" in src         # the Lock falls back to every side we have data on
     assert 'pool(all_cands if kind == "lean" else cands' in src     # the leans fill from every side we have data on
-    assert "slate_check(games, raw_cands, day, now)" in src        # (10/2: a no-units / blind side isn't 'never looked at')
+    assert "slate_check(games, raw_cands, day, now, model=model)" in src        # (10/2: a no-units / blind side isn't 'never looked at')
     assert '"(not in our data)" in w' in src                         # (a blind game is off the table, not 'waiting')
     assert "all_cands = [c for c in all_cands if no_gap(c)]" in src  # every safety filter covers the leans' pool too
     assert 'all_cands = [c for c in all_cands if ours.get(c["game_id"], c["side"]) == c["side"]]' in src
@@ -6386,6 +6386,30 @@ def test_question_box_note():
     """10/3 (the owner): "delete 'ask me whatever the fuck' and leave the rest"."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
     assert "whatever the fuck" not in src and "Tap in! No stupid shit though. Ain't nobody got time for that." in src
+
+
+def test_slate_check_skipped_on_purpose_never_holds():
+    """10/3: Saturday's 8 AM board was held till 8:47 - ten FCS / Ivy games (Brown @ Rhode Island, Penn @ Dartmouth...)
+    'priced but the engine never looked at it'. It did: the model knows too little about those teams, so it skips them
+    on purpose. Those (and games starting too soon) never hold the board; a real miss still does."""
+    import tempfile as _t
+    from datetime import date as _d
+    now = datetime(2026, 10, 3, 15, 1, tzinfo=timezone.utc)
+    g = lambda gid, away, home, start: {"id": gid, "league": "ncaaf", "stype": "2", "status": "pre", "start": start,
+                                        "away_name": away, "home_name": home, "ml_home": "-150", "ml_away": "130"}
+    games = {"a": g("a", "Brown", "Rhode Island", "2026-10-03T19:00Z"), "b": g("b", "Ohio State", "Illinois", "2026-10-03T19:00Z"),
+             "c": g("c", "Penn", "Dartmouth", "2026-10-03T15:05Z")}
+    class E:
+        def features(self, gg):
+            return {"known": 0 if gg["id"] == "a" else 99}
+    keep = (sports._ELO.copy(), sports.SLATE_PATH)
+    sports._ELO.update(ref=games, elo={"ncaaf": E()})
+    sports.SLATE_PATH = os.path.join(_t.mkdtemp(), "slate.json")
+    try:
+        probs = sports.slate_check(games, [], _d(2026, 10, 3), now, errors=[], model={"params": {}})
+    finally:
+        sports._ELO.clear(); sports._ELO.update(keep[0]); sports.SLATE_PATH = keep[1]
+    assert probs == ["Ohio State @ Illinois (NCAAF): priced but the engine never looked at it"], probs
 
 
 def test_patty_challenge_removed():
