@@ -6334,6 +6334,27 @@ def test_futures_price_log():
     assert F.run(datetime(2026, 10, 4, 12, tzinfo=timezone.utc), path=d, get=get) is None   # 5 AM PT: not yet
 
 
+def test_brain_rough_day_but_green():
+    """10/2 (the owner): Virginia Tech, the Red Wings and the Jets lost as leans, the Blues Dog (+154, 1u) was the
+    only bet with money on it and cashed - the brain says it was a rough day but we stay in the green. A losing day
+    with the money plays down stays the plain rough-day line; nothing until every unit play is graded."""
+    import sports_dashboard as D
+    leg = lambda team, odds, res, lg="nhl": {"team": team, "odds": odds, "result": res, "league": lg, "game_id": team,
+                                             "side": "home", "market": "ml", "start": "2026-10-02T23:00Z", "p": 0.5}
+    pk = lambda kind, team, odds, res, lean: {"date": "2026-10-02", "kind": kind, "status": res, "lean": lean,
+                                               "american": odds, "dec": 1 + (odds / 100 if odds > 0 else 100 / -odds),
+                                               "legs": [leg(team, odds, res)], "units": 0 if lean else 1.0, "stake": 100,
+                                               "posted": "2026-10-02T15:00Z", "settled": "2026-10-03T03:00Z"}
+    picks = [pk("dog", "Blues", 154, "won", False), pk("lean", "Virginia Tech", -130, "lost", True),
+             pk("lean", "Red Wings", -130, "lost", True), pk("lean", "Jets", -122, "lost", True)]
+    line = D.green_day(picks, "2026-10-02", 1, 3, 0, early=[])
+    assert "rough" in line and "Blues (+154)" in line and "+1.5u" in line and "green" in line, line
+    picks[0]["status"] = picks[0]["legs"][0]["result"] = "lost"
+    assert D.green_day(picks, "2026-10-02", 0, 4, 0, early=[]) == ""        # the money plays lost: no green line
+    picks[0]["status"], picks[0]["legs"][0]["result"] = "open", None
+    assert D.green_day(picks, "2026-10-02", 0, 3, 0, early=[]) == ""        # the Dog still playing: not yet
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
