@@ -776,5 +776,63 @@
   "score": "3-4",
   "margin": -1.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-03",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "mlb",
+  "game_id": "mlb:401907990",
+  "team": "Guardians",
+  "opp": "White Sox",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -149,
+  "posted": "2026-10-03T15:47Z",
+  "price_says": 0.598,
+  "win_p": 0.5716276429198135,
+  "own_read": 0.574,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.040111777732493636,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "better rested",
+   "the stronger team"
+  ],
+  "angles": [
+   "rec:1",
+   "better:3",
+   "h2h:2",
+   "cx_trip:0",
+   "home:2",
+   "rest:7",
+   "bump:0",
+   "splits_w:2",
+   "bottom_n:6",
+   "w_rest:0",
+   "k_trip:0"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Colin Holderman (RP)",
+   "Rhys Hoskins (1B)",
+   "Andrew Walters (RP)"
+  ],
+  "theirs_out": [
+   "Jake Rogers (C)",
+   "Luis Castillo (SP)",
+   "Joey Bart (C)"
+  ],
+  "public": "ride",
+  "close": -149,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "0-3",
+  "margin": -3.0,
+  "pnl_units": 0
  }
 ]
