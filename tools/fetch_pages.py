@@ -37,7 +37,9 @@ def main(urls):
                 lines = text_of(r.read().decode("utf-8", "replace"))
             title = next((x for x in lines if len(x) > 25), "")[:150]
             hits = [i for i, x in enumerate(lines) if key_for(url).search(x)]
-            keep = sorted({j for i in hits for j in range(max(0, i - 3), min(len(lines), i + 4))})
+            keep = sorted({j for i in hits for j in range(max(0, i - 3), min(len(lines), i + 4))}) \
+                or range(len(lines))                         # (10/3: no injury / pick words - an odds table, a
+            #                                                  futures board: keep the whole page)
             body = "\n".join(lines[j] for j in keep)[:30000]
             dates = sorted(set(re.findall(r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2},? 20\d\d", " ".join(lines))))[:6]
             with open(os.path.join(OUT, f"{n:03d}.txt"), "w") as f:

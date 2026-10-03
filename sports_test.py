@@ -6168,6 +6168,7 @@ def test_fetch_pages_reads_text():
     # Dr. Bob's pages keep his leans and margins, not injury words
     assert fp.key_for("https://drbobsports.com/nfl-analysis/").search("Lean: Packers -3.5")
     assert not fp.key_for("https://www.on3.com/x").search("Lean: Packers")
+    assert "keep the whole page" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py")).read()
 
 
 def test_same_board_posted_twice_merges_to_one():
