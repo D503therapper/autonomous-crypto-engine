@@ -6413,7 +6413,7 @@ def test_question_box_knows_no_forced_lock():
     """10/2: the question box's rules still said 'Lock of the Day every day', '56%+ = LOCK' and posted parlays - asked
     'what would the Lock have been', it could crown a lean (Virginia Tech -130). It now knows: no Lock = no Lock."""
     w = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "index.js")).read()
-    assert "NO FORCED LOCK" in w and "WOULD have been" in w and "56%+ = LOCK" not in w and "3-leg, 4-leg" not in w
+    assert "NO FORCED LOCK" in w and "WOULD have been" in w and '"best Lock"' in w and "56%+ = LOCK" not in w and "3-leg, 4-leg" not in w
     assert "what it would have been" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
 
 
