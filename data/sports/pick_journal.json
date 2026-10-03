@@ -550,6 +550,57 @@
   "kind": "lean",
   "lean": true,
   "tier": "lean",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401858245",
+  "team": "Virginia Tech",
+  "opp": "Pitt",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -130,
+  "posted": "2026-10-02T15:33Z",
+  "price_says": 0.565,
+  "win_p": 0.5427435387673957,
+  "own_read": 0.55,
+  "weighed": 0.5497,
+  "dog_p": null,
+  "edge_own": -0.014149086446329728,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "hotter recent form"
+  ],
+  "angles": {
+   "fades": [],
+   "last_margin": 7.0,
+   "last_pts": 21.0,
+   "neutral": false,
+   "win_pct": 1.0,
+   "win_streak": 4
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Justin Terry (OL)",
+   "Emmett Laws (DL)"
+  ],
+  "theirs_out": [
+   "Zach Crothers (DE)",
+   "Elijah Lagg (TE)"
+  ],
+  "public": "ride",
+  "close": -125,
+  "beat_close_pts": -1.0,
+  "result": "lost",
+  "score": "33-35",
+  "margin": -2.0,
+  "pnl_units": 0
+ },
+ {
+  "date": "2026-10-02",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
   "league": "nhl",
   "game_id": "nhl:401891803",
   "team": "Red Wings",
@@ -588,6 +639,50 @@
   "result": "lost",
   "score": "0-2",
   "margin": -2.0,
+  "pnl_units": 0
+ },
+ {
+  "date": "2026-10-02",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401891831",
+  "team": "Jets",
+  "opp": "Bruins",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -122,
+  "posted": "2026-10-02T15:33Z",
+  "price_says": 0.55,
+  "win_p": 0.5246159813209076,
+  "own_read": 0.513,
+  "weighed": 0.5134,
+  "dog_p": null,
+  "edge_own": -0.05227246089953863,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "better rested",
+   "sharp money moving this way"
+  ],
+  "angles": [
+   "cx_trip:3",
+   "keyout_us:2",
+   "w_any:4"
+  ],
+  "injuries_seen": {
+   "Connor Hellebuyck (Jets G)": "Injured Reserve"
+  },
+  "ours_out": [],
+  "theirs_out": [],
+  "public": null,
+  "close": -122,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "3-4",
+  "margin": -1.0,
   "pnl_units": 0
  }
 ]
