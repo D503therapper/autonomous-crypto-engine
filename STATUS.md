@@ -82,6 +82,12 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   (sports_futures); the owner, 10/3: WAIT - no futures on the board until the mid-season study finds a real edge. Patty vs the
   Algorithm removed for good (the owner). No-Lock days: the question box names what the Lock would have been
   (sports.lock_miss).
+- 10/3 Fable sweep (8 checks): ~25 bugs fixed + live (pacer, holds, injuries, grading, pick logic). Model check: the
+  engine can't beat closing lines on spreads or favorite moneylines (SPORTS_FINDINGS 10/3) - few Locks is honest.
+  Owner's open call: keep the Lock rule strict (recommended) or post more knowing they lose. Written but NOT pushed:
+  NBA always on + hockey/MLB IL players count only if playing (wt stash) - owner to say go. TODO: card grammar pass
+  (school names singular, no vague lines), sport-aware own_agrees tiebreak, key_edges train/predict match, college
+  hoops injury source before November.
 - NEXT: capper studies (1)-(5) below; NHL rested-vs-back-to-back live log (no units); weigh OL / defense absences.
 
 **Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**
