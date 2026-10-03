@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T01:39Z",
+ "updated": "2026-10-03T01:46Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -39,8 +39,8 @@
    "away": "Capitals",
    "home": "Hurricanes",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -165,38 +165,6 @@
      "sharp money moving this way"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nhl:401892433",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.424,
-    "tie": 0.294,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-03T02:00Z",
-   "away": "Ducks",
-   "home": "Golden Knights",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Golden Knights",
-    "opp": "Ducks",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.654,
-    "win_p": 0.654,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
-    ]
    }
   },
   {
@@ -2521,8 +2489,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.387,
-    "tie": 0.298,
+    "p": 0.403,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2530,7 +2498,7 @@
    "start": "2026-10-03T23:00Z",
    "away": "Capitals",
    "home": "Lightning",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Capitals",
@@ -2538,10 +2506,9 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.645,
-    "win_p": 0.425,
+    "p": 0.614,
+    "win_p": 0.394,
     "reasons": [
-     "better rested",
      "hotter recent form"
     ]
    }
@@ -2580,7 +2547,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.373,
+    "p": 0.359,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2589,7 +2556,7 @@
    "start": "2026-10-03T23:00Z",
    "away": "Hurricanes",
    "home": "Flyers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Flyers",
@@ -2597,9 +2564,10 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.669,
-    "win_p": 0.45,
+    "p": 0.697,
+    "win_p": 0.481,
     "reasons": [
+     "opponent on a back-to-back",
      "hotter recent form",
      "opponent drama: trade drama"
     ]
