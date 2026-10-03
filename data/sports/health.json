@@ -1,29 +1,31 @@
 {
- "at": "2026-10-03T08:02Z",
- "fixes": [
-  "engine 84 min since its last run - started sports.yml"
- ],
- "problems": [
-  "engine last started 84 min ago (GitHub skipped its hourly runs) - restarted"
- ],
+ "at": "2026-10-03T08:35Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (33s)",
+  "live watcher fresh (11s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 4 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 33 min ago",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-03T08:35Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-03T08:02Z",
    "fixes": [
@@ -609,15 +611,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 2657s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T19:40Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 227s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
