@@ -4087,7 +4087,7 @@ def test_what_counts_says_all_locks():
     audit: it also said leans keep their own record - they COUNT in ours (marked 🟡) - and 'what counts' is a NEVER
     phrase. The leans box sits with our records, never under 'not in our record'."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
-    assert "<b>💰 Unit plays:</b> the good bets we put money on — every Lock, Dog of the Day, value play and early play" in src
+    assert "<b>💰 Unit plays:</b> the good bets we actually put money on — every Lock, Dog of the Day, value play and early play" in src
     assert "<b>🟡 Leans:</b> no units, just our lean" in src                                        # (10/2: no overall)
     assert "What counts" not in src and "leans (own record, not ours)" not in src
     i = src.index("# their own categories, never in our record")
