@@ -3261,6 +3261,11 @@ def run(repick=False, fetch=True):
             sports_capper.run(games, picks, now)
         except Exception as e:                               # noqa: BLE001 - never blocks the board
             print(f"capper record failed: {str(e)[:80]}")
+        try:                                                 # 🏆 today's futures prices, once a day (the owner, 10/3) -
+            import sports_futures                            # our own price history for the futures study
+            sports_futures.run(now)
+        except Exception as e:                               # noqa: BLE001 - never blocks the board
+            print(f"futures log failed: {str(e)[:80]}")
     if fetch:
         deciders(picks)
     day = now.astimezone(PT).date()

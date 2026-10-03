@@ -535,3 +535,21 @@ better"), totals Leans since 2022. His published records: Free Leans 1101-913-38
 2025; Leans 4+ off 1008-853-37; NFL Best Bets 2016-26 517-382-12 (57.5%, paid). No college in 2026. Tracked live in
 sports_capper (graded vs ours) - the free Leans are his coin-flip tier, so judge them on a season, never a week.
 
+## Futures - title / conference winners (10/3 study; nothing posted)
+Data: preseason + in-season futures for 69 sport-seasons (sportsoddshistory via the Wayback Machine: NFL 2010-23,
+NBA 2011-24, NHL 2011-23, MLB 2010-23, college 2018-23); today's prices from ESPN's free API (DraftKings).
+- The cut: preseason title markets add to 124-129% (pros), 148% (college); today's DraftKings 121-128%; conference
+  markets 113-117%.
+- Betting every team preseason (2,291 bets): favorites (< +500) -25%, +500..+1499 -9%, +1500..+4999 -24%, +5000 and
+  up -100% (0 for 1,278 - the longest preseason champion in 15 years was +4000: 2017 Eagles, 2023 Rangers). DEAD as a
+  group; the odd green cell (NFL / NHL +500..+1499) rides ~10 titles - noise.
+- Knowable-before-the-season signals (7 cuts, walk-forward): unlucky teams +35% on 5 titles (and their chances held up
+  WORSE by the playoffs) - noise. Our Elo above the market: 0 for 85 - DEAD (it can't see trades / free agency / a QB
+  back). The market halving a team's price from last year: 34 bets, 2 titles - too small.
+- Conference vs title: the title price = the conference price rolled into the Finals at the price the two imply
+  (Blazers 10/3: West +4000, title +8000 -> a 51% Finals). A longshot sprinkle is better on the conference (smaller
+  cut); 'the title is a free roll' isn't real - a hedge only locks what the conference already paid.
+- BUILT: sports_futures logs every title / conference market daily (data/sports/futures/) - our own history.
+- NEXT (the one real lead): mid-season futures vs the game lines - team strength from the books' own closing lines,
+  simulate the rest of the season, compare to the slow-moving futures board. Needs conference maps + playoff formats.
+

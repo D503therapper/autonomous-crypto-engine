@@ -6057,6 +6057,7 @@ def test_fetch_pages_reads_text():
     assert fp.key_for("https://drbobsports.com/nfl-analysis/").search("Lean: Packers -3.5")
     assert not fp.key_for("https://www.on3.com/x").search("Lean: Packers")
     assert "keep the whole page" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py")).read()
+    assert fp.key_for("https://web.archive.org/web/2024/https://www.sportsoddshistory.com/nba-main/") is None   # odds tables whole
 
 
 def test_same_board_posted_twice_merges_to_one():
@@ -6304,6 +6305,33 @@ def test_question_box_knows_no_forced_lock():
     w = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "workers", "ask", "src", "index.js")).read()
     assert "NO FORCED LOCK" in w and "however it's worded" in w and '"best Lock"' in w and "56%+ = LOCK" not in w and "3-leg, 4-leg" not in w
     assert "what it would have been" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+
+
+def test_futures_price_log():
+    """10/3 (the owner: futures): once a day the engine saves every title / conference futures price ESPN carries -
+    team markets only (never MVPs / player awards), the first book, the season that has them; once a day only."""
+    import sports_futures as F, tempfile as _t
+    js = {"items": [
+        {"id": 2567, "name": "NBA - Western Conference - Winner", "futures": [{"provider": {"name": "DraftKings"}, "books": [
+            {"team": {"$ref": "http://x/seasons/2027/teams/22?lang=en"}, "value": "+4000"},
+            {"team": {"$ref": "http://x/seasons/2027/teams/25?lang=en"}, "value": "+145"}]}]},
+        {"id": 1, "name": "NBA - MVP", "futures": [{"provider": {"name": "DraftKings"}, "books": [
+            {"athlete": {"$ref": "http://x/athletes/1"}, "value": "+300"}]}]}]}
+    mk = F.parse(js)
+    assert list(mk) == ["NBA - Western Conference - Winner"] and mk["NBA - Western Conference - Winner"]["prices"] == {"22": 4000, "25": 145}
+    asked = []
+    def get(url):
+        asked.append(url)
+        if "/nba/seasons/2027/" in url:
+            return js
+        raise OSError("404")
+    d = _t.mkdtemp()
+    now = datetime(2026, 10, 3, 15, tzinfo=timezone.utc)                  # 8 AM PT
+    f = F.run(now, path=d, get=get)
+    st = json.load(open(f))
+    assert st["leagues"]["nba"]["season"] == 2027 and "nhl" not in st["leagues"]
+    assert F.run(now, path=d, get=get) is None                            # once a day
+    assert F.run(datetime(2026, 10, 4, 12, tzinfo=timezone.utc), path=d, get=get) is None   # 5 AM PT: not yet
 
 
 def test_patty_challenge_removed():
