@@ -1444,8 +1444,9 @@ def units_ledger(picks, early=()):
             dec = _dec(l["odds"]) if l.get("odds") else p.get("dec") or 2.0
             if not leg_units(p, l):
                 continue                                     # a lean: no units, not in the bankroll
-            calls[key] = (parlay, {**p, "kind": "pick" if parlay else p.get("kind"), "units_tier": units_tier(p, l)},
-                          leg_units(p, l), res, dec,
+            calls[key] = (parlay, {**p, "kind": "pick" if parlay else p.get("kind"), "units_tier": units_tier(p, l),
+                                   **({"legs": [l], "american": l.get("odds")} if parlay else {})},   # (a parlay leg's row
+                          leg_units(p, l), res, dec,                                  # is THAT pick: its team, its price)
                           p.get("settled") or p.get("posted") or "")
     import sports_early                                  # ⏰ early value plays: the price we got in at, sized by the engine's
     for e in early or ():                                # edge - one count per pick (the early one, when it's on the board too)
@@ -2097,13 +2098,18 @@ def lean(cands, kind, taken=None, floor=None):
 # ---------------------------------------------------------------- grading
 def grade_leg(leg, g, now):
     """won / lost / push / void, or None while the game isn't over."""
-    if g is None:
-        return None
+    def stale():                                             # 4 days past the start and still no final: void
+        if not leg.get("start"):
+            return None
+        start = datetime.strptime(leg["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+        return "void" if now - start > timedelta(days=4) else None
+    if g is None:                                            # the game's gone from our data (an id change, a wiped file):
+        return stale()                                       # 4 days, then void - never open forever (10/3 sweep: it kept
+        #                                                      TODAY'S RESULTS and the board day stuck on it)
     if g["status"] == "void":
         return "void"
     if g["status"] != "final" or g["home_score"] == "":
-        start = datetime.strptime(leg["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
-        return "void" if now - start > timedelta(days=4) else None
+        return stale()
     hs, as_ = int(g["home_score"]), int(g["away_score"])
     if leg["market"] == "total":                              # over/under: total points vs the line
         d = (hs + as_ - leg["line"]) * (1 if leg["side"] == "over" else -1)
@@ -2196,7 +2202,25 @@ def grade(picks, games, now=None):
         except Exception as e:                               # noqa: BLE001 - grading never fails over the freeze
             print(f"units freeze failed: {str(e)[:80]}")
         settled.append(pk)
+    freeze_units(picks)
     return settled
+
+
+def freeze_units(picks):
+    """Every graded pick (and every graded leg of a parlay) carries the units it was graded at, forever - whether it was
+    graded before the freeze existed (9/27-9/30) or on a busted parlay's other legs (graded after the ticket lost, which
+    the freeze above never reached). 10/3 sweep: those rows were still re-sized by every code change (the 10/1 audit had
+    already seen 9 graded rows move once). Silent on any failure - grading never waits on it."""
+    for pk in picks:
+        try:
+            if pk.get("kind") in PARLAY_KINDS:
+                for l in pk.get("legs") or []:
+                    if l.get("result") in ("won", "lost", "push", "void") and l.get("units") is None:
+                        l["units"] = leg_units(pk, l)
+            elif pk.get("status") in ("won", "lost", "push", "void") and pk.get("units") is None and pk.get("legs"):
+                pk["units"] = units_for(pk)
+        except Exception as e:                               # noqa: BLE001
+            print(f"units freeze failed: {str(e)[:80]}")
 
 
 # ---------------------------------------------------------------- the cycle

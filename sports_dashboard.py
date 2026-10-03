@@ -268,18 +268,30 @@ CHECKPOINT = {"nfl": (2, "at the half"), "ncaaf": (2, "at the half"), "nba": (2,
               "ncaab": (1, "at the half"), "nhl": (2, "after two periods"), "mlb": (6, "after six innings")}
 
 
+def periods(l):
+    """(home, away) points per period from a graded leg's flow - or (None, None) when we don't hold them. A baseball home
+    team that led after 8½ never bats in the 9th: its line is one inning short (ESPN leaves it off, or marks it X / -),
+    so it's padded with a 0 - or every MLB home win lost its review fact and its comeback / collapse read (10/3 sweep)."""
+    f = l.get("flow") or {}
+    try:
+        h = [int(x) if x.strip() not in ("X", "x", "-") else 0 for x in str(f.get("h") or "").split(",") if x.strip() != ""]
+        a = [int(x) if x.strip() not in ("X", "x", "-") else 0 for x in str(f.get("a") or "").split(",") if x.strip() != ""]
+    except ValueError:
+        return None, None
+    if l.get("league") == "mlb" and len(h) == len(a) - 1:
+        h = h + [0]
+    if not h or len(h) != len(a):
+        return None, None
+    return h, a
+
+
 def game_fact(l):
     """📝 One real fact from the game for its review (the owner, 10/2: "our reviews should never be vague" - 'Never close.
     Brutal.' says nothing): who led at the half / after two periods / after six innings, and the final. From the period
     scores we hold; None when we don't hold them (then the review keeps its score and nothing made up)."""
-    f = l.get("flow") or {}
-    try:
-        h = [int(x) for x in str(f.get("h") or "").split(",") if x != ""]
-        a = [int(x) for x in str(f.get("a") or "").split(",") if x != ""]
-    except ValueError:
-        return None
+    h, a = periods(l)
     n, when = CHECKPOINT.get(l.get("league"), (None, None))
-    if not n or len(h) <= n or len(h) != len(a):
+    if not n or h is None or len(h) <= n:
         return None
     us, them = (h, a) if l.get("side") == "home" else (a, h)
     me, opp = l.get("team") or "", l.get("opp") or ""
@@ -1177,13 +1189,8 @@ def _history(picks):
     def swing(l):
         """(final margin, our worst deficit, our biggest lead) at the end of each period, from our side - or None when the
         game's period scores weren't kept."""
-        f = l.get("flow") or {}
-        try:
-            h = [int(x) for x in str(f.get("h") or "").split(",") if x != ""]
-            a = [int(x) for x in str(f.get("a") or "").split(",") if x != ""]
-        except ValueError:
-            return None
-        if len(h) < 2 or len(h) != len(a):
+        h, a = periods(l)                                # (MLB: a home team that never batted in the 9th)
+        if h is None or len(h) < 2:
             return None
         us, them = (h, a) if l.get("side") == "home" else (a, h)
         adj = 0                                              # (the real scoreboard: "down 10" means down 10)
@@ -1244,7 +1251,9 @@ def _history(picks):
                 and not (kind == "flowers" and dec.get("type") == "blowout"):   # 🎯 how it was won or lost: say it
             how = sports_decider.say(dec, l.get("side"), t_, o_, lg, f"{date}|{key}")   # (the owner, 10/1)
             if how:
-                return later(date, key, "how", r, lean, how=how)
+                cell = later(date, key, "how", r, lean, how=how)
+                cell["fact"] = game_fact(l)                  # (10/3 sweep: "The Blues won 4-0. Never close." said nothing
+                return cell                                  #  past the score - the half-time fact rides on these too)
         cell = later(date, key, kind, r, lean, t=t_, o=o_, x=x, **xtra)
         cell["fact"] = game_fact(l)                          # (the owner, 10/2: never vague - what actually happened)
         return cell
@@ -1365,7 +1374,7 @@ def _history(picks):
             c["text"] = sports_lingo.review_how(c["kw"]["how"], r, seed, used, lean=c["lean"])
         else:
             c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
-            c["text"] = with_fact(c["text"], c.get("fact"))
+        c["text"] = with_fact(c["text"], c.get("fact"))     # the game's own fact, whichever way it was written
         LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
     out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, [])), leans=done(by_lean.get(lg, [])))

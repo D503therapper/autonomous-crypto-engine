@@ -1886,6 +1886,9 @@ def grade(ms, picks):
                 mg = margin(m) if leg["side"] == 1 else -margin(m)
                 leg["result"] = "won" if mg + leg["hcp"] > 0 else "lost" if mg + leg["hcp"] < 0 else "push"
                 leg["score"] = _score_txt(m)
+            elif leg.get("market") == "spread":
+                continue                                            # a game spread with no game count yet: it waits -
+                #                                                     never graded off the match winner (10/3 sweep)
             elif st in ("final", "retired") and int(m["winner"] or 0) in (1, 2):
                 leg["result"] = "won" if int(m["winner"]) == leg["side"] else "lost"
                 leg["score"] = _score_txt(m)

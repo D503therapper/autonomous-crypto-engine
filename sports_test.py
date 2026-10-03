@@ -6571,6 +6571,122 @@ def test_sync_voids_a_game_espn_dropped():
 
 
 
+
+def test_review_fact_when_the_home_team_never_bats_in_the_ninth():
+    """10/3 sweep: every MLB home win lost its review fact (and its comeback / collapse read) - the home team that led
+    after 8½ never batted, so its line was one inning short and the fact came back None ("Favorite came through: the
+    Padres over the Cubs" with no score, against the owner's "never vague"). The short line is padded with a 0."""
+    import sports_dashboard as D
+    l = {"league": "mlb", "side": "home", "team": "Padres", "opp": "Diamondbacks",
+         "flow": {"a": "0,0,0,0,0,1,3,0,0", "h": "0,0,1,1,1,1,3,2"}}                 # D-backs 4 @ Padres 9 (9/27)
+    assert D.game_fact(l) == "Padres led 4-1 after six innings and won 9-4."
+    l["flow"]["h"] = "0,0,1,1,1,1,3,2,X"                                              # ESPN's other way to say it
+    assert D.game_fact(l) == "Padres led 4-1 after six innings and won 9-4."
+    a = {**l, "side": "away", "team": "Diamondbacks", "opp": "Padres", "flow": {"a": "0,0,0,0,0,1,3,0,0", "h": "0,0,1,1,1,1,3,2"}}
+    assert D.game_fact(a) == "Padres led 4-1 after six innings and won 9-4."
+    assert D.periods(a) == ([0, 0, 1, 1, 1, 1, 3, 2, 0], [0, 0, 0, 0, 0, 1, 3, 0, 0])
+    # a hockey / football line still has to match period for period - nothing padded there
+    assert D.game_fact({"league": "nhl", "side": "home", "team": "A", "opp": "B", "flow": {"a": "1,1,1", "h": "0,0"}}) is None
+    assert D.periods({"league": "nhl", "flow": {"a": "1,1,1", "h": "0,0"}}) == (None, None)
+    # the real 9/29 Yankees Lock (Red Sox 0 @ Yankees 9): its card review now carries the fact
+    y = {"league": "mlb", "side": "home", "team": "Yankees", "opp": "Red Sox",
+         "flow": {"a": "0,0,0,0,0,0,0,0,0", "h": "0,1,0,0,1,0,2,5"}}
+    assert D.with_fact("Won 9-0 like they stole something.", D.game_fact(y)) == \
+        "Won 9-0 like they stole something. Yankees led 2-0 after six innings."
+
+
+def test_pick_on_a_vanished_game_voids_after_4_days():
+    """10/3 sweep: a pick whose game dropped out of our data (an id change, a wiped month file - 316 college games were
+    wiped once) never graded and never voided: grade_leg returned None forever, so the pick sat open, TODAY'S RESULTS
+    waited on it and the board day stuck on it till 8 AM. Like a game that never goes final: 4 days, then void."""
+    now = datetime(2026, 10, 3, tzinfo=timezone.utc)
+    leg = {"game_id": "gone", "side": "home", "market": "ml", "line": None, "odds": 120, "dec": 2.2, "team": "X",
+           "start": "2026-10-02T00:00Z", "tier": "value", "p": 0.5}
+    pk = {"kind": "play", "status": "open", "stake": 100, "pnl": 0, "date": "2026-10-01", "legs": [leg]}
+    sports.grade([pk], {}, now)
+    assert pk["status"] == "open" and leg.get("result") is None          # a day later: still waiting on the data
+    assert sports.day_pending([pk], [], "2026-10-01")
+    sports.grade([pk], {}, now + timedelta(days=4))
+    assert leg["result"] == "void" and pk.get("void") and pk["status"] == "push"
+    assert not sports.day_pending([pk], [], "2026-10-01")
+    assert sports.units_ledger([pk], [])["rows"] == []                   # a void: not a bet, not in the bankroll
+
+
+def test_graded_units_frozen_for_every_graded_pick():
+    """10/3 sweep: the freeze only ran on the pick being graded that moment - a pick graded before the freeze existed
+    (9/27-9/30: the Vikings 5u Lock) and a busted parlay's later-graded legs still re-sized on every code change (the
+    10/1 audit had seen 9 graded rows move once). Now every graded pick / leg is frozen on the next grading pass."""
+    leg = lambda gid, res, odds=-110, **kw: {"game_id": gid, "side": "home", "market": "ml", "line": None, "odds": odds,
+                                             "dec": sd.decimal(odds), "start": "2026-09-27T17:00Z", "result": res,
+                                             "tier": "lock", "p": 0.6, "edge_own": 0.08, "team": gid, **kw}
+    old = {"kind": "lock", "date": "2026-09-27", "status": "won", "stake": 100, "pnl": 90, "legs": [leg("a", "won")],
+           "settled": "2026-09-27T20:00Z", "posted": "2026-09-27T09:00Z"}        # graded before the freeze existed
+    busted = {"kind": "two", "date": "2026-09-27", "status": "lost", "stake": 100, "pnl": -100, "posted": "2026-09-27T09:00Z",
+              "legs": [leg("b", "lost"), leg("c", None, 130, tier="value", p=0.48, edge_own=0.03)], "settled": "2026-09-27T20:00Z"}
+    games = {"c": {"status": "final", "home_score": "3", "away_score": "1", "home_name": "H", "away_name": "A"}}
+    sports.grade([old, busted], games, datetime(2026, 9, 28, tzinfo=timezone.utc))
+    want = sports.units_for(old)
+    assert old.get("units") == want and want > 0
+    assert busted["legs"][1]["result"] == "won"
+    assert busted["legs"][0].get("units") is not None and busted["legs"][1].get("units") is not None
+    old["legs"][0]["p"], old["legs"][0]["edge_own"] = 0.9, 0.5            # a re-size never moves a graded row
+    busted["legs"][1]["p"] = 0.9
+    assert sports.units_for(old) == want
+    assert sports.leg_units(busted, busted["legs"][1]) == busted["legs"][1]["units"]
+
+
+def test_unit_ledger_row_is_the_parlay_leg_itself():
+    """10/3 sweep: a parlay leg's bankroll row carried the whole ticket - the brain's green-day line named the
+    ticket's FIRST leg at the PARLAY's price ("the only bet with money on it, Yankees (+300), cashed") for a ½u Blues
+    leg at +140. The row is that pick: its team, its price."""
+    import sports_dashboard as D
+    legs = [{"game_id": "a", "side": "home", "market": "ml", "odds": -120, "dec": sd.decimal(-120), "team": "Yankees",
+             "league": "mlb", "result": "won", "tier": "lean", "p": 0.55, "start": "2026-09-30T00:00Z"},
+            {"game_id": "b", "side": "away", "market": "ml", "odds": 140, "dec": 2.4, "team": "Blues", "league": "nhl",
+             "result": "won", "tier": "value", "p": 0.48, "units": 0.5, "start": "2026-09-30T01:00Z"}]
+    pk = {"kind": "two", "date": "2026-09-30", "status": "won", "american": 300, "dec": 4.0, "stake": 100, "legs": legs,
+          "posted": "2026-09-30T15:00Z", "settled": "2026-10-01T03:00Z"}
+    rows = sports.units_ledger([pk], [])["rows"]
+    assert len(rows) == 1 and rows[0][0]["legs"][0]["team"] == "Blues" and rows[0][0]["american"] == 140
+    assert rows[0][0]["kind"] == "pick" and rows[0][1] == 0.5 and abs(rows[0][2] - 0.7) < 1e-9
+    line = D.green_day([pk], "2026-09-30", 0, 1, 0, early=[])
+    assert "Blues (+140)" in line and "+300" not in line and "Yankees" not in line, line
+
+
+def test_tennis_spread_never_graded_off_the_winner():
+    """10/3 sweep: a game-spread leg on a finished match whose games line we couldn't add up (a sets line one set short)
+    fell through to the moneyline branch and was graded off the match WINNER - a +4.5 games pick read as a loss. It
+    waits for a games count instead; the moneyline leg on the same match grades as before."""
+    import sports_tennis as stn
+    m = {"id": "atp:1", "status": "STATUS_FINAL", "sets1": "6 4 7", "sets2": "3 6", "winner": "1", "done": "3", "bo": "3"}
+    slate = [{"date": "2026-10-02", "picks": [
+        {"id": "atp:1:2:sp", "match": "atp:1", "side": 2, "market": "spread", "hcp": 4.5, "result": None},
+        {"id": "atp:1:2", "match": "atp:1", "side": 2, "market": "ml", "result": None}], "parlays": {}}]
+    stn.grade({"atp:1": m}, slate)
+    assert slate[0]["picks"][0]["result"] is None and slate[0]["picks"][1]["result"] == "lost"
+    m["sets2"] = "3 6 5"                                                   # the games line fixed: 17-14, +4.5 covers
+    stn.grade({"atp:1": m}, slate)
+    assert slate[0]["picks"][0]["result"] == "won"
+
+
+def test_how_it_was_decided_review_still_carries_the_game_fact():
+    """10/3 sweep: a review written off the decider ("The Blues won 4-0. Never close. Paid." - a blowout) skipped the
+    game fact, so the Blues Dog and the Blackhawks Dog said nothing past the final (the owner, 10/2: 'Never close.
+    Brutal.' says nothing). The half-time / two-period fact rides on those reviews too; the final isn't repeated."""
+    import sports_dashboard as D
+    D.LEG_REVIEWS.clear()
+    leg = {"game_id": "nhl:1", "side": "away", "market": "ml", "odds": 154, "dec": 2.54, "team": "Blues", "opp": "Stars",
+           "league": "nhl", "result": "won", "tier": "value", "p": 0.4, "start": "2026-10-03T01:00Z",
+           "score": "Blues 4 @ Stars 0", "flow": {"a": "1,1,2", "h": "0,0,0"},
+           "decider": {"s": "4-0", "type": "blowout", "win": "away"}}
+    pk = {"kind": "dog", "date": "2026-10-02", "status": "won", "american": 154, "dec": 2.54, "stake": 100, "legs": [leg],
+          "posted": "2026-10-02T15:33Z", "settled": "2026-10-03T04:03Z", "pnl": 154}
+    h = D._history([pk])
+    rev = D.LEG_REVIEWS[("2026-10-02", "nhl:1|away|ml")]
+    assert "Blues led 2-0 after two periods" in rev and rev.count("4-0") == 1, rev
+    assert "after two periods" in h
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
