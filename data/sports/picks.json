@@ -5074,5 +5074,127 @@
   "stake": 100.0,
   "status": "open",
   "tier": "value"
+ },
+ {
+  "american": -120,
+  "date": "2026-10-03",
+  "dec": 1.8333,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "rec:2",
+     "sched:0",
+     "latest:4",
+     "momentum:0",
+     "fade:1",
+     "bottom_s:6",
+     "w_rolling:0"
+    ],
+    "breakdown": [
+     "\ud83d\ude80 UNLV just blew somebody out \u2014 teams like that keep rolling.",
+     "\u2696\ufe0f UNLV 2-2, California 2-2 \u2014 but UNLV's L's came against Memphis and North Texas.",
+     "\ud83d\udccb 2-2 so far for UNLV \u2014 the record don't cash tickets, the number does.",
+     "\ud83d\udcb8 Somebody's pushing California (+114 \u2192 +100). We're fading the clowns and taking UNLV \u2014 our QB's been playing better.",
+     "\ud83d\udcc5 Last week's tape: UNLV W 38-10 @ Akron \u00b7 California L 10-24 vs Clemson.",
+     "\u2705 Bottom line: UNLV (-120). UNLV at 59%. The books undersold 'em."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:out_dome"
+    ],
+    "dec": 1.8333333333333335,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [],
+     "last_margin": 28.0,
+     "last_pts": 38.0,
+     "neutral": false,
+     "win_pct": 0.5,
+     "win_streak": 1
+    },
+    "drift": 0.0297,
+    "edge": -0.04347826086956519,
+    "edge_own": 0.05464783557467734,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     28.0,
+     1,
+     -525,
+     true,
+     0
+    ],
+    "game_id": "ncaaf:401858247",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.5673752020652882,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -120,
+    "opp": "California",
+    "opp_dog_pts": -3.0,
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [
+     "Alex Orji (QB)"
+    ],
+    "p": 0.5217391304347826,
+    "p_market": 0.5217391304347826,
+    "pdo": null,
+    "public": "ride",
+    "reasons": [
+     "the stronger team",
+     "better QB play lately",
+     "rolling off a blowout win"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-03T19:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "UNLV",
+    "team_id": "2439",
+    "their_drama": [],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5903,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 They're rolling off a blowout \u2014 that's our edge tonight."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.5217,
+  "pnl": 0.0,
+  "posted": "2026-10-03T18:25Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
  }
 ]
