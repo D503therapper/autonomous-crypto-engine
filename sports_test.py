@@ -6382,6 +6382,12 @@ def test_regrade_window_outlasts_a_lagging_results_feed():
     assert sports_live.REGRADE_S >= 60 * 60
 
 
+def test_question_box_note():
+    """10/3 (the owner): "delete 'ask me whatever the fuck' and leave the rest"."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "whatever the fuck" not in src and "Tap in! No stupid shit though. Ain't nobody got time for that." in src
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
