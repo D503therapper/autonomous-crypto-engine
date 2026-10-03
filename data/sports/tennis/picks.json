@@ -1394,7 +1394,7 @@
     "mkt": 0.6321695760598504,
     "own": 0.6568281584912576,
     "angle": false,
-    "result": null,
+    "result": "won",
     "breakdown": [
      "\ud83c\udfbe Vekic is too much for Zhu Lin. The better player punches the ticket.",
      "\ud83d\udcc8 World #40 vs outside the top 150. Different weight class.",
@@ -1410,7 +1410,8 @@
      "t_h2h:13",
      "t_bl:10"
     ],
-    "state": "live"
+    "state": "final",
+    "score": "1-6, 6-4, 2-6"
    },
    {
     "id": "atp:183507:2",
@@ -1434,7 +1435,7 @@
     "mkt": 0.6017699115044247,
     "own": 0.5938921578261985,
     "angle": false,
-    "result": null,
+    "result": "lost",
     "breakdown": [
      "\ud83c\udfbe Favorite for a reason: Berrettini. He should handle Vallejo.",
      "\ud83d\udfeb Put him on hard court and he turns into a problem.",
@@ -1446,7 +1447,8 @@
      "t_surf:6",
      "t_bl:12"
     ],
-    "state": "pre"
+    "state": "final",
+    "score": "7-6, 6-1"
    },
    {
     "id": "atp:183444:2",
@@ -1470,7 +1472,7 @@
     "mkt": 0.5656028368794326,
     "own": 0.5651901148297857,
     "angle": false,
-    "result": null,
+    "result": "won",
     "breakdown": [
      "\ud83c\udfbe Put us down for Rublev. He wins this.",
      "\ud83d\udcc8 #24 against #84.",
@@ -1481,6 +1483,91 @@
      "t_mm:12",
      "t_rank:14",
      "t_bl:9"
+    ],
+    "state": "final",
+    "score": "2-6, 6-3, 4-6"
+   }
+  ],
+  "parlays": {
+   "atp": null,
+   "wta": null
+  }
+ },
+ {
+  "date": "2026-10-03",
+  "posted": "2026-10-03T15:02Z",
+  "picks": [
+   {
+    "id": "atp:183510:2",
+    "match": "atp:183510",
+    "side": 2,
+    "player": "Jaume Munar",
+    "opp": "Kyrian Jacquet",
+    "tour": "atp",
+    "odds": -155,
+    "p": 0.5829926410466066,
+    "edge": -0.04088307440719563,
+    "start": "2026-10-04T02:00Z",
+    "tourney": "Kinoshita Group Japan Open Tennis Championships",
+    "market": "ml",
+    "hcp": null,
+    "ml": -155,
+    "round": "Quarterfinal",
+    "surface": "hard",
+    "bo": 3,
+    "value": false,
+    "mkt": 0.5829926410466066,
+    "own": 0.6011055273317469,
+    "angle": false,
+    "result": null,
+    "breakdown": [
+     "\ud83c\udfbe Munar should get the better of Jacquet. Simple as that.",
+     "\ud83d\udcc8 On paper it's #64 vs #86. The paper's right.",
+     "\ud83d\udfeb Hard court suits Munar perfect.",
+     "\u2705 Bottom line: 58% to cash, Vegas agrees. Munar ML (-155)."
+    ],
+    "bv": 19,
+    "vk": [
+     "t_mf:63",
+     "t_rank:7",
+     "t_surf:8",
+     "t_bl:20"
+    ],
+    "state": "pre"
+   },
+   {
+    "id": "wta:184341:2:sp",
+    "match": "wta:184341",
+    "side": 2,
+    "player": "Nikola Bartunkova",
+    "opp": "Aryna Sabalenka",
+    "tour": "wta",
+    "odds": -145,
+    "p": 0.554140127388535,
+    "edge": -0.06369426751592355,
+    "start": "2026-10-04T03:00Z",
+    "tourney": "China Open",
+    "market": "spread",
+    "hcp": 5.5,
+    "ml": 350,
+    "round": "Round 3",
+    "surface": "hard",
+    "bo": 3,
+    "value": false,
+    "mkt": 0.554140127388535,
+    "own": 0.5381961013785842,
+    "angle": false,
+    "result": null,
+    "breakdown": [
+     "\ud83c\udfaf Bartunkova +5.5 is the angle. Our model has her hanging around way more than Vegas thinks.",
+     "\ud83d\udfeb Sabalenka has never figured out hard court.",
+     "\u2705 Sum it up: Bartunkova +5.5 games at -145. 55% to hit, and we ain't fighting the line."
+    ],
+    "bv": 19,
+    "vk": [
+     "t_sd:32",
+     "t_surf_opp:4",
+     "t_bl:7"
     ],
     "state": "pre"
    }

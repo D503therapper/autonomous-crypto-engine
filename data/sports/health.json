@@ -1,28 +1,164 @@
 {
- "at": "2026-10-03T04:13Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-03T15:47Z",
+ "fixes": [
+  "slate check problem - re-pull before the board - sports.yml already running",
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
+ "problems": [
+  "live tennis scores: tennis Jeanjean vs Ruzic: no points for 2643s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "slate check: Brown @ Rhode Island (NCAAF): priced but the engine never looked at it",
+  "slate check: Princeton @ Columbia (NCAAF): priced but the engine never looked at it",
+  "slate check: Merrimack @ Yale (NCAAF): priced but the engine never looked at it",
+  "slate check: Cornell @ Georgetown (NCAAF): priced but the engine never looked at it",
+  "slate check: Dayton @ Drake (NCAAF): priced but the engine never looked at it",
+  "slate check: Marist @ Stetson (NCAAF): priced but the engine never looked at it",
+  "simulator last ran 10h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (109s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 6 live matches",
-  "slate check: all 9 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 12 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 6h ago",
+  "studies ran 2h ago",
   "engine ran 2 min ago",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-03T15:47Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Jeanjean vs Ruzic: no points for 2643s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "slate check: Brown @ Rhode Island (NCAAF): priced but the engine never looked at it",
+    "slate check: Princeton @ Columbia (NCAAF): priced but the engine never looked at it",
+    "slate check: Merrimack @ Yale (NCAAF): priced but the engine never looked at it",
+    "slate check: Cornell @ Georgetown (NCAAF): priced but the engine never looked at it",
+    "slate check: Dayton @ Drake (NCAAF): priced but the engine never looked at it",
+    "slate check: Marist @ Stetson (NCAAF): priced but the engine never looked at it",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-03T14:16Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml",
+    "engine 99 min since its last run - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Boisson vs Andreeva: no points for 2664s",
+    "studies last ran 9h ago - restarted",
+    "engine last started 99 min ago (GitHub skipped its hourly runs) - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-03T13:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Boisson vs Andreeva: no points for 1527s"
+   ]
+  },
+  {
+   "at": "2026-10-03T13:51Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Boisson vs Andreeva: no points for 1177s"
+   ]
+  },
+  {
+   "at": "2026-10-03T12:12Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Shang Juncheng vs Zverev: points frozen at 40-30 for 496s",
+    "live tennis scores: tennis Boisson vs Andreeva: no points for 107s"
+   ]
+  },
+  {
+   "at": "2026-10-03T12:02Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Shang Juncheng vs Zverev: no points for 102s"
+   ]
+  },
+  {
+   "at": "2026-10-03T11:52Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-03T10:18Z",
+   "fixes": [
+    "live watch 37113465915 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-03T10:14Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-03T10:13Z",
+   "fixes": [
+    "engine 132 min since its last run - started sports.yml"
+   ],
+   "problems": [
+    "engine last started 132 min ago (GitHub skipped its hourly runs) - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-03T08:35Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-03T08:02Z",
+   "fixes": [
+    "engine 84 min since its last run - started sports.yml"
+   ],
+   "problems": [
+    "engine last started 84 min ago (GitHub skipped its hourly runs) - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-03T07:25Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Falei vs Maneiro: no points for 580s"
+   ]
+  },
+  {
+   "at": "2026-10-03T05:46Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-03T05:45Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-03T05:45Z",
+   "fixes": [
+    "engine 85 min since its last run - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Shubladze vs Jones: no points for 1630s",
+    "engine last started 85 min ago (GitHub skipped its hourly runs) - restarted"
+   ]
+  },
   {
    "at": "2026-10-03T04:13Z",
    "fixes": [],
@@ -506,131 +642,6 @@
    "at": "2026-10-01T04:40Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-01T04:00Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ruud vs Darderi: no points for 98s",
-    "live tennis scores: tennis Tsitsipas vs Etcheverry: points frozen at 0-0 for 181s",
-    "live tennis scores: tennis Okamura vs Ibragimova: no points for 375s",
-    "live tennis scores: tennis Costoulas vs Lansere: no points for 375s"
-   ]
-  },
-  {
-   "at": "2026-10-01T02:29Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-01T02:24Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-01T02:23Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-01T00:52Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-10-01T00:47Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T23:13Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T22:36Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T21:52Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T20:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 2657s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T19:40Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 227s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T18:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 625s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T18:05Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T16:34Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ercan vs Jeanjean: no points for 2660s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T15:49Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-09-29 Anna Bondar) - started sports.yml",
-    "studies overdue (11h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
-    "studies last ran 11h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-09-30T14:15Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Galfi vs Kostovic: no points for 2522s"
-   ]
   }
  ]
 }
