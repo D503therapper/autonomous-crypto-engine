@@ -3877,6 +3877,14 @@
      "game:conf"
     ],
     "dec": 1.7692307692307692,
+    "decider": {
+     "blocked": false,
+     "c": "0:02",
+     "s": "35-33",
+     "type": "kick",
+     "win": "away",
+     "y": 36
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -3896,6 +3904,10 @@
     "edge_own": -0.014149086446329728,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,14,7,7",
+     "h": "14,10,0,9"
+    },
     "form_state": [
      7.0,
      4,
@@ -3949,9 +3961,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Pitt 35 @ Virginia Tech 33",
+    "settled": "2026-10-03T02:46Z",
     "side": "home",
     "start": "2026-10-02T23:00Z",
     "stype": "2",
@@ -3969,12 +3983,14 @@
    }
   ],
   "p_hit": 0.5427,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-02T15:33Z",
   "round": 1,
+  "settled": "2026-10-03T02:46Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -130,
@@ -4130,6 +4146,15 @@
      "them:west1000"
     ],
     "dec": 1.819672131147541,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "JJ Peterka",
+     "s": "4-3",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4143,6 +4168,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,0,1,1",
+     "h": "1,2,0,0"
+    },
     "form_state": null,
     "game_id": "nhl:401891831",
     "home": true,
@@ -4177,9 +4206,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Bruins 4 @ Jets 3",
+    "settled": "2026-10-03T03:00Z",
     "side": "home",
     "start": "2026-10-03T00:00Z",
     "stype": "2",
@@ -4197,11 +4228,13 @@
    }
   ],
   "p_hit": 0.5246,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-02T15:33Z",
   "round": 1,
+  "settled": "2026-10-03T03:00Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]

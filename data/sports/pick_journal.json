@@ -544,5 +544,50 @@
   "score": "13-34",
   "margin": -21.0,
   "pnl_units": -1.0
+ },
+ {
+  "date": "2026-10-02",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401891803",
+  "team": "Red Wings",
+  "opp": "Rangers",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -130,
+  "posted": "2026-10-02T15:33Z",
+  "price_says": 0.565,
+  "win_p": 0.575965339898127,
+  "own_read": 0.537,
+  "weighed": 0.5369,
+  "dog_p": null,
+  "edge_own": 0.010346370588993903,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "better rested",
+   "opponent on a back-to-back"
+  ],
+  "angles": [
+   "b2b:1",
+   "bottom_c:1",
+   "w_rest:0"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Dylan Larkin (C)",
+   "Simon Edvinsson (D)"
+  ],
+  "theirs_out": [],
+  "public": "ride",
+  "close": -130,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "0-2",
+  "margin": -2.0,
+  "pnl_units": 0
  }
 ]

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T01:52Z",
+ "updated": "2026-10-03T03:05Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -54,8 +54,8 @@
    "away": "Liberty",
    "home": "Delaware",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -70,7 +70,7 @@
    "home": "Virginia Tech",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Virginia Tech",
@@ -84,7 +84,7 @@
      "the stronger team",
      "hotter recent form"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -98,7 +98,7 @@
    "home": "Jets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Jets",
@@ -112,7 +112,7 @@
      "better rested",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -168,35 +168,34 @@
    }
   },
   {
+   "id": "nhl:401892433",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-03T02:00Z",
+   "away": "Ducks",
+   "home": "Golden Knights",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401868094",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Montana St",
-    "p": 0.81,
-    "tie": 0.022,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-03T02:30Z",
    "away": "Montana St",
    "home": "Idaho",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Montana St",
-    "opp": "Idaho",
-    "market": "spread",
-    "line": -14.5,
-    "odds": -114,
-    "p": 0.502,
-    "win_p": 0.817,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401862787",
@@ -1652,7 +1651,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia",
-    "p": 0.538,
+    "p": 0.539,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2489,8 +2488,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.403,
-    "tie": 0.297,
+    "p": 0.408,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2501,15 +2500,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Capitals",
-    "opp": "Lightning",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.614,
-    "win_p": 0.394,
+    "team": "Lightning",
+    "opp": "Capitals",
+    "market": "ml",
+    "line": null,
+    "odds": -162,
+    "p": 0.621,
+    "win_p": 0.621,
     "reasons": [
-     "hotter recent form"
+     "opponent on a back-to-back",
+     "sharp money moving this way",
+     "the stronger team"
     ]
    }
   },
@@ -2547,7 +2548,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.359,
+    "p": 0.354,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2564,8 +2565,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.697,
-    "win_p": 0.481,
+    "p": 0.705,
+    "win_p": 0.491,
     "reasons": [
      "opponent on a back-to-back",
      "hotter recent form",
@@ -2626,7 +2627,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.704,
+    "p": 0.703,
     "win_p": 0.489,
     "reasons": [
      "hotter recent form",
@@ -2717,7 +2718,7 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
+    "odds": -258,
     "p": 0.703,
     "win_p": 0.486,
     "reasons": [
@@ -3047,8 +3048,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.404,
-    "tie": 0.297,
+    "p": 0.419,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -3064,10 +3065,11 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.614,
-    "win_p": 0.614,
+    "p": 0.644,
+    "win_p": 0.644,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent on a back-to-back"
     ]
    }
   },
@@ -3226,7 +3228,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.578,
+    "p": 0.577,
     "tie": 0.112,
     "name": "first 5 innings"
    },
@@ -3242,7 +3244,7 @@
     "opp": "Padres",
     "market": "ml",
     "line": null,
-    "odds": -205,
+    "odds": -204,
     "p": 0.66,
     "win_p": 0.66,
     "reasons": [

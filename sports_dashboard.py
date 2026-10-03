@@ -379,6 +379,35 @@ def day_calls(picks, today):
     return calls, pending
 
 
+def green_day(picks, today, w=None, l=None, k=0, early=None):
+    """A day the record went bad (more L's than W's) but the plays with units on them came out ahead: the brain says
+    so (the owner, 10/2: Virginia Tech, the Red Wings and the Jets lost as leans, the Blues Dog was the only bet with
+    money on it). '' when every unit play isn't graded yet or they didn't come out ahead. With w=None: just the check."""
+    import sports
+    import sports_early
+    early = (sports_early.load().get("picks") or []) if early is None else early
+    rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[0]["date"] == today and r[1] > 0]   # money plays
+    if not rows or sports.day_pending(picks, early, today):
+        return ""
+    net = sum(r[2] for r in rows)
+    if net <= 0:
+        return ""
+    if w is None:
+        return "yes"
+    u = f"+{net:.1f}u".replace(".0u", "u")
+    if len(rows) == 1:
+        pk = rows[0][0]
+        leg = (pk.get("legs") or [pk])[0]
+        o = pk.get("american") or leg.get("odds")
+        what = f"{leg.get('team')} ({'+' if o and o > 0 else ''}{o})"
+        return _rot(k, [f"😤 {w}-{l} on the board - rough day. But the only bet the algorithm put money on, {what}, cashed. {u}, we stay in the green.",
+                        f"😤 Went {w}-{l}, a rough one. The only play the algorithm found worth betting was {what} - and it hit. {u}, still green.",
+                        f"😤 {w}-{l} today, the leans got cooked. The one bet with units on it, {what}, came through. {u} - we stay in the green."])
+    ww = sum(r[2] > 0 for r in rows)
+    return _rot(k, [f"😤 {w}-{l} on the board - rough day. But the bets with money on them went {ww}-{len(rows) - ww}. {u}, we stay in the green.",
+                    f"😤 {w}-{l}, the leans got cooked. The plays the algorithm actually bet went {ww}-{len(rows) - ww} - {u}, still green."])
+
+
 def day_wait_line(picks, today, now, k):
     """The brain's line at 0-0 with picks still to play: nothing's started yet (and when the first one goes), or how many
     are playing right now - never "more tickets still cooking" before a game's kicked off (the owner, 10/1)."""
@@ -1704,6 +1733,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"✅ {w_}-{l_}. Today was a grace from Jesus. Fuck yeah!",
                               f"✅ {w_}-{l_}. Another W in the books. Let's go!",
                               f"✅ {w_}-{l_}. Fed the whole squad today."]))
+    elif green_day(picks, today):                            # a losing record, but the money plays won (the owner,
+        lines.append(green_day(picks, today, w_, l_, k))     # 10/2: "a rough day, but the only bet the algorithm
+        #                                                      found worth taking cashed - we stay in the green")
     else:
         lines.append(_rot(k, [f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' do better tomorrow.",
                               f"😤 {w_}-{l_}. Our picks were fucking ass today. We gon' bounce back. I won't let y'all down.",
