@@ -114,7 +114,8 @@ def match(name, pool):
     w = n.split()
     if len(w) < 2:
         return False
-    close = [p for p in pool if len(q := p.split()) >= 2 and q[-1] == w[-1] and q[0][:2] == w[0][:2]]
+    k = 1 if len(w[0]) == 1 else 2                         # 'J. Dawson' (an injury page's short name) ~ 'Jalen Dawson'
+    close = [p for p in pool if len(q := p.split()) >= 2 and q[-1] == w[-1] and q[0][:k] == w[0][:k]]
     return len(close) == 1
 
 

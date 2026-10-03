@@ -6843,6 +6843,36 @@ def test_web_injuries_cover_every_school_it_lists():
     assert sd.web_injuries("nfl", names, get=lambda u: rows) == {}                  # pros keep ESPN's feed
 
 
+def test_covers_injury_page_covers_every_school():
+    """10/3, the owner: "I can get injury reports at any second from Google, and the engine needs to be able to do the
+    same." College football reads Covers' page every run: every school it lists is covered (nobody hurt included),
+    short names ('J. Dawson') still match the box-score regulars, a bare code block is never guessed."""
+    import sports_absences as sa
+    page = ["College Football Injuries", "Expand All", "Collapse All", "AF", "Status", "J. Dawson", "WR",
+            "Out - Undisclosed", "(", "Fri, Sep 25)", "Dawson has been out.",
+            "AK", "`\">", "Akron", "Status", "C. Gee", "RB", "Questionable - Undisclosed", "(", "Sat, Sep 26)", "Gee note.",
+            "AP", "`\">", "Appalachian State", "Player", "POS", "Status", "No injuries to report.",
+            "AR", "`\">", "Arizona", "Status", "C. Warren III", "RB", "Out - Knee", "(", "Sat, Sep 26)", "Warren note."]
+    t = sd.parse_team_page(page)
+    assert t == {"Akron": [("C. Gee", "RB", "Questionable")], "Appalachian State": [],
+                 "Arizona": [("C. Warren III", "RB", "Out")]}, t
+    names = {"2006": "Akron", "2026": "App State", "12": "Arizona", "9": "Arizona State"}
+    old = sd.WEB_MIN_TEAMS
+    sd.WEB_MIN_TEAMS = 3
+    try:
+        got = sd.page_injuries("ncaaf", names, get=lambda u: page)
+    finally:
+        sd.WEB_MIN_TEAMS = old
+    assert got["2006"] == [("C. Gee", "RB", "Questionable")] and got["12"] and "9" not in got, got
+    assert sd.page_injuries("ncaaf", names, get=lambda u: page[:12]) == {}          # a thin read is never 'healthy'
+    assert sa.match("J. Dawson", {"jalen dawson", "mike smith"})
+    assert not sa.match("J. Dawson", {"jalen dawson", "jay dawson"})               # two candidates = no guess
+    assert sa.match("C. Warren III", {"cameron warren"})
+    src = open("sports_data.py").read()
+    assert "if league in WEB_PAGE:" in src and "page_injuries(league, team_names(league))" in src
+    assert "sports_absences.match(r[0], reg)" in open("sports.py").read().split("def out_count")[1][:1200]
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
