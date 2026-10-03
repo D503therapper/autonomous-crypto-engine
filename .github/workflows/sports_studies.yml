@@ -29,4 +29,5 @@ jobs:
           git config merge.sportscsv.driver "python tools/merge_csv.py %O %A %B"
           git add data/sports
           git commit -qm "studies $(date -u '+%F %H:%M') UTC" || exit 0
-          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+          for i in 1 2 3; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null || true; sleep 5; done
+          [ -n "$ok" ] || { echo "push failed - this run's results never reached main"; exit 1; }   # (10/3 audit: a failed save showed green)

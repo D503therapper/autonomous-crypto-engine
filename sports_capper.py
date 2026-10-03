@@ -86,7 +86,7 @@ def _ours(games, bob):
         if g.get("league") != "nfl" or not g.get("start"):
             continue
         if (g.get("home_name") or "").lower() == last(bob["home"]) and (g.get("away_name") or "").lower() == last(bob["away"]):
-            st = datetime.strptime(g["start"], "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc) - timedelta(hours=7)
+            st = datetime.strptime(g["start"], "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc).astimezone(sd.PT_)   # (Pacific, DST-safe)
             if abs((st.date() - datetime.fromisoformat(bob["date"]).date()).days) <= 1:
                 return g
     return None

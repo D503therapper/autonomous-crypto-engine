@@ -3,6 +3,7 @@
 #  - the tennis slate is due and not up -> run the engine now
 #  - a game is live / within 2 hours and no live watch is running -> start one
 #  - the hourly bug check (health.yml) is 90+ minutes old -> run it
+#  - the pacer (pacer.yml, the always-on clock) isn't running -> start it
 # Never fails the job that calls it.
 busy() { gh run list --workflow "$1" --limit 10 --json status -q '[.[] | select(.status != "completed")] | length' 2>/dev/null || echo 1; }
 if [ "$(python tools/tennis_due.py 2>/dev/null | tail -1)" = "yes" ]; then
@@ -23,4 +24,7 @@ try:
 except Exception:
     print(999)" 2>/dev/null)
 if [ "${age:-999}" -gt 90 ] && [ "$(busy health.yml)" = "0" ]; then gh workflow run health.yml --ref main && echo "backstop: bug check ${age}m old - started"; fi
+# ⏱ the pacer (10/3: GitHub skipped every board cron AND the bug check's cron - the only clock is a job that's always
+# running, tools/pacer.py). Not running -> start it. (The pacer runs this file too: it sees itself and moves on.)
+if [ "$(busy pacer.yml)" = "0" ]; then gh workflow run pacer.yml --ref main && echo "backstop: pacer not running - started"; fi
 exit 0

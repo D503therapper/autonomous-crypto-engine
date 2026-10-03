@@ -297,7 +297,19 @@ try:
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"engine run check failed: {str(e)[:60]}")
 
-# 7. posting on time
+# 6f. ⏱ the pacer - the always-on clock (tools/pacer.py; 10/3: every board cron and this check's own cron were skipped).
+#     Not running: start it.
+try:
+    if not busy("pacer.yml"):
+        dispatch("pacer.yml", "pacer (the always-on clock) not running")
+    else:
+        ok.append("pacer running")
+except Exception as e:                                   # noqa: BLE001
+    problems.append(f"pacer check failed: {str(e)[:60]}")
+
+# 7. posting on time. The board posts at 8:00 sharp (the owner, 10/2): from 8:05 PT a day with games and no board is
+#    late (10/3 audit: this check waited till 9 AM while GitHub skipped every 8 AM cron).
+BOARD_LATE = (8, 5)
 try:
     import tennis_due
     if tennis_due.due(now):
@@ -313,9 +325,10 @@ try:
     games_today = [g for g in (games or {}).values() if g.get("start") and
                    _t(g["start"]).astimezone(ZoneInfo("America/Los_Angeles")).date().isoformat() == today]
     posted = any(p.get("date") == today for p in json.load(open(os.path.join(sd.DATA, "picks.json"))))
-    if pt.hour >= 9 and games_today and not posted:
+    late = (pt.hour, pt.minute) >= BOARD_LATE
+    if late and games_today and not posted:
         dispatch("sports.yml", f"main board not up at {pt:%-I:%M %p} PT with {len(games_today)} games today")
-    elif pt.hour >= 9 and games_today:
+    elif late and games_today:
         ok.append("main board up")
 except Exception as e:                                   # noqa: BLE001
     problems.append(f"main board check failed: {str(e)[:60]}")
