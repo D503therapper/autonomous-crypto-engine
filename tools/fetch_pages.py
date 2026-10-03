@@ -16,7 +16,13 @@ KEY = re.compile(r"(availab|injur|questionable|doubtful|\bout\b|probable|game-ti
 PICKS = re.compile(r"(\blean|best bet|strong opinion|\bplay\b|predict|\bover\b|\bunder\b|[+-]\d+(\.5)?\b|\bATS\b)", re.I)
 
 
+WHOLE = ("web.archive.org", "sportsoddshistory.com", "sports.core.api.espn.com")   # (10/3: odds tables - a betting
+#   ad's "not available in your state" tripped the injury filter and the whole futures table was dropped)
+
+
 def key_for(url):
+    if any(h in url for h in WHOLE):
+        return None                                          # keep the whole page
     return PICKS if "drbobsports.com" in url else KEY
 
 
@@ -36,7 +42,7 @@ def main(urls):
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
                 lines = text_of(r.read().decode("utf-8", "replace"))
             title = next((x for x in lines if len(x) > 25), "")[:150]
-            hits = [i for i, x in enumerate(lines) if key_for(url).search(x)]
+            hits = [i for i, x in enumerate(lines) if key_for(url) and key_for(url).search(x)]
             keep = sorted({j for i in hits for j in range(max(0, i - 3), min(len(lines), i + 4))}) \
                 or range(len(lines))                         # (10/3: no injury / pick words - an odds table, a
             #                                                  futures board: keep the whole page)

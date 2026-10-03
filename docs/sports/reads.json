@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T00:29Z",
+ "updated": "2026-10-03T00:51Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -144,30 +144,27 @@
    "id": "nhl:401891782",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.408,
-    "tie": 0.296,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-03T01:00Z",
    "away": "Blues",
    "home": "Stars",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Stars",
-    "opp": "Blues",
+    "team": "Blues",
+    "opp": "Stars",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.621,
-    "win_p": 0.621,
+    "odds": 154,
+    "p": 0.384,
+    "win_p": 0.384,
     "reasons": [
-     "the stronger team"
-    ]
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
@@ -1129,7 +1126,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Howard",
-    "p": 0.718,
+    "p": 0.719,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -1687,7 +1684,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia",
-    "p": 0.539,
+    "p": 0.538,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1766,7 +1763,7 @@
     "opp": "Marshall",
     "market": "spread",
     "line": -18.5,
-    "odds": -110,
+    "odds": -105,
     "p": 0.503,
     "win_p": 0.88,
     "reasons": [
@@ -1861,7 +1858,7 @@
     "opp": "Davidson",
     "market": "spread",
     "line": -14.5,
-    "odds": -113,
+    "odds": -123,
     "p": 0.502,
     "win_p": 0.817,
     "reasons": [
