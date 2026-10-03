@@ -88,6 +88,16 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   NBA always on + hockey/MLB IL players count only if playing (wt stash) - owner to say go. TODO: card grammar pass
   (school names singular, no vague lines), sport-aware own_agrees tiebreak, key_edges train/predict match, college
   hoops injury source before November.
+- THE OWNER'S QUEUE (10/3, do after his usage resets - in this order):
+  1. MULTIPLE LOCKS: every game that clears the Lock test posts as a Lock (the best = Lock of the Day on top, the rest
+     LOCK cards right under it, each sized by its own read, all in the unit-plays record). Show a preview first.
+  2. Missing players are WEIGHED, never a hard rule (the owner: "it all just depends"): turn hurt() 'no units', the
+     early-play 'never a side with a key player out/questionable' and 'key QB/goalie out -> go by the market' into
+     study-sized weights (walk-forward on past games); update the CLAUDE.md injury rule wording.
+  3. Push the wt stash: NBA always on (sports_strength.OWNER_ON) + hockey/MLB injured-list players count only if
+     they've been playing (sports_absences.played_lately) - tested 328 green.
+  4. Park the 'inj' learned feature (16-23 games of history) until a full season.
+  5. Card grammar pass (school names singular, no vague/filler lines).
 - NEXT: capper studies (1)-(5) below; NHL rested-vs-back-to-back live log (no units); weigh OL / defense absences.
 
 **Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**

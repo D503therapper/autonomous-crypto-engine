@@ -3730,13 +3730,13 @@ def test_strengths_by_sport_and_no_puck_or_run_lines():
     basketball stay)."""
     import sports_strength as ss
     keep = dict(ss._CACHE)
-    ss._CACHE["s"] = {"mlb": {"bias": -0.03, "weak": False}, "nba": {"bias": -0.03, "weak": True}}
+    ss._CACHE["s"] = {"mlb": {"bias": -0.03, "weak": False}, "nhl": {"bias": -0.03, "weak": True}}
     try:
         assert abs(ss.calibrate("mlb", 0.58) - 0.55) < 1e-9                  # overconfident sport: said 58, really 55
         assert ss.calibrate("mlb", 0.50) == 0.50                              # a coin flip isn't moved
-        assert ss.calibrate("nhl", 0.58) == 0.58                              # no record: as is
-        assert ss.weak("nba") and not ss.weak("mlb")
-        c = {"league": "nba", "edge": 0.02, "edge_own": 0.02, "dec": 1.8, "drift": 0.0}
+        assert ss.calibrate("nfl", 0.58) == 0.58                              # no record: as is
+        assert ss.weak("nhl") and not ss.weak("mlb") and not ss.weak("nba")   # (10/3: the NBA always on)
+        c = {"league": "nhl", "edge": 0.02, "edge_own": 0.02, "dec": 1.8, "drift": 0.0}
         assert sports.fighting(c) and not sports.fighting({**c, "league": "mlb"})
     finally:
         ss._CACHE.clear(); ss._CACHE.update(keep)
@@ -6806,6 +6806,74 @@ def test_card_wording_kentucky_fixes():
     assert 'if kind == "suspension" and any(' in src and 'startswith("💪")' in src
 
 
+def test_nba_on_and_injured_list_only_counts_players_who_play():
+    """10/3 (the owner): "the NBA is my favorite sport and I crush NBA" - never shut out as a 'weak' sport; and hockey /
+    baseball players on the 10/15-day IL who haven't been playing lately don't take a team's units away."""
+    import sports_strength as ss, sports_absences as A
+    assert ss.weak("nba") is False and "nba" in ss.OWNER_ON
+    keep = dict(A._TEAM)
+    games = [(f"2026-09-{d:02d}T19:00Z", f"g{d}", [{"player": "Every Day", "team": "1"}] + ([{"player": "Hurt Guy", "team": "1"}] if d < 3 else []))
+             for d in range(1, 16)]
+    A._TEAM["mlb"] = {"1": games}
+    try:
+        reg = A.played_lately(None, "mlb", "1", "2026-10-03T19:00Z")
+        assert "every day" in reg and "hurt guy" not in reg
+        g = {"league": "mlb", "home": "1", "home_name": "Sox", "away": "2", "away_name": "Jays", "start": "2026-10-03T19:00Z"}
+        rep = {"mlb": {"1": [("Hurt Guy", "SP", "10-Day-IL"), ("Gone Two", "RF", "15-Day-IL"), ("Every Day", "SS", "Out")]}}
+        assert sports.hurt(g, "home", rep) == []          # only Every Day plays - 1 out, units stay
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+
+
+
+def test_web_injuries_cover_every_school_it_lists():
+    """10/3 (the owner: "I can get injury reports at any second from Google, and the engine needs to be able to do the
+    same"): Rotowire's college injury feed is read every run - every school it lists is covered with its players,
+    names matched to our teams (UNC Charlotte = Charlotte); a thin / broken read adds nothing (never 'healthy')."""
+    names = {"2429": "Charlotte", "2439": "UNLV", "25": "California", "194": "Ohio State"}
+    rows = [{"RotoSchoolName": "UNC Charlotte", "player": "Conner Harrell", "position": "QB", "IR": "Out"},
+            {"RotoSchoolName": "UNLV", "player": "Alex Orji", "position": "QB", "IR": "Out For Season"},
+            {"RotoSchoolName": "California", "player": "Adam Mohammed", "position": "RB", "IR": "Questionable"},
+            {"RotoSchoolName": "Nowhere Tech", "player": "X", "position": "WR", "IR": "Out"}] * 6
+    got = sd.web_injuries("ncaaf", names, get=lambda u: rows)
+    assert ("Conner Harrell", "QB", "Out") in got["2429"] and "2439" in got and "25" in got and "194" not in got
+    assert sd.web_injuries("ncaaf", names, get=lambda u: rows[:3]) == {}            # thin read: not used
+    def boom(u):
+        raise OSError("blocked")
+    assert sd.web_injuries("ncaaf", names, get=boom) == {}
+    assert sd.web_injuries("nfl", names, get=lambda u: rows) == {}                  # pros keep ESPN's feed
+
+
+def test_covers_injury_page_covers_every_school():
+    """10/3, the owner: "I can get injury reports at any second from Google, and the engine needs to be able to do the
+    same." College football reads Covers' page every run: every school it lists is covered (nobody hurt included),
+    short names ('J. Dawson') still match the box-score regulars, a bare code block is never guessed."""
+    import sports_absences as sa
+    page = ["College Football Injuries", "Expand All", "Collapse All", "AF", "Status", "J. Dawson", "WR",
+            "Out - Undisclosed", "(", "Fri, Sep 25)", "Dawson has been out.",
+            "AK", "`\">", "Akron", "Status", "C. Gee", "RB", "Questionable - Undisclosed", "(", "Sat, Sep 26)", "Gee note.",
+            "AP", "`\">", "Appalachian State", "Player", "POS", "Status", "No injuries to report.",
+            "AR", "`\">", "Arizona", "Status", "C. Warren III", "RB", "Out - Knee", "(", "Sat, Sep 26)", "Warren note."]
+    t = sd.parse_team_page(page)
+    assert t == {"Akron": [("C. Gee", "RB", "Questionable")], "Appalachian State": [],
+                 "Arizona": [("C. Warren III", "RB", "Out")]}, t
+    names = {"2006": "Akron", "2026": "App State", "12": "Arizona", "9": "Arizona State"}
+    old = sd.WEB_MIN_TEAMS
+    sd.WEB_MIN_TEAMS = 3
+    try:
+        got = sd.page_injuries("ncaaf", names, get=lambda u: page)
+    finally:
+        sd.WEB_MIN_TEAMS = old
+    assert got["2006"] == [("C. Gee", "RB", "Questionable")] and got["12"] and "9" not in got, got
+    assert sd.page_injuries("ncaaf", names, get=lambda u: page[:12]) == {}          # a thin read is never 'healthy'
+    assert sa.match("J. Dawson", {"jalen dawson", "mike smith"})
+    assert not sa.match("J. Dawson", {"jalen dawson", "jay dawson"})               # two candidates = no guess
+    assert sa.match("C. Warren III", {"cameron warren"})
+    src = open("sports_data.py").read()
+    assert "if league in WEB_PAGE:" in src and "page_injuries(league, team_names(league))" in src
+    assert "sports_absences.match(r[0], reg)" in open("sports.py").read().split("def out_count")[1][:1200]
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
@@ -7717,7 +7785,7 @@ def test_college_football_stays_on():
     keep = ss._load
     ss._load = lambda: {"ncaaf": {"weak": True}, "nba": {"weak": True}}
     try:
-        assert not ss.weak("ncaaf") and ss.weak("nba")
+        assert not ss.weak("ncaaf") and not ss.weak("nba")              # (10/3: the owner turned the NBA on too)
     finally:
         ss._load = keep
 

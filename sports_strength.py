@@ -103,7 +103,8 @@ def calibrate(league, p):
     return min(0.99, max(0.01, p + b * min(1.0, (p - 0.5) / 0.07)))
 
 
-OWNER_ON = {"ncaaf"}   # the owner, 10/1: college football flipped "weak" by 0.06 pts on 463 picks after the data refill -
+OWNER_ON = {"ncaaf", "nba"}   # (10/3, the owner: "the NBA is my favorite sport and I crush NBA" - never shut out)
+# the owner, 10/1: college football flipped "weak" by 0.06 pts on 463 picks after the data refill -
 #                       "turn it back on" (not thousands of games). Never weak, whatever the study file says.
 
 

@@ -240,7 +240,7 @@ def out_count(g, side, injuries):
     import sports_absences
     reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
     if reg:
-        rows = [r for r in rows if sports_absences._nm(r[0]) in reg]
+        rows = [r for r in rows if sports_absences.match(r[0], reg)]
     return len(rows)
 
 

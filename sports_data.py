@@ -5,6 +5,7 @@ import csv
 import glob
 import json
 import os
+import re
 import threading
 import time
 import urllib.request
@@ -529,6 +530,163 @@ def covered(inj, league, team_id, team_name=""):
     return league in PRO
 
 
+WEB_INJ = {"ncaaf": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL",
+           "ncaab": "https://www.rotowire.com/cbasketball/tables/injury-report.php?team=ALL&pos=ALL"}
+WEB_MIN_ROWS = 20                     # fewer rows than this = a broken read, never 'these teams are healthy'
+WEB_ALIAS = {"unc charlotte": "charlotte", "miami fl": "miami", "miami oh": "miami oh", "southern california": "usc",
+             "louisiana state": "lsu", "texas christian": "tcu", "brigham young": "byu", "central florida": "ucf",
+             "nevada las vegas": "unlv", "southern methodist": "smu", "mississippi": "ole miss",
+             "connecticut": "uconn", "massachusetts": "umass", "texas san antonio": "utsa", "texas el paso": "utep",
+             "middle tennessee": "mtsu", "florida international": "fiu", "florida atlantic": "fau",
+             "louisiana monroe": "ul monroe", "san jose state": "san jose st", "hawaii": "hawai'i",
+             "appalachian st": "app st", "coastal carolina": "coastal", "georgia southern": "ga southern",
+             "western kentucky": "western ky", "louisiana lafayette": "louisiana", "ul lafayette": "louisiana",
+             "stephen f austin": "sf austin", "north carolina st": "nc state", "ole miss": "ole miss"}
+_DIR = {"eastern": "e", "western": "w", "northern": "n", "southern": "s", "central": "c"}   # 'Eastern Michigan' = ESPN's 'E Michigan'
+
+
+def _wn(x):
+    import unicodedata
+    x = unicodedata.normalize("NFKD", str(x or "")).encode("ascii", "ignore").decode()     # 'San José St'
+    x = x.lower().replace("&", "and").replace("(", " ").replace(")", " ").replace("-", " ").replace(".", "")
+    x = " ".join(x.replace("'", "").split())
+    return x.replace(" state", " st") if x.endswith(" state") else x
+
+
+def web_injuries(league, names, get=None):
+    """(10/3, the owner: "I can get injury reports at any second from Google, and the engine needs to be able to do the
+    same") Rotowire's college injury report - every school it lists, every player Out / Doubtful / Questionable, read
+    straight from its data feed each run. -> {ESPN team id: [(player, pos, status)]} for the schools it names (a
+    school it lists = covered with those players). `names`: {ESPN team id: team name}. {} on a broken / thin read."""
+    url = WEB_INJ.get(league)
+    if not url:
+        return {}
+    try:
+        rows = get(url) if get else json.load(urllib.request.urlopen(
+            urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/126 Safari/537.36",
+                                                 "Accept": "application/json"}), timeout=20))
+    except Exception as e:                                   # noqa: BLE001 - a missed read never blocks the board
+        print(f"   {league} web injuries: {str(e)[:100]}")
+        return {}
+    if not isinstance(rows, list) or len(rows) < WEB_MIN_ROWS:
+        print(f"   {league} web injuries: only {len(rows) if isinstance(rows, list) else 0} rows - not used")
+        return {}
+    import difflib
+    by = {}
+    for tid, nm in names.items():
+        by.setdefault(_wn(nm), tid)
+    keys = list(by)
+    out, miss = {}, set()
+    for r in rows:
+        school = _wn(r.get("RotoSchoolName") or r.get("team"))
+        school = WEB_ALIAS.get(school, school)
+        tid = by.get(school) or by.get(_wn(school))
+        if tid is None:
+            m = difflib.get_close_matches(school, keys, n=1, cutoff=0.9)
+            tid = by[m[0]] if m else None
+        if tid is None:
+            miss.add(school)
+            continue
+        status = str(r.get("IR") or r.get("status") or "").strip()
+        if status:
+            out.setdefault(str(tid), []).append((r.get("player") or "", r.get("position") or "", status))
+    print(f"   {league} web injuries: {len(rows)} players, {len(out)} schools matched, {len(miss)} unmatched"
+          + (f" ({', '.join(sorted(miss)[:6])})" if miss else ""))
+    return out
+
+
+WEB_PAGE = {"ncaaf": "https://www.covers.com/sport/football/ncaaf/injuries"}   # every school on one page, the
+#                                       ones with nobody hurt included ("No injuries to report.") - Rotowire's college
+#                                       football feed only carries a handful of rows (7 on 10/3), so football reads this
+WEB_MIN_TEAMS = 20                     # fewer schools than this = a broken read, never 'these teams are healthy'
+_STATUS = re.compile(r"^(Out|Doubtful|Questionable|Probable|Day-To-Day|Suspended|Injured Reserve)\b[^-]*?(?: - |$)", re.I)
+
+
+def _page_lines(url):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("fp", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py"))
+    fp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fp)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/126 Safari/537.36"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        return fp.text_of(r.read().decode("utf-8", "replace"))
+
+
+def parse_team_page(lines):
+    """Covers' injury page (as text lines) -> {school: [(player, pos, status)]}: a school's block starts at its
+    'Status' header (the school name just above it, or above 'Player' / 'POS'), then player / position / 'Out -
+    Undisclosed' rows; 'No injuries to report.' = listed, nobody hurt. A block with no school name (a bare code like
+    'AF') is skipped - never guessed."""
+    out, cur = {}, None
+    for i, x in enumerate(lines):
+        if x == "Status":
+            j = i - 3 if i >= 3 and lines[i - 1] == "POS" and lines[i - 2] == "Player" else i - 1
+            nm = lines[j] if j >= 0 else ""
+            cur = None if (re.fullmatch(r"[A-Z]{1,4}", nm) or not re.search(r"[a-z]", nm)) else nm
+            if cur:
+                out.setdefault(cur, [])
+            continue
+        if cur and i >= 2 and _STATUS.match(x) and re.fullmatch(r"[A-Z]{1,4}", lines[i - 1]) \
+                and re.match(r"^[A-Z][a-zA-Z'.]*\.? [A-Z]", lines[i - 2]):
+            out[cur].append((lines[i - 2], lines[i - 1], x.split(" - ")[0].strip()))
+    return out
+
+
+def page_injuries(league, names, get=None):
+    """(10/3, the owner: "I can get injury reports at any second from Google, and the engine needs to be able to do the
+    same") The public college injury page (WEB_PAGE) read every run -> {ESPN team id: [(player, pos, status)]} for
+    every school it names (listed = covered, an empty list = nobody hurt). {} on a broken / thin read."""
+    url = WEB_PAGE.get(league)
+    if not url:
+        return {}
+    try:
+        teams = parse_team_page(get(url) if get else _page_lines(url))
+    except Exception as e:                                   # noqa: BLE001 - a missed read never blocks the board
+        print(f"   {league} injury page: {str(e)[:100]}")
+        return {}
+    if len(teams) < WEB_MIN_TEAMS:
+        print(f"   {league} injury page: only {len(teams)} schools - not used")
+        return {}
+    import difflib
+    by = {}
+    for tid, nm in names.items():
+        by.setdefault(_wn(nm), tid)
+    keys = list(by)
+    out, miss = {}, set()
+    for school, rows in teams.items():
+        w = _wn(school)
+        short = " ".join(_DIR.get(p, p) if n == 0 else p for n, p in enumerate(w.split()))
+        tid = next((by[c] for c in (WEB_ALIAS.get(w), w, short) if c in by), None)
+        if tid is None:
+            m = difflib.get_close_matches(w, keys, n=1, cutoff=0.9)
+            tid = by[m[0]] if m else None
+        if tid is None:
+            miss.add(w)
+            continue
+        out.setdefault(str(tid), []).extend(rows)
+    print(f"   {league} injury page: {len(teams)} schools ({sum(map(len, teams.values()))} players), {len(out)} matched,"
+          f" {len(miss)} unmatched" + (f" ({', '.join(sorted(miss)[:6])})" if miss else ""))
+    return out
+
+
+_NAMES = {}
+
+
+def team_names(league):
+    """{ESPN team id: team name} for a league, from our games (once per run)."""
+    if league not in _NAMES:
+        nm = {}
+        try:
+            for g in load_games(league).values():
+                for s in ("home", "away"):
+                    if g.get(s) and g.get(s + "_name"):
+                        nm[str(g[s])] = g[s + "_name"]
+        except Exception:                                    # noqa: BLE001
+            pass
+        _NAMES[league] = nm
+    return _NAMES[league]
+
+
 def fetch_injuries(league):
     """{team id or name: [(player, position, status)]} for players listed Out / Doubtful - ESPN's feed plus the
     official availability reports we keep (injuries_official.json). None = we DON'T KNOW (the board waits on it)."""
@@ -538,6 +696,12 @@ def fetch_injuries(league):
     if league in PRO and not got:                        # (10/3 sweep) a pro feed that came back EMPTY isn't "every team
         return None                                      # healthy" - covered() reads a missing pro team as nobody hurt,
     #                                                      so a blank feed would have cleared every team to be picked blind
+    if league in WEB_INJ:                                # college: Rotowire's report fills every school it lists
+        for tid, rows in web_injuries(league, team_names(league)).items():   # (ESPN's college feed: ~3 teams)
+            got.setdefault(tid, list(rows))
+    if league in WEB_PAGE:                               # college football: Covers' page - every school, healthy ones too
+        for tid, rows in page_injuries(league, team_names(league)).items():
+            got.setdefault(tid, list(rows))
     for tid, rows in official(league).items():
         named = {_plain(r[0]) for r in rows}             # the official report is the full game-status list for that
         long = [r for r in got.get(tid) or [] if any(s in str(r[2]).lower() for s in LONG_OUT)   # team; ESPN's long-term
