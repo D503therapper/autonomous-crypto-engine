@@ -1,28 +1,38 @@
 {
- "at": "2026-10-03T07:25Z",
- "fixes": [],
+ "at": "2026-10-03T08:02Z",
+ "fixes": [
+  "engine 84 min since its last run - started sports.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Falei vs Maneiro: no points for 580s"
+  "engine last started 84 min ago (GitHub skipped its hourly runs) - restarted"
  ],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (33s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 5 live matches",
+  "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 9 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
+  "studies ran 3h ago",
   "simulator ran 2h ago",
-  "engine ran 48 min ago",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-03T08:02Z",
+   "fixes": [
+    "engine 84 min since its last run - started sports.yml"
+   ],
+   "problems": [
+    "engine last started 84 min ago (GitHub skipped its hourly runs) - restarted"
+   ]
+  },
   {
    "at": "2026-10-03T07:25Z",
    "fixes": [],
@@ -608,15 +618,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 227s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
-  },
-  {
-   "at": "2026-09-30T18:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Stefanini vs Buyukakcay: no points for 625s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
