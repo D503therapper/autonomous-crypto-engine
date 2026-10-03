@@ -215,6 +215,10 @@ def hurt(g, side, injuries):
     inj = (injuries or {}).get(g["league"])
     rows = sd._team_rows(inj, g[side], g[side + "_name"])
     rows = [r for r in rows if not sd._is_key(r, g["league"], g[side + "_name"])]   # (key players are weighed already)
+    import sports_absences
+    reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
+    if reg:                                                  # football: only players who actually play count (10/3 -
+        rows = [r for r in rows if sports_absences._nm(r[0]) in reg]   # a college report lists walk-ons and redshirts)
     gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM) and "season" not in r[2].lower()]
     unsure = [r[0] for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
     return gone + unsure if len(gone) >= HURT_OUT or len(unsure) >= HURT_UNSURE else []
@@ -2209,7 +2213,28 @@ SLATE_LAST_TRY = (8, 30)       # the 8 AM post holds while the slate check finds
                                # 8:12 and 8:32); from 8:30 PT it posts what checks out and flags the rest loudly
 
 
-def slate_check(games, cands, day, now, errors=None):
+_ELO = {}
+
+
+def skipped_why(g, now, games, model):
+    """Why candidates() left a priced game out ON PURPOSE ('' = it shouldn't have: a real miss that holds the board):
+    it starts too soon to post, or the model knows too little about a team (an FCS / Ivy school with few games)."""
+    st = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    if st < now + timedelta(minutes=MIN_LEAD_MIN):
+        return "starts too soon to post"
+    if model is None:
+        return ""
+    if _ELO.get("ref") is not games:
+        _ELO.update(ref=games, elo=sm.ratings(games, model))
+    try:
+        if _ELO["elo"][g["league"]].features(g)["known"] < MIN_KNOWN:
+            return "the engine knows too little about a team (few games in our data) - skipped on purpose"
+    except Exception:                                        # noqa: BLE001 - unknown = a real miss, it holds
+        return ""
+    return ""
+
+
+def slate_check(games, cands, day, now, errors=None, model=None):
     """🔎 Before the board goes up (the owner, 9/30: "it can't be missing no games and no bugs"): every real game on
     the day's slate has both teams named (9/29: a 'TBD' playoff placeholder hid White Sox @ Astros), a price, and was
     looked at by the engine; and the run's data pulls didn't fail. Writes data/sports/slate_check.json.
@@ -2232,6 +2257,10 @@ def slate_check(games, cands, day, now, errors=None):
                 continue                                 # college Saturday's 8 AM board till 8:30)
             probs.append(f"{name}: no price from the books")
         elif g["id"] not in seen:
+            why = skipped_why(g, now, games, model)      # (10/3: ten FCS / Ivy games the model barely knows - skipped on
+            if why:                                      # purpose - held Saturday's 8 AM board till 8:47)
+                print(f"SLATE CHECK (not held): {name}: {why}", flush=True)
+                continue
             probs.append(f"{name}: priced but the engine never looked at it")
     days = (day.isoformat(), (day - timedelta(days=1)).isoformat())   # (10/1 audit: the real messages are "nfl
     bad = [e for e in (errors if errors is not None else sd.ERRORS)   # 2026-10-01: HTTP Error 500" - the old word
@@ -2613,7 +2642,7 @@ def preflight(games, model, now):
     check flags it) before 8."""
     day = now.astimezone(PT).date()
     try:
-        return slate_check(games, candidates(games, model, now, day, {}), day, now)
+        return slate_check(games, candidates(games, model, now, day, {}), day, now, model=model)
     except Exception as e:                                   # noqa: BLE001 - the check itself breaking is a problem
         return [f"the slate check crashed: {str(e)[:80]}"]
 
@@ -2679,7 +2708,7 @@ def post_board(games, model, picks, now, day, force=False):
     opening = not any(p["date"] == iso and p["status"] != "waiting" for p in picks)
     if opening and not force:                                # 🔎 the opening board: nothing missed, nothing broken
         gaps = data_gaps(games, all_cands, now)               # (10/2: the checks read every side we looked at -
-        probs = slate_check(games, raw_cands, day, now) + factor_check(games, raw_cands, injuries, day, now, model) + \
+        probs = slate_check(games, raw_cands, day, now, model=model) + factor_check(games, raw_cands, injuries, day, now, model) + \
             checker_selftest() + \
             [f"data gap - {x}" for x in gaps.values() if "no result" in x]   # (a re-pull fixes a missing result;
                                                                                  # a small school's gap just gets no pick)

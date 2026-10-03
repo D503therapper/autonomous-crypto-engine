@@ -77,6 +77,39 @@ def key_players(games, league, team, before):
     return {"top": top("pts", 3)}
 
 
+REGULARS = {"pass": 1, "rush": 2, "rec": 4, "tkl": 11}   # football: who actually plays (QB, 2 backs, 4 catchers, 11 tacklers)
+
+
+def regulars(games, league, team, before):
+    """Football players who actually play for this team (its last 3 real games' box scores): the QB, the top 2 ball
+    carriers, top 4 pass catchers, top 11 tacklers - normalized names. None = no box scores (the old rule stays).
+    (10/3, the owner: Saturday's board had NO college picks - college availability reports list backup linemen,
+    redshirts and walk-ons, so nearly every team tripped '2+ out'. Only players who play count now.)"""
+    if league not in ("nfl", "ncaaf"):
+        return None
+    real = [(s, gid, rs) for s, gid, rs in _games(league).get(str(team), [])
+            if s < before and str(((games or {}).get(gid) or {}).get("stype") or "2") in sd.REAL]
+    last = real[-WINDOW[league]:]
+    tot = {}
+    for _, _, rs in last:
+        for r in rs:
+            try:
+                st = json.loads(r.get("stats") or "{}")
+            except ValueError:
+                continue
+            t = tot.setdefault(r["player"], {})
+            t["pass"] = t.get("pass", 0) + _num(st.get("completions/passingAttempts"))
+            t["rush"] = t.get("rush", 0) + _num(st.get("rushingAttempts"))
+            t["rec"] = t.get("rec", 0) + _num(st.get("receptions"))
+            t["tkl"] = t.get("tkl", 0) + _num(st.get("totalTackles"))
+    if not tot:
+        return None
+    out = set()
+    for k, n in REGULARS.items():
+        out |= {_nm(p) for p, v in sorted(tot.items(), key=lambda x: -x[1].get(k, 0))[:n] if v.get(k, 0) > 0}
+    return out
+
+
 def _gone(status):
     s = str(status).lower()
     return any(x in s for x in sd.SHORT_TERM) or "suspen" in s

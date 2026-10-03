@@ -1,37 +1,50 @@
 {
- "at": "2026-10-03T15:47Z",
+ "at": "2026-10-03T17:18Z",
  "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running",
-  "simulator overdue (10h) - started sports_sims.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Jeanjean vs Ruzic: no points for 2643s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "slate check: Brown @ Rhode Island (NCAAF): priced but the engine never looked at it",
-  "slate check: Princeton @ Columbia (NCAAF): priced but the engine never looked at it",
-  "slate check: Merrimack @ Yale (NCAAF): priced but the engine never looked at it",
-  "slate check: Cornell @ Georgetown (NCAAF): priced but the engine never looked at it",
-  "slate check: Dayton @ Drake (NCAAF): priced but the engine never looked at it",
-  "slate check: Marist @ Stetson (NCAAF): priced but the engine never looked at it",
-  "simulator last ran 10h ago - restarted"
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+  "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+  "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+  "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+  "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+  "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
  ],
  "ok": [
-  "live watcher fresh (55s)",
+  "live watcher fresh (66s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 2 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "engine ran 2 min ago",
-  "tennis slate on time"
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 0 min ago",
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-03T17:18Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-10-03T15:47Z",
    "fixes": [
@@ -637,11 +650,6 @@
    "problems": [
     "live tennis scores: tennis Lehecka vs Bergs: no points for 612s"
    ]
-  },
-  {
-   "at": "2026-10-01T04:40Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
