@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T21:40Z",
+ "updated": "2026-10-03T21:54Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -519,8 +519,8 @@
    "away": "Norfolk St",
    "home": "Robert Morris",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -534,8 +534,8 @@
    "away": "The Citadel",
    "home": "SC State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1129,7 +1129,7 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
+    "odds": -194,
     "p": 0.616,
     "win_p": 0.432,
     "reasons": []
@@ -1590,8 +1590,8 @@
     "team": "UTSA",
     "opp": "Rice",
     "market": "spread",
-    "line": -11.5,
-    "odds": -115,
+    "line": -12.5,
+    "odds": -105,
     "p": 0.501,
     "win_p": 0.8,
     "reasons": [
@@ -2112,7 +2112,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Washington St",
-    "p": 0.484,
+    "p": 0.487,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2128,10 +2128,12 @@
     "opp": "Fresno St",
     "market": "ml",
     "line": null,
-    "odds": -122,
-    "p": 0.501,
-    "win_p": 0.501,
-    "reasons": []
+    "odds": -130,
+    "p": 0.504,
+    "win_p": 0.504,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
