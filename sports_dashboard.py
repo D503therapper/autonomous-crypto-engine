@@ -331,6 +331,35 @@ def _units_txt(u):
     return "½ UNIT" if u == 0.5 else f"{n} UNIT" + ("" if u == 1 else "S")
 
 
+UNIT_REC = {}
+
+
+def unit_record(picks, today=None, early=None):
+    """💰 THE UNIT PLAYS RECORD (the owner, 10/2: "the unit plays need to be a separate record from the overall record -
+    people get the wrong impression if they look at the overall record and it's shit, and our ROI is way up because our
+    unit plays are hitting"): only the bets with units on them - W-L, units won, ROI. The overall record (leans
+    included) stays right under it."""
+    import sports
+    import sports_early
+    early = (sports_early.load().get("picks") or []) if early is None else early
+    rows = [r for r in sports.units_ledger(picks, early)["rows"] if r[1] > 0]
+    UNIT_REC.clear()
+    if not rows:
+        return ""
+    w, l = sum(r[2] > 0 for r in rows), sum(r[2] < 0 for r in rows)
+    pu = len(rows) - w - l
+    net, bet = sum(r[2] for r in rows), sum(r[1] for r in rows)
+    today = today or datetime.now(sports.PT).strftime("%Y-%m-%d")
+    tr = [r for r in rows if r[0]["date"] == today]
+    tw, tl = sum(r[2] > 0 for r in tr), sum(r[2] < 0 for r in tr)
+    rec = f"{w}-{l}" + (f"-{pu}" if pu else "")
+    UNIT_REC["text"] = f"{rec}, {net:+.1f} units, ROI {net / bet:+.0%}"
+    return (f'<div class="ovr ovu"><div class="ovr-t">💰 UNIT PLAYS RECORD</div><div class="ovr-r">{rec}</div>'
+            f'<div class="ovr-p {"up" if net >= 0 else "dn"}">{"+" if net >= 0 else "-"}{abs(net):.1f} UNITS · ROI {net / bet:+.0%}</div>'
+            f'<div class="ovr-s ovw">The good bets we put money on</div>'
+            + (f'<div class="ovr-s">today {tw}-{tl}</div>' if tw + tl else "") + '</div>')
+
+
 def units_box(picks, today=None):
     """💰 The open bankroll (the owner + Ricky, 9/30: measure it like money, not just W-L; everything transparent): $1,000
     to start, a unit = 1% of the bankroll that morning, every graded pick at its size and price. Said in plain dollars +
@@ -1595,18 +1624,26 @@ def render(picks, model, games, series, start_bank, updated_ms):
     ol = sum(r == "lost" for _, r, _ in ours)
     tw = sum(r == "won" for _, r, d in ours if d == today)
     tl = sum(r == "lost" for _, r, d in ours if d == today)
-    overall = (f'<div class="ovr"><div class="ovr-t">📊 OVERALL RECORD</div><div class="ovr-r">{ow}-{ol}</div>'
-               f'<div class="ovr-p">{f"{ow} won · {ol} lost · {ow / (ow + ol):.0%}" if ow + ol else "no results yet"}</div>'
-               f'{f"<div class=ovr-s>today {tw}-{tl}</div>" if tw + tl else ""}</div>')
+    leans_ = [(r, d) for t, r, d in ours if t == "lean"]     # (the owner, 10/2: no overall record - two records: the
+    lw = sum(r == "won" for r, _ in leans_)                  #  bets with units, and the leans, the only picks without)
+    ll = sum(r == "lost" for r, _ in leans_)
+    ltw = sum(r == "won" for r, d in leans_ if d == today)
+    ltl = sum(r == "lost" for r, d in leans_ if d == today)
+    pct_ = f" · {lw / (lw + ll):.0%}" if lw + ll and lw / (lw + ll) * 100 > SHOW_PCT_OVER else ""
+    overall = unit_record(picks, today) + (
+        f'<div class="ovr ovl"><div class="ovr-t">🟡 LEANS RECORD</div><div class="ovr-r">{lw}-{ll}</div>'
+        f'<div class="ovr-p">{f"{lw} won · {ll} lost{pct_}" if lw + ll else "no results yet"}</div>'
+        f'<div class="ovr-s ovw">no units on these - just our lean</div>'
+        f'{f"<div class=ovr-s>today {ltw}-{ltl}</div>" if ltw + ltl else ""}</div>') if leans_ else unit_record(picks, today)
     overall += units_box(picks, today) if UNITS_ON else ""
     lrs = sorted((e for e in live.values() if e.get("result") in ("won", "lost")), key=lambda e: e.get("posted", ""))
     RECORDS.clear()                                          # the same numbers the page shows, for the AI's data sheet
     def wlt(w, l):
         return f"{w}-{l}"
-    RECORDS.update({"overall": wlt(ow, ol), "today": wlt(tw, tl),
+    RECORDS.update({"unit plays (the bets with units on them - Locks, Dogs, value plays, early plays)": UNIT_REC.get("text", "none yet"),
+                    "leans (no units - their own record)": wlt(lw, ll), "today (every pick, leans in)": wlt(tw, tl),
                     "locks": wlt(sum(r == "won" for r, _ in by_tier["lock"]), sum(r == "lost" for r, _ in by_tier["lock"])),
                     "value": wlt(sum(r == "won" for r, _ in by_tier["value"]), sum(r == "lost" for r, _ in by_tier["value"])),
-                    "leans (in our record, marked 🟡)": wlt(sum(r == "won" for r, _ in by_tier["lean"]), sum(r == "lost" for r, _ in by_tier["lean"])),
                     "live plus money (own record, not ours)": wlt(sum(e["result"] == "won" for e in lrs), sum(e["result"] == "lost" for e in lrs))})
     grades = "".join(grade(*TIER_LOOK[t], [r for r, _ in by_tier[t]], [r for r, d in by_tier[t] if d == today])
                      for t in ("lock", "value"))
@@ -2031,6 +2068,10 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 .ovr{{text-align:center;background:linear-gradient(160deg,rgba(34,227,154,.14),rgba(255,194,51,.10));border:1px solid rgba(34,227,154,.45);border-radius:16px;padding:14px 12px;margin:10px 0 12px}}
 .ovr-t{{font-size:13px;font-weight:900;letter-spacing:.12em;color:#22e39a}} .ovr-r{{font-size:46px;font-weight:900;line-height:1.1}}
 .ovr-p{{font-size:15px;font-weight:800;color:#ffc233}} .ovr-s{{font-size:13px;font-weight:700;color:#22d3ee;margin-top:2px}}
+.ovu{{border-color:rgba(255,194,51,.6);background:linear-gradient(160deg,rgba(255,194,51,.16),rgba(34,227,154,.10))}}
+.ovu .ovr-p.up{{color:#22e39a}} .ovu .ovr-p.dn{{color:#ff5c5c}}
+.ovl{{border-color:rgba(255,210,63,.45);background:linear-gradient(160deg,rgba(255,210,63,.10),rgba(34,211,238,.08))}}
+.ovu .ovr-t,.ovl .ovr-t{{color:#fff;font-weight:900}} .ovr-s.ovw{{color:#fff;font-weight:900}}
 .sp-n.what{{color:#fff;font-weight:700;line-height:1.5}} .sp-n.what b{{color:#22e39a}}
 .pill{{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;padding:5px 11px;border-radius:999px;
   background:color-mix(in srgb,var(--p) 16%,transparent);color:var(--p);font-variant-numeric:tabular-nums}}
@@ -2108,7 +2149,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>Our record:</b> every lock, the Dog of the Day, every value pick and every 🟡 lean. Live plus money and tennis keep their own. Question box reads don’t go in it. Every W, every L, right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>Two records:</b> 💰 the unit plays (every Lock, Dog of the Day, value play and early play - the bets with units on them) and 🟡 the leans (no units). Live plus money and tennis keep their own. Question box reads don’t count. Every W, every L, right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>

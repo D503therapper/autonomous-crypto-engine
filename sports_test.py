@@ -4087,7 +4087,7 @@ def test_what_counts_says_all_locks():
     audit: it also said leans keep their own record - they COUNT in ours (marked 🟡) - and 'what counts' is a NEVER
     phrase. The leans box sits with our records, never under 'not in our record'."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
-    assert "<b>Our record:</b> every lock, the Dog of the Day, every value pick and every 🟡 lean" in src
+    assert "<b>Two records:</b> 💰 the unit plays (every Lock, Dog of the Day, value play and early play" in src   # (10/2: no overall)
     assert "What counts" not in src and "leans (own record, not ours)" not in src
     i = src.index("# their own categories, never in our record")
     assert 'TIER_LOOK["lean"]' not in src[i:i + 900]
@@ -6353,6 +6353,25 @@ def test_brain_rough_day_but_green():
     assert D.green_day(picks, "2026-10-02", 0, 4, 0, early=[]) == ""        # the money plays lost: no green line
     picks[0]["status"], picks[0]["legs"][0]["result"] = "open", None
     assert D.green_day(picks, "2026-10-02", 0, 3, 0, early=[]) == ""        # the Dog still playing: not yet
+
+
+def test_two_records_unit_plays_and_leans():
+    """10/2 (the owner): no overall record - "people get the wrong impression if they look at the overall record and
+    it's shit". Two records: 💰 the unit plays (every Lock / Dog / value play / early play - "the good bets we put
+    money on": W-L, units, ROI) and 🟡 the leans (the only picks without units)."""
+    import sports_dashboard as D
+    leg = lambda team, odds, res: {"team": team, "odds": odds, "result": res, "league": "nhl", "game_id": team,
+                                   "side": "home", "market": "ml", "start": "2026-10-02T23:00Z", "p": 0.5}
+    pk = lambda kind, team, odds, res, lean: {"date": "2026-10-02", "kind": kind, "status": res, "lean": lean,
+                                               "american": odds, "dec": 1 + (odds / 100 if odds > 0 else 100 / -odds),
+                                               "legs": [leg(team, odds, res)], "units": 0 if lean else 1.0, "stake": 100,
+                                               "posted": "2026-10-02T15:00Z", "settled": "2026-10-03T03:00Z"}
+    picks = [pk("dog", "Blues", 154, "won", False), pk("lean", "Jets", -122, "lost", True)]
+    h = D.unit_record(picks, "2026-10-02", early=[])
+    assert "UNIT PLAYS RECORD" in h and ">1-0<" in h and "+1.5 UNITS" in h and "The good bets we put money on" in h
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
+    assert "OVERALL RECORD" not in src and "OVERALL · LEANS" not in src and "🟡 LEANS RECORD" in src
+    assert ".ovu .ovr-t,.ovl .ovr-t{{color:#fff;font-weight:900}}" in src and src.count('class="ovr-s ovw"') == 2   # bold white
 
 
 def test_patty_challenge_removed():
