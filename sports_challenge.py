@@ -19,6 +19,8 @@ from datetime import datetime, timezone
 
 import sports_data as sd
 
+ON = False                     # (the owner, 10/3: "remove the Patty vs the Algorithm challenge off the dashboard" - it
+#                                finished 10/2; its record stays in challenge.json)
 PATH = os.path.join(sd.DATA, "challenge.json")
 PREMATCH = os.path.join(sd.DATA, "tennis", "prematch.json")
 WIN_P = 0.5                    # every algorithm pick is a player the engine has winning (50%+) - plus money only when

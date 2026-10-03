@@ -1447,7 +1447,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     hist = _history(picks)                                  # (first: it writes the reviews the graded cards show)
     try:                                                     # 🥊 a friend's ticket vs the engine's (the owner, 9/30)
         import sports_challenge as sch
-        challenge = sch.html(sch._load(), E)
+        challenge = sch.html(sch._load(), E) if sch.ON else ""
     except Exception as e:                                   # noqa: BLE001 - the page never waits on it
         print(f"challenge box failed: {e}")
         challenge = ""

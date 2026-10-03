@@ -6418,6 +6418,15 @@ def test_question_box_knows_no_forced_lock():
     assert "what it would have been" in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_dashboard.py")).read()
 
 
+def test_patty_challenge_off_the_dashboard():
+    """10/3 (the owner): the Patty vs the Algorithm box comes off the dashboard and stops updating (its record stays)."""
+    import sports_challenge as ch
+    here = os.path.dirname(os.path.abspath(__file__))
+    assert ch.ON is False
+    assert 'sch.html(sch._load(), E) if sch.ON else ""' in open(os.path.join(here, "sports_dashboard.py")).read()
+    assert "if sports_challenge.ON:" in open(os.path.join(here, "sports.py")).read()
+
+
 def test_lock_miss_names_the_closest_pick():
     """10/2 (the owner): no Lock posted -> the engine saves what the Lock would have been and why it fell short (Virginia
     Tech -130), for the question box. It never touches the candidates (no near_price flag left behind)."""

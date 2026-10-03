@@ -3374,7 +3374,8 @@ def run(repick=False, fetch=True):
         sports_tennis.run(state, now, fetch=fetch)
         try:                                                 # 🥊 Patty vs the algorithm: fresh prices / picks
             import sports_challenge
-            sports_challenge.update()
+            if sports_challenge.ON:
+                sports_challenge.update()
         except Exception as e:                               # noqa: BLE001
             print(f"challenge update failed: {e}")
     except Exception as e:                                              # noqa: BLE001
