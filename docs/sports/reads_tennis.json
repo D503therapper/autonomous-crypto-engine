@@ -1,38 +1,12 @@
 {
- "updated": "2026-10-03T04:22Z",
+ "updated": "2026-10-03T05:47Z",
  "games": [
-  {
-   "id": "tennis:atp:183444",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-03T05:00Z",
-   "away": "Andrey Rublev",
-   "home": "Roman Safiullin",
-   "vs": true,
-   "why": "on_board",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Andrey Rublev",
-    "opp": "Roman Safiullin",
-    "market": "ml",
-    "line": null,
-    "odds": -145,
-    "p": 0.566,
-    "win_p": 0.566,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
   {
    "id": "tennis:wta:184319",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-03T05:00Z",
+   "start": "2026-10-03T06:10Z",
    "away": "Iga Swiatek",
    "home": "Gao Xinyu",
    "vs": true,
@@ -47,84 +21,6 @@
     "odds": -115,
     "p": 0.5,
     "win_p": 0.958,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184314",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-03T06:00Z",
-   "away": "Leylah Fernandez",
-   "home": "Kamilla Rakhimova",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Leylah Fernandez",
-    "opp": "Kamilla Rakhimova",
-    "market": "spread",
-    "line": -4.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.745,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184315",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-03T06:00Z",
-   "away": "Harriet Dart",
-   "home": "Iva Jovic",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Harriet Dart",
-    "opp": "Iva Jovic",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.123,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184324",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-03T06:30Z",
-   "away": "Zheng Qinwen",
-   "home": "Anna Kalinskaya",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Zheng Qinwen",
-    "opp": "Anna Kalinskaya",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
     "reasons": [
      "on hard court",
      "China Open"
@@ -158,6 +54,32 @@
    }
   },
   {
+   "id": "tennis:wta:184314",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-03T06:45Z",
+   "away": "Leylah Fernandez",
+   "home": "Kamilla Rakhimova",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Leylah Fernandez",
+    "opp": "Kamilla Rakhimova",
+    "market": "spread",
+    "line": -4.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.745,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
    "id": "tennis:atp:183507",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
@@ -184,25 +106,51 @@
    }
   },
   {
-   "id": "tennis:wta:184321",
+   "id": "tennis:wta:184315",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-03T07:30Z",
-   "away": "Marie Bouzkova",
-   "home": "Kimberly Birrell",
+   "start": "2026-10-03T07:40Z",
+   "away": "Harriet Dart",
+   "home": "Iva Jovic",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Harriet Dart",
+    "opp": "Iva Jovic",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.123,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:184324",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-03T07:40Z",
+   "away": "Zheng Qinwen",
+   "home": "Anna Kalinskaya",
    "vs": true,
    "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Marie Bouzkova",
-    "opp": "Kimberly Birrell",
+    "team": "Zheng Qinwen",
+    "opp": "Anna Kalinskaya",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "on hard court",
      "China Open"
@@ -255,6 +203,32 @@
     "odds": -130,
     "p": 0.531,
     "win_p": 0.173,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:184321",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-03T09:10Z",
+   "away": "Marie Bouzkova",
+   "home": "Kimberly Birrell",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Marie Bouzkova",
+    "opp": "Kimberly Birrell",
+    "market": "ml",
+    "line": null,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
      "on hard court",
      "China Open"
