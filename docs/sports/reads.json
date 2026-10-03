@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T02:34Z",
+ "updated": "2026-10-03T02:41Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -183,12 +183,27 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401868094",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T02:30Z",
+   "away": "Montana St",
+   "home": "Idaho",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401862787",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Memphis",
-    "p": 0.894,
+    "p": 0.893,
     "tie": 0.015,
     "name": "1st half"
    },
@@ -315,8 +330,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kansas",
-    "p": 0.843,
-    "tie": 0.019,
+    "p": 0.837,
+    "tie": 0.02,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -330,10 +345,10 @@
     "team": "Kansas",
     "opp": "MTSU",
     "market": "spread",
-    "line": -20.5,
+    "line": -19.5,
     "odds": -112,
     "p": 0.504,
-    "win_p": 0.899,
+    "win_p": 0.893,
     "reasons": [
      "the stronger team",
      "better rested"
@@ -1001,7 +1016,7 @@
     "opp": "Ball State",
     "market": "spread",
     "line": -21.0,
-    "odds": -110,
+    "odds": -112,
     "p": 0.504,
     "win_p": 0.899,
     "reasons": [
@@ -1452,7 +1467,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.6,
+    "p": 0.601,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -2105,7 +2120,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Gardner-Webb",
-    "p": 0.706,
+    "p": 0.707,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -2874,7 +2889,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Florida",
-    "p": 0.636,
+    "p": 0.637,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2891,8 +2906,8 @@
     "market": "ml",
     "line": null,
     "odds": -230,
-    "p": 0.682,
-    "win_p": 0.682,
+    "p": 0.683,
+    "win_p": 0.683,
     "reasons": [
      "the stronger team",
      "hotter recent form"
