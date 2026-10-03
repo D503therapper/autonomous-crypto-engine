@@ -214,12 +214,17 @@ def hurt(g, side, injuries):
     team's results, so they don't count."""
     inj = (injuries or {}).get(g["league"])
     rows = sd._team_rows(inj, g[side], g[side + "_name"])
-    rows = [r for r in rows if not sd._is_key(r, g["league"], g[side + "_name"])]   # (key players are weighed already)
+    if g["league"] != "nba":                                 # (key players are weighed already - hoops has no key
+        rows = [r for r in rows if not sd._is_key(r, g["league"], g[side + "_name"])]   # position: the 10/3 sweep found
+    #   _is_key read EVERY NBA player as key, so an NBA side with 3 out and 4 day-to-day never lost its units)
     import sports_absences
     reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
-    if reg:                                                  # football: only players who actually play count (10/3 -
-        rows = [r for r in rows if sports_absences._nm(r[0]) in reg]   # a college report lists walk-ons and redshirts)
-    gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM) and "season" not in r[2].lower()]
+    if reg:                                                  # football / hoops: only players who actually play count
+        rows = [r for r in rows if sports_absences.match(r[0], reg)]   # (10/3 - a college report lists walk-ons and
+        #   redshirts); a regular ruled out long-term (injured reserve, out for the season) just PLAYED - a fresh hole
+        gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM + sd.LONG_OUT)]
+    else:
+        gone = [r[0] for r in rows if any(x in r[2].lower() for x in sd.SHORT_TERM) and "season" not in r[2].lower()]
     unsure = [r[0] for r in rows if any(x in r[2].lower() for x in sd.UNSURE)]
     return gone + unsure if len(gone) >= HURT_OUT or len(unsure) >= HURT_UNSURE else []
 
@@ -1439,8 +1444,9 @@ def units_ledger(picks, early=()):
             dec = _dec(l["odds"]) if l.get("odds") else p.get("dec") or 2.0
             if not leg_units(p, l):
                 continue                                     # a lean: no units, not in the bankroll
-            calls[key] = (parlay, {**p, "kind": "pick" if parlay else p.get("kind"), "units_tier": units_tier(p, l)},
-                          leg_units(p, l), res, dec,
+            calls[key] = (parlay, {**p, "kind": "pick" if parlay else p.get("kind"), "units_tier": units_tier(p, l),
+                                   **({"legs": [l], "american": l.get("odds")} if parlay else {})},   # (a parlay leg's row
+                          leg_units(p, l), res, dec,                                  # is THAT pick: its team, its price)
                           p.get("settled") or p.get("posted") or "")
     import sports_early                                  # ⏰ early value plays: the price we got in at, sized by the engine's
     for e in early or ():                                # edge - one count per pick (the early one, when it's on the board too)
@@ -2092,13 +2098,18 @@ def lean(cands, kind, taken=None, floor=None):
 # ---------------------------------------------------------------- grading
 def grade_leg(leg, g, now):
     """won / lost / push / void, or None while the game isn't over."""
-    if g is None:
-        return None
+    def stale():                                             # 4 days past the start and still no final: void
+        if not leg.get("start"):
+            return None
+        start = datetime.strptime(leg["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+        return "void" if now - start > timedelta(days=4) else None
+    if g is None:                                            # the game's gone from our data (an id change, a wiped file):
+        return stale()                                       # 4 days, then void - never open forever (10/3 sweep: it kept
+        #                                                      TODAY'S RESULTS and the board day stuck on it)
     if g["status"] == "void":
         return "void"
     if g["status"] != "final" or g["home_score"] == "":
-        start = datetime.strptime(leg["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
-        return "void" if now - start > timedelta(days=4) else None
+        return stale()
     hs, as_ = int(g["home_score"]), int(g["away_score"])
     if leg["market"] == "total":                              # over/under: total points vs the line
         d = (hs + as_ - leg["line"]) * (1 if leg["side"] == "over" else -1)
@@ -2191,7 +2202,25 @@ def grade(picks, games, now=None):
         except Exception as e:                               # noqa: BLE001 - grading never fails over the freeze
             print(f"units freeze failed: {str(e)[:80]}")
         settled.append(pk)
+    freeze_units(picks)
     return settled
+
+
+def freeze_units(picks):
+    """Every graded pick (and every graded leg of a parlay) carries the units it was graded at, forever - whether it was
+    graded before the freeze existed (9/27-9/30) or on a busted parlay's other legs (graded after the ticket lost, which
+    the freeze above never reached). 10/3 sweep: those rows were still re-sized by every code change (the 10/1 audit had
+    already seen 9 graded rows move once). Silent on any failure - grading never waits on it."""
+    for pk in picks:
+        try:
+            if pk.get("kind") in PARLAY_KINDS:
+                for l in pk.get("legs") or []:
+                    if l.get("result") in ("won", "lost", "push", "void") and l.get("units") is None:
+                        l["units"] = leg_units(pk, l)
+            elif pk.get("status") in ("won", "lost", "push", "void") and pk.get("units") is None and pk.get("legs"):
+                pk["units"] = units_for(pk)
+        except Exception as e:                               # noqa: BLE001
+            print(f"units freeze failed: {str(e)[:80]}")
 
 
 # ---------------------------------------------------------------- the cycle
@@ -2222,6 +2251,8 @@ def skipped_why(g, now, games, model):
     st = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
     if st < now + timedelta(minutes=MIN_LEAD_MIN):
         return "starts too soon to post"
+    if sd.exhibition(g):                                     # (an all-star / Pro Bowl side: candidates() skips it)
+        return "an all-star / exhibition game - skipped on purpose"
     if model is None:
         return ""
     if _ELO.get("ref") is not games:
@@ -2406,8 +2437,12 @@ def factor_check(games, cands, injuries, day, now, model=None):
             probs.append(f"{lg.upper()}: the last-result / form data (dog studies) didn't load")
         if lg in sports_form.B2B_LEAGUES and not any(k[0] == lg for k in LAST_STARTS):   # (rest data: hockey / hoops)
             probs.append(f"{lg.upper()}: the rest / back-to-back data didn't load")
-        if not (injuries or {}).get(lg):
-            probs.append(f"{lg.upper()}: the injury report didn't load")
+        inj_lg = (injuries or {}).get(lg)
+        if inj_lg is None or (not inj_lg and lg in sd.PRO):   # None = the pull failed; an EMPTY pro feed is one too (ESPN's
+            probs.append(f"{lg.upper()}: the injury report didn't load")   # pro feeds always list somebody). An empty
+        #                                                  college feed is real (ESPN carries ~3 college football teams and
+        #                                                  no college hoops): those teams are UNKNOWN and get no pick anyway -
+        #                                                  never a 30-minute hold on every college day (10/3 sweep)
     fb = [c for c in cands if c["league"] in ("nfl", "ncaaf") and c.get("market") == "ml"]
     if fb and not any("win_streak" in (c.get("dog_more") or {}) for c in fb):
         probs.append("football: the dog findings (bye, Monday night, streaks, coaches) didn't load")
@@ -2436,7 +2471,9 @@ def factor_check(games, cands, injuries, day, now, model=None):
     elif stale:                                              # a few the books stopped listing: say so, never hold
         print(f"FACTOR NOTE: {len(stale)} game(s) priced 12h+ ago: {', '.join(sorted(stale)[:4])}", flush=True)
     late = [g for g in games.values() if g.get("league") in lgs and g.get("status") not in ("final", "void", "post")
-            and timedelta(hours=8) < now - _ts(g.get("start")) < timedelta(days=3)]
+            and g.get("ml_home") not in ("", None) and g.get("tbd") != "1"   # (10/3: three MLB "if necessary" Game 3s -
+            and timedelta(hours=8) < now - _ts(g.get("start")) < timedelta(days=3)]   # never played, never priced - held
+    #                                                      Saturday's board as 'recent games with no final score')
     if len(late) > 2:                                        # the scores: recent games still without a final
         probs.append(f"{len(late)} recent games have no final score yet (the form / rest / streak data is behind)")
     for lg in sorted(lgs & set(sp.ROLE)):                     # the players: QB / pitcher / goalie numbers loaded
@@ -2473,8 +2510,14 @@ def factor_check(games, cands, injuries, day, now, model=None):
     if OPEN_FIXED:                                           # (10/2: stale summer opens, fixed before the read)
         print(f"FACTOR NOTE: {len(OPEN_FIXED)} stale opening line(s) replaced by the first price we saw that week: "
               f"{'; '.join(OPEN_FIXED[:3])}", flush=True)
-    hk = [c for c in cands if c["league"] == "nhl" and c.get("market") == "ml" and c.get("odds", 0) < 0 and c["odds"] >= -300]
-    if hk and not any(c.get("w_p") is not None for c in hk):
+    nhl_ml = {}
+    for c in cands:
+        if c["league"] == "nhl" and c.get("market") == "ml":
+            nhl_ml.setdefault(c["game_id"], []).append(c)
+    hk = [min(pair, key=lambda c: c["odds"]) for pair in nhl_ml.values() if len(pair) == 2   # the favorites the weighing
+          and min(c["odds"] for c in pair) < 0 and 100 <= max(c["odds"] for c in pair) <= DAILY_DOG_MAX]   # covers: a dog
+    if hk and not any(c.get("w_p") is not None for c in hk):   # +100..+220 across (10/3 sweep: a lone -280 favorite had
+        #                                                       no w_p by design and would have held the board)
         probs.append("NHL: the hockey favorites weren't weighed against the dog across the ice")
     try:
         cur = json.load(open(SLATE_PATH)) if os.path.exists(SLATE_PATH) else {}
@@ -2591,7 +2634,7 @@ def checker_selftest():
             cases = {
                 ("a stale price", "fresh price"): lambda g, c, i, m: [x.update(odds_time="2026-10-01T10:00Z") for x in g.values()],
                 ("a missing final score", "final score"): lambda g, c, i, m: g.update({f"y{k}": {"league": "nba", "status": "pre",
-                                                                     "start": "2026-10-02T01:00Z"} for k in range(3)}),
+                                                                     "start": "2026-10-02T01:00Z", "ml_home": "-120"} for k in range(3)}),
                 ("a missing injury report", "injury report"): lambda g, c, i, m: i.pop("nba"),
                 ("missing form data", "dog studies"): lambda g, c, i, m: DOG_ST.clear(),
                 ("missing rest data", "back-to-back"): lambda g, c, i, m: LAST_STARTS.clear(),
@@ -2635,6 +2678,23 @@ def checker_selftest():
     if not out:
         print(f"CHECKER SELF-TEST: all {len(cases) + 3} checks caught their problem", flush=True)
     return out
+
+
+def note_board_crash(iso, err, now, path=None):
+    """The board builder crashed: say so in slate_check.json (the hourly bug check reads it) - never silently."""
+    path = path or SLATE_PATH
+    print(f"BOARD CRASHED for {iso}: {type(err).__name__}: {str(err)[:160]} - the rest of the run still saves", flush=True)
+    try:
+        cur = json.load(open(path)) if os.path.exists(path) else {}
+    except (OSError, ValueError):
+        cur = {}
+    cur["crash"] = {"day": iso, "at": now.strftime("%Y-%m-%dT%H:%MZ"), "error": f"{type(err).__name__}: {str(err)[:160]}"}
+    try:
+        with open(path + ".tmp", "w") as f:
+            json.dump(cur, f, indent=1)
+        os.replace(path + ".tmp", path)
+    except OSError:
+        pass
 
 
 def preflight(games, model, now):
@@ -3392,7 +3452,14 @@ def run(repick=False, fetch=True):
         print(f"early value plays failed: {e}")
     for d in days:
         had = {p["kind"] for p in picks if p["date"] == d.isoformat()}
-        for pk in post_board(games, model, picks, now, d, force=post_now and d == day):
+        try:
+            new = post_board(games, model, picks, now, d, force=post_now and d == day)
+        except Exception as e:                                          # noqa: BLE001 - (10/3 sweep) a crash in the board
+            import traceback                                            # builder never loses the hour's grades, saves,
+            traceback.print_exc()                                       # tennis slate and dashboard: it's logged loudly,
+            new = []                                                    # written where the bug check reads it (and flags
+            note_board_crash(d.isoformat(), e, now)                     # it), and the next run tries again
+        for pk in new:
             if had:
                 announce_pick(pk)                                # added after the board was up: everybody gets a ping
             legs = " + ".join(f"{leg_label(l)} ({fmt_american(l['odds'])})" for l in pk["legs"])

@@ -177,6 +177,9 @@ try:
             dispatch("sports.yml", "slate check problem - re-pull before the board")
         else:
             ok.append(f"slate check: all {sc.get('games')} of today's games named, priced and looked at")
+    crash = sc.get("crash") or {}                             # (10/3 sweep: the board builder crashed - the run went on,
+    if crash.get("day") == datetime.now(timezone.utc).astimezone(PT_).date().isoformat():   # the board didn't post)
+        problems.append(f"THE BOARD BUILDER CRASHED at {crash.get('at')}: {crash.get('error')} - no board until it's fixed")
 except (OSError, ValueError):
     pass
 

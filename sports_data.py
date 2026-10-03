@@ -373,6 +373,28 @@ def merge(old, new, now_iso):
     return g
 
 
+UNLISTED_H = 8            # a scheduled game this long past its start that ESPN no longer lists on any day we re-read
+
+
+def drop_unlisted(games, seen, lo, now):
+    """(10/3 sweep) A 'pre' game whose start is UNLISTED_H+ hours gone that ESPN dropped from the schedule - a playoff
+    'if necessary' game the sweep made moot, a game moved under a new id - is marked void, never left 'pre' forever:
+    three Wild Card Game 3s that were never played read as "3 recent games have no final score yet" and held the 10/3
+    board. seen: {league: ids ESPN returned}; lo: {league: first day fully re-read} (a league with a failed day is left
+    alone - we can't tell). ESPN's day pages run on Eastern time, so a game is judged only from the day after `lo`."""
+    cutoff = (now - timedelta(hours=UNLISTED_H)).strftime("%Y-%m-%dT%H:%MZ")
+    n = 0
+    for g in games.values():
+        lg = g.get("league")
+        if lg not in lo or g.get("status") != "pre" or not g.get("start") or g["start"] >= cutoff:
+            continue
+        if g["start"][:10] < (lo[lg] + timedelta(days=1)).isoformat() or g["id"] in seen.get(lg, set()):
+            continue
+        g["status"] = "void"
+        n += 1
+    return n
+
+
 DEEP_DAYS = 3650          # how far back the engine studies: 10 full seasons in every sport
 DEEP_CHUNK = 365          # history pulled per league per hourly run (a season at a time)
 SEASONS_BACK = 10
@@ -394,6 +416,7 @@ def sync(state, backfill_days=550, ahead_days=3, max_days=600, workers=8, budget
     now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
     games = load_games()
     jobs = []
+    recent_lo = {}                                       # league -> first day of this run's full re-read
     for lg in LEAGUES:
         synced = state.setdefault("synced", {}).get(lg)
         if any(not g.get("stype") or g.get("intl", "") == "" or g.get("indoor", "") == ""
@@ -403,6 +426,7 @@ def sync(state, backfill_days=550, ahead_days=3, max_days=600, workers=8, budget
         start = (datetime.strptime(synced, "%Y-%m-%d").date() - timedelta(days=3)) if synced \
             else today - timedelta(days=backfill_days)
         start = max(start, today - timedelta(days=max_days))
+        recent_lo[lg] = start
         d = start
         while d <= today + timedelta(days=days_ahead(lg, ahead_days)):
             jobs.append((lg, d))
@@ -436,13 +460,16 @@ def sync(state, backfill_days=550, ahead_days=3, max_days=600, workers=8, budget
         return games, 2, 2
     with ThreadPoolExecutor(workers) as ex:
         results = list(ex.map(run, jobs))
+    seen = {}                                            # league -> every game id ESPN listed this run
     for (lg, d), rows in results:
         if rows is None:
             if not (lg in deep and d < deep[lg] + timedelta(days=DEEP_CHUNK + 1)):   # old-history misses don't reset the cursor
                 fails[lg] = min(fails.get(lg, d), d)
             continue
+        seen.setdefault(lg, set()).update(r["id"] for r in rows)
         for r in rows:
             games[r["id"]] = merge(games.get(r["id"]), r, now_iso)
+    drop_unlisted(games, seen, {lg: lo for lg, lo in recent_lo.items() if lg not in fails}, datetime.now(timezone.utc))
     for lg, lo in deep.items():
         if not any(lo <= d < datetime.strptime(state["from"].get(lg, today.isoformat()), "%Y-%m-%d").date()
                    for (l2, d), r in results if l2 == lg and r is None):
@@ -504,13 +531,23 @@ def covered(inj, league, team_id, team_name=""):
 
 def fetch_injuries(league):
     """{team id or name: [(player, position, status)]} for players listed Out / Doubtful - ESPN's feed plus the
-    official availability reports we keep (injuries_official.json)."""
+    official availability reports we keep (injuries_official.json). None = we DON'T KNOW (the board waits on it)."""
     got = _fetch_espn_injuries(league)
     if got is None:
         return None
+    if league in PRO and not got:                        # (10/3 sweep) a pro feed that came back EMPTY isn't "every team
+        return None                                      # healthy" - covered() reads a missing pro team as nobody hurt,
+    #                                                      so a blank feed would have cleared every team to be picked blind
     for tid, rows in official(league).items():
-        got[tid] = rows                                  # (the official report is the full list for that team)
+        named = {_plain(r[0]) for r in rows}             # the official report is the full game-status list for that
+        long = [r for r in got.get(tid) or [] if any(s in str(r[2]).lower() for s in LONG_OUT)   # team; ESPN's long-term
+                and _plain(r[0]) not in named]           # rows (injured reserve / suspended) it never lists stay
+        got[tid] = list(rows) + long
     return got
+
+
+def _plain(name):
+    return " ".join(str(name or "").lower().replace(".", "").split())
 
 
 def _fetch_espn_injuries(league):
