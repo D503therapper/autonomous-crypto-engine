@@ -1,6 +1,21 @@
 {
- "updated": "2026-10-03T15:04Z",
+ "updated": "2026-10-03T15:09Z",
  "games": [
+  {
+   "id": "ncaaf:401862787",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T15:00Z",
+   "away": "Memphis",
+   "home": "Charlotte",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "ncaaf:401856707",
    "league": "ncaaf",
@@ -714,8 +729,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Robert Morris",
-    "p": 0.54,
-    "tie": 0.033,
+    "p": 0.486,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -723,16 +738,16 @@
    "start": "2026-10-03T18:00Z",
    "away": "Norfolk St",
    "home": "Robert Morris",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Robert Morris",
     "opp": "Norfolk St",
     "market": "ml",
     "line": null,
-    "odds": -150,
-    "p": 0.569,
-    "win_p": 0.569,
+    "odds": -126,
+    "p": 0.504,
+    "win_p": 0.504,
     "reasons": []
    }
   },
@@ -1863,7 +1878,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Campbell",
-    "p": 0.767,
+    "p": 0.768,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -1895,7 +1910,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Gardner-Webb",
-    "p": 0.699,
+    "p": 0.7,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -2281,9 +2296,9 @@
     "opp": "Capitals",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.642,
-    "win_p": 0.642,
+    "odds": -162,
+    "p": 0.619,
+    "win_p": 0.619,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back",
@@ -2919,8 +2934,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Southern Utah",
-    "p": 0.807,
-    "tie": 0.022,
+    "p": 0.798,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2935,9 +2950,9 @@
     "opp": "Utah Tech",
     "market": "spread",
     "line": -14.5,
-    "odds": -106,
+    "odds": 100,
     "p": 0.502,
-    "win_p": 0.829,
+    "win_p": 0.819,
     "reasons": [
      "the stronger team"
     ]
@@ -3500,7 +3515,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.56,
+    "p": 0.561,
     "tie": 0.038,
     "name": "1st half"
    },
