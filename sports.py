@@ -2751,7 +2751,9 @@ def post_board(games, model, picks, now, day, force=False):
     #                                     or an 8:05 first pitch wiped out the whole opening board - Lock, Dog, leans)
     # the opening board goes up before the day's first game. After that, whenever a play is graded (it moves to the
     # results), a fresh one of the same kind goes up from the games that haven't started yet - picks all day long.
-    todo = [k for k, _ in KINDS if (k not in posted and (not started or k in pending)) or   # (10/1 bug check: a Lock
+    todo = [k for k, _ in KINDS if (k not in posted and (not started or k in pending or k == "lock")) or   # (10/3, the
+            #   owner: "if there's a Lock with games that haven't started yet, the 8 AM logic is irrelevant" - no Lock up
+            #   yet = the engine keeps looking all day, games not started only; never forced. 10/1 bug check: a Lock
             (k in posted and posted[k]["status"] in ("won", "lost", "push"))]   # waiting on news vanished once the
     #                                                                             day's first game started)
     nights = night_games(games, day, picks, now)             # 🏈 Monday / Thursday football: a pick on every game

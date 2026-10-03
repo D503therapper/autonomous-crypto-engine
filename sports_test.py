@@ -5718,7 +5718,7 @@ def test_pick_logic_bug_check():
         sports.good = keep
     # 7. a pending Lock is rebuilt after the day's first game starts (it vanished before)
     src = open(sports.__file__).read()
-    assert "(not started or k in pending)" in src
+    assert "(not started or k in pending or k == \"lock\")" in src
     # 8. an early play's slot is never used up by a game already posted
     import sports_early as se
     from datetime import datetime, timezone
@@ -6783,6 +6783,15 @@ def test_early_play_never_on_a_team_without_injury_data():
     src = open(se.__file__).read()
     assert src.count("not sd.covered(inj, lg, g[side]") == 2               # the spots and the band scan both check
 
+
+
+def test_lock_can_post_after_the_first_game_starts():
+    """10/3 (the owner): no Lock on the 8 AM board, but a game later in the day clears the Lock test -> it goes up then
+    (games not started only - candidates() never offers a game starting within 20 minutes), with its ping."""
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    assert '(not started or k in pending or k == "lock")' in src
+    assert '"lock"' in src[src.index("MIDDAY_KINDS = ("):src.index("MIDDAY_KINDS = (") + 80]
+    assert "start < now + timedelta(minutes=MIN_LEAD_MIN)" in src
 
 
 def test_patty_challenge_removed():
