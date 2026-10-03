@@ -1,5 +1,5 @@
 {
- "at": "2026-10-03T20:20Z",
+ "at": "2026-10-03T21:52Z",
  "fixes": [
   "slate check problem - re-pull before the board - sports.yml already running"
  ],
@@ -10,27 +10,42 @@
   "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
   "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
   "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
-  "workflow failed: sports 2026-10-03T20:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37150098674"
+  "workflow failed: health 2026-10-03T21:49 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37156364492"
  ],
  "ok": [
-  "live watcher fresh (257s)",
+  "live watcher fresh (30s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 4 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-03T21:52Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
+    "workflow failed: health 2026-10-03T21:49 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37156364492"
+   ]
+  },
   {
    "at": "2026-10-03T20:20Z",
    "fixes": [
@@ -672,14 +687,6 @@
    "at": "2026-10-01T08:27Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-01T06:56Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lehecka vs Bergs: no points for 465s",
-    "live tennis scores: tennis Wang Yuhan vs Maneiro: no points for 956s"
-   ]
   }
  ]
 }
