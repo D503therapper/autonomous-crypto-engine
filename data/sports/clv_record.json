@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 7,
+  "n": 9,
   "beat": 2,
-  "same": 3,
-  "worse": 2,
-  "avg_pts": 0.69
+  "same": 4,
+  "worse": 3,
+  "avg_pts": 0.42
  },
  "unit_plays": {
   "n": 4,
@@ -22,11 +22,11 @@
    "avg_pts": -1.2
   },
   "lean": {
-   "n": 3,
+   "n": 5,
    "beat": 0,
-   "same": 3,
-   "worse": 0,
-   "avg_pts": 0.0
+   "same": 4,
+   "worse": 1,
+   "avg_pts": -0.2
   },
   "lock": {
    "n": 2,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "ncaaf": {
-   "n": 2,
+   "n": 3,
    "beat": 2,
    "same": 0,
-   "worse": 0,
-   "avg_pts": 3.35
+   "worse": 1,
+   "avg_pts": 1.9
   },
   "nfl": {
    "n": 2,
@@ -59,11 +59,11 @@
    "avg_pts": -0.35
   },
   "nhl": {
-   "n": 3,
+   "n": 4,
    "beat": 0,
-   "same": 2,
+   "same": 3,
    "worse": 1,
-   "avg_pts": -0.4
+   "avg_pts": -0.3
   }
  },
  "lock_by_size": {
@@ -173,12 +173,40 @@
    "date": "2026-10-02",
    "kind": "lean",
    "lean": true,
+   "league": "ncaaf",
+   "team": "Virginia Tech",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -125,
+   "pts": -1.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "lean",
+   "lean": true,
    "league": "nhl",
    "team": "Red Wings",
    "market": "ml",
    "line": null,
    "odds": -130,
    "close": -130,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Jets",
+   "market": "ml",
+   "line": null,
+   "odds": -122,
+   "close": -122,
    "pts": 0.0,
    "units": 0,
    "result": "lost"
