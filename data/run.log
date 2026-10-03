@@ -6389,3 +6389,25 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 08:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 08:05 UTC] crypto/hold_btc  equity $502.83 (+0.6%) 1 open  market UP
    social heat top: SAND 40 (40/0/0), GALA 37 (37/0/0), PUMP 32 (32/0/0), PONS 30 (27/0/3), BTC 29 (29/0/0)
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT BASEPAD@base liq $100,678 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT RAY@solana liq $3,880,623 - top-10 holders 76%
+   dex screen: PASS SPX@ethereum liq $12,405,805
+   dex screen: REJECT XRP @ethereum liq $198,004 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; creator_percent 100%; top-10 holders 100%; lp holders unknown
+   dex screen: REJECT SNDKC@base liq $2,921 - liquidity $2,921 < $100,000; 24h volume $114 < $100,000
+   dex screen: REJECT MINI@solana liq $239,094 - lp holders unknown; rugcheck lp locked 89% < 95%
+   dex screen: PASS USELESS@solana liq $5,106,854
+   dex screen: REJECT AMZNC@base liq $10,699 - liquidity $10,699 < $100,000; 24h volume $179 < $100,000; no buys or no sells in 24h
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     347efd1596e527a54b524e656a7190948201b9e2 -> main (cannot lock ref 'refs/heads/main': is at b8972ab5c87b95342881bca
+   dex scanner: 3,014 pools (solana 2,115 / base 513 / ethereum 386), refresh cycle 127s (hot 123s), 2930 calls (110 feed, 429s 0, failed 0), 84,600 refreshed (10284 no pair), +69 added / -55 dropped (dead 34, stale 0, cap 21), movers 3 + warming 26 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-03 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-03 09:05 UTC] crypto/mover     equity $445.44 (-10.9%) 1 open  market UP
+[2026-10-03 09:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 09:05 UTC] crypto/social_heat equity $526.23 (+5.2%) 2 open  market UP
+[2026-10-03 09:05 UTC] crypto/breakout10 equity $481.98 (-3.6%) 2 open  market UP
+[2026-10-03 09:05 UTC] crypto/momentum  equity $486.45 (-2.7%) 2 open  market UP
+[2026-10-03 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 09:05 UTC] crypto/hold_btc  equity $503.01 (+0.6%) 1 open  market UP
+   social heat top: SAND 40 (40/0/0), PONS 38 (29/0/8), QNT 37 (37/0/0), MANA 35 (35/0/0), GALA 32 (32/0/0)
