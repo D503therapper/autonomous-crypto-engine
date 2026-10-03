@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T02:32Z",
+ "updated": "2026-10-03T02:34Z",
  "games": [
   {
    "id": "nhl:401891803",
@@ -188,7 +188,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Memphis",
-    "p": 0.893,
+    "p": 0.894,
     "tie": 0.015,
     "name": "1st half"
    },
@@ -315,8 +315,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kansas",
-    "p": 0.837,
-    "tie": 0.02,
+    "p": 0.843,
+    "tie": 0.019,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -330,10 +330,10 @@
     "team": "Kansas",
     "opp": "MTSU",
     "market": "spread",
-    "line": -19.5,
+    "line": -20.5,
     "odds": -112,
     "p": 0.504,
-    "win_p": 0.893,
+    "win_p": 0.899,
     "reasons": [
      "the stronger team",
      "better rested"
@@ -1001,7 +1001,7 @@
     "opp": "Ball State",
     "market": "spread",
     "line": -21.0,
-    "odds": -112,
+    "odds": -110,
     "p": 0.504,
     "win_p": 0.899,
     "reasons": [
@@ -1452,7 +1452,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.601,
+    "p": 0.6,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1636,7 +1636,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia",
-    "p": 0.538,
+    "p": 0.539,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2105,7 +2105,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Gardner-Webb",
-    "p": 0.707,
+    "p": 0.706,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -2473,8 +2473,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.403,
-    "tie": 0.297,
+    "p": 0.408,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2485,15 +2485,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Capitals",
-    "opp": "Lightning",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.614,
-    "win_p": 0.394,
+    "team": "Lightning",
+    "opp": "Capitals",
+    "market": "ml",
+    "line": null,
+    "odds": -162,
+    "p": 0.621,
+    "win_p": 0.621,
     "reasons": [
-     "hotter recent form"
+     "opponent on a back-to-back",
+     "sharp money moving this way",
+     "the stronger team"
     ]
    }
   },
@@ -2531,7 +2533,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.359,
+    "p": 0.354,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -2548,8 +2550,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.697,
-    "win_p": 0.481,
+    "p": 0.705,
+    "win_p": 0.491,
     "reasons": [
      "opponent on a back-to-back",
      "hotter recent form",
@@ -2610,7 +2612,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -285,
-    "p": 0.704,
+    "p": 0.703,
     "win_p": 0.489,
     "reasons": [
      "hotter recent form",
@@ -2701,7 +2703,7 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
+    "odds": -258,
     "p": 0.703,
     "win_p": 0.486,
     "reasons": [
@@ -2872,7 +2874,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "South Florida",
-    "p": 0.637,
+    "p": 0.636,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -2889,8 +2891,8 @@
     "market": "ml",
     "line": null,
     "odds": -230,
-    "p": 0.683,
-    "win_p": 0.683,
+    "p": 0.682,
+    "win_p": 0.682,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -3210,7 +3212,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.578,
+    "p": 0.577,
     "tie": 0.112,
     "name": "first 5 innings"
    },
@@ -3226,7 +3228,7 @@
     "opp": "Padres",
     "market": "ml",
     "line": null,
-    "odds": -205,
+    "odds": -204,
     "p": 0.66,
     "win_p": 0.66,
     "reasons": [
