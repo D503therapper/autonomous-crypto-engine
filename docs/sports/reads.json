@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T08:03Z",
+ "updated": "2026-10-03T08:09Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -1271,7 +1271,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.593,
+    "p": 0.592,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -1455,7 +1455,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia",
-    "p": 0.526,
+    "p": 0.527,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1550,7 +1550,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Alabama St",
-    "p": 0.671,
+    "p": 0.67,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -2198,7 +2198,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "BYU",
-    "p": 0.66,
+    "p": 0.661,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -3488,12 +3488,42 @@
    }
   },
   {
+   "id": "nhl:401892442",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Red Wings",
+    "p": 0.358,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-04T17:00Z",
+   "away": "Jets",
+   "home": "Red Wings",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Jets",
+    "opp": "Red Wings",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -278,
+    "p": 0.7,
+    "win_p": 0.484,
+    "reasons": [
+     "opponent drama: trade drama"
+    ]
+   }
+  },
+  {
    "id": "nfl:401872968",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.562,
+    "p": 0.564,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -3505,15 +3535,17 @@
    "why": "tight",
    "board": null,
    "lean": {
-    "team": "Under",
-    "opp": "Packers @ Buccaneers",
-    "market": "total",
-    "line": 38.5,
-    "odds": -109,
-    "p": 0.633,
-    "win_p": 0.633,
+    "team": "Packers",
+    "opp": "Buccaneers",
+    "market": "ml",
+    "line": null,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
-     "the engine's scoring read"
+     "hotter recent form",
+     "better rested",
+     "revenge game"
     ]
    }
   },
@@ -3734,6 +3766,37 @@
    }
   },
   {
+   "id": "nhl:401892443",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Rangers",
+    "p": 0.358,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-04T22:00Z",
+   "away": "Mammoth",
+   "home": "Rangers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Mammoth",
+    "opp": "Rangers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -278,
+    "p": 0.701,
+    "win_p": 0.484,
+    "reasons": [
+     "hotter recent form",
+     "opponent drama: trade drama"
+    ]
+   }
+  },
+  {
    "id": "nhl:401891824",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -3822,6 +3885,37 @@
      "the stronger team",
      "sharp money moving this way",
      "hotter recent form"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892444",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Golden Knights",
+    "p": 0.428,
+    "tie": 0.294,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-05T01:00Z",
+   "away": "Golden Knights",
+   "home": "Canucks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Golden Knights",
+    "opp": "Canucks",
+    "market": "ml",
+    "line": null,
+    "odds": -213,
+    "p": 0.667,
+    "win_p": 0.667,
+    "reasons": [
+     "the stronger team",
+     "hotter goalie"
     ]
    }
   }
