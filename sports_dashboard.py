@@ -2140,7 +2140,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 <div class="sec"><h2><i>●</i> THE RESULTS</h2><span>every play, graded</span></div>
 <section class="hero">
   <div class="lbl">The engine's grades</div>
-  <div class="sp-n what"><b>Two records:</b> 💰 the unit plays (every Lock, Dog of the Day, value play and early play - the bets with units on them) and 🟡 the leans (no units). Live plus money and tennis keep their own. Question box reads don’t count. Every W, every L, right here — we don’t hide nothing.</div>
+  <div class="sp-n what"><b>💰 Unit plays:</b> the good bets we put money on — every Lock, Dog of the Day, value play and early play. <b>🟡 Leans:</b> no units, just our lean. Live plus money and tennis keep their own records. Every W, every L, right here — we don’t hide nothing.</div>
   {overall}
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
