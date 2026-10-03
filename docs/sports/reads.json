@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T22:04Z",
+ "updated": "2026-10-03T22:38Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -594,8 +594,8 @@
    "away": "Howard",
    "home": "Hampton",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -609,8 +609,8 @@
    "away": "Indiana St",
    "home": "South Dakota",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -713,8 +713,8 @@
    "away": "Chattanooga",
    "home": "ETSU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -728,8 +728,8 @@
    "away": "Delaware St",
    "home": "UAlbany",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -833,8 +833,8 @@
    "away": "Sacred Heart",
    "home": "Maine",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -848,8 +848,8 @@
    "away": "Samford",
    "home": "UAB",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1108,31 +1108,152 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401866657",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "Campbell",
+   "home": "NC Central",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868173",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "Gardner-Webb",
+   "home": "Charleston So",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868309",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "Incarnate Word",
+   "home": "SF Austin",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401866653",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "NC A&T",
+   "home": "Bryant",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868143",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "North Alabama",
+   "home": "E Kentucky",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401860899",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "Oregon St",
+   "home": "Colorado St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868391",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "Tennessee Tech",
+   "home": "W Carolina",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401862790",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T22:00Z",
+   "away": "Texas Southern",
+   "home": "FAU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401907985",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Rays",
-    "p": 0.492,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-03T22:30Z",
    "away": "Yankees",
    "home": "Rays",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Yankees",
-    "opp": "Rays",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -194,
-    "p": 0.616,
-    "win_p": 0.432,
-    "reasons": []
+    "team": "Rays",
+    "opp": "Yankees",
+    "market": "ml",
+    "line": null,
+    "odds": -135,
+    "p": 0.549,
+    "win_p": 0.549,
+    "reasons": [
+     "better starting pitcher",
+     "better rested",
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
@@ -1171,7 +1292,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas A&M",
-    "p": 0.764,
+    "p": 0.759,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -1187,9 +1308,9 @@
     "opp": "Arkansas",
     "market": "spread",
     "line": -13.5,
-    "odds": -115,
+    "odds": -112,
     "p": 0.502,
-    "win_p": 0.822,
+    "win_p": 0.817,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -1685,8 +1806,8 @@
     "team": "Miami",
     "opp": "Clemson",
     "market": "spread",
-    "line": -14.5,
-    "odds": -105,
+    "line": -14.0,
+    "odds": -112,
     "p": 0.502,
     "win_p": 0.84,
     "reasons": [
@@ -1733,8 +1854,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas Tech",
-    "p": 0.817,
-    "tie": 0.021,
+    "p": 0.812,
+    "tie": 0.022,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1749,9 +1870,9 @@
     "opp": "Colorado",
     "market": "spread",
     "line": -13.5,
-    "odds": -115,
+    "odds": -110,
     "p": 0.502,
-    "win_p": 0.822,
+    "win_p": 0.817,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -2018,8 +2139,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cal Poly",
-    "p": 0.61,
-    "tie": 0.032,
+    "p": 0.624,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2034,12 +2155,13 @@
     "opp": "Weber St",
     "market": "ml",
     "line": null,
-    "odds": -219,
-    "p": 0.652,
-    "win_p": 0.652,
+    "odds": -238,
+    "p": 0.668,
+    "win_p": 0.668,
     "reasons": [
      "the stronger team",
-     "hotter recent form"
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
