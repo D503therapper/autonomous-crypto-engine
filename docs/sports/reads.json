@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T18:44Z",
+ "updated": "2026-10-03T18:50Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -790,38 +790,6 @@
    }
   },
   {
-   "id": "ncaaf:401856708",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Florida",
-    "p": 0.642,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-03T19:30Z",
-   "away": "Florida",
-   "home": "Missouri",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Florida",
-    "opp": "Missouri",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
-    "reasons": [
-     "opponent missing key players",
-     "hotter recent form",
-     "rolling off a blowout win"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401868025",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -859,7 +827,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Louisville",
-    "p": 0.628,
+    "p": 0.647,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -875,11 +843,12 @@
     "opp": "NC State",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.637,
-    "win_p": 0.637,
+    "odds": -218,
+    "p": 0.657,
+    "win_p": 0.657,
     "reasons": [
      "better QB play lately",
+     "sharp money moving this way",
      "opponent missing key players"
     ]
    }
@@ -1134,6 +1103,38 @@
    }
   },
   {
+   "id": "ncaaf:401856708",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Florida",
+    "p": 0.642,
+    "tie": 0.031,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-03T19:50Z",
+   "away": "Florida",
+   "home": "Missouri",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Florida",
+    "opp": "Missouri",
+    "market": "ml",
+    "line": null,
+    "odds": -218,
+    "p": 0.657,
+    "win_p": 0.657,
+    "reasons": [
+     "opponent missing key players",
+     "hotter recent form",
+     "rolling off a blowout win"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401868328",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1266,7 +1267,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Montana",
-    "p": 0.849,
+    "p": 0.845,
     "tie": 0.019,
     "name": "1st half"
    },
@@ -1281,10 +1282,10 @@
     "team": "Montana",
     "opp": "N Colorado",
     "market": "spread",
-    "line": -22.5,
+    "line": -21.5,
     "odds": -111,
-    "p": 0.505,
-    "win_p": 0.904,
+    "p": 0.504,
+    "win_p": 0.9,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1577,7 +1578,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bryant",
-    "p": 0.737,
+    "p": 0.724,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -1592,10 +1593,10 @@
     "team": "Bryant",
     "opp": "NC A&T",
     "market": "spread",
-    "line": -14.5,
-    "odds": -104,
+    "line": -13.5,
+    "odds": -111,
     "p": 0.502,
-    "win_p": 0.794,
+    "win_p": 0.78,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1609,8 +1610,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "E Kentucky",
-    "p": 0.518,
-    "tie": 0.033,
+    "p": 0.485,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1625,9 +1626,9 @@
     "opp": "North Alabama",
     "market": "ml",
     "line": null,
-    "odds": -134,
-    "p": 0.542,
-    "win_p": 0.542,
+    "odds": -122,
+    "p": 0.503,
+    "win_p": 0.503,
     "reasons": []
    }
   },
@@ -2116,7 +2117,7 @@
     "opp": "Maple Leafs",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
+    "odds": -270,
     "p": 0.712,
     "win_p": 0.497,
     "reasons": [
@@ -2368,7 +2369,7 @@
     "opp": "Utah State",
     "market": "spread",
     "line": -19.5,
-    "odds": -105,
+    "odds": -110,
     "p": 0.504,
     "win_p": 0.899,
     "reasons": [
