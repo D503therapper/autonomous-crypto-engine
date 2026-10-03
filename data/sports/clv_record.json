@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 11,
+  "n": 12,
   "beat": 3,
-  "same": 5,
+  "same": 6,
   "worse": 3,
-  "avg_pts": 0.44
+  "avg_pts": 0.4
  },
  "unit_plays": {
   "n": 5,
@@ -22,9 +22,9 @@
    "avg_pts": -0.6
   },
   "lean": {
-   "n": 6,
+   "n": 7,
    "beat": 1,
-   "same": 4,
+   "same": 5,
    "worse": 1,
    "avg_pts": 0.0
   },
@@ -44,6 +44,13 @@
   }
  },
  "by_sport": {
+  "mlb": {
+   "n": 1,
+   "beat": 0,
+   "same": 1,
+   "worse": 0,
+   "avg_pts": 0.0
+  },
   "ncaaf": {
    "n": 4,
    "beat": 3,
@@ -235,6 +242,20 @@
    "line": null,
    "odds": -122,
    "close": -122,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Guardians",
+   "market": "ml",
+   "line": null,
+   "odds": -149,
+   "close": -149,
    "pts": 0.0,
    "units": 0,
    "result": "lost"

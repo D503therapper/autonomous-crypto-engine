@@ -438,9 +438,9 @@ def ping_text(c):
     if c is None:
         return LAUNCH
     t = _t(c["start"]).astimezone(PT)
-    when = f'{t.strftime("%A")}, game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT'
+    day = f'{when(c["start"], datetime.now(timezone.utc))}, game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT'
     return (f"⏰ EARLY VALUE PLAY: {c['team']} +{c['odds']}",
-            f"{c['team']} ML +{c['odds']} vs {c['opp']}. {when}. Get it before the line moves.")
+            f"{c['team']} ML +{c['odds']} vs {c['opp']}. {day}. Get it before the line moves.")
 
 
 def send(c):
@@ -520,7 +520,24 @@ def _schedule(games):
     return out
 
 
-def spot_why(sched, g, side, other, lg, spot):
+def ago(prev_start, now):
+    """When their last game was (10/3, the owner: an Alabama card said 'beat Mississippi St 56-23 last week' the same
+    afternoon they played): 'last week' only when it was 5+ days before we post, else the day with its date ('on
+    Saturday 10/3') - the line is saved once and stays on the card all week, so never 'today' / 'yesterday'."""
+    t = _t(prev_start).astimezone(PT)
+    d = (now.astimezone(PT).date() - t.date()).days
+    return "last week" if d >= 5 else f"on {t:%A} {t.month}/{t.day}"
+
+
+def when(start, now):
+    """The day an early play's game is on: 'Tomorrow', else the weekday WITH the date ('Saturday 10/10') - a bare
+    'Saturday' posted on a Saturday read like tonight (10/3, the owner: "Alabama vs Georgia today?")."""
+    t = _t(start).astimezone(PT)
+    d = (t.date() - now.astimezone(PT).date()).days
+    return "Today" if d <= 0 else "Tomorrow" if d == 1 else f"{t:%A} {t.month}/{t.day}"
+
+
+def spot_why(sched, g, side, other, lg, spot, now=None):
     """The early play's reason in plain words, with what actually happened (the owner, 10/1: "'blew somebody out last
     week' is very vague"). One line."""
     me, opp = g.get(f"{side}_name") or "They", g.get(f"{other}_name") or "them"
@@ -530,7 +547,8 @@ def spot_why(sched, g, side, other, lg, spot):
             mine = p["home"] == g[side]
             us, them = (p["home_score"], p["away_score"]) if mine else (p["away_score"], p["home_score"])
             vs = p.get("away_name") if mine else p.get("home_name")
-            return (f"💥 {me} beat {vs} {int(float(us))}-{int(float(them))} last week. Dogs coming off a big win like that "
+            return (f"💥 {me} beat {vs} {int(float(us))}-{int(float(them))} "
+                    f"{ago(p['start'], now or datetime.now(timezone.utc))}. Dogs coming off a big win like that "
                     f"have beaten their price in our studies - the books don't give them enough credit.")
         if spot == "bye" and p:
             return (f"🛌 {me} had last week off; {opp} played. Rested dogs against a team that just played have beaten "
@@ -763,7 +781,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             if total < (0.0 if any_dog else SPOT_MIN_TOTAL):
                 continue                                     # everything weighed together doesn't say value
             main = max(hit, key=lambda h: SPOTS[h][1])
-            why = spot_why(sched, g, side, other, lg, main)
+            why = spot_why(sched, g, side, other, lg, main, now)
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
                         "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
                         "fades": fades, "score": round(total, 4), "why": why, "mkt": round(mk, 4), "own": round(own, 4),
@@ -896,7 +914,7 @@ def html(st, E, now=None, show_units=None):
         return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>ML</small> <em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
                 + (f'<span>{E(p.get("why") or SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "") +
-                f'<u>{t.strftime("%A")} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
+                f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
                 + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "") + '</div></div>')
     body = "".join(row(p) for p in up) or \

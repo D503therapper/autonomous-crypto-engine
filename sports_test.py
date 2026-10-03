@@ -6880,6 +6880,31 @@ def test_covers_injury_page_covers_every_school():
     assert "sports_absences.match(r[0], reg)" in open("sports.py").read().split("def out_count")[1][:1200]
 
 
+def test_early_play_dates_are_plain():
+    """10/3, the owner: "Alabama vs Georgia today?" - the early card said 'Saturday · game starts at 4:30 PM PT' on a
+    Saturday for NEXT Saturday's game, and 'Alabama beat Mississippi St 56-23 last week' the afternoon they played."""
+    import sports_early as se
+    now = datetime(2026, 10, 3, 23, 0, tzinfo=timezone.utc)                       # Saturday 10/3, 4 PM PT
+    assert se.when("2026-10-10T23:30Z", now) == "Saturday 10/10"
+    assert se.when("2026-10-04T17:00Z", now) == "Tomorrow"
+    assert se.ago("2026-10-03T16:00Z", now) == "on Saturday 10/3"
+    assert se.ago("2026-09-28T17:00Z", now) == "last week"
+    G = {"p": {"id": "p", "league": "ncaaf", "start": "2026-10-03T16:00Z", "home": "M", "away": "A",
+               "home_name": "Mississippi St", "away_name": "Alabama", "home_score": "23", "away_score": "56",
+               "status": "final", "stype": "2"},
+         "g": {"id": "g", "league": "ncaaf", "start": "2026-10-10T23:30Z", "home": "A", "away": "G", "home_name": "Alabama",
+               "away_name": "Georgia", "status": "pre", "stype": "2"}}
+    why = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now)
+    assert "Alabama beat Mississippi St 56-23 on Saturday 10/3." in why and "last week" not in why, why
+    keep_on, se.ON = se.ON, True
+    try:
+        html = se.html({"picks": [{"team": "Alabama", "opp": "Georgia", "league": "ncaaf", "odds": 130, "spot": "blowout",
+                                   "why": why, "start": "2026-10-10T23:30Z", "game_id": "g"}]}, lambda x: x, now=now)
+    finally:
+        se.ON = keep_on
+    assert "Saturday 10/10 · game starts at 4:30 PM PT" in html, html
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
