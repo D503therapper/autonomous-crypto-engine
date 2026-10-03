@@ -6778,7 +6778,7 @@ def test_factor_check_has_fresh_data():
         for i in range(4):
             G[f"g{i}"]["odds_time"] = "2026-10-02T14:30Z"
         for i in range(3):                                       # last night's games never got their finals
-            G[f"y{i}"] = {"league": "nba", "status": "pre", "start": "2026-10-02T00:00Z"}
+            G[f"y{i}"] = {"league": "nba", "status": "pre", "start": "2026-10-02T00:00Z", "ml_home": "-130"}
         assert any("final score" in p for p in sports.factor_check(G, cs, inj, date(2026, 10, 2), now))
         for i in range(3):
             G[f"y{i}"]["status"] = "final"
@@ -8344,6 +8344,131 @@ def test_official_reports_and_the_capper_use_pacific_time_both_sides_of_dst():
         assert sd.official("ncaaf", day="2020-01-01") == {}
     finally:
         sd.OFFICIAL_PATH = keep
+
+
+def test_if_necessary_games_never_hold_the_finals_check():
+    """10/3: Saturday's 8:01 board was held by 'FACTOR CHECK: 3 recent games have no final score yet' - the three MLB
+    Wild Card 'if necessary' Game 3s (White Sox @ Astros, Red Sox @ Yankees, Cubs @ Padres): never played, never priced,
+    still 'pre'. The slate check and the data-gap check already skip unpriced games; the finals check does too. Games
+    that WERE priced and never got a final still hold."""
+    from datetime import date
+    now = datetime(2026, 10, 3, 15, 1, tzinfo=timezone.utc)
+    keep = {k: dict(getattr(sports, k)) for k in ("DOG_ST", "LAST_STARTS")}
+    keep_cache = sp.CACHE
+    try:
+        sports.DOG_ST[("mlb", "1")] = {"won": True}
+        sp.CACHE = {"mlb": [{"player": "x"}]}
+        inj = {"mlb": {"1": []}}
+        G = {"g0": {"league": "mlb", "status": "pre", "start": "2026-10-03T20:00Z", "home_name": "Brewers", "indoor": "1",
+                    "odds_time": "2026-10-03T14:30Z", "ml_home": "-120", "ml_home_open": "-120"}}
+        for i, st in enumerate(("2026-10-01T21:00Z", "2026-10-02T00:00Z", "2026-10-02T00:00Z")):
+            G[f"ifn{i}"] = {"league": "mlb", "status": "pre", "start": st, "stype": "3", "ml_home": "", "ml_away": ""}
+        cs = [{**_cand("g0", -120, 0.55, league="mlb"), "game_id": "g0"}]
+        probs = sports.factor_check(G, cs, inj, date(2026, 10, 3), now)
+        assert not any("final score" in p for p in probs), probs
+        for i in range(3):                                       # the same three WITH a price: played, result missing
+            G[f"ifn{i}"]["ml_home"] = "-140"
+        assert any("final score" in p for p in sports.factor_check(G, cs, inj, date(2026, 10, 3), now))
+        assert not sports.checker_selftest()                     # (the self-test's own case still gets caught)
+    finally:
+        sp.CACHE = keep_cache
+        for k, v in keep.items():
+            getattr(sports, k).clear(); getattr(sports, k).update(v)
+
+
+def test_empty_college_injury_feed_is_not_a_load_failure():
+    """10/3 sweep: ESPN's college feeds carry ~3 college football teams and no college hoops at all. An EMPTY (but
+    loaded) college report held the board as 'the injury report didn't load' - from November that's every college hoops
+    day till 8:30. Empty is real for college (those teams are UNKNOWN and get no pick anyway); None (the pull failed)
+    still holds, and so does an empty PRO feed (ESPN's pro feeds always list somebody)."""
+    from datetime import date
+    now = datetime(2026, 11, 10, 16, 1, tzinfo=timezone.utc)
+    keep = {k: dict(getattr(sports, k)) for k in ("DOG_ST", "LAST_STARTS")}
+    try:
+        for lg in ("ncaab", "ncaaf", "nba"):
+            sports.DOG_ST[(lg, "1")] = {"won": True}
+        sports.LAST_STARTS[("nba", "1")] = ["x"]
+        G = {"h": {"league": "ncaab", "status": "pre", "start": "2026-11-11T00:00Z", "home_name": "Duke", "indoor": "1",
+                   "odds_time": "2026-11-10T14:30Z", "ml_home": "-150", "ml_home_open": "-150"},
+             "f": {"league": "ncaaf", "status": "pre", "start": "2026-11-11T00:00Z", "home_name": "Toledo", "wx_temp": "40",
+                   "odds_time": "2026-11-10T14:30Z", "ml_home": "-150", "ml_home_open": "-150"}}
+        cs = [{**_cand("h", -150, 0.62, league="ncaab"), "game_id": "h"}, {**_cand("f", -150, 0.62, league="ncaaf"), "game_id": "f"}]
+        probs = sports.factor_check(G, cs, {"ncaab": {}, "ncaaf": {}}, date(2026, 11, 10), now)
+        assert not any("injury report" in p for p in probs), probs
+        probs = sports.factor_check(G, cs, {"ncaab": None, "ncaaf": {}}, date(2026, 11, 10), now)
+        assert any(p.startswith("NCAAB") and "injury report" in p for p in probs), probs
+        G["n"] = {"league": "nba", "status": "pre", "start": "2026-11-11T02:00Z", "home_name": "Lakers", "indoor": "1",
+                  "odds_time": "2026-11-10T14:30Z", "ml_home": "-150", "ml_home_open": "-150"}
+        cs.append({**_cand("n", -150, 0.62, league="nba"), "game_id": "n"})
+        probs = sports.factor_check(G, cs, {"ncaab": {}, "ncaaf": {}, "nba": {}}, date(2026, 11, 10), now)
+        assert any(p.startswith("NBA") and "injury report" in p for p in probs), probs
+    finally:
+        for k, v in keep.items():
+            getattr(sports, k).clear(); getattr(sports, k).update(v)
+
+
+def test_hockey_favorite_check_only_for_pairs_the_weighing_covers():
+    """10/3 sweep: the factor check wanted a weighed read (w_p) on every NHL favorite down to -300, but the weighing
+    only covers favorites whose dog is +100..+220 (mark_hockey_favorites). A one-game hockey night with a -280 favorite
+    would have held the board till 8:30 for a 'missing' weight that's missing by design."""
+    from datetime import date
+    now = datetime(2026, 10, 7, 15, 1, tzinfo=timezone.utc)
+    keep = {k: dict(getattr(sports, k)) for k in ("DOG_ST", "LAST_STARTS")}
+    keep_cache = sp.CACHE
+    try:
+        sports.DOG_ST[("nhl", "1")] = {"won": True}; sports.LAST_STARTS[("nhl", "1")] = ["x"]
+        sp.CACHE = {"nhl": [{"player": "x"}]}
+        G = {"g": {"league": "nhl", "status": "pre", "start": "2026-10-08T00:00Z", "home_name": "Panthers", "indoor": "1",
+                   "odds_time": "2026-10-07T14:30Z", "ml_home": "-280", "ml_home_open": "-280"}}
+        cs = [{**_cand("g", -280, 0.72, league="nhl"), "game_id": "g", "side": "home"},
+              {**_cand("g", 230, 0.28, league="nhl"), "game_id": "g", "side": "away"}]
+        probs = sports.factor_check(G, cs, {"nhl": {"1": []}}, date(2026, 10, 7), now)
+        assert not any("weren't weighed" in p for p in probs), probs
+        cs[1]["odds"] = 190                                      # a dog the weighing covers and no w_p: still caught
+        assert any("weren't weighed" in p for p in sports.factor_check(G, cs, {"nhl": {"1": []}}, date(2026, 10, 7), now))
+        cs[0]["w_p"] = 0.7
+        assert not any("weren't weighed" in p for p in sports.factor_check(G, cs, {"nhl": {"1": []}}, date(2026, 10, 7), now))
+    finally:
+        sp.CACHE = keep_cache
+        for k, v in keep.items():
+            getattr(sports, k).clear(); getattr(sports, k).update(v)
+
+
+def test_slate_check_knows_an_exhibition_is_skipped_on_purpose():
+    """10/3 sweep: candidates() skips an all-star / Pro Bowl game (sd.exhibition); the slate check called it 'priced
+    but the engine never looked at it' and would hold the board. Skipped on purpose = never a hold."""
+    import tempfile as _t
+    from datetime import date as _d
+    now = datetime(2027, 2, 7, 15, 1, tzinfo=timezone.utc)
+    games = {"x": {"id": "x", "league": "nfl", "stype": "2", "status": "pre", "start": "2027-02-07T20:00Z",
+                   "away_name": "AFC", "home_name": "NFC", "ml_home": "-120", "ml_away": "100"}}
+    keep = sports.SLATE_PATH
+    sports.SLATE_PATH = os.path.join(_t.mkdtemp(), "slate.json")
+    try:
+        assert sports.skipped_why(games["x"], now, games, None).startswith("an all-star")
+        assert sports.slate_check(games, [], _d(2027, 2, 7), now, errors=[], model={"params": {}}) == []
+    finally:
+        sports.SLATE_PATH = keep
+
+
+def test_a_board_crash_never_loses_the_hours_run():
+    """10/3 sweep: run() called the board builder bare - one KeyError in post_board (new code lands there every day)
+    and the whole hourly run died: no grades saved, no dashboard rebuild, no tennis slate, and nothing but a red run to
+    show for it. Now the crash is logged loudly, written to slate_check.json (the hourly bug check names it), the rest
+    of the run saves, and the next run tries again."""
+    import tempfile as _t
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports.py")).read()
+    i = src.index("    for d in days:\n        had = ")
+    block = src[i:src.index("mid-day value plays", i)]
+    assert "try:\n            new = post_board(" in block and "note_board_crash(d.isoformat(), e, now)" in block
+    path = os.path.join(_t.mkdtemp(), "slate.json")
+    json.dump({"day": "2026-10-04", "problems": []}, open(path, "w"))
+    sports.note_board_crash("2026-10-04", KeyError("home_name"), datetime(2026, 10, 4, 15, tzinfo=timezone.utc), path=path)
+    sc = json.load(open(path))
+    assert sc["problems"] == [] and sc["crash"]["day"] == "2026-10-04" and "KeyError" in sc["crash"]["error"]
+    h = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "health.py")).read()
+    assert 'crash = sc.get("crash") or {}' in h and "THE BOARD BUILDER CRASHED" in h
+
 
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
