@@ -6439,3 +6439,27 @@ error: failed to push some refs to 'https://github.co
 [2026-10-03 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 10:05 UTC] crypto/hold_btc  equity $502.78 (+0.6%) 1 open  market UP
    social heat top: QNT 40 (40/0/0), PONS 39 (35/0/4), SAND 37 (37/0/0), PUMP 35 (35/0/0), NEAR 32 (32/0/0)
+   dex screen: PASS PEPE@ethereum liq $31,415,630
+   dex screen: REJECT ENA@ethereum liq $2,956,818 - is_mintable; top-10 holders 60%
+   dex screen: REJECT GOR@solana liq $334,062 - top-10 holders 51%; lp holders unknown
+   dex re-screen: OMNI@solana:5GDX5fJT flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT ZEREBRO@solana liq $3,221,960 - top-10 holders 78%
+   dex screen: REJECT MADE@solana liq $150,020 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dex screen: REJECT VVV@base liq $18,128,335 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; owner_percent 30%; top-10 holders 62%
+   dex screen: REJECT HOOKED@solana liq $355,699 - holders unknown; lp holders unknown; rugcheck lp locked 11% < 95%
+   dex screen: REJECT ONDO@ethereum liq $70,538 - liquidity $70,538 < $100,000
+   dex screen: REJECT WLD@ethereum liq $235,544 - is_mintable; owner_percent 12%; top-10 holders 66%; lp locked 0% < 95%
+   dex re-screen: SHARTCOIN@solana:UpBBfyC7 flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT PYUSD@ethereum liq $100,143,893 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 89%
+   dex scanner: 3,016 pools (solana 2,126 / base 505 / ethereum 385), refresh cycle 125s (hot 121s), 2981 calls (110 feed, 429s 0, failed 0), 86,127 refreshed (9483 no pair), +83 added / -83 dropped (dead 21, stale 0, cap 62), movers 2 + warming 25 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-03 11:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: BUY $199.40 of GLMR @ 0.011371 (entry)
+[2026-10-03 11:05 UTC] crypto/mover     equity $443.89 (-11.2%) 2 open  market UP
+[2026-10-03 11:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 11:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-03 11:05 UTC] crypto/social_heat equity $526.90 (+5.4%) 2 open  market UP
+[2026-10-03 11:05 UTC] crypto/breakout10 equity $486.47 (-2.7%) 2 open  market UP
+[2026-10-03 11:05 UTC] crypto/momentum  equity $487.30 (-2.5%) 2 open  market UP
+[2026-10-03 11:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-03 11:05 UTC] crypto/hold_btc  equity $503.01 (+0.6%) 1 open  market UP
+   social heat top: QNT 40 (40/0/0), SAND 37 (37/0/0), SUI 29 (29/0/0), PRL 27 (27/0/0), ZRO 24 (24/0/0)
