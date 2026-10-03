@@ -607,8 +607,7 @@ def _page_lines(url):
     spec = importlib.util.spec_from_file_location("fp", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "fetch_pages.py"))
     fp = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(fp)
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/126 Safari/537.36"})
-    with urllib.request.urlopen(req, timeout=25) as r:
+    with urllib.request.urlopen(urllib.request.Request(url, headers=fp.UA), timeout=25) as r:
         return fp.text_of(r.read().decode("utf-8", "replace"))
 
 
@@ -640,12 +639,14 @@ def page_injuries(league, names, get=None):
     if not url:
         return {}
     try:
-        teams = parse_team_page(get(url) if get else _page_lines(url))
+        lines = get(url) if get else _page_lines(url)
+        teams = parse_team_page(lines)
     except Exception as e:                                   # noqa: BLE001 - a missed read never blocks the board
         print(f"   {league} injury page: {str(e)[:100]}")
         return {}
     if len(teams) < WEB_MIN_TEAMS:
-        print(f"   {league} injury page: only {len(teams)} schools - not used")
+        print(f"   {league} injury page: only {len(teams)} schools - not used ({len(lines)} lines, "
+              f"{lines.count('Status')} 'Status', starts: {' | '.join(lines[:3])[:120]})")
         return {}
     import difflib
     by = {}
