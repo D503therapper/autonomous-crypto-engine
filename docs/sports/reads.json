@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T00:24Z",
+ "updated": "2026-10-04T00:56Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -923,8 +923,8 @@
    "away": "Alabama St",
    "home": "Bethune",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -998,8 +998,8 @@
    "away": "Tennessee St",
    "home": "W Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1087,8 +1087,8 @@
    "away": "New Haven",
    "home": "Austin Peay",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1102,8 +1102,8 @@
    "away": "Youngstown St",
    "home": "S Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1706,6 +1706,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401891814",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-04T00:00Z",
+   "away": "Bruins",
+   "home": "Wild",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401858477",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1794,36 +1809,34 @@
    "lean": null
   },
   {
-   "id": "nhl:401892439",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.493,
-    "tie": 0.281,
-    "name": "1st period"
-   },
-   "sport": "NHL",
+   "id": "ncaaf:401868053",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-04T01:00Z",
-   "away": "Blues",
-   "home": "Avalanche",
-   "why": "tight",
+   "start": "2026-10-04T00:00Z",
+   "away": "West Florida",
+   "home": "Abilene Chrstn",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Blues",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.775,
-    "win_p": 0.775,
-    "reasons": [
-     "the stronger team",
-     "opponent on a back-to-back",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "mlb:401908002",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-04T00:30Z",
+   "away": "Padres",
+   "home": "Brewers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401860921",
@@ -1967,9 +1980,9 @@
     "team": "UC Davis",
     "opp": "E Washington",
     "market": "spread",
-    "line": -10.0,
+    "line": -8.5,
     "odds": -111,
-    "p": 0.501,
+    "p": 0.5,
     "win_p": 0.743,
     "reasons": [
      "the stronger team",
