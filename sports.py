@@ -1511,11 +1511,12 @@ def units_ledger(picks, early=()):
                           leg_units(p, l), res, dec,                                  # is THAT pick: its team, its price)
                           p.get("settled") or p.get("posted") or "")
     import sports_early                                  # ⏰ early value plays: the price we got in at, sized by the engine's
-    for e in early or ():                                # edge - one count per pick (the early one, when it's on the board too)
-        if e.get("result") not in ("won", "lost", "push") or not e.get("odds"):
-            continue
+    for e in early or ():                                # edge - its OWN bet: when the board takes the same side on game
+        if e.get("result") not in ("won", "lost", "push") or not e.get("odds"):   # day, both count, each with its units
+            continue                                     # (the owner, 10/4: "Jaguars can be both" - ½u early + 1u Dog;
         day = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).strftime("%Y-%m-%d")
-        calls[(day, e["game_id"], e["side"])] = (False, {"date": day, "kind": "early", "units_tier": "early",
+        calls[(day, e["game_id"], e["side"], "early")] = (False, {"date": day, "kind": "early", "units_tier": "early",   # the 10/4 audit: the
+        #                                                  early row overwrote the Dog's and the unit record lost its 1u)
                                                          "legs": [{"team": e["team"]}]},
                                                  sports_early.units(e), e["result"], _dec(e["odds"]), e.get("graded_at") or "")
     rows_in = sorted(calls.values(), key=lambda c: (c[1]["date"], c[5]))
