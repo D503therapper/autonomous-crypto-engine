@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T11:54Z",
+ "updated": "2026-10-04T12:17Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -222,7 +222,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.614,
+    "p": 0.608,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -231,18 +231,20 @@
    "start": "2026-10-04T17:00Z",
    "away": "Patriots",
    "home": "Bills",
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Patriots",
-    "opp": "Bills",
-    "market": "spread",
-    "line": 7.0,
-    "odds": -115,
-    "p": 0.51,
-    "win_p": 0.277,
+    "team": "Bills",
+    "opp": "Patriots",
+    "market": "ml",
+    "line": null,
+    "odds": -298,
+    "p": 0.687,
+    "win_p": 0.687,
     "reasons": [
-     "revenge game"
+     "the stronger team",
+     "hotter recent form",
+     "better QB play lately"
     ]
    }
   },
@@ -284,7 +286,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ravens",
-    "p": 0.736,
+    "p": 0.73,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -302,7 +304,7 @@
     "line": 11.5,
     "odds": -110,
     "p": 0.508,
-    "win_p": 0.152,
+    "win_p": 0.159,
     "reasons": [
      "revenge game"
     ]
