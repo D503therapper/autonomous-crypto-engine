@@ -7073,6 +7073,15 @@ def test_europe_morning_under_is_tracked_not_bet():
     assert "sports_intl.run(games, now)" in open("sports.py").read()
 
 
+def test_key_player_on_ir_is_not_called_news():
+    """10/4 preview: 'No Jaxson Dart for Giants — that's their starting quarterback' - Dart was on IR and Jameis
+    Winston had started their last two games. A key player on IR reads as still out, the backup going again."""
+    src = open("sports_breakdown_v24.py").read()
+    assert "any(w in str(key_them[0][2]).lower() for w in sd.LONG_OUT)" in src and "is on IR" in src
+    i = src.index("any(w in str(key_them[0][2]).lower() for w in sd.LONG_OUT)")
+    assert src.index("that's their starting {pos}") > i            # the 'starting QB' wording only after the IR check
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
