@@ -7055,6 +7055,25 @@ def test_graded_lock_and_dog_leaving_the_board_never_reads_as_no_lock():
     assert "leanday" in html                                             # a day that truly had none still says so
 
 
+def test_europe_morning_under_is_tracked_not_bet():
+    """10/4, the owner: "track it and see if we can prove something." Every NFL game in Europe before noon ET: the
+    Under at the night-before number, graded, its own record - never a pick, never units."""
+    import sports_intl as si, tempfile as _t
+    g = {"id": "nfl:1", "league": "nfl", "intl": "1", "country": "England", "city": "London", "start": "2026-10-04T13:30Z",
+         "status": "pre", "total": "46.5", "under_odds": "-110", "away_name": "Colts", "home_name": "Commanders"}
+    late = dict(g, id="nfl:2", start="2026-10-04T20:00Z")                     # 4 PM ET in London: not a morning game
+    mex = dict(g, id="nfl:3", country="Mexico")
+    p = os.path.join(_t.mkdtemp(), "i.json")
+    st = si.run({"nfl:1": g, "nfl:2": late, "nfl:3": mex}, datetime(2026, 10, 3, 20, 0, tzinfo=timezone.utc), p)
+    assert st["games"] == {}                                                  # 1 PM PT the day before: too early
+    st = si.run({"nfl:1": g, "nfl:2": late, "nfl:3": mex}, datetime(2026, 10, 4, 6, 0, tzinfo=timezone.utc), p)
+    assert list(st["games"]) == ["nfl:1"] and st["games"]["nfl:1"]["total"] == 46.5
+    g2 = dict(g, status="final", home_score="20", away_score="17", total="44.5")   # the number never changes after
+    st = si.run({"nfl:1": g2}, datetime(2026, 10, 4, 18, 0, tzinfo=timezone.utc), p)
+    assert st["games"]["nfl:1"]["result"] == "won" and st["record"]["won"] == 1 and st["games"]["nfl:1"]["total"] == 46.5
+    assert "sports_intl.run(games, now)" in open("sports.py").read()
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""

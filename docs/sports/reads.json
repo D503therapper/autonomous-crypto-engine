@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T05:11Z",
+ "updated": "2026-10-04T06:36Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -1935,8 +1935,8 @@
    "away": "Baylor",
    "home": "Arizona St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1950,8 +1950,8 @@
    "away": "E Washington",
    "home": "UC Davis",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1965,8 +1965,8 @@
    "away": "Texas St",
    "home": "San Diego St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1980,8 +1980,8 @@
    "away": "Cincinnati",
    "home": "Arizona",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2189,7 +2189,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.557,
+    "p": 0.558,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2313,7 +2313,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.512,
+    "p": 0.505,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -2329,10 +2329,11 @@
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
-    "odds": -187,
-    "p": 0.594,
-    "win_p": 0.406,
+    "odds": -180,
+    "p": 0.602,
+    "win_p": 0.414,
     "reasons": [
+     "sharp money moving this way",
      "opponent drama: new baby"
     ]
    }
@@ -2485,7 +2486,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.644,
+    "p": 0.645,
     "win_p": 0.426,
     "reasons": [
      "hotter recent form",
@@ -2499,7 +2500,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.508,
+    "p": 0.519,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -2508,17 +2509,20 @@
    "start": "2026-10-05T00:00Z",
    "away": "Braves",
    "home": "Dodgers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Braves",
-    "opp": "Dodgers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -182,
-    "p": 0.599,
-    "win_p": 0.411,
-    "reasons": []
+    "team": "Dodgers",
+    "opp": "Braves",
+    "market": "ml",
+    "line": null,
+    "odds": -158,
+    "p": 0.593,
+    "win_p": 0.593,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -2527,7 +2531,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Kraken",
-    "p": 0.384,
+    "p": 0.383,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -2543,8 +2547,8 @@
     "opp": "Kraken",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
-    "p": 0.651,
+    "odds": -205,
+    "p": 0.652,
     "win_p": 0.433,
     "reasons": []
    }
@@ -2573,7 +2577,7 @@
     "line": 1.5,
     "odds": -225,
     "p": 0.662,
-    "win_p": 0.441,
+    "win_p": 0.442,
     "reasons": [
      "hotter recent form",
      "opponent drama: family/personal"
@@ -2635,12 +2639,11 @@
     "market": "ml",
     "line": null,
     "odds": -230,
-    "p": 0.709,
-    "win_p": 0.709,
+    "p": 0.708,
+    "win_p": 0.708,
     "reasons": [
      "the stronger team",
-     "opponent on a back-to-back",
-     "hotter goalie"
+     "opponent on a back-to-back"
     ]
    }
   }
