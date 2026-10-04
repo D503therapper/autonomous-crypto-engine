@@ -638,6 +638,12 @@ def breakdown(leg, games, elo, injuries, used=None):
             out.append(v.say("keyout_bat", [f"🚑 {them} are without {nm} — one of their best bats is on the shelf.",
                                             f"🚑 No {nm} in {_pos(them)} lineup. That's a big bat gone.",
                                             f"🚑 {them} gotta score without {nm}. Their lineup just got a lot less scary."]))
+        elif key_them and not both and any(w in str(key_them[0][2]).lower() for w in sd.LONG_OUT):
+            pos, nm = _posname(key_them[0][1], lg), key_them[0][0]   # (10/4: Dart on IR read like fresh news -
+            out.append(v.say("keyout", [                              #  Winston had started their last two games)
+                f"🚑 {nm} is on IR — {them} are still on their backup {pos}.",
+                f"🚑 {them} are still without {nm} (IR) — the backup {pos} keeps the job.",
+                f"🚑 Still no {nm} for {them} — he's on IR, the backup {pos} goes again."]))
         elif key_them and not both:
             pos, nm = _posname(key_them[0][1], lg), key_them[0][0]
             out.append(v.say("keyout", [f"🚑 {them} are rolling without their starting {pos} ({nm}).",

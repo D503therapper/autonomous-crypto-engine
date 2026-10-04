@@ -648,3 +648,43 @@ false-discovery check. Nothing built.** Big football dogs win when the engine's 
   (-29.2% on 2,207, 0 of 9) and -17.3% in the NFL - already outside SPOT_DOG (+100..+220).
 - Study: /tmp scratch bigdog_study.py (not kept - the table above is the result); re-run after 2027 for the NFL
   upset-hangover favorite.
+
+## 10/4 - replay of the no-cap and injury-weight changes (do the two 10/4 rule changes lose money before real units do?)
+Same machinery as the 10/2 unit-system replay (its code snapshot, blind per-season model params, 8:35 AM PT board,
+closing prices): 713 board days 2023-01-01..2026-09-30, 1,193 unit plays, old rules -13.2u on 1,099u risked (-1.2%)
+at today's sizing (Lock by read, Dog 1u, plays ½u). Nothing changed in the engine - measured only.
+- **No cap on value plays (MAX_PLAYS 8 -> none): it hardly ever mattered.** The 8-play cap bit on 7 of 713 days (all
+  college-hoops Saturdays); re-run with no cap, 4 of them still stopped at 8 (that's all the slate had), so the cap really
+  bound on 3 days (1/7, 2/18, 3/2 of 2023) and let through 17 extra plays ranked 9th to 19th: 9-8, +0.78u at ½u (+9.2%
+  ROI, flat 1u +1.6), 16 college hoops (9-7, +1.3u) and 1 hockey dog (lost); 12 of the 17 were dogs, 3 spreads. One
+  season, 17 bets - noise, not proof either way. The whole replay with them: -13.2u -> -12.4u. The real read on depth:
+  across all 713 days the value plays by their rank on the day (flat 1u) run #1 -6.7% (235), #2 +2.8% (111), #3 -15.8%
+  (53), #4 -10.8% (29), #5 -8.2% (22), #6 -8.6% (15), #7 -43.2% (10), #8 -12.8% (7) - the 3rd play down loses more than
+  the first two, and value plays as a class lose (-6.7% flat, the 10/2 finding). VERDICT: keep the no-cap (it costs
+  nothing we can see - it adds a handful of plays a season), but the thing to watch is not the count, it's the deep
+  plays: if the 3rd+ play of the day keeps losing 10%+ on our live record, a cap at 2 (or ½u only past #2) is the fix.
+  (Two 2023 days came out with 1-2 of their first 8 plays different from the 10/2 run - the game files have grown since
+  - so the 'extra' list is the fresh run's 9th+; the 2025-26 days matched exactly.)
+- **Football injuries weighed, not blocked: the block can't be replayed faithfully** - the board replay has no injury
+  reports (none exist in history; sports.hurt / MAX_EXTRA_OUT never fired in it, so its 1,193 plays already behave like
+  the NEW football rule). Estimated the 10/4-study way on the replay's 76 graded football unit plays (NFL 17, college
+  59; 2023-26, both sides with box scores and prior-game regulars): 'out' = a regular from the team's prior 3 games
+  (QB, top 2 carriers, top 4 catchers, top 11 tacklers) not in the game's box score. Caveat: a tackler with no tackle
+  reads as 'out' too, so this flags far more sides than the real reports would (47 of 76 plays had 2+ non-key regulars
+  'out') - it's an upper bound on what the block would have stopped. Those 47: 25-22, +3.3u at our sizing (+10.0% ROI,
+  flat +2.9u, 4 of 5 seasons up; NFL 11 plays 8-3 +1.3u, college 36 17-19 +2.0u; favorites 14-4 +4.5u, dogs 11-18
+  -1.2u). The 29 'healthy' plays went 11-18, -9.8u. Cleaner count (skill regulars only - QB1 / top rusher / top-2
+  catchers, no tackler noise): pick side with 1+ skill regular out 26 plays 13-13 +1.2u (+6.4%); 2+ out 9 plays 5-4
+  +0.8u; 0 out 50 plays 23-27 -7.7u. So the football plays the old block stopped did NOT lose - they were the better
+  half of our football - which matches the 10/4 study (a side 2+ short runs even against its price). The NEW NFL depth
+  weight (½ pt a head, cap 3, on the own read) touched 8 of the 17 NFL plays against the pick side; the 5 it would now
+  drop (own read no longer beats the price) went 2-3, -1.8u, and the 8 it helps (opponent thinner) 5-3 +1.1u - the right
+  direction, far too few to call. 2023+ holdout: all of this is 2023-26. VERDICT: keep - lifting the block costs
+  nothing in the data we have (if anything it put plays back that won); the sample is 76 football plays, so the live
+  record decides it: the 'more banged-up' NFL lead (-2.5 vs the price) and the box-score 'missing' noise both get a
+  real test this season.
+- Combined: old rules with a working block would have run about -16.5u (the 47 'blocked' plays out) to -14.4u (skill
+  count); the new rules -12.4u. Neither change moves the needle; the needle is still the value plays' -6.7%.
+- Scripts (scratch, not kept): nocap/run_nocap.py (the 7 cap days re-run with sports.MAX_PLAYS unlimited on the 10/2
+  snapshot), nocap/nocap_an.py, nocap/injury_est.py. Re-run after the 2026 football season with the real injury
+  reports (data/sports/injuries_official.json holds them from 10/2 on) - then the block can be replayed for real.
