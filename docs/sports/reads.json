@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T04:57Z",
+ "updated": "2026-10-04T04:59Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -2067,7 +2067,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.536,
+    "p": 0.529,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2083,12 +2083,11 @@
     "opp": "Cowboys",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -2309,6 +2308,36 @@
    }
   },
   {
+   "id": "mlb:401908003",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Brewers",
+    "p": 0.512,
+    "tie": 0.117,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-04T20:00Z",
+   "away": "Padres",
+   "home": "Brewers",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Padres",
+    "opp": "Brewers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -187,
+    "p": 0.594,
+    "win_p": 0.406,
+    "reasons": [
+     "opponent drama: new baby"
+    ]
+   }
+  },
+  {
    "id": "nfl:401872974",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -2456,7 +2485,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.645,
+    "p": 0.644,
     "win_p": 0.426,
     "reasons": [
      "hotter recent form",
@@ -2470,7 +2499,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.507,
+    "p": 0.508,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -2488,7 +2517,7 @@
     "line": 1.5,
     "odds": -182,
     "p": 0.599,
-    "win_p": 0.412,
+    "win_p": 0.411,
     "reasons": []
    }
   },
@@ -2515,7 +2544,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -198,
-    "p": 0.679,
+    "p": 0.68,
     "win_p": 0.462,
     "reasons": [
      "opponent on a back-to-back"
