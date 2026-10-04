@@ -5648,7 +5648,7 @@ def _six_early_spots_rest(se, G, now, agree, rams, got, escape):
         h = se.html(st, escape, now)
     finally:
         se.ON = keep_on
-    assert "The engine likes Utah and the line moved away" in h and "How each spot" in h and "1-0 (+0.65u)" in h
+    assert "Utah" in h and "The line moved away from them" in h and "How each spot" in h and "1-0 (+0.65u)" in h
 
 
 def test_dog_findings_weighed_never_auto():
@@ -6894,8 +6894,8 @@ def test_early_play_dates_are_plain():
                "status": "final", "stype": "2"},
          "g": {"id": "g", "league": "ncaaf", "start": "2026-10-10T23:30Z", "home": "A", "away": "G", "home_name": "Alabama",
                "away_name": "Georgia", "status": "pre", "stype": "2"}}
-    why = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now)
-    assert "Alabama beat Mississippi St 56-23 on Saturday 10/3." in why and "last week" not in why, why
+    why = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now, 0.624, 130)[0]
+    assert "beat Mississippi St 56-23 on Saturday 10/3." in why and "last week" not in why, why
     keep_on, se.ON = se.ON, True
     try:
         html = se.html({"picks": [{"team": "Alabama", "opp": "Georgia", "league": "ncaaf", "odds": 130, "spot": "blowout",
@@ -6903,6 +6903,27 @@ def test_early_play_dates_are_plain():
     finally:
         se.ON = keep_on
     assert "Saturday 10/10 · game starts at 4:30 PM PT" in html, html
+
+
+def test_early_cards_lead_with_the_read_and_never_share_wording():
+    """10/4, the owner: the Jaguars and Alabama cards both said only 'Dogs coming off a big win like that have beaten
+    their price' - it looked like a one-factor pick (the blowout is a 2-point weight; the engine's own read carried
+    both). The card leads with the read, and two early cards never use the same wording."""
+    import sports_early as se
+    now = datetime(2026, 10, 3, 23, 0, tzinfo=timezone.utc)
+    G = {"p": {"id": "p", "league": "ncaaf", "start": "2026-10-03T16:00Z", "home": "M", "away": "A",
+               "home_name": "Mississippi St", "away_name": "Alabama", "home_score": "23", "away_score": "56",
+               "status": "final", "stype": "2"},
+         "g": {"id": "g", "league": "ncaaf", "start": "2026-10-10T23:30Z", "home": "A", "away": "G", "home_name": "Alabama",
+               "away_name": "Georgia", "status": "pre", "stype": "2"}}
+    ws = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now, 0.624, 130)
+    assert len(set(ws)) == 3 and all("62%" in w and "56-23" in w for w in ws), ws
+    assert not any("beaten their price" in w for w in ws)
+    low = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now, 0.50, 130)
+    assert not any("%" in w for w in low), low                       # (a win % only over 55)
+    st = {"picks": [{"game_id": "x", "why_t": 0, "result": None}, {"game_id": "y", "why_t": 1, "result": "won"}]}
+    c = se.pick_wording({"game_id": "g", "why": ws[0], "whys": ws}, st)
+    assert c["why_t"] == 1 and c["why"] == ws[1] and "whys" not in c
 
 
 def test_patty_challenge_removed():
@@ -7279,8 +7300,10 @@ def test_early_play_reason_in_plain_words():
                "away_name": "Patriots", "home_score": "35", "away_score": "6", "status": "final", "stype": "2"},
          "g": {"id": "g", "league": "nfl", "start": "2026-10-04T17:00Z", "home": "C", "away": "J", "home_name": "Bengals",
                "away_name": "Jaguars", "status": "pre", "stype": "2"}}
-    why = se.spot_why(se._schedule(G), G["g"], "away", "home", "nfl", "blowout")
-    assert "Jaguars beat Patriots 35-6 last week" in why and "Blew somebody out" not in why
+    whys = se.spot_why(se._schedule(G), G["g"], "away", "home", "nfl", "blowout", datetime(2026, 10, 1, tzinfo=timezone.utc),
+                       0.608, 120)
+    why = whys[0]
+    assert "beat Patriots 35-6 on Monday 9/28" in why and "Blew somebody out" not in why, why
     keep_on, se.ON = se.ON, True                                    # (another test may switch the box off)
     html = se.html({"picks": [{"team": "Jaguars", "opp": "Bengals", "league": "nfl", "odds": 120, "spot": "blowout",
                                "why": why, "start": "2030-10-04T17:00Z", "game_id": "g"}]}, lambda x: x,

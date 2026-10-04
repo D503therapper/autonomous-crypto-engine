@@ -4336,6 +4336,15 @@
      "game:div"
     ],
     "dec": 2.1,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Shayne Gostisbehere",
+     "s": "3-2",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4349,6 +4358,10 @@
     "edge_own": 0.004133152216921676,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,1,1",
+     "h": "1,1,0,0"
+    },
     "form_state": null,
     "game_id": "nhl:401892435",
     "home": true,
@@ -4382,9 +4395,11 @@
      "opponent drama: trade drama"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Hurricanes 3 @ Flyers 2",
+    "settled": "2026-10-04T01:48Z",
     "side": "home",
     "start": "2026-10-03T23:00Z",
     "stype": "2",
@@ -4408,12 +4423,14 @@
    }
   ],
   "p_hit": 0.4782,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-03T15:47Z",
   "round": 1,
+  "settled": "2026-10-04T01:48Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -149,
@@ -4628,6 +4645,7 @@
      "them:west1000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4642,6 +4660,10 @@
     "edge_own": -0.044128933231005196,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,0,0,0,0,0,0",
+     "h": "0,0,1,0,0,0,0,0"
+    },
     "form_state": [
      -4.0,
      -1,
@@ -4684,9 +4706,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Yankees 0 @ Rays 1",
+    "settled": "2026-10-04T01:09Z",
     "side": "home",
     "start": "2026-10-03T22:30Z",
     "stype": "3",
@@ -4703,12 +4727,14 @@
    }
   ],
   "p_hit": 0.5493,
-  "pnl": 0.0,
+  "pnl": 74.07,
   "posted": "2026-10-03T15:47Z",
   "round": 1,
+  "settled": "2026-10-04T01:09Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -110,
@@ -4857,6 +4883,7 @@
      "game:div"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4870,6 +4897,10 @@
     "edge_own": 0.00455773532935444,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0",
+     "h": "2,0,0"
+    },
     "form_state": null,
     "game_id": "nhl:401892438",
     "home": true,
@@ -4898,9 +4929,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Stars 1 @ Predators 2",
+    "settled": "2026-10-04T02:36Z",
     "side": "home",
     "start": "2026-10-04T00:00Z",
     "stype": "2",
@@ -4917,12 +4950,14 @@
    }
   ],
   "p_hit": 0.4694,
-  "pnl": 0.0,
+  "pnl": 114.0,
   "posted": "2026-10-03T15:47Z",
   "round": 1,
+  "settled": "2026-10-04T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 120,
@@ -4973,6 +5008,15 @@
      "game:conf"
     ],
     "dec": 2.2,
+    "decider": {
+     "k": "td",
+     "n": 1,
+     "p": null,
+     "s": "35-34",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4995,6 +5039,10 @@
     "edge_own": -0.030383655368010687,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,10,14,3,8",
+     "h": "14,6,0,7,7"
+    },
     "form_state": [
      24.0,
      2,
@@ -5040,9 +5088,11 @@
      "opponent drama: suspension"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Kentucky 35 @ South Carolina 34",
+    "settled": "2026-10-04T00:10Z",
     "side": "away",
     "start": "2026-10-03T20:15Z",
     "stype": "2",
@@ -5077,12 +5127,14 @@
   ],
   "midday": true,
   "p_hit": 0.441,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-10-03T17:27Z",
   "round": 1,
+  "settled": "2026-10-04T00:10Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": -120,
@@ -5122,6 +5174,7 @@
      "them:out_dome"
     ],
     "dec": 1.8333333333333335,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -5141,6 +5194,10 @@
     "edge_own": 0.05464783557467734,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "7,0,11,13",
+     "h": "7,17,0,15"
+    },
     "form_state": [
      28.0,
      1,
@@ -5179,9 +5236,11 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "California 31 @ UNLV 39",
+    "settled": "2026-10-03T23:40Z",
     "side": "home",
     "start": "2026-10-03T19:30Z",
     "stype": "2",
@@ -5200,12 +5259,14 @@
   ],
   "midday": true,
   "p_hit": 0.5217,
-  "pnl": 0.0,
+  "pnl": 83.33,
   "posted": "2026-10-03T18:25Z",
   "round": 1,
+  "settled": "2026-10-03T23:40Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 2.5
  },
  {
   "american": 102,

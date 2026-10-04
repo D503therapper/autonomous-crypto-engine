@@ -368,7 +368,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                 break                                        # (10/1 audit: never past 2 a week, both paths together)
             room -= 1
             c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
-            st["picks"].append(c)
+            st["picks"].append(pick_wording(c, st))
             have.add(c["game_id"])
             new.append(c)
             if ping:                                         # (10/2 audit: the spots - the only football path -
@@ -537,29 +537,52 @@ def when(start, now):
     return "Today" if d <= 0 else "Tomorrow" if d == 1 else f"{t:%A} {t.month}/{t.day}"
 
 
-def spot_why(sched, g, side, other, lg, spot, now=None):
-    """The early play's reason in plain words, with what actually happened (the owner, 10/1: "'blew somebody out last
-    week' is very vague"). One line."""
+def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
+    """The early play's reason in plain words (the owner, 10/1: "'blew somebody out last week' is very vague"; 10/4:
+    the spot is ONE weight - lead with the engine's own read, the spot is the fact behind it). One line. -> a list of
+    wordings (READS); pick_spots / the save takes one no other early card on the board is using ("no same wording
+    across the two")."""
     me, opp = g.get(f"{side}_name") or "They", g.get(f"{other}_name") or "them"
     p = _prev(sched, lg, g[side], g["start"])
+    fact = {"mnf": f"Monday night dog.", "eastwest": f"{me} flying from the East Coast out West.",
+            "hammered": f"The money hit {me} early.", "engine": f"The line moved away from them - better price for us.",
+            "best": ""}.get(spot, "")
+    facts = [fact] * 3
     try:
         if spot == "blowout" and p:
             mine = p["home"] == g[side]
             us, them = (p["home_score"], p["away_score"]) if mine else (p["away_score"], p["home_score"])
             vs = p.get("away_name") if mine else p.get("home_name")
-            return (f"💥 {me} beat {vs} {int(float(us))}-{int(float(them))} "
-                    f"{ago(p['start'], now or datetime.now(timezone.utc))}. Dogs coming off a big win like that "
-                    f"have beaten their price in our studies - the books don't give them enough credit.")
+            sc, when_ = f"{int(float(us))}-{int(float(them))}", ago(p["start"], now or datetime.now(timezone.utc))
+            facts = [f"They beat {vs} {sc} {when_}.", f"Coming off a {sc} beatdown of {vs} {when_}.",
+                     f"Fresh off smacking {vs} {sc} {when_}."]
         if spot == "bye" and p:
-            return (f"🛌 {me} had last week off; {opp} played. Rested dogs against a team that just played have beaten "
-                    f"their price in our studies.")
+            facts = [f"{me} had last week off; {opp} played.", f"Rested - {me} sat last week, {opp} didn't.",
+                     f"{opp} played last week, {me} got the week off."]
     except (KeyError, ValueError, TypeError):
         pass
-    return {"mnf": f"🏈 {me} as a Monday night dog - those have beaten their price in our studies.",
-            "eastwest": f"✈️ {me} flying from the East Coast out West as a dog - the books overrate the trip.",
-            "hammered": f"🔨 The money hammered {me} early - their price came in hard since the first fair number.",
-            "engine": f"🧠 The engine likes {me} and the line moved away from them - a better price for us.",
-            "best": f"🎯 The engine's best-weighed dog of the week: {me}."}.get(spot, "")
+    pr = f"+{odds}" if odds and odds > 0 else "this price"
+    if own is not None and own * 100 > 55:
+        pc = round(own * 100)
+        reads = [f"🧠 Our numbers got {me} winning {pc}% - way more than {pr} pays for.",
+                 f"🧠 {me} at {pr} is a gift: we got 'em winning {pc}% of the time.",
+                 f"🧠 The books got {me} as the dog; our read has 'em winning {pc}%."]
+    else:
+        reads = [f"🧠 Our numbers like {me} more than {pr} does.", f"🧠 {me} at {pr} is a gift on our read.",
+                 f"🧠 The books got {me} as the dog; our read says they're better than that."]
+    return [(r + (" " + f if f else "")).strip() for r, f in zip(reads, facts)]
+
+
+def pick_wording(c, st):
+    """One wording for a new early play no open early card already uses (the owner, 10/4: no same wording across
+    the cards)."""
+    ws = c.pop("whys", None)
+    if not ws:
+        return c
+    used = {p.get("why_t") for p in st.get("picks", []) if not p.get("result")}
+    k = next((i for i in range(len(ws)) if i not in used), 0)
+    c.update(why=ws[k], why_t=k)
+    return c
 
 
 def _prev(sched, lg, team, start):
@@ -781,10 +804,10 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
             if total < (0.0 if any_dog else SPOT_MIN_TOTAL):
                 continue                                     # everything weighed together doesn't say value
             main = max(hit, key=lambda h: SPOTS[h][1])
-            why = spot_why(sched, g, side, other, lg, main, now)
+            whys = spot_why(sched, g, side, other, lg, main, now, own, odds)
             out.append({"game_id": g["id"], "league": lg, "side": side, "team": g[f"{side}_name"], "opp": g[f"{other}_name"],
                         "odds": odds, "opp_odds": opp_odds, "start": g["start"], "spot": main, "spots": hit,
-                        "fades": fades, "score": round(total, 4), "why": why, "mkt": round(mk, 4), "own": round(own, 4),
+                        "fades": fades, "score": round(total, 4), "why": whys[0], "whys": whys, "mkt": round(mk, 4), "own": round(own, 4),
                         "fair_at": r.strftime("%Y-%m-%dT%H:%MZ") if r else None})
     sides = {}
     for c in out:
