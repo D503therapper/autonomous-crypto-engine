@@ -7585,3 +7585,26 @@ error: failed to push some refs to 'https://github.
 [2026-10-04 20:37 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-04 20:37 UTC] crypto/hold_btc  equity $508.19 (+1.6%) 1 open  market UP
    social heat top: QNT 41 (37/0/4), NEAR 40 (40/0/0), PONS 37 (32/0/5), FET 35 (35/0/0), PENGU 29 (29/0/0)
+   footprint: SUI: footprint 3/4 (drift+quiet+hikes) 48h +7.6%, 2 volume hikes, 62% quiet hours @ 1.20558
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +5.0%, 2 volume hikes, 94% quiet hours @ 0.25117
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '85631.99', 'l': '84551.43', 'a': '85630.27', 'v': '779.5738', 'vv': '66302577.22', 'c': '0.0090', 'b': '85621.70', 'k': '85621.71', 'oi': '0', 't': 1791146259816}
+   dex screen: REJECT SI@solana liq $882,933 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT SIF@ethereum liq $120,395 - lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT OTC@solana liq $562,788 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dex screen: REJECT DARK@solana liq $115,351 - holders unknown; lp holders unknown; rugcheck lp locked 83% < 95%
+   dex screen: REJECT STOCKER@ethereum liq $301,908 - lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,117 / base 492 / ethereum 391), refresh cycle 239s (hot 229s), 622 calls (78 feed, 429s 0, failed 6), 16,099 refreshed (2223 no pair), +393 added / -195 dropped (dead 73, stale 1, cap 121), movers 0 + warming 15 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-04 21:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-04 21:06 UTC] crypto/mover     equity $436.52 (-12.7%) 2 open  market UP
+[2026-10-04 21:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 21:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 21:06 UTC] crypto/social_heat equity $520.51 (+4.1%) 2 open  market UP
+[2026-10-04 21:06 UTC] crypto/breakout10 equity $502.70 (+0.5%) 2 open  market UP
+[2026-10-04 21:06 UTC] crypto/momentum  equity $490.38 (-1.9%) 2 open  market UP
+[2026-10-04 21:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-04 21:06 UTC] crypto/hold_btc  equity $509.44 (+1.9%) 1 open  market UP
+   social heat top: FET 40 (40/0/0), PONS 39 (29/0/10), NEAR 37 (37/0/0), GRASS 35 (35/0/0), QNT 27 (27/0/0)
