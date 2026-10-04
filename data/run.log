@@ -6891,3 +6891,29 @@ error: failed to push some refs to 'https://github.
 [2026-10-03 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-03 23:06 UTC] crypto/hold_btc  equity $503.83 (+0.8%) 1 open  market UP
    social heat top: PUMP 37 (37/0/0), TAO 35 (35/0/0), STRK 32 (32/0/0), QNT 29 (29/0/0), PENGU 27 (27/0/0)
+   dex screen: REJECT MUC@base liq $3,800 - liquidity $3,800 < $100,000; 24h volume $27 < $100,000
+   dex re-screen: PURRSWORD@solana:GgdAua8q flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT IMD@ethereum liq $2,579,591 - top-10 holders 60%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT ATH@ethereum liq $421,974 - is_mintable; is_whitelisted; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $3,141,874
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS STONK@solana liq $2,748,117
+   dex screen: REJECT BONE@ethereum liq $1,421,006 - top-10 holders 48%
+   dex screen: REJECT STOCKER@ethereum liq $322,119 - lp locked 0% < 95%
+   dex screen: REJECT FEELSGOOD@solana liq $104,464 - transfer_fee_upgradable; lp holders unknown
+   dex scanner: 2,721 pools (solana 2,009 / base 372 / ethereum 340), refresh cycle 117s (hot 112s), 3020 calls (108 feed, 429s 0, failed 0), 87,358 refreshed (14938 no pair), +81 added / -258 dropped (dead 238, stale 20, cap 0), movers 0 + warming 22 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-04 00:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-04 00:07 UTC] crypto/mover     equity $461.47 (-7.7%) 1 open  market UP
+[2026-10-04 00:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 00:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 00:07 UTC] crypto/social_heat equity $521.19 (+4.2%) 1 open  market UP
+[2026-10-04 00:07 UTC] crypto/breakout10 equity $494.58 (-1.1%) 2 open  market UP
+[2026-10-04 00:07 UTC] crypto/momentum  equity $490.02 (-2.0%) 2 open  market UP
+[2026-10-04 00:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-04 00:07 UTC] crypto/hold_btc  equity $503.88 (+0.8%) 1 open  market UP
+   social heat top: PENGU 37 (37/0/0), PUMP 35 (35/0/0), ZRO 32 (32/0/0), QNT 29 (29/0/0), TAO 27 (27/0/0)
