@@ -1,11 +1,9 @@
 {
- "at": "2026-10-04T06:35Z",
+ "at": "2026-10-04T06:36Z",
  "fixes": [
-  "slate check problem - re-pull before the board - started sports.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Shubladze vs Maneiro: no points for 1912s",
-  "live tennis scores: tennis Sidorova vs Zavatska: no points for 772s",
   "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
   "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
   "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
@@ -14,14 +12,14 @@
   "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
  ],
  "ok": [
-  "live watcher fresh (112s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 4 live matches",
+  "live tennis points + server: 2 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
@@ -34,6 +32,20 @@
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T06:36Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+   ]
+  },
   {
    "at": "2026-10-04T06:35Z",
    "fixes": [
@@ -760,18 +772,6 @@
   {
    "at": "2026-10-01T19:38Z",
    "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T19:37Z",
-   "fixes": [
-    "live board 125 min stale with games on - sports-live.yml already running",
     "slate check problem - re-pull before the board - sports.yml already running"
    ],
    "problems": [
