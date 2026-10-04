@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T01:46Z",
+ "updated": "2026-10-04T01:47Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -1445,8 +1445,8 @@
    "away": "Kraken",
    "home": "Oilers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -2564,8 +2564,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Kraken",
-    "p": 0.384,
-    "tie": 0.298,
+    "p": 0.369,
+    "tie": 0.299,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2581,9 +2581,10 @@
     "market": "spread",
     "line": 1.5,
     "odds": -198,
-    "p": 0.652,
-    "win_p": 0.434,
+    "p": 0.679,
+    "win_p": 0.461,
     "reasons": [
+     "opponent on a back-to-back",
      "hotter goalie"
     ]
    }
