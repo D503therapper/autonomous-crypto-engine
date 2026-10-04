@@ -1,27 +1,40 @@
 {
- "at": "2026-10-04T10:23Z",
+ "at": "2026-10-04T11:58Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Tkacheva vs Tikhonova: no points for 283s",
+  "live tennis scores: tennis Smith vs Lacinova: no points for 283s",
+  "live tennis scores: tennis Falkowska vs Turkmen: no points for 283s"
+ ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (23s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 5 live matches",
+  "live tennis points + server: 2 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 45 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-04T11:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Tkacheva vs Tikhonova: no points for 283s",
+    "live tennis scores: tennis Smith vs Lacinova: no points for 283s",
+    "live tennis scores: tennis Falkowska vs Turkmen: no points for 283s"
+   ]
+  },
   {
    "at": "2026-10-04T10:23Z",
    "fixes": [],
@@ -735,17 +748,6 @@
   },
   {
    "at": "2026-10-01T21:49Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:39Z",
    "fixes": [
     "slate check problem - re-pull before the board - started sports.yml"
    ],
