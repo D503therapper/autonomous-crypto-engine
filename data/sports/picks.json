@@ -4883,6 +4883,7 @@
      "game:div"
     ],
     "dec": 2.1399999999999997,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4896,6 +4897,10 @@
     "edge_own": 0.00455773532935444,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0",
+     "h": "2,0,0"
+    },
     "form_state": null,
     "game_id": "nhl:401892438",
     "home": true,
@@ -4924,9 +4929,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Stars 1 @ Predators 2",
+    "settled": "2026-10-04T02:36Z",
     "side": "home",
     "start": "2026-10-04T00:00Z",
     "stype": "2",
@@ -4943,12 +4950,14 @@
    }
   ],
   "p_hit": 0.4694,
-  "pnl": 0.0,
+  "pnl": 114.0,
   "posted": "2026-10-03T15:47Z",
   "round": 1,
+  "settled": "2026-10-04T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  },
  {
   "american": 120,
