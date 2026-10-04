@@ -13,6 +13,41 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/4 - banged up: a weight, not a block (the owner, 10/3: "just because a QB or a star is out or a team is too banged up doesn't necessarily mean no units. It all just depends.")
+The question behind the 2+ out / 4+ questionable no-units rule (sports.hurt) and the 'more banged-up team' rule
+(MAX_EXTRA_OUT): does a side missing regulars LOSE against its price? Our own box scores 2021-26 (NFL 2,912 team-games,
+college 7,919 - every game with a box score, a closing price and prior-game regulars). A 'regular' = sports_absences.regulars
+on the team's PRIOR games (no look-ahead: QB, top 2 ball carriers, top 4 catchers, top 11 tacklers over its last 3);
+'missing' = not in the game's box score. Residual = win - closing no-vig price, flat 1u ROI alongside. Caveat: a tackler
+with no tackle is also 'missing' from ESPN's box, so the counts run high on the defensive side (the 0-missing control
+is small); QB / RB / WR are clean. The 10/3 board blocked ~15 college sides this way, Missouri (+180, beat Florida) in them.
+- NFL vs the price: 2+ regulars missing -0.4 pts (n 2,035, SE 1.0; dogs +0.5, favorites -1.3) - THE MARKET HAS IT.
+  By count: 1 missing +2.5, 2-3 -0.8, 4-6 +2.2, 7+ -4.7 (172, SE 3.5, 4 of 6). 2+ skill regulars (QB1 / top rusher /
+  top-2 catchers) missing -3.7 (215, SE 3.1, 4 of 6) - a lead. By role: QB out -1.2 (470; as a dog -1.3), RB out +0.8,
+  WR out -2.1 (494; dog -2.9, 4 of 6). The MORE banged-up side (2+ more regulars missing than the opponent): -2.5
+  (667, SE 1.8, 4 of 6; the healthier side +2.6, 5 of 6) - a LEAD, under 2 SE.
+- NFL vs the OWN read (Elo, default params, chronological; net of the 0-missing control): 2+ missing +0.9 (SE 1.1);
+  no key player out but 2+ bodies missing +2.6 (1,120, SE 1.4) / 4+ missing +7.5 (231, 6 of 6) - the own read is NOT
+  fooled by depth absences (if anything a team missing bodies and nobody key beats its read - a good team rotating).
+  Key out (QB / RB / WR) -0.7 here (the 10/2 study's full-engine replay had the real size: QB -10.6 - already built).
+- College vs the price: 2+ missing +0.1 (4,900, SE 0.6); dogs -0.6, favorites +0.8; by count 0 -1.1 / 1 +0.6 / 2-3 +0.5
+  / 4-6 -0.6 / 7+ -0.2; the more banged-up side +0.2 (1,973, 2 of 6). QB out +0.2 (1,528), RB out -0.8 (dog -1.5), WR
+  out -0.2 (dog -1.7, favorite +1.5). NOTHING - the market has every bit of it. (College dog ROI is -9% to -28% in
+  every bucket, healthy or not - that's the vig and the long shots, not the injuries.)
+- College vs the OWN read: 2+ missing -1.0 (4,900, SE 0.6, 6 of 6) but no-key 2+ missing +0.5 and 4+ no-key -0.1: the
+  whole effect is the QB / RB / WR, already weighed (QB -3, two+ -5). Depth bodies: 0.
+BUILT (football only, the owner's priority): with box scores to say who plays, the 2+ out / 4+ questionable block and
+the 'more banged-up team' block are OFF in NFL and college football - sports.hurt returns nothing there; the depth gap
+is a small capped weight on the OWN read: sports.depth_penalty - NFL ½ a point of win chance per regular more missing
+than the opponent, cap 3 (sports.DEPTH_PTS / DEPTH_CAP); college 0 (the data says nothing is there). The card still
+names who's out (injury_line); the key players keep sports_absences.penalty; a team with no box scores keeps the old
+block (we can't tell who plays). NOT BUILT: a QB-out block (NFL QB-out dogs -1.3 vs the price - already weighed in the
+dog score, -3, and in penalty); any weight in college (0); hockey / hoops / baseball untouched (not studied here - the
+owner wants football first; their block stays). The early plays' 'never a side with a key player out or questionable'
+stays: that rule is about a price taken days before the news lands (the owner, 9/30), which box scores can't test.
+Watch live: the NFL 'more banged-up' lead (-2.5) and the 2+ skill regulars lead (-3.7) - if they hold on our picks, the
+weight grows; if the own read's +2.6 on no-key depth holds, it may shrink to nothing.
+
 ## Built into the engine
 - **Get in early - CORRECTED 10/1 (data audit):** the 9/30 numbers (NFL +8+ +24.7%, NBA +5.8%, NHL +8.9%) were graded
   at the "open" - and the NFL's open is often the SUMMER look-ahead line (Ravens opened -250, closed +265), a price the

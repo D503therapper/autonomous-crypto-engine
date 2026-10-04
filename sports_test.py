@@ -6442,7 +6442,8 @@ def test_hurt_counts_only_players_who_play():
         walkons = [("Walk On", "OL", "Out"), ("Red Shirt", "DL", "Out"), ("Bench Guy", "LB", "Out")]
         assert sports.hurt(g, "home", rep(walkons)) == []                              # nobody who plays: units stay
         real = walkons + [("Star Back", "RB", "Out"), ("Top Wideout", "WR", "Out")]
-        assert set(sports.hurt(g, "home", rep(real))) == {"Star Back", "Top Wideout"}   # two who play: no units
+        assert sports.hurt(g, "home", rep(real)) == []        # two who play: WEIGHED (10/4 - depth_penalty), never a block
+        assert sports.out_count(g, "home", rep(real)) == 2    # ...and the count the weight reads sees the two
         A._TEAM["ncaaf"] = {}
         assert len(sports.hurt(g, "home", rep(walkons))) == 3                          # no box scores: the old rule
     finally:
@@ -6537,7 +6538,9 @@ def test_report_names_match_box_scores():
         assert A.penalty({}, g, "home", {"nfl": {"7": [("Star Back", "RB", "Probable")]}}, skip_qb=True) == (0.0, [])
         hurt_ = sports.hurt(g, "home", {"nfl": {"7": [("Michael Hughes", "WR", "Out"), ("Star Back", "RB", "Injured Reserve"),
                                                       ("Walk On", "OL", "Out")]}})
-        assert hurt_ == ["Michael Hughes", "Star Back"], hurt_   # two regulars gone (one to IR this week): no units
+        assert hurt_ == [], hurt_   # two regulars gone (one to IR this week): weighed (penalty + depth), never a block (10/4)
+        assert sports.out_count(g, "home", {"nfl": {"7": [("Michael Hughes", "WR", "Out"), ("Star Back", "RB", "Injured Reserve"),
+                                                          ("Walk On", "OL", "Out")]}}) == 2
     finally:
         A._TEAM.clear(); A._TEAM.update(keep)
 
@@ -6725,6 +6728,55 @@ def test_banged_up_count_reads_only_players_who_play():
     import inspect
     src = inspect.getsource(sports.candidates)
     assert "out_count(g, side, injuries)" in src and "len(sd.team_injuries(" not in src   # the board uses it
+
+
+def test_football_banged_up_is_a_weight_not_a_block():
+    """10/3, the owner: "just because a QB or a star is out or a team is too banged up doesn't necessarily mean no units.
+    It all just depends." The 10/4 study (box scores 2021-26): a football side with 2+ regulars out doesn't lose vs its
+    price (NFL -0.4 / college +0.1 pts) - the market has it; the NFL side 2+ MORE banged up than its opponent -2.5 (a
+    lead). So in football, with box scores to say who plays: no block - the depth gap is a small, capped weight on the
+    OWN read (NFL ½ pt a head, cap 3; college 0); the Missouri-type dog (+180, 2 regulars out) keeps its units. Hockey /
+    hoops keep the block; a football team with no box scores keeps the old rule."""
+    import sports_absences as A
+    # the weight: per head beyond the opponent, capped, football only
+    assert sports.depth_penalty("nfl", 2, 0) == 0.01 and sports.depth_penalty("nfl", 1, 1) == 0.0
+    assert sports.depth_penalty("nfl", 9, 0) == sports.DEPTH_CAP == 0.03            # never more than 3 points
+    assert sports.depth_penalty("nfl", 0, 3) == 0.0                                  # the healthier side isn't paid
+    assert sports.depth_penalty("ncaaf", 5, 0) == 0.0 and sports.depth_penalty("nhl", 5, 0) == 0.0
+    keep = dict(A._TEAM)
+    rows = lambda gid, start, team: [
+        {"gid": gid, "start": start, "team": team, "player": f"Back {team}", "stats": '{"rushingAttempts":"20"}'},
+        {"gid": gid, "start": start, "team": team, "player": f"Wideout {team}", "stats": '{"receptions":"8"}'},
+        {"gid": gid, "start": start, "team": team, "player": f"Backer {team}", "stats": '{"totalTackles":"9"}'}]
+    try:
+        A._TEAM["nfl"] = {t: [("2026-09-27T17:00Z", f"g{t}", rows(f"g{t}", "2026-09-27T17:00Z", t))] for t in ("3", "4")}
+        games, _ = fake_league("nfl", days=120)
+        model = {"params": {}, "log": []}
+        sm.tune_all(games, model)
+        now = datetime(2026, 10, 4, 12, 0, tzinfo=timezone.utc)
+        g = {**games["nfl:1"], "id": "nfl:x", "status": "pre", "home": "3", "away": "4", "home_name": "Giants",
+             "away_name": "Titans", "home_score": "", "away_score": "", "start": "2026-10-04T20:00Z",
+             "ml_home": "-130", "ml_away": "110", "ml_home_open": "-130", "ml_away_open": "110", "stype": "2"}
+        games[g["id"]] = g
+        day = now.astimezone(sports.PT).date()
+        clean = {"nfl": {"3": [], "4": []}}
+        base = {c["side"]: c for c in sports.candidates(games, model, now, day, clean) if c["game_id"] == "nfl:x" and c["market"] == "ml"}
+        thin = {"nfl": {"3": [], "4": [("Back 4", "RB", "Out"), ("Wideout 4", "WR", "Out"), ("Backer 4", "LB", "Out")]}}
+        cs = {c["side"]: c for c in sports.candidates(games, model, now, day, thin) if c["game_id"] == "nfl:x" and c["market"] == "ml"}
+        assert not cs["away"].get("hurt") and not cs["home"].get("hurt"), "football: three regulars out is weighed, not a block"
+        assert cs["away"].get("depth_pts") == 1.5 and "depth_pts" not in cs["home"]      # 3 heads x ½ pt
+        own = lambda c: (c["edge_own"] + 1) / c["dec"]                                # noqa: E731
+        drop = own(base["away"]) - own(cs["away"])
+        assert 0.014 < drop < 0.10, (own(base["away"]), own(cs["away"]))   # the read moved by the weight (RB + WR penalty 10 + depth 1.5)
+        A._TEAM["nhl"] = {}                                   # hockey (no study yet): the 2+ out block stays
+        assert sports.hurt({**g, "league": "nhl"}, "away", {"nhl": {"4": [("A", "C", "Out"), ("B", "D", "Out")]}}) == ["A", "B"]
+        A._TEAM["nfl"] = {}                                   # no box scores: the old block stays (can't tell who plays)
+        assert sports.hurt(g, "away", thin) == ["Back 4", "Wideout 4", "Backer 4"]
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+    import inspect
+    src = inspect.getsource(sports.candidates)
+    assert "depth_penalty(lg, n_out[s_]" in src and "and not weighed[side]" in src   # the board weighs it, never blocks
 
 
 def test_best_hockey_dog_needs_real_value():

@@ -205,13 +205,43 @@ def lost_last_in_series(games, g, side):
 
 
 HURT_OUT, HURT_UNSURE = 2, 4   # unweighed absences that take the money off a side (until every position is weighed)
+# 🚑 FOOTBALL: BANGED UP IS A WEIGHT, NOT A BLOCK (the owner, 10/3: "just because a QB or a star is out or a team is too
+# banged up doesn't necessarily mean no units. It all just depends."). The 10/4 study (our box scores 2021-26, a
+# 'regular' by sports_absences.regulars on the team's prior games, missing = not in the game's box): a football side
+# with 2+ regulars missing does NOT lose against its price (NFL -0.4 pts on 2,035, college +0.1 on 4,900 - the market
+# has it), and the engine's own read isn't fooled by the non-key bodies (NFL +2.6, college +0.5 - the QB / RB / WR
+# effect is already sports_absences.penalty). The one thing left: the NFL side with 2+ MORE regulars missing than its
+# opponent ran -2.5 pts vs the price (667, 4 of 6 seasons - a lead, under 2 SE). So in football, with box scores to say
+# who plays, the 2+ out / 4+ questionable block is OFF; the depth gap is a small, capped weight on the OWN read
+# (never one factor decides): NFL ½ a point of win chance per regular more missing than the opponent, capped at 3;
+# college 0 (nothing there). The card still names who's out (injury_line). No box scores = the old block (can't tell
+# who plays). Hockey / hoops / baseball keep the block until their own study.
+DEPTH_PTS = {"nfl": 0.005, "ncaaf": 0.0}    # win chance off the own read per regular more missing than the opponent
+DEPTH_CAP = 0.03                             # ...at most 3 points, like the study angles' caps (STUDY_CAP / FAV_CAP)
+
+
+def depth_weighed(g, side):
+    """Is this side's depth WEIGHED (football, box scores say who plays) rather than blocked (every other case)?"""
+    if g["league"] not in DEPTH_PTS:
+        return False
+    import sports_absences
+    return bool(sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9"))
+
+
+def depth_penalty(lg, n_me, n_opp):
+    """Points of win chance off a football side's OWN read for being the more banged-up team (regulars out beyond the
+    opponent's): DEPTH_PTS a head, capped at DEPTH_CAP; 0 in any other sport or when the opponent is just as thin."""
+    if lg not in DEPTH_PTS:
+        return 0.0
+    return min(DEPTH_CAP, DEPTH_PTS[lg] * max(0, (n_me or 0) - (n_opp or 0)))
 
 
 def hurt(g, side, injuries):
     """Players out / doubtful (2+) or questionable (4+) the engine doesn't weigh yet (10/2, the owner: "if the running
     backs are out and the wide receivers are out and they got a bunch of backups, that changes everything"): a side like
     that never carries units - a lean at most, and its card names who's out. Season-long absences are already in the
-    team's results, so they don't count."""
+    team's results, so they don't count. FOOTBALL (10/4): with box scores to say who plays, this is no block at all -
+    the depth gap is weighed (depth_penalty), the key players by sports_absences.penalty - so it returns []."""
     inj = (injuries or {}).get(g["league"])
     rows = sd._team_rows(inj, g[side], g[side + "_name"])
     if g["league"] != "nba":                                 # (key players are weighed already - hoops has no key
@@ -219,6 +249,8 @@ def hurt(g, side, injuries):
     #   _is_key read EVERY NBA player as key, so an NBA side with 3 out and 4 day-to-day never lost its units)
     import sports_absences
     reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
+    if reg and g["league"] in DEPTH_PTS:                     # football, who plays known: weighed, never a block (10/4)
+        return []
     if reg:                                                  # football / hoops: only players who actually play count
         rows = [r for r in rows if sports_absences.match(r[0], reg)]   # (10/3 - a college report lists walk-ons and
         #   redshirts); a regular ruled out long-term (injured reserve, out for the season) just PLAYED - a fresh hole
@@ -239,8 +271,9 @@ def out_count(g, side, injuries):
     rows = [r for r in sd.team_injuries(inj, g[side], g[side + "_name"]) if "season" not in r[2].lower()]
     import sports_absences
     reg = sports_absences.regulars(None, g["league"], g[side], g.get("start") or "9")
-    if reg:
-        rows = [r for r in rows if sports_absences.match(r[0], reg)]
+    if reg:                                                  # who plays is known: a regular who just PLAYED and is now
+        rows = [r for r in sd._team_rows(inj, g[side], g[side + "_name"])   # on injured reserve is a fresh hole too
+                if any(x in r[2].lower() for x in sd.SHORT_TERM + sd.LONG_OUT) and sports_absences.match(r[0], reg)]
     return len(rows)
 
 
@@ -422,6 +455,13 @@ def candidates(games, model, now=None, day=None, injuries=None):
                   for s_ in ("home", "away")}
         if absent["home"][0] or absent["away"][0]:
             ph_own = min(0.99, max(0.01, ph_own - absent["home"][0] + absent["away"][0]))
+        # 🚑 the more banged-up football side (regulars out beyond the opponent's): a small, capped weight on the OWN
+        # read (10/4 - DEPTH_PTS), never a block; only when box scores say who plays (depth_weighed)
+        weighed = {s_: depth_weighed(g, s_) for s_ in ("home", "away")}
+        depth = {s_: depth_penalty(lg, n_out[s_], n_out["away" if s_ == "home" else "home"]) if weighed[s_] else 0.0
+                 for s_ in ("home", "away")}
+        if depth["home"] or depth["away"]:
+            ph_own = min(0.99, max(0.01, ph_own - depth["home"] + depth["away"]))
         # the studies' PROVEN angles (context factors, situational spots, the explorer): the single strongest one
         try:
             cx = _index(games, "context").facts(g)
@@ -437,7 +477,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
         talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
-            if n_out[side] - n_out[other] > MAX_EXTRA_OUT and not hurt_[side]:   # the more banged-up team: never
+            if n_out[side] - n_out[other] > MAX_EXTRA_OUT and not hurt_[side] and not weighed[side]:   # the more banged-up team: never
                 hurt_[side] = [f"{n_out[side]} players out ({n_out[other]} for {g[other + '_name']})"]   # units (10/2:
                 #                                    a lean still fills the board - its card names who's out)
             team, opp = (g["home_name"], g["away_name"]) if side == "home" else (g["away_name"], g["home_name"])
@@ -474,6 +514,8 @@ def candidates(games, model, now=None, day=None, injuries=None):
             # how far the money has run AWAY from this side since the open (no-vig points; + = against it)
             if absent[side][1]:                           # (who's missing, for the card / the journal)
                 base["absent"] = absent[side][1]
+            if depth[side]:                               # (the depth weight that moved the read, for the journal)
+                base["depth_pts"] = round(depth[side] * 100, 1)
             base["drift"] = round(((mkt_open - mkt) if side == "home" else (mkt - mkt_open)), 4) \
                 if mkt is not None and mkt_open is not None else 0.0
             odds = int(g[f"ml_{side}"])
