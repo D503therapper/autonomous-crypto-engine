@@ -1,7 +1,7 @@
 {
- "at": "2026-10-03T23:29Z",
+ "at": "2026-10-04T00:09Z",
  "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
+  "slate check problem - re-pull before the board - started sports.yml"
  ],
  "problems": [
   "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
@@ -12,18 +12,18 @@
   "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
  ],
  "ok": [
-  "live watcher fresh (58s)",
+  "live watcher fresh (32s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 9 backup sources answering",
+  "all 8 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
+  "studies ran 3h ago",
   "simulator ran 2h ago",
   "engine ran 1 min ago",
   "pacer running",
@@ -31,6 +31,20 @@
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T00:09Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+   ]
+  },
   {
    "at": "2026-10-03T23:29Z",
    "fixes": [
@@ -712,13 +726,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Blinkova vs Boisson: no points for 2383s"
-   ]
-  },
-  {
-   "at": "2026-10-01T11:13Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Blinkova vs Boisson: no points for 1792s"
    ]
   }
  ]
