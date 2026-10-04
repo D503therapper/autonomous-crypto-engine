@@ -1,6 +1,6 @@
 {
- "matches": 71812,
- "rated": 56188,
+ "matches": 71813,
+ "rated": 56189,
  "weights": [
   0.0,
   0.87,
@@ -30,12 +30,12 @@
  },
  "tours": {
   "atp": {
-   "rated": 25920,
-   "fit": 23920,
+   "rated": 25921,
+   "fit": 23921,
    "graded": 2000,
    "own_weights": true,
    "weights": [
-    -0.006,
+    -0.005,
     0.829,
     0.074,
     0.14,
@@ -54,12 +54,12 @@
     ]
    },
    "acc": 0.637,
-   "logloss": 0.6311,
-   "acc_elo": 0.6385,
-   "logloss_elo": 0.6313,
+   "logloss": 0.631,
+   "acc_elo": 0.639,
+   "logloss_elo": 0.6311,
    "life": {
     "base": {
-     "logloss": 0.6311,
+     "logloss": 0.631,
      "acc": 0.637
     },
     "graded": 2000,
@@ -73,7 +73,7 @@
      "26-27": -0.04513,
      "28-29": -0.05211,
      "30-31": -0.06231,
-     "32-33": -0.05705,
+     "32-33": -0.05706,
      "34-35": -0.06542,
      "36-37": -0.08492,
      "38+": -0.10128
@@ -85,7 +85,7 @@
      "22-23": 6639,
      "24-25": 7786,
      "26-27": 7945,
-     "28-29": 7091,
+     "28-29": 7093,
      "30-31": 4960,
      "32-33": 3659,
      "34-35": 2408,
@@ -97,63 +97,63 @@
      "experience": {
       "n": 2000,
       "active": 1999,
-      "logloss": 0.6321,
-      "acc": 0.634,
-      "gain_mnats": -1.006,
-      "z": -0.96,
+      "logloss": 0.632,
+      "acc": 0.6345,
+      "gain_mnats": -0.969,
+      "z": -0.93,
       "weights": {
-       "exp": -0.068,
-       "big": 0.1115
+       "exp": -0.0679,
+       "big": 0.1113
       }
      },
      "age": {
       "n": 2000,
       "active": 2000,
-      "logloss": 0.6273,
+      "logloss": 0.6272,
       "acc": 0.642,
-      "gain_mnats": 3.829,
+      "gain_mnats": 3.828,
       "z": 2.8,
       "weights": {
        "age_gap": -0.1052,
-       "age_curve": 0.081,
+       "age_curve": 0.0809,
        "teen_rise": -0.0426,
-       "vet_bo5": 0.0237,
+       "vet_bo5": 0.0238,
        "bio_miss": 0.0
       }
      },
      "young_vs_aging": {
       "n": 2000,
       "active": 152,
-      "logloss": 0.6304,
+      "logloss": 0.6303,
       "acc": 0.639,
-      "gain_mnats": 0.687,
+      "gain_mnats": 0.686,
       "z": 1.66,
       "weights": {
        "teen_vs_vet": 0.2263,
-       "young_hot": 0.0986
+       "young_hot": 0.0987
       }
      },
      "last_match": {
       "n": 2000,
       "active": 1904,
-      "logloss": 0.6285,
+      "logloss": 0.6283,
       "acc": 0.6485,
-      "gain_mnats": 2.674,
+      "gain_mnats": 2.671,
       "z": 1.85,
       "weights": {
-       "last_sets": -0.2458,
-       "last_dist": 0.1565,
-       "last_long": -0.1106,
-       "rest": -0.256
+       "last_sets": -0.2454,
+       "last_dist": 0.1564,
+       "last_long": -0.1107,
+       "rest": -0.2557
       }
      },
      "streaks": {
       "n": 2000,
       "active": 700,
-      "logloss": 0.6316,
+      "logloss": 0.6315,
       "acc": 0.64,
-      "gain_mnats": -0.501,
-      "z": -0.49,
+      "gain_mnats": -0.519,
+      "z": -0.51,
       "weights": {
        "lost2": -0.1859,
        "won3": 0.1026
@@ -162,31 +162,31 @@
      "first_set": {
       "n": 2000,
       "active": 1960,
-      "logloss": 0.63,
+      "logloss": 0.6299,
       "acc": 0.638,
-      "gain_mnats": 1.13,
-      "z": 1.81,
+      "gain_mnats": 1.108,
+      "z": 1.77,
       "weights": {
-       "fs_rate": 0.1903,
-       "f2_rate": 0.3687
+       "fs_rate": 0.1906,
+       "f2_rate": 0.3697
       }
      },
      "injury": {
       "n": 2000,
       "active": 1787,
-      "logloss": 0.6318,
+      "logloss": 0.6316,
       "acc": 0.6355,
-      "gain_mnats": -0.619,
+      "gain_mnats": -0.613,
       "z": -0.89,
       "weights": {
        "inj_recent": -0.2383,
-       "inj_12m": 0.1716
+       "inj_12m": 0.1717
       }
      },
      "travel": {
       "n": 2000,
       "active": 16,
-      "logloss": 0.6312,
+      "logloss": 0.6311,
       "acc": 0.6365,
       "gain_mnats": -0.088,
       "z": -1.18,
@@ -392,8 +392,8 @@
   }
  },
  "acc": 0.6428,
- "logloss": 0.6265,
- "acc_elo": 0.6435,
- "logloss_elo": 0.626,
- "updated": "2026-10-04T06:19Z"
+ "logloss": 0.6264,
+ "acc_elo": 0.6438,
+ "logloss_elo": 0.6259,
+ "updated": "2026-10-04T06:37Z"
 }
