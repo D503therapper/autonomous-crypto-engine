@@ -2,12 +2,12 @@
  "at": "2026-10-04T08:51Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Yuan vs Han: no points for 2648s",
-  "live tennis scores: tennis Okamura vs Nugroho: no points for 1998s",
-  "live tennis scores: tennis Wei Sijia vs Matsuda: no points for 1401s"
+  "live tennis scores: tennis Yuan vs Han: no points for 2662s",
+  "live tennis scores: tennis Okamura vs Nugroho: no points for 2012s",
+  "live tennis scores: tennis Wei Sijia vs Matsuda: no points for 1415s"
  ],
  "ok": [
-  "live watcher fresh (3s)",
+  "live watcher fresh (43s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,11 +21,20 @@
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 18 min ago",
+  "engine ran 19 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-04T08:51Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Yuan vs Han: no points for 2662s",
+    "live tennis scores: tennis Okamura vs Nugroho: no points for 2012s",
+    "live tennis scores: tennis Wei Sijia vs Matsuda: no points for 1415s"
+   ]
+  },
   {
    "at": "2026-10-04T08:51Z",
    "fixes": [],
@@ -748,17 +757,6 @@
   },
   {
    "at": "2026-10-01T21:25Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:20Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
    ],
