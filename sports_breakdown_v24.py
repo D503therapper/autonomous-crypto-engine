@@ -868,6 +868,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     lines = sports_card_guard.clean([x for x in out if x], lg, us)
     if str(leg.get("why_line") or "").startswith("💪"):   # (10/3: the record said twice - the headline already has it)
         lines = [x for x in lines if not str(x).startswith("💪")]
+    if day_game(start):                                   # (10/4, the owner's queue: "tonight" on a 10 AM game)
+        leg["why_line"] = not_tonight(leg["why_line"])
+        lines = [not_tonight(x) for x in lines]
     if len(lines) > 2:
         import random
         rnd = random.Random(f"{g['id']}|{start:%Y-%m-%d}|{side}|shape")
@@ -881,6 +884,21 @@ def breakdown(leg, games, elo, injuries, used=None):
         rnd.shuffle(body)
         lines = body + [bottom]
     return lines
+
+
+def day_game(start):
+    """A game that starts before 3 PM PT (6 PM ET) is a day game - never 'tonight' on its card."""
+    try:
+        return start.astimezone(PT).hour < 15
+    except (AttributeError, ValueError, TypeError):
+        return False
+
+
+def not_tonight(x):
+    if not isinstance(x, str):
+        return x
+    x = re.sub(r"\bTonight\b", "Today", x)
+    return re.sub(r"\btonight\b", "today", x)
 
 
 def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=None, n_cold=0, gap=None, form=None,

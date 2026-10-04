@@ -7033,6 +7033,15 @@ def test_no_cap_on_unit_plays():
     assert sports.MAX_PLAYS >= 1000 and sports.BOARD_TARGET == 5
 
 
+def test_day_games_never_say_tonight():
+    """10/4 preview: 'Cardinals get the rematch tonight' / 'that's our edge tonight' on 10 AM / 1 PM PT games."""
+    import sports_breakdown_v24 as v
+    assert v.day_game(datetime(2026, 10, 4, 17, 0, tzinfo=timezone.utc))          # 10 AM PT
+    assert not v.day_game(datetime(2026, 10, 5, 0, 20, tzinfo=timezone.utc))      # 5:20 PM PT, Sunday night
+    assert v.not_tonight("Cardinals get the rematch tonight.") == "Cardinals get the rematch today."
+    assert "if day_game(start):" in open("sports_breakdown_v24.py").read()
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
