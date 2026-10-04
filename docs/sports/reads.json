@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T16:26Z",
+ "updated": "2026-10-04T16:42Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -11,8 +11,8 @@
    "away": "Colts",
    "home": "Commanders",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -20,18 +20,14 @@
    "id": "nfl:401872966",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Cardinals",
-    "p": 0.526,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-04T17:00Z",
    "away": "Cardinals",
    "home": "Giants",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lock",
    "lean": {
     "team": "Cardinals",
@@ -39,31 +35,27 @@
     "market": "ml",
     "line": null,
     "odds": -135,
-    "p": 0.571,
-    "win_p": 0.571,
+    "p": 0.57,
+    "win_p": 0.57,
     "reasons": [
      "revenge game",
-     "opponent missing key players",
      "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "nfl:401872967",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Texans",
-    "p": 0.529,
-    "tie": 0.038,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-04T17:00Z",
    "away": "Cowboys",
    "home": "Texans",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Texans",
@@ -74,228 +66,38 @@
     "p": 0.572,
     "win_p": 0.572,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
    "id": "nfl:401872969",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bengals",
-    "p": 0.502,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-04T17:00Z",
    "away": "Jaguars",
    "home": "Bengals",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Bengals",
-    "opp": "Jaguars",
+    "team": "Jaguars",
+    "opp": "Bengals",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.532,
-    "win_p": 0.532,
-    "reasons": [
-     "hotter recent form",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872972",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bears",
-    "p": 0.573,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-04T17:00Z",
-   "away": "Jets",
-   "home": "Bears",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Bears",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -198,
-    "p": 0.637,
-    "win_p": 0.637,
+    "odds": 120,
+    "p": 0.457,
+    "win_p": 0.457,
     "reasons": [
      "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892442",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Jets",
-    "p": 0.361,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-04T17:00Z",
-   "away": "Jets",
-   "home": "Red Wings",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Red Wings",
-    "opp": "Jets",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -265,
-    "p": 0.693,
-    "win_p": 0.476,
-    "reasons": [
-     "the stronger team",
-     "hotter goalie"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872968",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Packers",
-    "p": 0.555,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-04T17:00Z",
-   "away": "Packers",
-   "home": "Buccaneers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Packers",
-    "opp": "Buccaneers",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
-    "reasons": [
-     "hotter recent form",
-     "better rested",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872971",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Bills",
-    "p": 0.627,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-04T17:00Z",
-   "away": "Patriots",
-   "home": "Bills",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Patriots",
-    "opp": "Bills",
-    "market": "spread",
-    "line": 7.0,
-    "odds": -110,
-    "p": 0.515,
-    "win_p": 0.259,
-    "reasons": [
-     "revenge game",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872970",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Rams",
-    "p": 0.592,
-    "tie": 0.037,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-04T17:00Z",
-   "away": "Rams",
-   "home": "Eagles",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Rams",
-    "opp": "Eagles",
-    "market": "ml",
-    "line": null,
-    "odds": -198,
-    "p": 0.637,
-    "win_p": 0.637,
-    "reasons": [
-     "sharp money moving this way",
-     "better QB play lately",
-     "revenge game"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872973",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Ravens",
-    "p": 0.741,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-04T17:00Z",
-   "away": "Titans",
-   "home": "Ravens",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Titans",
-    "opp": "Ravens",
-    "market": "spread",
-    "line": 11.5,
-    "odds": -110,
-    "p": 0.508,
-    "win_p": 0.145,
-    "reasons": [
-     "revenge game"
-    ]
+     "opponent missing key players",
+     "rolling off a blowout win"
+    ],
+    "result": null
    }
   },
   {
