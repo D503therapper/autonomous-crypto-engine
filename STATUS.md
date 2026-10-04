@@ -88,6 +88,11 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   report exists for non-conference games (UNC-Notre Dame, Syracuse-UConn, Cal-UNLV...) or for the Sun Belt / CUSA /
   AAC; the MAC posts game-day reports only (~3h before kickoff, getsomemaction.com). Those games stay off the board
   (no pick off blind data). The 5:47 / 11:47 routine knows all this now (prompt updated 10/2).
+- 10/4 routines: 7:05 AM PT pre-board check (builds the board as it would post, checks every card, fixes by 7:45),
+  8:03 AM PT drop confirm, 1:07 AM daily review - NO phone pings from any of them (the owner, 10/4: the only
+  notifications are mid-day value plays and live bets). Results go in STATUS.md. Europe morning NFL under tracked
+  (sports_intl -> data/sports/intl_unders.json, no units). Early-morning (before-8-AM) game post the night before:
+  TO BUILD (owner OK'd the idea; build after a clean 8 AM board, preview first - never touch the opening-board logic blind).
 - 10/4: football injuries are WEIGHED, not a block (study: the line already prices who's out); no cap on unit plays
   (leans still fill to 5); early cards lead with the engine's read, never the same wording twice; day games say
   'today'; an early play can also be the game-day Dog / play (owner OK, 10/4 - Jaguars ½u early + 1u Dog).
