@@ -1,11 +1,9 @@
 {
- "at": "2026-10-04T20:21Z",
+ "at": "2026-10-04T20:57Z",
  "fixes": [],
- "problems": [
-  "sources down (the backups took over): betrivers:nfl:1028812621 HTTP 404, betrivers:nfl:1028812622 HTTP 404, betrivers:nfl:1028812625 HTTP 404, betrivers:nfl:1028812619 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (262s)",
+  "live watcher fresh (31s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,17 +11,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 5 min ago",
+  "simulator ran 4h ago",
+  "engine ran 42 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T20:57Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-04T20:21Z",
    "fixes": [],
@@ -702,14 +706,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Stefanini vs Jeanjean: no points for 1339s"
-   ]
-  },
-  {
-   "at": "2026-10-02T13:47Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreeva vs Pridankina: no points for 2654s",
-    "live tennis scores: tennis Stefanini vs Jeanjean: no points for 2654s"
    ]
   }
  ]
