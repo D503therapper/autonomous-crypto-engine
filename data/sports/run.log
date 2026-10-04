@@ -1,28 +1,3 @@
-beat the close: unit plays 2 of 5 better than the close, avg +1.0 pts
-public splits: 87 upcoming games
-tennis sync: 72753 matches stored, 18 calls, 0 failed
-tennis study ATP: 25916 rated matches, acc 0.636 (surface ratings alone 0.638), loss 0.6318 vs 0.632, own weights [-0.005, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
-tennis study ATP life factors vs current loss 0.6318: experience 0.6329 (-1.08 mnats, z -1.02), age 0.6279 (+3.93 mnats, z 2.87), young_vs_aging 0.6311 (+0.69 mnats, z 1.66), last_match 0.6291 (+2.70 mnats, z 1.87), streaks 0.6323 (-0.52 mnats, z -0.51), first_set 0.6306 (+1.16 mnats, z 1.86), injury 0.6325 (-0.64 mnats, z -0.92), travel 0.6319 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30259 rated matches, acc 0.648 (surface ratings alone 0.6475), loss 0.6211 vs 0.6198, own weights [0.005, 0.906, -0.002, -0.103, 0.31, 0.028, -0.188]
-tennis study WTA life factors vs current loss 0.6211: experience 0.6166 (+4.51 mnats, z 2.68), age 0.6208 (+0.23 mnats, z 0.28), young_vs_aging 0.621 (+0.10 mnats, z 0.63), last_match 0.6207 (+0.39 mnats, z 0.4), streaks 0.6214 (-0.34 mnats, z -0.68), first_set 0.6202 (+0.92 mnats, z 2.15), injury 0.6203 (+0.77 mnats, z 1.35), travel 0.6212 (-0.08 mnats, z -0.56) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 11 matches
-sync: 130629 games stored, 52 calls, 0 failed, 10s
-odds history: 0 games got odds, 55 calls, 0 failed, 6s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 190 games got weather, 0 new stadiums located, 267s
-4th-down rates: 32 NFL teams
-news: 3 new drama tags
-PICK AUDIT FLAG 2026-10-02: dog Blues 154: 1.0u on a thin edge (under 3%) - should be ½u
-beat the close: unit plays 2 of 5 better than the close, avg +1.0 pts
-public splits: 87 upcoming games
-tennis sync: 72753 matches stored, 18 calls, 0 failed
-tennis study ATP: 25918 rated matches, acc 0.6365 (surface ratings alone 0.6385), loss 0.6314 vs 0.6315, own weights [-0.005, 0.829, 0.074, 0.141, 0.425, 0.051, 0.049]
-tennis study ATP life factors vs current loss 0.6314: experience 0.6324 (-0.99 mnats, z -0.94), age 0.6275 (+3.86 mnats, z 2.83), young_vs_aging 0.6307 (+0.69 mnats, z 1.66), last_match 0.6287 (+2.71 mnats, z 1.88), streaks 0.6319 (-0.51 mnats, z -0.5), first_set 0.6302 (+1.14 mnats, z 1.83), injury 0.632 (-0.61 mnats, z -0.88), travel 0.6315 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30259 rated matches, acc 0.648 (surface ratings alone 0.6475), loss 0.6211 vs 0.6198, own weights [0.005, 0.906, -0.002, -0.103, 0.31, 0.028, -0.188]
-tennis study WTA life factors vs current loss 0.6211: experience 0.6166 (+4.51 mnats, z 2.68), age 0.6208 (+0.23 mnats, z 0.28), young_vs_aging 0.621 (+0.10 mnats, z 0.63), last_match 0.6207 (+0.39 mnats, z 0.4), streaks 0.6214 (-0.34 mnats, z -0.68), first_set 0.6202 (+0.92 mnats, z 2.15), injury 0.6203 (+0.77 mnats, z 1.35), travel 0.6212 (-0.08 mnats, z -0.56) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 11 matches
 sync: 130629 games stored, 52 calls, 0 failed, 9s
@@ -2977,6 +2952,31 @@ sync: 130643 games stored, 52 calls, 0 failed, 9s
 odds history: 0 games got odds, 55 calls, 0 failed, 4s
 player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
 weather: 229 games got weather, 0 new stadiums located, 103s
+4th-down rates: 32 NFL teams
+news: 3 new drama tags
+PICK AUDIT FLAG 2026-10-02: dog Blues 154: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-03: dog Flyers 110: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-03: lean Rays -135: the card names Aaron Judge. Their as out - he's not on the injury report it was posted with
+beat the close: unit plays 2 of 12 better than the close, avg +0.1 pts
+public splits: 36 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (550 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (550 players), 138 matched, 0 unmatched
+   ncaab web injuries: 309 players, 152 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
+   no units on Ducks: missing Drew Helleson, Troy Terry, Ian Moore
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25926 rated matches, acc 0.638 (surface ratings alone 0.64), loss 0.631 vs 0.631, own weights [-0.005, 0.829, 0.074, 0.139, 0.425, 0.051, 0.049]
+tennis study ATP life factors vs current loss 0.631: experience 0.6319 (-0.91 mnats, z -0.87), age 0.6274 (+3.59 mnats, z 2.62), young_vs_aging 0.6304 (+0.58 mnats, z 1.4), last_match 0.6284 (+2.57 mnats, z 1.79), streaks 0.6316 (-0.58 mnats, z -0.58), first_set 0.6299 (+1.08 mnats, z 1.73), injury 0.6316 (-0.58 mnats, z -0.84), travel 0.6311 (-0.09 mnats, z -1.18) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30281 rated matches, acc 0.647 (surface ratings alone 0.6475), loss 0.6223 vs 0.6215, own weights [0.005, 0.906, -0.002, -0.103, 0.309, 0.028, -0.188]
+tennis study WTA life factors vs current loss 0.6223: experience 0.6178 (+4.55 mnats, z 2.71), age 0.6223 (+0.04 mnats, z 0.05), young_vs_aging 0.6222 (+0.09 mnats, z 0.56), last_match 0.6219 (+0.45 mnats, z 0.46), streaks 0.6227 (-0.37 mnats, z -0.75), first_set 0.6214 (+0.91 mnats, z 2.13), injury 0.6216 (+0.72 mnats, z 1.25), travel 0.6224 (-0.08 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 7 matches
+sync: 130643 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 134 games got weather, 0 new stadiums located, 241s
 4th-down rates: 32 NFL teams
 news: 3 new drama tags
 PICK AUDIT FLAG 2026-10-02: dog Blues 154: 1.0u on a thin edge (under 3%) - should be ½u
