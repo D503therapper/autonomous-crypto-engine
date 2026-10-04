@@ -1,9 +1,12 @@
 {
- "at": "2026-10-04T02:00Z",
+ "at": "2026-10-04T03:31Z",
  "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
+  "slate check problem - re-pull before the board - started sports.yml"
  ],
  "problems": [
+  "live tennis scores: tennis Li Zongyu vs Lu Jia-Jing: no points for 1176s",
+  "live tennis scores: tennis Khamutsianskaya vs Huang: no points for 1176s",
+  "live tennis scores: tennis Yihan vs Zheng Wushuang: no points for 399s",
   "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
   "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
   "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
@@ -12,25 +15,43 @@
   "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
  ],
  "ok": [
-  "live watcher fresh (12s)",
+  "live watcher fresh (22s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 19 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T03:31Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Li Zongyu vs Lu Jia-Jing: no points for 1176s",
+    "live tennis scores: tennis Khamutsianskaya vs Huang: no points for 1176s",
+    "live tennis scores: tennis Yihan vs Zheng Wushuang: no points for 399s",
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+   ]
+  },
   {
    "at": "2026-10-04T02:00Z",
    "fixes": [
@@ -741,14 +762,6 @@
     "slate check: Cubs @ Padres (MLB): no price from the books",
     "studies last ran 10h ago - restarted",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-01T14:30Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: rosters 2026-10-01T13:50 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36871695003",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
    ]
   }
  ]
