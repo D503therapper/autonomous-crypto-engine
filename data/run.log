@@ -7176,3 +7176,19 @@ error: failed to push some refs to 'https://github.
    dex screen: PASS YEE@ethereum liq $532,859
    dex screen: REJECT SPCXON@ethereum liq $213,510 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 88%; lp locked 0% < 95%
    dex scanner: 2,578 pools (solana 1,970 / base 315 / ethereum 293), refresh cycle 106s (hot 101s), 3016 calls (110 feed, 429s 0, failed 0), 87,167 refreshed (15421 no pair), +92 added / -56 dropped (dead 56, stale 0, cap 0), movers 0 + warming 20 -> queued 3, screened 4 (passed 2), bought 0
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-04 09:04 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-04 09:04 UTC] crypto/mover     equity $432.92 (-13.4%) 2 open  market UP
+[2026-10-04 09:04 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 09:04 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 09:04 UTC] crypto/social_heat equity $521.86 (+4.4%) 1 open  market UP
+[2026-10-04 09:04 UTC] crypto/breakout10 equity $490.10 (-2.0%) 2 open  market UP
+[2026-10-04 09:04 UTC] crypto/momentum  equity $489.12 (-2.2%) 2 open  market UP
+[2026-10-04 09:04 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-04 09:04 UTC] crypto/hold_btc  equity $505.42 (+1.1%) 1 open  market UP
+   social heat top: PUMP 37 (37/0/0), STRK 35 (35/0/0), QNT 32 (32/0/0), ZRO 29 (29/0/0), NEAR 24 (24/0/0)
