@@ -7091,6 +7091,35 @@ def test_an_old_tab_swaps_to_the_new_board_even_while_scrolling():
     assert "var aged=Date.now()-t>1200000;" in src and "if(!st&&!aged&&Date.now()-touched<30000)return;" in src
 
 
+def test_europe_morning_under_half_unit_with_the_quit_rule():
+    """10/4, the owner: "we can't wait years to prove anything, the books will catch up ... half unit with the quit
+    rule, build it." Every NFL game in Europe before noon ET: the UNDER at ½u, posted the night before (never game day),
+    graded on the total, its own record - and under 50% after 15 graded, it's off."""
+    import sports_early as se
+    g = {"id": "nfl:9", "league": "nfl", "intl": "1", "country": "England", "city": "London", "start": "2026-10-11T13:30Z",
+         "status": "pre", "total": "44.5", "under_odds": "-108", "away_name": "Jets", "home_name": "Vikings"}
+    st = {"picks": []}
+    assert se.euro_unders({"nfl:9": g}, st, datetime(2026, 10, 10, 20, 0, tzinfo=timezone.utc)) == []   # 1 PM PT: too early
+    got = se.euro_unders({"nfl:9": g}, st, datetime(2026, 10, 11, 2, 0, tzinfo=timezone.utc))         # 7 PM PT the night before
+    assert len(got) == 1 and got[0]["side"] == "under" and got[0]["line"] == 44.5 and got[0]["odds"] == -108
+    assert se.units(got[0]) == 0.5 and "17-9" in got[0]["why"] and "London" in got[0]["why"]
+    assert se.euro_unders({"nfl:9": g}, st, datetime(2026, 10, 11, 9, 0, tzinfo=timezone.utc)) == []   # 2 AM PT game day: never
+    p = dict(got[0])
+    st = {"picks": [p]}
+    se.grade(st, {"nfl:9": dict(g, status="final", home_score="20", away_score="17")})
+    assert p["result"] == "won"                                                                      # 37 < 44.5
+    keep_on, se.ON = se.ON, True                                    # (another test may switch the box off)
+    try:
+        html = se.html({"picks": [dict(got[0])]}, lambda x: x, now=datetime(2026, 10, 11, 2, 0, tzinfo=timezone.utc))
+    finally:
+        se.ON = keep_on
+    assert "Under 44.5" in html and "vs Jets" not in html and "Jets @ Vikings" in html
+    lost = [{"game_id": f"x{i}", "spot": "euro_under", "odds": -110, "result": "lost" if i < 8 else "won"} for i in range(15)]
+    assert se.euro_quit({"picks": lost}) and se.euro_unders({"nfl:9": g}, {"picks": lost},
+                                                            datetime(2026, 10, 11, 2, 0, tzinfo=timezone.utc)) == []
+    assert not se.euro_quit({"picks": lost[:14]})                                                    # 14 graded: not yet
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""

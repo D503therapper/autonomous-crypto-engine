@@ -1,12 +1,12 @@
 {
- "at": "2026-10-04T17:10Z",
+ "at": "2026-10-04T18:41Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Boisson vs Jeanjean: no points for 2651s",
+  "live tennis scores: tennis Boisson vs Jeanjean: no points for 158s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (31s)",
+  "live watcher fresh (33s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,18 +14,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
-  "simulator ran 0h ago",
-  "engine ran 2 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T18:41Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Boisson vs Jeanjean: no points for 158s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-04T17:10Z",
    "fixes": [],
@@ -719,18 +727,6 @@
     "slate check: Red Sox @ Yankees (MLB): no price from the books",
     "slate check: Cubs @ Padres (MLB): no price from the books",
     "workflow failed: health 2026-10-02T03:11 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36959045486"
-   ]
-  },
-  {
-   "at": "2026-10-02T01:40Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
    ]
   }
  ]
