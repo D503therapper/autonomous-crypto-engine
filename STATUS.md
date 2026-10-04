@@ -88,6 +88,9 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   report exists for non-conference games (UNC-Notre Dame, Syracuse-UConn, Cal-UNLV...) or for the Sun Belt / CUSA /
   AAC; the MAC posts game-day reports only (~3h before kickoff, getsomemaction.com). Those games stay off the board
   (no pick off blind data). The 5:47 / 11:47 routine knows all this now (prompt updated 10/2).
+- 10/4: football injuries are WEIGHED, not a block (study: the line already prices who's out); no cap on unit plays
+  (leans still fill to 5); early cards lead with the engine's read, never the same wording twice; day games say
+  'today'; an early play can also be the game-day Dog / play (owner OK, 10/4 - Jaguars ½u early + 1u Dog).
 - 10/3 evening: THE ENGINE READS COLLEGE INJURY REPORTS ITSELF every run (the owner: "the engine needs to be able to
   do the same" as Google). Football: Covers' public injury page (sports_data.page_injuries - 127 schools on 10/3, every
   one matched; a school listed with "No injuries to report" counts as covered). Basketball: Rotowire's feed
