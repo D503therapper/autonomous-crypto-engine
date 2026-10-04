@@ -88,7 +88,7 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   report exists for non-conference games (UNC-Notre Dame, Syracuse-UConn, Cal-UNLV...) or for the Sun Belt / CUSA /
   AAC; the MAC posts game-day reports only (~3h before kickoff, getsomemaction.com). Those games stay off the board
   (no pick off blind data). The 5:47 / 11:47 routine knows all this now (prompt updated 10/2).
-- 10/4: the owner's NFL SURVIVOR pool is tracked in data/sports/survivor.json (used: Ravens, Buccaneers, 49ers, Jaguars - he said 'I think', confirm). Help him pick each week from the engine's win reads, never a used team.
+- 10/4: the owner's NFL SURVIVOR pool is tracked in data/sports/survivor.json (used: Ravens, Buccaneers (LOST), 49ers, Jaguars; two losses allowed, one used). Help him pick each week from the engine's win reads, never a used team.
 - 10/4: 🌍 Europe morning NFL under LIVE at ½u (owner OK): posted the night before as an early play, own record, quit rule under 50% after 15 (sports_early.euro_unders). Early plays no longer ping.
 - 10/4 routines: 7:05 AM PT pre-board check (builds the board as it would post, checks every card, fixes by 7:45),
   8:03 AM PT drop confirm, 1:07 AM daily review - NO phone pings from any of them (the owner, 10/4: the only
