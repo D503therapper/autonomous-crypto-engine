@@ -104,9 +104,12 @@ def time_left(league, period, clock, half=None):
     periods, mins = LENGTH[league]
     period = max(1, int(period or 1))
     if league == "mlb":
-        done = period - 1 + (0.5 if str(half or "").lower().startswith("b") else 0.0)
+        h = str(half or "").lower()                       # top / bottom / end (of the inning)
+        done = period - 1 + (1.0 if h.startswith("e") else 0.5 if h.startswith("b") else 0.0)
         return max(0.02, (9 - done) / 9)
     left_in = _clock_min(clock)
+    if league == "nhl" and period > 4 and not left_in:   # (10/4 audit: a SHOOTOUT has no clock - it read as a full
+        return 0.02                                       #  20 minutes left, and a 60% favorite "55%" to win a coin flip)
     left_in = mins if left_in is None else left_in
     if period > periods:                                  # overtime
         return max(0.02, left_in / (periods * mins) / 2)
@@ -340,7 +343,7 @@ def espn_as_an(league, ev):
            "linescore": [{"home_points": x, "away_points": y} for x, y in zip(lh, la)], "latest_odds": {}}
     short = str(ty.get("shortDetail") or "")
     if league == "mlb":
-        box["inning_half"] = "top" if short.lower().startswith(("top", "mid")) else "bottom"
+        box["inning_half"] = _espn_half(short)
     sit = comp.get("situation") or {}
     if league in ("nfl", "ncaaf") and sit.get("possession"):
         pos = str(sit["possession"])
@@ -668,6 +671,17 @@ HOLD_S = 1                    # a play goes up (and pings) once it's held 2 chec
                               # 9/29: a 15-second wait is too slow - "we need to get these pings right away"
 
 
+ESPN_HALF = {}                # ⚾ espn event id -> "top" / "bottom" / "end" of the inning (ESPN's "Top 5th" / "Mid 5th" /
+#                               "Bot 5th" / "End 5th"). 10/4 audit: Action Network's box never said which half - every
+#                               baseball bet (0-5) read "Inning 7" and the clock counted the home team's at-bat as still
+#                               to come (half an inning too much game left, the wrong history bucket late)
+
+
+def _espn_half(short):
+    s = str(short or "").lower()
+    return "top" if s.startswith("top") else "end" if s.startswith("end") else "bottom"   # (mid = the bottom's next)
+
+
 def espn_scores(league):
     """{espn event id: (home score, away score)} for games going right now - a second source for the score."""
     try:
@@ -683,7 +697,25 @@ def espn_scores(league):
             out[str(ev.get("id"))] = (int(float(t["home"]["score"])), int(float(t["away"]["score"])))
         except (KeyError, TypeError, ValueError):
             pass
+        if league == "mlb":
+            short = ((c.get("status") or ev.get("status") or {}).get("type") or {}).get("shortDetail")
+            if short:
+                ESPN_HALF[str(ev.get("id"))] = _espn_half(short)
     return out
+
+
+def fill_half(lg, g, box):
+    """⚾ The inning half for an Action Network box that doesn't say (from ESPN's scoreboard, read this same check);
+    the pending pick's clock says it too. True if it was filled in."""
+    if lg != "mlb" or box.get("inning_half") or box.get("half"):
+        return False
+    half = ESPN_HALF.get(g["id"].split(":", 1)[1])
+    if not half:
+        return False
+    box["inning_half"] = half
+    if g["id"] in SCORES and SCORES[g["id"]].get("live"):
+        SCORES[g["id"]]["clock"] = _clock_txt(lg, box)
+    return True
 
 
 def dk_live(league, g):
@@ -811,6 +843,7 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
     es = scores_f[lg].result().get(g["id"].split(":", 1)[1]) if lg in scores_f else None
     if es is not None and es != (_score(box, "home"), _score(box, "away")):
         return plays                                       # the two score feeds disagree (a few seconds apart): wait
+    fill_half(lg, g, box)                                  # ⚾ top / bottom of the inning when the box doesn't say
     lines_ = books_f[lg].result() if lg in books_f else []
     bov_ = book_line(lines_, g)
     mlh, mla, checked = two_books(dk_f.result(), bov_)
@@ -1560,8 +1593,8 @@ def _clock_txt(league, box):
     except (TypeError, ValueError):
         per = 0
     if league == "mlb":
-        half = str(box.get("inning_half") or box.get("half") or "")
-        side = "Top" if half.lower().startswith("t") else "Bot" if half.lower().startswith("b") else "Inning"
+        half = str(box.get("inning_half") or box.get("half") or "").lower()
+        side = "Top" if half.startswith("t") else "Bot" if half.startswith("b") else "End" if half.startswith("e") else "Inning"
         return f"{side} {_ord(per)}" if per else side
     clk = str(box.get("clock") or "").strip()
     zero = clk in ("0:00", "00:00", "0.0", "0")                       # (an empty clock is no clock, not a break)
