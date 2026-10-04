@@ -1,12 +1,12 @@
 {
- "at": "2026-10-04T18:41Z",
+ "at": "2026-10-04T18:43Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Boisson vs Jeanjean: no points for 158s",
+  "live tennis scores: tennis Boisson vs Jeanjean: no points for 94s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (33s)",
+  "live watcher fresh (255s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +20,20 @@
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 2h ago",
-  "engine ran 1 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T18:43Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Boisson vs Jeanjean: no points for 94s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-04T18:41Z",
    "fixes": [],
@@ -715,18 +723,6 @@
     "slate check: Red Sox @ Yankees (MLB): no price from the books",
     "slate check: Cubs @ Padres (MLB): no price from the books",
     "sources down (the backups took over): betrivers:nhl:1028398371 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-02T03:12Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books",
-    "workflow failed: health 2026-10-02T03:11 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36959045486"
    ]
   }
  ]
