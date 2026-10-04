@@ -7027,6 +7027,12 @@ def test_covers_page_reads_all_caps_schools():
     assert t == {"BYU": [("J. Smith", "WR", "Out")], "LSU": [], "Akron": []}, t
 
 
+def test_no_cap_on_unit_plays():
+    """10/4, the owner: "I don't want the cap at five picks total. If the engine finds more picks, however many is
+    fine." Every value play that beats its price goes up; leans still fill the board to 5."""
+    assert sports.MAX_PLAYS >= 1000 and sports.BOARD_TARGET == 5
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""

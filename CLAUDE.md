@@ -35,7 +35,7 @@ every session:
 - Monday and Thursday football: every NFL game those days gets its own pick (two games = two picks; a lean is fine) -
   sports.night_games / night_pick, the 🏈 NIGHT FOOTBALL card.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.
-- Every day: a Lock of the Day, then every real value play STRAIGHT with its units (sports.plays, up to MAX_PLAYS),
+- Every day: a Lock of the Day, then every real value play STRAIGHT with its units (sports.plays - no cap, the owner 10/4: however many the engine finds),
   then leans for the viewers (sports.viewer_leans, no units, 🟡 in the record) - and a "🧩 Build your own parlay from
   today's plays" line. NO posted parlays (the owner, 10/1: the ladder went 1 for 8; the viewer builds his own). A play
   is never past -150, never one the engine's own read is fighting. The Dog of the Day is a UNIT play like the Lock: only
