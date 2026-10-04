@@ -1,5 +1,5 @@
 {
- "at": "2026-10-04T00:09Z",
+ "at": "2026-10-04T01:40Z",
  "fixes": [
   "slate check problem - re-pull before the board - started sports.yml"
  ],
@@ -12,7 +12,7 @@
   "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
  ],
  "ok": [
-  "live watcher fresh (32s)",
+  "live watcher fresh (66s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,14 +23,28 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
+  "studies ran 5h ago",
+  "simulator ran 4h ago",
   "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T01:40Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - started sports.yml"
+   ],
+   "problems": [
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+   ]
+  },
   {
    "at": "2026-10-04T00:09Z",
    "fixes": [
@@ -719,13 +733,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Blinkova vs Boisson: no points for 2662s"
-   ]
-  },
-  {
-   "at": "2026-10-01T11:23Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Blinkova vs Boisson: no points for 2383s"
    ]
   }
  ]
