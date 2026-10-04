@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T19:39Z",
+ "updated": "2026-10-04T19:41Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -194,31 +194,29 @@
    "id": "mlb:401908003",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Brewers",
-    "p": 0.502,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-04T20:00Z",
    "away": "Padres",
    "home": "Brewers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Padres",
-    "opp": "Brewers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -198,
-    "p": 0.605,
-    "win_p": 0.418,
+    "team": "Brewers",
+    "opp": "Padres",
+    "market": "ml",
+    "line": null,
+    "odds": -137,
+    "p": 0.575,
+    "win_p": 0.575,
     "reasons": [
-     "sharp money moving this way",
-     "opponent drama: new baby"
-    ]
+     "the stronger team",
+     "opponent missing key players",
+     "hotter recent form"
+    ],
+    "result": null
    }
   },
   {
@@ -291,7 +289,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.653,
+    "p": 0.651,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -307,11 +305,12 @@
     "opp": "Seahawks",
     "market": "spread",
     "line": 7.0,
-    "odds": -108,
+    "odds": -112,
     "p": 0.515,
-    "win_p": 0.243,
+    "win_p": 0.247,
     "reasons": [
      "revenge game",
+     "sharp money moving this way",
      "opponent missing key players"
     ]
    }
