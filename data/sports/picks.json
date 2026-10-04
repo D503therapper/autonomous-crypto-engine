@@ -5412,5 +5412,654 @@
   "status": "won",
   "tier": "value",
   "units": 0.5
+ },
+ {
+  "american": -135,
+  "date": "2026-10-04",
+  "dec": 1.7407,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "rec:4",
+     "worse:2",
+     "revenge:0",
+     "road:0",
+     "keyout:1",
+     "bottom_s:3",
+     "w_revenge:2"
+    ],
+    "breakdown": [
+     "\ud83d\udccb Cardinals got a 1-2 record walking in. We gon' see what they do with it.",
+     "\ud83d\ude24 Revenge game \u2014 Cardinals lost the last meeting and they haven't forgotten.",
+     "\ud83e\uddf3 Cardinals are 1-1 on the road this year.",
+     "\ud83d\udc3a Giants are 2-1, Cardinals 1-2. The record's in the price already.",
+     "\ud83d\ude91 Giants are still without Jaxson Dart (IR) \u2014 the backup quarterback keeps the job.",
+     "\u2705 Bottom line: Cardinals (-135). Our read beats the number. Riding Cardinals."
+    ],
+    "bv": 50,
+    "coach": [
+     0,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf",
+     "us:dome_out",
+     "us:east1000",
+     "us:trip1000",
+     "us:trip2000"
+    ],
+    "dec": 1.7407407407407407,
+    "depth_pts": 0.5,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {
+     "east_west": false,
+     "fades": [],
+     "go4_gap": -0.2181,
+     "last_margin": -6.0,
+     "last_pts": 30.0,
+     "neutral": false,
+     "win_streak": 0
+    },
+    "drift": 0.0121,
+    "edge": -0.007492658290321641,
+    "edge_own": -0.013972874382303768,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -6.0,
+     -2,
+     310,
+     false,
+     0
+    ],
+    "game_id": "nfl:401872966",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.0373259178875025,
+    "key_out_me": false,
+    "key_seen": {
+     "Jaxson Dart (Giants QB)": "Injured Reserve"
+    },
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -135,
+    "opp": "Giants",
+    "opp_dog_pts": -2.0,
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [
+     "Dadrion Taylor-Demerson (S)"
+    ],
+    "p": 0.5701637920459854,
+    "p_market": 0.551441114716549,
+    "pdo": null,
+    "public": "ride",
+    "reasons": [
+     "revenge game",
+     "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-04T17:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Cardinals",
+    "team_id": "22",
+    "their_drama": [],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5764,
+    "waiting": [],
+    "why_line": "\ud83d\ude24 Giants won the last meeting. Cardinals get the rematch today."
+   }
+  ],
+  "p_hit": 0.5702,
+  "pnl": 0.0,
+  "posted": "2026-10-04T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": 120,
+  "date": "2026-10-04",
+  "dec": 2.2,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 1,
+    "bd_tags": [
+     "sched:0",
+     "latest:5",
+     "momentum:1",
+     "bottom_s:7",
+     "w_rolling:0"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Jaguars questionable: CB Christian Braswell, CB Montaric Brown, DT Albert Regis.",
+     "\u2696\ufe0f Jaguars 2-1, Bengals 2-1 \u2014 but Jaguars' L's came against Broncos.",
+     "\ud83d\udcc5 Previous game: Jaguars W 35-6 vs Patriots \u00b7 Bengals L 27-30 @ Steelers.",
+     "\ud83d\ude80 Jaguars are coming in hot off a blowout. Momentum's real.",
+     "\u2705 Bottom line: Jaguars (+120). The number's in our favor - that's why we're on Jaguars."
+    ],
+    "bv": 50,
+    "coach": [
+     1,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 2.2,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {
+     "east_west": false,
+     "fades": [],
+     "go4_gap": 0.1097,
+     "last_margin": 29.0,
+     "last_pts": 35.0,
+     "neutral": false,
+     "win_streak": 1
+    },
+    "dog_p": 0.5184,
+    "drift": 0.0,
+    "edge": 0.005631639858575177,
+    "edge_own": 0.030450784669783904,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     29.0,
+     1,
+     -162,
+     true,
+     0
+    ],
+    "game_id": "nfl:401872969",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.02538795339842448,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 120,
+    "opp": "Bengals",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Kyle Dugger (S)",
+     "Colbie Young (WR)"
+    ],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.4571052908448069,
+    "p_market": 0.4365079365079365,
+    "pdo": null,
+    "public": "fade",
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players",
+     "rolling off a blowout win"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-04T17:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Jaguars",
+    "team_id": "30",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 They're rolling off a blowout \u2014 that's our edge today."
+   }
+  ],
+  "p_hit": 0.4571,
+  "pnl": 0.0,
+  "posted": "2026-10-04T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
+ },
+ {
+  "american": -137,
+  "date": "2026-10-04",
+  "dec": 1.7299,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "hot:5",
+     "better:2",
+     "latest:4",
+     "talk_q:0",
+     "home:1",
+     "bump:2",
+     "fade:2",
+     "splits:2",
+     "bottom_n:0",
+     "w_better:0"
+    ],
+    "breakdown": [
+     "\ud83d\udce3 Out of the Padres's camp this week: \"Gavin Sheets' pinch-hit homer propels dominant Padres past Cubs 4-1 for 2-game Wild Card sweep\"",
+     "\ud83d\udcb8 Line's moving toward the Padres (+130 \u2192 +114). Let 'em \u2014 we still like the Brewers, Padres are banged up.",
+     "\ud83d\udcc5 Last outing: Brewers W 3-2 vs Padres \u00b7 Padres L 2-3 @ Brewers.",
+     "\u26be Logan Henderson takes the ball for Brewers; Padres go with Michael King.",
+     "\ud83d\udcca 56% on the Brewers, 44% on the Padres. Crowd can't make up its mind \u2014 we already did.",
+     "\ud83d\udfe1 Bottom line: Brewers (-137). Brewers are the likelier winner - the price already accounts for that. No units."
+    ],
+    "bv": 50,
+    "coach": [
+     15,
+     false
+    ],
+    "country": "",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf",
+     "them:out_dome"
+    ],
+    "dec": 1.72992700729927,
+    "dh_game2": true,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "luck_gap": -0.032,
+     "opp_won": true,
+     "rs_gap": 0.0875,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": 0.03,
+    "edge": -0.006063001197162743,
+    "edge_own": 0.004838771574978473,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     1.0,
+     6,
+     -209,
+     true,
+     1
+    ],
+    "game_id": "mlb:401908003",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.14693877551020407,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -137,
+    "opp": "Padres",
+    "opp_dog_pts": 1.0,
+    "opp_lost_last": true,
+    "opp_outs": [
+     "Walker Buehler (SP)",
+     "Casey Mize (SP)",
+     "Miguel Andujar (DH)",
+     "Jeremiah Estrada (RP)"
+    ],
+    "our_drama": [
+     {
+      "date": "2026-10-03",
+      "headline": "Joe Musgrove sticks on Padres' roster; Buehler on paternity list",
+      "id": "50091010",
+      "kind": "new baby"
+     }
+    ],
+    "outs": [
+     "Grant Anderson (RP)"
+    ],
+    "p": 0.5745542988860283,
+    "p_market": 0.552982006111132,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "the stronger team",
+     "opponent missing key players",
+     "hotter recent form",
+     "opponent drama: new baby"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-04T20:00Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [
+     {
+      "headline": "Gavin Sheets' pinch-hit homer propels dominant Padres past Cubs 4-1 for 2-game Wild Card sweep",
+      "kind": "unhappy"
+     }
+    ],
+    "team": "Brewers",
+    "team_id": "8",
+    "their_drama": [
+     {
+      "date": "2026-10-03",
+      "headline": "Joe Musgrove sticks on Padres' roster; Buehler on paternity list",
+      "id": "50091010",
+      "kind": "new baby"
+     }
+    ],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5759,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Brewers (103-59) vs Padres (91-71) \u2014 the better team's on our side."
+   }
+  ],
+  "p_hit": 0.5746,
+  "pnl": 0.0,
+  "posted": "2026-10-04T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -105,
+  "date": "2026-10-04",
+  "dec": 1.9524,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": -1,
+    "bd_tags": [
+     "rec:3",
+     "worse:0",
+     "h2h:1",
+     "revenge:3",
+     "cx_domeout:2",
+     "splits:4",
+     "bottom_n:6",
+     "w_revenge:3"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Panthers out: G Damien Lewis \u00b7 questionable: WR Jalen Coker, DT Cam Jackson, DT Lee Hunter.",
+     "\ud83d\udccb Panthers rolling in at 1-2.",
+     "\ud83d\udcca Tickets are close to even \u2014 37% the Panthers, 63% the Lions. We got our side.",
+     "\ud83c\udd9a Panthers have had Lions's number: 2 of the last 3.",
+     "\ud83d\ude24 Panthers been waiting on this rematch.",
+     "\ud83d\udc3a Lions (2-1) look better than Panthers (1-2) \u2014 that's why the price is this good.",
+     "\ud83c\udfdf\ufe0f The Lions leave the dome for an open-air building.",
+     "\ud83d\udfe1 Bottom line: Panthers +3.5 (-105). Our read has Panthers covering +3.5 a hair more often than not. Just a lean."
+    ],
+    "bv": 50,
+    "coach": [
+     2,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "dome_out",
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:dome_out"
+    ],
+    "dec": 1.9523809523809523,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [],
+     "go4_gap": 0.1631,
+     "last_margin": -3.0,
+     "last_pts": 18.0,
+     "neutral": false,
+     "win_streak": 0
+    },
+    "drift": 0.0145,
+    "edge": -0.005935815971095604,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -3.0,
+     -1,
+     -130,
+     false,
+     0
+    ],
+    "game_id": "nfl:401872978",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.23998131881949325,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": 3.5,
+    "lost_last": false,
+    "market": "spread",
+    "odds": -105,
+    "opp": "Lions",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Ben Bartch (G)",
+     "Brian Branch (S)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Damien Lewis (G)"
+    ],
+    "p": 0.5091548259660242,
+    "p_market": 0.5121951219512195,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "revenge game",
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-05T00:20Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Panthers",
+    "team_id": "29",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "waiting": [],
+    "why_line": "\ud83d\ude24 Rematch: Panthers dropped the last one to Lions."
+   }
+  ],
+  "p_hit": 0.5092,
+  "pnl": 0.0,
+  "posted": "2026-10-04T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -148,
+  "date": "2026-10-04",
+  "dec": 1.6757,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": -4,
+    "bd_tags": [
+     "rec:0",
+     "trash:6",
+     "h2h:4",
+     "talk_q:1",
+     "home:2",
+     "fade:3",
+     "splits:3",
+     "bottom_c:0",
+     "w_num:2"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Texans out: LB Azeez Al-Shaair, S M.J. Stewart \u00b7 questionable: DE Jadeveon Clowney, LB Jake Hansen, DE Logan Hall +2 more.",
+     "\ud83d\udce3 The Cowboys in the papers: \"Sources: Steelers' contract philosophy led to Joey Porter Jr. trade\"",
+     "\ud83d\udcb8 Money's pouring in on the Cowboys (+136 \u2192 +124). They must've lost their minds \u2014 we got the Texans.",
+     "\ud83c\udfdf\ufe0f Texans at home: 0-2 this season.",
+     "\ud83d\udccb Texans sitting at 0-3 on the year.",
+     "\ud83c\udd9a Cowboys can't figure Texans out: 2 of 3 to Texans.",
+     "\ud83d\udcca The public's torn on this one (47% / 53%). The engine ain't.",
+     "\ud83d\udfe1 Bottom line: Texans (-148). This one's near a coin flip to us - Texans is the side if you're playing it, no money from us."
+    ],
+    "bv": 50,
+    "coach": [
+     3,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:week3000"
+    ],
+    "dec": 1.6756756756756757,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [],
+     "go4_gap": -0.2029,
+     "last_margin": -2.0,
+     "last_pts": 17.0,
+     "neutral": false,
+     "win_streak": 0
+    },
+    "drift": 0.0213,
+    "edge": -0.04141358365543901,
+    "edge_own": -0.038092897480509036,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -2.0,
+     -4,
+     -122,
+     false,
+     0
+    ],
+    "game_id": "nfl:401872967",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.915052704526389,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nfl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -148,
+    "opp": "Cowboys",
+    "opp_dog_pts": 3.0,
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Cobie Durant (CB)",
+     "DeMarvion Overshown (LB)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Azeez Al-Shaair (LB)",
+     "M.J. Stewart (S)"
+    ],
+    "p": 0.5720596355604638,
+    "p_market": 0.5720596355604638,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-04T17:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [
+     {
+      "headline": "Sources: Steelers' contract philosophy led to Joey Porter Jr. trade",
+      "kind": "trash talk"
+     }
+    ],
+    "team": "Texans",
+    "team_id": "34",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.559,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 Texans at 56% to get it done. That's the engine talking, not a hunch."
+   }
+  ],
+  "p_hit": 0.5721,
+  "pnl": 0.0,
+  "posted": "2026-10-04T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]

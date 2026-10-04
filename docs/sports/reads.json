@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T14:55Z",
+ "updated": "2026-10-04T15:01Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -22,7 +22,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cardinals",
-    "p": 0.525,
+    "p": 0.524,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -31,8 +31,8 @@
    "start": "2026-10-04T17:00Z",
    "away": "Cardinals",
    "home": "Giants",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "Cardinals",
     "opp": "Giants",
@@ -62,8 +62,8 @@
    "start": "2026-10-04T17:00Z",
    "away": "Cowboys",
    "home": "Texans",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Texans",
     "opp": "Cowboys",
@@ -83,7 +83,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.498,
+    "p": 0.497,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -92,16 +92,16 @@
    "start": "2026-10-04T17:00Z",
    "away": "Jaguars",
    "home": "Bengals",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Bengals",
     "opp": "Jaguars",
     "market": "ml",
     "line": null,
     "odds": -142,
-    "p": 0.527,
-    "win_p": 0.527,
+    "p": 0.525,
+    "win_p": 0.525,
     "reasons": [
      "hotter recent form"
     ]
@@ -165,6 +165,7 @@
     "p": 0.71,
     "win_p": 0.495,
     "reasons": [
+     "opponent missing key players",
      "opponent drama: trade drama"
     ]
    }
@@ -207,7 +208,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.62,
+    "p": 0.621,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -225,7 +226,7 @@
     "line": 7.0,
     "odds": -115,
     "p": 0.513,
-    "win_p": 0.269,
+    "win_p": 0.267,
     "reasons": [
      "revenge game"
     ]
@@ -237,7 +238,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.591,
+    "p": 0.594,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -254,12 +255,12 @@
     "market": "ml",
     "line": null,
     "odds": -198,
-    "p": 0.637,
-    "win_p": 0.637,
+    "p": 0.638,
+    "win_p": 0.638,
     "reasons": [
+     "opponent missing key players",
      "sharp money moving this way",
-     "better QB play lately",
-     "revenge game"
+     "better QB play lately"
     ]
    }
   },
@@ -287,9 +288,10 @@
     "line": 11.5,
     "odds": -110,
     "p": 0.508,
-    "win_p": 0.159,
+    "win_p": 0.16,
     "reasons": [
-     "revenge game"
+     "revenge game",
+     "opponent missing key players"
     ]
    }
   },
@@ -299,7 +301,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.498,
+    "p": 0.503,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -308,16 +310,16 @@
    "start": "2026-10-04T20:00Z",
    "away": "Padres",
    "home": "Brewers",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Padres",
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
     "odds": -197,
-    "p": 0.61,
-    "win_p": 0.423,
+    "p": 0.604,
+    "win_p": 0.416,
     "reasons": [
      "sharp money moving this way",
      "opponent drama: new baby"
@@ -412,7 +414,7 @@
     "line": 7.0,
     "odds": -108,
     "p": 0.515,
-    "win_p": 0.238,
+    "win_p": 0.236,
     "reasons": [
      "revenge game"
     ]
@@ -486,7 +488,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.518,
+    "p": 0.522,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -503,11 +505,12 @@
     "market": "ml",
     "line": null,
     "odds": -157,
-    "p": 0.592,
-    "win_p": 0.592,
+    "p": 0.597,
+    "win_p": 0.597,
     "reasons": [
      "the stronger team",
-     "hotter recent form"
+     "hotter recent form",
+     "opponent missing key players"
     ]
    }
   },
@@ -585,8 +588,8 @@
    "start": "2026-10-05T00:20Z",
    "away": "Lions",
    "home": "Panthers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Lions",
     "opp": "Panthers",
