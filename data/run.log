@@ -7265,3 +7265,28 @@ error: failed to push some refs to 'https://github.
 [2026-10-04 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-04 11:06 UTC] crypto/hold_btc  equity $506.35 (+1.3%) 1 open  market UP
    social heat top: NEAR 37 (37/0/0), STRK 35 (35/0/0), QNT 29 (29/0/0), PUMP 27 (27/0/0), PENGU 24 (24/0/0)
+   footprint: SUI: footprint 3/4 (quiet+hikes+rising_lows) 48h +0.9%, 4 volume hikes, 60% quiet hours @ 1.18381
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h -2.0%, 3 volume hikes, 81% quiet hours @ 1.5003
+   dex re-screen: PURRSWORD@solana:GgdAua8q flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT AGL@ethereum liq $1,612,044 - top-10 holders 54%; lp locked 0% < 95%
+   dex screen: REJECT BOT@solana liq $137,637 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT HOOKED@solana liq $314,632 - lp holders unknown; rugcheck lp locked 13% < 95%
+   dex screen: REJECT VVV@base liq $18,439,212 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; owner_percent 30%; top-10 holders 62%
+   dex screen: PASS KURUMI@solana liq $198,544
+   dex screen: PASS PEPE@ethereum liq $31,703,262
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT VRAX@base liq $287,740 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $3,047,697
+   dex screen: REJECT DJT@solana liq $719,111 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 51%; lp holders unknown
+   dex screen: PASS STONK@solana liq $2,763,188
+   dex scanner: 2,708 pools (solana 2,011 / base 360 / ethereum 337), refresh cycle 112s (hot 106s), 3026 calls (108 feed, 429s 0, failed 0), 87,537 refreshed (15239 no pair), +63 added / -94 dropped (dead 91, stale 3, cap 0), movers 0 + warming 22 -> queued 4, screened 4 (passed 1), bought 0
+[2026-10-04 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-04 12:06 UTC] crypto/mover     equity $433.61 (-13.3%) 2 open  market UP
+[2026-10-04 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 12:06 UTC] crypto/social_heat equity $521.22 (+4.2%) 1 open  market UP
+[2026-10-04 12:06 UTC] crypto/breakout10 equity $495.60 (-0.9%) 2 open  market UP
+[2026-10-04 12:06 UTC] crypto/momentum  equity $489.91 (-2.0%) 2 open  market UP
+[2026-10-04 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-04 12:06 UTC] crypto/hold_btc  equity $506.86 (+1.4%) 1 open  market UP
+   social heat top: ONDO 35 (35/0/0), SOL 32 (32/0/0), NEAR 29 (29/0/0), PENGU 27 (27/0/0), PUMP 24 (24/0/0)
