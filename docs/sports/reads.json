@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T01:56Z",
+ "updated": "2026-10-04T02:11Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -1132,8 +1132,8 @@
    "away": "Gardner-Webb",
    "home": "Charleston So",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1147,8 +1147,8 @@
    "away": "Incarnate Word",
    "home": "SF Austin",
    "h1": null,
-   "why": "final",
-   "done": true,
+   "why": "started",
+   "done": false,
    "board": null,
    "lean": null
   },
@@ -1911,100 +1911,6 @@
    }
   },
   {
-   "id": "ncaaf:401856817",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Arizona St",
-    "p": 0.566,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T02:30Z",
-   "away": "Baylor",
-   "home": "Arizona St",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Arizona St",
-    "opp": "Baylor",
-    "market": "ml",
-    "line": null,
-    "odds": -166,
-    "p": 0.6,
-    "win_p": 0.6,
-    "reasons": [
-     "the stronger team",
-     "better rested"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868086",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "UC Davis",
-    "p": 0.668,
-    "tie": 0.03,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T02:30Z",
-   "away": "E Washington",
-   "home": "UC Davis",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "UC Davis",
-    "opp": "E Washington",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -111,
-    "p": 0.5,
-    "win_p": 0.719,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401860900",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Texas St",
-    "p": 0.758,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-04T02:30Z",
-   "away": "Texas St",
-   "home": "San Diego St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Texas St",
-    "opp": "San Diego St",
-    "market": "spread",
-    "line": -9.5,
-    "odds": -115,
-    "p": 0.501,
-    "win_p": 0.757,
-    "reasons": [
-     "opponent missing key players",
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401856820",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2254,7 +2160,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.553,
+    "p": 0.557,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2270,9 +2176,9 @@
     "opp": "Buccaneers",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -166,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "hotter recent form",
      "better rested",
@@ -2536,7 +2442,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.506,
+    "p": 0.507,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -2553,8 +2459,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -182,
-    "p": 0.6,
-    "win_p": 0.413,
+    "p": 0.599,
+    "win_p": 0.412,
     "reasons": []
    }
   },
@@ -2584,8 +2490,7 @@
     "p": 0.679,
     "win_p": 0.461,
     "reasons": [
-     "opponent on a back-to-back",
-     "hotter goalie"
+     "opponent on a back-to-back"
     ]
    }
   },

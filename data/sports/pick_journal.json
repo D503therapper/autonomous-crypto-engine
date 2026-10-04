@@ -779,6 +779,57 @@
  },
  {
   "date": "2026-10-03",
+  "kind": "dog",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892435",
+  "team": "Flyers",
+  "opp": "Hurricanes",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": 110,
+  "posted": "2026-10-03T15:47Z",
+  "price_says": 0.476,
+  "win_p": 0.47815864391281987,
+  "own_read": 0.538,
+  "weighed": null,
+  "dog_p": 0.5382,
+  "edge_own": 0.004133152216921676,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "opponent on a back-to-back",
+   "hotter recent form",
+   "opponent drama: trade drama"
+  ],
+  "angles": [
+   "rec:5",
+   "G_cold:2",
+   "drama_trade_drama:1",
+   "b2b:4",
+   "splits_f:3",
+   "bottom_s:4",
+   "w_rest:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Nikita Grebenkin (RW)"
+  ],
+  "theirs_out": [
+   "Alexander Nikishin (D)"
+  ],
+  "public": "fade",
+  "close": 114,
+  "beat_close_pts": -0.9,
+  "result": "lost",
+  "score": "2-3",
+  "margin": -1.0,
+  "pnl_units": -1.0
+ },
+ {
+  "date": "2026-10-03",
   "kind": "lean",
   "lean": true,
   "tier": "lean",
