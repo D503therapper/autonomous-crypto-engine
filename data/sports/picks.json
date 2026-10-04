@@ -5584,6 +5584,7 @@
      "game:conf"
     ],
     "dec": 2.2,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -5605,6 +5606,10 @@
     "edge_own": 0.030450784669783904,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,10,3,6",
+     "h": "0,3,7,7"
+    },
     "form_state": [
      29.0,
      1,
@@ -5643,9 +5648,11 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jaguars 22 @ Bengals 17",
+    "settled": "2026-10-04T20:15Z",
     "side": "away",
     "start": "2026-10-04T17:00Z",
     "stype": "2",
@@ -5662,12 +5669,14 @@
    }
   ],
   "p_hit": 0.4571,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-10-04T15:00Z",
   "round": 1,
+  "settled": "2026-10-04T20:15Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -137,
