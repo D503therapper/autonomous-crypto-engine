@@ -4336,6 +4336,15 @@
      "game:div"
     ],
     "dec": 2.1,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Shayne Gostisbehere",
+     "s": "3-2",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4349,6 +4358,10 @@
     "edge_own": 0.004133152216921676,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,1,1",
+     "h": "1,1,0,0"
+    },
     "form_state": null,
     "game_id": "nhl:401892435",
     "home": true,
@@ -4382,9 +4395,11 @@
      "opponent drama: trade drama"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Hurricanes 3 @ Flyers 2",
+    "settled": "2026-10-04T01:48Z",
     "side": "home",
     "start": "2026-10-03T23:00Z",
     "stype": "2",
@@ -4408,12 +4423,14 @@
    }
   ],
   "p_hit": 0.4782,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-03T15:47Z",
   "round": 1,
+  "settled": "2026-10-04T01:48Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -149,
