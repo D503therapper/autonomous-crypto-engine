@@ -1,28 +1,40 @@
 {
- "at": "2026-10-04T14:09Z",
- "fixes": [],
+ "at": "2026-10-04T14:54Z",
+ "fixes": [
+  "studies overdue (9h) - started sports_studies.yml"
+ ],
  "problems": [
-  "live bets on the board but not saved on main: Colts (the next page build merges them)"
+  "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (286s)",
+  "live watcher fresh (29s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 3 live matches",
+  "live tennis points + server: 1 of 1 live matches",
+  "slate check: all 20 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 2 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 53 min ago",
+  "simulator ran 9h ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-04T14:54Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-04T14:09Z",
    "fixes": [],
@@ -720,19 +732,6 @@
   },
   {
    "at": "2026-10-01T23:25Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books",
-    "workflow failed: sports 2026-10-01T23:10 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36939304970"
-   ]
-  },
-  {
-   "at": "2026-10-01T23:24Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running",
     "tennis slate due (8am PT) and not up - sports.yml already running"
