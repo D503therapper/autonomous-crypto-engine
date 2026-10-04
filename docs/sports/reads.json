@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T00:56Z",
+ "updated": "2026-10-04T01:10Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -1072,8 +1072,8 @@
    "away": "Alabama A&M",
    "home": "Jackson St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1238,7 +1238,7 @@
    "home": "Rays",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Rays",
@@ -1253,7 +1253,7 @@
      "better rested",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -1839,33 +1839,47 @@
    "lean": null
   },
   {
+   "id": "nhl:401892439",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-04T01:00Z",
+   "away": "Blues",
+   "home": "Avalanche",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401860921",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Washington St",
-    "p": 0.488,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-04T01:30Z",
    "away": "Fresno St",
    "home": "Washington St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
-    "team": "Washington St",
-    "opp": "Fresno St",
+    "team": "Fresno St",
+    "opp": "Washington St",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.506,
-    "win_p": 0.506,
+    "odds": 102,
+    "p": 0.489,
+    "win_p": 0.489,
     "reasons": [
-     "sharp money moving this way"
-    ]
+     "the stronger team",
+     "hotter recent form",
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
