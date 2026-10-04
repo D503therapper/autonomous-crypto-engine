@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T20:28Z",
+ "updated": "2026-10-04T20:29Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -407,8 +407,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lions",
-    "p": 0.585,
-    "tie": 0.037,
+    "p": 0.583,
+    "tie": 0.038,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -487,7 +487,7 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -180,
+    "odds": -176,
     "p": 0.594,
     "win_p": 0.405,
     "reasons": [
@@ -501,8 +501,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.401,
-    "tie": 0.297,
+    "p": 0.411,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -513,14 +513,18 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Flyers",
-    "opp": "Lightning",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -175,
-    "p": 0.617,
-    "win_p": 0.397,
-    "reasons": []
+    "team": "Lightning",
+    "opp": "Flyers",
+    "market": "ml",
+    "line": null,
+    "odds": -192,
+    "p": 0.629,
+    "win_p": 0.629,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "hotter goalie"
+    ]
    }
   },
   {
@@ -568,20 +572,17 @@
    "start": "2026-10-05T23:30Z",
    "away": "Senators",
    "home": "Bruins",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Senators",
-    "opp": "Bruins",
+    "team": "Bruins",
+    "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.72,
-    "win_p": 0.507,
-    "reasons": [
-     "hotter goalie",
-     "hotter recent form"
-    ]
+    "odds": -265,
+    "p": 0.707,
+    "win_p": 0.493,
+    "reasons": []
    }
   },
   {
@@ -606,7 +607,7 @@
     "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -170,
+    "odds": -162,
     "p": 0.626,
     "win_p": 0.406,
     "reasons": [
