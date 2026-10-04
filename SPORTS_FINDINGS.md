@@ -570,3 +570,34 @@ NBA 2011-24, NHL 2011-23, MLB 2010-23, college 2018-23); today's prices from ESP
 - What makes money (built): dog_score angles, the fair-price early dog spots, hockey favorite weights. Nothing else
   cleared n>=200 with 4+ of 7 seasons up (66 cells tested).
 
+
+## 10/4 - the big-dog study (the owner, after Missouri +180 smacked Florida: "how do we pick out these +180, +200 dogs?")
+NFL + college football only (the owner's scope). Every dog +150..+250 at the CLOSE, 2018-26 (9 seasons with closing
+prices): NFL 788 dogs (-2.9%, 2023+ -14.6% on 291), college 1,376 (-2.6%, 2023+ -6.2% on 605). 29 situational angles the
+engine does NOT already weigh (58 league x angle tests, each vs ALL band dogs in the same league-season, seasons up,
+2023+ holdout, Welch t-test, Benjamini-Hochberg q .10). Conference / rivalry proxied as "met in 2+ of the last 3
+seasons" (the game files carry no conference or ranking - the one data gap). **RESULT: 0 of 58 pass the
+false-discovery check. Nothing built.** Big football dogs win when the engine's full read says so - not off a spot.
+- Closest, and why each fails: college FAVORITE on its 2nd+ straight road game (dog home) +13.7% on 150, only 4 of 8
+  seasons, 2023+ -3.1% (p .09); college HOME dog +5.4% on 575, 7 of 9 seasons - but 2023+ -11.0% vs -6.2% (the books
+  caught up; p .13); NFL favorite off an UPSET win (won as a dog last week) +17.3% on 102, 2023+ +32% on 40, but only
+  3 of 6 seasons (p .09) - a WATCH, re-check after 2027; NFL "dog .500 or worse vs a .750+ favorite" +18.4% on 68 (3 of
+  5, small). Everything else inside noise or the wrong way.
+- The owner's intuitions, tested: home dog (NFL -10.2%, worse 5 of 8 - matches the 10/1 -17%); home dog off a loss
+  (NFL -17.2%, college -2.6%); dog vs a favorite off an emotional 17+ win (NFL +7.1% 5 of 8 but college -8.8%, 3 of 9);
+  favorite off a narrow escape (3 or less): nothing; dog with the better point differential than the favorite: NFL
+  +7.4% (5 of 8, but 2023+ -22.8%), college -14.9% (1 of 8; 7+ better -41.0%, 0 of 6 - the market already prices it
+  and then some); "unlucky" dog (win % 15+ under its Pythagorean) college -16.2%, "lucky" favorite -22.1%: dead; dog
+  with the better record college -5.5%; late season NFL -6.2% / college -4.1%; look-ahead (favorite's next game a
+  pick'em or worse, this dog under .500) college +4.3% / NFL +0.6%, noise; cold 35F NFL +7.0% (3 of 7) / college -9.0%;
+  wind NFL +3.7% / college -5.3%; rain-snow college -0.8% (the 10/1 +8.1% was at early prices with the engine - here
+  at the close, flat); low total NFL +5.3% (5 of 7), college +1.5% (6 of 8) - small, not steady past 2023; short
+  spread at this price (dog +3.5 or less) NFL -2.6% / college -9.2%; favorite on short rest: under 60 games; favorite on
+  a 3+ win streak NFL +4.0% / college +1.3% (noise); both off losses NFL -8.5%; dog off a close loss NFL -28.3%,
+  college -15.1% (the "they almost won" dog is over-bet); dog on a 2+ win streak NFL +9.1% (5 of 8, 2023+ -1%) -
+  the 3+ streak weight already built covers it.
+- Price bands (every dog, by season): NFL +150-199 +0.1% (6 of 9), +200-250 -7.3% (2 of 9); college +150-199 -5.1%
+  (3 of 9), +200-250 +0.7% (4 of 9) - all over the place, no band weight. +400 and up loses every college season
+  (-29.2% on 2,207, 0 of 9) and -17.3% in the NFL - already outside SPOT_DOG (+100..+220).
+- Study: /tmp scratch bigdog_study.py (not kept - the table above is the result); re-run after 2027 for the NFL
+  upset-hangover favorite.

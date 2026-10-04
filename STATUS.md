@@ -116,6 +116,12 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
 - Compare: our engine's early NFL spread read (3.5+ pts off the Tuesday number) covered 58.5% on 554 (findings 10/1)
   - Dr. Bob-level, but a study, not live; build the early NFL spread play and track it live vs his 57.6%.
 
+**10/4 big-dog study (NFL + college, dogs +150..+250 at the close, 2018-26)**: 29 situational angles the engine
+doesn't weigh (home dog, conference proxy, off a loss, favorite off an emotional win, point differential vs record,
+look-ahead, weather, totals, spread mismatch, streaks, road trips, late season) - 0 of 58 tests pass the false-discovery
+check; nothing built. Full table in SPORTS_FINDINGS.md (10/4). One watch: an NFL favorite off an upset win (dog +17%
+on 102, 3 of 6 seasons) - re-check after 2027.
+
 **Open decisions (the owner's call)**
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md
   still says ALWAYS a Lock until the owner says the words). The Dog stays real-value only; leans fill to 5+ picks.
