@@ -7137,3 +7137,28 @@ error: failed to push some refs to 'https://github.
 [2026-10-04 07:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-04 07:05 UTC] crypto/hold_btc  equity $505.15 (+1.0%) 1 open  market UP
    social heat top: PUMP 37 (37/0/0), ZRO 35 (35/0/0), ONDO 32 (32/0/0), STRK 29 (29/0/0), BTC 27 (27/0/0)
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h -2.1%, 3 volume hikes, 73% quiet hours @ 1.4979
+   footprint: AVAX: footprint 3/4 (quiet+hikes+rising_lows) 48h -0.5%, 2 volume hikes, 60% quiet hours @ 11.03
+   dex screen: REJECT CBXRP@base liq $826,236 - pool age unknown
+   dex screen: REJECT GOOGLC@base liq $1,958,560 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT AGL@ethereum liq $1,468,201 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 53%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     4597f36acde1130886c4d8496f671f0b771f9c50 -> main (cannot lock ref 'refs/heads/main': is at f5c73a288bc7dc4df0573ee
+   dex screen: REJECT MSTRC@base liq $3,006 - liquidity $3,006 < $100,000; 24h volume $30 < $100,000
+   dex screen: REJECT DRMR@solana liq $100,490 - lp holders unknown; rugcheck lp locked 76% < 95%
+   dex re-screen: FARTCOIN @solana:9BB6NFEc unreachable (rugcheck unreachable); holding
+   dex re-screen: SIGF@solana:CwSNUU54 flagged once (holders unknown; lp holders unknown; rugcheck lp locked 94% < 95%); re-checking before selling
+   dex screen: REJECT POD@base liq $6,060,562 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 95%
+   dex screen: REJECT POD@solana liq $100,075 - lp holders unknown; rugcheck lp locked 42% < 95%
+   dex scanner: 2,542 pools (solana 1,947 / base 308 / ethereum 287), refresh cycle 104s (hot 100s), 3030 calls (111 feed, 429s 0, failed 0), 87,567 refreshed (15664 no pair), +92 added / -80 dropped (dead 70, stale 10, cap 0), movers 0 + warming 23 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT NIL@ethereum liq $420,526 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; holders unknown; lp holders unknown
+[2026-10-04 08:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-04 08:05 UTC] crypto/mover     equity $435.08 (-13.0%) 2 open  market UP
+[2026-10-04 08:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 08:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 08:05 UTC] crypto/social_heat equity $523.97 (+4.8%) 1 open  market UP
+[2026-10-04 08:05 UTC] crypto/breakout10 equity $492.52 (-1.5%) 2 open  market UP
+[2026-10-04 08:05 UTC] crypto/momentum  equity $489.75 (-2.0%) 2 open  market UP
+[2026-10-04 08:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-04 08:05 UTC] crypto/hold_btc  equity $505.88 (+1.2%) 1 open  market UP
+   social heat top: PUMP 37 (37/0/0), ZRO 35 (35/0/0), PENGU 32 (32/0/0), QNT 29 (29/0/0), STRK 27 (27/0/0)
