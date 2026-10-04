@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 12,
+  "n": 14,
   "beat": 3,
-  "same": 6,
+  "same": 8,
   "worse": 3,
-  "avg_pts": 0.4
+  "avg_pts": 0.34
  },
  "unit_plays": {
-  "n": 5,
+  "n": 7,
   "beat": 2,
-  "same": 1,
+  "same": 3,
   "worse": 2,
-  "avg_pts": 0.96
+  "avg_pts": 0.69
  },
  "by_kind": {
   "dog": {
@@ -29,18 +29,18 @@
    "avg_pts": 0.0
   },
   "lock": {
-   "n": 2,
+   "n": 3,
    "beat": 1,
-   "same": 0,
+   "same": 1,
    "worse": 1,
-   "avg_pts": 2.4
+   "avg_pts": 1.6
   },
   "play": {
-   "n": 1,
+   "n": 2,
    "beat": 1,
-   "same": 0,
+   "same": 1,
    "worse": 0,
-   "avg_pts": 1.2
+   "avg_pts": 0.6
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.0
   },
   "ncaaf": {
-   "n": 4,
+   "n": 6,
    "beat": 3,
-   "same": 0,
+   "same": 2,
    "worse": 1,
-   "avg_pts": 1.68
+   "avg_pts": 1.12
   },
   "nfl": {
    "n": 2,
@@ -77,11 +77,11 @@
   "\u00bdu": null,
   "1-2u": null,
   "2-4u": {
-   "n": 1,
+   "n": 2,
    "beat": 1,
-   "same": 0,
+   "same": 1,
    "worse": 0,
-   "avg_pts": 5.5
+   "avg_pts": 2.75
   },
   "4u+": {
    "n": 1,
@@ -259,6 +259,34 @@
    "pts": 0.0,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Kentucky",
+   "market": "ml",
+   "line": null,
+   "odds": 120,
+   "close": 120,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "lock",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "UNLV",
+   "market": "ml",
+   "line": null,
+   "odds": -120,
+   "close": -120,
+   "pts": 0.0,
+   "units": 2.5,
+   "result": "won"
   }
  ]
 }

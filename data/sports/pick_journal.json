@@ -834,5 +834,111 @@
   "score": "0-3",
   "margin": -3.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-03",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401856709",
+  "team": "Kentucky",
+  "opp": "South Carolina",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 120,
+  "posted": "2026-10-03T17:27Z",
+  "price_says": 0.455,
+  "win_p": 0.4410010482226031,
+  "own_read": 0.496,
+  "weighed": null,
+  "dog_p": 0.4957,
+  "edge_own": -0.030383655368010687,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "the stronger team",
+   "hotter recent form",
+   "opponent missing key players",
+   "opponent drama: suspension"
+  ],
+  "angles": {
+   "conservative": false,
+   "fades": [],
+   "fast": false,
+   "last_margin": 24.0,
+   "last_pts": 45.0,
+   "neutral": false,
+   "win_pct": 0.75,
+   "win_streak": 2
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Grant Grayton (CB)",
+   "DJ Miller (WR)",
+   "Cole Marszalek (LS)"
+  ],
+  "theirs_out": [
+   "Dylan Stewart (EDGE)",
+   "Jalewis Solomon (DB)",
+   "Jayden Sellers (WR)",
+   "AJ Holloway (LB)"
+  ],
+  "public": "fade",
+  "close": 120,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "35-34",
+  "margin": 1.0,
+  "pnl_units": 0.6
+ },
+ {
+  "date": "2026-10-03",
+  "kind": "lock",
+  "lean": false,
+  "tier": "lock",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401858247",
+  "team": "UNLV",
+  "opp": "California",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -120,
+  "posted": "2026-10-03T18:25Z",
+  "price_says": 0.545,
+  "win_p": 0.5217391304347826,
+  "own_read": 0.59,
+  "weighed": 0.5903,
+  "dog_p": null,
+  "edge_own": 0.05464783557467734,
+  "near_lock": false,
+  "units": 2.5,
+  "reasons": [
+   "the stronger team",
+   "better QB play lately",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "fades": [],
+   "last_margin": 28.0,
+   "last_pts": 38.0,
+   "neutral": false,
+   "win_pct": 0.5,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Alex Orji (QB)"
+  ],
+  "theirs_out": [],
+  "public": "ride",
+  "close": -120,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "39-31",
+  "margin": 8.0,
+  "pnl_units": 2.08
  }
 ]
