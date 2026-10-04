@@ -1,39 +1,39 @@
 {
  "all": {
-  "n": 19,
+  "n": 22,
   "beat": 4,
-  "same": 9,
+  "same": 12,
   "worse": 6,
-  "avg_pts": 0.1
+  "avg_pts": 0.09
  },
  "unit_plays": {
-  "n": 10,
+  "n": 12,
   "beat": 2,
-  "same": 3,
+  "same": 5,
   "worse": 5,
-  "avg_pts": 0.07
+  "avg_pts": 0.06
  },
  "by_kind": {
   "dog": {
-   "n": 3,
+   "n": 4,
    "beat": 0,
-   "same": 1,
+   "same": 2,
    "worse": 2,
-   "avg_pts": -0.7
+   "avg_pts": -0.53
   },
   "lean": {
-   "n": 9,
+   "n": 10,
    "beat": 2,
-   "same": 6,
+   "same": 7,
    "worse": 1,
-   "avg_pts": 0.13
+   "avg_pts": 0.12
   },
   "lock": {
-   "n": 3,
+   "n": 4,
    "beat": 1,
-   "same": 1,
+   "same": 2,
    "worse": 1,
-   "avg_pts": 1.6
+   "avg_pts": 1.2
   },
   "play": {
    "n": 4,
@@ -59,11 +59,11 @@
    "avg_pts": 0.69
   },
   "nfl": {
-   "n": 2,
+   "n": 5,
    "beat": 0,
-   "same": 1,
+   "same": 4,
    "worse": 1,
-   "avg_pts": -0.35
+   "avg_pts": -0.14
   },
   "nhl": {
    "n": 8,
@@ -74,7 +74,13 @@
   }
  },
  "lock_by_size": {
-  "\u00bdu": null,
+  "\u00bdu": {
+   "n": 1,
+   "beat": 0,
+   "same": 1,
+   "worse": 0,
+   "avg_pts": 0.0
+  },
   "1-2u": null,
   "2-4u": {
    "n": 2,
@@ -357,6 +363,48 @@
    "pts": -1.9,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "lock",
+   "lean": false,
+   "league": "nfl",
+   "team": "Cardinals",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -135,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "dog",
+   "lean": false,
+   "league": "nfl",
+   "team": "Jaguars",
+   "market": "ml",
+   "line": null,
+   "odds": 120,
+   "close": 120,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Texans",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
   }
  ]
 }

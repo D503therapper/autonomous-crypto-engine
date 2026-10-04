@@ -1194,5 +1194,155 @@
   "score": "26-6",
   "margin": 20.0,
   "pnl_units": 0.51
+ },
+ {
+  "date": "2026-10-04",
+  "kind": "lock",
+  "lean": false,
+  "tier": "lock",
+  "league": "nfl",
+  "game_id": "nfl:401872966",
+  "team": "Cardinals",
+  "opp": "Giants",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -135,
+  "posted": "2026-10-04T15:00Z",
+  "price_says": 0.574,
+  "win_p": 0.5701637920459854,
+  "own_read": 0.576,
+  "weighed": 0.5764,
+  "dog_p": null,
+  "edge_own": -0.013972874382303768,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "revenge game",
+   "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
+  ],
+  "angles": {
+   "east_west": false,
+   "fades": [],
+   "go4_gap": -0.2181,
+   "last_margin": -6.0,
+   "last_pts": 30.0,
+   "neutral": false,
+   "win_streak": 0
+  },
+  "injuries_seen": {
+   "Jaxson Dart (Giants QB)": "Injured Reserve"
+  },
+  "ours_out": [
+   "Dadrion Taylor-Demerson (S)"
+  ],
+  "theirs_out": [],
+  "public": "ride",
+  "close": -135,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "24-36",
+  "margin": -12.0,
+  "pnl_units": -0.5
+ },
+ {
+  "date": "2026-10-04",
+  "kind": "dog",
+  "lean": false,
+  "tier": "value",
+  "league": "nfl",
+  "game_id": "nfl:401872969",
+  "team": "Jaguars",
+  "opp": "Bengals",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 120,
+  "posted": "2026-10-04T15:00Z",
+  "price_says": 0.455,
+  "win_p": 0.4571052908448069,
+  "own_read": 0.518,
+  "weighed": null,
+  "dog_p": 0.5184,
+  "edge_own": 0.030450784669783904,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "the stronger team",
+   "opponent missing key players",
+   "rolling off a blowout win"
+  ],
+  "angles": {
+   "east_west": false,
+   "fades": [],
+   "go4_gap": 0.1097,
+   "last_margin": 29.0,
+   "last_pts": 35.0,
+   "neutral": false,
+   "win_streak": 1
+  },
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Kyle Dugger (S)",
+   "Colbie Young (WR)"
+  ],
+  "public": "fade",
+  "close": 120,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "22-17",
+  "margin": 5.0,
+  "pnl_units": 1.2
+ },
+ {
+  "date": "2026-10-04",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nfl",
+  "game_id": "nfl:401872967",
+  "team": "Texans",
+  "opp": "Cowboys",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -148,
+  "posted": "2026-10-04T15:00Z",
+  "price_says": 0.597,
+  "win_p": 0.5720596355604638,
+  "own_read": 0.559,
+  "weighed": 0.559,
+  "dog_p": null,
+  "edge_own": -0.038092897480509036,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": {
+   "fades": [],
+   "go4_gap": -0.2029,
+   "last_margin": -2.0,
+   "last_pts": 17.0,
+   "neutral": false,
+   "win_streak": 0
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Azeez Al-Shaair (LB)",
+   "M.J. Stewart (S)"
+  ],
+  "theirs_out": [
+   "Cobie Durant (CB)",
+   "DeMarvion Overshown (LB)"
+  ],
+  "public": null,
+  "close": -148,
+  "beat_close_pts": 0.0,
+  "result": "lost",
+  "score": "30-34",
+  "margin": -4.0,
+  "pnl_units": 0
  }
 ]

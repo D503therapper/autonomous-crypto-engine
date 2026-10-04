@@ -618,8 +618,9 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
     except (KeyError, ValueError, TypeError):
         pass
     pr = f"+{odds}" if odds and odds > 0 else "this price"
-    if own is not None and own * 100 > 55:
-        pc = round(own * 100)
+    pc = round(own * 100) if own is not None else 0
+    if pc > 55:                                              # a win % only shows over 55% (the owner) - 55.2% rounds to
+        #                                                      "55%", so it's judged after the rounding (10/4 audit: Fresno St)
         reads = [f"🧠 Our numbers got {me} winning {pc}% - way more than {pr} pays for.",
                  f"🧠 {me} at {pr} is a gift: we got 'em winning {pc}% of the time.",
                  f"🧠 The books got {me} as the dog; our read has 'em winning {pc}%."]
@@ -1010,9 +1011,11 @@ def html(st, E, now=None, show_units=None):
             + (f'<div class="evn">🧪 How each spot\'s doing live: {recs}</div>' if recs else "") + '</section>')
 
 
-def label(p, now_odds):
+def label(p, now_odds, opp_now=None):
     """The game-day row's call (the owner, 9/30): the price came our way = we beat the line; it got bigger and the engine
-    still likes it = better price now; bigger and it doesn't = the money went against it; no move = no label."""
+    still likes it = better price now; bigger and it doesn't = the money went against it; no move = no label.
+    opp_now: the other side's price right now (the 10/4 audit: the market's number was read off the opponent's price
+    at post time, not today's)."""
     if p.get("key_out"):                                  # our QB / goalie ruled out since we posted
         return f"🚑 {p['key_out'].split(' (')[0]} out - don't chase it"
     if now_odds is None or now_odds == p["odds"]:
@@ -1020,7 +1023,8 @@ def label(p, now_odds):
     if now_odds < p["odds"]:                              # +185 -> +150 / -120: the money came our way
         return "🔥 we beat the line"
     dec = _dec(now_odds)
-    mkt_now = 1 / dec / (1 / dec + 1 / _dec(_int(p.get("opp_odds")) or -200))
+    opp = _int(opp_now) if opp_now is not None else None
+    mkt_now = 1 / dec / (1 / dec + 1 / _dec(opp if opp is not None else _int(p.get("opp_odds")) or -200))
     if p.get("own") is not None and p["own"] - mkt_now >= min(band(b)[0] for b in (passed().get(p["league"]) or [(0.04, 1)])):
         return "💰 better price now"
     return "👀 money went against it"
@@ -1076,7 +1080,8 @@ def gameday_html(st, games, E, now=None, show_units=None):
         now_odds = _int(g.get(f"ml_{p['side']}")) if not p.get("result") and g.get("status") == "pre" \
             and p.get("market") != "total" else None             # (a total: no price-move call)
         mark = {"won": "✅", "lost": "❌", "push": "➖"}.get(p.get("result"), "")
-        call = mark or label(p, now_odds)
+        other = "away" if p.get("side") == "home" else "home"
+        call = mark or label(p, now_odds, g.get(f"ml_{other}") if now_odds is not None else None)
         am = lambda o: f"+{o}" if o > 0 else str(o)
         price = f'<s>{am(p["odds"])}</s>' + (f'<em>➜</em><b>{am(now_odds)}</b>' if now_odds is not None else "")
         tot = p.get("market") == "total"

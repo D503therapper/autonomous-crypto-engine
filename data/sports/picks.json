@@ -5454,6 +5454,7 @@
      "us:trip2000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {},
     "depth_pts": 0.5,
     "dog_ctx": {
      "cw5": 0,
@@ -5475,6 +5476,10 @@
     "edge_own": -0.013972874382303768,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "14,3,7,0",
+     "h": "3,16,8,9"
+    },
     "form_state": [
      -6.0,
      -2,
@@ -5514,9 +5519,11 @@
      "a West Coast favorite in the East - the market over-penalizes the trip (7 of 8 seasons)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Cardinals 24 @ Giants 36",
+    "settled": "2026-10-04T20:12Z",
     "side": "away",
     "start": "2026-10-04T17:00Z",
     "stype": "2",
@@ -5534,12 +5541,14 @@
    }
   ],
   "p_hit": 0.5702,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-04T15:00Z",
   "round": 1,
+  "settled": "2026-10-04T20:12Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "lost",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 120,
@@ -5575,6 +5584,7 @@
      "game:conf"
     ],
     "dec": 2.2,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -5596,6 +5606,10 @@
     "edge_own": 0.030450784669783904,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,10,3,6",
+     "h": "0,3,7,7"
+    },
     "form_state": [
      29.0,
      1,
@@ -5634,9 +5648,11 @@
      "rolling off a blowout win"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jaguars 22 @ Bengals 17",
+    "settled": "2026-10-04T20:15Z",
     "side": "away",
     "start": "2026-10-04T17:00Z",
     "stype": "2",
@@ -5653,12 +5669,14 @@
    }
   ],
   "p_hit": 0.4571,
-  "pnl": 0.0,
+  "pnl": 120.0,
   "posted": "2026-10-04T15:00Z",
   "round": 1,
+  "settled": "2026-10-04T20:15Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -137,
@@ -5981,6 +5999,15 @@
      "them:week3000"
     ],
     "dec": 1.6756756756756757,
+    "decider": {
+     "c": "0:40",
+     "k": "td",
+     "p": "CeeDee Lamb",
+     "s": "34-30",
+     "type": "late",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -6000,6 +6027,10 @@
     "edge_own": -0.038092897480509036,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,3,14,14",
+     "h": "10,6,7,7"
+    },
     "form_state": [
      -2.0,
      -4,
@@ -6040,9 +6071,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Cowboys 34 @ Texans 30",
+    "settled": "2026-10-04T20:13Z",
     "side": "home",
     "start": "2026-10-04T17:00Z",
     "stype": "2",
@@ -6065,11 +6098,13 @@
    }
   ],
   "p_hit": 0.5721,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-04T15:00Z",
   "round": 1,
+  "settled": "2026-10-04T20:13Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]

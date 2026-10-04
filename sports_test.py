@@ -4703,9 +4703,10 @@ def _units_and_the_open_bankroll():
               "result": "won", "graded_at": "2026-10-04T20:00Z"}]
     lk_j = {"date": "2026-10-04", "kind": "lock", "status": "won", "dec": 1.8, "legs": [
         {"game_id": "nfl:9", "side": "away", "odds": -125, "p": 0.6, "tier": "lock", "result": "won"}]}
-    led = sports.units_ledger([lk_j], early)                 # on the board too: counted once, as the early play
-    assert len(led["rows"]) == 1 and led["rows"][0][0]["units_tier"] == "early" and led["rows"][0][1] == 5.5
-    assert abs(led["rows"][0][2] - 5.5 * 1.24) < 1e-9
+    led = sports.units_ledger([lk_j], early)                 # on the board too: BOTH count, each with its units (the
+    assert len(led["rows"]) == 2                              # owner, 10/4: "Jaguars can be both" - ½u early + 1u Dog)
+    er = [r for r in led["rows"] if r[0]["units_tier"] == "early"][0]
+    assert er[1] == 5.5 and abs(er[2] - 5.5 * 1.24) < 1e-9
     day1 = {"date": "2026-09-29", "kind": "lock", "status": "won", "dec": 1.5, "legs": [{"p": 0.563}]}   # 2u, +1u
     day2 = {"date": "2026-09-30", "kind": "lock", "status": "lost", "dec": 1.5, "legs": [{"p": 0.563}]}  # 2u, -2u
     led = sports.units_ledger([day2, day1])
@@ -7118,6 +7119,34 @@ def test_europe_morning_under_half_unit_with_the_quit_rule():
     assert se.euro_quit({"picks": lost}) and se.euro_unders({"nfl:9": g}, {"picks": lost},
                                                             datetime(2026, 10, 11, 2, 0, tzinfo=timezone.utc)) == []
     assert not se.euro_quit({"picks": lost[:14]})                                                    # 14 graded: not yet
+
+
+def test_early_play_and_the_same_board_pick_both_count():
+    """10/4 audit. (1) The owner, 10/4: "Jaguars can be both" - the ½u early play AND the 1u game-day Dog on the same
+    side each count with their own units. The ledger keyed both on (day, game, side) and the early row overwrote the
+    Dog's: the unit record lost the Dog's +1.2u. (2) A win % shows only OVER 55% - 55.2% rounds to "55%", so no %.
+    (3) The game-day 'better price now' call reads the market off the opponent's price NOW, not the one at post time."""
+    import sports_early as se
+    early = [{"game_id": "nfl:401872969", "side": "away", "team": "Jaguars", "odds": 120, "own": 0.6081, "spot": "best",
+              "start": "2026-10-04T17:00Z", "result": "won", "graded_at": "2026-10-04T20:27Z"}]
+    dog = {"date": "2026-10-04", "kind": "dog", "status": "won", "dec": 2.2, "units": 1.0, "legs": [
+        {"game_id": "nfl:401872969", "side": "away", "team": "Jaguars", "odds": 120, "market": "ml", "p": 0.4571,
+         "tier": "value", "result": "won"}]}
+    led = sports.units_ledger([dog], early)
+    assert sorted((r[0]["units_tier"], r[1], round(r[2], 2)) for r in led["rows"]) == [("early", 0.5, 0.6), ("value", 1.0, 1.2)]
+    assert len(sports.units_ledger([dog], [])["rows"]) == 1 and len(sports.units_ledger([], early)["rows"]) == 1
+    import sports_dashboard as d
+    assert "2-0" in d.unit_record([dog], "2026-10-04", early) and "+1.8 UNITS" in d.unit_record([dog], "2026-10-04", early)
+    # (2) 'Our numbers got Fresno St winning 55%' never shows - the rule is OVER 55
+    g = {"home": "1", "away": "2", "home_name": "Fresno St", "away_name": "Boise St", "start": "2026-10-11T02:30Z", "league": "ncaaf"}
+    now = datetime(2026, 10, 4, 21, 0, tzinfo=timezone.utc)
+    assert not any("55%" in w for w in se.spot_why({}, g, "home", "away", "ncaaf", "blowout", now, 0.5518, 205))
+    assert all("56%" in w for w in se.spot_why({}, g, "home", "away", "ncaaf", "blowout", now, 0.5551, 205))
+    # (3) the opponent's price moved too: the market's number comes from today's prices
+    p = {"odds": 150, "opp_odds": -170, "own": 0.42, "league": "nfl"}   # posted +150 / -170; now +185 / -125 (both moved)
+    assert se.label(p, 185, -125) == "👀 money went against it"   # 42% vs 38.6% now: under the 4-point bar
+    assert se.label(p, 185, -300) == "💰 better price now"        # the other side at -300: the market's at 26% - value
+    assert se.label(p, 185) == se.label(p, 185, -170)             # no price given = the post-time one, as before
 
 
 def test_early_line_never_says_the_market_moved_when_it_didnt():

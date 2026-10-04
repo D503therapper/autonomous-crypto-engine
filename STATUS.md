@@ -3,6 +3,21 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/4 (evening) - early value plays audit (code + the live early.json vs the games)
+- Fixed (tests in sports_test.test_early_play_and_the_same_board_pick_both_count): (1) the unit ledger keyed the early
+  play and the game-day pick on the same (day, game, side) - the Jaguars ½u early row overwrote the 1u Dog, the unit
+  record / today's results / bankroll lost +1.2u (the owner, 10/4: both count); (2) an early card said "winning 55%"
+  (55.2% rounded) - the win % only shows OVER 55; (3) the game-day 'better price now' call read the market off the
+  opponent's price at post time, now today's. Every graded / open early pick checked against the games: sides, prices,
+  scores, dates and 'bye' claims all right (Tulane off 9/26, Army played 10/3).
+- Live early record: 1-0 (+0.6u; the Jaguars 'best' backup). Price moves since we posted (closing-line value, the real
+  early test): Alabama +130 -> -115 (+9 pts), Tulane +205 -> +140 (+9), Florida St +215 -> +180 (+4), Fresno / New
+  Mexico St flat, NC State +124 -> +145 (-4), Jaguars +120 -> +124 close (-1). Not a sample yet.
+- Owner's calls (recommendations, nothing changed): the 'hammered' spot is wired for college with NFL-only evidence
+  (4 of 6 seasons); the Monday-night spot is +3.3% on 80 in the band (weak); the 'ice cold' fade counts FCS blowouts
+  (NC State 73-0 over Richmond made a 3-1 team 'ice cold'); euro under and the hammered/blowout/engine spots keep
+  their own records - judge at 30-40 bets each.
+
 ## 10/4 - banged up is a weight in football (the owner, 10/3: "it all just depends")
 - Study (SPORTS_FINDINGS 10/4, our box scores 2021-26): a football side with 2+ regulars out does NOT lose vs its price
   (NFL -0.4 pts on 2,035, college +0.1 on 4,900) and the own read isn't fooled by depth bodies - the block was costing
@@ -88,6 +103,7 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   report exists for non-conference games (UNC-Notre Dame, Syracuse-UConn, Cal-UNLV...) or for the Sun Belt / CUSA /
   AAC; the MAC posts game-day reports only (~3h before kickoff, getsomemaction.com). Those games stay off the board
   (no pick off blind data). The 5:47 / 11:47 routine knows all this now (prompt updated 10/2).
+- 10/4: the owner's NFL SURVIVOR pool is tracked in data/sports/survivor.json (used: Ravens, Buccaneers (LOST), 49ers, Jaguars; two losses allowed, one used). Help him pick each week from the engine's win reads, never a used team.
 - 10/4: 🌍 Europe morning NFL under LIVE at ½u (owner OK): posted the night before as an early play, own record, quit rule under 50% after 15 (sports_early.euro_unders). Early plays no longer ping.
 - 10/4 routines: 7:05 AM PT pre-board check (builds the board as it would post, checks every card, fixes by 7:45),
   8:03 AM PT drop confirm, 1:07 AM daily review - NO phone pings from any of them (the owner, 10/4: the only

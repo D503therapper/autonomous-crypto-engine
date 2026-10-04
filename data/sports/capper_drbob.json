@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-04T18:44Z",
+ "checked": "2026-10-04T21:22Z",
  "leans": {
   "2026-10-01|Pittsburgh Steelers|Cleveland Browns|home": {
    "away": "Pittsburgh Steelers",
@@ -32,7 +32,7 @@
     "away",
     2.0
    ],
-   "result": null,
+   "result": "lost",
    "seen": "2026-10-02T17:55Z",
    "side": "away",
    "us": {
@@ -40,7 +40,7 @@
     "lean": false,
     "same": true,
     "side": "away",
-    "status": "open"
+    "status": "lost"
    }
   },
   "2026-10-04|Jacksonville Jaguars|Cincinnati Bengals|home": {
@@ -50,7 +50,7 @@
    "line": -2.5,
    "price": null,
    "rating": null,
-   "result": null,
+   "result": "lost",
    "seen": "2026-10-02T17:55Z",
    "side": "home",
    "us": {
@@ -58,7 +58,7 @@
     "lean": false,
     "same": false,
     "side": "away",
-    "status": "open"
+    "status": "won"
    }
   },
   "2026-10-04|Jacksonville Jaguars|Cincinnati Bengals|over": {
@@ -68,7 +68,7 @@
    "line": 51.5,
    "price": null,
    "rating": null,
-   "result": null,
+   "result": "lost",
    "seen": "2026-10-02T17:55Z",
    "side": "over"
   },
@@ -104,35 +104,35 @@
     "away",
     6.0
    ],
-   "result": null,
+   "result": "won",
    "seen": "2026-10-04T18:16Z",
    "side": "away"
   }
  },
- "read": "2026-10-04T18:16Z",
+ "read": "2026-10-04T21:22Z",
  "record": {
   "against_us": {
-   "lost": 0,
+   "lost": 1,
    "push": 0,
    "won": 1
   },
   "all": {
-   "lost": 0,
+   "lost": 3,
    "push": 0,
-   "won": 1
+   "won": 2
   },
   "sides": {
-   "lost": 0,
+   "lost": 2,
    "push": 0,
-   "won": 1
+   "won": 2
   },
   "totals": {
-   "lost": 0,
+   "lost": 1,
    "push": 0,
    "won": 0
   },
   "with_us": {
-   "lost": 0,
+   "lost": 1,
    "push": 0,
    "won": 0
   }
