@@ -1,12 +1,12 @@
 {
- "at": "2026-10-04T03:31Z",
+ "at": "2026-10-04T03:32Z",
  "fixes": [
-  "slate check problem - re-pull before the board - started sports.yml"
+  "slate check problem - re-pull before the board - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Li Zongyu vs Lu Jia-Jing: no points for 1176s",
-  "live tennis scores: tennis Khamutsianskaya vs Huang: no points for 1176s",
-  "live tennis scores: tennis Yihan vs Zheng Wushuang: no points for 399s",
+  "live tennis scores: tennis Li Zongyu vs Lu Jia-Jing: no points for 1207s",
+  "live tennis scores: tennis Khamutsianskaya vs Huang: no points for 1207s",
+  "live tennis scores: tennis Yihan vs Zheng Wushuang: no points for 431s",
   "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
   "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
   "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
@@ -15,7 +15,7 @@
   "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
  ],
  "ok": [
-  "live watcher fresh (22s)",
+  "live watcher fresh (10s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -35,6 +35,23 @@
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T03:32Z",
+   "fixes": [
+    "slate check problem - re-pull before the board - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Li Zongyu vs Lu Jia-Jing: no points for 1207s",
+    "live tennis scores: tennis Khamutsianskaya vs Huang: no points for 1207s",
+    "live tennis scores: tennis Yihan vs Zheng Wushuang: no points for 431s",
+    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
+    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
+    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
+    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
+    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
+    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+   ]
+  },
   {
    "at": "2026-10-04T03:31Z",
    "fixes": [
@@ -746,21 +763,6 @@
     "slate check: Red Sox @ Yankees (MLB): no price from the books",
     "slate check: Cubs @ Padres (MLB): no price from the books",
     "studies last ran 11h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-01T16:01Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml",
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books",
-    "studies last ran 10h ago - restarted",
     "simulator last ran 10h ago - restarted"
    ]
   }
