@@ -6947,3 +6947,32 @@ error: failed to push some refs to 'https://github.
 [2026-10-04 01:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-04 01:06 UTC] crypto/hold_btc  equity $503.84 (+0.8%) 1 open  market UP
    social heat top: PUMP 37 (37/0/0), QNT 35 (35/0/0), STRK 32 (32/0/0), PENGU 29 (29/0/0), TAO 27 (27/0/0)
+   dex screen: REJECT SERV@ethereum liq $1,432,620 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_blacklisted; is_whitelisted; honeypot_with_same_creator; buy tax unknown; sell tax unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT SEC@solana liq $148,889 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: REJECT KNIGHTCAT@solana liq $114,798 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT ALLINU@solana liq $277,100 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT AZTEC@ethereum liq $14,567,364 - top-10 holders 100%
+   dex screen: PASS FWA@ethereum liq $990,862
+   dex screen: REJECT TRAC@ethereum liq $509,368 - is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   dex screen: REJECT QNT@ethereum liq $989,406 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex re-screen: SIGF@solana:CwSNUU54 flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: PASS DRB@base liq $1,669,463
+   dex screen: REJECT DRV@base liq $792,603 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 57%; lp locked 0% < 95%
+   dex screen: PASS MISTAKE@solana liq $223,843
+   dex screen: REJECT ZB@ethereum liq $100,629 - top-10 holders 43%; lp locked 0% < 95%
+   dex scanner: 2,741 pools (solana 2,023 / base 367 / ethereum 351), refresh cycle 114s (hot 109s), 3008 calls (108 feed, 429s 0, failed 0), 86,998 refreshed (14457 no pair), +95 added / -99 dropped (dead 94, stale 5, cap 0), movers 2 + warming 30 -> queued 6, screened 6 (passed 1), bought 0
+[2026-10-04 02:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $199.70 of GLMR @ 0.011389, P/L $-1.30 (trailing stop)
+[2026-10-04 02:06 UTC] crypto/mover     equity $442.44 (-11.5%) 0 open  market UP
+[2026-10-04 02:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 02:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 02:06 UTC] crypto/social_heat equity $523.33 (+4.7%) 1 open  market UP
+[2026-10-04 02:06 UTC] crypto/breakout10 equity $495.88 (-0.8%) 2 open  market UP
+[2026-10-04 02:06 UTC] crypto/momentum  equity $489.11 (-2.2%) 2 open  market UP
+[2026-10-04 02:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-04 02:06 UTC] crypto/hold_btc  equity $504.06 (+0.8%) 1 open  market UP
+   social heat top: PENGU 42 (35/0/8), STRK 37 (37/0/0), PUMP 32 (32/0/0), QNT 29 (29/0/0), NEAR 27 (27/0/0)
