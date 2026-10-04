@@ -7119,6 +7119,21 @@ def test_europe_morning_under_half_unit_with_the_quit_rule():
     assert not se.euro_quit({"picks": lost[:14]})                                                    # 14 graded: not yet
 
 
+def test_early_line_never_says_the_market_moved_when_it_didnt():
+    """10/4, the owner: the Jaguars card said 'The market corrected' - the line never moved off the +120 we got in at."""
+    import sports_dashboard as sdb
+    sdb.EARLY_IN.clear()
+    sdb.EARLY_IN[("nfl:1", "away")] = 120
+    leg = {"game_id": "nfl:1", "side": "away", "market": "ml", "odds": 120, "team": "Jaguars"}
+    out = sdb._early_line(leg)
+    assert "hasn't moved" in out or "same number" in out, out
+    assert "corrected" not in out and "moved, but" not in out
+    assert "corrected" in sdb._early_line({**leg, "odds": 110}) or "line moved" in sdb._early_line({**leg, "odds": 110}) \
+        or "after the move" in sdb._early_line({**leg, "odds": 110})
+    assert "better now" in sdb._early_line({**leg, "odds": 130}) or "even more" in sdb._early_line({**leg, "odds": 130})
+    sdb.EARLY_IN.clear()
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
