@@ -4936,6 +4936,43 @@ def test_live_calibration_spots():
         L.live_prob, L.substantial, L.time_left, L.min_p = keep
 
 
+def test_live_baseball_knows_the_inning_half_and_a_shootout_is_a_coin_flip():
+    """10/4 live audit. (1) Action Network's baseball box never said top or bottom: every MLB live bet (0-5) was logged
+    at "Inning 7" and the clock counted the home team's at-bat as still to come - half an inning too much game left,
+    the wrong history bucket late. ESPN's scoreboard (read the same check for the score) says it; the box takes it, the
+    pending pick's clock says Top / Bot / End. (2) An NHL shootout has no clock and read as 20 minutes left - a 60%
+    favorite showed 55% to win a coin flip. A shootout is as good as over: both sides sit at ~50%."""
+    L = sports_live
+    assert L.time_left("mlb", 9, None, "top") > L.time_left("mlb", 9, None, "bottom") > L.time_left("mlb", 9, None, "end")
+    assert L.time_left("mlb", 7, None, None) == L.time_left("mlb", 7, None, "top")        # unknown = the top (as before)
+    assert L._espn_half("Top 5th") == "top" and L._espn_half("Mid 5th") == "bottom" and L._espn_half("Bot 5th") == "bottom" \
+        and L._espn_half("End 5th") == "end"
+    L.ESPN_HALF.clear()
+    L.ESPN_HALF["401"] = "bottom"
+    g = {"id": "mlb:401", "home_name": "Astros", "away_name": "White Sox"}
+    box = {"period": 7, "total_home_points": 0, "total_away_points": 1}
+    L.SCORES["mlb:401"] = {"clock": "Inning 7", "live": True}
+    try:
+        assert L.fill_half("mlb", g, box) and box["inning_half"] == "bottom"
+        assert L._clock_txt("mlb", box) == "Bot 7th" and L.SCORES["mlb:401"]["clock"] == "Bot 7th"
+        assert not L.fill_half("mlb", g, box)                                            # a box that says: left alone
+        assert not L.fill_half("nhl", {"id": "nhl:1"}, {"period": 2}) and not L.fill_half("mlb", {"id": "mlb:9"}, {"period": 2})
+        assert L._clock_txt("mlb", {"period": 5, "inning_half": "end"}) == "End 5th"
+    finally:
+        L.SCORES.pop("mlb:401", None)
+        L.ESPN_HALF.clear()
+    ev = {"id": "401", "date": "2026-10-04T23:00Z", "competitions": [{"status": {"type": {"state": "in", "shortDetail": "End 6th"}, "period": 6},
+          "competitors": [{"homeAway": "home", "score": "2", "team": {"id": "1", "displayName": "Astros", "abbreviation": "HOU"}},
+                          {"homeAway": "away", "score": "1", "team": {"id": "2", "displayName": "White Sox", "abbreviation": "CWS"}}]}]}
+    assert L.espn_as_an("mlb", ev)["boxscore"]["inning_half"] == "end"
+    # a shootout: no clock, nothing left - the pregame favorite is no longer ~55% on the curve
+    assert L.time_left("nhl", 5, None) == 0.02 and L.time_left("nhl", 5, "0:00") == 0.02
+    assert abs(L.time_left("nhl", 4, "5:00") - 5 / 60 / 2) < 1e-9                             # overtime keeps its clock
+    assert abs(L.time_left("nhl", 5, "12:30") - 12.5 / 60 / 2) < 1e-9                         # (playoff 2OT has one)
+    fit = {"s": 1.2, "w": 1.5, "m": 0.0}
+    assert abs(L.live_prob("nhl", 0.60, 0, L.time_left("nhl", 5, None), fit=fit) - 0.5) < 0.03
+
+
 def test_rested_dog_vs_a_back_to_back():
     """Fatigue study (9/30): a rested dog facing a team on the 2nd night of a back-to-back - NBA +6.5%, NHL +1.9% (4 of
     5 seasons each) vs -6% for every dog. It adds to the Dog's score."""
