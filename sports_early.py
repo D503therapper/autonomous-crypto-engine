@@ -27,8 +27,8 @@ PATH = os.path.join(sd.DATA, "early.json")
 EXAM_PATH = os.path.join(sd.DATA, "early_exam.json")
 PARAMS_PATH = os.path.join(sd.DATA, "early_params.json")   # the engine retrained on recent seasons (a week's cache)
 ON = True                               # the owner OK'd it 9/30 (the box, the game-day box, the ping)
-PINGS = True                            # the owner, 10/1: "when the engine detects an early value play, it will send it
-#                                         over" - one ping each, only once the dashboard shows it (tools/early_ping.py)
+PINGS = False                           # the owner, 10/4: "no need to send notifications anymore for early value plays"
+#                                         (was on since 10/1: one ping each once the dashboard showed it - tools/early_ping.py)
 LEARN_Y = 3                             # the engine for these learns on the last 3 seasons only: the owner's call
                                         # (9/30: "the sports have changed"), and the exam agreed - NBA and college
                                         # football only pass it learning recent, the NFL passes both ways
