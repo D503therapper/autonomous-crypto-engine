@@ -1,12 +1,11 @@
 {
- "at": "2026-10-04T18:48Z",
+ "at": "2026-10-04T20:21Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Boisson vs Jeanjean: no points for 419s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+  "sources down (the backups took over): betrivers:nfl:1028812621 HTTP 404, betrivers:nfl:1028812622 HTTP 404, betrivers:nfl:1028812625 HTTP 404, betrivers:nfl:1028812619 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (66s)",
+  "live watcher fresh (262s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,18 +13,24 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 3 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 9 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T20:21Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:nfl:1028812621 HTTP 404, betrivers:nfl:1028812622 HTTP 404, betrivers:nfl:1028812625 HTTP 404, betrivers:nfl:1028812619 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-04T18:48Z",
    "fixes": [],
@@ -705,19 +710,6 @@
    "problems": [
     "live tennis scores: tennis Andreeva vs Pridankina: no points for 2654s",
     "live tennis scores: tennis Stefanini vs Jeanjean: no points for 2654s"
-   ]
-  },
-  {
-   "at": "2026-10-02T13:12Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Andreeva vs Pridankina: no points for 577s",
-    "live tennis scores: tennis Stefanini vs Jeanjean: no points for 577s",
-    "workflow failed: health 2026-10-02T13:05 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010678589",
-    "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010398830",
-    "workflow failed: health 2026-10-02T13:02 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37010339923",
-    "workflow failed: health 2026-10-02T12:56 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009802392",
-    "workflow failed: health 2026-10-02T12:52 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37009350093"
    ]
   }
  ]
