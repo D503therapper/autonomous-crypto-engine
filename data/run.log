@@ -7569,3 +7569,19 @@ error: failed to push some refs to 'https://github.
    dex screen: PASS DRB@base liq $1,662,317
    dex screen: REJECT KNOTS@solana liq $427,298 - transfer_fee_upgradable; lp holders unknown
    dex screen: UNREACHABLE GULD@ethereum liq $1,792,150 - honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-04 20:37 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-04 20:37 UTC] crypto/mover     equity $436.67 (-12.7%) 2 open  market UP
+[2026-10-04 20:37 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 20:37 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-04 20:37 UTC] crypto/social_heat equity $520.71 (+4.1%) 2 open  market UP
+[2026-10-04 20:37 UTC] crypto/breakout10 equity $505.25 (+1.1%) 2 open  market UP
+[2026-10-04 20:37 UTC] crypto/momentum  equity $490.76 (-1.8%) 2 open  market UP
+[2026-10-04 20:37 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-04 20:37 UTC] crypto/hold_btc  equity $508.19 (+1.6%) 1 open  market UP
+   social heat top: QNT 41 (37/0/4), NEAR 40 (40/0/0), PONS 37 (32/0/5), FET 35 (35/0/0), PENGU 29 (29/0/0)
