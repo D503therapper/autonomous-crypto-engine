@@ -1,22 +1,16 @@
 {
- "at": "2026-10-04T06:36Z",
- "fixes": [
-  "slate check problem - re-pull before the board - sports.yml already running"
- ],
+ "at": "2026-10-04T14:59Z",
+ "fixes": [],
  "problems": [
-  "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-  "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-  "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-  "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-  "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-  "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
+  "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 5 live matches",
+  "live tennis points + server: 1 of 1 live matches",
+  "slate check: all 20 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
@@ -24,14 +18,89 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 1 min ago",
+  "simulator ran 9h ago",
+  "engine ran 8 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-04T14:59Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-04T14:54Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-04T14:09Z",
+   "fixes": [],
+   "problems": [
+    "live bets on the board but not saved on main: Colts (the next page build merges them)"
+   ]
+  },
+  {
+   "at": "2026-10-04T12:38Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-04T11:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Tkacheva vs Tikhonova: no points for 283s",
+    "live tennis scores: tennis Smith vs Lacinova: no points for 283s",
+    "live tennis scores: tennis Falkowska vs Turkmen: no points for 283s"
+   ]
+  },
+  {
+   "at": "2026-10-04T10:23Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-04T10:22Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Okamura vs Nugroho: no points for 2666s",
+    "live tennis scores: tennis Micic vs Golovina: no points for 2666s",
+    "live tennis scores: tennis Yoruk vs Akugue: no points for 2666s",
+    "tennis live prices all stale (3 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
+  {
+   "at": "2026-10-04T08:51Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Yuan vs Han: no points for 2662s",
+    "live tennis scores: tennis Okamura vs Nugroho: no points for 2012s",
+    "live tennis scores: tennis Wei Sijia vs Matsuda: no points for 1415s"
+   ]
+  },
+  {
+   "at": "2026-10-04T08:51Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Yuan vs Han: no points for 2648s",
+    "live tennis scores: tennis Okamura vs Nugroho: no points for 1998s",
+    "live tennis scores: tennis Wei Sijia vs Matsuda: no points for 1401s"
+   ]
+  },
+  {
+   "at": "2026-10-04T08:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Yuan vs Han: no points for 200s"
+   ]
+  },
   {
    "at": "2026-10-04T06:36Z",
    "fixes": [
@@ -659,120 +728,6 @@
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running",
     "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T23:25Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books",
-    "workflow failed: sports 2026-10-01T23:10 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36939304970"
-   ]
-  },
-  {
-   "at": "2026-10-01T23:24Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books",
-    "workflow failed: sports 2026-10-01T23:10 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36939304970"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:53Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:49Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:39Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:29Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:25Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:20Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:19Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-01T19:38Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
    ],
    "problems": [
     "slate check: White Sox @ Astros (MLB): no price from the books",
