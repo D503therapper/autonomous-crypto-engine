@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T23:39Z",
+ "updated": "2026-10-04T23:55Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -259,8 +259,8 @@
    "away": "Chargers",
    "home": "Seahawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -274,8 +274,8 @@
    "away": "Chiefs",
    "home": "Raiders",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -323,97 +323,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "mlb:401908014",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "h1": {
-    "team": "Dodgers",
-    "p": 0.578,
-    "tie": 0.112,
-    "name": "first 5 innings"
-   },
-   "sport": "MLB",
-   "season": "playoffs",
-   "start": "2026-10-05T00:00Z",
-   "away": "Braves",
-   "home": "Dodgers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Dodgers",
-    "opp": "Braves",
-    "market": "ml",
-    "line": null,
-    "odds": -213,
-    "p": 0.66,
-    "win_p": 0.66,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401891824",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kraken",
-    "p": 0.388,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-05T00:00Z",
-   "away": "Flames",
-   "home": "Kraken",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Flames",
-    "opp": "Kraken",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -198,
-    "p": 0.642,
-    "win_p": 0.422,
-    "reasons": []
-   }
-  },
-  {
-   "id": "nhl:401891778",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Panthers",
-    "p": 0.377,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-05T00:00Z",
-   "away": "Panthers",
-   "home": "Ducks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Ducks",
-    "opp": "Panthers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -225,
-    "p": 0.662,
-    "win_p": 0.442,
-    "reasons": [
-     "hotter recent form",
-     "opponent drama: family/personal"
-    ]
-   }
   },
   {
    "id": "nfl:401872978",
@@ -502,8 +411,8 @@
     "market": "ml",
     "line": null,
     "odds": -157,
-    "p": 0.59,
-    "win_p": 0.59,
+    "p": 0.591,
+    "win_p": 0.591,
     "reasons": [
      "the stronger team",
      "better starting pitcher"
@@ -564,7 +473,7 @@
     "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -170,
+    "odds": -180,
     "p": 0.622,
     "win_p": 0.402,
     "reasons": [
