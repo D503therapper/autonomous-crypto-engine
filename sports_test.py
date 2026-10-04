@@ -6879,6 +6879,45 @@ def test_covers_injury_page_covers_every_school():
     assert "sports_absences.match(r[0], reg)" in open("sports.py").read().split("def out_count")[1][:1200]
 
 
+def test_college_injury_page_never_lands_on_the_wrong_school():
+    """10/4 review of the Covers reader: 'North Carolina State' matched North Carolina (difflib 0.903 - the alias target
+    'nc state' isn't normalized like the keys, 'nc st'), 'South Carolina State' matched South Carolina; hyphenated /
+    accented players ('Jean-Luc', 'José') were dropped, so their school read as nobody hurt; a blowout 'last week' was
+    said of a game two Saturdays back. Never false information - a school the reader can't place stays unknown."""
+    import sports_early as se
+    names = {"152": "NC State", "153": "North Carolina", "2579": "SC State", "2579b": "South Carolina", "2006": "Akron",
+             "2005": "Abilene Chrstn", "399": "UAlbany", "2572": "Southern Miss", "2534": "Sam Houston"}
+    page = []
+    for code, school, player in (("NC", "North Carolina State", "G. Bailey"), ("SC", "South Carolina State", "T. Jones"),
+                                 ("AK", "Akron", "Jean-Luc Smith"), ("AB", "Abilene Christian", "M. Lee"),
+                                 ("AL", "Albany", "D. Ray"), ("SM", "Southern Mississippi", "K. Dean"),
+                                 ("SH", "Sam Houston State", "H. Hill")):
+        page += [code, "`\">", school, "Mascot", "(1)", "Player", "POS", "Status", player, "WR", "Out - Knee",
+                 "(", "Sat, Oct 3)", "A note."]
+    page += ["XX", "`\">", "Akron", "Zips", "(1)", "Player", "POS", "Status", "José Ramírez", "RB", "Out - Undisclosed",
+             "(", "Sat, Oct 3)", "Note."]
+    t = sd.parse_team_page(page)
+    assert ("Jean-Luc Smith", "WR", "Out") in t["Akron"] and ("José Ramírez", "RB", "Out") in t["Akron"], t
+    old = sd.WEB_MIN_TEAMS
+    sd.WEB_MIN_TEAMS = 3
+    try:
+        got = sd.page_injuries("ncaaf", names, get=lambda u: page)
+    finally:
+        sd.WEB_MIN_TEAMS = old
+    assert got["152"] == [("G. Bailey", "WR", "Out")] and "153" not in got, got          # the Wolfpack's, never UNC's
+    assert got["2579"] == [("T. Jones", "WR", "Out")] and "2579b" not in got, got         # SC State's, never the Gamecocks'
+    assert "2005" in got and "399" in got and "2572" in got and "2534" in got, got        # close spellings still land
+    assert sd._close("north carolina st", ["north carolina", "nc st"]) is None            # a school plus a word = another school
+    assert sd._close("abilene christian", ["abilene chrstn"]) == "abilene chrstn"
+    rows = [{"RotoSchoolName": "North Carolina State", "player": "G. Bailey", "position": "WR", "IR": "Out"}] * 25
+    w = sd.web_injuries("ncaaf", {"153": "North Carolina", "152": "NC State"}, get=lambda u: rows)
+    assert "152" in w and "153" not in w, w
+    now = datetime(2026, 10, 6, 20, 0, tzinfo=timezone.utc)                             # Tuesday 10/6
+    assert se.ago("2026-09-26T23:30Z", now) == "on Saturday 9/26"                        # two Saturdays back: the date
+    assert se.ago("2026-10-03T23:30Z", now) == "on Saturday 10/3"
+    assert se.ago("2026-09-30T23:30Z", now) == "last week"
+
+
 def test_early_play_dates_are_plain():
     """10/3, the owner: "Alabama vs Georgia today?" - the early card said 'Saturday · game starts at 4:30 PM PT' on a
     Saturday for NEXT Saturday's game, and 'Alabama beat Mississippi St 56-23 last week' the afternoon they played."""

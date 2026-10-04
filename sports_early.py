@@ -526,7 +526,8 @@ def ago(prev_start, now):
     Saturday 10/3') - the line is saved once and stays on the card all week, so never 'today' / 'yesterday'."""
     t = _t(prev_start).astimezone(PT)
     d = (now.astimezone(PT).date() - t.date()).days
-    return "last week" if d >= 5 else f"on {t:%A} {t.month}/{t.day}"
+    return "last week" if 5 <= d <= 9 else f"on {t:%A} {t.month}/{t.day}"   # (10/4: the blowout spot reaches back
+    #   21 days - a team off a bye beat somebody two Saturdays ago, never 'last week')
 
 
 def when(start, now):

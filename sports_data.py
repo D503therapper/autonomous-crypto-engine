@@ -542,8 +542,24 @@ WEB_ALIAS = {"unc charlotte": "charlotte", "miami fl": "miami", "miami oh": "mia
              "appalachian st": "app st", "coastal carolina": "coastal", "georgia southern": "ga southern",
              "western kentucky": "western ky", "louisiana lafayette": "louisiana", "ul lafayette": "louisiana",
              "stephen f austin": "sf austin", "north carolina st": "nc state", "pittsburgh": "pitt",
-             "jacksonville st": "jax st", "north dakota st": "n dakota st", "south dakota st": "s dakota st"}
+             "jacksonville st": "jax st", "north dakota st": "n dakota st", "south dakota st": "s dakota st",
+             "south carolina st": "sc state", "southern mississippi": "southern miss", "sam houston st": "sam houston"}
 _DIR = {"eastern": "e", "western": "w", "northern": "n", "southern": "s", "central": "c"}   # 'Eastern Michigan' = ESPN's 'E Michigan'
+
+
+def _close(w, keys):
+    """The one ESPN name within difflib's 0.9 of a report's school name - never a DIFFERENT school whose name is the
+    other plus a word (10/4 review: 'North Carolina State' read as North Carolina at 0.903, 'South Carolina State' as
+    South Carolina - the Wolfpack's and the Bulldogs' hurt players would have landed on the Tar Heels and the
+    Gamecocks). None = no match (the school stays unknown, never guessed)."""
+    import difflib
+    m = difflib.get_close_matches(w, keys, n=1, cutoff=0.9)
+    if not m:
+        return None
+    a, b = w.split(), m[0].split()
+    if a != b and (a[:len(b)] == b or b[:len(a)] == a):
+        return None
+    return m[0]
 
 
 def _wn(x):
@@ -572,7 +588,6 @@ def web_injuries(league, names, get=None):
     if not isinstance(rows, list) or len(rows) < WEB_MIN_ROWS:
         print(f"   {league} web injuries: only {len(rows) if isinstance(rows, list) else 0} rows - not used")
         return {}
-    import difflib
     by = {}
     for tid, nm in names.items():
         by.setdefault(_wn(nm), tid)
@@ -583,8 +598,8 @@ def web_injuries(league, names, get=None):
         school = WEB_ALIAS.get(school, school)
         tid = by.get(school) or by.get(_wn(school))
         if tid is None:
-            m = difflib.get_close_matches(school, keys, n=1, cutoff=0.9)
-            tid = by[m[0]] if m else None
+            m = _close(school, keys)
+            tid = by[m] if m else None
         if tid is None:
             miss.add(school)
             continue
@@ -627,7 +642,8 @@ def parse_team_page(lines):
                 out.setdefault(cur, [])
             continue
         if cur and i >= 2 and _STATUS.match(x) and re.fullmatch(r"[A-Z]{1,4}", lines[i - 1]) \
-                and re.match(r"^[A-Z][a-zA-Z'.]*\.? [A-Z]", lines[i - 2]):
+                and re.match(r"^[A-Z][\w'.\-]*\.? [A-Z]", lines[i - 2]):   # (10/4: 'Jean-Luc', 'José' are players too -
+            #                                                                 a dropped row read as 'nobody hurt')
             out[cur].append((lines[i - 2], lines[i - 1], x.split(" - ")[0].strip()))
     return out
 
@@ -649,7 +665,6 @@ def page_injuries(league, names, get=None):
         print(f"   {league} injury page: only {len(teams)} schools - not used ({len(lines)} lines, "
               f"{lines.count('Status')} 'Status', starts: {' | '.join(lines[:3])[:120]})")
         return {}
-    import difflib
     by = {}
     for tid, nm in names.items():
         by.setdefault(_wn(nm), tid)
@@ -658,10 +673,10 @@ def page_injuries(league, names, get=None):
     for school, rows in teams.items():
         w = _wn(school)
         short = " ".join(_DIR.get(p, p) if n == 0 else p for n, p in enumerate(w.split()))
-        tid = next((by[c] for c in (WEB_ALIAS.get(w), w, short) if c in by), None)
-        if tid is None:
-            m = difflib.get_close_matches(w, keys, n=1, cutoff=0.9)
-            tid = by[m[0]] if m else None
+        tid = next((by[c] for c in (_wn(WEB_ALIAS.get(w, "")), w, short) if c in by), None)   # (10/4: the alias
+        if tid is None:                                      # normalized like the keys - 'nc state' is 'nc st' there)
+            m = _close(w, keys)
+            tid = by[m] if m else None
         if tid is None:
             miss.add(w)
             continue
