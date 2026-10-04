@@ -634,7 +634,9 @@ EARLY_WHY = {   # (the owner, 9/30: an early play on the daily board says we got
               "⏰ Early bettors got {o}. The line moved, but the value's still here.",
               "⏰ We grabbed this at {o} early. Even after the move, it's still worth a bet."),
     "better": ("⏰ We got in early at {o} — and the price is even better now.",
-               "⏰ Early bettors got {o}. It's paying even more now — still a play.")}
+               "⏰ Early bettors got {o}. It's paying even more now — still a play."),
+    "same": ("⏰ We got in early at {o}, and the line hasn't moved. Still worth it at this price.",   # (10/4: the Jaguars
+             "⏰ Early bettors got {o} — same number now. The value's still here.")}                  #  never moved)
 
 
 def _early_line(leg):
@@ -642,8 +644,8 @@ def _early_line(leg):
     o = EARLY_IN.get((leg.get("game_id"), leg.get("side")))
     if o is None or leg.get("market") != "ml":
         return ""
-    better = sd.decimal(leg["odds"]) > sd.decimal(o)
-    pool = EARLY_WHY["better" if better else "worse"]
+    now_d, then_d = sd.decimal(leg["odds"]), sd.decimal(o)       # (10/4, the owner: "it said market correction but
+    pool = EARLY_WHY["same" if now_d == then_d else "better" if now_d > then_d else "worse"]   # the line never changed")
     return f'<div class="why">{E(pool[sum(map(ord, leg.get("team", ""))) % len(pool)].format(o=_am(o)))}</div>'
 
 
