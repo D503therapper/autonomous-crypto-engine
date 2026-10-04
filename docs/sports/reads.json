@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T01:26Z",
+ "updated": "2026-10-04T01:41Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -923,8 +923,8 @@
    "away": "Alabama St",
    "home": "Bethune",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1072,8 +1072,8 @@
    "away": "Alabama A&M",
    "home": "Jackson St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1087,8 +1087,8 @@
    "away": "New Haven",
    "home": "Austin Peay",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1102,8 +1102,8 @@
    "away": "Youngstown St",
    "home": "S Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1117,8 +1117,8 @@
    "away": "Campbell",
    "home": "NC Central",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1311,8 +1311,8 @@
    "away": "Blackhawks",
    "home": "Sabres",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1401,8 +1401,8 @@
    "away": "Heat",
    "home": "Raptors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1886,60 +1886,28 @@
    "id": "nhl:401892440",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Flames",
-    "p": 0.353,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-04T02:00Z",
    "away": "Flames",
    "home": "Canucks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Flames",
     "opp": "Canucks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -265,
-    "p": 0.72,
+    "market": "ml",
+    "line": null,
+    "odds": -110,
+    "p": 0.507,
     "win_p": 0.507,
     "reasons": [
      "hotter goalie",
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892441",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Sharks",
-    "p": 0.353,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-04T02:00Z",
-   "away": "Kings",
-   "home": "Sharks",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Kings",
-    "opp": "Sharks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -265,
-    "p": 0.71,
-    "win_p": 0.495,
-    "reasons": []
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
