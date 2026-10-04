@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T15:10Z",
+ "updated": "2026-10-04T15:41Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -22,7 +22,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cardinals",
-    "p": 0.524,
+    "p": 0.52,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -83,7 +83,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.497,
+    "p": 0.498,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -99,11 +99,12 @@
     "opp": "Jaguars",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.525,
-    "win_p": 0.525,
+    "odds": -148,
+    "p": 0.527,
+    "win_p": 0.527,
     "reasons": [
-     "hotter recent form"
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
@@ -113,7 +114,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bears",
-    "p": 0.563,
+    "p": 0.559,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -129,9 +130,9 @@
     "opp": "Jets",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -144,8 +145,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Red Wings",
-    "p": 0.353,
+    "team": "Jets",
+    "p": 0.355,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -154,19 +155,19 @@
    "start": "2026-10-04T17:00Z",
    "away": "Jets",
    "home": "Red Wings",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Jets",
-    "opp": "Red Wings",
+    "team": "Red Wings",
+    "opp": "Jets",
     "market": "spread",
     "line": 1.5,
-    "odds": -290,
-    "p": 0.71,
-    "win_p": 0.495,
+    "odds": -278,
+    "p": 0.704,
+    "win_p": 0.489,
     "reasons": [
-     "opponent missing key players",
-     "opponent drama: trade drama"
+     "the stronger team",
+     "hotter goalie"
     ]
    }
   },
@@ -176,7 +177,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Packers",
-    "p": 0.564,
+    "p": 0.567,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -196,9 +197,9 @@
     "p": 0.609,
     "win_p": 0.609,
     "reasons": [
+     "opponent missing key players",
      "hotter recent form",
-     "better rested",
-     "revenge game"
+     "better rested"
     ]
    }
   },
@@ -208,7 +209,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.621,
+    "p": 0.626,
     "tie": 0.036,
     "name": "1st half"
    },
@@ -224,9 +225,9 @@
     "opp": "Bills",
     "market": "spread",
     "line": 7.0,
-    "odds": -115,
-    "p": 0.513,
-    "win_p": 0.267,
+    "odds": -112,
+    "p": 0.515,
+    "win_p": 0.259,
     "reasons": [
      "revenge game"
     ]
@@ -238,7 +239,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.594,
+    "p": 0.599,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -254,9 +255,9 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.638,
-    "win_p": 0.638,
+    "odds": -205,
+    "p": 0.646,
+    "win_p": 0.646,
     "reasons": [
      "opponent missing key players",
      "sharp money moving this way",
@@ -270,8 +271,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ravens",
-    "p": 0.73,
-    "tie": 0.031,
+    "p": 0.741,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -288,10 +289,9 @@
     "line": 11.5,
     "odds": -110,
     "p": 0.508,
-    "win_p": 0.16,
+    "win_p": 0.145,
     "reasons": [
-     "revenge game",
-     "opponent missing key players"
+     "revenge game"
     ]
    }
   },
