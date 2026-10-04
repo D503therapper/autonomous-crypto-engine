@@ -7555,3 +7555,17 @@ error: failed to push some refs to 'https://github.
 [2026-10-04 20:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-04 20:06 UTC] crypto/hold_btc  equity $507.13 (+1.4%) 1 open  market UP
    social heat top: SUI 40 (40/0/0), NEAR 37 (37/0/0), PONS 37 (29/0/8), FET 35 (35/0/0), QNT 32 (21/0/10)
+   footprint: SUI: footprint 3/4 (drift+quiet+hikes) 48h +8.1%, 2 volume hikes, 62% quiet hours @ 1.21139
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +5.4%, 2 volume hikes, 94% quiet hours @ 0.25197
+   dex screen: REJECT DOT@base liq $602,827 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT RETARDIO@solana liq $176,809 - top-10 holders 44%; lp holders unknown
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social heat: BUY PONS: heat 50: coingecko#1 geckoterminal_5m#7
+   >> crypto/social_heat: BUY $93.54 of PONS @ 0.396066 (entry)
+   dex screen: REJECT QUBIC@solana liq $99,387,979 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%; rugcheck score 62
+   dex screen: REJECT SURPLUS@base liq $1,050,750 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT SAFE@ethereum liq $300,438 - transfer_pausable; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: PASS SPX@ethereum liq $12,583,844
+   dex screen: PASS DRB@base liq $1,662,317
+   dex screen: REJECT KNOTS@solana liq $427,298 - transfer_fee_upgradable; lp holders unknown
+   dex screen: UNREACHABLE GULD@ethereum liq $1,792,150 - honeypot.is unreachable
