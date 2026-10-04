@@ -19,6 +19,11 @@ tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonigh
   2025 3-4, 2026 1-1 - up in 3 of 8, and only 34 games: WATCH, not proven, nothing built. Favorites +4.0% / dogs
   -12.2% on 34 (noise); the listed home team covered 17 of 33 (coin flip). Re-check each season; an early-morning
   international game kicks off before the 8 AM PT board, so a pick there would need its own earlier post.
+- Why the unders hit (the owner, 10/4: "figure out why"), 34 games: Europe 18-10 under vs Mexico / Brazil /
+  Australia 2-4 (warm night games went over); 9:30 AM ET kickoffs 16-9 vs later 4-5; total 44+ 13-7 vs under 44 7-7;
+  cold (<50F) 7-2; rain 7-3; Jaguars games 7-2; Europe + morning + total 44+ 9-4. Wind and close spreads: nothing.
+  Unders missed by 10 pts on average, overs by 7. Fits a body-clock / weather story (a 6:30 AM PT body clock, cold
+  wet European fall), but every cell is 9-25 games - LEAD only; re-check each season, never weighted yet.
 
 ## 10/4 - banged up: a weight, not a block (the owner, 10/3: "just because a QB or a star is out or a team is too banged up doesn't necessarily mean no units. It all just depends.")
 The question behind the 2+ out / 4+ questionable no-units rule (sports.hurt) and the 'more banged-up team' rule
