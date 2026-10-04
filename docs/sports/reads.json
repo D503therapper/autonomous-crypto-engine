@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T21:44Z",
+ "updated": "2026-10-04T22:29Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -280,6 +280,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892443",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-04T22:00Z",
+   "away": "Mammoth",
+   "home": "Rangers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401908014",
    "league": "mlb",
    "emoji": "\u26be",
@@ -440,7 +455,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.512,
+    "p": 0.517,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -449,18 +464,19 @@
    "start": "2026-10-05T21:00Z",
    "away": "White Sox",
    "home": "Guardians",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "White Sox",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -176,
-    "p": 0.594,
-    "win_p": 0.405,
+    "team": "Guardians",
+    "opp": "White Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -157,
+    "p": 0.591,
+    "win_p": 0.591,
     "reasons": [
-     "hotter recent form"
+     "the stronger team",
+     "better starting pitcher"
     ]
    }
   },
@@ -518,7 +534,7 @@
     "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
+    "odds": -180,
     "p": 0.622,
     "win_p": 0.402,
     "reasons": [

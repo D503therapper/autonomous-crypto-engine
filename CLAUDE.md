@@ -79,6 +79,7 @@ every session:
   (sports.PLAY_UNITS - they lost at every size; sizing up on edge lost more). Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.
+- Live plus money: MLB PAUSED (the owner, 10/4 - 0-5 at long prices; sports_live.PAUSED); a DraftKings-only live price (no time stamp) never posts a bet without a second book agreeing.
 - Tennis live plus money (the owner, 10/1 - "tighten it up"): only SUPER value - a 65%+ pre-match favorite on the
   books now at plus money, with a 10%+ edge (sports_live.TENNIS_SUPER_PRE / TENNIS_MIN_EDGE).
 - 📊 TODAY'S RESULTS (the owner, 10/1 - not 'damage': it sounded like a loss): at the very top once every play with units

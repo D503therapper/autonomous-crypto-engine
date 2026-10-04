@@ -7201,6 +7201,17 @@ def test_early_line_never_says_the_market_moved_when_it_didnt():
     sdb.EARLY_IN.clear()
 
 
+def test_live_mlb_paused_and_draftkings_alone_never_posts():
+    """10/4, the owner: "pause MLB" (live baseball 0-5 at long prices) and "fix" DraftKings-only live prices - ESPN's
+    DK line has no time stamp, so a cached price could post a bet; alone it needs a second book to agree."""
+    import sports_live as sl
+    assert "mlb" in sl.PAUSED
+    src = open("sports_live.py").read()
+    j = src[src.index("def _judge("):src.index("def _judge(") + 3000]
+    assert "if lg in PAUSED:" in j and 'if src == "draftkings" and not checked:' in j
+    assert sl.two_books((120, -140), (None, None))[2] is False           # DK alone: never 'checked'
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""

@@ -45,6 +45,8 @@ LOG = os.path.join(sd.DATA, "live_log.json")
 LIVE_MIN_EDGE = 0.05          # live lines move fast and carry more juice: we want a real 5%+ edge
 DOG_MIN = 100                 # live plays are plus money only
 LATE = 0.06                   # the last ~3.5 minutes of a football game: who has the ball decides it
+PAUSED = {"mlb"}              # the owner, 10/4: "pause MLB" - live baseball went 0-5 at long prices (and the inning-half
+#                               bug hit every one); no new MLB live bets until he turns it back on (grading still runs)
 FAV_PRE = 0.55                # a pregame favorite (55%+) tied or ahead at plus money needs two books agreeing
 MAX_GAP = 0.20                # our live chance (score, clock, who has the ball and where) vs the confirmed price: a
                               # bigger gap means the book knows something the scoreboard can't show (injury, ejection)
@@ -840,6 +842,8 @@ def series_lost(g):
 def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showing, judged):
     """One live game -> its plays (marked judged when it had a real price)."""
     plays = []
+    if lg in PAUSED:
+        return plays                                       # (the owner, 10/4)
     es = scores_f[lg].result().get(g["id"].split(":", 1)[1]) if lg in scores_f else None
     if es is not None and es != (_score(box, "home"), _score(box, "away")):
         return plays                                       # the two score feeds disagree (a few seconds apart): wait
@@ -852,6 +856,9 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
     PRICED[0] += mlh is not None and mla is not None
     if mlh is None or mla is None:
         return plays                                       # the book paused its line: wait
+    if src == "draftkings" and not checked:
+        return plays                                       # (the owner, 10/4: DraftKings via ESPN has no time stamp - a
+    #                                                        cached price could post a bet: alone it needs a 2nd book)
     judged.add(g["id"])
     params = model["params"].get(lg) or sm.default_params(lg)
     f = elo[lg].features(g)
