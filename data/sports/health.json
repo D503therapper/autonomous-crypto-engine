@@ -1,27 +1,35 @@
 {
- "at": "2026-10-04T12:38Z",
+ "at": "2026-10-04T14:09Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live bets on the board but not saved on main: Colts (the next page build merges them)"
+ ],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (286s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 3 live matches",
+  "live tennis points + server: 1 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
-  "all 1 backup sources answering",
-  "every live bet today saved",
+  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
+  "all 2 backup sources answering",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 27 min ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
+  "engine ran 53 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-04T14:09Z",
+   "fixes": [],
+   "problems": [
+    "live bets on the board but not saved on main: Colts (the next page build merges them)"
+   ]
+  },
   {
    "at": "2026-10-04T12:38Z",
    "fixes": [],
@@ -734,17 +742,6 @@
     "slate check: Red Sox @ Yankees (MLB): no price from the books",
     "slate check: Cubs @ Padres (MLB): no price from the books",
     "workflow failed: sports 2026-10-01T23:10 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/36939304970"
-   ]
-  },
-  {
-   "at": "2026-10-01T21:53Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
    ]
   }
  ]
