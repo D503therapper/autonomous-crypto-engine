@@ -1,58 +1,6 @@
 {
- "updated": "2026-10-04T07:47Z",
+ "updated": "2026-10-04T08:34Z",
  "games": [
-  {
-   "id": "tennis:atp:183464",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-04T08:30Z",
-   "away": "Daniil Medvedev",
-   "home": "Francisco Cerundolo",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Daniil Medvedev",
-    "opp": "Francisco Cerundolo",
-    "market": "ml",
-    "line": null,
-    "odds": -260,
-    "p": 0.691,
-    "win_p": 0.691,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:183509",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-04T08:30Z",
-   "away": "Jiri Lehecka",
-   "home": "Adolfo Daniel Vallejo",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Jiri Lehecka",
-    "opp": "Adolfo Daniel Vallejo",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.718,
-    "win_p": 0.718,
-    "reasons": [
-     "on hard court",
-     "Kinoshita Group Japan Open Tennis Championships"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:183465",
    "league": "tennis",
@@ -132,11 +80,37 @@
    }
   },
   {
+   "id": "tennis:wta:184337",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-05T03:00Z",
+   "away": "Donna Vekic",
+   "home": "Iga Swiatek",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Donna Vekic",
+    "opp": "Iga Swiatek",
+    "market": "spread",
+    "line": 6.5,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.119,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
    "id": "tennis:wta:184327",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-05T04:00Z",
+   "start": "2026-10-05T04:30Z",
    "away": "Zheng Qinwen",
    "home": "Marie Bouzkova",
    "vs": true,
@@ -158,11 +132,37 @@
    }
   },
   {
+   "id": "tennis:wta:184330",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-05T04:30Z",
+   "away": "Kamilla Rakhimova",
+   "home": "Iva Jovic",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Kamilla Rakhimova",
+    "opp": "Iva Jovic",
+    "market": "spread",
+    "line": 5.0,
+    "odds": -115,
+    "p": 0.5,
+    "win_p": 0.225,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
    "id": "tennis:wta:184328",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-05T04:00Z",
+   "start": "2026-10-05T06:00Z",
    "away": "Sonay Kartal",
    "home": "Alina Charaeva",
    "vs": true,
@@ -174,9 +174,9 @@
     "opp": "Alina Charaeva",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "on hard court",
      "China Open"
@@ -188,7 +188,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-05T04:00Z",
+   "start": "2026-10-05T07:00Z",
    "away": "Belinda Bencic",
    "home": "Ann Li",
    "vs": true,
@@ -200,35 +200,9 @@
     "opp": "Ann Li",
     "market": "ml",
     "line": null,
-    "odds": -220,
-    "p": 0.658,
-    "win_p": 0.658,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184330",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-05T04:00Z",
-   "away": "Kamilla Rakhimova",
-   "home": "Iva Jovic",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Kamilla Rakhimova",
-    "opp": "Iva Jovic",
-    "market": "spread",
-    "line": 5.5,
-    "odds": -125,
-    "p": 0.52,
-    "win_p": 0.214,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
      "on hard court",
      "China Open"
@@ -240,7 +214,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-05T04:00Z",
+   "start": "2026-10-05T08:30Z",
    "away": "Elise Mertens",
    "home": "Jelena Ostapenko",
    "vs": true,
@@ -252,9 +226,9 @@
     "opp": "Jelena Ostapenko",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.623,
     "reasons": [
      "on hard court",
      "China Open"
@@ -266,7 +240,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-05T04:00Z",
+   "start": "2026-10-05T08:30Z",
    "away": "Elina Svitolina",
    "home": "Maria Sakkari",
    "vs": true,
@@ -280,33 +254,7 @@
     "line": -4.5,
     "odds": -115,
     "p": 0.5,
-    "win_p": 0.734,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184337",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-05T04:00Z",
-   "away": "Donna Vekic",
-   "home": "Iga Swiatek",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Donna Vekic",
-    "opp": "Iga Swiatek",
-    "market": "spread",
-    "line": 6.5,
-    "odds": -125,
-    "p": 0.52,
-    "win_p": 0.119,
+    "win_p": 0.745,
     "reasons": [
      "on hard court",
      "China Open"
