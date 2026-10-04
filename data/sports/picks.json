@@ -4778,6 +4778,7 @@
      "game:rival"
     ],
     "dec": 1.9090909090909092,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -4790,6 +4791,10 @@
     "edge_own": -0.03240251806533334,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0",
+     "h": "0,0,4"
+    },
     "form_state": null,
     "game_id": "nhl:401892440",
     "home": false,
@@ -4818,9 +4823,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Flames 1 @ Canucks 4",
+    "settled": "2026-10-04T05:05Z",
     "side": "away",
     "start": "2026-10-04T02:00Z",
     "stype": "2",
@@ -4837,12 +4844,14 @@
    }
   ],
   "p_hit": 0.5074,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-03T15:47Z",
   "round": 1,
+  "settled": "2026-10-04T05:05Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 114,
@@ -5306,6 +5315,7 @@
      "game:conf"
     ],
     "dec": 2.02,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -5326,6 +5336,10 @@
     "edge_own": -0.01017765660325487,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,3,7,13",
+     "h": "0,6,0,0"
+    },
     "form_state": [
      14.0,
      3,
@@ -5368,9 +5382,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Fresno St 26 @ Washington St 6",
+    "settled": "2026-10-04T05:05Z",
     "side": "away",
     "start": "2026-10-04T01:30Z",
     "stype": "2",
@@ -5388,11 +5404,13 @@
   ],
   "midday": true,
   "p_hit": 0.4892,
-  "pnl": 0.0,
+  "pnl": 102.0,
   "posted": "2026-10-03T20:18Z",
   "round": 1,
+  "settled": "2026-10-04T05:05Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]

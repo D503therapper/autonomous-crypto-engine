@@ -7042,6 +7042,19 @@ def test_day_games_never_say_tonight():
     assert "if day_game(start):" in open("sports_breakdown_v24.py").read()
 
 
+def test_graded_lock_and_dog_leaving_the_board_never_reads_as_no_lock():
+    """10/4, 12:09 AM - the owner: "It's saying no lock today and no dog right now - that's a bug." 10/3 had the UNLV
+    Lock and the Flyers Dog; once their cards' 3 hours were up the notes read only what was still on the board."""
+    import sports_dashboard as sdb
+    lock = {"date": "2026-10-03", "kind": "lock", "status": "won", "legs": []}
+    dog = {"date": "2026-10-03", "kind": "dog", "status": "lost", "legs": []}
+    lean = {"date": "2026-10-03", "kind": "lean", "lean": True, "status": "open", "legs": []}
+    html = sdb._cards("2026-10-03", [lean], [("lean", "<div>LEAN</div>")], day_all=[lock, dog, lean])
+    assert "leanday" not in html, html                                   # no 'No Lock' / 'No Dog' note
+    html = sdb._cards("2026-10-03", [lean], [("lean", "<div>LEAN</div>")], day_all=[lean])
+    assert "leanday" in html                                             # a day that truly had none still says so
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
