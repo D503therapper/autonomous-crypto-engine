@@ -69,7 +69,8 @@ KINDS = [("lock", "Lock of the Day"), ("dog", "Dog of the Day"),     # posted in
 # (the ladder went 1 for 8 - its legs shared, one loss sank them all; the same legs straight went 11-6). Every real
 # value play goes up STRAIGHT with its units (kind "play", MAX_PLAYS a day), and leans for the viewers (kind "lean", no
 # units, in the record as 🟡). The parlays already posted stay in the history. (the 8-leg retired 2026-09-28)
-MAX_PLAYS = 8                  # unit plays a day besides the Lock and the Dog - accuracy over volume, never a filler
+MAX_PLAYS = 10 ** 6            # unit plays a day besides the Lock and the Dog: NO CAP (the owner, 10/4: "if the engine
+#                                finds more picks, however many is fine") - every one still has to beat its price, never a filler
 BOARD_TARGET = 5               # the owner, 10/1: "we need five picks" - the unit plays first, then leans fill the board
 MAX_LEANS = BOARD_TARGET       #   to 5 (no units, in the record), the engine's best side in the biggest games
 LEAN_PICK_P = 0.50             # a viewer lean: the side the engine leans to (never one its own read is fighting)
