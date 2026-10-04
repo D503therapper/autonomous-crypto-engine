@@ -3,6 +3,16 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/4 - banged up is a weight in football (the owner, 10/3: "it all just depends")
+- Study (SPORTS_FINDINGS 10/4, our box scores 2021-26): a football side with 2+ regulars out does NOT lose vs its price
+  (NFL -0.4 pts on 2,035, college +0.1 on 4,900) and the own read isn't fooled by depth bodies - the block was costing
+  picks (Missouri +180 on 10/3) for nothing. Only lead: the NFL side 2+ MORE banged up than its opponent, -2.5 (4 of 6).
+- Built: NFL / college with box scores - the 2+ out / 4+ questionable block and the 'more banged-up team' block are
+  OFF; depth gap = a capped weight on the own read (sports.depth_penalty: NFL ½ pt a head, cap 3; college 0). Key
+  players still sports_absences.penalty. Hockey / hoops / baseball keep the block (study them next, cheap to run:
+  the 10/4 study script's approach - regulars on prior games vs the game's box score). Early plays' key-out rule kept.
+- Watch on live picks: the NFL 'more banged-up' lead and '2+ skill regulars out' (-3.7) - grow the weight if they hold.
+
 ## 10/2 (overnight session)
 
 **Live on main tonight**
@@ -115,6 +125,12 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   Data: public pages only (SuperContest / Circa contest picks, dated expert picks) - no logins, no tricks.
 - Compare: our engine's early NFL spread read (3.5+ pts off the Tuesday number) covered 58.5% on 554 (findings 10/1)
   - Dr. Bob-level, but a study, not live; build the early NFL spread play and track it live vs his 57.6%.
+
+**10/4 big-dog study (NFL + college, dogs +150..+250 at the close, 2018-26)**: 29 situational angles the engine
+doesn't weigh (home dog, conference proxy, off a loss, favorite off an emotional win, point differential vs record,
+look-ahead, weather, totals, spread mismatch, streaks, road trips, late season) - 0 of 58 tests pass the false-discovery
+check; nothing built. Full table in SPORTS_FINDINGS.md (10/4). One watch: an NFL favorite off an upset win (dog +17%
+on 102, 3 of 6 seasons) - re-check after 2027.
 
 **Open decisions (the owner's call)**
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md

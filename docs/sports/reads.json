@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T02:46Z",
+ "updated": "2026-10-04T03:34Z",
  "games": [
   {
    "id": "ncaaf:401862787",
@@ -1356,8 +1356,8 @@
    "away": "Chicago St",
    "home": "Tarleton St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1580,8 +1580,8 @@
    "away": "Army",
    "home": "Louisiana Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1610,8 +1610,8 @@
    "away": "Miami",
    "home": "Clemson",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1640,8 +1640,8 @@
    "away": "Texas Tech",
    "home": "Colorado",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1655,8 +1655,8 @@
    "away": "Utah State",
    "home": "Boise St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1670,8 +1670,8 @@
    "away": "Washington",
    "home": "USC",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1685,8 +1685,8 @@
    "away": "McNeese",
    "home": "LSU",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1700,8 +1700,8 @@
    "away": "Arkansas St",
    "home": "Louisiana",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1715,8 +1715,8 @@
    "away": "Bruins",
    "home": "Wild",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1730,8 +1730,8 @@
    "away": "Indiana",
    "home": "Rutgers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1745,8 +1745,8 @@
    "away": "N Arizona",
    "home": "Idaho St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1760,8 +1760,8 @@
    "away": "Southern Utah",
    "home": "Utah Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1971,6 +1971,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401856820",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-04T03:00Z",
+   "away": "Cincinnati",
+   "home": "Arizona",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401864513",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -2006,7 +2021,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Colts",
-    "p": 0.562,
+    "p": 0.568,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2022,9 +2037,9 @@
     "opp": "Commanders",
     "market": "ml",
     "line": null,
-    "odds": -198,
-    "p": 0.592,
-    "win_p": 0.592,
+    "odds": -205,
+    "p": 0.6,
+    "win_p": 0.6,
     "reasons": [
      "revenge game"
     ]
@@ -2222,7 +2237,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bills",
-    "p": 0.608,
+    "p": 0.611,
     "tie": 0.037,
     "name": "1st half"
    },
@@ -2231,20 +2246,18 @@
    "start": "2026-10-04T17:00Z",
    "away": "Patriots",
    "home": "Bills",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Bills",
-    "opp": "Patriots",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.687,
-    "win_p": 0.687,
+    "team": "Patriots",
+    "opp": "Bills",
+    "market": "spread",
+    "line": 7.0,
+    "odds": -115,
+    "p": 0.509,
+    "win_p": 0.28,
     "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "better QB play lately"
+     "revenge game"
     ]
    }
   },
@@ -2254,7 +2267,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.581,
+    "p": 0.577,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2270,13 +2283,13 @@
     "opp": "Eagles",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.622,
-    "win_p": 0.622,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "better QB play lately",
-     "sharp money moving this way",
-     "revenge game"
+     "revenge game",
+     "sharp money moving this way"
     ]
    }
   },
@@ -2441,7 +2454,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.393,
+    "p": 0.387,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -2457,9 +2470,9 @@
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.634,
-    "win_p": 0.415,
+    "odds": -230,
+    "p": 0.645,
+    "win_p": 0.426,
     "reasons": [
      "hotter recent form",
      "opponent drama: trade drama"
@@ -2518,7 +2531,7 @@
     "line": 1.5,
     "odds": -198,
     "p": 0.679,
-    "win_p": 0.461,
+    "win_p": 0.462,
     "reasons": [
      "opponent on a back-to-back"
     ]
@@ -2548,7 +2561,7 @@
     "line": 1.5,
     "odds": -218,
     "p": 0.662,
-    "win_p": 0.442,
+    "win_p": 0.441,
     "reasons": [
      "hotter recent form",
      "opponent drama: family/personal"

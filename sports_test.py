@@ -6443,7 +6443,8 @@ def test_hurt_counts_only_players_who_play():
         walkons = [("Walk On", "OL", "Out"), ("Red Shirt", "DL", "Out"), ("Bench Guy", "LB", "Out")]
         assert sports.hurt(g, "home", rep(walkons)) == []                              # nobody who plays: units stay
         real = walkons + [("Star Back", "RB", "Out"), ("Top Wideout", "WR", "Out")]
-        assert set(sports.hurt(g, "home", rep(real))) == {"Star Back", "Top Wideout"}   # two who play: no units
+        assert sports.hurt(g, "home", rep(real)) == []        # two who play: WEIGHED (10/4 - depth_penalty), never a block
+        assert sports.out_count(g, "home", rep(real)) == 2    # ...and the count the weight reads sees the two
         A._TEAM["ncaaf"] = {}
         assert len(sports.hurt(g, "home", rep(walkons))) == 3                          # no box scores: the old rule
     finally:
@@ -6538,7 +6539,9 @@ def test_report_names_match_box_scores():
         assert A.penalty({}, g, "home", {"nfl": {"7": [("Star Back", "RB", "Probable")]}}, skip_qb=True) == (0.0, [])
         hurt_ = sports.hurt(g, "home", {"nfl": {"7": [("Michael Hughes", "WR", "Out"), ("Star Back", "RB", "Injured Reserve"),
                                                       ("Walk On", "OL", "Out")]}})
-        assert hurt_ == ["Michael Hughes", "Star Back"], hurt_   # two regulars gone (one to IR this week): no units
+        assert hurt_ == [], hurt_   # two regulars gone (one to IR this week): weighed (penalty + depth), never a block (10/4)
+        assert sports.out_count(g, "home", {"nfl": {"7": [("Michael Hughes", "WR", "Out"), ("Star Back", "RB", "Injured Reserve"),
+                                                          ("Walk On", "OL", "Out")]}}) == 2
     finally:
         A._TEAM.clear(); A._TEAM.update(keep)
 
@@ -6728,6 +6731,55 @@ def test_banged_up_count_reads_only_players_who_play():
     assert "out_count(g, side, injuries)" in src and "len(sd.team_injuries(" not in src   # the board uses it
 
 
+def test_football_banged_up_is_a_weight_not_a_block():
+    """10/3, the owner: "just because a QB or a star is out or a team is too banged up doesn't necessarily mean no units.
+    It all just depends." The 10/4 study (box scores 2021-26): a football side with 2+ regulars out doesn't lose vs its
+    price (NFL -0.4 / college +0.1 pts) - the market has it; the NFL side 2+ MORE banged up than its opponent -2.5 (a
+    lead). So in football, with box scores to say who plays: no block - the depth gap is a small, capped weight on the
+    OWN read (NFL ½ pt a head, cap 3; college 0); the Missouri-type dog (+180, 2 regulars out) keeps its units. Hockey /
+    hoops keep the block; a football team with no box scores keeps the old rule."""
+    import sports_absences as A
+    # the weight: per head beyond the opponent, capped, football only
+    assert sports.depth_penalty("nfl", 2, 0) == 0.01 and sports.depth_penalty("nfl", 1, 1) == 0.0
+    assert sports.depth_penalty("nfl", 9, 0) == sports.DEPTH_CAP == 0.03            # never more than 3 points
+    assert sports.depth_penalty("nfl", 0, 3) == 0.0                                  # the healthier side isn't paid
+    assert sports.depth_penalty("ncaaf", 5, 0) == 0.0 and sports.depth_penalty("nhl", 5, 0) == 0.0
+    keep = dict(A._TEAM)
+    rows = lambda gid, start, team: [
+        {"gid": gid, "start": start, "team": team, "player": f"Back {team}", "stats": '{"rushingAttempts":"20"}'},
+        {"gid": gid, "start": start, "team": team, "player": f"Wideout {team}", "stats": '{"receptions":"8"}'},
+        {"gid": gid, "start": start, "team": team, "player": f"Backer {team}", "stats": '{"totalTackles":"9"}'}]
+    try:
+        A._TEAM["nfl"] = {t: [("2026-09-27T17:00Z", f"g{t}", rows(f"g{t}", "2026-09-27T17:00Z", t))] for t in ("3", "4")}
+        games, _ = fake_league("nfl", days=120)
+        model = {"params": {}, "log": []}
+        sm.tune_all(games, model)
+        now = datetime(2026, 10, 4, 12, 0, tzinfo=timezone.utc)
+        g = {**games["nfl:1"], "id": "nfl:x", "status": "pre", "home": "3", "away": "4", "home_name": "Giants",
+             "away_name": "Titans", "home_score": "", "away_score": "", "start": "2026-10-04T20:00Z",
+             "ml_home": "-130", "ml_away": "110", "ml_home_open": "-130", "ml_away_open": "110", "stype": "2"}
+        games[g["id"]] = g
+        day = now.astimezone(sports.PT).date()
+        clean = {"nfl": {"3": [], "4": []}}
+        base = {c["side"]: c for c in sports.candidates(games, model, now, day, clean) if c["game_id"] == "nfl:x" and c["market"] == "ml"}
+        thin = {"nfl": {"3": [], "4": [("Back 4", "RB", "Out"), ("Wideout 4", "WR", "Out"), ("Backer 4", "LB", "Out")]}}
+        cs = {c["side"]: c for c in sports.candidates(games, model, now, day, thin) if c["game_id"] == "nfl:x" and c["market"] == "ml"}
+        assert not cs["away"].get("hurt") and not cs["home"].get("hurt"), "football: three regulars out is weighed, not a block"
+        assert cs["away"].get("depth_pts") == 1.5 and "depth_pts" not in cs["home"]      # 3 heads x ½ pt
+        own = lambda c: (c["edge_own"] + 1) / c["dec"]                                # noqa: E731
+        drop = own(base["away"]) - own(cs["away"])
+        assert 0.014 < drop < 0.10, (own(base["away"]), own(cs["away"]))   # the read moved by the weight (RB + WR penalty 10 + depth 1.5)
+        A._TEAM["nhl"] = {}                                   # hockey (no study yet): the 2+ out block stays
+        assert sports.hurt({**g, "league": "nhl"}, "away", {"nhl": {"4": [("A", "C", "Out"), ("B", "D", "Out")]}}) == ["A", "B"]
+        A._TEAM["nfl"] = {}                                   # no box scores: the old block stays (can't tell who plays)
+        assert sports.hurt(g, "away", thin) == ["Back 4", "Wideout 4", "Backer 4"]
+    finally:
+        A._TEAM.clear(); A._TEAM.update(keep)
+    import inspect
+    src = inspect.getsource(sports.candidates)
+    assert "depth_penalty(lg, n_out[s_]" in src and "and not weighed[side]" in src   # the board weighs it, never blocks
+
+
 def test_best_hockey_dog_needs_real_value():
     """10/3 (the picks sweep): the Jets +105 went up as the Dog of the Day, 1 unit, on a weighed read 0.04 points over
     the price (48.80% vs 48.78%) - a lean in all but the units. The best hockey dog has to beat its price by MIN_EDGE
@@ -6880,6 +6932,45 @@ def test_covers_injury_page_covers_every_school():
     assert "sports_absences.match(r[0], reg)" in open("sports.py").read().split("def out_count")[1][:1200]
 
 
+def test_college_injury_page_never_lands_on_the_wrong_school():
+    """10/4 review of the Covers reader: 'North Carolina State' matched North Carolina (difflib 0.903 - the alias target
+    'nc state' isn't normalized like the keys, 'nc st'), 'South Carolina State' matched South Carolina; hyphenated /
+    accented players ('Jean-Luc', 'José') were dropped, so their school read as nobody hurt; a blowout 'last week' was
+    said of a game two Saturdays back. Never false information - a school the reader can't place stays unknown."""
+    import sports_early as se
+    names = {"152": "NC State", "153": "North Carolina", "2579": "SC State", "2579b": "South Carolina", "2006": "Akron",
+             "2005": "Abilene Chrstn", "399": "UAlbany", "2572": "Southern Miss", "2534": "Sam Houston"}
+    page = []
+    for code, school, player in (("NC", "North Carolina State", "G. Bailey"), ("SC", "South Carolina State", "T. Jones"),
+                                 ("AK", "Akron", "Jean-Luc Smith"), ("AB", "Abilene Christian", "M. Lee"),
+                                 ("AL", "Albany", "D. Ray"), ("SM", "Southern Mississippi", "K. Dean"),
+                                 ("SH", "Sam Houston State", "H. Hill")):
+        page += [code, "`\">", school, "Mascot", "(1)", "Player", "POS", "Status", player, "WR", "Out - Knee",
+                 "(", "Sat, Oct 3)", "A note."]
+    page += ["XX", "`\">", "Akron", "Zips", "(1)", "Player", "POS", "Status", "José Ramírez", "RB", "Out - Undisclosed",
+             "(", "Sat, Oct 3)", "Note."]
+    t = sd.parse_team_page(page)
+    assert ("Jean-Luc Smith", "WR", "Out") in t["Akron"] and ("José Ramírez", "RB", "Out") in t["Akron"], t
+    old = sd.WEB_MIN_TEAMS
+    sd.WEB_MIN_TEAMS = 3
+    try:
+        got = sd.page_injuries("ncaaf", names, get=lambda u: page)
+    finally:
+        sd.WEB_MIN_TEAMS = old
+    assert got["152"] == [("G. Bailey", "WR", "Out")] and "153" not in got, got          # the Wolfpack's, never UNC's
+    assert got["2579"] == [("T. Jones", "WR", "Out")] and "2579b" not in got, got         # SC State's, never the Gamecocks'
+    assert "2005" in got and "399" in got and "2572" in got and "2534" in got, got        # close spellings still land
+    assert sd._close("north carolina st", ["north carolina", "nc st"]) is None            # a school plus a word = another school
+    assert sd._close("abilene christian", ["abilene chrstn"]) == "abilene chrstn"
+    rows = [{"RotoSchoolName": "North Carolina State", "player": "G. Bailey", "position": "WR", "IR": "Out"}] * 25
+    w = sd.web_injuries("ncaaf", {"153": "North Carolina", "152": "NC State"}, get=lambda u: rows)
+    assert "152" in w and "153" not in w, w
+    now = datetime(2026, 10, 6, 20, 0, tzinfo=timezone.utc)                             # Tuesday 10/6
+    assert se.ago("2026-09-26T23:30Z", now) == "on Saturday 9/26"                        # two Saturdays back: the date
+    assert se.ago("2026-10-03T23:30Z", now) == "on Saturday 10/3"
+    assert se.ago("2026-09-30T23:30Z", now) == "last week"
+
+
 def test_early_play_dates_are_plain():
     """10/3, the owner: "Alabama vs Georgia today?" - the early card said 'Saturday · game starts at 4:30 PM PT' on a
     Saturday for NEXT Saturday's game, and 'Alabama beat Mississippi St 56-23 last week' the afternoon they played."""
@@ -6924,6 +7015,16 @@ def test_early_cards_lead_with_the_read_and_never_share_wording():
     st = {"picks": [{"game_id": "x", "why_t": 0, "result": None}, {"game_id": "y", "why_t": 1, "result": "won"}]}
     c = se.pick_wording({"game_id": "g", "why": ws[0], "whys": ws}, st)
     assert c["why_t"] == 1 and c["why"] == ws[1] and "whys" not in c
+
+
+def test_covers_page_reads_all_caps_schools():
+    """10/4 review: LSU / USC / BYU / UNLV (no lowercase letter) were never read off the Covers page - those schools
+    stayed unknown. The line after the marker is the school, whatever its case."""
+    page = ["BY", "`\">", "BYU", "Cougars", "(1)", "Player", "POS", "Status", "J. Smith", "WR", "Out - Knee", "(",
+            "Sat, Oct 3)", "note.", "LS", "`\">", "LSU", "Tigers", "(0)", "Player", "POS", "Status", "No injuries to report.",
+            "AK", "`\">", "Akron", "Zips", "(0)", "Player", "POS", "Status", "No injuries to report."]
+    t = sd.parse_team_page(page)
+    assert t == {"BYU": [("J. Smith", "WR", "Out")], "LSU": [], "Akron": []}, t
 
 
 def test_patty_challenge_removed():
