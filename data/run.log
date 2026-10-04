@@ -7162,3 +7162,17 @@ error: failed to push some refs to 'https://github.
 [2026-10-04 08:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-04 08:05 UTC] crypto/hold_btc  equity $505.88 (+1.2%) 1 open  market UP
    social heat top: PUMP 37 (37/0/0), ZRO 35 (35/0/0), PENGU 32 (32/0/0), QNT 29 (29/0/0), STRK 27 (27/0/0)
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h -2.5%, 3 volume hikes, 75% quiet hours @ 1.4986
+   footprint: AVAX: footprint 3/4 (quiet+hikes+rising_lows) 48h -0.3%, 2 volume hikes, 60% quiet hours @ 11.056
+   dex screen: REJECT LIKE@solana liq $9,293,237 - top-10 holders 89%
+   dex screen: REJECT BEAM@ethereum liq $2,719,239 - is_mintable; owner_change_balance; top-10 holders 59%
+   dex screen: PASS SPX@ethereum liq $12,669,252
+   dex screen: PASS YEE@ethereum liq $527,659
+   dex screen: REJECT PAXG@ethereum liq $2,097,203 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex outcome: emergency_exit SIGF@solana:CwSNUU54 tier A P/L $+2.42 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 95% < 95%)
+   >> dex/dex_hunter: SELL $19.22 of SIGF@solana:CwSNUU54 @ 0.000959, P/L $+2.42 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 95% < 95%)
+   dex screen: REJECT SAPLING@solana liq $175,074 - lp holders unknown; rugcheck lp locked 71% < 95%
+   dex screen: PASS USELESS@solana liq $5,418,835
+   dex screen: PASS YEE@ethereum liq $532,859
+   dex screen: REJECT SPCXON@ethereum liq $213,510 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 88%; lp locked 0% < 95%
+   dex scanner: 2,578 pools (solana 1,970 / base 315 / ethereum 293), refresh cycle 106s (hot 101s), 3016 calls (110 feed, 429s 0, failed 0), 87,167 refreshed (15421 no pair), +92 added / -56 dropped (dead 56, stale 0, cap 0), movers 0 + warming 20 -> queued 3, screened 4 (passed 2), bought 0
