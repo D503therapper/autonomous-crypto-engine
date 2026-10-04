@@ -1,29 +1,45 @@
 {
- "at": "2026-10-04T14:59Z",
- "fixes": [],
+ "at": "2026-10-04T16:33Z",
+ "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "studies last ran 9h ago - restarted"
+  "live tennis scores: tennis Boisson vs Jeanjean: no points for 437s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (20s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 20 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
   "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "simulator ran 9h ago",
-  "engine ran 8 min ago",
+  "studies ran 2h ago",
+  "engine ran 29 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-04T16:33Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Boisson vs Jeanjean: no points for 437s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-04T14:59Z",
    "fixes": [],
@@ -713,18 +729,6 @@
   },
   {
    "at": "2026-10-02T01:06Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: White Sox @ Astros (MLB): no price from the books",
-    "slate check: Red Sox @ Yankees (MLB): no price from the books",
-    "slate check: Cubs @ Padres (MLB): no price from the books"
-   ]
-  },
-  {
-   "at": "2026-10-02T00:56Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running",
     "tennis slate due (8am PT) and not up - sports.yml already running"
