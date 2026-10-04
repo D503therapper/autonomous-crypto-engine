@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T20:13Z",
+ "updated": "2026-10-04T20:14Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -55,7 +55,7 @@
    "home": "Texans",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Texans",
@@ -68,7 +68,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -155,8 +155,8 @@
    "away": "Patriots",
    "home": "Bills",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
