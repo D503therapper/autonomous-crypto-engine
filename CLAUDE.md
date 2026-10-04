@@ -50,8 +50,8 @@ every session:
   WEIGHTS on the engine's own read (never a trigger), the fades subtract; it posts only if the engine isn't fighting
   the side and the total clears SPOT_MIN_TOTAL. NO WEEKLY CAP (the owner, 10/1: "I don't want to cap the early value plays
   at two - build it the best for us"): the engine checks every hour and posts every play that clears the whole bar the
-  moment it finds it (sports_early.SPOT_MAX_WEEK = None), with ONE phone ping each once the dashboard shows it
-  (sports_early.PINGS); never forced (the one-a-week minimum stays paused); dogs
+  moment it finds it (sports_early.SPOT_MAX_WEEK = None),
+  NO phone ping (the owner, 10/4 - sports_early.PINGS = False); never forced (the one-a-week minimum stays paused); dogs
   +100..+220 only ("never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
   late is not early; never game day; never a side with a key player out or questionable. Early plays ALWAYS carry units (the owner, 10/2) - in every sport they get added to (hockey / baseball / hoops early spots: study first, then live with units and their own record).
 - The main board and tennis post at 8 AM PT on game day. iPhone and Android look the same.
@@ -63,7 +63,7 @@ every session:
   worth its price, then the best proven win % (sports.own_agrees; tested 1,808 days, 58.1% vs 56.8%).
 - A graded card stays on the board with its grade and review for 3 hours, then it's in the results only; once the
   day's cards are gone the 8 AM note shows. TONIGHT'S LIVE BETS shows only live bets still going: the second one's graded it clears into the results (its sport, with its review).
-- The only automatic phone notifications are Live Plus Money bets, early value plays, and unit plays the engine adds
+- The only automatic phone notifications are Live Plus Money bets and unit plays the engine adds
   after the 8 AM board is up (sports_pings - it keeps checking the lines all day; one ping each, once the dashboard
   shows it - the owner, 10/1; leans and the 8 AM board never ping) - plus
   one-time announcements the owner asks for (announce.yml). One alert never rings twice (sw.js: renotify only without an id; a renewed sign-up drops the old).
