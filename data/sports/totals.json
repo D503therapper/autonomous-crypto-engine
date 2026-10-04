@@ -1,6 +1,6 @@
 {
  "mlb": {
-  "games": 19225,
+  "games": 19226,
   "grade": {
    "all": {
     "hit": 0.5055,
@@ -29,19 +29,19 @@
   },
   "hit_all": 0.5055,
   "hit_top": 0.4865,
-  "intercept": -0.0345,
+  "intercept": -0.0346,
   "kept": [
    "ou_away"
   ],
   "ll_test_base": 0.69313,
   "ll_test_kept": 0.69334,
-  "ll_val_base": 0.69308,
+  "ll_val_base": 0.69307,
   "ll_val_kept": 0.69294,
   "n_top": 1922,
   "norm": {
    "ou_away": [
-    0.47182,
-    1.01763
+    0.47181,
+    1.0176
    ]
   },
   "proven": false,
@@ -49,19 +49,19 @@
   "screen": {
    "b2b": {
     "gain": -0.0002,
-    "ll": 0.69328
+    "ll": 0.69327
    },
    "cold": {
     "gain": -1e-05,
-    "ll": 0.69308
+    "ll": 0.69307
    },
    "drama": {
     "ll": null,
     "note": "no data"
    },
    "form": {
-    "gain": -3e-05,
-    "ll": 0.69311
+    "gain": -2e-05,
+    "ll": 0.69309
    },
    "inj": {
     "ll": null,
@@ -73,7 +73,7 @@
    },
    "lg_trend": {
     "gain": 4e-05,
-    "ll": 0.69304
+    "ll": 0.69303
    },
    "ou_away": {
     "gain": 0.00013,
@@ -81,11 +81,11 @@
    },
    "ou_home": {
     "gain": -0.00027,
-    "ll": 0.69335
+    "ll": 0.69334
    },
    "park": {
     "gain": -0.0001,
-    "ll": 0.69318
+    "ll": 0.69317
    },
    "public": {
     "ll": null,
@@ -105,11 +105,11 @@
    },
    "thin_air": {
     "gain": -4e-05,
-    "ll": 0.69312
+    "ll": 0.69311
    },
    "travel": {
     "gain": 1e-05,
-    "ll": 0.69307
+    "ll": 0.69306
    },
    "wind": {
     "gain": -0.00023,
@@ -119,7 +119,7 @@
   "test_from": "2024-05-21",
   "test_games": 6409,
   "weights": {
-   "ou_away": -0.00562
+   "ou_away": -0.00558
   }
  },
  "nba": {

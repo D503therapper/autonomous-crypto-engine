@@ -837,6 +837,65 @@
  },
  {
   "date": "2026-10-03",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "mlb",
+  "game_id": "mlb:401907985",
+  "team": "Rays",
+  "opp": "Yankees",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -135,
+  "posted": "2026-10-03T15:47Z",
+  "price_says": 0.574,
+  "win_p": 0.5492893648765366,
+  "own_read": 0.549,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.044128933231005196,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "better starting pitcher",
+   "better rested",
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:5",
+   "even:1",
+   "SP_hot:1",
+   "cx_trip:4",
+   "home:3",
+   "rest:3",
+   "bump:17",
+   "keyout_bat:2",
+   "splits:4",
+   "bottom_c:0",
+   "w_arm:1",
+   "k_trip:1"
+  ],
+  "injuries_seen": {
+   "Aaron Judge (Yankees RF)": "10-Day-IL"
+  },
+  "ours_out": [
+   "Shane McClanahan (SP)"
+  ],
+  "theirs_out": [
+   "Aaron Judge (RF)",
+   "Clarke Schmidt (SP)"
+  ],
+  "public": null,
+  "close": -142,
+  "beat_close_pts": 1.2,
+  "result": "won",
+  "score": "1-0",
+  "margin": 1.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-03",
   "kind": "play",
   "lean": false,
   "tier": "value",
