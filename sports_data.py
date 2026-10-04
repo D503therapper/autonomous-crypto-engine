@@ -637,7 +637,9 @@ def parse_team_page(lines):
         if x == "Status":
             mk = [j for j in range(max(0, i - 8), i) if lines[j].endswith('">')]    # code | `"> | School | Mascot | (1) |
             nm = lines[mk[-1] + 1] if mk else ""                                     # Player | POS | Status
-            cur = None if (re.fullmatch(r"[A-Z]{1,4}", nm) or not re.search(r"[a-z]", nm)) else nm
+            cur = nm if nm and nm not in ("Player", "POS", "Status") and re.search(r"[A-Za-z]", nm) else None
+            #     (the line after the marker IS the school - the code sits before it; 10/4: all-caps schools like
+            #      LSU / USC / BYU were skipped)
             if cur:
                 out.setdefault(cur, [])
             continue

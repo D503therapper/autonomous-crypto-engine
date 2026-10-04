@@ -6964,6 +6964,16 @@ def test_early_cards_lead_with_the_read_and_never_share_wording():
     assert c["why_t"] == 1 and c["why"] == ws[1] and "whys" not in c
 
 
+def test_covers_page_reads_all_caps_schools():
+    """10/4 review: LSU / USC / BYU / UNLV (no lowercase letter) were never read off the Covers page - those schools
+    stayed unknown. The line after the marker is the school, whatever its case."""
+    page = ["BY", "`\">", "BYU", "Cougars", "(1)", "Player", "POS", "Status", "J. Smith", "WR", "Out - Knee", "(",
+            "Sat, Oct 3)", "note.", "LS", "`\">", "LSU", "Tigers", "(0)", "Player", "POS", "Status", "No injuries to report.",
+            "AK", "`\">", "Akron", "Zips", "(0)", "Player", "POS", "Status", "No injuries to report."]
+    t = sd.parse_team_page(page)
+    assert t == {"BYU": [("J. Smith", "WR", "Out")], "LSU": [], "Akron": []}, t
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
