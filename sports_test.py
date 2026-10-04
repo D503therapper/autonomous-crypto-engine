@@ -7083,6 +7083,13 @@ def test_key_player_on_ir_is_not_called_news():
     assert src.index("that's their starting {pos}") > i            # the 'starting QB' wording only after the IR check
 
 
+def test_an_old_tab_swaps_to_the_new_board_even_while_scrolling():
+    """10/4, 8 AM - the owner: "when I clicked the dashboard, I didn't see no picks." The picks were up at 8:00; his tab
+    from last night never swapped because he was scrolling. A page 20+ minutes old swaps right away."""
+    src = open("sports_dashboard.py").read()
+    assert "var aged=Date.now()-t>1200000;" in src and "if(!st&&!aged&&Date.now()-touched<30000)return;" in src
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""

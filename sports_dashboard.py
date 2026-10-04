@@ -2222,8 +2222,9 @@ function tick(){{m=Math.max(0,Math.round((Date.now()-t)/60000));}}   // (m: the 
 var touched=0;["touchstart","scroll","keydown","click"].forEach(function(ev){{window.addEventListener(ev,function(){{touched=Date.now()}},{{passive:true}})}});
 function check(){{if(document.hidden)return;              // a newer page? swap it in - only once the SITE serves it
  var st=window.d503stale;                                 // a result landed: swap as soon as the new page is up
- if(!st&&Date.now()-touched<30000)return;                  // (otherwise never while someone's scrolling or tapping)
- try{{if(Date.now()-(+sessionStorage.getItem("d503r")||0)<(st?15000:60000))return;}}catch(e){{}}   // at most once a minute
+ var aged=Date.now()-t>1200000;                           // (10/4: an old tab opened at 8 AM showed last night's page -
+ if(!st&&!aged&&Date.now()-touched<30000)return;           //  the owner scrolled, so it never swapped: 20+ min old swaps now)
+ try{{if(!aged&&Date.now()-(+sessionStorage.getItem("d503r")||0)<(st?15000:60000))return;}}catch(e){{}}   // at most once a minute
  fetch(location.pathname+"?c="+Date.now(),{{cache:"no-store"}})
  .then(function(r){{return r.ok?r.text():""}})
  .then(function(h){{var x=/var t=(\d+),m=/.exec(h);
