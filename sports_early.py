@@ -378,10 +378,58 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
                     print(f"   early spot ping failed: {str(e)[:60]}")
     except Exception as e:                                   # noqa: BLE001 - the spots never break the engine
         print(f"   early spots failed: {str(e)[:120]}")
+    try:                                                     # 🌍 the Europe morning NFL under (the owner, 10/4)
+        for c in euro_unders(games, st, now):
+            if c["game_id"] in have:
+                continue
+            st["picks"].append(c)
+            have.add(c["game_id"])
+            new.append(c)
+    except Exception as e:                                   # noqa: BLE001 - never breaks the engine
+        print(f"   europe under failed: {str(e)[:120]}")
     watch(st, games, injuries)
     grade(st, games)
     save(st, path)
     return new
+
+
+def euro_quit(st):
+    """The quit rule: 15+ graded and under 50% = no more posts."""
+    w, l_, _ = spot_record(st).get("euro_under", (0, 0, 0.0))
+    return w + l_ >= EURO_QUIT[0] and w / (w + l_) < EURO_QUIT[1]
+
+
+def euro_unders(games, st, now):
+    """🌍 THE EUROPE MORNING NFL UNDER - ½u, its own record (the owner, 10/4: "we can't wait years to prove anything -
+    the books will catch up by then ... half unit with the quit rule, build it"). Every NFL game in Europe kicking off
+    before noon ET (sports_intl.fits): the UNDER at the number the night before (from EURO_FROM_PT the day before the
+    game, PT) - the 10/4 study: 17-9 under since 2018 in those games (SPORTS_FINDINGS). A live test the owner OK'd on a
+    small sample, not a proven edge; under 50% after 15 = it's off (EURO_QUIT)."""
+    import sports_intl
+    if euro_quit(st):
+        return []
+    out = []
+    for g in games.values():
+        if not sports_intl.fits(g) or g.get("status") != "pre":
+            continue
+        tot, odds = sports_intl._f(g.get("total")), _int(g.get("under_odds")) or -110
+        if tot is None or odds < -150:
+            continue                                         # (no number yet / the -150 rule)
+        st_ = _t(g["start"])
+        eve = datetime.combine((st_.astimezone(PT) - timedelta(days=1)).date(), datetime.min.time(),
+                               tzinfo=PT).replace(hour=EURO_FROM_PT)
+        if not eve <= now < st_ or now.astimezone(PT).date() >= st_.astimezone(PT).date():
+            continue                                         # the night before only - never game day
+        w, l_, _ = spot_record(st).get("euro_under", (0, 0, 0.0))
+        city = g.get("city") or g.get("country") or "Europe"
+        out.append({"game_id": g["id"], "league": "nfl", "market": "total", "side": "under", "line": tot,
+                    "team": f"Under {tot:g}", "opp": f"{g.get('away_name')} @ {g.get('home_name')}", "odds": odds,
+                    "start": g["start"], "spot": "euro_under", "spots": ["euro_under"], "fades": [],
+                    "why": f"🌍 {city}, {st_.astimezone(PT):%-I:%M %p} PT kickoff. NFL games in Europe that start "
+                           f"this early went 17-9 to the under since 2018"
+                           + (f" - {w}-{l_} since we started betting it." if w + l_ else "."),
+                    "posted": now.strftime("%Y-%m-%dT%H:%MZ"), "result": None})
+    return out
 
 
 def watch(st, games, injuries):
@@ -393,7 +441,7 @@ def watch(st, games, injuries):
             p["key_out"] = f"{p['sp']} (SP)"                 # the owner, 9/30: a last-minute pitcher swap blows up the
             continue                                         # line - our starter isn't going: don't chase it
         inj = (injuries or {}).get(p["league"])
-        if p.get("result") or not g or g.get("status") != "pre" or inj is None:
+        if p.get("result") or not g or g.get("status") != "pre" or inj is None or p.get("market") == "total":
             continue
         out = sd.team_key_out(inj, g.get(p["side"]), g.get(f"{p['side']}_name") or p["team"], p["league"])
         if "out_at_post" not in p:                   # who was already out when it posted: priced in, not news
@@ -416,8 +464,12 @@ def grade(st, games):
             hs, as_ = float(g["home_score"]), float(g["away_score"])
         except (KeyError, ValueError):
             continue
-        us, them = (hs, as_) if p["side"] == "home" else (as_, hs)
-        p["result"] = "won" if us > them else "lost" if us < them else "push"
+        if p.get("market") == "total":                       # 🌍 a total: points vs the line we took
+            d = (hs + as_ - p["line"]) * (-1 if p["side"] == "under" else 1)
+            p["result"] = "won" if d > 0 else "lost" if d < 0 else "push"
+        else:
+            us, them = (hs, as_) if p["side"] == "home" else (as_, hs)
+            p["result"] = "won" if us > them else "lost" if us < them else "push"
         p["graded_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
         p["score"] = f'{g["away_name"]} {g["away_score"]} @ {g["home_name"]} {g["home_score"]}'
 
@@ -474,7 +526,10 @@ SPOTS = {   # key: (label, units, leagues)
     "blowout":   ("💥 Blew somebody out last week", 0.5, ("nfl", "ncaaf")),      # +8 / +9%, both sports
     "engine":    ("🧠 Engine likes it, the line moved away", 0.5, ("ncaaf",)),  # college +8%, the cutoffs around it too
     "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
+    "euro_under": ("🌍 Europe morning NFL under", 0.5, ("nfl",)),               # 17-9 since 2018 - live test (10/4)
 }
+EURO_QUIT = (15, 0.5)                    # the owner, 10/4: "half unit with the quit rule" - under 50% after 15 = it's off
+EURO_FROM_PT = 18                        # posted the night before (6 PM PT on): the line's set, nobody moves it overnight
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh
 # everything, never automatically take a pick because the numbers back one thing"). A spot only ADDS weight to the
 # engine's own full read (ratings, form, rest, injuries...); the fades take weight away. An early play posts only when
@@ -935,8 +990,10 @@ def html(st, E, now=None, show_units=None):
     def row(p):
         t = _t(p["start"]).astimezone(PT)
         o = p["odds"]
-        return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>ML</small> <em>{"+" if o > 0 else ""}{o}</em>'
-                f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
+        tot = p.get("market") == "total"                     # 🌍 a total: 'Under 46.5 (-110)', the game below
+        return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small> '
+                f'<em>{"+" if o > 0 else ""}{o}</em>'
+                f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                 + (f'<span>{E(p.get("why") or SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "") +
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
@@ -1016,13 +1073,15 @@ def gameday_html(st, games, E, now=None, show_units=None):
         if p.get("result") and p.get("graded_at") and now - _t(p["graded_at"]) > timedelta(hours=GRADED_STAYS_H):
             continue
         g = games.get(p["game_id"]) or {}
-        now_odds = _int(g.get(f"ml_{p['side']}")) if not p.get("result") and g.get("status") == "pre" else None
+        now_odds = _int(g.get(f"ml_{p['side']}")) if not p.get("result") and g.get("status") == "pre" \
+            and p.get("market") != "total" else None             # (a total: no price-move call)
         mark = {"won": "✅", "lost": "❌", "push": "➖"}.get(p.get("result"), "")
         call = mark or label(p, now_odds)
         am = lambda o: f"+{o}" if o > 0 else str(o)
         price = f'<s>{am(p["odds"])}</s>' + (f'<em>➜</em><b>{am(now_odds)}</b>' if now_odds is not None else "")
-        rows.append(f'<div class="egr"><div class="egl"><b>{E(p["team"])}</b> <small>ML</small>'
-                    f'<span>vs {E(p["opp"])} · {E(p["league"].upper())}</span>'
+        tot = p.get("market") == "total"
+        rows.append(f'<div class="egr"><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
+                    f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                     f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
