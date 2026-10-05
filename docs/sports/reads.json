@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T18:05Z",
+ "updated": "2026-10-05T18:49Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -227,7 +227,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.444,
+    "p": 0.447,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -243,9 +243,9 @@
     "opp": "Dodgers",
     "market": "spread",
     "line": 1.5,
-    "odds": -195,
-    "p": 0.613,
-    "win_p": 0.496,
+    "odds": -196,
+    "p": 0.609,
+    "win_p": 0.492,
     "reasons": []
    }
   },
@@ -255,7 +255,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.361,
+    "p": 0.368,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -271,9 +271,9 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
-    "p": 0.693,
-    "win_p": 0.476,
+    "odds": -230,
+    "p": 0.68,
+    "win_p": 0.461,
     "reasons": [
      "hotter recent form",
      "opponent drama: trade drama"
@@ -357,21 +357,17 @@
    "start": "2026-10-06T23:00Z",
    "away": "Senators",
    "home": "Red Wings",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Senators",
-    "opp": "Red Wings",
+    "team": "Red Wings",
+    "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.71,
-    "win_p": 0.495,
-    "reasons": [
-     "hotter recent form",
-     "hotter goalie",
-     "the stronger team"
-    ]
+    "odds": -270,
+    "p": 0.718,
+    "win_p": 0.506,
+    "reasons": []
    }
   },
   {
@@ -392,17 +388,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Wild",
-    "opp": "Sabres",
+    "team": "Sabres",
+    "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.715,
-    "win_p": 0.501,
+    "odds": -258,
+    "p": 0.712,
+    "win_p": 0.499,
     "reasons": [
-     "hotter recent form",
-     "hotter goalie",
-     "opponent drama: family/personal"
+     "sharp money moving this way",
+     "the stronger team"
     ]
    }
   },
@@ -412,7 +407,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.372,
+    "p": 0.378,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -421,16 +416,16 @@
    "start": "2026-10-06T23:30Z",
    "away": "Islanders",
    "home": "Rangers",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Islanders",
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -225,
-    "p": 0.673,
-    "win_p": 0.454,
+    "odds": -205,
+    "p": 0.662,
+    "win_p": 0.442,
     "reasons": [
      "opponent drama: trade drama"
     ]
@@ -458,7 +453,7 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -230,
     "p": 0.663,
     "win_p": 0.442,
     "reasons": []
@@ -501,8 +496,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.407,
-    "tie": 0.296,
+    "p": 0.4,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -513,15 +508,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Golden Knights",
-    "opp": "Kraken",
-    "market": "ml",
-    "line": null,
-    "odds": -175,
-    "p": 0.624,
-    "win_p": 0.624,
+    "team": "Kraken",
+    "opp": "Golden Knights",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -170,
+    "p": 0.617,
+    "win_p": 0.394,
     "reasons": [
-     "the stronger team"
+     "hotter recent form",
+     "hotter goalie"
     ]
    }
   },
