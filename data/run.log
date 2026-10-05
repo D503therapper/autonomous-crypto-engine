@@ -7954,3 +7954,34 @@ error: failed to push some refs to 'https://github.
 [2026-10-05 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 07:06 UTC] crypto/hold_btc  equity $511.00 (+2.2%) 1 open  market UP
    social heat top: PENGU 37 (37/0/0), BTC 32 (32/0/0), FET 29 (29/0/0), PONS 28 (21/0/7), GRASS 24 (24/0/0)
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +7.7%, 4 volume hikes, 56% quiet hours @ 5.0381
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +10.9%, 3 volume hikes, 75% quiet hours @ 0.27046
+   footprint: CRO: footprint 3/4 (drift+quiet+rising_lows) 48h +5.1%, 0 volume hikes, 69% quiet hours @ 0.0695
+   footprint: BUY NEAR (footprint 3/4 drift+hikes+rising_lows): NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +7.7%, 4 volume hikes, 56% quiet hours @ 5.0381
+   >> crypto/mover: BUY $192.80 of NEAR @ 5.04314 (footprint 3/4 drift+hikes+rising_lows)
+   dex screen: REJECT RAIL@ethereum liq $1,746,175 - 24h volume $86,197 < $100,000
+   dex screen: REJECT SARP@solana liq $1,557,219 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT OCTO@solana liq $162,804 - holders unknown; lp holders unknown; rugcheck lp locked 38% < 95%
+   dex screen: REJECT BUTTCOIN@solana liq $828,327 - lp holders unknown; rugcheck lp locked 69% < 95%
+   dex screen: REJECT AGL@ethereum liq $1,721,724 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 53%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT IOF@solana liq $1,905,529 - holders unknown; lp holders unknown; rugcheck score 53
+   dex screen: REJECT MSTRC@base liq $3,015 - liquidity $3,015 < $100,000; 24h volume $19 < $100,000; no buys or no sells in 24h
+   dex re-screen: BATONROGUE@solana:8nKp4Jke flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT ENA@ethereum liq $3,213,238 - is_mintable; top-10 holders 60%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT POD@base liq $5,829,128 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 95%
+   dex screen: REJECT POD@solana liq $104,822 - lp holders unknown; rugcheck lp locked 45% < 95%
+   dex scanner: 3,014 pools (solana 2,257 / base 492 / ethereum 265), refresh cycle 124s (hot 120s), 3021 calls (108 feed, 429s 0, failed 0), 87,390 refreshed (2376 no pair), +80 added / -72 dropped (dead 6, stale 0, cap 66), movers 2 + warming 19 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-05 08:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-05 08:06 UTC] crypto/mover     equity $435.54 (-12.9%) 2 open  market UP
+[2026-10-05 08:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 08:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 08:06 UTC] crypto/social_heat equity $518.93 (+3.8%) 1 open  market UP
+[2026-10-05 08:06 UTC] crypto/breakout10 equity $520.55 (+4.1%) 2 open  market UP
+[2026-10-05 08:06 UTC] crypto/momentum  equity $488.50 (-2.3%) 4 open  market UP
+[2026-10-05 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 08:06 UTC] crypto/hold_btc  equity $511.49 (+2.3%) 1 open  market UP
+   social heat top: PONS 38 (35/0/4), BTC 37 (37/0/0), ADA 29 (29/0/0), PENGU 27 (27/0/0), NEAR 24 (24/0/0)
