@@ -493,7 +493,8 @@ def engine_weights():
                              "MLB doubleheader game 2 (the Dog of the Day's screen)", "hockey sharp dog (line to it + money over tickets)",
                              "fades: ice cold, coach's first season (cancels if both new), losing streak, "
                              "key player out, East home dog vs a West favorite, money running away"],
-        "early plays": ("every one that clears the bar, posted the moment it's found (checked every hour), one ping each"
+        "early plays": ("every one that clears the bar, posted the moment it's found (checked every hour), "
+                        + ("one ping each" if se.PINGS else "no phone ping - it's on the dashboard")   # (10/4: no pings)
                         if se.SPOT_MAX_WEEK is None else f"max {se.SPOT_MAX_WEEK} a week") + f", dogs +{se.SPOT_DOG[0]}..+{se.SPOT_DOG[1]} only (dogs early, "
                        "favorites on game day), the spots + believed leads + college rain / snow weighed, both teams' "
                        "injury reports checked; 1u off a bye, ½u the other spots" + ("" if se.SPOT_MIN_WEEK else
@@ -712,16 +713,18 @@ def _lock_note(day, day_picks):
     return f'<div class="drop leanday">🔒 {E(sports_lingo.lock_note(day))}</div>'
 
 
-def _cards(day, day_picks, cards_by_kind, gone=None, after_lock="", day_all=None):
+def _cards(day, day_picks, cards_by_kind, gone=None, after_lock="", day_all=None, lean_day=False):
     """The day's cards in board order, with the no-dog note right after the Lock of the Day. gone: {kind: ms} - a
-    graded card's 3 hours are up at that moment, and the page takes it down itself (no waiting on a rebuild)."""
+    graded card's 3 hours are up at that moment, and the page takes it down itself (no waiting on a rebuild).
+    lean_day: the leans-only note is going up top - it already says no Lock, no value picks, so the Lock / Dog notes
+    stay off (10/5 sweep: three notes in a row said the same thing)."""
     out = ""
     straight = sum(p["kind"] in ("lock", "dog", "play", "lean", "solo", "night") and p.get("status") == "open"
                    for p in day_picks)
     last_play = max((i for i, (k, *_) in enumerate(cards_by_kind) if k in ("lock", "dog", "play", "lean")), default=None)
     for i, (k, card, *g) in enumerate(cards_by_kind):        # (k, card[, when it comes down]) - two night football
         g = g[0] if g else (gone or {}).get(k)               # picks share a kind, so each card carries its own
-        if k == "lock":
+        if k == "lock" and not lean_day:
             card += _dog_note(day, day_picks if day_all is None else day_all)
         out += f'<div class="gn" data-gone="{g}">{card}</div>' if g else card
     byo = ('<div class="byo">🧩 Build your own parlay from today\'s plays.</div>'   # 🧩 the owner, 10/1: no posted
@@ -729,7 +732,8 @@ def _cards(day, day_picks, cards_by_kind, gone=None, after_lock="", day_all=None
     no_lock = not any(k == "lock" for k, *_ in cards_by_kind)                       # THE TOP of the day's board
     whole = day_picks if day_all is None else day_all     # (10/4: the notes read the WHOLE day - a graded Lock / Dog
     #                                                       that left the board after its 3 hours read as 'No Lock today')
-    return (byo + _small_slate(day) + after_lock + _lock_note(day, whole) + (_dog_note(day, whole) if no_lock else "")   # 🎯 WE GOT IN
+    notes = "" if lean_day else _lock_note(day, whole) + (_dog_note(day, whole) if no_lock else "")
+    return (byo + _small_slate(day) + after_lock + notes                                          # 🎯 WE GOT IN
             + out)                                         # EARLY on game day: just ABOVE the Lock of
     #                                                      the Day (the owner, 9/30) - its own box
 
@@ -1525,11 +1529,13 @@ def render(picks, model, games, series, start_bank, updated_ms):
         print(f"early box failed: {e}")
         early = early_today = ""
     day_all = [p for p in picks if p["date"] == today]       # every pick that day, graded and gone included
+    lean_day = bool(todays) and all(p.get("lean") for p in day_all if p["status"] != "waiting") \
+        and any(p["status"] != "waiting" for p in todays)    # a leans-only day: ONE note up top says so
     board = _cards(today, todays, [(p["kind"], _pick_card(p["kind"], p), gone_ms(p)) for p in active],
-                   after_lock=early_today, day_all=day_all) if active else early_today + drop
+                   after_lock=early_today, day_all=day_all, lean_day=lean_day) if active else early_today + drop
     if active and all(gone_ms(p) for p in active):          # every card graded: the 8 AM note waits, ready to show
         board += f'<template id="dropnote">{drop}</template>'   # the moment the last one's 3 hours are up
-    if todays and all(p.get("lean") for p in day_all if p["status"] != "waiting") and any(p["status"] != "waiting" for p in todays):
+    if lean_day:
         board = _lean_note(today) + board                    # a leans-only day says so up top
     elif active:
         board = _short_note(today, day_all) + board          # a short board says so too

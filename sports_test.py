@@ -8990,6 +8990,66 @@ def test_slate_check_knows_an_exhibition_is_skipped_on_purpose():
         sports.SLATE_PATH = keep
 
 
+def test_10_5_sweep_the_europe_under_takes_no_side_and_the_notes_say_it_once():
+    """The 10/5 bug sweep of the 10/4 pieces. (1) The 🌍 Europe under (side "under") read as a SIDE in the board's
+    'never against our early play' check - both teams of the London game would have been dropped from the board; and in
+    the early post it shared the one-per-game set with the side plays, so an under blocked a spot play on the same game
+    (and the other way round) - they're different bets. (2) With more open early cards than wordings, every extra card
+    fell back to the FIRST wording (four cards said 'Our numbers like X more than +Y does') - the least-used one now.
+    (3) The brain said early plays ping ('one ping each') after the owner turned the pings off. (4) A leans-only day
+    put up three notes saying the same thing (leans only / no Lock / no Dog) - one note."""
+    import sports_early as se
+    import sports_dashboard as dsh
+    under = {"game_id": "nfl:9", "side": "under", "market": "total", "line": 44.5, "odds": -108, "result": None}
+    side = {"game_id": "nfl:8", "side": "away", "team": "Jaguars", "odds": 150, "result": None}
+    assert sports.early_sides([under, side, {**side, "game_id": "nfl:7", "result": "won"}]) == {"nfl:8": "away"}
+    # the early post: a side play already on the London game - the under still posts (and it never blocks a side)
+    g = {"id": "nfl:9", "league": "nfl", "intl": "1", "country": "England", "city": "London", "start": "2026-10-11T13:30Z",
+         "status": "pre", "total": "44.5", "under_odds": "-108", "away_name": "Eagles", "home_name": "Jaguars", "stype": "2"}
+    keep = (se.ON, se.scan, se.pick_spots, se.min_one, se.spot_scan, se.with_book_lines)
+    path = os.path.join(tempfile.mkdtemp(), "early.json")
+    se.save({"picks": [dict(side, game_id="nfl:9", team="Jaguars", side="home", start="2026-10-11T13:30Z", league="nfl")]}, path)
+    try:
+        se.ON, se.scan, se.pick_spots, se.min_one, se.spot_scan = True, lambda *a, **k: [], lambda *a, **k: [], \
+            lambda *a, **k: [], lambda *a, **k: []
+        se.with_book_lines = lambda games, *a, **k: games
+        new = se.post({"nfl:9": g}, {"params": {}}, datetime(2026, 10, 11, 2, 0, tzinfo=timezone.utc), path=path)
+        assert len(new) == 1 and new[0]["side"] == "under" and new[0]["market"] == "total", new
+        assert len(se.load(path)["picks"]) == 2
+        assert se.post({"nfl:9": g}, {"params": {}}, datetime(2026, 10, 11, 2, 30, tzinfo=timezone.utc), path=path) == []
+    finally:
+        se.ON, se.scan, se.pick_spots, se.min_one, se.spot_scan, se.with_book_lines = keep
+    # (2) the least-used wording
+    st = {"picks": [{"why_t": 0, "result": None}, {"why_t": 1, "result": None}, {"why_t": 2, "result": None},
+                    {"why_t": 0, "result": None}, {"why_t": 2, "result": "won"}]}
+    assert se.pick_wording({"whys": ["a", "b", "c"]}, st)["why_t"] == 1
+    assert se.pick_wording({"whys": ["a", "b", "c"]}, {"picks": []})["why_t"] == 0
+    # (3) the brain: no pings for early plays
+    assert se.PINGS is False and "one ping each" not in dsh.engine_weights()["early plays"]
+    # (4) a leans-only day: one note
+    lean = {"date": "2026-10-05", "kind": "lean", "status": "open", "lean": True, "legs": [{"game_id": "x"}]}
+    cards = [("lean", "<card/>", None)]
+    one = dsh._cards("2026-10-05", [lean], cards, day_all=[lean], lean_day=True)
+    three = dsh._cards("2026-10-05", [lean], cards, day_all=[lean])
+    assert "🔒" not in one and "🐺" not in one and "<card/>" in one
+    assert "🔒" in three and "🐺" in three                               # (the notes still show when the lean note isn't up)
+    # (5) the ledger's early row carries the price (the brain's green-day line said "Jaguars (None)")
+    e = {"game_id": "nfl:1", "side": "away", "team": "Jaguars", "odds": 120, "spot": "best", "start": "2026-10-04T17:00Z",
+         "result": "won", "graded_at": "2026-10-04T20:27Z"}
+    row = sports.units_ledger([], [e])["rows"][0][0]
+    assert row["legs"][0]["odds"] == 120
+    assert "Jaguars (+120)" in dsh.green_day([], "2026-10-04", 0, 3, 0, early=[e])
+    # (6) the game-day box on the under: the number we got -> the number now, never a struck-out price and nothing
+    u = dict(under, start="2026-10-11T13:30Z", team="Under 44.5", opp="Eagles @ Jaguars", league="nfl", spot="euro_under")
+    keep_on, se.ON = se.ON, True
+    try:
+        box = se.gameday_html({"picks": [u]}, {"nfl:9": dict(g, total="42.5")}, lambda x: x,
+                              now=datetime(2026, 10, 11, 12, 0, tzinfo=timezone.utc))
+    finally:
+        se.ON = keep_on
+    assert "<s>44.5 (-108)</s>" in box and "<b>42.5</b>" in box and "beat the number" in box, box
+
+
 def test_a_board_crash_never_loses_the_hours_run():
     """10/3 sweep: run() called the board builder bare - one KeyError in post_board (new code lands there every day)
     and the whole hourly run died: no grades saved, no dashboard rebuild, no tennis slate, and nothing but a red run to

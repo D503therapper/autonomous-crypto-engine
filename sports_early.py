@@ -20,6 +20,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 import sports_data as sd
+import sports_intl
 import sports_model as sm
 
 PT = ZoneInfo("America/Los_Angeles")
@@ -319,8 +320,10 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     if not ON:
         return []
     games = with_book_lines(games, st, now, lines)
-    have = {p["game_id"] for p in st["picks"]} | {p.get("game_id") for p in st.get("pulled") or []}   # (10/2 audit:
-    new = []                                         # a pulled play never comes back)
+    have = {p["game_id"] for p in st["picks"] if p.get("market") != "total"} \
+        | {p.get("game_id") for p in st.get("pulled") or []}   # (10/2 audit: a pulled play never comes back)
+    have_tot = {p["game_id"] for p in st["picks"] if p.get("market") == "total"}   # (10/5 sweep: the 🌍 under is its
+    new = []                                         # own bet on the total - a side play on the same game never blocks it, nor it them)
     for c in scan(games, model, now, injuries, trap):
         if c["game_id"] in have:
             continue                                 # one early dog per game, posted = final
@@ -380,10 +383,10 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         print(f"   early spots failed: {str(e)[:120]}")
     try:                                                     # 🌍 the Europe morning NFL under (the owner, 10/4)
         for c in euro_unders(games, st, now):
-            if c["game_id"] in have:
+            if c["game_id"] in have_tot:
                 continue
             st["picks"].append(c)
-            have.add(c["game_id"])
+            have_tot.add(c["game_id"])
             new.append(c)
     except Exception as e:                                   # noqa: BLE001 - never breaks the engine
         print(f"   europe under failed: {str(e)[:120]}")
@@ -636,8 +639,10 @@ def pick_wording(c, st):
     ws = c.pop("whys", None)
     if not ws:
         return c
-    used = {p.get("why_t") for p in st.get("picks", []) if not p.get("result")}
-    k = next((i for i in range(len(ws)) if i not in used), 0)
+    used = [p.get("why_t") for p in st.get("picks", []) if not p.get("result")]
+    k = min(range(len(ws)), key=lambda i: (used.count(i), i))   # the least-used wording (10/5 sweep: with more open
+    #                                                             cards than wordings, every extra card fell back to
+    #                                                             the first one - four cards said the same line)
     c.update(why=ws[k], why_t=k)
     return c
 
@@ -1114,6 +1119,11 @@ def gameday_html(st, games, E, now=None, show_units=None):
         am = lambda o: f"+{o}" if o > 0 else str(o)
         price = f'<s>{am(p["odds"])}</s>' + (f'<em>➜</em><b>{am(now_odds)}</b>' if now_odds is not None else "")
         tot = p.get("market") == "total"
+        if tot:                                              # 🌍 the under: the number we got -> the number now (10/5 sweep:
+            tn = sports_intl._f(g.get("total")) if not p.get("result") and g.get("status") == "pre" else None   # the row
+            price = f'<s>{p["line"]:g} ({am(p["odds"])})</s>' + (f'<em>➜</em><b>{tn:g}</b>' if tn is not None else "")
+            if not mark and tn is not None and tn != p["line"]:   # showed a struck-out price and nothing after the arrow)
+                call = "🔥 we beat the number" if tn < p["line"] else "👀 the number went up"
         rows.append(f'<div class="egr"><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
                     f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                     f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
