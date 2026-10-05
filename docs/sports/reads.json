@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T14:29Z",
+ "updated": "2026-10-05T15:01Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -7,8 +7,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.515,
-    "tie": 0.117,
+    "p": 0.531,
+    "tie": 0.116,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -16,18 +16,20 @@
    "start": "2026-10-05T21:00Z",
    "away": "White Sox",
    "home": "Guardians",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
-    "team": "White Sox",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -180,
-    "p": 0.59,
-    "win_p": 0.401,
+    "team": "Guardians",
+    "opp": "White Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -149,
+    "p": 0.607,
+    "win_p": 0.607,
     "reasons": [
-     "hotter recent form"
+     "the stronger team",
+     "better starting pitcher",
+     "hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"
     ]
    }
   },
@@ -110,8 +112,8 @@
    "start": "2026-10-05T23:30Z",
    "away": "Senators",
    "home": "Bruins",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Bruins",
     "opp": "Senators",
@@ -138,8 +140,8 @@
    "start": "2026-10-06T00:00Z",
    "away": "Sharks",
    "home": "Stars",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Sharks",
     "opp": "Stars",
@@ -160,7 +162,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.459,
+    "p": 0.457,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -169,19 +171,20 @@
    "start": "2026-10-06T00:00Z",
    "away": "Yankees",
    "home": "Rays",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Rays",
     "opp": "Yankees",
     "market": "spread",
     "line": 1.5,
     "odds": -172,
-    "p": 0.596,
-    "win_p": 0.477,
+    "p": 0.598,
+    "win_p": 0.48,
     "reasons": [
      "the stronger team",
-     "hotter recent form"
+     "hotter recent form",
+     "opponent missing key players"
     ]
    }
   },
@@ -191,7 +194,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Saints",
-    "p": 0.486,
+    "p": 0.484,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -200,16 +203,16 @@
    "start": "2026-10-06T00:15Z",
    "away": "Falcons",
    "home": "Saints",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Saints",
     "opp": "Falcons",
-    "market": "ml",
-    "line": null,
-    "odds": -120,
-    "p": 0.508,
-    "win_p": 0.508,
+    "market": "spread",
+    "line": -1.5,
+    "odds": -108,
+    "p": 0.507,
+    "win_p": 0.505,
     "reasons": [
      "the stronger team",
      "revenge game",
@@ -401,7 +404,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Troy",
-    "p": 0.72,
+    "p": 0.715,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -419,7 +422,7 @@
     "line": -10.5,
     "odds": -108,
     "p": 0.501,
-    "win_p": 0.777,
+    "win_p": 0.772,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
