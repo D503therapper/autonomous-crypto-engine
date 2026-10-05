@@ -8468,3 +8468,19 @@ error: faile
 [2026-10-05 19:07 UTC] stocks/trend     equity $488.75 (-2.3%) 3 open  market UP
 [2026-10-05 19:07 UTC] stocks/hold_spy  equity $504.05 (+0.8%) 1 open  market UP
    social heat top: PENGU 46 (32/0/14), PONS 35 (24/0/11), BTC 35 (35/0/0), NEAR 29 (29/0/0), QNT 27 (27/0/0)
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +9.0%, 4 volume hikes, 44% quiet hours @ 5.1476
+   footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +8.0%, 3 volume hikes, 54% quiet hours @ 0.2651
+   dex screen: REJECT $WIF@solana liq $180,751 - top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT CBETH@base liq $560,916 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT ROBA@base liq $116,715 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT AEON@base liq $509,023 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 41%; lp locked 0% < 95%
+   dex screen: REJECT RLB@ethereum liq $2,578,357 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 78%
+   dex screen: REJECT NVDAON@ethereum liq $361,285 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: REJECT XDP@base liq $1,822,369 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT PUMPCAT@solana liq $106,052 - lp holders unknown; rugcheck lp locked 92% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ORCA@solana liq $843,286 - mint authority; top-10 holders 61%; lp holders unknown
+   dex screen: REJECT WDOGE@ethereum liq $3,149,206 - creator_percent 99%; top-10 holders 100%
+   dex screen: REJECT WDOGE@ethereum liq $3,207,906 - creator_percent 99%; top-10 holders 100%
+   dex screen: REJECT FREN PET@base liq $1,253,459 - goplus partial data: cannot_sell_all unknown; is_blacklisted; is_whitelisted; buy tax unknown; sell tax unknown; top-10 holders 81%
+   dex screen: REJECT RAY@solana liq $4,390,941 - top-10 holders 76%
