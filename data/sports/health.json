@@ -1,38 +1,32 @@
 {
- "at": "2026-10-05T09:44Z",
+ "at": "2026-10-05T09:45Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Svrcina vs Harris: no points for 2645s",
-  "live tennis scores: tennis Kotov vs Damm: no points for 2645s",
-  "live tennis scores: tennis Nishioka vs Shevchenko: no points for 2645s",
-  "live tennis scores: tennis Schoolkate vs Sweeny: no points for 1937s",
-  "live tennis scores: tennis Zhang Tianhui vs Jacquet: no points for 1997s",
-  "live tennis scores: tennis Vukic vs Cui Jie: no points for 920s",
-  "live tennis scores: tennis Sasnovich vs Yao Xinxin: no points for 2645s",
-  "live tennis scores: tennis Micic vs Akugue: no points for 2645s",
-  "live tennis scores: tennis Bolkvadze vs Tkacheva: no points for 2645s",
-  "live tennis scores: tennis Falkowska vs Werner: no points for 2645s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (38s)",
+  "live watcher fresh (90s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 10 of 14 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 14 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 4h ago",
-  "engine ran 22 min ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-05T09:45Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-05T09:44Z",
    "fixes": [],
@@ -740,13 +734,6 @@
    "at": "2026-10-03T04:12Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-03T02:40Z",
-   "fixes": [],
-   "problems": [
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
-   ]
   }
  ]
 }
