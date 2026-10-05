@@ -7251,6 +7251,28 @@ def test_question_box_closes_quietly_when_the_credit_runs_out():
     assert "/credit balance/i.test" in src and "The question box is closed for now." in src
 
 
+def test_question_box_comes_off_when_the_credit_runs_out():
+    """10/5, the owner: "you'll know when the credits run out and you'll remove the question box?" - the Worker flags
+    it the first time the API says the credit's gone; the hourly run reads /askstatus and the page drops the box (the
+    live-bet alerts on the same Worker keep working)."""
+    import sports_dashboard as sdb, tempfile as _t
+    keep_p, keep_u = sdb.ASK_CLOSED_PATH, sdb._ask_url
+    try:
+        sdb.ASK_CLOSED_PATH = os.path.join(_t.mkdtemp(), "a.json")
+        sdb._ask_url = lambda: "https://d503-ask.x.workers.dev"
+        assert sdb.ask_closed() is False
+        assert sdb.refresh_ask_status(get=lambda u: {"closed": False}) is False and not sdb.ask_closed()
+        assert sdb.refresh_ask_status(get=lambda u: {"closed": True}) is True and sdb.ask_closed()
+        assert sdb.refresh_ask_status(get=lambda u: (_ for _ in ()).throw(OSError("down"))) is None and sdb.ask_closed()
+    finally:
+        sdb.ASK_CLOSED_PATH, sdb._ask_url = keep_p, keep_u
+    src = open("sports_dashboard.py").read()
+    assert 'ask_box = "" if ask_closed() else' in src and "{ask_box}" in src
+    w = open("workers/ask/src/index.js").read()
+    assert 'path === "/askstatus"' in w and 'env.LOG.put("ask_closed"' in w
+    assert "sports_dashboard.refresh_ask_status()" in open("sports.py").read()
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
