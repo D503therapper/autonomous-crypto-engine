@@ -1,11 +1,9 @@
 {
- "at": "2026-10-05T00:39Z",
+ "at": "2026-10-05T00:40Z",
  "fixes": [],
- "problems": [
-  "sources down (the backups took over): betrivers:nhl:1028409880 HTTP 404"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (31s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,6 +11,7 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
@@ -24,6 +23,11 @@
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-05T00:40Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-05T00:39Z",
    "fixes": [],
@@ -691,14 +695,6 @@
    "problems": [
     "live tennis scores: tennis Kostovic vs Ruzic: no points for 730s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-02T17:35Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "workflow failed: sports 2026-10-02T17:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37039344253"
    ]
   }
  ]
