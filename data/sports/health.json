@@ -1,18 +1,9 @@
 {
  "at": "2026-10-05T04:27Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Basilashvili vs Ilagan: no points for 1006s",
-  "live tennis scores: tennis Draxl vs Gaston: no points for 887s",
-  "live tennis scores: tennis Mochizuki vs Daniel: no points for 911s",
-  "live tennis scores: tennis Galarneau vs Safiullin: no points for 770s",
-  "live tennis scores: tennis Cina vs Linang: no points for 666s",
-  "live tennis scores: tennis Dougaz vs Sonego: no points for 911s",
-  "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2661s",
-  "live tennis scores: tennis Sramkova vs Ibragimova: no points for 2135s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (201s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,19 +11,24 @@
   "slate check: all 20 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 8 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 7h ago",
   "simulator ran 7h ago",
-  "engine ran 19 min ago",
+  "engine ran 20 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-05T04:27Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-05T04:27Z",
    "fixes": [],
@@ -714,11 +710,6 @@
    "problems": [
     "engine last started 116 min ago (GitHub skipped its hourly runs) - restarted"
    ]
-  },
-  {
-   "at": "2026-10-02T22:51Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
