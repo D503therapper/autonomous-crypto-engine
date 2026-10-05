@@ -8063,3 +8063,32 @@ error: failed to push some refs to 'https://github.
 [2026-10-05 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 10:05 UTC] crypto/hold_btc  equity $510.24 (+2.0%) 1 open  market UP
    social heat top: FET 35 (35/0/0), PUMP 29 (29/0/0), PENGU 27 (27/0/0), QNT 24 (24/0/0), PONS 23 (21/0/2)
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +10.6%, 3 volume hikes, 69% quiet hours @ 0.27163
+   footprint: CRO: footprint 3/4 (drift+quiet+rising_lows) 48h +5.1%, 0 volume hikes, 65% quiet hours @ 0.06924
+   dex screen: REJECT AERO@base liq $43,825,365 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 67%
+   dex screen: REJECT QNT@ethereum liq $967,829 - is_mintable; lp locked 0% < 95%
+   dex screen: PASS FARTCOIN @solana liq $9,111,797
+   dex screen: REJECT HYPE@solana liq $1,873,253,866 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT HBAR@solana liq $1,013,806,927 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT ENA@ethereum liq $3,188,091 - is_mintable; top-10 holders 61%
+   dex screen: REJECT BOME@solana liq $22,954,246 - top-10 holders 72%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SOL@base liq $660,814 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 84%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: MOVR: +5.4% in 15 min on 6.8x volume @ 2.391 spread 1.39%
+   dex screen: PASS HI@solana liq $100,544
+   dex screen: REJECT SNDK@solana liq $104,026 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT TRUMP@ethereum liq $102,793 - is_mintable; top-10 holders 46%
+   [alert] 🚀 MEMEAGENCY is up 2.0x: MEMEAGENCY (solana) is up 2.0x since the engine bought it (paper value $32). Contract: CyChQHfYv6Cn8rP1myNFhdVCGq25Fcah6wzTkiu9pump
+   dex scanner: 2,999 pools (solana 2,140 / base 550 / ethereum 309), refresh cycle 119s (hot 115s), 3141 calls (110 feed, 429s 0, failed 0), 90,930 refreshed (3295 no pair), +75 added / -74 dropped (dead 5, stale 0, cap 69), movers 1 + warming 18 -> queued 3, screened 3 (passed 0), bought 0
+   dex re-screen: MEMEAGENCY@solana:CyChQHfY flagged once (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+[2026-10-05 11:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-05 11:05 UTC] crypto/mover     equity $428.64 (-14.3%) 2 open  market UP
+[2026-10-05 11:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 11:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 11:05 UTC] crypto/social_heat equity $517.49 (+3.5%) 1 open  market UP
+[2026-10-05 11:05 UTC] crypto/breakout10 equity $512.44 (+2.5%) 2 open  market UP
+[2026-10-05 11:05 UTC] crypto/momentum  equity $487.83 (-2.4%) 4 open  market UP
+[2026-10-05 11:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 11:05 UTC] crypto/hold_btc  equity $510.70 (+2.1%) 1 open  market UP
+   social heat top: PENGU 34 (32/0/2), PONS 30 (29/0/1), FET 27 (27/0/0), ONDO 24 (24/0/0), STONK 21 (21/0/0)
