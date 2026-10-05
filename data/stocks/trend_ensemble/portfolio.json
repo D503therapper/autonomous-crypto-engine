@@ -1,5 +1,5 @@
 {
-  "cash": 50.0,
+  "cash": 50.55559991050595,
   "positions": {
     "AMD": {
       "qty": 0.14340416265032704,
@@ -28,15 +28,6 @@
       "took_profit": false,
       "opened": 1790602200000
     },
-    "XLV": {
-      "qty": 0.5287583981704961,
-      "entry": 170.2100625,
-      "cost": 90.00000000000001,
-      "peak": 170.2100625,
-      "stop": 0.0,
-      "took_profit": false,
-      "opened": 1790602200000
-    },
     "PLTR": {
       "qty": 0.48251494730355765,
       "entry": 186.52271914672852,
@@ -45,11 +36,20 @@
       "stop": 0.0,
       "took_profit": false,
       "opened": 1790602200000
+    },
+    "QQQ": {
+      "qty": 0.11603739758141231,
+      "entry": 752.4910477294922,
+      "cost": 87.31710288184058,
+      "peak": 752.4910477294922,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1791207000000
     }
   },
   "peak_equity": 506.68042615865807,
   "cooldown": {},
   "halted": false,
   "halt_until": 0,
-  "last_rebalance_week": "2026-40"
+  "last_rebalance_week": "2026-41"
 }

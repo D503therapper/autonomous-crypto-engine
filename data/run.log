@@ -8179,3 +8179,37 @@ error: faile
    dex screen: PASS FWA@ethereum liq $952,779
    >> dex/dex_hunter: BUY $15.25 of CLAUS@ethereum:0xa606d4 @ 0.001721 (dex tier A momentum 1h +29% 6h +52% buys/sells 32/26 impact 0.01%)
    dex scanner: bought CLAUS@ethereum on a refresh (1h +29%, buys/sells 32/26)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-05 13:57 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-05 13:57 UTC] crypto/mover     equity $426.83 (-14.6%) 2 open  market UP
+[2026-10-05 13:57 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 13:57 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 13:57 UTC] crypto/social_heat equity $515.95 (+3.2%) 1 open  market UP
+[2026-10-05 13:57 UTC] crypto/breakout10 equity $510.03 (+2.0%) 2 open  market UP
+[2026-10-05 13:57 UTC] crypto/momentum  equity $492.47 (-1.5%) 4 open  market UP
+[2026-10-05 13:57 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 13:57 UTC] crypto/hold_btc  equity $512.08 (+2.4%) 1 open  market UP
+   >> stocks/rsi2: SELL $167.15 of IWM @ 280.44, P/L $+0.49 (mean reversion: bounced or time limit)
+   >> stocks/rsi2: BUY $169.34 of LLY @ 1162.68 (entry)
+[2026-10-05 13:57 UTC] stocks/rsi2      equity $507.93 (+1.6%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): TLT 0, IEF 3, LLY 4 BUY, XLV 4 BUY
+[2026-10-05 13:57 UTC] stocks/dual_momentum equity $506.92 (+1.4%) 2 open  market UP
+   >> stocks/trend_ensemble: SELL $87.87 of XLV @ 166.187, P/L $-2.13 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: BUY $87.32 of QQQ @ 752.491 (trend_ensemble: entry 20%)
+[2026-10-05 13:57 UTC] stocks/trend_ensemble equity $505.51 (+1.1%) 5 open  market UP
+   >> stocks/rotation10: SELL $228.03 of QQQ @ 751.739, P/L $+3.03 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: SELL $225.31 of PLTR @ 189.12, P/L $-3.44 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: BUY $226.98 of MSFT @ 528.379 (entry)
+   >> stocks/rotation10: BUY $226.98 of COST @ 918.236 (entry)
+[2026-10-05 13:57 UTC] stocks/rotation10 equity $504.17 (+0.8%) 2 open  market UP
+   >> stocks/momentum: BUY $111.75 of QQQ @ 752.491 (entry)
+[2026-10-05 13:57 UTC] stocks/momentum  equity $497.80 (-0.4%) 4 open  market UP
+   >> stocks/trend: BUY $146.31 of AMD @ 630.065 (entry)
+[2026-10-05 13:57 UTC] stocks/trend     equity $487.61 (-2.5%) 3 open  market UP
+[2026-10-05 13:57 UTC] stocks/hold_spy  equity $500.95 (+0.2%) 1 open  market UP
+   social heat top: PENGU 36 (29/0/7), NEAR 27 (27/0/0), QNT 24 (24/0/0), PONS 24 (13/0/10), BTC 21 (21/0/0)
