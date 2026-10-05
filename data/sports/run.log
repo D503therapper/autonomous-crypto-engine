@@ -1,26 +1,3 @@
-totals study: {'nfl': (0.558, True), 'ncaaf': (0.4902, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4821, False)}
-public splits: 90 upcoming games
-self-check: 61 graded picks - we said 54%, they hit 57% (hitting at or above what we said)
-  drama:none: 58 graded, said 54%, hit 60% - hitting at or above what we said
-  market:ml: 56 graded, said 54%, hit 61% - hitting at or above what we said
-  source:pregame: 47 graded, said 53%, hit 62% - hitting at or above what we said
-  label:parlay leg: 38 graded, said 54%, hit 60% - only 38 graded - report only
-  price:-149..-101: 37 graded, said 56%, hit 65% - only 37 graded - report only
-  price:+101..+179: 22 graded, said 52%, hit 46% - only 22 graded - report only
-  league:mlb: 19 graded, said 54%, hit 90% - only 19 graded - report only
-  ctx:game:div: 18 graded, said 54%, hit 56% - only 18 graded - report only (report only: forward-only tag)
-  ctx:game:rival: 15 graded, said 56%, hit 53% - only 15 graded - report only (report only: forward-only tag)
-  label:live: 14 graded, said 57%, hit 43% - only 14 graded - report only
-  league:nhl: 14 graded, said 51%, hit 21% - only 14 graded - report only
-  source:live: 14 graded, said 57%, hit 43% - only 14 graded - report only
-  league:nfl: 13 graded, said 59%, hit 77% - only 13 graded - report only
-  ctx:game:conf: 12 graded, said 53%, hit 50% - only 12 graded - report only (report only: forward-only tag)
-  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  ctx:them:trip1000: 7 graded, said 55%, hit 86% - only 7 graded - report only (report only: forward-only tag)
-  league:ncaaf: 5 graded, said 53%, hit 20% - only 5 graded - report only
-  market:spread: 5 graded, said 54%, hit 20% - only 5 graded - report only
-  ctx:them:east1000: 4 graded, said 56%, hit 100% - only 4 graded - report only (report only: forward-only tag)
-  ctx:them:week3000: 4 graded, said 56%, hit 100% - only 4 graded - report only (report only: forward-only tag)
   label:dog: 4 graded, said 39%, hit 25% - only 4 graded - report only
   label:lock: 4 graded, said 57%, hit 100% - only 4 graded - report only
   ctx:them:west1000: 3 graded, said 54%, hit 67% - only 3 graded - report only (report only: forward-only tag)
@@ -2996,5 +2973,28 @@ tennis study ATP life factors vs current loss 0.6297: experience 0.6304 (-0.74 m
 tennis study WTA: 30299 rated matches, acc 0.6505 (surface ratings alone 0.651), loss 0.6205 vs 0.6196, own weights [0.005, 0.905, -0.002, -0.098, 0.31, 0.028, -0.187]
 tennis study WTA life factors vs current loss 0.6205: experience 0.6159 (+4.62 mnats, z 2.75), age 0.6204 (+0.06 mnats, z 0.07), young_vs_aging 0.6204 (+0.10 mnats, z 0.6), last_match 0.6202 (+0.34 mnats, z 0.34), streaks 0.6209 (-0.38 mnats, z -0.78), first_set 0.6197 (+0.75 mnats, z 1.73), injury 0.6199 (+0.59 mnats, z 1.02), travel 0.6206 (-0.08 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
 tennis odds: 10 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 4 matches
+sync: 130661 games stored, 52 calls, 0 failed, 12s
+odds history: 0 games got odds, 55 calls, 0 failed, 6s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 135 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 3 new drama tags
+PICK AUDIT FLAG 2026-10-03: dog Flyers 110: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-03: lean Rays -135: the card names Aaron Judge. Their as out - he's not on the injury report it was posted with
+beat the close: unit plays 2 of 12 better than the close, avg +0.1 pts
+futures logged: nba 7, nhl 7, nfl 11, ncaaf 12
+question box status not read: HTTP Error 403: Forbidden
+public splits: 33 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (550 players), 138 matched, 0 unmatched
+early value play: UMass +120 (ncaaf, own 55% vs price 44%)
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25944 rated matches, acc 0.6395 (surface ratings alone 0.6415), loss 0.6302 vs 0.6303, own weights [-0.006, 0.828, 0.074, 0.14, 0.424, 0.052, 0.05]
+tennis study ATP life factors vs current loss 0.6302: experience 0.631 (-0.73 mnats, z -0.71), age 0.6267 (+3.50 mnats, z 2.57), young_vs_aging 0.6298 (+0.44 mnats, z 1.07), last_match 0.6276 (+2.64 mnats, z 1.82), streaks 0.6307 (-0.50 mnats, z -0.49), first_set 0.6293 (+0.96 mnats, z 1.54), injury 0.6309 (-0.66 mnats, z -0.95), travel 0.6303 (-0.09 mnats, z -1.17) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30301 rated matches, acc 0.6505 (surface ratings alone 0.651), loss 0.6205 vs 0.6195, own weights [0.005, 0.905, -0.002, -0.098, 0.31, 0.028, -0.192]
+tennis study WTA life factors vs current loss 0.6205: experience 0.616 (+4.46 mnats, z 2.65), age 0.6204 (+0.07 mnats, z 0.09), young_vs_aging 0.6204 (+0.10 mnats, z 0.6), last_match 0.6202 (+0.30 mnats, z 0.31), streaks 0.6209 (-0.41 mnats, z -0.83), first_set 0.6198 (+0.73 mnats, z 1.69), injury 0.6199 (+0.61 mnats, z 1.05), travel 0.6206 (-0.08 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 4 matches
