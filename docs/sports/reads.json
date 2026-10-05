@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T23:01Z",
+ "updated": "2026-10-05T23:47Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -31,129 +31,159 @@
    }
   },
   {
+   "id": "nhl:401892445",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-05T23:00Z",
+   "away": "Flyers",
+   "home": "Lightning",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898388",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-05T23:00Z",
+   "away": "Grizzlies",
+   "home": "Hawks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401914101",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-05T23:00Z",
+   "away": "Knicks",
+   "home": "76ers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401908947",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-05T23:00Z",
+   "away": "Suns",
+   "home": "Pistons",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892447",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Penguins",
-    "p": 0.404,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-05T23:30Z",
    "away": "Jets",
    "home": "Penguins",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Penguins",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -180,
-    "p": 0.614,
-    "win_p": 0.614,
-    "reasons": [
-     "hotter recent form",
-     "the stronger team",
-     "hotter goalie"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892446",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Senators",
-    "p": 0.361,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-05T23:30Z",
    "away": "Senators",
    "home": "Bruins",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Bruins",
-    "opp": "Senators",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -265,
-    "p": 0.693,
-    "win_p": 0.476,
+    "team": "Senators",
+    "opp": "Bruins",
+    "market": "ml",
+    "line": null,
+    "odds": -118,
+    "p": 0.525,
+    "win_p": 0.525,
     "reasons": [
-     "opponent missing key players"
-    ]
+     "hotter goalie",
+     "hotter recent form"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892448",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.418,
-    "tie": 0.295,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-06T00:00Z",
    "away": "Sharks",
    "home": "Stars",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Stars",
-    "opp": "Sharks",
+    "team": "Sharks",
+    "opp": "Stars",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.643,
-    "win_p": 0.643,
+    "odds": 145,
+    "p": 0.397,
+    "win_p": 0.397,
     "reasons": [
-     "the stronger team",
-     "hotter goalie",
-     "sharp money moving this way"
-    ]
+     "hotter recent form",
+     "opponent drama: family/personal"
+    ],
+    "result": null
    }
   },
   {
    "id": "mlb:401907986",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Yankees",
-    "p": 0.455,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-06T00:00Z",
    "away": "Yankees",
    "home": "Rays",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Rays",
-    "opp": "Yankees",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -172,
-    "p": 0.601,
-    "win_p": 0.482,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "opponent missing key players"
-    ]
+    "team": "Yankees",
+    "opp": "Rays",
+    "market": "ml",
+    "line": null,
+    "odds": -127,
+    "p": 0.535,
+    "win_p": 0.535,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -161,8 +191,8 @@
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
    "h1": {
-    "team": "Saints",
-    "p": 0.481,
+    "team": "Falcons",
+    "p": 0.482,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -178,9 +208,9 @@
     "opp": "Falcons",
     "market": "spread",
     "line": -1.5,
-    "odds": -105,
-    "p": 0.507,
-    "win_p": 0.5,
+    "odds": 100,
+    "p": 0.51,
+    "win_p": 0.498,
     "reasons": [
      "the stronger team",
      "revenge game"
