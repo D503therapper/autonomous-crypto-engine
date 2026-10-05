@@ -8368,3 +8368,46 @@ error: faile
 [2026-10-05 17:07 UTC] stocks/trend     equity $488.32 (-2.3%) 3 open  market UP
 [2026-10-05 17:07 UTC] stocks/hold_spy  equity $502.96 (+0.6%) 1 open  market UP
    social heat top: PUMP 32 (24/0/8), QNT 32 (32/0/0), ZRO 29 (29/0/0), TAO 27 (27/0/0), ENA 21 (21/0/0)
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +6.1%, 4 volume hikes, 46% quiet hours @ 4.9776
+   footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +7.8%, 3 volume hikes, 54% quiet hours @ 0.26513
+   dex screen: REJECT IMDSTR@ethereum liq $426,809 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 62%
+   dex screen: REJECT AGENCY@solana liq $580,878 - holders unknown; lp holders unknown; rugcheck lp locked 29% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SM@base liq $413,545 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS AGENTCAT@solana liq $535,143
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT CLAUS@ethereum liq $204,884 - honeypot (HONEYPOT DETECTED)
+   dex screen: REJECT EDEL@base liq $1,502,152 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 47%
+   dex screen: REJECT EDEL@solana liq $139,406,836 - top-10 holders 100%
+   dex screen: REJECT EDEL@solana liq $32,305,484 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT EDEL@solana liq $19,674,324 - top-10 holders 100%; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: RLC: +8.2% in 15 min on 4.3x volume @ 0.6289 spread 1.12%
+   dex screen: REJECT AGL@base liq $247,712 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: RLC: +9.3% in 15 min on 5.1x volume @ 0.6394 spread 0.47%
+   scanner: RLC: +9.7% in 15 min on 5.5x volume @ 0.6411 spread 1.00%
+   scanner: RLC: +11.1% in 15 min on 5.5x volume @ 0.6493 spread 0.45%
+   dex scanner: 3,000 pools (solana 2,085 / base 571 / ethereum 344), refresh cycle 130s (hot 126s), 2802 calls (106 feed, 429s 0, failed 1), 80,848 refreshed (6994 no pair), +94 added / -94 dropped (dead 7, stale 0, cap 87), movers 3 + warming 32 -> queued 3, screened 3 (passed 1), bought 0
+   scanner: RLC: +11.4% in 15 min on 5.6x volume @ 0.6516 spread 1.39%
+[2026-10-05 18:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-05 18:07 UTC] crypto/mover     equity $425.03 (-15.0%) 2 open  market UP
+[2026-10-05 18:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 18:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 18:07 UTC] crypto/social_heat equity $511.25 (+2.3%) 1 open  market UP
+[2026-10-05 18:07 UTC] crypto/breakout10 equity $507.50 (+1.5%) 2 open  market UP
+[2026-10-05 18:07 UTC] crypto/momentum  equity $488.66 (-2.3%) 4 open  market UP
+[2026-10-05 18:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 18:07 UTC] crypto/hold_btc  equity $507.68 (+1.5%) 1 open  market UP
+[2026-10-05 18:07 UTC] stocks/rsi2      equity $504.66 (+0.9%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): TLT 0, IEF 3, LLY 4 BUY, XLV 4 BUY
+[2026-10-05 18:07 UTC] stocks/dual_momentum equity $509.04 (+1.8%) 2 open  market UP
+[2026-10-05 18:07 UTC] stocks/trend_ensemble equity $505.60 (+1.1%) 5 open  market UP
+[2026-10-05 18:07 UTC] stocks/rotation10 equity $504.08 (+0.8%) 2 open  market UP
+[2026-10-05 18:07 UTC] stocks/momentum  equity $498.70 (-0.3%) 4 open  market UP
+[2026-10-05 18:07 UTC] stocks/trend     equity $488.95 (-2.2%) 3 open  market UP
+[2026-10-05 18:07 UTC] stocks/hold_spy  equity $503.27 (+0.7%) 1 open  market UP
+   social heat top: NEAR 32 (32/0/0), QNT 29 (29/0/0), PENGU 27 (27/0/0), PONS 27 (21/0/5), TAO 24 (24/0/0)
