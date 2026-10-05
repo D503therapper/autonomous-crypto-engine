@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T16:09Z",
+ "updated": "2026-10-05T16:17Z",
  "games": [
   {
    "id": "tennis:wta:184343",
@@ -70,9 +70,9 @@
     "opp": "Liam Draxl",
     "market": "ml",
     "line": null,
-    "odds": -140,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -145,
+    "p": 0.566,
+    "win_p": 0.566,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -96,9 +96,9 @@
     "opp": "Aziz Dougaz",
     "market": "ml",
     "line": null,
-    "odds": -275,
-    "p": 0.701,
-    "win_p": 0.701,
+    "odds": -260,
+    "p": 0.691,
+    "win_p": 0.691,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -114,7 +114,7 @@
    "away": "Bernard Tomic",
    "home": "Timofey Skatov",
    "vs": true,
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
@@ -122,9 +122,9 @@
     "opp": "Timofey Skatov",
     "market": "ml",
     "line": null,
-    "odds": -140,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -130,
+    "p": 0.543,
+    "win_p": 0.543,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -154,6 +154,136 @@
     "reasons": [
      "on hard court",
      "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186321",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T05:30Z",
+   "away": "Nicolas Mejia",
+   "home": "Michael Zheng",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Nicolas Mejia",
+    "opp": "Michael Zheng",
+    "market": "spread",
+    "line": 4.5,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.202,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186324",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T05:30Z",
+   "away": "Dalibor Svrcina",
+   "home": "Yoshihito Nishioka",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Dalibor Svrcina",
+    "opp": "Yoshihito Nishioka",
+    "market": "ml",
+    "line": null,
+    "odds": -180,
+    "p": 0.616,
+    "win_p": 0.616,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186325",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T05:30Z",
+   "away": "Kyrian Jacquet",
+   "home": "Rei Sakamoto",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Kyrian Jacquet",
+    "opp": "Rei Sakamoto",
+    "market": "ml",
+    "line": null,
+    "odds": -125,
+    "p": 0.532,
+    "win_p": 0.532,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186322",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T07:00Z",
+   "away": "Dane Sweeny",
+   "home": "Kimmer Coppejans",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Dane Sweeny",
+    "opp": "Kimmer Coppejans",
+    "market": "ml",
+    "line": null,
+    "odds": -145,
+    "p": 0.566,
+    "win_p": 0.566,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186323",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T07:00Z",
+   "away": "Pavel Kotov",
+   "home": "Aleksandar Vukic",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Pavel Kotov",
+    "opp": "Aleksandar Vukic",
+    "market": "ml",
+    "line": null,
+    "odds": -140,
+    "p": 0.556,
+    "win_p": 0.556,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
     ]
    }
   },
@@ -203,6 +333,58 @@
     "odds": -130,
     "p": 0.531,
     "win_p": 0.798,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:183514",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T09:00Z",
+   "away": "Jiri Lehecka",
+   "home": "Carlos Alcaraz",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Jiri Lehecka",
+    "opp": "Carlos Alcaraz",
+    "market": "spread",
+    "line": 4.0,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.238,
+    "reasons": [
+     "on hard court",
+     "Kinoshita Group Japan Open Tennis Championships"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:183468",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T11:00Z",
+   "away": "Novak Djokovic",
+   "home": "Alex de Minaur",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Novak Djokovic",
+    "opp": "Alex de Minaur",
+    "market": "ml",
+    "line": null,
+    "odds": -175,
+    "p": 0.609,
+    "win_p": 0.609,
     "reasons": [
      "on hard court",
      "China Open"
