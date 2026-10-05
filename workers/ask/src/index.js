@@ -538,6 +538,11 @@ export default {
       if (err instanceof Anthropic.RateLimitError) {
         return reply({ answer: "Too many people asking at once 😅 give it a few seconds and try again." }, 200, cors);
       }
+      if (err instanceof Anthropic.APIError && /credit balance/i.test(String(err.message))) {
+        // (the owner, 10/5: "when it's gone, that's it" - out of API credit = the box says it's closed, no error)
+        return reply({ answer: "The question box is closed for now. 🔒 Everything the engine's got is on the board.",
+                       closed: true }, 200, cors);
+      }
       if (err instanceof Anthropic.APIError) {
         console.log("anthropic error", err.status, err.message);
         return reply({ error: "ai unavailable", why: `${err.status} ${String(err.message).slice(0, 160)}` }, 502, cors);
