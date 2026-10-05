@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T15:03Z",
+ "updated": "2026-10-05T15:09Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -368,6 +368,66 @@
      "hotter recent form",
      "hotter goalie",
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892453",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Wild",
+    "p": 0.374,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-06T23:00Z",
+   "away": "Wild",
+   "home": "Sabres",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Sabres",
+    "opp": "Wild",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.669,
+    "win_p": 0.449,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892452",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Rangers",
+    "p": 0.363,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-06T23:30Z",
+   "away": "Islanders",
+   "home": "Rangers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Islanders",
+    "opp": "Rangers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -278,
+    "p": 0.691,
+    "win_p": 0.473,
+    "reasons": [
+     "opponent drama: trade drama"
     ]
    }
   },
