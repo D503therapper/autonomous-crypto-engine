@@ -352,8 +352,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                                   f"📋 Record check: {us} {rec_u}. We already did our homework.",
                                   f"📋 {rec_u} so far for {us} — the record don't cash tickets, the number does.",
             f"📋 {us} rolling in at {rec_u}.",
-            f"📋 {us} got a {rec_u} record walking in. We gon' see what they do with it.",
-            f"📋 {us} are {rec_u} right now — the rest is on the field."]))
+            f"📋 {us} got a {rec_u} record walking in. We gon' see what they do with it."]))
     if r_theirs:
         rec_t = _record(r_theirs, oid)
         cold = _streak(s_theirs, oid)

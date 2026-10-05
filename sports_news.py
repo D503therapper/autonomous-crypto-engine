@@ -61,9 +61,25 @@ def _teams(article):
     return ids
 
 
+# A death only counts as a team's drama when it's in a current player's / coach's family or a teammate (10/5, the owner:
+# "🧯 The Stars dealing with some personal stuff" was Lyle Odelein, a retired defenseman, dying at 58 - and "Former
+# Falcons C Jeff Van Note dies at 80" counted against the Falcons). An old player's obituary is nothing in today's room.
+_DEATH = re.compile(r"\b(passed away|died|dies|death of)\b", re.I)
+_FAMILY = re.compile(r"\b(mother|father|mom|dad|wife|husband|son|daughter|brother|sister|grand\w+|uncle|aunt|cousin|"
+                     r"fianc[eé]e?|girlfriend|boyfriend|child|children|baby|family|teammate)\b", re.I)
+_PERSONAL = re.compile(r"\bpersonal (reasons|matter)\b|\bleave of absence\b|\bbereavement\b|\bfamily (matter|emergency)\b",
+                       re.I)
+
+
+def obituary(text):
+    """A death in the news that isn't in a current team member's family (a former player's obituary) - not drama."""
+    t = str(text or "")
+    return bool(_DEATH.search(t)) and not _FAMILY.search(t) and not _PERSONAL.search(t)
+
+
 def classify(text):
     t = text.lower()
-    return [k for k, pat in KINDS if re.search(pat, t)]
+    return [k for k, pat in KINDS if re.search(pat, t) and not (k == "family/personal" and obituary(t))]
 
 
 def sync(budget_s=60):
@@ -122,7 +138,8 @@ def load():
 
 def drama(news, league, team_id):
     """The team's recent drama events (newest first) - pregame talk is not drama."""
-    return sorted((e for e in news.get(f"{league}:{team_id}", []) if not e.get("talk")),
+    return sorted((e for e in news.get(f"{league}:{team_id}", []) if not e.get("talk")
+                   and not (e.get("kind") == "family/personal" and obituary(e.get("headline")))),
                   key=lambda e: e["date"], reverse=True)
 
 

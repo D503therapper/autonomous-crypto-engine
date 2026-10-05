@@ -148,7 +148,7 @@ GOOD_OPEN = T(
     "{p} been [showing out|putting in work|handling business|on a tear] lately.",
     "Everybody [know|saw] what {p} [been doing|is about].",
     "[Say what you want|Say less|Facts], {p} is [nice|different|{HIM}].",
-    "{p} [the one|a cheat code|a walking bucket|pure problems] right now.",
+    "{p} [the one|a cheat code|pure problems] right now.",
     "Real ones know {p} [nice|different|a problem].",
 )
 GOOD_END = T(
