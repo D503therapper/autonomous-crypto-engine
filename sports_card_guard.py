@@ -38,6 +38,8 @@ def problem(line, league=None):
     if not t.strip():
         return ""
     low = t.lower()
+    if t.lstrip().startswith("🆚"):                           # (the owner, 10/5: the head-to-head study was dead in every
+        return "head-to-head history"                        #  sport - "they own this matchup" made picks sound stronger)
     if any(w in low for w in sports_owner_lingo.NEVER):
         return "a NEVER word"
     if JARGON.search(t):

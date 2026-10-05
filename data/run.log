@@ -7826,3 +7826,40 @@ DEX: $316.63 (-683.37) · Scammed: 1 (-$73.73)
 [2026-10-05 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 03:06 UTC] crypto/hold_btc  equity $513.17 (+2.6%) 1 open  market UP
    social heat top: SUI 40 (40/0/0), FET 37 (37/0/0), SOL 35 (35/0/0), BTC 32 (32/0/0), GRASS 29 (29/0/0)
+   footprint: SUI: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.5%, 2 volume hikes, 65% quiet hours @ 1.23895
+   footprint: LTC: footprint 3/4 (quiet+hikes+rising_lows) 48h +2.0%, 4 volume hikes, 62% quiet hours @ 70.432
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +8.6%, 3 volume hikes, 83% quiet hours @ 0.26885
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT ZAMA@ethereum liq $647,456 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT HUMAN@solana liq $142,937 - holders unknown; lp holders unknown; rugcheck lp locked 55% < 95%
+   dex screen: REJECT SEC@solana liq $152,336 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: PASS SIGF@solana liq $109,462
+   dex screen: REJECT SLOPCORE@solana liq $100,630 - lp holders unknown; rugcheck lp locked 80% < 95%
+   dex screen: REJECT AMZNC@base liq $10,691 - liquidity $10,691 < $100,000; 24h volume $62 < $100,000
+   dex screen: PASS BATONROGUE@solana liq $104,551
+   >> dex/dex_hunter: BUY $15.28 of BATONROGUE@solana:8nKp4Jke @ 0.001179 (dex tier A momentum 1h +62% 6h +477% buys/sells 10113/4341 impact 0.01%)
+   dex screen: REJECT PROS@base liq $1,056,488 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 82%; lp locked 0% < 95%
+   dex screen: REJECT PROS@ethereum liq $128,627 - is_mintable; top-10 holders 89%; lp locked 0% < 95%
+   dex screen: REJECT STOCKER@ethereum liq $314,213 - lp locked 0% < 95%
+   dex screen: REJECT SAM@solana liq $103,997 - holders unknown; lp holders unknown; rugcheck lp locked 82% < 95%
+   dex screen: REJECT PUMPE@solana liq $124,060 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: MISTAKE@solana:HKZDfZnk flagged once (lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: REJECT KNIGHTCAT@solana liq $128,507 - holders unknown; lp holders unknown; rugcheck lp locked 47% < 95%
+   dex screen: PASS TIBBIR@base liq $3,825,444
+   dex screen: PASS ASTEROID@ethereum liq $1,027,830
+   dex scanner: 3,001 pools (solana 2,287 / base 503 / ethereum 211), refresh cycle 125s (hot 122s), 2998 calls (108 feed, 429s 0, failed 0), 86,696 refreshed (997 no pair), +76 added / -75 dropped (dead 3, stale 0, cap 72), movers 2 + warming 17 -> queued 6, screened 6 (passed 1), bought 0
+[2026-10-05 04:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-05 04:06 UTC] crypto/mover     equity $432.37 (-13.5%) 2 open  market UP
+[2026-10-05 04:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 04:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+   >> crypto/social_heat: SELL $85.60 of ZRO @ 1.91059, P/L $-9.57 (heat collapsed (<20 for 12h))
+[2026-10-05 04:06 UTC] crypto/social_heat equity $516.61 (+3.3%) 1 open  market UP
+[2026-10-05 04:06 UTC] crypto/breakout10 equity $503.71 (+0.7%) 2 open  market UP
+[2026-10-05 04:06 UTC] crypto/momentum  equity $487.26 (-2.5%) 4 open  market UP
+[2026-10-05 04:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 04:06 UTC] crypto/hold_btc  equity $510.85 (+2.2%) 1 open  market UP
+   social heat top: FET 40 (40/0/0), PENGU 37 (37/0/0), GRASS 35 (35/0/0), BTC 32 (32/0/0), SUI 29 (29/0/0)

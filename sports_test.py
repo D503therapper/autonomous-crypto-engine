@@ -7237,6 +7237,14 @@ def test_early_cards_have_enough_wordings_for_a_full_box():
     assert src.count("🧠 ") >= 12 and "Last time out:" in src
 
 
+def test_no_head_to_head_lines_on_cards():
+    """10/5, the owner: drop the 🆚 lines - "a team has another team's number" was dead in every sport."""
+    import sports_card_guard as g
+    lines = ["🆚 Panthers have had Lions's number: 2 of the last 3.", "🏟️ 49ers are 2-0 at home this year."]
+    assert g.clean(lines, "nfl", "x") == ["🏟️ 49ers are 2-0 at home this year."]
+    assert g.one("🆚 Last meeting went their way (W 24-10).", "nfl") == ""
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
