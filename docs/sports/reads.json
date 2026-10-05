@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T22:16Z",
+ "updated": "2026-10-05T22:53Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -28,38 +28,6 @@
      "hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nhl:401892445",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Lightning",
-    "p": 0.425,
-    "tie": 0.294,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-05T23:00Z",
-   "away": "Flyers",
-   "home": "Lightning",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Lightning",
-    "opp": "Flyers",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.656,
-    "win_p": 0.656,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
-    ]
    }
   },
   {
@@ -194,7 +162,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Saints",
-    "p": 0.486,
+    "p": 0.481,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -208,11 +176,11 @@
    "lean": {
     "team": "Saints",
     "opp": "Falcons",
-    "market": "ml",
-    "line": null,
-    "odds": -122,
-    "p": 0.508,
-    "win_p": 0.508,
+    "market": "spread",
+    "line": -1.5,
+    "odds": -105,
+    "p": 0.507,
+    "win_p": 0.5,
     "reasons": [
      "the stronger team",
      "revenge game"
@@ -335,8 +303,8 @@
     "win_p": 0.422,
     "reasons": [
      "hotter goalie",
-     "sharp money moving this way",
-     "hotter recent form"
+     "hotter recent form",
+     "the stronger team"
     ]
    }
   },
@@ -414,14 +382,14 @@
    "start": "2026-10-06T23:30Z",
    "away": "Islanders",
    "home": "Rangers",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Islanders",
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
+    "odds": -205,
     "p": 0.653,
     "win_p": 0.433,
     "reasons": [
