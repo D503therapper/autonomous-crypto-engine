@@ -8564,3 +8564,33 @@ error: faile
 [2026-10-05 21:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 21:06 UTC] crypto/hold_btc  equity $508.92 (+1.8%) 1 open  market UP
    social heat top: GRASS 35 (35/0/0), PENGU 34 (21/0/13), NEAR 32 (32/0/0), ENA 27 (27/0/0), PONS 27 (21/0/5)
+   footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +9.9%, 3 volume hikes, 54% quiet hours @ 0.26925
+   dex screen: REJECT TRX@solana liq $12,497,465 - mint authority; top-10 holders 98%
+   dex screen: REJECT B3@base liq $878,240 - pool age unknown
+   dex screen: REJECT WSTETH@ethereum liq $6,687,995 - is_mintable; honeypot_with_same_creator; top-10 holders 66%
+   dex screen: REJECT ZRO@base liq $168,713 - pool age unknown
+   dex screen: REJECT CRVUSD@ethereum liq $1,956,593 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 78%
+   dex screen: PASS SPX@ethereum liq $12,877,311
+   dex screen: REJECT SI@solana liq $727,649 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT STOCKER@ethereum liq $303,813 - lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT SWORDCAT@solana liq $272,512 - lp holders unknown; rugcheck lp locked 42% < 95%
+   dex screen: REJECT CTM@ethereum liq $3,681,084 - is_mintable
+   dex screen: REJECT BNKR@base liq $2,616,968 - 24h volume $75,329 < $100,000
+   dex scanner: 2,998 pools (solana 2,002 / base 583 / ethereum 413), refresh cycle 126s (hot 122s), 2962 calls (108 feed, 429s 0, failed 1), 85,587 refreshed (8973 no pair), +104 added / -105 dropped (dead 21, stale 0, cap 84), movers 3 + warming 22 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-05 22:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-05 22:06 UTC] crypto/mover     equity $437.33 (-12.5%) 2 open  market UP
+[2026-10-05 22:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 22:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 22:06 UTC] crypto/social_heat equity $509.99 (+2.0%) 1 open  market UP
+[2026-10-05 22:06 UTC] crypto/breakout10 equity $522.41 (+4.5%) 2 open  market UP
+[2026-10-05 22:06 UTC] crypto/momentum  equity $491.46 (-1.7%) 4 open  market UP
+[2026-10-05 22:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 22:06 UTC] crypto/hold_btc  equity $510.12 (+2.0%) 1 open  market UP
+   social heat top: NEAR 35 (35/0/0), QNT 32 (32/0/0), PENGU 30 (19/0/11), GRASS 29 (29/0/0), ENA 27 (27/0/0)
+   [alert] Today -23.61 | Total -703.99: Stocks: $506.64  today +3.65  total +6.64
+DEX: $289.37  today -27.26  total -710.63
+DEX paused: scam limit · $289.37 (-710.63) · Scammed: 2 (-$89.03)
