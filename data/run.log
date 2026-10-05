@@ -7863,3 +7863,30 @@ DEX: $316.63 (-683.37) · Scammed: 1 (-$73.73)
 [2026-10-05 04:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 04:06 UTC] crypto/hold_btc  equity $510.85 (+2.2%) 1 open  market UP
    social heat top: FET 40 (40/0/0), PENGU 37 (37/0/0), GRASS 35 (35/0/0), BTC 32 (32/0/0), SUI 29 (29/0/0)
+   footprint: SUI: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.5%, 2 volume hikes, 62% quiet hours @ 1.22864
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +9.0%, 3 volume hikes, 81% quiet hours @ 0.26775
+   footprint: NEAR: footprint 3/4 (quiet+hikes+rising_lows) 48h +4.5%, 2 volume hikes, 62% quiet hours @ 4.8482
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            f2a714ddb15f11301759ed4b478434314214f078 -> main (fetch first)
+error: failed to push some refs to 'https://github.
+   dex screen: REJECT ZEC@solana liq $3,212,609 - mint authority
+   dex screen: REJECT AAPLC@base liq $1,842,508 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT CLAUS@ethereum liq $253,555 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; lp holders unknown
+   dex screen: REJECT SPCXX@solana liq $915,673 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 89%; lp holders unknown
+   dex screen: REJECT POD@base liq $5,857,411 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 95%
+   dex scanner: 3,000 pools (solana 2,292 / base 498 / ethereum 210), refresh cycle 124s (hot 122s), 3007 calls (108 feed, 429s 0, failed 0), 86,968 refreshed (1109 no pair), +90 added / -91 dropped (dead 9, stale 0, cap 82), movers 0 + warming 22 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-05 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $184.26 of ICP @ 3.24795, P/L $-15.58 (time limit)
+[2026-10-05 05:06 UTC] crypto/mover     equity $427.58 (-14.5%) 1 open  market UP
+[2026-10-05 05:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 05:06 UTC] crypto/social_heat equity $514.07 (+2.8%) 1 open  market UP
+[2026-10-05 05:06 UTC] crypto/breakout10 equity $504.59 (+0.9%) 2 open  market UP
+[2026-10-05 05:06 UTC] crypto/momentum  equity $485.05 (-3.0%) 4 open  market UP
+[2026-10-05 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 05:06 UTC] crypto/hold_btc  equity $507.69 (+1.5%) 1 open  market UP
+   social heat top: PONS 41 (35/0/7), FET 40 (40/0/0), PENGU 37 (37/0/0), ENA 32 (32/0/0), QNT 29 (29/0/0)
