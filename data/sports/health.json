@@ -1,31 +1,41 @@
 {
- "at": "2026-10-05T20:27Z",
- "fixes": [],
+ "at": "2026-10-05T21:17Z",
+ "fixes": [
+  "live watch 37369852564 froze (6 min) - cancelled",
+  "live board 6 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [
-  "workflow failed: health 2026-10-05T20:01 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37367117520",
-  "workflow failed: pacer 2026-10-05T19:43 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37365268912",
-  "workflow failed: health 2026-10-05T19:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37364835720"
+  "workflow failed: sports_studies 2026-10-05T20:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37370317502"
  ],
  "ok": [
-  "live watcher fresh (112s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 7 of today's games named, priced and looked at",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
-  "simulator ran 5h ago",
-  "engine ran 22 min ago",
+  "simulator ran 1h ago",
+  "engine ran 7 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-05T21:17Z",
+   "fixes": [
+    "live watch 37369852564 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "workflow failed: sports_studies 2026-10-05T20:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37370317502"
+   ]
+  },
   {
    "at": "2026-10-05T20:27Z",
    "fixes": [],
@@ -744,11 +754,6 @@
     "live watch 37113465915 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-03T10:14Z",
-   "fixes": [],
    "problems": []
   }
  ]
