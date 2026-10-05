@@ -977,9 +977,17 @@ def test_rescreen_flags_held_token():
     h.src["goplus"].fetch = fake_fetch({"token_security": (200, unlocked)})
     run(h, T0 + 1801_000, 4)
     assert K in h.pf.positions and h.pf.positions[K]["flagged"] == 1          # first strike: still held
+    h.p = {**h.p, "data_flag_exit": True}                                    # the two-strike rule, when it is on
     run(h, T0 + 3602_000, 4)
     run(h, T0 + 3700_000, 4)
     assert K not in h.pf.positions, "second strike should sell"
+    shutil.rmtree(d)
+    h, fetch, d, px = held()                                                # EXPERIMENT 10: data flags never sell
+    h.p = {**h.p, "data_flag_exit": False}
+    h.src["goplus"].fetch = fake_fetch({"token_security": (200, unlocked)})
+    for t in (T0 + 1801_000, T0 + 3602_000, T0 + 5403_000):
+        run(h, t, 4)
+    assert K in h.pf.positions and h.pf.positions[K]["flagged"] >= 2 and not h.pf.positions[K].get("exit")
     shutil.rmtree(d)
     h, fetch, d, px = held()                                                # clean re-screen: keep holding, count it
     run(h, T0 + 1801_000, 4)

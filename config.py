@@ -300,6 +300,9 @@ DEX = {
     # Owner 2026-10-05: season 3 at $1,000 ("play money - we're learning; refresh the money"); season 2 archived in
     # data/dex/archive/2026-09-29/
     "season": "2026-10-06", "season_cash": 1000.0,
+    # EXPERIMENT 10 (10-06): data-only re-screen flags (holders / LP data unknown, "LP locked 0%") no longer sell a held
+    # coin - season 2 sold AGENTCAT at 1.84x (went 19.9x) and AGENCY at 0.59x (went 16.2x) on them.
+    "data_flag_exit": False,
     # Owner 2026-10-05: "no pause - this is play money, we are learning not to get scammed": the scam circuit breaker
     # is OFF (max None). Scams are still counted and every scam check before a buy and on held coins still runs.
     "scam_pause": {"max": None, "days": 30, "reset_after": "2026-10-05 23:00"},   # max N scams / 30 days -> pause; to

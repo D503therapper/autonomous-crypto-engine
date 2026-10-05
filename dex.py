@@ -1389,7 +1389,13 @@ class DexHunter:
                 # A real rug still exits at once through the liquidity-pull check on every price update.
                 pos["flagged"] = pos.get("flagged", 0) + 1
                 self.dirty = True
-                if pos["flagged"] >= 2:
+                if not self.p.get("data_flag_exit", True):
+                    # EXPERIMENT 10 (2026-10-06): data-only flags never sell a held coin. Season 2: holding every
+                    # coin sold on them beat selling by +$21 per $1 bet (AGENTCAT sold 1.84x -> 19.9x, AGENCY 0.59x ->
+                    # 16.2x); the rugs among them were already down 70-90% when the flag came. Contract flags,
+                    # honeypots and the liquidity-pull check still sell at once.
+                    print(f"   dex re-screen: {job['key']} data flag #{pos['flagged']} ({why}); holding (experiment 10)")
+                elif pos["flagged"] >= 2:
                     self._request_exit(job["key"], 1.0, f"re-screen flagged twice: {why}", "emergency_exit", now)
                 else:
                     print(f"   dex re-screen: {job['key']} flagged once ({why}); re-checking before selling")
