@@ -90,6 +90,12 @@ CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live
   output goes to an untracked data/run.live.log; git_sync (and the end-of-run step) copy the new part into data/run.log
   right before committing. Nothing was lost: the 13:06 commit and the end-of-run save reached GitHub at 13:59.
 
+- 2026-10-06 00:00 UTC (owner, after switching the chat to approve edits): scam breaker turned OFF (scam_pause max None)
+  and the DEX restarted as season 3 at $1,000 (season 2 archived in data/dex/archive/2026-09-29/: $1,000 -> ~$289).
+  Owner: "no pause - this is play money, we are learning to not get scammed and go to the moon; refresh the money".
+  All scam checks still run; scams are still counted. Rules in force: experiments 6-9 (entry needs +50% in 6h, no buy
+  after a +100% hour, swap stale losers, 20 coins x ~5%).
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|

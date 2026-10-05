@@ -1067,6 +1067,12 @@ def test_rejected_followup():
 
 def test_auto_pause_after_scams():
     h, fetch, d, px = held()
+    h.p = {**h.p, "scam_pause": {"max": None, "days": 30, "reset_after": ""}}   # owner 10-05: breaker off
+    h._count_scam(T0)
+    h._count_scam(T0 + 1000)
+    assert not h.paused() and len(h.state["scams"]) == 2                    # counted, never pauses
+    h.state["scams"] = []
+    h.p = {**h.p, "scam_pause": {"max": 2, "days": 30, "reset_after": ""}}  # the mechanism, when it is on
     t = poll(h, T0 + 6000, px, v=0.004, liq=100_000)                        # scam #1
     assert K not in h.pf.positions and not h.paused()
     px.update(v=0.01, liq=600_000)

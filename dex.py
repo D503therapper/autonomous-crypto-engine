@@ -1715,7 +1715,7 @@ class DexHunter:
         """Owner's circuit breaker: `max` scams within `days` -> pause new entries (latched)."""
         st, P = self.state, self.p["scam_pause"]
         st["scams"] = [t for t in st["scams"] if now - t <= P["days"] * DAY] + [now]
-        if len(st["scams"]) >= P["max"] and not st["paused"]:
+        if P.get("max") and len(st["scams"]) >= P["max"] and not st["paused"]:   # max None = breaker off (owner 10-05)
             st["paused"] = {"t": now, "why": "scam limit"}
             print(f"   dex PAUSED: {len(st['scams'])} scams in {P['days']} days; new entries off until "
                   f"config.DEX['scam_pause']['reset_after'] is set past {ts(now)}")

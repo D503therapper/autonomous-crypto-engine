@@ -296,8 +296,12 @@ DEX = {
     # and halves the damage of a dry run (-0.81% vs -1.85%/trade); twice the coins = twice the shots at a runner.
     # Live season 2: 10 of 10 buys in $100-135k pools lost (5 rugged), -$508.
     "slots": 20,
-    # Owner 2026-09-29: restart the DEX paper account at $1,000 (season 1 archived in data/dex/archive/season1/)
-    "season": "2026-09-29", "season_cash": 1000.0,
-    "scam_pause": {"max": 2, "days": 30, "reset_after": "2026-10-05 23:00"},   # 2 scams / 30 days -> no new entries; to
+    # Owner 2026-09-29: restart the DEX paper account at $1,000 (season 1 archived in data/dex/archive/season1/).
+    # Owner 2026-10-05: season 3 at $1,000 ("play money - we're learning; refresh the money"); season 2 archived in
+    # data/dex/archive/2026-09-29/
+    "season": "2026-10-06", "season_cash": 1000.0,
+    # Owner 2026-10-05: "no pause - this is play money, we are learning not to get scammed": the scam circuit breaker
+    # is OFF (max None). Scams are still counted and every scam check before a buy and on held coins still runs.
+    "scam_pause": {"max": None, "days": 30, "reset_after": "2026-10-05 23:00"},   # max N scams / 30 days -> pause; to
                                                    # re-enable set reset_after "YYYY-MM-DD HH:MM" (UTC) > pause time
 }
