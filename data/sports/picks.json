@@ -5719,6 +5719,14 @@
      "them:out_dome"
     ],
     "dec": 1.72992700729927,
+    "decider": {
+     "n": 9,
+     "p": null,
+     "s": "4-3",
+     "type": "walkoff",
+     "w": "single",
+     "win": "home"
+    },
     "dh_game2": true,
     "dog_ctx": {
      "cw5": 0,
@@ -5734,6 +5742,10 @@
     "edge_own": 0.004838771574978473,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,0,0,1,0,1,0,0",
+     "h": "0,0,0,0,1,0,1,0,2"
+    },
     "form_state": [
      1.0,
      6,
@@ -5790,9 +5802,11 @@
      "opponent drama: new baby"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Padres 3 @ Brewers 4",
+    "settled": "2026-10-04T23:25Z",
     "side": "home",
     "start": "2026-10-04T20:00Z",
     "stype": "3",
@@ -5822,12 +5836,14 @@
    }
   ],
   "p_hit": 0.5746,
-  "pnl": 0.0,
+  "pnl": 72.99,
   "posted": "2026-10-04T15:00Z",
   "round": 1,
+  "settled": "2026-10-04T23:25Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -105,

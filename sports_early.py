@@ -978,7 +978,35 @@ def spot_record(st):
     return out
 
 
-def html(st, E, now=None, show_units=None):
+def now_line(p, games):
+    """📈 Got it at -> now (the owner, 10/5: "put what we got in the early value plays for and what they move to now"):
+    one line under an early card - the price we got, the price now, and what the move means. '' with no price now."""
+    g = (games or {}).get(p.get("game_id")) or {}
+    if not g or p.get("result") or g.get("status") not in (None, "pre") or not p.get("side") or p.get("odds") is None:
+        return ""
+    am = lambda o: f"+{o}" if o > 0 else str(o)               # noqa: E731
+    if p.get("market") == "total":                           # 🌍 the under: the number (and its price) now
+        tot, o = g.get("total"), _int(g.get("under_odds"))
+        try:
+            tot = float(tot)
+        except (TypeError, ValueError):
+            return ""
+        if o is None:
+            return ""
+        call = ("🔥 we beat the number" if tot < p["line"] else "👀 the number went up" if tot > p["line"] else "")
+        return (f"📈 Got it at {p['line']:g} ({am(p['odds'])}) ➜ now {tot:g} ({am(o)})"
+                + (f" · {call}" if call else " · hasn't moved"))
+    now_odds = _int(g.get(f"ml_{p['side']}"))
+    if now_odds is None:
+        return ""
+    if now_odds == p["odds"]:
+        return f"📈 Got it at {am(p['odds'])} ➜ still {am(now_odds)} · hasn't moved"
+    opp = _int(g.get(f"ml_{'away' if p['side'] == 'home' else 'home'}"))
+    call = label({**p, "key_out": None}, now_odds, opp)
+    return f"📈 Got it at {am(p['odds'])} ➜ now {am(now_odds)}" + (f" · {call}" if call else "")
+
+
+def html(st, E, now=None, show_units=None, games=None):
     """The box under today's board: the early plays whose game day hasn't come yet (the owner, 9/30: on game day
     they're no longer early plays - they leave the box; no grading shown here)."""
     now = now or datetime.now(timezone.utc)
@@ -997,6 +1025,7 @@ def html(st, E, now=None, show_units=None):
                 f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                 + (f'<span>{E(p.get("why") or SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "") +
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
+                + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
                 + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "") + '</div></div>')
     body = "".join(row(p) for p in up) or \

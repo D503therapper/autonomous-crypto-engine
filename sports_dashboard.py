@@ -1513,7 +1513,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
     try:                                                     # ⏰ early value plays (the owner, 9/30)
         import sports_early
         eu = lambda u, k="", o=None: _units_line(u, k, o, early=True)
-        early = sports_early.html(sports_early.load(), E, show_units=eu)
+        early = sports_early.html(sports_early.load(), E, show_units=eu, games=games)
         early_today = sports_early.gameday_html(sports_early.load(), games, E, show_units=eu)
     except Exception as e:                                   # noqa: BLE001
         print(f"early box failed: {e}")
@@ -2008,7 +2008,7 @@ box-shadow:0 0 24px -4px rgba(255,45,45,.85);animation:evb 3s linear infinite;wh
 box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyframes evp{{50%{{transform:scale(1.07)}}}}
 .evr{{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}}
 .evr b{{color:#fff;font-size:20px;font-weight:900}} .evr small{{color:#fff;font-weight:800;font-size:14px}} .evr em{{font-style:normal;font-weight:900;color:#fff;font-size:20px}}
-.evr span{{display:block;font-size:15px;font-weight:800;color:#fff;margin-top:4px}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:15px;font-weight:900;color:#ffc233;margin-top:4px}}
+.evr span{{display:block;font-size:15px;font-weight:800;color:#fff;margin-top:4px}} .evr span.evm{{font-weight:900;color:#ffc233}} .evr i{{font-style:normal;font-size:18px}} .evr u{{display:block;text-decoration:none;font-size:15px;font-weight:900;color:#ffc233;margin-top:4px}}
 .evh{{font-size:11px;font-weight:900;letter-spacing:.14em;color:#fff;margin-top:10px}} .evn{{font-size:13px;font-weight:700;color:#fff;padding:6px 0}}
 .pk-i{{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 6px 18px -6px var(--c1)}}
 .pk-l{{flex:1;font-weight:900;font-size:14px;letter-spacing:.14em;color:var(--c1);text-shadow:0 0 12px color-mix(in srgb,var(--c1) 55%,transparent)}}

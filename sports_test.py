@@ -7212,6 +7212,19 @@ def test_live_mlb_paused_and_draftkings_alone_never_posts():
     assert sl.two_books((120, -140), (None, None))[2] is False           # DK alone: never 'checked'
 
 
+def test_early_card_shows_got_it_at_and_now():
+    """10/5, the owner: "put what we got in the early value plays for and what they move to now"."""
+    import sports_early as se
+    p = {"game_id": "g", "side": "away", "odds": 130, "team": "Alabama", "league": "ncaaf", "opp_odds": -150, "own": 0.6}
+    g = {"g": {"status": "pre", "ml_away": "-105", "ml_home": "-115"}}
+    assert se.now_line(p, g).startswith("📈 Got it at +130 ➜ now -105") and "beat the line" in se.now_line(p, g)
+    assert "hasn't moved" in se.now_line(p, {"g": {"status": "pre", "ml_away": "130", "ml_home": "-150"}})
+    t = {"game_id": "g", "side": "under", "market": "total", "line": 44.5, "odds": -108}
+    assert se.now_line(t, {"g": {"status": "pre", "total": "43.5", "under_odds": "-110"}}) == \
+        "📈 Got it at 44.5 (-108) ➜ now 43.5 (-110) · 🔥 we beat the number"
+    assert se.now_line(p, {"g": {"status": "in"}}) == ""                        # (game day / live: the other box)
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
