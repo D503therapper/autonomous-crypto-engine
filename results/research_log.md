@@ -96,6 +96,17 @@ CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live
   All scam checks still run; scams are still counted. Rules in force: experiments 6-9 (entry needs +50% in 6h, no buy
   after a +100% hour, swap stale losers, 20 coins x ~5%).
 
+### 2026-10-06 - Are established coins a better crypto approach? (scanner log 09-26..10-05, no survivorship) -> NO
+Same momentum buy, 3x stake back, per $1:      n   mean   median lost-half  sum older/newer  growth/trade @5%
+  current meme rule (liq>=100k, age>=6h)      101 +15.4%  -44.8%   47%     +3.85 / +11.67    +0.39%
+  liq>=1M any age                               4  -6.8%  -13.5%   25%     -0.00 / -0.27     -0.36%
+  liq>=1M & age>=30d (softer 1h>=5%/6h>=15%)   17  +0.4%   -6.9%    6%     -0.05 / +0.13     +0.01%
+  liq>=500k & age>=7d (softer trigger)         38 -13.2%  -15.1%   13%     -4.80 / -0.21     -0.68%
+  liq>=300k & age>=3d (current trigger)        18 -40.8%  -35.6%   33%     -5.22 / -2.13     -2.07%
+Bigger, older coins lose less per coin but make nothing - no runners. The only group with a positive edge in this data is
+the meme rule, and only through rare big winners. Live results (season 2 -71%) were far worse than this replay of the
+same rule: the gap (scam-check sales, rugs the replay can't see, timing) is the next study - grade it at every review.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|
