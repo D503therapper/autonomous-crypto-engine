@@ -5891,6 +5891,7 @@
      "them:dome_out"
     ],
     "dec": 1.9523809523809523,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -5909,6 +5910,10 @@
     "edge": -0.005935815971095604,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,13,3,7",
+     "h": "7,9,13,3"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -5948,9 +5953,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Lions 26 @ Panthers 32",
+    "settled": "2026-10-05T03:41Z",
     "side": "home",
     "start": "2026-10-05T00:20Z",
     "stype": "2",
@@ -5966,12 +5973,14 @@
    }
   ],
   "p_hit": 0.5092,
-  "pnl": 0.0,
+  "pnl": 95.24,
   "posted": "2026-10-04T15:00Z",
   "round": 1,
+  "settled": "2026-10-05T03:41Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -148,

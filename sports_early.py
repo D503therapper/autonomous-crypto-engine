@@ -603,10 +603,14 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
     across the two")."""
     me, opp = g.get(f"{side}_name") or "They", g.get(f"{other}_name") or "them"
     p = _prev(sched, lg, g[side], g["start"])
-    fact = {"mnf": f"Monday night dog.", "eastwest": f"{me} flying from the East Coast out West.",
-            "hammered": f"The money hit {me} early.", "engine": f"The line moved away from them - better price for us.",
-            "best": ""}.get(spot, "")
-    facts = [fact] * 3
+    facts = {"mnf": ["Monday night dog.", f"{me} on Monday night, as the dog.", "A Monday night dog."],
+             "eastwest": [f"{me} flying from the East Coast out West.", f"{me} crossing the country to play out West.",
+                          f"East Coast team, West Coast kickoff - {me} make the trip."],
+             "hammered": [f"The money hit {me} early.", f"Early money already came in on {me}.",
+                          f"The books moved {me} shorter early - the money's on 'em."],
+             "engine": ["The line moved away from them - better price for us.",
+                        "The price drifted out since the first number - we get the better one.",
+                        "Their number got bigger since it opened - more money for us."]}.get(spot, [""] * 3)
     try:
         if spot == "blowout" and p:
             mine = p["home"] == g[side]
@@ -614,7 +618,8 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
             vs = p.get("away_name") if mine else p.get("home_name")
             sc, when_ = f"{int(float(us))}-{int(float(them))}", ago(p["start"], now or datetime.now(timezone.utc))
             facts = [f"They beat {vs} {sc} {when_}.", f"Coming off a {sc} beatdown of {vs} {when_}.",
-                     f"Fresh off smacking {vs} {sc} {when_}."]
+                     f"Fresh off smacking {vs} {sc} {when_}.", f"Last time out: {me} {sc} over {vs} {when_}.",
+                     f"{vs} got handled {sc} {when_}.", f"{me} put {vs} away {sc} {when_}."]
         if spot == "bye" and p:
             facts = [f"{me} had last week off; {opp} played.", f"Rested - {me} sat last week, {opp} didn't.",
                      f"{opp} played last week, {me} got the week off."]
@@ -626,10 +631,17 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
         #                                                      "55%", so it's judged after the rounding (10/4 audit: Fresno St)
         reads = [f"🧠 Our numbers got {me} winning {pc}% - way more than {pr} pays for.",
                  f"🧠 {me} at {pr} is a gift: we got 'em winning {pc}% of the time.",
-                 f"🧠 The books got {me} as the dog; our read has 'em winning {pc}%."]
+                 f"🧠 The books got {me} as the dog; our read has 'em winning {pc}%.",
+                 f"🧠 We have {me} at {pc}% - {pr} pays like they're a long shot.",
+                 f"🧠 {pc}% for {me} on our read, and {pr} on the board. That's the gap.",
+                 f"🧠 {pr} undersells {me} - our numbers say {pc}%."]
     else:
         reads = [f"🧠 Our numbers like {me} more than {pr} does.", f"🧠 {me} at {pr} is a gift on our read.",
-                 f"🧠 The books got {me} as the dog; our read says they're better than that."]
+                 f"🧠 The books got {me} as the dog; our read says they're better than that.",
+                 f"🧠 {pr} undersells {me} on our read.",
+                 f"🧠 Our read says {me} wins this more often than {pr} pays for.",
+                 f"🧠 On our numbers, {me} shouldn't be {pr} - that's value."]
+    facts = (list(facts) * 2)[:len(reads)]                   # (10/5: 6 wordings - 7 open cards ran out of 3)
     return [(r + (" " + f if f else "")).strip() for r, f in zip(reads, facts)]
 
 
