@@ -1,30 +1,43 @@
 {
- "at": "2026-10-05T14:16Z",
- "fixes": [],
+ "at": "2026-10-05T15:47Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Sakatsume vs Salkova: no points for 2647s"
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (38s)",
+  "live watcher fresh (162s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 11 min ago",
+  "engine ran 46 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-05T15:47Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-05T14:16Z",
    "fixes": [],
@@ -742,11 +755,6 @@
   },
   {
    "at": "2026-10-03T05:46Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-03T05:45Z",
    "fixes": [],
    "problems": []
   }
