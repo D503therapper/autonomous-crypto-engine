@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T00:45Z",
+ "updated": "2026-10-05T03:10Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -304,8 +304,8 @@
    "away": "Jazz",
    "home": "Nuggets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -319,8 +319,8 @@
    "away": "Warriors",
    "home": "Clippers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -349,8 +349,8 @@
    "away": "Flames",
    "home": "Kraken",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -364,8 +364,8 @@
    "away": "Panthers",
    "home": "Ducks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -396,6 +396,21 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "nhl:401892444",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-05T01:00Z",
+   "away": "Golden Knights",
+   "home": "Canucks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "mlb:401907991",
@@ -434,7 +449,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.411,
+    "p": 0.412,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -524,7 +539,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.396,
+    "p": 0.401,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -541,8 +556,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -180,
-    "p": 0.626,
-    "win_p": 0.406,
+    "p": 0.617,
+    "win_p": 0.397,
     "reasons": [
      "hotter recent form",
      "opponent drama: family/personal"

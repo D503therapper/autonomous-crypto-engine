@@ -1,9 +1,14 @@
 {
- "at": "2026-10-05T00:40Z",
+ "at": "2026-10-05T02:55Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2644s",
+  "live tennis scores: tennis Yang Yidi vs Han: no points for 2535s",
+  "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2605s",
+  "live tennis points: none of 3 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (217s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,14 +20,39 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 8 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 45 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-05T02:55Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2644s",
+    "live tennis scores: tennis Yang Yidi vs Han: no points for 2535s",
+    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2605s",
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-05T02:50Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2371s",
+    "live tennis scores: tennis Yang Yidi vs Han: no points for 2263s",
+    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2333s",
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-05T01:18Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-05T00:40Z",
    "fixes": [],
@@ -675,27 +705,6 @@
    "at": "2026-10-02T22:36Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-02T21:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-02T19:33Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-02T18:19Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Kostovic vs Ruzic: no points for 730s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
   }
  ]
 }

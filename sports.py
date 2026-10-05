@@ -1517,7 +1517,8 @@ def units_ledger(picks, early=()):
         day = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).strftime("%Y-%m-%d")
         calls[(day, e["game_id"], e["side"], "early")] = (False, {"date": day, "kind": "early", "units_tier": "early",   # the 10/4 audit: the
         #                                                  early row overwrote the Dog's and the unit record lost its 1u)
-                                                         "legs": [{"team": e["team"]}]},
+                                                         "legs": [{"team": e["team"], "odds": e["odds"]}]},   # (10/5 sweep: the
+        #                                   brain's green-day line read the leg's price - an early play came out "(None)")
                                                  sports_early.units(e), e["result"], _dec(e["odds"]), e.get("graded_at") or "")
     rows_in = sorted(calls.values(), key=lambda c: (c[1]["date"], c[5]))
     bank, rows, by_date = BANKROLL_START, [], {}
@@ -2856,9 +2857,8 @@ def post_board(games, model, picks, now, day, force=False):
                 ours.setdefault(l["game_id"], l["side"])
     try:                                                     # ⏰ ...or in a game we got in EARLY on (the owner, 9/30:
         import sports_early                                  # an early play can be a daily pick too - never against it)
-        for e in sports_early.load().get("picks") or []:
-            if e.get("result") is None:
-                ours.setdefault(e["game_id"], e["side"])
+        for gid, side in early_sides(sports_early.load().get("picks") or []).items():
+            ours.setdefault(gid, side)
     except Exception as e:                                   # noqa: BLE001
         print(f"early plays (board side check) failed: {e}")
     cands = [c for c in cands if ours.get(c["game_id"], c["side"]) == c["side"]]
@@ -3037,6 +3037,14 @@ def _straight_games(picks, iso):
     """Games already carrying a straight pick today (the Lock, the Dog, a one-game pick, a night pick)."""
     return {l["game_id"] for p in picks if p["date"] == iso and p["kind"] in STRAIGHT_KINDS and p["status"] != "waiting"
             for l in p.get("legs") or []}
+
+
+def early_sides(early):
+    """{game id: side} of our OPEN early value plays - a daily pick never takes the other side of one (the owner, 9/30).
+    The 🌍 Europe under (side "under") took no side, so it never locks a game: both teams stay open to the board
+    (10/5 sweep: it read as a side, and every pick on the London game would have been dropped)."""
+    return {e["game_id"]: e["side"] for e in early
+            if e.get("result") is None and e.get("side") in ("home", "away") and e.get("game_id")}
 
 
 def night_games(games, day, picks, now):
