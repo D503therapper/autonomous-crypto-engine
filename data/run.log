@@ -8154,3 +8154,28 @@ error: failed to push some refs to 'https://github.
 [2026-10-05 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 13:06 UTC] crypto/hold_btc  equity $510.31 (+2.1%) 1 open  market UP
    social heat top: PENGU 31 (29/0/2), SKY 27 (27/0/0), PUMP 24 (21/0/3), HYPE 24 (24/0/0), FET 19 (19/0/0)
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +11.3%, 3 volume hikes, 62% quiet hours @ 0.27288
+   dex screen: REJECT ICP@base liq $16,857 - liquidity $16,857 < $100,000; 24h volume $41,133 < $100,000
+   dex screen: REJECT AVNT@base liq $760,808 - pool age unknown
+   dex screen: REJECT DRV@base liq $810,556 - 24h volume $99,995 < $100,000
+   dex screen: REJECT MKR@ethereum liq $398,956 - transfer_pausable; is_mintable; hidden_owner; top-10 holders 198%; lp locked 0% < 95%
+   dex screen: REJECT CHIP@base liq $181,735 - pool age unknown
+   dex screen: REJECT ORE@solana liq $209,865 - mint authority; top-10 holders 52%; lp holders unknown
+   scanner: GTC: +9.4% in 30 min on 3.8x volume @ 0.241 spread 0.99%
+   scanner: GTC: +10.1% in 30 min on 3.8x volume @ 0.244234 spread 1.04%
+   scanner: GTC: +9.5% in 30 min on 4.2x volume @ 0.241 spread 0.63%
+   dex screen: REJECT DOGINME@base liq $1,358,230 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 42%
+   dex screen: REJECT SURPLUS@base liq $1,020,338 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT UNI@ethereum liq $180,700 - 24h volume $91,346 < $100,000
+   dex screen: REJECT SAPLING@solana liq $171,818 - lp holders unknown; rugcheck lp locked 79% < 95%
+   dashboard push skipped: remote: fatal error in commit_refs        
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     57a20468d5aa9a13886300003ae17273a14d3075 -> main (failure)
+error: faile
+   dex screen: REJECT PAID@solana liq $468,588 - lp holders unknown; rugcheck lp locked 51% < 95%
+   dex screen: REJECT AAVE@ethereum liq $201,160 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT CALI@solana liq $153,803 - lp holders unknown; rugcheck lp locked 47% < 95%
+   >> stocks/trend: SELL $147.21 of AMD @ 621.069, P/L $+1.84 (stop hit (live check))
+   dex screen: PASS FWA@ethereum liq $952,779
+   >> dex/dex_hunter: BUY $15.25 of CLAUS@ethereum:0xa606d4 @ 0.001721 (dex tier A momentum 1h +29% 6h +52% buys/sells 32/26 impact 0.01%)
+   dex scanner: bought CLAUS@ethereum on a refresh (1h +29%, buys/sells 32/26)
