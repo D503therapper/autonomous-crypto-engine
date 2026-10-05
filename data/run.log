@@ -7924,3 +7924,33 @@ error: failed to push some refs to 'https://github.
 [2026-10-05 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 06:06 UTC] crypto/hold_btc  equity $509.49 (+1.9%) 1 open  market UP
    social heat top: FET 35 (35/0/0), PONS 32 (29/0/3), PENGU 32 (32/0/0), BTC 27 (27/0/0), QNT 24 (24/0/0)
+   footprint: SUI: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.3%, 2 volume hikes, 60% quiet hours @ 1.22791
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +10.2%, 3 volume hikes, 77% quiet hours @ 0.27053
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +6.6%, 3 volume hikes, 58% quiet hours @ 5.0312
+   dex screen: REJECT AVICI@solana liq $1,262,310 - mint authority; top-10 holders 48%
+   dex screen: REJECT TRUSD@ethereum liq $2,145 - liquidity $2,145 < $100,000; 24h volume $795 < $100,000
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT PYUSD@solana liq $5,001,663 - freeze authority; mint authority; close authority; balance_mutable_authority; transfer_fee_upgradable; transfer hook; top-10 holders 84%
+   dex screen: PASS TROLL@solana liq $3,385,538
+   dex screen: REJECT WOJAK@solana liq $351,067 - lp holders unknown; rugcheck lp locked 91% < 95%
+   dex re-screen: MISTAKE@solana:HKZDfZnk flagged once (lp holders unknown; rugcheck lp locked 0% < 95%); re-checking before selling
+   dex screen: UNREACHABLE GULD@ethereum liq $1,792,026 - honeypot.is unreachable
+   dex screen: PASS TIBBIR@base liq $3,748,660
+   dex screen: REJECT METAC@base liq $2,110,241 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 89%; lp locked 0% < 95%
+   dex outcome: emergency_exit MISTAKE@solana:HKZDfZnk tier A P/L $+6.13 (re-screen flagged twice: lp holders unknown; rugcheck lp locked 0% < 95%)
+   >> dex/dex_hunter: SELL $6.42 of MISTAKE@solana:HKZDfZnk @ 0.004, P/L $-4.62 (re-screen flagged twice: lp holders unknown; rugcheck lp locked 0% < 95%)
+   dex scanner: 3,006 pools (solana 2,276 / base 489 / ethereum 241), refresh cycle 123s (hot 120s), 3038 calls (108 feed, 429s 0, failed 0), 87,897 refreshed (1893 no pair), +140 added / -137 dropped (dead 6, stale 0, cap 131), movers 0 + warming 15 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-05 07:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $199.82 of XRP @ 1.51868, P/L $+1.77 (time limit)
+[2026-10-05 07:06 UTC] crypto/mover     equity $430.25 (-13.9%) 1 open  market UP
+[2026-10-05 07:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 07:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 07:06 UTC] crypto/social_heat equity $517.52 (+3.5%) 1 open  market UP
+[2026-10-05 07:06 UTC] crypto/breakout10 equity $513.14 (+2.6%) 2 open  market UP
+[2026-10-05 07:06 UTC] crypto/momentum  equity $488.22 (-2.4%) 4 open  market UP
+[2026-10-05 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 07:06 UTC] crypto/hold_btc  equity $511.00 (+2.2%) 1 open  market UP
+   social heat top: PENGU 37 (37/0/0), BTC 32 (32/0/0), FET 29 (29/0/0), PONS 28 (21/0/7), GRASS 24 (24/0/0)
