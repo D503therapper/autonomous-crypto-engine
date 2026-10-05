@@ -4,6 +4,12 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 
 ## Open questions
 
+### #1 PRIORITY (owner 2026-10-05: "take us to the moon") - a better crypto approach while the DEX scam pause holds
+DEX season 2: $1,000 -> ~$289 (2 scams latched the breaker 10-05; I can't lift it - the owner would add a permission).
+Study for the 10-22 review: momentum on ESTABLISHED coins that can't rug (exchange-listed / pools >= $5M / age >= 30d):
+breakouts and runners on Crypto.com top movers and big DEX pools, replayed on the scanner log + exchange candles at
+realistic fees; compare with the meme-coin rules on the same days. Deliver ONE recommendation for the crypto money.
+
 > WARNING: never push to branch "pending/crypto-into-dex" - its copy of paper-trade.yml has no branch filter, so a
 > push there starts a live engine on that branch and cancels main's (happened 2026-09-27 02:47-03:20 UTC; that
 > run's trades - a 3rd HOLDOWEEN - and its crypto->DEX move exist only on that branch and were discarded). To apply
