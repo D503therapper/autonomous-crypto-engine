@@ -1,27 +1,3 @@
-   no units on Louisville: missing Antonio Watts, Travis Egan, Jacob Baker, Montavin Quisenberry
-   no units on Florida St: missing Darryll Desir, Samuel Singleton Jr., Devin Carter, Antonio Cromartie Jr.
-   no units on Virginia: missing Devon Baxter, Peyton Lewis, Tim Hamann, Dillon Newton-Short
-   no units on Iowa: missing Kyler Gerardy, Tyler Brown, Darion Jones, Derek Weisskopf
-   no units on Ohio State: missing Jaxon Powell, Vasean Washington, Amari Valerio-Hudson, Braxton Rembert
-   no units on New Mexico: missing Troy Omeire, Elvin Harris, Cody Thumlert, Joey Olsen
-   no units on UTEP: missing Ekow Taylor, Oryend Fisher, Mason Ferguson, CJ Simon
-   no units on South Carolina: missing Dylan Stewart, Jalewis Solomon, Jayden Sellers, AJ Holloway
-   no units on Kentucky: missing Grant Grayton, DJ Miller, Cole Marszalek, Jay Clark
-   no units on Illinois: missing Alex Perry, Jack Paris, TJ McMillen, BJ Thurman
-   no units on Purdue: missing Mister Clark, Kylan Fox, Raderrion Daniels, Joey Tanona
-   no units on Colorado St: missing Elijah Mc-Cantos, Grant Houser, Jayden Tuia, Troy Foster
-   no units on Oregon St: missing Kourdey Glass, Carter Guilliame, Kait Wheaton, Ryan RJ Whitten
-   no units on Texas A&M: missing Terry Bussey, Tamarion Watkins, Mario Craver
-   no units on Arkansas: missing Jamonta Waller, John Howse IV, Maddox Lassiter, Steven Soles Jr.
-   no units on TCU: missing Michael Short, Devondre McGee, Joe Pitchford, Devan Robison
-   no units on BYU: missing Jonathan Kabeya, Raider Damuni, Sione Moa, Andrew Gentry
-   no units on Colorado: missing Danny Scudero, Preston Ashley, Demetrius Hunter, Makari Vickers
-   no units on Texas Tech: missing Ashton Hampton, Adam Hill, Elias Gillen, Mikal Harrison-Pilot
-   no units on Clemson: missing Polo Anderson, Shavar Young Jr., Cole Turner, David Eziomume
-   no units on Miami: missing Joshua Moore, CharMar Brown, Ja'Boree Antoine, O.J. Frederique
-   no units on USC: missing Corey Simms, Kendarius Reddick, Kilian O'Connor, Jahkeem Stewart
-   no units on Washington: missing Jordan Washington, Jayden Limar, Quaid Carr, Landen Hatchett
-   no units on Boise St: missing Carson Rasmussen, Sam Brooks, Sire Gaines, Logan Brantley
    no units on Utah State: missing John Randle Jr., Tavo Motu'apuaka, Tevita Tuha, Diego Grateron
    no units on Rutgers: missing Kevin Levy, Davoun Fuse, Steven Murray, Antwan Raymond
    no units on Indiana: missing Daniel Ndukwe, Carson Williams, Lebron Bond, Khobie Martin
@@ -2985,6 +2961,30 @@ ACTIVE ncaaf thursday night: favorites win 9-2 (prices said 8.8) (6 straight) ->
 ACTIVE mlb monday: home team wins 139-123 (prices said 137.6) (5 straight) -> coin flip · next: White Sox @ Guardians, Yankees @ Rays
 totals study: {'nfl': (0.5556, True), 'ncaaf': (0.4841, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4795, False)}
 public splits: 31 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (552 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (552 players), 138 matched, 0 unmatched
+   ncaab web injuries: 309 players, 153 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25926 rated matches, acc 0.638 (surface ratings alone 0.64), loss 0.631 vs 0.631, own weights [-0.005, 0.829, 0.074, 0.139, 0.425, 0.051, 0.049]
+tennis study ATP life factors vs current loss 0.631: experience 0.6319 (-0.91 mnats, z -0.87), age 0.6274 (+3.59 mnats, z 2.62), young_vs_aging 0.6304 (+0.58 mnats, z 1.4), last_match 0.6284 (+2.57 mnats, z 1.79), streaks 0.6316 (-0.58 mnats, z -0.58), first_set 0.6299 (+1.08 mnats, z 1.73), injury 0.6316 (-0.58 mnats, z -0.84), travel 0.6311 (-0.09 mnats, z -1.18) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30281 rated matches, acc 0.647 (surface ratings alone 0.6475), loss 0.6223 vs 0.6215, own weights [0.005, 0.906, -0.002, -0.103, 0.309, 0.028, -0.188]
+tennis study WTA life factors vs current loss 0.6223: experience 0.6178 (+4.55 mnats, z 2.71), age 0.6223 (+0.04 mnats, z 0.05), young_vs_aging 0.6222 (+0.09 mnats, z 0.56), last_match 0.6219 (+0.45 mnats, z 0.46), streaks 0.6227 (-0.37 mnats, z -0.75), first_set 0.6214 (+0.91 mnats, z 2.13), injury 0.6216 (+0.72 mnats, z 1.25), travel 0.6224 (-0.08 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 7 matches
+sync: 130661 games stored, 52 calls, 0 failed, 14s
+odds history: 0 games got odds, 55 calls, 0 failed, 7s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 113 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 3 new drama tags
+PICK AUDIT FLAG 2026-10-02: dog Blues 154: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-03: dog Flyers 110: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-03: lean Rays -135: the card names Aaron Judge. Their as out - he's not on the injury report it was posted with
+beat the close: unit plays 2 of 12 better than the close, avg +0.1 pts
+public splits: 30 upcoming games
    ncaaf web injuries: only 7 rows - not used
    ncaaf injury page: 138 schools (552 players), 138 matched, 0 unmatched
    ncaaf web injuries: only 7 rows - not used
