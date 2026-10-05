@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T15:09Z",
+ "updated": "2026-10-05T15:48Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -7,8 +7,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.531,
-    "tie": 0.116,
+    "p": 0.513,
+    "tie": 0.117,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -19,17 +19,16 @@
    "why": "on_board",
    "board": "lock",
    "lean": {
-    "team": "Guardians",
-    "opp": "White Sox",
-    "market": "ml",
-    "line": null,
-    "odds": -149,
-    "p": 0.607,
-    "win_p": 0.607,
+    "team": "White Sox",
+    "opp": "Guardians",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -185,
+    "p": 0.593,
+    "win_p": 0.403,
     "reasons": [
-     "the stronger team",
-     "better starting pitcher",
-     "hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"
+     "hotter recent form",
+     "opponent missing key players"
     ]
    }
   },
@@ -131,8 +130,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.411,
-    "tie": 0.296,
+    "p": 0.418,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -147,9 +146,9 @@
     "opp": "Sharks",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.629,
-    "win_p": 0.629,
+    "odds": -205,
+    "p": 0.643,
+    "win_p": 0.643,
     "reasons": [
      "the stronger team",
      "hotter goalie",
@@ -163,7 +162,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.457,
+    "p": 0.452,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -179,9 +178,9 @@
     "opp": "Yankees",
     "market": "spread",
     "line": 1.5,
-    "odds": -172,
-    "p": 0.598,
-    "win_p": 0.48,
+    "odds": -179,
+    "p": 0.604,
+    "win_p": 0.486,
     "reasons": [
      "the stronger team",
      "hotter recent form",
