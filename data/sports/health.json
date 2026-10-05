@@ -1,28 +1,40 @@
 {
- "at": "2026-10-05T18:04Z",
+ "at": "2026-10-05T20:27Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "workflow failed: health 2026-10-05T20:01 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37367117520",
+  "workflow failed: pacer 2026-10-05T19:43 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37365268912",
+  "workflow failed: health 2026-10-05T19:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37364835720"
+ ],
  "ok": [
-  "live watcher fresh (74s)",
+  "live watcher fresh (112s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 7 of today's games named, priced and looked at",
-  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 27 min ago",
+  "studies ran 5h ago",
+  "simulator ran 5h ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-05T20:27Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: health 2026-10-05T20:01 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37367117520",
+    "workflow failed: pacer 2026-10-05T19:43 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37365268912",
+    "workflow failed: health 2026-10-05T19:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37364835720"
+   ]
+  },
   {
    "at": "2026-10-05T18:04Z",
    "fixes": [],
@@ -738,15 +750,6 @@
    "at": "2026-10-03T10:14Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-03T10:13Z",
-   "fixes": [
-    "engine 132 min since its last run - started sports.yml"
-   ],
-   "problems": [
-    "engine last started 132 min ago (GitHub skipped its hourly runs) - restarted"
-   ]
   }
  ]
 }
