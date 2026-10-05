@@ -401,6 +401,10 @@ export default {
     const path = new URL(request.url).pathname.replace(/\/+$/, "");
     if (PUSH_ROUTES.has(path)) return handlePush(request, env, ctx, path, ORIGINS);
     if (path === "/scores") return handleScores(request, env, ctx, ORIGINS);
+    if (path === "/askstatus") {                             // (10/5) the engine reads this: out of credit = hide the box
+      const closed = !!(env.LOG && (await env.LOG.get("ask_closed")));
+      return new Response(JSON.stringify({ closed }), { headers: { "Content-Type": "application/json" } });
+    }
     const origin = request.headers.get("Origin") || "";
     const cors = {
       "Access-Control-Allow-Origin": ORIGINS.includes(origin) ? origin : ORIGINS[0],
@@ -540,6 +544,7 @@ export default {
       }
       if (err instanceof Anthropic.APIError && /credit balance/i.test(String(err.message))) {
         // (the owner, 10/5: "when it's gone, that's it" - out of API credit = the box says it's closed, no error)
+        if (env.LOG) ctx.waitUntil(env.LOG.put("ask_closed", new Date().toISOString()));   // the next engine run hides it
         return reply({ answer: "The question box is closed for now. 🔒 Everything the engine's got is on the board.",
                        closed: true }, 200, cors);
       }

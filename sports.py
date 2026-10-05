@@ -3428,6 +3428,11 @@ def run(repick=False, fetch=True):
             sports_futures.run(now)
         except Exception as e:                               # noqa: BLE001 - never blocks the board
             print(f"futures log failed: {str(e)[:80]}")
+        try:                                                 # 🔒 the question box out of API credit? (the owner, 10/5:
+            import sports_dashboard                          # "when it's gone, that's it") - the page drops the box
+            sports_dashboard.refresh_ask_status()
+        except Exception as e:                               # noqa: BLE001 - never blocks the board
+            print(f"question box status failed: {str(e)[:80]}")
         try:                                                 # 🌍 the Europe morning NFL under - tracked, no units
             import sports_intl                               # (the owner, 10/4: "track it and see")
             sports_intl.run(games, now)

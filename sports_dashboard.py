@@ -1392,6 +1392,38 @@ def _history(picks):
             f'{out}{f"<div class=hs-own>THEIR OWN RECORDS</div>{own}" if own else ""}</details>')
 
 
+ASK_CLOSED_PATH = os.path.join(sd.DATA, "ask_closed.json")
+
+
+def refresh_ask_status(get=None):
+    """(the owner, 10/5: "when it's gone, that's it") Ask the question box's Worker if its API credit ran out; saved for
+    the page (the box comes off the dashboard). Never blocks a run."""
+    url = _ask_url()
+    if not url:
+        return None
+    try:
+        if get:
+            closed = bool(get(url.rstrip("/") + "/askstatus").get("closed"))
+        else:
+            import urllib.request
+            with urllib.request.urlopen(url.rstrip("/") + "/askstatus", timeout=10) as r:
+                closed = bool(json.load(r).get("closed"))
+    except Exception as e:                                   # noqa: BLE001
+        print(f"question box status not read: {str(e)[:80]}")
+        return None
+    with open(ASK_CLOSED_PATH, "w") as f:
+        json.dump({"closed": closed}, f)
+    return closed
+
+
+def ask_closed():
+    try:
+        with open(ASK_CLOSED_PATH) as f:
+            return bool(json.load(f).get("closed"))
+    except (OSError, ValueError):
+        return False
+
+
 def _ask_url():
     """The AI question box relay (set by the deploy_ask workflow) - also the live bet alerts' Worker. "" if not live."""
     try:
@@ -1507,6 +1539,11 @@ def render(picks, model, games, series, start_bank, updated_ms):
     ask_note = ("Tap in! No stupid shit though. Ain't nobody got time for that." if ask_url else
                 "Ask about any game — who wins, spreads, first half. Heads up: these <b>ain’t our picks</b> and don’t count toward our record.")
     ask_btn = '<button id="askgo" type="button">Ask 🧠</button>' if ask_url else ""
+    ask_box = "" if ask_closed() else (   # (the owner, 10/5: out of API credit - the box comes off the page)
+        '<div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 QUESTION BOX</span></div>\n'
+        f'<div class="ask-b"><div class="ask-n">{ask_note}</div>\n'
+        '<div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" '
+        f'enterkeyhint="send">{ask_btn}</div>\n<div id="asklist"></div><div id="askout"></div></div></div>')
     bell = ('<div class="bell"><button id="bellb" type="button" hidden>🔔 Get live bet alerts</button>'   # 🔔 Web Push
             '<div class="bell-n" id="belln" hidden></div></div>') if ask_url else ""
     api = ask_url.rstrip("/")
@@ -2145,10 +2182,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
 </header>
 <div class="trust-wrap"><div class="trust">TRUST THE ALGORITHM</div></div>
 {day_recap(picks) if UNITS_ON else ""}
-<div class="ask" id="ask"><div class="ask-top"><span class="ask-t">🤔 QUESTION BOX</span></div>
-<div class="ask-b"><div class="ask-n">{ask_note}</div>
-<div class="ask-row"><input id="askq" type="search" placeholder="What’s good? 🤔" autocomplete="off" enterkeyhint="send">{ask_btn}</div>
-<div id="asklist"></div><div id="askout"></div></div></div>
+{ask_box}
 <div class="sec"><h2 class="bn"><i class="lv">●</i> LIVE</h2><span>updates every 5 sec</span></div>
 {bell}<div id="live"><section class="pk lvi" style="--c1:#ff3b3b;--c2:#ff8a00"><div class="pk-h"><span class="pk-i">🔥</span><span class="pk-l tn8">LIVE PLUS MONEY</span><span class="chip bin">BET IT NOW</span></div><div class="nolive">👀 The algorithm’s watching every play for value.</div></section></div>
 <div id="livetoday">{live_list}</div>
