@@ -7776,3 +7776,14 @@ DEX: $316.63 (-683.37) · Scammed: 1 (-$73.73)
 [2026-10-05 02:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 02:06 UTC] crypto/hold_btc  equity $513.49 (+2.7%) 1 open  market UP
    social heat top: PENGU 40 (40/0/0), VVV 37 (37/0/0), PONS 35 (29/0/6), GRASS 35 (35/0/0), SUI 32 (32/0/0)
+   footprint: SUI: footprint 4/4 (drift+quiet+hikes+rising_lows) 48h +6.3%, 2 volume hikes, 67% quiet hours @ 1.23741
+   footprint: LTC: footprint 3/4 (quiet+hikes+rising_lows) 48h +0.5%, 4 volume hikes, 62% quiet hours @ 70.225
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +6.8%, 3 volume hikes, 83% quiet hours @ 0.26369
+   dex screen: PASS ANTFUN@solana liq $15,086,313
+   dex screen: REJECT XSOL@solana liq $591,607 - mint authority; top-10 holders 45%; lp holders unknown
+   dex screen: REJECT CVX@ethereum liq $6,955,068 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 71%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     f09c059d5818e7704c62d65046d97e8186ba5c17 -> main (cannot lock ref 'refs/heads/main': is at 40a83432c27d58f72e00378
+   dex screen: REJECT PROS@base liq $1,064,967 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 84%; lp locked 0% < 95%
+   dex screen: REJECT AZTEC@ethereum liq $14,908,124 - top-10 holders 100%
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
