@@ -1,27 +1,37 @@
 {
- "at": "2026-10-05T13:31Z",
+ "at": "2026-10-05T14:16Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Sakatsume vs Salkova: no points for 2647s"
+ ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (38s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 1 of 2 live matches",
+  "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 32 min ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-05T14:16Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Salkova: no points for 2647s"
+   ]
+  },
   {
    "at": "2026-10-05T13:31Z",
    "fixes": [],
@@ -739,16 +749,6 @@
    "at": "2026-10-03T05:45Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-03T05:45Z",
-   "fixes": [
-    "engine 85 min since its last run - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Shubladze vs Jones: no points for 1630s",
-    "engine last started 85 min ago (GitHub skipped its hourly runs) - restarted"
-   ]
   }
  ]
 }
