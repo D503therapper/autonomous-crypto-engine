@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T12:45Z",
+ "updated": "2026-10-05T12:46Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -7,7 +7,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.516,
+    "p": 0.515,
     "tie": 0.117,
     "name": "first 5 innings"
    },
@@ -16,19 +16,18 @@
    "start": "2026-10-05T21:00Z",
    "away": "White Sox",
    "home": "Guardians",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Guardians",
-    "opp": "White Sox",
-    "market": "ml",
-    "line": null,
-    "odds": -158,
+    "team": "White Sox",
+    "opp": "Guardians",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -180,
     "p": 0.59,
-    "win_p": 0.59,
+    "win_p": 0.401,
     "reasons": [
-     "the stronger team",
-     "better starting pitcher"
+     "hotter recent form"
     ]
    }
   },
@@ -70,7 +69,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Penguins",
-    "p": 0.398,
+    "p": 0.404,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -79,18 +78,20 @@
    "start": "2026-10-05T23:30Z",
    "away": "Jets",
    "home": "Penguins",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Jets",
-    "opp": "Penguins",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -175,
-    "p": 0.623,
-    "win_p": 0.402,
+    "team": "Penguins",
+    "opp": "Jets",
+    "market": "ml",
+    "line": null,
+    "odds": -180,
+    "p": 0.614,
+    "win_p": 0.614,
     "reasons": [
-     "opponent drama: family/personal"
+     "hotter recent form",
+     "the stronger team",
+     "hotter goalie"
     ]
    }
   },
