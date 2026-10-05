@@ -8003,3 +8003,33 @@ error: failed to push some refs to 'https://github.
 [2026-10-05 08:10 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-05 08:10 UTC] crypto/hold_btc  equity $512.48 (+2.5%) 1 open  market UP
    social heat top: PENGU 37 (37/0/0), PONS 35 (29/0/6), PUMP 35 (35/0/0), GRASS 32 (32/0/0), FET 27 (27/0/0)
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +10.4%, 4 volume hikes, 54% quiet hours @ 5.1565
+   footprint: ADA: footprint 3/4 (drift+quiet+hikes) 48h +12.5%, 3 volume hikes, 73% quiet hours @ 0.27335
+   footprint: CRO: footprint 3/4 (drift+quiet+rising_lows) 48h +5.2%, 0 volume hikes, 67% quiet hours @ 0.06983
+   scanner: 982 tickers, sample: {'i': 'BTC_USD', 'h': '86992.01', 'l': '85028.94', 'a': '86421.43', 'v': '2001.6017', 'vv': '172361642.24', 'c': '0.0153', 'b': '86420.66', 'k': '86420.67', 'oi': '0', 't': 1791187834918}
+   dex outcome: emergency_exit BATONROGUE@solana:8nKp4Jke tier A P/L $-5.29 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%)
+   >> dex/dex_hunter: SELL $10.07 of BATONROGUE@solana:8nKp4Jke @ 0.000777, P/L $-5.29 (re-screen flagged twice: holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%)
+   dex screen: REJECT PHA@ethereum liq $318,963 - transfer_pausable; hidden_owner; top-10 holders 71%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS SPX@ethereum liq $12,920,917
+   dex screen: REJECT CRX@base liq $100,057 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT SPCXC@base liq $1,126,366 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 73%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,194 / base 512 / ethereum 294), refresh cycle 109s (hot 106s), 2822 calls (116 feed, 429s 0, failed 0), 81,108 refreshed (2356 no pair), +253 added / -253 dropped (dead 4, stale 0, cap 249), movers 1 + warming 21 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-05 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-05 09:05 UTC] crypto/mover     equity $429.18 (-14.2%) 2 open  market UP
+[2026-10-05 09:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-05 09:05 UTC] crypto/social_heat equity $519.96 (+4.0%) 1 open  market UP
+[2026-10-05 09:05 UTC] crypto/breakout10 equity $512.98 (+2.6%) 2 open  market UP
+[2026-10-05 09:05 UTC] crypto/momentum  equity $487.17 (-2.6%) 4 open  market UP
+[2026-10-05 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-05 09:05 UTC] crypto/hold_btc  equity $511.26 (+2.3%) 1 open  market UP
+   social heat top: PONS 39 (35/0/4), FET 37 (37/0/0), GRASS 32 (32/0/0), PENGU 27 (27/0/0), PUMP 26 (24/0/2)
