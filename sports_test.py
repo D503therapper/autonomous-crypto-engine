@@ -9119,6 +9119,31 @@ def test_a_board_crash_never_loses_the_hours_run():
     assert 'crash = sc.get("crash") or {}' in h and "THE BOARD BUILDER CRASHED" in h
 
 
+def test_a_former_players_death_is_never_team_drama():
+    """10/5, the owner OK'd: the Sharks card said "🧯 The Stars dealing with some personal stuff" off Lyle Odelein (a
+    retired defenseman) dying at 58, and it counted as a reason; "Former Falcons C Jeff Van Note dies at 80" counted
+    against the Falcons. A death is drama only in a current team member's family (or a teammate)."""
+    import sports_news as sn, sports_card_guard as g
+    odelein = "Lyle Odelein, Stanley Cup winning defenseman, dies at 58"
+    assert sn.classify(odelein) == [] and sn.classify("Former Falcons C, 6-time Pro Bowler Jeff Van Note dies at 80") == []
+    assert sn.classify("QB misses practice after the death of his father") == ["family/personal"]
+    assert sn.classify("Star leaves team for personal reasons") == ["family/personal"]
+    news = {"nhl:9": [{"id": "1", "kind": "family/personal", "date": "2026-10-04", "headline": odelein}]}
+    assert sn.drama(news, "nhl", "9") == []                       # (already stored ones drop too)
+    assert g.one(f'🧯 The Stars dealing with some personal stuff: "{odelein}"', "nhl") == ""
+    assert g.one('🧯 The Stars dealing with some personal stuff: "Benn away after the death of his mother"', "nhl")
+
+
+def test_no_basketball_sayings_or_record_filler_on_other_sports():
+    """10/5, the owner OK'd: the Guardians Lock said "Gavin Williams a walking bucket right now" (a hoops saying on a
+    pitcher) and "Guardians are 85-77 right now — the rest is on the field" (the record again, no fact)."""
+    import sports_card_guard as g, sports_lingo
+    assert g.one("⚾ Gavin Williams a walking bucket right now. It's his world.", "mlb") == ""
+    assert g.one("📋 Guardians are 85-77 right now — the rest is on the field.", "mlb") == ""
+    assert "walking bucket" not in open("sports_lingo.py").read()
+    assert "rest is on the field" not in open("sports_breakdown_v24.py").read()
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

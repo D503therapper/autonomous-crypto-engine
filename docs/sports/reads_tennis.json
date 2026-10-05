@@ -1,21 +1,177 @@
 {
- "updated": "2026-10-05T03:14Z",
+ "updated": "2026-10-05T16:09Z",
  "games": [
   {
-   "id": "tennis:wta:184327",
+   "id": "tennis:wta:184343",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-05T04:30Z",
-   "away": "Zheng Qinwen",
-   "home": "Marie Bouzkova",
+   "start": "2026-10-06T03:00Z",
+   "away": "Mirra Andreeva",
+   "home": "Daria Snigur",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Mirra Andreeva",
+    "opp": "Daria Snigur",
+    "market": "spread",
+    "line": -5.5,
+    "odds": -130,
+    "p": 0.531,
+    "win_p": 0.834,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186316",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T04:00Z",
+   "away": "Shintaro Mochizuki",
+   "home": "Roman Safiullin",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Shintaro Mochizuki",
+    "opp": "Roman Safiullin",
+    "market": "spread",
+    "line": 5.0,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.202,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186319",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T04:00Z",
+   "away": "Nikoloz Basilashvili",
+   "home": "Liam Draxl",
+   "vs": true,
+   "why": "on_board",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Nikoloz Basilashvili",
+    "opp": "Liam Draxl",
+    "market": "ml",
+    "line": null,
+    "odds": -140,
+    "p": 0.556,
+    "win_p": 0.556,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186320",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T04:00Z",
+   "away": "Federico Cina",
+   "home": "Aziz Dougaz",
    "vs": true,
    "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Zheng Qinwen",
-    "opp": "Marie Bouzkova",
+    "team": "Federico Cina",
+    "opp": "Aziz Dougaz",
+    "market": "ml",
+    "line": null,
+    "odds": -275,
+    "p": 0.701,
+    "win_p": 0.701,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:186327",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-06T04:00Z",
+   "away": "Bernard Tomic",
+   "home": "Timofey Skatov",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Bernard Tomic",
+    "opp": "Timofey Skatov",
+    "market": "ml",
+    "line": null,
+    "odds": -140,
+    "p": 0.556,
+    "win_p": 0.556,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:184344",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-06T04:30Z",
+   "away": "Linda Noskova",
+   "home": "Ekaterina Alexandrova",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Linda Noskova",
+    "opp": "Ekaterina Alexandrova",
+    "market": "spread",
+    "line": -4.0,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.745,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:184349",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-06T07:00Z",
+   "away": "Karolina Muchova",
+   "home": "Naomi Osaka",
+   "vs": true,
+   "why": "on_board",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Karolina Muchova",
+    "opp": "Naomi Osaka",
     "market": "ml",
     "line": null,
     "odds": -140,
@@ -28,129 +184,25 @@
    }
   },
   {
-   "id": "tennis:wta:184330",
+   "id": "tennis:wta:184348",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-05T04:30Z",
-   "away": "Kamilla Rakhimova",
-   "home": "Iva Jovic",
+   "start": "2026-10-06T08:30Z",
+   "away": "Nikola Bartunkova",
+   "home": "Sinja Kraus",
    "vs": true,
    "why": "coin_flip",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Kamilla Rakhimova",
-    "opp": "Iva Jovic",
+    "team": "Nikola Bartunkova",
+    "opp": "Sinja Kraus",
     "market": "spread",
-    "line": 5.0,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.225,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184328",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-05T06:00Z",
-   "away": "Sonay Kartal",
-   "home": "Alina Charaeva",
-   "vs": true,
-   "why": "on_board",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Sonay Kartal",
-    "opp": "Alina Charaeva",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184329",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-05T07:00Z",
-   "away": "Belinda Bencic",
-   "home": "Ann Li",
-   "vs": true,
-   "why": "on_board",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Belinda Bencic",
-    "opp": "Ann Li",
-    "market": "ml",
-    "line": null,
-    "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184331",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-05T08:30Z",
-   "away": "Elise Mertens",
-   "home": "Jelena Ostapenko",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Elise Mertens",
-    "opp": "Jelena Ostapenko",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:184333",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-05T08:30Z",
-   "away": "Elina Svitolina",
-   "home": "Maria Sakkari",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Elina Svitolina",
-    "opp": "Maria Sakkari",
-    "market": "spread",
-    "line": -4.5,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.745,
+    "line": -5.0,
+    "odds": -130,
+    "p": 0.531,
+    "win_p": 0.798,
     "reasons": [
      "on hard court",
      "China Open"
