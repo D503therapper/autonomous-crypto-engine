@@ -7245,6 +7245,13 @@ def test_no_head_to_head_lines_on_cards():
     assert g.one("🆚 Last meeting went their way (W 24-10).", "nfl") == ""
 
 
+def test_question_box_closes_quietly_when_the_credit_runs_out():
+    """10/5, the owner: the question box costs too much - "when it's gone, that's it." Out of API credit, the box says
+    it's closed (no error message, no retry)."""
+    src = open("workers/ask/src/index.js").read()
+    assert "/credit balance/i.test" in src and "The question box is closed for now." in src
+
+
 def test_patty_challenge_removed():
     """10/3 (the owner): "remove the Patty challenge off the dashboard ... no need to save it" - the box, its updates,
     its live-score hooks and its record are gone. A tennis score still needs 2 sets before it's called."""
