@@ -7046,7 +7046,7 @@ def test_early_cards_lead_with_the_read_and_never_share_wording():
          "g": {"id": "g", "league": "ncaaf", "start": "2026-10-10T23:30Z", "home": "A", "away": "G", "home_name": "Alabama",
                "away_name": "Georgia", "status": "pre", "stype": "2"}}
     ws = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now, 0.624, 130)
-    assert len(set(ws)) == 3 and all("62%" in w and "56-23" in w for w in ws), ws
+    assert len(set(ws)) == len(ws) >= 6 and all("62%" in w and "56-23" in w for w in ws), ws
     assert not any("beaten their price" in w for w in ws)
     low = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now, 0.50, 130)
     assert not any("%" in w for w in low), low                       # (a win % only over 55)
@@ -7222,6 +7222,18 @@ def test_early_card_shows_got_it_at_and_now():
     assert se.now_line(t, {"g": {"status": "pre", "total": "43.5", "under_odds": "-110"}}) == \
         "📈 Got it at 44.5 (-108) ➜ now 43.5 (-110) · 🔥 we beat the number"
     assert se.now_line(p, {"g": {"status": "in"}}) == ""                        # (game day / live: the other box)
+
+
+def test_early_cards_have_enough_wordings_for_a_full_box():
+    """10/5, the owner: "we don't want four early cards that share the same line" - 7 open cards ran out of 3
+    wordings; now 6 reads and 6 blowout facts, every one different."""
+    import sports_early as se
+    st = se.load()
+    open_ = [p["why"] for p in st["picks"] if not p.get("result")]
+    reads = [w.split(". ")[0] for w in open_]
+    assert len(set(open_)) == len(open_)
+    src = open("sports_early.py").read()
+    assert src.count("🧠 ") >= 12 and "Last time out:" in src
 
 
 def test_patty_challenge_removed():
