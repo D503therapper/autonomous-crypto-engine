@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T23:55Z",
+ "updated": "2026-10-05T00:40Z",
  "games": [
   {
    "id": "nfl:401872965",
@@ -289,8 +289,8 @@
    "away": "Mammoth",
    "home": "Rangers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -325,67 +325,76 @@
    "lean": null
   },
   {
+   "id": "mlb:401908014",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-05T00:00Z",
+   "away": "Braves",
+   "home": "Dodgers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891824",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-05T00:00Z",
+   "away": "Flames",
+   "home": "Kraken",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891778",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-05T00:00Z",
+   "away": "Panthers",
+   "home": "Ducks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401872978",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Lions",
-    "p": 0.598,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-05T00:20Z",
    "away": "Lions",
    "home": "Panthers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Lions",
-    "opp": "Panthers",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
+    "team": "Panthers",
+    "opp": "Lions",
+    "market": "spread",
+    "line": 3.5,
+    "odds": -105,
+    "p": 0.509,
+    "win_p": 0.509,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892444",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.468,
-    "tie": 0.287,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-05T01:00Z",
-   "away": "Golden Knights",
-   "home": "Canucks",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Golden Knights",
-    "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -290,
-    "p": 0.738,
-    "win_p": 0.738,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "opponent on a back-to-back"
-    ]
+     "revenge game",
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
