@@ -298,6 +298,6 @@ DEX = {
     "slots": 20,
     # Owner 2026-09-29: restart the DEX paper account at $1,000 (season 1 archived in data/dex/archive/season1/)
     "season": "2026-09-29", "season_cash": 1000.0,
-    "scam_pause": {"max": 2, "days": 30, "reset_after": ""},   # 2 scams / 30 days -> no new entries; to
+    "scam_pause": {"max": 2, "days": 30, "reset_after": "2026-10-05 23:00"},   # 2 scams / 30 days -> no new entries; to
                                                    # re-enable set reset_after "YYYY-MM-DD HH:MM" (UTC) > pause time
 }
