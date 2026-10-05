@@ -1,35 +1,33 @@
 {
- "updated": "2026-10-05T20:28Z",
+ "updated": "2026-10-05T21:19Z",
  "games": [
   {
    "id": "mlb:401907991",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Guardians",
-    "p": 0.514,
-    "tie": 0.117,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-05T21:00Z",
    "away": "White Sox",
    "home": "Guardians",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lock",
    "lean": {
-    "team": "White Sox",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -180,
-    "p": 0.592,
-    "win_p": 0.402,
+    "team": "Guardians",
+    "opp": "White Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -149,
+    "p": 0.607,
+    "win_p": 0.607,
     "reasons": [
-     "hotter recent form",
-     "opponent missing key players"
-    ]
+     "the stronger team",
+     "better starting pitcher",
+     "hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"
+    ],
+    "result": null
    }
   },
   {
@@ -180,7 +178,7 @@
     "opp": "Yankees",
     "market": "spread",
     "line": 1.5,
-    "odds": -176,
+    "odds": -175,
     "p": 0.601,
     "win_p": 0.482,
     "reasons": [
