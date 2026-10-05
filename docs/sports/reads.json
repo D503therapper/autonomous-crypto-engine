@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T23:47Z",
+ "updated": "2026-10-05T23:59Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -190,31 +190,29 @@
    "id": "nfl:401872979",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Falcons",
-    "p": 0.482,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-06T00:15Z",
    "away": "Falcons",
    "home": "Saints",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Saints",
     "opp": "Falcons",
     "market": "spread",
     "line": -1.5,
-    "odds": 100,
-    "p": 0.51,
-    "win_p": 0.498,
+    "odds": -108,
+    "p": 0.507,
+    "win_p": 0.507,
     "reasons": [
      "the stronger team",
-     "revenge game"
-    ]
+     "revenge game",
+     "opponent drama: family/personal"
+    ],
+    "result": null
    }
   },
   {
