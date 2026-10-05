@@ -1,9 +1,11 @@
 {
- "at": "2026-10-04T23:08Z",
+ "at": "2026-10-05T00:39Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "sources down (the backups took over): betrivers:nhl:1028409880 HTTP 404"
+ ],
  "ok": [
-  "live watcher fresh (30s)",
+  "live watcher fresh (31s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +13,24 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 47 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 8 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-05T00:39Z",
+   "fixes": [],
+   "problems": [
+    "sources down (the backups took over): betrivers:nhl:1028409880 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-04T23:08Z",
    "fixes": [],
@@ -691,13 +699,6 @@
    "problems": [
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "workflow failed: sports 2026-10-02T17:14 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37039344253"
-   ]
-  },
-  {
-   "at": "2026-10-02T16:03Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
  ]
