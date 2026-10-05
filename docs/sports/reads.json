@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T15:48Z",
+ "updated": "2026-10-05T16:15Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -285,7 +285,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.363,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -301,9 +301,9 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -263,
-    "p": 0.69,
-    "win_p": 0.473,
+    "odds": -225,
+    "p": 0.673,
+    "win_p": 0.454,
     "reasons": [
      "hotter recent form",
      "opponent drama: family/personal"
@@ -316,8 +316,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.404,
-    "tie": 0.297,
+    "p": 0.383,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -325,17 +325,21 @@
    "start": "2026-10-06T23:00Z",
    "away": "Predators",
    "home": "Maple Leafs",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Maple Leafs",
-    "opp": "Predators",
-    "market": "ml",
-    "line": null,
-    "odds": -182,
-    "p": 0.615,
-    "win_p": 0.615,
-    "reasons": []
+    "team": "Predators",
+    "opp": "Maple Leafs",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -205,
+    "p": 0.653,
+    "win_p": 0.433,
+    "reasons": [
+     "sharp money moving this way",
+     "hotter goalie",
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -343,7 +347,7 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Senators",
+    "team": "Red Wings",
     "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
@@ -353,16 +357,16 @@
    "start": "2026-10-06T23:00Z",
    "away": "Senators",
    "home": "Red Wings",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Senators",
     "opp": "Red Wings",
-    "market": "ml",
-    "line": null,
-    "odds": -111,
-    "p": 0.507,
-    "win_p": 0.507,
+    "market": "spread",
+    "line": 1.5,
+    "odds": -258,
+    "p": 0.71,
+    "win_p": 0.495,
     "reasons": [
      "hotter recent form",
      "hotter goalie",
@@ -376,7 +380,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Wild",
-    "p": 0.374,
+    "p": 0.351,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -388,15 +392,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Sabres",
-    "opp": "Wild",
+    "team": "Wild",
+    "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -244,
-    "p": 0.669,
-    "win_p": 0.449,
+    "odds": -250,
+    "p": 0.715,
+    "win_p": 0.501,
     "reasons": [
-     "the stronger team"
+     "hotter recent form",
+     "hotter goalie",
+     "opponent drama: family/personal"
     ]
    }
   },
@@ -406,7 +412,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.363,
+    "p": 0.368,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -422,9 +428,9 @@
     "opp": "Rangers",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.691,
-    "win_p": 0.473,
+    "odds": -238,
+    "p": 0.681,
+    "win_p": 0.463,
     "reasons": [
      "opponent drama: trade drama"
     ]
@@ -495,7 +501,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.411,
+    "p": 0.407,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -511,9 +517,9 @@
     "opp": "Kraken",
     "market": "ml",
     "line": null,
-    "odds": -182,
-    "p": 0.632,
-    "win_p": 0.632,
+    "odds": -175,
+    "p": 0.624,
+    "win_p": 0.624,
     "reasons": [
      "the stronger team"
     ]
