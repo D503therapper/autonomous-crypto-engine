@@ -13,6 +13,15 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/5 - "a team has another team's number" (the owner: Hurts 5-0 vs the Rams), every sport, closing prices
+- For every game with 3+ meetings in the last 5 years: how much each team beat (or fell short of) the PRICE in the last
+  6 meetings, then betting the side that "has their number" at the close. DEAD everywhere: the past over-performance
+  vs the price predicts nothing next time (correlation +0.02 NFL, +0.01 college, +0.01 NBA, -0.01 NHL, -0.01 MLB,
+  +0.01 college hoops - on 854 to 21,335 games). Betting it: NFL -2.3% (big edge +9.4% on 143, 4 of 6 seasons, t 1.0 =
+  noise), college -3%/-7%, NBA -4.5%, NHL -4%/-10% (0 of 8 seasons), MLB -4%/-5%, college hoops -5%/-6%. A team that
+  "owns" another already shows up in the price (the books know Hurts is 5-0); the style-matchup version (pass O vs
+  pass D etc.) was dead on 10/1 too. Not built.
+
 ## 10/4 - NFL games out of the country (London / Germany / Mexico / Brazil...), 2016-26, our game files' intl flag
 - 44 international games, 34 with a closing total / moneyline. UNDER 20-14 (59%), +12.5% at the close vs -1.7% for
   every NFL under (2,244). By season (unders-overs): 2018 3-0, 2019 3-2, 2021 1-1, 2022 2-3, 2023 5-0, 2024 2-3,
