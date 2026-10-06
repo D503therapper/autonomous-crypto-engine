@@ -1,11 +1,11 @@
 {
- "at": "2026-10-06T12:40Z",
+ "at": "2026-10-06T14:11Z",
  "fixes": [],
  "problems": [
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis points: none of 3 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (93s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,13 +16,20 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 62 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 61 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-06T14:11Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-06T12:40Z",
    "fixes": [],
@@ -649,20 +656,6 @@
    "at": "2026-10-04T01:41Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
-   ]
-  },
-  {
-   "at": "2026-10-04T01:40Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
    ],
    "problems": [
     "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
