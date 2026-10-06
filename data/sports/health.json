@@ -1,13 +1,11 @@
 {
- "at": "2026-10-06T14:56Z",
+ "at": "2026-10-06T14:57Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Ercan vs Waltert: no points for 2647s",
-  "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 613s",
   "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (37s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,11 +19,18 @@
   "baseball star list fresh (30 teams)",
   "studies ran 9h ago",
   "simulator ran 8h ago",
-  "engine ran 16 min ago",
+  "engine ran 18 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-06T14:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-06T14:56Z",
    "fixes": [],
@@ -642,20 +647,6 @@
     "live tennis scores: tennis Li Zongyu vs Lu Jia-Jing: no points for 1176s",
     "live tennis scores: tennis Khamutsianskaya vs Huang: no points for 1176s",
     "live tennis scores: tennis Yihan vs Zheng Wushuang: no points for 399s",
-    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
-   ]
-  },
-  {
-   "at": "2026-10-04T02:00Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
     "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
     "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
     "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
