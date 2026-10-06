@@ -120,7 +120,7 @@ LADDER = {"tiers": {"A": {"pct": 0.03}, "B": {"pct": 0.10, "age_d": 7, "liq": 1_
           "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},
           "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "ladder": [(4.0, 1 / 3), (9.0, 0.5)],
                    "trail_steps": [(3.0, 0.40), (10.0, 0.50)], "max_hold_days": 14, "runner_at_limit": None,
-                   "liq_pull": 0.50, "rug_tax": 0.50, "stake_back": None}}
+                   "liq_pull": 0.50, "rug_tax": 0.50, "stake_back": None, "pyramid": None}}
 
 
 def make(table, **params):
@@ -734,7 +734,7 @@ def test_take_profit_steps():
 def test_study_exit():
     """Live config (dex_exit_study + dex_legends_study): no stop for 14 days, time limit, a runner at the
     limit keeps riding on a 40% trail."""
-    live = {"entry": dex.DEX["entry"], "exit": dex.DEX["exit"]}
+    live = {"entry": dex.DEX["entry"], "exit": {**dex.DEX["exit"], "stake_back": 3.0, "pyramid": None}}
     def held(px_path, days_between=1, sb=True):
         h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, h1=12, h6=60)), **live)
         screen(h, cand(h1=12, h6=60))
@@ -758,7 +758,7 @@ def test_study_exit():
     assert not any(ex) and pos.get("runner")
     ex, _ = held([2.5] * (N - 1) + [2.6, 2.0, 1.2])       # runner then drops 50% from its high -> sold
     assert ex[-1]
-    SB = dex.DEX["exit"]["stake_back"]                    # EXPERIMENT 3: at SB x sell the stake (1/m), keep the rest
+    SB = 3.0                                              # EXPERIMENT 3: at SB x sell the stake (1/m), keep the rest
     m = SB * 1.1
     ex, pos = held([1.5, SB * 0.95, m], sb=False)
     assert ex == [False, False, True] and f"stake back at {m:.1f}x" in pos["exit"]["reason"]
@@ -771,9 +771,9 @@ def test_study_exit():
 def test_stake_back_executes():
     # executed end to end: a third is sold, the rest stays, and it never sells the stake twice
     h, fetch, d, px = held()
-    h.p = {**h.p, "exit": {**dex.DEX["exit"]}}
+    h.p = {**h.p, "exit": {**dex.DEX["exit"], "stake_back": 3.0, "pyramid": None}}   # the mechanism when it is on
     q0 = h.pf.positions[K]["qty"]
-    m = dex.DEX["exit"]["stake_back"] * 1.1
+    m = 3.0 * 1.1
     t = poll(h, T0 + 6000, px, v=0.0101 * m)
     assert K in h.pf.positions and abs(h.pf.positions[K]["qty"] - q0 * (1 - 1 / m)) < q0 * 0.02, h.pf.positions[K]["qty"] / q0
     assert "stake back" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
@@ -782,6 +782,25 @@ def test_stake_back_executes():
     assert h.pf.positions[K]["qty"] == q1
     shutil.rmtree(d)
     print("  stake back: sells the stake once, the rest keeps riding   ok")
+
+
+def test_pyramid_adds_on_a_proven_runner():
+    """EXPERIMENT 11: at 3x of the first buy price (two readings >= 2 min apart) add 10% of the account, once."""
+    h, fetch, d, px = held()
+    h.p = {**h.p, "confirm_ms": 120_000, "exit": {**dex.DEX["exit"], "pyramid": {"at": 3.0, "pct": 0.10}, "stake_back": None}}
+    pos = h.pf.positions[K]
+    q0, c0 = pos["qty"], pos["cost0"]
+    t = poll(h, T0 + 6000, px, v=0.0101 * 3.2)                         # first reading at 3.2x: wait for a second
+    assert h.pf.positions[K]["qty"] == q0
+    t = poll(h, t + 120_000, px, v=0.0101 * 3.3)                       # confirmed: added
+    pos = h.pf.positions[K]
+    assert pos["qty"] > q0 and pos["cost0"] > c0 and pos["pyr"]
+    assert "proven runner" in rows(f"{d}/dex_hunter/trades.csv")[-1]["reason"]
+    q1 = pos["qty"]
+    poll(h, t + 200_000, px, v=0.0101 * 5)                             # only once
+    assert h.pf.positions[K]["qty"] == q1
+    shutil.rmtree(d)
+    print("  a coin at 3x of its first price gets one bigger add-on (confirmed by two readings)   ok")
 
 
 def test_entry_needs_a_run():
@@ -1542,6 +1561,7 @@ if __name__ == "__main__":
     test_far_off_tick_needs_15_minutes()
     test_recycle_stale_for_stronger_coin()
     test_scam_coin_never_rebought()
+    test_pyramid_adds_on_a_proven_runner()
     test_resize_old_small_position()
     test_study_exit()
     test_max_hold()
