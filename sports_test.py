@@ -9446,6 +9446,45 @@ def test_a_confirmed_goalie_is_never_called_an_injury_alert():
     assert '"🥅 IN NET" if "confirmed in net" in a else "⚠️ INJURY ALERT"' in src
 
 
+def test_in_net_line_still_posts_next_to_a_slumping_goalie_line():
+    """10/6 sweep: the card's '🥅 In net: ...' line was skipped whenever the write-up already had ANY 🥅 line - and the
+    slumping-goalie write-up ('🥅 X has been leaky as hell') starts with 🥅 too, so the confirmed starter went missing
+    on exactly the cards where the goalie is the story. Only a real In-net line stops a second one."""
+    src = open("sports.py").read()
+    assert 'str(x).startswith("🥅 In net")' in src and 'str(x).startswith("🥅") for x in leg.get("breakdown")' not in src
+    net = "🥅 In net: Ilya Sorokin confirmed for the Islanders — their #1, 8 of their last 10 starts."
+    def dressed(breakdown):                                     # the same test post_board runs on a hockey card
+        return breakdown if any(str(x).startswith("🥅 In net") for x in breakdown) else breakdown + [net]
+    slump = ["🥅 Igor Shesterkin has been leaky as hell — .880 his last 5."]
+    assert dressed(slump) == slump + [net]                      # the slumping line is not an In-net line
+    assert dressed(slump + [net]) == slump + [net]              # never twice
+
+
+def test_pick_audit_never_flags_a_confirmed_goalie_as_false_injury_data():
+    """10/6 sweep: the daily pick audit read every name in key_seen as 'we had him out' - a goalie we had CONFIRMED in
+    net (the 10/6 watch) then STARTED, and the 1 AM review was told 'Quick started for the Rangers - we had him out'
+    (false injury data). A real Out still flags."""
+    import sports_audit as sa
+    rows, games = _goalie_rows(), _goalie_games()
+    rows = rows + [{"gid": "nhl:g2", "start": "2026-10-06T23:30Z", "team": "3", "player": "Jonathan Quick", "role": "G", "sa": "30", "ga": "1"}]
+    games["nhl:g2"] = {**games["nhl:g2"], "status": "final", "home_score": "3", "away_score": "1", "ml_home": "-170", "ml_away": "150"}
+    def pick(key_seen):
+        leg = {"game_id": "nhl:g2", "league": "nhl", "side": "home", "team": "Rangers", "opp": "Islanders", "market": "ml",
+               "odds": -170, "dec": 1.588, "home": True, "start": "2026-10-06T23:30Z", "key_seen": key_seen, "breakdown": [],
+               "outs": [], "opp_outs": []}
+        return [{"date": "2026-10-06", "kind": "lean", "lean": True, "status": "won", "legs": [leg], "stake": 100, "pnl": 0}]
+    keep_played, keep_cache = sa.played, sp.CACHE
+    try:
+        sa.played = lambda lg, gid: {"jonathan quick", "ilya sorokin"}
+        sp.CACHE = {"nhl": rows}
+        flags = sa.audit_day(pick({"Jonathan Quick (Rangers G)": "Confirmed in net"}), games, "2026-10-06")["flags"]
+        assert not any("we had him out" in f or "false injury data" in f for f in flags), flags
+        flags = sa.audit_day(pick({"Jonathan Quick (Rangers G)": "Out"}), games, "2026-10-06")["flags"]
+        assert any("Jonathan Quick started for the Rangers - we had him out" in f for f in flags), flags
+    finally:
+        sa.played, sp.CACHE = keep_played, keep_cache
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

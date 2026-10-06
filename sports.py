@@ -2960,8 +2960,8 @@ def post_board(games, model, picks, now, day, force=False):
                 net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or [])
             except Exception:                                   # noqa: BLE001
                 net = ""
-            if net and not any(str(x).startswith("🥅") for x in leg.get("breakdown") or []):
-                leg["breakdown"] = list(leg.get("breakdown") or []) + [net]
+            if net and not any(str(x).startswith("🥅 In net") for x in leg.get("breakdown") or []):   # (10/6 sweep: the
+                leg["breakdown"] = list(leg.get("breakdown") or []) + [net]   # slumping-goalie line starts with 🥅 too)
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
                   f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
 
