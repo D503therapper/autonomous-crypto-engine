@@ -9125,3 +9125,40 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-10-06 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-06 12:06 UTC] crypto/hold_btc  equity $511.92 (+2.4%) 1 open  market UP
    social heat top: RLC 40 (40/0/0), NMR 38 (35/0/3), ONDO 37 (37/0/0), NEAR 32 (32/0/0), HYPE 29 (29/0/0)
+   dex screen: PASS STONK@solana liq $2,609,331
+   scanner: NMR: +44.1% in 60 min on 217.4x volume @ 17.284 spread 1.17%
+   take-off: NMR vetoed by pump guard: already +45% in 24h
+   dex screen: REJECT DOT@base liq $579,908 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex re-screen: HIGGS@solana:FwVY8ydF data flag #4 (holders unknown; lp holders unknown; rugcheck score 53); holding (experiment 10)
+   scanner: NMR: +41.8% in 60 min on 357.7x volume @ 17.019 spread 0.98%
+   take-off: NMR vetoed by pump guard: blocked 12 more min
+   scanner: NMR: +42.5% in 60 min on 361.3x volume @ 17.076 spread 1.00%
+   take-off: NMR vetoed by pump guard: blocked 10 more min
+   dex screen: REJECT SPCXC@base liq $29,604 - liquidity $29,604 < $100,000; 24h volume $10,581 < $100,000
+   dex screen: REJECT ETHFI@ethereum liq $394,287 - top-10 holders 63%; lp locked 0% < 95%
+   dex screen: REJECT ETHFI@ethereum liq $396,154 - top-10 holders 63%; lp locked 0% < 95%
+   dex screen: REJECT VVV@base liq $18,899,753 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; owner_percent 30%; top-10 holders 62%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            a0ef2d8b7d7fb0420f72696a9dc18930d1eed327 -> main (fetch first)
+error: failed to push some refs to 'https://github.
+   dex re-screen: HIGGS@solana:FwVY8ydF data flag #5 (holders unknown; lp holders unknown; rugcheck score 53); holding (experiment 10)
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID 0819:192C11:A68558:E8636C:6AC4F08D        
+remote: Time 2026-10-06T12:59:23Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [r
+   dex scanner: 3,001 pools (solana 1,957 / base 615 / ethereum 429), refresh cycle 129s (hot 125s), 2882 calls (121 feed, 429s 1, failed 1), 82,825 refreshed (8376 no pair), +166 added / -165 dropped (dead 22, stale 0, cap 143), movers 2 + warming 26 -> queued 2, screened 2 (passed 0), bought 0
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+[2026-10-06 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-06 13:06 UTC] crypto/mover     equity $434.75 (-13.0%) 1 open  market UP
+[2026-10-06 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 13:06 UTC] crypto/social_heat equity $516.67 (+3.3%) 1 open  market UP
+[2026-10-06 13:06 UTC] crypto/breakout10 equity $509.81 (+2.0%) 2 open  market UP
+[2026-10-06 13:06 UTC] crypto/momentum  equity $495.66 (-0.9%) 4 open  market UP
+[2026-10-06 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-06 13:06 UTC] crypto/hold_btc  equity $511.56 (+2.3%) 1 open  market UP
+   social heat top: RLC 40 (40/0/0), NMR 37 (37/0/0), NEAR 35 (35/0/0), ZRO 32 (32/0/0), PENGU 29 (29/0/0)
