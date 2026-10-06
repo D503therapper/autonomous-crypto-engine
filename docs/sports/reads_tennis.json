@@ -1,32 +1,6 @@
 {
- "updated": "2026-10-06T10:34Z",
+ "updated": "2026-10-06T11:40Z",
  "games": [
-  {
-   "id": "tennis:atp:183468",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-06T11:00Z",
-   "away": "Novak Djokovic",
-   "home": "Alex de Minaur",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Novak Djokovic",
-    "opp": "Alex de Minaur",
-    "market": "ml",
-    "line": null,
-    "odds": -195,
-    "p": 0.632,
-    "win_p": 0.632,
-    "reasons": [
-     "on hard court",
-     "China Open"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:184839",
    "league": "tennis",
@@ -541,6 +515,32 @@
     "odds": -115,
     "p": 0.5,
     "win_p": 0.225,
+    "reasons": [
+     "on hard court",
+     "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:wta:184355",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Women's Tennis",
+   "start": "2026-10-07T11:00Z",
+   "away": "Zheng Qinwen",
+   "home": "Alina Charaeva",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Zheng Qinwen",
+    "opp": "Alina Charaeva",
+    "market": "spread",
+    "line": -4.5,
+    "odds": -135,
+    "p": 0.541,
+    "win_p": 0.762,
     "reasons": [
      "on hard court",
      "China Open"
