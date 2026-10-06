@@ -1,48 +1,3 @@
-  label:live: 15 graded, said 57%, hit 47% - only 15 graded - report only
-  source:live: 15 graded, said 57%, hit 47% - only 15 graded - report only
-  ctx:game:conf: 13 graded, said 52%, hit 54% - only 13 graded - report only (report only: forward-only tag)
-  league:nfl: 13 graded, said 59%, hit 77% - only 13 graded - report only
-  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  ctx:them:trip1000: 9 graded, said 56%, hit 78% - only 9 graded - report only (report only: forward-only tag)
-  league:ncaaf: 8 graded, said 53%, hit 50% - only 8 graded - report only
-  ctx:them:east1000: 5 graded, said 56%, hit 80% - only 5 graded - report only (report only: forward-only tag)
-  drama:theirs: 5 graded, said 52%, hit 20% - only 5 graded - report only
-  label:dog: 5 graded, said 41%, hit 20% - only 5 graded - report only
-  label:lock: 5 graded, said 56%, hit 100% - only 5 graded - report only
-  market:spread: 5 graded, said 54%, hit 20% - only 5 graded - report only
-  ctx:them:week3000: 4 graded, said 56%, hit 100% - only 4 graded - report only (report only: forward-only tag)
-  ctx:them:west1000: 4 graded, said 55%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  ctx:game:nonconf: 2 graded, said 52%, hit 50% - only 2 graded - report only (report only: forward-only tag)
-  ctx:them:out_dome: 2 graded, said 54%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  ctx:them:trip2000: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:trip1000: 2 graded, said 51%, hit 0% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:west1000: 2 graded, said 51%, hit 0% - only 2 graded - report only (report only: forward-only tag)
-  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
-  price:+180+: 1 graded, said 35%, hit 0% - only 1 graded - report only
-  price:pick'em: 1 graded, said 58%, hit 100% - only 1 graded - report only
-  talk:ours:must-win: 1 graded, said 44%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  talk:theirs:must-win: 1 graded, said 44%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  (13 graded live bets were logged without a said chance - left out)
-extra edge now needed: none
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (544 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (544 players), 138 matched, 0 unmatched
-   ncaab web injuries: 309 players, 152 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
-tennis sync: 72765 matches stored, 18 calls, 0 failed
-tennis study ATP: 25920 rated matches, acc 0.637 (surface ratings alone 0.6385), loss 0.6311 vs 0.6313, own weights [-0.006, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
-tennis study ATP life factors vs current loss 0.6311: experience 0.6321 (-1.01 mnats, z -0.96), age 0.6273 (+3.83 mnats, z 2.8), young_vs_aging 0.6304 (+0.69 mnats, z 1.66), last_match 0.6285 (+2.67 mnats, z 1.85), streaks 0.6316 (-0.50 mnats, z -0.49), first_set 0.63 (+1.13 mnats, z 1.81), injury 0.6318 (-0.62 mnats, z -0.89), travel 0.6312 (-0.09 mnats, z -1.18) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30266 rated matches, acc 0.6485 (surface ratings alone 0.6485), loss 0.622 vs 0.6208, own weights [0.005, 0.906, -0.001, -0.102, 0.309, 0.029, -0.187]
-tennis study WTA life factors vs current loss 0.622: experience 0.6176 (+4.37 mnats, z 2.6), age 0.6217 (+0.25 mnats, z 0.3), young_vs_aging 0.6218 (+0.11 mnats, z 0.66), last_match 0.6215 (+0.44 mnats, z 0.45), streaks 0.6223 (-0.35 mnats, z -0.71), first_set 0.6211 (+0.90 mnats, z 2.07), injury 0.6212 (+0.72 mnats, z 1.25), travel 0.622 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 16 matches
-sync: 130643 games stored, 52 calls, 0 failed, 16s
-odds history: 2 games got odds, 55 calls, 0 failed, 8s
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 126 games got weather, 0 new stadiums located, 247s
-4th-down rates: 32 NFL teams
-news: 3 new drama tags
 PICK AUDIT FLAG 2026-10-02: dog Blues 154: 1.0u on a thin edge (under 3%) - should be ½u
 PICK AUDIT FLAG 2026-10-03: dog Flyers 110: 1.0u on a thin edge (under 3%) - should be ½u
 PICK AUDIT FLAG 2026-10-03: lean Rays -135: the card names Aaron Judge. Their as out - he's not on the injury report it was posted with
@@ -2998,3 +2953,48 @@ tennis study WTA life factors vs current loss 0.6212: experience 0.6169 (+4.32 m
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 11 matches
+sync: 130669 games stored, 52 calls, 0 failed, 11s
+odds history: 0 games got odds, 55 calls, 0 failed, 8s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 113 games got weather, 0 new stadiums located, 241s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 9 games on the page, 9 matched, 0 confirmed
+PICK AUDIT FLAG 2026-10-05: dog Sharks 145: the card says 2 straight wins, the games say 4: '🔥 Sharks are cooking right now (2 straight W's) and Stars ain't matching that en'
+beat the close: unit plays 3 of 14 better than the close, avg -0.1 pts
+question box status not read: HTTP Error 403: Forbidden
+everything's pulled and checked - the board goes up at 8:00 sharp (waiting 778s)
+public splits: 68 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
+   ncaab web injuries: 312 players, 153 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
+   no units on Canadiens: missing Ivan Demidov, Kaiden Guhle, Oliver Kapanen, Alexandre Carrier
+   no units on Hurricanes: missing Seth Jarvis, Alexander Nikishin
+   no units on Maple Leafs: missing Dakota Joshua, Max Domi, William Villeneuve
+   no units on Red Wings: missing Marco Kasper, Simon Edvinsson, Jacob Bernard-Docker
+   no units on Senators: missing Jake Sanderson, Artem Zub
+   no units on Devils: missing Connor Brown, Johnathan Kovacevic, Nick Bjugstad
+   no units on Sabres: missing Conor Timmins, Jason Zucker
+   no units on Rangers: missing Joe Veleno, Adam Sykora
+   no units on Blackhawks: missing Andrew Mangiapane, Connor Bedard
+   no units on Blues: missing Alexey Toropchenko, Tyler Tucker, Logan Mailloux
+FACTOR NOTE: 13 stale opening line(s) replaced by the first price we saw that week: Buccaneers @ Cowboys: open -205 -> -520; Texas A&M @ Missouri: open -147 -> -118; Texas @ Oklahoma: open 180 -> 320
+CHECKER SELF-TEST: all 12 checks caught their problem
+   injuries seen for Mammoth vs Devils: no key players listed · ours out: - · theirs out: ['Connor Brown (RW)']
+   injuries seen for Dodgers vs Braves: no key players listed · ours out: ['Blake Treinen (RP)'] · theirs out: ['Martin Perez (SP)', 'Bryce Elder (SP)', 'Reynaldo Lopez (RP)']
+CARD GUARD (head-to-head history) dropped for Blues: 🆚 Blackhawks can't figure Blues out: 2 of 3 to Blues.
+   injuries seen for Blues vs Blackhawks: no key players listed · ours out: - · theirs out: ['Andrew Mangiapane (LW)']
+posted dog for 2026-10-06: Mammoth ML (+110) -> +110, hit 46%
+posted lean for 2026-10-06: Dodgers ML (-109) -> -109, hit 51%
+posted lean for 2026-10-06: Blues ML (-148) -> -148, hit 58%
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25957 rated matches, acc 0.641 (surface ratings alone 0.642), loss 0.6295 vs 0.6295, own weights [-0.005, 0.828, 0.074, 0.139, 0.424, 0.053, 0.05]
+tennis study ATP life factors vs current loss 0.6295: experience 0.6302 (-0.63 mnats, z -0.61), age 0.6262 (+3.36 mnats, z 2.46), young_vs_aging 0.6291 (+0.44 mnats, z 1.08), last_match 0.627 (+2.48 mnats, z 1.71), streaks 0.63 (-0.49 mnats, z -0.48), first_set 0.6286 (+0.92 mnats, z 1.46), injury 0.6302 (-0.69 mnats, z -1.01), travel 0.6296 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30320 rated matches, acc 0.65 (surface ratings alone 0.6505), loss 0.6211 vs 0.6202, own weights [0.005, 0.905, -0.002, -0.099, 0.31, 0.028, -0.192]
+tennis study WTA life factors vs current loss 0.6211: experience 0.6169 (+4.28 mnats, z 2.53), age 0.621 (+0.13 mnats, z 0.16), young_vs_aging 0.6211 (+0.10 mnats, z 0.6), last_match 0.6209 (+0.26 mnats, z 0.26), streaks 0.6214 (-0.30 mnats, z -0.61), first_set 0.6204 (+0.73 mnats, z 1.7), injury 0.6206 (+0.55 mnats, z 0.95), travel 0.6212 (-0.08 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 11 matches
+tennis posted 2026-10-06: Tomas Machac -250, Matteo Berrettini -240, Miomir Kecmanovic -215, Iga Swiatek -210, Arthur Gea -175

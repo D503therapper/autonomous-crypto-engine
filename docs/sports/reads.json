@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T14:58Z",
+ "updated": "2026-10-06T15:01Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -7,7 +7,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.449,
+    "p": 0.454,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -16,16 +16,16 @@
    "start": "2026-10-06T22:00Z",
    "away": "Dodgers",
    "home": "Braves",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Braves",
     "opp": "Dodgers",
     "market": "spread",
     "line": 1.5,
     "odds": -196,
-    "p": 0.608,
-    "win_p": 0.49,
+    "p": 0.602,
+    "win_p": 0.484,
     "reasons": []
    }
   },
@@ -75,8 +75,8 @@
    "start": "2026-10-06T23:00Z",
    "away": "Mammoth",
    "home": "Devils",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Mammoth",
     "opp": "Devils",
@@ -86,7 +86,8 @@
     "p": 0.681,
     "win_p": 0.462,
     "reasons": [
-     "hotter recent form"
+     "hotter recent form",
+     "opponent missing key players"
     ]
    }
   },
@@ -144,9 +145,9 @@
     "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.694,
-    "win_p": 0.476,
+    "odds": -278,
+    "p": 0.733,
+    "win_p": 0.525,
     "reasons": [
      "hotter recent form",
      "hotter goalie",
@@ -211,6 +212,7 @@
     "p": 0.653,
     "win_p": 0.433,
     "reasons": [
+     "opponent missing key players",
      "opponent drama: trade drama"
     ]
    }
@@ -230,8 +232,8 @@
    "start": "2026-10-07T00:00Z",
    "away": "Blues",
    "home": "Blackhawks",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Blackhawks",
     "opp": "Blues",
@@ -270,7 +272,8 @@
     "win_p": 0.777,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -310,7 +313,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Padres",
-    "p": 0.476,
+    "p": 0.471,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -327,10 +330,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -193,
-    "p": 0.634,
-    "win_p": 0.45,
+    "p": 0.639,
+    "win_p": 0.456,
     "reasons": [
      "hotter recent form",
+     "opponent missing key players",
      "opponent drama: new baby"
     ]
    }
