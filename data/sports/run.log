@@ -1,37 +1,3 @@
-rate|fav_ml: following hit 73.8% vs 72.8% the price said over 112524 (edge +0.9% older, +1.2% newer, z 8.2) -> watch only
-rate|fav_cover: following hit 49.1% vs 50.0% the price said over 1791 (edge -0.1% older, -1.8% newer, z -0.78) -> watch only
-rate|home: following hit 66.4% vs 65.2% the price said over 41945 (edge +1.1% older, +1.2% newer, z 5.83) -> watch only
-nfl|streak: following hit 58.2% vs 59.8% the price said over 1522 (edge -2.5% older, -0.6% newer, z -1.28) -> watch only
-nfl|rate: following hit 65.1% vs 65.0% the price said over 4067 (edge -0.2% older, +0.4% newer, z 0.1) -> watch only
-ncaaf|streak: following hit 70.6% vs 70.2% the price said over 7178 (edge -0.3% older, +1.1% newer, z 0.82) -> watch only
-ncaaf|rate: following hit 72.7% vs 71.8% the price said over 21239 (edge +0.9% older, +0.9% newer, z 3.22) -> watch only
-nba|streak: following hit 61.2% vs 61.3% the price said over 9804 (edge -0.2% older, +0.1% newer, z -0.21) -> watch only
-nba|rate: following hit 68.5% vs 68.7% the price said over 23773 (edge -0.1% older, -0.3% newer, z -0.76) -> watch only
-ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
-ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10762 (edge +0.6% older, -0.4% newer, z 0.17) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.8% vs 55.5% the price said over 5047 (edge +1.6% older, +1.1% newer, z 1.98) -> watch only
-nhl|rate: following hit 61.8% vs 61.1% the price said over 5149 (edge +0.3% older, +1.1% newer, z 1.06) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl friday: underdogs win 5-0 (prices said 2.1) (5 straight) -> coin flip
-ACTIVE nhl friday: road team wins 5-0 (prices said 2.1) (5 straight) -> coin flip
-ACTIVE nhl saturday: home team wins 10-3 (prices said 7.2) (7 straight) -> coin flip
-ACTIVE mlb sunday: home team wins 216-185 (prices said 213.5) (6 straight) -> coin flip · next: Padres @ Brewers, Braves @ Dodgers
-ACTIVE ncaaf thursday night: favorites win 9-2 (prices said 8.8) (6 straight) -> coin flip · next: Sam Houston @ Liberty, Missouri St @ Western KY, South Florida @ UTSA
-ACTIVE mlb monday: home team wins 139-123 (prices said 137.6) (5 straight) -> coin flip · next: White Sox @ Guardians, Yankees @ Rays
-ACTIVE nhl back-to-back: under 7-1 -> coin flip · next: Mammoth @ Rangers, Flames @ Kraken, Golden Knights @ Canucks
-ACTIVE nhl home favorite: favorites win 13-11 (prices said 14.3) (5 straight) -> coin flip · next: Jets @ Red Wings, Mammoth @ Rangers, Flames @ Kraken
-totals study: {'nfl': (0.558, True), 'ncaaf': (0.4841, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4795, False)}
-public splits: 27 upcoming games
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (544 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (544 players), 138 matched, 0 unmatched
-   ncaab web injuries: 309 players, 152 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
-tennis sync: 72765 matches stored, 18 calls, 0 failed
-tennis study ATP: 25921 rated matches, acc 0.637 (surface ratings alone 0.639), loss 0.631 vs 0.6311, own weights [-0.005, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
-tennis study ATP life factors vs current loss 0.631: experience 0.632 (-0.97 mnats, z -0.93), age 0.6272 (+3.83 mnats, z 2.8), young_vs_aging 0.6303 (+0.69 mnats, z 1.66), last_match 0.6283 (+2.67 mnats, z 1.85), streaks 0.6315 (-0.52 mnats, z -0.51), first_set 0.6299 (+1.11 mnats, z 1.77), injury 0.6316 (-0.61 mnats, z -0.89), travel 0.6311 (-0.09 mnats, z -1.18) -> KEPT age · 2000/2000 graded matches have both ages
 tennis study WTA: 30268 rated matches, acc 0.6485 (surface ratings alone 0.6485), loss 0.6218 vs 0.6206, own weights [0.005, 0.906, -0.001, -0.103, 0.309, 0.029, -0.188]
 tennis study WTA life factors vs current loss 0.6218: experience 0.6174 (+4.39 mnats, z 2.61), age 0.6216 (+0.22 mnats, z 0.27), young_vs_aging 0.6217 (+0.11 mnats, z 0.66), last_match 0.6213 (+0.48 mnats, z 0.5), streaks 0.6221 (-0.33 mnats, z -0.67), first_set 0.6209 (+0.90 mnats, z 2.09), injury 0.6211 (+0.71 mnats, z 1.24), travel 0.6219 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
 tennis odds: 19 singles matches priced (bovada)
@@ -2984,6 +2950,40 @@ public splits: 68 upcoming games
    no units on Hurricanes: missing Seth Jarvis, Alexander Nikishin
    no units on Maple Leafs: missing Dakota Joshua, Max Domi, William Villeneuve
    no units on Red Wings: missing Marco Kasper, Simon Edvinsson, Jacob Bernard-Docker
+   no units on Senators: missing Jake Sanderson, Artem Zub
+   no units on Devils: missing Connor Brown, Johnathan Kovacevic, Nick Bjugstad
+   no units on Sabres: missing Jason Zucker, Conor Timmins
+   no units on Rangers: missing Joe Veleno, Adam Sykora
+   no units on Blackhawks: missing Andrew Mangiapane, Connor Bedard
+   no units on Blues: missing Alexey Toropchenko, Tyler Tucker, Logan Mailloux
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25957 rated matches, acc 0.641 (surface ratings alone 0.642), loss 0.6295 vs 0.6295, own weights [-0.005, 0.828, 0.074, 0.139, 0.424, 0.053, 0.05]
+tennis study ATP life factors vs current loss 0.6295: experience 0.6302 (-0.63 mnats, z -0.61), age 0.6262 (+3.36 mnats, z 2.46), young_vs_aging 0.6291 (+0.44 mnats, z 1.08), last_match 0.627 (+2.48 mnats, z 1.71), streaks 0.63 (-0.49 mnats, z -0.48), first_set 0.6286 (+0.92 mnats, z 1.46), injury 0.6302 (-0.69 mnats, z -1.01), travel 0.6296 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30320 rated matches, acc 0.65 (surface ratings alone 0.6505), loss 0.6211 vs 0.6202, own weights [0.005, 0.905, -0.002, -0.099, 0.31, 0.028, -0.192]
+tennis study WTA life factors vs current loss 0.6211: experience 0.6169 (+4.28 mnats, z 2.53), age 0.621 (+0.13 mnats, z 0.16), young_vs_aging 0.6211 (+0.10 mnats, z 0.6), last_match 0.6209 (+0.26 mnats, z 0.26), streaks 0.6214 (-0.30 mnats, z -0.61), first_set 0.6204 (+0.73 mnats, z 1.7), injury 0.6206 (+0.55 mnats, z 0.95), travel 0.6212 (-0.08 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 25 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 11 matches
+sync: 130669 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 8s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 121 games got weather, 0 new stadiums located, 246s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 9 games on the page, 9 matched, 6 confirmed
+PICK AUDIT FLAG 2026-10-05: dog Sharks 145: the card says 2 straight wins, the games say 4: '🔥 Sharks are cooking right now (2 straight W's) and Stars ain't matching that en'
+beat the close: unit plays 3 of 14 better than the close, avg -0.1 pts
+question box status not read: HTTP Error 403: Forbidden
+public splits: 68 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
+   ncaab web injuries: 312 players, 153 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
+   no units on Canadiens: missing Ivan Demidov, Kaiden Guhle, Oliver Kapanen, Alexandre Carrier
+   no units on Hurricanes: missing Seth Jarvis, Alexander Nikishin
+   no units on Maple Leafs: missing Dakota Joshua, Max Domi, William Villeneuve
+   no units on Red Wings: missing Marco Kasper, Mason Appleton, Simon Edvinsson, Jacob Bernard-Docker
    no units on Senators: missing Jake Sanderson, Artem Zub
    no units on Devils: missing Connor Brown, Johnathan Kovacevic, Nick Bjugstad
    no units on Sabres: missing Jason Zucker, Conor Timmins
