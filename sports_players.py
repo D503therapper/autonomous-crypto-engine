@@ -217,6 +217,25 @@ def last_starter(rows, team, before):
     return None
 
 
+def starter_for(rows, g, side):
+    """The goalie to weigh for a side of an NHL game: the CONFIRMED / likely starter when one is known (sports_goalies -
+    the 10/6 build; spelled the way our box scores spell him), else the team's last starter (the old guess). Any other
+    league: the last starter."""
+    if g.get("league") == "nhl":
+        try:
+            import sports_goalies
+            k = sports_goalies.starter(g.get("id"), side)
+        except Exception:                                    # noqa: BLE001 - unknown: the old guess
+            k = None
+        if k and k.get("name"):
+            want = _nm(k["name"])
+            for r in reversed(rows):
+                if r["team"] == g[side] and _nm(r["player"]) == want:
+                    return r["player"]
+            return k["name"]                                 # (no box score of his yet: the form reads 'not enough')
+    return last_starter(rows, g[side], g["start"])
+
+
 def score(role, starts):
     """One number per role, shrunk toward league average: QB adjusted yards/attempt, SP runs per 9, G save %."""
     if role == "QB":
@@ -265,6 +284,8 @@ def key_edges(games, players):
                     who = by_game.get(g["id"], {}).get(g[side])
                 elif role == "SP":
                     who = g.get("sp_" + side) or None
+                elif role == "G":
+                    who = starter_for(rows, g, side)         # (the confirmed / likely goalie when known)
                 else:
                     who = last_starter(rows, g[side], start)
                 names[side] = who

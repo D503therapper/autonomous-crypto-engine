@@ -366,6 +366,8 @@ def _breakdown_vocab(leg, games, elo, injuries, used=None):
         def who(team_side, tid_):
             if role == "SP":
                 return g.get("sp_" + team_side) or None
+            if role == "G":
+                return sp.starter_for(rows, g, team_side)    # (the confirmed / likely goalie when known - 10/6)
             return sp.last_starter(rows, tid_, g["start"])
         for team_side, t_id, ours_ in ((other, oid, False), (side, tid, True)):
             name = who(team_side, t_id)

@@ -10,6 +10,20 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
   plays, while a blind proxy of the engine's sides says the books come toward us 60% of the time over 3 seasons - a
   LEAD, mixed on the current season. tools/nhl_bet_timing_study.py; SPORTS_FINDINGS.md (10/6). NEXT: journal the
   8 AM / close price on every pick and re-run with 300+ hourly NHL games (early November).
+## 10/6 - NHL confirmed starting goalies (BUILT - the owner OK'd it; sports_goalies.py)
+- Source: Daily Faceoff's public starting-goalies page, fetched every hourly run on GitHub's servers (plain request,
+  fail-soft) -> data/sports/nhl_goalies.json (Confirmed / Likely / Unconfirmed + the time seen; stale after 8 hours =
+  unknown). ESPN's summary has no probable goalie; the NHL feed names only the winning goalie after the game.
+- Re-check of the 10/1 "goalie roles" finding (tools/goalie_roles_study.py, blind, 2018-27): the dog starting its #1
+  (most starts in its last 10 this season) vs a favorite not starting its #1: +1.5% vs -4.0% for every dog, better 7 of
+  8 seasons, 2023-26 about +10 pts on 439 - a lead. The reverse: noise. BUILT: +2 on the Dog's score when BOTH starters
+  are confirmed / likely (the favorite weighed down through it, inside the caps); reverse 0. The hot / slumping goalie
+  and goalie-rating weights now read the confirmed / likely starter when known (sports_players.starter_for). The card
+  names the starters only when CONFIRMED (🥅 In net: ... — their #1, 8 of their last 10 starts); a goalie confirmed
+  after a hockey pick posts shows on the card like an injury alert (no phone ping; the pick never changes).
+- WATCH (first live runs): the engine log's "goalies: N games on the page, M matched, K confirmed" line - 0 matched on
+  a hockey night means the page changed its layout (parse falls soft: unknown, no weight). The pick journal carries
+  goalie_roles on every hockey pick for the live tally; judge the spot at 150+ dogs.
 
 ## 10/6 - MLB pitcher-vs-team / rematch study (report only, nothing built)
 - The owner asked for the pitcher-level version of "has their number" (team level DEAD 10/5). DEAD too: a starter's
