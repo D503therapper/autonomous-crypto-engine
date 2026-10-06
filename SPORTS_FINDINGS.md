@@ -13,6 +13,72 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/6 - WHEN to bet our hockey picks: at the 8 AM board or closer to puck drop? (the owner's question; report only)
+What the repo holds for hockey (honest inventory): the paid odds history (data/sports/odds_history) is FOOTBALL ONLY -
+there is NO book-by-book, time-stamped hockey price history anywhere in the repo, so "best book on hockey dogs" (part 4)
+can't be answered from what we hold. What CAN be: (a) every NHL game's OPENING and CLOSING moneyline, 2023-24 on
+(4,152 games, 8,304 sides; the 10/6 check against our own hourly snapshots: the NHL "open" is the price up ~38 hours
+before the game, the overnight number, NOT a stale summer look-ahead like the NFL's); (b) our own hourly snapshots
+(data/sports/line_history, NHL from 10/1/2026 - 35 finished games so far, the only intraday hockey history we have);
+(c) our 11 real posted NHL picks' post price vs the close (moves.json). tools/nhl_bet_timing_study.py ->
+results/nhl_bet_timing_study.json. "+ cents" below = the side got LONGER by the close (waiting would have paid more).
+- **The whole market, opener -> close (2023-26):** favorites get bet during the day, dogs drift longer: favorites -3.2
+  cents (SE 0.5; shorter 52% / longer 44%), dogs +2.1 (SE 0.4; longer 51% / shorter 44%). Biggest: AWAY favorites -7.8
+  cents (shorter 63% of the time, n 1,306) and HOME dogs +5.3 (longer 61%, n 1,486); home favorites / away dogs barely
+  move (-1.0 / +0.4). By band: -101..-150 -2.2, +100..+150 +1.6, +150..+220 +2.4. But NOT every season: 2023 and 2024
+  favorites -4.3 / -7.5, 2025 the other way +2.4 (dogs -2.0), 2026 so far favorites -8.8 (39 sides). The typical move
+  is real money: median 15 cents, 75th pct 26, 90th 41; 67% of sides move 10+ cents, 39% move 20+. For a RANDOM side
+  the timing is worth nothing (ROI at open -4.3% vs at close -4.5%).
+- **The engine's sides (BLIND proxy - sports_model tuned only on the 3 seasons before, injuries / key zeroed, side =
+  own read beats the no-vig OPEN by 3%+, price -150..+220; 1,612 sides):** the market comes TOWARD us by the close -
+  our side got SHORTER 60% of the time, -6.5 cents (SE 0.6), +1.16 pts of no-vig price. Betting at the open: ROI -1.3%
+  (SE 2.6); the same bets at the close -3.9% -> **early is worth +2.6% ROI, and the sign held 3 of 3 full seasons**
+  (2023 -7.1 cents / +2.6% for early, 2024 -5.5 / +2.5%, 2025 -7.5 / +2.9%); 2026 so far 27 sides +2.4 cents (the
+  other way, SE 4.2 - too few to say). Dogs the engine likes (1,049): -4.9 cents, early worth +2.8%; favorites it likes
+  (563): -9.6 cents, +2.1%; the bigger the read's edge the faster the market closes it (edge 6%+: -9.3 cents, early
+  worth +4.0%). Every band: -101..-150 -9.2, +100..+150 -4.3, +150..+220 -6.1. Read: when the engine's read disagrees
+  with the opener, the close moves our way about 1.2 pts - the read carries real information and the books catch up
+  during the day. NOTE this is NOT a winning record: even at the open these sides lose -1.3% (the vig), it's only that
+  the close is worse.
+- **How much of that is left at 8 AM?** Our hourly snapshots (35 games): the first-snapshot->8 AM move averages 13.2
+  cents, the 8 AM->close move 7.4 - about 65% of the day's move is in the price by 8 AM. So the 8 AM-to-close part of
+  the engine-side edge is roughly a third of the open-to-close figure: around +1% ROI for betting at the board, not
+  +2.6%. Over the 35 games: dogs +2.8 cents 8 AM -> close (longer 42% / shorter 17% / same 42%), favorites -4.0 (same
+  pattern as the seasons).
+- **Our 11 real posted NHL picks (post ~8 AM -> close):** the SIX unit plays (all dogs: Kings +160->+170, Blackhawks
+  +180->+190, Blues +154 same, Flyers +110->+114, Predators +114->+120, Sharks +145->+170) ALL got longer or stayed -
+  +9.2 cents avg, 5 of 6 longer, 0 shorter; the 5 leans/favorites closed where they posted. The OPPOSITE of what the
+  blind proxy says the engine's sides do - and three of the six sat inside the proxy's own rule (own read 3%+ over the
+  price: Flyers 53.8% vs 47.6% at +110, Predators 52.9% vs 46.7% at +114, Sharks 46.7% vs 40.8% at +145 - all three
+  drifted longer, the Sharks 25 cents). Six bets can't overturn 1,612 sides over 3 seasons, but they are the real
+  board, early in the season (opening-week lines are thin - 2026's 27 proxy sides also moved the other way), and they
+  say the market has NOT been coming toward our dogs so far this season.
+- **The morning goalie-confirmation window (9 AM - 1 PM PT, 34 games):** the price moved in 26% of games (all of them
+  5+ cents), 6 toward the favorite / 3 toward the dog, favorite avg -1.4 cents; the five hours BEFORE 9 AM moved
+  59% of games. No visible goalie bump in this sample (goalies are mostly known by the morning skate; the big
+  overnight moves are the opener settling). Too few games - re-run in a month (the snapshots grow every day).
+- Five checks, on "bet the engine's side early, it gets bet into": (1) fair - the opener is up ~38h ahead, after both
+  teams' last games in nearly every case, and the engine's read uses only past games (YES); (2) blind YES (walk-
+  forward, game-day inputs zeroed); (3) most seasons YES (3 of 3 full seasons, +2.5% to +2.9% each); (4) current
+  season NO / too few (27 sides, the other sign); (5) second check: our own 35-game hourly history agrees on the
+  market pattern (favorites bet, dogs drift) but our 6 real dog plays went the other way - MIXED. A LEAD on timing,
+  not an edge in picks. Nothing built, no change to picks / weights / units / the 8 AM post.
+- **VERDICT in plain words:** it depends on the side. (1) A hockey Lock or any FAVORITE on the board: bet it AT 8 AM.
+  Favorites get bet during the day in 3 of 4 seasons (away favorites shorter 63% of the time), and the favorites the
+  engine's read backs got 9-12 cents worse by puck drop in every full season. (2) A hockey DOG (the Dog of the Day,
+  a plus-money value play): the two pieces of evidence disagree. Three seasons of history say a dog our read backs
+  gets bet into (5 cents worse by the close, about a third of that still ahead at 8 AM - worth about 1% of the stake
+  for betting early). The market as a whole, our 35-game hourly history and ALL SIX of our real dog plays this season
+  say dogs drift LONGER through the day (home dogs +5 cents, longer 61% of the time; ours +9 cents, none shorter). So
+  for a dog there is little to lose by waiting - the honest answer right now is "bet it at 8 AM if the number is the
+  one you want, and if you wait, wait for a HOME dog or a dog facing an away favorite, where the drift is biggest" -
+  and let the live journal settle it (a dog's price at 8 AM vs its close on every pick we post). Either way the
+  engine's record grades at the posted price; this is about the owner's own ticket. Never wait on a number that is
+  already running: the typical NHL side moves 15 cents and 4 in 10 move 20+.
+- NEXT: add the price at post time vs the 8 AM / 10 AM / 1 PM / close marks to every pick's journal row so this
+  grades itself on OUR picks (the real test), and re-run tools/nhl_bet_timing_study.py when the hourly history has 300+
+  NHL games (early November).
+
 ## 10/6 - MLB: the PITCHER has this team's number / "they just saw him" (the owner; the pitcher-level version of 10/5)
 Data: every MLB starter's line 2017-26 (data/sports/players/mlb.csv - both starters in 23,252 of 23,254 non-spring final
 games, 99.6% match the game file's listed starters), closing moneylines 2018-26 (the last price before first pitch =
