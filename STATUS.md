@@ -139,6 +139,11 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
      they've been playing (sports_absences.played_lately) - tested 328 green.
   4. Park the 'inj' learned feature (16-23 games of history) until a full season.
   5. Card grammar pass (school names singular, no vague/filler lines).
+- 10/6: Dr. Bob blind study done (SPORTS_FINDINGS 10/6, tools/drbob_study.py): on his archived free NFL sides saved
+  before kickoff (31, 2020-24), engine-same-side 6-7-1, Bob alone 14-15-2, engine opposite 8-8-1 - DEAD as a
+  confidence / unit signal, far too thin anyway; no weight built. Found + fixed: the live tracker logged a total lean's
+  matchup ('Over (51.5) – CINCINNATI (-2.5) vs Jacksonville') as a side; two bogus 10/4 'lost' sides (Bengals -2.5,
+  Chiefs -4.5) still sit in data/sports/capper_drbob.json - owner's call to drop them.
 - NEXT: capper studies (1)-(5) below; NHL rested-vs-back-to-back live log (no units); weigh OL / defense absences.
 
 **Capper studies (the owner, 10/2 - "find the clowns and the actual cappers ... what the best are doing right")**

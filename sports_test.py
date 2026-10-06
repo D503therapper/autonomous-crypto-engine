@@ -6079,7 +6079,9 @@ def test_capper_benchmark_logs_and_grades():
     page = cp.parse(lines, 2026)
     assert page[0]["leans"] == [{"side": "home", "line": 3.0, "price": -115}] and page[0]["rating"] == ["away", 1.4]
     assert page[1]["leans"][0]["side"] == "away" and page[1]["leans"][0]["line"] == -2.5
-    assert [x["side"] for x in page[2]["leans"]] == ["over", "home"]
+    # 10/6 (the Dr. Bob study, his archived pages): 'Over (51.5) – CINCINNATI (-2.5) vs Jacksonville' is a TOTAL lean
+    # naming the matchup ('vs'); his side leans say 'X over Y'. The tracker had logged two bogus losing sides from it.
+    assert [x["side"] for x in page[2]["leans"]] == ["over"]
     games = {"nfl:1": {"id": "nfl:1", "league": "nfl", "start": "2026-10-02T00:15Z", "status": "final", "home_name": "Browns",
                        "away_name": "Steelers", "home_score": "27", "away_score": "24"}}
     picks = [{"kind": "lean", "lean": True, "status": "lost", "legs": [{"league": "nfl", "game_id": "nfl:1", "side": "away", "market": "ml"}]}]
@@ -6092,6 +6094,35 @@ def test_capper_benchmark_logs_and_grades():
     page[0]["leans"][0]["line"] = 1.5                                  # he moved it later: the first number stands
     st = cp.run(games, picks, now, path=p, page=page)
     assert st["leans"]["2026-10-01|Pittsburgh Steelers|Cleveland Browns|home"]["line"] == 3.0
+
+
+def test_drbob_study_reads_his_sides_blind():
+    """10/6: the Dr. Bob study (tools/drbob_study.py) reads every free SIDE on an archived page once - Lean / Strong
+    Opinion / Best Bet / the bare 'TEAM (-3) over OTHER' headline - skips totals and the matchup a total names, and
+    throws out a pick from a page the Wayback Machine saved AFTER kickoff (hindsight is never 'strict')."""
+    import importlib.util, tempfile as _t
+    spec = importlib.util.spec_from_file_location("ds", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "drbob_study.py"))
+    ds = importlib.util.module_from_spec(spec); spec.loader.exec_module(ds)
+    lines = ["Baltimore Ravens", "@", "New York Giants", "Sun, Dec 15 10:00 AM PT", "Lean – Baltimore (-16) over NY GIANTS",
+             "Our model makes Baltimore a 13.1-point favorite with a predicted total of 42.",
+             "Pittsburgh Steelers", "@", "Atlanta Falcons", "Sun, Dec 15 10:00 AM PT", "Lean – Under (42) – ATLANTA (-3.5/-3) vs Pittsburgh",
+             "Green Bay Packers", "@", "Detroit Lions", "Thu, Dec 5 5:15 PM PT", "DETROIT (-3.5) over Green Bay",
+             "Washington Commanders", "@", "Miami Dolphins", "Sun, Dec 15 10:00 AM PT", "1-Star Best Bet – *Washington (+2.5 -105) over MIAMI",
+             "Strong Opinion 6 pt Teaser – NY Jets (+8.5) with Miami (+7.5) at +7.5 or more"]
+    page = ds.parse(lines, 2024)
+    assert page[0]["picks"] == [{"side": "away", "tier": "lean", "stars": 0, "line": -16.0, "price": None}] and page[0]["model"] == ["away", 13.1]
+    assert page[1]["picks"] == []                                   # a total, the matchup after it is not a side lean
+    assert page[2]["picks"][0]["tier"] == "headline" and page[2]["picks"][0]["side"] == "home"
+    assert page[3]["picks"] == [{"side": "away", "tier": "best_bet", "stars": 1, "line": 2.5, "price": -105}]
+    games = {"nfl:1": {"id": "nfl:1", "league": "nfl", "stype": "2", "start": "2024-12-15T18:00Z", "status": "final",
+                       "home_name": "Giants", "away_name": "Ravens", "home_score": "14", "away_score": "35"}}
+    d = _t.mkdtemp()
+    for name, stamp in (("a.txt", "20241212170100"), ("b.txt", "20241216120000")):
+        with open(os.path.join(d, name), "w") as f:
+            f.write(f"URL: https://web.archive.org/web/{stamp}/https://drbobsports.com/nfl-analysis/\n" + "\n".join(lines[:6]) + "\n")
+    picks, notes = ds.collect(d, games)
+    assert len(picks) == 1 and picks[0]["late"] is False and notes["after_kick"] == 1     # once, from the pre-game page
+    assert ds.grade_side(games["nfl:1"], "away", -16.0) == "won" and ds.grade_side(games["nfl:1"], "away", -21.0) == "push"
 
 
 def test_fetch_pages_reads_text():

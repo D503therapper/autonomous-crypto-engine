@@ -13,6 +13,36 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/6 - siding with Dr. Bob (the owner: "run a blind study on all the games the engine sides with Bob Stoll - are we profitable on them?" and should his agreeing raise our confidence / units?)
+Data: his archived free NFL analysis pages (web.archive.org snapshots of drbobsports.com/nfl-analysis, 35 that fetched,
+2019-25; 19 carry free picks - the rest were paywall / no-play weeks, several 2023-25 fetches failed or cut off at 30,000
+chars). Every free SIDE (Lean / Strong Opinion / Best Bet / bare "TEAM (-3) over OTHER" headline) read with his number,
+matched to our game, counted once; totals, team totals, teasers, props skipped. The ENGINE's read is blind (spread model
+fit on the 3 seasons before, Elo chronological, game-day injury inputs zeroed) and its side = where that read sits against
+the real CLOSING spread. Graded ATS at the close, -110 (and at his number / price). tools/drbob_study.py -> results/drbob_study.json.
+- THE CLEAN SET (pages saved BEFORE kickoff - 31 sides: 2020 2, 2021 7, 2022 8, 2023 1, 2024 13, 2025 0; 28 Leans +
+  3 headlines, NOT ONE of his Best Bets / Strong Opinions - those pages were all saved after the games):
+  Bob alone 14-15-2 (48%, SE 9) -2.3u, 2 of 5 seasons up. ENGINE SAME SIDE 6-7-1 (46%, SE 14) -1.5u (at his number
+  5-8-1, -3.5u). Engine OPPOSITE him 8-8-1 (50%) -0.7u (at his number 9-7-1, +1.2u). Same side AND engine 2+ pts off
+  the close 4-3-1; same side under 2 pts 2-4. Where he printed his model's number (18): both models his way 4-4-1,
+  his model alone 3-5-1. Engine alone on every game those weeks 112-112-2 (50%, -4.5%); its 2+ pt edges 76-58-1
+  (56.7%, SE 4, 5 of 5 up - the known engine-vs-the-line lead, nothing new).
+- The LOOSE set (every parsed pick, 70 - adding 39 from pages the Wayback Machine saved the Monday AFTER the games;
+  his pre-game text, but nothing proves it wasn't touched, so it can't count): Bob alone 41-26-3 (61%) +16%; his Best
+  Bets / Strong Opinions 13-4 (all from after-the-fact pages); engine same side 15-13-1 (54%) +2%; engine opposite
+  26-13-2 (67%) +26%. The late pages run 27-11 against the clean pages' 14-15 - the gap itself says treat them as unverified.
+- VERDICT: DEAD as a confidence / unit signal, and far too thin to be anything else. On the one clean set, "the engine
+  agrees with Bob" went 6-7-1 (SE 14 points - a 20-point swing either way is noise) and his free Leans themselves lost
+  (14-15-2); his own site calls the free Leans his coin-flip tier (the paid Best Bets are the 57.5% product, and we
+  hold none of those pre-game). The engine opposite him did no worse than with him. Five checks: (1) fair prices YES
+  (real close, no look-ahead), (2) blind YES, (3) most seasons up NO (2 of 5), (4) current season NO (0 clean 2025-26
+  picks here; the live tracker has 5 graded sides), (5) second check NO. Zero of five on the thing that matters. Nothing
+  built - no weight, no unit bump; the live tracker (sports_capper) keeps the clean 2026 record, judge it on a season.
+- Parse bug found and fixed (sports_capper.parse, regression test): "Lean – Over (51.5) – CINCINNATI (-2.5) vs
+  Jacksonville" is a TOTAL lean naming the matchup ('vs' - his side leans say 'over'); the tracker had logged the
+  Bengals -2.5 and Chiefs -4.5 (10/4) as side leans (both 'lost'). data/sports/capper_drbob.json still holds those two
+  rows - the owner's call to drop them (his real 10/4 sides: Arizona -2.5 lost, Rams -3.5 won).
+
 ## 10/5 - "a team has another team's number" (the owner: Hurts 5-0 vs the Rams), every sport, closing prices
 - For every game with 3+ meetings in the last 5 years: how much each team beat (or fell short of) the PRICE in the last
   6 meetings, then betting the side that "has their number" at the close. DEAD everywhere: the past over-performance
