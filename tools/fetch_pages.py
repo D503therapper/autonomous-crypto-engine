@@ -16,7 +16,7 @@ KEY = re.compile(r"(availab|injur|questionable|doubtful|\bout\b|probable|game-ti
 PICKS = re.compile(r"(\blean|best bet|strong opinion|\bplay\b|predict|\bover\b|\bunder\b|[+-]\d+(\.5)?\b|\bATS\b)", re.I)
 
 
-WHOLE = ("web.archive.org", "sportsoddshistory.com", "sports.core.api.espn.com", "cbssports.com/college", "rotowire.com/cfootball/injury-report", "rotowire.com/cbasketball/injury-report")   # (10/3: odds tables - a betting
+WHOLE = ("web.archive.org", "dailyfaceoff.com", "api-web.nhle.com", "site.api.espn.com/apis/site/v2/sports/hockey", "sportsoddshistory.com", "sports.core.api.espn.com", "cbssports.com/college", "rotowire.com/cfootball/injury-report", "rotowire.com/cbasketball/injury-report")   # (10/3: odds tables - a betting
 #   ad's "not available in your state" tripped the injury filter and the whole futures table was dropped)
 
 
