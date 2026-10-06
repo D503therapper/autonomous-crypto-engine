@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 24,
+  "n": 26,
   "beat": 5,
-  "same": 12,
-  "worse": 7,
-  "avg_pts": 0.12
+  "same": 13,
+  "worse": 8,
+  "avg_pts": -0.03
  },
  "unit_plays": {
-  "n": 13,
+  "n": 14,
   "beat": 3,
   "same": 5,
-  "worse": 5,
-  "avg_pts": 0.15
+  "worse": 6,
+  "avg_pts": -0.13
  },
  "by_kind": {
   "dog": {
-   "n": 4,
+   "n": 5,
    "beat": 0,
    "same": 2,
-   "worse": 2,
-   "avg_pts": -0.53
+   "worse": 3,
+   "avg_pts": -1.18
   },
   "lean": {
-   "n": 11,
+   "n": 12,
    "beat": 2,
-   "same": 7,
+   "same": 8,
    "worse": 2,
-   "avg_pts": 0.09
+   "avg_pts": 0.08
   },
   "lock": {
    "n": 5,
@@ -66,11 +66,11 @@
    "avg_pts": -0.14
   },
   "nhl": {
-   "n": 8,
+   "n": 10,
    "beat": 0,
-   "same": 5,
-   "worse": 3,
-   "avg_pts": -0.43
+   "same": 6,
+   "worse": 4,
+   "avg_pts": -0.72
   }
  },
  "lock_by_size": {
@@ -439,6 +439,34 @@
    "pts": 1.3,
    "units": 1.0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Sharks",
+   "market": "ml",
+   "line": null,
+   "odds": 145,
+   "close": 170,
+   "pts": -3.8,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Senators",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -118,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
   }
  ]
 }
