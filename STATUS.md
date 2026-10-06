@@ -3,6 +3,14 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/6 - when to bet our hockey picks: 8 AM or near puck drop? (report only, nothing built)
+- The repo has NO book-by-book hockey price history (the paid odds pull was football only); the study used the NHL
+  opener vs close 2023-26 (4,152 games), our own hourly snapshots since 10/1 (35 games) and our 11 posted NHL picks.
+  Favorites get bet during the day (bet them at 8 AM); dogs drift longer market-wide and on all 6 of our real dog
+  plays, while a blind proxy of the engine's sides says the books come toward us 60% of the time over 3 seasons - a
+  LEAD, mixed on the current season. tools/nhl_bet_timing_study.py; SPORTS_FINDINGS.md (10/6). NEXT: journal the
+  8 AM / close price on every pick and re-run with 300+ hourly NHL games (early November).
+
 ## 10/6 - MLB pitcher-vs-team / rematch study (report only, nothing built)
 - The owner asked for the pitcher-level version of "has their number" (team level DEAD 10/5). DEAD too: a starter's
   history vs today's lineup runs the wrong way against the price (most dominant quintile -6.8%), a rematch costs the
