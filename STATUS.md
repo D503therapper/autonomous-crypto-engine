@@ -3,6 +3,12 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/6 - MLB pitcher-vs-team / rematch study (report only, nothing built)
+- The owner asked for the pitcher-level version of "has their number" (team level DEAD 10/5). DEAD too: a starter's
+  history vs today's lineup runs the wrong way against the price (most dominant quintile -6.8%), a rematch costs the
+  pitcher about a third of a run per 9 but the close already has it (lineup side -1.0%). 18 cuts, all in
+  SPORTS_FINDINGS.md (10/6); tools/mlb_pitcher_vs_team_study.py. Engine logic / weights / units untouched.
+
 ## 10/4 (evening) - early value plays audit (code + the live early.json vs the games)
 - Fixed (tests in sports_test.test_early_play_and_the_same_board_pick_both_count): (1) the unit ledger keyed the early
   play and the game-day pick on the same (day, game, side) - the Jaguars ½u early row overwrote the 1u Dog, the unit
