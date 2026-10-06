@@ -9362,3 +9362,55 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-10-06 17:05 UTC] stocks/trend     equity $490.97 (-1.8%) 3 open  market UP
 [2026-10-06 17:05 UTC] stocks/hold_spy  equity $506.43 (+1.3%) 1 open  market UP
    social heat top: PONS 44 (35/0/10), STONK 42 (40/0/2), QNT 32 (32/0/0), ONDO 29 (29/0/0), PENGU 29 (24/0/5)
+   footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +10.0%, 3 volume hikes, 44% quiet hours @ 0.27246
+   dex screen: REJECT EMBER@solana liq $325,392 - lp holders unknown; rugcheck lp locked 62% < 95%
+   dex screen: REJECT VELVET@base liq $19,694 - liquidity $19,694 < $100,000; pool age unknown
+   dex screen: REJECT MET@solana liq $121,321 - top-10 holders 80%; lp holders unknown
+   dex screen: REJECT PYUSD@ethereum liq $100,128,172 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 88%
+   dex screen: REJECT VIRTUAL@base liq $371,990 - pool age unknown
+   dex screen: REJECT HIGGS@solana liq $280,235 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT GP@solana liq $191,132 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT BASECAT@base liq $66,419 - liquidity $66,419 < $100,000
+   dex screen: REJECT RNDR@ethereum liq $278,097 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT WBTC@ethereum liq $27,177,881 - transfer_pausable; is_mintable; top-10 holders 55%
+   dex screen: REJECT KTA@base liq $4,148,895 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 67%
+   dex screen: REJECT XAUT@ethereum liq $5,394,010 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 58%
+   dex screen: REJECT SURPLUS@base liq $996,826 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT PLAGUE@solana liq $139,472 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT REI@base liq $185,158 - 24h volume $9,364 < $100,000
+   dex screen: REJECT APXUSD@ethereum liq $10,148,025 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AGENCY@solana liq $386,649 - lp holders unknown; rugcheck lp locked 27% < 95%
+   scanner: ORCA: +10.4% in 15 min on 18.4x volume @ 2.99 spread 1.29%
+   take-off: ORCA vetoed by pump guard: already +51% in 24h
+   scanner: ORCA: +21.9% in 30 min on 11.8x volume @ 3.16215 spread 1.34%
+   take-off: ORCA vetoed by pump guard: blocked 23 more min
+   dex screen: REJECT EDEL@solana liq $32,305,508 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT EDEL@base liq $1,457,997 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 47%
+   dex screen: REJECT EDEL@solana liq $197,241 - mint authority; top-10 holders 80%; lp holders unknown
+   dex screen: REJECT STONKEX@base liq $395,001 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT AGL@base liq $274,986 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex scanner: 2,999 pools (solana 1,985 / base 621 / ethereum 393), refresh cycle 130s (hot 126s), 2876 calls (110 feed, 429s 0, failed 0), 82,978 refreshed (9072 no pair), +162 added / -163 dropped (dead 22, stale 0, cap 141), movers 1 + warming 22 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-06 18:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-06 18:05 UTC] crypto/mover     equity $431.84 (-13.6%) 1 open  market UP
+[2026-10-06 18:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 18:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 18:05 UTC] crypto/social_heat equity $523.07 (+4.6%) 1 open  market UP
+[2026-10-06 18:05 UTC] crypto/breakout10 equity $506.33 (+1.3%) 2 open  market UP
+[2026-10-06 18:05 UTC] crypto/momentum  equity $493.10 (-1.4%) 4 open  market UP
+[2026-10-06 18:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-06 18:05 UTC] crypto/hold_btc  equity $509.13 (+1.8%) 1 open  market UP
+[2026-10-06 18:05 UTC] stocks/rsi2      equity $509.20 (+1.8%) 2 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): TLT 0, IEF 2, LLY 5 BUY, XLRE 16
+[2026-10-06 18:05 UTC] stocks/dual_momentum equity $510.27 (+2.1%) 2 open  market UP
+[2026-10-06 18:05 UTC] stocks/trend_ensemble equity $513.44 (+2.7%) 5 open  market UP
+[2026-10-06 18:05 UTC] stocks/rotation10 equity $509.23 (+1.8%) 2 open  market UP
+[2026-10-06 18:05 UTC] stocks/momentum  equity $504.04 (+0.8%) 4 open  market UP
+[2026-10-06 18:05 UTC] stocks/trend     equity $491.49 (-1.7%) 3 open  market UP
+[2026-10-06 18:05 UTC] stocks/hold_spy  equity $506.55 (+1.3%) 1 open  market UP
+   social heat top: PONS 42 (40/0/2), STONK 41 (35/0/7), ONDO 37 (37/0/0), QNT 32 (32/0/0), PENGU 27 (24/0/3)
