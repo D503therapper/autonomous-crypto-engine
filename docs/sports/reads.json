@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T15:13Z",
+ "updated": "2026-10-06T15:23Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -117,7 +117,6 @@
     "p": 0.642,
     "win_p": 0.422,
     "reasons": [
-     "hotter goalie",
      "hotter recent form",
      "the stronger team"
     ]
@@ -382,18 +381,19 @@
    "start": "2026-10-07T20:00Z",
    "away": "Guardians",
    "home": "White Sox",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Guardians",
-    "opp": "White Sox",
+    "team": "White Sox",
+    "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -207,
-    "p": 0.647,
-    "win_p": 0.467,
+    "odds": -206,
+    "p": 0.642,
+    "win_p": 0.528,
     "reasons": [
-     "sharp money moving this way"
+     "the stronger team",
+     "hotter recent form"
     ]
    }
   },
