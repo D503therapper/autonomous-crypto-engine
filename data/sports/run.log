@@ -1,33 +1,3 @@
-ncaaf|rate: following hit 72.8% vs 71.9% the price said over 21123 (edge +1.0% older, +0.9% newer, z 3.29) -> watch only
-nba|streak: following hit 61.2% vs 61.3% the price said over 9804 (edge -0.2% older, +0.1% newer, z -0.21) -> watch only
-nba|rate: following hit 68.5% vs 68.7% the price said over 23773 (edge -0.1% older, -0.3% newer, z -0.76) -> watch only
-ncaab|streak: following hit 67.6% vs 66.6% the price said over 35221 (edge +0.9% older, +1.0% newer, z 4.27) -> watch only
-ncaab|rate: following hit 72.6% vs 71.1% the price said over 100554 (edge +1.4% older, +1.5% newer, z 10.97) -> watch only
-mlb|streak: following hit 53.7% vs 53.6% the price said over 10762 (edge +0.6% older, -0.4% newer, z 0.17) -> watch only
-mlb|rate: following hit 60.7% vs 59.5% the price said over 5362 (edge +0.0% older, +2.3% newer, z 1.73) -> watch only
-nhl|streak: following hit 56.9% vs 55.5% the price said over 5043 (edge +1.7% older, +1.1% newer, z 2.03) -> watch only
-nhl|rate: following hit 61.8% vs 61.1% the price said over 5149 (edge +0.3% older, +1.1% newer, z 1.06) -> watch only
-proven: ncaab|rate|fav_cover, ncaaf|rate|total
-ACTIVE nhl friday: underdogs win 5-0 (prices said 2.1) (5 straight) -> coin flip
-ACTIVE nhl friday: road team wins 5-0 (prices said 2.1) (5 straight) -> coin flip
-ACTIVE ncaaf saturday: favorites win 215-48 (prices said 204.8) (7 straight) -> coin flip · next: Baylor @ Arizona St, Texas St @ San Diego St, E Washington @ UC Davis
-ACTIVE nhl back-to-back: under 5-0 (5 straight) -> coin flip · next: Mammoth @ Rangers, Flames @ Kraken, Golden Knights @ Canucks
-ACTIVE nhl saturday: under 5-1 (5 straight) -> coin flip
-ACTIVE ncaaf big favorite: favorites win 183-22 (prices said 176.6) (5 straight) -> coin flip · next: Texas St @ San Diego St, E Washington @ UC Davis, Cincinnati @ Arizona
-ACTIVE mlb sunday: home team wins 216-185 (prices said 213.5) (6 straight) -> coin flip · next: Padres @ Brewers, Braves @ Dodgers
-ACTIVE ncaaf thursday night: favorites win 9-2 (prices said 8.8) (6 straight) -> coin flip · next: Sam Houston @ Liberty, Missouri St @ Western KY, South Florida @ UTSA
-totals study: {'nfl': (0.558, True), 'ncaaf': (0.4858, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.481, False)}
-public splits: 75 upcoming games
-self-check: 67 graded picks - we said 54%, they hit 58% (hitting at or above what we said)
-  drama:none: 62 graded, said 54%, hit 61% - hitting at or above what we said
-  market:ml: 62 graded, said 54%, hit 61% - hitting at or above what we said
-  source:pregame: 52 graded, said 53%, hit 62% - hitting at or above what we said
-  label:parlay leg: 41 graded, said 54%, hit 61% - hitting at or above what we said
-  price:-149..-101: 40 graded, said 56%, hit 65% - hitting at or above what we said
-  price:+101..+179: 25 graded, said 52%, hit 48% - only 25 graded - report only
-  ctx:game:div: 21 graded, said 54%, hit 52% - only 21 graded - report only (report only: forward-only tag)
-  league:mlb: 21 graded, said 54%, hit 86% - only 21 graded - report only
-  ctx:game:rival: 15 graded, said 56%, hit 53% - only 15 graded - report only (report only: forward-only tag)
   label:live: 15 graded, said 57%, hit 47% - only 15 graded - report only
   league:nhl: 15 graded, said 51%, hit 20% - only 15 graded - report only
   source:live: 15 graded, said 57%, hit 47% - only 15 graded - report only
@@ -2980,6 +2950,36 @@ self-check: 80 graded picks - we said 54%, they hit 59% (hitting at or above wha
   talk:theirs:unhappy: 1 graded, said 57%, hit 100% - only 1 graded - report only (report only: forward-only tag)
   (13 graded live bets were logged without a said chance - left out)
 extra edge now needed: none
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
+   ncaab web injuries: 312 players, 153 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25946 rated matches, acc 0.6395 (surface ratings alone 0.6415), loss 0.6302 vs 0.6302, own weights [-0.006, 0.828, 0.075, 0.14, 0.424, 0.052, 0.05]
+tennis study ATP life factors vs current loss 0.6302: experience 0.6309 (-0.69 mnats, z -0.67), age 0.6267 (+3.47 mnats, z 2.55), young_vs_aging 0.6297 (+0.44 mnats, z 1.08), last_match 0.6275 (+2.62 mnats, z 1.81), streaks 0.6307 (-0.50 mnats, z -0.49), first_set 0.6292 (+0.96 mnats, z 1.53), injury 0.6309 (-0.69 mnats, z -1.0), travel 0.6303 (-0.09 mnats, z -1.17) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30303 rated matches, acc 0.651 (surface ratings alone 0.6515), loss 0.6202 vs 0.6191, own weights [0.005, 0.905, -0.002, -0.098, 0.31, 0.028, -0.192]
+tennis study WTA life factors vs current loss 0.6202: experience 0.6158 (+4.40 mnats, z 2.61), age 0.6201 (+0.13 mnats, z 0.15), young_vs_aging 0.6201 (+0.10 mnats, z 0.6), last_match 0.6199 (+0.31 mnats, z 0.32), streaks 0.6206 (-0.42 mnats, z -0.85), first_set 0.6194 (+0.74 mnats, z 1.72), injury 0.6196 (+0.60 mnats, z 1.04), travel 0.6203 (-0.08 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 16 matches
+CARD GUARD (the wrong sport's position word) dropped for Guardians: ⚾ Gavin Williams a walking bucket right now. It's his world, the White Sox just living in 
+CARD GUARD (filler with no fact) dropped for Guardians: 📋 Guardians are 85-77 right now — the rest is on the field.
+CARD GUARD (a former player's death isn't team drama) dropped for Sharks: 🧯 The Stars dealing with some personal stuff: "Lyle Odelein, Stanley Cup winning defensema
+CARD GUARD (a former player's death isn't team drama) dropped for Saints: 🧯 The Falcons dealing with some personal stuff: "Former Falcons C, 6-time Pro Bowler Jeff 
+CARD GUARD (filler with no fact) dropped for Saints: 📋 Saints are 1-2 right now — the rest is on the field.
+sync: 130669 games stored, 52 calls, 0 failed, 10s
+odds history: 0 games got odds, 55 calls, 0 failed, 5s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 166 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+PICK AUDIT FLAG 2026-10-03: dog Flyers 110: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-03: lean Rays -135: the card names Aaron Judge. Their as out - he's not on the injury report it was posted with
+PICK AUDIT FLAG 2026-10-05: dog Sharks 145: the card says 2 straight wins, the games say 4: '🔥 Sharks are cooking right now (2 straight W's) and Stars ain't matching that en'
+beat the close: unit plays 3 of 14 better than the close, avg -0.1 pts
+question box status not read: HTTP Error 403: Forbidden
+public splits: 60 upcoming games
    ncaaf web injuries: only 7 rows - not used
    ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
    ncaaf web injuries: only 7 rows - not used
