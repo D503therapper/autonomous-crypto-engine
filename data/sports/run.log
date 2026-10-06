@@ -1,24 +1,3 @@
-ACTIVE nhl saturday: home team wins 8-3 (prices said 6.2) (5 straight) -> coin flip
-ACTIVE ncaaf away favorite: favorites win 71-24 (prices said 67.4) (5 straight) -> coin flip · next: Jax State @ Kennesaw St, Indiana @ Nebraska, Texas @ Oklahoma
-ACTIVE mlb sunday: home team wins 216-185 (prices said 213.5) (6 straight) -> coin flip · next: Padres @ Brewers, Braves @ Dodgers
-ACTIVE ncaaf thursday night: favorites win 9-2 (prices said 8.8) (6 straight) -> coin flip · next: Sam Houston @ Liberty, Missouri St @ Western KY, South Florida @ UTSA
-ACTIVE ncaaf away favorite: favorites cover 47-45 (5 straight) -> coin flip · next: Jax State @ Kennesaw St, Indiana @ Nebraska, Texas @ Oklahoma
-ACTIVE mlb monday: home team wins 139-123 (prices said 137.6) (5 straight) -> coin flip · next: White Sox @ Guardians, Yankees @ Rays
-totals study: {'nfl': (0.558, True), 'ncaaf': (0.4859, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4865, False), 'nhl': (0.4805, False)}
-public splits: 26 upcoming games
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (544 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (544 players), 138 matched, 0 unmatched
-   ncaab web injuries: 309 players, 152 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
-tennis sync: 72765 matches stored, 18 calls, 0 failed
-tennis study ATP: 25920 rated matches, acc 0.637 (surface ratings alone 0.6385), loss 0.6311 vs 0.6313, own weights [-0.006, 0.829, 0.074, 0.14, 0.425, 0.051, 0.049]
-tennis study ATP life factors vs current loss 0.6311: experience 0.6321 (-1.01 mnats, z -0.96), age 0.6273 (+3.83 mnats, z 2.8), young_vs_aging 0.6304 (+0.69 mnats, z 1.66), last_match 0.6285 (+2.67 mnats, z 1.85), streaks 0.6316 (-0.50 mnats, z -0.49), first_set 0.63 (+1.13 mnats, z 1.81), injury 0.6318 (-0.62 mnats, z -0.89), travel 0.6312 (-0.09 mnats, z -1.18) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30266 rated matches, acc 0.6485 (surface ratings alone 0.6485), loss 0.622 vs 0.6208, own weights [0.005, 0.906, -0.001, -0.102, 0.309, 0.029, -0.187]
-tennis study WTA life factors vs current loss 0.622: experience 0.6176 (+4.37 mnats, z 2.6), age 0.6217 (+0.25 mnats, z 0.3), young_vs_aging 0.6218 (+0.11 mnats, z 0.66), last_match 0.6215 (+0.44 mnats, z 0.45), streaks 0.6223 (-0.35 mnats, z -0.71), first_set 0.6211 (+0.90 mnats, z 2.07), injury 0.6212 (+0.72 mnats, z 1.25), travel 0.622 (-0.09 mnats, z -0.57) -> KEPT experience+first_set · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 16 matches
 sync: 130643 games stored, 52 calls, 0 failed, 13s
 odds history: 1 games got odds, 55 calls, 0 failed, 6s
 player stats: 2 box scores added, 2 to fetch, 0 failed, 1s
@@ -2998,3 +2977,24 @@ tennis study WTA life factors vs current loss 0.621: experience 0.6166 (+4.38 mn
 tennis odds: 0 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 21 matches
+sync: 130669 games stored, 52 calls, 0 failed, 15s
+odds history: 0 games got odds, 55 calls, 0 failed, 8s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 122 games got weather, 0 new stadiums located, 243s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 9 games on the page, 9 matched, 0 confirmed
+PICK AUDIT FLAG 2026-10-05: dog Sharks 145: the card says 2 straight wins, the games say 4: '🔥 Sharks are cooking right now (2 straight W's) and Stars ain't matching that en'
+beat the close: unit plays 3 of 14 better than the close, avg -0.1 pts
+question box status not read: HTTP Error 403: Forbidden
+public splits: 68 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25957 rated matches, acc 0.641 (surface ratings alone 0.642), loss 0.6295 vs 0.6295, own weights [-0.005, 0.828, 0.074, 0.139, 0.424, 0.053, 0.05]
+tennis study ATP life factors vs current loss 0.6295: experience 0.6302 (-0.63 mnats, z -0.61), age 0.6262 (+3.36 mnats, z 2.46), young_vs_aging 0.6291 (+0.44 mnats, z 1.08), last_match 0.627 (+2.48 mnats, z 1.71), streaks 0.63 (-0.49 mnats, z -0.48), first_set 0.6286 (+0.92 mnats, z 1.46), injury 0.6302 (-0.69 mnats, z -1.01), travel 0.6296 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30317 rated matches, acc 0.65 (surface ratings alone 0.6505), loss 0.6213 vs 0.6204, own weights [0.005, 0.905, -0.002, -0.099, 0.31, 0.028, -0.192]
+tennis study WTA life factors vs current loss 0.6213: experience 0.6169 (+4.36 mnats, z 2.58), age 0.6212 (+0.13 mnats, z 0.16), young_vs_aging 0.6212 (+0.10 mnats, z 0.6), last_match 0.621 (+0.29 mnats, z 0.29), streaks 0.6216 (-0.32 mnats, z -0.64), first_set 0.6206 (+0.73 mnats, z 1.68), injury 0.6207 (+0.55 mnats, z 0.95), travel 0.6214 (-0.08 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 11 matches
