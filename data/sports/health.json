@@ -1,17 +1,17 @@
 {
- "at": "2026-10-06T04:58Z",
+ "at": "2026-10-06T05:04Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Mochizuki vs Safiullin: no points for 2369s",
-  "live tennis scores: tennis Cina vs Dougaz: no points for 2369s",
-  "live tennis scores: tennis Skatov vs Tomic: no points for 2369s",
-  "live tennis scores: tennis Basilashvili vs Draxl: no points for 2369s",
-  "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2369s",
-  "live tennis scores: tennis Zarazua vs Han: no points for 2369s",
-  "live tennis scores: tennis Zheng Wushuang vs Oliynykova: no points for 1571s"
+  "live tennis scores: tennis Mochizuki vs Safiullin: no points for 2647s",
+  "live tennis scores: tennis Cina vs Dougaz: no points for 2647s",
+  "live tennis scores: tennis Skatov vs Tomic: no points for 2647s",
+  "live tennis scores: tennis Basilashvili vs Draxl: no points for 2647s",
+  "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2647s",
+  "live tennis scores: tennis Zarazua vs Han: no points for 2647s",
+  "live tennis scores: tennis Zheng Wushuang vs Oliynykova: no points for 1849s"
  ],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (31s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -26,12 +26,25 @@
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 21 min ago",
+  "engine ran 26 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-06T05:04Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Mochizuki vs Safiullin: no points for 2647s",
+    "live tennis scores: tennis Cina vs Dougaz: no points for 2647s",
+    "live tennis scores: tennis Skatov vs Tomic: no points for 2647s",
+    "live tennis scores: tennis Basilashvili vs Draxl: no points for 2647s",
+    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2647s",
+    "live tennis scores: tennis Zarazua vs Han: no points for 2647s",
+    "live tennis scores: tennis Zheng Wushuang vs Oliynykova: no points for 1849s"
+   ]
+  },
   {
    "at": "2026-10-06T04:58Z",
    "fixes": [],
@@ -720,20 +733,6 @@
     "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
     "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
     "sources down (the backups took over): betrivers:ncaaf:1027507940 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-03T18:18Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
    ]
   }
  ]
