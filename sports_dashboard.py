@@ -669,9 +669,10 @@ def _leg(leg, tagged=False, review="", units=None):
     tag = ('<span class="pub fade">🤡 FADING THE PUBLIC</span>' if pub == "fade" else
            '<span class="pub ride">🤝 RIDING WITH THE PUBLIC</span>' if pub == "ride" else "")
     outs = f'<div class="outs">🚑 {E(leg["opp"])} missing: {E(", ".join(leg["opp_outs"]))}</div>' if leg.get("opp_outs") else ""
-    if leg.get("injury_alerts") and not res:            # a status changed after we posted it: loud, right on the card
-        outs += "".join(f'<div class="outs">{"🥅 IN NET" if "confirmed in net" in a else "⚠️ INJURY ALERT"}: {E(a)}</div>'
-                        for a in leg["injury_alerts"][-3:])   # (10/6: a confirmed goalie is news, not an injury)
+    if [x for x in leg.get("injury_alerts") or [] if "confirmed in net" not in x] and not res:            # a status changed after we posted it: loud, right on the card
+        outs += "".join(f'<div class="outs">⚠️ INJURY ALERT: {E(a)}</div>'
+                        for a in [x for x in leg["injury_alerts"] if "confirmed in net" not in x][-3:])
+        #   (10/6, the owner: no goalie confirmations on the cards - the engine weighs them, the card doesn't say it)
     if leg.get("line_alerts") and not res:              # the money ran away from us after we posted: loud, on the card
         outs += "".join(f'<div class="outs">💸 LINE ALERT: {E(a)}</div>' for a in leg["line_alerts"][-1:])
     return f"""<div class="leg {res or ''}">

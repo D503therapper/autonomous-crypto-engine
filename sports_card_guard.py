@@ -42,6 +42,8 @@ def problem(line, league=None):
     low = t.lower()
     if t.lstrip().startswith("🆚"):                           # (the owner, 10/5: the head-to-head study was dead in every
         return "head-to-head history"                        #  sport - "they own this matchup" made picks sound stronger)
+    if t.lstrip().startswith("🥅 In net"):                  # (the owner, 10/6: no goalie confirmations on the cards)
+        return "goalie confirmation"
     if any(w in low for w in sports_owner_lingo.NEVER):
         return "a NEVER word"
     if JARGON.search(t):

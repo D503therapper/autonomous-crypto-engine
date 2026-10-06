@@ -2959,7 +2959,7 @@ def post_board(games, model, picks, now, day, force=False):
             if line and not any(str(x).startswith("🚑") for x in leg.get("breakdown") or []):
                 leg["breakdown"] = [line] + list(leg.get("breakdown") or [])
             try:                                                # 🥅 hockey: who's CONFIRMED in net (never a guess)
-                net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or [])
+                net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or []) if GOALIE_CARD else ""
             except Exception:                                   # noqa: BLE001
                 net = ""
             if net and not any(str(x).startswith("🥅 In net") for x in leg.get("breakdown") or []):   # (10/6 sweep: the
@@ -3150,6 +3150,10 @@ def night_pick(pool):
     return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 
+GOALIE_CARD = False   # the owner, 10/6: "we don't need the in-net confirmation on the hockey picks" - the engine still
+#                       weighs the confirmed / likely starter (sports_goalies), the card and the watch just don't say it
+
+
 def key_status(inj, g, lineups=None):
     """{player: status} for every key player (QB / goalie / NBA rotation / a team's best bats) listed out or
     questionable in this game - and, once baseball's confirmed lineups are out, a star who isn't in his (9/29: the
@@ -3166,7 +3170,8 @@ def key_status(inj, g, lineups=None):
                 if n not in lu and n not in listed:
                     out[f"{n} ({g[side + '_name']})"] = "Not in the lineup"
     try:                                                     # 🥅 hockey: a CONFIRMED starter counts as a status too -
-        out.update(sports_goalies.watch_status(g))           # confirmed after we posted = an alert on the card
+        if GOALIE_CARD:
+            out.update(sports_goalies.watch_status(g))       # confirmed after we posted = an alert on the card
     except Exception:                                        # noqa: BLE001 - unknown stays unknown
         pass
     return out
