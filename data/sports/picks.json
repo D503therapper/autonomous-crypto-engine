@@ -7322,5 +7322,158 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lean"
+ },
+ {
+  "american": -142,
+  "date": "2026-10-06",
+  "dec": 1.7042,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:4",
+     "even:0",
+     "SP_cold:0",
+     "cx_domeout:3",
+     "home:1",
+     "bump:4",
+     "sharp:2",
+     "splits:1",
+     "bottom_c:3",
+     "w_arm:1"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Padres out: SP Casey Mize, DH Miguel Andujar, RP Jeremiah Estrada.",
+     "\ud83d\udca3 Dustin May has been getting shelled \u2014 7 runs in 7 innings with 11 K's over his last 3 starts.",
+     "\ud83d\udcca Who's betting who: 64% of the bets on the Padres, 36% on the Brewers. Pretty split crowd.",
+     "\ud83d\udccb Padres got a 91-71 record walking in. We gon' see what they do with it.",
+     "\ud83d\udcb0 The line moved toward Padres (-125 \u2192 -142). The engine had this side before the move.",
+     "\u2696\ufe0f Padres 91-71, Brewers 103-59 \u2014 about even, so the price makes the play.",
+     "\ud83c\udfdf\ufe0f Home game for Padres \u2014 51-30 in their building so far.",
+     "\ud83d\udfe1 Bottom line: Padres (-142). Close to 50-50 on our read. We tilt Padres, no units."
+    ],
+    "bv": 50,
+    "coach": [
+     1,
+     false
+    ],
+    "country": "",
+    "ctx": [
+     {
+      "k": "dome_out",
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:dome_out",
+     "them:trip1000",
+     "them:west1000",
+     "us:trip1000",
+     "us:week3000",
+     "us:west1000"
+    ],
+    "dec": 1.704225352112676,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "luck_gap": 0.032,
+     "opp_won": true,
+     "rs_gap": -0.0875,
+     "won": true
+    },
+    "dog_more": {
+     "late_rally": false
+    },
+    "drift": -0.0288,
+    "edge": -0.07578271728693764,
+    "edge_own": -0.05565251902578505,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -1.0,
+     -2,
+     113,
+     false,
+     2
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "mlb:401908004",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.8108108108108105,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "lost_last": true,
+    "market": "ml",
+    "odds": -142,
+    "opp": "Brewers",
+    "opp_dog_pts": 1.5,
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Grant Anderson (RP)"
+    ],
+    "our_drama": [
+     {
+      "date": "2026-10-03",
+      "headline": "Joe Musgrove sticks on Padres' roster; Buehler on paternity list",
+      "id": "50091010",
+      "kind": "new baby"
+     }
+    ],
+    "outs": [
+     "Casey Mize (SP)",
+     "Miguel Andujar (DH)",
+     "Jeremiah Estrada (RP)"
+    ],
+    "p": 0.5423093146498135,
+    "p_market": 0.5612444702298933,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "better starting pitcher",
+     "sharp money moving this way",
+     "opponent drama: new baby"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-07T01:30Z",
+    "stype": "3",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Padres",
+    "team_id": "25",
+    "their_drama": [
+     {
+      "date": "2026-10-03",
+      "headline": "Joe Musgrove sticks on Padres' roster; Buehler on paternity list",
+      "id": "50091010",
+      "kind": "new baby"
+     }
+    ],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5466,
+    "waiting": [],
+    "why_line": "\u26be We got the better arm tonight: Nick Pivetta over Dustin May."
+   }
+  ],
+  "p_hit": 0.5423,
+  "pnl": 0.0,
+  "posted": "2026-10-06T18:03Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
