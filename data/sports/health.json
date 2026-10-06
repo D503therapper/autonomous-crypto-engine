@@ -1,14 +1,17 @@
 {
- "at": "2026-10-06T14:11Z",
+ "at": "2026-10-06T14:56Z",
  "fixes": [],
  "problems": [
-  "live tennis points: none of 3 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Ercan vs Waltert: no points for 2647s",
+  "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 613s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (8s)",
+  "live watcher fresh (37s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "slate check: all 12 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
@@ -16,13 +19,22 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 61 min ago",
+  "studies ran 9h ago",
+  "simulator ran 8h ago",
+  "engine ran 16 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-06T14:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ercan vs Waltert: no points for 2647s",
+    "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 613s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-06T14:11Z",
    "fixes": [],
@@ -640,20 +652,6 @@
   },
   {
    "at": "2026-10-04T02:00Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
-   ]
-  },
-  {
-   "at": "2026-10-04T01:41Z",
    "fixes": [
     "slate check problem - re-pull before the board - sports.yml already running"
    ],
