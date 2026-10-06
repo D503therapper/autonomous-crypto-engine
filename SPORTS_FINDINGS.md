@@ -13,6 +13,41 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/6 - MLB: the PITCHER has this team's number / "they just saw him" (the owner; the pitcher-level version of 10/5)
+Data: every MLB starter's line 2017-26 (data/sports/players/mlb.csv - both starters in 23,252 of 23,254 non-spring final
+games, 99.6% match the game file's listed starters), closing moneylines 2018-26 (the last price before first pitch =
+same-day prices, FAIR by construction), 40,156 priced pitcher-sides. History strictly BEFORE each game, nothing fit, no
+model = BLIND by construction. tools/mlb_pitcher_vs_team_study.py -> results/mlb_pitcher_vs_team_study.json. 18 cuts
+counted (one of them post-hoc, marked). Baseline: every pitcher side at the close -3.5% (the vig).
+- **Angle 1, his history vs this team** (3+ past starts vs them, 15+ starts overall; his runs allowed per 9 vs them,
+  shrunk 5 starts toward his own normal, minus his normal): the correlation with beating the price is -0.02 on 16,165
+  (the team-level 10/5 number was -0.01) - the WRONG sign. Quintiles, his side at the close: most crushed by them
+  51.9% vs 50.4% implied (-1.2%), neutral 53.1 vs 52.0 (-1.5%), most dominant 49.8% vs 51.4% implied (-6.8%, 3,233
+  each). "Dominated them" (2+ runs better, A1) only 13 cases 6-7, -15.5%; 1+ run better (A3) 1,380: 48.9% vs 51.3%,
+  -8.2% (SE 1.3), 3 of 9 seasons up, 2024 +11.5% / 2025 -22.3% / 2026 -8.1%. "Crushed by them", bet the lineup (A2,
+  294): 50.7% vs 51.8%, -5.6%, 3 of 9 up; looser (A4, 1,782) -5.1%, 1 of 9 up. The books price the pitcher's overall
+  quality (his team 53.2% implied when he's better than the league, 46.6% when worse) and his record vs this team adds
+  nothing - if anything it reverts. POST-HOC fade (A3r - bet the lineup against the dominator, 1,380): 51.1% vs 48.7%
+  implied, +1.7% ROI, SE 1.3 (t 1.8 - expected by chance across 18 cuts), 6 of 9 up, last 3: 2024 -20.4% / 2025
+  +12.2% / 2026 +3.1%. Noise after that many cuts; not a lead.
+- **Angle 2, "just faced them"** (his previous start was vs this same team - 2,136 priced; 1,897 with 15+ starts):
+  the pitcher DOES pitch worse the second time - 4.72 runs per 9 vs 4.39 expected from his own last 10 starts (+0.33 a
+  game; never faced them 0.00, neutral history +0.05, faced them within 14 days but NOT the previous start -0.08 on
+  988). So the hitters-just-saw-him effect is real, about a third of a run - and the market has it: his side 49.0% vs
+  50.1% implied, -5.6%, 0 of 9 seasons up; the LINEUP that just saw him 51.0% vs 49.9% (+1.2 pts, SE 1.1), -1.0% ROI,
+  3 of 9 up, 2024 -11.1% / 2025 -8.6% / 2026 -6.7%. Within 14 days any start (B2, 2,865): his side -4.3%, the lineup
+  -2.7%. Playoff rematches (B3, 134): his side 47.8%, -6.8%.
+- **Cousins:** revenge (they scored 5+ on him last start, C1, 344): 47.4% vs 47.2%, -3.0%, 5 of 9 up (2022 -40%, 2026
+  +15.7% on 25 = noise). He shut them down last start (<=1 run, 6+ IP), his side again (C2, 381): 50.7% vs 53.9%,
+  -8.4%; the lineup bounces back (C2r): 49.3% vs 46.1% (+3.3 pts, SE 2.6), +5.0%, 4 of 9 up, 2025 -18% / 2026 -9.7% -
+  the last two seasons say no. They crushed him 6+ in the last meeting within a year, not a rematch (C3, 1,752): -0.3%,
+  4 of 9. Rematch and his team LOST the last meeting (C4, 1,050) -2.6%; WON it (C5, 1,086) -8.5%.
+- VERDICT: DEAD, like the team-level version - both the pitcher-vs-team history and the rematch. Five checks on the
+  best-looking cut (C2r / A3r): (1) fair YES, (2) blind YES, (3) most seasons NO (1 of 3 / 2 of 3 last three, 4-6 of
+  9), (4) current season NO / barely (-9.7% / +3.1%), (5) second check NO - and both are 1 of 18 cuts. The one real
+  finding is for the WRITE-UPS, not the picks: a starter facing the lineup he just faced gives up about a third of a run
+  more than his norm, and the price already carries it. Nothing built, no weight, no units.
+
 ## 10/6 - siding with Dr. Bob (the owner: "run a blind study on all the games the engine sides with Bob Stoll - are we profitable on them?" and should his agreeing raise our confidence / units?)
 Data: his archived free NFL analysis pages (web.archive.org snapshots of drbobsports.com/nfl-analysis, 35 that fetched,
 2019-25; 19 carry free picks - the rest were paywall / no-play weeks, several 2023-25 fetches failed or cut off at 30,000
