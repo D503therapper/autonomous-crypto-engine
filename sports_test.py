@@ -9401,7 +9401,8 @@ def test_goalie_card_line_and_watch():
     sg.sync(games, now, get=lambda url: "<p>".join(GOALIE_PAGE))
     line = sg.card_line(games["nhl:g2"], "home", rows, now)
     assert line == "🥅 In net: Ilya Sorokin confirmed for the Islanders — their #1, 8 of their last 10 starts."
-    assert "Shesterkin" not in line and sports_card_guard.one(line, "nhl", "Rangers") == line
+    assert "Shesterkin" not in line and sports_card_guard.one(line, "nhl", "Rangers") == ""   # (10/6, the owner: no goalie
+    #                                                                       confirmations on the cards - the guard drops it)
     assert sg.card_line(games["nhl:g1"], "home", rows, now) == ""              # Ellis is only 'likely': nothing stated
     assert sg.card_line({**games["nhl:g2"], "league": "nfl"}, "home", rows, now) == ""
     # a confirmed goalie who is NOT his team's #1 says so
@@ -9409,6 +9410,8 @@ def test_goalie_card_line_and_watch():
     assert sg.card_line(games["nhl:g2"], "home", rows, now) == ("🥅 In net: Jonathan Quick confirmed for the Rangers — not their usual #1, "
                                                               "that's Igor Shesterkin with 7 of the last 10 starts; "
                                                               "Ilya Sorokin confirmed for the Islanders — their #1, 8 of their last 10 starts.")
+    assert sports.GOALIE_CARD is False and sports.key_status({}, games["nhl:g2"]) == {}   # (10/6: off on the cards)
+    sports.GOALIE_CARD = True                                             # (the watch code stays tested, switched on)
     assert sg.watch_status(games["nhl:g1"], now) == {} and sports.key_status({}, games["nhl:g2"]) == {
         "Jonathan Quick (Rangers G)": "Confirmed in net", "Ilya Sorokin (Islanders G)": "Confirmed in net"}
     # the watch: posted with nobody confirmed; Sorokin confirmed later = one alert on the card, never a phone ping
@@ -9428,6 +9431,7 @@ def test_goalie_card_line_and_watch():
         assert sports.injury_watch(games, picks) == [] and len(leg["injury_alerts"]) == 2   # never "off the report"
     finally:
         sd.fetch_injuries, sp.CACHE = old_fetch, old_cache
+        sports.GOALIE_CARD = False
     # fail soft: the page down, or not the page at all - the last file stays, nothing raises, unknown = no weight
     sg._CACHE.clear()
     before = open(sg.PATH).read()
@@ -9442,10 +9446,14 @@ def test_goalie_card_line_and_watch():
     assert sg.role_points({"g_role_me": None, "g_role_opp": None}) == 0 and sg.card_line(games["nhl:g2"], "home", rows, now) == ""
 
 
-def test_a_confirmed_goalie_is_never_called_an_injury_alert():
-    """10/6: the goalie watch puts 'X is now confirmed in net' on a posted hockey card - that's news, not an injury."""
-    src = open("sports_dashboard.py").read()
-    assert '"🥅 IN NET" if "confirmed in net" in a else "⚠️ INJURY ALERT"' in src
+def test_no_goalie_confirmations_on_the_cards():
+    """10/6, the owner: "we don't need the in-net confirmation on the hockey picks". The engine still weighs the
+    confirmed / likely starter; the card line, the watch alert and any already-saved alert stay off the card."""
+    import sports_dashboard as D, sports_card_guard as g
+    assert sports.GOALIE_CARD is False
+    assert g.one("🥅 In net: Jake Allen confirmed for the Devils.", "nhl") == ""
+    src = open(D.__file__).read()
+    assert '"confirmed in net" not in x' in src and "🥅 IN NET" not in src
 
 
 def test_in_net_line_still_posts_next_to_a_slumping_goalie_line():
