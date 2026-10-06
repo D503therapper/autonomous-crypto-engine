@@ -1641,6 +1641,20 @@ class DexHunter:
             if not self._confirmed(pos, "stop_seen", now):
                 return
             return self._request_exit(k, 1.0, f"trailing stop (peak {pos['peak']:g})", "normal", now, "stop")
+        # EXPERIMENT 11 (owner 2026-10-06: "20x off 500 bucks"): a coin that proves itself (pyramid["at"] x its first
+        # buy price, on two readings >= 2 min apart) gets one bigger add-on of pyramid["pct"] of the account.
+        # Scanner replay: 16 coins that hit 3x went on +112% on average after it (median +95%), 10 of 16 doubled again.
+        PY = X.get("pyramid")
+        if PY and not pos.get("pyr"):
+            e0 = pos.setdefault("entry0", pos["entry"])
+            if p >= e0 * PY["at"]:
+                if not self._confirmed(pos, "pyr_seen", now):
+                    return
+                pos["pyr"], self.dirty = True, True
+                usd = min(self.equity() * PY["pct"], pos["liq"] * self.p["size"]["liq_pct"])
+                self._add(k, pos, usd, p, pos["tier"], now, f"added on a proven runner at {p / e0:.1f}x")
+                return
+            pos.pop("pyr_seen", None)
         # EXPERIMENT 3 (owner 2026-09-28): at `stake_back` x sell the stake once - the rest rides on house money.
         # BABYCALI went 4.3x and then -95% within an hour, ending -$101 instead of banking its gain. 3b (09-30) tried 2x
         # after SS / AIRPAD round-tripped; undone 10-01: 3x kept more in both the backtest and the live-scanner replay.

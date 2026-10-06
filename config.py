@@ -282,7 +282,8 @@ DEX = {
              # locked for up to 12 more days; dex_consolidated_study resampled: 7d beat 14d in both halves.
              "max_hold_days": 7, "runner_at_limit": (1.0, 0.40),    # >= +100% at the limit: 40% trail, no clock
              "liq_pull": 0.50, "rug_tax": 0.50,
-             "stake_back": 3.0,
+             # EXPERIMENT 11 (10-06): at 3x no longer sell a third - ADD 10% of the account instead (a proven runner)
+             "stake_back": None, "pyramid": {"at": 3.0, "pct": 0.10},
              # EXPERIMENT 7 (10-01): a coin that passed every check but finds no cash / slot replaces the weakest
              # holding that is >= 24h old and below its buy price (dex_live_replay: those went on -11% on average)
              "recycle": {"min_hold_h": 24, "max_x": 1.0}},                    # EXPERIMENT 3: at 3x sell the stake (~1/3); 2x (3b, 09-30) undone 10-01:
