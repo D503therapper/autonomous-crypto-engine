@@ -945,6 +945,9 @@ DOG_DAY_MAX = 280            # the owner: no dog past +280
 DAILY_DOG_MAX = 220          # ...and the every-day Dog (and the dog gate) +100..+220 (the owner, 10/1: "never no +400")
 
 
+LAST_RAW = []
+
+
 def dog_score(c):
     """How much the analysis likes a dog (points of win chance over its price, give or take what 9/30's studies found):
     the engine's own read vs the price, then - playoffs: facing a favorite that just lost the last game of the series
@@ -2865,6 +2868,8 @@ def post_board(games, model, picks, now, day, force=False):
         for side in ("home", "away"):
             g[f"inj_{side}"] = len(sd.team_injuries(inj, g[side], g[f"{side}_name"]))
     raw_cands = candidates(games, model, now, day, injuries)   # (the checks read every side the engine looked at)
+    global LAST_RAW
+    LAST_RAW = raw_cands                                     # (the dry-run preview's every-dog list - 10/5)
     all_cands = [c for c in raw_cands                        # (10/2: a game we have no injury report for
                  if not any("(not in our data)" in w for w in c.get("waiting") or [])]   # is off the table - never a
     #                                                  blind pick, and never a Lock / Dog left 'waiting' on a report that
