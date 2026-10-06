@@ -1,17 +1,15 @@
 {
- "at": "2026-10-06T17:26Z",
+ "at": "2026-10-06T18:58Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 567s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+  "workflow failed: fetch_pages 2026-10-06T18:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37514183684"
  ],
  "ok": [
-  "live watcher fresh (15s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 12 of today's games named, priced and looked at",
-  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
@@ -19,13 +17,20 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 9 min ago",
+  "simulator ran 0h ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-06T18:58Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: fetch_pages 2026-10-06T18:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37514183684"
+   ]
+  },
   {
    "at": "2026-10-06T17:26Z",
    "fixes": [],
@@ -609,23 +614,6 @@
    "problems": [
     "live tennis scores: tennis Shubladze vs Maneiro: no points for 1912s",
     "live tennis scores: tennis Sidorova vs Zavatska: no points for 772s",
-    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
-   ]
-  },
-  {
-   "at": "2026-10-04T05:04Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis scores: tennis Li Zongyu vs Lu Jia-Jing: no points for 1972s",
-    "live tennis scores: tennis Khamutsianskaya vs Huang: no points for 1674s",
-    "live tennis scores: tennis Yihan vs Zheng Wushuang: no points for 1715s",
     "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
     "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
     "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
