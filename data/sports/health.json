@@ -1,29 +1,50 @@
 {
- "at": "2026-10-06T18:58Z",
+ "at": "2026-10-06T21:56Z",
  "fixes": [],
- "problems": [
-  "workflow failed: fetch_pages 2026-10-06T18:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37514183684"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (251s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 12 of today's games named, priced and looked at",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 37 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 12 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-06T21:56Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-06T21:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-06T21:06Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-06T19:34Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: fetch_pages 2026-10-06T18:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37514183684"
+   ]
+  },
   {
    "at": "2026-10-06T18:58Z",
    "fixes": [],
@@ -574,52 +595,6 @@
     "live tennis scores: tennis Yuan vs Han: no points for 2662s",
     "live tennis scores: tennis Okamura vs Nugroho: no points for 2012s",
     "live tennis scores: tennis Wei Sijia vs Matsuda: no points for 1415s"
-   ]
-  },
-  {
-   "at": "2026-10-04T08:51Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Yuan vs Han: no points for 2648s",
-    "live tennis scores: tennis Okamura vs Nugroho: no points for 1998s",
-    "live tennis scores: tennis Wei Sijia vs Matsuda: no points for 1401s"
-   ]
-  },
-  {
-   "at": "2026-10-04T08:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Yuan vs Han: no points for 200s"
-   ]
-  },
-  {
-   "at": "2026-10-04T06:36Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running"
-   ],
-   "problems": [
-    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
-   ]
-  },
-  {
-   "at": "2026-10-04T06:35Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Shubladze vs Maneiro: no points for 1912s",
-    "live tennis scores: tennis Sidorova vs Zavatska: no points for 772s",
-    "slate check: Alabama @ Mississippi St (NCAAF): priced but the engine never looked at it",
-    "slate check: MTSU @ Kansas (NCAAF): priced but the engine never looked at it",
-    "slate check: UCF @ Houston (NCAAF): priced but the engine never looked at it",
-    "slate check: West Virginia @ Iowa State (NCAAF): priced but the engine never looked at it",
-    "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
-    "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it"
    ]
   }
  ]

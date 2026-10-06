@@ -111,6 +111,11 @@ same rule: the gap (scam-check sales, rugs the replay can't see, timing) is the 
   season's files). Fix: every token booked as a scam in any season (outcomes.csv + archives) is never bought again
   (dex._scam_book; test_scam_coin_never_rebought). The current CLAUS holding stays under the normal re-screen.
 
+### 2026-10-07 - Require proof of real sellers before a buy? (scanner replay, current entry rule) -> NO
+sells in the last hour >= 0: n 110, mean +18.0%, growth@5% +0.38%/trade | >= 10: -3.5%, -0.51% | >= 25: -17.1% | >= 100: -20.1%
+| >= 200: -29.6%. Requiring sellers removes the early coins that make the big runs and does NOT lower the share that die
+(12% -> 13-18%). Not applied. (Owner asked: CLAUS 10-06 21:25 showed 50 sells in the hour, ~1,500 in 24h.)
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|

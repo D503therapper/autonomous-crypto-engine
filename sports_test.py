@@ -9514,6 +9514,36 @@ def test_fill_lean_never_backs_a_hockey_favorite_its_weighed_read_has_losing():
     assert sports.viewer_leans([ok], set())[0]["team"] == "Panthers"
 
 
+def test_night_vs_morning_study_picks_the_right_looks_and_grades_both_boards():
+    """10/6 (the owner: post the unit plays at 8 PM the night before or at 8 AM?): the study's 'morning' look is the
+    latest snapshot on the game's own Pacific date, the 'night' look the latest earlier one at least 8 hours before it
+    (and fair); a pick that only clears at one of the two prices lands in only_at_night / only_in_morning, and the
+    night board's ROI is graded at the night price, the morning board's at the morning price."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import night_vs_morning_study as nv
+    start = "2026-10-11T17:00Z"                                    # Sunday 10 AM PT kickoff
+    snaps = [(5.0, -130, 110), (1.29, -120, 100), (0.125, -140, 120), (0.08, -145, 125)]   # Tue, Sat 10 AM, Sun 7 AM, Sun 8 AM
+    m, n = nv.pick_windows(snaps, start)
+    assert m[0] == 0.08 and n[0] == 1.29
+    m, n = nv.pick_windows(snaps, start, fair=lambda d: d < 1.0)   # the only earlier look was before last week's games ended
+    assert m[0] == 0.08 and n is None
+    assert nv.pick_windows([(5.0, -130, 110)], start) == (None, None)
+    assert nv.cents(-110) == -10 and nv.cents(+110) == 10 and nv.cents(100) == 0
+    rows = [{"id": "a", "season": 2025, "side": "home", "won": True, "night": 120, "morning": 110, "close": 105, "fav": False,
+             "own": 0.5, "edge_n": 0.05, "edge_m": 0.03},                       # a pick at both prices, got shorter overnight
+            {"id": "b", "season": 2025, "side": "away", "won": False, "night": 130, "morning": 100, "close": 100, "fav": False,
+             "own": 0.5, "edge_n": 0.06, "edge_m": 0.0},                        # only at night: ran 30 cents against
+            {"id": "c", "season": 2025, "side": "home", "won": True, "night": -120, "morning": 100, "close": 100, "fav": True,
+             "own": 0.5, "edge_n": -0.04, "edge_m": 0.05}]                      # only in the morning
+    b = nv.boards(rows)
+    assert b["night_board"]["all"]["n"] == 2 and b["morning_board"]["all"]["n"] == 2
+    assert b["only_at_night"]["all"]["n"] == 1 and b["only_in_morning"]["all"]["n"] == 1
+    assert b["overnight_news"]["ran_against_20_plus"]["n"] == 1 and b["overnight_news"]["ran_against_20_plus"]["won"] == 0.0
+    assert abs(b["night_board"]["all"]["roi_night"] - (1.2 - 1) / 2) < 1e-9       # a +120 win and a loss, at the night price
+    assert abs(b["night_board"]["all"]["roi_morning"] - (1.1 - 1) / 2) < 1e-9
+    assert abs(b["morning_board"]["all"]["roi"] - (1.1 + 1.0) / 2) < 1e-9        # +110 and +100, both won, at the morning price
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
