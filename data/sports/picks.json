@@ -6171,6 +6171,7 @@
      "game:div"
     ],
     "dec": 1.6711409395973154,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -6188,6 +6189,10 @@
     "edge_own": 0.03135502477029539,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,1,0,3,0,0,0",
+     "h": "2,0,0,0,0,0,0,1,0"
+    },
     "form_state": [
      -3.0,
      -2,
@@ -6230,9 +6235,11 @@
      "hasn't scored in 12+ innings - the books overreact (+10.2%, 7 of 9 seasons)"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "White Sox 4 @ Guardians 3",
+    "settled": "2026-10-06T00:31Z",
     "side": "home",
     "start": "2026-10-05T21:00Z",
     "stype": "3",
@@ -6249,12 +6256,14 @@
    }
   ],
   "p_hit": 0.6068,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-05T15:00Z",
   "round": 1,
+  "settled": "2026-10-06T00:31Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "lost",
+  "tier": "lock",
+  "units": 1.0
  },
  {
   "american": 145,
@@ -6575,10 +6584,15 @@
     "home": true,
     "hot_key": false,
     "hurt": [],
+    "injury_alerts": [
+     "Cooper Rush (Falcons QB) is now out \u2014 our pick: Saints -1.5"
+    ],
     "intl": false,
     "key_edge": -0.31443994601889314,
     "key_out_me": false,
-    "key_seen": {},
+    "key_seen": {
+     "Cooper Rush (Falcons QB)": "Out"
+    },
     "league": "nfl",
     "line": -1.5,
     "lost_last": false,

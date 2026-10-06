@@ -4,6 +4,12 @@ Daily deep-study notes. Newest first. Open questions at the top get studied next
 
 ## Open questions
 
+### #1 PRIORITY (owner 2026-10-05: "take us to the moon") - a better crypto approach while the DEX scam pause holds
+DEX season 2: $1,000 -> ~$289 (2 scams latched the breaker 10-05; I can't lift it - the owner would add a permission).
+Study for the 10-22 review: momentum on ESTABLISHED coins that can't rug (exchange-listed / pools >= $5M / age >= 30d):
+breakouts and runners on Crypto.com top movers and big DEX pools, replayed on the scanner log + exchange candles at
+realistic fees; compare with the meme-coin rules on the same days. Deliver ONE recommendation for the crypto money.
+
 > WARNING: never push to branch "pending/crypto-into-dex" - its copy of paper-trade.yml has no branch filter, so a
 > push there starts a live engine on that branch and cancels main's (happened 2026-09-27 02:47-03:20 UTC; that
 > run's trades - a 3rd HOLDOWEEN - and its crypto->DEX move exist only on that branch and were discarded). To apply
@@ -84,6 +90,23 @@ CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live
   output goes to an untracked data/run.live.log; git_sync (and the end-of-run step) copy the new part into data/run.log
   right before committing. Nothing was lost: the 13:06 commit and the end-of-run save reached GitHub at 13:59.
 
+- 2026-10-06 00:00 UTC (owner, after switching the chat to approve edits): scam breaker turned OFF (scam_pause max None)
+  and the DEX restarted as season 3 at $1,000 (season 2 archived in data/dex/archive/2026-09-29/: $1,000 -> ~$289).
+  Owner: "no pause - this is play money, we are learning to not get scammed and go to the moon; refresh the money".
+  All scam checks still run; scams are still counted. Rules in force: experiments 6-9 (entry needs +50% in 6h, no buy
+  after a +100% hour, swap stale losers, 20 coins x ~5%).
+
+### 2026-10-06 - Are established coins a better crypto approach? (scanner log 09-26..10-05, no survivorship) -> NO
+Same momentum buy, 3x stake back, per $1:      n   mean   median lost-half  sum older/newer  growth/trade @5%
+  current meme rule (liq>=100k, age>=6h)      101 +15.4%  -44.8%   47%     +3.85 / +11.67    +0.39%
+  liq>=1M any age                               4  -6.8%  -13.5%   25%     -0.00 / -0.27     -0.36%
+  liq>=1M & age>=30d (softer 1h>=5%/6h>=15%)   17  +0.4%   -6.9%    6%     -0.05 / +0.13     +0.01%
+  liq>=500k & age>=7d (softer trigger)         38 -13.2%  -15.1%   13%     -4.80 / -0.21     -0.68%
+  liq>=300k & age>=3d (current trigger)        18 -40.8%  -35.6%   33%     -5.22 / -2.13     -2.07%
+Bigger, older coins lose less per coin but make nothing - no runners. The only group with a positive edge in this data is
+the meme rule, and only through rare big winners. Live results (season 2 -71%) were far worse than this replay of the
+same rule: the gap (scam-check sales, rugs the replay can't see, timing) is the next study - grade it at every review.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|
@@ -98,6 +121,7 @@ CAVEAT: the backtest's monthly numbers are far too rosy (survivorship); the live
 | 7 | 2026-10-01 21:45 | DEX: a coin that passes every check but finds no cash / slot replaces the weakest holding that is >= 24h old and below its buy price (one swap at a time; never a runner) | ~2026-10-22 | DEX fully invested since 08:41 ($2 cash): KURUMI / ELON passed and could not be bought while 5 old-rule coins sat at 0.74-0.98x; live replay: old-rule coins flat/down after 24h went on -11% mean (n 64), fresh 6h >= +50% entries +24..44% | pending |
 | 8 | 2026-10-02 05:45 | DEX entry: no buy after a single hour of +100% or more | ~2026-10-23 | night of 10-01: SACC (1h +266%) 0.09x, AGENCY (1h +1265%) 0.46x, BANDIT -92% in 90 min; live replay 1h >= +100% (n 18): 72% lost half+, sum -5.8 per $1; backtest: even older half, better newer | pending |
 | 9 | 2026-10-03 21:45 | DEX: 20 coins x ~5% (was 10 x 10%) | ~2026-10-24 | DEX $340 (-66% season 2); live: 10 of 10 buys in $100-135k pools lost (5 rugged, -$508). Replay (80 current-rule trades): profit = top 4 trades only; 5% keeps ~85% of the growth, halves the loss when no runner comes | pending |
+| 10 | 2026-10-06 00:30 | DEX: data-only re-screen flags (holders / LP data unknown, LP locked %) no longer sell a held coin; contract flags, honeypots and the liquidity-pull check still do | ~2026-10-20 | season 2 (27 sales): holding every sold coin 7 days beat the actual sales by +$22 per $1 bet (live -11.95 vs hold +10.13); AGENTCAT sold 1.84x -> 19.9x, AGENCY 0.59x -> 16.2x; without those two holding still +3.5 better; the rugged ones were already -70..-90% when flagged | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 

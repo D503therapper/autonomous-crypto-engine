@@ -7,92 +7,62 @@
    "pageCount": 1,
    "items": [
     {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/3116516?lang=en&region=us"
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/2613479?lang=en&region=us"
     }
    ]
   },
   "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/6749?lang=en&region=us",
-   "id": "6749",
-   "uid": "s:40~l:46~co:6749",
-   "firstName": "Erik",
-   "lastName": "Spoelstra",
-   "dateOfBirth": "1970-11-01T08:00Z",
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/489?lang=en&region=us",
+   "id": "489",
+   "uid": "s:40~l:46~co:489",
+   "firstName": "Tyronn",
+   "lastName": "Lue",
+   "dateOfBirth": "1977-05-03T07:00Z",
    "birthPlace": {
-    "city": "Evanston",
-    "state": "IL",
+    "city": "Mexico",
+    "state": "MO",
     "country": "USA"
    },
+   "college": {
+    "$ref": "http://sports.core.api.espn.com/v2/colleges/158?lang=en&region=us"
+   },
    "headshot": {
-    "href": "https://a.espncdn.com/i/headshots/nba/coaches/65/6749.jpg",
-    "alt": "Erik Spoelstra"
+    "href": "https://a.espncdn.com/i/headshots/nba/coaches/65/489.jpg",
+    "alt": "Tyronn Lue"
    },
    "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/coaches/6749?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/coaches/489?lang=en&region=us"
    },
-   "experience": 16
-  }
- },
- "nhl": {
-  "list": {
-   "count": 1,
-   "pageIndex": 1,
-   "pageSize": 50,
-   "pageCount": 1,
-   "items": [
-    {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/coaches/441?lang=en&region=us"
-    }
-   ]
-  },
-  "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/seasons/2027/coaches/900?lang=en&region=us",
-   "id": "900",
-   "uid": "s:70~l:90~co:900",
-   "firstName": "Marco",
-   "lastName": "Sturm",
-   "dateOfBirth": "1978-09-08T07:00Z",
-   "birthPlace": {
-    "city": "Dingolfing",
-    "country": "West Germany"
-   },
-   "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/hockey/leagues/nhl/coaches/900?lang=en&region=us"
-   }
+   "experience": 8
   }
  },
  "ncaaf": {
   "list": {
-   "count": 1,
-   "pageIndex": 1,
-   "pageSize": 50,
-   "pageCount": 1,
-   "items": [
-    {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/coaches/483465?lang=en&region=us"
-    }
-   ]
+   "count": 0,
+   "pageIndex": 0,
+   "pageSize": 25,
+   "pageCount": 0,
+   "items": []
   },
   "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/coaches/4407282?lang=en&region=us",
-   "id": "4407282",
-   "uid": "s:20~l:23~co:4407282",
-   "firstName": "Tyson",
-   "lastName": "Helton",
+   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/coaches/5146704?lang=en&region=us",
+   "id": "5146704",
+   "uid": "s:20~l:23~co:5146704",
+   "firstName": "Pete",
+   "lastName": "Shinnick",
    "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/coaches/4407282?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/coaches/5146704?lang=en&region=us"
    },
    "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/teams/98?lang=en&region=us"
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/119?lang=en&region=us"
    },
-   "experience": 0,
    "records": [
     {
      "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/teams/98?lang=en&region=us"
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/119?lang=en&region=us"
      },
      "record": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2022/types/2/coaches/4407282/record?lang=en&region=us"
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/coaches/5146704/record?lang=en&region=us"
      }
     }
    ]

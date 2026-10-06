@@ -977,9 +977,17 @@ def test_rescreen_flags_held_token():
     h.src["goplus"].fetch = fake_fetch({"token_security": (200, unlocked)})
     run(h, T0 + 1801_000, 4)
     assert K in h.pf.positions and h.pf.positions[K]["flagged"] == 1          # first strike: still held
+    h.p = {**h.p, "data_flag_exit": True}                                    # the two-strike rule, when it is on
     run(h, T0 + 3602_000, 4)
     run(h, T0 + 3700_000, 4)
     assert K not in h.pf.positions, "second strike should sell"
+    shutil.rmtree(d)
+    h, fetch, d, px = held()                                                # EXPERIMENT 10: data flags never sell
+    h.p = {**h.p, "data_flag_exit": False}
+    h.src["goplus"].fetch = fake_fetch({"token_security": (200, unlocked)})
+    for t in (T0 + 1801_000, T0 + 3602_000, T0 + 5403_000):
+        run(h, t, 4)
+    assert K in h.pf.positions and h.pf.positions[K]["flagged"] >= 2 and not h.pf.positions[K].get("exit")
     shutil.rmtree(d)
     h, fetch, d, px = held()                                                # clean re-screen: keep holding, count it
     run(h, T0 + 1801_000, 4)
@@ -1067,6 +1075,12 @@ def test_rejected_followup():
 
 def test_auto_pause_after_scams():
     h, fetch, d, px = held()
+    h.p = {**h.p, "scam_pause": {"max": None, "days": 30, "reset_after": ""}}   # owner 10-05: breaker off
+    h._count_scam(T0)
+    h._count_scam(T0 + 1000)
+    assert not h.paused() and len(h.state["scams"]) == 2                    # counted, never pauses
+    h.state["scams"] = []
+    h.p = {**h.p, "scam_pause": {"max": 2, "days": 30, "reset_after": ""}}  # the mechanism, when it is on
     t = poll(h, T0 + 6000, px, v=0.004, liq=100_000)                        # scam #1
     assert K not in h.pf.positions and not h.paused()
     px.update(v=0.01, liq=600_000)

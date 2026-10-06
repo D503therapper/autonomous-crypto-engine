@@ -1,15 +1,9 @@
 {
- "at": "2026-10-05T15:47Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
- "problems": [
-  "studies last ran 10h ago - restarted",
-  "simulator last ran 10h ago - restarted"
- ],
+ "at": "2026-10-06T00:31Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (162s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -17,16 +11,77 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "engine ran 46 min ago",
+  "studies ran 1h ago",
+  "simulator ran 0h ago",
+  "engine ran 40 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-06T00:31Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-05T23:00Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-05T22:56Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-05T22:51Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-05T21:17Z",
+   "fixes": [
+    "live watch 37369852564 froze (6 min) - cancelled",
+    "live board 6 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": [
+    "workflow failed: sports_studies 2026-10-05T20:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37370317502"
+   ]
+  },
+  {
+   "at": "2026-10-05T20:27Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: health 2026-10-05T20:01 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37367117520",
+    "workflow failed: pacer 2026-10-05T19:43 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37365268912",
+    "workflow failed: health 2026-10-05T19:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37364835720"
+   ]
+  },
+  {
+   "at": "2026-10-05T18:04Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-05T18:04Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-05T16:32Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-05T16:26Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-05T15:47Z",
    "fixes": [
@@ -689,74 +744,6 @@
    "problems": [
     "live tennis scores: tennis Boisson vs Andreeva: no points for 1177s"
    ]
-  },
-  {
-   "at": "2026-10-03T12:12Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Shang Juncheng vs Zverev: points frozen at 40-30 for 496s",
-    "live tennis scores: tennis Boisson vs Andreeva: no points for 107s"
-   ]
-  },
-  {
-   "at": "2026-10-03T12:02Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Shang Juncheng vs Zverev: no points for 102s"
-   ]
-  },
-  {
-   "at": "2026-10-03T11:52Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-03T10:18Z",
-   "fixes": [
-    "live watch 37113465915 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-03T10:14Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-03T10:13Z",
-   "fixes": [
-    "engine 132 min since its last run - started sports.yml"
-   ],
-   "problems": [
-    "engine last started 132 min ago (GitHub skipped its hourly runs) - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-03T08:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-03T08:02Z",
-   "fixes": [
-    "engine 84 min since its last run - started sports.yml"
-   ],
-   "problems": [
-    "engine last started 84 min ago (GitHub skipped its hourly runs) - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-03T07:25Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Falei vs Maneiro: no points for 580s"
-   ]
-  },
-  {
-   "at": "2026-10-03T05:46Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }

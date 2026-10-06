@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 23,
-  "beat": 4,
+  "n": 24,
+  "beat": 5,
   "same": 12,
   "worse": 7,
-  "avg_pts": 0.07
+  "avg_pts": 0.12
  },
  "unit_plays": {
-  "n": 12,
-  "beat": 2,
+  "n": 13,
+  "beat": 3,
   "same": 5,
   "worse": 5,
-  "avg_pts": 0.06
+  "avg_pts": 0.15
  },
  "by_kind": {
   "dog": {
@@ -29,11 +29,11 @@
    "avg_pts": 0.09
   },
   "lock": {
-   "n": 4,
-   "beat": 1,
+   "n": 5,
+   "beat": 2,
    "same": 2,
    "worse": 1,
-   "avg_pts": 1.2
+   "avg_pts": 1.22
   },
   "play": {
    "n": 4,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 3,
-   "beat": 1,
+   "n": 4,
+   "beat": 2,
    "same": 1,
    "worse": 1,
-   "avg_pts": 0.33
+   "avg_pts": 0.57
   },
   "ncaaf": {
    "n": 7,
@@ -81,7 +81,13 @@
    "worse": 0,
    "avg_pts": 0.0
   },
-  "1-2u": null,
+  "1-2u": {
+   "n": 1,
+   "beat": 1,
+   "same": 0,
+   "worse": 0,
+   "avg_pts": 1.3
+  },
   "2-4u": {
    "n": 2,
    "beat": 1,
@@ -418,6 +424,20 @@
    "close": -148,
    "pts": 0.0,
    "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "lock",
+   "lean": false,
+   "league": "mlb",
+   "team": "Guardians",
+   "market": "ml",
+   "line": null,
+   "odds": -149,
+   "close": -157,
+   "pts": 1.3,
+   "units": 1.0,
    "result": "lost"
   }
  ]

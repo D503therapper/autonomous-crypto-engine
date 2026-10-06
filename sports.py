@@ -2042,6 +2042,50 @@ def confident_lean(c):
     #                                                          the REAL price we pay, never just the no-vig line)
 
 
+# 📌 A LEAN STAYS PUT (the owner, 10/5: the Falcons +1.5 lean the night before turned into the Saints -1.5 lean at 8 AM
+# because the Falcons moved +105 -> even on a game the engine called a coin flip all day - "the engine looks stupid").
+# The first time the engine names a lean side on a game (the night-before preview, the pre-board check, the board), it's
+# remembered; later it only switches sides if the engine's OWN read of that side drops LEAN_FLIP or more (a real change -
+# a QB ruled out), never on a price tick.
+LEAN_SIDES_PATH = os.path.join(sd.DATA, "lean_sides.json")
+LEAN_FLIP = 0.03
+
+
+def _lean_mem():
+    try:
+        with open(LEAN_SIDES_PATH) as f:
+            return json.load(f)
+    except Exception:                                        # noqa: BLE001
+        return {}
+
+
+def stick(c, pool):
+    """The lean for c's game: the side remembered from earlier unless the engine's own read of it fell LEAN_FLIP+ (then
+    the new side, remembered from here). pool = the game's other eligible candidates."""
+    if not c.get("game_id") or not c.get("side"):
+        return c
+    mem = _lean_mem()
+    gid, was = c["game_id"], mem.get(c["game_id"])
+    out = c
+    if was and was.get("side") != c["side"]:
+        same = [x for x in pool if x.get("game_id") == gid and x.get("side") == was["side"]]
+        same.sort(key=lambda x: (x.get("market") != was.get("market"), -(read_of(x) or 0)))
+        if same and (read_of(same[0]) or 0) >= (was.get("own") or 0) - LEAN_FLIP:
+            out = same[0]                                    # held: the read didn't really move
+    if not was or was.get("side") != out["side"]:
+        mem[gid] = {"side": out["side"], "market": out.get("market"), "team": out.get("team"),
+                    "own": round(read_of(out) or 0, 4), "start": out.get("start") or ""}
+        cut = (datetime.now(timezone.utc) - timedelta(days=4)).strftime("%Y-%m-%d")
+        mem = {k: v for k, v in mem.items() if (v.get("start") or "9") >= cut}
+        try:
+            os.makedirs(os.path.dirname(LEAN_SIDES_PATH), exist_ok=True)
+            with open(LEAN_SIDES_PATH, "w") as f:
+                json.dump(mem, f, indent=1, sort_keys=True)
+        except Exception as e:                               # noqa: BLE001 - never blocks the board
+            print(f"lean memory not saved: {str(e)[:80]}")
+    return out
+
+
 def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
@@ -2062,8 +2106,10 @@ def viewer_leans(cands, avoid):
         return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
         #                                                      underpriced (the owner, 10/1: "we need value plays")
     best = {}
-    for c in sorted((c for c in cands if ok(c)), key=lambda c: -rank_p(c)):
+    okc = [c for c in cands if ok(c)]
+    for c in sorted(okc, key=lambda c: -rank_p(c)):
         best.setdefault(c["game_id"], c)
+    best = {g: stick(c, okc) for g, c in best.items()}       # 📌 (10/5: a lean never flips on a price tick)
     out, per = [], {}
     for c in sorted(best.values(), key=lambda c: (-importance(c), -rank_p(c))):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:        # (spread across the sports - "not five hockey games")
@@ -2077,8 +2123,10 @@ def viewer_leans(cands, avoid):
         return (c["market"] == "ml" and c["odds"] >= MAX_FAV and not c.get("trap") and c["game_id"] not in avoid
                 and c["game_id"] not in best and not fighting(c) and c["p"] >= LEAN_PICK_P)
     extra = {}
-    for c in sorted((c for c in cands if fill_ok(c)), key=lambda c: -c["p"]):
+    fillc = [c for c in cands if fill_ok(c)]
+    for c in sorted(fillc, key=lambda c: -c["p"]):
         extra.setdefault(c["game_id"], c)
+    extra = {g: stick(c, fillc) for g, c in extra.items()}
     for c in sorted(extra.values(), key=lambda c: -c["p"]):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:
             per[c["league"]] = per.get(c["league"], 0) + 1
@@ -3074,7 +3122,7 @@ def night_pick(pool):
     pool = [c for c in pool if not fighting(c)] or pool
     if not pool:
         return None
-    c = max(pool, key=lambda c: (c["p"], c["edge"]))
+    c = stick(max(pool, key=lambda c: (c["p"], c["edge"])), pool)   # 📌 (10/5: the Falcons -> Saints flip)
     return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
 
 

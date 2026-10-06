@@ -22,7 +22,7 @@ jobs:
       - run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
-          git add results/board_preview.txt
+          git add results/board_preview.txt data/sports/lean_sides.json 2>/dev/null || git add results/board_preview.txt   # (10/5: the lean sides it named stay put)
           git commit -qm "board preview $(date -u '+%F %H:%M') UTC" || exit 0
           git stash -q --include-untracked || true   # (10/2: files the run touched blocked the pull - only the report ships)
           for i in 1 2 3 4 5; do git pull --rebase -q -X theirs origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && ok=1 && break; git rebase --abort 2>/dev/null || true; sleep 5; done
