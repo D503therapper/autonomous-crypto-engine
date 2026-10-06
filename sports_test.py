@@ -9213,6 +9213,16 @@ def test_football_starting_qb_is_who_started_the_last_game():
         spl.CACHE = keep
 
 
+def test_a_trip_both_teams_made_is_never_a_reason():
+    """10/5 preview: "And Braves are coming off a 1,930-mile trip" on the Dodgers lean - both teams flew LA to Atlanta
+    for the series. A trip only counts when the other team made it and we didn't."""
+    import sports_context as sc
+    both = {"lg": "mlb", "h": {"mi": 1930}, "a": {"mi": 1930}}
+    assert not [c for c in sc.display(both, "away") if c.get("k") == "trip"]
+    theirs = {"lg": "mlb", "h": {"mi": 0}, "a": {"mi": 1930}}
+    assert [c for c in sc.display(theirs, "home") if c.get("k") == "trip"][0]["mi"] == 1930
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)

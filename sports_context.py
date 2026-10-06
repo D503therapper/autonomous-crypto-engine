@@ -1070,8 +1070,10 @@ def display(f, side, market="ml"):
         out.append({"k": "rival"})
     elif f.get("rel") == "div":
         out.append({"k": "div"})
-    if (them.get("mi") or 0) >= 1000 or ((them.get("road6") or 0) >= 3 and f.get("lg") in NIGHTLY):
-        out.append({"k": "trip", "who": "them", "mi": them.get("mi"), "road6": them.get("road6") or 0,
+    far = (them.get("mi") or 0) >= 1000 and (them.get("mi") or 0) - (us.get("mi") or 0) >= 1000   # (10/5: "Braves are
+    #   coming off a 1,930-mile trip" - the Dodgers made the same flight; a trip is only a fact for us when it's theirs alone)
+    if far or ((them.get("road6") or 0) >= 3 and f.get("lg") in NIGHTLY):
+        out.append({"k": "trip", "who": "them", "mi": them.get("mi") if far else 0, "road6": them.get("road6") or 0,
                     "dir": them.get("dir"), "wk": them.get("wk")})
     if them.get("dome_cold"):
         out.append({"k": "dome_cold", "who": "them"})
