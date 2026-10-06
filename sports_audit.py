@@ -135,8 +135,10 @@ def audit_day(picks, games, day):
             if lg in ("nfl", "ncaaf", "nhl") and box is not None:
                 for side in ("home", "away"):
                     real = _started(lg, leg.get("game_id"), g.get(side))
-                    said_out = [SEEN.match(w).group(1) for w in (leg.get("key_seen") or {})
-                                if SEEN.match(w) and g.get(f"{side}_name", "?") in SEEN.match(w).group(2)]
+                    said_out = [SEEN.match(w).group(1) for w, st_ in (leg.get("key_seen") or {}).items()
+                                if SEEN.match(w) and g.get(f"{side}_name", "?") in SEEN.match(w).group(2)
+                                and str(st_).lower() != "confirmed in net"]   # (10/6: a goalie we had CONFIRMED in net
+                    #                                                           starting is the point, not false injury data)
                     if real and _nm(real) in {_nm(x) for x in said_out}:
                         flags.append(f"{label}: {real} started for the {g.get(f'{side}_name')} - we had him out")
             flags += [f"{label}: {x}" for x in card_facts(leg, games)]

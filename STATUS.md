@@ -3,6 +3,22 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/6 - bug sweep of the 10/4-10/6 pieces (the owner: "double check everything we've added")
+- Read every sports diff since 10/4 (goalies, lean memory, football QB = last game's starter, 2-hour graded cards, trip
+  line, every-dog preview, obituary guard, Dr. Bob parse, question-box auto-close, Europe under, fetch_pages WHOLE).
+  Two real bugs, both in the goalie build, both fixed with tests (364 -> 366 green): (1) the '🥅 In net' card line was
+  skipped whenever the write-up already had any 🥅 line - the slumping-goalie write-up starts with 🥅 too; (2) the daily
+  pick audit read a goalie we had 'Confirmed in net' who then started as 'we had him out (false injury data)'.
+- Checked and fine: the goalie weight stays inside STUDY_CAP / NHL_FAV_CAP and never double-counts; a stale page
+  (8h+) is unknown, never 'off the injury report'; the lean memory writes only the engine's own file (tests redirect
+  it); the Europe under never takes a side and never posts on game day (PT); the capper 'break' leaves only the total's
+  line; the ask-status read and the intl log are wrapped so the hourly run never fails on them.
+- Not changed, worth a look: football's 'starter = last game's QB' (n=1) means a QB1 hurt mid-game last week (the
+  backup threw more) is no longer a 'key player' for the card alert / early-play block - the -8 own-read penalty still
+  reads 3 games (sports_absences.key_players), so the read is right, only the labeling narrowed; the Lock-slot
+  replacement lean (sports.lean) doesn't use the lean memory (only viewer leans / night picks do); Daily Faceoff's two
+  goalie slots are read in page order (away first) - if the page ever shows one slot, the home goalie would read as the
+  away team's (the watch line "N matched" in the log is the tell).
 ## 10/6 - when to bet our hockey picks: 8 AM or near puck drop? (report only, nothing built)
 - The repo has NO book-by-book hockey price history (the paid odds pull was football only); the study used the NHL
   opener vs close 2023-26 (4,152 games), our own hourly snapshots since 10/1 (35 games) and our 11 posted NHL picks.
