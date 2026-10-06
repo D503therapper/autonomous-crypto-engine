@@ -9289,3 +9289,39 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-10-06 15:05 UTC] stocks/trend     equity $490.13 (-2.0%) 3 open  market UP
 [2026-10-06 15:05 UTC] stocks/hold_spy  equity $506.93 (+1.4%) 1 open  market UP
    social heat top: PONS 38 (35/0/4), NEAR 37 (37/0/0), NMR 32 (32/0/0), ZRO 29 (29/0/0), RLC 27 (27/0/0)
+   dex screen: REJECT HOTBOT@solana liq $103,695 - lp holders unknown; rugcheck lp locked 67% < 95%
+   dex screen: REJECT GALA@solana liq $23,181,317 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT BRETT@base liq $929,703 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: PASS CATE@solana liq $3,086,058
+   dex screen: REJECT BOAR@base liq $261,958 - goplus partial data: cannot_sell_all unknown; buy tax unknown; lp locked 0% < 95%
+   dex screen: REJECT FT@ethereum liq $126,614 - transfer_pausable; is_mintable; hidden_owner; top-10 holders 98%; lp locked 0% < 95%
+   dex outcome: emergency_exit HIGGS@solana:FwVY8ydF tier A P/L $-47.97 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%)
+   >> dex/dex_hunter: SELL $0.00 of HIGGS@solana:FwVY8ydF @ 2e-06, P/L $-47.97 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%)
+   dex screen: REJECT ENA@ethereum liq $3,232,730 - is_mintable; top-10 holders 60%
+   dex screen: REJECT CONDO@ethereum liq $101,909 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT GRIFFAIN@solana liq $2,506,172 - top-10 holders 54%
+   dex screen: REJECT NOCK@base liq $1,254,306 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT EDEL@base liq $1,477,571 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 47%
+   dex scanner: 3,000 pools (solana 1,951 / base 613 / ethereum 436), refresh cycle 129s (hot 124s), 2907 calls (109 feed, 429s 0, failed 0), 83,937 refreshed (8283 no pair), +132 added / -132 dropped (dead 20, stale 0, cap 112), movers 1 + warming 25 -> queued 3, screened 3 (passed 0), bought 0
+[2026-10-06 16:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-06 16:05 UTC] crypto/mover     equity $431.06 (-13.8%) 1 open  market UP
+[2026-10-06 16:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 16:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 16:05 UTC] crypto/social_heat equity $517.79 (+3.6%) 1 open  market UP
+[2026-10-06 16:05 UTC] crypto/breakout10 equity $507.78 (+1.6%) 2 open  market UP
+[2026-10-06 16:05 UTC] crypto/momentum  equity $493.58 (-1.3%) 4 open  market UP
+[2026-10-06 16:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-06 16:05 UTC] crypto/hold_btc  equity $509.04 (+1.8%) 1 open  market UP
+[2026-10-06 16:05 UTC] stocks/rsi2      equity $510.61 (+2.1%) 2 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): TLT 0, IEF 2, LLY 5 BUY, XLRE 16
+[2026-10-06 16:05 UTC] stocks/dual_momentum equity $510.34 (+2.1%) 2 open  market UP
+[2026-10-06 16:05 UTC] stocks/trend_ensemble equity $513.11 (+2.6%) 5 open  market UP
+[2026-10-06 16:05 UTC] stocks/rotation10 equity $508.88 (+1.8%) 2 open  market UP
+[2026-10-06 16:05 UTC] stocks/momentum  equity $504.01 (+0.8%) 4 open  market UP
+[2026-10-06 16:05 UTC] stocks/trend     equity $490.34 (-1.9%) 3 open  market UP
+[2026-10-06 16:05 UTC] stocks/hold_spy  equity $507.13 (+1.4%) 1 open  market UP
+   social heat top: PONS 40 (37/0/2), PENGU 36 (27/0/10), NEAR 35 (35/0/0), QNT 32 (32/0/0), NMR 29 (29/0/0)
