@@ -2135,7 +2135,9 @@ def viewer_leans(cands, avoid):
     # read-less spread, never a game we're on.
     def fill_ok(c):
         return (c["market"] == "ml" and c["odds"] >= MAX_FAV and not c.get("trap") and c["game_id"] not in avoid
-                and c["game_id"] not in best and not fighting(c) and c["p"] >= LEAN_PICK_P)
+                and c["game_id"] not in best and not fighting(c) and c["p"] >= LEAN_PICK_P
+                and (c.get("w_p") is None or c["w_p"] >= LEAN_PICK_P))   # (10/6: a hockey favorite whose WEIGHED read
+        #                                                  has it losing - Panthers 48% - is never the who-wins lean)
     extra = {}
     fillc = [c for c in cands if fill_ok(c)]
     for c in sorted(fillc, key=lambda c: -c["p"]):

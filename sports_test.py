@@ -6300,8 +6300,9 @@ def test_leans_fill_the_board_to_five():
     """10/2, the owner: "we need five picks so we can have two more leans." A hockey favorite whose price isn't value is
     still a who-wins lean (no units) when the board is short - never past -150, never fighting its own read."""
     def hk(gid, odds, p):
-        return {**_cand(gid, odds, p, league="nhl"), "game_id": gid, "w_p": p - 0.03, "reasons": ["the stronger team"]}
-    cs = [hk("rw", -130, 0.576), hk("jets", -122, 0.525), hk("big", -190, 0.63)]
+        return {**_cand(gid, odds, p, league="nhl"), "game_id": gid, "w_p": p - 0.02, "reasons": ["the stronger team"]}
+    cs = [hk("rw", -130, 0.576), hk("jets", -122, 0.525), hk("big", -190, 0.63)]   # (10/6: weighed reads 55.6 / 50.5 -
+    #                                                         a weighed read under 50% is never the who-wins lean)
     assert all(sports.hockey_fav_bad(c) for c in cs[:2])
     got = [c["game_id"] for c in sports.viewer_leans(cs, set())]
     assert got == ["rw", "jets"]                              # the likeliest first; -190 is past -150
@@ -9500,6 +9501,16 @@ def test_lock_slot_lean_holds_its_side_and_a_one_slot_goalie_game_is_skipped():
         sports.LEAN_SIDES_PATH = keep
     src = open(sg.__file__).read()
     assert 'len(g.get("goalies") or []) == 2' in src
+
+
+def test_fill_lean_never_backs_a_hockey_favorite_its_weighed_read_has_losing():
+    """10/6 preview: the Panthers (-122) went up as a fill lean - 53% on the price, but the engine's weighed hockey read
+    had them at 48% (the Kings by a hair). A lean is a who-wins call: never the side our full read has losing."""
+    c = {"game_id": "nhl:1", "side": "away", "team": "Panthers", "league": "nhl", "market": "ml", "odds": -122,
+         "dec": sports._dec(-122), "p": 0.53, "edge": -0.03, "edge_own": -0.03, "w_p": 0.48, "waiting": []}
+    assert not [x for x in sports.viewer_leans([c], set()) if x["team"] == "Panthers"]
+    ok = {**c, "game_id": "nhl:2", "w_p": 0.53, "edge_own": 0.0}
+    assert sports.viewer_leans([ok], set())[0]["team"] == "Panthers"
 
 
 if __name__ == "__main__":
