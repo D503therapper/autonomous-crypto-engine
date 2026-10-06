@@ -1,32 +1,32 @@
 {
- "updated": "2026-10-06T21:22Z",
+ "updated": "2026-10-06T21:49Z",
  "games": [
   {
    "id": "mlb:401908015",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Dodgers",
-    "p": 0.45,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-06T22:00Z",
    "away": "Dodgers",
    "home": "Braves",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Braves",
-    "opp": "Dodgers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -189,
-    "p": 0.606,
-    "win_p": 0.488,
-    "reasons": []
+    "team": "Dodgers",
+    "opp": "Braves",
+    "market": "ml",
+    "line": null,
+    "odds": -109,
+    "p": 0.513,
+    "win_p": 0.513,
+    "reasons": [
+     "opponent missing key players",
+     "hotter recent form"
+    ],
+    "result": null
    }
   },
   {
@@ -97,7 +97,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Maple Leafs",
-    "p": 0.388,
+    "p": 0.393,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -114,8 +114,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.642,
-    "win_p": 0.422,
+    "p": 0.632,
+    "win_p": 0.412,
     "reasons": [
      "hotter recent form",
      "the stronger team"
@@ -128,7 +128,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.37,
+    "p": 0.374,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -145,8 +145,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -258,
-    "p": 0.678,
-    "win_p": 0.459,
+    "p": 0.669,
+    "win_p": 0.451,
     "reasons": [
      "hotter recent form",
      "the stronger team",
@@ -297,9 +297,9 @@
     "opp": "Padres",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
+    "odds": -187,
     "p": 0.639,
-    "win_p": 0.456,
+    "win_p": 0.457,
     "reasons": [
      "hotter recent form",
      "opponent missing key players",
@@ -389,7 +389,7 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -201,
+    "odds": -200,
     "p": 0.644,
     "win_p": 0.53,
     "reasons": [
@@ -437,8 +437,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.418,
-    "tie": 0.295,
+    "p": 0.414,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -453,9 +453,9 @@
     "opp": "Jets",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.646,
-    "win_p": 0.646,
+    "odds": -185,
+    "p": 0.638,
+    "win_p": 0.638,
     "reasons": [
      "the stronger team",
      "hotter recent form"
