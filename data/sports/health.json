@@ -1,9 +1,14 @@
 {
- "at": "2026-10-06T01:16Z",
+ "at": "2026-10-06T02:47Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 2254s",
+  "live tennis scores: tennis Fruhvirtova vs Sawangkaew: no points for 2197s",
+  "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2063s",
+  "live tennis points: none of 3 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (237s)",
+  "live watcher fresh (193s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +16,28 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 3 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 60 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-06T02:47Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 2254s",
+    "live tennis scores: tennis Fruhvirtova vs Sawangkaew: no points for 2197s",
+    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2063s",
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-06T01:16Z",
    "fixes": [],
@@ -734,13 +749,6 @@
     "live tennis scores: tennis Boisson vs Andreeva: no points for 2664s",
     "studies last ran 9h ago - restarted",
     "engine last started 99 min ago (GitHub skipped its hourly runs) - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-03T13:56Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Andreeva: no points for 1527s"
    ]
   }
  ]
