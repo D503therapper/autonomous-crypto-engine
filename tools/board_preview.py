@@ -86,6 +86,9 @@ def main(day_iso=None):
                 pass
             out.append(f"  {c['team']} +{c['odds']} vs {c.get('opp')} ({c['league'].upper()}) - needs {need:.1%}, "
                        f"read {rd:.1%} ({rd - need:+.1%})" + (f" - {'; '.join(why)}" if why else ""))
+            extra = [str(r) for r in (c.get("reasons") or [])] + [str(t) for t in (c.get("dog_more") or [])][:6]
+            if extra:
+                out.append(f"      reasons: {', '.join(extra)[:220]}")
     unit_picks = [p for p in new if p["kind"] in UNIT_KINDS and not p.get("lean")]
     sizes = [sports.units_for(p) for p in unit_picks]
     out.append(f"\n{len(unit_picks)} unit plays, {sum(p.get('lean', False) for p in new)} leans - "
