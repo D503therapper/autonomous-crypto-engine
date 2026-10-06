@@ -63,6 +63,7 @@ field names are config values (config.DEX overrides DEFAULTS, nested keys merge)
 """
 import argparse
 import csv
+import glob
 import gzip
 import json
 import os
@@ -642,9 +643,24 @@ class DexHunter:
         except Exception as e:
             print(f"   dex: could not read state: {e}")
         self._new_season()
+        self.blocked = self._scam_book()
         C = self.p["cost"]
         self.pf = Portfolio.load(f"{self.acct}/portfolio.json", fee=C["fee"], slippage=C["slip"])
         self._uni_load()
+
+    def _scam_book(self):
+        """Every token we ever booked as a scam (outcomes.csv of this and all archived seasons) is never bought again:
+        CLAUS was a honeypot on 2026-10-05 16:53 and was re-bought 7h later in a fresh season when the screen read clean."""
+        out = set()
+        for path in [f"{self.dir}/outcomes.csv"] + sorted(glob.glob(f"{self.dir}/archive/*/outcomes.csv")):
+            try:
+                with open(path, newline="") as f:
+                    for r in csv.DictReader(f):
+                        if str(r.get("outcome", "")).startswith("scammed") and r.get("address"):
+                            out.add(r["address"].lower())
+            except OSError:
+                pass
+        return out
 
     def _new_season(self):
         """Owner 2026-09-29: restart the DEX paper account for a clean measure of the fixed engine. When
@@ -1435,6 +1451,8 @@ class DexHunter:
                 self._recycle(now, c)
             return
         pk = self.pkey(c)
+        if str(c.get("addr") or "").lower() in getattr(self, "blocked", ()):   # booked as a scam before: never again
+            return
         if pk in self.pf.positions or self.pf.cooldown.get(pk, 0) > now or not c.get("price"):
             return
         sym = str(c.get("sym") or "").upper()      # same-name copycats ride a hot coin's name: one per name
@@ -1712,6 +1730,8 @@ class DexHunter:
                 "entry": keep["entry"], "exit": round(price, 10), "liq_entry": round(keep["liq0"]), "liq_exit": round(liq),
                 "outcome": outcome, "reason": reason}])
             print(f"   dex outcome: {outcome} {k} tier {keep.get('tier', 'A')} P/L ${realized:+.2f} ({reason})")
+            if outcome.startswith("scammed") and keep.get("addr"):
+                self.blocked = getattr(self, "blocked", set()) | {keep["addr"].lower()}
             if outcome.startswith("scammed"):
                 self._count_scam(now)
         self.dirty = True

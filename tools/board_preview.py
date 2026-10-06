@@ -64,6 +64,28 @@ def main(day_iso=None):
         out.append("\n(no picks would post right now)")
     for w in waiting:
         out.append(f"\nWAITING {w['kind']}: on {', '.join(w.get('waiting') or [])}")
+    # 🐶 EVERY DOG on the slate (10/5, the owner: "there's no value in any dogs?") - the engine's read vs the price each
+    # one needs, and what kept it off. Moneylines +100..+220.
+    dogs = [c for c in sports.LAST_RAW if c.get("market") == "ml" and 100 <= c.get("odds", 0) <= sports.DAILY_DOG_MAX]
+    if dogs:
+        out.append("\nEVERY DOG (moneyline): price needs -> the engine's read")
+        for c in sorted(dogs, key=lambda c: -((sports.read_of(c) or 0) - 1 / c["dec"])):
+            need, rd = 1 / c["dec"], sports.read_of(c) or 0
+            why = []
+            if c.get("waiting"):
+                why.append("waiting: " + ", ".join(c["waiting"])[:60])
+            if c.get("trap"):
+                why.append("trap")
+            if c.get("hurt"):
+                why.append("hurt: " + ", ".join(c["hurt"])[:50])
+            if sports.fighting(c):
+                why.append("own read under the price")
+            try:
+                why.append(f"dog score {sports.dog_score(c):+.1f}")
+            except Exception:                                            # noqa: BLE001
+                pass
+            out.append(f"  {c['team']} +{c['odds']} vs {c.get('opp')} ({c['league'].upper()}) - needs {need:.1%}, "
+                       f"read {rd:.1%} ({rd - need:+.1%})" + (f" - {'; '.join(why)}" if why else ""))
     unit_picks = [p for p in new if p["kind"] in UNIT_KINDS and not p.get("lean")]
     sizes = [sports.units_for(p) for p in unit_picks]
     out.append(f"\n{len(unit_picks)} unit plays, {sum(p.get('lean', False) for p in new)} leans - "

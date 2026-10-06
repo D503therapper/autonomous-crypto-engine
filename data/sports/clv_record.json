@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 26,
+  "n": 28,
   "beat": 5,
   "same": 13,
-  "worse": 8,
-  "avg_pts": -0.03
+  "worse": 10,
+  "avg_pts": -0.1
  },
  "unit_plays": {
   "n": 14,
@@ -22,11 +22,11 @@
    "avg_pts": -1.18
   },
   "lean": {
-   "n": 12,
+   "n": 14,
    "beat": 2,
    "same": 8,
-   "worse": 2,
-   "avg_pts": 0.08
+   "worse": 4,
+   "avg_pts": -0.08
   },
   "lock": {
    "n": 5,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 4,
+   "n": 5,
    "beat": 2,
    "same": 1,
-   "worse": 1,
-   "avg_pts": 0.57
+   "worse": 2,
+   "avg_pts": 0.42
   },
   "ncaaf": {
    "n": 7,
@@ -59,11 +59,11 @@
    "avg_pts": 0.69
   },
   "nfl": {
-   "n": 5,
+   "n": 6,
    "beat": 0,
    "same": 4,
-   "worse": 1,
-   "avg_pts": -0.14
+   "worse": 2,
+   "avg_pts": -0.43
   },
   "nhl": {
    "n": 10,
@@ -452,6 +452,34 @@
    "close": 170,
    "pts": -3.8,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Yankees",
+   "market": "ml",
+   "line": null,
+   "odds": -127,
+   "close": -126,
+   "pts": -0.2,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Saints",
+   "market": "spread",
+   "line": -1.5,
+   "odds": -108,
+   "close": 100,
+   "pts": -1.9,
+   "units": 0,
    "result": "lost"
   },
   {

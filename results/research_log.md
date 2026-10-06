@@ -107,6 +107,10 @@ Bigger, older coins lose less per coin but make nothing - no runners. The only g
 the meme rule, and only through rare big winners. Live results (season 2 -71%) were far worse than this replay of the
 same rule: the gap (scam-check sales, rugs the replay can't see, timing) is the next study - grade it at every review.
 
+- 2026-10-06 05:40 UTC: the new season re-bought CLAUS 7h after it was booked a honeypot (scam history lived only in the
+  season's files). Fix: every token booked as a scam in any season (outcomes.csv + archives) is never bought again
+  (dex._scam_book; test_scam_coin_never_rebought). The current CLAUS holding stays under the normal re-screen.
+
 ## EXPERIMENTS LOG (owner 2026-09-28: experiment directly in the main paper account; log what works, keep winners)
 | # | Started (UTC) | Change | Judge at | Baseline | Result |
 |---|---|---|---|---|---|

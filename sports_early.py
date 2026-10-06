@@ -1105,7 +1105,7 @@ def move_say(p, now_odds, call):
     return line.format(t=p.get("team", ""), a=am(p["odds"]), n=am(now_odds))
 
 
-GRADED_STAYS_H = 3                                        # a graded row stays 3 hours, like every card on the board
+GRADED_STAYS_H = 2                                        # a graded row stays 2 hours, like every card on the board
 
 
 def gameday_html(st, games, E, now=None, show_units=None):
