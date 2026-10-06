@@ -9485,6 +9485,23 @@ def test_pick_audit_never_flags_a_confirmed_goalie_as_false_injury_data():
         sa.played, sp.CACHE = keep_played, keep_cache
 
 
+def test_lock_slot_lean_holds_its_side_and_a_one_slot_goalie_game_is_skipped():
+    """10/6 sweep: the Lock-slot lean (nothing cleared the bar) never flips sides on a price tick either; and a Daily
+    Faceoff game showing only one goalie slot is skipped (slots go by page order - it could land on the wrong team)."""
+    import sports_goalies as sg
+    keep = sports.LEAN_SIDES_PATH
+    try:
+        sports.LEAN_SIDES_PATH = os.path.join(tempfile.mkdtemp(), "ls.json")
+        sports.stick({"game_id": "g9", "side": "away", "team": "A", "market": "ml", "p": 0.6, "dec": 1.6}, [])
+        home = {"game_id": "g9", "side": "home", "team": "B", "market": "ml", "p": 0.61, "dec": 1.6}
+        away = {"game_id": "g9", "side": "away", "team": "A", "market": "ml", "p": 0.595, "dec": 1.6}
+        assert sports.stick(home, [home, away])["team"] == "A"
+    finally:
+        sports.LEAN_SIDES_PATH = keep
+    src = open(sg.__file__).read()
+    assert 'len(g.get("goalies") or []) == 2' in src
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

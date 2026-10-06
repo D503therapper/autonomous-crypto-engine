@@ -87,7 +87,8 @@ def parse(lines):
             i = j
             continue
         i += 1
-    return games
+    return [g for g in games if len(g.get("goalies") or []) == 2]   # (10/6 sweep: slots go by page order, away first -
+    #   a game showing one slot could put the home goalie on the away team; skip it - unknown, never a guess)
 
 
 def _same_team(page_name, our_name):

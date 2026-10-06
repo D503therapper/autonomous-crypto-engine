@@ -2217,8 +2217,8 @@ def lean(cands, kind, taken=None, floor=None):
         return None
     if not pool:
         return None
-    c = max(pool, key=lambda c: (importance(c), rank_p(c), c["edge"]))   # the big games first, then the likeliest
-    return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}
+    c = stick(max(pool, key=lambda c: (importance(c), rank_p(c), c["edge"])), pool)   # the big games first, then the
+    return {"legs": [c], "dec": c["dec"], "p_hit": c["p"], "lean": True}                 # likeliest (📌 10/6: never flips on a tick)
 
 
 # ---------------------------------------------------------------- grading
