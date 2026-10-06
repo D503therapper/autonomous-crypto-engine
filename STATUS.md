@@ -3,6 +3,18 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/5-10/6 - session wrap (owner decisions + fixes)
+- Owner calls: graded cards stay 2 hours (was 3); a lean never flips sides on a price tick (sports.stick / lean_sides.json,
+  viewer leans + night pick + Lock-slot lean; flips only if the own read of that side drops 3+); confirmed NHL goalies
+  built (sports_goalies, +2 dog weight, '🥅 IN NET' card line/alert); no logging of our own pick prices for timing ("takes
+  years") - bet favorites at 8 AM, dogs can wait; Dr. Bob agreement = no extra units (blind study dead).
+- Fixes: football starting QB = last game's starter (Cooper Rush alert); former-player obituary isn't team drama; card
+  guard drops 'walking bucket' outside hoops + 'rest is on the field'; a trip both teams made isn't a reason; a hockey
+  favorite the weighed read has losing is never a fill lean (Panthers 10/6); Bob tracker total-lean parse + 2 bogus rows.
+- Board preview now lists EVERY DOG (price needs vs read, what kept it off).
+- Open: survivor pool (Ravens/Bucs/49ers/Jags used, 1 loss of 2); pause daily studies until NBA? (unanswered); question
+  box runs until the API credit is gone, then closes itself; 10/11 London Eagles @ Jaguars = first live Europe under.
+
 ## 10/6 - bug sweep of the 10/4-10/6 pieces (the owner: "double check everything we've added")
 - Read every sports diff since 10/4 (goalies, lean memory, football QB = last game's starter, 2-hour graded cards, trip
   line, every-dog preview, obituary guard, Dr. Bob parse, question-box auto-close, Europe under, fetch_pages WHOLE).
