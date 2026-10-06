@@ -822,6 +822,22 @@ def test_recycle_stale_for_stronger_coin():
     print("  no cash for a strong coin: the weakest stale holding (24h+, below cost) is swapped out   ok")
 
 
+def test_scam_coin_never_rebought():
+    """CLAUS 2026-10-05: booked as a honeypot, re-bought 7h later in a fresh season when the screen read clean."""
+    h, fetch, d, px = held()
+    t = poll(h, T0 + 6000, px, v=0.004, liq=100_000)                     # rug -> scammed, sold
+    assert K not in h.pf.positions and EVM.lower() in h.blocked
+    px.update(v=0.01, liq=600_000)
+    h.state["seen"].clear(); h.pf.cooldown.clear(); h.state["paused"] = None
+    screen(h, cand(), t=t + 1000)
+    assert K not in h.pf.positions                                        # passed again, never bought
+    h2 = DexHunter(params=h.p, fetch=fetch, now_ms=t + 2000)              # a restart reads the scam book from disk
+    h2._load()
+    assert EVM.lower() in h2.blocked
+    shutil.rmtree(d)
+    print("  a coin booked as a scam is never bought again (survives restarts / new seasons)   ok")
+
+
 def test_resize_old_small_position():
     h, _, d = make(table_evm())
     screen(h, cand())
@@ -1086,6 +1102,7 @@ def test_auto_pause_after_scams():
     px.update(v=0.01, liq=600_000)
     h.state["seen"].clear()
     h.pf.cooldown.clear()
+    h.blocked = set()                                                    # this test re-buys the same token
     t = screen(h, cand(), t=t + 1000)                                       # buys again...
     assert K in h.pf.positions
     t = poll(h, t, px, v=0.004, liq=100_000)                                # scam #2 -> paused
@@ -1093,6 +1110,7 @@ def test_auto_pause_after_scams():
     px.update(v=0.01, liq=600_000)
     h.state["seen"].clear()
     h.pf.cooldown.clear()
+    h.blocked = set()                                                    # this test re-buys the same token
     t = screen(h, cand(), t=t + 1000)
     assert rows(f"{d}/screen.csv")[-1]["verdict"] == "PASS" and K not in h.pf.positions   # screened, not bought
     assert "PAUSED" in h.status_line()
@@ -1523,6 +1541,7 @@ if __name__ == "__main__":
     test_entry_needs_a_run()
     test_far_off_tick_needs_15_minutes()
     test_recycle_stale_for_stronger_coin()
+    test_scam_coin_never_rebought()
     test_resize_old_small_position()
     test_study_exit()
     test_max_hold()
