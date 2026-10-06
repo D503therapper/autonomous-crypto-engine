@@ -3,6 +3,15 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/6 - post the unit plays at 8 PM the night before or keep 8 AM? (report only, nothing changed)
+- tools/night_vs_morning_study.py -> results/night_vs_morning_study.json; SPORTS_FINDINGS.md (10/6, top). NFL: keep
+  8 AM (no price to gain, ±1 cent; a QB ruled out overnight hit 1% of night picks and all of them lost). College:
+  favorites get longer by morning (keep 8 AM), the engine's dogs get ~1.5 cents shorter (+0.9% ROI, 5 of 7 seasons,
+  this season -0.3%) - pennies, not a rule change. NHL: 3 seasons say ~+1% for a night post, but this season's 27
+  hourly games and all 20 of our real picks with an 8 PM price got a BETTER price at 8 AM, and no goalie is confirmed
+  at 8 PM - not yet, re-run in November. MLB: the early edge lives in the opener, not 8 PM -> 8 AM; keep 8 AM.
+  Caveat: the paid football history has no 8 PM look (NFL 'night' = Saturday 10 AM PT, college = Thursday).
+
 ## 10/5-10/6 - session wrap (owner decisions + fixes)
 - Owner calls: graded cards stay 2 hours (was 3); a lean never flips sides on a price tick (sports.stick / lean_sides.json,
   viewer leans + night pick + Lock-slot lean; flips only if the own read of that side drops 3+); confirmed NHL goalies

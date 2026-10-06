@@ -13,6 +13,88 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/6 - post the UNIT PLAYS at 8 PM the night before, or keep 8 AM on game day? (the owner: "we want the best lines and accurate picks"; report only)
+tools/night_vs_morning_study.py -> results/night_vs_morning_study.json. No paid re-pull, no network. The engine's side
+is the same BLIND proxy as the hockey timing study (sports_model tuned only on the 3 seasons before, injuries / key
+zeroed, side = own read beats the no-vig price at that moment by 3%+, price -150..+220). "Night worth" = ROI of the
+night board at the night price minus the same bets at the morning price. What the repo holds, honestly:
+- FOOTBALL: the paid time-stamped history (2020-26) has the 8 AM look (NFL Sunday ~7 AM PT, college Saturday ~6 AM
+  PT) but NO 8 PM-the-night-before look - the nearest earlier snapshot is Saturday 10 AM PT for an NFL Sunday game
+  (24 hours before the morning look) and Thursday 10 AM PT for a college Saturday (44 hours). So the football
+  "night" below is EARLIER than a real 8 PM post: it carries more overnight-news risk than 8 PM would, and the price
+  gap is an upper bound on what 8 PM gets.
+- Our own hourly snapshots (line_history, since 10/1): a REAL 8 PM PT vs 8 AM PT vs close - NHL 27 finished games,
+  MLB 7, NFL 14, college 86. NHL + MLB game files 2023-26: the opener (NHL ~38h ahead; MLB ~2 days - our first
+  snapshot sits a median 49 hours out and matches the file's open in 1 of 7 games) vs the close.
+- Our 20 real posted picks with an 8 PM price in the hourly history (10 unit plays). NFL injury reports with a time
+  stamp (nflverse) for "a QB ruled out between the two looks". No timed goalie or starting-pitcher history anywhere.
+
+**A. PRICE.**
+- **NFL (1,556 games; the engine's night sides 641):** nothing to gain. Its side got LONGER by morning (+0.9 cents,
+  SE 0.5; morning longer 40% / shorter 41%); ROI at the night price -7.7% vs -7.6% at the morning price -> night
+  worth -0.1% (SE 0.2), every season inside ±0.7%. Favorites (124) -0.3%, dogs (517) -0.1%, the 6%+ reads (486)
+  0.0%. The market in the play band moves 0.0 cents overnight (1,417 sides). The only overnight money is on big
+  favorites past -150 (all favorites -7.7 cents) - never on the board.
+- **College (3,376 games; night sides 875):** a little, dogs only. The engine's dogs (671) get SHORTER by morning
+  (-1.5 cents, SE 0.5; shorter 49% / longer 36%): ROI at night +0.4% vs -0.6% at the morning price -> +0.9% (SE 0.3),
+  5 of 7 seasons (2021 -1.1%, 2026 -0.3% on 29). Its favorites (204) go the other way: LONGER by morning (+1.2
+  cents) -> night worth -0.9% (SE 0.4), 0 of 7 seasons up. Remember the night look here is Thursday - a Friday 8 PM
+  post would sit between the two, so figure about half.
+- **NHL:** the opener -> close (4,152 games 2023-26, engine sides 1,612) is -6.5 cents / +2.6% for early (the 10/6
+  hockey entry, 3 of 3 full seasons). The new piece is WHERE in the day it happens - our 27 hourly games, the
+  favorite's signed move: open -> 8 PM -3.1 cents, 8 PM -> 8 AM -4.8, 8 AM -> close -3.1 (sizes 12.5 / 7.0 / 7.8) -
+  the overnight leg is about 40% of the whole move, so an 8 PM post is worth roughly +1% ROI on the engine's sides
+  IF the seasons hold. This season they don't yet: the engine's 17 hourly sides got LONGER overnight (+3.9 cents,
+  longer 53% / shorter 6%, night worth -1.1%), and our 20 real picks with an 8 PM price closed the same way -
+  the posted (8 AM) price was LONGER in 9, shorter in 2, +2.2 cents (the 10 unit plays +1.7); ROI at the 8 PM
+  price -17.1% vs -17.4% as posted. 8 AM has been the better hockey price so far this season.
+- **MLB:** opener -> close (9,854 games 2023-26, engine sides 4,878): -4.0 cents, early worth +1.6% (SE 0.15),
+  4 of 4 seasons (2.1 / 1.8 / 1.4 / 1.0 - shrinking); favorites +2.2% (4/4), dogs +1.4% (4/4, 2026 +0.2), 6%+ reads
+  +2.3%. BUT that opener is ~2 days out, and the 7 hourly games say the overnight leg is the quiet one: the
+  favorite +4.9 cents 8 PM -> 8 AM, then -11.6 from 8 AM to first pitch (lineups / pitchers) - a move both posting
+  times catch. The engine's 6 hourly sides: -6.0 cents overnight (all 6 shorter), +2.7% - six bets.
+
+**B. ACCURACY / OVERNIGHT NEWS (what happens to a night pick between the two looks).**
+- **NFL:** small share, real cost. The side ran 20+ cents against between the looks on 4% of night picks (23): they
+  won 26%, -29%. A QB RULED OUT overnight on our side: 6 of 641 (1%) - 0-6, all lost; their QB out: 3, all lost
+  too (the market re-priced past us). Any player ruled out overnight on our side: 8% (51), 31% won, -24.6%. A night
+  pick the morning price no longer justified (48): -20.7%; a side only the morning price made a pick (49): -12.6%.
+  The whole night board -7.7% vs the whole morning board -7.1% - the morning board is the (slightly) better board,
+  and the 24-hour football "night" gap is wider than 8 PM -> 8 AM would be. Real-season check: the 14 NFL games in
+  our hourly history - 0 overnight 20+ moves on the engine's sides, in-band games moved 20+ overnight 7% of the
+  time.
+- **College:** the opposite sign - a dog the money ran 20+ cents against overnight (8%, 70) WON 48.6%, +18.4% (SE
+  15) at the night price; the ones the money came TO (6%, 53) lost -27%. College overnight moves aren't news about
+  the team, they're the public finding the favorite. Night board -2.2% vs morning board -2.4%: no accuracy lost.
+- **NHL:** 12% of in-band games move 20+ cents overnight (27 games). The engine's side "ran against" 20+ open ->
+  close on 25% of its 2023-26 sides - and those WON (55.6%, +13.2% at the open): the market coming toward us, not
+  bad news. Goalies: no timed history; the goalie file stamps its confirmations 8 AM - noon PT on game day (10/6: 8:16 - 11:36 AM) - at 8 PM
+  nothing is confirmed, and the 10/6 study saw no goalie bump in the 9 AM - 1 PM window. Risk unmeasured, not zero.
+- **MLB:** 0 of 7 hourly games moved 20+ overnight; no timed pitcher-change history. Open -> close "ran against"
+  16%: +3.7% at the open (same market-comes-to-us pattern).
+- Five checks on "post at night": (1) fair - every football night look is after both teams' last games (ef.fair),
+  the NHL / MLB openers too: YES; (2) blind YES; (3) most seasons - NFL NO (flat), college dogs 5/7, NHL 3/3,
+  MLB 4/4; (4) this season - college dogs -0.3% (29), NHL the other way (17 + our 20 picks): NO; (5) second check -
+  our hourly history agrees for football (nothing overnight), DISAGREES for hockey. A timing LEAD for college dogs
+  and NHL favorites, nothing more. Nothing changed: posting times, picks, weights, units all as they were.
+
+**VERDICT, plain words:**
+- **NFL: keep 8 AM.** There is no better line at night for the sides we take (±1 cent), and the night carries the
+  QB-out / ruled-out risk that cost every one of those picks.
+- **College football: keep 8 AM for favorites / Locks (they get longer by morning, 0 of 7 seasons up at night);
+  dogs could go up the night before** for about +0.9% on ½u plays (5 of 7) - worth pennies, not a rule change yet;
+  this season says no (29 dogs, -0.3%). If anything, a Friday-night college DOG board, favorites in the morning.
+- **NHL: not yet.** Three seasons say the market comes to our side overnight (~40% of a +2.6% early edge = ~+1%),
+  this season's 27 games and all 20 of our real picks say the 8 AM price has been better, and no goalie is
+  confirmed at 8 PM. Re-run when the hourly history has 300+ NHL games (early November) - a dog is never hurt by
+  waiting, a Lock / favorite might be.
+- **MLB: keep 8 AM** (season's over anyway): the early edge is real over 4 seasons but it lives in the opener, not
+  the 8 PM -> 8 AM leg; the big move is 8 AM -> first pitch and 8 AM catches it. Re-check in April with the hourly
+  history.
+- NEXT: no new logging (the owner, 10/6: pick-price timing logs "take years") - the hourly history already holds
+  every pick's 8 PM price, so re-running this script grades OUR picks (part 4) as the season fills in; re-run with
+  300+ hourly NHL games (early November) and again in April for baseball.
+
 ## 10/6 - WHEN to bet our hockey picks: at the 8 AM board or closer to puck drop? (the owner's question; report only)
 What the repo holds for hockey (honest inventory): the paid odds history (data/sports/odds_history) is FOOTBALL ONLY -
 there is NO book-by-book, time-stamped hockey price history anywhere in the repo, so "best book on hockey dogs" (part 4)

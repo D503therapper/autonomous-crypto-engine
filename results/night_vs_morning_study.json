@@ -1,0 +1,3078 @@
+{
+ "ran": "2026-10-06 22:47 UTC",
+ "football_paid_history": {
+  "nfl": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 1417,
+     "won": 0.433,
+     "night_to_morning_cents": 0.2,
+     "se_cents": 0.3,
+     "night_to_close_cents": -0.0,
+     "morning_to_close_cents": -0.2,
+     "morning_longer": 0.392,
+     "morning_shorter": 0.414,
+     "against_20_plus": 0.041,
+     "toward_20_plus": 0.04,
+     "roi_night": -0.06,
+     "se_roi": 0.0294,
+     "roi_morning": -0.0604,
+     "roi_close": -0.0603,
+     "night_vs_morning_roi": 0.0004,
+     "se_gain": 0.0018,
+     "seasons_up": "3/7",
+     "by_season": {
+      "2020": [
+       198,
+       0.0095
+      ],
+      "2021": [
+       209,
+       -0.0
+      ],
+      "2022": [
+       251,
+       -0.0053
+      ],
+      "2023": [
+       255,
+       0.0012
+      ],
+      "2024": [
+       244,
+       0.0023
+      ],
+      "2025": [
+       222,
+       -0.0035
+      ],
+      "2026": [
+       38,
+       -0.0025
+      ]
+     }
+    },
+    "favorites": {
+     "n": 389,
+     "won": 0.548,
+     "night_to_morning_cents": 0.0,
+     "se_cents": 0.5,
+     "night_to_close_cents": -0.1,
+     "morning_to_close_cents": -0.2,
+     "morning_longer": 0.37,
+     "morning_shorter": 0.422,
+     "against_20_plus": 0.026,
+     "toward_20_plus": 0.039,
+     "roi_night": -0.0395,
+     "se_roi": 0.0443,
+     "roi_morning": -0.0381,
+     "roi_close": -0.0324,
+     "night_vs_morning_roi": -0.0014,
+     "se_gain": 0.0026,
+     "seasons_up": "3/7",
+     "by_season": {
+      "2020": [
+       52,
+       -0.0091
+      ],
+      "2021": [
+       53,
+       -0.0144
+      ],
+      "2022": [
+       73,
+       -0.0046
+      ],
+      "2023": [
+       72,
+       0.0087
+      ],
+      "2024": [
+       65,
+       0.0056
+      ],
+      "2025": [
+       64,
+       0.0028
+      ],
+      "2026": [
+       10,
+       -0.0126
+      ]
+     }
+    },
+    "dogs": {
+     "n": 1028,
+     "won": 0.39,
+     "night_to_morning_cents": 0.3,
+     "se_cents": 0.4,
+     "night_to_close_cents": 0.0,
+     "morning_to_close_cents": -0.2,
+     "morning_longer": 0.4,
+     "morning_shorter": 0.411,
+     "against_20_plus": 0.047,
+     "toward_20_plus": 0.041,
+     "roi_night": -0.0678,
+     "se_roi": 0.0369,
+     "roi_morning": -0.0688,
+     "roi_close": -0.0709,
+     "night_vs_morning_roi": 0.001,
+     "se_gain": 0.0022,
+     "seasons_up": "4/7",
+     "by_season": {
+      "2020": [
+       146,
+       0.0161
+      ],
+      "2021": [
+       156,
+       0.0048
+      ],
+      "2022": [
+       178,
+       -0.0055
+      ],
+      "2023": [
+       183,
+       -0.0018
+      ],
+      "2024": [
+       179,
+       0.0011
+      ],
+      "2025": [
+       158,
+       -0.006
+      ],
+      "2026": [
+       28,
+       0.0011
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 641,
+     "won": 0.407,
+     "night_to_morning_cents": 0.9,
+     "se_cents": 0.5,
+     "night_to_close_cents": 1.4,
+     "morning_to_close_cents": 0.5,
+     "morning_longer": 0.395,
+     "morning_shorter": 0.412,
+     "against_20_plus": 0.036,
+     "toward_20_plus": 0.05,
+     "roi_night": -0.0771,
+     "se_roi": 0.0452,
+     "roi_morning": -0.0759,
+     "roi_close": -0.0756,
+     "night_vs_morning_roi": -0.0012,
+     "se_gain": 0.0025,
+     "seasons_up": "4/7",
+     "by_season": {
+      "2020": [
+       95,
+       0.0056
+      ],
+      "2021": [
+       96,
+       -0.0013
+      ],
+      "2022": [
+       114,
+       -0.0074
+      ],
+      "2023": [
+       112,
+       0.0023
+      ],
+      "2024": [
+       114,
+       0.0001
+      ],
+      "2025": [
+       91,
+       -0.0071
+      ],
+      "2026": [
+       19,
+       0.0016
+      ]
+     }
+    },
+    "favorites": {
+     "n": 124,
+     "won": 0.516,
+     "night_to_morning_cents": 1.0,
+     "se_cents": 0.8,
+     "night_to_close_cents": 1.8,
+     "morning_to_close_cents": 0.8,
+     "morning_longer": 0.371,
+     "morning_shorter": 0.387,
+     "against_20_plus": 0.016,
+     "toward_20_plus": 0.056,
+     "roi_night": -0.0942,
+     "se_roi": 0.0789,
+     "roi_morning": -0.0916,
+     "roi_close": -0.0833,
+     "night_vs_morning_roi": -0.0026,
+     "se_gain": 0.0034,
+     "seasons_up": "4/7",
+     "by_season": {
+      "2020": [
+       17,
+       0.0014
+      ],
+      "2021": [
+       18,
+       0.0002
+      ],
+      "2022": [
+       27,
+       -0.013
+      ],
+      "2023": [
+       23,
+       0.0032
+      ],
+      "2024": [
+       17,
+       0.0036
+      ],
+      "2025": [
+       16,
+       -0.004
+      ],
+      "2026": [
+       6,
+       -0.0116
+      ]
+     }
+    },
+    "dogs": {
+     "n": 517,
+     "won": 0.381,
+     "night_to_morning_cents": 0.8,
+     "se_cents": 0.6,
+     "night_to_close_cents": 1.3,
+     "morning_to_close_cents": 0.4,
+     "morning_longer": 0.4,
+     "morning_shorter": 0.418,
+     "against_20_plus": 0.041,
+     "toward_20_plus": 0.048,
+     "roi_night": -0.073,
+     "se_roi": 0.0527,
+     "roi_morning": -0.0721,
+     "roi_close": -0.0738,
+     "night_vs_morning_roi": -0.0009,
+     "se_gain": 0.0029,
+     "seasons_up": "3/7",
+     "by_season": {
+      "2020": [
+       78,
+       0.0065
+      ],
+      "2021": [
+       78,
+       -0.0017
+      ],
+      "2022": [
+       87,
+       -0.0057
+      ],
+      "2023": [
+       89,
+       0.002
+      ],
+      "2024": [
+       97,
+       -0.0005
+      ],
+      "2025": [
+       75,
+       -0.0078
+      ],
+      "2026": [
+       13,
+       0.0077
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 486,
+     "won": 0.412,
+     "night_to_morning_cents": 0.7,
+     "se_cents": 0.6,
+     "night_to_close_cents": 2.0,
+     "morning_to_close_cents": 1.3,
+     "morning_longer": 0.403,
+     "morning_shorter": 0.414,
+     "against_20_plus": 0.041,
+     "toward_20_plus": 0.053,
+     "roi_night": -0.0653,
+     "se_roi": 0.0521,
+     "roi_morning": -0.0657,
+     "roi_close": -0.0636,
+     "night_vs_morning_roi": 0.0004,
+     "se_gain": 0.003,
+     "seasons_up": "3/7",
+     "by_season": {
+      "2020": [
+       71,
+       0.0138
+      ],
+      "2021": [
+       71,
+       -0.0044
+      ],
+      "2022": [
+       89,
+       -0.0049
+      ],
+      "2023": [
+       86,
+       0.0045
+      ],
+      "2024": [
+       86,
+       -0.0018
+      ],
+      "2025": [
+       65,
+       -0.0047
+      ],
+      "2026": [
+       18,
+       0.0017
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 642,
+     "won": 0.414,
+     "roi": -0.0714,
+     "se": 0.0447,
+     "roi_close": -0.0684
+    },
+    "favorites": {
+     "n": 138,
+     "won": 0.529,
+     "roi": -0.0615,
+     "se": 0.0757,
+     "roi_close": -0.0488
+    },
+    "dogs": {
+     "n": 504,
+     "won": 0.383,
+     "roi": -0.0741,
+     "se": 0.0531,
+     "roi_close": -0.0737
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": {
+     "n": 48,
+     "won": 0.333,
+     "roi": -0.2072,
+     "se": 0.1688,
+     "roi_close": -0.2178
+    },
+    "favorites": {
+     "n": 9,
+     "won": 0.444,
+     "roi": -0.2568,
+     "se": 0.277,
+     "roi_close": -0.2749
+    },
+    "dogs": {
+     "n": 39,
+     "won": 0.308,
+     "roi": -0.1958,
+     "se": 0.1976,
+     "roi_close": -0.2047
+    }
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": {
+     "n": 49,
+     "won": 0.429,
+     "roi": -0.1259,
+     "se": 0.1494,
+     "roi_close": -0.1199
+    },
+    "favorites": {
+     "n": 23,
+     "won": 0.565,
+     "roi": 0.02,
+     "se": 0.1888,
+     "roi_close": 0.0489
+    },
+    "dogs": {
+     "n": 26,
+     "won": 0.308,
+     "roi": -0.255,
+     "se": 0.2237,
+     "roi_close": -0.2692
+    }
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.036,
+     "n": 23,
+     "won": 0.261,
+     "roi": -0.2935,
+     "se": 0.2499,
+     "roi_close": -0.3985
+    },
+    "ran_toward_20_plus": {
+     "share": 0.05,
+     "n": 32,
+     "won": 0.406,
+     "roi": -0.0178,
+     "se": 0.2173,
+     "roi_close": 0.0952
+    },
+    "under_20": {
+     "n": 586,
+     "won": 0.413,
+     "roi": -0.0719,
+     "se": 0.0469,
+     "roi_close": -0.0723
+    },
+    "read_dead_by_morning": {
+     "share": 0.002,
+     "n": 1,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "qb_ruled_out_overnight_our_side": {
+     "share": 0.009,
+     "n": 6,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "qb_ruled_out_overnight_their_side": {
+     "share": 0.005,
+     "n": 3,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "any_player_ruled_out_overnight_our_side": {
+     "share": 0.08,
+     "n": 51,
+     "won": 0.314,
+     "roi": -0.2461,
+     "se": 0.16,
+     "roi_close": -0.2365
+    }
+   },
+   "games": 1556,
+   "night_look_hours_before_morning_look": {
+    "avg": 23.9,
+    "min": 17.6,
+    "max": 51.0
+   },
+   "games_by_kickoff_day": {
+    "Thu": 106,
+    "Sun": 1388,
+    "Tue": 3,
+    "Sat": 59
+   },
+   "note": "the paid pull has no 8 PM-the-night-before look: the 'night' price here is the nearest earlier snapshot (NFL Sunday games: Saturday ~10 AM PT; Thursday games: Tuesday; college Saturday games: Thursday ~10 AM PT), the 'morning' price is the game-day snapshot (NFL Sunday ~7 AM PT, college Saturday ~6 AM PT)"
+  },
+  "ncaaf": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 1940,
+     "won": 0.441,
+     "night_to_morning_cents": -0.8,
+     "se_cents": 0.3,
+     "night_to_close_cents": -2.6,
+     "morning_to_close_cents": -1.8,
+     "morning_longer": 0.404,
+     "morning_shorter": 0.452,
+     "against_20_plus": 0.075,
+     "toward_20_plus": 0.058,
+     "roi_night": -0.0229,
+     "se_roi": 0.0258,
+     "roi_morning": -0.0261,
+     "roi_close": -0.0343,
+     "night_vs_morning_roi": 0.0032,
+     "se_gain": 0.0017,
+     "seasons_up": "5/7",
+     "by_season": {
+      "2020": [
+       206,
+       0.0064
+      ],
+      "2021": [
+       336,
+       0.001
+      ],
+      "2022": [
+       296,
+       0.0023
+      ],
+      "2023": [
+       344,
+       0.0096
+      ],
+      "2024": [
+       355,
+       -0.0009
+      ],
+      "2025": [
+       331,
+       0.0031
+      ],
+      "2026": [
+       72,
+       -0.0021
+      ]
+     }
+    },
+    "favorites": {
+     "n": 507,
+     "won": 0.552,
+     "night_to_morning_cents": 1.1,
+     "se_cents": 0.6,
+     "night_to_close_cents": 2.3,
+     "morning_to_close_cents": 1.2,
+     "morning_longer": 0.501,
+     "morning_shorter": 0.375,
+     "against_20_plus": 0.051,
+     "toward_20_plus": 0.069,
+     "roi_night": -0.0314,
+     "se_roi": 0.0388,
+     "roi_morning": -0.0224,
+     "roi_close": -0.0139,
+     "night_vs_morning_roi": -0.009,
+     "se_gain": 0.0025,
+     "seasons_up": "0/7",
+     "by_season": {
+      "2020": [
+       57,
+       -0.0041
+      ],
+      "2021": [
+       83,
+       -0.0013
+      ],
+      "2022": [
+       75,
+       -0.0144
+      ],
+      "2023": [
+       89,
+       -0.0076
+      ],
+      "2024": [
+       104,
+       -0.0194
+      ],
+      "2025": [
+       81,
+       -0.005
+      ],
+      "2026": [
+       18,
+       -0.002
+      ]
+     }
+    },
+    "dogs": {
+     "n": 1433,
+     "won": 0.402,
+     "night_to_morning_cents": -1.5,
+     "se_cents": 0.4,
+     "night_to_close_cents": -4.3,
+     "morning_to_close_cents": -2.8,
+     "morning_longer": 0.37,
+     "morning_shorter": 0.479,
+     "against_20_plus": 0.083,
+     "toward_20_plus": 0.054,
+     "roi_night": -0.0199,
+     "se_roi": 0.0321,
+     "roi_morning": -0.0274,
+     "roi_close": -0.0415,
+     "night_vs_morning_roi": 0.0075,
+     "se_gain": 0.0021,
+     "seasons_up": "6/7",
+     "by_season": {
+      "2020": [
+       149,
+       0.0104
+      ],
+      "2021": [
+       253,
+       0.0018
+      ],
+      "2022": [
+       221,
+       0.008
+      ],
+      "2023": [
+       255,
+       0.0156
+      ],
+      "2024": [
+       251,
+       0.0067
+      ],
+      "2025": [
+       250,
+       0.0057
+      ],
+      "2026": [
+       54,
+       -0.0022
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 875,
+     "won": 0.429,
+     "night_to_morning_cents": -0.8,
+     "se_cents": 0.5,
+     "night_to_close_cents": -2.6,
+     "morning_to_close_cents": -1.8,
+     "morning_longer": 0.397,
+     "morning_shorter": 0.458,
+     "against_20_plus": 0.08,
+     "toward_20_plus": 0.061,
+     "roi_night": -0.0222,
+     "se_roi": 0.0395,
+     "roi_morning": -0.0273,
+     "roi_close": -0.0357,
+     "night_vs_morning_roi": 0.0051,
+     "se_gain": 0.0027,
+     "seasons_up": "4/7",
+     "by_season": {
+      "2020": [
+       95,
+       0.0062
+      ],
+      "2021": [
+       141,
+       -0.0101
+      ],
+      "2022": [
+       137,
+       0.004
+      ],
+      "2023": [
+       156,
+       0.0159
+      ],
+      "2024": [
+       159,
+       -0.0006
+      ],
+      "2025": [
+       153,
+       0.0161
+      ],
+      "2026": [
+       34,
+       -0.0033
+      ]
+     }
+    },
+    "favorites": {
+     "n": 204,
+     "won": 0.51,
+     "night_to_morning_cents": 1.2,
+     "se_cents": 0.9,
+     "night_to_close_cents": 2.1,
+     "morning_to_close_cents": 0.9,
+     "morning_longer": 0.51,
+     "morning_shorter": 0.353,
+     "against_20_plus": 0.054,
+     "toward_20_plus": 0.064,
+     "roi_night": -0.1066,
+     "se_roi": 0.0614,
+     "roi_morning": -0.0977,
+     "roi_close": -0.0907,
+     "night_vs_morning_roi": -0.009,
+     "se_gain": 0.0038,
+     "seasons_up": "0/7",
+     "by_season": {
+      "2020": [
+       28,
+       -0.015
+      ],
+      "2021": [
+       33,
+       -0.0073
+      ],
+      "2022": [
+       20,
+       -0.0183
+      ],
+      "2023": [
+       36,
+       -0.0061
+      ],
+      "2024": [
+       43,
+       -0.0087
+      ],
+      "2025": [
+       39,
+       -0.0051
+      ],
+      "2026": [
+       5,
+       -0.0021
+      ]
+     }
+    },
+    "dogs": {
+     "n": 671,
+     "won": 0.404,
+     "night_to_morning_cents": -1.5,
+     "se_cents": 0.5,
+     "night_to_close_cents": -4.0,
+     "morning_to_close_cents": -2.6,
+     "morning_longer": 0.362,
+     "morning_shorter": 0.49,
+     "against_20_plus": 0.088,
+     "toward_20_plus": 0.06,
+     "roi_night": 0.0035,
+     "se_roi": 0.0479,
+     "roi_morning": -0.0059,
+     "roi_close": -0.0189,
+     "night_vs_morning_roi": 0.0094,
+     "se_gain": 0.0033,
+     "seasons_up": "5/7",
+     "by_season": {
+      "2020": [
+       67,
+       0.0151
+      ],
+      "2021": [
+       108,
+       -0.011
+      ],
+      "2022": [
+       117,
+       0.0078
+      ],
+      "2023": [
+       120,
+       0.0225
+      ],
+      "2024": [
+       116,
+       0.0025
+      ],
+      "2025": [
+       114,
+       0.0234
+      ],
+      "2026": [
+       29,
+       -0.0034
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 724,
+     "won": 0.424,
+     "night_to_morning_cents": -0.8,
+     "se_cents": 0.5,
+     "night_to_close_cents": -2.6,
+     "morning_to_close_cents": -1.8,
+     "morning_longer": 0.39,
+     "morning_shorter": 0.459,
+     "against_20_plus": 0.079,
+     "toward_20_plus": 0.058,
+     "roi_night": -0.0331,
+     "se_roi": 0.0433,
+     "roi_morning": -0.0393,
+     "roi_close": -0.0468,
+     "night_vs_morning_roi": 0.0062,
+     "se_gain": 0.003,
+     "seasons_up": "5/7",
+     "by_season": {
+      "2020": [
+       80,
+       0.0059
+      ],
+      "2021": [
+       113,
+       -0.0107
+      ],
+      "2022": [
+       120,
+       0.0071
+      ],
+      "2023": [
+       128,
+       0.017
+      ],
+      "2024": [
+       124,
+       0.0023
+      ],
+      "2025": [
+       127,
+       0.0157
+      ],
+      "2026": [
+       32,
+       -0.0035
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 877,
+     "won": 0.43,
+     "roi": -0.0239,
+     "se": 0.0392,
+     "roi_close": -0.0299
+    },
+    "favorites": {
+     "n": 223,
+     "won": 0.493,
+     "roi": -0.1183,
+     "se": 0.06,
+     "roi_close": -0.1073
+    },
+    "dogs": {
+     "n": 654,
+     "won": 0.408,
+     "roi": 0.0082,
+     "se": 0.0483,
+     "roi_close": -0.0035
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": {
+     "n": 79,
+     "won": 0.456,
+     "roi": 0.054,
+     "se": 0.1371,
+     "roi_close": 0.0059
+    },
+    "favorites": {
+     "n": 22,
+     "won": 0.636,
+     "roi": 0.082,
+     "se": 0.1745,
+     "roi_close": 0.0158
+    },
+    "dogs": {
+     "n": 57,
+     "won": 0.386,
+     "roi": 0.0431,
+     "se": 0.1776,
+     "roi_close": 0.0021
+    }
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": {
+     "n": 81,
+     "won": 0.469,
+     "roi": 0.0531,
+     "se": 0.1319,
+     "roi_close": 0.0675
+    },
+    "favorites": {
+     "n": 41,
+     "won": 0.488,
+     "roi": -0.1414,
+     "se": 0.1378,
+     "roi_close": -0.1239
+    },
+    "dogs": {
+     "n": 40,
+     "won": 0.45,
+     "roi": 0.2525,
+     "se": 0.2224,
+     "roi_close": 0.2638
+    }
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.08,
+     "n": 70,
+     "won": 0.486,
+     "roi": 0.1837,
+     "se": 0.151,
+     "roi_close": 0.0524
+    },
+    "ran_toward_20_plus": {
+     "share": 0.061,
+     "n": 53,
+     "won": 0.321,
+     "roi": -0.2712,
+     "se": 0.1514,
+     "roi_close": -0.1775
+    },
+    "under_20": {
+     "n": 752,
+     "won": 0.431,
+     "roi": -0.0238,
+     "se": 0.0423,
+     "roi_close": -0.0339
+    },
+    "read_dead_by_morning": {
+     "share": 0.008,
+     "n": 7,
+     "won": 0.429,
+     "roi": -0.1078,
+     "se": 0.4119,
+     "roi_close": -0.2041
+    }
+   },
+   "games": 3376,
+   "night_look_hours_before_morning_look": {
+    "avg": 44.1,
+    "min": 38.0,
+    "max": 53.5
+   },
+   "games_by_kickoff_day": {
+    "Thu": 136,
+    "Sat": 3240
+   },
+   "note": "the paid pull has no 8 PM-the-night-before look: the 'night' price here is the nearest earlier snapshot (NFL Sunday games: Saturday ~10 AM PT; Thursday games: Tuesday; college Saturday games: Thursday ~10 AM PT), the 'morning' price is the game-day snapshot (NFL Sunday ~7 AM PT, college Saturday ~6 AM PT)"
+  }
+ },
+ "hourly_since_oct_1": {
+  "nhl": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 42,
+     "won": 0.452,
+     "night_to_morning_cents": 2.3,
+     "se_cents": 1.2,
+     "night_to_close_cents": 4.0,
+     "morning_to_close_cents": 1.8,
+     "morning_longer": 0.31,
+     "morning_shorter": 0.19,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.071,
+     "roi_night": -0.0678,
+     "se_roi": 0.1603,
+     "roi_morning": -0.0683,
+     "roi_close": -0.0706,
+     "night_vs_morning_roi": 0.0006,
+     "se_gain": 0.004,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       42,
+       0.0006
+      ]
+     }
+    },
+    "favorites": {
+     "n": 14,
+     "won": 0.357,
+     "night_to_morning_cents": 0.3,
+     "se_cents": 1.1,
+     "night_to_close_cents": 1.5,
+     "morning_to_close_cents": 1.2,
+     "morning_longer": 0.214,
+     "morning_shorter": 0.214,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.3612,
+     "se_roi": 0.2294,
+     "roi_morning": -0.3614,
+     "roi_close": -0.3609,
+     "night_vs_morning_roi": 0.0001,
+     "se_gain": 0.0052,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       14,
+       0.0001
+      ]
+     }
+    },
+    "dogs": {
+     "n": 28,
+     "won": 0.5,
+     "night_to_morning_cents": 3.2,
+     "se_cents": 1.7,
+     "night_to_close_cents": 5.3,
+     "morning_to_close_cents": 2.0,
+     "morning_longer": 0.357,
+     "morning_shorter": 0.179,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.107,
+     "roi_night": 0.0789,
+     "se_roi": 0.2059,
+     "roi_morning": 0.0782,
+     "roi_close": 0.0746,
+     "night_vs_morning_roi": 0.0008,
+     "se_gain": 0.0053,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       28,
+       0.0008
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 17,
+     "won": 0.412,
+     "night_to_morning_cents": 3.9,
+     "se_cents": 1.4,
+     "night_to_close_cents": 5.4,
+     "morning_to_close_cents": 1.5,
+     "morning_longer": 0.529,
+     "morning_shorter": 0.059,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.059,
+     "roi_night": -0.0858,
+     "se_roi": 0.2688,
+     "roi_morning": -0.0753,
+     "roi_close": -0.0667,
+     "night_vs_morning_roi": -0.0105,
+     "se_gain": 0.0076,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       17,
+       -0.0105
+      ]
+     }
+    },
+    "favorites": {
+     "n": 5,
+     "won": 0.2,
+     "night_to_morning_cents": 4.2,
+     "se_cents": 1.7,
+     "night_to_close_cents": 6.6,
+     "morning_to_close_cents": 2.4,
+     "morning_longer": 0.6,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.6519,
+     "se_roi": 0.3114,
+     "roi_morning": -0.64,
+     "roi_close": -0.6333,
+     "night_vs_morning_roi": -0.0119,
+     "se_gain": 0.0106,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       5,
+       -0.0119
+      ]
+     }
+    },
+    "dogs": {
+     "n": 12,
+     "won": 0.5,
+     "night_to_morning_cents": 3.8,
+     "se_cents": 1.8,
+     "night_to_close_cents": 4.9,
+     "morning_to_close_cents": 1.1,
+     "morning_longer": 0.5,
+     "morning_shorter": 0.083,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.083,
+     "roi_night": 0.15,
+     "se_roi": 0.3353,
+     "roi_morning": 0.16,
+     "roi_close": 0.1694,
+     "night_vs_morning_roi": -0.01,
+     "se_gain": 0.0099,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       12,
+       -0.01
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 11,
+     "won": 0.455,
+     "night_to_morning_cents": 3.7,
+     "se_cents": 1.9,
+     "night_to_close_cents": 3.8,
+     "morning_to_close_cents": 0.1,
+     "morning_longer": 0.545,
+     "morning_shorter": 0.091,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.091,
+     "roi_night": 0.0345,
+     "se_roi": 0.3453,
+     "roi_morning": 0.0382,
+     "roi_close": 0.0484,
+     "night_vs_morning_roi": -0.0036,
+     "se_gain": 0.0085,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       11,
+       -0.0036
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 18,
+     "won": 0.389,
+     "roi": -0.1267,
+     "se": 0.2614,
+     "roi_close": -0.1186
+    },
+    "favorites": {
+     "n": 5,
+     "won": 0.2,
+     "roi": -0.64,
+     "se": 0.322,
+     "roi_close": -0.6333
+    },
+    "dogs": {
+     "n": 13,
+     "won": 0.462,
+     "roi": 0.0708,
+     "se": 0.3238,
+     "roi_close": 0.0794
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": null,
+    "favorites": null,
+    "dogs": null
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": {
+     "n": 1,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "favorites": null,
+    "dogs": {
+     "n": 1,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    }
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.0
+    },
+    "ran_toward_20_plus": {
+     "share": 0.059,
+     "n": 1,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "under_20": {
+     "n": 16,
+     "won": 0.438,
+     "roi": -0.0287,
+     "se": 0.2795,
+     "roi_close": -0.0084
+    },
+    "read_dead_by_morning": {
+     "share": 0.0
+    }
+   },
+   "games": 27,
+   "favorite_move_by_leg_cents_abs": {
+    "first_to_night": 12.5,
+    "night_to_morning": 7,
+    "morning_to_close": 7.8
+   },
+   "favorite_move_by_leg_cents_signed": {
+    "first_to_night": -3.1,
+    "night_to_morning": -4.8,
+    "morning_to_close": -3.1
+   },
+   "overnight_moves_20_plus_share": 0.115,
+   "game_file_open_vs_our_first_snapshot": {
+    "games": 27,
+    "same": 4,
+    "first_snap_hours_ahead_median": 41.1
+   }
+  },
+  "mlb": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 10,
+     "won": 0.5,
+     "night_to_morning_cents": -3.3,
+     "se_cents": 2.0,
+     "night_to_close_cents": -3.1,
+     "morning_to_close_cents": 0.2,
+     "morning_longer": 0.3,
+     "morning_shorter": 0.7,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.0635,
+     "se_roi": 0.3396,
+     "roi_morning": 0.0561,
+     "roi_close": 0.1014,
+     "night_vs_morning_roi": 0.0075,
+     "se_gain": 0.0122,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       10,
+       0.0075
+      ]
+     }
+    },
+    "favorites": {
+     "n": 3,
+     "won": 0.333,
+     "night_to_morning_cents": -1.7,
+     "se_cents": 3.5,
+     "night_to_close_cents": -22.3,
+     "morning_to_close_cents": -20.7,
+     "morning_longer": 0.667,
+     "morning_shorter": 0.333,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.4216,
+     "se_roi": 0.4723,
+     "roi_morning": -0.4198,
+     "roi_close": -0.4319,
+     "night_vs_morning_roi": -0.0018,
+     "se_gain": 0.0015,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       3,
+       -0.0018
+      ]
+     }
+    },
+    "dogs": {
+     "n": 7,
+     "won": 0.571,
+     "night_to_morning_cents": -4,
+     "se_cents": 2.3,
+     "night_to_close_cents": 5.1,
+     "morning_to_close_cents": 9.1,
+     "morning_longer": 0.143,
+     "morning_shorter": 0.857,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.2714,
+     "se_roi": 0.4169,
+     "roi_morning": 0.26,
+     "roi_close": 0.33,
+     "night_vs_morning_roi": 0.0114,
+     "se_gain": 0.0172,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       7,
+       0.0114
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 6,
+     "won": 0.5,
+     "night_to_morning_cents": -6,
+     "se_cents": 1.6,
+     "night_to_close_cents": -2.7,
+     "morning_to_close_cents": 3.3,
+     "morning_longer": 0.0,
+     "morning_shorter": 1.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.1133,
+     "se_roi": 0.4554,
+     "roi_morning": 0.0867,
+     "roi_close": 0.095,
+     "night_vs_morning_roi": 0.0267,
+     "se_gain": 0.0115,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       6,
+       0.0267
+      ]
+     }
+    },
+    "favorites": null,
+    "dogs": {
+     "n": 6,
+     "won": 0.5,
+     "night_to_morning_cents": -6,
+     "se_cents": 1.6,
+     "night_to_close_cents": -2.7,
+     "morning_to_close_cents": 3.3,
+     "morning_longer": 0.0,
+     "morning_shorter": 1.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.1133,
+     "se_roi": 0.4554,
+     "roi_morning": 0.0867,
+     "roi_close": 0.095,
+     "night_vs_morning_roi": 0.0267,
+     "se_gain": 0.0115,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       6,
+       0.0267
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 4,
+     "won": 0.25,
+     "night_to_morning_cents": -6.2,
+     "se_cents": 2.4,
+     "night_to_close_cents": -2.8,
+     "morning_to_close_cents": 3.5,
+     "morning_longer": 0.0,
+     "morning_shorter": 1.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.4275,
+     "se_roi": 0.4958,
+     "roi_morning": -0.44,
+     "roi_close": -0.4425,
+     "night_vs_morning_roi": 0.0125,
+     "se_gain": 0.0108,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       4,
+       0.0125
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 5,
+     "won": 0.4,
+     "roi": -0.142,
+     "se": 0.4707,
+     "roi_close": -0.146
+    },
+    "favorites": null,
+    "dogs": {
+     "n": 5,
+     "won": 0.4,
+     "roi": -0.142,
+     "se": 0.4707,
+     "roi_close": -0.146
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": {
+     "n": 1,
+     "won": 1.0,
+     "roi": 1.3,
+     "se": 0.0,
+     "roi_close": 1.3
+    },
+    "favorites": null,
+    "dogs": {
+     "n": 1,
+     "won": 1.0,
+     "roi": 1.3,
+     "se": 0.0,
+     "roi_close": 1.3
+    }
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": null,
+    "favorites": null,
+    "dogs": null
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.0
+    },
+    "ran_toward_20_plus": {
+     "share": 0.0
+    },
+    "under_20": {
+     "n": 6,
+     "won": 0.5,
+     "roi": 0.1133,
+     "se": 0.4554,
+     "roi_close": 0.095
+    },
+    "read_dead_by_morning": {
+     "share": 0.0
+    }
+   },
+   "games": 7,
+   "favorite_move_by_leg_cents_abs": {
+    "first_to_night": 13.3,
+    "night_to_morning": 7.7,
+    "morning_to_close": 11.9
+   },
+   "favorite_move_by_leg_cents_signed": {
+    "first_to_night": -4.7,
+    "night_to_morning": 4.9,
+    "morning_to_close": -11.6
+   },
+   "overnight_moves_20_plus_share": 0.0,
+   "game_file_open_vs_our_first_snapshot": {
+    "games": 7,
+    "same": 1,
+    "first_snap_hours_ahead_median": 48.7
+   }
+  },
+  "nfl": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 14,
+     "won": 0.429,
+     "night_to_morning_cents": 0.7,
+     "se_cents": 1.5,
+     "night_to_close_cents": 2.3,
+     "morning_to_close_cents": 1.6,
+     "morning_longer": 0.214,
+     "morning_shorter": 0.143,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.0703,
+     "se_roi": 0.2909,
+     "roi_morning": -0.0817,
+     "roi_close": -0.0761,
+     "night_vs_morning_roi": 0.0114,
+     "se_gain": 0.0077,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       14,
+       0.0114
+      ]
+     }
+    },
+    "favorites": {
+     "n": 4,
+     "won": 0.25,
+     "night_to_morning_cents": 2.5,
+     "se_cents": 2.2,
+     "night_to_close_cents": -0.8,
+     "morning_to_close_cents": -3.2,
+     "morning_longer": 0.25,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.5811,
+     "se_roi": 0.3628,
+     "roi_morning": -0.5811,
+     "roi_close": -0.5994,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       4,
+       0.0
+      ]
+     }
+    },
+    "dogs": {
+     "n": 10,
+     "won": 0.5,
+     "night_to_morning_cents": 0,
+     "se_cents": 1.8,
+     "night_to_close_cents": 3.5,
+     "morning_to_close_cents": 3.5,
+     "morning_longer": 0.2,
+     "morning_shorter": 0.2,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.134,
+     "se_roi": 0.3608,
+     "roi_morning": 0.118,
+     "roi_close": 0.1332,
+     "night_vs_morning_roi": 0.016,
+     "se_gain": 0.0105,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       10,
+       0.016
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 6,
+     "won": 0.5,
+     "night_to_morning_cents": 2,
+     "se_cents": 1.5,
+     "night_to_close_cents": 5.2,
+     "morning_to_close_cents": 3.2,
+     "morning_longer": 0.333,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.1567,
+     "se_roi": 0.4759,
+     "roi_morning": 0.1567,
+     "roi_close": 0.19,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       6,
+       0.0
+      ]
+     }
+    },
+    "favorites": {
+     "n": 1,
+     "won": 0.0,
+     "night_to_morning_cents": 10,
+     "se_cents": 0.0,
+     "night_to_close_cents": 15,
+     "morning_to_close_cents": 5,
+     "morning_longer": 1.0,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -1.0,
+     "se_roi": 0.0,
+     "roi_morning": -1.0,
+     "roi_close": -1.0,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       1,
+       0.0
+      ]
+     }
+    },
+    "dogs": {
+     "n": 5,
+     "won": 0.6,
+     "night_to_morning_cents": 0.4,
+     "se_cents": 0.4,
+     "night_to_close_cents": 3.2,
+     "morning_to_close_cents": 2.8,
+     "morning_longer": 0.2,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.388,
+     "se_roi": 0.5117,
+     "roi_morning": 0.388,
+     "roi_close": 0.428,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       5,
+       0.0
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 4,
+     "won": 0.75,
+     "night_to_morning_cents": 0.5,
+     "se_cents": 0.4,
+     "night_to_close_cents": 4,
+     "morning_to_close_cents": 3.5,
+     "morning_longer": 0.25,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.735,
+     "se_roi": 0.5086,
+     "roi_morning": 0.735,
+     "roi_close": 0.785,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       4,
+       0.0
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 8,
+     "won": 0.375,
+     "roi": -0.1325,
+     "se": 0.3984,
+     "roi_close": -0.1075
+    },
+    "favorites": {
+     "n": 2,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "dogs": {
+     "n": 6,
+     "won": 0.5,
+     "roi": 0.1567,
+     "se": 0.4759,
+     "roi_close": 0.19
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": null,
+    "favorites": null,
+    "dogs": null
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": {
+     "n": 2,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "favorites": {
+     "n": 1,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    },
+    "dogs": {
+     "n": 1,
+     "won": 0.0,
+     "roi": -1.0,
+     "se": 0.0,
+     "roi_close": -1.0
+    }
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.0
+    },
+    "ran_toward_20_plus": {
+     "share": 0.0
+    },
+    "under_20": {
+     "n": 6,
+     "won": 0.5,
+     "roi": 0.1567,
+     "se": 0.4759,
+     "roi_close": 0.19
+    },
+    "read_dead_by_morning": {
+     "share": 0.0
+    }
+   },
+   "games": 14,
+   "favorite_move_by_leg_cents_abs": {
+    "first_to_night": 9.3,
+    "night_to_morning": 3.9,
+    "morning_to_close": 7
+   },
+   "favorite_move_by_leg_cents_signed": {
+    "first_to_night": -0.1,
+    "night_to_morning": -0.5,
+    "morning_to_close": -4.4
+   },
+   "overnight_moves_20_plus_share": 0.0,
+   "game_file_open_vs_our_first_snapshot": {
+    "games": 14,
+    "same": 0,
+    "first_snap_hours_ahead_median": 83.1
+   }
+  },
+  "ncaaf": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 57,
+     "won": 0.491,
+     "night_to_morning_cents": -0.5,
+     "se_cents": 0.4,
+     "night_to_close_cents": -1.1,
+     "morning_to_close_cents": -0.5,
+     "morning_longer": 0.053,
+     "morning_shorter": 0.07,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.0967,
+     "se_roi": 0.1526,
+     "roi_morning": 0.0934,
+     "roi_close": 0.0827,
+     "night_vs_morning_roi": 0.0033,
+     "se_gain": 0.0025,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       57,
+       0.0033
+      ]
+     }
+    },
+    "favorites": {
+     "n": 17,
+     "won": 0.471,
+     "night_to_morning_cents": 0.4,
+     "se_cents": 0.4,
+     "night_to_close_cents": 0.4,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.059,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.1768,
+     "se_roi": 0.2119,
+     "roi_morning": -0.1768,
+     "roi_close": -0.1834,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       17,
+       0.0
+      ]
+     }
+    },
+    "dogs": {
+     "n": 40,
+     "won": 0.5,
+     "night_to_morning_cents": -0.9,
+     "se_cents": 0.6,
+     "night_to_close_cents": -1.7,
+     "morning_to_close_cents": -0.8,
+     "morning_longer": 0.05,
+     "morning_shorter": 0.1,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.213,
+     "se_roi": 0.1951,
+     "roi_morning": 0.2083,
+     "roi_close": 0.1957,
+     "night_vs_morning_roi": 0.0048,
+     "se_gain": 0.0035,
+     "seasons_up": "1/1",
+     "by_season": {
+      "2026": [
+       40,
+       0.0048
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 25,
+     "won": 0.52,
+     "night_to_morning_cents": -0.6,
+     "se_cents": 0.8,
+     "night_to_close_cents": 1.7,
+     "morning_to_close_cents": 2.4,
+     "morning_longer": 0.08,
+     "morning_shorter": 0.08,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.1552,
+     "se_roi": 0.2299,
+     "roi_morning": 0.1552,
+     "roi_close": 0.1522,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       25,
+       0.0
+      ]
+     }
+    },
+    "favorites": {
+     "n": 7,
+     "won": 0.571,
+     "night_to_morning_cents": 1,
+     "se_cents": 0.9,
+     "night_to_close_cents": 6.4,
+     "morning_to_close_cents": 5.4,
+     "morning_longer": 0.143,
+     "morning_shorter": 0.0,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": -0.0027,
+     "se_roi": 0.3267,
+     "roi_morning": -0.0027,
+     "roi_close": 0.0065,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       7,
+       0.0
+      ]
+     }
+    },
+    "dogs": {
+     "n": 18,
+     "won": 0.5,
+     "night_to_morning_cents": -1.3,
+     "se_cents": 1.1,
+     "night_to_close_cents": -0.1,
+     "morning_to_close_cents": 1.2,
+     "morning_longer": 0.056,
+     "morning_shorter": 0.111,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.2167,
+     "se_roi": 0.2916,
+     "roi_morning": 0.2167,
+     "roi_close": 0.2089,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       18,
+       0.0
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 24,
+     "won": 0.542,
+     "night_to_morning_cents": -1.0,
+     "se_cents": 0.8,
+     "night_to_close_cents": 1.1,
+     "morning_to_close_cents": 2.0,
+     "morning_longer": 0.042,
+     "morning_shorter": 0.083,
+     "against_20_plus": 0.0,
+     "toward_20_plus": 0.0,
+     "roi_night": 0.2034,
+     "se_roi": 0.2343,
+     "roi_morning": 0.2034,
+     "roi_close": 0.2002,
+     "night_vs_morning_roi": 0.0,
+     "se_gain": 0.0,
+     "seasons_up": "0/1",
+     "by_season": {
+      "2026": [
+       24,
+       0.0
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 25,
+     "won": 0.52,
+     "roi": 0.1552,
+     "se": 0.2299,
+     "roi_close": 0.1522
+    },
+    "favorites": {
+     "n": 7,
+     "won": 0.571,
+     "roi": -0.0027,
+     "se": 0.3267,
+     "roi_close": 0.0065
+    },
+    "dogs": {
+     "n": 18,
+     "won": 0.5,
+     "roi": 0.2167,
+     "se": 0.2916,
+     "roi_close": 0.2089
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": null,
+    "favorites": null,
+    "dogs": null
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": null,
+    "favorites": null,
+    "dogs": null
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.0
+    },
+    "ran_toward_20_plus": {
+     "share": 0.0
+    },
+    "under_20": {
+     "n": 25,
+     "won": 0.52,
+     "roi": 0.1552,
+     "se": 0.2299,
+     "roi_close": 0.1522
+    },
+    "read_dead_by_morning": {
+     "share": 0.0
+    }
+   },
+   "games": 86,
+   "favorite_move_by_leg_cents_abs": {
+    "first_to_night": 5.0,
+    "night_to_morning": 1.8,
+    "morning_to_close": 12.6
+   },
+   "favorite_move_by_leg_cents_signed": {
+    "first_to_night": 4.5,
+    "night_to_morning": 1.3,
+    "morning_to_close": 0.2
+   },
+   "overnight_moves_20_plus_share": 0.029,
+   "game_file_open_vs_our_first_snapshot": {
+    "games": 86,
+    "same": 46,
+    "first_snap_hours_ahead_median": 41.1
+   }
+  }
+ },
+ "open_vs_close_2023_26": {
+  "nhl": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 6004,
+     "won": 0.462,
+     "night_to_morning_cents": 0.0,
+     "se_cents": 0.3,
+     "night_to_close_cents": 0.0,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.481,
+     "morning_shorter": 0.467,
+     "against_20_plus": 0.17,
+     "toward_20_plus": 0.165,
+     "roi_night": -0.0412,
+     "se_roi": 0.0137,
+     "roi_morning": -0.0443,
+     "roi_close": -0.0443,
+     "night_vs_morning_roi": 0.0031,
+     "se_gain": 0.0016,
+     "seasons_up": "2/4",
+     "by_season": {
+      "2023": [
+       1838,
+       -0.0014
+      ],
+      "2024": [
+       1992,
+       0.0015
+      ],
+      "2025": [
+       2104,
+       0.0089
+      ],
+      "2026": [
+       70,
+       -0.0132
+      ]
+     }
+    },
+    "favorites": {
+     "n": 1905,
+     "won": 0.528,
+     "night_to_morning_cents": -2.9,
+     "se_cents": 0.5,
+     "night_to_close_cents": -2.9,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.426,
+     "morning_shorter": 0.528,
+     "against_20_plus": 0.194,
+     "toward_20_plus": 0.133,
+     "roi_night": -0.0604,
+     "se_roi": 0.0204,
+     "roi_morning": -0.0649,
+     "roi_close": -0.0649,
+     "night_vs_morning_roi": 0.0045,
+     "se_gain": 0.0023,
+     "seasons_up": "2/4",
+     "by_season": {
+      "2023": [
+       587,
+       0.0041
+      ],
+      "2024": [
+       626,
+       0.0137
+      ],
+      "2025": [
+       668,
+       -0.0029
+      ],
+      "2026": [
+       24,
+       -0.0182
+      ]
+     }
+    },
+    "dogs": {
+     "n": 4099,
+     "won": 0.431,
+     "night_to_morning_cents": 1.4,
+     "se_cents": 0.4,
+     "night_to_close_cents": 1.4,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.506,
+     "morning_shorter": 0.439,
+     "against_20_plus": 0.16,
+     "toward_20_plus": 0.18,
+     "roi_night": -0.0323,
+     "se_roi": 0.0176,
+     "roi_morning": -0.0347,
+     "roi_close": -0.0347,
+     "night_vs_morning_roi": 0.0024,
+     "se_gain": 0.0021,
+     "seasons_up": "1/4",
+     "by_season": {
+      "2023": [
+       1251,
+       -0.004
+      ],
+      "2024": [
+       1366,
+       -0.004
+      ],
+      "2025": [
+       1436,
+       0.0144
+      ],
+      "2026": [
+       46,
+       -0.0106
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 1612,
+     "won": 0.484,
+     "night_to_morning_cents": -6.5,
+     "se_cents": 0.6,
+     "night_to_close_cents": -6.5,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.363,
+     "morning_shorter": 0.596,
+     "against_20_plus": 0.251,
+     "toward_20_plus": 0.102,
+     "roi_night": -0.0129,
+     "se_roi": 0.0259,
+     "roi_morning": -0.0388,
+     "roi_close": -0.0388,
+     "night_vs_morning_roi": 0.0259,
+     "se_gain": 0.0032,
+     "seasons_up": "3/4",
+     "by_season": {
+      "2023": [
+       425,
+       0.0256
+      ],
+      "2024": [
+       570,
+       0.0249
+      ],
+      "2025": [
+       590,
+       0.0294
+      ],
+      "2026": [
+       27,
+       -0.0214
+      ]
+     }
+    },
+    "favorites": {
+     "n": 563,
+     "won": 0.558,
+     "night_to_morning_cents": -9.6,
+     "se_cents": 1.0,
+     "night_to_close_cents": -9.6,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.321,
+     "morning_shorter": 0.652,
+     "against_20_plus": 0.295,
+     "toward_20_plus": 0.078,
+     "roi_night": -0.0122,
+     "se_roi": 0.0371,
+     "roi_morning": -0.0337,
+     "roi_close": -0.0337,
+     "night_vs_morning_roi": 0.0215,
+     "se_gain": 0.0042,
+     "seasons_up": "4/4",
+     "by_season": {
+      "2023": [
+       158,
+       0.0199
+      ],
+      "2024": [
+       183,
+       0.0271
+      ],
+      "2025": [
+       214,
+       0.0187
+      ],
+      "2026": [
+       8,
+       0.0011
+      ]
+     }
+    },
+    "dogs": {
+     "n": 1049,
+     "won": 0.445,
+     "night_to_morning_cents": -4.9,
+     "se_cents": 0.7,
+     "night_to_close_cents": -4.9,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.385,
+     "morning_shorter": 0.565,
+     "against_20_plus": 0.228,
+     "toward_20_plus": 0.114,
+     "roi_night": -0.0133,
+     "se_roi": 0.0344,
+     "roi_morning": -0.0416,
+     "roi_close": -0.0416,
+     "night_vs_morning_roi": 0.0283,
+     "se_gain": 0.0043,
+     "seasons_up": "3/4",
+     "by_season": {
+      "2023": [
+       267,
+       0.0289
+      ],
+      "2024": [
+       387,
+       0.0238
+      ],
+      "2025": [
+       376,
+       0.0355
+      ],
+      "2026": [
+       19,
+       -0.0308
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 765,
+     "won": 0.48,
+     "night_to_morning_cents": -9.2,
+     "se_cents": 0.9,
+     "night_to_close_cents": -9.2,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.322,
+     "morning_shorter": 0.634,
+     "against_20_plus": 0.294,
+     "toward_20_plus": 0.09,
+     "roi_night": -0.0168,
+     "se_roi": 0.0378,
+     "roi_morning": -0.0567,
+     "roi_close": -0.0567,
+     "night_vs_morning_roi": 0.0399,
+     "se_gain": 0.005,
+     "seasons_up": "3/4",
+     "by_season": {
+      "2023": [
+       178,
+       0.0388
+      ],
+      "2024": [
+       267,
+       0.04
+      ],
+      "2025": [
+       303,
+       0.0439
+      ],
+      "2026": [
+       17,
+       -0.0216
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 1712,
+     "won": 0.456,
+     "roi": -0.0441,
+     "se": 0.0258,
+     "roi_close": -0.0441
+    },
+    "favorites": {
+     "n": 638,
+     "won": 0.524,
+     "roi": -0.0349,
+     "se": 0.0368,
+     "roi_close": -0.0349
+    },
+    "dogs": {
+     "n": 1074,
+     "won": 0.416,
+     "roi": -0.0496,
+     "se": 0.0348,
+     "roi_close": -0.0496
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": {
+     "n": 557,
+     "won": 0.535,
+     "roi": 0.0669,
+     "se": 0.0432,
+     "roi_close": -0.0307
+    },
+    "favorites": {
+     "n": 232,
+     "won": 0.612,
+     "roi": 0.0748,
+     "se": 0.0563,
+     "roi_close": -0.0056
+    },
+    "dogs": {
+     "n": 325,
+     "won": 0.48,
+     "roi": 0.0613,
+     "se": 0.0623,
+     "roi_close": -0.0487
+    }
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": {
+     "n": 657,
+     "won": 0.454,
+     "roi": -0.0457,
+     "se": 0.0418,
+     "roi_close": -0.0457
+    },
+    "favorites": {
+     "n": 307,
+     "won": 0.528,
+     "roi": -0.0149,
+     "se": 0.0537,
+     "roi_close": -0.0149
+    },
+    "dogs": {
+     "n": 350,
+     "won": 0.389,
+     "roi": -0.0726,
+     "se": 0.0628,
+     "roi_close": -0.0726
+    }
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.251,
+     "n": 405,
+     "won": 0.556,
+     "roi": 0.1324,
+     "se": 0.0518,
+     "roi_close": -0.0007
+    },
+    "ran_toward_20_plus": {
+     "share": 0.102,
+     "n": 164,
+     "won": 0.433,
+     "roi": -0.0967,
+     "se": 0.0827,
+     "roi_close": 0.0209
+    },
+    "under_20": {
+     "n": 1043,
+     "won": 0.465,
+     "roi": -0.0562,
+     "se": 0.0319,
+     "roi_close": -0.0631
+    },
+    "read_dead_by_morning": {
+     "share": 0.105,
+     "n": 170,
+     "won": 0.547,
+     "roi": 0.1162,
+     "se": 0.0799,
+     "roi_close": -0.0351
+    }
+   },
+   "games": 4152,
+   "note": "night = the game file's OPENING line, morning = the CLOSE (the game files hold no 8 AM mark); the hourly part says how much of that move is overnight"
+  },
+  "mlb": {
+   "all_sides": {
+    "what": "every side priced -150..+220 at the night look",
+    "all": {
+     "n": 15592,
+     "won": 0.473,
+     "night_to_morning_cents": 0.6,
+     "se_cents": 0.1,
+     "night_to_close_cents": 0.6,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.493,
+     "morning_shorter": 0.46,
+     "against_20_plus": 0.107,
+     "toward_20_plus": 0.123,
+     "roi_night": -0.0372,
+     "se_roi": 0.0083,
+     "roi_morning": -0.0343,
+     "roi_close": -0.0343,
+     "night_vs_morning_roi": -0.0029,
+     "se_gain": 0.0008,
+     "seasons_up": "2/4",
+     "by_season": {
+      "2023": [
+       3799,
+       -0.0064
+      ],
+      "2024": [
+       3858,
+       0.0022
+      ],
+      "2025": [
+       3886,
+       0.001
+      ],
+      "2026": [
+       4049,
+       -0.0082
+      ]
+     }
+    },
+    "favorites": {
+     "n": 5536,
+     "won": 0.533,
+     "night_to_morning_cents": -1.5,
+     "se_cents": 0.2,
+     "night_to_close_cents": -1.5,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.456,
+     "morning_shorter": 0.499,
+     "against_20_plus": 0.131,
+     "toward_20_plus": 0.095,
+     "roi_night": -0.0484,
+     "se_roi": 0.012,
+     "roi_morning": -0.0483,
+     "roi_close": -0.0483,
+     "night_vs_morning_roi": -0.0001,
+     "se_gain": 0.001,
+     "seasons_up": "1/4",
+     "by_season": {
+      "2023": [
+       1269,
+       -0.0047
+      ],
+      "2024": [
+       1366,
+       -0.0019
+      ],
+      "2025": [
+       1379,
+       -0.0012
+      ],
+      "2026": [
+       1522,
+       0.0065
+      ]
+     }
+    },
+    "dogs": {
+     "n": 10056,
+     "won": 0.44,
+     "night_to_morning_cents": 1.8,
+     "se_cents": 0.2,
+     "night_to_close_cents": 1.8,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.513,
+     "morning_shorter": 0.438,
+     "against_20_plus": 0.094,
+     "toward_20_plus": 0.139,
+     "roi_night": -0.031,
+     "se_roi": 0.011,
+     "roi_morning": -0.0266,
+     "roi_close": -0.0266,
+     "night_vs_morning_roi": -0.0045,
+     "se_gain": 0.0011,
+     "seasons_up": "2/4",
+     "by_season": {
+      "2023": [
+       2530,
+       -0.0072
+      ],
+      "2024": [
+       2492,
+       0.0044
+      ],
+      "2025": [
+       2507,
+       0.0022
+      ],
+      "2026": [
+       2527,
+       -0.017
+      ]
+     }
+    }
+   },
+   "night_board": {
+    "rule": "blind read beats the no-vig NIGHT price by 3%, price -150..+220",
+    "all": {
+     "n": 4878,
+     "won": 0.458,
+     "night_to_morning_cents": -4.0,
+     "se_cents": 0.3,
+     "night_to_close_cents": -4.0,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.378,
+     "morning_shorter": 0.573,
+     "against_20_plus": 0.162,
+     "toward_20_plus": 0.083,
+     "roi_night": -0.03,
+     "se_roi": 0.0154,
+     "roi_morning": -0.0458,
+     "roi_close": -0.0458,
+     "night_vs_morning_roi": 0.0159,
+     "se_gain": 0.0015,
+     "seasons_up": "4/4",
+     "by_season": {
+      "2023": [
+       1209,
+       0.0212
+      ],
+      "2024": [
+       1190,
+       0.0181
+      ],
+      "2025": [
+       1317,
+       0.0141
+      ],
+      "2026": [
+       1162,
+       0.0101
+      ]
+     }
+    },
+    "favorites": {
+     "n": 1210,
+     "won": 0.526,
+     "night_to_morning_cents": -7.8,
+     "se_cents": 0.5,
+     "night_to_close_cents": -7.8,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.318,
+     "morning_shorter": 0.636,
+     "against_20_plus": 0.221,
+     "toward_20_plus": 0.053,
+     "roi_night": -0.0562,
+     "se_roi": 0.0258,
+     "roi_morning": -0.0779,
+     "roi_close": -0.0779,
+     "night_vs_morning_roi": 0.0217,
+     "se_gain": 0.0021,
+     "seasons_up": "4/4",
+     "by_season": {
+      "2023": [
+       359,
+       0.0239
+      ],
+      "2024": [
+       282,
+       0.0155
+      ],
+      "2025": [
+       239,
+       0.0148
+      ],
+      "2026": [
+       330,
+       0.0296
+      ]
+     }
+    },
+    "dogs": {
+     "n": 3668,
+     "won": 0.435,
+     "night_to_morning_cents": -2.8,
+     "se_cents": 0.3,
+     "night_to_close_cents": -2.8,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.398,
+     "morning_shorter": 0.552,
+     "against_20_plus": 0.143,
+     "toward_20_plus": 0.093,
+     "roi_night": -0.0213,
+     "se_roi": 0.0187,
+     "roi_morning": -0.0353,
+     "roi_close": -0.0353,
+     "night_vs_morning_roi": 0.0139,
+     "se_gain": 0.0018,
+     "seasons_up": "4/4",
+     "by_season": {
+      "2023": [
+       850,
+       0.0201
+      ],
+      "2024": [
+       908,
+       0.0189
+      ],
+      "2025": [
+       1078,
+       0.0139
+      ],
+      "2026": [
+       832,
+       0.0023
+      ]
+     }
+    },
+    "big_edge_6pct": {
+     "n": 2193,
+     "won": 0.461,
+     "night_to_morning_cents": -5.7,
+     "se_cents": 0.4,
+     "night_to_close_cents": -5.7,
+     "morning_to_close_cents": 0,
+     "morning_longer": 0.345,
+     "morning_shorter": 0.607,
+     "against_20_plus": 0.194,
+     "toward_20_plus": 0.078,
+     "roi_night": -0.0069,
+     "se_roi": 0.0234,
+     "roi_morning": -0.0302,
+     "roi_close": -0.0302,
+     "night_vs_morning_roi": 0.0233,
+     "se_gain": 0.0024,
+     "seasons_up": "4/4",
+     "by_season": {
+      "2023": [
+       628,
+       0.0269
+      ],
+      "2024": [
+       481,
+       0.0311
+      ],
+      "2025": [
+       605,
+       0.0186
+      ],
+      "2026": [
+       479,
+       0.0165
+      ]
+     }
+    }
+   },
+   "morning_board": {
+    "rule": "blind read beats the no-vig MORNING price by 3%",
+    "all": {
+     "n": 4978,
+     "won": 0.453,
+     "roi": -0.0207,
+     "se": 0.0156,
+     "roi_close": -0.0207
+    },
+    "favorites": {
+     "n": 1304,
+     "won": 0.515,
+     "roi": -0.0485,
+     "se": 0.0257,
+     "roi_close": -0.0485
+    },
+    "dogs": {
+     "n": 3674,
+     "won": 0.431,
+     "roi": -0.0108,
+     "se": 0.019,
+     "roi_close": -0.0108
+    }
+   },
+   "only_at_night": {
+    "what": "a night pick the morning price no longer justifies (the read's edge fell under 3% or the price left the band)",
+    "all": {
+     "n": 1374,
+     "won": 0.482,
+     "roi": -0.0101,
+     "se": 0.0284,
+     "roi_close": -0.0808
+    },
+    "favorites": {
+     "n": 479,
+     "won": 0.566,
+     "roi": 0.0076,
+     "se": 0.0404,
+     "roi_close": -0.0568
+    },
+    "dogs": {
+     "n": 895,
+     "won": 0.437,
+     "roi": -0.0196,
+     "se": 0.0379,
+     "roi_close": -0.0936
+    }
+   },
+   "only_in_morning": {
+    "what": "a side the engine would take only at the morning price (it drifted into value overnight)",
+    "all": {
+     "n": 1474,
+     "won": 0.464,
+     "roi": 0.0065,
+     "se": 0.0289,
+     "roi_close": 0.0065
+    },
+    "favorites": {
+     "n": 573,
+     "won": 0.534,
+     "roi": 0.0066,
+     "se": 0.0396,
+     "roi_close": 0.0066
+    },
+    "dogs": {
+     "n": 901,
+     "won": 0.42,
+     "roi": 0.0064,
+     "se": 0.04,
+     "roi_close": 0.0064
+    }
+   },
+   "overnight_news": {
+    "ran_against_20_plus": {
+     "share": 0.162,
+     "n": 792,
+     "won": 0.494,
+     "roi": 0.037,
+     "se": 0.0385,
+     "roi_close": -0.0787
+    },
+    "ran_toward_20_plus": {
+     "share": 0.083,
+     "n": 404,
+     "won": 0.334,
+     "roi": -0.2327,
+     "se": 0.055,
+     "roi_close": -0.1379
+    },
+    "under_20": {
+     "n": 3682,
+     "won": 0.463,
+     "roi": -0.0221,
+     "se": 0.0176,
+     "roi_close": -0.0287
+    },
+    "read_dead_by_morning": {
+     "share": 0.063,
+     "n": 305,
+     "won": 0.521,
+     "roi": 0.0782,
+     "se": 0.0609,
+     "roi_close": -0.0588
+    }
+   },
+   "games": 9854,
+   "note": "night = the game file's OPENING line, morning = the CLOSE (the game files hold no 8 AM mark); the hourly part says how much of that move is overnight"
+  }
+ },
+ "posted_picks": {
+  "summary": {
+   "n": 20,
+   "night_to_posted_cents": 2.2,
+   "posted_longer": 9,
+   "posted_shorter": 2,
+   "roi_at_night": -0.1713,
+   "roi_at_posted": -0.1739,
+   "unit_plays": {
+    "n": 10,
+    "night_to_posted_cents": 1.7
+   }
+  },
+  "picks": [
+   {
+    "date": "2026-10-01",
+    "league": "nhl",
+    "kind": "dog",
+    "units": 0.5,
+    "team": "Blackhawks",
+    "night_8pm": null,
+    "posted": 180,
+    "close": 190,
+    "won": false,
+    "night_snap_hours_before_start": 19.6
+   },
+   {
+    "date": "2026-10-01",
+    "league": "nfl",
+    "kind": "lean",
+    "units": 0,
+    "team": "Steelers",
+    "night_8pm": null,
+    "posted": -148,
+    "close": -148,
+    "won": false,
+    "night_snap_hours_before_start": 18.4
+   },
+   {
+    "date": "2026-10-01",
+    "league": "nhl",
+    "kind": "lean",
+    "units": 0,
+    "team": "Kraken",
+    "night_8pm": null,
+    "posted": -108,
+    "close": -108,
+    "won": true,
+    "night_snap_hours_before_start": 19.1
+   },
+   {
+    "date": "2026-10-01",
+    "league": "ncaaf",
+    "kind": "lock",
+    "units": 3.0,
+    "team": "North Texas",
+    "night_8pm": null,
+    "posted": -118,
+    "close": -148,
+    "won": true,
+    "night_snap_hours_before_start": 19.1
+   },
+   {
+    "date": "2026-10-01",
+    "league": "ncaaf",
+    "kind": "play",
+    "units": 1.0,
+    "team": "Western KY",
+    "night_8pm": null,
+    "posted": 110,
+    "close": 105,
+    "won": false,
+    "night_snap_hours_before_start": 18.1
+   },
+   {
+    "date": "2026-10-02",
+    "league": "nhl",
+    "kind": "dog",
+    "units": 1.0,
+    "team": "Blues",
+    "night_8pm": 160,
+    "posted": 154,
+    "close": 154,
+    "won": true,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-02",
+    "league": "ncaaf",
+    "kind": "lean",
+    "units": 0,
+    "team": "Penn State",
+    "night_8pm": -142,
+    "posted": -142,
+    "close": -148,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-02",
+    "league": "ncaaf",
+    "kind": "lean",
+    "units": 0,
+    "team": "Virginia Tech",
+    "night_8pm": -142,
+    "posted": -130,
+    "close": -125,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-02",
+    "league": "nhl",
+    "kind": "lean",
+    "units": 0,
+    "team": "Red Wings",
+    "night_8pm": -135,
+    "posted": -130,
+    "close": -130,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-02",
+    "league": "nhl",
+    "kind": "lean",
+    "units": 0,
+    "team": "Jets",
+    "night_8pm": -122,
+    "posted": -122,
+    "close": -122,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "nhl",
+    "kind": "dog",
+    "units": 1.0,
+    "team": "Flyers",
+    "night_8pm": 105,
+    "posted": 110,
+    "close": 114,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "mlb",
+    "kind": "lean",
+    "units": 0,
+    "team": "Guardians",
+    "night_8pm": -156,
+    "posted": -149,
+    "close": -149,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "mlb",
+    "kind": "lean",
+    "units": 0,
+    "team": "Rays",
+    "night_8pm": -136,
+    "posted": -135,
+    "close": -143,
+    "won": true,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "nhl",
+    "kind": "lean",
+    "units": 0,
+    "team": "Flames",
+    "night_8pm": -110,
+    "posted": -110,
+    "close": -110,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "nhl",
+    "kind": "play",
+    "units": 0.5,
+    "team": "Predators",
+    "night_8pm": 114,
+    "posted": 114,
+    "close": 120,
+    "won": true,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "ncaaf",
+    "kind": "play",
+    "units": 0.5,
+    "team": "Kentucky",
+    "night_8pm": 120,
+    "posted": 120,
+    "close": 120,
+    "won": true,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "ncaaf",
+    "kind": "lock",
+    "units": 2.5,
+    "team": "UNLV",
+    "night_8pm": -130,
+    "posted": -120,
+    "close": -115,
+    "won": true,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-03",
+    "league": "ncaaf",
+    "kind": "play",
+    "units": 0.5,
+    "team": "Fresno St",
+    "night_8pm": 102,
+    "posted": 102,
+    "close": 105,
+    "won": true,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-04",
+    "league": "nfl",
+    "kind": "lock",
+    "units": 0.5,
+    "team": "Cardinals",
+    "night_8pm": -135,
+    "posted": -135,
+    "close": -135,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-04",
+    "league": "nfl",
+    "kind": "dog",
+    "units": 1.0,
+    "team": "Jaguars",
+    "night_8pm": 120,
+    "posted": 120,
+    "close": 124,
+    "won": true,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-04",
+    "league": "mlb",
+    "kind": "lean",
+    "units": 0,
+    "team": "Brewers",
+    "night_8pm": null,
+    "posted": -137,
+    "close": -136,
+    "won": true,
+    "night_snap_hours_before_start": 15.2
+   },
+   {
+    "date": "2026-10-04",
+    "league": "nfl",
+    "kind": "lean",
+    "units": 0,
+    "team": "Texans",
+    "night_8pm": -155,
+    "posted": -148,
+    "close": -155,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-05",
+    "league": "mlb",
+    "kind": "lock",
+    "units": 1.0,
+    "team": "Guardians",
+    "night_8pm": -157,
+    "posted": -149,
+    "close": -157,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-05",
+    "league": "nhl",
+    "kind": "dog",
+    "units": 1.0,
+    "team": "Sharks",
+    "night_8pm": 145,
+    "posted": 145,
+    "close": 170,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-05",
+    "league": "mlb",
+    "kind": "lean",
+    "units": 0,
+    "team": "Yankees",
+    "night_8pm": -131,
+    "posted": -127,
+    "close": -126,
+    "won": false,
+    "night_snap_hours_before_start": null
+   },
+   {
+    "date": "2026-10-05",
+    "league": "nhl",
+    "kind": "lean",
+    "units": 0,
+    "team": "Senators",
+    "night_8pm": -110,
+    "posted": -118,
+    "close": -118,
+    "won": true,
+    "night_snap_hours_before_start": null
+   }
+  ]
+ }
+}
