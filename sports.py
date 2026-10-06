@@ -26,6 +26,7 @@ import sports_data as sd
 import sports_model as sm
 import sports_players as sp
 import sports_form
+import sports_goalies
 import sports_news
 import sports_weather
 
@@ -476,6 +477,11 @@ def candidates(games, model, now=None, day=None, injuries=None):
         news = sports_news.load()
         drama = {side: sports_news.drama(news, lg, g[side]) for side in ("home", "away")}
         talk = {side: sports_news.talk(news, lg, g[side]) for side in ("home", "away")}
+        try:                                          # 🥅 hockey: is each side's known (confirmed / likely) starter
+            g_roles = sports_goalies.roles(sp.CACHE.get("nhl") or [], g, now) if lg == "nhl" else {}   # its #1?
+        except Exception as e:                        # noqa: BLE001 - unknown = no weight, never a blocked board
+            print(f"goalie roles failed: {str(e)[:60]}")
+            g_roles = {}
         for side in ("home", "away"):
             other = "away" if side == "home" else "home"
             if n_out[side] - n_out[other] > MAX_EXTRA_OUT and not hurt_[side] and not weighed[side]:   # the more banged-up team: never
@@ -494,6 +500,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "hot_key": HOT_KEY.get(g["id"]) == side,
                     "form_state": TEAM_STATE.get((lg, g[side])),     # (last margin, streak) - the overreaction angle
                     "pdo": PDO.get(g[side]) if lg == "nhl" else None,
+                    "g_role_me": g_roles.get(side), "g_role_opp": g_roles.get(other),   # (sports_goalies.roles)
                     "coach": COACH.get((lg, str(g[side]))),
                     "fired_on": FIRED.get((lg, str(g[side]))),
                     "first_timer": (lg, str(g[side])) in FIRST_TIMER,
@@ -1259,6 +1266,10 @@ def dog_spots(c):
         sc += 1                    # an NFL dog whose offense scored 10 or fewer last game: +7%, 2023+ +21% (a lead)
     if lg == "nhl" and c.get("opp_sv_slump"):
         sc -= 2                    # the dog facing a favorite whose goalie is slumping: -8.0 pts, 0 of 5 seasons (10/1)
+    if lg == "nhl":
+        sc += sports_goalies.role_points(c)   # 🥅 the dog's confirmed / likely starter is its #1 and the favorite's isn't:
+        #                            +1.5% vs -4.0% for every dog, better 7 of 8 seasons, 2023-26 +10% (the 10/6 re-check
+        #                            of the 10/1 'goalie roles' finding) +2; the reverse was noise - 0 (sports_goalies)
     if lg == "nhl" and sharp_dog(c):
         sc += 1                    # an NHL dog the line moved TO (2+ pts) against the tickets, with 10+ pts more of the
         #                            money than the tickets: +14.3% on 190, beat the close by 8 pts, 2 of 2 seasons (10/1
@@ -2945,6 +2956,12 @@ def post_board(games, model, picks, now, day, force=False):
             line = injury_line(g, leg["side"], injuries)        # (10/2: a banged-up side on the board says who's out)
             if line and not any(str(x).startswith("🚑") for x in leg.get("breakdown") or []):
                 leg["breakdown"] = [line] + list(leg.get("breakdown") or [])
+            try:                                                # 🥅 hockey: who's CONFIRMED in net (never a guess)
+                net = sports_goalies.card_line(g, leg["side"], sp.CACHE.get("nhl") or [])
+            except Exception:                                   # noqa: BLE001
+                net = ""
+            if net and not any(str(x).startswith("🥅") for x in leg.get("breakdown") or []):
+                leg["breakdown"] = list(leg.get("breakdown") or []) + [net]
             print(f"   injuries seen for {leg['team']} vs {leg['opp']}: {leg['key_seen'] or 'no key players listed'}"
                   f" · ours out: {leg['outs'] or '-'} · theirs out: {leg['opp_outs'] or '-'}")
 
@@ -3146,7 +3163,23 @@ def key_status(inj, g, lineups=None):
             for n in (sd.team_stars(g[side + "_name"]) if lu else []):
                 if n not in lu and n not in listed:
                     out[f"{n} ({g[side + '_name']})"] = "Not in the lineup"
+    try:                                                     # 🥅 hockey: a CONFIRMED starter counts as a status too -
+        out.update(sports_goalies.watch_status(g))           # confirmed after we posted = an alert on the card
+    except Exception:                                        # noqa: BLE001 - unknown stays unknown
+        pass
     return out
+
+
+def goalie_role_words(g, who):
+    """' — their #1, 9 of their last 10 starts' (or ' — not their usual #1...') for a confirmed goalie named the way
+    key_status names him: 'Name (Team G)'. '' when our box scores can't say."""
+    try:
+        name, team = who.rsplit(" (", 1)
+        side = next(s for s in ("home", "away") if f"{g[s + '_name']} G)" == team)
+        n1 = sports_goalies.number_one(sp.CACHE.get("nhl") or [], g[side], g.get("start") or "9")
+        return sports_goalies._role_words(name, n1)
+    except Exception:                                        # noqa: BLE001 - no fact = no words
+        return ""
 
 
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "d503-live-7b1123")
@@ -3221,12 +3254,17 @@ def injury_watch(games, picks, push=True):
         for who, st in now_.items():
             if leg["key_seen"].get(who) != st:
                 msg = f"{who} is now {st.lower()} — our pick: {leg_label(leg)}"
+                if st == "Confirmed in net":                 # 🥅 a goalie confirmed after we posted: his role too
+                    msg = f"{who} is now confirmed in net{goalie_role_words(games[leg['game_id']], who)} — our pick: {leg_label(leg)}"
                 if msg not in leg.setdefault("injury_alerts", []):
                     leg["injury_alerts"].append(msg)
                     alerts.append(msg)
                     if push:
                         pass   # (on the card; no phone alert - the only alerts are live plus money bets)
         for who in set(leg["key_seen"]) - set(now_):
+            if leg["key_seen"].get(who) == "Confirmed in net":
+                continue                                     # (the page went stale / changed its mind: unknown again is
+            #                                                  never "off the injury report"; a new starter gets his own line)
             msg = f"{who} is off the injury report — our pick: {leg_label(leg)}"
             if msg not in leg.setdefault("injury_alerts", []):
                 leg["injury_alerts"].append(msg)
@@ -3451,6 +3489,10 @@ def run(repick=False, fetch=True):
         except Exception as e:                           # noqa: BLE001 - never blocks the board
             print(f"4th-down rates failed: {str(e)[:60]}")
         print(f"news: {sports_news.sync()} new drama tags")
+        try:                                             # 🥅 tonight's confirmed / likely starting goalies (Daily
+            sports_goalies.sync(games, now)              # Faceoff, a public page) - fails soft: unknown = no weight
+        except Exception as e:                           # noqa: BLE001 - never blocks the board
+            print(f"goalies failed: {str(e)[:60]}")
     else:
         games = sd.load_games()
     sp.CACHE = sp.load()

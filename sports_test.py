@@ -9223,7 +9223,226 @@ def test_a_trip_both_teams_made_is_never_a_reason():
     assert [c for c in sc.display(theirs, "home") if c.get("k") == "trip"][0]["mi"] == 1930
 
 
+GOALIE_PAGE = """NHL Starting Goalies - October 06, 2026
+Starting Goalies
+NHL Starting Goalies: Tuesday, October 6
+1
+of 18 confirmed
+Monday, October 5
+Minnesota Wild at Buffalo Sabres
+2026-10-06T23:00:00.000Z
+Jesper Wallstedt
+Unconfirmed
+Show More
+--
+W-L-OTL:
+2 - 0 - 0
+GAA:
+1.0
+Line Combos
+|
+News
+Cap
+$2,200,000
+•
+Colten Ellis
+Likely
+2026-10-06T01:41:33.205Z
+Show More
+--
+W-L-OTL:
+0 - 0 - 0
+SV%:
+0.0
+Ellis is expected to start Tuesday vs. the Wild.
+Source:
+Paul Hamilton
+Line Combos
+|
+News
+Cap
+$850,000
+•
+New York Islanders at New York Rangers
+2026-10-06T23:30:00.000Z
+Ilya Sorokin
+Confirmed
+2026-10-06T15:02:00.000Z
+Show More
+--
+Sorokin gets the start Tuesday against the Rangers.
+Source:
+Islanders PR
+Line Combos
+|
+News
+Igor Shesterkin
+Unconfirmed
+Show More
+--
+Line Combos
+|
+News
+Starting Goalies & NHL Betting Strategy
+What We Learned in Week 1 of Fantasy Hockey
+""".split("\n")
+
+
+def _goalie_rows():
+    """Box-score goalie rows: the Islanders (team 2) started Sorokin 8 of their last 10 this season (Varlamov 2); the
+    Rangers (team 3) Shesterkin 7 of 10; the Sabres (team 4) split 5-5 (no #1); the Wild (team 5) have 3 games."""
+    rows = []
+    for k in range(10):
+        d = f"2026-09-{12 + k:02d}T23:00Z"
+        rows.append({"gid": f"nhl:a{k}", "start": d, "team": "2", "player": "Ilya Sorokin" if k % 5 else "Semyon Varlamov", "role": "G", "sa": "30", "ga": "2"})
+        rows.append({"gid": f"nhl:b{k}", "start": d, "team": "3", "player": "Igor Shesterkin" if k % 10 < 7 else "Jonathan Quick", "role": "G", "sa": "30", "ga": "2"})
+        rows.append({"gid": f"nhl:c{k}", "start": d, "team": "4", "player": "Colten Ellis" if k % 2 else "Ukko-Pekka Luukkonen", "role": "G", "sa": "30", "ga": "2"})
+        if k >= 7:
+            rows.append({"gid": f"nhl:d{k}", "start": d, "team": "5", "player": "Jesper Wallstedt", "role": "G", "sa": "30", "ga": "2"})
+    rows.append({"gid": "nhl:old", "start": "2026-05-20T23:00Z", "team": "5", "player": "Filip Gustavsson", "role": "G", "sa": "30", "ga": "2"})
+    return sorted(rows, key=lambda r: r["start"])
+
+
+def _goalie_games():
+    return {"nhl:g1": {"id": "nhl:g1", "league": "nhl", "status": "pre", "start": "2026-10-06T23:00Z", "home": "4", "away": "5",
+                       "home_name": "Sabres", "away_name": "Wild"},
+            "nhl:g2": {"id": "nhl:g2", "league": "nhl", "status": "pre", "start": "2026-10-06T23:30Z", "home": "3", "away": "2",
+                       "home_name": "Rangers", "away_name": "Islanders"},
+            "nhl:g3": {"id": "nhl:g3", "league": "nhl", "status": "pre", "start": "2026-10-07T02:00Z", "home": "6", "away": "7",
+                       "home_name": "Kings", "away_name": "Panthers"}}
+
+
+def test_goalie_page_parse_and_match():
+    """10/6: Daily Faceoff's starting-goalies page -> each game's two goalies with the page's own status word (the away
+    team's goalie first), the news line and its source; matched to our NHL games by the two teams and the start."""
+    import sports_goalies as sg
+    sg._CACHE.clear()
+    parsed = sg.parse(GOALIE_PAGE)
+    assert [(p["away"], p["home"], p["start"]) for p in parsed] == [("Minnesota Wild", "Buffalo Sabres", "2026-10-06T23:00Z"),
+                                                                    ("New York Islanders", "New York Rangers", "2026-10-06T23:30Z")]
+    w, s = parsed[0]["goalies"]["away"], parsed[0]["goalies"]["home"]
+    assert (w["name"], w["status"], w["news"]) == ("Jesper Wallstedt", "unconfirmed", "")
+    assert (s["name"], s["status"], s["source"], s["at"]) == ("Colten Ellis", "likely", "Paul Hamilton", "2026-10-06T01:41Z")
+    assert s["news"].startswith("Ellis is expected to start")
+    so = parsed[1]["goalies"]["away"]
+    assert (so["name"], so["status"]) == ("Ilya Sorokin", "confirmed") and parsed[1]["goalies"]["home"]["status"] == "unconfirmed"
+    assert not any(p["away"].startswith("What We Learned") for p in parsed)      # (an article title isn't a game)
+    games = _goalie_games()
+    got = sg.match(parsed, games)
+    assert set(got) == {"nhl:g1", "nhl:g2"} and got["nhl:g2"]["away"]["name"] == "Ilya Sorokin"
+    assert sg._same_team("St Louis Blues", "Blues") and sg._same_team("Utah Mammoth", "Mammoth") \
+        and sg._same_team("Toronto Maple Leafs", "Maple Leafs") and not sg._same_team("New York Islanders", "Rangers")
+    # a game an hour off on the page (Vegas at Seattle 01:40 vs our 01:00) still matches on the day + the teams
+    late = [{"away": "Florida Panthers", "home": "Los Angeles Kings", "start": "2026-10-07T02:40Z",
+             "goalies": {"away": {"name": "A B", "status": "confirmed"}}}]
+    assert set(sg.match(late, games)) == {"nhl:g3"}
+    # sync saves status + the time seen; starter() = confirmed / likely only; confirmed() = confirmed only
+    now = datetime(2026, 10, 6, 16, 0, tzinfo=timezone.utc)
+    n = sg.sync(games, now, get=lambda url: "<html><body>" + "<p>".join(GOALIE_PAGE) + "</body></html>")
+    assert n == 2
+    box = json.load(open(sg.PATH))
+    assert box["seen"] == "2026-10-06T16:00Z" and box["page_slots"] == 18 and box["games"]["nhl:g1"]["home"]["status"] == "likely"
+    assert sg.starter("nhl:g1", "home", now)["name"] == "Colten Ellis" and sg.starter("nhl:g1", "away", now) is None
+    assert sg.confirmed("nhl:g1", "home", now) is None and sg.confirmed("nhl:g2", "away", now)["name"] == "Ilya Sorokin"
+    assert sg.starter("nhl:g2", "away", now + timedelta(hours=sg.FRESH_H + 1)) is None     # stale = unknown again
+
+
+def test_goalie_number_one_and_role_weight():
+    """10/6: the '#1' is the goalie with the most starts in the team's previous 10 games THIS season (6+ held, a clear
+    leader); the Dog's score gets +2 only when its known starter is its #1 and the favorite's isn't - the reverse 0,
+    anything unknown 0; still inside STUDY_CAP, and the favorite across from it is weighed through its dog."""
+    import sports_goalies as sg
+    sg._CACHE.clear()
+    rows, games = _goalie_rows(), _goalie_games()
+    assert sg.number_one(rows, "2", "2026-10-06T23:30Z") == ("Ilya Sorokin", 8, 10)
+    assert sg.number_one(rows, "3", "2026-10-06T23:30Z") == ("Igor Shesterkin", 7, 10)
+    assert sg.number_one(rows, "4", "2026-10-06T23:00Z") is None            # a 5-5 split: no #1
+    assert sg.number_one(rows, "5", "2026-10-06T23:00Z") is None            # 3 games this season (last May's don't count)
+    assert sg.season_start("2026-10-06") == "2026-09-01" and sg.season_start("2027-04-10") == "2026-09-01"
+    now = datetime(2026, 10, 6, 16, 0, tzinfo=timezone.utc)
+    sg.sync(games, now, get=lambda url: "<p>".join(GOALIE_PAGE))
+    r = sg.roles(rows, games["nhl:g2"], now)
+    assert r["away"] is True and r["home"] is None             # Sorokin confirmed and the #1; Shesterkin unconfirmed
+    r1 = sg.roles(rows, games["nhl:g1"], now)
+    assert r1["home"] is None and r1["away"] is None           # Ellis likely, but the Sabres have no #1 to compare
+    base = {"odds": 150, "dec": 2.5, "edge": 0.0, "edge_own": 0.0, "p_market": 0.4, "market": "ml", "league": "nhl"}
+    ds = lambda **k: sports.dog_score({**base, **k})
+    assert ds(g_role_me=True, g_role_opp=False) == ds() + sg.ROLE_W == ds() + 2
+    assert ds(g_role_me=False, g_role_opp=True) == ds() - sg.ROLE_W_REV == ds()      # the reverse: noise, no weight
+    assert ds(g_role_me=True, g_role_opp=None) == ds() == ds(g_role_me=True, g_role_opp=True) == ds(g_role_me=None, g_role_opp=False)
+    assert sports.dog_score({**base, "league": "nfl", "g_role_me": True, "g_role_opp": False}) == sports.dog_score({**base, "league": "nfl"})
+    stacked = {"dog_ctx": {"won": False, "opp_won": False, "hits_top": True, "ss_gap": 0.02}, "rested_vs_b2b": True}   # +10.5
+    assert ds(**stacked, g_role_me=True, g_role_opp=False) == ds(**stacked) == ds() + sports.STUDY_CAP   # capped
+    fav = {**base, "odds": -170, "dec": 1.588, "p_market": 0.6, "game_id": "x", "team_id": "3", "start": "2026-10-06T23:30Z"}
+    dog = {**base, "game_id": "x", "team_id": "2", "start": "2026-10-06T23:30Z"}
+    f0, f1 = dict(fav), dict(fav)
+    sports.mark_hockey_favorites([f0, dict(dog)])
+    sports.mark_hockey_favorites([f1, {**dog, "g_role_me": True, "g_role_opp": False}])
+    assert abs((f0["w_p"] - f1["w_p"]) - sports.NHL_FAV_PER_PT * 2) < 1e-9       # the favorite weighed down by 1 pt
+    # the goalie the form weights look at: the confirmed / likely one when known, else the last starter
+    assert sp.starter_for(rows, games["nhl:g2"], "away") == "Ilya Sorokin"
+    assert sp.starter_for(rows, games["nhl:g2"], "home") == "Jonathan Quick"             # (unconfirmed: the last starter,
+    #                                                                                        the old guess - Quick had the last 3)
+    assert sp.starter_for(rows, games["nhl:g1"], "home") == "Colten Ellis"               # (likely: the box-score spelling)
+    assert sp.starter_for(rows, games["nhl:g1"], "away") == "Jesper Wallstedt"
+
+
+def test_goalie_card_line_and_watch():
+    """10/6: the card names a starter only when CONFIRMED (a 'likely' one is never stated as fact), with his role from
+    our box scores; a goalie confirmed after a hockey pick is posted shows on the card like an injury alert - no phone
+    ping, the pick never changes; the page down / stale = no line, no alert, no weight, the board never waits."""
+    import sports_goalies as sg
+    import sports_card_guard
+    sg._CACHE.clear()
+    rows, games = _goalie_rows(), _goalie_games()
+    now = datetime(2026, 10, 6, 16, 0, tzinfo=timezone.utc)
+    sg.sync(games, now, get=lambda url: "<p>".join(GOALIE_PAGE))
+    line = sg.card_line(games["nhl:g2"], "home", rows, now)
+    assert line == "🥅 In net: Ilya Sorokin confirmed for the Islanders — their #1, 8 of their last 10 starts."
+    assert "Shesterkin" not in line and sports_card_guard.one(line, "nhl", "Rangers") == line
+    assert sg.card_line(games["nhl:g1"], "home", rows, now) == ""              # Ellis is only 'likely': nothing stated
+    assert sg.card_line({**games["nhl:g2"], "league": "nfl"}, "home", rows, now) == ""
+    # a confirmed goalie who is NOT his team's #1 says so
+    sg._CACHE["box"]["games"]["nhl:g2"]["home"] = {"name": "Jonathan Quick", "status": "confirmed"}
+    assert sg.card_line(games["nhl:g2"], "home", rows, now) == ("🥅 In net: Jonathan Quick confirmed for the Rangers — not their usual #1, "
+                                                              "that's Igor Shesterkin with 7 of the last 10 starts; "
+                                                              "Ilya Sorokin confirmed for the Islanders — their #1, 8 of their last 10 starts.")
+    assert sg.watch_status(games["nhl:g1"], now) == {} and sports.key_status({}, games["nhl:g2"]) == {
+        "Jonathan Quick (Rangers G)": "Confirmed in net", "Ilya Sorokin (Islanders G)": "Confirmed in net"}
+    # the watch: posted with nobody confirmed; Sorokin confirmed later = one alert on the card, never a phone ping
+    old_fetch, sd.fetch_injuries = sd.fetch_injuries, lambda lg: {}
+    old_cache, sp.CACHE = sp.CACHE, {"nhl": rows}
+    try:
+        assert sports.goalie_role_words(games["nhl:g2"], "Ilya Sorokin (Islanders G)") == " — their #1, 8 of their last 10 starts"
+        assert sports.goalie_role_words(games["nhl:g2"], "Nobody (Kraken G)") == ""
+        leg = {"game_id": "nhl:g2", "league": "nhl", "side": "home", "team": "Rangers", "opp": "Islanders", "market": "ml",
+               "odds": -170, "home": True, "start": "2026-10-06T23:30Z", "key_seen": {}}
+        picks = [{"status": "open", "date": "2026-10-06", "kind": "lock", "legs": [leg]}]
+        alerts = sports.injury_watch(games, picks, push=True)
+        assert len(alerts) == 2 and any(a.startswith("Ilya Sorokin (Islanders G) is now confirmed in net — their #1, 8 of their last 10 starts — our pick") for a in alerts)
+        assert any(a.startswith("Jonathan Quick (Rangers G) is now confirmed in net — not their usual #1") for a in alerts)
+        assert sports.injury_watch(games, picks) == []                        # the same news never rings twice
+        sg._CACHE["box"]["seen"] = "2026-10-05T01:00Z"                        # the page goes stale: unknown again -
+        assert sports.injury_watch(games, picks) == [] and len(leg["injury_alerts"]) == 2   # never "off the report"
+    finally:
+        sd.fetch_injuries, sp.CACHE = old_fetch, old_cache
+    # fail soft: the page down, or not the page at all - the last file stays, nothing raises, unknown = no weight
+    sg._CACHE.clear()
+    before = open(sg.PATH).read()
+    def down(url):
+        raise OSError("timed out")
+    assert sg.sync(games, now, get=down) is None and open(sg.PATH).read() == before
+    assert sg.sync(games, now, get=lambda url: "<html>Access denied</html>") is None and open(sg.PATH).read() == before
+    os.remove(sg.PATH)
+    sg._CACHE.clear()
+    assert sg.load(now) == {} and sg.starter("nhl:g2", "away", now) is None
+    assert sg.roles(rows, games["nhl:g2"], now) == {"n1": {"home": ("Igor Shesterkin", 7, 10), "away": ("Ilya Sorokin", 8, 10)}, "home": None, "away": None}
+    assert sg.role_points({"g_role_me": None, "g_role_opp": None}) == 0 and sg.card_line(games["nhl:g2"], "home", rows, now) == ""
+
+
 if __name__ == "__main__":
+    import sports_goalies as _sg
+    _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
     import sports_early

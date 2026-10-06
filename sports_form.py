@@ -97,8 +97,8 @@ def hot_sides(games, players, now_iso, days=2):
                 nba_by_team[t].append((start, box))
     for g in up:
         if g["league"] == "nhl":
-            fh = goalie_form(nhl, sp.last_starter(nhl, g["home"], g["start"]), g["start"])
-            fa = goalie_form(nhl, sp.last_starter(nhl, g["away"], g["start"]), g["start"])
+            fh = goalie_form(nhl, sp.starter_for(nhl, g, "home"), g["start"])   # (the confirmed / likely goalie when
+            fa = goalie_form(nhl, sp.starter_for(nhl, g, "away"), g["start"])   #  known - sports_goalies; else the last)
         else:
             fh = star_form([x for x in nba_by_team.get(g["home"], []) if x[0] < g["start"]], g["start"])
             fa = star_form([x for x in nba_by_team.get(g["away"], []) if x[0] < g["start"]], g["start"])

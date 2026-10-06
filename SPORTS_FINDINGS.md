@@ -78,6 +78,33 @@ results/nhl_bet_timing_study.json. "+ cents" below = the side got LONGER by the 
 - NEXT: add the price at post time vs the 8 AM / 10 AM / 1 PM / close marks to every pick's journal row so this
   grades itself on OUR picks (the real test), and re-run tools/nhl_bet_timing_study.py when the hourly history has 300+
   NHL games (early November).
+## 10/6 - NHL: who's in net - the confirmed starter, and the goalie-roles dog spot (BUILT; the owner OK'd the build)
+- THE SOURCE: Daily Faceoff's public starting-goalies page (a plain request on GitHub's servers, read only -
+  sports_goalies.sync, every hourly run) - per game both goalies with the page's own word: Confirmed / Likely /
+  Unconfirmed, plus the news line and its source. ESPN's game summary has no probable-goalie field; the NHL schedule
+  feed names only the WINNING goalie after the game; ESPN's scoreboard "probable" (our sp_home / sp_away) is pre-filled
+  days ahead (it was right 96-98% of the time on finals, but that's measured after ESPN swaps in the real starter) - a
+  guess, never read as a confirmation. Saved in data/sports/nhl_goalies.json with the time seen; stale after 8 hours =
+  unknown again. Unknown = no weight, no line, never a guess.
+- THE RE-CHECK (blind, tools/goalie_roles_study.py: our box scores 2018-27 - the one goalie row a team-game is the
+  starter, the closing price, dogs +100..+220; "#1" = most starts in the team's previous N games THIS season, 6+ held,
+  a clear leader; the actual starter stands in for what a confirmed starter becomes): every dog -4.0% on 8,050. The
+  dog starting its #1 vs a favorite NOT starting its #1 (N=10): +1.5% on 1,098, better than all dogs 7 of 8 seasons,
+  2023-24 +16.7% / 2024-25 +7.1% / 2025-26 +7.1% (vs -3.8 / -5.7 / +2.9) - about +10 pts on 439 the last three.
+  N=12: -1.7% (+2.3 pts, 5 of 8); N=15: -2.2% (+1.8, 4 of 8) - the role is a recent thing, a 10-game window it is.
+  t about 0.3 overall - a LEAD-sized weight, not an edge. THE REVERSE (favorite with its #1, dog without): -4.8% vs
+  -4.0%, better 5 of 8 - noise. Both #1: -4.7%; neither: -4.2%.
+- BUILT: sports_goalies.ROLE_W = +2 on the Dog's score (dog_spots, inside STUDY_CAP) when BOTH starters are known
+  (confirmed or likely) and the dog's is its #1 while the favorite's isn't; the favorite across from it is weighed
+  down through mark_hockey_favorites (½ pt per point, inside NHL_FAV_CAP). The reverse ROLE_W_REV = 0 (nothing to
+  weigh). The hot / slumping-goalie and goalie-rating weights (sports_form.hot_sides, sports_players.key_edges, the
+  breakdown's goalie line) now read the CONFIRMED / likely starter when known instead of the last starter
+  (sports_players.starter_for). The card names a starter only when CONFIRMED (🥅 In net: ... — their #1, 8 of their
+  last 10 starts / not their usual #1); a goalie confirmed after a hockey pick is posted shows on the card like an
+  injury alert (sports.key_status / injury_watch) - no phone ping, the pick never changes on its own. Tests:
+  sports_test.test_goalie_*.
+- JUDGE: its own live tally comes out of the pick journal (g_role_me / g_role_opp on every hockey candidate); 150+
+  dogs with the spot before it's called anything but a lead.
 
 ## 10/6 - MLB: the PITCHER has this team's number / "they just saw him" (the owner; the pitcher-level version of 10/5)
 Data: every MLB starter's line 2017-26 (data/sports/players/mlb.csv - both starters in 23,252 of 23,254 non-spring final
@@ -628,7 +655,8 @@ noise either way.
   are traps (walk-forward: today's rule went -6.9% in 2024-26) - capped at +12, and 0 past +12 in the NFL / NBA.
   FOUND, NOT BUILT YET (needs game-time data): MLB favorite resting 2+ more regulars than the dog: dog +8.9% vs -3.0%
   (5 of 6, 2024-26 +15.7%) - lineups post 2-4 hours before first pitch, after the 8 AM board; NHL goalie roles (dog
-  starts its #1, favorite doesn't: -0.6% vs -6.7%, 4 of 5) - needs the confirmed starter; college football yards
+  starts its #1, favorite doesn't: -0.6% vs -6.7%, 4 of 5) - needs the confirmed starter (BUILT 10/6, see the 10/6
+  goalie section up top - re-checked +1.5% vs -4.0%, 7 of 8, +2 on the Dog's score); college football yards
   margin (+50: +4.9%, 4 of 5); high totals hurt NFL / college hoops dogs (-2). Cautions: NBA dog missing its top scorer
   -10.5% (contradicts the older star-out line - reconcile), football dog's usual QB out (small). NOISE: pitcher form
   streaks, NBA favorite missing a star (carried by 2021 / +300s), rest / byes / road trips, division games outside

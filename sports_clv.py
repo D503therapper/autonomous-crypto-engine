@@ -92,6 +92,8 @@ def journal_row(pk, games, clv):
             "reasons": [r[1] if isinstance(r, (list, tuple)) else r for r in (leg.get("reasons") or [])][:12],
             "angles": leg.get("dog_more") or leg.get("bd_tags") or None,
             "injuries_seen": leg.get("key_seen"), "ours_out": leg.get("outs"), "theirs_out": leg.get("opp_outs"),
+            "goalie_roles": ({"ours_is_1": leg.get("g_role_me"), "theirs_is_1": leg.get("g_role_opp")}   # 🥅 (10/6: the
+                             if leg.get("league") == "nhl" else None),                                   # roles spot's live tally)
             "public": leg.get("public"), "close": c.get("close"), "beat_close_pts": c.get("pts"),
             "result": pk.get("status"), "score": score, "margin": margin, "pnl_units": round(
                 (sports.units_for(pk) * (leg["dec"] - 1) if pk["status"] == "won" else -sports.units_for(pk)
