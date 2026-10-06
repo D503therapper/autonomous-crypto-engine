@@ -67,6 +67,8 @@ def parse(lines, year):
                     if t:
                         g["leans"].append({"side": t.group("who").lower(), "line": float(t.group("line")),
                                            "price": int(t.group("px")) if t.group("px") else None})
+                        break      # (10/6: 'Over (51.5) – CINCINNATI (-2.5) vs Jacksonville' - after a total the rest
+                        #           is the matchup he's writing about, not a side lean; his side leans say 'over')
                     elif s and _team(s.group("who"), g["away"], g["home"]):
                         ln = s.group("line")
                         g["leans"].append({"side": _team(s.group("who"), g["away"], g["home"]),
