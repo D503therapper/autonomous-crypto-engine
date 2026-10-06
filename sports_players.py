@@ -142,7 +142,10 @@ def nba_starters(team_id, n=10, need=3):
 
 
 def _starter_of(lg, tid, name):
-    st = nba_starters(tid) if lg == "nba" else recent_starters(lg, tid)
+    st = nba_starters(tid) if lg == "nba" else recent_starters(lg, tid, n=1 if lg in ("nfl", "ncaaf") else 3)
+    #   (10/5, the owner: "⚠️ Cooper Rush (Falcons QB) is now out" - Rush started 2 of the Falcons' last 3, but Penix
+    #   started the latest one: in football the starting QB is the one who started the LAST game; hockey keeps 3 - goalies
+    #   split starts)
     return None if st is None else _nm(name) in st
 
 

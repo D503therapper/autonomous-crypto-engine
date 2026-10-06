@@ -9165,6 +9165,24 @@ def test_a_lean_never_flips_sides_on_a_price_tick():
         sports.LEAN_SIDES_PATH = keep
 
 
+def test_football_starting_qb_is_who_started_the_last_game():
+    """10/5, the owner: "Cooper Rush falcons qb is out - he's a backup". Rush started 2 of the Falcons' last 3 games,
+    Penix the latest: only Penix is the starter now."""
+    import sports_players as spl
+    keep = spl.CACHE
+    try:
+        spl.CACHE = {"nfl": [{"gid": "a", "start": "2026-09-14T17:00Z", "team": "1", "player": "Cooper Rush"},
+                             {"gid": "b", "start": "2026-09-20T17:00Z", "team": "1", "player": "Cooper Rush"},
+                             {"gid": "c", "start": "2026-09-25T00:15Z", "team": "1", "player": "Michael Penix Jr."}],
+                     "nhl": [{"gid": "x", "start": "2026-10-01", "team": "5", "player": "A Goalie"},
+                             {"gid": "y", "start": "2026-10-03", "team": "5", "player": "B Goalie"}]}
+        assert spl._starter_of("nfl", "1", "Cooper Rush") is False
+        assert spl._starter_of("nfl", "1", "Michael Penix Jr.") is True
+        assert spl._starter_of("nhl", "5", "A Goalie") is True              # (goalies split starts: 3 games)
+    finally:
+        spl.CACHE = keep
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
