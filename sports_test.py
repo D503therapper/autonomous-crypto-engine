@@ -9440,6 +9440,12 @@ def test_goalie_card_line_and_watch():
     assert sg.role_points({"g_role_me": None, "g_role_opp": None}) == 0 and sg.card_line(games["nhl:g2"], "home", rows, now) == ""
 
 
+def test_a_confirmed_goalie_is_never_called_an_injury_alert():
+    """10/6: the goalie watch puts 'X is now confirmed in net' on a posted hockey card - that's news, not an injury."""
+    src = open("sports_dashboard.py").read()
+    assert '"🥅 IN NET" if "confirmed in net" in a else "⚠️ INJURY ALERT"' in src
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
