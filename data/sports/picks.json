@@ -6302,6 +6302,11 @@
      "us:trip1000"
     ],
     "dec": 2.45,
+    "decider": {
+     "s": "5-0",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -6315,6 +6320,10 @@
     "edge_own": 0.11922029862469241,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0",
+     "h": "1,3,1"
+    },
     "form_state": null,
     "game_id": "nhl:401892448",
     "home": false,
@@ -6346,9 +6355,11 @@
      "opponent drama: family/personal"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Sharks 0 @ Stars 5",
+    "settled": "2026-10-06T02:48Z",
     "side": "away",
     "start": "2026-10-06T00:00Z",
     "stype": "2",
@@ -6372,12 +6383,14 @@
    }
   ],
   "p_hit": 0.3968,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-05T15:00Z",
   "round": 1,
+  "settled": "2026-10-06T02:48Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "lost",
+  "tier": "value",
+  "units": 1.0
  },
  {
   "american": -127,
@@ -6423,6 +6436,7 @@
      "us:out_dome"
     ],
     "dec": 1.7874015748031495,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -6439,6 +6453,10 @@
     "edge_own": -0.04514209500359101,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,1,0,0,0,1,0",
+     "h": "1,0,0,0,4,0,0,0"
+    },
     "form_state": [
      -1.0,
      -1,
@@ -6478,9 +6496,11 @@
     "public": "ride",
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Yankees 2 @ Rays 5",
+    "settled": "2026-10-06T03:33Z",
     "side": "away",
     "start": "2026-10-06T00:00Z",
     "stype": "3",
@@ -6498,12 +6518,14 @@
    }
   ],
   "p_hit": 0.5346,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-05T15:00Z",
   "round": 1,
+  "settled": "2026-10-06T03:33Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -108,
@@ -6553,6 +6575,12 @@
      "game:rival"
     ],
     "dec": 1.925925925925926,
+    "decider": {
+     "h": "24-7",
+     "s": "45-24",
+     "type": "blowout",
+     "win": "away"
+    },
     "depth_pts": 2.0,
     "dog_ctx": {
      "cw5": 0,
@@ -6573,6 +6601,10 @@
     "edge": -0.02355624184146876,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "14,10,7,14",
+     "h": "0,7,3,14"
+    },
     "form_state": [
      -8.0,
      -1,
@@ -6612,9 +6644,11 @@
      "opponent drama: family/personal"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Falcons 45 @ Saints 24",
+    "settled": "2026-10-06T03:33Z",
     "side": "home",
     "start": "2026-10-06T00:15Z",
     "stype": "2",
@@ -6637,12 +6671,14 @@
    }
   ],
   "p_hit": 0.507,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-05T15:00Z",
   "round": 1,
+  "settled": "2026-10-06T03:33Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
@@ -6703,6 +6739,7 @@
      "them:trip1000"
     ],
     "dec": 1.847457627118644,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -6715,6 +6752,10 @@
     "edge_own": -0.03213220529996352,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,2,0",
+     "h": "0,0,1"
+    },
     "form_state": null,
     "game_id": "nhl:401892446",
     "home": false,
@@ -6743,9 +6784,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Senators 4 @ Bruins 1",
+    "settled": "2026-10-06T02:48Z",
     "side": "away",
     "start": "2026-10-05T23:30Z",
     "stype": "2",
@@ -6762,11 +6805,13 @@
    }
   ],
   "p_hit": 0.5252,
-  "pnl": 0.0,
+  "pnl": 84.75,
   "posted": "2026-10-05T15:00Z",
   "round": 1,
+  "settled": "2026-10-06T02:48Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  }
 ]

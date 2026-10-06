@@ -1,28 +1,57 @@
 {
- "at": "2026-10-06T01:16Z",
+ "at": "2026-10-06T03:21Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 1987s",
+  "live tennis scores: tennis Falei vs Guo Hanyu: no points for 1987s"
+ ],
  "ok": [
-  "live watcher fresh (237s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 3 live matches",
   "slate check: all 7 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 1h ago",
-  "engine ran 3 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 14 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-06T03:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 1987s",
+    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 1987s"
+   ]
+  },
+  {
+   "at": "2026-10-06T02:48Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-06T02:47Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 2254s",
+    "live tennis scores: tennis Fruhvirtova vs Sawangkaew: no points for 2197s",
+    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2063s",
+    "live tennis points: none of 3 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-06T01:16Z",
    "fixes": [],
@@ -704,43 +733,6 @@
     "slate check: Boston College @ SMU (NCAAF): priced but the engine never looked at it",
     "slate check: Notre Dame @ North Carolina (NCAAF): priced but the engine never looked at it",
     "live board check failed: HTTP Error 403: rate limit exceeded"
-   ]
-  },
-  {
-   "at": "2026-10-03T15:47Z",
-   "fixes": [
-    "slate check problem - re-pull before the board - sports.yml already running",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Jeanjean vs Ruzic: no points for 2643s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "slate check: Brown @ Rhode Island (NCAAF): priced but the engine never looked at it",
-    "slate check: Princeton @ Columbia (NCAAF): priced but the engine never looked at it",
-    "slate check: Merrimack @ Yale (NCAAF): priced but the engine never looked at it",
-    "slate check: Cornell @ Georgetown (NCAAF): priced but the engine never looked at it",
-    "slate check: Dayton @ Drake (NCAAF): priced but the engine never looked at it",
-    "slate check: Marist @ Stetson (NCAAF): priced but the engine never looked at it",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-03T14:16Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml",
-    "engine 99 min since its last run - started sports.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Andreeva: no points for 2664s",
-    "studies last ran 9h ago - restarted",
-    "engine last started 99 min ago (GitHub skipped its hourly runs) - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-03T13:56Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Andreeva: no points for 1527s"
    ]
   }
  ]

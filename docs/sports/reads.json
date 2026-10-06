@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T01:20Z",
+ "updated": "2026-10-06T03:34Z",
  "games": [
   {
    "id": "mlb:401907991",
@@ -40,8 +40,8 @@
    "away": "Flyers",
    "home": "Lightning",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -55,8 +55,8 @@
    "away": "Grizzlies",
    "home": "Hawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -70,8 +70,8 @@
    "away": "Knicks",
    "home": "76ers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -85,8 +85,8 @@
    "away": "Suns",
    "home": "Pistons",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -100,8 +100,8 @@
    "away": "Jets",
    "home": "Penguins",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -116,7 +116,7 @@
    "home": "Bruins",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Senators",
@@ -130,7 +130,7 @@
      "hotter goalie",
      "hotter recent form"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -144,7 +144,7 @@
    "home": "Stars",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Sharks",
@@ -158,7 +158,7 @@
      "hotter recent form",
      "opponent drama: family/personal"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -171,8 +171,8 @@
    "away": "Timberwolves",
    "home": "Bucks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -187,7 +187,7 @@
    "home": "Rays",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Yankees",
@@ -198,7 +198,7 @@
     "p": 0.535,
     "win_p": 0.535,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -212,7 +212,7 @@
    "home": "Saints",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Saints",
@@ -227,8 +227,23 @@
      "revenge game",
      "opponent drama: family/personal"
     ],
-    "result": null
+    "result": "lost"
    }
+  },
+  {
+   "id": "nba:401898716",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-06T02:00Z",
+   "away": "Lakers",
+   "home": "Kings",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "mlb:401908015",
@@ -264,7 +279,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.368,
+    "p": 0.363,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -281,8 +296,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -250,
-    "p": 0.68,
-    "win_p": 0.461,
+    "p": 0.689,
+    "win_p": 0.472,
     "reasons": [
      "hotter recent form",
      "opponent drama: trade drama"
@@ -295,7 +310,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.368,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -312,8 +327,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -238,
-    "p": 0.681,
-    "win_p": 0.462,
+    "p": 0.672,
+    "win_p": 0.454,
     "reasons": [
      "hotter recent form"
     ]
@@ -357,7 +372,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.353,
+    "p": 0.362,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -366,17 +381,19 @@
    "start": "2026-10-06T23:00Z",
    "away": "Senators",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Red Wings",
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -270,
-    "p": 0.718,
-    "win_p": 0.506,
-    "reasons": []
+    "odds": -265,
+    "p": 0.733,
+    "win_p": 0.525,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
