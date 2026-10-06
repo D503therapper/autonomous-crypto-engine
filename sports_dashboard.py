@@ -776,7 +776,7 @@ BOARD_KEEP_HOUR_PT = 1          # the day's board (graded picks + their reviews)
                                 # and a late game can be the Lock) - then it goes to the results and the 8 AM note shows
 
 
-SHOW_GRADED_H = 3               # a graded card stays up with its grade + review for 3 hours, then it's in the results only
+SHOW_GRADED_H = 2               # a graded card stays up with its grade + review for 2 hours (the owner, 10/5 - was 3), then it's in the results only
 #                                 (the owner, 9/29) - so once the day's cards are all done, the 8 AM note shows early
 
 

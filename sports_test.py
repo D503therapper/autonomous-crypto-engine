@@ -3717,9 +3717,9 @@ def test_graded_card_stays_3_hours_then_results():
     now = datetime(2026, 9, 30, 5, 0, tzinfo=timezone.utc)
     assert sdb.still_up({"status": "open"}, now)
     assert sdb.still_up({"status": "won", "settled": "2026-09-30T03:17Z"}, now)        # graded 1h43m ago: up
-    assert not sdb.still_up({"status": "lost", "settled": "2026-09-30T01:30Z"}, now)   # 3h30m ago: results only
+    assert not sdb.still_up({"status": "lost", "settled": "2026-09-30T02:45Z"}, now)   # 2h15m ago: results only
     assert not sdb.still_up({"status": "won"}, now)                                    # no time kept: long gone
-    assert sdb.SHOW_GRADED_H == 3
+    assert sdb.SHOW_GRADED_H == 2                       # (the owner, 10/5: 2 hours, was 3)
 
 
 def test_strengths_by_sport_and_no_puck_or_run_lines():
@@ -3859,7 +3859,7 @@ def test_graded_card_comes_down_on_time_without_a_rebuild():
     once they're all down, the 8 AM note shows."""
     import sports_dashboard as D
     p = {"kind": "lock", "status": "won", "settled": "2026-09-30T03:17Z"}
-    assert D.gone_ms(p) == int(datetime(2026, 9, 30, 6, 17, tzinfo=timezone.utc).timestamp() * 1000)
+    assert D.gone_ms(p) == int(datetime(2026, 9, 30, 5, 17, tzinfo=timezone.utc).timestamp() * 1000)   # 2 hours (10/5)
     assert D.gone_ms({"status": "open"}) is None and D.gone_ms({"status": "won", "settled": None}) is None
     html = D._cards("2026-09-29", [], [("lock", "<section class='pk'>L</section>"), ("two", "<section class='pk'>2</section>")],
                     {"lock": D.gone_ms(p), "two": None})
@@ -4328,7 +4328,7 @@ def test_we_got_in_early_box():
         assert "better price now" in rows[1]                  # +220: 45% vs ~30% on the price - still value
         assert "money went against it" in rows[2]             # +220 and the engine's 33% (vs ~31% on the price) isn't enough now
         assert "<i>" not in rows[3]                           # no move, no label
-        st["picks"][0].update(result="won", graded_at=(now - timedelta(hours=2)).strftime("%Y-%m-%dT%H:%MZ"))
+        st["picks"][0].update(result="won", graded_at=(now - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%MZ"))
         assert "✅" in se.gameday_html(st, games, lambda x: x, now)
         st["picks"][0]["graded_at"] = (now - timedelta(hours=4)).strftime("%Y-%m-%dT%H:%MZ")
         assert "Teama" not in se.gameday_html(st, games, lambda x: x, now)     # 3 hours up: gone
