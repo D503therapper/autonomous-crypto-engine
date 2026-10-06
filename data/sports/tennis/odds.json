@@ -1,5 +1,5 @@
 {
- "fetched": "2026-10-06T15:46Z",
+ "fetched": "2026-10-06T16:51Z",
  "src": "bovada",
  "lines": [
   {
@@ -8,12 +8,12 @@
    "start": "2026-10-07T04:00Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": 2.0,
-   "b_hcp": -2.0,
-   "a_sp": -105,
-   "b_sp": -125,
-   "a_ml": 170,
-   "b_ml": -210
+   "a_hcp": 2.5,
+   "b_hcp": -2.5,
+   "a_sp": -130,
+   "b_sp": 100,
+   "a_ml": 180,
+   "b_ml": -220
   },
   {
    "a": "Arthur Gea",
@@ -42,6 +42,19 @@
    "b_ml": -230
   },
   {
+   "a": "Adrian Mannarino",
+   "b": "Nikoloz Basilashvili",
+   "start": "2026-10-07T05:10Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 0.5,
+   "b_hcp": -0.5,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 105,
+   "b_ml": -125
+  },
+  {
    "a": "Yannick Hanfmann",
    "b": "Kamil Majchrzak",
    "start": "2026-10-07T05:10Z",
@@ -68,17 +81,95 @@
    "b_ml": -250
   },
   {
+   "a": "Alex Molcan",
+   "b": "Federico Cina",
+   "start": "2026-10-07T06:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -2.0,
+   "b_hcp": 2.0,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": -150,
+   "b_ml": 125
+  },
+  {
+   "a": "Marco Trungelliti",
+   "b": "Rei Sakamoto",
+   "start": "2026-10-07T06:20Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 2.5,
+   "b_hcp": -2.5,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": 170,
+   "b_ml": -210
+  },
+  {
+   "a": "Mattia Bellucci",
+   "b": "Yi Zhou",
+   "start": "2026-10-07T06:20Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -4.0,
+   "b_hcp": 4.0,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": -350,
+   "b_ml": 275
+  },
+  {
+   "a": "Rinky Hijikata",
+   "b": "Roman Safiullin",
+   "start": "2026-10-07T07:10Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 240,
+   "b_ml": -300
+  },
+  {
    "a": "Holger Rune",
    "b": "Daniel Altmaier",
    "start": "2026-10-07T07:30Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": -3.5,
-   "b_hcp": 3.5,
+   "a_hcp": -3.0,
+   "b_hcp": 3.0,
+   "a_sp": -125,
+   "b_sp": -105,
+   "a_ml": -240,
+   "b_ml": 195
+  },
+  {
+   "a": "Quentin Halys",
+   "b": "Chak Lam Coleman Wong",
+   "start": "2026-10-07T07:30Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -1.0,
+   "b_hcp": 1.0,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": -130,
+   "b_ml": 110
+  },
+  {
+   "a": "Yibing Wu",
+   "b": "Michael Zheng",
+   "start": "2026-10-07T10:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -0.5,
+   "b_hcp": 0.5,
    "a_sp": -115,
    "b_sp": -115,
-   "a_ml": -250,
-   "b_ml": 200
+   "a_ml": -115,
+   "b_ml": -105
   },
   {
    "a": "Arthur Fery",
@@ -86,12 +177,12 @@
    "start": "2026-10-07T11:10Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": -2.0,
-   "b_hcp": 2.0,
-   "a_sp": -125,
-   "b_sp": -105,
-   "a_ml": -165,
-   "b_ml": 135
+   "a_hcp": -2.5,
+   "b_hcp": 2.5,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": -170,
+   "b_ml": 140
   },
   {
    "a": "Adolfo Daniel Vallejo",
@@ -107,6 +198,19 @@
    "b_ml": 115
   },
   {
+   "a": "Bernard Tomic",
+   "b": "Matteo Arnaldi",
+   "start": "2026-10-08T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 2.5,
+   "b_hcp": -2.5,
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": 160,
+   "b_ml": -195
+  },
+  {
    "a": "Botic van de Zandschulp",
    "b": "Daniel Merida Aguilar",
    "start": "2026-10-08T04:00Z",
@@ -114,10 +218,36 @@
    "tour": "atp",
    "a_hcp": 0.5,
    "b_hcp": -0.5,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": -105,
+   "b_ml": -115
+  },
+  {
+   "a": "Cameron Norrie",
+   "b": "Dalibor Svrcina",
+   "start": "2026-10-08T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -2.5,
+   "b_hcp": 2.5,
    "a_sp": -125,
    "b_sp": -105,
-   "a_ml": -110,
-   "b_ml": -110
+   "a_ml": -170,
+   "b_ml": 140
+  },
+  {
+   "a": "Camilo Ugo Carabelli",
+   "b": "Ilia Simakin",
+   "start": "2026-10-08T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": 240,
+   "b_ml": -300
   },
   {
    "a": "Fabian Marozsan",
@@ -142,8 +272,8 @@
    "b_hcp": 3.0,
    "a_sp": -115,
    "b_sp": -115,
-   "a_ml": -285,
-   "b_ml": 225
+   "a_ml": -275,
+   "b_ml": 220
   },
   {
    "a": "Jaume Munar",
@@ -157,6 +287,32 @@
    "b_sp": -105,
    "a_ml": -175,
    "b_ml": 145
+  },
+  {
+   "a": "Juan Manuel Cerundolo",
+   "b": "Nicolas Mejia",
+   "start": "2026-10-08T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -2.5,
+   "b_hcp": 2.5,
+   "a_sp": -135,
+   "b_sp": 105,
+   "a_ml": -220,
+   "b_ml": 180
+  },
+  {
+   "a": "Kimmer Coppejans",
+   "b": "Stefanos Tsitsipas",
+   "start": "2026-10-08T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 5.5,
+   "b_hcp": -5.5,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": 675,
+   "b_ml": -1100
   },
   {
    "a": "Luca van Assche",
@@ -218,10 +374,23 @@
    "tour": "atp",
    "a_hcp": -4.0,
    "b_hcp": 4.0,
-   "a_sp": 105,
-   "b_sp": -135,
+   "a_sp": 100,
+   "b_sp": -130,
    "a_ml": -350,
    "b_ml": 275
+  },
+  {
+   "a": "Pavel Kotov",
+   "b": "Tallon Griekspoor",
+   "start": "2026-10-08T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 3.5,
+   "b_hcp": -3.5,
+   "a_sp": -130,
+   "b_sp": 100,
+   "a_ml": 185,
+   "b_ml": -225
   },
   {
    "a": "Thiago Agustin Tirante",
@@ -231,8 +400,8 @@
    "tour": "atp",
    "a_hcp": -1.5,
    "b_hcp": 1.5,
-   "a_sp": -115,
-   "b_sp": -115,
+   "a_sp": -120,
+   "b_sp": -110,
    "a_ml": -145,
    "b_ml": 120
   },
@@ -257,10 +426,10 @@
    "tour": "wta",
    "a_hcp": 3.5,
    "b_hcp": -3.5,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": 165,
-   "b_ml": -200
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": 170,
+   "b_ml": -210
   },
   {
    "a": "Coco Gauff",
@@ -322,10 +491,10 @@
    "tour": "wta",
    "a_hcp": -4.0,
    "b_hcp": 4.0,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": -275,
-   "b_ml": 220
+   "a_sp": -105,
+   "b_sp": -125,
+   "a_ml": -260,
+   "b_ml": 210
   }
  ]
 }
