@@ -9487,3 +9487,29 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-10-06 19:22 UTC] stocks/trend     equity $492.02 (-1.6%) 3 open  market UP
 [2026-10-06 19:22 UTC] stocks/hold_spy  equity $506.33 (+1.3%) 1 open  market UP
    social heat top: ORCA 45 (40/0/5), PENGU 38 (35/0/3), QNT 37 (37/0/0), ONDO 32 (32/0/0), STONK 32 (29/0/2)
+   footprint: ADA: footprint 3/4 (drift+hikes+rising_lows) 48h +6.7%, 2 volume hikes, 46% quiet hours @ 0.26984
+   scanner: 989 tickers, sample: {'i': 'BTC_USD', 'h': '86703.49', 'l': '85118.77', 'a': '85486.60', 'v': '3383.0966', 'vv': '290851375.07', 'c': '-0.0029', 'b': '85486.60', 'k': '85486.61', 'oi': '0', 't': 1791314535230}
+   dex screen: REJECT RAD@ethereum liq $2,300,401 - top-10 holders 72%
+   dex screen: REJECT CBBTC@ethereum liq $9,123,533 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 81%
+   dex screen: REJECT ZIG@ethereum liq $212,882 - top-10 holders 70%
+   dex screen: REJECT SIMD@ethereum liq $341,055 - lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT ORCA@solana liq $1,091,301 - mint authority; top-10 holders 63%
+   dex screen: REJECT ALPHA@solana liq $273,732 - top-10 holders 47%; lp holders unknown
+   dex screen: REJECT XSOL@solana liq $589,127 - mint authority; top-10 holders 45%; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ZC@ethereum liq $523,517 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex scanner: 2,988 pools (solana 1,958 / base 626 / ethereum 404), refresh cycle 116s (hot 112s), 2027 calls (91 feed, 429s 0, failed 0), 58,054 refreshed (5735 no pair), +246 added / -266 dropped (dead 38, stale 0, cap 228), movers 2 + warming 23 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-06 20:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-06 20:06 UTC] crypto/mover     equity $430.38 (-13.9%) 1 open  market UP
+[2026-10-06 20:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 20:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-06 20:06 UTC] crypto/social_heat equity $520.77 (+4.2%) 1 open  market UP
+[2026-10-06 20:06 UTC] crypto/breakout10 equity $507.63 (+1.5%) 2 open  market UP
+[2026-10-06 20:06 UTC] crypto/momentum  equity $491.96 (-1.6%) 4 open  market UP
+[2026-10-06 20:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-06 20:06 UTC] crypto/hold_btc  equity $508.26 (+1.7%) 1 open  market UP
+   social heat top: ORCA 40 (40/0/0), PONS 36 (32/0/4), NEAR 35 (35/0/0), PENGU 33 (29/0/4), QNT 27 (27/0/0)
