@@ -106,6 +106,38 @@
   },
   {
    "families": [
+    "streak"
+   ],
+   "league": "nhl",
+   "outcome": "fav_ml",
+   "price_said": 16.1,
+   "record": "16-11",
+   "season": 2026,
+   "side": 1,
+   "situation": "home favorite",
+   "streak": 8,
+   "strength": 3.97,
+   "trend": "favorites win",
+   "upcoming": [
+    "nhl:401892449",
+    "nhl:401892450",
+    "nhl:401892451",
+    "nhl:401892452",
+    "nhl:401891830",
+    "nhl:401891820"
+   ],
+   "upcoming_names": [
+    "Predators @ Maple Leafs",
+    "Senators @ Red Wings",
+    "Mammoth @ Devils",
+    "Islanders @ Rangers",
+    "Penguins @ Capitals",
+    "Flyers @ Senators"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
     "streak",
     "rate"
    ],
@@ -146,40 +178,6 @@
     "Broncos @ Chargers",
     "Lions @ Cardinals",
     "49ers @ Seahawks"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "streak"
-   ],
-   "league": "nhl",
-   "outcome": "fav_ml",
-   "price_said": 15.4,
-   "record": "15-11",
-   "season": 2026,
-   "side": 1,
-   "situation": "home favorite",
-   "streak": 7,
-   "strength": 3.33,
-   "trend": "favorites win",
-   "upcoming": [
-    "nhl:401892449",
-    "nhl:401892450",
-    "nhl:401892451",
-    "nhl:401892453",
-    "nhl:401892452",
-    "nhl:401891830",
-    "nhl:401891820"
-   ],
-   "upcoming_names": [
-    "Predators @ Maple Leafs",
-    "Senators @ Red Wings",
-    "Mammoth @ Devils",
-    "Wild @ Sabres",
-    "Islanders @ Rangers",
-    "Penguins @ Capitals",
-    "Flyers @ Senators"
    ],
    "verdict": "coin flip"
   },
@@ -1179,19 +1177,19 @@
  "cells": {
   "all": {
    "edge": 0.0092,
-   "edge_new": 0.0099,
+   "edge_new": 0.01,
    "edge_old": 0.0084,
    "from": "2018-03-31",
    "hit": 0.6886,
    "hit_new": 0.6903,
    "hit_old": 0.687,
-   "n": 229721,
+   "n": 229722,
    "n_new": 114861,
-   "n_old": 114860,
+   "n_old": 114861,
    "said": 0.6795,
    "status": "watch only",
    "to": "2026-10-05",
-   "z": 10.17
+   "z": 10.18
   },
   "mlb|all": {
    "edge": 0.0042,
@@ -2042,19 +2040,19 @@
    "z": -1.91
   },
   "nhl|all": {
-   "edge": 0.0104,
-   "edge_new": 0.0111,
-   "edge_old": 0.0098,
+   "edge": 0.0105,
+   "edge_new": 0.0113,
+   "edge_old": 0.0097,
    "from": "2018-10-06",
-   "hit": 0.5933,
-   "hit_new": 0.598,
-   "hit_old": 0.5887,
-   "n": 10207,
+   "hit": 0.5934,
+   "hit_new": 0.5982,
+   "hit_old": 0.5886,
+   "n": 10208,
    "n_new": 5104,
-   "n_old": 5103,
+   "n_old": 5104,
    "said": 0.5829,
    "status": "watch only",
-   "to": "2026-10-04",
+   "to": "2026-10-05",
    "z": 2.2
   },
   "nhl|rate": {
@@ -2122,36 +2120,36 @@
    "z": 0.08
   },
   "nhl|streak": {
-   "edge": 0.0137,
-   "edge_new": 0.0116,
-   "edge_old": 0.0159,
+   "edge": 0.0138,
+   "edge_new": 0.012,
+   "edge_old": 0.0156,
    "from": "2018-10-09",
-   "hit": 0.5682,
-   "hit_new": 0.5651,
-   "hit_old": 0.5713,
-   "n": 5049,
+   "hit": 0.5683,
+   "hit_new": 0.5655,
+   "hit_old": 0.5711,
+   "n": 5050,
    "n_new": 2525,
-   "n_old": 2524,
+   "n_old": 2525,
    "said": 0.5545,
    "status": "watch only",
-   "to": "2026-10-04",
-   "z": 2.01
+   "to": "2026-10-05",
+   "z": 2.02
   },
   "nhl|streak|fav_ml": {
-   "edge": 0.0152,
-   "edge_new": 0.005,
-   "edge_old": 0.0253,
+   "edge": 0.0153,
+   "edge_new": 0.0051,
+   "edge_old": 0.0255,
    "from": "2018-10-09",
-   "hit": 0.6077,
+   "hit": 0.6079,
    "hit_new": 0.5988,
-   "hit_old": 0.6167,
-   "n": 2641,
+   "hit_old": 0.617,
+   "n": 2642,
    "n_new": 1321,
-   "n_old": 1320,
+   "n_old": 1321,
    "said": 0.5926,
    "status": "watch only",
-   "to": "2026-10-04",
-   "z": 1.62
+   "to": "2026-10-05",
+   "z": 1.63
   },
   "nhl|streak|home": {
    "edge": 0.0162,
@@ -2273,8 +2271,8 @@
    "hit": 0.6387,
    "hit_new": 0.6393,
    "hit_old": 0.638,
-   "n": 69540,
-   "n_new": 34770,
+   "n": 69541,
+   "n_new": 34771,
    "n_old": 34770,
    "said": 0.6326,
    "status": "watch only",
@@ -2298,20 +2296,20 @@
    "z": -1.13
   },
   "streak|fav_ml": {
-   "edge": 0.0099,
-   "edge_new": 0.0106,
-   "edge_old": 0.0093,
+   "edge": 0.01,
+   "edge_new": 0.0107,
+   "edge_old": 0.0092,
    "from": "2018-04-08",
    "hit": 0.7249,
    "hit_new": 0.7272,
    "hit_old": 0.7225,
-   "n": 36317,
+   "n": 36318,
    "n_new": 18159,
-   "n_old": 18158,
+   "n_old": 18159,
    "said": 0.7149,
    "status": "watch only",
-   "to": "2026-10-04",
-   "z": 4.42
+   "to": "2026-10-05",
+   "z": 4.43
   },
   "streak|home": {
    "edge": 0.0068,
@@ -2352,7 +2350,7 @@
   "ncaab": 135775,
   "ncaaf": 28420,
   "nfl": 5614,
-  "nhl": 10207
+  "nhl": 10208
  },
  "proven": [
   "ncaab|rate|fav_cover",
@@ -2365,5 +2363,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-06T01:07Z"
+ "updated": "2026-10-06T02:01Z"
 }

@@ -651,13 +651,13 @@
   }
  },
  "nhl": {
-  "games": 9769,
+  "games": 9770,
   "grade": {
    "all": {
     "hit": 0.4949,
     "low80": 0.4837,
     "n": 3257,
-    "roi": -0.0767
+    "roi": -0.0766
    },
    "top10": {
     "hit": 0.5108,
@@ -680,19 +680,19 @@
   },
   "hit_all": 0.4949,
   "hit_top": 0.479,
-  "intercept": -0.01208,
+  "intercept": -0.01228,
   "kept": [
    "form"
   ],
   "ll_test_base": 0.69312,
-  "ll_test_kept": 0.69456,
+  "ll_test_kept": 0.69455,
   "ll_val_base": 0.6932,
-  "ll_val_kept": 0.69213,
+  "ll_val_kept": 0.69214,
   "n_top": 977,
   "norm": {
    "form": [
-    0.09282,
-    0.33525
+    0.09281,
+    0.33524
    ]
   },
   "proven": false,
@@ -700,7 +700,7 @@
   "screen": {
    "b2b": {
     "gain": -9e-05,
-    "ll": 0.69329
+    "ll": 0.6933
    },
    "cold": {
     "ll": null,
@@ -711,8 +711,8 @@
     "note": "no data"
    },
    "form": {
-    "gain": 0.00107,
-    "ll": 0.69213
+    "gain": 0.00106,
+    "ll": 0.69214
    },
    "inj": {
     "ll": null,
@@ -723,19 +723,19 @@
     "note": "no data"
    },
    "lg_trend": {
-    "gain": -0.0004,
-    "ll": 0.6936
+    "gain": -0.00042,
+    "ll": 0.69362
    },
    "ou_away": {
-    "gain": 4e-05,
-    "ll": 0.69316
+    "gain": 3e-05,
+    "ll": 0.69317
    },
    "ou_home": {
     "gain": -1e-05,
-    "ll": 0.69321
+    "ll": 0.69322
    },
    "park": {
-    "gain": -0.00038,
+    "gain": -0.00037,
     "ll": 0.69358
    },
    "public": {
@@ -748,7 +748,7 @@
    },
    "rest": {
     "gain": -0.00067,
-    "ll": 0.69387
+    "ll": 0.69388
    },
    "starter": {
     "gain": -8e-05,
@@ -770,7 +770,7 @@
   "test_from": "2024-02-19",
   "test_games": 3257,
   "weights": {
-   "form": 0.02533
+   "form": 0.02535
   }
  }
 }
