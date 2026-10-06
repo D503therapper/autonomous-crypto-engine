@@ -9143,6 +9143,27 @@ def test_no_basketball_sayings_or_record_filler_on_other_sports():
     assert "rest is on the field" not in open("sports_breakdown_v24.py").read()
 
 
+def test_a_lean_never_flips_sides_on_a_price_tick():
+    """10/5, the owner: the Falcons +1.5 lean the night before became the Saints -1.5 lean at 8 AM because the Falcons
+    went +105 -> even on a coin flip - "the engine looks stupid". Once a lean side is named it stays unless the
+    engine's own read of it drops 3+ points."""
+    keep = sports.LEAN_SIDES_PATH
+    try:
+        sports.LEAN_SIDES_PATH = os.path.join(tempfile.mkdtemp(), "ls.json")
+        def leg(side, team, p, odds):
+            return {"game_id": "nfl:1", "side": side, "team": team, "market": "spread", "odds": odds, "p": p,
+                    "edge": 0.0, "dec": sports._dec(odds), "start": "2099-10-06T00:15Z", "league": "nfl"}
+        night = [leg("away", "Falcons", 0.5005, -105), leg("home", "Saints", 0.4995, -115)]
+        assert sports.night_pick(night)["legs"][0]["team"] == "Falcons"           # the night before
+        morning = [leg("away", "Falcons", 0.493, -112), leg("home", "Saints", 0.507, -108)]
+        assert sports.night_pick(morning)["legs"][0]["team"] == "Falcons"         # a price tick: it stays
+        qb_out = [leg("away", "Falcons", 0.44, -112), leg("home", "Saints", 0.56, -108)]
+        assert sports.night_pick(qb_out)["legs"][0]["team"] == "Saints"           # a real change: it flips
+        assert sports.night_pick(morning)["legs"][0]["team"] == "Saints"          # ...and the new side stays put
+    finally:
+        sports.LEAN_SIDES_PATH = keep
+
+
 if __name__ == "__main__":
     sports_live.FINAL_AT_PATH = os.path.join(tempfile.mkdtemp(), "final_at.json")   # (tests never touch the real one)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate_check.json")          # (nor the real slate check)
@@ -9159,6 +9180,7 @@ if __name__ == "__main__":
     sports_clv.JOURNAL = os.path.join(tempfile.mkdtemp(), "pick_journal.json")          #  the pick journal)
     import sports_capper; sports_capper.PATH = os.path.join(tempfile.mkdtemp(), "capper_drbob.json")  # (nor the capper record)
     sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")              # (nor the Lock near-miss)
+    sports.LEAN_SIDES_PATH = os.path.join(tempfile.mkdtemp(), "lean_sides.json")           # (nor the lean memory)
     import sports_players as _spl                        # (10/2: only a VERIFIED starter is key; the older tests list
     sd.STARTER_OF = lambda lg, tid, name: True           #  made-up injured starters - the starter tests use the real check)
     import sports_leads                  # (10/2: a test run rewrote the real lead_record.json - never again)
