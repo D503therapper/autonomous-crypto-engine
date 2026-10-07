@@ -9830,3 +9830,15 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 [2026-10-07 06:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 06:05 UTC] crypto/hold_btc  equity $501.18 (+0.2%) 1 open  market UP
    social heat top: ORCA 47 (40/0/7), NEAR 37 (37/0/0), BTC 35 (35/0/0), PONS 28 (24/0/4), SUI 27 (27/0/0)
+   dex screen: PASS USELESS@solana liq $5,049,226
+   dex screen: REJECT CRED@solana liq $2,236,815 - mint authority; top-10 holders 73%
+   dex screen: REJECT POD@base liq $5,306,746 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 95%
+   dex re-screen: MINTRO@solana:BrUimx7K data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT TRD@base liq $153,717 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT SKY@ethereum liq $2,010,975 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 89%
+   dex screen: REJECT ZAMA@ethereum liq $633,695 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT SNDKC@base liq $2,821 - liquidity $2,821 < $100,000; 24h volume $262 < $100,000
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT BOP@solana liq $844,907,947 - transfer_fee_upgradable; lp holders unknown
+   dex re-screen: CHIIKAWA@solana:2c1KjiyQ data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT CLAUS@ethereum liq $571,866 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
