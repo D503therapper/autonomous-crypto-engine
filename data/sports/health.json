@@ -1,29 +1,39 @@
 {
- "at": "2026-10-07T01:50Z",
+ "at": "2026-10-07T03:21Z",
  "fixes": [],
  "problems": [
-  "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
+  "live tennis scores: tennis Liu vs Sramkova: no points for 611s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (146s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 12 of today's games named, priced and looked at",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 9 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 3 min ago",
+  "studies ran 5h ago",
+  "simulator ran 5h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T03:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Sramkova: no points for 611s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-07T01:50Z",
    "fixes": [],
@@ -584,13 +594,6 @@
    ],
    "problems": [
     "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-04T14:09Z",
-   "fixes": [],
-   "problems": [
-    "live bets on the board but not saved on main: Colts (the next page build merges them)"
    ]
   }
  ]
