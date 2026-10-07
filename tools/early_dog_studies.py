@@ -241,6 +241,10 @@ def studies(rows):
     S = {}
     has2 = [r for r in rows if r["second"] is not None]
     # 1. A move predictor: learn (from past seasons) which dogs the money comes to by kickoff, bet them at the first look
+    #    ⚠️ 10/7 RE-CHECK (tools/early_move_recheck.py): LOOK-AHEAD. feats() carries "early_move" - the move from the
+    #    first look to the SECOND (a later price) - and the bet is graded at the FIRST price. That one feature is the
+    #    whole +6%: without it (and the book-spread features one price feed can't see) the picks lose in both leagues.
+    #    Its honest version is the 'hammered early' spot (study 4: bet at the 2nd look), already live. DEAD as a model.
     S["1 engine learns which dogs the line moves to"] = {
         f"top {int(t * 100)}%": g(walk(rows, lambda r: (cents(r["first"], r["close"]) or 0) >= 10, top=t)) for t in (.1, .2, .33)}
     # 2. A win-value predictor: learn which dogs WIN more than their price says, bet the top ones at the first look

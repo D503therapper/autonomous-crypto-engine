@@ -9585,6 +9585,54 @@ def test_no_win_percentages_ever():
     assert "%" not in "".join(se.spot_why({}, {"home": "1", "away": "2", "home_name": "A", "away_name": "B",
                                                   "start": "2026-10-10T20:00Z", "league": "ncaaf"}, "home", "away",
                                           "ncaaf", "engine", own=0.7, odds=124))
+def test_move_model_is_dead_not_an_early_spot():
+    """10/7, the owner: "we need to be on these lines before they move - that's the edge." The 10/1 move model (which
+    dogs the money comes to by kickoff - NFL 'top 20% +6.0%, 75% moved') was re-checked blind before it could become
+    an early spot (tools/early_move_recheck.py): its whole edge was a LOOK-AHEAD feature - the week's SECOND look (a
+    later price) - graded at the FIRST price. Honest, it loses in both leagues (NFL -5.9%, 2 of 6 seasons; college
+    -2.7%, 1 of the last 2). Nothing built: no 'money's coming' spot, no weight, no units, no model file. This pins the
+    verdict and the study's honesty rules so it can't come back by accident."""
+    import sports_early as se
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools"))
+    import early_move_recheck as R
+    assert not any("money" in k or "move" in k for k in se.SPOTS) and not hasattr(se, "money_coming")
+    assert not os.path.exists(os.path.join(sd.DATA, "move_model.json"))
+    assert "money" not in open(se.__file__).read().split("SPOT_WEIGHT = ")[1].split("\n")[0]
+    # the honest features see nothing from a later price (the second look), other books, or game day
+    assert not any(k in R.MOVE_FEATS for k in ("early_move", "second", "disp", "bestgap", "nb", "inj", "key"))
+    # cents across the line: +105 -> -110 is 15 (not 215), +160 -> +140 = 20, the money leaving = negative
+    assert R.cents(105, -110) == 15 and R.cents(160, 140) == 20 and R.cents(124, 145) == -21 and R.cents(None, 1) is None
+    # the walk: fit only on EARLIER seasons, the cutoff from THEM (a live scan can't rank a season it hasn't seen),
+    # graded on the season after - on a fixture where the dogs the engine likes are the ones the money comes to
+    rows = []
+    for s in (2021, 2022, 2023):
+        for i in range(100):
+            gap = 0.08 if i % 2 == 0 else -0.04
+            first = 120 + (i % 10) * 10
+            rows.append({"season": s, "won": i % 3 == 0, "first": first, "close": first - 25 if gap > 0 else first + 10,
+                         "second": None, "side": "home" if i % 4 else "away", "neutral": False, "month": 10,
+                         "me_last": 3, "them_last": -3, "rest": 7, "orest": 7, "me_pct": .5, "them_pct": .5,
+                         "games": 5, "gap": gap})
+    picks, cuts = R.walk(rows, R.x_honest, True, seasons=(2023,))
+    assert picks and list(cuts) == [2023] and all(r["season"] == 2023 and r["gap"] > 0 for r in picks)
+    g = R.grade(picks)
+    assert g["moved_10"] == 1.0 and g["moved_to_dog"] == 1.0 and g["by_season"] == {2023: [len(picks), g["roi"]]}
+    assert R.walk(rows, R.x_honest, True, seasons=(2021,))[0] == []            # nothing earlier to learn from = no bet
+    # the five checks: most seasons down = no pass; most up with this season up = pass (check 5 unknown isn't a fail)
+    bad = {"roi": -0.05, "by_season": {"2022": [40, .1], "2023": [40, -.2], "2024": [40, -.1], "2025": [40, -.1], "2026": [15, -.1]}}
+    good = {"roi": 0.06, "by_season": {"2022": [40, .1], "2023": [40, .1], "2024": [40, -.1], "2025": [40, .1], "2026": [15, .05]}}
+    assert not R.checks(bad, None)["pass"] and R.checks(good, None)["pass"] and not R.checks(good, False)["pass"]
+    assert not R.checks({**good, "by_season": {**good["by_season"], "2026": [15, -.1]}}, None)["pass"]   # this season down
+    # the live facts come from the schedule the engine already holds: last margins, rest, records this season
+    gm = lambda gid, st, h, a, hs="", as_="", status="final": {"id": gid, "league": "nfl", "stype": "2", "status": status,
+                                                            "start": st, "home": h, "away": a, "home_name": h, "away_name": a,
+                                                            "home_score": hs, "away_score": as_}
+    G = {"a": gm("a", "2026-09-27T17:00Z", "B", "X", "20", "17"), "b": gm("b", "2026-10-04T17:00Z", "J", "Y", "24", "10"),
+         "c": gm("c", "2026-09-20T17:00Z", "X", "B", "30", "10"), "n": gm("n", "2026-10-11T17:00Z", "J", "B", status="pre")}
+    f = R.move_facts(se._schedule(G), G["n"], "away", "home", "nfl", 0.45, 0.40, 150)
+    assert f["me_last"] == 3 and f["them_last"] == 14 and f["rest"] == 14 and f["orest"] == 7 and f["games"] == 2
+    assert f["me_pct"] == 0.5 and f["them_pct"] is None and f["home"] is False and abs(f["gap"] - 0.05) < 1e-9
+    assert len(R.move_x(f)) == len(R.MOVE_FEATS) + 1 and R.money_coming("nfl", f, {}) == (None, False)
 
 
 if __name__ == "__main__":
