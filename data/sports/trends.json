@@ -71,8 +71,38 @@
    "streak": 7,
    "strength": 5.12,
    "trend": "home team wins",
-   "upcoming": [],
-   "upcoming_names": [],
+   "upcoming": [
+    "nhl:401892469",
+    "nhl:401892470",
+    "nhl:401892471",
+    "nhl:401891805",
+    "nhl:401892472",
+    "nhl:401892473",
+    "nhl:401892474",
+    "nhl:401892475",
+    "nhl:401892476",
+    "nhl:401892477",
+    "nhl:401892478",
+    "nhl:401892479",
+    "nhl:401892480",
+    "nhl:401892481"
+   ],
+   "upcoming_names": [
+    "Flyers @ Bruins",
+    "Canucks @ Devils",
+    "Oilers @ Sharks",
+    "Wild @ Panthers",
+    "Mammoth @ Sabres",
+    "Red Wings @ Canadiens",
+    "Predators @ Senators",
+    "Stars @ Penguins",
+    "Hurricanes @ Blackhawks",
+    "Blue Jackets @ Blues",
+    "Maple Leafs @ Avalanche",
+    "Lightning @ Islanders",
+    "Ducks @ Flames",
+    "Kings @ Golden Knights"
+   ],
    "verdict": "coin flip"
   },
   {
@@ -180,42 +210,6 @@
   },
   {
    "families": [
-    "streak"
-   ],
-   "league": "nhl",
-   "outcome": "total",
-   "price_said": 7.0,
-   "record": "8-6",
-   "season": 2026,
-   "side": 0,
-   "situation": "away favorite",
-   "streak": 5,
-   "strength": 3.03,
-   "trend": "under",
-   "upcoming": [
-    "nhl:401891815",
-    "nhl:401892453",
-    "nhl:401891779",
-    "nhl:401892454",
-    "nhl:401891806",
-    "nhl:401892455",
-    "nhl:401892456",
-    "nhl:401891825"
-   ],
-   "upcoming_names": [
-    "Hurricanes @ Canadiens",
-    "Wild @ Sabres",
-    "Blues @ Blackhawks",
-    "Golden Knights @ Kraken",
-    "Panthers @ Kings",
-    "Avalanche @ Jets",
-    "Oilers @ Ducks",
-    "Sharks @ Blues"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
     "rate"
    ],
    "league": "ncaaf",
@@ -229,7 +223,6 @@
    "strength": 1.83,
    "trend": "home team wins",
    "upcoming": [
-    "ncaaf:401871090",
     "ncaaf:401870766",
     "ncaaf:401862794",
     "ncaaf:401856826",
@@ -262,7 +255,6 @@
     "ncaaf:401860901"
    ],
    "upcoming_names": [
-    "Southern Miss @ Troy",
     "Sam Houston @ Liberty",
     "South Florida @ UTSA",
     "Iowa State @ BYU",
@@ -302,21 +294,57 @@
    ],
    "league": "nhl",
    "outcome": "total",
-   "price_said": 6.0,
-   "record": "9-3",
+   "price_said": 6.5,
+   "record": "9-4",
    "season": 2026,
    "side": 0,
    "situation": "back-to-back",
-   "streak": 2,
-   "strength": 1.73,
+   "streak": 0,
+   "strength": 1.39,
    "trend": "under",
    "upcoming": [
-    "nhl:401892450",
-    "nhl:401892463"
+    "nhl:401892463",
+    "nhl:401892473",
+    "nhl:401892475",
+    "nhl:401892477",
+    "nhl:401892480"
    ],
    "upcoming_names": [
-    "Senators @ Red Wings",
-    "Avalanche @ Flames"
+    "Avalanche @ Flames",
+    "Red Wings @ Canadiens",
+    "Stars @ Penguins",
+    "Blue Jackets @ Blues",
+    "Ducks @ Flames"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "rate"
+   ],
+   "league": "nhl",
+   "outcome": "fav_ml",
+   "price_said": 7.8,
+   "record": "10-3",
+   "season": 2026,
+   "side": 1,
+   "situation": "back-to-back",
+   "streak": 1,
+   "strength": 1.24,
+   "trend": "favorites win",
+   "upcoming": [
+    "nhl:401892463",
+    "nhl:401892473",
+    "nhl:401892475",
+    "nhl:401892477",
+    "nhl:401892480"
+   ],
+   "upcoming_names": [
+    "Avalanche @ Flames",
+    "Red Wings @ Canadiens",
+    "Stars @ Penguins",
+    "Blue Jackets @ Blues",
+    "Ducks @ Flames"
    ],
    "verdict": "coin flip"
   },
@@ -545,7 +573,6 @@
    "strength": 1.13,
    "trend": "favorites win",
    "upcoming": [
-    "ncaaf:401871090",
     "ncaaf:401870766",
     "ncaaf:401862794",
     "ncaaf:401856826",
@@ -578,7 +605,6 @@
     "ncaaf:401860901"
    ],
    "upcoming_names": [
-    "Southern Miss @ Troy",
     "Sam Houston @ Liberty",
     "South Florida @ UTSA",
     "Iowa State @ BYU",
@@ -627,7 +653,6 @@
    "strength": 1.09,
    "trend": "favorites win",
    "upcoming": [
-    "ncaaf:401871090",
     "ncaaf:401871066",
     "ncaaf:401870766",
     "ncaaf:401871052",
@@ -666,7 +691,6 @@
     "ncaaf:401856827"
    ],
    "upcoming_names": [
-    "Southern Miss @ Troy",
     "New Mexico St @ FIU",
     "Sam Houston @ Liberty",
     "Missouri St @ Western KY",
@@ -711,22 +735,28 @@
     "rate"
    ],
    "league": "nhl",
-   "outcome": "fav_ml",
-   "price_said": 7.3,
-   "record": "9-3",
+   "outcome": "home",
+   "price_said": 7.2,
+   "record": "9-4",
    "season": 2026,
    "side": 1,
    "situation": "back-to-back",
-   "streak": 0,
-   "strength": 1.01,
-   "trend": "favorites win",
+   "streak": 1,
+   "strength": 1.04,
+   "trend": "home team wins",
    "upcoming": [
-    "nhl:401892450",
-    "nhl:401892463"
+    "nhl:401892463",
+    "nhl:401892473",
+    "nhl:401892475",
+    "nhl:401892477",
+    "nhl:401892480"
    ],
    "upcoming_names": [
-    "Senators @ Red Wings",
-    "Avalanche @ Flames"
+    "Avalanche @ Flames",
+    "Red Wings @ Canadiens",
+    "Stars @ Penguins",
+    "Blue Jackets @ Blues",
+    "Ducks @ Flames"
    ],
    "verdict": "coin flip"
   },
@@ -744,31 +774,37 @@
    "streak": 3,
    "strength": 0.83,
    "trend": "favorites win",
-   "upcoming": [],
-   "upcoming_names": [],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
-   "league": "nhl",
-   "outcome": "home",
-   "price_said": 6.6,
-   "record": "8-4",
-   "season": 2026,
-   "side": 1,
-   "situation": "back-to-back",
-   "streak": 0,
-   "strength": 0.81,
-   "trend": "home team wins",
    "upcoming": [
-    "nhl:401892450",
-    "nhl:401892463"
+    "nhl:401892469",
+    "nhl:401892470",
+    "nhl:401892471",
+    "nhl:401891805",
+    "nhl:401892472",
+    "nhl:401892473",
+    "nhl:401892474",
+    "nhl:401892475",
+    "nhl:401892476",
+    "nhl:401892477",
+    "nhl:401892478",
+    "nhl:401892479",
+    "nhl:401892480",
+    "nhl:401892481"
    ],
    "upcoming_names": [
-    "Senators @ Red Wings",
-    "Avalanche @ Flames"
+    "Flyers @ Bruins",
+    "Canucks @ Devils",
+    "Oilers @ Sharks",
+    "Wild @ Panthers",
+    "Mammoth @ Sabres",
+    "Red Wings @ Canadiens",
+    "Predators @ Senators",
+    "Stars @ Penguins",
+    "Hurricanes @ Blackhawks",
+    "Blue Jackets @ Blues",
+    "Maple Leafs @ Avalanche",
+    "Lightning @ Islanders",
+    "Ducks @ Flames",
+    "Kings @ Golden Knights"
    ],
    "verdict": "coin flip"
   },
@@ -1194,12 +1230,12 @@
    "hit": 0.6886,
    "hit_new": 0.6903,
    "hit_old": 0.687,
-   "n": 229730,
-   "n_new": 114865,
-   "n_old": 114865,
+   "n": 229735,
+   "n_new": 114868,
+   "n_old": 114867,
    "said": 0.6794,
    "status": "watch only",
-   "to": "2026-10-05",
+   "to": "2026-10-06",
    "z": 10.17
   },
   "mlb|all": {
@@ -2052,98 +2088,98 @@
   },
   "nhl|all": {
    "edge": 0.0104,
-   "edge_new": 0.0109,
-   "edge_old": 0.0099,
+   "edge_new": 0.0107,
+   "edge_old": 0.0101,
    "from": "2018-10-06",
    "hit": 0.5933,
-   "hit_new": 0.5978,
-   "hit_old": 0.5887,
-   "n": 10213,
-   "n_new": 5107,
-   "n_old": 5106,
+   "hit_new": 0.5976,
+   "hit_old": 0.589,
+   "n": 10218,
+   "n_new": 5109,
+   "n_old": 5109,
    "said": 0.5829,
    "status": "watch only",
-   "to": "2026-10-05",
-   "z": 2.18
+   "to": "2026-10-06",
+   "z": 2.19
   },
   "nhl|rate": {
    "edge": 0.0071,
-   "edge_new": 0.0113,
-   "edge_old": 0.0028,
+   "edge_new": 0.0118,
+   "edge_old": 0.0025,
    "from": "2018-10-06",
    "hit": 0.6177,
-   "hit_new": 0.63,
-   "hit_old": 0.6054,
-   "n": 5161,
-   "n_new": 2581,
-   "n_old": 2580,
+   "hit_new": 0.6305,
+   "hit_old": 0.605,
+   "n": 5164,
+   "n_new": 2582,
+   "n_old": 2582,
    "said": 0.6106,
    "status": "watch only",
-   "to": "2026-10-05",
-   "z": 1.07
+   "to": "2026-10-06",
+   "z": 1.08
   },
   "nhl|rate|fav_ml": {
-   "edge": 0.0129,
-   "edge_new": 0.0084,
+   "edge": 0.0131,
+   "edge_new": 0.0087,
    "edge_old": 0.0175,
    "from": "2018-10-06",
-   "hit": 0.6497,
-   "hit_new": 0.6551,
+   "hit": 0.6498,
+   "hit_new": 0.6553,
    "hit_old": 0.6443,
-   "n": 3334,
-   "n_new": 1667,
+   "n": 3335,
+   "n_new": 1668,
    "n_old": 1667,
    "said": 0.6367,
    "status": "watch only",
-   "to": "2026-10-05",
-   "z": 1.58
+   "to": "2026-10-06",
+   "z": 1.59
   },
   "nhl|rate|home": {
-   "edge": -0.0067,
-   "edge_new": 0.0035,
+   "edge": -0.0063,
+   "edge_new": 0.0043,
    "edge_old": -0.0169,
    "from": "2018-10-11",
-   "hit": 0.5876,
-   "hit_new": 0.599,
+   "hit": 0.5879,
+   "hit_new": 0.5997,
    "hit_old": 0.5761,
-   "n": 1222,
-   "n_new": 611,
+   "n": 1223,
+   "n_new": 612,
    "n_old": 611,
    "said": 0.5942,
    "status": "watch only",
-   "to": "2026-10-05",
-   "z": -0.5
+   "to": "2026-10-06",
+   "z": -0.48
   },
   "nhl|rate|total": {
-   "edge": 0.0025,
+   "edge": 0.0017,
    "edge_new": 0.0281,
-   "edge_old": -0.0232,
+   "edge_old": -0.0248,
    "from": "2018-10-13",
-   "hit": 0.5025,
+   "hit": 0.5017,
    "hit_new": 0.5281,
-   "hit_old": 0.4768,
-   "n": 605,
+   "hit_old": 0.4752,
+   "n": 606,
    "n_new": 303,
-   "n_old": 302,
+   "n_old": 303,
    "said": 0.5,
    "status": "watch only",
-   "to": "2026-10-05",
-   "z": 0.12
+   "to": "2026-10-06",
+   "z": 0.08
   },
   "nhl|streak": {
    "edge": 0.0137,
-   "edge_new": 0.0121,
-   "edge_old": 0.0154,
+   "edge_new": 0.0118,
+   "edge_old": 0.0156,
    "from": "2018-10-09",
    "hit": 0.5683,
-   "hit_new": 0.5657,
-   "hit_old": 0.5709,
-   "n": 5052,
-   "n_new": 2526,
-   "n_old": 2526,
+   "hit_new": 0.5655,
+   "hit_old": 0.571,
+   "n": 5054,
+   "n_new": 2527,
+   "n_old": 2527,
    "said": 0.5545,
    "status": "watch only",
-   "to": "2026-10-05",
+   "to": "2026-10-06",
    "z": 2.01
   },
   "nhl|streak|fav_ml": {
@@ -2180,18 +2216,18 @@
   },
   "nhl|streak|total": {
    "edge": 0.0096,
-   "edge_new": 0.0253,
-   "edge_old": -0.0062,
+   "edge_new": 0.0246,
+   "edge_old": -0.0055,
    "from": "2018-10-17",
    "hit": 0.5096,
-   "hit_new": 0.5253,
-   "hit_old": 0.4938,
-   "n": 1462,
-   "n_new": 731,
-   "n_old": 731,
+   "hit_new": 0.5246,
+   "hit_old": 0.4945,
+   "n": 1464,
+   "n_new": 732,
+   "n_old": 732,
    "said": 0.5,
    "status": "watch only",
-   "to": "2026-03-29",
+   "to": "2026-10-06",
    "z": 0.73
   },
   "rate": {
@@ -2200,14 +2236,14 @@
    "edge_old": 0.0095,
    "from": "2018-03-31",
    "hit": 0.7103,
-   "hit_new": 0.7124,
+   "hit_new": 0.7125,
    "hit_old": 0.7082,
-   "n": 160185,
-   "n_new": 80093,
-   "n_old": 80092,
+   "n": 160188,
+   "n_new": 80094,
+   "n_old": 80094,
    "said": 0.6998,
    "status": "watch only",
-   "to": "2026-10-05",
+   "to": "2026-10-06",
    "z": 9.93
   },
   "rate|fav_cover": {
@@ -2234,12 +2270,12 @@
    "hit": 0.738,
    "hit_new": 0.7397,
    "hit_old": 0.7362,
-   "n": 112556,
-   "n_new": 56278,
+   "n": 112557,
+   "n_new": 56279,
    "n_old": 56278,
    "said": 0.7275,
    "status": "watch only",
-   "to": "2026-10-05",
+   "to": "2026-10-06",
    "z": 8.19
   },
   "rate|home": {
@@ -2250,44 +2286,44 @@
    "hit": 0.664,
    "hit_new": 0.6664,
    "hit_old": 0.6615,
-   "n": 41950,
-   "n_new": 20975,
+   "n": 41951,
+   "n_new": 20976,
    "n_old": 20975,
    "said": 0.6524,
    "status": "watch only",
-   "to": "2026-10-05",
-   "z": 5.82
+   "to": "2026-10-06",
+   "z": 5.83
   },
   "rate|total": {
-   "edge": 0.0116,
-   "edge_new": 0.0113,
+   "edge": 0.0114,
+   "edge_new": 0.0111,
    "edge_old": 0.0118,
    "from": "2018-03-31",
-   "hit": 0.5116,
-   "hit_new": 0.5113,
+   "hit": 0.5114,
+   "hit_new": 0.5111,
    "hit_old": 0.5118,
-   "n": 3888,
-   "n_new": 1944,
+   "n": 3889,
+   "n_new": 1945,
    "n_old": 1944,
    "said": 0.5,
    "status": "watch only",
-   "to": "2026-10-05",
-   "z": 1.44
+   "to": "2026-10-06",
+   "z": 1.43
   },
   "streak": {
    "edge": 0.0061,
    "edge_new": 0.0063,
    "edge_old": 0.0058,
    "from": "2018-04-06",
-   "hit": 0.6387,
+   "hit": 0.6386,
    "hit_new": 0.6393,
    "hit_old": 0.638,
-   "n": 69545,
-   "n_new": 34773,
-   "n_old": 34772,
+   "n": 69547,
+   "n_new": 34774,
+   "n_old": 34773,
    "said": 0.6326,
    "status": "watch only",
-   "to": "2026-10-05",
+   "to": "2026-10-06",
    "z": 3.55
   },
   "streak|fav_cover": {
@@ -2340,18 +2376,18 @@
   },
   "streak|total": {
    "edge": 0.0018,
-   "edge_new": 0.0021,
+   "edge_new": 0.0022,
    "edge_old": 0.0014,
    "from": "2018-04-06",
    "hit": 0.5018,
-   "hit_new": 0.5021,
+   "hit_new": 0.5022,
    "hit_old": 0.5014,
-   "n": 12424,
-   "n_new": 6212,
-   "n_old": 6212,
+   "n": 12426,
+   "n_new": 6213,
+   "n_old": 6213,
    "said": 0.5,
    "status": "watch only",
-   "to": "2026-10-05",
+   "to": "2026-10-06",
    "z": 0.39
   }
  },
@@ -2361,7 +2397,7 @@
   "ncaab": 135775,
   "ncaaf": 28420,
   "nfl": 5616,
-  "nhl": 10213
+  "nhl": 10218
  },
  "proven": [
   "ncaab|rate|fav_cover",
@@ -2374,5 +2410,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-06T22:38Z"
+ "updated": "2026-10-07T03:05Z"
 }

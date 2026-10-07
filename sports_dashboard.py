@@ -1292,7 +1292,9 @@ def _history(picks):
             #   (a lean anywhere it's posted - never the Lock or the Dog of the Day: 10/1 audit, the Kings Dog showed as one)
     by = {}
     for e in legs.values():
-        l = e["l"]
+        if e["lean"]:
+            continue                                         # (the owner, 10/6: by sport is unit plays only - leans
+        l = e["l"]                                           #  live in their own 🟡 Leans record)
         by.setdefault(l["league"], []).append(
             (e["date"], l["result"], f'{"🟡 LEAN · " if e["lean"] else ""}{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
              + (f' · {l["score"]}' if l.get("score") else ""), rev_leg(l, l["result"], e["date"])))
@@ -1381,7 +1383,7 @@ def _history(picks):
         c["text"] = with_fact(c["text"], c.get("fact"))     # the game's own fact, whichever way it was written
         LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
-    out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, [])), leans=done(by_lean.get(lg, [])))
+    out = "".join(box(f'{sd.LEAGUES[lg][3]} {sd.LEAGUES[lg][2]}', done(by.get(lg, [])))   # (10/6: no leans by sport)
                   for lg in sd.LEAGUES)
     # (no parlay record - the owner, 9/28: a parlay's picks each count on their own, in their sport)
     lv_done = done(lv)                                       # the live bets: one box per sport (the grades' live
@@ -1753,8 +1755,31 @@ def render(picks, model, games, series, start_bank, updated_ms):
                     lean_[k] = (l["league"], lr)
     res += [(f"tennis_{t}", r) for t, r, _ in tennis_.values()]   # 🎾 men's and women's apart (a match counts once)
     tn_groups = [("🎾 Men's Tennis", ("tennis_atp",)), ("🎾 Women's Tennis", ("tennis_wta",))]
+    # 💰 the owner, 10/6: "the by sport should have the unit plays by sport by itself - it's misleading with the numbers
+    # all together ... leans don't get a by sport": each sport's chip is its UNIT PLAYS only (W-L and win %, same look);
+    # leans keep only their own 🟡 Leans record
+    import sports_early
+    u_by = {}
+    try:
+        for r_ in sports.units_ledger(picks, sports_early.load().get("picks") or [])["rows"]:
+            if r_[1] <= 0:
+                continue
+            pk_ = r_[0]
+            lg_ = (pk_.get("legs") or [{}])[0].get("league") or pk_.get("league")
+            u_by.setdefault(lg_, []).append(r_[2])
+    except Exception as e:                                   # noqa: BLE001 - a chip never breaks the page
+        print(f"by-sport unit plays skipped: {str(e)[:80]}")
     chips = []
     for name, lgs in groups + tn_groups:
+        if not lgs[0].startswith("tennis"):                  # (tennis keeps its own record - no units, no leans)
+            uu = [x for lg in lgs for x in u_by.get(lg, [])]
+            w_, n_ = sum(x > 0 for x in uu), sum(x != 0 for x in uu)
+            hue = "#fff" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
+            hs = f"{sd.LEAGUES[lgs[0]][3]} {sd.LEAGUES[lgs[0]][2]}"
+            chips.append(f'<div class="spc{" tap" if n_ else ""}" data-hs="{E(hs)}"><span><b>{name}</b>'
+                         f'<small>{f"{w_}-{n_ - w_}" if n_ else "no results yet"}</small></span>'
+                         f'<i style="color:{hue}">{f"{w_ / n_:.0%}" if n_ else "—"}</i>{"<em>▾</em>" if n_ else ""}</div>')
+            continue
         rr = [r for lg, r in res if lg in lgs]
         w_, n_ = sum(r == "won" for r in rr), len(rr)
         hue = "#fff" if not n_ else "#22e39a" if w_ / n_ >= 0.55 else "#ffc233" if w_ / n_ >= 0.45 else "#ff5a5a"
@@ -1769,6 +1794,9 @@ def render(picks, model, games, series, start_bank, updated_ms):
     by_sport = "".join(chips)
     RECORDS["by sport"] = {name.split(" ", 1)[1]: wlt(sum(r == 'won' for lg, r in res if lg in lgs),
                                                       sum(r == 'lost' for lg, r in res if lg in lgs)) for name, lgs in groups + tn_groups}
+    for name, lgs in groups:                                 # (10/6: by sport = the unit plays only)
+        uu = [x for lg in lgs for x in u_by.get(lg, [])]
+        RECORDS["by sport"][name.split(" ", 1)[1]] = wlt(sum(x > 0 for x in uu), sum(x < 0 for x in uu))
     # record per pick type
     rec = []
     for kind, (label, c1, c2) in LOOK.items():
@@ -2201,7 +2229,7 @@ box-shadow:0 0 14px -2px #ff2d2d;animation:evp 1.4s ease-in-out infinite}} @keyf
   <div class="recs grades">{grades}</div>
   <div class="lbl" style="margin-top:4px">Their own records <small style="color:#ffc233;letter-spacing:0">· not in our record</small></div>
   <div class="recs grades">{others}</div>
-  <div class="lbl" style="margin-top:4px">By sport</div>
+  <div class="lbl" style="margin-top:4px">By sport <b style="color:#fff;font-weight:900">(unit plays only)</b></div>
   <div class="sports">{by_sport}</div>
   <div hidden>{hist}</div>
 </section>

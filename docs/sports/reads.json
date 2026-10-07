@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T01:47Z",
+ "updated": "2026-10-07T03:11Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -39,8 +39,8 @@
    "away": "Hurricanes",
    "home": "Canadiens",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -55,7 +55,7 @@
    "home": "Devils",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Mammoth",
@@ -69,7 +69,7 @@
      "hotter recent form",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -143,7 +143,7 @@
    "home": "Rangers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Rangers",
@@ -157,7 +157,7 @@
      "hotter recent form",
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -171,7 +171,7 @@
    "home": "Blackhawks",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Blues",
@@ -186,7 +186,7 @@
      "hotter recent form",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -199,8 +199,8 @@
    "away": "Pelicans",
    "home": "Thunder",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -264,6 +264,51 @@
    }
   },
   {
+   "id": "nhl:401892454",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-07T01:40Z",
+   "away": "Golden Knights",
+   "home": "Kraken",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898390",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-07T02:00Z",
+   "away": "Lakers",
+   "home": "Warriors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891806",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-07T02:20Z",
+   "away": "Panthers",
+   "home": "Kings",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401907992",
    "league": "mlb",
    "emoji": "\u26be",
@@ -285,12 +330,42 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -204,
     "p": 0.644,
     "win_p": 0.53,
     "reasons": [
      "the stronger team",
      "hotter recent form",
+     "better starting pitcher"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401908016",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Dodgers",
+    "p": 0.486,
+    "tie": 0.118,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-07T22:00Z",
+   "away": "Dodgers",
+   "home": "Braves",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Braves",
+    "opp": "Dodgers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -155,
+    "p": 0.565,
+    "win_p": 0.445,
+    "reasons": [
      "better starting pitcher"
     ]
    }
@@ -412,7 +487,7 @@
     "opp": "Capitals",
     "market": "spread",
     "line": 1.5,
-    "odds": -175,
+    "odds": -185,
     "p": 0.631,
     "win_p": 0.411,
     "reasons": [

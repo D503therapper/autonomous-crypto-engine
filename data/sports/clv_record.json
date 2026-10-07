@@ -1,32 +1,32 @@
 {
  "all": {
-  "n": 28,
-  "beat": 5,
+  "n": 31,
+  "beat": 8,
   "same": 13,
   "worse": 10,
-  "avg_pts": -0.1
+  "avg_pts": 0.04
  },
  "unit_plays": {
-  "n": 14,
-  "beat": 3,
+  "n": 15,
+  "beat": 4,
   "same": 5,
   "worse": 6,
-  "avg_pts": -0.13
+  "avg_pts": -0.04
  },
  "by_kind": {
   "dog": {
-   "n": 5,
-   "beat": 0,
+   "n": 6,
+   "beat": 1,
    "same": 2,
    "worse": 3,
-   "avg_pts": -1.18
+   "avg_pts": -0.78
   },
   "lean": {
-   "n": 14,
-   "beat": 2,
+   "n": 16,
+   "beat": 4,
    "same": 8,
    "worse": 4,
-   "avg_pts": -0.08
+   "avg_pts": 0.11
   },
   "lock": {
    "n": 5,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 5,
-   "beat": 2,
+   "n": 6,
+   "beat": 3,
    "same": 1,
    "worse": 2,
-   "avg_pts": 0.42
+   "avg_pts": 0.47
   },
   "ncaaf": {
    "n": 7,
@@ -66,11 +66,11 @@
    "avg_pts": -0.43
   },
   "nhl": {
-   "n": 10,
-   "beat": 0,
+   "n": 12,
+   "beat": 2,
    "same": 6,
    "worse": 4,
-   "avg_pts": -0.72
+   "avg_pts": -0.32
   }
  },
  "lock_by_size": {
@@ -493,6 +493,48 @@
    "odds": -118,
    "close": -118,
    "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": 110,
+   "close": 105,
+   "pts": 1.2,
+   "units": 1.0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Dodgers",
+   "market": "ml",
+   "line": null,
+   "odds": -109,
+   "close": -112,
+   "pts": 0.7,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Rangers",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -162,
+   "pts": 2.2,
    "units": 0,
    "result": "won"
   }
