@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T14:33Z",
+ "updated": "2026-10-07T15:01Z",
  "games": [
   {
    "id": "mlb:401907992",
@@ -7,7 +7,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "White Sox",
-    "p": 0.466,
+    "p": 0.468,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -16,16 +16,16 @@
    "start": "2026-10-07T20:00Z",
    "away": "Guardians",
    "home": "White Sox",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "White Sox",
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -201,
-    "p": 0.645,
-    "win_p": 0.53,
+    "odds": -199,
+    "p": 0.646,
+    "win_p": 0.532,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -39,7 +39,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.498,
+    "p": 0.502,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -56,10 +56,11 @@
     "market": "ml",
     "line": null,
     "odds": -155,
-    "p": 0.558,
-    "win_p": 0.558,
+    "p": 0.562,
+    "win_p": 0.562,
     "reasons": [
      "hotter recent form",
+     "opponent missing key players",
      "sharp money moving this way"
     ]
    }
@@ -79,8 +80,8 @@
    "start": "2026-10-07T23:00Z",
    "away": "Jax State",
    "home": "Kennesaw St",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "Jax State",
     "opp": "Kennesaw St",
@@ -174,8 +175,8 @@
    "start": "2026-10-07T23:30Z",
    "away": "Penguins",
    "home": "Capitals",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Penguins",
     "opp": "Capitals",
@@ -185,7 +186,7 @@
     "p": 0.632,
     "win_p": 0.411,
     "reasons": [
-     "hotter goalie"
+     "opponent missing key players"
     ]
    }
   },
@@ -195,7 +196,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.529,
+    "p": 0.527,
     "tie": 0.116,
     "name": "first 5 innings"
    },
@@ -212,8 +213,8 @@
     "market": "ml",
     "line": null,
     "odds": -167,
-    "p": 0.605,
-    "win_p": 0.605,
+    "p": 0.603,
+    "win_p": 0.603,
     "reasons": [
      "the stronger team"
     ]
@@ -225,7 +226,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.447,
+    "p": 0.453,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -242,8 +243,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -197,
-    "p": 0.61,
-    "win_p": 0.492,
+    "p": 0.603,
+    "win_p": 0.485,
     "reasons": [
      "opponent drama: new baby"
     ]
