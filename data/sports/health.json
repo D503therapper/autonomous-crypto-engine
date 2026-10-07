@@ -1,32 +1,38 @@
 {
- "at": "2026-10-07T03:56Z",
+ "at": "2026-10-07T05:27Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Liu vs Sramkova: no points for 2651s",
-  "live tennis scores: tennis Okamura vs Prozorova: no points for 822s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Okamura vs Prozorova: no points for 2641s"
  ],
  "ok": [
-  "live watcher fresh (29s)",
+  "live watcher fresh (35s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 4 live matches",
   "slate check: all 12 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 5h ago",
-  "engine ran 36 min ago",
+  "studies ran 7h ago",
+  "simulator ran 7h ago",
+  "engine ran 63 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T05:27Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Okamura vs Prozorova: no points for 2641s"
+   ]
+  },
   {
    "at": "2026-10-07T03:56Z",
    "fixes": [],
@@ -584,18 +590,6 @@
    "problems": [
     "live tennis scores: tennis Boisson vs Jeanjean: no points for 2651s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-04T16:33Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Jeanjean: no points for 437s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
-    "simulator last ran 10h ago - restarted"
    ]
   }
  ]
