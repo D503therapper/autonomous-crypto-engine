@@ -7821,6 +7821,7 @@
      "game:div"
     ],
     "dec": 1.8264462809917354,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -7835,6 +7836,10 @@
     "edge_own": -0.021523582936797125,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,4,0,1,0,0,2,2",
+     "h": "1,0,0,1,0,1,0,0,0"
+    },
     "form_state": [
      1.0,
      5,
@@ -7880,9 +7885,11 @@
      "better starting pitcher"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Guardians 9 @ White Sox 3",
+    "settled": "2026-10-07T23:54Z",
     "side": "home",
     "start": "2026-10-07T20:00Z",
     "stype": "3",
@@ -7900,11 +7907,13 @@
    }
   ],
   "p_hit": 0.5324,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-07T15:00Z",
   "round": 1,
+  "settled": "2026-10-07T23:54Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]
