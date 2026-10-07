@@ -1,13 +1,14 @@
 {
- "at": "2026-10-07T05:28Z",
- "fixes": [],
+ "at": "2026-10-07T06:59Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-06 Iga Swiatek) - started sports.yml"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (85s)",
-  "every finished pick graded",
+  "live watcher fresh (1s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 3 of 3 live matches",
   "slate check: all 12 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
@@ -16,14 +17,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 7h ago",
-  "engine ran 64 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T06:59Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-06 Iga Swiatek) - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-07T05:28Z",
    "fixes": [],
@@ -576,14 +584,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Boisson vs Jeanjean: no points for 94s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-04T18:41Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Jeanjean: no points for 158s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
