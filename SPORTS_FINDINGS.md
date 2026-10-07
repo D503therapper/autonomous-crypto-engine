@@ -13,6 +13,80 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/7 - "How often is sharp money actually right?" (the owner bet New Mexico St +200 after FIU went -218 -> -240; our early play went against the money; report only)
+tools/sharp_money_study.py -> results/sharp_money_study.json. No paid re-pull, no network. "Sharp money" = the side the
+line moved TOWARD between the opener and the close (the only sharp signal that exists for every game), plus the real
+money-vs-tickets splits where we hold them (Action Network, 2024+). Graded three ways: at the OPEN (what the bettor who
+moved the line got - hindsight, nobody gets that price after the move), at the CLOSE (betting WITH the money after the
+move - what a viewer can actually do), and the OTHER side at the close (fading it). Prior findings this agrees with:
+10/1 "sharp money" (237 split cuts, all dead but the NHL sharp dog), 10/1 overnight studies (steam / RLM dead), the
+NHL bet-timing study (the market comes toward the engine's side). Nothing new is built; nothing changed.
+- **THE PLAIN ANSWER:** the side the money moves to wins straight up MORE than half the time because it's usually
+  the favorite - 54.7% over 29,007 games 2023-26 (favorites moved to: 68.1%, dogs moved to: 39.3%) - and the move IS
+  information: betting it at the opener (before the move) made +3.0% (SE 0.7) everywhere, +17.7% on NBA dogs, +10.3%
+  on NHL dogs, +24.6% on NFL dogs (the NFL game-file opener looks stale - 83% of its moves are 20+ cents - so trust
+  the paid-history NFL number below: +12.2% on dogs). BUT betting WITH it after the move, at the close: -5.3% (SE 0.6),
+  0 of 4 seasons up, every sport red (NFL -3.0, college football -8.8, NBA -1.5, college hoops -8.4, NHL -0.1, MLB
+  -4.8). Fading it at the close is worse: -6.6% (SE 0.7). The price already moved; the vig eats what's left. Nobody
+  wins by following OR fading a move that already happened.
+- **By move size (the NMSU move was ~20 cents):** 20+ cent moves: the moved-to side wins 56.6% but pays -6.5% at the
+  close (n 16,926; 0 of 4 seasons); 10-19 cents 51.3% / -4.3%; under 10 cents 51.1% / -2.9%. Bigger move = more
+  right straight up, same loss at the close. The ONE cell that holds: NHL 10-19 cent moves, the moved-to side +5.0% at
+  the close (n 1,142, 3 of 4 seasons; the dogs in it +8.8% on 589, 4 of 4, SE 4.5) - the same NHL sharp-dog lead the
+  10/1 study wired at +1 on the dog score (sharp_dog), seen from another angle; out of ~120 cells here, one at 2 SE is
+  what luck gives. LEAD, no more weight.
+- **Football, the paid time-stamped history (first FAIR look of the week -> close, 2020-26):** NFL (1,496 games) the
+  moved-to side won 57.2%, +9.0% at the first look (6 of 7 seasons up for dogs moved to by 20+ cents: +22.7% on 416),
+  +1.3% at the close (3 of 7); 20+ cent moves +2.8% at the close (5 of 7, SE 3.4) - the NFL is the one sport where
+  following a big move at the close is about breakeven, not a bet. College football (3,043): the moved-to side 51.3%,
+  +0.7% at the first look, -7.0% at the close, 1 of 7 seasons; dogs the money came to -9.1% at the close, 0 of 7 for
+  20+ cents (-15.7%). College money is NOT sharp: the 20+ cent college move loses at every price. SPREADS (the side
+  the number moved toward): NFL covers 55.6% at the early number (+6.0%, 6 of 7 seasons; 2+ point moves 60.6% /
+  +15.7%, 3+ points 60.0% / +14.8%, 7 of 7) but 50.5% at the close (-3.3%) - the known hindsight prize, nothing to bet
+  after the move; college 53.5% early (+2.2%), 49.8% at the close.
+- **The split signals (money % vs tickets %, 2024+, 24,103 games):** at the close, EVERY one loses: 70%+ of the
+  tickets (ride the public) -4.0% on 17,055 (0 of 4 seasons) and fading them -10.0%; money 10+ over tickets -10.3%
+  (dogs -13.6%; college hoops -26%); money 20+ over -12.9%; reverse line move (line to it, under half the tickets)
+  -3.8% on 4,444 (hindsight at the open +11.1%); RLM vs a 65%+ public with money 10+ over -9.4%; "money on it but the
+  line ran AWAY from it" -8.0% at the close. The sharp dog (dog, line to it 2+, money 10+ over tickets): -10.8% on 991
+  overall, 0 of 4 seasons - ONLY the NHL version wins: +14.5% at the close on 182, won 50.0%, 2 of 2 seasons (the 10/1
+  lead, +14.3% on 190 - the same games). Live lead tracker since 10/1: money 10+ over tickets 22-26 (-5.2%), 70%+ of
+  tickets 46-25 (-5.3%), reverse line move 8-5 (+27.5% on 13), sharp dog 2-4. The rigged.json cells say the same.
+- **OUR SPOT - the engine's side when the line then runs AGAINST it 15+ cents (the NMSU case):** blind proxy, every
+  sport, opener -> close 2023-26: 11,032 engine sides; the 2,522 the market ran 15+ cents against won 38.0%, -16.1% at
+  our (opening) price, -4.3% at the close; the 3,866 the market came TO won 52.9%, +11.3% at the opener. The move
+  carries real information about our side: when the money leaves it, it was usually a bad side (NFL -19.8%, NBA
+  -22.7%, college hoops -12.7%, NHL -8.2%, MLB -18.7% at our price; dogs -16.7%, favorites -14.1%). College football
+  at the FIRST look of the week (the real early-play moment, 2020-26) is the one exception: the 180 engine sides the
+  line ran 15+ against won 48.9%, +5.3% at our price (SE 8.4) and +18.6% at the close (4 of 7 seasons at the close;
+  dogs +4.6% at our price / +18.4% at the close on 109, 6 of 7; 2026 -50% on 6); the NFL version -23.6% at our price
+  (won 34.5%, 2 of 7). At the price we actually get the college number is breakeven inside one SE - a fair fight, not
+  an edge; the NFL and every other sport say the money leaving our side is bad news.
+- **The 10/6 "college dogs the money ran against overnight won 48.6% +18.4%" - RE-CHECKED AND THE WORDING WAS
+  BACKWARDS.** The 10/6 code's "ran against" bucket is the dog whose price got SHORTER overnight (cents(morning) -
+  cents(night) <= -20) - that is the money coming TO the dog, not leaving it. On every season (2020-26, the paid
+  history): the engine's college dogs the money came TO overnight (20+ cents shorter): won 47.1%, +24.0% at the night
+  price / +12.1% in the morning on 51 (4 of 7 seasons); the dogs the money LEFT overnight (20+ cents longer - the NMSU
+  shape): won 27.8%, -29.7% at the night price on 36 (2 of 6). Every college dog, not just the engine's: money left it
+  15+ -> 37.6% won, -4.3% at the night price (125); money came to it 20+ -> 40.7%, +7.2% (113). NFL the same sign
+  (engine dogs the money left 20+: 40.9% won on 22; the money came to: 30.0% on 20 - too few). The 10/6 text in that
+  section is corrected below in place.
+- **Our real picks (64 graded moneylines since 9/27):** posted vs close -1.1 cents on average (the market neither
+  comes to us nor leaves us yet); only 1 pick ran 15+ cents against us (lost). The pending early plays: NMSU +180 ->
+  +195 now (the money left, 15 cents), Iowa +120 -> +142, NC State +124 -> +145 (the money left); Alabama +130 -> -122,
+  Florida St +215 -> +150, Tulane +205 -> +140, Falcons +120 -> -170 (the money came to us, big). Too few to grade.
+- Five checks on "follow sharp money at the close": (1) fair YES, (2) blind YES (fixed rules), (3) most seasons NO
+  (0 of 4 overall), (4) this season NO, (5) second check - the splits and the game files agree it loses: DEAD (as
+  10/1 found). On "the NHL 10-19 cent / sharp dog": LEAD (already wired at +1). On "a college early dog the money
+  leaves is fine": (1) YES (2) YES (3) at our price 3 of 7 (4) 2026 NO (5) the overnight cut says the opposite sign:
+  NOT PROVEN - the early plays keep their rules (a dog the money ran 50+ cents out all week stays a fade, 10/1).
+- VERDICT for the owner: sharp money is "right" about 55-57% of the time straight up because it mostly lands on
+  favorites, and the opener-to-close move does predict the game - but the only price that pays is the one BEFORE the
+  move. Following it at the new price loses ~5% in every sport (hockey the exception, about even). Our early plays go
+  against the money by design: we bet the first number. When the money then leaves our side it is usually a worse
+  side (every sport but college football, where it's a coin flip) - which is why the early plays keep their fades and
+  their records, and why a line running against us is a flag to look at, never a reason to chase the other side.
+
 ## 10/6 - post the UNIT PLAYS at 8 PM the night before, or keep 8 AM on game day? (the owner: "we want the best lines and accurate picks"; report only)
 tools/night_vs_morning_study.py -> results/night_vs_morning_study.json. No paid re-pull, no network. The engine's side
 is the same BLIND proxy as the hockey timing study (sports_model tuned only on the 3 seasons before, injuries / key
@@ -63,9 +137,11 @@ night board at the night price minus the same bets at the morning price. What th
   and the 24-hour football "night" gap is wider than 8 PM -> 8 AM would be. Real-season check: the 14 NFL games in
   our hourly history - 0 overnight 20+ moves on the engine's sides, in-band games moved 20+ overnight 7% of the
   time.
-- **College:** the opposite sign - a dog the money ran 20+ cents against overnight (8%, 70) WON 48.6%, +18.4% (SE
-  15) at the night price; the ones the money came TO (6%, 53) lost -27%. College overnight moves aren't news about
-  the team, they're the public finding the favorite. Night board -2.2% vs morning board -2.4%: no accuracy lost.
+- **College:** the opposite sign - [CORRECTED 10/7, tools/sharp_money_study.py: the code's "ran against" bucket is
+  the dog whose price got SHORTER overnight = the money came TO it; the labels below were backwards] a dog the money
+  CAME TO overnight (20+ cents shorter; 8%, 70) WON 48.6%, +18.4% (SE 15) at the night price; the ones the money LEFT
+  (20+ cents longer; 6%, 53) lost -27%. College overnight moves are news: the morning number knows which dog is live.
+  Night board -2.2% vs morning board -2.4%: no accuracy lost.
 - **NHL:** 12% of in-band games move 20+ cents overnight (27 games). The engine's side "ran against" 20+ open ->
   close on 25% of its 2023-26 sides - and those WON (55.6%, +13.2% at the open): the market coming toward us, not
   bad news. Goalies: no timed history; the goalie file stamps its confirmations 8 AM - noon PT on game day (10/6: 8:16 - 11:36 AM) - at 8 PM
