@@ -1,29 +1,36 @@
 {
- "at": "2026-10-07T01:39Z",
+ "at": "2026-10-07T01:50Z",
  "fixes": [],
  "problems": [
-  "workflow failed: sports 2026-10-07T01:03 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37555191074"
+  "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
  ],
  "ok": [
-  "live watcher fresh (78s)",
+  "live watcher fresh (146s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 12 of today's games named, priced and looked at",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "all 9 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 1 min ago",
+  "engine ran 3 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T01:50Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
+   ]
+  },
   {
    "at": "2026-10-07T01:39Z",
    "fixes": [],
@@ -585,11 +592,6 @@
    "problems": [
     "live bets on the board but not saved on main: Colts (the next page build merges them)"
    ]
-  },
-  {
-   "at": "2026-10-04T12:38Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
