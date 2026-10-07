@@ -1,29 +1,33 @@
 {
- "at": "2026-10-07T18:35Z",
+ "at": "2026-10-07T20:08Z",
  "fixes": [],
- "problems": [
-  "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (16s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 9 of today's games named, priced and looked at",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 20 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T20:08Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-07T18:35Z",
    "fixes": [],
@@ -585,11 +589,6 @@
     "live tennis scores: tennis Sakamoto vs Hong: no points for 184s",
     "live tennis scores: tennis Ma YeXin vs Kalieva: no points for 188s"
    ]
-  },
-  {
-   "at": "2026-10-05T05:58Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
