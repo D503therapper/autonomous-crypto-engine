@@ -7125,6 +7125,7 @@
      "us:road3in6"
     ],
     "dec": 1.6756756756756757,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -7138,6 +7139,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,0,1",
+     "h": "0,2,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -7184,9 +7189,11 @@
      "opponent drama: family/personal"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": true,
+    "score": "Blues 2 @ Blackhawks 4",
+    "settled": "2026-10-07T02:57Z",
     "side": "away",
     "start": "2026-10-07T00:00Z",
     "stype": "2",
@@ -7211,12 +7218,14 @@
    }
   ],
   "p_hit": 0.5827,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-06T15:00Z",
   "round": 1,
+  "settled": "2026-10-07T02:57Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -148,
