@@ -1,18 +1,16 @@
 {
- "at": "2026-10-07T13:01Z",
+ "at": "2026-10-07T13:02Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Galfi vs Iatcenko: no points for 2636s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (53s)",
+  "live watcher fresh (88s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 2 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 5 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
@@ -24,6 +22,11 @@
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-07T13:02Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-07T13:01Z",
    "fixes": [],
@@ -585,13 +588,6 @@
    "at": "2026-10-05T00:40Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-05T00:39Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:nhl:1028409880 HTTP 404"
-   ]
   }
  ]
 }
