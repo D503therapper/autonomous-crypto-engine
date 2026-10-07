@@ -1,0 +1,23 @@
+# One phone alert to the owner's crypto ntfy feed (the same one as the moon alerts) - sent by the 8-hour review
+# when a coin gets the real-money GREEN LIGHT (REVIEW.md), or if a watched coin fails a check.
+name: owner_alert
+on:
+  workflow_dispatch:
+    inputs:
+      title: { description: "Title", required: true }
+      body: { description: "Message", required: true }
+permissions:
+  contents: read
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      NTFY_TOPIC: "ace-b7d72af08465"
+      TITLE: ${{ github.event.inputs.title }}
+      BODY: ${{ github.event.inputs.body }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: python -c "import os, run_live; run_live.notify(os.environ['TITLE'], os.environ['BODY'], 'high')"
