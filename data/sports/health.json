@@ -1,27 +1,38 @@
 {
- "at": "2026-10-07T07:43Z",
+ "at": "2026-10-07T09:14Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Blinkova vs Pridankina: no points for 2656s",
+  "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 2656s"
+ ],
  "ok": [
-  "live watcher fresh (196s)",
+  "live watcher fresh (12s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 5 live matches",
+  "live tennis points + server: 3 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 5 fresh (betrivers 5)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 45 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 20 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-07T09:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Blinkova vs Pridankina: no points for 2656s",
+    "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 2656s"
+   ]
+  },
   {
    "at": "2026-10-07T07:43Z",
    "fixes": [],
@@ -571,14 +582,6 @@
    "fixes": [],
    "problems": [
     "sources down (the backups took over): betrivers:nfl:1028812621 HTTP 404, betrivers:nfl:1028812622 HTTP 404, betrivers:nfl:1028812625 HTTP 404, betrivers:nfl:1028812619 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-04T18:48Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Jeanjean: no points for 419s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
  ]
