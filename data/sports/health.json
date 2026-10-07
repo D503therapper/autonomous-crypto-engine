@@ -1,13 +1,16 @@
 {
- "at": "2026-10-07T09:15Z",
+ "at": "2026-10-07T09:22Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Blinkova vs Pridankina: no points for 450s",
+  "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 450s"
+ ],
  "ok": [
-  "live watcher fresh (96s)",
+  "live watcher fresh (243s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 5 live matches",
+  "live tennis points + server: 3 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 6 live lines, 3 fresh (betrivers 3)",
@@ -17,11 +20,19 @@
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 22 min ago",
+  "engine ran 29 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-07T09:22Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Blinkova vs Pridankina: no points for 450s",
+    "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 450s"
+   ]
+  },
   {
    "at": "2026-10-07T09:15Z",
    "fixes": [],
@@ -571,11 +582,6 @@
   },
   {
    "at": "2026-10-04T22:28Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-04T20:57Z",
    "fixes": [],
    "problems": []
   }
