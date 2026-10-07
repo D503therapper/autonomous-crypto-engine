@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T23:23Z",
+ "updated": "2026-10-07T00:00Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -164,60 +164,29 @@
    "id": "nhl:401891779",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blues",
-    "p": 0.387,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-07T00:00Z",
    "away": "Blues",
    "home": "Blackhawks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Blackhawks",
-    "opp": "Blues",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.643,
-    "win_p": 0.421,
-    "reasons": []
-   }
-  },
-  {
-   "id": "ncaaf:401871090",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Troy",
-    "p": 0.715,
-    "tie": 0.028,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-07T00:00Z",
-   "away": "Southern Miss",
-   "home": "Troy",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Troy",
-    "opp": "Southern Miss",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -105,
-    "p": 0.501,
-    "win_p": 0.772,
+    "team": "Blues",
+    "opp": "Blackhawks",
+    "market": "ml",
+    "line": null,
+    "odds": -148,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "the stronger team",
-     "opponent missing key players",
+     "hotter recent form",
      "sharp money moving this way"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -258,8 +227,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.407,
-    "tie": 0.296,
+    "p": 0.4,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -270,15 +239,16 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Golden Knights",
-    "opp": "Kraken",
-    "market": "ml",
-    "line": null,
-    "odds": -175,
-    "p": 0.624,
-    "win_p": 0.624,
+    "team": "Kraken",
+    "opp": "Golden Knights",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -180,
+    "p": 0.617,
+    "win_p": 0.394,
     "reasons": [
-     "the stronger team"
+     "hotter recent form",
+     "hotter goalie"
     ]
    }
   },
@@ -334,7 +304,7 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -200,
+    "odds": -205,
     "p": 0.644,
     "win_p": 0.53,
     "reasons": [
