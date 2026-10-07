@@ -1,18 +1,19 @@
 {
- "at": "2026-10-07T16:51Z",
+ "at": "2026-10-07T17:02Z",
  "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
+  "simulator overdue (11h) - started sports_sims.yml"
  ],
  "problems": [
-  "simulator last ran 10h ago - restarted"
+  "workflow failed: health 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655354619",
+  "workflow failed: sports_sims 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655315156",
+  "simulator last ran 11h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (80s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 9 of today's games named, priced and looked at",
-  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
@@ -20,12 +21,23 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "engine ran 11 min ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T17:02Z",
+   "fixes": [
+    "simulator overdue (11h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "workflow failed: health 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655354619",
+    "workflow failed: sports_sims 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655315156",
+    "simulator last ran 11h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-07T16:51Z",
    "fixes": [
@@ -585,16 +597,6 @@
     "live tennis scores: tennis Dougaz vs Sonego: no points for 911s",
     "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2661s",
     "live tennis scores: tennis Sramkova vs Ibragimova: no points for 2135s"
-   ]
-  },
-  {
-   "at": "2026-10-05T02:55Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2644s",
-    "live tennis scores: tennis Yang Yidi vs Han: no points for 2535s",
-    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2605s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
   }
  ]
