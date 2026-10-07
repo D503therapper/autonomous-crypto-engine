@@ -10415,3 +10415,45 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-10-07 18:05 UTC] stocks/trend     equity $493.01 (-1.4%) 3 open  market UP
 [2026-10-07 18:05 UTC] stocks/hold_spy  equity $505.11 (+1.0%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), PRL 35 (35/0/0), NEAR 29 (29/0/0), PONS 27 (24/0/3), PENGU 27 (27/0/0)
+   dex screen: REJECT E/ACC@solana liq $446,256 - lp holders unknown; rugcheck lp locked 54% < 95%
+   dex screen: REJECT KTA@base liq $3,969,120 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 67%
+   dex screen: REJECT AZTEC@ethereum liq $13,463,796 - top-10 holders 100%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT TITS@solana liq $104,187 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS PITCOIN@solana liq $102,957
+   dex screen: REJECT MET@solana liq $90,888 - liquidity $90,888 < $100,000
+   dex screen: REJECT ZEN@base liq $2,784,174 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: REJECT XDP@base liq $1,804,043 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT XDP@solana liq $19,993,340 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT AGL@base liq $315,270 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT FONE@solana liq $504,141 - lp holders unknown; rugcheck lp locked 82% < 95%
+   dex screen: REJECT SHIB@ethereum liq $318,079 - 24h volume $73,993 < $100,000
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS USELESS@solana liq $4,853,745
+   dex screen: PASS SIMD@ethereum liq $414,628
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HIGGS@solana liq $147,266 - holders unknown; lp holders unknown; rugcheck lp locked 34% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS NEET@solana liq $2,032,597
+   dex screen: REJECT JTO@solana liq $1,310,075 - top-10 holders 49%
+   dex scanner: 2,998 pools (solana 1,902 / base 677 / ethereum 419), refresh cycle 252s (hot 245s), 1517 calls (110 feed, 429s 0, failed 15), 41,756 refreshed (2263 no pair), +99 added / -101 dropped (dead 10, stale 0, cap 91), movers 1 + warming 27 -> queued 4, screened 4 (passed 1), bought 0
+[2026-10-07 19:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 19:05 UTC] crypto/mover     equity $392.68 (-21.5%) 2 open  market UP
+[2026-10-07 19:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 19:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 19:05 UTC] crypto/social_heat equity $507.73 (+1.5%) 2 open  market UP
+[2026-10-07 19:05 UTC] crypto/breakout10 equity $503.81 (+0.8%) 2 open  market UP
+[2026-10-07 19:05 UTC] crypto/momentum  equity $476.34 (-4.7%) 4 open  market UP
+[2026-10-07 19:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 19:05 UTC] crypto/hold_btc  equity $496.70 (-0.7%) 1 open  market UP
+[2026-10-07 19:05 UTC] stocks/rsi2      equity $515.72 (+3.1%) 1 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): JPM 17 BUY, TLT 36, COIN 41, IWM 44
+[2026-10-07 19:05 UTC] stocks/dual_momentum equity $504.88 (+1.0%) 2 open  market UP
+[2026-10-07 19:05 UTC] stocks/trend_ensemble equity $510.59 (+2.1%) 5 open  market UP
+[2026-10-07 19:05 UTC] stocks/rotation10 equity $512.01 (+2.4%) 2 open  market UP
+[2026-10-07 19:05 UTC] stocks/momentum  equity $499.72 (-0.1%) 4 open  market UP
+[2026-10-07 19:05 UTC] stocks/trend     equity $492.66 (-1.5%) 3 open  market UP
+[2026-10-07 19:05 UTC] stocks/hold_spy  equity $504.91 (+1.0%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), MET 35 (32/0/3), PRL 35 (35/0/0), RAY 27 (27/0/0), NEAR 24 (24/0/0)
