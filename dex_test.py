@@ -129,6 +129,7 @@ def make(table, **params):
     params.setdefault("scan", {"enabled": False})           # the wide scanner has its own tests (test_scan_*)
     params.setdefault("confirm_ms", 0)                      # crash/rug confirmation has its own test
     params.setdefault("season", None)                       # season restart has its own test
+    params.setdefault("void", None)                         # the one-time repair has its own test
     d = tempfile.mkdtemp()
     table = dict(table)
     table.setdefault("token-boosts/top", (200, []))
@@ -657,6 +658,33 @@ def test_empty_dexscreener_prices_off_geckoterminal():
     assert pos["px"] == 0.03 and pos["liq"] == 600_000 and pos["px_src"] == "geckoterminal" and not pos.get("exit")
     shutil.rmtree(d)
     print("  DexScreener empty: held coin priced off GeckoTerminal (price only), never sold as a rug   ok")
+
+
+def test_void_bad_data_sales():
+    """10-07: the outage's $0 readings sold all six coins as rugs. params['void'] moves those rows to an archive
+    file (never deleted), takes the proceeds back, restores the positions and the scam count - once."""
+    h, fetch, d, px = held()
+    back = {K: json.loads(json.dumps(h.pf.positions[K]))}
+    h.save()
+    cash0 = h.pf.cash
+    px["gone"] = "others"
+    poll(h, T0 + 6000, px)
+    assert K not in h.pf.positions and h.state["scams"]
+    h.save()
+    with open(f"{d}/restore.json", "w") as f:
+        json.dump(back, f)
+    V = {"id": "t", "after": "2000-01-01 00:00", "file": f"{d}/restore.json"}
+    h2 = DexHunter(params=dict(h.p, void=V), fetch=fetch, now_ms=T0)
+    h2._load()
+    assert K in h2.pf.positions and abs(h2.pf.cash - cash0) < 1e-6 and not h2.state["scams"]
+    assert not rows(f"{d}/outcomes.csv") and len(rows(f"{d}/archive/voided_t.csv")) == 2
+    assert not any(r["side"] == "SELL" for r in rows(f"{d}/dex_hunter/trades.csv"))
+    h2.save()
+    h3 = DexHunter(params=dict(h.p, void=V), fetch=fetch, now_ms=T0)
+    h3._load()                                                   # once only
+    assert len(rows(f"{d}/archive/voided_t.csv")) == 2 and K in h3.pf.positions
+    shutil.rmtree(d)
+    print("  bad-data sales voided once: rows archived, cash and positions restored, scam count back   ok")
 
 
 def test_new_season_restarts_account():
@@ -1241,7 +1269,7 @@ def test_source_backoff():
 def test_state_persists():
     h, fetch, d = make(table_evm())
     screen(h, cand())
-    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "season": None}, fetch=fetch, now_ms=T0 + 5000)
+    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "season": None, "void": None}, fetch=fetch, now_ms=T0 + 5000)
     h2._load()
     assert K in h2.pf.positions and h2.pf.positions[K]["liq0"] == 600_000 and h2.pf.positions[K]["tier"] == "A"
     assert h2.state["seen"]["base:" + EVM]["v"] == "PASS" and h2.equity() == h.equity()
@@ -1339,7 +1367,7 @@ def test_scan_universe_cap_and_eviction():
     h._uni_add("base", "0xABCdef0000000000000000000000000000000001", now, "x")
     assert not h._uni_add("base", "0xabcdef0000000000000000000000000000000001", now, "x")   # EVM case ignored
     h._uni_save(now)
-    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "chains": ["base"], "scan": SCAN, "season": None}, fetch=fetch, now_ms=now)
+    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "chains": ["base"], "scan": SCAN, "season": None, "void": None}, fetch=fetch, now_ms=now)
     h2._load()
     assert sorted(h2.uni) == sorted(h.uni) and h2.uni[f"base:{addr_n(7)}"]["move"] == (now - HOUR) // 1000 * 1000
     shutil.rmtree(d)
@@ -1573,6 +1601,7 @@ if __name__ == "__main__":
     test_sizing_caps_in_entries()
     test_crash_needs_a_second_reading()
     test_empty_dexscreener_prices_off_geckoterminal()
+    test_void_bad_data_sales()
     test_new_season_restarts_account()
     test_trailing_stop()
     test_evm_address_case()

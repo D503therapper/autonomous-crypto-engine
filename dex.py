@@ -648,7 +648,54 @@ class DexHunter:
         self.blocked = self._scam_book()
         C = self.p["cost"]
         self.pf = Portfolio.load(f"{self.acct}/portfolio.json", fee=C["fee"], slippage=C["slip"])
+        if self._void_sales():
+            self.blocked = self._scam_book()
         self._uni_load()
+
+    def _void_sales(self):
+        """One-time repair (params['void']): sales booked on bad data are moved out of trades.csv / outcomes.csv into
+        data/dex/archive/voided_<id>.csv (kept, never deleted), their proceeds taken back and the positions put back
+        as they were. 10-07 20:45: $0 readings left by the DexScreener outage sold all six held coins as rugs."""
+        V = self.p.get("void")
+        if not V or self.state.get("voided") == V["id"] or not os.path.exists(V["file"]):
+            return False
+        with open(V["file"]) as f:
+            back = json.load(f)
+        voided = []
+        for path in (f"{self.acct}/trades.csv", f"{self.dir}/outcomes.csv"):
+            if not os.path.exists(path):
+                continue
+            with open(path, newline="") as f:
+                rd = csv.DictReader(f)
+                cols, rows = rd.fieldnames, list(rd)
+            keep = []
+            for r in rows:
+                bad = r.get("time", "") >= V["after"] and r.get("coin") in back and r.get("side", "SELL") == "SELL"
+                (voided.append({"file": os.path.basename(path), **r}) if bad else keep.append(r))
+                if bad and "usd" in r:
+                    self.pf.cash -= float(r["usd"] or 0) - float(r.get("fee") or 0)
+            with open(path, "w", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=cols)
+                w.writeheader()
+                w.writerows(keep)
+        os.makedirs(f"{self.dir}/archive", exist_ok=True)
+        if voided:
+            cols = list(dict.fromkeys(c for r in voided for c in r))
+            with open(f"{self.dir}/archive/voided_{V['id']}.csv", "a", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=cols)
+                w.writeheader()
+                w.writerows(voided)
+        for k, pos in back.items():                     # (also a held copy still showing the outage's $0)
+            if k not in self.pf.positions or not self.pf.positions[k].get("px"):
+                self.pf.positions[k] = pos
+        after_ms = datetime.strptime(V["after"], "%Y-%m-%d %H:%M").replace(tzinfo=timezone.utc).timestamp() * 1000
+        self.state["scams"] = [t for t in self.state.get("scams", []) if t < after_ms]
+        self.state["voided"] = V["id"]
+        self.pf.save(f"{self.acct}/portfolio.json")
+        self.dirty = True
+        print(f"   dex repair {V['id']}: {len(voided)} bad-data rows moved to archive/voided_{V['id']}.csv, "
+              f"{len(back)} positions put back")
+        return True
 
     def _scam_book(self):
         """Every token we ever booked as a scam (outcomes.csv of this and all archived seasons) is never bought again:
@@ -1612,7 +1659,8 @@ class DexHunter:
             c = by.get(str(pos["pair"]).lower())
             if c and c.get("price") and k in self.pf.positions:
                 pos.update(px=c["price"], seen_px=now, px_src="geckoterminal")
-                self._manage(k, pos, now)
+                if pos.get("liq", 0) > 0:                # a $0 pool left by the outage is no rug signal (10-07 20:45
+                    self._manage(k, pos, now)            # it sold all six coins that way)
         self.dirty = True
 
     CONFIRM_MS = 120_000
