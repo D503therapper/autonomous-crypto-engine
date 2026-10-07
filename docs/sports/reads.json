@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T02:01Z",
+ "updated": "2026-10-07T02:02Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -300,12 +300,42 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -204,
     "p": 0.644,
     "win_p": 0.53,
     "reasons": [
      "the stronger team",
      "hotter recent form",
+     "better starting pitcher"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401908016",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Dodgers",
+    "p": 0.486,
+    "tie": 0.118,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-07T22:00Z",
+   "away": "Dodgers",
+   "home": "Braves",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Braves",
+    "opp": "Dodgers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -155,
+    "p": 0.565,
+    "win_p": 0.445,
+    "reasons": [
      "better starting pitcher"
     ]
    }

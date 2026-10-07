@@ -1759,5 +1759,54 @@
   "score": "4-1",
   "margin": 3.0,
   "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-06",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "mlb",
+  "game_id": "mlb:401908015",
+  "team": "Dodgers",
+  "opp": "Braves",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -109,
+  "posted": "2026-10-06T15:00Z",
+  "price_says": 0.522,
+  "win_p": 0.5133980591857543,
+  "own_read": 0.518,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.00666790170164977,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent missing key players",
+   "hotter recent form"
+  ],
+  "angles": {
+   "late_rally": false
+  },
+  "injuries_seen": {
+   "Max Muncy (Dodgers)": "Not in the lineup"
+  },
+  "ours_out": [
+   "Blake Treinen (RP)"
+  ],
+  "theirs_out": [
+   "Martin Perez (SP)",
+   "Bryce Elder (SP)",
+   "Reynaldo Lopez (RP)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -112,
+  "beat_close_pts": 0.7,
+  "result": "won",
+  "score": "3-1",
+  "margin": 2.0,
+  "pnl_units": 0.0
  }
 ]
