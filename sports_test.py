@@ -5286,8 +5286,8 @@ def test_leans_show_in_their_sport():
     h = D._history(picks)
     i = h.index("NHL")
     sec = h[i:h.index("</details>", i)]
-    assert "0-2" in sec and "🟡 LEAN · Oilers" in sec and "Flyers ML" in sec    # 10/1 later, the owner: leans
-    #                                                    count in our record too (they still carry no units)
+    assert "Flyers ML" in sec and "Oilers" not in sec   # (10/6, the owner: "leans don't get a by sport" - a lean
+    #                                                    is only in its own 🟡 Leans record now)
 
 
 def test_coach_history_infobox():
@@ -9553,6 +9553,23 @@ def test_night_vs_morning_study_picks_the_right_looks_and_grades_both_boards():
     assert abs(b["night_board"]["all"]["roi_night"] - (1.2 - 1) / 2) < 1e-9       # a +120 win and a loss, at the night price
     assert abs(b["night_board"]["all"]["roi_morning"] - (1.1 - 1) / 2) < 1e-9
     assert abs(b["morning_board"]["all"]["roi"] - (1.1 + 1.0) / 2) < 1e-9        # +110 and +100, both won, at the morning price
+
+
+def test_by_sport_is_unit_plays_only():
+    """10/6, the owner: "we do by sport which is just unit plays. Leans don't get a by sport." Each sport's chip is its
+    unit plays (W-L and units); the sport's pick list has no leans; leans keep only their own 🟡 Leans record."""
+    src = open("sports_dashboard.py").read()
+    assert 'f"💰 {uw}-{ul} unit plays"' in src and 'leans=done(by_lean.get(lg, []))' not in src
+    assert 'if e["lean"]:\n            continue' in src
+
+
+def test_by_sport_is_unit_plays_only():
+    """10/6, the owner: "we do by sport which is just unit plays. Leans don't get a by sport" - same look (W-L, win %),
+    unit plays only, the heading says "(unit plays only)" in bold white; leans keep only their own 🟡 Leans record."""
+    src = open("sports_dashboard.py").read()
+    assert 'By sport <b style="color:#fff;font-weight:900">(unit plays only)</b>' in src
+    assert 'leans=done(by_lean.get(lg, []))' not in src and 'if e["lean"]:\n            continue' in src
+    assert 'sports.units_ledger(picks, sports_early.load().get("picks") or [])["rows"]' in src
 
 
 if __name__ == "__main__":
