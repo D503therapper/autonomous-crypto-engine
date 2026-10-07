@@ -10592,3 +10592,41 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-10-07 21:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 21:05 UTC] crypto/hold_btc  equity $496.44 (-0.7%) 1 open  market UP
    social heat top: NEAR 37 (37/0/0), PENGU 35 (29/0/6), TRUMP 35 (35/0/0), PRL 32 (32/0/0), MET 24 (24/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT KNIGHTCAT@solana liq $112,538 - holders unknown; lp holders unknown; rugcheck lp locked 94% < 95%
+   dex screen: REJECT ZRO@base liq $146,939 - pool age unknown
+   dex re-screen: A1@solana:FAopSovS data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: RARINU@solana:45VHsie7 data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: CATCRAFT@solana:ADPN2aqz data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS PUMPOWEEN@solana liq $100,288
+   dex screen: PASS TROLL@solana liq $3,126,613
+   dex screen: REJECT SWORDCAT@solana liq $154,901 - lp holders unknown; rugcheck lp locked 36% < 95%
+   dex screen: REJECT CBBTC@ethereum liq $8,974,909 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 82%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT BASECAT@base liq $63,021 - liquidity $63,021 < $100,000; 24h volume $81,924 < $100,000
+   dex re-screen: A1@solana:FAopSovS data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex outcome: emergency_exit CATCRAFT@solana:ADPN2aqz tier A P/L $-47.60 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity)
+   >> dex/dex_hunter: SELL $0.10 of CATCRAFT@solana:ADPN2aqz @ 4e-06, P/L $-47.60 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity)
+   dex screen: REJECT STONKEX@base liq $389,100 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,884 / base 665 / ethereum 451), refresh cycle 259s (hot 254s), 1499 calls (110 feed, 429s 0, failed 14), 41,231 refreshed (3310 no pair), +103 added / -104 dropped (dead 15, stale 0, cap 89), movers 2 + warming 15 -> queued 2, screened 2 (passed 1), bought 0
+[2026-10-07 22:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 22:05 UTC] crypto/mover     equity $393.88 (-21.2%) 2 open  market UP
+[2026-10-07 22:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 22:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 22:05 UTC] crypto/social_heat equity $502.72 (+0.5%) 2 open  market UP
+[2026-10-07 22:05 UTC] crypto/breakout10 equity $503.59 (+0.7%) 2 open  market UP
+[2026-10-07 22:05 UTC] crypto/momentum  equity $472.73 (-5.5%) 4 open  market UP
+[2026-10-07 22:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 22:05 UTC] crypto/hold_btc  equity $495.41 (-0.9%) 1 open  market UP
+   social heat top: MET 37 (37/0/0), PENGU 34 (29/0/4), PRL 32 (32/0/0), NEAR 27 (27/0/0), HYPE 24 (24/0/0)
+   [alert] Today +495.83 | Total +448.93: Stocks: $515.72  today +6.28  total +15.72
+DEX: $1,433.21  today +489.55  total +433.21
+DEX: $1,433.21 (+433.21) · Scammed: 0
