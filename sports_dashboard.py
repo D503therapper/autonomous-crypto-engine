@@ -1,6 +1,7 @@
 """Phone dashboard for THE D503 SPORTS ENGINE (docs/sports/index.html).
 Top: today's board (2-leg, 3-leg, lock, dog). Below: results, record, and what the engine learned.
 Self-contained HTML (inline CSS/SVG, tiny JS for the live scores and the 🟢 LIVE light)."""
+import sports_owner_lingo
 import html
 import json
 import os
@@ -552,7 +553,7 @@ def _rot(k, options):
 PENDING_TALK = re.compile(r"\s*(?:—\s*)?[^.!?—]*\b(?:gon'? see|finna see|we'?ll see)\b[^.!?]*[.!?]?", re.I)
 
 
-SHOW_PCT_OVER = 55            # the owner, 9/30: a win % only shows when it's over 55% ("37% to cash is not the greatest")
+SHOW_PCT_OVER = sports_owner_lingo.SHOW_PCT_OVER   # the owner, 10/7: no win % ever (9/30: over 55% only)
 _PCT = re.compile(r"(\d{1,2})% (to cash|to hit|to get it done|in our numbers)( on)?")
 
 
@@ -1889,7 +1890,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     if legs:
         said = sum(l["p"] for l in legs) / len(legs)
         got = sum(l["result"] == "won" for l in legs) / len(legs)
-        lines.append(f"🧾 Receipts: said {said:.0%} of our legs would hit — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")
+        if SHOW_PCT_OVER < 100:                              # (the owner, 10/7: no win % ever - the engine's own odds stay
+            lines.append(f"🧾 Receipts: said {said:.0%} of our legs would hit — <b class=\"{'up' if got >= said else 'dn'}\">{got:.0%}</b> did.")   # off)
     for e in sorted((e for e in live.values() if e.get("result") == "won" and e.get("date") == today
                      and (e["team"], e["odds"]) not in big_live),                  # big ones already got the brag
                     key=lambda e: e["posted"])[-2:]:
@@ -2457,9 +2459,9 @@ function show(g){{
     pick(g.id+"s",["⏱️ This one already kicked off — pregame reads are closed. Peep LIVE PLUS MONEY up top: if the algorithm sees live value, it shows up there.",
                    "⏱️ Game’s already going. No pregame reads once it starts — watch LIVE PLUS MONEY, that’s where the in-game value shows up."]))+'</div></section>';out.innerHTML=h;return}}
   h+='<div class="ask-l">🧠 The engine’s leaning: <b>'+esc(L.team)+" "+mk+'</b> <span class="od">'+am(L.odds)+'</span></div>'+
-     '<div class="ask-a">'+(pct>55?pct+'% to '+(L.market=="ml"?"win":"cover"):"The price is right")+(L.market!="ml"?" ("+Math.round(L.win_p*100)+"% to win)":"")+' · '+vibe(L.p,g.id)+'</div>'+
+     '<div class="ask-a">'+vibe(L.p,g.id)+'</div>'+   // (the owner, 10/7: no win % ever)
      (L.reasons.length?'<div class="why">'+esc(whyl(L,g))+'</div>':"")+
-     (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":g.h1.name=="1st period"?"After the 1st":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up — '+Math.round(g.h1.p*100)+'%'+(g.h1.tie>0.05?' (tied '+Math.round(g.h1.tie*100)+'%)':'')+'. '+pick(g.id+"h",["No 1st-half line posted yet, so that’s just the read.","Just the read — books ain’t posted the 1st-half line.","That’s our read on the early action."])+'</div>':"")+
+     (g.h1?'<div class="ask-h">⏱️ '+(g.h1.name=="first 5 innings"?"After 5 innings":g.h1.name=="1st period"?"After the 1st":"At the half")+': we got <b>'+esc(g.h1.team)+'</b> up. '+pick(g.id+"h",["No 1st-half line posted yet, so that’s just the read.","Just the read — books ain’t posted the 1st-half line.","That’s our read on the early action."])+'</div>':"")+
      '<div class="ask-w">Why it’s not a pick: '+pick(g.id,WHY[g.why]||WHY.no_value)+'</div>'+
      '<div class="ask-d">⚠️ Not our pick — this doesn’t count toward our record. '+pick(g.id+"x",OUT)+'</div></section>';
   out.innerHTML=h;

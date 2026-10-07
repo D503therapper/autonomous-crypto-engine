@@ -86,7 +86,7 @@ every session:
   graded (never a half-day number), gone at midnight PT (sports_dashboard.day_recap): the units big, then dollars · ROI ·
   the record of the plays with units (the owner: "the ROI is the ROI" - leans carry no units, no note about it). The
   brain's day line counts every pick once, leans in (day_calls), never parlay cards.
-- A win % only shows on the dashboard when it's over 55% (sports_dashboard.pct_ok) - under that, words say it.
+- NO win % on the dashboard, ever (the owner, 10/7: "we don't need to see win percentages ever" - was 'over 55% only'): a pick's win chance is always said in words (sports_owner_lingo.SHOW_PCT_OVER = 100, sports_dashboard.pct_ok, sports_early.no_pct). Records (W-L · %) are records and stay.
 - No dull gray anywhere: text is solid, bold white; accents stay in color (yellow times, red LIVE).
 - Fix bugs so they don't come back: every fix gets a regression test in `sports_test.py`
   (`timeout 900 python sports_test.py`, all green before any push).

@@ -44,6 +44,9 @@ OWNER = {
 }
 
 # words he's said NOT to use (the dashboard never says these)
+SHOW_PCT_OVER = 100   # the owner, 10/7: "we don't need to see win percentages ever" (was 55 - 9/30); a pick's win
+#                       chance is always said in words. Records (W-L · %) are records, not win %s - they stay.
+
 NEVER = ("real talk", "chalk", "guaranteed", "broken clock", "circled on both calendars", "leaky",
          "class of this", "give him flowers", "give this man flowers", "give her flowers", "only one that counts", "only this one matters", "what counts", "clean slate tonight")   # (10/1: "that don't make no sense")   # (9/30: it's always
 #                                                                        "somebody give this man HIS flowers")   # (9/29: "class of the match" - he's never heard it said)

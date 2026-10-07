@@ -4,6 +4,7 @@ Shown on the dashboard behind a "Full breakdown" tap."""
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
+import sports_owner_lingo
 import re
 import sports_data as sd
 import sports_lingo
@@ -999,12 +1000,17 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
     except Exception:                                     # noqa: BLE001
         own = leg["p"]
     need = 1 / leg["dec"] if leg.get("dec") else None
-    if round(100 * own) > 55:
+    if round(100 * own) > sports_owner_lingo.SHOW_PCT_OVER:   # (the owner, 10/7: no win % ever)
         pct = round(100 * own)
         nums = ("w_num", [f"🔒 The numbers love {us} tonight — {pct}% to cash." if leg.get("tier") == "lock" else
                           f"🧠 The engine's got {us} at {pct}% tonight. We riding with it.",
                           f"🧠 {pct}% to cash on {us} — the numbers did the talking.",
                           f"🧠 {us} at {pct}% to get it done. That's the engine talking, not a hunch."])
+    elif round(100 * own) > 55:                           # (10/7, the owner: no win % ever - a strong read said in words)
+        nums = ("w_num", [f"🔒 The numbers love {us} tonight." if leg.get("tier") == "lock" else
+                          f"🧠 The engine's got {us} winning this one. We riding with it.",
+                          f"🧠 The numbers did the talking on {us} — they're the side.",
+                          f"🧠 {us} to get it done. That's the engine talking, not a hunch."])
     elif leg.get("near_price"):                           # the always-a-Lock backup: the likeliest winner, priced fair
         nums = ("w_num", [f"🔒 We trust {us} to win this one - priced about right, so it's a small bet.",
                           f"🔒 {us} to win at a fair price. A light bet, not a big one."])
