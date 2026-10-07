@@ -940,7 +940,9 @@ def test_liquidity_pull_emergency_exit():
     shutil.rmtree(d)
     h, fetch, d, px = held()                                                # pool gone entirely: -100%
     px["gone"] = True
-    poll(h, T0 + 6000, px)
+    t = poll(h, T0 + 6000, px)                     # an empty answer alone is a feed hiccup (10-07: all six coins $0)
+    assert K in h.pf.positions and h.pf.positions[K]["px"] > 0
+    poll(h, t + h.MISSING_MS, px)                  # still missing an hour later: gone
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert K not in h.pf.positions and oc["outcome"] == "scammed_rug" and abs(float(oc["ret"]) + 1) < 1e-9, oc
     shutil.rmtree(d)

@@ -1569,7 +1569,11 @@ class DexHunter:
                 if c and not _same_pool(pos, c):           # our pool missing from this answer, only other pools
                     continue                               # of the token: skip this update, don't price off them
                 if c and c.get("price"):
+                    pos.pop("missing", None)
                     pos.update(px=c["price"], liq=c["liq"], vol24=c["vol24"], seen_px=now)
+                elif not best and now - pos.setdefault("missing", now) < self.MISSING_MS:
+                    continue                                   # an EMPTY answer is a feed hiccup, not a rug: 10-07 20:05
+                                                               # it marked all six held coins $0 at once (SWORDINU 7.7x)
                 else:                                          # no pair left: liquidity gone
                     pos.update(px=0.0, liq=0.0, seen_px=now)
                 self._manage(k, pos, now)
@@ -1587,6 +1591,8 @@ class DexHunter:
     CONFIRM_MS = 120_000
 
     CRASH_MS = 900_000
+
+    MISSING_MS = 3_600_000                                     # a coin absent from EMPTY feed answers this long = gone
 
     def _confirmed(self, pos, key, now):
         """A crash / rug reading must repeat on a later price update >= 2 min after the first before we sell:
