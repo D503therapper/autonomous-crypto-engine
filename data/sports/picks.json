@@ -7260,6 +7260,7 @@
      "game:rival"
     ],
     "dec": 1.6756756756756757,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -7273,6 +7274,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,2,0",
+     "h": "1,2,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -7323,9 +7328,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Islanders 2 @ Rangers 5",
+    "settled": "2026-10-07T02:25Z",
     "side": "home",
     "start": "2026-10-06T23:30Z",
     "stype": "2",
@@ -7343,12 +7350,14 @@
    }
   ],
   "p_hit": 0.5704,
-  "pnl": 0.0,
+  "pnl": 67.57,
   "posted": "2026-10-06T15:10Z",
   "round": 1,
+  "settled": "2026-10-07T02:25Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,
