@@ -10237,3 +10237,27 @@ To https://github.com/D503therapper/autonomous-crypto-engine
    dex screen: REJECT ENA@ethereum liq $3,062,283 - is_mintable; top-10 holders 60%
    listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
    dex screen: REJECT CTR@base liq $589,952 - pool age unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-07 15:54 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 15:54 UTC] crypto/mover     equity $386.90 (-22.6%) 2 open  market UP
+[2026-10-07 15:54 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 15:54 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 15:54 UTC] crypto/social_heat equity $504.15 (+0.8%) 2 open  market UP
+[2026-10-07 15:54 UTC] crypto/breakout10 equity $492.32 (-1.5%) 2 open  market UP
+[2026-10-07 15:54 UTC] crypto/momentum  equity $475.79 (-4.8%) 4 open  market UP
+[2026-10-07 15:54 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 15:54 UTC] crypto/hold_btc  equity $496.31 (-0.7%) 1 open  market UP
+[2026-10-07 15:54 UTC] stocks/rsi2      equity $515.13 (+3.0%) 1 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): JPM 17 BUY, TLT 36, COIN 41, IWM 44
+[2026-10-07 15:54 UTC] stocks/dual_momentum equity $504.70 (+0.9%) 2 open  market UP
+[2026-10-07 15:54 UTC] stocks/trend_ensemble equity $510.19 (+2.0%) 5 open  market UP
+[2026-10-07 15:54 UTC] stocks/rotation10 equity $511.50 (+2.3%) 2 open  market UP
+[2026-10-07 15:54 UTC] stocks/momentum  equity $499.81 (-0.0%) 4 open  market UP
+[2026-10-07 15:54 UTC] stocks/trend     equity $491.66 (-1.7%) 3 open  market UP
+[2026-10-07 15:54 UTC] stocks/hold_spy  equity $504.31 (+0.9%) 1 open  market UP
+   social heat top: PRL 37 (37/0/0), BTC 35 (35/0/0), SUI 29 (29/0/0), TRUMP 27 (27/0/0), RAY 26 (16/0/10)
