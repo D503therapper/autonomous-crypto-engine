@@ -10147,3 +10147,93 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 [2026-10-07 15:07 UTC] stocks/trend     equity $489.43 (-2.1%) 3 open  market UP
 [2026-10-07 15:07 UTC] stocks/hold_spy  equity $503.12 (+0.6%) 1 open  market UP
    social heat top: RAY 47 (37/0/10), PRL 35 (35/0/0), BTC 32 (32/0/0), MON 29 (29/0/0), SUI 24 (24/0/0)
+remote: Internal Server Error        
+remote: Request ID C441:267919:2BCFE9:396783:6AC66032        
+remote: Time 2026-10-07T15:07:34Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     main -> main (Internal Server Error)
+error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
+   git sync: push rejected (try 1/5)
+remote: Internal Server Error        
+remote: Request ID C441:267919:2BF16A:399269:6AC6603B        
+remote: Time 2026-10-07T15:07:42Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     main -> main (Internal Server Error)
+error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
+   git sync: push rejected (try 2/5)
+remote: Internal Server Error        
+remote: Request ID C441:A1665:A05E74:D53772:6AC66049        
+remote: Time 2026-10-07T15:07:56Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     main -> main (Internal Server Error)
+error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
+   git sync: push rejected (try 3/5)
+remote: Internal Server Error        
+remote: Request ID C441:A1665:A0A412:D58FB1:6AC6605C        
+remote: Time 2026-10-07T15:08:15Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     main -> main (Internal Server Error)
+error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
+   git sync: push rejected (try 4/5)
+remote: Internal Server Error        
+remote: Request ID C441:A1665:A0FAF2:D5FEC5:6AC66074        
+remote: Time 2026-10-07T15:08:39Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     main -> main (Internal Server Error)
+error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
+   git sync: push rejected (try 5/5)
+   git sync: gave up this hour; the next sync / end of run pushes the saved commit
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:A77A6:1DC3F2:277069:6AC66091        
+remote: Time 2026-10-07T15:09:07Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   dex screen: REJECT JEANPHIL@solana liq $320,249 - lp holders unknown; rugcheck lp locked 50% < 95%
+   dex screen: REJECT MUC@base liq $3,767 - liquidity $3,767 < $100,000; 24h volume $623 < $100,000
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:A1665:A23B8F:D79CD5:6AC660CD        
+remote: Time 2026-10-07T15:10:07Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:A1665:A31395:D8B4D9:6AC6610B        
+remote: Time 2026-10-07T15:11:09Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   dex screen: PASS EVERYTHING@solana liq $233,672
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:A1665:A3E7E3:D9C809:6AC66148        
+remote: Time 2026-10-07T15:12:10Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:A1665:A4B331:DACF2C:6AC66184        
+remote: Time 2026-10-07T15:13:10Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:A1665:A584BC:DBE048:6AC661C1        
+remote: Time 2026-10-07T15:14:11Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   dex re-screen: CHIIKAWA@solana:2c1KjiyQ data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:A1665:A6544C:DCEF05:6AC661FD        
+remote: Time 2026-10-07T15:15:11Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [re
+   dashboard push skipped: remote: Internal Server Error        
+remote: Request ID C441:267919:3360CE:431AD7:6AC66239        
+remote: Time 2026-10-07T15:16:11Z
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [r
+   dex screen: REJECT DRV@base liq $738,373 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 57%; lp locked 0% < 95%
+   dex screen: REJECT CATE@solana liq $1,477,133 - top-10 holders 100%
+   dex screen: REJECT SURPLUS@base liq $964,084 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT AAVE@ethereum liq $186,162 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT UBLOCK@base liq $456,339 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT ENA@ethereum liq $3,062,283 - is_mintable; top-10 holders 60%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CTR@base liq $589,952 - pool age unknown
