@@ -1,12 +1,13 @@
 {
- "at": "2026-10-07T03:36Z",
+ "at": "2026-10-07T03:56Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Liu vs Sramkova: no points for 1515s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Liu vs Sramkova: no points for 2651s",
+  "live tennis scores: tennis Okamura vs Prozorova: no points for 822s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (291s)",
+  "live watcher fresh (29s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,18 +15,27 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 7 backup sources answering",
+  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 16 min ago",
+  "engine ran 36 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T03:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Sramkova: no points for 2651s",
+    "live tennis scores: tennis Okamura vs Prozorova: no points for 822s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-07T03:36Z",
    "fixes": [],
@@ -586,13 +596,6 @@
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-04T14:59Z",
-   "fixes": [],
-   "problems": [
-    "studies last ran 9h ago - restarted"
    ]
   }
  ]
