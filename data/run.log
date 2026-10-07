@@ -9938,3 +9938,26 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 [2026-10-07 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 09:06 UTC] crypto/hold_btc  equity $499.53 (-0.1%) 1 open  market UP
    social heat top: NEAR 37 (37/0/0), SUI 35 (35/0/0), POL 32 (32/0/0), PONS 30 (24/0/6), PENGU 29 (29/0/0)
+   dex screen: REJECT MSFTC@base liq $943,788 - pool age unknown
+   dex screen: REJECT GTC@ethereum liq $213,482 - owner_percent 13%; top-10 holders 67%; lp locked 0% < 95%
+   dex re-screen: RARINU@solana:45VHsie7 data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: MINTRO@solana:BrUimx7K data flag #3 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS TROLL@solana liq $3,172,173
+   dex screen: REJECT PI@solana liq $88,353,888 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT CRX@base liq $204,977 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT LCX@ethereum liq $120,339 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: PASS SPX@ethereum liq $11,905,583
+   dex screen: REJECT SNDWITCH@solana liq $108,366 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex re-screen: CHIIKAWA@solana:2c1KjiyQ data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT ZEUS@solana liq $126,763 - top-10 holders 51%; lp holders unknown
+   dex scanner: 3,000 pools (solana 1,982 / base 606 / ethereum 412), refresh cycle 124s (hot 120s), 3025 calls (123 feed, 429s 0, failed 0), 87,058 refreshed (7407 no pair), +233 added / -233 dropped (dead 12, stale 0, cap 221), movers 1 + warming 25 -> queued 4, screened 5 (passed 0), bought 0
+[2026-10-07 10:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 10:06 UTC] crypto/mover     equity $402.40 (-19.5%) 1 open  market UP
+[2026-10-07 10:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 10:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 10:06 UTC] crypto/social_heat equity $509.67 (+1.9%) 2 open  market UP
+[2026-10-07 10:06 UTC] crypto/breakout10 equity $490.31 (-1.9%) 2 open  market UP
+[2026-10-07 10:06 UTC] crypto/momentum  equity $477.92 (-4.4%) 4 open  market UP
+[2026-10-07 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 10:06 UTC] crypto/hold_btc  equity $498.40 (-0.3%) 1 open  market UP
+   social heat top: PRL 37 (37/0/0), PENGU 37 (35/0/2), ORCA 35 (27/0/8), NEAR 35 (35/0/0), SUI 32 (32/0/0)
