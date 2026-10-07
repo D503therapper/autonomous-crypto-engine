@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T05:29Z",
+ "updated": "2026-10-07T05:39Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -346,7 +346,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.487,
+    "p": 0.486,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -363,8 +363,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -155,
-    "p": 0.564,
-    "win_p": 0.444,
+    "p": 0.565,
+    "win_p": 0.445,
     "reasons": [
      "better starting pitcher"
     ]
@@ -501,7 +501,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Yankees",
-    "p": 0.524,
+    "p": 0.538,
     "tie": 0.116,
     "name": "first 5 innings"
    },
@@ -517,11 +517,41 @@
     "opp": "Rays",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.599,
-    "win_p": 0.599,
+    "odds": -176,
+    "p": 0.614,
+    "win_p": 0.614,
     "reasons": [
      "the stronger team"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401908005",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Padres",
+    "p": 0.441,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-08T02:00Z",
+   "away": "Brewers",
+   "home": "Padres",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Padres",
+    "opp": "Brewers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -202,
+    "p": 0.617,
+    "win_p": 0.5,
+    "reasons": [
+     "opponent drama: new baby"
     ]
    }
   },

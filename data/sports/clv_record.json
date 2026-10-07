@@ -1,7 +1,7 @@
 {
  "all": {
-  "n": 32,
-  "beat": 8,
+  "n": 33,
+  "beat": 9,
   "same": 14,
   "worse": 10,
   "avg_pts": 0.04
@@ -22,8 +22,8 @@
    "avg_pts": -0.78
   },
   "lean": {
-   "n": 17,
-   "beat": 4,
+   "n": 18,
+   "beat": 5,
    "same": 9,
    "worse": 4,
    "avg_pts": 0.11
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 6,
-   "beat": 3,
+   "n": 7,
+   "beat": 4,
    "same": 1,
    "worse": 2,
-   "avg_pts": 0.47
+   "avg_pts": 0.43
   },
   "ncaaf": {
    "n": 7,
@@ -549,6 +549,20 @@
    "odds": -148,
    "close": -162,
    "pts": 2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Padres",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -143,
+   "pts": 0.2,
    "units": 0,
    "result": "won"
   }
