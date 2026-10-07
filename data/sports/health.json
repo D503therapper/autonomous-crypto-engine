@@ -1,27 +1,117 @@
 {
- "at": "2026-10-07T07:43Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-07T17:02Z",
+ "fixes": [
+  "simulator overdue (11h) - started sports_sims.yml"
+ ],
+ "problems": [
+  "workflow failed: health 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655354619",
+  "workflow failed: sports_sims 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655315156",
+  "simulator last ran 11h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (196s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 5 live matches",
-  "no failed workflows",
+  "slate check: all 9 of today's games named, priced and looked at",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 5 fresh (betrivers 5)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 45 min ago",
+  "engine ran 23 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T17:02Z",
+   "fixes": [
+    "simulator overdue (11h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "workflow failed: health 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655354619",
+    "workflow failed: sports_sims 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655315156",
+    "simulator last ran 11h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-07T16:51Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-07T15:17Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Hruncakova: no points for 2465s",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-07T14:34Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T13:02Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T13:01Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Galfi vs Iatcenko: no points for 2636s"
+   ]
+  },
+  {
+   "at": "2026-10-07T11:30Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Selekhmeteva vs Crawley: no points for 2650s",
+    "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 175s"
+   ]
+  },
+  {
+   "at": "2026-10-07T10:54Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Selekhmeteva vs Crawley: no points for 502s",
+    "live tennis scores: tennis Akugue vs Stefanini: no points for 502s",
+    "live tennis scores: tennis Werner vs Egribel: no points for 502s"
+   ]
+  },
+  {
+   "at": "2026-10-07T09:22Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Blinkova vs Pridankina: no points for 450s",
+    "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 450s"
+   ]
+  },
+  {
+   "at": "2026-10-07T09:15Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T09:14Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Blinkova vs Pridankina: no points for 2656s",
+    "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 2656s"
+   ]
+  },
   {
    "at": "2026-10-07T07:43Z",
    "fixes": [],
@@ -507,78 +597,6 @@
     "live tennis scores: tennis Dougaz vs Sonego: no points for 911s",
     "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2661s",
     "live tennis scores: tennis Sramkova vs Ibragimova: no points for 2135s"
-   ]
-  },
-  {
-   "at": "2026-10-05T02:55Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2644s",
-    "live tennis scores: tennis Yang Yidi vs Han: no points for 2535s",
-    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2605s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-05T02:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2371s",
-    "live tennis scores: tennis Yang Yidi vs Han: no points for 2263s",
-    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2333s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-05T01:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T00:40Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T00:39Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:nhl:1028409880 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-04T23:08Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-04T22:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-04T22:28Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-04T20:57Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-04T20:21Z",
-   "fixes": [],
-   "problems": [
-    "sources down (the backups took over): betrivers:nfl:1028812621 HTTP 404, betrivers:nfl:1028812622 HTTP 404, betrivers:nfl:1028812625 HTTP 404, betrivers:nfl:1028812619 HTTP 404"
-   ]
-  },
-  {
-   "at": "2026-10-04T18:48Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Jeanjean: no points for 419s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
  ]

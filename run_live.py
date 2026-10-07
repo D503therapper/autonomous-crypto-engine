@@ -58,9 +58,9 @@ MOON_STEPS = (2, 3, 5, 10, 25, 50, 100)            # x since we bought
 def moon_alerts(positions, send=None):
     """Owner 2026-09-28: 'tell me if something's going to the moon'. One phone alert per coin each time it passes
     2x / 3x / 5x / 10x / 25x / 50x / 100x of our buy price (the step reached is saved on the position)."""
-    send = send or notify
-    for pos in positions.values():
-        px, entry = pos.get("px") or 0, pos.get("entry") or 0
+    send = send or notify                          # x of the FIRST buy: the 3x add-on raises the average entry
+    for pos in positions.values():                 # (SWORDINU 10-07: 7.4x of the first buy, no 5x alert)
+        px, entry = pos.get("px") or 0, pos.get("entry0") or pos.get("entry") or 0
         if px <= 0 or entry <= 0:
             continue
         x = px / entry

@@ -34,8 +34,19 @@ def test_emoji_title_is_header_safe():
     assert run_live._header("plain") == "plain"
 
 
+
+def test_add_on_does_not_hide_alerts():
+    # 2026-10-07: SWORDINU's 3x add-on raised the average entry, so 7.4x of the first buy never sent the 5x alert
+    sent = []
+    pos = {"S": {"sym": "S", "px": 7.4, "entry": 2.6, "entry0": 1.0, "qty": 1, "moon": 3}}
+    run_live.moon_alerts(pos, lambda *a: sent.append(a))
+    assert pos["S"]["moon"] == 5 and len(sent) == 1 and "7.4x" in sent[0][0]
+
+
 if __name__ == "__main__":
     test_steps_fire_once()
     print("ok test_steps_fire_once")
     test_emoji_title_is_header_safe()
     print("ok test_emoji_title_is_header_safe")
+    test_add_on_does_not_hide_alerts()
+    print("ok test_add_on_does_not_hide_alerts")
