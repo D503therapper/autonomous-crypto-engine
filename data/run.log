@@ -9986,3 +9986,29 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 [2026-10-07 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 11:06 UTC] crypto/hold_btc  equity $498.32 (-0.3%) 1 open  market UP
    social heat top: PRL 40 (40/0/0), NEAR 35 (35/0/0), BTC 32 (32/0/0), SUI 29 (29/0/0), ETH 27 (27/0/0)
+   dex screen: REJECT GP@solana liq $588,168 - top-10 holders 50%; lp holders unknown
+   dex screen: REJECT LOAMD@base liq $397,843 - goplus partial data: cannot_sell_all unknown; goplus partial data: selfdestruct unknown; buy tax unknown; sell tax unknown; creator_percent 93%; top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT CBBTC@base liq $2,164,074 - goplus partial data: cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT BSW@base liq $0 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; creator_percent 54%; top-10 holders 100%; lp locked 0% < 95%
+   dex screen: REJECT ICP@ethereum liq $495,126 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: REJECT UXRP@base liq $1,089,055 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown
+   dex screen: REJECT MOG@ethereum liq $5,645,520 - top-10 holders 45%
+   dex outcome: emergency_exit MINTRO@solana:BrUimx7K tier A P/L $-50.30 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity)
+   >> dex/dex_hunter: SELL $0.08 of MINTRO@solana:BrUimx7K @ 4e-06, P/L $-50.30 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity)
+   dex screen: REJECT MAG7.SSI@base liq $2,001,973 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 99%
+   dex screen: REJECT CVX@ethereum liq $6,479,513 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 71%
+   dex screen: REJECT RLC@solana liq $889,237,006 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT PENGU@solana liq $4,066,574 - creator holds 7%; top-10 holders 44%
+   dex screen: REJECT OVPP@base liq $285,037 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 46%; lp locked 0% < 95%
+   dex screen: REJECT GHO@ethereum liq $289,338 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 98%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,969 / base 620 / ethereum 411), refresh cycle 125s (hot 122s), 3023 calls (150 feed, 429s 0, failed 0), 86,182 refreshed (4931 no pair), +499 added / -501 dropped (dead 22, stale 0, cap 479), movers 1 + warming 15 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-07 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 12:06 UTC] crypto/mover     equity $384.58 (-23.1%) 2 open  market UP
+[2026-10-07 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 12:06 UTC] crypto/social_heat equity $503.36 (+0.7%) 2 open  market UP
+[2026-10-07 12:06 UTC] crypto/breakout10 equity $491.77 (-1.6%) 2 open  market UP
+[2026-10-07 12:06 UTC] crypto/momentum  equity $474.63 (-5.1%) 4 open  market UP
+[2026-10-07 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 12:06 UTC] crypto/hold_btc  equity $497.57 (-0.5%) 1 open  market UP
+   social heat top: PRL 40 (40/0/0), SUI 37 (37/0/0), BTC 35 (35/0/0), NEAR 29 (29/0/0), ETH 27 (27/0/0)
