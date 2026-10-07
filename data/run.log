@@ -10373,3 +10373,45 @@ To https://github.com/D503therapper/autonomous-crypto-engine
 [2026-10-07 17:05 UTC] stocks/trend     equity $492.15 (-1.6%) 3 open  market UP
 [2026-10-07 17:05 UTC] stocks/hold_spy  equity $504.59 (+0.9%) 1 open  market UP
    social heat top: PONS 40 (32/0/8), TRUMP 37 (37/0/0), PRL 35 (35/0/0), BTC 29 (29/0/0), PENGU 24 (24/0/0)
+   dex screen: REJECT NOS@solana liq $652,480 - top-10 holders 43%; lp holders unknown
+   dex screen: REJECT PLTRC@base liq $676,418 - pool age unknown
+   dex screen: REJECT PNT@ethereum liq $243,127 - is_mintable; top-10 holders 100%; lp holders unknown
+   dex screen: PASS CATE@solana liq $2,856,546
+   dex screen: REJECT PYUSD@ethereum liq $100,150,793 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 88%
+   dex screen: REJECT PUMP@solana liq $27,403,913 - transfer hook; top-10 holders 60%
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex screen: REJECT AGENCY@solana liq $416,208 - lp holders unknown; rugcheck lp locked 32% < 95%
+   listing: coinbase_products #WHUF 'New Coinbase listing (WHUF)' -> ['WHUF']
+   listing: WHUF: coinbase_products notice "New Coinbase listing (WHUF)" -> not on Crypto.com USD
+   dex screen: REJECT GOMO@solana liq $131,949 - holders unknown; lp holders unknown; rugcheck lp locked 49% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: PASS TIBBIR@base liq $3,515,660
+   dex screen: REJECT XAUT@ethereum liq $5,304,843 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 57%
+   dex screen: REJECT HEX@ethereum liq $430,629 - pool age unknown
+   dex re-screen: CATCRAFT@solana:ADPN2aqz data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS FARTCOIN @solana liq $8,289,347
+   dex screen: REJECT EDEL@base liq $1,333,938 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 48%
+   dex screen: REJECT EDEL@solana liq $32,305,542 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT EDEL@solana liq $241,100 - mint authority; top-10 holders 84%; lp holders unknown
+   dex scanner: 3,000 pools (solana 1,902 / base 669 / ethereum 429), refresh cycle 260s (hot 253s), 1536 calls (126 feed, 429s 1, failed 15), 41,875 refreshed (2110 no pair), +286 added / -286 dropped (dead 25, stale 0, cap 261), movers 0 + warming 18 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-07 18:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 18:05 UTC] crypto/mover     equity $392.98 (-21.4%) 2 open  market UP
+[2026-10-07 18:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 18:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 18:05 UTC] crypto/social_heat equity $508.24 (+1.6%) 2 open  market UP
+[2026-10-07 18:05 UTC] crypto/breakout10 equity $498.74 (-0.3%) 2 open  market UP
+[2026-10-07 18:05 UTC] crypto/momentum  equity $475.41 (-4.9%) 4 open  market UP
+[2026-10-07 18:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 18:05 UTC] crypto/hold_btc  equity $495.24 (-1.0%) 1 open  market UP
+[2026-10-07 18:05 UTC] stocks/rsi2      equity $515.82 (+3.2%) 1 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): JPM 17 BUY, TLT 36, COIN 41, IWM 44
+[2026-10-07 18:05 UTC] stocks/dual_momentum equity $505.43 (+1.1%) 2 open  market UP
+[2026-10-07 18:05 UTC] stocks/trend_ensemble equity $511.07 (+2.2%) 5 open  market UP
+[2026-10-07 18:05 UTC] stocks/rotation10 equity $512.28 (+2.5%) 2 open  market UP
+[2026-10-07 18:05 UTC] stocks/momentum  equity $499.82 (-0.0%) 4 open  market UP
+[2026-10-07 18:05 UTC] stocks/trend     equity $493.01 (-1.4%) 3 open  market UP
+[2026-10-07 18:05 UTC] stocks/hold_spy  equity $505.11 (+1.0%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), PRL 35 (35/0/0), NEAR 29 (29/0/0), PONS 27 (24/0/3), PENGU 27 (27/0/0)

@@ -1,12 +1,8 @@
 {
- "at": "2026-10-07T17:02Z",
- "fixes": [
-  "simulator overdue (11h) - started sports_sims.yml"
- ],
+ "at": "2026-10-07T18:35Z",
+ "fixes": [],
  "problems": [
-  "workflow failed: health 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655354619",
-  "workflow failed: sports_sims 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655315156",
-  "simulator last ran 11h ago - restarted"
+  "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
  ],
  "ok": [
   "live watcher fresh (7s)",
@@ -20,13 +16,28 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "engine ran 23 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 20 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T18:35Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
+   ]
+  },
+  {
+   "at": "2026-10-07T18:34Z",
+   "fixes": [],
+   "problems": [
+    "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
+   ]
+  },
   {
    "at": "2026-10-07T17:02Z",
    "fixes": [
@@ -579,25 +590,6 @@
    "at": "2026-10-05T05:58Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-05T04:27Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T04:27Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Basilashvili vs Ilagan: no points for 1006s",
-    "live tennis scores: tennis Draxl vs Gaston: no points for 887s",
-    "live tennis scores: tennis Mochizuki vs Daniel: no points for 911s",
-    "live tennis scores: tennis Galarneau vs Safiullin: no points for 770s",
-    "live tennis scores: tennis Cina vs Linang: no points for 666s",
-    "live tennis scores: tennis Dougaz vs Sonego: no points for 911s",
-    "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2661s",
-    "live tennis scores: tennis Sramkova vs Ibragimova: no points for 2135s"
-   ]
   }
  ]
 }

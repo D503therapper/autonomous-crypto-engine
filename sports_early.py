@@ -393,7 +393,7 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     except Exception as e:                                   # noqa: BLE001 - never breaks the engine
         print(f"   europe under failed: {str(e)[:120]}")
     watch(st, games, injuries)
-    grade(st, games)
+    grade(st, games, now)
     save(st, path)
     return new
 
@@ -455,13 +455,14 @@ def watch(st, games, injuries):
         p["key_out"] = f"{new[0][0]} ({new[0][1]})" if new else None
 
 
-def grade(st, games):
-    for p in st["picks"]:
+def grade(st, games, now=None):
+    now = now or datetime.now(timezone.utc)                  # (10/7: the run's clock, never the wall clock - a test's
+    for p in st["picks"]:                                    #  made-up game read as 4 days stale and voided)
         if p.get("result"):
             continue
         g = games.get(p["game_id"])
         if not g or g.get("status") != "final":
-            stale = bool(p.get("start")) and datetime.now(timezone.utc) - _t(p["start"]) > timedelta(days=4)
+            stale = bool(p.get("start")) and now - _t(p["start"]) > timedelta(days=4)
             if (g and g.get("status") in ("void", "postponed", "canceled", "cancelled")) or stale:
                 p["result"] = "void"                         # (10/2 audit: a game that never went final was stuck
             continue                                         #  pending forever - 4 days, like the board's picks)
