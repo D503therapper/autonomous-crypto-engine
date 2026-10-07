@@ -9905,3 +9905,36 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 [2026-10-07 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 08:06 UTC] crypto/hold_btc  equity $500.05 (+0.0%) 1 open  market UP
    social heat top: ORCA 41 (35/0/6), ZRO 37 (37/0/0), ENA 32 (32/0/0), PUMP 29 (29/0/0), PENGU 27 (27/0/0)
+   dex screen: REJECT BOME@solana liq $17,736,061 - top-10 holders 71%
+   dex screen: REJECT VANRY@base liq $206,439 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT BITCOIN@ethereum liq $1,060,113 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; honeypot (HONEYPOT DETECTED)
+   dex screen: REJECT JLP@solana liq $606,511 - freeze authority; mint authority; top-10 holders 81%; lp holders unknown
+   dex screen: REJECT OVPP@base liq $290,762 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT FUSE@ethereum liq $136,095 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT POD@solana liq $192,982 - lp holders unknown; rugcheck lp locked 25% < 95%
+   dex screen: REJECT POD@base liq $5,307,481 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 95%
+   dex re-screen: MINTRO@solana:BrUimx7K data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT MSTRC@base liq $3,051 - liquidity $3,051 < $100,000; 24h volume $1,489 < $100,000
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex screen: REJECT GTC@ethereum liq $211,974 - owner_percent 13%; top-10 holders 67%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex re-screen: MINTRO@solana:BrUimx7K data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   [alert] 🚀 SWORDINU is up 3.1x: SWORDINU (solana) is up 3.1x since the engine bought it (paper value $153). Contract: 2BVfJ4AHMvHdKtEZNHaBr48dQzTfZvYkjaaxbM6bpump
+   >> dex/dex_hunter: BUY $102.28 of SWORDINU@solana:2BVfJ4AH @ 0.007785 (added on a proven runner at 3.0x)
+   dex screen: REJECT NVDAON@ethereum liq $308,233 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: REJECT VANRY@base liq $217,234 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 94%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 3,000 pools (solana 2,014 / base 573 / ethereum 413), refresh cycle 124s (hot 120s), 3032 calls (124 feed, 429s 0, failed 0), 87,237 refreshed (8848 no pair), +289 added / -289 dropped (dead 15, stale 0, cap 274), movers 3 + warming 20 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-07 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 09:06 UTC] crypto/mover     equity $408.07 (-18.4%) 1 open  market UP
+[2026-10-07 09:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 09:06 UTC] crypto/social_heat equity $509.33 (+1.9%) 2 open  market UP
+[2026-10-07 09:06 UTC] crypto/breakout10 equity $497.88 (-0.4%) 2 open  market UP
+[2026-10-07 09:06 UTC] crypto/momentum  equity $480.12 (-4.0%) 4 open  market UP
+[2026-10-07 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 09:06 UTC] crypto/hold_btc  equity $499.53 (-0.1%) 1 open  market UP
+   social heat top: NEAR 37 (37/0/0), SUI 35 (35/0/0), POL 32 (32/0/0), PONS 30 (24/0/6), PENGU 29 (29/0/0)
