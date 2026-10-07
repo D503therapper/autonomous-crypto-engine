@@ -1762,6 +1762,59 @@
  },
  {
   "date": "2026-10-06",
+  "kind": "dog",
+  "lean": false,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892451",
+  "team": "Mammoth",
+  "opp": "Devils",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 110,
+  "posted": "2026-10-06T15:00Z",
+  "price_says": 0.476,
+  "win_p": 0.4622575151864474,
+  "own_read": 0.497,
+  "weighed": null,
+  "dog_p": 0.4973,
+  "edge_own": -0.029259218108460328,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "hotter recent form",
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:2",
+   "road:1",
+   "splits_f:3",
+   "bottom_s:6",
+   "w_num:2"
+  ],
+  "injuries_seen": {
+   "Jake Allen (Devils G)": "Confirmed in net",
+   "Karel Vejmelka (Mammoth G)": "Confirmed in net"
+  },
+  "ours_out": [],
+  "theirs_out": [
+   "Connor Brown (RW)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 105,
+  "beat_close_pts": 1.2,
+  "result": "won",
+  "score": "5-3",
+  "margin": 2.0,
+  "pnl_units": 1.1
+ },
+ {
+  "date": "2026-10-06",
   "kind": "lean",
   "lean": true,
   "tier": "lean",
@@ -1807,6 +1860,62 @@
   "result": "won",
   "score": "3-1",
   "margin": 2.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-06",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892452",
+  "team": "Rangers",
+  "opp": "Islanders",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -148,
+  "posted": "2026-10-06T15:10Z",
+  "price_says": 0.597,
+  "win_p": 0.5704493131883493,
+  "own_read": 0.569,
+  "weighed": 0.5693,
+  "dog_p": null,
+  "edge_own": 0.04989678638707229,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "hotter recent form",
+   "the stronger team"
+  ],
+  "angles": [
+   "hot:0",
+   "better:1",
+   "G_hot:1",
+   "home:0",
+   "sharp:3",
+   "splits_w:2",
+   "bottom_n:5",
+   "w_hot:1"
+  ],
+  "injuries_seen": {
+   "Igor Shesterkin (Rangers G)": "Confirmed in net",
+   "Semyon Varlamov (Islanders G)": "Confirmed in net"
+  },
+  "ours_out": [
+   "Joe Veleno (C)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "ride",
+  "close": -162,
+  "beat_close_pts": 2.2,
+  "result": "won",
+  "score": "5-2",
+  "margin": 3.0,
   "pnl_units": 0.0
  }
 ]
