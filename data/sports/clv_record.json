@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 31,
+  "n": 32,
   "beat": 8,
-  "same": 13,
+  "same": 14,
   "worse": 10,
   "avg_pts": 0.04
  },
@@ -22,9 +22,9 @@
    "avg_pts": -0.78
   },
   "lean": {
-   "n": 16,
+   "n": 17,
    "beat": 4,
-   "same": 8,
+   "same": 9,
    "worse": 4,
    "avg_pts": 0.11
   },
@@ -66,11 +66,11 @@
    "avg_pts": -0.43
   },
   "nhl": {
-   "n": 12,
+   "n": 13,
    "beat": 2,
-   "same": 6,
+   "same": 7,
    "worse": 4,
-   "avg_pts": -0.32
+   "avg_pts": -0.29
   }
  },
  "lock_by_size": {
@@ -523,6 +523,20 @@
    "pts": 0.7,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Blues",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
   },
   {
    "date": "2026-10-06",
