@@ -1,33 +1,3 @@
-  league:mlb: 22 graded, said 54%, hit 86% - only 22 graded - report only
-  league:nfl: 19 graded, said 57%, hit 74% - only 19 graded - report only
-  ctx:game:conf: 18 graded, said 52%, hit 61% - only 18 graded - report only (report only: forward-only tag)
-  label:live: 17 graded, said 57%, hit 53% - only 17 graded - report only
-  league:nhl: 17 graded, said 50%, hit 24% - only 17 graded - report only
-  source:live: 17 graded, said 57%, hit 53% - only 17 graded - report only
-  ctx:game:rival: 16 graded, said 56%, hit 50% - only 16 graded - report only (report only: forward-only tag)
-  league:tennis: 10 graded, said 52%, hit 40% - only 10 graded - report only
-  ctx:them:trip1000: 9 graded, said 56%, hit 78% - only 9 graded - report only (report only: forward-only tag)
-  league:ncaaf: 9 graded, said 52%, hit 56% - only 9 graded - report only
-  drama:theirs: 6 graded, said 53%, hit 33% - only 6 graded - report only
-  label:dog: 6 graded, said 42%, hit 33% - only 6 graded - report only
-  label:lock: 6 graded, said 56%, hit 83% - only 6 graded - report only
-  market:spread: 6 graded, said 54%, hit 33% - only 6 graded - report only
-  ctx:them:east1000: 5 graded, said 56%, hit 80% - only 5 graded - report only (report only: forward-only tag)
-  ctx:them:week3000: 5 graded, said 56%, hit 80% - only 5 graded - report only (report only: forward-only tag)
-  ctx:them:west1000: 4 graded, said 55%, hit 75% - only 4 graded - report only (report only: forward-only tag)
-  ctx:game:nonconf: 3 graded, said 54%, hit 33% - only 3 graded - report only (report only: forward-only tag)
-  ctx:them:out_dome: 3 graded, said 55%, hit 100% - only 3 graded - report only (report only: forward-only tag)
-  ctx:us:trip1000: 3 graded, said 53%, hit 0% - only 3 graded - report only (report only: forward-only tag)
-  ctx:them:trip2000: 2 graded, said 55%, hit 100% - only 2 graded - report only (report only: forward-only tag)
-  ctx:us:west1000: 2 graded, said 51%, hit 0% - only 2 graded - report only (report only: forward-only tag)
-  ctx:them:dome_out: 1 graded, said 51%, hit 100% - only 1 graded - report only (report only: forward-only tag)
-  ctx:us:dome_out: 1 graded, said 57%, hit 0% - only 1 graded - report only (report only: forward-only tag)
-  ctx:us:east1000: 1 graded, said 57%, hit 0% - only 1 graded - report only (report only: forward-only tag)
-  ctx:us:trip2000: 1 graded, said 57%, hit 0% - only 1 graded - report only (report only: forward-only tag)
-  drama:ours: 1 graded, said 57%, hit 100% - only 1 graded - report only
-  label:value: 1 graded, said 52%, hit 100% - only 1 graded - report only
-  price:+180+: 1 graded, said 35%, hit 0% - only 1 graded - report only
-  price:pick'em: 1 graded, said 58%, hit 100% - only 1 graded - report only
   talk:ours:must-win: 1 graded, said 44%, hit 100% - only 1 graded - report only (report only: forward-only tag)
   talk:theirs:must-win: 1 graded, said 44%, hit 100% - only 1 graded - report only (report only: forward-only tag)
   talk:theirs:trash talk: 1 graded, said 57%, hit 0% - only 1 graded - report only (report only: forward-only tag)
@@ -2972,6 +2942,36 @@ sync: 130693 games stored, 52 calls, 0 failed, 11s
 odds history: 0 games got odds, 55 calls, 0 failed, 4s
 player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
 weather: 228 games got weather, 0 new stadiums located, 139s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 3 games on the page, 3 matched, 3 confirmed
+PICK AUDIT FLAG 2026-10-05: dog Sharks 145: the card says 2 straight wins, the games say 4: '🔥 Sharks are cooking right now (2 straight W's) and Stars ain't matching that en'
+PICK AUDIT FLAG 2026-10-06: dog Mammoth 110: 1.0u on a thin edge (under 3%) - should be ½u
+beat the close: unit plays 4 of 15 better than the close, avg -0.0 pts
+question box status not read: HTTP Error 403: Forbidden
+public splits: 63 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (567 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (567 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (567 players), 138 matched, 0 unmatched
+   ncaab web injuries: 320 players, 154 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
+   no units on Capitals: missing Matt Roy, Rasmus Sandin
+   no units on Ducks: missing Drew Helleson, Troy Terry, Ian Moore
+   no units on Oilers: missing Jason Dickinson, Zach Hyman, Ryan Nugent-Hopkins, Matt Savoie
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25970 rated matches, acc 0.6425 (surface ratings alone 0.643), loss 0.6296 vs 0.6297, own weights [-0.005, 0.828, 0.073, 0.139, 0.425, 0.052, 0.05]
+tennis study ATP life factors vs current loss 0.6296: experience 0.6302 (-0.59 mnats, z -0.58), age 0.6263 (+3.38 mnats, z 2.47), young_vs_aging 0.6292 (+0.40 mnats, z 0.96), last_match 0.6272 (+2.48 mnats, z 1.71), streaks 0.6302 (-0.52 mnats, z -0.51), first_set 0.6288 (+0.87 mnats, z 1.38), injury 0.6303 (-0.70 mnats, z -1.02), travel 0.6297 (-0.09 mnats, z -1.2) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30334 rated matches, acc 0.65 (surface ratings alone 0.65), loss 0.6219 vs 0.6211, own weights [0.005, 0.906, -0.002, -0.098, 0.308, 0.028, -0.192]
+tennis study WTA life factors vs current loss 0.6219: experience 0.6178 (+4.04 mnats, z 2.38), age 0.6218 (+0.09 mnats, z 0.1), young_vs_aging 0.6217 (+0.11 mnats, z 0.7), last_match 0.6217 (+0.15 mnats, z 0.15), streaks 0.6222 (-0.31 mnats, z -0.63), first_set 0.6211 (+0.77 mnats, z 1.8), injury 0.6212 (+0.62 mnats, z 1.08), travel 0.6219 (-0.09 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 18 matches
+sync: 130693 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 141 games got weather, 0 new stadiums located, 253s
 4th-down rates: 32 NFL teams
 news: 0 new drama tags
 goalies: 3 games on the page, 3 matched, 3 confirmed
