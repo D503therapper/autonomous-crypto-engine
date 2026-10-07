@@ -14,6 +14,8 @@ Every engine run (hourly), every upcoming game with a line (the NFL a week out, 
 goes up right then at that price, with a push to everybody. Graded at the posted price, its own record (never ours).
 Posted = final (the owner's rule: a posted pick is never changed).
 """
+import re
+import sports_owner_lingo
 import json
 import os
 from datetime import datetime, timedelta, timezone
@@ -627,7 +629,7 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
         pass
     pr = f"+{odds}" if odds and odds > 0 else "this price"
     pc = round(own * 100) if own is not None else 0
-    if pc > 55:                                              # a win % only shows over 55% (the owner) - 55.2% rounds to
+    if pc > sports_owner_lingo.SHOW_PCT_OVER:               # a win % only shows over the owner's bar (10/7: never) - 55.2% rounds to
         #                                                      "55%", so it's judged after the rounding (10/4 audit: Fresno St)
         reads = [f"🧠 Our numbers got {me} winning {pc}% - way more than {pr} pays for.",
                  f"🧠 {me} at {pr} is a gift: we got 'em winning {pc}% of the time.",
@@ -643,6 +645,26 @@ def spot_why(sched, g, side, other, lg, spot, now=None, own=None, odds=None):
                  f"🧠 On our numbers, {me} shouldn't be {pr} - that's value."]
     facts = (list(facts) * 2)[:len(reads)]                   # (10/5: 6 wordings - 7 open cards ran out of 3)
     return [(r + (" " + f if f else "")).strip() for r, f in zip(reads, facts)]
+
+
+_PCT_RE = re.compile(r"\d{1,2}%")
+NO_PCT_READS = ("🧠 Our numbers like {t} more than {pr} pays for.", "🧠 {t} at {pr}: our read beats the price.",
+                "🧠 The books sell {t} short at {pr} - our numbers say so.")
+
+
+def no_pct(p):
+    """The early row's why line with no win % in it (the owner, 10/7: "we don't need to see win percentages ever") -
+    a line already saved with one gets its read sentence said in words, the fact after it kept."""
+    why = p.get("why") or SPOTS.get(p.get("spot"), ("",))[0]
+    if not _PCT_RE.search(why):
+        return why
+    rest = why.split(". ", 1)[1] if ". " in why else ""
+    if _PCT_RE.search(rest):
+        rest = ""
+    o = p.get("odds") or 0
+    pr = f"+{o}" if o > 0 else (str(o) if o else "this price")
+    read = NO_PCT_READS[sum(map(ord, str(p.get("game_id", "")))) % len(NO_PCT_READS)]
+    return (read.format(t=p.get("team", ""), pr=pr) + (" " + rest if rest else "")).strip()
 
 
 def pick_wording(c, st):
@@ -1040,7 +1062,7 @@ def html(st, E, now=None, show_units=None, games=None):
         return (f'<div class="evr"><div><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small> '
                 f'<em>{"+" if o > 0 else ""}{o}</em>'
                 f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
-                + (f'<span>{E(p.get("why") or SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "") +
+                + (f'<span>{E(no_pct(p))}</span>' if p.get("spot") in SPOTS else "") +
                 f'<u>{when(p["start"], now)} · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                 + (f'<span class="evm">{E(now_line(p, games))}</span>' if now_line(p, games) else "")
                 + (f'<span>🚑 {E(p["key_out"])} ruled out since we posted it - don\'t chase it</span>' if p.get("key_out") else "")
@@ -1141,7 +1163,7 @@ def gameday_html(st, games, E, now=None, show_units=None):
                     f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
-                       if (p.get("own") or 0) * 100 > 55 else "")                           # (the owner, 9/30)
+                       if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)
                     + (f'<span>{E(move_say(p, now_odds, call))}</span>' if move_say(p, now_odds, call) else "")
                     + (show_units(units(p), p.get("team", ""), p.get("odds")) if show_units else "")
                     + f'</div><div class="egp">{price}{f"<i>{call}</i>" if call else ""}</div></div>')

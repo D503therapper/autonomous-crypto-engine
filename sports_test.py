@@ -3417,7 +3417,7 @@ def test_why_line_is_a_real_line_not_a_tag():
                       "Red Sox", "the Yankees", "the Red Sox", key_them=[("Garrett Crochet", "SP", "Out")], key_us=[])
     assert "Garrett Crochet" in c2                     # a KEY player out is named
     d = say({**base, "reasons": []})
-    assert "58%" in d
+    assert d and "%" not in d                          # (10/7, the owner: no win % ever)
     v = v24.Voice("board", set())                                       # never the same wording twice on a board
     lines = [v24.why_line({**base, "reasons": ["the stronger team"]}, v, g, "Yankees", "Red Sox", "the Yankees",
                           "the Red Sox", rec_u="93-68", rec_t="87-75") for _ in range(4)]
@@ -4652,9 +4652,9 @@ def test_win_pct_only_over_55():
         "✅ Bottom line: Maple Leafs (-130). The price is right — get in."
     assert d.pct_ok("✅ Bottom line: 37% to hit on Kings (+160). Tap in.") == "✅ Bottom line: the price is right on Kings (+160). Tap in."
     assert d.pct_ok("🧠 The engine's got Kings at 37% tonight.") == "🧠 The engine's got Kings right where we want 'em tonight."
-    assert d.pct_ok("✅ Bottom line: Ruud ML (-230). 67% to cash — tap in.").endswith("67% to cash — tap in.")
+    assert "%" not in d.pct_ok("✅ Bottom line: Ruud ML (-230). 67% to cash — tap in.")   # (10/7, the owner: no win % ever)
     assert d.pct_ok("📊 The casuals got the Avalanche (93% of the bets).").endswith("(93% of the bets).")   # not a win %
-    assert "pct>55?" in open(d.__file__).read()                                                        # question box too
+    assert "pct>55?" not in open(d.__file__).read() and "% to win" not in open(d.__file__).read()   # question box too (10/7)
 
 
 def test_units_and_the_open_bankroll():
@@ -7078,7 +7078,7 @@ def test_early_cards_lead_with_the_read_and_never_share_wording():
          "g": {"id": "g", "league": "ncaaf", "start": "2026-10-10T23:30Z", "home": "A", "away": "G", "home_name": "Alabama",
                "away_name": "Georgia", "status": "pre", "stype": "2"}}
     ws = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now, 0.624, 130)
-    assert len(set(ws)) == len(ws) >= 6 and all("62%" in w and "56-23" in w for w in ws), ws
+    assert len(set(ws)) == len(ws) >= 6 and all("%" not in w and "56-23" in w for w in ws), ws   # (10/7: no win % ever)
     assert not any("beaten their price" in w for w in ws)
     low = se.spot_why(se._schedule(G), G["g"], "home", "away", "ncaaf", "blowout", now, 0.50, 130)
     assert not any("%" in w for w in low), low                       # (a win % only over 55)
@@ -7209,7 +7209,7 @@ def test_early_play_and_the_same_board_pick_both_count():
     g = {"home": "1", "away": "2", "home_name": "Fresno St", "away_name": "Boise St", "start": "2026-10-11T02:30Z", "league": "ncaaf"}
     now = datetime(2026, 10, 4, 21, 0, tzinfo=timezone.utc)
     assert not any("55%" in w for w in se.spot_why({}, g, "home", "away", "ncaaf", "blowout", now, 0.5518, 205))
-    assert all("56%" in w for w in se.spot_why({}, g, "home", "away", "ncaaf", "blowout", now, 0.5551, 205))
+    assert not any("%" in w for w in se.spot_why({}, g, "home", "away", "ncaaf", "blowout", now, 0.5551, 205))   # (10/7: never)
     # (3) the opponent's price moved too: the market's number comes from today's prices
     p = {"odds": 150, "opp_odds": -170, "own": 0.42, "league": "nfl"}   # posted +150 / -170; now +185 / -125 (both moved)
     assert se.label(p, 185, -125) == "👀 money went against it"   # 42% vs 38.6% now: under the 4-point bar
@@ -9570,6 +9570,20 @@ def test_by_sport_is_unit_plays_only():
     assert 'By sport <b style="color:#fff;font-weight:900">(unit plays only)</b>' in src
     assert 'leans=done(by_lean.get(lg, []))' not in src and 'if e["lean"]:\n            continue' in src
     assert 'sports.units_ledger(picks, sports_early.load().get("picks") or [])["rows"]' in src
+
+
+def test_no_win_percentages_ever():
+    """10/7, the owner: "we don't need to see win percentages ever". A pick's win chance is said in words everywhere -
+    board cards, tennis, early rows (even a line saved with one); records (W-L · %) stay, they're records."""
+    import sports_dashboard as D, sports_early as se, sports_owner_lingo as ol
+    assert ol.SHOW_PCT_OVER >= 100 and D.SHOW_PCT_OVER >= 100
+    assert "%" not in D.pct_ok("✅ Bottom line: Swiatek ML (-210). 65% to cash — tap in.")
+    p = {"game_id": "ncaaf:9", "team": "NC State", "odds": 124, "spot": "engine",
+         "why": "🧠 Our numbers got NC State winning 64% - way more than +124 pays for. The line moved away from them."}
+    assert "%" not in se.no_pct(p) and "The line moved away from them." in se.no_pct(p) and "+124" in se.no_pct(p)
+    assert "%" not in "".join(se.spot_why({}, {"home": "1", "away": "2", "home_name": "A", "away_name": "B",
+                                                  "start": "2026-10-10T20:00Z", "league": "ncaaf"}, "home", "away",
+                                          "ncaaf", "engine", own=0.7, odds=124))
 
 
 if __name__ == "__main__":
