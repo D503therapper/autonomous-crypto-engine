@@ -1,33 +1,40 @@
 {
- "at": "2026-10-07T15:17Z",
+ "at": "2026-10-07T16:51Z",
  "fixes": [
-  "studies overdue (10h) - started sports_studies.yml"
+  "simulator overdue (10h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Sakatsume vs Hruncakova: no points for 2465s",
-  "studies last ran 10h ago - restarted"
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (42s)",
+  "live watcher fresh (80s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 2 live matches",
   "slate check: all 9 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "simulator ran 9h ago",
-  "engine ran 1 min ago",
+  "studies ran 2h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T16:51Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-07T15:17Z",
    "fixes": [
@@ -587,16 +594,6 @@
     "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2644s",
     "live tennis scores: tennis Yang Yidi vs Han: no points for 2535s",
     "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2605s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-05T02:50Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Lu Jia-Jing vs Zheng Wushuang: no points for 2371s",
-    "live tennis scores: tennis Yang Yidi vs Han: no points for 2263s",
-    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 2333s",
     "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
   }
