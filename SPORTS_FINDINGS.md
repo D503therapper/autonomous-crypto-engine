@@ -13,6 +13,51 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/7 - THE MOVE MODEL, RE-CHECKED BLIND BEFORE GOING LIVE (the owner: "we need to be on these lines before they move - that's the edge. Lock everything you need to in the engine"): DEAD - the 10/1 edge was a look-ahead feature. Nothing built.
+tools/early_move_recheck.py -> results/early_move_recheck.json; tools/early_move_live.py -> results/early_move_live.json.
+No paid re-pull, no network. The 10/1 "STILL STANDING" finding (early_dog_studies study 1: a model fit on past seasons
+picks the dogs the money comes to - NFL top 20% 75% moved, +6.0% at the first fair price, 4 of 5; college 74% moved,
++5.8%, 4 of 5) was about to become the seventh early spot. Held to the five checks first, on the paid football history
+2020-26, in the spot's band +100..+220, graded on WINS at the first fair price:
+- **THE LEAK:** the 10/1 model's inputs carried "early_move" - the dog's price move from the week's FIRST look to its
+  SECOND (a later snapshot) - and the bet was graded at the FIRST price. You can't have the first price once the second
+  look is out. That ONE input is the whole edge: on its own it "makes" NFL +10.7% (83% moved, 3 of 6) and college +3.7%
+  (84% moved); the full 10/1 feature set NFL +10.6% / college -1.6%. Its honest form - bet at the SECOND look once the
+  money's already coming - is the 🔨 'hammered early' spot (study 4), live since 10/1 with its own record. The book
+  features (price spread across books, best book vs middle, books posted) need every book's price; the engine sees one
+  feed - and they add nothing (honest + books: NFL -5.9%, college -4.6%).
+- **HONEST (every input known at the first fair number, the engine's read blind to injuries / starters / weather and
+  tuned only on the 3 seasons before, the model fit only on earlier seasons, the cutoff fixed from those seasons' top
+  20% - what a live scan can do; the season's own top 20% can't be bet, it needs the whole season to rank):**
+  NFL 200 bets, won 39.0% (the price said 41.8%), -5.9% at the first price, -7.5% at the close, the money came to the
+  dog 57% (every band dog: 50%), 2 of 6 seasons up: 2021 -5.8% (21), 2022 +15.9% (38), 2023 +33.3% (44), 2024 -42.5%
+  (47), 2025 -24.1% (32), **2026 -19.4% on 18**. College 334 bets, won 40.1% (said 41.0%), -2.7% at the first price,
+  -5.2% at the close, moved to the dog 61% (every band dog: 59%), 4 of 6 up but pennies - 2021 +1.1% (71), 2022 +8.1%
+  (55), 2023 +0.9% (61), 2024 +2.2% (69), 2025 -25.6% (61), **2026 -3.2% on 17**. The model can't call the move
+  without seeing it start: +7 points over any dog in the NFL, +2 in college.
+- **THIS SEASON'S LIVE LINES (line_history, hourly since 10/1 - the first price recorded after both teams' last games
+  vs the last before kickoff; the model fit through 2025, the engine's read pre-game from the replay):** NFL 22 band
+  dogs (12 final: 6-6, +14.5% at the first price, 27% moved to the dog, the money LEFT the dog 6 cents on average);
+  the model picked 1 (Chargers +154 on 10/11, pending, hasn't moved). College 69 band dogs (41 final: 20-21, +20%, 42%
+  moved); the model picked 9: 6-1 graded (+128%), 8 of 9 moved to the dog (E Michigan +195 -> +185, Temple +205 ->
+  +190, Louisiana Tech +105 -> -110, Drake +164 -> +120, AR-Pine Bluff +151 -> +115, Western KY +114 -> +105 lost;
+  Tulane +205 -> +140 and Coastal +120 -> +130 pending). Seven finals, three of them FCS games - not a sample; the
+  paid 2026 rows above (18 NFL / 17 college) are the honest this-season read, and they're down.
+- **Our ten posted early plays, got -> now:** Alabama +130 -> -122 (52 cents came to us), Falcons +120 -> -170 (90),
+  Florida St +215 -> +150 (65), Tulane +205 -> +140 (65), UMass +120 -> +110 (10), Jaguars +120 -> +120 (won), Fresno
+  St +205 flat, NC State +124 -> +145 (-21), New Mexico St +180 -> +195 (-15), Iowa +120 -> +142 (-22). Five of nine
+  open plays the money came to, three it left - the spots are doing what they're for; the 10/4 note stands: not a
+  sample yet.
+- Five checks: (1) fair YES (2) blind YES (3) most seasons up NO in both leagues (NFL 2 of 6; college 4 of 6 but the
+  total is negative and the last two seasons -25.6% / -3.2%) (4) this season NO (NFL -19.4%, college -3.2%) (5) the
+  live replay: too few to grade. **DEAD. Not built for either league** - no spot, no weight, no units, no model file.
+  The study scripts and this entry are the record; study 1 in tools/early_dog_studies.py is marked LOOK-AHEAD so
+  results/early_dogs.json's "+6%" can't be read as a finding again. "Being on the line before it moves" is what the
+  six spots already do: they post at the first fair number, and their own records say whether it pays.
+- A side fix in the new scripts: a price move across the line counts right (+105 -> -110 is 15 cents, not 215 - a
+  plain subtraction had Louisiana Tech "moving 215 cents"); early_dog_studies.cents still subtracts (its 10+ cutoff
+  only cares about the sign there).
+
 ## 10/7 - "How often is sharp money actually right?" (the owner bet New Mexico St +200 after FIU went -218 -> -240; our early play went against the money; report only)
 tools/sharp_money_study.py -> results/sharp_money_study.json. No paid re-pull, no network. "Sharp money" = the side the
 line moved TOWARD between the opener and the close (the only sharp signal that exists for every game), plus the real

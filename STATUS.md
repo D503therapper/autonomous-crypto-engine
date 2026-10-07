@@ -3,6 +3,18 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/7 - the move model as a live early spot? Re-checked blind first: DEAD, not built (the owner: "we need to be on these lines before they move")
+- tools/early_move_recheck.py + tools/early_move_live.py; SPORTS_FINDINGS.md (10/7, top). The 10/1 "which dogs the
+  money comes to" model (NFL +6.0%, college +5.8% at the first fair price) got its edge from ONE input that looks at
+  the week's SECOND price to bet the FIRST - a leak. Honest (first-look facts only, blind read, fit on earlier
+  seasons, fixed cutoff): NFL -5.9% (2 of 6 seasons, 2026 -19% on 18), college -2.7% (2025 -26%, 2026 -3%); it calls
+  the move only 2-7 points better than any dog. This season's hourly lines: 1 NFL pick (pending), 9 college picks
+  6-1 but 7 finals (3 FCS) - no sample. Fails checks 3 and 4 in both leagues -> no seventh spot, no weight, no units,
+  no model file; the engine is untouched. The honest version of that leaky input is the 🔨 hammered spot, already live.
+- Pinned by sports_test.test_move_model_is_dead_not_an_early_spot (no money/move spot, no look-ahead feature, the
+  cents math across +100/-100). The early plays keep doing what the owner asked - posting at the first fair number;
+  their own records (30-40 bets each) are the proof, not a model.
+
 ## 10/7 - "how often is sharp money right?" (the owner's NMSU +200 vs the FIU move; report only, nothing changed)
 - tools/sharp_money_study.py -> results/sharp_money_study.json; SPORTS_FINDINGS.md (10/7, top). The side the line
   moves to wins 55-57% straight up (it's mostly the favorite) and the opener price beats the market (+3% at the open,

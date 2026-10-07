@@ -1,0 +1,271 @@
+{
+ "nfl": {
+  "every band dog": {
+   "n": 22,
+   "finals": 12,
+   "moved_to_dog": 0.273,
+   "moved_10": 0.227,
+   "avg_cents_in": -6.1,
+   "won": 0.5,
+   "roi": 0.145,
+   "roi_close": 0.131
+  },
+  "model picks": {
+   "n": 1,
+   "finals": 0,
+   "moved_to_dog": 0.0,
+   "moved_10": 0.0,
+   "avg_cents_in": 0.0
+  },
+  "agrees": null,
+  "picks": [
+   {
+    "gid": "nfl:401872989",
+    "league": "nfl",
+    "team": "Chargers",
+    "start": "2026-10-11T20:05Z",
+    "first": 154,
+    "last": 154,
+    "cents_in": 0,
+    "score": 0.4133,
+    "pick": true,
+    "won": null,
+    "gap": -0.0046
+   }
+  ]
+ },
+ "ncaaf": {
+  "every band dog": {
+   "n": 69,
+   "finals": 41,
+   "moved_to_dog": 0.42,
+   "moved_10": 0.319,
+   "avg_cents_in": -3.2,
+   "won": 0.488,
+   "roi": 0.202,
+   "roi_close": 0.165
+  },
+  "model picks": {
+   "n": 9,
+   "finals": 7,
+   "moved_to_dog": 0.889,
+   "moved_10": 0.667,
+   "avg_cents_in": 21.4,
+   "won": 0.857,
+   "roi": 1.284,
+   "roi_close": 1.101
+  },
+  "agrees": null,
+  "picks": [
+   {
+    "gid": "ncaaf:401871049",
+    "league": "ncaaf",
+    "team": "Western KY",
+    "start": "2026-10-02T00:00Z",
+    "first": 114,
+    "last": 105,
+    "cents_in": 9,
+    "score": 0.4855,
+    "pick": true,
+    "won": false,
+    "gap": 0.1588
+   },
+   {
+    "gid": "ncaaf:401866433",
+    "league": "ncaaf",
+    "team": "E Michigan",
+    "start": "2026-10-03T19:30Z",
+    "first": 195,
+    "last": 185,
+    "cents_in": 10,
+    "score": 0.514,
+    "pick": true,
+    "won": true,
+    "gap": -0.0565
+   },
+   {
+    "gid": "ncaaf:401862792",
+    "league": "ncaaf",
+    "team": "Temple",
+    "start": "2026-10-03T23:30Z",
+    "first": 205,
+    "last": 190,
+    "cents_in": 15,
+    "score": 0.5122,
+    "pick": true,
+    "won": true,
+    "gap": -0.2086
+   },
+   {
+    "gid": "ncaaf:401869842",
+    "league": "ncaaf",
+    "team": "Louisiana Tech",
+    "start": "2026-10-03T23:30Z",
+    "first": 105,
+    "last": -110,
+    "cents_in": 15,
+    "score": 0.4935,
+    "pick": true,
+    "won": true,
+    "gap": -0.0969
+   },
+   {
+    "gid": "ncaaf:401868228",
+    "league": "ncaaf",
+    "team": "Drake",
+    "start": "2026-10-03T17:00Z",
+    "first": 164,
+    "last": 120,
+    "cents_in": 44,
+    "score": 0.4857,
+    "pick": true,
+    "won": true,
+    "gap": 0.1664
+   },
+   {
+    "gid": "ncaaf:401868025",
+    "league": "ncaaf",
+    "team": "Holy Cross",
+    "start": "2026-10-03T19:30Z",
+    "first": 179,
+    "last": 170,
+    "cents_in": 9,
+    "score": 0.4819,
+    "pick": true,
+    "won": true,
+    "gap": 0.0295
+   },
+   {
+    "gid": "ncaaf:401868936",
+    "league": "ncaaf",
+    "team": "AR-Pine Bluff",
+    "start": "2026-10-03T23:00Z",
+    "first": 151,
+    "last": 115,
+    "cents_in": 36,
+    "score": 0.4881,
+    "pick": true,
+    "won": true,
+    "gap": -0.07
+   },
+   {
+    "gid": "ncaaf:401862795",
+    "league": "ncaaf",
+    "team": "Tulane",
+    "start": "2026-10-10T16:00Z",
+    "first": 205,
+    "last": 140,
+    "cents_in": 65,
+    "score": 0.4845,
+    "pick": true,
+    "won": null,
+    "gap": 0.0103
+   },
+   {
+    "gid": "ncaaf:401869943",
+    "league": "ncaaf",
+    "team": "Coastal",
+    "start": "2026-10-10T23:00Z",
+    "first": 120,
+    "last": 130,
+    "cents_in": -10,
+    "score": 0.4866,
+    "pick": true,
+    "won": null,
+    "gap": -0.2544
+   }
+  ]
+ },
+ "our_early_plays": [
+  {
+   "team": "Jaguars",
+   "league": "nfl",
+   "spot": "best",
+   "got": 120,
+   "now": 120,
+   "cents_in": 0,
+   "result": "won"
+  },
+  {
+   "team": "Alabama",
+   "league": "ncaaf",
+   "spot": "blowout",
+   "got": 130,
+   "now": -122,
+   "cents_in": 52,
+   "result": null
+  },
+  {
+   "team": "Florida St",
+   "league": "ncaaf",
+   "spot": "blowout",
+   "got": 215,
+   "now": 150,
+   "cents_in": 65,
+   "result": null
+  },
+  {
+   "team": "Tulane",
+   "league": "ncaaf",
+   "spot": "bye",
+   "got": 205,
+   "now": 140,
+   "cents_in": 65,
+   "result": null
+  },
+  {
+   "team": "NC State",
+   "league": "ncaaf",
+   "spot": "engine",
+   "got": 124,
+   "now": 145,
+   "cents_in": -21,
+   "result": null
+  },
+  {
+   "team": "Fresno St",
+   "league": "ncaaf",
+   "spot": "blowout",
+   "got": 205,
+   "now": 205,
+   "cents_in": 0,
+   "result": null
+  },
+  {
+   "team": "New Mexico St",
+   "league": "ncaaf",
+   "spot": "blowout",
+   "got": 180,
+   "now": 195,
+   "cents_in": -15,
+   "result": null
+  },
+  {
+   "team": "Iowa",
+   "league": "ncaaf",
+   "spot": "engine",
+   "got": 120,
+   "now": 142,
+   "cents_in": -22,
+   "result": null
+  },
+  {
+   "team": "UMass",
+   "league": "ncaaf",
+   "spot": "engine",
+   "got": 120,
+   "now": 110,
+   "cents_in": 10,
+   "result": null
+  },
+  {
+   "team": "Falcons",
+   "league": "nfl",
+   "spot": "blowout",
+   "got": 120,
+   "now": -170,
+   "cents_in": 90,
+   "result": null
+  }
+ ]
+}
