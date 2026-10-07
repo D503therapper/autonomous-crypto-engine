@@ -9741,3 +9741,35 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 [2026-10-07 03:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 03:05 UTC] crypto/hold_btc  equity $499.34 (-0.1%) 1 open  market UP
    social heat top: ORCA 42 (35/0/8), SUI 40 (40/0/0), BTC 37 (37/0/0), PONS 34 (29/0/4), TAO 27 (27/0/0)
+   listing: binance #9c34999b27234dfe9c43d2ac 'Binance Exchange Adds JPMorgan Chase (JPMB), Eli Lilly (LLYB), Securitize Corp (SECZB) and' -> ['JPMB', 'LLYB', 'SECZB', 'USDEB']
+   listing: JPMB: binance notice "Binance Exchange Adds JPMorgan Chase (JPMB), Eli Lilly (LLYB), Securitize Corp (" 329s ago -> not on Crypto.com USD
+   listing: LLYB: binance notice "Binance Exchange Adds JPMorgan Chase (JPMB), Eli Lilly (LLYB), Securitize Corp (" 329s ago -> not on Crypto.com USD
+   listing: SECZB: binance notice "Binance Exchange Adds JPMorgan Chase (JPMB), Eli Lilly (LLYB), Securitize Corp (" 329s ago -> not on Crypto.com USD
+   listing: USDEB: binance notice "Binance Exchange Adds JPMorgan Chase (JPMB), Eli Lilly (LLYB), Securitize Corp (" 329s ago -> not on Crypto.com USD
+   dex screen: REJECT HOLDOWEEN@solana liq $118,116 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT MORPHO@base liq $2,795,626 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 82%; lp locked 0% < 95%
+   dex re-screen: MINTRO@solana:BrUimx7K data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     98129dba405ac7debd7d92ddcc9e2a9709eb2b70 -> main (cannot lock ref 'refs/heads/main': is at 7abe62b8ed564413ddd07a4
+   dex screen: REJECT CIRBTC@ethereum liq $5,784,682 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+   dex screen: REJECT ZEN@base liq $2,579,609 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 68%; lp locked 0% < 95%
+   dex re-screen: A1@solana:FAopSovS data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS RARINU@solana liq $116,744
+   >> dex/dex_hunter: BUY $46.93 of RARINU@solana:45VHsie7 @ 0.001576 (dex tier A momentum 1h +27% 6h +881% buys/sells 3055/516 impact 0.04%)
+   dex screen: REJECT EURC@ethereum liq $2,801,444 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 41%
+   dex screen: REJECT ZEVIO@ethereum liq $102,044 - lp holders unknown
+   dex screen: REJECT OPENAI@base liq $2,082,747 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; holders unknown; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 3,000 pools (solana 1,977 / base 595 / ethereum 428), refresh cycle 126s (hot 121s), 2976 calls (110 feed, 429s 0, failed 0), 85,977 refreshed (10704 no pair), +81 added / -81 dropped (dead 18, stale 0, cap 63), movers 2 + warming 32 -> queued 3, screened 3 (passed 1), bought 1
+   dex screen: REJECT FEELSGOOD@solana liq $122,811 - transfer_fee_upgradable; lp holders unknown
+   dex screen: PASS CATCRAFT@solana liq $123,760
+[2026-10-07 04:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 04:06 UTC] crypto/mover     equity $407.42 (-18.5%) 2 open  market UP
+[2026-10-07 04:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 04:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 04:06 UTC] crypto/social_heat equity $511.70 (+2.3%) 2 open  market UP
+[2026-10-07 04:06 UTC] crypto/breakout10 equity $490.94 (-1.8%) 2 open  market UP
+[2026-10-07 04:06 UTC] crypto/momentum  equity $477.98 (-4.4%) 4 open  market UP
+[2026-10-07 04:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 04:06 UTC] crypto/hold_btc  equity $500.60 (+0.1%) 1 open  market UP
+   social heat top: SUI 40 (40/0/0), ORCA 39 (32/0/7), PONS 38 (29/0/9), BTC 37 (37/0/0), NEAR 35 (35/0/0)
