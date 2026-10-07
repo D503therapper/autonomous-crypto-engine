@@ -1,32 +1,33 @@
 {
- "updated": "2026-10-07T19:22Z",
+ "updated": "2026-10-07T20:07Z",
  "games": [
   {
    "id": "mlb:401907992",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "White Sox",
-    "p": 0.474,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-07T20:00Z",
    "away": "Guardians",
    "home": "White Sox",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Guardians",
-    "opp": "White Sox",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -201,
-    "p": 0.636,
-    "win_p": 0.452,
-    "reasons": []
+    "team": "White Sox",
+    "opp": "Guardians",
+    "market": "ml",
+    "line": null,
+    "odds": -121,
+    "p": 0.532,
+    "win_p": 0.532,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "better starting pitcher"
+    ],
+    "result": null
    }
   },
   {
@@ -222,7 +223,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.453,
+    "p": 0.458,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -238,9 +239,9 @@
     "opp": "Brewers",
     "market": "spread",
     "line": 1.5,
-    "odds": -193,
-    "p": 0.603,
-    "win_p": 0.485,
+    "odds": -196,
+    "p": 0.598,
+    "win_p": 0.479,
     "reasons": [
      "opponent drama: new baby"
     ]
