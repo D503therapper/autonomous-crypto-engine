@@ -90,6 +90,7 @@ DEFAULTS = {
         "gt_trending": "https://api.geckoterminal.com/api/v2/networks/{network}/trending_pools?duration=1h",
         "gt_trending_page": "https://api.geckoterminal.com/api/v2/networks/{network}/trending_pools?duration=1h&page={page}",
         "gt_new": "https://api.geckoterminal.com/api/v2/networks/{network}/new_pools?page={page}",
+        "gt_pools": "https://api.geckoterminal.com/api/v2/networks/{network}/pools/multi/{pools}",   # <= 30 pools
         "ds_profiles": "https://api.dexscreener.com/token-profiles/latest/v1",
         "ds_boosts_latest": "https://api.dexscreener.com/token-boosts/latest/v1",
     },
@@ -600,6 +601,7 @@ class DexHunter:
         self.state, self.pf, self.queue, self.jobs, self.lookup = None, None, [], {}, []
         self.cex = set()                              # run_live: Crypto.com symbols (tier C)
         self._n_saved, self.dirty = 0, False
+        self._gt_due = set()                          # chains whose DexScreener price answer came back empty
         self._snap_t = {}                             # coin -> last snapshot time (one row per coin per hour)
         self._pf_saved = 0                            # last time portfolio.json got the latest prices
         # wide scanner (see _scan_job): pool universe, feeds, per-hour stats, buffered scan snapshots
@@ -1542,6 +1544,9 @@ class DexHunter:
     # ---- prices, stops, take-profits (every ~60 s per chain, one batch request) ----
     def _price_job(self, now):
         st, ds = self.state, self.src["dexscreener"]
+        if self._gt_due and self.src["geckoterminal"].ready(now):
+            self._gt_prices(self._gt_due.pop(), now)
+            return True
         if not ds.ready(now):
             return False
         want = {}
@@ -1560,6 +1565,8 @@ class DexHunter:
             pairs = parse_ds_pairs(obj, now)
             best = best_pairs(pairs, chain)
             by_pair = {c["pair"]: c for c in pairs if c.get("pair")}
+            if not best:                                 # priced off GeckoTerminal on the next tick (one request
+                self._gt_due.add(chain)                  # per tick)
             for k, pos in list(self.pf.positions.items()):
                 if pos["chain"] != chain or pos["addr"] not in addrs:
                     continue
@@ -1586,6 +1593,27 @@ class DexHunter:
             self.dirty = True
             return True
         return False
+
+    def _gt_prices(self, chain, now):
+        """DexScreener answering EMPTY for every coin (10-07 20:00 on, even SWORDINU / BONK-size pools): price the
+        held coins off GeckoTerminal's view of the same pools so moon alerts, the 3x add-on and the dashboard keep
+        working. Price only: liquidity stays at the last DexScreener reading (the two sites measure pools
+        differently, so mixing them could fake a pulled pool); the re-screen's LP checks still run."""
+        net = self.p["gt_networks"].get(chain)
+        held = [(k, p) for k, p in self.pf.positions.items() if p["chain"] == chain and p.get("pair")][:30]
+        if not net or not held:
+            return
+        url = self._url("gt_pools", network=net, pools=",".join(p["pair"] for _, p in held))
+        st_, obj = self._get("geckoterminal", url, now)
+        if st_ != 200:
+            return
+        by = {str(c["pair"]).lower(): c for c in parse_gt_pools(obj, chain, now) if c.get("pair")}
+        for k, pos in held:
+            c = by.get(str(pos["pair"]).lower())
+            if c and c.get("price") and k in self.pf.positions:
+                pos.update(px=c["price"], seen_px=now, px_src="geckoterminal")
+                self._manage(k, pos, now)
+        self.dirty = True
 
     CONFIRM_MS = 120_000
 

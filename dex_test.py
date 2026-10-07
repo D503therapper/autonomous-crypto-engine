@@ -645,6 +645,20 @@ def test_far_off_tick_needs_15_minutes():
     print("  a 20x+ drop between readings needs 15 min before a sale (AIRPAD bad feed)   ok")
 
 
+def test_empty_dexscreener_prices_off_geckoterminal():
+    """10-07 20:00: DexScreener answered [] for every coin for hours and all six held coins showed $0. An empty
+    answer now holds the coin and prices it off GeckoTerminal's view of the same pool (price only)."""
+    gt = gt_pool("base", EVM, price=0.03, liq=1_000)          # GT's reserve is never used (could fake a rug)
+    gt["attributes"]["address"] = "PAIR1"
+    h, fetch, d, px = held({"pools/multi/": (200, {"data": [gt]})})
+    px["gone"] = True
+    poll(h, T0 + 6000, px)
+    pos = h.pf.positions[K]
+    assert pos["px"] == 0.03 and pos["liq"] == 600_000 and pos["px_src"] == "geckoterminal" and not pos.get("exit")
+    shutil.rmtree(d)
+    print("  DexScreener empty: held coin priced off GeckoTerminal (price only), never sold as a rug   ok")
+
+
 def test_new_season_restarts_account():
     """A new params['season'] archives the account + outcomes (never deletes) and starts fresh at season_cash."""
     h, fetch, d, px = held()
@@ -1558,6 +1572,7 @@ if __name__ == "__main__":
     test_liquidity_floor_scales_with_account()
     test_sizing_caps_in_entries()
     test_crash_needs_a_second_reading()
+    test_empty_dexscreener_prices_off_geckoterminal()
     test_new_season_restarts_account()
     test_trailing_stop()
     test_evm_address_case()
