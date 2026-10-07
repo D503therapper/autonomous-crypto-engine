@@ -10563,3 +10563,20 @@ To https://github.com/D503therapper/autonomous-crypto-engine
    >> dex/dex_hunter: SELL $0.00 of RARINU@solana:45VHsie7 @ 0, P/L $-47.07 (liquidity pulled 100% ($0; $112,985 expected after the price move, $116,744 at entry))
    dex outcome: scammed_rug CATCRAFT@solana:ADPN2aqz tier A P/L $-47.70 (liquidity pulled 100% ($0; $77,092 expected after the price move, $125,630 at entry))
    >> dex/dex_hunter: SELL $0.00 of CATCRAFT@solana:ADPN2aqz @ 0, P/L $-47.70 (liquidity pulled 100% ($0; $77,092 expected after the price move, $125,630 at entry))
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex repair 2026-10-07-feed-outage: 12 bad-data rows moved to archive/voided_2026-10-07-feed-outage.csv, 6 positions put back
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-07 20:57 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 20:57 UTC] crypto/mover     equity $391.51 (-21.7%) 2 open  market UP
+[2026-10-07 20:57 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 20:57 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 20:57 UTC] crypto/social_heat equity $503.46 (+0.7%) 2 open  market UP
+[2026-10-07 20:57 UTC] crypto/breakout10 equity $509.20 (+1.8%) 2 open  market UP
+[2026-10-07 20:57 UTC] crypto/momentum  equity $477.22 (-4.6%) 4 open  market UP
+[2026-10-07 20:57 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 20:57 UTC] crypto/hold_btc  equity $496.34 (-0.7%) 1 open  market UP
+   social heat top: NEAR 37 (37/0/0), PENGU 35 (29/0/6), TRUMP 35 (35/0/0), PRL 32 (32/0/0), MET 24 (24/0/0)
