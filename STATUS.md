@@ -3,6 +3,17 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/7 - "how often is sharp money right?" (the owner's NMSU +200 vs the FIU move; report only, nothing changed)
+- tools/sharp_money_study.py -> results/sharp_money_study.json; SPORTS_FINDINGS.md (10/7, top). The side the line
+  moves to wins 55-57% straight up (it's mostly the favorite) and the opener price beats the market (+3% at the open,
+  all sports) - but following it at the close loses ~5% in every sport (0 of 4 seasons) and fading it loses ~7%. Every
+  money-vs-tickets split signal loses at the close except the NHL sharp dog (+14.5% on 182, the 10/1 lead, already
+  wired +1). The engine's side when the money then runs 15+ cents against it: usually a bad side (-16% at our price
+  over 2,522, every sport) EXCEPT college football at the first look of the week (coin flip, +5% +/- 8 at our price).
+  Found and fixed in the log: the 10/6 night-vs-morning "college dogs the money ran against overnight won" was
+  backwards - the code's bucket was the dogs the money came TO; the dogs the money left lost -30% (36 games).
+- NMSU +180 -> +195 (the money left, 15 cents) - pending; no rule says pull it, no rule says chase FIU.
+
 ## 10/6 - post the unit plays at 8 PM the night before or keep 8 AM? (report only, nothing changed)
 - tools/night_vs_morning_study.py -> results/night_vs_morning_study.json; SPORTS_FINDINGS.md (10/6, top). NFL: keep
   8 AM (no price to gain, ±1 cent; a QB ruled out overnight hit 1% of night picks and all of them lost). College:

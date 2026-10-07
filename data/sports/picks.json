@@ -7421,6 +7421,7 @@
      "us:west1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -7437,6 +7438,10 @@
     "edge_own": -0.05565251902578505,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,1,1,0,1,0,0",
+     "h": "0,0,2,0,1,1,0,0"
+    },
     "form_state": [
      -1.0,
      -2,
@@ -7488,9 +7493,11 @@
      "opponent drama: new baby"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Brewers 3 @ Padres 4",
+    "settled": "2026-10-07T05:03Z",
     "side": "home",
     "start": "2026-10-07T01:30Z",
     "stype": "3",
@@ -7515,11 +7522,13 @@
    }
   ],
   "p_hit": 0.5423,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-06T18:03Z",
   "round": 1,
+  "settled": "2026-10-07T05:03Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  }
 ]

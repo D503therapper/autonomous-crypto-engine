@@ -1,29 +1,74 @@
 {
- "at": "2026-10-07T01:50Z",
- "fixes": [],
- "problems": [
-  "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
+ "at": "2026-10-07T06:59Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-06 Iga Swiatek) - started sports.yml"
  ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (146s)",
-  "every finished pick graded",
+  "live watcher fresh (1s)",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 3 of 3 live matches",
   "slate check: all 12 of today's games named, priced and looked at",
+  "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 9 backup sources answering",
+  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 3 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 0 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-07T06:59Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-06 Iga Swiatek) - started sports.yml"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T05:28Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T05:27Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Okamura vs Prozorova: no points for 2641s"
+   ]
+  },
+  {
+   "at": "2026-10-07T03:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Sramkova: no points for 2651s",
+    "live tennis scores: tennis Okamura vs Prozorova: no points for 822s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-07T03:36Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Sramkova: no points for 1515s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-07T03:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Sramkova: no points for 611s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-07T01:50Z",
    "fixes": [],
@@ -540,57 +585,6 @@
    "problems": [
     "live tennis scores: tennis Boisson vs Jeanjean: no points for 94s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-04T18:41Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Jeanjean: no points for 158s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-04T17:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Jeanjean: no points for 2651s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-04T16:33Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Boisson vs Jeanjean: no points for 437s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-04T14:59Z",
-   "fixes": [],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-04T14:54Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-04T14:09Z",
-   "fixes": [],
-   "problems": [
-    "live bets on the board but not saved on main: Colts (the next page build merges them)"
    ]
   }
  ]

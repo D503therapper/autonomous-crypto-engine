@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 31,
-  "beat": 8,
-  "same": 13,
+  "n": 33,
+  "beat": 9,
+  "same": 14,
   "worse": 10,
   "avg_pts": 0.04
  },
@@ -22,9 +22,9 @@
    "avg_pts": -0.78
   },
   "lean": {
-   "n": 16,
-   "beat": 4,
-   "same": 8,
+   "n": 18,
+   "beat": 5,
+   "same": 9,
    "worse": 4,
    "avg_pts": 0.11
   },
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 6,
-   "beat": 3,
+   "n": 7,
+   "beat": 4,
    "same": 1,
    "worse": 2,
-   "avg_pts": 0.47
+   "avg_pts": 0.43
   },
   "ncaaf": {
    "n": 7,
@@ -66,11 +66,11 @@
    "avg_pts": -0.43
   },
   "nhl": {
-   "n": 12,
+   "n": 13,
    "beat": 2,
-   "same": 6,
+   "same": 7,
    "worse": 4,
-   "avg_pts": -0.32
+   "avg_pts": -0.29
   }
  },
  "lock_by_size": {
@@ -529,12 +529,40 @@
    "kind": "lean",
    "lean": true,
    "league": "nhl",
+   "team": "Blues",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
    "team": "Rangers",
    "market": "ml",
    "line": null,
    "odds": -148,
    "close": -162,
    "pts": 2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Padres",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -143,
+   "pts": 0.2,
    "units": 0,
    "result": "won"
   }
