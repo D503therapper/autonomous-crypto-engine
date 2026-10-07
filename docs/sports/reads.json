@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T00:54Z",
+ "updated": "2026-10-07T01:10Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -12,7 +12,7 @@
    "home": "Braves",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Dodgers",
@@ -26,7 +26,7 @@
      "opponent missing key players",
      "hotter recent form"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -223,32 +223,29 @@
    "id": "mlb:401908004",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Padres",
-    "p": 0.477,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-07T01:30Z",
    "away": "Brewers",
    "home": "Padres",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Brewers",
-    "opp": "Padres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -187,
-    "p": 0.632,
-    "win_p": 0.447,
+    "team": "Padres",
+    "opp": "Brewers",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.542,
+    "win_p": 0.542,
     "reasons": [
-     "hotter recent form",
-     "opponent missing key players",
+     "better starting pitcher",
+     "sharp money moving this way",
      "opponent drama: new baby"
-    ]
+    ],
+    "result": null
    }
   },
   {

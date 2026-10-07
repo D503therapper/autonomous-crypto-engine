@@ -6971,6 +6971,7 @@
      "us:trip1000"
     ],
     "dec": 1.9174311926605505,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -6987,6 +6988,10 @@
     "edge_own": -0.00666790170164977,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,3,0,0,0,0,0",
+     "h": "0,0,0,0,1,0,0,0,0"
+    },
     "form_state": [
      -1.0,
      -1,
@@ -7034,9 +7039,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Dodgers 3 @ Braves 1",
+    "settled": "2026-10-07T01:09Z",
     "side": "away",
     "start": "2026-10-06T22:00Z",
     "stype": "3",
@@ -7053,12 +7060,14 @@
    }
   ],
   "p_hit": 0.5134,
-  "pnl": 0.0,
+  "pnl": 91.74,
   "posted": "2026-10-06T15:00Z",
   "round": 1,
+  "settled": "2026-10-07T01:09Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -148,
