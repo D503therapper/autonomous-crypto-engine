@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T23:23Z",
+ "updated": "2026-10-07T01:47Z",
  "games": [
   {
    "id": "mlb:401908015",
@@ -12,7 +12,7 @@
    "home": "Braves",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Dodgers",
@@ -26,7 +26,7 @@
      "opponent missing key players",
      "hotter recent form"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -82,8 +82,8 @@
    "away": "Nets",
    "home": "Hornets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -97,8 +97,8 @@
    "away": "Predators",
    "home": "Maple Leafs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -112,8 +112,8 @@
    "away": "Senators",
    "home": "Red Wings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -127,8 +127,8 @@
    "away": "Wild",
    "home": "Sabres",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -164,152 +164,103 @@
    "id": "nhl:401891779",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blues",
-    "p": 0.387,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-07T00:00Z",
    "away": "Blues",
    "home": "Blackhawks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Blackhawks",
-    "opp": "Blues",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.643,
-    "win_p": 0.421,
-    "reasons": []
+    "team": "Blues",
+    "opp": "Blackhawks",
+    "market": "ml",
+    "line": null,
+    "odds": -148,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "sharp money moving this way"
+    ],
+    "result": null
    }
+  },
+  {
+   "id": "nba:401898389",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-07T00:00Z",
+   "away": "Pelicans",
+   "home": "Thunder",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401871090",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Troy",
-    "p": 0.715,
-    "tie": 0.028,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-07T00:00Z",
    "away": "Southern Miss",
    "home": "Troy",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Troy",
-    "opp": "Southern Miss",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -105,
-    "p": 0.501,
-    "win_p": 0.772,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "nba:401914128",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-07T01:00Z",
+   "away": "Nuggets",
+   "home": "Jazz",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "mlb:401908004",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Padres",
-    "p": 0.476,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-07T01:30Z",
    "away": "Brewers",
    "home": "Padres",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Brewers",
-    "opp": "Padres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -187,
-    "p": 0.633,
-    "win_p": 0.449,
-    "reasons": [
-     "hotter recent form",
-     "opponent missing key players",
-     "opponent drama: new baby"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892454",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.407,
-    "tie": 0.296,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-07T01:40Z",
-   "away": "Golden Knights",
-   "home": "Kraken",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Golden Knights",
-    "opp": "Kraken",
+    "team": "Padres",
+    "opp": "Brewers",
     "market": "ml",
     "line": null,
-    "odds": -175,
-    "p": 0.624,
-    "win_p": 0.624,
+    "odds": -142,
+    "p": 0.542,
+    "win_p": 0.542,
     "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401891806",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Panthers",
-    "p": 0.361,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-07T02:00Z",
-   "away": "Panthers",
-   "home": "Kings",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Kings",
-    "opp": "Panthers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -258,
-    "p": 0.693,
-    "win_p": 0.476,
-    "reasons": [
-     "opponent missing key players"
-    ]
+     "better starting pitcher",
+     "sharp money moving this way",
+     "opponent drama: new baby"
+    ],
+    "result": null
    }
   },
   {
@@ -334,7 +285,7 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -200,
+    "odds": -205,
     "p": 0.644,
     "win_p": 0.53,
     "reasons": [

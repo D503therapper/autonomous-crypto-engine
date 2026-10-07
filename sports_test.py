@@ -9412,6 +9412,9 @@ def test_goalie_card_line_and_watch():
                                                               "Ilya Sorokin confirmed for the Islanders — their #1, 8 of their last 10 starts.")
     assert sports.GOALIE_CARD is False and sports.key_status({}, games["nhl:g2"]) == {}   # (10/6: off on the cards)
     sports.GOALIE_CARD = True                                             # (the watch code stays tested, switched on)
+    real_load = sg.load                                                   # (10/7: the live engine calls the watch with
+    sg.load = lambda now_=None: real_load(now_ or now)                    #  no clock - pin it to the test's, or the test
+    #                                                                       breaks 8 hours after its made-up page time)
     assert sg.watch_status(games["nhl:g1"], now) == {} and sports.key_status({}, games["nhl:g2"]) == {
         "Jonathan Quick (Rangers G)": "Confirmed in net", "Ilya Sorokin (Islanders G)": "Confirmed in net"}
     # the watch: posted with nobody confirmed; Sorokin confirmed later = one alert on the card, never a phone ping
@@ -9432,6 +9435,7 @@ def test_goalie_card_line_and_watch():
     finally:
         sd.fetch_injuries, sp.CACHE = old_fetch, old_cache
         sports.GOALIE_CARD = False
+        sg.load = real_load
     # fail soft: the page down, or not the page at all - the last file stays, nothing raises, unknown = no weight
     sg._CACHE.clear()
     before = open(sg.PATH).read()
