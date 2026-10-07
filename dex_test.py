@@ -583,7 +583,9 @@ def test_sizing_caps_in_entries():
 def held(table_extra=None, **pair_kw):
     """A hunter holding TOK bought at 0.01 with a mutable live pair (px['v'], px['liq'])."""
     px = {"v": 0.01, "liq": pair_kw.pop("liq", 600_000), "gone": False}
-    table = {"tokens/v1/base/": lambda u: (200, [] if px["gone"] else [ds_pair("base", EVM, price=px["v"], liq=px["liq"], **pair_kw)])}
+    other = [ds_pair("base", "0xdef0000000000000000000000000000000000009", pair="PAIR9")]
+    table = {"tokens/v1/base/": lambda u: (200, [] if px["gone"] is True else other if px["gone"] == "others"
+                                           else [ds_pair("base", EVM, price=px["v"], liq=px["liq"], **pair_kw)])}
     table.update(table_extra or {})
     table.update({k: v for k, v in table_evm().items() if k not in table})
     h, fetch, d = make(table)
@@ -940,9 +942,11 @@ def test_liquidity_pull_emergency_exit():
     shutil.rmtree(d)
     h, fetch, d, px = held()                                                # pool gone entirely: -100%
     px["gone"] = True
-    t = poll(h, T0 + 6000, px)                     # an empty answer alone is a feed hiccup (10-07: all six coins $0)
+    t = poll(h, T0 + 6000, px)                     # an empty answer is a feed outage (10-07: all six coins $0)
+    t = poll(h, t + 7_200_000, px)                 # ...even for hours
     assert K in h.pf.positions and h.pf.positions[K]["px"] > 0
-    poll(h, t + h.MISSING_MS, px)                  # still missing an hour later: gone
+    px["gone"] = "others"                          # the feed answers for other coins but our pair is gone: a rug
+    poll(h, t, px)
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert K not in h.pf.positions and oc["outcome"] == "scammed_rug" and abs(float(oc["ret"]) + 1) < 1e-9, oc
     shutil.rmtree(d)
