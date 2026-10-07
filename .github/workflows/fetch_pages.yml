@@ -20,7 +20,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
-      - run: timeout 12m python -u tools/fetch_pages.py ${{ github.event.inputs.urls }}
+      - run: timeout 12m python -u tools/fetch_pages.py $URLS   # (10/7: through env - a URL's '&' in the command line
+        env:                                                     #  ran half of it in the background: exit 127)
+          URLS: ${{ github.event.inputs.urls }}
       - run: |
           git config user.name "paper-trader-bot"
           git config user.email "paper-trader-bot@users.noreply.github.com"
