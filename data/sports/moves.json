@@ -1107,7 +1107,8 @@
    }
   ],
   "skipped": {
-   "line moved / no closing price": 1
+   "line moved / no closing price": 1,
+   "not closed yet": 3
   },
   "summary": {
    "all": {
@@ -1303,34 +1304,34 @@
   "all": {
    "cells": {
     "ml|reverse move": {
-     "edge_new": 0.0126,
-     "edge_old": -0.0135,
+     "edge_new": 0.0124,
+     "edge_old": -0.0134,
      "from": "2023-10-08",
-     "n_new": 3758,
-     "n_old": 3143,
+     "n_new": 3760,
+     "n_old": 3144,
      "proven": false,
-     "roi_new": -0.0585,
-     "roi_old": -0.1211,
-     "to": "2026-10-06",
+     "roi_new": -0.059,
+     "roi_old": -0.1208,
+     "to": "2026-10-07",
      "watch_only": false,
      "win": 0.3453,
-     "z": 0.13,
-     "z_profit": -4.93
+     "z": 0.12,
+     "z_profit": -4.94
     },
     "ml|reverse move + big-bettor money": {
      "edge_new": -0.0003,
-     "edge_old": -0.0241,
+     "edge_old": -0.0236,
      "from": "2023-10-08",
      "n_new": 1123,
-     "n_old": 953,
+     "n_old": 954,
      "proven": false,
-     "roi_new": -0.1231,
-     "roi_old": -0.2135,
-     "to": "2026-10-04",
+     "roi_new": -0.123,
+     "roi_old": -0.2123,
+     "to": "2026-10-06",
      "watch_only": false,
-     "win": 0.3242,
-     "z": -1.17,
-     "z_profit": -5.2
+     "win": 0.3245,
+     "z": -1.14,
+     "z_profit": -5.19
     },
     "spread|reverse move": {
      "edge_new": 0.0158,
@@ -1663,34 +1664,34 @@
   "nhl": {
    "cells": {
     "ml|reverse move": {
-     "edge_new": 0.0595,
-     "edge_old": 0.0229,
+     "edge_new": 0.0568,
+     "edge_old": 0.0242,
      "from": "2024-10-04",
-     "n_new": 386,
-     "n_old": 431,
+     "n_new": 388,
+     "n_old": 432,
      "proven": false,
-     "roi_new": 0.0964,
-     "roi_old": 0.0015,
-     "to": "2026-10-04",
+     "roi_new": 0.0903,
+     "roi_old": 0.0045,
+     "to": "2026-10-07",
      "watch_only": false,
-     "win": 0.4639,
-     "z": 2.32,
-     "z_profit": 1.16
+     "win": 0.4634,
+     "z": 2.29,
+     "z_profit": 1.13
     },
     "ml|reverse move + big-bettor money": {
-     "edge_new": 0.0403,
-     "edge_old": 0.015,
+     "edge_new": 0.04,
+     "edge_old": 0.019,
      "from": "2024-10-11",
      "n_new": 187,
-     "n_old": 140,
+     "n_old": 141,
      "proven": false,
-     "roi_new": 0.0719,
-     "roi_old": -0.0045,
-     "to": "2026-10-04",
+     "roi_new": 0.0708,
+     "roi_old": 0.0045,
+     "to": "2026-10-06",
      "watch_only": true,
-     "win": 0.4495,
-     "z": 1.07,
-     "z_profit": 0.6
+     "win": 0.4512,
+     "z": 1.13,
+     "z_profit": 0.65
     }
    },
    "proven": []
