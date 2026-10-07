@@ -9671,3 +9671,46 @@ DEX: $943.66 (-56.34) · Scammed: 0
 [2026-10-07 01:10 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 01:10 UTC] crypto/hold_btc  equity $507.61 (+1.5%) 1 open  market UP
    social heat top: ORCA 49 (37/0/11), PENGU 41 (35/0/6), PONS 38 (32/0/6), CARDS 34 (24/0/10), MON 29 (29/0/0)
+To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/D503therapper/autonomous-crypto-engine'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+   git sync: push rejected (try 1/5)
+   footprint: QNT: footprint 3/4 (drift+quiet+rising_lows) 48h +6.4%, 0 volume hikes, 88% quiet hours @ 267.871
+   footprint: BUY QNT (footprint 3/4 drift+quiet+rising_lows): QNT: footprint 3/4 (drift+quiet+rising_lows) 48h +6.4%, 0 volume hikes, 88% quiet hours @ 267.871
+   >> crypto/mover: BUY $192.06 of QNT @ 268.139 (footprint 3/4 drift+quiet+rising_lows)
+   scanner: 989 tickers, sample: {'i': 'BTC_USD', 'h': '86703.49', 'l': '85118.77', 'a': '85466.32', 'v': '3302.9928', 'vv': '283848895.82', 'c': '-0.0065', 'b': '85467.43', 'k': '85467.44', 'oi': '0', 't': 1791335440340}
+   dex screen: REJECT CUPSEY@solana liq $474,259 - creator holds 17%; lp holders unknown
+   dex screen: REJECT B3@base liq $838,917 - pool age unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   [alert] 🚀 CLAUS is up 3.1x: CLAUS (ethereum) is up 3.1x since the engine bought it (paper value $153). Contract: 0xa606d433971e9ee140E234Daa7c94C476e10eaD1
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   >> dex/dex_hunter: BUY $48.65 of SWORDINU@solana:2BVfJ4AH @ 0.002564 (dex tier A momentum 1h +10% 6h +643% buys/sells 2019/821 impact 0.03%)
+   >> dex/dex_hunter: BUY $47.93 of A1@solana:FAopSovS @ 0.00132 (dex tier A momentum 1h +97% 6h +307% buys/sells 13247/7703 impact 0.04%)
+   dex screen: REJECT ZEC@solana liq $1,650,347,556 - top-10 holders 100%; lp holders unknown
+   listings: kraken_pairs failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS FWA@ethereum liq $1,041,213
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex scanner: 2,998 pools (solana 1,962 / base 613 / ethereum 423), refresh cycle 117s (hot 113s), 2641 calls (114 feed, 429s 0, failed 0), 75,789 refreshed (10536 no pair), +241 added / -243 dropped (dead 28, stale 0, cap 215), movers 1 + warming 16 -> queued 0, screened 0 (passed 0), bought 0
+   dex screen: REJECT EDGE@base liq $720,638 - goplus partial data: cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; top-10 holders 83%; lp locked 0% < 95%
+[2026-10-07 02:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-07 02:05 UTC] crypto/mover     equity $412.52 (-17.5%) 2 open  market UP
+[2026-10-07 02:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 02:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 02:05 UTC] crypto/social_heat equity $509.92 (+2.0%) 2 open  market UP
+[2026-10-07 02:05 UTC] crypto/breakout10 equity $487.06 (-2.6%) 2 open  market UP
+[2026-10-07 02:05 UTC] crypto/momentum  equity $477.57 (-4.5%) 4 open  market UP
+[2026-10-07 02:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 02:05 UTC] crypto/hold_btc  equity $499.20 (-0.2%) 1 open  market UP
+   social heat top: PENGU 41 (37/0/4), ORCA 40 (32/0/8), SOL 29 (29/0/0), CARDS 27 (27/0/1), SUI 27 (27/0/0)
