@@ -9961,3 +9961,28 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 [2026-10-07 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-07 10:06 UTC] crypto/hold_btc  equity $498.40 (-0.3%) 1 open  market UP
    social heat top: PRL 37 (37/0/0), PENGU 37 (35/0/2), ORCA 35 (27/0/8), NEAR 35 (35/0/0), SUI 32 (32/0/0)
+   dex screen: REJECT AERO@base liq $43,634,046 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 67%
+   dex screen: REJECT WPRL@ethereum liq $429,080 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT CZ@base liq $199,363 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT WPRL@ethereum liq $433,185 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT QNT@ethereum liq $927,469 - is_mintable; lp locked 0% < 95%
+   dex screen: REJECT SOL@base liq $686,434 - pool age unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     1dae5a6df633e394872629ac12fd4cdfea4b536c -> main (cannot lock ref 'refs/heads/main': is at f2fdc5780a97cc8ed5d2cdd
+   dex screen: REJECT NVDAC@base liq $1,811,456 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 77%; lp locked 0% < 95%
+   dex scanner: 3,002 pools (solana 1,983 / base 606 / ethereum 413), refresh cycle 123s (hot 119s), 3032 calls (108 feed, 429s 0, failed 0), 87,719 refreshed (6729 no pair), +54 added / -52 dropped (dead 14, stale 0, cap 38), movers 0 + warming 23 -> queued 2, screened 3 (passed 0), bought 0
+[2026-10-07 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: BUY $179.93 of GLMR @ 0.012943 (entry)
+[2026-10-07 11:06 UTC] crypto/mover     equity $400.54 (-19.9%) 2 open  market UP
+[2026-10-07 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-07 11:06 UTC] crypto/social_heat equity $510.02 (+2.0%) 2 open  market UP
+[2026-10-07 11:06 UTC] crypto/breakout10 equity $492.65 (-1.5%) 2 open  market UP
+[2026-10-07 11:06 UTC] crypto/momentum  equity $477.12 (-4.6%) 4 open  market UP
+[2026-10-07 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-07 11:06 UTC] crypto/hold_btc  equity $498.32 (-0.3%) 1 open  market UP
+   social heat top: PRL 40 (40/0/0), NEAR 35 (35/0/0), BTC 32 (32/0/0), SUI 29 (29/0/0), ETH 27 (27/0/0)
