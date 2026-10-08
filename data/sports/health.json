@@ -1,14 +1,13 @@
 {
- "at": "2026-10-08T02:17Z",
+ "at": "2026-10-08T03:48Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Korpatsch vs Kalieva: no points for 406s",
-  "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 406s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route",
-  "sources down (the backups took over): betrivers:nhl:1028398361 HTTP 404"
+  "live tennis scores: tennis Korpatsch vs Kalieva: no points for 349s",
+  "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 349s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (35s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -16,17 +15,27 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 3h ago",
-  "engine ran 14 min ago",
+  "studies ran 5h ago",
+  "simulator ran 5h ago",
+  "engine ran 39 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-08T03:48Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Korpatsch vs Kalieva: no points for 349s",
+    "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 349s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-08T02:17Z",
    "fixes": [],
@@ -535,11 +544,6 @@
   },
   {
    "at": "2026-10-05T16:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T16:26Z",
    "fixes": [],
    "problems": []
   }
