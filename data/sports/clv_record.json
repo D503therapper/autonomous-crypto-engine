@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 34,
+  "n": 36,
   "beat": 10,
-  "same": 14,
+  "same": 16,
   "worse": 10,
   "avg_pts": 0.07
  },
  "unit_plays": {
-  "n": 15,
+  "n": 17,
   "beat": 4,
-  "same": 5,
+  "same": 7,
   "worse": 6,
   "avg_pts": -0.04
  },
  "by_kind": {
   "dog": {
-   "n": 6,
+   "n": 7,
    "beat": 1,
-   "same": 2,
+   "same": 3,
    "worse": 3,
-   "avg_pts": -0.78
+   "avg_pts": -0.67
   },
   "lean": {
    "n": 19,
@@ -29,11 +29,11 @@
    "avg_pts": 0.16
   },
   "lock": {
-   "n": 5,
+   "n": 6,
    "beat": 2,
-   "same": 2,
+   "same": 3,
    "worse": 1,
-   "avg_pts": 1.22
+   "avg_pts": 1.02
   },
   "play": {
    "n": 4,
@@ -52,11 +52,11 @@
    "avg_pts": 0.5
   },
   "ncaaf": {
-   "n": 7,
+   "n": 8,
    "beat": 3,
-   "same": 2,
+   "same": 3,
    "worse": 2,
-   "avg_pts": 0.69
+   "avg_pts": 0.6
   },
   "nfl": {
    "n": 6,
@@ -66,18 +66,18 @@
    "avg_pts": -0.43
   },
   "nhl": {
-   "n": 13,
+   "n": 14,
    "beat": 2,
-   "same": 7,
+   "same": 8,
    "worse": 4,
-   "avg_pts": -0.29
+   "avg_pts": -0.27
   }
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 1,
+   "n": 2,
    "beat": 0,
-   "same": 1,
+   "same": 2,
    "worse": 0,
    "avg_pts": 0.0
   },
@@ -565,6 +565,34 @@
    "pts": 0.2,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-07",
+   "kind": "lock",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Jax State",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-07",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Penguins",
+   "market": "ml",
+   "line": null,
+   "odds": 136,
+   "close": 136,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
   },
   {
    "date": "2026-10-07",

@@ -3,24 +3,24 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.58,
-   "n": 88,
-   "said": 0.535,
+   "hit": 0.578,
+   "n": 90,
+   "said": 0.534,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.619,
-   "n": 21,
-   "said": 0.517,
-   "verdict": "only 21 graded - report only (report only: forward-only tag)"
+   "hit": 0.636,
+   "n": 22,
+   "said": 0.519,
+   "verdict": "only 22 graded - report only (report only: forward-only tag)"
   },
   "ctx:game:div": {
    "extra_edge": 0.0,
-   "hit": 0.467,
-   "n": 30,
-   "said": 0.536,
-   "verdict": "only 30 graded - report only (report only: forward-only tag)"
+   "hit": 0.452,
+   "n": 31,
+   "said": 0.532,
+   "verdict": "only 31 graded - report only (report only: forward-only tag)"
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
@@ -31,10 +31,10 @@
   },
   "ctx:game:rival": {
    "extra_edge": 0.0,
-   "hit": 0.474,
-   "n": 19,
-   "said": 0.557,
-   "verdict": "only 19 graded - report only (report only: forward-only tag)"
+   "hit": 0.45,
+   "n": 20,
+   "said": 0.55,
+   "verdict": "only 20 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:dome_out": {
    "extra_edge": 0.0,
@@ -49,6 +49,13 @@
    "n": 7,
    "said": 0.55,
    "verdict": "only 7 graded - report only (report only: forward-only tag)"
+  },
+  "ctx:them:hotseat": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 1,
+   "said": 0.572,
+   "verdict": "only 1 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:out_dome": {
    "extra_edge": 0.0,
@@ -143,9 +150,9 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.61,
-   "n": 77,
-   "said": 0.537,
+   "hit": 0.608,
+   "n": 79,
+   "said": 0.536,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
@@ -164,10 +171,10 @@
   },
   "label:dog": {
    "extra_edge": 0.0,
-   "hit": 0.375,
-   "n": 8,
-   "said": 0.419,
-   "verdict": "only 8 graded - report only"
+   "hit": 0.333,
+   "n": 9,
+   "said": 0.418,
+   "verdict": "only 9 graded - report only"
   },
   "label:live": {
    "extra_edge": 0.0,
@@ -178,10 +185,10 @@
   },
   "label:lock": {
    "extra_edge": 0.0,
-   "hit": 0.714,
-   "n": 7,
+   "hit": 0.75,
+   "n": 8,
    "said": 0.568,
-   "verdict": "only 7 graded - report only"
+   "verdict": "only 8 graded - report only"
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
@@ -206,10 +213,10 @@
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
-   "hit": 0.556,
-   "n": 9,
-   "said": 0.522,
-   "verdict": "only 9 graded - report only"
+   "hit": 0.6,
+   "n": 10,
+   "said": 0.527,
+   "verdict": "only 10 graded - report only"
   },
   "league:nfl": {
    "extra_edge": 0.0,
@@ -220,10 +227,10 @@
   },
   "league:nhl": {
    "extra_edge": 0.0,
-   "hit": 0.318,
-   "n": 22,
-   "said": 0.506,
-   "verdict": "only 22 graded - report only"
+   "hit": 0.304,
+   "n": 23,
+   "said": 0.502,
+   "verdict": "only 23 graded - report only"
   },
   "league:tennis": {
    "extra_edge": 0.0,
@@ -234,9 +241,9 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.605,
-   "n": 81,
-   "said": 0.536,
+   "hit": 0.602,
+   "n": 83,
+   "said": 0.534,
    "verdict": "hitting at or above what we said"
   },
   "market:spread": {
@@ -248,10 +255,10 @@
   },
   "price:+101..+179": {
    "extra_edge": 0.0,
-   "hit": 0.562,
-   "n": 32,
-   "said": 0.511,
-   "verdict": "only 32 graded - report only"
+   "hit": 0.545,
+   "n": 33,
+   "said": 0.508,
+   "verdict": "only 33 graded - report only"
   },
   "price:+180+": {
    "extra_edge": 0.0,
@@ -262,8 +269,8 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.593,
-   "n": 54,
+   "hit": 0.6,
+   "n": 55,
    "said": 0.553,
    "verdict": "hitting at or above what we said"
   },
@@ -283,9 +290,9 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.592,
-   "n": 71,
-   "said": 0.527,
+   "hit": 0.589,
+   "n": 73,
+   "said": 0.526,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:must-win": {
@@ -318,5 +325,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-10-08T00:23Z"
+ "updated": "2026-10-08T03:20Z"
 }
