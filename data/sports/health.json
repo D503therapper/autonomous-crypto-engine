@@ -1,27 +1,35 @@
 {
- "at": "2026-10-08T11:16Z",
- "fixes": [],
+ "at": "2026-10-08T12:01Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-07 Bu Yunchaokete) - started sports.yml"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (148s)",
-  "every finished pick graded",
+  "live watcher fresh (33s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 4 live matches",
+  "live tennis points + server: 2 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 6 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 62 min ago",
+  "engine ran -0 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-08T12:01Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-07 Bu Yunchaokete) - started sports.yml"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-08T11:16Z",
    "fixes": [],
@@ -536,11 +544,6 @@
   },
   {
    "at": "2026-10-06T01:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-06T00:31Z",
    "fixes": [],
    "problems": []
   }
