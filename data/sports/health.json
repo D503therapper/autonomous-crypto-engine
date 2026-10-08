@@ -1,27 +1,32 @@
 {
- "at": "2026-10-08T07:29Z",
+ "at": "2026-10-08T09:00Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (79s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 4 live matches",
+  "live tennis points + server: 3 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 9 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 11 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 37 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-08T09:00Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-08T07:29Z",
    "fixes": [],
@@ -532,16 +537,6 @@
    "at": "2026-10-05T22:51Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-05T21:17Z",
-   "fixes": [
-    "live watch 37369852564 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "workflow failed: sports_studies 2026-10-05T20:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37370317502"
-   ]
   }
  ]
 }
