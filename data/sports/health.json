@@ -1,14 +1,13 @@
 {
- "at": "2026-10-08T15:05Z",
+ "at": "2026-10-08T15:50Z",
  "fixes": [
-  "studies overdue (9h) - started sports_studies.yml"
+  "simulator overdue (9h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "studies last ran 9h ago - restarted"
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (156s)",
+  "live watcher fresh (40s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,13 +19,22 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "simulator ran 8h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "engine ran 46 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-08T15:50Z",
+   "fixes": [
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-08T15:05Z",
    "fixes": [
@@ -541,14 +549,6 @@
     "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2237s",
     "live tennis scores: tennis Zarazua vs Han: no points for 2237s",
     "live tennis scores: tennis Zheng Wushuang vs Oliynykova: no points for 1439s"
-   ]
-  },
-  {
-   "at": "2026-10-06T03:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 1987s",
-    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 1987s"
    ]
   }
  ]
