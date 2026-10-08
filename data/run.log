@@ -11157,3 +11157,39 @@ error: failed to push some refs to 'https://github.
 [2026-10-08 14:18 UTC] stocks/trend     equity $495.01 (-1.0%) 3 open  market UP
 [2026-10-08 14:18 UTC] stocks/hold_spy  equity $504.01 (+0.8%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), PRL 32 (32/0/0), STRK 29 (29/0/0), OGN 27 (27/0/0), VVV 25 (13/0/12)
+   scanner: 988 tickers, sample: {'i': 'BTC_USD', 'h': '83677.96', 'l': '81706.75', 'a': '82482.19', 'v': '4375.7688', 'vv': '362571111.53', 'c': '-0.0076', 'b': '82489.75', 'k': '82489.76', 'oi': '0', 't': 1791469101371}
+   dex screen: REJECT AUTON@solana liq $159,972 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT SOLARIS@solana liq $107,616 - top-10 holders 41%; lp holders unknown
+   dex screen: PASS RAYCAT@solana liq $228,599
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT SI276@solana liq $305,051 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS USELESS@solana liq $4,732,941
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   >> dex/dex_hunter: BUY $33.10 of ASENSE@ethereum:0xC552B5 @ 0.004733 (dex tier A momentum 1h +10% 6h +537% buys/sells 14/4 impact 0.02%)
+   dex scanner: bought ASENSE@ethereum on a refresh (1h +10%, buys/sells 14/4)
+   dex screen: REJECT LIT@ethereum liq $409,317 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 63%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT FTX TOKEN@ethereum liq $133,764 - top-10 holders 93%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,976 / base 580 / ethereum 444), refresh cycle 126s (hot 123s), 2119 calls (138 feed, 429s 1, failed 1), 59,407 refreshed (4479 no pair), +477 added / -477 dropped (dead 24, stale 0, cap 453), movers 1 + warming 25 -> queued 5, screened 5 (passed 2), bought 1
+   dex screen: REJECT DRV@ethereum liq $207,811 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 90%; lp locked 0% < 95%
+[2026-10-08 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-08 15:06 UTC] crypto/mover     equity $372.82 (-25.4%) 1 open  market UP
+[2026-10-08 15:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 15:06 UTC] crypto/social_heat equity $483.58 (-3.3%) 3 open  market UP
+[2026-10-08 15:06 UTC] crypto/breakout10 equity $482.54 (-3.5%) 2 open  market UP
+[2026-10-08 15:06 UTC] crypto/momentum  equity $463.96 (-7.2%) 3 open  market UP
+[2026-10-08 15:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 15:06 UTC] crypto/hold_btc  equity $492.18 (-1.6%) 1 open  market UP
+[2026-10-08 15:06 UTC] stocks/rsi2      equity $515.15 (+3.0%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): JPM 7 BUY, MSTR 13 BUY, COIN 14, IWM 15 BUY
+[2026-10-08 15:06 UTC] stocks/dual_momentum equity $500.60 (+0.1%) 2 open  market UP
+[2026-10-08 15:06 UTC] stocks/trend_ensemble equity $511.83 (+2.4%) 5 open  market UP
+[2026-10-08 15:06 UTC] stocks/rotation10 equity $511.95 (+2.4%) 2 open  market UP
+[2026-10-08 15:06 UTC] stocks/momentum  equity $497.66 (-0.5%) 4 open  market UP
+[2026-10-08 15:06 UTC] stocks/trend     equity $495.50 (-0.9%) 3 open  market UP
+[2026-10-08 15:06 UTC] stocks/hold_spy  equity $503.60 (+0.7%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), STRK 32 (32/0/0), OGN 27 (27/0/0), PYTH 24 (24/0/0), VVV 24 (13/0/10)
