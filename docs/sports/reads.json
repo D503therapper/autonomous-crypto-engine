@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T02:11Z",
+ "updated": "2026-10-08T02:56Z",
  "games": [
   {
    "id": "mlb:401907992",
@@ -56,7 +56,7 @@
    "home": "Kennesaw St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lock",
    "lean": {
     "team": "Jax State",
@@ -71,7 +71,7 @@
      "hotter recent form",
      "better QB play lately"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -99,8 +99,8 @@
    "away": "Avalanche",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -115,7 +115,7 @@
    "home": "Capitals",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Penguins",
@@ -128,7 +128,7 @@
     "reasons": [
      "opponent missing key players"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -141,8 +141,8 @@
    "away": "Bucks",
    "home": "Thunder",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -156,8 +156,8 @@
    "away": "Magic",
    "home": "Grizzlies",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -186,8 +186,8 @@
    "away": "Suns",
    "home": "Bulls",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -207,6 +207,21 @@
    "lean": null
   },
   {
+   "id": "mlb:401908005",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-08T02:00Z",
+   "away": "Brewers",
+   "home": "Padres",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892456",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -215,6 +230,21 @@
    "start": "2026-10-08T02:00Z",
    "away": "Oilers",
    "home": "Ducks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401914129",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T02:00Z",
+   "away": "Warriors",
+   "home": "Trail Blazers",
    "h1": null,
    "why": "started",
    "done": false,
@@ -655,8 +685,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.435,
-    "tie": 0.293,
+    "p": 0.421,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -672,11 +702,11 @@
     "market": "ml",
     "line": null,
     "odds": -225,
-    "p": 0.677,
-    "win_p": 0.677,
+    "p": 0.651,
+    "win_p": 0.651,
     "reasons": [
-     "hotter recent form",
-     "the stronger team"
+     "the stronger team",
+     "hotter recent form"
     ]
    }
   },

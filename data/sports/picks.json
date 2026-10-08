@@ -7581,6 +7581,15 @@
      "them:hotseat"
     ],
     "dec": 1.6756756756756757,
+    "decider": {
+     "c": "0:52",
+     "k": "fg",
+     "p": "G. Rippa",
+     "s": "27-26",
+     "type": "late",
+     "win": "away",
+     "y": 33
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -7600,6 +7609,10 @@
     "edge_own": 0.014685981849255292,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,14,7,6",
+     "h": "3,13,7,3"
+    },
     "form_state": [
      10.0,
      2,
@@ -7638,9 +7651,11 @@
      "better QB play lately"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Jax State 27 @ Kennesaw St 26",
+    "settled": "2026-10-08T02:56Z",
     "side": "away",
     "start": "2026-10-07T23:00Z",
     "stype": "2",
@@ -7658,12 +7673,14 @@
    }
   ],
   "p_hit": 0.5721,
-  "pnl": 0.0,
+  "pnl": 67.57,
   "posted": "2026-10-07T15:00Z",
   "round": 1,
+  "settled": "2026-10-08T02:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 136,
@@ -7701,6 +7718,7 @@
      "game:rival"
     ],
     "dec": 2.3600000000000003,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -7714,6 +7732,10 @@
     "edge_own": -0.029927678057778184,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,0",
+     "h": "2,2,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -7745,9 +7767,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": true,
+    "score": "Penguins 3 @ Capitals 5",
+    "settled": "2026-10-08T02:56Z",
     "side": "away",
     "start": "2026-10-07T23:30Z",
     "stype": "2",
@@ -7764,12 +7788,14 @@
    }
   ],
   "p_hit": 0.411,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-07T15:00Z",
   "round": 1,
+  "settled": "2026-10-08T02:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 1.0
  },
  {
   "american": -121,
