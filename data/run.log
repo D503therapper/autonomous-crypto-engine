@@ -10954,3 +10954,26 @@ DEX: $1,433.21 (+433.21) · Scammed: 0
 [2026-10-08 08:31 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-08 08:31 UTC] crypto/hold_btc  equity $494.06 (-1.2%) 1 open  market UP
    social heat top: MET 44 (37/0/7), NEAR 35 (35/0/0), JUP 32 (32/0/0), PONS 31 (27/0/4), PRL 29 (29/0/0)
+   scanner: 988 tickers, sample: {'i': 'BTC_USD', 'h': '84166.89', 'l': '82148.22', 'a': '82925.47', 'v': '4415.0743', 'vv': '367431210.46', 'c': '-0.0128', 'b': '82927.48', 'k': '82927.49', 'oi': '0', 't': 1791448277321}
+   dex screen: PASS ANTFUN@solana liq $13,948,298
+   dex screen: PASS NEET@solana liq $1,931,953
+   dex screen: REJECT OGN@ethereum liq $1,249,036 - transfer_pausable; is_mintable; owner_change_balance; top-10 holders 70%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS TIBBIR@base liq $3,498,501
+   dex screen: REJECT OGN@ethereum liq $1,264,161 - transfer_pausable; is_mintable; owner_change_balance; top-10 holders 70%
+   dex screen: REJECT CTM@ethereum liq $2,544,899 - is_mintable
+   dex screen: REJECT OVPP@base liq $289,482 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 46%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,915 / base 609 / ethereum 476), refresh cycle 236s (hot 231s), 773 calls (75 feed, 429s 1, failed 9), 20,684 refreshed (1393 no pair), +207 added / -204 dropped (dead 9, stale 0, cap 195), movers 0 + warming 18 -> queued 1, screened 2 (passed 0), bought 0
+[2026-10-08 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-08 09:05 UTC] crypto/mover     equity $382.61 (-23.5%) 2 open  market UP
+[2026-10-08 09:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 09:05 UTC] crypto/social_heat equity $500.63 (+0.1%) 3 open  market UP
+[2026-10-08 09:05 UTC] crypto/breakout10 equity $500.44 (+0.1%) 2 open  market UP
+[2026-10-08 09:05 UTC] crypto/momentum  equity $468.47 (-6.3%) 4 open  market UP
+[2026-10-08 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 09:05 UTC] crypto/hold_btc  equity $493.55 (-1.3%) 1 open  market UP
+   social heat top: MET 35 (35/0/1), PRL 32 (32/0/0), PONS 32 (27/0/5), NEAR 29 (29/0/0), BTC 21 (21/0/0)
