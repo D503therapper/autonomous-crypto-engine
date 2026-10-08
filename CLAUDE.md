@@ -40,7 +40,7 @@ every session:
   today's plays" line. NO posted parlays (the owner, 10/1: the ladder went 1 for 8; the viewer builds his own). A play
   is never past -150, never one the engine's own read is fighting. The Dog of the Day is a UNIT play like the Lock: only
   a real-value dog (the one the dog analysis, sports.dog_score, likes best) - none = no Dog, and the board says so. Never
-  a lean Dog of the Day, never a forced one ("it takes our ROI down"). Value (plus money that really beats the price) is
+  a lean Dog of the Day, never a forced one ("it takes our ROI down"). The best value dog is the Dog (the owner, 10/8): a dog value play found after the 8 AM board with 3+ points more value than the posted Dog (neither game started) takes the Dog spot at 1u and the old Dog becomes a ½u value play (sports.upgrade_dog). Value (plus money that really beats the price) is
   the goal; what matters is the ROI on the unit plays. College football stays ON (the owner, 10/1 - sports_strength.OWNER_ON).
   Judge a sport on thousands of games (sports_strength), never a
   few nights. Analyze and weigh, no rigid rules.

@@ -4305,6 +4305,34 @@ def test_reviews_are_yellow():
     assert src.count('class="why rvy"') >= 3        # the main card's write-up + review, the tennis card's
 
 
+def test_dog_upgrade_to_best_value():
+    """The owner, 10/8: the Flames +195 was the 8 AM Dog (own read barely over the price); the Predators +140 came up at
+    9:11 as a value play once the Canadiens' goalie was ruled out (read 46.5% vs 41.7% needed) - "the best value dog
+    should be the Dog of the Day". A later dog play 3+ points more value takes the Dog's spot (1u), the old Dog goes to a
+    value play (½u); never once either game has started, never a lean, never a favorite or a past-+220 dog."""
+    now = datetime(2026, 10, 8, 18, 0, tzinfo=timezone.utc)
+    leg = lambda team, odds, read, start: {"team": team, "odds": odds, "market": "ml", "dog_p": read, "start": start,
+                                           "game_id": team, "side": "home"}
+    pk = lambda kind, team, odds, read, start="2026-10-09T01:00Z": {
+        "date": "2026-10-08", "kind": kind, "status": "open", "lean": False, "dec": 1 + odds / 100,
+        "legs": [leg(team, odds, read, start)]}
+    picks = [pk("dog", "Flames", 195, 0.3415), pk("play", "Predators", 140, 0.4652, "2026-10-08T23:00Z"),
+             pk("lean", "Blues", 120, 0.60)]
+    picks[2]["lean"] = True
+    assert sports.upgrade_dog(picks, "2026-10-08", now)["legs"][0]["team"] == "Predators"
+    assert [p["kind"] for p in picks] == ["play", "dog", "lean"] and picks[0]["was_dog"] and picks[1]["upgraded"]
+    assert sports.units_for(picks[1]) == sports.DOG_UNITS and sports.units_for(picks[0]) == 0.5
+    assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # done once: the old Dog doesn't flip back
+    picks = [pk("dog", "Flames", 195, 0.3415), pk("play", "Predators", 140, 0.4652, "2026-10-08T17:00Z")]
+    assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # the Predators already started
+    picks = [pk("dog", "Flames", 195, 0.3415, "2026-10-08T17:30Z"), pk("play", "Predators", 140, 0.4652)]
+    assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # the Dog's game is underway: it stays
+    picks = [pk("dog", "Flames", 195, 0.355), pk("play", "Predators", 140, 0.44)]
+    assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # +4.7% vs +5.6%: not 3 points better
+    picks = [pk("dog", "Flames", 195, 0.3415), pk("play", "Rays", 250, 0.40)]
+    assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # past +220: never the Dog
+
+
 def test_nhl_outshot_40_weight():
     """10/8 study: a hockey team that allowed 40+ shots in its last game and plays again within 2 days lost -13.7% on 909
     and -30.2% on 167 blind - a WEIGHT (never a trigger): -2 on its dog score, +1 for the side facing it, -1 on a
