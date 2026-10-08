@@ -11193,3 +11193,39 @@ error: failed to push some refs to 'https://github.
 [2026-10-08 15:06 UTC] stocks/trend     equity $495.50 (-0.9%) 3 open  market UP
 [2026-10-08 15:06 UTC] stocks/hold_spy  equity $503.60 (+0.7%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), STRK 32 (32/0/0), OGN 27 (27/0/0), PYTH 24 (24/0/0), VVV 24 (13/0/10)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   listing: coinbase_products #DATA 'New Coinbase listing (DATA)' -> ['DATA']
+   listing: DATA: coinbase_products notice "New Coinbase listing (DATA)" -> not on Crypto.com USD
+   dex screen: PASS ZCAT@solana liq $1,019,957
+   dex screen: REJECT JEANPHIL@solana liq $346,207 - lp holders unknown; rugcheck lp locked 57% < 95%
+   dex screen: REJECT PYTH@solana liq $75,121 - liquidity $75,121 < $100,000
+   >> crypto/momentum: SELL $109.28 of AVAX @ 10.1708, P/L $-3.65 (stop hit (live check))
+   dex screen: REJECT SURPLUS@base liq $1,027,230 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: REJECT ZKDARK@solana liq $104,056 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS DRB@base liq $1,502,568
+   dex screen: REJECT ENA@ethereum liq $2,836,714 - is_mintable; top-10 holders 60%
+   dex screen: REJECT OWL@solana liq $136,541 - transfer_fee_upgradable; holders unknown; lp holders unknown
+   dex screen: PASS DARK@solana liq $189,240
+   dex scanner: 2,998 pools (solana 2,022 / base 571 / ethereum 405), refresh cycle 136s (hot 132s), 2750 calls (108 feed, 429s 0, failed 0), 79,259 refreshed (5585 no pair), +119 added / -121 dropped (dead 21, stale 0, cap 100), movers 2 + warming 21 -> queued 5, screened 5 (passed 1), bought 0
+[2026-10-08 16:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-08 16:06 UTC] crypto/mover     equity $357.10 (-28.6%) 1 open  market UP
+[2026-10-08 16:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 16:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+   >> crypto/social_heat: SELL $71.29 of ORCA @ 2.45622, P/L $-21.75 (trailing stop)
+[2026-10-08 16:06 UTC] crypto/social_heat equity $473.27 (-5.3%) 2 open  market UP
+[2026-10-08 16:06 UTC] crypto/breakout10 equity $454.03 (-9.2%) 2 open  market UP
+[2026-10-08 16:06 UTC] crypto/momentum  equity $452.58 (-9.5%) 2 open  market UP
+[2026-10-08 16:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 16:06 UTC] crypto/hold_btc  equity $483.07 (-3.4%) 1 open  market UP
+[2026-10-08 16:06 UTC] stocks/rsi2      equity $512.25 (+2.4%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): JPM 7 BUY, MSTR 13 BUY, COIN 14, IWM 15 BUY
+[2026-10-08 16:06 UTC] stocks/dual_momentum equity $499.28 (-0.1%) 2 open  market UP
+[2026-10-08 16:06 UTC] stocks/trend_ensemble equity $510.19 (+2.0%) 5 open  market UP
+[2026-10-08 16:06 UTC] stocks/rotation10 equity $511.94 (+2.4%) 2 open  market UP
+[2026-10-08 16:06 UTC] stocks/momentum  equity $496.94 (-0.6%) 4 open  market UP
+[2026-10-08 16:06 UTC] stocks/trend     equity $495.01 (-1.0%) 3 open  market UP
+[2026-10-08 16:06 UTC] stocks/hold_spy  equity $503.18 (+0.6%) 1 open  market UP
+   social heat top: BTC 32 (32/0/0), NEAR 29 (29/0/0), PRL 27 (27/0/0), PONS 25 (16/0/9), TRUMP 24 (24/0/0)
