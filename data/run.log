@@ -11131,3 +11131,29 @@ error: failed to push some refs to 'https://github.
    dex screen: REJECT DOFT@base liq $103,837 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 64%; lp locked 0% < 95%
    dex screen: REJECT GOOGLC@base liq $1,715,457 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 73%; lp locked 0% < 95%
    dex screen: REJECT ETHFI@ethereum liq $375,670 - top-10 holders 63%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-08 14:18 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-08 14:18 UTC] crypto/mover     equity $374.89 (-25.0%) 1 open  market UP
+[2026-10-08 14:18 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 14:18 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 14:18 UTC] crypto/social_heat equity $486.23 (-2.8%) 3 open  market UP
+[2026-10-08 14:18 UTC] crypto/breakout10 equity $486.98 (-2.6%) 2 open  market UP
+[2026-10-08 14:18 UTC] crypto/momentum  equity $463.52 (-7.3%) 3 open  market UP
+[2026-10-08 14:18 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 14:18 UTC] crypto/hold_btc  equity $491.40 (-1.7%) 1 open  market UP
+[2026-10-08 14:18 UTC] stocks/rsi2      equity $515.24 (+3.0%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): JPM 7 BUY, MSTR 13 BUY, COIN 14, IWM 15 BUY
+[2026-10-08 14:18 UTC] stocks/dual_momentum equity $501.17 (+0.2%) 2 open  market UP
+[2026-10-08 14:18 UTC] stocks/trend_ensemble equity $513.26 (+2.7%) 5 open  market UP
+[2026-10-08 14:18 UTC] stocks/rotation10 equity $511.15 (+2.2%) 2 open  market UP
+[2026-10-08 14:18 UTC] stocks/momentum  equity $497.64 (-0.5%) 4 open  market UP
+   >> stocks/trend: SELL $152.05 of PLTR @ 197.226, P/L $+5.83 (stop hit)
+   >> stocks/trend: BUY $148.52 of NVDA @ 236.208 (entry)
+[2026-10-08 14:18 UTC] stocks/trend     equity $495.01 (-1.0%) 3 open  market UP
+[2026-10-08 14:18 UTC] stocks/hold_spy  equity $504.01 (+0.8%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), PRL 32 (32/0/0), STRK 29 (29/0/0), OGN 27 (27/0/0), VVV 25 (13/0/12)
