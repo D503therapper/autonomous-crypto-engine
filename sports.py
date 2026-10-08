@@ -2870,6 +2870,7 @@ def post_board(games, model, picks, now, day, force=False):
     if not DOGS_ST:                  # no picks until the big underdog + favorite study has run
         print("holding the board: the big study hasn't run yet")
         return []
+    upgrade_dog(picks, iso, now)     # 🐶 a better-value dog found after the board takes the Dog's spot (the owner, 10/8)
     pending = {p["kind"] for p in picks if p["status"] == "waiting" and p["date"] == iso}
     picks[:] = [p for p in picks if not (p["status"] == "waiting" and p["date"] <= iso)]   # rebuilt every run
     posted = {}
@@ -3116,11 +3117,43 @@ def post_board(games, model, picks, now, day, force=False):
         for pk in new:                                       # 10/1: the engine keeps checking the lines all day) - ONE
             if not pk.get("lean") and pk["kind"] in MIDDAY_KINDS:   # ping, once the dashboard shows it (sports_pings);
                 pk["midday"] = True                          # leans never ping
+    upgrade_dog(picks, iso, now)
     rule_check(picks, new, iso, games, day, now)
     return new
 
 
 MIDDAY_KINDS = ("play", "lock", "dog", "solo", "night")      # the unit plays a mid-day ping can be for
+DOG_UPGRADE_GAP = 0.03   # the owner, 10/8 (the Predators +140 found after the 8 AM Flames Dog): "the best value dog should
+#                          be the Dog of the Day" - a later dog play beating the Dog's value by 3+ points takes its spot
+
+
+def dog_value(pk):
+    """How far a posted pick's read beats the price it was posted at (the read its units ride on - read_of)."""
+    leg = (pk.get("legs") or [{}])[0]
+    r = read_of(leg)
+    return r * pk["dec"] - 1 if r is not None and pk.get("dec") else None
+
+
+def upgrade_dog(picks, iso, now):
+    """🐶 The owner, 10/8: a dog value play posted after the board (both games not started) that the engine rates
+    DOG_UPGRADE_GAP more value than the posted Dog of the Day becomes the Dog (1u) and the old Dog a value play (½u) -
+    both still unit plays, nothing pulled. Returns the new Dog or None."""
+    open_ = lambda p: p.get("date") == iso and p.get("status") == "open" and not p.get("lean") \
+        and len(p.get("legs") or []) == 1 and now < _start(p["legs"][0])
+    dog = next((p for p in picks if p.get("kind") == "dog" and open_(p)), None)
+    if dog is None or dog_value(dog) is None:
+        return None
+    best = max((p for p in picks if p.get("kind") == "play" and open_(p) and p["legs"][0].get("market") == "ml"
+                and DOG_MIN <= (p["legs"][0].get("odds") or 0) <= DAILY_DOG_MAX and dog_value(p) is not None),
+               key=dog_value, default=None)
+    if best is None or dog_value(best) < dog_value(dog) + DOG_UPGRADE_GAP:
+        return None
+    stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+    dog["kind"], dog["was_dog"] = "play", stamp
+    best["kind"], best["upgraded"] = "dog", stamp
+    print(f"🐶 Dog of the Day upgraded: {best['legs'][0]['team']} (+{best['legs'][0]['odds']}, value "
+          f"{dog_value(best):+.1%}) over {dog['legs'][0]['team']} ({dog_value(dog):+.1%}) - now a value play")
+    return best
 
 
 NIGHT_DAYS = (0, 3)            # 🏈 Monday, Thursday (Pacific) - every NFL game those days gets a pick (the owner, 9/30)
