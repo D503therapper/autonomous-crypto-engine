@@ -8545,5 +8545,111 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lean"
+ },
+ {
+  "american": 140,
+  "date": "2026-10-08",
+  "dec": 2.4,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:2",
+     "G_cold:1",
+     "sharp:0",
+     "splits_f:3",
+     "bottom_s:0",
+     "w_sharp:2"
+    ],
+    "breakdown": [
+     "\ud83d\udcb0 Predators opened +154, now +140. The market's catching up to what the engine already saw.",
+     "\ud83e\udd45 The Canadiens' goalie Jakub Dobes can't keep the puck out lately: a 0.857 save % (13 goals on 91 shots) over his last 3 starts.",
+     "\ud83d\udcca 93% of the tickets on the Canadiens. The books love that. We on the Predators.",
+     "\ud83d\udccb 1-2 so far for Predators \u2014 the record don't cash tickets, the number does.",
+     "\u2705 Bottom line: Predators (+140). The engine gives Predators a better shot than this price does. That's the bet."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf"
+    ],
+    "dec": 2.4,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {},
+    "dog_p": 0.4652,
+    "drift": -0.0228,
+    "edge": -0.027529124573481667,
+    "edge_own": -0.027529124573481667,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892459",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.8263305322128822,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 140,
+    "opp": "Canadiens",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Sam Montembeault (G)"
+    ],
+    "our_drama": [],
+    "outs": [],
+    "p": 0.4051961980943827,
+    "p_market": 0.40036122817579767,
+    "pdo": null,
+    "public": "fade",
+    "reasons": [
+     "sharp money moving this way",
+     "opponent missing key players"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-08T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Predators",
+    "team_id": "27",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 Smart money's been moving toward Predators all day."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.4052,
+  "pnl": 0.0,
+  "posted": "2026-10-08T16:11Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value"
  }
 ]

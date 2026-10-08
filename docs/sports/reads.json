@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T15:51Z",
+ "updated": "2026-10-08T16:14Z",
  "games": [
   {
    "id": "nhl:401892461",
@@ -90,9 +90,7 @@
     "odds": -250,
     "p": 0.679,
     "win_p": 0.461,
-    "reasons": [
-     "hotter goalie"
-    ]
+    "reasons": []
    }
   },
   {
@@ -132,7 +130,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.404,
+    "p": 0.396,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -141,19 +139,19 @@
    "start": "2026-10-08T23:00Z",
    "away": "Predators",
    "home": "Canadiens",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "play",
    "lean": {
-    "team": "Canadiens",
-    "opp": "Predators",
-    "market": "ml",
-    "line": null,
+    "team": "Predators",
+    "opp": "Canadiens",
+    "market": "spread",
+    "line": 1.5,
     "odds": -180,
-    "p": 0.614,
-    "win_p": 0.614,
+    "p": 0.626,
+    "win_p": 0.405,
     "reasons": [
-     "the stronger team",
-     "hotter goalie"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -321,7 +319,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UTSA",
-    "p": 0.643,
+    "p": 0.639,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -337,9 +335,9 @@
     "opp": "South Florida",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.691,
-    "win_p": 0.691,
+    "odds": -250,
+    "p": 0.685,
+    "win_p": 0.685,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -352,7 +350,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "White Sox",
-    "p": 0.444,
+    "p": 0.441,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -369,8 +367,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -181,
-    "p": 0.621,
-    "win_p": 0.504,
+    "p": 0.618,
+    "win_p": 0.501,
     "reasons": [
      "the stronger team",
      "opponent missing key players"
@@ -565,7 +563,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.364,
+    "p": 0.379,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -574,16 +572,16 @@
    "start": "2026-10-09T23:00Z",
    "away": "Kraken",
    "home": "Red Wings",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Kraken",
     "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -263,
-    "p": 0.69,
-    "win_p": 0.473,
+    "odds": -205,
+    "p": 0.661,
+    "win_p": 0.441,
     "reasons": [
      "hotter recent form",
      "hotter goalie",
@@ -613,7 +611,7 @@
     "opp": "Blue Jackets",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
+    "odds": -230,
     "p": 0.689,
     "win_p": 0.472,
     "reasons": []
@@ -625,7 +623,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Capitals",
-    "p": 0.363,
+    "p": 0.379,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -634,16 +632,16 @@
    "start": "2026-10-09T23:00Z",
    "away": "Rangers",
    "home": "Capitals",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Rangers",
     "opp": "Capitals",
     "market": "spread",
     "line": 1.5,
-    "odds": -263,
-    "p": 0.69,
-    "win_p": 0.473,
+    "odds": -218,
+    "p": 0.661,
+    "win_p": 0.442,
     "reasons": [
      "hotter recent form"
     ]
@@ -655,7 +653,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Jets",
-    "p": 0.358,
+    "p": 0.364,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -671,9 +669,9 @@
     "opp": "Jets",
     "market": "spread",
     "line": 1.5,
-    "odds": -263,
-    "p": 0.7,
-    "win_p": 0.483,
+    "odds": -238,
+    "p": 0.69,
+    "win_p": 0.473,
     "reasons": []
    }
   },
