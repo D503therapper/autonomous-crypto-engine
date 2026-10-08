@@ -1,28 +1,36 @@
 {
- "at": "2026-10-08T12:01Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-07 Bu Yunchaokete) - started sports.yml"
+ "at": "2026-10-08T13:33Z",
+ "fixes": [],
+ "problems": [
+  "live tennis scores: tennis Andreescu vs Bolkvadze: no points for 2636s"
  ],
- "problems": [],
  "ok": [
-  "live watcher fresh (33s)",
+  "live watcher fresh (40s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "live tennis points + server: 1 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran -0 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 18 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-08T13:33Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreescu vs Bolkvadze: no points for 2636s"
+   ]
+  },
   {
    "at": "2026-10-08T12:01Z",
    "fixes": [
@@ -541,11 +549,6 @@
     "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2063s",
     "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
-  },
-  {
-   "at": "2026-10-06T01:16Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
