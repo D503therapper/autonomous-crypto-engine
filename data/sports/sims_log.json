@@ -1,5 +1,36 @@
 [
  {
+  "at": "2026-10-08T06:36Z",
+  "games": 130701,
+  "sim": {
+   "ok": true,
+   "proven": [],
+   "suspects": [],
+   "tested": 120,
+   "tested_total": 4686,
+   "cell_tests": 2160,
+   "expected_by_luck": 0.502,
+   "new_suspects": [],
+   "new_proven": [],
+   "new_killed": [],
+   "best": {
+    "mlb": "mlb|disp=3.5|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=1|regress=0.4|rest=1",
+    "nba": "nba|disp=1.0|form=0.25|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+    "ncaab": "ncaab|disp=1.0|form=0.0|gain=1.0|hfa=learned|pace=1.0|park=0|regress=0.4|rest=1",
+    "ncaaf": "ncaaf|disp=1.12|form=0.0|gain=1.0|hfa=team|keys=1|pace=0.5|park=1|regress=0.1|rest=1",
+    "nfl": "nfl|disp=1.0|form=0.0|gain=1.0|hfa=learned|keys=1|pace=1.0|park=0|regress=0.4|rest=1",
+    "nhl": "nhl|disp=10.0|form=0.5|gain=0.5|hfa=learned|pace=0.33|park=0|regress=0.1|rest=1"
+   },
+   "secs": 162.8
+  },
+  "today": {
+   "ok": true,
+   "games": 272,
+   "secs": 8.4
+  },
+  "secs": 173
+ },
+ {
   "at": "2026-10-07T23:16Z",
   "games": 130693,
   "sim": {
