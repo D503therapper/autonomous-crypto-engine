@@ -1,12 +1,14 @@
 {
- "at": "2026-10-08T02:10Z",
+ "at": "2026-10-08T02:17Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 67s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Korpatsch vs Kalieva: no points for 406s",
+  "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 406s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
+  "sources down (the backups took over): betrivers:nhl:1028398361 HTTP 404"
  ],
  "ok": [
-  "live watcher fresh (31s)",
+  "live watcher fresh (35s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -14,18 +16,27 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 6 min ago",
+  "engine ran 14 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-08T02:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Korpatsch vs Kalieva: no points for 406s",
+    "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 406s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "sources down (the backups took over): betrivers:nhl:1028398361 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-08T02:10Z",
    "fixes": [],
@@ -531,17 +542,6 @@
    "at": "2026-10-05T16:26Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-05T15:47Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
   }
  ]
 }
