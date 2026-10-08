@@ -10732,3 +10732,34 @@ DEX: $1,433.21 (+433.21) · Scammed: 0
 [2026-10-08 02:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-08 02:05 UTC] crypto/hold_btc  equity $494.85 (-1.0%) 1 open  market UP
    social heat top: STONK 40 (29/0/10), TRUMP 37 (37/0/0), PRL 32 (32/0/0), SOL 27 (27/0/0), ONDO 24 (24/0/0)
+   dex screen: PASS DRB@base liq $1,555,091
+   dex screen: REJECT HLX@ethereum liq $358,248 - top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT LINK@ethereum liq $419,380 - lp locked 0% < 95%
+   dex screen: REJECT NEIRO@ethereum liq $3,564,768 - top-10 holders 68%
+   dex screen: REJECT PYUSD@solana liq $64,935 - liquidity $64,935 < $100,000
+   dex screen: REJECT CHILLGUY@solana liq $1,480,943 - top-10 holders 51%
+   dex screen: REJECT RAY@solana liq $4,450,385 - top-10 holders 77%
+   scanner: CASHCAT: +6.1% in 17 min on 4.8x volume @ 0.12949 spread 0.51%
+   take-off: BUY CASHCAT (scanner mover): CASHCAT: +6.1% in 17 min on 4.8x volume @ 0.12949 spread 0.51%
+   >> crypto/mover: BUY $173.71 of CASHCAT @ 0.129619 (scanner mover)
+   scanner: CASHCAT: +7.7% in 18 min on 4.9x volume @ 0.13134 spread 0.51%
+   scanner: CASHCAT: +5.4% in 13 min on 9.9x volume @ 0.12876 spread 0.71%
+   scanner: CASHCAT: +6.1% in 14 min on 9.8x volume @ 0.12967 spread 0.46%
+   dex screen: REJECT PAID@solana liq $217,859 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   scanner: CASHCAT: +6.2% in 15 min on 10.7x volume @ 0.12978 spread 0.34%
+   scanner: CASHCAT: +6.6% in 15 min on 12.5x volume @ 0.13021 spread 0.29%
+   scanner: CASHCAT: +6.9% in 15 min on 12.7x volume @ 0.12995 spread 0.56%
+   scanner: CASHCAT: +6.6% in 15 min on 13.2x volume @ 0.12994 spread 0.34%
+   scanner: CASHCAT: +7.0% in 15 min on 13.4x volume @ 0.13034 spread 0.44%
+   scanner: CASHCAT: +7.0% in 15 min on 14.6x volume @ 0.12974 spread 0.41%
+   scanner: CASHCAT: +7.4% in 15 min on 15.0x volume @ 0.12974 spread 0.41%
+   scanner: CASHCAT: +6.8% in 15 min on 15.5x volume @ 0.12894 spread 0.24%
+   dex outcome: emergency_exit A1@solana:FAopSovS tier A P/L $-47.94 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%)
+   >> dex/dex_hunter: SELL $0.13 of A1@solana:FAopSovS @ 4e-06, P/L $-47.94 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%)
+   scanner: CASHCAT: +7.0% in 15 min on 16.2x volume @ 0.12923 spread 0.24%
+   scanner: CASHCAT: +6.5% in 15 min on 16.4x volume @ 0.12886 spread 0.23%
+   scanner: CASHCAT: +6.9% in 15 min on 17.0x volume @ 0.1293 spread 0.16%
+   dex screen: REJECT TWEETCRAFT@solana liq $155,057 - holders unknown; lp holders unknown; rugcheck lp locked 45% < 95%
+   dex screen: REJECT TRUMP@solana liq $238,232 - top-10 holders 89%; lp holders unknown
+   dex screen: REJECT NEAR@ethereum liq $903,104 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   scanner: CASHCAT: +8.1% in 30 min on 8.4x volume @ 0.13209 spread 0.39%
