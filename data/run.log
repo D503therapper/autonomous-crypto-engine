@@ -11511,3 +11511,21 @@ error: failed to push some refs to 'https://github.
    [alert] Today -777.49 | Total -328.56: Stocks: $517.13  today +1.41  total +17.13
 DEX: $654.31  today -778.90  total -345.69
 DEX: $654.31 (-345.69) · Scammed: 0
+   dex screen: REJECT CBXRP@base liq $578,793 - pool age unknown
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT GALA@solana liq $23,181,377 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT JITOSOL@base liq $14,730,932 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 100%
+   dex screen: REJECT ANT@solana liq $101,211 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT IMD@ethereum liq $2,461,528 - top-10 holders 57%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 3,001 pools (solana 2,155 / base 516 / ethereum 330), refresh cycle 131s (hot 127s), 2928 calls (167 feed, 429s 0, failed 1), 82,793 refreshed (4663 no pair), +467 added / -466 dropped (dead 20, stale 0, cap 446), movers 1 + warming 13 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-08 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-08 23:06 UTC] crypto/mover     equity $370.19 (-26.0%) 2 open  market UP
+[2026-10-08 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 23:06 UTC] crypto/social_heat equity $469.00 (-6.2%) 1 open  market UP
+[2026-10-08 23:06 UTC] crypto/breakout10 equity $454.84 (-9.0%) 2 open  market UP
+[2026-10-08 23:06 UTC] crypto/momentum  equity $455.33 (-8.9%) 2 open  market UP
+[2026-10-08 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 23:06 UTC] crypto/hold_btc  equity $488.24 (-2.4%) 1 open  market UP
+   social heat top: NEAR 32 (32/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0), PONS 24 (16/0/8), SUI 21 (21/0/0)
