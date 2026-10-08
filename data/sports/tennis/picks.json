@@ -2030,7 +2030,7 @@
      "t_tired:5",
      "t_bl:16"
     ],
-    "state": "pre"
+    "state": "live"
    },
    {
     "id": "atp:184851:2",
@@ -2092,7 +2092,7 @@
     "mkt": 0.6092362344582594,
     "own": 0.6318707846075043,
     "angle": false,
-    "result": null,
+    "result": "lost",
     "breakdown": [
      "\ud83c\udfbe This is Munar's match to lose. Our model has him at 61%.",
      "\ud83d\udcc8 World #49 vs #102. That gap shows up on the big points.",
@@ -2106,7 +2106,8 @@
      "t_form:25",
      "t_bl:21"
     ],
-    "state": "live"
+    "state": "final",
+    "score": "7-5, 6-4"
    },
    {
     "id": "atp:184868:1",
@@ -2156,7 +2157,7 @@
     ],
     "dec": 3.5468,
     "american": 255,
-    "status": "open",
+    "status": "lost",
     "tour": "atp"
    },
    "wta": null
