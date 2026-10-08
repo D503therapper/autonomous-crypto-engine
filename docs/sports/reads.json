@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T01:26Z",
+ "updated": "2026-10-08T01:34Z",
  "games": [
   {
    "id": "mlb:401907992",
@@ -230,7 +230,7 @@
     "line": 1.5,
     "odds": -195,
     "p": 0.602,
-    "win_p": 0.484,
+    "win_p": 0.483,
     "reasons": [
      "opponent drama: new baby"
     ]
@@ -290,7 +290,7 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -222,
+    "odds": -186,
     "p": 0.628,
     "win_p": 0.512,
     "reasons": [
@@ -320,7 +320,7 @@
     "opp": "Canucks",
     "market": "spread",
     "line": -1.5,
-    "odds": -148,
+    "odds": -125,
     "p": 0.569,
     "win_p": 0.766,
     "reasons": [
@@ -352,7 +352,7 @@
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -218,
     "p": 0.662,
     "win_p": 0.442,
     "reasons": [
@@ -366,7 +366,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.361,
+    "p": 0.368,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -382,9 +382,9 @@
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
-    "p": 0.693,
-    "win_p": 0.476,
+    "odds": -250,
+    "p": 0.68,
+    "win_p": 0.461,
     "reasons": [
      "hotter goalie"
     ]
@@ -497,18 +497,20 @@
    "start": "2026-10-08T23:00Z",
    "away": "Stars",
    "home": "Sabres",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Stars",
-    "opp": "Sabres",
+    "team": "Sabres",
+    "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -265,
-    "p": 0.729,
-    "win_p": 0.519,
+    "odds": -270,
+    "p": 0.698,
+    "win_p": 0.482,
     "reasons": [
-     "opponent drama: family/personal"
+     "the stronger team",
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
@@ -534,7 +536,7 @@
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
+    "odds": -205,
     "p": 0.653,
     "win_p": 0.433,
     "reasons": []
@@ -577,8 +579,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arkansas St",
-    "p": 0.501,
-    "tie": 0.034,
+    "p": 0.526,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -586,18 +588,19 @@
    "start": "2026-10-08T23:30Z",
    "away": "South Alabama",
    "home": "Arkansas St",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Arkansas St",
     "opp": "South Alabama",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.522,
-    "win_p": 0.522,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
