@@ -3,25 +3,30 @@
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (79s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 4 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 4 fresh (betrivers 4)",
+  "tennis live prices: 9 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 10 min ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-08T07:29Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-08T07:29Z",
    "fixes": [],
@@ -536,15 +541,6 @@
    ],
    "problems": [
     "workflow failed: sports_studies 2026-10-05T20:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37370317502"
-   ]
-  },
-  {
-   "at": "2026-10-05T20:27Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: health 2026-10-05T20:01 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37367117520",
-    "workflow failed: pacer 2026-10-05T19:43 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37365268912",
-    "workflow failed: health 2026-10-05T19:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37364835720"
    ]
   }
  ]
