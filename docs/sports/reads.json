@@ -1,6 +1,66 @@
 {
- "updated": "2026-10-08T22:41Z",
+ "updated": "2026-10-08T23:24Z",
  "games": [
+  {
+   "id": "nhl:401892461",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-08T23:00Z",
+   "away": "Canucks",
+   "home": "Hurricanes",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898392",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T23:00Z",
+   "away": "Celtics",
+   "home": "Cavaliers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891820",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-08T23:00Z",
+   "away": "Flyers",
+   "home": "Senators",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892457",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-08T23:00Z",
+   "away": "Mammoth",
+   "home": "Bruins",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "ncaaf:401871052",
    "league": "ncaaf",
@@ -58,98 +118,77 @@
    }
   },
   {
-   "id": "nhl:401892462",
+   "id": "ncaaf:401870766",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-08T23:00Z",
+   "away": "Sam Houston",
+   "home": "Liberty",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892458",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Islanders",
-    "p": 0.407,
-    "tie": 0.296,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-08T23:30Z",
-   "away": "Blackhawks",
-   "home": "Islanders",
-   "why": "no_value",
+   "start": "2026-10-08T23:00Z",
+   "away": "Stars",
+   "home": "Sabres",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Islanders",
-    "opp": "Blackhawks",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.62,
-    "win_p": 0.62,
-    "reasons": [
-     "the stronger team",
-     "hotter goalie",
-     "opponent drama: family/personal"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "nhl:401892460",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-08T23:00Z",
+   "away": "Wild",
+   "home": "Lightning",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "ncaaf:401869933",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Arkansas St",
-    "p": 0.56,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-08T23:30Z",
    "away": "South Alabama",
    "home": "Arkansas St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Arkansas St",
     "opp": "South Alabama",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401862794",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "UTSA",
-    "p": 0.625,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-08T23:30Z",
-   "away": "South Florida",
-   "home": "UTSA",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "UTSA",
-    "opp": "South Florida",
-    "market": "ml",
-    "line": null,
-    "odds": -230,
-    "p": 0.669,
-    "win_p": 0.669,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
+     "opponent missing key players",
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
@@ -219,7 +258,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.673,
+    "p": 0.672,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -234,12 +273,13 @@
     "team": "Buccaneers",
     "opp": "Cowboys",
     "market": "spread",
-    "line": 9.5,
-    "odds": -112,
-    "p": 0.512,
-    "win_p": 0.214,
+    "line": 8.5,
+    "odds": 100,
+    "p": 0.513,
+    "win_p": 0.215,
     "reasons": [
-     "revenge game"
+     "revenge game",
+     "opponent drama: illness"
     ]
    }
   },
@@ -490,7 +530,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Washington",
-    "p": 0.552,
+    "p": 0.543,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -506,9 +546,9 @@
     "opp": "Iowa",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
