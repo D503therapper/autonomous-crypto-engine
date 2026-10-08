@@ -10998,3 +10998,35 @@ DEX: $1,433.21 (+433.21) · Scammed: 0
 [2026-10-08 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-08 10:05 UTC] crypto/hold_btc  equity $494.68 (-1.1%) 1 open  market UP
    social heat top: PONS 42 (32/0/10), MET 41 (35/0/6), PRL 37 (37/0/0), ALGO 29 (29/0/0), NEAR 27 (27/0/0)
+   dex screen: REJECT FET@ethereum liq $1,773,331 - goplus partial data: cannot_sell_all unknown; transfer_pausable; is_mintable; hidden_owner; buy tax unknown; sell tax unknown; top-10 holders 48%
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AERO@base liq $43,301,195 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 66%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT LDO@ethereum liq $77,278 - liquidity $77,278 < $100,000
+   dex screen: REJECT QNT@ethereum liq $931,412 - is_mintable; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT OETH@ethereum liq $54,450,147 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 97%
+   dex screen: REJECT CRX@base liq $262,771 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT WPRL@ethereum liq $641,217 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT SOL@base liq $649,221 - pool age unknown
+   dex screen: REJECT CLAUS@ethereum liq $689,021 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT SEND@ethereum liq $163,471 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT SNDK@solana liq $185,993 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT BNKR@base liq $2,358,357 - 24h volume $46,570 < $100,000
+   dex screen: REJECT CZ@base liq $227,835 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT WPRL@ethereum liq $641,421 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,896 / base 615 / ethereum 489), refresh cycle 119s (hot 115s), 3128 calls (110 feed, 429s 0, failed 0), 90,540 refreshed (5728 no pair), +45 added / -42 dropped (dead 13, stale 0, cap 29), movers 1 + warming 24 -> queued 6, screened 7 (passed 0), bought 0
+[2026-10-08 11:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $161.82 of GLMR @ 0.01164, P/L $-19.48 (time limit)
+[2026-10-08 11:05 UTC] crypto/mover     equity $376.01 (-24.8%) 1 open  market UP
+[2026-10-08 11:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 11:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 11:05 UTC] crypto/social_heat equity $495.69 (-0.9%) 3 open  market UP
+[2026-10-08 11:05 UTC] crypto/breakout10 equity $495.32 (-0.9%) 2 open  market UP
+[2026-10-08 11:05 UTC] crypto/momentum  equity $466.38 (-6.7%) 4 open  market UP
+[2026-10-08 11:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 11:05 UTC] crypto/hold_btc  equity $492.33 (-1.5%) 1 open  market UP
+   social heat top: TRUMP 35 (35/0/0), NEAR 32 (32/0/0), PRL 29 (29/0/0), STRK 27 (27/0/0), PONS 26 (24/0/2)
