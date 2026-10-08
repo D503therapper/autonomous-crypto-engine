@@ -1,9 +1,12 @@
 {
- "at": "2026-10-08T01:25Z",
+ "at": "2026-10-08T02:10Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 67s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (31s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -15,14 +18,22 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
   "engine ran 6 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-08T02:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 67s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-08T01:25Z",
    "fixes": [],
@@ -530,13 +541,6 @@
    "problems": [
     "studies last ran 10h ago - restarted",
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-05T14:16Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Sakatsume vs Salkova: no points for 2647s"
    ]
   }
  ]
