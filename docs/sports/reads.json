@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T14:29Z",
+ "updated": "2026-10-08T15:01Z",
  "games": [
   {
    "id": "nhl:401892461",
@@ -110,8 +110,8 @@
    "start": "2026-10-08T23:00Z",
    "away": "Missouri St",
    "home": "Western KY",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Western KY",
     "opp": "Missouri St",
@@ -121,7 +121,8 @@
     "p": 0.526,
     "win_p": 0.526,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -214,7 +215,8 @@
     "win_p": 0.475,
     "reasons": [
      "the stronger team",
-     "hotter recent form"
+     "hotter recent form",
+     "opponent missing key players"
     ]
    }
   },
@@ -233,17 +235,19 @@
    "start": "2026-10-08T23:00Z",
    "away": "Wild",
    "home": "Lightning",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Wild",
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -198,
     "p": 0.642,
     "win_p": 0.422,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -293,8 +297,8 @@
    "start": "2026-10-08T23:30Z",
    "away": "South Alabama",
    "home": "Arkansas St",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Arkansas St",
     "opp": "South Alabama",
@@ -305,6 +309,7 @@
     "win_p": 0.563,
     "reasons": [
      "the stronger team",
+     "opponent missing key players",
      "sharp money moving this way"
     ]
    }
@@ -346,7 +351,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.446,
+    "p": 0.443,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -363,10 +368,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -174,
-    "p": 0.611,
-    "win_p": 0.494,
+    "p": 0.615,
+    "win_p": 0.497,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "opponent missing key players"
     ]
    }
   },
@@ -385,8 +391,8 @@
    "start": "2026-10-09T00:00Z",
    "away": "Sharks",
    "home": "Blues",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Sharks",
     "opp": "Blues",
@@ -406,7 +412,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Cowboys",
-    "p": 0.665,
+    "p": 0.666,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -415,8 +421,8 @@
    "start": "2026-10-09T00:15Z",
    "away": "Buccaneers",
    "home": "Cowboys",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Buccaneers",
     "opp": "Cowboys",
@@ -424,7 +430,7 @@
     "line": 8.5,
     "odds": -105,
     "p": 0.513,
-    "win_p": 0.224,
+    "win_p": 0.223,
     "reasons": [
      "revenge game",
      "sharp money moving this way"
@@ -446,8 +452,8 @@
    "start": "2026-10-09T01:00Z",
    "away": "Avalanche",
    "home": "Flames",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Avalanche",
     "opp": "Flames",
@@ -740,8 +746,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "San Jos\u00e9 St",
-    "p": 0.63,
-    "tie": 0.031,
+    "p": 0.592,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -756,9 +762,9 @@
     "opp": "Wyoming",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.675,
-    "win_p": 0.675,
+    "odds": -192,
+    "p": 0.631,
+    "win_p": 0.631,
     "reasons": [
      "the stronger team",
      "hotter recent form",
