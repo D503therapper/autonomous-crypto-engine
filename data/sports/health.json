@@ -1,13 +1,16 @@
 {
- "at": "2026-10-08T09:00Z",
+ "at": "2026-10-08T09:32Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Merida vs Van De Zandschulp: no points for 157s",
+  "live tennis scores: tennis Aksu vs Dudeney: no points for 1911s"
+ ],
  "ok": [
   "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
+  "live tennis points + server: 2 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
@@ -15,13 +18,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 37 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-08T09:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Merida vs Van De Zandschulp: no points for 157s",
+    "live tennis scores: tennis Aksu vs Dudeney: no points for 1911s"
+   ]
+  },
   {
    "at": "2026-10-08T09:00Z",
    "fixes": [],
@@ -530,11 +541,6 @@
   },
   {
    "at": "2026-10-05T22:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T22:51Z",
    "fixes": [],
    "problems": []
   }
