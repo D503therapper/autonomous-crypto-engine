@@ -11399,3 +11399,33 @@ error: failed to push some refs to 'https://github.
 [2026-10-08 19:06 UTC] stocks/trend     equity $488.39 (-2.3%) 3 open  market UP
 [2026-10-08 19:06 UTC] stocks/hold_spy  equity $502.18 (+0.4%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), NEAR 35 (35/0/0), PRL 29 (29/0/0), STONK 25 (13/0/12), QNT 24 (24/0/0)
+   dex screen: REJECT ETHFI@base liq $162,189 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT NEAR@ethereum liq $796,537 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT MINI@solana liq $213,350 - lp holders unknown; rugcheck lp locked 66% < 95%
+   dex screen: REJECT VVV@base liq $15,606,637 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; owner_percent 30%; top-10 holders 62%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT XDP@base liq $1,729,805 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HIGGS@solana liq $103,851 - holders unknown; lp holders unknown; rugcheck lp locked 58% < 95%
+   dex screen: PASS GARY@solana liq $128,516
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   scanner: OGN: +6.1% in 15 min on 7.7x volume @ 0.05048 spread 0.42%
+   dex screen: REJECT LMAO!@solana liq $286,533 - lp holders unknown; rugcheck lp locked 86% < 95%
+   dex screen: REJECT UBLOCK@base liq $458,440 - goplus partial data: cannot_sell_all unknown; honeypot_with_same_creator; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT CT@solana liq $380,623,618 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT SLC@base liq $123,739 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 46%; lp locked 0% < 95%
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT E/ACC@solana liq $249,387 - lp holders unknown; rugcheck lp locked 58% < 95%
+   dex screen: PASS SHIB@ethereum liq $2,849,861
+   dex scanner: 3,011 pools (solana 2,117 / base 535 / ethereum 359), refresh cycle 137s (hot 132s), 2743 calls (108 feed, 429s 0, failed 0), 79,049 refreshed (8703 no pair), +94 added / -80 dropped (dead 23, stale 0, cap 57), movers 1 + warming 47 -> queued 7, screened 7 (passed 0), bought 0
+[2026-10-08 20:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-08 20:05 UTC] crypto/mover     equity $371.98 (-25.6%) 2 open  market UP
+[2026-10-08 20:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 20:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 20:05 UTC] crypto/social_heat equity $469.00 (-6.2%) 1 open  market UP
+[2026-10-08 20:05 UTC] crypto/breakout10 equity $455.55 (-8.9%) 2 open  market UP
+[2026-10-08 20:05 UTC] crypto/momentum  equity $454.64 (-9.1%) 2 open  market UP
+[2026-10-08 20:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 20:05 UTC] crypto/hold_btc  equity $487.93 (-2.4%) 1 open  market UP
+   social heat top: TRUMP 42 (37/0/5), TIA 35 (35/0/0), PENGU 34 (29/0/4), PRL 32 (32/0/0), NEAR 24 (24/0/0)
