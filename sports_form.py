@@ -261,6 +261,27 @@ def pdo_states(games, now_iso):
     return out
 
 
+OUTSHOT_MIN = 40                          # 10/8 study: a hockey team that allowed 40+ shots in its last game and plays
+OUTSHOT_DAYS = 2                          # again within 2 days: -13.7% on 909 (2018-23), -30.2% on 167 blind (2024-26)
+
+
+def outshot_states(rows, now_iso):
+    """{nhl team id: its last game's start} for teams that allowed OUTSHOT_MIN+ shots in their last game (the goalies'
+    shots against summed - box scores in data/sports/players/nhl.csv). Only games before now_iso count."""
+    last = {}
+    for r in rows:
+        if r.get("role") != "G" or not r.get("sa") or r.get("start", "") >= now_iso:
+            continue
+        k = (str(r["team"]), r["gid"])
+        t = last.get(str(r["team"]))
+        if t is None or r["start"] > t[0]:
+            last[str(r["team"])] = [r["start"], r["gid"], 0.0]
+            t = last[str(r["team"])]
+        if t[1] == k[1]:
+            t[2] += float(r["sa"])
+    return {tm: v[0] for tm, v in last.items() if v[2] >= OUTSHOT_MIN}
+
+
 def sv_slump():
     """Hockey teams whose goalies are slumping: last-10 save % at or under SV_SLUMP_MAX (filled by pdo_states)."""
     return {t for t, v in LAST_SV.items() if v <= SV_SLUMP_MAX}

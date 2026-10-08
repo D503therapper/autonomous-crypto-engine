@@ -13,6 +13,67 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/8 - BOOK-BY-BOOK DISAGREEMENT (one book's moneyline off the other books' median, bet the outlier price): DEAD as a general angle; one per-book sub-cell is a paper LEAD we can't bet
+NFL 1,750 + college 4,067 graded games with a fair look (after both teams' last games), 2020-26, every book's price kept. "Outlier" = a book whose no-vig price on a side sits 2/3/4/5% under the median of the OTHER books (5+ books posted) AND whose raw price still beats that consensus; one bet per game at that book's real price. Thresholds picked on 2020-22, 2023+ blind. 48 cells; none beats p .01 after correction. (The 10/1 round-4 "book dispersion" DEAD, re-checked blind and per book.)
+- College, first fair look, 2%+ gap, dogs: train +22.4% on 211 (3/3) but the sides won 27.5% vs consensus 27.2% - the ROI was the outlier price on big dogs (avg +570), not better picks. Holdout 2023+ +8.1% on 129 (2 of 4, p .64; -3.7% at the close). +100..+220 only: train +6.8% on 70, holdout +19.9% on 47 (p .24) - too thin.
+- NFL: nothing. First look 2%+ +100..+220 dogs train -9.7% on 28, holdout -1.6% on 28.
+- The LAST look before kickoff is a trap: college 2%+ outliers -9.1% on 290 train, -33.1% on 133 holdout (0/4, p .002). Late, the book off the pack moved first - the pack is stale, the outlier is right.
+- Soft books (first fair look): college FanDuel is the outlier most often and won above the market (train +49% on 68, holdout +49% on 33, p .09) - one book in 48 cells, avg +500 dogs (outside our +100..+220 rule) = paper LEAD at best; our live feed has no FanDuel.
+- Can't be wired: 71% NFL / 58% college outliers are back to consensus by the next look. Five checks: fair YES, blind YES, most seasons NO, current season NO (2026 -12% on 12), second check NO. Nothing built.
+
+## 10/8 - LINE-MOVE SHAPE (steady drift / one jump / reversal, first fair look -> last look before kickoff): DEAD for drift and jump; the 10/1 reversal spike-side lead unproven at n 47
+Median book's no-vig home % at every fair look (3+ looks). Net move 2/3/4%+; one step 70%+ of it = JUMP, else DRIFT; moved 2%+ then came back half+ = REVERSAL. Bet the side the shape favors (and its mirror) at the last look's median price. 36 cells; thresholds on 2020-22, 2023+ blind. Nothing clears p .01.
+- NFL DRIFT, follow: train +13.8% on 157 (3/3) -> 2023+ -1.9% on 189 (1 of 4). The 2020-22 drift money was a slow market; it's priced now.
+- College JUMP, follow: train +10.9% on 254 -> holdout -6.1% on 341 (1 of 4). Fading jumps loses both ways. NFL jumps lose every cut.
+- REVERSAL, NFL spike side (10/1 lead +19% on 53): train +10.7% on 22, holdout +6.5% on 25 (13-12, p .76) - nothing provable. College fade-the-spike +36.8% on 14 -> +10.7% on 24 - small, keep in the log.
+- Five checks fail (most seasons, current season, second check). Not a weight; the only use of a move stays the TIMING rule (dogs early, favorites game day).
+## 10/8 - KEY NUMBERS: a half point at 3 / 7, and the line crossing them early (NFL 2020-26): DEAD as a bet, a PRICING FACT
+1,730 NFL games with a first fair early spread and a closing spread; 1,757 finals for the landing table; 43 cells; 2020-22 judged, 2023+ held out.
+- What a half point is worth: the favorite wins by exactly 3 in 9.8% of games near a 3 line (a half point = ~5 cover points, ~-110 -> -135 of juice), 7 = 5.7% (~3 points), 6 = 4.0%, everything else 1-3%. Shop the half point at 3; pay for it nowhere else. The sim already learns these margins (sports_sim KEY_PRIOR) - this confirms the sizes.
+- Hindsight: when the line moved through 3, the side it moved toward covered 29-8 at the early number - but that needs the move called ahead, and the 10/7 blind re-check killed the move model.
+- Blind, bettable: a dog on +3.5 at the first fair number 2020-22 +19.7% on 79 -> 2023+ -16.8% on 95. Every key-number cell (+3, +2.5, +7, -2.5, -3...) 46-54%; getting the key number early did NOT beat the close (50.9% on 57). Nothing built; if an early NFL spread play ever goes live, prefer the right side of 3 at the same price.
+
+## 10/8 - SPREAD vs MONEYLINE DISAGREEMENT (a book's moneyline and its own spread say different win %): NFL DEAD; college LEAD
+Curve P(home win) = logistic(closing spread) fit on 2020-22, calibrated on 2023+. At the first fair look, same book: moneyline % minus the spread's %; 3%+ apart = bet the cheaper market. ~120 cells.
+- NFL: nothing blind (moneyline side +3.3% -> -1.2%; spread side = the ATS baseline). The closing-feed moneyline side 2023+ +13.8% on 245 was -3.1% in the choosing years - not our 8 AM price anyway.
+- College: when the moneyline rates a side 3%+ above its spread, that side's SPREAD covers 47% (-11.1% on 628, 0 of 6 seasons up) and its OPPONENT on the moneyline pays +7.4% on 628 (5 of 6); inside -150..+400 +8.7% on 564 (2020-22 +8.1%, 2023+ +9.1%, 6 of 6) - but t 1.5 (p ~.12), ~120 cells, and the 10/1 version with a different curve binned it for 2023: method-sensitive = fragile. LEAD, not built; watch it through 2026. If it holds: +1..+2 on that college dog's moneyline in the early spots, never a trigger.
+## 10/8 - NHL early-season regression: fade the hot start, back the cold start? (DEAD as a rule; hot-start fade a weak LEAD)
+- Setup: both teams 3-10 games into the season, each with 40+ games last season; "deviation" = this year's win% (or goal diff a game) minus last year's. 270 cells on 2018-23, closing moneylines; baseline every early side -3.7%. Blind 2024-26. (Not the 10/1 "early dogs by last year's standing" DEAD - this is the gap to last year.)
+- Train looked like something (team 35+ points under last year's win%: +11.5% on 68; the plain "Flames spot" - .34 or worse after 3-6 games, .55+ last year - +25.4% on 45), best cell z 1.07 - chance across 270 cells.
+- BLIND 2024-26: backing the cold team died (-22.5% on 48, -3.8% on 36; the Flames spot -4.1% on 23). The hot side kept its direction: a team 10-20 points OVER last year -19.2% on 70, 35+ over -11.7% on 17.
+- Verdict: DEAD for backing cold starts (the market prices the bounce - an 0-3 team is not a buy on that alone). Hot-start fade = weak LEAD (p nowhere near .01 after 270 cells). Not built; re-check after 2026-27's first month.
+
+## 10/8 - NHL goalie workload + the team that just got OUTSHOT 40+ (goalie fatigue DEAD; "allowed 40+ shots, plays again within 2 days" = BUILT as a weight)
+- 171 goalie cells, closing ML, regular season, 2018-23 train, 2024-26 blind. Goalie fatigue itself DEAD: 3rd start in 4 nights -5.4% on 136 blind (same as every side); started last night flips blind; the back-to-back is the team's (already built), not the goalie's.
+- What popped is the TEAM: allowed 40+ shots last game and plays again within 2 days: -13.7% on 909 train (won 42.4% at 48.4% implied, 1 of 6 seasons up, z -3.8), -30.2% on 167 BLIND (won 32.9% at 47.2%, 0 of 3, z -3.8). Same whichever goalie starts (a different goalie -26.8% on 117 blind), after a win or a loss, home or road; gone with 3+ days rest (+1.9% on 235). Not the built last-10 shot-share weight (still loses inside both halves). The other side (bet the team FACING it) +3.3% on 905 train, +19.9% on 165 blind (3/3).
+- Multiple testing: train p ~1e-4 x ~190 cells ~ .03, the blind holdout confirms on its own at p ~1e-4. 40+ shot games are rarer now (~125 team-games a season) - 2-3 sides a week.
+- Five checks: fair YES (box score known the morning after), blind YES, most seasons YES (1/6 + 0/3 up), current season too few, second check YES (both sides of the bet agree). BUILT 10/8 as a WEIGHT (never a trigger): sports.outshot_40 - a side that allowed 40+ shots last game, playing within 2 days: -2 on its dog score / -1.5 on a favorite's weighed read; the side facing it +1 (inside STUDY_CAP / FAV_CAP). Lead tag 'outshot 40+' in sports_leads for its own live record.
+## 10/8 - MLB playoffs: postseason pricing and series spots: DEAD (the favorite fade confirmed, nothing to bet)
+349 priced postseason games 2018-26, 19,735 regular-season games as the reference; series state from the games before each one only; dev 2018-23 / blind 2024-26; ~25 cells (x60 with the next study).
+- Favorites -8.2% on 349 (the 10/1 -8.9% holds) but only 3 of 9 seasons down - not a steady fade; holdout +0.9%. Home/road, won-the-last-game, series leader: every cell flips in the holdout.
+- Facing elimination -18.3% on 102 (2 of 9 up; holdout -5.9%) - a fade lead at best. Game 1 / bye rust: nothing (as 10/1).
+- DEAD. October favorites not earning their price already sits in the engine as "no forced Lock / never past -150".
+
+## 10/8 - MLB playoffs: starter rest and BULLPEN workload: bullpen = strong LEAD (thin - paper-tracked, not wired); starter rest LEAD/DEAD
+Relievers' innings on the 1-2 days before the game from the roster boxes (2021-26, 231 priced postseason games); thresholds 4/6/8 IP and 2/3/4 IP more than the opponent pre-set; dev 2021-23, blind 2024-26.
+- BULLPEN: a team whose relievers threw 4+ innings over the last 2 days, facing a pen that threw under 4 - bet the FRESH side: 61-24, +36.9%, 6 of 6 postseasons; BLIND 31-12 (+30.4%, 3 of 3). Every sibling threshold won blind too (6+ IP 40-18; 2+ IP more than the opponent 66-31). Fresh dog 27-8, fresh favorite 34-16. p .00006, x60 cells .004 - clears the bar, but it's 85 games over 6 Octobers; the true edge is far smaller than +20 pts. Regular season the same cell is -5.4% on 2,638 - October only (the same 3-4 arms go every day).
+- Starter on short rest in October: 33 games, nothing (10/1 DEAD stands). Regular season the listed starter on <=3 days rest +14.1% on 241 (8 of 9 seasons) - LEAD, re-check in April.
+- Starter on long rest (7+ days) as the FAVORITE -21.6% on 106 (holdout -10.4%) - LEAD, fade only.
+- Not wired 10/8: 85 games is far under the owner's "thousands of games" bar. If it keeps winning: +3 on a fresh playoff dog's score / -2 on a tired playoff favorite's read, MLB postseason only, inside STUDY_CAP / FAV_CAP.
+## 10/8 - the backup QB's SECOND start (NFL - does the market overreact to a bad first start?): DEAD as a buy; small FADE lead
+- NFL 2018-26 reg season, closing spreads. QB1 = the passer listed most this season so far; one QB line per box score, so a QB1 hurt mid-game reads as a backup (the 10/1 'fake edge' problem) - the pregame cuts avoid it. Train 2018-23, blind 2024-26, ~22 cells.
+- Any team on a backup: ATS 51.1% train, 46.6% blind (-10.6%) - matches the 10/1 DEAD entry.
+- Backup's 2nd start in a row: 44.8% train, 42.6% blind (1 of 9 seasons up). After a BAD first start (2+ INT or under 150 yds) 30-40-2 all told (42.9%). The market does NOT overreact - the team keeps losing the spread (same direction as the built "QB1 out a second straight week" -3).
+- The one strong cell is a FADE: a backup whose first start had 2+ INTs covered 11-26 (29.7%) in start 2 - n 37, one of ~22 cuts, not after correction = LEAD. Nothing built. (10/8: the Bucs' Jalon Daniels is this exact spot at Dallas.)
+
+## 10/8 - WINLESS and UNBEATEN starts (0-3+ / 3-0+) against the spread, NFL + college: NFL winless ATS = LEAD (close to a build); college DEAD; unbeaten favorites a mild fade
+- NFL 2018-26, closing spreads; record = this season's games before this one. Winless 0-3+, next game ATS: train 42-28-3 (60.0%), BLIND 13-6-2 (68.4%, 3 of 3) - 55-34-5 (61.8%, z 2.2). Moneyline flat: they still lose, they keep it inside the number.
+- As a DOG: 45-23-4 (66%, z 2.7; blind 9-2-2); road 34-14-2 (70.8%); dogs of 7-13.5 19-7-1, 14+ 5-6. Exactly 0-3 24-13-4. Control: a 3+ losing streak on a team WITH a win is 50-53% - it's the winless label. Loss margins add nothing.
+- Midweek (odds history): at the first number of the week 42-21; the line moves ~0.2 pts toward them by the close - early is better, the close still pays.
+- Unbeaten NFL 3-0+ favorites: 30-45 ATS (40%, 0 of 9 seasons up), ML -11% / -16% - mild FADE lead (p ~.08).
+- College: winless 0-3+ ATS +5.5% train, +2.6% blind, dogs -11.5% blind - DEAD.
+- ~45 cells per league, so p > .01 corrected: LEAD, not built. If it holds: +2 on an NFL 0-3+ side's spread read (0.5-13.5, +1 on the road), -1 on an NFL 3-0+ favorite. Re-check after this season. (Tonight's Bucs +8.5 lean has BOTH: winless road dog of 8.5 = the good spot; a backup's 2nd start after a 2-INT first = the fade - they roughly cancel.)
+
 ## 10/7 - THE MOVE MODEL, RE-CHECKED BLIND BEFORE GOING LIVE (the owner: "we need to be on these lines before they move - that's the edge. Lock everything you need to in the engine"): DEAD - the 10/1 edge was a look-ahead feature. Nothing built.
 tools/early_move_recheck.py -> results/early_move_recheck.json; tools/early_move_live.py -> results/early_move_live.json.
 No paid re-pull, no network. The 10/1 "STILL STANDING" finding (early_dog_studies study 1: a model fit on past seasons

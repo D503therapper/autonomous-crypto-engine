@@ -4305,6 +4305,39 @@ def test_reviews_are_yellow():
     assert src.count('class="why rvy"') >= 3        # the main card's write-up + review, the tennis card's
 
 
+def test_nhl_outshot_40_weight():
+    """10/8 study: a hockey team that allowed 40+ shots in its last game and plays again within 2 days lost -13.7% on 909
+    and -30.2% on 167 blind - a WEIGHT (never a trigger): -2 on its dog score, +1 for the side facing it, -1 on a
+    favorite's weighed read (the dog's +1 adds the other half point). Only its LAST game counts; 3+ days off = nothing."""
+    import sports_form as sf
+    g = lambda gid, st, tm, sa: {"gid": gid, "start": st, "team": tm, "role": "G", "sa": str(sa)}
+    rows = [g("a", "2026-10-05T23:00Z", "1", 44), g("b", "2026-10-07T23:00Z", "1", 25), g("b", "2026-10-07T23:00Z", "1", 16),
+            g("c", "2026-10-07T23:00Z", "2", 30), g("d", "2026-10-09T23:00Z", "2", 50)]
+    st = sf.outshot_states(rows, "2026-10-08T20:00Z")
+    assert st == {"1": "2026-10-07T23:00Z"}, st              # two goalies summed (41); team 2's 50 is after now
+    saved = dict(sports.OUTSHOT)
+    try:
+        sports.OUTSHOT.clear(), sports.OUTSHOT.update(st)
+        assert sports.outshot("nhl", "1", "2026-10-08T23:00Z") and sports.outshot("nhl", 1, "2026-10-09T23:00Z")
+        assert not sports.outshot("nhl", "1", "2026-10-11T00:00Z")      # 3+ days later: gone
+        assert not sports.outshot("nfl", "1", "2026-10-08T23:00Z") and not sports.outshot("nhl", "2", "2026-10-08T23:00Z")
+        base = {"league": "nhl", "market": "ml", "odds": 140}
+        assert sports.dog_spots(dict(base, outshot_me=True)) == sports.dog_spots(base) - 2
+        assert sports.dog_spots(dict(base, outshot_opp=True)) == sports.dog_spots(base) + 1
+        import sports_leads
+        assert "NHL side outshot 40+ last game (fade)" in sports_leads.tags(dict(base, outshot_me=True), sports)
+        fav = {"league": "nhl", "market": "ml", "odds": -160, "dec": 1.625, "edge": -0.02, "game_id": "x",
+               "p_market": 0.60, "team_id": "1"}
+        dog = {"league": "nhl", "market": "ml", "odds": 140, "dec": 2.4, "edge": -0.05, "game_id": "x", "team_id": "2"}
+        a = [dict(fav), dict(dog)]
+        sports.mark_hockey_favorites(a)
+        b = [dict(fav, outshot_me=True), dict(dog, outshot_opp=True)]
+        sports.mark_hockey_favorites(b)
+        assert round(a[0]["w_p"] - b[0]["w_p"], 4) == 0.015, (a[0]["w_p"], b[0]["w_p"])
+    finally:
+        sports.OUTSHOT.clear(), sports.OUTSHOT.update(saved)
+
+
 def test_early_play_live_score_and_quick_grade():
     """10/7, the owner: "New Mexico State got their cheeks clapped ... that shit needs to be graded" and "I never saw any
     live score that whole game". The 🎯 row's time is the board's live tag (data-gid / side / the game's real start, so

@@ -30,6 +30,10 @@ def tags(c, sports):
         if sp_[0] < 50 and (c.get("drift") or 0) <= -0.02:
             sharp.append("reverse line move to it")
     t, lg, mo = [], c.get("league"), c.get("dog_more") or {}
+    if c.get("outshot_me"):                                  # 10/8 study (built as a weight): its own live record
+        t.append("NHL side outshot 40+ last game (fade)")
+    if c.get("outshot_opp"):
+        t.append("NHL side vs a team outshot 40+")
     dog = c.get("odds", 0) >= 100
     if dog:
         try:

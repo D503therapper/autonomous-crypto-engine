@@ -506,6 +506,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "first_timer": (lg, str(g[side])) in FIRST_TIMER,
                     "ats_run": ATS[0].get((lg, g[side]), 0),
                     "revenge": lg in sports_form.REVENGE and ATS[1].get((lg, g[side], g[other]), 0) <= -sports_form.REVENGE[lg],
+                    "outshot_me": outshot(lg, g[side], g["start"]), "outshot_opp": outshot(lg, g[other], g["start"]),
                     "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
                     and not sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"]),
                     "tired_vs_rested": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[side], g["start"])
@@ -1212,6 +1213,18 @@ def sharp_dog(c):
     return sp_[0] < 50 and sp_[1] - sp_[0] >= 10
 
 
+def outshot(lg, team, start):
+    """The 10/8 study: this hockey team allowed 40+ shots in its last game and plays again within 2 days."""
+    if lg != "nhl" or str(team) not in OUTSHOT:
+        return False
+    import sports_form
+    try:
+        gap = (datetime.strptime(start[:10], "%Y-%m-%d") - datetime.strptime(OUTSHOT[str(team)][:10], "%Y-%m-%d")).days
+    except (TypeError, ValueError):
+        return False
+    return 0 < gap <= sports_form.OUTSHOT_DAYS
+
+
 def dog_spots(c):
     """Points the 10/1 dog studies add to the Dog's score (every one vs all dogs at the same price, steady season to
     season and again on 2024-26). See sports_form.dog_states."""
@@ -1219,6 +1232,10 @@ def dog_spots(c):
     sc = 0.0
     if lg == "nhl" and c.get("tired_vs_rested"):
         sc -= 3                    # NHL: the dog played last night, the favorite didn't - -17.4% vs -4.8%, worse 7 of 8
+    if lg == "nhl" and c.get("outshot_me"):
+        sc -= 2                    # 10/8: allowed 40+ shots last game, plays again within 2 days - -13.7% on 909, -30.2% on
+    if lg == "nhl" and c.get("outshot_opp"):   # 167 blind (0 of 3 seasons up); a weight, never a trigger
+        sc += 1                    # ...and the side facing that team: +3.3% on 905, +19.9% on 165 blind
     won, opp_won = x.get("won"), x.get("opp_won")
     if lg in ("nfl", "ncaaf", "ncaab"):
         if opp_won is False:
@@ -1841,6 +1858,7 @@ def mark_hockey_favorites(cands):
             tired = NHL_3IN4_FAV if third_in_four(fav, dog) and not dog.get("tired_vs_rested") else 0.0   # (10/1
             #         audit: a dog that played last night is already -3 in its score, which lifts the favorite - once)
             slump = NHL_SV_SLUMP_FAV if str(fav.get("team_id")) in SV_SLUMP else 0.0
+            slump += NHL_OUTSHOT_FAV if fav.get("outshot_me") else 0.0   # (the dog's +1 for facing it lifts it -½ more)
             if slump:
                 dog["opp_sv_slump"] = True
             fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early + tired + slump)), 4)
@@ -1893,7 +1911,10 @@ def weigh_mlb_drought(cands):
 
 NHL_SV_SLUMP_FAV = 0.015   # 10/1 study: a favorite whose goalie is slumping (last-10 save % bottom quarter) beat its
 #                            price 5 of 5 seasons by ~8 pts - half of it on the favorite's weighed read (a lead)
+OUTSHOT = {}               # {nhl team id: last game's start} - allowed 40+ shots in it (sports_form.outshot_states)
 SV_SLUMP = set()           # {nhl team id} with a slumping goalie (sports_form.sv_slump, refreshed each run)
+NHL_OUTSHOT_FAV = -0.01  # 10/8 study: a hockey favorite that allowed 40+ shots last game, playing within 2 days (with the
+#                          dog's +1 for facing it, -1½ points on the favorite's weighed read in all)
 NHL_3IN4_FAV = 0.015     # 10/1 study: a rested hockey favorite vs a team on its 3rd game in 4 nights (the favorite not on a
 #                          back-to-back) beat its price 8 of 8 seasons (+5.2 pts vs the same price, 2023+ 3 of 3) - half of
 #                          that as a weight on the favorite's read (a lead: it doesn't clear the multiple-testing bar)
@@ -2533,7 +2554,8 @@ def load_states(games):
              ("first-time coaches", FIRST_TIMER, lambda: sports_coach_changes.first_timers(games, iso)),
              ("dog studies' form", DOG_ST, lambda: sports_form.dog_states(games, iso)),
              ("hockey puck luck", PDO, lambda: sports_form.pdo_states(games, iso)),
-             ("goalie save % slumps", SV_SLUMP, lambda: (str(t) for t in sports_form.sv_slump()))]
+             ("goalie save % slumps", SV_SLUMP, lambda: (str(t) for t in sports_form.sv_slump())),
+             ("hockey 40+ shots against", OUTSHOT, lambda: sports_form.outshot_states(sp.CACHE.get("nhl") or [], iso))]
     for name, box, fn in steps:                          # (same order as before: PDO fills LAST_SV before sv_slump)
         try:
             if box is None:
