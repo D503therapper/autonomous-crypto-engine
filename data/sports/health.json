@@ -1,32 +1,86 @@
 {
- "at": "2026-10-08T03:48Z",
- "fixes": [],
- "problems": [
-  "live tennis scores: tennis Korpatsch vs Kalieva: no points for 349s",
-  "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 349s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+ "at": "2026-10-08T12:01Z",
+ "fixes": [
+  "1 finished pick(s) not graded (tennis 2026-10-07 Bu Yunchaokete) - started sports.yml"
  ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (9s)",
-  "every finished pick graded",
+  "live watcher fresh (33s)",
   "scores route up (200)",
   "question box answers",
-  "slate check: all 9 of today's games named, priced and looked at",
+  "live tennis points + server: 2 of 2 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
+  "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 39 min ago",
+  "engine ran -0 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-08T12:01Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-07 Bu Yunchaokete) - started sports.yml"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T11:16Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T09:45Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Merida vs Van De Zandschulp: no points for 879s",
+    "live tennis scores: tennis Aksu vs Dudeney: no points for 2633s"
+   ]
+  },
+  {
+   "at": "2026-10-08T09:32Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Merida vs Van De Zandschulp: no points for 157s",
+    "live tennis scores: tennis Aksu vs Dudeney: no points for 1911s"
+   ]
+  },
+  {
+   "at": "2026-10-08T09:00Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T07:29Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T07:29Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T05:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Falei vs Oliynykova: no points for 2638s"
+   ]
+  },
+  {
+   "at": "2026-10-08T05:19Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 362s",
+    "live tennis scores: tennis Falei vs Oliynykova: no points for 362s"
+   ]
+  },
   {
    "at": "2026-10-08T03:48Z",
    "fixes": [],
@@ -490,60 +544,6 @@
   },
   {
    "at": "2026-10-06T01:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-06T00:31Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T23:00Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T22:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T22:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T21:17Z",
-   "fixes": [
-    "live watch 37369852564 froze (6 min) - cancelled",
-    "live board 6 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": [
-    "workflow failed: sports_studies 2026-10-05T20:31 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37370317502"
-   ]
-  },
-  {
-   "at": "2026-10-05T20:27Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: health 2026-10-05T20:01 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37367117520",
-    "workflow failed: pacer 2026-10-05T19:43 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37365268912",
-    "workflow failed: health 2026-10-05T19:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37364835720"
-   ]
-  },
-  {
-   "at": "2026-10-05T18:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T18:04Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T16:32Z",
    "fixes": [],
    "problems": []
   }
