@@ -1,29 +1,104 @@
 {
- "at": "2026-10-07T18:35Z",
+ "at": "2026-10-08T03:48Z",
  "fixes": [],
  "problems": [
-  "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
+  "live tennis scores: tennis Korpatsch vs Kalieva: no points for 349s",
+  "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 349s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 9 of today's games named, priced and looked at",
+  "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 20 min ago",
+  "studies ran 5h ago",
+  "simulator ran 5h ago",
+  "engine ran 39 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-08T03:48Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Korpatsch vs Kalieva: no points for 349s",
+    "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 349s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-08T02:17Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Korpatsch vs Kalieva: no points for 406s",
+    "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 406s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "sources down (the backups took over): betrivers:nhl:1028398361 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-10-08T02:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 67s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-08T01:25Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T23:54Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T23:53Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T22:22Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T22:18Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T20:51Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T20:22Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T20:11Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-07T20:08Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-07T18:35Z",
    "fixes": [],
@@ -469,125 +544,6 @@
   },
   {
    "at": "2026-10-05T16:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T16:26Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T15:47Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-05T14:16Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Sakatsume vs Salkova: no points for 2647s"
-   ]
-  },
-  {
-   "at": "2026-10-05T13:31Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T12:00Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Vukic vs Cui Jie: no points for 2657s",
-    "live tennis scores: tennis Ymer vs Bellucci: no points for 2657s",
-    "live tennis scores: tennis Harris vs Bolt: no points for 2657s",
-    "live tennis scores: tennis Basavareddy vs Coppejans: no points for 1854s",
-    "live tennis scores: tennis Crawley vs Bronzetti: no points for 2657s",
-    "live tennis scores: tennis Lamens vs Iatcenko: no points for 1347s",
-    "live tennis scores: tennis Jakupovic vs Smith: no points for 983s"
-   ]
-  },
-  {
-   "at": "2026-10-05T11:20Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Vukic vs Cui Jie: no points for 288s",
-    "live tennis scores: tennis Muller vs Noguchi: no points for 288s",
-    "live tennis scores: tennis Ymer vs Bellucci: no points for 288s",
-    "live tennis scores: tennis Harris vs Bolt: no points for 288s",
-    "live tennis scores: tennis Falkowska vs Werner: no points for 288s",
-    "live tennis scores: tennis Crawley vs Bronzetti: no points for 288s"
-   ]
-  },
-  {
-   "at": "2026-10-05T09:45Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-05T09:44Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Svrcina vs Harris: no points for 2645s",
-    "live tennis scores: tennis Kotov vs Damm: no points for 2645s",
-    "live tennis scores: tennis Nishioka vs Shevchenko: no points for 2645s",
-    "live tennis scores: tennis Schoolkate vs Sweeny: no points for 1937s",
-    "live tennis scores: tennis Zhang Tianhui vs Jacquet: no points for 1997s",
-    "live tennis scores: tennis Vukic vs Cui Jie: no points for 920s",
-    "live tennis scores: tennis Sasnovich vs Yao Xinxin: no points for 2645s",
-    "live tennis scores: tennis Micic vs Akugue: no points for 2645s",
-    "live tennis scores: tennis Bolkvadze vs Tkacheva: no points for 2645s",
-    "live tennis scores: tennis Falkowska vs Werner: no points for 2645s"
-   ]
-  },
-  {
-   "at": "2026-10-05T08:13Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Gomez vs Zheng: no points for 2659s",
-    "live tennis scores: tennis Sakellaridis vs Skatov: no points for 2659s",
-    "live tennis scores: tennis Te Rigele vs Walton: no points for 2659s",
-    "live tennis scores: tennis Sakamoto vs Hong: no points for 2656s",
-    "live tennis scores: tennis Svrcina vs Harris: no points for 164s",
-    "live tennis scores: tennis Ma YeXin vs Kalieva: no points for 2659s",
-    "live tennis scores: tennis Micic vs Akugue: no points for 335s",
-    "live tennis scores: tennis Bolkvadze vs Tkacheva: no points for 141s"
-   ]
-  },
-  {
-   "at": "2026-10-05T07:43Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Tomic vs Atmane: no points for 888s",
-    "live tennis scores: tennis Simakin vs Pavlovic: no points for 888s",
-    "live tennis scores: tennis Gomez vs Zheng: no points for 888s",
-    "live tennis scores: tennis Sakellaridis vs Skatov: no points for 888s",
-    "live tennis scores: tennis Te Rigele vs Walton: no points for 888s",
-    "live tennis scores: tennis Sakamoto vs Hong: no points for 885s",
-    "live tennis scores: tennis Ma YeXin vs Kalieva: no points for 888s"
-   ]
-  },
-  {
-   "at": "2026-10-05T07:31Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Tomic vs Atmane: no points for 188s",
-    "live tennis scores: tennis Simakin vs Pavlovic: no points for 188s",
-    "live tennis scores: tennis Gomez vs Zheng: no points for 188s",
-    "live tennis scores: tennis Sakellaridis vs Skatov: no points for 188s",
-    "live tennis scores: tennis Te Rigele vs Walton: no points for 188s",
-    "live tennis scores: tennis Sakamoto vs Hong: no points for 184s",
-    "live tennis scores: tennis Ma YeXin vs Kalieva: no points for 188s"
-   ]
-  },
-  {
-   "at": "2026-10-05T05:58Z",
    "fixes": [],
    "problems": []
   }

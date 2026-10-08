@@ -1,280 +1,283 @@
 {
- "updated": "2026-10-07T19:12Z",
+ "updated": "2026-10-08T03:43Z",
  "games": [
   {
    "id": "mlb:401907992",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "White Sox",
-    "p": 0.474,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-07T20:00Z",
    "away": "Guardians",
    "home": "White Sox",
+   "h1": null,
    "why": "on_board",
+   "done": true,
    "board": "lean",
    "lean": {
-    "team": "Guardians",
-    "opp": "White Sox",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -201,
-    "p": 0.636,
-    "win_p": 0.452,
-    "reasons": []
+    "team": "White Sox",
+    "opp": "Guardians",
+    "market": "ml",
+    "line": null,
+    "odds": -121,
+    "p": 0.532,
+    "win_p": 0.532,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "better starting pitcher"
+    ],
+    "result": "lost"
    }
   },
   {
    "id": "mlb:401908016",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Dodgers",
-    "p": 0.504,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-07T22:00Z",
    "away": "Dodgers",
    "home": "Braves",
-   "why": "no_value",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Dodgers",
-    "opp": "Braves",
-    "market": "ml",
-    "line": null,
-    "odds": -156,
-    "p": 0.564,
-    "win_p": 0.564,
-    "reasons": [
-     "hotter recent form",
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401871051",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jax State",
-    "p": 0.583,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-07T23:00Z",
    "away": "Jax State",
    "home": "Kennesaw St",
+   "h1": null,
    "why": "on_board",
+   "done": true,
    "board": "lock",
    "lean": {
     "team": "Jax State",
     "opp": "Kennesaw St",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -148,
+    "p": 0.572,
+    "win_p": 0.572,
     "reasons": [
      "the stronger team",
      "hotter recent form",
      "better QB play lately"
-    ]
+    ],
+    "result": "won"
    }
+  },
+  {
+   "id": "nba:401914123",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-07T23:00Z",
+   "away": "Timberwolves",
+   "home": "Pacers",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892455",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.418,
-    "tie": 0.295,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-07T23:30Z",
    "away": "Avalanche",
    "home": "Jets",
-   "why": "no_value",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Jets",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.645,
-    "win_p": 0.645,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401871066",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "FIU",
-    "p": 0.634,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-07T23:30Z",
-   "away": "New Mexico St",
-   "home": "FIU",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "FIU",
-    "opp": "New Mexico St",
-    "market": "ml",
-    "line": null,
-    "odds": -245,
-    "p": 0.681,
-    "win_p": 0.681,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "better rested"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401891830",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Capitals",
-    "p": 0.393,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-07T23:30Z",
    "away": "Penguins",
    "home": "Capitals",
+   "h1": null,
    "why": "on_board",
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Penguins",
     "opp": "Capitals",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.632,
+    "market": "ml",
+    "line": null,
+    "odds": 136,
+    "p": 0.411,
     "win_p": 0.411,
     "reasons": [
      "opponent missing key players"
-    ]
+    ],
+    "result": "lost"
    }
+  },
+  {
+   "id": "nba:401908620",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T00:00Z",
+   "away": "Bucks",
+   "home": "Thunder",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898391",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T00:00Z",
+   "away": "Magic",
+   "home": "Grizzlies",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
   },
   {
    "id": "mlb:401907987",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Yankees",
-    "p": 0.532,
-    "tie": 0.116,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-08T00:00Z",
    "away": "Rays",
    "home": "Yankees",
-   "why": "tight",
+   "h1": null,
+   "why": "final",
+   "done": true,
    "board": null,
-   "lean": {
-    "team": "Yankees",
-    "opp": "Rays",
-    "market": "ml",
-    "line": null,
-    "odds": -172,
-    "p": 0.608,
-    "win_p": 0.608,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "nba:401908939",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T00:00Z",
+   "away": "Suns",
+   "home": "Bulls",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401871066",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-08T00:04Z",
+   "away": "New Mexico St",
+   "home": "FIU",
+   "h1": null,
+   "why": "final",
+   "done": true,
+   "board": null,
+   "lean": null
   },
   {
    "id": "mlb:401908005",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Brewers",
-    "p": 0.453,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-08T02:00Z",
    "away": "Brewers",
    "home": "Padres",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Padres",
-    "opp": "Brewers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -193,
-    "p": 0.603,
-    "win_p": 0.485,
-    "reasons": [
-     "opponent drama: new baby"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892456",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Oilers",
-    "p": 0.377,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-08T02:00Z",
    "away": "Oilers",
    "home": "Ducks",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401914129",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T02:00Z",
+   "away": "Warriors",
+   "home": "Trail Blazers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "mlb:401907993",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "White Sox",
+    "p": 0.443,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-08T21:00Z",
+   "away": "Guardians",
+   "home": "White Sox",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Ducks",
-    "opp": "Oilers",
+    "team": "White Sox",
+    "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -218,
-    "p": 0.662,
-    "win_p": 0.442,
+    "odds": -185,
+    "p": 0.62,
+    "win_p": 0.503,
     "reasons": [
-     "hotter recent form",
-     "sharp money moving this way",
-     "hotter goalie"
+     "the stronger team"
     ]
    }
   },
@@ -284,8 +287,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.483,
-    "tie": 0.283,
+    "p": 0.488,
+    "tie": 0.282,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -300,9 +303,9 @@
     "opp": "Canucks",
     "market": "spread",
     "line": -1.5,
-    "odds": -135,
-    "p": 0.559,
-    "win_p": 0.759,
+    "odds": -125,
+    "p": 0.569,
+    "win_p": 0.766,
     "reasons": [
      "the stronger team",
      "hotter goalie",
@@ -332,7 +335,7 @@
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
+    "odds": -218,
     "p": 0.662,
     "win_p": 0.442,
     "reasons": [
@@ -346,7 +349,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Mammoth",
-    "p": 0.361,
+    "p": 0.368,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -362,9 +365,9 @@
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
-    "p": 0.693,
-    "win_p": 0.476,
+    "odds": -250,
+    "p": 0.68,
+    "win_p": 0.461,
     "reasons": [
      "hotter goalie"
     ]
@@ -376,8 +379,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Western KY",
-    "p": 0.526,
-    "tie": 0.033,
+    "p": 0.505,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -385,19 +388,18 @@
    "start": "2026-10-08T23:00Z",
    "away": "Missouri St",
    "home": "Western KY",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Western KY",
     "opp": "Missouri St",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -122,
+    "p": 0.526,
+    "win_p": 0.526,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -427,8 +429,7 @@
     "p": 0.62,
     "win_p": 0.62,
     "reasons": [
-     "the stronger team",
-     "sharp money moving this way"
+     "the stronger team"
     ]
    }
   },
@@ -469,8 +470,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Sabres",
-    "p": 0.353,
+    "team": "Stars",
+    "p": 0.358,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -482,15 +483,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Stars",
-    "opp": "Sabres",
+    "team": "Sabres",
+    "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.71,
-    "win_p": 0.495,
+    "odds": -270,
+    "p": 0.698,
+    "win_p": 0.482,
     "reasons": [
-     "opponent drama: family/personal"
+     "the stronger team",
+     "hotter recent form",
+     "sharp money moving this way"
     ]
    }
   },
@@ -516,7 +519,7 @@
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
+    "odds": -205,
     "p": 0.653,
     "win_p": 0.433,
     "reasons": []
@@ -549,7 +552,6 @@
     "win_p": 0.62,
     "reasons": [
      "the stronger team",
-     "sharp money moving this way",
      "opponent drama: family/personal"
     ]
    }
@@ -560,8 +562,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arkansas St",
-    "p": 0.501,
-    "tie": 0.034,
+    "p": 0.526,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -569,18 +571,19 @@
    "start": "2026-10-08T23:30Z",
    "away": "South Alabama",
    "home": "Arkansas St",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Arkansas St",
     "opp": "South Alabama",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.522,
-    "win_p": 0.522,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
@@ -590,8 +593,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UTSA",
-    "p": 0.656,
-    "tie": 0.03,
+    "p": 0.652,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -606,9 +609,9 @@
     "opp": "South Florida",
     "market": "ml",
     "line": null,
-    "odds": -278,
-    "p": 0.705,
-    "win_p": 0.705,
+    "odds": -270,
+    "p": 0.7,
+    "win_p": 0.7,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -682,8 +685,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.431,
-    "tie": 0.293,
+    "p": 0.427,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -698,13 +701,12 @@
     "opp": "Flames",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.671,
-    "win_p": 0.671,
+    "odds": -238,
+    "p": 0.662,
+    "win_p": 0.662,
     "reasons": [
-     "hotter recent form",
      "the stronger team",
-     "sharp money moving this way"
+     "hotter recent form"
     ]
    }
   },
@@ -730,8 +732,8 @@
     "opp": "Golden Knights",
     "market": "spread",
     "line": 1.5,
-    "odds": -166,
-    "p": 0.633,
+    "odds": -180,
+    "p": 0.632,
     "win_p": 0.412,
     "reasons": []
    }

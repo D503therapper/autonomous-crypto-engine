@@ -1,20 +1,35 @@
-"""Probe candidate public URLs from the GitHub runner; print HTTP status, content-type and a snippet."""
+"""Probe DexScreener tokens/v1 from the GitHub runner (10-07 20:00: held-coin price answers came back empty)."""
+import json
 import urllib.request
 
-UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
-R = "D503therapper/autonomous-crypto-engine"
-CANDIDATES = [
-    ("githack", f"https://raw.githack.com/{R}/main/docs/index.html"),
-    ("githack cdn", f"https://rawcdn.githack.com/{R}/main/docs/index.html"),
-    ("statically", f"https://cdn.statically.io/gh/{R}/main/docs/index.html"),
-    ("jsdelivr", f"https://cdn.jsdelivr.net/gh/{R}@main/docs/index.html"),
-    ("htmlpreview", f"https://htmlpreview.github.io/?https://github.com/{R}/blob/main/docs/index.html"),
-    ("github pages", "https://d503therapper.github.io/autonomous-crypto-engine/"),
-]
-for name, url in CANDIDATES:
+UA = "Mozilla/5.0"
+pf = json.load(open("data/dex/dex_hunter/portfolio.json"))["positions"]
+st = json.load(open("data/dex/state.json"))["passed"]
+
+
+def get(url):
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=20) as r:
-            body = r.read(300).decode("utf-8", "replace")
-            print(f"{r.status} {name} type={r.headers.get('Content-Type')} csp={r.headers.get('Content-Security-Policy','')[:80]!r}\n    {url}\n    {body[:120]!r}")
+            b = r.read().decode("utf-8", "replace")
+            try:
+                j = json.loads(b)
+                n = len(j) if isinstance(j, list) else (len(j.get("pairs") or []) if isinstance(j, dict) else "?")
+            except ValueError:
+                n = "not json"
+            return f"{r.status} n={n} {b[:160]!r}"
     except Exception as e:
-        print(f"ERR {name}\n    {url}\n    {e}")
+        return f"ERR {e}"
+
+
+for chain in ("solana", "ethereum"):
+    held = sorted({p["addr"] for p in pf.values() if p["chain"] == chain})
+    want = sorted(set(held) | {c["addr"] for c in st.values() if c["chain"] == chain})[:30]
+    print(f"{chain} all {len(want)}:", get(f"https://api.dexscreener.com/tokens/v1/{chain}/{','.join(want)}"))
+    for a in held:
+        print(f"  {a}:", get(f"https://api.dexscreener.com/tokens/v1/{chain}/{a}"))
+    for a in want:
+        if a not in held:
+            r = get(f"https://api.dexscreener.com/tokens/v1/{chain}/{a}")
+            if not r.startswith("200 n=1") and "n=0" not in r[:12]:
+                print(f"  passed {a}:", r[:120])
+print("pairs endpoint:", get("https://api.dexscreener.com/latest/dex/pairs/solana/" + next(p["pair"] for p in pf.values() if p["chain"] == "solana")))

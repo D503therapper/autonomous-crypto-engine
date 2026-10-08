@@ -129,6 +129,7 @@ def make(table, **params):
     params.setdefault("scan", {"enabled": False})           # the wide scanner has its own tests (test_scan_*)
     params.setdefault("confirm_ms", 0)                      # crash/rug confirmation has its own test
     params.setdefault("season", None)                       # season restart has its own test
+    params.setdefault("void", None)                         # the one-time repair has its own test
     d = tempfile.mkdtemp()
     table = dict(table)
     table.setdefault("token-boosts/top", (200, []))
@@ -583,7 +584,9 @@ def test_sizing_caps_in_entries():
 def held(table_extra=None, **pair_kw):
     """A hunter holding TOK bought at 0.01 with a mutable live pair (px['v'], px['liq'])."""
     px = {"v": 0.01, "liq": pair_kw.pop("liq", 600_000), "gone": False}
-    table = {"tokens/v1/base/": lambda u: (200, [] if px["gone"] else [ds_pair("base", EVM, price=px["v"], liq=px["liq"], **pair_kw)])}
+    other = [ds_pair("base", "0xdef0000000000000000000000000000000000009", pair="PAIR9")]
+    table = {"tokens/v1/base/": lambda u: (200, [] if px["gone"] is True else other if px["gone"] == "others"
+                                           else [ds_pair("base", EVM, price=px["v"], liq=px["liq"], **pair_kw)])}
     table.update(table_extra or {})
     table.update({k: v for k, v in table_evm().items() if k not in table})
     h, fetch, d = make(table)
@@ -641,6 +644,47 @@ def test_far_off_tick_needs_15_minutes():
     assert K not in h.pf.positions or h.pf.positions[K].get("exit")
     shutil.rmtree(d)
     print("  a 20x+ drop between readings needs 15 min before a sale (AIRPAD bad feed)   ok")
+
+
+def test_empty_dexscreener_prices_off_geckoterminal():
+    """10-07 20:00: DexScreener answered [] for every coin for hours and all six held coins showed $0. An empty
+    answer now holds the coin and prices it off GeckoTerminal's view of the same pool (price only)."""
+    gt = gt_pool("base", EVM, price=0.03, liq=1_000)          # GT's reserve is never used (could fake a rug)
+    gt["attributes"]["address"] = "PAIR1"
+    h, fetch, d, px = held({"pools/multi/": (200, {"data": [gt]})})
+    px["gone"] = True
+    poll(h, T0 + 6000, px)
+    pos = h.pf.positions[K]
+    assert pos["px"] == 0.03 and pos["liq"] == 600_000 and pos["px_src"] == "geckoterminal" and not pos.get("exit")
+    shutil.rmtree(d)
+    print("  DexScreener empty: held coin priced off GeckoTerminal (price only), never sold as a rug   ok")
+
+
+def test_void_bad_data_sales():
+    """10-07: the outage's $0 readings sold all six coins as rugs. params['void'] moves those rows to an archive
+    file (never deleted), takes the proceeds back, restores the positions and the scam count - once."""
+    h, fetch, d, px = held()
+    back = {K: json.loads(json.dumps(h.pf.positions[K]))}
+    h.save()
+    cash0 = h.pf.cash
+    px["gone"] = "others"
+    poll(h, T0 + 6000, px)
+    assert K not in h.pf.positions and h.state["scams"]
+    h.save()
+    with open(f"{d}/restore.json", "w") as f:
+        json.dump(back, f)
+    V = {"id": "t", "after": "2000-01-01 00:00", "file": f"{d}/restore.json"}
+    h2 = DexHunter(params=dict(h.p, void=V), fetch=fetch, now_ms=T0)
+    h2._load()
+    assert K in h2.pf.positions and abs(h2.pf.cash - cash0) < 1e-6 and not h2.state["scams"]
+    assert not rows(f"{d}/outcomes.csv") and len(rows(f"{d}/archive/voided_t.csv")) == 2
+    assert not any(r["side"] == "SELL" for r in rows(f"{d}/dex_hunter/trades.csv"))
+    h2.save()
+    h3 = DexHunter(params=dict(h.p, void=V), fetch=fetch, now_ms=T0)
+    h3._load()                                                   # once only
+    assert len(rows(f"{d}/archive/voided_t.csv")) == 2 and K in h3.pf.positions
+    shutil.rmtree(d)
+    print("  bad-data sales voided once: rows archived, cash and positions restored, scam count back   ok")
 
 
 def test_new_season_restarts_account():
@@ -940,7 +984,11 @@ def test_liquidity_pull_emergency_exit():
     shutil.rmtree(d)
     h, fetch, d, px = held()                                                # pool gone entirely: -100%
     px["gone"] = True
-    poll(h, T0 + 6000, px)
+    t = poll(h, T0 + 6000, px)                     # an empty answer is a feed outage (10-07: all six coins $0)
+    t = poll(h, t + 7_200_000, px)                 # ...even for hours
+    assert K in h.pf.positions and h.pf.positions[K]["px"] > 0
+    px["gone"] = "others"                          # the feed answers for other coins but our pair is gone: a rug
+    poll(h, t, px)
     oc = rows(f"{d}/outcomes.csv")[-1]
     assert K not in h.pf.positions and oc["outcome"] == "scammed_rug" and abs(float(oc["ret"]) + 1) < 1e-9, oc
     shutil.rmtree(d)
@@ -1221,7 +1269,7 @@ def test_source_backoff():
 def test_state_persists():
     h, fetch, d = make(table_evm())
     screen(h, cand())
-    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "season": None}, fetch=fetch, now_ms=T0 + 5000)
+    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "season": None, "void": None}, fetch=fetch, now_ms=T0 + 5000)
     h2._load()
     assert K in h2.pf.positions and h2.pf.positions[K]["liq0"] == 600_000 and h2.pf.positions[K]["tier"] == "A"
     assert h2.state["seen"]["base:" + EVM]["v"] == "PASS" and h2.equity() == h.equity()
@@ -1319,7 +1367,7 @@ def test_scan_universe_cap_and_eviction():
     h._uni_add("base", "0xABCdef0000000000000000000000000000000001", now, "x")
     assert not h._uni_add("base", "0xabcdef0000000000000000000000000000000001", now, "x")   # EVM case ignored
     h._uni_save(now)
-    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "chains": ["base"], "scan": SCAN, "season": None}, fetch=fetch, now_ms=now)
+    h2 = DexHunter(params={"dir": d, "gap_s": GAP0, "chains": ["base"], "scan": SCAN, "season": None, "void": None}, fetch=fetch, now_ms=now)
     h2._load()
     assert sorted(h2.uni) == sorted(h.uni) and h2.uni[f"base:{addr_n(7)}"]["move"] == (now - HOUR) // 1000 * 1000
     shutil.rmtree(d)
@@ -1552,6 +1600,8 @@ if __name__ == "__main__":
     test_liquidity_floor_scales_with_account()
     test_sizing_caps_in_entries()
     test_crash_needs_a_second_reading()
+    test_empty_dexscreener_prices_off_geckoterminal()
+    test_void_bad_data_sales()
     test_new_season_restarts_account()
     test_trailing_stop()
     test_evm_address_case()

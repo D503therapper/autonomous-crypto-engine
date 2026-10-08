@@ -1939,7 +1939,8 @@ def publish_results(msg):
         print(f"quick grade failed: {e}", flush=True)
         return
     paths = [LOG, TUNE, os.path.join(sd.DATA, "picks.json"), "docs/sports/index.html", "docs/sports/reads.json",
-             os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json"), FINAL_AT_PATH]
+             os.path.join(sd.DATA, "games"), os.path.join(sd.DATA, "tennis", "picks.json"), FINAL_AT_PATH,
+             os.path.join(sd.DATA, "early.json")]
     _git("add", *[p for p in paths if os.path.exists(p)])
     if _git("diff", "--cached", "--quiet").returncode == 0:
         return

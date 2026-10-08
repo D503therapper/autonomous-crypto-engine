@@ -90,6 +90,7 @@ DEFAULTS = {
         "gt_trending": "https://api.geckoterminal.com/api/v2/networks/{network}/trending_pools?duration=1h",
         "gt_trending_page": "https://api.geckoterminal.com/api/v2/networks/{network}/trending_pools?duration=1h&page={page}",
         "gt_new": "https://api.geckoterminal.com/api/v2/networks/{network}/new_pools?page={page}",
+        "gt_pools": "https://api.geckoterminal.com/api/v2/networks/{network}/pools/multi/{pools}",   # <= 30 pools
         "ds_profiles": "https://api.dexscreener.com/token-profiles/latest/v1",
         "ds_boosts_latest": "https://api.dexscreener.com/token-boosts/latest/v1",
     },
@@ -600,6 +601,7 @@ class DexHunter:
         self.state, self.pf, self.queue, self.jobs, self.lookup = None, None, [], {}, []
         self.cex = set()                              # run_live: Crypto.com symbols (tier C)
         self._n_saved, self.dirty = 0, False
+        self._gt_due = set()                          # chains whose DexScreener price answer came back empty
         self._snap_t = {}                             # coin -> last snapshot time (one row per coin per hour)
         self._pf_saved = 0                            # last time portfolio.json got the latest prices
         # wide scanner (see _scan_job): pool universe, feeds, per-hour stats, buffered scan snapshots
@@ -646,7 +648,54 @@ class DexHunter:
         self.blocked = self._scam_book()
         C = self.p["cost"]
         self.pf = Portfolio.load(f"{self.acct}/portfolio.json", fee=C["fee"], slippage=C["slip"])
+        if self._void_sales():
+            self.blocked = self._scam_book()
         self._uni_load()
+
+    def _void_sales(self):
+        """One-time repair (params['void']): sales booked on bad data are moved out of trades.csv / outcomes.csv into
+        data/dex/archive/voided_<id>.csv (kept, never deleted), their proceeds taken back and the positions put back
+        as they were. 10-07 20:45: $0 readings left by the DexScreener outage sold all six held coins as rugs."""
+        V = self.p.get("void")
+        if not V or self.state.get("voided") == V["id"] or not os.path.exists(V["file"]):
+            return False
+        with open(V["file"]) as f:
+            back = json.load(f)
+        voided = []
+        for path in (f"{self.acct}/trades.csv", f"{self.dir}/outcomes.csv"):
+            if not os.path.exists(path):
+                continue
+            with open(path, newline="") as f:
+                rd = csv.DictReader(f)
+                cols, rows = rd.fieldnames, list(rd)
+            keep = []
+            for r in rows:
+                bad = r.get("time", "") >= V["after"] and r.get("coin") in back and r.get("side", "SELL") == "SELL"
+                (voided.append({"file": os.path.basename(path), **r}) if bad else keep.append(r))
+                if bad and "usd" in r:
+                    self.pf.cash -= float(r["usd"] or 0) - float(r.get("fee") or 0)
+            with open(path, "w", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=cols)
+                w.writeheader()
+                w.writerows(keep)
+        os.makedirs(f"{self.dir}/archive", exist_ok=True)
+        if voided:
+            cols = list(dict.fromkeys(c for r in voided for c in r))
+            with open(f"{self.dir}/archive/voided_{V['id']}.csv", "a", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=cols)
+                w.writeheader()
+                w.writerows(voided)
+        for k, pos in back.items():                     # (also a held copy still showing the outage's $0)
+            if k not in self.pf.positions or not self.pf.positions[k].get("px"):
+                self.pf.positions[k] = pos
+        after_ms = datetime.strptime(V["after"], "%Y-%m-%d %H:%M").replace(tzinfo=timezone.utc).timestamp() * 1000
+        self.state["scams"] = [t for t in self.state.get("scams", []) if t < after_ms]
+        self.state["voided"] = V["id"]
+        self.pf.save(f"{self.acct}/portfolio.json")
+        self.dirty = True
+        print(f"   dex repair {V['id']}: {len(voided)} bad-data rows moved to archive/voided_{V['id']}.csv, "
+              f"{len(back)} positions put back")
+        return True
 
     def _scam_book(self):
         """Every token we ever booked as a scam (outcomes.csv of this and all archived seasons) is never bought again:
@@ -1542,6 +1591,9 @@ class DexHunter:
     # ---- prices, stops, take-profits (every ~60 s per chain, one batch request) ----
     def _price_job(self, now):
         st, ds = self.state, self.src["dexscreener"]
+        if self._gt_due and self.src["geckoterminal"].ready(now):
+            self._gt_prices(self._gt_due.pop(), now)
+            return True
         if not ds.ready(now):
             return False
         want = {}
@@ -1560,6 +1612,8 @@ class DexHunter:
             pairs = parse_ds_pairs(obj, now)
             best = best_pairs(pairs, chain)
             by_pair = {c["pair"]: c for c in pairs if c.get("pair")}
+            if not best:                                 # priced off GeckoTerminal on the next tick (one request
+                self._gt_due.add(chain)                  # per tick)
             for k, pos in list(self.pf.positions.items()):
                 if pos["chain"] != chain or pos["addr"] not in addrs:
                     continue
@@ -1570,6 +1624,9 @@ class DexHunter:
                     continue                               # of the token: skip this update, don't price off them
                 if c and c.get("price"):
                     pos.update(px=c["price"], liq=c["liq"], vol24=c["vol24"], seen_px=now)
+                elif not best:                                 # an EMPTY answer is a feed outage, not a rug: 10-07 20:05
+                    continue                                   # it marked all six held coins $0 at once (SWORDINU 7.7x),
+                                                               # and stayed empty 25+ min; a real rug still shows its pair
                 else:                                          # no pair left: liquidity gone
                     pos.update(px=0.0, liq=0.0, seen_px=now)
                 self._manage(k, pos, now)
@@ -1584,10 +1641,31 @@ class DexHunter:
             return True
         return False
 
+    def _gt_prices(self, chain, now):
+        """DexScreener answering EMPTY for every coin (10-07 20:00 on, even SWORDINU / BONK-size pools): price the
+        held coins off GeckoTerminal's view of the same pools so moon alerts, the 3x add-on and the dashboard keep
+        working. Price only: liquidity stays at the last DexScreener reading (the two sites measure pools
+        differently, so mixing them could fake a pulled pool); the re-screen's LP checks still run."""
+        net = self.p["gt_networks"].get(chain)
+        held = [(k, p) for k, p in self.pf.positions.items() if p["chain"] == chain and p.get("pair")][:30]
+        if not net or not held:
+            return
+        url = self._url("gt_pools", network=net, pools=",".join(p["pair"] for _, p in held))
+        st_, obj = self._get("geckoterminal", url, now)
+        if st_ != 200:
+            return
+        by = {str(c["pair"]).lower(): c for c in parse_gt_pools(obj, chain, now) if c.get("pair")}
+        for k, pos in held:
+            c = by.get(str(pos["pair"]).lower())
+            if c and c.get("price") and k in self.pf.positions:
+                pos.update(px=c["price"], seen_px=now, px_src="geckoterminal")
+                if pos.get("liq", 0) > 0:                # a $0 pool left by the outage is no rug signal (10-07 20:45
+                    self._manage(k, pos, now)            # it sold all six coins that way)
+        self.dirty = True
+
     CONFIRM_MS = 120_000
 
     CRASH_MS = 900_000
-
     def _confirmed(self, pos, key, now):
         """A crash / rug reading must repeat on a later price update >= 2 min after the first before we sell:
         single bad ticks from DexScreener sold XPAD at 7.1e-05 on 2026-09-28 (7 min later: 0.000365, -$34).

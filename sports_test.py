@@ -4306,6 +4306,58 @@ def test_reviews_are_yellow():
     assert src.count('class="why rvy"') >= 3        # the main card's write-up + review, the tennis card's
 
 
+def test_early_play_live_score_and_quick_grade():
+    """10/7, the owner: "New Mexico State got their cheeks clapped ... that shit needs to be graded" and "I never saw any
+    live score that whole game". The 🎯 row's time is the board's live tag (data-gid / side / the game's real start, so
+    🔴 LIVE + the score show), and the quick results pass (the one that runs the second a game ends) grades early plays
+    too - it used to wait on the hourly run."""
+    import sports_early as se
+    import tempfile
+    saved = (se.ON, se.passed)
+    se.ON, se.passed = True, lambda path=None: {"ncaaf": [(0.04, 0.08)]}
+    try:
+        now = datetime(2026, 10, 7, 23, 0, tzinfo=timezone.utc)
+        p = {"game_id": "ncaaf:9", "league": "ncaaf", "side": "away", "team": "New Mexico St", "opp": "FIU",
+             "odds": 180, "opp_odds": -218, "own": 0.39, "start": "2026-10-07T23:30Z", "result": None}
+        games = {"ncaaf:9": {"status": "pre", "start": "2026-10-08T00:04Z", "ml_away": "195"}}
+        row = se.gameday_html({"picks": [p]}, games, lambda x: x, now)
+        assert 'class="tm" data-start="2026-10-08T00:04Z" data-gid="ncaaf:9" data-side="away" data-mk="ml"' in row, row
+        assert '<div class="lt egt">' in row and "5:04 PM PT" in row
+        # the quick pass: the game's final -> the early play graded and saved
+        path = os.path.join(tempfile.mkdtemp(), "early.json")
+        se.save({"picks": [dict(p)]}, path)
+        fin = {"ncaaf:9": {"league": "ncaaf", "status": "final", "home_score": "22", "away_score": "3", "home_name": "FIU",
+                           "away_name": "New Mexico St", "start": "2026-10-08T00:04Z"}}
+        stubs = {"_load": lambda name, d: d, "grade": lambda *a: [], "deciders": lambda *a, **k: None,
+                 "load_states": lambda g: None, "add_breakdowns": lambda *a: None, "post_board": lambda *a: [],
+                 "engine_reads": lambda *a: None, "_save": lambda *a: None}
+        old = {k: getattr(sports, k) for k in stubs}
+        old_sd = (sd.load_games, sd.fetch_day, sd.save_games, se.PATH)
+        import sports_dashboard
+        old_w, old_sp = sports_dashboard.write, (sports.sp.load, sports.sp.key_edges)
+        try:
+            sports.sp.load, sports.sp.key_edges = (lambda: {}), (lambda g, c: {})
+            for k, v in stubs.items():
+                setattr(sports, k, v)
+            sd.load_games, sd.fetch_day, sd.save_games = (lambda league=None: dict(fin)), (lambda *a: []), (lambda g: None)
+            se.PATH = path
+            sports_dashboard.write = lambda *a, **k: None
+            sports.quick(datetime(2026, 10, 8, 3, 40, tzinfo=timezone.utc))
+        finally:
+            for k, v in old.items():
+                setattr(sports, k, v)
+            sd.load_games, sd.fetch_day, sd.save_games, se.PATH = old_sd
+            sports_dashboard.write = old_w
+            sports.sp.load, sports.sp.key_edges = old_sp
+        got = se.load(path)["picks"][0]
+        assert got["result"] == "lost" and got["score"] == "New Mexico St 3 @ FIU 22", got
+        import inspect
+        import sports_live
+        assert '"early.json"' in inspect.getsource(sports_live.publish_results)   # ...and the results job commits it
+    finally:
+        se.ON, se.passed = saved
+
+
 def test_we_got_in_early_box():
     """🎯 On game day the early plays move onto Today's Board in ONE box, one row each: the price we got -> now.
     Came our way = 'we beat the line'; got bigger and the engine still likes it = 'better price now', else 'money went
