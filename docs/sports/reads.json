@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T04:13Z",
+ "updated": "2026-10-08T04:18Z",
  "games": [
   {
    "id": "mlb:401907992",
@@ -250,36 +250,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "mlb:401907993",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "h1": {
-    "team": "White Sox",
-    "p": 0.443,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
-   "sport": "MLB",
-   "season": "playoffs",
-   "start": "2026-10-08T21:00Z",
-   "away": "Guardians",
-   "home": "White Sox",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "White Sox",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.62,
-    "win_p": 0.503,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
   },
   {
    "id": "nhl:401892461",
@@ -619,6 +589,36 @@
    }
   },
   {
+   "id": "mlb:401907993",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "White Sox",
+    "p": 0.445,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-09T00:00Z",
+   "away": "Guardians",
+   "home": "White Sox",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "White Sox",
+    "opp": "Guardians",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -185,
+    "p": 0.621,
+    "win_p": 0.505,
+    "reasons": [
+     "the stronger team"
+    ]
+   }
+  },
+  {
    "id": "nhl:401891825",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -716,8 +716,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.393,
-    "tie": 0.298,
+    "p": 0.398,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -733,8 +733,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -180,
-    "p": 0.632,
-    "win_p": 0.412,
+    "p": 0.623,
+    "win_p": 0.402,
     "reasons": []
    }
   }
