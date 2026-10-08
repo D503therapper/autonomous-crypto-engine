@@ -2025,5 +2025,65 @@
   "score": "4-3",
   "margin": 1.0,
   "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-07",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "mlb",
+  "game_id": "mlb:401907992",
+  "team": "White Sox",
+  "opp": "Guardians",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -121,
+  "posted": "2026-10-07T15:00Z",
+  "price_says": 0.548,
+  "win_p": 0.532420603410513,
+  "own_read": 0.528,
+  "weighed": 0.5282,
+  "dog_p": null,
+  "edge_own": -0.021523582936797125,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "hotter recent form",
+   "better starting pitcher"
+  ],
+  "angles": [
+   "hot:0",
+   "sched:2",
+   "trash:1",
+   "latest:2",
+   "h2h:3",
+   "SP_cold:0",
+   "home:0",
+   "bump:19",
+   "fade:3",
+   "splits_w:2",
+   "bottom_c:2",
+   "w_hot:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Luis Castillo (SP)",
+   "Joey Bart (C)"
+  ],
+  "theirs_out": [
+   "Colin Holderman (RP)",
+   "Rhys Hoskins (1B)",
+   "Andrew Walters (RP)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -126,
+  "beat_close_pts": 1.0,
+  "result": "lost",
+  "score": "3-9",
+  "margin": -6.0,
+  "pnl_units": 0
  }
 ]

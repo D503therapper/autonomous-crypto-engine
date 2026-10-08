@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T23:55Z",
+ "updated": "2026-10-08T00:24Z",
  "games": [
   {
    "id": "mlb:401907992",
@@ -132,12 +132,87 @@
    }
   },
   {
+   "id": "nba:401908620",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T00:00Z",
+   "away": "Bucks",
+   "home": "Thunder",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898391",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T00:00Z",
+   "away": "Magic",
+   "home": "Grizzlies",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "mlb:401907987",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-08T00:00Z",
+   "away": "Rays",
+   "home": "Yankees",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401908939",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T00:00Z",
+   "away": "Suns",
+   "home": "Bulls",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401871066",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-08T00:04Z",
+   "away": "New Mexico St",
+   "home": "FIU",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401908005",
    "league": "mlb",
    "emoji": "\u26be",
    "h1": {
     "team": "Brewers",
-    "p": 0.456,
+    "p": 0.455,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -154,8 +229,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -195,
-    "p": 0.6,
-    "win_p": 0.482,
+    "p": 0.601,
+    "win_p": 0.483,
     "reasons": [
      "opponent drama: new baby"
     ]
@@ -190,6 +265,36 @@
      "hotter recent form",
      "sharp money moving this way",
      "hotter goalie"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401907993",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "White Sox",
+    "p": 0.451,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-08T21:00Z",
+   "away": "Guardians",
+   "home": "White Sox",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "White Sox",
+    "opp": "Guardians",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -222,
+    "p": 0.628,
+    "win_p": 0.512,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -291,8 +396,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Western KY",
-    "p": 0.518,
-    "tie": 0.033,
+    "p": 0.505,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -307,9 +412,9 @@
     "opp": "Missouri St",
     "market": "ml",
     "line": null,
-    "odds": -130,
-    "p": 0.543,
-    "win_p": 0.543,
+    "odds": -122,
+    "p": 0.526,
+    "win_p": 0.526,
     "reasons": [
      "the stronger team"
     ]
@@ -429,7 +534,7 @@
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
+    "odds": -198,
     "p": 0.653,
     "win_p": 0.433,
     "reasons": []
