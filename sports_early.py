@@ -1161,7 +1161,12 @@ def gameday_html(st, games, E, now=None, show_units=None):
                 call = "🔥 we beat the number" if tn < p["line"] else "👀 the number went up"
         rows.append(f'<div class="egr"><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
                     f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
-                    f'<u>Today · game starts at {t.strftime("%-I:%M %p").replace(":00 ", " ")} PT</u>'
+                    # (10/7, the owner: "I never saw any live score that whole game" - the row's time is the board's
+                    #  live tag now: 🔴 LIVE + the score under it, FINAL / ✅ HIT the second it ends)
+                    + f'<div class="lt egt"><span class="tm" data-start="{E(g.get("start") or p["start"])}" '
+                    f'data-gid="{E(p["game_id"])}" data-side="{E(p.get("side", ""))}" '
+                    f'data-mk="{"total" if tot else "ml"}">Today · game starts at '
+                    f'{_t(g.get("start") or p["start"]).astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")} PT</span></div>'
                     + (f'<span>{E(SPOTS[p["spot"]][0])}</span>' if p.get("spot") in SPOTS else "")
                     + (f'<span>The engine has them at {round(p["own"] * 100)}%</span>'   # a win % only over 55%
                        if (p.get("own") or 0) * 100 > sports_owner_lingo.SHOW_PCT_OVER else "")   # (10/7: never)

@@ -18,7 +18,8 @@ OWNER = {
     "super value": "a lock at plus money",
     "that's just facts": "after a claim ('just the better team')",
     # the other side getting beat
-    "cheeks clapped": "a beatdown (tennis straight sets, a blowout)",
+    "cheeks clapped": "a beatdown (tennis straight sets, a blowout) - either side: 'New Mexico State got their cheeks "
+                      "clapped' (10/7, our early play lost 22-3) is a blowout LOSS review",
     "beat the brakes off": "a mismatch we see coming ('the Bears are about to beat the brakes off the Eagles')",
     "smack that ass": "a blowout we see coming",
     "smacked": "a WIN - our bet smacked ('+200 moneyline, we smacked'), or our team smacked (9/30); also the other "

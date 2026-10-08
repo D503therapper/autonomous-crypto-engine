@@ -3435,6 +3435,15 @@ def quick(now=None):
     graded = grade(picks, games, now)
     for pk in graded:
         print(f"settled {pk['date']} {pk['kind']}: {pk['status']}")
+    try:                                                     # ⏰ the early plays graded here too (10/7, the owner: NMSU
+        import sports_early                                  # lost 22-3 and sat ungraded - only the hourly run did it)
+        est = sports_early.load()
+        before = sum(1 for p in est["picks"] if p.get("result"))
+        sports_early.grade(est, games, now)
+        if sum(1 for p in est["picks"] if p.get("result")) != before:
+            sports_early.save(est)
+    except Exception as e:                                   # noqa: BLE001 - never blocks the board
+        print(f"early grade failed: {str(e)[:80]}")
     deciders(picks, budget_s=12)                             # (the live watcher calls this: keep it quick)
     sp.CACHE = sp.load()
     sm.KEY_EDGE = sp.key_edges(games, sp.CACHE)

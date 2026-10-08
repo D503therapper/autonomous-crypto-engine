@@ -522,7 +522,7 @@ REVIEWS = {
     ("big", "lost"): (93, 3, T(
         "Damn, we were confident in {t}. {o} [ended up smacking|ran away with it]. %lk%",
         "{o} ran us out the building. [Ugly.|No excuses.] %lk%",
-        "{t} got cheeks clapped. No excuses.",
+        "{t} got their cheeks clapped. [No excuses.|Ugly.] %lk%",
         "Not even close — {o} smacked {t}. %lk%",
         "{t} got cooked. [Wasn't {pos} day.|Our bad.]",
         "Blowout, wrong way. {o} [buried|smoked|rolled] {t}. %lk%",
