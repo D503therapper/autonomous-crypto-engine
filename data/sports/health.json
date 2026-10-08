@@ -1,28 +1,74 @@
 {
- "at": "2026-10-08T12:01Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-07 Bu Yunchaokete) - started sports.yml"
- ],
+ "at": "2026-10-08T17:22Z",
+ "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (33s)",
+  "live watcher fresh (6s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "slate check: all 17 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran -0 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 45 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-08T17:22Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T17:21Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T16:59Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T15:50Z",
+   "fixes": [
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-08T15:05Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-08T13:34Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-08T13:33Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreescu vs Bolkvadze: no points for 2636s"
+   ]
+  },
   {
    "at": "2026-10-08T12:01Z",
    "fixes": [
@@ -475,75 +521,6 @@
   },
   {
    "at": "2026-10-06T06:35Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-06T05:04Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Mochizuki vs Safiullin: no points for 2647s",
-    "live tennis scores: tennis Cina vs Dougaz: no points for 2647s",
-    "live tennis scores: tennis Skatov vs Tomic: no points for 2647s",
-    "live tennis scores: tennis Basilashvili vs Draxl: no points for 2647s",
-    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2647s",
-    "live tennis scores: tennis Zarazua vs Han: no points for 2647s",
-    "live tennis scores: tennis Zheng Wushuang vs Oliynykova: no points for 1849s"
-   ]
-  },
-  {
-   "at": "2026-10-06T04:58Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Mochizuki vs Safiullin: no points for 2369s",
-    "live tennis scores: tennis Cina vs Dougaz: no points for 2369s",
-    "live tennis scores: tennis Skatov vs Tomic: no points for 2369s",
-    "live tennis scores: tennis Basilashvili vs Draxl: no points for 2369s",
-    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2369s",
-    "live tennis scores: tennis Zarazua vs Han: no points for 2369s",
-    "live tennis scores: tennis Zheng Wushuang vs Oliynykova: no points for 1571s"
-   ]
-  },
-  {
-   "at": "2026-10-06T04:56Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Mochizuki vs Safiullin: no points for 2237s",
-    "live tennis scores: tennis Cina vs Dougaz: no points for 2237s",
-    "live tennis scores: tennis Skatov vs Tomic: no points for 2237s",
-    "live tennis scores: tennis Basilashvili vs Draxl: no points for 2237s",
-    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2237s",
-    "live tennis scores: tennis Zarazua vs Han: no points for 2237s",
-    "live tennis scores: tennis Zheng Wushuang vs Oliynykova: no points for 1439s"
-   ]
-  },
-  {
-   "at": "2026-10-06T03:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 1987s",
-    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 1987s"
-   ]
-  },
-  {
-   "at": "2026-10-06T02:48Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-06T02:47Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Bai Zhuoxuan vs Uchijima: no points for 2254s",
-    "live tennis scores: tennis Fruhvirtova vs Sawangkaew: no points for 2197s",
-    "live tennis scores: tennis Falei vs Guo Hanyu: no points for 2063s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-06T01:16Z",
    "fixes": [],
    "problems": []
   }

@@ -1,5 +1,5 @@
 {
-  "cash": 343.26674441043446,
+  "cash": 0.0,
   "positions": {
     "JPM": {
       "qty": 0.524490077210265,
@@ -9,6 +9,24 @@
       "stop": 0.0,
       "took_profit": false,
       "opened": 1791379800000
+    },
+    "MSTR": {
+      "qty": 1.13867800395509,
+      "entry": 150.99545816802978,
+      "cost": 171.93520691305642,
+      "peak": 150.99545816802978,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1791466200000
+    },
+    "IWM": {
+      "qty": 0.6195583152011283,
+      "entry": 276.5381938934326,
+      "cost": 171.33153749737804,
+      "peak": 276.5381938934326,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1791466200000
     }
   },
   "peak_equity": 515.8239798126117,
@@ -17,5 +35,5 @@
   },
   "halted": false,
   "halt_until": 0,
-  "last_rebalance_week": "2026-10-07"
+  "last_rebalance_week": "2026-10-08"
 }

@@ -3,6 +3,12 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/8 - daily studies (10) + early plays graded right away
+- Early plays now get graded by the quick results pass the second a game ends (NMSU sat ungraded 10/7), and the game-day 🎯 row shows the live score (🔴 LIVE / FINAL / HIT / MISS) like every card.
+- BUILT: NHL "allowed 40+ shots last game, plays again within 2 days" - a weight (-2 dog score / -1½ on a favorite, +1 for the side facing it); its own lead record ("NHL side outshot 40+ last game (fade)"). sports.outshot / sports_form.outshot_states.
+- LEADS (not built, re-check): MLB playoff bullpen workload (fresh pen vs a pen with 4+ IP the last 2 days: 61-24, blind 31-12 - only 85 games), NFL winless 0-3+ ATS (55-34-5), college spread-vs-moneyline disagreement, the backup QB's 2nd start after a 2-INT first (fade). DEAD: book outliers, line-move shapes, key-number crossing, NHL cold-start bounce, goalie fatigue, MLB series spots. Details in SPORTS_FINDINGS.md 10/8.
+- Odds API: 50 credits left of 20,000 (free check 10/7). Nothing more pulled until it refills - and only with the owner's OK.
+
 ## 10/7 - the move model as a live early spot? Re-checked blind first: DEAD, not built (the owner: "we need to be on these lines before they move")
 - tools/early_move_recheck.py + tools/early_move_live.py; SPORTS_FINDINGS.md (10/7, top). The 10/1 "which dogs the
   money comes to" model (NFL +6.0%, college +5.8% at the first fair price) got its edge from ONE input that looks at

@@ -529,3 +529,9 @@ Decision: NO variant improved the monthly return in BOTH halves of the actual ac
 scam checks unchanged. The account barely changes because the slots are almost always full when a young pool pumps.
 Watch: "young at half size" won the resampled account in both halves and both stress tests - re-test when the live
 snapshots (data/dex/snapshots.csv) hold enough real < 6h pools, incl. the ones that died young (no survivorship).
+
+### 2026-10-08 protect-gains trail after a big run (SWORDINU 9.78x -> 0.18x)
+Question: after a coin is 3x / 5x up, does selling on a 50-70% drop from its high beat holding? Method: live entry
+replayed on data/dex/scan (321 trades, ~10 days, 32 reached 3x), 1.3% cost per side. Result: arm 3x / trail 50% sum
++7.06 vs hold -5.53 per $1 bet, but older half -29.7 vs -26.2 (loses), newer +36.8 vs +20.7 (wins); 2x/5x arms and
+60-70% trails split the same way. Decision: not adopted (fails both halves); re-run when the scanner log is ~4 weeks.
