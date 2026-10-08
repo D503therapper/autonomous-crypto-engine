@@ -1,29 +1,3 @@
-player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
-weather: 165 games got weather, 0 new stadiums located, 240s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-PICK AUDIT FLAG 2026-10-03: dog Flyers 110: 1.0u on a thin edge (under 3%) - should be ½u
-PICK AUDIT FLAG 2026-10-03: lean Rays -135: the card names Aaron Judge. Their as out - he's not on the injury report it was posted with
-beat the close: unit plays 2 of 12 better than the close, avg +0.1 pts
-question box status not read: HTTP Error 403: Forbidden
-public splits: 39 upcoming games
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
-   ncaaf web injuries: only 7 rows - not used
-   ncaaf injury page: 138 schools (564 players), 138 matched, 0 unmatched
-   ncaab web injuries: 312 players, 153 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
-   no units on Senators: missing Jake Sanderson, Artem Zub
-   no units on Penguins: missing Bryan Rust, Justin Brazeau
-tennis sync: 72928 matches stored, 18 calls, 0 failed
-tennis study ATP: 25946 rated matches, acc 0.6395 (surface ratings alone 0.6415), loss 0.6302 vs 0.6302, own weights [-0.006, 0.828, 0.075, 0.14, 0.424, 0.052, 0.05]
-tennis study ATP life factors vs current loss 0.6302: experience 0.6309 (-0.69 mnats, z -0.67), age 0.6267 (+3.47 mnats, z 2.55), young_vs_aging 0.6297 (+0.44 mnats, z 1.08), last_match 0.6275 (+2.62 mnats, z 1.81), streaks 0.6307 (-0.50 mnats, z -0.49), first_set 0.6292 (+0.96 mnats, z 1.53), injury 0.6309 (-0.69 mnats, z -1.0), travel 0.6303 (-0.09 mnats, z -1.17) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30303 rated matches, acc 0.651 (surface ratings alone 0.6515), loss 0.6202 vs 0.6191, own weights [0.005, 0.905, -0.002, -0.098, 0.31, 0.028, -0.192]
-tennis study WTA life factors vs current loss 0.6202: experience 0.6158 (+4.40 mnats, z 2.61), age 0.6201 (+0.13 mnats, z 0.15), young_vs_aging 0.6201 (+0.10 mnats, z 0.6), last_match 0.6199 (+0.31 mnats, z 0.32), streaks 0.6206 (-0.42 mnats, z -0.85), first_set 0.6194 (+0.74 mnats, z 1.72), injury 0.6196 (+0.60 mnats, z 1.04), travel 0.6203 (-0.08 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 17 matches
-CARD GUARD (the wrong sport's position word) dropped for Guardians: ⚾ Gavin Williams a walking bucket right now. It's his world, the White Sox just living in 
-CARD GUARD (filler with no fact) dropped for Guardians: 📋 Guardians are 85-77 right now — the rest is on the field.
 CARD GUARD (a former player's death isn't team drama) dropped for Sharks: 🧯 The Stars dealing with some personal stuff: "Lyle Odelein, Stanley Cup winning defensema
 CARD GUARD (a former player's death isn't team drama) dropped for Saints: 🧯 The Falcons dealing with some personal stuff: "Former Falcons C, 6-time Pro Bowler Jeff 
 CARD GUARD (filler with no fact) dropped for Saints: 📋 Saints are 1-2 right now — the rest is on the field.
@@ -2984,6 +2958,32 @@ ACTIVE nfl sunday day: favorites win 35-16 (prices said 33.7) (6 straight) -> co
 ACTIVE ncaaf thursday night: favorites win 9-2 (prices said 8.8) (6 straight) -> coin flip · next: Sam Houston @ Liberty, Missouri St @ Western KY, South Florida @ UTSA
 ACTIVE nhl home favorite: over 18-16 (5 straight) -> coin flip · next: Flyers @ Senators, Predators @ Canadiens, Wild @ Lightning
 totals study: {'nfl': (0.5556, True), 'ncaaf': (0.4841, False), 'nba': (0.504, False), 'ncaab': (0.5271, True), 'mlb': (0.4857, False), 'nhl': (0.4806, False)}
+public splits: 72 upcoming games
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (575 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 7 rows - not used
+   ncaaf injury page: 138 schools (575 players), 138 matched, 0 unmatched
+   ncaab web injuries: 323 players, 155 schools matched, 23 unmatched (arkansas little rock, bethune cookman, boston university, cal state bakersfield, cal state northridge, citadel)
+tennis sync: 72928 matches stored, 18 calls, 0 failed
+tennis study ATP: 25970 rated matches, acc 0.6425 (surface ratings alone 0.643), loss 0.6296 vs 0.6297, own weights [-0.005, 0.828, 0.073, 0.139, 0.425, 0.052, 0.05]
+tennis study ATP life factors vs current loss 0.6296: experience 0.6302 (-0.59 mnats, z -0.58), age 0.6263 (+3.38 mnats, z 2.47), young_vs_aging 0.6292 (+0.40 mnats, z 0.96), last_match 0.6272 (+2.48 mnats, z 1.71), streaks 0.6302 (-0.52 mnats, z -0.51), first_set 0.6288 (+0.87 mnats, z 1.38), injury 0.6303 (-0.70 mnats, z -1.02), travel 0.6297 (-0.09 mnats, z -1.2) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30336 rated matches, acc 0.6495 (surface ratings alone 0.6495), loss 0.6221 vs 0.6214, own weights [0.005, 0.906, -0.002, -0.098, 0.308, 0.028, -0.192]
+tennis study WTA life factors vs current loss 0.6221: experience 0.6182 (+3.98 mnats, z 2.34), age 0.6221 (+0.08 mnats, z 0.09), young_vs_aging 0.622 (+0.11 mnats, z 0.66), last_match 0.622 (+0.12 mnats, z 0.12), streaks 0.6225 (-0.31 mnats, z -0.63), first_set 0.6214 (+0.76 mnats, z 1.77), injury 0.6215 (+0.63 mnats, z 1.08), travel 0.6222 (-0.09 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 15 matches
+sync: 130701 games stored, 52 calls, 0 failed, 19s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 111 games got weather, 0 new stadiums located, 243s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 3 games on the page, 1 matched, 2 confirmed
+PICK AUDIT FLAG 2026-10-05: dog Sharks 145: the card says 2 straight wins, the games say 4: '🔥 Sharks are cooking right now (2 straight W's) and Stars ain't matching that en'
+PICK AUDIT FLAG 2026-10-06: dog Mammoth 110: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-07: dog Penguins 136: 1.0u on a thin edge (under 3%) - should be ½u
+beat the close: unit plays 4 of 17 better than the close, avg -0.0 pts
+question box status not read: HTTP Error 403: Forbidden
 public splits: 72 upcoming games
    ncaaf web injuries: only 7 rows - not used
    ncaaf injury page: 138 schools (575 players), 138 matched, 0 unmatched
