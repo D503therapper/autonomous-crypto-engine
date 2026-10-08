@@ -10853,3 +10853,32 @@ DEX: $1,433.21 (+433.21) · Scammed: 0
 [2026-10-08 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-08 05:06 UTC] crypto/hold_btc  equity $492.61 (-1.5%) 1 open  market UP
    social heat top: PONS 44 (35/0/10), PRL 37 (37/0/0), NEAR 32 (32/0/0), MET 29 (29/0/0), BTC 27 (27/0/0)
+   dex screen: REJECT SPCX@solana liq $1,528,465 - freeze authority; mint authority; balance_mutable_authority; transfer hook
+   dex screen: REJECT SPCXX@solana liq $209,337 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 90%; lp holders unknown
+   dex screen: REJECT CIRBTC@ethereum liq $5,737,672 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 93%; lp locked 0% < 95%
+   dex screen: REJECT BSTONK@base liq $121,358 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT WETH@solana liq $7,190,102 - mint authority; top-10 holders 77%
+   >> dex/dex_hunter: BUY $129.29 of CLAUS@ethereum:0xa606d4 @ 0.028942 (added on a proven runner at 3.1x)
+   dex screen: REJECT COCKROACH@solana liq $141,859 - lp holders unknown; rugcheck lp locked 89% < 95%
+   dex screen: PASS CATE@solana liq $2,820,232
+   dex screen: REJECT NEARKAT@solana liq $314,057 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT CRAWL@solana liq $252,409 - holders unknown; lp holders unknown; rugcheck lp locked 41% < 95%
+   dex screen: REJECT AUTON@solana liq $102,490 - holders unknown; lp holders unknown; rugcheck lp locked 22% < 95%
+   dex screen: REJECT ZEC@solana liq $2,887,340 - mint authority
+   dex screen: REJECT SUPER@ethereum liq $3,861,395 - is_mintable; top-10 holders 53%
+   dex screen: REJECT NVDAC@base liq $1,887,026 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: REJECT ANVL@ethereum liq $160,588 - lp locked 0% < 95%
+   dex screen: REJECT ZEVIO@ethereum liq $110,401 - lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,896 / base 635 / ethereum 469), refresh cycle 253s (hot 245s), 1508 calls (108 feed, 429s 0, failed 14), 41,578 refreshed (2837 no pair), +66 added / -66 dropped (dead 7, stale 0, cap 59), movers 0 + warming 18 -> queued 5, screened 5 (passed 0), bought 0
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT EVERYTHING@solana liq $261,659 - holders unknown; lp holders unknown; rugcheck lp locked 77% < 95%
+[2026-10-08 06:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-08 06:06 UTC] crypto/mover     equity $397.98 (-20.4%) 2 open  market UP
+[2026-10-08 06:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 06:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-08 06:06 UTC] crypto/social_heat equity $510.87 (+2.2%) 2 open  market UP
+[2026-10-08 06:06 UTC] crypto/breakout10 equity $506.77 (+1.4%) 2 open  market UP
+[2026-10-08 06:06 UTC] crypto/momentum  equity $467.91 (-6.4%) 4 open  market UP
+[2026-10-08 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-08 06:06 UTC] crypto/hold_btc  equity $492.31 (-1.5%) 1 open  market UP
+   social heat top: NEAR 37 (37/0/0), MET 35 (35/0/0), PENGU 32 (32/0/0), PRL 29 (29/0/0), PONS 29 (24/0/5)
