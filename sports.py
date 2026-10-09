@@ -2492,9 +2492,11 @@ def data_gaps(games, cands, now):
                     continue
             for x in games.values():
                 if x.get("league") == lg and tid in (x.get("home"), x.get("away")) and x.get("status") == "pre" \
+                        and (x.get("stype") or "?") in sd.REAL \
                         and now - timedelta(days=10) < _t(x["start"]) < now - timedelta(hours=8) \
-                        and x.get("ml_home") not in ("", None):      # (10/1: an "if necessary" playoff game that never
-                    #                                                  got played never had a price - not a missing result)
+                        and x.get("ml_home") not in ("", None):      # (10/1: an "if necessary" playoff game that
+                    #   never got played never had a price - not a missing result; 10/9: a preseason game the feed
+                    #   never finalized is never a gap - it never moves a read, so it never holds a board)
                     out[(lg, tid)] = f"{g.get(side + '_name')}: no result for their {x['start'][:10]} game"
                     break
     return out

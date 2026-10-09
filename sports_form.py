@@ -293,6 +293,8 @@ def sv_slump():
 # dog facing the team that blew it out last meeting: +15.7% (6 of 7 seasons) vs -3.6% for every dog.
 ATS_LEAGUES = ("nfl", "ncaaf", "nba", "ncaab")
 ATS_RUN = 4
+ATS_FRESH_D = 30                           # (10/9 NBA readiness check) a cover streak dies over a 30+ day break - 3 NBA
+#                                            teams would have opened 2026-27 on a 4-5 game streak from last April
 REVENGE = {}                               # 10/1 OFF: with the 2024-25 college football games the feed had missed,
 #                                            the revenge dog (lost the last meeting by 30+) beat every dog only 4 of 8
 #                                            seasons (-1.3% vs -13.4%; 2024 and 2025 both worse). (Was {"ncaaf": 30}.)
@@ -301,7 +303,7 @@ REVENGE = {}                               # 10/1 OFF: with the 2024-25 college 
 def ats_states(games):
     """({(league, team): cover streak (+ covered / - failed)}, {(league, team, opp): last meeting's margin})."""
     import sports_model as sm
-    ats, meet = {}, {}
+    ats, meet, last = {}, {}, {}
     for lg in ATS_LEAGUES:
         for g in sorted(sm.finals(games, lg), key=lambda g: g["start"]):
             if (g.get("stype") or "2") not in ("2", "3"):
@@ -319,6 +321,9 @@ def ats_states(games):
                 continue
             for t, cov in ((g["home"], mg > 0), (g["away"], mg < 0)):
                 k = ats.get((lg, t), 0)
+                if (lg, t) in last and _days(last[(lg, t)], g["start"]) > ATS_FRESH_D:
+                    k = 0                                    # the summer (or a long break) ends a streak
+                last[(lg, t)] = g["start"]
                 ats[(lg, t)] = (k + 1 if k >= 0 else 1) if cov else (k - 1 if k <= 0 else -1)
     return ats, meet
 
