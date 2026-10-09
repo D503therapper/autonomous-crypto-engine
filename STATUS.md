@@ -3,6 +3,12 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/9 - NBA readiness check (the season opens ~10/20; college hoops early November)
+- Pipeline checked end to end on 2025-26; three bugs fixed with tests (preseason live bet, preseason 'missing result' holding the board, cover streaks over the summer). SPORTS_FINDINGS.md 10/9.
+- Blind NBA board replay 2023-26: Lock 54-32 (63%), +16% over the two graded seasons; leans -4% flat; NO Dog possible (dog_gate has no NBA branch); a dog-score 4+ gate is a LEAD (15-12, +11.5u blind), not built.
+- OWNER'S CALL (asked 10/9): units on the NBA Lock from day one (recommended), leans only otherwise; build the NBA dog gate (½u, own record) or wait. Still open: college hoops injury source before November; opening-night hoops rotation comes from last season's last 10 games until new box scores arrive.
+- Still running 10/9: the value-play study (why ½u plays lose) and the Bovada live-lines fallback.
+
 ## 10/9 - "no college live plus money on Thursday night" check (the owner's question)
 - College football IS in the live feature (sports_data.LEAGUES / BOVADA_PATH / KAMBI_PATH all carry ncaaf; the comeback
   curve has 17,661 college games; Kentucky +115 won and Michigan +105 lost live on 10/3). The watcher ran all night
