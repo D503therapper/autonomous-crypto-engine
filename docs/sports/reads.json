@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T01:37Z",
+ "updated": "2026-10-09T01:42Z",
  "games": [
   {
    "id": "nhl:401892461",
@@ -142,8 +142,8 @@
    "away": "Stars",
    "home": "Sabres",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -157,8 +157,8 @@
    "away": "Wild",
    "home": "Lightning",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -379,36 +379,6 @@
      "opponent on a back-to-back"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nhl:401892464",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.398,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-09T02:00Z",
-   "away": "Maple Leafs",
-   "home": "Golden Knights",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Maple Leafs",
-    "opp": "Golden Knights",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -180,
-    "p": 0.623,
-    "win_p": 0.402,
-    "reasons": [
-     "opponent missing key players"
-    ]
    }
   },
   {
