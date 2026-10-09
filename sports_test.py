@@ -9964,6 +9964,84 @@ def test_live_never_fades_an_early_play_and_a_dk_only_price_is_not_priced():
         pass
     assert sports_live.PRICED[0] == 1 and sports_live.DK_ONLY[0] == 0 and "ncaaf:555" in judged
     sports_live.WATCHING[0] = sports_live.PRICED[0] = sports_live.DK_ONLY[0] = 0
+
+
+def test_bovada_full_feed_fills_in_when_the_liveonly_feed_goes_dark():
+    """10/8 night, every check 01:41Z-03:11Z: 'Bovada has no live lines for mlb, nba, ncaaf, nfl, nhl' - the liveOnly
+    feed returned no team-sport events (tennis fine, 9/27 again) and BetRivers was the only book. Now, with games going
+    and the liveOnly feed showing no fresh live event, the FULL feed is read: only events flagged live, already started,
+    touched within LINE_MAX_AGE_S count (the live feed's own bar) - a pregame price or a stale one never passes; the
+    health check says the fallback carried the league. A liveOnly feed with a fresh live event = no fallback."""
+    import sports_live as slv
+    now_ms = time.time() * 1000
+    grp = {"path": [{"link": "/football/nfl", "description": "NFL"}]}
+
+    def ev(eid, home, away, h, a, mod, live=True, start=None):
+        return {"id": eid, "live": live, "lastModified": mod, "startTime": start if start is not None else now_ms - 3600000,
+                "description": f"{away} @ {home}",
+                "competitors": [{"name": home, "home": True}, {"name": away, "home": False}],
+                "displayGroups": [{"markets": [{"description": "Moneyline", "status": "O",
+                                                "period": {"description": "Live Game", "main": True, "live": live},
+                                                "outcomes": [{"description": home, "price": {"american": h}},
+                                                             {"description": away, "price": {"american": a}}]}]}]}
+    feeds = {}
+
+    def fake_get(url):
+        feeds.setdefault("urls", []).append(url)
+        return feeds["live"] if "liveOnly=true" in url else feeds["all"]
+    keep = slv._safe_get, slv.backup_team, dict(slv.BOV_EV), dict(slv.BOV_TURN)
+    try:
+        slv._safe_get, slv.backup_team = fake_get, lambda lg: []
+        slv.BOV_EV.clear(); slv.BOV_TURN.clear(); slv.BOOKS.clear(); slv.FALLBACK.clear()
+        # (1) liveOnly empty, the full feed has one live fresh game + a pregame game + a live game last touched 5 minutes ago
+        feeds["live"], feeds["all"] = [], [{**grp, "events": [
+            ev("1", "Philadelphia Eagles", "New York Giants", "-250", "+200", now_ms - 4000),
+            ev("2", "Dallas Cowboys", "Carolina Panthers", "-180", "+155", now_ms - 2000, live=False, start=now_ms + 7200000),
+            ev("3", "Chicago Bears", "Washington Commanders", "+130", "-150", now_ms - 5 * 60 * 1000)]}]
+        got = slv.bovada_live("nfl", live_games=3)
+        assert got == [{"home": "Philadelphia Eagles", "away": "New York Giants", "ml_home": -250, "ml_away": 200, "src": "bovada"}], got
+        assert slv.FALLBACK == {"nfl": 1} and "full feed" in slv.BOOKS["nfl"], slv.BOOKS
+        assert any("liveOnly=true" not in u and "eventsLimit=" in u for u in feeds["urls"]), feeds["urls"]   # the full feed's address
+        slv.WATCHING[0] = 3
+        issues = " | ".join(slv.health_check())
+        assert "liveOnly feed had nothing for nfl" in issues and "full feed" in issues and "nfl 1" in issues, issues
+        assert "Bovada has no live lines" not in issues, issues
+        slv.WATCHING[0] = 0
+        # (2) the full feed's events never leak into the live feed's cache
+        assert all(k[0] == "football/nfl" + slv.ALL_FEED for k in slv.BOV_EV), list(slv.BOV_EV)
+        # (3) a pregame event flagged live by mistake, with a fresh price, is still no live price (not started)
+        slv.BOV_EV.clear(); feeds["urls"].clear()
+        feeds["all"] = [{**grp, "events": [ev("4", "Buffalo Bills", "Miami Dolphins", "-300", "+240", now_ms - 1000, start=now_ms + 600000)]}]
+        assert slv.bovada_live("nfl", live_games=1) == [] and slv.FALLBACK == {"nfl": 0}
+        slv.WATCHING[0] = 2
+        issues = " | ".join(slv.health_check())
+        assert "Bovada has no live lines for nfl" in issues and "full feed" not in issues, issues   # (nothing usable from either)
+        slv.WATCHING[0] = 0
+        # (4) the liveOnly feed has a fresh live event: its price stands and the full feed is never asked for
+        slv.BOV_EV.clear(); feeds["urls"].clear()
+        feeds["live"] = [{**grp, "events": [ev("5", "Detroit Lions", "Green Bay Packers", "+105", "-125", now_ms - 3000)]}]
+        feeds["all"] = [{**grp, "events": [ev("5", "Detroit Lions", "Green Bay Packers", "+500", "-900", now_ms - 1000)]}]
+        got = slv.bovada_live("nfl", live_games=1)
+        assert got[0]["ml_home"] == 105 and "nfl" not in slv.FALLBACK and "full feed" not in slv.BOOKS["nfl"]
+        assert all("liveOnly=true" in u for u in feeds["urls"]), feeds["urls"]
+        # (5) no games going (per our game list): an empty liveOnly feed means nothing to read, no fallback
+        slv.BOV_EV.clear(); feeds["urls"].clear()
+        feeds["live"] = []
+        assert slv.bovada_live("nfl", live_games=0) == [] and "nfl" not in slv.FALLBACK
+        assert all("liveOnly=true" in u for u in feeds["urls"])
+        # (6) the full feed down too: an error line, no price, nothing crashes
+        slv.BOV_EV.clear()
+        slv._safe_get = lambda u: None
+        n = len(sd.ERRORS)
+        assert slv.bovada_live("nfl", live_games=2) == [] and any("bovada full feed nfl" in x for x in sd.ERRORS[n:])
+        del sd.ERRORS[n:]
+    finally:
+        slv._safe_get, slv.backup_team = keep[0], keep[1]
+        slv.BOV_EV.clear(); slv.BOV_EV.update(keep[2])
+        slv.BOV_TURN.clear(); slv.BOV_TURN.update(keep[3])
+        slv.BOOKS.clear(); slv.FALLBACK.clear()
+
+
 def test_nba_preseason_never_a_pick_and_the_season_start():
     """10/9 NBA readiness check (the season opens in two weeks): a preseason game (ESPN season type 1) is never a
     candidate, never a Lock / Dog / lean, never a live bet, never a 'missing result' that holds the board; the
