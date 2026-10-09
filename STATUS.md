@@ -3,6 +3,24 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/9 - "no college live plus money on Thursday night" check (the owner's question)
+- College football IS in the live feature (sports_data.LEAGUES / BOVADA_PATH / KAMBI_PATH all carry ncaaf; the comeback
+  curve has 17,661 college games; Kentucky +115 won and Michigan +105 lost live on 10/3). The watcher ran all night
+  (a results commit from it every 2-45 min, 22:40Z-07:47Z; 12 chained Actions runs, none failed, crash = None).
+- Why nothing posted, any sport, since 10/4: (1) the live self-check raised the bar to its 55% cap on 10/4
+  (data/sports/live_tune.json: said 56.9%, hit 52.9% over 17) - a new live bet needs a 55%+ chance AT plus money;
+  a trailing favorite never gets there (Arkansas St down 3 at half = 42% on the curve, Cowboys down 7 at half = 54.9%),
+  and it eases only when NEW bets grade, so at 55% it is stuck for good (the owner's call - the record backs the bar:
+  bets we gave 55%+ went 7-1 +7.8u, under 55% 2-7 -4.6u). (2) Bovada returned no team-sport live lines all night
+  ("Bovada has no live lines for mlb, nba, ncaaf, nfl, nhl" in every check) - BetRivers was the only real book, and a
+  DraftKings-only price never posts (the 10/4 rule). The repo keeps no live price history, so whether Arkansas St or the
+  Cowboys were ever plus money can't be shown - but by the rules above no spot in those games could have fired.
+- FIXED (worktree, test_live_never_fades_an_early_play_and_a_dk_only_price_is_not_priced): an OPEN EARLY PLAY now locks
+  its game for live plus money like a board pick does (the owner, 10/8: never the other side of our own pick; the 🌍
+  under takes no side); a DraftKings-only price no longer counts as 'priced' (live.json: priced / dk_only / min_p; the
+  health check names it). LEAD, untestable from the sandbox: the Bovada liveOnly feed went empty 9/27 too - BOVADA_ALL
+  (full feed, live=True events) is defined but never used as a fallback.
+
 ## 10/9 - live record vs the closing line (report only, nothing changed)
 - Every graded pick 9/27-10/8 (34 unit plays, 24 leans, 2 early) checked against the last pre-start price in line_history. Totals match the dashboard: 💰 21-13, +10.2u on 31u, ROI +33%; 🟡 leans 10-14. Every result matches the final score; no pick past -150; no lean with units; no opposite sides.
 - CLV (beat the close, win-% pts): all unit plays avg ~0 (beat 7 / same 14 / worse 9 of 30); since the 10/2 unit system -0.5, beat 2 of 17. Winning, but not beating the market yet - mostly favorites hitting.
