@@ -9902,6 +9902,70 @@ def test_move_model_is_dead_not_an_early_spot():
     assert len(R.move_x(f)) == len(R.MOVE_FEATS) + 1 and R.money_coming("nfl", f, {}) == (None, False)
 
 
+def test_live_never_fades_an_early_play_and_a_dk_only_price_is_not_priced():
+    """10/8-10/9 live check. (1) The owner: live plus money NEVER takes the other side of a pick we have - board picks
+    were locked, OPEN EARLY PLAYS were not (the Bucs +8.5 night: a Cowboys live bet would have faded our own side).
+    (2) A DraftKings-only price (no Bovada / BetRivers line to confirm it) can never post a bet, yet it counted as
+    'priced': the health check read '5 of 18 priced' while not one price on the board could be bet. live.json now says
+    how many games sat on a DraftKings-only price, and the bar a new bet needs (min_p)."""
+    import json
+    import sports_early
+    keep_early, keep_data = sports_early.PATH, sd.DATA
+    tmp = tempfile.mkdtemp()
+    sports_early.PATH = os.path.join(tmp, "early.json")
+    today = datetime.now(sports_live.PT).date().isoformat()
+    nxt = (datetime.now(timezone.utc) + timedelta(days=2)).strftime("%Y-%m-%dT%H:%MZ")
+    old = (datetime.now(timezone.utc) - timedelta(days=6)).strftime("%Y-%m-%dT%H:%MZ")
+    with open(sports_early.PATH, "w") as f:
+        json.dump({"picks": [{"game_id": "nfl:80", "side": "away", "team": "Buccaneers", "start": nxt, "result": None},
+                             {"game_id": "nfl:81", "side": "home", "team": "Jaguars", "start": old, "result": "lost"},
+                             {"game_id": "nfl:82", "side": "under", "team": "under 41.5", "start": nxt, "result": None}]}, f)
+    sd.DATA = tmp                                            # (an empty picks.json: the early file alone has to lock it)
+    try:
+        locked = sports_live.locked_sides({"plays": {}}, datetime.now(timezone.utc))
+        assert locked.get("nfl:80") == "away", "an open early play locks its game for live plus money"
+        assert "nfl:81" not in locked, "a graded early play from last week locks nothing"
+        assert "nfl:82" not in locked, "the Europe under takes no side"
+        plays = [{"id": "nfl:80:home", "team": "Cowboys"}, {"id": "nfl:80:away", "team": "Buccaneers"}, {"id": "nfl:99:home", "team": "Jets"}]
+        kept = [p["team"] for p in sports_live.never_against_us(plays, locked)]
+        assert kept == ["Buccaneers", "Jets"], kept     # our side can double up, the other side never goes up
+        # ...and a lean / night pick / Dog on the board locks it the same way (any kind in picks.json, not a total)
+        with open(os.path.join(tmp, "picks.json"), "w") as f:
+            json.dump([{"date": today, "kind": "lean", "status": "pending", "units": 0,
+                        "legs": [{"game_id": "nfl:83", "side": "away", "market": "spread", "team": "Buccaneers"}]},
+                       {"date": today, "kind": "play", "status": "pending", "units": 0.5,
+                        "legs": [{"game_id": "nfl:84", "side": "under", "market": "total", "team": "under 44"}]}], f)
+        locked = sports_live.locked_sides({"plays": {}}, datetime.now(timezone.utc))
+        assert locked.get("nfl:83") == "away" and "nfl:84" not in locked
+    finally:
+        sports_early.PATH, sd.DATA = keep_early, keep_data
+    # (2) a DraftKings-only live price: not 'priced', counted apart, named by the health check
+    class F:
+        def __init__(self, v): self.v = v
+        def result(self): return self.v
+    sports_live.WATCHING[0], sports_live.PRICED[0], sports_live.DK_ONLY[0] = 3, 0, 0
+    sports_live.BOOKS.clear()
+    g = {"id": "ncaaf:555", "league": "ncaaf", "home_name": "Arkansas St", "away_name": "South Alabama", "start": "2026-10-08T23:30Z"}
+    ang = {"id": 555, "teams": [], "home_team_id": "1", "away_team_id": "2"}
+    box = {"period": 2, "clock": "4:10", "total_home_points": 21, "total_away_points": 28}
+    judged = set()
+    got = sports_live._judge("ncaaf", ang, box, g, F((150, -180)), {}, {}, {"params": {}}, {}, {}, datetime.now(timezone.utc), (), judged)
+    assert got == [] and not judged, "a DraftKings-only price never reaches the live read"
+    assert sports_live.PRICED[0] == 0 and sports_live.DK_ONLY[0] == 1, (sports_live.PRICED[0], sports_live.DK_ONLY[0])
+    issues = " | ".join(sports_live.health_check())
+    assert "DraftKings" in issues and "no live bet can post" in issues, issues
+    assert "only 0 of 3 live games have a sportsbook price we can bet on" in issues, issues
+    # a BetRivers price (a real book, time-stamped) IS priced - and alone it's enough
+    sports_live.PRICED[0] = sports_live.DK_ONLY[0] = 0
+    lines = [{"home": "Arkansas St", "away": "South Alabama", "ml_home": 150, "ml_away": -180, "src": "betrivers"}]
+    try:
+        sports_live._judge("ncaaf", ang, box, g, F((None, None)), {}, {"ncaaf": F(lines)}, {"params": {}}, {}, {}, datetime.now(timezone.utc), (), judged)
+    except Exception:                                        # noqa: BLE001 (no ratings / model here: it fails past the price step)
+        pass
+    assert sports_live.PRICED[0] == 1 and sports_live.DK_ONLY[0] == 0 and "ncaaf:555" in judged
+    sports_live.WATCHING[0] = sports_live.PRICED[0] = sports_live.DK_ONLY[0] = 0
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

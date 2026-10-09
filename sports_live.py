@@ -519,7 +519,11 @@ def evaluate(league, g, box, mlh, mla, st, pre_model_p, pre_market_p, ball, ball
 BOOKS = {}                    # what the sportsbook feed returned this cycle, per league (diagnostics)
 FINALS = set()                # games seen final (a new one = grade the board right away)
 WATCHING = [0]
-PRICED = [0]                  # live games with a sportsbook price this cycle                # live games seen in the last cycle (the dashboard says whether games are going)
+PRICED = [0]                  # live games with a USABLE sportsbook price this cycle (Bovada / BetRivers, or DraftKings
+#                               confirmed by one of them) - WATCHING = live games seen (the dashboard says whether games are going)
+DK_ONLY = [0]                 # live games whose only price was DraftKings' via ESPN, unconfirmed: no bet can post on them
+#                               (10/9: these counted as 'priced', so the health check read '5 of 18 priced' on a night
+#                               Bovada had no team-sport lines at all and not one of those prices could post a bet)
 
 
 BOVADA = "https://www.bovada.lv/services/sports/event/v2/events/A/description/{path}?marketFilterId=def&liveOnly=true&lang=en"
@@ -808,12 +812,27 @@ def locked_sides(log, now):
                             out.setdefault(leg["game_id"], leg["side"])
     except (OSError, ValueError, KeyError):
         pass
+    try:                                                     # ⏰ an open early play locks its game too (the owner, 10/8:
+        import sports_early                                  # live plus money NEVER takes the other side of a pick we
+        for pk in sports_early.load().get("picks") or []:    # have - board picks above, early plays here; the 🌍 under
+            if pk.get("side") not in ("home", "away") or not pk.get("game_id"):   # takes no side)
+                continue
+            if pk.get("result") is None or str(pk.get("start") or "")[:10] in days:
+                out.setdefault(pk["game_id"], pk["side"])
+    except Exception:                                        # noqa: BLE001 - never breaks a live check
+        pass
     for mid, side in stl.our_picks().items():               # 🎾 our pregame tennis picks lock their match too
         out.setdefault(f"tennis:{mid}", str(side))
     for pid, e in log.get("plays", {}).items():
         if e.get("date") in days and e.get("result") != "void":
             out[pid.rsplit(":", 1)[0]] = pid.rsplit(":", 1)[1]
     return out
+
+
+def never_against_us(plays, locked):
+    """Drop any live play on the other side of a game we're already on (a board pick, an early play, a live bet). The
+    same side as our pick is fine (the owner, 10/4: "Jaguars can be both")."""
+    return [p for p in plays if locked.get(p["id"].rsplit(":", 1)[0], p["id"].rsplit(":", 1)[1]) == p["id"].rsplit(":", 1)[1]]
 
 
 def board(plays, showing=()):
@@ -853,12 +872,13 @@ def _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showin
     mlh, mla, checked = two_books(dk_f.result(), bov_)
     src = book_src(lines_, g) if (mlh, mla) == tuple(bov_) and mlh is not None else "draftkings"   # (10/1: which book
     #                                                             the price came from - the Devils +145 never said)
-    PRICED[0] += mlh is not None and mla is not None
     if mlh is None or mla is None:
         return plays                                       # the book paused its line: wait
     if src == "draftkings" and not checked:
+        DK_ONLY[0] += 1                                    # (counted apart: it's no price we can bet on)
         return plays                                       # (the owner, 10/4: DraftKings via ESPN has no time stamp - a
     #                                                        cached price could post a bet: alone it needs a 2nd book)
+    PRICED[0] += 1
     judged.add(g["id"])
     params = model["params"].get(lg) or sm.default_params(lg)
     f = elo[lg].features(g)
@@ -932,7 +952,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     plays = []
     SCORES.clear()                # rebuilt every check (finals stay while the feed still lists them)
     judged = set()                # games priced and judged this check (the rest were paused / out of sync)
-    WATCHING[0] = PRICED[0] = 0
+    WATCHING[0] = PRICED[0] = DK_ONLY[0] = 0
     BOOKS.clear()
     with ThreadPoolExecutor(12) as ex:                          # everything in parallel: live lines move fast
         angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live_any, sd.LEAGUES)))
@@ -981,8 +1001,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
         if p["id"] not in uniq or (uniq[p["id"]].get("paused") and not p.get("paused")):
             uniq[p["id"]] = p
     plays = list(uniq.values())
-    locked = locked_sides(log, now)
-    plays = [p for p in plays if locked.get(p["id"].rsplit(":", 1)[0], p["id"].rsplit(":", 1)[1]) == p["id"].rsplit(":", 1)[1]]
+    plays = never_against_us(plays, locked_sides(log, now))
     plays = hold(plays, showing, now.timestamp())             # held 2 checks in a row (no one-check blips)
     plays = settle_words(board(plays, showing), prev or {}, log)   # the wording stays put while a play is up
     for pl in plays:                                          # log the first time each play goes up (graded later)
@@ -1720,7 +1739,8 @@ def run():
            "today": today_bets(log),
            "sources": sources_status(),
            "health": health,
-           "priced": PRICED[0], "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
+           "priced": PRICED[0], "dk_only": DK_ONLY[0], "min_p": round(min_p(), 3),   # (the bar a new bet needs now)
+           "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
     del sd.ERRORS[:]
     os.makedirs(os.path.dirname(LIVE_JSON), exist_ok=True)
@@ -1776,7 +1796,10 @@ def health_check():
     Problems go into live.json ("health") and the log, loud."""
     issues = []
     if WATCHING[0] >= 3 and PRICED[0] < WATCHING[0] / 2:
-        issues.append(f"only {PRICED[0]} of {WATCHING[0]} live games have a sportsbook price")
+        issues.append(f"only {PRICED[0]} of {WATCHING[0]} live games have a sportsbook price we can bet on")
+    if DK_ONLY[0]:
+        issues.append(f"{DK_ONLY[0]} live game{'s' if DK_ONLY[0] > 1 else ''} priced only by DraftKings (via ESPN), no second "
+                      "book to confirm it - no live bet can post there")
     empty = [lg for lg, v in BOOKS.items() if v.startswith("0 groups") or v.startswith("error") or " 0 events" in v]
     if empty and WATCHING[0]:
         issues.append("Bovada has no live lines for " + ", ".join(sorted(empty)))
