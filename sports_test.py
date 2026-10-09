@@ -5970,17 +5970,33 @@ def test_value_play_markets_constant():
     sp = {k: v for k, v in _cand("sp", -110, 0.58, "spread", -3.5, "ncaab").items() if k != "edge_own"}   # (a spread
     sp["reasons"] = ["the stronger team", "proven spot: covers off a loss"]                 # has no own read - strust 0)
     assert sports.good(sp) and sports.good(ml)
-    assert sports.PLAY_MARKETS == ("ml", "spread"), "the default is today's board (the owner decides the rule)"
-    assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml", "sp"]
+    assert sports.PLAY_MARKETS == ("ml",), "the owner, 10/9: value plays are moneyline only"
+    assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml"], "spreads carry no units"
+    assert sports.leg_tier(sp) == "lock" and sports.good(sp), "...but the spread is still a real read for the leans / Lock"
+    assert sports.make_board([sp, ml])["lock"] is not None          # the Lock logic doesn't read PLAY_MARKETS
     old = sports.PLAY_MARKETS
     try:
-        sports.PLAY_MARKETS = ("ml",)
-        assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml"], "spreads carry no units"
-        assert sports.leg_tier(sp) == "lock" and sports.good(sp), "...but the spread is still a real read for the leans / Lock"
-        assert sports.make_board([sp, ml])["lock"] is not None          # the Lock logic doesn't read PLAY_MARKETS
+        sports.PLAY_MARKETS = ("ml", "spread")
+        assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml", "sp"]
     finally:
         sports.PLAY_MARKETS = old
-    assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml", "sp"]
+
+
+def test_nba_dog_of_the_day_half_unit():
+    """The owner, 10/9: "nba gets a dog". dog_gate had no NBA branch, so no NBA dog could ever be the Dog. Now a dog
+    score of NBA_DOG_GATE+ (4) passes, and the NBA Dog carries ½u (DOG_UNITS_BY) - every other sport's Dog stays 1u."""
+    c = {"market": "ml", "league": "nba", "odds": 140, "dec": 2.4, "p_market": 0.40, "edge": 0.0, "edge_own": 0.0}
+    saved = sports.dog_score
+    try:
+        sports.dog_score = lambda c_: 4.5
+        assert sports.dog_gate(dict(c)) and sports.dog_gate(c) and c["dog_p"] == 0.445
+        sports.dog_score = lambda c_: 3.0
+        assert not sports.dog_gate(dict(c))
+    finally:
+        sports.dog_score = saved
+    pk = lambda lg: {"date": "2026-10-20", "kind": "dog", "lean": False, "status": "open",
+                     "legs": [{"league": lg, "odds": 140, "dec": 2.4, "dog_p": 0.45, "market": "ml"}]}
+    assert sports.units_for(pk("nba")) == 0.5 and sports.units_for(pk("nhl")) == sports.DOG_UNITS == 1.0
 
 
 def test_pick_logic_bug_check():

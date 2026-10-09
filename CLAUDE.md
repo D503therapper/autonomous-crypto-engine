@@ -35,7 +35,7 @@ every session:
 - Monday and Thursday football: every NFL game those days gets its own pick (two games = two picks; a lean is fine) -
   sports.night_games / night_pick, the 🏈 NIGHT FOOTBALL card.
 - No puck lines or run lines on the board (hockey / baseball = moneylines). Football and basketball spreads are fine.
-- Every day: a Lock of the Day, then every real value play STRAIGHT with its units (sports.plays - no cap, the owner 10/4: however many the engine finds),
+- Every day: a Lock of the Day, then every real value play STRAIGHT with its units (sports.plays - no cap, the owner 10/4: however many the engine finds; MONEYLINE only, the owner 10/9 - spread value plays lost every season, sports.PLAY_MARKETS),
   then leans for the viewers (sports.viewer_leans, no units, 🟡 in the record) - and a "🧩 Build your own parlay from
   today's plays" line. NO posted parlays (the owner, 10/1: the ladder went 1 for 8; the viewer builds his own). A play
   is never past -150, never one the engine's own read is fighting. The Dog of the Day is a UNIT play like the Lock: only
@@ -77,7 +77,7 @@ every session:
   value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 3%
   over the price = ½u (sports.THIN_EDGE). Never half units across the whole board (the owner, 10/2). THE UNIT SYSTEM
   (the 10/2 sizing replay, 712 board days - the owner: "wire it in when you figure out the sizing"): the Lock sized by
-  its own read (½u-10u; the backup Lock ½u), the Dog of the Day flat 1u (sports.DOG_UNITS), every value play ½u
+  its own read (½u-10u; the backup Lock ½u), the Dog of the Day flat 1u (sports.DOG_UNITS; the NBA Dog ½u - the owner 10/9, a dog score 4+, sports.NBA_DOG_GATE / DOG_UNITS_BY), every value play ½u
   (sports.PLAY_UNITS - they lost at every size; sizing up on edge lost more). Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.

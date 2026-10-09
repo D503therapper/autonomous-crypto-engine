@@ -686,6 +686,10 @@ NHL_DOG_GATE = 6.0             # hockey (10/1 per-sport backtest, every dog +100
 #                                spot and fade): score 6+ won 48.7%, +12.8% on 542 (7 of 7 seasons up; 2023+ +18%,
 #                                this season +11%) - the own read alone LOST; it's the weighed factors (a LEAD: the
 #                                spots came from these seasons - graded live from here)
+NBA_DOG_GATE = 4.0             # the owner, 10/9 ("nba gets a dog"): the 10/9 NBA replay - no NBA dog could ever be the
+#                                Dog (dog_gate had no NBA branch); a dog score 4+ (chosen on 2023-24) went 15-12, +11.5u
+#                                on 27 blind 2024-26 - a LEAD, so the NBA Dog is ½u (DOG_UNITS_BY) with its own record
+DOG_UNITS_BY = {"nba": 0.5}    # the Dog of the Day's units by sport (everything else DOG_UNITS)
 NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backtest, the live read + every spot and fade):
 #                                4+ won 48.7%, +18.9% on 228 (7 of 8 seasons up, 2023+ +17%) - but this season's first
 #                                9 went -46% and a narrower game-day test was -9.7% since 2023: a LEAD, graded live
@@ -700,9 +704,9 @@ def dog_gate(c):
     if c.get("market") != "ml" or not 100 <= c.get("odds", 0) <= DAILY_DOG_MAX or c.get("trap") or fighting(c):
         return False
     lg = c.get("league")
-    if lg in ("nfl", "nhl", "ncaaf"):
+    if lg in ("nfl", "nhl", "ncaaf", "nba"):
         sc = round(dog_score(c), 2)
-        if sc >= {"nfl": DOG_GATE, "nhl": NHL_DOG_GATE, "ncaaf": NCAAF_DOG_GATE}[lg]:
+        if sc >= {"nfl": DOG_GATE, "nhl": NHL_DOG_GATE, "ncaaf": NCAAF_DOG_GATE, "nba": NBA_DOG_GATE}[lg]:
             c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the
             return True                                                                       # weighed read)
         return False
@@ -1647,7 +1651,7 @@ def units_for(pk):
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
     if (pk.get("date") or "") >= SIZING_FROM:              # 💰 THE UNIT SYSTEM (the 10/2 sizing replay - 712 board days,
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
-            return DOG_UNITS                                 # every value play ½u (they lose at any size - sizing up on
+            return DOG_UNITS_BY.get(legs[0].get("league"), DOG_UNITS)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
             return PLAY_UNITS                                # 7/2023 +10.5u vs today's sizing -57u overall
     if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
@@ -2041,13 +2045,13 @@ def nhl_pricey(c):
             and (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) < NHL_FAV_EDGE)
 
 
-PLAY_MARKETS = ("ml", "spread")   # the markets a VALUE PLAY (½u) can come from. THE 10/9 VALUE-PLAY REPLAY (tools/
+PLAY_MARKETS = ("ml",)           # the markets a VALUE PLAY (½u) can come from (the owner, 10/9: moneyline only). THE 10/9 VALUE-PLAY REPLAY (tools/
 #                                  value_play_replay.py, 795 board days 2023-26, closing prices, blind params): spread value
 #                                  plays lost in every season - 2023-24 -21.3% on 131, blind 2025-26 -15.1% on 9 (0 of 4
 #                                  seasons up) - they carry no own read (strust = 0: the engine's margin model is worse
 #                                  than the closing spread, the 10/3 sweep), so the units ride on a study shift alone.
 #                                  Moneyline plays +2.7% / +3.1%. ("ml",) = spreads become leans only (no units) - the
-#                                  OWNER's call (a rule change), not flipped here. Leans / the Lock are untouched.
+#                                  OWNER's call - flipped 10/9 with his OK. Leans / the Lock are untouched.
 
 
 def plays(cands, avoid):
@@ -2761,7 +2765,7 @@ def sizing_check(new):
         elif k == "play":
             want = (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog":
-            want = (DOG_UNITS, DOG_UNITS)
+            want = (DOG_UNITS_BY.get(l.get("league"), DOG_UNITS),) * 2
         elif k == "lock" and l.get("near_price"):
             want = (0.5, 0.5)
         elif k == "lock":
