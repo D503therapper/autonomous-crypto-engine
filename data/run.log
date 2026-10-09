@@ -11838,3 +11838,36 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 08:06 UTC] crypto/hold_btc  equity $491.96 (-1.6%) 1 open  market UP
    social heat top: STRK 40 (40/0/0), RLC 35 (35/0/0), NEAR 29 (29/0/0), BTC 24 (24/0/0), PENGU 21 (21/0/0)
+   dex screen: PASS USELESS@solana liq $4,656,082
+   dex screen: REJECT AGL@ethereum liq $1,338,874 - top-10 holders 55%; lp locked 0% < 95%
+   dex screen: REJECT LMEOW@solana liq $130,631 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck danger: Low Liquidity; rugcheck lp locked 0% < 95%; rugcheck score 54
+   >> crypto/social_heat: SELL $73.01 of MET @ 0.406593, P/L $-19.03 (stop hit (live check))
+   dex screen: REJECT MSTRC@base liq $1,562,524 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 88%; lp locked 0% < 95%
+   dex screen: REJECT POD@base liq $4,855,989 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; buy tax unknown; sell tax unknown; top-10 holders 95%
+   dex screen: REJECT POD@solana liq $103,633 - lp holders unknown; rugcheck lp locked 35% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   listing: okx_symbols #XWEN 'New OKX listing (XWEN)' -> ['XWEN']
+   listing: XWEN: okx_symbols notice "New OKX listing (XWEN)" -> not on Crypto.com USD
+   dex screen: PASS FARTCOIN @solana liq $8,206,890
+   dex screen: REJECT STRK@solana liq $461,084 - mint authority; top-10 holders 83%; lp holders unknown
+   listing: upbit_markets #KAIA 'New Upbit listing (KAIA)' -> ['KAIA']
+   listing: KAIA: upbit_markets notice "New Upbit listing (KAIA)" -> thin $19,028/24h
+   dex screen: REJECT OGN@ethereum liq $1,540,139 - transfer_pausable; is_mintable; owner_change_balance; top-10 holders 70%
+   dex screen: REJECT COCKROACH@solana liq $125,402 - lp holders unknown; rugcheck lp locked 82% < 95%
+   dex screen: REJECT CPOOL@ethereum liq $177,122 - 24h volume $99,545 < $100,000
+   dex scanner: 3,000 pools (solana 2,119 / base 511 / ethereum 370), refresh cycle 125s (hot 121s), 2988 calls (108 feed, 429s 0, failed 0), 86,396 refreshed (5146 no pair), +84 added / -84 dropped (dead 12, stale 0, cap 72), movers 1 + warming 20 -> queued 2, screened 2 (passed 0), bought 0
+   listing: okx_symbols #XAEHR 'New OKX listing (XAEHR)' -> ['XAEHR']
+   listing: XAEHR: okx_symbols notice "New OKX listing (XAEHR)" -> not on Crypto.com USD
+[2026-10-09 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 09:06 UTC] crypto/mover     equity $368.14 (-26.4%) 2 open  market UP
+[2026-10-09 09:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 09:06 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 09:06 UTC] crypto/breakout10 equity $470.76 (-5.8%) 2 open  market UP
+[2026-10-09 09:06 UTC] crypto/momentum  equity $455.94 (-8.8%) 2 open  market UP
+[2026-10-09 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 09:06 UTC] crypto/hold_btc  equity $492.09 (-1.6%) 1 open  market UP
+   social heat top: STRK 46 (40/0/6), BTC 35 (35/0/0), KAIA 32 (32/0/0), NEAR 24 (24/0/0), PUMP 21 (21/0/0)
