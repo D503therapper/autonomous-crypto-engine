@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T15:22Z",
+ "updated": "2026-10-09T15:28Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -136,7 +136,9 @@
     "odds": -250,
     "p": 0.703,
     "win_p": 0.486,
-    "reasons": []
+    "reasons": [
+     "hotter goalie"
+    ]
    }
   },
   {
@@ -648,7 +650,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.379,
+    "p": 0.37,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -657,17 +659,19 @@
    "start": "2026-10-10T17:00Z",
    "away": "Flyers",
    "home": "Bruins",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Flyers",
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -222,
-    "p": 0.661,
-    "win_p": 0.442,
-    "reasons": []
+    "odds": -238,
+    "p": 0.681,
+    "win_p": 0.462,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -699,6 +703,38 @@
      "the stronger team",
      "hotter recent form",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401862797",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "East Carolina",
+    "p": 0.705,
+    "tie": 0.028,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T17:00Z",
+   "away": "Rice",
+   "home": "East Carolina",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "East Carolina",
+    "opp": "Rice",
+    "market": "spread",
+    "line": -10.0,
+    "odds": -108,
+    "p": 0.501,
+    "win_p": 0.76,
+    "reasons": [
+     "the stronger team",
+     "better rested",
+     "rolling off a blowout win"
     ]
    }
   },
@@ -799,8 +835,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.409,
-    "tie": 0.294,
+    "p": 0.473,
+    "tie": 0.284,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -808,20 +844,20 @@
    "start": "2026-10-10T19:30Z",
    "away": "Canucks",
    "home": "Devils",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Devils",
     "opp": "Canucks",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
+    "odds": -278,
+    "p": 0.741,
+    "win_p": 0.741,
     "reasons": [
      "the stronger team",
      "hotter goalie",
-     "better rested"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1005,8 +1041,8 @@
     "team": "W Michigan",
     "opp": "Kent State",
     "market": "spread",
-    "line": -13.5,
-    "odds": -120,
+    "line": -14.0,
+    "odds": -108,
     "p": 0.502,
     "win_p": 0.817,
     "reasons": [
@@ -1208,7 +1244,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Oilers",
-    "p": 0.384,
+    "p": 0.388,
     "tie": 0.296,
     "name": "1st period"
    },
@@ -1224,44 +1260,12 @@
     "opp": "Oilers",
     "market": "spread",
     "line": 1.5,
-    "odds": -222,
-    "p": 0.651,
-    "win_p": 0.43,
+    "odds": -225,
+    "p": 0.643,
+    "win_p": 0.421,
     "reasons": [
      "hotter goalie",
      "hotter recent form"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401862797",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "East Carolina",
-    "p": 0.705,
-    "tie": 0.028,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-10T20:00Z",
-   "away": "Rice",
-   "home": "East Carolina",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "East Carolina",
-    "opp": "Rice",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -108,
-    "p": 0.501,
-    "win_p": 0.76,
-    "reasons": [
-     "the stronger team",
-     "better rested",
-     "rolling off a blowout win"
     ]
    }
   },
@@ -1365,8 +1369,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Panthers",
-    "p": 0.38,
-    "tie": 0.296,
+    "p": 0.374,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1382,8 +1386,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.66,
-    "win_p": 0.441,
+    "p": 0.672,
+    "win_p": 0.453,
     "reasons": [
      "the stronger team"
     ]
@@ -1395,7 +1399,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.358,
+    "p": 0.364,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -1411,9 +1415,9 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.702,
-    "win_p": 0.485,
+    "odds": -238,
+    "p": 0.692,
+    "win_p": 0.475,
     "reasons": [
      "better rested",
      "hotter recent form"
@@ -1458,8 +1462,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.419,
-    "tie": 0.293,
+    "p": 0.432,
+    "tie": 0.291,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1474,13 +1478,13 @@
     "opp": "Blackhawks",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.645,
-    "win_p": 0.645,
+    "odds": -218,
+    "p": 0.672,
+    "win_p": 0.672,
     "reasons": [
      "the stronger team",
      "hotter goalie",
-     "hotter recent form"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1520,7 +1524,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Sabres",
-    "p": 0.37,
+    "p": 0.359,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -1536,11 +1540,12 @@
     "opp": "Sabres",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.679,
-    "win_p": 0.461,
+    "odds": -245,
+    "p": 0.7,
+    "win_p": 0.483,
     "reasons": [
      "hotter recent form",
+     "sharp money moving this way",
      "opponent drama: family/personal"
     ]
    }
@@ -1551,7 +1556,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.406,
+    "p": 0.413,
     "tie": 0.294,
     "name": "1st period"
    },
@@ -1567,9 +1572,9 @@
     "opp": "Maple Leafs",
     "market": "ml",
     "line": null,
-    "odds": -182,
-    "p": 0.616,
-    "win_p": 0.616,
+    "odds": -192,
+    "p": 0.63,
+    "win_p": 0.63,
     "reasons": [
      "the stronger team",
      "hotter goalie",
@@ -1644,8 +1649,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.379,
-    "tie": 0.297,
+    "p": 0.394,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1653,16 +1658,16 @@
    "start": "2026-10-10T23:00Z",
    "away": "Predators",
    "home": "Senators",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Predators",
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -227,
-    "p": 0.661,
-    "win_p": 0.442,
+    "odds": -185,
+    "p": 0.632,
+    "win_p": 0.412,
     "reasons": [
      "opponent drama: trade drama"
     ]
@@ -1674,8 +1679,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.393,
-    "tie": 0.296,
+    "p": 0.419,
+    "tie": 0.293,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1683,19 +1688,20 @@
    "start": "2026-10-10T23:00Z",
    "away": "Red Wings",
    "home": "Canadiens",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Red Wings",
-    "opp": "Canadiens",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.634,
-    "win_p": 0.414,
+    "team": "Canadiens",
+    "opp": "Red Wings",
+    "market": "ml",
+    "line": null,
+    "odds": -205,
+    "p": 0.643,
+    "win_p": 0.643,
     "reasons": [
-     "better rested",
-     "hotter recent form"
+     "the stronger team",
+     "sharp money moving this way",
+     "hotter goalie"
     ]
    }
   },
@@ -1705,8 +1711,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.369,
-    "tie": 0.297,
+    "p": 0.393,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1721,9 +1727,9 @@
     "opp": "Stars",
     "market": "spread",
     "line": 1.5,
-    "odds": -263,
-    "p": 0.679,
-    "win_p": 0.461,
+    "odds": -185,
+    "p": 0.633,
+    "win_p": 0.411,
     "reasons": []
    }
   },
@@ -1781,7 +1787,7 @@
     "opp": "Air Force",
     "market": "spread",
     "line": 7.0,
-    "odds": -102,
+    "odds": -105,
     "p": 0.5,
     "win_p": 0.237,
     "reasons": [
@@ -1861,8 +1867,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.379,
-    "tie": 0.297,
+    "p": 0.398,
+    "tie": 0.295,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1877,9 +1883,9 @@
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -244,
-    "p": 0.661,
-    "win_p": 0.441,
+    "odds": -192,
+    "p": 0.622,
+    "win_p": 0.4,
     "reasons": []
    }
   },
@@ -2011,7 +2017,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.485,
+    "p": 0.484,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -2028,8 +2034,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -193,
-    "p": 0.623,
-    "win_p": 0.441,
+    "p": 0.625,
+    "win_p": 0.443,
     "reasons": []
    }
   },
@@ -2039,7 +2045,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Ducks",
-    "p": 0.369,
+    "p": 0.378,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -2055,9 +2061,9 @@
     "opp": "Ducks",
     "market": "spread",
     "line": 1.5,
-    "odds": -263,
-    "p": 0.679,
-    "win_p": 0.46,
+    "odds": -218,
+    "p": 0.662,
+    "win_p": 0.441,
     "reasons": []
    }
   },
@@ -2067,8 +2073,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.406,
-    "tie": 0.294,
+    "p": 0.394,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2079,18 +2085,14 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Golden Knights",
-    "opp": "Kings",
-    "market": "ml",
-    "line": null,
-    "odds": -182,
-    "p": 0.615,
-    "win_p": 0.615,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "hotter goalie"
-    ]
+    "team": "Kings",
+    "opp": "Golden Knights",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -198,
+    "p": 0.632,
+    "win_p": 0.412,
+    "reasons": []
    }
   },
   {
