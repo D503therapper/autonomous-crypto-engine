@@ -11718,3 +11718,31 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 05:06 UTC] crypto/hold_btc  equity $490.07 (-2.0%) 1 open  market UP
    social heat top: STRK 40 (40/0/0), RAY 36 (27/0/9), PONS 34 (24/0/10), NEAR 29 (29/0/0), PRL 21 (21/0/0)
+   dex screen: REJECT SPCXX@solana liq $114,724 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 90%; lp holders unknown
+   dex screen: REJECT RARI@solana liq $123,776 - holders unknown; lp holders unknown; rugcheck lp locked 57% < 95%
+   dex screen: REJECT STOCKER@ethereum liq $284,744 - lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT WETH@solana liq $7,138,073 - mint authority; top-10 holders 77%
+   dex screen: REJECT ANSEM@solana liq $2,354,106 - top-10 holders 65%
+   dex screen: REJECT CRAWL@solana liq $270,527 - lp holders unknown; rugcheck lp locked 43% < 95%
+   dex screen: PASS CATE@solana liq $2,714,124
+   dex screen: REJECT ZEC@solana liq $3,184,811 - mint authority
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   listings: coinbase_products failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   listings: coinbase_products failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT NVDAC@base liq $1,937,205 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; buy tax unknown; sell tax unknown; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: PASS DRMR@solana liq $102,427
+   dex scanner: 3,000 pools (solana 2,126 / base 525 / ethereum 349), refresh cycle 125s (hot 121s), 2981 calls (108 feed, 429s 0, failed 0), 86,188 refreshed (4656 no pair), +87 added / -86 dropped (dead 6, stale 0, cap 80), movers 0 + warming 23 -> queued 3, screened 3 (passed 1), bought 0
+[2026-10-09 06:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 06:06 UTC] crypto/mover     equity $370.49 (-25.9%) 1 open  market UP
+[2026-10-09 06:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 06:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 06:06 UTC] crypto/social_heat equity $468.30 (-6.3%) 1 open  market UP
+[2026-10-09 06:06 UTC] crypto/breakout10 equity $471.75 (-5.6%) 2 open  market UP
+[2026-10-09 06:06 UTC] crypto/momentum  equity $456.50 (-8.7%) 2 open  market UP
+[2026-10-09 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 06:06 UTC] crypto/hold_btc  equity $490.75 (-1.9%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), NEAR 37 (37/0/0), BTC 35 (35/0/0), PENGU 32 (32/0/0), HYPE 21 (21/0/0)
