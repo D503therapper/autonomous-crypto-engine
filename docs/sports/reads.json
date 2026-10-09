@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T00:31Z",
+ "updated": "2026-10-09T00:56Z",
  "games": [
   {
    "id": "nhl:401892461",
@@ -357,31 +357,28 @@
    "id": "nhl:401892463",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.427,
-    "tie": 0.294,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-09T01:00Z",
    "away": "Avalanche",
    "home": "Flames",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Avalanche",
-    "opp": "Flames",
+    "team": "Flames",
+    "opp": "Avalanche",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.662,
-    "win_p": 0.662,
+    "odds": 195,
+    "p": 0.342,
+    "win_p": 0.342,
     "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
+     "better rested",
+     "opponent on a back-to-back"
+    ],
+    "result": null
    }
   },
   {
