@@ -1,9 +1,12 @@
 {
- "at": "2026-10-09T01:41Z",
+ "at": "2026-10-09T02:27Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Okamura vs Bai Zhuoxuan: no points for 1000s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (87s)",
+  "live watcher fresh (177s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +14,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 8 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 14 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 9 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-09T02:27Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Okamura vs Bai Zhuoxuan: no points for 1000s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-09T01:41Z",
    "fixes": [],
@@ -491,13 +502,6 @@
     "live tennis scores: tennis Ercan vs Waltert: no points for 2647s",
     "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 613s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-06T14:11Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 3 live matches has points + server on the 1-second route"
    ]
   }
  ]
