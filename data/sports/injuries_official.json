@@ -1,3447 +1,3690 @@
 {
- "_why": "Official availability reports the ESPN feed doesn't carry (10/2: ESPN's college feed listed 3 teams). One entry per game day (Pacific); each team: the source and every player [name, position, status]. Read by sports_data.fetch_injuries - a team listed here counts as COVERED.",
- "2026-10-02": {
-  "ncaaf": {
-   "259": {
-    "team": "Virginia Tech",
-    "src": "ACC availability report (via SI / 247Sports, 10/1)",
-    "players": [
-     [
-      "Justin Terry",
-      "OL",
-      "Out"
-     ],
-     [
-      "Emmett Laws",
-      "DL",
-      "Out"
-     ],
-     [
-      "Takye Heath",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Shamarius Peterkin",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Bill Davis",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Jojo Crim",
-      "CB",
-      "Questionable"
-     ],
-     [
-      "Lucas Austin",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Roseby Lubintus",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Brody Meadows",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "L.J. Booker",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Luke Stuewe",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "221": {
-    "team": "Pitt",
-    "src": "ACC availability report (via On3, 10/1)",
-    "players": [
-     [
-      "Zach Crothers",
-      "DE",
-      "Doubtful"
-     ],
-     [
-      "Elijah Lagg",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "Cruce Brookins",
-      "S",
-      "Questionable"
-     ]
-    ]
-   },
-   "213": {
-    "team": "Penn State",
-    "src": "Big Ten availability report, Wed 9/30 + Thu 10/1 (via 247Sports / Yahoo / On3)",
-    "players": [
-     [
-      "Koby Howard",
-      "WR",
-      "Out"
-     ],
-     [
-      "Max Granville",
-      "DE",
-      "Out For Season"
-     ],
-     [
-      "LaVar Arrington II",
-      "DE",
-      "Out"
-     ],
-     [
-      "Tyler Armstead",
-      "CB",
-      "Out"
-     ],
-     [
-      "Joshua Johnson",
-      "CB",
-      "Out"
-     ],
-     [
-      "Mason Robinson",
-      "DE",
-      "Out"
-     ],
-     [
-      "Dayshaun Burnett",
-      "DE",
-      "Out"
-     ],
-     [
-      "Daryus Dixson",
-      "CB",
-      "Questionable"
-     ],
-     [
-      "Cam Smith",
-      "LB",
-      "Out"
-     ],
-     [
-      "Christian Askew",
-      "CB",
-      "Out"
-     ],
-     [
-      "Cristiano Rosa",
-      "K",
-      "Out"
-     ]
-    ]
-   },
-   "77": {
-    "team": "Northwestern",
-    "src": "Big Ten availability report, Thursday 10/1 (via 247Sports / Yahoo)",
-    "players": [
-     [
-      "Hayden Eligon II",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Chase Farrell",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Nigel Glover",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Troy Regovich",
-      "DL",
-      "Questionable"
-     ],
-     [
-      "Damon Walters",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Braden Turner",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Luke Dehnicke",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "Seth Valeri",
-      "DB",
-      "Out"
-     ],
-     [
-      "Josh Fussell",
-      "DB",
-      "Out"
-     ],
-     [
-      "Max Mohring",
-      "LB",
-      "Out"
-     ],
-     [
-      "Jason Reynolds",
-      "LB",
-      "Out"
-     ],
-     [
-      "Callen Campbell",
-      "DL",
-      "Out"
-     ],
-     [
-      "Qayvier Johnson",
-      "LB",
-      "Out"
-     ],
-     [
-      "David Anchondo",
-      "OL",
-      "Out"
-     ],
-     [
-      "Ezomo Oratokhai",
-      "OL",
-      "Out For Season"
-     ],
-     [
-      "Jacob Miller",
-      "OL",
-      "Out"
-     ],
-     [
-      "Chris Petrucci",
-      "TE",
-      "Out"
-     ]
-    ]
-   }
+  "_why": "Official availability reports the ESPN feed doesn't carry (10/2: ESPN's college feed listed 3 teams). One entry per game day (Pacific); each team: the source and every player [name, position, status]. Read by sports_data.fetch_injuries - a team listed here counts as COVERED.",
+  "2026-10-02": {
+    "ncaaf": {
+      "259": {
+        "team": "Virginia Tech",
+        "src": "ACC availability report (via SI / 247Sports, 10/1)",
+        "players": [
+          [
+            "Justin Terry",
+            "OL",
+            "Out"
+          ],
+          [
+            "Emmett Laws",
+            "DL",
+            "Out"
+          ],
+          [
+            "Takye Heath",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Shamarius Peterkin",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Bill Davis",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Jojo Crim",
+            "CB",
+            "Questionable"
+          ],
+          [
+            "Lucas Austin",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Roseby Lubintus",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Brody Meadows",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "L.J. Booker",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Luke Stuewe",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "221": {
+        "team": "Pitt",
+        "src": "ACC availability report (via On3, 10/1)",
+        "players": [
+          [
+            "Zach Crothers",
+            "DE",
+            "Doubtful"
+          ],
+          [
+            "Elijah Lagg",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Cruce Brookins",
+            "S",
+            "Questionable"
+          ]
+        ]
+      },
+      "213": {
+        "team": "Penn State",
+        "src": "Big Ten availability report, Wed 9/30 + Thu 10/1 (via 247Sports / Yahoo / On3)",
+        "players": [
+          [
+            "Koby Howard",
+            "WR",
+            "Out"
+          ],
+          [
+            "Max Granville",
+            "DE",
+            "Out For Season"
+          ],
+          [
+            "LaVar Arrington II",
+            "DE",
+            "Out"
+          ],
+          [
+            "Tyler Armstead",
+            "CB",
+            "Out"
+          ],
+          [
+            "Joshua Johnson",
+            "CB",
+            "Out"
+          ],
+          [
+            "Mason Robinson",
+            "DE",
+            "Out"
+          ],
+          [
+            "Dayshaun Burnett",
+            "DE",
+            "Out"
+          ],
+          [
+            "Daryus Dixson",
+            "CB",
+            "Questionable"
+          ],
+          [
+            "Cam Smith",
+            "LB",
+            "Out"
+          ],
+          [
+            "Christian Askew",
+            "CB",
+            "Out"
+          ],
+          [
+            "Cristiano Rosa",
+            "K",
+            "Out"
+          ]
+        ]
+      },
+      "77": {
+        "team": "Northwestern",
+        "src": "Big Ten availability report, Thursday 10/1 (via 247Sports / Yahoo)",
+        "players": [
+          [
+            "Hayden Eligon II",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Chase Farrell",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Nigel Glover",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Troy Regovich",
+            "DL",
+            "Questionable"
+          ],
+          [
+            "Damon Walters",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Braden Turner",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Luke Dehnicke",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Seth Valeri",
+            "DB",
+            "Out"
+          ],
+          [
+            "Josh Fussell",
+            "DB",
+            "Out"
+          ],
+          [
+            "Max Mohring",
+            "LB",
+            "Out"
+          ],
+          [
+            "Jason Reynolds",
+            "LB",
+            "Out"
+          ],
+          [
+            "Callen Campbell",
+            "DL",
+            "Out"
+          ],
+          [
+            "Qayvier Johnson",
+            "LB",
+            "Out"
+          ],
+          [
+            "David Anchondo",
+            "OL",
+            "Out"
+          ],
+          [
+            "Ezomo Oratokhai",
+            "OL",
+            "Out For Season"
+          ],
+          [
+            "Jacob Miller",
+            "OL",
+            "Out"
+          ],
+          [
+            "Chris Petrucci",
+            "TE",
+            "Out"
+          ]
+        ]
+      }
+    }
+  },
+  "2026-10-03": {
+    "ncaaf": {
+      "130": {
+        "team": "Michigan",
+        "src": "https://www.on3.com/sites/gophers-nation/news/minnesota-vs-michigan-thursday-availability-report [Thursday 10/1 gameday chart, Michigan vs Minnesota] (verified from the page)",
+        "players": [
+          [
+            "Braydon Alford",
+            "WR",
+            "Out"
+          ],
+          [
+            "Andrew Babalola",
+            "OL",
+            "Out"
+          ],
+          [
+            "Jonathan Brown",
+            "RB",
+            "Out"
+          ],
+          [
+            "Ace Hamilton",
+            "OL",
+            "Out"
+          ],
+          [
+            "Julius Holly",
+            "EDGE",
+            "Out"
+          ],
+          [
+            "Micah Ka’apana",
+            "RB",
+            "Out"
+          ],
+          [
+            "Andrew Marsh",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "John Henry Daley",
+            "EDGE",
+            "Questionable"
+          ],
+          [
+            "Dom Nichols",
+            "EDGE",
+            "Questionable"
+          ],
+          [
+            "Andrew Sprague",
+            "OT",
+            "Questionable"
+          ],
+          [
+            "Manuel Biegel",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Houston Ka’aha’aina-Torres",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Blake Frazier",
+            "OT",
+            "Probable"
+          ]
+        ]
+      },
+      "135": {
+        "team": "Minnesota",
+        "src": "https://www.on3.com/sites/gophers-nation/news/minnesota-vs-michigan-thursday-availability-report [Thursday 10/1 gameday chart] (verified from the page)",
+        "players": [
+          [
+            "Ashton Beers",
+            "C",
+            "Out"
+          ],
+          [
+            "Jaden Ball",
+            "OL",
+            "Out"
+          ],
+          [
+            "Riley Sunram",
+            "DT",
+            "Probable"
+          ],
+          [
+            "A.J. Turner",
+            "RB",
+            "Probable"
+          ],
+          [
+            "Zeke Bates",
+            "RB",
+            "Probable"
+          ],
+          [
+            "Adam Kissayi",
+            "DE",
+            "Probable"
+          ],
+          [
+            "Beckham Sunderland",
+            "K",
+            "Probable"
+          ]
+        ]
+      },
+      "333": {
+        "team": "Alabama",
+        "src": "https://www.on3.com/teams/alabama-crimson-tide/news/initial-availability-report-alabama-ol-starter-questionable-for-mississippi-state-game [Wed 10/1 initial SEC report] (verified from the page)",
+        "players": [
+          [
+            "Justin Hill",
+            "LB",
+            "Out"
+          ],
+          [
+            "Desmond Umeozulu",
+            "LB",
+            "Out"
+          ],
+          [
+            "Jorden Edmonds",
+            "DB",
+            "Out"
+          ],
+          [
+            "Cayden Jones",
+            "LB",
+            "Out"
+          ],
+          [
+            "Nick Sherman",
+            "DB",
+            "Out"
+          ],
+          [
+            "Jeremiah Beaman",
+            "DL",
+            "Out"
+          ],
+          [
+            "Jayvin James",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Zavier Mincey",
+            "DB",
+            "Probable"
+          ]
+        ]
+      },
+      "344": {
+        "team": "Mississippi State",
+        "src": "https://www.on3.com/teams/alabama-crimson-tide/news/initial-availability-report-alabama-ol-starter-questionable-for-mississippi-state-game [Wed 10/1 initial SEC report; the draft's SI page was a 2025 (Texas A&M) article] (verified from the page)",
+        "players": [
+          [
+            "Ayden Williams",
+            "WR",
+            "Out"
+          ],
+          [
+            "Trevion Williams",
+            "DL",
+            "Out"
+          ],
+          [
+            "Diesel Moye",
+            "DL",
+            "Out"
+          ],
+          [
+            "Zakari Tillman",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Isaac Smith",
+            "S",
+            "Probable"
+          ],
+          [
+            "Fluff Bothwell",
+            "RB",
+            "Probable"
+          ]
+        ]
+      },
+      "154": {
+        "team": "Wake Forest",
+        "src": "https://ncfootballnews.com/games/stanford-at-wake-forest-football-2026/ (ACC report Wed 10/1 + Thu update, verified from the page)",
+        "players": [
+          [
+            "Ny Carr",
+            "WR",
+            "Out"
+          ],
+          [
+            "Devin Cook",
+            "DB",
+            "Out"
+          ],
+          [
+            "Tyler Walton",
+            "DL",
+            "Doubtful"
+          ],
+          [
+            "Elijah Otieno",
+            "WR",
+            "Doubtful"
+          ]
+        ]
+      },
+      "277": {
+        "team": "West Virginia",
+        "src": "https://www.widerightnattylite.com/iowa-state-football/53913/injury-report-for-iowa-states-matchup-versus-west-virginia + https://www.si.com/college/westvirginia/football/wvu-wr-armoni-weaver-bomar-out-vs-iowa-state-two-defenders-probable [Wed 10/1 Big 12 report] (verified from the page)",
+        "players": [
+          [
+            "Emory Snyder",
+            "Nickel/Safety",
+            "Out"
+          ],
+          [
+            "Armoni Weaver-Bomar",
+            "WR",
+            "Out"
+          ],
+          [
+            "Andre Devine",
+            "RB",
+            "Out"
+          ],
+          [
+            "Darius Wiley",
+            "DL",
+            "Out"
+          ],
+          [
+            "Nick Taylor",
+            "CB",
+            "Probable"
+          ],
+          [
+            "Ashton Woods",
+            "LB",
+            "Probable"
+          ]
+        ]
+      },
+      "66": {
+        "team": "Iowa State",
+        "src": "https://www.widerightnattylite.com/iowa-state-football/53913/injury-report-for-iowa-states-matchup-versus-west-virginia [Wed 10/1 Big 12 report] (verified from the page)",
+        "players": [
+          [
+            "Carter Pabst",
+            "WR",
+            "Out"
+          ],
+          [
+            "Caden Maas",
+            "OL",
+            "Out"
+          ],
+          [
+            "Caden Crawford",
+            "DE",
+            "Out"
+          ],
+          [
+            "Ka'Mori Moore",
+            "DT",
+            "Out"
+          ],
+          [
+            "Jaheim Singletary",
+            "CB",
+            "Questionable"
+          ]
+        ]
+      },
+      "127": {
+        "team": "Michigan St",
+        "src": "https://sports.yahoo.com/articles/wisconsin-running-back-doubtful-homecoming-010555177.html [Wed 9/30 initial Big Ten report; the Detroit News page FAILED] (verified from the page)",
+        "players": [
+          [
+            "NiJhay Burt",
+            "CB",
+            "Out"
+          ],
+          [
+            "Cam Edwards",
+            "RB",
+            "Out"
+          ],
+          [
+            "Keshawn Williams",
+            "CB",
+            "Out"
+          ],
+          [
+            "Tyran Chappell",
+            "CB",
+            "Out"
+          ],
+          [
+            "Jack Coyne",
+            "FB",
+            "Out"
+          ],
+          [
+            "Tristan Comer",
+            "OL",
+            "Out"
+          ],
+          [
+            "Jay Caudill",
+            "TE",
+            "Out"
+          ],
+          [
+            "Jordan Hall",
+            "LB",
+            "Doubtful"
+          ],
+          [
+            "Tre Bell",
+            "CB",
+            "Questionable"
+          ],
+          [
+            "Cam Slodghill",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Dion Crawford",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Brady Pretzlaff",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Conner Moore",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Eli Bickel",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Cal Thursh",
+            "DL",
+            "Questionable"
+          ]
+        ]
+      },
+      "275": {
+        "team": "Wisconsin",
+        "src": "https://sports.yahoo.com/articles/wisconsin-running-back-doubtful-homecoming-010555177.html [Wed 9/30 initial Big Ten report] (verified from the page)",
+        "players": [
+          [
+            "Cai Bates",
+            "CB",
+            "Out"
+          ],
+          [
+            "Jaylon Domingeaux",
+            "WR",
+            "Out"
+          ],
+          [
+            "Michael Roeske",
+            "OL",
+            "Out"
+          ],
+          [
+            "Abu Sama",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Bryan Jackson",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Mason Lane",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Emerson Mandell",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Ryan Schwendeman",
+            "TE",
+            "Probable"
+          ],
+          [
+            "Sean West",
+            "P",
+            "Probable"
+          ]
+        ]
+      },
+      "61": {
+        "team": "Georgia",
+        "src": "https://www.on3.com/news/jared-curtis-nate-frazier-still-questionable-on-thursdays-sec-availability-report-for-vanderbilt-georgia/ [Thu 10/1 SEC report] (verified from the page)",
+        "players": [
+          [
+            "Amaris Williams",
+            "OLB",
+            "Out"
+          ],
+          [
+            "Tyriq Green",
+            "DB",
+            "Out"
+          ],
+          [
+            "Marcus Harrison",
+            "OL",
+            "Out"
+          ],
+          [
+            "Nate Frazier",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Isiah Canion",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Chase Linton",
+            "OLB",
+            "Questionable"
+          ]
+        ]
+      },
+      "238": {
+        "team": "Vanderbilt",
+        "src": "https://www.on3.com/news/jared-curtis-nate-frazier-still-questionable-on-thursdays-sec-availability-report-for-vanderbilt-georgia/ [Thu 10/1 SEC report] (verified from the page)",
+        "players": [
+          [
+            "Jaylin Lackey",
+            "CB",
+            "Out"
+          ],
+          [
+            "Jamison Curtis",
+            "LB",
+            "Out"
+          ],
+          [
+            "Aaron Bryan",
+            "DL",
+            "Out"
+          ],
+          [
+            "Nakhil Jefferson",
+            "DL",
+            "Out"
+          ],
+          [
+            "Jared Curtis",
+            "QB",
+            "Questionable"
+          ],
+          [
+            "Miles Capers",
+            "EDGE",
+            "Probable"
+          ]
+        ]
+      },
+      "252": {
+        "team": "BYU",
+        "src": "https://sports.ksl.com/ncaa/byu-football/byu-tcu-availability-report/577735 (KSL, Sep 30/Oct 1 2026, Big 12 report for TCU game) (verified from the page)",
+        "players": [
+          [
+            "Jonathan Kabeya",
+            "CB",
+            "Out"
+          ],
+          [
+            "Raider Damuni",
+            "S",
+            "Out"
+          ],
+          [
+            "Sione Moa",
+            "RB",
+            "Out"
+          ],
+          [
+            "Andrew Gentry",
+            "OL",
+            "Out"
+          ],
+          [
+            "Ethan Thomason",
+            "OL",
+            "Out"
+          ],
+          [
+            "Brody Laga",
+            "K",
+            "Out"
+          ],
+          [
+            "Siale Esera",
+            "LB",
+            "Out"
+          ],
+          [
+            "Kevin Doe",
+            "CB",
+            "Probable"
+          ]
+        ]
+      },
+      "2628": {
+        "team": "TCU",
+        "src": "https://sports.ksl.com/ncaa/byu-football/byu-tcu-availability-report/577735 (KSL, Sep 30/Oct 1 2026, Big 12 report for BYU game) (verified from the page)",
+        "players": [
+          [
+            "Michael Short",
+            "LB",
+            "Out"
+          ],
+          [
+            "Devondre McGee",
+            "CB",
+            "Out"
+          ],
+          [
+            "Joe Pitchford",
+            "RB",
+            "Out"
+          ],
+          [
+            "Devan Robison",
+            "OL",
+            "Out"
+          ],
+          [
+            "Creece Brister",
+            "OL",
+            "Out"
+          ],
+          [
+            "Cooper Reid",
+            "WR",
+            "Out"
+          ],
+          [
+            "Zach Chapman",
+            "EDGE",
+            "Questionable"
+          ],
+          [
+            "Perry Cole Jr.",
+            "DT",
+            "Questionable"
+          ]
+        ]
+      },
+      "2390": {
+        "team": "Miami",
+        "src": "https://sports.yahoo.com/articles/clemson-miami-injury-report-just-010054477.html + https://www.canesinsight.com/articles/availability-report-miami-vs-clemson.12648/ (Yahoo dated Oct 1 2026; ACC report, 6 out + 2 questionable) (verified from the page)",
+        "players": [
+          [
+            "Joshua Moore",
+            "WR",
+            "Out"
+          ],
+          [
+            "CharMar Brown",
+            "",
+            "Out"
+          ],
+          [
+            "Ja'Boree Antoine",
+            "",
+            "Out"
+          ],
+          [
+            "O.J. Frederique",
+            "DB",
+            "Out"
+          ],
+          [
+            "Owen Ruskavich",
+            "TE",
+            "Out"
+          ],
+          [
+            "Luka Gilbert",
+            "TE",
+            "Out"
+          ],
+          [
+            "Xavier Lucas",
+            "CB",
+            "Questionable"
+          ],
+          [
+            "Ezekiel Marcelin Jr.",
+            "LB",
+            "Questionable"
+          ]
+        ]
+      },
+      "36": {
+        "team": "Colorado St",
+        "src": "https://sports.yahoo.com/articles/availability-report-colorado-state-vs-023210664.html (Coloradoan/Yahoo, Oct 1 2026, Pac-12 initial report) (verified from the page)",
+        "players": [
+          [
+            "Alton Tarbor",
+            "DL",
+            "Probable"
+          ],
+          [
+            "Brandon Kelley",
+            "DL",
+            "Probable"
+          ],
+          [
+            "Dakota Rich",
+            "LB",
+            "Probable"
+          ],
+          [
+            "Dylan Phelps",
+            "DB",
+            "Probable"
+          ],
+          [
+            "Hudson Cocchiara",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Jordan Lessard",
+            "DB",
+            "Probable"
+          ],
+          [
+            "Marc Pretto",
+            "LB",
+            "Probable"
+          ],
+          [
+            "Mel Brown",
+            "RB",
+            "Probable"
+          ],
+          [
+            "Oliver Lundberg",
+            "RB",
+            "Probable"
+          ],
+          [
+            "Oumar Diomande",
+            "LB",
+            "Probable"
+          ],
+          [
+            "Pearce Spurlin",
+            "TE",
+            "Probable"
+          ],
+          [
+            "Thomas Cook",
+            "DB",
+            "Probable"
+          ],
+          [
+            "Toriyan Johnson",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Trey Vincent",
+            "DB",
+            "Probable"
+          ],
+          [
+            "Uluaki Tatafu",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Zach Smith",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Daven Amos",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Hauss Hejny",
+            "QB",
+            "Questionable"
+          ],
+          [
+            "Jayden Cortell",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Kallen Martinez",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Elijah Mc-Cantos",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Grant Houser",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Jayden Tuia",
+            "OL",
+            "Doubtful"
+          ],
+          [
+            "Troy Foster",
+            "WR",
+            "Doubtful"
+          ],
+          [
+            "AJ Noland",
+            "DB",
+            "Out"
+          ],
+          [
+            "Dagan Myers",
+            "DB",
+            "Out"
+          ],
+          [
+            "Payton Stewart",
+            "OL",
+            "Out"
+          ]
+        ]
+      },
+      "204": {
+        "team": "Oregon St",
+        "src": "https://sports.yahoo.com/articles/availability-report-colorado-state-vs-023210664.html (Coloradoan/Yahoo, Oct 1 2026, Pac-12 initial report) (verified from the page)",
+        "players": [
+          [
+            "Jacob Anderson",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Ryan RJ Whitten",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Trey Glasper",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Kourdey Glass",
+            "RB",
+            "Doubtful"
+          ],
+          [
+            "Carter Guilliame",
+            "OL",
+            "Out"
+          ],
+          [
+            "Kait Wheaton",
+            "DB",
+            "Out"
+          ]
+        ]
+      },
+      "21": {
+        "team": "San Diego State",
+        "src": "https://www.on3.com/news/san-diego-state-lists-32-players-on-injury-report-amid-mumps-outbreak (verified from the page, Pac-12 report, Oct 1; vs Texas State; page lists all 32 names, 17 doubtful/out) + Rotowire update (Emanuel probable, Ford doubtful) + Thursday-night update: Justius Lowe up to Questionable (si.com/college/san-diego-state/football/san-diego-state-availability-report-changes-again-ahead-pac-12-opener)",
+        "players": [
+          [
+            "Carson Diehl",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Dennis Jones",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Donovan Brown",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Isaac Lucas",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Jacob Bostick",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Jalen Thomeson",
+            "DB",
+            "Probable"
+          ],
+          [
+            "Kai Wallin",
+            "OLB",
+            "Probable"
+          ],
+          [
+            "Kaimana Tufaga",
+            "DB",
+            "Probable"
+          ],
+          [
+            "Kalan Ellis",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Krishna Clay",
+            "DL",
+            "Probable"
+          ],
+          [
+            "Parker Threatt",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Bert Emanuel Jr",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Jackson Ford",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Kime Fangupo",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Ryan Wolfer",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Dean Harrington",
+            "ILB",
+            "Doubtful"
+          ],
+          [
+            "Elijah Muliufi",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Harlem Nellum",
+            "OL",
+            "Doubtful"
+          ],
+          [
+            "Jack Lua",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Javion Kinnard",
+            "RB",
+            "Doubtful"
+          ],
+          [
+            "Jeremiah Lewis",
+            "ILB",
+            "Doubtful"
+          ],
+          [
+            "Justius Lowe",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Tuaoa Tauiliili",
+            "DL",
+            "Doubtful"
+          ],
+          [
+            "Braylon Cardwell",
+            "DB",
+            "Out"
+          ],
+          [
+            "Dalesean Staley",
+            "DB",
+            "Out"
+          ],
+          [
+            "Jack Ellis",
+            "TE",
+            "Out"
+          ],
+          [
+            "Lucky Sutton",
+            "RB",
+            "Out"
+          ],
+          [
+            "Luke Williams",
+            "SP",
+            "Out"
+          ],
+          [
+            "Mikey Watkins",
+            "OL",
+            "Out"
+          ],
+          [
+            "Parker Guiltinan",
+            "TE",
+            "Out"
+          ],
+          [
+            "Roman Paseka",
+            "DL",
+            "Out"
+          ],
+          [
+            "Stone Saunders",
+            "QB",
+            "Out"
+          ]
+        ]
+      },
+      "2509": {
+        "team": "Purdue",
+        "src": "https://www.on3.com/teams/purdue-boilermakers/news/purdue-football-vs-illinois-availability-report-2 (verified from the page, Big Ten availability report #2, Oct 1; vs Illinois)",
+        "players": [
+          [
+            "Mister Clark",
+            "CB",
+            "Out"
+          ],
+          [
+            "Kylan Fox",
+            "TE",
+            "Out"
+          ],
+          [
+            "Raderrion Daniels",
+            "TE",
+            "Out"
+          ],
+          [
+            "Joey Tanona",
+            "LT",
+            "Out"
+          ],
+          [
+            "Jude McCoskey",
+            "RT",
+            "Questionable"
+          ],
+          [
+            "Elo Modozie",
+            "DE",
+            "Questionable"
+          ]
+        ]
+      },
+      "52": {
+        "team": "Florida State",
+        "src": "https://www.tomahawknation.com/florida-state-football/138012/fsu-updated-injury-report-virginia-cavaliers (verified from the page, ACC updated report, Oct 1 night; vs Virginia)",
+        "players": [
+          [
+            "Quindarrius Jones",
+            "DB",
+            "Probable"
+          ],
+          [
+            "Caleb LaVallee",
+            "LB",
+            "Probable"
+          ],
+          [
+            "Darryll Desir",
+            "DL",
+            "Out"
+          ],
+          [
+            "Samuel Singleton Jr.",
+            "RB",
+            "Out"
+          ],
+          [
+            "Devin Carter",
+            "WR",
+            "Out"
+          ],
+          [
+            "Antonio Cromartie Jr.",
+            "DB",
+            "Out"
+          ],
+          [
+            "Daylen Green",
+            "LB",
+            "Out"
+          ],
+          [
+            "Noah LaVallee",
+            "LB",
+            "Out"
+          ]
+        ]
+      },
+      "258": {
+        "team": "Virginia",
+        "src": "https://www.tomahawknation.com/florida-state-football/138012/fsu-updated-injury-report-virginia-cavaliers (verified from the page, ACC updated report, Oct 1 night; at Florida State)",
+        "players": [
+          [
+            "Devon Baxter",
+            "DE",
+            "Doubtful"
+          ],
+          [
+            "Peyton Lewis",
+            "RB",
+            "Out"
+          ],
+          [
+            "Tim Hamann",
+            "K",
+            "Out"
+          ],
+          [
+            "Dillon Newton-Short",
+            "WR",
+            "Out"
+          ]
+        ]
+      },
+      "97": {
+        "team": "Louisville",
+        "src": "https://ncfootballnews.com/games/louisville-at-nc-state-football-2026/ (verified from the page, ACC report Thu Oct 1 8pm)",
+        "players": [
+          [
+            "Antonio Watts",
+            "DB",
+            "Out"
+          ],
+          [
+            "Travis Egan",
+            "TE",
+            "Out"
+          ],
+          [
+            "Jacob Baker",
+            "P",
+            "Out"
+          ],
+          [
+            "Montavin Quisenberry",
+            "WR",
+            "Out"
+          ],
+          [
+            "Hamilton Atkins",
+            "TE",
+            "Out"
+          ],
+          [
+            "Sam Dawson",
+            "DL",
+            "Out"
+          ],
+          [
+            "Lincoln Kienholz",
+            "QB",
+            "Questionable"
+          ],
+          [
+            "Koen Entringer",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Lawayne McCoy",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Keyjuan Brown",
+            "RB",
+            "Probable"
+          ],
+          [
+            "AJ Green",
+            "DL",
+            "Probable"
+          ],
+          [
+            "Anwar O'neal",
+            "OL",
+            "Probable"
+          ],
+          [
+            "Elizjah Lewis",
+            "WR",
+            "Probable"
+          ],
+          [
+            "Daylen Russell",
+            "DL",
+            "Probable"
+          ]
+        ]
+      },
+      "152": {
+        "team": "NC State",
+        "src": "https://ncfootballnews.com/games/louisville-at-nc-state-football-2026/ (verified from the page, ACC report Thu Oct 1 8pm)",
+        "players": [
+          [
+            "Vander Ploog",
+            "TE",
+            "Out"
+          ],
+          [
+            "Isaiah Crowell",
+            "NCK",
+            "Out"
+          ],
+          [
+            "AJ Richardson",
+            "ILB",
+            "Out"
+          ],
+          [
+            "Spike Sowells Jr.",
+            "OL",
+            "Out"
+          ],
+          [
+            "Ian Flynt",
+            "TE",
+            "Out"
+          ],
+          [
+            "Carmelo McKenzie",
+            "NG",
+            "Out"
+          ],
+          [
+            "Tyreek Copper",
+            "WR",
+            "Doubtful"
+          ],
+          [
+            "Nick Konieczynski",
+            "K",
+            "Doubtful"
+          ],
+          [
+            "Noah Moss",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Jimarion McCrimon",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "2": {
+        "team": "Auburn",
+        "src": "https://sports.yahoo.com/articles/tennessee-football-ol-sham-umarov-001600015.html (verified from the page, SEC report Thu Oct 1; same two names on Wed report)",
+        "players": [
+          [
+            "Tai Buster",
+            "OL",
+            "Out"
+          ],
+          [
+            "Hunter Herring",
+            "TE",
+            "Out"
+          ]
+        ]
+      },
+      "2633": {
+        "team": "Tennessee",
+        "src": "https://sports.yahoo.com/articles/tennessee-football-ol-sham-umarov-001600015.html (verified from the page, SEC report updated Thu Oct 1; Wed report on yahoo/al.com and utdailybeacon agrees)",
+        "players": [
+          [
+            "Javin Gordon",
+            "RB",
+            "Doubtful"
+          ],
+          [
+            "Shamurad (Sham) Umarov",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Nathan Robinson",
+            "DL",
+            "Probable"
+          ],
+          [
+            "Kedric Golston II",
+            "DL",
+            "Out"
+          ],
+          [
+            "Wendell Moe Jr.",
+            "OL",
+            "Out For Season"
+          ],
+          [
+            "Dylan Lewis",
+            "DB",
+            "Out For Season"
+          ],
+          [
+            "Edrees Farooq",
+            "S",
+            "Out For Season"
+          ],
+          [
+            "Ethan Davis",
+            "TE",
+            "Out For Season"
+          ],
+          [
+            "Joakim Dodson",
+            "WR",
+            "Out For Season"
+          ],
+          [
+            "Jaedon Harmon",
+            "LB",
+            "Out For Season"
+          ],
+          [
+            "Jadais Richard",
+            "CB",
+            "Out For Season"
+          ]
+        ]
+      },
+      "142": {
+        "team": "Missouri",
+        "src": "https://sports.yahoo.com/articles/mizzou-injury-status-ahmad-hardy-001509549.html (verified from the page, SEC report Wed Sep 30)",
+        "players": [
+          [
+            "Ahmad Hardy",
+            "RB",
+            "Out"
+          ],
+          [
+            "Malae Fonoti",
+            "RB",
+            "Out"
+          ],
+          [
+            "Josh Atkins",
+            "RT",
+            "Out"
+          ],
+          [
+            "JaDon Blair",
+            "S",
+            "Out"
+          ],
+          [
+            "Gavin Hoffman",
+            "TE",
+            "Out"
+          ],
+          [
+            "Darris Smith",
+            "DE",
+            "Questionable"
+          ],
+          [
+            "Langden Kitchen",
+            "DE",
+            "Questionable"
+          ],
+          [
+            "Bobby Washington",
+            "LB",
+            "Questionable"
+          ]
+        ]
+      },
+      "57": {
+        "team": "Florida",
+        "src": "https://sports.yahoo.com/articles/mizzou-injury-status-ahmad-hardy-001509549.html (verified from the page, SEC report Wed Sep 30)",
+        "players": [
+          [
+            "Vernell Brown III",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Bailey Stockton",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "194": {
+        "team": "Ohio State",
+        "src": "https://www.on3.com/teams/ohio-state-buckeyes/news/ohio-state-buckeyes-iowa-game-injury-report-wednesday (verified from the page, Big Ten report Wed Sep 30/Oct 1 8pm)",
+        "players": [
+          [
+            "Braxton Rembert",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Anthony Rogers",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Brenton 'Inky' Jones",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Jay Timmons",
+            "CB",
+            "Questionable"
+          ],
+          [
+            "Phillip Daniels",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Bennett Christian",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Jaxon Powell",
+            "OL",
+            "Out"
+          ],
+          [
+            "Vasean Washington",
+            "OL",
+            "Out"
+          ],
+          [
+            "Amari Valerio-Hudson",
+            "WR",
+            "Out"
+          ]
+        ]
+      },
+      "96": {
+        "team": "Kentucky",
+        "src": "SEC availability report, Thursday 10/1/2026 (via On3 KSR, verified from the page: https://www.on3.com/teams/kentucky-wildcats/news/sec-availability-report-lb-tavion-wallace-listed-as-questionable-vs-south-carolina)",
+        "players": [
+          [
+            "Grant Grayton",
+            "CB",
+            "Out"
+          ],
+          [
+            "DJ Miller",
+            "WR",
+            "Doubtful"
+          ],
+          [
+            "Cole Marszalek",
+            "LS",
+            "Doubtful"
+          ],
+          [
+            "Jay Clark",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Tavion Wallace",
+            "LB",
+            "Questionable"
+          ]
+        ]
+      },
+      "2579": {
+        "team": "South Carolina",
+        "src": "SEC availability report, Thursday 10/1/2026 (via On3 KSR, verified from the page; Dylan Stewart suspended)",
+        "players": [
+          [
+            "Dylan Stewart",
+            "EDGE",
+            "Out"
+          ],
+          [
+            "Jalewis Solomon",
+            "DB",
+            "Out"
+          ],
+          [
+            "Jayden Sellers",
+            "WR",
+            "Out"
+          ],
+          [
+            "AJ Holloway",
+            "LB",
+            "Out"
+          ],
+          [
+            "Kobby Sakyi-Prah",
+            "EDGE",
+            "Out"
+          ],
+          [
+            "Josiah Thompson",
+            "OL",
+            "Out"
+          ],
+          [
+            "Gabriel Brownlow-Dindy",
+            "DL",
+            "Questionable"
+          ]
+        ]
+      },
+      "228": {
+        "team": "Clemson",
+        "src": "https://sports.yahoo.com/articles/clemson-miami-injury-report-just-010054477.html (ACC initial report Wed 10/1, verified from the page; RB David Eziomume out per a second ACC-report article)",
+        "players": [
+          [
+            "Polo Anderson",
+            "S",
+            "Out"
+          ],
+          [
+            "Shavar Young Jr.",
+            "CB",
+            "Out"
+          ],
+          [
+            "Cole Turner",
+            "WR",
+            "Out"
+          ],
+          [
+            "David Eziomume",
+            "RB",
+            "Out"
+          ],
+          [
+            "Kourtney Kelly",
+            "DT",
+            "Out"
+          ],
+          [
+            "Mason Wade",
+            "OL",
+            "Out"
+          ],
+          [
+            "Markus Strong",
+            "DT",
+            "Out"
+          ],
+          [
+            "Armon Mason",
+            "DE",
+            "Questionable"
+          ],
+          [
+            "Elyjah Thurmon",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "158": {
+        "team": "Nebraska",
+        "src": "https://huskercorner.com/nebraska-football-jamal-rule-mekhi-nelson-jacory-barney-maryland-injury-report + https://www.si.com/college/nebraska/football/huskers-jamal-rule-listed-doubtful-maryland-01m3tkc69vpa (Big Ten report Wed 10/1 + Thu 10/1 changes, verified from the pages)",
+        "players": [
+          [
+            "Larry Miles",
+            "WR",
+            "Out"
+          ],
+          [
+            "Kahmir Prescott",
+            "DB",
+            "Out"
+          ],
+          [
+            "Carter Nelson",
+            "TE",
+            "Out"
+          ],
+          [
+            "Gage Stenger",
+            "",
+            "Out"
+          ],
+          [
+            "Jase Reynolds",
+            "",
+            "Out"
+          ],
+          [
+            "Jacob Bower",
+            "",
+            "Out"
+          ],
+          [
+            "Gabe Moore",
+            "",
+            "Out"
+          ],
+          [
+            "Jamal Rule",
+            "RB",
+            "Doubtful"
+          ],
+          [
+            "Mekhi Nelson",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Jacory Barney Jr.",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Tanner Terch",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Bryson Webber",
+            "DB",
+            "Questionable"
+          ]
+        ]
+      },
+      "84": {
+        "team": "Indiana",
+        "src": "https://www.on3.com/teams/indiana-hoosiers/news/big-ten-availability-report-released-for-indiana-ahead-of-rutgers-matchup/ + https://www.thedailyhoosier.com/indianas-top-4-rbs-now-on-the-availability-report-ahead-of-rutgers-game/ (Big Ten report Wed/Thu 10/1, verified from the pages; WR Lebron Bond out per On3 summary)",
+        "players": [
+          [
+            "Daniel Ndukwe",
+            "DL",
+            "Out"
+          ],
+          [
+            "Carson Williams",
+            "DB",
+            "Out"
+          ],
+          [
+            "Lebron Bond",
+            "WR",
+            "Out"
+          ],
+          [
+            "Khobie Martin",
+            "RB",
+            "Out"
+          ],
+          [
+            "A.J. Harris",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Sean Cuono",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Lee Beebe Jr.",
+            "RB",
+            "Questionable"
+          ]
+        ]
+      },
+      "164": {
+        "team": "Rutgers",
+        "src": "https://www.on3.com/sites/the-knight-report/news/rutgers-football-injury-report-indiana-game (Big Ten report Wed 10/1, verified from the page)",
+        "players": [
+          [
+            "Kevin Levy",
+            "DB",
+            "Out"
+          ],
+          [
+            "Davoun Fuse",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Steven Murray",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Antwan Raymond",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Kevyn Humes",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Dylan Braithwaite",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Dantae Chin",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "2294": {
+        "team": "Iowa",
+        "src": "https://sports.yahoo.com/articles/iowa-football-vs-ohio-state-000752022.html (Big Ten report Wed 10/1, verified from the page)",
+        "players": [
+          [
+            "Kyler Gerardy",
+            "DB",
+            "Out"
+          ],
+          [
+            "Tyler Brown",
+            "DB",
+            "Out"
+          ],
+          [
+            "Darion Jones",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Derek Weisskopf",
+            "LB",
+            "Questionable"
+          ]
+        ]
+      },
+      "356": {
+        "team": "Illinois",
+        "src": "https://www.si.com/college/purdue/football/purdue-initial-availability-report-vs-illinois-who-in-who-out-big-ten-football (Big Ten report Wed 10/1, verified from the page)",
+        "players": [
+          [
+            "Alex Perry",
+            "WR",
+            "Out"
+          ],
+          [
+            "Jack Paris",
+            "LB",
+            "Out"
+          ],
+          [
+            "TJ McMillen",
+            "OL",
+            "Out"
+          ],
+          [
+            "BJ Thurman",
+            "TE",
+            "Out"
+          ],
+          [
+            "Jacob Alexander",
+            "LB",
+            "Doubtful"
+          ],
+          [
+            "Champ Smith",
+            "OL",
+            "Doubtful"
+          ],
+          [
+            "Jayshon Platt",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Dezmond Schuster",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Kaden Feagin",
+            "TE",
+            "Questionable"
+          ]
+        ]
+      },
+      "24": {
+        "team": "Stanford",
+        "src": "https://ncfootballnews.com/games/stanford-at-wake-forest-football-2026/ (ACC report Wed 10/1, no changes Thu, verified from the page)",
+        "players": [
+          [
+            "Dylan Stephenson",
+            "OLB",
+            "Out"
+          ],
+          [
+            "Brandon Nicholson",
+            "CB",
+            "Out"
+          ],
+          [
+            "Jason Hill Jr.",
+            "CB",
+            "Out"
+          ],
+          [
+            "Brendan Delaney",
+            "DL",
+            "Out"
+          ],
+          [
+            "Dara Adeyemi",
+            "OL",
+            "Out"
+          ],
+          [
+            "Reiman Zebert",
+            "TE",
+            "Out"
+          ],
+          [
+            "Jahsiah Galvan",
+            "ILB",
+            "Questionable"
+          ],
+          [
+            "Jacobi Murray",
+            "DL",
+            "Questionable"
+          ]
+        ]
+      },
+      "8": {
+        "team": "Arkansas",
+        "src": "https://www.kbtx.com/2026/10/02/texas-am-linebacker-listed-out-availability-report-ahead-arkansas/ + https://www.on3.com/sites/hawg-beat/news/arkansas-football-availability-report-texas-am-week-thursday (SEC report Wed/Thu 10/1, verified from the pages)",
+        "players": [
+          [
+            "Jamonta Waller",
+            "DL",
+            "Out"
+          ],
+          [
+            "John Howse IV",
+            "DB",
+            "Out"
+          ],
+          [
+            "Maddox Lassiter",
+            "TE",
+            "Out"
+          ],
+          [
+            "Steven Soles Jr.",
+            "DL",
+            "Questionable"
+          ]
+        ]
+      },
+      "245": {
+        "team": "Texas A&M",
+        "src": "https://www.kbtx.com/2026/10/02/texas-am-linebacker-listed-out-availability-report-ahead-arkansas/ + https://www.on3.com/sites/hawg-beat/news/arkansas-football-availability-report-texas-am-week-thursday (SEC report Thu 10/1, verified from the pages)",
+        "players": [
+          [
+            "Terry Bussey",
+            "WR",
+            "Out"
+          ],
+          [
+            "Tamarion Watkins",
+            "LB",
+            "Out"
+          ],
+          [
+            "Mario Craver",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "87": {
+        "team": "Notre Dame",
+        "src": "https://ncfootballnews.com/games/notre-dame-at-north-carolina-football-2026/ + https://www.on3.com/teams/notre-dame-fighting-irish/news/notre-dame-football-beyond-two-deeps-for-game-5-at-north-carolina/ (Notre Dame weekly report Mon 9/28, verified from the pages; 8 out per On3)",
+        "players": [
+          [
+            "Quincy Porter",
+            "WR",
+            "Out"
+          ],
+          [
+            "Matty Augustine",
+            "OL",
+            "Out"
+          ],
+          [
+            "Brauntae Johnson",
+            "S",
+            "Out"
+          ],
+          [
+            "Jason Onye",
+            "DT",
+            "Out"
+          ],
+          [
+            "Tiki Hola",
+            "DT",
+            "Out"
+          ],
+          [
+            "Charles Jagusah",
+            "OL",
+            "Out"
+          ],
+          [
+            "Chaz Smith",
+            "CB",
+            "Out"
+          ],
+          [
+            "Chris Terek",
+            "OL",
+            "Out"
+          ],
+          [
+            "Christopher Burgess Jr.",
+            "DT",
+            "Out"
+          ],
+          [
+            "Owen Strebig",
+            "OT",
+            "Questionable"
+          ]
+        ]
+      },
+      "264": {
+        "team": "Washington",
+        "src": "https://sports.yahoo.com/articles/washington-footballs-first-week-five-160049691.html + https://sports.yahoo.com/articles/usc-news-trent-mosley-alex-071354953.html (Big Ten report Wed 10/1, verified from the pages)",
+        "players": [
+          [
+            "Jordan Washington",
+            "RB",
+            "Out"
+          ],
+          [
+            "Jayden Limar",
+            "RB",
+            "Out"
+          ],
+          [
+            "Quaid Carr",
+            "RB",
+            "Out"
+          ],
+          [
+            "Landen Hatchett",
+            "C",
+            "Questionable"
+          ]
+        ]
+      },
+      "30": {
+        "team": "USC",
+        "src": "https://www.si.com/college/usc/football/usc-trojans-reveal-lengthy-injury-report-pivotal-washington-game-looms + https://sports.yahoo.com/articles/usc-news-trent-mosley-alex-071354953.html (Big Ten report Wed 10/1, verified from the pages)",
+        "players": [
+          [
+            "Corey Simms",
+            "WR",
+            "Out"
+          ],
+          [
+            "Kendarius Reddick",
+            "S",
+            "Out"
+          ],
+          [
+            "Kilian O'Connor",
+            "OL",
+            "Out"
+          ],
+          [
+            "Jahkeem Stewart",
+            "DT",
+            "Questionable"
+          ],
+          [
+            "Trent Mosley",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Alex Graham",
+            "S",
+            "Questionable"
+          ],
+          [
+            "Mark Bowman",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Taylor Johnson",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Hayden Treter",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Alex VanSumeren",
+            "DT",
+            "Questionable"
+          ]
+        ]
+      },
+      "38": {
+        "team": "Colorado",
+        "src": "https://sports.yahoo.com/articles/colorado-vs-texas-tech-injury-113120608.html (Big 12 report Wed 10/1, verified from the page)",
+        "players": [
+          [
+            "Danny Scudero",
+            "WR",
+            "Out"
+          ],
+          [
+            "Preston Ashley",
+            "CB",
+            "Out"
+          ],
+          [
+            "Demetrius Hunter",
+            "OL",
+            "Out"
+          ],
+          [
+            "Makari Vickers",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Jason Stokes Jr.",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Braylon Edwards",
+            "DB",
+            "Doubtful"
+          ],
+          [
+            "Lamont Lester Jr.",
+            "DL",
+            "Doubtful"
+          ],
+          [
+            "Zach Atkins",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Charlie Williams",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "DeAndre Moore Jr.",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "2641": {
+        "team": "Texas Tech",
+        "src": "https://sports.yahoo.com/articles/colorado-vs-texas-tech-injury-113120608.html (Big 12 report Wed 10/1, verified from the page)",
+        "players": [
+          [
+            "Ashton Hampton",
+            "CB",
+            "Out"
+          ],
+          [
+            "Adam Hill",
+            "LB",
+            "Out"
+          ],
+          [
+            "Elias Gillen",
+            "OL",
+            "Out"
+          ],
+          [
+            "Mikal Harrison-Pilot",
+            "S",
+            "Questionable"
+          ],
+          [
+            "Oliver Miles III",
+            "S",
+            "Questionable"
+          ],
+          [
+            "Terrance Carter Jr.",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Amier Boyd",
+            "CB",
+            "Questionable"
+          ],
+          [
+            "Cash Cleveland",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Howard Sampson",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "2116": {
+        "team": "UCF",
+        "src": "https://sports.yahoo.com/articles/ucf-knights-vs-houston-cougars-164117410.html (Big 12 report Wed 10/1, verified from the page)",
+        "players": [
+          [
+            "Duane Thomas Jr.",
+            "WR",
+            "Out"
+          ],
+          [
+            "Alonza Barnett III",
+            "QB",
+            "Out"
+          ],
+          [
+            "Lewis Carter",
+            "LB",
+            "Out"
+          ],
+          [
+            "Owen Spell",
+            "OL",
+            "Out"
+          ],
+          [
+            "Dante Carr",
+            "QB",
+            "Out"
+          ],
+          [
+            "TJ Branch",
+            "DB",
+            "Out"
+          ],
+          [
+            "Trenton Turner",
+            "DT",
+            "Out"
+          ],
+          [
+            "Dylan Wade",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Dylan Burk",
+            "TE",
+            "Questionable"
+          ]
+        ]
+      },
+      "248": {
+        "team": "Houston",
+        "src": "https://sports.yahoo.com/articles/ucf-knights-vs-houston-cougars-164117410.html (Big 12 report Wed 10/1, verified from the page)",
+        "players": [
+          [
+            "Evan Noel",
+            "K",
+            "Out"
+          ],
+          [
+            "Bryson Castile",
+            "LB",
+            "Out"
+          ],
+          [
+            "Stephon Johnson",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Myles Rowser",
+            "DB",
+            "Questionable"
+          ]
+        ]
+      },
+      "12": {
+        "team": "Arizona",
+        "src": "https://tucson.com/sports/arizonawildcats/football/article_b6c11758-ca0c-4ccc-afad-8b834f88eb4d.html [Arizona Daily Star, Sep 30 2026: initial Big 12 availability report vs Cincinnati; article lists the report's Out and Questionable names, no probables given] (verified from the page)",
+        "players": [
+          [
+            "Cole Rusk",
+            "TE",
+            "Out"
+          ],
+          [
+            "Daylen Austin",
+            "DB",
+            "Out"
+          ],
+          [
+            "Dajon Hinton",
+            "DB",
+            "Out"
+          ],
+          [
+            "Ezra Funa",
+            "DT",
+            "Out"
+          ],
+          [
+            "Giovanni Richardson",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Shane King",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Myron Robinson",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Jabari Mann",
+            "LB",
+            "Questionable"
+          ]
+        ]
+      },
+      "9": {
+        "team": "Arizona St",
+        "src": "https://sports.yahoo.com/articles/know-arizona-states-injury-report-230501525.html (= si.com/college/arizonastate, Oct 1 2026) [Big 12 availability report 9/30 vs Baylor: 'the seven Sun Devils listed'] (verified from the page)",
+        "players": [
+          [
+            "Khamari Anderson",
+            "TE",
+            "Out"
+          ],
+          [
+            "Jalen Williams",
+            "DB",
+            "Out"
+          ],
+          [
+            "Marques Uini",
+            "OL",
+            "Out"
+          ],
+          [
+            "Wade Helton",
+            "OL",
+            "Out"
+          ],
+          [
+            "Brent Helton",
+            "OL",
+            "Out"
+          ],
+          [
+            "Grayson Rigdon",
+            "RB",
+            "Probable"
+          ],
+          [
+            "Manamo'ui Muti",
+            "OL",
+            "Probable"
+          ]
+        ]
+      },
+      "68": {
+        "team": "Boise St",
+        "src": "https://broncosports.com/news/2026/9/30/football-week-five-availability-report [Boise State's official initial Pac-12 availability report vs Utah State, 9/30/2026] + https://sports.yahoo.com/articles/boise-state-starting-offensive-lineman-143624863.html (SI/Yahoo Oct 1 2026, same report, names all 4 questionable + 2 out) (verified from the page) + https://www.cachevalleydaily.com/sports/utah-state-football-vs-boise-state-preview-how-to-watch-availability-report-keys-to-the/article_13777366-abcd-47c4-aad6-3ba83540240f.html (Cache Valley Daily Oct 2 2026, latest Pac-12 report: same 6 names, Brantley ILB)",
+        "players": [
+          [
+            "Carson Rasmussen",
+            "OL",
+            "Out"
+          ],
+          [
+            "Sam Brooks",
+            "LB",
+            "Out"
+          ],
+          [
+            "Sire Gaines",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Logan Brantley",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Cam Bates",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Darren Morris",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "328": {
+        "team": "Utah State",
+        "src": "https://www.cachevalleydaily.com/sports/utah-state-football-vs-boise-state-preview-how-to-watch-availability-report-keys-to-the/article_13777366-abcd-47c4-aad6-3ba83540240f.html [Cache Valley Daily, Oct 2 2026: official Pac-12 availability report vs Boise State, latest update as of publishing (Wed report + updates)] (verified from the page)",
+        "players": [
+          [
+            "John Randle Jr.",
+            "OL",
+            "Out"
+          ],
+          [
+            "Tavo Motu'apuaka",
+            "OL",
+            "Out"
+          ],
+          [
+            "Tevita Tuha",
+            "DL",
+            "Out"
+          ],
+          [
+            "Diego Grateron",
+            "LB",
+            "Out"
+          ],
+          [
+            "Harrison Taggart",
+            "LB",
+            "Out"
+          ],
+          [
+            "Jackson Nelson",
+            "OL",
+            "Out"
+          ],
+          [
+            "Joshua Papu",
+            "DL",
+            "Out"
+          ],
+          [
+            "Nikko Boncore",
+            "WR",
+            "Out"
+          ],
+          [
+            "Chris Joe",
+            "LB",
+            "Out"
+          ],
+          [
+            "Jude Nelson",
+            "TE",
+            "Out"
+          ],
+          [
+            "Dakota Howell",
+            "LB",
+            "Probable"
+          ],
+          [
+            "John McClellan",
+            "LB",
+            "Probable"
+          ],
+          [
+            "Asher Cunningham",
+            "LB",
+            "Probable"
+          ],
+          [
+            "Brycen Edwards",
+            "LB",
+            "Probable"
+          ]
+        ]
+      },
+      "167": {
+        "team": "New Mexico",
+        "src": "https://sports.yahoo.com/articles/mexico-wr-troy-omeire-ruled-030600475.html [Albuquerque Journal via Yahoo, Oct 2 2026: Mountain West availability report vs UTEP as of Thu Oct 1, full list] (verified from the page)",
+        "players": [
+          [
+            "Troy Omeire",
+            "WR",
+            "Out"
+          ],
+          [
+            "Elvin Harris",
+            "OL",
+            "Out"
+          ],
+          [
+            "Jack Layne",
+            "QB",
+            "Out"
+          ],
+          [
+            "Cody Thumlert",
+            "DE",
+            "Out"
+          ],
+          [
+            "Joey Olsen",
+            "TE",
+            "Out"
+          ],
+          [
+            "Tripp Walsh",
+            "TE",
+            "Out"
+          ],
+          [
+            "Shawn Miller",
+            "WR",
+            "Out"
+          ],
+          [
+            "Abraham Williams",
+            "WR",
+            "Out"
+          ],
+          [
+            "Tevin Shaw",
+            "OL",
+            "Out"
+          ],
+          [
+            "Keshawn Monroe",
+            "S",
+            "Out"
+          ],
+          [
+            "Jake DeVos",
+            "DT",
+            "Questionable"
+          ],
+          [
+            "Danzel Newell",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "2638": {
+        "team": "UTEP",
+        "src": "https://sports.yahoo.com/articles/mexico-wr-troy-omeire-ruled-030600475.html [Albuquerque Journal via Yahoo, Oct 2 2026: Mountain West availability report vs New Mexico as of Thu Oct 1, full list] (verified from the page)",
+        "players": [
+          [
+            "Ekow Taylor",
+            "LB",
+            "Out"
+          ],
+          [
+            "Oryend Fisher",
+            "DL",
+            "Out"
+          ],
+          [
+            "Mason Ferguson",
+            "WR",
+            "Out"
+          ],
+          [
+            "CJ Simon",
+            "WR",
+            "Out"
+          ],
+          [
+            "Jackson Bradley",
+            "OL",
+            "Out"
+          ],
+          [
+            "Rashad Smith",
+            "OL",
+            "Out"
+          ],
+          [
+            "Tavorus Jones",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Lamar Sperling",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Darien Fantroy",
+            "CB",
+            "Questionable"
+          ],
+          [
+            "Jaymon Lamb",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "265": {
+        "team": "Washington St",
+        "src": "https://sports.yahoo.com/articles/wsu-rb-kirby-vorhees-listed-020200296.html [Spokesman-Review via Yahoo, Oct 1-2 2026: first Pac-12 availability report vs Fresno State, article gives 'the rest of WSU's availability report'; CB Jalil Tucker called a game-time decision by the coach but not shown on the report] (verified from the page)",
+        "players": [
+          [
+            "Kirby Vorhees",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Trey Leckner",
+            "TE",
+            "Probable"
+          ],
+          [
+            "Nylan Brown",
+            "LB",
+            "Out"
+          ],
+          [
+            "Jack Ellison",
+            "LB",
+            "Doubtful"
+          ],
+          [
+            "Kyle Peterson",
+            "S",
+            "Out"
+          ],
+          [
+            "Malachi Wrice",
+            "DE",
+            "Out"
+          ],
+          [
+            "Mike Hughes",
+            "DE",
+            "Out"
+          ]
+        ]
+      },
+      "25": {
+        "team": "California",
+        "src": "https://sports.yahoo.com/articles/cal-football-game-preview-bears-182527500.html [Cal player availability vs UNLV, Oct 2 2026 - Cal issues no official report for non-conference games] (verified from the page)",
+        "players": [
+          [
+            "Adam Mohammed",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Carter Vargas",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Nate Burrell",
+            "DL",
+            "Questionable"
+          ],
+          [
+            "Solomon Williams",
+            "EDGE",
+            "Questionable"
+          ]
+        ]
+      },
+      "2439": {
+        "team": "UNLV",
+        "src": "UNLV vs Cal week news, Oct 2-3 2026 (no official report for non-conference games): QB Alex Orji out for the season (hamstring)",
+        "players": [
+          [
+            "Alex Orji",
+            "QB",
+            "Out - season"
+          ]
+        ]
+      },
+      "295": {
+        "team": "Old Dominion",
+        "src": "https://www.rotowire.com/cfootball/headlines/quinn-henicle-injury-officially-a-gtd-233008 (Oct 3 2026, verified from the page) + week news",
+        "players": [
+          [
+            "Quinn Henicle",
+            "QB",
+            "Probable"
+          ],
+          [
+            "TJ Johnson",
+            "",
+            "Questionable"
+          ],
+          [
+            "Sidney Mbanasor",
+            "",
+            "Out - season"
+          ]
+        ]
+      },
+      "2247": {
+        "team": "Georgia State",
+        "src": "https://www.rotowire.com/cfootball/headlines/dennis-murray-news-good-to-go-saturday-233007 (Oct 3 2026, verified from the page)",
+        "players": [
+          [
+            "Dennis Murray Jr.",
+            "",
+            "Probable"
+          ]
+        ]
+      },
+      "309": {
+        "team": "Louisiana",
+        "src": "https://www.kait8.com/2026/10/01/arkansas-state-football-updates-availability-report-ahead-sbc-opener-louisiana/ + https://www.acadiananewsfirst.com/2026/10/02/cajuns-ready-open-sun-belt-play-against-arkansas-state-homecoming/ + https://www.rotowire.com/cfootball/headlines/shelton-sampson-news-good-to-go-saturday-233011 [Sun Belt availability report via news + coach, Oct 1-3] (verified from the pages)",
+        "players": [
+          [
+            "Conor McPherson",
+            "LB",
+            "Out"
+          ]
+        ]
+      },
+      "2032": {
+        "team": "Arkansas St",
+        "src": "https://www.kait8.com/2026/10/01/arkansas-state-football-updates-availability-report-ahead-sbc-opener-louisiana/ [Sun Belt availability report quoted, Oct 1-3] (verified from the page)",
+        "players": [
+          [
+            "Tre Stevens",
+            "LB",
+            "Out"
+          ],
+          [
+            "Sultan Badmus",
+            "DE",
+            "Out"
+          ],
+          [
+            "Baker North",
+            "OL",
+            "Out"
+          ],
+          [
+            "Kenyon Clay",
+            "RB",
+            "Questionable"
+          ]
+        ]
+      },
+      "218": {
+        "team": "Temple",
+        "src": "https://www.covers.com/sport/football/ncaaf/matchup/378198 [team news for Temple at USF 10/3, items dated Sep 25-28] (verified from the page)",
+        "players": [
+          [
+            "S. Brown V",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "R. Stocksdale",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "C. Logan",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "R. Hardy",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "J. Smolik",
+            "QB",
+            "Questionable"
+          ]
+        ]
+      },
+      "58": {
+        "team": "South Florida",
+        "src": "https://www.covers.com/sport/football/ncaaf/matchup/378198 [team news for Temple at USF 10/3, dated Sep 28] (verified from the page)",
+        "players": [
+          [
+            "A. Branch",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "2348": {
+        "team": "Louisiana Tech",
+        "src": "https://www.asforfootball.com/2026/10/01/army-football-preview-at-louisiana-tech/ [team news, Oct 1: QB Blake Baker (fractured hand) missed Baylor, unclear for Army] (verified from the page)",
+        "players": [
+          [
+            "Blake Baker",
+            "QB",
+            "Questionable"
+          ]
+        ]
+      }
+    }
+  },
+  "2026-10-06": {
+    "ncaaf": {
+      "2653": {
+        "team": "Troy",
+        "src": "https://www.foxsports.com/college-football/troy-trojans-team [team news, Rotowire items 10/4 - Worley out for season, Rogosch questionable, Lott available] + https://sports.yahoo.com/articles/southern-miss-football-start-conference-100350906.html [QB Crowder healthy, 10/4] (verified from the pages; no Sun Belt official report exists)",
+        "players": [
+          [
+            "Jackson Worley",
+            "TE",
+            "Out"
+          ],
+          [
+            "Fabian Rogosch",
+            "TE",
+            "Questionable"
+          ]
+        ]
+      },
+      "2572": {
+        "team": "Southern Miss",
+        "src": "https://www.si.com/college/southernmiss/southern-miss-football-injury-update-qb-ethan-hampton-to-miss-significant-time [team news 9/25: Hampton out 4-6 weeks, hand fracture] + https://sports.yahoo.com/articles/southern-miss-football-start-conference-100350906.html [Lyddy starting in his place, 10/4] (verified from the pages; no Sun Belt official report exists) + https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL [Rotowire CFB injury report read 10/6: Himes WR out foot, Page WR out elbow, Briggs RB probable, Hampton QB out] (verified from the page)",
+        "players": [
+          [
+            "Ethan Hampton",
+            "QB",
+            "Out"
+          ],
+          [
+            "Jaylen Himes",
+            "WR",
+            "Out"
+          ],
+          [
+            "Grant Page",
+            "WR",
+            "Out"
+          ],
+          [
+            "Robert Briggs",
+            "RB",
+            "Probable"
+          ]
+        ]
+      }
+    }
+  },
+  "2026-10-07": {
+    "ncaaf": {
+      "338": {
+        "team": "Kennesaw St",
+        "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/7, game 10/7 7 PM ET, CUSA availability report] (verified from the page)",
+        "players": [
+          [
+            "Zion Booker",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Gerard Bullock",
+            "TE",
+            "Questionable"
+          ]
+        ]
+      },
+      "55": {
+        "team": "Jax State",
+        "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/7, game 10/7 7 PM ET, CUSA availability report] (verified from the page)",
+        "players": [
+          [
+            "Franklin Baret",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Gabe Glover",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Alex Moore",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Andrew Paul",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Justus Savage",
+            "RB",
+            "Questionable"
+          ]
+        ]
+      },
+      "166": {
+        "team": "New Mexico St",
+        "src": "https://www.covers.com/sport/football/ncaaf/teams/main/new-mexico-state-aggies/injuries [team news, Covers/Rotowire items dated Fri 10/2 naming this game - older than game week, no official CUSA report found] (verified from the page)",
+        "players": [
+          [
+            "R. Burton",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "R. Lotten",
+            "TE",
+            "Questionable"
+          ]
+        ]
+      }
+    }
+  },
+  "2026-10-08": {
+    "ncaaf": {
+      "2623": {
+        "team": "Missouri State",
+        "src": "https://sports.yahoo.com/articles/casey-woods-provides-missouri-state-225827851.html [team news, Springfield News-Leader injury update from coach Woods Fri 10/2 for the 10/8 game at WKU: full selection of players expected; LBs Malone and Dixon + DL Madison out for the season] (verified from the page; no CUSA report read) + Rotowire CUSA report 10/8: Robinson (WR) questionable (verified from the page)",
+        "players": [
+          [
+            "Jmariyae Robinson",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Heiko Malone",
+            "LB",
+            "Out"
+          ],
+          [
+            "Dylan Dixon",
+            "LB",
+            "Out"
+          ],
+          [
+            "Malachi Madison",
+            "DL",
+            "Out"
+          ]
+        ]
+      },
+      "2636": {
+        "team": "UTSA",
+        "src": "https://www.underdogdynasty.com/american-conference/46630/2026-week-6-preview-south-florida-bulls-utsa-roadrunners [team news, game-week preview 10/7: guard Ben Rios a game-time decision] (verified from the page; no AAC report read)",
+        "players": [
+          [
+            "Ben Rios",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "2032": {
+        "team": "Arkansas St",
+        "src": "https://www.foxsports.com/college-football/arkansas-state-red-wolves-team [team news, Rotowire item ~10/5: Clay (ankle) questionable for Thu 10/8 vs South Alabama] (verified from the page; no Sun Belt report read yet)",
+        "players": [
+          [
+            "Kenyon Clay",
+            "RB",
+            "Questionable"
+          ]
+        ]
+      },
+      "6": {
+        "team": "South Alabama",
+        "src": "https://www.foxsports.com/college-football/south-alabama-jaguars-team [team news, Rotowire items 10/1-10/6: Barnes out for the season per the Sun Belt report; QB Hollins starts] + covers.com South Alabama injuries [Marion, Lynch out for the season] (verified from the pages; White's status for Thursday not stated, no Sun Belt report for this game read)",
+        "players": [
+          [
+            "Brian Barnes",
+            "WR",
+            "Out"
+          ],
+          [
+            "K. Marion",
+            "WR",
+            "Out"
+          ],
+          [
+            "M. Lynch",
+            "TE",
+            "Out"
+          ]
+        ]
+      },
+      "2335": {
+        "team": "Liberty",
+        "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET, CUSA availability report] (verified from the page)",
+        "players": [
+          [
+            "Bo Burklow",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Justin Marshall",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Cam Wood",
+            "RB",
+            "Questionable"
+          ]
+        ]
+      },
+      "98": {
+        "team": "Western Kentucky",
+        "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET, CUSA availability report] (verified from the page)",
+        "players": [
+          [
+            "Adrion Boyd",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "K.D. Hutchinson",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "2534": {
+        "team": "Sam Houston",
+        "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET at Liberty, CUSA availability report: Liberty, WKU and Missouri State players listed for the day, no Sam Houston player listed] (verified from the page)",
+        "players": []
+      }
+    }
+  },
+  "2026-10-09": {
+    "ncaaf": {
+      "52": {
+        "team": "Florida St",
+        "src": "https://sports.yahoo.com/articles/louisville-vs-florida-state-injury-184051141.html [ACC availability report, initial Tue 10/6 night, as listed in the SI/Yahoo breakdown Wed 10/7; game Fri 10/9 7 PM ET at Louisville; game-day update still to come] (verified from the page)",
+        "players": [
+          [
+            "Samuel Singleton Jr",
+            "RB",
+            "Out"
+          ],
+          [
+            "Devin Carter",
+            "WR",
+            "Out"
+          ],
+          [
+            "Karson Hobbs",
+            "DB",
+            "Out"
+          ],
+          [
+            "Jamari Howard",
+            "DB",
+            "Out"
+          ],
+          [
+            "Blake Nichelsen",
+            "LB",
+            "Out"
+          ],
+          [
+            "Zae Thomas",
+            "DB",
+            "Out"
+          ],
+          [
+            "Jordan Crutchfield",
+            "DB",
+            "Out"
+          ],
+          [
+            "Izaia Williams",
+            "LB",
+            "Out"
+          ],
+          [
+            "Daylen Greene",
+            "LB",
+            "Out"
+          ],
+          [
+            "Noah LaVelle",
+            "LB",
+            "Out"
+          ],
+          [
+            "Darryll Desir",
+            "DL",
+            "Questionable"
+          ]
+        ]
+      },
+      "97": {
+        "team": "Louisville",
+        "src": "https://sports.yahoo.com/articles/louisville-vs-florida-state-injury-184051141.html [ACC availability report, initial Tue 10/6 night, as listed in the SI/Yahoo breakdown Wed 10/7; QB Kienholz probable; game-day update still to come] (verified from the page)",
+        "players": [
+          [
+            "Antonio Watts",
+            "DB",
+            "Out"
+          ],
+          [
+            "Travis Egan",
+            "TE",
+            "Out"
+          ],
+          [
+            "Jacob Barker",
+            "P",
+            "Out"
+          ],
+          [
+            "Bryten Close",
+            "OT",
+            "Out"
+          ],
+          [
+            "Sam Dawson",
+            "DL",
+            "Out"
+          ],
+          [
+            "TJ Banks",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Keyjuan Brown",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "Cason Henry",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Daylen Russell",
+            "DL",
+            "Questionable"
+          ]
+        ]
+      },
+      "2294": {
+        "team": "Iowa",
+        "src": "https://dearoldgold.com/no-20-iowa-at-washington-how-to-watch-odds-injuries-series-history-and-more-01m49v94t05n [team news, preview 10/7 with injuries from Ferentz's Tue 10/6 update; no Big Ten report read yet] (verified from the page)",
+        "players": [
+          [
+            "Tyler Brown",
+            "S",
+            "Out"
+          ],
+          [
+            "Kyler Gerardy",
+            "DB",
+            "Out"
+          ],
+          [
+            "Hank Brown",
+            "QB",
+            "Questionable"
+          ],
+          [
+            "Ty Hudkins",
+            "DB",
+            "Questionable"
+          ]
+        ]
+      },
+      "264": {
+        "team": "Washington",
+        "src": "https://dearoldgold.com/no-20-iowa-at-washington-how-to-watch-odds-injuries-series-history-and-more-01m49v94t05n [team news, preview 10/7 injury list; no Big Ten report read yet] (verified from the page)",
+        "players": [
+          [
+            "Quaid Carr",
+            "RB",
+            "Out"
+          ],
+          [
+            "CJ Christian",
+            "S",
+            "Out"
+          ],
+          [
+            "Jayden Limar",
+            "RB",
+            "Out"
+          ],
+          [
+            "Christian Moss",
+            "WR",
+            "Out"
+          ],
+          [
+            "Jordan Washington",
+            "RB",
+            "Out"
+          ],
+          [
+            "Jeron Jones",
+            "CB",
+            "Doubtful"
+          ],
+          [
+            "Landon Hatchett",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      },
+      "66": {
+        "team": "Iowa State",
+        "src": "https://www.widerightnattylite.com/iowa-state-football/54001/injury-report-for-iowa-states-matchup-versus-no-8-byu [Big 12 availability report, Tue 10/6 night; game Fri 10/9 9:15 PM ET at BYU; game-day update still to come] (verified from the page)",
+        "players": [
+          [
+            "Drew Surges",
+            "S",
+            "Out"
+          ],
+          [
+            "Caden Crawford",
+            "DE",
+            "Out"
+          ],
+          [
+            "Ka'Mori Moore",
+            "DT",
+            "Out"
+          ],
+          [
+            "Rylan Barnes",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Christian Greenlaw",
+            "TE",
+            "Questionable"
+          ]
+        ]
+      },
+      "252": {
+        "team": "BYU",
+        "src": "https://www.widerightnattylite.com/iowa-state-football/54001/injury-report-for-iowa-states-matchup-versus-no-8-byu [Big 12 availability report, Tue 10/6 night; game Fri 10/9 9:15 PM ET at BYU; game-day update still to come] (verified from the page)",
+        "players": [
+          [
+            "LJ Martin",
+            "RB",
+            "Out"
+          ],
+          [
+            "Isaiah Glasker",
+            "LB",
+            "Out"
+          ],
+          [
+            "Sione Moa",
+            "RB",
+            "Out"
+          ],
+          [
+            "Raider Damuni",
+            "S",
+            "Doubtful"
+          ]
+        ]
+      },
+      "2751": {
+        "team": "Wyoming",
+        "src": "https://www.rotowire.com/cfootball/headlines/deion-deblanc-injury-sidelined-friday-at-sjsu-233459 [team news, Rotowire 10/5: WR DeBlanc (toe) out at SJSU; no Mountain West report read yet] (verified from the page)",
+        "players": [
+          [
+            "Deion DeBlanc",
+            "WR",
+            "Out"
+          ]
+        ]
+      },
+      "23": {
+        "team": "San José St",
+        "src": "https://www.rotowire.com/cfootball/headlines/cooper-hoch-injury-carrying-questionable-tag-233782 [team news, Rotowire 10/7: WR Hoch questionable vs Wyoming; no Mountain West report read yet] (verified from the page)",
+        "players": [
+          [
+            "Cooper Hoch",
+            "WR",
+            "Questionable"
+          ]
+        ]
+      },
+      "328": {
+        "team": "Utah State",
+        "src": "https://www.rotowire.com/cfootball/headlines/rex-haynes-injury-doubtful-for-friday-233777 + foxsports.com/college-football/utah-state-aggies-team [Pac-12 availability report as quoted by Rotowire, Wed 10/7 for Friday vs Washington State] (verified from the pages)",
+        "players": [
+          [
+            "R. Haynes",
+            "WR",
+            "Doubtful"
+          ],
+          [
+            "K. Kaio",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "N. Washington",
+            "RB",
+            "Questionable"
+          ],
+          [
+            "N. Boncore",
+            "WR",
+            "Out"
+          ]
+        ]
+      }
+    }
+  },
+  "2026-10-10": {
+    "ncaaf": {
+      "251": {
+        "team": "Texas",
+        "src": "https://sports.yahoo.com/articles/hollywood-smothers-cleared-ahead-texas-023603356.html [SEC availability report, initial Wed 10/7; Lockett and Z. Williams out per Thursday SEC report via Rotowire 10/8; game Sat 10/10 vs Oklahoma] (verified from the page)",
+        "players": [
+          [
+            "Nick Townsend",
+            "TE",
+            "Probable"
+          ],
+          [
+            "Kaliq Lockett",
+            "WR",
+            "Out"
+          ],
+          [
+            "Justus Terry",
+            "DL",
+            "Doubtful"
+          ],
+          [
+            "Jordan Coleman",
+            "OL",
+            "Out"
+          ],
+          [
+            "Zion Williams",
+            "DE",
+            "Out"
+          ]
+        ]
+      },
+      "201": {
+        "team": "Oklahoma",
+        "src": "https://sports.yahoo.com/articles/hollywood-smothers-cleared-ahead-texas-023603356.html [SEC availability report, initial Wed 10/7; Van Dorselaer probable per Thursday report via Rotowire 10/8; game Sat 10/10 vs Texas] (verified from the page)",
+        "players": [
+          [
+            "Taylor Heim",
+            "LB",
+            "Out"
+          ],
+          [
+            "Trell Harris",
+            "WR",
+            "Out"
+          ],
+          [
+            "Xavier Robinson",
+            "RB",
+            "Out"
+          ],
+          [
+            "Jacobe Johnson",
+            "DB",
+            "Out"
+          ],
+          [
+            "Trynae Washington",
+            "TE",
+            "Doubtful"
+          ],
+          [
+            "Michael Fasusi",
+            "OL",
+            "Doubtful"
+          ],
+          [
+            "Fred Hinton",
+            "OL",
+            "Doubtful"
+          ],
+          [
+            "Jer'Michael Carter",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Cole Sullivan",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Michael Boganowski",
+            "DB",
+            "Questionable"
+          ],
+          [
+            "Eddy Pierre-Louis",
+            "OL",
+            "Questionable"
+          ],
+          [
+            "Jack Van Dorselaer",
+            "TE",
+            "Probable"
+          ],
+          [
+            "Owen Heinecke",
+            "LB",
+            "Probable"
+          ]
+        ]
+      },
+      "213": {
+        "team": "Penn State",
+        "src": "https://www.statecollege.com/articles/penn-state-football/2-penn-state-defenders-questionable-against-usc-full-availability-report/ [Big Ten availability report, initial Wed 10/7 night; Thu/Fri updates still to come; game Sat 10/10 vs USC] (verified from the page)",
+        "players": [
+          [
+            "Alex Tatsch",
+            "LB",
+            "Questionable"
+          ],
+          [
+            "Armstrong Nnodim",
+            "DT",
+            "Questionable"
+          ],
+          [
+            "Koby Howard",
+            "WR",
+            "Out"
+          ],
+          [
+            "Max Granville",
+            "DE",
+            "Out"
+          ],
+          [
+            "LaVar Arrington II",
+            "DE",
+            "Out"
+          ],
+          [
+            "Mason Robinson",
+            "DE",
+            "Out"
+          ],
+          [
+            "Dayshaun Burnett",
+            "DE",
+            "Out"
+          ],
+          [
+            "Joshua Johnson",
+            "CB",
+            "Out"
+          ],
+          [
+            "Christian Askew",
+            "CB",
+            "Out"
+          ],
+          [
+            "Tyler Armstead",
+            "CB",
+            "Out"
+          ],
+          [
+            "Cam Smith",
+            "LB",
+            "Out"
+          ],
+          [
+            "Will Tompkins",
+            "OL",
+            "Out"
+          ],
+          [
+            "Cooper Alexander",
+            "TE",
+            "Out"
+          ],
+          [
+            "Cristiano Rosa",
+            "K",
+            "Out"
+          ]
+        ]
+      },
+      "30": {
+        "team": "USC",
+        "src": "https://www.si.com/college/usc/football/one-change-usc-trojans-injury-report-before-penn-state [Big Ten availability report, Thu 10/8 update; Friday update still to come; game Sat 10/10 at Penn State] (verified from the page)",
+        "players": [
+          [
+            "Corey Simms",
+            "WR",
+            "Out"
+          ],
+          [
+            "Kendarius Reddick",
+            "S",
+            "Out"
+          ],
+          [
+            "Taylor Johnson",
+            "LB",
+            "Out"
+          ],
+          [
+            "Roman Marchetti",
+            "LB",
+            "Out"
+          ],
+          [
+            "Kilian O'Connor",
+            "OL",
+            "Out"
+          ],
+          [
+            "Jahkeem Stewart",
+            "DT",
+            "Questionable"
+          ],
+          [
+            "Trent Mosley",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Terrell Anderson",
+            "WR",
+            "Questionable"
+          ],
+          [
+            "Jide Abasiri",
+            "DT",
+            "Questionable"
+          ],
+          [
+            "Mark Bowman",
+            "TE",
+            "Questionable"
+          ],
+          [
+            "Hayden Treter",
+            "OL",
+            "Questionable"
+          ]
+        ]
+      }
+    }
   }
- },
- "2026-10-03": {
-  "ncaaf": {
-   "130": {
-    "team": "Michigan",
-    "src": "https://www.on3.com/sites/gophers-nation/news/minnesota-vs-michigan-thursday-availability-report [Thursday 10/1 gameday chart, Michigan vs Minnesota] (verified from the page)",
-    "players": [
-     [
-      "Braydon Alford",
-      "WR",
-      "Out"
-     ],
-     [
-      "Andrew Babalola",
-      "OL",
-      "Out"
-     ],
-     [
-      "Jonathan Brown",
-      "RB",
-      "Out"
-     ],
-     [
-      "Ace Hamilton",
-      "OL",
-      "Out"
-     ],
-     [
-      "Julius Holly",
-      "EDGE",
-      "Out"
-     ],
-     [
-      "Micah Ka’apana",
-      "RB",
-      "Out"
-     ],
-     [
-      "Andrew Marsh",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "John Henry Daley",
-      "EDGE",
-      "Questionable"
-     ],
-     [
-      "Dom Nichols",
-      "EDGE",
-      "Questionable"
-     ],
-     [
-      "Andrew Sprague",
-      "OT",
-      "Questionable"
-     ],
-     [
-      "Manuel Biegel",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Houston Ka’aha’aina-Torres",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Blake Frazier",
-      "OT",
-      "Probable"
-     ]
-    ]
-   },
-   "135": {
-    "team": "Minnesota",
-    "src": "https://www.on3.com/sites/gophers-nation/news/minnesota-vs-michigan-thursday-availability-report [Thursday 10/1 gameday chart] (verified from the page)",
-    "players": [
-     [
-      "Ashton Beers",
-      "C",
-      "Out"
-     ],
-     [
-      "Jaden Ball",
-      "OL",
-      "Out"
-     ],
-     [
-      "Riley Sunram",
-      "DT",
-      "Probable"
-     ],
-     [
-      "A.J. Turner",
-      "RB",
-      "Probable"
-     ],
-     [
-      "Zeke Bates",
-      "RB",
-      "Probable"
-     ],
-     [
-      "Adam Kissayi",
-      "DE",
-      "Probable"
-     ],
-     [
-      "Beckham Sunderland",
-      "K",
-      "Probable"
-     ]
-    ]
-   },
-   "333": {
-    "team": "Alabama",
-    "src": "https://www.on3.com/teams/alabama-crimson-tide/news/initial-availability-report-alabama-ol-starter-questionable-for-mississippi-state-game [Wed 10/1 initial SEC report] (verified from the page)",
-    "players": [
-     [
-      "Justin Hill",
-      "LB",
-      "Out"
-     ],
-     [
-      "Desmond Umeozulu",
-      "LB",
-      "Out"
-     ],
-     [
-      "Jorden Edmonds",
-      "DB",
-      "Out"
-     ],
-     [
-      "Cayden Jones",
-      "LB",
-      "Out"
-     ],
-     [
-      "Nick Sherman",
-      "DB",
-      "Out"
-     ],
-     [
-      "Jeremiah Beaman",
-      "DL",
-      "Out"
-     ],
-     [
-      "Jayvin James",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Zavier Mincey",
-      "DB",
-      "Probable"
-     ]
-    ]
-   },
-   "344": {
-    "team": "Mississippi State",
-    "src": "https://www.on3.com/teams/alabama-crimson-tide/news/initial-availability-report-alabama-ol-starter-questionable-for-mississippi-state-game [Wed 10/1 initial SEC report; the draft's SI page was a 2025 (Texas A&M) article] (verified from the page)",
-    "players": [
-     [
-      "Ayden Williams",
-      "WR",
-      "Out"
-     ],
-     [
-      "Trevion Williams",
-      "DL",
-      "Out"
-     ],
-     [
-      "Diesel Moye",
-      "DL",
-      "Out"
-     ],
-     [
-      "Zakari Tillman",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Isaac Smith",
-      "S",
-      "Probable"
-     ],
-     [
-      "Fluff Bothwell",
-      "RB",
-      "Probable"
-     ]
-    ]
-   },
-   "154": {
-    "team": "Wake Forest",
-    "src": "https://ncfootballnews.com/games/stanford-at-wake-forest-football-2026/ (ACC report Wed 10/1 + Thu update, verified from the page)",
-    "players": [
-     [
-      "Ny Carr",
-      "WR",
-      "Out"
-     ],
-     [
-      "Devin Cook",
-      "DB",
-      "Out"
-     ],
-     [
-      "Tyler Walton",
-      "DL",
-      "Doubtful"
-     ],
-     [
-      "Elijah Otieno",
-      "WR",
-      "Doubtful"
-     ]
-    ]
-   },
-   "277": {
-    "team": "West Virginia",
-    "src": "https://www.widerightnattylite.com/iowa-state-football/53913/injury-report-for-iowa-states-matchup-versus-west-virginia + https://www.si.com/college/westvirginia/football/wvu-wr-armoni-weaver-bomar-out-vs-iowa-state-two-defenders-probable [Wed 10/1 Big 12 report] (verified from the page)",
-    "players": [
-     [
-      "Emory Snyder",
-      "Nickel/Safety",
-      "Out"
-     ],
-     [
-      "Armoni Weaver-Bomar",
-      "WR",
-      "Out"
-     ],
-     [
-      "Andre Devine",
-      "RB",
-      "Out"
-     ],
-     [
-      "Darius Wiley",
-      "DL",
-      "Out"
-     ],
-     [
-      "Nick Taylor",
-      "CB",
-      "Probable"
-     ],
-     [
-      "Ashton Woods",
-      "LB",
-      "Probable"
-     ]
-    ]
-   },
-   "66": {
-    "team": "Iowa State",
-    "src": "https://www.widerightnattylite.com/iowa-state-football/53913/injury-report-for-iowa-states-matchup-versus-west-virginia [Wed 10/1 Big 12 report] (verified from the page)",
-    "players": [
-     [
-      "Carter Pabst",
-      "WR",
-      "Out"
-     ],
-     [
-      "Caden Maas",
-      "OL",
-      "Out"
-     ],
-     [
-      "Caden Crawford",
-      "DE",
-      "Out"
-     ],
-     [
-      "Ka'Mori Moore",
-      "DT",
-      "Out"
-     ],
-     [
-      "Jaheim Singletary",
-      "CB",
-      "Questionable"
-     ]
-    ]
-   },
-   "127": {
-    "team": "Michigan St",
-    "src": "https://sports.yahoo.com/articles/wisconsin-running-back-doubtful-homecoming-010555177.html [Wed 9/30 initial Big Ten report; the Detroit News page FAILED] (verified from the page)",
-    "players": [
-     [
-      "NiJhay Burt",
-      "CB",
-      "Out"
-     ],
-     [
-      "Cam Edwards",
-      "RB",
-      "Out"
-     ],
-     [
-      "Keshawn Williams",
-      "CB",
-      "Out"
-     ],
-     [
-      "Tyran Chappell",
-      "CB",
-      "Out"
-     ],
-     [
-      "Jack Coyne",
-      "FB",
-      "Out"
-     ],
-     [
-      "Tristan Comer",
-      "OL",
-      "Out"
-     ],
-     [
-      "Jay Caudill",
-      "TE",
-      "Out"
-     ],
-     [
-      "Jordan Hall",
-      "LB",
-      "Doubtful"
-     ],
-     [
-      "Tre Bell",
-      "CB",
-      "Questionable"
-     ],
-     [
-      "Cam Slodghill",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Dion Crawford",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Brady Pretzlaff",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Conner Moore",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Eli Bickel",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Cal Thursh",
-      "DL",
-      "Questionable"
-     ]
-    ]
-   },
-   "275": {
-    "team": "Wisconsin",
-    "src": "https://sports.yahoo.com/articles/wisconsin-running-back-doubtful-homecoming-010555177.html [Wed 9/30 initial Big Ten report] (verified from the page)",
-    "players": [
-     [
-      "Cai Bates",
-      "CB",
-      "Out"
-     ],
-     [
-      "Jaylon Domingeaux",
-      "WR",
-      "Out"
-     ],
-     [
-      "Michael Roeske",
-      "OL",
-      "Out"
-     ],
-     [
-      "Abu Sama",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Bryan Jackson",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Mason Lane",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Emerson Mandell",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Ryan Schwendeman",
-      "TE",
-      "Probable"
-     ],
-     [
-      "Sean West",
-      "P",
-      "Probable"
-     ]
-    ]
-   },
-   "61": {
-    "team": "Georgia",
-    "src": "https://www.on3.com/news/jared-curtis-nate-frazier-still-questionable-on-thursdays-sec-availability-report-for-vanderbilt-georgia/ [Thu 10/1 SEC report] (verified from the page)",
-    "players": [
-     [
-      "Amaris Williams",
-      "OLB",
-      "Out"
-     ],
-     [
-      "Tyriq Green",
-      "DB",
-      "Out"
-     ],
-     [
-      "Marcus Harrison",
-      "OL",
-      "Out"
-     ],
-     [
-      "Nate Frazier",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Isiah Canion",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Chase Linton",
-      "OLB",
-      "Questionable"
-     ]
-    ]
-   },
-   "238": {
-    "team": "Vanderbilt",
-    "src": "https://www.on3.com/news/jared-curtis-nate-frazier-still-questionable-on-thursdays-sec-availability-report-for-vanderbilt-georgia/ [Thu 10/1 SEC report] (verified from the page)",
-    "players": [
-     [
-      "Jaylin Lackey",
-      "CB",
-      "Out"
-     ],
-     [
-      "Jamison Curtis",
-      "LB",
-      "Out"
-     ],
-     [
-      "Aaron Bryan",
-      "DL",
-      "Out"
-     ],
-     [
-      "Nakhil Jefferson",
-      "DL",
-      "Out"
-     ],
-     [
-      "Jared Curtis",
-      "QB",
-      "Questionable"
-     ],
-     [
-      "Miles Capers",
-      "EDGE",
-      "Probable"
-     ]
-    ]
-   },
-   "252": {
-    "team": "BYU",
-    "src": "https://sports.ksl.com/ncaa/byu-football/byu-tcu-availability-report/577735 (KSL, Sep 30/Oct 1 2026, Big 12 report for TCU game) (verified from the page)",
-    "players": [
-     [
-      "Jonathan Kabeya",
-      "CB",
-      "Out"
-     ],
-     [
-      "Raider Damuni",
-      "S",
-      "Out"
-     ],
-     [
-      "Sione Moa",
-      "RB",
-      "Out"
-     ],
-     [
-      "Andrew Gentry",
-      "OL",
-      "Out"
-     ],
-     [
-      "Ethan Thomason",
-      "OL",
-      "Out"
-     ],
-     [
-      "Brody Laga",
-      "K",
-      "Out"
-     ],
-     [
-      "Siale Esera",
-      "LB",
-      "Out"
-     ],
-     [
-      "Kevin Doe",
-      "CB",
-      "Probable"
-     ]
-    ]
-   },
-   "2628": {
-    "team": "TCU",
-    "src": "https://sports.ksl.com/ncaa/byu-football/byu-tcu-availability-report/577735 (KSL, Sep 30/Oct 1 2026, Big 12 report for BYU game) (verified from the page)",
-    "players": [
-     [
-      "Michael Short",
-      "LB",
-      "Out"
-     ],
-     [
-      "Devondre McGee",
-      "CB",
-      "Out"
-     ],
-     [
-      "Joe Pitchford",
-      "RB",
-      "Out"
-     ],
-     [
-      "Devan Robison",
-      "OL",
-      "Out"
-     ],
-     [
-      "Creece Brister",
-      "OL",
-      "Out"
-     ],
-     [
-      "Cooper Reid",
-      "WR",
-      "Out"
-     ],
-     [
-      "Zach Chapman",
-      "EDGE",
-      "Questionable"
-     ],
-     [
-      "Perry Cole Jr.",
-      "DT",
-      "Questionable"
-     ]
-    ]
-   },
-   "2390": {
-    "team": "Miami",
-    "src": "https://sports.yahoo.com/articles/clemson-miami-injury-report-just-010054477.html + https://www.canesinsight.com/articles/availability-report-miami-vs-clemson.12648/ (Yahoo dated Oct 1 2026; ACC report, 6 out + 2 questionable) (verified from the page)",
-    "players": [
-     [
-      "Joshua Moore",
-      "WR",
-      "Out"
-     ],
-     [
-      "CharMar Brown",
-      "",
-      "Out"
-     ],
-     [
-      "Ja'Boree Antoine",
-      "",
-      "Out"
-     ],
-     [
-      "O.J. Frederique",
-      "DB",
-      "Out"
-     ],
-     [
-      "Owen Ruskavich",
-      "TE",
-      "Out"
-     ],
-     [
-      "Luka Gilbert",
-      "TE",
-      "Out"
-     ],
-     [
-      "Xavier Lucas",
-      "CB",
-      "Questionable"
-     ],
-     [
-      "Ezekiel Marcelin Jr.",
-      "LB",
-      "Questionable"
-     ]
-    ]
-   },
-   "36": {
-    "team": "Colorado St",
-    "src": "https://sports.yahoo.com/articles/availability-report-colorado-state-vs-023210664.html (Coloradoan/Yahoo, Oct 1 2026, Pac-12 initial report) (verified from the page)",
-    "players": [
-     [
-      "Alton Tarbor",
-      "DL",
-      "Probable"
-     ],
-     [
-      "Brandon Kelley",
-      "DL",
-      "Probable"
-     ],
-     [
-      "Dakota Rich",
-      "LB",
-      "Probable"
-     ],
-     [
-      "Dylan Phelps",
-      "DB",
-      "Probable"
-     ],
-     [
-      "Hudson Cocchiara",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Jordan Lessard",
-      "DB",
-      "Probable"
-     ],
-     [
-      "Marc Pretto",
-      "LB",
-      "Probable"
-     ],
-     [
-      "Mel Brown",
-      "RB",
-      "Probable"
-     ],
-     [
-      "Oliver Lundberg",
-      "RB",
-      "Probable"
-     ],
-     [
-      "Oumar Diomande",
-      "LB",
-      "Probable"
-     ],
-     [
-      "Pearce Spurlin",
-      "TE",
-      "Probable"
-     ],
-     [
-      "Thomas Cook",
-      "DB",
-      "Probable"
-     ],
-     [
-      "Toriyan Johnson",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Trey Vincent",
-      "DB",
-      "Probable"
-     ],
-     [
-      "Uluaki Tatafu",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Zach Smith",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Daven Amos",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Hauss Hejny",
-      "QB",
-      "Questionable"
-     ],
-     [
-      "Jayden Cortell",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Kallen Martinez",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Elijah Mc-Cantos",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Grant Houser",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "Jayden Tuia",
-      "OL",
-      "Doubtful"
-     ],
-     [
-      "Troy Foster",
-      "WR",
-      "Doubtful"
-     ],
-     [
-      "AJ Noland",
-      "DB",
-      "Out"
-     ],
-     [
-      "Dagan Myers",
-      "DB",
-      "Out"
-     ],
-     [
-      "Payton Stewart",
-      "OL",
-      "Out"
-     ]
-    ]
-   },
-   "204": {
-    "team": "Oregon St",
-    "src": "https://sports.yahoo.com/articles/availability-report-colorado-state-vs-023210664.html (Coloradoan/Yahoo, Oct 1 2026, Pac-12 initial report) (verified from the page)",
-    "players": [
-     [
-      "Jacob Anderson",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Ryan RJ Whitten",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Trey Glasper",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Kourdey Glass",
-      "RB",
-      "Doubtful"
-     ],
-     [
-      "Carter Guilliame",
-      "OL",
-      "Out"
-     ],
-     [
-      "Kait Wheaton",
-      "DB",
-      "Out"
-     ]
-    ]
-   },
-   "21": {
-    "team": "San Diego State",
-    "src": "https://www.on3.com/news/san-diego-state-lists-32-players-on-injury-report-amid-mumps-outbreak (verified from the page, Pac-12 report, Oct 1; vs Texas State; page lists all 32 names, 17 doubtful/out) + Rotowire update (Emanuel probable, Ford doubtful) + Thursday-night update: Justius Lowe up to Questionable (si.com/college/san-diego-state/football/san-diego-state-availability-report-changes-again-ahead-pac-12-opener)",
-    "players": [
-     [
-      "Carson Diehl",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Dennis Jones",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Donovan Brown",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Isaac Lucas",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Jacob Bostick",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Jalen Thomeson",
-      "DB",
-      "Probable"
-     ],
-     [
-      "Kai Wallin",
-      "OLB",
-      "Probable"
-     ],
-     [
-      "Kaimana Tufaga",
-      "DB",
-      "Probable"
-     ],
-     [
-      "Kalan Ellis",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Krishna Clay",
-      "DL",
-      "Probable"
-     ],
-     [
-      "Parker Threatt",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Bert Emanuel Jr",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Jackson Ford",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "Kime Fangupo",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Ryan Wolfer",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Dean Harrington",
-      "ILB",
-      "Doubtful"
-     ],
-     [
-      "Elijah Muliufi",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "Harlem Nellum",
-      "OL",
-      "Doubtful"
-     ],
-     [
-      "Jack Lua",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "Javion Kinnard",
-      "RB",
-      "Doubtful"
-     ],
-     [
-      "Jeremiah Lewis",
-      "ILB",
-      "Doubtful"
-     ],
-     [
-      "Justius Lowe",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Tuaoa Tauiliili",
-      "DL",
-      "Doubtful"
-     ],
-     [
-      "Braylon Cardwell",
-      "DB",
-      "Out"
-     ],
-     [
-      "Dalesean Staley",
-      "DB",
-      "Out"
-     ],
-     [
-      "Jack Ellis",
-      "TE",
-      "Out"
-     ],
-     [
-      "Lucky Sutton",
-      "RB",
-      "Out"
-     ],
-     [
-      "Luke Williams",
-      "SP",
-      "Out"
-     ],
-     [
-      "Mikey Watkins",
-      "OL",
-      "Out"
-     ],
-     [
-      "Parker Guiltinan",
-      "TE",
-      "Out"
-     ],
-     [
-      "Roman Paseka",
-      "DL",
-      "Out"
-     ],
-     [
-      "Stone Saunders",
-      "QB",
-      "Out"
-     ]
-    ]
-   },
-   "2509": {
-    "team": "Purdue",
-    "src": "https://www.on3.com/teams/purdue-boilermakers/news/purdue-football-vs-illinois-availability-report-2 (verified from the page, Big Ten availability report #2, Oct 1; vs Illinois)",
-    "players": [
-     [
-      "Mister Clark",
-      "CB",
-      "Out"
-     ],
-     [
-      "Kylan Fox",
-      "TE",
-      "Out"
-     ],
-     [
-      "Raderrion Daniels",
-      "TE",
-      "Out"
-     ],
-     [
-      "Joey Tanona",
-      "LT",
-      "Out"
-     ],
-     [
-      "Jude McCoskey",
-      "RT",
-      "Questionable"
-     ],
-     [
-      "Elo Modozie",
-      "DE",
-      "Questionable"
-     ]
-    ]
-   },
-   "52": {
-    "team": "Florida State",
-    "src": "https://www.tomahawknation.com/florida-state-football/138012/fsu-updated-injury-report-virginia-cavaliers (verified from the page, ACC updated report, Oct 1 night; vs Virginia)",
-    "players": [
-     [
-      "Quindarrius Jones",
-      "DB",
-      "Probable"
-     ],
-     [
-      "Caleb LaVallee",
-      "LB",
-      "Probable"
-     ],
-     [
-      "Darryll Desir",
-      "DL",
-      "Out"
-     ],
-     [
-      "Samuel Singleton Jr.",
-      "RB",
-      "Out"
-     ],
-     [
-      "Devin Carter",
-      "WR",
-      "Out"
-     ],
-     [
-      "Antonio Cromartie Jr.",
-      "DB",
-      "Out"
-     ],
-     [
-      "Daylen Green",
-      "LB",
-      "Out"
-     ],
-     [
-      "Noah LaVallee",
-      "LB",
-      "Out"
-     ]
-    ]
-   },
-   "258": {
-    "team": "Virginia",
-    "src": "https://www.tomahawknation.com/florida-state-football/138012/fsu-updated-injury-report-virginia-cavaliers (verified from the page, ACC updated report, Oct 1 night; at Florida State)",
-    "players": [
-     [
-      "Devon Baxter",
-      "DE",
-      "Doubtful"
-     ],
-     [
-      "Peyton Lewis",
-      "RB",
-      "Out"
-     ],
-     [
-      "Tim Hamann",
-      "K",
-      "Out"
-     ],
-     [
-      "Dillon Newton-Short",
-      "WR",
-      "Out"
-     ]
-    ]
-   },
-   "97": {
-    "team": "Louisville",
-    "src": "https://ncfootballnews.com/games/louisville-at-nc-state-football-2026/ (verified from the page, ACC report Thu Oct 1 8pm)",
-    "players": [
-     [
-      "Antonio Watts",
-      "DB",
-      "Out"
-     ],
-     [
-      "Travis Egan",
-      "TE",
-      "Out"
-     ],
-     [
-      "Jacob Baker",
-      "P",
-      "Out"
-     ],
-     [
-      "Montavin Quisenberry",
-      "WR",
-      "Out"
-     ],
-     [
-      "Hamilton Atkins",
-      "TE",
-      "Out"
-     ],
-     [
-      "Sam Dawson",
-      "DL",
-      "Out"
-     ],
-     [
-      "Lincoln Kienholz",
-      "QB",
-      "Questionable"
-     ],
-     [
-      "Koen Entringer",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Lawayne McCoy",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Keyjuan Brown",
-      "RB",
-      "Probable"
-     ],
-     [
-      "AJ Green",
-      "DL",
-      "Probable"
-     ],
-     [
-      "Anwar O'neal",
-      "OL",
-      "Probable"
-     ],
-     [
-      "Elizjah Lewis",
-      "WR",
-      "Probable"
-     ],
-     [
-      "Daylen Russell",
-      "DL",
-      "Probable"
-     ]
-    ]
-   },
-   "152": {
-    "team": "NC State",
-    "src": "https://ncfootballnews.com/games/louisville-at-nc-state-football-2026/ (verified from the page, ACC report Thu Oct 1 8pm)",
-    "players": [
-     [
-      "Vander Ploog",
-      "TE",
-      "Out"
-     ],
-     [
-      "Isaiah Crowell",
-      "NCK",
-      "Out"
-     ],
-     [
-      "AJ Richardson",
-      "ILB",
-      "Out"
-     ],
-     [
-      "Spike Sowells Jr.",
-      "OL",
-      "Out"
-     ],
-     [
-      "Ian Flynt",
-      "TE",
-      "Out"
-     ],
-     [
-      "Carmelo McKenzie",
-      "NG",
-      "Out"
-     ],
-     [
-      "Tyreek Copper",
-      "WR",
-      "Doubtful"
-     ],
-     [
-      "Nick Konieczynski",
-      "K",
-      "Doubtful"
-     ],
-     [
-      "Noah Moss",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Jimarion McCrimon",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "2": {
-    "team": "Auburn",
-    "src": "https://sports.yahoo.com/articles/tennessee-football-ol-sham-umarov-001600015.html (verified from the page, SEC report Thu Oct 1; same two names on Wed report)",
-    "players": [
-     [
-      "Tai Buster",
-      "OL",
-      "Out"
-     ],
-     [
-      "Hunter Herring",
-      "TE",
-      "Out"
-     ]
-    ]
-   },
-   "2633": {
-    "team": "Tennessee",
-    "src": "https://sports.yahoo.com/articles/tennessee-football-ol-sham-umarov-001600015.html (verified from the page, SEC report updated Thu Oct 1; Wed report on yahoo/al.com and utdailybeacon agrees)",
-    "players": [
-     [
-      "Javin Gordon",
-      "RB",
-      "Doubtful"
-     ],
-     [
-      "Shamurad (Sham) Umarov",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Nathan Robinson",
-      "DL",
-      "Probable"
-     ],
-     [
-      "Kedric Golston II",
-      "DL",
-      "Out"
-     ],
-     [
-      "Wendell Moe Jr.",
-      "OL",
-      "Out For Season"
-     ],
-     [
-      "Dylan Lewis",
-      "DB",
-      "Out For Season"
-     ],
-     [
-      "Edrees Farooq",
-      "S",
-      "Out For Season"
-     ],
-     [
-      "Ethan Davis",
-      "TE",
-      "Out For Season"
-     ],
-     [
-      "Joakim Dodson",
-      "WR",
-      "Out For Season"
-     ],
-     [
-      "Jaedon Harmon",
-      "LB",
-      "Out For Season"
-     ],
-     [
-      "Jadais Richard",
-      "CB",
-      "Out For Season"
-     ]
-    ]
-   },
-   "142": {
-    "team": "Missouri",
-    "src": "https://sports.yahoo.com/articles/mizzou-injury-status-ahmad-hardy-001509549.html (verified from the page, SEC report Wed Sep 30)",
-    "players": [
-     [
-      "Ahmad Hardy",
-      "RB",
-      "Out"
-     ],
-     [
-      "Malae Fonoti",
-      "RB",
-      "Out"
-     ],
-     [
-      "Josh Atkins",
-      "RT",
-      "Out"
-     ],
-     [
-      "JaDon Blair",
-      "S",
-      "Out"
-     ],
-     [
-      "Gavin Hoffman",
-      "TE",
-      "Out"
-     ],
-     [
-      "Darris Smith",
-      "DE",
-      "Questionable"
-     ],
-     [
-      "Langden Kitchen",
-      "DE",
-      "Questionable"
-     ],
-     [
-      "Bobby Washington",
-      "LB",
-      "Questionable"
-     ]
-    ]
-   },
-   "57": {
-    "team": "Florida",
-    "src": "https://sports.yahoo.com/articles/mizzou-injury-status-ahmad-hardy-001509549.html (verified from the page, SEC report Wed Sep 30)",
-    "players": [
-     [
-      "Vernell Brown III",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Bailey Stockton",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "194": {
-    "team": "Ohio State",
-    "src": "https://www.on3.com/teams/ohio-state-buckeyes/news/ohio-state-buckeyes-iowa-game-injury-report-wednesday (verified from the page, Big Ten report Wed Sep 30/Oct 1 8pm)",
-    "players": [
-     [
-      "Braxton Rembert",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Anthony Rogers",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Brenton 'Inky' Jones",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Jay Timmons",
-      "CB",
-      "Questionable"
-     ],
-     [
-      "Phillip Daniels",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Bennett Christian",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Jaxon Powell",
-      "OL",
-      "Out"
-     ],
-     [
-      "Vasean Washington",
-      "OL",
-      "Out"
-     ],
-     [
-      "Amari Valerio-Hudson",
-      "WR",
-      "Out"
-     ]
-    ]
-   },
-   "96": {
-    "team": "Kentucky",
-    "src": "SEC availability report, Thursday 10/1/2026 (via On3 KSR, verified from the page: https://www.on3.com/teams/kentucky-wildcats/news/sec-availability-report-lb-tavion-wallace-listed-as-questionable-vs-south-carolina)",
-    "players": [
-     [
-      "Grant Grayton",
-      "CB",
-      "Out"
-     ],
-     [
-      "DJ Miller",
-      "WR",
-      "Doubtful"
-     ],
-     [
-      "Cole Marszalek",
-      "LS",
-      "Doubtful"
-     ],
-     [
-      "Jay Clark",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Tavion Wallace",
-      "LB",
-      "Questionable"
-     ]
-    ]
-   },
-   "2579": {
-    "team": "South Carolina",
-    "src": "SEC availability report, Thursday 10/1/2026 (via On3 KSR, verified from the page; Dylan Stewart suspended)",
-    "players": [
-     [
-      "Dylan Stewart",
-      "EDGE",
-      "Out"
-     ],
-     [
-      "Jalewis Solomon",
-      "DB",
-      "Out"
-     ],
-     [
-      "Jayden Sellers",
-      "WR",
-      "Out"
-     ],
-     [
-      "AJ Holloway",
-      "LB",
-      "Out"
-     ],
-     [
-      "Kobby Sakyi-Prah",
-      "EDGE",
-      "Out"
-     ],
-     [
-      "Josiah Thompson",
-      "OL",
-      "Out"
-     ],
-     [
-      "Gabriel Brownlow-Dindy",
-      "DL",
-      "Questionable"
-     ]
-    ]
-   },
-   "228": {
-    "team": "Clemson",
-    "src": "https://sports.yahoo.com/articles/clemson-miami-injury-report-just-010054477.html (ACC initial report Wed 10/1, verified from the page; RB David Eziomume out per a second ACC-report article)",
-    "players": [
-     [
-      "Polo Anderson",
-      "S",
-      "Out"
-     ],
-     [
-      "Shavar Young Jr.",
-      "CB",
-      "Out"
-     ],
-     [
-      "Cole Turner",
-      "WR",
-      "Out"
-     ],
-     [
-      "David Eziomume",
-      "RB",
-      "Out"
-     ],
-     [
-      "Kourtney Kelly",
-      "DT",
-      "Out"
-     ],
-     [
-      "Mason Wade",
-      "OL",
-      "Out"
-     ],
-     [
-      "Markus Strong",
-      "DT",
-      "Out"
-     ],
-     [
-      "Armon Mason",
-      "DE",
-      "Questionable"
-     ],
-     [
-      "Elyjah Thurmon",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "158": {
-    "team": "Nebraska",
-    "src": "https://huskercorner.com/nebraska-football-jamal-rule-mekhi-nelson-jacory-barney-maryland-injury-report + https://www.si.com/college/nebraska/football/huskers-jamal-rule-listed-doubtful-maryland-01m3tkc69vpa (Big Ten report Wed 10/1 + Thu 10/1 changes, verified from the pages)",
-    "players": [
-     [
-      "Larry Miles",
-      "WR",
-      "Out"
-     ],
-     [
-      "Kahmir Prescott",
-      "DB",
-      "Out"
-     ],
-     [
-      "Carter Nelson",
-      "TE",
-      "Out"
-     ],
-     [
-      "Gage Stenger",
-      "",
-      "Out"
-     ],
-     [
-      "Jase Reynolds",
-      "",
-      "Out"
-     ],
-     [
-      "Jacob Bower",
-      "",
-      "Out"
-     ],
-     [
-      "Gabe Moore",
-      "",
-      "Out"
-     ],
-     [
-      "Jamal Rule",
-      "RB",
-      "Doubtful"
-     ],
-     [
-      "Mekhi Nelson",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Jacory Barney Jr.",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Tanner Terch",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Bryson Webber",
-      "DB",
-      "Questionable"
-     ]
-    ]
-   },
-   "84": {
-    "team": "Indiana",
-    "src": "https://www.on3.com/teams/indiana-hoosiers/news/big-ten-availability-report-released-for-indiana-ahead-of-rutgers-matchup/ + https://www.thedailyhoosier.com/indianas-top-4-rbs-now-on-the-availability-report-ahead-of-rutgers-game/ (Big Ten report Wed/Thu 10/1, verified from the pages; WR Lebron Bond out per On3 summary)",
-    "players": [
-     [
-      "Daniel Ndukwe",
-      "DL",
-      "Out"
-     ],
-     [
-      "Carson Williams",
-      "DB",
-      "Out"
-     ],
-     [
-      "Lebron Bond",
-      "WR",
-      "Out"
-     ],
-     [
-      "Khobie Martin",
-      "RB",
-      "Out"
-     ],
-     [
-      "A.J. Harris",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Sean Cuono",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Lee Beebe Jr.",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "164": {
-    "team": "Rutgers",
-    "src": "https://www.on3.com/sites/the-knight-report/news/rutgers-football-injury-report-indiana-game (Big Ten report Wed 10/1, verified from the page)",
-    "players": [
-     [
-      "Kevin Levy",
-      "DB",
-      "Out"
-     ],
-     [
-      "Davoun Fuse",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Steven Murray",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Antwan Raymond",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Kevyn Humes",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Dylan Braithwaite",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Dantae Chin",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "2294": {
-    "team": "Iowa",
-    "src": "https://sports.yahoo.com/articles/iowa-football-vs-ohio-state-000752022.html (Big Ten report Wed 10/1, verified from the page)",
-    "players": [
-     [
-      "Kyler Gerardy",
-      "DB",
-      "Out"
-     ],
-     [
-      "Tyler Brown",
-      "DB",
-      "Out"
-     ],
-     [
-      "Darion Jones",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Derek Weisskopf",
-      "LB",
-      "Questionable"
-     ]
-    ]
-   },
-   "356": {
-    "team": "Illinois",
-    "src": "https://www.si.com/college/purdue/football/purdue-initial-availability-report-vs-illinois-who-in-who-out-big-ten-football (Big Ten report Wed 10/1, verified from the page)",
-    "players": [
-     [
-      "Alex Perry",
-      "WR",
-      "Out"
-     ],
-     [
-      "Jack Paris",
-      "LB",
-      "Out"
-     ],
-     [
-      "TJ McMillen",
-      "OL",
-      "Out"
-     ],
-     [
-      "BJ Thurman",
-      "TE",
-      "Out"
-     ],
-     [
-      "Jacob Alexander",
-      "LB",
-      "Doubtful"
-     ],
-     [
-      "Champ Smith",
-      "OL",
-      "Doubtful"
-     ],
-     [
-      "Jayshon Platt",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Dezmond Schuster",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Kaden Feagin",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   },
-   "24": {
-    "team": "Stanford",
-    "src": "https://ncfootballnews.com/games/stanford-at-wake-forest-football-2026/ (ACC report Wed 10/1, no changes Thu, verified from the page)",
-    "players": [
-     [
-      "Dylan Stephenson",
-      "OLB",
-      "Out"
-     ],
-     [
-      "Brandon Nicholson",
-      "CB",
-      "Out"
-     ],
-     [
-      "Jason Hill Jr.",
-      "CB",
-      "Out"
-     ],
-     [
-      "Brendan Delaney",
-      "DL",
-      "Out"
-     ],
-     [
-      "Dara Adeyemi",
-      "OL",
-      "Out"
-     ],
-     [
-      "Reiman Zebert",
-      "TE",
-      "Out"
-     ],
-     [
-      "Jahsiah Galvan",
-      "ILB",
-      "Questionable"
-     ],
-     [
-      "Jacobi Murray",
-      "DL",
-      "Questionable"
-     ]
-    ]
-   },
-   "8": {
-    "team": "Arkansas",
-    "src": "https://www.kbtx.com/2026/10/02/texas-am-linebacker-listed-out-availability-report-ahead-arkansas/ + https://www.on3.com/sites/hawg-beat/news/arkansas-football-availability-report-texas-am-week-thursday (SEC report Wed/Thu 10/1, verified from the pages)",
-    "players": [
-     [
-      "Jamonta Waller",
-      "DL",
-      "Out"
-     ],
-     [
-      "John Howse IV",
-      "DB",
-      "Out"
-     ],
-     [
-      "Maddox Lassiter",
-      "TE",
-      "Out"
-     ],
-     [
-      "Steven Soles Jr.",
-      "DL",
-      "Questionable"
-     ]
-    ]
-   },
-   "245": {
-    "team": "Texas A&M",
-    "src": "https://www.kbtx.com/2026/10/02/texas-am-linebacker-listed-out-availability-report-ahead-arkansas/ + https://www.on3.com/sites/hawg-beat/news/arkansas-football-availability-report-texas-am-week-thursday (SEC report Thu 10/1, verified from the pages)",
-    "players": [
-     [
-      "Terry Bussey",
-      "WR",
-      "Out"
-     ],
-     [
-      "Tamarion Watkins",
-      "LB",
-      "Out"
-     ],
-     [
-      "Mario Craver",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "87": {
-    "team": "Notre Dame",
-    "src": "https://ncfootballnews.com/games/notre-dame-at-north-carolina-football-2026/ + https://www.on3.com/teams/notre-dame-fighting-irish/news/notre-dame-football-beyond-two-deeps-for-game-5-at-north-carolina/ (Notre Dame weekly report Mon 9/28, verified from the pages; 8 out per On3)",
-    "players": [
-     [
-      "Quincy Porter",
-      "WR",
-      "Out"
-     ],
-     [
-      "Matty Augustine",
-      "OL",
-      "Out"
-     ],
-     [
-      "Brauntae Johnson",
-      "S",
-      "Out"
-     ],
-     [
-      "Jason Onye",
-      "DT",
-      "Out"
-     ],
-     [
-      "Tiki Hola",
-      "DT",
-      "Out"
-     ],
-     [
-      "Charles Jagusah",
-      "OL",
-      "Out"
-     ],
-     [
-      "Chaz Smith",
-      "CB",
-      "Out"
-     ],
-     [
-      "Chris Terek",
-      "OL",
-      "Out"
-     ],
-     [
-      "Christopher Burgess Jr.",
-      "DT",
-      "Out"
-     ],
-     [
-      "Owen Strebig",
-      "OT",
-      "Questionable"
-     ]
-    ]
-   },
-   "264": {
-    "team": "Washington",
-    "src": "https://sports.yahoo.com/articles/washington-footballs-first-week-five-160049691.html + https://sports.yahoo.com/articles/usc-news-trent-mosley-alex-071354953.html (Big Ten report Wed 10/1, verified from the pages)",
-    "players": [
-     [
-      "Jordan Washington",
-      "RB",
-      "Out"
-     ],
-     [
-      "Jayden Limar",
-      "RB",
-      "Out"
-     ],
-     [
-      "Quaid Carr",
-      "RB",
-      "Out"
-     ],
-     [
-      "Landen Hatchett",
-      "C",
-      "Questionable"
-     ]
-    ]
-   },
-   "30": {
-    "team": "USC",
-    "src": "https://www.si.com/college/usc/football/usc-trojans-reveal-lengthy-injury-report-pivotal-washington-game-looms + https://sports.yahoo.com/articles/usc-news-trent-mosley-alex-071354953.html (Big Ten report Wed 10/1, verified from the pages)",
-    "players": [
-     [
-      "Corey Simms",
-      "WR",
-      "Out"
-     ],
-     [
-      "Kendarius Reddick",
-      "S",
-      "Out"
-     ],
-     [
-      "Kilian O'Connor",
-      "OL",
-      "Out"
-     ],
-     [
-      "Jahkeem Stewart",
-      "DT",
-      "Questionable"
-     ],
-     [
-      "Trent Mosley",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Alex Graham",
-      "S",
-      "Questionable"
-     ],
-     [
-      "Mark Bowman",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Taylor Johnson",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Hayden Treter",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Alex VanSumeren",
-      "DT",
-      "Questionable"
-     ]
-    ]
-   },
-   "38": {
-    "team": "Colorado",
-    "src": "https://sports.yahoo.com/articles/colorado-vs-texas-tech-injury-113120608.html (Big 12 report Wed 10/1, verified from the page)",
-    "players": [
-     [
-      "Danny Scudero",
-      "WR",
-      "Out"
-     ],
-     [
-      "Preston Ashley",
-      "CB",
-      "Out"
-     ],
-     [
-      "Demetrius Hunter",
-      "OL",
-      "Out"
-     ],
-     [
-      "Makari Vickers",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Jason Stokes Jr.",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Braylon Edwards",
-      "DB",
-      "Doubtful"
-     ],
-     [
-      "Lamont Lester Jr.",
-      "DL",
-      "Doubtful"
-     ],
-     [
-      "Zach Atkins",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "Charlie Williams",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "DeAndre Moore Jr.",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "2641": {
-    "team": "Texas Tech",
-    "src": "https://sports.yahoo.com/articles/colorado-vs-texas-tech-injury-113120608.html (Big 12 report Wed 10/1, verified from the page)",
-    "players": [
-     [
-      "Ashton Hampton",
-      "CB",
-      "Out"
-     ],
-     [
-      "Adam Hill",
-      "LB",
-      "Out"
-     ],
-     [
-      "Elias Gillen",
-      "OL",
-      "Out"
-     ],
-     [
-      "Mikal Harrison-Pilot",
-      "S",
-      "Questionable"
-     ],
-     [
-      "Oliver Miles III",
-      "S",
-      "Questionable"
-     ],
-     [
-      "Terrance Carter Jr.",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Amier Boyd",
-      "CB",
-      "Questionable"
-     ],
-     [
-      "Cash Cleveland",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Howard Sampson",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "2116": {
-    "team": "UCF",
-    "src": "https://sports.yahoo.com/articles/ucf-knights-vs-houston-cougars-164117410.html (Big 12 report Wed 10/1, verified from the page)",
-    "players": [
-     [
-      "Duane Thomas Jr.",
-      "WR",
-      "Out"
-     ],
-     [
-      "Alonza Barnett III",
-      "QB",
-      "Out"
-     ],
-     [
-      "Lewis Carter",
-      "LB",
-      "Out"
-     ],
-     [
-      "Owen Spell",
-      "OL",
-      "Out"
-     ],
-     [
-      "Dante Carr",
-      "QB",
-      "Out"
-     ],
-     [
-      "TJ Branch",
-      "DB",
-      "Out"
-     ],
-     [
-      "Trenton Turner",
-      "DT",
-      "Out"
-     ],
-     [
-      "Dylan Wade",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Dylan Burk",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   },
-   "248": {
-    "team": "Houston",
-    "src": "https://sports.yahoo.com/articles/ucf-knights-vs-houston-cougars-164117410.html (Big 12 report Wed 10/1, verified from the page)",
-    "players": [
-     [
-      "Evan Noel",
-      "K",
-      "Out"
-     ],
-     [
-      "Bryson Castile",
-      "LB",
-      "Out"
-     ],
-     [
-      "Stephon Johnson",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Myles Rowser",
-      "DB",
-      "Questionable"
-     ]
-    ]
-   },
-   "12": {
-    "team": "Arizona",
-    "src": "https://tucson.com/sports/arizonawildcats/football/article_b6c11758-ca0c-4ccc-afad-8b834f88eb4d.html [Arizona Daily Star, Sep 30 2026: initial Big 12 availability report vs Cincinnati; article lists the report's Out and Questionable names, no probables given] (verified from the page)",
-    "players": [
-     [
-      "Cole Rusk",
-      "TE",
-      "Out"
-     ],
-     [
-      "Daylen Austin",
-      "DB",
-      "Out"
-     ],
-     [
-      "Dajon Hinton",
-      "DB",
-      "Out"
-     ],
-     [
-      "Ezra Funa",
-      "DT",
-      "Out"
-     ],
-     [
-      "Giovanni Richardson",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Shane King",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Myron Robinson",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Jabari Mann",
-      "LB",
-      "Questionable"
-     ]
-    ]
-   },
-   "9": {
-    "team": "Arizona St",
-    "src": "https://sports.yahoo.com/articles/know-arizona-states-injury-report-230501525.html (= si.com/college/arizonastate, Oct 1 2026) [Big 12 availability report 9/30 vs Baylor: 'the seven Sun Devils listed'] (verified from the page)",
-    "players": [
-     [
-      "Khamari Anderson",
-      "TE",
-      "Out"
-     ],
-     [
-      "Jalen Williams",
-      "DB",
-      "Out"
-     ],
-     [
-      "Marques Uini",
-      "OL",
-      "Out"
-     ],
-     [
-      "Wade Helton",
-      "OL",
-      "Out"
-     ],
-     [
-      "Brent Helton",
-      "OL",
-      "Out"
-     ],
-     [
-      "Grayson Rigdon",
-      "RB",
-      "Probable"
-     ],
-     [
-      "Manamo'ui Muti",
-      "OL",
-      "Probable"
-     ]
-    ]
-   },
-   "68": {
-    "team": "Boise St",
-    "src": "https://broncosports.com/news/2026/9/30/football-week-five-availability-report [Boise State's official initial Pac-12 availability report vs Utah State, 9/30/2026] + https://sports.yahoo.com/articles/boise-state-starting-offensive-lineman-143624863.html (SI/Yahoo Oct 1 2026, same report, names all 4 questionable + 2 out) (verified from the page) + https://www.cachevalleydaily.com/sports/utah-state-football-vs-boise-state-preview-how-to-watch-availability-report-keys-to-the/article_13777366-abcd-47c4-aad6-3ba83540240f.html (Cache Valley Daily Oct 2 2026, latest Pac-12 report: same 6 names, Brantley ILB)",
-    "players": [
-     [
-      "Carson Rasmussen",
-      "OL",
-      "Out"
-     ],
-     [
-      "Sam Brooks",
-      "LB",
-      "Out"
-     ],
-     [
-      "Sire Gaines",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Logan Brantley",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Cam Bates",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Darren Morris",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "328": {
-    "team": "Utah State",
-    "src": "https://www.cachevalleydaily.com/sports/utah-state-football-vs-boise-state-preview-how-to-watch-availability-report-keys-to-the/article_13777366-abcd-47c4-aad6-3ba83540240f.html [Cache Valley Daily, Oct 2 2026: official Pac-12 availability report vs Boise State, latest update as of publishing (Wed report + updates)] (verified from the page)",
-    "players": [
-     [
-      "John Randle Jr.",
-      "OL",
-      "Out"
-     ],
-     [
-      "Tavo Motu'apuaka",
-      "OL",
-      "Out"
-     ],
-     [
-      "Tevita Tuha",
-      "DL",
-      "Out"
-     ],
-     [
-      "Diego Grateron",
-      "LB",
-      "Out"
-     ],
-     [
-      "Harrison Taggart",
-      "LB",
-      "Out"
-     ],
-     [
-      "Jackson Nelson",
-      "OL",
-      "Out"
-     ],
-     [
-      "Joshua Papu",
-      "DL",
-      "Out"
-     ],
-     [
-      "Nikko Boncore",
-      "WR",
-      "Out"
-     ],
-     [
-      "Chris Joe",
-      "LB",
-      "Out"
-     ],
-     [
-      "Jude Nelson",
-      "TE",
-      "Out"
-     ],
-     [
-      "Dakota Howell",
-      "LB",
-      "Probable"
-     ],
-     [
-      "John McClellan",
-      "LB",
-      "Probable"
-     ],
-     [
-      "Asher Cunningham",
-      "LB",
-      "Probable"
-     ],
-     [
-      "Brycen Edwards",
-      "LB",
-      "Probable"
-     ]
-    ]
-   },
-   "167": {
-    "team": "New Mexico",
-    "src": "https://sports.yahoo.com/articles/mexico-wr-troy-omeire-ruled-030600475.html [Albuquerque Journal via Yahoo, Oct 2 2026: Mountain West availability report vs UTEP as of Thu Oct 1, full list] (verified from the page)",
-    "players": [
-     [
-      "Troy Omeire",
-      "WR",
-      "Out"
-     ],
-     [
-      "Elvin Harris",
-      "OL",
-      "Out"
-     ],
-     [
-      "Jack Layne",
-      "QB",
-      "Out"
-     ],
-     [
-      "Cody Thumlert",
-      "DE",
-      "Out"
-     ],
-     [
-      "Joey Olsen",
-      "TE",
-      "Out"
-     ],
-     [
-      "Tripp Walsh",
-      "TE",
-      "Out"
-     ],
-     [
-      "Shawn Miller",
-      "WR",
-      "Out"
-     ],
-     [
-      "Abraham Williams",
-      "WR",
-      "Out"
-     ],
-     [
-      "Tevin Shaw",
-      "OL",
-      "Out"
-     ],
-     [
-      "Keshawn Monroe",
-      "S",
-      "Out"
-     ],
-     [
-      "Jake DeVos",
-      "DT",
-      "Questionable"
-     ],
-     [
-      "Danzel Newell",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "2638": {
-    "team": "UTEP",
-    "src": "https://sports.yahoo.com/articles/mexico-wr-troy-omeire-ruled-030600475.html [Albuquerque Journal via Yahoo, Oct 2 2026: Mountain West availability report vs New Mexico as of Thu Oct 1, full list] (verified from the page)",
-    "players": [
-     [
-      "Ekow Taylor",
-      "LB",
-      "Out"
-     ],
-     [
-      "Oryend Fisher",
-      "DL",
-      "Out"
-     ],
-     [
-      "Mason Ferguson",
-      "WR",
-      "Out"
-     ],
-     [
-      "CJ Simon",
-      "WR",
-      "Out"
-     ],
-     [
-      "Jackson Bradley",
-      "OL",
-      "Out"
-     ],
-     [
-      "Rashad Smith",
-      "OL",
-      "Out"
-     ],
-     [
-      "Tavorus Jones",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Lamar Sperling",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Darien Fantroy",
-      "CB",
-      "Questionable"
-     ],
-     [
-      "Jaymon Lamb",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "265": {
-    "team": "Washington St",
-    "src": "https://sports.yahoo.com/articles/wsu-rb-kirby-vorhees-listed-020200296.html [Spokesman-Review via Yahoo, Oct 1-2 2026: first Pac-12 availability report vs Fresno State, article gives 'the rest of WSU's availability report'; CB Jalil Tucker called a game-time decision by the coach but not shown on the report] (verified from the page)",
-    "players": [
-     [
-      "Kirby Vorhees",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Trey Leckner",
-      "TE",
-      "Probable"
-     ],
-     [
-      "Nylan Brown",
-      "LB",
-      "Out"
-     ],
-     [
-      "Jack Ellison",
-      "LB",
-      "Doubtful"
-     ],
-     [
-      "Kyle Peterson",
-      "S",
-      "Out"
-     ],
-     [
-      "Malachi Wrice",
-      "DE",
-      "Out"
-     ],
-     [
-      "Mike Hughes",
-      "DE",
-      "Out"
-     ]
-    ]
-   },
-   "25": {
-    "team": "California",
-    "src": "https://sports.yahoo.com/articles/cal-football-game-preview-bears-182527500.html [Cal player availability vs UNLV, Oct 2 2026 - Cal issues no official report for non-conference games] (verified from the page)",
-    "players": [
-     [
-      "Adam Mohammed",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Carter Vargas",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Nate Burrell",
-      "DL",
-      "Questionable"
-     ],
-     [
-      "Solomon Williams",
-      "EDGE",
-      "Questionable"
-     ]
-    ]
-   },
-   "2439": {
-    "team": "UNLV",
-    "src": "UNLV vs Cal week news, Oct 2-3 2026 (no official report for non-conference games): QB Alex Orji out for the season (hamstring)",
-    "players": [
-     [
-      "Alex Orji",
-      "QB",
-      "Out - season"
-     ]
-    ]
-   },
-   "295": {
-    "team": "Old Dominion",
-    "src": "https://www.rotowire.com/cfootball/headlines/quinn-henicle-injury-officially-a-gtd-233008 (Oct 3 2026, verified from the page) + week news",
-    "players": [
-     [
-      "Quinn Henicle",
-      "QB",
-      "Probable"
-     ],
-     [
-      "TJ Johnson",
-      "",
-      "Questionable"
-     ],
-     [
-      "Sidney Mbanasor",
-      "",
-      "Out - season"
-     ]
-    ]
-   },
-   "2247": {
-    "team": "Georgia State",
-    "src": "https://www.rotowire.com/cfootball/headlines/dennis-murray-news-good-to-go-saturday-233007 (Oct 3 2026, verified from the page)",
-    "players": [
-     [
-      "Dennis Murray Jr.",
-      "",
-      "Probable"
-     ]
-    ]
-   },
-   "309": {
-    "team": "Louisiana",
-    "src": "https://www.kait8.com/2026/10/01/arkansas-state-football-updates-availability-report-ahead-sbc-opener-louisiana/ + https://www.acadiananewsfirst.com/2026/10/02/cajuns-ready-open-sun-belt-play-against-arkansas-state-homecoming/ + https://www.rotowire.com/cfootball/headlines/shelton-sampson-news-good-to-go-saturday-233011 [Sun Belt availability report via news + coach, Oct 1-3] (verified from the pages)",
-    "players": [
-     [
-      "Conor McPherson",
-      "LB",
-      "Out"
-     ]
-    ]
-   },
-   "2032": {
-    "team": "Arkansas St",
-    "src": "https://www.kait8.com/2026/10/01/arkansas-state-football-updates-availability-report-ahead-sbc-opener-louisiana/ [Sun Belt availability report quoted, Oct 1-3] (verified from the page)",
-    "players": [
-     [
-      "Tre Stevens",
-      "LB",
-      "Out"
-     ],
-     [
-      "Sultan Badmus",
-      "DE",
-      "Out"
-     ],
-     [
-      "Baker North",
-      "OL",
-      "Out"
-     ],
-     [
-      "Kenyon Clay",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "218": {
-    "team": "Temple",
-    "src": "https://www.covers.com/sport/football/ncaaf/matchup/378198 [team news for Temple at USF 10/3, items dated Sep 25-28] (verified from the page)",
-    "players": [
-     [
-      "S. Brown V",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "R. Stocksdale",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "C. Logan",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "R. Hardy",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "J. Smolik",
-      "QB",
-      "Questionable"
-     ]
-    ]
-   },
-   "58": {
-    "team": "South Florida",
-    "src": "https://www.covers.com/sport/football/ncaaf/matchup/378198 [team news for Temple at USF 10/3, dated Sep 28] (verified from the page)",
-    "players": [
-     [
-      "A. Branch",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "2348": {
-    "team": "Louisiana Tech",
-    "src": "https://www.asforfootball.com/2026/10/01/army-football-preview-at-louisiana-tech/ [team news, Oct 1: QB Blake Baker (fractured hand) missed Baylor, unclear for Army] (verified from the page)",
-    "players": [
-     [
-      "Blake Baker",
-      "QB",
-      "Questionable"
-     ]
-    ]
-   }
-  }
- },
- "2026-10-06": {
-  "ncaaf": {
-   "2653": {
-    "team": "Troy",
-    "src": "https://www.foxsports.com/college-football/troy-trojans-team [team news, Rotowire items 10/4 - Worley out for season, Rogosch questionable, Lott available] + https://sports.yahoo.com/articles/southern-miss-football-start-conference-100350906.html [QB Crowder healthy, 10/4] (verified from the pages; no Sun Belt official report exists)",
-    "players": [
-     [
-      "Jackson Worley",
-      "TE",
-      "Out"
-     ],
-     [
-      "Fabian Rogosch",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   },
-   "2572": {
-    "team": "Southern Miss",
-    "src": "https://www.si.com/college/southernmiss/southern-miss-football-injury-update-qb-ethan-hampton-to-miss-significant-time [team news 9/25: Hampton out 4-6 weeks, hand fracture] + https://sports.yahoo.com/articles/southern-miss-football-start-conference-100350906.html [Lyddy starting in his place, 10/4] (verified from the pages; no Sun Belt official report exists) + https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL [Rotowire CFB injury report read 10/6: Himes WR out foot, Page WR out elbow, Briggs RB probable, Hampton QB out] (verified from the page)",
-    "players": [
-     [
-      "Ethan Hampton",
-      "QB",
-      "Out"
-     ],
-     [
-      "Jaylen Himes",
-      "WR",
-      "Out"
-     ],
-     [
-      "Grant Page",
-      "WR",
-      "Out"
-     ],
-     [
-      "Robert Briggs",
-      "RB",
-      "Probable"
-     ]
-    ]
-   }
-  }
- },
- "2026-10-07": {
-  "ncaaf": {
-   "338": {
-    "team": "Kennesaw St",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/7, game 10/7 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Zion Booker",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Gerard Bullock",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   },
-   "55": {
-    "team": "Jax State",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/7, game 10/7 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Franklin Baret",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Gabe Glover",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Alex Moore",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Andrew Paul",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Justus Savage",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "166": {
-    "team": "New Mexico St",
-    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/new-mexico-state-aggies/injuries [team news, Covers/Rotowire items dated Fri 10/2 naming this game - older than game week, no official CUSA report found] (verified from the page)",
-    "players": [
-     [
-      "R. Burton",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "R. Lotten",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   }
-  }
- },
- "2026-10-08": {
-  "ncaaf": {
-   "2623": {
-    "team": "Missouri State",
-    "src": "https://sports.yahoo.com/articles/casey-woods-provides-missouri-state-225827851.html [team news, Springfield News-Leader injury update from coach Woods Fri 10/2 for the 10/8 game at WKU: full selection of players expected; LBs Malone and Dixon + DL Madison out for the season] (verified from the page; no CUSA report read) + Rotowire CUSA report 10/8: Robinson (WR) questionable (verified from the page)",
-    "players": [
-     [
-      "Jmariyae Robinson",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Heiko Malone",
-      "LB",
-      "Out"
-     ],
-     [
-      "Dylan Dixon",
-      "LB",
-      "Out"
-     ],
-     [
-      "Malachi Madison",
-      "DL",
-      "Out"
-     ]
-    ]
-   },
-   "2636": {
-    "team": "UTSA",
-    "src": "https://www.underdogdynasty.com/american-conference/46630/2026-week-6-preview-south-florida-bulls-utsa-roadrunners [team news, game-week preview 10/7: guard Ben Rios a game-time decision] (verified from the page; no AAC report read)",
-    "players": [
-     [
-      "Ben Rios",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "2032": {
-    "team": "Arkansas St",
-    "src": "https://www.foxsports.com/college-football/arkansas-state-red-wolves-team [team news, Rotowire item ~10/5: Clay (ankle) questionable for Thu 10/8 vs South Alabama] (verified from the page; no Sun Belt report read yet)",
-    "players": [
-     [
-      "Kenyon Clay",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "6": {
-    "team": "South Alabama",
-    "src": "https://www.foxsports.com/college-football/south-alabama-jaguars-team [team news, Rotowire items 10/1-10/6: Barnes out for the season per the Sun Belt report; QB Hollins starts] + covers.com South Alabama injuries [Marion, Lynch out for the season] (verified from the pages; White's status for Thursday not stated, no Sun Belt report for this game read)",
-    "players": [
-     [
-      "Brian Barnes",
-      "WR",
-      "Out"
-     ],
-     [
-      "K. Marion",
-      "WR",
-      "Out"
-     ],
-     [
-      "M. Lynch",
-      "TE",
-      "Out"
-     ]
-    ]
-   },
-   "2335": {
-    "team": "Liberty",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Bo Burklow",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Justin Marshall",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Cam Wood",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "98": {
-    "team": "Western Kentucky",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Adrion Boyd",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "K.D. Hutchinson",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "2534": {
-    "team": "Sam Houston",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET at Liberty, CUSA availability report: Liberty, WKU and Missouri State players listed for the day, no Sam Houston player listed] (verified from the page)",
-    "players": []
-   }
-  }
- },
- "2026-10-09": {
-  "ncaaf": {
-   "52": {
-    "team": "Florida St",
-    "src": "https://sports.yahoo.com/articles/louisville-vs-florida-state-injury-184051141.html [ACC availability report, initial Tue 10/6 night, as listed in the SI/Yahoo breakdown Wed 10/7; game Fri 10/9 7 PM ET at Louisville; game-day update still to come] (verified from the page)",
-    "players": [
-     [
-      "Samuel Singleton Jr",
-      "RB",
-      "Out"
-     ],
-     [
-      "Devin Carter",
-      "WR",
-      "Out"
-     ],
-     [
-      "Karson Hobbs",
-      "DB",
-      "Out"
-     ],
-     [
-      "Jamari Howard",
-      "DB",
-      "Out"
-     ],
-     [
-      "Blake Nichelsen",
-      "LB",
-      "Out"
-     ],
-     [
-      "Zae Thomas",
-      "DB",
-      "Out"
-     ],
-     [
-      "Jordan Crutchfield",
-      "DB",
-      "Out"
-     ],
-     [
-      "Izaia Williams",
-      "LB",
-      "Out"
-     ],
-     [
-      "Daylen Greene",
-      "LB",
-      "Out"
-     ],
-     [
-      "Noah LaVelle",
-      "LB",
-      "Out"
-     ],
-     [
-      "Darryll Desir",
-      "DL",
-      "Questionable"
-     ]
-    ]
-   },
-   "97": {
-    "team": "Louisville",
-    "src": "https://sports.yahoo.com/articles/louisville-vs-florida-state-injury-184051141.html [ACC availability report, initial Tue 10/6 night, as listed in the SI/Yahoo breakdown Wed 10/7; QB Kienholz probable; game-day update still to come] (verified from the page)",
-    "players": [
-     [
-      "Antonio Watts",
-      "DB",
-      "Out"
-     ],
-     [
-      "Travis Egan",
-      "TE",
-      "Out"
-     ],
-     [
-      "Jacob Barker",
-      "P",
-      "Out"
-     ],
-     [
-      "Bryten Close",
-      "OT",
-      "Out"
-     ],
-     [
-      "Sam Dawson",
-      "DL",
-      "Out"
-     ],
-     [
-      "TJ Banks",
-      "DB",
-      "Questionable"
-     ],
-     [
-      "Keyjuan Brown",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Cason Henry",
-      "OL",
-      "Questionable"
-     ],
-     [
-      "Daylen Russell",
-      "DL",
-      "Questionable"
-     ]
-    ]
-   },
-   "2294": {
-    "team": "Iowa",
-    "src": "https://dearoldgold.com/no-20-iowa-at-washington-how-to-watch-odds-injuries-series-history-and-more-01m49v94t05n [team news, preview 10/7 with injuries from Ferentz's Tue 10/6 update; no Big Ten report read yet] (verified from the page)",
-    "players": [
-     [
-      "Tyler Brown",
-      "S",
-      "Out"
-     ],
-     [
-      "Kyler Gerardy",
-      "DB",
-      "Out"
-     ],
-     [
-      "Hank Brown",
-      "QB",
-      "Questionable"
-     ],
-     [
-      "Ty Hudkins",
-      "DB",
-      "Questionable"
-     ]
-    ]
-   },
-   "264": {
-    "team": "Washington",
-    "src": "https://dearoldgold.com/no-20-iowa-at-washington-how-to-watch-odds-injuries-series-history-and-more-01m49v94t05n [team news, preview 10/7 injury list; no Big Ten report read yet] (verified from the page)",
-    "players": [
-     [
-      "Quaid Carr",
-      "RB",
-      "Out"
-     ],
-     [
-      "CJ Christian",
-      "S",
-      "Out"
-     ],
-     [
-      "Jayden Limar",
-      "RB",
-      "Out"
-     ],
-     [
-      "Christian Moss",
-      "WR",
-      "Out"
-     ],
-     [
-      "Jordan Washington",
-      "RB",
-      "Out"
-     ],
-     [
-      "Jeron Jones",
-      "CB",
-      "Doubtful"
-     ],
-     [
-      "Landon Hatchett",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "66": {
-    "team": "Iowa State",
-    "src": "https://www.widerightnattylite.com/iowa-state-football/54001/injury-report-for-iowa-states-matchup-versus-no-8-byu [Big 12 availability report, Tue 10/6 night; game Fri 10/9 9:15 PM ET at BYU; game-day update still to come] (verified from the page)",
-    "players": [
-     [
-      "Drew Surges",
-      "S",
-      "Out"
-     ],
-     [
-      "Caden Crawford",
-      "DE",
-      "Out"
-     ],
-     [
-      "Ka'Mori Moore",
-      "DT",
-      "Out"
-     ],
-     [
-      "Rylan Barnes",
-      "LB",
-      "Questionable"
-     ],
-     [
-      "Christian Greenlaw",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   },
-   "252": {
-    "team": "BYU",
-    "src": "https://www.widerightnattylite.com/iowa-state-football/54001/injury-report-for-iowa-states-matchup-versus-no-8-byu [Big 12 availability report, Tue 10/6 night; game Fri 10/9 9:15 PM ET at BYU; game-day update still to come] (verified from the page)",
-    "players": [
-     [
-      "LJ Martin",
-      "RB",
-      "Out"
-     ],
-     [
-      "Isaiah Glasker",
-      "LB",
-      "Out"
-     ],
-     [
-      "Sione Moa",
-      "RB",
-      "Out"
-     ],
-     [
-      "Raider Damuni",
-      "S",
-      "Doubtful"
-     ]
-    ]
-   },
-   "2751": {
-    "team": "Wyoming",
-    "src": "https://www.rotowire.com/cfootball/headlines/deion-deblanc-injury-sidelined-friday-at-sjsu-233459 [team news, Rotowire 10/5: WR DeBlanc (toe) out at SJSU; no Mountain West report read yet] (verified from the page)",
-    "players": [
-     [
-      "Deion DeBlanc",
-      "WR",
-      "Out"
-     ]
-    ]
-   },
-   "23": {
-    "team": "San José St",
-    "src": "https://www.rotowire.com/cfootball/headlines/cooper-hoch-injury-carrying-questionable-tag-233782 [team news, Rotowire 10/7: WR Hoch questionable vs Wyoming; no Mountain West report read yet] (verified from the page)",
-    "players": [
-     [
-      "Cooper Hoch",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "328": {
-    "team": "Utah State",
-    "src": "https://www.rotowire.com/cfootball/headlines/rex-haynes-injury-doubtful-for-friday-233777 + foxsports.com/college-football/utah-state-aggies-team [Pac-12 availability report as quoted by Rotowire, Wed 10/7 for Friday vs Washington State] (verified from the pages)",
-    "players": [
-     [
-      "R. Haynes",
-      "WR",
-      "Doubtful"
-     ],
-     [
-      "K. Kaio",
-      "TE",
-      "Doubtful"
-     ],
-     [
-      "N. Washington",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "N. Boncore",
-      "WR",
-      "Out"
-     ]
-    ]
-   }
-  }
- }
 }
