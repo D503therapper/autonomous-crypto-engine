@@ -11957,3 +11957,35 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 12:06 UTC] crypto/hold_btc  equity $495.42 (-0.9%) 1 open  market UP
    social heat top: TRUMP 40 (40/0/0), STRK 37 (37/0/0), NEAR 32 (32/0/0), PENGU 27 (27/0/0), PRL 19 (19/0/0)
+   dex screen: REJECT WHUF@solana liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT RAIL@ethereum liq $1,661,244 - is_mintable; top-10 holders 76%
+   dex screen: REJECT FWWETH@ethereum liq $0 - no price; liquidity $0 < $100,000; 24h volume $0 < $100,000
+   dex screen: PASS TROLL@solana liq $3,063,185
+   dex screen: REJECT ZEREBRO@solana liq $2,989,216 - top-10 holders 78%
+   dex screen: REJECT STONKEX@base liq $355,595 - lp locked 0% < 95%
+   dex screen: REJECT MORPHO@base liq $1,965,479 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 80%; lp locked 0% < 95%
+   dex screen: REJECT FRXETH@ethereum liq $10,208,330 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 97%
+   dex screen: REJECT EDGE@base liq $691,509 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 82%; lp locked 0% < 95%
+   dex screen: REJECT SUSDE@ethereum liq $694,224 - goplus partial data: cannot_sell_all unknown; is_mintable; is_blacklisted; hidden_owner; owner_change_balance; top-10 holders 77%; lp locked 0% < 95%
+   dex screen: REJECT AUSD@ethereum liq $34,041,486 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 54%
+   dex screen: REJECT SKY@ethereum liq $900,984 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 90%; lp locked 0% < 95%
+   dex screen: REJECT SNDK@solana liq $196,506 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT SERV@ethereum liq $1,413,569 - transfer_pausable; is_blacklisted; is_whitelisted; honeypot_with_same_creator
+   dex screen: REJECT FLUID@ethereum liq $547,248 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 56%; lp locked 0% < 95%
+   dex screen: PASS STONK@solana liq $2,338,993
+   dex re-screen: SI276@solana:HMYd9tos data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT PYTHIA@solana liq $204,241 - top-10 holders 49%; lp locked 0% < 95%
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT MET@solana liq $1,892,633 - top-10 holders 82%
+   dex screen: PASS PEPE@ethereum liq $29,174,933
+   dex scanner: 3,000 pools (solana 2,096 / base 519 / ethereum 385), refresh cycle 128s (hot 124s), 2930 calls (108 feed, 429s 0, failed 0), 84,658 refreshed (5086 no pair), +88 added / -89 dropped (dead 11, stale 0, cap 78), movers 0 + warming 27 -> queued 2, screened 2 (passed 0), bought 0
+[2026-10-09 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 13:06 UTC] crypto/mover     equity $368.48 (-26.3%) 2 open  market UP
+[2026-10-09 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 13:06 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 13:06 UTC] crypto/breakout10 equity $470.17 (-6.0%) 2 open  market UP
+[2026-10-09 13:06 UTC] crypto/momentum  equity $457.37 (-8.5%) 2 open  market UP
+[2026-10-09 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 13:06 UTC] crypto/hold_btc  equity $494.36 (-1.1%) 1 open  market UP
+   social heat top: TRUMP 40 (40/0/0), STRK 37 (37/0/0), GRASS 27 (27/0/0), BTC 24 (24/0/0), PRL 21 (21/0/0)
