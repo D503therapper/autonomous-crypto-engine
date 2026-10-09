@@ -8911,6 +8911,36 @@ def test_late_start_plus_a_bye_is_a_full_season():
     assert not v24.seen_all(fin, "LATE", before, "ncaaf")
 
 
+def test_seen_all_counts_football_weeks_not_days_from_the_opener():
+    """10/9 audit of Saturday's data: Georgia Tech, Utah and Kansas (a Thursday / Friday week-1 opener, one bye, four
+    games) failed the completeness check for their 10/10 game - 37 days from the opener rounded up to 'six weeks', so
+    four games read as a missing game, and both sides of Duke-Georgia Tech and Kansas-Utah lost their pick. Ole Miss
+    (opened the SUNDAY of Labor Day weekend, 10 days after the season's Thursday kickoff) read as 'opener too late'.
+    The check counts football weeks (Tuesday to Monday, Pacific dates): a Thursday opener and the Saturday 37 days
+    later are five weeks apart; a Labor Day Sunday opener is week 1. A team with two gaps in six weeks still fails, and
+    a Saturday night kickoff past midnight UTC is still Saturday's week."""
+    import sports_breakdown_v24 as v24
+    from datetime import datetime, timezone
+    def g(d, h, a, hhmm="19:00"):
+        return {"start": f"2026-{d}T{hhmm}Z", "home": h, "away": a}
+    fin = [g("08-27", "wk0h", "wk0a", "23:00")]                                      # the season's Thursday kickoff
+    for wk, d in enumerate(("08-29", "09-05", "09-12", "09-19", "09-26", "10-03")):
+        for k in range(20):
+            fin.append(g(d, f"busy{k}", f"opp{wk}_{k}"))                              # 6 games each: ref 6, need 5
+    fin += [g("09-03", "GT", "x1", "23:30"), g("09-12", "GT", "x2"), g("09-19", "GT", "x3"), g("09-26", "x4", "GT")]
+    fin += [g("09-04", "KU", "y1", "23:00"), g("09-11", "y2", "KU", "23:00"), g("09-19", "y3", "KU"), g("10-03", "KU", "y4")]
+    fin += [g("09-06", "MISS", "z1", "19:30"), g("09-12", "MISS", "z2"), g("09-19", "z3", "MISS"), g("09-26", "z4", "MISS")]
+    fin += [g("08-29", "UNC", "w1"), g("09-12", "UNC", "w2"), g("09-19", "w3", "UNC"), g("10-03", "w4", "UNC")]
+    sat = v24._t("2026-10-10T19:30Z")
+    assert v24.seen_all(fin, "GT", sat, "ncaaf")                       # Thursday opener + one bye: five weeks, four games
+    assert v24.seen_all(fin, "KU", v24._t("2026-10-11T02:15Z"), "ncaaf")   # Saturday night PT, Sunday in UTC
+    assert v24.seen_all(fin, "MISS", sat, "ncaaf")                     # the Labor Day Sunday opener is week 1
+    assert not v24.seen_all(fin, "UNC", sat, "ncaaf")                  # two gaps in six weeks: a game may be missing
+    assert v24.seen_all(fin, "busy0", sat, "ncaaf")
+    assert v24._week(v24._t("2026-10-13T00:15Z")) == v24._week(sat)    # Monday night (PT) is still the same week
+    assert v24._week(v24._t("2026-10-13T23:00Z")) == v24._week(sat) + 1   # Tuesday starts the next one
+
+
 def test_small_slate_note():
     """10/2, the owner: "when there's small slates like this, we should put a disclaimer - small slate today, not many
     games on the board ... let's go to work." Under SMALL_SLATE real, priced games that day: the note, with the count."""
