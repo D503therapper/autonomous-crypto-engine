@@ -7979,6 +7979,11 @@
      "game:conf"
     ],
     "dec": 2.95,
+    "decider": {
+     "s": "7-3",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -7992,6 +7997,10 @@
     "edge_own": 0.007488568396066153,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,3,3",
+     "h": "1,0,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -8022,9 +8031,11 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Avalanche 7 @ Flames 3",
+    "settled": "2026-10-09T03:59Z",
     "side": "home",
     "start": "2026-10-09T01:00Z",
     "stype": "2",
@@ -8041,12 +8052,14 @@
    }
   ],
   "p_hit": 0.3415,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-08T15:00Z",
   "round": 1,
+  "settled": "2026-10-09T03:59Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 1.0
  },
  {
   "american": -105,
