@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T07:46Z",
+ "updated": "2026-10-09T07:51Z",
  "games": [
   {
    "id": "ncaaf:401868329",
@@ -626,6 +626,34 @@
    }
   },
   {
+   "id": "nhl:401892469",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Bruins",
+    "p": 0.379,
+    "tie": 0.297,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-10T17:00Z",
+   "away": "Flyers",
+   "home": "Bruins",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Flyers",
+    "opp": "Bruins",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -222,
+    "p": 0.661,
+    "win_p": 0.442,
+    "reasons": []
+   }
+  },
+  {
    "id": "ncaaf:401869843",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -745,6 +773,38 @@
     "reasons": [
      "the stronger team",
      "better QB play lately"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892470",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Devils",
+    "p": 0.409,
+    "tie": 0.294,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-10T19:30Z",
+   "away": "Canucks",
+   "home": "Devils",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Devils",
+    "opp": "Canucks",
+    "market": "ml",
+    "line": null,
+    "odds": -185,
+    "p": 0.623,
+    "win_p": 0.623,
+    "reasons": [
+     "the stronger team",
+     "hotter goalie",
+     "better rested"
     ]
    }
   },
@@ -1121,6 +1181,37 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
+     "hotter recent form"
+    ]
+   }
+  },
+  {
+   "id": "nhl:401892471",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Oilers",
+    "p": 0.384,
+    "tie": 0.296,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-10T20:00Z",
+   "away": "Oilers",
+   "home": "Sharks",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Sharks",
+    "opp": "Oilers",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -222,
+    "p": 0.651,
+    "win_p": 0.43,
+    "reasons": [
+     "hotter goalie",
      "hotter recent form"
     ]
    }
@@ -1659,7 +1750,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.484,
+    "p": 0.478,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -1675,9 +1766,9 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -194,
-    "p": 0.625,
-    "win_p": 0.44,
+    "odds": -193,
+    "p": 0.632,
+    "win_p": 0.448,
     "reasons": []
    }
   },
