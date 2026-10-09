@@ -12160,3 +12160,38 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 17:07 UTC] stocks/trend     equity $490.87 (-1.8%) 3 open  market UP
 [2026-10-09 17:07 UTC] stocks/hold_spy  equity $505.34 (+1.1%) 1 open  market UP
    social heat top: STRK 37 (37/0/0), TRUMP 32 (32/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0), PONS 21 (19/0/2)
+   dex screen: REJECT MAGIC@base liq $380,387 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 42%; lp locked 0% < 95%
+   dex screen: REJECT PAID@solana liq $471,082 - lp holders unknown; rugcheck lp locked 55% < 95%
+   dex screen: REJECT EDEL@base liq $1,294,999 - goplus partial data: cannot_sell_all unknown; top-10 holders 47%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT PUMP@solana liq $2,137,725 - transfer hook; top-10 holders 60%
+   dex screen: REJECT GULD@ethereum liq $965,924 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: GARY@solana:8ZCmwpW3 data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CALI@solana liq $151,870 - lp holders unknown; rugcheck lp locked 50% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 3,001 pools (solana 2,099 / base 507 / ethereum 395), refresh cycle 134s (hot 130s), 2794 calls (106 feed, 429s 0, failed 0), 80,639 refreshed (6727 no pair), +99 added / -99 dropped (dead 15, stale 0, cap 84), movers 0 + warming 16 -> queued 1, screened 2 (passed 0), bought 0
+[2026-10-09 18:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 18:07 UTC] crypto/mover     equity $370.04 (-26.0%) 2 open  market UP
+[2026-10-09 18:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 18:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 18:07 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 18:07 UTC] crypto/breakout10 equity $466.72 (-6.7%) 2 open  market UP
+[2026-10-09 18:07 UTC] crypto/momentum  equity $456.71 (-8.7%) 2 open  market UP
+[2026-10-09 18:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 18:07 UTC] crypto/hold_btc  equity $492.22 (-1.6%) 1 open  market UP
+[2026-10-09 18:07 UTC] stocks/rsi2      equity $520.93 (+4.2%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): COIN 6, SMH 7 BUY, EEM 9 BUY, MSTR 10 BUY
+[2026-10-09 18:07 UTC] stocks/dual_momentum equity $500.66 (+0.1%) 2 open  market UP
+[2026-10-09 18:07 UTC] stocks/trend_ensemble equity $510.84 (+2.2%) 5 open  market UP
+[2026-10-09 18:07 UTC] stocks/rotation10 equity $513.40 (+2.7%) 2 open  market UP
+[2026-10-09 18:07 UTC] stocks/momentum  equity $491.79 (-1.6%) 4 open  market UP
+[2026-10-09 18:07 UTC] stocks/trend     equity $490.54 (-1.9%) 3 open  market UP
+[2026-10-09 18:07 UTC] stocks/hold_spy  equity $505.45 (+1.1%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), STRK 35 (29/0/6), PUMP 27 (27/0/0), PENGU 24 (24/0/0), BAT 21 (21/0/0)
