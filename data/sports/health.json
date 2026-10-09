@@ -1,12 +1,15 @@
 {
- "at": "2026-10-09T15:21Z",
- "fixes": [],
+ "at": "2026-10-09T16:38Z",
+ "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
+  "live tennis scores: tennis Sakatsume vs Waltert: no points for 1880s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "studies last ran 10h ago - restarted"
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (95s)",
+  "live watcher fresh (17s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -18,13 +21,24 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "simulator ran 9h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "engine ran 16 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-09T16:38Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Waltert: no points for 1880s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-09T15:21Z",
    "fixes": [],
@@ -495,13 +509,6 @@
    "problems": [
     "live tennis scores: tennis Liu vs Sramkova: no points for 611s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-07T01:50Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
    ]
   }
  ]
