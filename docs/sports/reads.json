@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T02:32Z",
+ "updated": "2026-10-09T03:13Z",
  "games": [
   {
    "id": "nhl:401892461",
@@ -218,7 +218,7 @@
    "home": "Arkansas St",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Arkansas St",
@@ -233,7 +233,7 @@
      "opponent missing key players",
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -246,8 +246,8 @@
    "away": "South Florida",
    "home": "UTSA",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -307,7 +307,7 @@
    "home": "Blues",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Blues",
@@ -322,7 +322,7 @@
      "sharp money moving this way",
      "hotter goalie"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -390,6 +390,21 @@
    "start": "2026-10-09T02:00Z",
    "away": "Maple Leafs",
    "home": "Golden Knights",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898717",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-09T02:45Z",
+   "away": "Kings",
+   "home": "Lakers",
    "h1": null,
    "why": "started",
    "done": false,

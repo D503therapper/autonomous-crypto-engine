@@ -8224,6 +8224,13 @@
      "game:conf"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "how": "kickoff",
+     "p": null,
+     "s": "56-49",
+     "type": "dtd",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -8245,6 +8252,10 @@
     "edge_own": -0.003558995711319679,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "14,20,15,7",
+     "h": "7,21,7,14"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -8287,9 +8298,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "South Alabama 56 @ Arkansas St 49",
+    "settled": "2026-10-09T03:13Z",
     "side": "home",
     "start": "2026-10-08T23:30Z",
     "stype": "2",
@@ -8307,12 +8320,14 @@
    }
   ],
   "p_hit": 0.5635,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-08T15:00Z",
   "round": 1,
+  "settled": "2026-10-09T03:13Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -122,
@@ -8482,6 +8497,15 @@
      "us:road3in6"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Darnell Nurse",
+     "s": "3-2",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -8495,6 +8519,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,1,1,1",
+     "h": "1,0,1,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -8531,9 +8559,11 @@
      "hotter goalie"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Sharks 3 @ Blues 2",
+    "settled": "2026-10-09T03:13Z",
     "side": "home",
     "start": "2026-10-09T00:00Z",
     "stype": "2",
@@ -8551,12 +8581,14 @@
    }
   ],
   "p_hit": 0.5615,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-08T15:00Z",
   "round": 1,
+  "settled": "2026-10-09T03:13Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 140,
