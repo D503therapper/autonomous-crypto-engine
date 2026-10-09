@@ -3,6 +3,14 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/9 - live record vs the closing line (report only, nothing changed)
+- Every graded pick 9/27-10/8 (34 unit plays, 24 leans, 2 early) checked against the last pre-start price in line_history. Totals match the dashboard: 💰 21-13, +10.2u on 31u, ROI +33%; 🟡 leans 10-14. Every result matches the final score; no pick past -150; no lean with units; no opposite sides.
+- CLV (beat the close, win-% pts): all unit plays avg ~0 (beat 7 / same 14 / worse 9 of 30); since the 10/2 unit system -0.5, beat 2 of 17. Winning, but not beating the market yet - mostly favorites hitting.
+- By kind: LOCK 6-2 +8.5u CLV +1.0 (North Texas -118 closed -148) - the one kind that looks like skill. DOG 3-7 -2.2u CLV -0.6, beat the close 1 of 10 - all hockey (NHL dogs 4-6, -1.1u, CLV -0.7: Sharks +145->+170, Blackhawks +180->+190); non-NHL dogs 6-3 +1.6u. PLAYS 4-1 +1.4u CLV -0.4 (luck so far). EARLY 1-1 CLV -1.5. LEANS CLV +0.1; every spread lean got a worse number than the close.
+- By sport (unit plays): NFL 5-2 +5.7u; college 5-2 +4.6u; MLB 7-2 +1.6u; NHL 4-7 -1.6u.
+- Notes: 2 of the 6 Lock wins (Yankees 9/29, 9/30) had the own read below the price (pre-10/1 rule); the 💰 record holds 8 parlay legs from 9/27-9/30 (6-2, +1.9u - the 9/30 rule; without them 15-11 +8.3u); Western KY 10/1 1u and the Kings/Blackhawks ½u Dogs are pre-10/2 sizes.
+- Watch: hockey Dogs posted at 8 AM keep closing at a bigger price (the money runs away from them after we post). Re-check at 30 Dogs before any rule change (the owner's call).
+
 ## 10/9 - Saturday's data audit (college / NFL / NHL, from the repo's files)
 - FIXED (sports_breakdown_v24.seen_all + test_seen_all_counts_football_weeks_not_days_from_the_opener): the
   completeness check counted 7-day slots from a team's own opener, so a Thursday 9/3 opener + one bye + a Saturday 10/10
