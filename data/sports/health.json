@@ -1,29 +1,68 @@
 {
- "at": "2026-10-09T12:18Z",
- "fixes": [],
+ "at": "2026-10-09T16:38Z",
+ "fixes": [
+  "simulator overdue (10h) - started sports_sims.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Iatcenko vs Stefanini: no points for 1995s"
+  "live tennis scores: tennis Sakatsume vs Waltert: no points for 1880s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (37s)",
+  "live watcher fresh (17s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 3 live matches",
+  "slate check: all 13 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
-  "all 2 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 6h ago",
-  "engine ran 49 min ago",
+  "studies ran 1h ago",
+  "engine ran 16 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-09T16:38Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Waltert: no points for 1880s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-09T15:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-09T15:20Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Waltert: no points for 2647s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-09T13:49Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-09T12:18Z",
    "fixes": [],
@@ -470,34 +509,6 @@
    "problems": [
     "live tennis scores: tennis Liu vs Sramkova: no points for 611s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-07T01:50Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
-   ]
-  },
-  {
-   "at": "2026-10-07T01:39Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T01:03 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37555191074"
-   ]
-  },
-  {
-   "at": "2026-10-07T01:39Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T01:03 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37555191074"
-   ]
-  },
-  {
-   "at": "2026-10-07T00:07Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-06T23:58 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37549496528"
    ]
   }
  ]

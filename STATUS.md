@@ -3,6 +3,11 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/9 - daily studies (10): nothing built
+- LEADS (watch live, not wired): NFL road dog after a Thursday game (39-21 ATS), 7+ first-meeting loser as a +100..+220 dog in the division rematch (45-29 ATS), G5 dog vs a Power team at the Tuesday price (92 bets, +20%), ATP indoor-record favorite in the first fall indoor events (paper).
+- Timing fact: college dogs Tuesday-Thursday / favorites at game time CONFIRMED; NFL early-dog edge now only +100..+140 and September dogs.
+- DEAD: NHL road trips, NHL start times / time zones, college look-ahead, Power-vs-G5 (the 10/1 September watch closed), tennis fatigue, tennis indoor swing / jet lag, G5 'soft lines'. SPORTS_FINDINGS.md 10/9.
+
 ## 10/9 - NBA readiness check (the season opens ~10/20; college hoops early November)
 - Pipeline checked end to end on 2025-26; three bugs fixed with tests (preseason live bet, preseason 'missing result' holding the board, cover streaks over the summer). SPORTS_FINDINGS.md 10/9.
 - Blind NBA board replay 2023-26: Lock 54-32 (63%), +16% over the two graded seasons; leans -4% flat; NO Dog possible (dog_gate has no NBA branch); a dog-score 4+ gate is a LEAD (15-12, +11.5u blind), not built.
