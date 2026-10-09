@@ -40,7 +40,9 @@ def main(urls):
     for n, url in enumerate(urls):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
-                lines = text_of(r.read().decode("utf-8", "replace"))
+                raw = r.read().decode("utf-8", "replace")
+                lines = text_of(raw)
+            links = sorted({h for h in re.findall(r'href="([^"]+)"', raw) if re.search(r"availab|injur", h, re.I)})[:40]
             title = next((x for x in lines if len(x) > 25), "")[:150]
             hits = [i for i, x in enumerate(lines) if key_for(url) and key_for(url).search(x)]
             keep = sorted({j for i in hits for j in range(max(0, i - 3), min(len(lines), i + 4))}) \
@@ -50,6 +52,8 @@ def main(urls):
             dates = sorted(set(re.findall(r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2},? 20\d\d", " ".join(lines))))[:6]
             with open(os.path.join(OUT, f"{n:03d}.txt"), "w") as f:
                 f.write(f"URL: {url}\nTITLE: {title}\nDATES SEEN: {dates}\n\n{body}\n")
+                if links:                                    # (10/9: a team's news index - the links to its injury / availability posts)
+                    f.write("\nLINKS:\n" + "\n".join(links) + "\n")
             idx.append(f"{n:03d} OK {len(body):,} chars  {url}")
         except Exception as e:                               # noqa: BLE001
             idx.append(f"{n:03d} FAILED {str(e)[:80]}  {url}")
