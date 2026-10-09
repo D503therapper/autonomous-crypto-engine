@@ -1,5 +1,5 @@
 {
- "fetched": "2026-10-09T22:12Z",
+ "fetched": "2026-10-09T23:17Z",
  "src": "bovada",
  "lines": [
   {
@@ -12,8 +12,8 @@
    "b_hcp": -5.5,
    "a_sp": -120,
    "b_sp": -110,
-   "a_ml": 1100,
-   "b_ml": -2500
+   "a_ml": 1000,
+   "b_ml": -2000
   },
   {
    "a": "Daniil Medvedev",
@@ -64,8 +64,8 @@
    "b_hcp": 2.5,
    "a_sp": -110,
    "b_sp": -120,
-   "a_ml": -170,
-   "b_ml": 140
+   "a_ml": -165,
+   "b_ml": 135
   },
   {
    "a": "Bu Yunchaokete",
@@ -73,12 +73,12 @@
    "start": "2026-10-10T05:10Z",
    "src": "bovada",
    "tour": "atp",
-   "a_hcp": 1.5,
-   "b_hcp": -1.5,
+   "a_hcp": 1.0,
+   "b_hcp": -1.0,
    "a_sp": -115,
    "b_sp": -115,
-   "a_ml": 115,
-   "b_ml": -140
+   "a_ml": 110,
+   "b_ml": -130
   },
   {
    "a": "Dalibor Svrcina",
@@ -263,6 +263,32 @@
    "b_ml": 450
   },
   {
+   "a": "Ben Shelton",
+   "b": "Arthur Gea",
+   "start": "2026-10-11T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": -3.0,
+   "b_hcp": 3.0,
+   "a_sp": -125,
+   "b_sp": -105,
+   "a_ml": -285,
+   "b_ml": 225
+  },
+  {
+   "a": "Francisco Cerundolo",
+   "b": "Jakub Mensik",
+   "start": "2026-10-11T04:00Z",
+   "src": "bovada",
+   "tour": "atp",
+   "a_hcp": 2.0,
+   "b_hcp": -2.0,
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": 130,
+   "b_ml": -155
+  },
+  {
    "a": "Hubert Hurkacz",
    "b": "Yi Zhou",
    "start": "2026-10-11T04:00Z",
@@ -289,19 +315,6 @@
    "b_ml": 260
   },
   {
-   "a": "Francisco Cerundolo",
-   "b": "Jakub Mensik",
-   "start": "2026-10-13T01:00Z",
-   "src": "bovada",
-   "tour": "atp",
-   "a_hcp": 2.0,
-   "b_hcp": -2.0,
-   "a_sp": -120,
-   "b_sp": -110,
-   "a_ml": 125,
-   "b_ml": -150
-  },
-  {
    "a": "Mirra Andreeva",
    "b": "Nikola Bartunkova",
    "start": "2026-10-10T07:00Z",
@@ -309,10 +322,10 @@
    "tour": "wta",
    "a_hcp": -4.0,
    "b_hcp": 4.0,
-   "a_sp": -115,
-   "b_sp": -115,
-   "a_ml": -260,
-   "b_ml": 210
+   "a_sp": -110,
+   "b_sp": -120,
+   "a_ml": -250,
+   "b_ml": 200
   },
   {
    "a": "Qinwen Zheng",
@@ -491,10 +504,10 @@
    "tour": "wta",
    "a_hcp": 1.0,
    "b_hcp": -1.0,
-   "a_sp": -110,
-   "b_sp": -120,
-   "a_ml": 110,
-   "b_ml": -130
+   "a_sp": -120,
+   "b_sp": -110,
+   "a_ml": 100,
+   "b_ml": -120
   },
   {
    "a": "Mananchaya Sawangkaew",
