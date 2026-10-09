@@ -3,6 +3,31 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/9 - live record vs the closing line (report only, nothing changed)
+- Every graded pick 9/27-10/8 (34 unit plays, 24 leans, 2 early) checked against the last pre-start price in line_history. Totals match the dashboard: 💰 21-13, +10.2u on 31u, ROI +33%; 🟡 leans 10-14. Every result matches the final score; no pick past -150; no lean with units; no opposite sides.
+- CLV (beat the close, win-% pts): all unit plays avg ~0 (beat 7 / same 14 / worse 9 of 30); since the 10/2 unit system -0.5, beat 2 of 17. Winning, but not beating the market yet - mostly favorites hitting.
+- By kind: LOCK 6-2 +8.5u CLV +1.0 (North Texas -118 closed -148) - the one kind that looks like skill. DOG 3-7 -2.2u CLV -0.6, beat the close 1 of 10 - all hockey (NHL dogs 4-6, -1.1u, CLV -0.7: Sharks +145->+170, Blackhawks +180->+190); non-NHL dogs 6-3 +1.6u. PLAYS 4-1 +1.4u CLV -0.4 (luck so far). EARLY 1-1 CLV -1.5. LEANS CLV +0.1; every spread lean got a worse number than the close.
+- By sport (unit plays): NFL 5-2 +5.7u; college 5-2 +4.6u; MLB 7-2 +1.6u; NHL 4-7 -1.6u.
+- Notes: 2 of the 6 Lock wins (Yankees 9/29, 9/30) had the own read below the price (pre-10/1 rule); the 💰 record holds 8 parlay legs from 9/27-9/30 (6-2, +1.9u - the 9/30 rule; without them 15-11 +8.3u); Western KY 10/1 1u and the Kings/Blackhawks ½u Dogs are pre-10/2 sizes.
+- Watch: hockey Dogs posted at 8 AM keep closing at a bigger price (the money runs away from them after we post). Re-check at 30 Dogs before any rule change (the owner's call).
+
+## 10/9 - Saturday's data audit (college / NFL / NHL, from the repo's files)
+- FIXED (sports_breakdown_v24.seen_all + test_seen_all_counts_football_weeks_not_days_from_the_opener): the
+  completeness check counted 7-day slots from a team's own opener, so a Thursday 9/3 opener + one bye + a Saturday 10/10
+  game (37 days) read as 'six weeks, four games = a game missing' - Georgia Tech, Utah and Kansas failed it and BOTH
+  sides of Duke-Georgia Tech and Kansas-Utah would have had no pick; Ole Miss (Labor Day Sunday opener, 10 days after
+  the season's Thursday kickoff) read as 'opener too late'. It now counts football weeks (Tuesday-Monday, Pacific).
+- Still flagged after the fix, on purpose: North Carolina (4 games, nothing 9/5 or 9/26 - two byes or a missing game;
+  needs a live check of their schedule before they get a record or a pick), the Ivy League (opened 9/19 - no record).
+- West Florida @ Abilene Christian (10/3, unpriced) is stuck 'live' with no score - outside the 3-day re-pull window;
+  Abilene Christian's record is a game short until 10/3 is re-pulled by hand.
+- Injuries: injuries_official.json holds only Friday's 9 teams (Washington St is missing for Wash St @ Utah State);
+  none of Saturday's 94 games yet - that's the 5:47 / 11:47 AM routine's job on 10/10 (plus the live Rotowire / Covers
+  reads). 48 of the 52 priced Saturday games have no injury data in the repo right now.
+- Odds: every priced FBS game has a moneyline and a spread (11 have no total yet); 49 of the 101 college games are
+  unpriced FCS / D2 games. NFL week 10/11-10/12: 14 games, all priced, every team's 5-6 games held, box scores for all.
+  NHL 10/10: 13 of 14 Saturday games have no price in the file yet (the hourly pull fills them).
+
 ## 10/8 - daily studies (10) + early plays graded right away
 - Early plays now get graded by the quick results pass the second a game ends (NMSU sat ungraded 10/7), and the game-day 🎯 row shows the live score (🔴 LIVE / FINAL / HIT / MISS) like every card.
 - BUILT: NHL "allowed 40+ shots last game, plays again within 2 days" - a weight (-2 dog score / -1½ on a favorite, +1 for the side facing it); its own lead record ("NHL side outshot 40+ last game (fade)"). sports.outshot / sports_form.outshot_states.

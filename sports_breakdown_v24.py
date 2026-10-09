@@ -58,10 +58,22 @@ def seen_all(fin, tid, before, lg):
         return False                                     #  a Big Ten team that started a week late + had a bye: 3
     mine = sorted(_t(g["start"]) for g in season if tid in (g["home"], g["away"]))   # games, all of them) - judged by
     first0 = min(_t(g["start"]) for g in season)         # its OWN calendar: one game a week since its first, one bye
-    if (mine[0] - first0).days > 9:                      # allowed - only when its opener is in our data (never a team
+    if _week(mine[0]) - _week(first0) > 1:               # allowed - only when its opener is in our data (never a team
         return False                                     # whose first games might be the missing ones)
-    weeks = -(-(before - mine[0]).days // 7)             # weekly slots since its first game (ceiling)
+    weeks = _week(before) - _week(mine[0])               # football weeks it could have played before this game's week
     return len(mine) >= weeks - 1
+
+
+_TUESDAY = datetime(2024, 1, 2, tzinfo=PT).date()        # a Tuesday: college football's week runs Tuesday to Monday
+
+
+def _week(when):
+    """The football week (Tuesday-Monday, Pacific dates) this kickoff falls in, counted from a fixed Tuesday. (10/9
+    audit: counting 7-day slots from a team's own opener date read Georgia Tech / Utah / Kansas - a Thursday 9/3 opener,
+    one bye, playing Saturday 10/10 = 37 days = 'six weeks' - as missing a game, and Ole Miss's Labor Day SUNDAY opener
+    as 'too late' (10 days after the season's Thursday kickoff); both sides of Duke-Georgia Tech and Kansas-Utah lost
+    their pick for nothing. A Thursday and the Saturday 37 days later are five football weeks apart, not six.)"""
+    return (when.astimezone(PT).date() - _TUESDAY).days // 7
 
 
 def _pos(name):

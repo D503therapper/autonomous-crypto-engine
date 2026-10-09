@@ -8494,3 +8494,473 @@ HEAVY TENNIS FAVORITES (research only): 64658 priced matches 2012-01-01 -> 2026-
  VERDICT: NOT LUCRATIVE (a pass that looks like luck). atp|b365|blend+2%|parlay -300 (n 346, roi +0.034, profit z +0.39) clears the bar, but its profit z is under 2 and 0.81 passes were expected by luck alone. Nothing to act on. Research only.
 ✅ tennis heavy favorites: 16s · proven: {"proven": []}
 study run done in 540s: 20/20 studies ok
+✅ underdogs + favorites: 3s · proven: {"nfl": [], "nfl price check": false, "ncaaf": [], "ncaaf price check": false, "nba": [], "nba price check": false, "ncaab": [], "ncaab price check": true, "mlb": [], "mlb price check": false, "nhl": [], "nhl price check": true}
+✅ over/unders: 12s · proven: {"nfl": true, "ncaaf": false, "nba": false, "ncaab": true, "mlb": false, "nhl": false}
+✅ hockey: 17s · proven: null
+✅ spread vs moneyline: 12s · proven: {"nfl": true, "ncaaf": false, "nba": false, "ncaab": false}
+✅ puck lines / run lines: 7s · proven: null
+✅ halves / first period: 2s · proven: null
+✅ comebacks: 195s · proven: null
+✅ trends: 10s · proven: {"proven": ["ncaab|rate|fav_cover", "ncaaf|rate|total"]}
+✅ rigged / fade the public: 1s · proven: {"proven": []}
+✅ self-check on our picks: 0s · proven: null
+✅ situational spots: 17s · proven: {"nfl": [], "ncaaf": [], "nba": [], "ncaab": [], "mlb": [], "nhl": []}
+✅ line movement + CLV: 3s · proven: {"proven": []}
+✅ our engine vs the move (can it beat the pros?): 5s · proven: {"proven": []}
+✅ the engine's strengths, sport by sport: 6s · proven: {"proven": ["ncaaf", "nba"]}
+THE CONTEXT STUDY: 586 tests with 300+ bets; bar z >= 3.5 + profit in both halves. Luck alone: ~0.136 false positives expected (fake no-edge results passed 0.0 on average); refs: officials.json loaded
+nfl: 2777 games · proven - · confirmed - · killed -
+   ref_home-|spread|dog         n=   444 roi old +0.016 new +0.117 edge +0.0568 z=+1.46
+   div|spread|dog               n=   779 roi old +0.028 new +0.038 edge +0.0395 z=+0.96
+   any:out_dome|total|over      n=   463 roi old +0.053 new +0.029 edge +0.0443 z=+0.92
+   out_dome|ml|team             n=   451 roi old +0.116 new -0.029 edge +0.0397 z=+0.73
+   any:dome_out|total|under     n=   459 roi old +0.010 new +0.039 edge +0.0361 z=+0.55
+   nonconf|total|under          n=   571 roi old +0.061 new -0.024 edge +0.0326 z=+0.46
+ncaaf: 9699 games · proven - · confirmed - · killed -
+   any:east1000|total|under     n=   462 roi old +0.059 new +0.098 edge +0.0650 z=+1.78
+   rival|total|under            n=   304 roi old +0.079 new +0.064 edge +0.0624 z=+1.32
+   rival|spread|road            n=   302 roi old +0.011 new +0.124 edge +0.0593 z=+1.24
+   west1000|ml|fade             n=   451 roi old -0.031 new +0.127 edge +0.0337 z=+0.78
+   trip1000|ml|fade             n=   900 roi old -0.029 new +0.077 edge +0.0180 z=+0.56
+   west1000|spread|fade         n=   439 roi old -0.044 new +0.084 edge +0.0347 z=+0.45
+nba: 12852 games · proven - · confirmed - · killed -
+   any:rest|total|over          n=   328 roi old +0.140 new +0.105 edge +0.0881 z=+2.36
+   ref_under|ml|road            n=   403 roi old +0.116 new +0.234 edge +0.0761 z=+2.29
+   any:tank|total|over          n=   584 roi old +0.006 new +0.124 edge +0.0581 z=+1.66
+   any:elim|total|over          n=   664 roi old -0.017 new +0.110 edge +0.0481 z=+1.26
+   ref_under|ml|dog             n=   400 roi old +0.064 new +0.127 edge +0.0431 z=+1.13
+   tank|spread|fade             n=   527 roi old +0.032 new +0.050 edge +0.0445 z=+0.99
+ncaab: 58494 games · proven - · confirmed - · killed -
+   ref_under|total|under        n=  2506 roi old +0.032 new +0.064 edge +0.0488 z=+2.54
+   ref_over|total|over          n=  1492 roi old +0.065 new +0.022 edge +0.0467 z=+1.77
+   road3in6|spread|team         n=   481 roi old +0.019 new +0.048 edge +0.0411 z=+0.76
+   rival|spread|home            n=   368 roi old +0.130 new -0.055 edge +0.0435 z=+0.76
+   rival|total|under            n=   371 roi old +0.084 new -0.042 edge +0.0342 z=+0.41
+   rival|ml|home                n=   374 roi old +0.054 new -0.025 edge +0.0330 z=+0.30
+mlb: 23251 games · proven - · confirmed - · killed -
+   trip2000|ml|fade             n=   658 roi old +0.089 new -0.043 edge +0.0265 z=+0.58
+   east1000|ml|team             n=  1399 roi old +0.041 new -0.009 edge +0.0244 z=+0.57
+   nonconf|ml|road              n=  4275 roi old +0.039 new -0.032 edge +0.0179 z=+0.20
+   any:west1000|total|over      n=  1440 roi old -0.022 new +0.026 edge +0.0236 z=+0.07
+   trip1000|ml|team             n=  2473 roi old +0.000 new -0.001 edge +0.0163 z=-0.02
+   ref_under|total|under        n=  3081 roi old +0.001 new -0.002 edge +0.0220 z=-0.02
+nhl: 13242 games · proven - · confirmed - · killed -
+   ref_home+|ml|road            n=   489 roi old +0.045 new +0.001 edge +0.0281 z=+0.45
+   race|ml|team                 n=  1320 roi old +0.025 new -0.022 edge +0.0237 z=+0.04
+   ref_home-|total|under        n=   589 roi old +0.035 new -0.037 edge +0.0231 z=-0.03
+   mustwin|ml|team              n=  1228 roi old +0.036 new -0.040 edge +0.0226 z=-0.07
+   trip2000|ml|fade             n=   526 roi old -0.017 new -0.002 edge +0.0104 z=-0.21
+   any:west1000|total|over      n=  1329 roi old +0.004 new -0.021 edge +0.0196 z=-0.33
+✅ context: rivalries, travel, domes, stakes, refs: 37s · proven: {"nfl": [], "ncaaf": [], "nba": [], "ncaab": [], "mlb": [], "nhl": []}
+✅ early value plays: the early-price exam: 59s · proven: {"proven": ["mlb +8..12 (+100..+149 dogs)"]}
+THE EXPLORER: tested 6000 NEW angles (255942 ever) in 48.9s
+   new suspects: 0 (luck alone would give ~1.4) · promoted to PROVEN: 0 · killed: 0 · proven demoted: 0
+   now watching 1 suspects · 0 proven · 0 killed
+   TEAM TRENDS pooled across sports (all games so far; 'follow' = ride the trend, 'fade' = bet against it; the bar: 300+ bets, profit in both halves, z 3.5+):
+   1st-quarter form|ml: n=23934 (2018-04-07..2026-09-27) follow hit 62.2% older / 62.9% newer (fair 61.3%, roi -0.024 / -0.026, z -4.07, edge z 4.42) · fade hit 37.8% / 37.1% (roi -0.095 / -0.146, z -12.25) -> no edge
+   1st-quarter form|p1ml: n=14233 (2018-09-09..2026-09-27) follow hit 60.6% older / 61.4% newer (fair 59.7%, roi -0.031 / -0.036, z -4.63, edge z 3.32) · fade hit 39.4% / 38.6% (roi -0.083 / -0.117, z -9.09) -> no edge
+   1st-quarter form|p1spread: n=14641 (2018-09-09..2026-09-27) follow hit 50.4% older / 50.0% newer (fair 50.0%, roi -0.043 / -0.060, z -6.6, edge z 0.49) · fade hit 49.5% / 50.0% (roi -0.060 / -0.059, z -7.58) -> no edge
+   1st-quarter form|spread: n=21353 (2018-10-20..2026-06-14) follow hit 49.8% older / 50.4% newer (fair 50.0%, roi -0.048 / -0.037, z -6.54, edge z 0.27) · fade hit 50.2% / 49.6% (roi -0.042 / -0.051, z -7.09) -> no edge
+   O/U streak 4+|total: n=15249 (2018-04-04..2026-10-07) follow hit 49.8% older / 50.7% newer (fair 50.0%, roi -0.050 / -0.030, z -5.2, edge z 0.52) · fade hit 50.2% / 49.2% (roi -0.038 / -0.059, z -6.23) -> no edge
+   division record|ml: n=2512 (2018-09-09..2026-10-04) follow hit 64.3% older / 65.5% newer (fair 62.9%, roi +0.015 / -0.012, z 0.09, edge z 2.17) · fade hit 35.7% / 34.5% (roi -0.078 / -0.098, z -3.04) -> no edge
+   division record|spread: n=1414 (2018-09-09..2026-10-04) follow hit 50.6% older / 48.7% newer (fair 50.0%, roi -0.031 / -0.070, z -1.99, edge z -0.28) · fade hit 49.4% / 51.3% (roi -0.057 / -0.016, z -1.43) -> no edge
+   prime-time record|ml: n=190 (2018-09-17..2026-10-06) follow hit 60.0% older / 62.1% newer (fair 59.9%, roi -0.073 / +0.027, z -0.37, edge z 0.36) · fade hit 40.0% / 37.9% (roi -0.125 / -0.054, z -0.94) -> no edge
+   prime-time record|spread: n=188 (2018-09-17..2026-10-06) follow hit 52.1% older / 48.9% newer (fair 50.0%, roi -0.001 / -0.065, z -0.47, edge z 0.15) · fade hit 47.9% / 51.1% (roi -0.080 / -0.027, z -0.76) -> no edge
+   road ATS rate|spread: n=10261 (2018-11-04..2026-10-04) follow hit 48.8% older / 48.3% newer (fair 50.0%, roi -0.068 / -0.078, z -7.72, edge z -2.99) · fade hit 51.2% / 51.7% (roi -0.022 / -0.011, z -1.74) -> no edge
+   season ATS rate|spread: n=13032 (2018-10-13..2026-04-04) follow hit 48.2% older / 49.1% newer (fair 50.0%, roi -0.079 / -0.062, z -8.4, edge z -3.09) · fade hit 51.8% / 50.9% (roi -0.011 / -0.026, z -2.23) -> no edge
+   team ATS streak 3+|spread: n=16486 (2018-09-16..2026-10-04) follow hit 49.2% older / 49.4% newer (fair 50.0%, roi -0.060 / -0.055, z -7.77, edge z -1.78) · fade hit 50.8% / 50.6% (roi -0.029 / -0.033, z -4.22) -> no edge
+   team ATS streak 5+|spread: n=4204 (2018-10-06..2026-06-09) follow hit 48.4% older / 48.2% newer (fair 50.0%, roi -0.075 / -0.077, z -5.17, edge z -2.14) · fade hit 51.6% / 51.8% (roi -0.015 / -0.011, z -0.87) -> no edge
+✅ the explorer: NEW angles: 50s · proven: {"proven": []}
+THE TENNIS EDGE STUDY: 64658 priced matches 2012-01-01 -> 2026-08-03 (older half < 2018-05-27 <= newer half) in 38.0s
+   softest segments (a bias learned on the older half that still helps on the newer, mnats/match): WTA rank x10+ +1.15, WTA slam +0.91, WTA round sf+ +0.89, ATP indoor +0.78
+   ATP: log loss pin 0.5752 / b365 0.5759 / avg 0.576 · margin pin 0.0253 b365 0.0605
+   WTA: log loss pin 0.5903 / b365 0.5912 / avg 0.5908 · margin pin 0.0266 b365 0.0619
+   line shop b365 >2% over pinnacle fair: n=4674 roi -0.066 / -0.032 (expected +0.063) edge z=2.68 · beats fair in 14% of matches
+   line shop avg >2% over pinnacle fair: n=928 roi -0.164 / -0.045 (expected +0.067) edge z=-0.25 · beats fair in 4% of matches
+   line shop max >2% over pinnacle fair: n=30043 roi +0.016 / +0.023 (expected +0.069) edge z=2.42 · beats fair in 73% of matches
+   model vs market, newer half: pinnacle 0.597 · elo 0.6295 · model 0.6262 · blend 0.5969 (+0.100 mnats, z 1.07)
+   bovada: 315 closing lines, margin 0.0452, 0 matched to pinnacle, 195 graded
+   names -> ESPN ids: 0.8856 of 1556 names since ESPN's history (by tour {'atp': 0.9195, 'wta': 0.8534}), 0.9386 of match sides · birth dates for 0.9385 of sides (2808 bios on file)
+   life atoms (122 read-outs at pinnacle): wta|pin|yvv:vet n=1818 roi +0.020 / -0.095 z 1.53 / -1.45, wta|pin|age:teen n=4296 roi +0.006 / +0.007 z 1.07 / 1.99, wta|pin|tvv:vet n=483 roi +0.046 / -0.126 z 0.51 / -1.2, atp|pin|age:teen n=2324 roi +0.015 / +0.006 z 0.28 / 1.94
+   registry: tested 3517 new angles (136969 ever) · new suspects 4 · promoted 0 · killed 4 · luck would give ~31.86 suspects / 0.7249 proven ever
+   fixed tests: 543 this run, 1 pass the bar (luck ~0.252)
+   NEW SUSPECT atp|avg|agegap:even&last:straight&p:65-80: older half n=941 roi +0.015 edge z=3.77 | newer half n=1123 roi -0.039 edge z=0.61
+   NEW SUSPECT atp|b365|agegap:even&lvl:1000&oinjn:2+: older half n=399 roi +0.069 edge z=3.69 | newer half n=438 roi -0.036 edge z=1.11
+   NEW SUSPECT atp|avg|agegap:even&lvl:1000&oinjn:2+: older half n=399 roi +0.073 edge z=3.73 | newer half n=441 roi -0.038 edge z=1.18
+   NEW SUSPECT atp|pin|agegap:even&lvl:1000&oinjn:2+: older half n=399 roi +0.125 edge z=3.68 | newer half n=441 roi -0.007 edge z=1.21
+   KILLED atp|avg|agegap:even&last:straight&p:65-80: older half n=941 roi +0.015 edge z=3.77 | newer half n=1123 roi -0.039 edge z=0.61
+   KILLED atp|b365|agegap:even&lvl:1000&oinjn:2+: older half n=399 roi +0.069 edge z=3.69 | newer half n=438 roi -0.036 edge z=1.11
+   KILLED atp|avg|agegap:even&lvl:1000&oinjn:2+: older half n=399 roi +0.073 edge z=3.73 | newer half n=441 roi -0.038 edge z=1.18
+   KILLED atp|pin|agegap:even&lvl:1000&oinjn:2+: older half n=399 roi +0.125 edge z=3.68 | newer half n=441 roi -0.007 edge z=1.21
+   PASSES price 90-100% wta at max: n=1231 roi +0.012 / +0.029 z=3.87 (NOT a gettable price)
+   closest angle: atp|b365|agegap:even&lvl:250&p:35-50 n=2767 roi +0.048 / -0.050 z older 3.33 all 2.07
+   closest angle: atp|b365|agegap:even&last:straight&p:65-80 n=2060 roi +0.000 / -0.041 z older 3.32 all 2.43
+   closest angle: atp|pin|agegap:even&last:dist&oinjn:2+ n=774 roi +0.132 / -0.064 z older 3.3 all 2.35
+   closest fixed: line shop b365 all fav gap>0% n=2020 roi +0.044 / +0.008 z=4.48
+   closest fixed: line shop b365 atp fav gap>0% n=970 roi +0.067 / +0.007 z=3.45
+   closest fixed: line shop b365 wta fav gap>0% n=1050 roi +0.026 / +0.010 z=2.9
+   PROVEN: ['wta|avg|age:vet&agegap:+8&p:65-80', 'wta|pin|age:vet&agegap:+8&p:65-80']
+✅ tennis edge: 38s · proven: {"proven": ["wta|avg|age:vet&agegap:+8&p:65-80", "wta|pin|age:vet&agegap:+8&p:65-80"]}
+first set ATP: 32132 matches, implied log loss 0.62855 (match chance as set-1 chance 0.63577, coin 0.69315)
+  crew overperformance: closest >= 0.05: n 19692, hit 0.5266 vs implied 0.5218, z 1.41 (vs recalibrated 0.73), ROI -0.0502 (older -0.0615, newer -0.0399) - z 1.41 < 3.5; older ROI -0.0615 <= 0; newer ROI -0.0399 <= 0
+  crew raw_rate: closest >= 0.10: n 15498, hit 0.6247 vs implied 0.608, z 4.4 (vs recalibrated 1.16), ROI -0.0269 (older -0.0388, newer -0.016) - older ROI -0.0388 <= 0; newer ROI -0.016 <= 0
+first set WTA: 32523 matches, implied log loss 0.62585 (match chance as set-1 chance 0.62643, coin 0.69315)
+  crew overperformance: closest >= 0.15: n 8372, hit 0.5631 vs implied 0.549, z 2.69 (vs recalibrated 1.03), ROI -0.0357 (older -0.0422, newer -0.0286) - z 2.69 < 3.5; older ROI -0.0422 <= 0; newer ROI -0.0286 <= 0
+  crew raw_rate: closest >= 0.20: n 8256, hit 0.6662 vs implied 0.638, z 5.49 (vs recalibrated 0.74), ROI -0.0109 (older -0.0057, newer -0.0164) - older ROI -0.0057 <= 0; newer ROI -0.0164 <= 0
+first set real Bovada lines: 0 captured, 0 matched (test runs at 300) · 4.4s
+✅ tennis first set: 4s · proven: {"proven": []}
+HEAVY TENNIS FAVORITES (research only): 64658 priced matches 2012-01-01 -> 2026-01-14, split 2018-05-27, 53807 rated
+ ATP pin straights [all]
+    -101..-150: n  7563 win 0.541 fair 0.547 roi -0.035 z_edge -1.02 | old n 3291 roi -0.035 | new n 4272 roi -0.036
+    -151..-200: n  6518 win 0.604 fair 0.619 roi -0.048 z_edge -2.43 | old n 2813 roi -0.043 | new n 3705 roi -0.052
+    -201..-300: n  6514 win 0.698 fair 0.691 roi -0.014 z_edge +1.31 | old n 3112 roi -0.020 | new n 3402 roi -0.009
+    -301..-500: n  5611 win 0.784 fair 0.771 roi -0.007 z_edge +2.42 | old n 2841 roi +0.006 | new n 2770 roi -0.020
+         -500+: n  5778 win 0.896 fair 0.884 roi -0.009 z_edge +3.26 | old n 3246 roi -0.009 | new n 2532 roi -0.009
+ ATP pin straights [blend+2%]
+    -101..-150: n   116 win 0.560 fair 0.552 roi -0.012 z_edge +0.19 | old n 69 roi +0.043 | new n 47 roi -0.092
+    -151..-200: n   207 win 0.551 fair 0.620 roi -0.134 z_edge -1.99 | old n 129 roi -0.072 | new n 78 roi -0.235
+    -201..-300: n   233 win 0.717 fair 0.691 roi +0.011 z_edge +0.87 | old n 161 roi +0.017 | new n 72 roi -0.001
+    -301..-500: n   173 win 0.775 fair 0.771 roi -0.021 z_edge +0.10 | old n 132 roi -0.014 | new n 41 roi -0.043
+         -500+: n    35 win 0.914 fair 0.841 roi +0.060 z_edge +1.51 | old n 30 roi +0.083 | new n 5 roi -0.074
+ ATP pin straights [model+2%]
+    -101..-150: n  2343 win 0.527 fair 0.545 roi -0.055 z_edge -1.74 | old n 975 roi -0.042 | new n 1368 roi -0.065
+    -151..-200: n  1544 win 0.589 fair 0.617 roi -0.068 z_edge -2.19 | old n 591 roi -0.076 | new n 953 roi -0.064
+    -201..-300: n  1220 win 0.686 fair 0.689 roi -0.027 z_edge -0.20 | old n 461 roi -0.022 | new n 759 roi -0.030
+    -301..-500: n   696 win 0.783 fair 0.768 roi -0.004 z_edge +0.99 | old n 274 roi +0.010 | new n 422 roi -0.014
+         -500+: n   345 win 0.870 fair 0.868 roi -0.022 z_edge +0.10 | old n 126 roi +0.003 | new n 219 roi -0.037
+ ATP b365 straights [all]
+    -101..-150: n  4071 win 0.529 fair 0.539 roi -0.078 z_edge -1.38 | old n 1278 roi -0.087 | new n 2793 roi -0.074
+    -151..-200: n  8140 win 0.585 fair 0.599 roi -0.082 z_edge -2.43 | old n 3777 roi -0.089 | new n 4363 roi -0.076
+    -201..-300: n  5979 win 0.676 fair 0.671 roi -0.052 z_edge +0.88 | old n 2913 roi -0.066 | new n 3066 roi -0.040
+    -301..-500: n  6606 win 0.761 fair 0.748 roi -0.038 z_edge +2.53 | old n 3213 roi -0.038 | new n 3393 roi -0.037
+         -500+: n  6547 win 0.885 fair 0.864 roi -0.027 z_edge +5.31 | old n 3868 roi -0.030 | new n 2679 roi -0.023
+ ATP b365 straights [blend+2%]
+    -101..-150: n   649 win 0.508 fair 0.539 roi -0.113 z_edge -1.56 | old n 189 roi -0.091 | new n 460 roi -0.122
+    -151..-200: n  1317 win 0.616 fair 0.598 roi -0.033 z_edge +1.30 | old n 569 roi -0.066 | new n 748 roi -0.007
+    -201..-300: n  1263 win 0.710 fair 0.671 roi -0.005 z_edge +3.07 | old n 649 roi -0.000 | new n 614 roi -0.011
+    -301..-500: n  1607 win 0.779 fair 0.751 roi -0.020 z_edge +2.69 | old n 785 roi -0.021 | new n 822 roi -0.019
+         -500+: n  1659 win 0.882 fair 0.850 roi -0.017 z_edge +4.13 | old n 895 roi -0.021 | new n 764 roi -0.012
+ ATP b365 straights [model+2%]
+    -101..-150: n  1242 win 0.510 fair 0.538 roi -0.108 z_edge -2.01 | old n 385 roi -0.108 | new n 857 roi -0.108
+    -151..-200: n  2075 win 0.571 fair 0.598 roi -0.103 z_edge -2.46 | old n 865 roi -0.139 | new n 1210 roi -0.077
+    -201..-300: n  1161 win 0.677 fair 0.670 roi -0.050 z_edge +0.49 | old n 468 roi -0.041 | new n 693 roi -0.056
+    -301..-500: n  1028 win 0.743 fair 0.746 roi -0.057 z_edge -0.18 | old n 404 roi -0.071 | new n 624 roi -0.048
+         -500+: n   573 win 0.843 fair 0.850 roi -0.061 z_edge -0.48 | old n 229 roi -0.058 | new n 344 roi -0.063
+ WTA pin straights [all]
+    -101..-150: n  8256 win 0.534 fair 0.545 roi -0.047 z_edge -2.12 | old n 3924 roi -0.047 | new n 4332 roi -0.046
+    -151..-200: n  6885 win 0.617 fair 0.618 roi -0.027 z_edge -0.15 | old n 3194 roi -0.029 | new n 3691 roi -0.025
+    -201..-300: n  6803 win 0.694 fair 0.690 roi -0.020 z_edge +0.77 | old n 3338 roi -0.022 | new n 3465 roi -0.018
+    -301..-500: n  5806 win 0.772 fair 0.769 roi -0.023 z_edge +0.48 | old n 2800 roi -0.024 | new n 3006 roi -0.022
+         -500+: n  4649 win 0.892 fair 0.873 roi -0.005 z_edge +4.20 | old n 2399 roi -0.010 | new n 2250 roi +0.001
+ WTA pin straights [blend+2%]
+    -101..-150: n   156 win 0.545 fair 0.551 roi -0.033 z_edge -0.15 | old n 79 roi -0.176 | new n 77 roi +0.113
+    -151..-200: n   219 win 0.676 fair 0.617 roi +0.066 z_edge +1.87 | old n 122 roi +0.049 | new n 97 roi +0.089
+    -201..-300: n   271 win 0.727 fair 0.690 roi +0.028 z_edge +1.37 | old n 194 roi -0.005 | new n 77 roi +0.109
+    -301..-500: n   209 win 0.794 fair 0.763 roi +0.013 z_edge +1.11 | old n 128 roi +0.033 | new n 81 roi -0.020
+         -500+: n    36 win 0.861 fair 0.831 roi +0.010 z_edge +0.52 | old n 25 roi -0.018 | new n 11 roi +0.073
+ WTA pin straights [model+2%]
+    -101..-150: n  2537 win 0.527 fair 0.544 roi -0.057 z_edge -1.73 | old n 1079 roi -0.079 | new n 1458 roi -0.041
+    -151..-200: n  1628 win 0.591 fair 0.617 roi -0.068 z_edge -2.16 | old n 601 roi -0.042 | new n 1027 roi -0.084
+    -201..-300: n  1219 win 0.699 fair 0.688 roi -0.010 z_edge +0.85 | old n 449 roi -0.018 | new n 770 roi -0.005
+    -301..-500: n   737 win 0.786 fair 0.765 roi -0.001 z_edge +1.35 | old n 241 roi +0.031 | new n 496 roi -0.017
+         -500+: n   246 win 0.911 fair 0.854 roi +0.039 z_edge +3.13 | old n 91 roi -0.002 | new n 155 roi +0.064
+ WTA b365 straights [all]
+    -101..-150: n  4354 win 0.519 fair 0.539 roi -0.094 z_edge -2.61 | old n 1541 roi -0.097 | new n 2813 roi -0.093
+    -151..-200: n  8799 win 0.594 fair 0.598 roi -0.068 z_edge -0.85 | old n 4404 roi -0.084 | new n 4395 roi -0.052
+    -201..-300: n  6169 win 0.676 fair 0.671 roi -0.053 z_edge +0.82 | old n 3041 roi -0.056 | new n 3128 roi -0.051
+    -301..-500: n  6726 win 0.754 fair 0.748 roi -0.048 z_edge +1.13 | old n 3280 roi -0.061 | new n 3446 roi -0.035
+         -500+: n  5470 win 0.878 fair 0.854 roi -0.026 z_edge +5.44 | old n 2984 roi -0.035 | new n 2486 roi -0.016
+ WTA b365 straights [blend+2%]
+    -101..-150: n   715 win 0.568 fair 0.539 roi -0.009 z_edge +1.53 | old n 249 roi -0.102 | new n 466 roi +0.041
+    -151..-200: n  1601 win 0.621 fair 0.600 roi -0.028 z_edge +1.73 | old n 781 roi -0.064 | new n 820 roi +0.006
+    -201..-300: n  1404 win 0.702 fair 0.670 roi -0.017 z_edge +2.54 | old n 755 roi -0.006 | new n 649 roi -0.029
+    -301..-500: n  1586 win 0.772 fair 0.750 roi -0.027 z_edge +2.19 | old n 811 roi -0.048 | new n 775 roi -0.005
+         -500+: n  1393 win 0.877 fair 0.846 roi -0.020 z_edge +3.60 | old n 749 roi -0.020 | new n 644 roi -0.019
+ WTA b365 straights [model+2%]
+    -101..-150: n  1375 win 0.520 fair 0.539 roi -0.093 z_edge -1.42 | old n 438 roi -0.127 | new n 937 roi -0.077
+    -151..-200: n  2181 win 0.577 fair 0.598 roi -0.093 z_edge -1.92 | old n 888 roi -0.096 | new n 1293 roi -0.090
+    -201..-300: n  1229 win 0.679 fair 0.670 roi -0.047 z_edge +0.68 | old n 472 roi -0.037 | new n 757 roi -0.054
+    -301..-500: n  1018 win 0.746 fair 0.745 roi -0.054 z_edge +0.03 | old n 354 roi -0.071 | new n 664 roi -0.045
+         -500+: n   429 win 0.897 fair 0.840 roi +0.011 z_edge +3.94 | old n 171 roi -0.024 | new n 258 roi +0.034
+ ATP pin parlay cap -150 [all]: 1224 tickets, hit 0.166 (fair 0.171), avg +444, roi -0.111 z -1.94 | old 529 -0.073 | new 695 -0.141
+ ATP pin parlay cap -200 [all]: 2097 tickets, hit 0.211 (fair 0.222), avg +325, roi -0.114 z -3.02 | old 946 -0.141 | new 1151 -0.092
+ ATP pin parlay cap -300 [all]: 2501 tickets, hit 0.304 (fair 0.295), avg +225, roi -0.049 z -1.66 | old 1164 -0.055 | new 1337 -0.043
+ ATP pin parlay cap -200 [blend+2%]: 6 tickets, hit 0.000 (fair 0.211), avg +341, roi -1.000 z +0.00 | old 3 -1.000 | new 3 -1.000
+ ATP pin parlay cap -300 [blend+2%]: 18 tickets, hit 0.167 (fair 0.260), avg +265, roi -0.481 z -1.70 | old 8 -0.202 | new 10 -0.705
+ ATP pin parlay cap -150 [model+2%]: 187 tickets, hit 0.150 (fair 0.163), avg +472, roi -0.157 z -1.06 | old 70 -0.378 | new 117 -0.025
+ ATP pin parlay cap -200 [model+2%]: 507 tickets, hit 0.175 (fair 0.199), avg +373, roi -0.186 z -2.35 | old 185 -0.318 | new 322 -0.111
+ ATP pin parlay cap -300 [model+2%]: 765 tickets, hit 0.224 (fair 0.236), avg +308, roi -0.128 z -2.13 | old 296 -0.149 | new 469 -0.115
+ ATP b365 parlay cap -150 [all]: 498 tickets, hit 0.112 (fair 0.162), avg +418, roi -0.422 z -5.79 | old 105 -0.495 | new 393 -0.403
+ ATP b365 parlay cap -200 [all]: 1909 tickets, hit 0.195 (fair 0.213), avg +294, roi -0.239 z -6.72 | old 818 -0.301 | new 1091 -0.193
+ ATP b365 parlay cap -300 [all]: 2394 tickets, hit 0.273 (fair 0.271), avg +216, roi -0.176 z -6.31 | old 1103 -0.221 | new 1291 -0.137
+ ATP b365 parlay cap -150 [blend+2%]: 9 tickets, hit 0.222 (fair 0.166), avg +413, roi +0.128 z +0.17 | old 1 +4.325 | new 8 -0.397
+ ATP b365 parlay cap -200 [blend+2%]: 141 tickets, hit 0.270 (fair 0.197), avg +329, roi +0.133 z +0.83 | old 35 +0.169 | new 106 +0.121
+ ATP b365 parlay cap -300 [blend+2%]: 346 tickets, hit 0.303 (fair 0.242), avg +252, roi +0.034 z +0.39 | old 141 +0.030 | new 205 +0.037
+ ATP b365 parlay cap -150 [model+2%]: 49 tickets, hit 0.102 (fair 0.159), avg +430, roi -0.467 z -2.04 | old 4 +0.331 | new 45 -0.538
+ ATP b365 parlay cap -200 [model+2%]: 390 tickets, hit 0.197 (fair 0.198), avg +324, roi -0.192 z -2.32 | old 127 -0.262 | new 263 -0.159
+ ATP b365 parlay cap -300 [model+2%]: 631 tickets, hit 0.224 (fair 0.230), avg +271, roi -0.206 z -3.45 | old 218 -0.242 | new 413 -0.187
+ WTA pin parlay cap -150 [all]: 1308 tickets, hit 0.161 (fair 0.170), avg +445, roi -0.126 z -2.28 | old 602 -0.151 | new 706 -0.105
+ WTA pin parlay cap -200 [all]: 2270 tickets, hit 0.207 (fair 0.220), avg +328, roi -0.134 z -3.71 | old 1043 -0.135 | new 1227 -0.133
+ WTA pin parlay cap -300 [all]: 2680 tickets, hit 0.289 (fair 0.291), avg +230, roi -0.087 z -3.08 | old 1260 -0.082 | new 1420 -0.092
+ WTA pin parlay cap -200 [blend+2%]: 5 tickets, hit 0.600 (fair 0.201), avg +362, roi +1.674 z +1.51 | old 2 -1.000 | new 3 +3.457
+ WTA pin parlay cap -300 [blend+2%]: 13 tickets, hit 0.538 (fair 0.237), avg +295, roi +1.124 z +1.94 | old 5 +0.394 | new 8 +1.580
+ WTA pin parlay cap -150 [model+2%]: 205 tickets, hit 0.112 (fair 0.163), avg +468, roi -0.367 z -2.94 | old 86 -0.412 | new 119 -0.335
+ WTA pin parlay cap -200 [model+2%]: 543 tickets, hit 0.160 (fair 0.197), avg +377, roi -0.236 z -3.11 | old 205 -0.242 | new 338 -0.232
+ WTA pin parlay cap -300 [model+2%]: 804 tickets, hit 0.224 (fair 0.238), avg +305, roi -0.148 z -2.57 | old 301 -0.045 | new 503 -0.210
+ WTA b365 parlay cap -150 [all]: 542 tickets, hit 0.120 (fair 0.161), avg +419, roi -0.376 z -5.16 | old 151 -0.519 | new 391 -0.321
+ WTA b365 parlay cap -200 [all]: 2061 tickets, hit 0.190 (fair 0.213), avg +295, roi -0.259 z -7.66 | old 935 -0.269 | new 1126 -0.251
+ WTA b365 parlay cap -300 [all]: 2541 tickets, hit 0.269 (fair 0.270), avg +217, roi -0.171 z -6.20 | old 1181 -0.192 | new 1360 -0.152
+ WTA b365 parlay cap -150 [blend+2%]: 7 tickets, hit 0.143 (fair 0.157), avg +435, roi -0.204 z -0.26 | old 2 -1.000 | new 5 +0.115
+ WTA b365 parlay cap -200 [blend+2%]: 170 tickets, hit 0.212 (fair 0.201), avg +315, roi -0.128 z -0.98 | old 75 -0.231 | new 95 -0.045
+ WTA b365 parlay cap -300 [blend+2%]: 437 tickets, hit 0.277 (fair 0.241), avg +251, roi -0.056 z -0.75 | old 208 -0.082 | new 229 -0.031
+ WTA b365 parlay cap -150 [model+2%]: 65 tickets, hit 0.077 (fair 0.160), avg +427, roi -0.586 z -3.26 | old 9 -1.000 | new 56 -0.519
+ WTA b365 parlay cap -200 [model+2%]: 389 tickets, hit 0.162 (fair 0.198), avg +326, roi -0.306 z -3.79 | old 128 -0.361 | new 261 -0.279
+ WTA b365 parlay cap -300 [model+2%]: 666 tickets, hit 0.219 (fair 0.233), avg +267, roi -0.233 z -4.06 | old 238 -0.318 | new 428 -0.185
+ tests at n300+: 266 straight, 28 parlay; expected by luck 0.062 + 0.751
+ passed the bar: ['atp|b365|blend+2%|parlay -300'] · proven (not luck-sized): none
+ VERDICT: NOT LUCRATIVE (a pass that looks like luck). atp|b365|blend+2%|parlay -300 (n 346, roi +0.034, profit z +0.39) clears the bar, but its profit z is under 2 and 0.81 passes were expected by luck alone. Nothing to act on. Research only.
+✅ tennis heavy favorites: 14s · proven: {"proven": []}
+study run done in 493s: 20/20 studies ok
+✅ underdogs + favorites: 3s · proven: {"nfl": [], "nfl price check": false, "ncaaf": [], "ncaaf price check": false, "nba": [], "nba price check": false, "ncaab": [], "ncaab price check": true, "mlb": [], "mlb price check": false, "nhl": [], "nhl price check": true}
+✅ over/unders: 12s · proven: {"nfl": true, "ncaaf": false, "nba": false, "ncaab": true, "mlb": false, "nhl": false}
+✅ hockey: 18s · proven: null
+✅ spread vs moneyline: 12s · proven: {"nfl": true, "ncaaf": false, "nba": false, "ncaab": false}
+✅ puck lines / run lines: 7s · proven: null
+✅ halves / first period: 2s · proven: null
+✅ comebacks: 196s · proven: null
+✅ trends: 11s · proven: {"proven": ["ncaab|rate|fav_cover", "ncaaf|rate|total"]}
+✅ rigged / fade the public: 1s · proven: {"proven": []}
+✅ self-check on our picks: 0s · proven: null
+✅ situational spots: 17s · proven: {"nfl": [], "ncaaf": [], "nba": [], "ncaab": [], "mlb": [], "nhl": []}
+✅ line movement + CLV: 3s · proven: {"proven": []}
+✅ our engine vs the move (can it beat the pros?): 6s · proven: {"proven": []}
+✅ the engine's strengths, sport by sport: 6s · proven: {"proven": ["ncaaf", "nba"]}
+THE CONTEXT STUDY: 586 tests with 300+ bets; bar z >= 3.5 + profit in both halves. Luck alone: ~0.136 false positives expected (fake no-edge results passed 0.0 on average); refs: officials.json loaded
+nfl: 2778 games · proven - · confirmed - · killed -
+   ref_home-|spread|dog         n=   444 roi old +0.016 new +0.117 edge +0.0568 z=+1.46
+   div|spread|dog               n=   779 roi old +0.028 new +0.038 edge +0.0395 z=+0.96
+   out_dome|ml|team             n=   452 roi old +0.111 new -0.006 edge +0.0414 z=+0.87
+   any:out_dome|total|over      n=   464 roi old +0.048 new +0.029 edge +0.0431 z=+0.87
+   any:dome_out|total|under     n=   459 roi old +0.010 new +0.039 edge +0.0361 z=+0.55
+   nonconf|total|under          n=   571 roi old +0.061 new -0.024 edge +0.0326 z=+0.46
+ncaaf: 9703 games · proven - · confirmed - · killed -
+   any:east1000|total|under     n=   463 roi old +0.059 new +0.102 edge +0.0660 z=+1.82
+   rival|total|under            n=   304 roi old +0.079 new +0.064 edge +0.0624 z=+1.32
+   rival|spread|road            n=   302 roi old +0.011 new +0.124 edge +0.0593 z=+1.24
+   west1000|ml|fade             n=   451 roi old -0.031 new +0.127 edge +0.0337 z=+0.78
+   trip1000|ml|fade             n=   901 roi old -0.029 new +0.077 edge +0.0182 z=+0.56
+   west1000|spread|fade         n=   439 roi old -0.044 new +0.084 edge +0.0347 z=+0.45
+nba: 12852 games · proven - · confirmed - · killed -
+   any:rest|total|over          n=   328 roi old +0.140 new +0.105 edge +0.0881 z=+2.36
+   ref_under|ml|road            n=   403 roi old +0.116 new +0.234 edge +0.0761 z=+2.29
+   any:tank|total|over          n=   584 roi old +0.006 new +0.124 edge +0.0581 z=+1.66
+   any:elim|total|over          n=   664 roi old -0.017 new +0.110 edge +0.0481 z=+1.26
+   ref_under|ml|dog             n=   400 roi old +0.064 new +0.127 edge +0.0431 z=+1.13
+   tank|spread|fade             n=   527 roi old +0.032 new +0.050 edge +0.0445 z=+0.99
+ncaab: 58494 games · proven - · confirmed - · killed -
+   ref_under|total|under        n=  2506 roi old +0.032 new +0.064 edge +0.0488 z=+2.54
+   ref_over|total|over          n=  1492 roi old +0.065 new +0.022 edge +0.0467 z=+1.77
+   road3in6|spread|team         n=   481 roi old +0.019 new +0.048 edge +0.0411 z=+0.76
+   rival|spread|home            n=   368 roi old +0.130 new -0.055 edge +0.0435 z=+0.76
+   rival|total|under            n=   371 roi old +0.084 new -0.042 edge +0.0342 z=+0.41
+   rival|ml|home                n=   374 roi old +0.054 new -0.025 edge +0.0330 z=+0.30
+mlb: 23252 games · proven - · confirmed - · killed -
+   trip2000|ml|fade             n=   658 roi old +0.089 new -0.043 edge +0.0265 z=+0.58
+   east1000|ml|team             n=  1399 roi old +0.041 new -0.009 edge +0.0244 z=+0.57
+   nonconf|ml|road              n=  4275 roi old +0.039 new -0.032 edge +0.0179 z=+0.20
+   any:west1000|total|over      n=  1440 roi old -0.022 new +0.026 edge +0.0236 z=+0.07
+   trip1000|ml|team             n=  2473 roi old +0.000 new -0.001 edge +0.0163 z=-0.02
+   ref_under|total|under        n=  3081 roi old +0.001 new -0.002 edge +0.0220 z=-0.02
+nhl: 13252 games · proven - · confirmed - · killed -
+   ref_home+|ml|road            n=   489 roi old +0.045 new +0.001 edge +0.0281 z=+0.45
+   race|ml|team                 n=  1320 roi old +0.025 new -0.022 edge +0.0237 z=+0.04
+   ref_home-|total|under        n=   589 roi old +0.035 new -0.037 edge +0.0231 z=-0.03
+   mustwin|ml|team              n=  1228 roi old +0.036 new -0.040 edge +0.0226 z=-0.07
+   trip2000|ml|fade             n=   527 roi old -0.017 new -0.001 edge +0.0108 z=-0.20
+   any:west1000|total|over      n=  1331 roi old +0.005 new -0.022 edge +0.0195 z=-0.34
+✅ context: rivalries, travel, domes, stakes, refs: 37s · proven: {"nfl": [], "ncaaf": [], "nba": [], "ncaab": [], "mlb": [], "nhl": []}
+✅ early value plays: the early-price exam: 59s · proven: {"proven": ["mlb +8..12 (+100..+149 dogs)"]}
+THE EXPLORER: tested 6000 NEW angles (261942 ever) in 49.5s
+   new suspects: 0 (luck alone would give ~1.4) · promoted to PROVEN: 0 · killed: 0 · proven demoted: 0
+   now watching 1 suspects · 0 proven · 0 killed
+   TEAM TRENDS pooled across sports (all games so far; 'follow' = ride the trend, 'fade' = bet against it; the bar: 300+ bets, profit in both halves, z 3.5+):
+   1st-quarter form|ml: n=23934 (2018-04-07..2026-09-27) follow hit 62.2% older / 62.9% newer (fair 61.3%, roi -0.024 / -0.026, z -4.07, edge z 4.42) · fade hit 37.8% / 37.1% (roi -0.095 / -0.146, z -12.25) -> no edge
+   1st-quarter form|p1ml: n=14233 (2018-09-09..2026-09-27) follow hit 60.6% older / 61.4% newer (fair 59.7%, roi -0.031 / -0.036, z -4.63, edge z 3.32) · fade hit 39.4% / 38.6% (roi -0.083 / -0.117, z -9.09) -> no edge
+   1st-quarter form|p1spread: n=14641 (2018-09-09..2026-09-27) follow hit 50.4% older / 50.0% newer (fair 50.0%, roi -0.043 / -0.060, z -6.6, edge z 0.49) · fade hit 49.5% / 50.0% (roi -0.060 / -0.059, z -7.58) -> no edge
+   1st-quarter form|spread: n=21353 (2018-10-20..2026-06-14) follow hit 49.8% older / 50.4% newer (fair 50.0%, roi -0.048 / -0.037, z -6.54, edge z 0.27) · fade hit 50.2% / 49.6% (roi -0.042 / -0.051, z -7.09) -> no edge
+   O/U streak 4+|total: n=15250 (2018-04-04..2026-10-09) follow hit 49.8% older / 50.7% newer (fair 50.0%, roi -0.050 / -0.030, z -5.21, edge z 0.51) · fade hit 50.2% / 49.3% (roi -0.038 / -0.058, z -6.22) -> no edge
+   division record|ml: n=2512 (2018-09-09..2026-10-04) follow hit 64.3% older / 65.5% newer (fair 62.9%, roi +0.015 / -0.012, z 0.09, edge z 2.17) · fade hit 35.7% / 34.5% (roi -0.078 / -0.098, z -3.04) -> no edge
+   division record|spread: n=1414 (2018-09-09..2026-10-04) follow hit 50.6% older / 48.7% newer (fair 50.0%, roi -0.031 / -0.070, z -1.99, edge z -0.28) · fade hit 49.4% / 51.3% (roi -0.057 / -0.016, z -1.43) -> no edge
+   prime-time record|ml: n=191 (2018-09-17..2026-10-09) follow hit 60.0% older / 62.5% newer (fair 59.6%, roi -0.073 / +0.068, z -0.04, edge z 0.49) · fade hit 40.0% / 37.5% (roi -0.125 / -0.064, z -1.0) -> no edge
+   prime-time record|spread: n=189 (2018-09-17..2026-10-09) follow hit 52.1% older / 49.5% newer (fair 50.0%, roi -0.001 / -0.055, z -0.41, edge z 0.22) · fade hit 47.9% / 50.5% (roi -0.080 / -0.037, z -0.84) -> no edge
+   road ATS rate|spread: n=10262 (2018-11-04..2026-10-09) follow hit 48.8% older / 48.3% newer (fair 50.0%, roi -0.068 / -0.078, z -7.73, edge z -3.0) · fade hit 51.2% / 51.7% (roi -0.021 / -0.011, z -1.73) -> no edge
+   season ATS rate|spread: n=13032 (2018-10-13..2026-04-04) follow hit 48.2% older / 49.1% newer (fair 50.0%, roi -0.079 / -0.062, z -8.4, edge z -3.09) · fade hit 51.8% / 50.9% (roi -0.011 / -0.026, z -2.23) -> no edge
+   team ATS streak 3+|spread: n=16488 (2018-09-16..2026-10-09) follow hit 49.2% older / 49.4% newer (fair 50.0%, roi -0.060 / -0.055, z -7.77, edge z -1.78) · fade hit 50.8% / 50.6% (roi -0.029 / -0.033, z -4.22) -> no edge
+   team ATS streak 5+|spread: n=4204 (2018-10-06..2026-06-09) follow hit 48.4% older / 48.2% newer (fair 50.0%, roi -0.075 / -0.077, z -5.17, edge z -2.14) · fade hit 51.6% / 51.8% (roi -0.015 / -0.011, z -0.87) -> no edge
+✅ the explorer: NEW angles: 50s · proven: {"proven": []}
+THE TENNIS EDGE STUDY: 64658 priced matches 2012-01-01 -> 2026-08-03 (older half < 2018-05-27 <= newer half) in 38.0s
+   softest segments (a bias learned on the older half that still helps on the newer, mnats/match): WTA rank x10+ +1.15, WTA slam +0.91, WTA round sf+ +0.89, ATP indoor +0.78
+   ATP: log loss pin 0.5752 / b365 0.5759 / avg 0.576 · margin pin 0.0253 b365 0.0605
+   WTA: log loss pin 0.5903 / b365 0.5912 / avg 0.5908 · margin pin 0.0266 b365 0.0619
+   line shop b365 >2% over pinnacle fair: n=4674 roi -0.066 / -0.032 (expected +0.063) edge z=2.68 · beats fair in 14% of matches
+   line shop avg >2% over pinnacle fair: n=928 roi -0.164 / -0.045 (expected +0.067) edge z=-0.25 · beats fair in 4% of matches
+   line shop max >2% over pinnacle fair: n=30043 roi +0.016 / +0.023 (expected +0.069) edge z=2.42 · beats fair in 73% of matches
+   model vs market, newer half: pinnacle 0.597 · elo 0.6295 · model 0.6262 · blend 0.5969 (+0.100 mnats, z 1.07)
+   bovada: 315 closing lines, margin 0.0452, 0 matched to pinnacle, 196 graded
+   names -> ESPN ids: 0.8856 of 1556 names since ESPN's history (by tour {'atp': 0.9195, 'wta': 0.8534}), 0.9386 of match sides · birth dates for 0.9385 of sides (2808 bios on file)
+   life atoms (122 read-outs at pinnacle): wta|pin|yvv:vet n=1818 roi +0.020 / -0.095 z 1.53 / -1.45, wta|pin|age:teen n=4296 roi +0.006 / +0.007 z 1.07 / 1.99, wta|pin|tvv:vet n=483 roi +0.046 / -0.126 z 0.51 / -1.2, atp|pin|age:teen n=2324 roi +0.015 / +0.006 z 0.28 / 1.94
+   registry: tested 3419 new angles (140388 ever) · new suspects 13 · promoted 0 · killed 11 · luck would give ~32.66 suspects / 0.743 proven ever
+   fixed tests: 543 this run, 1 pass the bar (luck ~0.252)
+   NEW SUSPECT atp|b365|agegap:even&ofat:heavy&oinjn:2+: older half n=223 roi +0.200 edge z=3.7 | newer half n=220 roi -0.057 edge z=0.5
+   NEW SUSPECT atp|b365|agegap:even&ofat:heavy&p:35-50: older half n=280 roi +0.190 edge z=3.72 | newer half n=475 roi -0.002 edge z=0.93
+   NEW SUSPECT atp|avg|agegap:even&ofat:heavy&oinjn:2+: older half n=223 roi +0.197 edge z=3.75 | newer half n=221 roi -0.059 edge z=0.52
+   NEW SUSPECT atp|pin|agegap:even&ofat:heavy&oinjn:2+: older half n=223 roi +0.257 edge z=3.72 | newer half n=221 roi -0.028 edge z=0.54
+   NEW SUSPECT atp|avg|agegap:even&ofat:heavy&p:35-50: older half n=280 roi +0.181 edge z=3.5 | newer half n=475 roi -0.009 edge z=0.84
+   NEW SUSPECT atp|pin|agegap:even&ofat:heavy&p:35-50: older half n=280 roi +0.237 edge z=3.65 | newer half n=475 roi +0.025 edge z=0.94
+   NEW SUSPECT atp|b365|agegap:even&oinjn:2+&orest:0-1: older half n=411 roi +0.079 edge z=3.62 | newer half n=380 roi -0.183 edge z=-1.5
+   NEW SUSPECT atp|b365|agegap:even&oinjn:2+&p:65-80: older half n=286 roi +0.050 edge z=3.5 | newer half n=232 roi -0.015 edge z=0.81
+   NEW SUSPECT atp|avg|agegap:even&oinjn:2+&orest:0-1: older half n=411 roi +0.077 edge z=3.63 | newer half n=381 roi -0.188 edge z=-1.53
+   NEW SUSPECT atp|pin|agegap:even&oinjn:2+&orest:0-1: older half n=411 roi +0.128 edge z=3.65 | newer half n=381 roi -0.165 edge z=-1.58
+   NEW SUSPECT atp|avg|agegap:even&oinjn:2+&p:65-80: older half n=285 roi +0.061 edge z=3.69 | newer half n=234 roi -0.011 edge z=0.99
+   NEW SUSPECT atp|b365|agegap:even&olast:straight&p:35-50: older half n=919 roi +0.078 edge z=3.84 | newer half n=1451 roi -0.023 edge z=0.89
+   NEW SUSPECT atp|pin|agegap:even&olast:straight&p:35-50: older half n=921 roi +0.121 edge z=3.64 | newer half n=1453 roi +0.002 edge z=0.79
+   KILLED atp|b365|agegap:even&ofat:heavy&oinjn:2+: older half n=223 roi +0.200 edge z=3.7 | newer half n=220 roi -0.057 edge z=0.5
+   KILLED atp|b365|agegap:even&ofat:heavy&p:35-50: older half n=280 roi +0.190 edge z=3.72 | newer half n=475 roi -0.002 edge z=0.93
+   KILLED atp|avg|agegap:even&ofat:heavy&oinjn:2+: older half n=223 roi +0.197 edge z=3.75 | newer half n=221 roi -0.059 edge z=0.52
+   KILLED atp|pin|agegap:even&ofat:heavy&oinjn:2+: older half n=223 roi +0.257 edge z=3.72 | newer half n=221 roi -0.028 edge z=0.54
+   KILLED atp|avg|agegap:even&ofat:heavy&p:35-50: older half n=280 roi +0.181 edge z=3.5 | newer half n=475 roi -0.009 edge z=0.84
+   KILLED atp|b365|agegap:even&oinjn:2+&orest:0-1: older half n=411 roi +0.079 edge z=3.62 | newer half n=380 roi -0.183 edge z=-1.5
+   KILLED atp|b365|agegap:even&oinjn:2+&p:65-80: older half n=286 roi +0.050 edge z=3.5 | newer half n=232 roi -0.015 edge z=0.81
+   KILLED atp|avg|agegap:even&oinjn:2+&orest:0-1: older half n=411 roi +0.077 edge z=3.63 | newer half n=381 roi -0.188 edge z=-1.53
+   KILLED atp|pin|agegap:even&oinjn:2+&orest:0-1: older half n=411 roi +0.128 edge z=3.65 | newer half n=381 roi -0.165 edge z=-1.58
+   KILLED atp|avg|agegap:even&oinjn:2+&p:65-80: older half n=285 roi +0.061 edge z=3.69 | newer half n=234 roi -0.011 edge z=0.99
+   KILLED atp|b365|agegap:even&olast:straight&p:35-50: older half n=919 roi +0.078 edge z=3.84 | newer half n=1451 roi -0.023 edge z=0.89
+   PASSES price 90-100% wta at max: n=1231 roi +0.012 / +0.029 z=3.87 (NOT a gettable price)
+   closest angle: atp|avg|agegap:even&olast:straight&p:35-50 n=2373 roi +0.074 / -0.030 z older 3.49 all 2.69
+   closest angle: atp|pin|agegap:even&oinjn:2+&p:65-80 n=520 roi +0.085 / +0.004 z older 3.36 all 2.86
+   closest angle: atp|avg|agegap:even&oinjn:2+&ork:31-100 n=1648 roi +0.030 / -0.066 z older 3.11 all 2.56
+   closest fixed: line shop b365 all fav gap>0% n=2020 roi +0.044 / +0.008 z=4.48
+   closest fixed: line shop b365 atp fav gap>0% n=970 roi +0.067 / +0.007 z=3.45
+   closest fixed: line shop b365 wta fav gap>0% n=1050 roi +0.026 / +0.010 z=2.9
+   PROVEN: ['wta|avg|age:vet&agegap:+8&p:65-80', 'wta|pin|age:vet&agegap:+8&p:65-80']
+✅ tennis edge: 38s · proven: {"proven": ["wta|avg|age:vet&agegap:+8&p:65-80", "wta|pin|age:vet&agegap:+8&p:65-80"]}
+first set ATP: 32132 matches, implied log loss 0.62855 (match chance as set-1 chance 0.63577, coin 0.69315)
+  crew overperformance: closest >= 0.05: n 19692, hit 0.5266 vs implied 0.5218, z 1.41 (vs recalibrated 0.73), ROI -0.0502 (older -0.0615, newer -0.0399) - z 1.41 < 3.5; older ROI -0.0615 <= 0; newer ROI -0.0399 <= 0
+  crew raw_rate: closest >= 0.10: n 15498, hit 0.6247 vs implied 0.608, z 4.4 (vs recalibrated 1.16), ROI -0.0269 (older -0.0388, newer -0.016) - older ROI -0.0388 <= 0; newer ROI -0.016 <= 0
+first set WTA: 32523 matches, implied log loss 0.62585 (match chance as set-1 chance 0.62643, coin 0.69315)
+  crew overperformance: closest >= 0.15: n 8372, hit 0.5631 vs implied 0.549, z 2.69 (vs recalibrated 1.03), ROI -0.0357 (older -0.0422, newer -0.0286) - z 2.69 < 3.5; older ROI -0.0422 <= 0; newer ROI -0.0286 <= 0
+  crew raw_rate: closest >= 0.20: n 8256, hit 0.6662 vs implied 0.638, z 5.49 (vs recalibrated 0.74), ROI -0.0109 (older -0.0057, newer -0.0164) - older ROI -0.0057 <= 0; newer ROI -0.0164 <= 0
+first set real Bovada lines: 0 captured, 0 matched (test runs at 300) · 4.4s
+✅ tennis first set: 5s · proven: {"proven": []}
+HEAVY TENNIS FAVORITES (research only): 64658 priced matches 2012-01-01 -> 2026-01-14, split 2018-05-27, 53807 rated
+ ATP pin straights [all]
+    -101..-150: n  7563 win 0.541 fair 0.547 roi -0.035 z_edge -1.02 | old n 3291 roi -0.035 | new n 4272 roi -0.036
+    -151..-200: n  6518 win 0.604 fair 0.619 roi -0.048 z_edge -2.43 | old n 2813 roi -0.043 | new n 3705 roi -0.052
+    -201..-300: n  6514 win 0.698 fair 0.691 roi -0.014 z_edge +1.31 | old n 3112 roi -0.020 | new n 3402 roi -0.009
+    -301..-500: n  5611 win 0.784 fair 0.771 roi -0.007 z_edge +2.42 | old n 2841 roi +0.006 | new n 2770 roi -0.020
+         -500+: n  5778 win 0.896 fair 0.884 roi -0.009 z_edge +3.26 | old n 3246 roi -0.009 | new n 2532 roi -0.009
+ ATP pin straights [blend+2%]
+    -101..-150: n   116 win 0.560 fair 0.552 roi -0.012 z_edge +0.19 | old n 69 roi +0.043 | new n 47 roi -0.092
+    -151..-200: n   207 win 0.551 fair 0.620 roi -0.134 z_edge -1.99 | old n 129 roi -0.072 | new n 78 roi -0.235
+    -201..-300: n   233 win 0.717 fair 0.691 roi +0.011 z_edge +0.87 | old n 161 roi +0.017 | new n 72 roi -0.001
+    -301..-500: n   173 win 0.775 fair 0.771 roi -0.021 z_edge +0.10 | old n 132 roi -0.014 | new n 41 roi -0.043
+         -500+: n    35 win 0.914 fair 0.841 roi +0.060 z_edge +1.51 | old n 30 roi +0.083 | new n 5 roi -0.074
+ ATP pin straights [model+2%]
+    -101..-150: n  2343 win 0.527 fair 0.545 roi -0.055 z_edge -1.74 | old n 975 roi -0.042 | new n 1368 roi -0.065
+    -151..-200: n  1544 win 0.589 fair 0.617 roi -0.068 z_edge -2.19 | old n 591 roi -0.076 | new n 953 roi -0.064
+    -201..-300: n  1220 win 0.686 fair 0.689 roi -0.027 z_edge -0.20 | old n 461 roi -0.022 | new n 759 roi -0.030
+    -301..-500: n   696 win 0.783 fair 0.768 roi -0.004 z_edge +0.99 | old n 274 roi +0.010 | new n 422 roi -0.014
+         -500+: n   345 win 0.870 fair 0.868 roi -0.022 z_edge +0.10 | old n 126 roi +0.003 | new n 219 roi -0.037
+ ATP b365 straights [all]
+    -101..-150: n  4071 win 0.529 fair 0.539 roi -0.078 z_edge -1.38 | old n 1278 roi -0.087 | new n 2793 roi -0.074
+    -151..-200: n  8140 win 0.585 fair 0.599 roi -0.082 z_edge -2.43 | old n 3777 roi -0.089 | new n 4363 roi -0.076
+    -201..-300: n  5979 win 0.676 fair 0.671 roi -0.052 z_edge +0.88 | old n 2913 roi -0.066 | new n 3066 roi -0.040
+    -301..-500: n  6606 win 0.761 fair 0.748 roi -0.038 z_edge +2.53 | old n 3213 roi -0.038 | new n 3393 roi -0.037
+         -500+: n  6547 win 0.885 fair 0.864 roi -0.027 z_edge +5.31 | old n 3868 roi -0.030 | new n 2679 roi -0.023
+ ATP b365 straights [blend+2%]
+    -101..-150: n   649 win 0.508 fair 0.539 roi -0.113 z_edge -1.56 | old n 189 roi -0.091 | new n 460 roi -0.122
+    -151..-200: n  1317 win 0.616 fair 0.598 roi -0.033 z_edge +1.30 | old n 569 roi -0.066 | new n 748 roi -0.007
+    -201..-300: n  1263 win 0.710 fair 0.671 roi -0.005 z_edge +3.07 | old n 649 roi -0.000 | new n 614 roi -0.011
+    -301..-500: n  1607 win 0.779 fair 0.751 roi -0.020 z_edge +2.69 | old n 785 roi -0.021 | new n 822 roi -0.019
+         -500+: n  1659 win 0.882 fair 0.850 roi -0.017 z_edge +4.13 | old n 895 roi -0.021 | new n 764 roi -0.012
+ ATP b365 straights [model+2%]
+    -101..-150: n  1242 win 0.510 fair 0.538 roi -0.108 z_edge -2.01 | old n 385 roi -0.108 | new n 857 roi -0.108
+    -151..-200: n  2075 win 0.571 fair 0.598 roi -0.103 z_edge -2.46 | old n 865 roi -0.139 | new n 1210 roi -0.077
+    -201..-300: n  1161 win 0.677 fair 0.670 roi -0.050 z_edge +0.49 | old n 468 roi -0.041 | new n 693 roi -0.056
+    -301..-500: n  1028 win 0.743 fair 0.746 roi -0.057 z_edge -0.18 | old n 404 roi -0.071 | new n 624 roi -0.048
+         -500+: n   573 win 0.843 fair 0.850 roi -0.061 z_edge -0.48 | old n 229 roi -0.058 | new n 344 roi -0.063
+ WTA pin straights [all]
+    -101..-150: n  8256 win 0.534 fair 0.545 roi -0.047 z_edge -2.12 | old n 3924 roi -0.047 | new n 4332 roi -0.046
+    -151..-200: n  6885 win 0.617 fair 0.618 roi -0.027 z_edge -0.15 | old n 3194 roi -0.029 | new n 3691 roi -0.025
+    -201..-300: n  6803 win 0.694 fair 0.690 roi -0.020 z_edge +0.77 | old n 3338 roi -0.022 | new n 3465 roi -0.018
+    -301..-500: n  5806 win 0.772 fair 0.769 roi -0.023 z_edge +0.48 | old n 2800 roi -0.024 | new n 3006 roi -0.022
+         -500+: n  4649 win 0.892 fair 0.873 roi -0.005 z_edge +4.20 | old n 2399 roi -0.010 | new n 2250 roi +0.001
+ WTA pin straights [blend+2%]
+    -101..-150: n   156 win 0.545 fair 0.551 roi -0.033 z_edge -0.15 | old n 79 roi -0.176 | new n 77 roi +0.113
+    -151..-200: n   219 win 0.676 fair 0.617 roi +0.066 z_edge +1.87 | old n 122 roi +0.049 | new n 97 roi +0.089
+    -201..-300: n   271 win 0.727 fair 0.690 roi +0.028 z_edge +1.37 | old n 194 roi -0.005 | new n 77 roi +0.109
+    -301..-500: n   209 win 0.794 fair 0.763 roi +0.013 z_edge +1.11 | old n 128 roi +0.033 | new n 81 roi -0.020
+         -500+: n    36 win 0.861 fair 0.831 roi +0.010 z_edge +0.52 | old n 25 roi -0.018 | new n 11 roi +0.073
+ WTA pin straights [model+2%]
+    -101..-150: n  2537 win 0.527 fair 0.544 roi -0.057 z_edge -1.73 | old n 1079 roi -0.079 | new n 1458 roi -0.041
+    -151..-200: n  1628 win 0.591 fair 0.617 roi -0.068 z_edge -2.16 | old n 601 roi -0.042 | new n 1027 roi -0.084
+    -201..-300: n  1219 win 0.699 fair 0.688 roi -0.010 z_edge +0.85 | old n 449 roi -0.018 | new n 770 roi -0.005
+    -301..-500: n   737 win 0.786 fair 0.765 roi -0.001 z_edge +1.35 | old n 241 roi +0.031 | new n 496 roi -0.017
+         -500+: n   246 win 0.911 fair 0.854 roi +0.039 z_edge +3.13 | old n 91 roi -0.002 | new n 155 roi +0.064
+ WTA b365 straights [all]
+    -101..-150: n  4354 win 0.519 fair 0.539 roi -0.094 z_edge -2.61 | old n 1541 roi -0.097 | new n 2813 roi -0.093
+    -151..-200: n  8799 win 0.594 fair 0.598 roi -0.068 z_edge -0.85 | old n 4404 roi -0.084 | new n 4395 roi -0.052
+    -201..-300: n  6169 win 0.676 fair 0.671 roi -0.053 z_edge +0.82 | old n 3041 roi -0.056 | new n 3128 roi -0.051
+    -301..-500: n  6726 win 0.754 fair 0.748 roi -0.048 z_edge +1.13 | old n 3280 roi -0.061 | new n 3446 roi -0.035
+         -500+: n  5470 win 0.878 fair 0.854 roi -0.026 z_edge +5.44 | old n 2984 roi -0.035 | new n 2486 roi -0.016
+ WTA b365 straights [blend+2%]
+    -101..-150: n   715 win 0.568 fair 0.539 roi -0.009 z_edge +1.53 | old n 249 roi -0.102 | new n 466 roi +0.041
+    -151..-200: n  1601 win 0.621 fair 0.600 roi -0.028 z_edge +1.73 | old n 781 roi -0.064 | new n 820 roi +0.006
+    -201..-300: n  1404 win 0.702 fair 0.670 roi -0.017 z_edge +2.54 | old n 755 roi -0.006 | new n 649 roi -0.029
+    -301..-500: n  1586 win 0.772 fair 0.750 roi -0.027 z_edge +2.19 | old n 811 roi -0.048 | new n 775 roi -0.005
+         -500+: n  1393 win 0.877 fair 0.846 roi -0.020 z_edge +3.60 | old n 749 roi -0.020 | new n 644 roi -0.019
+ WTA b365 straights [model+2%]
+    -101..-150: n  1375 win 0.520 fair 0.539 roi -0.093 z_edge -1.42 | old n 438 roi -0.127 | new n 937 roi -0.077
+    -151..-200: n  2181 win 0.577 fair 0.598 roi -0.093 z_edge -1.92 | old n 888 roi -0.096 | new n 1293 roi -0.090
+    -201..-300: n  1229 win 0.679 fair 0.670 roi -0.047 z_edge +0.68 | old n 472 roi -0.037 | new n 757 roi -0.054
+    -301..-500: n  1018 win 0.746 fair 0.745 roi -0.054 z_edge +0.03 | old n 354 roi -0.071 | new n 664 roi -0.045
+         -500+: n   429 win 0.897 fair 0.840 roi +0.011 z_edge +3.94 | old n 171 roi -0.024 | new n 258 roi +0.034
+ ATP pin parlay cap -150 [all]: 1224 tickets, hit 0.166 (fair 0.171), avg +444, roi -0.111 z -1.94 | old 529 -0.073 | new 695 -0.141
+ ATP pin parlay cap -200 [all]: 2097 tickets, hit 0.211 (fair 0.222), avg +325, roi -0.114 z -3.02 | old 946 -0.141 | new 1151 -0.092
+ ATP pin parlay cap -300 [all]: 2501 tickets, hit 0.304 (fair 0.295), avg +225, roi -0.049 z -1.66 | old 1164 -0.055 | new 1337 -0.043
+ ATP pin parlay cap -200 [blend+2%]: 6 tickets, hit 0.000 (fair 0.211), avg +341, roi -1.000 z +0.00 | old 3 -1.000 | new 3 -1.000
+ ATP pin parlay cap -300 [blend+2%]: 18 tickets, hit 0.167 (fair 0.260), avg +265, roi -0.481 z -1.70 | old 8 -0.202 | new 10 -0.705
+ ATP pin parlay cap -150 [model+2%]: 187 tickets, hit 0.150 (fair 0.163), avg +472, roi -0.157 z -1.06 | old 70 -0.378 | new 117 -0.025
+ ATP pin parlay cap -200 [model+2%]: 507 tickets, hit 0.175 (fair 0.199), avg +373, roi -0.186 z -2.35 | old 185 -0.318 | new 322 -0.111
+ ATP pin parlay cap -300 [model+2%]: 765 tickets, hit 0.224 (fair 0.236), avg +308, roi -0.128 z -2.13 | old 296 -0.149 | new 469 -0.115
+ ATP b365 parlay cap -150 [all]: 498 tickets, hit 0.112 (fair 0.162), avg +418, roi -0.422 z -5.79 | old 105 -0.495 | new 393 -0.403
+ ATP b365 parlay cap -200 [all]: 1909 tickets, hit 0.195 (fair 0.213), avg +294, roi -0.239 z -6.72 | old 818 -0.301 | new 1091 -0.193
+ ATP b365 parlay cap -300 [all]: 2394 tickets, hit 0.273 (fair 0.271), avg +216, roi -0.176 z -6.31 | old 1103 -0.221 | new 1291 -0.137
+ ATP b365 parlay cap -150 [blend+2%]: 9 tickets, hit 0.222 (fair 0.166), avg +413, roi +0.128 z +0.17 | old 1 +4.325 | new 8 -0.397
+ ATP b365 parlay cap -200 [blend+2%]: 141 tickets, hit 0.270 (fair 0.197), avg +329, roi +0.133 z +0.83 | old 35 +0.169 | new 106 +0.121
+ ATP b365 parlay cap -300 [blend+2%]: 346 tickets, hit 0.303 (fair 0.242), avg +252, roi +0.034 z +0.39 | old 141 +0.030 | new 205 +0.037
+ ATP b365 parlay cap -150 [model+2%]: 49 tickets, hit 0.102 (fair 0.159), avg +430, roi -0.467 z -2.04 | old 4 +0.331 | new 45 -0.538
+ ATP b365 parlay cap -200 [model+2%]: 390 tickets, hit 0.197 (fair 0.198), avg +324, roi -0.192 z -2.32 | old 127 -0.262 | new 263 -0.159
+ ATP b365 parlay cap -300 [model+2%]: 631 tickets, hit 0.224 (fair 0.230), avg +271, roi -0.206 z -3.45 | old 218 -0.242 | new 413 -0.187
+ WTA pin parlay cap -150 [all]: 1308 tickets, hit 0.161 (fair 0.170), avg +445, roi -0.126 z -2.28 | old 602 -0.151 | new 706 -0.105
+ WTA pin parlay cap -200 [all]: 2270 tickets, hit 0.207 (fair 0.220), avg +328, roi -0.134 z -3.71 | old 1043 -0.135 | new 1227 -0.133
+ WTA pin parlay cap -300 [all]: 2680 tickets, hit 0.289 (fair 0.291), avg +230, roi -0.087 z -3.08 | old 1260 -0.082 | new 1420 -0.092
+ WTA pin parlay cap -200 [blend+2%]: 5 tickets, hit 0.600 (fair 0.201), avg +362, roi +1.674 z +1.51 | old 2 -1.000 | new 3 +3.457
+ WTA pin parlay cap -300 [blend+2%]: 13 tickets, hit 0.538 (fair 0.237), avg +295, roi +1.124 z +1.94 | old 5 +0.394 | new 8 +1.580
+ WTA pin parlay cap -150 [model+2%]: 205 tickets, hit 0.112 (fair 0.163), avg +468, roi -0.367 z -2.94 | old 86 -0.412 | new 119 -0.335
+ WTA pin parlay cap -200 [model+2%]: 543 tickets, hit 0.160 (fair 0.197), avg +377, roi -0.236 z -3.11 | old 205 -0.242 | new 338 -0.232
+ WTA pin parlay cap -300 [model+2%]: 804 tickets, hit 0.224 (fair 0.238), avg +305, roi -0.148 z -2.57 | old 301 -0.045 | new 503 -0.210
+ WTA b365 parlay cap -150 [all]: 542 tickets, hit 0.120 (fair 0.161), avg +419, roi -0.376 z -5.16 | old 151 -0.519 | new 391 -0.321
+ WTA b365 parlay cap -200 [all]: 2061 tickets, hit 0.190 (fair 0.213), avg +295, roi -0.259 z -7.66 | old 935 -0.269 | new 1126 -0.251
+ WTA b365 parlay cap -300 [all]: 2541 tickets, hit 0.269 (fair 0.270), avg +217, roi -0.171 z -6.20 | old 1181 -0.192 | new 1360 -0.152
+ WTA b365 parlay cap -150 [blend+2%]: 7 tickets, hit 0.143 (fair 0.157), avg +435, roi -0.204 z -0.26 | old 2 -1.000 | new 5 +0.115
+ WTA b365 parlay cap -200 [blend+2%]: 170 tickets, hit 0.212 (fair 0.201), avg +315, roi -0.128 z -0.98 | old 75 -0.231 | new 95 -0.045
+ WTA b365 parlay cap -300 [blend+2%]: 437 tickets, hit 0.277 (fair 0.241), avg +251, roi -0.056 z -0.75 | old 208 -0.082 | new 229 -0.031
+ WTA b365 parlay cap -150 [model+2%]: 65 tickets, hit 0.077 (fair 0.160), avg +427, roi -0.586 z -3.26 | old 9 -1.000 | new 56 -0.519
+ WTA b365 parlay cap -200 [model+2%]: 389 tickets, hit 0.162 (fair 0.198), avg +326, roi -0.306 z -3.79 | old 128 -0.361 | new 261 -0.279
+ WTA b365 parlay cap -300 [model+2%]: 666 tickets, hit 0.219 (fair 0.233), avg +267, roi -0.233 z -4.06 | old 238 -0.318 | new 428 -0.185
+ tests at n300+: 266 straight, 28 parlay; expected by luck 0.062 + 0.751
+ passed the bar: ['atp|b365|blend+2%|parlay -300'] · proven (not luck-sized): none
+ VERDICT: NOT LUCRATIVE (a pass that looks like luck). atp|b365|blend+2%|parlay -300 (n 346, roi +0.034, profit z +0.39) clears the bar, but its profit z is under 2 and 0.81 passes were expected by luck alone. Nothing to act on. Research only.
+✅ tennis heavy favorites: 15s · proven: {"proven": []}
+study run done in 495s: 20/20 studies ok
