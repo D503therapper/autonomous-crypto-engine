@@ -1,15 +1,12 @@
 {
- "at": "2026-10-09T16:38Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-10-09T18:11Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Sakatsume vs Waltert: no points for 1880s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Blinkova vs Andreescu: no points for 2001s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (17s)",
+  "live watcher fresh (13s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,13 +18,22 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "engine ran 16 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 5 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-09T18:11Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Blinkova vs Andreescu: no points for 2001s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-09T16:38Z",
    "fixes": [
@@ -500,14 +506,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Liu vs Sramkova: no points for 1515s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-07T03:21Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Liu vs Sramkova: no points for 611s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }

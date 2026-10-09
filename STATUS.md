@@ -3,6 +3,11 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/9 - the owner's calls
+- Value plays are MONEYLINE ONLY (sports.PLAY_MARKETS = ("ml",)) - spread value plays become leans (they lost every season, no own read).
+- NBA: Locks carry units from day one; an NBA Dog of the Day at ½u when a dog's score is 4+ (sports.NBA_DOG_GATE, DOG_UNITS_BY) - its own record, judge it live.
+- Live plus money: the 55% bar stays (the owner: "ok").
+
 ## 10/9 - daily studies (10): nothing built
 - LEADS (watch live, not wired): NFL road dog after a Thursday game (39-21 ATS), 7+ first-meeting loser as a +100..+220 dog in the division rematch (45-29 ATS), G5 dog vs a Power team at the Tuesday price (92 bets, +20%), ATP indoor-record favorite in the first fall indoor events (paper).
 - Timing fact: college dogs Tuesday-Thursday / favorites at game time CONFIRMED; NFL early-dog edge now only +100..+140 and September dogs.
