@@ -11871,3 +11871,30 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 09:06 UTC] crypto/hold_btc  equity $492.09 (-1.6%) 1 open  market UP
    social heat top: STRK 46 (40/0/6), BTC 35 (35/0/0), KAIA 32 (32/0/0), NEAR 24 (24/0/0), PUMP 21 (21/0/0)
+   dex re-screen: CHIIKAWA@solana:2c1KjiyQ data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   listing: okx_symbols #XCRDO 'New OKX listing (XCRDO)' -> ['XCRDO']
+   listing: XCRDO: okx_symbols notice "New OKX listing (XCRDO)" -> not on Crypto.com USD
+   dex screen: REJECT DYNAMO@base liq $147,544 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT GTR@solana liq $2,254,552 - top-10 holders 99%; lp holders unknown
+   dex screen: PASS ANTFUN@solana liq $13,871,462
+   dex screen: PASS PEPECOIN@ethereum liq $1,854,153
+   dex screen: REJECT BEAM@ethereum liq $2,738,435 - is_mintable; owner_change_balance; top-10 holders 60%
+   dex re-screen: OWLNIGHT@solana:CmCHvr99 data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 3,000 pools (solana 2,079 / base 538 / ethereum 383), refresh cycle 126s (hot 122s), 3009 calls (140 feed, 429s 1, failed 1), 86,066 refreshed (3502 no pair), +324 added / -324 dropped (dead 13, stale 0, cap 311), movers 0 + warming 25 -> queued 2, screened 2 (passed 0), bought 0
+   listing: okx_symbols #XFLNC 'New OKX listing (XFLNC)' -> ['XFLNC']
+   listing: XFLNC: okx_symbols notice "New OKX listing (XFLNC)" -> not on Crypto.com USD
+[2026-10-09 10:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 10:06 UTC] crypto/mover     equity $368.51 (-26.3%) 2 open  market UP
+[2026-10-09 10:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 10:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 10:06 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 10:06 UTC] crypto/breakout10 equity $471.64 (-5.7%) 2 open  market UP
+[2026-10-09 10:06 UTC] crypto/momentum  equity $455.64 (-8.9%) 2 open  market UP
+[2026-10-09 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 10:06 UTC] crypto/hold_btc  equity $492.07 (-1.6%) 1 open  market UP
+   social heat top: STRK 42 (40/0/2), TRUMP 37 (37/0/0), KAIA 27 (27/0/0), NEAR 24 (24/0/0), BTC 21 (21/0/0)
