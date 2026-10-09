@@ -1,15 +1,12 @@
 {
- "at": "2026-10-09T15:20Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml"
- ],
+ "at": "2026-10-09T15:21Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Sakatsume vs Waltert: no points for 2647s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route",
   "studies last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (43s)",
+  "live watcher fresh (95s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,12 +19,20 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "simulator ran 9h ago",
-  "engine ran 1 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-09T15:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-09T15:20Z",
    "fixes": [
@@ -497,13 +502,6 @@
    "fixes": [],
    "problems": [
     "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
-   ]
-  },
-  {
-   "at": "2026-10-07T01:39Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T01:03 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37555191074"
    ]
   }
  ]
