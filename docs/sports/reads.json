@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T22:18Z",
+ "updated": "2026-10-09T22:55Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -32,128 +32,55 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401858254",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Louisville",
-    "p": 0.592,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-09T23:00Z",
-   "away": "Florida St",
-   "home": "Louisville",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Louisville",
-    "opp": "Florida St",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
    "id": "nhl:401892465",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Red Wings",
-    "p": 0.38,
-    "tie": 0.296,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-09T23:00Z",
    "away": "Kraken",
    "home": "Red Wings",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Kraken",
-    "opp": "Red Wings",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.661,
-    "win_p": 0.442,
+    "team": "Red Wings",
+    "opp": "Kraken",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.562,
+    "win_p": 0.562,
     "reasons": [
-     "hotter recent form",
-     "hotter goalie",
-     "opponent missing key players"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
    "id": "nhl:401892467",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blue Jackets",
-    "p": 0.358,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-09T23:00Z",
    "away": "Penguins",
    "home": "Blue Jackets",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
     "team": "Penguins",
     "opp": "Blue Jackets",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.703,
-    "win_p": 0.486,
-    "reasons": [
-     "hotter goalie"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892466",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Capitals",
-    "p": 0.38,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-09T23:00Z",
-   "away": "Rangers",
-   "home": "Capitals",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Rangers",
-    "opp": "Capitals",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -218,
-    "p": 0.661,
-    "win_p": 0.442,
-    "reasons": [
-     "hotter recent form",
-     "opponent missing key players"
-    ]
+    "market": "ml",
+    "line": null,
+    "odds": 102,
+    "p": 0.478,
+    "win_p": 0.478,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -192,7 +119,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Washington",
-    "p": 0.543,
+    "p": 0.552,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -208,9 +135,9 @@
     "opp": "Iowa",
     "market": "ml",
     "line": null,
-    "odds": -148,
-    "p": 0.572,
-    "win_p": 0.572,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "sharp money moving this way",
      "the stronger team",
