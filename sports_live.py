@@ -391,8 +391,9 @@ def _match(games, league, ang):
         return None
     t = datetime.strptime(ang["start_time"][:16], "%Y-%m-%dT%H:%M")
     for g in games.values():
-        if g["league"] != league or not g.get("start"):
-            continue
+        if g["league"] != league or not g.get("start") or (g.get("stype") or "?") not in sd.REAL:
+            continue                                         # (10/9: a preseason game is never watched - no live bet,
+        #                                                       no score card; the board never has a pick on one)
         gt = datetime.strptime(g["start"][:16], "%Y-%m-%dT%H:%M")
         if abs((gt - t).total_seconds()) <= 3 * 3600 and sd._same(g["home_name"], home.get("full_name") or "") \
                 and sd._same(g["away_name"], away.get("full_name") or ""):

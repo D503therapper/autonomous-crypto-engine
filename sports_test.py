@@ -9964,6 +9964,69 @@ def test_live_never_fades_an_early_play_and_a_dk_only_price_is_not_priced():
         pass
     assert sports_live.PRICED[0] == 1 and sports_live.DK_ONLY[0] == 0 and "ncaaf:555" in judged
     sports_live.WATCHING[0] = sports_live.PRICED[0] = sports_live.DK_ONLY[0] = 0
+def test_nba_preseason_never_a_pick_and_the_season_start():
+    """10/9 NBA readiness check (the season opens in two weeks): a preseason game (ESPN season type 1) is never a
+    candidate, never a Lock / Dog / lean, never a live bet, never a 'missing result' that holds the board; the
+    season's first day is the first REGULAR-season game after the summer, never a preseason tip-off or last spring."""
+    games, _ = fake_league("nba", days=120)
+    for g in games.values():
+        g["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 10, 15, 12, 0, tzinfo=timezone.utc)
+    day = now.astimezone(sports.PT).date()
+    up = {**games["nba:1"], "id": "nba:pre", "status": "pre", "home": "3", "away": "4", "home_name": "Celtics",
+          "away_name": "Hawks", "home_score": "", "away_score": "", "start": "2026-10-15T23:30Z", "ml_home": "-150",
+          "ml_away": "130", "ml_home_open": "-150", "ml_away_open": "130", "stype": "1"}
+    games["nba:pre"] = up
+    assert sports.candidates(games, model, now, day, None) == [], "a preseason game is never on the board"
+    assert sports.first_start(games, day) is None and sports.slate_check(games, [], day, now, errors=[]) == []
+    games["nba:pre"]["stype"] = "2"                           # the same game as a regular-season game: on the board
+    assert [c["team"] for c in sports.candidates(games, model, now, day, None) if c["market"] == "ml"] == ["Celtics", "Hawks"]
+    games["nba:pre"]["stype"] = "1"
+    # the live watcher: a preseason game in our files never matches a live game (no live bet, no score card)
+    ang = {"start_time": "2026-10-15T23:30", "home_team_id": 1, "away_team_id": 2,
+           "teams": [{"id": 1, "full_name": "Boston Celtics"}, {"id": 2, "full_name": "Atlanta Hawks"}]}
+    assert sports_live._match(games, "nba", ang) is None
+    games["nba:pre"]["stype"] = "2"
+    assert sports_live._match(games, "nba", ang) is up
+    games["nba:pre"]["stype"] = "1"
+    # a preseason game the feed never finalized (still 'pre' with a price, 5 days old) is not a data gap
+    later = datetime(2026, 10, 21, 15, 35, tzinfo=timezone.utc)
+    opener = {**up, "id": "nba:open", "start": "2026-10-21T23:30Z", "stype": "2", "away": "5", "away_name": "Knicks"}
+    G = {"nba:pre": up, "nba:open": opener}
+    assert sports.data_gaps(G, [{"game_id": "nba:open", "league": "nba"}], later) == {}
+    G["nba:pre"]["stype"] = "2"                               # the same stuck game as a regular-season one: a real gap
+    assert ("nba", "3") in sports.data_gaps(G, [{"game_id": "nba:open", "league": "nba"}], later)
+    # the season start: the first regular-season day after the 30+ day summer gap - never a preseason game, never
+    # last season (the Finals in June), and before the opener it still points at LAST season's start (nothing new yet)
+    S = {"a": {"league": "nba", "stype": "2", "start": "2025-10-21T23:30Z"}, "b": {"league": "nba", "stype": "3", "start": "2026-06-14T00:30Z"},
+         "c": {"league": "nba", "stype": "1", "start": "2026-10-03T23:00Z"}, "d": {"league": "nba", "stype": "2", "start": "2026-10-20T23:30Z"},
+         "e": {"league": "nba", "stype": "2", "start": "2026-10-22T23:30Z"}}
+    assert sports.season_starts(S, datetime(2026, 10, 15, tzinfo=timezone.utc)) == {"nba": "2025-10-21"}
+    assert sports.season_starts(S, datetime(2026, 10, 20, tzinfo=timezone.utc)) == {"nba": "2026-10-20"}
+    assert sports.season_starts(S, datetime(2026, 10, 25, tzinfo=timezone.utc)) == {"nba": "2026-10-20"}
+    # the question box / brain still name the season type right (never 'preseason' by guess)
+    assert sports.SEASON["1"] == "preseason" and sd.REAL == ("2", "3", "5", "?")
+
+
+def test_cover_streak_dies_over_the_summer():
+    """10/9 NBA readiness check: a team's cover streak (cover_run_w - spread picks move HOT_W up / back after 4+ straight
+    covers / misses) never carries over a 30+ day break - 3 NBA teams would have opened 2026-27 on a 4-5 game streak
+    from last April (the Hawks' -5 from the 2026 playoffs). A streak restarts with the first game back."""
+    import sports_form as sf
+    g = lambda k, st, sp="-3", hs="100", as_="90": {"id": k, "league": "nba", "status": "final", "stype": "2", "start": st,
+                                                    "home": "A", "away": "B", "home_score": hs, "away_score": as_, "spread_home": sp}
+    spring = {f"s{i}": g(f"s{i}", f"2026-04-{10 + i:02d}T00:00Z") for i in range(5)}     # A covered 5 straight in April
+    ats, _ = sf.ats_states(spring)
+    assert ats[("nba", "A")] == 5 and ats[("nba", "B")] == -5
+    fall = {**spring, "o1": g("o1", "2026-10-21T00:00Z")}                                  # the opener, 6 months later
+    ats, _ = sf.ats_states(fall)
+    assert ats[("nba", "A")] == 1 and ats[("nba", "B")] == -1, "the summer ends the streak - the opener starts a new one"
+    week = {**spring, "w1": g("w1", "2026-05-01T00:00Z")}                                  # 16 days: the same streak
+    assert sf.ats_states(week)[0][("nba", "A")] == 6
+    c = {"market": "spread", "league": "nba", "ats_run": sf.ats_states(fall)[0][("nba", "B")]}
+    assert sports.cover_run_w(c) == 0 and sf.ATS_FRESH_D == 30
 
 
 if __name__ == "__main__":
