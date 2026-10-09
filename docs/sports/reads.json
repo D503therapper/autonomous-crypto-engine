@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T23:25Z",
+ "updated": "2026-10-09T00:11Z",
  "games": [
   {
    "id": "nhl:401892461",
@@ -163,6 +163,51 @@
    "lean": null
   },
   {
+   "id": "nba:401901823",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T23:30Z",
+   "away": "76ers",
+   "home": "Nets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892462",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-08T23:30Z",
+   "away": "Blackhawks",
+   "home": "Islanders",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898393",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T23:30Z",
+   "away": "Pelicans",
+   "home": "Heat",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401869933",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -192,95 +237,120 @@
    }
   },
   {
+   "id": "ncaaf:401862794",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-08T23:30Z",
+   "away": "South Florida",
+   "home": "UTSA",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401906508",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-08T23:30Z",
+   "away": "Wizards",
+   "home": "Knicks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401907993",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "White Sox",
-    "p": 0.444,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-09T00:00Z",
    "away": "Guardians",
    "home": "White Sox",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "White Sox",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -181,
-    "p": 0.621,
-    "win_p": 0.504,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
+  },
+  {
+   "id": "nba:401898394",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-09T00:00Z",
+   "away": "Hawks",
+   "home": "Spurs",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401891825",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blues",
-    "p": 0.388,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-09T00:00Z",
    "away": "Sharks",
    "home": "Blues",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Sharks",
-    "opp": "Blues",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -205,
-    "p": 0.642,
-    "win_p": 0.422,
+    "team": "Blues",
+    "opp": "Sharks",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.561,
+    "win_p": 0.561,
     "reasons": [
-     "hotter recent form"
-    ]
+     "the stronger team",
+     "sharp money moving this way",
+     "hotter goalie"
+    ],
+    "result": null
    }
   },
   {
    "id": "nfl:401872980",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Cowboys",
-    "p": 0.672,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-09T00:15Z",
    "away": "Buccaneers",
    "home": "Cowboys",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Buccaneers",
     "opp": "Cowboys",
     "market": "spread",
     "line": 8.5,
-    "odds": 100,
+    "odds": -105,
     "p": 0.513,
-    "win_p": 0.215,
+    "win_p": 0.513,
     "reasons": [
      "revenge game",
-     "opponent drama: illness"
-    ]
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
