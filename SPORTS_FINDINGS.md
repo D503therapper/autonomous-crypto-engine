@@ -20,6 +20,56 @@ Checked on the real 2025-26 files: the model tunes (11,530 finals, 66.6% vs the 
 - THE NBA DOG OF THE DAY CAN'T HAPPEN under today's rules: good() needs a proven angle or a dog gate, and dog_gate has no NBA branch - 0 real-value dogs in 3,747 NBA dog sides. The NBA dog weights DO work (flat 1u, 23/24/25): rested vs a back-to-back -0.6% / +22.1% / +13.3%; the overreaction bounce +13.1% / +18.4% / +50.9%; won 2+ close -44% / -10% / -23%. Dog score 4+ as a gate (chosen on 2023-24): graded 15-12, +11.5u on 27 - a LEAD, far too thin; not built.
 - Caveats: closing prices, not the 8 AM number; no injury data in history; NBA alone on the board (live, an NBA Lock posts only when it's the day's best Lock). sports_strength still flags the NBA 'weak' on the engine's own graded picks (-7.1% on 910) - OWNER_ON overrides it.
 - RECOMMENDATION (the owner's call): units on the NBA Lock from day one, leans only for everything else; judge the Lock live at 50. Open build: an NBA dog gate at score 4+ (½u, own record).
+## 10/9 - why the value plays lose (the owner's -6.7%): a replay of TODAY's engine, every board day 2023-26, rule chosen on 2023-24 and graded blind on 2025-26
+The machinery: tools/value_play_replay.py (kept this time) - every calendar day 2023-01-01..2026-09-30 rebuilt as the 8:35 AM
+PT board would have built it: the day's games set back to 'pre' at the CLOSING price, every later game gone, ratings / form /
+dog states / fact indexes built from the games before it, model params re-tuned each July 1 on everything before (blind;
+the gates and study weights were built with every season seen, same caveat as 10/2), no injury reports (none exist in
+history). 795 board days with a unit pick: 675 Locks, 387 Dogs, 1,199 value plays (sports.plays). Slices in
+tools/value_play_cells.py, the rule test in tools/value_play_rules.py (42 cells: 36 written down BEFORE any 2023-24 row
+existed, 6 combos added after the train ranking). Flat 1u numbers (the ½u system scales them).
+- **The headline is partly stale.** By TODAY's engine the value plays are about break-even, not -6.7%: 2023-24 -1.0% on
+  843 (-19u / +10u / +1u by season), blind 2025-26 +2.6% on 356 (-3u / +15u / -3u); the Lock +2.1% / +3.6%, the Dog +6.1% /
+  +3.6%. The -6.7% came from the 10/2 code snapshot (its rows are still in the scratchpad: 601 of its 713 days are 2025-26,
+  where it had NBA shut off as 'weak' - OWNER_ON came 10/3 - no favorites' weighing, and MLB tuned each January): on
+  those same 2025-26 dates it ran -6.3% on 416 plays, with MLB favorites -15.0% on 163 and short favorites -11.7% on 115.
+  Same-window check (1/24-2/28/2025): 37 of its 38 plays are on today's board too, which adds 23 more (NBA, more hoops).
+- **What loses, in BOTH halves:** (a) SPREAD value plays: 2023-24 -21.3% on 131 (college hoops -19.5% on 121), blind -15.1%
+  on 9 - 0 of 4 seasons up. They carry no own read (strust = 0, the 10/3 sweep: the engine's margin model is worse than the
+  closing spread), so real_value() passes them on the blended edge and the ½u rides on a study shift alone. Today's engine
+  hardly makes them any more (9 in 21 months), so this is a hole to close, not a profit engine. (b) Short moneyline
+  favorites -129..-101: -1.6% on 239, blind -3.9% on 88 (1 of 5 seasons up) vs favorites -150..-130 +6.5% on 335 / blind
+  +8.7% on 202 (4 of 5 up). (c) College hoops dogs through NCAAB_DOG_EDGE (own read 4%+ over the price, no dog score):
+  -6.4% on 106, blind -36.5% on 13 (0 of 2) - the own read alone doesn't find dogs (the 10/2 point study said so). (d) MLB
+  favorites: -6.4% on 98 (0 of 2 seasons) here; -15.0% on 163 in the 10/2 snapshot's 2025 - 0 of 5 seasons across both.
+  Every gated dog as a ½u play: +0.3% on 131 / blind -6.0% on 57 (the BEST one, the Dog of the Day, is what makes money).
+- **What wins:** moneyline favorites -150..-130 (above); NBA favorites +13.8% on 39 / +21.7% on 28; football dogs +33% on
+  12 / +17% on 37; hockey favorites +10.0% on 136 / +2.4% on 60 (the weighed w_p ones +6.1% / +3.8%); and the favorites
+  the engine's own read beats by UNDER 3% - the THIN ½u ones - +4.1% on 219 / +8.6% on 162, while own edge 10%+ ran
+  +5.4% / -10.6%: edge size says nothing (the 10/2 finding again). Playoffs +16.6% on 22 / -42% on 3: noise.
+- **Rank on the day is NOISE** - the 10/4 "3rd play down loses" pattern flipped: #1 +5.2% then blind -2.9% (154); #2 -14.9%
+  then +18.4% (80); #3+ +0.4% then -0.7%. The "cap at 2 / ½u past #2" idea is dead. Plays-per-day also flipped.
+- **The rule, chosen on 2023-24 (the best large, every-season-up cell): MONEYLINE ONLY** (sports.PLAY_MARKETS = ("ml",):
+  a spread candidate stays a lean / Lock-eligible read, carries no units). Train +2.7% on 712 (3 of 3 seasons) vs as-is
+  -1.0%; blind 2025-26 +3.1% on 347 vs +2.6% on 356 - the 9 spreads it drops lost 1.4u. Five checks: fair YES (closing
+  prices, blind params), blind YES, most seasons YES (the dropped plays down 4 of 4), current season n/a (no spread play
+  yet in 2026-27), second check YES (10/3 strust = 0 - there is no own read behind a spread, and the owner's rule is units
+  sized by the own read). Honest size: +0.5 pt a play blind on a cell of 9 - real, small, free. BUILT as a constant
+  only, default unchanged (the owner decides rules): sports.PLAY_MARKETS, pinned by
+  sports_test.test_value_play_markets_constant.
+- **Other cells, graded blind (not rules):** ml + no college hoops +7.1% -> +9.6% on 147 (1 of 3 test seasons, drops 60% of
+  the plays - the owner wants picks); ml + favorites -150..-130 or dog +4.8% -> +5.5% on 259 (1 of 3) - a LEAD on the short
+  favorites, watch it live; ml + no MLB +4.2% -> +3.2% (MLB barely plays in today's engine - see the caveat); rank 1 only
+  +5.2% -> -2.9% FAILS; own edge 5%+ -2.8% -> -10.2% FAILS (bigger own edge, worse); dogs only +0.3% -> -6.0% FAILS; pros
+  only +2.9% -> +3.6% on 104 (1 of 2). 42 cells - expect 2 at the 5% level by luck; the spread cell survives because it
+  lost in every season and has a mechanism, not because of its p-value.
+- **Caveats:** (1) only the model params are blind - the dog angles, gates and strength / big-study calibration were
+  built with these seasons seen; (2) the July 1 re-tune leaves MLB with almost no plays July-September every year (2023:
+  96 plays March-June, 0 after) - the live engine re-tunes daily, so the real summer board differs; the MLB verdict leans
+  on the 10/2 snapshot's 163 plays; (3) closing prices, no injury reports, today's code (goalie / 40-shot weights need
+  live files that don't exist in history, so they never fired); (4) 2026-27 is 3 months. Re-run after the football
+  season: `REPLAY_PARAMS_DIR=... python tools/value_play_replay.py 2026-07-01 2026-12-31 out.jsonl` (~7-14 s a day;
+  years in parallel; step 2 = every other day).
 
 ## 10/8 - BOOK-BY-BOOK DISAGREEMENT (one book's moneyline off the other books' median, bet the outlier price): DEAD as a general angle; one per-book sub-cell is a paper LEAD we can't bet
 NFL 1,750 + college 4,067 graded games with a fair look (after both teams' last games), 2020-26, every book's price kept. "Outlier" = a book whose no-vig price on a side sits 2/3/4/5% under the median of the OTHER books (5+ books posted) AND whose raw price still beats that consensus; one bet per game at that book's real price. Thresholds picked on 2020-22, 2023+ blind. 48 cells; none beats p .01 after correction. (The 10/1 round-4 "book dispersion" DEAD, re-checked blind and per book.)

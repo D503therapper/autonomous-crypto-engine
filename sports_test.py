@@ -5962,6 +5962,27 @@ def test_dog_findings_weighed_never_auto():
     #                                                                     dog_score with everything else, never a pick
 
 
+def test_value_play_markets_constant():
+    """10/9 value-play replay: spread value plays lost in every season (no own read behind them). PLAY_MARKETS says which
+    markets a ½u value play can come from - today's default keeps spreads (the owner's call to flip); ("ml",) makes a
+    spread a lean only, and never touches the moneyline plays, the Lock or the leans."""
+    ml = {**_cand("ml", -130, 0.60, league="ncaab"), "edge_own": 0.60 * sd.decimal(-130) - 1}
+    sp = {k: v for k, v in _cand("sp", -110, 0.58, "spread", -3.5, "ncaab").items() if k != "edge_own"}   # (a spread
+    sp["reasons"] = ["the stronger team", "proven spot: covers off a loss"]                 # has no own read - strust 0)
+    assert sports.good(sp) and sports.good(ml)
+    assert sports.PLAY_MARKETS == ("ml", "spread"), "the default is today's board (the owner decides the rule)"
+    assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml", "sp"]
+    old = sports.PLAY_MARKETS
+    try:
+        sports.PLAY_MARKETS = ("ml",)
+        assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml"], "spreads carry no units"
+        assert sports.leg_tier(sp) == "lock" and sports.good(sp), "...but the spread is still a real read for the leans / Lock"
+        assert sports.make_board([sp, ml])["lock"] is not None          # the Lock logic doesn't read PLAY_MARKETS
+    finally:
+        sports.PLAY_MARKETS = old
+    assert [c["game_id"] for c in sports.plays([sp, ml], ())] == ["ml", "sp"]
+
+
 def test_pick_logic_bug_check():
     """10/1, the owner: "check how it picks its dogs, its locks, everything - the Astros was a trap and I was right."
     The bug check's findings, each one pinned so it can't come back."""
