@@ -13,6 +13,64 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/9 - BEST DAY TO BET, favorites vs dogs (NFL + college): the timing rule CONFIRMED for college, REFINED for the NFL - a timing fact, not a bet
+- Paid feed looks: Tue / Thu / Sat / game morning (no Sunday-night opener, no Wed/Fri) - Tuesday is the first fair number in ~90% of games. Same side's ROI at each look minus at the close; 2020-22 vs 2023+ blind; 89 cells.
+- COLLEGE: a DOG bet Tuesday is +2.5 pts of ROI over the same bet at the close (7 of 7 seasons; blind +2.3); Thursday +2.4; Saturday morning +1.7 - the 8 AM board gives up a third of it. A FAVORITE bet Tuesday is -1.6 pts vs the close (1 of 7 up) - favorites keep getting cheaper through kickoff.
+- NFL: the early dog edge is gone since 2023 for big dogs (+141..+220 blind -1.6); what's left is SMALL dogs +100..+140 on Tuesday (+2.1, blind +1.3) and SEPTEMBER dogs (+3.3, blind +2.5). NFL favorites: every look is worse than the close - they can wait.
+- VERDICT: college rule CONFIRMED (dogs Tue-Thu, favorites at game time); NFL refined (only small / September dogs gain by going early). Betting every side blind loses at any look - timing is worth 1-3 pts, never a bet. No code change.
+
+## 10/9 - CONFERENCE TIER EFFICIENCY (are Group-of-5 / FCS lines softer early?): DEAD; the G5-dog-vs-Power cell stays a LEAD
+- 4,067 college games by tier. The close improves on Tuesday's number by the same tiny amount in every tier - small-school lines are quieter, not wrong. The dog's early-price worth is the same everywhere (+2.4 to +3.9 pts).
+- G5 DOG vs a POWER team at +100..+220, Tuesday price: train +17.9%, blind 21-20 +22.9%, all 92 bets +20.1% (z 1.5) - LEAD, re-check at 150+. FCS dogs: a fade fact (-38% blind; seen_all already keeps FCS sides off). College home favorites -150..-101 lose at every price (-11%) - a pricing fact.
+- DEAD as "soft early lines". Nothing wired.
+## 10/9 - AFTER A THURSDAY GAME (~10 days off vs an opponent on a normal week) + the Thursday game itself: the post-Thursday ROAD DOG covers = LEAD; the rest DEAD
+- NFL 2018-26, closing prices, 224 post-Thursday sides; 2018-22 train / 2023+ blind; 45 cells across both studies.
+- All post-Thursday teams: ATS 53.1%, ML -6.5% - the extra days are priced. At home a fade if anything (home dogs 12-18 ATS).
+- THE ONE CELL: post-Thursday ROAD DOG against the spread - train 23-11 (+29.4%), BLIND 16-10 (+19.0%), all 39-21 (65%, 6 of 8 seasons, z 2.3) vs every road dog 55% / 50%. Moneyline flat - a cover, not a win. The line doesn't move midweek (no need to be early).
+- The Thursday game itself: noise (dog ATS 53.5%, favorite ATS 46.6%).
+- LEAD (one of 45 cells, not past correction). If it holds this season: +1.5 on that road dog's spread read, never a trigger.
+
+## 10/9 - DIVISION REMATCH (does the team that lost the first meeting get it back?): DEAD overall; a 7+ loser as a +100..+220 dog covers = LEAD
+- NFL 2018-26, 370 rematches, closing prices.
+- All first-meeting losers: ATS 51.1%, ML -5.5% - the market has it. Lost by 21+: ATS 42.1% - a blowout loser does NOT bounce back. Close losers 60.7% train -> 48.5% blind - dead.
+- The one cell: a 7+ loser now a +100..+220 dog, ATS train 29-19, BLIND 16-10, all 45-29 (60.8%, 7 of 8 seasons, z 1.9) vs every such dog 54% / 50%. The mirror (7+ loser now favored) covered 41.3% - a mild fade.
+- DEAD as a rule (confirms 10/1); the dog cell = LEAD. If it holds: +1 on that side's spread read, -1 on a 7+ loser laying points.
+## 10/9 - NHL ROAD TRIPS: first home game after a 4+ game trip, and the 5th+ straight road game (DEAD both ways; the 9/30 WATCH closed)
+- Closing moneylines, regular season, train 2018-24 (13,414 sides), blind 2024-26 + 2026-27 (5,378). 39 looks.
+- FIRST HOME GAME after a 4+ trip: -4.8% on 572 train, +0.2% on 237 blind - same as every home side; dogs/favorites flip sign between halves. The 9/30 WATCH (4+ trip, 2+ days rest) is DEAD: -4.6% on 434, -1.1% on 182 blind.
+- 5TH+ STRAIGHT ROAD GAME: +0.2% on 380 train, -16.1% on 170 blind - every cell flips sign; the home team facing it -9.1% train, +4.0% blind.
+- DEAD. The books price the trip. Nothing wired; don't re-chase.
+
+## 10/9 - NHL START TIME and TIME ZONES (afternoon games; East team at a 10 PM body clock out West; West team at a 4 PM body clock in the East): DEAD - "road team loses" is the whole story
+- Local start from the venue's zone, body-clock start = local minus the zone gap. ~75 looks.
+- Afternoon road side -10.6% on 429 train, -8.6% on 172 blind - but no cell beats the price both halves (home favorites +3.5% then -1.4%).
+- East team 2+ zones West at a 10 PM+ body clock: -9.2% train, +7.1% blind - flips.
+- West team 2+ zones East: -8.5% on 1,129 train, -7.1% on 504 blind - until the control: Eastern teams on the road within one zone are just as bad (-9.8% / -8.9%). It's the road side, not the trip. The home dog facing an eastbound team +9.9% / +8.0% - a LEAD at best after 75 looks; recheck at 300+ blind games.
+- DEAD. Nothing wired.
+## 10/9 - LOOK-AHEAD / SANDWICH favorite (college: a favorite vs a weak team with a much stronger opponent next week): DEAD; one thin cell a LEAD at most
+- College 2018-26, closing spread + ML, FBS vs FBS, 3,366 favorites (2018-22 train / 2023+ blind), 75 cells; best raw p .014 - nothing passes correction. The books price the sandwich (matches 10/1 NFL and 10/4 college).
+- "Next opponent .750+" cells are flat in train and only look good blind - a sign flip = noise.
+- Only same-sign cell: favorite vs a .250-or-worse team whose NEXT opponent went .750+ last season - the dog covers 57-37 (+15.6%, z 1.7, ~15 games a season). LEAD at best; the dog still wins nothing straight up.
+- DEAD. Not a weight.
+
+## 10/9 - POWER vs GROUP-of-5 non-conference (G5 dog vs a Power team, home / road, by price): DEAD; the 10/1 September "+23%" WATCH did not hold blind
+- 619 priced Power-vs-G5 games 2018-26 (a by-name conference map with realignment years - the game files carry no conference). 32 cells; best raw p .145.
+- G5 home dogs +100..+800: ML +36.9% train -> -6.1% blind; road dogs +0.5% -> -22.6%. Big "paycheck game" dogs (+800 up) are a graveyard (-29% / -39%).
+- The 10/1 September G5-dog WATCH: +17% train -> +3% blind - closed, DEAD.
+- Only cell up both halves: G5 home dog +150..+250, 10-9 on 19 games in nine seasons - too thin.
+- DEAD. Nothing wired. (Note: a real conference map doesn't exist in the repo - it should live in sports_data / data/sports/conferences.json if a future study needs it.)
+## 10/9 - TENNIS FATIGUE (the fresher player vs one who just played a long one / won 4+ in a week): DEAD - the books price tiredness
+- 68,902 ATP+WTA matches 2012-26, Pinnacle and average closing prices, 2012-23 train / 2024-26 blind, 72 cells; nothing clears.
+- Opponent played a 3-setter yesterday, ours didn't play: noise around the baseline (ATP dog +5.2% train -> -18.8% blind).
+- Opponent won 4+ matches in 7 days: the fresh DOG gets smoked (ATP -12.2% train, -18.0% blind; WTA -20.4% train); backing the hot favorite is only break-even - priced.
+- DEAD. The engine's fatigue weight (sports_tennis.Ratings) stays as is; nothing wired.
+
+## 10/9 - TENNIS INDOOR SWING (first indoor events after the Asia swing, strong prior indoor record, first match after flying Asia -> Europe): DEAD; one paper lead
+- 240 cells tried. WTA has no fall indoor events in 2024-26 (train-only).
+- 65%+ prior indoor record in the swing's first two events: ATP favorite +7.7% on 95 train, 9-1 blind - 105 bets, z 1.7 = paper LEAD; re-check after the 2026 fall swing (needs ~500 more bets).
+- First match after Asia -> Europe: ATP favorites -10.2% train -> +19.6% blind - a clean sign flip; DEAD both ways (the jet lag is in the price). Indoor favorites simply ran hot in the blind seasons.
+- DEAD. Nothing wired.
+
 ## 10/9 - NBA READINESS (the season opens in two weeks): the pipeline end to end on 2025-26, three bugs fixed, and a blind replay of the NBA board 2023-26 - the Lock is the only NBA unit play the rules produce, and it won
 Checked on the real 2025-26 files: the model tunes (11,530 finals, 66.6% vs the market's 69.4% - it leans on the line); candidates build for a past day (2026-01-15: 36 sides); every NBA weight fires on real games over 636 board days (rested dog vs a back-to-back 960 sides, the overreaction bounce 380, won 2+ close 490, the comeback-win fade 221 each way, hot stars 924); the hoops injury rule behaves (2 out / 4 questionable among the rotation = no units); the dashboard renders the NBA card. No crash.
 - BUGS (fixed, tests, main 94632bdb4): (1) the live watcher could match a PRESEASON game (a live bet on an exhibition); (2) a preseason game the feed never finalized read as a 'missing result' in sports.data_gaps (would block the team / hold the board); (3) cover streaks never reset over the summer - 3 NBA teams would have opened on a 4-5 game streak from April; a 30+ day break now ends a streak (sports_form.ATS_FRESH_D).
