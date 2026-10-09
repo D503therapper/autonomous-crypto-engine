@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T14:36Z",
+ "updated": "2026-10-09T15:01Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -74,6 +74,7 @@
     "win_p": 0.616,
     "reasons": [
      "the stronger team",
+     "opponent missing key players",
      "better QB play lately"
     ]
    }
@@ -93,8 +94,8 @@
    "start": "2026-10-09T23:00Z",
    "away": "Kraken",
    "home": "Red Wings",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Kraken",
     "opp": "Red Wings",
@@ -106,7 +107,7 @@
     "reasons": [
      "hotter recent form",
      "hotter goalie",
-     "opponent drama: trade drama"
+     "opponent missing key players"
     ]
    }
   },
@@ -125,8 +126,8 @@
    "start": "2026-10-09T23:00Z",
    "away": "Penguins",
    "home": "Blue Jackets",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Penguins",
     "opp": "Blue Jackets",
@@ -424,7 +425,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bowling Green",
-    "p": 0.667,
+    "p": 0.674,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -433,20 +434,20 @@
    "start": "2026-10-10T16:00Z",
    "away": "Sacramento St",
    "home": "Bowling Green",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Bowling Green",
     "opp": "Sacramento St",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.718,
-    "win_p": 0.718,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -105,
+    "p": 0.5,
+    "win_p": 0.726,
     "reasons": [
      "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "hotter recent form"
     ]
    }
   },
@@ -630,7 +631,7 @@
     "opp": "South Carolina",
     "market": "spread",
     "line": -11.5,
-    "odds": -112,
+    "odds": -108,
     "p": 0.501,
     "win_p": 0.791,
     "reasons": [
@@ -1019,7 +1020,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Ole Miss",
-    "p": 0.717,
+    "p": 0.716,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -1581,7 +1582,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "N Dakota St",
-    "p": 0.585,
+    "p": 0.575,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1597,9 +1598,9 @@
     "opp": "UNLV",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "hotter recent form",
      "rolling off a blowout win"
@@ -1775,16 +1776,17 @@
    "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Air Force",
-    "opp": "N Illinois",
+    "team": "N Illinois",
+    "opp": "Air Force",
     "market": "spread",
-    "line": -7.5,
-    "odds": -108,
+    "line": 7.0,
+    "odds": -102,
     "p": 0.5,
-    "win_p": 0.726,
+    "win_p": 0.237,
     "reasons": [
-     "the stronger team",
-     "hotter recent form"
+     "sharp money moving this way",
+     "better rested",
+     "better QB play lately"
     ]
    }
   },
@@ -1826,7 +1828,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "James Madison",
-    "p": 0.725,
+    "p": 0.732,
     "tie": 0.027,
     "name": "1st half"
    },
@@ -1842,9 +1844,9 @@
     "opp": "GA Southern",
     "market": "spread",
     "line": -7.5,
-    "odds": -105,
+    "odds": -108,
     "p": 0.5,
-    "win_p": 0.726,
+    "win_p": 0.734,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -2026,7 +2028,7 @@
     "line": 1.5,
     "odds": -193,
     "p": 0.623,
-    "win_p": 0.443,
+    "win_p": 0.441,
     "reasons": []
    }
   },

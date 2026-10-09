@@ -8727,5 +8727,246 @@
   "status": "won",
   "tier": "value",
   "units": 0.5
+ },
+ {
+  "american": 102,
+  "date": "2026-10-09",
+  "dec": 2.02,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:1",
+     "h2h:1",
+     "road:3",
+     "healthy:4",
+     "splits:4",
+     "bottom_s:1",
+     "w_num:1"
+    ],
+    "breakdown": [
+     "\u2705 Nobody big missing for Penguins.",
+     "\ud83d\udcca Tickets are close to even \u2014 39% the Penguins, 61% the Blue Jackets. We got our side.",
+     "\ud83d\udccb Record check: Penguins 2-2. We already did our homework.",
+     "\ud83e\uddf3 1-1 on the road for Penguins this year.",
+     "\u2705 Bottom line: Penguins (+102) pays more than it should. Tap in."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 2.02,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {},
+    "dog_p": 0.5126,
+    "drift": 0.0043,
+    "edge": -0.0352038549294269,
+    "edge_own": -0.0352038549294269,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892467",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.20267722473604755,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 102,
+    "opp": "Blue Jackets",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.4776218539953332,
+    "p_market": 0.4739134147382803,
+    "pdo": null,
+    "public": null,
+    "reasons": [],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-09T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Penguins",
+    "team_id": "16",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 Penguins at this price is the value - the books undersold 'em."
+   }
+  ],
+  "p_hit": 0.4776,
+  "pnl": 0.0,
+  "posted": "2026-10-09T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -142,
+  "date": "2026-10-09",
+  "dec": 1.7042,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:1",
+     "latest:2",
+     "h2h:0",
+     "cx_trip:3",
+     "home:3",
+     "splits_w:3",
+     "bottom_c:1",
+     "w_num:0",
+     "k_trip:1"
+    ],
+    "breakdown": [
+     "\ud83d\udccb Record check: Red Wings 1-2. We already did our homework.",
+     "\ud83c\udfdf\ufe0f 1-2 at home for Red Wings this year.",
+     "\ud83e\uddf3 Travel check on the Kraken: 1,930-mile trip east.",
+     "\ud83d\udcc5 Most recent games: Red Wings W 5-3 vs Senators \u00b7 Kraken L 2-6 vs Golden Knights.",
+     "\ud83d\udcca 85% of the bets and 81% of the money on the Red Wings. For once the casuals ain't wrong.",
+     "\ud83d\udfe1 Bottom line: Red Wings (-142). We've got this game close to a coin flip - Red Wings by a hair, not enough to put money on."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "dir": "E",
+      "k": "trip",
+      "mi": 1933,
+      "road6": 2,
+      "who": "them",
+      "wk": 2673
+     }
+    ],
+    "ctx_tags": [
+     "game:nonconf",
+     "them:east1000",
+     "them:trip1000"
+    ],
+    "dec": 1.704225352112676,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": true
+    },
+    "dog_more": {},
+    "drift": -0.0022,
+    "edge": -0.04241465990852189,
+    "edge_own": -0.04838481070296374,
+    "fill": true,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892465",
+    "home": true,
+    "hot_key": false,
+    "hurt": [
+     "J.T. Compher",
+     "Marco Kasper",
+     "Simon Edvinsson"
+    ],
+    "intl": false,
+    "key_edge": -0.6104547537811311,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -142,
+    "opp": "Kraken",
+    "opp_dog": -1.49,
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [
+     {
+      "date": "2026-10-07",
+      "headline": "Amid trade request, Dylan Larkin scores in Red Wings' win",
+      "id": "50121653",
+      "kind": "trade drama"
+     }
+    ],
+    "outs": [
+     "Simon Edvinsson (D)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5618889185660739,
+    "p_market": 0.5634920634920635,
+    "pdo": null,
+    "public": "ride",
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-09T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Red Wings",
+    "team_id": "5",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.5409,
+    "waiting": [],
+    "why_line": "\ud83e\udde0 We've got Red Wings close to a coin flip - a hair better, not enough for units. And Kraken are coming off a 1,930-mile trip."
+   }
+  ],
+  "p_hit": 0.5619,
+  "pnl": 0.0,
+  "posted": "2026-10-09T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
