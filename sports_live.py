@@ -595,7 +595,47 @@ def _safe_get(url):
     except Exception:                                         # noqa: BLE001
         return None
 # (the liveOnly feed went empty on 2026-09-27 while games were live: the full feed still flags each event live=True)
-ESPN_ODDS = "https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}/odds"
+# 10/9: it happened again all of 10/8 night ("Bovada has no live lines for mlb, nba, ncaaf, nfl, nhl" every check,
+# tennis fine) - BetRivers was the only book. Now, when the liveOnly feed shows no fresh live event for a league with
+# games going, the FULL feed (BOVADA_ALL's address, the same rotation trick) is read and ONLY its events flagged live,
+# started, and touched within LINE_MAX_AGE_S count - the same bar as the live feed. A pregame price never passes.
+_BOV_ALL_KEYS = []
+for _n in range(30, 51):
+    for _ps in (["lang=en", f"eventsLimit={_n}"], ["lang=en", f"eventsLimit={_n}", "marketFilterId=all"]):
+        _BOV_ALL_KEYS += ["&".join(o) for o in _it.permutations(_ps)]
+ALL_FEED = "|all"             # BOV_EV / BOV_TURN key suffix: the full feed's events are kept apart from the live feed's
+FALLBACK = {}                 # league -> how many fresh live events the full feed gave this cycle (the health line)
+
+
+def bovada_all_live(path):
+    """The full feed's events for `path` (one never-used-lately address a check, newest version kept, like
+    bovada_fresh) - only those the book flags live. Same shape as the feed (groups with events)."""
+    sub = path + ALL_FEED
+    for _ in range(len(_BOV_ALL_KEYS)):
+        BOV_TURN[sub] = (BOV_TURN.get(sub, -1) + 1) % len(_BOV_ALL_KEYS)
+        if _BOV_ALL_KEYS[BOV_TURN[sub]] not in BOV_BAD:
+            break
+    data = _safe_get(BOV_BASE.format(path=path) + _BOV_ALL_KEYS[BOV_TURN[sub]])
+    if data is None and not any(k[0] == sub for k in BOV_EV):
+        raise RuntimeError("no Bovada full-feed address answered")
+    remember_events(sub, data)
+    now_ms = time.time() * 1000
+    for k in [k for k, v in BOV_EV.items() if k[0] == sub and now_ms - v[0] > 15 * 60 * 1000]:
+        del BOV_EV[k]
+    return [{**grp, "events": [ev]} for (pth, _), (_, grp, ev) in BOV_EV.items() if pth == sub and ev.get("live")]
+
+
+def live_fresh_groups(data, path, now_ms):
+    """Only this league's groups, only events the book flags live, already started, touched in the last
+    LINE_MAX_AGE_S - the one bar every Bovada price (live feed or full feed) has to clear."""
+    return [{**g, "events": [e for e in g.get("events") or [] if e.get("live")
+                             and (not e.get("startTime") or e.get("startTime") <= now_ms)         # never a pregame price
+                             and now_ms - (e.get("lastModified") or 0) <= LINE_MAX_AGE_S * 1000]}   # fresh prices only
+            for g in (data if isinstance(data, list) else []) if isinstance(g, dict)
+            and path in str(((g.get("path") or [{}])[0] or {}).get("link", path))]     # only this league's group
+
+
+ESPN_ODDS ="https://sports.core.api.espn.com/v2/sports/{sport}/leagues/{league}/events/{eid}/competitions/{eid}/odds"
 BOVADA_PATH = {"nfl": "football/nfl", "ncaaf": "football/college-football", "nba": "basketball/nba",
                "ncaab": "basketball/college-basketball", "nhl": "hockey/nhl", "mlb": "baseball/mlb"}
 AGREE = 0.08                  # the sportsbook (Bovada) and Action Network must agree within 8 points of win chance
@@ -605,10 +645,13 @@ def _clean(name):
     return re.sub(r"\s*\(#?\d+\)\s*", " ", str(name or "")).strip()
 
 
-def bovada_live(league):
-    """[{home, away, ml_home, ml_away}] - the sportsbook's LIVE moneylines right now."""
+def bovada_live(league, live_games=1):
+    """[{home, away, ml_home, ml_away}] - the sportsbook's LIVE moneylines right now. live_games: how many of this
+    league's games are going per our game list (ESPN / Action Network) - with games on and the liveOnly feed showing
+    no fresh live event, the full feed's live events are read instead (same freshness / live bar)."""
     data = []
     path = BOVADA_PATH[league]
+    FALLBACK.pop(league, None)
     try:
         data = bovada_fresh(path)
     except Exception as e:                                   # noqa: BLE001
@@ -616,11 +659,19 @@ def bovada_live(league):
         BOOKS[league] = f"error {str(e)[:60]}"
         data = []
     now_ms = time.time() * 1000
-    data = [{**g, "events": [e for e in g.get("events") or [] if e.get("live")
-                             and now_ms - (e.get("lastModified") or 0) <= LINE_MAX_AGE_S * 1000]}   # fresh prices only
-            for g in (data if isinstance(data, list) else []) if isinstance(g, dict)
-            and path in str(((g.get("path") or [{}])[0] or {}).get("link", path))]     # only this league's group
-    BOOKS[league] = f"{len(data or [])} groups, {sum(len(g.get('events') or []) for g in data or [])} fresh events"
+    data = live_fresh_groups(data, path, now_ms)
+    n_live = sum(len(g.get("events") or []) for g in data)
+    note = ""
+    if not n_live and live_games:                           # games on, the live feed shows nothing: the full feed
+        try:
+            data = live_fresh_groups(bovada_all_live(path), path, now_ms)
+        except Exception as e:                               # noqa: BLE001
+            sd.ERRORS.append(f"bovada full feed {league}: {str(e)[:100]}")
+            data = []
+        n_live = sum(len(g.get("events") or []) for g in data)
+        FALLBACK[league] = n_live
+        note = f" (liveOnly feed empty: {n_live} fresh live from the full feed)"
+    BOOKS[league] = f"{len(data or [])} groups, {n_live} fresh events{note}"
     out = []
     for grp in data or []:
         for ev in grp.get("events") or []:
@@ -961,7 +1012,7 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                     if any((a.get("boxscore") or {}).get("period") and str(a.get("status") or "").lower() not in DONE
                            for a in angs)]
         scores_f = {lg: ex.submit(espn_scores, lg) for lg in live_lgs}
-        books_f = {lg: ex.submit(bovada_live, lg) for lg in live_lgs}
+        books_f = {lg: ex.submit(bovada_live, lg, len(angs_by[lg])) for lg in live_lgs}
         todo = []
         for lg, angs in angs_by.items():
             for ang in angs:
@@ -1801,9 +1852,14 @@ def health_check():
     if DK_ONLY[0]:
         issues.append(f"{DK_ONLY[0]} live game{'s' if DK_ONLY[0] > 1 else ''} priced only by DraftKings (via ESPN), no second "
                       "book to confirm it - no live bet can post there")
-    empty = [lg for lg, v in BOOKS.items() if v.startswith("0 groups") or v.startswith("error") or " 0 events" in v]
+    empty = [lg for lg, v in BOOKS.items() if v.startswith("0 groups") or v.startswith("error") or " 0 events" in v
+             or ", 0 fresh events" in v]
     if empty and WATCHING[0]:
         issues.append("Bovada has no live lines for " + ", ".join(sorted(empty)))
+    used = {lg: n for lg, n in FALLBACK.items() if n}
+    if used:                                                 # (10/9: the liveOnly feed went dark, the full feed carried it)
+        issues.append("Bovada's liveOnly feed had nothing for " + ", ".join(sorted(used)) + " - used the full feed's "
+                      "live events instead (" + ", ".join(f"{lg} {n}" for lg, n in sorted(used.items())) + ")")
     issues += tennis_score_check()
     for x in issues:
         print(f"HEALTH: {x}", flush=True)
