@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 38,
-  "beat": 10,
+  "n": 41,
+  "beat": 12,
   "same": 17,
-  "worse": 11,
-  "avg_pts": -0.08
+  "worse": 12,
+  "avg_pts": 0.02
  },
  "unit_plays": {
   "n": 18,
@@ -22,11 +22,11 @@
    "avg_pts": -0.67
   },
   "lean": {
-   "n": 20,
-   "beat": 6,
+   "n": 23,
+   "beat": 8,
    "same": 9,
-   "worse": 5,
-   "avg_pts": -0.12
+   "worse": 6,
+   "avg_pts": 0.07
   },
   "lock": {
    "n": 6,
@@ -52,25 +52,25 @@
    "avg_pts": 0.5
   },
   "ncaaf": {
-   "n": 9,
-   "beat": 3,
+   "n": 10,
+   "beat": 4,
    "same": 3,
    "worse": 3,
-   "avg_pts": -0.08
+   "avg_pts": 0.25
   },
   "nfl": {
-   "n": 6,
+   "n": 7,
    "beat": 0,
    "same": 4,
-   "worse": 2,
-   "avg_pts": -0.43
+   "worse": 3,
+   "avg_pts": -0.54
   },
   "nhl": {
-   "n": 15,
-   "beat": 2,
+   "n": 16,
+   "beat": 3,
    "same": 9,
    "worse": 4,
-   "avg_pts": -0.25
+   "avg_pts": -0.11
   }
  },
  "lock_by_size": {
@@ -612,6 +612,34 @@
    "date": "2026-10-08",
    "kind": "lean",
    "lean": true,
+   "league": "nfl",
+   "team": "Buccaneers",
+   "market": "spread",
+   "line": 8.5,
+   "odds": -105,
+   "close": 100,
+   "pts": -1.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Arkansas St",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -162,
+   "pts": 3.2,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "lean",
+   "lean": true,
    "league": "ncaaf",
    "team": "Western KY",
    "market": "ml",
@@ -621,6 +649,20 @@
    "pts": -5.5,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Blues",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -155,
+   "pts": 2.1,
+   "units": 0,
+   "result": "lost"
   },
   {
    "date": "2026-10-08",
