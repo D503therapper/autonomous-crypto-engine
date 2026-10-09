@@ -1,29 +1,36 @@
 {
- "at": "2026-10-09T06:15Z",
+ "at": "2026-10-09T07:49Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Sramkova vs Falei: no points for 175s"
+ ],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (24s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 4 live matches",
-  "slate check: all 17 of today's games named, priced and looked at",
+  "live tennis points + server: 4 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 9 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
-  "simulator ran 7h ago",
-  "engine ran 41 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 5 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-09T07:49Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Sramkova vs Falei: no points for 175s"
+   ]
+  },
   {
    "at": "2026-10-09T06:15Z",
    "fixes": [],
@@ -484,13 +491,6 @@
   },
   {
    "at": "2026-10-06T19:34Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: fetch_pages 2026-10-06T18:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37514183684"
-   ]
-  },
-  {
-   "at": "2026-10-06T18:58Z",
    "fixes": [],
    "problems": [
     "workflow failed: fetch_pages 2026-10-06T18:48 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37514183684"

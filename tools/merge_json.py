@@ -1,5 +1,5 @@
 """Git merge driver for the sports data files that more than one job writes at the same time
-(data/sports/picks.json, data/sports/live_log.json and data/sports/tennis/picks.json).
+(data/sports/picks.json, data/sports/live_log.json, data/sports/tennis/picks.json and data/sports/early.json).
 
 A line-by-line merge of two versions of these files once stitched two different 8-legs into one broken pick (9 legs,
 the same game twice). This merges them record by record instead:
@@ -113,9 +113,60 @@ def merge_tennis(ours, theirs):
     return [slates[d] for d in sorted(slates)][-120:]
 
 
+def _is_early(x):
+    return isinstance(x, dict) and isinstance(x.get("picks"), list)
+
+
+def _ekey(p):
+    return (str(p.get("game_id")), p.get("market") or "ml", str(p.get("side")))
+
+
+def merge_early(ours, theirs, base=None):
+    """data/sports/early.json (10/9 sweep): the hourly engine posts early plays and the live watcher's quick pass grades
+    them - two jobs writing one file. Without a driver a conflicting hunk went to whichever job rebased (-X theirs):
+    a just-posted early play vanished off the board, or a grade was lost. One pick per (game, market, side): a graded
+    copy beats an ungraded one, a play one side pulled (unchanged on the other) stays pulled, the pulled list and the
+    first-seen prices are the union."""
+    ours, theirs, base = ours or {}, theirs or {}, base or {}
+    o_, t_ = {_ekey(p): p for p in ours.get("picks") or []}, {_ekey(p): p for p in theirs.get("picks") or []}
+    gone = set()
+    for k, p in {_ekey(p): p for p in base.get("picks") or []}.items():
+        if (k not in o_ and t_.get(k, p) == p) or (k not in t_ and o_.get(k, p) == p):
+            gone.add(k)
+    out = {}
+    for k in list(o_) + [k for k in t_ if k not in o_]:
+        if k in gone:
+            continue
+        a, b = o_.get(k), t_.get(k)
+        if a is None or b is None:
+            out[k] = dict(a or b)
+            continue
+        win, other = (b, a) if b.get("result") and not a.get("result") else (a, b)
+        merged = dict(other)
+        merged.update(win)                                   # (the graded copy wins; anything only the other had stays)
+        out[k] = merged
+    rows = sorted(out.values(), key=lambda p: (p.get("posted") or "", str(p.get("game_id"))))
+    pulled = {str(x.get("game_id")): x for x in list(theirs.get("pulled") or []) + list(ours.get("pulled") or [])
+              if isinstance(x, dict)}
+    first = dict(theirs.get("first_seen") or {})
+    first.update(ours.get("first_seen") or {})
+    merged = {**theirs, **ours, "picks": rows}
+    if pulled or "pulled" in ours or "pulled" in theirs:
+        merged["pulled"] = list(pulled.values())
+    if first or "first_seen" in ours or "first_seen" in theirs:
+        merged["first_seen"] = first
+    if ours.get("launched") or theirs.get("launched"):
+        merged["launched"] = ours.get("launched") or theirs.get("launched")
+    return merged
+
+
 def main(base, ours_path, theirs_path):
     ours, theirs = _load(ours_path), _load(theirs_path)
-    if _is_tennis(ours) or _is_tennis(theirs):
+    if _is_early(ours) or _is_early(theirs):
+        b_ = _load(base) if base else None
+        merged = merge_early(ours if _is_early(ours) else {}, theirs if _is_early(theirs) else {},
+                             b_ if _is_early(b_) else None)
+    elif _is_tennis(ours) or _is_tennis(theirs):
         merged = merge_tennis(ours if isinstance(ours, list) else [], theirs if isinstance(theirs, list) else [])
     elif isinstance(ours, list) or isinstance(theirs, list):
         b_ = _load(base) if base else None
