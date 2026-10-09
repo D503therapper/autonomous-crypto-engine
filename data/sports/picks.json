@@ -8584,6 +8584,7 @@
      "game:nonconf"
     ],
     "dec": 2.4,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -8597,6 +8598,10 @@
     "edge_own": -0.027529124573481667,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,2,3",
+     "h": "0,2,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -8629,9 +8634,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Predators 5 @ Canadiens 2",
+    "settled": "2026-10-09T01:45Z",
     "side": "away",
     "start": "2026-10-08T23:00Z",
     "stype": "2",
@@ -8649,11 +8656,13 @@
   ],
   "midday": true,
   "p_hit": 0.4052,
-  "pnl": 0.0,
+  "pnl": 140.0,
   "posted": "2026-10-08T16:11Z",
   "round": 1,
+  "settled": "2026-10-09T01:45Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "value"
+  "status": "won",
+  "tier": "value",
+  "units": 0.5
  }
 ]
