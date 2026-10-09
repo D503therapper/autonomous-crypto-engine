@@ -11795,3 +11795,12 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 07:06 UTC] crypto/hold_btc  equity $491.46 (-1.7%) 1 open  market UP
    social heat top: STRK 35 (35/0/0), NEAR 29 (29/0/0), BTC 27 (27/0/0), PENGU 24 (24/0/0), HYPE 21 (21/0/0)
+   dex screen: REJECT LBTC@base liq $4,497,673 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; buy tax unknown; sell tax unknown; top-10 holders 89%; lp locked 0% < 95%
+   dex screen: REJECT LINK@base liq $93,697 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT NOCK@base liq $1,120,655 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown
+   dex screen: PASS TIBBIR@base liq $3,394,747
+   dex screen: REJECT DOT@base liq $514,674 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT CODEC@solana liq $429,059 - top-10 holders 41%; lp locked 0% < 95%
+   scanner: ATOM: +5.8% in 15 min on 8.9x volume @ 1.998 spread 0.05%
+   take-off: BUY ATOM (scanner mover): ATOM: +5.8% in 15 min on 8.9x volume @ 1.998 spread 0.05%
+   >> crypto/mover: BUY $165.81 of ATOM @ 2 (scanner mover)
