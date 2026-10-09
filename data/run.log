@@ -11563,3 +11563,30 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 00:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 00:06 UTC] crypto/hold_btc  equity $487.53 (-2.5%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), NEAR 32 (32/0/0), PENGU 29 (29/0/0), QNT 19 (19/0/0), BTC 16 (16/0/0)
+   dex screen: REJECT MU@solana liq $4,332,321 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 74%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT QUID@base liq $875,708 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 98%; lp locked 0% < 95%
+   dex screen: REJECT PAXG@ethereum liq $2,153,693 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   dex screen: PASS SPX@ethereum liq $11,062,535
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CARDS@solana liq $3,962,926 - top-10 holders 73%
+   dex screen: PASS STONK@solana liq $2,192,651
+   dex screen: REJECT SI@solana liq $155,333 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: PASS PEPE@ethereum liq $28,728,847
+   >> dex/dex_hunter: BUY $26.28 of SI276@solana:HMYd9tos @ 0.001787 (dex tier A momentum 1h +39% 6h +87% buys/sells 631/502 impact 0.02%)
+   dex screen: REJECT GEOD@solana liq $213,606 - mint authority; lp holders unknown
+   dex screen: REJECT UDR@solana liq $3,555,108 - holders unknown; lp holders unknown; rugcheck score 54
+   dex screen: REJECT UNI@ethereum liq $204,326 - goplus partial data: cannot_sell_all unknown; owner_percent 26%; top-10 holders 41%; lp holders unknown
+   dex screen: REJECT HYPE@solana liq $604,153 - mint authority; lp holders unknown
+   dex screen: REJECT QUID@base liq $886,221 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; top-10 holders 98%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,136 / base 516 / ethereum 348), refresh cycle 125s (hot 122s), 2985 calls (114 feed, 429s 1, failed 1), 86,124 refreshed (3611 no pair), +143 added / -146 dropped (dead 14, stale 0, cap 132), movers 1 + warming 19 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-09 01:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 01:06 UTC] crypto/mover     equity $364.84 (-27.0%) 2 open  market UP
+[2026-10-09 01:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 01:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 01:06 UTC] crypto/social_heat equity $467.85 (-6.4%) 1 open  market UP
+[2026-10-09 01:06 UTC] crypto/breakout10 equity $452.96 (-9.4%) 2 open  market UP
+[2026-10-09 01:06 UTC] crypto/momentum  equity $454.14 (-9.2%) 2 open  market UP
+[2026-10-09 01:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 01:06 UTC] crypto/hold_btc  equity $487.69 (-2.5%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), PONS 30 (24/0/6), PENGU 29 (29/0/0), VVV 27 (19/0/8), BTC 27 (27/0/0)
