@@ -8346,6 +8346,7 @@
      "game:conf"
     ],
     "dec": 1.819672131147541,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -8365,6 +8366,10 @@
     "edge_own": -0.007087079530530893,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,3,7,0",
+     "h": "7,14,3,10"
+    },
     "form_state": [
      -21.0,
      -1,
@@ -8409,9 +8414,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Missouri St 13 @ Western KY 34",
+    "settled": "2026-10-09T02:10Z",
     "side": "home",
     "start": "2026-10-08T23:00Z",
     "stype": "2",
@@ -8429,12 +8436,14 @@
    }
   ],
   "p_hit": 0.5261,
-  "pnl": 0.0,
+  "pnl": 81.97,
   "posted": "2026-10-08T15:00Z",
   "round": 1,
+  "settled": "2026-10-09T02:10Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,

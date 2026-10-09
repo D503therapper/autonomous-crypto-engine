@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T02:10Z",
+ "updated": "2026-10-09T02:11Z",
  "games": [
   {
    "id": "nhl:401892461",
@@ -72,7 +72,7 @@
    "home": "Western KY",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Western KY",
@@ -86,7 +86,7 @@
      "the stronger team",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -187,8 +187,8 @@
    "away": "Blackhawks",
    "home": "Islanders",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
