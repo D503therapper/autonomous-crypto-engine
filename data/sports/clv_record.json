@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 36,
+  "n": 38,
   "beat": 10,
-  "same": 16,
-  "worse": 10,
-  "avg_pts": 0.07
+  "same": 17,
+  "worse": 11,
+  "avg_pts": -0.08
  },
  "unit_plays": {
-  "n": 17,
+  "n": 18,
   "beat": 4,
-  "same": 7,
+  "same": 8,
   "worse": 6,
-  "avg_pts": -0.04
+  "avg_pts": -0.03
  },
  "by_kind": {
   "dog": {
@@ -22,11 +22,11 @@
    "avg_pts": -0.67
   },
   "lean": {
-   "n": 19,
+   "n": 20,
    "beat": 6,
    "same": 9,
-   "worse": 4,
-   "avg_pts": 0.16
+   "worse": 5,
+   "avg_pts": -0.12
   },
   "lock": {
    "n": 6,
@@ -36,11 +36,11 @@
    "avg_pts": 1.02
   },
   "play": {
-   "n": 4,
+   "n": 5,
    "beat": 1,
-   "same": 1,
+   "same": 2,
    "worse": 2,
-   "avg_pts": -0.5
+   "avg_pts": -0.4
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.5
   },
   "ncaaf": {
-   "n": 8,
+   "n": 9,
    "beat": 3,
    "same": 3,
-   "worse": 2,
-   "avg_pts": 0.6
+   "worse": 3,
+   "avg_pts": -0.08
   },
   "nfl": {
    "n": 6,
@@ -66,11 +66,11 @@
    "avg_pts": -0.43
   },
   "nhl": {
-   "n": 14,
+   "n": 15,
    "beat": 2,
-   "same": 8,
+   "same": 9,
    "worse": 4,
-   "avg_pts": -0.27
+   "avg_pts": -0.25
   }
  },
  "lock_by_size": {
@@ -607,6 +607,34 @@
    "pts": 1.0,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Western KY",
+   "market": "ml",
+   "line": null,
+   "odds": -122,
+   "close": 102,
+   "pts": -5.5,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-08",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Predators",
+   "market": "ml",
+   "line": null,
+   "odds": 140,
+   "close": 140,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }

@@ -2180,5 +2180,106 @@
   "score": "3-9",
   "margin": -6.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-08",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401871052",
+  "team": "Western KY",
+  "opp": "Missouri St",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -122,
+  "posted": "2026-10-08T15:00Z",
+  "price_says": 0.55,
+  "win_p": 0.5260865852617197,
+  "own_read": 0.536,
+  "weighed": 0.5357,
+  "dog_p": null,
+  "edge_own": -0.007087079530530893,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "the stronger team",
+   "opponent missing key players"
+  ],
+  "angles": {
+   "fades": [],
+   "last_margin": -21.0,
+   "last_pts": 13.0,
+   "neutral": false,
+   "win_pct": 0.2,
+   "win_streak": 0
+  },
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Heiko Malone (LB)",
+   "Dylan Dixon (LB)",
+   "Malachi Madison (DL)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": 102,
+  "beat_close_pts": -5.5,
+  "result": "won",
+  "score": "34-13",
+  "margin": 21.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-08",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892459",
+  "team": "Predators",
+  "opp": "Canadiens",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 140,
+  "posted": "2026-10-08T16:11Z",
+  "price_says": 0.417,
+  "win_p": 0.4051961980943827,
+  "own_read": 0.465,
+  "weighed": null,
+  "dog_p": 0.4652,
+  "edge_own": -0.027529124573481667,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "sharp money moving this way",
+   "opponent missing key players"
+  ],
+  "angles": [
+   "rec:2",
+   "G_cold:1",
+   "sharp:0",
+   "splits_f:3",
+   "bottom_s:0",
+   "w_sharp:2"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "Sam Montembeault (G)"
+  ],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": 140,
+  "beat_close_pts": 0.0,
+  "result": "won",
+  "score": "5-2",
+  "margin": 3.0,
+  "pnl_units": 0.7
  }
 ]
