@@ -158,12 +158,17 @@ def _matched(p, games, got):
 def load(now=None):
     """The saved page, or {} when there is none or it's stale (older than FRESH_H hours)."""
     now = now or datetime.now(timezone.utc)
-    if "box" not in _CACHE:
+    try:
+        stamp = os.stat(PATH).st_mtime_ns                    # (10/9 sweep: the live watcher runs for 50 minutes and pulls
+    except OSError:                                          #  a fresh file before every quick pass - the cache follows
+        stamp = None                                         #  the file, never a copy from the start of the watch)
+    if "box" not in _CACHE or _CACHE.get("stamp") != stamp:
         try:
             with open(PATH) as f:
                 _CACHE["box"] = json.load(f)
         except (OSError, ValueError):
             _CACHE["box"] = {}
+        _CACHE["stamp"] = stamp
     box = _CACHE["box"]
     try:
         seen = datetime.strptime(box.get("seen", "")[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)

@@ -4366,6 +4366,130 @@ def test_nhl_outshot_40_weight():
         sports.OUTSHOT.clear(), sports.OUTSHOT.update(saved)
 
 
+def test_outshot_favorite_never_reads_as_a_slumping_goalie():
+    """10/9 sweep: mark_hockey_favorites set the dog's 'opp_sv_slump' flag off the favorite's whole adjustment - the 10/8
+    outshot weight shared that sum, so a dog facing a team that allowed 40+ shots got the -2 'vs a slumping goalie' fade
+    (the study says +1 for that dog) and a false lead tag. The flag follows the save-% slump alone."""
+    fav = {"league": "nhl", "market": "ml", "odds": -160, "dec": 1.625, "edge": -0.02, "game_id": "x",
+           "p_market": 0.60, "team_id": "1", "outshot_me": True}
+    dog = {"league": "nhl", "market": "ml", "odds": 140, "dec": 2.4, "edge": -0.05, "game_id": "x", "team_id": "2",
+           "outshot_opp": True}
+    saved = set(sports.SV_SLUMP)
+    try:
+        sports.SV_SLUMP.clear()
+        a = [dict(fav), dict(dog)]
+        sports.mark_hockey_favorites(a)
+        assert not a[1].get("opp_sv_slump"), a[1]
+        assert sports.dog_spots(a[1]) == sports.dog_spots({"league": "nhl", "market": "ml", "odds": 140}) + 1
+        import sports_leads
+        assert "NHL dog vs a slumping goalie (fade)" not in sports_leads.tags(a[1], sports)
+        assert round(a[0]["w_p"], 4) == round(0.60 - sports.NHL_FAV_PER_PT * a[0]["opp_dog"] + sports.NHL_OUTSHOT_FAV, 4)
+        sports.SV_SLUMP.add("1")
+        b = [dict(fav), dict(dog)]
+        sports.mark_hockey_favorites(b)
+        assert b[1].get("opp_sv_slump") is True                          # the real slump still flags it
+    finally:
+        sports.SV_SLUMP.clear(), sports.SV_SLUMP.update(saved)
+
+
+def test_outshot_state_needs_the_last_games_box_score():
+    """10/9 sweep: the box scores come from their own job (rosters.yml) and can lag a night. A team that allowed 40+
+    shots Monday, played Tuesday (no box score in yet) and plays Wednesday isn't 'playing within 2 days of the 40+
+    game' - the weight holds off until the newest game is in, instead of reading a stale state as fact."""
+    saved = (dict(sports.OUTSHOT), dict(sports.LAST_STARTS))
+    try:
+        sports.OUTSHOT.clear(), sports.OUTSHOT.update({"7": "2026-11-16T00:00Z"})
+        sports.LAST_STARTS.clear()
+        sports.LAST_STARTS[("nhl", "7")] = ["2026-11-14T00:00Z", "2026-11-16T00:00Z"]
+        assert sports.outshot("nhl", "7", "2026-11-17T02:00Z")             # the 40+ game IS the last one played
+        sports.LAST_STARTS[("nhl", "7")].append("2026-11-17T00:00Z")     # a game since, its box score not in yet
+        assert not sports.outshot("nhl", "7", "2026-11-18T00:00Z")
+        sports.LAST_STARTS[("nhl", 7)] = sports.LAST_STARTS.pop(("nhl", "7"))   # the schedule keyed by the raw id
+        assert not sports.outshot("nhl", "7", "2026-11-18T00:00Z")
+        sports.LAST_STARTS.clear()
+        assert sports.outshot("nhl", 7, "2026-11-17T02:00Z")               # no schedule loaded: the box scores alone
+    finally:
+        sports.OUTSHOT.clear(), sports.OUTSHOT.update(saved[0])
+        sports.LAST_STARTS.clear(), sports.LAST_STARTS.update(saved[1])
+
+
+def test_early_json_merge_driver():
+    """10/9 sweep: the hourly engine posts early plays and the live watcher's quick pass grades them (10/7) - two jobs,
+    one file, and early.json had no merge driver: a conflicting hunk went to whichever job rebased (-X theirs), so a
+    just-posted early play could vanish off the board (and re-post later at a new price) or a grade could be lost.
+    The driver merges pick by pick: both survive, a graded copy wins, a play the owner pulled stays pulled."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("mj_early", os.path.join(os.path.dirname(os.path.abspath(__file__)), "tools", "merge_json.py"))
+    mj = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mj)
+    a = {"game_id": "nfl:1", "side": "away", "team": "Colts", "odds": 124, "posted": "2026-10-07T11:06Z", "result": None,
+         "start": "2026-10-11T17:00Z"}
+    b = {"game_id": "ncaaf:2", "side": "home", "team": "Tulane", "odds": 205, "posted": "2026-10-08T12:00Z", "result": None,
+         "start": "2026-10-10T23:00Z"}
+    tot = {"game_id": "nfl:1", "side": "under", "market": "total", "line": 44.5, "odds": -110, "posted": "2026-10-10T02:00Z",
+           "result": None}
+    base = {"picks": [a, b], "first_seen": {"nfl:1": {"x": 1}}, "pulled": [], "launched": "2026-09-30T00:00Z"}
+    graded = dict(b, result="won", graded_at="2026-10-11T03:00Z", score="x 20 @ Tulane 31")
+    hourly = {"picks": [a, b, tot], "first_seen": {"nfl:1": {"x": 1}, "nfl:3": {"x": 2}}, "pulled": [], "launched": "2026-09-30T00:00Z"}
+    live = {"picks": [a, graded], "first_seen": {"nfl:1": {"x": 1}}, "pulled": [], "launched": "2026-09-30T00:00Z"}
+    for ours, theirs in ((hourly, live), (live, hourly)):
+        m = mj.merge_early(ours, theirs, base)
+        got = {mj._ekey(p): p for p in m["picks"]}
+        assert len(m["picks"]) == 3 and got[("nfl:1", "total", "under")] == tot, m["picks"]   # the new 🌍 under survives
+        assert got[("ncaaf:2", "ml", "home")]["result"] == "won"                               # ...and so does the grade
+        assert got[("nfl:1", "ml", "away")]["result"] is None
+        assert set(m["first_seen"]) == {"nfl:1", "nfl:3"} and m["launched"] == "2026-09-30T00:00Z"
+    pulled = {"picks": [b], "first_seen": {}, "pulled": [dict(a, pulled="2026-10-08T15:00Z")]}   # the owner pulled the Colts
+    m = mj.merge_early(pulled, {"picks": [a, graded], "first_seen": {}, "pulled": []}, base)
+    assert [p["team"] for p in m["picks"]] == ["Tulane"] and m["picks"][0]["result"] == "won" and len(m["pulled"]) == 1
+    assert len(mj.merge_early({"picks": [a, b]}, {"picks": [a, b]}, None)["picks"]) == 2   # no base: the plain union
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".gitattributes")) as f:
+        assert "data/sports/early.json merge=sportsjson" in f.read()                        # ...and git is told to use it
+    d = tempfile.mkdtemp()                               # main() picks this merge by the file's shape (a dict with a
+    paths = [os.path.join(d, n) for n in ("base", "ours", "theirs")]   # 'picks' list) - never the live log's merge
+    for p_, st in zip(paths, (base, hourly, live)):
+        with open(p_, "w") as f:
+            json.dump(st, f)
+    assert mj.main(*paths) == 0
+    with open(paths[1]) as f:
+        assert len(json.load(f)["picks"]) == 3
+
+
+def test_goalie_file_cache_follows_the_file():
+    """10/9 sweep: sports_goalies.load() cached the saved page once per process - the live watcher runs 50 minutes and
+    pulls a fresh nhl_goalies.json before every quick pass (replacement hockey picks, the 🥅 card line), but kept
+    reading the copy from the start of the watch. The cache follows the file on disk."""
+    import sports_goalies as sg
+    saved, old = sg.PATH, dict(sg._CACHE)
+    try:
+        sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")
+        sg._CACHE.clear()
+        now = datetime(2026, 11, 20, 23, 0, tzinfo=timezone.utc)
+        box = lambda name: {"seen": "2026-11-20T22:30Z", "games": {"nhl:1": {"home": {"name": name, "status": "confirmed"}}}}
+        with open(sg.PATH, "w") as f:
+            json.dump(box("Igor Shesterkin"), f)
+        os.utime(sg.PATH, (1_700_000_000, 1_700_000_000))
+        assert sg.confirmed("nhl:1", "home", now)["name"] == "Igor Shesterkin"
+        with open(sg.PATH, "w") as f:
+            json.dump(box("Jonathan Quick"), f)           # the pull brought a newer page
+        os.utime(sg.PATH, (1_700_000_600, 1_700_000_600))
+        assert sg.confirmed("nhl:1", "home", now)["name"] == "Jonathan Quick"
+        os.remove(sg.PATH)
+        assert sg.load(now) == {}                            # the file gone: unknown, never the old copy
+    finally:
+        sg.PATH = saved
+        sg._CACHE.clear(), sg._CACHE.update(old)
+
+
+def test_by_sport_unit_record_counts_early_plays():
+    """10/9 sweep: the by-sport chips (unit plays only, 10/6) read each ledger row's league - the early plays' rows had
+    none, so a graded early value play counted in the unit record but in no sport."""
+    e = {"game_id": "nfl:5", "side": "away", "team": "Jaguars", "odds": 120, "league": "nfl", "result": "won",
+         "start": "2026-10-04T17:00Z", "graded_at": "2026-10-04T20:30Z", "spot": "best"}
+    rows = sports.units_ledger([], [e])["rows"]
+    assert len(rows) == 1 and rows[0][0]["league"] == "nfl" and rows[0][0]["legs"][0]["league"] == "nfl", rows
+
+
 def test_early_play_live_score_and_quick_grade():
     """10/7, the owner: "New Mexico State got their cheeks clapped ... that shit needs to be graded" and "I never saw any
     live score that whole game". The 🎯 row's time is the board's live tag (data-gid / side / the game's real start, so

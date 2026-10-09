@@ -1222,7 +1222,14 @@ def outshot(lg, team, start):
         gap = (datetime.strptime(start[:10], "%Y-%m-%d") - datetime.strptime(OUTSHOT[str(team)][:10], "%Y-%m-%d")).days
     except (TypeError, ValueError):
         return False
-    return 0 < gap <= sports_form.OUTSHOT_DAYS
+    if not 0 < gap <= sports_form.OUTSHOT_DAYS:
+        return False
+    ids = {team, str(team)} | ({int(team)} if str(team).isdigit() else set())   # (the schedule's key: the raw id)
+    for key in ((lg, t_) for t_ in ids):                     # (10/9 sweep: the 40+ game has to be the team's LAST game
+        prev = [s for s in LAST_STARTS.get(key, []) if s < start]   # on the schedule - the box scores come from their own
+        if prev and prev[-1][:16] > OUTSHOT[str(team)][:16]:       # job and can lag a night; a game played since (no
+            return False                                     # box score yet) means the state is stale: no weight)
+    return True
 
 
 def dog_spots(c):
@@ -1548,7 +1555,8 @@ def units_ledger(picks, early=()):
         day = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(PT).strftime("%Y-%m-%d")
         calls[(day, e["game_id"], e["side"], "early")] = (False, {"date": day, "kind": "early", "units_tier": "early",   # the 10/4 audit: the
         #                                                  early row overwrote the Dog's and the unit record lost its 1u)
-                                                         "legs": [{"team": e["team"], "odds": e["odds"]}]},   # (10/5 sweep: the
+                                                         "league": e.get("league"),   # (10/9 sweep: by sport = unit plays - the early
+                                                         "legs": [{"team": e["team"], "odds": e["odds"], "league": e.get("league")}]},   # (10/5 sweep: the
         #                                   brain's green-day line read the leg's price - an early play came out "(None)")
                                                  sports_early.units(e), e["result"], _dec(e["odds"]), e.get("graded_at") or "")
     rows_in = sorted(calls.values(), key=lambda c: (c[1]["date"], c[5]))
@@ -1858,9 +1866,10 @@ def mark_hockey_favorites(cands):
             tired = NHL_3IN4_FAV if third_in_four(fav, dog) and not dog.get("tired_vs_rested") else 0.0   # (10/1
             #         audit: a dog that played last night is already -3 in its score, which lifts the favorite - once)
             slump = NHL_SV_SLUMP_FAV if str(fav.get("team_id")) in SV_SLUMP else 0.0
+            if slump:                                        # (10/9 sweep: set on the SLUMP alone - the outshot weight
+                dog["opp_sv_slump"] = True                   #  below shared this flag and gave the dog a false -2 'vs a
+            #                                                  slumping goalie' fade: the opposite of the 40+ study's +1)
             slump += NHL_OUTSHOT_FAV if fav.get("outshot_me") else 0.0   # (the dog's +1 for facing it lifts it -½ more)
-            if slump:
-                dog["opp_sv_slump"] = True
             fav["w_p"] = round(min(0.95, max(0.05, fav["p_market"] + lift + early + tired + slump)), 4)
 
 
