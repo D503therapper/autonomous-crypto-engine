@@ -12131,3 +12131,32 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 16:08 UTC] stocks/trend     equity $491.61 (-1.7%) 3 open  market UP
 [2026-10-09 16:08 UTC] stocks/hold_spy  equity $505.06 (+1.0%) 1 open  market UP
    social heat top: STRK 44 (37/0/7), TRUMP 35 (35/0/0), PRL 29 (29/0/0), PENGU 27 (27/0/0), QNT 21 (21/0/0)
+   dex screen: PASS DRB@base liq $1,531,983
+   dex re-screen: CHIIKAWA@solana:2c1KjiyQ data flag #1 (lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT KEYCAT@base liq $795,543 - top-10 holders 40%
+   dex screen: REJECT ONDO@ethereum liq $1,830,224 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT BNKR@base liq $2,162,955 - top-10 holders 50%
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT BOAR@base liq $173,874 - goplus partial data: cannot_sell_all unknown; top-10 holders 42%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     daf9f9d760cdac585722d562deea53a5be346505 -> main (cannot lock ref 'refs/heads/main': is at 5f0d0ec86109f3a3901e024
+   dex screen: REJECT BP@solana liq $6,726,110 - freeze authority; mint authority; top-10 holders 96%
+   dex scanner: 3,001 pools (solana 2,083 / base 519 / ethereum 399), refresh cycle 140s (hot 136s), 2678 calls (104 feed, 429s 0, failed 0), 77,209 refreshed (6038 no pair), +61 added / -60 dropped (dead 14, stale 0, cap 46), movers 2 + warming 23 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-09 17:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 17:07 UTC] crypto/mover     equity $371.51 (-25.7%) 2 open  market UP
+[2026-10-09 17:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 17:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 17:07 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 17:07 UTC] crypto/breakout10 equity $466.55 (-6.7%) 2 open  market UP
+[2026-10-09 17:07 UTC] crypto/momentum  equity $458.09 (-8.4%) 2 open  market UP
+[2026-10-09 17:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 17:07 UTC] crypto/hold_btc  equity $492.50 (-1.5%) 1 open  market UP
+[2026-10-09 17:07 UTC] stocks/rsi2      equity $521.50 (+4.3%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): COIN 6, SMH 7 BUY, EEM 9 BUY, MSTR 10 BUY
+[2026-10-09 17:07 UTC] stocks/dual_momentum equity $500.21 (+0.0%) 2 open  market UP
+[2026-10-09 17:07 UTC] stocks/trend_ensemble equity $510.32 (+2.1%) 5 open  market UP
+[2026-10-09 17:07 UTC] stocks/rotation10 equity $513.52 (+2.7%) 2 open  market UP
+[2026-10-09 17:07 UTC] stocks/momentum  equity $492.20 (-1.6%) 4 open  market UP
+[2026-10-09 17:07 UTC] stocks/trend     equity $490.87 (-1.8%) 3 open  market UP
+[2026-10-09 17:07 UTC] stocks/hold_spy  equity $505.34 (+1.1%) 1 open  market UP
+   social heat top: STRK 37 (37/0/0), TRUMP 32 (32/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0), PONS 21 (19/0/2)
