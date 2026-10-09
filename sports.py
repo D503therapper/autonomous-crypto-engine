@@ -2041,12 +2041,21 @@ def nhl_pricey(c):
             and (c.get("edge_own") if c.get("edge_own") is not None else c.get("edge", -1)) < NHL_FAV_EDGE)
 
 
+PLAY_MARKETS = ("ml", "spread")   # the markets a VALUE PLAY (½u) can come from. THE 10/9 VALUE-PLAY REPLAY (tools/
+#                                  value_play_replay.py, 795 board days 2023-26, closing prices, blind params): spread value
+#                                  plays lost in every season - 2023-24 -21.3% on 131, blind 2025-26 -15.1% on 9 (0 of 4
+#                                  seasons up) - they carry no own read (strust = 0: the engine's margin model is worse
+#                                  than the closing spread, the 10/3 sweep), so the units ride on a study shift alone.
+#                                  Moneyline plays +2.7% / +3.1%. ("ml",) = spreads become leans only (no units) - the
+#                                  OWNER's call (a rule change), not flipped here. Leans / the Lock are untouched.
+
+
 def plays(cands, avoid):
     """💰 Every real UNIT play on the slate (the owner, 10/1: straight bets with units - the viewer builds his own
     parlay): real value (good()), a LOCK or VALUE grade (a strong lean carries no units - it's a lean), never past -150,
     never one the engine's own read is fighting, never a trap; one per game, never a game in `avoid`; surest first
-    (the order the parlay legs used: win % with the proven nudges, then value)."""
-    pool = sorted((c for c in cands if c["market"] in ("ml", "spread") and good(c) and c["odds"] >= MAX_FAV
+    (the order the parlay legs used: win % with the proven nudges, then value). PLAY_MARKETS says which markets qualify."""
+    pool = sorted((c for c in cands if c["market"] in PLAY_MARKETS and good(c) and c["odds"] >= MAX_FAV
                    and leg_tier(c) in ("lock", "value") and not fighting(c) and not c.get("trap") and real_value(c)),
                   key=lambda c: (-rank_p(c), -c["edge"]))
     out, seen = [], set(avoid)
