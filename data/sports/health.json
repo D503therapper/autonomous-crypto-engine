@@ -1,27 +1,44 @@
 {
- "at": "2026-10-09T13:49Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-09T15:20Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml"
+ ],
+ "problems": [
+  "live tennis scores: tennis Sakatsume vs Waltert: no points for 2647s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "studies last ran 10h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (56s)",
+  "live watcher fresh (43s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 2 live matches",
+  "slate check: all 13 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
-  "all 2 backup sources answering",
+  "tennis live prices: 0 live lines, 0 fresh",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 18 min ago",
+  "simulator ran 9h ago",
+  "engine ran 1 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-09T15:20Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Waltert: no points for 2647s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-09T13:49Z",
    "fixes": [],
@@ -480,13 +497,6 @@
    "fixes": [],
    "problems": [
     "workflow failed: sports 2026-10-07T01:39 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37558210399"
-   ]
-  },
-  {
-   "at": "2026-10-07T01:39Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T01:03 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37555191074"
    ]
   },
   {
