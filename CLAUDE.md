@@ -111,7 +111,7 @@ docs/index.html refreshes every minute. Read first: GOALS.md, REVIEW.md, results
 - Act as the professional: don't ask permission, decide from evidence, fix bugs yourself. Experiment directly in the
   main paper accounts (no side/shadow accounts) and log each one in the EXPERIMENTS LOG with a judge date.
 - Talk to him in plain, short English - no jargon (no "tiers", "trail", "6h", "stake-back" words; say what it does).
-- Accounts: Stocks $500 (rsi2 dip-buying), DEX season 3 from 2026-10-06 at $1,000 (seasons 1-2 archived in data/dex/archive/).
+- Accounts: Stocks $500 (rsi2 dip-buying), DEX season 4 from 2026-10-09 at $1,000 (seasons 1-3 archived in data/dex/archive/).
 - Owner 2026-10-05: the scam PAUSE (circuit breaker) is OFF - "play money, we're learning". Every scam check before a buy
   and on held coins still runs; scams are still counted and reported.
 - Checks: 8-hour reviews 05:23 / 13:23 / 21:23 UTC (REVIEW.md) - the only scheduled checks (bug checks turned off 10-01 to
