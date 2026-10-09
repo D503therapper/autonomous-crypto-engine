@@ -11662,3 +11662,38 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 03:06 UTC] crypto/hold_btc  equity $489.51 (-2.1%) 1 open  market UP
    social heat top: STRK 37 (37/0/0), PENGU 35 (35/0/0), PONS 28 (24/0/4), BTC 27 (27/0/0), NEAR 27 (27/0/0)
+   dex screen: REJECT VIRTUAL@base liq $294,123 - pool age unknown
+   dex screen: REJECT HLX@ethereum liq $348,059 - top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT HOLDOWEEN@solana liq $123,051 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT ZAMA@ethereum liq $632,186 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT OTC@solana liq $556,001 - lp holders unknown; rugcheck lp locked 76% < 95%
+   dex screen: REJECT CRVUSD@ethereum liq $14,511,272 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 78%
+   dex screen: REJECT WHITEWHALE@solana liq $227,883 - top-10 holders 78%; lp holders unknown
+   dex screen: REJECT ZEC@solana liq $1,650,347,620 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT NINJACAT@solana liq $162,311 - transfer_fee_upgradable; lp holders unknown
+   dex screen: PASS OWLNIGHT@solana liq $100,472
+   >> dex/dex_hunter: BUY $30.38 of OWLNIGHT@solana:CmCHvr99 @ 0.001124 (dex tier A momentum 1h +30% 6h +65% buys/sells 9575/3280 impact 0.03%)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: PASS DRB@base liq $1,489,071
+   dex screen: REJECT PILL@solana liq $199,007 - lp holders unknown; rugcheck lp locked 63% < 95%
+   dex screen: REJECT PROS@base liq $257 - liquidity $257 < $100,000; 24h volume $191 < $100,000
+   dex screen: REJECT KNOTS@solana liq $357,036 - transfer_fee_upgradable; lp holders unknown
+   dex screen: REJECT EUL@ethereum liq $696,085 - is_mintable; honeypot_with_same_creator; top-10 holders 56%; lp locked 0% < 95%
+   dex screen: REJECT EUL@ethereum liq $696,085 - is_mintable; honeypot_with_same_creator; top-10 holders 56%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,121 / base 522 / ethereum 357), refresh cycle 124s (hot 121s), 3000 calls (108 feed, 429s 0, failed 0), 86,756 refreshed (4014 no pair), +90 added / -90 dropped (dead 16, stale 0, cap 74), movers 2 + warming 21 -> queued 6, screened 6 (passed 1), bought 1
+   listing: okx_symbols #XBRKB 'New OKX listing (XBRKB)' -> ['XBRKB']
+   listing: XBRKB: okx_symbols notice "New OKX listing (XBRKB)" -> not on Crypto.com USD
+[2026-10-09 04:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   early_mover: STRK vetoed by pump guard: already +35% in 24h
+[2026-10-09 04:07 UTC] crypto/mover     equity $369.22 (-26.2%) 1 open  market UP
+[2026-10-09 04:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 04:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 04:07 UTC] crypto/social_heat equity $470.47 (-5.9%) 1 open  market UP
+[2026-10-09 04:07 UTC] crypto/breakout10 equity $468.32 (-6.3%) 2 open  market UP
+[2026-10-09 04:07 UTC] crypto/momentum  equity $455.35 (-8.9%) 2 open  market UP
+[2026-10-09 04:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 04:07 UTC] crypto/hold_btc  equity $491.41 (-1.7%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), PRL 35 (35/0/0), NEAR 32 (32/0/0), SOL 32 (21/0/10), PONS 31 (29/0/2)
