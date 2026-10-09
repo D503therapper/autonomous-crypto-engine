@@ -11898,3 +11898,30 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-09 10:06 UTC] crypto/hold_btc  equity $492.07 (-1.6%) 1 open  market UP
    social heat top: STRK 42 (40/0/2), TRUMP 37 (37/0/0), KAIA 27 (27/0/0), NEAR 24 (24/0/0), BTC 21 (21/0/0)
+   dex screen: REJECT CIRBTC@ethereum liq $24,894,297 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT AERO@base liq $44,232,356 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; top-10 holders 67%
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: PASS FRANK@solana liq $100,507
+   >> dex/dex_hunter: BUY $25.63 of FRANK@solana:HbPDWSqu @ 0.000965 (dex tier A momentum 1h +49% 6h +51% buys/sells 849/702 impact 0.03%)
+   dex screen: REJECT QNT@ethereum liq $937,625 - goplus partial data: cannot_sell_all unknown; is_mintable; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   listing: okx_symbols #XOUST 'New OKX listing (XOUST)' -> ['XOUST']
+   listing: XOUST: okx_symbols notice "New OKX listing (XOUST)" -> not on Crypto.com USD
+   dex screen: REJECT SOL@base liq $639,445 - pool age unknown
+   dex screen: REJECT BNKR@base liq $2,212,516 - top-10 holders 50%
+   dex re-screen: SWORDINU@solana:2BVfJ4AH data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT QI@solana liq $110,037 - holders unknown; lp holders unknown; rugcheck lp locked 50% < 95%
+   dex screen: REJECT CZ@base liq $246,872 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: PASS TIBBIR@base liq $3,349,757
+   dex scanner: 3,000 pools (solana 2,097 / base 534 / ethereum 369), refresh cycle 125s (hot 121s), 2996 calls (108 feed, 429s 0, failed 0), 86,639 refreshed (3478 no pair), +66 added / -66 dropped (dead 7, stale 0, cap 59), movers 1 + warming 24 -> queued 3, screened 3 (passed 1), bought 0
+   listing: okx_symbols #XGPRO 'New OKX listing (XGPRO)' -> ['XGPRO']
+   listing: XGPRO: okx_symbols notice "New OKX listing (XGPRO)" -> not on Crypto.com USD
+[2026-10-09 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 11:06 UTC] crypto/mover     equity $366.34 (-26.7%) 2 open  market UP
+[2026-10-09 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 11:06 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 11:06 UTC] crypto/breakout10 equity $466.12 (-6.8%) 2 open  market UP
+[2026-10-09 11:06 UTC] crypto/momentum  equity $454.72 (-9.1%) 2 open  market UP
+[2026-10-09 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 11:06 UTC] crypto/hold_btc  equity $491.59 (-1.7%) 1 open  market UP
+   social heat top: TRUMP 40 (40/0/0), STRK 37 (37/0/0), BTC 29 (29/0/0), NEAR 27 (27/0/0), PRL 21 (21/0/0)
