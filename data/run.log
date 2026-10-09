@@ -12236,3 +12236,68 @@ DEX: $654.31 (-345.69) · Scammed: 0
 [2026-10-09 18:56 UTC] stocks/trend     equity $490.23 (-2.0%) 3 open  market UP
 [2026-10-09 18:56 UTC] stocks/hold_spy  equity $505.73 (+1.1%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), PENGU 35 (35/0/0), PRL 29 (29/0/0), PUMP 28 (27/0/2), STRK 24 (24/0/0)
+   scanner: 988 tickers, sample: {'i': 'BTC_USD', 'h': '83479.71', 'l': '81380.30', 'a': '82402.11', 'v': '3451.2559', 'vv': '284402825.15', 'c': '0.0119', 'b': '82407.10', 'k': '82407.11', 'oi': '0', 't': 1791572219171}
+   dex screen: PASS SI276@solana liq $107,300
+   dex screen: PASS SIMD@ethereum liq $101,389
+   dex screen: PASS BUNKER@ethereum liq $356,549
+   >> dex/dex_hunter: BUY $49.85 of BUNKER@ethereum:0x41A459 @ 0.013081 (dex tier A momentum 1h +14% 6h +80% buys/sells 78/52 impact 0.01%)
+   dex scanner: 3,004 pools (solana 2,088 / base 528 / ethereum 388), refresh cycle 121s (hot 121s), 153 calls (9 feed, 429s 1, failed 1), 4,318 refreshed (382 no pair), +44 added / -39 dropped (dead 2, stale 0, cap 37), movers 1 + warming 10 -> queued 2, screened 2 (passed 2), bought 1
+[2026-10-09 19:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $164.42 of ONDO @ 0.474085, P/L $+0.63 (time limit)
+[2026-10-09 19:06 UTC] crypto/mover     equity $370.46 (-25.9%) 1 open  market UP
+[2026-10-09 19:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 19:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 19:06 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 19:06 UTC] crypto/breakout10 equity $465.48 (-6.9%) 2 open  market UP
+[2026-10-09 19:06 UTC] crypto/momentum  equity $456.27 (-8.7%) 2 open  market UP
+[2026-10-09 19:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 19:06 UTC] crypto/hold_btc  equity $491.03 (-1.8%) 1 open  market UP
+[2026-10-09 19:06 UTC] stocks/rsi2      equity $519.75 (+4.0%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): COIN 6, SMH 7 BUY, EEM 9 BUY, MSTR 10 BUY
+[2026-10-09 19:06 UTC] stocks/dual_momentum equity $500.90 (+0.2%) 2 open  market UP
+[2026-10-09 19:06 UTC] stocks/trend_ensemble equity $511.89 (+2.4%) 5 open  market UP
+[2026-10-09 19:06 UTC] stocks/rotation10 equity $514.41 (+2.9%) 2 open  market UP
+[2026-10-09 19:06 UTC] stocks/momentum  equity $492.46 (-1.5%) 4 open  market UP
+[2026-10-09 19:06 UTC] stocks/trend     equity $490.32 (-1.9%) 3 open  market UP
+[2026-10-09 19:06 UTC] stocks/hold_spy  equity $505.81 (+1.2%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), PENGU 35 (35/0/0), PRL 29 (29/0/0), PUMP 28 (27/0/2), STRK 24 (24/0/0)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT EDEL@base liq $1,300,107 - goplus partial data: cannot_sell_all unknown; top-10 holders 47%
+   dex screen: REJECT BIKETYSON@solana liq $155,462 - lp holders unknown; rugcheck lp locked 81% < 95%
+   dex screen: REJECT EDEL@solana liq $32,305,590 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT EDEL@solana liq $339,118 - mint authority; top-10 holders 85%; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT XDP@base liq $1,898,649 - top-10 holders 95%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HIGGS@solana liq $138,158 - lp holders unknown; rugcheck lp locked 56% < 95%
+   scanner: RLC: +5.6% in 15 min on 3.4x volume @ 0.9751 spread 0.50%
+   take-off: BUY RLC (scanner mover): RLC: +5.6% in 15 min on 3.4x volume @ 0.9751 spread 0.50%
+   >> crypto/mover: BUY $163.27 of RLC @ 0.976075 (scanner mover)
+   scanner: RLC: +5.2% in 15 min on 3.9x volume @ 0.9815 spread 0.86%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   scanner: RLC: +8.6% in 30 min on 3.0x volume @ 1.0012 spread 1.10%
+   scanner: RLC: +9.9% in 30 min on 3.4x volume @ 1.0154 spread 1.28%
+   scanner: RLC: +11.9% in 30 min on 4.0x volume @ 1.0335 spread 1.00%
+   scanner: RLC: +12.3% in 30 min on 4.3x volume @ 1.0376 spread 0.96%
+   scanner: RLC: +13.5% in 29 min on 5.6x volume @ 1.0486 spread 1.14%
+   dex screen: REJECT CT@solana liq $380,623,633 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT RAD@ethereum liq $2,352,317 - top-10 holders 73%
+   dex screen: REJECT RLUSD@ethereum liq $30,022,007 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 70%
+   dex scanner: 3,000 pools (solana 2,100 / base 523 / ethereum 377), refresh cycle 137s (hot 133s), 2740 calls (108 feed, 429s 0, failed 0), 78,956 refreshed (7944 no pair), +116 added / -120 dropped (dead 16, stale 0, cap 104), movers 0 + warming 15 -> queued 2, screened 2 (passed 0), bought 0
+   scanner: RLC: +16.0% in 30 min on 6.7x volume @ 1.1263 spread 0.99%
+[2026-10-09 20:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-09 20:06 UTC] crypto/mover     equity $379.49 (-24.1%) 2 open  market UP
+[2026-10-09 20:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 20:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-09 20:06 UTC] crypto/social_heat equity $462.46 (-7.5%) 0 open  market UP
+[2026-10-09 20:06 UTC] crypto/breakout10 equity $462.21 (-7.6%) 2 open  market UP
+[2026-10-09 20:06 UTC] crypto/momentum  equity $455.70 (-8.9%) 2 open  market UP
+[2026-10-09 20:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-09 20:06 UTC] crypto/hold_btc  equity $490.68 (-1.9%) 1 open  market UP
+   social heat top: TRUMP 40 (40/0/0), STRK 35 (35/0/0), PENGU 32 (32/0/0), NEAR 24 (24/0/0), PRL 21 (21/0/0)

@@ -1,5 +1,43 @@
 {
-  "cash": 1000.0,
-  "positions": {},
-  "peak_equity": 1000.0
+  "cash": 950.0,
+  "positions": {
+    "BUNKER@ethereum:0x41A459": {
+      "qty": 3810.778665026246,
+      "entry": 0.013081316020135918,
+      "cost": 50.0,
+      "peak": 0.01545,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1791572259000,
+      "chain": "ethereum",
+      "addr": "0x41A4594575557efbf85Cd950749bb0C1e99BCEFD",
+      "sym": "BUNKER",
+      "pair": "0xe6F4ee50C0429a6F85761bBE8F797A299eb23F89",
+      "liq0": 356548.91,
+      "px0": 0.01295,
+      "liq": 389019.24,
+      "vol24": 1302192.03,
+      "age_h0": 11.000634444444444,
+      "px": 0.01545,
+      "tp1": false,
+      "tp2": false,
+      "realized": 0.0,
+      "cost0": 50.0,
+      "rescreened": 1791575862971,
+      "impact": 0.00014023321512888654,
+      "tier": "A",
+      "clean": 2,
+      "resized": true,
+      "seen_px": 1791576028250,
+      "suspect": false,
+      "last_good": 0.01545,
+      "entry0": 0.013081316020135918,
+      "flagged": 0
+    }
+  },
+  "peak_equity": 1000.0,
+  "cooldown": {},
+  "halted": false,
+  "halt_until": 0,
+  "last_rebalance_week": null
 }
