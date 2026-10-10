@@ -13142,3 +13142,28 @@ DEX: $957.55 (-42.45) · Scammed: 0
    [alert] Today -70.65 | Total -93.35: Stocks: $519.75  today +0.00  total +19.75
 DEX: $886.90  today -70.65  total -113.10
 DEX: $886.90 (-113.10) · Scammed: 0
+   footprint: ARB: footprint 3/4 (drift+hikes+rising_lows) 48h +9.9%, 2 volume hikes, 38% quiet hours @ 0.190641
+   footprint: SUI: footprint 3/4 (drift+quiet+rising_lows) 48h +6.1%, 1 volume hikes, 77% quiet hours @ 1.11332
+   footprint: TAO: footprint 3/4 (drift+quiet+rising_lows) 48h +5.8%, 1 volume hikes, 79% quiet hours @ 285.62
+   dex screen: REJECT SWORDCAT@solana liq $215,723 - lp holders unknown; rugcheck lp locked 44% < 95%
+   dex screen: REJECT PAPER@base liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000
+   dex screen: REJECT FWWETH@ethereum liq $0 - no price; liquidity $0 < $100,000; 24h volume $0 < $100,000
+   dex screen: REJECT PYUSD@ethereum liq $100,202,013 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 88%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social heat: BUY STRK: heat 52: coingecko#2 geckoterminal_5m#2
+   >> crypto/social_heat: BUY $82.83 of STRK @ 0.107187 (entry)
+   dex screen: REJECT DOTF@solana liq $188,214 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT AZTEC@ethereum liq $14,170,547 - top-10 holders 100%
+   >> dex/dex_hunter: BUY $44.28 of CLAUDIA@ethereum:0x600225 @ 0.002377 (dex tier A momentum 1h +23% 6h +50% buys/sells 141/47 impact 0.03%)
+   dex scanner: 3,006 pools (solana 1,977 / base 588 / ethereum 441), refresh cycle 118s (hot 113s), 3150 calls (110 feed, 429s 0, failed 0), 91,200 refreshed (12359 no pair), +69 added / -63 dropped (dead 33, stale 0, cap 30), movers 1 + warming 15 -> queued 1, screened 1 (passed 0), bought 0
+[2026-10-10 23:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-10 23:05 UTC] crypto/mover     equity $355.58 (-28.9%) 2 open  market UP
+[2026-10-10 23:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-10 23:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-10 23:05 UTC] crypto/social_heat equity $458.30 (-8.3%) 2 open  market UP
+[2026-10-10 23:05 UTC] crypto/breakout10 equity $502.53 (+0.5%) 2 open  market UP
+[2026-10-10 23:05 UTC] crypto/momentum  equity $457.54 (-8.5%) 2 open  market UP
+[2026-10-10 23:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-10 23:05 UTC] crypto/hold_btc  equity $494.42 (-1.1%) 1 open  market UP
+   social heat top: STRK 49 (35/0/14), TRUMP 42 (37/0/5), TIA 32 (32/0/0), AERO 27 (21/0/6), PENGU 27 (27/0/0)
