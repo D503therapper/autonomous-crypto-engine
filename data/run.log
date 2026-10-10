@@ -12411,3 +12411,16 @@ DEX: $957.55 (-42.45) · Scammed: 0
 [2026-10-10 00:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-10 00:06 UTC] crypto/hold_btc  equity $491.82 (-1.6%) 1 open  market UP
    social heat top: NEAR 40 (40/0/0), STRK 37 (37/0/0), PENGU 32 (32/0/0), TRUMP 29 (29/0/0), QNT 26 (21/0/5)
+   dex screen: REJECT QUBT@solana liq $134,186 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 71%; lp holders unknown
+   dex screen: REJECT DRV@base liq $831,482 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 54%; lp locked 0% < 95%
+   dex screen: REJECT RLB@ethereum liq $1,178,995 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 78%
+   dex screen: REJECT WBTC@ethereum liq $30,374,233 - transfer_pausable; is_mintable; top-10 holders 54%
+   dex screen: REJECT STONKINU@solana liq $103,019 - transfer_fee_upgradable; lp holders unknown
+   dex screen: PASS USELESS@solana liq $4,504,012
+   dex screen: REJECT WSTETH@base liq $141,271 - 24h volume $2,926 < $100,000
+   dex screen: REJECT UPEG@ethereum liq $185,937 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT O@base liq $1,685,294 - goplus partial data: cannot_sell_all unknown; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT O@base liq $1,725,968 - goplus partial data: cannot_sell_all unknown; top-10 holders 96%; lp locked 0% < 95%
+   dex screen: REJECT NVDAON@ethereum liq $311,877 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 75%; lp locked 0% < 95%
+   dex screen: REJECT SI@solana liq $148,945 - lp holders unknown; rugcheck lp locked 82% < 95%
+   dex screen: REJECT 67@solana liq $347,030 - lp holders unknown; rugcheck lp locked 84% < 95%
