@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T04:14Z",
+ "updated": "2026-10-10T04:22Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -2586,8 +2586,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.439,
-    "tie": 0.292,
+    "p": 0.432,
+    "tie": 0.293,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2602,9 +2602,9 @@
     "opp": "Red Wings",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.682,
-    "win_p": 0.682,
+    "odds": -205,
+    "p": 0.67,
+    "win_p": 0.67,
     "reasons": [
      "the stronger team",
      "hotter goalie",
@@ -2955,6 +2955,38 @@
    }
   },
   {
+   "id": "ncaaf:401856827",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Utah",
+    "p": 0.781,
+    "tie": 0.024,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-11T00:00Z",
+   "away": "Kansas",
+   "home": "Utah",
+   "why": "coin_flip",
+   "board": null,
+   "lean": {
+    "team": "Utah",
+    "opp": "Kansas",
+    "market": "spread",
+    "line": -15.5,
+    "odds": -110,
+    "p": 0.502,
+    "win_p": 0.84,
+    "reasons": [
+     "the stronger team",
+     "better rested",
+     "hotter recent form"
+    ]
+   }
+  },
+  {
    "id": "ncaaf:401858486",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -3066,7 +3098,7 @@
     "opp": "Ducks",
     "market": "spread",
     "line": 1.5,
-    "odds": -230,
+    "odds": -238,
     "p": 0.704,
     "win_p": 0.489,
     "reasons": [
@@ -3100,38 +3132,6 @@
     "p": 0.633,
     "win_p": 0.413,
     "reasons": []
-   }
-  },
-  {
-   "id": "ncaaf:401856827",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Utah",
-    "p": 0.781,
-    "tie": 0.024,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-11T02:15Z",
-   "away": "Kansas",
-   "home": "Utah",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Utah",
-    "opp": "Kansas",
-    "market": "spread",
-    "line": -15.5,
-    "odds": -110,
-    "p": 0.502,
-    "win_p": 0.84,
-    "reasons": [
-     "the stronger team",
-     "better rested",
-     "hotter recent form"
-    ]
    }
   },
   {
