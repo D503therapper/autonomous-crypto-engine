@@ -337,6 +337,8 @@ def espn_as_an(league, ev):
     h, a = team(side["home"]), team(side["away"])
     state = ty.get("state")
     status = "inprogress" if state == "in" else "complete" if state == "post" or ty.get("completed") else "scheduled"
+    if str(ty.get("name") or "") in ("STATUS_POSTPONED", "STATUS_CANCELED", "STATUS_SUSPENDED", "STATUS_FORFEIT"):
+        status = "postponed"                                # (a called-off game is DELAYED on the card, never Final)
     lh = [float(x.get("value") or 0) for x in side["home"].get("linescores") or []]
     la = [float(x.get("value") or 0) for x in side["away"].get("linescores") or []]
     box = {"period": st.get("period"), "clock": st.get("displayClock"),
@@ -523,6 +525,7 @@ WATCHING = [0]
 PRICED = [0]                  # live games with a USABLE sportsbook price this cycle (Bovada / BetRivers, or DraftKings
 #                               confirmed by one of them) - WATCHING = live games seen (the dashboard says whether games are going)
 DK_ONLY = [0]                 # live games whose only price was DraftKings' via ESPN, unconfirmed: no bet can post on them
+ESPN_ONLY = [0]               # games this check whose score came only from ESPN's board (Action Network's list had no match)
 #                               (10/9: these counted as 'priced', so the health check read '5 of 18 priced' on a night
 #                               Bovada had no team-sport lines at all and not one of those prices could post a bet)
 
@@ -740,6 +743,10 @@ def _espn_half(short):
     return "top" if s.startswith("top") else "end" if s.startswith("end") else "bottom"   # (mid = the bottom's next)
 
 
+ESPN_LIVE = {}                # league -> {espn event id: the event in Action Network's shape} from this check's ESPN
+#                               scoreboard - the score backstop for a game Action Network's list misses or misnames
+
+
 def espn_scores(league):
     """{espn event id: (home score, away score)} for games going right now - a second source for the score."""
     try:
@@ -748,6 +755,7 @@ def espn_scores(league):
         sd.ERRORS.append(f"espn scores {league}: {str(e)[:80]}")
         return {}
     out = {}
+    evs = {}
     for ev in d.get("events") or []:
         c = (ev.get("competitions") or [{}])[0]
         t = {x.get("homeAway"): x for x in c.get("competitors") or []}
@@ -759,7 +767,49 @@ def espn_scores(league):
             short = ((c.get("status") or ev.get("status") or {}).get("type") or {}).get("shortDetail")
             if short:
                 ESPN_HALF[str(ev.get("id"))] = _espn_half(short)
+        try:
+            ang = espn_as_an(league, ev)
+            if ang:
+                evs[str(ev.get("id"))] = ang
+        except Exception:                                    # noqa: BLE001 - one odd event never costs the others
+            pass
+    ESPN_LIVE[league] = evs
     return out
+
+
+def _started_lgs(games, now):
+    """Leagues where one of our own stored games (regular season / playoffs) started in the last 6 hours - the ESPN
+    scoreboard gets read for them even when Action Network's list shows nothing live there (10/10: Wyoming at San José
+    St was going for an hour with no score on the board - the watcher only looked where Action Network said to)."""
+    days = {(now - timedelta(days=k)).strftime("%Y-%m-%d") for k in (0, 1)}
+    out = set()
+    for g in games.values():
+        start = g.get("start") or ""
+        if start[:10] not in days or (g.get("stype") or "?") not in sd.REAL or g["league"] in out:
+            continue                                         # (a string check first: 131k stored games, every 10 seconds)
+        try:
+            st = datetime.strptime(start[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+        if 0 <= (now - st).total_seconds() <= 6 * 3600:
+            out.add(g["league"])
+    return out
+
+
+def espn_backstop(games, leagues):
+    """Every stored game ESPN's scoreboard shows started (live or final) that this check's Action Network list didn't
+    put a score on - by ESPN's event id (our own game id), no name matching at all. The owner watches the live score
+    of every game on the board; a missing or misspelled Action Network row never blanks one again."""
+    n = 0
+    for lg in leagues:
+        for eid, ang in (ESPN_LIVE.get(lg) or {}).items():
+            gid = f"{lg}:{eid}"
+            g = games.get(gid)
+            if not g or gid in SCORES or (g.get("stype") or "?") not in sd.REAL:
+                continue
+            if _keep_game_score(lg, g, ang.get("boxscore") or {}, str(ang.get("status") or "").lower(), src="espn"):
+                n += 1
+    return n
 
 
 def fill_half(lg, g, box):
@@ -1004,14 +1054,15 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
     plays = []
     SCORES.clear()                # rebuilt every check (finals stay while the feed still lists them)
     judged = set()                # games priced and judged this check (the rest were paused / out of sync)
-    WATCHING[0] = PRICED[0] = DK_ONLY[0] = 0
+    WATCHING[0] = PRICED[0] = DK_ONLY[0] = ESPN_ONLY[0] = 0
     BOOKS.clear()
     with ThreadPoolExecutor(12) as ex:                          # everything in parallel: live lines move fast
         angs_by = dict(zip(sd.LEAGUES, ex.map(fetch_live_any, sd.LEAGUES)))
         live_lgs = [lg for lg, angs in angs_by.items()
                     if any((a.get("boxscore") or {}).get("period") and str(a.get("status") or "").lower() not in DONE
                            for a in angs)]
-        scores_f = {lg: ex.submit(espn_scores, lg) for lg in live_lgs}
+        score_lgs = live_lgs + sorted(_started_lgs(games, now) - set(live_lgs))   # (+ where our own schedule says a
+        scores_f = {lg: ex.submit(espn_scores, lg) for lg in score_lgs}           #  game's on: ESPN's board by game id)
         books_f = {lg: ex.submit(bovada_live, lg, len(angs_by[lg])) for lg in live_lgs}
         todo = []
         for lg, angs in angs_by.items():
@@ -1033,6 +1084,12 @@ def cycle(games, model, log, now=None, st=None, showing=(), prev=None):
                 plays += _judge(lg, ang, box, g, dk_f, scores_f, books_f, model, elo, st, now, showing, judged)
             except Exception as e:                           # noqa: BLE001 - one bad game never sinks the whole check
                 sd.ERRORS.append(f"live {g['id']}: {type(e).__name__} {str(e)[:80]}")
+        for lg, f in scores_f.items():                       # ESPN's board by game id: a score for every stored game
+            try:                                             # going that Action Network's list missed or misnamed
+                f.result()
+            except Exception:                                # noqa: BLE001
+                pass
+        ESPN_ONLY[0] = espn_backstop(games, list(scores_f))
     if TENNIS_ON[0]:
         try:                                                 # 🎾 tennis: same board, same rules
             plays += tennis_plays(log, now, showing, judged, plays)
@@ -1507,21 +1564,34 @@ def _keep_score(games, lg, ang, box, status):
         g = _match(games, lg, ang)
         if not g:
             return
+        _keep_game_score(lg, g, box, status)
+    except Exception:                                         # noqa: BLE001 - a score never breaks the watch
+        pass
+
+
+def _keep_game_score(lg, g, box, status, src=None):
+    """Write one stored game's score card (SCORES[g id]) from a box in Action Network's shape. True when written."""
+    try:
+        if not box.get("period"):
+            return False
         if status in ("scheduled", "created"):
-            return                                            # not started yet - never "Final" (9/29: the Blackhawks
+            return False                                      # not started yet - never "Final" (9/29: the Blackhawks
         #                                                       read "FINAL 0-0" ten minutes after puck drop: the odds feed
         #                                                       still said "scheduled", and that sat in DONE)
         if status in ("cancelled", "canceled", "postponed"):
             SCORES[g["id"]] = {"away": g["away_name"], "home": g["home_name"], "a": _score(box, "away"),
                                "h": _score(box, "home"), "clock": "Postponed", "live": False, "delayed": True}
-            return
-        final = status in ("complete", "closed", "final")
-        if final:
-            mark_final(g["id"])
-        SCORES[g["id"]] = {"away": g["away_name"], "home": g["home_name"], "a": _score(box, "away"),
-                           "h": _score(box, "home"), "clock": "Final" if final else _clock_txt(lg, box), "live": not final}
+        else:
+            final = status in ("complete", "closed", "final")
+            if final:
+                mark_final(g["id"])
+            SCORES[g["id"]] = {"away": g["away_name"], "home": g["home_name"], "a": _score(box, "away"),
+                               "h": _score(box, "home"), "clock": "Final" if final else _clock_txt(lg, box), "live": not final}
+        if src:
+            SCORES[g["id"]]["src"] = src                      # (which feed it came from: a live check on the runner
+        return True                                           #  shows how often Action Network's list misses a game)
     except Exception:                                         # noqa: BLE001 - a score never breaks the watch
-        pass
+        return False
 
 
 BOV_HOME = {}                 # Bovada live tennis event id -> its home player
@@ -1792,6 +1862,7 @@ def run():
            "sources": sources_status(),
            "health": health,
            "priced": PRICED[0], "dk_only": DK_ONLY[0], "min_p": round(min_p(), 3),   # (the bar a new bet needs now)
+           "espn_only": ESPN_ONLY[0],                                          # (scores Action Network's list missed)
            "errors": sd.ERRORS[-3:], "books": dict(BOOKS),
            "took_s": round(time.time() - t0, 1)}
     del sd.ERRORS[:]
