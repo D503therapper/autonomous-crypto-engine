@@ -1,33 +1,98 @@
 {
- "at": "2026-10-10T07:46Z",
+ "at": "2026-10-10T12:34Z",
  "fixes": [],
- "problems": [
-  "live tennis scores: tennis Ruud vs Bu Yunchaokete: points frozen at 30-0 for 330s",
-  "live tennis scores: tennis Rakhimova vs Kenin: no points for 1219s",
-  "live tennis scores: tennis Linette vs Kraus: no points for 1219s",
-  "live tennis scores: tennis Zakharova vs Sonmez: no points for 1219s",
-  "live tennis scores: tennis McNally vs Yuan Yue: no points for 854s"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (5s)",
+  "live watcher fresh (15s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 9 live matches",
+  "live tennis points + server: 4 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 9 live lines, 3 fresh (betrivers 3)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 3 min ago",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 14 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-10T12:34Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-10T11:03Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-09 Alejandro Tabilo) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
+  {
+   "at": "2026-10-10T11:03Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-09 Alejandro Tabilo) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Aksu: no points for 2650s",
+    "live tennis scores: tennis Joint vs Sawangkaew: no points for 2650s",
+    "live tennis scores: tennis Grant vs Osorio: no points for 2650s",
+    "live tennis scores: tennis Volynets vs Kudermetova: no points for 2650s"
+   ]
+  },
+  {
+   "at": "2026-10-10T11:02Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-09 Alejandro Tabilo) - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakatsume vs Aksu: no points for 2650s",
+    "live tennis scores: tennis Joint vs Sawangkaew: no points for 2650s",
+    "live tennis scores: tennis Grant vs Osorio: no points for 2650s",
+    "live tennis scores: tennis Volynets vs Kudermetova: no points for 2650s"
+   ]
+  },
+  {
+   "at": "2026-10-10T09:31Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Tararudee: no points for 2655s",
+    "live tennis scores: tennis Boisson vs Bondar: no points for 2655s",
+    "live tennis scores: tennis Joint vs Sawangkaew: no points for 2655s",
+    "live tennis scores: tennis Grant vs Osorio: no points for 593s"
+   ]
+  },
+  {
+   "at": "2026-10-10T09:26Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Tararudee: no points for 2379s",
+    "live tennis scores: tennis Boisson vs Bondar: no points for 2379s",
+    "live tennis scores: tennis Joint vs Sawangkaew: no points for 2379s",
+    "live tennis scores: tennis Grant vs Osorio: no points for 317s"
+   ]
+  },
+  {
+   "at": "2026-10-10T09:21Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Etcheverry vs Svrcina: no points for 64s",
+    "live tennis scores: tennis Tabilo vs Busta: no points for 64s",
+    "live tennis scores: tennis Kotov vs Fils: no points for 64s",
+    "live tennis scores: tennis Liu vs Tararudee: no points for 2090s",
+    "live tennis scores: tennis Boisson vs Bondar: no points for 2090s",
+    "live tennis scores: tennis Joint vs Sawangkaew: no points for 2090s"
+   ]
+  },
   {
    "at": "2026-10-10T07:46Z",
    "fixes": [],
@@ -454,55 +519,6 @@
    "at": "2026-10-07T20:51Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-07T20:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T20:11Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T20:08Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T18:35Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
-   ]
-  },
-  {
-   "at": "2026-10-07T18:34Z",
-   "fixes": [],
-   "problems": [
-    "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
-   ]
-  },
-  {
-   "at": "2026-10-07T17:02Z",
-   "fixes": [
-    "simulator overdue (11h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "workflow failed: health 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655354619",
-    "workflow failed: sports_sims 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655315156",
-    "simulator last ran 11h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-07T16:51Z",
-   "fixes": [
-    "simulator overdue (10h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "simulator last ran 10h ago - restarted"
-   ]
   }
  ]
 }
