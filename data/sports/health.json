@@ -4,30 +4,34 @@
   "1 finished pick(s) not graded (tennis 2026-10-09 Alejandro Tabilo) - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Sakatsume vs Aksu: no points for 2650s",
-  "live tennis scores: tennis Joint vs Sawangkaew: no points for 2650s",
-  "live tennis scores: tennis Grant vs Osorio: no points for 2650s",
-  "live tennis scores: tennis Volynets vs Kudermetova: no points for 2650s"
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded"
  ],
  "ok": [
-  "live watcher fresh (64s)",
+  "live watcher fresh (90s)",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 5 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 7 live lines, 2 fresh (betrivers 2)",
-  "all 1 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 1 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-10T11:03Z",
+   "fixes": [
+    "1 finished pick(s) not graded (tennis 2026-10-09 Alejandro Tabilo) - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded"
+   ]
+  },
   {
    "at": "2026-10-10T11:03Z",
    "fixes": [
@@ -513,11 +517,6 @@
   },
   {
    "at": "2026-10-07T20:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T20:11Z",
    "fixes": [],
    "problems": []
   }
