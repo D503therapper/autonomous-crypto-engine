@@ -4,6 +4,8 @@ Kept up to date at the end of every working session, so a fresh chat knows what 
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
 ## 10/10 - the owner's calls + fixes
+- Dog price limit raised to +300 (the owner: "I want the new limit to be +300") - the Dog, the dog gate, value-play dogs, lean dogs and the early spots (sports.DAILY_DOG_MAX / DOG_DAY_MAX, sports_early.SPOT_DOG / SPOT_ANY). The studies behind the spots were +100..+220 - the +220..+300 range is new ground, judged live.
+- TO FIX NEXT: seen_all blocks a college team with TWO bye weeks (North Carolina 2-2, all 4 games held - the owner confirmed) - before refusing a team's record, confirm the gap weeks against the team's real schedule (ESPN team schedule via the hourly run, public) instead of assuming a missing game.
 - Leans: value-picked leans were built then REVERTED the same night - the 10/10 college dog study found all six value-lean rules lost blind vs who-wins. The owner's call: who-wins leans, but no college favorite lean at -150..-130 (red both halves; sports.LEAN_NCAAF_FAV_BAND). College dogs this season: 44-80, -12.6% at the close - not hot; the 4+ gate stays (2+/3+ lost blind). SPORTS_FINDINGS 10/10.
 - College hoops dogs ON (the owner: "we need college basketball dogs"): the NBA-style dog-score gate (4+, sports.NCAAB_DOG_RULE = "score") at ½u - the best of the three blind options (flat blind; today's own-read rule lost -15.8%). Its own record; judge it live.
 - College hoops injuries: Covers' college basketball page (every D1 school, healthy ones too) read every run (sports_data.WEB_PAGE ncaab) - 364 of 364 schools matched on the 10/10 page, on top of Rotowire + ESPN + the official reports.

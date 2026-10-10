@@ -556,9 +556,9 @@ SPOT_WINDOW_H = 72                      # an early play posts within 3 days of i
 #                                         early number's gone (the owner, 10/1: "we're already late" on a Thursday)
 SPOT_SLATE_HOUR_PT = 6                  # it waits for the whole slate: college numbers come Sunday, the NFL's after
 #                                         Monday night - it ranks them all together Tuesday 6 AM PT, then fills
-SPOT_DOG = (100, 220)                   # the dog spots: +100 to +220 (the owner, 10/1: "never no damn +400" - the
+SPOT_DOG = (100, 300)                   # the dog spots: +100 to +220 (the owner, 10/1: "never no damn +400" - the
 #                                         +130..+160 that moves toward a favorite is the target, a +220 now and then)
-SPOT_ANY = (-150, 220)                  # the engine spot: any side, never past -150 (the -150 rule) or +220
+SPOT_ANY = (-150, 300)                  # the engine spot: any side, never past -150 (the -150 rule) or +220
 REST_BYE, REST_NORMAL = 13, 8           # off a bye: 13+ days since its last game; the other team on a normal week
 HAMMER_PTS, ENGINE_OUT_PTS, ENGINE_GAP = 4.0, 2.0, 0.04
 BLOWOUT = 17

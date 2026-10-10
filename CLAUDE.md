@@ -40,7 +40,7 @@ every session:
   today's plays" line. NO posted parlays (the owner, 10/1: the ladder went 1 for 8; the viewer builds his own). A play
   is never past -150, never one the engine's own read is fighting. The Dog of the Day is a UNIT play like the Lock: only
   a real-value dog (the one the dog analysis, sports.dog_score, likes best) - none = no Dog, and the board says so. Never
-  a lean Dog of the Day, never a forced one ("it takes our ROI down"). The best value dog is the Dog (the owner, 10/8): a dog value play found after the 8 AM board with 3+ points more value than the posted Dog (neither game started) takes the Dog spot at 1u and the old Dog becomes a ½u value play (sports.upgrade_dog). Value (plus money that really beats the price) is
+  a lean Dog of the Day, never a forced one ("it takes our ROI down"). Dogs +100..+300 (the owner 10/10, sports.DAILY_DOG_MAX - was +220). The best value dog is the Dog (the owner, 10/8): a dog value play found after the 8 AM board with 3+ points more value than the posted Dog (neither game started) takes the Dog spot at 1u and the old Dog becomes a ½u value play (sports.upgrade_dog). Value (plus money that really beats the price) is
   the goal; what matters is the ROI on the unit plays. College football stays ON (the owner, 10/1 - sports_strength.OWNER_ON).
   Judge a sport on thousands of games (sports_strength), never a
   few nights. Analyze and weigh, no rigid rules.
@@ -54,7 +54,7 @@ every session:
   at two - build it the best for us"): the engine checks every hour and posts every play that clears the whole bar the
   moment it finds it (sports_early.SPOT_MAX_WEEK = None),
   NO phone ping (the owner, 10/4 - sports_early.PINGS = False); never forced (the one-a-week minimum stays paused); dogs
-  +100..+220 only ("never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
+  +100..+300 only (the owner 10/10 - was +220; "never no damn +400"); only within 3 days of the first FAIR number (after both teams' last games) -
   late is not early; never game day; never a side with a key player out or questionable. 🌍 THE EUROPE MORNING NFL UNDER (the owner, 10/4: "we can't wait years
   to prove anything, the books will catch up ... half unit with the quit rule"): a live TEST on a small sample (17-9 since
   2018), the owner's call - every NFL game in Europe before noon ET, the under at ½u, posted the night before from 6 PM PT

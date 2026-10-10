@@ -966,8 +966,8 @@ TIERS = ("lean", "value", "lock")
 STRONG_LEAN_P = PLAY_MIN_P                    # 53%+ = STRONG LEAN, under that = SLIGHT LEAN (a lean on the board = 🟡)
 
 
-DOG_DAY_MAX = 280            # the owner: no dog past +280
-DAILY_DOG_MAX = 220          # ...and the every-day Dog (and the dog gate) +100..+220 (the owner, 10/1: "never no +400")
+DOG_DAY_MAX = 300            # the owner: no dog past +300 (10/10 - was +280)
+DAILY_DOG_MAX = 300          # ...and the every-day Dog (and the dog gate) +100..+300 (the owner, 10/10: "I want the new limit to be +300" - was +220; 10/1: "never no +400")
 
 
 LAST_RAW = []
