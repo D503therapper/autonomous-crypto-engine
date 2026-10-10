@@ -689,7 +689,7 @@ NHL_DOG_GATE = 6.0             # hockey (10/1 per-sport backtest, every dog +100
 NBA_DOG_GATE = 4.0             # the owner, 10/9 ("nba gets a dog"): the 10/9 NBA replay - no NBA dog could ever be the
 #                                Dog (dog_gate had no NBA branch); a dog score 4+ (chosen on 2023-24) went 15-12, +11.5u
 #                                on 27 blind 2024-26 - a LEAD, so the NBA Dog is ½u (DOG_UNITS_BY) with its own record
-DOG_UNITS_BY = {"nba": 0.5, "ncaab": 0.5}   # (ncaab: the owner 10/10, the same ½u lead treatment)    # the Dog of the Day's units by sport (everything else DOG_UNITS)
+DOG_UNITS_BY = {"nba": 0.5, "ncaab": 0.5, "nhl": 1.0}   # (nhl: the owner 10/10 - "the engine's been ass with hockey dogs": live 4-6, closing at worse prices - no size-up)   # (ncaab: the owner 10/10, the same ½u lead treatment)    # the Dog of the Day's units by sport (everything else DOG_UNITS)
 NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backtest, the live read + every spot and fade):
 #                                4+ won 48.7%, +18.9% on 228 (7 of 8 seasons up, 2023+ +17%) - but this season's first
 #                                9 went -46% and a narrower game-day test was -9.7% since 2023: a LEAD, graded live
@@ -1664,7 +1664,7 @@ def units_for(pk):
     u = _sized(t, legs[0], legacy=(pk.get("date") or "9999") < MONEY_CHECK_FROM)
     if (pk.get("date") or "") >= SIZING_FROM:              # 💰 THE UNIT SYSTEM (the 10/2 sizing replay - 712 board days,
         if kind == "dog":                                    # walk-forward): the Dog flat 1u (+8.9% flat, up 3 of 5),
-            return DOG_UNITS_BY.get(legs[0].get("league"), DOG_UNITS)                                 # every value play ½u (they lose at any size - sizing up on
+            return dog_units(pk)                                 # every value play ½u (they lose at any size - sizing up on
         if kind == "play":                                   # edge lost more), the Lock by its own read (below). Since
             return PLAY_UNITS                                # 7/2023 +10.5u vs today's sizing -57u overall
     if (pk.get("date") or "") >= THIN_FROM:                 # (the owner, 10/1: "we do need units on value plays - the
@@ -1680,6 +1680,22 @@ def units_for(pk):
 
 
 SIZING_FROM = "2026-10-02"     # the unit system below, from the 10/2 board on (posted picks keep their units)
+DOG_MAX_UNITS = 2.0            # the owner, 10/10: "if there's major value it should be more units" - the Dog of the Day
+DOG_SIZED_FROM = "2026-10-10"  # sizes by its edge (quarter-Kelly on the read its units ride on), 1u floor, 2u max (his
+#                                pick of the options; the 10/2 replay had flat 1u best - judge it live). NBA / college
+#                                hoops Dogs stay ½u (DOG_UNITS_BY - leads). Posted picks keep their units.
+
+
+def dog_units(pk):
+    """The Dog of the Day's units: the sport's flat size (DOG_UNITS_BY) or, from DOG_SIZED_FROM, its edge - 1u-2u."""
+    leg = (pk.get("legs") or [{}])[0]
+    lg = leg.get("league")
+    if lg in DOG_UNITS_BY or (pk.get("date") or "") < DOG_SIZED_FROM:
+        return DOG_UNITS_BY.get(lg, DOG_UNITS)
+    k = kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
+    return min(DOG_MAX_UNITS, max(DOG_UNITS, k))
+
+
 DOG_UNITS = 1.0                # the Dog of the Day: flat 1u (the replay: sizing it by edge lost; flat +8.9%)
 PLAY_UNITS = 0.5               # a value play: ½u (they lost at every size: -6.7% flat, -10.5% sized up)
 THIN_FROM = "2026-10-02"         # the owner, 10/1 (Western KY +110 at 1u, its own read ~1 point over the price): "a small
@@ -2778,7 +2794,7 @@ def sizing_check(new):
         elif k == "play":
             want = (PLAY_UNITS, PLAY_UNITS)
         elif k == "dog":
-            want = (DOG_UNITS_BY.get(l.get("league"), DOG_UNITS),) * 2
+            want = (dog_units(pk),) * 2
         elif k == "lock" and l.get("near_price"):
             want = (0.5, 0.5)
         elif k == "lock":
