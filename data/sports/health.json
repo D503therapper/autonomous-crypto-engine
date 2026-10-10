@@ -1,27 +1,32 @@
 {
- "at": "2026-10-10T11:03Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-09 Alejandro Tabilo) - sports.yml already running"
- ],
- "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
- ],
+ "at": "2026-10-10T12:34Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
-  "live watcher fresh (90s)",
+  "live watcher fresh (15s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 4 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 9 live lines, 3 fresh (betrivers 3)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 5h ago",
-  "engine ran 2 min ago",
+  "studies ran 7h ago",
+  "simulator ran 6h ago",
+  "engine ran 14 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-10T12:34Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-10T11:03Z",
    "fixes": [
@@ -512,11 +517,6 @@
   },
   {
    "at": "2026-10-07T20:51Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T20:22Z",
    "fixes": [],
    "problems": []
   }
