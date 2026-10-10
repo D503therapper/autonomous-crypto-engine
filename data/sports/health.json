@@ -1,9 +1,12 @@
 {
- "at": "2026-10-10T01:19Z",
+ "at": "2026-10-10T02:52Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "sources down (the backups took over): betrivers:ncaaf:1027508029 HTTP 404"
+ ],
  "ok": [
-  "live watcher fresh (149s)",
+  "live watcher fresh (289s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +14,25 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 5 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
-  "simulator ran 2h ago",
-  "engine ran 18 min ago",
+  "studies ran 4h ago",
+  "simulator ran 4h ago",
+  "engine ran 46 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-10T02:52Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "sources down (the backups took over): betrivers:ncaaf:1027508029 HTTP 404"
+   ]
+  },
   {
    "at": "2026-10-10T01:19Z",
    "fixes": [],
@@ -481,15 +491,6 @@
    "problems": [
     "live tennis scores: tennis Selekhmeteva vs Crawley: no points for 2650s",
     "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 175s"
-   ]
-  },
-  {
-   "at": "2026-10-07T10:54Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Selekhmeteva vs Crawley: no points for 502s",
-    "live tennis scores: tennis Akugue vs Stefanini: no points for 502s",
-    "live tennis scores: tennis Werner vs Egribel: no points for 502s"
    ]
   }
  ]
