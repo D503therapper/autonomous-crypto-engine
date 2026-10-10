@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T23:38Z",
+ "updated": "2026-10-10T23:40Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -641,8 +641,8 @@
    "away": "Idaho",
    "home": "Weber St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1484,6 +1484,21 @@
    "lean": null
   },
   {
+   "id": "nhl:401892479",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-10T23:30Z",
+   "away": "Lightning",
+   "home": "Islanders",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401869965",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1529,83 +1544,17 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401868054",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Abilene Chrstn",
-    "p": 0.704,
-    "tie": 0.028,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-11T00:00Z",
-   "away": "C Arkansas",
-   "home": "Abilene Chrstn",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Abilene Chrstn",
-    "opp": "C Arkansas",
-    "market": "spread",
-    "line": -10.0,
-    "odds": -113,
-    "p": 0.501,
-    "win_p": 0.759,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401856827",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Utah",
-    "p": 0.781,
-    "tie": 0.024,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-11T00:00Z",
-   "away": "Kansas",
-   "home": "Utah",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Utah",
-    "opp": "Kansas",
-    "market": "spread",
-    "line": -15.5,
-    "odds": -110,
-    "p": 0.502,
-    "win_p": 0.84,
-    "reasons": [
-     "the stronger team",
-     "better rested",
-     "hotter recent form"
-    ]
-   }
-  },
-  {
    "id": "ncaaf:401858486",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Minnesota",
-    "p": 0.539,
-    "tie": 0.033,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-11T00:00Z",
    "away": "Minnesota",
    "home": "Purdue",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lock",
    "lean": {
     "team": "Minnesota",
@@ -1617,69 +1566,35 @@
     "win_p": 0.563,
     "reasons": [
      "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868249",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "SE Louisiana",
-    "p": 0.513,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-11T00:00Z",
-   "away": "SE Louisiana",
-   "home": "UT Rio Grande",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "SE Louisiana",
-    "opp": "UT Rio Grande",
-    "market": "ml",
-    "line": null,
-    "odds": -133,
-    "p": 0.509,
-    "win_p": 0.509,
-    "reasons": [
-     "hotter recent form",
-     "better rested",
-     "rolling off a blowout win"
-    ]
+    ],
+    "result": null
    }
   },
   {
    "id": "mlb:401907994",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Guardians",
-    "p": 0.49,
-    "tie": 0.118,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-11T00:00Z",
    "away": "White Sox",
    "home": "Guardians",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "White Sox",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -188,
-    "p": 0.618,
-    "win_p": 0.431,
+    "team": "Guardians",
+    "opp": "White Sox",
+    "market": "ml",
+    "line": null,
+    "odds": -142,
+    "p": 0.561,
+    "win_p": 0.561,
     "reasons": [
-     "opponent missing key players"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
