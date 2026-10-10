@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T20:30Z",
+ "updated": "2026-10-10T21:03Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -296,8 +296,8 @@
    "away": "South Carolina",
    "home": "Florida",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -551,8 +551,8 @@
    "away": "S Illinois",
    "home": "South Dakota",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -611,8 +611,8 @@
    "away": "Wofford",
    "home": "Elon",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1080,98 +1080,34 @@
    "lean": null
   },
   {
-   "id": "ncaaf:401868955",
+   "id": "ncaaf:401856713",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jackson St",
-    "p": 0.698,
-    "tie": 0.029,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-10T21:00Z",
-   "away": "Jackson St",
-   "home": "Grambling",
-   "why": "coin_flip",
+   "start": "2026-10-10T20:15Z",
+   "away": "Tennessee",
+   "home": "Arkansas",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Jackson St",
-    "opp": "Grambling",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -113,
-    "p": 0.5,
-    "win_p": 0.718,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "better QB play lately"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868115",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Montana",
-    "p": 0.651,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-10T21:00Z",
-   "away": "Montana",
-   "home": "N Arizona",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Montana",
-    "opp": "N Arizona",
-    "market": "ml",
-    "line": null,
-    "odds": -248,
-    "p": 0.677,
-    "win_p": 0.677,
-    "reasons": [
-     "rolling off a blowout win"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401867877",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "North Dakota",
-    "p": 0.772,
-    "tie": 0.025,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-10T21:00Z",
    "away": "North Dakota",
    "home": "Northern Iowa",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "North Dakota",
-    "opp": "Northern Iowa",
-    "market": "spread",
-    "line": -14.0,
-    "odds": -113,
-    "p": 0.502,
-    "win_p": 0.794,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "rolling off a blowout win"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401868078",
@@ -1338,8 +1274,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.444,
-    "tie": 0.291,
+    "p": 0.449,
+    "tie": 0.29,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1354,9 +1290,9 @@
     "opp": "Blackhawks",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.694,
-    "win_p": 0.694,
+    "odds": -258,
+    "p": 0.704,
+    "win_p": 0.704,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -1679,8 +1615,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Memphis",
-    "p": 0.773,
-    "tie": 0.025,
+    "p": 0.778,
+    "tie": 0.024,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1694,10 +1630,10 @@
     "team": "Memphis",
     "opp": "UAB",
     "market": "spread",
-    "line": -14.5,
-    "odds": -112,
+    "line": -15.5,
+    "odds": -108,
     "p": 0.502,
-    "win_p": 0.832,
+    "win_p": 0.837,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -1806,8 +1742,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.404,
-    "tie": 0.297,
+    "p": 0.411,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -1822,13 +1758,13 @@
     "opp": "Islanders",
     "market": "ml",
     "line": null,
-    "odds": -170,
-    "p": 0.618,
-    "win_p": 0.618,
+    "odds": -180,
+    "p": 0.631,
+    "win_p": 0.631,
     "reasons": [
      "the stronger team",
      "hotter recent form",
-     "opponent drama: suspension"
+     "sharp money moving this way"
     ]
    }
   },
@@ -1869,8 +1805,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia",
-    "p": 0.746,
-    "tie": 0.026,
+    "p": 0.759,
+    "tie": 0.025,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1884,10 +1820,10 @@
     "team": "Virginia",
     "opp": "Syracuse",
     "market": "spread",
-    "line": -13.5,
-    "odds": -115,
+    "line": -14.0,
+    "odds": -112,
     "p": 0.502,
-    "win_p": 0.804,
+    "win_p": 0.817,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -1932,8 +1868,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Abilene Chrstn",
-    "p": 0.681,
-    "tie": 0.029,
+    "p": 0.704,
+    "tie": 0.028,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1948,10 +1884,12 @@
     "opp": "C Arkansas",
     "market": "spread",
     "line": -9.5,
-    "odds": -112,
+    "odds": -118,
     "p": 0.501,
-    "win_p": 0.733,
-    "reasons": []
+    "win_p": 0.759,
+    "reasons": [
+     "sharp money moving this way"
+    ]
    }
   },
   {
@@ -2022,7 +1960,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "SE Louisiana",
-    "p": 0.533,
+    "p": 0.52,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -2031,16 +1969,16 @@
    "start": "2026-10-11T00:00Z",
    "away": "SE Louisiana",
    "home": "UT Rio Grande",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "SE Louisiana",
     "opp": "UT Rio Grande",
     "market": "ml",
     "line": null,
-    "odds": -141,
-    "p": 0.555,
-    "win_p": 0.555,
+    "odds": -133,
+    "p": 0.542,
+    "win_p": 0.542,
     "reasons": [
      "hotter recent form",
      "better rested",
@@ -2161,7 +2099,7 @@
     "opp": "Fresno St",
     "market": "spread",
     "line": -8.5,
-    "odds": -110,
+    "odds": -112,
     "p": 0.5,
     "win_p": 0.726,
     "reasons": [
