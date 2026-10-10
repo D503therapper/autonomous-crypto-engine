@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T02:20Z",
+ "updated": "2026-10-10T02:43Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -41,8 +41,8 @@
    "away": "Columbia",
    "home": "Marist",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -56,8 +56,8 @@
    "away": "Florida St",
    "home": "Louisville",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -138,8 +138,8 @@
    "away": "Ducks",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -153,8 +153,8 @@
    "away": "Grizzlies",
    "home": "Bulls",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -197,6 +197,21 @@
    "start": "2026-10-10T01:00Z",
    "away": "Wyoming",
    "home": "San Jos\u00e9 St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401856826",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T02:30Z",
+   "away": "Iowa State",
+   "home": "BYU",
    "h1": null,
    "why": "started",
    "done": false,
@@ -3034,7 +3049,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Ducks",
-    "p": 0.368,
+    "p": 0.355,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -3043,7 +3058,7 @@
    "start": "2026-10-11T02:00Z",
    "away": "Ducks",
    "home": "Flames",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Flames",
@@ -3051,9 +3066,11 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.679,
-    "win_p": 0.46,
-    "reasons": []
+    "p": 0.704,
+    "win_p": 0.489,
+    "reasons": [
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
