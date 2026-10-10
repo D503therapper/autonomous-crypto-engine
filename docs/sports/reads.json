@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T20:11Z",
+ "updated": "2026-10-10T20:20Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -356,8 +356,8 @@
    "away": "Franklin Pierce",
    "home": "Delaware St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -431,8 +431,8 @@
    "away": "Rice",
    "home": "East Carolina",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -491,8 +491,8 @@
    "away": "William & Mary",
    "home": "NC Central",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -506,8 +506,8 @@
    "away": "Youngstown St",
    "home": "Indiana St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1058,6 +1058,21 @@
    "start": "2026-10-10T20:00Z",
    "away": "Utah Tech",
    "home": "Portland St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401858483",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T20:15Z",
+   "away": "Maryland",
+   "home": "Ohio State",
    "h1": null,
    "why": "started",
    "done": false,
@@ -2041,7 +2056,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.492,
+    "p": 0.493,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -2058,8 +2073,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -188,
-    "p": 0.616,
-    "win_p": 0.434,
+    "p": 0.615,
+    "win_p": 0.433,
     "reasons": [
      "opponent missing key players"
     ]
