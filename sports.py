@@ -2172,21 +2172,15 @@ def stick(c, pool):
     return out
 
 
-def lean_value(c):
-    """How close a side's WHOLE weighed read comes to beating its price (+ = value) - the owner, 10/10: "pick leans like
-    everything else - weigh every aspect, favorite or dog". A dog: the market + its whole dog score (every study spot
-    and fade, capped - dog_gate's read); a favorite: its weighed read (w_p - the dog across from it, the early-season /
-    3-in-4 / slump weights) or its own read."""
-    dec = c.get("dec") or (_dec(c["odds"]) if c.get("odds") else None)
-    if not dec:
-        return -1.0
-    r = read_of(c)
-    if c.get("market") == "ml" and c.get("odds", 0) >= 100 and c.get("dog_p") is None and c.get("p_market") is not None:
-        try:
-            r = min(0.95, c["p_market"] + dog_score(c) / 100)
-        except Exception:                                    # noqa: BLE001 - a missing input: the plain read
-            pass
-    return r * dec - 1 if r is not None else -1.0
+LEAN_NCAAF_FAV_BAND = (-150, -130)   # the owner, 10/10 (Arkansas St -142 lost 56-49 to the dog): no college favorite
+#                                      lean at -150..-130 - the 10/10 study: those leans -6.6% (2023-24) / -24.1% (2025-26),
+#                                      red both halves; -129..-101 favorite leans and 2%+ own-read dogs stand. A lead (29
+#                                      blind leans), no units involved.
+
+
+def pricey_college_fav(c):
+    lo, hi = LEAN_NCAAF_FAV_BAND
+    return c.get("league") == "ncaaf" and c.get("market") == "ml" and lo <= (c.get("odds") or 0) <= hi
 
 
 def viewer_leans(cands, avoid):
@@ -2206,17 +2200,15 @@ def viewer_leans(cands, avoid):
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
         if c["p"] >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
-        return 100 <= c["odds"] <= DAILY_DOG_MAX and not fighting(c)   # or a dog its read isn't fighting - the value
-        #                                                      decides between the two sides below (10/10, the owner)
+        return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
+        #                                                      underpriced (the owner, 10/1: "we need value plays")
     best = {}
-    okc = [c for c in cands if ok(c)]
-    for c in sorted(okc, key=lambda c: (-lean_value(c), -rank_p(c))):   # 🟡 THE OWNER, 10/10: "a very bad decision to
-        best.setdefault(c["game_id"], c)                     # pick leans just on who's favored to win" (Arkansas St -142
-        #                                                      lost 56-49 to the dog) - each game's lean is the side whose
-        #                                                      read comes closest to beating its price, dog or favorite
+    okc = [c for c in cands if ok(c) and not pricey_college_fav(c)]
+    for c in sorted(okc, key=lambda c: -rank_p(c)):          # (10/10: value-picked leans were tried - six versions all
+        best.setdefault(c["game_id"], c)                     #  lost blind vs who-wins; the owner kept who-wins)
     best = {g: stick(c, okc) for g, c in best.items()}       # 📌 (10/5: a lean never flips on a price tick)
     out, per = [], {}
-    for c in sorted(best.values(), key=lambda c: (-importance(c), -lean_value(c))):
+    for c in sorted(best.values(), key=lambda c: (-importance(c), -rank_p(c))):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:        # (spread across the sports - "not five hockey games")
             per[c["league"]] = per.get(c["league"], 0) + 1
             out.append(c)
@@ -2230,7 +2222,7 @@ def viewer_leans(cands, avoid):
                 and (c.get("w_p") is None or c["w_p"] >= LEAN_PICK_P))   # (10/6: a hockey favorite whose WEIGHED read
         #                                                  has it losing - Panthers 48% - is never the who-wins lean)
     extra = {}
-    fillc = [c for c in cands if fill_ok(c)]
+    fillc = [c for c in cands if fill_ok(c) and not pricey_college_fav(c)]
     for c in sorted(fillc, key=lambda c: -c["p"]):
         extra.setdefault(c["game_id"], c)
     extra = {g: stick(c, fillc) for g, c in extra.items()}

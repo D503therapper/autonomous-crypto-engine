@@ -4349,26 +4349,22 @@ def test_dog_of_the_day_sized_by_edge_1_to_2_units():
     assert sports.units_for(pk(0.60, lg="nhl")) == 1.0        # hockey Dogs stay flat 1u (the owner: hockey dogs have been ass)
 
 
-def test_leans_pick_the_value_side_not_the_favorite():
-    """The owner, 10/10: "a very bad decision to pick leans just on who's favored to win" (Arkansas St -142 lost 56-49 to
-    South Alabama). A game's lean is now the side whose WHOLE weighed read comes closest to beating its price - the dog
-    when the dog's read (market + its dog score) is the better value, the favorite when its read is."""
-    fav = {"game_id": "g", "league": "ncaaf", "market": "ml", "odds": -142, "dec": 1.704, "p": 0.57, "p_market": 0.565,
-           "edge_own": 0.57 * 1.704 - 1, "edge": 0.0, "reasons": ["x"], "side": "home", "team": "Fav"}
-    dog = {"game_id": "g", "league": "ncaaf", "market": "ml", "odds": 120, "dec": 2.2, "p": 0.43, "p_market": 0.435,
-           "edge_own": 0.43 * 2.2 - 1, "edge": 0.0, "reasons": ["x"], "side": "away", "team": "Dog"}
-    saved = (sports.dog_score, sports.fighting, sports.stick)
+def test_no_pricey_college_favorite_leans():
+    """The owner, 10/10 (Arkansas St -142 lost 56-49 to South Alabama): the 10/10 study found college favorite leans at
+    -150..-130 lost in both halves (-6.6% / -24.1%) while value-picked leans lost more - so leans stay who-wins calls, but
+    a college favorite at -150..-130 is never one. -129 and shorter, and other sports' -140s, still can be."""
+    mk = lambda gid, lg, odds, p: {"game_id": gid, "league": lg, "market": "ml", "odds": odds,
+                                   "dec": sports._dec(odds), "p": p, "edge_own": p * sports._dec(odds) - 1,
+                                   "edge": 0.0, "reasons": ["x"], "side": "home", "team": gid, "start": "2026-10-10T19:00Z"}
+    saved = (sports.fighting, sports.stick)
     try:
         sports.fighting = lambda c: False
         sports.stick = lambda c, pool: c
-        sports.dog_score = lambda c: 3.0                      # the dog's angles: +3 -> 46.5% vs 45.5% needed
-        assert sports.lean_value(dog) > sports.lean_value(fav)
-        assert [c["team"] for c in sports.viewer_leans([fav, dog], set())] == ["Dog"]
-        sports.dog_score = lambda c: -4.0                     # the angles fade the dog: the favorite is the lean
-        assert [c["team"] for c in sports.viewer_leans([fav, dog], set())] == ["Fav"]
+        out = [c["team"] for c in sports.viewer_leans(
+            [mk("cfb142", "ncaaf", -142, 0.60), mk("cfb125", "ncaaf", -125, 0.58), mk("nfl140", "nfl", -140, 0.60)], set())]
+        assert "cfb142" not in out and "cfb125" in out and "nfl140" in out, out
     finally:
-        sports.dog_score, sports.fighting, sports.stick = saved
-
+        sports.fighting, sports.stick = saved
 
 def test_nhl_outshot_40_weight():
     """10/8 study: a hockey team that allowed 40+ shots in its last game and plays again within 2 days lost -13.7% on 909
@@ -6184,9 +6180,10 @@ def test_lean_is_a_who_wins_call():
     """10/1, the owner: "two picks out of all those games - that's a broken engine." A lean carries no units - it's
     who wins. A favorite the engine's own read still has winning 55%+ is a lean even when the price is a bit high
     (a -142 at own 55%, the line 59%); under 55% it stays off."""
-    ps = {**_cand("psu", -142, 0.59, league="ncaaf"), "edge_own": 0.551 * sd.decimal(-142) - 1, "p_market": 0.59}
-    assert sports.fighting(ps)
+    ps = {**_cand("psu", -142, 0.59, league="nfl"), "edge_own": 0.551 * sd.decimal(-142) - 1, "p_market": 0.59}
+    assert sports.fighting(ps)                                 # (an NFL -142: college -150..-130 leans are off, 10/10)
     assert [c["game_id"] for c in sports.viewer_leans([ps], ())] == ["psu"]
+    assert not sports.viewer_leans([{**ps, "league": "ncaaf"}], ())
     weak = {**ps, "game_id": "w", "edge_own": 0.53 * sd.decimal(-142) - 1}
     assert not sports.viewer_leans([weak], ())
     assert not sports.plays([ps], ())                          # never a UNIT play the engine's read is fighting
