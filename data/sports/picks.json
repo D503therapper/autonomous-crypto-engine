@@ -9284,6 +9284,12 @@
      "them:hotseat"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "n": 1,
+     "s": "38-37",
+     "type": "ot",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -9303,6 +9309,10 @@
     "edge_own": 0.0003428341374160926,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "10,10,3,8,7",
+     "h": "0,7,10,14,6"
+    },
     "form_state": [
      -7.0,
      -2,
@@ -9352,9 +9362,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Illinois 38 @ Michigan St 37",
+    "settled": "2026-10-10T23:21Z",
     "side": "away",
     "start": "2026-10-10T19:30Z",
     "stype": "2",
@@ -9372,12 +9384,14 @@
    }
   ],
   "p_hit": 0.5635,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-10T15:00Z",
   "round": 1,
+  "settled": "2026-10-10T23:21Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": -142,
