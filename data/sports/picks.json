@@ -8886,6 +8886,7 @@
      "them:trip1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -8899,6 +8900,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,4,1",
+     "h": "1,1,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -8944,9 +8949,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Kraken 6 @ Red Wings 3",
+    "settled": "2026-10-10T01:37Z",
     "side": "home",
     "start": "2026-10-09T23:00Z",
     "stype": "2",
@@ -8964,11 +8971,13 @@
    }
   ],
   "p_hit": 0.5619,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-09T15:00Z",
   "round": 1,
+  "settled": "2026-10-10T01:37Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]

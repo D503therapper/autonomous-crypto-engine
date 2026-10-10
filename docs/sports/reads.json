@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T01:12Z",
+ "updated": "2026-10-10T01:38Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -72,7 +72,7 @@
    "home": "Red Wings",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Red Wings",
@@ -85,7 +85,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -174,6 +174,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401860922",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T01:00Z",
+   "away": "Washington St",
+   "home": "Utah State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401864519",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -200,7 +215,7 @@
    },
    "sport": "College Football",
    "season": "regular season",
-   "start": "2026-10-10T02:15Z",
+   "start": "2026-10-10T02:30Z",
    "away": "Iowa State",
    "home": "BYU",
    "why": "coin_flip",
@@ -2589,8 +2604,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Canadiens",
-    "p": 0.426,
-    "tie": 0.292,
+    "p": 0.44,
+    "tie": 0.29,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2606,8 +2621,8 @@
     "market": "ml",
     "line": null,
     "odds": -218,
-    "p": 0.656,
-    "win_p": 0.656,
+    "p": 0.682,
+    "win_p": 0.682,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
