@@ -8768,6 +8768,11 @@
      "game:div"
     ],
     "dec": 2.02,
+    "decider": {
+     "s": "3-2",
+     "type": "so",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -8781,6 +8786,10 @@
     "edge_own": -0.0352038549294269,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,1,1,0,0",
+     "h": "1,1,0,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -8810,9 +8819,11 @@
     "public": null,
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Penguins 2 @ Blue Jackets 3",
+    "settled": "2026-10-10T01:49Z",
     "side": "away",
     "start": "2026-10-09T23:00Z",
     "stype": "2",
@@ -8829,12 +8840,14 @@
    }
   ],
   "p_hit": 0.4776,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-09T15:00Z",
   "round": 1,
+  "settled": "2026-10-10T01:49Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 1.0
  },
  {
   "american": -142,

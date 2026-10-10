@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T01:48Z",
+ "updated": "2026-10-10T01:50Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -99,7 +99,7 @@
    "home": "Blue Jackets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Penguins",
@@ -110,7 +110,7 @@
     "p": 0.478,
     "win_p": 0.478,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -2295,7 +2295,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.364,
+    "p": 0.379,
     "tie": 0.297,
     "name": "1st period"
    },
@@ -2304,7 +2304,7 @@
    "start": "2026-10-10T23:00Z",
    "away": "Blue Jackets",
    "home": "Blues",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Blue Jackets",
@@ -2312,10 +2312,9 @@
     "market": "spread",
     "line": 1.5,
     "odds": -225,
-    "p": 0.692,
-    "win_p": 0.475,
+    "p": 0.663,
+    "win_p": 0.444,
     "reasons": [
-     "better rested",
      "hotter recent form"
     ]
    }
@@ -2636,8 +2635,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.393,
-    "tie": 0.296,
+    "p": 0.408,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2648,14 +2647,17 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Penguins",
-    "opp": "Stars",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.633,
-    "win_p": 0.411,
-    "reasons": []
+    "team": "Stars",
+    "opp": "Penguins",
+    "market": "ml",
+    "line": null,
+    "odds": -155,
+    "p": 0.626,
+    "win_p": 0.626,
+    "reasons": [
+     "sharp money moving this way",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
