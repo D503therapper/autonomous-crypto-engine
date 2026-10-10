@@ -12511,3 +12511,31 @@ DEX: $957.55 (-42.45) · Scammed: 0
 [2026-10-10 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-10 03:06 UTC] crypto/hold_btc  equity $491.87 (-1.6%) 1 open  market UP
    social heat top: MAGIC 35 (35/0/0), STRK 32 (32/0/0), NEAR 29 (29/0/0), PENGU 24 (24/0/0), BTC 21 (21/0/0)
+   dex screen: REJECT BOME@solana liq $18,041,585 - top-10 holders 71%
+   dex screen: REJECT VIRTUAL@base liq $307,273 - is_mintable; hidden_owner; owner_change_balance; top-10 holders 46%; lp locked 0% < 95%
+   dex screen: PASS ANTFUN@solana liq $13,682,934
+   dex screen: REJECT ZAMA@ethereum liq $631,016 - is_mintable; top-10 holders 95%; lp locked 0% < 95%
+   dex screen: REJECT TWEETCRAFT@solana liq $118,930 - holders unknown; lp holders unknown; rugcheck lp locked 63% < 95%
+   dex screen: REJECT OTC@solana liq $515,596 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: REJECT ZEC@solana liq $1,650,347,634 - top-10 holders 100%; lp holders unknown
+   dex screen: PASS XRC@solana liq $117,472
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT RSGP@solana liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: REJECT ORE@solana liq $195,264 - mint authority; top-10 holders 52%; lp holders unknown
+   dex screen: PASS TAUFA@ethereum liq $373,136
+   dex screen: REJECT PLAY@base liq $368,804 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: PASS TAUFA@ethereum liq $372,430
+   dex screen: REJECT ICP@base liq $26,314 - liquidity $26,314 < $100,000; 24h volume $6,478 < $100,000
+   dex screen: REJECT PAXG@ethereum liq $2,171,013 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy
+   >> dex/dex_hunter: BUY $47.46 of TAUFA@ethereum:0x41CF62 @ 0.014435 (dex tier A momentum 1h +11% 6h +1095% buys/sells 89/47 impact 0.01%)
+   dex scanner: 3,000 pools (solana 2,080 / base 570 / ethereum 350), refresh cycle 131s (hot 127s), 2859 calls (108 feed, 429s 0, failed 1), 82,498 refreshed (7701 no pair), +65 added / -65 dropped (dead 15, stale 0, cap 50), movers 0 + warming 17 -> queued 3, screened 4 (passed 3), bought 0
+[2026-10-10 04:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-10 04:07 UTC] crypto/mover     equity $375.48 (-24.9%) 2 open  market UP
+[2026-10-10 04:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-10 04:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-10 04:07 UTC] crypto/social_heat equity $462.66 (-7.5%) 1 open  market UP
+[2026-10-10 04:07 UTC] crypto/breakout10 equity $483.46 (-3.3%) 2 open  market UP
+[2026-10-10 04:07 UTC] crypto/momentum  equity $458.37 (-8.3%) 2 open  market UP
+[2026-10-10 04:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-10 04:07 UTC] crypto/hold_btc  equity $492.03 (-1.6%) 1 open  market UP
+   social heat top: MAGIC 40 (40/0/0), PENGU 37 (37/0/0), STRK 35 (35/0/0), NEAR 27 (27/0/0), PONS 22 (16/0/6)
