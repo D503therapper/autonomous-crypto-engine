@@ -1,28 +1,44 @@
 {
- "at": "2026-10-10T06:30Z",
+ "at": "2026-10-10T07:46Z",
  "fixes": [],
  "problems": [
-  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-  "live board check failed: HTTP Error 403: rate limit exceeded"
+  "live tennis scores: tennis Ruud vs Bu Yunchaokete: points frozen at 30-0 for 330s",
+  "live tennis scores: tennis Rakhimova vs Kenin: no points for 1219s",
+  "live tennis scores: tennis Linette vs Kraus: no points for 1219s",
+  "live tennis scores: tennis Zakharova vs Sonmez: no points for 1219s",
+  "live tennis scores: tennis McNally vs Yuan Yue: no points for 854s"
  ],
  "ok": [
-  "live watcher fresh (57s)",
+  "live watcher fresh (5s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "slate check: all 13 of today's games named, priced and looked at",
+  "live tennis points + server: 6 of 9 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
+  "all 1 backup sources answering",
+  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 0h ago",
-  "engine ran 7 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 3 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-10T07:46Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Ruud vs Bu Yunchaokete: points frozen at 30-0 for 330s",
+    "live tennis scores: tennis Rakhimova vs Kenin: no points for 1219s",
+    "live tennis scores: tennis Linette vs Kraus: no points for 1219s",
+    "live tennis scores: tennis Zakharova vs Sonmez: no points for 1219s",
+    "live tennis scores: tennis McNally vs Yuan Yue: no points for 854s"
+   ]
+  },
   {
    "at": "2026-10-10T06:30Z",
    "fixes": [],
@@ -486,16 +502,6 @@
    ],
    "problems": [
     "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-07T15:17Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Sakatsume vs Hruncakova: no points for 2465s",
-    "studies last ran 10h ago - restarted"
    ]
   }
  ]
