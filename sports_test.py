@@ -10208,6 +10208,113 @@ def test_every_game_we_hold_gets_its_live_score_even_when_action_network_misses_
     assert "score_lgs = live_lgs + sorted(_started_lgs(games, now) - set(live_lgs))" in src, "the ESPN board is read where our schedule says"
     assert "scores_f = {lg: ex.submit(espn_scores, lg) for lg in score_lgs}" in src
     assert "ESPN_ONLY[0] = espn_backstop(games, list(scores_f))" in src and '"espn_only": ESPN_ONLY[0]' in src
+def test_college_hoops_d1_team_passes_the_completeness_check():
+    """10/10 college hoops readiness check: the completeness test (seen_all) judged a hoops team by the pace of the
+    busiest teams - 80% of the 97th-percentile game count. Hoops schedules run 4-5 games apart by January (multi-team
+    events), so on the real 2025-26 files it read 11 of 11 priced games on 11/4, 39 of 39 on 11/7, 26 of 33 on 11/26
+    and 21 Division I teams on 1/15 as 'we don't hold all their games' - no pick, no record line, for nothing: ESPN's D1
+    feed (groups=50) holds every D1 team's games (all 365 D1 teams ended 2025-26 with 25+ games in our files; only the
+    non-D1 opponents sit at 1-3). A team with a full D1 season last year (NCAAB_D1_GAMES) is complete; a non-D1 opponent
+    or a newcomer still has to earn it by the pace test; opening night (nothing played yet) still passes everyone."""
+    import sports_breakdown_v24 as v24
+    def g(d, h, a, hhmm="00:00"):
+        return {"start": f"{d}T{hhmm}Z", "home": h, "away": a}
+    fin = []
+    for k in range(28):                                                         # last season: 28 games each for the D1 teams
+        d = f"2025-{11 + k // 10:02d}-{k % 10 + 1:02d}" if k < 20 else f"2026-01-{k % 10 + 1:02d}"
+        fin += [g(d, "DUKE", f"o{k}"), g(d, f"p{k}", "UNC")]
+    fin += [g("2025-12-05", "D2", "DUKE"), g("2025-12-20", "UNC", "D2")]        # the non-D1 opponent: 2 games last year
+    for d in ("2026-11-03", "2026-11-07", "2026-11-14", "2026-11-20", "2026-11-21", "2026-11-22"):
+        for k in range(20):
+            fin.append(g(d, f"busy{k}", f"opp{d[-2:]}_{k}", "01:00"))          # an MTE week: 6 games each -> ref 6, need 4.8
+    fin += [g("2026-11-04", "DUKE", "x1"), g("2026-11-10", "x2", "DUKE"), g("2026-11-15", "DUKE", "x3"), g("2026-11-20", "DUKE", "x4")]
+    fin += [g("2026-11-04", "UNC", "D2"), g("2026-11-10", "y2", "UNC"), g("2026-11-15", "UNC", "y3")]
+    fin += [g("2026-11-05", "NEW", "z1"), g("2026-11-12", "NEW", "z2"), g("2026-11-18", "z3", "NEW")]   # a first-year D1 team
+    before = v24._t("2026-11-26T00:00Z")
+    upto = lambda t: [x for x in fin if v24._t(x["start"]) < t]                 # (the callers pass the finals before now)
+    assert v24.seen_all(upto(before), "busy0", before, "ncaab")
+    assert v24.seen_all(upto(before), "DUKE", before, "ncaab") and v24.seen_all(upto(before), "UNC", before, "ncaab")   # 4 / 3 games, a full D1 year
+    assert not v24.seen_all(upto(before), "D2", before, "ncaab")                # 1 game, 2 last year: not a D1 schedule
+    assert not v24.seen_all(upto(before), "NEW", before, "ncaab")               # no last season: the pace test decides
+    open_ = v24._t("2026-11-02T23:00Z")
+    assert v24.seen_all(upto(open_), "DUKE", open_, "ncaab")                    # opening night: nothing played, nobody flagged
+    assert v24.seen_all(upto(open_), "NEW", open_, "ncaab")
+    day2 = v24._t("2026-11-04T23:00Z")
+    assert v24.seen_all(upto(day2), "DUKE", day2, "ncaab")                      # day 2 (the MTE teams played once): a D1
+    assert not v24.seen_all(upto(day2), "NEW", day2, "ncaab")                   # team passes, the newcomer waits for a game
+    assert v24.seen_all(upto(before), "D2", before, "nba") and v24.NCAAB_D1_GAMES == 20
+    assert not v24.seen_all(upto(before), "D2", before, "ncaaf")                # football keeps its own-calendar test
+
+
+def test_college_hoops_injury_feed_never_blind():
+    """10/10 college hoops readiness check: ncaab was missing from INJ_LEAGUES, so a run where every hoops injury read
+    failed (None) posted a college hoops Lock WITH UNITS and two leans blind on 2026-01-15 while the NBA / NHL games
+    waited on their reports. Now a dead report holds hoops like every other sport - and ESPN's college feed failing
+    (it lists ~3 teams on a good day) no longer throws away Rotowire's report: None only when NO read came back. An
+    exhibition (ESPN season type 1) is never a candidate, as in the NBA."""
+    import json as _j, tempfile as _t
+    assert "ncaab" in sd.INJ_LEAGUES and "ncaab" not in sd.PRO
+    g = {"id": "ncaab:1", "league": "ncaab", "home": "150", "away": "153", "home_name": "Duke", "away_name": "UNC",
+         "status": "pre", "start": "2026-11-11T00:00Z"}
+    assert "the injury report" in sports.waiting_on(g, {"ncaab": None})
+    assert any("UNC injury report (not in our data)" in w for w in sports.waiting_on(g, {"ncaab": {"150": []}}))
+    keep, keep_p = sd._fetch_espn_injuries, sd.OFFICIAL_PATH
+    keep_w, keep_pg = sd.web_injuries, sd.page_injuries
+    fetch = _REAL_FETCH_INJURIES
+    try:
+        sd.OFFICIAL_PATH = os.path.join(_t.mkdtemp(), "o.json")
+        _j.dump({}, open(sd.OFFICIAL_PATH, "w"))
+        sd._fetch_espn_injuries = lambda lg: None                              # ESPN down
+        sd.web_injuries = sd.page_injuries = lambda *a, **k: {}                # ...and Rotowire too
+        assert fetch("ncaab") is None and fetch("ncaaf") is None and fetch("nba") is None
+        roto = {"150": [("Cooper Flagg", "F", "Out")]}
+        sd.web_injuries = lambda lg, names, get=None: dict(roto) if lg == "ncaab" else {}
+        assert fetch("ncaab") == roto, "ESPN failing never loses Rotowire's report"
+        assert fetch("nba") is None                                            # a pro feed: ESPN down = we don't know
+        assert sports.waiting_on(g, {"ncaab": fetch("ncaab")}) == ["UNC injury report (not in our data)"]
+    finally:
+        sd._fetch_espn_injuries, sd.OFFICIAL_PATH = keep, keep_p
+        sd.web_injuries, sd.page_injuries = keep_w, keep_pg
+    games, _ = fake_league("ncaab", days=120)
+    for x in games.values():
+        x["stype"] = "2"
+    model = {"params": {}, "log": []}
+    sm.tune_all(games, model)
+    now = datetime(2026, 10, 28, 12, 0, tzinfo=timezone.utc)
+    exh = {**games["ncaab:1"], "id": "ncaab:exh", "status": "pre", "home": "3", "away": "4", "home_name": "Kansas",
+           "away_name": "Fort Hays St", "home_score": "", "away_score": "", "start": "2026-10-29T00:00Z", "ml_home": "-900",
+           "ml_away": "600", "ml_home_open": "-900", "ml_away_open": "600", "stype": "1"}
+    games["ncaab:exh"] = exh
+    assert sports.candidates(games, model, now, now.astimezone(sports.PT).date(), None) == []
+    exh["stype"] = "2"
+    assert sports.candidates(games, model, now, now.astimezone(sports.PT).date(), None)
+
+
+def test_college_hoops_dog_rule_constant():
+    """10/10 blind replay of every college hoops dog 2022-26 (SPORTS_FINDINGS.md): today's own-read gate (NCAAB_DOG_EDGE)
+    lost blind, a dog-score gate like the NBA's ran flat, and nothing cleared the five checks - so the rule is the OWNER'S
+    call. NCAAB_DOG_RULE holds it: "own" (today, the default), "score" (dog score NCAAB_DOG_GATE+, units by the weighed
+    read) or "off" (college hoops dogs carry no units). Only the constant changes the gate - never the dog's facts."""
+    assert sports.NCAAB_DOG_RULE == "own" and sports.NCAAB_DOG_GATE == 4.0 and sports.NCAAB_DOG_EDGE == 0.04
+    c = lambda: {"market": "ml", "league": "ncaab", "odds": 150, "dec": 2.5, "p": 0.42, "p_market": 0.40, "edge": 0.05,
+                 "edge_own": 0.45 * 2.5 - 1, "reasons": ["the stronger team"], "dog_ctx": {}, "drift": 0.0}   # own 45% vs 40%
+    keep, keep_sc = sports.NCAAB_DOG_RULE, sports.dog_score
+    try:
+        sports.dog_score = lambda c_: 3.0                                      # the weighed score: 3 (under the NBA gate)
+        x = c()
+        assert sports.dog_gate(x) and x["dog_p"] == 0.45                       # own: 5 pts over the price clears 4
+        assert not sports.dog_gate({**c(), "edge_own": 0.43 * 2.5 - 1})       # 3 pts: not under "own"
+        sports.NCAAB_DOG_RULE = "score"
+        assert not sports.dog_gate(c())                                        # score 3 < 4
+        sports.dog_score = lambda c_: 4.5
+        x = c()
+        assert sports.dog_gate(x) and x["dog_p"] == 0.445                      # the NBA-style read: price + score
+        sports.NCAAB_DOG_RULE = "off"
+        assert not sports.dog_gate(c()) and not sports.dog_gate({**c(), "edge_own": 0.60 * 2.5 - 1})
+        nba = {**c(), "league": "nba"}
+        assert sports.dog_gate(nba)                                            # every other sport's gate is untouched
+    finally:
+        sports.NCAAB_DOG_RULE, sports.dog_score = keep, keep_sc
 
 
 if __name__ == "__main__":

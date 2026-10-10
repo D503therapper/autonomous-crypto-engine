@@ -482,7 +482,9 @@ def engine_weights():
                                "price (units sized by its edge)"},
         "dog gates (the whole dog score)": {"NFL": f"{sports.DOG_GATE:g}+", "NHL": f"{sports.NHL_DOG_GATE:g}+ (or the best "
                                             "hockey dog that beats its price)", "college football": f"{sports.NCAAF_DOG_GATE:g}+",
-                                            "college hoops": f"own read {round(sports.NCAAB_DOG_EDGE * 100)}+ pts over the price"},
+                                            "college hoops": {"own": f"own read {round(sports.NCAAB_DOG_EDGE * 100)}+ pts over the price",
+                                                              "score": f"{sports.NCAAB_DOG_GATE:g}+", "off": "no units on college hoops dogs"
+                                                              }.get(sports.NCAAB_DOG_RULE, "?")},   # (10/10: the owner's call)
         "weights on the read": ["hockey favorite: the line moved by the dog across the ice, the first 2 weeks, a tired "
                                 "opponent (3rd game in 4 nights), the other goalie in a save % slump", "MLB scoring-drought favorite +3",
                                 "NFL West Coast road favorite in the East +2", "hoops favorite that wins inside +1",
