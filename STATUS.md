@@ -7,7 +7,7 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
 - College hoops dogs ON (the owner: "we need college basketball dogs"): the NBA-style dog-score gate (4+, sports.NCAAB_DOG_RULE = "score") at ½u - the best of the three blind options (flat blind; today's own-read rule lost -15.8%). Its own record; judge it live.
 - College hoops injuries: Covers' college basketball page (every D1 school, healthy ones too) read every run (sports_data.WEB_PAGE ncaab) - 364 of 364 schools matched on the 10/10 page, on top of Rotowire + ESPN + the official reports.
 - Fixed: a graded 🎯 early row (Iowa) sat on the page past its 2 hours - now it carries the page's own timer (data-gone), and the box goes when its last row does.
-- OPEN: the owner asked why Locks are ½u (10/10) - see the chat; sizing is his call.
+- Units (the owner 10/10): Locks keep sizing by edge (½u-10u - recent Locks were pricey favorites with thin edges). The Dog of the Day now sizes by edge 1u-2u (sports.dog_units) - except hockey Dogs, flat 1u (live 4-6, closing at worse prices), and NBA / college hoops Dogs ½u.
 
 ## 10/10 - live scores: every game we hold gets one (Wyoming at San José St had none, 10/9 night)
 - Cause: the watcher wrote a live score only for a game it could match BY NAME to Action Network's list (sports_live._keep_score -> _match -> sd._same); ESPN's 'San José St' (accent) never matched 'San Jose State ...' - same for 'Hawai'i' and 'FIU' vs 'Florida International'. Those games also could never take a live bet.

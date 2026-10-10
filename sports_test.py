@@ -4333,6 +4333,22 @@ def test_dog_upgrade_to_best_value():
     assert sports.upgrade_dog(picks, "2026-10-08", now) is None          # past +220: never the Dog
 
 
+def test_dog_of_the_day_sized_by_edge_1_to_2_units():
+    """The owner, 10/10: "if there's major value it should be more units" -> the Dog of the Day sizes by its edge from
+    10/10 (quarter-Kelly on its read), never under 1u, never over 2u. NBA / college hoops Dogs stay ½u; a Dog posted
+    before 10/10 keeps its 1u."""
+    pk = lambda read, odds=150, lg="nfl", date="2026-10-10": {
+        "date": date, "kind": "dog", "lean": False, "status": "open", "dec": 1 + odds / 100,
+        "legs": [{"league": lg, "odds": odds, "dec": 1 + odds / 100, "dog_p": read, "market": "ml"}]}
+    assert sports.units_for(pk(0.42)) == 1.0                  # small edge: the 1u floor
+    assert sports.units_for(pk(0.52)) == 2.0                  # big edge: capped at 2u
+    mid = sports.units_for(pk(0.47))
+    assert 1.0 <= mid <= 2.0
+    assert sports.units_for(pk(0.60, date="2026-10-09")) == 1.0   # posted before: keeps 1u
+    assert sports.units_for(pk(0.60, lg="nba")) == 0.5 and sports.units_for(pk(0.60, lg="ncaab")) == 0.5
+    assert sports.units_for(pk(0.60, lg="nhl")) == 1.0        # hockey Dogs stay flat 1u (the owner: hockey dogs have been ass)
+
+
 def test_nhl_outshot_40_weight():
     """10/8 study: a hockey team that allowed 40+ shots in its last game and plays again within 2 days lost -13.7% on 909
     and -30.2% on 167 blind - a WEIGHT (never a trigger): -2 on its dog score, +1 for the side facing it, -1 on a
@@ -6036,7 +6052,7 @@ def test_nba_dog_of_the_day_half_unit():
         sports.dog_score = saved
     pk = lambda lg: {"date": "2026-10-20", "kind": "dog", "lean": False, "status": "open",
                      "legs": [{"league": lg, "odds": 140, "dec": 2.4, "dog_p": 0.45, "market": "ml"}]}
-    assert sports.units_for(pk("nba")) == 0.5 and sports.units_for(pk("nhl")) == sports.DOG_UNITS == 1.0
+    assert sports.units_for(pk("nba")) == 0.5 and sports.units_for(pk("nhl")) == sports.DOG_UNITS == 1.0   # (hockey Dogs stay flat 1u)
 
 
 def test_pick_logic_bug_check():
