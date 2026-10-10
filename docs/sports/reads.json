@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T00:26Z",
+ "updated": "2026-10-10T00:28Z",
  "games": [
   {
    "id": "nba:401898395",
@@ -356,7 +356,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "ETSU",
-    "p": 0.752,
+    "p": 0.751,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -779,13 +779,44 @@
     "team": "Florida",
     "opp": "South Carolina",
     "market": "spread",
-    "line": -10.5,
-    "odds": -115,
+    "line": -11.5,
+    "odds": -105,
     "p": 0.501,
     "win_p": 0.791,
     "reasons": [
      "the stronger team",
      "hotter recent form",
+     "better QB play lately"
+    ]
+   }
+  },
+  {
+   "id": "ncaaf:401868300",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "h1": {
+    "team": "Alabama A&M",
+    "p": 0.562,
+    "tie": 0.033,
+    "name": "1st half"
+   },
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T17:00Z",
+   "away": "Bethune",
+   "home": "Alabama A&M",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Alabama A&M",
+    "opp": "Bethune",
+    "market": "ml",
+    "line": null,
+    "odds": -168,
+    "p": 0.596,
+    "win_p": 0.596,
+    "reasons": [
+     "the stronger team",
      "better QB play lately"
     ]
    }
@@ -1073,8 +1104,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Miami OH",
-    "p": 0.621,
-    "tie": 0.032,
+    "p": 0.627,
+    "tie": 0.031,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1089,9 +1120,9 @@
     "opp": "UMass",
     "market": "ml",
     "line": null,
-    "odds": -192,
-    "p": 0.631,
-    "win_p": 0.631,
+    "odds": -198,
+    "p": 0.637,
+    "win_p": 0.637,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -2306,37 +2337,6 @@
     "win_p": 0.453,
     "reasons": [
      "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868300",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Alabama A&M",
-    "p": 0.562,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-10T23:00Z",
-   "away": "Bethune",
-   "home": "Alabama A&M",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Alabama A&M",
-    "opp": "Bethune",
-    "market": "ml",
-    "line": null,
-    "odds": -168,
-    "p": 0.596,
-    "win_p": 0.596,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately"
     ]
    }
   },
