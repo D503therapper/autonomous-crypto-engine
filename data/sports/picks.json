@@ -8992,5 +8992,646 @@
   "status": "lost",
   "tier": "lean",
   "units": 0
+ },
+ {
+  "american": -142,
+  "date": "2026-10-10",
+  "dec": 1.7042,
+  "kind": "lock",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 3,
+    "bd_tags": [
+     "hot:5",
+     "better:2",
+     "fade:2",
+     "splits_w:2",
+     "bottom_s:3",
+     "w_better:0"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Minnesota out: QB Michael Merdinger, WR Donielle Hayes, RB Ryan Estrada, OL Jaden Ball +2 more.",
+     "\ud83d\udcb8 Line's moving toward Purdue (+172 \u2192 +120). Let 'em \u2014 we still like Minnesota.",
+     "\ud83d\udd25 Heat check: Minnesota have won 3 in a row (4-1).",
+     "\ud83d\udcca The crowd's on Minnesota too \u2014 91% of the tickets, 92% of the cash. Public's usually wrong \u2014 not this time.",
+     "\u2705 Bottom line: Minnesota (-142). Our read beats the number. Riding Minnesota."
+    ],
+    "bv": 50,
+    "coach": [
+     3,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:conf"
+    ],
+    "dec": 1.704225352112676,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [],
+     "last_margin": 6.0,
+     "last_pts": 20.0,
+     "neutral": false,
+     "win_pct": 0.8,
+     "win_streak": 3
+    },
+    "drift": 0.0847,
+    "edge": -0.039682539682539764,
+    "edge_own": -0.0014231134411220037,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     6.0,
+     3,
+     200,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401858486",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.9192692386201267,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -142,
+    "opp": "Purdue",
+    "opp_dog_pts": -5.0,
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Joey Tanona (OT)",
+     "Mister Clark (DB)",
+     "Kylan Fox (TE)",
+     "Raderrion Daniels (DB)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Michael Merdinger (QB)",
+     "Donielle Hayes (WR)",
+     "Ryan Estrada (RB)",
+     "Jaden Ball (OL)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5634920634920635,
+    "p_market": 0.5634920634920635,
+    "pdo": null,
+    "public": "ride",
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-11T00:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Minnesota",
+    "team_id": "135",
+    "their_drama": [],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.6109,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Minnesota (4-1) vs Purdue (2-3) \u2014 the better team's on our side."
+   }
+  ],
+  "p_hit": 0.5635,
+  "pnl": 0.0,
+  "posted": "2026-10-10T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": 102,
+  "date": "2026-10-10",
+  "dec": 2.02,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:2",
+     "worse:1",
+     "G_cold:1",
+     "home:1",
+     "b2b:3",
+     "healthy:3",
+     "sharp:0",
+     "bottom_s:4",
+     "w_rest:0"
+    ],
+    "breakdown": [
+     "\ud83d\udccb 0-4 so far for Flames \u2014 the record don't cash tickets, the number does.",
+     "\ud83c\udfdf\ufe0f Home game for Flames \u2014 0-2 in their building so far.",
+     "\u2705 Flames are at full strength.",
+     "\ud83d\ude34 Ducks are running on fumes \u2014 played last night.",
+     "\ud83e\udd45 The Ducks' goalie Lukas Dostal can't keep the puck out lately: a 0.875 save % (8 goals on 64 shots) over his last 3 starts.",
+     "\ud83d\udcb0 Flames opened +105, now +102. The market's catching up to what the engine already saw.",
+     "\ud83d\udc3a 3-1 vs 0-4 \u2014 Ducks get the respect, we get the price on Flames.",
+     "\u2705 Bottom line: Flames (+102) \u2014 the price is the value. Get in."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "Canada",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 2.02,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": false
+    },
+    "dog_more": {},
+    "dog_p": 0.5274,
+    "drift": -0.0064,
+    "edge": 0.004849293310489111,
+    "edge_own": 0.004849293310489111,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892480",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.20630671802572276,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 102,
+    "opp": "Ducks",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.49745014520321246,
+    "p_market": 0.47391341473828025,
+    "pdo": null,
+    "public": "fade",
+    "reasons": [
+     "opponent on a back-to-back"
+    ],
+    "rested_vs_b2b": true,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-11T02:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Flames",
+    "team_id": "3",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\ude2e\u200d\ud83d\udca8 Ducks played last night \u2014 tired legs against a fresh Flames team."
+   }
+  ],
+  "p_hit": 0.4975,
+  "pnl": 0.0,
+  "posted": "2026-10-10T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -142,
+  "date": "2026-10-10",
+  "dec": 1.7042,
+  "kind": "play",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": -1,
+    "bd_tags": [
+     "rec:4",
+     "trash:1",
+     "h2h:3",
+     "QB_cold:0",
+     "cx_hotseat:3",
+     "sharp:4",
+     "splits_w:0",
+     "bottom_s:4",
+     "w_sharp:0"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Illinois out: RB Ca'Lil Valentine, WR Alex Perry, LB Jack Paris, DL Carter Smith +5 more \u00b7 questionable: OL Champ Smith.",
+     "\ud83d\uddd1\ufe0f Straight up, Michigan St are trash right now (2-3).",
+     "\ud83d\uddd1\ufe0f Alessio Milivojevic has been complete booty cheeks \u2014 0 TDs, 3 picks and 434 yards in his last 3 games.",
+     "\ud83d\udccb Illinois got a 2-3 record walking in. We gon' see what they do with it.",
+     "\ud83d\udcb0 The price on Illinois keeps shortening (-130 \u2192 -142). Good thing we're already on it.",
+     "\ud83d\udd25 Losing streak at 3 for Michigan St. Jobs on the line over there.",
+     "\u2705 Bottom line: Illinois (-142) \u2014 the price is the value. Get in."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "hotseat",
+      "n": 3,
+      "who": "them"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "them:hotseat"
+    ],
+    "dec": 1.704225352112676,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {
+     "fades": [],
+     "last_margin": -7.0,
+     "last_pts": 17.0,
+     "neutral": false,
+     "win_pct": 0.4,
+     "win_streak": 0
+    },
+    "drift": -0.0231,
+    "edge": -0.039682539682539764,
+    "edge_own": 0.0003428341374160926,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     -7.0,
+     -2,
+     -375,
+     false,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401858480",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.7729095674967237,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -142,
+    "opp": "Michigan St",
+    "opp_dog_pts": -2.0,
+    "opp_lost_last": false,
+    "opp_outs": [
+     "NiJhay Burt (CB)",
+     "Cam Edwards (RB)",
+     "Keshawn Williams (CB)",
+     "Tyran Chappell (CB)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Ca'Lil Valentine (RB)",
+     "Alex Perry (WR)",
+     "Jack Paris (LB)",
+     "Carter Smith (DL)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5634920634920635,
+    "p_market": 0.5634920634920635,
+    "pdo": null,
+    "public": "ride",
+    "reasons": [
+     "better QB play lately",
+     "sharp money moving this way"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-10T19:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Illinois",
+    "team_id": "356",
+    "their_drama": [],
+    "tier": "lock",
+    "tired_vs_rested": false,
+    "trap": false,
+    "w_p": 0.597,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 The money's been coming in on Illinois since the open."
+   }
+  ],
+  "p_hit": 0.5635,
+  "pnl": 0.0,
+  "posted": "2026-10-10T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lock"
+ },
+ {
+  "american": -142,
+  "date": "2026-10-10",
+  "dec": 1.7042,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "hot:3",
+     "cold:0",
+     "better:2",
+     "latest:6",
+     "h2h:0",
+     "talk_q:0",
+     "home:1",
+     "bump:3",
+     "sharp:0",
+     "splits:3",
+     "bottom_n:2",
+     "w_better:0"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Guardians out: RP Colin Holderman, 1B Rhys Hoskins, RP Andrew Walters.",
+     "\u26be Gavin Williams gets the ball for Guardians against Sean Burke.",
+     "\ud83c\udfdf\ufe0f Home game for Guardians \u2014 41-40 in their building so far.",
+     "\ud83d\udce3 Out of the White Sox's camp this week: \"Ramirez does it all as Guardians stay alive in 'do-or-die' Game 3\"",
+     "\ud83d\udcb0 Guardians opened -140, now -142. The market's catching up to what the engine already saw.",
+     "\ud83d\udcca The public's torn on this one (58% / 42%). The engine ain't.",
+     "\ud83d\udcc5 Fresh off: Guardians W 9-5 @ White Sox \u00b7 White Sox L 5-9 vs Guardians.",
+     "\ud83e\uddca White Sox are 84-78 and ice cold \u2014 2 straight L's.",
+     "\ud83d\udfe1 Bottom line: Guardians (-142). Guardians should win more than they lose, but at that price there's no profit in it. Lean only."
+    ],
+    "bv": 50,
+    "coach": [
+     3,
+     false
+    ],
+    "country": "",
+    "ctx": [
+     {
+      "k": "div"
+     }
+    ],
+    "ctx_tags": [
+     "game:div"
+    ],
+    "dec": 1.704225352112676,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "luck_gap": 0.0329,
+     "opp_won": true,
+     "rs_gap": 0.0338,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": -0.0003,
+    "edge": -0.043512945101167766,
+    "edge_own": -0.03357720110988971,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     4.0,
+     2,
+     -117,
+     true,
+     3
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "mlb:401907994",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": 0.39613663399988686,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "mlb",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -142,
+    "opp": "White Sox",
+    "opp_lost_last": true,
+    "opp_outs": [
+     "Luis Castillo (SP)",
+     "Joey Bart (C)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Colin Holderman (RP)",
+     "Rhys Hoskins (1B)",
+     "Andrew Walters (RP)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.5612444702298933,
+    "p_market": 0.5612444702298933,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-11T00:00Z",
+    "stype": "3",
+    "talk_ours": [
+     {
+      "headline": "Ramirez does it all as Guardians stay alive in 'do-or-die' Game 3",
+      "kind": "must-win"
+     }
+    ],
+    "talk_theirs": [
+     {
+      "headline": "Ramirez does it all as Guardians stay alive in 'do-or-die' Game 3",
+      "kind": "must-win"
+     }
+    ],
+    "team": "Guardians",
+    "team_id": "5",
+    "their_drama": [],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcaa Guardians (85-77) vs White Sox (84-78) \u2014 the better team's on our side."
+   }
+  ],
+  "p_hit": 0.5612,
+  "pnl": 0.0,
+  "posted": "2026-10-10T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
+ },
+ {
+  "american": -108,
+  "date": "2026-10-10",
+  "dec": 1.9259,
+  "kind": "lean",
+  "lean": true,
+  "legs": [
+   {
+    "ats_run": 0,
+    "bd_tags": [
+     "rec:0",
+     "h2h:4",
+     "drama_family_personal:0",
+     "road:3",
+     "healthy:2",
+     "sharp:2",
+     "splits:2",
+     "bottom_c:0",
+     "w_sharp:2"
+    ],
+    "breakdown": [
+     "\ud83d\udcb0 The line moved toward Mammoth (+110 \u2192 -108). The engine had this side before the move.",
+     "\u2705 Mammoth have everybody available.",
+     "\ud83e\uddef The Sabres dealing with some personal stuff: \"Blackhawks' Bowen Byram to miss Buffalo return\"",
+     "\ud83d\udccb Mammoth sitting at 3-2 on the year.",
+     "\ud83d\udfe1 Bottom line: Mammoth (-108). This one's near a coin flip to us - Mammoth is the side if you're playing it, no money from us."
+    ],
+    "bv": 50,
+    "coach": [
+     3,
+     false
+    ],
+    "country": "USA",
+    "ctx": [],
+    "ctx_tags": [
+     "game:nonconf",
+     "us:road3in6"
+    ],
+    "dec": 1.925925925925926,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": false,
+     "won": false
+    },
+    "dog_more": {},
+    "drift": -0.0401,
+    "edge": -0.03516112667561522,
+    "edge_own": -0.035264921985761366,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": null,
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "nhl:401892472",
+    "home": false,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.8345198544534083,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "nhl",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": -108,
+    "opp": "Sabres",
+    "opp_lost_last": false,
+    "opp_outs": [],
+    "our_drama": [],
+    "outs": [],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.500974030379969,
+    "p_market": 0.49567024593003106,
+    "pdo": null,
+    "public": null,
+    "reasons": [
+     "sharp money moving this way",
+     "hotter recent form",
+     "opponent drama: family/personal"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "away",
+    "start": "2026-10-10T23:00Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Mammoth",
+    "team_id": "129764",
+    "their_drama": [
+     {
+      "date": "2026-10-03",
+      "headline": "Blackhawks' Bowen Byram to miss Buffalo return",
+      "id": "50091106",
+      "kind": "family/personal"
+     }
+    ],
+    "tier": "lean",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 Smart money's been moving toward Mammoth all day."
+   }
+  ],
+  "p_hit": 0.501,
+  "pnl": 0.0,
+  "posted": "2026-10-10T15:00Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "lean"
  }
 ]
