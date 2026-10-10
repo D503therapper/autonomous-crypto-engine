@@ -1,9 +1,11 @@
 {
- "at": "2026-10-10T19:23Z",
- "fixes": [],
+ "at": "2026-10-10T20:55Z",
+ "fixes": [
+  "live watch 38082916854 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (30s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +13,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "all 4 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 13 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 40 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-10T20:55Z",
+   "fixes": [
+    "live watch 38082916854 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-10T19:23Z",
    "fixes": [],
@@ -512,15 +522,6 @@
    "problems": [
     "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 362s",
     "live tennis scores: tennis Falei vs Oliynykova: no points for 362s"
-   ]
-  },
-  {
-   "at": "2026-10-08T03:48Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Korpatsch vs Kalieva: no points for 349s",
-    "live tennis scores: tennis Jones vs Bai Zhuoxuan: no points for 349s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
  ]
