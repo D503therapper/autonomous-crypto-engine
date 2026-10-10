@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T18:19Z",
+ "updated": "2026-10-10T18:40Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -557,6 +557,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401871473",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T18:00Z",
+   "away": "SE Missouri",
+   "home": "Lindenwood",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401868282",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -600,96 +615,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "ncaaf:401868095",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Idaho",
-    "p": 0.597,
-    "tie": 0.032,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-10T19:00Z",
-   "away": "Idaho",
-   "home": "Weber St",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Idaho",
-    "opp": "Weber St",
-    "market": "ml",
-    "line": null,
-    "odds": -182,
-    "p": 0.613,
-    "win_p": 0.613,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868966",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Texas Southern",
-    "p": 0.759,
-    "tie": 0.025,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-10T19:00Z",
-   "away": "Miss Valley St",
-   "home": "Texas Southern",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Texas Southern",
-    "opp": "Miss Valley St",
-    "market": "spread",
-    "line": -14.0,
-    "odds": -103,
-    "p": 0.502,
-    "win_p": 0.818,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401868382",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Mercer",
-    "p": 0.645,
-    "tie": 0.031,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-10T19:00Z",
-   "away": "W Carolina",
-   "home": "Mercer",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Mercer",
-    "opp": "W Carolina",
-    "market": "ml",
-    "line": null,
-    "odds": -269,
-    "p": 0.693,
-    "win_p": 0.693,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
   },
   {
    "id": "ncaaf:401866437",
@@ -825,7 +750,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Duke",
-    "p": 0.648,
+    "p": 0.635,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -841,9 +766,9 @@
     "opp": "Georgia Tech",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
+    "odds": -205,
+    "p": 0.645,
+    "win_p": 0.645,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1201,7 +1126,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "UT Martin",
-    "p": 0.717,
+    "p": 0.708,
     "tie": 0.028,
     "name": "1st half"
    },
@@ -1219,7 +1144,7 @@
     "line": -8.5,
     "odds": -119,
     "p": 0.5,
-    "win_p": 0.747,
+    "win_p": 0.738,
     "reasons": [
      "better rested"
     ]
@@ -1343,7 +1268,7 @@
     "opp": "Oilers",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
+    "odds": -180,
     "p": 0.632,
     "win_p": 0.41,
     "reasons": [
@@ -1514,8 +1439,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jackson St",
-    "p": 0.717,
-    "tie": 0.028,
+    "p": 0.7,
+    "tie": 0.029,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1532,7 +1457,7 @@
     "line": -8.5,
     "odds": -113,
     "p": 0.5,
-    "win_p": 0.735,
+    "win_p": 0.718,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1640,8 +1565,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon St",
-    "p": 0.788,
-    "tie": 0.024,
+    "p": 0.794,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1658,7 +1583,7 @@
     "line": -16.5,
     "odds": -108,
     "p": 0.502,
-    "win_p": 0.847,
+    "win_p": 0.852,
     "reasons": [
      "the stronger team",
      "opponent missing key players",
@@ -1703,7 +1628,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.378,
+    "p": 0.367,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -1719,11 +1644,12 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -250,
-    "p": 0.663,
-    "win_p": 0.444,
+    "odds": -258,
+    "p": 0.684,
+    "win_p": 0.466,
     "reasons": [
      "hotter recent form",
+     "sharp money moving this way",
      "opponent missing key players"
     ]
    }
@@ -2328,7 +2254,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Penn State",
-    "p": 0.501,
+    "p": 0.492,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -2344,9 +2270,9 @@
     "opp": "USC",
     "market": "ml",
     "line": null,
-    "odds": -120,
-    "p": 0.522,
-    "win_p": 0.522,
+    "odds": -115,
+    "p": 0.511,
+    "win_p": 0.511,
     "reasons": [
      "the stronger team"
     ]
@@ -2496,7 +2422,7 @@
     "opp": "Guardians",
     "market": "spread",
     "line": 1.5,
-    "odds": -192,
+    "odds": -193,
     "p": 0.616,
     "win_p": 0.434,
     "reasons": [
@@ -2541,8 +2467,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.393,
-    "tie": 0.298,
+    "p": 0.398,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2558,8 +2484,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.633,
-    "win_p": 0.412,
+    "p": 0.623,
+    "win_p": 0.403,
     "reasons": [
      "opponent missing key players"
     ]
@@ -2571,7 +2497,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Boise St",
-    "p": 0.689,
+    "p": 0.697,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -2580,16 +2506,16 @@
    "start": "2026-10-11T02:30Z",
    "away": "Boise St",
    "home": "Fresno St",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "Boise St",
     "opp": "Fresno St",
-    "market": "ml",
-    "line": null,
-    "odds": -298,
-    "p": 0.718,
-    "win_p": 0.718,
+    "market": "spread",
+    "line": -8.5,
+    "odds": -110,
+    "p": 0.5,
+    "win_p": 0.726,
     "reasons": [
      "hotter recent form",
      "opponent missing key players"
