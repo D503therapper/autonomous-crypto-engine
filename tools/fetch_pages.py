@@ -16,7 +16,7 @@ KEY = re.compile(r"(availab|injur|questionable|doubtful|\bout\b|probable|game-ti
 PICKS = re.compile(r"(\blean|best bet|strong opinion|\bplay\b|predict|\bover\b|\bunder\b|[+-]\d+(\.5)?\b|\bATS\b)", re.I)
 
 
-WHOLE = ("web.archive.org", "dailyfaceoff.com", "api-web.nhle.com", "site.api.espn.com/apis/site/v2/sports/hockey", "sportsoddshistory.com", "sports.core.api.espn.com", "cbssports.com/college", "rotowire.com/cfootball/injury-report", "rotowire.com/cbasketball/injury-report")   # (10/3: odds tables - a betting
+WHOLE = ("web.archive.org", "dailyfaceoff.com", "api-web.nhle.com", "site.api.espn.com/apis/site/v2/sports/hockey", "sportsoddshistory.com", "sports.core.api.espn.com", "cbssports.com/college", "rotowire.com/cfootball/injury-report", "rotowire.com/cbasketball/injury-report", "covers.com/sport/football/ncaaf/injuries")   # (10/3: odds tables - a betting
 #   ad's "not available in your state" tripped the injury filter and the whole futures table was dropped)
 
 
@@ -48,7 +48,7 @@ def main(urls):
             keep = sorted({j for i in hits for j in range(max(0, i - 3), min(len(lines), i + 4))}) \
                 or range(len(lines))                         # (10/3: no injury / pick words - an odds table, a
             #                                                  futures board: keep the whole page)
-            body = "\n".join(lines[j] for j in keep)[:30000]
+            body = "\n".join(lines[j] for j in keep)[:(300000 if key_for(url) is None else 30000)]   # (10/10: Covers' all-team college injury list is ~100K)
             dates = sorted(set(re.findall(r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2},? 20\d\d", " ".join(lines))))[:6]
             with open(os.path.join(OUT, f"{n:03d}.txt"), "w") as f:
                 f.write(f"URL: {url}\nTITLE: {title}\nDATES SEEN: {dates}\n\n{body}\n")
