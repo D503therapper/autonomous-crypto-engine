@@ -77,7 +77,7 @@ every session:
   value play / Lock / Dog carries ½u at least (only leans carry none); a small edge is a small bet - own read under 3%
   over the price = ½u (sports.THIN_EDGE). Never half units across the whole board (the owner, 10/2). THE UNIT SYSTEM
   (the 10/2 sizing replay, 712 board days - the owner: "wire it in when you figure out the sizing"): the Lock sized by
-  its own read (½u-10u; the backup Lock ½u), the Dog of the Day flat 1u (sports.DOG_UNITS; the NBA Dog ½u - the owner 10/9, a dog score 4+, sports.NBA_DOG_GATE / DOG_UNITS_BY), every value play ½u
+  its own read (½u-10u; the backup Lock ½u), the Dog of the Day flat 1u (sports.DOG_UNITS; the NBA and college hoops Dogs ½u - the owner 10/9 + 10/10, a dog score 4+, sports.NBA_DOG_GATE / NCAAB_DOG_RULE / DOG_UNITS_BY), every value play ½u
   (sports.PLAY_UNITS - they lost at every size; sizing up on edge lost more). Leans keep their
   STRONG / SLIGHT label but carry no units ("NO UNITS — JUST A LEAN"); parlays carry none (each pick in it has its own);
   live plus money says "NO UNITS ON THESE — WE GAMBLIN'"; tennis none. Cards show units only, no $.

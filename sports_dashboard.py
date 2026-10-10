@@ -2405,6 +2405,7 @@ document.addEventListener("click",function(ev){{var c=ev.target.closest&&ev.targ
 function gone(){{var n=Date.now(),b=document.querySelector(".board");if(!b)return;   // a graded card's 3 hours are up:
  b.querySelectorAll(".gn[data-gone]").forEach(function(c){{if(n>=+c.getAttribute("data-gone"))c.remove()}});   // it
  var t=document.getElementById("dropnote");                                          // comes down right then (it's in
+ b.querySelectorAll("section.gdx").forEach(function(s){{if(!s.querySelector(".egr"))s.remove()}});   // 🎯 box, every row gone
  if(t&&!b.querySelector(".gn,.pk"))b.innerHTML=t.innerHTML;}}                        // the results); board empty: 8 AM note
 gone();setInterval(gone,30000);
 window.d503lt=liveTags;liveTags();setInterval(liveTags,15000);fastScores();setInterval(fastScores,3000);

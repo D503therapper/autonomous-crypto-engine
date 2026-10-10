@@ -689,7 +689,7 @@ NHL_DOG_GATE = 6.0             # hockey (10/1 per-sport backtest, every dog +100
 NBA_DOG_GATE = 4.0             # the owner, 10/9 ("nba gets a dog"): the 10/9 NBA replay - no NBA dog could ever be the
 #                                Dog (dog_gate had no NBA branch); a dog score 4+ (chosen on 2023-24) went 15-12, +11.5u
 #                                on 27 blind 2024-26 - a LEAD, so the NBA Dog is ½u (DOG_UNITS_BY) with its own record
-DOG_UNITS_BY = {"nba": 0.5}    # the Dog of the Day's units by sport (everything else DOG_UNITS)
+DOG_UNITS_BY = {"nba": 0.5, "ncaab": 0.5}   # (ncaab: the owner 10/10, the same ½u lead treatment)    # the Dog of the Day's units by sport (everything else DOG_UNITS)
 NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backtest, the live read + every spot and fade):
 #                                4+ won 48.7%, +18.9% on 228 (7 of 8 seasons up, 2023+ +17%) - but this season's first
 #                                9 went -46% and a narrower game-day test was -9.7% since 2023: a LEAD, graded live
@@ -697,7 +697,7 @@ NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backt
 NHL_BEST_DOG_MIN = 0.0         # ...and the best hockey dog of the day (score over 0): 2023+ +11.7%, this season +17%
 NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
-NCAAB_DOG_RULE = "own"         # the owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
+NCAAB_DOG_RULE = "score"       # the owner, 10/10: "we need college basketball dogs" -> the NBA-style gate (the best of the three blind); was "own". The owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
 #                                closing prices, params re-tuned each July): "own" = today's NCAAB_DOG_EDGE gate (2022-24
 #                                -4.7% on 471; blind 2024-26 14-22, -15.8% on 36); "score" = a dog-score gate like the
 #                                NBA's at NCAAB_DOG_GATE (4+: -1.2% on 459; blind 38-44, -0.1% on 82 - flat, 1 of 2

@@ -535,7 +535,21 @@ def covered(inj, league, team_id, team_name=""):
 WEB_INJ = {"ncaaf": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL",
            "ncaab": "https://www.rotowire.com/cbasketball/tables/injury-report.php?team=ALL&pos=ALL"}
 WEB_MIN_ROWS = 20                     # fewer rows than this = a broken read, never 'these teams are healthy'
-WEB_ALIAS = {"unc charlotte": "charlotte", "miami fl": "miami", "miami oh": "miami oh", "southern california": "usc",
+WEB_ALIAS = {  # college hoops names on Covers' page (10/10) -> ours
+             "university at albany": "ualbany", "arkansas pine bluff": "ar pine bluff", "bethune cookman": "bethune",
+             "boston university": "boston u", "california baptist": "ca baptist", "central connecticut st": "c connecticut",
+             "charleston southern": "charleston so", "cal state bakersfield": "bakersfield", "cal state fullerton": "fullerton",
+             "cal state northridge": "csu northridge", "east tennessee st": "etsu", "florida gulf coast": "fgcu",
+             "purdue fort wayne": "purdue fw", "grambling st": "grambling", "george washington": "g washington",
+             "houston christian": "hou christian", "liu": "long island", "loyola maryland": "loyola md",
+             "loyola marymount": "lmu", "maryland eastern shore": "md eastern", "mississippi valley st": "miss valley st",
+             "north carolina aandt": "nc aandt", "north carolina central": "nc central", "new orleans": "lsu n orleans",
+             "nicholls st": "nicholls", "northwestern st": "nwestern st", "prairie view aandm": "prairie view",
+             "queens university": "queens", "southeastern louisiana": "se louisiana", "southeast missouri st": "se missouri",
+             "seattle": "seattle u", "siu edwardsville": "siue", "southern university": "southern",
+             "tennessee martin": "ut martin", "texas aandm corpus christi": "texas aandm cc",
+             "ut rio grande valley": "ut rio grande", "uc santa barbara": "santa barbara",
+             "unc charlotte": "charlotte", "miami fl": "miami", "miami oh": "miami oh", "southern california": "usc",
              "louisiana state": "lsu", "texas christian": "tcu", "brigham young": "byu", "central florida": "ucf",
              "nevada las vegas": "unlv", "southern methodist": "smu", "mississippi": "ole miss",
              "connecticut": "uconn", "massachusetts": "umass", "texas san antonio": "utsa", "texas el paso": "utep",
@@ -613,7 +627,9 @@ def web_injuries(league, names, get=None):
     return out
 
 
-WEB_PAGE = {"ncaaf": "https://www.covers.com/sport/football/ncaaf/injuries"}   # every school on one page, the
+WEB_PAGE = {"ncaaf": "https://www.covers.com/sport/football/ncaaf/injuries",
+            "ncaab": "https://www.covers.com/sport/basketball/ncaab/injuries"}   # (10/10, the owner: "all the injury
+#                                       reports any way possible" - 364 of 365 D1 schools on one page, checked 10/10)   # every school on one page, the
 #                                       ones with nobody hurt included ("No injuries to report.") - Rotowire's college
 #                                       football feed only carries a handful of rows (7 on 10/3), so football reads this
 WEB_MIN_TEAMS = 20                     # fewer schools than this = a broken read, never 'these teams are healthy'

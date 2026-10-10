@@ -3,6 +3,12 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/10 - the owner's calls + fixes
+- College hoops dogs ON (the owner: "we need college basketball dogs"): the NBA-style dog-score gate (4+, sports.NCAAB_DOG_RULE = "score") at ½u - the best of the three blind options (flat blind; today's own-read rule lost -15.8%). Its own record; judge it live.
+- College hoops injuries: Covers' college basketball page (every D1 school, healthy ones too) read every run (sports_data.WEB_PAGE ncaab) - 364 of 364 schools matched on the 10/10 page, on top of Rotowire + ESPN + the official reports.
+- Fixed: a graded 🎯 early row (Iowa) sat on the page past its 2 hours - now it carries the page's own timer (data-gone), and the box goes when its last row does.
+- OPEN: the owner asked why Locks are ½u (10/10) - see the chat; sizing is his call.
+
 ## 10/10 - live scores: every game we hold gets one (Wyoming at San José St had none, 10/9 night)
 - Cause: the watcher wrote a live score only for a game it could match BY NAME to Action Network's list (sports_live._keep_score -> _match -> sd._same); ESPN's 'San José St' (accent) never matched 'San Jose State ...' - same for 'Hawai'i' and 'FIU' vs 'Florida International'. Those games also could never take a live bet.
 - Fixed: sd._same drops accents / apostrophes / periods and tries a book's long name through WEB_ALIAS ('Florida International' = 'FIU'); and ESPN's scoreboard by game id (our ids are ESPN's, no names) now puts a score on every stored regular-season / playoff game that's going or final when Action Network's list missed it (sports_live.espn_backstop, ESPN_LIVE), in every league where our own schedule says a game started in the last 6 hours (sports_live._started_lgs) - not only where Action Network shows one live. live.json carries "espn_only" (how many scores came only from ESPN) and such a score says "src": "espn".
