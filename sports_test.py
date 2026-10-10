@@ -4491,6 +4491,46 @@ def test_by_sport_unit_record_counts_early_plays():
     assert len(rows) == 1 and rows[0][0]["league"] == "nfl" and rows[0][0]["legs"][0]["league"] == "nfl", rows
 
 
+def test_graded_early_row_comes_down_on_the_page():
+    """10/10, the owner: "it still says win for Iowa" - the 🎯 WE GOT IN EARLY row had no data-gone, so the page's own
+    timer never took it down; it waited on the next rebuild. A graded row now carries data-gone (graded + 2 hours) and
+    the gn class the page's gone() removes; the box itself goes when its last row does."""
+    import sports_early as se, sports_dashboard as sdash
+    saved = se.ON
+    se.ON = True
+    try:
+        now = datetime(2026, 10, 10, 5, 30, tzinfo=timezone.utc)
+        p = {"game_id": "i", "league": "ncaaf", "side": "away", "team": "Iowa", "opp": "Washington", "odds": 120,
+             "start": "2026-10-10T01:00Z", "result": "won", "graded_at": "2026-10-10T04:59Z"}
+        row = se.gameday_html({"picks": [p]}, {}, lambda x: x, now)
+        want = int((datetime(2026, 10, 10, 4, 59, tzinfo=timezone.utc).timestamp() + 2 * 3600) * 1000)
+        assert f'class="egr gn" data-gone="{want}"' in row, row
+        p.update(result=None, graded_at=None)
+        assert 'data-gone' not in se.gameday_html({"picks": [p]}, {}, lambda x: x, now)
+    finally:
+        se.ON = saved
+    src = inspect.getsource(sdash) if False else open(sdash.__file__).read()
+    assert 'section.gdx' in src and '.gn[data-gone]' in src
+
+
+def test_college_hoops_covers_injury_page_every_school():
+    """10/10, the owner: "we need all the injury reports any way possible". ESPN covers almost no college hoops teams;
+    Covers' college basketball page lists every D1 school (healthy ones too - 364 of 365 on 10/10), the same layout as
+    the football page, so ncaab reads it (WEB_PAGE) and Covers' long names map to ours (WEB_ALIAS)."""
+    assert "ncaab" in sd.WEB_PAGE and "ncaaf" in sd.WEB_PAGE
+    block = lambda school, rows: (['`">', school, "Player", "POS", "Status"] +
+                                  (rows or ["No injuries to report."]))
+    schools = ["Siu Edwardsville", "Tennessee Martin", "Florida Gulf Coast", "Liu", "Southern University",
+               "North Carolina A&T", "Duke"] + [f"Team {i}" for i in range(20)]
+    lines = ["College Basketball Injuries"] + sum((block(sc, ["J. Smith", "G", "Out - Knee"] if sc == "Duke" else [])
+                                                   for sc in schools), [])
+    names = {"1": "SIUE", "2": "UT Martin", "3": "FGCU", "4": "Long Island", "5": "Southern", "6": "NC A&T", "7": "Duke"}
+    names.update({str(100 + i): f"Team {i}" for i in range(20)})
+    out = sd.page_injuries("ncaab", names, get=lambda u: lines)
+    assert all(str(t) in out for t in range(1, 8)), sorted(out)
+    assert out["7"] and out["7"][0][0] == "J. Smith" and out["1"] == []      # listed with nobody hurt = covered
+
+
 def test_early_play_live_score_and_quick_grade():
     """10/7, the owner: "New Mexico State got their cheeks clapped ... that shit needs to be graded" and "I never saw any
     live score that whole game". The 🎯 row's time is the board's live tag (data-gid / side / the game's real start, so
@@ -10294,13 +10334,14 @@ def test_college_hoops_injury_feed_never_blind():
 def test_college_hoops_dog_rule_constant():
     """10/10 blind replay of every college hoops dog 2022-26 (SPORTS_FINDINGS.md): today's own-read gate (NCAAB_DOG_EDGE)
     lost blind, a dog-score gate like the NBA's ran flat, and nothing cleared the five checks - so the rule is the OWNER'S
-    call. NCAAB_DOG_RULE holds it: "own" (today, the default), "score" (dog score NCAAB_DOG_GATE+, units by the weighed
+    call. NCAAB_DOG_RULE holds it: "own" (the old rule), "score" (the default from 10/10, the owner) (dog score NCAAB_DOG_GATE+, units by the weighed
     read) or "off" (college hoops dogs carry no units). Only the constant changes the gate - never the dog's facts."""
-    assert sports.NCAAB_DOG_RULE == "own" and sports.NCAAB_DOG_GATE == 4.0 and sports.NCAAB_DOG_EDGE == 0.04
+    assert sports.NCAAB_DOG_RULE == "score" and sports.NCAAB_DOG_GATE == 4.0 and sports.NCAAB_DOG_EDGE == 0.04
     c = lambda: {"market": "ml", "league": "ncaab", "odds": 150, "dec": 2.5, "p": 0.42, "p_market": 0.40, "edge": 0.05,
                  "edge_own": 0.45 * 2.5 - 1, "reasons": ["the stronger team"], "dog_ctx": {}, "drift": 0.0}   # own 45% vs 40%
     keep, keep_sc = sports.NCAAB_DOG_RULE, sports.dog_score
     try:
+        sports.NCAAB_DOG_RULE = "own"                                          # (the old rule, before 10/10)
         sports.dog_score = lambda c_: 3.0                                      # the weighed score: 3 (under the NBA gate)
         x = c()
         assert sports.dog_gate(x) and x["dog_p"] == 0.45                       # own: 5 pts over the price clears 4

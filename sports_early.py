@@ -1159,7 +1159,9 @@ def gameday_html(st, games, E, now=None, show_units=None):
             price = f'<s>{p["line"]:g} ({am(p["odds"])})</s>' + (f'<em>➜</em><b>{tn:g}</b>' if tn is not None else "")
             if not mark and tn is not None and tn != p["line"]:   # showed a struck-out price and nothing after the arrow)
                 call = "🔥 we beat the number" if tn < p["line"] else "👀 the number went up"
-        rows.append(f'<div class="egr"><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
+        gone = (f' data-gone="{int((_t(p["graded_at"]).timestamp() + GRADED_STAYS_H * 3600) * 1000)}"'
+                if p.get("result") and p.get("graded_at") else "")   # (10/10, the owner: Iowa's ✅ row sat on the page
+        rows.append(f'<div class="egr{" gn" if gone else ""}"{gone}><div class="egl"><b>{E(p["team"])}</b> <small>{"" if tot else "ML"}</small>'
                     f'<span>{"" if tot else "vs "}{E(p["opp"])} · {E(p["league"].upper())}</span>'
                     # (10/7, the owner: "I never saw any live score that whole game" - the row's time is the board's
                     #  live tag now: 🔴 LIVE + the score under it, FINAL / ✅ HIT the second it ends)
