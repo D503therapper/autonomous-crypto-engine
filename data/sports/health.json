@@ -1,11 +1,9 @@
 {
- "at": "2026-10-10T20:55Z",
- "fixes": [
-  "live watch 38082916854 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-10-10T22:27Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -13,18 +11,23 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 4 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 3h ago",
-  "engine ran 40 min ago",
+  "studies ran 1h ago",
+  "simulator ran 1h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-10T22:27Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-10T20:55Z",
    "fixes": [
@@ -514,14 +517,6 @@
    "fixes": [],
    "problems": [
     "live tennis scores: tennis Falei vs Oliynykova: no points for 2638s"
-   ]
-  },
-  {
-   "at": "2026-10-08T05:19Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Khamutsianskaya vs Zavatska: no points for 362s",
-    "live tennis scores: tennis Falei vs Oliynykova: no points for 362s"
    ]
   }
  ]
