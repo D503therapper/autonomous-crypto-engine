@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T13:58Z",
+ "updated": "2026-10-10T14:05Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1442,7 +1442,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Richmond",
-    "p": 0.757,
+    "p": 0.751,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -1458,13 +1458,12 @@
     "opp": "Fordham",
     "market": "spread",
     "line": -8.5,
-    "odds": -123,
+    "odds": -118,
     "p": 0.5,
-    "win_p": 0.777,
+    "win_p": 0.772,
     "reasons": [
      "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
+     "hotter recent form"
     ]
    }
   },
@@ -1660,7 +1659,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Lamar",
-    "p": 0.669,
+    "p": 0.658,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1669,17 +1668,21 @@
    "start": "2026-10-10T20:00Z",
    "away": "Incarnate Word",
    "home": "Lamar",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Incarnate Word",
-    "opp": "Lamar",
-    "market": "spread",
-    "line": 6.5,
-    "odds": 116,
-    "p": 0.5,
-    "win_p": 0.24,
-    "reasons": []
+    "team": "Lamar",
+    "opp": "Incarnate Word",
+    "market": "ml",
+    "line": null,
+    "odds": -293,
+    "p": 0.708,
+    "win_p": 0.708,
+    "reasons": [
+     "the stronger team",
+     "sharp money moving this way",
+     "hotter recent form"
+    ]
    }
   },
   {
@@ -1749,8 +1752,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Stony Brook",
-    "p": 0.626,
-    "tie": 0.031,
+    "p": 0.591,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1765,9 +1768,9 @@
     "opp": "Towson",
     "market": "ml",
     "line": null,
-    "odds": -211,
-    "p": 0.644,
-    "win_p": 0.644,
+    "odds": -180,
+    "p": 0.611,
+    "win_p": 0.611,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -1845,7 +1848,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Tennessee",
-    "p": 0.8,
+    "p": 0.795,
     "tie": 0.023,
     "name": "1st half"
    },
@@ -1863,7 +1866,7 @@
     "line": -13.5,
     "odds": -115,
     "p": 0.502,
-    "win_p": 0.822,
+    "win_p": 0.817,
     "reasons": [
      "the stronger team"
     ]
@@ -2403,8 +2406,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Stars",
-    "p": 0.408,
-    "tie": 0.296,
+    "p": 0.424,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2419,9 +2422,9 @@
     "opp": "Penguins",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.625,
-    "win_p": 0.625,
+    "odds": -180,
+    "p": 0.658,
+    "win_p": 0.658,
     "reasons": [
      "sharp money moving this way",
      "opponent on a back-to-back"
