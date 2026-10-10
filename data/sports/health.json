@@ -1,28 +1,91 @@
 {
- "at": "2026-10-09T20:38Z",
+ "at": "2026-10-10T04:59Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (294s)",
+  "live watcher fresh (93s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 7 of 8 live matches",
   "slate check: all 13 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 36 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 44 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-10T04:59Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-10T04:58Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kalieva vs Okamura: no points for 2387s",
+    "live tennis scores: tennis Golubic vs Kasatkina: no points for 2622s",
+    "live tennis scores: tennis Krueger vs Preston: no points for 1041s"
+   ]
+  },
+  {
+   "at": "2026-10-10T03:27Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Uchijima vs Frech: no points for 1040s",
+    "live tennis scores: tennis Golubic vs Kasatkina: no points for 1015s",
+    "live tennis scores: tennis Tormo vs Gibson: no points for 1015s",
+    "live tennis scores: tennis Parks vs Ito: no points for 996s"
+   ]
+  },
+  {
+   "at": "2026-10-10T02:52Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "sources down (the backups took over): betrivers:ncaaf:1027508029 HTTP 404"
+   ]
+  },
+  {
+   "at": "2026-10-10T01:19Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-10T01:10Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-10T00:26Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-09T22:55Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-09T22:54Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-09T21:20Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-09T20:38Z",
    "fixes": [],
@@ -430,73 +493,6 @@
   },
   {
    "at": "2026-10-07T14:34Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T13:02Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T13:01Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Galfi vs Iatcenko: no points for 2636s"
-   ]
-  },
-  {
-   "at": "2026-10-07T11:30Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Selekhmeteva vs Crawley: no points for 2650s",
-    "live tennis scores: tennis Klimovicova vs Buyukakcay: no points for 175s"
-   ]
-  },
-  {
-   "at": "2026-10-07T10:54Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Selekhmeteva vs Crawley: no points for 502s",
-    "live tennis scores: tennis Akugue vs Stefanini: no points for 502s",
-    "live tennis scores: tennis Werner vs Egribel: no points for 502s"
-   ]
-  },
-  {
-   "at": "2026-10-07T09:22Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Blinkova vs Pridankina: no points for 450s",
-    "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 450s"
-   ]
-  },
-  {
-   "at": "2026-10-07T09:15Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T09:14Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Blinkova vs Pridankina: no points for 2656s",
-    "live tennis scores: tennis Bolkvadze vs Jeanjean: no points for 2656s"
-   ]
-  },
-  {
-   "at": "2026-10-07T07:43Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T06:59Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-06 Iga Swiatek) - started sports.yml"
-   ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T05:28Z",
    "fixes": [],
    "problems": []
   }

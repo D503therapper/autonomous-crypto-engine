@@ -535,3 +535,9 @@ Question: after a coin is 3x / 5x up, does selling on a 50-70% drop from its hig
 replayed on data/dex/scan (321 trades, ~10 days, 32 reached 3x), 1.3% cost per side. Result: arm 3x / trail 50% sum
 +7.06 vs hold -5.53 per $1 bet, but older half -29.7 vs -26.2 (loses), newer +36.8 vs +20.7 (wins); 2x/5x arms and
 60-70% trails split the same way. Decision: not adopted (fails both halves); re-run when the scanner log is ~4 weeks.
+
+### 2026-10-09 wait for a dip after the signal (owner: "we keep buying the top")
+Method: scanner-log replay, 355 live-entry signals, hold up to 7 days with the live rug rule. Buy at the signal: +12.38
+per $1 bet (+16.48 / -4.09 by half). Buy only after a 15% / 25% / 35% / 50% dip from the signal price within 6-24h:
+-33.1 / -26.7 / -28.4 / -32.8, worse in BOTH halves (medians -44% to -54%). Dead end: a dip after the jump is mostly
+the start of the dump. Not adopted.

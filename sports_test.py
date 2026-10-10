@@ -10144,6 +10144,73 @@ def test_cover_streak_dies_over_the_summer():
     assert sports.cover_run_w(c) == 0 and sf.ATS_FRESH_D == 30
 
 
+def test_every_game_we_hold_gets_its_live_score_even_when_action_network_misses_it():
+    """10/9 night: Wyoming at San José St (a priced FBS game, 01:00Z) was live for an hour with no score in live.json -
+    the watcher only wrote a score for a game it could match by NAME to Action Network's list, and 'San José St' (ESPN,
+    with the accent) never matched 'San Jose State Spartans'; 'Hawai'i' / 'FIU' the same way. Two fixes: names match
+    without accents, apostrophes or the long form of a school we call by its letters - and ESPN's own scoreboard, by
+    game id (no names at all), puts a score on every stored game that's going, in every league where OUR schedule says
+    a game started, not just where Action Network says so."""
+    import sports_live as slv
+    # 1. the name check: accents, apostrophes, the long form of a short school name
+    assert sd._same("San José St", "San Jose State Spartans") and sd._same("Hawai'i", "Hawaii Rainbow Warriors")
+    assert sd._same("FIU", "Florida International Panthers") and sd._same("New Mexico St", "New Mexico State Aggies")
+    assert sd._same("Miami OH", "Miami (OH) RedHawks") and sd._same("Ole Miss", "Mississippi Rebels")
+    assert not sd._same("UC Davis", "UC Santa Barbara Gauchos") and not sd._same("Texas St", "Texas Longhorns")
+    assert not sd._same("Mississippi St", "Mississippi Rebels") and not sd._same("Jax State", "Jacksonville Dolphins")
+    games = {"ncaaf:401864519": {"id": "ncaaf:401864519", "league": "ncaaf", "home_name": "San José St", "away_name": "Wyoming",
+                                 "start": "2026-10-10T01:00Z", "home": "23", "away": "2751", "stype": "2"},
+             "ncaaf:401864599": {"id": "ncaaf:401864599", "league": "ncaaf", "home_name": "Hawai'i", "away_name": "Nevada",
+                                 "start": "2026-10-10T03:59Z", "home": "62", "away": "2440", "stype": "2"},
+             "nba:401877777": {"id": "nba:401877777", "league": "nba", "home_name": "Celtics", "away_name": "Hawks",
+                               "start": "2026-10-09T23:00Z", "home": "2", "away": "1", "stype": "1"}}
+    ang = {"start_time": "2026-10-10T01:00:00.000Z", "home_team_id": 7, "away_team_id": 8,
+           "teams": [{"id": 7, "full_name": "San Jose State Spartans"}, {"id": 8, "full_name": "Wyoming Cowboys"}]}
+    assert slv._match(games, "ncaaf", ang) is games["ncaaf:401864519"], "the accent never decides a match again"
+    # 2. our own schedule says where a game's on (not only Action Network's list)
+    now = datetime(2026, 10, 10, 1, 58, tzinfo=timezone.utc)
+    assert slv._started_lgs(games, now) == {"ncaaf"}, "SJSU started 58 minutes ago; Hawai'i hasn't; the NBA game is preseason"
+    assert slv._started_lgs(games, datetime(2026, 10, 10, 11, 0, tzinfo=timezone.utc)) == set(), "7 hours after the last kickoff: over"
+    # 3. ESPN's board, by game id: a score for the game Action Network's list missed, nothing for the one that hasn't started
+    def ev(eid, home, away, hs, as_, state, period, clock, name=None):
+        return {"id": eid, "date": "2026-10-10T01:00Z", "competitions": [{
+            "status": {"period": period, "displayClock": clock, "type": {"state": state, "completed": state == "post",
+                                                                          "name": name or ("STATUS_FINAL" if state == "post" else "STATUS_IN_PROGRESS")}},
+            "competitors": [{"homeAway": "home", "score": str(hs), "team": {"id": home, "displayName": "x", "abbreviation": "H"}},
+                            {"homeAway": "away", "score": str(as_), "team": {"id": away, "displayName": "y", "abbreviation": "A"}}]}]}
+    keep = dict(slv.SCORES); keep_live = dict(slv.ESPN_LIVE)
+    try:
+        slv.SCORES.clear()
+        slv.ESPN_LIVE["ncaaf"] = {eid: slv.espn_as_an("ncaaf", e) for eid, e in {
+            "401864519": ev("401864519", "23", "2751", 17, 14, "in", 2, "6:12"),
+            "401864599": ev("401864599", "62", "2440", 0, 0, "pre", 0, "0:00"),
+            "401864600": ev("401864600", "99", "98", 21, 20, "post", 4, "0:00")}.items()}       # (a game we don't hold)
+        assert slv.espn_backstop(games, ["ncaaf"]) == 1
+        sc = slv.SCORES["ncaaf:401864519"]
+        assert sc["live"] and sc["h"] == 17 and sc["a"] == 14 and sc["clock"] == "6:12 - 2nd" and sc["src"] == "espn"
+        assert sc["home"] == "San José St" and sc["away"] == "Wyoming"
+        assert "ncaaf:401864599" not in slv.SCORES and "ncaaf:401864600" not in slv.SCORES
+        # Action Network's own score (matched by name) wins; ESPN only fills what's missing
+        slv.SCORES["ncaaf:401864519"] = {"h": 20, "a": 14, "live": True}
+        assert slv.espn_backstop(games, ["ncaaf"]) == 0 and slv.SCORES["ncaaf:401864519"]["h"] == 20
+        # final and postponed read right off ESPN's status
+        slv.SCORES.clear()
+        slv.ESPN_LIVE["ncaaf"] = {"401864519": slv.espn_as_an("ncaaf", ev("401864519", "23", "2751", 27, 24, "post", 4, "0:00")),
+                                  "401864599": slv.espn_as_an("ncaaf", ev("401864599", "62", "2440", 0, 0, "post", 1, "0:00", "STATUS_POSTPONED"))}
+        assert slv.espn_backstop(games, ["ncaaf"]) == 2
+        assert slv.SCORES["ncaaf:401864519"]["clock"] == "Final" and not slv.SCORES["ncaaf:401864519"]["live"]
+        assert slv.SCORES["ncaaf:401864599"]["delayed"] and slv.SCORES["ncaaf:401864599"]["clock"] == "Postponed"
+        games["ncaaf:401864519"]["stype"] = "1"              # a preseason / exhibition game never gets a card
+        slv.SCORES.clear()
+        assert slv.espn_backstop(games, ["ncaaf"]) == 1 and "ncaaf:401864519" not in slv.SCORES
+    finally:
+        slv.SCORES.clear(); slv.SCORES.update(keep); slv.ESPN_LIVE.clear(); slv.ESPN_LIVE.update(keep_live)
+    src = open(slv.__file__).read()
+    assert "score_lgs = live_lgs + sorted(_started_lgs(games, now) - set(live_lgs))" in src, "the ESPN board is read where our schedule says"
+    assert "scores_f = {lg: ex.submit(espn_scores, lg) for lg in score_lgs}" in src
+    assert "ESPN_ONLY[0] = espn_backstop(games, list(scores_f))" in src and '"espn_only": ESPN_ONLY[0]' in src
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

@@ -1005,17 +1005,31 @@ def fetch_an_day(league, day):
             time.sleep(2)
 
 
+def _plain(x):
+    """A team name with the accents, apostrophes and periods gone, lower case (10/10: ESPN says 'San José St' and
+    'Hawai'i', the books say 'San Jose State' and 'Hawaii' - Wyoming at San José St was live with no score card)."""
+    import unicodedata
+    x = unicodedata.normalize("NFKD", str(x or "")).encode("ascii", "ignore").decode()
+    return " ".join(x.lower().replace("'", "").replace("’", "").replace(".", "").split())
+
+
 def _same(short, full):
     """ESPN's short name vs a book's full name. The first-word fallback ('Miami OH' ~ 'Miami (OH) RedHawks') also needs
-    the rest of the short name in there - 10/1 audit: 'UC Davis' matched any 'UC ...' school, 'Texas St' the Longhorns."""
-    short, full = short.lower().strip(), full.lower()
+    the rest of the short name in there - 10/1 audit: 'UC Davis' matched any 'UC ...' school, 'Texas St' the Longhorns.
+    Accents and apostrophes never decide it ('San José St' = 'San Jose State Spartans'), and a book's long name for a
+    school we call by its letters counts too ('Florida International Panthers' = 'FIU', WEB_ALIAS)."""
+    short, full = _plain(short), _plain(full)
     if not short:
         return False
-    if short in full:
-        return True
-    words = short.split(" ")
-    rest = [w.strip(".()") for w in words[1:] if w.strip(".()")]
-    return full.startswith(words[0] + " ") and all(w in full for w in rest)
+    fulls = [full] + [_plain(v) + full[len(_plain(k)):] for k, v in WEB_ALIAS.items() if full.startswith(_plain(k) + " ")]
+    for f in fulls:
+        if short in f:
+            return True
+        words = short.split(" ")
+        rest = [w.strip("()") for w in words[1:] if w.strip("()")]
+        if f.startswith(words[0] + " ") and all(w in f for w in rest):
+            return True
+    return False
 
 
 H1 = ("h1_ml_home", "h1_ml_away", "h1_spread_home", "h1_spread_home_odds", "h1_spread_away_odds")

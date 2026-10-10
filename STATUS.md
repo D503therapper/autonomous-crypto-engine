@@ -3,6 +3,11 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/10 - live scores: every game we hold gets one (Wyoming at San José St had none, 10/9 night)
+- Cause: the watcher wrote a live score only for a game it could match BY NAME to Action Network's list (sports_live._keep_score -> _match -> sd._same); ESPN's 'San José St' (accent) never matched 'San Jose State ...' - same for 'Hawai'i' and 'FIU' vs 'Florida International'. Those games also could never take a live bet.
+- Fixed: sd._same drops accents / apostrophes / periods and tries a book's long name through WEB_ALIAS ('Florida International' = 'FIU'); and ESPN's scoreboard by game id (our ids are ESPN's, no names) now puts a score on every stored regular-season / playoff game that's going or final when Action Network's list missed it (sports_live.espn_backstop, ESPN_LIVE), in every league where our own schedule says a game started in the last 6 hours (sports_live._started_lgs) - not only where Action Network shows one live. live.json carries "espn_only" (how many scores came only from ESPN) and such a score says "src": "espn".
+- LIVE CHECK ON THE RUNNER: watch live.json "espn_only" on a college night - a steady count means Action Network's FBS week list drops Mountain West / C-USA games (then its list is the gap, not just the names). Cycle time: one ESPN scoreboard read per league already running, in the same thread pool - took_s should stay ~8s.
+
 ## 10/9 - the owner's calls
 - Value plays are MONEYLINE ONLY (sports.PLAY_MARKETS = ("ml",)) - spread value plays become leans (they lost every season, no own read).
 - NBA: Locks carry units from day one; an NBA Dog of the Day at ½u when a dog's score is 4+ (sports.NBA_DOG_GATE, DOG_UNITS_BY) - its own record, judge it live.
