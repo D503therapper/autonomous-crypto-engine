@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T17:54Z",
+ "updated": "2026-10-10T18:19Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -505,6 +505,96 @@
    "start": "2026-10-10T17:00Z",
    "away": "Youngstown St",
    "home": "Indiana St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868256",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T18:00Z",
+   "away": "Drake",
+   "home": "Valparaiso",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401866440",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T18:00Z",
+   "away": "Miami OH",
+   "home": "UMass",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401867886",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T18:00Z",
+   "away": "S Illinois",
+   "home": "South Dakota",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868282",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T18:00Z",
+   "away": "Stetson",
+   "home": "St Thomas",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401867974",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T18:00Z",
+   "away": "VA Lynchburg",
+   "home": "Norfolk St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401866661",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T18:00Z",
+   "away": "Wofford",
+   "home": "Elon",
    "h1": null,
    "why": "started",
    "done": false,
@@ -1081,8 +1171,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Oregon",
-    "p": 0.716,
-    "tie": 0.028,
+    "p": 0.725,
+    "tie": 0.027,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1099,7 +1189,7 @@
     "line": -10.5,
     "odds": -110,
     "p": 0.501,
-    "win_p": 0.772,
+    "win_p": 0.782,
     "reasons": [
      "the stronger team"
     ]
@@ -1257,7 +1347,6 @@
     "p": 0.632,
     "win_p": 0.41,
     "reasons": [
-     "hotter goalie",
      "hotter recent form",
      "opponent missing key players"
     ]
@@ -2223,8 +2312,8 @@
     "team": "Virginia",
     "opp": "Syracuse",
     "market": "spread",
-    "line": -13.5,
-    "odds": -118,
+    "line": -14.0,
+    "odds": -108,
     "p": 0.502,
     "win_p": 0.804,
     "reasons": [
@@ -2409,7 +2498,7 @@
     "line": 1.5,
     "odds": -192,
     "p": 0.616,
-    "win_p": 0.432,
+    "win_p": 0.434,
     "reasons": [
      "opponent missing key players"
     ]
@@ -2461,7 +2550,7 @@
    "start": "2026-10-11T02:00Z",
    "away": "Kings",
    "home": "Golden Knights",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Kings",
@@ -2471,7 +2560,9 @@
     "odds": -185,
     "p": 0.633,
     "win_p": 0.412,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -2753,7 +2844,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.666,
+    "p": 0.665,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -2771,7 +2862,7 @@
     "line": 7.0,
     "odds": -110,
     "p": 0.515,
-    "win_p": 0.237,
+    "win_p": 0.238,
     "reasons": [
      "hotter recent form",
      "revenge game"
@@ -2911,8 +3002,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Capitals",
-    "p": 0.419,
-    "tie": 0.295,
+    "p": 0.425,
+    "tie": 0.294,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2927,9 +3018,9 @@
     "opp": "Kraken",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.643,
-    "win_p": 0.643,
+    "odds": -218,
+    "p": 0.656,
+    "win_p": 0.656,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
@@ -2975,8 +3066,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.392,
-    "tie": 0.298,
+    "p": 0.4,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2992,8 +3083,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -180,
-    "p": 0.632,
-    "win_p": 0.41,
+    "p": 0.616,
+    "win_p": 0.394,
     "reasons": []
    }
   },
@@ -3019,7 +3110,7 @@
     "opp": "Dodgers",
     "market": "spread",
     "line": 1.5,
-    "odds": -209,
+    "odds": -211,
     "p": 0.628,
     "win_p": 0.513,
     "reasons": [
