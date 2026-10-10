@@ -1,12 +1,12 @@
 {
- "updated": "2026-10-10T05:22Z",
+ "updated": "2026-10-10T06:01Z",
  "games": [
   {
    "id": "tennis:atp:184912",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
-   "start": "2026-10-10T06:00Z",
+   "start": "2026-10-10T06:30Z",
    "away": "Casper Ruud",
    "home": "Bu Yunchaokete",
    "vs": true,
@@ -28,63 +28,11 @@
    }
   },
   {
-   "id": "tennis:wta:186366",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-10T06:00Z",
-   "away": "Catherine McNally",
-   "home": "Yuan Yue",
-   "vs": true,
-   "why": "tight",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Catherine McNally",
-    "opp": "Yuan Yue",
-    "market": "ml",
-    "line": null,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.623,
-    "reasons": [
-     "on hard court",
-     "Dongfeng Voyah Wuhan Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:wta:186367",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-10T06:00Z",
-   "away": "Magda Linette",
-   "home": "Sinja Kraus",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Magda Linette",
-    "opp": "Sinja Kraus",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
-    "reasons": [
-     "on hard court",
-     "Dongfeng Voyah Wuhan Open"
-    ]
-   }
-  },
-  {
    "id": "tennis:wta:186372",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-10T06:00Z",
+   "start": "2026-10-10T06:30Z",
    "away": "Zeynep Sonmez",
    "home": "Anastasia Zakharova",
    "vs": true,
@@ -110,7 +58,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-10T06:40Z",
+   "start": "2026-10-10T07:00Z",
    "away": "Lanlana Tararudee",
    "home": "Claire Liu",
    "vs": true,
@@ -128,58 +76,6 @@
     "reasons": [
      "on hard court",
      "Dongfeng Voyah Wuhan Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:184905",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-10T07:00Z",
-   "away": "Pavel Kotov",
-   "home": "Arthur Fils",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Pavel Kotov",
-    "opp": "Arthur Fils",
-    "market": "spread",
-    "line": 5.0,
-    "odds": -120,
-    "p": 0.51,
-    "win_p": 0.132,
-    "reasons": [
-     "on hard court",
-     "Rolex Shanghai Masters"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:184911",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-10T07:00Z",
-   "away": "Learner Tien",
-   "home": "Zachary Svajda",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Learner Tien",
-    "opp": "Zachary Svajda",
-    "market": "spread",
-    "line": -3.5,
-    "odds": -130,
-    "p": 0.531,
-    "win_p": 0.734,
-    "reasons": [
-     "on hard court",
-     "Rolex Shanghai Masters"
     ]
    }
   },
@@ -206,6 +102,58 @@
     "reasons": [
      "on hard court",
      "China Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:184905",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-10T07:30Z",
+   "away": "Pavel Kotov",
+   "home": "Arthur Fils",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Pavel Kotov",
+    "opp": "Arthur Fils",
+    "market": "spread",
+    "line": 5.0,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.132,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:184911",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-10T07:30Z",
+   "away": "Learner Tien",
+   "home": "Zachary Svajda",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Learner Tien",
+    "opp": "Zachary Svajda",
+    "market": "spread",
+    "line": -3.5,
+    "odds": -130,
+    "p": 0.531,
+    "win_p": 0.734,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
     ]
    }
   },
@@ -266,7 +214,7 @@
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
-   "start": "2026-10-10T07:40Z",
+   "start": "2026-10-10T08:00Z",
    "away": "Katie Volynets",
    "home": "Polina Kudermetova",
    "vs": true,
