@@ -541,3 +541,10 @@ Method: scanner-log replay, 355 live-entry signals, hold up to 7 days with the l
 per $1 bet (+16.48 / -4.09 by half). Buy only after a 15% / 25% / 35% / 50% dip from the signal price within 6-24h:
 -33.1 / -26.7 / -28.4 / -32.8, worse in BOTH halves (medians -44% to -54%). Dead end: a dip after the jump is mostly
 the start of the dump. Not adopted.
+
+### 2026-10-10 DEX POST-MORTEM (all live trades, seasons 1-4) - dex_postmortem_study.py
+67 live trades, -$2,065 on $5,049 (-41%); 16% winners, 34% lost >= 80%. Exits replayed on the scanner paths of the same
+trades: every one negative (best: 40% trail after 1.5x -11.1 per $1, sell all at 3x -16.6, hold -35.3). Entry splits
+disagree between live (big-6h coins worst) and the scanner replay (big-6h coins carry the few huge winners). Verdict:
+the momentum-meme strategy has no live edge; recommended to the owner to stop using it as a money maker (lottery
+tracker or pivot).
