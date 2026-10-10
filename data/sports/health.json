@@ -1,13 +1,11 @@
 {
- "at": "2026-10-10T09:21Z",
+ "at": "2026-10-10T09:26Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Etcheverry vs Svrcina: no points for 64s",
-  "live tennis scores: tennis Tabilo vs Busta: no points for 64s",
-  "live tennis scores: tennis Kotov vs Fils: no points for 64s",
-  "live tennis scores: tennis Liu vs Tararudee: no points for 2090s",
-  "live tennis scores: tennis Boisson vs Bondar: no points for 2090s",
-  "live tennis scores: tennis Joint vs Sawangkaew: no points for 2090s"
+  "live tennis scores: tennis Liu vs Tararudee: no points for 2379s",
+  "live tennis scores: tennis Boisson vs Bondar: no points for 2379s",
+  "live tennis scores: tennis Joint vs Sawangkaew: no points for 2379s",
+  "live tennis scores: tennis Grant vs Osorio: no points for 317s"
  ],
  "ok": [
   "live watcher fresh (2s)",
@@ -17,18 +15,28 @@
   "live tennis points + server: 8 of 8 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 9 live lines, 7 fresh (betrivers 1, bovada 6)",
+  "tennis live prices: 12 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 18 min ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-10T09:26Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Liu vs Tararudee: no points for 2379s",
+    "live tennis scores: tennis Boisson vs Bondar: no points for 2379s",
+    "live tennis scores: tennis Joint vs Sawangkaew: no points for 2379s",
+    "live tennis scores: tennis Grant vs Osorio: no points for 317s"
+   ]
+  },
   {
    "at": "2026-10-10T09:21Z",
    "fixes": [],
@@ -495,17 +503,6 @@
    "fixes": [],
    "problems": [
     "workflow failed: sports 2026-10-07T18:15 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37665474601"
-   ]
-  },
-  {
-   "at": "2026-10-07T17:02Z",
-   "fixes": [
-    "simulator overdue (11h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "workflow failed: health 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655354619",
-    "workflow failed: sports_sims 2026-10-07T16:51 https://github.com/D503therapper/autonomous-crypto-engine/actions/runs/37655315156",
-    "simulator last ran 11h ago - restarted"
    ]
   }
  ]
