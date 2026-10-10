@@ -450,13 +450,23 @@ def green_day(picks, today, w=None, l=None, k=0, early=None):
                     f"😤 {w}-{l}, the leans got cooked. The plays the algorithm actually bet went {ww}-{len(rows) - ww} - {u}, still green."])
 
 
-def day_wait_line(picks, today, now, k):
+def day_wait_line(picks, today, now, k, early=None):
     """The brain's line at 0-0 with picks still to play: nothing's started yet (and when the first one goes), or how many
-    are playing right now - never "more tickets still cooking" before a game's kicked off (the owner, 10/1)."""
+    are playing right now - never "more tickets still cooking" before a game's kicked off (the owner, 10/1). Our early
+    plays playing today count too (10/10: Tulane was on the field and the brain said "none started yet")."""
     import sports
     _t = lambda x: datetime.strptime(x, "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)
     st_ = sorted(_t(l["start"]) for p in picks if p["date"] == today and p["kind"] != "eight" and sports.in_record(p)
                  and p.get("status") not in ("won", "lost", "push", "void") for l in p.get("legs") or [] if l.get("start"))
+    if early is None:
+        try:
+            import sports_early
+            early = sports_early.load().get("picks") or []
+        except Exception:                                    # noqa: BLE001
+            early = []
+    st_ = sorted(st_ + [_t(e["start"]) for e in early if e.get("start") and not e.get("result")
+                        and e.get("status") not in ("won", "lost", "push", "void")
+                        and _t(e["start"]).astimezone(PT).strftime("%Y-%m-%d") == today])
     on_ = sum(t_ <= now for t_ in st_)
     if st_ and not on_:
         at_ = st_[0].astimezone(PT).strftime("%-I:%M %p").replace(":00 ", " ")
@@ -465,6 +475,23 @@ def day_wait_line(picks, today, now, k):
                         f"⏳ 0-0 till {at_} PT, that's when our first one starts."])
     return _rot(k, [f"⏳ Nothing graded yet - {on_} of our {len(st_)} picks are playing right now.",
                     f"⏳ 0-0 so far, {on_} of {len(st_)} going right now. We finna see."])
+
+
+BRAIN_NEWS = os.path.join(sd.DATA, "brain_news.json")
+
+
+def brain_news(today, days=2):
+    """The brain's 'what's new' lines: each real change to the engine, dated (data/sports/brain_news.json - written when
+    a change ships), shown for `days` days. Never a filler line (a vague "we keep getting better" line - the owner,
+    10/1: never vague)."""
+    try:
+        with open(BRAIN_NEWS) as f:
+            news = json.load(f)
+    except (OSError, ValueError):
+        return []
+    d0 = datetime.strptime(today, "%Y-%m-%d").date()
+    keep = [n for n in news if 0 <= (d0 - datetime.strptime(n["date"], "%Y-%m-%d").date()).days < days]
+    return [n["text"] for n in sorted(keep, key=lambda n: n["date"], reverse=True)][:3]
 
 
 def engine_weights():
@@ -1412,8 +1439,10 @@ def refresh_ask_status(get=None):
         if get:
             closed = bool(get(url.rstrip("/") + "/askstatus").get("closed"))
         else:
-            import urllib.request
-            with urllib.request.urlopen(url.rstrip("/") + "/askstatus", timeout=10) as r:
+            import urllib.request                            # (10/10: our own Worker - say who's asking; Cloudflare
+            req = urllib.request.Request(url.rstrip("/") + "/askstatus",   # turns away Python's default caller, so the
+                                         headers={"User-Agent": "d503-sports-engine"})   # box never came off the page)
+            with urllib.request.urlopen(req, timeout=10) as r:
                 closed = bool(json.load(r).get("closed"))
     except Exception as e:                                   # noqa: BLE001
         print(f"question box status not read: {str(e)[:80]}")
@@ -1882,12 +1911,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
                                          f"💰 {_cap(what)} at +{o}{how}. Books are in shambles. I tried to fucking tell y'all!"]))
     big_live = {(e["team"], e["odds"]) for e in live.values() if e.get("odds", 0) >= BIG_HIT}
     # (no "studied the tape on N games" line - the owner, 9/28: it doesn't belong in a daily review)
-    n = sum(p.get("eval_games", 0) for p in params.values())
-    if n:
-        a_ = sum((p.get("oos") or {}).get("acc", p["accuracy"]) * p.get("eval_games", 0) for p in params.values()) / n
-        lines.append([f"🎯 The engine calls the straight-up winner {a_:.0%} of the time on games it never saw.",
-                      f"🎯 On games it never saw, the engine picks the winner {a_:.0%} of the time.",
-                      f"🎯 Straight-up winners, games the engine never saw: {a_:.0%} called right."][k % 3])
+    # (no "calls the winner N% of the time" line - the owner, 10/7: no win % on the dashboard, ever)
     legs = [l for p in picks if p["kind"] != "eight" for l in p["legs"] if l.get("result") in ("won", "lost")]
     if legs:
         said = sum(l["p"] for l in legs) / len(legs)
@@ -1921,22 +1945,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
     lines = uniq
     if not done and not any(x.startswith("📡") for x in lines):   # no finished day yet: nothing to brag or cry about
         lines = [_rot(k, ["👀 We gon' see.", "👀 We finna see."])]
-    elif lines:                                               # results are in: remind everybody we're just getting started
-        first = min((p["date"] for p in picks), default=today)
-        young = (now.date() - datetime.strptime(first, "%Y-%m-%d").date()).days < 60
-        lines.append(_rot(k, [
-            "🧪 We just got this thing started. The algorithm's training every single day — it's only getting sharper.",
-            "🧪 We're brand new out here. Every game makes the engine smarter. Give it time — we about to be dangerous.",
-            "🧪 Day by day, the algorithm's leveling up. Wins or L's, it's learning from all of it. Trust the process.",
-            "🧪 This engine is still a baby and it's already cooking. Wait till it grows up.",
-            "🧪 Still training the algorithm and improving every day. The best is coming — stay locked in.",
-            "🧪 Every result goes back into the brain. We getting better and better — y'all gonna see.",
-            "🧪 We just started and we're analyzing EVERYTHING — every game, every line, every comeback. The engine improves daily.",
-            "🧪 Heads up: we're still new. The algorithm breaks down every result and upgrades itself every day. Stick with us."] if young else [
-            "🧪 The algorithm studies every result and gets sharper every day. We never stop improving.",
-            "🧪 The engine's still leveling up daily. Every W and every L makes it smarter.",
-            "🧪 We keep training this thing every single day. Better tomorrow than today — that's the deal.",
-            "🧪 Always improving. The algorithm learns from every game — trust the process."]))
+    lines += brain_news(today)                               # 🛠️ what changed in the engine (the owner, 10/10: "the brain
+    #                                                          needs to be updated") - real changes only, never filler
     brain = '<div class="br self"><div class="bn">🧠 Today in a nutshell</div>' + "".join(f'<div class="bs nut">{x}</div>' for x in lines) + "</div>"
     tuned = model.get("tuned_on", "—")
 
