@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T22:41Z",
+ "updated": "2026-10-10T22:52Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -791,8 +791,8 @@
    "away": "Furman",
    "home": "Tennessee Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -849,8 +849,8 @@
    "away": "Kent State",
    "home": "W Michigan",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -924,8 +924,8 @@
    "away": "Tulsa",
    "home": "Navy",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1200,6 +1200,21 @@
    "lean": null
   },
   {
+   "id": "nba:401902645",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-10T22:30Z",
+   "away": "Clippers",
+   "home": "Raptors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892472",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1234,7 +1249,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Air Force",
-    "p": 0.685,
+    "p": 0.686,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1423,7 +1438,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "USC",
-    "p": 0.502,
+    "p": 0.5,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -1517,7 +1532,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Minnesota",
-    "p": 0.537,
+    "p": 0.539,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -1657,7 +1672,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -185,
-    "p": 0.622,
+    "p": 0.623,
     "win_p": 0.403,
     "reasons": [
      "opponent missing key players"
@@ -1670,7 +1685,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Boise St",
-    "p": 0.69,
+    "p": 0.688,
     "tie": 0.029,
     "name": "1st half"
    },
@@ -1733,8 +1748,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.673,
-    "tie": 0.034,
+    "p": 0.665,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -1751,7 +1766,7 @@
     "line": 7.5,
     "odds": -112,
     "p": 0.514,
-    "win_p": 0.221,
+    "win_p": 0.231,
     "reasons": []
    }
   },
