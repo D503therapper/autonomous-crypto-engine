@@ -12565,3 +12565,24 @@ DEX: $957.55 (-42.45) · Scammed: 0
 [2026-10-10 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-10 05:06 UTC] crypto/hold_btc  equity $492.23 (-1.6%) 1 open  market UP
    social heat top: STRK 40 (40/0/0), MAGIC 37 (37/0/0), PENGU 32 (32/0/0), NEAR 27 (27/0/0), HYPE 21 (21/0/0)
+   footprint: XRP: footprint 3/4 (quiet+hikes+rising_lows) 48h +0.5%, 3 volume hikes, 71% quiet hours @ 1.4064
+   footprint: LINK: footprint 3/4 (quiet+hikes+rising_lows) 48h -2.2%, 3 volume hikes, 73% quiet hours @ 12.805
+   dex screen: REJECT SPCXX@solana liq $122,662 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 89%; lp holders unknown
+   dex screen: REJECT ETHFI@ethereum liq $359,683 - top-10 holders 63%; lp locked 0% < 95%
+   dex screen: PASS QOMPUTE@solana liq $257,591
+   >> dex/dex_hunter: BUY $47.45 of QOMPUTE@solana:BQAeeSow @ 0.007779 (dex tier A momentum 1h +25% 6h +2598% buys/sells 7997/4374 impact 0.02%)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT CRAWL@solana liq $323,909 - lp holders unknown; rugcheck lp locked 46% < 95%
+   dex screen: PASS ASTEROID@ethereum liq $971,995
+   dex screen: REJECT STOCKER@ethereum liq $252,934 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex scanner: 2,997 pools (solana 2,105 / base 542 / ethereum 350), refresh cycle 130s (hot 125s), 2890 calls (108 feed, 429s 0, failed 1), 83,427 refreshed (8304 no pair), +81 added / -84 dropped (dead 12, stale 0, cap 72), movers 3 + warming 13 -> queued 2, screened 2 (passed 1), bought 1
+[2026-10-10 06:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-10 06:06 UTC] crypto/mover     equity $382.34 (-23.5%) 2 open  market UP
+[2026-10-10 06:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-10 06:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-10 06:06 UTC] crypto/social_heat equity $462.70 (-7.5%) 1 open  market UP
+[2026-10-10 06:06 UTC] crypto/breakout10 equity $493.02 (-1.4%) 2 open  market UP
+[2026-10-10 06:06 UTC] crypto/momentum  equity $460.91 (-7.8%) 2 open  market UP
+[2026-10-10 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-10 06:06 UTC] crypto/hold_btc  equity $493.11 (-1.4%) 1 open  market UP
+   social heat top: MAGIC 41 (29/0/12), STRK 37 (37/0/0), NEAR 35 (35/0/0), PENGU 27 (27/0/0), SUI 24 (24/0/0)
