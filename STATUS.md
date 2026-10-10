@@ -4,6 +4,7 @@ Kept up to date at the end of every working session, so a fresh chat knows what 
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
 ## 10/10 - the owner's calls + fixes
+- Leans now pick the VALUE side (the whole weighed read vs the price - dog score for dogs, weighed read for favorites), favorite or dog - never just the likeliest winner (sports.lean_value). The Fable study on college dogs / lean selection (10/10) was still running at the session's Fable limit.
 - College hoops dogs ON (the owner: "we need college basketball dogs"): the NBA-style dog-score gate (4+, sports.NCAAB_DOG_RULE = "score") at ½u - the best of the three blind options (flat blind; today's own-read rule lost -15.8%). Its own record; judge it live.
 - College hoops injuries: Covers' college basketball page (every D1 school, healthy ones too) read every run (sports_data.WEB_PAGE ncaab) - 364 of 364 schools matched on the 10/10 page, on top of Rotowire + ESPN + the official reports.
 - Fixed: a graded 🎯 early row (Iowa) sat on the page past its 2 hours - now it carries the page's own timer (data-gone), and the box goes when its last row does.

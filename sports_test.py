@@ -4350,6 +4350,27 @@ def test_dog_of_the_day_sized_by_edge_1_to_2_units():
     assert sports.units_for(pk(0.60, lg="nhl")) == 1.0        # hockey Dogs stay flat 1u (the owner: hockey dogs have been ass)
 
 
+def test_leans_pick_the_value_side_not_the_favorite():
+    """The owner, 10/10: "a very bad decision to pick leans just on who's favored to win" (Arkansas St -142 lost 56-49 to
+    South Alabama). A game's lean is now the side whose WHOLE weighed read comes closest to beating its price - the dog
+    when the dog's read (market + its dog score) is the better value, the favorite when its read is."""
+    fav = {"game_id": "g", "league": "ncaaf", "market": "ml", "odds": -142, "dec": 1.704, "p": 0.57, "p_market": 0.565,
+           "edge_own": 0.57 * 1.704 - 1, "edge": 0.0, "reasons": ["x"], "side": "home", "team": "Fav"}
+    dog = {"game_id": "g", "league": "ncaaf", "market": "ml", "odds": 120, "dec": 2.2, "p": 0.43, "p_market": 0.435,
+           "edge_own": 0.43 * 2.2 - 1, "edge": 0.0, "reasons": ["x"], "side": "away", "team": "Dog"}
+    saved = (sports.dog_score, sports.fighting, sports.stick)
+    try:
+        sports.fighting = lambda c: False
+        sports.stick = lambda c, pool: c
+        sports.dog_score = lambda c: 3.0                      # the dog's angles: +3 -> 46.5% vs 45.5% needed
+        assert sports.lean_value(dog) > sports.lean_value(fav)
+        assert [c["team"] for c in sports.viewer_leans([fav, dog], set())] == ["Dog"]
+        sports.dog_score = lambda c: -4.0                     # the angles fade the dog: the favorite is the lean
+        assert [c["team"] for c in sports.viewer_leans([fav, dog], set())] == ["Fav"]
+    finally:
+        sports.dog_score, sports.fighting, sports.stick = saved
+
+
 def test_nhl_outshot_40_weight():
     """10/8 study: a hockey team that allowed 40+ shots in its last game and plays again within 2 days lost -13.7% on 909
     and -30.2% on 167 blind - a WEIGHT (never a trigger): -2 on its dog score, +1 for the side facing it, -1 on a

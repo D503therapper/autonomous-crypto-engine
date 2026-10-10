@@ -2172,6 +2172,23 @@ def stick(c, pool):
     return out
 
 
+def lean_value(c):
+    """How close a side's WHOLE weighed read comes to beating its price (+ = value) - the owner, 10/10: "pick leans like
+    everything else - weigh every aspect, favorite or dog". A dog: the market + its whole dog score (every study spot
+    and fade, capped - dog_gate's read); a favorite: its weighed read (w_p - the dog across from it, the early-season /
+    3-in-4 / slump weights) or its own read."""
+    dec = c.get("dec") or (_dec(c["odds"]) if c.get("odds") else None)
+    if not dec:
+        return -1.0
+    r = read_of(c)
+    if c.get("market") == "ml" and c.get("odds", 0) >= 100 and c.get("dog_p") is None and c.get("p_market") is not None:
+        try:
+            r = min(0.95, c["p_market"] + dog_score(c) / 100)
+        except Exception:                                    # noqa: BLE001 - a missing input: the plain read
+            pass
+    return r * dec - 1 if r is not None else -1.0
+
+
 def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
@@ -2189,15 +2206,17 @@ def viewer_leans(cands, avoid):
             return False                                     # (10/1: no read of its own on that spread - a coin flip)
         if c["p"] >= LEAN_PICK_P:
             return True                                      # the side the engine has winning
-        return 100 <= c["odds"] <= DAILY_DOG_MAX and (c.get("edge_own") or -1) >= 0.02   # or a dog its own read says is
-        #                                                      underpriced (the owner, 10/1: "we need value plays")
+        return 100 <= c["odds"] <= DAILY_DOG_MAX and not fighting(c)   # or a dog its read isn't fighting - the value
+        #                                                      decides between the two sides below (10/10, the owner)
     best = {}
     okc = [c for c in cands if ok(c)]
-    for c in sorted(okc, key=lambda c: -rank_p(c)):
-        best.setdefault(c["game_id"], c)
+    for c in sorted(okc, key=lambda c: (-lean_value(c), -rank_p(c))):   # 🟡 THE OWNER, 10/10: "a very bad decision to
+        best.setdefault(c["game_id"], c)                     # pick leans just on who's favored to win" (Arkansas St -142
+        #                                                      lost 56-49 to the dog) - each game's lean is the side whose
+        #                                                      read comes closest to beating its price, dog or favorite
     best = {g: stick(c, okc) for g, c in best.items()}       # 📌 (10/5: a lean never flips on a price tick)
     out, per = [], {}
-    for c in sorted(best.values(), key=lambda c: (-importance(c), -rank_p(c))):
+    for c in sorted(best.values(), key=lambda c: (-importance(c), -lean_value(c))):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:        # (spread across the sports - "not five hockey games")
             per[c["league"]] = per.get(c["league"], 0) + 1
             out.append(c)
