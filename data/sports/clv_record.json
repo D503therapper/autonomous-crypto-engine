@@ -1,30 +1,30 @@
 {
  "all": {
-  "n": 42,
-  "beat": 12,
-  "same": 18,
+  "n": 44,
+  "beat": 13,
+  "same": 19,
   "worse": 12,
-  "avg_pts": 0.02
+  "avg_pts": 0.05
  },
  "unit_plays": {
-  "n": 19,
-  "beat": 4,
+  "n": 20,
+  "beat": 5,
   "same": 9,
   "worse": 6,
-  "avg_pts": -0.03
+  "avg_pts": 0.02
  },
  "by_kind": {
   "dog": {
-   "n": 8,
-   "beat": 1,
+   "n": 9,
+   "beat": 2,
    "same": 4,
    "worse": 3,
-   "avg_pts": -0.59
+   "avg_pts": -0.41
   },
   "lean": {
-   "n": 23,
+   "n": 24,
    "beat": 8,
-   "same": 9,
+   "same": 10,
    "worse": 6,
    "avg_pts": 0.07
   },
@@ -66,11 +66,11 @@
    "avg_pts": -0.54
   },
   "nhl": {
-   "n": 17,
-   "beat": 3,
-   "same": 10,
+   "n": 19,
+   "beat": 4,
+   "same": 11,
    "worse": 4,
-   "avg_pts": -0.1
+   "avg_pts": -0.04
   }
  },
  "lock_by_size": {
@@ -691,6 +691,34 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-10-09",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Penguins",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": -102,
+   "pts": 1.0,
+   "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-09",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Red Wings",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -142,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
   }
  ]
 }
