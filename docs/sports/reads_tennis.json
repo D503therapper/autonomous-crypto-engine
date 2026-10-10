@@ -1,21 +1,47 @@
 {
- "updated": "2026-10-10T09:06Z",
+ "updated": "2026-10-10T10:11Z",
  "games": [
   {
-   "id": "tennis:atp:184906",
+   "id": "tennis:atp:184899",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
-   "start": "2026-10-10T09:50Z",
-   "away": "Alex Michelsen",
-   "home": "Botic Van De Zandschulp",
+   "start": "2026-10-10T11:00Z",
+   "away": "Tommy Paul",
+   "home": "Adolfo Daniel Vallejo",
    "vs": true,
    "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Alex Michelsen",
-    "opp": "Botic Van De Zandschulp",
+    "team": "Tommy Paul",
+    "opp": "Adolfo Daniel Vallejo",
+    "market": "ml",
+    "line": null,
+    "odds": -210,
+    "p": 0.647,
+    "win_p": 0.647,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:184902",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-10T11:00Z",
+   "away": "Zizou Bergs",
+   "home": "Ignacio Buse",
+   "vs": true,
+   "why": "no_value",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Zizou Bergs",
+    "opp": "Ignacio Buse",
     "market": "ml",
     "line": null,
     "odds": -200,
@@ -28,25 +54,25 @@
    }
   },
   {
-   "id": "tennis:atp:184903",
+   "id": "tennis:atp:184906",
    "league": "tennis",
    "emoji": "\ud83c\udfbe",
    "sport": "Men's Tennis",
-   "start": "2026-10-10T10:00Z",
-   "away": "Carlos Alcaraz",
-   "home": "Juan Manuel Cerundolo",
+   "start": "2026-10-10T11:00Z",
+   "away": "Alex Michelsen",
+   "home": "Botic Van De Zandschulp",
    "vs": true,
-   "why": "coin_flip",
+   "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Carlos Alcaraz",
-    "opp": "Juan Manuel Cerundolo",
-    "market": "spread",
-    "line": -6.0,
-    "odds": -115,
-    "p": 0.5,
-    "win_p": 0.936,
+    "team": "Alex Michelsen",
+    "opp": "Botic Van De Zandschulp",
+    "market": "ml",
+    "line": null,
+    "odds": -195,
+    "p": 0.632,
+    "win_p": 0.632,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -62,7 +88,7 @@
    "away": "Zheng Qinwen",
    "home": "Elise Mertens",
    "vs": true,
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "h1": null,
    "lean": {
@@ -70,9 +96,9 @@
     "opp": "Elise Mertens",
     "market": "ml",
     "line": null,
-    "odds": -145,
-    "p": 0.566,
-    "win_p": 0.566,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "on hard court",
      "China Open"
@@ -94,11 +120,11 @@
    "lean": {
     "team": "Valentin Vacherot",
     "opp": "Sebastian Baez",
-    "market": "ml",
-    "line": null,
-    "odds": -300,
-    "p": 0.718,
-    "win_p": 0.718,
+    "market": "spread",
+    "line": -4.0,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.734,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -122,9 +148,9 @@
     "opp": "Adrian Mannarino",
     "market": "spread",
     "line": -3.5,
-    "odds": -130,
-    "p": 0.531,
-    "win_p": 0.734,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.726,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -148,9 +174,9 @@
     "opp": "Arthur Gea",
     "market": "ml",
     "line": null,
-    "odds": -285,
-    "p": 0.706,
-    "win_p": 0.706,
+    "odds": -300,
+    "p": 0.718,
+    "win_p": 0.718,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -200,9 +226,9 @@
     "opp": "Zhou Yi",
     "market": "spread",
     "line": -4.0,
-    "odds": -120,
-    "p": 0.51,
-    "win_p": 0.841,
+    "odds": -125,
+    "p": 0.52,
+    "win_p": 0.847,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -244,7 +270,7 @@
    "away": "Brandon Nakashima",
    "home": "Alexander Bublik",
    "vs": true,
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "h1": null,
    "lean": {
@@ -252,9 +278,35 @@
     "opp": "Alexander Bublik",
     "market": "ml",
     "line": null,
-    "odds": -140,
-    "p": 0.556,
-    "win_p": 0.556,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:184930",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-11T10:00Z",
+   "away": "Alexander Zverev",
+   "home": "Quentin Halys",
+   "vs": true,
+   "why": "tight",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Alexander Zverev",
+    "opp": "Quentin Halys",
+    "market": "spread",
+    "line": -3.5,
+    "odds": -145,
+    "p": 0.554,
+    "win_p": 0.847,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
