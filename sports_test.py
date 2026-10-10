@@ -8132,11 +8132,39 @@ def test_brain_never_says_tickets_cooking_before_a_game_starts():
     from datetime import datetime, timezone
     ps = [{"date": "2026-10-01", "kind": "lock", "status": "open", "legs": [{"start": "2026-10-02T01:00Z"}]},
           {"date": "2026-10-01", "kind": "solo", "status": "open", "legs": [{"start": "2026-10-02T00:15Z"}]}]
-    early = d.day_wait_line(ps, "2026-10-01", datetime(2026, 10, 1, 21, tzinfo=timezone.utc), 0)
+    early = d.day_wait_line(ps, "2026-10-01", datetime(2026, 10, 1, 21, tzinfo=timezone.utc), 0, early=[])
     assert "5:15 PM PT" in early and "cooking" not in early and "live" not in early, early
-    mid = d.day_wait_line(ps, "2026-10-01", datetime(2026, 10, 2, 0, 30, tzinfo=timezone.utc), 1)
+    mid = d.day_wait_line(ps, "2026-10-01", datetime(2026, 10, 2, 0, 30, tzinfo=timezone.utc), 1, early=[])
     assert "1 of" in mid and "2" in mid, mid
     assert "groups=81" in open(sd.__file__).read()                       # FCS in the college feed: no gaps
+
+
+def test_brain_counts_early_plays_no_win_pct_no_filler_and_question_box_status():
+    """10/10, the owner: "The brain needs to be updated ... the question box is closed, and it should have been removed."
+    (1) Tulane (our early play) was on the field and the brain said "5 picks up, none started yet" - early plays playing
+    today count. (2) "calls the straight-up winner 66% of the time" broke the no-win-% rule - gone. (3) the vague
+    "still a baby" filler is gone; the brain shows real dated engine changes (brain_news.json). (4) the engine's status
+    call to our own Worker now says who it is (Cloudflare turned away Python's default caller, so the closed box stayed)."""
+    import sports_dashboard as d, inspect, tempfile, os, json as _j
+    from datetime import datetime, timezone
+    ps = [{"date": "2026-10-10", "kind": "lock", "status": "open", "legs": [{"start": "2026-10-11T00:00Z"}]}]
+    ea = [{"team": "Tulane", "start": "2026-10-10T16:00Z", "result": None},
+          {"team": "Iowa", "start": "2026-10-10T01:00Z", "result": "won"},          # last night's (Oct 9 PT), graded
+          {"team": "Colts", "start": "2026-10-11T17:00Z", "result": None}]          # tomorrow
+    ln = d.day_wait_line(ps, "2026-10-10", datetime(2026, 10, 10, 18, 30, tzinfo=timezone.utc), 0, early=ea)
+    assert "none started" not in ln and "1 of our 2" in ln, ln
+    src = inspect.getsource(d)
+    assert "of the time on games it never saw" not in src and "straight-up winner {a_" not in src
+    assert "still a baby" not in src and "lines += brain_news(today)" in src
+    keep = d.BRAIN_NEWS
+    try:
+        with tempfile.TemporaryDirectory() as t:
+            d.BRAIN_NEWS = os.path.join(t, "n.json")
+            _j.dump([{"date": "2026-10-10", "text": "A"}, {"date": "2026-10-07", "text": "old"}], open(d.BRAIN_NEWS, "w"))
+            assert d.brain_news("2026-10-10") == ["A"] and d.brain_news("2026-10-11") == ["A"] and d.brain_news("2026-10-12") == []
+    finally:
+        d.BRAIN_NEWS = keep
+    assert '"User-Agent": "d503-sports-engine"' in inspect.getsource(d.refresh_ask_status)
 
 
 def test_coaches_fall_back_to_last_season_never_a_false_new_coach():
