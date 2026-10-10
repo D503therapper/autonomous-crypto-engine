@@ -54,6 +54,14 @@ def seen_all(fin, tid, before, lg):
     need = ref - 1 if lg == "ncaaf" else 0.8 * ref
     if n.get(tid, 0) >= need:
         return True
+    if lg == "ncaab":                                    # (10/10 college hoops readiness check) ESPN's D1 feed (groups=50)
+        #   holds every Division I team's games - all 365 D1 teams ended 2025-26 with 25+ games in our files; the only
+        #   short records are the non-D1 opponents (348 teams, 1-3 games). Hoops schedules run 4-5 games apart by
+        #   January (multi-team events), so the pace test alone read 11 of 11 priced games on 11/4/25, 39 of 39 on 11/7,
+        #   26 of 33 on 11/26 and 21 D1 teams on 1/15 as 'a game missing'. A team that played a full D1 season last year
+        #   (NCAAB_D1_GAMES in the 365 days before this season) is complete; a newcomer earns it by the pace test.
+        last = sum(1 for g in fin if tid in (g["home"], g["away"]) and cut - timedelta(days=365) < _t(g["start"]) <= cut)
+        return last >= NCAAB_D1_GAMES
     if lg != "ncaaf" or not n.get(tid):                  # (10/2, the owner: the check blocked Penn State-Northwestern -
         return False                                     #  a Big Ten team that started a week late + had a bye: 3
     mine = sorted(_t(g["start"]) for g in season if tid in (g["home"], g["away"]))   # games, all of them) - judged by
@@ -64,6 +72,8 @@ def seen_all(fin, tid, before, lg):
     return len(mine) >= weeks - 1
 
 
+NCAAB_D1_GAMES = 20                                      # a full Division I hoops season last year (D1 teams play 28-35;
+#                                                          a non-D1 opponent shows up in 1-3 of our games)
 _TUESDAY = datetime(2024, 1, 2, tzinfo=PT).date()        # a Tuesday: college football's week runs Tuesday to Monday
 
 

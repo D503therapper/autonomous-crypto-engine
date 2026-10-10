@@ -697,6 +697,13 @@ NCAAF_DOG_GATE = 4.0           # college football (the same 10/1 per-sport backt
 NHL_BEST_DOG_MIN = 0.0         # ...and the best hockey dog of the day (score over 0): 2023+ +11.7%, this season +17%
 NCAAB_DOG_EDGE = 0.04          # college hoops dogs the engine's own read likes over the price: +4% to +8% across the
 #                                cutoffs, up every one of the last 3 seasons (the 10/1 confidence backtest)
+NCAAB_DOG_RULE = "own"         # the owner's call (10/10 blind replay, every ncaab dog +100..+220 on 560 board days 2022-26,
+#                                closing prices, params re-tuned each July): "own" = today's NCAAB_DOG_EDGE gate (2022-24
+#                                -4.7% on 471; blind 2024-26 14-22, -15.8% on 36); "score" = a dog-score gate like the
+#                                NBA's at NCAAB_DOG_GATE (4+: -1.2% on 459; blind 38-44, -0.1% on 82 - flat, 1 of 2
+#                                seasons up); "off" = college hoops dogs carry no units (no college hoops Dog of the Day).
+#                                Nothing cleared the five checks - the default stays "own" until the owner decides
+NCAAB_DOG_GATE = 4.0
 
 
 def dog_gate(c):
@@ -710,7 +717,13 @@ def dog_gate(c):
             c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the
             return True                                                                       # weighed read)
         return False
-    if lg == "ncaab" and c.get("edge_own") is not None:
+    if lg == "ncaab" and NCAAB_DOG_RULE == "score":          # (10/10: the NBA-style gate, the owner's option)
+        sc = round(dog_score(c), 2)
+        if sc >= NCAAB_DOG_GATE:
+            c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)
+            return True
+        return False
+    if lg == "ncaab" and NCAAB_DOG_RULE == "own" and c.get("edge_own") is not None:
         own = (c["edge_own"] + 1) / c["dec"]
         if own - (c.get("p_market") or 1 / c["dec"]) >= NCAAB_DOG_EDGE:
             c["dog_p"] = round(own, 4)

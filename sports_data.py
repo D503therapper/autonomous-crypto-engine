@@ -495,7 +495,9 @@ SHORT_TERM = ("out", "doubtful", "7-day", "10-day", "15-day", "paternity", "bere
               "not with team", "personal")
 UNSURE = ("questionable", "game-time", "game time", "day-to-day", "day to day")   # not known yet: wait for news
 LONG_OUT = ("reserve", "suspen", "season", "60-day")   # injured reserve / suspended / out for the season / 60-day IL
-INJ_LEAGUES = ("nfl", "ncaaf", "nhl", "nba", "mlb")   # leagues where a missing report means we can't know who plays
+INJ_LEAGUES = ("nfl", "ncaaf", "nhl", "nba", "mlb", "ncaab")   # leagues where a missing report means we can't know who
+#   plays (10/10 college hoops readiness check: ncaab was left out, so a day every hoops injury read failed - None - put
+#   up a college hoops Lock WITH UNITS and two leans blind, while the NBA / NHL games waited on their reports)
 KEY_POS = {"nfl": {"QB"}, "ncaaf": {"QB"}, "nhl": {"G"}, "nba": None, "mlb": "stars", "ncaab": set()}
 # None = any player; "stars" = the team's best bats by name (mlb_stars: MLB's own season stats)
 
@@ -710,8 +712,12 @@ def fetch_injuries(league):
     """{team id or name: [(player, position, status)]} for players listed Out / Doubtful - ESPN's feed plus the
     official availability reports we keep (injuries_official.json). None = we DON'T KNOW (the board waits on it)."""
     got = _fetch_espn_injuries(league)
-    if got is None:
+    espn_down = got is None
+    if espn_down and league in PRO:
         return None
+    if espn_down:                                        # (10/10) college: ESPN's feed is ~3 teams on a good day - its
+        got = {}                                         # failing never throws away Rotowire's report / the official
+    #                                                      reports below; None only when NONE of the reads came back
     if league in PRO and not got:                        # (10/3 sweep) a pro feed that came back EMPTY isn't "every team
         return None                                      # healthy" - covered() reads a missing pro team as nobody hurt,
     #                                                      so a blank feed would have cleared every team to be picked blind
@@ -726,6 +732,8 @@ def fetch_injuries(league):
         long = [r for r in got.get(tid) or [] if any(s in str(r[2]).lower() for s in LONG_OUT)   # team; ESPN's long-term
                 and _plain(r[0]) not in named]           # rows (injured reserve / suspended) it never lists stay
         got[tid] = list(rows) + long
+    if espn_down and not got:                            # every read failed: we DON'T KNOW (the board waits - never a
+        return None                                      # college hoops pick made blind)
     return got
 
 
