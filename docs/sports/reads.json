@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T21:49Z",
+ "updated": "2026-10-10T22:10Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -716,8 +716,8 @@
    "away": "Canucks",
    "home": "Devils",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1140,6 +1140,66 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401868078",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T22:00Z",
+   "away": "Cal Poly",
+   "home": "Idaho St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401860902",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T22:00Z",
+   "away": "San Diego St",
+   "home": "Oregon St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401868144",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-10T22:00Z",
+   "away": "West Georgia",
+   "home": "E Kentucky",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401891805",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-10T22:00Z",
+   "away": "Wild",
+   "home": "Panthers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892477",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -1161,7 +1221,7 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
+    "odds": -250,
     "p": 0.683,
     "win_p": 0.466,
     "reasons": [
@@ -1739,7 +1799,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Virginia",
-    "p": 0.754,
+    "p": 0.75,
     "tie": 0.026,
     "name": "1st half"
    },
@@ -1755,9 +1815,9 @@
     "opp": "Syracuse",
     "market": "spread",
     "line": -13.5,
-    "odds": -108,
+    "odds": -110,
     "p": 0.502,
-    "win_p": 0.812,
+    "win_p": 0.808,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2063,8 +2123,8 @@
     "team": "Arizona St",
     "opp": "Hawai'i",
     "market": "spread",
-    "line": -21.0,
-    "odds": -105,
+    "line": -20.5,
+    "odds": -115,
     "p": 0.504,
     "win_p": 0.908,
     "reasons": [
@@ -2479,8 +2539,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.441,
-    "tie": 0.292,
+    "p": 0.476,
+    "tie": 0.285,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2496,11 +2556,11 @@
     "market": "ml",
     "line": null,
     "odds": -250,
-    "p": 0.684,
-    "win_p": 0.684,
+    "p": 0.745,
+    "win_p": 0.745,
     "reasons": [
-     "hotter goalie",
      "the stronger team",
+     "hotter goalie",
      "sharp money moving this way"
     ]
    }
