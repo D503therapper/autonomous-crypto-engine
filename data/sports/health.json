@@ -1,27 +1,43 @@
 {
- "at": "2026-10-10T13:59Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-10T15:30Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (9h) - started sports_sims.yml"
+ ],
+ "problems": [
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 9h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (15s)",
+  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 1 live matches",
+  "slate check: all 110 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 8h ago",
-  "engine ran 8 min ago",
+  "engine ran 51 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-10T15:30Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-10T13:59Z",
    "fixes": [],
@@ -514,11 +530,6 @@
   },
   {
    "at": "2026-10-07T23:53Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-07T22:22Z",
    "fixes": [],
    "problems": []
   }
