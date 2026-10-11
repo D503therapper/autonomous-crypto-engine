@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T02:09Z",
+ "updated": "2026-10-11T02:11Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1478,8 +1478,8 @@
    "away": "Air Force",
    "home": "N Illinois",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1508,8 +1508,8 @@
    "away": "Lightning",
    "home": "Islanders",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1763,62 +1763,28 @@
    "id": "ncaaf:401860901",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Boise St",
-    "p": 0.663,
-    "tie": 0.03,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-11T02:30Z",
    "away": "Boise St",
    "home": "Fresno St",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Boise St",
-    "opp": "Fresno St",
-    "market": "spread",
-    "line": -8.5,
-    "odds": -110,
-    "p": 0.5,
-    "win_p": 0.659,
+    "team": "Fresno St",
+    "opp": "Boise St",
+    "market": "ml",
+    "line": null,
+    "odds": 250,
+    "p": 0.287,
+    "win_p": 0.287,
     "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401856808",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Arizona St",
-    "p": 0.853,
-    "tie": 0.019,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-11T02:30Z",
-   "away": "Hawai'i",
-   "home": "Arizona St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Arizona St",
-    "opp": "Hawai'i",
-    "market": "spread",
-    "line": -21.0,
-    "odds": -108,
-    "p": 0.503,
-    "win_p": 0.908,
-    "reasons": [
-     "the stronger team",
      "sharp money moving this way",
-     "hotter recent form"
-    ]
+     "the stronger team"
+    ],
+    "result": null
    }
   },
   {
