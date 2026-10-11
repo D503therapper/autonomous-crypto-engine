@@ -1,28 +1,40 @@
 {
- "at": "2026-10-11T09:15Z",
+ "at": "2026-10-11T09:20Z",
  "fixes": [],
  "problems": [
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+  "live tennis scores: tennis Kucmova vs Shinikova: no points for 290s",
+  "live tennis scores: tennis Peer vs Friedsam: no points for 290s",
+  "live tennis scores: tennis Boskovic vs Senica: no points for 290s"
  ],
  "ok": [
-  "live watcher fresh (10s)",
+  "live watcher fresh (55s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 5 live matches",
+  "live tennis points + server: 1 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 12 min ago",
+  "engine ran 16 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-11T09:20Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kucmova vs Shinikova: no points for 290s",
+    "live tennis scores: tennis Peer vs Friedsam: no points for 290s",
+    "live tennis scores: tennis Boskovic vs Senica: no points for 290s"
+   ]
+  },
   {
    "at": "2026-10-11T09:15Z",
    "fixes": [],
@@ -524,11 +536,6 @@
   },
   {
    "at": "2026-10-08T19:37Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-08T18:58Z",
    "fixes": [],
    "problems": []
   }
