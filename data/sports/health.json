@@ -1,28 +1,44 @@
 {
- "at": "2026-10-11T02:22Z",
+ "at": "2026-10-11T03:53Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Kasatkina vs Tormo: no points for 2532s",
+  "live tennis scores: tennis Ito vs Frech: no points for 2608s",
+  "live tennis scores: tennis Krueger vs Putintseva: no points for 2628s",
+  "live tennis scores: tennis Kraus vs Sonmez: no points for 2628s"
+ ],
  "ok": [
-  "live watcher fresh (34s)",
+  "live watcher fresh (32s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 4 of 4 live matches",
   "slate check: all 110 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 7 backup sources answering",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 23 min ago",
+  "studies ran 6h ago",
+  "simulator ran 6h ago",
+  "engine ran 49 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-11T03:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kasatkina vs Tormo: no points for 2532s",
+    "live tennis scores: tennis Ito vs Frech: no points for 2608s",
+    "live tennis scores: tennis Krueger vs Putintseva: no points for 2628s",
+    "live tennis scores: tennis Kraus vs Sonmez: no points for 2628s"
+   ]
+  },
   {
    "at": "2026-10-11T02:22Z",
    "fixes": [],
@@ -503,13 +519,6 @@
    "problems": [
     "live tennis scores: tennis Andreescu vs Bolkvadze: no points for 2636s"
    ]
-  },
-  {
-   "at": "2026-10-08T12:01Z",
-   "fixes": [
-    "1 finished pick(s) not graded (tennis 2026-10-07 Bu Yunchaokete) - started sports.yml"
-   ],
-   "problems": []
   }
  ]
 }
