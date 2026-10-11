@@ -9884,6 +9884,7 @@
      "us:trip1000"
     ],
     "dec": 1.7407407407407407,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -9905,6 +9906,10 @@
     "edge_own": 0.024749362293362553,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,3,7,10",
+     "h": "0,7,6,0"
+    },
     "form_state": [
      5.0,
      9,
@@ -9958,9 +9963,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Vikings 23 @ Saints 13",
+    "settled": "2026-10-11T20:12Z",
     "side": "away",
     "start": "2026-10-11T17:00Z",
     "stype": "2",
@@ -9977,12 +9984,14 @@
    }
   ],
   "p_hit": 0.5783,
-  "pnl": 0.0,
+  "pnl": 74.07,
   "posted": "2026-10-11T15:00Z",
   "round": 1,
+  "settled": "2026-10-11T20:12Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": -113,
@@ -10303,6 +10312,12 @@
      "them:dome_out"
     ],
     "dec": 1.9803921568627452,
+    "decider": {
+     "h": "12-3",
+     "s": "26-3",
+     "type": "blowout",
+     "win": "away"
+    },
     "depth_pts": 0.5,
     "dog_ctx": {
      "cw5": 0,
@@ -10325,6 +10340,10 @@
     "edge": 0.019901960784313832,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,9,7,7",
+     "h": "3,0,0,0"
+    },
     "form_state": [
      -6.0,
      -6,
@@ -10365,9 +10384,11 @@
      "revenge game"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Texans 26 @ Titans 3",
+    "settled": "2026-10-11T20:12Z",
     "side": "home",
     "start": "2026-10-11T17:00Z",
     "stype": "2",
@@ -10383,11 +10404,13 @@
    }
   ],
   "p_hit": 0.515,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-11T15:00Z",
   "round": 1,
+  "settled": "2026-10-11T20:12Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]

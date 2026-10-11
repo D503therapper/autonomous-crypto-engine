@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T19:33Z",
+ "updated": "2026-10-11T20:13Z",
  "games": [
   {
    "id": "nba:401898400",
@@ -41,8 +41,8 @@
    "away": "Bears",
    "home": "Packers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -84,8 +84,8 @@
    "away": "Browns",
    "home": "Jets",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -99,8 +99,8 @@
    "away": "Colts",
    "home": "Steelers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -129,8 +129,8 @@
    "away": "Raiders",
    "home": "Patriots",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -145,7 +145,7 @@
    "home": "Titans",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Titans",
@@ -159,7 +159,7 @@
      "hotter recent form",
      "revenge game"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -173,7 +173,7 @@
    "home": "Saints",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lock",
    "lean": {
     "team": "Vikings",
@@ -188,104 +188,23 @@
      "hotter recent form",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
    "id": "nfl:401872989",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Broncos",
-    "p": 0.587,
-    "tie": 0.037,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-11T20:05Z",
    "away": "Broncos",
    "home": "Chargers",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Broncos",
-    "opp": "Chargers",
-    "market": "ml",
-    "line": null,
-    "odds": -192,
-    "p": 0.65,
-    "win_p": 0.65,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872992",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Seahawks",
-    "p": 0.538,
-    "tie": 0.038,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-11T20:25Z",
-   "away": "49ers",
-   "home": "Seahawks",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Seahawks",
-    "opp": "49ers",
-    "market": "ml",
-    "line": null,
-    "odds": -166,
-    "p": 0.586,
-    "win_p": 0.586,
-    "reasons": [
-     "the stronger team",
-     "opponent missing key players",
-     "opponent drama: new baby"
-    ]
-   }
-  },
-  {
-   "id": "nfl:401872991",
-   "league": "nfl",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Lions",
-    "p": 0.632,
-    "tie": 0.036,
-    "name": "1st half"
-   },
-   "sport": "NFL",
-   "season": "regular season",
-   "start": "2026-10-11T20:25Z",
-   "away": "Lions",
-   "home": "Cardinals",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Lions",
-    "opp": "Cardinals",
-    "market": "ml",
-    "line": null,
-    "odds": -265,
-    "p": 0.711,
-    "win_p": 0.711,
-    "reasons": [
-     "the stronger team",
-     "better QB play lately",
-     "opponent drama: suspension"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892482",
@@ -325,8 +244,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.481,
-    "tie": 0.284,
+    "p": 0.486,
+    "tie": 0.282,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -341,9 +260,9 @@
     "opp": "Canucks",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.755,
-    "win_p": 0.755,
+    "odds": -278,
+    "p": 0.763,
+    "win_p": 0.763,
     "reasons": [
      "hotter goalie",
      "the stronger team",
