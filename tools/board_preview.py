@@ -19,9 +19,12 @@ UNIT_KINDS = ("lock", "dog", "solo", "play", "night")
 
 def main(day_iso=None):
     now_real = datetime.now(timezone.utc)
+    hh, mm = 8, 35                         # 8:35 AM PT on that day (past the slate check's last try - the board always builds)
+    if day_iso and "T" in day_iso:         # "YYYY-MM-DDTHH:MM" (PT) reads an earlier slate too - e.g. a 6:30 AM London game
+        day_iso, hm = day_iso.split("T")   # (10/11, the owner wanted the Eagles read)
+        hh, mm = (int(x) for x in hm.split(":"))
     day = datetime.strptime(day_iso, "%Y-%m-%d").date() if day_iso else (now_real.astimezone(sports.PT) + timedelta(days=1)).date()
-    # 8:35 AM PT on that day (past the slate check's last try - the board always builds)
-    at = datetime(day.year, day.month, day.day, 8, 35, tzinfo=sports.PT).astimezone(timezone.utc)
+    at = datetime(day.year, day.month, day.day, hh, mm, tzinfo=sports.PT).astimezone(timezone.utc)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate.json")          # nothing real gets written
     sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")  # (10/5 sweep: the dry run wrote the real
     #                                              Lock near-miss - the question box would name a pick from a preview)
