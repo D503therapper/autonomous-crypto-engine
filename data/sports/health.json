@@ -1,34 +1,42 @@
 {
- "at": "2026-10-11T03:54Z",
+ "at": "2026-10-11T05:25Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Kasatkina vs Tormo: no points for 2532s",
-  "live tennis scores: tennis Ito vs Frech: no points for 2608s",
-  "live tennis scores: tennis Krueger vs Putintseva: no points for 2628s",
-  "live tennis scores: tennis Kraus vs Sonmez: no points for 2628s"
+  "live tennis scores: tennis Kasatkina vs Tormo: no points for 2627s",
+  "live tennis scores: tennis Volynets vs Osorio: no points for 2365s",
+  "live tennis scores: tennis Rakhimova vs Han: no points for 1594s"
  ],
  "ok": [
-  "live watcher fresh (84s)",
+  "live watcher fresh (93s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 4 of 4 live matches",
+  "live tennis points + server: 5 of 5 live matches",
   "slate check: all 110 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 6 backup sources answering",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 6h ago",
-  "simulator ran 6h ago",
-  "engine ran 50 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-11T05:25Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kasatkina vs Tormo: no points for 2627s",
+    "live tennis scores: tennis Volynets vs Osorio: no points for 2365s",
+    "live tennis scores: tennis Rakhimova vs Han: no points for 1594s"
+   ]
+  },
   {
    "at": "2026-10-11T03:54Z",
    "fixes": [],
@@ -517,11 +525,6 @@
     "live tennis points: none of 1 live matches has points + server on the 1-second route",
     "studies last ran 9h ago - restarted"
    ]
-  },
-  {
-   "at": "2026-10-08T13:34Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
