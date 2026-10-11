@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T02:25Z",
+ "updated": "2026-10-11T03:10Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1284,8 +1284,8 @@
    "away": "LSU",
    "home": "Kentucky",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1343,8 +1343,8 @@
    "away": "N Colorado",
    "home": "E Washington",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1358,8 +1358,8 @@
    "away": "N Dakota St",
    "home": "UNLV",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1373,8 +1373,8 @@
    "away": "Nevada",
    "home": "UTEP",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1448,8 +1448,8 @@
    "away": "Tarleton St",
    "home": "Austin Peay",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1463,8 +1463,8 @@
    "away": "UAB",
    "home": "Memphis",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1493,8 +1493,8 @@
    "away": "Georgia",
    "home": "Alabama",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1523,8 +1523,8 @@
    "away": "Louisiana",
    "home": "Louisiana Tech",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1538,8 +1538,8 @@
    "away": "Syracuse",
    "home": "Virginia",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1553,8 +1553,8 @@
    "away": "USC",
    "home": "Penn State",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1568,8 +1568,8 @@
    "away": "76ers",
    "home": "Celtics",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1583,8 +1583,8 @@
    "away": "C Arkansas",
    "home": "Abilene Chrstn",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1640,8 +1640,8 @@
    "away": "SE Louisiana",
    "home": "UT Rio Grande",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1655,8 +1655,8 @@
    "away": "Timberwolves",
    "home": "Heat",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1671,7 +1671,7 @@
    "home": "Guardians",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Guardians",
@@ -1684,7 +1684,7 @@
     "reasons": [
      "the stronger team"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -1712,8 +1712,8 @@
    "away": "Kings",
    "home": "Warriors",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1786,6 +1786,36 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaaf:401856808",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-11T02:30Z",
+   "away": "Hawai'i",
+   "home": "Arizona St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898720",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-11T02:30Z",
+   "away": "Spurs",
+   "home": "Suns",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nfl:401872981",
@@ -2224,8 +2254,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.387,
-    "tie": 0.298,
+    "p": 0.395,
+    "tie": 0.297,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2241,8 +2271,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -170,
-    "p": 0.643,
-    "win_p": 0.421,
+    "p": 0.626,
+    "win_p": 0.404,
     "reasons": [
      "opponent on a back-to-back"
     ]
