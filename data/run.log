@@ -13437,3 +13437,27 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 06:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 06:05 UTC] crypto/hold_btc  equity $494.29 (-1.1%) 1 open  market UP
    social heat top: STRK 37 (37/0/0), TIA 35 (35/0/0), NEAR 32 (32/0/0), PENGU 27 (27/0/0), AERO 24 (16/0/8)
+   footprint: NEAR: footprint 3/4 (drift+hikes+rising_lows) 48h +8.2%, 2 volume hikes, 38% quiet hours @ 5.2448
+   dex screen: REJECT IMD@ethereum liq $2,497,820 - goplus partial data: cannot_sell_all unknown; top-10 holders 59%
+   dex screen: REJECT REUSD@ethereum liq $453,180 - 24h volume $24,815 < $100,000
+   dex screen: REJECT SPCXON@ethereum liq $313,204 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 83%; lp locked 0% < 95%
+   dex screen: REJECT ZEN@base liq $2,672,134 - is_mintable; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: REJECT CRVUSD@ethereum liq $38,608,760 - is_mintable; top-10 holders 78%
+   dex screen: PASS TROLL@solana liq $2,928,413
+   dex screen: REJECT OTC@solana liq $484,713 - lp holders unknown; rugcheck lp locked 81% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT HLX@ethereum liq $345,316 - top-10 holders 97%; lp locked 0% < 95%
+   dex scanner: 2,730 pools (solana 1,875 / base 435 / ethereum 420), refresh cycle 122s (hot 117s), 2980 calls (110 feed, 429s 0, failed 0), 86,091 refreshed (11622 no pair), +58 added / -328 dropped (dead 282, stale 5, cap 41), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 07:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 07:05 UTC] crypto/mover     equity $353.87 (-29.2%) 2 open  market UP
+[2026-10-11 07:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 07:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 07:05 UTC] crypto/social_heat equity $463.52 (-7.3%) 2 open  market UP
+[2026-10-11 07:05 UTC] crypto/breakout10 equity $496.53 (-0.7%) 2 open  market UP
+[2026-10-11 07:05 UTC] crypto/momentum  equity $456.82 (-8.6%) 2 open  market UP
+[2026-10-11 07:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 07:05 UTC] crypto/hold_btc  equity $494.81 (-1.0%) 1 open  market UP
+   social heat top: STRK 37 (37/0/0), BTC 35 (35/0/0), PENGU 29 (29/0/0), NEAR 27 (27/0/0), TIA 24 (24/0/0)
