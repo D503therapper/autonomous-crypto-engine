@@ -13551,3 +13551,23 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 10:47 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 10:47 UTC] crypto/hold_btc  equity $493.81 (-1.2%) 1 open  market UP
    social heat top: STRK 40 (40/0/0), BTC 35 (35/0/0), AERO 32 (29/0/3), PENGU 32 (32/0/0), STONK 30 (21/0/8)
+   scanner: 988 tickers, sample: {'i': 'BTC_USD', 'h': '83169.37', 'l': '82707.00', 'a': '82890.18', 'v': '1037.9689', 'vv': '86083253.32', 'c': '0.0016', 'b': '82890.18', 'k': '82890.19', 'oi': '0', 't': 1791715667975}
+   dex screen: REJECT BATON@solana liq $786,899 - lp holders unknown; rugcheck lp locked 56% < 95%
+   dex screen: REJECT FET@ethereum liq $1,710,667 - transfer_pausable; is_mintable; hidden_owner; top-10 holders 48%
+   dex screen: REJECT RAIL@ethereum liq $1,674,397 - is_mintable; top-10 holders 76%
+   dex scanner: 3,000 pools (solana 2,038 / base 489 / ethereum 473), refresh cycle 109s (hot 106s), 699 calls (49 feed, 429s 0, failed 0), 19,487 refreshed (2259 no pair), +238 added / -26 dropped (dead 12, stale 2, cap 12), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+[2026-10-11 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $157.19 of LINK @ 12.8332, P/L $-2.72 (time limit)
+[2026-10-11 11:06 UTC] crypto/mover     equity $350.84 (-29.8%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/social_heat equity $461.91 (-7.6%) 2 open  market UP
+[2026-10-11 11:06 UTC] crypto/breakout10 equity $494.24 (-1.2%) 2 open  market UP
+[2026-10-11 11:06 UTC] crypto/momentum  equity $456.15 (-8.8%) 2 open  market UP
+[2026-10-11 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/hold_btc  equity $493.96 (-1.2%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), PUMP 35 (27/0/8), PENGU 35 (35/0/0), BTC 32 (32/0/0), AERO 31 (19/0/12)
