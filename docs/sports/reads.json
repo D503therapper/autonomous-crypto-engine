@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T23:39Z",
+ "updated": "2026-10-11T23:41Z",
  "games": [
   {
    "id": "nba:401898400",
@@ -315,31 +315,28 @@
    "id": "mlb:401908030",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Brewers",
-    "p": 0.448,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-12T00:00Z",
    "away": "Dodgers",
    "home": "Brewers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Brewers",
     "opp": "Dodgers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -188,
-    "p": 0.625,
-    "win_p": 0.508,
+    "market": "ml",
+    "line": null,
+    "odds": -113,
+    "p": 0.513,
+    "win_p": 0.513,
     "reasons": [
      "the stronger team",
      "hotter recent form"
-    ]
+    ],
+    "result": null
    }
   },
   {
