@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T02:23Z",
+ "updated": "2026-10-11T02:25Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1853,7 +1853,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.647,
+    "p": 0.646,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1884,7 +1884,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jets",
-    "p": 0.503,
+    "p": 0.504,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -1893,17 +1893,19 @@
    "start": "2026-10-11T17:00Z",
    "away": "Browns",
    "home": "Jets",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Jets",
-    "opp": "Browns",
-    "market": "ml",
-    "line": null,
-    "odds": -135,
-    "p": 0.533,
-    "win_p": 0.533,
-    "reasons": []
+    "team": "Under",
+    "opp": "Browns @ Jets",
+    "market": "total",
+    "line": 39.5,
+    "odds": -108,
+    "p": 0.642,
+    "win_p": 0.642,
+    "reasons": [
+     "the engine's scoring read"
+    ]
    }
   },
   {
@@ -1929,8 +1931,8 @@
     "market": "total",
     "line": 43.5,
     "odds": -110,
-    "p": 0.7,
-    "win_p": 0.7,
+    "p": 0.695,
+    "win_p": 0.695,
     "reasons": [
      "the engine's scoring read"
     ]
@@ -2190,7 +2192,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Rangers",
-    "p": 0.476,
+    "p": 0.475,
     "tie": 0.285,
     "name": "1st period"
    },
