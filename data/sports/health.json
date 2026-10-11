@@ -1,30 +1,35 @@
 {
- "at": "2026-10-11T07:42Z",
+ "at": "2026-10-11T07:43Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis McNally vs Tararudee: no points for 2653s",
-  "live tennis scores: tennis Sawangkaew vs Bondar: no points for 2653s"
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
  ],
  "ok": [
-  "live watcher fresh (36s)",
+  "live watcher fresh (2s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 22 min ago",
+  "engine ran 23 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-11T07:43Z",
+   "fixes": [],
+   "problems": [
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up"
+   ]
+  },
   {
    "at": "2026-10-11T07:42Z",
    "fixes": [],
@@ -516,11 +521,6 @@
   },
   {
    "at": "2026-10-08T17:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-08T16:59Z",
    "fixes": [],
    "problems": []
   }
