@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T01:37Z",
+ "updated": "2026-10-11T01:42Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1269,8 +1269,8 @@
    "away": "Hurricanes",
    "home": "Blackhawks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1721,61 +1721,27 @@
    "id": "nhl:401892480",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Ducks",
-    "p": 0.351,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-11T02:00Z",
    "away": "Ducks",
    "home": "Flames",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
     "team": "Flames",
     "opp": "Ducks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -250,
-    "p": 0.711,
-    "win_p": 0.498,
+    "market": "ml",
+    "line": null,
+    "odds": 102,
+    "p": 0.497,
+    "win_p": 0.497,
     "reasons": [
-     "opponent on a back-to-back",
-     "hotter goalie"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892481",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.398,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-11T02:00Z",
-   "away": "Kings",
-   "home": "Golden Knights",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Kings",
-    "opp": "Golden Knights",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -185,
-    "p": 0.623,
-    "win_p": 0.403,
-    "reasons": [
-     "opponent missing key players"
-    ]
+     "opponent on a back-to-back"
+    ],
+    "result": null
    }
   },
   {
@@ -2275,8 +2241,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.403,
-    "tie": 0.297,
+    "p": 0.387,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -2287,17 +2253,15 @@
    "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Hurricanes",
-    "opp": "Flyers",
-    "market": "ml",
-    "line": null,
-    "odds": -166,
-    "p": 0.615,
-    "win_p": 0.615,
+    "team": "Flyers",
+    "opp": "Hurricanes",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -170,
+    "p": 0.643,
+    "win_p": 0.421,
     "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "sharp money moving this way"
+     "opponent on a back-to-back"
     ]
    }
   },
