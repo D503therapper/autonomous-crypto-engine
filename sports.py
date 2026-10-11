@@ -1926,7 +1926,9 @@ def weigh_favorites(cands):
         fav, dog = sorted(pair, key=lambda c: c["odds"])
         if fav["odds"] >= 0 or dog["odds"] < 100 or fav.get("w_p") is not None or fav.get("edge_own") is None:
             continue
-        pts = dog_spots(dog)
+        pts = dog_spots({**dog, "west_trip_dog": False})   # (10/11 bug sweep: the West Coast road favorite already
+        #   carries its +2 on its own read (weigh_west_coast_road_fav), and the home dog's -2 for the same fact came
+        #   back here as +1 more on the favorite - the one study counted twice, +3 instead of +2. One factor, once.)
         if not pts:
             continue
         lift = max(-FAV_CAP, min(FAV_CAP, -FAV_PER_PT * pts))
@@ -2769,6 +2771,13 @@ def rule_check(picks, new, iso, games=None, day=None, now=None):
             why = f"a {pk['kind']} with no units"
         elif pk.get("kind") == "dog" and (l.get("odds") or 0) > DAILY_DOG_MAX:   # (10/2 audit: +220, the owner's 10/1
             why = "a Dog past its cap"
+        elif pk.get("kind") == "play" and not pk.get("lean") and l.get("market") not in PLAY_MARKETS:
+            why = "a value play off the moneyline"          # (the owner, 10/9: value plays are MONEYLINE only)
+        elif pk.get("kind") in ("play", "dog", "solo", "night") and not pk.get("lean") \
+                and (l.get("odds") or 0) > DOG_DAY_MAX:
+            why = f"a unit play on a dog past +{DOG_DAY_MAX}"   # (the owner, 10/10: dogs +100..+300, never past)
+        elif pk.get("lean") and pricey_college_fav(l):
+            why = "a college favorite lean at -150..-130"    # (the owner, 10/10 - LEAN_NCAAF_FAV_BAND)
         elif units_for(pk) and not beats_price(l) and (pk.get("date") or "") >= MONEY_CHECK_FROM \
                 and pk.get("kind") != "solo" and not l.get("near_price"):   # (a one-game day's pick / the always-a-
             #                                                  Lock backup always carry units - the owner)

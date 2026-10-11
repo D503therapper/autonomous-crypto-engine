@@ -10420,6 +10420,63 @@ def test_college_hoops_dog_rule_constant():
         sports.NCAAB_DOG_RULE, sports.dog_score = keep, keep_sc
 
 
+def test_west_coast_favorite_counted_once():
+    """10/11 bug sweep (the owner: "make sure the engine is weighing its picks properly"): the West Coast road favorite
+    in the East got its +2 on its own read AND the home dog's -2 for the same fact came back through weigh_favorites as
+    +1 more - one study, counted twice (+3). The favorite's weighed read is own + 2 points, once; every other point on
+    the dog (a key player out, a fade) still moves the favorite the other way."""
+    games = {"g": {"id": "g", "league": "nfl", "away": "SF", "home": "NYG", "tzo": "-5.0", "neutral": "0"}}
+    keep = dict(sports._SCHED)
+    try:
+        sports._SCHED.update(ref=games, k=id(games), s={}, tz={("nfl", "SF"): -8.0})
+        fav = {**_cand("g", -140, 0.58, league="nfl"), "home": False, "side": "away"}
+        dog = {**_cand("g", 120, 0.42, league="nfl"), "home": True, "side": "home", "dog_ctx": {}, "dog_more": {}}
+        sports.weigh_west_coast_road_fav(games, [fav, dog])
+        own = (fav["edge_own"] + 1) / fav["dec"]
+        assert abs(own - 0.60) < 1e-9 and dog.get("west_trip_dog") and sports.dog_spots(dog) == -2
+        sports.weigh_favorites([fav, dog])
+        assert fav.get("w_p") is None or abs(fav["w_p"] - own) < 1e-9          # the trip: once, on the own read
+        hurt_dog = {**dog, "key_out_me": True}                                   # the dog's QB out still weighs: -3 -> +1.5
+        f2 = {**_cand("g", -140, 0.58, league="nfl"), "home": False, "side": "away"}
+        sports.weigh_west_coast_road_fav(games, [f2, hurt_dog])
+        sports.weigh_favorites([f2, hurt_dog])
+        assert abs(f2["w_p"] - (own + 0.015)) < 1e-9 and f2["opp_dog_pts"] == -3
+    finally:
+        sports._SCHED.clear(); sports._SCHED.update(keep)
+
+
+def test_rule_check_enforces_the_owners_pick_rules():
+    """10/11 bug sweep: the double check pulls a pick that breaks a rule the code elsewhere relies on - a value play off
+    the moneyline (10/9: moneyline only), a unit play on a dog past +300 (10/10), a college favorite lean at -150..-130
+    (10/10). A clean pick passes."""
+    def pk(kind, odds, market="ml", league="nfl", lean=False, p=0.45):
+        dec = sd.decimal(odds)
+        leg = {"odds": odds, "dec": dec, "p": p, "edge_own": (p + 0.08) * dec - 1, "market": market, "league": league,
+               "team": f"t{odds}", "game_id": f"g{odds}{market}", "side": "home", "line": -3.5 if market == "spread" else None}
+        if kind == "dog":
+            leg["dog_p"] = p + 0.08
+        return {"kind": kind, "date": "2026-10-11", "status": "open", "lean": lean, "legs": [leg]}
+    new = [pk("play", -105, market="spread"), pk("play", 340), pk("lean", -142, league="ncaaf", lean=True, p=0.57),
+           pk("play", 150), pk("lean", -125, league="ncaaf", lean=True, p=0.55), pk("dog", 220)]
+    probs = sports.rule_check(list(new), new, "2026-10-11")
+    kinds = [(p["kind"], p["legs"][0]["odds"]) for p in new]
+    assert ("play", -105) not in kinds and any("off the moneyline" in x for x in probs)
+    assert ("play", 340) not in kinds and any("past +300" in x for x in probs)
+    assert ("lean", -142) not in kinds and any("college favorite lean" in x for x in probs)
+    assert ("play", 150) in kinds and ("lean", -125) in kinds and ("dog", 220) in kinds
+
+
+def test_brain_says_leans_carry_no_units():
+    """10/11 bug sweep: the brain's list still promised ½u on a 55%+ lean - leans have carried no units since 10/2
+    (units_for). The brain says what the engine really does: no units on a lean, the unit system as it stands."""
+    import sports_dashboard as d
+    w = d.engine_weights()["the board"]
+    assert "NO UNITS" in w["leans"] and "sized by its edge" not in w["leans"] and "-150..-130" in w["leans"]
+    assert "moneyline only" in w["units"] and f"{sports.PLAY_UNITS:g}u" in w["units"]
+    assert sports.units_for({"kind": "lean", "lean": True, "lean_units": 0.5, "date": "2026-10-11", "status": "open",
+                             "legs": [{"odds": -120, "dec": sd.decimal(-120), "p": 0.6, "edge_own": 0.1}]}) == 0
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
