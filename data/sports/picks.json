@@ -9126,7 +9126,7 @@
   "american": 102,
   "date": "2026-10-10",
   "dec": 2.02,
-  "kind": "dog",
+  "kind": "play",
   "lean": false,
   "legs": [
    {
@@ -9235,7 +9235,8 @@
   "round": 1,
   "stake": 100.0,
   "status": "open",
-  "tier": "lean"
+  "tier": "lean",
+  "was_dog": "2026-10-11T00:54Z"
  },
  {
   "american": -142,
@@ -9652,5 +9653,143 @@
   "stake": 100.0,
   "status": "open",
   "tier": "lean"
+ },
+ {
+  "american": 250,
+  "date": "2026-10-10",
+  "dec": 3.5,
+  "kind": "dog",
+  "lean": false,
+  "legs": [
+   {
+    "ats_run": 4,
+    "bd_tags": [
+     "bothhot:2",
+     "sched:1",
+     "h2h:1",
+     "home:1",
+     "sharp:1",
+     "splits_f:2",
+     "bottom_s:3",
+     "w_sharp:1"
+    ],
+    "breakdown": [
+     "\ud83d\ude91 Fresno St out: OL Gino Quinones, WR Harold Duvall, LB Logan Studt, LB Niko Baumgartner +2 more \u00b7 questionable: SP Ethan Rossetti, OL Jonah Leaupepetele.",
+     "\u2696\ufe0f Same kind of record, tougher schedule: Fresno St lost to USC.",
+     "\ud83d\udcb0 Fresno St went from +290 to +250 since the open. We were here first.",
+     "\ud83d\udd25 Neither team has lost lately: Fresno St 4 in a row, Boise St 4.",
+     "\ud83c\udfdf\ufe0f Home game for Fresno St \u2014 2-0 in their building so far.",
+     "\u2705 Bottom line: Fresno St (+250). Our read beats the number. Riding Fresno St."
+    ],
+    "bv": 50,
+    "coach": [
+     null,
+     false
+    ],
+    "country": "USA",
+    "ctx": [
+     {
+      "k": "rival"
+     }
+    ],
+    "ctx_tags": [
+     "game:conf",
+     "game:rival"
+    ],
+    "dec": 3.5,
+    "dog_ctx": {
+     "cw5": 0,
+     "hits_top": false,
+     "opp_won": true,
+     "won": true
+    },
+    "dog_more": {
+     "fades": [],
+     "last_margin": 20.0,
+     "last_pts": 26.0,
+     "neutral": false,
+     "win_pct": 0.8,
+     "win_streak": 4
+    },
+    "dog_p": 0.3166,
+    "drift": -0.0291,
+    "edge": 0.004541961530528216,
+    "edge_own": -0.014219447023678389,
+    "fired_on": null,
+    "first_timer": false,
+    "form_state": [
+     20.0,
+     4,
+     105,
+     true,
+     0
+    ],
+    "g_role_me": null,
+    "g_role_opp": null,
+    "game_id": "ncaaf:401860901",
+    "home": true,
+    "hot_key": false,
+    "hurt": [],
+    "intl": false,
+    "key_edge": -0.2908483471297951,
+    "key_out_me": false,
+    "key_seen": {},
+    "league": "ncaaf",
+    "line": null,
+    "lost_last": false,
+    "market": "ml",
+    "odds": 250,
+    "opp": "Boise St",
+    "opp_lost_last": false,
+    "opp_outs": [
+     "Cam Bates (WR)",
+     "Carson Rasmussen (OL)",
+     "Darren Morris (WR)",
+     "Jaden Williams (DL)"
+    ],
+    "our_drama": [],
+    "outs": [
+     "Gino Quinones (OL)",
+     "Harold Duvall (WR)",
+     "Logan Studt (LB)",
+     "Niko Baumgartner (LB)"
+    ],
+    "outshot_me": false,
+    "outshot_opp": false,
+    "p": 0.2870119890087224,
+    "p_market": 0.27424749163879597,
+    "pdo": null,
+    "public": "fade",
+    "reasons": [
+     "sharp money moving this way",
+     "the stronger team"
+    ],
+    "rested_vs_b2b": false,
+    "revenge": false,
+    "road_opener": false,
+    "side": "home",
+    "start": "2026-10-11T02:30Z",
+    "stype": "2",
+    "talk_ours": [],
+    "talk_theirs": [],
+    "team": "Fresno St",
+    "team_id": "278",
+    "their_drama": [],
+    "tier": "value",
+    "tired_vs_rested": false,
+    "trap": false,
+    "waiting": [],
+    "why_line": "\ud83d\udcb8 Fresno St's price keeps shortening since the open \u2014 the money's on them."
+   }
+  ],
+  "midday": true,
+  "p_hit": 0.287,
+  "pnl": 0.0,
+  "posted": "2026-10-11T00:54Z",
+  "round": 1,
+  "stake": 100.0,
+  "status": "open",
+  "tier": "value",
+  "upgraded": "2026-10-11T00:54Z"
  }
 ]

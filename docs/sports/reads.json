@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T00:50Z",
+ "updated": "2026-10-11T01:07Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1733,7 +1733,7 @@
    "away": "Ducks",
    "home": "Flames",
    "why": "on_board",
-   "board": "dog",
+   "board": "play",
    "lean": {
     "team": "Flames",
     "opp": "Ducks",
@@ -1784,7 +1784,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Boise St",
-    "p": 0.679,
+    "p": 0.663,
     "tie": 0.03,
     "name": "1st half"
    },
@@ -1793,8 +1793,8 @@
    "start": "2026-10-11T02:30Z",
    "away": "Boise St",
    "home": "Fresno St",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Boise St",
     "opp": "Fresno St",
@@ -1802,7 +1802,7 @@
     "line": -8.5,
     "odds": -110,
     "p": 0.5,
-    "win_p": 0.726,
+    "win_p": 0.659,
     "reasons": [
      "opponent missing key players"
     ]
@@ -1814,8 +1814,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Arizona St",
-    "p": 0.854,
-    "tie": 0.018,
+    "p": 0.853,
+    "tie": 0.019,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1995,7 +1995,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Commanders",
-    "p": 0.547,
+    "p": 0.542,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -2056,7 +2056,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.661,
+    "p": 0.663,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -2065,18 +2065,19 @@
    "start": "2026-10-11T17:00Z",
    "away": "Texans",
    "home": "Titans",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Under",
-    "opp": "Texans @ Titans",
-    "market": "total",
-    "line": 38.0,
-    "odds": -106,
-    "p": 0.595,
-    "win_p": 0.595,
+    "team": "Titans",
+    "opp": "Texans",
+    "market": "spread",
+    "line": 7.0,
+    "odds": -112,
+    "p": 0.515,
+    "win_p": 0.241,
     "reasons": [
-     "the engine's scoring read"
+     "hotter recent form",
+     "revenge game"
     ]
    }
   },
