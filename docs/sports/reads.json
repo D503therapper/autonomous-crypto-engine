@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T00:00Z",
+ "updated": "2026-10-11T00:02Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1679,8 +1679,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Boise St",
-    "p": 0.688,
-    "tie": 0.029,
+    "p": 0.679,
+    "tie": 0.03,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -1699,7 +1699,6 @@
     "p": 0.5,
     "win_p": 0.726,
     "reasons": [
-     "hotter recent form",
      "opponent missing key players"
     ]
    }
@@ -1727,7 +1726,7 @@
     "market": "spread",
     "line": -20.5,
     "odds": -115,
-    "p": 0.504,
+    "p": 0.503,
     "win_p": 0.908,
     "reasons": [
      "the stronger team",
@@ -1742,8 +1741,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jaguars",
-    "p": 0.665,
-    "tie": 0.035,
+    "p": 0.669,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -1760,7 +1759,7 @@
     "line": 7.5,
     "odds": -112,
     "p": 0.514,
-    "win_p": 0.231,
+    "win_p": 0.226,
     "reasons": []
    }
   },
@@ -1802,8 +1801,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Bengals",
-    "p": 0.641,
-    "tie": 0.036,
+    "p": 0.647,
+    "tie": 0.035,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -1811,18 +1810,19 @@
    "start": "2026-10-11T17:00Z",
    "away": "Bengals",
    "home": "Dolphins",
-   "why": "tight",
+   "why": "coin_flip",
    "board": null,
    "lean": {
-    "team": "Under",
-    "opp": "Bengals @ Dolphins",
-    "market": "total",
-    "line": 43.5,
-    "odds": -109,
-    "p": 0.642,
-    "win_p": 0.642,
+    "team": "Dolphins",
+    "opp": "Bengals",
+    "market": "spread",
+    "line": 7.0,
+    "odds": -110,
+    "p": 0.515,
+    "win_p": 0.262,
     "reasons": [
-     "the engine's scoring read"
+     "sharp money moving this way",
+     "revenge game"
     ]
    }
   },
@@ -1951,7 +1951,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.666,
+    "p": 0.661,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -1960,19 +1960,18 @@
    "start": "2026-10-11T17:00Z",
    "away": "Texans",
    "home": "Titans",
-   "why": "coin_flip",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Titans",
-    "opp": "Texans",
-    "market": "spread",
-    "line": 7.0,
-    "odds": -112,
-    "p": 0.515,
-    "win_p": 0.237,
+    "team": "Under",
+    "opp": "Texans @ Titans",
+    "market": "total",
+    "line": 38.0,
+    "odds": -106,
+    "p": 0.595,
+    "win_p": 0.595,
     "reasons": [
-     "hotter recent form",
-     "revenge game"
+     "the engine's scoring read"
     ]
    }
   },
@@ -2064,7 +2063,7 @@
     "win_p": 0.578,
     "reasons": [
      "the stronger team",
-     "opponent drama: suspension"
+     "opponent drama: new baby"
     ]
    }
   },

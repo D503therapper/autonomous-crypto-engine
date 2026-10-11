@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 44,
+  "n": 45,
   "beat": 13,
-  "same": 19,
+  "same": 20,
   "worse": 12,
-  "avg_pts": 0.05
+  "avg_pts": 0.04
  },
  "unit_plays": {
-  "n": 20,
+  "n": 21,
   "beat": 5,
-  "same": 9,
+  "same": 10,
   "worse": 6,
   "avg_pts": 0.02
  },
@@ -36,11 +36,11 @@
    "avg_pts": 1.02
   },
   "play": {
-   "n": 5,
+   "n": 6,
    "beat": 1,
-   "same": 2,
+   "same": 3,
    "worse": 2,
-   "avg_pts": -0.4
+   "avg_pts": -0.33
   }
  },
  "by_sport": {
@@ -52,11 +52,11 @@
    "avg_pts": 0.5
   },
   "ncaaf": {
-   "n": 10,
+   "n": 11,
    "beat": 4,
-   "same": 3,
+   "same": 4,
    "worse": 3,
-   "avg_pts": 0.25
+   "avg_pts": 0.23
   },
   "nfl": {
    "n": 7,
@@ -719,6 +719,20 @@
    "pts": 0.0,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Illinois",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -142,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }
