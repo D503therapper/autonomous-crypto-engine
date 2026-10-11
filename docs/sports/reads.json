@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T00:05Z",
+ "updated": "2026-10-11T00:50Z",
  "games": [
   {
    "id": "ncaaf:401856823",
@@ -1104,8 +1104,8 @@
    "away": "Jackson St",
    "home": "Grambling",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1119,8 +1119,8 @@
    "away": "Montana",
    "home": "N Arizona",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1134,8 +1134,8 @@
    "away": "North Dakota",
    "home": "Northern Iowa",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1194,8 +1194,8 @@
    "away": "Wild",
    "home": "Panthers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -1559,6 +1559,21 @@
    "lean": null
   },
   {
+   "id": "nba:401898398",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-11T00:00Z",
+   "away": "76ers",
+   "home": "Celtics",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401868054",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -1631,6 +1646,21 @@
    "lean": null
   },
   {
+   "id": "nba:401898397",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-11T00:00Z",
+   "away": "Timberwolves",
+   "home": "Heat",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401907994",
    "league": "mlb",
    "emoji": "\u26be",
@@ -1656,6 +1686,36 @@
     ],
     "result": null
    }
+  },
+  {
+   "id": "ncaaf:401869949",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-11T00:10Z",
+   "away": "James Madison",
+   "home": "GA Southern",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898399",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-11T00:30Z",
+   "away": "Kings",
+   "home": "Warriors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892480",
@@ -1769,8 +1829,8 @@
     "team": "Arizona St",
     "opp": "Hawai'i",
     "market": "spread",
-    "line": -20.5,
-    "odds": -115,
+    "line": -21.0,
+    "odds": -105,
     "p": 0.503,
     "win_p": 0.908,
     "reasons": [
