@@ -13535,3 +13535,19 @@ error: failed to push some refs to 'https://github.
    dex screen: REJECT QNT@ethereum liq $918,619 - is_mintable; lp locked 0% < 95%
    dex screen: REJECT DJT@solana liq $471,885 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
    dex screen: REJECT OGN@ethereum liq $1,481,752 - transfer_pausable; is_mintable; owner_change_balance; top-10 holders 66%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-11 10:47 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/mover     equity $351.55 (-29.7%) 1 open  market UP
+[2026-10-11 10:47 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/social_heat equity $462.80 (-7.4%) 2 open  market UP
+[2026-10-11 10:47 UTC] crypto/breakout10 equity $494.64 (-1.1%) 2 open  market UP
+[2026-10-11 10:47 UTC] crypto/momentum  equity $456.14 (-8.8%) 2 open  market UP
+[2026-10-11 10:47 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/hold_btc  equity $493.81 (-1.2%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), BTC 35 (35/0/0), AERO 32 (29/0/3), PENGU 32 (32/0/0), STONK 30 (21/0/8)
