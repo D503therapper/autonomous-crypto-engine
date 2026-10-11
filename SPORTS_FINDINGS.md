@@ -13,7 +13,7 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
-## 10/11 - NFL 6-POINT "WONG" TEASERS (the owner's brother's engine posts them; the owner: "maybe we should be doing this"): BORDERLINE - dogs-only at -120 is a LEAD; nothing built (posted parlays are banned - the owner's call)
+## 10/11 - NFL 6-POINT "WONG" TEASERS (the owner's brother's engine posts them): BORDERLINE - dogs-only at -120 is a LEAD. THE OWNER SAID NO (10/11) - no teasers on our board
 - 2,277 NFL games with closing spreads 2018-26, teased 6 from the close (push = loss). Dogs +1.5/+2/+2.5 -> 77.4% (304/393); favorites -7.5..-8.5 -> 69.8% (113/162); all Wong legs 75.1% vs every non-Wong leg 68.7% (z 3.1). The "low total" filter is noise (<=44 76.2% vs 74.4%). Same-day legs independent.
 - Break-even per leg: 2-team -110 72.4%, -120 73.9%, -130 75.2%, -140 76.4%; 3-team +160 72.7%, +150 73.7%. All Wong at -120 +3.5%, at -130 0%; dogs only -120 +9.7%, -130 +5.9%.
 - Timing (odds history, 1,712 games): teasing the first fair number does WORSE (dogs 73.1% vs 78.6% at the close); a +2.5 that drifts to +3/+3.5 covers only 62% - bet the game-day number, only if still +1.5..+2.5.
