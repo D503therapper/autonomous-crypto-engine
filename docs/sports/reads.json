@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T13:04Z",
+ "updated": "2026-10-11T13:49Z",
  "games": [
   {
    "id": "nba:401898400",
@@ -20,29 +20,16 @@
    "id": "nfl:401872981",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Jaguars",
-    "p": 0.665,
-    "tie": 0.035,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-11T13:30Z",
    "away": "Eagles",
    "home": "Jaguars",
-   "why": "coin_flip",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Eagles",
-    "opp": "Jaguars",
-    "market": "spread",
-    "line": 7.5,
-    "odds": 100,
-    "p": 0.514,
-    "win_p": 0.231,
-    "reasons": []
-   }
+   "lean": null
   },
   {
    "id": "nfl:401872990",
@@ -143,7 +130,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Steelers",
-    "p": 0.522,
+    "p": 0.529,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -173,7 +160,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Commanders",
-    "p": 0.551,
+    "p": 0.556,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -296,8 +283,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Broncos",
-    "p": 0.581,
-    "tie": 0.038,
+    "p": 0.586,
+    "tie": 0.037,
     "name": "1st half"
    },
    "sport": "NFL",
@@ -312,9 +299,9 @@
     "opp": "Chargers",
     "market": "ml",
     "line": null,
-    "odds": -185,
-    "p": 0.64,
-    "win_p": 0.64,
+    "odds": -192,
+    "p": 0.648,
+    "win_p": 0.648,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -501,7 +488,7 @@
     "opp": "Dodgers",
     "market": "spread",
     "line": 1.5,
-    "odds": -204,
+    "odds": -205,
     "p": 0.629,
     "win_p": 0.513,
     "reasons": [
