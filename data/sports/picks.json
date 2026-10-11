@@ -9738,6 +9738,7 @@
      "game:rival"
     ],
     "dec": 3.5,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -9758,6 +9759,10 @@
     "edge_own": -0.014219447023678389,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "15,10,3,10",
+     "h": "13,7,0,11"
+    },
     "form_state": [
      20.0,
      4,
@@ -9806,9 +9811,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Boise St 38 @ Fresno St 31",
+    "settled": "2026-10-11T06:16Z",
     "side": "home",
     "start": "2026-10-11T02:30Z",
     "stype": "2",
@@ -9826,12 +9833,14 @@
   ],
   "midday": true,
   "p_hit": 0.287,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-11T00:54Z",
   "round": 1,
+  "settled": "2026-10-11T06:16Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "lost",
   "tier": "value",
+  "units": 1.0,
   "upgraded": "2026-10-11T00:54Z"
  }
 ]
