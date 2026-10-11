@@ -13461,3 +13461,26 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 07:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 07:05 UTC] crypto/hold_btc  equity $494.81 (-1.0%) 1 open  market UP
    social heat top: STRK 37 (37/0/0), BTC 35 (35/0/0), PENGU 29 (29/0/0), NEAR 27 (27/0/0), TIA 24 (24/0/0)
+   dex screen: REJECT HEEHAW@solana liq $134,307 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: REJECT HYPE@solana liq $2,404,924 - mint authority
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE FARTCOIN @solana liq $8,195,414 - rugcheck unreachable
+   dex screen: REJECT SPX@solana liq $2,159,288 - mint authority
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT SLOPCORE@solana liq $102,874 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            023437a4ad35ad1ce12eb87857240b7542eba24d -> main (fetch first)
+error: failed to push some refs to 'https://github.
+   dex screen: REJECT USDE@ethereum liq $1,334,340 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 95%
+   dex screen: REJECT FRXUSD@ethereum liq $1,005,380 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 85%; lp locked 0% < 95%
+   dex scanner: 2,734 pools (solana 1,881 / base 431 / ethereum 422), refresh cycle 115s (hot 110s), 2969 calls (110 feed, 429s 0, failed 0), 85,761 refreshed (12160 no pair), +83 added / -79 dropped (dead 74, stale 5, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 08:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/mover     equity $352.73 (-29.5%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/social_heat equity $462.20 (-7.6%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/breakout10 equity $493.41 (-1.3%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/momentum  equity $456.33 (-8.7%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/hold_btc  equity $494.15 (-1.2%) 1 open  market UP
+   social heat top: STRK 49 (37/0/12), NEAR 35 (35/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0), AERO 22 (16/0/6)
