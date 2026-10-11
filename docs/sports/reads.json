@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T15:57Z",
+ "updated": "2026-10-11T16:01Z",
  "games": [
   {
    "id": "nba:401898400",
@@ -100,7 +100,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jets",
-    "p": 0.506,
+    "p": 0.504,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -160,7 +160,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Commanders",
-    "p": 0.551,
+    "p": 0.555,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -169,18 +169,18 @@
    "start": "2026-10-11T17:00Z",
    "away": "Giants",
    "home": "Commanders",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Under",
-    "opp": "Giants @ Commanders",
-    "market": "total",
-    "line": 41.5,
-    "odds": -110,
-    "p": 0.607,
-    "win_p": 0.607,
+    "team": "Commanders",
+    "opp": "Giants",
+    "market": "ml",
+    "line": null,
+    "odds": -192,
+    "p": 0.611,
+    "win_p": 0.611,
     "reasons": [
-     "the engine's scoring read"
+     "sharp money moving this way"
     ]
    }
   },
@@ -222,7 +222,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texans",
-    "p": 0.667,
+    "p": 0.661,
     "tie": 0.035,
     "name": "1st half"
    },
@@ -240,7 +240,7 @@
     "line": 6.5,
     "odds": -102,
     "p": 0.515,
-    "win_p": 0.235,
+    "win_p": 0.244,
     "reasons": [
      "hotter recent form",
      "revenge game"
