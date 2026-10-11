@@ -1,35 +1,38 @@
 {
- "at": "2026-10-11T06:11Z",
- "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-10 Daria Kasatkina) - started sports.yml"
- ],
+ "at": "2026-10-11T07:42Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Volynets vs Osorio: no points for 2626s",
-  "live tennis scores: tennis Rakhimova vs Han: no points for 2626s",
-  "live tennis scores: tennis McNally vs Tararudee: no points for 1927s",
-  "live tennis scores: tennis Sawangkaew vs Bondar: no points for 1125s"
+  "live tennis scores: tennis McNally vs Tararudee: no points for 2653s",
+  "live tennis scores: tennis Sawangkaew vs Bondar: no points for 2653s"
  ],
  "ok": [
   "live watcher fresh (36s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 6 of 6 live matches",
-  "slate check: all 110 of today's games named, priced and looked at",
+  "live tennis points + server: 3 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 1 fresh (betrivers 1)",
-  "all 2 backup sources answering",
+  "tennis live prices: 5 live lines, 1 fresh (betrivers 1)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "simulator ran 8h ago",
-  "engine ran 0 min ago",
+  "studies ran 2h ago",
+  "simulator ran 1h ago",
+  "engine ran 22 min ago",
   "pacer running",
-  "tennis slate on time",
-  "main board up"
+  "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-11T07:42Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis McNally vs Tararudee: no points for 2653s",
+    "live tennis scores: tennis Sawangkaew vs Bondar: no points for 2653s"
+   ]
+  },
   {
    "at": "2026-10-11T06:11Z",
    "fixes": [
@@ -520,15 +523,6 @@
    "at": "2026-10-08T16:59Z",
    "fixes": [],
    "problems": []
-  },
-  {
-   "at": "2026-10-08T15:50Z",
-   "fixes": [
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "simulator last ran 9h ago - restarted"
-   ]
   }
  ]
 }
