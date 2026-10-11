@@ -13840,3 +13840,30 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 20:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 20:05 UTC] crypto/hold_btc  equity $497.52 (-0.5%) 1 open  market UP
    social heat top: TRUMP 42 (37/0/5), S 35 (35/0/0), QI 33 (21/0/12), NEAR 29 (29/0/0), STRK 27 (27/0/0)
+   footprint: AVAX: footprint 3/4 (drift+quiet+hikes) 48h +6.4%, 2 volume hikes, 81% quiet hours @ 10.872
+   dex screen: REJECT STRK@solana liq $201,125 - mint authority; top-10 holders 59%; lp holders unknown
+   dex screen: REJECT PAID@solana liq $441,855 - lp holders unknown; rugcheck lp locked 57% < 95%
+   dex screen: REJECT ENA@ethereum liq $3,178,880 - is_mintable; top-10 holders 59%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            5d2f87ef7266a512e3f5147bcfe7b5c7dab08dbd -> main (fetch first)
+error: failed to push some refs to 'https://github.
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     4610b51eeaafa592a46275e87bcae7dafbc3b953 -> main (cannot lock ref 'refs/heads/main': is at 49fdfce9331449f113d053a
+   dex screen: REJECT 1F916@base liq $495,602 - goplus partial data: cannot_sell_all unknown; top-10 holders 49%; lp locked 0% < 95%
+   dex screen: REJECT GRASS@solana liq $402,444 - mint authority; top-10 holders 51%; lp holders unknown
+   dex scanner: 3,012 pools (solana 2,090 / base 520 / ethereum 402), refresh cycle 124s (hot 119s), 3018 calls (110 feed, 429s 0, failed 0), 87,236 refreshed (10036 no pair), +116 added / -122 dropped (dead 12, stale 0, cap 110), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 21:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 21:05 UTC] crypto/mover     equity $346.28 (-30.7%) 2 open  market UP
+[2026-10-11 21:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 21:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 21:05 UTC] crypto/social_heat equity $470.40 (-5.9%) 2 open  market UP
+[2026-10-11 21:05 UTC] crypto/breakout10 equity $518.15 (+3.6%) 2 open  market UP
+[2026-10-11 21:05 UTC] crypto/momentum  equity $459.71 (-8.1%) 2 open  market UP
+[2026-10-11 21:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 21:05 UTC] crypto/hold_btc  equity $497.15 (-0.6%) 1 open  market UP
+   social heat top: TRUMP 42 (37/0/5), STRK 40 (40/0/0), NEAR 35 (35/0/0), S 32 (32/0/0), W 26 (21/0/4)
