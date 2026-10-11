@@ -13665,3 +13665,29 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 15:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 15:06 UTC] crypto/hold_btc  equity $494.59 (-1.1%) 1 open  market UP
    social heat top: TRUMP 42 (37/0/5), AERO 40 (32/0/8), STRK 40 (40/0/0), PRL 29 (29/0/0), CKB 27 (27/0/0)
+   dex screen: REJECT ORCA@solana liq $1,396,770 - mint authority; top-10 holders 61%
+   dex screen: PASS ANTFUN@solana liq $12,869,179
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HOOKED@solana liq $217,281 - lp holders unknown; rugcheck lp locked 9% < 95%
+   dex screen: REJECT MET@solana liq $89,401 - liquidity $89,401 < $100,000
+   dex screen: REJECT VVV@base liq $15,675,472 - is_mintable; owner_percent 30%; top-10 holders 62%
+   dex screen: REJECT STRK@ethereum liq $706,010 - is_mintable; top-10 holders 69%; lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $2,690,852
+   dex screen: REJECT CATE@solana liq $73,764,162 - top-10 holders 100%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: QT@solana:9LAHK5Yv data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   scanner: NEAR: +5.6% in 15 min on 30.4x volume @ 5.7528 spread 0.04%
+   take-off: BUY NEAR (scanner mover): NEAR: +5.6% in 15 min on 30.4x volume @ 5.7528 spread 0.04%
+   >> crypto/mover: BUY $157.25 of NEAR @ 5.75855 (scanner mover)
+   scanner: NEAR: +5.4% in 15 min on 40.3x volume @ 5.8331 spread 0.13%
+   dex scanner: 3,001 pools (solana 2,075 / base 509 / ethereum 417), refresh cycle 124s (hot 119s), 3023 calls (109 feed, 429s 0, failed 0), 87,420 refreshed (7956 no pair), +80 added / -79 dropped (dead 13, stale 0, cap 66), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 16:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/mover     equity $350.02 (-30.0%) 1 open  market UP
+[2026-10-11 16:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/social_heat equity $472.71 (-5.5%) 2 open  market UP
+[2026-10-11 16:06 UTC] crypto/breakout10 equity $525.01 (+5.0%) 2 open  market UP
+[2026-10-11 16:06 UTC] crypto/momentum  equity $458.83 (-8.2%) 2 open  market UP
+[2026-10-11 16:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/hold_btc  equity $497.97 (-0.4%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), AERO 38 (32/0/6), APT 37 (37/0/0), PRL 29 (29/0/0), VVV 27 (27/0/0)
