@@ -1,33 +1,35 @@
 {
- "at": "2026-10-11T14:33Z",
- "fixes": [
-  "studies overdue (9h) - started sports_studies.yml"
- ],
+ "at": "2026-10-11T14:34Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Sakellaridi vs Adrover: no points for 2659s",
-  "live tennis scores: tennis Tsygourova vs Cakarevic: no points for 2659s",
-  "live tennis scores: tennis Van Emst vs Serban: no points for 291s",
-  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+  "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+  "live board check failed: HTTP Error 403: rate limit exceeded",
   "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (29s)",
+  "live watcher fresh (9s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "all 2 backup sources answering",
-  "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "simulator ran 8h ago",
-  "engine ran 53 min ago",
+  "engine ran 54 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-11T14:34Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
+    "live board check failed: HTTP Error 403: rate limit exceeded",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-11T14:33Z",
    "fixes": [
@@ -564,11 +566,6 @@
   },
   {
    "at": "2026-10-09T00:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-09T00:03Z",
    "fixes": [],
    "problems": []
   }
