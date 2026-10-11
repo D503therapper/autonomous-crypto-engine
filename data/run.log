@@ -13691,3 +13691,12 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 16:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 16:06 UTC] crypto/hold_btc  equity $497.97 (-0.4%) 1 open  market UP
    social heat top: STRK 40 (40/0/0), AERO 38 (32/0/6), APT 37 (37/0/0), PRL 29 (29/0/0), VVV 27 (27/0/0)
+   dex screen: REJECT ICP@base liq $27,730 - liquidity $27,730 < $100,000; 24h volume $9,526 < $100,000
+   dex screen: REJECT NEURAL@ethereum liq $767,595 - transfer_pausable; is_whitelisted; buy tax 4%; sell tax 4%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: QT@solana:9LAHK5Yv data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT BABA@solana liq $207,120 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 58%; lp holders unknown
+   dex screen: REJECT CBXRP@base liq $566,821 - pool age unknown
+   social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex screen: PASS PEPE@ethereum liq $30,239,128
