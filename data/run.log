@@ -13484,3 +13484,29 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 08:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 08:05 UTC] crypto/hold_btc  equity $494.15 (-1.2%) 1 open  market UP
    social heat top: STRK 49 (37/0/12), NEAR 35 (35/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0), AERO 22 (16/0/6)
+   dex screen: REJECT KTA@base liq $4,041,005 - top-10 holders 67%
+   dex screen: REJECT GRIFFAIN@solana liq $2,158,287 - top-10 holders 54%
+   dex screen: REJECT AVNT@base liq $783,328 - pool age unknown
+   dex screen: REJECT ICP@ethereum liq $475,903 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: REJECT CLAWHUNTER@solana liq $102,507 - lp holders unknown; rugcheck lp locked 65% < 95%
+   dex screen: REJECT CTM@ethereum liq $2,519,812 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex re-screen: QT@solana:9LAHK5Yv data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT DIME@ethereum liq $182,975 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%; lp holders unknown
+   dex screen: REJECT BUNKER@base liq $244,522 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT AMZNC@base liq $19,766 - liquidity $19,766 < $100,000; 24h volume $857 < $100,000
+   dex scanner: 2,747 pools (solana 1,902 / base 421 / ethereum 424), refresh cycle 116s (hot 110s), 2972 calls (110 feed, 429s 0, failed 0), 85,857 refreshed (11530 no pair), +98 added / -85 dropped (dead 77, stale 8, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $159.51 of LTC @ 63.5574, P/L $-1.84 (time limit)
+[2026-10-11 09:05 UTC] crypto/mover     equity $351.76 (-29.6%) 1 open  market UP
+[2026-10-11 09:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 09:05 UTC] crypto/social_heat equity $462.38 (-7.5%) 2 open  market UP
+[2026-10-11 09:05 UTC] crypto/breakout10 equity $495.37 (-0.9%) 2 open  market UP
+[2026-10-11 09:05 UTC] crypto/momentum  equity $456.50 (-8.7%) 2 open  market UP
+[2026-10-11 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 09:05 UTC] crypto/hold_btc  equity $494.07 (-1.2%) 1 open  market UP
+   social heat top: STRK 37 (37/0/0), TIA 35 (35/0/0), NEAR 32 (32/0/0), BTC 29 (29/0/0), AERO 18 (13/0/4)
