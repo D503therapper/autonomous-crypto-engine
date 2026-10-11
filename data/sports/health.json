@@ -1,16 +1,9 @@
 {
- "at": "2026-10-11T15:58Z",
- "fixes": [
-  "live watch 38147742963 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running",
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
- "problems": [
-  "live tennis scores: tennis Van Emst vs Serban: no points for 2336s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "simulator last ran 10h ago - restarted"
- ],
+ "at": "2026-10-11T17:30Z",
+ "fixes": [],
+ "problems": [],
  "ok": [
+  "live watcher fresh (42s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -22,13 +15,19 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "engine ran 10 min ago",
+  "studies ran 3h ago",
+  "simulator ran 2h ago",
+  "engine ran 36 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-11T17:30Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-11T15:58Z",
    "fixes": [
@@ -579,11 +578,6 @@
     "live tennis scores: tennis Okamura vs Bai Zhuoxuan: no points for 1000s",
     "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
-  },
-  {
-   "at": "2026-10-09T01:41Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
