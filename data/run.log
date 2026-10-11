@@ -13910,3 +13910,26 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-11 22:21 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 22:21 UTC] crypto/hold_btc  equity $497.25 (-0.5%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), AERO 32 (29/0/3), NEAR 32 (32/0/0), STRK 27 (27/0/0), PENGU 21 (21/0/0)
+   footprint: AVAX: footprint 3/4 (drift+quiet+hikes) 48h +5.2%, 2 volume hikes, 81% quiet hours @ 10.883
+   scanner: 988 tickers, sample: {'i': 'BTC_USD', 'h': '84129.11', 'l': '82725.02', 'a': '83535.72', 'v': '1014.8846', 'vv': '84482832.75', 'c': '0.0073', 'b': '83535.72', 'k': '83535.73', 'oi': '0', 't': 1791757309277}
+   dex screen: UNREACHABLE DNA@ethereum liq $186,031 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT SWORDCAT@solana liq $209,547 - lp holders unknown; rugcheck lp locked 47% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AZTEC@ethereum liq $14,868,207 - top-10 holders 100%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT PYUSD@ethereum liq $100,226,503 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%
+   dex scanner: 3,000 pools (solana 2,020 / base 548 / ethereum 432), refresh cycle 112s (hot 108s), 2128 calls (92 feed, 429s 0, failed 0), 61,047 refreshed (10700 no pair), +216 added / -216 dropped (dead 5, stale 0, cap 211), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 23:06 UTC] crypto/mover     equity $352.18 (-29.6%) 2 open  market UP
+[2026-10-11 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 23:06 UTC] crypto/social_heat equity $470.75 (-5.8%) 2 open  market UP
+[2026-10-11 23:06 UTC] crypto/breakout10 equity $527.82 (+5.6%) 2 open  market UP
+[2026-10-11 23:06 UTC] crypto/momentum  equity $460.31 (-7.9%) 2 open  market UP
+[2026-10-11 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 23:06 UTC] crypto/hold_btc  equity $497.66 (-0.5%) 1 open  market UP
+   social heat top: TRUMP 40 (40/0/0), AERO 35 (32/0/3), NEAR 29 (29/0/0), BTC 27 (27/0/0), PONS 26 (13/0/13)
