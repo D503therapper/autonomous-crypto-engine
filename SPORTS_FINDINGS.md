@@ -13,6 +13,19 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/11 - TEN STUDIES (daily run): college after a midweek game / finally home, NHL blowouts / Canadian teams, after scoring 40+, the game before a bye, NFL yards margin, MLB blowouts, the last-day line move, the spread-outlier book: ALL DEAD, two weak LEADs; nothing built
+Thresholds picked on older seasons, graded blind on 2023-26 (odds history 2020-23 / 2024-26), vs every side at the same price band. ~300 cells tried - ~15 pass by luck.
+- **College after a Tue-Fri game (8-11 days' rest next):** DEAD - dogs +7.3% n 98 -> -23.4% n 87 (every blind season lost); ATS 52.1% -> 49.3%. 4-6 days' rest almost never happens.
+- **College home after 2+ straight road games / 3rd straight road game:** DEAD - dogs -7.3% -> -6.9%, ATS 48.7% / 48.8%; 3rd road game n 12/13. Side note: college favorites -150..-101 lost at any rest (-11.4% train, -7.2% blind) - our own college favorite unit plays in that band are 4-1, +4.8u (only taken when the own read backs them) - no change.
+- **NHL after winning/losing by 4+ (or scoring/allowing 6+):** DEAD - winners as favorites +1.8 -> -6.3 vs the band; 4+ losers as dogs +5.4 -> +4.9 but ROI ~0 and it shrinks at 5+.
+- **NHL Canadian teams (home vs US visitors, US teams' 2nd+ Canadian stop, Leafs/Habs/Oilers hype):** DEAD - the market prices them right (US 2nd+ Canadian stop +11.8 -> -6.6, flips).
+- **After scoring 40+ (college 50+), margin controlled:** DEAD - NFL favorites 72.9% vs 69.6% / 72.4% vs 70.2%, ATS under 50%.
+- **The game before a bye:** DEAD as a rule (NFL pre-bye +13.4% -> +6.4%, 2024 -25.7%; college flat). WATCH: a college dog before its own bye vs an opponent off a bye 40.0% vs 28.6% n 35 -> 47.8% vs 29.4% n 46 - found after three splits, college gaps can be faked by missing games.
+- **NFL lost but outgained by 50+ yards (team box scores 2021-26):** weak LEAD - next game ML +11.6% n 80 -> +11.0% n 128, every season over the band; but the 75+ yard cut the training seasons chose is +0.9% blind, ATS flat (53.6%). Lucky-winner fade DEAD. Not built.
+- **MLB after winning/losing by 7+:** DEAD (-0.7 / -1.6, +1.8 / -1.4 vs the band; postseason n 43-56 noise).
+- **The last-day move (odds history):** DEAD as a bet - NFL sides that moved 1+ pt in the last 24-48h won ~3 pts over the close's no-vig number but ROI -0.1% / +0.4% (no juice beaten); college flips (+10.5% -> -22.9%); college dogs drift up ~0.4 pt late - too small.
+- **Spread-outlier book (1+ pt better than the median at similar juice; 17% of NFL / 23% of college games; FanDuel, BetUS, LowVig, BetRivers, Circa):** DEAD as a pick - beats the close by ~0.85 pt but the same sides at the median number made the same money. A shopping habit: with a spread pick, take the best number on the board.
+
 ## 10/11 - NFL 6-POINT "WONG" TEASERS (the owner's brother's engine posts them): BORDERLINE - dogs-only at -120 is a LEAD. THE OWNER SAID NO (10/11) - no teasers on our board
 - 2,277 NFL games with closing spreads 2018-26, teased 6 from the close (push = loss). Dogs +1.5/+2/+2.5 -> 77.4% (304/393); favorites -7.5..-8.5 -> 69.8% (113/162); all Wong legs 75.1% vs every non-Wong leg 68.7% (z 3.1). The "low total" filter is noise (<=44 76.2% vs 74.4%). Same-day legs independent.
 - Break-even per leg: 2-team -110 72.4%, -120 73.9%, -130 75.2%, -140 76.4%; 3-team +160 72.7%, +150 73.7%. All Wong at -120 +3.5%, at -130 0%; dogs only -120 +9.7%, -130 +5.9%.
