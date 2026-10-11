@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T23:16Z",
+ "updated": "2026-10-11T23:19Z",
  "games": [
   {
    "id": "nba:401898400",
@@ -201,8 +201,8 @@
    "away": "Broncos",
    "home": "Chargers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -348,7 +348,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Falcons",
-    "p": 0.56,
+    "p": 0.559,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -357,7 +357,7 @@
    "start": "2026-10-12T00:20Z",
    "away": "Ravens",
    "home": "Falcons",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Falcons",
@@ -365,12 +365,12 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.617,
-    "win_p": 0.617,
+    "p": 0.616,
+    "win_p": 0.616,
     "reasons": [
      "sharp money moving this way",
-     "opponent missing key players",
-     "revenge game"
+     "revenge game",
+     "rolling off a blowout win"
     ]
    }
   },
