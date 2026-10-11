@@ -13571,3 +13571,30 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 11:06 UTC] crypto/hold_btc  equity $493.96 (-1.2%) 1 open  market UP
    social heat top: STRK 40 (40/0/0), PUMP 35 (27/0/8), PENGU 35 (35/0/0), BTC 32 (32/0/0), AERO 31 (19/0/12)
+   dex screen: REJECT SOL@base liq $638,418 - pool age unknown
+   dex screen: REJECT NVDAC@base liq $2,192,558 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT TTWO@solana liq $219,371 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 56%; lp holders unknown
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   [alert] 🚀 CLAUDIA is up 3.0x: CLAUDIA (ethereum) is up 3.0x since the engine bought it (paper value $134). Contract: 0x600225fC4741929E39fBafED7c9De8FA2AEAfb1E
+   dex re-screen: QT@solana:9LAHK5Yv data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT SUSDE@ethereum liq $901,358 - goplus partial data: cannot_sell_all unknown; is_mintable; is_blacklisted; hidden_owner; owner_change_balance; top-10 holders 77%; lp locked 0% < 95%
+   >> dex/dex_hunter: BUY $102.26 of CLAUDIA@ethereum:0x600225 @ 0.007709 (added on a proven runner at 3.2x)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT QI@solana liq $153,630 - holders unknown; lp holders unknown; rugcheck lp locked 31% < 95%
+   dex screen: REJECT STONKEX@base liq $407,501 - lp locked 0% < 95%
+   dex screen: PASS CLAUS@ethereum liq $206,794
+   dex scanner: 2,999 pools (solana 2,050 / base 483 / ethereum 466), refresh cycle 123s (hot 118s), 2961 calls (110 feed, 429s 0, failed 1), 85,500 refreshed (9484 no pair), +80 added / -81 dropped (dead 50, stale 0, cap 31), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/mover     equity $350.84 (-29.8%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/social_heat equity $467.02 (-6.6%) 2 open  market UP
+[2026-10-11 12:06 UTC] crypto/breakout10 equity $498.85 (-0.2%) 2 open  market UP
+[2026-10-11 12:06 UTC] crypto/momentum  equity $456.48 (-8.7%) 2 open  market UP
+[2026-10-11 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/hold_btc  equity $495.02 (-1.0%) 1 open  market UP
+   social heat top: STRK 53 (40/0/13), TIA 37 (37/0/0), AERO 35 (29/0/6), BTC 32 (32/0/0), HYPE 27 (27/0/0)
