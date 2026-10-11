@@ -1363,7 +1363,9 @@
    }
   ],
   "skipped": {
-   "line moved / no closing price": 2
+   "game live": 3,
+   "line moved / no closing price": 2,
+   "not closed yet": 1
   },
   "summary": {
    "all": {
@@ -4500,19 +4502,19 @@
   "nfl": {
    "cells": {
     "ml|fade|any size|all": {
-     "edge_new": 0.0012,
-     "edge_old": -0.0174,
+     "edge_new": 0.0016,
+     "edge_old": -0.0183,
      "from": "2023-09-08",
      "n_new": 452,
-     "n_old": 454,
+     "n_old": 455,
      "proven": false,
      "roi_new": -0.075,
-     "roi_old": -0.072,
-     "to": "2026-10-09",
+     "roi_old": -0.0741,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.3874,
-     "z": -0.53,
-     "z_profit": -1.67
+     "win": 0.387,
+     "z": -0.55,
+     "z_profit": -1.69
     },
     "ml|fade|any size|toward the dog": {
      "edge_new": 0.0119,
@@ -4530,34 +4532,34 @@
      "z_profit": -0.4
     },
     "ml|fade|any size|toward the favorite": {
-     "edge_new": -0.0024,
-     "edge_old": -0.0281,
+     "edge_new": -0.0019,
+     "edge_old": -0.0292,
      "from": "2023-09-10",
      "n_new": 338,
-     "n_old": 350,
+     "n_old": 351,
      "proven": false,
      "roi_new": -0.0918,
-     "roi_old": -0.0887,
-     "to": "2026-10-09",
+     "roi_old": -0.0913,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.311,
-     "z": -0.89,
-     "z_profit": -1.62
+     "win": 0.3106,
+     "z": -0.91,
+     "z_profit": -1.65
     },
     "ml|fade|large|all": {
-     "edge_new": -0.0071,
-     "edge_old": -0.0324,
+     "edge_new": -0.0064,
+     "edge_old": -0.0341,
      "from": "2023-09-17",
      "n_new": 237,
-     "n_old": 213,
+     "n_old": 214,
      "proven": false,
      "roi_new": -0.1272,
-     "roi_old": -0.1281,
-     "to": "2026-10-09",
+     "roi_old": -0.1322,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.3089,
-     "z": -0.92,
-     "z_profit": -1.86
+     "win": 0.3082,
+     "z": -0.94,
+     "z_profit": -1.9
     },
     "ml|fade|large|toward the dog": {
      "edge_new": 0.0606,
@@ -4575,19 +4577,19 @@
      "z_profit": -0.1
     },
     "ml|fade|large|toward the favorite": {
-     "edge_new": -0.0188,
-     "edge_old": -0.031,
+     "edge_new": -0.018,
+     "edge_old": -0.033,
      "from": "2023-09-17",
      "n_new": 202,
-     "n_old": 194,
+     "n_old": 195,
      "proven": false,
      "roi_new": -0.1571,
-     "roi_old": -0.1295,
-     "to": "2026-10-09",
+     "roi_old": -0.134,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.2677,
-     "z": -1.14,
-     "z_profit": -1.88
+     "win": 0.267,
+     "z": -1.17,
+     "z_profit": -1.91
     },
     "ml|fade|medium|all": {
      "edge_new": 0.0201,
@@ -4680,19 +4682,19 @@
      "z_profit": -1.23
     },
     "ml|follow|any size|all": {
-     "edge_new": -0.0012,
-     "edge_old": 0.0174,
+     "edge_new": -0.0016,
+     "edge_old": 0.0183,
      "from": "2023-09-08",
      "n_new": 452,
-     "n_old": 454,
+     "n_old": 455,
      "proven": false,
-     "roi_new": -0.0458,
-     "roi_old": -0.0132,
-     "to": "2026-10-09",
+     "roi_new": -0.0466,
+     "roi_old": -0.0118,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.6126,
-     "z": 0.53,
-     "z_profit": -1.03
+     "win": 0.613,
+     "z": 0.55,
+     "z_profit": -1.02
     },
     "ml|follow|any size|toward the dog": {
      "edge_new": -0.0119,
@@ -4710,34 +4712,34 @@
      "z_profit": -0.9
     },
     "ml|follow|any size|toward the favorite": {
-     "edge_new": 0.0024,
-     "edge_old": 0.0281,
+     "edge_new": 0.0019,
+     "edge_old": 0.0292,
      "from": "2023-09-10",
      "n_new": 338,
-     "n_old": 350,
+     "n_old": 351,
      "proven": false,
-     "roi_new": -0.0408,
-     "roi_old": 0.0111,
-     "to": "2026-10-09",
+     "roi_new": -0.0419,
+     "roi_old": 0.0129,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.689,
-     "z": 0.89,
-     "z_profit": -0.55
+     "win": 0.6894,
+     "z": 0.91,
+     "z_profit": -0.54
     },
     "ml|follow|large|all": {
-     "edge_new": 0.0071,
-     "edge_old": 0.0324,
+     "edge_new": 0.0064,
+     "edge_old": 0.0341,
      "from": "2023-09-17",
      "n_new": 237,
-     "n_old": 213,
+     "n_old": 214,
      "proven": false,
-     "roi_new": -0.0454,
-     "roi_old": 0.0179,
-     "to": "2026-10-09",
+     "roi_new": -0.0469,
+     "roi_old": 0.0208,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.6911,
-     "z": 0.92,
-     "z_profit": -0.46
+     "win": 0.6918,
+     "z": 0.94,
+     "z_profit": -0.44
     },
     "ml|follow|large|toward the dog": {
      "edge_new": -0.0606,
@@ -4755,19 +4757,19 @@
      "z_profit": -0.68
     },
     "ml|follow|large|toward the favorite": {
-     "edge_new": 0.0188,
-     "edge_old": 0.031,
+     "edge_new": 0.018,
+     "edge_old": 0.033,
      "from": "2023-09-17",
      "n_new": 202,
-     "n_old": 194,
+     "n_old": 195,
      "proven": false,
-     "roi_new": -0.0163,
-     "roi_old": 0.0111,
-     "to": "2026-10-09",
+     "roi_new": -0.0182,
+     "roi_old": 0.0142,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.7323,
-     "z": 1.14,
-     "z_profit": -0.09
+     "win": 0.733,
+     "z": 1.17,
+     "z_profit": -0.07
     },
     "ml|follow|medium|all": {
      "edge_new": -0.0201,
@@ -4860,19 +4862,19 @@
      "z_profit": 0.96
     },
     "spread|fade|any size|all": {
-     "edge_new": -0.0075,
-     "edge_old": -0.0089,
+     "edge_new": -0.0052,
+     "edge_old": -0.01,
      "from": "2023-09-08",
      "n_new": 446,
-     "n_old": 441,
+     "n_old": 442,
      "proven": false,
-     "roi_new": -0.0569,
-     "roi_old": -0.0619,
-     "to": "2026-10-09",
+     "roi_new": -0.0524,
+     "roi_old": -0.064,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.4904,
-     "z": -0.49,
-     "z_profit": -1.84
+     "win": 0.491,
+     "z": -0.45,
+     "z_profit": -1.81
     },
     "spread|fade|any size|toward the dog": {
      "edge_new": -0.0438,
@@ -4890,34 +4892,34 @@
      "z_profit": -1.14
     },
     "spread|fade|any size|toward the favorite": {
-     "edge_new": 0.0046,
-     "edge_old": -0.0159,
+     "edge_new": 0.0077,
+     "edge_old": -0.0173,
      "from": "2023-09-10",
      "n_new": 334,
-     "n_old": 340,
+     "n_old": 341,
      "proven": false,
-     "roi_new": -0.0333,
-     "roi_old": -0.0753,
-     "to": "2026-10-09",
+     "roi_new": -0.0273,
+     "roi_old": -0.0781,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.4926,
-     "z": -0.3,
-     "z_profit": -1.47
+     "win": 0.4933,
+     "z": -0.26,
+     "z_profit": -1.43
     },
     "spread|fade|large|all": {
-     "edge_new": -0.0112,
-     "edge_old": -0.0348,
+     "edge_new": -0.0069,
+     "edge_old": -0.0371,
      "from": "2023-09-17",
      "n_new": 236,
-     "n_old": 207,
+     "n_old": 208,
      "proven": false,
-     "roi_new": -0.0653,
-     "roi_old": -0.1134,
-     "to": "2026-10-09",
+     "roi_new": -0.0568,
+     "roi_old": -0.1177,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.4763,
-     "z": -0.94,
-     "z_profit": -1.93
+     "win": 0.4775,
+     "z": -0.89,
+     "z_profit": -1.88
     },
     "spread|fade|large|toward the dog": {
      "edge_new": 0.014,
@@ -4935,19 +4937,19 @@
      "z_profit": -0.22
     },
     "spread|fade|large|toward the favorite": {
-     "edge_new": -0.0156,
-     "edge_old": -0.038,
+     "edge_new": -0.0105,
+     "edge_old": -0.0404,
      "from": "2023-09-17",
      "n_new": 201,
-     "n_old": 189,
+     "n_old": 190,
      "proven": false,
-     "roi_new": -0.0735,
-     "roi_old": -0.1196,
-     "to": "2026-10-09",
+     "roi_new": -0.0636,
+     "roi_old": -0.1242,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.4718,
-     "z": -1.04,
-     "z_profit": -1.97
+     "win": 0.4731,
+     "z": -0.99,
+     "z_profit": -1.92
     },
     "spread|fade|medium|all": {
      "edge_new": 0.023,
@@ -5040,19 +5042,19 @@
      "z_profit": -2.28
     },
     "spread|follow|any size|all": {
-     "edge_new": 0.0075,
-     "edge_old": 0.0089,
+     "edge_new": 0.0052,
+     "edge_old": 0.01,
      "from": "2023-09-08",
      "n_new": 446,
-     "n_old": 441,
+     "n_old": 442,
      "proven": false,
-     "roi_new": -0.0285,
-     "roi_old": -0.0279,
-     "to": "2026-10-09",
+     "roi_new": -0.0328,
+     "roi_old": -0.0257,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.5096,
-     "z": 0.49,
-     "z_profit": -0.88
+     "win": 0.509,
+     "z": 0.45,
+     "z_profit": -0.91
     },
     "spread|follow|any size|toward the dog": {
      "edge_new": 0.0438,
@@ -5070,34 +5072,34 @@
      "z_profit": -0.19
     },
     "spread|follow|any size|toward the favorite": {
-     "edge_new": -0.0046,
-     "edge_old": 0.0159,
+     "edge_new": -0.0077,
+     "edge_old": 0.0173,
      "from": "2023-09-10",
      "n_new": 334,
-     "n_old": 340,
+     "n_old": 341,
      "proven": false,
-     "roi_new": -0.0518,
-     "roi_old": -0.0148,
-     "to": "2026-10-09",
+     "roi_new": -0.0575,
+     "roi_old": -0.0121,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.5074,
-     "z": 0.3,
-     "z_profit": -0.9
+     "win": 0.5067,
+     "z": 0.26,
+     "z_profit": -0.94
     },
     "spread|follow|large|all": {
-     "edge_new": 0.0112,
-     "edge_old": 0.0348,
+     "edge_new": 0.0069,
+     "edge_old": 0.0371,
      "from": "2023-09-17",
      "n_new": 236,
-     "n_old": 207,
+     "n_old": 208,
      "proven": false,
-     "roi_new": -0.0229,
-     "roi_old": 0.0199,
-     "to": "2026-10-09",
+     "roi_new": -0.031,
+     "roi_old": 0.0241,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.5237,
-     "z": 0.94,
-     "z_profit": -0.06
+     "win": 0.5225,
+     "z": 0.89,
+     "z_profit": -0.11
     },
     "spread|follow|large|toward the dog": {
      "edge_new": -0.014,
@@ -5115,19 +5117,19 @@
      "z_profit": -0.45
     },
     "spread|follow|large|toward the favorite": {
-     "edge_new": 0.0156,
-     "edge_old": 0.038,
+     "edge_new": 0.0105,
+     "edge_old": 0.0404,
      "from": "2023-09-17",
      "n_new": 201,
-     "n_old": 189,
+     "n_old": 190,
      "proven": false,
-     "roi_new": -0.0146,
-     "roi_old": 0.0256,
-     "to": "2026-10-09",
+     "roi_new": -0.0241,
+     "roi_old": 0.0302,
+     "to": "2026-10-11",
      "watch_only": false,
-     "win": 0.5282,
-     "z": 1.04,
-     "z_profit": 0.1
+     "win": 0.5269,
+     "z": 0.99,
+     "z_profit": 0.05
     },
     "spread|follow|medium|all": {
      "edge_new": -0.023,
@@ -5220,7 +5222,7 @@
      "z_profit": 1.48
     }
    },
-   "moved_games": 907,
+   "moved_games": 908,
    "proven": []
   },
   "nhl": {
