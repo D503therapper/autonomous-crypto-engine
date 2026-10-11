@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 50,
-  "beat": 14,
+  "n": 53,
+  "beat": 16,
   "same": 23,
-  "worse": 13,
-  "avg_pts": 0.05
+  "worse": 14,
+  "avg_pts": 0.07
  },
  "unit_plays": {
-  "n": 24,
-  "beat": 5,
+  "n": 25,
+  "beat": 6,
   "same": 13,
   "worse": 6,
-  "avg_pts": 0.02
+  "avg_pts": 0.06
  },
  "by_kind": {
   "dog": {
@@ -22,18 +22,18 @@
    "avg_pts": -0.37
   },
   "lean": {
-   "n": 26,
-   "beat": 9,
+   "n": 28,
+   "beat": 10,
    "same": 10,
-   "worse": 7,
-   "avg_pts": 0.08
+   "worse": 8,
+   "avg_pts": 0.07
   },
   "lock": {
-   "n": 7,
-   "beat": 2,
+   "n": 8,
+   "beat": 3,
    "same": 4,
    "worse": 1,
-   "avg_pts": 0.87
+   "avg_pts": 0.91
   },
   "play": {
    "n": 7,
@@ -59,11 +59,11 @@
    "avg_pts": 0.19
   },
   "nfl": {
-   "n": 7,
-   "beat": 0,
+   "n": 10,
+   "beat": 2,
    "same": 4,
-   "worse": 3,
-   "avg_pts": -0.54
+   "worse": 4,
+   "avg_pts": -0.26
   },
   "nhl": {
    "n": 21,
@@ -75,11 +75,11 @@
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 3,
-   "beat": 0,
+   "n": 4,
+   "beat": 1,
    "same": 3,
    "worse": 0,
-   "avg_pts": 0.0
+   "avg_pts": 0.3
   },
   "1-2u": {
    "n": 1,
@@ -802,6 +802,48 @@
    "close": 250,
    "pts": 0.0,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-11",
+   "kind": "lock",
+   "lean": false,
+   "league": "nfl",
+   "team": "Vikings",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -142,
+   "pts": 1.2,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-11",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Dolphins",
+   "market": "spread",
+   "line": 7.0,
+   "odds": -108,
+   "close": -105,
+   "pts": -0.7,
+   "units": 0,
+   "result": "push"
+  },
+  {
+   "date": "2026-10-11",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Titans",
+   "market": "spread",
+   "line": 6.5,
+   "odds": -102,
+   "close": -105,
+   "pts": 0.7,
+   "units": 0,
    "result": "lost"
   }
  ]
