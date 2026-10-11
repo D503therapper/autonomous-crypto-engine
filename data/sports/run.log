@@ -1,31 +1,3 @@
-   ncaab web injuries: only 5 rows - not used
-   no units on Red Wings: missing J.T. Compher, Marco Kasper, Simon Edvinsson
-   no units on Kraken: missing Ryan Lindgren, Jacob Melanson
-   no units on Rangers: missing Joe Veleno, Adam Sykora
-   no units on Ducks: missing Drew Helleson, Troy Terry, Ian Moore
-SLATE CHECK (not held): Columbia @ Marist (NCAAF): the engine knows too little about a team (few games in our data) - skipped on purpose
-SLATE CHECK (not held): Padres @ Brewers (MLB): no price - an 'if necessary' playoff game?
-SLATE CHECK (not held): Braves @ Dodgers (MLB): no price - an 'if necessary' playoff game?
-FACTOR NOTE: no injury report for 2 team(s) - no pick on their games: Alabama St, Florida A&M
-FACTOR NOTE: 11 stale opening line(s) replaced by the first price we saw that week: Texas A&M @ Missouri: open -147 -> -118; Texas @ Oklahoma: open 180 -> 320; Eagles @ Jaguars: open 110 -> -148
-CHECKER SELF-TEST: all 12 checks caught their problem
-CARD GUARD (head-to-head history) dropped for Penguins: 🆚 Penguins have had Blue Jackets's number: 2 of the last 3.
-   injuries seen for Penguins vs Blue Jackets: no key players listed · ours out: - · theirs out: -
-   fill lean on Red Wings - missing Simon Edvinsson
-CARD GUARD (head-to-head history) dropped for Red Wings: 🆚 Red Wings own this matchup — won 3 of the last 3.
-   injuries seen for Red Wings vs Kraken: no key players listed · ours out: ['Simon Edvinsson (D)'] · theirs out: -
-posted dog for 2026-10-09: Penguins ML (+102) -> +102, hit 48%
-posted lean for 2026-10-09: Red Wings ML (-142) -> -142, hit 56%
-tennis sync: 73015 matches stored, 18 calls, 0 failed
-tennis study ATP: 26002 rated matches, acc 0.6445 (surface ratings alone 0.645), loss 0.6287 vs 0.6285, own weights [-0.005, 0.825, 0.074, 0.143, 0.424, 0.052, 0.051]
-tennis study ATP life factors vs current loss 0.6287: experience 0.6292 (-0.51 mnats, z -0.51), age 0.6253 (+3.41 mnats, z 2.48), young_vs_aging 0.6283 (+0.38 mnats, z 0.91), last_match 0.6261 (+2.64 mnats, z 1.82), streaks 0.6292 (-0.49 mnats, z -0.48), first_set 0.6277 (+0.97 mnats, z 1.54), injury 0.6295 (-0.79 mnats, z -1.16), travel 0.6288 (-0.09 mnats, z -1.2) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30350 rated matches, acc 0.648 (surface ratings alone 0.6485), loss 0.6223 vs 0.6217, own weights [0.005, 0.906, -0.002, -0.099, 0.306, 0.027, -0.192]
-tennis study WTA life factors vs current loss 0.6223: experience 0.618 (+4.31 mnats, z 2.55), age 0.6223 (+0.04 mnats, z 0.05), young_vs_aging 0.6222 (+0.12 mnats, z 0.74), last_match 0.6222 (+0.13 mnats, z 0.13), streaks 0.6226 (-0.29 mnats, z -0.6), first_set 0.6216 (+0.75 mnats, z 1.73), injury 0.6217 (+0.64 mnats, z 1.11), travel 0.6224 (-0.09 mnats, z -0.57) -> KEPT experience · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 17 matches
-tennis posted 2026-10-09: Valentin Vacherot -285, Alejandro Tabilo -175
-sync: 130716 games stored, 52 calls, 0 failed, 20s
 odds history: 1 games got odds, 55 calls, 0 failed, 5s
 player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
 weather: 127 games got weather, 0 new stadiums located, 240s
@@ -2993,6 +2965,34 @@ early value play: UAB +190 (ncaaf, own 38% vs price 33%)
 tennis sync: 73144 matches stored, 18 calls, 0 failed
 tennis study ATP: 26025 rated matches, acc 0.643 (surface ratings alone 0.6445), loss 0.6283 vs 0.6282, own weights [-0.005, 0.826, 0.074, 0.145, 0.424, 0.05, 0.05]
 tennis study ATP life factors vs current loss 0.6283: experience 0.6288 (-0.44 mnats, z -0.44), age 0.6252 (+3.15 mnats, z 2.29), young_vs_aging 0.6279 (+0.39 mnats, z 0.96), last_match 0.6259 (+2.46 mnats, z 1.7), streaks 0.6287 (-0.41 mnats, z -0.4), first_set 0.6273 (+1.03 mnats, z 1.62), injury 0.6291 (-0.78 mnats, z -1.13), travel 0.6284 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30383 rated matches, acc 0.6485 (surface ratings alone 0.65), loss 0.6203 vs 0.6198, own weights [0.005, 0.905, -0.002, -0.104, 0.301, 0.03, -0.191]
+tennis study WTA life factors vs current loss 0.6203: experience 0.6165 (+3.80 mnats, z 2.23), age 0.6203 (-0.06 mnats, z -0.07), young_vs_aging 0.6201 (+0.14 mnats, z 0.89), last_match 0.6203 (-0.09 mnats, z -0.09), streaks 0.6206 (-0.37 mnats, z -0.75), first_set 0.6196 (+0.64 mnats, z 1.44), injury 0.6196 (+0.62 mnats, z 1.07), travel 0.6203 (-0.09 mnats, z -0.58) -> KEPT experience · 2000/2000 graded matches have both ages
+tennis odds: 0 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 15 matches
+sync: 130761 games stored, 52 calls, 0 failed, 10s
+odds history: 2 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 133 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 3 games on the page, 3 matched, 1 confirmed
+PICK AUDIT FLAG 2026-10-09: dog Penguins 102: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-10: dog Fresno St 250: 1.0u on a thin edge (under 3%) - should be ½u
+beat the close: unit plays 5 of 24 better than the close, avg +0.0 pts
+public splits: 24 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (541 players), 138 matched, 0 unmatched
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (541 players), 138 matched, 0 unmatched
+   ncaab web injuries: only 5 rows - not used
+   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
+   no units on Kraken: missing Jacob Melanson, Ryan Lindgren
+   no units on Rangers: missing Joe Veleno, Adam Sykora
+   no units on Hurricanes: missing Alexander Nikishin, Seth Jarvis
+tennis sync: 73144 matches stored, 18 calls, 0 failed
+tennis study ATP: 26026 rated matches, acc 0.6425 (surface ratings alone 0.644), loss 0.6285 vs 0.6284, own weights [-0.005, 0.826, 0.073, 0.145, 0.424, 0.05, 0.05]
+tennis study ATP life factors vs current loss 0.6285: experience 0.629 (-0.46 mnats, z -0.46), age 0.6254 (+3.15 mnats, z 2.28), young_vs_aging 0.6282 (+0.39 mnats, z 0.96), last_match 0.6261 (+2.48 mnats, z 1.71), streaks 0.6289 (-0.40 mnats, z -0.4), first_set 0.6275 (+1.07 mnats, z 1.68), injury 0.6293 (-0.76 mnats, z -1.11), travel 0.6286 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
 tennis study WTA: 30383 rated matches, acc 0.6485 (surface ratings alone 0.65), loss 0.6203 vs 0.6198, own weights [0.005, 0.905, -0.002, -0.104, 0.301, 0.03, -0.191]
 tennis study WTA life factors vs current loss 0.6203: experience 0.6165 (+3.80 mnats, z 2.23), age 0.6203 (-0.06 mnats, z -0.07), young_vs_aging 0.6201 (+0.14 mnats, z 0.89), last_match 0.6203 (-0.09 mnats, z -0.09), streaks 0.6206 (-0.37 mnats, z -0.75), first_set 0.6196 (+0.64 mnats, z 1.44), injury 0.6196 (+0.62 mnats, z 1.07), travel 0.6203 (-0.09 mnats, z -0.58) -> KEPT experience · 2000/2000 graded matches have both ages
 tennis odds: 0 singles matches priced (bovada)
