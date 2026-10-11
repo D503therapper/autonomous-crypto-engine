@@ -13510,3 +13510,21 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 09:05 UTC] crypto/hold_btc  equity $494.07 (-1.2%) 1 open  market UP
    social heat top: STRK 37 (37/0/0), TIA 35 (35/0/0), NEAR 32 (32/0/0), BTC 29 (29/0/0), AERO 18 (13/0/4)
+   dex screen: REJECT STOCKER@ethereum liq $239,187 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT SHFL@ethereum liq $9,619,131 - top-10 holders 87%
+   dex screen: REJECT E/ACC@solana liq $247,770 - lp holders unknown; rugcheck lp locked 71% < 95%
+   dex screen: REJECT PROS@base liq $273 - liquidity $273 < $100,000; 24h volume $150 < $100,000
+   dex screen: PASS SI276@solana liq $103,786
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT USDG@ethereum liq $3,117,251 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 79%
+   dex scanner: 2,749 pools (solana 1,912 / base 410 / ethereum 427), refresh cycle 115s (hot 109s), 2974 calls (110 feed, 429s 0, failed 0), 85,918 refreshed (10065 no pair), +73 added / -71 dropped (dead 70, stale 1, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 10:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/mover     equity $351.88 (-29.6%) 1 open  market UP
+[2026-10-11 10:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/social_heat equity $462.87 (-7.4%) 2 open  market UP
+[2026-10-11 10:05 UTC] crypto/breakout10 equity $493.82 (-1.2%) 2 open  market UP
+[2026-10-11 10:05 UTC] crypto/momentum  equity $456.60 (-8.7%) 2 open  market UP
+[2026-10-11 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/hold_btc  equity $494.15 (-1.2%) 1 open  market UP
+   social heat top: STRK 37 (37/0/0), BTC 35 (35/0/0), NEAR 32 (32/0/0), AERO 31 (21/0/10), PENGU 29 (29/0/0)
