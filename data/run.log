@@ -13461,3 +13461,280 @@ error: failed to push some refs to 'https://github.
 [2026-10-11 07:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 07:05 UTC] crypto/hold_btc  equity $494.81 (-1.0%) 1 open  market UP
    social heat top: STRK 37 (37/0/0), BTC 35 (35/0/0), PENGU 29 (29/0/0), NEAR 27 (27/0/0), TIA 24 (24/0/0)
+   dex screen: REJECT HEEHAW@solana liq $134,307 - lp holders unknown; rugcheck lp locked 77% < 95%
+   dex screen: REJECT HYPE@solana liq $2,404,924 - mint authority
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE FARTCOIN @solana liq $8,195,414 - rugcheck unreachable
+   dex screen: REJECT SPX@solana liq $2,159,288 - mint authority
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT SLOPCORE@solana liq $102,874 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            023437a4ad35ad1ce12eb87857240b7542eba24d -> main (fetch first)
+error: failed to push some refs to 'https://github.
+   dex screen: REJECT USDE@ethereum liq $1,334,340 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 95%
+   dex screen: REJECT FRXUSD@ethereum liq $1,005,380 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 85%; lp locked 0% < 95%
+   dex scanner: 2,734 pools (solana 1,881 / base 431 / ethereum 422), refresh cycle 115s (hot 110s), 2969 calls (110 feed, 429s 0, failed 0), 85,761 refreshed (12160 no pair), +83 added / -79 dropped (dead 74, stale 5, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 08:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/mover     equity $352.73 (-29.5%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/social_heat equity $462.20 (-7.6%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/breakout10 equity $493.41 (-1.3%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/momentum  equity $456.33 (-8.7%) 2 open  market UP
+[2026-10-11 08:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 08:05 UTC] crypto/hold_btc  equity $494.15 (-1.2%) 1 open  market UP
+   social heat top: STRK 49 (37/0/12), NEAR 35 (35/0/0), PRL 27 (27/0/0), PENGU 24 (24/0/0), AERO 22 (16/0/6)
+   dex screen: REJECT KTA@base liq $4,041,005 - top-10 holders 67%
+   dex screen: REJECT GRIFFAIN@solana liq $2,158,287 - top-10 holders 54%
+   dex screen: REJECT AVNT@base liq $783,328 - pool age unknown
+   dex screen: REJECT ICP@ethereum liq $475,903 - is_mintable; top-10 holders 40%; lp locked 0% < 95%
+   dex screen: REJECT CLAWHUNTER@solana liq $102,507 - lp holders unknown; rugcheck lp locked 65% < 95%
+   dex screen: REJECT CTM@ethereum liq $2,519,812 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex re-screen: QT@solana:9LAHK5Yv data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT DIME@ethereum liq $182,975 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%; lp holders unknown
+   dex screen: REJECT BUNKER@base liq $244,522 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT AMZNC@base liq $19,766 - liquidity $19,766 < $100,000; 24h volume $857 < $100,000
+   dex scanner: 2,747 pools (solana 1,902 / base 421 / ethereum 424), refresh cycle 116s (hot 110s), 2972 calls (110 feed, 429s 0, failed 0), 85,857 refreshed (11530 no pair), +98 added / -85 dropped (dead 77, stale 8, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $159.51 of LTC @ 63.5574, P/L $-1.84 (time limit)
+[2026-10-11 09:05 UTC] crypto/mover     equity $351.76 (-29.6%) 1 open  market UP
+[2026-10-11 09:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 09:05 UTC] crypto/social_heat equity $462.38 (-7.5%) 2 open  market UP
+[2026-10-11 09:05 UTC] crypto/breakout10 equity $495.37 (-0.9%) 2 open  market UP
+[2026-10-11 09:05 UTC] crypto/momentum  equity $456.50 (-8.7%) 2 open  market UP
+[2026-10-11 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 09:05 UTC] crypto/hold_btc  equity $494.07 (-1.2%) 1 open  market UP
+   social heat top: STRK 37 (37/0/0), TIA 35 (35/0/0), NEAR 32 (32/0/0), BTC 29 (29/0/0), AERO 18 (13/0/4)
+   dex screen: REJECT STOCKER@ethereum liq $239,187 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT SHFL@ethereum liq $9,619,131 - top-10 holders 87%
+   dex screen: REJECT E/ACC@solana liq $247,770 - lp holders unknown; rugcheck lp locked 71% < 95%
+   dex screen: REJECT PROS@base liq $273 - liquidity $273 < $100,000; 24h volume $150 < $100,000
+   dex screen: PASS SI276@solana liq $103,786
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT USDG@ethereum liq $3,117,251 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 79%
+   dex scanner: 2,749 pools (solana 1,912 / base 410 / ethereum 427), refresh cycle 115s (hot 109s), 2974 calls (110 feed, 429s 0, failed 0), 85,918 refreshed (10065 no pair), +73 added / -71 dropped (dead 70, stale 1, cap 0), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 10:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/mover     equity $351.88 (-29.6%) 1 open  market UP
+[2026-10-11 10:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/social_heat equity $462.87 (-7.4%) 2 open  market UP
+[2026-10-11 10:05 UTC] crypto/breakout10 equity $493.82 (-1.2%) 2 open  market UP
+[2026-10-11 10:05 UTC] crypto/momentum  equity $456.60 (-8.7%) 2 open  market UP
+[2026-10-11 10:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 10:05 UTC] crypto/hold_btc  equity $494.15 (-1.2%) 1 open  market UP
+   social heat top: STRK 37 (37/0/0), BTC 35 (35/0/0), NEAR 32 (32/0/0), AERO 31 (21/0/10), PENGU 29 (29/0/0)
+   dex screen: REJECT NPC@ethereum liq $5,058,176 - top-10 holders 41%
+   dex screen: REJECT LAPTOP@base liq $374,677 - pool age unknown
+   dex screen: REJECT WHUF@base liq $273,729 - pool age unknown
+   dex screen: REJECT AERO@base liq $44,370,376 - is_mintable; top-10 holders 67%
+   dex screen: REJECT QNT@ethereum liq $918,619 - is_mintable; lp locked 0% < 95%
+   dex screen: REJECT DJT@solana liq $471,885 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+   dex screen: REJECT OGN@ethereum liq $1,481,752 - transfer_pausable; is_mintable; owner_change_balance; top-10 holders 66%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-11 10:47 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/mover     equity $351.55 (-29.7%) 1 open  market UP
+[2026-10-11 10:47 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/social_heat equity $462.80 (-7.4%) 2 open  market UP
+[2026-10-11 10:47 UTC] crypto/breakout10 equity $494.64 (-1.1%) 2 open  market UP
+[2026-10-11 10:47 UTC] crypto/momentum  equity $456.14 (-8.8%) 2 open  market UP
+[2026-10-11 10:47 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 10:47 UTC] crypto/hold_btc  equity $493.81 (-1.2%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), BTC 35 (35/0/0), AERO 32 (29/0/3), PENGU 32 (32/0/0), STONK 30 (21/0/8)
+   scanner: 988 tickers, sample: {'i': 'BTC_USD', 'h': '83169.37', 'l': '82707.00', 'a': '82890.18', 'v': '1037.9689', 'vv': '86083253.32', 'c': '0.0016', 'b': '82890.18', 'k': '82890.19', 'oi': '0', 't': 1791715667975}
+   dex screen: REJECT BATON@solana liq $786,899 - lp holders unknown; rugcheck lp locked 56% < 95%
+   dex screen: REJECT FET@ethereum liq $1,710,667 - transfer_pausable; is_mintable; hidden_owner; top-10 holders 48%
+   dex screen: REJECT RAIL@ethereum liq $1,674,397 - is_mintable; top-10 holders 76%
+   dex scanner: 3,000 pools (solana 2,038 / base 489 / ethereum 473), refresh cycle 109s (hot 106s), 699 calls (49 feed, 429s 0, failed 0), 19,487 refreshed (2259 no pair), +238 added / -26 dropped (dead 12, stale 2, cap 12), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+[2026-10-11 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $157.19 of LINK @ 12.8332, P/L $-2.72 (time limit)
+[2026-10-11 11:06 UTC] crypto/mover     equity $350.84 (-29.8%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/social_heat equity $461.91 (-7.6%) 2 open  market UP
+[2026-10-11 11:06 UTC] crypto/breakout10 equity $494.24 (-1.2%) 2 open  market UP
+[2026-10-11 11:06 UTC] crypto/momentum  equity $456.15 (-8.8%) 2 open  market UP
+[2026-10-11 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 11:06 UTC] crypto/hold_btc  equity $493.96 (-1.2%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), PUMP 35 (27/0/8), PENGU 35 (35/0/0), BTC 32 (32/0/0), AERO 31 (19/0/12)
+   dex screen: REJECT SOL@base liq $638,418 - pool age unknown
+   dex screen: REJECT NVDAC@base liq $2,192,558 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 78%; lp locked 0% < 95%
+   dex screen: REJECT TTWO@solana liq $219,371 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 56%; lp holders unknown
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   [alert] 🚀 CLAUDIA is up 3.0x: CLAUDIA (ethereum) is up 3.0x since the engine bought it (paper value $134). Contract: 0x600225fC4741929E39fBafED7c9De8FA2AEAfb1E
+   dex re-screen: QT@solana:9LAHK5Yv data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT SUSDE@ethereum liq $901,358 - goplus partial data: cannot_sell_all unknown; is_mintable; is_blacklisted; hidden_owner; owner_change_balance; top-10 holders 77%; lp locked 0% < 95%
+   >> dex/dex_hunter: BUY $102.26 of CLAUDIA@ethereum:0x600225 @ 0.007709 (added on a proven runner at 3.2x)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT QI@solana liq $153,630 - holders unknown; lp holders unknown; rugcheck lp locked 31% < 95%
+   dex screen: REJECT STONKEX@base liq $407,501 - lp locked 0% < 95%
+   dex screen: PASS CLAUS@ethereum liq $206,794
+   dex scanner: 2,999 pools (solana 2,050 / base 483 / ethereum 466), refresh cycle 123s (hot 118s), 2961 calls (110 feed, 429s 0, failed 1), 85,500 refreshed (9484 no pair), +80 added / -81 dropped (dead 50, stale 0, cap 31), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 12:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/mover     equity $350.84 (-29.8%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/social_heat equity $467.02 (-6.6%) 2 open  market UP
+[2026-10-11 12:06 UTC] crypto/breakout10 equity $498.85 (-0.2%) 2 open  market UP
+[2026-10-11 12:06 UTC] crypto/momentum  equity $456.48 (-8.7%) 2 open  market UP
+[2026-10-11 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 12:06 UTC] crypto/hold_btc  equity $495.02 (-1.0%) 1 open  market UP
+   social heat top: STRK 53 (40/0/13), TIA 37 (37/0/0), AERO 35 (29/0/6), BTC 32 (32/0/0), HYPE 27 (27/0/0)
+   dex screen: REJECT MSTRC@base liq $2,948 - liquidity $2,948 < $100,000; 24h volume $1 < $100,000
+   dex screen: REJECT NEAR@ethereum liq $931,742 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT CBBTC@ethereum liq $8,857,692 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 81%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: PASS CYBERLEEK@solana liq $1,335,799
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS STONK@solana liq $2,131,302
+   dex scanner: 3,000 pools (solana 2,042 / base 497 / ethereum 461), refresh cycle 126s (hot 121s), 3064 calls (124 feed, 429s 0, failed 0), 88,195 refreshed (8169 no pair), +247 added / -246 dropped (dead 26, stale 0, cap 220), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 13:06 UTC] crypto/mover     equity $350.84 (-29.8%) 0 open  market UP
+[2026-10-11 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 13:06 UTC] crypto/social_heat equity $467.47 (-6.5%) 2 open  market UP
+[2026-10-11 13:06 UTC] crypto/breakout10 equity $501.17 (+0.2%) 2 open  market UP
+[2026-10-11 13:06 UTC] crypto/momentum  equity $456.46 (-8.7%) 2 open  market UP
+[2026-10-11 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 13:06 UTC] crypto/hold_btc  equity $494.52 (-1.1%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), AERO 36 (35/0/2), TIA 32 (32/0/0), NEAR 24 (24/0/0), GRASS 21 (21/0/0)
+   dex screen: REJECT CARDS@solana liq $4,273,852 - top-10 holders 73%
+   dex screen: PASS TAUFA@ethereum liq $238,861
+   dex screen: REJECT ZRO@ethereum liq $129,208 - lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT ANSEM@solana liq $2,264,726 - top-10 holders 65%
+   [alert] 🚀 CLAUDIA is up 5.1x: CLAUDIA (ethereum) is up 5.1x since the engine bought it (paper value $390). Contract: 0x600225fC4741929E39fBafED7c9De8FA2AEAfb1E
+   dex screen: PASS UKFLMS@solana liq $261,978
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS MISTAKE@solana liq $155,226
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #3 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 3,000 pools (solana 2,035 / base 536 / ethereum 429), refresh cycle 124s (hot 119s), 3040 calls (123 feed, 429s 0, failed 0), 87,503 refreshed (7226 no pair), +214 added / -214 dropped (dead 14, stale 0, cap 200), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 14:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 14:06 UTC] crypto/mover     equity $350.84 (-29.8%) 0 open  market UP
+[2026-10-11 14:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 14:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 14:06 UTC] crypto/social_heat equity $463.31 (-7.3%) 2 open  market UP
+[2026-10-11 14:06 UTC] crypto/breakout10 equity $499.52 (-0.1%) 2 open  market UP
+[2026-10-11 14:06 UTC] crypto/momentum  equity $456.73 (-8.7%) 2 open  market UP
+[2026-10-11 14:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 14:06 UTC] crypto/hold_btc  equity $494.24 (-1.2%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), HYPE 35 (35/0/1), PENGU 32 (32/0/0), PRL 29 (29/0/0), AERO 25 (21/0/4)
+   dex screen: REJECT NOCK@base liq $1,294,749 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: REJECT CLAUS@ethereum liq $630,221 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HOTBOT@solana liq $113,745 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: PASS BUNKER@ethereum liq $451,667
+   dex screen: PASS SPX@ethereum liq $11,132,175
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex scanner: 3,000 pools (solana 2,076 / base 505 / ethereum 419), refresh cycle 123s (hot 118s), 3043 calls (108 feed, 429s 0, failed 0), 88,045 refreshed (7393 no pair), +91 added / -91 dropped (dead 16, stale 0, cap 75), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 15:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 15:06 UTC] crypto/mover     equity $350.84 (-29.8%) 0 open  market UP
+[2026-10-11 15:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 15:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 15:06 UTC] crypto/social_heat equity $467.94 (-6.4%) 2 open  market UP
+[2026-10-11 15:06 UTC] crypto/breakout10 equity $501.84 (+0.4%) 2 open  market UP
+[2026-10-11 15:06 UTC] crypto/momentum  equity $457.36 (-8.5%) 2 open  market UP
+[2026-10-11 15:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 15:06 UTC] crypto/hold_btc  equity $494.59 (-1.1%) 1 open  market UP
+   social heat top: TRUMP 42 (37/0/5), AERO 40 (32/0/8), STRK 40 (40/0/0), PRL 29 (29/0/0), CKB 27 (27/0/0)
+   dex screen: REJECT ORCA@solana liq $1,396,770 - mint authority; top-10 holders 61%
+   dex screen: PASS ANTFUN@solana liq $12,869,179
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HOOKED@solana liq $217,281 - lp holders unknown; rugcheck lp locked 9% < 95%
+   dex screen: REJECT MET@solana liq $89,401 - liquidity $89,401 < $100,000
+   dex screen: REJECT VVV@base liq $15,675,472 - is_mintable; owner_percent 30%; top-10 holders 62%
+   dex screen: REJECT STRK@ethereum liq $706,010 - is_mintable; top-10 holders 69%; lp locked 0% < 95%
+   dex screen: PASS CATE@solana liq $2,690,852
+   dex screen: REJECT CATE@solana liq $73,764,162 - top-10 holders 100%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: QT@solana:9LAHK5Yv data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   scanner: NEAR: +5.6% in 15 min on 30.4x volume @ 5.7528 spread 0.04%
+   take-off: BUY NEAR (scanner mover): NEAR: +5.6% in 15 min on 30.4x volume @ 5.7528 spread 0.04%
+   >> crypto/mover: BUY $157.25 of NEAR @ 5.75855 (scanner mover)
+   scanner: NEAR: +5.4% in 15 min on 40.3x volume @ 5.8331 spread 0.13%
+   dex scanner: 3,001 pools (solana 2,075 / base 509 / ethereum 417), refresh cycle 124s (hot 119s), 3023 calls (109 feed, 429s 0, failed 0), 87,420 refreshed (7956 no pair), +80 added / -79 dropped (dead 13, stale 0, cap 66), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 16:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/mover     equity $350.02 (-30.0%) 1 open  market UP
+[2026-10-11 16:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/social_heat equity $472.71 (-5.5%) 2 open  market UP
+[2026-10-11 16:06 UTC] crypto/breakout10 equity $525.01 (+5.0%) 2 open  market UP
+[2026-10-11 16:06 UTC] crypto/momentum  equity $458.83 (-8.2%) 2 open  market UP
+[2026-10-11 16:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 16:06 UTC] crypto/hold_btc  equity $497.97 (-0.4%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), AERO 38 (32/0/6), APT 37 (37/0/0), PRL 29 (29/0/0), VVV 27 (27/0/0)
+   dex screen: REJECT ICP@base liq $27,730 - liquidity $27,730 < $100,000; 24h volume $9,526 < $100,000
+   dex screen: REJECT NEURAL@ethereum liq $767,595 - transfer_pausable; is_whitelisted; buy tax 4%; sell tax 4%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: QT@solana:9LAHK5Yv data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT BABA@solana liq $207,120 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 58%; lp holders unknown
+   dex screen: REJECT CBXRP@base liq $566,821 - pool age unknown
+   social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   dex screen: PASS PEPE@ethereum liq $30,239,128
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-11 16:34 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/mover     equity $350.73 (-29.9%) 1 open  market UP
+[2026-10-11 16:34 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/social_heat equity $471.84 (-5.6%) 2 open  market UP
+[2026-10-11 16:34 UTC] crypto/breakout10 equity $526.15 (+5.2%) 2 open  market UP
+[2026-10-11 16:34 UTC] crypto/momentum  equity $459.41 (-8.1%) 2 open  market UP
+[2026-10-11 16:34 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/hold_btc  equity $498.36 (-0.3%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), TRUMP 40 (35/0/5), PENGU 38 (24/0/14), NEAR 32 (32/0/0), APT 29 (29/0/0)
+   footprint: AVAX: footprint 3/4 (drift+quiet+hikes) 48h +6.5%, 2 volume hikes, 85% quiet hours @ 10.892
+   footprint: BUY AVAX (footprint 3/4 drift+quiet+hikes): AVAX: footprint 3/4 (drift+quiet+hikes) 48h +6.5%, 2 volume hikes, 85% quiet hours @ 10.892
+   >> crypto/mover: BUY $156.96 of AVAX @ 10.9029 (footprint 3/4 drift+quiet+hikes)
+   scanner: 988 tickers, sample: {'i': 'BTC_USD', 'h': '83916.51', 'l': '82725.02', 'a': '83727.00', 'v': '1003.6604', 'vv': '83372799.16', 'c': '0.0094', 'b': '83722.38', 'k': '83722.39', 'oi': '0', 't': 1791736469227}
+   dex screen: REJECT JEANPHIL@solana liq $508,619 - lp holders unknown; rugcheck lp locked 50% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT JEANPHIL@solana liq $294,232 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex screen: REJECT ONDO@ethereum liq $1,905,104 - transfer_pausable; top-10 holders 68%
+   dex scanner: 3,001 pools (solana 2,051 / base 532 / ethereum 418), refresh cycle 116s (hot 112s), 1384 calls (68 feed, 429s 0, failed 0), 39,451 refreshed (3175 no pair), +125 added / -124 dropped (dead 8, stale 0, cap 116), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-11 17:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 17:05 UTC] crypto/mover     equity $349.73 (-30.1%) 2 open  market UP
+[2026-10-11 17:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 17:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 17:05 UTC] crypto/social_heat equity $473.12 (-5.4%) 2 open  market UP
+[2026-10-11 17:05 UTC] crypto/breakout10 equity $525.54 (+5.1%) 2 open  market UP
+[2026-10-11 17:05 UTC] crypto/momentum  equity $458.87 (-8.2%) 2 open  market UP
+[2026-10-11 17:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 17:05 UTC] crypto/hold_btc  equity $498.33 (-0.3%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), TRUMP 40 (35/0/5), NEAR 32 (32/0/0), AERO 31 (29/0/2), PENGU 27 (27/0/0)

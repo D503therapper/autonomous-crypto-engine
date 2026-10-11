@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 49,
+  "n": 50,
   "beat": 14,
-  "same": 22,
+  "same": 23,
   "worse": 13,
   "avg_pts": 0.05
  },
  "unit_plays": {
-  "n": 23,
+  "n": 24,
   "beat": 5,
-  "same": 12,
+  "same": 13,
   "worse": 6,
   "avg_pts": 0.02
  },
  "by_kind": {
   "dog": {
-   "n": 9,
+   "n": 10,
    "beat": 2,
-   "same": 4,
+   "same": 5,
    "worse": 3,
-   "avg_pts": -0.41
+   "avg_pts": -0.37
   },
   "lean": {
    "n": 26,
@@ -52,11 +52,11 @@
    "avg_pts": 0.39
   },
   "ncaaf": {
-   "n": 12,
+   "n": 13,
    "beat": 4,
-   "same": 5,
+   "same": 6,
    "worse": 3,
-   "avg_pts": 0.21
+   "avg_pts": 0.19
   },
   "nfl": {
    "n": 7,
@@ -789,6 +789,20 @@
    "pts": 0.0,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "dog",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Fresno St",
+   "market": "ml",
+   "line": null,
+   "odds": 250,
+   "close": 250,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "lost"
   }
  ]
 }
