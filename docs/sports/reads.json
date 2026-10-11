@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T20:59Z",
+ "updated": "2026-10-11T21:43Z",
  "games": [
   {
    "id": "nba:401898400",
@@ -237,36 +237,19 @@
    "lean": null
   },
   {
-   "id": "nhl:401892483",
+   "id": "nhl:401892482",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Rangers",
-    "p": 0.486,
-    "tie": 0.282,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-11T22:00Z",
-   "away": "Canucks",
-   "home": "Rangers",
-   "why": "no_value",
+   "start": "2026-10-11T21:00Z",
+   "away": "Kraken",
+   "home": "Capitals",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Rangers",
-    "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -278,
-    "p": 0.763,
-    "win_p": 0.763,
-    "reasons": [
-     "hotter goalie",
-     "the stronger team",
-     "sharp money moving this way"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892484",
@@ -493,7 +476,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.53,
+    "p": 0.532,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -510,8 +493,8 @@
     "market": "ml",
     "line": null,
     "odds": -175,
-    "p": 0.574,
-    "win_p": 0.574,
+    "p": 0.576,
+    "win_p": 0.576,
     "reasons": [
      "sharp money moving this way"
     ]
