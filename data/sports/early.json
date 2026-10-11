@@ -41,16 +41,17 @@
     "blowout"
    ],
    "fades": [],
-   "score": 0.15,
+   "score": "Georgia 20 @ Alabama 17",
    "why": "\ud83e\udde0 Alabama at +130 is a gift: we got 'em winning 62% of the time. Coming off a 56-23 beatdown of Mississippi St on Saturday 10/3.",
    "why_t": 1,
    "mkt": 0.417,
    "own": 0.624,
    "fair_at": "2026-10-03T20:45Z",
    "posted": "2026-10-03T21:05Z",
-   "result": null,
+   "result": "lost",
    "out_at_post": [],
-   "key_out": null
+   "key_out": null,
+   "graded_at": "2026-10-11T03:09Z"
   },
   {
    "game_id": "ncaaf:401858254",
@@ -92,16 +93,17 @@
     "bye"
    ],
    "fades": [],
-   "score": 0.0503,
+   "score": "Tulane 17 @ Army 20",
    "why": "\ud83e\udde0 +205 undersells Tulane on our read. Tulane had last week off; Army played.",
    "why_t": 3,
    "mkt": 0.3146,
    "own": 0.3249,
    "fair_at": "2026-10-04T03:30Z",
    "posted": "2026-10-04T14:24Z",
-   "result": null,
+   "result": "lost",
    "out_at_post": [],
-   "key_out": null
+   "key_out": null,
+   "graded_at": "2026-10-10T19:24Z"
   },
   {
    "game_id": "ncaaf:401858260",
@@ -119,16 +121,17 @@
    "fades": [
     "ice cold"
    ],
-   "score": 0.08,
+   "score": "Wake Forest 38 @ NC State 14",
    "why": "\ud83e\udde0 Our numbers got NC State winning 64% - way more than +124 pays for. The line moved away from them - better price for us.",
    "mkt": 0.4279,
    "own": 0.6355,
    "fair_at": "2026-10-03T23:30Z",
    "posted": "2026-10-04T15:40Z",
-   "result": null,
+   "result": "lost",
    "why_t": 0,
    "out_at_post": [],
-   "key_out": null
+   "key_out": null,
+   "graded_at": "2026-10-10T19:24Z"
   },
   {
    "game_id": "ncaaf:401860901",
@@ -145,16 +148,17 @@
     "hammered"
    ],
    "fades": [],
-   "score": 0.175,
+   "score": "Boise St 38 @ Fresno St 31",
    "why": "\ud83e\udde0 Our read says Fresno St wins this more often than +205 pays for. They beat Washington St 26-6 on Saturday 10/3.",
    "why_t": 4,
    "mkt": 0.3146,
    "own": 0.5518,
    "fair_at": "2026-10-04T05:30Z",
    "posted": "2026-10-04T21:22Z",
-   "result": null,
+   "result": "lost",
    "out_at_post": [],
-   "key_out": null
+   "key_out": null,
+   "graded_at": "2026-10-11T06:18Z"
   },
   {
    "game_id": "ncaaf:401871066",
@@ -223,16 +227,17 @@
     "engine"
    ],
    "fades": [],
-   "score": 0.1266,
+   "score": "Miami OH 20 @ UMass 19",
    "why": "\ud83e\udde0 UMass at +120 is a gift on our read. The price drifted out since the first number - we get the better one.",
    "mkt": 0.4365,
    "own": 0.5481,
    "fair_at": "2026-10-03T23:30Z",
    "posted": "2026-10-05T13:01Z",
-   "result": null,
+   "result": "lost",
    "why_t": 1,
    "out_at_post": [],
-   "key_out": null
+   "key_out": null,
+   "graded_at": "2026-10-10T21:23Z"
   },
   {
    "game_id": "nfl:401872993",
@@ -283,6 +288,50 @@
    "why_t": 3,
    "out_at_post": [],
    "key_out": null
+  },
+  {
+   "game_id": "ncaaf:401858267",
+   "league": "ncaaf",
+   "side": "home",
+   "team": "Boston College",
+   "opp": "Pitt",
+   "odds": 215,
+   "opp_odds": -265,
+   "start": "2026-10-17T16:00Z",
+   "spot": "bye",
+   "spots": [
+    "bye"
+   ],
+   "fades": [],
+   "score": 0.0538,
+   "why": "\ud83e\udde0 Our numbers like Boston College more than +215 does. Boston College had last week off; Pitt played.",
+   "mkt": 0.3042,
+   "own": 0.303,
+   "fair_at": "2026-10-10T20:00Z",
+   "posted": "2026-10-11T01:59Z",
+   "result": null,
+   "why_t": 0,
+   "out_at_post": [],
+   "key_out": null
+  },
+  {
+   "game_id": "nfl:401872981",
+   "league": "nfl",
+   "market": "total",
+   "side": "under",
+   "line": 41.5,
+   "team": "Under 41.5",
+   "opp": "Eagles @ Jaguars",
+   "odds": -109,
+   "start": "2026-10-11T13:30Z",
+   "spot": "euro_under",
+   "spots": [
+    "euro_under"
+   ],
+   "fades": [],
+   "why": "\ud83c\udf0d London, 6:30 AM PT kickoff. NFL games in Europe that start this early went 17-9 to the under since 2018.",
+   "posted": "2026-10-11T01:59Z",
+   "result": null
   }
  ],
  "first_seen": {
@@ -567,6 +616,12 @@
    "ml_away": 118,
    "src": "betrivers",
    "at": "2026-10-09T04:30Z"
+  },
+  "mlb:401908023": {
+   "ml_home": -165,
+   "ml_away": 138,
+   "src": "betrivers",
+   "at": "2026-10-11T03:06Z"
   }
  },
  "launched": "2026-09-30T12:56Z",

@@ -19,9 +19,12 @@ UNIT_KINDS = ("lock", "dog", "solo", "play", "night")
 
 def main(day_iso=None):
     now_real = datetime.now(timezone.utc)
+    hh, mm = 8, 35                         # 8:35 AM PT on that day (past the slate check's last try - the board always builds)
+    if day_iso and "T" in day_iso:         # "YYYY-MM-DDTHH:MM" (PT) reads an earlier slate too - e.g. a 6:30 AM London game
+        day_iso, hm = day_iso.split("T")   # (10/11, the owner wanted the Eagles read)
+        hh, mm = (int(x) for x in hm.split(":"))
     day = datetime.strptime(day_iso, "%Y-%m-%d").date() if day_iso else (now_real.astimezone(sports.PT) + timedelta(days=1)).date()
-    # 8:35 AM PT on that day (past the slate check's last try - the board always builds)
-    at = datetime(day.year, day.month, day.day, 8, 35, tzinfo=sports.PT).astimezone(timezone.utc)
+    at = datetime(day.year, day.month, day.day, hh, mm, tzinfo=sports.PT).astimezone(timezone.utc)
     sports.SLATE_PATH = os.path.join(tempfile.mkdtemp(), "slate.json")          # nothing real gets written
     sports.LOCK_MISS_PATH = os.path.join(tempfile.mkdtemp(), "lock_miss.json")  # (10/5 sweep: the dry run wrote the real
     #                                              Lock near-miss - the question box would name a pick from a preview)
@@ -65,13 +68,16 @@ def main(day_iso=None):
     for w in waiting:
         out.append(f"\nWAITING {w['kind']}: on {', '.join(w.get('waiting') or [])}")
     # 🐶 EVERY DOG on the slate (10/5, the owner: "there's no value in any dogs?") - the engine's read vs the price each
-    # one needs, and what kept it off. Moneylines +100..+220.
-    dogs = [c for c in sports.LAST_RAW if c.get("market") == "ml" and 100 <= c.get("odds", 0) <= sports.DAILY_DOG_MAX]
+    # one needs, and what kept it off. Every moneyline dog (10/11, the owner wanted a read on the Eagles at +330): past
+    # our +300 limit they're listed with that note - a read, never a pick.
+    dogs = [c for c in sports.LAST_RAW if c.get("market") == "ml" and c.get("odds", 0) >= 100]
     if dogs:
         out.append("\nEVERY DOG (moneyline): price needs -> the engine's read")
         for c in sorted(dogs, key=lambda c: -((sports.read_of(c) or 0) - 1 / c["dec"])):
             need, rd = 1 / c["dec"], sports.read_of(c) or 0
             why = []
+            if c["odds"] > sports.DAILY_DOG_MAX:
+                why.append(f"past our +{sports.DAILY_DOG_MAX} limit - read only")
             if c.get("waiting"):
                 why.append("waiting: " + ", ".join(c["waiting"])[:60])
             if c.get("trap"):

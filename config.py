@@ -251,7 +251,12 @@ DEX = {
     # EXPERIMENT 8 (10-02): no buy after a single hour of +100% or more (SACC 1h +266% -> 0.09x, AGENCY +1265% -> 0.46x
     # within hours). Live scanner replay: 1h >= +100% n 18, 72% lost half or more, sum -5.8 per $1 bet; backtest:
     # the cap is even in the older half, better in the newer (+551% vs +507%/month).
-    "entry": {"h1": 0.10, "h6": 0.50, "buy_ratio": 1.2, "h1_max": 1.0},
+    "entry": {"h1": 0.10, "h6": 0.50, "buy_ratio": 1.2, "h1_max": 1.0,
+              # EXPERIMENT 12 (owner 2026-10-10 "new strategy"): buy SURVIVORS, not fresh pumps - pools 2-6 days old,
+              # $250k+ liquidity grown 20%+ in 24h, price up on the day and within 30% of its high (dex.survivor_trigger).
+              # The momentum rule above lost 41% over 67 live trades (10-10 post-mortem). Judge ~2026-10-31.
+              "mode": "survivor",
+              "survivor": {"age_h": 48, "max_age_h": 144, "liq": 250_000, "liq_grow": 1.2, "from_high": 0.7}},
     "tiers": {                                     # share of equity; all capped at 0.5% of pool liquidity + cash
         # dex_exit_study's +55%/month used 1/4 of equity per trade (4 slots); 3% tier-A bets ($15) left ~90%
         # idle. Owner 2026-09-26: size like the tested portfolio. Still capped at 0.5% of pool liquidity.

@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 44,
-  "beat": 13,
-  "same": 19,
-  "worse": 12,
+  "n": 49,
+  "beat": 14,
+  "same": 22,
+  "worse": 13,
   "avg_pts": 0.05
  },
  "unit_plays": {
-  "n": 20,
+  "n": 23,
   "beat": 5,
-  "same": 9,
+  "same": 12,
   "worse": 6,
   "avg_pts": 0.02
  },
@@ -22,41 +22,41 @@
    "avg_pts": -0.41
   },
   "lean": {
-   "n": 24,
-   "beat": 8,
+   "n": 26,
+   "beat": 9,
    "same": 10,
-   "worse": 6,
-   "avg_pts": 0.07
+   "worse": 7,
+   "avg_pts": 0.08
   },
   "lock": {
-   "n": 6,
+   "n": 7,
    "beat": 2,
-   "same": 3,
+   "same": 4,
    "worse": 1,
-   "avg_pts": 1.02
+   "avg_pts": 0.87
   },
   "play": {
-   "n": 5,
+   "n": 7,
    "beat": 1,
-   "same": 2,
+   "same": 4,
    "worse": 2,
-   "avg_pts": -0.4
+   "avg_pts": -0.29
   }
  },
  "by_sport": {
   "mlb": {
-   "n": 8,
+   "n": 9,
    "beat": 5,
    "same": 1,
-   "worse": 2,
-   "avg_pts": 0.5
+   "worse": 3,
+   "avg_pts": 0.39
   },
   "ncaaf": {
-   "n": 10,
+   "n": 12,
    "beat": 4,
-   "same": 3,
+   "same": 5,
    "worse": 3,
-   "avg_pts": 0.25
+   "avg_pts": 0.21
   },
   "nfl": {
    "n": 7,
@@ -66,18 +66,18 @@
    "avg_pts": -0.54
   },
   "nhl": {
-   "n": 19,
-   "beat": 4,
-   "same": 11,
+   "n": 21,
+   "beat": 5,
+   "same": 12,
    "worse": 4,
-   "avg_pts": -0.04
+   "avg_pts": 0.01
   }
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 2,
+   "n": 3,
    "beat": 0,
-   "same": 2,
+   "same": 3,
    "worse": 0,
    "avg_pts": 0.0
   },
@@ -372,20 +372,6 @@
   },
   {
    "date": "2026-10-04",
-   "kind": "lock",
-   "lean": false,
-   "league": "nfl",
-   "team": "Cardinals",
-   "market": "ml",
-   "line": null,
-   "odds": -135,
-   "close": -135,
-   "pts": 0.0,
-   "units": 0.5,
-   "result": "lost"
-  },
-  {
-   "date": "2026-10-04",
    "kind": "dog",
    "lean": false,
    "league": "nfl",
@@ -427,17 +413,17 @@
    "result": "lost"
   },
   {
-   "date": "2026-10-05",
+   "date": "2026-10-04",
    "kind": "lock",
    "lean": false,
-   "league": "mlb",
-   "team": "Guardians",
+   "league": "nfl",
+   "team": "Cardinals",
    "market": "ml",
    "line": null,
-   "odds": -149,
-   "close": -157,
-   "pts": 1.3,
-   "units": 1.0,
+   "odds": -135,
+   "close": -135,
+   "pts": 0.0,
+   "units": 0.5,
    "result": "lost"
   },
   {
@@ -495,6 +481,20 @@
    "pts": 0.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "lock",
+   "lean": false,
+   "league": "mlb",
+   "team": "Guardians",
+   "market": "ml",
+   "line": null,
+   "odds": -149,
+   "close": -157,
+   "pts": 1.3,
+   "units": 1.0,
+   "result": "lost"
   },
   {
    "date": "2026-10-06",
@@ -568,20 +568,6 @@
   },
   {
    "date": "2026-10-07",
-   "kind": "lock",
-   "lean": false,
-   "league": "ncaaf",
-   "team": "Jax State",
-   "market": "ml",
-   "line": null,
-   "odds": -148,
-   "close": -148,
-   "pts": 0.0,
-   "units": 0.5,
-   "result": "won"
-  },
-  {
-   "date": "2026-10-07",
    "kind": "dog",
    "lean": false,
    "league": "nhl",
@@ -607,6 +593,20 @@
    "pts": 1.0,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-07",
+   "kind": "lock",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Jax State",
+   "market": "ml",
+   "line": null,
+   "odds": -148,
+   "close": -148,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   },
   {
    "date": "2026-10-08",
@@ -719,6 +719,76 @@
    "pts": 0.0,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Guardians",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -139,
+   "pts": -0.5,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Mammoth",
+   "market": "ml",
+   "line": null,
+   "odds": -108,
+   "close": -112,
+   "pts": 0.9,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "lock",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Minnesota",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -142,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flames",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 102,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "play",
+   "lean": false,
+   "league": "ncaaf",
+   "team": "Illinois",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -142,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "won"
   }
  ]
 }

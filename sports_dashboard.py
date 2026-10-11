@@ -503,10 +503,13 @@ def engine_weights():
         "the board": {"Lock": "the likeliest winner among picks worth their price (the engine's own read beats the price)",
                       "Dog": "a real-value dog the whole dog score likes best; score-picked dogs "
                              f"{sports.DOG_SCORE_MAX_U:g}u max",
-                      "units": "only when the read beats the real price (the money check), sized by the edge "
-                               f"(quarter-Kelly, up to {sports.UNIT_MAX}u); plays need {round(sports.LOCK_P * 100)}%+",
-                      "leans": "who-wins calls, no units - except a lean the engine has 55%+ whose read beats the "
-                               "price (units sized by its edge)"},
+                      "units": "only when the read beats the real price (the money check): the Lock sized by its own "
+                               f"read (quarter-Kelly, ½u-{sports.UNIT_MAX}u, a Lock needs {round(sports.LOCK_P * 100)}%+), "
+                               f"the Dog {sports.DOG_UNITS:g}u-{sports.DOG_MAX_UNITS:g}u by its edge (hockey flat, hoops ½u), "
+                               f"every value play {sports.PLAY_UNITS:g}u, moneyline only",
+                      "leans": "who-wins calls, NO UNITS - ever (the owner, 10/2); no college favorite lean at "
+                               f"{sports.LEAN_NCAAF_FAV_BAND[0]}..{sports.LEAN_NCAAF_FAV_BAND[1]}"},   # (10/11 sweep: the
+        #   old line still promised ½u on a 55%+ lean - units_for has paid leans 0 since THIN_FROM, 10/2)
         "dog gates (the whole dog score)": {"NFL": f"{sports.DOG_GATE:g}+", "NHL": f"{sports.NHL_DOG_GATE:g}+ (or the best "
                                             "hockey dog that beats its price)", "college football": f"{sports.NCAAF_DOG_GATE:g}+",
                                             "college hoops": {"own": f"own read {round(sports.NCAAB_DOG_EDGE * 100)}+ pts over the price",

@@ -531,6 +531,24 @@ def entry_trigger(c, E):
                 or h1 >= E.get("h1_max", float("inf")))
 
 
+def survivor_trigger(c, e, V, now):
+    """EXPERIMENT 12 (owner 2026-10-10: "new strategy - go to the moon"): buy coins that SURVIVED, not fresh pumps.
+    The 10-10 post-mortem: 67 live momentum buys lost 41%, a third lost 80%+ (dumped within a day or two). Scanner
+    replay 10-11: pools 2-6 days old with $250k+ liquidity that grew 20%+ in 24h, price up on the day and within 30%
+    of the high seen: 19 coins, median +23%, 53% winners, 3 dumped (vs 12 of 66 any-pool). Needs the universe
+    entry's hourly history (e["hist"] = [t, price, liq], e["hi"] = highest price seen)."""
+    if not e or not c.get("price"):
+        return False
+    age = c.get("age_h")
+    if age is None or not V["age_h"] <= age <= V["max_age_h"] or (c.get("liq") or 0) < V["liq"]:
+        return False
+    old = [h for h in e.get("hist") or [] if now - h[0] >= 24 * HOUR]
+    if not old:
+        return False
+    _, p24, l24 = old[-1]
+    return c["liq"] >= l24 * V["liq_grow"] and c["price"] >= p24 and c["price"] >= (e.get("hi") or 0) * V["from_high"]
+
+
 # ---- tiered sizing (pure) --------------------------------------------------------------------------
 def tier_for(c, T, clean=0, on_cex=False):
     """'C' / 'B' / 'A' from pool age (age_h), liquidity, 24h volume, consecutive clean re-screens
@@ -1018,9 +1036,16 @@ class DexHunter:
         """Screen what we could buy NOW first: coins already meeting the entry trigger (1h move + buyers),
         then the strongest 1h movers, then deeper pools. Ordering by liquidity alone spent the one-request
         budget on big slow pools while the movers' jumps ended in the queue (seen 2026-09-26)."""
-        c, E = job["c"], self.p["entry"]
+        c = job["c"]
         h1 = c.get("h1") or 0.0
-        return (0 if entry_trigger(c, E) else 1, -h1, -c["liq"])
+        return (0 if self._trig(c, self._now()) else 1, -h1, -c["liq"])
+
+    def _trig(self, c, now):
+        """The live entry trigger: momentum (entry_trigger) or, with entry["mode"] == "survivor", survivor_trigger."""
+        E = self.p["entry"]
+        if E.get("mode") == "survivor":
+            return survivor_trigger(c, self.uni.get(self._nk(self.key(c))), E["survivor"], now)
+        return entry_trigger(c, E)
 
     # ---- WIDE SCANNER: rolling pool universe, bulk refresh, movers to the front of the screen ----
     # Universe = up to scan.max_pools tokens on config.DEX["chains"], fed by every discovery source plus
@@ -1029,7 +1054,7 @@ class DexHunter:
     # DexScreener tokens/v1 bulk refresh of the 30 most overdue tokens of one chain. A refreshed token that
     # meets the entry trigger (or is warming up) and passes check_market goes to the screening queue, which
     # puts trigger-ready coins first; an already screened coin goes straight to _try_entry.
-    UNI_FIELDS = ("chain", "addr", "sym", "src", "t0", "hit", "low", "move", "created")
+    UNI_FIELDS = ("chain", "addr", "sym", "src", "t0", "hit", "low", "move", "created", "hist", "hi")
 
     @staticmethod
     def _scan_zero():
@@ -1056,6 +1081,8 @@ class DexHunter:
                         continue
                     for t in ("t0", "hit", "low", "move", "created"):
                         e[t] = int(_f(e.get(t)) or 0) * 1000             # stored in seconds
+                    e["hist"] = [[int(h[0]) * 1000, float(h[1]), float(h[2])] for h in e.get("hist") or []
+                                 if isinstance(h, list) and len(h) == 3]
                     e.update(r=0, seen=0, liq=None, h1=None)
                     self.uni[self._nk(k)] = e
         except Exception as ex:
@@ -1067,8 +1094,14 @@ class DexHunter:
 
     def _uni_save(self, now):
         self._uni_saved = now
-        pools = {k: [e[f] // 1000 if f in ("t0", "hit", "low", "move", "created") else e[f] for f in self.UNI_FIELDS]
-                 for k, e in sorted(self.uni.items())}
+        def field(e, f):
+            if f in ("t0", "hit", "low", "move", "created"):
+                return e[f] // 1000
+            if f == "hist":                             # kept only for pools big enough for the survivor rule
+                big = (e.get("liq") or 0) >= 150_000 or any(h[2] >= 150_000 for h in e.get("hist") or [])
+                return [[h[0] // 1000, float(f"{h[1]:.4g}"), round(h[2])] for h in e.get("hist") or []] if big else []
+            return e.get(f)
+        pools = {k: [field(e, f) for f in self.UNI_FIELDS] for k, e in sorted(self.uni.items())}
         try:
             os.makedirs(self.dir, exist_ok=True)
             with open(f"{self.dir}/universe.json.tmp", "w") as f:
@@ -1257,6 +1290,13 @@ class DexHunter:
                 e["low"] = e["low"] or now
                 continue
             e.update(sym=c["sym"], liq=c["liq"], h1=c.get("h1"), seen=now)
+            if c.get("price"):                          # hourly [t, price, liq] for 30h + highest price seen
+                h = e.setdefault("hist", [])            # (survivor_trigger)
+                if not h or now - h[-1][0] >= HOUR:
+                    h.append([now, c["price"], c["liq"]])
+                while h and now - h[0][0] > 30 * HOUR:
+                    h.pop(0)
+                e["hi"] = max(e.get("hi") or 0, c["price"])
             if c.get("age_h") is not None:
                 e["created"] = int(now - c["age_h"] * HOUR)
             e["low"] = (e["low"] or now) if c["liq"] < floor else 0
@@ -1268,9 +1308,9 @@ class DexHunter:
         (so a coin that stalled while waiting is never bought on old numbers); trigger met or warming up and
         market sanity OK -> screening queue (trigger-ready coins sort to the front)."""
         P, E = self.p["scan"], self.p["entry"]
-        trig = entry_trigger(c, E)
+        trig = self._trig(c, now)
         h1, b1, s1 = c.get("h1") or 0.0, c.get("b1") or 0, c.get("s1") or 0
-        warm = h1 >= P["warm_h1"] and b1 > s1
+        warm = h1 >= P["warm_h1"] and b1 > s1 and E.get("mode") != "survivor"
         if trig or warm:
             e["move"] = now
         nk = self._nk(self.key(c))
@@ -1496,7 +1536,7 @@ class DexHunter:
         if not c or self.pf.halted or self.paused():
             return
         if len(self.pf.positions) >= self.p["slots"]:
-            if entry_trigger(c, E):
+            if self._trig(c, now):
                 self._recycle(now, c)
             return
         pk = self.pkey(c)
@@ -1508,7 +1548,7 @@ class DexHunter:
         if any(str(p.get("sym") or "").upper() == sym for p in self.pf.positions.values()):
             return
         h1, h6, b1, s1 = c.get("h1"), c.get("h6"), c.get("b1") or 0, c.get("s1") or 0
-        if not entry_trigger(c, E):
+        if not self._trig(c, now):
             return
         if (h1 or 0) > 50:                             # +5,000% in one hour is a data error (a fresh/junk pool read
             return                                     # against a stale price), not a signal: ANTFUN "1h +15101012%"
@@ -1523,7 +1563,7 @@ class DexHunter:
         impact = usd / c["liq"]
         self.pf.slippage = trade_cost(usd, c["liq"], self.p)
         self.pf.buy(now, pk, usd, c["price"], c["price"] * (1 - X["trail"]),
-                    reason=f"dex tier {tier} momentum 1h {h1:+.0%} 6h {h6:+.0%} buys/sells {b1}/{s1} impact {impact:.2%}")
+                    reason=f"dex tier {tier} {E.get('mode') or 'momentum'} 1h {h1:+.0%} 6h {h6:+.0%} buys/sells {b1}/{s1} impact {impact:.2%}")
         self.pf.positions[pk].update(chain=c["chain"], addr=c["addr"], sym=c["sym"], pair=c.get("pair"), liq0=c["liq"], px0=c["price"],
                                      liq=c["liq"], vol24=c["vol24"], age_h0=c.get("age_h") or 0, px=c["price"],
                                      tp1=False, tp2=False, realized=0.0, cost0=usd, rescreened=now, impact=impact,
