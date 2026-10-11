@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T20:38Z",
+ "updated": "2026-10-11T20:59Z",
  "games": [
   {
    "id": "nba:401898400",
@@ -114,8 +114,8 @@
    "away": "Giants",
    "home": "Commanders",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -222,36 +222,19 @@
    "lean": null
   },
   {
-   "id": "nhl:401892482",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Capitals",
-    "p": 0.426,
-    "tie": 0.294,
-    "name": "1st period"
-   },
-   "sport": "NHL",
+   "id": "nfl:401872991",
+   "league": "nfl",
+   "emoji": "\ud83c\udfc8",
+   "sport": "NFL",
    "season": "regular season",
-   "start": "2026-10-11T21:00Z",
-   "away": "Kraken",
-   "home": "Capitals",
-   "why": "no_value",
+   "start": "2026-10-11T20:25Z",
+   "away": "Lions",
+   "home": "Cardinals",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Capitals",
-    "opp": "Kraken",
-    "market": "ml",
-    "line": null,
-    "odds": -218,
-    "p": 0.657,
-    "win_p": 0.657,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "hotter recent form"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892483",
