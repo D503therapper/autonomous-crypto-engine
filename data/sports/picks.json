@@ -9576,6 +9576,7 @@
      "us:road3in6"
     ],
     "dec": 1.925925925925926,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -9588,6 +9589,10 @@
     "edge_own": -0.035264921985761366,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,2,1",
+     "h": "1,0,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -9621,9 +9626,11 @@
      "opponent drama: family/personal"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Mammoth 4 @ Sabres 1",
+    "settled": "2026-10-11T01:43Z",
     "side": "away",
     "start": "2026-10-10T23:00Z",
     "stype": "2",
@@ -9647,12 +9654,14 @@
    }
   ],
   "p_hit": 0.501,
-  "pnl": 0.0,
+  "pnl": 92.59,
   "posted": "2026-10-10T15:00Z",
   "round": 1,
+  "settled": "2026-10-11T01:43Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": 250,
