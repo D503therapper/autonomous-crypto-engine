@@ -1,33 +1,46 @@
 {
- "at": "2026-10-11T13:02Z",
- "fixes": [],
+ "at": "2026-10-11T14:33Z",
+ "fixes": [
+  "studies overdue (9h) - started sports_studies.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Mettraux vs Encheva: no points for 2639s",
-  "live tennis scores: tennis Li Zongyu vs Serban: no points for 2639s",
-  "live tennis scores: tennis Nagy vs Voloshchuk: no points for 2639s",
-  "live tennis scores: tennis Tsygourova vs Cakarevic: no points for 2397s",
-  "live tennis scores: tennis Nepliy vs Feistel: no points for 879s"
+  "live tennis scores: tennis Sakellaridi vs Adrover: no points for 2659s",
+  "live tennis scores: tennis Tsygourova vs Cakarevic: no points for 2659s",
+  "live tennis scores: tennis Van Emst vs Serban: no points for 291s",
+  "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+  "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (36s)",
+  "live watcher fresh (29s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 7 live matches",
+  "live tennis points + server: 1 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 4 live lines, 2 fresh (betrivers 2)",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 27 min ago",
+  "simulator ran 8h ago",
+  "engine ran 53 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-11T14:33Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Sakellaridi vs Adrover: no points for 2659s",
+    "live tennis scores: tennis Tsygourova vs Cakarevic: no points for 2659s",
+    "live tennis scores: tennis Van Emst vs Serban: no points for 291s",
+    "tennis live prices all stale (1 live lines, 0 fresh) - no live tennis plays can go up",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-11T13:02Z",
    "fixes": [],
@@ -556,11 +569,6 @@
   },
   {
    "at": "2026-10-09T00:03Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-08T22:30Z",
    "fixes": [],
    "problems": []
   }
