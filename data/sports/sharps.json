@@ -47,18 +47,18 @@
   },
   "nfl": {
    "old": {
-    "n": 95,
-    "won": 0.4,
-    "close": 0.3735,
-    "roi_close": 0.0009
+    "n": 94,
+    "won": 0.4043,
+    "close": 0.3732,
+    "roi_close": 0.0115
    },
    "new": {
     "n": 67,
-    "won": 0.4328,
-    "close": 0.3801,
-    "roi_close": 0.1348
+    "won": 0.4179,
+    "close": 0.3781,
+    "roi_close": 0.0959
    },
-   "proven": false
+   "proven": true
   },
   "ncaab": {
    "old": {
@@ -91,5 +91,7 @@
    "proven": false
   }
  },
- "proven": []
+ "proven": [
+  "nfl"
+ ]
 }
