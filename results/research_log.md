@@ -132,6 +132,7 @@ sells in the last hour >= 0: n 110, mean +18.0%, growth@5% +0.38%/trade | >= 10:
 | 9 | 2026-10-03 21:45 | DEX: 20 coins x ~5% (was 10 x 10%) | ~2026-10-24 | DEX $340 (-66% season 2); live: 10 of 10 buys in $100-135k pools lost (5 rugged, -$508). Replay (80 current-rule trades): profit = top 4 trades only; 5% keeps ~85% of the growth, halves the loss when no runner comes | pending |
 | 10 | 2026-10-06 00:30 | DEX: data-only re-screen flags (holders / LP data unknown, LP locked %) no longer sell a held coin; contract flags, honeypots and the liquidity-pull check still do | ~2026-10-20 | season 2 (27 sales): holding every sold coin 7 days beat the actual sales by +$22 per $1 bet (live -11.95 vs hold +10.13); AGENTCAT sold 1.84x -> 19.9x, AGENCY 0.59x -> 16.2x; without those two holding still +3.5 better; the rugged ones were already -70..-90% when flagged | live 10-07: -$46 vs the old rule (HIGGS: 9 flags in a row, rugged from 1.4x; old rule sold ~even at flag #2); 6 other flagged coins no difference; pending |
 | 11 | 2026-10-06 14:00 | DEX: a coin at 3x of its first buy price (confirmed on 2 readings) gets ONE add-on of 10% of the account; the 3x 'sell a third' is off | ~2026-10-27 | owner: "20x off 500 bucks". Scanner replay (current entry rule): 16 coins that hit 3x went on +112% mean / +95% median after it, 10 of 16 doubled again (after 2x: median -49%; after 5x: +39% median, 2 of 12 doubled). Earlier studies: never selling early beat the 3x sell in both data sets | live 10-07: fired once - SWORDINU +$102 at 3.0x (08:44), 2.58x at 13:00; pending |
+| 12 | 2026-10-11 | DEX: buy SURVIVORS instead of fresh pumps - pools 2-6 days old, $250k+ liquidity grown 20%+ in 24h, price up on the day and within 30% of its high (dex.survivor_trigger) | ~2026-10-31 | 10-10 post-mortem: 67 live momentum buys -41%, a third lost 80%+; replay of the survivor rule: n 19, median +23%, 53% winners, 3 dumped; no 5x seen yet | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
@@ -548,3 +549,10 @@ trades: every one negative (best: 40% trail after 1.5x -11.1 per $1, sell all at
 disagree between live (big-6h coins worst) and the scanner replay (big-6h coins carry the few huge winners). Verdict:
 the momentum-meme strategy has no live edge; recommended to the owner to stop using it as a money maker (lottery
 tracker or pivot).
+
+### 2026-10-11 EXPERIMENT 12 - survivors instead of fresh pumps (owner: "new strategy, whatever you got to do")
+Scanner-log replay (first time each pool met the rule, held up to 7 days, live rug rule): any pool 3d+ / $100k: n 66,
+mean -6.5%, 12 dumped >= 80%. Pools 2-6 days old, $250k+, liquidity +20% in 24h, price up on the day, within 30% of its
+high: n 19, mean +3.8%, MEDIAN +22.9%, 53% winners, 3 dumped (halves -0.44 / +1.16). 3d+ / $250k / liquidity up /
+within 50%: n 35, mean +2.2%, 2 dumped. None reached 5x in ~2 weeks of data - survivors dodge the dumps but the moonshot
+odds are unproven. Live from 10-11 (config entry mode "survivor"); judge ~10-31 vs the momentum rule's -41%.

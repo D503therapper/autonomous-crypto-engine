@@ -117,7 +117,7 @@ LADDER = {"tiers": {"A": {"pct": 0.03}, "B": {"pct": 0.10, "age_d": 7, "liq": 1_
                     "C": {"pct": 0.20, "age_d": 30, "liq": 5_000_000, "vol24": 0, "clean": 0, "cex": True}},
           "size": {"liq_pct": 0.005, "max_exposure": 0.60},
           "slots": 4,
-          "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2},
+          "entry": {"h1": 0.05, "h6": 0.10, "buy_ratio": 1.2, "mode": "momentum"},
           "exit": {"trail": 0.30, "tp1": (1.0, 0.5), "ladder": [(4.0, 1 / 3), (9.0, 0.5)],
                    "trail_steps": [(3.0, 0.40), (10.0, 0.50)], "max_hold_days": 14, "runner_at_limit": None,
                    "liq_pull": 0.50, "rug_tax": 0.50, "stake_back": None, "pyramid": None}}
@@ -687,6 +687,31 @@ def test_void_bad_data_sales():
     print("  bad-data sales voided once: rows archived, cash and positions restored, scam count back   ok")
 
 
+def test_survivor_trigger():
+    """EXPERIMENT 12: buy a 2-6 day old pool with $250k+ that grew 20%+ in 24h, price up on the day, within 30% of
+    its high - never a fresh pump, a shrinking pool, or a coin far below its high. History survives a restart."""
+    V = {"age_h": 48, "max_age_h": 144, "liq": 250_000, "liq_grow": 1.2, "from_high": 0.7}
+    now = T0 + 30 * HOUR
+    e = {"hist": [[T0, 1.0, 200_000], [T0 + 10 * HOUR, 1.1, 230_000]], "hi": 1.3}
+    c = {"price": 1.2, "liq": 260_000, "age_h": 72}
+    assert dex.survivor_trigger(c, e, V, now)
+    assert not dex.survivor_trigger(dict(c, age_h=10), e, V, now)              # fresh pump
+    assert not dex.survivor_trigger(dict(c, liq=230_000), e, V, now)           # pool too small / not growing
+    assert not dex.survivor_trigger(dict(c, price=0.9), e, V, now)             # down on the day, far off its high
+    assert not dex.survivor_trigger(c, dict(e, hi=2.0), V, now)                # > 30% below its high
+    assert not dex.survivor_trigger(c, {"hist": [[T0 + 20 * HOUR, 1.0, 200_000]], "hi": 1.3}, V, now)   # < 24h seen
+    h, fetch, d = make(table_evm())
+    k = h._nk("base:" + EVM)
+    h.uni[k] = {"chain": "base", "addr": EVM, "sym": "TOK", "src": "t", "t0": T0, "hit": T0, "low": 0, "move": 0,
+                "created": T0, "liq": 300_000, "hist": [[T0, 1.0, 300_000]], "hi": 1.5}
+    h._uni_save(T0)
+    h.uni = {}
+    h._uni_load()
+    assert h.uni[k]["hist"] == [[T0 // 1000 * 1000, 1.0, 300_000.0]] and h.uni[k]["hi"] == 1.5
+    shutil.rmtree(d)
+    print("  survivor entry: 2-6 day old, growing pool near its high; history kept across restarts   ok")
+
+
 def test_new_season_restarts_account():
     """A new params['season'] archives the account + outcomes (never deletes) and starts fresh at season_cash."""
     h, fetch, d, px = held()
@@ -778,7 +803,7 @@ def test_take_profit_steps():
 def test_study_exit():
     """Live config (dex_exit_study + dex_legends_study): no stop for 14 days, time limit, a runner at the
     limit keeps riding on a 40% trail."""
-    live = {"entry": dex.DEX["entry"], "exit": {**dex.DEX["exit"], "stake_back": 3.0, "pyramid": None}}
+    live = {"entry": {**dex.DEX["entry"], "mode": "momentum"}, "exit": {**dex.DEX["exit"], "stake_back": 3.0, "pyramid": None}}
     def held(px_path, days_between=1, sb=True):
         h, fetch, d = make(table_evm(pair=ds_pair("base", EVM, h1=12, h6=60)), **live)
         screen(h, cand(h1=12, h6=60))
@@ -861,7 +886,7 @@ def test_entry_needs_a_run():
 def test_recycle_stale_for_stronger_coin():
     """EXPERIMENT 7: no cash for a coin that passed -> the weakest holding >= 24h old and below its buy price is sold."""
     h, fetch, d, px = held()
-    h.p = {**h.p, "exit": {**h.p["exit"], "recycle": {"min_hold_h": 24, "max_x": 1.0}}, "entry": dex.DEX["entry"]}
+    h.p = {**h.p, "exit": {**h.p["exit"], "recycle": {"min_hold_h": 24, "max_x": 1.0}}, "entry": {**dex.DEX["entry"], "mode": "momentum"}}
     pos = h.pf.positions[K]
     h.pf.cash = 0.0
     new = dict(cand(chain="base", addr="0xabc0000000000000000000000000000000000002", sym="NEW", h1=30, h6=80,
@@ -1417,7 +1442,7 @@ def test_scan_mover_front_of_queue_and_buys():
         return {MOV: ds_pair("base", a, h1=25, b1=400, s1=100), W: ds_pair("base", a, h1=7, b1=300, s1=100),
                 THIN: ds_pair("base", a, h1=50, liq=20_000)}.get(a)
     h, fetch, d = scan_make({"tokens/v1/base/": tokens_fn(pairs2)}, chains=["base"],
-                            entry={"h1": 0.10, "h6": -1.0, "buy_ratio": 1.2})
+                            entry={"h1": 0.10, "h6": -1.0, "buy_ratio": 1.2, "mode": "momentum"})
     h.src["dexscreener"].next_at = T0 + HOUR
     for a in (W, THIN, MOV):
         h._uni_add("base", a, T0, "t")
@@ -1601,6 +1626,7 @@ if __name__ == "__main__":
     test_sizing_caps_in_entries()
     test_crash_needs_a_second_reading()
     test_empty_dexscreener_prices_off_geckoterminal()
+    test_survivor_trigger()
     test_void_bad_data_sales()
     test_new_season_restarts_account()
     test_trailing_stop()
