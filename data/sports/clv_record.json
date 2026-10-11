@@ -1,15 +1,15 @@
 {
  "all": {
-  "n": 48,
+  "n": 49,
   "beat": 14,
-  "same": 21,
+  "same": 22,
   "worse": 13,
   "avg_pts": 0.05
  },
  "unit_plays": {
-  "n": 22,
+  "n": 23,
   "beat": 5,
-  "same": 11,
+  "same": 12,
   "worse": 6,
   "avg_pts": 0.02
  },
@@ -36,11 +36,11 @@
    "avg_pts": 0.87
   },
   "play": {
-   "n": 6,
+   "n": 7,
    "beat": 1,
-   "same": 3,
+   "same": 4,
    "worse": 2,
-   "avg_pts": -0.33
+   "avg_pts": -0.29
   }
  },
  "by_sport": {
@@ -66,9 +66,9 @@
    "avg_pts": -0.54
   },
   "nhl": {
-   "n": 20,
+   "n": 21,
    "beat": 5,
-   "same": 11,
+   "same": 12,
    "worse": 4,
    "avg_pts": 0.01
   }
@@ -758,6 +758,20 @@
    "line": null,
    "odds": -142,
    "close": -142,
+   "pts": 0.0,
+   "units": 0.5,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-10",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flames",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": 102,
    "pts": 0.0,
    "units": 0.5,
    "result": "lost"
