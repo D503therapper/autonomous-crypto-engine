@@ -65,13 +65,16 @@ def main(day_iso=None):
     for w in waiting:
         out.append(f"\nWAITING {w['kind']}: on {', '.join(w.get('waiting') or [])}")
     # 🐶 EVERY DOG on the slate (10/5, the owner: "there's no value in any dogs?") - the engine's read vs the price each
-    # one needs, and what kept it off. Moneylines +100..+220.
-    dogs = [c for c in sports.LAST_RAW if c.get("market") == "ml" and 100 <= c.get("odds", 0) <= sports.DAILY_DOG_MAX]
+    # one needs, and what kept it off. Every moneyline dog (10/11, the owner wanted a read on the Eagles at +330): past
+    # our +300 limit they're listed with that note - a read, never a pick.
+    dogs = [c for c in sports.LAST_RAW if c.get("market") == "ml" and c.get("odds", 0) >= 100]
     if dogs:
         out.append("\nEVERY DOG (moneyline): price needs -> the engine's read")
         for c in sorted(dogs, key=lambda c: -((sports.read_of(c) or 0) - 1 / c["dec"])):
             need, rd = 1 / c["dec"], sports.read_of(c) or 0
             why = []
+            if c["odds"] > sports.DAILY_DOG_MAX:
+                why.append(f"past our +{sports.DAILY_DOG_MAX} limit - read only")
             if c.get("waiting"):
                 why.append("waiting: " + ", ".join(c["waiting"])[:60])
             if c.get("trap"):
