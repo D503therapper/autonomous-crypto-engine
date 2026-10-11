@@ -13700,3 +13700,19 @@ error: failed to push some refs to 'https://github.
    social: geckoterminal_5m HTTP 429 0 pools (retry in 15 min)
    social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
    dex screen: PASS PEPE@ethereum liq $30,239,128
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-11 16:34 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/mover     equity $350.73 (-29.9%) 1 open  market UP
+[2026-10-11 16:34 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/social_heat equity $471.84 (-5.6%) 2 open  market UP
+[2026-10-11 16:34 UTC] crypto/breakout10 equity $526.15 (+5.2%) 2 open  market UP
+[2026-10-11 16:34 UTC] crypto/momentum  equity $459.41 (-8.1%) 2 open  market UP
+[2026-10-11 16:34 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-11 16:34 UTC] crypto/hold_btc  equity $498.36 (-0.3%) 1 open  market UP
+   social heat top: STRK 40 (40/0/0), TRUMP 40 (35/0/5), PENGU 38 (24/0/14), NEAR 32 (32/0/0), APT 29 (29/0/0)
