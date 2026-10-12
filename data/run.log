@@ -14796,3 +14796,17 @@ error: failed to push some refs to 'https://github.
    [alert] Today -514.54 | Total -296.92: Stocks: $512.22  today -7.53  total +12.22
 DEX: $690.86  today -507.01  total -309.14
 DEX: $690.86 (-309.14) · Scammed: 0
+   dex screen: REJECT MADE@solana liq $156,505 - 24h volume $75,756 < $100,000
+   dex screen: REJECT CHIP@base liq $203,458 - pool age unknown
+   dex screen: REJECT ALON@solana liq $766,950 - lp locked 0% < 95%
+   dex screen: UNREACHABLE FARTCOIN @solana liq $8,007,774 - rugcheck unreachable
+   dex re-screen: SI276@solana:6VZxuW4u data flag #7 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 54); holding (experiment 10)
+   dex screen: REJECT GRASS@solana liq $172,989 - mint authority; top-10 holders 51%; lp holders unknown
+   dex screen: REJECT POD@base liq $5,091,198 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; top-10 holders 95%
+   dex screen: REJECT GTR@solana liq $2,410,426 - top-10 holders 99%
+   dex screen: REJECT JITOSOL@base liq $14,614,411 - goplus partial data: cannot_sell_all unknown; top-10 holders 100%
+   dex screen: REJECT CBXRP@base liq $672,602 - pool age unknown
+   dex re-screen: SIMD@ethereum:0xB60265 data flag #15 (top-10 holders 40%); holding (experiment 10)
+   dex re-screen: SI276@solana:6VZxuW4u data flag #8 (holders unknown; lp holders unknown; rugcheck score 54); holding (experiment 10)
+   dex screen: REJECT SWORDCAT@solana liq $219,171 - lp holders unknown; rugcheck lp locked 40% < 95%
+   dex screen: REJECT BLUECHIP@base liq $79,571 - liquidity $79,571 < $100,000; 24h volume $43,524 < $100,000
