@@ -14543,3 +14543,33 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-12 15:07 UTC] stocks/trend     equity $491.17 (-1.8%) 3 open  market UP
 [2026-10-12 15:07 UTC] stocks/hold_spy  equity $505.41 (+1.1%) 1 open  market UP
    social heat top: PRL 37 (37/0/0), W 36 (35/0/2), NEAR 32 (32/0/0), STRK 29 (29/0/0), TRUMP 27 (27/0/0)
+   dex screen: REJECT DGUY@base liq $117,017 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT INFER@ethereum liq $249,940 - goplus partial data: cannot_sell_all unknown; top-10 holders 88%; lp locked 0% < 95%
+   dex screen: REJECT HOOKED@solana liq $399,952 - lp holders unknown; rugcheck lp locked 27% < 95%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: SIMD@ethereum:0xB60265 data flag #1 (top-10 holders 42%); holding (experiment 10)
+   dex screen: PASS SPX@ethereum liq $11,271,226
+   dex screen: REJECT VVV@base liq $16,027,397 - is_mintable; owner_percent 30%; top-10 holders 62%
+   dex re-screen: SIMD@ethereum:0xB60265 data flag #2 (top-10 holders 42%); holding (experiment 10)
+   dex scanner: 3,000 pools (solana 1,848 / base 604 / ethereum 548), refresh cycle 135s (hot 131s), 2786 calls (121 feed, 429s 0, failed 0), 79,948 refreshed (8364 no pair), +214 added / -214 dropped (dead 8, stale 0, cap 206), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-12 16:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $151.86 of NEAR @ 5.56143, P/L $-6.62 (time limit)
+[2026-10-12 16:07 UTC] crypto/mover     equity $340.57 (-31.9%) 1 open  market UP
+[2026-10-12 16:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 16:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 16:07 UTC] crypto/social_heat equity $438.01 (-12.4%) 1 open  market UP
+[2026-10-12 16:07 UTC] crypto/breakout10 equity $509.08 (+1.8%) 2 open  market UP
+[2026-10-12 16:07 UTC] crypto/momentum  equity $445.27 (-10.9%) 4 open  market UP
+[2026-10-12 16:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 16:07 UTC] crypto/hold_btc  equity $493.09 (-1.4%) 1 open  market UP
+[2026-10-12 16:07 UTC] stocks/rsi2      equity $516.72 (+3.3%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 5 BUY, NVDA 9 BUY, AMD 10 BUY, META 13 BUY
+[2026-10-12 16:07 UTC] stocks/dual_momentum equity $498.52 (-0.3%) 2 open  market UP
+[2026-10-12 16:07 UTC] stocks/trend_ensemble equity $509.03 (+1.8%) 5 open  market UP
+[2026-10-12 16:07 UTC] stocks/rotation10 equity $515.98 (+3.2%) 2 open  market UP
+[2026-10-12 16:07 UTC] stocks/momentum  equity $494.45 (-1.1%) 4 open  market UP
+   >> stocks/trend: SELL $75.42 of COST @ 954.872, P/L $+2.00 (take half profit)
+   >> stocks/trend: BUY $75.49 of TSLA @ 379.75 (entry)
+[2026-10-12 16:07 UTC] stocks/trend     equity $490.42 (-1.9%) 4 open  market UP
+[2026-10-12 16:07 UTC] stocks/hold_spy  equity $505.93 (+1.2%) 1 open  market UP
+   social heat top: W 50 (37/0/12), PRL 32 (32/0/0), NEAR 29 (29/0/0), PUMP 29 (19/0/10), STRK 27 (27/0/0)
