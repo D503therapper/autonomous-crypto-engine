@@ -1,19 +1,13 @@
 {
- "at": "2026-10-12T15:56Z",
- "fixes": [
-  "studies overdue (10h) - started sports_studies.yml",
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-10-12T15:57Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Kabbaj vs Garcia: no points for 2630s",
-  "live tennis scores: tennis Tan vs Iatcenko: no points for 2630s",
-  "live tennis scores: tennis Ortenzi vs Palicova: no points for 2630s",
-  "live tennis points: none of 3 live matches has points + server on the 1-second route",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route",
   "studies last ran 10h ago - restarted",
-  "simulator last ran 9h ago - restarted"
+  "simulator last ran 10h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (38s)",
+  "live watcher fresh (3s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -25,12 +19,21 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "engine ran 46 min ago",
+  "engine ran 47 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-12T15:57Z",
+   "fixes": [],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-12T15:56Z",
    "fixes": [
@@ -587,11 +590,6 @@
   },
   {
    "at": "2026-10-10T01:19Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-10T01:10Z",
    "fixes": [],
    "problems": []
   }
