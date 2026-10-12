@@ -1,35 +1,32 @@
 {
- "updated": "2026-10-12T16:24Z",
+ "updated": "2026-10-12T16:43Z",
  "games": [
   {
    "id": "nhl:401892485",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Sabres",
-    "p": 0.353,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-12T17:00Z",
    "away": "Panthers",
    "home": "Sabres",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Panthers",
     "opp": "Sabres",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -270,
-    "p": 0.71,
-    "win_p": 0.494,
+    "market": "ml",
+    "line": null,
+    "odds": -112,
+    "p": 0.512,
+    "win_p": 0.512,
     "reasons": [
      "hotter recent form",
      "opponent drama: family/personal"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -69,7 +66,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.369,
+    "p": 0.36,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -85,9 +82,9 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -238,
-    "p": 0.681,
-    "win_p": 0.462,
+    "odds": -245,
+    "p": 0.696,
+    "win_p": 0.479,
     "reasons": [
      "hotter goalie",
      "the stronger team",
