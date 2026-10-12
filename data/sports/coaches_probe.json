@@ -7,65 +7,19 @@
    "pageCount": 1,
    "items": [
     {
-     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/2613479?lang=en&region=us"
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/866?lang=en&region=us"
     }
    ]
   },
   "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/489?lang=en&region=us",
-   "id": "489",
-   "uid": "s:40~l:46~co:489",
-   "firstName": "Tyronn",
-   "lastName": "Lue",
-   "dateOfBirth": "1977-05-03T07:00Z",
-   "birthPlace": {
-    "city": "Mexico",
-    "state": "MO",
-    "country": "USA"
-   },
-   "college": {
-    "$ref": "http://sports.core.api.espn.com/v2/colleges/158?lang=en&region=us"
-   },
-   "headshot": {
-    "href": "https://a.espncdn.com/i/headshots/nba/coaches/65/489.jpg",
-    "alt": "Tyronn Lue"
-   },
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2027/coaches/5454815?lang=en&region=us",
+   "id": "5454815",
+   "uid": "s:40~l:46~co:5454815",
+   "firstName": "Tautvydas",
+   "lastName": "Sabonis",
    "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/coaches/489?lang=en&region=us"
-   },
-   "experience": 8
-  }
- },
- "ncaaf": {
-  "list": {
-   "count": 0,
-   "pageIndex": 0,
-   "pageSize": 25,
-   "pageCount": 0,
-   "items": []
-  },
-  "coach": {
-   "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/coaches/5146704?lang=en&region=us",
-   "id": "5146704",
-   "uid": "s:20~l:23~co:5146704",
-   "firstName": "Pete",
-   "lastName": "Shinnick",
-   "person": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/coaches/5146704?lang=en&region=us"
-   },
-   "team": {
-    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/119?lang=en&region=us"
-   },
-   "records": [
-    {
-     "team": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/teams/119?lang=en&region=us"
-     },
-     "record": {
-      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2026/types/2/coaches/5146704/record?lang=en&region=us"
-     }
-    }
-   ]
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/coaches/5454815?lang=en&region=us"
+   }
   }
  }
 }
