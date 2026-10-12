@@ -1,9 +1,11 @@
 {
- "at": "2026-10-12T19:45Z",
- "fixes": [],
+ "at": "2026-10-12T21:16Z",
+ "fixes": [
+  "live watch 38304732696 froze (5 min) - cancelled",
+  "live board 5 min stale with games on - sports-live.yml already running"
+ ],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,18 +13,26 @@
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "all 2 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 4h ago",
-  "simulator ran 4h ago",
-  "engine ran 38 min ago",
+  "studies ran 5h ago",
+  "simulator ran 5h ago",
+  "engine ran 19 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-12T21:16Z",
+   "fixes": [
+    "live watch 38304732696 froze (5 min) - cancelled",
+    "live board 5 min stale with games on - sports-live.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-12T19:45Z",
    "fixes": [],
@@ -581,14 +591,6 @@
     "live tennis scores: tennis Linette vs Kraus: no points for 1219s",
     "live tennis scores: tennis Zakharova vs Sonmez: no points for 1219s",
     "live tennis scores: tennis McNally vs Yuan Yue: no points for 854s"
-   ]
-  },
-  {
-   "at": "2026-10-10T06:30Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points check failed: HTTP Error 403: rate limit exceeded",
-    "live board check failed: HTTP Error 403: rate limit exceeded"
    ]
   }
  ]
