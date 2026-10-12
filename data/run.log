@@ -14030,3 +14030,73 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-12 02:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-12 02:06 UTC] crypto/hold_btc  equity $497.75 (-0.5%) 1 open  market UP
    social heat top: NEAR 37 (37/0/0), STRK 35 (35/0/0), GRASS 33 (32/0/1), TRUMP 27 (27/0/0), BTC 24 (24/0/0)
+   dex screen: REJECT GOIF@solana liq $759,336 - holders unknown; lp holders unknown; rugcheck score 54
+   dex screen: REJECT FONE@solana liq $562,775 - lp holders unknown; rugcheck lp locked 89% < 95%
+   dex screen: REJECT CBBTC@base liq $2,309,253 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: UNREACHABLE DNA@ethereum liq $158,887 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT AGENCY@solana liq $237,170 - lp holders unknown; rugcheck lp locked 40% < 95%
+   dex screen: REJECT INCOGNITO@ethereum liq $24,192 - liquidity $24,192 < $100,000
+   dex screen: REJECT WBTC@ethereum liq $2,141,004 - transfer_pausable; is_mintable; top-10 holders 54%
+   dex screen: REJECT AAVE@ethereum liq $190,183 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT BASECAT@base liq $590,763 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; lp locked 0% < 95%
+   dex screen: REJECT XSOL@solana liq $486,446 - mint authority; top-10 holders 48%; lp holders unknown
+   scanner: W: +8.1% in 30 min on 4.0x volume @ 0.024078 spread 0.05%
+   dex screen: PASS BUNKER@ethereum liq $528,585
+   dex screen: UNREACHABLE DNA@ethereum liq $165,068 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: W: +8.7% in 30 min on 4.0x volume @ 0.024108 spread 0.06%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   scanner: W: +9.6% in 30 min on 3.9x volume @ 0.024363 spread 0.06%
+   scanner: W: +9.4% in 29 min on 3.8x volume @ 0.024262 spread 0.05%
+   scanner: W: +10.6% in 30 min on 3.9x volume @ 0.024539 spread 0.26%
+   dex screen: REJECT RAY@solana liq $4,296,186 - top-10 holders 82%
+   scanner: W: +10.0% in 30 min on 3.8x volume @ 0.024466 spread 0.05%
+   dex screen: REJECT SI276@solana liq $184,672 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   scanner: W: +9.9% in 31 min on 3.8x volume @ 0.024306 spread 0.05%
+   scanner: W: +9.0% in 30 min on 3.8x volume @ 0.024307 spread 1.15%
+   scanner: W: +10.9% in 15 min on 5.8x volume @ 0.026339 spread 0.20%
+   scanner: W: +10.8% in 15 min on 6.6x volume @ 0.026144 spread 0.26%
+   scanner: W: +16.3% in 15 min on 7.1x volume @ 0.027665 spread 0.14%
+   scanner: W: +20.5% in 29 min on 5.0x volume @ 0.027878 spread 1.35%
+   scanner: W: +20.1% in 30 min on 5.4x volume @ 0.027779 spread 0.26%
+   dex screen: REJECT CBETH@base liq $798,809 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT W@ethereum liq $163,433 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 55%; lp locked 0% < 95%
+   dex screen: UNREACHABLE DNA@ethereum liq $167,026 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   scanner: W: +22.1% in 30 min on 5.5x volume @ 0.028375 spread 0.25%
+   scanner: W: +19.0% in 30 min on 6.1x volume @ 0.027842 spread 1.35%
+   scanner: W: +18.2% in 30 min on 6.2x volume @ 0.027786 spread 0.06%
+   scanner: W: +18.3% in 30 min on 6.0x volume @ 0.028042 spread 1.09%
+   scanner: W: +25.8% in 60 min on 4.2x volume @ 0.027994 spread 0.26%
+   scanner: W: +19.1% in 30 min on 5.9x volume @ 0.028138 spread 0.36%
+   scanner: W: +26.7% in 60 min on 4.2x volume @ 0.028126 spread 0.58%
+   dex screen: REJECT MORPHO@base liq $1,099,923 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 82%; lp locked 0% < 95%
+   scanner: W: +27.2% in 60 min on 4.4x volume @ 0.028164 spread 0.05%
+   scanner: W: +26.4% in 60 min on 4.4x volume @ 0.027948 spread 0.06%
+   scanner: W: +26.8% in 60 min on 4.5x volume @ 0.027972 spread 0.52%
+   scanner: W: +26.8% in 60 min on 4.4x volume @ 0.028236 spread 0.26%
+   scanner: W: +27.6% in 60 min on 4.5x volume @ 0.028281 spread 0.06%
+   dex screen: UNREACHABLE DNA@ethereum liq $177,008 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   scanner: W: +30.5% in 60 min on 4.5x volume @ 0.02895 spread 0.06%
+   scanner: W: +29.5% in 60 min on 4.5x volume @ 0.028772 spread 0.06%
+   scanner: W: +28.8% in 60 min on 4.5x volume @ 0.028578 spread 0.06%
+   scanner: W: +28.1% in 60 min on 4.4x volume @ 0.028485 spread 0.06%
+   dex screen: REJECT W@solana liq $105,288 - lp holders unknown; rugcheck lp locked 1% < 95%
+   scanner: W: +29.0% in 60 min on 4.4x volume @ 0.02853 spread 0.05%
+   scanner: W: +27.8% in 60 min on 4.4x volume @ 0.028497 spread 0.05%
+   scanner: W: +25.2% in 60 min on 4.4x volume @ 0.028667 spread 0.05%
+   dex scanner: 3,002 pools (solana 1,943 / base 606 / ethereum 453), refresh cycle 123s (hot 119s), 3041 calls (108 feed, 429s 0, failed 0), 87,987 refreshed (12061 no pair), +92 added / -90 dropped (dead 3, stale 0, cap 87), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   scanner: W: +25.4% in 60 min on 4.4x volume @ 0.028821 spread 0.58%
+[2026-10-12 03:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-12 03:06 UTC] crypto/mover     equity $351.20 (-29.8%) 2 open  market UP
+[2026-10-12 03:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 03:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 03:06 UTC] crypto/social_heat equity $465.89 (-6.8%) 2 open  market UP
+[2026-10-12 03:06 UTC] crypto/breakout10 equity $526.34 (+5.3%) 2 open  market UP
+[2026-10-12 03:06 UTC] crypto/momentum  equity $454.34 (-9.1%) 4 open  market UP
+[2026-10-12 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 03:06 UTC] crypto/hold_btc  equity $497.86 (-0.4%) 1 open  market UP
+   social heat top: GRASS 43 (37/0/6), W 42 (32/0/10), NEAR 35 (35/0/0), STRK 29 (29/0/0), PRL 24 (24/0/0)
