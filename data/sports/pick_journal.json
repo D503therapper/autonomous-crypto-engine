@@ -3140,5 +3140,56 @@
   "score": "23-13",
   "margin": 10.0,
   "pnl_units": 0.37
+ },
+ {
+  "date": "2026-10-12",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892485",
+  "team": "Panthers",
+  "opp": "Sabres",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -112,
+  "posted": "2026-10-12T15:00Z",
+  "price_says": 0.528,
+  "win_p": 0.5124164185022216,
+  "own_read": 0.512,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.03133932787488314,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "hotter recent form",
+   "opponent drama: family/personal"
+  ],
+  "angles": [
+   "rec:1",
+   "G_cold:1",
+   "drama_family_personal:0",
+   "road:1",
+   "splits:4",
+   "bottom_c:2"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Brad Marchand (LW)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": null,
+  "close": -105,
+  "beat_close_pts": -1.6,
+  "result": "lost",
+  "score": "3-5",
+  "margin": -2.0,
+  "pnl_units": 0
  }
 ]

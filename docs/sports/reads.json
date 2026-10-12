@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T19:46Z",
+ "updated": "2026-10-12T20:23Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -30,12 +30,27 @@
    }
   },
   {
+   "id": "nba:401914130",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-12T20:00Z",
+   "away": "Lions",
+   "home": "Trail Blazers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401908031",
    "league": "mlb",
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.464,
+    "p": 0.466,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -51,9 +66,9 @@
     "opp": "Dodgers",
     "market": "spread",
     "line": 1.5,
-    "odds": -164,
-    "p": 0.59,
-    "win_p": 0.471,
+    "odds": -163,
+    "p": 0.588,
+    "win_p": 0.469,
     "reasons": [
      "the stronger team",
      "hotter recent form"
@@ -212,8 +227,7 @@
     "p": 0.717,
     "win_p": 0.506,
     "reasons": [
-     "hotter goalie",
-     "sharp money moving this way"
+     "hotter goalie"
     ]
    }
   },
@@ -242,9 +256,7 @@
     "odds": -238,
     "p": 0.699,
     "win_p": 0.483,
-    "reasons": [
-     "hotter goalie"
-    ]
+    "reasons": []
    }
   },
   {
@@ -357,7 +369,7 @@
     "opp": "Flyers",
     "market": "spread",
     "line": 1.5,
-    "odds": -225,
+    "odds": -245,
     "p": 0.69,
     "win_p": 0.473,
     "reasons": [
@@ -421,7 +433,6 @@
     "p": 0.681,
     "win_p": 0.462,
     "reasons": [
-     "sharp money moving this way",
      "opponent drama: trade drama"
     ]
    }
@@ -511,7 +522,7 @@
     "opp": "Penguins",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
+    "odds": -218,
     "p": 0.65,
     "win_p": 0.429,
     "reasons": [
@@ -534,7 +545,7 @@
    "start": "2026-10-14T00:15Z",
    "away": "Wild",
    "home": "Jets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Wild",
@@ -542,7 +553,7 @@
     "market": "spread",
     "line": 1.5,
     "odds": -245,
-    "p": 0.71,
+    "p": 0.709,
     "win_p": 0.494,
     "reasons": [
      "the stronger team",
@@ -605,9 +616,7 @@
     "odds": -230,
     "p": 0.669,
     "win_p": 0.45,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "reasons": []
    }
   },
   {
@@ -632,7 +641,7 @@
     "opp": "Mammoth",
     "market": "spread",
     "line": 1.5,
-    "odds": -170,
+    "odds": -180,
     "p": 0.642,
     "win_p": 0.422,
     "reasons": []
@@ -691,12 +700,10 @@
     "opp": "Oilers",
     "market": "spread",
     "line": 1.5,
-    "odds": -230,
+    "odds": -245,
     "p": 0.678,
     "win_p": 0.46,
-    "reasons": [
-     "sharp money moving this way"
-    ]
+    "reasons": []
    }
   },
   {
