@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T22:05Z",
+ "updated": "2026-10-12T22:11Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -200,19 +200,18 @@
    "start": "2026-10-13T22:00Z",
    "away": "Devils",
    "home": "Red Wings",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Devils",
-    "opp": "Red Wings",
+    "team": "Red Wings",
+    "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -290,
-    "p": 0.71,
-    "win_p": 0.494,
+    "odds": -278,
+    "p": 0.717,
+    "win_p": 0.506,
     "reasons": [
-     "hotter recent form",
-     "opponent drama: trade drama"
+     "hotter goalie"
     ]
    }
   },
@@ -222,7 +221,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blue Jackets",
-    "p": 0.359,
+    "p": 0.364,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -239,8 +238,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -258,
-    "p": 0.699,
-    "win_p": 0.482,
+    "p": 0.689,
+    "win_p": 0.472,
     "reasons": []
    }
   },
@@ -266,7 +265,7 @@
     "opp": "Canadiens",
     "market": "spread",
     "line": 1.5,
-    "odds": -198,
+    "odds": -192,
     "p": 0.641,
     "win_p": 0.421,
     "reasons": []
