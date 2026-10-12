@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-11T16:56Z",
+ "checked": "2026-10-12T16:17Z",
  "leans": {
   "2026-10-01|Pittsburgh Steelers|Cleveland Browns|home": {
    "away": "Pittsburgh Steelers",
@@ -100,7 +100,7 @@
     "home",
     5.5
    ],
-   "result": null,
+   "result": "lost",
    "seen": "2026-10-09T21:11Z",
    "side": "home"
   },
@@ -111,12 +111,23 @@
    "line": 39.5,
    "price": null,
    "rating": null,
-   "result": null,
+   "result": "won",
    "seen": "2026-10-11T14:42Z",
    "side": "under"
+  },
+  "2026-10-11|San Francisco 49ers|Seattle Seahawks|home": {
+   "away": "San Francisco 49ers",
+   "date": "2026-10-11",
+   "home": "Seattle Seahawks",
+   "line": -3.0,
+   "price": -115,
+   "rating": null,
+   "result": "lost",
+   "seen": "2026-10-11T21:30Z",
+   "side": "home"
   }
  },
- "read": "2026-10-11T14:42Z",
+ "read": "2026-10-12T14:01Z",
  "record": {
   "against_us": {
    "lost": 0,
@@ -124,19 +135,19 @@
    "won": 1
   },
   "all": {
-   "lost": 4,
+   "lost": 6,
    "push": 0,
-   "won": 2
+   "won": 3
   },
   "sides": {
-   "lost": 2,
+   "lost": 4,
    "push": 0,
    "won": 2
   },
   "totals": {
    "lost": 2,
    "push": 0,
-   "won": 0
+   "won": 1
   },
   "with_us": {
    "lost": 1,
