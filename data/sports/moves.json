@@ -1362,22 +1362,6 @@
     "team": "Fresno St"
    },
    {
-    "close": -142,
-    "clv_cents": 7,
-    "clv_pts": 1.23,
-    "date": "2026-10-11",
-    "game_id": "nfl:401872987",
-    "kind": "lock",
-    "league": "nfl",
-    "lean": false,
-    "line": null,
-    "market": "ml",
-    "posted": -135,
-    "result": "won",
-    "side": "away",
-    "team": "Vikings"
-   },
-   {
     "close": -103,
     "clv_cents": -10,
     "clv_pts": -2.31,
@@ -1424,10 +1408,27 @@
     "result": "lost",
     "side": "home",
     "team": "Titans"
+   },
+   {
+    "close": -142,
+    "clv_cents": 7,
+    "clv_pts": 1.23,
+    "date": "2026-10-11",
+    "game_id": "nfl:401872987",
+    "kind": "lock",
+    "league": "nfl",
+    "lean": false,
+    "line": null,
+    "market": "ml",
+    "posted": -135,
+    "result": "won",
+    "side": "away",
+    "team": "Vikings"
    }
   ],
   "skipped": {
-   "line moved / no closing price": 2
+   "line moved / no closing price": 2,
+   "not closed yet": 4
   },
   "summary": {
    "all": {
