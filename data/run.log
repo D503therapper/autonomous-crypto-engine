@@ -14372,3 +14372,31 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-12 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-12 10:06 UTC] crypto/hold_btc  equity $496.77 (-0.6%) 1 open  market UP
    social heat top: W 47 (40/0/7), STRK 35 (35/0/0), NEAR 32 (32/0/0), GRASS 27 (27/0/0), ZRO 24 (24/0/0)
+   dex screen: REJECT INJ@solana liq $245,056 - mint authority; top-10 holders 65%; lp holders unknown
+   dex screen: REJECT GTC@ethereum liq $289,140 - owner_percent 13%; top-10 holders 63%; lp locked 0% < 95%
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listing: upbit_markets #GTC 'New Upbit listing (GTC)' -> ['GTC']
+   listing: GTC: upbit_markets notice "New Upbit listing (GTC)" -> spread 19.27%
+   dex screen: REJECT VELVET@base liq $15,330 - liquidity $15,330 < $100,000; pool age unknown; 24h volume $56,085 < $100,000
+   dex screen: REJECT AERO@base liq $42,421,822 - is_mintable; top-10 holders 67%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #3 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SUPMKT@base liq $176,584 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; lp locked 0% < 95%
+   dex screen: REJECT QNT@ethereum liq $917,240 - is_mintable; lp locked 0% < 95%
+   scanner: GTC: +106.4% in 60 min on 176.4x volume @ 0.33842 spread 1.29%
+   scanner: GTC: +105.6% in 60 min on 177.3x volume @ 0.337183 spread 1.07%
+   dex screen: REJECT DJT@solana liq $438,118 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 50%; lp holders unknown
+   dex screen: REJECT BATON@solana liq $853,927 - lp holders unknown; rugcheck lp locked 48% < 95%
+   dex screen: REJECT PROS@base liq $265 - liquidity $265 < $100,000; 24h volume $173 < $100,000
+   dex screen: REJECT RED@ethereum liq $396,643 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 59%; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,961 / base 556 / ethereum 483), refresh cycle 124s (hot 119s), 3012 calls (108 feed, 429s 0, failed 0), 87,118 refreshed (12285 no pair), +58 added / -58 dropped (dead 6, stale 0, cap 52), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-12 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-12 11:06 UTC] crypto/mover     equity $349.55 (-30.1%) 2 open  market UP
+[2026-10-12 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 11:06 UTC] crypto/social_heat equity $457.04 (-8.6%) 3 open  market UP
+[2026-10-12 11:06 UTC] crypto/breakout10 equity $518.19 (+3.6%) 2 open  market UP
+[2026-10-12 11:06 UTC] crypto/momentum  equity $452.33 (-9.5%) 4 open  market UP
+[2026-10-12 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 11:06 UTC] crypto/hold_btc  equity $496.42 (-0.7%) 1 open  market UP
+   social heat top: GTC 40 (40/0/0), NEAR 35 (35/0/0), TRUMP 32 (32/0/0), W 32 (29/0/2), STRK 27 (27/0/0)
