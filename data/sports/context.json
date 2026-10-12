@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "at": "2026-10-12T16:06Z",
+  "at": "2026-10-12T21:17Z",
   "expected_false_positives": 0.136,
   "game_flags": {
    "conf": "same conference, not the division",
@@ -17,7 +17,7 @@
   "null_sims": 3,
   "p_luck": 0.00023262907903552504,
   "refs": "officials.json loaded",
-  "secs": 37.5,
+  "secs": 26.6,
   "team_flags": {
    "bowl5": "college football team at 5 wins going for bowl-eligible 6",
    "clinched": "late season, playoff spot clinched",
@@ -7724,28 +7724,28 @@
     "z_edge": 0.07
    },
    "any:east1000|total|over": {
-    "edge": -0.0179,
-    "n": 1405,
+    "edge": -0.0175,
+    "n": 1406,
     "n_new": 703,
-    "n_old": 702,
-    "roi": -0.0782,
-    "roi_new": -0.0772,
-    "roi_old": -0.0792,
+    "n_old": 703,
+    "roi": -0.0775,
+    "roi_new": -0.077,
+    "roi_old": -0.078,
     "tested": true,
-    "z": -3.07,
-    "z_edge": -1.34
+    "z": -3.04,
+    "z_edge": -1.32
    },
    "any:east1000|total|under": {
-    "edge": 0.0179,
-    "n": 1405,
+    "edge": 0.0175,
+    "n": 1406,
     "n_new": 703,
-    "n_old": 702,
-    "roi": -0.0095,
+    "n_old": 703,
+    "roi": -0.0102,
     "roi_new": -0.0108,
-    "roi_old": -0.0082,
+    "roi_old": -0.0096,
     "tested": true,
-    "z": -0.37,
-    "z_edge": 1.34
+    "z": -0.4,
+    "z_edge": 1.32
    },
    "any:elim|total|over": {
     "edge": 0.006,
@@ -7916,28 +7916,28 @@
     "z_edge": -0.82
    },
    "any:trip1000|total|over": {
-    "edge": -0.0021,
-    "n": 2681,
+    "edge": -0.0019,
+    "n": 2682,
     "n_new": 1341,
-    "n_old": 1340,
-    "roi": -0.0488,
-    "roi_new": -0.0525,
-    "roi_old": -0.0451,
+    "n_old": 1341,
+    "roi": -0.0484,
+    "roi_new": -0.0524,
+    "roi_old": -0.0445,
     "tested": true,
-    "z": -2.64,
-    "z_edge": -0.21
+    "z": -2.63,
+    "z_edge": -0.2
    },
    "any:trip1000|total|under": {
-    "edge": 0.0021,
-    "n": 2681,
+    "edge": 0.0019,
+    "n": 2682,
     "n_new": 1341,
-    "n_old": 1340,
-    "roi": -0.0413,
+    "n_old": 1341,
+    "roi": -0.0416,
     "roi_new": -0.0359,
-    "roi_old": -0.0467,
+    "roi_old": -0.0474,
     "tested": true,
-    "z": -2.22,
-    "z_edge": 0.21
+    "z": -2.24,
+    "z_edge": 0.2
    },
    "any:trip2000|total|over": {
     "edge": 0.0123,
@@ -8108,100 +8108,100 @@
     "z_edge": 0.31
    },
    "div|ml|dog": {
-    "edge": -0.0074,
-    "n": 3399,
+    "edge": -0.0075,
+    "n": 3400,
     "n_new": 1700,
-    "n_old": 1699,
-    "roi": -0.0655,
+    "n_old": 1700,
+    "roi": -0.0658,
     "roi_new": -0.0627,
-    "roi_old": -0.0684,
+    "roi_old": -0.069,
     "tested": true,
-    "z": -3.23,
-    "z_edge": -0.89
+    "z": -3.24,
+    "z_edge": -0.91
    },
    "div|ml|fav": {
-    "edge": 0.0074,
-    "n": 3399,
+    "edge": 0.0075,
+    "n": 3400,
     "n_new": 1700,
-    "n_old": 1699,
-    "roi": -0.0304,
-    "roi_new": -0.0448,
-    "roi_old": -0.016,
+    "n_old": 1700,
+    "roi": -0.0301,
+    "roi_new": -0.0446,
+    "roi_old": -0.0157,
     "tested": true,
-    "z": -2.23,
-    "z_edge": 0.89
+    "z": -2.21,
+    "z_edge": 0.91
    },
    "div|ml|home": {
-    "edge": -0.0068,
-    "n": 3452,
-    "n_new": 1726,
+    "edge": -0.0066,
+    "n": 3453,
+    "n_new": 1727,
     "n_old": 1726,
-    "roi": -0.0578,
-    "roi_new": -0.0469,
+    "roi": -0.0575,
+    "roi_new": -0.0464,
     "roi_old": -0.0687,
     "tested": true,
-    "z": -3.65,
-    "z_edge": -0.82
+    "z": -3.63,
+    "z_edge": -0.8
    },
    "div|ml|road": {
-    "edge": 0.0068,
-    "n": 3452,
-    "n_new": 1726,
+    "edge": 0.0066,
+    "n": 3453,
+    "n_new": 1727,
     "n_old": 1726,
-    "roi": -0.038,
-    "roi_new": -0.0606,
+    "roi": -0.0383,
+    "roi_new": -0.0611,
     "roi_old": -0.0155,
     "tested": true,
-    "z": -2.07,
-    "z_edge": 0.82
+    "z": -2.08,
+    "z_edge": 0.8
    },
    "div|total|over": {
-    "edge": -0.0031,
-    "n": 3341,
+    "edge": -0.003,
+    "n": 3342,
     "n_new": 1671,
-    "n_old": 1670,
-    "roi": -0.0497,
+    "n_old": 1671,
+    "roi": -0.0494,
     "roi_new": -0.0693,
-    "roi_old": -0.03,
+    "roi_old": -0.0295,
     "tested": true,
-    "z": -3.0,
-    "z_edge": -0.36
+    "z": -2.99,
+    "z_edge": -0.34
    },
    "div|total|under": {
-    "edge": 0.0031,
-    "n": 3341,
+    "edge": 0.003,
+    "n": 3342,
     "n_new": 1671,
-    "n_old": 1670,
-    "roi": -0.0375,
+    "n_old": 1671,
+    "roi": -0.0378,
     "roi_new": -0.0193,
-    "roi_old": -0.0557,
+    "roi_old": -0.0563,
     "tested": true,
-    "z": -2.25,
-    "z_edge": 0.36
+    "z": -2.27,
+    "z_edge": 0.34
    },
    "east1000|ml|fade": {
-    "edge": -0.0067,
-    "n": 1293,
+    "edge": -0.0063,
+    "n": 1294,
     "n_new": 647,
-    "n_old": 646,
-    "roi": -0.0622,
-    "roi_new": -0.0395,
-    "roi_old": -0.0849,
+    "n_old": 647,
+    "roi": -0.0615,
+    "roi_new": -0.0366,
+    "roi_old": -0.0863,
     "tested": true,
-    "z": -2.26,
-    "z_edge": -0.5
+    "z": -2.24,
+    "z_edge": -0.47
    },
    "east1000|ml|team": {
-    "edge": 0.0067,
-    "n": 1293,
+    "edge": 0.0063,
+    "n": 1294,
     "n_new": 647,
-    "n_old": 646,
-    "roi": -0.0271,
-    "roi_new": -0.0456,
-    "roi_old": -0.0085,
+    "n_old": 647,
+    "roi": -0.0278,
+    "roi_new": -0.0481,
+    "roi_old": -0.0076,
     "tested": true,
-    "z": -0.94,
-    "z_edge": 0.5
+    "z": -0.97,
+    "z_edge": 0.47
    },
    "elim|ml|fade": {
     "edge": 0.0164,
@@ -8804,28 +8804,28 @@
     "z_edge": -1.34
    },
    "trip1000|ml|fade": {
-    "edge": -0.0096,
-    "n": 2373,
+    "edge": -0.0094,
+    "n": 2374,
     "n_new": 1187,
-    "n_old": 1186,
-    "roi": -0.0655,
+    "n_old": 1187,
+    "roi": -0.0652,
     "roi_new": -0.0558,
-    "roi_old": -0.0753,
+    "roi_old": -0.0745,
     "tested": true,
-    "z": -3.22,
-    "z_edge": -0.96
+    "z": -3.2,
+    "z_edge": -0.94
    },
    "trip1000|ml|team": {
-    "edge": 0.0096,
-    "n": 2373,
+    "edge": 0.0094,
+    "n": 2374,
     "n_new": 1187,
-    "n_old": 1186,
-    "roi": -0.0225,
+    "n_old": 1187,
+    "roi": -0.023,
     "roi_new": -0.0319,
-    "roi_old": -0.0132,
+    "roi_old": -0.014,
     "tested": true,
-    "z": -1.06,
-    "z_edge": 0.96
+    "z": -1.08,
+    "z_edge": 0.94
    },
    "trip2000|ml|fade": {
     "edge": 0.0108,
@@ -8904,7 +8904,7 @@
    "ref_home+|ml|road"
   ],
   "confirmed": [],
-  "games": 13273,
+  "games": 13274,
   "killed": [],
   "proven": [],
   "shifts": {}
