@@ -14286,3 +14286,35 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-12 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-12 07:06 UTC] crypto/hold_btc  equity $500.28 (+0.1%) 1 open  market UP
    social heat top: W 49 (37/0/11), GRASS 35 (35/0/0), NEAR 29 (29/0/0), STRK 27 (27/0/0), RSR 24 (24/0/0)
+   dex screen: REJECT TAO@solana liq $640,512,399 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT ZEN@base liq $2,784,268 - is_mintable; top-10 holders 68%; lp locked 0% < 95%
+   dex screen: REJECT SKHY@solana liq $2,667,475 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 86%
+   dex screen: REJECT CRVUSD@ethereum liq $47,319,020 - is_mintable; top-10 holders 78%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #4 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT CIRBTC@ethereum liq $25,423,705 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   listing: okx_symbols #XIONQ 'New OKX listing (XIONQ)' -> ['XIONQ']
+   listing: XIONQ: okx_symbols notice "New OKX listing (XIONQ)" -> not on Crypto.com USD
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT AAPLC@base liq $1,746,282 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: PASS NEX@ethereum liq $309,900
+   dex screen: REJECT USDE@ethereum liq $1,057,016 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 94%
+   dex screen: PASS GOIF@solana liq $283,402
+   dex scanner: 3,000 pools (solana 1,903 / base 594 / ethereum 503), refresh cycle 139s (hot 135s), 2689 calls (108 feed, 429s 0, failed 3), 77,336 refreshed (9946 no pair), +69 added / -69 dropped (dead 6, stale 0, cap 63), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listing: okx_symbols #XCGNX 'New OKX listing (XCGNX)' -> ['XCGNX']
+   listing: XCGNX: okx_symbols notice "New OKX listing (XCGNX)" -> not on Crypto.com USD
+[2026-10-12 08:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-12 08:06 UTC] crypto/mover     equity $352.96 (-29.4%) 2 open  market UP
+[2026-10-12 08:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 08:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 08:06 UTC] crypto/social_heat equity $463.78 (-7.2%) 3 open  market UP
+[2026-10-12 08:06 UTC] crypto/breakout10 equity $526.58 (+5.3%) 2 open  market UP
+[2026-10-12 08:06 UTC] crypto/momentum  equity $456.31 (-8.7%) 4 open  market UP
+[2026-10-12 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 08:06 UTC] crypto/hold_btc  equity $498.40 (-0.3%) 1 open  market UP
+   social heat top: W 52 (40/0/12), STRK 35 (35/0/0), NEAR 32 (32/0/0), PENGU 29 (29/0/0), RSR 27 (27/0/0)
