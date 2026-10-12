@@ -89,6 +89,50 @@
   },
   {
    "families": [
+    "streak"
+   ],
+   "league": "nfl",
+   "outcome": "total",
+   "price_said": 2.5,
+   "record": "5-0",
+   "season": 2026,
+   "side": 1,
+   "situation": "sunday night",
+   "streak": 5,
+   "strength": 4.74,
+   "trend": "over",
+   "upcoming": [
+    "nfl:401873007"
+   ],
+   "upcoming_names": [
+    "Cowboys @ Packers"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "streak"
+   ],
+   "league": "nfl",
+   "outcome": "fav_cover",
+   "price_said": 2.5,
+   "record": "5-0",
+   "season": 2026,
+   "side": 0,
+   "situation": "sunday night",
+   "streak": 5,
+   "strength": 4.74,
+   "trend": "underdogs cover",
+   "upcoming": [
+    "nfl:401873007"
+   ],
+   "upcoming_names": [
+    "Cowboys @ Packers"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
     "streak",
     "rate"
    ],
@@ -393,7 +437,6 @@
     "ncaaf:401858266",
     "ncaaf:401858490",
     "ncaaf:401864522",
-    "ncaaf:401864524",
     "ncaaf:401866478",
     "ncaaf:401869966",
     "ncaaf:401860903",
@@ -430,7 +473,6 @@
     "North Carolina @ Duke",
     "Penn State @ Michigan",
     "N Illinois @ Wyoming",
-    "UNLV @ Air Force",
     "Akron @ Miami OH",
     "Troy @ Louisiana",
     "Washington St @ Oregon St",
@@ -444,6 +486,46 @@
     "Wisconsin @ UCLA",
     "Navy @ UTSA",
     "Nebraska @ Oregon"
+   ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "streak"
+   ],
+   "league": "nfl",
+   "outcome": "total",
+   "price_said": 24.0,
+   "record": "23-25",
+   "season": 2026,
+   "side": 1,
+   "situation": "home favorite",
+   "streak": 5,
+   "strength": 2.21,
+   "trend": "over",
+   "upcoming": [
+    "nfl:401872994",
+    "nfl:401872996",
+    "nfl:401872998",
+    "nfl:401872999",
+    "nfl:401873000",
+    "nfl:401873001",
+    "nfl:401873003",
+    "nfl:401873004",
+    "nfl:401873006",
+    "nfl:401873007"
+   ],
+   "upcoming_names": [
+    "Bills @ Rams",
+    "Texans @ Jaguars",
+    "Panthers @ Eagles",
+    "Bears @ Falcons",
+    "Saints @ Giants",
+    "Jets @ Patriots",
+    "Titans @ Colts",
+    "Cardinals @ Rams",
+    "Chargers @ Chiefs",
+    "Cowboys @ Packers"
    ],
    "verdict": "coin flip"
   },
@@ -1313,46 +1395,6 @@
    "families": [
     "rate"
    ],
-   "league": "nfl",
-   "outcome": "fav_ml",
-   "price_said": 30.9,
-   "record": "30-16",
-   "season": 2026,
-   "side": 1,
-   "situation": "home favorite",
-   "streak": 0,
-   "strength": -0.3,
-   "trend": "favorites win",
-   "upcoming": [
-    "nfl:401872994",
-    "nfl:401872996",
-    "nfl:401872998",
-    "nfl:401872999",
-    "nfl:401873000",
-    "nfl:401873001",
-    "nfl:401873003",
-    "nfl:401873004",
-    "nfl:401873006",
-    "nfl:401873007"
-   ],
-   "upcoming_names": [
-    "Bills @ Rams",
-    "Texans @ Jaguars",
-    "Panthers @ Eagles",
-    "Bears @ Falcons",
-    "Saints @ Giants",
-    "Jets @ Patriots",
-    "Titans @ Colts",
-    "Cardinals @ Rams",
-    "Chargers @ Chiefs",
-    "Cowboys @ Packers"
-   ],
-   "verdict": "coin flip"
-  },
-  {
-   "families": [
-    "rate"
-   ],
    "league": "ncaaf",
    "outcome": "fav_ml",
    "price_said": 97.4,
@@ -1376,6 +1418,7 @@
     "ncaaf:401858491",
     "ncaaf:401866443",
     "ncaaf:401856723",
+    "ncaaf:401864524",
     "ncaaf:401866444",
     "ncaaf:401862805",
     "ncaaf:401869934",
@@ -1402,6 +1445,7 @@
     "Northwestern @ Michigan St",
     "W Michigan @ C Michigan",
     "Alabama @ Tennessee",
+    "UNLV @ Air Force",
     "Toledo @ E Michigan",
     "Tulsa @ Rice",
     "Arkansas St @ Southern Miss",
@@ -2663,5 +2707,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-12T01:57Z"
+ "updated": "2026-10-12T04:04Z"
 }

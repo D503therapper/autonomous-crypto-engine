@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 53,
+  "n": 54,
   "beat": 16,
   "same": 23,
-  "worse": 14,
-  "avg_pts": 0.07
+  "worse": 15,
+  "avg_pts": 0.02
  },
  "unit_plays": {
   "n": 25,
@@ -22,11 +22,11 @@
    "avg_pts": -0.37
   },
   "lean": {
-   "n": 28,
+   "n": 29,
    "beat": 10,
    "same": 10,
-   "worse": 8,
-   "avg_pts": 0.07
+   "worse": 9,
+   "avg_pts": -0.01
   },
   "lock": {
    "n": 8,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 9,
+   "n": 10,
    "beat": 5,
    "same": 1,
-   "worse": 3,
-   "avg_pts": 0.39
+   "worse": 4,
+   "avg_pts": 0.12
   },
   "ncaaf": {
    "n": 13,
@@ -816,6 +816,20 @@
    "close": -142,
    "pts": 1.2,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-11",
+   "kind": "lean",
+   "lean": true,
+   "league": "mlb",
+   "team": "Brewers",
+   "market": "ml",
+   "line": null,
+   "odds": -113,
+   "close": -103,
+   "pts": -2.3,
+   "units": 0,
    "result": "won"
   },
   {
