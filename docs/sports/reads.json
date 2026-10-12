@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T22:11Z",
+ "updated": "2026-10-12T22:25Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -39,8 +39,8 @@
    "away": "Lions",
    "home": "Trail Blazers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -117,8 +117,7 @@
     "p": 0.715,
     "win_p": 0.501,
     "reasons": [
-     "hotter recent form",
-     "opponent missing key players"
+     "hotter recent form"
     ]
    }
   },
@@ -397,7 +396,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.369,
+    "p": 0.353,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -414,9 +413,10 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.681,
-    "win_p": 0.462,
+    "p": 0.71,
+    "win_p": 0.494,
     "reasons": [
+     "sharp money moving this way",
      "opponent drama: trade drama"
     ]
    }
