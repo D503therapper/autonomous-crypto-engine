@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T20:31Z",
+ "updated": "2026-10-12T21:05Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -43,37 +43,6 @@
    "done": false,
    "board": null,
    "lean": null
-  },
-  {
-   "id": "mlb:401908031",
-   "league": "mlb",
-   "emoji": "\u26be",
-   "h1": {
-    "team": "Dodgers",
-    "p": 0.466,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
-   "sport": "MLB",
-   "season": "playoffs",
-   "start": "2026-10-12T21:00Z",
-   "away": "Dodgers",
-   "home": "Brewers",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Brewers",
-    "opp": "Dodgers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -163,
-    "p": 0.588,
-    "win_p": 0.469,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
-   }
   },
   {
    "id": "nhl:401892486",
@@ -216,18 +185,19 @@
    "start": "2026-10-13T22:00Z",
    "away": "Devils",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Red Wings",
-    "opp": "Devils",
+    "team": "Devils",
+    "opp": "Red Wings",
     "market": "spread",
     "line": 1.5,
-    "odds": -258,
-    "p": 0.717,
-    "win_p": 0.506,
+    "odds": -290,
+    "p": 0.71,
+    "win_p": 0.494,
     "reasons": [
-     "hotter goalie"
+     "hotter recent form",
+     "opponent drama: trade drama"
     ]
    }
   },
@@ -253,7 +223,7 @@
     "opp": "Blue Jackets",
     "market": "spread",
     "line": 1.5,
-    "odds": -238,
+    "odds": -258,
     "p": 0.699,
     "win_p": 0.483,
     "reasons": []
@@ -309,7 +279,7 @@
     "opp": "Hurricanes",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
+    "odds": -192,
     "p": 0.632,
     "win_p": 0.412,
     "reasons": [
@@ -399,7 +369,7 @@
     "opp": "Lightning",
     "market": "spread",
     "line": 1.5,
-    "odds": -175,
+    "odds": -185,
     "p": 0.621,
     "win_p": 0.399,
     "reasons": [
@@ -535,8 +505,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Jets",
-    "p": 0.353,
+    "team": "Wild",
+    "p": 0.352,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -545,20 +515,17 @@
    "start": "2026-10-14T00:15Z",
    "away": "Wild",
    "home": "Jets",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
-    "team": "Wild",
-    "opp": "Jets",
+    "team": "Jets",
+    "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
-    "p": 0.709,
-    "win_p": 0.494,
-    "reasons": [
-     "the stronger team",
-     "hotter goalie"
-    ]
+    "odds": -265,
+    "p": 0.708,
+    "win_p": 0.495,
+    "reasons": []
    }
   },
   {
@@ -728,7 +695,7 @@
     "opp": "Sharks",
     "market": "spread",
     "line": 1.5,
-    "odds": -245,
+    "odds": -258,
     "p": 0.71,
     "win_p": 0.494,
     "reasons": [
