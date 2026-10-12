@@ -13933,3 +13933,41 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-11 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-11 23:06 UTC] crypto/hold_btc  equity $497.66 (-0.5%) 1 open  market UP
    social heat top: TRUMP 40 (40/0/0), AERO 35 (32/0/3), NEAR 29 (29/0/0), BTC 27 (27/0/0), PONS 26 (13/0/13)
+   footprint: AVAX: footprint 3/4 (drift+quiet+hikes) 48h +5.8%, 2 volume hikes, 79% quiet hours @ 10.923
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT IOF@solana liq $973,899 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 53
+   dex screen: PASS SI276@solana liq $448,465
+   dex screen: REJECT $WIF@solana liq $163,411 - top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT SQUIRE@solana liq $162,118 - lp holders unknown; rugcheck lp locked 74% < 95%
+   dex screen: UNREACHABLE DNA@ethereum liq $196,123 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DNA@ethereum liq $196,123 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT RNDR@ethereum liq $267,457 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT RARI@solana liq $123,108 - holders unknown; lp holders unknown; rugcheck lp locked 60% < 95%
+   dex screen: REJECT PLAY@base liq $370,679 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT PRIME@ethereum liq $9,001,162 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 99%
+   dex screen: UNREACHABLE DNA@ethereum liq $197,995 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: UNREACHABLE DNA@ethereum liq $193,362 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT SPACEXSI@solana liq $170,186 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   [alert] 🚀 TAUFA is up 2.0x: TAUFA (ethereum) is up 2.0x since the engine bought it (paper value $95). Contract: 0x41CF62DDB12bd287958616d43F5E1953cb422AAC
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: UNREACHABLE DNA@ethereum liq $199,672 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex outcome: emergency_exit QT@solana:9LAHK5Yv tier A P/L $-44.36 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity)
+   >> dex/dex_hunter: SELL $0.09 of QT@solana:9LAHK5Yv @ 3e-06, P/L $-44.36 (re-screen flagged: holders unknown; lp holders unknown; rugcheck danger: Low Liquidity)
+   dex scanner: 3,000 pools (solana 2,000 / base 561 / ethereum 439), refresh cycle 123s (hot 119s), 3051 calls (123 feed, 429s 0, failed 0), 87,835 refreshed (15558 no pair), +294 added / -294 dropped (dead 8, stale 0, cap 286), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex weekly: screened 1790, passed 240, trades 7, closed 1 (P/L $-44.36; by tier A $-44.36/1 B $+0.00/0 C $+0.00/0), scammed 0 (cost $+0.00), rejected-that-rugged 73/350, rejected-that-ran-up 35/350
+[2026-10-12 00:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-12 00:06 UTC] crypto/mover     equity $355.40 (-28.9%) 2 open  market UP
+[2026-10-12 00:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 00:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 00:06 UTC] crypto/social_heat equity $475.93 (-4.8%) 2 open  market UP
+[2026-10-12 00:06 UTC] crypto/breakout10 equity $532.18 (+6.4%) 2 open  market UP
+   >> crypto/momentum: BUY $103.07 of NEAR @ 5.93343 (entry)
+   >> crypto/momentum: BUY $103.07 of DOT @ 1.25706 (entry)
+[2026-10-12 00:06 UTC] crypto/momentum  equity $458.92 (-8.2%) 4 open  market UP
+[2026-10-12 00:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 00:06 UTC] crypto/hold_btc  equity $498.01 (-0.4%) 1 open  market UP
+   social heat top: STRK 37 (37/0/0), NEAR 35 (35/0/0), AERO 31 (24/0/7), TRUMP 29 (29/0/0), GRASS 27 (27/0/0)
