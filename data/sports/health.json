@@ -1,35 +1,51 @@
 {
- "at": "2026-10-12T14:25Z",
- "fixes": [],
+ "at": "2026-10-12T15:56Z",
+ "fixes": [
+  "studies overdue (10h) - started sports_studies.yml",
+  "simulator overdue (9h) - started sports_sims.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Chiesa vs Grabher: no points for 2636s",
-  "live tennis scores: tennis Yaneva vs Ruggeri: no points for 2636s",
-  "live tennis scores: tennis Kabbaj vs Garcia: no points for 202s",
-  "live tennis scores: tennis Maduzzi vs Bandecchi: no points for 2463s",
-  "live tennis scores: tennis Tan vs Iatcenko: no points for 291s",
-  "live tennis scores: tennis Ortenzi vs Palicova: no points for 2117s"
+  "live tennis scores: tennis Kabbaj vs Garcia: no points for 2630s",
+  "live tennis scores: tennis Tan vs Iatcenko: no points for 2630s",
+  "live tennis scores: tennis Ortenzi vs Palicova: no points for 2630s",
+  "live tennis points: none of 3 live matches has points + server on the 1-second route",
+  "studies last ran 10h ago - restarted",
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (242s)",
+  "live watcher fresh (38s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 7 live matches",
   "slate check: all 6 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 27 min ago",
+  "engine ran 46 min ago",
   "pacer running",
-  "tennis slate on time"
+  "tennis slate on time",
+  "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-12T15:56Z",
+   "fixes": [
+    "studies overdue (10h) - started sports_studies.yml",
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Kabbaj vs Garcia: no points for 2630s",
+    "live tennis scores: tennis Tan vs Iatcenko: no points for 2630s",
+    "live tennis scores: tennis Ortenzi vs Palicova: no points for 2630s",
+    "live tennis points: none of 3 live matches has points + server on the 1-second route",
+    "studies last ran 10h ago - restarted",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-12T14:25Z",
    "fixes": [],
@@ -576,11 +592,6 @@
   },
   {
    "at": "2026-10-10T01:10Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-10T00:26Z",
    "fixes": [],
    "problems": []
   }
