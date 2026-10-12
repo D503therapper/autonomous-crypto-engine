@@ -14169,3 +14169,45 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-12 04:10 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-12 04:10 UTC] crypto/hold_btc  equity $496.94 (-0.6%) 1 open  market UP
    social heat top: W 47 (40/0/7), ICP 32 (32/0/0), NEAR 29 (29/0/0), STRK 27 (27/0/0), GRASS 24 (24/0/0)
+   scanner: 985 tickers, sample: {'i': 'BTC_USD', 'h': '84129.11', 'l': '82782.68', 'a': '83475.75', 'v': '1302.8925', 'vv': '108807807.76', 'c': '0.0083', 'b': '83480.53', 'k': '83480.54', 'oi': '0', 't': 1791778253337}
+   dex screen: REJECT ZEC@solana liq $3,472,797 - mint authority
+   dex screen: REJECT REI@base liq $170,292 - 24h volume $1,248 < $100,000
+   dex screen: REJECT BRETT@base liq $856,549 - pool age unknown
+   dex screen: REJECT KLED@solana liq $691,308 - lp holders unknown; rugcheck lp locked 74% < 95%
+   dex screen: REJECT WPRL@ethereum liq $692,548 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: UNREACHABLE DNA@ethereum liq $173,099 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: REJECT PYUSD@solana liq $53,626 - liquidity $53,626 < $100,000; 24h volume $65,841 < $100,000
+   social heat: BUY W: heat 54: coingecko#1 geckoterminal_5m#18 geckoterminal_1h#9 boosted
+   >> crypto/social_heat: BUY $83.01 of W @ 0.028027 (entry)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: UNREACHABLE DNA@ethereum liq $172,178 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex screen: PASS ANTFUN@solana liq $12,283,186
+   dex screen: REJECT BOME@solana liq $17,922,791 - top-10 holders 72%
+   dex screen: REJECT CTR@base liq $589,819 - pool age unknown
+   dex screen: PASS PEPE@ethereum liq $30,646,702
+   scanner: W: +5.1% in 15 min on 3.7x volume @ 0.028927 spread 0.06%
+   dex screen: REJECT ADI@ethereum liq $3,032,140 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 98%
+   dex screen: REJECT CLAUDIA@solana liq $361,277 - holders unknown; lp holders unknown; rugcheck lp locked 31% < 95%
+   dex screen: UNREACHABLE DNA@ethereum liq $171,358 - goplus partial data: cannot_sell_all unknown; honeypot.is unreachable
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT RSR@ethereum liq $138,857 - transfer_pausable; is_mintable; hidden_owner; top-10 holders 51%; lp locked 0% < 95%
+   dex scanner: 3,001 pools (solana 1,909 / base 602 / ethereum 490), refresh cycle 117s (hot 113s), 2626 calls (114 feed, 429s 0, failed 0), 75,351 refreshed (10359 no pair), +226 added / -225 dropped (dead 3, stale 0, cap 222), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listing: upbit_markets #RSR 'New Upbit listing (RSR)' -> ['RSR']
+   listing: RSR: upbit_markets notice "New Upbit listing (RSR)" -> spread 4.22%
+[2026-10-12 05:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-12 05:06 UTC] crypto/mover     equity $355.87 (-28.8%) 2 open  market UP
+[2026-10-12 05:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 05:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 05:06 UTC] crypto/social_heat equity $465.90 (-6.8%) 3 open  market UP
+[2026-10-12 05:06 UTC] crypto/breakout10 equity $533.99 (+6.8%) 2 open  market UP
+[2026-10-12 05:06 UTC] crypto/momentum  equity $459.45 (-8.1%) 4 open  market UP
+[2026-10-12 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 05:06 UTC] crypto/hold_btc  equity $499.96 (-0.0%) 1 open  market UP
+   social heat top: W 56 (40/0/16), GRASS 35 (35/0/0), ICP 32 (32/0/0), NEAR 29 (29/0/0), PONS 26 (21/0/4)
