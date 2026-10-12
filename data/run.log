@@ -14469,3 +14469,43 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
 [2026-10-12 13:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-12 13:07 UTC] crypto/hold_btc  equity $492.77 (-1.4%) 1 open  market UP
    social heat top: TRUMP 37 (37/0/0), W 36 (35/0/2), NEAR 32 (32/0/0), STRK 29 (29/0/0), VVV 29 (21/0/8)
+   dex screen: REJECT ANSEM@solana liq $2,333,500 - top-10 holders 65%
+   dex screen: REJECT CARDS@solana liq $4,141,237 - top-10 holders 73%
+   dex screen: REJECT B3@base liq $760,139 - pool age unknown
+   dex screen: REJECT UKFLMS@solana liq $351,476 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #3 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT QI@solana liq $152,083 - holders unknown; lp holders unknown; rugcheck lp locked 39% < 95%
+   dex screen: REJECT RAD@ethereum liq $2,386,855 - top-10 holders 71%
+   dex screen: REJECT BTB@solana liq $283,258 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   >> stocks/momentum: SELL $107.35 of AMD @ 598.88, P/L $-5.15 (stop hit (live check))
+   >> crypto/social_heat: SELL $72.56 of STRK @ 0.093906, P/L $-10.89 (stop hit (live check))
+   dex screen: REJECT DOT@base liq $539,077 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,897 / base 581 / ethereum 522), refresh cycle 129s (hot 125s), 2893 calls (107 feed, 429s 0, failed 0), 83,578 refreshed (10811 no pair), +92 added / -92 dropped (dead 3, stale 0, cap 89), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+[2026-10-12 14:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-12 14:07 UTC] crypto/mover     equity $345.24 (-31.0%) 2 open  market UP
+[2026-10-12 14:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 14:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 14:07 UTC] crypto/social_heat equity $444.83 (-11.0%) 2 open  market UP
+[2026-10-12 14:07 UTC] crypto/breakout10 equity $512.99 (+2.6%) 2 open  market UP
+[2026-10-12 14:07 UTC] crypto/momentum  equity $449.00 (-10.2%) 4 open  market UP
+[2026-10-12 14:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 14:07 UTC] crypto/hold_btc  equity $493.93 (-1.2%) 1 open  market UP
+[2026-10-12 14:07 UTC] stocks/rsi2      equity $519.18 (+3.8%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 5 BUY, NVDA 9 BUY, AMD 10 BUY, META 13 BUY
+[2026-10-12 14:07 UTC] stocks/dual_momentum equity $498.04 (-0.4%) 2 open  market UP
+   >> stocks/trend_ensemble: SELL $86.61 of QQQ @ 746.386, P/L $-0.71 (trend_ensemble: dropped from targets)
+   >> stocks/trend_ensemble: BUY $86.27 of XLV @ 171.716 (trend_ensemble: entry 20%)
+[2026-10-12 14:07 UTC] stocks/trend_ensemble equity $508.91 (+1.8%) 5 open  market UP
+   >> stocks/rotation10: SELL $231.37 of MSFT @ 538.591, P/L $+4.39 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: SELL $234.51 of COST @ 948.695, P/L $+7.53 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: BUY $232.34 of PLTR @ 207.974 (entry)
+   >> stocks/rotation10: BUY $232.34 of AMZN @ 261.01 (entry)
+[2026-10-12 14:07 UTC] stocks/rotation10 equity $516.08 (+3.2%) 2 open  market UP
+   >> stocks/momentum: BUY $107.65 of PLTR @ 207.974 (entry)
+[2026-10-12 14:07 UTC] stocks/momentum  equity $494.81 (-1.0%) 4 open  market UP
+[2026-10-12 14:07 UTC] stocks/trend     equity $489.91 (-2.0%) 3 open  market UP
+[2026-10-12 14:07 UTC] stocks/hold_spy  equity $505.44 (+1.1%) 1 open  market UP
+   social heat top: TRUMP 37 (37/0/0), STRK 36 (35/0/2), GTC 32 (32/0/0), W 29 (29/0/0), NEAR 27 (27/0/0)
