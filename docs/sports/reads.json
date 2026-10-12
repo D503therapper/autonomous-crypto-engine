@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T22:34Z",
+ "updated": "2026-10-12T22:51Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -63,32 +63,27 @@
    "id": "nhl:401892486",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Devils",
-    "p": 0.361,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-12T23:00Z",
    "away": "Senators",
    "home": "Devils",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Senators",
-    "opp": "Devils",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -245,
-    "p": 0.696,
-    "win_p": 0.479,
+    "team": "Devils",
+    "opp": "Senators",
+    "market": "ml",
+    "line": null,
+    "odds": -135,
+    "p": 0.549,
+    "win_p": 0.549,
     "reasons": [
-     "hotter goalie",
-     "the stronger team",
-     "hotter recent form"
-    ]
+     "opponent drama: trade drama"
+    ],
+    "result": null
    }
   },
   {
@@ -159,7 +154,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.535,
+    "p": 0.536,
     "tie": 0.038,
     "name": "1st half"
    },
@@ -176,8 +171,8 @@
     "market": "ml",
     "line": null,
     "odds": -185,
-    "p": 0.581,
-    "win_p": 0.581,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "sharp money moving this way",
      "opponent missing key players"
