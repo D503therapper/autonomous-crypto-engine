@@ -14707,3 +14707,39 @@ error: failed to push some refs to 'https://github.
 [2026-10-12 19:06 UTC] stocks/trend     equity $488.95 (-2.2%) 4 open  market UP
 [2026-10-12 19:06 UTC] stocks/hold_spy  equity $504.87 (+1.0%) 1 open  market UP
    social heat top: W 37 (37/0/0), NEAR 35 (35/0/0), PENGU 34 (32/0/2), PONS 30 (27/0/4), STRK 29 (29/0/0)
+   dex screen: REJECT AAVE@base liq $414,901 - 24h volume $64,862 < $100,000
+   dex screen: REJECT BNKR@base liq $2,241,979 - 24h volume $24,299 < $100,000
+   dex screen: REJECT SPCX@solana liq $1,445,265 - freeze authority; mint authority; balance_mutable_authority; transfer hook
+   dex re-screen: SI276@solana:6VZxuW4u data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT ONDO@ethereum liq $1,840,647 - transfer_pausable; top-10 holders 68%
+   dex re-screen: SIMD@ethereum:0xB60265 data flag #9 (top-10 holders 40%); holding (experiment 10)
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT WETH@solana liq $7,093,231 - mint authority; top-10 holders 76%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT EDEL@solana liq $32,305,523 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT EDEL@base liq $1,209,429 - goplus partial data: cannot_sell_all unknown; top-10 holders 48%
+   dex re-screen: SI276@solana:6VZxuW4u data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT MOBY@solana liq $356,454 - lp locked 0% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS CATE@solana liq $2,613,111
+   dex screen: REJECT SNDKC@base liq $2,665 - liquidity $2,665 < $100,000; 24h volume $241 < $100,000
+   dex screen: REJECT XDP@base liq $1,885,946 - top-10 holders 94%; lp locked 0% < 95%
+   listings: cryptocom failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: QOMPUTE@solana:BQAeeSow unreachable (holders unknown; lp holders unknown; rugcheck unreachable); holding
+   dex re-screen: SIMD@ethereum:0xB60265 data flag #10 (top-10 holders 40%); holding (experiment 10)
+   dex screen: REJECT SAFE@ethereum liq $269,559 - transfer_pausable; top-10 holders 81%; lp locked 0% < 95%
+   dex screen: REJECT ACN@ethereum liq $531,470 - top-10 holders 69%; lp locked 0% < 95%
+   dex screen: PASS NEX@ethereum liq $300,212
+   dex scanner: 3,022 pools (solana 1,890 / base 602 / ethereum 530), refresh cycle 154s (hot 149s), 2442 calls (106 feed, 429s 0, failed 1), 70,048 refreshed (5635 no pair), +107 added / -95 dropped (dead 9, stale 0, cap 86), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-12 20:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-12 20:06 UTC] crypto/mover     equity $340.12 (-32.0%) 1 open  market UP
+[2026-10-12 20:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 20:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 20:06 UTC] crypto/social_heat equity $437.96 (-12.4%) 1 open  market UP
+[2026-10-12 20:06 UTC] crypto/breakout10 equity $501.09 (+0.2%) 2 open  market UP
+[2026-10-12 20:06 UTC] crypto/momentum  equity $440.16 (-12.0%) 4 open  market UP
+[2026-10-12 20:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 20:06 UTC] crypto/hold_btc  equity $493.11 (-1.4%) 1 open  market UP
+   social heat top: PRL 37 (37/0/0), NEAR 35 (35/0/0), STRK 32 (32/0/0), PONS 32 (27/0/5), S 29 (29/0/0)
