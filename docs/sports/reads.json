@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T14:26Z",
+ "updated": "2026-10-12T15:01Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -16,8 +16,8 @@
    "start": "2026-10-12T17:00Z",
    "away": "Panthers",
    "home": "Sabres",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Panthers",
     "opp": "Sabres",
@@ -110,8 +110,8 @@
    "start": "2026-10-13T00:00Z",
    "away": "Golden Knights",
    "home": "Wild",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Golden Knights",
     "opp": "Wild",
@@ -131,8 +131,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.535,
-    "tie": 0.116,
+    "p": 0.54,
+    "tie": 0.115,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -148,8 +148,8 @@
     "market": "ml",
     "line": null,
     "odds": -169,
-    "p": 0.612,
-    "win_p": 0.612,
+    "p": 0.617,
+    "win_p": 0.617,
     "reasons": [
      "the stronger team",
      "better starting pitcher",
@@ -163,7 +163,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Rams",
-    "p": 0.528,
+    "p": 0.531,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -172,18 +172,19 @@
    "start": "2026-10-13T00:15Z",
    "away": "Bills",
    "home": "Rams",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Rams",
     "opp": "Bills",
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.571,
-    "win_p": 0.571,
+    "p": 0.575,
+    "win_p": 0.575,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -311,8 +312,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Delaware",
-    "p": 0.522,
-    "tie": 0.033,
+    "p": 0.497,
+    "tie": 0.034,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -327,9 +328,9 @@
     "opp": "MTSU",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.513,
-    "win_p": 0.513,
+    "odds": -122,
+    "p": 0.505,
+    "win_p": 0.505,
     "reasons": [
      "sharp money moving this way"
     ]
