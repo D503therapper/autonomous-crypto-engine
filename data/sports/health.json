@@ -1,11 +1,9 @@
 {
- "at": "2026-10-12T21:16Z",
- "fixes": [
-  "live watch 38304732696 froze (5 min) - cancelled",
-  "live board 5 min stale with games on - sports-live.yml already running"
- ],
+ "at": "2026-10-12T21:18Z",
+ "fixes": [],
  "problems": [],
  "ok": [
+  "live watcher fresh (52s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,12 +17,17 @@
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
   "simulator ran 5h ago",
-  "engine ran 19 min ago",
+  "engine ran 22 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-12T21:18Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-12T21:16Z",
    "fixes": [
@@ -580,17 +583,6 @@
     "live tennis scores: tennis Liu vs Tararudee: no points for 2090s",
     "live tennis scores: tennis Boisson vs Bondar: no points for 2090s",
     "live tennis scores: tennis Joint vs Sawangkaew: no points for 2090s"
-   ]
-  },
-  {
-   "at": "2026-10-10T07:46Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Ruud vs Bu Yunchaokete: points frozen at 30-0 for 330s",
-    "live tennis scores: tennis Rakhimova vs Kenin: no points for 1219s",
-    "live tennis scores: tennis Linette vs Kraus: no points for 1219s",
-    "live tennis scores: tennis Zakharova vs Sonmez: no points for 1219s",
-    "live tennis scores: tennis McNally vs Yuan Yue: no points for 854s"
    ]
   }
  ]
