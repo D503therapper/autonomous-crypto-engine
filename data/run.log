@@ -14593,3 +14593,28 @@ DEX: $1,197.87 (+197.87) · Scammed: 0
    dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
    dex re-screen: SIMD@ethereum:0xB60265 data flag #4 (top-10 holders 42%); holding (experiment 10)
    dex scanner: 3,000 pools (solana 1,773 / base 640 / ethereum 587), refresh cycle 137s (hot 133s), 2751 calls (120 feed, 429s 0, failed 0), 78,929 refreshed (6488 no pair), +262 added / -262 dropped (dead 8, stale 0, cap 254), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 0 | dexscreener 200 | geckoterminal 200
+[2026-10-12 17:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+   >> crypto/mover: SELL $150.28 of AVAX @ 10.4386, P/L $-7.92 (time limit)
+[2026-10-12 17:05 UTC] crypto/mover     equity $336.30 (-32.7%) 0 open  market UP
+[2026-10-12 17:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 17:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-12 17:05 UTC] crypto/social_heat equity $437.18 (-12.6%) 1 open  market UP
+[2026-10-12 17:05 UTC] crypto/breakout10 equity $498.23 (-0.4%) 2 open  market UP
+[2026-10-12 17:05 UTC] crypto/momentum  equity $439.32 (-12.1%) 4 open  market UP
+[2026-10-12 17:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-12 17:05 UTC] crypto/hold_btc  equity $491.43 (-1.7%) 1 open  market UP
+[2026-10-12 17:05 UTC] stocks/rsi2      equity $514.70 (+2.9%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 5 BUY, NVDA 9 BUY, AMD 10 BUY, META 13 BUY
+[2026-10-12 17:05 UTC] stocks/dual_momentum equity $497.49 (-0.5%) 2 open  market UP
+[2026-10-12 17:05 UTC] stocks/trend_ensemble equity $507.66 (+1.5%) 5 open  market UP
+[2026-10-12 17:05 UTC] stocks/rotation10 equity $513.77 (+2.8%) 2 open  market UP
+[2026-10-12 17:05 UTC] stocks/momentum  equity $494.27 (-1.1%) 4 open  market UP
+[2026-10-12 17:05 UTC] stocks/trend     equity $489.11 (-2.2%) 4 open  market UP
+[2026-10-12 17:05 UTC] stocks/hold_spy  equity $505.19 (+1.0%) 1 open  market UP
+   social heat top: PENGU 44 (29/0/14), W 37 (37/0/0), STRK 35 (35/0/0), PRL 32 (32/0/0), NEAR 27 (27/0/0)
