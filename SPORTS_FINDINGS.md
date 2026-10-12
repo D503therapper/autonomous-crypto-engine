@@ -13,6 +13,19 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/12 - TEN STUDIES (daily run): NHL night 1 of a back-to-back / first road game after a homestand / hot home favorite / day of the week / blown leads, NFL home & road stretches / hot favorite vs cold dog / offensive dud / blown leads, college after OT: ALL DEAD, one existing point confirmed; nothing new built
+Thresholds on 2018-22, graded blind 2023-26 vs every side at the same price band. ~260 cells - ~13 pass by luck.
+- **NHL first night of a back-to-back (opponent not playing tomorrow):** DEAD - 49.1% vs 48.6% (-2.3%) n 1,173 -> 50.7% vs 49.3% (-0.5%) n 870; splits flip. Teams start their #1 goalie on night 1 60% (66% normal, 36% night 2).
+- **NHL first road game after a 4+ game homestand:** DEAD - +2.8% n 420 -> +1.2% n 303, z ~1; gone once rest is controlled.
+- **NHL hot home favorite (5+ straight wins / 4+ straight home wins):** DEAD - priced right (-3.7% vs band -3.6%; -3.4% vs -2.8%); the dog facing it doesn't beat its price.
+- **NHL day of the week (Eastern date):** DEAD - weekend home favorites not overpriced (Sat -1.1 / +1.5 vs band); Sunday favorites +4.0 / +5.1 picked after looking, 2023 carries it.
+- **NHL blown 2+ goal lead / comeback, next game:** DEAD; WATCH: the 3+ goal comeback team +5.0% n 45 -> +27.7% n 32 (z ~1.7, the 2-goal version fails).
+- **NFL home after 2+ road games / 3rd straight home or road game:** DEAD (-2.5% / -1.6% vs bands -3.8% / -3.5%; seasons -13.9u..+10.6u); home vs a team on its 3rd straight road game 23-16 / 15-6 on 60 games - chance.
+- **Hot favorite (3+ wins) vs cold dog (2+ losses):** DEAD - NFL cold dog ML +30% n 37 -> -14% n 38; college ML -24% blind.
+- **Offensive dud (NFL 10 or fewer / college 14 or fewer):** NFL DOG off a dud CONFIRMS the existing dog-score point - ATS 56.3% n 197 -> 55.5% n 155 (dogs 52%), ML +2.2% -> +4.3% (band ~-4.8%), 2024 lost; keep the point at its size, don't raise it. NFL favorites off a dud and every college cell DEAD.
+- **College after an overtime game:** DEAD - OT losers 63.2% vs 52.4% train -> 42.4% vs 46.1% blind.
+- **Football blown 10+ halftime lead / comeback, next game:** DEAD; WATCH: the NFL comeback team next game 46.7% vs 51.2% (-18%) n 75 -> 39.0% vs 50.7% (-37%) n 41, z ~-1.5, 2023 (2-13) carries it. College flat.
+
 ## 10/11 - TEN STUDIES (daily run): college after a midweek game / finally home, NHL blowouts / Canadian teams, after scoring 40+, the game before a bye, NFL yards margin, MLB blowouts, the last-day line move, the spread-outlier book: ALL DEAD, two weak LEADs; nothing built
 Thresholds picked on older seasons, graded blind on 2023-26 (odds history 2020-23 / 2024-26), vs every side at the same price band. ~300 cells tried - ~15 pass by luck.
 - **College after a Tue-Fri game (8-11 days' rest next):** DEAD - dogs +7.3% n 98 -> -23.4% n 87 (every blind season lost); ATS 52.1% -> 49.3%. 4-6 days' rest almost never happens.
