@@ -15093,3 +15093,25 @@ error: failed to push some refs to 'https://github.
 [2026-10-13 06:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-13 06:06 UTC] crypto/hold_btc  equity $497.15 (-0.6%) 1 open  market UP
    social heat top: STRK 27 (27/0/0), BTC 24 (24/0/0), PENGU 21 (21/0/0), NEAR 19 (19/0/0), PONS 17 (5/0/12)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   listing: okx_symbols #XOSCR 'New OKX listing (XOSCR)' -> ['XOSCR']
+   listing: XOSCR: okx_symbols notice "New OKX listing (XOSCR)" -> not on Crypto.com USD
+   dex screen: REJECT OTC@solana liq $479,631 - lp holders unknown; rugcheck lp locked 85% < 95%
+   dex screen: PASS HUMPH@solana liq $203,532
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #1 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT FONE@solana liq $539,307 - lp holders unknown; rugcheck lp locked 91% < 95%
+   dex scanner: 3,017 pools (solana 1,971 / base 595 / ethereum 451), refresh cycle 132s (hot 128s), 2924 calls (185 feed, 429s 0, failed 0), 82,152 refreshed (5818 no pair), +590 added / -581 dropped (dead 4, stale 0, cap 577), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-13 07:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-13 07:06 UTC] crypto/mover     equity $328.50 (-34.3%) 1 open  market UP
+[2026-10-13 07:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 07:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+   >> crypto/social_heat: SELL $82.88 of TRUMP @ 1.8981, P/L $-0.70 (heat collapsed (<20 for 12h))
+[2026-10-13 07:06 UTC] crypto/social_heat equity $437.20 (-12.6%) 0 open  market UP
+[2026-10-13 07:06 UTC] crypto/breakout10 equity $488.84 (-2.2%) 2 open  market UP
+[2026-10-13 07:06 UTC] crypto/momentum  equity $432.33 (-13.5%) 2 open  market UP
+[2026-10-13 07:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-13 07:06 UTC] crypto/hold_btc  equity $498.00 (-0.4%) 1 open  market UP
+   social heat top: NEAR 25 (24/0/1), STRK 21 (21/0/0), PONS 20 (11/0/10), PRL 19 (19/0/0), RENDER 16 (16/0/0)
