@@ -10471,6 +10471,15 @@
      "us:west1000"
     ],
     "dec": 2.5,
+    "decider": {
+     "k": "fg",
+     "n": 1,
+     "p": "Tyler Bass",
+     "s": "37-34",
+     "type": "ot",
+     "win": "away",
+     "y": 45
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -10495,6 +10504,10 @@
     "edge_own": 0.029796917383138055,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "6,7,6,15,3",
+     "h": "0,7,7,20,0"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -10537,9 +10550,11 @@
      "revenge game"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Bills 37 @ Rams 34",
+    "settled": "2026-10-13T03:48Z",
     "side": "away",
     "start": "2026-10-13T00:15Z",
     "stype": "2",
@@ -10561,12 +10576,14 @@
    }
   ],
   "p_hit": 0.4074,
-  "pnl": 0.0,
+  "pnl": 150.0,
   "posted": "2026-10-12T15:00Z",
   "round": 1,
+  "settled": "2026-10-13T03:48Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
