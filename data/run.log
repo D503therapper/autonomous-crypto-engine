@@ -15607,3 +15607,19 @@ error: failed to push some refs to 'https://github.
    dex screen: PASS DOPE@ethereum liq $465,193
    dex screen: REJECT WDOGE@ethereum liq $2,751,785 - creator_percent 99%; top-10 holders 100%
    dex screen: REJECT ACT@solana liq $1,454,732 - top-10 holders 82%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-13 21:59 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-13 21:59 UTC] crypto/mover     equity $338.71 (-32.3%) 1 open  market UP
+[2026-10-13 21:59 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 21:59 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 21:59 UTC] crypto/social_heat equity $436.83 (-12.6%) 1 open  market UP
+[2026-10-13 21:59 UTC] crypto/breakout10 equity $479.34 (-4.1%) 2 open  market UP
+[2026-10-13 21:59 UTC] crypto/momentum  equity $428.53 (-14.3%) 2 open  market UP
+[2026-10-13 21:59 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-13 21:59 UTC] crypto/hold_btc  equity $496.70 (-0.7%) 1 open  market UP
+   social heat top: PENGU 42 (29/0/13), PRL 27 (27/0/0), BAT 24 (24/0/0), PONS 19 (8/0/11), NEAR 19 (19/0/0)
