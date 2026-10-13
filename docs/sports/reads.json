@@ -27,6 +27,7 @@
     "p": 0.683,
     "win_p": 0.465,
     "reasons": [
+     "hotter goalie",
      "hotter recent form",
      "opponent drama: trade drama"
     ]
@@ -57,7 +58,9 @@
     "odds": -245,
     "p": 0.689,
     "win_p": 0.472,
-    "reasons": []
+    "reasons": [
+     "hotter goalie"
+    ]
    }
   },
   {
@@ -488,8 +491,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Ducks",
-    "p": 0.401,
-    "tie": 0.297,
+    "p": 0.408,
+    "tie": 0.296,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -500,13 +503,13 @@
    "why": "tight",
    "board": null,
    "lean": {
-    "team": "Flames",
-    "opp": "Ducks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -162,
-    "p": 0.617,
-    "win_p": 0.397,
+    "team": "Ducks",
+    "opp": "Flames",
+    "market": "ml",
+    "line": null,
+    "odds": -185,
+    "p": 0.621,
+    "win_p": 0.621,
     "reasons": [
      "sharp money moving this way"
     ]
@@ -565,6 +568,34 @@
     "odds": -250,
     "p": 0.687,
     "win_p": 0.471,
+    "reasons": []
+   }
+  },
+  {
+   "id": "nhl:401892504",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "h1": {
+    "team": "Capitals",
+    "p": 0.369,
+    "tie": 0.299,
+    "name": "1st period"
+   },
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-14T23:30Z",
+   "away": "Canadiens",
+   "home": "Capitals",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Canadiens",
+    "opp": "Capitals",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -244,
+    "p": 0.679,
+    "win_p": 0.461,
     "reasons": []
    }
   },
