@@ -1,95 +1,48 @@
 {
- "updated": "2026-10-13T21:45Z",
+ "updated": "2026-10-13T22:30Z",
  "games": [
+  {
+   "id": "nhl:401892488",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-13T22:00Z",
+   "away": "Devils",
+   "home": "Red Wings",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
   {
    "id": "nhl:401892489",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blue Jackets",
-    "p": 0.373,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-13T22:15Z",
    "away": "Panthers",
    "home": "Blue Jackets",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Panthers",
-    "opp": "Blue Jackets",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.672,
-    "win_p": 0.453,
+    "team": "Blue Jackets",
+    "opp": "Panthers",
+    "market": "ml",
+    "line": null,
+    "odds": -130,
+    "p": 0.541,
+    "win_p": 0.541,
     "reasons": [
-     "hotter goalie"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892490",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Canadiens",
-    "p": 0.389,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-13T22:30Z",
-   "away": "Sabres",
-   "home": "Canadiens",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Sabres",
-    "opp": "Canadiens",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.641,
-    "win_p": 0.421,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892491",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Hurricanes",
-    "p": 0.389,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-13T22:45Z",
-   "away": "Capitals",
-   "home": "Hurricanes",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Capitals",
-    "opp": "Hurricanes",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.642,
-    "win_p": 0.422,
-    "reasons": [
-     "hotter goalie",
-     "opponent missing key players"
-    ]
+     "sharp money moving this way",
+     "the stronger team",
+     "hotter recent form"
+    ],
+    "result": null
    }
   },
   {
@@ -97,8 +50,8 @@
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
    "h1": {
-    "team": "MTSU",
-    "p": 0.483,
+    "team": "Delaware",
+    "p": 0.489,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -110,17 +63,15 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "MTSU",
-    "opp": "Delaware",
+    "team": "Delaware",
+    "opp": "MTSU",
     "market": "ml",
     "line": null,
-    "odds": -105,
-    "p": 0.5,
-    "win_p": 0.5,
+    "odds": -118,
+    "p": 0.502,
+    "win_p": 0.502,
     "reasons": [
-     "opponent missing key players",
-     "the stronger team",
-     "hotter recent form"
+     "sharp money moving this way"
     ]
    }
   },
@@ -192,8 +143,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Blues",
-    "p": 0.369,
-    "tie": 0.299,
+    "p": 0.382,
+    "tie": 0.298,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -208,9 +159,9 @@
     "opp": "Blues",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.677,
-    "win_p": 0.459,
+    "odds": -265,
+    "p": 0.652,
+    "win_p": 0.432,
     "reasons": [
      "the stronger team",
      "hotter recent form",
@@ -255,7 +206,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jax State",
-    "p": 0.56,
+    "p": 0.552,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -271,13 +222,13 @@
     "opp": "FIU",
     "market": "ml",
     "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
+    "odds": -155,
+    "p": 0.583,
+    "win_p": 0.583,
     "reasons": [
      "the stronger team",
      "better QB play lately",
-     "sharp money moving this way"
+     "hotter recent form"
     ]
    }
   },
@@ -303,9 +254,9 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -194,
+    "odds": -189,
     "p": 0.605,
-    "win_p": 0.417,
+    "win_p": 0.416,
     "reasons": [
      "hotter recent form"
     ]
@@ -528,7 +479,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Bruins",
-    "p": 0.369,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -545,8 +496,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -250,
-    "p": 0.678,
-    "win_p": 0.46,
+    "p": 0.669,
+    "win_p": 0.45,
     "reasons": []
    }
   },
