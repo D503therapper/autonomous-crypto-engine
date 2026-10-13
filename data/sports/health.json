@@ -1,37 +1,48 @@
 {
- "at": "2026-10-13T15:40Z",
+ "at": "2026-10-13T16:25Z",
  "fixes": [
-  "studies overdue (9h) - started sports_studies.yml"
+  "simulator overdue (9h) - started sports_sims.yml"
  ],
  "problems": [
-  "live tennis scores: tennis Andreeva vs Koevermans: no points for 2635s",
-  "live tennis scores: tennis Stefanini vs Mair: no points for 2635s",
-  "live tennis scores: tennis De Reales vs Feistel: no points for 2635s",
-  "live tennis scores: tennis Morvayova vs Burillo: no points for 2635s",
-  "live tennis scores: tennis Hercog vs Matias: no points for 2635s",
-  "studies last ran 9h ago - restarted"
+  "live tennis scores: tennis Stefanini vs Mair: no points for 2638s",
+  "live tennis scores: tennis Kostovic vs Jacquemot: no points for 1163s",
+  "live tennis scores: tennis Ivantsiv vs Maneiro: no points for 914s",
+  "live tennis points check failed: The read operation timed out",
+  "simulator last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (65s)",
+  "live watcher fresh (41s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 6 live matches",
   "slate check: all 19 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "simulator ran 9h ago",
-  "engine ran 2 min ago",
+  "studies ran 1h ago",
+  "engine ran 18 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-13T16:25Z",
+   "fixes": [
+    "simulator overdue (9h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Stefanini vs Mair: no points for 2638s",
+    "live tennis scores: tennis Kostovic vs Jacquemot: no points for 1163s",
+    "live tennis scores: tennis Ivantsiv vs Maneiro: no points for 914s",
+    "live tennis points check failed: The read operation timed out",
+    "simulator last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-13T15:40Z",
    "fixes": [
@@ -582,11 +593,6 @@
   },
   {
    "at": "2026-10-11T02:22Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-11T02:15Z",
    "fixes": [],
    "problems": []
   }
