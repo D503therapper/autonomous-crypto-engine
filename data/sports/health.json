@@ -1,17 +1,13 @@
 {
- "at": "2026-10-13T16:25Z",
- "fixes": [
-  "simulator overdue (9h) - started sports_sims.yml"
- ],
+ "at": "2026-10-13T17:56Z",
+ "fixes": [],
  "problems": [
-  "live tennis scores: tennis Stefanini vs Mair: no points for 2638s",
-  "live tennis scores: tennis Kostovic vs Jacquemot: no points for 1163s",
-  "live tennis scores: tennis Ivantsiv vs Maneiro: no points for 914s",
-  "live tennis points check failed: The read operation timed out",
-  "simulator last ran 9h ago - restarted"
+  "live tennis scores: tennis Kostovic vs Jacquemot: no points for 2636s",
+  "live tennis scores: tennis Ristic vs Andreescu: no points for 653s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (41s)",
+  "live watcher fresh (43s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -23,13 +19,23 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 1h ago",
-  "engine ran 18 min ago",
+  "studies ran 2h ago",
+  "simulator ran 2h ago",
+  "engine ran 41 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-13T17:56Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Kostovic vs Jacquemot: no points for 2636s",
+    "live tennis scores: tennis Ristic vs Andreescu: no points for 653s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-13T16:25Z",
    "fixes": [
@@ -590,11 +596,6 @@
     "live tennis scores: tennis Krueger vs Putintseva: no points for 2628s",
     "live tennis scores: tennis Kraus vs Sonmez: no points for 2628s"
    ]
-  },
-  {
-   "at": "2026-10-11T02:22Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
