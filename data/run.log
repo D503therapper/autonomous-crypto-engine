@@ -15459,3 +15459,38 @@ error: failed to push some refs to 'https://github.
 [2026-10-13 17:06 UTC] stocks/trend     equity $489.52 (-2.1%) 4 open  market UP
 [2026-10-13 17:06 UTC] stocks/hold_spy  equity $504.83 (+1.0%) 1 open  market UP
    social heat top: PENGU 38 (24/0/14), PRL 35 (35/0/0), S 27 (27/0/0), NEAR 21 (21/0/0), PONS 17 (11/0/7)
+   dex screen: REJECT PLTRX@solana liq $152,104 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 98%; lp holders unknown
+   dex screen: REJECT KTA@base liq $4,059,774 - top-10 holders 67%
+   dex screen: REJECT XCN@ethereum liq $787,582 - is_mintable; top-10 holders 52%; lp locked 0% < 95%
+   dex screen: PASS PEPE@ethereum liq $30,250,080
+   dex screen: REJECT BNKR@base liq $2,144,471 - top-10 holders 49%
+   dex screen: REJECT HLX@ethereum liq $351,663 - top-10 holders 97%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT BP@solana liq $1,249,794,256 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: REJECT BP@solana liq $6,418,905 - freeze authority; mint authority; top-10 holders 96%
+   dex screen: REJECT SWORDCAT@solana liq $106,893 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #3 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 3,000 pools (solana 2,239 / base 502 / ethereum 259), refresh cycle 142s (hot 138s), 2668 calls (124 feed, 429s 1, failed 1), 76,317 refreshed (1354 no pair), +187 added / -206 dropped (dead 3, stale 0, cap 203), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-13 18:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-13 18:06 UTC] crypto/mover     equity $329.56 (-34.1%) 1 open  market UP
+[2026-10-13 18:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 18:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 18:06 UTC] crypto/social_heat equity $437.89 (-12.4%) 1 open  market UP
+[2026-10-13 18:06 UTC] crypto/breakout10 equity $475.32 (-4.9%) 2 open  market UP
+[2026-10-13 18:06 UTC] crypto/momentum  equity $426.68 (-14.7%) 2 open  market UP
+[2026-10-13 18:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-13 18:06 UTC] crypto/hold_btc  equity $494.50 (-1.1%) 1 open  market UP
+[2026-10-13 18:06 UTC] stocks/rsi2      equity $510.93 (+2.2%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 2 BUY, NVDA 4 BUY, AMD 5 BUY, AVGO 16
+[2026-10-13 18:06 UTC] stocks/dual_momentum equity $494.88 (-1.0%) 2 open  market UP
+[2026-10-13 18:06 UTC] stocks/trend_ensemble equity $509.92 (+2.0%) 5 open  market UP
+[2026-10-13 18:06 UTC] stocks/rotation10 equity $516.81 (+3.4%) 2 open  market UP
+[2026-10-13 18:06 UTC] stocks/momentum  equity $498.03 (-0.4%) 4 open  market UP
+[2026-10-13 18:06 UTC] stocks/trend     equity $489.27 (-2.1%) 4 open  market UP
+[2026-10-13 18:06 UTC] stocks/hold_spy  equity $505.27 (+1.1%) 1 open  market UP
+   social heat top: PENGU 38 (24/0/14), AERO 29 (29/0/0), PONS 27 (16/0/11), PRL 27 (27/0/0), S 21 (21/0/0)
