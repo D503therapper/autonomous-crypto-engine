@@ -13,6 +13,16 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/13 - TEN STUDIES (daily run): weeks without a bye (college + NFL), college hot offense, the college turnover-luck WATCH re-checked, NHL back-to-back after OT / streak snaps / goalie first starts, home openers (college + NFL): ALL DEAD; the turnover-luck WATCH closed; nothing built
+Thresholds on 2018-22, graded blind 2023-26 vs every side at the same price band. ~180 cells.
+- **Weeks without a bye (college 6th-8th straight week, NFL 5th-7th; streaks counted only on observed weeks):** DEAD - college tired dog vs a team off a bye -28% n 92 -> +4.1% n 52; NFL +14.6% n 103 -> -30.6% n 63; ATS flips.
+- **College hot offense (35+ in each of the last 3):** DEAD - as a favorite +0.1% / +3.4% vs the band, ATS 48% / 44%; as a dog +3.5% n 47 -> -19.6% n 38.
+- **College turnover luck (10/1 WATCH: a dog that lost the turnovers by 2+ with even-or-better yards):** CLOSED - with full box scores (2021-26, ~95% of dogs) +23.8% n 55 -> +1.8% n 103, ATS 50-50, fading by season (2025 -16%, 2026 -19%). The old +25% on 113 was the thin early sample.
+- **NHL night 2 of a back-to-back after an OT/shootout game:** DEAD as an add-on (-0.1 / -8.4 vs the band, train shows nothing). The plain back-to-back weight already in the engine re-checked: -4.9 train / -5.0 blind, 6 of 8 seasons - keep.
+- **NHL the game after a 5+ win streak ends / a favorite on a 4+ game losing streak:** DEAD (-4.1 / -8.6, 2020-21 carries train; favorites -5.8 -> +9.2, flips).
+- **NHL goalie's first start of the season / after 10+ days off / first 5 career starts:** DEAD (players/nhl.csv starters 2016-26). WATCH: a goalie's first start of the season in game 4+ (not the opener goalie) as a dog -3.8% n 115 -> -24.1% n 61 (t -1.7), 2024-25 carry it.
+- **Home openers (college after 1+ road games; NFL after a road start; NFL week-1 home teams):** DEAD - college -15.8% n 199 -> +6.2% n 153; NFL -13.9% blind; week-1 NFL home teams -11.0% / -12.7% vs -5.4% / -5.9% (~1 SD), road side +7.4% -> -5.4%.
+
 ## 10/12 - TEN STUDIES (daily run): NHL night 1 of a back-to-back / first road game after a homestand / hot home favorite / day of the week / blown leads, NFL home & road stretches / hot favorite vs cold dog / offensive dud / blown leads, college after OT: ALL DEAD, one existing point confirmed; nothing new built
 Thresholds on 2018-22, graded blind 2023-26 vs every side at the same price band. ~260 cells - ~13 pass by luck.
 - **NHL first night of a back-to-back (opponent not playing tomorrow):** DEAD - 49.1% vs 48.6% (-2.3%) n 1,173 -> 50.7% vs 49.3% (-0.5%) n 870; splits flip. Teams start their #1 goalie on night 1 60% (66% normal, 36% night 2).
