@@ -15593,3 +15593,17 @@ error: failed to push some refs to 'https://github.
 [2026-10-13 21:08 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-13 21:08 UTC] crypto/hold_btc  equity $496.26 (-0.7%) 1 open  market UP
    social heat top: PENGU 34 (21/0/13), BAT 29 (29/0/0), PRL 27 (27/0/0), STRK 24 (24/0/0), BTC 19 (19/0/0)
+   dex screen: REJECT CASH@solana liq $6,953,073 - freeze authority; mint authority; close authority; balance_mutable_authority; transfer hook; top-10 holders 85%
+   dex screen: REJECT CBBTC@base liq $2,260,828 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT METIS@ethereum liq $711,807 - top-10 holders 83%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [rejected]            52728cbae24657eb09ef3c5f91a545e21d95d622 -> main (fetch first)
+error: failed to push some refs to 'https://github.
+   dex screen: REJECT ALLINU@solana liq $135,960 - transfer_fee_upgradable; lp holders unknown
+   dex screen: PASS SPX@ethereum liq $11,116,295
+   dex screen: REJECT TOPENAI@solana liq $782,300 - freeze authority; mint authority; transfer_fee_upgradable; top-10 holders 83%; lp holders unknown
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT BNKR@base liq $2,105,902 - top-10 holders 49%
+   dex screen: PASS DOPE@ethereum liq $465,193
+   dex screen: REJECT WDOGE@ethereum liq $2,751,785 - creator_percent 99%; top-10 holders 100%
+   dex screen: REJECT ACT@solana liq $1,454,732 - top-10 holders 82%
