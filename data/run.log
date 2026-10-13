@@ -14966,3 +14966,52 @@ error: failed to push some refs to 'https://github.
 [2026-10-13 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-13 03:06 UTC] crypto/hold_btc  equity $493.06 (-1.4%) 1 open  market UP
    social heat top: PRL 35 (35/0/0), STRK 32 (32/0/0), SOL 32 (29/0/2), PENGU 29 (27/0/2), NEAR 27 (27/0/0)
+   dex screen: PASS BUNKER@ethereum liq $490,360
+   >> crypto/mover: SELL $132.91 of OGN @ 0.033417, P/L $-18.96 (stop hit (live check))
+   dex screen: REJECT ZRO@base liq $188,003 - pool age unknown
+   scanner: BAT: +6.1% in 15 min on 4.4x volume @ 0.17178 spread 0.71%
+   take-off: BUY BAT (scanner mover): BAT: +6.1% in 15 min on 4.4x volume @ 0.17178 spread 0.71%
+   >> crypto/mover: BUY $142.23 of BAT @ 0.171952 (scanner mover)
+   scanner: BAT: +5.6% in 15 min on 5.2x volume @ 0.17096 spread 0.30%
+   scanner: BAT: +5.6% in 15 min on 6.6x volume @ 0.17096 spread 0.52%
+   scanner: BAT: +6.6% in 15 min on 6.8x volume @ 0.17261 spread 0.64%
+   scanner: BAT: +6.6% in 16 min on 6.4x volume @ 0.17261 spread 0.46%
+   scanner: BAT: +5.0% in 17 min on 7.0x volume @ 0.17013 spread 0.56%
+   dex screen: PASS TROLL@solana liq $2,981,778
+   dex screen: REJECT TRAC@ethereum liq $502,575 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 51%; lp locked 0% < 95%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #5 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: SIMD@ethereum:0xB60265 data flag #25 (top-10 holders 40%); holding (experiment 10)
+   scanner: BAT: +12.1% in 30 min on 11.2x volume @ 0.18207 spread 0.61%
+   scanner: BAT: +11.3% in 30 min on 11.7x volume @ 0.18032 spread 0.76%
+   dex screen: REJECT ZEC@solana liq $1,650,347,721 - top-10 holders 100%; lp holders unknown
+   scanner: BAT: +10.3% in 30 min on 12.3x volume @ 0.17857 spread 0.68%
+   scanner: BAT: +11.3% in 30 min on 12.7x volume @ 0.18032 spread 0.74%
+   scanner: BAT: +10.8% in 30 min on 13.4x volume @ 0.17944 spread 0.73%
+   scanner: BAT: +8.4% in 31 min on 17.6x volume @ 0.17556 spread 1.29%
+   scanner: BAT: +8.4% in 32 min on 17.1x volume @ 0.17556 spread 0.58%
+   scanner: BAT: +8.4% in 28 min on 18.7x volume @ 0.17826 spread 0.61%
+   scanner: BAT: +8.4% in 29 min on 18.1x volume @ 0.17826 spread 0.35%
+   scanner: BAT: +8.4% in 30 min on 17.4x volume @ 0.17826 spread 0.60%
+   scanner: BAT: +12.9% in 60 min on 10.2x volume @ 0.18207 spread 0.54%
+   scanner: BAT: +12.3% in 60 min on 10.1x volume @ 0.18207 spread 0.55%
+   dex screen: REJECT PYTH@solana liq $77,575 - liquidity $77,575 < $100,000
+   dex screen: REJECT DARK@solana liq $106,741 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: BAT: +12.3% in 60 min on 10.4x volume @ 0.18207 spread 0.63%
+   scanner: BAT: +12.3% in 60 min on 10.3x volume @ 0.18207 spread 0.54%
+   scanner: BAT: +12.3% in 60 min on 10.5x volume @ 0.18207 spread 0.64%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   scanner: BAT: +12.3% in 60 min on 10.5x volume @ 0.18207 spread 0.58%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #6 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex re-screen: SIMD@ethereum:0xB60265 data flag #26 (top-10 holders 40%); holding (experiment 10)
+   dex scanner: 3,000 pools (solana 1,976 / base 546 / ethereum 478), refresh cycle 129s (hot 125s), 2898 calls (108 feed, 429s 0, failed 0), 83,698 refreshed (8919 no pair), +60 added / -60 dropped (dead 6, stale 0, cap 54), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-13 04:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-13 04:06 UTC] crypto/mover     equity $317.32 (-36.5%) 1 open  market UP
+[2026-10-13 04:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 04:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 04:06 UTC] crypto/social_heat equity $438.05 (-12.4%) 1 open  market UP
+[2026-10-13 04:06 UTC] crypto/breakout10 equity $491.69 (-1.7%) 2 open  market UP
+[2026-10-13 04:06 UTC] crypto/momentum  equity $428.76 (-14.2%) 2 open  market UP
+[2026-10-13 04:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-13 04:06 UTC] crypto/hold_btc  equity $495.82 (-0.8%) 1 open  market UP
+   social heat top: STRK 32 (32/0/0), PRL 29 (29/0/0), PENGU 28 (24/0/4), W 26 (19/0/8), QNT 21 (21/0/0)
