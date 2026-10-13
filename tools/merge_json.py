@@ -66,6 +66,10 @@ def merge_picks(ours, theirs, base=None):
     # a waiting card never sits next to a posted play of the same kind that day
     posted = {(p.get("date"), p.get("kind")) for p in out.values() if p.get("status") != "waiting"}
     rows = [p for p in out.values() if p.get("status") != "waiting" or (p.get("date"), p.get("kind")) not in posted]
+    demoted = {(p.get("date"), l.get("game_id"), l.get("side")) for p in rows   # (10/13) a Dog upgrade_dog turned into a
+               if p.get("kind") == "play" and p.get("was_dog") for l in (p.get("legs") or [])[:1]}   # value play: the old
+    rows = [p for p in rows if not (p.get("kind") == "dog" and not p.get("upgraded") and p.get("legs")   # Dog copy goes
+                                    and (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side")) in demoted)]
     return sorted(rows, key=lambda p: (p.get("date") or "", p.get("posted") or "", p.get("kind") or ""))
 
 
