@@ -15640,3 +15640,35 @@ error: failed to push some refs to 'https://github.
    [alert] Today -114.84 | Total -411.76: Stocks: $509.63  today -2.59  total +9.63
 DEX: $578.61  today -112.25  total -421.39
 DEX: $578.61 (-421.39) · Scammed: 0
+   dex screen: REJECT DOGE@solana liq $290,913 - mint authority; top-10 holders 46%; lp holders unknown
+   dex screen: REJECT MET@solana liq $236,698 - top-10 holders 83%; lp holders unknown
+   dex screen: REJECT DOPE@solana liq $139,303 - holders unknown; lp holders unknown; rugcheck lp locked 40% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: PASS DOPE@solana liq $133,260
+   dex screen: REJECT DOPE@solana liq $147,110 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #4 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: geckoterminal_1h HTTP 429 0 pools (retry in 15 min)
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT SWORDCAT@solana liq $262,242 - lp holders unknown; rugcheck lp locked 40% < 95%
+   dex screen: REJECT BLUECHIP@base liq $76,305 - liquidity $76,305 < $100,000; 24h volume $27,655 < $100,000
+   dex scanner: 3,002 pools (solana 2,186 / base 514 / ethereum 302), refresh cycle 126s (hot 122s), 2934 calls (167 feed, 429s 1, failed 1), 82,996 refreshed (3422 no pair), +515 added / -537 dropped (dead 2, stale 0, cap 535), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #5 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+[2026-10-13 23:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-13 23:06 UTC] crypto/mover     equity $337.18 (-32.6%) 1 open  market UP
+[2026-10-13 23:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 23:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 23:06 UTC] crypto/social_heat equity $437.18 (-12.6%) 1 open  market UP
+[2026-10-13 23:06 UTC] crypto/breakout10 equity $477.03 (-4.6%) 2 open  market UP
+[2026-10-13 23:06 UTC] crypto/momentum  equity $427.23 (-14.6%) 2 open  market UP
+[2026-10-13 23:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-13 23:06 UTC] crypto/hold_btc  equity $496.21 (-0.8%) 1 open  market UP
+   social heat top: PRL 29 (29/0/0), PENGU 28 (16/0/12), BAT 27 (27/0/0), ETH 24 (24/0/0), QNT 21 (21/0/0)
