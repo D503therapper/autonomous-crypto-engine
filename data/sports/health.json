@@ -1,27 +1,38 @@
 {
- "at": "2026-10-13T08:05Z",
+ "at": "2026-10-13T09:36Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Hruncakova vs Basiletti: no points for 1707s",
+  "live tennis scores: tennis Brockmann vs Teichmann: no points for 1617s"
+ ],
  "ok": [
-  "live watcher fresh (40s)",
+  "live watcher fresh (39s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 4 of 6 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 4 live lines, 4 fresh (betrivers 4)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 1h ago",
-  "engine ran 16 min ago",
+  "studies ran 3h ago",
+  "simulator ran 3h ago",
+  "engine ran 41 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-13T09:36Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Hruncakova vs Basiletti: no points for 1707s",
+    "live tennis scores: tennis Brockmann vs Teichmann: no points for 1617s"
+   ]
+  },
   {
    "at": "2026-10-13T08:05Z",
    "fixes": [],
@@ -533,11 +544,6 @@
     "live watch 38082916854 froze (5 min) - cancelled",
     "live board 5 min stale with games on - sports-live.yml already running"
    ],
-   "problems": []
-  },
-  {
-   "at": "2026-10-10T19:23Z",
-   "fixes": [],
    "problems": []
   }
  ]
