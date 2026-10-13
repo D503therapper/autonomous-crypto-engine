@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T02:06Z",
+ "updated": "2026-10-13T02:49Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -142,7 +142,7 @@
    "home": "Wild",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Wild",
@@ -155,7 +155,7 @@
     "reasons": [
      "hotter goalie"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -556,7 +556,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Jets",
-    "p": 0.353,
+    "p": 0.367,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -565,7 +565,7 @@
    "start": "2026-10-14T00:15Z",
    "away": "Wild",
    "home": "Jets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Jets",
@@ -573,9 +573,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -290,
-    "p": 0.718,
-    "win_p": 0.507,
-    "reasons": []
+    "p": 0.742,
+    "win_p": 0.537,
+    "reasons": [
+     "better rested",
+     "opponent on a back-to-back"
+    ]
    }
   },
   {
@@ -614,7 +617,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.373,
+    "p": 0.36,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -623,7 +626,7 @@
    "start": "2026-10-14T00:45Z",
    "away": "Golden Knights",
    "home": "Predators",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Predators",
@@ -631,9 +634,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.669,
-    "win_p": 0.45,
-    "reasons": []
+    "p": 0.694,
+    "win_p": 0.479,
+    "reasons": [
+     "opponent on a back-to-back",
+     "better rested"
+    ]
    }
   },
   {

@@ -10611,6 +10611,7 @@
      "us:west1000"
     ],
     "dec": 1.847457627118644,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -10624,6 +10625,10 @@
     "edge_own": -0.05338337878533794,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,1,1",
+     "h": "3,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -10660,9 +10665,11 @@
      "hotter goalie"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Golden Knights 2 @ Wild 4",
+    "settled": "2026-10-13T02:48Z",
     "side": "home",
     "start": "2026-10-13T00:00Z",
     "stype": "2",
@@ -10679,12 +10686,14 @@
    }
   ],
   "p_hit": 0.5131,
-  "pnl": 0.0,
+  "pnl": 84.75,
   "posted": "2026-10-12T15:00Z",
   "round": 1,
+  "settled": "2026-10-13T02:48Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -112,
