@@ -15144,3 +15144,34 @@ error: failed to push some refs to 'https://github.
 [2026-10-13 08:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-13 08:06 UTC] crypto/hold_btc  equity $498.67 (-0.3%) 1 open  market UP
    social heat top: PONS 27 (16/0/11), NEAR 27 (27/0/0), PENGU 24 (24/0/0), PUMP 22 (16/0/6), PRL 21 (21/0/0)
+   dex screen: REJECT $WIF@solana liq $158,879 - top-10 holders 44%; lp locked 0% < 95%
+   dex screen: UNREACHABLE GIGA@solana liq $1,602,736 - rugcheck unreachable
+   dex screen: REJECT AAPLC@base liq $1,468,202 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 75%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT CTM@ethereum liq $2,547,777 - goplus partial data: cannot_sell_all unknown; is_mintable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #4 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SEND@ethereum liq $260,894 - goplus partial data: cannot_sell_all unknown; buy tax unknown; sell tax unknown; lp locked 0% < 95%
+   dex screen: REJECT USDE@ethereum liq $2,130,959 - goplus partial data: cannot_sell_all unknown; is_mintable; top-10 holders 94%
+   listing: okx_symbols #XSHOP 'New OKX listing (XSHOP)' -> ['XSHOP']
+   listing: XSHOP: okx_symbols notice "New OKX listing (XSHOP)" -> not on Crypto.com USD
+   dex screen: REJECT UPEG@ethereum liq $175,198 - goplus partial data: cannot_sell_all unknown; lp locked 0% < 95%
+   dex screen: REJECT AMZNC@base liq $23,265 - liquidity $23,265 < $100,000; 24h volume $8,431 < $100,000
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #5 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex scanner: 3,000 pools (solana 2,154 / base 513 / ethereum 333), refresh cycle 139s (hot 135s), 2702 calls (113 feed, 429s 1, failed 1), 77,669 refreshed (3749 no pair), +131 added / -141 dropped (dead 6, stale 0, cap 135), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listing: okx_symbols #XSIMO 'New OKX listing (XSIMO)' -> ['XSIMO']
+   listing: XSIMO: okx_symbols notice "New OKX listing (XSIMO)" -> not on Crypto.com USD
+[2026-10-13 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-13 09:06 UTC] crypto/mover     equity $325.88 (-34.8%) 1 open  market UP
+[2026-10-13 09:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-13 09:06 UTC] crypto/social_heat equity $437.20 (-12.6%) 0 open  market UP
+[2026-10-13 09:06 UTC] crypto/breakout10 equity $482.18 (-3.6%) 2 open  market UP
+[2026-10-13 09:06 UTC] crypto/momentum  equity $429.25 (-14.2%) 2 open  market UP
+[2026-10-13 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-13 09:06 UTC] crypto/hold_btc  equity $496.36 (-0.7%) 1 open  market UP
+   social heat top: PRL 29 (29/0/0), PENGU 24 (24/0/0), PONS 22 (13/0/8), NEAR 21 (21/0/0), BTC 19 (19/0/0)
