@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T23:16Z",
+ "updated": "2026-10-13T23:38Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -163,35 +163,19 @@
    }
   },
   {
-   "id": "nhl:401892495",
+   "id": "nhl:401892493",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Islanders",
-    "p": 0.419,
-    "tie": 0.295,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-13T23:45Z",
-   "away": "Canucks",
-   "home": "Islanders",
-   "why": "no_value",
+   "start": "2026-10-13T23:15Z",
+   "away": "Lightning",
+   "home": "Rangers",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Islanders",
-    "opp": "Canucks",
-    "market": "ml",
-    "line": null,
-    "odds": -205,
-    "p": 0.644,
-    "win_p": 0.644,
-    "reasons": [
-     "the stronger team",
-     "hotter goalie"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "ncaaf:401871053",
@@ -199,7 +183,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jax State",
-    "p": 0.526,
+    "p": 0.536,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -215,9 +199,9 @@
     "opp": "FIU",
     "market": "ml",
     "line": null,
-    "odds": -135,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -142,
+    "p": 0.563,
+    "win_p": 0.563,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -231,7 +215,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.504,
+    "p": 0.502,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -248,8 +232,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -189,
-    "p": 0.603,
-    "win_p": 0.415,
+    "p": 0.605,
+    "win_p": 0.416,
     "reasons": [
      "hotter recent form"
     ]
@@ -301,16 +285,16 @@
    "why": "on_board",
    "board": "lean",
    "lean": {
-    "team": "Wild",
-    "opp": "Jets",
+    "team": "Jets",
+    "opp": "Wild",
     "market": "spread",
     "line": 1.5,
-    "odds": -278,
-    "p": 0.693,
-    "win_p": 0.476,
+    "odds": -285,
+    "p": 0.733,
+    "win_p": 0.526,
     "reasons": [
-     "the stronger team",
-     "opponent missing key players"
+     "better rested",
+     "opponent on a back-to-back"
     ]
    }
   },
