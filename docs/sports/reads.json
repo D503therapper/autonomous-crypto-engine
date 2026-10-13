@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T15:41Z",
+ "updated": "2026-10-13T15:46Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -170,7 +170,7 @@
    "away": "Kraken",
    "home": "Flyers",
    "why": "on_board",
-   "board": "dog",
+   "board": "play",
    "lean": {
     "team": "Kraken",
     "opp": "Flyers",
@@ -273,8 +273,8 @@
     "p": 0.656,
     "win_p": 0.656,
     "reasons": [
-     "hotter goalie",
-     "the stronger team"
+     "the stronger team",
+     "hotter goalie"
     ]
    }
   },
@@ -505,8 +505,8 @@
    "start": "2026-10-14T01:45Z",
    "away": "Flames",
    "home": "Ducks",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Flames",
     "opp": "Ducks",
@@ -610,7 +610,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Kennesaw St",
-    "p": 0.531,
+    "p": 0.53,
     "tie": 0.033,
     "name": "1st half"
    },
