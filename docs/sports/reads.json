@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T22:31Z",
+ "updated": "2026-10-13T23:16Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -46,126 +46,120 @@
    }
   },
   {
+   "id": "nhl:401892490",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-13T22:30Z",
+   "away": "Sabres",
+   "home": "Canadiens",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892491",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-13T22:45Z",
+   "away": "Capitals",
+   "home": "Hurricanes",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nba:401898403",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-13T23:00Z",
+   "away": "Cavaliers",
+   "home": "Magic",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401871067",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Delaware",
-    "p": 0.489,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-13T23:00Z",
    "away": "Delaware",
    "home": "MTSU",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Delaware",
-    "opp": "MTSU",
+    "team": "MTSU",
+    "opp": "Delaware",
     "market": "ml",
     "line": null,
-    "odds": -118,
-    "p": 0.502,
-    "win_p": 0.502,
+    "odds": -105,
+    "p": 0.5,
+    "win_p": 0.5,
     "reasons": [
-     "sharp money moving this way"
-    ]
+     "opponent missing key players",
+     "the stronger team",
+     "hotter recent form"
+    ],
+    "result": null
    }
+  },
+  {
+   "id": "nba:401908944",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-13T23:00Z",
+   "away": "Knicks",
+   "home": "Raptors",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "nhl:401892492",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Kraken",
-    "p": 0.351,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-13T23:00Z",
    "away": "Kraken",
    "home": "Flyers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "play",
    "lean": {
     "team": "Kraken",
     "opp": "Flyers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -258,
-    "p": 0.715,
-    "win_p": 0.501,
+    "market": "ml",
+    "line": null,
+    "odds": 102,
+    "p": 0.479,
+    "win_p": 0.479,
     "reasons": [
      "hotter recent form",
-     "hotter goalie",
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892493",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Lightning",
-    "p": 0.398,
-    "tie": 0.297,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-13T23:15Z",
-   "away": "Lightning",
-   "home": "Rangers",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Rangers",
-    "opp": "Lightning",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -192,
-    "p": 0.621,
-    "win_p": 0.399,
-    "reasons": [
      "hotter goalie"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892494",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Blues",
-    "p": 0.382,
-    "tie": 0.298,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-13T23:30Z",
-   "away": "Blues",
-   "home": "Senators",
-   "why": "no_value",
-   "board": null,
-   "lean": {
-    "team": "Senators",
-    "opp": "Blues",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -265,
-    "p": 0.652,
-    "win_p": 0.432,
-    "reasons": [
-     "the stronger team",
-     "hotter recent form"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -205,7 +199,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Jax State",
-    "p": 0.552,
+    "p": 0.526,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -221,9 +215,9 @@
     "opp": "FIU",
     "market": "ml",
     "line": null,
-    "odds": -155,
-    "p": 0.583,
-    "win_p": 0.583,
+    "odds": -135,
+    "p": 0.551,
+    "win_p": 0.551,
     "reasons": [
      "the stronger team",
      "better QB play lately",
@@ -237,7 +231,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.502,
+    "p": 0.504,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -254,8 +248,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -189,
-    "p": 0.605,
-    "win_p": 0.416,
+    "p": 0.603,
+    "win_p": 0.415,
     "reasons": [
      "hotter recent form"
     ]
