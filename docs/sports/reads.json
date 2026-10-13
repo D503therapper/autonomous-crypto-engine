@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T01:38Z",
+ "updated": "2026-10-13T01:40Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -85,7 +85,7 @@
    "home": "Devils",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Devils",
@@ -98,7 +98,7 @@
     "reasons": [
      "opponent drama: trade drama"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -223,7 +223,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Red Wings",
-    "p": 0.353,
+    "p": 0.367,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -232,7 +232,7 @@
    "start": "2026-10-13T22:00Z",
    "away": "Devils",
    "home": "Red Wings",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Red Wings",
@@ -240,10 +240,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -278,
-    "p": 0.717,
-    "win_p": 0.506,
+    "p": 0.742,
+    "win_p": 0.537,
     "reasons": [
-     "hotter goalie"
+     "hotter goalie",
+     "opponent on a back-to-back",
+     "better rested"
     ]
    }
   },
@@ -428,8 +430,8 @@
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
    "h1": {
-    "team": "Senators",
-    "p": 0.353,
+    "team": "Blues",
+    "p": 0.362,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -446,11 +448,12 @@
     "market": "spread",
     "line": 1.5,
     "odds": -230,
-    "p": 0.71,
-    "win_p": 0.494,
+    "p": 0.736,
+    "win_p": 0.527,
     "reasons": [
-     "sharp money moving this way",
-     "opponent drama: trade drama"
+     "opponent on a back-to-back",
+     "better rested",
+     "sharp money moving this way"
     ]
    }
   },

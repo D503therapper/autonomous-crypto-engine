@@ -10858,6 +10858,7 @@
      "game:conf"
     ],
     "dec": 1.7407407407407407,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -10871,6 +10872,10 @@
     "fill": true,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,2,2",
+     "h": "0,0,1"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -10906,9 +10911,11 @@
      "opponent drama: trade drama"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Senators 4 @ Devils 1",
+    "settled": "2026-10-13T01:39Z",
     "side": "home",
     "start": "2026-10-12T23:00Z",
     "stype": "2",
@@ -10933,11 +10940,13 @@
    }
   ],
   "p_hit": 0.5492,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-12T15:11Z",
   "round": 1,
+  "settled": "2026-10-13T01:39Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  }
 ]
