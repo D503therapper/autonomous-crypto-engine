@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 55,
+  "n": 56,
   "beat": 16,
   "same": 23,
-  "worse": 16,
-  "avg_pts": -0.01
+  "worse": 17,
+  "avg_pts": -0.05
  },
  "unit_plays": {
   "n": 25,
@@ -22,11 +22,11 @@
    "avg_pts": -0.37
   },
   "lean": {
-   "n": 30,
+   "n": 31,
    "beat": 10,
    "same": 10,
-   "worse": 10,
-   "avg_pts": -0.06
+   "worse": 11,
+   "avg_pts": -0.14
   },
   "lock": {
    "n": 8,
@@ -66,11 +66,11 @@
    "avg_pts": -0.26
   },
   "nhl": {
-   "n": 22,
+   "n": 23,
    "beat": 5,
    "same": 12,
-   "worse": 5,
-   "avg_pts": -0.06
+   "worse": 6,
+   "avg_pts": -0.17
   }
  },
  "lock_by_size": {
@@ -871,6 +871,20 @@
    "odds": -112,
    "close": -105,
    "pts": -1.6,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -122,
+   "pts": -2.5,
    "units": 0,
    "result": "lost"
   }

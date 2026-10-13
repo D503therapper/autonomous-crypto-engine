@@ -3191,5 +3191,57 @@
   "score": "3-5",
   "margin": -2.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-12",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "nhl",
+  "game_id": "nhl:401892486",
+  "team": "Devils",
+  "opp": "Senators",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -135,
+  "posted": "2026-10-12T15:11Z",
+  "price_says": 0.574,
+  "win_p": 0.549157637670114,
+  "own_read": 0.529,
+  "weighed": 0.529,
+  "dog_p": null,
+  "edge_own": -0.04868437040306539,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent drama: trade drama"
+  ],
+  "angles": [
+   "rec:3",
+   "worse:2",
+   "h2h:2",
+   "drama_trade_drama:1",
+   "home:0",
+   "healthy:0",
+   "sharp:0",
+   "splits_w:0",
+   "bottom_c:2",
+   "w_num:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "ride",
+  "close": -122,
+  "beat_close_pts": -2.5,
+  "result": "lost",
+  "score": "1-4",
+  "margin": -3.0,
+  "pnl_units": 0
  }
 ]
