@@ -1,27 +1,46 @@
 {
- "at": "2026-10-13T11:08Z",
+ "at": "2026-10-13T11:53Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Geerlings vs Kovacevic: no points for 2047s",
+  "live tennis scores: tennis Del Olmo vs Sobolieva: no points for 1481s",
+  "live tennis scores: tennis Encheva vs Kucmova: no points for 129s",
+  "live tennis scores: tennis Siskova vs Ruzic: no points for 2632s",
+  "live tennis scores: tennis Charaeva vs Kubka: no points for 2108s",
+  "live tennis scores: tennis Lollia vs Semenistaja: no points for 2632s"
+ ],
  "ok": [
-  "live watcher fresh (279s)",
+  "live watcher fresh (42s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 8 live matches",
+  "live tennis points + server: 2 of 9 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 5h ago",
-  "simulator ran 4h ago",
-  "engine ran 4 min ago",
+  "simulator ran 5h ago",
+  "engine ran 48 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-13T11:53Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Geerlings vs Kovacevic: no points for 2047s",
+    "live tennis scores: tennis Del Olmo vs Sobolieva: no points for 1481s",
+    "live tennis scores: tennis Encheva vs Kucmova: no points for 129s",
+    "live tennis scores: tennis Siskova vs Ruzic: no points for 2632s",
+    "live tennis scores: tennis Charaeva vs Kubka: no points for 2108s",
+    "live tennis scores: tennis Lollia vs Semenistaja: no points for 2632s"
+   ]
+  },
   {
    "at": "2026-10-13T11:08Z",
    "fixes": [],
@@ -532,11 +551,6 @@
   },
   {
    "at": "2026-10-10T22:32Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-10T22:27Z",
    "fixes": [],
    "problems": []
   }
