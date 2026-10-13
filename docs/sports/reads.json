@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T14:55Z",
+ "updated": "2026-10-13T15:01Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -29,7 +29,7 @@
     "reasons": [
      "hotter goalie",
      "hotter recent form",
-     "opponent drama: trade drama"
+     "opponent missing key players"
     ]
    }
   },
@@ -48,8 +48,8 @@
    "start": "2026-10-13T22:15Z",
    "away": "Panthers",
    "home": "Blue Jackets",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Panthers",
     "opp": "Blue Jackets",
@@ -127,7 +127,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "MTSU",
-    "p": 0.484,
+    "p": 0.483,
     "tie": 0.034,
     "name": "1st half"
    },
@@ -136,8 +136,8 @@
    "start": "2026-10-13T23:00Z",
    "away": "Delaware",
    "home": "MTSU",
-   "why": "coin_flip",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "MTSU",
     "opp": "Delaware",
@@ -147,6 +147,7 @@
     "p": 0.5,
     "win_p": 0.5,
     "reasons": [
+     "opponent missing key players",
      "the stronger team",
      "hotter recent form"
     ]
@@ -167,8 +168,8 @@
    "start": "2026-10-13T23:00Z",
    "away": "Kraken",
    "home": "Flyers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Kraken",
     "opp": "Flyers",
@@ -178,7 +179,8 @@
     "p": 0.696,
     "win_p": 0.479,
     "reasons": [
-     "hotter recent form"
+     "hotter recent form",
+     "hotter goalie"
     ]
    }
   },
@@ -313,7 +315,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.493,
+    "p": 0.497,
     "tie": 0.118,
     "name": "first 5 innings"
    },
@@ -322,16 +324,16 @@
    "start": "2026-10-14T00:00Z",
    "away": "Guardians",
    "home": "Rays",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "Guardians",
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
     "odds": -205,
-    "p": 0.615,
-    "win_p": 0.427,
+    "p": 0.61,
+    "win_p": 0.422,
     "reasons": [
      "hotter recent form"
     ]
@@ -380,8 +382,8 @@
    "start": "2026-10-14T00:15Z",
    "away": "Wild",
    "home": "Jets",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Wild",
     "opp": "Jets",
@@ -482,7 +484,9 @@
     "odds": -180,
     "p": 0.632,
     "win_p": 0.411,
-    "reasons": []
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
