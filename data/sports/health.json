@@ -1,29 +1,38 @@
 {
- "at": "2026-10-13T03:56Z",
+ "at": "2026-10-13T04:18Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Volynets vs Birrell: points frozen at 0-0 for 230s"
+ ],
  "ok": [
-  "live watcher fresh (18s)",
+  "live watcher fresh (37s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
+  "live tennis points + server: 4 of 4 live matches",
   "slate check: all 6 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
-  "all 3 backup sources answering",
+  "tennis live prices: 4 live lines, 3 fresh (betrivers 3)",
+  "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 3h ago",
+  "studies ran 4h ago",
   "simulator ran 3h ago",
-  "engine ran 55 min ago",
+  "engine ran 13 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-13T04:18Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Volynets vs Birrell: points frozen at 0-0 for 230s"
+   ]
+  },
   {
    "at": "2026-10-13T03:56Z",
    "fixes": [],
@@ -535,17 +544,6 @@
    "fixes": [],
    "problems": [
     "studies last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-10T15:30Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
    ]
   }
  ]
