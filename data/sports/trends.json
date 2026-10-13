@@ -497,13 +497,13 @@
    ],
    "league": "nfl",
    "outcome": "total",
-   "price_said": 24.0,
-   "record": "23-25",
+   "price_said": 24.5,
+   "record": "24-25",
    "season": 2026,
    "side": 1,
    "situation": "home favorite",
-   "streak": 5,
-   "strength": 2.21,
+   "streak": 6,
+   "strength": 2.86,
    "trend": "over",
    "upcoming": [
     "nfl:401872996",
@@ -697,6 +697,24 @@
     "Canadiens @ Capitals",
     "Stars @ Avalanche"
    ],
+   "verdict": "coin flip"
+  },
+  {
+   "families": [
+    "streak"
+   ],
+   "league": "mlb",
+   "outcome": "fav_ml",
+   "price_said": 115.0,
+   "record": "109-157",
+   "season": 2026,
+   "side": 0,
+   "situation": "monday",
+   "streak": 5,
+   "strength": 1.75,
+   "trend": "underdogs win",
+   "upcoming": [],
+   "upcoming_names": [],
    "verdict": "coin flip"
   },
   {
@@ -1539,12 +1557,12 @@
    "hit": 0.6885,
    "hit_new": 0.6901,
    "hit_old": 0.687,
-   "n": 230359,
+   "n": 230360,
    "n_new": 115180,
-   "n_old": 115179,
+   "n_old": 115180,
    "said": 0.6794,
    "status": "watch only",
-   "to": "2026-10-11",
+   "to": "2026-10-12",
    "z": 10.1
   },
   "mlb|all": {
@@ -2220,20 +2238,20 @@
    "z": -0.35
   },
   "nfl|all": {
-   "edge": -0.0034,
+   "edge": -0.0033,
    "edge_new": -0.0,
-   "edge_old": -0.0068,
+   "edge_old": -0.0066,
    "from": "2018-09-10",
    "hit": 0.6326,
    "hit_new": 0.6364,
-   "hit_old": 0.6288,
-   "n": 5653,
+   "hit_old": 0.6289,
+   "n": 5654,
    "n_new": 2827,
-   "n_old": 2826,
+   "n_old": 2827,
    "said": 0.636,
    "status": "watch only",
-   "to": "2026-10-11",
-   "z": -0.56
+   "to": "2026-10-12",
+   "z": -0.54
   },
   "nfl|rate": {
    "edge": 0.0006,
@@ -2316,20 +2334,20 @@
    "z": -0.64
   },
   "nfl|streak": {
-   "edge": -0.0142,
-   "edge_new": -0.0056,
+   "edge": -0.0139,
+   "edge_new": -0.005,
    "edge_old": -0.0228,
    "from": "2018-09-17",
-   "hit": 0.5832,
-   "hit_new": 0.58,
+   "hit": 0.5835,
+   "hit_new": 0.5805,
    "hit_old": 0.5865,
-   "n": 1538,
-   "n_new": 769,
+   "n": 1539,
+   "n_new": 770,
    "n_old": 769,
-   "said": 0.5975,
+   "said": 0.5974,
    "status": "watch only",
-   "to": "2026-10-11",
-   "z": -1.2
+   "to": "2026-10-12",
+   "z": -1.17
   },
   "nfl|streak|fav_cover": {
    "edge": -0.004,
@@ -2380,20 +2398,20 @@
    "z": 0.23
   },
   "nfl|streak|total": {
-   "edge": -0.0538,
-   "edge_new": -0.057,
+   "edge": -0.0521,
+   "edge_new": -0.0535,
    "edge_old": -0.0506,
    "from": "2018-09-23",
-   "hit": 0.4462,
-   "hit_new": 0.443,
+   "hit": 0.4479,
+   "hit_new": 0.4465,
    "hit_old": 0.4494,
-   "n": 316,
-   "n_new": 158,
+   "n": 317,
+   "n_new": 159,
    "n_old": 158,
    "said": 0.5,
    "status": "watch only",
-   "to": "2025-12-27",
-   "z": -1.91
+   "to": "2026-10-12",
+   "z": -1.85
   },
   "nhl|all": {
    "edge": 0.0106,
@@ -2622,18 +2640,18 @@
   "streak": {
    "edge": 0.0061,
    "edge_new": 0.0064,
-   "edge_old": 0.0058,
+   "edge_old": 0.0057,
    "from": "2018-04-06",
    "hit": 0.6387,
    "hit_new": 0.6395,
-   "hit_old": 0.6379,
-   "n": 69633,
+   "hit_old": 0.6378,
+   "n": 69634,
    "n_new": 34817,
-   "n_old": 34816,
+   "n_old": 34817,
    "said": 0.6326,
    "status": "watch only",
-   "to": "2026-10-11",
-   "z": 3.55
+   "to": "2026-10-12",
+   "z": 3.56
   },
   "streak|fav_cover": {
    "edge": -0.0064,
@@ -2685,19 +2703,19 @@
   },
   "streak|total": {
    "edge": 0.0016,
-   "edge_new": 0.002,
+   "edge_new": 0.0021,
    "edge_old": 0.0012,
    "from": "2018-04-06",
    "hit": 0.5016,
-   "hit_new": 0.502,
+   "hit_new": 0.5021,
    "hit_old": 0.5012,
-   "n": 12438,
-   "n_new": 6219,
+   "n": 12439,
+   "n_new": 6220,
    "n_old": 6219,
    "said": 0.5,
    "status": "watch only",
-   "to": "2026-10-08",
-   "z": 0.36
+   "to": "2026-10-12",
+   "z": 0.37
   }
  },
  "follow_ups": {
@@ -2705,7 +2723,7 @@
   "nba": 33577,
   "ncaab": 135775,
   "ncaaf": 28933,
-  "nfl": 5653,
+  "nfl": 5654,
   "nhl": 10292
  },
  "proven": [
@@ -2719,5 +2737,5 @@
   "streak": 5,
   "z": 1.64
  },
- "updated": "2026-10-13T03:14Z"
+ "updated": "2026-10-13T04:16Z"
 }

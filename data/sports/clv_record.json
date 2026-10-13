@@ -1,8 +1,8 @@
 {
  "all": {
-  "n": 57,
+  "n": 58,
   "beat": 16,
-  "same": 23,
+  "same": 24,
   "worse": 18,
   "avg_pts": -0.07
  },
@@ -22,11 +22,11 @@
    "avg_pts": -0.37
   },
   "lean": {
-   "n": 32,
+   "n": 33,
    "beat": 10,
-   "same": 10,
+   "same": 11,
    "worse": 12,
-   "avg_pts": -0.18
+   "avg_pts": -0.17
   },
   "lock": {
    "n": 8,
@@ -59,11 +59,11 @@
    "avg_pts": 0.19
   },
   "nfl": {
-   "n": 10,
+   "n": 11,
    "beat": 2,
-   "same": 4,
+   "same": 5,
    "worse": 4,
-   "avg_pts": -0.26
+   "avg_pts": -0.24
   },
   "nhl": {
    "n": 24,
@@ -858,6 +858,20 @@
    "close": -142,
    "pts": 1.2,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Bills",
+   "market": "ml",
+   "line": null,
+   "odds": 150,
+   "close": 150,
+   "pts": 0.0,
+   "units": 0,
    "result": "won"
   },
   {
