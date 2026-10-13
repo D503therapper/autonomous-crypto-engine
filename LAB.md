@@ -12,12 +12,12 @@ Every candidate strategy runs its own separate pretend $500 so they can be compa
 | crypto | announce | $500.00 | +0.0% | 0 |
 | crypto | chaser | $500.00 | +0.0% | 0 |
 | stocks | dual_momentum | $497.17 | -0.6% | 2 |
-| crypto | hold_btc | $495.82 | -0.8% | 1 |
+| crypto | hold_btc | $496.58 | -0.7% | 1 |
 | crypto | breakout | $494.04 | -1.2% | 2 |
 | stocks | momentum | $493.19 | -1.4% | 8 |
-| crypto | breakout10 | $491.69 | -1.7% | 2 |
+| crypto | breakout10 | $492.69 | -1.5% | 2 |
 | stocks | trend | $488.95 | -2.2% | 33 |
-| crypto | social_heat | $438.05 | -12.4% | 23 |
-| crypto | momentum | $428.76 | -14.2% | 14 |
-| crypto | mover | $317.32 | -36.5% | 59 |
+| crypto | social_heat | $438.18 | -12.4% | 23 |
+| crypto | momentum | $429.33 | -14.1% | 14 |
+| crypto | mover | $322.25 | -35.6% | 59 |
 | crypto | early_mover (official) | $0.00 | -100.0% | 6 |
