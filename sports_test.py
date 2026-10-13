@@ -10478,6 +10478,29 @@ def test_brain_says_leans_carry_no_units():
                              "legs": [{"odds": -120, "dec": sd.decimal(-120), "p": 0.6, "edge_own": 0.1}]}) == 0
 
 
+def test_upgraded_dog_never_stays_twice():
+    """10/13: the Flames took the Dog spot from the Kraken (upgrade_dog), the Kraken became a ½u value play - but a merged
+    save kept the old Kraken Dog too: the Kraken counted as a 1u Dog AND a ½u play, two Dogs on one board. The stale
+    Dog copy is dropped on load (dedupe_picks) and in the git merge (merge_picks)."""
+    import importlib.util
+    leg = lambda t, g, side: [{"team": t, "game_id": g, "side": side, "market": "ml"}]
+    ps = [{"date": "2026-10-13", "kind": "dog", "status": "open", "posted": "2026-10-13T15:00Z", "legs": leg("Kraken", "nhl:1", "away")},
+          {"date": "2026-10-13", "kind": "play", "status": "open", "posted": "2026-10-13T15:00Z", "was_dog": "2026-10-13T15:41Z",
+           "legs": leg("Kraken", "nhl:1", "away")},
+          {"date": "2026-10-13", "kind": "dog", "status": "open", "posted": "2026-10-13T15:41Z", "upgraded": "2026-10-13T15:41Z",
+           "legs": leg("Flames", "nhl:2", "home")},
+          {"date": "2026-10-12", "kind": "dog", "status": "won", "posted": "2026-10-12T15:00Z", "legs": leg("Kraken", "nhl:1", "away")}]
+    out = sports.dedupe_picks(ps)
+    dogs = [(p["date"], p["legs"][0]["team"]) for p in out if p["kind"] == "dog"]
+    assert dogs == [("2026-10-13", "Flames"), ("2026-10-12", "Kraken")], dogs
+    assert any(p["kind"] == "play" and p["legs"][0]["team"] == "Kraken" for p in out)
+    spec = importlib.util.spec_from_file_location("merge_json", "tools/merge_json.py")
+    mj = importlib.util.module_from_spec(spec); spec.loader.exec_module(mj)
+    merged = mj.merge_picks(ps[1:3], ps[:1] + ps[3:])
+    assert sorted((p["date"], p["kind"], p["legs"][0]["team"]) for p in merged) == [
+        ("2026-10-12", "dog", "Kraken"), ("2026-10-13", "dog", "Flames"), ("2026-10-13", "play", "Kraken")]
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

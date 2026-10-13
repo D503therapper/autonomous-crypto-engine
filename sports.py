@@ -3605,7 +3605,17 @@ def dedupe_picks(picks):
             continue
         seen.add(k)
         out.append(p)
-    return out
+    return drop_stale_dogs(out)
+
+
+def drop_stale_dogs(picks):
+    """10/13: upgrade_dog turned the Kraken Dog into a ½u value play, but a save merged with a run that still held the
+    old Dog - the board showed the Kraken twice (Dog 1u AND play ½u) next to the new Dog. A Dog whose day + game + side
+    is now a play marked was_dog is the stale copy: it goes."""
+    demoted = {(p.get("date"), l.get("game_id"), l.get("side")) for p in picks
+               if p.get("kind") == "play" and p.get("was_dog") for l in (p.get("legs") or [])[:1]}
+    return [p for p in picks if not (p.get("kind") == "dog" and not p.get("upgraded") and p.get("legs")
+                                     and (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side")) in demoted)]
 
 
 def run(repick=False, fetch=True):

@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 54,
+  "n": 58,
   "beat": 16,
-  "same": 23,
-  "worse": 15,
-  "avg_pts": 0.02
+  "same": 24,
+  "worse": 18,
+  "avg_pts": -0.07
  },
  "unit_plays": {
   "n": 25,
@@ -22,11 +22,11 @@
    "avg_pts": -0.37
   },
   "lean": {
-   "n": 29,
+   "n": 33,
    "beat": 10,
-   "same": 10,
-   "worse": 9,
-   "avg_pts": -0.01
+   "same": 11,
+   "worse": 12,
+   "avg_pts": -0.17
   },
   "lock": {
    "n": 8,
@@ -59,18 +59,18 @@
    "avg_pts": 0.19
   },
   "nfl": {
-   "n": 10,
+   "n": 11,
    "beat": 2,
-   "same": 4,
+   "same": 5,
    "worse": 4,
-   "avg_pts": -0.26
+   "avg_pts": -0.24
   },
   "nhl": {
-   "n": 21,
+   "n": 24,
    "beat": 5,
    "same": 12,
-   "worse": 4,
-   "avg_pts": 0.01
+   "worse": 7,
+   "avg_pts": -0.22
   }
  },
  "lock_by_size": {
@@ -859,6 +859,62 @@
    "pts": 1.2,
    "units": 0.5,
    "result": "won"
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "lean",
+   "lean": true,
+   "league": "nfl",
+   "team": "Bills",
+   "market": "ml",
+   "line": null,
+   "odds": 150,
+   "close": 150,
+   "pts": 0.0,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Wild",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -112,
+   "pts": -1.3,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Panthers",
+   "market": "ml",
+   "line": null,
+   "odds": -112,
+   "close": -105,
+   "pts": -1.6,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -122,
+   "pts": -2.5,
+   "units": 0,
+   "result": "lost"
   }
  ]
 }

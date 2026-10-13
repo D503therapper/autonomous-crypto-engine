@@ -556,3 +556,7 @@ mean -6.5%, 12 dumped >= 80%. Pools 2-6 days old, $250k+, liquidity +20% in 24h,
 high: n 19, mean +3.8%, MEDIAN +22.9%, 53% winners, 3 dumped (halves -0.44 / +1.16). 3d+ / $250k / liquidity up /
 within 50%: n 35, mean +2.2%, 2 dumped. None reached 5x in ~2 weeks of data - survivors dodge the dumps but the moonshot
 odds are unproven. Live from 10-11 (config entry mode "survivor"); judge ~10-31 vs the momentum rule's -41%.
+
+### 2026-10-13 lopsided buys vs sells as a rug sign (SI276: 3,717 / 33, dumped in 8h)
+Scanner log, first reading per pool ($100k+, 20+ buys, ratio >= 2), n 925: rug rate 16% / 10% / 6% / 6% for ratios
+2-5 / 5-10 / 10-30 / 30+; <=-80% outcomes 6% / 2% / 0% / 0%. Not a rug sign. No filter.
