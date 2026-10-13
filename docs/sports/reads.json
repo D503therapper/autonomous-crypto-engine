@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T23:39Z",
+ "updated": "2026-10-13T00:21Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -117,96 +117,89 @@
    "lean": null
   },
   {
+   "id": "nba:401914124",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-12T23:30Z",
+   "away": "Timberwolves",
+   "home": "Knicks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892487",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.351,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-13T00:00Z",
    "away": "Golden Knights",
    "home": "Wild",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Golden Knights",
-    "opp": "Wild",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -285,
-    "p": 0.715,
-    "win_p": 0.501,
+    "team": "Wild",
+    "opp": "Golden Knights",
+    "market": "ml",
+    "line": null,
+    "odds": -118,
+    "p": 0.513,
+    "win_p": 0.513,
     "reasons": [
-     "hotter recent form"
-    ]
+     "hotter goalie"
+    ],
+    "result": null
    }
   },
   {
    "id": "mlb:401908023",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Rays",
-    "p": 0.542,
-    "tie": 0.115,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-13T00:00Z",
    "away": "Guardians",
    "home": "Rays",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Rays",
-    "opp": "Guardians",
-    "market": "ml",
-    "line": null,
-    "odds": -163,
-    "p": 0.619,
-    "win_p": 0.619,
-    "reasons": [
-     "the stronger team",
-     "better starting pitcher",
-     "better rested"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nfl:401872994",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Rams",
-    "p": 0.531,
-    "tie": 0.039,
-    "name": "1st half"
-   },
    "sport": "NFL",
    "season": "regular season",
    "start": "2026-10-13T00:15Z",
    "away": "Bills",
    "home": "Rams",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Rams",
-    "opp": "Bills",
+    "team": "Bills",
+    "opp": "Rams",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.575,
-    "win_p": 0.575,
+    "odds": 150,
+    "p": 0.407,
+    "win_p": 0.407,
     "reasons": [
-     "sharp money moving this way",
-     "opponent missing key players"
-    ]
+     "hotter recent form",
+     "better QB play lately",
+     "revenge game"
+    ],
+    "result": null
    }
   },
   {
