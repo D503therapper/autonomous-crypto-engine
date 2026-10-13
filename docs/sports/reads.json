@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T11:54Z",
+ "updated": "2026-10-13T12:18Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -94,7 +94,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Hurricanes",
-    "p": 0.394,
+    "p": 0.389,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -111,8 +111,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -192,
-    "p": 0.632,
-    "win_p": 0.411,
+    "p": 0.642,
+    "win_p": 0.422,
     "reasons": [
      "hotter goalie"
     ]
@@ -309,8 +309,8 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.506,
-    "tie": 0.117,
+    "p": 0.493,
+    "tie": 0.118,
     "name": "first 5 innings"
    },
    "sport": "MLB",
@@ -325,9 +325,9 @@
     "opp": "Rays",
     "market": "spread",
     "line": 1.5,
-    "odds": -194,
-    "p": 0.6,
-    "win_p": 0.412,
+    "odds": -205,
+    "p": 0.615,
+    "win_p": 0.427,
     "reasons": [
      "hotter recent form"
     ]
@@ -557,17 +557,20 @@
    "start": "2026-10-14T03:00Z",
    "away": "Bruins",
    "home": "Sharks",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Sharks",
-    "opp": "Bruins",
+    "team": "Bruins",
+    "opp": "Sharks",
     "market": "spread",
     "line": 1.5,
-    "odds": -285,
-    "p": 0.706,
-    "win_p": 0.493,
-    "reasons": []
+    "odds": -278,
+    "p": 0.721,
+    "win_p": 0.508,
+    "reasons": [
+     "hotter goalie",
+     "the stronger team"
+    ]
    }
   },
   {
