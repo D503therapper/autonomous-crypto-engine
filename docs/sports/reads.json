@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T00:51Z",
+ "updated": "2026-10-13T01:04Z",
  "games": [
   {
    "id": "nhl:401892485",
@@ -547,17 +547,20 @@
    "start": "2026-10-14T00:15Z",
    "away": "Wild",
    "home": "Jets",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
-    "team": "Jets",
-    "opp": "Wild",
+    "team": "Wild",
+    "opp": "Jets",
     "market": "spread",
     "line": 1.5,
-    "odds": -290,
-    "p": 0.718,
-    "win_p": 0.507,
-    "reasons": []
+    "odds": -265,
+    "p": 0.709,
+    "win_p": 0.494,
+    "reasons": [
+     "the stronger team",
+     "hotter goalie"
+    ]
    }
   },
   {
