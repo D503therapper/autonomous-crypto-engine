@@ -11691,6 +11691,7 @@
      "us:west1000"
     ],
     "dec": 2.45,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11705,6 +11706,10 @@
     "edge_own": -0.028418407756791386,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,2",
+     "h": "2,0,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -11738,9 +11743,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Flames 4 @ Ducks 2",
+    "settled": "2026-10-14T04:29Z",
     "side": "away",
     "start": "2026-10-14T01:45Z",
     "stype": "2",
@@ -11758,12 +11765,14 @@
   ],
   "midday": true,
   "p_hit": 0.3966,
-  "pnl": 0.0,
+  "pnl": 145.0,
   "posted": "2026-10-13T15:41Z",
   "round": 1,
+  "settled": "2026-10-14T04:29Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
+  "units": 1.0,
   "upgraded": "2026-10-13T15:41Z"
  }
 ]
