@@ -10522,6 +10522,25 @@ def test_paused_spots_never_post():
         se.scan, se.with_book_lines, se.ON = keep
 
 
+def test_college_favorite_off_a_loss_weighed_down():
+    """10/14 study: college moneyline favorites -101..-150 coming off a loss lost to their price 8 of 9 seasons (-14.2% /
+    -19.5%). Their weighed read drops 3 points on top of weigh_favorites, never past FAV_CAP; off a win, untouched;
+    other sports and prices untouched; tagged for the lead tracker."""
+    import sports_leads
+    mk = lambda lg, odds, won, w_p=None: {"league": lg, "market": "ml", "odds": odds, "dec": sports.sd.decimal(odds),
+                                          "edge_own": 0.6 * sports.sd.decimal(odds) - 1, "w_p": w_p, "reasons": [],
+                                          "dog_ctx": {"won": won}}
+    a, b, c, d, e = mk("ncaaf", -140, False), mk("ncaaf", -140, True), mk("nfl", -140, False), mk("ncaaf", -200, False), \
+        mk("ncaaf", -140, False, w_p=0.57)
+    sports.weigh_ncaaf_fav_off_loss([a, b, c, d, e])
+    assert abs(a["w_p"] - 0.57) < 1e-9 and a["fav_off_loss"]
+    assert b.get("w_p") is None and c.get("w_p") is None and d.get("w_p") is None
+    assert abs(e["w_p"] - 0.56) < 1e-9                       # 0.57 - 0.03 = 0.54, floored at own 0.60 - FAV_CAP 0.04
+    assert sports.read_of(a) < 0.6
+    assert "college favorite off a loss (fade)" in sports_leads.tags(a, sports)
+    assert "weigh_ncaaf_fav_off_loss(out)" in open("sports.py").read()
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

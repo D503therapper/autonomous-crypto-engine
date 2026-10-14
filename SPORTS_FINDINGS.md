@@ -13,6 +13,18 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/14 - TEN STUDIES (daily run): the Lock's price band (-101..-150) broken down in all four sports, college QB change / NFL young QB, the game after the first loss, dogs by game total (college + NHL): ONE BUILT (college favorite off a loss), the rest DEAD
+Thresholds on 2018-22 (QB data 2021-23; MLB 2018-23), graded blind 2023-26 vs every side at the same price band. ~400 cells - ~20 pass by luck.
+- **BUILT - college favorite -101..-150 OFF A LOSS:** -14.2% train (232) / -19.5% blind (223), won 44.4% blind where the price said 53.1%, down 8 of 9 seasons; home favorites off a loss -25.2% / -18.5%, 9 of 9. Wired as a WEIGHT: sports.weigh_ncaaf_fav_off_loss, -3 points on the favorite's weighed read on top of the dog's existing "favorite lost its last" +2 (the whole lift inside FAV_CAP); lead tag "college favorite off a loss (fade)"; test_college_favorite_off_a_loss_weighed_down.
+- College favorites in the band overall: -8.7% / -6.9%; least bad off a win -2.3% / -0.3% (break-even, not a winner). LEAD (not built): -136..-150 college favorites -11.9% / -17.5%, at home -15.4% / -21.7%.
+- **NFL favorites -101..-150:** DEAD - overall -5.8% / -4.4%; off a loss -9.1% / -5.4% (mild); September favorites -10.2% / -9.7% (84 / 78, small).
+- **NHL favorites -101..-150:** DEAD - no subset holds; the rested favorite vs a back-to-back dog (+8.5% / +0.8%, one blind season) is already the engine's back-to-back weight. Postseason favorites -7.4% (332).
+- **MLB favorites -101..-150:** DEAD - no subset break-even blind; worst: road favorite with the weaker starter -1.3% / -11.3% (372), -126..-150 +0.1% / -7.2%; postseason -8.9% (205).
+- **College QB change (players/ncaaf.csv top passer):** DEAD - the in-game 'change' is look-ahead (benchings in losses); the pregame-knowable version (last game was a change) is noise (dogs ±, ~1 SE, ATS 49.4%).
+- **NFL young QB (5 or fewer starts in data from 2016) vs a 20+ start QB:** DEAD - priced (young side -12.3% vs band -13.2% blind; vet side +4 pts both halves, not significant).
+- **The game after a team's first loss (college after 3-0+, NFL after 2-0+):** DEAD - college +edge train flips blind (-12.6%); NFL n 48.
+- **Dogs by game total (college bands, NHL 5.5 / 6 / 6.5+):** DEAD - no band holds both halves; college under-45 noise (z ~0.5); NHL 6.5+ dogs +2.5 vs band blind only.
+
 ## 10/13 - TEN STUDIES (daily run): weeks without a bye (college + NFL), college hot offense, the college turnover-luck WATCH re-checked, NHL back-to-back after OT / streak snaps / goalie first starts, home openers (college + NFL): ALL DEAD; the turnover-luck WATCH closed; nothing built
 Thresholds on 2018-22, graded blind 2023-26 vs every side at the same price band. ~180 cells.
 - **Weeks without a bye (college 6th-8th straight week, NFL 5th-7th; streaks counted only on observed weeks):** DEAD - college tired dog vs a team off a bye -28% n 92 -> +4.1% n 52; NFL +14.6% n 103 -> -30.6% n 63; ATS flips.

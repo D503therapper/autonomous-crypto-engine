@@ -597,6 +597,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
     weigh_hoops_inside(games, out, now)
     mark_doubleheader_game2(games, out)
     weigh_favorites(out)                              # every sport's favorite weighed by the dog across from it (10/2)
+    weigh_ncaaf_fav_off_loss(out)
     for c in out:                                     # a PROVEN in-season trend backing this side: one more reason
         for market, side_, note, vd in sports_trends.lean(TRENDS_ST, c["league"], games.get(c["game_id"], {})):
             if vd in ("ride", "fade") and market == c["market"] and side_ == c["side"]:
@@ -1934,6 +1935,27 @@ def weigh_favorites(cands):
         lift = max(-FAV_CAP, min(FAV_CAP, -FAV_PER_PT * pts))
         fav["opp_dog_pts"] = round(pts, 2)
         fav["w_p"] = round(min(0.95, max(0.05, (fav["edge_own"] + 1) / fav["dec"] + lift)), 4)
+
+
+NCAAF_FAV_OFF_LOSS = -0.03   # 10/14 study: a college moneyline favorite -101..-150 coming off a LOSS won 44.4% blind
+#                              where its price said 53.1% - -14.2% train (232) / -19.5% blind (223), down 8 of 9 seasons;
+#                              home ones 9 of 9. The dog's "favorite lost its last" +2 already moves this read -1; this
+#                              adds 3 more (the read's total lift stays inside FAV_CAP). A weight, never a trigger.
+
+
+def weigh_ncaaf_fav_off_loss(cands):
+    """A college favorite (-101..-150) whose last game was a loss: its weighed read goes down by NCAAF_FAV_OFF_LOSS,
+    on top of what weigh_favorites already took, the whole lift capped at FAV_CAP."""
+    for c in cands:
+        if c.get("league") != "ncaaf" or c.get("market") != "ml" or not (-150 <= c.get("odds", 0) <= -101):
+            continue
+        if (c.get("dog_ctx") or {}).get("won") is not False or c.get("edge_own") is None or not c.get("dec"):
+            continue
+        own = (c["edge_own"] + 1) / c["dec"]
+        base = c["w_p"] if c.get("w_p") is not None else own
+        c["w_p"] = round(min(0.95, max(0.05, max(own - FAV_CAP, base + NCAAF_FAV_OFF_LOSS))), 4)
+        c["fav_off_loss"] = True
+        c["reasons"] = c["reasons"] + ["college favorite off a loss - those lose to their price (8 of 9 seasons)"]
 
 
 MLB_DROUGHT_W = 0.03     # a baseball favorite that hasn't scored in 12+ innings: +10.2% on 217 at -150..-101, 7 of 9
