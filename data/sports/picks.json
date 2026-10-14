@@ -11163,6 +11163,7 @@
      "them:week3000"
     ],
     "dec": 1.8695652173913042,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11176,6 +11177,10 @@
     "edge_own": 0.0007622491330987469,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,0,0",
+     "h": "2,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -11208,9 +11213,11 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Wild 2 @ Jets 5",
+    "settled": "2026-10-14T02:56Z",
     "side": "home",
     "start": "2026-10-14T00:15Z",
     "stype": "2",
@@ -11227,12 +11234,14 @@
    }
   ],
   "p_hit": 0.5373,
-  "pnl": 0.0,
+  "pnl": 86.96,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T02:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -105,
@@ -11410,6 +11419,7 @@
      "them:out_dome"
     ],
     "dec": 1.7575757575757576,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11426,6 +11436,10 @@
     "edge_own": 0.016845649100902804,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,0,0,0,1,0,0",
+     "h": "0,0,0,3,0,0,0,0"
+    },
     "form_state": [
      -4.0,
      -1,
@@ -11471,9 +11485,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Guardians 1 @ Rays 3",
+    "settled": "2026-10-14T02:56Z",
     "side": "home",
     "start": "2026-10-14T00:00Z",
     "stype": "3",
@@ -11495,12 +11511,14 @@
    }
   ],
   "p_hit": 0.5675,
-  "pnl": 0.0,
+  "pnl": 75.76,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T02:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 102,
