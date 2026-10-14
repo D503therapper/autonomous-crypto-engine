@@ -15698,3 +15698,23 @@ DEX: $578.61 (-421.39) · Scammed: 0
 [2026-10-14 00:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 00:06 UTC] crypto/hold_btc  equity $495.27 (-0.9%) 1 open  market UP
    social heat top: PRL 32 (32/0/0), STRK 27 (27/0/0), QNT 24 (24/0/0), BAT 19 (19/0/0), PEPE 19 (19/0/0)
+   dex screen: REJECT SYRUP@ethereum liq $1,172,770 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 48%
+   dex screen: REJECT POD@base liq $5,191,451 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; top-10 holders 95%
+   dex screen: REJECT DRV@ethereum liq $252,663 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: REJECT QUID@base liq $824,146 - goplus partial data: cannot_sell_all unknown; top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT DRV@base liq $848,073 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT ELSA@base liq $376,401 - goplus partial data: cannot_sell_all unknown; top-10 holders 88%; lp locked 0% < 95%
+   dex screen: REJECT SUPER@ethereum liq $3,683,885 - is_mintable; top-10 holders 53%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,999 pools (solana 2,178 / base 504 / ethereum 317), refresh cycle 135s (hot 131s), 2781 calls (108 feed, 429s 0, failed 1), 80,156 refreshed (3864 no pair), +67 added / -69 dropped (dead 1, stale 0, cap 68), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex re-screen: QOMPUTE@solana:BQAeeSow unreachable (holders unknown; lp holders unknown; rugcheck unreachable); holding
+[2026-10-14 01:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 01:06 UTC] crypto/mover     equity $336.94 (-32.6%) 1 open  market UP
+[2026-10-14 01:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 01:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 01:06 UTC] crypto/social_heat equity $437.18 (-12.6%) 1 open  market UP
+[2026-10-14 01:06 UTC] crypto/breakout10 equity $481.93 (-3.6%) 2 open  market UP
+[2026-10-14 01:06 UTC] crypto/momentum  equity $427.92 (-14.4%) 2 open  market UP
+[2026-10-14 01:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 01:06 UTC] crypto/hold_btc  equity $495.99 (-0.8%) 1 open  market UP
+   social heat top: QNT 32 (32/0/0), STRK 29 (29/0/0), OP 27 (27/0/0), PONS 25 (16/0/9), PRL 24 (24/0/0)
