@@ -1,17 +1,17 @@
 {
  "all": {
-  "n": 61,
+  "n": 63,
   "beat": 18,
   "same": 24,
-  "worse": 19,
-  "avg_pts": -0.02
+  "worse": 21,
+  "avg_pts": -0.04
  },
  "unit_plays": {
-  "n": 26,
+  "n": 27,
   "beat": 7,
   "same": 13,
-  "worse": 6,
-  "avg_pts": 0.15
+  "worse": 7,
+  "avg_pts": 0.14
  },
  "by_kind": {
   "dog": {
@@ -22,18 +22,18 @@
    "avg_pts": -0.37
   },
   "lean": {
-   "n": 35,
+   "n": 36,
    "beat": 11,
    "same": 11,
-   "worse": 13,
-   "avg_pts": -0.16
+   "worse": 14,
+   "avg_pts": -0.18
   },
   "lock": {
-   "n": 8,
+   "n": 9,
    "beat": 3,
    "same": 4,
-   "worse": 1,
-   "avg_pts": 0.91
+   "worse": 2,
+   "avg_pts": 0.79
   },
   "play": {
    "n": 8,
@@ -45,11 +45,11 @@
  },
  "by_sport": {
   "mlb": {
-   "n": 10,
+   "n": 11,
    "beat": 5,
    "same": 1,
-   "worse": 4,
-   "avg_pts": 0.12
+   "worse": 5,
+   "avg_pts": 0.09
   },
   "ncaaf": {
    "n": 14,
@@ -66,20 +66,20 @@
    "avg_pts": -0.24
   },
   "nhl": {
-   "n": 26,
+   "n": 27,
    "beat": 7,
    "same": 12,
-   "worse": 7,
-   "avg_pts": -0.07
+   "worse": 8,
+   "avg_pts": -0.11
   }
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 4,
+   "n": 5,
    "beat": 1,
    "same": 3,
-   "worse": 0,
-   "avg_pts": 0.3
+   "worse": 1,
+   "avg_pts": 0.2
   },
   "1-2u": {
    "n": 1,
@@ -934,6 +934,20 @@
    "date": "2026-10-13",
    "kind": "lean",
    "lean": true,
+   "league": "nhl",
+   "team": "Jets",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -110,
+   "pts": -1.1,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "lean",
+   "lean": true,
    "league": "ncaaf",
    "team": "MTSU",
    "market": "ml",
@@ -942,6 +956,20 @@
    "close": -102,
    "pts": -0.7,
    "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "lock",
+   "lean": false,
+   "league": "mlb",
+   "team": "Rays",
+   "market": "ml",
+   "line": null,
+   "odds": -132,
+   "close": -131,
+   "pts": -0.2,
+   "units": 0.5,
    "result": "won"
   },
   {

@@ -3,24 +3,24 @@
  "groups": {
   "all": {
    "extra_edge": 0.0,
-   "hit": 0.561,
-   "n": 114,
-   "said": 0.527,
+   "hit": 0.569,
+   "n": 116,
+   "said": 0.528,
    "verdict": "hitting at or above what we said"
   },
   "ctx:game:conf": {
    "extra_edge": 0.0,
-   "hit": 0.583,
-   "n": 36,
-   "said": 0.515,
-   "verdict": "only 36 graded - report only (report only: forward-only tag)"
+   "hit": 0.595,
+   "n": 37,
+   "said": 0.517,
+   "verdict": "only 37 graded - report only (report only: forward-only tag)"
   },
   "ctx:game:div": {
    "extra_edge": 0.0,
-   "hit": 0.417,
-   "n": 36,
-   "said": 0.529,
-   "verdict": "only 36 graded - report only (report only: forward-only tag)"
+   "hit": 0.432,
+   "n": 37,
+   "said": 0.53,
+   "verdict": "only 37 graded - report only (report only: forward-only tag)"
   },
   "ctx:game:nonconf": {
    "extra_edge": 0.0,
@@ -60,9 +60,16 @@
   "ctx:them:out_dome": {
    "extra_edge": 0.0,
    "hit": 1.0,
-   "n": 4,
-   "said": 0.54,
-   "verdict": "only 4 graded - report only (report only: forward-only tag)"
+   "n": 5,
+   "said": 0.545,
+   "verdict": "only 5 graded - report only (report only: forward-only tag)"
+  },
+  "ctx:them:road3in6": {
+   "extra_edge": 0.0,
+   "hit": 1.0,
+   "n": 1,
+   "said": 0.537,
+   "verdict": "only 1 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:trip1000": {
    "extra_edge": 0.0,
@@ -80,10 +87,10 @@
   },
   "ctx:them:week3000": {
    "extra_edge": 0.0,
-   "hit": 0.75,
-   "n": 8,
-   "said": 0.55,
-   "verdict": "only 8 graded - report only (report only: forward-only tag)"
+   "hit": 0.778,
+   "n": 9,
+   "said": 0.549,
+   "verdict": "only 9 graded - report only (report only: forward-only tag)"
   },
   "ctx:them:west1000": {
    "extra_edge": 0.0,
@@ -150,9 +157,9 @@
   },
   "drama:none": {
    "extra_edge": 0.0,
-   "hit": 0.588,
-   "n": 97,
-   "said": 0.527,
+   "hit": 0.596,
+   "n": 99,
+   "said": 0.528,
    "verdict": "hitting at or above what we said"
   },
   "drama:ours": {
@@ -185,15 +192,15 @@
   },
   "label:lock": {
    "extra_edge": 0.0,
-   "hit": 0.7,
-   "n": 10,
+   "hit": 0.727,
+   "n": 11,
    "said": 0.569,
-   "verdict": "only 10 graded - report only"
+   "verdict": "only 11 graded - report only"
   },
   "label:parlay leg": {
    "extra_edge": 0.0,
-   "hit": 0.595,
-   "n": 74,
+   "hit": 0.6,
+   "n": 75,
    "said": 0.532,
    "verdict": "hitting at or above what we said"
   },
@@ -206,10 +213,10 @@
   },
   "league:mlb": {
    "extra_edge": 0.0,
-   "hit": 0.793,
-   "n": 29,
+   "hit": 0.8,
+   "n": 30,
    "said": 0.543,
-   "verdict": "only 29 graded - report only"
+   "verdict": "only 30 graded - report only"
   },
   "league:ncaaf": {
    "extra_edge": 0.0,
@@ -227,10 +234,10 @@
   },
   "league:nhl": {
    "extra_edge": 0.0,
-   "hit": 0.314,
-   "n": 35,
-   "said": 0.499,
-   "verdict": "only 35 graded - report only"
+   "hit": 0.333,
+   "n": 36,
+   "said": 0.501,
+   "verdict": "only 36 graded - report only"
   },
   "league:tennis": {
    "extra_edge": 0.0,
@@ -241,9 +248,9 @@
   },
   "market:ml": {
    "extra_edge": 0.0,
-   "hit": 0.581,
-   "n": 105,
-   "said": 0.527,
+   "hit": 0.589,
+   "n": 107,
+   "said": 0.528,
    "verdict": "hitting at or above what we said"
   },
   "market:spread": {
@@ -269,8 +276,8 @@
   },
   "price:-149..-101": {
    "extra_edge": 0.0,
-   "hit": 0.583,
-   "n": 72,
+   "hit": 0.595,
+   "n": 74,
    "said": 0.549,
    "verdict": "hitting at or above what we said"
   },
@@ -290,9 +297,9 @@
   },
   "source:pregame": {
    "extra_edge": 0.0,
-   "hit": 0.567,
-   "n": 97,
-   "said": 0.52,
+   "hit": 0.576,
+   "n": 99,
+   "said": 0.521,
    "verdict": "hitting at or above what we said"
   },
   "talk:ours:must-win": {
@@ -318,10 +325,10 @@
   },
   "talk:theirs:trash talk": {
    "extra_edge": 0.0,
-   "hit": 0.5,
-   "n": 2,
-   "said": 0.543,
-   "verdict": "only 2 graded - report only (report only: forward-only tag)"
+   "hit": 0.667,
+   "n": 3,
+   "said": 0.551,
+   "verdict": "only 3 graded - report only (report only: forward-only tag)"
   },
   "talk:theirs:unhappy": {
    "extra_edge": 0.0,
@@ -332,5 +339,5 @@
   }
  },
  "live_without_p": 13,
- "updated": "2026-10-14T02:47Z"
+ "updated": "2026-10-14T03:51Z"
 }
