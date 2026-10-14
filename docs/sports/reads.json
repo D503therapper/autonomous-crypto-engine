@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-14T00:01Z",
+ "updated": "2026-10-14T00:33Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -208,6 +208,21 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401871053",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-14T00:00Z",
+   "away": "FIU",
+   "home": "Jax State",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "mlb:401908024",
    "league": "mlb",
    "emoji": "\u26be",
@@ -237,6 +252,36 @@
    }
   },
   {
+   "id": "nba:401908621",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-14T00:00Z",
+   "away": "Pacers",
+   "home": "Thunder",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892496",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-14T00:00Z",
+   "away": "Penguins",
+   "home": "Blackhawks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892497",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
@@ -262,68 +307,6 @@
      "opponent on a back-to-back"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "nhl:401892498",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Stars",
-    "p": 0.356,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-14T00:30Z",
-   "away": "Avalanche",
-   "home": "Stars",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Avalanche",
-    "opp": "Stars",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -270,
-    "p": 0.704,
-    "win_p": 0.488,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
-  },
-  {
-   "id": "nhl:401892499",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.36,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-14T00:45Z",
-   "away": "Golden Knights",
-   "home": "Predators",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Predators",
-    "opp": "Golden Knights",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -245,
-    "p": 0.694,
-    "win_p": 0.479,
-    "reasons": [
-     "opponent on a back-to-back",
-     "better rested",
-     "hotter goalie"
-    ]
    }
   },
   {
@@ -526,8 +509,7 @@
     "p": 0.61,
     "win_p": 0.61,
     "reasons": [
-     "the stronger team",
-     "opponent drama: new baby"
+     "the stronger team"
     ]
    }
   },
