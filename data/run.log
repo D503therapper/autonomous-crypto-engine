@@ -16033,3 +16033,28 @@ error: failed to push some refs to 'https://github.
 [2026-10-14 10:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 10:06 UTC] crypto/hold_btc  equity $495.20 (-1.0%) 1 open  market UP
    social heat top: PENGU 47 (35/0/13), PRL 40 (40/0/0), NEAR 32 (32/0/0), PONS 32 (24/0/8), WAL 29 (29/0/0)
+   dex screen: REJECT ZEUS@solana liq $118,227 - top-10 holders 55%; lp holders unknown
+   dex screen: REJECT CIRBTC@ethereum liq $24,943,928 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 91%; lp locked 0% < 95%
+   dex screen: PASS ANTFUN@solana liq $11,539,999
+   dex screen: REJECT CHIP@base liq $152,190 - pool age unknown
+   dex screen: PASS MISTAKE@solana liq $172,335
+   dex screen: REJECT AERO@base liq $41,794,408 - is_mintable; top-10 holders 67%
+   dex screen: PASS SPX@ethereum liq $11,023,929
+   dex screen: REJECT DJT@solana liq $510,018 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+   dex screen: REJECT QNT@ethereum liq $855,164 - is_mintable; lp locked 0% < 95%
+   scanner: EPIC: +7.6% in 15 min on 7.0x volume @ 0.3751 spread 0.27%
+   take-off: BUY EPIC (scanner mover): EPIC: +7.6% in 15 min on 7.0x volume @ 0.3751 spread 0.27%
+   >> crypto/mover: BUY $148.59 of EPIC @ 0.375475 (scanner mover)
+   scanner: EPIC: +6.9% in 15 min on 7.1x volume @ 0.3722 spread 0.27%
+   scanner: EPIC: +12.5% in 15 min on 7.1x volume @ 0.3922 spread 0.33%
+   dex scanner: 3,000 pools (solana 2,051 / base 580 / ethereum 369), refresh cycle 128s (hot 123s), 2926 calls (108 feed, 429s 0, failed 1), 84,509 refreshed (6240 no pair), +42 added / -42 dropped (dead 1, stale 0, cap 41), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-14 11:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 11:06 UTC] crypto/mover     equity $335.37 (-32.9%) 1 open  market UP
+[2026-10-14 11:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 11:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 11:06 UTC] crypto/social_heat equity $444.84 (-11.0%) 2 open  market UP
+[2026-10-14 11:06 UTC] crypto/breakout10 equity $477.25 (-4.6%) 2 open  market UP
+[2026-10-14 11:06 UTC] crypto/momentum  equity $425.48 (-14.9%) 2 open  market UP
+[2026-10-14 11:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 11:06 UTC] crypto/hold_btc  equity $495.97 (-0.8%) 1 open  market UP
+   social heat top: PRL 37 (37/0/0), WAL 32 (32/0/0), PONS 30 (19/0/11), PENGU 27 (27/0/0), ARB 24 (24/0/0)
