@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-14T01:24Z",
+ "updated": "2026-10-14T01:26Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -358,30 +358,27 @@
    "id": "nhl:401892501",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Ducks",
-    "p": 0.401,
-    "tie": 0.297,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-14T01:45Z",
    "away": "Flames",
    "home": "Ducks",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
     "team": "Flames",
     "opp": "Ducks",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -170,
-    "p": 0.617,
+    "market": "ml",
+    "line": null,
+    "odds": 145,
+    "p": 0.397,
     "win_p": 0.397,
     "reasons": [
      "sharp money moving this way"
-    ]
+    ],
+    "result": null
    }
   },
   {
