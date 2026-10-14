@@ -112,6 +112,9 @@ docs/index.html refreshes every minute. Read first: GOALS.md, REVIEW.md, results
   main paper accounts (no side/shadow accounts) and log each one in the EXPERIMENTS LOG with a judge date.
 - Talk to him in plain, short English - no jargon (no "tiers", "trail", "6h", "stake-back" words; say what it does).
 - Accounts: Stocks $500 (rsi2 dip-buying), DEX season 5 from 2026-10-14 at $1,000 (seasons 1-4 archived in data/dex/archive/); entries = survivor rule (experiment 12).
+- Owner 2026-10-14: NO buy-and-hold Bitcoin ("too expensive and the gains are minimal") even though the 10-14 altcoin
+  study found holding BTC (+35%/yr since 2023) beat every altcoin trading strategy - don't re-propose it. The crypto
+  money stays on the moonshot hunt (DEX survivor rule); stocks stay on rsi2 dip-buying.
 - Owner 2026-10-05: the scam PAUSE (circuit breaker) is OFF - "play money, we're learning". Every scam check before a buy
   and on held coins still runs; scams are still counted and reported.
 - Checks: 8-hour reviews 05:23 / 13:23 / 21:23 UTC (REVIEW.md) - the only scheduled checks (bug checks turned off 10-01 to
