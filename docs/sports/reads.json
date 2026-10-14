@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-14T01:44Z",
+ "updated": "2026-10-14T02:12Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -145,7 +145,7 @@
    "home": "Flyers",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "play",
    "lean": {
     "team": "Kraken",
@@ -159,7 +159,7 @@
      "hotter recent form",
      "hotter goalie"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -172,8 +172,8 @@
    "away": "Lightning",
    "home": "Rangers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -187,8 +187,8 @@
    "away": "Blues",
    "home": "Senators",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -382,34 +382,19 @@
    }
   },
   {
-   "id": "nhl:401892502",
-   "league": "nhl",
-   "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Oilers",
-    "p": 0.373,
-    "tie": 0.299,
-    "name": "1st period"
-   },
-   "sport": "NHL",
-   "season": "regular season",
-   "start": "2026-10-14T02:30Z",
-   "away": "Oilers",
+   "id": "nba:401901826",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-14T02:00Z",
+   "away": "Trail Blazers",
    "home": "Kings",
-   "why": "no_value",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Kings",
-    "opp": "Oilers",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -230,
-    "p": 0.669,
-    "win_p": 0.45,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892503",

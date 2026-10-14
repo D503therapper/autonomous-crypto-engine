@@ -11533,6 +11533,11 @@
      "us:road3in6"
     ],
     "dec": 2.02,
+    "decider": {
+     "s": "3-2",
+     "type": "so",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11547,6 +11552,10 @@
     "edge_own": 0.08850211115254036,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,0,0,1",
+     "h": "0,0,2,0,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -11579,9 +11588,11 @@
      "hotter goalie"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Kraken 3 @ Flyers 2",
+    "settled": "2026-10-14T02:11Z",
     "side": "away",
     "start": "2026-10-13T23:00Z",
     "stype": "2",
@@ -11598,12 +11609,14 @@
    }
   ],
   "p_hit": 0.4789,
-  "pnl": 0.0,
+  "pnl": 102.0,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T02:11Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
+  "units": 0.5,
   "was_dog": "2026-10-13T15:41Z"
  },
  {
