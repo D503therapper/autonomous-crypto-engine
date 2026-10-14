@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-14T00:47Z",
+ "updated": "2026-10-14T01:08Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -27,7 +27,7 @@
    "home": "Blue Jackets",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Blue Jackets",
@@ -42,7 +42,7 @@
      "the stronger team",
      "hotter recent form"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -318,6 +318,36 @@
    "start": "2026-10-14T00:45Z",
    "away": "Avalanche",
    "home": "Stars",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892499",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-14T00:45Z",
+   "away": "Golden Knights",
+   "home": "Predators",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892500",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-14T01:00Z",
+   "away": "Maple Leafs",
+   "home": "Mammoth",
    "h1": null,
    "why": "started",
    "done": false,

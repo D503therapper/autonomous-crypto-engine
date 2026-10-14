@@ -11017,6 +11017,11 @@
      "game:conf"
     ],
     "dec": 1.7692307692307692,
+    "decider": {
+     "s": "7-3",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11029,6 +11034,10 @@
     "edge_own": -0.047121039590444114,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,4,3",
+     "h": "1,0,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -11068,9 +11077,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Panthers 7 @ Blue Jackets 3",
+    "settled": "2026-10-14T01:07Z",
     "side": "home",
     "start": "2026-10-13T22:15Z",
     "stype": "2",
@@ -11088,12 +11099,14 @@
    }
   ],
   "p_hit": 0.5408,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T01:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
