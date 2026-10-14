@@ -573,3 +573,47 @@ walk-forward (params re-picked on 18 months, scored on the unseen next 6), out-o
 At 0.5%/side: best rsi2_meanrev +11.2%/yr (DD 25%); trend_ensemble +1.4%, ens_donchian +5.6%, rotation -10.2%, rest
 negative. At 0.2%/side: rsi2 +17.5%, ens_donchian +16.0%, trend_ensemble +14.3%. HOLD BTC over the same span: +35%/yr
 (DD 53%). No altcoin trading strategy beat simply holding Bitcoin, at either fee level.
+
+### 2026-10-14 MOONSHOT study (owner: "$1k to $10k in a few months, maybe even stocks") - results/moonshot_study.txt, results/moonshot2_study.txt
+Q: which concentrated, fast stock strategies have real evidence of very large gains, and how often does each wipe out?
+METHOD: moonshot_study.py + moonshot2_study.py (workflows moonshot_study.yml / moonshot2_study.yml), Yahoo daily bars
+2010-10 .. 2026-10 (span after warm-up 2011-10 .. 2026-10, halves split 2019-04-22), signals at the close, fills next
+open, 0.10%/side stocks, 0.05%/side ETFs (and 3x costs). Everything fixed in advance, no tuning. Universes: LEV3 = 39
+leveraged ETFs (winners and losers: TQQQ SOXL TNA UPRO LABU NUGT YINN MSTU NVDL ...), 10 inverse 3x ETFs, HIBETA = 81
+high-beta stocks (the famous winners MSTR COIN PLTR SMCI NVDA ... AND the busts GME AMC PTON PLUG LCID BYND SPCE TLRY
+NIO ...; NKLA / SAVA / BITF unavailable), HIBETA-x = HIBETA minus its 10 best full-span names (NVDA 880x TSLA AVGO MU SHOP
+AMD CELH SMCI NFLX MELI). Strategies: weekly top-K rotation by 3-month / 1-month return (SPY > 200d, asset > 50d, 20%
+trail), the same with 35% / no trail, monthly 12-1 and 6-month momentum without stops, 52-week-high breakouts (K = 1 /
+2 / 3 / 5; exit below the 50-day avg, 20% trail or 20-day avg), gap-ups (+8% open on 3x volume, 20-day hold / 15% stop),
+3x ETFs held only above their 200-day avg, top-1 of TQQQ/SOXL/TNA/UPRO monthly, plus "YOLO" (all-in on the hottest
+name of the month, no filter, no stop). Each scored over the full span, both halves, 3x costs, per quarter / year, and
+ROLLING 3- and 6-month windows (start any day with $1,000): share that reached 2x / 5x / 10x, share that lost 50%+.
+RESULT (CAGR full, older | newer half, maxDD; 6-month windows: median / p10 / p90, 2x, lost half+; 10x = 0% unless said):
+  every TOP-1 rotation with a 20% trail (LEV3, HIBETA, HIBETA-x, ALL, 1-month, no filter, +inverse): -22% .. -47%/yr,
+    BOTH halves, maxDD 96-100%, $1,000 -> $0-25 over 15 years (trade mean -1..+1.5%, 43-45% winners: the stop + weekly
+    churn + variance drag eat it). Top-1 without a stop: +3..+7%/yr, DD 97-100%. Top-1 monthly 6-mo no stop: +44% | -27%.
+  the only 10x ever seen: "HIBETA mom top1 no filter" - 1% of 6-month windows (2% in the newer half; best $19,589),
+    5x 3% (6%), but 27% (33%) of windows LOST HALF, median $788, CAGR -28% (-30% | -26%), $1,000 -> $7 over 15 years.
+    YOLO HIBETA (hottest name of the month, no stop): -39%/yr, 24-35% of 6-month windows lost half, 10x 0%.
+  52-week-high breakouts in 3-5 slots (SPY > 200d; exit below 50-day avg or 20% off the high) = the only robust fast
+    strategy: top3 +37.5% (+37.9% | +34.9%, DD 62%), top5 +44.8% (+34.9% | +58.4%, DD 48%); HIBETA-x top5 +38.2%
+    (+18.0% | +59.9%, DD 54%), HIBETA-x top3 50d-only +20.0% (+18.6% | +20.9%); 3x costs -2 points. 6-month windows
+    top5: median $1,207, bad $940, good $1,629, 2x 3% (6% newer), lost half 0% (worst $546); top3: $1,147 / $881 /
+    $1,658, 2x 3%, worst $515. Years: +300% 2024, +165..223% 2020, +104..124% 2013; -16..-19% 2022, -11..-37% 2025.
+  monthly top3 momentum without stops (12-1: +42.6%, +37.4% | +46.2%, DD 75%; 6-mo: +44.2%, +51.1% | +35.4%, DD 75%;
+    HIBETA-x 12-1 +26.0%, +11.2% | +40.5%): 6-month median $1,225-1,233, bad $721, 2x 6-9%, lost half 2-3%, worst $277.
+  TQQQ above its 200-day avg else cash: +37.5% (+33.7% | +41.2%), DD 48%, 6-month median $1,186, bad $879, good $1,574,
+    2x 0%, lost half 0% (worst $693). SOXL the same: +25.1%, DD 77%. CORE4 top1 monthly +24..29%, DD 71-73%.
+  gap-ups: +1.1% (+18.7% | -13.6%), DD 83% - dead. LEV3 breakouts / 12-1: -4..+11%, DD 59-88% - dead.
+  walk-forward re-pick among run 1's fast strategies (prior 18 months by Sharpe, unseen next 6): +37.7%/yr OOS, DD 74%,
+    6-month median $1,146, 2x 9%, lost half 0% (mostly picked the 52w-high top3).
+  for reference: hold QQQ +19.6% DD 35%; hold TQQQ +42.6% DD 82%; hold SOXL +44.4% DD 90% (6-mo: 2x 15%, lost half 5%).
+DECISION / ANSWER: no stock strategy turns $1,000 into $10,000 in 3-6 months with any real chance - 10x inside 6 months
+happened in 0 of ~3,600 windows for every strategy except an all-in top-1 chase that loses half the money in a third of
+its starts and goes to zero over the years. The honest fast lane is 52-week-high breakouts in 5 slots on high-beta
+names (+35-45%/yr in both halves, also without the 10 hindsight winners, ~+20% per 6 months median, 2x in ~5% of starts,
+never lost half in 15 years but drawdowns of ~50%): $1k -> $10k takes ~6-7 years at that pace. Recommended next for
+the paper engine (NOT applied here - engine files untouched): run "52w-high top5" as a second stocks experiment next to
+rsi2 (same $500-size account, judge after ~3 months vs rsi2 and QQQ), and keep every top-1 / all-in idea off the table.
+Caveats: today's ticker lists (hindsight - HIBETA-x is the honest floor), delisted names missing, daily bars, no
+margin / options; rolling windows overlap (n is not independent trials).
