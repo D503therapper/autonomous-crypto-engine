@@ -1,0 +1,28 @@
+# Owner 10-14 "more alt coins than just meme coins": every lab strategy family walk-forward on ~60 altcoins (alt_lab_study.py)
+name: alt-lab-study
+on:
+  push:
+    branches: [main]
+    paths: ["alt_lab_study.py", ".github/workflows/alt_lab_study.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: alt_lab_study
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: |
+          mkdir -p results
+          python -u alt_lab_study.py --years 5 2>&1 | tee results/alt_lab_study.txt
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "alt-lab-study results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done

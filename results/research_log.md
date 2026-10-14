@@ -560,3 +560,9 @@ odds are unproven. Live from 10-11 (config entry mode "survivor"); judge ~10-31 
 ### 2026-10-13 lopsided buys vs sells as a rug sign (SI276: 3,717 / 33, dumped in 8h)
 Scanner log, first reading per pool ($100k+, 20+ buys, ratio >= 2), n 925: rug rate 16% / 10% / 6% / 6% for ratios
 2-5 / 5-10 / 10-30 / 30+; <=-80% outcomes 6% / 2% / 0% / 0%. Not a rug sign. No filter.
+
+### 2026-10-14 rsi2 turbo study (owner: "figure out how to profit") - results/stock_rsi2_turbo_study.txt
+16 years, RSI(2) < 25 hold 10d, two halves, 1x / 3x costs. live: +21.0% / +36.2% per half (DD 24%); +3x ETFs +20.2% /
++37.7%; +crypto stocks +27.1% / +27.0% (DD 43%); +both +25.8% / +25.8% (DD 45%); 3x ETFs only +13.5% / +18.8%; 2 slots
++20.2% / +40.1% (DD 33%). Nothing beats live in both halves -> live rsi2 stays (the steady engine is already the best
+version tested). Caveat: today's names (hindsight).
