@@ -1,62 +1,62 @@
 {
  "all": {
-  "n": 58,
-  "beat": 16,
-  "same": 24,
-  "worse": 18,
-  "avg_pts": -0.07
+  "n": 64,
+  "beat": 18,
+  "same": 25,
+  "worse": 21,
+  "avg_pts": -0.04
  },
  "unit_plays": {
-  "n": 25,
-  "beat": 6,
-  "same": 13,
-  "worse": 6,
-  "avg_pts": 0.06
+  "n": 28,
+  "beat": 7,
+  "same": 14,
+  "worse": 7,
+  "avg_pts": 0.14
  },
  "by_kind": {
   "dog": {
-   "n": 10,
+   "n": 11,
    "beat": 2,
-   "same": 5,
+   "same": 6,
    "worse": 3,
-   "avg_pts": -0.37
+   "avg_pts": -0.34
   },
   "lean": {
-   "n": 33,
-   "beat": 10,
+   "n": 36,
+   "beat": 11,
    "same": 11,
-   "worse": 12,
-   "avg_pts": -0.17
+   "worse": 14,
+   "avg_pts": -0.18
   },
   "lock": {
-   "n": 8,
+   "n": 9,
    "beat": 3,
    "same": 4,
-   "worse": 1,
-   "avg_pts": 0.91
+   "worse": 2,
+   "avg_pts": 0.79
   },
   "play": {
-   "n": 7,
-   "beat": 1,
+   "n": 8,
+   "beat": 2,
    "same": 4,
    "worse": 2,
-   "avg_pts": -0.29
+   "avg_pts": 0.05
   }
  },
  "by_sport": {
   "mlb": {
-   "n": 10,
+   "n": 11,
    "beat": 5,
    "same": 1,
-   "worse": 4,
-   "avg_pts": 0.12
+   "worse": 5,
+   "avg_pts": 0.09
   },
   "ncaaf": {
-   "n": 13,
+   "n": 14,
    "beat": 4,
    "same": 6,
-   "worse": 3,
-   "avg_pts": 0.19
+   "worse": 4,
+   "avg_pts": 0.13
   },
   "nfl": {
    "n": 11,
@@ -66,20 +66,20 @@
    "avg_pts": -0.24
   },
   "nhl": {
-   "n": 24,
-   "beat": 5,
-   "same": 12,
-   "worse": 7,
-   "avg_pts": -0.22
+   "n": 28,
+   "beat": 7,
+   "same": 13,
+   "worse": 8,
+   "avg_pts": -0.11
   }
  },
  "lock_by_size": {
   "\u00bdu": {
-   "n": 4,
+   "n": 5,
    "beat": 1,
    "same": 3,
-   "worse": 0,
-   "avg_pts": 0.3
+   "worse": 1,
+   "avg_pts": 0.2
   },
   "1-2u": {
    "n": 1,
@@ -915,6 +915,90 @@
    "pts": -2.5,
    "units": 0,
    "result": "lost"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Blue Jackets",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -135,
+   "pts": 0.9,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Jets",
+   "market": "ml",
+   "line": null,
+   "odds": -115,
+   "close": -110,
+   "pts": -1.1,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "MTSU",
+   "market": "ml",
+   "line": null,
+   "odds": -105,
+   "close": -102,
+   "pts": -0.7,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "lock",
+   "lean": false,
+   "league": "mlb",
+   "team": "Rays",
+   "market": "ml",
+   "line": null,
+   "odds": -132,
+   "close": -131,
+   "pts": -0.2,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "play",
+   "lean": false,
+   "league": "nhl",
+   "team": "Kraken",
+   "market": "ml",
+   "line": null,
+   "odds": 102,
+   "close": -108,
+   "pts": 2.4,
+   "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flames",
+   "market": "ml",
+   "line": null,
+   "odds": 145,
+   "close": 145,
+   "pts": 0.0,
+   "units": 1.0,
+   "result": "won"
   }
  ]
 }

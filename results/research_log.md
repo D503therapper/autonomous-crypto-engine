@@ -133,6 +133,7 @@ sells in the last hour >= 0: n 110, mean +18.0%, growth@5% +0.38%/trade | >= 10:
 | 10 | 2026-10-06 00:30 | DEX: data-only re-screen flags (holders / LP data unknown, LP locked %) no longer sell a held coin; contract flags, honeypots and the liquidity-pull check still do | ~2026-10-20 | season 2 (27 sales): holding every sold coin 7 days beat the actual sales by +$22 per $1 bet (live -11.95 vs hold +10.13); AGENTCAT sold 1.84x -> 19.9x, AGENCY 0.59x -> 16.2x; without those two holding still +3.5 better; the rugged ones were already -70..-90% when flagged | live 10-07: -$46 vs the old rule (HIGGS: 9 flags in a row, rugged from 1.4x; old rule sold ~even at flag #2); 6 other flagged coins no difference; pending |
 | 11 | 2026-10-06 14:00 | DEX: a coin at 3x of its first buy price (confirmed on 2 readings) gets ONE add-on of 10% of the account; the 3x 'sell a third' is off | ~2026-10-27 | owner: "20x off 500 bucks". Scanner replay (current entry rule): 16 coins that hit 3x went on +112% mean / +95% median after it, 10 of 16 doubled again (after 2x: median -49%; after 5x: +39% median, 2 of 12 doubled). Earlier studies: never selling early beat the 3x sell in both data sets | STOPPED 10-12 (before its judge date): 3 live add-ons (SWORDINU 3.0x, CLAUS 3.1x, CLAUDIA 3.2x) all bought near the top and went to ~0: -$306 |
 | 12 | 2026-10-11 | DEX: buy SURVIVORS instead of fresh pumps - pools 2-6 days old, $250k+ liquidity grown 20%+ in 24h, price up on the day and within 30% of its high (dex.survivor_trigger) | ~2026-10-31 | 10-10 post-mortem: 67 live momentum buys -41%, a third lost 80%+; replay of the survivor rule: n 19, median +23%, 53% winners, 3 dumped; no 5x seen yet | pending |
+| 13 | 2026-10-14 ~08:30 | STOCKS: second official account "breakout52" next to rsi2 (official stocks = the average of the two, each a $500-size account; breakout52 started at the official balance of the day, $509.63, so the official number and its chart did not jump): 52-week-high breakouts, top 5, on the 84 high-beta names (config.STOCK_HIBETA): buy a close at a new 252-day high while SPY is above its 200-day average, best 6-month return first, 1/5 of the account each; sell a close below the 50-day average or 20% below the highest close since the buy. Owner OK 10-14. | ~2027-01-14 (vs rsi2 and hold QQQ / SPY) | moonshot2_study (results/moonshot2_study.txt, 2011-2026, fixed rules, signals at the close / fills next open, 0.10%/side): +44.8%/yr, both halves (+34.9% / +58.4%), max DD 48%, 46% winners, ~24 trades/yr; without the 10 hindsight winners +38.2% (+18.0% / +59.9%); 3x costs +42.3%; never lost half in any 6-month window (worst $546 of $1,000; median $1,207). rsi2 live: +1.9% since 09-28. | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
@@ -560,3 +561,75 @@ odds are unproven. Live from 10-11 (config entry mode "survivor"); judge ~10-31 
 ### 2026-10-13 lopsided buys vs sells as a rug sign (SI276: 3,717 / 33, dumped in 8h)
 Scanner log, first reading per pool ($100k+, 20+ buys, ratio >= 2), n 925: rug rate 16% / 10% / 6% / 6% for ratios
 2-5 / 5-10 / 10-30 / 30+; <=-80% outcomes 6% / 2% / 0% / 0%. Not a rug sign. No filter.
+
+### 2026-10-14 rsi2 turbo study (owner: "figure out how to profit") - results/stock_rsi2_turbo_study.txt
+16 years, RSI(2) < 25 hold 10d, two halves, 1x / 3x costs. live: +21.0% / +36.2% per half (DD 24%); +3x ETFs +20.2% /
++37.7%; +crypto stocks +27.1% / +27.0% (DD 43%); +both +25.8% / +25.8% (DD 45%); 3x ETFs only +13.5% / +18.8%; 2 slots
++20.2% / +40.1% (DD 33%). Nothing beats live in both halves -> live rsi2 stays (the steady engine is already the best
+version tested). Caveat: today's names (hindsight).
+
+### 2026-10-14 ALTCOIN strategy study (owner: "more alt coins than just meme coins") - results/alt_lab_study.txt
+59 Crypto.com coins (large + mid-cap alts, AI / gaming / L2 / DeFi / memes), 5 years daily, every lab family
+walk-forward (params re-picked on 18 months, scored on the unseen next 6), out-of-sample 2023-04 .. 2026-10.
+At 0.5%/side: best rsi2_meanrev +11.2%/yr (DD 25%); trend_ensemble +1.4%, ens_donchian +5.6%, rotation -10.2%, rest
+negative. At 0.2%/side: rsi2 +17.5%, ens_donchian +16.0%, trend_ensemble +14.3%. HOLD BTC over the same span: +35%/yr
+(DD 53%). No altcoin trading strategy beat simply holding Bitcoin, at either fee level.
+
+### 2026-10-14 MOONSHOT study (owner: "$1k to $10k in a few months, maybe even stocks") - results/moonshot_study.txt, results/moonshot2_study.txt
+Q: which concentrated, fast stock strategies have real evidence of very large gains, and how often does each wipe out?
+METHOD: moonshot_study.py + moonshot2_study.py (workflows moonshot_study.yml / moonshot2_study.yml), Yahoo daily bars
+2010-10 .. 2026-10 (span after warm-up 2011-10 .. 2026-10, halves split 2019-04-22), signals at the close, fills next
+open, 0.10%/side stocks, 0.05%/side ETFs (and 3x costs). Everything fixed in advance, no tuning. Universes: LEV3 = 39
+leveraged ETFs (winners and losers: TQQQ SOXL TNA UPRO LABU NUGT YINN MSTU NVDL ...), 10 inverse 3x ETFs, HIBETA = 81
+high-beta stocks (the famous winners MSTR COIN PLTR SMCI NVDA ... AND the busts GME AMC PTON PLUG LCID BYND SPCE TLRY
+NIO ...; NKLA / SAVA / BITF unavailable), HIBETA-x = HIBETA minus its 10 best full-span names (NVDA 880x TSLA AVGO MU SHOP
+AMD CELH SMCI NFLX MELI). Strategies: weekly top-K rotation by 3-month / 1-month return (SPY > 200d, asset > 50d, 20%
+trail), the same with 35% / no trail, monthly 12-1 and 6-month momentum without stops, 52-week-high breakouts (K = 1 /
+2 / 3 / 5; exit below the 50-day avg, 20% trail or 20-day avg), gap-ups (+8% open on 3x volume, 20-day hold / 15% stop),
+3x ETFs held only above their 200-day avg, top-1 of TQQQ/SOXL/TNA/UPRO monthly, plus "YOLO" (all-in on the hottest
+name of the month, no filter, no stop). Each scored over the full span, both halves, 3x costs, per quarter / year, and
+ROLLING 3- and 6-month windows (start any day with $1,000): share that reached 2x / 5x / 10x, share that lost 50%+.
+RESULT (CAGR full, older | newer half, maxDD; 6-month windows: median / p10 / p90, 2x, lost half+; 10x = 0% unless said):
+  every TOP-1 rotation with a 20% trail (LEV3, HIBETA, HIBETA-x, ALL, 1-month, no filter, +inverse): -22% .. -47%/yr,
+    BOTH halves, maxDD 96-100%, $1,000 -> $0-25 over 15 years (trade mean -1..+1.5%, 43-45% winners: the stop + weekly
+    churn + variance drag eat it). Top-1 without a stop: +3..+7%/yr, DD 97-100%. Top-1 monthly 6-mo no stop: +44% | -27%.
+  the only 10x ever seen: "HIBETA mom top1 no filter" - 1% of 6-month windows (2% in the newer half; best $19,589),
+    5x 3% (6%), but 27% (33%) of windows LOST HALF, median $788, CAGR -28% (-30% | -26%), $1,000 -> $7 over 15 years.
+    YOLO HIBETA (hottest name of the month, no stop): -39%/yr, 24-35% of 6-month windows lost half, 10x 0%.
+  52-week-high breakouts in 3-5 slots (SPY > 200d; exit below 50-day avg or 20% off the high) = the only robust fast
+    strategy: top3 +37.5% (+37.9% | +34.9%, DD 62%), top5 +44.8% (+34.9% | +58.4%, DD 48%); HIBETA-x top5 +38.2%
+    (+18.0% | +59.9%, DD 54%), HIBETA-x top3 50d-only +20.0% (+18.6% | +20.9%); 3x costs -2 points. 6-month windows
+    top5: median $1,207, bad $940, good $1,629, 2x 3% (6% newer), lost half 0% (worst $546); top3: $1,147 / $881 /
+    $1,658, 2x 3%, worst $515. Years: +300% 2024, +165..223% 2020, +104..124% 2013; -16..-19% 2022, -11..-37% 2025.
+  monthly top3 momentum without stops (12-1: +42.6%, +37.4% | +46.2%, DD 75%; 6-mo: +44.2%, +51.1% | +35.4%, DD 75%;
+    HIBETA-x 12-1 +26.0%, +11.2% | +40.5%): 6-month median $1,225-1,233, bad $721, 2x 6-9%, lost half 2-3%, worst $277.
+  TQQQ above its 200-day avg else cash: +37.5% (+33.7% | +41.2%), DD 48%, 6-month median $1,186, bad $879, good $1,574,
+    2x 0%, lost half 0% (worst $693). SOXL the same: +25.1%, DD 77%. CORE4 top1 monthly +24..29%, DD 71-73%.
+  gap-ups: +1.1% (+18.7% | -13.6%), DD 83% - dead. LEV3 breakouts / 12-1: -4..+11%, DD 59-88% - dead.
+  walk-forward re-pick among run 1's fast strategies (prior 18 months by Sharpe, unseen next 6): +37.7%/yr OOS, DD 74%,
+    6-month median $1,146, 2x 9%, lost half 0% (mostly picked the 52w-high top3).
+  for reference: hold QQQ +19.6% DD 35%; hold TQQQ +42.6% DD 82%; hold SOXL +44.4% DD 90% (6-mo: 2x 15%, lost half 5%).
+DECISION / ANSWER: no stock strategy turns $1,000 into $10,000 in 3-6 months with any real chance - 10x inside 6 months
+happened in 0 of ~3,600 windows for every strategy except an all-in top-1 chase that loses half the money in a third of
+its starts and goes to zero over the years. The honest fast lane is 52-week-high breakouts in 5 slots on high-beta
+names (+35-45%/yr in both halves, also without the 10 hindsight winners, ~+20% per 6 months median, 2x in ~5% of starts,
+never lost half in 15 years but drawdowns of ~50%): $1k -> $10k takes ~6-7 years at that pace. Recommended next for
+the paper engine: run "52w-high top5" as a second stocks experiment next to
+rsi2 (same $500-size account, judge after ~3 months vs rsi2 and QQQ), and keep every top-1 / all-in idea off the table.
+-> APPLIED 2026-10-14 (owner "Ok") as EXPERIMENT 13: stock_strategies.Breakout52 ("breakout52"), official next to rsi2
+(markets.py "main": ("rsi2", "breakout52")); universe config.STOCK_HIBETA (= moonshot_study.HIBETA, test-asserted);
+parity with moonshot2_study.breakout2 checked day by day on synthetic data (stock_strategies_test.py). The join:
+run_live.join_official starts a strategy new to an official account at the official balance of that moment (the
+average of the running accounts), and the dashboard line is the average of the accounts that have started
+(dashboard._average) - the official stocks number, its daily P/L and its chart stay continuous; the new account's own
+return is measured from its first equity row (LAB.md). The high-beta names are a separate Yahoo bulk download
+(data_source.YahooClient.groups) so a failure there never touches rsi2's bars. State across the engine's 6-hourly
+restarts: the daily gate (Portfolio.last_rebalance_week) and the buy time (`opened`) are in portfolio.json; the
+highest close since the buy is recomputed every cycle from the daily closes on/after the buy day and saved as pos["hc"].
+Caveats: today's ticker lists (hindsight - HIBETA-x is the honest floor), delisted names missing, daily bars, no
+margin / options; rolling windows overlap (n is not independent trials).
+
+### 2026-10-14 52-week-high breakout on ALT COINS (owner: "what about alt coins") - results/alt_breakout_study.txt
+The stock winner (+44.8%/yr) on ~60 Crypto.com alts, BTC > 200d filter, 2022-2026. At 0.2%/side: 52w top5 +5.0%/yr
+(+5.4 / +4.6 per half, DD 48%), top3 +2.0%, 50d-exit-only +8.2% (+19.0 / -1.6), 90-day-high versions -8% / -22%;
+5x in 6 months: 0% for every version. Hold BTC same span +40.7%/yr. The breakout edge does NOT carry over to alts.

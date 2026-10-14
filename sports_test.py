@@ -10501,6 +10501,27 @@ def test_upgraded_dog_never_stays_twice():
         ("2026-10-12", "dog", "Kraken"), ("2026-10-13", "dog", "Flames"), ("2026-10-13", "play", "Kraken")]
 
 
+def test_paused_spots_never_post():
+    """10/14, the owner: "pull what you gotta pull - I feel like most of these lose." The blow-out spot (0-6 live) and the
+    college engine spot are paused: a candidate from either never posts; the others still do."""
+    import sports_early as se, tempfile, os, json as _j
+    assert {"blowout", "engine"} <= se.SPOTS_OFF and "bye" not in se.SPOTS_OFF
+    keep = (se.scan, se.with_book_lines, se.ON)
+    try:
+        se.ON = True
+        se.with_book_lines = lambda games, st, now, lines: games
+        mk = lambda gid, spot: {"game_id": gid, "league": "ncaaf", "side": "away", "team": gid, "opp": "X", "odds": 150,
+                                "opp_odds": -170, "start": "2026-10-17T19:30Z", "spot": spot, "spots": [spot], "own": 0.45}
+        se.scan = lambda *a, **k: [mk("ncaaf:1", "blowout"), mk("ncaaf:2", "engine"), mk("ncaaf:3", "bye")]
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, "early.json")
+            _j.dump({"picks": []}, open(path, "w"))
+            new = se.post({}, {}, now=datetime(2026, 10, 14, 15, tzinfo=timezone.utc), injuries={}, path=path, ping=lambda *a: None)
+        assert [c["game_id"] for c in new] == ["ncaaf:3"], [c["game_id"] for c in new]
+    finally:
+        se.scan, se.with_book_lines, se.ON = keep
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

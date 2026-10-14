@@ -11017,6 +11017,11 @@
      "game:conf"
     ],
     "dec": 1.7692307692307692,
+    "decider": {
+     "s": "7-3",
+     "type": "blowout",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11029,6 +11034,10 @@
     "edge_own": -0.047121039590444114,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,4,3",
+     "h": "1,0,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -11036,10 +11045,15 @@
     "home": true,
     "hot_key": false,
     "hurt": [],
+    "injury_alerts": [
+     "Jacob Markstrom (Panthers G) is now out \u2014 our pick: Blue Jackets ML"
+    ],
     "intl": false,
     "key_edge": -0.5028735632183923,
     "key_out_me": false,
-    "key_seen": {},
+    "key_seen": {
+     "Jacob Markstrom (Panthers G)": "Out"
+    },
     "league": "nhl",
     "line": null,
     "lost_last": false,
@@ -11063,9 +11077,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Panthers 7 @ Blue Jackets 3",
+    "settled": "2026-10-14T01:07Z",
     "side": "home",
     "start": "2026-10-13T22:15Z",
     "stype": "2",
@@ -11083,12 +11099,14 @@
    }
   ],
   "p_hit": 0.5408,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T01:07Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -115,
@@ -11145,6 +11163,7 @@
      "them:week3000"
     ],
     "dec": 1.8695652173913042,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11158,6 +11177,10 @@
     "edge_own": 0.0007622491330987469,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,0,0",
+     "h": "2,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -11190,9 +11213,11 @@
      "opponent on a back-to-back"
     ],
     "rested_vs_b2b": true,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Wild 2 @ Jets 5",
+    "settled": "2026-10-14T02:56Z",
     "side": "home",
     "start": "2026-10-14T00:15Z",
     "stype": "2",
@@ -11209,12 +11234,14 @@
    }
   ],
   "p_hit": 0.5373,
-  "pnl": 0.0,
+  "pnl": 86.96,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T02:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -105,
@@ -11253,6 +11280,7 @@
      "game:conf"
     ],
     "dec": 1.9523809523809523,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11274,6 +11302,10 @@
     "edge_own": -0.01026403691830391,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,13,7,7",
+     "h": "5,7,14,7"
+    },
     "form_state": [
      -55.0,
      -2,
@@ -11316,9 +11348,11 @@
      "hotter recent form"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Delaware 30 @ MTSU 33",
+    "settled": "2026-10-14T02:24Z",
     "side": "home",
     "start": "2026-10-13T23:00Z",
     "stype": "2",
@@ -11335,12 +11369,14 @@
    }
   ],
   "p_hit": 0.5003,
-  "pnl": 0.0,
+  "pnl": 95.24,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T02:24Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -132,
@@ -11383,6 +11419,7 @@
      "them:out_dome"
     ],
     "dec": 1.7575757575757576,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11399,6 +11436,10 @@
     "edge_own": 0.016845649100902804,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,0,0,0,0,1,0,0",
+     "h": "0,0,0,3,0,0,0,0"
+    },
     "form_state": [
      -4.0,
      -1,
@@ -11444,9 +11485,11 @@
      "opponent missing key players"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Guardians 1 @ Rays 3",
+    "settled": "2026-10-14T02:56Z",
     "side": "home",
     "start": "2026-10-14T00:00Z",
     "stype": "3",
@@ -11468,12 +11511,14 @@
    }
   ],
   "p_hit": 0.5675,
-  "pnl": 0.0,
+  "pnl": 75.76,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T02:56Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "won",
+  "tier": "lock",
+  "units": 0.5
  },
  {
   "american": 102,
@@ -11515,6 +11560,11 @@
      "us:road3in6"
     ],
     "dec": 2.02,
+    "decider": {
+     "s": "3-2",
+     "type": "so",
+     "win": "away"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11529,6 +11579,10 @@
     "edge_own": 0.08850211115254036,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,0,0,1",
+     "h": "0,0,2,0,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": false,
@@ -11561,9 +11615,11 @@
      "hotter goalie"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Kraken 3 @ Flyers 2",
+    "settled": "2026-10-14T02:11Z",
     "side": "away",
     "start": "2026-10-13T23:00Z",
     "stype": "2",
@@ -11580,12 +11636,14 @@
    }
   ],
   "p_hit": 0.4789,
-  "pnl": 0.0,
+  "pnl": 102.0,
   "posted": "2026-10-13T15:00Z",
   "round": 1,
+  "settled": "2026-10-14T02:11Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
+  "units": 0.5,
   "was_dog": "2026-10-13T15:41Z"
  },
  {
@@ -11633,6 +11691,7 @@
      "us:west1000"
     ],
     "dec": 2.45,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11647,6 +11706,10 @@
     "edge_own": -0.028418407756791386,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,2",
+     "h": "2,0,0"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -11680,9 +11743,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Flames 4 @ Ducks 2",
+    "settled": "2026-10-14T04:29Z",
     "side": "away",
     "start": "2026-10-14T01:45Z",
     "stype": "2",
@@ -11700,12 +11765,14 @@
   ],
   "midday": true,
   "p_hit": 0.3966,
-  "pnl": 0.0,
+  "pnl": 145.0,
   "posted": "2026-10-13T15:41Z",
   "round": 1,
+  "settled": "2026-10-14T04:29Z",
   "stake": 100.0,
-  "status": "open",
+  "status": "won",
   "tier": "value",
+  "units": 1.0,
   "upgraded": "2026-10-13T15:41Z"
  }
 ]

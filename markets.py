@@ -2,7 +2,7 @@
 and its own $500 paper account per strategy."""
 import config
 from social import SocialHeat
-from stock_strategies import DualMomentum, TrendEnsemble
+from stock_strategies import Breakout52, DualMomentum, TrendEnsemble
 from strategy import (BreakoutHunter, DonchianRotation, EarlyMover, HoldBenchmark, MomentumRotation,
                       RSI2MeanReversion, TrendFollower, WeeklyMomentum)
 
@@ -47,11 +47,16 @@ MARKETS = {
     "stocks": {
         "client": _stocks,
         "benchmark": "SPY",
-        "main": "rsi2",
+        # official $500 = two $500 accounts averaged (run_live._official): the rsi2 dip-buyer and, from
+        # 2026-10-14 (EXPERIMENT 13), the 52-week-high breakout account on the high-beta names
+        # (moonshot2_study: +44.8%/yr 2011-2026, both halves). breakout52 joined at the official balance of
+        # that day (run_live.join_official), so the official number and its history did not jump.
+        "main": ("rsi2", "breakout52"),
         "bars_per_day": 7,   # regular session 9:30-16:00 ET in hourly bars
         "fee": config.STOCK_FEE_RATE, "slippage": config.STOCK_SLIPPAGE_RATE,
         "strategies": [
             RSI2MeanReversion(sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), 7),
+            Breakout52(config.STOCK_HIBETA, 7),                 # official: 52-week-high breakouts, top 5
             # lab walk-forward picks (results/lab_stocks.txt), target-weight accounts (test):
             DualMomentum(7),                                    # monthly index-ETF momentum vs IEF
             TrendEnsemble(sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), 7),  # weekly trend top-5

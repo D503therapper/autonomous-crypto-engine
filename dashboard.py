@@ -53,6 +53,24 @@ def _combine(series_list, bases=None):
     return out[::step] + ([out[-1]] if out and out[::step][-1] != out[-1] else [])
 
 
+def _average(series_list):
+    """The line of an official account shared by several strategies (run_live._official averages their
+    balances): at each point the average of the accounts that have started by then. An account joining
+    later counts from its first point on (run_live.join_official starts it at the official balance of that
+    moment), so the line is the old account's history up to the join and the average after it - no jump."""
+    times = sorted({t for s in series_list for t, _ in s})
+    out, idx, last = [], [0] * len(series_list), [None] * len(series_list)
+    for t in times:
+        for k, s in enumerate(series_list):
+            while idx[k] < len(s) and s[idx[k]][0] <= t:
+                last[k] = s[idx[k]][1]
+                idx[k] += 1
+        live = [v for v in last if v is not None]
+        out.append((t, sum(live) / len(live)))
+    step = max(1, len(out) // 160)
+    return out[::step] + ([out[-1]] if out and out[::step][-1] != out[-1] else [])
+
+
 def _svg(points, w, h, color, uid, base=None, pad=4):
     """Area chart; flat line when there's too little history."""
     if len(points) < 2:
