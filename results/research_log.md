@@ -566,3 +566,10 @@ Scanner log, first reading per pool ($100k+, 20+ buys, ratio >= 2), n 925: rug r
 +37.7%; +crypto stocks +27.1% / +27.0% (DD 43%); +both +25.8% / +25.8% (DD 45%); 3x ETFs only +13.5% / +18.8%; 2 slots
 +20.2% / +40.1% (DD 33%). Nothing beats live in both halves -> live rsi2 stays (the steady engine is already the best
 version tested). Caveat: today's names (hindsight).
+
+### 2026-10-14 ALTCOIN strategy study (owner: "more alt coins than just meme coins") - results/alt_lab_study.txt
+59 Crypto.com coins (large + mid-cap alts, AI / gaming / L2 / DeFi / memes), 5 years daily, every lab family
+walk-forward (params re-picked on 18 months, scored on the unseen next 6), out-of-sample 2023-04 .. 2026-10.
+At 0.5%/side: best rsi2_meanrev +11.2%/yr (DD 25%); trend_ensemble +1.4%, ens_donchian +5.6%, rotation -10.2%, rest
+negative. At 0.2%/side: rsi2 +17.5%, ens_donchian +16.0%, trend_ensemble +14.3%. HOLD BTC over the same span: +35%/yr
+(DD 53%). No altcoin trading strategy beat simply holding Bitcoin, at either fee level.
