@@ -2992,16 +2992,16 @@
  "nhl": {
   "cells": {
    "+100-139|all": {
-    "n_new": 2280,
-    "n_old": 2240,
+    "n_new": 2281,
+    "n_old": 2241,
     "proven": false,
-    "roi_new": -0.0161,
-    "roi_old": -0.0531,
+    "roi_new": -0.0165,
+    "roi_old": -0.0535,
     "trap": false,
-    "vs_fair": 0.0017,
+    "vs_fair": 0.0015,
     "win_rate": 0.444,
-    "z": -2.14,
-    "z_fair": 0.23
+    "z": -2.16,
+    "z_fair": 0.21
    },
    "+100-139|away": {
     "n_new": 1327,
@@ -3016,16 +3016,16 @@
     "z_fair": 0.69
    },
    "+100-139|away from dog": {
-    "n_new": 1139,
+    "n_new": 1141,
     "n_old": 0,
     "proven": false,
-    "roi_new": -0.0489,
+    "roi_new": -0.0506,
     "roi_old": 0.0,
     "trap": false,
-    "vs_fair": -0.0039,
+    "vs_fair": -0.0047,
     "win_rate": 0.435,
-    "z": -1.52,
-    "z_fair": -0.27
+    "z": -1.57,
+    "z_fair": -0.32
    },
    "+100-139|away|even rest": {
     "n_new": 1095,
@@ -3064,28 +3064,28 @@
     "z_fair": -0.3
    },
    "+100-139|home": {
-    "n_new": 953,
-    "n_old": 897,
+    "n_new": 954,
+    "n_old": 898,
     "proven": false,
-    "roi_new": -0.0093,
-    "roi_old": -0.0923,
+    "roi_new": -0.0104,
+    "roi_old": -0.0933,
     "trap": false,
-    "vs_fair": -0.0054,
+    "vs_fair": -0.0059,
     "win_rate": 0.438,
-    "z": -1.98,
-    "z_fair": -0.47
+    "z": -2.02,
+    "z_fair": -0.51
    },
    "+100-139|home|even rest": {
-    "n_new": 777,
-    "n_old": 744,
+    "n_new": 778,
+    "n_old": 745,
     "proven": false,
-    "roi_new": -0.0076,
-    "roi_old": -0.0788,
+    "roi_new": -0.0088,
+    "roi_old": -0.0801,
     "trap": false,
-    "vs_fair": -0.0021,
-    "win_rate": 0.442,
-    "z": -1.53,
-    "z_fair": -0.17
+    "vs_fair": -0.0027,
+    "win_rate": 0.441,
+    "z": -1.58,
+    "z_fair": -0.21
    },
    "+100-139|home|on b2b": {
     "n_new": 68,
@@ -3520,16 +3520,16 @@
     "z_fair": 0.8
    },
    "all|all": {
-    "n_new": 4420,
-    "n_old": 4420,
+    "n_new": 4421,
+    "n_old": 4421,
     "proven": false,
-    "roi_new": -0.0385,
-    "roi_old": -0.0602,
+    "roi_new": -0.0387,
+    "roi_old": -0.0604,
     "trap": false,
-    "vs_fair": -0.0029,
+    "vs_fair": -0.003,
     "win_rate": 0.391,
-    "z": -3.83,
-    "z_fair": -0.57
+    "z": -3.85,
+    "z_fair": -0.59
    },
    "all|away": {
     "n_new": 2854,
@@ -3544,40 +3544,40 @@
     "z_fair": -0.02
    },
    "all|away from dog": {
-    "n_new": 2302,
+    "n_new": 2304,
     "n_old": 0,
     "proven": false,
-    "roi_new": -0.076,
+    "roi_new": -0.0768,
     "roi_old": 0.0,
     "trap": false,
-    "vs_fair": -0.0115,
+    "vs_fair": -0.0119,
     "win_rate": 0.377,
-    "z": -3.0,
-    "z_fair": -1.16
+    "z": -3.03,
+    "z_fair": -1.2
    },
    "all|even rest": {
-    "n_new": 3544,
-    "n_old": 3611,
+    "n_new": 3545,
+    "n_old": 3612,
     "proven": false,
-    "roi_new": -0.0222,
-    "roi_old": -0.0461,
+    "roi_new": -0.0225,
+    "roi_old": -0.0464,
     "trap": false,
-    "vs_fair": 0.0034,
+    "vs_fair": 0.0033,
     "win_rate": 0.399,
-    "z": -2.4,
-    "z_fair": 0.6
+    "z": -2.42,
+    "z_fair": 0.57
    },
    "all|home": {
-    "n_new": 1566,
-    "n_old": 1476,
+    "n_new": 1567,
+    "n_old": 1477,
     "proven": false,
-    "roi_new": -0.0239,
-    "roi_old": -0.0913,
+    "roi_new": -0.0245,
+    "roi_old": -0.0919,
     "trap": false,
-    "vs_fair": -0.0082,
+    "vs_fair": -0.0085,
     "win_rate": 0.4,
-    "z": -2.65,
-    "z_fair": -0.93
+    "z": -2.68,
+    "z_fair": -0.96
    },
    "all|on b2b": {
     "n_new": 595,
@@ -3616,16 +3616,16 @@
     "z_fair": 2.51
    }
   },
-  "dogs": 8840,
+  "dogs": 8842,
   "price": {
-   "games": 10150,
-   "ll_book": 0.66323,
-   "ll_fixed": 0.66306,
+   "games": 10152,
+   "ll_book": 0.66307,
+   "ll_fixed": 0.6629,
    "proven": true,
    "shifts": {
     "1": 0.0111,
     "2": -0.0458,
-    "3": -0.0291,
+    "3": -0.0304,
     "4": -0.02,
     "5": -0.0247,
     "6": 0.1598,
@@ -3644,7 +3644,7 @@
     },
     "40%-50%": {
      "book_said": 0.453,
-     "games": 2471,
+     "games": 2473,
      "really_won": 0.444
     },
     "50%-60%": {
