@@ -1,5 +1,42 @@
 {
-  "cash": 1000.0,
-  "positions": {},
-  "peak_equity": 1000.0
+  "cash": 950.0,
+  "positions": {
+    "DOPE@ethereum:0x73dF70": {
+      "qty": 2073.58941971683,
+      "entry": 0.024040439021340846,
+      "cost": 50.0,
+      "peak": 0.02416,
+      "stop": 0.0,
+      "took_profit": false,
+      "opened": 1791958328373,
+      "chain": "ethereum",
+      "addr": "0x73dF7018Cbcb919CCdE48c3f12F4326688aC4446",
+      "sym": "DOPE",
+      "pair": "0xF774C0CF63a7bb1A403FC7256242283C150E9B95",
+      "liq0": 487900.61,
+      "px0": 0.0238,
+      "liq": 488959.42,
+      "vol24": 6013081.1,
+      "age_h0": 62.859270277777775,
+      "px": 0.02388,
+      "tp1": false,
+      "tp2": false,
+      "realized": 0.0,
+      "cost0": 50.0,
+      "rescreened": 1791960130439,
+      "impact": 0.00010247988827068694,
+      "tier": "A",
+      "clean": 1,
+      "resized": true,
+      "seen_px": 1791961254354,
+      "suspect": false,
+      "last_good": 0.02388,
+      "flagged": 0
+    }
+  },
+  "peak_equity": 1000.0,
+  "cooldown": {},
+  "halted": false,
+  "halt_until": 0,
+  "last_rebalance_week": null
 }

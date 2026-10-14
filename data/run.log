@@ -15913,3 +15913,33 @@ error: failed to push some refs to 'https://github.
 [2026-10-14 06:11 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 06:11 UTC] crypto/hold_btc  equity $496.20 (-0.8%) 1 open  market UP
    social heat top: PONS 46 (32/0/14), PRL 40 (40/0/0), SUI 35 (35/0/0), STRK 29 (29/0/0), BTC 24 (24/0/0)
+   scanner: 985 tickers, sample: {'i': 'BTC_USD', 'h': '84077.00', 'l': '82870.50', 'a': '83380.18', 'v': '3073.3027', 'vv': '256160685.26', 'c': '-0.0018', 'b': '83382.29', 'k': '83382.30', 'oi': '0', 't': 1791958324320}
+   >> dex/dex_hunter: BUY $49.85 of DOPE@ethereum:0x73dF70 @ 0.02404 (dex tier A survivor 1h -6% 6h +3% buys/sells 118/86 impact 0.01%)
+   dex screen: REJECT PUMPCADE@solana liq $613,223 - lp holders unknown; rugcheck lp locked 56% < 95%
+   dex screen: PASS SI276@solana liq $102,520
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listing: okx_symbols #XTTMI 'New OKX listing (XTTMI)' -> ['XTTMI']
+   listing: XTTMI: okx_symbols notice "New OKX listing (XTTMI)" -> not on Crypto.com USD
+   dex screen: REJECT ZEC@solana liq $3,477,551 - mint authority
+   dex screen: REJECT LAPTOP@base liq $364,349 - pool age unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex scanner: 3,000 pools (solana 2,068 / base 552 / ethereum 380), refresh cycle 118s (hot 114s), 2522 calls (99 feed, 429s 1, failed 1), 72,631 refreshed (5043 no pair), +53 added / -53 dropped (dead 7, stale 0, cap 46), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listing: okx_symbols #XEWJ 'New OKX listing (XEWJ)' -> ['XEWJ']
+   listing: XEWJ: okx_symbols notice "New OKX listing (XEWJ)" -> not on Crypto.com USD
+[2026-10-14 07:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 07:07 UTC] crypto/mover     equity $331.52 (-33.7%) 0 open  market UP
+[2026-10-14 07:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 07:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 07:07 UTC] crypto/social_heat equity $443.47 (-11.3%) 1 open  market UP
+[2026-10-14 07:07 UTC] crypto/breakout10 equity $478.60 (-4.3%) 2 open  market UP
+[2026-10-14 07:07 UTC] crypto/momentum  equity $426.54 (-14.7%) 2 open  market UP
+[2026-10-14 07:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 07:07 UTC] crypto/hold_btc  equity $495.86 (-0.8%) 1 open  market UP
+   social heat top: PENGU 38 (32/0/6), PRL 37 (37/0/0), STRK 29 (29/0/0), NEAR 27 (27/0/0), HYPE 24 (24/0/0)
