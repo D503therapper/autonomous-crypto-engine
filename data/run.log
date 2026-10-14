@@ -15751,3 +15751,35 @@ error: failed to push some refs to 'https://github.
 [2026-10-14 02:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 02:06 UTC] crypto/hold_btc  equity $496.27 (-0.7%) 1 open  market UP
    social heat top: PRL 35 (35/0/0), OP 29 (29/0/0), QNT 27 (27/0/0), NEAR 21 (21/0/0), STRK 19 (19/0/0)
+   dex screen: PASS VER@solana liq $298,910
+   dex screen: REJECT DRV@solana liq $382,405,515 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT WBTC@ethereum liq $32,129,276 - transfer_pausable; is_mintable; top-10 holders 54%
+   dex screen: REJECT EDEL@base liq $1,215,198 - goplus partial data: cannot_sell_all unknown; top-10 holders 48%
+   dex screen: REJECT DRV@base liq $834,740 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT DRV@ethereum liq $252,367 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 87%; lp locked 0% < 95%
+   dex screen: REJECT EMBER@solana liq $226,970 - lp holders unknown; rugcheck lp locked 69% < 95%
+   dex screen: REJECT CATALYST@base liq $103,877 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; not open source; sell tax unknown; top-10 holders 49%; lp locked 0% < 95%
+   dex screen: REJECT B3@base liq $739,403 - pool age unknown
+   dex screen: REJECT ENA@ethereum liq $3,049,748 - is_mintable; top-10 holders 59%
+   dex screen: PASS USELESS@solana liq $4,350,280
+   dex screen: REJECT GRASS@solana liq $180,908 - mint authority; top-10 holders 49%; lp holders unknown
+   dex screen: REJECT LOAD@solana liq $143,550 - holders unknown; lp holders unknown; rugcheck danger: Top 10 holders high ownership; rugcheck danger: Single holder ownership; rugcheck lp locked 11% < 95%; rugcheck score 54
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #2 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT RAY@solana liq $3,852,440 - top-10 holders 83%
+   dex screen: REJECT BAT@solana liq $136,106,960 - holders unknown; lp holders unknown; rugcheck danger: Large Amount of LP Unlocked; rugcheck lp locked 0% < 95%; rugcheck score 61
+   dex screen: PASS SI276@solana liq $302,227
+   dex screen: PASS SI276@solana liq $220,322
+   dex screen: PASS CRAWLER@solana liq $222,463
+   dex screen: REJECT PAID@solana liq $442,371 - lp holders unknown; rugcheck lp locked 56% < 95%
+   dex scanner: 3,000 pools (solana 2,196 / base 487 / ethereum 317), refresh cycle 132s (hot 128s), 2843 calls (108 feed, 429s 0, failed 0), 82,049 refreshed (4477 no pair), +97 added / -97 dropped (dead 2, stale 0, cap 95), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #3 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+[2026-10-14 03:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 03:06 UTC] crypto/mover     equity $329.52 (-34.1%) 1 open  market UP
+[2026-10-14 03:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 03:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 03:06 UTC] crypto/social_heat equity $440.78 (-11.8%) 1 open  market UP
+[2026-10-14 03:06 UTC] crypto/breakout10 equity $484.42 (-3.1%) 2 open  market UP
+[2026-10-14 03:06 UTC] crypto/momentum  equity $428.32 (-14.3%) 2 open  market UP
+[2026-10-14 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 03:06 UTC] crypto/hold_btc  equity $497.54 (-0.5%) 1 open  market UP
+   social heat top: PONS 39 (27/0/12), OP 37 (37/0/0), PRL 32 (32/0/0), NEAR 29 (29/0/0), QNT 21 (21/0/0)
