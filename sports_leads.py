@@ -34,6 +34,8 @@ def tags(c, sports):
         t.append("NHL side outshot 40+ last game (fade)")
     if c.get("outshot_opp"):
         t.append("NHL side vs a team outshot 40+")
+    if c.get("fav_off_loss"):                                # 10/14 study (built as a weight): its own live record
+        t.append("college favorite off a loss (fade)")
     dog = c.get("odds", 0) >= 100
     if dog:
         try:
