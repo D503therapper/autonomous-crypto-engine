@@ -1,0 +1,63 @@
+  AAPL: 4021 days
+  AMD: 4021 days
+  AMZN: 4021 days
+  AVGO: 4021 days
+  CLSK: 2489 days
+  COIN: 1382 days
+  COST: 4021 days
+  DIA: 4021 days
+  EEM: 4021 days
+  EFA: 4021 days
+  FAS: 4021 days
+  GLD: 4021 days
+  GOOGL: 4021 days
+  HOOD: 1308 days
+  IEF: 4021 days
+  IWM: 4021 days
+  JPM: 4021 days
+  LLY: 4021 days
+  MARA: 3631 days
+  META: 3621 days
+  MSFT: 4021 days
+  MSTR: 4021 days
+  NFLX: 4021 days
+  NVDA: 4021 days
+  PLTR: 1516 days
+  QQQ: 4021 days
+  RIOT: 2650 days
+  SMH: 4021 days
+  SOXL: 4021 days
+  SPY: 4021 days
+  TLT: 4021 days
+  TNA: 4021 days
+  TQQQ: 4021 days
+  TSLA: 4021 days
+  UBER: 1867 days
+  UPRO: 4021 days
+  XLB: 4021 days
+  XLC: 2091 days
+  XLE: 4021 days
+  XLF: 4021 days
+  XLI: 4021 days
+  XLK: 4021 days
+  XLP: 4021 days
+  XLRE: 2769 days
+  XLU: 4021 days
+  XLV: 4021 days
+  XLY: 4021 days
+=== rsi2 turbo study: 16 years of daily bars, cost 0.050%/side, RSI(2) < 25, hold 10d ===
+live         older CAGR +21.0% DD 23.6%  newer CAGR +36.2% DD 24.6%  full CAGR +28.5% DD 24.6%  | 3x cost full +14.6%  $500 -> 22,094
++lev ETFs    older CAGR +20.2% DD 26.3%  newer CAGR +37.7% DD 25.8%  full CAGR +28.8% DD 26.3%  | 3x cost full +14.8%  $500 -> 22,794
++crypto stk  older CAGR +27.1% DD 43.1%  newer CAGR +27.0% DD 33.6%  full CAGR +26.9% DD 43.1%  | 3x cost full +13.1%  $500 -> 18,212
++both        older CAGR +25.8% DD 45.2%  newer CAGR +25.8% DD 34.6%  full CAGR +25.6% DD 45.2%  | 3x cost full +12.0%  $500 -> 15,700
+lev only     older CAGR +13.5% DD 28.9%  newer CAGR +18.8% DD 26.5%  full CAGR +16.1% DD 38.5%  | 3x cost full +11.0%  $500 -> 4,774
+2 slots      older CAGR +20.2% DD 32.8%  newer CAGR +40.1% DD 32.9%  full CAGR +29.9% DD 32.9%  | 3x cost full +15.1%  $500 -> 26,077
+
+=== DECISION vs live: CAGR better in both halves at 1x and 3x cost, max DD at most 10% deeper ===
+  fail  +lev ETFs
+  fail  +crypto stk
+  fail  +both
+  fail  lev only
+  fail  2 slots
+
+Caveat: today's names (hindsight) - absolute returns are a ceiling; the comparison is what matters.
