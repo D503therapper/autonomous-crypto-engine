@@ -1,118 +1,5 @@
 {
  "_why": "Official availability reports the ESPN feed doesn't carry (10/2: ESPN's college feed listed 3 teams). One entry per game day (Pacific); each team: the source and every player [name, position, status]. Read by sports_data.fetch_injuries - a team listed here counts as COVERED.",
- "2026-10-06": {
-  "ncaaf": {
-   "2653": {
-    "team": "Troy",
-    "src": "https://www.foxsports.com/college-football/troy-trojans-team [team news, Rotowire items 10/4 - Worley out for season, Rogosch questionable, Lott available] + https://sports.yahoo.com/articles/southern-miss-football-start-conference-100350906.html [QB Crowder healthy, 10/4] (verified from the pages; no Sun Belt official report exists)",
-    "players": [
-     [
-      "Jackson Worley",
-      "TE",
-      "Out"
-     ],
-     [
-      "Fabian Rogosch",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   },
-   "2572": {
-    "team": "Southern Miss",
-    "src": "https://www.si.com/college/southernmiss/southern-miss-football-injury-update-qb-ethan-hampton-to-miss-significant-time [team news 9/25: Hampton out 4-6 weeks, hand fracture] + https://sports.yahoo.com/articles/southern-miss-football-start-conference-100350906.html [Lyddy starting in his place, 10/4] (verified from the pages; no Sun Belt official report exists) + https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL [Rotowire CFB injury report read 10/6: Himes WR out foot, Page WR out elbow, Briggs RB probable, Hampton QB out] (verified from the page)",
-    "players": [
-     [
-      "Ethan Hampton",
-      "QB",
-      "Out"
-     ],
-     [
-      "Jaylen Himes",
-      "WR",
-      "Out"
-     ],
-     [
-      "Grant Page",
-      "WR",
-      "Out"
-     ],
-     [
-      "Robert Briggs",
-      "RB",
-      "Probable"
-     ]
-    ]
-   }
-  }
- },
- "2026-10-07": {
-  "ncaaf": {
-   "338": {
-    "team": "Kennesaw St",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/7, game 10/7 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Zion Booker",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Gerard Bullock",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   },
-   "55": {
-    "team": "Jax State",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/7, game 10/7 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Franklin Baret",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Gabe Glover",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Alex Moore",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Andrew Paul",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Justus Savage",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "166": {
-    "team": "New Mexico St",
-    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/new-mexico-state-aggies/injuries [team news, Covers/Rotowire items dated Fri 10/2 naming this game - older than game week, no official CUSA report found] (verified from the page)",
-    "players": [
-     [
-      "R. Burton",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "R. Lotten",
-      "TE",
-      "Questionable"
-     ]
-    ]
-   }
-  }
- },
  "2026-10-08": {
   "ncaaf": {
    "2623": {
@@ -478,7 +365,7 @@
     ]
    },
    "23": {
-    "team": "San José St",
+    "team": "San Jos\u00e9 St",
     "src": "https://www.rotowire.com/cfootball/headlines/cooper-hoch-injury-carrying-questionable-tag-233782 [team news, Rotowire 10/7: WR Hoch questionable vs Wyoming; no Mountain West report read yet] (verified from the page)",
     "players": [
      [
@@ -3179,6 +3066,121 @@
      [
       "S. Baines",
       "RB",
+      "Questionable"
+     ]
+    ]
+   }
+  }
+ },
+ "2026-10-15": {
+  "ncaaf": {
+   "5": {
+    "team": "UAB",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/uab-blazers/injuries [team news, Oct 11, names the Oct 15 East Carolina game] (verified from the page)",
+    "players": [
+     [
+      "A. Ferguson",
+      "TE",
+      "Questionable"
+     ]
+    ]
+   },
+   "151": {
+    "team": "East Carolina",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/east-carolina-pirates/injuries [team news, Oct 10, names the Oct 15 UAB game] (verified from the page)",
+    "players": [
+     [
+      "J. Melvin",
+      "WR",
+      "Questionable"
+     ]
+    ]
+   },
+   "295": {
+    "team": "Old Dominion",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/old-dominion-monarchs/injuries [team news, Oct 12, names the Oct 15 Georgia Southern game] (verified from the page)",
+    "players": [
+     [
+      "T. Johnson",
+      "WR",
+      "Probable"
+     ],
+     [
+      "J. Harrell",
+      "WR",
+      "Out"
+     ],
+     [
+      "Q. Henicle",
+      "QB",
+      "Questionable"
+     ]
+    ]
+   },
+   "290": {
+    "team": "GA Southern",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/georgia-southern-eagles/injuries [team news, Oct 12, names the Oct 15 Old Dominion game] (verified from the page)",
+    "players": [
+     [
+      "W. Bryan",
+      "QB",
+      "Probable"
+     ],
+     [
+      "D. Mbadinga",
+      "RB",
+      "Out"
+     ],
+     [
+      "J. Ware",
+      "WR",
+      "Out"
+     ],
+     [
+      "A. Hollins",
+      "WR",
+      "Out"
+     ]
+    ]
+   },
+   "326": {
+    "team": "Texas St",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/texas-state-bobcats/injuries [team news, Oct 12, names the Oct 15 Colorado State game] (verified from the page)",
+    "players": [
+     [
+      "B. Smith",
+      "TE",
+      "Questionable"
+     ],
+     [
+      "D. Jackson",
+      "RB",
+      "Out"
+     ]
+    ]
+   },
+   "36": {
+    "team": "Colorado St",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/colorado-state-rams/injuries [team news, Oct 7-12, names the Oct 15 Texas State game] (verified from the page)",
+    "players": [
+     [
+      "O. Lundberg",
+      "RB",
+      "Probable"
+     ],
+     [
+      "M. Brown",
+      "RB",
+      "Probable"
+     ],
+     [
+      "R. Vick",
+      "WR",
+      "Questionable"
+     ],
+     [
+      "H. Hejny",
+      "QB",
       "Questionable"
      ]
     ]
