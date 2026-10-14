@@ -1,0 +1,28 @@
+# Owner 10-14 "$1k to $10k": follow-up - breakout neighbours, monthly momentum without stops, 3x ETFs above 200d (moonshot2_study.py)
+name: moonshot2-study
+on:
+  push:
+    branches: [main]
+    paths: ["moonshot2_study.py", ".github/workflows/moonshot2_study.yml"]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: moonshot2_study
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -q -r requirements.txt
+      - run: |
+          mkdir -p results
+          python -u moonshot2_study.py --years 16 2>&1 | tee results/moonshot2_study.txt
+      - run: |
+          git config user.name "paper-trader-bot"
+          git config user.email "paper-trader-bot@users.noreply.github.com"
+          git add results
+          git commit -m "moonshot2-study results $(date -u +%FT%TZ)" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q -X theirs && git push && break; sleep 10; done
