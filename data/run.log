@@ -15943,3 +15943,18 @@ error: failed to push some refs to 'https://github.
 [2026-10-14 07:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 07:07 UTC] crypto/hold_btc  equity $495.86 (-0.8%) 1 open  market UP
    social heat top: PENGU 38 (32/0/6), PRL 37 (37/0/0), STRK 29 (29/0/0), NEAR 27 (27/0/0), HYPE 24 (24/0/0)
+   dex screen: REJECT STRK@solana liq $313,472 - mint authority; top-10 holders 61%; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT SURPLUS@base liq $1,242,697 - is_mintable
+   dex screen: REJECT ZEN@base liq $2,706,860 - is_mintable; top-10 holders 68%; lp locked 0% < 95%
+   listing: okx_symbols #XEWT 'New OKX listing (XEWT)' -> ['XEWT']
+   listing: XEWT: okx_symbols notice "New OKX listing (XEWT)" -> not on Crypto.com USD
+   dex screen: REJECT FONE@solana liq $520,549 - lp holders unknown; rugcheck lp locked 90% < 95%
+   dex screen: REJECT IMD@ethereum liq $2,540,234 - goplus partial data: cannot_sell_all unknown; top-10 holders 59%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex scanner: 3,000 pools (solana 2,069 / base 542 / ethereum 389), refresh cycle 133s (hot 128s), 2826 calls (106 feed, 429s 0, failed 0), 81,599 refreshed (5876 no pair), +100 added / -100 dropped (dead 1, stale 0, cap 99), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listing: okx_symbols #XEWZ 'New OKX listing (XEWZ)' -> ['XEWZ']
+   listing: XEWZ: okx_symbols notice "New OKX listing (XEWZ)" -> not on Crypto.com USD
