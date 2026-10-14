@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 63,
+  "n": 64,
   "beat": 18,
-  "same": 24,
+  "same": 25,
   "worse": 21,
   "avg_pts": -0.04
  },
  "unit_plays": {
-  "n": 27,
+  "n": 28,
   "beat": 7,
-  "same": 13,
+  "same": 14,
   "worse": 7,
   "avg_pts": 0.14
  },
  "by_kind": {
   "dog": {
-   "n": 10,
+   "n": 11,
    "beat": 2,
-   "same": 5,
+   "same": 6,
    "worse": 3,
-   "avg_pts": -0.37
+   "avg_pts": -0.34
   },
   "lean": {
    "n": 36,
@@ -66,9 +66,9 @@
    "avg_pts": -0.24
   },
   "nhl": {
-   "n": 27,
+   "n": 28,
    "beat": 7,
-   "same": 12,
+   "same": 13,
    "worse": 8,
    "avg_pts": -0.11
   }
@@ -984,6 +984,20 @@
    "close": -108,
    "pts": 2.4,
    "units": 0.5,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Flames",
+   "market": "ml",
+   "line": null,
+   "odds": 145,
+   "close": 145,
+   "pts": 0.0,
+   "units": 1.0,
    "result": "won"
   }
  ]
