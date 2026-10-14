@@ -15958,3 +15958,20 @@ error: failed to push some refs to 'https://github.
    dex scanner: 3,000 pools (solana 2,069 / base 542 / ethereum 389), refresh cycle 133s (hot 128s), 2826 calls (106 feed, 429s 0, failed 0), 81,599 refreshed (5876 no pair), +100 added / -100 dropped (dead 1, stale 0, cap 99), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
    listing: okx_symbols #XEWZ 'New OKX listing (XEWZ)' -> ['XEWZ']
    listing: XEWZ: okx_symbols notice "New OKX listing (XEWZ)" -> not on Crypto.com USD
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 15 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 15 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 15 min)
+   social: reddit/memecoins HTTP 403  (retry in 15 min)
+   social self-check: coingecko 200 | reddit/CryptoMoonShots 403 | reddit/SatoshiStreetBets 403 | reddit/CryptoCurrency 403 | reddit/memecoins 403 | dexscreener 200 | geckoterminal_5m 200 | geckoterminal_1h 200
+   stocks/breakout52 joins the official stocks account at $509.63 (the official balance today; the average of rsi2 and breakout52 carries on from here)
+   dex self-check: goplus 200 | honeypot.is 200 | rugcheck 200 | dexscreener 200 | geckoterminal 200
+[2026-10-14 08:10 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 08:10 UTC] crypto/mover     equity $331.52 (-33.7%) 0 open  market UP
+[2026-10-14 08:10 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 08:10 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 08:10 UTC] crypto/social_heat equity $443.21 (-11.4%) 1 open  market UP
+[2026-10-14 08:10 UTC] crypto/breakout10 equity $485.17 (-3.0%) 2 open  market UP
+[2026-10-14 08:10 UTC] crypto/momentum  equity $428.04 (-14.4%) 2 open  market UP
+[2026-10-14 08:10 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 08:10 UTC] crypto/hold_btc  equity $499.79 (-0.0%) 1 open  market UP
+   social heat top: PENGU 44 (29/0/14), PRL 40 (40/0/0), PONS 38 (24/0/14), NEAR 35 (35/0/0), SUI 32 (32/0/0)
