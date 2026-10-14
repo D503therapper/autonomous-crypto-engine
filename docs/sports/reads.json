@@ -1,64 +1,29 @@
 {
- "updated": "2026-10-14T23:05Z",
+ "updated": "2026-10-14T23:15Z",
  "games": [
   {
    "id": "nhl:401892504",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Capitals",
-    "p": 0.358,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-14T23:30Z",
    "away": "Canadiens",
    "home": "Capitals",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
     "team": "Canadiens",
     "opp": "Capitals",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -238,
-    "p": 0.7,
-    "win_p": 0.483,
-    "reasons": [
-     "sharp money moving this way"
-    ]
-   }
-  },
-  {
-   "id": "ncaaf:401871054",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Kennesaw St",
-    "p": 0.509,
-    "tie": 0.034,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-14T23:30Z",
-   "away": "Kennesaw St",
-   "home": "Missouri St",
-   "why": "coin_flip",
-   "board": null,
-   "lean": {
-    "team": "Kennesaw St",
-    "opp": "Missouri St",
     "market": "ml",
     "line": null,
-    "odds": -142,
-    "p": 0.509,
-    "win_p": 0.509,
-    "reasons": [
-     "college favorite off a loss - those lose to their price (8 of 9 seasons)"
-    ]
+    "odds": 105,
+    "p": 0.473,
+    "win_p": 0.473,
+    "reasons": [],
+    "result": null
    }
   },
   {
@@ -67,7 +32,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Dodgers",
-    "p": 0.533,
+    "p": 0.532,
     "tie": 0.116,
     "name": "first 5 innings"
    },
@@ -83,9 +48,9 @@
     "opp": "Brewers",
     "market": "ml",
     "line": null,
-    "odds": -176,
-    "p": 0.61,
-    "win_p": 0.61,
+    "odds": -174,
+    "p": 0.608,
+    "win_p": 0.608,
     "reasons": [
      "the stronger team"
     ]
