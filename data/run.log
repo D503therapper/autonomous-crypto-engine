@@ -16241,3 +16241,42 @@ $NKLA: No data found, symbol may be delisted
 [2026-10-14 15:07 UTC] stocks/trend     equity $485.10 (-3.0%) 3 open  market UP
 [2026-10-14 15:07 UTC] stocks/hold_spy  equity $501.66 (+0.3%) 1 open  market UP
    social heat top: PRL 35 (35/0/0), PENGU 30 (21/0/9), SUI 29 (29/0/0), BTC 27 (27/0/0), WAL 19 (19/0/0)
+   dex screen: REJECT USDV@solana liq $1,532,126 - 24h volume $67,210 < $100,000
+   dex screen: REJECT POPCAT@solana liq $3,542,028 - top-10 holders 42%
+   dex screen: REJECT HOOKED@solana liq $122,092 - lp holders unknown; rugcheck lp locked 21% < 95%
+   dex screen: REJECT CYBERLEEK@solana liq $2,152,709 - lp holders unknown; rugcheck lp locked 0% < 95%; rugcheck score 53
+   dex screen: REJECT CYBERLEEK@solana liq $779,158,883 - top-10 holders 100%; lp holders unknown
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 120 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 120 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 120 min)
+   social: reddit/memecoins HTTP 403  (retry in 120 min)
+   dex screen: REJECT DOT@base liq $496,407 - lp locked 0% < 95%
+   dex screen: PASS TEMO@ethereum liq $215,611
+   dex screen: REJECT VVV@base liq $15,870,990 - is_mintable; owner_percent 30%; top-10 holders 62%
+   dex scanner: 3,000 pools (solana 1,943 / base 626 / ethereum 431), refresh cycle 135s (hot 130s), 2787 calls (121 feed, 429s 1, failed 1), 79,975 refreshed (4342 no pair), +273 added / -273 dropped (dead 6, stale 0, cap 267), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-14 16:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 16:07 UTC] crypto/mover     equity $307.71 (-38.5%) 0 open  market UP
+[2026-10-14 16:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 16:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 16:07 UTC] crypto/social_heat equity $445.87 (-10.8%) 2 open  market UP
+[2026-10-14 16:07 UTC] crypto/breakout10 equity $461.85 (-7.6%) 2 open  market UP
+[2026-10-14 16:07 UTC] crypto/momentum  equity $422.48 (-15.5%) 2 open  market UP
+[2026-10-14 16:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 16:07 UTC] crypto/hold_btc  equity $486.83 (-2.6%) 1 open  market UP
+$BITF: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF', 'SAVA', 'NKLA']: No data found, symbol may be delisted
+[2026-10-14 16:07 UTC] stocks/rsi2      equity $494.90 (-1.0%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 2 BUY, XLK 16 BUY, QQQ 16 BUY, IWM 17
+[2026-10-14 16:07 UTC] stocks/breakout52 equity $509.73 (+1.9%) 2 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: NVAX (+53% 6-mo), GME (+13% 6-mo)
+[2026-10-14 16:07 UTC] stocks/dual_momentum equity $487.69 (-2.5%) 2 open  market UP
+[2026-10-14 16:07 UTC] stocks/trend_ensemble equity $502.92 (+0.6%) 5 open  market UP
+[2026-10-14 16:07 UTC] stocks/rotation10 equity $515.35 (+3.1%) 2 open  market UP
+[2026-10-14 16:07 UTC] stocks/momentum  equity $490.92 (-1.8%) 4 open  market UP
+[2026-10-14 16:07 UTC] stocks/trend     equity $482.72 (-3.5%) 3 open  market UP
+[2026-10-14 16:07 UTC] stocks/hold_spy  equity $500.98 (+0.2%) 1 open  market UP
+   social heat top: PRL 35 (35/0/0), BTC 32 (32/0/0), PENGU 27 (27/0/0), HYPE 27 (27/0/0), SUI 21 (21/0/0)
