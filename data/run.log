@@ -16095,3 +16095,22 @@ error: failed to push some refs to 'https://github.
 [2026-10-14 12:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 12:06 UTC] crypto/hold_btc  equity $496.80 (-0.6%) 1 open  market UP
    social heat top: PENGU 38 (29/0/8), PRL 37 (37/0/0), WAL 32 (32/0/0), ARB 27 (27/0/0), STRK 21 (21/0/0)
+   dex screen: REJECT OTC@solana liq $482,910 - lp holders unknown; rugcheck lp locked 88% < 95%
+   dex screen: REJECT AAPLC@base liq $1,573,339 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 70%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT MSTRC@base liq $2,941 - liquidity $2,941 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT HEX@ethereum liq $371,372 - pool age unknown
+   dex screen: REJECT NVDAC@base liq $1,907,381 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 76%; lp locked 0% < 95%
+   dex screen: REJECT CYBERLEEK@solana liq $423,558 - rugcheck lp locked 89% < 95%
+   dex scanner: 3,000 pools (solana 2,038 / base 583 / ethereum 379), refresh cycle 125s (hot 120s), 2994 calls (108 feed, 429s 0, failed 0), 86,580 refreshed (5575 no pair), +42 added / -42 dropped (dead 5, stale 0, cap 37), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-14 13:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 13:06 UTC] crypto/mover     equity $319.82 (-36.0%) 1 open  market UP
+[2026-10-14 13:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 13:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 13:06 UTC] crypto/social_heat equity $440.29 (-11.9%) 2 open  market UP
+[2026-10-14 13:06 UTC] crypto/breakout10 equity $469.14 (-6.2%) 2 open  market UP
+[2026-10-14 13:06 UTC] crypto/momentum  equity $425.40 (-14.9%) 2 open  market UP
+[2026-10-14 13:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 13:06 UTC] crypto/hold_btc  equity $492.72 (-1.5%) 1 open  market UP
+   social heat top: PRL 40 (40/0/0), WAL 37 (37/0/0), STRK 35 (35/0/0), NEAR 27 (24/0/3), SUI 27 (27/0/0)
