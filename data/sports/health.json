@@ -1,11 +1,11 @@
 {
- "at": "2026-10-14T20:29Z",
+ "at": "2026-10-14T20:30Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - started sports.yml"
+  "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +19,18 @@
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 7 min ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-14T20:30Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-14T20:29Z",
    "fixes": [
@@ -552,15 +559,6 @@
     "live tennis scores: tennis Samson vs Garcia: no points for 752s",
     "live tennis scores: tennis Boskovic vs Jacquemot: no points for 2634s",
     "live tennis scores: tennis Brockmann vs Friedsam: no points for 2634s"
-   ]
-  },
-  {
-   "at": "2026-10-12T08:22Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Llaverias vs Tan: no points for 777s",
-    "live tennis scores: tennis Adrover vs Wobker: no points for 759s",
-    "live tennis scores: tennis Cid vs Kucmova: no points for 800s"
    ]
   }
  ]
