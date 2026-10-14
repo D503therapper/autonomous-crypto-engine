@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-14T00:33Z",
+ "updated": "2026-10-14T00:47Z",
  "games": [
   {
    "id": "nhl:401892488",
@@ -11,8 +11,8 @@
    "away": "Devils",
    "home": "Red Wings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -310,34 +310,19 @@
    }
   },
   {
-   "id": "nhl:401892500",
+   "id": "nhl:401892498",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.394,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
-   "start": "2026-10-14T01:00Z",
-   "away": "Maple Leafs",
-   "home": "Mammoth",
-   "why": "no_value",
+   "start": "2026-10-14T00:45Z",
+   "away": "Avalanche",
+   "home": "Stars",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Maple Leafs",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -180,
-    "p": 0.632,
-    "win_p": 0.411,
-    "reasons": [
-     "opponent missing key players"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "nhl:401892501",
