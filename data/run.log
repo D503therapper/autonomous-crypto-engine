@@ -16280,3 +16280,45 @@ $NKLA: No data found, symbol may be delisted
 [2026-10-14 16:07 UTC] stocks/trend     equity $482.72 (-3.5%) 3 open  market UP
 [2026-10-14 16:07 UTC] stocks/hold_spy  equity $500.98 (+0.2%) 1 open  market UP
    social heat top: PRL 35 (35/0/0), BTC 32 (32/0/0), PENGU 27 (27/0/0), HYPE 27 (27/0/0), SUI 21 (21/0/0)
+   dex screen: REJECT $WIF@solana liq $152,215 - top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT XTO@solana liq $177,215 - lp holders unknown; rugcheck lp locked 35% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   >> stocks/trend: SELL $141.62 of MSFT @ 535.792, P/L $-1.63 (stop hit (live check))
+   dex screen: REJECT TSLAC@base liq $1,090 - liquidity $1,090 < $100,000; 24h volume $81 < $100,000
+   dex screen: REJECT CLAUS@ethereum liq $357,483 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     65922cf81b0d299f5a5ce40ae5c2d4c95ce7fed8 -> main (cannot lock ref 'refs/heads/main': is at 782706dcc450852105b408a
+   dex screen: PASS DRB@base liq $1,349,685
+   >> stocks/trend: SELL $147.26 of GOOGL @ 351.024, P/L $+1.78 (stop hit (live check))
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT JEANPHIL@solana liq $449,582 - lp holders unknown; rugcheck lp locked 56% < 95%
+   dex screen: REJECT JEANPHIL@solana liq $276,374 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 1,939 / base 629 / ethereum 432), refresh cycle 135s (hot 130s), 2769 calls (106 feed, 429s 0, failed 0), 79,888 refreshed (4392 no pair), +86 added / -86 dropped (dead 6, stale 0, cap 80), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-14 17:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 17:06 UTC] crypto/mover     equity $307.71 (-38.5%) 0 open  market UP
+[2026-10-14 17:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 17:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 17:06 UTC] crypto/social_heat equity $448.35 (-10.3%) 2 open  market UP
+[2026-10-14 17:06 UTC] crypto/breakout10 equity $469.45 (-6.1%) 2 open  market UP
+[2026-10-14 17:06 UTC] crypto/momentum  equity $423.98 (-15.2%) 2 open  market UP
+[2026-10-14 17:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 17:06 UTC] crypto/hold_btc  equity $488.83 (-2.2%) 1 open  market UP
+$BITF: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+$NKLA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF', 'SAVA', 'NKLA']: No data found, symbol may be delisted
+[2026-10-14 17:07 UTC] stocks/rsi2      equity $494.36 (-1.1%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 2 BUY, XLK 16 BUY, QQQ 16 BUY, IWM 17
+[2026-10-14 17:07 UTC] stocks/breakout52 equity $513.05 (+2.6%) 2 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: NVAX (+53% 6-mo), GME (+13% 6-mo)
+[2026-10-14 17:07 UTC] stocks/dual_momentum equity $487.13 (-2.6%) 2 open  market UP
+[2026-10-14 17:07 UTC] stocks/trend_ensemble equity $501.30 (+0.3%) 5 open  market UP
+[2026-10-14 17:07 UTC] stocks/rotation10 equity $513.65 (+2.7%) 2 open  market UP
+[2026-10-14 17:07 UTC] stocks/momentum  equity $489.49 (-2.1%) 4 open  market UP
+   >> stocks/trend: BUY $144.18 of AAPL @ 343.892 (entry)
+   >> stocks/trend: BUY $144.18 of LLY @ 1211.11 (entry)
+[2026-10-14 17:07 UTC] stocks/trend     equity $480.47 (-3.9%) 3 open  market UP
+[2026-10-14 17:07 UTC] stocks/hold_spy  equity $500.32 (+0.1%) 1 open  market UP
+   social heat top: PRL 37 (37/0/0), NEAR 35 (35/0/0), STRK 32 (32/0/0), PENGU 31 (27/0/4), ENA 24 (24/0/0)
