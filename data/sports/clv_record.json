@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 58,
-  "beat": 16,
+  "n": 59,
+  "beat": 17,
   "same": 24,
   "worse": 18,
-  "avg_pts": -0.07
+  "avg_pts": -0.05
  },
  "unit_plays": {
   "n": 25,
@@ -22,11 +22,11 @@
    "avg_pts": -0.37
   },
   "lean": {
-   "n": 33,
-   "beat": 10,
+   "n": 34,
+   "beat": 11,
    "same": 11,
    "worse": 12,
-   "avg_pts": -0.17
+   "avg_pts": -0.14
   },
   "lock": {
    "n": 8,
@@ -66,11 +66,11 @@
    "avg_pts": -0.24
   },
   "nhl": {
-   "n": 24,
-   "beat": 5,
+   "n": 25,
+   "beat": 6,
    "same": 12,
    "worse": 7,
-   "avg_pts": -0.22
+   "avg_pts": -0.17
   }
  },
  "lock_by_size": {
@@ -913,6 +913,20 @@
    "odds": -135,
    "close": -122,
    "pts": -2.5,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-13",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Blue Jackets",
+   "market": "ml",
+   "line": null,
+   "odds": -130,
+   "close": -135,
+   "pts": 0.9,
    "units": 0,
    "result": "lost"
   }
