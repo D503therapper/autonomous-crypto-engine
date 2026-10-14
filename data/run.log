@@ -15783,3 +15783,16 @@ error: failed to push some refs to 'https://github.
 [2026-10-14 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 03:06 UTC] crypto/hold_btc  equity $497.54 (-0.5%) 1 open  market UP
    social heat top: PONS 39 (27/0/12), OP 37 (37/0/0), PRL 32 (32/0/0), NEAR 29 (29/0/0), QNT 21 (21/0/0)
+   dex screen: REJECT CBETH@base liq $934,706 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 92%; lp locked 0% < 95%
+   listing: binance #927d3a7b5d6c43fb888e38f1 'Binance Exchange Adds Blackberry (BBB), Mongodb Inc (MDBB), Penguin Solutions Inc (PENGB) ' -> ['BBB', 'MDBB', 'PENGB', 'UVXYB']
+   listing: BBB: binance notice "Binance Exchange Adds Blackberry (BBB), Mongodb Inc (MDBB), Penguin Solutions In" 408s ago -> not on Crypto.com USD
+   listing: MDBB: binance notice "Binance Exchange Adds Blackberry (BBB), Mongodb Inc (MDBB), Penguin Solutions In" 408s ago -> not on Crypto.com USD
+   listing: PENGB: binance notice "Binance Exchange Adds Blackberry (BBB), Mongodb Inc (MDBB), Penguin Solutions In" 408s ago -> not on Crypto.com USD
+   listing: UVXYB: binance notice "Binance Exchange Adds Blackberry (BBB), Mongodb Inc (MDBB), Penguin Solutions In" 408s ago -> not on Crypto.com USD
+   dex screen: REJECT DRMR@solana liq $102,316 - lp holders unknown; rugcheck lp locked 88% < 95%
+   dex screen: REJECT ZRO@base liq $199,457 - pool age unknown
+   dex re-screen: QOMPUTE@solana:BQAeeSow data flag #4 (holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%); holding (experiment 10)
+   dex screen: REJECT GOOGLC@base liq $2,024,318 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 82%; lp locked 0% < 95%
+   dex screen: REJECT KBTC@ethereum liq $33,081,357 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 100%
+   dex screen: PASS TEMO@ethereum liq $218,880
+   dex screen: REJECT ZEC@solana liq $1,650,347,756 - top-10 holders 100%; lp holders unknown
