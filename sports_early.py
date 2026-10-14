@@ -329,6 +329,8 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
     for c in scan(games, model, now, injuries, trap):
         if c["game_id"] in have:
             continue                                 # one early dog per game, posted = final
+        if c.get("spot") in SPOTS_OFF:
+            continue                                 # ⏸️ a paused spot (the owner, 10/14) never posts
         c.update(posted=now.strftime("%Y-%m-%dT%H:%MZ"), result=None)
         g = games.get(c["game_id"]) or {}
         inj = (injuries or {}).get(c["league"])
@@ -534,6 +536,10 @@ SPOTS = {   # key: (label, units, leagues)
     "best":      ("🎯 The engine's best dog of the week", 0.5, ("nfl", "ncaaf")),   # the minimum-one rule (10/1)
     "euro_under": ("🌍 Europe morning NFL under", 0.5, ("nfl",)),               # 17-9 since 2018 - live test (10/4)
 }
+SPOTS_OFF = {"blowout", "engine"}        # ⏸️ the owner, 10/14 ("pull what you gotta pull - I feel like most of these
+#                                         lose"): the blow-out spot went 0-6 live (-3u), the college engine spot 1-2 and
+#                                         college dogs are -12.6% this season (10/10 study) - neither posts until the owner
+#                                         turns it back on; their open plays moved to "pulled" (never graded, no record)
 EURO_QUIT = (15, 0.5)                    # the owner, 10/4: "half unit with the quit rule" - under 50% after 15 = it's off
 EURO_FROM_PT = 18                        # posted the night before (6 PM PT on): the line's set, nobody moves it overnight
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh

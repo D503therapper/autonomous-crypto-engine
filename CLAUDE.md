@@ -46,7 +46,7 @@ every session:
   few nights. Analyze and weigh, no rigid rules.
 - ⏰ Early value plays (the owner, 10/1 - "there's only one way to prove it: you do it"): the six spots from the
   odds-history studies (sports_early.SPOTS - bye-week dog 1u; Monday night NFL dog, East Coast NFL team flying West,
-  blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. The 10/1 "move
+  blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. PAUSED (the owner, 10/14 - "pull what you gotta pull"): blew somebody out (0-6 live) and the college engine spot (sports_early.SPOTS_OFF); their open plays were pulled, not graded. The 10/1 "move
   model" (which dogs the money comes to) is DEAD (10/7 blind re-check: its edge was a look-ahead input, the week's
   second price) - never a seventh spot; its honest form is the hammered spot. The spots are
   WEIGHTS on the engine's own read (never a trigger), the fades subtract; it posts only if the engine isn't fighting
