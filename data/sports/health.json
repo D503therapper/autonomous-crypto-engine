@@ -1,16 +1,15 @@
 {
- "at": "2026-10-14T15:50Z",
+ "at": "2026-10-14T16:34Z",
  "fixes": [
-  "1 finished pick(s) not graded (tennis 2026-10-13 Leylah Fernandez) - sports.yml already running",
-  "simulator overdue (11h) - started sports_sims.yml",
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route",
-  "simulator last ran 11h ago - restarted"
+  "live tennis scores: tennis Stefanini vs Tan: no points for 1453s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (4s)",
+  "live watcher fresh (51s)",
+  "every finished pick graded",
   "scores route up (200)",
   "question box answers",
   "slate check: all 5 of today's games named, priced and looked at",
@@ -22,11 +21,22 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "engine ran 8 min ago",
+  "simulator ran 1h ago",
+  "engine ran 7 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-14T16:34Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Stefanini vs Tan: no points for 1453s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-14T15:50Z",
    "fixes": [
@@ -541,11 +551,6 @@
   },
   {
    "at": "2026-10-12T05:21Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T03:50Z",
    "fixes": [],
    "problems": []
   }
