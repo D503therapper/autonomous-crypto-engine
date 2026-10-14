@@ -133,6 +133,7 @@ sells in the last hour >= 0: n 110, mean +18.0%, growth@5% +0.38%/trade | >= 10:
 | 10 | 2026-10-06 00:30 | DEX: data-only re-screen flags (holders / LP data unknown, LP locked %) no longer sell a held coin; contract flags, honeypots and the liquidity-pull check still do | ~2026-10-20 | season 2 (27 sales): holding every sold coin 7 days beat the actual sales by +$22 per $1 bet (live -11.95 vs hold +10.13); AGENTCAT sold 1.84x -> 19.9x, AGENCY 0.59x -> 16.2x; without those two holding still +3.5 better; the rugged ones were already -70..-90% when flagged | live 10-07: -$46 vs the old rule (HIGGS: 9 flags in a row, rugged from 1.4x; old rule sold ~even at flag #2); 6 other flagged coins no difference; pending |
 | 11 | 2026-10-06 14:00 | DEX: a coin at 3x of its first buy price (confirmed on 2 readings) gets ONE add-on of 10% of the account; the 3x 'sell a third' is off | ~2026-10-27 | owner: "20x off 500 bucks". Scanner replay (current entry rule): 16 coins that hit 3x went on +112% mean / +95% median after it, 10 of 16 doubled again (after 2x: median -49%; after 5x: +39% median, 2 of 12 doubled). Earlier studies: never selling early beat the 3x sell in both data sets | STOPPED 10-12 (before its judge date): 3 live add-ons (SWORDINU 3.0x, CLAUS 3.1x, CLAUDIA 3.2x) all bought near the top and went to ~0: -$306 |
 | 12 | 2026-10-11 | DEX: buy SURVIVORS instead of fresh pumps - pools 2-6 days old, $250k+ liquidity grown 20%+ in 24h, price up on the day and within 30% of its high (dex.survivor_trigger) | ~2026-10-31 | 10-10 post-mortem: 67 live momentum buys -41%, a third lost 80%+; replay of the survivor rule: n 19, median +23%, 53% winners, 3 dumped; no 5x seen yet | pending |
+| 13 | 2026-10-14 ~08:30 | STOCKS: second official account "breakout52" next to rsi2 (official stocks = the average of the two, each a $500-size account; breakout52 started at the official balance of the day, $509.63, so the official number and its chart did not jump): 52-week-high breakouts, top 5, on the 84 high-beta names (config.STOCK_HIBETA): buy a close at a new 252-day high while SPY is above its 200-day average, best 6-month return first, 1/5 of the account each; sell a close below the 50-day average or 20% below the highest close since the buy. Owner OK 10-14. | ~2027-01-14 (vs rsi2 and hold QQQ / SPY) | moonshot2_study (results/moonshot2_study.txt, 2011-2026, fixed rules, signals at the close / fills next open, 0.10%/side): +44.8%/yr, both halves (+34.9% / +58.4%), max DD 48%, 46% winners, ~24 trades/yr; without the 10 hindsight winners +38.2% (+18.0% / +59.9%); 3x costs +42.3%; never lost half in any 6-month window (worst $546 of $1,000; median $1,207). rsi2 live: +1.9% since 09-28. | pending |
 Queue (one or two per area at a time): entry filters (younger coins at small size, LP-lock 50-95%, buy/sell ratio),
 exits (7-day hold, half off at 2x), stocks dip rules, smart-money signal (after ~4 weeks of wallet_trades).
 
@@ -613,8 +614,18 @@ happened in 0 of ~3,600 windows for every strategy except an all-in top-1 chase 
 its starts and goes to zero over the years. The honest fast lane is 52-week-high breakouts in 5 slots on high-beta
 names (+35-45%/yr in both halves, also without the 10 hindsight winners, ~+20% per 6 months median, 2x in ~5% of starts,
 never lost half in 15 years but drawdowns of ~50%): $1k -> $10k takes ~6-7 years at that pace. Recommended next for
-the paper engine (NOT applied here - engine files untouched): run "52w-high top5" as a second stocks experiment next to
+the paper engine: run "52w-high top5" as a second stocks experiment next to
 rsi2 (same $500-size account, judge after ~3 months vs rsi2 and QQQ), and keep every top-1 / all-in idea off the table.
+-> APPLIED 2026-10-14 (owner "Ok") as EXPERIMENT 13: stock_strategies.Breakout52 ("breakout52"), official next to rsi2
+(markets.py "main": ("rsi2", "breakout52")); universe config.STOCK_HIBETA (= moonshot_study.HIBETA, test-asserted);
+parity with moonshot2_study.breakout2 checked day by day on synthetic data (stock_strategies_test.py). The join:
+run_live.join_official starts a strategy new to an official account at the official balance of that moment (the
+average of the running accounts), and the dashboard line is the average of the accounts that have started
+(dashboard._average) - the official stocks number, its daily P/L and its chart stay continuous; the new account's own
+return is measured from its first equity row (LAB.md). The high-beta names are a separate Yahoo bulk download
+(data_source.YahooClient.groups) so a failure there never touches rsi2's bars. State across the engine's 6-hourly
+restarts: the daily gate (Portfolio.last_rebalance_week) and the buy time (`opened`) are in portfolio.json; the
+highest close since the buy is recomputed every cycle from the daily closes on/after the buy day and saved as pos["hc"].
 Caveats: today's ticker lists (hindsight - HIBETA-x is the honest floor), delisted names missing, daily bars, no
 margin / options; rolling windows overlap (n is not independent trials).
 

@@ -143,7 +143,10 @@ def full_cycle(mname, client):
     bench_closes = [c["c"] for c in data.get(m["benchmark"], [])]
     now = ts(int(time.time() * 1000))
     for st in m["strategies"]:
-        ok = regime_ok(bench_closes, bpd, getattr(st, "regime_days", None))
+        if hasattr(st, "regime"):                      # the strategy's own definition (daily closes, as tested)
+            ok = st.regime(data.get(m["benchmark"]))
+        else:
+            ok = regime_ok(bench_closes, bpd, getattr(st, "regime_days", None))
         pf = load_pf(mname, st.name)
         n_before, was_halted = len(pf.trades), pf.halted
         coins = {s: data[s] for s in st.universe if s in data}
@@ -168,6 +171,15 @@ def full_cycle(mname, client):
                     f"{s} {r:.0f}{' BUY' if b else ''}" for r, s, b in near))
             except Exception as e:
                 print(f"   rsi2 watch failed: {e}")
+        if st.name == "breakout52":                    # what the breakout account sees: the names at a 52-week high
+            try:
+                sig = [(s, st.analyze(cs, ok)) for s, cs in coins.items()]
+                hi = sorted(((g["rank"], s) for s, g in sig if g and g["buy"]), reverse=True)
+                print(f"   breakout52: SPY above its 200-day average: {'yes' if ok else 'NO (no buys)'}; "
+                      f"{len([1 for _, g in sig if g])} names with data; at a 52-week high: "
+                      + (", ".join(f"{s} ({r:+.0%} 6-mo)" for r, s in hi[:8]) or "none"))
+            except Exception as e:
+                print(f"   breakout52 watch failed: {e}")
     if mname == "crypto":
         try:
             for coin in check_new_listings(client):
@@ -425,6 +437,45 @@ def _official(mn, m):
     return sum(b[0] for b in bals) / len(bals), sum(b[1] for b in bals)
 
 
+def _start(mn, sn):
+    """What an official account started with: its first equity row (a strategy that joined the official
+    account later started at that day's official balance, join_official) or the market's base."""
+    d = acct_dir(mn, sn)
+    try:
+        with open(f"{d}/equity.csv") as f:
+            rows = list(csv.DictReader(f))
+        return float(rows[0]["equity"])
+    except (OSError, ValueError, KeyError, IndexError):
+        return base(mn)
+
+
+def join_official(markets=None, now_ms=None):
+    """A strategy newly added to a market's official account (several names in "main", averaged by _official)
+    starts with the OFFICIAL BALANCE of that moment - the average of the accounts already running - instead of
+    a fresh $500: data/<market>/<name>/portfolio.json (all cash) and the first equity.csv row. The average, the
+    daily P/L message and the dashboard line (dashboard._average) therefore stay continuous: the same as
+    splitting the real account in two halves that day, each half following its own strategy from then on.
+    breakout52 joined the stocks account this way on 2026-10-14 (EXPERIMENT 13). Runs once per new account."""
+    markets = MARKETS if markets is None else markets
+    now = now_ms or int(time.time() * 1000)
+    joined = {}
+    for mn, m in markets.items():
+        names = _mains(m)
+        have = [s for s in names if os.path.exists(f"{acct_dir(mn, s)}/equity.csv")]
+        new = [s for s in names if not os.path.exists(f"{acct_dir(mn, s)}/portfolio.json") and s not in have]
+        if len(names) < 2 or not new or not have:
+            continue
+        bal = round(sum(_balance(mn, s)[0] for s in have) / len(have), 2)
+        for s in new:
+            pf = Portfolio(cash=bal, fee=m["fee"], slippage=m["slippage"])
+            pf.save(f"{acct_dir(mn, s)}/portfolio.json")
+            append_csv(f"{acct_dir(mn, s)}/equity.csv", [{"time": ts(now), "equity": bal, "cash": bal, "positions": 0}])
+            print(f"   {mn}/{s} joins the official {mn} account at ${bal:,.2f} (the official balance today; "
+                  f"the average of {', '.join(have)} and {s} carries on from here)")
+            joined[(mn, s)] = bal
+    return joined
+
+
 def base(mn):
     """Official starting size of a market's account (config.ACCOUNT_BASE; test accounts: STARTING_CASH_USD)."""
     return getattr(config, "ACCOUNT_BASE", {}).get(mn, config.STARTING_CASH_USD)
@@ -523,7 +574,7 @@ def scoreboard():
            "| Market | Strategy | Balance | Return | Trades |", "|---|---|---|---|---|"]
     for mn, sn, eq, n in lab:
         star = " (official)" if mn in MARKETS and sn in _mains(MARKETS[mn]) else ""
-        b = base(mn) if star or mn == "dex" else config.STARTING_CASH_USD
+        b = _start(mn, sn) if star else base("dex") if mn == "dex" else config.STARTING_CASH_USD
         out.append(f"| {mn} | {sn}{star} | ${eq:,.2f} | {eq / b - 1:+.1%} | {n} |")
     with open("LAB.md", "w") as f:
         f.write("\n".join(out) + "\n")
@@ -574,10 +625,12 @@ def write_dashboard(rows=None, total=None):
         pfs = [load_pf(mn, s) for s in names]
         px = _live_prices(mn, pfs)
         eq = sum(pf.equity(px) for pf in pfs) / k
-        series = dashboard._combine([dashboard._series(f"{acct_dir(mn, s)}/equity.csv") for s in names])
+        # the official line = the average of the accounts that share it (one that joined later counts from
+        # its first point on - it started at the official balance, join_official - so the line never jumps)
+        series = dashboard._average([dashboard._series(f"{acct_dir(mn, s)}/equity.csv") for s in names])
         icon, c1, c2 = look.get(mn, ("•", "#3b82ff", "#22d3ee"))
         cards.append({"holdings": _holdings(pfs, k, px), "name": mn.title(), "icon": icon, "c1": c1, "c2": c2,
-                      "official": True, "equity": eq, "base": base(mn), "series": [(t, v / k) for t, v in series] + [(now, eq)],
+                      "official": True, "equity": eq, "base": base(mn), "series": series + [(now, eq)],
                       "positions": len({c for pf in pfs for c in pf.positions})})
     try:                                               # DEX paper account: not part of the total
         st = dex.scoreboard_stats()
@@ -787,6 +840,10 @@ def main():
         tracker.self_check()                    # logs each source's HTTP status once per run
     except Exception as e:
         print(f"social self-check failed: {e}")
+    try:
+        join_official()                         # a strategy new to an official account starts at its balance
+    except Exception as e:
+        print(f"join_official failed: {e}")
     hunter = dex.hunter()                       # DEX paper trader (dex.py): one request per tick at most
     try:
         hunter.self_check()                     # HTTP status per source once per run

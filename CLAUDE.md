@@ -111,7 +111,7 @@ docs/index.html refreshes every minute. Read first: GOALS.md, REVIEW.md, results
 - Act as the professional: don't ask permission, decide from evidence, fix bugs yourself. Experiment directly in the
   main paper accounts (no side/shadow accounts) and log each one in the EXPERIMENTS LOG with a judge date.
 - Talk to him in plain, short English - no jargon (no "tiers", "trail", "6h", "stake-back" words; say what it does).
-- Accounts: Stocks $500 (rsi2 dip-buying), DEX season 5 from 2026-10-14 at $1,000 (seasons 1-4 archived in data/dex/archive/); entries = survivor rule (experiment 12).
+- Accounts: Stocks $500 = the average of two $500-size accounts, rsi2 dip-buying and, from 2026-10-14 (EXPERIMENT 13, judge ~2027-01-14), breakout52 (52-week-high breakouts, top 5, on the high-beta names; the owner's "Ok" 10-14), DEX season 5 from 2026-10-14 at $1,000 (seasons 1-4 archived in data/dex/archive/); entries = survivor rule (experiment 12).
 - Owner 2026-10-14: NO buy-and-hold Bitcoin ("too expensive and the gains are minimal") even though the 10-14 altcoin
   study found holding BTC (+35%/yr since 2023) beat every altcoin trading strategy - don't re-propose it. The crypto
   money stays on the moonshot hunt (DEX survivor rule); stocks stay on rsi2 dip-buying.

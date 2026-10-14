@@ -312,6 +312,160 @@ def test_rsi2_entry_threshold():
     print("  rsi2 entry: RSI(2) < 25 above the 200-day average")
 
 
+# ---------------------------------------------------------------- breakout52 (EXPERIMENT 13)
+def test_breakout52_setup():
+    """config.STOCK_HIBETA is moonshot_study.HIBETA; the class carries the study's exact parameters; the
+    high-beta names are downloaded as their own Yahoo group (a failure there never touches rsi2's bars)."""
+    import config
+    import moonshot_study
+    from data_source import YahooClient
+    assert config.STOCK_HIBETA == moonshot_study.HIBETA
+    st = ss.Breakout52(config.STOCK_HIBETA, BPD)
+    assert (st.max_positions, st.high_days, st.rank_days, st.exit_sma, st.trail_pct, st.regime_days) == (5, 252, 126, 50, 0.20, 200)
+    assert st.rebalance_key == "%Y-%m-%d" and st.weekly and st.cash_reserve == 0.0 and abs(st.position_pct - 0.2) < 1e-12
+    assert not hasattr(st, "trail"), "run_live.fast_check would trail it live; the study's exits are daily closes"
+    assert "SPY" not in st.universe and set(st.universe) == set(config.STOCK_HIBETA)
+    assert st.min_candles >= (252 + 2) * BPD and int((st.min_candles + 10) * 3 / 14) + 15 < 729
+    core, hib = YahooClient.groups()
+    assert "SPY" in core and "MSTR" in core and "MSTR" not in hib and "GME" in hib and not set(core) & set(hib)
+    assert set(core) | set(hib) >= set(config.STOCK_HIBETA) | set(config.STOCK_UNIVERSE)
+    print(f"  breakout52 setup ok: {len(st.universe)} names, {len(hib)} in their own download group")
+
+
+def test_breakout52_regime():
+    st = ss.Breakout52(["A"], 1)
+    up = [{"t": (20_000 + i) * DAY_MS + 15 * HOUR, "o": 100 + i, "h": 100 + i, "l": 100 + i, "c": 100 + i, "v": 1.0}
+          for i in range(202)]
+    assert st.regime(up)                                     # last completed close above its 200-day average
+    down = [dict(b, c=300 - i) for i, b in enumerate(up)]
+    assert not st.regime(down) and not st.regime(up[:150]) and not st.regime([]) and not st.regime(None)
+    print("  breakout52 regime: SPY's completed daily closes vs their 200-day average")
+
+
+def synthetic_hibeta():
+    import config
+    syms = sorted(set(config.STOCK_HIBETA[:40]) | {"SPY"})
+    prices = load_synthetic(syms, 4, "stocks")
+    ctx = Ctx(prices, "stocks", "SPY")
+    hourly = {s: hourly_from_daily(ser) for s, ser in prices.items()}
+    return ctx, hourly
+
+
+def test_breakout52_parity(ctx, hourly, p=None):
+    """moonshot2_study.breakout2 through lab.simulate and Breakout52 through engine.step, one cycle per
+    trading day on the same synthetic prices, must hold the same names every day (the lab's `held` at the
+    open of day i+1 = the engine's positions after its cycle during day i+1). Run with the live parameters
+    and with the 50-day exit off (exit_sma 1000: never available) so the 20% trail is the exit that fires."""
+    import bisect
+    import moonshot2_study as m2
+    p = p or {"slots": 5, "trail": 0.20, "exit_sma": 50}
+    uni = [s for s in ctx.syms if s != "SPY"]
+    fn, first, seen = m2.breakout2(uni, p["slots"], trail=p["trail"], exit_sma=p["exit_sma"]), 260, {}
+
+    def rec(c, i, held, pp):
+        seen[i] = set(held)
+        return fn(c, i, held, pp)
+    lab.simulate(ctx, rec, {}, first, ctx.n, 0.0)
+    strat = ss.Breakout52(uni, BPD, **p)
+    days = {s: [b["t"] // DAY_MS for b in h] for s, h in hourly.items()}
+
+    def bars_at(s, day, nxt):               # candles_at, without scanning the whole list each day
+        k = bisect.bisect_right(days[s], day)
+        return hourly[s][:k] + [dict(hourly[s][k - 1], t=nxt * DAY_MS + 14 * HOUR)] if k else []
+    pf, bad, days_held, reasons = Portfolio(cash=1000.0, fee=0.0, slippage=0.0), [], 0, set()
+    for i in range(first, ctx.n - 1):
+        bars = {s: bars_at(s, ctx.days[i], ctx.days[i + 1]) for s in strat.universe}
+        bars = {s: b for s, b in bars.items() if b}
+        ok = strat.regime(bars_at("SPY", ctx.days[i], ctx.days[i + 1]))
+        assert ok == ctx.regime(i, 200), ctx.dates[i]
+        step(pf, bars, strat, ok)
+        want = seen.get(i + 1, set())
+        days_held += bool(want)
+        if set(pf.positions) != want:
+            bad.append((ctx.dates[i], sorted(want), sorted(pf.positions)))
+        reasons |= {t["reason"] for t in pf.trades if t["side"] == "SELL"}
+    for dt, want, got in bad[:3]:
+        print(f"    MISMATCH {dt}: lab {want} live {got}")
+    n = ctx.n - 1 - first
+    print(f"  breakout52       {lab.pstr(p):<30} {n - len(bad)}/{n} days identical ({days_held} with holdings, "
+          f"{len(pf.trades)} trades, exits: {sorted(reasons)})")
+    assert not bad, f"{len(bad)} mismatching days"
+    assert days_held >= 50 and len(pf.trades) >= 10, "too little activity to be meaningful"
+    assert reasons == ({"gave back 20% from its highest close"} if p["exit_sma"] > 500 else
+                       {"closed below its 50-day average"}) or p["exit_sma"] <= 500 and len(reasons) == 2, reasons
+    for t in pf.trades:
+        if t["side"] == "BUY":
+            assert t["reason"] == "entry"
+
+
+def test_breakout52_state_survives_restart():
+    """The highest close since the buy is recomputed from the closes on/after the buy day (closes before it,
+    even higher ones, never count) and kept on the position, which portfolio.json saves: a restart or a
+    missed cycle never loses it."""
+    import os, tempfile
+    st = ss.Breakout52(["A"], BPD)
+    d0 = 20_000
+    pf = Portfolio(cash=500.0, fee=0.0, slippage=0.0)
+    pf.buy(d0 * DAY_MS + 15 * HOUR, "A", 100.0, 10.0, 0.0)
+
+    def sig(recent, buy=False, below=False):
+        return {"price": recent[-1][1], "close": recent[-1][1], "buy": buy, "below_avg": below, "recent": recent}
+    pos = pf.positions["A"]
+    assert st.manage(pos, sig([(d0 - 1, 50.0)]), 0, rebalance=True) is None and pos.get("hc") is None   # fill day: no peak yet
+    assert st.manage(pos, sig([(d0 - 1, 50.0), (d0, 10.0), (d0 + 1, 12.0), (d0 + 2, 9.7)]), 0, True) is None
+    assert pos["hc"] == 12.0                                   # 9.7 is 19% under the peak: hold
+    path = os.path.join(tempfile.mkdtemp(), "portfolio.json")
+    pf.save(path)
+    pf2 = Portfolio.load(path, fee=0.0, slippage=0.0)         # the engine restarts
+    pos2 = pf2.positions["A"]
+    assert pos2["hc"] == 12.0 and pos2["opened"] == d0 * DAY_MS + 15 * HOUR
+    assert st.manage(pos2, sig([(d0 + 3, 9.5)]), 0, rebalance=False) is None     # between daily cycles: nothing
+    act = st.manage(pos2, sig([(d0 + 3, 9.5)]), 0, rebalance=True)               # history window lost the peak: pos["hc"] has it
+    assert act and act[0] == 1.0 and "20%" in act[2], act
+    pos3 = dict(pos2, hc=None)                                 # no saved peak either: the full history gives it
+    act = st.manage(pos3, sig([(d0 - 1, 50.0), (d0, 10.0), (d0 + 1, 12.0), (d0 + 2, 9.7), (d0 + 3, 9.5)]), 0, True)
+    assert act and act[0] == 1.0 and pos3["hc"] == 12.0
+    assert st.manage(dict(pos2), sig([(d0 + 3, 9.0)], buy=True), 0, True) is None   # a fresh 52-week high: never sold
+    act = st.manage(dict(pos2), sig([(d0 + 3, 11.9)], below=True), 0, True)
+    assert act and "50-day" in act[2]
+    print("  breakout52 state: peak since the buy recomputed from history, saved on the position, survives a restart")
+
+
+def test_join_official_and_average():
+    """run_live.join_official: a strategy added to an official account starts at that account's balance (no
+    fake jump in the official number, its daily P/L or its chart); dashboard._average draws that line."""
+    import os, tempfile
+    import dashboard
+    import run_live
+    cwd = os.getcwd()
+    os.chdir(tempfile.mkdtemp())
+    try:
+        mk = {"stocks": {"main": ("rsi2", "breakout52"), "fee": 0.0, "slippage": 0.0005},
+              "crypto": {"main": "early_mover", "fee": 0.0, "slippage": 0.0},
+              "empty": {"main": ("x", "y"), "fee": 0.0, "slippage": 0.0}}
+        os.makedirs("data/stocks/rsi2")
+        with open("data/stocks/rsi2/equity.csv", "w") as f:
+            f.write("time,equity,cash,positions\n2026-09-28 13:32,500.0,500.0,0\n2026-10-13 19:06,509.63,0.0,3\n")
+        t = 1_792_000_000_000
+        assert run_live.join_official(mk, t) == {("stocks", "breakout52"): 509.63}
+        pf = run_live.load_pf("stocks", "breakout52") if False else run_live.Portfolio.load("data/stocks/breakout52/portfolio.json")
+        assert pf.cash == 509.63 and not pf.positions
+        with open("data/stocks/breakout52/equity.csv") as f:
+            rows = f.read().splitlines()
+        assert rows[0] == "time,equity,cash,positions" and rows[1].endswith(",509.63,509.63,0") and len(rows) == 2
+        assert run_live._official("stocks", mk["stocks"]) == (509.63, 0)          # unchanged by the join
+        assert run_live._start("stocks", "breakout52") == 509.63 and run_live._start("stocks", "rsi2") == 500.0
+        assert run_live.join_official(mk, t + 1) == {}                             # once
+        assert not os.path.exists("data/crypto") and not os.path.exists("data/empty")
+        a = [(1, 500.0), (2, 510.0), (3, 520.0)]
+        b = [(2, 510.0), (3, 500.0)]
+        assert dashboard._average([a, b]) == [(1, 500.0), (2, 510.0), (3, 510.0)]
+        assert dashboard._average([a]) == a and dashboard._average([]) == []
+    finally:
+        os.chdir(cwd)
+    print("  join_official: the new account starts at the official balance; _average: continuous line")
+
+
 if __name__ == "__main__":
     print("stock_strategies_test")
     assert hasattr(__import__("engine"), "rebalance_to"), \
@@ -327,4 +481,12 @@ if __name__ == "__main__":
     test_trend_ensemble_parity(ctx, hourly)
     test_missing_and_stale_symbols(ctx, hourly)
     test_engine_smoke(ctx, hourly)
+    test_breakout52_setup()
+    test_breakout52_regime()
+    test_breakout52_state_survives_restart()
+    test_join_official_and_average()
+    ctx2, hourly2 = synthetic_hibeta()
+    print(f"  synthetic high-beta: {len(ctx2.syms)} symbols, {ctx2.n} days")
+    test_breakout52_parity(ctx2, hourly2)
+    test_breakout52_parity(ctx2, hourly2, {"slots": 3, "trail": 0.20, "exit_sma": 1000})
     print("all stock_strategies tests passed")

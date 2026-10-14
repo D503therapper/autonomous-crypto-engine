@@ -37,6 +37,25 @@ STOCK_UNIVERSE = [
 STOCK_ETFS = ["SPY", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "XLK", "XLF", "XLE", "XLV", "XLY",
               "XLP", "XLI", "XLU", "XLB", "XLRE", "XLC", "SMH", "EFA", "EEM"]
 
+# High-beta names of the moonshot studies (moonshot_study.HIBETA, copied so the engine does not import the research
+# script; stock_strategies_test.py asserts the two lists stay equal): the famous winners AND the famous busts. Universe
+# of the official "breakout52" stocks account (EXPERIMENT 13, 2026-10-14). Delisted names (NKLA, SAVA, BITF) just skip.
+STOCK_HIBETA = ["MSTR", "COIN", "PLTR", "SMCI", "TSLA", "NVDA", "AMD", "MARA", "RIOT", "HOOD", "APP", "IONQ", "RGTI", "QBTS",
+                "CVNA", "UPST", "AFRM", "SOFI", "GME", "AMC", "ROKU", "SHOP", "XYZ", "NET", "CRWD", "SNOW", "DDOG", "TTD",
+                "ENPH", "PLUG", "FCEL", "LCID", "RIVN", "BYND", "SPCE", "TLRY", "NIO", "CLSK", "HUT", "BITF", "CIFR", "IREN",
+                "OKLO", "SMR", "VST", "CEG", "RKLB", "ASTS", "LUNR", "ARM", "NBIS", "HIMS", "CELH", "ELF", "DKNG", "NFLX",
+                "META", "UBER", "AVGO", "MU", "PTON", "ZM", "DOCU", "SNAP", "PINS", "LYFT", "WOLF", "RUN", "SEDG", "NKLA",
+                "CHPT", "QS", "BB", "CLOV", "SAVA", "NVAX", "MRNA", "BNTX", "SE", "MELI", "BABA", "JD", "PDD", "BIDU"]
+# 52-week-high breakouts, top 5 (stock_strategies.Breakout52) = moonshot2_study.breakout2(HIBETA, K=5, trail=0.20,
+# exit_sma=50): results/moonshot2_study.txt 2011-2026 +44.8%/yr (+34.9% older half | +58.4% newer, max DD 48%; without
+# the 10 hindsight winners +38.2%, +18.0% | +59.9%; 3x costs +42.3%). Every rule here is the study's, nothing tuned.
+BREAKOUT52 = {"slots": 5,            # up to 5 names, each 1/5 of the account, no cash reserve (as simulated)
+              "high_days": 252,      # buy a close at or above the highest close of the previous 252 trading days
+              "rank_days": 126,      # ...best 6-month return first
+              "regime_days": 200,    # only while SPY closes above its 200-day average
+              "exit_sma": 50,        # sell a close below the 50-day average...
+              "trail": 0.20}         # ...or 20% below the highest close since the buy
+
 # --- Early mover hunter (all Crypto.com coins) -----------------------------
 EARLY_MOVER = {
     "k": 3, "x": 0.10, "v": 3,        # up >= 10% in 3h on >= 3x normal volume

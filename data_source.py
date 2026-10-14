@@ -95,22 +95,40 @@ class YahooClient:
     def list_spot_symbols(self, quote=None):
         return list(config.STOCK_UNIVERSE)
 
+    @staticmethod
+    def groups():
+        """Symbols are downloaded in bulk per group: the core list (the official rsi2 account, the ETF
+        strategies) and the high-beta list of the breakout52 account. A failed group never costs the
+        other its bars (one yfinance call per group and hour; a failure is remembered for the hour)."""
+        core = sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS))
+        extra = sorted(set(getattr(config, "STOCK_HIBETA", [])) - set(core))
+        return [core, extra] if extra else [core]
+
     def _download(self, symbols, days):
-        # one download per hourly cycle (the per-symbol candles() calls of a cycle share it);
+        # one download per group and hourly cycle (the per-symbol candles() calls of a cycle share it);
         # a per-process cache would feed the same bars to every cycle of a 6-hour run
-        key = (tuple(sorted(symbols)), days, int(time.time() // 3600))
+        hour = int(time.time() // 3600)
+        key = (tuple(sorted(symbols)), days, hour)
         if key not in self._cache:
+            self._cache = {k: v for k, v in self._cache.items() if k[2] == hour}   # this hour's downloads only
             period = f"{min(days, 729)}d"
-            df = self.yf.download(sorted(symbols), period=period, interval="1h", group_by="ticker",
-                                  auto_adjust=True, prepost=False, progress=False, threads=True)
-            self._cache = {key: df}
-        return self._cache[key]
+            try:
+                self._cache[key] = self.yf.download(sorted(symbols), period=period, interval="1h", group_by="ticker",
+                                                    auto_adjust=True, prepost=False, progress=False, threads=True)
+            except Exception as e:      # remembered: 80 symbols must not each retry a failed bulk download
+                self._cache[key] = e
+        df = self._cache[key]
+        if isinstance(df, Exception):
+            raise df
+        return df
 
     def candles(self, sym, timeframe="1h", count=config.CANDLES_NEEDED, end_ms=None, universe=None):
         # `count` is session bars (7 per trading day); Yahoo's period is calendar days
         # (~5 sessions per 7 days, minus holidays), so ask for 1.5x plus a margin
         days = max(30, count * 3 // 14 + 15)
-        df = self._download(universe or sorted(set(config.STOCK_UNIVERSE) | set(config.STOCK_ETFS)), days)
+        if universe is None:
+            universe = next((g for g in self.groups() if sym in g), None) or [sym]
+        df = self._download(universe, days)
         try:
             d = df[sym].dropna()
         except KeyError:

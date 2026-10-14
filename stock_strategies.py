@@ -24,6 +24,8 @@ import config
 INDEX_ETFS = ["SPY", "QQQ", "IWM", "DIA", "EFA", "EEM", "GLD", "TLT"]
 from strategy import _base, _daily_closes
 
+DAY_MS = 86_400_000
+
 
 def _ret(closes, n):
     """closes[-1] / closes[-1-n] - 1 the way lab.Ctx._ret computes it; None if too short."""
@@ -179,3 +181,86 @@ class TrendEnsemble(_TargetWeightStrategy):
         live = self._live(sig)
         cands = [(s["score"], c) for c, s in sig.items() if c in live and s["score"] is not None]
         return _top(cands, self.max_positions)
+
+
+class Breakout52:
+    """52-week-high breakouts, top 5 (EXPERIMENT 13, 2026-10-14; official stocks account next to rsi2) =
+    moonshot2_study.breakout2(HIBETA, K=5, trail=0.20, exit_sma=50), results/moonshot2_study.txt: 2011-2026
+    +44.8%/yr, both halves positive (+34.9% | +58.4%), max drawdown 48%; HIBETA-x +38.2%, 3x costs +42.3%.
+
+    Once a trading day, on completed daily closes (the first hourly cycle after the open, like rsi2):
+      sell a holding whose close is below its 50-day average, or 20% or more below its highest close since
+        the buy (lab: peak_since - the closes from the fill day on, today's included);
+      with fewer than 5 holdings and SPY above its 200-day average (SPY's own daily closes, lab.Ctx.regime -
+        run_live asks regime() instead of the hourly regime_ok), buy the names whose close is at or above
+        the highest close of the previous 252 days (lab.Ctx._hh: the window EXCLUDES today and needs a full
+        252 closes), best 6-month return first, each 1/5 of equity, no cash reserve (lab: min(w * equity, cash)).
+    No stops between cycles (`stop` 0, no `trail` attribute: run_live.fast_check must not trail it live).
+
+    State that must survive the engine's 6-hourly restarts: the daily gate is Portfolio.last_rebalance_week
+    (saved), the entry time is the position's `opened` (saved), and the highest close since entry is
+    RECOMPUTED every cycle from the daily closes on or after the entry day (sig["recent"], ~a year of
+    closes) and kept as pos["hc"] for holdings older than that history - so a missed cycle or a restart
+    never loses or mis-dates the peak. Parity with the lab function: stock_strategies_test.py."""
+    name = "breakout52"
+    weekly = True
+    rebalance_key = "%Y-%m-%d"      # evaluate once per trading day (first cycle after the open)
+
+    def __init__(self, universe, bars_per_day, bench="SPY", **overrides):
+        p = dict(config.BREAKOUT52, **overrides)
+        self.P, self.bench, self.bpd = p, bench, bars_per_day
+        self.universe = sorted(set(universe) - {bench})     # the benchmark is only the regime, never bought
+        self.max_positions = p["slots"]
+        self.high_days, self.rank_days, self.exit_sma = p["high_days"], p["rank_days"], p["exit_sma"]
+        self.trail_pct, self.regime_days = p["trail"], p["regime_days"]
+        self.cash_reserve = 0.0
+        self.position_pct = self.max_position_pct = 1 / p["slots"]
+        self.min_candles = (max(self.high_days, self.regime_days) + 8) * bars_per_day
+        self.window = self.min_candles + 2 * bars_per_day
+
+    def regime(self, bench_candles):
+        """lab.Ctx.regime(i, 200): the benchmark's last completed daily close above its 200-day average of
+        daily closes (False with too little history, as in the lab)."""
+        closes = [x[1] for x in _daily_closes(bench_candles or [])]
+        sma = _sma(closes, self.regime_days)
+        return sma is not None and closes[-1] > sma
+
+    def analyze(self, candles, market_ok=True):
+        if not candles:
+            return None
+        daily = _daily_closes(candles)
+        if len(daily) < 2:
+            return None
+        daily = daily[-(self.high_days + 2):]
+        closes = [x[1] for x in daily]
+        hh = max(closes[-1 - self.high_days:-1]) if len(closes) > self.high_days else None
+        r = _ret(closes, self.rank_days)
+        sma = _sma(closes, self.exit_sma)
+        sig = _base(candles)
+        sig.update(rank=r if r is not None else -9.0, stop=0.0, close=closes[-1], day=daily[-1][0],
+                   buy=bool(market_ok) and hh is not None and r is not None and closes[-1] >= hh,
+                   below_avg=sma is not None and closes[-1] < sma, recent=daily)
+        return sig
+
+    def peak(self, pos, s):
+        """Highest completed daily close on or after the buy day (lab: peak_since from the fill day), from the
+        closes in the signal, merged with the saved pos["hc"] for holdings older than that history."""
+        since = pos.get("opened", 0) // DAY_MS
+        hc = max((c for d, c in s.get("recent", []) if d >= since), default=None)
+        if pos.get("hc") is not None:
+            hc = pos["hc"] if hc is None else max(hc, pos["hc"])
+        if hc is not None:
+            pos["hc"] = hc
+        return hc
+
+    def manage(self, pos, s, now, rebalance=False):
+        if not rebalance:
+            return None
+        hc = self.peak(pos, s)
+        if s["buy"]:            # closing at a fresh 52-week high: the lab re-picks it the same day (no trade)
+            return None
+        if s["below_avg"]:
+            return 1.0, s["price"], f"closed below its {self.exit_sma}-day average"
+        if hc is not None and s["close"] < hc * (1 - self.trail_pct):
+            return 1.0, s["price"], f"gave back {self.trail_pct:.0%} from its highest close"
+        return None
