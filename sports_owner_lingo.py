@@ -43,8 +43,10 @@ OWNER = {
     # the crew
     "the homies": "the people on the board with us",
     # the engine at its best (the owner, 10/14: "if it hits the engine is goated")
-    "goated": "the engine / a call at its best - only after a real result: a clean sweep, a big plus-money hit "
-              "('the engine is goated'); never before a game, never on a lean",
+    "goated": "deemed great after what they just did - the engine, a team or a player ('the engine is goated', 'they "
+              "goated after yesterday'); hype, not literal (the owner: 'the GOAT' = greatest of all time, said loosely "
+              "- 'Ohtani is the goat' just means he's great). Only after a real result, never before a game, never on "
+              "a lean",
 }
 
 # words he's said NOT to use (the dashboard never says these)
