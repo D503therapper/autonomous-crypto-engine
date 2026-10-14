@@ -617,3 +617,8 @@ the paper engine (NOT applied here - engine files untouched): run "52w-high top5
 rsi2 (same $500-size account, judge after ~3 months vs rsi2 and QQQ), and keep every top-1 / all-in idea off the table.
 Caveats: today's ticker lists (hindsight - HIBETA-x is the honest floor), delisted names missing, daily bars, no
 margin / options; rolling windows overlap (n is not independent trials).
+
+### 2026-10-14 52-week-high breakout on ALT COINS (owner: "what about alt coins") - results/alt_breakout_study.txt
+The stock winner (+44.8%/yr) on ~60 Crypto.com alts, BTC > 200d filter, 2022-2026. At 0.2%/side: 52w top5 +5.0%/yr
+(+5.4 / +4.6 per half, DD 48%), top3 +2.0%, 50d-exit-only +8.2% (+19.0 / -1.6), 90-day-high versions -8% / -22%;
+5x in 6 months: 0% for every version. Hold BTC same span +40.7%/yr. The breakout edge does NOT carry over to alts.
