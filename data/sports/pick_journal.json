@@ -3404,5 +3404,109 @@
   "score": "3-7",
   "margin": -4.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-13",
+  "kind": "lean",
+  "lean": true,
+  "tier": "lean",
+  "league": "ncaaf",
+  "game_id": "ncaaf:401871067",
+  "team": "MTSU",
+  "opp": "Delaware",
+  "home": true,
+  "market": "ml",
+  "line": null,
+  "odds": -105,
+  "posted": "2026-10-13T15:00Z",
+  "price_says": 0.512,
+  "win_p": 0.5003473169590004,
+  "own_read": 0.507,
+  "weighed": null,
+  "dog_p": null,
+  "edge_own": -0.01026403691830391,
+  "near_lock": false,
+  "units": 0,
+  "reasons": [
+   "opponent missing key players",
+   "the stronger team",
+   "hotter recent form"
+  ],
+  "angles": {
+   "fades": [
+    "ice cold"
+   ],
+   "last_margin": -55.0,
+   "last_pts": 0.0,
+   "neutral": false,
+   "win_pct": 0.4,
+   "win_streak": 0
+  },
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [
+   "N. Minicucci (QB)",
+   "G. Spiller (RB)"
+  ],
+  "goalie_roles": null,
+  "public": null,
+  "close": -102,
+  "beat_close_pts": -0.7,
+  "result": "won",
+  "score": "33-30",
+  "margin": 3.0,
+  "pnl_units": 0.0
+ },
+ {
+  "date": "2026-10-13",
+  "kind": "play",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892492",
+  "team": "Kraken",
+  "opp": "Flyers",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 102,
+  "posted": "2026-10-13T15:00Z",
+  "price_says": 0.495,
+  "win_p": 0.4788624312636338,
+  "own_read": 0.539,
+  "weighed": null,
+  "dog_p": 0.5388,
+  "edge_own": 0.08850211115254036,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "hotter recent form",
+   "hotter goalie"
+  ],
+  "angles": [
+   "hot:5",
+   "trash:2",
+   "latest:6",
+   "h2h:4",
+   "road:0",
+   "healthy:3",
+   "sharp:1",
+   "bottom_s:1",
+   "w_hot:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": false
+  },
+  "public": null,
+  "close": -108,
+  "beat_close_pts": 2.4,
+  "result": "won",
+  "score": "3-2",
+  "margin": 1.0,
+  "pnl_units": 0.51
  }
 ]
