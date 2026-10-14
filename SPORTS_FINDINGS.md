@@ -13,6 +13,15 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/14 - SOCCER ROUND 2 (the owner: "I know people who hit soccer like crazy" - the softer spots): DEAD everywhere in this data
+- 34,310 games, 13 leagues 2018-19..2025-26 (top 5, Championship, League One, League Two, National League, Scotland, Netherlands, Belgium, Turkey; Portugal / Greece / MLS / South America not obtained). Train 2018-22, blind 2022-26, Pinnacle close + best price.
+- Lower-league plus-money 1X2: -3.2% both halves at Pinnacle (16k / 17k), best price -0.9 / -0.7; 0 of 12 leagues positive both halves.
+- Totals O/U 2.5: overs -3.1 / -3.6, unders -4.6 / -3.1; a walk-forward attack/defence goals model reads WORSE than the market (log loss 0.695 vs 0.676) and its picks lose every season. (A first run showed +5-6% blind - a look-ahead bug: season files loaded twice so the model saw the game's own result; caught by a shift test. For any walk-forward study: dedupe and shift-test.)
+- Draws: -3.4 / -4.6; model-liked draws -9.0 blind.
+- Elo + form on the lower leagues: worse than the market (log loss 1.012 vs 0.985); edge plays lose.
+- Late season (last 6 rounds): the market prices motivation. Only near-miss: OVER 2.5 when neither team has anything to play for +3.3% n 325 / +5.0% n 430 (1.4 SE) - noise-level; its mirror -8.2%.
+- Verdict: ~250 cells, 'positive both halves' at chance everywhere. Soccer stays off; people who hit it are riding variance or have data we don't (lineups, Asian-handicap steam, in-play).
+
 ## 10/14 - SOCCER (the owner: his brother's engine "smacking" soccer plus money - should we add it?): DEAD - the top European leagues price like the NFL / NBA; not built
 - Data: football-data.co.uk, EPL / La Liga / Serie A / Bundesliga / Ligue 1, 2018-19..2025-26 = 14,285 games, Pinnacle closing + best closing 3-way odds. Train 2018-22, blind 2022-26 (~7,000 games). The Champions League is NOT in this source (the brother's PSG +200 at Man City kind of bet is untested).
 - Every +100..+300 side flat: Pinnacle close -4.9% / -4.1% (6,487 / 5,580); best price on the board -1.9% / -1.8%. Every band negative at Pinnacle; +200..+300 home dogs -12%. Draws -2%; favorites 0 to +1.5% (the vig).
