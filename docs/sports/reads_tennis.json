@@ -1,32 +1,6 @@
 {
- "updated": "2026-10-14T07:21Z",
+ "updated": "2026-10-14T08:27Z",
  "games": [
-  {
-   "id": "tennis:wta:185354",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Women's Tennis",
-   "start": "2026-10-14T08:20Z",
-   "away": "Ashlyn Krueger",
-   "home": "Lanlana Tararudee",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Ashlyn Krueger",
-    "opp": "Lanlana Tararudee",
-    "market": "ml",
-    "line": null,
-    "odds": -145,
-    "p": 0.566,
-    "win_p": 0.566,
-    "reasons": [
-     "on hard court",
-     "Dongfeng Voyah Wuhan Open"
-    ]
-   }
-  },
   {
    "id": "tennis:atp:184949",
    "league": "tennis",
@@ -44,9 +18,9 @@
     "opp": "Stefanos Tsitsipas",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
+    "odds": -240,
+    "p": 0.676,
+    "win_p": 0.676,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -70,8 +44,8 @@
     "opp": "Aryna Sabalenka",
     "market": "spread",
     "line": 5.5,
-    "odds": -130,
-    "p": 0.531,
+    "odds": -125,
+    "p": 0.52,
     "win_p": 0.182,
     "reasons": [
      "on hard court",
@@ -96,9 +70,9 @@
     "opp": "Zizou Bergs",
     "market": "ml",
     "line": null,
-    "odds": -225,
-    "p": 0.664,
-    "win_p": 0.664,
+    "odds": -220,
+    "p": 0.658,
+    "win_p": 0.658,
     "reasons": [
      "on hard court",
      "Rolex Shanghai Masters"
@@ -111,75 +85,23 @@
    "emoji": "\ud83c\udfbe",
    "sport": "Women's Tennis",
    "start": "2026-10-14T12:30Z",
-   "away": "Leylah Fernandez",
-   "home": "Shi Han",
+   "away": "Shi Han",
+   "home": "Leylah Fernandez",
    "vs": true,
    "why": "on_board",
    "board": null,
    "h1": null,
    "lean": {
-    "team": "Leylah Fernandez",
-    "opp": "Shi Han",
+    "team": "Shi Han",
+    "opp": "Leylah Fernandez",
     "market": "spread",
-    "line": -4.5,
-    "odds": -130,
-    "p": 0.531,
-    "win_p": 0.745,
+    "line": 5.0,
+    "odds": -120,
+    "p": 0.51,
+    "win_p": 0.238,
     "reasons": [
      "on hard court",
      "Dongfeng Voyah Wuhan Open"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:184954",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-15T04:00Z",
-   "away": "Alexander Zverev",
-   "home": "Alex de Minaur",
-   "vs": true,
-   "why": "no_value",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Alexander Zverev",
-    "opp": "Alex de Minaur",
-    "market": "ml",
-    "line": null,
-    "odds": -215,
-    "p": 0.652,
-    "win_p": 0.652,
-    "reasons": [
-     "on hard court",
-     "Rolex Shanghai Masters"
-    ]
-   }
-  },
-  {
-   "id": "tennis:atp:184955",
-   "league": "tennis",
-   "emoji": "\ud83c\udfbe",
-   "sport": "Men's Tennis",
-   "start": "2026-10-15T04:00Z",
-   "away": "Alejandro Davidovich Fokina",
-   "home": "Arthur Gea",
-   "vs": true,
-   "why": "coin_flip",
-   "board": null,
-   "h1": null,
-   "lean": {
-    "team": "Alejandro Davidovich Fokina",
-    "opp": "Arthur Gea",
-    "market": "ml",
-    "line": null,
-    "odds": -125,
-    "p": 0.532,
-    "win_p": 0.532,
-    "reasons": [
-     "on hard court",
-     "Rolex Shanghai Masters"
     ]
    }
   },
@@ -200,12 +122,38 @@
     "opp": "Mia Pohankova",
     "market": "ml",
     "line": null,
-    "odds": -220,
-    "p": 0.658,
-    "win_p": 0.658,
+    "odds": -240,
+    "p": 0.676,
+    "win_p": 0.676,
     "reasons": [
      "on hard court",
      "Dongfeng Voyah Wuhan Open"
+    ]
+   }
+  },
+  {
+   "id": "tennis:atp:184955",
+   "league": "tennis",
+   "emoji": "\ud83c\udfbe",
+   "sport": "Men's Tennis",
+   "start": "2026-10-15T06:30Z",
+   "away": "Alejandro Davidovich Fokina",
+   "home": "Arthur Gea",
+   "vs": true,
+   "why": "coin_flip",
+   "board": null,
+   "h1": null,
+   "lean": {
+    "team": "Alejandro Davidovich Fokina",
+    "opp": "Arthur Gea",
+    "market": "ml",
+    "line": null,
+    "odds": -120,
+    "p": 0.522,
+    "win_p": 0.522,
+    "reasons": [
+     "on hard court",
+     "Rolex Shanghai Masters"
     ]
    }
   }
