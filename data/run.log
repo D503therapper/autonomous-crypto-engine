@@ -16403,3 +16403,12 @@ $NKLA: No data found, symbol may be delisted
 [2026-10-14 19:07 UTC] stocks/trend     equity $479.75 (-4.1%) 3 open  market DOWN
 [2026-10-14 19:07 UTC] stocks/hold_spy  equity $498.99 (-0.2%) 1 open  market DOWN
    social heat top: PRL 37 (37/0/0), HYPE 35 (35/0/0), WAL 32 (32/0/0), PENGU 29 (29/0/0), BTC 27 (27/0/0)
+   dex screen: REJECT CLAW@solana liq $488,513 - creator holds 7%; top-10 holders 72%; lp holders unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT INFER@ethereum liq $151,093 - goplus partial data: cannot_sell_all unknown; top-10 holders 89%; lp locked 0% < 95%
+   dex screen: PASS TIBBIR@base liq $2,938,161
+   dex screen: REJECT SPCX@solana liq $1,667,305 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%
+   dex screen: PASS SI276@solana liq $101,333
+   dex screen: REJECT LDO@ethereum liq $604,778 - transfer_pausable; owner_change_balance; top-10 holders 50%; lp locked 0% < 95%
+   dex screen: REJECT BEAM@ethereum liq $2,785,836 - is_mintable; owner_change_balance; top-10 holders 59%
+   dex screen: REJECT WETH@solana liq $7,162,957 - mint authority; top-10 holders 77%
