@@ -42,6 +42,9 @@ OWNER = {
     "no risk, no reward": "a dog / plus-money WIN (the owner, 10/1 - 'big risk, big reward')",
     # the crew
     "the homies": "the people on the board with us",
+    # the engine at its best (the owner, 10/14: "if it hits the engine is goated")
+    "goated": "the engine / a call at its best - only after a real result: a clean sweep, a big plus-money hit "
+              "('the engine is goated'); never before a game, never on a lean",
 }
 
 # words he's said NOT to use (the dashboard never says these)

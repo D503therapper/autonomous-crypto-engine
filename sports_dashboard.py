@@ -1879,7 +1879,8 @@ def render(picks, model, games, series, start_bank, updated_ms):
                               f"🔥 Clean sweep, {w_}-0. We smacked today. Let's go!",
                               f"🔥 {w_}-0. Didn't miss a single one. Trust the algorithm.",
                               f"🔥 {w_}-0. Today was a grace from Jesus. Let's fucking go!",
-                              f"🔥 Perfect day, {w_}-0. Books are crying right now."]))
+                              f"🔥 Perfect day, {w_}-0. Books are crying right now.",
+                              f"🔥 {w_}-0. Swept the whole board - the engine is goated."]))
     elif w_ >= l_:
         lines.append(_rot(k, [f"✅ {w_}-{l_}. We crushed today — let's fucking go!",
                               f"✅ {w_}-{l_}. We smacked today. Let's go!",
@@ -1911,6 +1912,7 @@ def render(picks, model, games, series, start_bank, updated_ms):
         lines.insert(1 + i, _rot(k + o, [f"💰 DAMN. We smacked a +{o}{how} — {what}. I tried to fucking tell y'all. Let's go!",
                                          f"💰 +{o}{how}. CASHED. {_cap(what)} came through and I told y'all all day. Let's fucking go!",
                                          f"💰 Y'all doubted {what} at +{o}{how}? Smacked it. Trust the algorithm. LET'S GO!",
+                                         f"💰 {_cap(what)} at +{o}{how} - cashed. The engine is goated.",
                                          f"💰 {_cap(what)} at +{o}{how}. Books are in shambles. I tried to fucking tell y'all!"]))
     big_live = {(e["team"], e["odds"]) for e in live.values() if e.get("odds", 0) >= BIG_HIT}
     # (no "studied the tape on N games" line - the owner, 9/28: it doesn't belong in a daily review)

@@ -1,13 +1,11 @@
 {
- "at": "2026-10-14T16:35Z",
+ "at": "2026-10-14T20:30Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
- "problems": [
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (4s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +18,45 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
-  "simulator ran 1h ago",
-  "engine ran 8 min ago",
+  "simulator ran 3h ago",
+  "engine ran 1 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-14T20:30Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-14T20:29Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-14T18:58Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis De Reales vs Matoula: no points for 409s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-14T18:06Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-14T16:35Z",
    "fixes": [
@@ -529,33 +560,6 @@
     "live tennis scores: tennis Boskovic vs Jacquemot: no points for 2634s",
     "live tennis scores: tennis Brockmann vs Friedsam: no points for 2634s"
    ]
-  },
-  {
-   "at": "2026-10-12T08:22Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Llaverias vs Tan: no points for 777s",
-    "live tennis scores: tennis Adrover vs Wobker: no points for 759s",
-    "live tennis scores: tennis Cid vs Kucmova: no points for 800s"
-   ]
-  },
-  {
-   "at": "2026-10-12T08:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Llaverias vs Tan: no points for 69s",
-    "live tennis scores: tennis Cid vs Kucmova: no points for 92s"
-   ]
-  },
-  {
-   "at": "2026-10-12T06:37Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T06:06Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }

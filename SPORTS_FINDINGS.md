@@ -13,6 +13,13 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/14 - SOCCER (the owner: his brother's engine "smacking" soccer plus money - should we add it?): DEAD - the top European leagues price like the NFL / NBA; not built
+- Data: football-data.co.uk, EPL / La Liga / Serie A / Bundesliga / Ligue 1, 2018-19..2025-26 = 14,285 games, Pinnacle closing + best closing 3-way odds. Train 2018-22, blind 2022-26 (~7,000 games). The Champions League is NOT in this source (the brother's PSG +200 at Man City kind of bet is untested).
+- Every +100..+300 side flat: Pinnacle close -4.9% / -4.1% (6,487 / 5,580); best price on the board -1.9% / -1.8%. Every band negative at Pinnacle; +200..+300 home dogs -12%. Draws -2%; favorites 0 to +1.5% (the vig).
+- An engine-style model (walk-forward Elo + home edge + form, calibrated): "own read beats the no-vig price by 3+ / 5+ / 8+ pts" on plus money loses blind at Pinnacle (-4.5 / -3.4 / -1.3%) and at the best price (-2.4 / -2.2 / -0.4%); 0 of 10 league x side cells positive both halves.
+- Angles (home dogs, away favorites, early season, big clubs): nothing survives.
+- Practical: 3-way moneyline (a draw ~25% of games = a loss); our odds pipeline and injury feeds carry no soccer. Re-check only if the owner wants the Champions League specifically (needs a new data source).
+
 ## 10/14 - TEN STUDIES (daily run): the Lock's price band (-101..-150) broken down in all four sports, college QB change / NFL young QB, the game after the first loss, dogs by game total (college + NHL): ONE BUILT (college favorite off a loss), the rest DEAD
 Thresholds on 2018-22 (QB data 2021-23; MLB 2018-23), graded blind 2023-26 vs every side at the same price band. ~400 cells - ~20 pass by luck.
 - **BUILT - college favorite -101..-150 OFF A LOSS:** -14.2% train (232) / -19.5% blind (223), won 44.4% blind where the price said 53.1%, down 8 of 9 seasons; home favorites off a loss -25.2% / -18.5%, 9 of 9. Wired as a WEIGHT: sports.weigh_ncaaf_fav_off_loss, -3 points on the favorite's weighed read on top of the dog's existing "favorite lost its last" +2 (the whole lift inside FAV_CAP); lead tag "college favorite off a loss (fade)"; test_college_favorite_off_a_loss_weighed_down.
