@@ -15975,3 +15975,32 @@ error: failed to push some refs to 'https://github.
 [2026-10-14 08:10 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-14 08:10 UTC] crypto/hold_btc  equity $499.79 (-0.0%) 1 open  market UP
    social heat top: PENGU 44 (29/0/14), PRL 40 (40/0/0), PONS 38 (24/0/14), NEAR 35 (35/0/0), SUI 32 (32/0/0)
+   scanner: 985 tickers, sample: {'i': 'BTC_USD', 'h': '84077.00', 'l': '82870.50', 'a': '84042.09', 'v': '3093.1043', 'vv': '257780825.65', 'c': '0.0011', 'b': '84036.37', 'k': '84036.38', 'oi': '0', 't': 1791965444346}
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT PLAY@base liq $339,895 - goplus partial data: cannot_sell_all unknown; top-10 holders 76%; lp locked 0% < 95%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   listing: okx_symbols #XLYTE 'New OKX listing (XLYTE)' -> ['XLYTE']
+   listing: XLYTE: okx_symbols notice "New OKX listing (XLYTE)" -> not on Crypto.com USD
+   dex screen: REJECT CFG@ethereum liq $572,322 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; honeypot_with_same_creator; top-10 holders 45%; lp locked 0% < 95%
+   dex screen: REJECT CTM@ethereum liq $2,529,608 - goplus partial data: cannot_sell_all unknown; is_mintable
+   dex screen: REJECT PAPER@base liq $0 - liquidity $0 < $100,000; 24h volume $0 < $100,000; no buys or no sells in 24h
+   dex screen: PASS TROLL@solana liq $2,977,757
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex scanner: 3,000 pools (solana 2,055 / base 547 / ethereum 398), refresh cycle 112s (hot 109s), 2741 calls (113 feed, 429s 0, failed 0), 78,807 refreshed (5734 no pair), +197 added / -197 dropped (dead 2, stale 0, cap 195), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-14 09:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-14 09:06 UTC] crypto/mover     equity $331.52 (-33.7%) 0 open  market UP
+[2026-10-14 09:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 09:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-14 09:06 UTC] crypto/social_heat equity $443.21 (-11.4%) 1 open  market UP
+[2026-10-14 09:06 UTC] crypto/breakout10 equity $477.07 (-4.6%) 2 open  market UP
+[2026-10-14 09:06 UTC] crypto/momentum  equity $425.92 (-14.8%) 2 open  market UP
+[2026-10-14 09:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-14 09:06 UTC] crypto/hold_btc  equity $496.26 (-0.7%) 1 open  market UP
+   social heat top: PRL 40 (40/0/0), PONS 40 (32/0/8), STRK 35 (35/0/0), PENGU 31 (19/0/13), NEAR 29 (29/0/0)
