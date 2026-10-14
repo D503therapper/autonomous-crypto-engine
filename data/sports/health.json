@@ -1,27 +1,42 @@
 {
- "at": "2026-10-14T13:33Z",
- "fixes": [],
- "problems": [],
+ "at": "2026-10-14T14:05Z",
+ "fixes": [
+  "studies overdue (9h) - started sports_studies.yml"
+ ],
+ "problems": [
+  "live tennis scores: tennis Burillo vs Maneiro: no points for 1863s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route",
+  "studies last ran 9h ago - restarted"
+ ],
  "ok": [
-  "live watcher fresh (100s)",
+  "live watcher fresh (8s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 2 of 5 live matches",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 2 live lines, 2 fresh (betrivers 2)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 9h ago",
-  "simulator ran 8h ago",
-  "engine ran 30 min ago",
+  "simulator ran 9h ago",
+  "engine ran 61 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-14T14:05Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Burillo vs Maneiro: no points for 1863s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-14T13:33Z",
    "fixes": [],
@@ -522,11 +537,6 @@
   },
   {
    "at": "2026-10-12T02:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T01:32Z",
    "fixes": [],
    "problems": []
   }
