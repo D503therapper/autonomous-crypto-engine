@@ -1,12 +1,12 @@
 {
- "at": "2026-10-15T17:24Z",
+ "at": "2026-10-15T17:35Z",
  "fixes": [],
  "problems": [
-  "live tennis scores: tennis Andreescu vs Ruzic: no points for 1008s",
-  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+  "live tennis scores: tennis Andreescu vs Ruzic: no points for 1661s",
+  "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (24s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,12 +20,20 @@
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 28 min ago",
+  "engine ran 40 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-15T17:35Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Andreescu vs Ruzic: no points for 1661s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-15T17:24Z",
    "fixes": [],
@@ -534,11 +542,6 @@
   },
   {
    "at": "2026-10-13T05:50Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T05:49Z",
    "fixes": [],
    "problems": []
   }
