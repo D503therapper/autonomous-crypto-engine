@@ -17426,3 +17426,27 @@ $NKLA: No data found, symbol may be delisted
 [2026-10-15 21:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-15 21:07 UTC] crypto/hold_btc  equity $488.62 (-2.3%) 1 open  market UP
    social heat top: NEAR 27 (27/0/0), PENGU 25 (24/0/1), AERO 19 (19/0/0), INJ 16 (16/0/0), STRK 13 (13/0/0)
+   dex screen: REJECT USWR@solana liq $486,635 - lp holders unknown; rugcheck score 54
+   dex screen: REJECT CTM@solana liq $2,436,642 - mint authority
+   dex screen: REJECT HLX@ethereum liq $365,880 - top-10 holders 97%; lp locked 0% < 95%
+   dex screen: REJECT CLAUS@ethereum liq $426,239 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; lp locked 0% < 95%
+   dex screen: REJECT KIMCHI@solana liq $124,908 - top-10 holders 87%; lp holders unknown
+   dex screen: REJECT AAVE@ethereum liq $183,820 - goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 44%; lp locked 0% < 95%
+   dex screen: REJECT CAKE@solana liq $2,549,842,420 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT CAKE@solana liq $146,854,860 - top-10 holders 100%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 2,936 pools (solana 1,950 / base 507 / ethereum 479), refresh cycle 130s (hot 125s), 2767 calls (120 feed, 429s 1, failed 1), 79,407 refreshed (11286 no pair), +238 added / -117 dropped (dead 106, stale 11, cap 0), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-15 22:06 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-15 22:06 UTC] crypto/mover     equity $320.76 (-35.8%) 2 open  market UP
+[2026-10-15 22:06 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 22:06 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 22:06 UTC] crypto/social_heat equity $446.05 (-10.8%) 3 open  market UP
+[2026-10-15 22:06 UTC] crypto/breakout10 equity $488.73 (-2.3%) 2 open  market UP
+[2026-10-15 22:06 UTC] crypto/momentum  equity $419.73 (-16.1%) 1 open  market UP
+[2026-10-15 22:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-15 22:06 UTC] crypto/hold_btc  equity $491.43 (-1.7%) 1 open  market UP
+   social heat top: PRL 29 (29/0/0), NEAR 27 (27/0/0), PENGU 21 (21/0/0), INJ 19 (19/0/0), BTC 16 (16/0/0)
+   [alert] Today +18.55 | Total -16.09: Stocks: $506.52  today +8.59  total +6.52
+DEX: $977.39  today +9.96  total -22.61
+DEX: $977.39 (-22.61) · Scammed: 0
