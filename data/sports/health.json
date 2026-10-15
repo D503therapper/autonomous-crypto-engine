@@ -1,17 +1,19 @@
 {
- "at": "2026-10-15T12:16Z",
- "fixes": [],
+ "at": "2026-10-15T13:48Z",
+ "fixes": [
+  "studies overdue (9h) - started sports_studies.yml"
+ ],
  "problems": [
-  "live tennis scores: tennis Samson vs Tan: no points for 2618s",
-  "live tennis scores: tennis Hruncakova vs Salkova: no points for 1256s",
-  "live tennis scores: tennis Jorge vs Galfi: no points for 2618s"
+  "live tennis scores: tennis Steur vs Zidansek: no points for 2646s",
+  "live tennis scores: tennis Jorge vs Galfi: no points for 2646s",
+  "studies last ran 9h ago - restarted"
  ],
  "ok": [
-  "live watcher fresh (40s)",
+  "live watcher fresh (44s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 4 live matches",
+  "live tennis points + server: 1 of 3 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
@@ -19,13 +21,23 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 8h ago",
-  "simulator ran 7h ago",
-  "engine ran 60 min ago",
+  "simulator ran 9h ago",
+  "engine ran 43 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-15T13:48Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Steur vs Zidansek: no points for 2646s",
+    "live tennis scores: tennis Jorge vs Galfi: no points for 2646s",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
   {
    "at": "2026-10-15T12:16Z",
    "fixes": [],
@@ -516,11 +528,6 @@
   },
   {
    "at": "2026-10-13T02:42Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T02:37Z",
    "fixes": [],
    "problems": []
   }
