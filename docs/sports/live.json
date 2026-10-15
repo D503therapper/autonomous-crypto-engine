@@ -1,9 +1,228 @@
 {
- "updated": 0,
+ "updated": 1792097696165,
  "plays": [],
  "record": {
-  "won": 0,
-  "lost": 0
+  "won": 14,
+  "lost": 16
  },
- "live_games": 0
+ "live_games": 0,
+ "tennis": {
+  "watching": 0,
+  "priced": 0,
+  "stale": 0,
+  "suspended": 0,
+  "books": "0 live lines, 0 fresh"
+ },
+ "scores": {
+  "ncaaf:401871067": {
+   "away": "Delaware",
+   "home": "MTSU",
+   "a": 30,
+   "h": 33,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaaf:401871054": {
+   "away": "Kennesaw St",
+   "home": "Missouri St",
+   "a": 21,
+   "h": 24,
+   "clock": "Final",
+   "live": false
+  },
+  "ncaaf:401871068": {
+   "away": "Western KY",
+   "home": "Sam Houston",
+   "a": 16,
+   "h": 3,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892504": {
+   "away": "Canadiens",
+   "home": "Capitals",
+   "a": 4,
+   "h": 5,
+   "clock": "Final",
+   "live": false
+  },
+  "nhl:401892505": {
+   "away": "Stars",
+   "home": "Avalanche",
+   "a": 3,
+   "h": 2,
+   "clock": "Final",
+   "live": false
+  },
+  "mlb:401908025": {
+   "away": "Rays",
+   "home": "Guardians",
+   "a": 2,
+   "h": 3,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
+  },
+  "tennis:atp:184949": {
+   "n": [
+    "Medvedev",
+    "Tsitsipas"
+   ],
+   "sets": [
+    [
+     6,
+     4
+    ],
+    [
+     7,
+     5
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 2,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:atp:184958": {
+   "n": [
+    "Paul",
+    "Bergs"
+   ],
+   "sets": [
+    [
+     7,
+     6
+    ],
+    [
+     6,
+     4
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 2,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:wta:185322": {
+   "n": [
+    "Bartunkova",
+    "Tagger"
+   ],
+   "sets": [
+    [
+     7,
+     6
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     6,
+     1
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 1,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:wta:185347": {
+   "n": [
+    "Fernandez",
+    "Han"
+   ],
+   "sets": [
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 2,
+   "first": 1,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:wta:185364": {
+   "n": [
+    "Fernandez",
+    "Ostapenko"
+   ],
+   "sets": [
+    [
+     1,
+     6
+    ],
+    [
+     6,
+     1
+    ],
+    [
+     4,
+     6
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 3,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  },
+  "tennis:wta:185361": {
+   "n": [
+    "Li",
+    "Tjen"
+   ],
+   "sets": [
+    [
+     6,
+     1
+    ],
+    [
+     7,
+     6
+    ]
+   ],
+   "pts": null,
+   "srv": null,
+   "done": 2,
+   "first": 2,
+   "tennis": true,
+   "live": false,
+   "delayed": false
+  }
+ },
+ "done": {},
+ "today": [],
+ "sources": {
+  "betrivers:tennis": "ok 0"
+ },
+ "health": [],
+ "priced": 0,
+ "dk_only": 0,
+ "min_p": 0.55,
+ "espn_only": 1,
+ "errors": [
+  "git pull timed out"
+ ],
+ "books": {},
+ "took_s": 9.2
 }
