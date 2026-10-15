@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T14:59Z",
+ "updated": "2026-10-15T15:01Z",
  "games": [
   {
    "id": "mlb:401908025",
@@ -7,7 +7,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.47,
+    "p": 0.469,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -16,8 +16,8 @@
    "start": "2026-10-15T17:00Z",
    "away": "Rays",
    "home": "Guardians",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Rays",
     "opp": "Guardians",
@@ -25,8 +25,10 @@
     "line": 1.5,
     "odds": -216,
     "p": 0.641,
-    "win_p": 0.46,
-    "reasons": []
+    "win_p": 0.465,
+    "reasons": [
+     "opponent missing key players"
+    ]
    }
   },
   {
@@ -135,8 +137,8 @@
    "start": "2026-10-15T23:00Z",
    "away": "Rangers",
    "home": "Devils",
-   "why": "no_value",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Rangers",
     "opp": "Devils",
@@ -165,8 +167,8 @@
    "start": "2026-10-15T23:00Z",
    "away": "Sabres",
    "home": "Maple Leafs",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lean",
    "lean": {
     "team": "Sabres",
     "opp": "Maple Leafs",
@@ -427,7 +429,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Seahawks",
-    "p": 0.527,
+    "p": 0.526,
     "tie": 0.039,
     "name": "1st half"
    },
@@ -436,8 +438,8 @@
    "start": "2026-10-16T00:15Z",
    "away": "Seahawks",
    "home": "Broncos",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "lock",
    "lean": {
     "team": "Seahawks",
     "opp": "Broncos",
@@ -466,8 +468,8 @@
    "start": "2026-10-16T01:00Z",
    "away": "Mammoth",
    "home": "Oilers",
-   "why": "tight",
-   "board": null,
+   "why": "on_board",
+   "board": "dog",
    "lean": {
     "team": "Mammoth",
     "opp": "Oilers",
@@ -517,7 +519,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Memphis",
-    "p": 0.638,
+    "p": 0.648,
     "tie": 0.031,
     "name": "1st half"
    },
@@ -533,9 +535,9 @@
     "opp": "Tulane",
     "market": "ml",
     "line": null,
-    "odds": -265,
-    "p": 0.624,
-    "win_p": 0.624,
+    "odds": -278,
+    "p": 0.636,
+    "win_p": 0.636,
     "reasons": [
      "better QB play lately",
      "sharp money moving this way",
