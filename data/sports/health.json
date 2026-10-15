@@ -1,14 +1,13 @@
 {
- "at": "2026-10-15T15:20Z",
- "fixes": [
-  "simulator overdue (10h) - started sports_sims.yml"
- ],
+ "at": "2026-10-15T16:04Z",
+ "fixes": [],
  "problems": [
-  "live tennis points: none of 2 live matches has points + server on the 1-second route",
-  "simulator last ran 10h ago - restarted"
+  "live tennis scores: tennis Masarova vs Del Olmo: no points for 2619s",
+  "live tennis scores: tennis Burel vs Lollia: no points for 606s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (11s)",
+  "live watcher fresh (157s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -21,12 +20,22 @@
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
-  "engine ran 13 min ago",
+  "simulator ran 1h ago",
+  "engine ran 57 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-15T16:04Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Masarova vs Del Olmo: no points for 2619s",
+    "live tennis scores: tennis Burel vs Lollia: no points for 606s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-15T15:20Z",
    "fixes": [
@@ -532,11 +541,6 @@
    "problems": [
     "live tennis scores: tennis Volynets vs Birrell: points frozen at 0-0 for 230s"
    ]
-  },
-  {
-   "at": "2026-10-13T03:56Z",
-   "fixes": [],
-   "problems": []
   }
  ]
 }
