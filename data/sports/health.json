@@ -1,13 +1,17 @@
 {
- "at": "2026-10-15T11:32Z",
+ "at": "2026-10-15T12:10Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Samson vs Tan: no points for 2300s",
+  "live tennis scores: tennis Hruncakova vs Salkova: no points for 937s",
+  "live tennis scores: tennis Jorge vs Galfi: no points for 2300s"
+ ],
  "ok": [
-  "live watcher fresh (7s)",
+  "live watcher fresh (63s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 1 of 5 live matches",
+  "live tennis points + server: 1 of 4 live matches",
   "no failed workflows",
   "alerts: engine key works",
   "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
@@ -15,13 +19,22 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 7h ago",
-  "simulator ran 6h ago",
-  "engine ran 15 min ago",
+  "studies ran 8h ago",
+  "simulator ran 7h ago",
+  "engine ran 54 min ago",
   "pacer running",
   "tennis slate on time"
  ],
  "history": [
+  {
+   "at": "2026-10-15T12:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Tan: no points for 2300s",
+    "live tennis scores: tennis Hruncakova vs Salkova: no points for 937s",
+    "live tennis scores: tennis Jorge vs Galfi: no points for 2300s"
+   ]
+  },
   {
    "at": "2026-10-15T11:32Z",
    "fixes": [],
@@ -504,11 +517,6 @@
   },
   {
    "at": "2026-10-13T01:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T00:50Z",
    "fixes": [],
    "problems": []
   }
