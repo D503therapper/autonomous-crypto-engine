@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T00:06Z",
+ "updated": "2026-10-15T00:10Z",
  "games": [
   {
    "id": "nhl:401892504",
@@ -72,6 +72,21 @@
    "lean": null
   },
   {
+   "id": "mlb:401908032",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-15T00:00Z",
+   "away": "Brewers",
+   "home": "Dodgers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401871068",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
@@ -102,28 +117,29 @@
    "id": "nhl:401892505",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Avalanche",
-    "p": 0.394,
-    "tie": 0.298,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-15T00:30Z",
    "away": "Stars",
    "home": "Avalanche",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Stars",
-    "opp": "Avalanche",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -198,
-    "p": 0.632,
-    "win_p": 0.411,
-    "reasons": []
+    "team": "Avalanche",
+    "opp": "Stars",
+    "market": "ml",
+    "line": null,
+    "odds": -135,
+    "p": 0.549,
+    "win_p": 0.549,
+    "reasons": [
+     "the stronger team",
+     "hotter recent form",
+     "opponent missing key players"
+    ],
+    "result": null
    }
   },
   {
