@@ -17240,3 +17240,48 @@ $SAVA: No data found, symbol may be delisted
 [2026-10-15 17:06 UTC] stocks/trend     equity $485.92 (-2.8%) 3 open  market UP
 [2026-10-15 17:06 UTC] stocks/hold_spy  equity $500.58 (+0.1%) 1 open  market UP
    social heat top: PYTH 37 (37/0/0), NEAR 35 (35/0/0), STRK 32 (32/0/0), PRL 27 (27/0/0), BTC 24 (24/0/0)
+   dex screen: REJECT JEANPHIL@solana liq $431,275 - lp holders unknown; rugcheck lp locked 52% < 95%
+   dex screen: REJECT HYPE@solana liq $773,904 - mint authority; lp holders unknown
+   dex screen: REJECT HYPE@solana liq $1,687,635,173 - top-10 holders 100%
+   dex screen: REJECT ZEC@solana liq $3,825,361 - mint authority
+   dex screen: REJECT BNKR@base liq $2,065,020 - top-10 holders 50%
+   scanner: CASHCAT: +5.2% in 14 min on 3.2x volume @ 0.12006 spread 0.30%
+   scanner: CASHCAT: +5.4% in 15 min on 3.1x volume @ 0.12031 spread 0.17%
+   dex screen: PASS PEPE@ethereum liq $29,833,241
+   listing: kraken_pairs #DNA 'New Kraken listing (DNA)' -> ['DNA']
+   listing: DNA: kraken_pairs notice "New Kraken listing (DNA)" -> not on Crypto.com USD
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: kraken_pairs failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT BP@solana liq $1,249,794,197 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT BP@solana liq $6,139,879 - freeze authority; mint authority; top-10 holders 96%
+   dex screen: REJECT HEX@ethereum liq $370,959 - pool age unknown
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT KTA@base liq $3,990,223 - top-10 holders 67%
+   dex screen: REJECT SWORDCAT@solana liq $113,874 - lp holders unknown; rugcheck lp locked 0% < 95%
+   dex scanner: 3,000 pools (solana 2,048 / base 499 / ethereum 453), refresh cycle 131s (hot 126s), 2859 calls (108 feed, 429s 0, failed 0), 82,530 refreshed (8022 no pair), +92 added / -92 dropped (dead 10, stale 0, cap 82), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-15 18:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-15 18:05 UTC] crypto/mover     equity $318.15 (-36.4%) 2 open  market UP
+[2026-10-15 18:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 18:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 18:05 UTC] crypto/social_heat equity $444.92 (-11.0%) 3 open  market UP
+[2026-10-15 18:05 UTC] crypto/breakout10 equity $482.77 (-3.4%) 2 open  market UP
+[2026-10-15 18:05 UTC] crypto/momentum  equity $419.52 (-16.1%) 1 open  market UP
+[2026-10-15 18:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-15 18:05 UTC] crypto/hold_btc  equity $490.43 (-1.9%) 1 open  market UP
+$BITF: No data found, symbol may be delisted
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF', 'NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-10-15 18:06 UTC] stocks/rsi2      equity $495.25 (-0.9%) 3 open  market UP
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 0 BUY, XLK 2 BUY, IWM 3, QQQ 3 BUY
+[2026-10-15 18:06 UTC] stocks/breakout52 equity $514.24 (+2.8%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+347% 6-mo), DOCU (+66% 6-mo)
+[2026-10-15 18:06 UTC] stocks/dual_momentum equity $482.65 (-3.5%) 2 open  market UP
+[2026-10-15 18:06 UTC] stocks/trend_ensemble equity $498.05 (-0.4%) 5 open  market UP
+[2026-10-15 18:06 UTC] stocks/rotation10 equity $509.38 (+1.9%) 2 open  market UP
+[2026-10-15 18:06 UTC] stocks/momentum  equity $483.87 (-3.2%) 3 open  market UP
+[2026-10-15 18:06 UTC] stocks/trend     equity $485.15 (-3.0%) 3 open  market UP
+[2026-10-15 18:06 UTC] stocks/hold_spy  equity $500.78 (+0.2%) 1 open  market UP
+   social heat top: PRL 24 (24/0/0), NEAR 21 (21/0/0), STRK 19 (19/0/0), SUI 16 (16/0/0), PYTH 16 (16/0/0)
