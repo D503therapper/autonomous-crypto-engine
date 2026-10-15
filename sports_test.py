@@ -10753,6 +10753,30 @@ def test_truth_audit_10_15_facts_never_after_a_number_and_goalie_line_is_the_wei
     assert "if h_them <= B2B_HOURS < h_us:" in src and "and (start - _t(x[\"start\"])).days <= H2H_DAYS]" in src
 
 
+def test_pulled_early_play_can_come_back_if_it_clears_again():
+    """10/15, the owner: "If a game is pulled it can't be re-posted - I do not like that! Shit changes." A pulled early
+    play posts again when a fresh scan clears it - but not within PULL_COOL_H hours of the pull."""
+    import sports_early as se, tempfile, os, json as _j
+    keep = (se.scan, se.with_book_lines, se.ON)
+    try:
+        se.ON = True
+        se.with_book_lines = lambda games, st, now, lines: games
+        c = {"game_id": "ncaaf:9", "league": "ncaaf", "side": "home", "team": "Old Dominion", "opp": "GA Southern",
+             "odds": 150, "opp_odds": -180, "start": "2026-10-22T23:30Z", "spot": "bye", "spots": ["bye"], "own": 0.45}
+        se.scan = lambda *a, **k: [dict(c)]
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, "early.json")
+            pulled = dict(c, pulled_at="2026-10-14T16:00Z")
+            _j.dump({"picks": [], "pulled": [pulled]}, open(path, "w"))
+            soon = se.post({}, {}, now=datetime(2026, 10, 14, 20, tzinfo=timezone.utc), injuries={}, path=path, ping=lambda *a: None)
+            assert soon == []                                            # 4 hours after the pull: not yet
+            later = se.post({}, {}, now=datetime(2026, 10, 15, 16, tzinfo=timezone.utc), injuries={}, path=path, ping=lambda *a: None)
+            assert [x["game_id"] for x in later] == ["ncaaf:9"]          # a day later, still clearing: back on the board
+        assert not se.repost_ok({"team": "x"}, datetime(2026, 10, 15, tzinfo=timezone.utc))   # no pull time: stays pulled
+    finally:
+        se.scan, se.with_book_lines, se.ON = keep
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

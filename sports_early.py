@@ -315,6 +315,21 @@ def with_book_lines(games, st, now, fetch=None):
     return out
 
 
+PULL_COOL_H = 12        # hours after a pull before the same game can post again (only if it clears the whole bar again)
+
+
+def repost_ok(p, now):
+    """A pulled play may post again: PULL_COOL_H hours after its pull (pulled_at), and only through a fresh scan."""
+    at = p.get("pulled_at") or p.get("pulled")
+    if not isinstance(at, str):
+        return False
+    try:
+        t = datetime.strptime(at[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return False
+    return (now - t).total_seconds() >= PULL_COOL_H * 3600
+
+
 def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None, lines=None):
     """Scan, post the new ones (once per game), grade the finished ones. Returns the new posts."""
     now = now or datetime.now(timezone.utc)
@@ -323,7 +338,10 @@ def post(games, model, now=None, injuries=None, trap=None, path=None, ping=None,
         return []
     games = with_book_lines(games, st, now, lines)
     have = {p["game_id"] for p in st["picks"] if p.get("market") != "total"} \
-        | {p.get("game_id") for p in st.get("pulled") or []}   # (10/2 audit: a pulled play never comes back)
+        | {p.get("game_id") for p in st.get("pulled") or [] if not repost_ok(p, now)}
+    #   (the owner, 10/15: "if a game is pulled it can't be re-posted - I do not like that! Shit changes." A pulled play
+    #   comes back if it clears the WHOLE bar again on a fresh scan, once PULL_COOL_H hours have passed since the pull -
+    #   so a pull the owner just made isn't undone by the next hourly run. Was: never comes back - 10/2 audit.)
     have_tot = {p["game_id"] for p in st["picks"] if p.get("market") == "total"}   # (10/5 sweep: the 🌍 under is its
     new = []                                         # own bet on the total - a side play on the same game never blocks it, nor it them)
     for c in scan(games, model, now, injuries, trap):
@@ -539,7 +557,7 @@ SPOTS = {   # key: (label, units, leagues)
 SPOTS_OFF = set()                        # ⏸️ spots paused by the owner (none now). 10/14 he paused "blowout" (0-6 live) and
 #                                         "engine"; 10/15 he turned both back on ("no risk no reward - if the test looked
 #                                         good we keep it"), the college read now counting at most 5 points (NCAAF_GAP_MAX).
-#                                         The 8 plays pulled 10/14 stay pulled (a pulled play never comes back).
+#                                         The 8 plays pulled 10/14 can come back if they clear the bar again (repost_ok).
 EURO_QUIT = (15, 0.5)                    # the owner, 10/4: "half unit with the quit rule" - under 50% after 15 = it's off
 EURO_FROM_PT = 18                        # posted the night before (6 PM PT on): the line's set, nobody moves it overnight
 # THE ENGINE NEVER PICKS OFF ONE FACTOR (the owner, 10/1: "an East Coast dog out West still gets blown out - weigh

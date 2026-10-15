@@ -46,7 +46,7 @@ every session:
   few nights. Analyze and weigh, no rigid rules.
 - ⏰ Early value plays (the owner, 10/1 - "there's only one way to prove it: you do it"): the six spots from the
   odds-history studies (sports_early.SPOTS - bye-week dog 1u; Monday night NFL dog, East Coast NFL team flying West,
-  blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. Paused 10/14 (blew somebody out 0-6 live, the college engine spot; their 8 open plays pulled, not graded) and turned BACK ON 10/15 (the owner: "no risk no reward - if the test looked good we keep it"; sports_early.SPOTS_OFF empty). A college read over the price counts at most 5 points in the early spots (the owner, 10/15 - the middle ground; sports_early.NCAAF_GAP_MAX). The 10/1 "move
+  blew somebody out, hammered early, college engine-vs-the-line ½u), each with its OWN live record. Paused 10/14 (blew somebody out 0-6 live, the college engine spot; their 8 open plays pulled, not graded) and turned BACK ON 10/15 (the owner: "no risk no reward - if the test looked good we keep it"; sports_early.SPOTS_OFF empty). A pulled early play can post again if a fresh scan clears it, 12+ hours after the pull (the owner, 10/15: "shit changes"; sports_early.repost_ok). A college read over the price counts at most 5 points in the early spots (the owner, 10/15 - the middle ground; sports_early.NCAAF_GAP_MAX). The 10/1 "move
   model" (which dogs the money comes to) is DEAD (10/7 blind re-check: its edge was a look-ahead input, the week's
   second price) - never a seventh spot; its honest form is the hammered spot. The spots are
   WEIGHTS on the engine's own read (never a trigger), the fades subtract; it posts only if the engine isn't fighting
