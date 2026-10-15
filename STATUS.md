@@ -3,6 +3,11 @@
 Kept up to date at the end of every working session, so a fresh chat knows what the last one did. The owner's standing
 rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest notes on top.
 
+## 10/15 - the college own read vs the market (the BYU +300 early play) - SPORTS_FINDINGS.md 10/15
+- Fixed (worktree, test): a college read 12+ points over the price counts nothing in the early spots (sports_early.spot_gap / SPOT_TRAP), like the NFL / NBA - blind 2024-26 the market was right in every 10+ bucket (the read ~50%, the sides won 26-38%). BYU's and Old Dominion's posts would not have cleared the bar. The posted picks themselves were not touched.
+- OWNER'S CALLS: (1) shrink the college early read to the market by the tune's own trust (0.02) - the 5-10 bucket lost -22% blind too; (2) add ncaaf to sports.OWN_TRAP on the daily board (college dogs 44-80 this season).
+- LEAD: college QB form counts FCS blowouts at full weight (Sam Houston's Locke, 322 / 4 TD vs Nicholls) - no FCS marker in the game files yet.
+
 ## 10/10 - the owner's calls + fixes
 - Dog price limit raised to +300 (the owner: "I want the new limit to be +300") - the Dog, the dog gate, value-play dogs, lean dogs and the early spots (sports.DAILY_DOG_MAX / DOG_DAY_MAX, sports_early.SPOT_DOG / SPOT_ANY). The studies behind the spots were +100..+220 - the +220..+300 range is new ground, judged live.
 - TO FIX NEXT: seen_all blocks a college team with TWO bye weeks (North Carolina 2-2, all 4 games held - the owner confirmed) - before refusing a team's record, confirm the gap weeks against the team's real schedule (ESPN team schedule via the hourly run, public) instead of assuming a missing game.

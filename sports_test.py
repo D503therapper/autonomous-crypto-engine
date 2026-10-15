@@ -8224,6 +8224,25 @@ def test_early_college_rain_dog_weighed():
         sports._dog_more = keep
 
 
+def test_early_college_read_far_over_the_price_is_a_trap():
+    """10/15: BYU +300 vs Notre Dame posted as a college early play off a read of 48% against a market of 24% - the
+    gap (24 points) was capped to 12 and cleared the bar on its own, through an 'ice cold' fade. Blind 2024-26, the
+    college side the read liked 10+ points more than the market won exactly what the market said (38% / 35% / 30% / 26%
+    by bucket), not the read's ~50%: a huge college gap is a trap, like the NFL's and NBA's - it counts nothing.
+    Smaller gaps still count, and hockey / baseball keep the cap."""
+    import sports_early as se
+    cap = sports.OWN_CAP / 100
+    assert se.spot_gap("ncaaf", 0.4825, 0.24) == 0.0                   # BYU: 24 points over = nothing
+    assert se.spot_gap("ncaaf", 0.697, 0.391) == 0.0                   # Old Dominion +145 the same week
+    assert abs(se.spot_gap("ncaaf", 0.30, 0.24) - 0.06) < 1e-9          # a 6-point read still counts in full
+    assert se.spot_gap("nfl", 0.50, 0.30) == 0.0 and se.spot_gap("nba", 0.50, 0.30) == 0.0
+    assert se.spot_gap("nhl", 0.50, 0.30) == cap                       # not studied: the cap, as before
+    assert abs(se.spot_gap("mlb", 0.45, 0.40) - 0.05) < 1e-9
+    # the BYU post itself: the hammered spot plus the fade, with the read gone, falls under the bar
+    total = se.spot_gap("ncaaf", 0.4825, 0.24) + se.SPOT_WEIGHT["hammered"] + se.FADE_WEIGHT["ice cold"]
+    assert total < se.SPOT_MIN_TOTAL
+
+
 def test_coach_firings_refresh_this_season():
     """10/1 audit: the firing data was frozen - a season page already cached was never read again, so a coach fired
     mid-season never reached the engine (FIRED was empty). This season's pages are re-read every run; a failed read
@@ -8618,7 +8637,8 @@ def test_pick_rules_audit_10_1():
     import sports_early as se
     esrc = open(se.__file__).read()
     assert "if r and now > r + timedelta(hours=SPOT_WINDOW_H):\n" in esrc
-    assert 'gap = 0.0 if lg in ("nfl", "nba") else sports_own_cap() / 100' in esrc
+    assert "gap = spot_gap(lg, own, mk)" in esrc                 # (10/15: the cap / trap moved into spot_gap)
+    assert "return 0.0 if lg in SPOT_TRAP else cap / 100" in esrc
     assert "if room <= 0:" in esrc
 
 

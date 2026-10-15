@@ -900,9 +900,7 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
                 continue                                     # no engine read, or the engine's read is fighting it
             fades = _fades(sched, g, side, lg, et)
             extra = lead_weights(games, g, side, other, lg, own, mk) if dog else 0.0
-            gap = own - mk                                   # (10/1 audit) the engine's read over the price, capped like
-            if gap * 100 > sports_own_cap():                 # the game-day dog score: big reads are traps - 12 pts at
-                gap = 0.0 if lg in ("nfl", "nba") else sports_own_cap() / 100   # most, none past 12 in the NFL
+            gap = spot_gap(lg, own, mk)                      # the engine's read over the price, capped / trapped
             total = round(gap + sum(SPOT_WEIGHT[h] for h in hit) + sum(FADE_WEIGHT[f] for f in fades) + extra, 4)
             if total < (0.0 if any_dog else SPOT_MIN_TOTAL):
                 continue                                     # everything weighed together doesn't say value
@@ -922,6 +920,25 @@ def spot_scan(games, now=None, injuries=None, own_of=None, hist_dir=None, any_do
 def sports_own_cap():
     import sports
     return sports.OWN_CAP
+
+
+SPOT_TRAP = ("nfl", "nba", "ncaaf")     # a read 12+ points over the price counts NOTHING (not the cap) in these leagues.
+#  NFL / NBA: the 10/1 study (sports.OWN_TRAP). College (10/15, the BYU +300 vs Notre Dame post - own 48%, market 24%):
+#  the college read is NOT a coin-flip finder - blind 2024-26 (learned before 7/2024, 1,885 priced games), the side the
+#  read liked 10+ points more than the market won 37.7% (10-15 pts, market said 37.5%), 34.6% (15-20, market 33.9%),
+#  29.8% (20-25, market 30.8%), 25.6% (25+, market 23.7%) while the read called each near 50%. Every 5+ bucket lost at
+#  the close (-8% to -22%); the tune's own college trust is 0.0 blind / 0.02 live. A capped 12 cleared SPOT_MIN_TOTAL
+#  alone, through a fade - the market is right when the gap is huge, so it's a trap, like the NFL's.
+
+
+def spot_gap(lg, own, mk):
+    """The engine's read over the price, in win-% points, as the spots weigh it: capped at sports.OWN_CAP, and in the
+    SPOT_TRAP leagues a read past the cap counts nothing at all (the market is the one that's right there)."""
+    gap = own - mk
+    cap = sports_own_cap()
+    if gap * 100 > cap:
+        return 0.0 if lg in SPOT_TRAP else cap / 100
+    return gap
 
 
 LEAD_W = {"win_pct": 0.015, "neutral": 0.015, "win_streak": 0.01, "go4": 0.01, "style": -0.02, "rain": 0.015}
