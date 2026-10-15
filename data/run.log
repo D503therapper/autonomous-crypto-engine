@@ -17358,3 +17358,50 @@ $NKLA: No data found, symbol may be delisted
 [2026-10-15 19:07 UTC] stocks/trend     equity $485.29 (-2.9%) 3 open  market UP
 [2026-10-15 19:07 UTC] stocks/hold_spy  equity $501.50 (+0.3%) 1 open  market UP
    social heat top: PENGU 27 (21/0/6), PRL 27 (27/0/0), NEAR 19 (19/0/0), CASHCAT 14 (0/0/14), STRK 13 (13/0/0)
+   dex screen: REJECT NVDAC@base liq $2,003,291 - goplus partial data: is_honeypot/cannot_sell_all/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 78%; lp locked 0% < 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   scanner: BAT: +13.0% in 73 min on 17.6x volume @ 0.21352 spread 0.64%
+   scanner: BAT: +13.7% in 75 min on 17.6x volume @ 0.21483 spread 0.77%
+   scanner: BAT: +13.7% in 76 min on 17.6x volume @ 0.21483 spread 0.45%
+   scanner: BAT: +14.1% in 77 min on 17.6x volume @ 0.21561 spread 0.35%
+   scanner: BAT: +14.0% in 78 min on 17.6x volume @ 0.21551 spread 0.52%
+   scanner: BAT: +13.7% in 80 min on 17.6x volume @ 0.21491 spread 0.43%
+   scanner: BAT: +13.3% in 81 min on 17.6x volume @ 0.21412 spread 0.61%
+   scanner: BAT: +14.0% in 82 min on 17.6x volume @ 0.21537 spread 0.33%
+   dex screen: PASS USELESS@solana liq $4,323,708
+   scanner: BAT: +12.8% in 83 min on 17.6x volume @ 0.21325 spread 0.47%
+   scanner: BAT: +13.3% in 84 min on 17.6x volume @ 0.21406 spread 0.40%
+   scanner: BAT: +13.3% in 85 min on 17.6x volume @ 0.21406 spread 0.66%
+   scanner: BAT: +13.3% in 86 min on 17.6x volume @ 0.21406 spread 0.95%
+   scanner: BAT: +13.4% in 87 min on 17.6x volume @ 0.21426 spread 0.63%
+   scanner: BAT: +13.4% in 88 min on 17.6x volume @ 0.21426 spread 0.43%
+   dex screen: PASS SI276@solana liq $109,826
+   dex screen: REJECT SPCX@solana liq $1,848,227 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 43%
+   dex screen: REJECT SPCX@solana liq $1,247,432,321 - top-10 holders 100%
+   dex screen: REJECT SPCX@solana liq $452,655,881 - top-10 holders 100%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT PUMP@solana liq $23,857,443 - transfer hook; top-10 holders 60%
+   dex screen: PASS NPC@ethereum liq $4,783,419
+   dex screen: PASS TIBBIR@base liq $3,002,948
+   dex screen: REJECT WETH@solana liq $7,515,880 - mint authority; top-10 holders 77%
+   dex screen: REJECT XDP@base liq $1,791,512 - top-10 holders 94%; lp locked 0% < 95%
+   dex screen: REJECT ONDO@ethereum liq $1,870,959 - transfer_pausable; top-10 holders 68%
+   dex screen: REJECT SNDKC@base liq $1,264,561 - goplus partial data: is_honeypot/cannot_buy unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/is_proxy/selfdestruct unknown; top-10 holders 91%; lp locked 0% < 95%
+   dex scanner: 2,945 pools (solana 1,969 / base 499 / ethereum 477), refresh cycle 138s (hot 134s), 2706 calls (110 feed, 429s 0, failed 0), 77,878 refreshed (9431 no pair), +120 added / -178 dropped (dead 72, stale 0, cap 106), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-15 20:13 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-15 20:13 UTC] crypto/mover     equity $316.18 (-36.8%) 2 open  market UP
+[2026-10-15 20:13 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 20:13 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 20:13 UTC] crypto/social_heat equity $445.79 (-10.8%) 3 open  market UP
+[2026-10-15 20:13 UTC] crypto/breakout10 equity $490.11 (-2.0%) 2 open  market UP
+[2026-10-15 20:13 UTC] crypto/momentum  equity $419.56 (-16.1%) 1 open  market UP
+[2026-10-15 20:13 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-15 20:13 UTC] crypto/hold_btc  equity $490.63 (-1.9%) 1 open  market UP
+   social heat top: PENGU 27 (27/0/1), NEAR 24 (24/0/0), STRK 19 (19/0/0), PRL 16 (16/0/0), FIL 14 (0/0/14)
