@@ -1,24 +1,3 @@
-   ncaab injury page: 365 schools (0 players), 365 matched, 0 unmatched
-   no units on Maple Leafs: missing Chris Tanev, Max Domi, William Villeneuve
-   no units on Ducks: missing Cutter Gauthier, Ryan Poehling, Troy Terry, Ian Moore
-   no units on Kings: missing Alex Turcotte, Mats Zuccarello
-   no units on Oilers: missing Jake Walman, Zach Hyman, Colton Dach, Ryan Nugent-Hopkins
-tennis sync: 73144 matches stored, 18 calls, 0 failed
-tennis study ATP: 26038 rated matches, acc 0.643 (surface ratings alone 0.6435), loss 0.6294 vs 0.6295, own weights [-0.005, 0.826, 0.074, 0.145, 0.424, 0.049, 0.05]
-tennis study ATP life factors vs current loss 0.6294: experience 0.6299 (-0.43 mnats, z -0.43), age 0.6262 (+3.26 mnats, z 2.38), young_vs_aging 0.6289 (+0.47 mnats, z 1.18), last_match 0.6269 (+2.51 mnats, z 1.74), streaks 0.63 (-0.54 mnats, z -0.53), first_set 0.6284 (+1.07 mnats, z 1.69), injury 0.6303 (-0.83 mnats, z -1.2), travel 0.6295 (-0.09 mnats, z -1.18) -> KEPT age · 2000/2000 graded matches have both ages
-tennis study WTA: 30443 rated matches, acc 0.651 (surface ratings alone 0.652), loss 0.6208 vs 0.6207, own weights [0.004, 0.904, -0.0, -0.097, 0.299, 0.029, -0.191]
-tennis study WTA life factors vs current loss 0.6208: experience 0.6176 (+3.17 mnats, z 1.83), age 0.6204 (+0.39 mnats, z 0.48), young_vs_aging 0.6206 (+0.13 mnats, z 0.81), last_match 0.6207 (+0.08 mnats, z 0.08), streaks 0.6209 (-0.18 mnats, z -0.36), first_set 0.62 (+0.76 mnats, z 1.73), injury 0.6201 (+0.66 mnats, z 1.16), travel 0.6208 (-0.04 mnats, z -0.25) -> none kept (weights 0) · 2000/2000 graded matches have both ages
-tennis odds: 0 singles matches priced (bovada)
-tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
-tennis reads: 18 matches
-sync: 130815 games stored, 52 calls, 0 failed, 11s
-odds history: 0 games got odds, 55 calls, 0 failed, 4s
-player stats: 4 box scores added, 4 to fetch, 0 failed, 1s
-weather: 135 games got weather, 0 new stadiums located, 92s
-4th-down rates: 32 NFL teams
-news: 0 new drama tags
-goalies: 16 games on the page, 12 matched, 24 confirmed
-beat the close: unit plays 6 of 25 better than the close, avg +0.1 pts
 tuned in 152s: mlb trust 31% acc 59.1%, nba trust 19% acc 69.8%, ncaab trust 5% acc 67.4%, ncaaf trust 3% acc 71.7%, nfl trust 15% acc 66.1%, nhl trust 19% acc 55.6%
 cover study: nba big favorites covered 50% of 3600 (adjust +0.03); ncaab big favorites covered 49% of 12334 (adjust -0.03); ncaaf big favorites covered 50% of 3490 (adjust +0.01); nfl big favorites covered 47% of 512 (adjust +0.03)
 comeback study: nfl 2280 games s=1.3 w=1.50 m=+0.0 loss 0.477->0.469; ncaaf 6001 games s=1.2 w=1.25 m=+0.0 loss 0.365->0.363; nba 10227 games s=1.7 w=1.75 m=+0.0 loss 0.508->0.473; mlb 19846 games s=1.0 w=1.00 m=+0.1 loss 0.457->0.457; nhl 10140 games s=1.2 w=1.50 m=+0.0 loss 0.509->0.506; ncaab 29448 games s=1.3 w=1.50 m=-0.1 loss 0.433->0.416
@@ -2998,3 +2977,24 @@ tennis study WTA life factors vs current loss 0.6218: experience 0.6185 (+3.30 m
 tennis odds: 9 singles matches priced (bovada)
 tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
 tennis reads: 6 matches
+sync: 130826 games stored, 52 calls, 0 failed, 9s
+odds history: 0 games got odds, 55 calls, 0 failed, 4s
+player stats: 0 box scores added, 0 to fetch, 0 failed, 1s
+weather: 128 games got weather, 0 new stadiums located, 240s
+4th-down rates: 32 NFL teams
+news: 0 new drama tags
+goalies: 11 games on the page, 11 matched, 1 confirmed
+PICK AUDIT FLAG 2026-10-13: dog Flames 145: 1.0u on a thin edge (under 3%) - should be ½u
+PICK AUDIT FLAG 2026-10-14: dog Canadiens 105: 1.0u on a thin edge (under 3%) - should be ½u
+beat the close: unit plays 8 of 29 better than the close, avg +0.2 pts
+public splits: 82 upcoming games
+   ncaaf web injuries: only 5 rows - not used
+   ncaaf injury page: 138 schools (558 players), 138 matched, 0 unmatched
+tennis sync: 73144 matches stored, 18 calls, 0 failed
+tennis study ATP: 26041 rated matches, acc 0.644 (surface ratings alone 0.6445), loss 0.6286 vs 0.6287, own weights [-0.005, 0.826, 0.073, 0.146, 0.424, 0.049, 0.05]
+tennis study ATP life factors vs current loss 0.6286: experience 0.6291 (-0.50 mnats, z -0.5), age 0.6252 (+3.40 mnats, z 2.48), young_vs_aging 0.6281 (+0.48 mnats, z 1.19), last_match 0.626 (+2.54 mnats, z 1.76), streaks 0.6292 (-0.66 mnats, z -0.65), first_set 0.6275 (+1.09 mnats, z 1.73), injury 0.6294 (-0.85 mnats, z -1.23), travel 0.6287 (-0.09 mnats, z -1.19) -> KEPT age · 2000/2000 graded matches have both ages
+tennis study WTA: 30471 rated matches, acc 0.649 (surface ratings alone 0.651), loss 0.6224 vs 0.6223, own weights [0.003, 0.903, -0.0, -0.091, 0.3, 0.028, -0.191]
+tennis study WTA life factors vs current loss 0.6224: experience 0.619 (+3.33 mnats, z 1.93), age 0.6221 (+0.23 mnats, z 0.28), young_vs_aging 0.6223 (+0.11 mnats, z 0.69), last_match 0.622 (+0.39 mnats, z 0.39), streaks 0.6226 (-0.23 mnats, z -0.46), first_set 0.6216 (+0.72 mnats, z 1.63), injury 0.6217 (+0.70 mnats, z 1.24), travel 0.6224 (-0.04 mnats, z -0.25) -> none kept (weights 0) · 2000/2000 graded matches have both ages
+tennis odds: 8 singles matches priced (bovada)
+tennis first-set lines: 0 first-set winner markets seen (0 matches with any set market)
+tennis reads: 5 matches
