@@ -1,11 +1,11 @@
 {
- "at": "2026-10-15T00:55Z",
+ "at": "2026-10-15T00:57Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (2s)",
+  "live watcher fresh (13s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +19,18 @@
   "baseball star list fresh (30 teams)",
   "studies ran 3h ago",
   "simulator ran 3h ago",
-  "engine ran 1 min ago",
+  "engine ran 4 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-15T00:57Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-15T00:55Z",
    "fixes": [
@@ -530,18 +537,6 @@
     "live tennis points: none of 3 live matches has points + server on the 1-second route",
     "studies last ran 10h ago - restarted",
     "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-12T14:25Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Chiesa vs Grabher: no points for 2636s",
-    "live tennis scores: tennis Yaneva vs Ruggeri: no points for 2636s",
-    "live tennis scores: tennis Kabbaj vs Garcia: no points for 202s",
-    "live tennis scores: tennis Maduzzi vs Bandecchi: no points for 2463s",
-    "live tennis scores: tennis Tan vs Iatcenko: no points for 291s",
-    "live tennis scores: tennis Ortenzi vs Palicova: no points for 2117s"
    ]
   }
  ]
