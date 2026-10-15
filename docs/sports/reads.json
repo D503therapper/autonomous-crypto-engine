@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T19:24Z",
+ "updated": "2026-10-15T20:09Z",
  "games": [
   {
    "id": "mlb:401908025",
@@ -12,7 +12,7 @@
    "home": "Guardians",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Guardians",
@@ -23,7 +23,7 @@
     "p": 0.534,
     "win_p": 0.534,
     "reasons": [],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -324,7 +324,7 @@
     "opp": "Dodgers",
     "market": "spread",
     "line": 1.5,
-    "odds": -170,
+    "odds": -167,
     "p": 0.594,
     "win_p": 0.409,
     "reasons": [
@@ -399,7 +399,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Predators",
-    "p": 0.373,
+    "p": 0.369,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -416,8 +416,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.672,
-    "win_p": 0.454,
+    "p": 0.681,
+    "win_p": 0.462,
     "reasons": []
    }
   },
@@ -487,8 +487,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Golden Knights",
-    "p": 0.485,
-    "tie": 0.283,
+    "p": 0.49,
+    "tie": 0.282,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -504,10 +504,11 @@
     "market": "spread",
     "line": -1.5,
     "odds": -125,
-    "p": 0.563,
-    "win_p": 0.761,
+    "p": 0.573,
+    "win_p": 0.768,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "sharp money moving this way"
     ]
    }
   },
