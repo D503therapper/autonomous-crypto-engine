@@ -1,29 +1,116 @@
 {
- "at": "2026-10-15T06:32Z",
+ "at": "2026-10-15T16:04Z",
  "fixes": [],
- "problems": [],
+ "problems": [
+  "live tennis scores: tennis Masarova vs Del Olmo: no points for 2619s",
+  "live tennis scores: tennis Burel vs Lollia: no points for 606s",
+  "live tennis points: none of 2 live matches has points + server on the 1-second route"
+ ],
  "ok": [
-  "live watcher fresh (12s)",
+  "live watcher fresh (157s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
-  "live tennis points + server: 3 of 3 live matches",
-  "slate check: all 5 of today's games named, priced and looked at",
+  "slate check: all 17 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 3 live lines, 3 fresh (betrivers 3)",
+  "tennis live prices: 0 live lines, 0 fresh",
   "all 1 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 2h ago",
   "simulator ran 1h ago",
-  "engine ran 34 min ago",
+  "engine ran 57 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-15T16:04Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Masarova vs Del Olmo: no points for 2619s",
+    "live tennis scores: tennis Burel vs Lollia: no points for 606s",
+    "live tennis points: none of 2 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-15T15:20Z",
+   "fixes": [
+    "simulator overdue (10h) - started sports_sims.yml"
+   ],
+   "problems": [
+    "live tennis points: none of 2 live matches has points + server on the 1-second route",
+    "simulator last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-15T13:49Z",
+   "fixes": [],
+   "problems": [
+    "studies last ran 10h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-15T13:48Z",
+   "fixes": [
+    "studies overdue (9h) - started sports_studies.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Steur vs Zidansek: no points for 2646s",
+    "live tennis scores: tennis Jorge vs Galfi: no points for 2646s",
+    "studies last ran 9h ago - restarted"
+   ]
+  },
+  {
+   "at": "2026-10-15T12:16Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Tan: no points for 2618s",
+    "live tennis scores: tennis Hruncakova vs Salkova: no points for 1256s",
+    "live tennis scores: tennis Jorge vs Galfi: no points for 2618s"
+   ]
+  },
+  {
+   "at": "2026-10-15T12:10Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Samson vs Tan: no points for 2300s",
+    "live tennis scores: tennis Hruncakova vs Salkova: no points for 937s",
+    "live tennis scores: tennis Jorge vs Galfi: no points for 2300s"
+   ]
+  },
+  {
+   "at": "2026-10-15T11:32Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-15T10:01Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-15T10:00Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Brancaccio vs Garcia: no points for 2623s"
+   ]
+  },
+  {
+   "at": "2026-10-15T08:29Z",
+   "fixes": [],
+   "problems": [
+    "live tennis scores: tennis Brancaccio vs Garcia: no points for 1168s"
+   ]
+  },
+  {
+   "at": "2026-10-15T08:04Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-15T06:32Z",
    "fixes": [],
@@ -454,64 +541,6 @@
    "problems": [
     "live tennis scores: tennis Volynets vs Birrell: points frozen at 0-0 for 230s"
    ]
-  },
-  {
-   "at": "2026-10-13T03:56Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T02:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T02:42Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T02:37Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T01:05Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-13T00:50Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T23:16Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T22:50Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T22:49Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T21:18Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-12T21:16Z",
-   "fixes": [
-    "live watch 38304732696 froze (5 min) - cancelled",
-    "live board 5 min stale with games on - sports-live.yml already running"
-   ],
-   "problems": []
   }
  ]
 }

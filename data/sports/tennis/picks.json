@@ -387,23 +387,7 @@
     "bv": 11,
     "state": "final",
     "score": "5-7, 4-6"
-   }
-  ],
-  "parlay": {
-   "legs": [
-    "wta:186230:2",
-    "atp:183420:2",
-    "atp:183374:2:sp"
-   ],
-   "dec": 5.707,
-   "american": 471,
-   "status": "lost"
-  }
- },
- {
-  "date": "2026-09-28",
-  "posted": "2026-09-29T01:17Z",
-  "picks": [
+   },
    {
     "id": "wta:186212:2",
     "match": "wta:186212",
@@ -805,6 +789,16 @@
     "score": "4-6, 4-6"
    }
   ],
+  "parlay": {
+   "legs": [
+    "wta:186230:2",
+    "atp:183420:2",
+    "atp:183374:2:sp"
+   ],
+   "dec": 5.707,
+   "american": 471,
+   "status": "lost"
+  },
   "parlays": {
    "atp": {
     "legs": [
@@ -2838,7 +2832,7 @@
     "mkt": 0.6321695760598504,
     "own": 0.621273850241819,
     "angle": false,
-    "result": null,
+    "result": "won",
     "breakdown": [
      "\ud83c\udfbe Heavy favorite, earned it: Li. She should take care of Tjen.",
      "\u2705 Bottom line: Li ML (-195). 63% to cash \u2014 done deal."
@@ -2848,7 +2842,8 @@
      "t_mf:76",
      "t_bl:10"
     ],
-    "state": "pre"
+    "state": "final",
+    "score": "1-6, 6-7"
    },
    {
     "id": "wta:185364:2",
@@ -2872,7 +2867,7 @@
     "mkt": 0.55637707948244,
     "own": 0.527821100896207,
     "angle": false,
-    "result": null,
+    "result": "lost",
     "breakdown": [
      "\ud83c\udfbe Fernandez nice nice. The number should be way bigger.",
      "\ud83d\udfeb On hard court, Fernandez is on a whole nother caliber. There's levels to this shit.",
@@ -2885,6 +2880,91 @@
      "t_surf:10",
      "t_form:24",
      "t_bl:12"
+    ],
+    "state": "final",
+    "score": "6-1, 1-6, 6-4"
+   }
+  ],
+  "parlays": {
+   "atp": null,
+   "wta": null
+  }
+ },
+ {
+  "date": "2026-10-15",
+  "posted": "2026-10-15T15:00Z",
+  "picks": [
+   {
+    "id": "atp:184957:2",
+    "match": "atp:184957",
+    "side": 2,
+    "player": "Daniil Medvedev",
+    "opp": "Tommy Paul",
+    "tour": "atp",
+    "odds": -220,
+    "p": 0.6581196581196581,
+    "edge": -0.042735042735042694,
+    "start": "2026-10-16T10:00Z",
+    "tourney": "Rolex Shanghai Masters",
+    "market": "ml",
+    "hcp": null,
+    "ml": -220,
+    "round": "Quarterfinal",
+    "surface": "hard",
+    "bo": 3,
+    "value": false,
+    "mkt": 0.6581196581196581,
+    "own": 0.6462967675535706,
+    "angle": false,
+    "result": null,
+    "breakdown": [
+     "\ud83c\udfbe Medvedev runs this. The engine gives him 66%.",
+     "\ud83d\udfeb Medvedev on hard court hits different. Paul doesn't see this version of him anywhere else.",
+     "\ud83d\udd25 Recent results are all Medvedev.",
+     "\ud83c\udd9a Medvedev has already beaten Paul. Same result tonight.",
+     "\u2705 Sum it up: Medvedev ML at -220. 66% to hit, and we ain't fighting the line."
+    ],
+    "bv": 19,
+    "vk": [
+     "t_mf:79",
+     "t_surf:10",
+     "t_form:0",
+     "t_h2h:6",
+     "t_bl:15"
+    ],
+    "state": "pre"
+   },
+   {
+    "id": "atp:184956:2",
+    "match": "atp:184956",
+    "side": 2,
+    "player": "Rafael Jodar",
+    "opp": "Casper Ruud",
+    "tour": "atp",
+    "odds": -145,
+    "p": 0.5656028368794326,
+    "edge": -0.04432624113475181,
+    "start": "2026-10-16T06:30Z",
+    "tourney": "Rolex Shanghai Masters",
+    "market": "ml",
+    "hcp": null,
+    "ml": -145,
+    "round": "Quarterfinal",
+    "surface": "hard",
+    "bo": 3,
+    "value": false,
+    "mkt": 0.5656028368794326,
+    "own": 0.5831738295216131,
+    "angle": false,
+    "result": null,
+    "breakdown": [
+     "\ud83c\udfbe Jodar nice nice. He's about to go off.",
+     "\u2705 Net-net: 57% to cash, Vegas agrees. Jodar ML (-145)."
+    ],
+    "bv": 19,
+    "vk": [
+     "t_mm:5",
+     "t_bl:21"
     ],
     "state": "pre"
    }
