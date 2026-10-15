@@ -1,25 +1,25 @@
 {
  "all": {
-  "n": 64,
-  "beat": 18,
+  "n": 65,
+  "beat": 19,
   "same": 25,
   "worse": 21,
-  "avg_pts": -0.04
+  "avg_pts": -0.02
  },
  "unit_plays": {
-  "n": 28,
-  "beat": 7,
+  "n": 29,
+  "beat": 8,
   "same": 14,
   "worse": 7,
-  "avg_pts": 0.14
+  "avg_pts": 0.17
  },
  "by_kind": {
   "dog": {
-   "n": 11,
-   "beat": 2,
+   "n": 12,
+   "beat": 3,
    "same": 6,
    "worse": 3,
-   "avg_pts": -0.34
+   "avg_pts": -0.21
   },
   "lean": {
    "n": 36,
@@ -66,11 +66,11 @@
    "avg_pts": -0.24
   },
   "nhl": {
-   "n": 28,
-   "beat": 7,
+   "n": 29,
+   "beat": 8,
    "same": 13,
    "worse": 8,
-   "avg_pts": -0.11
+   "avg_pts": -0.06
   }
  },
  "lock_by_size": {
@@ -999,6 +999,20 @@
    "pts": 0.0,
    "units": 1.0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-14",
+   "kind": "dog",
+   "lean": false,
+   "league": "nhl",
+   "team": "Canadiens",
+   "market": "ml",
+   "line": null,
+   "odds": 105,
+   "close": 100,
+   "pts": 1.2,
+   "units": 1.0,
+   "result": "lost"
   }
  ]
 }
