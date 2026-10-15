@@ -13,6 +13,21 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
+- **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.
+- **The favorite flip (NFL + college, paid history 2020-26, first fair look -> last look):** 159 flips of 5,654 games. Opener's favorite (now the dog) +0.2% train -> -3.8% blind (band -7.6%), z 0.1; sign flips by sport and season; moves toward a pick'em without a flip -5.9% / -4.9%. 60 cells. DEAD - the market prices the flip.
+- **In-season coach firing (first 1-3 games under the replacement, 18 NFL / 25 college changes 2018-25):** NFL 15-38, -29.6% (dogs 8-30, -34.7%) - the same direction as the 9/30 fired-coach fade already in the Dog score; college dogs +40.9% is four long shots (z 0.7). DEAD - too small, nothing new to wire.
+- **NFL dogs by closing total (<=40 / 40.5-44 / 44.5-48 / 48.5+), ML +100..+300 and ATS, train 2018-22 / blind 2023-26:** every band loses blind (-6% to -17%); ATS 47-52.5% blind. 40 cells. DEAD (matches college + NHL 10/14). WATCH only: +201..+300 dogs at total 40.5-44, +11.3% (75) / +5.9% (65).
+- **MLB postseason totals (356 games 2018-26):** 49.6% over vs 50.0%; over -5.3%, under -3.6% - the same as September. Low totals, bullpen games, parks, rounds all flip or are thin (the Wild Card "under" broke with 2026's 7-1 over). ~70 cells. DEAD.
+- **Home plate umpire (20,065 MLB games with an ump, prior-only rolling over-rate):** correlation with the over vs the market +0.005 on 8,037 - zero carry; strong-under umps +0.7% / +5.4% then -0.7% at n 100+. ~45 cells. DEAD - the books price the ump.
+- **Travel miles (venues.json geocoded; college road teams, NHL one-way + last-4-days miles):** all buckets within noise; NHL 2500+ road favorites +4.9% -> -11.1%. DEAD (like the time zones). WATCH: the college HOME dog hosting a favorite that flew 1,500+ miles - ATS 57% / 61%, ML +28% / +37%, 7 of 9 seasons, but 138 games, train z 1.0, 28 cells.
+- **Early-season totals (NFL weeks 1-6, college Sep-Oct, NHL Oct-mid Nov):** every week flips sign between halves; college over 49-52%; NHL over 49-51%. DEAD - the books don't misprice early totals.
+- **College lucky winner / unlucky loser (won or lost while outgained 100+ yards, box scores 2021-26):** back the unlucky loser +3.3% -> -16.8% blind; fade the lucky winner -15.1% -> -1.5%; every split flips. 36 cells. DEAD.
+- **NFL weather at the close (1,674 outdoor games):** sides dead everywhere (wind / cold / rain dogs all lose). WATCH: the UNDER in wind 15+ mph - 56.9% train / 61.8% blind, 8 of 8 seasons over 50%, BUT 2024-26 is 52.5% (+0.3%) - the edge was 2023; the wind is the after-the-fact reading, not the forecast the close saw; ~86 cells. Not built.
+- **NHL 3rd game in 4 nights / 4th in 6:** the tired dog loses, but it's the back-to-back part (not on a b2b: -7.7 -> -1.8) - already wired. Totals nothing. NOTE: the wired third_in_four (+1.5 for the rested favorite) ran +3.0 train -> +0.2 blind, 2025 -13% - fading; re-check before it grows, not cut on this alone.
+- **College home dog off 2 straight losses vs a 3+ win-streak team:** 6-11 train, 1-13 blind. DEAD.
+- ~470 cells across the ten; ~20 chance "hits" expected at this bar - the three WATCH cells are inside that.
+
 ## 10/15 - THE COLLEGE OWN READ vs THE MARKET (the owner: "the game obviously isn't a coin flip - the engine reading BYU 48% means something is wrong"): the market is right when the gap is huge - a 12+ college gap is a TRAP in the early spots (built)
 
 - **The BYU +300 vs Notre Dame early play (ncaaf:401856809, own 48% / market 24%) reproduced from the data:** the ratings
