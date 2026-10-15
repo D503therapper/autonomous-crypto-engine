@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T00:43Z",
+ "updated": "2026-10-15T03:57Z",
  "games": [
   {
    "id": "nhl:401892504",
@@ -12,7 +12,7 @@
    "home": "Capitals",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Canadiens",
@@ -23,7 +23,7 @@
     "p": 0.473,
     "win_p": 0.473,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -36,8 +36,8 @@
    "away": "Hornets",
    "home": "Celtics",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -51,8 +51,8 @@
    "away": "Kennesaw St",
    "home": "Missouri St",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -66,8 +66,8 @@
    "away": "Nets",
    "home": "Heat",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -81,8 +81,8 @@
    "away": "Brewers",
    "home": "Dodgers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -96,8 +96,8 @@
    "away": "Bulls",
    "home": "Bucks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -111,8 +111,8 @@
    "away": "Pelicans",
    "home": "Mavericks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -126,8 +126,8 @@
    "away": "Pistons",
    "home": "Timberwolves",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -141,8 +141,8 @@
    "away": "Suns",
    "home": "Spurs",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -157,7 +157,7 @@
    "home": "Sam Houston",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Sam Houston",
@@ -170,7 +170,7 @@
     "reasons": [
      "better QB play lately"
     ],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -184,7 +184,7 @@
    "home": "Avalanche",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Avalanche",
@@ -199,8 +199,23 @@
      "hotter recent form",
      "opponent missing key players"
     ],
-    "result": null
+    "result": "lost"
    }
+  },
+  {
+   "id": "nba:401918011",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-15T02:30Z",
+   "away": "Nuggets",
+   "home": "Clippers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
   },
   {
    "id": "mlb:401908025",
@@ -226,7 +241,7 @@
     "line": 1.5,
     "odds": -207,
     "p": 0.631,
-    "win_p": 0.451,
+    "win_p": 0.45,
     "reasons": []
    }
   },
@@ -256,8 +271,7 @@
     "p": 0.753,
     "win_p": 0.753,
     "reasons": [
-     "the stronger team",
-     "hotter recent form"
+     "the stronger team"
     ]
    }
   },
@@ -283,11 +297,10 @@
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -185,
+    "odds": -198,
     "p": 0.625,
     "win_p": 0.405,
     "reasons": [
-     "hotter goalie",
      "opponent drama: trade drama"
     ]
    }
@@ -298,8 +311,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.438,
-    "tie": 0.292,
+    "p": 0.444,
+    "tie": 0.291,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -314,9 +327,9 @@
     "opp": "Kraken",
     "market": "ml",
     "line": null,
-    "odds": -245,
-    "p": 0.679,
-    "win_p": 0.679,
+    "odds": -258,
+    "p": 0.69,
+    "win_p": 0.69,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -345,12 +358,10 @@
     "opp": "Devils",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
+    "odds": -218,
     "p": 0.652,
     "win_p": 0.433,
     "reasons": [
-     "hotter goalie",
-     "hotter recent form",
      "the stronger team"
     ]
    }
@@ -391,7 +402,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "East Carolina",
-    "p": 0.59,
+    "p": 0.587,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -408,10 +419,11 @@
     "market": "ml",
     "line": null,
     "odds": -205,
-    "p": 0.579,
-    "win_p": 0.579,
+    "p": 0.575,
+    "win_p": 0.575,
     "reasons": [
-     "the stronger team"
+     "the stronger team",
+     "better QB play lately"
     ]
    }
   },
@@ -441,7 +453,6 @@
     "p": 0.661,
     "win_p": 0.441,
     "reasons": [
-     "hotter goalie",
      "opponent drama: trade drama"
     ]
    }
@@ -452,7 +463,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "GA Southern",
-    "p": 0.574,
+    "p": 0.575,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -469,12 +480,11 @@
     "market": "ml",
     "line": null,
     "odds": -180,
-    "p": 0.56,
-    "win_p": 0.56,
+    "p": 0.561,
+    "win_p": 0.561,
     "reasons": [
      "sharp money moving this way",
-     "better QB play lately",
-     "hotter recent form"
+     "better QB play lately"
     ]
    }
   },
@@ -504,8 +514,37 @@
     "p": 0.652,
     "win_p": 0.433,
     "reasons": [
-     "sharp money moving this way",
-     "hotter goalie"
+     "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401908033",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Dodgers",
+    "p": 0.525,
+    "tie": 0.116,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-16T00:00Z",
+   "away": "Brewers",
+   "home": "Dodgers",
+   "why": "tight",
+   "board": null,
+   "lean": {
+    "team": "Dodgers",
+    "opp": "Brewers",
+    "market": "ml",
+    "line": null,
+    "odds": -169,
+    "p": 0.6,
+    "win_p": 0.6,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
@@ -594,9 +633,7 @@
     "odds": -205,
     "p": 0.652,
     "win_p": 0.433,
-    "reasons": [
-     "hotter recent form"
-    ]
+    "reasons": []
    }
   },
   {
@@ -685,9 +722,7 @@
     "p": 0.558,
     "win_p": 0.757,
     "reasons": [
-     "the stronger team",
-     "hotter recent form",
-     "hotter goalie"
+     "the stronger team"
     ]
    }
   }

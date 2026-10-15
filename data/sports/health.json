@@ -1,29 +1,58 @@
 {
- "at": "2026-10-14T23:23Z",
- "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
- ],
+ "at": "2026-10-15T03:11Z",
+ "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (50s)",
+  "live watcher fresh (105s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
+  "live tennis points + server: 1 of 1 live matches",
   "slate check: all 5 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 0 live lines, 0 fresh",
-  "all 1 backup sources answering",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 6 min ago",
+  "studies ran 6h ago",
+  "simulator ran 5h ago",
+  "engine ran 33 min ago",
   "pacer running",
+  "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-15T03:11Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-15T03:10Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-15T01:39Z",
+   "fixes": [],
+   "problems": []
+  },
+  {
+   "at": "2026-10-15T00:58Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-15T00:55Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-14T23:23Z",
    "fixes": [
@@ -490,62 +519,6 @@
     "live tennis scores: tennis Havlickova vs Klimovicova: no points for 1025s",
     "live tennis scores: tennis Rame vs Gormaz: no points for 1025s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-12T16:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Havlickova vs Klimovicova: no points for 159s",
-    "live tennis scores: tennis Avdeeva vs Pigato: no points for 241s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-12T15:57Z",
-   "fixes": [],
-   "problems": [
-    "live tennis points: none of 2 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 10h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-12T15:56Z",
-   "fixes": [
-    "studies overdue (10h) - started sports_studies.yml",
-    "simulator overdue (9h) - started sports_sims.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Kabbaj vs Garcia: no points for 2630s",
-    "live tennis scores: tennis Tan vs Iatcenko: no points for 2630s",
-    "live tennis scores: tennis Ortenzi vs Palicova: no points for 2630s",
-    "live tennis points: none of 3 live matches has points + server on the 1-second route",
-    "studies last ran 10h ago - restarted",
-    "simulator last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-12T14:25Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Chiesa vs Grabher: no points for 2636s",
-    "live tennis scores: tennis Yaneva vs Ruggeri: no points for 2636s",
-    "live tennis scores: tennis Kabbaj vs Garcia: no points for 202s",
-    "live tennis scores: tennis Maduzzi vs Bandecchi: no points for 2463s",
-    "live tennis scores: tennis Tan vs Iatcenko: no points for 291s",
-    "live tennis scores: tennis Ortenzi vs Palicova: no points for 2117s"
-   ]
-  },
-  {
-   "at": "2026-10-12T13:40Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Chiesa vs Grabher: no points for 2655s",
-    "live tennis scores: tennis Yaneva vs Ruggeri: no points for 540s",
-    "live tennis scores: tennis Knutson vs Arango: no points for 2655s",
-    "live tennis scores: tennis Cakarevic vs Serban: no points for 2655s",
-    "live tennis scores: tennis Gjorcheska vs Burel: no points for 1965s"
    ]
   }
  ]

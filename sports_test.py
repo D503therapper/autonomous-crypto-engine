@@ -8233,9 +8233,12 @@ def test_early_college_read_far_over_the_price_is_a_trap():
     Smaller gaps still count, and hockey / baseball keep the cap."""
     import sports_early as se
     cap = sports.OWN_CAP / 100
-    assert se.spot_gap("ncaaf", 0.4825, 0.24) == 0.0                   # BYU: 24 points over = nothing
-    assert se.spot_gap("ncaaf", 0.697, 0.391) == 0.0                   # Old Dominion +145 the same week
-    assert abs(se.spot_gap("ncaaf", 0.30, 0.24) - 0.06) < 1e-9          # a 6-point read still counts in full
+    # (the owner, 10/15 - the middle ground: a college read counts, but never more than 5 points)
+    assert abs(se.spot_gap("ncaaf", 0.4825, 0.24) - 0.05) < 1e-9         # BYU: 24 points over = 5
+    assert abs(se.spot_gap("ncaaf", 0.697, 0.391) - 0.05) < 1e-9         # Old Dominion +145 the same week
+    assert abs(se.spot_gap("ncaaf", 0.30, 0.24) - 0.05) < 1e-9           # a 6-point read: 5
+    assert abs(se.spot_gap("ncaaf", 0.27, 0.24) - 0.03) < 1e-9           # a 3-point read counts in full
+    assert se.spot_gap("ncaaf", 0.20, 0.24) < 0                          # under the price stays under
     assert se.spot_gap("nfl", 0.50, 0.30) == 0.0 and se.spot_gap("nba", 0.50, 0.30) == 0.0
     assert se.spot_gap("nhl", 0.50, 0.30) == cap                       # not studied: the cap, as before
     assert abs(se.spot_gap("mlb", 0.45, 0.40) - 0.05) < 1e-9
