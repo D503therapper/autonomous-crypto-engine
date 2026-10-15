@@ -11815,6 +11815,7 @@
      "game:conf"
     ],
     "dec": 2.05,
+    "decider": {},
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -11829,6 +11830,10 @@
     "edge_own": -0.031336473862776826,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "2,1,1",
+     "h": "2,1,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -11858,9 +11863,11 @@
     "public": "fade",
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Canadiens 3 @ Capitals 5",
+    "settled": "2026-10-15T02:26Z",
     "side": "away",
     "start": "2026-10-14T23:30Z",
     "stype": "2",
@@ -11877,12 +11884,14 @@
    }
   ],
   "p_hit": 0.4725,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-14T15:00Z",
   "round": 1,
+  "settled": "2026-10-15T02:26Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 1.0
  },
  {
   "american": 100,

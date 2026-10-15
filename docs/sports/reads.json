@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T01:42Z",
+ "updated": "2026-10-15T02:26Z",
  "games": [
   {
    "id": "nhl:401892504",
@@ -12,7 +12,7 @@
    "home": "Capitals",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "dog",
    "lean": {
     "team": "Canadiens",
@@ -23,7 +23,7 @@
     "p": 0.473,
     "win_p": 0.473,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -36,8 +36,8 @@
    "away": "Hornets",
    "home": "Celtics",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -66,8 +66,8 @@
    "away": "Nets",
    "home": "Heat",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
