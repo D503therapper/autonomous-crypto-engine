@@ -16947,3 +16947,59 @@ DEX: $967.43 (-32.57) · Scammed: 0
 [2026-10-15 13:10 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market DOWN
 [2026-10-15 13:10 UTC] crypto/hold_btc  equity $480.40 (-3.9%) 1 open  market DOWN
    social heat top: AERO 45 (37/0/8), BTC 40 (40/0/0), STRK 32 (32/0/0), PRL 27 (27/0/0), ZK 24 (24/0/0)
+   scanner: 983 tickers, sample: {'i': 'BTC_USD', 'h': '83041.25', 'l': '80113.88', 'a': '80379.51', 'v': '6644.1789', 'vv': '541916114.45', 'c': '-0.0276', 'b': '80379.50', 'k': '80379.51', 'oi': '0', 't': 1792069840881}
+   dex screen: REJECT PUMPCADE@solana liq $640,777 - lp holders unknown; rugcheck lp locked 61% < 95%
+   dex screen: REJECT DMT-NAT@ethereum liq $530,391 - goplus partial data: selfdestruct unknown; top-10 holders 44%; lp locked 0% < 95%
+   dashboard push skipped: To https://github.com/D503therapper/autonomous-crypto-engine
+ ! [remote rejected]     8142943844db339e43b6f7fecdffabaa0ededd85 -> main (cannot lock ref 'refs/heads/main': is at bc7f336e3180e6ad5486cc6
+   dex screen: REJECT TTWO@solana liq $528,149 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 52%; lp holders unknown
+   dex screen: REJECT OTC@solana liq $518,055 - lp holders unknown; rugcheck lp locked 87% < 95%
+   dex screen: REJECT ANSEM@solana liq $317,701,542 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $262,454,326 - top-10 holders 100%
+   dex screen: REJECT ANSEM@solana liq $1,996,721 - top-10 holders 65%
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 30 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 30 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 30 min)
+   social: reddit/memecoins HTTP 403  (retry in 30 min)
+   dex screen: REJECT STREAM@solana liq $239,426 - holders unknown; lp holders unknown; rugcheck lp locked 0% < 95%
+   >> stocks/momentum: SELL $100.35 of PLTR @ 193.873, P/L $-7.30 (stop hit (live check))
+   dex screen: PASS XPOSE@solana liq $182,780
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex scanner: 2,999 pools (solana 2,022 / base 520 / ethereum 457), refresh cycle 124s (hot 120s), 2496 calls (114 feed, 429s 1, failed 2), 71,403 refreshed (7087 no pair), +262 added / -263 dropped (dead 5, stale 0, cap 258), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-15 14:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market DOWN
+[2026-10-15 14:05 UTC] crypto/mover     equity $288.29 (-42.3%) 1 open  market DOWN
+[2026-10-15 14:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-15 14:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market DOWN
+[2026-10-15 14:05 UTC] crypto/social_heat equity $434.65 (-13.1%) 2 open  market DOWN
+[2026-10-15 14:05 UTC] crypto/breakout10 equity $443.42 (-11.3%) 2 open  market UP
+[2026-10-15 14:05 UTC] crypto/momentum  equity $417.10 (-16.6%) 1 open  market DOWN
+[2026-10-15 14:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market DOWN
+[2026-10-15 14:05 UTC] crypto/hold_btc  equity $479.23 (-4.2%) 1 open  market DOWN
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: BITF"}}}
+$BITF: No data found, symbol may be delisted
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NKLA"}}}
+$NKLA: No data found, symbol may be delisted
+$SAVA: No data found, symbol may be delisted
+
+3 Failed downloads:
+['BITF', 'NKLA', 'SAVA']: No data found, symbol may be delisted
+[2026-10-15 14:06 UTC] stocks/rsi2      equity $480.71 (-3.9%) 3 open  market DOWN
+   rsi2 closest to a buy (needs RSI2 < 25 and above its 200-day avg): SMH 0 BUY, XLK 2 BUY, IWM 3, QQQ 3 BUY
+   >> stocks/breakout52: BUY $101.50 of MRNA @ 230.865 (entry)
+   >> stocks/breakout52: BUY $101.50 of DOCU @ 77.4987 (entry)
+[2026-10-15 14:06 UTC] stocks/breakout52 equity $507.39 (+1.5%) 4 open  market UP
+   breakout52: SPY above its 200-day average: yes; 81 names with data; at a 52-week high: MRNA (+347% 6-mo), DOCU (+66% 6-mo)
+[2026-10-15 14:06 UTC] stocks/dual_momentum equity $479.43 (-4.1%) 2 open  market DOWN
+[2026-10-15 14:06 UTC] stocks/trend_ensemble equity $492.65 (-1.5%) 5 open  market UP
+   >> stocks/rotation10: SELL $217.13 of PLTR @ 195.522, P/L $-13.21 (rebalance: dropped out of top picks)
+   >> stocks/rotation10: BUY $217.53 of LLY @ 1260.96 (entry)
+[2026-10-15 14:06 UTC] stocks/rotation10 equity $512.05 (+2.4%) 2 open  market UP
+[2026-10-15 14:06 UTC] stocks/momentum  equity $483.19 (-3.4%) 3 open  market DOWN
+   >> stocks/trend: SELL $139.91 of META @ 716.153, P/L $-4.02 (stop hit)
+   >> stocks/trend: BUY $139.62 of PLTR @ 195.718 (entry)
+[2026-10-15 14:06 UTC] stocks/trend     equity $482.87 (-3.4%) 3 open  market DOWN
+[2026-10-15 14:06 UTC] stocks/hold_spy  equity $498.93 (-0.2%) 1 open  market DOWN
+   social heat top: BTC 40 (40/0/0), PRL 37 (37/0/0), STRK 35 (35/0/0), NEAR 29 (29/0/0), SOL 27 (27/0/0)
