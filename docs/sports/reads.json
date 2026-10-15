@@ -1,34 +1,29 @@
 {
- "updated": "2026-10-15T16:21Z",
+ "updated": "2026-10-15T16:51Z",
  "games": [
   {
    "id": "mlb:401908025",
    "league": "mlb",
    "emoji": "\u26be",
-   "h1": {
-    "team": "Guardians",
-    "p": 0.469,
-    "tie": 0.119,
-    "name": "first 5 innings"
-   },
    "sport": "MLB",
    "season": "playoffs",
    "start": "2026-10-15T17:00Z",
    "away": "Rays",
    "home": "Guardians",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
-    "team": "Rays",
-    "opp": "Guardians",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -216,
-    "p": 0.641,
-    "win_p": 0.465,
-    "reasons": [
-     "opponent missing key players"
-    ]
+    "team": "Guardians",
+    "opp": "Rays",
+    "market": "ml",
+    "line": null,
+    "odds": -127,
+    "p": 0.534,
+    "win_p": 0.534,
+    "reasons": [],
+    "result": null
    }
   },
   {
