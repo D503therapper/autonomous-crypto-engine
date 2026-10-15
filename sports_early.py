@@ -922,7 +922,10 @@ def sports_own_cap():
     return sports.OWN_CAP
 
 
-SPOT_TRAP = ("nfl", "nba", "ncaaf")     # a read 12+ points over the price counts NOTHING (not the cap) in these leagues.
+SPOT_TRAP = ("nfl", "nba")             # a read 12+ points over the price counts NOTHING (not the cap) in these leagues.
+NCAAF_GAP_MAX = 0.05                   # the owner, 10/15 ("2" - the middle ground): a college read over the price counts
+#                                        at most 5 points, however big the gap (was: past 12 it counted nothing). Every
+#                                        college bucket past 5 points lost blind, so 5 is the most it earns.
 #  NFL / NBA: the 10/1 study (sports.OWN_TRAP). College (10/15, the BYU +300 vs Notre Dame post - own 48%, market 24%):
 #  the college read is NOT a coin-flip finder - blind 2024-26 (learned before 7/2024, 1,885 priced games), the side the
 #  read liked 10+ points more than the market won 37.7% (10-15 pts, market said 37.5%), 34.6% (15-20, market 33.9%),
@@ -935,6 +938,8 @@ def spot_gap(lg, own, mk):
     """The engine's read over the price, in win-% points, as the spots weigh it: capped at sports.OWN_CAP, and in the
     SPOT_TRAP leagues a read past the cap counts nothing at all (the market is the one that's right there)."""
     gap = own - mk
+    if lg == "ncaaf":
+        return min(gap, NCAAF_GAP_MAX)
     cap = sports_own_cap()
     if gap * 100 > cap:
         return 0.0 if lg in SPOT_TRAP else cap / 100
