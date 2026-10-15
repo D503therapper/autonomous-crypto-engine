@@ -17450,3 +17450,27 @@ $NKLA: No data found, symbol may be delisted
    [alert] Today +18.55 | Total -16.09: Stocks: $506.52  today +8.59  total +6.52
 DEX: $977.39  today +9.96  total -22.61
 DEX: $977.39 (-22.61) · Scammed: 0
+   dex screen: REJECT TRIPLET@solana liq $575,054 - lp holders unknown; rugcheck lp locked 86% < 95%
+   dex screen: REJECT OVPP@base liq $257,307 - goplus partial data: cannot_sell_all unknown; top-10 holders 47%; lp locked 0% < 95%
+   dex screen: REJECT VELVET@base liq $21,515 - liquidity $21,515 < $100,000; pool age unknown
+   dex screen: REJECT DOPE@solana liq $294,282 - lp holders unknown; rugcheck lp locked 30% < 95%
+   dex screen: PASS DOPE@ethereum liq $357,483
+   dex screen: PASS DOPE@solana liq $366,445
+   dex screen: REJECT AURORA@ethereum liq $424,676 - top-10 holders 92%; lp locked 0% < 95%
+   dex screen: REJECT DOPE@solana liq $1,139,106 - holders unknown; lp holders unknown; rugcheck score 54
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 240 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 240 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 240 min)
+   social: reddit/memecoins HTTP 403  (retry in 240 min)
+   dex screen: REJECT POND@ethereum liq $183,047 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 70%; lp locked 0% < 95%
+   dex scanner: 2,960 pools (solana 1,981 / base 506 / ethereum 473), refresh cycle 123s (hot 119s), 2976 calls (108 feed, 429s 0, failed 0), 86,037 refreshed (12278 no pair), +83 added / -59 dropped (dead 55, stale 4, cap 0), movers 2 + warming 0 -> queued 2, screened 2 (passed 1), bought 0
+[2026-10-15 23:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-15 23:07 UTC] crypto/mover     equity $313.87 (-37.2%) 2 open  market UP
+[2026-10-15 23:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 23:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 23:07 UTC] crypto/social_heat equity $441.74 (-11.7%) 3 open  market UP
+[2026-10-15 23:07 UTC] crypto/breakout10 equity $483.98 (-3.2%) 2 open  market UP
+[2026-10-15 23:07 UTC] crypto/momentum  equity $419.50 (-16.1%) 1 open  market UP
+[2026-10-15 23:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-15 23:07 UTC] crypto/hold_btc  equity $490.36 (-1.9%) 1 open  market UP
+   social heat top: NEAR 29 (29/0/0), INJ 27 (27/0/0), PRL 24 (24/0/0), AERO 19 (11/0/8), PENGU 19 (19/0/0)
