@@ -10527,9 +10527,10 @@ def test_paused_spots_never_post():
     """10/14, the owner: "pull what you gotta pull - I feel like most of these lose." The blow-out spot (0-6 live) and the
     college engine spot are paused: a candidate from either never posts; the others still do."""
     import sports_early as se, tempfile, os, json as _j
-    assert {"blowout", "engine"} <= se.SPOTS_OFF and "bye" not in se.SPOTS_OFF
-    keep = (se.scan, se.with_book_lines, se.ON)
+    assert "bye" not in se.SPOTS_OFF and not {"blowout", "engine"} & se.SPOTS_OFF   # (10/15: the owner turned both back on)
+    keep = (se.scan, se.with_book_lines, se.ON, set(se.SPOTS_OFF))
     try:
+        se.SPOTS_OFF.clear(); se.SPOTS_OFF.update({"blowout", "engine"})        # the pause mechanism itself still works
         se.ON = True
         se.with_book_lines = lambda games, st, now, lines: games
         mk = lambda gid, spot: {"game_id": gid, "league": "ncaaf", "side": "away", "team": gid, "opp": "X", "odds": 150,
@@ -10541,7 +10542,8 @@ def test_paused_spots_never_post():
             new = se.post({}, {}, now=datetime(2026, 10, 14, 15, tzinfo=timezone.utc), injuries={}, path=path, ping=lambda *a: None)
         assert [c["game_id"] for c in new] == ["ncaaf:3"], [c["game_id"] for c in new]
     finally:
-        se.scan, se.with_book_lines, se.ON = keep
+        se.scan, se.with_book_lines, se.ON = keep[:3]
+        se.SPOTS_OFF.clear(); se.SPOTS_OFF.update(keep[3])
 
 
 def test_college_favorite_off_a_loss_weighed_down():
