@@ -1170,7 +1170,7 @@ def _tn_count(shown, tour_of):
 _GAMES_ = [{}]                   # the games file for the reviews' box-score lookups (set once per build)
 
 
-def _history(picks):
+def _history(picks, early_rows=None):
     """📜 PAST RESULTS: tap open any sport and see every pick that won or lost, newest first."""
     import sports
     deciders = sports_decider.load()                         # how each game was decided (sports_decider)
@@ -1331,6 +1331,15 @@ def _history(picks):
         by.setdefault(l["league"], []).append(
             (e["date"], l["result"], f'{"🟡 LEAN · " if e["lean"] else ""}{bet(l)} ({_am(l["odds"])})', f' · {" + ".join(dict.fromkeys(e["cards"]))}'
              + (f' · {l["score"]}' if l.get("score") else ""), rev_leg(l, l["result"], e["date"])))
+    import sports_early                                      # ⏰ the early value plays are unit plays: in their sport's
+    for e in early_rows if early_rows is not None else (sports_early.load().get("picks") or []):   # list too (the owner,
+        if e.get("result") not in ("won", "lost", "push") or not e.get("league") or not e.get("start"):   # 10/15: the
+            continue                                         # Brewers counted 10-2 but weren't in the baseball list)
+        d_ = datetime.strptime(e["start"][:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc).astimezone(sports.PT).strftime("%Y-%m-%d")
+        l = {**e, "market": e.get("market") or "ml"}
+        by.setdefault(e["league"], []).append(
+            (d_, e["result"], f'{bet(l)} ({_am(e["odds"])})', " · ⏰ Early value play" + (f' · {e["score"]}' if e.get("score") else ""),
+             rev_leg(l, e["result"], d_)))
     for p in picks:                                          # a lean on its own (not in our record) shows in its sport too
         if sports.in_record(p) or p.get("status") not in ("won", "lost") or len(p.get("legs") or []) != 1:
             continue
