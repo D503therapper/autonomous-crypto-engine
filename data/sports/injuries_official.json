@@ -1,120 +1,5 @@
 {
  "_why": "Official availability reports the ESPN feed doesn't carry (10/2: ESPN's college feed listed 3 teams). One entry per game day (Pacific); each team: the source and every player [name, position, status]. Read by sports_data.fetch_injuries - a team listed here counts as COVERED.",
- "2026-10-08": {
-  "ncaaf": {
-   "2623": {
-    "team": "Missouri State",
-    "src": "https://sports.yahoo.com/articles/casey-woods-provides-missouri-state-225827851.html [team news, Springfield News-Leader injury update from coach Woods Fri 10/2 for the 10/8 game at WKU: full selection of players expected; LBs Malone and Dixon + DL Madison out for the season] (verified from the page; no CUSA report read) + Rotowire CUSA report 10/8: Robinson (WR) questionable (verified from the page)",
-    "players": [
-     [
-      "Jmariyae Robinson",
-      "WR",
-      "Questionable"
-     ],
-     [
-      "Heiko Malone",
-      "LB",
-      "Out"
-     ],
-     [
-      "Dylan Dixon",
-      "LB",
-      "Out"
-     ],
-     [
-      "Malachi Madison",
-      "DL",
-      "Out"
-     ]
-    ]
-   },
-   "2636": {
-    "team": "UTSA",
-    "src": "https://www.underdogdynasty.com/american-conference/46630/2026-week-6-preview-south-florida-bulls-utsa-roadrunners [team news, game-week preview 10/7: guard Ben Rios a game-time decision] (verified from the page; no AAC report read)",
-    "players": [
-     [
-      "Ben Rios",
-      "OL",
-      "Questionable"
-     ]
-    ]
-   },
-   "2032": {
-    "team": "Arkansas St",
-    "src": "https://www.foxsports.com/college-football/arkansas-state-red-wolves-team [team news, Rotowire item ~10/5: Clay (ankle) questionable for Thu 10/8 vs South Alabama] (verified from the page; no Sun Belt report read yet)",
-    "players": [
-     [
-      "Kenyon Clay",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "6": {
-    "team": "South Alabama",
-    "src": "https://www.foxsports.com/college-football/south-alabama-jaguars-team [team news, Rotowire items 10/1-10/6: Barnes out for the season per the Sun Belt report; QB Hollins starts] + covers.com South Alabama injuries [Marion, Lynch out for the season] (verified from the pages; White's status for Thursday not stated, no Sun Belt report for this game read)",
-    "players": [
-     [
-      "Brian Barnes",
-      "WR",
-      "Out"
-     ],
-     [
-      "K. Marion",
-      "WR",
-      "Out"
-     ],
-     [
-      "M. Lynch",
-      "TE",
-      "Out"
-     ]
-    ]
-   },
-   "2335": {
-    "team": "Liberty",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Bo Burklow",
-      "TE",
-      "Questionable"
-     ],
-     [
-      "Justin Marshall",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "Cam Wood",
-      "RB",
-      "Questionable"
-     ]
-    ]
-   },
-   "98": {
-    "team": "Western Kentucky",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET, CUSA availability report] (verified from the page)",
-    "players": [
-     [
-      "Adrion Boyd",
-      "RB",
-      "Questionable"
-     ],
-     [
-      "K.D. Hutchinson",
-      "WR",
-      "Questionable"
-     ]
-    ]
-   },
-   "2534": {
-    "team": "Sam Houston",
-    "src": "https://www.rotowire.com/cfootball/tables/injury-report.php?team=ALL&pos=ALL [Rotowire CFB injury report read 10/8, game 10/8 7 PM ET at Liberty, CUSA availability report: Liberty, WKU and Missouri State players listed for the day, no Sam Houston player listed] (verified from the page)",
-    "players": []
-   }
-  }
- },
  "2026-10-09": {
   "ncaaf": {
    "52": {
@@ -3181,6 +3066,125 @@
      [
       "H. Hejny",
       "QB",
+      "Questionable"
+     ]
+    ]
+   }
+  }
+ },
+ "2026-10-16": {
+  "ncaaf": {
+   "235": {
+    "team": "Memphis",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/memphis-tigers/injuries [team news, Oct 15, page lists no injuries before the Oct 17 Tulane game] (verified from the page)",
+    "players": []
+   },
+   "2655": {
+    "team": "Tulane",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/tulane-green-wave/injuries [team news, latest Oct 10, names the Memphis game] (verified from the page)",
+    "players": [
+     [
+      "Z. Lewis Jr.",
+      "WR",
+      "Questionable"
+     ],
+     [
+      "M. Turner",
+      "RB",
+      "Questionable"
+     ],
+     [
+      "A. Parham",
+      "WR",
+      "Questionable"
+     ],
+     [
+      "J. McClure",
+      "RB",
+      "Out"
+     ]
+    ]
+   },
+   "264": {
+    "team": "Washington",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/washington-huskies/injuries [team news, latest Oct 13, names the Oct 16 Purdue game] (verified from the page)",
+    "players": [
+     [
+      "C. Moss",
+      "WR",
+      "Questionable"
+     ],
+     [
+      "D. Williams Jr.",
+      "QB",
+      "Questionable"
+     ],
+     [
+      "C. Christian",
+      "S",
+      "Out"
+     ],
+     [
+      "J. Limar",
+      "RB",
+      "Out"
+     ],
+     [
+      "Q. Carr",
+      "RB",
+      "Out"
+     ]
+    ]
+   },
+   "2509": {
+    "team": "Purdue",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/purdue-boilermakers/injuries [team news, Oct 15, only K. Fox listed] (verified from the page)",
+    "players": [
+     [
+      "K. Fox",
+      "TE",
+      "Out"
+     ]
+    ]
+   },
+   "2026": {
+    "team": "App State",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/appalachian-state-mountaineers/injuries [team news, latest Oct 14, names the Oct 16 Coastal Carolina game] (verified from the page)",
+    "players": [
+     [
+      "A. Sanchez",
+      "WR",
+      "Questionable"
+     ],
+     [
+      "M. Singleton",
+      "QB",
+      "Out"
+     ]
+    ]
+   },
+   "324": {
+    "team": "Coastal Carolina",
+    "src": "https://www.covers.com/sport/football/ncaaf/teams/main/coastal-carolina-chanticleers/injuries [team news, latest Oct 14, names the Oct 16 App State game] (verified from the page)",
+    "players": [
+     [
+      "Z. Courtney",
+      "TE",
+      "Questionable"
+     ],
+     [
+      "G. Lawrence",
+      "WR",
+      "Questionable"
+     ],
+     [
+      "K. Johnson",
+      "WR",
+      "Questionable"
+     ],
+     [
+      "C. Hinton",
+      "WR",
       "Questionable"
      ]
     ]
