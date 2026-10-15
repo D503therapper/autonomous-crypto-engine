@@ -16553,3 +16553,21 @@ DEX: $967.43 (-32.57) · Scammed: 0
 [2026-10-15 00:08 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-15 00:08 UTC] crypto/hold_btc  equity $486.83 (-2.6%) 1 open  market UP
    social heat top: WAL 40 (40/0/0), BTC 35 (35/0/0), PRL 32 (32/0/0), QNT 29 (29/0/0), SUI 27 (27/0/0)
+   dex screen: PASS TROLL@solana liq $2,880,535
+   listings: gemini_symbols failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT DRV@base liq $778,628 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; honeypot_with_same_creator; is_proxy; top-10 holders 53%; lp locked 0% < 95%
+   dex screen: REJECT POD@base liq $5,397,670 - goplus partial data: cannot_sell_all unknown; is_mintable; hidden_owner; owner_change_balance; top-10 holders 95%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: PASS MISTAKE@solana liq $168,281
+   dex scanner: 3,001 pools (solana 1,927 / base 599 / ethereum 475), refresh cycle 136s (hot 131s), 2751 calls (104 feed, 429s 0, failed 1), 79,379 refreshed (7369 no pair), +89 added / -87 dropped (dead 5, stale 0, cap 82), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-15 01:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-15 01:07 UTC] crypto/mover     equity $307.71 (-38.5%) 0 open  market UP
+[2026-10-15 01:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 01:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 01:07 UTC] crypto/social_heat equity $439.96 (-12.0%) 2 open  market UP
+[2026-10-15 01:07 UTC] crypto/breakout10 equity $463.47 (-7.3%) 2 open  market UP
+[2026-10-15 01:07 UTC] crypto/momentum  equity $424.55 (-15.1%) 2 open  market UP
+[2026-10-15 01:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-15 01:07 UTC] crypto/hold_btc  equity $487.69 (-2.5%) 1 open  market UP
+   social heat top: PRL 40 (40/0/0), PENGU 36 (35/0/2), WAL 32 (32/0/0), AERO 28 (27/0/2), BTC 24 (24/0/0)
