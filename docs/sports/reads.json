@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T15:21Z",
+ "updated": "2026-10-15T16:06Z",
  "games": [
   {
    "id": "mlb:401908025",
@@ -7,7 +7,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Guardians",
-    "p": 0.47,
+    "p": 0.469,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -25,7 +25,7 @@
     "line": 1.5,
     "odds": -216,
     "p": 0.641,
-    "win_p": 0.46,
+    "win_p": 0.465,
     "reasons": [
      "opponent missing key players"
     ]
@@ -67,7 +67,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Senators",
-    "p": 0.389,
+    "p": 0.394,
     "tie": 0.298,
     "name": "1st period"
    },
@@ -76,17 +76,18 @@
    "start": "2026-10-15T23:00Z",
    "away": "Islanders",
    "home": "Senators",
-   "why": "tight",
+   "why": "no_value",
    "board": null,
    "lean": {
     "team": "Islanders",
     "opp": "Senators",
     "market": "spread",
     "line": 1.5,
-    "odds": -205,
-    "p": 0.641,
-    "win_p": 0.422,
+    "odds": -198,
+    "p": 0.631,
+    "win_p": 0.411,
     "reasons": [
+     "opponent missing key players",
      "opponent drama: trade drama"
     ]
    }
@@ -97,8 +98,8 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Lightning",
-    "p": 0.444,
-    "tie": 0.291,
+    "p": 0.471,
+    "tie": 0.286,
     "name": "1st period"
    },
    "sport": "NHL",
@@ -106,16 +107,16 @@
    "start": "2026-10-15T23:00Z",
    "away": "Kraken",
    "home": "Lightning",
-   "why": "no_value",
+   "why": "tight",
    "board": null,
    "lean": {
     "team": "Lightning",
     "opp": "Kraken",
     "market": "ml",
     "line": null,
-    "odds": -258,
-    "p": 0.69,
-    "win_p": 0.69,
+    "odds": -270,
+    "p": 0.737,
+    "win_p": 0.737,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -128,7 +129,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Devils",
-    "p": 0.379,
+    "p": 0.373,
     "tie": 0.299,
     "name": "1st period"
    },
@@ -145,8 +146,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -218,
-    "p": 0.661,
-    "win_p": 0.441,
+    "p": 0.672,
+    "win_p": 0.454,
     "reasons": [
      "the stronger team"
     ]
@@ -188,7 +189,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "East Carolina",
-    "p": 0.587,
+    "p": 0.6,
     "tie": 0.032,
     "name": "1st half"
    },
@@ -204,9 +205,9 @@
     "opp": "UAB",
     "market": "ml",
     "line": null,
-    "odds": -205,
-    "p": 0.565,
-    "win_p": 0.565,
+    "odds": -218,
+    "p": 0.581,
+    "win_p": 0.581,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -249,7 +250,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "GA Southern",
-    "p": 0.575,
+    "p": 0.567,
     "tie": 0.033,
     "name": "1st half"
    },
@@ -258,16 +259,16 @@
    "start": "2026-10-15T23:30Z",
    "away": "GA Southern",
    "home": "Old Dominion",
-   "why": "no_value",
+   "why": "coin_flip",
    "board": null,
    "lean": {
     "team": "GA Southern",
     "opp": "Old Dominion",
     "market": "ml",
     "line": null,
-    "odds": -180,
-    "p": 0.551,
-    "win_p": 0.551,
+    "odds": -175,
+    "p": 0.542,
+    "win_p": 0.542,
     "reasons": [
      "sharp money moving this way",
      "better QB play lately"
@@ -300,7 +301,8 @@
     "p": 0.661,
     "win_p": 0.441,
     "reasons": [
-     "sharp money moving this way"
+     "sharp money moving this way",
+     "opponent missing key players"
     ]
    }
   },
@@ -341,7 +343,7 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Texas St",
-    "p": 0.768,
+    "p": 0.773,
     "tie": 0.025,
     "name": "1st half"
    },
@@ -356,10 +358,10 @@
     "team": "Texas St",
     "opp": "Colorado St",
     "market": "spread",
-    "line": -14.0,
+    "line": -14.5,
     "odds": -115,
-    "p": 0.501,
-    "win_p": 0.827,
+    "p": 0.502,
+    "win_p": 0.832,
     "reasons": [
      "the stronger team",
      "sharp money moving this way",
