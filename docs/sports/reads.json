@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T20:09Z",
+ "updated": "2026-10-15T20:32Z",
  "games": [
   {
    "id": "mlb:401908025",
@@ -185,8 +185,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "East Carolina",
-    "p": 0.6,
-    "tie": 0.032,
+    "p": 0.579,
+    "tie": 0.033,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -201,9 +201,9 @@
     "opp": "UAB",
     "market": "ml",
     "line": null,
-    "odds": -218,
-    "p": 0.581,
-    "win_p": 0.581,
+    "odds": -198,
+    "p": 0.555,
+    "win_p": 0.555,
     "reasons": [
      "the stronger team",
      "better QB play lately"
@@ -509,6 +509,36 @@
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
+    ]
+   }
+  },
+  {
+   "id": "mlb:401908026",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "h1": {
+    "team": "Rays",
+    "p": 0.446,
+    "tie": 0.119,
+    "name": "first 5 innings"
+   },
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-16T22:00Z",
+   "away": "Rays",
+   "home": "Guardians",
+   "why": "no_value",
+   "board": null,
+   "lean": {
+    "team": "Guardians",
+    "opp": "Rays",
+    "market": "spread",
+    "line": 1.5,
+    "odds": -206,
+    "p": 0.611,
+    "win_p": 0.494,
+    "reasons": [
+     "the stronger team"
     ]
    }
   },
