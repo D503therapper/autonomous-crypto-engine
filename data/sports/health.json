@@ -1,9 +1,9 @@
 {
- "at": "2026-10-15T03:10Z",
+ "at": "2026-10-15T03:11Z",
  "fixes": [],
  "problems": [],
  "ok": [
-  "live watcher fresh (38s)",
+  "live watcher fresh (105s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -11,19 +11,24 @@
   "slate check: all 5 of today's games named, priced and looked at",
   "no failed workflows",
   "alerts: engine key works",
-  "tennis live prices: 1 live lines, 1 fresh (bovada 1)",
-  "all 7 backup sources answering",
+  "tennis live prices: 1 live lines, 1 fresh (betrivers 1)",
+  "all 6 backup sources answering",
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
   "studies ran 6h ago",
   "simulator ran 5h ago",
-  "engine ran 32 min ago",
+  "engine ran 33 min ago",
   "pacer running",
   "tennis slate on time",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-15T03:11Z",
+   "fixes": [],
+   "problems": []
+  },
   {
    "at": "2026-10-15T03:10Z",
    "fixes": [],
@@ -513,15 +518,6 @@
    "problems": [
     "live tennis scores: tennis Havlickova vs Klimovicova: no points for 1025s",
     "live tennis scores: tennis Rame vs Gormaz: no points for 1025s",
-    "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-12T16:10Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Havlickova vs Klimovicova: no points for 159s",
-    "live tennis scores: tennis Avdeeva vs Pigato: no points for 241s",
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
    ]
   }
