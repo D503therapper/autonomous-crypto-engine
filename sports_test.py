@@ -7274,8 +7274,8 @@ def test_card_wording_kentucky_fixes():
     one", "win-or-else talk") - a talk line only with the real quote; a suspension already in the 🚑 line isn't pasted
     again; the record isn't said twice; no "Kentucky have been"."""
     src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sports_breakdown_v24.py")).read()
-    i = src.index("for key, who in ((\"talk_theirs\"")
-    assert "and hl:" in src[i:i + 700] and "talk_q" in src[i:i + 700]
+    i = src.index("for key, who, mine, other_nm in ((\"talk_theirs\"")      # (10/15: the loop also knows whose camp)
+    assert "and hl:" in src[i:i + 1100] and "talk_q" in src[i:i + 1100]
     assert "have been the better team" not in src and "We're on the better squad" not in src
     assert 'if kind == "suspension" and any(' in src and 'startswith("💪")' in src
 
@@ -8603,8 +8603,8 @@ def test_never_trash_a_team_with_our_record():
     import sports_breakdown_v24 as v24
     src = open(v24.__file__).read()
     assert "better = e is None or e.r.get(tid, 1500.0) > rating_them" in src     # (the owner: a record doesn't
-    assert "if better and ((len(r_theirs) >= 3" in src                          # show who they played - ratings do)
-    assert "abs(gap) <= 15" in src and "tougher schedule" in src
+    assert "if better and losing and ((w / len(r_theirs) < 0.35)" in src        # show who they played - ratings do;
+    assert "abs(gap) <= 15" in src and "tougher schedule" in src                 # 10/15: and a losing record too)
 
 
 def test_college_football_stays_on():
@@ -10559,6 +10559,194 @@ def test_college_favorite_off_a_loss_weighed_down():
     assert sports.read_of(a) < 0.6
     assert "college favorite off a loss (fade)" in sports_leads.tags(a, sports)
     assert "weigh_ncaaf_fav_off_loss(out)" in open("sports.py").read()
+
+
+def _audit_fixture(lg, hist, start, side="home", reasons=None, ratings=None, hfa=50):
+    """A tiny slate for the 10/15 truth-audit tests: finished games `hist` as (start, home, away, hs, as) and one game
+    'A vs B' at `start`; returns (leg, games, elo)."""
+    import types
+    games = {}
+    for i, (st, h, a, hs, as_) in enumerate(hist):
+        games[f"{lg}:h{i}"] = {"id": f"{lg}:h{i}", "league": lg, "start": st, "status": "final", "stype": "2", "home": h,
+                               "away": a, "home_name": h, "away_name": a, "home_score": str(hs), "away_score": str(as_), "neutral": "0"}
+    gid = f"{lg}:up"
+    games[gid] = {"id": gid, "league": lg, "start": start, "status": "pre", "stype": "2", "home": "A", "away": "B", "home_name": "A",
+                  "away_name": "B", "home_score": "", "away_score": "", "neutral": "0", "ml_home": "-130", "ml_away": "110",
+                  "ml_home_open": "-130", "ml_away_open": "110"}
+    r = {"A": 1560, "B": 1500, "C": 1500, "D": 1500, "E": 1500}
+    r.update(ratings or {})
+    elo = {lg: types.SimpleNamespace(r=r, hfa=hfa)}
+    us, them = ("A", "B") if side == "home" else ("B", "A")
+    leg = {"game_id": gid, "league": lg, "side": side, "market": "ml", "line": None, "odds": -130 if side == "home" else 110,
+           "dec": sd.decimal(-130 if side == "home" else 110), "p": 0.6, "team": us, "opp": them, "reasons": list(reasons or [])}
+    return leg, games, elo
+
+
+def test_truth_audit_10_15_rest_by_the_clock():
+    """10/15 truth audit: 'Short rest for the Bruins, full tank for the Senators' with the Bruins two nights off (a 47-hour
+    gap truncated to 1 'day'). A back-to-back is the next night, by the clock - two nights off never reads as one."""
+    import sports_breakdown_v24 as v24
+    hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-04T00:00Z", "B", "D", 1, 4)]     # B played 47.5 h before
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+    bd = v24.breakdown(leg, games, elo, None)
+    assert not any(x.startswith("😴") for x in bd), bd
+    hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-04T23:00Z", "B", "D", 1, 4)]     # B played 24.5 h before
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+    bd = v24.breakdown(leg, games, elo, None)
+    assert any(x.startswith("😴") for x in bd), bd
+    assert v24.B2B_HOURS < 36
+
+
+def test_truth_audit_10_15_stale_meetings_never_revenge_or_h2h():
+    """10/15 truth audit: 'Giants won the last meeting. Cardinals get the rematch ... they haven't forgotten' was a 2023
+    game; 'Cowboys can't figure Texans out: 2 of 3 to Texans' counted 2018 and 2022. Revenge needs a meeting within
+    REVENGE_DAYS (the label comes off the card, the model's weight stays), head-to-head counts two years, max."""
+    import sports_breakdown_v24 as v24
+    old = [("2020-11-22T18:00Z", "A", "B", 20, 0), ("2022-12-24T18:00Z", "A", "B", 37, 23), ("2023-10-08T17:00Z", "B", "A", 42, 24),
+           ("2026-09-13T17:00Z", "A", "C", 24, 20), ("2026-09-14T17:00Z", "B", "D", 10, 30)]
+    leg, games, elo = _audit_fixture("nfl", old, "2026-10-04T17:00Z", reasons=["revenge game", "the stronger team"])
+    bd = v24.breakdown(leg, games, elo, None)
+    assert "revenge game" not in leg["reasons"], leg["reasons"]
+    assert not any(x.startswith(("😤", "🆚")) for x in bd), bd
+    assert "😤" not in (leg.get("why_line") or "") and "rematch" not in (leg.get("why_line") or "").lower()
+    recent = old + [("2026-01-04T18:00Z", "B", "A", 19, 17)]                 # last season's loss: a real revenge game
+    leg, games, elo = _audit_fixture("nfl", recent, "2026-10-04T17:00Z", reasons=["revenge game", "the stronger team"])
+    bd = v24.breakdown(leg, games, elo, None)
+    assert "revenge game" in leg["reasons"] and any(x.startswith("😤") for x in bd), bd
+    assert not any(x.startswith("🆚") and "of the last 3" in x for x in bd), bd    # (1 of 1 inside two years: no 'owning')
+
+
+def test_truth_audit_10_15_schedule_line_names_every_loss_to_a_better_team():
+    """10/15 truth audit: 'Don't let 84-78 fool you - White Sox took those L's from Tigers, Royals and Rockies' (3 of 78
+    losses); 'Western KY's L's came against Georgia, Indiana and New Mexico St' dropped Nevada and called 1-3 New Mexico
+    St a tough loss. The schedule line names every loss, in a short season, and only when each came against a team the
+    ratings have above us - and it reads singular for one."""
+    import sports_breakdown_v24 as v24
+    # same-ish records, we're rated better, both our losses to teams rated above us -> the line, naming both
+    hist = [("2026-09-06T17:00Z", "A", "C", 20, 24), ("2026-09-13T17:00Z", "D", "A", 30, 10), ("2026-09-20T17:00Z", "A", "E", 31, 7),
+            ("2026-09-06T17:00Z", "B", "E", 20, 24), ("2026-09-13T17:00Z", "B", "D", 10, 30), ("2026-09-20T17:00Z", "C", "B", 7, 31)]
+    leg, games, elo = _audit_fixture("nfl", hist, "2026-10-04T17:00Z", ratings={"A": 1540, "B": 1500, "C": 1600, "D": 1620, "E": 1400},
+                                     reasons=["the stronger team"])
+    bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("⚖️")]
+    assert bd and "C" in bd[0] and "D" in bd[0], bd
+    # one loss to a team rated BELOW us: the 'tougher schedule' story is false -> no line
+    leg, games, elo = _audit_fixture("nfl", hist, "2026-10-04T17:00Z", ratings={"A": 1540, "B": 1500, "C": 1600, "D": 1450, "E": 1400},
+                                     reasons=["the stronger team"])
+    assert not any(x.startswith("⚖️") and ("L's" in x or "lost to" in x or " L " in x) for x in v24.breakdown(leg, games, elo, None))
+    # one loss reads singular
+    one = [("2026-09-06T17:00Z", "A", "C", 20, 24), ("2026-09-20T17:00Z", "A", "E", 31, 7),
+           ("2026-09-06T17:00Z", "B", "E", 20, 24), ("2026-09-20T17:00Z", "C", "B", 7, 31)]
+    leg, games, elo = _audit_fixture("nfl", one, "2026-10-04T17:00Z", ratings={"A": 1540, "B": 1500, "C": 1600, "E": 1400},
+                                     reasons=["the stronger team"])
+    bd = [x for x in v24.breakdown(leg, games, elo, None) if x.startswith("⚖️")]
+    assert bd and "those L's" not in bd[0] and "L's came" not in bd[0], bd
+    assert v24.SCHED_MAX_L <= 8                                     # (a 162-game record never gets this line)
+
+
+def test_truth_audit_10_15_trash_talk_needs_a_losing_record():
+    """10/15 truth audit: 'Canucks been looking like a JV squad (1-1)', 'Straight up, Guardians are trash right now
+    (85-77)'. The dig needs a losing record on top of the rating / skid."""
+    import sports_breakdown_v24 as v24
+    hist = [("2026-10-01T23:00Z", "B", "C", 1, 4), ("2026-10-02T23:00Z", "B", "D", 4, 1), ("2026-10-03T23:00Z", "E", "B", 4, 1),
+            ("2026-10-01T23:00Z", "A", "D", 3, 2)]                                             # B 1-2... make it 2-2 below
+    hist2 = hist + [("2026-10-04T23:00Z", "D", "B", 1, 4)]                                     # B 2-2, rated low
+    leg, games, elo = _audit_fixture("nhl", hist2, "2026-10-07T23:00Z", ratings={"B": 1400})
+    assert not any(x.startswith("🗑️") for x in v24.breakdown(leg, games, elo, None))
+    hist3 = hist + [("2026-10-04T23:00Z", "D", "B", 4, 1), ("2026-10-05T23:00Z", "C", "B", 4, 1)]   # B 1-4, three straight L's
+    leg, games, elo = _audit_fixture("nhl", hist3, "2026-10-07T23:00Z", ratings={"B": 1400})
+    assert any(x.startswith("🗑️") for x in v24.breakdown(leg, games, elo, None))
+
+
+def test_truth_audit_10_15_one_start_is_no_hot_or_cold_verdict():
+    """10/15 truth audit: 'Linus Ullmark has been a brick wall - a 0.931 save % (2 goals on 29 shots) over his last 1
+    start'. One start is a night, not a stretch: the numbers print, the verdict waits for two."""
+    rows = [{"player": "Linus Ullmark", "team": "9", "start": "2026-10-03T23:00Z", "role": "G", "sa": "29", "ga": "2"}]
+    txt, mood = sp.form_line("nhl", "Linus Ullmark", rows, "2026-10-05T23:30Z")
+    assert txt and "last 1 start" in txt and mood is None, (txt, mood)
+    rows.append({"player": "Linus Ullmark", "team": "9", "start": "2026-10-04T23:00Z", "role": "G", "sa": "31", "ga": "1"})
+    txt, mood = sp.form_line("nhl", "Linus Ullmark", rows, "2026-10-05T23:30Z")
+    assert mood == "hot", (txt, mood)
+    qb = [{"player": "Q", "team": "1", "start": "2026-09-28T17:00Z", "role": "QB", "att": "30", "yds": "350", "td": "4", "int": "0"}]
+    assert sp.form_line("nfl", "Q", qb, "2026-10-05T17:00Z")[1] is None
+
+
+def test_truth_audit_10_15_every_drama_line_quotes_the_headline_and_talk_is_the_right_camp():
+    """10/15 truth audit: 'The Senators got a guy wanting out. Locker room's split.' / 'Heavy week for the Penguins off
+    the field' said nothing checkable - every drama line carries the headline. And 'Out of the White Sox's camp this
+    week: "Ramirez does it all as Guardians stay alive"' - a headline about the other side is never this camp's talk."""
+    import sports_breakdown_v24 as v24
+    src = open(v24.__file__).read()
+    assert "Locker room's split.\"]" not in src and "Hard to lock in.\"]" not in src and "interim guy, total chaos" not in src
+    for kind in ("coach fired", "suspension", "legal trouble", "family/personal", "illness", "trade drama"):
+        i = src.index(f'"{kind}": [')
+        block = src[i:src.index("]", i)]
+        assert block.count("{hl}") == 2, (kind, block)
+    assert ".get(kind) if hl else None" in src
+    hist = [("2026-10-01T23:00Z", "A", "C", 3, 2), ("2026-10-02T00:00Z", "B", "D", 1, 4)]
+    leg, games, elo = _audit_fixture("nhl", hist, "2026-10-05T23:30Z")
+    leg["talk_theirs"] = [{"kind": "must-win", "headline": "A says this one is a must-win", "date": "2026-10-05"}]
+    assert not any(x.startswith("📣") for x in v24.breakdown(leg, games, elo, None))          # about A, pinned on B: no
+    leg["talk_theirs"] = [{"kind": "must-win", "headline": "B calls it a must-win", "date": "2026-10-05"}]
+    assert any(x.startswith("📣") and "B calls it a must-win" in x for x in v24.breakdown(leg, games, elo, None))
+
+
+def test_truth_audit_10_15_key_edge_is_this_seasons_form():
+    """10/15 truth audit: the 10/5 Senators card said 'hotter goalie ... over his last 1 start' while the WEIGHT behind
+    it stood on 4 of Ullmark's 5 starts from last season (every NHL key edge from 9/30-10/8 was 3-5 of 5 last-season
+    starts). The weight's 'lately' is the card's: this season, the last KEY_DAYS. Baseball's season starts in March."""
+    assert sp.recent_floor("nhl", "2026-10-05T23:30Z") == "2026-07-01"          # not 6/7: last season's playoffs are out
+    assert sp.recent_floor("nfl", "2026-09-10T00:20Z") == "2026-07-01"
+    assert sp.recent_floor("mlb", "2026-10-05T00:00Z") == "2026-06-07"          # 120 days back, inside the season
+    assert sp.recent_floor("mlb", "2026-04-10T00:00Z") == "2026-03-01"
+    assert sp.recent_floor("nhl", "2027-02-01T00:00Z") == "2026-10-04"          # mid-season: the last 120 days
+    g = {"id": "nhl:k1", "league": "nhl", "status": "pre", "start": "2026-10-05T23:30Z", "home": "9", "away": "1"}
+    rows = [{"gid": f"nhl:o{i}", "start": f"2026-04-{10 + i:02d}T23:00Z", "team": "1", "player": "Hot Last Spring", "role": "G",
+             "sa": "35", "ga": "0"} for i in range(5)]                        # five shutouts - all LAST season
+    rows += [{"gid": "nhl:o9", "start": "2026-04-12T23:00Z", "team": "9", "player": "Other Guy", "role": "G", "sa": "30", "ga": "4"}]
+    players = {"nhl": sorted(rows, key=lambda r: r["start"])}
+    import sports_goalies as _sg
+    keep = _sg.starter
+    _sg.starter = lambda gid, side, now=None: None
+    try:
+        edges = sp.key_edges({"nhl:k1": g}, players)
+    finally:
+        _sg.starter = keep
+    assert abs(edges["nhl:k1"]) < 1e-9, edges                                  # nothing this season: no edge either way
+    players["nhl"].append({"gid": "nhl:n1", "start": "2026-10-03T23:00Z", "team": "9", "player": "Other Guy", "role": "G", "sa": "40", "ga": "0"})
+    _sg.starter = lambda gid, side, now=None: None
+    try:
+        edges = sp.key_edges({"nhl:k1": g}, players)
+    finally:
+        _sg.starter = keep
+    assert edges["nhl:k1"] > 0, edges                                            # the home goalie's shutout THIS season counts
+
+
+def test_truth_audit_10_15_a_reason_is_a_factor_the_engine_counts_for_the_side():
+    """10/15 truth audit: the learned weight on 'form' is NEGATIVE in the NFL / NHL / hoops and on 'key' in the NHL, yet
+    cards listed "hotter recent form" ("we're on the Titans, they're the hotter team" - a 0-4 team) and "hotter goalie"
+    as reasons while the read subtracted for them. A factor the model weighs against the side is never its reason."""
+    f = {"elo_pts": 0, "form": 0.3, "rest": 0.5, "b2b": 1.0, "inj": 0.5, "key": 1.0, "revenge": 0, "letdown": 0}
+    g = {"id": "nhl:x", "league": "nhl", "ml_home": "-130", "ml_away": "110", "ml_home_open": "-130", "ml_away_open": "110"}
+    neg = {"weights": {"form": -0.229, "key": -0.047, "rest": 0.173, "b2b": 0.304, "inj": 0.1}}
+    r = sports._reasons("home", f, g, "nhl", neg)
+    assert "hotter recent form" not in r and "hotter goalie" not in r, r
+    assert "opponent on a back-to-back" in r and "better rested" in r, r
+    pos = {"weights": {"form": 0.043, "key": 0.08, "rest": -0.129, "b2b": 0.098, "inj": 0.1}}
+    r = sports._reasons("home", f, {**g, "league": "mlb"}, "mlb", pos)
+    assert "hotter recent form" in r and "better rested" not in r, r
+    r = sports._reasons("home", f, g, "nhl", {})                        # no weights at hand: the raw factors still speak
+    assert "hotter recent form" in r, r
+
+
+def test_truth_audit_10_15_facts_never_after_a_number_and_goalie_line_is_the_weighed_goalie():
+    """10/15 truth audit: 'Blue Jackets (2-2) over Panthers (2-4) on the record. That's just facts.' - the owner's lingo
+    rule: 'facts' follows a claim, never a number. And the goalie the card talks about is the one the weight used (the
+    confirmed / likely starter), never just whoever started last."""
+    import sports_breakdown_v24 as v24
+    src = open(v24.__file__).read()
+    assert "on the record. That's just facts." not in src
+    assert "return sp.starter_for(rows, g, team_side)" in src
+    assert "if h_them <= B2B_HOURS < h_us:" in src and "and (start - _t(x[\"start\"])).days <= H2H_DAYS]" in src
 
 
 if __name__ == "__main__":
