@@ -291,10 +291,30 @@ def key_edges(games, players):
                 names[side] = who
             if not names["home"] or not names["away"]:
                 continue
-            h = score(role, [r for r in by_player.get(names["home"], []) if r["start"] < start][-RECENT[role]:])
-            a = score(role, [r for r in by_player.get(names["away"], []) if r["start"] < start][-RECENT[role]:])
+            lo = recent_floor(lg, start)
+            h = score(role, [r for r in by_player.get(names["home"], []) if lo <= r["start"] < start][-RECENT[role]:])
+            a = score(role, [r for r in by_player.get(names["away"], []) if lo <= r["start"] < start][-RECENT[role]:])
             out[g["id"]] = edge_units(role, h, a)
     return out
+
+
+KEY_DAYS = 120          # a key player's "form lately" is starts from the last 120 days of THIS season (never last spring)
+SEASON_MONTH = {"mlb": 3}   # the season's first month (July for the rest): baseball's spring starts count in July
+
+
+def recent_floor(league, start):
+    """The earliest start date that still counts as a key player's recent form before `start` (10/15 truth audit: on
+    10/5 the Senators' 'hotter goalie' weight stood on 4 of Ullmark's 5 starts from LAST season while the card said
+    'over his last 1 start' - the weight and the words now mean the same 'lately': this season, the last KEY_DAYS).
+    Early in a season a player has few or no starts inside it, and score() shrinks him to league average: no edge."""
+    from datetime import datetime, timedelta
+    try:
+        t = datetime.strptime(start[:10], "%Y-%m-%d")
+    except (TypeError, ValueError):
+        return ""
+    m0 = SEASON_MONTH.get(league, 7)
+    season0 = datetime(t.year if t.month >= m0 else t.year - 1, m0, 1)
+    return max(t - timedelta(days=KEY_DAYS), season0).strftime("%Y-%m-%d")
 
 
 def form_line(league, player, rows, before):
@@ -309,6 +329,8 @@ def form_line(league, player, rows, before):
     if not role or not starts:
         return None, None
     n = len(starts)
+    MOOD_MIN = 2            # (10/15 truth audit: "Linus Ullmark has been a brick wall - ... over his last 1 start" -
+    #                          one start is a night, not a hot or cold stretch: the facts still print, no verdict on them)
     games = f"his last {n} game{'s' if n > 1 else ''}" if role == "QB" else f"his last {n} start{'s' if n > 1 else ''}"
     if role == "QB":
         td, it = sum(_f(r["td"]) for r in starts), sum(_f(r["int"]) for r in starts)
@@ -325,5 +347,5 @@ def form_line(league, player, rows, before):
         pct = (sa - ga) / sa if sa else 0.9
         txt = f"a {pct:.3f} save % ({ga:.0f} goals on {sa:.0f} shots) over {games}"
         mood = "cold" if pct < 0.885 else "hot" if pct >= 0.925 else None
-    return txt, mood
+    return txt, (mood if n >= MOOD_MIN else None)
 

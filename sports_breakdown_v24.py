@@ -23,6 +23,12 @@ def _am(a):
     return f"+{a}" if a > 0 else str(a)
 
 
+REVENGE_DAYS = 400     # (10/15 truth audit) a "revenge game" needs a meeting this season or last - never a 2023 game
+H2H_DAYS = 730         # "2 of the last 3 meetings" counts meetings within two years - never 2018-2024 (Texans-Cowboys)
+SCHED_MAX_L = 6        # "their L's came against X, Y" names EVERY loss, so only a short season (football) - never 78 L's
+B2B_HOURS = 29         # a back-to-back is the next night (the model's 1.2 days) - two nights off is NOT "short rest"
+
+
 def _team_games(fin, tid):
     return [g for g in fin if tid in (g["home"], g["away"])]
 
@@ -342,6 +348,13 @@ def breakdown(leg, games, elo, injuries, used=None):
     the_us, the_them = (f"the {us}", f"the {them}") if pro else (us, them)
     if ours and theirs and (start - _t(ours[-1]["start"])).days - (start - _t(theirs[-1]["start"])).days < 2:
         leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "better rested"]
+    # (10/15 truth audit) "revenge game" only means something when the last meeting was recent: the Cardinals' card said
+    # "Giants won the last meeting ... they haven't forgotten" about a 2023 game, the Panthers' about a 2023 Lions game.
+    # The weight is the model's; the WORDS need a meeting this season or last (REVENGE_DAYS) - else the label goes
+    last_vs = [x for x in ours if oid in (x["home"], x["away"])]
+    if "revenge game" in (leg.get("reasons") or []) and \
+            (not last_vs or (start - _t(last_vs[-1]["start"])).days > REVENGE_DAYS):
+        leg["reasons"] = [r for r in leg["reasons"] if r != "revenge game"]
     if (sm._num(g.get("elev")) or 0) < sm.THIN_AIR_M:  # "altitude edge" only means something up in real thin air
         leg["reasons"] = [r for r in leg.get("reasons") or [] if r != "altitude edge"]
     out, said = [], set()          # said: reasons already used as a "because", so no line repeats another
@@ -415,12 +428,20 @@ def breakdown(leg, games, elo, injuries, used=None):
                                             f"🐺 {them} are {_rt}, {us} {_ru}. The record's in the price already."]))
             elif abs(_w(_ru) - _w(_rt)) <= 0.15 and gap > 15:   # same-ish records, but the ratings (who they PLAYED)
                 tough = [x for x in r_ours if _line(x, tid).startswith("L")]   # say we're better - name who beat us
-                names = [x.get("away_name") if x.get("home") == tid else x.get("home_name") for x in tough][-3:]
-                if names:
+                # (10/15 truth audit: "Don't let 84-78 fool you - White Sox took those L's from Tigers, Royals and
+                # Rockies" named 3 of 78 losses; "Western KY's L's came against Georgia, Indiana and New Mexico St"
+                # dropped Nevada and called 1-3 New Mexico St a tough loss). The line says the schedule explains the
+                # record, so it names EVERY loss, only in a short season, and only when every one came against a team
+                # the ratings have above us - one L to a weaker team and the story's false: no line.
+                beat_us = [x.get("away") if x.get("home") == tid else x.get("home") for x in tough]
+                names = [x.get("away_name") if x.get("home") == tid else x.get("home_name") for x in tough]
+                if names and len(names) <= SCHED_MAX_L and all(e.r.get(o, 1500.0) > e.r.get(tid, 1500.0) for o in beat_us):
                     nm = ", ".join(names[:-1]) + (" and " if len(names) > 1 else "") + names[-1]
-                    out.append(v.say("sched", [f"⚖️ {us} {_ru}, {them} {_rt} — but {_pos(us)} L's came against {nm}.",
+                    ls = "L's" if len(names) > 1 else "L"
+                    one = "that L" if len(names) == 1 else "those L's"
+                    out.append(v.say("sched", [f"⚖️ {us} {_ru}, {them} {_rt} — but {_pos(us)} {ls} came against {nm}.",
                                                f"⚖️ Same kind of record, tougher schedule: {us} lost to {nm}.",
-                                               f"⚖️ Don't let {_ru} fool you — {us} took those L's from {nm}."]))
+                                               f"⚖️ Don't let {_ru} fool you — {us} took {one} from {nm}."]))
             elif abs(_w(_ru) - _w(_rt)) <= 0.15 and abs(gap) <= 15:   # records AND ratings close: a coin-flip game
                 out.append(v.say("even", [f"⚖️ {us} {_ru}, {them} {_rt} — about even, so the price makes the play.",
                                            f"⚖️ {_ru} vs {_rt}. Close matchup — the number's where the value is.",
@@ -432,7 +453,9 @@ def breakdown(leg, games, elo, injuries, used=None):
         rating_them = e.r.get(oid, 1500.0) if e is not None else 1500.0
         n_cold = int(_streak(s_theirs, oid).split()[1]) if _streak(s_theirs, oid).startswith("lost") else 0
         better = e is None or e.r.get(tid, 1500.0) > rating_them   # (10/1, the owner: a record doesn't show who they
-        if better and ((len(r_theirs) >= 3 and w / len(r_theirs) < 0.35) or n_cold >= 3 or rating_them < 1420):
+        losing = len(r_theirs) >= 3 and w < len(r_theirs) - w       # (10/15: "Canucks ... a JV squad (1-1)", "Guardians are
+        #   trash right now (85-77)" - trash talk needs a LOSING record too, not just a rating or a 3-game skid)
+        if better and losing and ((w / len(r_theirs) < 0.35) or n_cold >= 3 or rating_them < 1420):
             #   played - trash talk only when the engine's ratings, which count the schedule, have us better)
             rec = _record(r_theirs, oid)
             out.append(v.say("trash", [f"🗑️ {them} have been complete ass lately — {rec} and it ain't getting prettier.",
@@ -456,7 +479,8 @@ def breakdown(leg, games, elo, injuries, used=None):
                                      else f"📅 Last outing: {both}.", f"📅 Previous game: {both}.", f"📅 Fresh off: {both}."]))
 
     # head to head
-    h2h = [x for x in ours if oid in (x["home"], x["away"])]
+    h2h = [x for x in ours if oid in (x["home"], x["away"]) and (start - _t(x["start"])).days <= H2H_DAYS]
+    #   (10/15 truth audit: "Cowboys can't figure Texans out: 2 of 3 to Texans" counted 2018 and 2022 - two years, max)
     if h2h:
         last3 = h2h[-3:]
         w = sum(1 for x in last3 if _line(x, tid).startswith("W"))
@@ -479,6 +503,8 @@ def breakdown(leg, games, elo, injuries, used=None):
         def who(team_side, tid_):
             if role == "SP":
                 return g.get("sp_" + team_side) or None
+            if role == "G":                                   # (10/15: the card talks about the goalie the WEIGHT used -
+                return sp.starter_for(rows, g, team_side)     #  the confirmed / likely starter, not whoever started last)
             return sp.last_starter(rows, tid_, g["start"])
         for team_side, t_id, ours_ in ((other, oid, False), (side, tid, True)):
             name = who(team_side, t_id)
@@ -563,18 +589,20 @@ def breakdown(leg, games, elo, injuries, used=None):
     if drama_r and leg.get("their_drama"):
         ev = leg["their_drama"][0]
         kind = ev["kind"]
-        lines = {"coach fired": [f"🧯 {_cap(the_them)} just fired their coach. Locker room's a mess.",
-                                 f"🧯 Coaching change for {the_them} — interim guy, total chaos."],
-                 "suspension": [f"🧯 {_cap(the_them)} got a suspension hanging over them: \"{ev['headline']}\"",
-                                f"🧯 Suspension news for {the_them}. That shakes a team up."],
-                 "legal trouble": [f"🧯 {_cap(the_them)} got off-field drama going on: \"{ev['headline']}\"",
-                                   f"🧯 Legal mess around {the_them} this week. Distractions are real."],
-                 "family/personal": [f"🧯 {_cap(the_them)} dealing with some personal stuff: \"{ev['headline']}\"",
-                                     f"🧯 Heavy week for {the_them} off the field. Hard to lock in."],
-                 "illness": [f"🤒 Sickness going around {the_them}: \"{ev['headline']}\"",
-                             f"🤒 {_cap(the_them)} got guys under the weather."],
-                 "trade drama": [f"🧯 Trade drama in {the_them}' locker room: \"{ev['headline']}\"",
-                                 f"🧯 {_cap(the_them)} got a guy wanting out. Locker room's split."]}.get(kind)
+        hl = str(ev.get("headline") or "").strip()      # (10/15 truth audit: "got a guy wanting out. Locker room's
+        #   split" / "Heavy week off the field" said nothing anyone could check - every drama line carries the headline)
+        lines = {"coach fired": [f"🧯 {_cap(the_them)} just fired their coach: \"{hl}\"",
+                                 f"🧯 Coaching change for {the_them} — \"{hl}\""],
+                 "suspension": [f"🧯 {_cap(the_them)} got a suspension hanging over them: \"{hl}\"",
+                                f"🧯 Suspension news for {the_them}: \"{hl}\""],
+                 "legal trouble": [f"🧯 {_cap(the_them)} got off-field drama going on: \"{hl}\"",
+                                   f"🧯 Legal mess around {the_them} this week: \"{hl}\""],
+                 "family/personal": [f"🧯 {_cap(the_them)} dealing with some personal stuff: \"{hl}\"",
+                                     f"🧯 Heavy week for {the_them} off the field: \"{hl}\""],
+                 "illness": [f"🤒 Sickness going around {the_them}: \"{hl}\"",
+                             f"🤒 {_cap(the_them)} got guys under the weather: \"{hl}\""],
+                 "trade drama": [f"🧯 Trade drama in {the_them}' locker room: \"{hl}\"",
+                                 f"🧯 {_cap(the_them)} got a guy wanting out: \"{hl}\""]}.get(kind) if hl else None
         named = [str(n).split(" (")[0] for n in (leg.get("opp_outs") or []) + list((leg.get("key_seen") or {}).keys())]
         if kind == "suspension" and any(n and n.split(" (")[0] in ev.get("headline", "") for n in named):
             lines = None                                 # (10/3: Dylan Stewart's suspension was already in the 🚑 line)
@@ -623,7 +651,9 @@ def breakdown(leg, games, elo, injuries, used=None):
     # rest
     if ours and theirs:
         d_us, d_them = (start - _t(ours[-1]["start"])).days, (start - _t(theirs[-1]["start"])).days
-        if d_them <= 1 < d_us:
+        h_us, h_them = [(start - _t(x[-1]["start"])).total_seconds() / 3600 for x in (ours, theirs)]
+        if h_them <= B2B_HOURS < h_us:                       # (10/15 truth audit: "Short rest for the Bruins" with two
+            #   nights off - a 47-hour gap truncated to 1 "day"; a back-to-back is the next night, by the clock)
             out.append(v.say("b2b", [f"😴 {them} played yesterday — tired legs. {us} are fresh.",
                                       f"😴 {them} are on a back-to-back; {us} had the night off.",
                                       f"😴 Short rest for {them}, full tank for {us}.",
@@ -952,7 +982,9 @@ def why_line(leg, v, g, us, them, the_us, the_them, rec_u=None, n_hot=0, rec_t=N
                     f"💪 {us} ({rec_u}) vs {them} ({rec_t}) — the better team's on our side.",   # or no line)
                     f"💪 {rec_u} against {rec_t}: {us} been the better team.",
                     f"💪 {us} {rec_u}, {them} {rec_t}. Better squad on our side.",
-                    f"💪 {us} ({rec_u}) over {them} ({rec_t}) on the record. That's just facts."]))
+                    f"💪 {us} ({rec_u}) over {them} ({rec_t}) on the record - the better team. That's just facts."]))
+            #   (10/15: the 4th wording used to end "...on the record" + the 'facts' tag - the owner's lingo rule: 'facts'
+            #   follows a claim, never a number)
         elif r == "hotter recent form":
             if n_hot < 2:
                 continue                                  # (no streak to show = no line, never "the hotter team")
@@ -1218,9 +1250,12 @@ def context_lines(leg, v, us, them, the_us, the_them, g):
                                         f"🦓 Zebra check: {nm}'s crew has tilted to {what} over his earlier games.",
                                         f"🦓 {nm} officiating. His track record leans {what}.",
                                         f"🦓 Officials matter: {nm}'s games have gone {what}'s way more than the book expected."]))
-    for key, who in (("talk_theirs", the_them), ("talk_ours", the_us)):
+    for key, who, mine, other_nm in (("talk_theirs", the_them, them, us), ("talk_ours", the_us, us, them)):
         for t in (leg.get(key) or [])[:1]:                 # (10/3, the owner: "season rides on this one" says
             hl = str(t.get("headline") or "").strip()        # nothing - a talk line only with the actual quote)
+            if other_nm and other_nm.lower() in hl.lower() and mine.lower() not in hl.lower():
+                continue      # (10/15 truth audit: "Out of the White Sox's camp: 'Ramirez does it all as Guardians stay
+                #   alive'" - ESPN tags a game story with both teams; a headline about the OTHER side isn't this camp's talk)
             if TALK_LINES.get(t.get("kind")) and not total and hl:
                 out.append(v.say("talk_q", [f"📣 Out of {who}'s camp this week: \"{hl}\"",
                                             f"📣 {_cap(who)} in the papers: \"{hl}\""]))

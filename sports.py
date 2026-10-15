@@ -147,20 +147,27 @@ def _reasons(side, f, g, league, params):
     """Short plain-English reasons the engine likes this side, strongest first."""
     s = 1 if side == "home" else -1
     out = []
+    # (10/15 truth audit) a factor is a REASON only when the engine really counts it FOR the side: the learned weight
+    # on 'form' is negative in the NFL / NHL / hoops (a hot team is over-priced) and on 'key' in the NHL - yet cards said
+    # "hotter recent form" / "they're the hotter team" (a 0-4 Titans side) and "hotter goalie" while the read subtracted
+    # for it. A factor the model weighs against the side, or not at all, is never its reason.
+    w = (params or {}).get("weights", {})
+
+    def counts(name):
+        return w.get(name, POS_BY_DEFAULT.get(name, 0.0)) > 0
     if f["elo_pts"] * s >= 15:
         out.append((f["elo_pts"] * s / 40, "the stronger team"))
-    if f["form"] * s >= 0.08:
+    if f["form"] * s >= 0.08 and counts("form"):
         out.append((f["form"] * s * 4, "hotter recent form"))
-    if f["rest"] * 7 * s >= 2:                        # a real rest gap only (one extra day means nothing)
+    if f["rest"] * 7 * s >= 2 and counts("rest"):     # a real rest gap only (one extra day means nothing)
         out.append((f["rest"] * 7 * s / 3, "better rested"))
-    if f["b2b"] * s > 0:
+    if f["b2b"] * s > 0 and counts("b2b"):
         out.append((0.8, "opponent on a back-to-back"))
-    if f["inj"] * 5 * s >= 1:
+    if f["inj"] * 5 * s >= 1 and counts("inj"):
         out.append((f["inj"] * 5 * s / 3, "opponent missing key players"))
     if sm.line_move(g) * s >= 0.08:
         out.append((sm.line_move(g) * s * 5, "sharp money moving this way"))
     # situational patterns: only when 10 seasons of results say the pattern helps this side
-    w = (params or {}).get("weights", {})
     for name, label in (("revenge", "revenge game"), ("letdown", "letdown spot for the opponent"),
                         ("bye", "coming off a bye"), ("short", "opponent on a short week")):
         if f.get(name, 0) * s > 0 and w.get(name, 0) >= 0.1:
@@ -171,10 +178,14 @@ def _reasons(side, f, g, league, params):
             out.append((0.4 + w[name] * abs(f[name]), label))
     if w.get("letdown", 0) <= -0.1 and f.get("letdown", 0) * s < 0:      # blowout winners keep rolling (NFL/NBA)
         out.append((0.4 - w["letdown"], "rolling off a blowout win"))
-    if f.get("key", 0) * s >= 0.4:
+    if f.get("key", 0) * s >= 0.4 and counts("key"):
         out.append((f["key"] * s, {"mlb": "better starting pitcher", "nhl": "hotter goalie"}.get(league, "better QB play lately")))
     out.sort(key=lambda r: -r[0])
     return [r[1] for r in out[:3]]
+
+
+POS_BY_DEFAULT = {"form": 1.0, "rest": 1.0, "b2b": 1.0, "inj": 1.0, "key": 1.0}   # no learned weights at hand (a bare
+#   call) = the old reading: the raw factor speaks for itself; with the model's weights, only a positive one does
 
 
 def home_opener(games, g):
