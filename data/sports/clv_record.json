@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 65,
-  "beat": 19,
+  "n": 67,
+  "beat": 21,
   "same": 25,
   "worse": 21,
-  "avg_pts": -0.02
+  "avg_pts": 0.07
  },
  "unit_plays": {
   "n": 29,
@@ -22,11 +22,11 @@
    "avg_pts": -0.21
   },
   "lean": {
-   "n": 36,
-   "beat": 11,
+   "n": 38,
+   "beat": 13,
    "same": 11,
    "worse": 14,
-   "avg_pts": -0.18
+   "avg_pts": -0.01
   },
   "lock": {
    "n": 9,
@@ -52,11 +52,11 @@
    "avg_pts": 0.09
   },
   "ncaaf": {
-   "n": 14,
-   "beat": 4,
+   "n": 15,
+   "beat": 5,
    "same": 6,
    "worse": 4,
-   "avg_pts": 0.13
+   "avg_pts": 0.25
   },
   "nfl": {
    "n": 11,
@@ -66,11 +66,11 @@
    "avg_pts": -0.24
   },
   "nhl": {
-   "n": 29,
-   "beat": 8,
+   "n": 30,
+   "beat": 9,
    "same": 13,
    "worse": 8,
-   "avg_pts": -0.06
+   "avg_pts": 0.09
   }
  },
  "lock_by_size": {
@@ -1012,6 +1012,34 @@
    "close": 100,
    "pts": 1.2,
    "units": 1.0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-14",
+   "kind": "lean",
+   "lean": true,
+   "league": "ncaaf",
+   "team": "Sam Houston",
+   "market": "ml",
+   "line": null,
+   "odds": 100,
+   "close": -108,
+   "pts": 1.9,
+   "units": 0,
+   "result": "lost"
+  },
+  {
+   "date": "2026-10-14",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Avalanche",
+   "market": "ml",
+   "line": null,
+   "odds": -135,
+   "close": -162,
+   "pts": 4.4,
+   "units": 0,
    "result": "lost"
   }
  ]
