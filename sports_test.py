@@ -10777,6 +10777,20 @@ def test_pulled_early_play_can_come_back_if_it_clears_again():
         se.scan, se.with_book_lines, se.ON = keep
 
 
+
+def test_early_unit_plays_show_in_their_sports_past_results():
+    """10/15, the owner: the Brewers early play (3u, won 6-2) counted in baseball's 10-2 but wasn't in the list under it.
+    A graded early play shows in its sport's 📜 past results, so the list matches the record."""
+    import sports_dashboard as sd2
+    e = [{"game_id": "mlb:9", "league": "mlb", "side": "away", "team": "Brewers", "opp": "Dodgers", "odds": 144,
+          "start": "2026-10-15T00:00Z", "result": "won", "score": "Brewers 6 @ Dodgers 2"},
+         {"game_id": "mlb:8", "league": "mlb", "side": "home", "team": "Brewers", "opp": "Dodgers", "odds": 112,
+          "start": "2026-10-12T21:00Z", "result": None}]
+    h = sd2._history([], early_rows=e)
+    assert "Brewers ML (+144)" in h and "Early value play" in h and "Oct 14" in h, h[:400]   # (PT game day)
+    assert "(+112)" not in h                                  # not graded yet: not in the list
+
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
@@ -10808,3 +10822,4 @@ if __name__ == "__main__":
         if name.startswith("test_"):
             fn()
             print("ok", name)
+
