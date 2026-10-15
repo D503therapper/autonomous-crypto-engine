@@ -13,6 +13,45 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## 10/15 - THE COLLEGE OWN READ vs THE MARKET (the owner: "the game obviously isn't a coin flip - the engine reading BYU 48% means something is wrong"): the market is right when the gap is huge - a 12+ college gap is a TRAP in the early spots (built)
+
+- **The BYU +300 vs Notre Dame early play (ncaaf:401856809, own 48% / market 24%) reproduced from the data:** the ratings
+  have Notre Dame 1881 and BYU 1828 (5th and 9th), 53 points apart, plus the college home edge of 100 - Elo alone says
+  BYU 57% at home; the fitted weights (travel -0.21, letdown -0.13, revenge, form) pull it DOWN to 48%. The market says
+  24% (+10.5). Nothing is broken in the inputs: both teams' 2026 games are all there (ND 6, BYU 5), no FCS gap, the home
+  edge grid isn't saturating (120 beats 100 by 0.0005 of log loss). The read is just compressed at the top - 1/3 of a
+  rating regresses to 1500 every off-season and 12 games a year can't rebuild the spread between two top-10 teams.
+- **Calibration, blind (walk-forward: params learned before 7/2024, graded 7/2024-now, 1,885 priced college games):**
+  the side the read liked more than the market, by the gap - 0-5 pts: won 50.4% (read 50.2, market 47.8), +6.2% at the
+  close; 5-10: 43.4% (read 51.7, market 44.4), -22%; 10-15: 37.7% (read 49.8, market 37.5), -16%; 15-20: 34.6% (read
+  51.2, market 33.9), -8%; 20-25: 29.8% (read 53.4, market 30.8), -21%; 25+: 25.6% (read 56.5, market 23.7), -13%.
+  The 2026 season alone (439 games) reads the same (10+ gaps won 16-30%, the market's number). The tune already knows:
+  the college trust is 0.0 blind / 0.02 live; log loss own 0.5625 vs market 0.5040. The early-price exam agrees
+  ("early +8+" college dogs 181, -11.5%).
+- **BUILT (bug-level):** the early spots' gap (sports_early.spot_gap) treats a college read 12+ over the price like the
+  NFL's / NBA's (sports.OWN_CAP / OWN_TRAP): nothing, not the cap. BYU's 24-point gap had been capped to 12 and cleared
+  SPOT_MIN_TOTAL (5) by itself, through an 'ice cold' fade; it and Old Dominion +145 (own 70% / market 39%) would not
+  post now. Gaps under 12 still count in full; hockey / baseball keep the cap (not studied).
+- **OWNER'S CALL (not built):** (1) the 5-10 bucket lost too (-22% blind) - the honest form of the college spot path is
+  the tune's own trust (shrink the read to the market by 0.02), which would end college gap-driven early plays
+  altogether; (2) the daily board's college dog score (sports.dog_score) counts the same capped 12 - college dogs this
+  season 44-80, -12.6% - adding ncaaf to sports.OWN_TRAP is the same fix on the board side.
+- **The Sam Houston +100 lean (10/14, "our QB's been playing better" + "Brock Glenn looks lost"):** no contradiction -
+  Glenn is Western KY's QB (the opponent; he and Tisdale rotate), Landyn Locke is ours. But Locke's edge (7.3 vs 5.1
+  adjusted yards per attempt over the last 4 starts) leans on 322 yards / 4 TD against FCS Nicholls (59-0); his other
+  three were 316 / 195 / 138 yards and the team scored 3 at Liberty. The college QB form (sports_players.score) counts a
+  game against an FCS school at full weight, and the game files carry no FCS / conference marker to discount it by.
+  LEAD, not built: weigh college QB form by the opponent's rating, or drop games against teams outside the FBS feed.
+
+## 10/14 - SOCCER ROUND 2 (the owner: "I know people who hit soccer like crazy" - the softer spots): DEAD everywhere in this data
+- 34,310 games, 13 leagues 2018-19..2025-26 (top 5, Championship, League One, League Two, National League, Scotland, Netherlands, Belgium, Turkey; Portugal / Greece / MLS / South America not obtained). Train 2018-22, blind 2022-26, Pinnacle close + best price.
+- Lower-league plus-money 1X2: -3.2% both halves at Pinnacle (16k / 17k), best price -0.9 / -0.7; 0 of 12 leagues positive both halves.
+- Totals O/U 2.5: overs -3.1 / -3.6, unders -4.6 / -3.1; a walk-forward attack/defence goals model reads WORSE than the market (log loss 0.695 vs 0.676) and its picks lose every season. (A first run showed +5-6% blind - a look-ahead bug: season files loaded twice so the model saw the game's own result; caught by a shift test. For any walk-forward study: dedupe and shift-test.)
+- Draws: -3.4 / -4.6; model-liked draws -9.0 blind.
+- Elo + form on the lower leagues: worse than the market (log loss 1.012 vs 0.985); edge plays lose.
+- Late season (last 6 rounds): the market prices motivation. Only near-miss: OVER 2.5 when neither team has anything to play for +3.3% n 325 / +5.0% n 430 (1.4 SE) - noise-level; its mirror -8.2%.
+- Verdict: ~250 cells, 'positive both halves' at chance everywhere. Soccer stays off; people who hit it are riding variance or have data we don't (lineups, Asian-handicap steam, in-play).
+
 ## 10/14 - SOCCER (the owner: his brother's engine "smacking" soccer plus money - should we add it?): DEAD - the top European leagues price like the NFL / NBA; not built
 - Data: football-data.co.uk, EPL / La Liga / Serie A / Bundesliga / Ligue 1, 2018-19..2025-26 = 14,285 games, Pinnacle closing + best closing 3-way odds. Train 2018-22, blind 2022-26 (~7,000 games). The Champions League is NOT in this source (the brother's PSG +200 at Man City kind of bet is untested).
 - Every +100..+300 side flat: Pinnacle close -4.9% / -4.1% (6,487 / 5,580); best price on the board -1.9% / -1.8%. Every band negative at Pinnacle; +200..+300 home dogs -12%. Draws -2%; favorites 0 to +1.5% (the vig).
