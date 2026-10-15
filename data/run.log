@@ -16813,3 +16813,28 @@ DEX: $967.43 (-32.57) · Scammed: 0
 [2026-10-15 08:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-15 08:05 UTC] crypto/hold_btc  equity $486.14 (-2.8%) 1 open  market UP
    social heat top: NEAR 40 (40/0/0), BTC 37 (37/0/0), PRL 32 (32/0/0), HYPE 29 (29/0/0), ZK 27 (27/0/0)
+   listing: okx_symbols #XURNM 'New OKX listing (XURNM)' -> ['XURNM']
+   listing: XURNM: okx_symbols notice "New OKX listing (XURNM)" -> not on Crypto.com USD
+   social: reddit/CryptoMoonShots HTTP 403  (retry in 60 min)
+   social: reddit/SatoshiStreetBets HTTP 403  (retry in 60 min)
+   social: reddit/CryptoCurrency HTTP 403  (retry in 60 min)
+   social: reddit/memecoins HTTP 403  (retry in 60 min)
+   dex screen: REJECT TRUST@base liq $256,395 - pool age unknown
+   dex screen: REJECT FRXUSD@ethereum liq $127,578 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 85%; lp locked 0% < 95%
+   listing: okx_symbols #XUSO 'New OKX listing (XUSO)' -> ['XUSO']
+   listing: XUSO: okx_symbols notice "New OKX listing (XUSO)" -> not on Crypto.com USD
+   dex screen: REJECT CTM@ethereum liq $2,404,396 - goplus partial data: cannot_sell_all unknown; is_mintable
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex scanner: 3,003 pools (solana 1,984 / base 540 / ethereum 479), refresh cycle 120s (hot 116s), 3119 calls (118 feed, 429s 1, failed 1), 90,030 refreshed (7959 no pair), +129 added / -143 dropped (dead 3, stale 0, cap 140), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+   listing: okx_symbols #XUVXY 'New OKX listing (XUVXY)' -> ['XUVXY']
+   listing: XUVXY: okx_symbols notice "New OKX listing (XUVXY)" -> not on Crypto.com USD
+[2026-10-15 09:05 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-15 09:05 UTC] crypto/mover     equity $307.71 (-38.5%) 0 open  market UP
+[2026-10-15 09:05 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 09:05 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-15 09:05 UTC] crypto/social_heat equity $436.20 (-12.8%) 2 open  market UP
+[2026-10-15 09:05 UTC] crypto/breakout10 equity $453.23 (-9.4%) 2 open  market UP
+[2026-10-15 09:05 UTC] crypto/momentum  equity $418.29 (-16.3%) 1 open  market UP
+[2026-10-15 09:05 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-15 09:05 UTC] crypto/hold_btc  equity $484.76 (-3.0%) 1 open  market UP
+   social heat top: PRL 40 (40/0/0), ZK 35 (35/0/0), STRK 32 (32/0/0), NEAR 29 (29/0/0), BTC 27 (27/0/0)
