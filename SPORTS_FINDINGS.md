@@ -13,6 +13,18 @@ same idea (another cut, another sport, or our own line history). The owner, 10/1
 going back so far isn't helping" - so (3) is judged on the LAST 3 SEASONS + this one; older seasons are only a
 tiebreaker, never a reason to kill a lead on their own. (1) never bends - tonight's take-backs were leaks, not old data.
 
+## Yesterday's picks (the daily look-back, from 10/16)
+- 10/15: unit plays 1-1, +0.5u (Mammoth +102 Dog 1u won 4-2 at Edmonton; Seahawks -142 Lock ½u lost 17-14 at Denver); leans 2-1 (Guardians, Devils won; Maple Leafs lost 5-4). Beat the close on both unit plays (Mammoth closed -115, Seahawks -155) - the Seahawks was a fair bet that lost a 3-point game, not a bad read. Fixed: the pick audit's false "1u on a thin edge" flag on the Dog (the Dog has its own size).
+
+## 10/16 - TEN STUDIES (daily run): NFL heartbreak / lucky winner, losing-record home favorite, NHL after a shutout, NHL totals after high / low scoring, college cover margin, college first conference road game, the engine's read by month (NHL) / by week (NFL), NFL division stretch, home dog after a road win: ONE BUILT (college dog off a 21+ cover), the rest DEAD / leads
+- **College dog off a 21+ cover (beat the closing spread by 21+ last game): BUILT as a fade weight (-2 on the college dog score, sports_form.big_cover / LAST_COVER, lead tag "college dog off a 21+ cover (fade)").** +100..+300 dogs won 27.6% vs 34.8% implied train (-22.6%, n 87, band -1.8%), 22.9% vs 35.3% blind (-40.6%, n 70, band -3.4%), pooled z -2.5, 0 of 8 seasons at break-even, ATS 45.7%. The opponent favorite +7.2% / +14.1% ML. Missed by 21+: ML dead; ATS 54.2% (z 2.2) overlaps the built cover-streak fade - weak lead. 47 cells (~2.4 chance hits).
+- **College first conference road game:** dogs ATS 41.0% pooled (z -2.6, 6 of 8 seasons under 50%), ML -13.7% / -27.6% but z -1.5 - LEAD (stay-away), not built alone.
+- **NFL heartbreak (lost by 1-3 / OT last game):** they play worse, not better (blind 44.8% vs 50.4%); the fade +4.1% on 426 but z 1.6 and 2025 carries it - WATCH. Lucky winners dead both ways. **Losing-record home favorite vs winning road dog:** DEAD (-3.0% blind, n 30).
+- **NHL after a shutout loss / after pitching a shutout:** DEAD (shut-out team -13.4% blind; the shutout team -5.9%). **NHL totals after 8+ / 2-or-fewer goal games:** DEAD - the books price the last scoreline. ~110 cells.
+- **The engine's own read by time of season:** NHL October is NOT over-confident blind (slope 0.95; train 0.64 didn't repeat); shrink fits flip sign - DEAD, no early-season shrink. NFL weeks 1-4 calibrated (0.99 / 0.98). LEAD: NFL weeks 14+ the own read is over-confident in both halves (slope 0.82 / 0.72) - the early spots' raw read is the exposure; re-check in December.
+- **NFL division stretch (2nd/3rd straight division game; first non-division game after):** DEAD (train and blind flip). **Home dog after a road win:** NFL +6.1% / +12.1% but 2025 carries it (without 2025: -11.0%) - weak LEAD; college +25.5% -> -1.7% DEAD.
+
+
 ## 10/16 - INJURY COVERAGE AUDIT, Saturday 10/17 college + the NFL / NHL weekend (the owner's #1 priority): every team on the slate has box scores, no stale report is read as current, ONE BUILT (the 🚑 line names the players who play first), the rest is the routine's Saturday job
 
 Checked from the repo's files only (the sandbox can't open ESPN / Covers / Rotowire - every one answers 403 through the proxy; the GitHub runner can, and the 10/15 board preview built on the runner showed 0 college teams "not in our data" on a 1-game college night).

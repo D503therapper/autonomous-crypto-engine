@@ -121,7 +121,9 @@ def audit_day(picks, games, day):
         label = f"{pk['kind']} {pk['legs'][0].get('team')} {pk['legs'][0].get('odds')}"
         if pk.get("lean") and u and day >= sports.THIN_FROM:
             flags.append(f"{label}: a lean carried {u}u - leans never carry units")
-        if not pk.get("lean") and u > 0.5 and day >= sports.THIN_FROM and sports.thin_edge(pk["legs"][0]):
+        if not pk.get("lean") and pk.get("kind") != "dog" and u > 0.5 and day >= sports.THIN_FROM \
+                and sports.thin_edge(pk["legs"][0]):        # (the Dog of the Day has its own size - hockey flat 1u, the
+            #                                                rest 1u-2u by edge (the owner, 10/10): 1u is its floor, not a miss)
             flags.append(f"{label}: {u}u on a thin edge (under {sports.THIN_EDGE:.0%}) - should be ½u")
         for leg in pk["legs"]:
             g = games.get(leg.get("game_id")) or {}

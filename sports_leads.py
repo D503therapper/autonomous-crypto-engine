@@ -37,6 +37,10 @@ def tags(c, sports):
     if c.get("fav_off_loss"):                                # 10/14 study (built as a weight): its own live record
         t.append("college favorite off a loss (fade)")
     dog = c.get("odds", 0) >= 100
+    if dog and lg == "ncaaf" and c.get("edge_own") is not None and c.get("dec") and c.get("p_market") is not None \
+            and (c["edge_own"] + 1) / c["dec"] - c["p_market"] >= 0.10:
+        t.append("college dog, engine 10+ over the books")   # the owner, 10/16 (Tulane): "lay off" - but keep its live
+        #                                                      score (the posted / pulled ones went 0-6 through 10/16)
     if dog:
         try:
             sc = round(sports.dog_score(c), 2)
@@ -56,6 +60,8 @@ def tags(c, sports):
                 t.append(name)
         if (mo.get("win_pct") or 0) >= 0.70 and lg == "ncaaf":
             t.append(".700 college dog")
+        if lg == "ncaaf" and c.get("big_cover"):
+            t.append("college dog off a 21+ cover (fade)")
         if (mo.get("win_streak") or 0) >= 3 and lg == "nfl":
             t.append("NFL dog 3+ win streak")
         try:

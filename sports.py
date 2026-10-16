@@ -516,6 +516,7 @@ def candidates(games, model, now=None, day=None, injuries=None):
                     "fired_on": FIRED.get((lg, str(g[side]))),
                     "first_timer": (lg, str(g[side])) in FIRST_TIMER,
                     "ats_run": ATS[0].get((lg, g[side]), 0),
+                    "big_cover": sports_form.big_cover(lg, g[side], g["start"]),
                     "revenge": lg in sports_form.REVENGE and ATS[1].get((lg, g[side], g[other]), 0) <= -sports_form.REVENGE[lg],
                     "outshot_me": outshot(lg, g[side], g["start"]), "outshot_opp": outshot(lg, g[other], g["start"]),
                     "rested_vs_b2b": lg in sports_form.B2B_LEAGUES and sports_form.played_yesterday(LAST_STARTS, lg, g[other], g["start"])
@@ -1343,6 +1344,10 @@ def dog_spots(c):
     # weighed against the numbers") - small weights, smaller samples:
     if lg == "ncaaf" and (mo.get("win_pct") or 0) >= 0.70:
         sc += 1.5                  # a .700+ college team as the dog: +11% (4 of 6)
+    if lg == "ncaaf" and c.get("big_cover"):
+        sc -= 2                    # a college dog that beat the closing spread by 21+ last game is OVERPRICED: won 27.6%
+        #                            vs 34.8% implied train (-22.6%, n 87), 22.9% vs 35.3% blind (-40.6%, n 70), 0 of 8
+        #                            seasons even, ATS 45.7% (10/16 study - a fade weight, never a trigger)
     if lg in ("nfl", "ncaaf") and mo.get("neutral"):
         own = (c.get("edge_own", c.get("edge", 0)) + 1) / c["dec"] if c.get("dec") else None
         if own is not None and own > (c.get("p_market") or 1):
@@ -1531,7 +1536,7 @@ def pick_tier(pk):
 #   Dog of the Day / a value play: by the engine's final read vs the price (+121u, +5.6%, 6 of 7 seasons up)
 #   Early value plays: by the engine's own read vs the price we got (sports_early.units) - the real money-maker
 #   Leans, parlays, live plus money, tennis: no units (no proof they make money - "just a lean")
-UNIT_MAX = 10                  # 10u max play (1u = 1% of the bankroll, so the max play is 10% of it)
+UNIT_MAX = 5                   # 5u max play (the owner, 10/16: "5 unit would be a max play" - was 10u; nothing ever sized past 5u)
 PARLAY_KINDS = ("two", "three", "four", "eight")   # the owner, 9/30: a parlay is for fun - no units on it; each PICK in it
                                                    # carries its own units, as a straight bet
 BANKROLL_START = 1000.0        # the owner, 9/30: an open bankroll - it starts at $1,000; a unit is 1% of it (grows with it)
@@ -1700,6 +1705,11 @@ def units_for(pk):
 
 SIZING_FROM = "2026-10-02"     # the unit system below, from the 10/2 board on (posted picks keep their units)
 DOG_MAX_UNITS = 2.0            # the owner, 10/10: "if there's major value it should be more units" - the Dog of the Day
+DOG_BIG_FROM = "2026-10-16"     # the owner, 10/16: "Hockey dogs don't have to be specifically one unit ... it can be two
+#                                 units or even three units. It just depends how confident the engine is." / "That goes for
+#                                 all sports ... Locks too ... 5 unit would be a max play." - every sport's Dog sizes by the
+#                                 read (quarter-Kelly) from its floor (DOG_UNITS_BY: hoops ½u, hockey 1u; else 1u) up to
+#                                 UNIT_MAX 5u. Posted picks keep their units.
 DOG_SIZED_FROM = "2026-10-10"  # sizes by its edge (quarter-Kelly on the read its units ride on), 1u floor, 2u max (his
 #                                pick of the options; the 10/2 replay had flat 1u best - judge it live). NBA / college
 #                                hoops Dogs stay ½u (DOG_UNITS_BY - leads). Posted picks keep their units.
@@ -1709,10 +1719,13 @@ def dog_units(pk):
     """The Dog of the Day's units: the sport's flat size (DOG_UNITS_BY) or, from DOG_SIZED_FROM, its edge - 1u-2u."""
     leg = (pk.get("legs") or [{}])[0]
     lg = leg.get("league")
-    if lg in DOG_UNITS_BY or (pk.get("date") or "") < DOG_SIZED_FROM:
+    day = pk.get("date") or ""
+    k = lambda: kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
+    if day >= DOG_BIG_FROM:                                  # (the owner, 10/16: every sport's Dog sizes by the read, its
+        return min(UNIT_MAX, max(DOG_UNITS_BY.get(lg, DOG_UNITS), k()))   # floor up to the 5u max play)
+    if lg in DOG_UNITS_BY or day < DOG_SIZED_FROM:
         return DOG_UNITS_BY.get(lg, DOG_UNITS)
-    k = kelly_units(read_of(leg), leg.get("odds") or pk.get("american") or 100)
-    return min(DOG_MAX_UNITS, max(DOG_UNITS, k))
+    return min(DOG_MAX_UNITS, max(DOG_UNITS, k()))
 
 
 DOG_UNITS = 1.0                # the Dog of the Day: flat 1u (the replay: sizing it by edge lost; flat +8.9%)
