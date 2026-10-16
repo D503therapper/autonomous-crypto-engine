@@ -3814,6 +3814,56 @@
  },
  {
   "date": "2026-10-15",
+  "kind": "dog",
+  "lean": false,
+  "tier": "value",
+  "league": "nhl",
+  "game_id": "nhl:401892515",
+  "team": "Mammoth",
+  "opp": "Oilers",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": 102,
+  "posted": "2026-10-15T15:00Z",
+  "price_says": 0.495,
+  "win_p": 0.4789470274339971,
+  "own_read": 0.539,
+  "weighed": null,
+  "dog_p": 0.5389,
+  "edge_own": -0.032527004583325914,
+  "near_lock": false,
+  "units": 1.0,
+  "reasons": [
+   "sharp money moving this way"
+  ],
+  "angles": [
+   "bothhot:1",
+   "worse:2",
+   "road:1",
+   "sharp:6",
+   "bottom_s:1",
+   "w_sharp:1"
+  ],
+  "injuries_seen": {},
+  "ours_out": [
+   "Michael Carcone (LW)"
+  ],
+  "theirs_out": [],
+  "goalie_roles": {
+   "ours_is_1": null,
+   "theirs_is_1": null
+  },
+  "public": "fade",
+  "close": -115,
+  "beat_close_pts": 4.0,
+  "result": "won",
+  "score": "4-2",
+  "margin": 2.0,
+  "pnl_units": 1.02
+ },
+ {
+  "date": "2026-10-15",
   "kind": "lean",
   "lean": true,
   "tier": "lean",
@@ -3955,5 +4005,59 @@
   "score": "4-5",
   "margin": -1.0,
   "pnl_units": 0
+ },
+ {
+  "date": "2026-10-15",
+  "kind": "lock",
+  "lean": false,
+  "tier": "lock",
+  "league": "nfl",
+  "game_id": "nfl:401872995",
+  "team": "Seahawks",
+  "opp": "Broncos",
+  "home": false,
+  "market": "ml",
+  "line": null,
+  "odds": -142,
+  "posted": "2026-10-15T15:00Z",
+  "price_says": 0.587,
+  "win_p": 0.5634920634920635,
+  "own_read": 0.593,
+  "weighed": 0.5925,
+  "dog_p": null,
+  "edge_own": 0.026840774665216394,
+  "near_lock": false,
+  "units": 0.5,
+  "reasons": [
+   "the stronger team"
+  ],
+  "angles": {
+   "east_west": false,
+   "fades": [],
+   "go4_gap": 0.0306,
+   "last_margin": -3.0,
+   "last_pts": 29.0,
+   "neutral": false,
+   "win_pct": 0.6,
+   "win_streak": 0
+  },
+  "injuries_seen": {},
+  "ours_out": [
+   "Chazz Surratt (LB)",
+   "Drake Thomas (LB)",
+   "Zach Charbonnet (RB)"
+  ],
+  "theirs_out": [
+   "Pat Surtain II (CB)",
+   "Talanoa Hufanga (S)"
+  ],
+  "goalie_roles": null,
+  "public": "ride",
+  "close": -148,
+  "beat_close_pts": 1.0,
+  "result": "lost",
+  "score": "14-17",
+  "margin": -3.0,
+  "pnl_units": -0.5
  }
 ]
