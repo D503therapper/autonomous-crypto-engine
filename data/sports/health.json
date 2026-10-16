@@ -1,11 +1,11 @@
 {
- "at": "2026-10-16T21:54Z",
+ "at": "2026-10-16T21:59Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [],
  "ok": [
-  "live watcher fresh (69s)",
+  "live watcher fresh (39s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -19,11 +19,18 @@
   "baseball star list fresh (30 teams)",
   "studies ran 1h ago",
   "simulator ran 0h ago",
-  "engine ran 7 min ago",
+  "engine ran 2 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-16T21:59Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": []
+  },
   {
    "at": "2026-10-16T21:54Z",
    "fixes": [
@@ -519,15 +526,6 @@
    ],
    "problems": [
     "live tennis points: none of 2 live matches has points + server on the 1-second route"
-   ]
-  },
-  {
-   "at": "2026-10-14T16:35Z",
-   "fixes": [
-    "tennis slate due (8am PT) and not up - sports.yml already running"
-   ],
-   "problems": [
-    "live tennis points: none of 1 live matches has points + server on the 1-second route"
    ]
   }
  ]
