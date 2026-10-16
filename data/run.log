@@ -17589,3 +17589,25 @@ DEX: $977.39 (-22.61) · Scammed: 0
 [2026-10-16 03:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-16 03:06 UTC] crypto/hold_btc  equity $488.84 (-2.2%) 1 open  market UP
    social heat top: INJ 35 (35/0/0), STRK 32 (32/0/0), ZK 27 (27/0/0), AERO 24 (16/0/8), GRASS 24 (24/0/0)
+   dex screen: REJECT ICP@base liq $480,416 - pool age unknown
+   dex screen: REJECT MAGIC@base liq $396,443 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 43%; lp locked 0% < 95%
+   dex screen: REJECT PAID@solana liq $422,422 - lp holders unknown; rugcheck lp locked 59% < 95%
+   dex screen: REJECT WOJAK@solana liq $313,300 - 24h volume $97,871 < $100,000
+   dex screen: REJECT SUPER@ethereum liq $3,565,968 - is_mintable; top-10 holders 53%
+   listings: coinbase failed (1x, retry in 30s): TimeoutError: The read operation timed out
+   dex screen: REJECT PI@solana liq $88,351,274 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT ORBIO@solana liq $41,210,070 - top-10 holders 100%; lp holders unknown
+   dex screen: REJECT FTR@ethereum liq $97,303 - liquidity $97,303 < $100,000
+   dex screen: REJECT BORDR@solana liq $224,977 - lp holders unknown; rugcheck lp locked 31% < 95%
+   dex screen: REJECT ENA@ethereum liq $2,935,982 - is_mintable; top-10 holders 59%
+   dex scanner: 3,019 pools (solana 2,020 / base 503 / ethereum 496), refresh cycle 126s (hot 121s), 2967 calls (108 feed, 429s 0, failed 1), 85,737 refreshed (10563 no pair), +132 added / -113 dropped (dead 21, stale 0, cap 92), movers 1 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-16 04:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-16 04:07 UTC] crypto/mover     equity $312.40 (-37.5%) 2 open  market UP
+[2026-10-16 04:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-16 04:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-16 04:07 UTC] crypto/social_heat equity $445.00 (-11.0%) 3 open  market UP
+[2026-10-16 04:07 UTC] crypto/breakout10 equity $480.94 (-3.8%) 2 open  market UP
+[2026-10-16 04:07 UTC] crypto/momentum  equity $419.12 (-16.2%) 1 open  market UP
+[2026-10-16 04:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-16 04:07 UTC] crypto/hold_btc  equity $488.58 (-2.3%) 1 open  market UP
+   social heat top: INJ 35 (35/0/0), NEAR 32 (32/0/0), PONS 32 (21/0/10), VVV 27 (21/0/6), PRL 27 (27/0/0)
