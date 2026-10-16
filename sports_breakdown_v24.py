@@ -751,7 +751,7 @@ def breakdown(leg, games, elo, injuries, used=None):
     # pitchers
     if lg == "mlb" and g.get("sp_home") and g.get("sp_away"):   # (10/1 audit: "TBA gets the ball" - both named or no line)
         ps, po = g.get("sp_" + side) or "TBA", g.get("sp_" + other) or "TBA"
-        sp_txt = next((t for (o_, m_), (n_, t) in FORM.items() if o_ and m_ is None and n_ == ps and t), None)
+        sp_txt = next((t for (o_, m_), (n_, t, *_) in FORM.items() if o_ and m_ is None and n_ == ps and t), None)
         #   (a HOT arm already got his 🔥 line with the numbers; a COLD one gets no hype at all)
         nice = [f"⚾ {x} {sports_lingo.cap1(sp_txt)}." for x in sports_lingo.good(ps, the_them, f"{g['id']}|sp")] \
             if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" and sp_txt else []   # our arm's
