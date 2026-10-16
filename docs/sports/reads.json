@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16T23:33Z",
+ "updated": "2026-10-16T23:48Z",
  "games": [
   {
    "id": "nba:401914126",
@@ -25,21 +25,6 @@
    "start": "2026-10-16T23:00Z",
    "away": "Celtics",
    "home": "76ers",
-   "h1": null,
-   "why": "started",
-   "done": false,
-   "board": null,
-   "lean": null
-  },
-  {
-   "id": "ncaaf:401867821",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-16T23:00Z",
-   "away": "Columbia",
-   "home": "Penn",
    "h1": null,
    "why": "started",
    "done": false,
@@ -77,33 +62,45 @@
    "lean": null
   },
   {
+   "id": "ncaaf:401862801",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-16T23:30Z",
+   "away": "Memphis",
+   "home": "Tulane",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "ncaaf:401869844",
    "league": "ncaaf",
    "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Coastal",
-    "p": 0.485,
-    "tie": 0.034,
-    "name": "1st half"
-   },
    "sport": "College Football",
    "season": "regular season",
    "start": "2026-10-17T00:00Z",
    "away": "App State",
    "home": "Coastal",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "lean",
    "lean": {
     "team": "Coastal",
     "opp": "App State",
     "market": "ml",
     "line": null,
-    "odds": -105,
-    "p": 0.503,
-    "win_p": 0.503,
+    "odds": -102,
+    "p": 0.501,
+    "win_p": 0.501,
     "reasons": [
      "the stronger team"
-    ]
+    ],
+    "result": null
    }
   },
   {
@@ -131,38 +128,6 @@
      "opponent missing key players"
     ],
     "result": null
-   }
-  },
-  {
-   "id": "ncaaf:401858493",
-   "league": "ncaaf",
-   "emoji": "\ud83c\udfc8",
-   "h1": {
-    "team": "Purdue",
-    "p": 0.56,
-    "tie": 0.033,
-    "name": "1st half"
-   },
-   "sport": "College Football",
-   "season": "regular season",
-   "start": "2026-10-17T00:00Z",
-   "away": "Washington",
-   "home": "Purdue",
-   "why": "tight",
-   "board": null,
-   "lean": {
-    "team": "Purdue",
-    "opp": "Washington",
-    "market": "ml",
-    "line": null,
-    "odds": -162,
-    "p": 0.593,
-    "win_p": 0.593,
-    "reasons": [
-     "the stronger team",
-     "sharp money moving this way",
-     "rolling off a blowout win"
-    ]
    }
   },
   {
@@ -534,8 +499,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "LSU",
-    "p": 0.781,
-    "tie": 0.024,
+    "p": 0.793,
+    "tie": 0.023,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -549,10 +514,10 @@
     "team": "LSU",
     "opp": "Mississippi St",
     "market": "spread",
-    "line": -16.5,
-    "odds": -105,
+    "line": -17.5,
+    "odds": -102,
     "p": 0.502,
-    "win_p": 0.84,
+    "win_p": 0.852,
     "reasons": [
      "the stronger team",
      "sharp money moving this way"
@@ -2438,8 +2403,8 @@
    "emoji": "\ud83c\udfc8",
    "h1": {
     "team": "Vanderbilt",
-    "p": 0.63,
-    "tie": 0.031,
+    "p": 0.62,
+    "tie": 0.032,
     "name": "1st half"
    },
    "sport": "College Football",
@@ -2454,9 +2419,9 @@
     "opp": "Arkansas",
     "market": "ml",
     "line": null,
-    "odds": -238,
-    "p": 0.675,
-    "win_p": 0.675,
+    "odds": -225,
+    "p": 0.664,
+    "win_p": 0.664,
     "reasons": [
      "the stronger team"
     ]
