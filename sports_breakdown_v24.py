@@ -110,6 +110,68 @@ def _season(games_of_team, before):
     return list(reversed(out))
 
 
+def goalie_known(g, team_side):
+    """True when the side's starting goalie is confirmed / likely (sports_goalies). Unknown at post time, the card says
+    the goalie it talks about is the LAST starter, never 'the Sharks' goalie' as if he's in tonight (10/16 truth audit:
+    Askarov, Dobes and Dostal were each written up on 10/8-10/10 and a different goalie started)."""
+    if g.get("league") != "nhl":
+        return True
+    try:
+        import sports_goalies
+        return bool(sports_goalies.starter(g.get("id"), team_side))
+    except Exception:                                        # noqa: BLE001
+        return False
+
+
+def team_unsure(inj, team_id, team_name):
+    """Players listed questionable / game-time / day-to-day for a side (name, position, status) - the 🚑 line names them,
+    so the card never also calls that side 'full squad' (10/16 truth audit)."""
+    return [r for r in sd._team_rows(inj, team_id, team_name) if any(s in str(r[2]).lower() for s in sd.UNSURE)]
+
+
+def names_in(hl, names):
+    """The league team names (nicknames, case-sensitive whole words) a headline mentions, in the order they appear."""
+    hits = []
+    for n in names:
+        m = re.search(r"(?<![A-Za-z])" + re.escape(str(n)) + r"(?![a-z])", str(hl or ""))
+        if m:
+            hits.append((m.start(), n))
+    return [n for _, n in sorted(hits)]
+
+
+def someone_elses_story(hl, mine, games, lg, need_mine=False):
+    """A headline ESPN tagged on `mine` that is really another team's story: it names another team of the league and
+    not ours (10/16 truth audit: "The Sabres dealing with some personal stuff: 'Blackhawks' Bowen Byram to miss Buffalo
+    return'" - a Blackhawk's news, pinned on the Sabres twice). need_mine=True: the headline has to name our team at all
+    (a league round-up - "15 NFL players, coaches on the hot seat entering Week 6" - is nobody's camp talk)."""
+    names = set()
+    for g in (games or {}).values():
+        if g.get("league") == lg:
+            names.update(x for x in (g.get("home_name"), g.get("away_name")) if x)
+    hits = names_in(hl, names)
+    mine_in = bool(names_in(hl, [mine])) if mine else False
+    if need_mine and not mine_in:
+        return True
+    return any(n != mine for n in hits) and not mine_in
+
+
+def close_records(ru, rt):
+    """Two records are 'close' (same kind of record) when the win % gap is small AND the win gap is small: 85-77 vs
+    98-64 (10/16 truth audit: "Records are close") is 13 wins apart - never close. The win gap allowed grows with the
+    season: 2 wins in a short football / early season, ~3% of the games later (5 over a 162-game year)."""
+    try:
+        a = [int(x) for x in str(ru).split("-")[:2]]
+        b = [int(x) for x in str(rt).split("-")[:2]]
+    except ValueError:
+        return False
+    n = max(sum(a), sum(b), 1)
+    pct = lambda r: r[0] / max(1, r[0] + r[1])
+    return abs(pct(a) - pct(b)) <= 0.15 and abs(a[0] - b[0]) <= max(2, round(CLOSE_WIN_SHARE * n))
+
+
+CLOSE_WIN_SHARE = 0.03
+
+
 def _record(gs, tid):
     w = sum(1 for g in gs if _line(g, tid).startswith("W"))
     lo = sum(1 for g in gs if _line(g, tid).startswith("L"))
@@ -426,7 +488,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                 out.append(v.say("worse", [f"🐺 {them} ({_rt}) look better than {us} ({_ru}) — that's why the price is this good.",
                                             f"🐺 {_rt} vs {_ru} — {them} get the respect, we get the price on {us}.",
                                             f"🐺 {them} are {_rt}, {us} {_ru}. The record's in the price already."]))
-            elif abs(_w(_ru) - _w(_rt)) <= 0.15 and gap > 15:   # same-ish records, but the ratings (who they PLAYED)
+            elif close_records(_ru, _rt) and gap > 15:        # same-ish records, but the ratings (who they PLAYED)
                 tough = [x for x in r_ours if _line(x, tid).startswith("L")]   # say we're better - name who beat us
                 # (10/15 truth audit: "Don't let 84-78 fool you - White Sox took those L's from Tigers, Royals and
                 # Rockies" named 3 of 78 losses; "Western KY's L's came against Georgia, Indiana and New Mexico St"
@@ -442,7 +504,7 @@ def breakdown(leg, games, elo, injuries, used=None):
                     out.append(v.say("sched", [f"⚖️ {us} {_ru}, {them} {_rt} — but {_pos(us)} {ls} came against {nm}.",
                                                f"⚖️ Same kind of record, tougher schedule: {us} lost to {nm}.",
                                                f"⚖️ Don't let {_ru} fool you — {us} took {one} from {nm}."]))
-            elif abs(_w(_ru) - _w(_rt)) <= 0.15 and abs(gap) <= 15:   # records AND ratings close: a coin-flip game
+            elif close_records(_ru, _rt) and abs(gap) <= 15:   # records AND ratings close: a coin-flip game
                 out.append(v.say("even", [f"⚖️ {us} {_ru}, {them} {_rt} — about even, so the price makes the play.",
                                            f"⚖️ {_ru} vs {_rt}. Close matchup — the number's where the value is.",
                                            f"⚖️ Records are close ({us} {_ru}, {them} {_rt}). We're taking the side that pays."]))
@@ -531,7 +593,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                            f"💣 Hitters are teeing off on {name} — {txt}."],
                     "G": [f"🥅 {_poss(the_them)} goalie {name} has been giving up a lot of goals — {txt}.",
                           f"🥅 {_poss(the_them)} goalie {name} can't keep the puck out lately: {txt}.",
-                          f"🥅 Pucks keep getting past {_poss(the_them)} goalie, {name} — {txt}."]}[role]))
+                          f"🥅 Pucks keep getting past {_poss(the_them)} goalie, {name} — {txt}."] if goalie_known(g, team_side) else
+                         [f"🥅 {name}, who had {_poss(the_them)} net last time out, can't keep the puck out lately: {txt}.",
+                          f"🥅 If {name} gets {_poss(the_them)} net again: {txt}. Pucks keep getting past him.",
+                          f"🥅 {_poss(the_them)} last starter, {name}, has been giving up a lot of goals — {txt}."]}[role]))
             elif ours_ and mood == "hot":
                 out.append(v.say(role + "_hot", {
                     "QB": [f"🎯 {name} has been cooking — {txt}.",
@@ -542,7 +607,10 @@ def breakdown(leg, games, elo, injuries, used=None):
                            f"🔥 Nobody's touching {name} lately — {txt}."],
                     "G": [f"🧱 {_poss(the_us)} goalie {name} has been a brick wall — {txt}.",
                           f"🧱 {name} is standing on his head: {txt}.",
-                          f"🧱 Good luck scoring on {name} — {txt}."]}[role]))
+                          f"🧱 Good luck scoring on {name} — {txt}."] if goalie_known(g, team_side) else
+                         [f"🧱 {name}, who had {_poss(the_us)} net last time out, has been a brick wall — {txt}.",
+                          f"🧱 If {name} gets the start again: {txt}. Good luck scoring on him.",
+                          f"🧱 {_poss(the_us)} last starter, {name}, is standing on his head: {txt}."]}[role]))
 
     # situational spots the engine learned from 10 seasons of games
     rsn = leg.get("reasons") or []
@@ -606,10 +674,12 @@ def breakdown(leg, games, elo, injuries, used=None):
         named = [str(n).split(" (")[0] for n in (leg.get("opp_outs") or []) + list((leg.get("key_seen") or {}).keys())]
         if kind == "suspension" and any(n and n.split(" (")[0] in ev.get("headline", "") for n in named):
             lines = None                                 # (10/3: Dylan Stewart's suspension was already in the 🚑 line)
+        if lines and someone_elses_story(hl, them, games, lg):
+            lines = None                                 # (10/16: another team's player in the headline, not theirs)
         if lines:
             out.append(v.say("drama_" + kind.replace("/", "_").replace(" ", "_"), lines))
         said.add(drama_r)
-    out += context_lines(leg, v, us, them, the_us, the_them, g)
+    out += context_lines(leg, v, us, them, the_us, the_them, g, games)
     if "coming off a bye" in rsn:
         out.append(v.say("bye", [f"🛌 {us} are fresh off a bye — rested and game-planned up.",
                                   f"🛌 Extra week to prep for {us}. That matters.",
@@ -671,8 +741,12 @@ def breakdown(leg, games, elo, injuries, used=None):
     # pitchers
     if lg == "mlb" and g.get("sp_home") and g.get("sp_away"):   # (10/1 audit: "TBA gets the ball" - both named or no line)
         ps, po = g.get("sp_" + side) or "TBA", g.get("sp_" + other) or "TBA"
-        nice = [f"⚾ {x}" for x in sports_lingo.good(ps, the_them, f"{g['id']}|sp")] \
-            if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" else []   # our arm's the better one
+        sp_txt = next((t for (o_, m_), (n_, t) in FORM.items() if o_ and m_ is None and n_ == ps and t), None)
+        #   (a HOT arm already got his 🔥 line with the numbers; a COLD one gets no hype at all)
+        nice = [f"⚾ {x} {sports_lingo.cap1(sp_txt)}." for x in sports_lingo.good(ps, the_them, f"{g['id']}|sp")] \
+            if "better starting pitcher" in (leg.get("reasons") or []) and ps != "TBA" and sp_txt else []   # our arm's
+        #   the better one - said with his numbers (10/16 truth audit: "Say what you want, Freddy Peralta is HIM. He lives
+        #   for spots like this." was the card's whole case for him - no fact = no hype line)
         out.append(v.say("bump", names=(ps, the_them), options=nice + [f"⚾ On the bump: {ps} for {us}, {po} for {them}.",
                                    f"⚾ Pitching matchup: {ps} ({us}) vs {po} ({them}).",
                                    f"⚾ {ps} takes the ball for {us}; {them} go with {po}.",
@@ -711,7 +785,9 @@ def breakdown(leg, games, elo, injuries, used=None):
                                          f"🚑 {them} are missing bodies — {_names(theirs_out)}.",
             f"🚑 {them} are dealing with injuries: {_names(theirs_out)}.",
             f"🚑 {them} are short-handed ({_names(theirs_out)})."]))
-        elif not ours_out and not theirs_out:
+        elif not ours_out and not theirs_out and not team_unsure(inj, tid, us):
+            # (10/16 truth audit: "Wild questionable: D Zach Bogosian, LW Marcus Foligno" and "Wild have everybody
+            #  available" sat on the same card - a side with anyone questionable is never 'full squad')
             out.append(v.say("healthy", [f"✅ {us} are healthy — nobody important sitting.",
                                           f"✅ Full squad for {us}.", f"✅ {us} have everybody available.",
             f"✅ {us} are at full strength.",
@@ -782,8 +858,11 @@ def breakdown(leg, games, elo, injuries, used=None):
         op_o = op_o_fb
     if not key_any and op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
         move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
-        why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or [] if r in WHY and r not in said),
-                   NO_WHY)
+        hot_ok = _streak(s_ours, tid).startswith("won") and not _streak(s_theirs, oid).startswith("won")
+        #   (10/16 truth audit: "we're on the Titans, they're the hotter team" - a 0-4 side on a 4-game skid; the
+        #    'hotter team' why needs a winning streak on our side and none on theirs, or it's another reason / none)
+        why = next((WHY[r].format(us=us, them=them) for r in leg.get("reasons") or []
+                    if r in WHY and r not in said and (r != "hotter recent form" or hot_ok)), NO_WHY)
         said.update(r for r in leg.get("reasons") or [] if WHY.get(r, "").format(us=us, them=them) == why)
         out.append(_nowhy(v.say("fade", [
             f"💸 Money's been coming in on {the_them}{move}, but whoever's betting it must be some clowns. We're on {the_us} — {why}.",
@@ -1171,7 +1250,7 @@ TALK_LINES = {   # pregame talk (sports_news TALK_KINDS): display only - forward
 }
 
 
-def context_lines(leg, v, us, them, the_us, the_them, g):
+def context_lines(leg, v, us, them, the_us, the_them, g, games=None):
     """Breakdown lines for the context study's facts (rivalry, travel, domes, stakes, refs) and pregame talk.
     Proven or not, these are just what's around the game - the numbers only move for PROVEN factors."""
     out = []
@@ -1256,6 +1335,8 @@ def context_lines(leg, v, us, them, the_us, the_them, g):
             if other_nm and other_nm.lower() in hl.lower() and mine.lower() not in hl.lower():
                 continue      # (10/15 truth audit: "Out of the White Sox's camp: 'Ramirez does it all as Guardians stay
                 #   alive'" - ESPN tags a game story with both teams; a headline about the OTHER side isn't this camp's talk)
+            if someone_elses_story(hl, mine, games, leg.get("league"), need_mine=True):
+                continue      # (10/16: a league round-up that never names the team is nobody's camp talk)
             if TALK_LINES.get(t.get("kind")) and not total and hl:
                 out.append(v.say("talk_q", [f"📣 Out of {who}'s camp this week: \"{hl}\"",
                                             f"📣 {_cap(who)} in the papers: \"{hl}\""]))

@@ -21,6 +21,18 @@ rules are in CLAUDE.md; what the studies found is in SPORTS_FINDINGS.md. Newest 
 ## 10/16 - how the leans are picked, round 2 (the 🟡 record 17-21) - SPORTS_FINDINGS.md 10/16
 - Blind replay 2023-26 (687 board days): today's who-wins rule 52.7% straight-up vs 53.5% market-expected; the market favorite 54.6% (vs 55.0% expected - pricier sides, no skill); own-read / p / blend / 'market and engine agree' 52-54%, none beating its price by more than noise. The spread leans (55.6% vs 52.3% on 340) and the dogs are the only pieces above their price - every 'agree' rule drops them. DEAD, nothing changed in viewer_leans.
 - OWNER'S CALL (not built): leans that hit more often only come from pricier favorites (-120..-150 by the engine's p, ~55% blind) at the cost of the dog and spread leans - or leave the leans as who-wins calls and read 17-21 as noise around 53%.
+## 10/16 - write-up truth audit 10/8-10/16 (SPORTS_FINDINGS.md 10/16) - worktree, not pushed
+- ~190 claims on 36 cards + 16 early plays + 46 reviews checked against the repo's own game files / box scores / line
+  history as of post time: 17 false, 5 vague (9 of them the 10/15 fixes). Line moves 24 of 24 right, player numbers 9 of
+  9 right, records all right but "Records are close (85-77 vs 98-64)".
+- Fixed (8, tests test_truth_audit_10_16_*): another team's headline is never this team's drama (the Byram / Sabres
+  line, twice); camp talk needs the team's name in the headline; no "everybody available" next to a questionable list;
+  "same kind of record" needs a small win gap; a period line that doesn't add up to the final gives no review fact (the
+  Canadiens "5-4" on a 5-3 game); no "never had a chance" review when the other side led at the half; the goalie line
+  says "who had their net last time out" until the starter is confirmed (Askarov / Dobes / Dostal didn't start); "they're
+  the hotter team" needs a real streak; the pitcher hype line carries his numbers or doesn't print.
+- WATCH: a card's text is built at 8 AM while the hurt list refreshes hourly - "Full squad for the Maple Leafs" sat next
+  to a 3-name hurt list on 10/15. If it shows again, rebuild the 🚑 / ✅ lines on the hourly pass.
 
 ## 10/15 - the college own read vs the market (the BYU +300 early play) - SPORTS_FINDINGS.md 10/15
 - Fixed (worktree, test): a college read 12+ points over the price counts nothing in the early spots (sports_early.spot_gap / SPOT_TRAP), like the NFL / NBA - blind 2024-26 the market was right in every 10+ bucket (the read ~50%, the sides won 26-38%). BYU's and Old Dominion's posts would not have cleared the bar. The posted picks themselves were not touched.

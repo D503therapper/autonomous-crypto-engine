@@ -179,6 +179,44 @@ Blind board replay 2023-01 to 2026-10-14 (tools/value_play_replay.Replay re-buil
 - MARKET AND ENGINE AGREE (both 50%+, not fighting), importance first: 633-561, 53.0% vs 54.2% (-1.1); ranked by p alone 52.3% (-2.0); ranked by the blend 52.8% (-1.4); own read AT OR OVER the market: 526-485, 52.0% (-1.5), NFL 14-25. Skipping the games the engine and market disagree on does not win more - it loses the spread leans and the dogs that do beat their price. Today's rule with the spreads dropped: 51.8% (-1.5).
 - Verdict: DEAD. Ten rules, none beats its market-expected hit rate by more than noise (best +0.0 to -0.4; SE ~1.3 points on 1,400 leans); the only way to raise the straight-up hit rate is to pick bigger favorites, which the price already says and the owner does not want. Today's rule is the one that keeps the spread leans and dogs that run above their price; it stays. For the viewers: a 53% lean hit rate IS what these prices say (avg -117); the live 17-21 (44.7%, SE 8 points) is noise around it, not a broken picker.
 - Not touched: viewer_leans (format, count, no units, the per-sport cap, the importance order, LEAN_NCAAF_FAV_BAND). PROPOSAL for the owner (not built - it changes what gets posted): if he wants leans that hit more often, the honest lever is the price - leans from favorites -120..-150 by the engine's p would hit ~55% blind (the market favorite rule above) at the cost of the dogs and spreads; or a 'no fill lean' day stays at 3-4 picks. His call.
+## 10/16 - WRITE-UP TRUTH AUDIT, 10/8-10/16 (the owner: "never false information - that will cost us money"; "never vague"): 36 cards (~230 lines), 16 early plays, 46 graded reviews checked against the game files, box scores and line history as of post time - 17 false, 5 vague, 8 generator fixes BUILT
+
+Every factual claim on the cards posted 10/8-10/16 (picks.json breakdown / why lines, early.json why) and every graded
+review on the dashboard, checked against what the repo held when it was posted (games csv, players box scores,
+line_history, deciders) - no look-ahead. Public-betting splits (30 lines) and the 🚑 names (22 lines) can't be checked
+back in time (no stored snapshots) and are left out of the tally.
+- Checked ~190 claims: records / home-road records / streaks / last games (~95: all true but 3), back-to-backs (6: 5
+  true), line moves - open -> now against line_history's first fair price after both teams' last games (24 of 24 true,
+  the Bucs' "+455 at the open" included), QB / goalie / pitcher numbers (9 of 9 right: Milivojevic 434 yds 0 TD 3 INT,
+  Brock Glenn 435 / 2 / 2, Misiorowski 2 runs in 12 IP 15 K, Askarov 12 on 88, Dobes 13 on 91, Dostal 8 on 64, Ellis,
+  Schmid), early plays' last-game scores and byes (7 of 7), travel miles (3 of 3), review half-time / period facts (36
+  of 37).
+- FALSE (17): 4 revenge lines on 2023-or-older meetings and the Western KY schedule line, the Golden Knights "short rest"
+  (46 hours), the Blue Jackets "on the record. That's just facts" - all 9 fixed on 10/15 (not redone); NEW: "The Sabres
+  dealing with some personal stuff: 'Blackhawks' Bowen Byram to miss Buffalo return'" (10/10 AND 10/12 - a Blackhawk's
+  news ESPN tagged on the Sabres); "Records are close (Guardians 85-77, Rays 98-64)" (13 wins apart); "we're on the
+  Titans, they're the hotter team" (0-4, four straight L's); "The Sharks' goalie Yaroslav Askarov ..." / "The
+  Canadiens' goalie Jakub Dobes" / "The Ducks' goalie Lukas Dostal" (right numbers, wrong goalie - Nedeljkovic, Fowler
+  and Husso started; the starter wasn't known at 8 AM); "Wild questionable: Bogosian, Foligno" + "Wild have everybody
+  available" on one card (the Canadiens' card too); the Canadiens review "tied 3-3 after two periods; Capitals won 5-4"
+  on a game graded 5-3 (the stored period line added to 5-4).
+- VAGUE (5): "Say what you want, Freddy Peralta is HIM. He lives for spots like this." (no fact); "The Broncos in the
+  papers: '15 NFL players, coaches on the hot seat entering Week 6'" and "Out of the Seahawks's camp: 'Seven things
+  Solak thinks entering NFL Week 6'" (league round-ups pinned on a team); "The Saints never had a chance. Saints led 7-6
+  at the half" (a review that contradicts its own fact); "we're on the Bills, they're the hotter team" (Bills off a loss).
+- BUILT (8 fixes, each with a test in sports_test.py, test_truth_audit_10_16_*): (1) sports_breakdown_v24.someone_elses_story
+  - a drama headline naming another team of the league and not ours is skipped; a 📣 camp-talk line needs the team's
+  name in the headline; (2) the ✅ healthy line never prints with anyone questionable (team_unsure); (3) close_records -
+  "same kind of record" needs a small win gap too (2 wins early, ~3% of the games later); (4) sports_dashboard.periods
+  refuses a period line that doesn't add up to the graded final (no half-time fact, no comeback / collapse read from it);
+  (5) sports_lingo.review(trailed=True) bans the "never had a chance / never close / going away" talk on a win where the
+  other side led or it was tied at the checkpoint (DOMINANT_BAN); (6) the 🥅 / 🧱 goalie line says "who had their net
+  last time out" / "if he gets the net again" until sports_goalies confirms a starter (goalie_known); (7) the 💸 fade
+  line's "they're the hotter team" needs a winning streak on our side and none on theirs; (8) the ⚾ hype line for the
+  better arm carries his last starts' numbers (a hot arm's 🔥 line already has them), else the plain matchup line.
+- Not fixable from here (noted): "Full squad for the Maple Leafs" (10/15) and "Blues have everybody available" (10/8)
+  sat next to a 3-name hurt list - the card text is built at 8 AM and the hurt list is refreshed every hour; the
+  injury feed isn't stored back in time, so which one was right can't be checked. The posted picks were not touched.
 
 ## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
 - **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.

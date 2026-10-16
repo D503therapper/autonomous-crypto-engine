@@ -650,7 +650,24 @@ REVIEWS = {
 }
 
 
-def review(kind, result, seed, used, lean=False, **kw):
+DOMINANT_BAN = re.compile(r"never had a chance|had no answer|couldn'?t hang|got handled|never close|won by a mile|"
+                          r"going away|bullied|dog-walked|stole something|made it look easy|light work of|no drama|"
+                          r"wire to wire|never in doubt|cruised|smacked that|ran (us|them) out", re.I)
+
+
+def _ban(lean, trailed=False):
+    """The banned phrasings for a review: a lean's hype, and (10/16 truth audit: "The Saints never had a chance. Saints
+    led 7-6 at the half") the 'never close' talk when the other side led or it was tied at the checkpoint."""
+    pats = [p.pattern for p, on in ((LEAN_BAN, lean), (DOMINANT_BAN, trailed)) if on]
+    return re.compile("|".join(pats), re.I) if pats else None
+
+
+def cap1(s):
+    s = str(s or "")
+    return s[:1].upper() + s[1:]
+
+
+def review(kind, result, seed, used, lean=False, trailed=False, **kw):
     """One review for a graded pick: a line that fits what happened, rolled by this pick's seed (stable run to run),
     repeating no 4-word run already in `used` (a set shared across the whole Past Results section).
     lean=True: no hype (a lean had no edge). result "push": the money-back line."""
@@ -669,7 +686,7 @@ def review(kind, result, seed, used, lean=False, **kw):
     kw = {k: v for k, v in kw.items() if re.search(r"\{%s\}" % k, " ".join(templates), re.I)}
     names = [n.strip() for v in kw.values() if not _num(v) for n in str(v).split(" and ") if n.strip()]
     for n in (30, 200):                                      # (names: "the Jets", "Over 44.5", "+3.5 games")
-        opts = roll(templates, seed, (chars, sents), n, False, LEAN_BAN if lean else None, **kw)
+        opts = roll(templates, seed, (chars, sents), n, False, _ban(lean, trailed), **kw)
         line = fresh(opts, used, names, _clash=True if n == 30 else None)
         if line:
             return line

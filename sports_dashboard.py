@@ -283,6 +283,10 @@ def periods(l):
         h = h + [0]
     if not h or len(h) != len(a):
         return None, None
+    m = re.match(r"(.+?) (\d+) @ (.+?) (\d+)$", str(l.get("score") or ""))
+    if m and (sum(a) != int(m.group(2)) or sum(h) != int(m.group(4))):
+        return None, None       # (10/16 truth audit: the Canadiens' flow added up to 5-4 on a game graded 5-3 - a period
+    #                             line that doesn't add up to the final is nobody's fact: no half-time line, no comeback read)
     return h, a
 
 
@@ -1299,6 +1303,8 @@ def _history(picks, early_rows=None):
                 return cell                                  #  past the score - the half-time fact rides on these too)
         cell = later(date, key, kind, r, lean, t=t_, o=o_, x=x, **xtra)
         cell["fact"] = game_fact(l)                          # (the owner, 10/2: never vague - what actually happened)
+        cell["trailed"] = r == "won" and bool(cell["fact"]) and not cell["fact"].startswith(f'{l.get("team")} led')
+        #   (10/16 truth audit: the other side led, or it was tied, at the checkpoint - no 'never had a chance' review)
         return cell
 
     def box(title, items, head="", leans=()):
@@ -1427,7 +1433,7 @@ def _history(picks, early_rows=None):
         if kind == "how":                                    # something big decided it: the review says what
             c["text"] = sports_lingo.review_how(c["kw"]["how"], r, seed, used, lean=c["lean"])
         else:
-            c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], **c["kw"])
+            c["text"] = sports_lingo.review(kind, r, seed, used, lean=c["lean"], trailed=c.get("trailed", False), **c["kw"])
         c["text"] = with_fact(c["text"], c.get("fact"))     # the game's own fact, whichever way it was written
         LEG_REVIEWS[c["key"]] = c["text"]                   # the same review shows on the graded card up top
     done = lambda items: [x[:4] + (x[4]["text"],) for x in items]
