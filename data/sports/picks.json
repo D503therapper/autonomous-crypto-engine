@@ -12727,6 +12727,15 @@
      "us:trip1000"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "k": "fg",
+     "n": 1,
+     "p": "Wil Lutz",
+     "s": "17-14",
+     "type": "ot",
+     "win": "home",
+     "y": 53
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12748,6 +12757,10 @@
     "edge_own": 0.026840774665216394,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "3,0,0,11,0",
+     "h": "0,14,0,0,3"
+    },
     "form_state": [
      -3.0,
      -1,
@@ -12800,9 +12813,11 @@
      "the stronger team"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Seahawks 14 @ Broncos 17",
+    "settled": "2026-10-16T03:33Z",
     "side": "away",
     "start": "2026-10-16T00:15Z",
     "stype": "2",
@@ -12830,11 +12845,13 @@
    }
   ],
   "p_hit": 0.5635,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-15T15:00Z",
   "round": 1,
+  "settled": "2026-10-16T03:33Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lock"
+  "status": "lost",
+  "tier": "lock",
+  "units": 0.5
  }
 ]
