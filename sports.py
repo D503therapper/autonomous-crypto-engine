@@ -345,12 +345,12 @@ _IDX = {}
 def _index(games, kind):
     """The context / spots / explorer indexes for this games dict (built once, only when needed)."""
     key = (id(games), len(games), kind)
-    if key not in _IDX:
-        for k in [k for k in _IDX if k[2] == kind]:
-            del _IDX[k]
-        _IDX[key] = {"context": sports_context.Index, "spots": sports_spots.index,
-                     "explorer": sports_explorer.index}[kind](games)
-    return _IDX[key]
+    if key not in _IDX or _IDX[key][0] is not games:     # (10/16 sweep: keyed by id() + len alone, a new games dict at
+        for k in [k for k in _IDX if k[2] == kind]:      #  a freed address with the same game count - the live watcher
+            del _IDX[k]                                  #  reloads games every quick pass - read the OLD index; hold the
+        _IDX[key] = (games, {"context": sports_context.Index, "spots": sports_spots.index,   # dict itself, like _sched)
+                             "explorer": sports_explorer.index}[kind](games))
+    return _IDX[key][1]
 
 
 def study_shift(games, g, market, facts=None):
@@ -1869,10 +1869,15 @@ def save_lock_miss(iso, miss, path=None):
 def backup_lock(cands):
     """The owner (CLAUDE.md, again 10/1): "There's always a Lock." When nothing clears the full Lock test, the pick the
     engine's OWN read has winning 56%+ that still beats its price - the most value first - never past -150, never the
-    pricey hockey favorite, never a trap, never one the engine is fighting. A unit play (sized by that read)."""
+    pricey hockey favorite, never a trap, never one the engine is fighting. A unit play (sized by that read).
+    10/16 sweep: the read its units ride on (read_of - a weighed favorite's w_p) has to beat the price too (real_value):
+    a -130 favorite with its own read 60% but the dog across it carrying study points (weighed read 55%) went up as the
+    backup Lock at ½u, failed the money check and was pulled by rule_check - no Lock that day while the next favorite
+    down (own read 58%, nothing weighing on it) qualified."""
     pool = [c for c in cands if c["market"] == "ml" and MAX_FAV <= c["odds"] <= PLUS_LOCK_MAX and c.get("edge_own") is not None
             and c.get("reasons") and not c.get("trap") and not c.get("waiting") and not fighting(c) and not nhl_pricey(c)
-            and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0]
+            and not hockey_fav_bad(c) and (c["edge_own"] + 1) / c["dec"] >= LOCK_BACKUP_OWN and c["edge_own"] > 0
+            and real_value(c)]
     return max(pool, key=lambda c: (round((c["edge_own"] + 1) / c["dec"], 3), c["edge_own"])) if pool else None
 
 
@@ -3666,11 +3671,18 @@ def dedupe_picks(picks):
 def drop_stale_dogs(picks):
     """10/13: upgrade_dog turned the Kraken Dog into a ½u value play, but a save merged with a run that still held the
     old Dog - the board showed the Kraken twice (Dog 1u AND play ½u) next to the new Dog. A Dog whose day + game + side
-    is now a play marked was_dog is the stale copy: it goes."""
+    is now a play marked was_dog is the stale copy: it goes. 10/16 sweep - the mirror case: the merge kept the OLD copy of
+    the play that upgrade_dog made the Dog (kind play, no was_dog) next to the upgraded Dog - the same team showed twice
+    (play ½u AND Dog) and the unit record counted it at the play's ½u, not the Dog's units. A play (not was_dog) on the
+    same day + game + side as a Dog marked upgraded is the stale copy: it goes too."""
     demoted = {(p.get("date"), l.get("game_id"), l.get("side")) for p in picks
                if p.get("kind") == "play" and p.get("was_dog") for l in (p.get("legs") or [])[:1]}
-    return [p for p in picks if not (p.get("kind") == "dog" and not p.get("upgraded") and p.get("legs")
-                                     and (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side")) in demoted)]
+    promoted = {(p.get("date"), l.get("game_id"), l.get("side")) for p in picks
+                if p.get("kind") == "dog" and p.get("upgraded") for l in (p.get("legs") or [])[:1]}
+    key = lambda p: (p.get("date"), p["legs"][0].get("game_id"), p["legs"][0].get("side"))   # noqa: E731
+    return [p for p in picks if not p.get("legs") or not (
+        (p.get("kind") == "dog" and not p.get("upgraded") and key(p) in demoted)
+        or (p.get("kind") == "play" and not p.get("was_dog") and key(p) in promoted))]
 
 
 def run(repick=False, fetch=True):

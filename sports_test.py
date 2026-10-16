@@ -10966,6 +10966,63 @@ def test_college_qb_form_skips_fcs_games_the_sam_houston_case():
     assert sp.fbs_set(unpriced, "2026-10-14T23:30Z") is None
     assert sp.fbs_only("ncaaf", rows, unpriced, "2026-10-14T23:30Z") == rows
     sp._FBS.clear()
+def test_backup_lock_needs_the_weighed_read_to_beat_the_price():
+    """10/16 bug sweep: the backup Lock checked the engine's bare own read only (56%+, over the price) while its units
+    ride on the WEIGHED read (read_of: a favorite's w_p, moved by the dog across it). A -130 favorite with its own read
+    60% but weighed 55% went up as the backup Lock at ½u, failed the money check and was pulled by rule_check - no Lock
+    that day, while the next favorite down (own read 58%, nothing weighing on it) qualified. The backup Lock now needs
+    the read its units ride on to beat the price too (real_value), so it's never posted just to be pulled."""
+    c1 = {**_cand("c1", -130, 0.55, league="nfl"), "edge_own": 0.60 * sd.decimal(-130) - 1, "w_p": 0.55}
+    c2 = {**_cand("c2", -130, 0.55, league="nfl"), "edge_own": 0.58 * sd.decimal(-130) - 1}
+    assert not sports.real_value(c1) and sports.real_value(c2)
+    assert sports.backup_lock([c1, c2])["game_id"] == "c2"
+    assert sports.make_board([c1, c2])["lock"]["legs"][0]["game_id"] == "c2"
+    assert sports.backup_lock([c1]) is None                   # the weighed read says no value: no backup Lock, no pull
+    pk = {"date": "2026-10-16", "kind": "lock", "status": "open", "legs": [dict(c2)], "dec": c2["dec"], "american": -130,
+          "stake": 100, "p_hit": 0.58, "posted": "2026-10-16T15:00Z", "round": 1}
+    picks = [pk]
+    assert sports.rule_check(picks, [pk], "2026-10-16") == [] and picks == [pk]   # posted, and it stays
+    assert sports.units_for(pk) == 0.5                        # own read 58% vs 56.5% needed = a thin edge, ½u
+
+
+def test_dedupe_drops_the_stale_play_copy_of_an_upgraded_dog():
+    """10/16 bug sweep (the mirror of the 10/13 Kraken bug): upgrade_dog made a ½u play the Dog, but the save merged
+    with a run that still held that play as a plain play - the same team showed twice (play ½u AND Dog) and the unit
+    record counted it at the play's ½u, not the Dog's units. The stale play copy goes; the demoted old Dog (was_dog), the
+    upgraded Dog and any other play stay."""
+    leg_a = {**_cand("A", 140, 0.42, league="nhl"), "dog_p": 0.43}
+    leg_b = {**_cand("B", 150, 0.42, league="nhl"), "dog_p": 0.45}
+    leg_c = {**_cand("C", 120, 0.48, league="nhl"), "dog_p": 0.50}
+    mk = lambda kind, leg, **kw: {"date": "2026-10-16", "kind": kind, "status": "open", "legs": [dict(leg)], "dec": leg["dec"],   # noqa: E731
+                                  "round": 1, "posted": "2026-10-16T17:00Z", **kw}
+    out = sports.dedupe_picks([mk("play", leg_a, was_dog="2026-10-16T18:00Z"), mk("play", leg_b), mk("play", leg_c),
+                               mk("dog", leg_b, upgraded="2026-10-16T18:00Z")])
+    assert [(p["kind"], p["legs"][0]["game_id"]) for p in out] == [("play", "A"), ("play", "C"), ("dog", "B")]
+    for p in out:
+        p["status"] = p["legs"][0]["result"] = "won"
+        p["settled"] = "2026-10-17T03:00Z"
+    rows = sports.units_ledger(out)["rows"]
+    assert [(r[0]["kind"], r[0]["legs"][0]["game_id"], r[1]) for r in rows] == [("play", "A", 0.5), ("play", "C", 0.5), ("dog", "B", 1.0)]
+    # the 10/13 case still holds: the stale old Dog next to its demoted play copy goes
+    out2 = sports.dedupe_picks([mk("dog", leg_a), mk("play", leg_a, was_dog="x"), mk("dog", leg_b, upgraded="x")])
+    assert [(p["kind"], p["legs"][0]["game_id"]) for p in out2] == [("play", "A"), ("dog", "B")]
+    # a Dog that was never upgraded and a play on another game: nothing touched
+    out3 = sports.dedupe_picks([mk("dog", leg_a), mk("play", leg_b)])
+    assert len(out3) == 2
+
+
+def test_study_index_cache_holds_the_games_dict():
+    """10/16 bug sweep: the context / spots / explorer index cache was keyed by id(games) + the game count alone. The live
+    watcher reloads games every quick pass; a new dict at a freed address with the same count read the OLD index (the
+    same bug _sched had on 10/1). The cache now holds the dict itself and rebuilds for a different one."""
+    g1 = {}
+    i1 = sports._index(g1, "spots")
+    assert sports._index(g1, "spots") is i1                   # the same dict: built once
+    g2 = {}
+    sports._IDX[(id(g2), len(g2), "spots")] = (g1, i1)        # a new dict landing on the old key (the freed address)
+    i2 = sports._index(g2, "spots")
+    assert i2 is not i1 and sports._index(g2, "spots") is i2
+    assert sports._index(g2, "context").facts is not None     # the callers' use of the index is unchanged
 
 
 if __name__ == "__main__":
