@@ -23,6 +23,60 @@ Checked from the repo's files only (the sandbox can't open ESPN / Covers / Rotow
 - **Name matching (checked):** all 19 Covers school slugs the routine has cited (Appalachian State, Florida International, Jacksonville State, Middle Tennessee, Georgia Southern, Western Kentucky, Sam Houston...) land on their own ESPN id through sd._wn / WEB_ALIAS / _DIR / _close - 19 of 19; the owner's 12 schools plus their look-alikes (Tennessee / Tennessee Tech / Tennessee State, Georgia Tech / Georgia Southern, Eastern / Central / Western Michigan / Michigan / Michigan State) all land right in the new test. Official-report short names ('D. Williams Jr.', 'C. Warren III') match the box-score regulars (sports_absences.match).
 - **BUILT - the 🚑 line and the card's 'outs' name the players who PLAY first (sports.who_plays_first):** the card named the first four rows the report listed. The 10/10 Minnesota Lock's 🚑 line led with "QB Michael Merdinger" (the backup - Drake Lindsey starts; key_seen rightly showed no starter out), Illinois 10/10 "out: RB Valentine, WR Perry, LB Paris, DL Smith +5 more" with no way to tell whether the five were starters. Now: box-score regulars first (the QB / goalie ahead), the rest in the report's order, nothing dropped; a team with no box scores keeps the report's order (QBs first). Test: test_injury_line_names_the_players_who_play_first. Not a rule change - the card already named who's out; it names the right ones first.
 - **What's needed to close the gaps (no paid APIs, no keys, no disguises):** (1) the routine's Saturday 5:47 / 11:47 runs - the SEC / ACC / Big Ten / Big 12 availability reports for the 10/17 conference games (Alabama-Tennessee, Missouri-Ole Miss, Georgia Tech-Virginia Tech, Kentucky-Oklahoma, Notre Dame-BYU is non-conference: Covers only) into injuries_official.json under "2026-10-17"; (2) Actions -> injury_report on Saturday morning to read "NCAAF - the feed lists N teams" (N should be ~130+ with Covers; under 20 = the page read broke and the file is the only coverage); (3) the MAC posts game-day reports ~3h before kickoff (E Michigan, Air Force's opponent UNLV is Mountain West - no official report, Covers only) - the 11:47 run catches the noon-ET ones only if it runs; (4) a Covers snapshot on the runner (tools/fetch_pages.py, URL already in WHOLE) so the reader can be tested against the real page each week - the only Covers samples in the repo predate the reader (samples-2026093*).
+## 10/16 - RECALIBRATING THE COLLEGE OWN READ (the root of the BYU 48% / market 24%): the read is NOT overconfident on its own - it is calibrated but blind to what the market knows; every honest recalibration = the market (trust 0). Nothing to wire in; OWNER'S CALL stands. Verdict: LEAD / owner's call, not built
+
+- **Where the read comes from:** sports_model.own_p - a logistic on Elo edge + form + rest + injuries + travel etc.
+  (sports_model.FEATURES), refit daily. The DAILY BOARD never shows it raw: sports.candidates uses sm.final_p, the
+  market moved toward the own read by the tune's "trust" (college: 0.0 today), so the board's college read is the
+  no-vig line. The EARLY SPOTS use the raw own read (sports_early.own_of -> sm.own_p, Tuesday-known inputs), capped at
+  5 points over the price since 10/15 (NCAAF_GAP_MAX). That raw read is what said BYU 48%.
+- **Walk-forward:** every July 1 the params (K, home edge, weights, trust) re-tuned on the games before it, the
+  season's reads from the ratings as they stood (sm.replay) - 6,009 priced college games 2018-26; fits on 2018-22
+  (3,325), graded blind 2023-26 (2,684). Four recalibrations fit on 2018-22: shrink toward the market
+  (logit p = logit(mkt) + a·(logit(own) - logit(mkt))), shrink + the market's own favorite bias, temperature (c + d·logit(own)),
+  isotonic (30 steps).
+- **The fits:** shrink a = 0.000 (Tuesday-known read: -0.008) - the market wants NONE of the own read; temperature
+  c = -0.017, d = 0.930 (a near no-op); shrink + bias a = 0.027, b = 0.058.
+- **Calibration table, blind (the raw read by its own bucket, every side):** said 24.9 won 23.8 · said 35.1 won 35.0 ·
+  said 45.1 won 47.7 · said 54.9 won 52.3 · said 64.9 won 65.0 · said 75.1 won 76.2 · said 84.7 won 84.9. Biggest miss
+  2.6 points. The read IS calibrated unconditionally - it just doesn't know what the market knows. Conditional on
+  disagreeing, the market is right (blind, the side the read likes more, by the gap): 0-2 pts won 56.5 (+7.8%, 345);
+  2-5 won 50.8 (read 51.8, market 48.4, -0.4%, 492); 5-10 won 39.4 (read 49.0, market 41.7, -26.7%, 624); 10-15 won
+  38.9 (50.4 / 38.0, -8.8%); 15-20 won 31.0 (49.1 / 31.8, -24.0%); 20-25 won 32.4 (54.1 / 31.7, -11.0%); 25+ won 24.0
+  (57.0 / 23.9, -19.9%, 292). Temperature and isotonic leave every one of those buckets where it was (they move a 48%
+  read to 47.7% / 51.4%): a calibration of the read ALONE cannot fix it - only the market can.
+- **Brier / log loss, blind (home side):** market 0.1649 / 0.4929; raw own 0.1885 / 0.5572; shrink (a=0) = the
+  market; shrink + bias 0.1648 / 0.4922; temperature 0.1886 / 0.5575; isotonic 0.1894 / 0.5603. The market beats the
+  raw read in EVERY season 2018-26 (2023 0.4699 vs 0.5425, 2024 0.5123 vs 0.5697, 2025 0.5006 vs 0.5389, 2026 0.4889
+  vs 0.5916). Grid of a: the best is 0.0 in train and blind; a = 0.10 costs 0.001-0.003 of log loss in 6 of 9 seasons
+  and gains ≤ 0.002 in three (2018 / 2021 / 2025) - noise around zero.
+- **Blind ROI at the close, the sides whose recalibrated read beats the price:** dogs +100..+300 - every side -2.3%
+  (1,364); raw read -0.4% (702, by season -7 / +3 / +9 / -9%); temperature +0.7% (737); isotonic +0.4% (680); shrink:
+  NO side ever beats the price (a = 0). Favorites -150..-101 - every side -7.1% (529); raw -0.4% (234); temperature
+  +1.7% (217); isotonic +0.3% (235) - but 2024 -12..-14% and 2026 -8..-13% on each, and the same rule lost -13.8% /
+  -14.3% / -15.4% IN-SAMPLE 2018-22: 2 of 4 blind seasons up, in-sample red = chance, not an edge. The owner's
+  middle-ground trusts (Tuesday read): a = 0.1 dogs 89-172 -5.3% / favorites 21-14 +7.8% (35); a = 0.2 dogs -7.0%
+  (452) / favorites +7.2% (101); a = 0.3 dogs -3.6% (550) / favorites +1.7% (158); the sides a shrunk read likes 1-5
+  points more than the market lose -8% to -24% at every a. Nothing clears the five checks.
+- **Against the open (opens exist only 2023-26, so in-sample):** shrink toward the open a = 0.058; a read 10+ points
+  over the open does see the close move its way (+1.4 pts; 10+ under: -1.7) - the read holds a little the OPEN
+  misses, but the CLOSE already holds it (log loss open 0.5033, close 0.4929, read 0.5572). That is the "hammered"
+  spot's honest form, already built.
+- **The BYU example:** ratings ND 1881 / BYU 1828 (5th / 9th) + home edge 100 = 57% raw Elo, the weights pull it to
+  48%; the market 24%. Shrink (a=0) says 24%; temperature 47.7%; isotonic 51.4%. Blind, a 20-25 point college gap won
+  32.4% (the market said 31.7%) - the read's number had no claim on it.
+- **Verdict:** NOT BUILT - no code changed. The only recalibration that is clearly better (shrink, a = 0) is the market
+  itself: wired into the early spots it zeroes the college gap weight and ends the "engine likes it" college spot and
+  every college gap-driven early play - that changes what gets posted, so it stays the OWNER'S CALL (10/15, call 1).
+  The 5-point cap (NCAAF_GAP_MAX) STAYS: with the raw read still feeding the spots, 5 is the most any blind bucket
+  earned (2-5: -0.4%); with a = 0 it would be moot, not wrong. Temperature / isotonic: DEAD (no-ops).
+- **PROPOSAL for the owner (numbers above):** (1) college early spots weigh the read at the tune's trust (a = 0 today):
+  the college gap counts 0, the spots stand on their own weights and fades (bye / blowout / hammered / east-west) -
+  BYU +300 and Old Dominion +145 would not have posted; the "engine" spot (own 8+ over a line that moved away) goes
+  dormant until a read earns trust > 0. (2) Or keep today's 5-point cap and judge the live record (the 10/10 +220..+300
+  band is new ground anyway). LEAD, the real fix: the read needs information the market lacks, not a better curve -
+  the FCS marker (10/15 lead), QB availability, the official injury reports - each one is a feature the tune can
+  then trust by itself.
 
 ## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
 - **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.
