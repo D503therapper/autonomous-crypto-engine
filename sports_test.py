@@ -10870,6 +10870,47 @@ def test_official_reports_are_read_for_their_game_day_only_and_covers_names_land
     for n, (school, tid) in enumerate(covers):
         assert got.get(tid) == [(f"P{n}. Player", "WR", "Out")], (school, tid, got.get(tid))
     assert len(got) == len(covers), sorted(got)
+def test_sizing_audit_10_16_a_dog_keeps_its_score_and_the_buckets_read_todays_rules():
+    """10/16 (the unit plays by size: 1-2u went 5-11 live): the posted Dog's leg carried dog_p but NOT the dog score its
+    units rode on - the audit had to back the score out of dog_p (8 of the 10 live hockey Dogs were the best-hockey-dog
+    fallback, score 1-5). A gated dog and the best hockey dog now keep "dog_score" on the leg. tools/sizing_by_bucket.py
+    (the replay re-sized under today's rules) sizes a row the way sports.units_for does: a thin Lock ½u, an NHL Dog flat
+    1u, a value play ½u, a non-hockey Dog by its edge between 1u and 2u."""
+    import sports_strength
+    import importlib.util
+    keep_weak, keep_score = sports_strength.weak, sports.dog_score
+    sports_strength.weak = lambda lg: False
+    try:
+        spotted = {"league": "nfl", "market": "ml", "odds": 150, "dec": 2.5, "p": 0.40, "p_market": 0.40, "edge": 0.0,
+                   "edge_own": 0.43 * 2.5 - 1, "reasons": ["r"], "dog_more": {"east_west": True, "last_margin": 3},
+                   "dog_ctx": {"opp_won": False}, "home": False, "side": "away", "start": "2026-10-04T20:00Z"}
+        assert sports.dog_gate(spotted) and spotted["dog_score"] == round(sports.dog_score(spotted), 2) >= sports.DOG_GATE
+        assert abs(spotted["dog_p"] - (0.40 + spotted["dog_score"] / 100)) < 1e-6    # dog_p = the price + the score
+        hd = {"league": "nhl", "market": "ml", "odds": 105, "dec": 2.05, "p": 0.47, "p_market": 1 / 2.05, "edge": 0.47 * 2.05 - 1,
+              "edge_own": 0.473 * 2.05 - 1, "reasons": ["r"], "dog_ctx": {}, "home": False, "side": "away",
+              "start": "2026-10-04T20:00Z", "game_id": "jets", "team": "Jets", "opp": "x", "waiting": []}
+        sports.dog_score = lambda c: 1.5
+        best = sports.best_hockey_dog([dict(hd)])
+        assert best is not None and best["dog_score"] == 1.5 and best["dog_p"] == round(1 / 2.05 + 0.015, 4)
+    finally:
+        sports_strength.weak, sports.dog_score = keep_weak, keep_score
+    spec = importlib.util.spec_from_file_location("sizing_by_bucket", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                                     "tools", "sizing_by_bucket.py"))
+    sb = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(sb)
+    row = {"date": "2025-02-01", "league": "nhl", "market": "ml", "team": "Sharks", "odds": 145, "dec": 2.45, "p": 0.40,
+           "p_market": 0.4082, "edge_own": -0.02, "dog_p": 0.4669, "w_p": None, "result": "lost", "lock_ok": True}
+    assert sb.units({**row, "kind": "dog"}) == 1.0 and sb.bucket(1.0) == "1-2u"            # an NHL Dog: flat 1u (10/10)
+    assert sb.units({**row, "kind": "dog", "league": "ncaaf", "odds": 250, "dec": 3.5, "dog_p": 0.3166}) == 1.0   # by edge, 1u floor
+    assert sb.units({**row, "kind": "dog", "league": "ncaaf", "odds": 250, "dec": 3.5, "dog_p": 0.40}) == 2.0     # ...2u cap
+    assert sb.units({**row, "kind": "play"}) == sports.PLAY_UNITS and sb.bucket(0.5) == "<1u"
+    thin = {**row, "kind": "lock", "odds": -149, "dec": 1.6711, "edge_own": 0.02, "dog_p": None}
+    assert sb.units(thin) == 0.5                                                             # own read under 3% over = ½u
+    fat = {**thin, "edge_own": 0.12}
+    assert sb.units(fat) >= 2 and sb.bucket(sb.units(fat)) == "2u+"                         # the big own edge = the big Lock
+    assert sb.units({**fat, "lock_ok": False}) == 0.5                                        # a backup Lock: ½u
+    assert abs(sb.pnl1({"dec": 2.45, "result": "won"}) - 1.45) < 1e-9 and sb.pnl1({"dec": 2.45, "result": "lost"}) == -1.0
+    assert sb.season("2025-02-01") == "2024-25" and sb.season("2025-09-01") == "2025-26"
 
 
 if __name__ == "__main__":

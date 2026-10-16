@@ -726,13 +726,15 @@ def dog_gate(c):
     if lg in ("nfl", "nhl", "ncaaf", "nba"):
         sc = round(dog_score(c), 2)
         if sc >= {"nfl": DOG_GATE, "nhl": NHL_DOG_GATE, "ncaaf": NCAAF_DOG_GATE, "nba": NBA_DOG_GATE}[lg]:
-            c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the
-            return True                                                                       # weighed read)
+            c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)   # (its units: the weighed read)
+            c["dog_score"] = sc                              # (10/16: the posted leg keeps the score its units rode on -
+            return True                                      #  the sizing audit had to back it out of dog_p)
         return False
     if lg == "ncaab" and NCAAB_DOG_RULE == "score":          # (10/10: the NBA-style gate, the owner's option)
         sc = round(dog_score(c), 2)
         if sc >= NCAAB_DOG_GATE:
             c["dog_p"] = round(min(0.95, (c.get("p_market") or 1 / c["dec"]) + sc / 100), 4)
+            c["dog_score"] = sc
             return True
         return False
     if lg == "ncaab" and NCAAB_DOG_RULE == "own" and c.get("edge_own") is not None:
@@ -761,7 +763,8 @@ def best_hockey_dog(cands, taken=()):
             best = (sc, c, dp)
     if best:
         best[1]["dog_p"] = round(best[2], 4)
-        return best[1]
+        best[1]["dog_score"] = best[0]                       # (10/16: the posted leg keeps the score - the 10/16 sizing
+        return best[1]                                       #  audit found 8 of 10 live hockey Dogs were this fallback)
     return None
 
 

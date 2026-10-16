@@ -77,6 +77,59 @@ Checked from the repo's files only (the sandbox can't open ESPN / Covers / Rotow
   band is new ground anyway). LEAD, the real fix: the read needs information the market lacks, not a better curve -
   the FCS marker (10/15 lead), QB availability, the official injury reports - each one is a feature the tune can
   then trust by itself.
+## 10/16 - THE UNIT PLAYS BY SIZE (live: 2u+ 5-0 +16.7u, 1-2u 5-11 -4.7u, under 1u 21-16 +2.1u): the 1-2u bucket IS the Dog of the Day and its live record is noise; the replay says the real sizing problem is the LOCK's Kelly size (the biggest Locks lose) and a Dog whose own read sits under the price (owner's calls); one data fix built
+The live ledger (sports.units_ledger over picks.json + early.json, 58 graded unit plays 9/27-10/15). The 16 plays at
+1-2u: 13 Dogs of the Day (10 hockey, 2 NFL, 1 college - 5-8, -1.7u), the Guardians -149 Lock at 1u (own edge 3.1% - just
+over THIN_EDGE, Kelly 1.17 -> 1u; lost), Western KY +110 1u (10/1, before the ½u play rule; lost), the Tulane +205 bye
+early play at 1u (lost). Not one of the 16 got its size from a big edge - the Dog is a FLAT size (NHL 1u by rule; the 10/10
+1u-2u-by-edge rule has sized one non-hockey Dog so far, Fresno St +250 at the 1u floor), so "why does 1-2u lose" =
+"why do the Dogs lose". 8 of the 10 live hockey Dogs were the best-hockey-dog fallback (score 1-5 - backed out of dog_p,
+the posted leg had no score; the fix below), 2 the 6+ gate (Flyers 6.2, Sharks 5.9->6); 7 of 13 Dogs had the engine's
+OWN read under the price (fighting() allows 3 points) and went 4-3; the 6 with the own read over the price went 1-5.
+**The replay (tools/sizing_by_bucket.py on results/value_play_replay_2023_26.jsonl - the 10/9 board replay, 2,270 rows,
+re-sized under TODAY's rules: Lock by own read ½u-10u, Dog 1u-2u by edge / NHL 1u / hoops ½u, plays ½u; 2023-24 vs
+blind 2025-26):**
+- By bucket at its size: **under 1u** 884-719 +6.9u on 802u (+0.9%; blind +3.5%); **1-2u** 197-184 +41.7u on 417u
+  (**+10.0%; blind +8.7%**, 3 of 5 seasons) - the Dog at 1u +8.6% (289) and hockey Dogs +10.0% on 297 (blind +11.2%);
+  **2u+** 148-127 **-59.9u on 869u (-6.9%; blind -2.1%)**, 1 of 5 seasons up - 257 of the 275 are Locks. The same bets
+  flat 1u: under 1u +0.9%, 1-2u +10.2%, 2u+ -4.9% (blind -5.3%, 0 of 3). So live is the mirror image of the record:
+  the bucket that wins in the replay lost live (13 Dogs, 5-8 - expected ~6 wins at these prices, well inside noise) and
+  the bucket that loses in the replay went 5-0 live (3 Locks at 2.5-5u + the two 3u Brewers early plays). VERDICT on
+  the question: 16-game NOISE on the Dogs, not a sizing bug - and the replay points at two real things instead:
+- **THE LOCK'S SIZE (a sizing problem, the owner's call):** the Lock flat 1u wins +18.4u (+2.7%, blind +3.6%); sized by
+  its own read (today) it LOSES -28.7u (-2.6%; blind +0.7%) because the big-edge Locks are the worst ones: Locks sized
+  under 1u (thin, ½u) +4.1% flat / blind +8.9% (3 of 3); 1-2u +15.9% / +4.0%; 2u+ -3.7% / -3.7% (0 of 3 blind); 5u+
+  17-17 -12.8%. By own edge over the price: under 3% +4.3% (265, 4 of 5), 3-8% +5.4% (261), 8-15% +1.3% (116), 15%+
+  14-19 -9.1% (0-6 at 25%+). Calibration: own read 60-65% won 64% (the market said 59%); 65%+ won 59.5% (market 58%) -
+  past 65% the read is no better than the price, and that is exactly where Kelly puts 3-10u. Same as 10/2 ("favorites
+  8%+ -4.3%") and 10/9 ("edge size says nothing") - now on the Lock itself. Options on the same 675 Locks: flat 1u
+  +18.4u; ½u thin / 1u otherwise +11.8u on 512u (+2.3%, 3 of 5); capped 2u +4.1u; capped 3u -3.7u; today -28.7u. Per
+  season today vs flat: 2022-23 -42.7u vs -2.3u, 2023-24 +8.5 vs +6.7, 2024-25 +3.1 vs +8.7, 2025-26 +16.3 vs +9.1,
+  2026-27 (3 months) -13.9 vs -3.8. Whole board (plays ½u): today's rules -11.4u on 2,088u (blind +13.3u); Lock flat
+  1u + Dog flat 1u +38.8u on 1,622u (+2.4%; blind +22.1u); Lock ½u-thin/1u + Dog flat +32.2u (blind +15.5u). The owner
+  chose "Locks keep sizing by edge" on 10/10 - PROPOSAL, not built: the Lock flat 1u (or ½u thin / 1u), the live 2u+
+  Locks 3-0 (+9u) are luck by these numbers. Caveats: the 10/2 snapshot had the Lock by read beating flat (-3.2% vs
+  -6.0%) - the Lock test changed since (own_agrees, the money check); only the model params are blind; 37 of 675 are
+  backup Locks (½u here).
+- **THE DOG WHOSE OWN READ SITS UNDER THE PRICE (a pick problem, the owner's call):** fighting() lets a Dog through with
+  the engine's own read up to 3 points under the price (the dog score carries it over). Those Dogs: 54-79, **-7.4% on
+  133 (blind -11.6% on 38, 0 of 2)**, 1 of 4 seasons up; the Dogs whose own read ALSO beats the price 124-130 **+11.7%
+  on 254 (blind +8.7% on 112)** - hockey +21.2% on 153 (3 of 3 seasons) vs -8.9% on 123. Same dogs, own-below at ½u:
+  +16.9u -> +22.6u (blind +5.5u -> +8.2u); own-below dropped and the rest flat 1u: +29.8u on 214u (+13.9%; blind
+  +12.0u, +11.6%). Live the 7 own-below Dogs went 4-3 (noise both ways at 13). It changes what gets posted (the Dog's
+  side of the owner's "never one the engine's own read is fighting") - PROPOSAL: the Dog of the Day only when the own
+  read beats the price too (or ½u when it doesn't). ~8 Dog cells tried; this one has the mechanism the owner wrote down.
+- Dog sizing (the 10/10 1u-2u rule vs flat): on the same 387 Dogs flat 1u +20.0u (+5.8%, 3 of 5) vs by edge +16.9u
+  (+4.6%) - the 18 Dogs the edge sizes 2u went 6-12, -22.6% (blind 5-9). The 10/2 finding again (flat best); too few 2u
+  Dogs to call, the owner's call stands - WATCH the 2u Dogs live. Dog by score: hockey 4-6 -15.1% on 88 (blind -13.1%,
+  0 of 2 - under the NHL 6 gate, so these are fallback best-hockey-dogs), 6-8 +1.1%, 8-12 +22.1% (3 of 3); the score
+  0-4 fallback 26-20 +36.7% on 46 (noise-sized). Price: +120..+150 +28.2% on 133 (4 of 5) vs +100..+120 -6.1% and
+  +150..+200 -8.6% - a LEAD at most (multiple testing). College hoops Dogs -0.4% / blind -26.8% (the 10/10 verdict).
+- **BUILT (sports.dog_gate / best_hockey_dog + test_sizing_audit_10_16_...):** the posted Dog's leg now keeps
+  "dog_score" (the points its units rode on) next to dog_p - data completeness, no pick or size changes. Kept:
+  tools/sizing_by_bucket.py (re-run after the football season: `python tools/sizing_by_bucket.py <replay.jsonl>`).
+- Early plays: not in the replay (no line history before 9/2026); live 2u+ = the two Brewers 3u (own-read Kelly, both
+  won), 1u = Tulane (bye spot, flat 1u by rule), ½u = the spots 3-7. Nothing to size there yet.
 
 ## 10/15 - TEN STUDIES (daily run): favorite flip, in-season coach firing, NFL dogs by total, MLB playoff totals, home plate umpires, travel miles (college + NHL), early-season totals, college lucky winner / unlucky loser by yards, NFL weather, NHL 3-in-4 + college bounce-back home dog: ALL DEAD, three WATCH lines; nothing built
 - **The total's move as a side signal:** NOT RUNNABLE - no opening totals anywhere (games files hold the close only; the paid history is moneylines + spreads, no totals). Would need a paid totals pull (the owner's call). Replaced by the NHL 3-in-4 study.
