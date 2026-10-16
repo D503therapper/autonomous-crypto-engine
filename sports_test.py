@@ -11354,6 +11354,20 @@ def test_data_gaps_scale_to_a_full_college_hoops_day():
     assert v24.seen_all(few, "T0", before, "ncaab")                              # a D1 team on last year's full season
 
 
+
+def test_audit_never_flags_the_dog_of_the_day_at_its_own_flat_size():
+    """10/16: the pick audit flagged the 10/14 Canadiens and 10/15 Mammoth Dogs ("1.0u on a thin edge - should be ½u"),
+    but the Dog of the Day has its own size (hockey flat 1u, the owner 10/10; the rest 1u-2u) - 1u is its floor."""
+    import sports, sports_audit
+    leg = {"league": "nhl", "team": "Mammoth", "odds": 102, "dec": 2.02, "p": 0.50, "edge_own": 0.005, "game_id": "nhl:1",
+           "side": "home", "market": "ml"}
+    pk = {"date": "2026-10-15", "kind": "dog", "status": "won", "lean": False, "legs": [leg]}
+    assert sports.units_for(pk) == 1.0 and sports.thin_edge(leg)
+    out = sports_audit.audit_day([pk], {}, "2026-10-15")
+    assert not any("thin edge" in f for f in out["flags"]), out["flags"]
+    play = {**pk, "kind": "lock", "legs": [{**leg, "odds": -120, "dec": 1.833}]}
+    sports_audit.audit_day([play], {}, "2026-10-15")                  # (the Lock check still runs - no crash)
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)

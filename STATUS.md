@@ -389,6 +389,8 @@ check; nothing built. Full table in SPORTS_FINDINGS.md (10/4). One watch: an NFL
 on 102, 3 of 6 seasons) - re-check after 2027.
 
 **Open decisions (the owner's call)**
+- 10/16 the owner SAID NO to: (a) flat 1u Locks - "if the engine has a strong-ass read on a game, we do more units. It's common sense" - the Lock keeps sizing by its own read; (b) dropping fill-in leans (any sport) - "we always need leans ... sometimes those leans are locks", and leans must be WEIGHED by the engine's full read, never just the bigger favorite. Don't re-propose either.
+- 10/16 still open (from the 10 Fable jobs): Dog only when its own read beats the price too; drop the hockey "best dog under score 6" fallback Dog; MLB early (exam) plays flat 1u instead of Kelly (Brewers 3u rode a read ~9 pts high); college hoops Locks small the first 2 weeks.
 - "No forced locks": a Lock of the Day only when the read really beats the price, else "No Lock today" (CLAUDE.md
   still says ALWAYS a Lock until the owner says the words). The Dog stays real-value only; leans fill to 5+ picks.
 - Card labels showing the edge size in words ("BIG EDGE - 3 UNITS" / "SMALL EDGE - ½ UNIT").
