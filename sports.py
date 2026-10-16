@@ -2243,6 +2243,15 @@ def pricey_college_fav(c):
     return c.get("league") == "ncaaf" and c.get("market") == "ml" and lo <= (c.get("odds") or 0) <= hi
 
 
+def lean_rank(c):
+    """What a lean is ranked by (the owner, 10/16: "weigh them right, not just go with the bigger number"): the engine's
+    OWN weighed read (read_of - a gated dog's weighed read, a favorite's weighed read, else its own read), with the
+    proven nudges (rank_p's), never the bare market-heavy win % - so a -140 favorite the engine only has at 52% ranks
+    under a -110 side it has at 58%."""
+    r = read_of(c)
+    return (r if r is not None else c["p"]) + rank_p(c) - c["p"]
+
+
 def viewer_leans(cands, avoid):
     """🟡 The viewers' leans (no units, in the record): the side the engine has winning, or a dog its own read says is
     underpriced - never past -150, never fighting its own read, never a trap, never a spread it has no read on, never
@@ -2264,11 +2273,11 @@ def viewer_leans(cands, avoid):
         #                                                      underpriced (the owner, 10/1: "we need value plays")
     best = {}
     okc = [c for c in cands if ok(c) and not pricey_college_fav(c)]
-    for c in sorted(okc, key=lambda c: -rank_p(c)):          # (10/10: value-picked leans were tried - six versions all
+    for c in sorted(okc, key=lambda c: -lean_rank(c)):       # (10/10: value-picked leans were tried - six versions all
         best.setdefault(c["game_id"], c)                     #  lost blind vs who-wins; the owner kept who-wins)
     best = {g: stick(c, okc) for g, c in best.items()}       # 📌 (10/5: a lean never flips on a price tick)
     out, per = [], {}
-    for c in sorted(best.values(), key=lambda c: (-importance(c), -rank_p(c))):
+    for c in sorted(best.values(), key=lambda c: (-importance(c), -lean_rank(c))):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:        # (spread across the sports - "not five hockey games")
             per[c["league"]] = per.get(c["league"], 0) + 1
             out.append(c)
@@ -2283,10 +2292,10 @@ def viewer_leans(cands, avoid):
         #                                                  has it losing - Panthers 48% - is never the who-wins lean)
     extra = {}
     fillc = [c for c in cands if fill_ok(c) and not pricey_college_fav(c)]
-    for c in sorted(fillc, key=lambda c: -c["p"]):
-        extra.setdefault(c["game_id"], c)
+    for c in sorted(fillc, key=lambda c: -lean_rank(c)):     # (10/16: the engine's weighed read, not the bigger
+        extra.setdefault(c["game_id"], c)                    #  favorite)
     extra = {g: stick(c, fillc) for g, c in extra.items()}
-    for c in sorted(extra.values(), key=lambda c: -c["p"]):
+    for c in sorted(extra.values(), key=lambda c: -lean_rank(c)):
         if per.get(c["league"], 0) < LEAN_PER_SPORT:
             per[c["league"]] = per.get(c["league"], 0) + 1
             out.append({**c, "fill": True})

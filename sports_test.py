@@ -11420,6 +11420,20 @@ def test_big_gap_college_dogs_keep_a_live_score():
     assert "college dog, engine 10+ over the books" not in sports_leads.tags({**c, "edge_own": 0.36 * 3.2 - 1}, sports)
     assert "college dog, engine 10+ over the books" not in sports_leads.tags({**c, "league": "nfl"}, sports)
 
+
+def test_leans_are_weighed_by_the_engines_read_not_the_bigger_favorite():
+    """The owner, 10/16: "weigh them right, not just go with the bigger number" - the fill leans were sorted by the bare
+    win % (mostly the market's), so the bigger favorite always went first. Now the engine's own weighed read decides."""
+    import sports
+    def cand(gid, odds, p, own):
+        dec = sports._dec(odds)
+        return {"game_id": gid, "league": "nhl", "market": "ml", "side": "home", "team": gid, "odds": odds, "dec": dec,
+                "p": p, "p_market": p, "edge_own": own * dec - 1, "edge": p * dec - 1, "start": "2026-10-16T23:00Z"}
+    big_fav = cand("A", -145, 0.58, 0.555)      # the bigger favorite, the engine only a bit over half
+    weighed = cand("B", -115, 0.535, 0.60)      # a smaller favorite the engine's own read really likes
+    assert sports.lean_rank(weighed) > sports.lean_rank(big_fav)
+    assert sports.lean_rank(big_fav) < big_fav["p"]                        # never the bare market-heavy number
+
 if __name__ == "__main__":
     import sports_goalies as _sg
     _sg.PATH = os.path.join(tempfile.mkdtemp(), "nhl_goalies.json")           # (tests never touch the real goalie file)
