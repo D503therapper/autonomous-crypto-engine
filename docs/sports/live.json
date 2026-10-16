@@ -1,11 +1,11 @@
 {
- "updated": 1792122630449,
+ "updated": 1792130815842,
  "plays": [],
  "record": {
   "won": 14,
   "lost": 16
  },
- "live_games": 2,
+ "live_games": 1,
  "tennis": {
   "watching": 1,
   "priced": 1,
@@ -169,37 +169,10 @@
   "nhl:401892516": {
    "away": "Flames",
    "home": "Golden Knights",
-   "a": 1,
-   "h": 3,
-   "clock": "2nd Intermission",
-   "live": true
-  },
-  "mlb:401908025": {
-   "away": "Rays",
-   "home": "Guardians",
    "a": 2,
-   "h": 3,
+   "h": 6,
    "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "mlb:401908033": {
-   "away": "Brewers",
-   "home": "Dodgers",
-   "a": 6,
-   "h": 4,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
-  },
-  "ncaaf:401871053": {
-   "away": "FIU",
-   "home": "Jax State",
-   "a": 24,
-   "h": 27,
-   "clock": "Final",
-   "live": false,
-   "src": "espn"
+   "live": false
   },
   "tennis:atp:184949": {
    "n": [
@@ -347,23 +320,27 @@
    "live": false,
    "delayed": false
   },
-  "tennis:wta:185372": {
+  "tennis:wta:185371": {
    "n": [
-    "Ostapenko",
-    "Shnaider"
+    "Kartal",
+    "Svitolina"
    ],
    "sets": [
     [
-     4,
-     5
+     6,
+     2
+    ],
+    [
+     1,
+     2
     ]
    ],
    "pts": [
-    "30",
-    "40"
+    "0",
+    "0"
    ],
-   "srv": 0,
-   "done": 0,
+   "srv": 1,
+   "done": 1,
    "first": 1,
    "tennis": true,
    "live": true,
@@ -374,22 +351,16 @@
  "done": {},
  "today": [],
  "sources": {
-  "betrivers:nhl": "ok 0",
   "betrivers:tennis": "ok 1"
  },
- "health": [
-  "1 live game priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
-  "Bovada has no live lines for nhl"
- ],
+ "health": [],
  "priced": 0,
- "dk_only": 1,
+ "dk_only": 0,
  "min_p": 0.55,
- "espn_only": 3,
+ "espn_only": 0,
  "errors": [
   "git pull timed out"
  ],
- "books": {
-  "nhl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
- },
- "took_s": 10.1
+ "books": {},
+ "took_s": 10.9
 }
