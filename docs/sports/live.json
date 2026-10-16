@@ -1,11 +1,11 @@
 {
- "updated": 1792097696165,
+ "updated": 1792111313497,
  "plays": [],
  "record": {
   "won": 14,
   "lost": 16
  },
- "live_games": 0,
+ "live_games": 16,
  "tennis": {
   "watching": 0,
   "priced": 0,
@@ -14,6 +14,14 @@
   "books": "0 live lines, 0 fresh"
  },
  "scores": {
+  "nfl:401872995": {
+   "away": "Seahawks",
+   "home": "Broncos",
+   "a": 3,
+   "h": 0,
+   "clock": "05:04 - 1st",
+   "live": true
+  },
   "ncaaf:401871067": {
    "away": "Delaware",
    "home": "MTSU",
@@ -38,6 +46,38 @@
    "clock": "Final",
    "live": false
   },
+  "ncaaf:401862800": {
+   "away": "East Carolina",
+   "home": "UAB",
+   "a": 14,
+   "h": 0,
+   "clock": "08:01 - 2nd",
+   "live": true
+  },
+  "ncaaf:401869950": {
+   "away": "GA Southern",
+   "home": "Old Dominion",
+   "a": 10,
+   "h": 7,
+   "clock": "07:00 - 2nd",
+   "live": true
+  },
+  "ncaaf:401860923": {
+   "away": "Colorado St",
+   "home": "Texas St",
+   "a": 0,
+   "h": 21,
+   "clock": "00:57 - 1st",
+   "live": true
+  },
+  "mlb:401908033": {
+   "away": "Brewers",
+   "home": "Dodgers",
+   "a": 0,
+   "h": 0,
+   "clock": "Inning 2nd",
+   "live": true
+  },
   "nhl:401892504": {
    "away": "Canadiens",
    "home": "Capitals",
@@ -53,6 +93,87 @@
    "h": 2,
    "clock": "Final",
    "live": false
+  },
+  "nhl:401892510": {
+   "away": "Canucks",
+   "home": "Panthers",
+   "a": 2,
+   "h": 0,
+   "clock": "2nd Intermission",
+   "live": true
+  },
+  "nhl:401892506": {
+   "away": "Sabres",
+   "home": "Maple Leafs",
+   "a": 2,
+   "h": 4,
+   "clock": "03:09 - 2nd",
+   "live": true
+  },
+  "nhl:401892511": {
+   "away": "Rangers",
+   "home": "Devils",
+   "a": 0,
+   "h": 5,
+   "clock": "2nd Intermission",
+   "live": true
+  },
+  "nhl:401892507": {
+   "away": "Islanders",
+   "home": "Senators",
+   "a": 1,
+   "h": 1,
+   "clock": "2nd Intermission",
+   "live": true
+  },
+  "nhl:401892509": {
+   "away": "Kraken",
+   "home": "Lightning",
+   "a": 1,
+   "h": 2,
+   "clock": "04:22 - 2nd",
+   "live": true
+  },
+  "nhl:401892508": {
+   "away": "Flyers",
+   "home": "Red Wings",
+   "a": 1,
+   "h": 0,
+   "clock": "15:29 - 2nd",
+   "live": true
+  },
+  "nhl:401892513": {
+   "away": "Sharks",
+   "home": "Predators",
+   "a": 1,
+   "h": 0,
+   "clock": "04:28 - 1st",
+   "live": true
+  },
+  "nhl:401892514": {
+   "away": "Blues",
+   "home": "Wild",
+   "a": 1,
+   "h": 2,
+   "clock": "04:33 - 1st",
+   "live": true
+  },
+  "nhl:401892512": {
+   "away": "Jets",
+   "home": "Blackhawks",
+   "a": 0,
+   "h": 2,
+   "clock": "04:50 - 1st",
+   "live": true
+  },
+  "ncaaf:401871053": {
+   "away": "FIU",
+   "home": "Jax State",
+   "a": 24,
+   "h": 27,
+   "clock": "Final",
+   "live": false,
+   "src": "espn"
   },
   "mlb:401908025": {
    "away": "Rays",
@@ -213,16 +334,32 @@
  "done": {},
  "today": [],
  "sources": {
+  "betrivers:mlb": "ok 0",
+  "betrivers:nba": "ok 0",
+  "betrivers:nhl": "ok 0",
+  "betrivers:ncaaf": "ok 0",
+  "betrivers:nfl": "ok 0",
+  "betrivers:nhl:1028409890": "ok 0",
   "betrivers:tennis": "ok 0"
  },
- "health": [],
+ "health": [
+  "only 0 of 16 live games have a sportsbook price we can bet on",
+  "8 live games priced only by DraftKings (via ESPN), no second book to confirm it - no live bet can post there",
+  "Bovada has no live lines for mlb, nba, ncaaf, nfl, nhl"
+ ],
  "priced": 0,
- "dk_only": 0,
+ "dk_only": 8,
  "min_p": 0.55,
- "espn_only": 1,
+ "espn_only": 2,
  "errors": [
   "git pull timed out"
  ],
- "books": {},
- "took_s": 9.2
+ "books": {
+  "mlb": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nba": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nhl": "9 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "ncaaf": "3 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)",
+  "nfl": "0 groups, 0 fresh events (liveOnly feed empty: 0 fresh live from the full feed)"
+ },
+ "took_s": 10.3
 }

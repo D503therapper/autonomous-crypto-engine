@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T23:57Z",
+ "updated": "2026-10-16T00:42Z",
  "games": [
   {
    "id": "mlb:401908025",
@@ -184,6 +184,81 @@
    "lean": null
   },
   {
+   "id": "nhl:401892514",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-16T00:00Z",
+   "away": "Blues",
+   "home": "Wild",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "mlb:401908033",
+   "league": "mlb",
+   "emoji": "\u26be",
+   "sport": "MLB",
+   "season": "playoffs",
+   "start": "2026-10-16T00:00Z",
+   "away": "Brewers",
+   "home": "Dodgers",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "ncaaf:401860923",
+   "league": "ncaaf",
+   "emoji": "\ud83c\udfc8",
+   "sport": "College Football",
+   "season": "regular season",
+   "start": "2026-10-16T00:00Z",
+   "away": "Colorado St",
+   "home": "Texas St",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892512",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-16T00:00Z",
+   "away": "Jets",
+   "home": "Blackhawks",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
+   "id": "nhl:401892513",
+   "league": "nhl",
+   "emoji": "\ud83c\udfd2",
+   "sport": "NHL",
+   "season": "regular season",
+   "start": "2026-10-16T00:00Z",
+   "away": "Sharks",
+   "home": "Predators",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nfl:401872995",
    "league": "nfl",
    "emoji": "\ud83c\udfc8",
@@ -211,33 +286,45 @@
    }
   },
   {
+   "id": "nba:401908622",
+   "league": "nba",
+   "emoji": "\ud83c\udfc0",
+   "sport": "NBA",
+   "season": "preseason",
+   "start": "2026-10-16T00:30Z",
+   "away": "Thunder",
+   "home": "Rockets",
+   "h1": null,
+   "why": "started",
+   "done": false,
+   "board": null,
+   "lean": null
+  },
+  {
    "id": "nhl:401892515",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Mammoth",
-    "p": 0.359,
-    "tie": 0.299,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-16T01:00Z",
    "away": "Mammoth",
    "home": "Oilers",
+   "h1": null,
    "why": "on_board",
+   "done": false,
    "board": "dog",
    "lean": {
-    "team": "Oilers",
-    "opp": "Mammoth",
-    "market": "spread",
-    "line": 1.5,
-    "odds": -270,
-    "p": 0.697,
-    "win_p": 0.482,
+    "team": "Mammoth",
+    "opp": "Oilers",
+    "market": "ml",
+    "line": null,
+    "odds": 102,
+    "p": 0.479,
+    "win_p": 0.479,
     "reasons": [
-     "the stronger team"
-    ]
+     "sharp money moving this way"
+    ],
+    "result": null
    }
   },
   {
