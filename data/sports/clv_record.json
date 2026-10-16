@@ -1,10 +1,10 @@
 {
  "all": {
-  "n": 68,
+  "n": 70,
   "beat": 21,
-  "same": 25,
-  "worse": 22,
-  "avg_pts": 0.05
+  "same": 26,
+  "worse": 23,
+  "avg_pts": 0.02
  },
  "unit_plays": {
   "n": 29,
@@ -22,11 +22,11 @@
    "avg_pts": -0.21
   },
   "lean": {
-   "n": 39,
+   "n": 41,
    "beat": 13,
-   "same": 11,
-   "worse": 15,
-   "avg_pts": -0.03
+   "same": 12,
+   "worse": 16,
+   "avg_pts": -0.09
   },
   "lock": {
    "n": 9,
@@ -66,11 +66,11 @@
    "avg_pts": -0.24
   },
   "nhl": {
-   "n": 30,
+   "n": 32,
    "beat": 9,
-   "same": 13,
-   "worse": 8,
-   "avg_pts": 0.09
+   "same": 14,
+   "worse": 9,
+   "avg_pts": 0.01
   }
  },
  "lock_by_size": {
@@ -1055,6 +1055,34 @@
    "pts": -1.0,
    "units": 0,
    "result": "won"
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Devils",
+   "market": "ml",
+   "line": null,
+   "odds": -142,
+   "close": -130,
+   "pts": -2.2,
+   "units": 0,
+   "result": "won"
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "lean",
+   "lean": true,
+   "league": "nhl",
+   "team": "Maple Leafs",
+   "market": "ml",
+   "line": null,
+   "odds": -118,
+   "close": -118,
+   "pts": 0.0,
+   "units": 0,
+   "result": "lost"
   }
  ]
 }

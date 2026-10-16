@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16T01:39Z",
+ "updated": "2026-10-16T02:45Z",
  "games": [
   {
    "id": "mlb:401908025",
@@ -36,8 +36,8 @@
    "away": "Canucks",
    "home": "Panthers",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -51,8 +51,8 @@
    "away": "Islanders",
    "home": "Senators",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -66,8 +66,8 @@
    "away": "Kraken",
    "home": "Lightning",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -82,7 +82,7 @@
    "home": "Devils",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Devils",
@@ -95,7 +95,7 @@
     "reasons": [
      "sharp money moving this way"
     ],
-    "result": null
+    "result": "won"
    }
   },
   {
@@ -109,7 +109,7 @@
    "home": "Maple Leafs",
    "h1": null,
    "why": "on_board",
-   "done": false,
+   "done": true,
    "board": "lean",
    "lean": {
     "team": "Maple Leafs",
@@ -120,7 +120,7 @@
     "p": 0.513,
     "win_p": 0.513,
     "reasons": [],
-    "result": null
+    "result": "lost"
    }
   },
   {
@@ -148,8 +148,8 @@
    "away": "Flyers",
    "home": "Red Wings",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -178,8 +178,8 @@
    "away": "Raptors",
    "home": "Knicks",
    "h1": null,
-   "why": "started",
-   "done": false,
+   "why": "final",
+   "done": true,
    "board": null,
    "lean": null
   },
@@ -331,31 +331,16 @@
    "id": "nhl:401892516",
    "league": "nhl",
    "emoji": "\ud83c\udfd2",
-   "h1": {
-    "team": "Golden Knights",
-    "p": 0.476,
-    "tie": 0.285,
-    "name": "1st period"
-   },
    "sport": "NHL",
    "season": "regular season",
    "start": "2026-10-16T02:00Z",
    "away": "Flames",
    "home": "Golden Knights",
-   "why": "tight",
+   "h1": null,
+   "why": "started",
+   "done": false,
    "board": null,
-   "lean": {
-    "team": "Golden Knights",
-    "opp": "Flames",
-    "market": "ml",
-    "line": null,
-    "odds": -285,
-    "p": 0.746,
-    "win_p": 0.746,
-    "reasons": [
-     "the stronger team"
-    ]
-   }
+   "lean": null
   },
   {
    "id": "mlb:401908026",
@@ -363,7 +348,7 @@
    "emoji": "\u26be",
    "h1": {
     "team": "Rays",
-    "p": 0.451,
+    "p": 0.448,
     "tie": 0.119,
     "name": "first 5 innings"
    },
@@ -380,8 +365,8 @@
     "market": "spread",
     "line": 1.5,
     "odds": -198,
-    "p": 0.605,
-    "win_p": 0.487,
+    "p": 0.608,
+    "win_p": 0.491,
     "reasons": [
      "the stronger team"
     ]
@@ -487,7 +472,7 @@
    "emoji": "\ud83c\udfd2",
    "h1": {
     "team": "Avalanche",
-    "p": 0.426,
+    "p": 0.425,
     "tie": 0.294,
     "name": "1st period"
    },
@@ -534,7 +519,7 @@
     "opp": "Bruins",
     "market": "spread",
     "line": 1.5,
-    "odds": -238,
+    "odds": -250,
     "p": 0.687,
     "win_p": 0.471,
     "reasons": []

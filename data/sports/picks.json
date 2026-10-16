@@ -12468,6 +12468,11 @@
      "game:rival"
     ],
     "dec": 1.704225352112676,
+    "decider": {
+     "s": "7-1",
+     "type": "blowout",
+     "win": "home"
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12481,6 +12486,10 @@
     "edge_own": -0.04811866424226163,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "0,0,1",
+     "h": "1,4,2"
+    },
     "form_state": null,
     "g_role_me": null,
     "g_role_opp": null,
@@ -12519,9 +12528,11 @@
      "sharp money moving this way"
     ],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "won",
     "revenge": false,
     "road_opener": false,
+    "score": "Rangers 1 @ Devils 7",
+    "settled": "2026-10-16T02:36Z",
     "side": "home",
     "start": "2026-10-15T23:00Z",
     "stype": "2",
@@ -12539,12 +12550,14 @@
    }
   ],
   "p_hit": 0.5652,
-  "pnl": 0.0,
+  "pnl": 70.42,
   "posted": "2026-10-15T15:00Z",
   "round": 1,
+  "settled": "2026-10-16T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "won",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -118,
@@ -12587,6 +12600,15 @@
      "us:week3000"
     ],
     "dec": 1.847457627118644,
+    "decider": {
+     "k": "",
+     "n": 1,
+     "p": "Owen Power",
+     "s": "5-4",
+     "type": "ot",
+     "win": "away",
+     "y": null
+    },
     "dog_ctx": {
      "cw5": 0,
      "hits_top": false,
@@ -12600,6 +12622,10 @@
     "edge_own": -0.05352803548843199,
     "fired_on": null,
     "first_timer": false,
+    "flow": {
+     "a": "1,1,2,1",
+     "h": "2,2,0,0"
+    },
     "form_state": null,
     "g_role_me": true,
     "g_role_opp": null,
@@ -12633,9 +12659,11 @@
     "public": "ride",
     "reasons": [],
     "rested_vs_b2b": false,
-    "result": null,
+    "result": "lost",
     "revenge": false,
     "road_opener": false,
+    "score": "Sabres 5 @ Maple Leafs 4",
+    "settled": "2026-10-16T02:36Z",
     "side": "home",
     "start": "2026-10-15T23:00Z",
     "stype": "2",
@@ -12652,12 +12680,14 @@
    }
   ],
   "p_hit": 0.5131,
-  "pnl": 0.0,
+  "pnl": -100.0,
   "posted": "2026-10-15T15:00Z",
   "round": 1,
+  "settled": "2026-10-16T02:36Z",
   "stake": 100.0,
-  "status": "open",
-  "tier": "lean"
+  "status": "lost",
+  "tier": "lean",
+  "units": 0
  },
  {
   "american": -142,
