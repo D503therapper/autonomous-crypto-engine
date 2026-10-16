@@ -17638,3 +17638,25 @@ DEX: $977.39 (-22.61) · Scammed: 0
 [2026-10-16 05:06 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
 [2026-10-16 05:06 UTC] crypto/hold_btc  equity $490.20 (-2.0%) 1 open  market UP
    social heat top: INJ 35 (35/0/0), PRL 32 (32/0/0), AERO 32 (24/0/8), NEAR 29 (29/0/0), SOL 22 (16/0/6)
+   dex screen: REJECT TSLAX@solana liq $2,493,380 - freeze authority; mint authority; balance_mutable_authority; transfer hook; top-10 holders 59%
+   dex screen: REJECT DARK@solana liq $206,180 - lp holders unknown; rugcheck lp locked 93% < 95%
+   dex screen: REJECT ZRO@base liq $208,781 - pool age unknown
+   dex screen: REJECT PYTH@solana liq $97,013 - top-10 holders 47%; lp holders unknown
+   dex screen: REJECT MORPHO@base liq $2,495,044 - goplus partial data: is_honeypot unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; top-10 holders 82%; lp locked 0% < 95%
+   dex screen: PASS PEPE@ethereum liq $29,702,386
+   dex screen: REJECT JITOSOL@base liq $14,485,308 - goplus partial data: cannot_sell_all unknown; top-10 holders 100%
+   dex screen: REJECT STETH@ethereum liq $94,184,853 - goplus partial data: is_honeypot/cannot_sell_all unknown; goplus partial data: is_mintable/hidden_owner/can_take_back_ownership/owner_change_balance/transfer_pausable/is_blacklisted/selfdestruct unknown; is_proxy; sell tax unknown; top-10 holders 63%
+   dex screen: REJECT CRAWL@solana liq $180,742 - lp holders unknown; rugcheck lp locked 50% < 95%
+   dex screen: REJECT ZEN@base liq $2,801,188 - is_mintable; top-10 holders 68%; lp locked 0% < 95%
+   dex scanner: 3,002 pools (solana 2,010 / base 493 / ethereum 499), refresh cycle 126s (hot 121s), 2971 calls (108 feed, 429s 0, failed 0), 85,890 refreshed (11418 no pair), +53 added / -64 dropped (dead 16, stale 0, cap 48), movers 0 + warming 0 -> queued 0, screened 0 (passed 0), bought 0
+[2026-10-16 06:07 UTC] crypto/early_mover equity $0.00 (-100.0%) 0 open  market UP
+[2026-10-16 06:07 UTC] crypto/mover     equity $311.54 (-37.7%) 2 open  market UP
+[2026-10-16 06:07 UTC] crypto/announce  equity $500.00 (+0.0%) 0 open  market UP
+[2026-10-16 06:07 UTC] crypto/chaser    equity $500.00 (+0.0%) 0 open  market UP
+   >> crypto/social_heat: SELL $80.01 of PYTH @ 0.094975, P/L $-0.77 (heat collapsed (<20 for 12h))
+[2026-10-16 06:07 UTC] crypto/social_heat equity $444.99 (-11.0%) 2 open  market UP
+[2026-10-16 06:07 UTC] crypto/breakout10 equity $482.60 (-3.5%) 2 open  market UP
+[2026-10-16 06:07 UTC] crypto/momentum  equity $419.26 (-16.1%) 1 open  market UP
+[2026-10-16 06:07 UTC] crypto/breakout  equity $494.04 (-1.2%) 0 open  market UP
+[2026-10-16 06:07 UTC] crypto/hold_btc  equity $489.23 (-2.2%) 1 open  market UP
+   social heat top: INJ 35 (35/0/0), NEAR 32 (32/0/0), AERO 30 (21/0/8), PRL 29 (29/0/0), ZRO 27 (27/0/0)
