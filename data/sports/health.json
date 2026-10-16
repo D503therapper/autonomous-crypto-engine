@@ -1,14 +1,14 @@
 {
- "at": "2026-10-16T16:01Z",
+ "at": "2026-10-16T17:00Z",
  "fixes": [
   "tennis slate due (8am PT) and not up - sports.yml already running"
  ],
  "problems": [
-  "live tennis scores: tennis Masarova vs Zidansek: no points for 182s",
+  "live tennis scores: tennis Teichmann vs Havlickova: no points for 1033s",
   "live tennis points: none of 1 live matches has points + server on the 1-second route"
  ],
  "ok": [
-  "live watcher fresh (30s)",
+  "live watcher fresh (6s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,13 +20,23 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 2h ago",
-  "simulator ran 2h ago",
-  "engine ran 2 min ago",
+  "studies ran 0h ago",
+  "simulator ran 0h ago",
+  "engine ran 9 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-16T17:00Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Teichmann vs Havlickova: no points for 1033s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-16T16:01Z",
    "fixes": [
@@ -521,14 +531,6 @@
    "problems": [
     "live tennis scores: tennis Curmi vs Ribera: no points for 2628s",
     "live tennis scores: tennis Yaneva vs Monnet: no points for 2198s"
-   ]
-  },
-  {
-   "at": "2026-10-14T09:36Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Curmi vs Ribera: no points for 2097s",
-    "live tennis scores: tennis Yaneva vs Monnet: no points for 1667s"
    ]
   }
  ]
