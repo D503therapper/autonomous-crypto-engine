@@ -3,7 +3,7 @@
   "expected_luck_nominal_max": 5.2,
   "min_n_each_half": 150,
   "null_bonferroni_avg": 0.0,
-  "null_nominal_avg": 1.75,
+  "null_nominal_avg": 2.25,
   "null_sims": 20,
   "spots": {
    "3in4": "3rd game in 4 nights (nba/nhl/ncaab)",
@@ -4040,31 +4040,31 @@
   "cells": {
    "3in4|ml|fade": {
     "candidate": false,
-    "edge_new": 0.0246,
+    "edge_new": 0.0243,
     "edge_old": 0.0105,
-    "hit_new": 0.5496,
+    "hit_new": 0.5491,
     "hit_old": 0.5347,
-    "n_new": 1190,
+    "n_new": 1191,
     "n_old": 1137,
-    "profit_new": 0.56,
+    "profit_new": 0.47,
     "profit_old": -3.53,
     "proven": false,
     "tested": true,
-    "z": 1.76
+    "z": 1.75
    },
    "3in4|ml|team": {
     "candidate": false,
-    "edge_new": -0.0246,
+    "edge_new": -0.0243,
     "edge_old": -0.0105,
-    "hit_new": 0.4504,
+    "hit_new": 0.4509,
     "hit_old": 0.4653,
-    "n_new": 1190,
+    "n_new": 1191,
     "n_old": 1137,
-    "profit_new": -10.13,
+    "profit_new": -10.09,
     "profit_old": -7.64,
     "proven": false,
     "tested": true,
-    "z": -1.76
+    "z": -1.75
    },
    "b2b_road|ml|fade": {
     "candidate": false,
@@ -4292,31 +4292,31 @@
    },
    "off_blowout_win|ml|fade": {
     "candidate": false,
-    "edge_new": 0.0276,
+    "edge_new": 0.0274,
     "edge_old": 0.019,
-    "hit_new": 0.4946,
+    "hit_new": 0.4943,
     "hit_old": 0.4895,
-    "n_new": 1660,
+    "n_new": 1661,
     "n_old": 1618,
-    "profit_new": 1.04,
+    "profit_new": 0.97,
     "profit_old": -0.58,
     "proven": false,
     "tested": true,
-    "z": 2.75
+    "z": 2.74
    },
    "off_blowout_win|ml|team": {
     "candidate": false,
-    "edge_new": -0.0276,
+    "edge_new": -0.0274,
     "edge_old": -0.019,
-    "hit_new": 0.5054,
+    "hit_new": 0.5057,
     "hit_old": 0.5105,
-    "n_new": 1660,
+    "n_new": 1661,
     "n_old": 1618,
-    "profit_new": -9.88,
+    "profit_new": -9.85,
     "profit_old": -7.83,
     "proven": false,
     "tested": true,
-    "z": -2.75
+    "z": -2.74
    },
    "off_upset_loss|ml|fade": {
     "candidate": false,
@@ -4408,29 +4408,29 @@
     "candidate": false,
     "edge_new": -0.0052,
     "edge_old": 0.0009,
-    "hit_new": 0.5213,
+    "hit_new": 0.5214,
     "hit_old": 0.527,
-    "n_new": 5051,
+    "n_new": 5052,
     "n_old": 4736,
-    "profit_new": -5.5,
+    "profit_new": -5.49,
     "profit_old": -3.92,
     "proven": false,
     "tested": true,
-    "z": -0.46
+    "z": -0.45
    },
    "revenge|ml|team": {
     "candidate": false,
     "edge_new": 0.0052,
     "edge_old": -0.0009,
-    "hit_new": 0.4787,
+    "hit_new": 0.4786,
     "hit_old": 0.473,
-    "n_new": 5051,
+    "n_new": 5052,
     "n_old": 4736,
-    "profit_new": -3.66,
+    "profit_new": -3.68,
     "profit_old": -4.41,
     "proven": false,
     "tested": true,
-    "z": 0.46
+    "z": 0.45
    },
    "road_fav|ml|fade": {
     "candidate": false,
@@ -4522,7 +4522,7 @@
   "cut": {
    "ml": "2022-12-18"
   },
-  "games": 13304,
+  "games": 13305,
   "proven": [],
   "shifts": {
    "ml": {},
