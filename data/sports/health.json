@@ -1,14 +1,11 @@
 {
- "at": "2026-10-16T17:00Z",
+ "at": "2026-10-16T20:07Z",
  "fixes": [
-  "tennis slate due (8am PT) and not up - sports.yml already running"
+  "tennis slate due (8am PT) and not up - started sports.yml"
  ],
- "problems": [
-  "live tennis scores: tennis Teichmann vs Havlickova: no points for 1033s",
-  "live tennis points: none of 1 live matches has points + server on the 1-second route"
- ],
+ "problems": [],
  "ok": [
-  "live watcher fresh (6s)",
+  "live watcher fresh (16s)",
   "every finished pick graded",
   "scores route up (200)",
   "question box answers",
@@ -20,13 +17,69 @@
   "every live bet today saved",
   "every upcoming game has its real teams",
   "baseball star list fresh (30 teams)",
-  "studies ran 0h ago",
-  "simulator ran 0h ago",
-  "engine ran 9 min ago",
+  "studies ran 4h ago",
+  "simulator ran 3h ago",
+  "engine ran 11 min ago",
   "pacer running",
   "main board up"
  ],
  "history": [
+  {
+   "at": "2026-10-16T20:07Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": []
+  },
+  {
+   "at": "2026-10-16T18:59Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-16T18:58Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Stefanini vs Andreescu: no points for 2618s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-16T18:52Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - started sports.yml"
+   ],
+   "problems": [
+    "live tennis scores: tennis Stefanini vs Andreescu: no points for 2343s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-16T18:42Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Stefanini vs Andreescu: no points for 1742s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
+  {
+   "at": "2026-10-16T18:32Z",
+   "fixes": [
+    "tennis slate due (8am PT) and not up - sports.yml already running"
+   ],
+   "problems": [
+    "live tennis scores: tennis Stefanini vs Andreescu: no points for 1141s",
+    "live tennis points: none of 1 live matches has points + server on the 1-second route"
+   ]
+  },
   {
    "at": "2026-10-16T17:00Z",
    "fixes": [
@@ -481,56 +534,6 @@
    "problems": [
     "live tennis scores: tennis Bronzetti vs Teichmann: no points for 96s",
     "live tennis scores: tennis Burillo vs Maneiro: no points for 2620s"
-   ]
-  },
-  {
-   "at": "2026-10-14T14:05Z",
-   "fixes": [
-    "studies overdue (9h) - started sports_studies.yml"
-   ],
-   "problems": [
-    "live tennis scores: tennis Burillo vs Maneiro: no points for 1863s",
-    "live tennis points: none of 1 live matches has points + server on the 1-second route",
-    "studies last ran 9h ago - restarted"
-   ]
-  },
-  {
-   "at": "2026-10-14T13:33Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-14T12:02Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Llorca vs Geerlings: no points for 2651s",
-    "live tennis scores: tennis Encheva vs Grabher: no points for 2651s",
-    "live tennis scores: tennis Bandecchi vs Knutson: no points for 2651s",
-    "live tennis scores: tennis Ortenzi vs Hercog: no points for 2651s"
-   ]
-  },
-  {
-   "at": "2026-10-14T11:18Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Llorca vs Geerlings: no points for 87s",
-    "live tennis scores: tennis Encheva vs Grabher: no points for 87s",
-    "live tennis scores: tennis Bandecchi vs Knutson: no points for 87s",
-    "live tennis scores: tennis Ferro vs Janicijevic: no points for 87s",
-    "live tennis scores: tennis Ortenzi vs Hercog: no points for 87s"
-   ]
-  },
-  {
-   "at": "2026-10-14T09:47Z",
-   "fixes": [],
-   "problems": []
-  },
-  {
-   "at": "2026-10-14T09:45Z",
-   "fixes": [],
-   "problems": [
-    "live tennis scores: tennis Curmi vs Ribera: no points for 2628s",
-    "live tennis scores: tennis Yaneva vs Monnet: no points for 2198s"
    ]
   }
  ]
