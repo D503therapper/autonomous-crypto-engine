@@ -1,6 +1,7 @@
 """THE MAIN-BOARD BREAKDOWN VOICE (restored 9/29 - the owner: the vocabulary rewrite came out vague and not our lingo).
 The full breakdown behind a pick: the facts the engine weighed, in plain words, frozen at posting time.
 Shown on the dashboard behind a "Full breakdown" tap."""
+import functools
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
@@ -15,8 +16,39 @@ PT = ZoneInfo("America/Los_Angeles")
 VERSION = 24          # bump when the wording changes: posted plays get their breakdown rewritten (never the pick)
 
 
+@functools.lru_cache(maxsize=400000)
 def _t(iso):
+    """(10/16 hoops readiness: cached - data_gaps ran seen_all for 488 college hoops sides over 56,000 finals, 27 million
+    strptime calls, 8 minutes a board; the same date string parses once.)"""
     return datetime.strptime(iso[:16], "%Y-%m-%dT%H:%M").replace(tzinfo=timezone.utc)
+
+
+_SEASON_MEMO = {}       # the season's game counts for one (finals list, cut) - computed once a board, not once a side
+
+
+def _season_counts(fin, cut):
+    """({team: games this season}, the 97th-percentile count, {team: games in the 365 days before the season}) for the
+    finals before `cut` - memoized on the list itself (10/16: 488 sides x 56k finals was 8 minutes on one hoops day)."""
+    key = (id(fin), len(fin), fin[0]["start"] if fin else None, fin[-1]["start"] if fin else None, cut)
+    hit = _SEASON_MEMO.get(key)
+    if hit is not None:
+        return hit
+    n, last = {}, {}
+    prev = cut - timedelta(days=365)
+    for g in fin:
+        t = _t(g["start"])
+        if t > cut:
+            for x in (g["home"], g["away"]):
+                n[x] = n.get(x, 0) + 1
+        elif t > prev:
+            for x in (g["home"], g["away"]):
+                last[x] = last.get(x, 0) + 1
+    ref = sorted(n.values())[int(0.97 * (len(n) - 1))] if n else 0   # (10/2 audit: the 90th percentile sank with the
+    #                                                  missing games themselves - 4 instead of 5 - and let 0-4 Mercyhurst through)
+    if len(_SEASON_MEMO) > 8:
+        _SEASON_MEMO.clear()
+    _SEASON_MEMO[key] = (n, ref, last)
+    return _SEASON_MEMO[key]
 
 
 def _am(a):
@@ -48,15 +80,9 @@ def seen_all(fin, tid, before, lg):
     if lg not in ("ncaaf", "ncaab"):
         return True
     cut = before - timedelta(days=sm.BREAK_DAYS)
-    season = [g for g in fin if _t(g["start"]) > cut]
-    if not season:
+    n, ref, last_year = _season_counts(fin, cut)          # (10/16: once a board, not once a side)
+    if not n:
         return True
-    n = {}
-    for g in season:
-        for t in (g["home"], g["away"]):
-            n[t] = n.get(t, 0) + 1
-    ref = sorted(n.values())[int(0.97 * (len(n) - 1))]   # (10/2 audit: the 90th percentile sank with the missing
-    #                                                     games themselves - 4 instead of 5 - and let 0-4 Mercyhurst through)
     need = ref - 1 if lg == "ncaaf" else 0.8 * ref
     if n.get(tid, 0) >= need:
         return True
@@ -66,10 +92,10 @@ def seen_all(fin, tid, before, lg):
         #   January (multi-team events), so the pace test alone read 11 of 11 priced games on 11/4/25, 39 of 39 on 11/7,
         #   26 of 33 on 11/26 and 21 D1 teams on 1/15 as 'a game missing'. A team that played a full D1 season last year
         #   (NCAAB_D1_GAMES in the 365 days before this season) is complete; a newcomer earns it by the pace test.
-        last = sum(1 for g in fin if tid in (g["home"], g["away"]) and cut - timedelta(days=365) < _t(g["start"]) <= cut)
-        return last >= NCAAB_D1_GAMES
+        return last_year.get(tid, 0) >= NCAAB_D1_GAMES
     if lg != "ncaaf" or not n.get(tid):                  # (10/2, the owner: the check blocked Penn State-Northwestern -
         return False                                     #  a Big Ten team that started a week late + had a bye: 3
+    season = [g for g in fin if _t(g["start"]) > cut]
     mine = sorted(_t(g["start"]) for g in season if tid in (g["home"], g["away"]))   # games, all of them) - judged by
     first0 = min(_t(g["start"]) for g in season)         # its OWN calendar: one game a week since its first, one bye
     if _week(mine[0]) - _week(first0) > 1:               # allowed - only when its opener is in our data (never a team
@@ -867,7 +893,11 @@ def breakdown(leg, games, elo, injuries, used=None):
     if lg in ("nfl", "ncaaf"):
         op_o = op_o_fb
     if not key_any and op is not None and now is not None and sm.logit(sd.implied(op)) - sm.logit(sd.implied(now)) >= 0.08:
-        move = f" ({_am(op_o)} → {_am(now_o)})" if op_o is not None and now_o is not None else ""
+        if op_o is not None and now_o is not None and op_o != now_o:
+            move = f" ({_am(op_o)} → {_am(now_o)})"
+        else:                                             # (10/16 hoops readiness: Wake Forest "-4500 → -4500" - the
+            move = f" ({us} {_am(op)} → {_am(now)})"       # book's cap never moved; the move that fired is OUR side's
+        #                                                   price, so that's the one the card shows - never a non-move)
         hot_ok = _streak(s_ours, tid).startswith("won") and not _streak(s_theirs, oid).startswith("won")
         #   (10/16 truth audit: "we're on the Titans, they're the hotter team" - a 0-4 side on a 4-game skid; the
         #    'hotter team' why needs a winning streak on our side and none on theirs, or it's another reason / none)

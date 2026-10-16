@@ -11257,6 +11257,102 @@ def test_mlb_read_calibration_study_measures_the_engines_own_math():
     assert st.BAND[0] <= 0.5373 - 0.4501 < st.BAND[1] and st.kelly(0.5373, 112) == 3.0   # the raw read: in, 3u
     live = st.live_replay({"early": {"2026": 0.075}, "board": {"2026": -0.019}})
     assert all(p["posts_raw"] and not p["posts_cal"] and p["units_cal"] == 0.0 for p in live), live
+def test_a_lean_favorite_never_hides_the_gated_dog_of_the_day():
+    """10/16 NBA readiness replay (2025-12-30): the 76ers -123 - a 54% favorite whose OWN read sat under its price, so
+    no units, a lean at most - outranked the gated Grizzlies +103 (dog score 4.3, its weighed read beating the price)
+    in one_side, the Dog of the Day slot sat empty and the dog went up as a ½u value play instead. A side that's a real
+    UNIT play (good and its read beats the price) outranks a side that can't carry units; when both can, a lock / strong
+    lean still wins the game, as before."""
+    keep = sports.dog_score
+    try:
+        sports.dog_score = lambda c: 4.33 if c.get("odds", 0) > 0 else 0.0
+        fav = {**_cand("g", -123, 0.545, league="nba"), "side": "home", "team": "76ers", "opp": "Grizzlies"}
+        fav["edge_own"] = -0.012                                                # its own read is UNDER the price
+        dog = {**_cand("g", 103, 0.464, league="nba"), "side": "away", "home": False, "team": "Grizzlies", "opp": "76ers",
+               "edge_own": -0.056, "dog_ctx": {}, "drift": 0.0}
+        assert sports.good(fav) and not sports.real_value(fav)                  # a strong lean, not a unit play
+        assert sports.good(dog) and sports.dog_gate(dict(dog)) and sports.real_value(dog)
+        kept = sports.one_side([fav, dog])
+        assert [c["team"] for c in kept] == ["Grizzlies"], kept
+        b = sports.make_board([fav, dog, _cand("other", -140, 0.60, league="nba")])
+        assert b["dog"] and b["dog"]["legs"][0]["team"] == "Grizzlies"
+        fav2 = {**fav, "edge_own": 0.02}                                         # the favorite IS real value: a strong
+        assert [c["team"] for c in sports.one_side([fav2, dog])] == ["76ers"]   # lean with value still wins the game
+    finally:
+        sports.dog_score = keep
+
+
+def test_fade_line_never_shows_a_price_that_did_not_move():
+    """10/16 college hoops readiness check (Morehead St +22.5 at Wake Forest, 11/7/25): the card said "Money's pouring
+    in on Wake Forest (-4500 → -4500)" - the book's capped favorite price never moved; what fired the line was OUR
+    side's price going +1600 → +2500. Never a non-move on a card: the other side's move when it moved, else ours."""
+    import sports_breakdown_v24 as v24
+    def G(open_home, now_home):
+        return {"g": {"id": "g", "league": "ncaab", "start": "2025-11-08T00:00Z", "status": "pre", "home": "WF", "away": "MSU",
+                      "home_name": "Wake Forest", "away_name": "Morehead St", "home_score": "", "away_score": "", "stype": "2",
+                      "neutral": "0", "ml_home": str(now_home), "ml_away": "2500", "ml_home_open": str(open_home),
+                      "ml_away_open": "1600", "spread_home": "-22.5"}}
+    leg = {"game_id": "g", "league": "ncaab", "side": "away", "team": "Morehead St", "opp": "Wake Forest", "market": "spread",
+           "line": 22.5, "odds": -110, "dec": 1.909, "p": 0.55, "edge_own": 0.55 * 1.909 - 1, "tier": "lean", "reasons": []}
+    bd = v24.breakdown(dict(leg), G(-4500, -4500), {}, {}, set())
+    fade = [x for x in bd if x.startswith("💸")]
+    assert fade and "-4500 → -4500" not in fade[0] and "Morehead St +1600 → +2500" in fade[0], bd
+    bd = v24.breakdown(dict(leg), G(-4500, -3000), {}, {}, set())
+    fade = [x for x in bd if x.startswith("💸")]
+    assert fade and "(-4500 → -3000)" in fade[0], bd
+
+
+def test_data_gaps_scale_to_a_full_college_hoops_day():
+    """10/16 hoops readiness: data_gaps ran seen_all for every side on the slate, and seen_all parsed EVERY final's date
+    again for every side (488 college hoops sides x 56,000 finals = 27 million strptime calls) - 8 minutes of the board
+    on opening night 2025 (446 s), 3½ minutes on 11/7 - plus one pass over every game per side for a stuck result. The
+    date parse is cached, the season's counts are computed once a board, the stuck games found in one pass. Same answers:
+    a full-schedule team passes, a 2-game team fails, a D1 team coasting on last season passes, a 2-day-old priced game
+    with no result is a gap, a preseason / unpriced one is not."""
+    import time
+    import sports_breakdown_v24 as v24
+    assert hasattr(v24._t, "cache_info")                                         # the parse is cached
+    games = {}
+    n = 0
+    for season in ("2025", "2026"):                                              # two seasons, 400 teams, ~26 games each
+        for k in range(13):
+            for d in range(26):
+                for a in range(0, 400, 2):
+                    n += 1
+                    day = f"{season}-{11 + (k + d) // 30 % 2:02d}-{(k + d) % 28 + 1:02d}"
+                    games[f"ncaab:{n}"] = {"id": f"ncaab:{n}", "league": "ncaab", "start": f"{day}T01:00Z", "status": "final",
+                                           "home": f"T{a}", "away": f"T{(a + 1 + 2 * k) % 400}", "home_name": f"T{a}",
+                                           "away_name": f"T{(a + 1 + 2 * k) % 400}", "home_score": "70", "away_score": "60",
+                                           "stype": "2", "ml_home": "-150", "ml_away": "130"}
+    now = datetime(2026, 12, 20, 16, 0, tzinfo=timezone.utc)
+    games["ncaab:small"] = {**games["ncaab:1"], "id": "ncaab:small", "start": "2026-12-01T01:00Z", "home": "D2", "away": "T0",
+                            "home_name": "D2"}
+    games["ncaab:stuck"] = {**games["ncaab:1"], "id": "ncaab:stuck", "start": "2026-12-18T01:00Z", "status": "pre",
+                            "home": "T2", "away": "T4", "home_score": "", "away_score": ""}
+    games["ncaab:exh"] = {**games["ncaab:stuck"], "id": "ncaab:exh", "stype": "1", "home": "T6", "away": "T8"}
+    games["ncaab:unpriced"] = {**games["ncaab:stuck"], "id": "ncaab:unpriced", "ml_home": "", "home": "T10", "away": "T12"}
+    cands = []
+    for a in range(0, 400, 2):
+        gid = f"ncaab:today{a}"
+        games[gid] = {**games["ncaab:1"], "id": gid, "start": "2026-12-21T01:00Z", "status": "pre", "home": f"T{a}",
+                      "away": f"T{a + 1}" if a != 0 else "D2", "home_score": "", "away_score": "", "home_name": f"T{a}",
+                      "away_name": f"T{a + 1}" if a != 0 else "D2"}
+        cands += [{"game_id": gid, "league": "ncaab", "side": "home"}, {"game_id": gid, "league": "ncaab", "side": "away"}]
+    t0 = time.time()
+    gaps = sports.data_gaps(games, cands, now)
+    took = time.time() - t0
+    assert took < 15, f"data_gaps took {took:.0f}s on {len(games)} games x {len(cands)} sides"   # (was minutes)
+    assert ("ncaab", "D2") in gaps and "all their games" in gaps[("ncaab", "D2")]
+    assert gaps[("ncaab", "T2")].startswith("T2: no result for their 2026-12-18") and ("ncaab", "T4") in gaps
+    assert ("ncaab", "T6") not in gaps and ("ncaab", "T8") not in gaps        # a preseason game is never a gap
+    assert ("ncaab", "T10") not in gaps and ("ncaab", "T12") not in gaps      # an unpriced game is never a gap
+    assert ("ncaab", "T0") not in gaps and ("ncaab", "T1") not in gaps and len(gaps) == 3
+    fin = [g for g in games.values() if g["status"] == "final"]
+    before = v24._t("2026-12-21T01:00Z")
+    assert v24.seen_all(fin, "T0", before, "ncaab") and not v24.seen_all(fin, "D2", before, "ncaab")
+    assert v24.seen_all(fin, "D2", before, "nba")
+    few = [g for g in fin if g["start"] < "2026-11-03"] + [g for g in fin if "T0" in (g["home"], g["away"]) and g["start"] >= "2026-11-03"][:2]
+    assert v24.seen_all(few, "T0", before, "ncaab")                              # a D1 team on last year's full season
 
 
 if __name__ == "__main__":
